@@ -6,7 +6,6 @@ import { PublicRoutingModule } from './public-routing.module';
 import { MatIconModule } from '@angular/material/icon';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { FormsModule } from '@angular/forms';
-import { ComponentsModule } from 'src/app/core/components';
 import {
   CourseItemModule,
   SuccessStoriesModule,
@@ -15,7 +14,7 @@ import {
 
 import { DirectiveModule } from 'src/app/shared/directives';
 
-import { HomeComponent, PublicComponent } from './containers';
+import { HomeComponent } from './containers';
 
 import {
   HomeSlideComponent,
@@ -27,7 +26,6 @@ import {
 @NgModule({
   declarations: [
     HomeComponent,
-    PublicComponent,
     HomeSlideComponent,
     HomeCoursesComponent,
     HomeStudyMetutorsComponent,
@@ -40,7 +38,6 @@ import {
     CarouselModule,
     MatButtonModule,
     DirectiveModule,
-    ComponentsModule,
     CourseItemModule,
     PublicRoutingModule,
     SuccessStoriesModule,

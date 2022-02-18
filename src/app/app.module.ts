@@ -13,11 +13,13 @@ import {
 } from 'angularx-social-login';
 
 import { AuthInterceptor } from './core/intercepters';
+import { ComponentsModule } from './core/components';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    ComponentsModule,
     AppRoutingModule,
     HttpClientModule,
     SocialLoginModule,

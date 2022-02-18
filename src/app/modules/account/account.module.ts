@@ -5,8 +5,6 @@ import { AccountRoutingModule } from './account-routing.module';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
-
-
 import { SigninComponent } from './containers';
 
 @NgModule({
@@ -18,8 +16,6 @@ import { SigninComponent } from './containers';
     ReactiveFormsModule,
     AccountRoutingModule,
   ],
-  providers: [
-
-  ],
+  providers: [],
 })
 export class AccountModule {}

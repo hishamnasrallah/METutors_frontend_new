@@ -7,7 +7,7 @@ const routes: Routes = [
   {
     path: 'signin',
     component: SigninComponent,
-    data: { layout: { title: 'Sign in - METutors' } },
+    data: { layout: { title: 'Sign in - METutors', showFooter: false } },
   },
 ];
 

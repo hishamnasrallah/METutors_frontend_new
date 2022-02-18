@@ -1,3 +1,17 @@
 <ng-progress id="myProgress"></ng-progress>
-<router-outlet></router-outlet>
+
+<div class="d-flex flex-column full-height">
+  <metutors-navbar *ngIf="layout === undefined || layout.showHeader || layout.showHeader === undefined"
+    [categories]="categories"></metutors-navbar>
+
+  <metutors-navbar-mobile *ngIf="layout === undefined || layout.showHeader || layout.showHeader === undefined" hidden
+    [categories]="categories"></metutors-navbar-mobile>
+
+  <div class="flex-grow-1">
+    <router-outlet></router-outlet>
+  </div>
+
+  <metutors-footer *ngIf="layout === undefined || layout.showFooter || layout.showFooter === undefined">
+  </metutors-footer>
+</div>
 <!-- <alert-notifications></alert-notifications> -->
