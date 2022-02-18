@@ -1,0 +1,89 @@
+<div class="container-fluid signin-block" [style.height.px]="heightPX">
+  <div class="row h-full">
+    <div class="col-md-4 offset-md-2 d-flex align-items-center">
+      <form [formGroup]="signinForm" (ngSubmit)="onSubmit(signinForm)" class="w-100">
+        <div>
+          <h4 class="mb-5">Login</h4>
+
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="text" class="custom-input w-100 input-bordered" id="email" placeholder="ku@pecafhuj.co.uk"
+              formControlName="username">
+            <!-- <div class="text-danger" *ngIf="username?.touched && username?.errors?.required">
+              Please write your Email
+            </div>
+            <div class="text-danger"
+              *ngIf="username?.touched && !username?.errors?.required && username?.errors?.email">
+              Email is not valid
+            </div>
+            <div class="text-danger"
+              *ngIf="username?.touched && !username?.errors?.required && !username?.errors?.email && username?.errors?.maxlength">
+              Email cannot be more than 100 characters
+            </div> -->
+          </div>
+
+          <div class="form-group">
+            <label for="pass">Choose Password</label>
+            <div class="position-relative">
+              <input type="password" class="custom-input w-100 input-bordered" id="pass" placeholder="**********"
+                formControlName="password">
+              <!-- <div class="text-danger" *ngIf="password?.touched && password?.errors?.required">
+                Please write your Password
+              </div> -->
+              <!-- <div class="text-danger"
+                *ngIf="password?.touched && !password?.errors?.required && password?.errors?.maxlength">
+                Password cannot be more than 100 characters
+              </div>
+              <div class="text-danger"
+                *ngIf="password?.touched && !password?.errors?.required && password?.errors?.minlength">
+                Password cannot be less than 8 characters
+              </div> -->
+              <a routerLink="/forget-password" class="forget-link">Forget!</a>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input type="checkbox" formControlName="rememberMe"> Remember Me
+          </div>
+
+          <div class="form-group mt-4 mb-2">
+            <button mat-flat-button color="primary" class="py-2 d-block w-100" cdkFocusInitial type="submit"
+              [disabled]="signinForm.invalid || loading">
+              Login
+              <mat-icon class="spinner" *ngIf="loading">autorenew</mat-icon>
+            </button>
+          </div>
+
+          <div class="row mt-4 social">
+            <div class="col-md-6">
+              <!-- <button (click)="openRolesDialog('google')" mat-button type="button" class="w-100 google"
+                [disabled]="gloading">
+                <img src="assets/svg/google.svg" alt="">
+                Sign up with Google
+                <mat-icon class="spinner" *ngIf="gloading">autorenew</mat-icon>
+              </button> -->
+            </div>
+            <div class="col-md-6">
+              <!-- <button (click)="openRolesDialog('facebook')" mat-button type="button" class="w-100"
+                [disabled]="floading">
+                <img src="assets/svg/facebook.svg" alt="">
+                Sign up with Facebook
+                <mat-icon class="spinner" *ngIf="floading">autorenew</mat-icon>
+              </button> -->
+            </div>
+          </div>
+
+          <div class="form-group mt-4">
+            <p>
+              haven’t an account?
+              <a routerLink="/signup">Sign up now</a>
+            </p>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-6 d-flex align-items-center img-cover">
+      <img src="assets/authentication/login.png" class="w-100" alt="" draggable="false" [style.height.px]="heightPX">
+    </div>
+  </div>
+</div>
