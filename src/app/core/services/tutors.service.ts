@@ -23,7 +23,7 @@ export class TutorsService {
       );
   }
 
-  getTutorById(id: number): Observable<any> {
+  getTutorById(id: string): Observable<any> {
     return this.http.get<ITutor>(`${this.mainLink}profile/${id}/`).pipe(
       map((response) => {
         return new ITutor(false, response);

@@ -16,7 +16,6 @@ const routes: Routes = [
   },
   {
     path: 'profile',
-    canActivate: [TutorAuthGuard],
     loadChildren: () =>
       import('./modules/profile/profile.module').then((m) => m.ProfileModule),
   },
