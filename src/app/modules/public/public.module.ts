@@ -8,28 +8,84 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 import { FormsModule } from '@angular/forms';
 import {
   CourseItemModule,
+  VideoPlayerModule,
   SuccessStoriesModule,
+  StartLearningNowModule,
   LearningEnvironmentModule,
+  CourseItemHorizentalModule,
+  BenefitsOnlineTutoringModule,
 } from 'src/app/shared/components';
 
 import { DirectiveModule } from 'src/app/shared/directives';
 
-import { HomeComponent } from './containers';
+import {
+  HomeComponent,
+  AboutComponent,
+  BecomeTutorComponent,
+  StudentSuccessComponent,
+  LanguagesCoursesComponent,
+} from './containers';
 
 import {
   HomeSlideComponent,
+  AboutSlideComponent,
+  WhyWeTeachComponent,
+  FounderTeamComponent,
+  AboutValuesComponent,
+  WhyMetutorsComponent,
   HomeCoursesComponent,
+  WhyTeachingUsComponent,
+  GetYourClassesComponent,
+  LanguagesSlideComponent,
+  BecomeTutorsUsComponent,
+  BecomeTutorSlideComponent,
+  LearningMadeEasyComponent,
+  LanguageCoursesComponent,
   HomeStudyMetutorsComponent,
+  RequestPostCourseComponent,
+  BecomeOnlineTutorComponent,
+  InnovativeApproachComponent,
   HomeFeaturedTutorsComponent,
+  TrustHappyStudentsComponent,
+  StudentSuccessSlideComponent,
+  LovingOpportunitiesComponent,
+  LanguagesIntroducingComponent,
+  LanguagesTestomonialComponent,
+  ExceptionalOpportunitiesComponent,
 } from './components';
 
 @NgModule({
   declarations: [
     HomeComponent,
+    AboutComponent,
     HomeSlideComponent,
+    AboutSlideComponent,
+    WhyWeTeachComponent,
+    AboutValuesComponent,
+    FounderTeamComponent,
+    WhyMetutorsComponent,
     HomeCoursesComponent,
+    BecomeTutorComponent,
+    WhyTeachingUsComponent,
+    BecomeTutorsUsComponent,
+    StudentSuccessComponent,
+    LanguagesSlideComponent,
+    GetYourClassesComponent,
+    LanguageCoursesComponent,
+    LanguagesCoursesComponent,
+    BecomeTutorSlideComponent,
+    LearningMadeEasyComponent,
     HomeStudyMetutorsComponent,
+    RequestPostCourseComponent,
+    BecomeOnlineTutorComponent,
+    InnovativeApproachComponent,
     HomeFeaturedTutorsComponent,
+    TrustHappyStudentsComponent,
+    StudentSuccessSlideComponent,
+    LovingOpportunitiesComponent,
+    LanguagesIntroducingComponent,
+    LanguagesTestomonialComponent,
+    ExceptionalOpportunitiesComponent,
   ],
   imports: [
     FormsModule,
@@ -39,10 +95,14 @@ import {
     MatButtonModule,
     DirectiveModule,
     CourseItemModule,
+    VideoPlayerModule,
     PublicRoutingModule,
     SuccessStoriesModule,
     RatingModule.forRoot(),
+    StartLearningNowModule,
     LearningEnvironmentModule,
+    CourseItemHorizentalModule,
+    BenefitsOnlineTutoringModule,
   ],
 })
 export class PublicModule {}
