@@ -4327,6 +4327,11 @@
   "resolved" "https://registry.npmjs.org/neo-async/-/neo-async-2.6.2.tgz"
   "version" "2.6.2"
 
+"ngx-auto-scroll@^1.1.0":
+  "integrity" "sha512-+zYhl8OGof4LhNzTh0t2o0/L61rMIaDWdmRg8OEiqJA+ehWirlpp+IpMcLAWrXI11XtvfkPtxspmRPHzU3scXA=="
+  "resolved" "https://registry.npmjs.org/ngx-auto-scroll/-/ngx-auto-scroll-1.1.0.tgz"
+  "version" "1.1.0"
+
 "ngx-bootstrap@^8.0.0":
   "integrity" "sha512-UjJ/57Pr7ctdI2L113QX1IqJPYtOMrp5Qq/RLvUT1TOwPQWPi9LXTQ/7BtipkptQjer7Fk9yueITH3Y8vD+Dmg=="
   "resolved" "https://registry.npmjs.org/ngx-bootstrap/-/ngx-bootstrap-8.0.0.tgz"

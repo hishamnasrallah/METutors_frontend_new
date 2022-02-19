@@ -64,7 +64,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.layout = x?.layout;
 
         if (this.layout?.title) this._title.setTitle(this.layout.title);
-        else this._title.setTitle('ME-tutors');
+        else this._title.setTitle('MEtutors');
       });
 
     this.fetchMainServicesSub = this._coursesService

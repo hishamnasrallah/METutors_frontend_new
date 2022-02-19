@@ -53,12 +53,12 @@ export function formatBytes(bytes: number, decimals = 2) {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
 }
 
-export function calculateDurationTime(start: string, end: string) {
-  const timeHourStart = new Date(start).getHours();
-  const timeHourEnd = new Date(end).getHours();
+export function calculateDurationTime(start?: Date, end?: Date) {
+  const timeHourStart = start ? new Date(start).getHours() : 0;
+  const timeHourEnd = end ? new Date(end).getHours() : 0;
 
-  const timeMinuteStart = new Date(start).getMinutes();
-  const timeMinuteEnd = new Date(end).getMinutes();
+  const timeMinuteStart = start ? new Date(start).getMinutes() : 0;
+  const timeMinuteEnd = end ? new Date(end).getMinutes() : 0;
 
   let hourDiff = timeHourEnd - timeHourStart;
   let minuteDiff = timeMinuteEnd - timeMinuteStart;

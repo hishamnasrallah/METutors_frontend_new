@@ -1,2 +1,4 @@
-export * from './course-details-popup/course-details-popup.component';
-export * from './course-details-popup/course-details-popup.module';
+export * from './classroom-attendances-popup';
+export * from './classroom-details-popup';
+export * from './course-details-popup';
+export * from './leave-feedback-popup';

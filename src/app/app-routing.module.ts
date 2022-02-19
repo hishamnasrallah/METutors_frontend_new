@@ -19,11 +19,21 @@ const routes: Routes = [
     loadChildren: () =>
       import('./modules/profile/profile.module').then((m) => m.ProfileModule),
   },
+  {
+    path: 'student',
+    loadChildren: () =>
+      import('./modules/student/student.module').then((m) => m.StudentModule),
+  },
+  {
+    path: '**',
+    redirectTo: '/',
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [NotAuthGuard, TutorAuthGuard],
+  providers: [NotAuthGuard, AuthGuard, TutorAuthGuard],
 })
 export class AppRoutingModule {}

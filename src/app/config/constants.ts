@@ -23,7 +23,7 @@ export const SORTED_DAYS_WEEK = [
 export const LIST_ROUTES = [
   { path: '/student/classroom', title: 'Classroom' },
   { path: '/student/classroom/syllabus', title: 'Syllabus' },
-  { path: '/student/classroom/classes-dashboard', title: 'Classes Dashboard' },
+  { path: '/student/classroom/classes', title: 'Classes Dashboard' },
   { path: '/student/help/faq', title: 'FAQ' },
   { path: '/student/help/support-ticket', title: 'Support ticket' },
   {

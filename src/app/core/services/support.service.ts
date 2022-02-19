@@ -42,7 +42,7 @@ export class SupportService {
       .pipe(catchError(this.errorHandler));
   }
 
-  getTicketDetailsById(id: number): Observable<any> {
+  getTicketDetailsById(id: string): Observable<any> {
     return this.http
       .get(`${this.mainLink}ticket/detail/${id}/`)
       .pipe(

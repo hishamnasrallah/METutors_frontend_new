@@ -34,7 +34,7 @@ export class CoursesService {
     );
   }
 
-  getClassroomById(id: number): Observable<any> {
+  getClassroomById(id: string): Observable<any> {
     return this.http.get<ICourse>(`${this.mainLink}batch/${id}/`).pipe(
       map((response) => {
         return new IClassroom(false, response);
@@ -42,7 +42,7 @@ export class CoursesService {
     );
   }
 
-  getSyllabusByCourseId(courseId: number): Observable<any> {
+  getSyllabusByCourseId(courseId: string): Observable<any> {
     return this.http
       .get<ISyllabus[]>(`${this.mainLink}syllabus/?batch_id=${courseId}`)
       .pipe(
