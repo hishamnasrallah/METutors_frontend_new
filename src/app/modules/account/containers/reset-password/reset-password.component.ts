@@ -7,6 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AlertNotificationService } from 'src/app/core/components';
 import { AuthService } from 'src/app/core/services';
 
 @Component({
@@ -23,10 +24,11 @@ export class ResetPasswordComponent implements OnInit {
   loading: boolean = false;
 
   constructor(
+    private _router: Router,
     private _fb: FormBuilder,
-    private _authService: AuthService,
     private _route: ActivatedRoute,
-    private _router: Router // private alertNotificationService: AlertNotificationService
+    private _authService: AuthService,
+    private _alertNotificationService: AlertNotificationService
   ) {
     this.reform = this._fb.group({
       password: [
@@ -98,13 +100,13 @@ export class ResetPasswordComponent implements OnInit {
       this._authService.resetPassword(data).subscribe((result) => {
         if (result.status === 'true') {
           this.loading = false;
-          // this.alertNotificationService.success(result.message);
+          this._alertNotificationService.success(result.message);
           this.reform.reset();
           this._router.navigate(['/signin']);
         } else {
-          // result.errors
-          //   ? this.alertNotificationService.error(result.errors[0])
-          //   : this.alertNotificationService.error(result.message);
+          result.errors
+            ? this._alertNotificationService.error(result.errors[0])
+            : this._alertNotificationService.error(result.message);
           this.reform.reset();
           this.loading = false;
         }

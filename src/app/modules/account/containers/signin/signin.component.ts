@@ -9,6 +9,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { UserRole } from 'src/app/config';
+import { AlertNotificationService } from 'src/app/core/components';
 import { AuthService } from 'src/app/core/services';
 
 @Component({
@@ -31,7 +32,8 @@ export class SigninComponent implements OnInit, OnDestroy {
     // public dialog: MatDialog,
     private _fb: FormBuilder,
     private _route: ActivatedRoute,
-    private _authService: AuthService // private _alertNotificationService: AlertNotificationService
+    private _authService: AuthService,
+    private _alertNotificationService: AlertNotificationService
   ) {
     this.signinForm = this._fb.group({
       username: [
@@ -140,7 +142,7 @@ export class SigninComponent implements OnInit, OnDestroy {
               }
             }
           } else {
-            // this._alertNotificationService.error(response.message);
+            this._alertNotificationService.error(response.message);
           }
         }
         this.loading = false;
@@ -193,7 +195,7 @@ export class SigninComponent implements OnInit, OnDestroy {
           this.gloading = false;
 
           if (res.status === true) {
-            // this._alertNotificationService.success(res.message);
+            this._alertNotificationService.success(res.message);
 
             if (this.userRole === '1') {
               this._router.navigate(['/student-dashboard'], {
@@ -207,7 +209,7 @@ export class SigninComponent implements OnInit, OnDestroy {
               this._router.navigate(['/']);
             }
           } else {
-            // this._alertNotificationService.error(res.message);
+            this._alertNotificationService.error(res.message);
           }
         });
       }
@@ -233,7 +235,7 @@ export class SigninComponent implements OnInit, OnDestroy {
           this.floading = false;
 
           if (res.status === true) {
-            // this._alertNotificationService.success(res.message);
+            this._alertNotificationService.success(res.message);
 
             if (this.userRole === '1') {
               this._router.navigate(['/student-dashboard'], {
@@ -247,7 +249,7 @@ export class SigninComponent implements OnInit, OnDestroy {
               this._router.navigate(['/']);
             }
           } else {
-            // this._alertNotificationService.error(res.message);
+            this._alertNotificationService.error(res.message);
           }
         });
       }

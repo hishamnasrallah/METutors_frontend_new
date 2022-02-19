@@ -13,7 +13,7 @@ import {
 } from 'angularx-social-login';
 
 import { AuthInterceptor } from './core/intercepters';
-import { ComponentsModule } from './core/components';
+import { ComponentsModule, AlertNotificationsModule } from './core/components';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,6 +24,7 @@ import { ComponentsModule } from './core/components';
     HttpClientModule,
     SocialLoginModule,
     BrowserAnimationsModule,
+    AlertNotificationsModule,
     NgProgressModule.withConfig({
       spinnerPosition: 'right',
       color: '#3bb3c1',
