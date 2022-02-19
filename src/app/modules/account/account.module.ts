@@ -5,10 +5,10 @@ import { AccountRoutingModule } from './account-routing.module';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
-import { SigninComponent } from './containers';
+import { SigninComponent, ResetPasswordComponent } from './containers';
 
 @NgModule({
-  declarations: [SigninComponent],
+  declarations: [SigninComponent, ResetPasswordComponent],
   imports: [
     CommonModule,
     MatIconModule,
