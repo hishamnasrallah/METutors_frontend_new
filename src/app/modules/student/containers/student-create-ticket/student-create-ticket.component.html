@@ -31,11 +31,11 @@
 
             <div class="col-md-12 mt-4 mb-2">
               <div class="row">
-                <p class="col mr-5 mb-0">
+                <p class="col me-5 mb-0">
                   You can include files (documents, screen recordings, screenshots, crash logs, etc.)
                   Please make sure the correct sharing permissions have been set.
                 </p>
-                <div class="block-file d-flex mr-3 align-items-center" *ngIf="filePreview">
+                <div class="block-file d-flex me-3 align-items-center" *ngIf="filePreview">
                   <mat-icon>attach_file</mat-icon>
                   <div class="ml-2">
                     <h3>{{ filePreview?.name }}</h3>
@@ -54,7 +54,7 @@
             </div>
 
             <div class="col-12 mt-5">
-              <button mat-flat-button color="primary" class="py-2 float-right" cdkFocusInitial type="submit"
+              <button mat-flat-button color="primary" class="py-2 float-end" cdkFocusInitial type="submit"
                 [disabled]="supportForm.invalid || loading">
                 Send message
                 <mat-icon class="spinner" *ngIf="loading">autorenew</mat-icon>

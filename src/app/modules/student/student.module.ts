@@ -7,8 +7,12 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { SupportService } from 'src/app/core/services';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxAutoScrollModule } from 'ngx-auto-scroll';
+import { RatingModule } from 'ngx-bootstrap/rating';
+import { CarouselModule } from 'ngx-owl-carousel-o';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+import { MatRadioModule } from '@angular/material/radio';
 import {
   ClassroomAttendancesPopupModule,
   LeaveFeedbackPopupModule,
@@ -25,8 +29,11 @@ import {
   StudentHelpComponent,
   StudentClassesComponent,
   StudentSyllabusComponent,
+  StudentSettingsComponent,
+  StudentDashboardComponent,
   StudentClassroomsComponent,
   StudentCreateTicketComponent,
+  StudentCertificatesComponent,
   StudentSupportTicketComponent,
   StudentTicketDetailsComponent,
 } from './containers';
@@ -36,6 +43,10 @@ import {
   FaqAboutStudentsComponent,
   FaqListQuestionsComponent,
   FaqStillHaveQuestionsComponent,
+  StudentSettingsAccountComponent,
+  StudentSettingsSecurityComponent,
+  StudentSettingsUserPrefrencesComponent,
+  StudentSettingsPaymentInformationComponent,
 } from './components';
 
 @NgModule({
@@ -45,18 +56,28 @@ import {
     StudentHelpComponent,
     StudentClassesComponent,
     StudentSidebarComponent,
+    StudentSettingsComponent,
     StudentSyllabusComponent,
     FaqListQuestionsComponent,
     FaqAboutStudentsComponent,
+    StudentDashboardComponent,
     StudentClassroomsComponent,
     StudentCreateTicketComponent,
+    StudentCertificatesComponent,
     StudentTicketDetailsComponent,
     StudentSupportTicketComponent,
     FaqStillHaveQuestionsComponent,
+    StudentSettingsAccountComponent,
+    StudentSettingsSecurityComponent,
+    StudentSettingsUserPrefrencesComponent,
+    StudentSettingsPaymentInformationComponent,
   ],
   imports: [
+    FormsModule,
     CommonModule,
     MatIconModule,
+    MatRadioModule,
+    CarouselModule,
     MatButtonModule,
     MatSelectModule,
     MatFormFieldModule,
@@ -65,6 +86,8 @@ import {
     NgxAutoScrollModule,
     StudentRoutingModule,
     MatProgressBarModule,
+    NgxIntlTelInputModule,
+    RatingModule.forRoot(),
     LeaveFeedbackPopupModule,
     ClassroomPlaceholderModule,
     ClassroomAttendancesPopupModule,

@@ -6,8 +6,11 @@ import {
   StudentHelpComponent,
   StudentClassesComponent,
   StudentSyllabusComponent,
+  StudentSettingsComponent,
+  StudentDashboardComponent,
   StudentClassroomsComponent,
   StudentCreateTicketComponent,
+  StudentCertificatesComponent,
   StudentSupportTicketComponent,
   StudentTicketDetailsComponent,
 } from './containers';
@@ -133,6 +136,39 @@ const routes: Routes = [
             pathMatch: 'full',
           },
         ],
+      },
+      {
+        path: 'dashboard',
+        component: StudentDashboardComponent,
+        data: {
+          layout: {
+            title: 'Dashboard - Metutors',
+            showHeader: false,
+            showFooter: false,
+          },
+        },
+      },
+      {
+        path: 'certificates',
+        component: StudentCertificatesComponent,
+        data: {
+          layout: {
+            title: 'Certificates - Metutors',
+            showHeader: false,
+            showFooter: false,
+          },
+        },
+      },
+      {
+        path: 'settings',
+        component: StudentSettingsComponent,
+        data: {
+          layout: {
+            title: 'Settings - Metutors',
+            showHeader: false,
+            showFooter: false,
+          },
+        },
       },
       {
         path: '',

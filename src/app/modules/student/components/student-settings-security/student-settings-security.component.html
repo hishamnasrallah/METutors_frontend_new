@@ -1,0 +1,88 @@
+<div class="container py-5 reset-block full-height">
+  <div class="row h-100">
+    <div class="col-md-12 align-items-center">
+      <form [formGroup]="form" class="w-100">
+        <div>
+          <h4 class="mb-5">Change Password</h4>
+
+          <ng-container *ngIf="!passwordValidated">
+
+            <div class="form-group">
+              <label for="currPassword">Current Password</label>
+              <input type="password" class="custom-input w-100 input-bordered" id="currPassword"
+                placeholder="ku@pecafhuj.co.uk" formControlName="currPassword">
+              <!-- <div class="text-danger" *ngIf="currPassword.touched && currPassword.errors?.required">
+                Please write your Current Password
+              </div>
+              <div class="text-danger"
+                *ngIf="currPassword.touched && !currPassword.errors?.required && currPassword.errors?.maxlength">
+                Password cannot be more than 100 characters
+              </div>
+              <div class="text-danger"
+                *ngIf="currPassword.touched && !currPassword.errors?.required && currPassword.errors?.minlength">
+                Password cannot be less than 8 characters
+              </div> -->
+            </div>
+
+            <div class="form-group mt-4 mb-2">
+              <button mat-flat-button color="primary" class="py-2 d-block w-100" cdkFocusInitial type="submit"
+                (click)="onSubmitCurrentPassword()">
+                Submit
+                <mat-icon class="spinner" *ngIf="loading">autorenew</mat-icon>
+              </button>
+            </div>
+
+          </ng-container>
+
+          <ng-container *ngIf="passwordValidated">
+
+            <div class="form-group">
+              <label for="newPassword">New Password</label>
+              <input type="password" class="custom-input w-100 input-bordered" id="newPassword"
+                placeholder="ku@pecafhuj.co.uk" formControlName="newPassword">
+              <!-- <div class="text-danger" *ngIf="newPassword.touched && newPassword.errors?.required">
+                Please write your New Password
+              </div>
+              <div class="text-danger"
+                *ngIf="newPassword.touched && !newPassword.errors?.required && newPassword.errors?.maxlength">
+                Password cannot be more than 100 characters
+              </div>
+              <div class="text-danger"
+                *ngIf="newPassword.touched && !newPassword.errors?.required && newPassword.errors?.minlength">
+                Password cannot be less than 8 characters
+              </div> -->
+            </div>
+
+            <div class="form-group">
+              <label for="confirmPassword">Confirm Password</label>
+              <input type="password" class="custom-input w-100 input-bordered" id="currPassword"
+                placeholder="ku@pecafhuj.co.uk" formControlName="confirmPassword" (input)="checkSamePasswords()">
+              <!-- <div class="text-danger" *ngIf="confirmPassword.touched && confirmPassword.errors?.required">
+                Please Re Write Your Password
+              </div>
+              <div class="text-danger"
+                *ngIf="confirmPassword.touched && !confirmPassword.errors?.required && confirmPassword.errors?.maxlength">
+                Password cannot be more than 100 characters
+              </div>
+              <div class="text-danger"
+                *ngIf="confirmPassword.touched && !confirmPassword.errors?.required && confirmPassword.errors?.minlength">
+                Password cannot be less than 8 characters
+              </div>
+              <div class="text-danger"
+                *ngIf="confirmPassword.touched && !confirmPassword.errors?.required && !confirmPassword.errors?.minlength && !confirmPassword.errors?.maxlength && !passwordSame">
+                Passwords do not match
+              </div> -->
+            </div>
+            <div class="form-group mt-4 mb-2">
+              <button mat-flat-button color="primary" class="py-2 d-block w-100" cdkFocusInitial type="submit"
+                (click)="changePassword()">
+                Change Password
+                <mat-icon class="spinner" *ngIf="subLoading">autorenew</mat-icon>
+              </button>
+            </div>
+          </ng-container>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
