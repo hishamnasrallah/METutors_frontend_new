@@ -1,0 +1,23 @@
+<div class="container py-5 reset-block full-height">
+  <div class="row h-100">
+    <div class="col-md-12 align-items-center">
+      <form [formGroup]="form" class="w-100">
+        <div>
+          <h4 class="mb-5">Role Selection</h4>
+          <div class="form-group types">
+            <label>Choose your role</label>
+            <mat-icon class="spinner" *ngIf="loading">autorenew</mat-icon>
+            <div class="row">
+              <div class="col-md-6" *ngFor="let role of roles">
+                <button mat-button (click)="onSubmit(role.id)" class="w-100 text-left" type="button">
+                  <mat-icon>local_library</mat-icon>
+                  I'm a {{ role.name }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

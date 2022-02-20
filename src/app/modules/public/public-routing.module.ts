@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import {
-  AboutComponent,
   HomeComponent,
+  AboutComponent,
+  WelcomeComponent,
   BecomeTutorComponent,
   StudentSuccessComponent,
   LanguagesCoursesComponent,
@@ -14,6 +15,11 @@ const routes: Routes = [
     path: '',
     component: HomeComponent,
     data: { layout: { title: 'MEtutors' } },
+  },
+  {
+    path: 'welcome',
+    component: WelcomeComponent,
+    data: { layout: { title: 'Welcome - Metutors' } },
   },
   {
     path: 'student-success',

@@ -21,6 +21,7 @@ import { DirectiveModule } from 'src/app/shared/directives';
 import {
   HomeComponent,
   AboutComponent,
+  WelcomeComponent,
   BecomeTutorComponent,
   StudentSuccessComponent,
   LanguagesCoursesComponent,
@@ -58,6 +59,7 @@ import {
   declarations: [
     HomeComponent,
     AboutComponent,
+    WelcomeComponent,
     HomeSlideComponent,
     AboutSlideComponent,
     WhyWeTeachComponent,

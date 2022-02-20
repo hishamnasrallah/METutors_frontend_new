@@ -1,0 +1,301 @@
+<div class="container py-5 signup-block">
+  <div class="row">
+    <ng-container *ngIf="firstStep">
+      <div class="col-md-5 d-flex align-items-center">
+        <form #f="ngForm" [formGroup]="signupForm" (ngSubmit)="onSubmit(signupForm)" class="w-100">
+          <div>
+            <h3 class="m-0">Welcome!</h3>
+            <h4 class="mb-5">Let's get you set up</h4>
+            <!-- <p>{{roles|json}}</p> -->
+
+            <div class="form-group types">
+              <label>Choose account type</label>
+              <div class="row">
+                <div class="col-md-6" *ngFor="let role of roles">
+
+                  <button mat-button (click)="userType = role.id" class="w-100 text-left"
+                    [ngClass]="userType == role.id?'active':''" type="button">
+                    <mat-icon>local_library</mat-icon>
+                    I'm a {{role.name}}
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="name">What's your first name?</label>
+                  <input type="text" class="custom-input w-100 input-bordered" id="name" placeholder="first name"
+                    formControlName="firstName">
+                  <!-- <div class="text-danger" *ngIf="firstName.touched && firstName.errors?.required">
+                    Please write your First Name
+                  </div>
+                  <div class="text-danger" *ngIf="firstName.touched && firstName.errors?.pattern">
+                    First Name should only contains alphabets
+                  </div>
+                  <div class="text-danger"
+                    *ngIf="firstName.touched && firstName.errors?.minlength && !firstName.errors?.required && !firstName.errors?.pattern">
+                    First Name cannot be less than 3 characters
+                  </div>
+                  <div class="text-danger"
+                    *ngIf="firstName.touched && firstName.errors?.maxlength && !firstName.errors?.pattern">
+                    First Name cannot be greater than 100 characters
+                  </div> -->
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="name">What's your last name?</label>
+                  <input type="text" class="custom-input w-100 input-bordered" id="name" placeholder="Last name"
+                    formControlName="lastName">
+                  <!-- <div class="text-danger" *ngIf="lastName.touched && lastName.errors?.required">
+                    Please write your Last Name
+                  </div>
+                  <div class="text-danger" *ngIf="lastName.touched && lastName.errors?.pattern">
+                    Last Name should only contains alphabets
+                  </div>
+                  <div class="text-danger"
+                    *ngIf="lastName.touched && lastName.errors?.minlength && !lastName.errors?.required && !lastName.errors?.pattern">
+                    Last Name cannot be less than 3 characters
+                  </div>
+                  <div class="text-danger"
+                    *ngIf="lastName.touched && lastName.errors?.maxlength && !lastName.errors?.pattern">
+                    Last Name cannot be greater than 100 characters
+                  </div> -->
+                </div>
+              </div>
+            </div>
+
+
+
+            <div class="form-group">
+              <label for="email">Email address</label>
+              <input type="email" class="custom-input w-100 input-bordered" id="email" placeholder="ku@pecafhuj.co.uk"
+                formControlName="email" email>
+              <!-- <div class="text-danger" *ngIf="email.touched && email.errors?.required">
+                Please write your Email
+              </div>
+              <div class="text-danger" *ngIf="email.touched && !email.errors?.required && email.errors?.email">
+                Email is not valid
+              </div>
+              <div class="text-danger"
+                *ngIf="email.touched && !email.errors?.required && !email.errors?.email && email.errors?.maxlength">
+                Email cannot be more than 100 characters
+              </div> -->
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Phone number</label>
+              <div class="w-100">
+                <!--  [selectedCountryISO]="selectedCountry" -->
+                <!-- [ngClass]="{'has-error': !phoneNumber.valid && phoneNumber.touched}" -->
+                <ngx-intl-tel-input [cssClass]="'custom-input w-100 input-bordered'"
+                  [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="true" [enablePlaceholder]="true"
+                  [searchCountryFlag]="true" [selectFirstCountry]="true" [phoneValidation]="true"
+                  [separateDialCode]="true" name="mobileNumber" formControlName="mobileNumber"
+                  (input)="verifyPhoneNumber($event)">
+                </ngx-intl-tel-input>
+                <!-- <div class="text-danger" *ngIf="f.form.controls['mobileNumber'].touched && !f.form.value.mobileNumber">
+                  Phone Number Required
+                </div>
+                <div class="text-danger" *ngIf="f.form.controls['mobileNumber'].touched && !numberOnly">
+                  Phone Number should contains digits only
+                </div>
+                <div class="text-danger"
+                  *ngIf="f.form.controls['mobileNumber'].touched && f.form.value.mobileNumber && numberOnly && !minPhone">
+                  Phone Number cannot be less than 5 digits
+                </div>
+                <div class="text-danger"
+                  *ngIf="f.form.controls['mobileNumber'].touched && f.form.value.mobileNumber && numberOnly && !maxPhone">
+                  Phone Number cannot be greater than 15 digits
+                </div> -->
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="pass">Choose Password</label>
+              <input type="password" class="custom-input w-100 input-bordered" id="pass" placeholder="**********"
+                formControlName="password">
+              <!-- <div class="text-danger" *ngIf="password.touched && password.errors?.required">
+                Please write your Password
+              </div>
+              <div class="text-danger"
+                *ngIf="password.touched && !password.errors?.required && password.errors?.maxlength">
+                Password cannot be more than 100 characters
+              </div>
+              <div class="text-danger"
+                *ngIf="password.touched && !password.errors?.required && password.errors?.minlength">
+                Password cannot be less than 8 characters
+              </div> -->
+            </div>
+
+            <div class="form-group">
+              <label for="pass">Confirm Password</label>
+              <input type="password" class="custom-input w-100 input-bordered" id="pass" placeholder="**********"
+                formControlName="c_password" (input)="checkPasswords()">
+              <!-- <div class="text-danger" *ngIf="c_password.touched && c_password.errors?.required">
+                Please write your Password
+              </div>
+              <div class="text-danger"
+                *ngIf="c_password.touched && !c_password.errors?.required && c_password.errors?.maxlength">
+                Password cannot be more than 100 characters
+              </div>
+              <div class="text-danger"
+                *ngIf="c_password.touched && !c_password.errors?.required && c_password.errors?.minlength">
+                Password cannot be less than 8 characters
+              </div>
+              <div class="text-danger"
+                *ngIf="c_password.touched && !c_password.errors?.required && !c_password.errors?.maxlength && !c_password.errors?.minlength && !passwordSame">
+                Passwords do not match
+              </div> -->
+            </div>
+
+            <div class="form-group mt-4 mb-2">
+              <button mat-flat-button color="primary" class="py-2 d-block w-100" cdkFocusInitial type="submit"
+                [disabled]="signupForm.invalid || loading || !f.form.value.mobileNumber || !numberOnly || !minPhone || !maxPhone || !passwordSame">
+                Create my account
+                <mat-icon class="spinner" *ngIf="loading">autorenew</mat-icon>
+              </button>
+            </div>
+
+            <div class="row mt-4 social">
+              <div class="col-md-6">
+                <button (click)="openRolesDialog('google')" mat-button type="button" class="w-100 google"
+                  [disabled]="gloading">
+                  <img src="assets/svg/google.svg" alt="">
+                  Sign up with Google
+                  <mat-icon class="spinner" *ngIf="gloading">autorenew</mat-icon>
+                </button>
+              </div>
+              <div class="col-md-6">
+                <button (click)="openRolesDialog('facebook')" mat-button type="button" class="w-100"
+                  [disabled]="floading">
+                  <img src="assets/svg/facebook.svg" alt="">
+                  Sign up with Facebook
+                  <mat-icon class="spinner" *ngIf="floading">autorenew</mat-icon>
+                </button>
+              </div>
+            </div>
+
+            <div class="form-group mt-4">
+              <p>
+                Already have an account?
+                <a routerLink="/signin">Sign in now</a>
+              </p>
+            </div>
+          </div>
+        </form>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="secondStep">
+      <div class="col-md-5 d-flex align-items-center">
+
+        <form [formGroup]="form" class="w-100">
+          <div>
+            <h4 class="mb-5">Email Verification</h4>
+
+            <div class="form-group">
+              <label for="code">Enter Code</label>
+              <div class="align">
+                <ng-otp-input #ngOtpInput (onInputChange)="onOtpChange($event)" [config]="config"></ng-otp-input>
+              </div>
+            </div>
+
+            <div class="form-group mt-4 mb-2">
+              <button mat-flat-button color="primary" class="py-2 d-block w-100" cdkFocusInitial type="submit"
+                (click)="onSubmitVerifyEmail()" [disabled]="event.length != 5 || subloading">
+                Submit
+                <mat-icon class="spinner" *ngIf="subloading">autorenew</mat-icon>
+              </button>
+            </div>
+            <div class="form-group mt-4 mb-2">
+              <button mat-flat-button color="primary" class="py-2 d-block w-100" (click)="resendEmailConfirm()"
+                [disabled]="reloading">
+                Re-send email verification
+                <mat-icon class="spinner" *ngIf="reloading">autorenew</mat-icon>
+              </button>
+            </div>
+          </div>
+        </form>
+
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="thirdStep">
+      <div class="col-md-5 d-flex align-items-center">
+        <div>
+          <h4 class="mb-5">Upload Documents</h4>
+
+          <div class="form-group">
+            <label for="file">File</label>
+            <input id="file" type="file" multiple class="form-control" (change)="onFileChange($event)">
+          </div>
+
+          <div class="form-group mt-4 mb-2">
+            <button mat-flat-button color="primary" class="py-2 d-block w-100" cdkFocusInitial type="submit"
+              (click)="submiDocs()" [disabled]="docLoading">
+              Submit
+              <mat-icon class="spinner" *ngIf="docLoading">autorenew</mat-icon>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </ng-container>
+
+    <div class="col-md-7 align-items-center img-cover">
+
+      <div class="steps" [@userTypeAnimate] *ngIf="userType == 1">
+        <h2>How to create your account</h2>
+        <p>
+          In 2 steps you can create your account and starting taking
+          your courses with MEtutors
+        </p>
+        <ul class="list-unstyled">
+          <li [ngClass]="{'active': firstStep }">
+            <span>Step one</span>
+            <h4>
+              Create an account
+            </h4>
+          </li>
+          <li [ngClass]="{'active': secondStep}">
+            <span>Step two</span>
+            <h4>
+              Verify Your Email
+            </h4>
+          </li>
+        </ul>
+      </div>
+
+      <div class="steps" [@userTypeAnimate] *ngIf="userType == 3">
+        <h2>How to create your account</h2>
+        <p>
+          In 3 steps you can create your account and starting create
+          your courses or teching with MEtutors
+        </p>
+        <ul class="list-unstyled">
+          <li [ngClass]="{'active': firstStep }">
+            <span>Step one</span>
+            <h4>
+              Create an account
+            </h4>
+          </li>
+          <li [ngClass]="{'active': secondStep }">
+            <span>Step two</span>
+            <h4>
+              Verify Your Email
+            </h4>
+          </li>
+          <li [ngClass]="{'active': thirdStep }">
+            <span>Step three</span>
+            <h4>
+              Upload Documents
+            </h4>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
