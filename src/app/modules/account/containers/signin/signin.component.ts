@@ -22,7 +22,6 @@ export class SigninComponent implements OnInit, OnDestroy {
   isChecked: any;
   gloading = false;
   floading = false;
-  heightPX?: number;
   signinForm: FormGroup;
   loading: boolean = false;
   signinSub?: Subscription;
@@ -58,9 +57,7 @@ export class SigninComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit(): void {
-    this.heightPX = window.innerHeight - 100;
-  }
+  ngOnInit(): void {}
 
   get username(): AbstractControl | null {
     return this.signinForm.get('username');

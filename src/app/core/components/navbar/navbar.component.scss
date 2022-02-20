@@ -93,25 +93,4 @@
       }
     }
   }
-
-  &.header-fixed {
-    left: 0;
-    right: 0;
-    top: 0;
-    padding: 0 !important;
-    -webkit-animation: .6s forwards slideDown;
-    animation: .6s forwards slideDown;
-    transition: all .5s ease-in-out !important;
-    position: fixed;
-    border-bottom-color: #F9FBFF;
-    box-shadow: 1px 1px 10px 0 rgba(0, 0, 0, 0.2);
-
-    .nav-link.username button {
-      background-color: #D8DADF;
-
-      svg {
-        fill: #000;
-      }
-    }
-  }
 }

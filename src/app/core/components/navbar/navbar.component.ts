@@ -8,21 +8,18 @@ import { AuthService } from '../../services';
   selector: 'metutors-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
-  host: {
-    '(window:scroll)': 'updateHeader($event)',
-  },
 })
 export class NavbarComponent implements OnInit {
+  @Input() categories?: ICategory[];
+
   admin = false;
   isRefereshed = true;
   isRememberedUser = false;
-  scrollTop: boolean = false;
-  @Input() categories?: ICategory[];
 
   constructor(
-    private router: Router,
+    private _router: Router,
     public authService: AuthService,
-    private socialAuthService: SocialAuthService
+    private _socialAuthService: SocialAuthService
   ) {}
 
   ngOnInit(): void {
@@ -36,14 +33,6 @@ export class NavbarComponent implements OnInit {
   ngOnChanges() {
     this.checkReload();
     this.isAdmin();
-  }
-
-  updateHeader(evt: any) {
-    if (window.pageYOffset >= 65) {
-      this.scrollTop = true;
-    } else {
-      this.scrollTop = false;
-    }
   }
 
   isAdmin() {
@@ -88,7 +77,7 @@ export class NavbarComponent implements OnInit {
     localStorage.removeItem('token');
     localStorage.removeItem('refresh-token');
     localStorage.removeItem('active');
-    this.socialAuthService.signOut();
-    this.router.navigate(['/']);
+    this._socialAuthService.signOut();
+    this._router.navigate(['/']);
   }
 }
