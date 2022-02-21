@@ -11,19 +11,22 @@
       <div class="col-12">
         <owl-carousel-o [options]="customOptions">
           <ng-template carouselSlide *ngFor="let testmonial of testmonials">
-            <rating [ngModel]="testmonial?.rate" [max]="5" [readonly]="true"></rating>
-            <p class="desc">
-              {{ testmonial?.content }}
-            </p>
-            <div class="row info">
-              <div class="col-md-2 d-flex align-items-center">
-                <img [src]="testmonial?.profile_pic" meTutorsDefaultAvatar class="person" alt="">
-              </div>
-              <div class="col-md-10">
-                <h2>{{ testmonial?.posted_by }}</h2>
-                <h3>
-                  {{ testmonial?.posted_date | date }}
-                </h3>
+            <div class="px-3 h-100 d-flex flex-column">
+              <rating [ngModel]="testmonial?.rate" [max]="5" [readonly]="true"></rating>
+              <p class="desc flex-grow-1">
+                {{ testmonial?.content }}
+              </p>
+              <div class="row info">
+                <div class="col-md-2 d-flex align-items-center">
+                  <img [src]="testmonial?.picture" meTutorsDefaultAvatar class="person" alt="">
+                </div>
+                <div class="col-md-10">
+                  <h2>{{ testmonial?.postedBy }}</h2>
+                  <h3 *ngIf="testmonial?.isVerified" class="d-flex">
+                    <img src="assets/svg/verified.svg" class="verfied me-2" alt="">
+                    Verified Student
+                  </h3>
+                </div>
               </div>
             </div>
           </ng-template>
