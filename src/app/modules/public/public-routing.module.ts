@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import {
   HomeComponent,
   AboutComponent,
+  ContactComponent,
   WelcomeComponent,
   BecomeTutorComponent,
   StudentSuccessComponent,
@@ -35,6 +36,11 @@ const routes: Routes = [
     path: 'about',
     component: AboutComponent,
     data: { layout: { title: 'About - Metutors' } },
+  },
+  {
+    path: 'contact',
+    component: ContactComponent,
+    data: { layout: { title: 'Contact - Metutors' } },
   },
   {
     path: 'languages-courses',

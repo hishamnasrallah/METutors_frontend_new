@@ -5,11 +5,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { PublicRoutingModule } from './public-routing.module';
 import { MatIconModule } from '@angular/material/icon';
 import { CarouselModule } from 'ngx-owl-carousel-o';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { VgCoreModule } from '@videogular/ngx-videogular/core';
 import { VgControlsModule } from '@videogular/ngx-videogular/controls';
 import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
 import { VgBufferingModule } from '@videogular/ngx-videogular/buffering';
+import { GMapModule } from 'primeng/gmap';
+import { ContactService } from 'src/app/core/services';
 import {
   CourseItemModule,
   CourseItemHorizentalModule,
@@ -20,6 +22,7 @@ import { DirectiveModule } from 'src/app/shared/directives';
 import {
   HomeComponent,
   AboutComponent,
+  ContactComponent,
   WelcomeComponent,
   BecomeTutorComponent,
   StudentSuccessComponent,
@@ -45,9 +48,11 @@ import {
   StartLearningNowComponent,
   BecomeTutorSlideComponent,
   LearningMadeEasyComponent,
+  ContactHelpToHereComponent,
   RequestPostCourseComponent,
   BecomeOnlineTutorComponent,
   InnovativeApproachComponent,
+  ContactSendMessageComponent,
   HomeFeaturedTutorsComponent,
   TrustHappyStudentsComponent,
   StudentSuccessSlideComponent,
@@ -65,6 +70,7 @@ import {
     HomeComponent,
     AboutComponent,
     WelcomeComponent,
+    ContactComponent,
     HomeSlideComponent,
     AboutSlideComponent,
     WhyWeTeachComponent,
@@ -86,8 +92,10 @@ import {
     LanguagesCoursesComponent,
     BecomeTutorSlideComponent,
     LearningMadeEasyComponent,
+    ContactHelpToHereComponent,
     RequestPostCourseComponent,
     BecomeOnlineTutorComponent,
+    ContactSendMessageComponent,
     InnovativeApproachComponent,
     HomeFeaturedTutorsComponent,
     TrustHappyStudentsComponent,
@@ -101,6 +109,7 @@ import {
     BenefitsAcademicTutoringComponent,
   ],
   imports: [
+    GMapModule,
     FormsModule,
     VgCoreModule,
     CommonModule,
@@ -111,10 +120,12 @@ import {
     CourseItemModule,
     VgControlsModule,
     VgBufferingModule,
+    ReactiveFormsModule,
     PublicRoutingModule,
     VgOverlayPlayModule,
     RatingModule.forRoot(),
     CourseItemHorizentalModule,
   ],
+  providers: [ContactService],
 })
 export class PublicModule {}

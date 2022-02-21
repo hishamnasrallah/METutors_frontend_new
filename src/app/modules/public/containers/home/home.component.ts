@@ -1,44 +1,19 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import {
-  ICategory,
-  IClassroom,
-  IStatistics,
-  ITutor,
-} from 'src/app/core/models';
-import { CoursesService } from 'src/app/core/services';
+import { Component, OnInit } from '@angular/core';
+import { IStatistics, ITutor } from 'src/app/core/models';
 
 @Component({
   selector: 'metutors-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit {
   teachers?: ITutor[];
   testmonials?: any[];
-  classroomsPrepSub?: Subscription;
-  classroomsLangSub?: Subscription;
-  classroomsPrep: IClassroom[] = [];
-  classroomsLang: IClassroom[] = [];
   academicStatistics?: IStatistics[];
-  getFeaturedTutorsSub?: Subscription;
-  fetchMainServicesSub?: Subscription;
 
-  constructor(private _coursesService: CoursesService) {}
+  constructor() {}
 
   ngOnInit(): void {
-    this.classroomsPrepSub = this._coursesService
-      .fetchClassroomsQuery({ homePage: '01' })
-      .subscribe((response) => {
-        this.classroomsPrep = response.classrooms;
-      });
-
-    this.classroomsLangSub = this._coursesService
-      .fetchClassroomsQuery({ homePage: '02' })
-      .subscribe((response) => {
-        this.classroomsLang = response.classrooms;
-      });
-
     this.academicStatistics = [
       {
         id: 1,
@@ -171,12 +146,5 @@ export class HomeComponent implements OnInit, OnDestroy {
         isVerified: true,
       },
     ];
-  }
-
-  ngOnDestroy(): void {
-    this.classroomsPrepSub?.unsubscribe();
-    this.classroomsLangSub?.unsubscribe();
-    this.fetchMainServicesSub?.unsubscribe();
-    this.getFeaturedTutorsSub?.unsubscribe();
   }
 }

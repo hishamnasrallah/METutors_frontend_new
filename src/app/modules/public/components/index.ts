@@ -5,6 +5,8 @@ export * from './become-tutor-slide';
 export * from './become-tutors-us';
 export * from './benefits-academic-tutoring';
 export * from './benefits-online-tutoring';
+export * from './contact-help-to-here';
+export * from './contact-send-message';
 export * from './exceptional-opportunities';
 export * from './facts-statistics';
 export * from './founder-team';
