@@ -11,7 +11,7 @@ import { VgControlsModule } from '@videogular/ngx-videogular/controls';
 import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
 import { VgBufferingModule } from '@videogular/ngx-videogular/buffering';
 import { GMapModule } from 'primeng/gmap';
-import { ContactService } from 'src/app/core/services';
+import { ContactService, SupportService } from 'src/app/core/services';
 import {
   CourseItemModule,
   CourseItemHorizentalModule,
@@ -20,10 +20,12 @@ import {
 import { DirectiveModule } from 'src/app/shared/directives';
 
 import {
+  FaqComponent,
   HomeComponent,
   AboutComponent,
   ContactComponent,
   WelcomeComponent,
+  FaqTicketComponent,
   BecomeTutorComponent,
   StudentSuccessComponent,
   LanguagesCoursesComponent,
@@ -31,6 +33,7 @@ import {
 
 import {
   HomeSlideComponent,
+  FaqSearchComponent,
   AboutSlideComponent,
   WhyWeTeachComponent,
   FounderTeamComponent,
@@ -41,6 +44,7 @@ import {
   WhyTeachingUsComponent,
   GetYourClassesComponent,
   LanguagesSlideComponent,
+  SelectFaqTopicComponent,
   SuccessStoriesComponent,
   BecomeTutorsUsComponent,
   FactsStatisticsComponent,
@@ -48,9 +52,11 @@ import {
   StartLearningNowComponent,
   BecomeTutorSlideComponent,
   LearningMadeEasyComponent,
+  FaqListQuestionsComponent,
   ContactHelpToHereComponent,
   RequestPostCourseComponent,
   BecomeOnlineTutorComponent,
+  StillHaveQuestionsComponent,
   InnovativeApproachComponent,
   ContactSendMessageComponent,
   HomeFeaturedTutorsComponent,
@@ -67,11 +73,14 @@ import {
 
 @NgModule({
   declarations: [
+    FaqComponent,
     HomeComponent,
     AboutComponent,
     WelcomeComponent,
     ContactComponent,
+    FaqSearchComponent,
     HomeSlideComponent,
+    FaqTicketComponent,
     AboutSlideComponent,
     WhyWeTeachComponent,
     AboutValuesComponent,
@@ -81,6 +90,7 @@ import {
     VideoPlayerComponent,
     BecomeTutorComponent,
     WhyTeachingUsComponent,
+    SelectFaqTopicComponent,
     BecomeTutorsUsComponent,
     StudentSuccessComponent,
     LanguagesSlideComponent,
@@ -92,11 +102,13 @@ import {
     LanguagesCoursesComponent,
     BecomeTutorSlideComponent,
     LearningMadeEasyComponent,
+    FaqListQuestionsComponent,
     ContactHelpToHereComponent,
     RequestPostCourseComponent,
     BecomeOnlineTutorComponent,
     ContactSendMessageComponent,
     InnovativeApproachComponent,
+    StillHaveQuestionsComponent,
     HomeFeaturedTutorsComponent,
     TrustHappyStudentsComponent,
     StudentSuccessSlideComponent,
@@ -126,6 +138,6 @@ import {
     RatingModule.forRoot(),
     CourseItemHorizentalModule,
   ],
-  providers: [ContactService],
+  providers: [ContactService, SupportService],
 })
 export class PublicModule {}

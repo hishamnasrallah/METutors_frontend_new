@@ -2,10 +2,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import {
+  FaqComponent,
   HomeComponent,
   AboutComponent,
   ContactComponent,
   WelcomeComponent,
+  FaqTicketComponent,
   BecomeTutorComponent,
   StudentSuccessComponent,
   LanguagesCoursesComponent,
@@ -41,6 +43,16 @@ const routes: Routes = [
     path: 'contact',
     component: ContactComponent,
     data: { layout: { title: 'Contact - Metutors' } },
+  },
+  {
+    path: 'faq',
+    component: FaqComponent,
+    data: { layout: { title: 'FAQ - Metutors' } },
+  },
+  {
+    path: 'faq/:ticket',
+    component: FaqTicketComponent,
+    data: { layout: { title: 'FAQ - Metutors' } },
   },
   {
     path: 'languages-courses',
