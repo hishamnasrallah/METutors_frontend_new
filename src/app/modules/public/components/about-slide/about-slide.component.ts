@@ -1,5 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { IStatistics } from 'src/app/core/models';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'metutors-about-slide',
@@ -7,8 +6,6 @@ import { IStatistics } from 'src/app/core/models';
   styleUrls: ['./about-slide.component.scss'],
 })
 export class AboutSlideComponent implements OnInit {
-  @Input() aboutStatistics?: IStatistics[];
-
   constructor() {}
 
   ngOnInit(): void {}

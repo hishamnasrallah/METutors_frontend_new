@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'metutors-about-values',
@@ -6,8 +6,6 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./about-values.component.scss'],
 })
 export class AboutValuesComponent implements OnInit {
-  @Input() valuesStatistics: any;
-
   constructor() {}
 
   ngOnInit(): void {}

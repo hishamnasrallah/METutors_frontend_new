@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'metutors-why-we-teach',
@@ -6,7 +6,6 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./why-we-teach.component.scss'],
 })
 export class WhyWeTeachComponent implements OnInit {
-  @Input() whyWeTeach: any;
 
   constructor() {}
 
