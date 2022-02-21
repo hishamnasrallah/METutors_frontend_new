@@ -10,7 +10,7 @@ import { addMisc, getMisc } from 'src/app/config';
   styleUrls: ['./success-stories.component.scss'],
 })
 export class SuccessStoriesComponent implements OnInit {
-  @Input() testmonials: any[] = [];
+  @Input() testmonials?: any[];
 
   customOptions: OwlOptions = {
     loop: true,

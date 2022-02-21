@@ -8,16 +8,53 @@
           We offer one-on-one tutoring at the cost you can afford resulting in an experience quality learning time.
         </p>
 
-        <div class="row mt-4" *ngIf="courseFieldSubject && courseFieldSubject.length">
-          <div class="col-md-6 d-flex mt-4" *ngFor="let course of courseFieldSubject">
-            <img [src]="course?.icon" width="65px" height="65px" draggable="false" alt="">
-            <div class="ml-2">
-              <h2>{{ course?.name }}</h2>
+        <div class="row mt-4">
+          <div class="col-md-6 d-flex mt-4">
+            <img src="assets/svg/engineering.svg" width="65px" height="65px" draggable="false" alt="">
+            <div class="ms-2">
+              <h2>Engineering</h2>
               <p class="details">
-                <ng-container *ngFor="let subject of course?.subjects; let isLast = last">
-                  {{ subject?.name }}
-                  <ng-container *ngIf="!isLast">, </ng-container>
-                </ng-container>
+                Computer Science Tutors,
+                Programming Tutors
+                Electrical Engineering,
+                Mechanical Engineering
+                C C# C++ HTML Java Python
+              </p>
+            </div>
+          </div>
+          <div class="col-md-6 d-flex mt-4">
+            <img src="assets/svg/science.svg" width="65px" height="65px" draggable="false" alt="">
+            <div class="ms-2">
+              <h2>Science</h2>
+              <p class="details">
+                Chemistry Tutors
+                Physics Tutors
+                Accounting Tutors
+                Economics Tutors
+                Finance Tutors
+              </p>
+            </div>
+          </div>
+          <div class="col-md-6 d-flex mt-4">
+            <img src="assets/svg/humanities.svg" width="65px" height="65px" draggable="false" alt="">
+            <div class="ms-2">
+              <h2>Humanities</h2>
+              <p class="details">
+                Writing Tutors, French Tutors
+                Spanish Tutors, ESL Tutors
+                Latin Tutors
+              </p>
+            </div>
+          </div>
+          <div class="col-md-6 d-flex mt-4">
+            <img src="assets/svg/math.svg" width="65px" height="65px" draggable="false" alt="">
+            <div class="ms-2">
+              <h2>Math</h2>
+              <p class="details">
+                Algebra Tutors
+                Calculus Tutors Trigonometry
+                Tutors, Statistics Tutors
+                Geometry Tutors
               </p>
             </div>
           </div>
