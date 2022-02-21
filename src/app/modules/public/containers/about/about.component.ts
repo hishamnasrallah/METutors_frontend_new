@@ -1,6 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { addMisc, getMisc } from 'src/app/config';
 import { MiscService } from 'src/app/core/services';
 
 @Component({
