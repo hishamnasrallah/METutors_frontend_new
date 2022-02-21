@@ -1,7 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { addLookups, addMisc, getLookups, getMisc } from 'src/app/config';
 import { ICategory, IClassroom, ITutor } from 'src/app/core/models';
-import { CoursesService, TutorsService } from 'src/app/core/services';
+import {
+  CoursesService,
+  LookupsService,
+  MiscService,
+  TutorsService,
+} from 'src/app/core/services';
 
 @Component({
   selector: 'metutors-home',
@@ -10,17 +16,23 @@ import { CoursesService, TutorsService } from 'src/app/core/services';
 })
 export class HomeComponent implements OnInit, OnDestroy {
   teachers: ITutor[] = [];
+  testmonials: any[] = [];
   categories: ICategory[] = [];
+  courseFieldSubject: any[] = [];
   classroomsPrepSub?: Subscription;
   classroomsLangSub?: Subscription;
+  getCourseFieldSub?: Subscription;
   classroomsPrep: IClassroom[] = [];
   classroomsLang: IClassroom[] = [];
   getFeaturedTutorsSub?: Subscription;
   fetchMainServicesSub?: Subscription;
+  getFeaturedTestmonialsSub?: Subscription;
 
   constructor(
+    private _miscService: MiscService,
+    private _tutorsService: TutorsService,
     private _coursesService: CoursesService,
-    private _tutorsService: TutorsService
+    private _lookupsService: LookupsService
   ) {}
 
   ngOnInit(): void {
@@ -50,12 +62,36 @@ export class HomeComponent implements OnInit, OnDestroy {
         },
         () => {}
       );
+
+    this.getCourseFieldSub = this._lookupsService
+      .fetchCourseFieldSubject()
+      .subscribe(
+        (fetchedValues) => {
+          this.courseFieldSubject = fetchedValues.results;
+          addLookups('courseFieldSubject', this.courseFieldSubject);
+        },
+        () => {}
+      );
+    this.courseFieldSubject = getLookups().courseFieldSubject;
+
+    this.getFeaturedTestmonialsSub = this._miscService
+      .fetchTestmonials()
+      .subscribe(
+        (fetchedTestmonials) => {
+          this.testmonials = fetchedTestmonials.results;
+          addMisc('testmonials', this.testmonials);
+        },
+        () => {}
+      );
+    this.testmonials = getMisc().testmonials;
   }
 
   ngOnDestroy(): void {
     this.classroomsPrepSub?.unsubscribe();
     this.classroomsLangSub?.unsubscribe();
+    this.getCourseFieldSub?.unsubscribe();
     this.fetchMainServicesSub?.unsubscribe();
     this.getFeaturedTutorsSub?.unsubscribe();
+    this.getFeaturedTestmonialsSub?.unsubscribe();
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { MiscService } from 'src/app/core/services';
@@ -9,9 +9,8 @@ import { addMisc, getMisc } from 'src/app/config';
   templateUrl: './success-stories.component.html',
   styleUrls: ['./success-stories.component.scss'],
 })
-export class SuccessStoriesComponent implements OnInit, OnDestroy {
-  testmonials: any[] = [];
-  getFeaturedTestmonialsSub?: Subscription;
+export class SuccessStoriesComponent implements OnInit {
+  @Input() testmonials: any[] = [];
 
   customOptions: OwlOptions = {
     loop: true,
@@ -39,26 +38,7 @@ export class SuccessStoriesComponent implements OnInit, OnDestroy {
     nav: false,
   };
 
-  constructor(private _miscService: MiscService) {}
+  constructor() {}
 
-  ngOnInit(): void {
-    this.getFeaturedTestmonialsSub = this._miscService
-      .fetchTestmonials()
-      .subscribe(
-        (fetchedTestmonials) => {
-          this.testmonials = fetchedTestmonials.results;
-          addMisc('testmonials', this.testmonials);
-        },
-        () => {}
-      );
-  }
-
-  getTestmonialsMisc(): any {
-    return getMisc().testmonials;
-  }
-
-  ngOnDestroy(): void {
-    if (this.getFeaturedTestmonialsSub)
-      this.getFeaturedTestmonialsSub.unsubscribe();
-  }
+  ngOnInit(): void {}
 }

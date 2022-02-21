@@ -6,14 +6,13 @@ import { PublicRoutingModule } from './public-routing.module';
 import { MatIconModule } from '@angular/material/icon';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { FormsModule } from '@angular/forms';
+import { VgCoreModule } from '@videogular/ngx-videogular/core';
+import { VgControlsModule } from '@videogular/ngx-videogular/controls';
+import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
+import { VgBufferingModule } from '@videogular/ngx-videogular/buffering';
 import {
   CourseItemModule,
-  VideoPlayerModule,
-  SuccessStoriesModule,
-  StartLearningNowModule,
-  LearningEnvironmentModule,
   CourseItemHorizentalModule,
-  BenefitsOnlineTutoringModule,
 } from 'src/app/shared/components';
 
 import { DirectiveModule } from 'src/app/shared/directives';
@@ -35,10 +34,13 @@ import {
   AboutValuesComponent,
   WhyMetutorsComponent,
   HomeCoursesComponent,
+  VideoPlayerComponent,
   WhyTeachingUsComponent,
   GetYourClassesComponent,
   LanguagesSlideComponent,
+  SuccessStoriesComponent,
   BecomeTutorsUsComponent,
+  StartLearningNowComponent,
   BecomeTutorSlideComponent,
   LearningMadeEasyComponent,
   LanguageCoursesComponent,
@@ -49,9 +51,11 @@ import {
   HomeFeaturedTutorsComponent,
   TrustHappyStudentsComponent,
   StudentSuccessSlideComponent,
+  LearningEnvironmentComponent,
   LovingOpportunitiesComponent,
   LanguagesIntroducingComponent,
   LanguagesTestomonialComponent,
+  BenefitsOnlineTutoringComponent,
   ExceptionalOpportunitiesComponent,
 } from './components';
 
@@ -67,13 +71,16 @@ import {
     FounderTeamComponent,
     WhyMetutorsComponent,
     HomeCoursesComponent,
+    VideoPlayerComponent,
     BecomeTutorComponent,
     WhyTeachingUsComponent,
     BecomeTutorsUsComponent,
     StudentSuccessComponent,
     LanguagesSlideComponent,
+    SuccessStoriesComponent,
     GetYourClassesComponent,
     LanguageCoursesComponent,
+    StartLearningNowComponent,
     LanguagesCoursesComponent,
     BecomeTutorSlideComponent,
     LearningMadeEasyComponent,
@@ -84,27 +91,28 @@ import {
     HomeFeaturedTutorsComponent,
     TrustHappyStudentsComponent,
     StudentSuccessSlideComponent,
+    LearningEnvironmentComponent,
     LovingOpportunitiesComponent,
     LanguagesIntroducingComponent,
     LanguagesTestomonialComponent,
+    BenefitsOnlineTutoringComponent,
     ExceptionalOpportunitiesComponent,
   ],
   imports: [
     FormsModule,
+    VgCoreModule,
     CommonModule,
     MatIconModule,
     CarouselModule,
     MatButtonModule,
     DirectiveModule,
     CourseItemModule,
-    VideoPlayerModule,
+    VgControlsModule,
+    VgBufferingModule,
     PublicRoutingModule,
-    SuccessStoriesModule,
+    VgOverlayPlayModule,
     RatingModule.forRoot(),
-    StartLearningNowModule,
-    LearningEnvironmentModule,
     CourseItemHorizentalModule,
-    BenefitsOnlineTutoringModule,
   ],
 })
 export class PublicModule {}
