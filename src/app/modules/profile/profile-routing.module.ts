@@ -10,7 +10,7 @@ import {
 const routes: Routes = [
   {
     path: 'complete-profile',
-    canActivate: [TutorAuthGuard],
+    // canActivate: [TutorAuthGuard],
     component: CompleteTutorProfileComponent,
     data: { layout: { title: 'Complete tutor profile', showFooter: false } },
   },

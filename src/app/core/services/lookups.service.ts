@@ -9,8 +9,25 @@ import { environment } from 'src/environments/environment';
 })
 export class LookupsService {
   mainLink = environment.API_URL + 'lookup/';
+  BACKEND_URL = environment.API_URL;
 
   constructor(private http: HttpClient) {}
+
+  getCountries(): Observable<any> {
+    return this.http.get<any>(this.BACKEND_URL + `countries`);
+  }
+
+  getCities(id: string): Observable<any> {
+    return this.http.get<any>(this.BACKEND_URL + `cities?country_id=${id}`);
+  }
+
+  addLanguage(data: any): Observable<any> {
+    return this.http.post<any>(this.BACKEND_URL + 'add-language', data);
+  }
+
+  removeLanguage(data: any): Observable<any> {
+    return this.http.post<any>(this.BACKEND_URL + 'remove-language', data);
+  }
 
   fetchTicketTypes(): Observable<any> {
     return this.http

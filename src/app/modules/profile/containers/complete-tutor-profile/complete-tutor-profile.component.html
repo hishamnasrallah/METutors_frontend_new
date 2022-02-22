@@ -1,1 +1,688 @@
-<p>complete-tutor-profile works!</p>
+<div class="container py-5 reset-block full-height">
+  <div class="row h-100">
+    <div class="col-md-12 align-items-center">
+      <div class="steps">
+        <ul class="list-unstyled sidebar-nav">
+          <li [ngClass]="{'active': firstStep }">
+            <span>Personal Information</span>
+          </li>
+          <li [ngClass]="{'active': secondStep }">
+            <span>Profile Picture</span>
+          </li>
+          <li [ngClass]="{'active': thirdStep }">
+            <span>Qualification Details</span>
+          </li>
+          <li [ngClass]="{'active': fourthStep }">
+            <span>Teaching Specifications</span>
+          </li>
+        </ul>
+      </div>
+
+      <ng-container *ngIf="firstStep">
+        <form [formGroup]="form" class="w-100">
+          <div>
+            <h4 class="mb-5 heading">PROVIDE YOUR PERSONAL INFORMATION</h4>
+
+            <div class="row">
+
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="middle_name"><b>Middle Name</b></label>
+                  <input type="text" class="custom-input w-100 input-bordered" id="middle_name"
+                    placeholder="Enter Middle Name" formControlName="middle_name">
+                  <div class="text-danger" *ngIf="middle_name?.touched && middle_name?.invalid">
+                    Please write your Middle Name
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="nationality"><b>Nationality</b></label>
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-select formControlName="nationality" [placeholder]="'Pakistani'">
+                      <mat-option *ngFor="let country of countries" [value]="country.name">{{country.name}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <div class="text-danger" *ngIf="nationality?.touched && nationality?.invalid">
+                    Please choose your Nationality
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="row">
+
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="date_of_birth"><b>Date of Birth</b></label>
+                  <mat-form-field appearance="outline" class="w-100">
+                    <input matInput [matDatepicker]="datetPicker" [placeholder]="'04/02/2022'"
+                      (focus)="datetPicker.open()" formControlName="date_of_birth" (dateChange)="formatDate1()">
+                    <mat-datepicker-toggle matSuffix [for]="datetPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #datetPicker></mat-datepicker>
+                  </mat-form-field>
+                  <!-- <div class="text-danger" *ngIf="date_of_birth.touched && date_of_birth.errors?.required">
+                    Please select your Date of Birth
+                  </div> -->
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="address"><b>Address 1</b></label>
+                  <input type="text" class="custom-input w-100 input-bordered" id="address"
+                    placeholder="Enter street address" formControlName="address">
+                  <!-- <div class="text-danger" *ngIf="address.touched && address.errors?.required">
+                    Please write your Address
+                  </div> -->
+                </div>
+              </div>
+
+            </div>
+
+            <div class="row">
+
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="gender"><b>Select Gender</b></label>
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-select formControlName="gender" [placeholder]="'Male'">
+                      <mat-option value="male">Male</mat-option>
+                      <mat-option value="female">Female</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <!-- <div class="text-danger" *ngIf="gender.touched && gender.errors?.required">
+                    Please choose your Gender
+                  </div> -->
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="address2"><b>Address 2 (Optional)</b></label>
+                  <input type="text" class="custom-input w-100 input-bordered" id="address2"
+                    placeholder="Enter street address" formControlName="address2">
+                </div>
+              </div>
+
+            </div>
+
+            <div class="row">
+
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="bio">Add Bio</label>
+                  <textarea class="custom-input w-100 input-bordered" [placeholder]="'Add Bio here... '" rows="3"
+                    formControlName="bio">
+                              </textarea>
+                  <!-- <div class="text-danger" *ngIf="bio.touched && bio.errors?.required">
+                    Please write your Bio
+                  </div> -->
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="postal_code"><b>Postal Code</b></label>
+                  <input type="text" class="custom-input w-100 input-bordered" id="postal_code"
+                    placeholder="Postal Code" formControlName="postal_code">
+                  <!-- <div class="text-danger" *ngIf="postal_code.touched && postal_code.errors?.required">
+                    Please write your Postal Code
+                  </div> -->
+                </div>
+
+                <div class="form-group">
+                  <label for="country"><b>Country</b></label>
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-select formControlName="country" [placeholder]="'Select Country'"
+                      (selectionChange)="loadCities($event)">
+                      <mat-option *ngFor="let country of countries" [value]="country.name">{{country.name}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <!-- <div class="text-danger" *ngIf="country.touched && country.errors?.required">
+                    Please choose your Country
+                  </div> -->
+                </div>
+
+                <div class="form-group">
+                  <label for="city"><b>City</b></label>
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-select formControlName="city" [placeholder]="'Select city'">
+                      <mat-option *ngFor="let city of cities" [value]="city.name">{{city.name}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <!-- <div class="text-danger" *ngIf="city.touched && city.errors?.required">
+                    Please choose your City
+                  </div> -->
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div class="row">
+
+              <div class="col-4"></div>
+
+              <div class="col-4">
+                <div class="form-group mt-4 mb-2">
+                  <button mat-flat-button color="primary" class="py-2 d-block w-100" cdkFocusInitial type="submit"
+                    [disabled]="form.invalid || loading1" (click)="submitFirstForm()"> Save & Continue
+                    <mat-icon class="spinner" *ngIf="loading1">autorenew</mat-icon>
+                  </button>
+                </div>
+              </div>
+
+              <div class="col-4"></div>
+
+            </div>
+
+
+          </div>
+        </form>
+      </ng-container>
+
+      <ng-container *ngIf="secondStep">
+        <form [formGroup]="form2" class="w-100">
+          <div>
+            <h4 class="mb-5 heading">Add Profile Picture</h4>
+
+            <div class="row">
+
+              <div class="col-4"></div>
+
+              <div class="col-4">
+
+                <div class="row">
+
+                  <div class="col-6">
+                    <div class="previewBox">
+                      <img id="output" width="100%" height="150px" />
+                    </div>
+                    <div class="guide1"><b>(Image should be jpeg, jpg, png max:10MB)</b></div>
+                  </div>
+                  <div class="col-6">
+                    <div style="height:0px;overflow:hidden">
+                      <input type="file" #filePicker1 id="fileInput" name="fileInput"
+                        (change)="uploadProfilePic($event)" />
+                    </div>
+                    <div class="form-group mt-4 mb-2">
+                      <button mat-flat-button color="primary" class="py-2 d-block w-100" cdkFocusInitial type="submit"
+                        [disabled]="subloading1" (click)="filePicker1.click(); subloading1 = true"> Upload
+                        <mat-icon class="spinner" *ngIf="subloading1">autorenew</mat-icon>
+                      </button>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div class="col-4"></div>
+
+
+
+            </div>
+
+            <br>
+            <br>
+
+            <h4 class="mb-5 heading">Add Cover Image</h4>
+
+            <div class="row">
+
+              <div class="col-3"></div>
+
+              <div class="col-6">
+
+                <div class="row">
+
+                  <div class="col-12">
+                    <div class="coverPreview">
+                      <img id="output2" width="100%" height="200px" />
+                    </div>
+                    <div class="guide1"><b>(Image should be jpeg, jpg, png max:10MB)</b></div>
+                  </div>
+
+                  <div class="col-4"></div>
+
+                  <div class="col-4">
+                    <div style="height:0px;overflow:hidden">
+                      <input type="file" #filePicker2 id="fileInput2" name="fileInput2"
+                        (change)="uploadCoverPic($event)" />
+                    </div>
+                    <div class="form-group mt-4 mb-2">
+                      <button mat-flat-button color="primary" class="py-2 d-block w-100" cdkFocusInitial type="submit"
+                        [disabled]="subloading2" (click)="filePicker2.click(); subloading2 = true"> Upload
+                        <mat-icon class="spinner" *ngIf="subloading2">autorenew</mat-icon>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="col-4"></div>
+
+                </div>
+
+              </div>
+
+              <div class="col-3"></div>
+
+            </div>
+
+            <div class="row">
+
+              <div class="col-4"></div>
+
+              <div class="col-4">
+                <div class="form-group mt-4 mb-2">
+                  <button mat-flat-button color="primary" class="py-2 d-block w-100" cdkFocusInitial type="submit"
+                    [disabled]="!profilePic || !coverPic || loading2" (click)="submitSecondForm()"> Save & Continue
+                    <mat-icon class="spinner" *ngIf="loading2">autorenew</mat-icon>
+                  </button>
+                </div>
+              </div>
+
+              <div class="col-4"></div>
+
+            </div>
+
+          </div>
+        </form>
+      </ng-container>
+
+      <ng-container *ngIf="thirdStep">
+        <form [formGroup]="form3" class="w-100">
+          <div>
+            <h4 class="mb-5 heading">PROVIDE YOUR QUALIFICATION DETAILS</h4>
+
+            <div class="row">
+
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="name_of_university"><b>Name of University</b></label>
+                  <input type="text" class="custom-input w-100 input-bordered" id="name_of_university"
+                    placeholder="Enter Name" formControlName="name_of_university">
+                  <!-- <div class="text-danger" *ngIf="name_of_university.touched && name_of_university.errors?.required">
+                    Please write your University Name
+                  </div> -->
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="computer_skills"><b>Computer Skills</b></label>
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-select formControlName="computer_skills" [placeholder]="'Above Average'">
+                      <mat-option value="Average">Average</mat-option>
+                      <mat-option value="Above Average">Above Average</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <!-- <div class="text-danger" *ngIf="computer_skills.touched && computer_skills.errors?.required">
+                    Please choose your Computer Skills Level
+                  </div> -->
+                </div>
+              </div>
+
+            </div>
+
+            <div class="row">
+
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="degree_level"><b>Degree Level</b></label>
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-select formControlName="degree_level" [placeholder]="'Select Degree Level'">
+                      <mat-option value="Masters">Masters</mat-option>
+                      <mat-option value="Bachlors">Bachlors</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <!-- <div class="text-danger" *ngIf="degree_level.touched && degree_level.errors?.required">
+                    Please choose your Degree Level
+                  </div> -->
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="teaching_experience"><b>Teaching Experience</b></label>
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-select formControlName="teaching_experience" [placeholder]="'Select Years'">
+                      <mat-option value="1 Year">1 Year</mat-option>
+                      <mat-option value="2 Years">2 Years</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <!-- <div class="text-danger" *ngIf="teaching_experience.touched && teaching_experience.errors?.required">
+                    Please choose your Years of Teacher Experience
+                  </div> -->
+                </div>
+              </div>
+
+            </div>
+
+            <div class="row">
+
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="degree_field"><b>Degree Field</b></label>
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-select formControlName="degree_field" [placeholder]="'Computer Science'">
+                      <mat-option value="Computer Science">Computer Science</mat-option>
+                      <mat-option value="Mathematics">Mathematics</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <!-- <div class="text-danger" *ngIf="degree_field.touched && degree_field.errors?.required">
+                    Please choose your Degree Field
+                  </div> -->
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="teaching_experience_online"><b>Teaching Experience Online</b></label>
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-select formControlName="teaching_experience_online" [placeholder]="'Select Years'">
+                      <mat-option value="1 Year">1 Year</mat-option>
+                      <mat-option value="2 Years">2 Years</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <!-- <div class="text-danger"
+                    *ngIf="teaching_experience_online.touched && teaching_experience_online.errors?.required">
+                    Please choose your Years of Teacher Experience Online
+                  </div> -->
+                </div>
+              </div>
+
+            </div>
+
+            <div class="row">
+
+              <div class="col-6">
+                <form [formGroup]="language" class="w-100">
+                  <div class="form-group">
+
+                    <label for="spoken_language"><b>Spoken Languages</b></label>
+                    <span class="add" (click)="addLanguage()">Add</span>
+
+                    <ng-container *ngIf="spokenLanguages">
+                      <mat-chip-list aria-label="Fish selection">
+                        <mat-chip *ngFor="let lang of spokenLanguages">
+                          <span>{{lang.language}}</span> - <span class="level">{{lang.level}}</span>
+                          <mat-icon matChipRemove (click)="removeLanguage(lang)">cancel</mat-icon>
+                        </mat-chip>
+                      </mat-chip-list>
+                    </ng-container>
+
+
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-select formControlName="spoken_language" [placeholder]="'Select Language'">
+                        <mat-option value="English">English</mat-option>
+                        <mat-option value="Arabic">Arabic</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <!-- <div class="text-danger" *ngIf="spoken_language.touched && spoken_language.errors?.required">
+                      Please enter your Spoken Language
+                    </div> -->
+                  </div>
+                  <div class="form-group">
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-select formControlName="spoken_language_level" [placeholder]="'Select Level'">
+                        <mat-option value="Basic">Basic</mat-option>
+                        <mat-option value="Conventional">Conventional</mat-option>
+                        <mat-option value="Fluent">Fluent</mat-option>
+                        <mat-option value="Native">Native</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <!-- <div class="text-danger"
+                      *ngIf="spoken_language_level.touched && spoken_language_level.errors?.required">
+                      Please choose level of your Spoken Language
+                    </div> -->
+                  </div>
+                </form>
+              </div>
+
+
+              <div class="col-6">
+
+                <div class="form-group">
+                  <label for="current_employer"><b>Current Employer (Optional)</b></label>
+                  <input type="text" class="custom-input w-100 input-bordered" id="current_employer"
+                    placeholder="Enter Here" formControlName="current_employer">
+                </div>
+                <div class="form-group">
+                  <label for="current_title"><b>Current Title (Optional)</b></label>
+                  <input type="text" class="custom-input w-100 input-bordered" id="current_title"
+                    placeholder="Enter Here" formControlName="current_title">
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="row">
+
+              <div class="col-4"></div>
+
+              <div class="col-4">
+                <div class="form-group mt-4 mb-2">
+                  <button mat-flat-button color="primary" class="py-2 d-block w-100" cdkFocusInitial type="submit"
+                    [disabled]="form3.invalid || loading3 || languageAdded === 0" (click)="submitThirdForm()"> Save &
+                    Continue
+                    <mat-icon class="spinner" *ngIf="loading3">autorenew</mat-icon>
+                  </button>
+                </div>
+              </div>
+
+              <div class="col-4"></div>
+
+            </div>
+
+
+          </div>
+        </form>
+      </ng-container>
+
+      <ng-container *ngIf="fourthStep">
+        <form [formGroup]="form4" class="w-100">
+          <div>
+            <h4 class="mb-5 heading">PROVIDE YOUR TEACHING SPECIFICATIONS</h4>
+
+            <div class="row">
+
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="level_of_education"><b>Level</b></label>
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-select formControlName="level_of_education" [placeholder]="'Select Level'">
+                      <mat-option value="Matric">Matric</mat-option>
+                      <mat-option value="Intermediate">Intermediate</mat-option>
+                      <mat-option value="Bachelors">Bachelors</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <!-- <div class="text-danger" *ngIf="level_of_education.touched && level_of_education.errors?.required">
+                    Please choose your Level
+                  </div> -->
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="expected_salary_per_hour"><b>Expected Salary (Per Hour)</b></label>
+                  <input type="text" class="custom-input w-100 input-bordered" id="expected_salary_per_hour"
+                    placeholder="0" formControlName="expected_salary_per_hour">
+                  <!-- <div class="text-danger"
+                    *ngIf="expected_salary_per_hour.touched && expected_salary_per_hour.errors?.required">
+                    Please write your Expected Salary
+                  </div> -->
+                  <!-- <div class="text-danger"
+                    *ngIf="expected_salary_per_hour.touched && !expected_salary_per_hour.errors?.required && expected_salary_per_hour.errors?.NotANumber">
+                    Please write Valid Expected Salary
+                  </div> -->
+                </div>
+              </div>
+
+            </div>
+
+            <div class="row">
+
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="field_of_study"><b>Field of Study</b></label>
+                  <input type="text" class="custom-input w-100 input-bordered" id="field_of_study"
+                    placeholder="e.g. Business Management" formControlName="field_of_study">
+                  <!-- <div class="text-danger" *ngIf="field_of_study.touched && field_of_study.errors?.required">
+                    Please write your Field of Study
+                  </div> -->
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="availability_start_date"><b>When you are Available to Start?</b></label>
+                  <mat-form-field appearance="outline" class="w-100">
+                    <input matInput [matDatepicker]="datetPicker2" [placeholder]="'04/02/2022'"
+                      (focus)="datetPicker2.open()" formControlName="availability_start_date"
+                      (dateChange)="formatDate2()">
+                    <mat-datepicker-toggle matSuffix [for]="datetPicker2"></mat-datepicker-toggle>
+                    <mat-datepicker #datetPicker2></mat-datepicker>
+                  </mat-form-field>
+                  <!-- <div class="text-danger"
+                    *ngIf="availability_start_date.touched && availability_start_date.errors?.required">
+                    Please select your Availability to Start
+                  </div> -->
+                </div>
+              </div>
+
+            </div>
+
+            <div class="row">
+
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="subject"><b>Select Subject</b></label>
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-select formControlName="subject" [placeholder]="'Math'">
+                      <mat-option value="Math">Math</mat-option>
+                      <mat-option value="Physics">Physics</mat-option>
+                      <mat-option value="Chemistry">Chemistry</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <!-- <div class="text-danger" *ngIf="subject.touched && subject.errors?.required">
+                    Please choose your Subject
+                  </div> -->
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="availability_end_date"><b>Availability End Date</b></label>
+                  <mat-form-field appearance="outline" class="w-100">
+                    <input matInput [matDatepicker]="datetPicker3" [placeholder]="'04/02/2022'"
+                      (focus)="datetPicker3.open()" formControlName="availability_end_date"
+                      (dateChange)="formatDate3()">
+                    <mat-datepicker-toggle matSuffix [for]="datetPicker3"></mat-datepicker-toggle>
+                    <mat-datepicker #datetPicker3></mat-datepicker>
+                  </mat-form-field>
+                  <!-- <div class="text-danger"
+                    *ngIf="availability_end_date.touched && availability_end_date.errors?.required">
+                    Please select your Availability End Date
+                  </div> -->
+                </div>
+              </div>
+
+            </div>
+
+            <div class="row">
+
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="subject"><b>Type of Tutoring</b></label>
+                  <br>
+                  <label>
+                    <input type="radio" value="One-on-one" formControlName="type_of_tutoring">
+                    &nbsp;<span>One-on-one</span>
+                  </label>
+                  <br>
+                  <label>
+                    <input type="radio" value="Group" formControlName="type_of_tutoring">
+                    &nbsp;<span>Group</span>
+                  </label>
+                  <br>
+                  <label>
+                    <input type="radio" value="Both" formControlName="type_of_tutoring">
+                    &nbsp;<span>Both</span>
+                  </label>
+                  <br>
+                  <!-- <div class="text-danger" *ngIf="type_of_tutoring.touched && type_of_tutoring.errors?.required">
+                    Please select Type of Tutoring
+                  </div> -->
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="teaching_days"><b>How many days per week are you available? </b></label>
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-select formControlName="teaching_days" [placeholder]="'Select Days'">
+                      <mat-option value="Monday">Monday</mat-option>
+                      <mat-option value="Tuesday">Tuesday</mat-option>
+                      <mat-option value="Wednesday">Wednesday</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <!-- <div class="text-danger" *ngIf="teaching_days.touched && teaching_days.errors?.required">
+                    Please choose your Teaching Days
+                  </div> -->
+                </div>
+              </div>
+
+            </div>
+
+            <div class="row">
+
+              <div class="col-6">
+              </div>
+
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="teaching_hours"><b>Availability Per Day </b></label>
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-select formControlName="teaching_hours" [placeholder]="'Select Hours'">
+                      <mat-option value="5 Hours">5 Hours</mat-option>
+                      <mat-option value="6 Hours">6 Hours</mat-option>
+                      <mat-option value="7 Hours">7 Hours</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <!-- <div class="text-danger" *ngIf="teaching_hours.touched && teaching_hours.errors?.required">
+                    Please choose your Teaching Hours
+                  </div> -->
+                </div>
+              </div>
+
+            </div>
+
+            <div class="row">
+
+              <div class="col-4"></div>
+
+              <div class="col-4">
+                <div class="form-group mt-4 mb-2">
+                  <button mat-flat-button color="primary" class="py-2 d-block w-100" cdkFocusInitial type="submit"
+                    [disabled]="form4.invalid || loading4" (click)="submitFourthForm()"> Finish
+                    <mat-icon class="spinner" *ngIf="loading4">autorenew</mat-icon>
+                  </button>
+                </div>
+              </div>
+
+              <div class="col-4"></div>
+
+            </div>
+
+
+          </div>
+        </form>
+      </ng-container>
+    </div>
+  </div>
+</div>

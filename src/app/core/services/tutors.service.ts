@@ -9,9 +9,13 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class TutorsService {
-  mainLink = environment.API_URL + 'tutor/';
+  mainLink = environment.API_URL + 'teacher/';
 
   constructor(private http: HttpClient) {}
+
+  sendTeacherAccount(data: any): Observable<any> {
+    return this.http.post<any>(`${this.mainLink}/complete-account`, data);
+  }
 
   fetchFeaturedTutors(): Observable<any> {
     return this.http
