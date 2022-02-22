@@ -32,8 +32,8 @@ export class StudentCreateTicketComponent implements OnInit, OnDestroy {
   ) {
     this.supportForm = this._fb.group({
       type: [null, Validators.required],
-      title: [null, [Validators.required, this.noWhitespaceValidator]],
-      description: [null, [Validators.required, this.noWhitespaceValidator]],
+      title: [null, Validators.required],
+      description: [null, Validators.required],
       file: [null],
     });
   }
@@ -47,12 +47,6 @@ export class StudentCreateTicketComponent implements OnInit, OnDestroy {
       () => {}
     );
     this.ticketsList = getLookups().ticketTypes;
-  }
-
-  noWhitespaceValidator(control: FormControl) {
-    let isWhitespace = (control.value || '').trim().length === 0;
-    let isValid = !isWhitespace;
-    return isValid ? null : { whitespace: true };
   }
 
   onFileUpload(event: any): void {

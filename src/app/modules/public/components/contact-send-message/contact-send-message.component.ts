@@ -30,14 +30,11 @@ export class ContactSendMessageComponent implements OnInit {
     private _alertNotificationService: AlertNotificationService
   ) {
     this.contactForm = this._fb.group({
-      name: [null, [Validators.required, this.noWhitespaceValidator]],
-      email: [
-        null,
-        [Validators.required, Validators.email, this.noWhitespaceValidator],
-      ],
+      name: [null, Validators.required],
+      email: [null, [Validators.required, Validators.email]],
       companyName: [null],
-      subject: [null, this.noWhitespaceValidator],
-      message: [null, [Validators.required, this.noWhitespaceValidator]],
+      subject: [null],
+      message: [null, Validators.required],
       file: [null],
     });
   }
@@ -49,12 +46,6 @@ export class ContactSendMessageComponent implements OnInit {
     };
 
     this.initOverlays();
-  }
-
-  noWhitespaceValidator(control: FormControl) {
-    let isWhitespace = (control.value || '').trim().length === 0;
-    let isValid = !isWhitespace;
-    return isValid ? null : { whitespace: true };
   }
 
   initOverlays(): void {

@@ -41,7 +41,6 @@ export class SigninComponent implements OnInit, OnDestroy {
           Validators.required,
           Validators.email,
           this.maxCharacterValidator,
-          this.noWhitespaceValidator,
         ],
       ],
       password: [
@@ -50,7 +49,6 @@ export class SigninComponent implements OnInit, OnDestroy {
           Validators.required,
           this.maxCharacterValidator,
           this.minPasswordValidation,
-          this.noWhitespaceValidator,
         ],
       ],
       rememberMe: [null],
@@ -65,12 +63,6 @@ export class SigninComponent implements OnInit, OnDestroy {
 
   get password(): AbstractControl | null {
     return this.signinForm.get('password');
-  }
-
-  public noWhitespaceValidator(control: FormControl) {
-    let isWhitespace = (control.value || '').trim().length === 0;
-    let isValid = !isWhitespace;
-    return isValid ? null : { whitespace: true };
   }
 
   public maxCharacterValidator(control: FormControl) {

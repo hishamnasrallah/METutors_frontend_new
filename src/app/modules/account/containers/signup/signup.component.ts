@@ -104,7 +104,6 @@ export class SignupComponent implements OnInit, OnDestroy {
           Validators.pattern("^[a-zA-Z -']+"),
           this.minCharacterValidator,
           this.maxCharacterValidator,
-          this.noWhitespaceValidator,
         ],
       ],
       lastName: [
@@ -114,7 +113,6 @@ export class SignupComponent implements OnInit, OnDestroy {
           Validators.pattern("^[a-zA-Z -']+"),
           this.minCharacterValidator,
           this.maxCharacterValidator,
-          this.noWhitespaceValidator,
         ],
       ],
       email: [
@@ -123,7 +121,6 @@ export class SignupComponent implements OnInit, OnDestroy {
           Validators.required,
           Validators.email,
           this.maxCharacterValidator,
-          this.noWhitespaceValidator,
         ],
       ],
       mobileNumber: [null, []],
@@ -133,7 +130,6 @@ export class SignupComponent implements OnInit, OnDestroy {
           Validators.required,
           this.maxCharacterValidator,
           this.minPasswordValidation,
-          this.noWhitespaceValidator,
         ],
       ],
       c_password: [
@@ -142,7 +138,6 @@ export class SignupComponent implements OnInit, OnDestroy {
           Validators.required,
           this.maxCharacterValidator,
           this.minPasswordValidation,
-          this.noWhitespaceValidator,
         ],
       ],
     });
@@ -164,12 +159,6 @@ export class SignupComponent implements OnInit, OnDestroy {
       } else {
       }
     });
-  }
-
-  noWhitespaceValidator(control: FormControl) {
-    let isWhitespace = (control.value || '').trim().length === 0;
-    let isValid = !isWhitespace;
-    return isValid ? null : { whitespace: true };
   }
 
   minCharacterValidator(control: FormControl) {
