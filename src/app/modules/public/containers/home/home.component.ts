@@ -43,6 +43,7 @@ export class HomeComponent implements OnInit {
 
     this.teachers = [
       {
+        id: 1,
         avatar: '',
         status: 'Online',
         name: 'Anna Mendez',
@@ -59,6 +60,7 @@ export class HomeComponent implements OnInit {
         ],
       },
       {
+        id: 2,
         avatar: '',
         status: 'Online',
         name: 'Anna Mendez',
@@ -75,6 +77,7 @@ export class HomeComponent implements OnInit {
         ],
       },
       {
+        id: 3,
         avatar: '',
         status: 'Online',
         name: 'Anna Mendez',
@@ -91,6 +94,7 @@ export class HomeComponent implements OnInit {
         ],
       },
       {
+        id: 4,
         avatar: '',
         status: 'Online',
         name: 'Anna Mendez',

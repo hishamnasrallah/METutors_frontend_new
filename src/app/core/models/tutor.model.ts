@@ -3,7 +3,7 @@ import { ILanguage, IReview, ISubject } from ".";
 
 
 export class ITutor {
-  id?: number;
+  id!: number;
   name?: string;
   username?: string;
   firstName?: string;

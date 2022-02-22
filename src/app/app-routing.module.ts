@@ -15,6 +15,11 @@ const routes: Routes = [
       import('./modules/account/account.module').then((m) => m.AccountModule),
   },
   {
+    path: 'requests',
+    loadChildren: () =>
+      import('./modules/requests/requests.module').then((m) => m.RequestsModule),
+  },
+  {
     path: 'profile',
     loadChildren: () =>
       import('./modules/profile/profile.module').then((m) => m.ProfileModule),
