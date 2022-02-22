@@ -1,46 +1,53 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { addMisc, getMisc } from 'src/app/config';
-import { MiscService } from 'src/app/core/services';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'metutors-student-success',
   templateUrl: './student-success.component.html',
   styleUrls: ['./student-success.component.scss'],
 })
-export class StudentSuccessComponent implements OnInit, OnDestroy {
-  testmonials: any[] = [];
-  whyTeachingUsList: any[] = [];
-  getWhyTeachingUsSub?: Subscription;
-  getFeaturedTestmonialsSub?: Subscription;
+export class StudentSuccessComponent implements OnInit {
+  testmonials?: any[];
 
-  constructor(private _miscService: MiscService) {}
+  constructor() {}
 
   ngOnInit(): void {
-    this.getWhyTeachingUsSub = this._miscService.fetchWhyTeachingUs().subscribe(
-      (fetchedValues) => {
-        this.whyTeachingUsList = fetchedValues.results;
-        addMisc('whyTeachingUsList', this.whyTeachingUsList);
+    this.testmonials = [
+      {
+        id: 1,
+        rate: 5,
+        content:
+          'I received great customer service from the specialists who helped me. I would recommend to anyone who wants quality.',
+        picture: '',
+        postedBy: 'Viola Manisa',
+        isVerified: true,
       },
-      () => {}
-    );
-
-    this.whyTeachingUsList = getMisc().whyTeachingUsList;
-
-    this.getFeaturedTestmonialsSub = this._miscService
-      .fetchTestmonials()
-      .subscribe(
-        (fetchedTestmonials) => {
-          this.testmonials = fetchedTestmonials.results;
-          addMisc('testmonials', this.testmonials);
-        },
-        () => {}
-      );
-    this.testmonials = getMisc().testmonials;
-  }
-
-  ngOnDestroy(): void {
-    this.getWhyTeachingUsSub?.unsubscribe();
-    this.getFeaturedTestmonialsSub?.unsubscribe();
+      {
+        id: 1,
+        rate: 5,
+        content:
+          "Very responsive and competent! I've never dealt with annsurance company this customer-friendly in my entire life.",
+        picture: '',
+        postedBy: 'Bryan Arnoldy',
+        isVerified: true,
+      },
+      {
+        id: 1,
+        rate: 5,
+        content:
+          'My experience with this platform so far has been great. Everything is easy, from signing the contract to making an appointment.',
+        picture: '',
+        postedBy: 'Joshua William',
+        isVerified: true,
+      },
+      {
+        id: 1,
+        rate: 5,
+        content:
+          "It's the best online insurance you can find. Easy, without hidden costs and you can be very sure. our data is completely save.",
+        picture: '',
+        postedBy: 'George Scott',
+        isVerified: true,
+      },
+    ];
   }
 }

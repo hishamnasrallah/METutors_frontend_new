@@ -94,3 +94,50 @@
     }
   }
 }
+
+.dropdown-menu {
+  border: none;
+  border-radius: 6px;
+  box-shadow: 0 16px 30px 0 rgb(0 0 0 / 5%);
+
+  .name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #1a1714;
+  }
+
+  .email {
+    font-size: 12px;
+    color: #4c453d;
+  }
+
+  .dropdown-item.active,
+  .dropdown-item:active {
+    color: #1e2125;
+    background-color: #e9ecef;
+  }
+
+  .dropdown-divider {
+    border-top: 1px solid rgba(153, 138, 122, 0.4);
+  }
+
+  .dropdown-item {
+    font-size: 16px;
+    font-weight: 500;
+    color: #182522;
+    padding: 9px 20px;
+  }
+
+  .button-auth {
+    font-weight: bold;
+    padding: 10px 0;
+  }
+
+  .book-class {
+    padding: 0 10px;
+
+    .login {
+      color: #FFF;
+    }
+  }
+}

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg text-16 sticky-top" id="home-header">
+<nav class="navbar navbar-expand-lg text-16 sticky-top d-none d-lg-block" id="home-header">
   <div class="container">
     <div class="d-flex flex-grow-1 mobile_menu">
       <span class="w-100 d-lg-none d-block"></span>
@@ -6,12 +6,12 @@
         <img alt="logo" src="assets/logo/logo-dark.png" width="200px" draggable="false">
       </a>
     </div>
-    <div class="flex-grow-1">
+    <div class="flex-grow-1 collapse navbar-collapse">
       <ul class="navbar-nav ms-auto flex-nowrap float-end">
         <li class="nav-item">
-          <a class="nav-link nav-item-link" [matMenuTriggerFor]="serviceMenu">
+          <a class="nav-link nav-item-link" routerLink="/" routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact: true}">
             Services
-            <img src="assets/svg/b-chevron.svg" alt="" draggable="false">
           </a>
         </li>
         <li class="nav-item">
@@ -55,6 +55,55 @@
   </div>
 </nav>
 
-<mat-menu #serviceMenu="matMenu">
-  <a [routerLink]="'/' + cat?.slug" mat-menu-item *ngFor="let cat of categories">{{ cat?.name }}</a>
-</mat-menu>
+<nav class="navbar navbar-expand-lg navbar-light sticky-top py-3 card d-block d-lg-none"
+  data-navbar-on-scroll="data-navbar-on-scroll">
+  <div class="container" dropdown>
+    <a class="navbar-brand" routerLink="/">
+      <img src="assets/logo/logo-dark.png" alt="" width="146" />
+    </a>
+    <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" dropdownToggle
+      data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+      aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span>
+    </button>
+
+    <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu dropdown-menu-left w-100-sm" role="menu"
+      aria-labelledby="button-basic">
+      <li role="menuitem">
+        <a class="dropdown-item" routerLink="/" routerLinkActive="active"
+          [routerLinkActiveOptions]="{exact: true}">Services</a>
+      </li>
+      <li role="menuitem">
+        <a class="dropdown-item" routerLink="/student-success" routerLinkActive="active">Student Success</a>
+      </li>
+      <li role="menuitem">
+        <a class="dropdown-item" routerLink="/become-tutor" routerLinkActive="active">Become A Tutor</a>
+      </li>
+      <li role="menuitem" *ngIf="authService.getIsAuth()">
+        <a class="dropdown-item" [routerLink]="'/' + authService.getIsStudentAuth() ? 'student' : 'tutor'"
+          routerLinkActive="active">My Classroom</a>
+      </li>
+      <li role="menuitem">
+        <a class="dropdown-item" routerLinkActive="active">
+          <img src="assets/svg/language.svg" alt="" draggable="false">
+          <span class="mx-2">En</span>
+          <img src="assets/svg/b-chevron.svg" alt="" draggable="false">
+        </a>
+      </li>
+      <li role="menuitem" class="book-class">
+        <a class="dropdown-item link-btn login" mat-flat-button color="primary" routerLink="/become-tutor"
+          routerLinkActive="active">Book a Class</a>
+      </li>
+
+      <li class="divider dropdown-divider"></li>
+
+      <li role="menuitem" *ngIf="!authService.getIsAuth()">
+        <a class="main-btn rounded-pill order-0 w-100 button-auth text-center" type="button" routerLink="/signin" routerLinkActive="active">
+          Sign in
+        </a>
+      </li>
+      <li role="menuitem" *ngIf="authService.getIsAuth()">
+        <a class="secondary-btn mt-2 w-100 button-auth text-center" type="button" (click)="logout()">Logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>

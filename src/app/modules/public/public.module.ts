@@ -10,8 +10,10 @@ import { VgCoreModule } from '@videogular/ngx-videogular/core';
 import { VgControlsModule } from '@videogular/ngx-videogular/controls';
 import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
 import { VgBufferingModule } from '@videogular/ngx-videogular/buffering';
-import { GMapModule } from 'primeng/gmap';
 import { ContactService, SupportService } from 'src/app/core/services';
+import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
+import { NgxPageScrollModule } from 'ngx-page-scroll';
+import { GMapModule } from 'primeng/gmap';
 import {
   CourseItemModule,
   CourseItemHorizentalModule,
@@ -135,8 +137,10 @@ import {
     ReactiveFormsModule,
     PublicRoutingModule,
     VgOverlayPlayModule,
+    NgxPageScrollModule,
     RatingModule.forRoot(),
     CourseItemHorizentalModule,
+    NgxPageScrollCoreModule.forRoot({ duration: 1600 }),
   ],
   providers: [ContactService, SupportService],
 })

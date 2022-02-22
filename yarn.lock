@@ -4372,6 +4372,20 @@
   dependencies:
     "tslib" "^2.3.0"
 
+"ngx-page-scroll-core@^8.0.0":
+  "integrity" "sha512-s666ihzAZYibaXouEidClzYQBf8BlRsV6A6kAw4YppVCmpyIp+1sI0ECTa+QZqBMxyLBBmpNfGaaiS2HoeUHoQ=="
+  "resolved" "https://registry.npmjs.org/ngx-page-scroll-core/-/ngx-page-scroll-core-8.0.0.tgz"
+  "version" "8.0.0"
+  dependencies:
+    "tslib" "^2.0.0"
+
+"ngx-page-scroll@^8.0.0":
+  "integrity" "sha512-wJFg/IUBCvTeDZtYhHGJJ1Bx/3NxvU+FUGQkz4XEN3+hYLcs+i1HN7ZSBQBeeIqNPv8Pi96jlcm+HmIqMzmq0g=="
+  "resolved" "https://registry.npmjs.org/ngx-page-scroll/-/ngx-page-scroll-8.0.0.tgz"
+  "version" "8.0.0"
+  dependencies:
+    "tslib" "^2.0.0"
+
 "ngx-progressbar@^7.0.0":
   "integrity" "sha512-bMijVbRLgVHkX+iQZzDyMi3ZZ2ClZKgDaZZQ6RF3f5o6iw7LvH1sM2SKnWk1IFzf+U3iOA59elvG7lDs1Wn9vQ=="
   "resolved" "https://registry.npmjs.org/ngx-progressbar/-/ngx-progressbar-7.0.0.tgz"

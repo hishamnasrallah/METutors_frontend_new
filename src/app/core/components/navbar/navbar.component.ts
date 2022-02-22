@@ -1,7 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SocialAuthService } from 'angularx-social-login';
-import { ICategory } from '../../models';
 import { AuthService } from '../../services';
 
 @Component({
@@ -10,8 +9,6 @@ import { AuthService } from '../../services';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-  @Input() categories?: ICategory[];
-
   admin = false;
   isRefereshed = true;
   isRememberedUser = false;

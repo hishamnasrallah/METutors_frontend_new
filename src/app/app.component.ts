@@ -13,8 +13,6 @@ import { DOCUMENT } from '@angular/common';
 import { NgProgressRef, NgProgress } from '@ngx-progressbar/core';
 import { Title } from '@angular/platform-browser';
 import { filter, map, mergeMap, Subscription } from 'rxjs';
-import { CoursesService } from './core/services';
-import { ICategory } from './core/models';
 
 @Component({
   selector: 'metutors-root',
@@ -24,16 +22,13 @@ import { ICategory } from './core/models';
 export class AppComponent implements OnInit, OnDestroy {
   layout?: any;
   progressRef: NgProgressRef;
-  categories: ICategory[] = [];
   routerSubscription$: Subscription;
-  fetchMainServicesSub?: Subscription;
 
   constructor(
     private _title: Title,
     private _router: Router,
     private _progress: NgProgress,
     private _route: ActivatedRoute,
-    private _coursesService: CoursesService,
     @Inject(DOCUMENT) private _document: Document
   ) {
     moment.locale('en');
@@ -66,17 +61,10 @@ export class AppComponent implements OnInit, OnDestroy {
         if (this.layout?.title) this._title.setTitle(this.layout.title);
         else this._title.setTitle('MEtutors');
       });
-
-    this.fetchMainServicesSub = this._coursesService
-      .fetchMainServices()
-      .subscribe((response) => {
-        this.categories = response.results;
-      });
   }
 
   ngOnDestroy(): void {
     this.routerSubscription$?.unsubscribe();
-    this.fetchMainServicesSub?.unsubscribe();
   }
 
   private _navigationInterceptor(event: RouterEvent): void {
