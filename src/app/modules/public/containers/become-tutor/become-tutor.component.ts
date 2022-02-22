@@ -1,90 +1,121 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { addMisc, getMisc } from 'src/app/config';
-import { IStatistics } from 'src/app/core/models';
-import { MiscService } from 'src/app/core/services';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'metutors-become-tutor',
   templateUrl: './become-tutor.component.html',
   styleUrls: ['./become-tutor.component.scss'],
 })
-export class BecomeTutorComponent implements OnInit, OnDestroy {
+export class BecomeTutorComponent implements OnInit {
   step?: string;
-  becomeTutors: any;
-  opportunities = [];
   selectedCourse: any;
-  whyTeachingUsList: any[] = [];
-  requestCoursesList: any[] = [];
-  tutorStatistics?: IStatistics[];
-  getBecomeTutorsSub?: Subscription;
-  getOpportunitiesSub?: Subscription;
-  getWhyTeachingUsSub?: Subscription;
-  getTutorStatisticsSub?: Subscription;
-  getRequestCoursesListSub?: Subscription;
+  opportunities?: any[];
+  whyTeachingUsList?: any[];
+  requestCoursesList?: any[];
 
-  constructor(private _miscService: MiscService) {}
+  constructor() {}
 
   ngOnInit(): void {
-    this.getBecomeTutorsSub = this._miscService.fetchBecomeTutors().subscribe(
-      (fetchedValues) => {
-        this.becomeTutors = fetchedValues;
-        addMisc('becomeTutors', this.becomeTutors);
+    this.whyTeachingUsList = [
+      {
+        id: 1,
+        value: 'Very competitive prices',
       },
-      () => {}
-    );
-    this.becomeTutors = getMisc().becomeTutors;
-
-    this.getTutorStatisticsSub = this._miscService
-      .fetchTutorStatistics()
-      .subscribe(
-        (fetchedTutor) => {
-          this.tutorStatistics = fetchedTutor;
-          addMisc('tutorStatistics', this.tutorStatistics);
-        },
-        () => {}
-      );
-    this.tutorStatistics = getMisc().tutorStatistics;
-
-    this.getOpportunitiesSub = this._miscService.fetchOpportunities().subscribe(
-      (fetchedOpportunities) => {
-        this.opportunities = fetchedOpportunities.results;
-        addMisc('opportunities', this.opportunities);
+      {
+        id: 2,
+        value: 'Personalized course design',
       },
-      () => {}
-    );
-    this.opportunities = getMisc().opportunities;
-
-    this.getRequestCoursesListSub = this._miscService
-      .fetchRequestCoursesList()
-      .subscribe(
-        (fetchedValues) => {
-          this.requestCoursesList = fetchedValues.results;
-          if (this.requestCoursesList && this.requestCoursesList.length) {
-            this.selectedCourse = this.requestCoursesList[0];
-            this.step = 'STEP' + this.selectedCourse?.id;
-          }
-          addMisc('requestCoursesList', this.requestCoursesList);
-        },
-        () => {}
-      );
-    this.requestCoursesList = getMisc().requestCoursesList;
-
-    this.getWhyTeachingUsSub = this._miscService.fetchWhyTeachingUs().subscribe(
-      (fetchedValues) => {
-        this.whyTeachingUsList = fetchedValues.results;
-        addMisc('whyTeachingUsList', this.whyTeachingUsList);
+      {
+        id: 3,
+        value: 'Powerful online tools and technology',
       },
-      () => {}
-    );
-    this.whyTeachingUsList = getMisc().whyTeachingUsList;
-  }
+      {
+        id: 4,
+        value: 'Highly trained and dynamic instructors',
+      },
+      {
+        id: 5,
+        value: 'Flexible scheduling for people on the go',
+      },
+      {
+        id: 6,
+        value: 'Attentive and responsive customer support',
+      },
+      {
+        id: 7,
+        value: 'Provide a relax yet professional learning environment',
+      },
+      {
+        id: 8,
+        value: 'Innovative, stimulating and efficacious lessons',
+      },
+    ];
 
-  ngOnDestroy(): void {
-    this.getBecomeTutorsSub?.unsubscribe();
-    this.getTutorStatisticsSub?.unsubscribe();
-    this.getOpportunitiesSub?.unsubscribe();
-    this.getRequestCoursesListSub?.unsubscribe();
-    this.getWhyTeachingUsSub?.unsubscribe();
+    this.requestCoursesList = [
+      {
+        id: 1,
+        number: 'Step one',
+        title: 'Become a tutor',
+        content:
+          'long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has page when looking at its layout. The point of using Lorem.',
+        videoUrl: 'http://static.videogular.com/a',
+      },
+      {
+        id: 2,
+        number: 'Step two',
+        title: 'Complete course details',
+        content:
+          'long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has page when looking at its layout. The point of using Lorem.',
+        videoUrl: 'http://static.videogular.com/a',
+      },
+      {
+        id: 3,
+        number: 'Step three',
+        title: 'Submit your request for approval ',
+        content:
+          'long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has page when looking at its layout. The point of using Lorem.',
+        videoUrl: 'http://static.videogular.com/a',
+      },
+      {
+        id: 4,
+        number: 'Step four',
+        title: 'Start teaching',
+        content:
+          'long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has page when looking at its layout. The point of using Lorem.',
+        videoUrl: 'http://static.videogular.com/a',
+      },
+    ];
+    this.selectedCourse = this.requestCoursesList[0];
+    this.step = 'STEP' + this.selectedCourse?.id;
+
+    this.opportunities = [
+      {
+        id: 1,
+        picture: '',
+        content:
+          'I owe these guys my life. Already used their landing page templates for my latest two projects.',
+        postedBy: '@thepatwalls',
+      },
+      {
+        id: 2,
+        picture: '',
+        content:
+          "Time is the most precious thing you have when bootstrapping. You can't take time to ponder on design",
+        postedBy: '@thepatwalls',
+      },
+      {
+        id: 3,
+        picture: '',
+        content:
+          'I owe these guys my life. Already used their landing page templates for my latest two projects.',
+        postedBy: '@thepatwalls',
+      },
+      {
+        id: 4,
+        picture: '',
+        content:
+          'I owe these guys my life. Already used their landing page templates for my latest two projects.',
+        postedBy: '@thepatwalls',
+      },
+    ];
   }
 }

@@ -7,7 +7,7 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
   styleUrls: ['./loving-opportunities.component.scss'],
 })
 export class LovingOpportunitiesComponent implements OnInit {
-  @Input() opportunities: any[] = [];
+  @Input() opportunities?: any[];
 
   customOptions: OwlOptions = {
     loop: false,

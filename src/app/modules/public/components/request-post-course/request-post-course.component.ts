@@ -8,7 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class RequestPostCourseComponent implements OnInit {
   @Input() step?: string;
   @Input() selectedCourse: any;
-  @Input() requestCoursesList: any[] = [];
+  @Input() requestCoursesList?: any[];
 
   constructor() {}
 

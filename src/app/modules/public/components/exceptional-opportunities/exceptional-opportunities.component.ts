@@ -1,5 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { IStatistics } from 'src/app/core/models';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'metutors-exceptional-opportunities',
@@ -7,8 +6,6 @@ import { IStatistics } from 'src/app/core/models';
   styleUrls: ['./exceptional-opportunities.component.scss'],
 })
 export class ExceptionalOpportunitiesComponent implements OnInit {
-  @Input() tutorStatistics?: IStatistics[];
-
   constructor() {}
 
   ngOnInit(): void {}

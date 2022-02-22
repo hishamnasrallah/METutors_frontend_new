@@ -21,7 +21,7 @@
           <ng-template carouselSlide *ngFor="let opportunity of opportunities">
             <div class="row card-item">
               <div class="col-md-4">
-                <img [src]="opportunity?.profile_pic" meTutorsDefaultAvatar alt="" width="90px" height="90px"
+                <img [src]="opportunity?.picture" meTutorsDefaultAvatar alt="" width="90px" height="90px"
                   class="img-avatar">
               </div>
 
@@ -30,7 +30,7 @@
                   {{ opportunity?.content }}
                 </p>
 
-                <h3>- {{ opportunity?.posted_by }}</h3>
+                <h3>- {{ opportunity?.postedBy }}</h3>
               </div>
             </div>
           </ng-template>

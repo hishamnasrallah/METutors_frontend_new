@@ -6,7 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./why-teaching-us.component.scss'],
 })
 export class WhyTeachingUsComponent implements OnInit {
-  @Input() whyTeachingUsList: any[] = [];
+  @Input() whyTeachingUsList?: any[];
 
   constructor() {}
 
