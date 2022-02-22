@@ -6,11 +6,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Router } from '@angular/router';
-import { AuthService, UsersService } from 'src/app/core/services';
+import { UsersService } from 'src/app/core/services';
 
 @Component({
-  selector: 'app-roles-select',
+  selector: 'metutors-roles-select',
   templateUrl: './roles-select.component.html',
   styleUrls: ['./roles-select.component.scss'],
 })

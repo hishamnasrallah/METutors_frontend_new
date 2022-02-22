@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
   AbstractControl,
+  FormControl,
   FormGroup,
   ValidationErrors,
   ValidatorFn,
@@ -51,5 +52,26 @@ export class FormValidationUtilsService {
 
       return words.length < 2 ? { multipleWords: true } : null;
     };
+  }
+
+  minCharacterValidator(control: FormControl) {
+    let value = (control.value || '').trim().length;
+    let less = value < 3;
+
+    return less ? { minlength: true } : null;
+  }
+
+  minPasswordValidation(control: FormControl) {
+    let value = (control.value || '').trim().length;
+    let less = value < 8;
+
+    return less ? { minlength: true } : null;
+  }
+
+  maxCharacterValidator(control: FormControl) {
+    let value = (control.value || '').trim().length;
+    let greater = value > 100;
+
+    return greater ? { maxlength: true } : null;
   }
 }

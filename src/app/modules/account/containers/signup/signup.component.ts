@@ -15,6 +15,7 @@ import { Subscription } from 'rxjs';
 import { AlertNotificationService } from 'src/app/core/components';
 import { IRole } from 'src/app/core/models';
 import { AuthService, UsersService } from 'src/app/core/services';
+import { FormValidationUtilsService } from 'src/app/core/validators';
 import { RolesSelectComponent } from '../../components';
 
 @Component({
@@ -44,7 +45,6 @@ export class SignupComponent implements OnInit, OnDestroy {
   numberOnly = true;
   minPhone = true;
   maxPhone = true;
-  passwordSame = true;
   subloading: boolean = false;
   reloading: boolean = false;
   sendEmailSub?: Subscription;
@@ -88,59 +88,63 @@ export class SignupComponent implements OnInit, OnDestroy {
   };
 
   constructor(
-    private _fb: FormBuilder,
-    private _authService: AuthService,
-    private _dialog: MatDialog,
     private _router: Router,
-    private _userService: UsersService,
+    private _fb: FormBuilder,
+    private _dialog: MatDialog,
     private _route: ActivatedRoute,
+    private _authService: AuthService,
+    private _userService: UsersService,
+    private _fv: FormValidationUtilsService,
     private _alertNotificationService: AlertNotificationService
   ) {
-    this.signupForm = this._fb.group({
-      firstName: [
-        null,
-        [
-          Validators.required,
-          Validators.pattern("^[a-zA-Z -']+"),
-          this.minCharacterValidator,
-          this.maxCharacterValidator,
+    this.signupForm = this._fb.group(
+      {
+        firstName: [
+          null,
+          [
+            Validators.required,
+            Validators.pattern("^[a-zA-Z -']+"),
+            this._fv.minCharacterValidator,
+            this._fv.maxCharacterValidator,
+          ],
         ],
-      ],
-      lastName: [
-        null,
-        [
-          Validators.required,
-          Validators.pattern("^[a-zA-Z -']+"),
-          this.minCharacterValidator,
-          this.maxCharacterValidator,
+        lastName: [
+          null,
+          [
+            Validators.required,
+            Validators.pattern("^[a-zA-Z -']+"),
+            this._fv.minCharacterValidator,
+            this._fv.maxCharacterValidator,
+          ],
         ],
-      ],
-      email: [
-        null,
-        [
-          Validators.required,
-          Validators.email,
-          this.maxCharacterValidator,
+        email: [
+          null,
+          [
+            Validators.required,
+            Validators.email,
+            Validators.pattern(
+              /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            ),
+          ],
         ],
-      ],
-      mobileNumber: [null, []],
-      password: [
-        null,
-        [
-          Validators.required,
-          this.maxCharacterValidator,
-          this.minPasswordValidation,
+        mobileNumber: [null, []],
+        password: [
+          null,
+          [
+            Validators.required,
+            this._fv.minPasswordValidation,
+            this._fv.maxCharacterValidator,
+          ],
         ],
-      ],
-      c_password: [
-        null,
-        [
-          Validators.required,
-          this.maxCharacterValidator,
-          this.minPasswordValidation,
-        ],
-      ],
-    });
+        confirmPassword: [null, Validators.required],
+      },
+      {
+        validators: this._fv.passwordsMatchValidator(
+          'password',
+          'confirmPassword'
+        ),
+      }
+    );
   }
 
   ngOnInit(): void {
@@ -161,24 +165,6 @@ export class SignupComponent implements OnInit, OnDestroy {
     });
   }
 
-  minCharacterValidator(control: FormControl) {
-    let value = (control.value || '').trim().length;
-    let less = value < 3;
-    return less ? { minlength: true } : null;
-  }
-
-  minPasswordValidation(control: FormControl) {
-    let value = (control.value || '').trim().length;
-    let less = value < 8;
-    return less ? { minlength: true } : null;
-  }
-
-  maxCharacterValidator(control: FormControl) {
-    let value = (control.value || '').trim().length;
-    let greater = value > 100;
-    return greater ? { maxlength: true } : null;
-  }
-
   numberOnlyValidation(value: any): boolean {
     if (typeof Number(value) === 'number') {
       if (value.includes('+') || value.includes('-')) {
@@ -187,17 +173,6 @@ export class SignupComponent implements OnInit, OnDestroy {
       return true;
     } else {
       return false;
-    }
-  }
-
-  checkPasswords() {
-    let pass = this.signupForm.get('password')?.value;
-    let confirmPass = this.signupForm.get('c_password')?.value;
-
-    if (pass === confirmPass) {
-      this.passwordSame = true;
-    } else {
-      this.passwordSame = false;
     }
   }
 
@@ -235,8 +210,8 @@ export class SignupComponent implements OnInit, OnDestroy {
     return this.signupForm.get('password');
   }
 
-  get c_password(): AbstractControl | null {
-    return this.signupForm.get('c_password');
+  get confirmPassword(): AbstractControl | null {
+    return this.signupForm.get('confirmPassword');
   }
 
   get phoneNumber(): AbstractControl | null {
@@ -260,13 +235,14 @@ export class SignupComponent implements OnInit, OnDestroy {
         this.phoneNumber.value.internationalNumber.length
       ),
     };
+
     const data: any = {
       first_name: this.firstName?.value,
       last_name: this.lastName?.value,
       mobile: phoneNumber.mobile.replace(' ', ''),
       email: this.email?.value,
       password: this.password?.value,
-      confirm_password: this.c_password?.value,
+      confirm_password: this.confirmPassword?.value,
       country_code: phoneNumber.code.replace(' ', ''),
       role: this.userType,
     };

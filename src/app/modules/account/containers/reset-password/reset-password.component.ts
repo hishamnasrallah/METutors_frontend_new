@@ -9,6 +9,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertNotificationService } from 'src/app/core/components';
 import { AuthService } from 'src/app/core/services';
+import { FormValidationUtilsService } from 'src/app/core/validators';
 
 @Component({
   selector: 'metutors-reset-password',
@@ -19,8 +20,6 @@ export class ResetPasswordComponent implements OnInit {
   token?: string;
   email?: string;
   reform: FormGroup;
-  heightPX?: number;
-  passwordSame = true;
   loading: boolean = false;
 
   constructor(
@@ -28,31 +27,31 @@ export class ResetPasswordComponent implements OnInit {
     private _fb: FormBuilder,
     private _route: ActivatedRoute,
     private _authService: AuthService,
+    private _fv: FormValidationUtilsService,
     private _alertNotificationService: AlertNotificationService
   ) {
-    this.reform = this._fb.group({
-      password: [
-        null,
-        [
-          Validators.required,
-          this.minPasswordValidation,
-          this.maxCharacterValidator,
+    this.reform = this._fb.group(
+      {
+        password: [
+          null,
+          [
+            Validators.required,
+            this._fv.minPasswordValidation,
+            this._fv.maxCharacterValidator,
+          ],
         ],
-      ],
-      repassword: [
-        null,
-        [
-          Validators.required,
-          this.minPasswordValidation,
-          this.maxCharacterValidator,
-        ],
-      ],
-    });
+        confirmPassword: [null, Validators.required],
+      },
+      {
+        validators: this._fv.passwordsMatchValidator(
+          'password',
+          'confirmPassword'
+        ),
+      }
+    );
   }
 
   ngOnInit(): void {
-    this.heightPX = window.innerHeight - 100;
-
     this.token = this._route.snapshot.paramMap.get('token') || '';
     this.email = this._route.snapshot.paramMap.get('email') || '';
   }
@@ -61,31 +60,8 @@ export class ResetPasswordComponent implements OnInit {
     return this.reform.get('password');
   }
 
-  get repassword(): AbstractControl | null {
-    return this.reform.get('repassword');
-  }
-
-  checkSamePasswords() {
-    let pass = this.password?.value;
-    let confirmPass = this.repassword?.value;
-
-    if (pass === confirmPass) {
-      this.passwordSame = true;
-    } else {
-      this.passwordSame = false;
-    }
-  }
-
-  public minPasswordValidation(control: FormControl) {
-    let value = (control.value || '').trim().length;
-    let less = value < 8;
-    return less ? { minlength: true } : null;
-  }
-
-  public maxCharacterValidator(control: FormControl) {
-    let value = (control.value || '').trim().length;
-    let greater = value > 100;
-    return greater ? { maxlength: true } : null;
+  get confirmPassword(): AbstractControl | null {
+    return this.reform.get('confirmPassword');
   }
 
   onSubmit(form: FormGroup) {
@@ -94,7 +70,7 @@ export class ResetPasswordComponent implements OnInit {
       let data = {
         email: this.email,
         password: this.password?.value,
-        password_confirmation: this.repassword?.value,
+        password_confirmation: this.confirmPassword?.value,
         token: this.token,
       };
       this._authService.resetPassword(data).subscribe((result) => {

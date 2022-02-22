@@ -9,6 +9,8 @@ import { NgOtpInputModule } from 'ng-otp-input';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { DirectiveModule } from 'src/app/shared/directives';
 import { RatingModule } from 'ngx-bootstrap/rating';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { SubmitButtonModule } from 'src/app/shared/components/';
 
 import {
   SigninComponent,
@@ -39,6 +41,8 @@ import { RolesSelectComponent, AuthOpinionsComponent } from './components';
     MatDialogModule,
     DirectiveModule,
     NgOtpInputModule,
+    MatCheckboxModule,
+    SubmitButtonModule,
     ReactiveFormsModule,
     AccountRoutingModule,
     NgxIntlTelInputModule,

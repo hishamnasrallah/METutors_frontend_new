@@ -2,11 +2,10 @@
   <div class="row">
     <ng-container *ngIf="firstStep">
       <div class="col-md-5 d-flex align-items-center">
-        <form #f="ngForm" [formGroup]="signupForm" (ngSubmit)="onSubmit(signupForm)" class="w-100">
+        <form [formGroup]="signupForm" (ngSubmit)="onSubmit(signupForm)" class="w-100">
           <div>
             <h3 class="m-0">Welcome!</h3>
             <h4 class="mb-5">Let's get you set up</h4>
-            <!-- <p>{{roles|json}}</p> -->
 
             <div class="form-group types">
               <label>Choose account type</label>
@@ -14,9 +13,9 @@
                 <div class="col-md-6" *ngFor="let role of roles">
 
                   <button mat-button (click)="userType = role.id" class="w-100 text-left"
-                    [ngClass]="userType == role.id?'active':''" type="button">
+                    [ngClass]="userType == role.id ? 'active' : ''" type="button">
                     <mat-icon>local_library</mat-icon>
-                    I'm a {{role.name}}
+                    I'm a {{ role.name }}
                   </button>
                 </div>
               </div>
@@ -25,22 +24,11 @@
               <div class="col-6">
                 <div class="form-group">
                   <label for="name">What's your first name?</label>
-                  <input type="text" class="custom-input w-100 input-bordered" id="name" placeholder="first name"
+                  <input type="text" class="custom-input w-100 input-bordered" id="name" placeholder="First name"
                     formControlName="firstName">
-                  <!-- <div class="text-danger" *ngIf="firstName.touched && firstName.errors?.required">
-                    Please write your First Name
+                  <div class="text-danger" *ngIf="firstName?.touched && firstName?.invalid">
+                    Please write your first name
                   </div>
-                  <div class="text-danger" *ngIf="firstName.touched && firstName.errors?.pattern">
-                    First Name should only contains alphabets
-                  </div>
-                  <div class="text-danger"
-                    *ngIf="firstName.touched && firstName.errors?.minlength && !firstName.errors?.required && !firstName.errors?.pattern">
-                    First Name cannot be less than 3 characters
-                  </div>
-                  <div class="text-danger"
-                    *ngIf="firstName.touched && firstName.errors?.maxlength && !firstName.errors?.pattern">
-                    First Name cannot be greater than 100 characters
-                  </div> -->
                 </div>
               </div>
               <div class="col-6">
@@ -48,67 +36,36 @@
                   <label for="name">What's your last name?</label>
                   <input type="text" class="custom-input w-100 input-bordered" id="name" placeholder="Last name"
                     formControlName="lastName">
-                  <!-- <div class="text-danger" *ngIf="lastName.touched && lastName.errors?.required">
-                    Please write your Last Name
+                  <div class="text-danger" *ngIf="lastName?.touched && lastName?.invalid">
+                    Please write your last name
                   </div>
-                  <div class="text-danger" *ngIf="lastName.touched && lastName.errors?.pattern">
-                    Last Name should only contains alphabets
-                  </div>
-                  <div class="text-danger"
-                    *ngIf="lastName.touched && lastName.errors?.minlength && !lastName.errors?.required && !lastName.errors?.pattern">
-                    Last Name cannot be less than 3 characters
-                  </div>
-                  <div class="text-danger"
-                    *ngIf="lastName.touched && lastName.errors?.maxlength && !lastName.errors?.pattern">
-                    Last Name cannot be greater than 100 characters
-                  </div> -->
                 </div>
               </div>
             </div>
-
-
 
             <div class="form-group">
               <label for="email">Email address</label>
               <input type="email" class="custom-input w-100 input-bordered" id="email" placeholder="ku@pecafhuj.co.uk"
                 formControlName="email" email>
-              <!-- <div class="text-danger" *ngIf="email.touched && email.errors?.required">
-                Please write your Email
-              </div>
-              <div class="text-danger" *ngIf="email.touched && !email.errors?.required && email.errors?.email">
-                Email is not valid
-              </div>
-              <div class="text-danger"
-                *ngIf="email.touched && !email.errors?.required && !email.errors?.email && email.errors?.maxlength">
-                Email cannot be more than 100 characters
-              </div> -->
+              <span class="text-danger" *ngIf="email?.invalid && email?.touched">
+                Please write a valid email
+              </span>
             </div>
 
             <div class="form-group">
               <label for="phone">Phone number</label>
               <div class="w-100">
                 <!--  [selectedCountryISO]="selectedCountry" -->
-                <!-- [ngClass]="{'has-error': !phoneNumber.valid && phoneNumber.touched}" -->
                 <ngx-intl-tel-input [cssClass]="'custom-input w-100 input-bordered'"
+                  [ngClass]="{'has-error': phoneNumber?.invalid && phoneNumber?.touched}"
                   [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="true" [enablePlaceholder]="true"
                   [searchCountryFlag]="true" [selectFirstCountry]="true" [phoneValidation]="true"
                   [separateDialCode]="true" name="mobileNumber" formControlName="mobileNumber"
                   (input)="verifyPhoneNumber($event)">
                 </ngx-intl-tel-input>
-                <!-- <div class="text-danger" *ngIf="f.form.controls['mobileNumber'].touched && !f.form.value.mobileNumber">
-                  Phone Number Required
-                </div>
-                <div class="text-danger" *ngIf="f.form.controls['mobileNumber'].touched && !numberOnly">
-                  Phone Number should contains digits only
-                </div>
-                <div class="text-danger"
-                  *ngIf="f.form.controls['mobileNumber'].touched && f.form.value.mobileNumber && numberOnly && !minPhone">
-                  Phone Number cannot be less than 5 digits
-                </div>
-                <div class="text-danger"
-                  *ngIf="f.form.controls['mobileNumber'].touched && f.form.value.mobileNumber && numberOnly && !maxPhone">
-                  Phone Number cannot be greater than 15 digits
-                </div> -->
+                <span class="text-danger" *ngIf="phoneNumber?.invalid && phoneNumber?.touched">
+                  Please write a correct phone number
+                </span>
               </div>
             </div>
 
@@ -116,46 +73,24 @@
               <label for="pass">Choose Password</label>
               <input type="password" class="custom-input w-100 input-bordered" id="pass" placeholder="**********"
                 formControlName="password">
-              <!-- <div class="text-danger" *ngIf="password.touched && password.errors?.required">
-                Please write your Password
-              </div>
-              <div class="text-danger"
-                *ngIf="password.touched && !password.errors?.required && password.errors?.maxlength">
-                Password cannot be more than 100 characters
-              </div>
-              <div class="text-danger"
-                *ngIf="password.touched && !password.errors?.required && password.errors?.minlength">
-                Password cannot be less than 8 characters
-              </div> -->
+              <span class="text-danger" *ngIf="password?.invalid && password?.touched">
+                Password cannot be less than 8 characters and cannot be more than 100 characters
+              </span>
             </div>
 
             <div class="form-group">
               <label for="pass">Confirm Password</label>
               <input type="password" class="custom-input w-100 input-bordered" id="pass" placeholder="**********"
-                formControlName="c_password" (input)="checkPasswords()">
-              <!-- <div class="text-danger" *ngIf="c_password.touched && c_password.errors?.required">
-                Please write your Password
-              </div>
-              <div class="text-danger"
-                *ngIf="c_password.touched && !c_password.errors?.required && c_password.errors?.maxlength">
-                Password cannot be more than 100 characters
-              </div>
-              <div class="text-danger"
-                *ngIf="c_password.touched && !c_password.errors?.required && c_password.errors?.minlength">
-                Password cannot be less than 8 characters
-              </div>
-              <div class="text-danger"
-                *ngIf="c_password.touched && !c_password.errors?.required && !c_password.errors?.maxlength && !c_password.errors?.minlength && !passwordSame">
+                formControlName="confirmPassword">
+              <div class="text-danger" *ngIf="signupForm?.hasError('passwordMismatch')">
                 Passwords do not match
-              </div> -->
+              </div>
             </div>
 
             <div class="form-group mt-4 mb-2">
-              <button mat-flat-button color="primary" class="py-2 d-block w-100" cdkFocusInitial type="submit"
-                [disabled]="signupForm.invalid || loading || !f.form.value.mobileNumber || !numberOnly || !minPhone || !maxPhone || !passwordSame">
+              <metutors-submit-button [form]="signupForm" [isSubmitting]="loading" [extraClasses]="'w-100'">
                 Create my account
-                <mat-icon class="spinner" *ngIf="loading">autorenew</mat-icon>
-              </button>
+              </metutors-submit-button>
             </div>
 
             <div class="row mt-4 social">
@@ -190,7 +125,6 @@
 
     <ng-container *ngIf="secondStep">
       <div class="col-md-5 d-flex align-items-center">
-
         <form [formGroup]="form" class="w-100">
           <div>
             <h4 class="mb-5">Email Verification</h4>

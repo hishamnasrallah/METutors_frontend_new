@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
-  FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
@@ -11,6 +10,7 @@ import { Subscription } from 'rxjs';
 import { UserRole } from 'src/app/config';
 import { AlertNotificationService } from 'src/app/core/components';
 import { AuthService } from 'src/app/core/services';
+import { FormValidationUtilsService } from 'src/app/core/validators';
 
 @Component({
   selector: 'metutors-signin',
@@ -32,6 +32,7 @@ export class SigninComponent implements OnInit, OnDestroy {
     private _fb: FormBuilder,
     private _route: ActivatedRoute,
     private _authService: AuthService,
+    private _fv: FormValidationUtilsService,
     private _alertNotificationService: AlertNotificationService
   ) {
     this.signinForm = this._fb.group({
@@ -40,17 +41,12 @@ export class SigninComponent implements OnInit, OnDestroy {
         [
           Validators.required,
           Validators.email,
-          this.maxCharacterValidator,
+          Validators.pattern(
+            /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+          ),
         ],
       ],
-      password: [
-        null,
-        [
-          Validators.required,
-          this.maxCharacterValidator,
-          this.minPasswordValidation,
-        ],
-      ],
+      password: [null, [Validators.required, this._fv.minPasswordValidation]],
       rememberMe: [null],
     });
   }
@@ -63,18 +59,6 @@ export class SigninComponent implements OnInit, OnDestroy {
 
   get password(): AbstractControl | null {
     return this.signinForm.get('password');
-  }
-
-  public maxCharacterValidator(control: FormControl) {
-    let value = (control.value || '').trim().length;
-    let greater = value > 100;
-    return greater ? { maxlength: true } : null;
-  }
-
-  public minPasswordValidation(control: FormControl) {
-    let value = (control.value || '').trim().length;
-    let less = value < 8;
-    return less ? { minlength: true } : null;
   }
 
   onSubmit(form: FormGroup) {
