@@ -8,17 +8,17 @@ import { IPriceRange } from './price-range';
 
 export class ICourse {
   id!: number;
-  picture!: string;
-  name!: string;
-  duration!: number | string;
-  rate!: number;
-  reviewsCount!: number;
-  tuitionType!: number;
-  tuitionValue!: string;
-  classroomNumber!: number;
-  tag!: string;
+  picture?: string;
+  name?: string;
+  duration?: number | string;
+  rate?: number;
+  reviewsCount?: number;
+  tuitionType?: number;
+  tuitionValue?: string;
+  classroomNumber?: number;
+  tag?: string;
   priceRange?: IPriceRange;
-  description!: string;
+  description?: string;
   courseField?: ICourseField;
 
   constructor(createDefault = false, course: any = null) {
@@ -46,25 +46,25 @@ export class ICourse {
       this.rate = course.rate || 0;
       this.reviewsCount = course.total_reviews_count || 0;
       this.tuitionType = course.tuition_type || 0;
-      this.tuitionValue = this.getTuitionValue(course.tuition_type) || '';
+      this.tuitionValue = getTuitionValue(course.tuition_type) || '';
       this.classroomNumber = course.number_of_classrooms || 0;
-      // this.tag = COURSE_TAGS_CONST[course.tag] || '';
+      this.tag = COURSE_TAGS_CONST[course.tag] || '';
       this.priceRange = course.price_range || {};
       this.description = course.course_description || '';
       this.courseField = course.course_field;
     }
   }
+}
 
-  getTuitionValue(type: number): string {
-    switch (type) {
-      case TuitionType.one:
-        return COURSE_TUITION_TYPES_CONST.one;
-      case TuitionType.group:
-        return COURSE_TUITION_TYPES_CONST.group;
-      case TuitionType.both:
-        return COURSE_TUITION_TYPES_CONST.both;
-      default:
-        return '';
-    }
+export function getTuitionValue(type: number): string {
+  switch (type) {
+    case TuitionType.one:
+      return COURSE_TUITION_TYPES_CONST.one;
+    case TuitionType.group:
+      return COURSE_TUITION_TYPES_CONST.group;
+    case TuitionType.both:
+      return COURSE_TUITION_TYPES_CONST.both;
+    default:
+      return '';
   }
 }

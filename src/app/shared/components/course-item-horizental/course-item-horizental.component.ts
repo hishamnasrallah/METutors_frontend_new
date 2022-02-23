@@ -9,6 +9,7 @@ import { ICourse } from 'src/app/core/models';
 })
 export class CourseItemHorizentalComponent implements OnInit {
   @Input() course?: ICourse;
+  
   tuitionType = TuitionType;
   openCourseDetailsPopop = false;
   courseTags = COURSE_TAGS_CONST;

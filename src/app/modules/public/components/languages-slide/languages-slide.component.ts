@@ -1,5 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ICategory } from 'src/app/core/models';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'metutors-languages-slide',
@@ -7,8 +6,6 @@ import { ICategory } from 'src/app/core/models';
   styleUrls: ['./languages-slide.component.scss'],
 })
 export class LanguagesSlideComponent implements OnInit {
-  @Input() category?: ICategory;
-
   constructor() {}
 
   ngOnInit(): void {}

@@ -4,9 +4,9 @@
       <div class="position-relative">
         <img [src]="course?.picture" meTutorsDefaultCourse class="card-img-top rounded" alt width="230" height="230">
         <label class="badge-item" [ngClass]="{
-          'popular': course?.tag === courseTags.pop,
-          'new': course?.tag === courseTags.new,
-          'top': course?.tag === courseTags.top
+          'popular': course?.tag === courseTags['pop'],
+          'new': course?.tag === courseTags['new'],
+          'top': course?.tag === courseTags['top']
         }">{{ course?.tag }}</label>
       </div>
     </div>

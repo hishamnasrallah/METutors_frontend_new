@@ -20,7 +20,7 @@ export const LANGUAGES_LEVELS_CONST = {
   proficient: 'Proficient',
 };
 
-export const COURSE_TAGS_CONST = {
+export const COURSE_TAGS_CONST: any = {
   new: 'New',
   pop: 'Popular',
   top: 'Top Rated',

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ICategory, ICourse } from 'src/app/core/models';
+import { ICourse } from 'src/app/core/models';
 
 @Component({
   selector: 'metutors-language-courses',
@@ -8,7 +8,6 @@ import { ICategory, ICourse } from 'src/app/core/models';
 })
 export class LanguageCoursesComponent implements OnInit {
   @Input() courses?: ICourse[];
-  @Input() category?: ICategory;
 
   constructor() {}
 

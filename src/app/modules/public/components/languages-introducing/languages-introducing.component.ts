@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'metutors-languages-introducing',
@@ -6,8 +6,6 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./languages-introducing.component.scss'],
 })
 export class LanguagesIntroducingComponent implements OnInit {
-  @Input() langCourseIntro: any;
-
   constructor() {}
 
   ngOnInit(): void {}

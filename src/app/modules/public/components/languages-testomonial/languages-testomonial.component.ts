@@ -7,7 +7,7 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
   styleUrls: ['./languages-testomonial.component.scss'],
 })
 export class LanguagesTestomonialComponent implements OnInit {
-  @Input() testmonials: any = [];
+  @Input() testmonials: any;
 
   customOptions: OwlOptions = {
     loop: true,
