@@ -4,7 +4,7 @@
       <div class="card-body">
         <div class="d-flex">
           <h1 class="flex-grow-1 m-0" [class.main-color]="openQuestion && selectedQuestion === question.id">
-            {{ question?.question }}
+            {{ question?.title }}
           </h1>
           <button mat-button *ngIf="selectedQuestion !== question.id" (click)="changeOpenSelection(question.id)">
             <mat-icon>add</mat-icon>

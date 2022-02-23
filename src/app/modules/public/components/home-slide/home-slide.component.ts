@@ -1,3 +1,4 @@
+import { ViewportScroller } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,7 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home-slide.component.scss'],
 })
 export class HomeSlideComponent implements OnInit {
-  constructor() {}
+  constructor(private viewportScroller: ViewportScroller) {}
 
   ngOnInit(): void {}
+
+  scrollToAnchor(): void {
+    this.viewportScroller.scrollToAnchor('exploreServices');
+  }
 }
