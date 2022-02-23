@@ -2,14 +2,11 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
-  FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
 import { formatBytes } from 'src/app/config';
 import { AlertNotificationService } from 'src/app/core/components';
-
-declare var google: any;
 
 @Component({
   selector: 'metutors-contact-send-message',
@@ -22,7 +19,6 @@ export class ContactSendMessageComponent implements OnInit {
   @Output() submitContact = new EventEmitter();
 
   options: any;
-  overlays: any;
   filePreview: any;
   contactForm: FormGroup;
 
@@ -54,8 +50,6 @@ export class ContactSendMessageComponent implements OnInit {
       center: { lat: 36.890257, lng: 30.707417 },
       zoom: 12,
     };
-
-    this.initOverlays();
   }
 
   get name(): AbstractControl | null {
@@ -72,25 +66,6 @@ export class ContactSendMessageComponent implements OnInit {
 
   get message(): AbstractControl | null {
     return this.contactForm.get('message');
-  }
-
-  initOverlays(): void {
-    if (!this.overlays || !this.overlays.length) {
-      this.overlays = [
-        new google.maps.Marker({
-          position: { lat: 36.879466, lng: 30.667648 },
-          title: 'Konyaalti',
-        }),
-        new google.maps.Marker({
-          position: { lat: 36.883707, lng: 30.689216 },
-          title: 'Ataturk Park',
-        }),
-        new google.maps.Marker({
-          position: { lat: 36.885233, lng: 30.702323 },
-          title: 'Oldtown',
-        }),
-      ];
-    }
   }
 
   onFileUpload(event: any): void {

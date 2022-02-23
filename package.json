@@ -16,6 +16,7 @@
     "@angular/compiler": "~13.0.0",
     "@angular/core": "~13.0.0",
     "@angular/forms": "~13.0.0",
+    "@angular/google-maps": "^13.2.3",
     "@angular/material": "13.2.3",
     "@angular/platform-browser": "~13.0.0",
     "@angular/platform-browser-dynamic": "~13.0.0",
@@ -40,8 +41,6 @@
     "ngx-moment": "^6.0.2",
     "ngx-owl-carousel-o": "^7.0.1",
     "ngx-progressbar": "^7.0.0",
-    "primeicons": "^5.0.0",
-    "primeng": "^13.2.0",
     "rxjs": "~7.4.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

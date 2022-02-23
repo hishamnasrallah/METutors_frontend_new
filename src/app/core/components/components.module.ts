@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { MatIconModule } from '@angular/material/icon';
-import { SidebarModule } from 'primeng/sidebar';
 import { RouterModule } from '@angular/router';
 
 import { FooterComponent } from './footer';
@@ -15,7 +14,6 @@ import { NavbarComponent } from './navbar';
     CommonModule,
     RouterModule,
     MatIconModule,
-    SidebarModule,
     MatButtonModule,
     BsDropdownModule.forRoot(),
   ],

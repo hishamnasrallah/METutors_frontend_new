@@ -2,8 +2,7 @@
   <div class="col-md-12">
     <div class="card">
       <div class="card-body">
-        <p-gmap #gmap [style]="{'width':'100%','height':'320px', 'margin-bottom': '1em'}" [options]="options"
-          [overlays]="overlays"></p-gmap>
+        <google-map [options]="options"></google-map>
 
         <form [formGroup]="contactForm" (ngSubmit)="onSubmit(contactForm)" class="w-100">
           <div>

@@ -11,7 +11,7 @@ import { VgControlsModule } from '@videogular/ngx-videogular/controls';
 import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
 import { VgBufferingModule } from '@videogular/ngx-videogular/buffering';
 import { ContactService, SupportService } from 'src/app/core/services';
-import { GMapModule } from 'primeng/gmap';
+import { GoogleMapsModule } from '@angular/google-maps';
 import {
   CourseItemModule,
   CourseItemHorizentalModule,
@@ -122,7 +122,6 @@ import {
     BenefitsAcademicTutoringComponent,
   ],
   imports: [
-    GMapModule,
     FormsModule,
     VgCoreModule,
     CommonModule,
@@ -130,6 +129,7 @@ import {
     CarouselModule,
     MatButtonModule,
     DirectiveModule,
+    GoogleMapsModule,
     CourseItemModule,
     VgControlsModule,
     VgBufferingModule,

@@ -80,3 +80,9 @@
     }
   }
 }
+
+:host ::ng-deep google-map .map-container {
+  width: 100% !important;
+  height: 350px !important;
+  margin-bottom: 1rem;
+}

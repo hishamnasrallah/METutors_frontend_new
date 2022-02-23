@@ -1,4 +1,4 @@
-<button mat-flat-button color="primary" class="py-2 d-block {{ extraClasses }}" cdkFocusInitial type="submit"
+<button mat-flat-button color="primary" class="py-1 d-block {{ extraClasses }}" cdkFocusInitial type="submit"
   [disabled]="form?.invalid || !form?.dirty || isSubmitting || isDisabled">
   <ng-content></ng-content>
   <mat-icon class="spinner" *ngIf="isSubmitting">autorenew</mat-icon>

@@ -14,7 +14,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { RatingModule } from 'ngx-bootstrap/rating';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatNativeDateModule } from '@angular/material/core';
-import { CalendarModule } from 'primeng/calendar';
 
 import { RequestTutorComponent } from './containers';
 
@@ -45,7 +44,6 @@ import {
     MatIconModule,
     MatInputModule,
     MatRadioModule,
-    CalendarModule,
     MatButtonModule,
     DirectiveModule,
     MatSelectModule,
