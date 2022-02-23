@@ -20,7 +20,7 @@ export function simpleNumber(value: number): string | number {
 }
 
 export function addMisc(title: string, details: any) {
-  const miscLocal = JSON.parse(localStorage.getItem('misc') || '');
+  const miscLocal = JSON.parse(localStorage.getItem('misc')  || '{}');
   let misc: any = miscLocal ? miscLocal : {};
 
   misc[title] = details;
@@ -28,11 +28,11 @@ export function addMisc(title: string, details: any) {
 }
 
 export function getMisc(): IMisc {
-  return JSON.parse(localStorage.getItem('misc') || '');
+  return JSON.parse(localStorage.getItem('misc')  || '{}');
 }
 
 export function addLookups(title: string, details: any) {
-  const lookupsLocal = JSON.parse(localStorage.getItem('lookups') || '');
+  const lookupsLocal = JSON.parse(localStorage.getItem('lookups')  || '{}');
   let lookups: any = lookupsLocal ? lookupsLocal : {};
 
   lookups[title] = details;
@@ -40,7 +40,7 @@ export function addLookups(title: string, details: any) {
 }
 
 export function getLookups(): ILookups {
-  return JSON.parse(localStorage.getItem('lookups') || '');
+  return JSON.parse(localStorage.getItem('lookups') || '{}');
 }
 
 export function formatBytes(bytes: number, decimals = 2) {

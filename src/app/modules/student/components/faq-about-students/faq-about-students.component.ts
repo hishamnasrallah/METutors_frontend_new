@@ -22,7 +22,7 @@ export class FaqAboutStudentsComponent implements OnInit {
     if (this.tempListFAQs && this.tempListFAQs.length) {
       for (var i = 0; i < this.tempListFAQs.length; i++) {
         if (
-          this.tempListFAQs[i].question
+          this.tempListFAQs[i].title
             .toLowerCase()
             .includes(key.toLowerCase())
         ) {

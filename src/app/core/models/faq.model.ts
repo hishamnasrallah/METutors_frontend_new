@@ -1,5 +1,10 @@
 export interface IFAQ {
   id: number;
-  question: string;
+  title: string;
   answer: string;
+}
+
+export interface IFAQTopics {
+  id: number;
+  name: string;
 }

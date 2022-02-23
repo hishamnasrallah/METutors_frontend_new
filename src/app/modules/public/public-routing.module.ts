@@ -50,7 +50,7 @@ const routes: Routes = [
     data: { layout: { title: 'FAQ - Metutors' } },
   },
   {
-    path: 'faq/:ticket',
+    path: 'faq/:topic',
     component: FaqTicketComponent,
     data: { layout: { title: 'FAQ - Metutors' } },
   },

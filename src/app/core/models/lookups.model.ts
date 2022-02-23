@@ -1,3 +1,5 @@
+import { IFAQTopics } from ".";
+
 export interface ILookups {
   ticketTypes: any;
   courseList: any;
@@ -5,4 +7,5 @@ export interface ILookups {
   courseFieldSubject: any;
   courseLevel: any;
   courseSubjects: any;
+  topics: IFAQTopics[];
 }

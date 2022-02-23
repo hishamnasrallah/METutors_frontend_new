@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { TicketCategory } from 'src/app/config';
+import { Component, Input, OnInit } from '@angular/core';
+import { IFAQTopics } from 'src/app/core/models';
 
 @Component({
   selector: 'metutors-select-faq-topic',
@@ -7,7 +7,7 @@ import { TicketCategory } from 'src/app/config';
   styleUrls: ['./select-faq-topic.component.scss'],
 })
 export class SelectFaqTopicComponent implements OnInit {
-  ticketCategory = TicketCategory;
+  @Input() topics!: IFAQTopics[];
 
   constructor() {}
 

@@ -3,20 +3,35 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { catchError, map } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
-import { IFAQ, ITicket } from '../models';
+import { IFAQ, IFAQTopics, ITicket } from '../models';
 
 @Injectable()
 export class SupportService {
-  mainLink = environment.API_URL + 'support/';
+  mainLink = environment.API_URL;
 
   constructor(private http: HttpClient) {}
 
-  fetchListFaq(questionType = 'ALL'): Observable<any> {
-    let query = `?question_type=${questionType}`;
-    if (questionType === 'ALL') query = '';
+  fetchListFaq(topic?: number): Observable<any> {
+    let query = '';
+
+    if (topic) query = `?topic_id=${topic}`;
 
     return this.http
-      .get<{ results: IFAQ[] }>(this.mainLink + 'faq/' + query)
+      .get<{ faqs: IFAQ[] }>(`${this.mainLink}faqs${query}`)
+      .pipe(catchError(this.errorHandler));
+  }
+
+  fetchFaqTopics(): Observable<any> {
+    return this.http
+      .get<{ faq_topics: IFAQTopics[] }>(this.mainLink + 'faq-topics')
+      .pipe(
+        map((response) => {
+          return response.faq_topics.map((item) => ({
+            id: item.id,
+            name: item.name,
+          }));
+        })
+      )
       .pipe(catchError(this.errorHandler));
   }
 

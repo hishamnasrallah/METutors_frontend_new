@@ -23,7 +23,7 @@ export class StudentFaqComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.fetchListFaqSub = this._supportService
-      .fetchListFaq(TicketCategory.student)
+      .fetchListFaq()
       .subscribe(
         (response) => {
           this.listFAQs = response.results;

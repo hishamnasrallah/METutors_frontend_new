@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class ContactService {
-  mainLink = environment.API_URL + 'contact-us/';
+  mainLink = environment.API_URL + 'contact-us';
 
   constructor(private http: HttpClient) {}
 
@@ -17,7 +17,7 @@ export class ContactService {
     formData.append('subject', value.subject);
     formData.append('message', value.message);
 
-    if (value.file) formData.append('files', value.file);
+    if (value.file) formData.append('files[0]', value.file);
 
     if (value.companyName) formData.append('company', value.companyName);
 

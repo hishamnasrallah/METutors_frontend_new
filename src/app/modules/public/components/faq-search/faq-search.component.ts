@@ -21,7 +21,7 @@ export class FaqSearchComponent implements OnInit {
     this.listFAQs = [];
     for (var i = 0; i < this.tempListFAQs.length; i++) {
       if (
-        this.tempListFAQs[i].question.toLowerCase().includes(key.toLowerCase())
+        this.tempListFAQs[i].title.toLowerCase().includes(key.toLowerCase())
       ) {
         this.listFAQs.push(this.tempListFAQs[i]);
       }
