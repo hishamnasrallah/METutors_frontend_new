@@ -26,6 +26,8 @@ import {
   ListClassroomsFormComponent,
   CourseInformationFormComponent,
 } from './components';
+import { InvoiceDetailsComponent } from './containers/invoice-details/invoice-details.component';
+import { InvoiceClassroomDetailsComponent } from './components/invoice-classroom-details/invoice-classroom-details.component';
 
 @NgModule({
   declarations: [
@@ -33,10 +35,12 @@ import {
     DialogRemoveClassroom,
     RequestTutorComponent,
     ReviewRequestComponent,
+    InvoiceDetailsComponent,
     SelectTutorFormComponent,
     ClassroomInfoFormComponent,
     ListClassroomsFormComponent,
     CourseInformationFormComponent,
+    InvoiceClassroomDetailsComponent,
   ],
   imports: [
     FormsModule,

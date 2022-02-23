@@ -13,6 +13,7 @@ export class IStatistics {
       this.value = 0;
       this.icon = '';
     }
+
     if (about) {
       this.id = about.id;
       this.type = about.statistic_type || '';

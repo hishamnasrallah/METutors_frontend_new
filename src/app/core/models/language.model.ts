@@ -15,26 +15,26 @@ export class ILanguage {
     if (language) {
       this.id = language.id;
       this.name = language?.language?.name || '';
-      this.level = this.getLanguageLevel(language.proficiency_level) || '';
+      this.level = getLanguageLevel(language.proficiency_level) || '';
     }
   }
+}
 
-  getLanguageLevel(level: number): string {
-    switch (level) {
-      case LanguageLevel.beginner:
-        return LANGUAGES_LEVELS_CONST.beginner;
-      case LanguageLevel.elementary:
-        return LANGUAGES_LEVELS_CONST.elementary;
-      case LanguageLevel.intermediate:
-        return LANGUAGES_LEVELS_CONST.intermediate;
-      case LanguageLevel.upperIntermediate:
-        return LANGUAGES_LEVELS_CONST.upperIntermediate;
-      case LanguageLevel.advanced:
-        return LANGUAGES_LEVELS_CONST.advanced;
-      case LanguageLevel.proficient:
-        return LANGUAGES_LEVELS_CONST.proficient;
-      default:
-        return '';
-    }
+export function getLanguageLevel(level: number): string {
+  switch (level) {
+    case LanguageLevel.beginner:
+      return LANGUAGES_LEVELS_CONST.beginner;
+    case LanguageLevel.elementary:
+      return LANGUAGES_LEVELS_CONST.elementary;
+    case LanguageLevel.intermediate:
+      return LANGUAGES_LEVELS_CONST.intermediate;
+    case LanguageLevel.upperIntermediate:
+      return LANGUAGES_LEVELS_CONST.upperIntermediate;
+    case LanguageLevel.advanced:
+      return LANGUAGES_LEVELS_CONST.advanced;
+    case LanguageLevel.proficient:
+      return LANGUAGES_LEVELS_CONST.proficient;
+    default:
+      return '';
   }
 }

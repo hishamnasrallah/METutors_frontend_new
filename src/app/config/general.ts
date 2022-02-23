@@ -4,7 +4,7 @@ export const generalConstants = {
   defaultCoursePath: 'assets/defaults/course.jpg',
 };
 
-export const TICKET_STATUSES_CONST = {
+export const TICKET_STATUSES_CONST: any = {
   N: 'New',
   M: 'Open',
   C: 'Closed',

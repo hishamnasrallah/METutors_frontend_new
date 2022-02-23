@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { RequestTutorComponent } from './containers';
+import { InvoiceDetailsComponent, RequestTutorComponent } from './containers';
 
 const routes: Routes = [
   {
@@ -9,6 +9,15 @@ const routes: Routes = [
     data: {
       layout: {
         title: 'Request Academic Tutoring - MEtutors',
+      },
+    },
+  },
+  {
+    path: 'invoice-details',
+    component: InvoiceDetailsComponent,
+    data: {
+      layout: {
+        title: 'Invoice details - MEtutors',
       },
     },
   },

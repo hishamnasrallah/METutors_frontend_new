@@ -41,12 +41,12 @@ export class ITicket {
       this.id = ticket.id;
       this.category = ticket.category;
       this.type = ticket.type;
-      this.typeValue = this.ticketListType(ticket.type);
+      this.typeValue = ticketListType(ticket.type);
       this.title = ticket.title;
       this.ticketNumber = ticket.ticket_number;
       this.description = ticket.description;
       this.status = ticket.status;
-      // this.statusValue = TICKET_STATUSES_CONST[ticket.status];
+      this.statusValue = TICKET_STATUSES_CONST[ticket.status];
       this.assignedEmployee = ticket.assigned_employee;
       this.attachedFile = ticket.attached_file;
       this.createdByUser = ticket.created_by_user;
@@ -58,19 +58,19 @@ export class ITicket {
           : [];
     }
   }
+}
 
-  ticketListType(value: number): string {
-    const ticketsList = getLookups().ticketTypes;
-    let tValue = '';
+export function ticketListType(value: number): string {
+  const ticketsList = getLookups().ticketTypes;
+  let tValue = '';
 
-    if (Array.isArray(ticketsList) && ticketsList && ticketsList.length) {
-      ticketsList.forEach((ticket) => {
-        if (ticket?.id === value) {
-          tValue = ticket?.name;
-        }
-      });
-    }
-
-    return tValue;
+  if (Array.isArray(ticketsList) && ticketsList && ticketsList.length) {
+    ticketsList.forEach((ticket) => {
+      if (ticket?.id === value) {
+        tValue = ticket?.name;
+      }
+    });
   }
+
+  return tValue;
 }
