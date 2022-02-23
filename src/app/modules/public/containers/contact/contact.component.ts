@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { AlertNotificationService } from 'src/app/core/components';
 import { ContactService } from 'src/app/core/services';
 
@@ -7,8 +8,10 @@ import { ContactService } from 'src/app/core/services';
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss'],
 })
-export class ContactComponent implements OnInit {
+export class ContactComponent implements OnInit, OnDestroy {
   loading: boolean = false;
+
+  createContactSub?: Subscription;
 
   constructor(
     private _contactService: ContactService,
@@ -19,11 +22,11 @@ export class ContactComponent implements OnInit {
 
   submitContact(value: any): void {
     this.loading = true;
-    this._contactService.createContact(value).subscribe(
+    this.createContactSub = this._contactService.createContact(value).subscribe(
       (response) => {
         this.loading = false;
         this._alertNotificationService.success(
-          'Your message has been sent successfully'
+          response?.message || 'Your message has been sent successfully'
         );
       },
       (error) => {
@@ -33,5 +36,9 @@ export class ContactComponent implements OnInit {
         );
       }
     );
+  }
+
+  ngOnDestroy(): void {
+    this.createContactSub?.unsubscribe();
   }
 }

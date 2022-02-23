@@ -17,6 +17,7 @@ import { GMapModule } from 'primeng/gmap';
 import {
   CourseItemModule,
   CourseItemHorizentalModule,
+  SubmitButtonModule,
 } from 'src/app/shared/components';
 
 import { DirectiveModule } from 'src/app/shared/directives';
@@ -134,6 +135,7 @@ import {
     CourseItemModule,
     VgControlsModule,
     VgBufferingModule,
+    SubmitButtonModule,
     ReactiveFormsModule,
     PublicRoutingModule,
     VgOverlayPlayModule,

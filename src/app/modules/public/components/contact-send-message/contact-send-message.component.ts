@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
+  AbstractControl,
   FormBuilder,
   FormControl,
   FormGroup,
@@ -31,9 +32,18 @@ export class ContactSendMessageComponent implements OnInit {
   ) {
     this.contactForm = this._fb.group({
       name: [null, Validators.required],
-      email: [null, [Validators.required, Validators.email]],
+      email: [
+        null,
+        [
+          Validators.required,
+          Validators.email,
+          Validators.pattern(
+            /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+          ),
+        ],
+      ],
       companyName: [null],
-      subject: [null],
+      subject: [null, Validators.required],
       message: [null, Validators.required],
       file: [null],
     });
@@ -46,6 +56,22 @@ export class ContactSendMessageComponent implements OnInit {
     };
 
     this.initOverlays();
+  }
+
+  get name(): AbstractControl | null {
+    return this.contactForm.get('name');
+  }
+
+  get email(): AbstractControl | null {
+    return this.contactForm.get('email');
+  }
+
+  get subject(): AbstractControl | null {
+    return this.contactForm.get('subject');
+  }
+
+  get message(): AbstractControl | null {
+    return this.contactForm.get('message');
   }
 
   initOverlays(): void {

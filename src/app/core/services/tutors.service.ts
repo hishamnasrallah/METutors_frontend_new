@@ -14,7 +14,7 @@ export class TutorsService {
   constructor(private http: HttpClient) {}
 
   sendTeacherAccount(data: any): Observable<any> {
-    return this.http.post<any>(`${this.mainLink}/complete-account`, data);
+    return this.http.post<any>(`${this.mainLink}complete-account`, data);
   }
 
   fetchFeaturedTutors(): Observable<any> {

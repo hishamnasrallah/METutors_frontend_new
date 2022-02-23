@@ -6,20 +6,20 @@ import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class ContactService {
-  mainLink = environment.API_URL + 'contact_us/';
+  mainLink = environment.API_URL + 'contact-us/';
 
   constructor(private http: HttpClient) {}
 
   createContact(value: any): Observable<any> {
     const formData = new FormData();
-    formData.append('_name', value.name);
-    formData.append('_from', value.email);
-    formData.append('_subject', value.subject);
-    formData.append('_message_content', value.message);
+    formData.append('name', value.name);
+    formData.append('email', value.email);
+    formData.append('subject', value.subject);
+    formData.append('message', value.message);
 
-    if (value.file) formData.append('_attached_file', value.file);
+    if (value.file) formData.append('files', value.file);
 
-    if (value.companyName) formData.append('_company_name', value.companyName);
+    if (value.companyName) formData.append('company', value.companyName);
 
     return this.http
       .post(this.mainLink, formData)
