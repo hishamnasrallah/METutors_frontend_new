@@ -1,6 +1,7 @@
 export enum TutorStatus {
-  online = 'Online',
-  busy = 'Busy',
-  offline = 'Offline',
-  away = 'Away',
+  online = 'online',
+  busy = 'busy',
+  offline = 'offline',
+  pending = 'pending',
+  away = 'away',
 }

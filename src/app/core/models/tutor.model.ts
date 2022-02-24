@@ -1,186 +1,141 @@
-import { COUNTRIES_LIST, generalConstants } from "src/app/config";
-import { ILanguage, IReview, ISubject } from ".";
-
+import { generalConstants } from 'src/app/config';
+import {
+  IAvailability,
+  ILanguage,
+  IQualification,
+  ISpecification,
+  ISubject,
+} from '.';
 
 export class ITutor {
   id!: number;
   name?: string;
-  username?: string;
   firstName?: string;
-  secondName?: string;
-  thirdName?: string;
   lastName?: string;
-  fullName?: string;
-  email?: string;
-  alternativeEmail?: string;
-  about?: string;
-  mobileNumber?: string;
-  phoneNumber?: string;
-  BOD?: string;
-  nationality?: string;
-  languages?: any[];
-  major?: string;
-  gender?: string;
-  certificationQualification?: string;
-  teachingExperienceYears?: any;
-  onlineTeachingExperienceYears?: any;
   avatar?: string;
   cover?: string;
-  expectedIncomeO2o?: any;
-  expectedIncomeGroup?: any;
-  groupTutoringInvolved_ind?: boolean;
-  currentJobTitle?: any;
-  currentEmployer?: any;
-  availabilityStartDate?: any;
-  availabilityEndDate?: any;
-  education?: number;
-  tutorGenderPreference?: any;
-  rate?: number;
-  status?: string;
-  university?: string;
-  country?: string;
-  reviewsCount?: number;
   bio?: string;
-  studentNumber?: number;
+  createdAt?: string;
+  dateOfBirth?: string;
+  email?: string;
+  mobile?: string;
+  roleName?: string;
+  status?: string;
+  verified?: number;
+  languages?: ILanguage[];
+  availability?: IAvailability[];
+  qualifications?: IQualification[];
+  specifications?: ISpecification[];
+  subject?: ISubject[];
+
+  rate?: number;
+  badges?: any[];
+  country?: string;
   courseNumber?: number;
-  subjects?: ISubject[];
-  city?: string;
-  state?: string;
-  streetAddress?: string;
-  postcode?: string;
-  fields?: any;
-  computerSkills?: any;
-  dateJoined?: string;
-  badges?: any;
-  reviews?: IReview[];
+  reviewsCount?: number;
+  studentNumber?: number;
+  teachingExperienceYears?: number;
+  onlineTeachingExperienceYears?: number;
   expertInTheSubjectRate?: number;
   presentComplexTopicsClearlyAndEasilyRate?: number;
   skillfulInEngagingStudentsRate?: number;
   alwaysOnTimeRate?: number;
+  reviews?: any[];
 
   constructor(createDefault = false, tutor: any = null) {
     if (createDefault) {
       this.id = 0;
       this.name = '';
-      this.major = '';
+      this.firstName = '';
+      this.lastName = '';
       this.avatar = generalConstants.defaultAvatarPath;
       this.cover = generalConstants.defaultCoverPath;
-      this.rate = 0;
-      this.status = '';
-      this.university = '';
-      this.country = '';
-      this.reviewsCount = 0;
       this.bio = '';
-      this.studentNumber = 0;
-      this.courseNumber = 0;
-      this.subjects = [];
-      this.username = '';
-      this.firstName = '';
-      this.secondName = '';
-      this.thirdName = '';
-      this.lastName = '';
-      this.fullName = '';
+      this.createdAt = '';
+      this.rate = 0;
+      this.dateOfBirth = '';
       this.email = '';
-      this.alternativeEmail = '';
-      this.about = '';
-      this.mobileNumber = '';
-      this.phoneNumber = '';
-      this.BOD = '';
-      this.nationality = '';
+      this.mobile = '';
+      this.roleName = '';
+      this.reviewsCount = 0;
+      this.studentNumber = 0;
+      this.status = '';
+      this.verified = 0;
       this.languages = [];
-      this.gender = '';
-      this.certificationQualification = '';
-      this.teachingExperienceYears = '';
-      this.onlineTeachingExperienceYears = '';
-      this.expectedIncomeO2o = '';
-      this.expectedIncomeGroup = '';
-      this.groupTutoringInvolved_ind = false;
-      this.currentJobTitle = '';
-      this.currentEmployer = '';
-      this.availabilityStartDate = '';
-      this.availabilityEndDate = '';
-      this.education = 0;
-      this.tutorGenderPreference = '';
-      this.city = '';
-      this.state = '';
-      this.streetAddress = '';
-      this.postcode = '';
-      this.fields = '';
-      this.computerSkills = '';
-      this.dateJoined = '';
+      this.availability = [];
+      this.qualifications = [];
+      this.specifications = [];
+      this.subject = [];
       this.badges = [];
-      this.reviews = [];
+      this.country = '';
+      this.courseNumber = 0;
+      this.teachingExperienceYears = 0;
+      this.onlineTeachingExperienceYears = 0;
       this.expertInTheSubjectRate = 0;
       this.presentComplexTopicsClearlyAndEasilyRate = 0;
       this.skillfulInEngagingStudentsRate = 0;
       this.alwaysOnTimeRate = 0;
+      this.reviews = [];
     }
+
     if (tutor) {
-      this.id = tutor.id;
-      this.name = tutor.official_name;
-      this.major = tutor.major || '';
-      this.avatar = tutor.avatar || generalConstants.defaultAvatarPath;
-      this.cover = tutor.cover_pic || generalConstants.defaultCoverPath;
-      this.rate = tutor.rate || 0;
-      this.status = tutor._online_status || '';
-      this.university = tutor.university || '';
-      // this.country = COUNTRIES_LIST[tutor.country] || '';
-      this.reviewsCount = tutor.total_reviews_count || 0;
-      this.bio = tutor.bio || '';
-      this.studentNumber = tutor.number_of_students || 0;
-      this.courseNumber = tutor.total_courses_count || 0;
-      this.subjects = tutor.tutoring_subjects || [];
-      this.username = tutor.username || '';
-      this.firstName = tutor.first_name || '';
-      this.secondName = tutor.second_name || '';
-      this.thirdName = tutor.third_name || '';
-      this.lastName = tutor.last_name || '';
-      this.fullName = tutor.first_name || '' + ' ' + tutor.last_name || '';
-      this.email = tutor.email || '';
-      this.alternativeEmail = tutor.alternative_email || '';
-      this.about = tutor.about_me || '';
-      this.mobileNumber = tutor.mobile_number || '';
-      this.phoneNumber = tutor.phone_number || '';
-      this.BOD = tutor.DOB || '';
-      this.nationality = tutor.nationality || '';
+      this.id = tutor?.id;
+      this.name = tutor?.first_name + ' ' + tutor?.last_name;
+      this.firstName = tutor?.first_name || '';
+      this.lastName = tutor?.last_name || '';
+      this.avatar = tutor?.avatar || generalConstants.defaultAvatarPath;
+      this.cover = tutor?.cover || generalConstants.defaultCoverPath;
+      this.bio = tutor?.bio || '';
+      this.createdAt = tutor?.created_at || '';
+      this.dateOfBirth = tutor?.date_of_birth || '';
+      this.email = tutor?.email || '';
+      this.mobile = tutor?.mobile || '';
+      this.roleName = tutor?.role_name || '';
+      this.status = tutor?.status || '';
+      this.verified = tutor?.verified || 0;
       this.languages =
-        tutor.languages && tutor.languages.length
-          ? tutor.languages.map((item: any) => new ILanguage(false, item))
+        tutor?.spoken_languages && tutor?.spoken_languages?.length
+          ? tutor?.spoken_languages.map(
+              (item: any) => new ILanguage(false, item)
+            )
           : [];
-      this.gender = tutor.gender || '';
-      this.certificationQualification =
-        tutor.certification_and_qualification || '';
-      this.teachingExperienceYears = tutor.teaching_experience_years || '';
+      this.availability =
+        tutor?.teacher_availability && tutor?.teacher_availability?.length
+          ? tutor?.teacher_availability.map(
+              (item: any) => new IAvailability(false, item)
+            )
+          : [];
+      this.qualifications =
+        tutor?.teacher_qualifications && tutor?.teacher_qualifications?.length
+          ? tutor?.teacher_qualifications.map(
+              (item: any) => new IQualification(false, item)
+            )
+          : [];
+      this.specifications =
+        tutor?.teacher_specifications && tutor?.teacher_specifications?.length
+          ? tutor?.teacher_specifications.map(
+              (item: any) => new ISpecification(false, item)
+            )
+          : [];
+      this.subject =
+        tutor?.teacher_subject && tutor?.teacher_subject?.length
+          ? tutor?.teacher_subject.map((item: any) => new ISubject(false, item))
+          : [];
+
+      this.badges = tutor?.badges || [];
+      this.rate = tutor?.rate || 0;
+      this.reviewsCount = tutor?.reviews_count || 0;
+      this.studentNumber = tutor?.student_number || 0;
+      this.country = tutor?.country || '';
+      this.courseNumber = tutor?.course_number || 0;
+      this.teachingExperienceYears = tutor?.teaching_experience_years || 0;
       this.onlineTeachingExperienceYears =
-        tutor.online_teaching_experience_years || '';
-      this.expectedIncomeO2o = tutor.expected_income_o2o || '';
-      this.expectedIncomeGroup = tutor.expected_income_group || '';
-      this.groupTutoringInvolved_ind =
-        tutor.group_tutoring_involved_ind || false;
-      this.currentJobTitle = tutor.current_job_title || '';
-      this.currentEmployer = tutor.current_employer || '';
-      this.availabilityStartDate = tutor.availability_start_date || '';
-      this.availabilityEndDate = tutor.availability_end_date || '';
-      this.education = tutor.education || 0;
-      this.tutorGenderPreference = tutor.tutor_gender_preference || '';
-      this.city = tutor.city || '';
-      this.state = tutor.state || '';
-      this.streetAddress = tutor.street_address || '';
-      this.postcode = tutor.postcode || '';
-      this.fields = tutor.tutoring_fields || '';
-      this.computerSkills = tutor.computer_skills || '';
-      this.dateJoined = tutor.date_joined || new Date();
-      this.badges = tutor.tutor_badges || [];
-      this.reviews =
-        tutor.reviews && tutor.reviews.length
-          ? tutor.reviews.map((item: any) => new IReview(false, item))
-          : [];
-      this.expertInTheSubjectRate = tutor.expert_in_the_subject_rate || 0;
-      this.presentComplexTopicsClearlyAndEasilyRate =
-        tutor.present_complex_topics_clearly_and_easily_rate || 0;
-      this.skillfulInEngagingStudentsRate =
-        tutor.skillful_in_engaging_students_rate || 0;
-      this.alwaysOnTimeRate = tutor.always_on_time_rate || 0;
+        tutor?.online_teaching_experience_years || 0;
+      this.expertInTheSubjectRate = 4;
+      this.presentComplexTopicsClearlyAndEasilyRate = 3;
+      this.skillfulInEngagingStudentsRate = 2;
+      this.alwaysOnTimeRate = 5;
+      this.reviews = [];
     }
   }
 }

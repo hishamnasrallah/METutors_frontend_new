@@ -42,6 +42,10 @@
         fill: #ad0909;
       }
 
+      &.is-pending circle {
+        fill: #ffa501;
+      }
+
       &.is-away circle {
         fill: #da9312;
       }

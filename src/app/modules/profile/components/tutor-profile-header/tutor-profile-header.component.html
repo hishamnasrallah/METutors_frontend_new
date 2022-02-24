@@ -10,6 +10,7 @@
                   'is-online': tutor?.status === tutorStatus.online, 
                   'is-busy': tutor?.status === tutorStatus.busy, 
                   'is-offline': tutor?.status === tutorStatus.offline, 
+                  'is-pending': tutor?.status === tutorStatus.pending,
                   'is-away': tutor?.status === tutorStatus.away
                 }" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <circle cx="8" cy="8" r="7" fill="#949494" stroke="white" stroke-width="2" />
@@ -18,7 +19,7 @@
         </div>
         <div class="col">
           <h2>{{ tutor?.name }}</h2>
-          <h4>{{ tutor?.university }}</h4>
+          <h4>{{ tutor?.roleName }}</h4>
         </div>
       </div>
       <div class="row details">

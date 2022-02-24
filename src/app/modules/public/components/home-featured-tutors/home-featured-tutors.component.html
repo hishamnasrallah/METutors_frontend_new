@@ -48,7 +48,7 @@
               <!-- <span class="text-uppercase pro">Pro</span>
                 <span class="text-uppercase verified">Verified</span> -->
             </h2>
-            <h3 *ngIf="teacher?.major">{{ teacher?.major }}</h3>
+            <h3 *ngIf="teacher?.roleName">{{ teacher?.roleName }}</h3>
             <div>
               <rating [ngModel]="teacher?.rate" [max]="5" [readonly]="true"></rating>
               <span class="count">{{ teacher?.rate }}</span>
@@ -79,9 +79,9 @@
             </p>
           </div>
 
-          <div class="col-12 specialization" *ngIf="teacher?.subjects && teacher?.subjects?.length">
+          <div class="col-12 specialization" *ngIf="teacher?.subject && teacher?.subject?.length">
             <h2>Specialization:</h2>
-            <span *ngFor="let subject of teacher?.subjects">{{ subject?.name }}</span>
+            <span *ngFor="let subject of teacher?.subject">{{ subject?.field }}</span>
           </div>
 
           <div class="col-12 d-flex actions">
