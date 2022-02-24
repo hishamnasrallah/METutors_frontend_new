@@ -3,22 +3,22 @@
     <div class="col-md-12 align-items-center">
       <div class="steps">
         <ul class="list-unstyled sidebar-nav">
-          <li [ngClass]="{'active': firstStep }">
+          <li [ngClass]="{'active':  step === 'STEP1' }">
             <span>Personal Information</span>
           </li>
-          <li [ngClass]="{'active': secondStep }">
+          <li [ngClass]="{'active': step === 'STEP2' }">
             <span>Profile Picture</span>
           </li>
-          <li [ngClass]="{'active': thirdStep }">
+          <li [ngClass]="{'active': step === 'STEP3' }">
             <span>Qualification Details</span>
           </li>
-          <li [ngClass]="{'active': fourthStep }">
+          <li [ngClass]="{'active': step === 'STEP4' }">
             <span>Teaching Specifications</span>
           </li>
         </ul>
       </div>
 
-      <ng-container *ngIf="firstStep">
+      <ng-container *ngIf="step === 'STEP1'">
         <form [formGroup]="form" class="w-100">
           <div>
             <h4 class="mb-5 heading">PROVIDE YOUR PERSONAL INFORMATION</h4>
@@ -185,7 +185,7 @@
         </form>
       </ng-container>
 
-      <ng-container *ngIf="secondStep">
+      <ng-container *ngIf="step === 'STEP2'">
         <form [formGroup]="form2" class="w-100">
           <div>
             <h4 class="mb-5 heading">Add Profile Picture</h4>
@@ -293,7 +293,7 @@
         </form>
       </ng-container>
 
-      <ng-container *ngIf="thirdStep">
+      <ng-container *ngIf="step === 'STEP3'">
         <form [formGroup]="form3" class="w-100">
           <div>
             <h4 class="mb-5 heading">PROVIDE YOUR QUALIFICATION DETAILS</h4>
@@ -484,7 +484,7 @@
         </form>
       </ng-container>
 
-      <ng-container *ngIf="fourthStep">
+      <ng-container *ngIf="step === 'STEP4'">
         <form [formGroup]="form4" class="w-100">
           <div>
             <h4 class="mb-5 heading">PROVIDE YOUR TEACHING SPECIFICATIONS</h4>

@@ -36,10 +36,11 @@ export class CompleteTutorProfileComponent implements OnInit {
   subloading1: boolean = false;
   fruits = [{ name: 'Lemon' }, { name: 'Lime' }, { name: 'Apple' }];
 
-  firstStep = true;
-  secondStep = false;
-  thirdStep = false;
-  fourthStep = false;
+  // firstStep = true;
+  // secondStep = false;
+  // thirdStep = false;
+  // fourthStep = false;
+  step: string = 'STEP1';
   dateOfBirth: any;
   profilePic: any;
   coverPic: any;
@@ -268,8 +269,7 @@ export class CompleteTutorProfileComponent implements OnInit {
     this._tutorsService.sendTeacherAccount(data).subscribe((response) => {
       if (response.status === true) {
         this._alertNotificationService.success(response.message);
-        this.firstStep = false;
-        this.secondStep = true;
+        this.step = 'STEP2';
       } else {
         this._alertNotificationService.error(response.errors[0]);
       }
@@ -326,8 +326,7 @@ export class CompleteTutorProfileComponent implements OnInit {
     this._tutorsService.sendTeacherAccount(formData).subscribe((response) => {
       if (response.status === true) {
         this._alertNotificationService.success(response.message);
-        this.secondStep = false;
-        this.thirdStep = true;
+        this.step = 'STEP3';
       } else {
         this._alertNotificationService.error(response.errors[0]);
         // let output = document.getElementById('output');
@@ -367,8 +366,7 @@ export class CompleteTutorProfileComponent implements OnInit {
     this._tutorsService.sendTeacherAccount(data).subscribe((response) => {
       if (response.status === true) {
         this._alertNotificationService.success(response.message);
-        this.thirdStep = false;
-        this.fourthStep = true;
+        this.step = 'STEP4';
       } else {
         this._alertNotificationService.error(response.errors[0]);
       }
