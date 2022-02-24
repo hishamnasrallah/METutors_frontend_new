@@ -1,7 +1,6 @@
 <div class="container request-tutor">
   <h1>Request Academic Tutoring</h1>
-  <!-- linear -->
-  <mat-horizontal-stepper labelPosition="bottom" #stepper>
+  <mat-horizontal-stepper labelPosition="bottom" linear #stepper>
     <mat-step [stepControl]="courseInformationForm">
       <form [formGroup]="courseInformationForm">
         <ng-template matStepLabel>
