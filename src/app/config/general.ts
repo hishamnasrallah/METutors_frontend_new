@@ -32,7 +32,7 @@ export const COURSE_TUITION_TYPES_CONST = {
   both: 'ALL',
 };
 
-export const TEXTBOOK_EDITION_CONST = {
+export const TEXTBOOK_EDITION_CONST: any = {
   1: '1st',
   2: '2nd',
   3: '3rd',
@@ -55,7 +55,7 @@ export const TEXTBOOK_EDITION_CONST = {
   20: '20th',
 };
 
-export const CLASSROOM_TYPES_CONST = {
+export const CLASSROOM_TYPES_CONST: any = {
   '01': COURSE_TUITION_TYPES_CONST.one,
   '02': COURSE_TUITION_TYPES_CONST.group,
 };

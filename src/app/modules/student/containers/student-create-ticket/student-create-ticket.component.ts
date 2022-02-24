@@ -39,7 +39,7 @@ export class StudentCreateTicketComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.getTicketTypesSub = this._lookupsService.fetchTicketTypes().subscribe(
+    this.getTicketTypesSub = this._lookupsService.getTicketTypes().subscribe(
       (fetchedValues) => {
         this.ticketsList = fetchedValues.results;
         addLookups('ticketTypes', this.ticketsList);

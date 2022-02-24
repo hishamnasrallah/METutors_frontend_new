@@ -15,7 +15,15 @@ import {
   TEXTBOOK_EDITION_CONST,
 } from 'src/app/config';
 import { AlertNotificationService } from 'src/app/core/components';
-import { IClass, ITutor } from 'src/app/core/models';
+import {
+  IClass,
+  ICourseField,
+  ICourseLevel,
+  ILanguage,
+  IProgram,
+  ISubject,
+  ITutor,
+} from 'src/app/core/models';
 import {
   CoursesService,
   LookupsService,
@@ -32,26 +40,27 @@ import {
 export class RequestTutorComponent implements OnInit, OnDestroy {
   @ViewChild('stepper') private myStepper?: MatStepper;
 
-  courseInformationForm: FormGroup;
-  classroomDetailsForm: FormGroup;
-  classroomScheduleForm: FormGroup;
+  prices: any;
+  tutors?: ITutor[];
+  reviewInfo: any = {};
+  classrooms!: IClass[];
+  subjects!: ISubject[];
+  languages?: ILanguage[];
+  loadingTutors?: boolean;
   selectTutorForm: FormGroup;
+  coursePrograms?: IProgram[];
+  loadingClassrooms?: boolean;
+  courseLevel?: ICourseLevel[];
+  courseField?: ICourseField[];
+  selectedClassrooms!: IClass[];
+  classroomDetailsForm: FormGroup;
+  courseInformationForm: FormGroup;
+  classroomScheduleForm: FormGroup;
   getCourseLevelSub?: Subscription;
   getCourseFieldSub?: Subscription;
-  getCourseFieldSubjectSub?: Subscription;
-  courseLevel: any[] = [];
-  courseField: any[] = [];
-  languages: any[] = [];
-  subjects: any[] = [];
-  classrooms: IClass[] = [];
-  selectedClassrooms: IClass[] = [];
-  tutors: ITutor[] = [];
-  prices: any;
-  loadingClassrooms?: boolean;
-  loadingTutors?: boolean;
   isCreatingCourse: boolean = false;
-
-  reviewInfo: any = {};
+  getCourseProgramsSub?: Subscription;
+  getCourseFieldSubjectSub?: Subscription;
 
   constructor(
     private _router: Router,
@@ -64,6 +73,7 @@ export class RequestTutorComponent implements OnInit, OnDestroy {
     private _alertNotificationService: AlertNotificationService
   ) {
     this.courseInformationForm = this._fb.group({
+      courseProgram: [null, Validators.required],
       courseLevel: [null, Validators.required],
       courseField: [null, Validators.required],
       preferedTutoringLanguage: [null, Validators.required],
@@ -104,11 +114,11 @@ export class RequestTutorComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    // this._prepareLanguages();
     this._prepareCourseLevel();
-    this._prepareCourseField();
-    this._prepareLanguages();
-    this._fetchCourseFieldSubject();
-    this._fetchAcademicTutoringPrice();
+    // this._prepareCourseField();
+    this._prepareCourseProgram();
+    // this._fetchAcademicTutoringPrice();
   }
 
   nextStep(): void {
@@ -118,6 +128,34 @@ export class RequestTutorComponent implements OnInit, OnDestroy {
 
   backStep(): void {
     this.myStepper?.previous();
+  }
+
+  fetchCourseFieldSubject(fieldId: string): void {
+    this.getCourseFieldSubjectSub = this._lookupsService
+      .getCourseFieldSubject(fieldId)
+      .subscribe(
+        (fetchedValues) => {
+          this.subjects = fetchedValues;
+          addLookups('courseSubjects', this.subjects);
+        },
+        () => {}
+      );
+
+    this.subjects = getLookups().courseSubjects;
+  }
+
+  fetchCourseField(fieldId: string): void {
+    this.getCourseFieldSub = this._lookupsService
+      .getCourseField(fieldId)
+      .subscribe(
+        (fetchedValues) => {
+          this.courseField = fetchedValues;
+          addLookups('courseField', this.courseField);
+        },
+        () => {}
+      );
+
+    this.courseField = getLookups().courseField;
   }
 
   generateClassRooms(): void {
@@ -234,6 +272,7 @@ export class RequestTutorComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.getCourseLevelSub?.unsubscribe();
     this.getCourseFieldSub?.unsubscribe();
+    this.getCourseProgramsSub?.unsubscribe();
   }
 
   private _prepareReviewInfo(): void {
@@ -243,7 +282,7 @@ export class RequestTutorComponent implements OnInit, OnDestroy {
           this.courseLevel && this.courseLevel.length
             ? this.courseLevel.filter(
                 (sub) =>
-                  sub?.code === this.courseInformationForm.value.courseLevel
+                  sub?.id === this.courseInformationForm.value.courseLevel
               )[0]?.name
             : '';
       if (this.courseInformationForm.value.courseField)
@@ -267,7 +306,7 @@ export class RequestTutorComponent implements OnInit, OnDestroy {
         this.reviewInfo.subject =
           this.subjects && this.subjects.length
             ? this.subjects.filter(
-                (sub) => +sub?.id === +this.courseInformationForm.value.subject
+                (sub) => sub?.id === +this.courseInformationForm.value.subject
               )[0]?.name
             : '';
       if (this.courseInformationForm.value.information) {
@@ -298,9 +337,9 @@ export class RequestTutorComponent implements OnInit, OnDestroy {
       if (this.courseInformationForm.value.name)
         this.reviewInfo.name = this.courseInformationForm.value.name;
 
-      // if (this.courseInformationForm.value.edition)
-      //   this.reviewInfo.edition =
-      //     TEXTBOOK_EDITION_CONST[this.courseInformationForm.value.edition];
+      if (this.courseInformationForm.value.edition)
+        this.reviewInfo.edition =
+          TEXTBOOK_EDITION_CONST[this.courseInformationForm.value.edition];
 
       if (this.courseInformationForm.value.author)
         this.reviewInfo.author = this.courseInformationForm.value.author;
@@ -334,8 +373,8 @@ export class RequestTutorComponent implements OnInit, OnDestroy {
           (day: number) => LONG_DAYS_WEEK[day - 1]
         );
 
-      // if (classroomValue.type)
-      //   this.reviewInfo.type = CLASSROOM_TYPES_CONST[classroomValue.type];
+      if (classroomValue.type)
+        this.reviewInfo.type = CLASSROOM_TYPES_CONST[classroomValue.type];
 
       if (classroomValue.seatAttendees)
         this.reviewInfo.seatAttendees = classroomValue.seatAttendees;
@@ -435,57 +474,38 @@ export class RequestTutorComponent implements OnInit, OnDestroy {
   }
 
   private _prepareCourseLevel(): void {
-    this.getCourseLevelSub = this._lookupsService.fetchCourseLevel().subscribe(
+    this.getCourseLevelSub = this._lookupsService.getCourseLevel().subscribe(
       (fetchedValues) => {
         this.courseLevel = fetchedValues.results;
         addLookups('courseLevel', this.courseLevel);
       },
       () => {}
     );
+
     this.courseLevel = getLookups().courseLevel;
   }
 
-  private _prepareCourseField(): void {
-    this.getCourseFieldSub = this._lookupsService.fetchCourseField().subscribe(
+  private _prepareCourseProgram(): void {
+    this.getCourseProgramsSub = this._lookupsService.getPrograms().subscribe(
       (fetchedValues) => {
-        this.courseField = fetchedValues.results;
-        addLookups('courseField', this.courseField);
+        this.coursePrograms = fetchedValues;
+        addLookups('coursePrograms', this.coursePrograms);
       },
       () => {}
     );
-    this.courseField = getLookups().courseField;
+
+    this.coursePrograms = getLookups().coursePrograms;
   }
 
   private _prepareLanguages(): void {
-    this.getCourseFieldSub = this._miscService.fetchLanguages().subscribe(
-      (fetchedValues) => {
-        this.languages = fetchedValues;
-        addMisc('languages', this.languages);
-      },
-      () => {}
-    );
-    this.languages = getMisc().languages;
-  }
-
-  private _fetchCourseFieldSubject(): void {
-    this.getCourseFieldSubjectSub = this._lookupsService
-      .fetchCourseFieldSubject()
-      .subscribe(
-        (fetchedValues) => {
-          const results = fetchedValues.results;
-          const list: any = [];
-
-          if (results && results.length) {
-            results.forEach((item: any) => {
-              list.push(...item.subjects);
-            });
-          }
-          this.subjects = list;
-          addLookups('courseSubjects', list);
-        },
-        () => {}
-      );
-    this.subjects = getLookups().courseSubjects;
+    // this.getCourseFieldSub = this._miscService.getLanguages().subscribe(
+    //   (fetchedValues) => {
+    //     this.languages = fetchedValues;
+    //     addMisc('languages', this.languages);
+    //   },
+    //   () => {}
+    // );
+    // this.languages = getMisc().languages;
   }
 
   private _fetchAcademicTutoringPrice(): void {
@@ -498,6 +518,7 @@ export class RequestTutorComponent implements OnInit, OnDestroy {
         },
         () => {}
       );
+
     this.prices = getMisc().prices;
   }
 }

@@ -2,7 +2,6 @@ export * from './availability.model';
 export * from './category.model';
 export * from './class.model';
 export * from './classroom.model';
-export * from './course-field.model';
 export * from './course.model';
 export * from './faq.model';
 export * from './language.model';

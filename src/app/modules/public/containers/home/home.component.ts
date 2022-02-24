@@ -54,9 +54,9 @@ export class HomeComponent implements OnInit {
         studentNumber: 100,
         bio: "Bio: Hello everyone! My name is Charlene and I'm from China.",
         subject: [
-          { id: 1, field: 'Geographics' },
-          { id: 2, field: 'Math' },
-          { id: 3, field: 'Science' },
+          { id: 1, name: 'Geographics' },
+          { id: 2, name: 'Math' },
+          { id: 3, name: 'Science' },
         ],
       },
       {
@@ -71,9 +71,9 @@ export class HomeComponent implements OnInit {
         studentNumber: 100,
         bio: "Bio: Hello everyone! My name is Charlene and I'm from China.",
         subject: [
-          { id: 1, field: 'Geographics' },
-          { id: 2, field: 'Math' },
-          { id: 3, field: 'Science' },
+          { id: 1, name: 'Geographics' },
+          { id: 2, name: 'Math' },
+          { id: 3, name: 'Science' },
         ],
       },
       {
@@ -88,9 +88,9 @@ export class HomeComponent implements OnInit {
         studentNumber: 100,
         bio: "Bio: Hello everyone! My name is Charlene and I'm from China.",
         subject: [
-          { id: 1, field: 'Geographics' },
-          { id: 2, field: 'Math' },
-          { id: 3, field: 'Science' },
+          { id: 1, name: 'Geographics' },
+          { id: 2, name: 'Math' },
+          { id: 3, name: 'Science' },
         ],
       },
       {
@@ -105,9 +105,9 @@ export class HomeComponent implements OnInit {
         studentNumber: 100,
         bio: "Bio: Hello everyone! My name is Charlene and I'm from China.",
         subject: [
-          { id: 1, field: 'Geographics' },
-          { id: 2, field: 'Math' },
-          { id: 3, field: 'Science' },
+          { id: 1, name: 'Geographics' },
+          { id: 2, name: 'Math' },
+          { id: 3, name: 'Science' },
         ],
       },
     ];

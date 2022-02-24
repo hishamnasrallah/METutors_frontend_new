@@ -81,7 +81,7 @@
 
           <div class="col-12 specialization" *ngIf="teacher?.subject && teacher?.subject?.length">
             <h2>Specialization:</h2>
-            <span *ngFor="let subject of teacher?.subject">{{ subject?.field }}</span>
+            <span *ngFor="let subject of teacher?.subject">{{ subject?.name }}</span>
           </div>
 
           <div class="col-12 d-flex actions">

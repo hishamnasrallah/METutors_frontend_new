@@ -17,7 +17,8 @@
         </ng-template>
 
         <metutors-course-information-form [form]="courseInformationForm" [courseLevel]="courseLevel"
-          [courseField]="courseField" [languages]="languages" [subjects]="subjects" (submitForm)="nextStep()">
+          [courseField]="courseField" [coursePrograms]="coursePrograms" [languages]="languages" [subjects]="subjects"
+          (submitForm)="nextStep()" (changeCourseProgram)="fetchCourseFieldSubject($event); fetchCourseField($event)">
         </metutors-course-information-form>
       </form>
     </mat-step>

@@ -7,11 +7,24 @@
       </div>
       <div class="col-md-8">
         <div class="row">
+          <div class="col-md-12">
+            <h3>Course programs</h3>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-select formControlName="courseProgram" [placeholder]="'Choose program'"
+                (selectionChange)="onChangeCourseProgram()">
+                <mat-option [value]="program?.id" *ngFor="let program of coursePrograms">
+                  {{ program?.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row mt-4">
           <div class="col-md-6">
             <h3>Course level</h3>
             <mat-form-field appearance="outline" class="w-100">
               <mat-select formControlName="courseLevel" [placeholder]="'Choose level'">
-                <mat-option [value]="level?.code" *ngFor="let level of courseLevel">
+                <mat-option [value]="level?.id" *ngFor="let level of courseLevel">
                   {{ level?.name }}
                 </mat-option>
               </mat-select>
@@ -21,7 +34,7 @@
             <h3>Course field</h3>
             <mat-form-field appearance="outline" class="w-100">
               <mat-select formControlName="courseField" [placeholder]="'Choose field'">
-                <mat-option [value]="field?.code" *ngFor="let field of courseField">
+                <mat-option [value]="field?.id" *ngFor="let field of courseField">
                   {{ field?.name }}
                 </mat-option>
               </mat-select>
@@ -44,7 +57,7 @@
             <mat-form-field appearance="outline" class="w-100">
               <mat-select formControlName="subject" [placeholder]="'Choose subject'">
                 <ng-container *ngFor="let subject of subjects">
-                  <mat-option [value]="subject?.code" *ngIf="+subject?.course_field === +field?.value">
+                  <mat-option [value]="subject?.id">
                     {{ subject?.name }}
                   </mat-option>
                 </ng-container>
@@ -63,7 +76,7 @@
       <div class="col-md-8">
         <mat-radio-group aria-label="Select an option" (change)="onChange($event)" formControlName="information">
           <mat-radio-button class="w-100" [value]="academicTutoringTextbook.later">
-            Will provide textbook later
+            Will provide textbook details later
           </mat-radio-button>
 
           <mat-radio-button class="w-100" [value]="academicTutoringTextbook.pdf">
@@ -97,6 +110,10 @@
               </div>
             </div>
           </div>
+
+          <mat-radio-button class="w-100" [value]="academicTutoringTextbook.none">
+            Textbook not required
+          </mat-radio-button>
 
           <mat-radio-button class="w-100" [value]="academicTutoringTextbook.info">
             My textbook details listed below

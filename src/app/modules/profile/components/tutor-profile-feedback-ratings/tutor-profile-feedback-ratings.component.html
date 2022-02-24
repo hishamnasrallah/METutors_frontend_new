@@ -38,7 +38,7 @@
         </div>
       </div>
     </div>
-    <div class="feedback-block">
+    <div class="feedback-block" *ngIf="tutor?.reviews && tutor?.reviews?.length">
       <div class="row review" *ngFor="let review of tutor?.reviews">
         <div class="col-md-1">
           <img width="60" height="60" draggable="false" alt="" class="rounded-circle" meTutorsDefaultAvatar

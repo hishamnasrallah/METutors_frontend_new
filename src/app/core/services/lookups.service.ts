@@ -1,55 +1,115 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, map } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import {
+  IProgram,
+  ICountry,
+  ISubject,
+  ICourseField,
+  ICourseLevel,
+} from '../models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LookupsService {
-  mainLink = environment.API_URL + 'lookup/';
   BACKEND_URL = environment.API_URL;
 
   constructor(private http: HttpClient) {}
 
   getCountries(): Observable<any> {
-    return this.http.get<any>(this.BACKEND_URL + `countries`);
+    return this.http
+      .get<{ countries: ICountry[] }>(`${this.BACKEND_URL}countries`)
+      .pipe(
+        map((response) => {
+          return response.countries.map((item) => ({
+            id: item.id,
+            name: item.name,
+          }));
+        })
+      )
+      .pipe(catchError(this.errorHandler));
   }
 
   getCities(id: string): Observable<any> {
-    return this.http.get<any>(this.BACKEND_URL + `cities?country_id=${id}`);
+    return this.http.get<any>(`${this.BACKEND_URL}cities?country_id=${id}`);
   }
 
   addLanguage(data: any): Observable<any> {
-    return this.http.post<any>(this.BACKEND_URL + 'add-language', data);
+    return this.http.post<any>(`${this.BACKEND_URL}add-language`, data);
   }
 
   removeLanguage(data: any): Observable<any> {
-    return this.http.post<any>(this.BACKEND_URL + 'remove-language', data);
+    return this.http.post<any>(`${this.BACKEND_URL}remove-language`, data);
   }
 
-  fetchTicketTypes(): Observable<any> {
+  getPrograms(): Observable<any> {
     return this.http
-      .get<any>(`${this.mainLink}ticket_types/`)
+      .get<{ programs: IProgram[] }>(`${this.BACKEND_URL}programs`)
+      .pipe(
+        map((response) => {
+          return response.programs.map((item) => ({
+            id: item.id,
+            name: item.name,
+          }));
+        })
+      )
       .pipe(catchError(this.errorHandler));
   }
 
-  fetchCourseFieldSubject(): Observable<any> {
+  getCourseFieldSubject(fieldId: string): Observable<any> {
     return this.http
-      .get<any>(`${this.mainLink}course_field_with_subject/`)
+      .get<{ subjects: ISubject[] }>(
+        `${this.BACKEND_URL}field-subjects?field_id=${fieldId}`
+      )
+      .pipe(
+        map((response) => {
+          return response.subjects.map((item) => ({
+            id: item.id,
+            name: item.name,
+          }));
+        })
+      )
       .pipe(catchError(this.errorHandler));
   }
 
-  fetchCourseLevel(): Observable<any> {
+  getCourseField(fieldId: string): Observable<any> {
     return this.http
-      .get<any>(`${this.mainLink}course_level/`)
+      .get<{ field_of_study: ICourseField[] }>(
+        `${this.BACKEND_URL}field-of-study?program_id=${fieldId}`
+      )
+      .pipe(
+        map((response) => {
+          return response.field_of_study.map((item) => ({
+            id: item.id,
+            name: item.name,
+          }));
+        })
+      )
       .pipe(catchError(this.errorHandler));
   }
 
-  fetchCourseField(): Observable<any> {
+  getCourseLevel(): Observable<any> {
     return this.http
-      .get<any>(`${this.mainLink}course_field/`)
+      .get<{ course_levels: ICourseLevel[] }>(
+        `${this.BACKEND_URL}course-levels`
+      )
+      .pipe(
+        map((response) => {
+          return response.course_levels.map((item) => ({
+            id: item.id,
+            name: item.name,
+          }));
+        })
+      )
+      .pipe(catchError(this.errorHandler));
+  }
+
+  getTicketTypes(): Observable<any> {
+    return this.http
+      .get<any>(`${this.BACKEND_URL}ticket_types`)
       .pipe(catchError(this.errorHandler));
   }
 

@@ -3,7 +3,6 @@ import {
   COURSE_TAGS_CONST,
   COURSE_TUITION_TYPES_CONST,
 } from 'src/app/config/general';
-import { ICourseField } from './course-field.model';
 import { IPriceRange } from './price-range';
 
 export class ICourse {
@@ -54,6 +53,18 @@ export class ICourse {
       this.courseField = course.course_field;
     }
   }
+}
+
+export interface ICourseLevel {
+  id: number;
+  name: string;
+}
+
+export interface ICourseField {
+  id: number;
+  name: string;
+  code: string;
+  icon: string;
 }
 
 export function getTuitionValue(type: number): string {

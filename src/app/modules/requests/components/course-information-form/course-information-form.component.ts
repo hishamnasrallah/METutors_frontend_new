@@ -14,6 +14,7 @@ import {
   TEXTBOOK_EDITION_CONST,
 } from 'src/app/config';
 import { AlertNotificationService } from 'src/app/core/components';
+import { ICourseField, ICourseLevel, IProgram, ISubject } from 'src/app/core/models';
 
 @Component({
   selector: 'metutors-course-information-form',
@@ -43,12 +44,14 @@ import { AlertNotificationService } from 'src/app/core/components';
 })
 export class CourseInformationFormComponent implements OnInit {
   @Input() form!: FormGroup;
-  @Input() subjects?: any[];
   @Input() languages?: any[];
-  @Input() courseLevel?: any[];
-  @Input() courseField?: any[];
+  @Input() subjects?: ISubject[];
+  @Input() coursePrograms?: IProgram[];
+  @Input() courseLevel?: ICourseLevel[];
+  @Input() courseField?: ICourseField[];
 
   @Output() submitForm = new EventEmitter<FormGroup>();
+  @Output() changeCourseProgram = new EventEmitter<string>();
 
   filePreview: any;
   textbookEditions = TEXTBOOK_EDITION_CONST;
@@ -92,6 +95,10 @@ export class CourseInformationFormComponent implements OnInit {
     return this.form.get('courseField');
   }
 
+  get program(): AbstractControl | null {
+    return this.form.get('courseProgram');
+  }
+
   get information(): AbstractControl | null {
     return this.form.get('information');
   }
@@ -110,6 +117,12 @@ export class CourseInformationFormComponent implements OnInit {
 
   get file(): AbstractControl | null {
     return this.form.get('file');
+  }
+
+  onChangeCourseProgram(): void {
+    const programId = this.program?.value;
+
+    this.changeCourseProgram.emit(programId);
   }
 
   onFileUpload(event: any): void {
