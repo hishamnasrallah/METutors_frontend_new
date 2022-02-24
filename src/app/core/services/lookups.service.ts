@@ -9,6 +9,7 @@ import {
   ISubject,
   ICourseField,
   ICourseLevel,
+  ILanguage,
 } from '../models';
 
 @Injectable({
@@ -99,6 +100,20 @@ export class LookupsService {
       .pipe(
         map((response) => {
           return response.course_levels.map((item) => ({
+            id: item.id,
+            name: item.name,
+          }));
+        })
+      )
+      .pipe(catchError(this.errorHandler));
+  }
+
+  getLanguages(): Observable<any> {
+    return this.http
+      .get<{ languages: ILanguage[] }>(`${this.BACKEND_URL}languages`)
+      .pipe(
+        map((response) => {
+          return response.languages.map((item) => ({
             id: item.id,
             name: item.name,
           }));

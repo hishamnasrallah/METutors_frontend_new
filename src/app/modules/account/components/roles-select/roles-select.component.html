@@ -9,7 +9,7 @@
             <mat-icon class="spinner" *ngIf="loading">autorenew</mat-icon>
             <div class="row">
               <div class="col-md-6" *ngFor="let role of roles">
-                <button mat-button (click)="onSubmit(role.id)" class="w-100 text-left" type="button">
+                <button mat-button (click)="onSubmit(role.id)" class="w-100 text-start" type="button">
                   <mat-icon>local_library</mat-icon>
                   I'm a {{ role.name }}
                 </button>

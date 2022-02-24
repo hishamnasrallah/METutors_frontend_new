@@ -44,9 +44,9 @@ export class StudentClassesComponent implements OnInit {
     });
   }
 
-  calculateDurationTime(startTime?: Date, endTime?: Date): number {
-    return calculateDurationTime(startTime, endTime);
-  }
+  // calculateDurationTime(startTime?: Date, endTime?: Date): number {
+  //   return calculateDurationTime(startTime, endTime);
+  // }
 
   ngOnDestroy(): void {
     this.classroomSub?.unsubscribe();

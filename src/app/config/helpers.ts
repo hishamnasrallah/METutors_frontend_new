@@ -20,7 +20,7 @@ export function simpleNumber(value: number): string | number {
 }
 
 export function addMisc(title: string, details: any) {
-  const miscLocal = JSON.parse(localStorage.getItem('misc')  || '{}');
+  const miscLocal = JSON.parse(localStorage.getItem('misc') || '{}');
   let misc: any = miscLocal ? miscLocal : {};
 
   misc[title] = details;
@@ -28,11 +28,11 @@ export function addMisc(title: string, details: any) {
 }
 
 export function getMisc(): IMisc {
-  return JSON.parse(localStorage.getItem('misc')  || '{}');
+  return JSON.parse(localStorage.getItem('misc') || '{}');
 }
 
 export function addLookups(title: string, details: any) {
-  const lookupsLocal = JSON.parse(localStorage.getItem('lookups')  || '{}');
+  const lookupsLocal = JSON.parse(localStorage.getItem('lookups') || '{}');
   let lookups: any = lookupsLocal ? lookupsLocal : {};
 
   lookups[title] = details;
@@ -53,12 +53,12 @@ export function formatBytes(bytes: number, decimals = 2) {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
 }
 
-export function calculateDurationTime(start?: Date, end?: Date) {
-  const timeHourStart = start ? new Date(start).getHours() : 0;
-  const timeHourEnd = end ? new Date(end).getHours() : 0;
+export function calculateDurationTime(start: string, end: string) {
+  const timeHourStart = parseTime(start)?.hours;
+  const timeHourEnd = parseTime(end)?.hours;
 
-  const timeMinuteStart = start ? new Date(start).getMinutes() : 0;
-  const timeMinuteEnd = end ? new Date(end).getMinutes() : 0;
+  const timeMinuteStart = parseTime(start)?.minutes;
+  const timeMinuteEnd = parseTime(start)?.minutes;
 
   let hourDiff = timeHourEnd - timeHourStart;
   let minuteDiff = timeMinuteEnd - timeMinuteStart;
@@ -73,6 +73,24 @@ export function calculateDurationTime(start?: Date, end?: Date) {
 
   const minuteAvg = (minuteDiff / 60).toFixed(2);
   return hourDiff + +minuteAvg;
+}
+
+function parseTime(time: string): any {
+  const part = time.match(/(\d+):(\d+)(?: )?(am|pm)?/i) || '';
+  const minutes = parseInt(part[2], 10);
+  const ap = part[3] ? part[3].toUpperCase() : null;
+
+  let hours = parseInt(part[1], 10);
+
+  if (ap === 'AM' && hours == 12) {
+    hours = 0;
+  }
+
+  if (ap === 'PM' && hours != 12) {
+    hours += 12;
+  }
+
+  return { hours, minutes };
 }
 
 export function calculateListDays(startDate: string, endDate: string) {

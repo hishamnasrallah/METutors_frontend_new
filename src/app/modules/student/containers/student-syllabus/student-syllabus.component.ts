@@ -89,9 +89,9 @@ export class StudentSyllabusComponent implements OnInit, OnDestroy {
     });
   }
 
-  calculateDurationTime(startTime?: Date, endTime?: Date): number {
-    return calculateDurationTime(startTime, endTime);
-  }
+  // calculateDurationTime(startTime?: Date, endTime?: Date): number {
+  //   return calculateDurationTime(startTime, endTime);
+  // }
 
   changeOpenSelection(id: number): void {
     if (this.selectedCourse === id) {

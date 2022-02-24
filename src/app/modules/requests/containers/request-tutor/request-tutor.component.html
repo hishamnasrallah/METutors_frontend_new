@@ -1,6 +1,7 @@
 <div class="container request-tutor">
   <h1>Request Academic Tutoring</h1>
-  <mat-horizontal-stepper labelPosition="bottom"  #stepper>
+  <!-- linear -->
+  <mat-horizontal-stepper labelPosition="bottom" #stepper>
     <mat-step [stepControl]="courseInformationForm">
       <form [formGroup]="courseInformationForm">
         <ng-template matStepLabel>
@@ -39,7 +40,7 @@
         </ng-template>
 
         <metutors-classroom-info-form [form]="classroomDetailsForm" [prices]="prices" (onBack)="backStep()"
-          (submitForm)="nextStep(); generateClassRooms()">
+          (submitForm)="nextStep()">
         </metutors-classroom-info-form>
       </form>
     </mat-step>

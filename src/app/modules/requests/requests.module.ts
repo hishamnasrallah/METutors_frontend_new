@@ -14,8 +14,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { RatingModule } from 'ngx-bootstrap/rating';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatNativeDateModule } from '@angular/material/core';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
-import { RequestTutorComponent } from './containers';
+import { RequestTutorComponent, InvoiceDetailsComponent } from './containers';
 
 import {
   DialogEditClassroom,
@@ -25,9 +26,8 @@ import {
   ClassroomInfoFormComponent,
   ListClassroomsFormComponent,
   CourseInformationFormComponent,
+  InvoiceClassroomDetailsComponent,
 } from './components';
-import { InvoiceDetailsComponent } from './containers/invoice-details/invoice-details.component';
-import { InvoiceClassroomDetailsComponent } from './components/invoice-classroom-details/invoice-classroom-details.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +59,7 @@ import { InvoiceClassroomDetailsComponent } from './components/invoice-classroom
     MatNativeDateModule,
     RequestsRoutingModule,
     RatingModule.forRoot(),
+    NgxMaterialTimepickerModule,
   ],
 })
 export class RequestsModule {}

@@ -14,7 +14,12 @@ import {
   TEXTBOOK_EDITION_CONST,
 } from 'src/app/config';
 import { AlertNotificationService } from 'src/app/core/components';
-import { ICourseField, ICourseLevel, IProgram, ISubject } from 'src/app/core/models';
+import {
+  ICourseField,
+  ICourseLevel,
+  IProgram,
+  ISubject,
+} from 'src/app/core/models';
 
 @Component({
   selector: 'metutors-course-information-form',
@@ -68,6 +73,7 @@ export class CourseInformationFormComponent implements OnInit {
       this.name?.setValidators([Validators.required]);
       this.edition?.setValidators([Validators.required]);
       this.author?.setValidators([Validators.required]);
+      // this.filePreview = null;
       this.file?.setValidators([]);
     } else if (value === this.academicTutoringTextbook.pdf) {
       this.name?.setValidators([]);
@@ -79,6 +85,7 @@ export class CourseInformationFormComponent implements OnInit {
       this.edition?.setValidators([]);
       this.author?.setValidators([]);
       this.file?.setValidators([]);
+      // this.filePreview = null;
     }
 
     this.name?.updateValueAndValidity();

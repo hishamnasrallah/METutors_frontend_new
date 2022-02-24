@@ -35,11 +35,11 @@
               </div> -->
           </div>
 
-          <div class="list-messages overflow-auto pr-5" ngx-auto-scroll [lock-y-offset]="10" observe-attributes>
+          <div class="list-messages overflow-auto pe-5" ngx-auto-scroll [lock-y-offset]="10" observe-attributes>
             <div class="row mb-40" [@dropMenuAnimate] *ngFor="let message of ticket?.replies">
               <div class="col-md-2 d-flex info">
                 <img [src]="message?.avatar" meTutorsDefaultAvatar class="rounded-circle" alt="" width="40" height="40">
-                <div class="pl-3">
+                <div class="ps-3">
                   <h3>
                     <ng-container *ngIf="ticketUserType.publicUser === message?.userType">You</ng-container>
                     <ng-container *ngIf="ticketUserType.meEmployee === message?.userType">

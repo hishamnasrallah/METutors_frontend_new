@@ -17,7 +17,7 @@ export class ClassroomItemComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  calculateDurationTime(startTime?: Date, endTime?: Date): number {
-    return calculateDurationTime(startTime, endTime);
-  }
+  // calculateDurationTime(startTime?: Date, endTime?: Date): number {
+  //   return calculateDurationTime(startTime, endTime);
+  // }
 }

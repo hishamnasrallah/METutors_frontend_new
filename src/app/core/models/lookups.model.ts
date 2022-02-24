@@ -1,4 +1,4 @@
-import { ICourseField, ICourseLevel, IFAQTopics, ISubject } from '.';
+import { ICourseField, ICourseLevel, IFAQTopics, ILanguage, ISubject } from '.';
 
 export interface ILookups {
   ticketTypes: any;
@@ -9,6 +9,7 @@ export interface ILookups {
   courseSubjects: ISubject[];
   coursePrograms: IProgram[];
   topics: IFAQTopics[];
+  languages: ILanguage[];
 }
 
 export interface IProgram {

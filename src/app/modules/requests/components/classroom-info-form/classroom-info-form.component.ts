@@ -178,6 +178,7 @@ export class ClassroomInfoFormComponent implements OnInit {
       ) {
         this.price = +this.prices?.oneOnOne * +this.hours?.value;
         this.showSeatAttendees = false;
+        this.seatAttendees?.setValue(1);
       } else {
         this.price = +this.prices?.groupStudy * +this.hours?.value;
         this.showSeatAttendees = true;
@@ -185,11 +186,11 @@ export class ClassroomInfoFormComponent implements OnInit {
     }
   }
 
-  onCloseCalendar(): void {
+  onChangeTimePicker(): void {
     if (this.startTime?.value && this.endTime?.value) {
       const duration = calculateDurationTime(
-        this.startTime.value,
-        this.endTime.value
+        this.startTime?.value,
+        this.endTime?.value
       );
       this.duration?.setValue(duration);
       this.tempDuration?.setValue(duration);
@@ -200,6 +201,7 @@ export class ClassroomInfoFormComponent implements OnInit {
         +(+this.tempDuration?.value * +this.tempTotalClasses?.value).toFixed(2)
       );
       this.onChangeType();
+
       return;
     }
 

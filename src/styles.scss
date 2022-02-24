@@ -96,6 +96,16 @@ button:hover {
   background-color: #3bb3c1;
 }
 
+.timepicker__header,
+.clock-face__number>span.active,
+.clock-face__clock-hand {
+  background-color: #3bb3c1 !important;
+}
+
+.timepicker-button {
+  color: #3bb3c1 !important;
+}
+
 .mat-chip.mat-standard-chip {
   background: #FFF;
   border: 1px solid #e2e2e2;

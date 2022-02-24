@@ -33,7 +33,8 @@
           <div class="col-md-6">
             <h3>Course field</h3>
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="courseField" [placeholder]="'Choose field'">
+              <mat-select formControlName="courseField" [placeholder]="'Choose field'"
+                [disabled]="!courseField || !courseField?.length">
                 <mat-option [value]="field?.id" *ngFor="let field of courseField">
                   {{ field?.name }}
                 </mat-option>
@@ -45,7 +46,7 @@
           <div class="col-md-6">
             <h3>Prefered tutoring language</h3>
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="preferedTutoringLanguage" [placeholder]="'Choose language'">
+              <mat-select formControlName="language" [placeholder]="'Choose language'">
                 <mat-option [value]="lang?.id" *ngFor="let lang of languages">
                   {{ lang?.name }}
                 </mat-option>
@@ -55,7 +56,8 @@
           <div class="col-md-6">
             <h3>Subject</h3>
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="subject" [placeholder]="'Choose subject'">
+              <mat-select formControlName="subject" [placeholder]="'Choose subject'"
+                [disabled]="!subjects || !subjects?.length">
                 <ng-container *ngFor="let subject of subjects">
                   <mat-option [value]="subject?.id">
                     {{ subject?.name }}
@@ -120,7 +122,7 @@
           </mat-radio-button>
           <div class="row my-3" [@slideInOut] *ngIf="information?.value === academicTutoringTextbook.info">
             <div class="col-md-4">
-              <h3>Textbook name</h3>
+              <h3>Textbook name *</h3>
               <input type="text" formControlName="name" class="form-control" placeholder="Type name">
             </div>
             <div class="col-md-4">
@@ -134,7 +136,7 @@
               </mat-form-field>
             </div>
             <div class="col-md-4">
-              <h3>Textbook author</h3>
+              <h3>Textbook author *</h3>
               <input type="text" formControlName="author" class="form-control" placeholder="Type author">
             </div>
           </div>

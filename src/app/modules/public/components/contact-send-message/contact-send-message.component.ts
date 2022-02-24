@@ -71,8 +71,9 @@ export class ContactSendMessageComponent implements OnInit {
   onFileUpload(event: any): void {
     if (event.target && event.target.files && event.target.files.length) {
       const file = event.target.files[0];
+
       if (file.size > 10 * 1024 * 1024) {
-        this._alertNotificationService.error('الحجم الأقصى للمرفق هو 10 ميجا');
+        this._alertNotificationService.error('The File size can\'t be more then 10MB');
 
         return;
       }
