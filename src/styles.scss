@@ -106,6 +106,10 @@ button:hover {
   color: #3bb3c1 !important;
 }
 
+.timepicker-overlay {
+  z-index: 9999 !important;
+}
+
 .mat-chip.mat-standard-chip {
   background: #FFF;
   border: 1px solid #e2e2e2;

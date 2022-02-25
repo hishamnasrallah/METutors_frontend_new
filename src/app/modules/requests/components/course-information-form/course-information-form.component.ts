@@ -17,6 +17,7 @@ import { AlertNotificationService } from 'src/app/core/components';
 import {
   ICourseField,
   ICourseLevel,
+  ILanguage,
   IProgram,
   ISubject,
 } from 'src/app/core/models';
@@ -49,8 +50,8 @@ import {
 })
 export class CourseInformationFormComponent implements OnInit {
   @Input() form!: FormGroup;
-  @Input() languages?: any[];
   @Input() subjects?: ISubject[];
+  @Input() languages?: ILanguage[];
   @Input() coursePrograms?: IProgram[];
   @Input() courseLevel?: ICourseLevel[];
   @Input() courseField?: ICourseField[];

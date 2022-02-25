@@ -39,7 +39,7 @@
         </ng-template>
 
         <metutors-classroom-info-form [form]="classroomDetailsForm" [prices]="prices" (onBack)="backStep()"
-          (submitForm)="nextStep()">
+          (submitForm)="nextStep(); generateClassRooms()">
         </metutors-classroom-info-form>
       </form>
     </mat-step>
@@ -59,8 +59,8 @@
           </div>
         </ng-template>
 
-        <metutors-list-classrooms-form [form]="classroomScheduleForm" [classrooms]="classrooms"
-          [loading]="loadingClassrooms" (onBack)="backStep()" (onNext)="nextStep()" (loadTutors)="loadTutors($event)">
+        <metutors-list-classrooms-form [form]="classroomScheduleForm" [classrooms]="classrooms" (onBack)="backStep()"
+          (onNext)="nextStep()" (loadTutors)="loadTutors($event)">
         </metutors-list-classrooms-form>
       </form>
     </mat-step>

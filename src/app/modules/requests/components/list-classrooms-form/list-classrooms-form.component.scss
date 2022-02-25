@@ -30,15 +30,18 @@
     table {
       tr {
         position: relative;
+        border: none;
 
         th {
           color: #949494;
           font-size: 13px;
           border-top: none;
+          padding: 10px;
           background-color: #fafafa;
         }
 
         td {
+          padding: 10px;
           border-top: 1px solid #ededed;
         }
 

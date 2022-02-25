@@ -187,29 +187,6 @@ export class CoursesService {
       );
   }
 
-  generateClassRooms(value: any): Observable<any> {
-    const formData = new FormData();
-
-    formData.append('batch_expected_end_date', value.endDate);
-    formData.append('batch_start_date', value.startDate);
-    formData.append('batch_days', value.days);
-    formData.append('total_classes', value.classes);
-    formData.append('seat_attendees', value.seatAttendees);
-    formData.append('batch_start_time', value.startTime);
-    formData.append('batch_end_time', value.endTime);
-
-    return this.http
-      .post<{ result: IClass[] }>(
-        `${this.mainLink}academic_tutoring/generate_list_of_classes/`,
-        formData
-      )
-      .pipe(
-        map((response) => {
-          return response.result.map((item) => new IClass(false, item));
-        })
-      );
-  }
-
   createCourse(value: any): Observable<any> {
     const formData = new FormData();
 

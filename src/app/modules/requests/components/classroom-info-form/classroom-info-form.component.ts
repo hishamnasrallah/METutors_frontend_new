@@ -156,6 +156,7 @@ export class ClassroomInfoFormComponent implements OnInit {
         +(+this.tempDuration?.value * +this.tempTotalClasses?.value).toFixed(2)
       );
       this.onChangeType();
+
       return;
     }
 

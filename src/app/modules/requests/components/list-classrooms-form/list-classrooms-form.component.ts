@@ -28,7 +28,7 @@ import { IClass } from 'src/app/core/models';
 })
 export class ListClassroomsFormComponent implements OnInit {
   @Input() form!: FormGroup;
-  @Input() loading?: boolean;
+
   @Input() set classrooms(classes: IClass[] | undefined) {
     if (classes) {
       this._classrooms = classes;
@@ -166,10 +166,10 @@ export class DialogEditClassroom implements OnInit {
       const classroom = data.classroom;
       this.editForm.patchValue({
         number: classroom.number,
-        startDate: classroom.date,
+        startDate: new Date(classroom.date),
         days: this._datePipe.transform(new Date(classroom.date), 'EEEE'),
-        startTime: new Date('01-01-2017 ' + classroom.startTime + ':00'),
-        endTime: new Date('01-01-2017 ' + classroom.endTime + ':00'),
+        startTime: classroom.startTime,
+        endTime: classroom.endTime,
         duration: classroom.duration,
         tempDuration: classroom.duration,
       });
@@ -206,11 +206,11 @@ export class DialogEditClassroom implements OnInit {
     return this.editForm.get('tempDuration');
   }
 
-  onCloseCalendar(): void {
+  onChangeTimePicker(): void {
     if (this.startTime?.value && this.endTime?.value) {
       const duration = calculateDurationTime(
-        this.startTime.value,
-        this.endTime.value
+        this.startTime?.value,
+        this.endTime?.value
       );
       this.duration?.setValue(duration);
       this.tempDuration?.setValue(duration);
@@ -233,17 +233,13 @@ export class DialogEditClassroom implements OnInit {
   onSubmit(form: FormGroup): void {
     if (form.valid) {
       const value: IClass = {
-        id: form.value.id,
         number: form.value.number,
-        title: form.value.title,
-        subject: '',
-        attendees: form.value.attendees,
-        date: form.value.startDate,
-        startTime:
-          this._datePipe.transform(new Date(form.value.startTime), 'HH:mm') ||
-          '',
-        endTime:
-          this._datePipe.transform(new Date(form.value.endTime), 'HH:mm') || '',
+        date: this._datePipe.transform(
+          new Date(form.value.startDate),
+          'yyyy-MM-dd'
+        ) || '',
+        startTime: form.value.startTime,
+        endTime: form.value.endTime,
         duration: form.value.tempDuration,
       };
 

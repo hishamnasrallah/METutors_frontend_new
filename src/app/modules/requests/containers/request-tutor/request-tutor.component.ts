@@ -8,9 +8,11 @@ import { Subscription } from 'rxjs';
 import {
   AcademicTutoringTextbook,
   addLookups,
+  calculateListDays,
   CLASSROOM_TYPES_CONST,
   getLookups,
   LONG_DAYS_WEEK,
+  SORTED_DAYS_WEEK,
   TEXTBOOK_EDITION_CONST,
 } from 'src/app/config';
 import {
@@ -46,7 +48,6 @@ export class RequestTutorComponent implements OnInit, OnDestroy {
   loadingTutors?: boolean;
   selectTutorForm: FormGroup;
   coursePrograms?: IProgram[];
-  loadingClassrooms?: boolean;
   courseLevel?: ICourseLevel[];
   courseField?: ICourseField[];
   selectedClassrooms!: IClass[];
@@ -156,32 +157,23 @@ export class RequestTutorComponent implements OnInit, OnDestroy {
 
   generateClassRooms(): void {
     if (this.classroomDetailsForm.valid) {
-      const value = this._generateClassroomForm(
+      const value: any = this._generateClassroomForm(
         this.classroomDetailsForm.value
       );
-      this.loadingClassrooms = true;
-      this._coursesService.generateClassRooms(value).subscribe(
-        (result) => {
-          this.loadingClassrooms = false;
-          if (result && result.length) {
-            this.classrooms = [];
+      const listDates = calculateListDays(value.startDate, value.endDate);
 
-            result.forEach((item: any, index: number) => {
-              this.classrooms[index] = {
-                ...item,
-                duration: this.classroomDetailsForm.value.tempDuration,
-              };
-            });
-            this.selectedClassrooms = this.classrooms;
-          }
-        },
-        (error) => {
-          this.loadingClassrooms = false;
-          this._alertNotificationService.error(
-            'Error in generating the classrooms'
-          );
+      this.classrooms = [];
+      listDates.forEach((date, index) => {
+        if (value.days?.includes(SORTED_DAYS_WEEK[new Date(date).getDay()])) {
+          this.classrooms.push({
+            number: index + 1,
+            date,
+            startTime: value.startTime,
+            endTime: value.endTime,
+            duration: value.duration,
+          });
         }
-      );
+      });
     }
   }
 
@@ -303,7 +295,7 @@ export class RequestTutorComponent implements OnInit, OnDestroy {
             : '';
 
       if (this.courseInformationForm.value.language)
-        this.reviewInfo.language =
+        this.reviewInfo.languages =
           this.languages && this.languages.length
             ? this.languages.filter(
                 (sub) => sub?.id === this.courseInformationForm.value.language
@@ -398,6 +390,7 @@ export class RequestTutorComponent implements OnInit, OnDestroy {
     }
 
     if (this.classroomScheduleForm.valid) {
+      this.selectedClassrooms = this.classroomScheduleForm.value.classes;
       this.reviewInfo.appointments =
         this.selectedClassrooms && this.selectedClassrooms.length
           ? this.selectedClassrooms.map((item: any) => {
@@ -421,14 +414,15 @@ export class RequestTutorComponent implements OnInit, OnDestroy {
           0
         );
 
-        if (
-          this.classroomDetailsForm.value?.type.toString() ===
-          Object.keys(CLASSROOM_TYPES_CONST)[0].toString()
-        ) {
-          this.reviewInfo.price = +this.prices?.oneOnOne * +hours;
-        } else {
-          this.reviewInfo.price = +this.prices?.groupStudy * +hours;
-        }
+        this.reviewInfo.price = 100;
+        // if (
+        //   this.classroomDetailsForm.value?.type.toString() ===
+        //   Object.keys(CLASSROOM_TYPES_CONST)[0].toString()
+        // ) {
+        //   this.reviewInfo.price = +this.prices?.oneOnOne * +hours;
+        // } else {
+        //   this.reviewInfo.price = +this.prices?.groupStudy * +hours;
+        // }
       }
     }
 
@@ -441,17 +435,12 @@ export class RequestTutorComponent implements OnInit, OnDestroy {
               )[0]
             : {};
     }
-
-    console.log(this.reviewInfo);
   }
 
   private _generateClassroomForm(form: any) {
     return {
       classes: form?.tempTotalClasses,
-      days:
-        form.days && form.days.length
-          ? form.days.map((day: any) => LONG_DAYS_WEEK.indexOf(day) + 1)
-          : [],
+      days: form.days,
       duration: form?.tempDuration,
       startDate: this._datePipe.transform(
         new Date(form?.startDate),
