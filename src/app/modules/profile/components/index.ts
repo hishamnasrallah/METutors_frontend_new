@@ -5,3 +5,5 @@ export * from './tutor-profile-languages';
 export * from './tutor-profile-share';
 export * from './tutor-profile-specialization';
 export * from './tutor-profile-tutor-badges';
+export * from './tutor-complete-profile-tabs';
+export * from './tutor-complete-profile-first-screen';

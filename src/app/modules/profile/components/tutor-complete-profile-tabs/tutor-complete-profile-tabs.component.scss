@@ -1,0 +1,49 @@
+.steps {
+    h2 {
+      color: #2a2a2a;
+      font-weight: normal;
+      font-size: 25px;
+    }
+  
+    p {
+      color: #696969;
+      font-size: 15px;
+      line-height: 28px;
+    }
+  
+    ul {
+      width: 100%;
+  
+      li {
+        background: #FFF;
+        padding: 15px 25px;
+        margin-bottom: 15px;
+        border-top: 5px solid #e2e2e2;
+        width: 100%;
+        text-align: center;
+        font-weight: 600;
+  
+        span {
+          color: #3bb3c1;
+        }
+  
+        h4 {
+          color: #2a2a2a;
+          margin: 0;
+          font-size: 17px;
+        }
+  
+        &.active {
+          border-top: 5px solid #3bb3c1;
+        }
+  
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  .sidebar-nav {
+    column-count: 4;
+  }

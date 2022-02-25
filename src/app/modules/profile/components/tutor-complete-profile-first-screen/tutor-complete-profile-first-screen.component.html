@@ -1,0 +1,164 @@
+<form [formGroup]="form" class="w-100">
+    <div>
+      <h4 class="mb-5 heading">PROVIDE YOUR PERSONAL INFORMATION</h4>
+
+      <div class="row">
+
+        <div class="col-6">
+          <div class="form-group">
+            <label for="middle_name"><b>Middle Name</b></label>
+            <input type="text" class="custom-input w-100 input-bordered" id="middle_name"
+              placeholder="Enter Middle Name" formControlName="middle_name">
+            <div class="text-danger" *ngIf="middle_name?.touched && middle_name?.invalid">
+              Please write your Middle Name
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="form-group">
+            <label for="nationality"><b>Nationality</b></label>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-select formControlName="nationality" [placeholder]="'Pakistani'">
+                <mat-option *ngFor="let country of countries" [value]="country.name">{{country.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div class="text-danger" *ngIf="nationality?.touched && nationality?.invalid">
+              Please choose your Nationality
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-6">
+          <div class="form-group">
+            <label for="date_of_birth"><b>Date of Birth</b></label>
+            <mat-form-field appearance="outline" class="w-100">
+              <input matInput [matDatepicker]="datetPicker" [placeholder]="'04/02/2022'"
+                (focus)="datetPicker.open()" formControlName="date_of_birth" (dateChange)="formatDate1()">
+              <mat-datepicker-toggle matSuffix [for]="datetPicker"></mat-datepicker-toggle>
+              <mat-datepicker #datetPicker></mat-datepicker>
+            </mat-form-field>
+            <!-- <div class="text-danger" *ngIf="date_of_birth.touched && date_of_birth.errors?.required">
+              Please select your Date of Birth
+            </div> -->
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="form-group">
+            <label for="address"><b>Address 1</b></label>
+            <input type="text" class="custom-input w-100 input-bordered" id="address"
+              placeholder="Enter street address" formControlName="address">
+            <!-- <div class="text-danger" *ngIf="address.touched && address.errors?.required">
+              Please write your Address
+            </div> -->
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-6">
+          <div class="form-group">
+            <label for="gender"><b>Select Gender</b></label>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-select formControlName="gender" [placeholder]="'Male'">
+                <mat-option value="male">Male</mat-option>
+                <mat-option value="female">Female</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <!-- <div class="text-danger" *ngIf="gender.touched && gender.errors?.required">
+              Please choose your Gender
+            </div> -->
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="form-group">
+            <label for="address2"><b>Address 2 (Optional)</b></label>
+            <input type="text" class="custom-input w-100 input-bordered" id="address2"
+              placeholder="Enter street address" formControlName="address2">
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-6">
+          <div class="form-group">
+            <label for="bio">Add Bio</label>
+            <textarea class="custom-input w-100 input-bordered" [placeholder]="'Add Bio here... '" rows="3"
+              formControlName="bio">
+                        </textarea>
+            <!-- <div class="text-danger" *ngIf="bio.touched && bio.errors?.required">
+              Please write your Bio
+            </div> -->
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="form-group">
+            <label for="postal_code"><b>Postal Code</b></label>
+            <input type="text" class="custom-input w-100 input-bordered" id="postal_code"
+              placeholder="Postal Code" formControlName="postal_code">
+            <!-- <div class="text-danger" *ngIf="postal_code.touched && postal_code.errors?.required">
+              Please write your Postal Code
+            </div> -->
+          </div>
+
+          <div class="form-group">
+            <label for="country"><b>Country</b></label>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-select formControlName="country" [placeholder]="'Select Country'"
+                (selectionChange)="loadCities($event)">
+                <mat-option *ngFor="let country of countries" [value]="country.name">{{country.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <!-- <div class="text-danger" *ngIf="country.touched && country.errors?.required">
+              Please choose your Country
+            </div> -->
+          </div>
+
+          <div class="form-group">
+            <label for="city"><b>City</b></label>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-select formControlName="city" [placeholder]="'Select city'">
+                <mat-option *ngFor="let city of cities" [value]="city.name">{{city.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <!-- <div class="text-danger" *ngIf="city.touched && city.errors?.required">
+              Please choose your City
+            </div> -->
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="row">
+
+        <div class="col-4"></div>
+
+        <div class="col-4">
+          <div class="form-group mt-4 mb-2">
+            <button mat-flat-button color="primary" class="py-2 d-block w-100" cdkFocusInitial type="submit"
+              [disabled]="form.invalid || loading1" (click)="submitFirstForm()"> Save & Continue
+              <mat-icon class="spinner" *ngIf="loading1">autorenew</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="col-4"></div>
+
+      </div>
+
+
+    </div>
+  </form>

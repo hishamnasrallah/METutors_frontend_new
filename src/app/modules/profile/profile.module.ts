@@ -26,9 +26,11 @@ import {
   TutorProfileAboutMeComponent,
   TutorProfileLanguagesComponent,
   TutorProfileTutorBadgesComponent,
+  TutorCompleteProfileTabsComponent,
   TutorProfileSpecializationComponent,
   TutorProfileFeedbackRatingsComponent,
 } from './components';
+import { TutorCompleteProfileFirstScreenComponent } from './components/tutor-complete-profile-first-screen/tutor-complete-profile-first-screen.component';
 
 @NgModule({
   declarations: [
@@ -39,8 +41,10 @@ import {
     CompleteTutorProfileComponent,
     TutorProfileLanguagesComponent,
     TutorProfileTutorBadgesComponent,
+    TutorCompleteProfileTabsComponent,
     TutorProfileSpecializationComponent,
     TutorProfileFeedbackRatingsComponent,
+    TutorCompleteProfileFirstScreenComponent,
   ],
   imports: [
     FormsModule,

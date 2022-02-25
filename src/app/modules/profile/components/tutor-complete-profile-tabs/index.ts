@@ -1,0 +1,1 @@
+export * from './tutor-complete-profile-tabs.component';
