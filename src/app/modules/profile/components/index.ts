@@ -1,3 +1,7 @@
+export * from './complete-tutor-profile-personal-information';
+export * from './complete-tutor-profile-profile-picture';
+export * from './complete-tutor-profile-qualification-details';
+export * from './complete-tutor-profile-teaching-specifications';
 export * from './tutor-profile-about-me';
 export * from './tutor-profile-feedback-ratings';
 export * from './tutor-profile-header';

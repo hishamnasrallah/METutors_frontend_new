@@ -13,6 +13,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { SubmitButtonModule } from 'src/app/shared/components';
 import { MatInputModule } from '@angular/material/input';
 
 import {
@@ -28,6 +29,10 @@ import {
   TutorProfileTutorBadgesComponent,
   TutorProfileSpecializationComponent,
   TutorProfileFeedbackRatingsComponent,
+  CompleteTutorProfileProfilePictureComponent,
+  CompleteTutorProfilePersonalInformationComponent,
+  CompleteTutorProfileQualificationDetailsComponent,
+  CompleteTutorProfileTeachingSpecificationsComponent,
 } from './components';
 
 @NgModule({
@@ -41,6 +46,10 @@ import {
     TutorProfileTutorBadgesComponent,
     TutorProfileSpecializationComponent,
     TutorProfileFeedbackRatingsComponent,
+    CompleteTutorProfileProfilePictureComponent,
+    CompleteTutorProfilePersonalInformationComponent,
+    CompleteTutorProfileQualificationDetailsComponent,
+    CompleteTutorProfileTeachingSpecificationsComponent,
   ],
   imports: [
     FormsModule,
@@ -54,6 +63,7 @@ import {
     MatButtonModule,
     MatSelectModule,
     ShareButtonsModule,
+    SubmitButtonModule,
     MatFormFieldModule,
     MatDatepickerModule,
     ReactiveFormsModule,

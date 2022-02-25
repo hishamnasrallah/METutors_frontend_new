@@ -1,0 +1,146 @@
+<form [formGroup]="form" (ngSubmit)="submitFormData()" class="w-100">
+  <div>
+    <h4 class="mb-5 heading">PROVIDE YOUR PERSONAL INFORMATION</h4>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="middleName"><b>Middle Name</b></label>
+          <input type="text" class="custom-input w-100 input-bordered" id="middleName" placeholder="Enter Middle Name"
+            formControlName="middleName">
+          <div class="text-danger" *ngIf="middleName?.touched && middleName?.invalid">
+            Please write your middle name
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="nationality"><b>Nationality</b></label>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select formControlName="nationality" [placeholder]="'Pakistani'">
+              <mat-option *ngFor="let country of countries" [value]="country.name">{{ country.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div class="text-danger" *ngIf="nationality?.touched && nationality?.invalid">
+            Please choose your Nationality
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="dateOfBirth"><b>Date of Birth</b></label>
+          <mat-form-field appearance="outline" class="w-100">
+            <input matInput [matDatepicker]="datetPicker" [placeholder]="'04/02/2022'" (focus)="datetPicker.open()"
+              formControlName="dateOfBirth">
+            <mat-datepicker-toggle matSuffix [for]="datetPicker"></mat-datepicker-toggle>
+            <mat-datepicker #datetPicker></mat-datepicker>
+          </mat-form-field>
+          <div class="text-danger" *ngIf="dateOfBirth?.touched && dateOfBirth?.invalid">
+            Please select your Date of Birth
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="address"><b>Address 1</b></label>
+          <input type="text" class="custom-input w-100 input-bordered" id="address" placeholder="Enter street address"
+            formControlName="address">
+          <div class="text-danger" *ngIf="address?.touched && address?.invalid">
+            Please write your Address
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="gender"><b>Select Gender</b></label>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select formControlName="gender" [placeholder]="'Male'">
+              <mat-option value="male">Male</mat-option>
+              <mat-option value="female">Female</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div class="text-danger" *ngIf="gender?.touched && gender?.invalid">
+            Please choose your Gender
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="address2"><b>Address 2 (Optional)</b></label>
+          <input type="text" class="custom-input w-100 input-bordered" id="address2" placeholder="Enter street address"
+            formControlName="address2">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="bio">Add Bio</label>
+          <textarea class="custom-input w-100 input-bordered" [placeholder]="'Add Bio here... '" rows="5"
+            formControlName="bio"></textarea>
+          <div class="text-danger" *ngIf="bio?.touched && bio?.invalid">
+            Please write your Bio
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="postalCode"><b>Postal Code</b></label>
+          <input type="text" class="custom-input w-100 input-bordered" id="postalCode" placeholder="Postal Code"
+            formControlName="postalCode">
+          <div class="text-danger" *ngIf="postalCode?.touched && postalCode?.invalid">
+            Please write your Postal Code
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="country"><b>Country</b></label>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select formControlName="country" [placeholder]="'Select Country'"
+              (selectionChange)="loadCities.emit(country?.value)">
+              <mat-option *ngFor="let country of countries" [value]="country.name">{{ country.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div class="text-danger" *ngIf="country?.touched && country?.invalid">
+            Please choose your Country
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="city"><b>City</b></label>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select formControlName="city" [placeholder]="'Select city'">
+              <mat-option *ngFor="let city of cities" [value]="city.name">{{ city.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div class="text-danger" *ngIf="city?.touched && city?.invalid">
+            Please choose your City
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-4"></div>
+      <div class="col-4">
+        <div class="form-group mt-4 mb-2">
+          <metutors-submit-button [form]="form" [isSubmitting]="loading" [extraClasses]="'w-100'">
+            Save & Continue
+          </metutors-submit-button>
+        </div>
+      </div>
+      <div class="col-4"></div>
+    </div>
+  </div>
+</form>

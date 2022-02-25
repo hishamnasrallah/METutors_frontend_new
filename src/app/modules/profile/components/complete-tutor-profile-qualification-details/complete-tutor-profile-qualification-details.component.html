@@ -1,0 +1,169 @@
+<form [formGroup]="form" (ngSubmit)="submitFormData()" class="w-100">
+  <div>
+    <h4 class="mb-5 heading">PROVIDE YOUR QUALIFICATION DETAILS</h4>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="nameOfUniversity"><b>Name of University</b></label>
+          <input type="text" class="custom-input w-100 input-bordered" id="nameOfUniversity" placeholder="Enter Name"
+            formControlName="nameOfUniversity">
+          <div class="text-danger" *ngIf="nameOfUniversity?.touched && nameOfUniversity?.invalid">
+            Please write your University Name
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="computerSkills"><b>Computer Skills</b></label>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select formControlName="computerSkills" [placeholder]="'Above Average'">
+              <mat-option value="Average">Average</mat-option>
+              <mat-option value="Above Average">Above Average</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div class="text-danger" *ngIf="computerSkills?.touched && computerSkills?.invalid">
+            Please choose your Computer Skills Level
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="degreeLevel"><b>Degree Level</b></label>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select formControlName="degreeLevel" [placeholder]="'Select Degree Level'">
+              <mat-option value="Masters">Masters</mat-option>
+              <mat-option value="Bachlors">Bachlors</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div class="text-danger" *ngIf="degreeLevel?.touched && degreeLevel?.invalid">
+            Please choose your Degree Level
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="teachingExperience"><b>Teaching Experience</b></label>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select formControlName="teachingExperience" [placeholder]="'Select Years'">
+              <mat-option value="1 Year">1 Year</mat-option>
+              <mat-option value="2 Years">2 Years</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div class="text-danger" *ngIf="teachingExperience?.touched && teachingExperience?.invalid">
+            Please choose your Years of Teacher Experience
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="degreeField"><b>Degree Field</b></label>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select formControlName="degreeField" [placeholder]="'Computer Science'">
+              <mat-option value="Computer Science">Computer Science</mat-option>
+              <mat-option value="Mathematics">Mathematics</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div class="text-danger" *ngIf="degreeField?.touched && degreeField?.invalid">
+            Please choose your Degree Field
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="teachingExperienceOnline"><b>Teaching Experience Online</b></label>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select formControlName="teachingExperienceOnline" [placeholder]="'Select Years'">
+              <mat-option value="1 Year">1 Year</mat-option>
+              <mat-option value="2 Years">2 Years</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div class="text-danger" *ngIf="teachingExperienceOnline?.touched && teachingExperienceOnline?.invalid">
+            Please choose your Years of Teacher Experience Online
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <!-- <form [formGroup]="language" class="w-100">
+          <div class="form-group">
+
+            <label for="spoken_language"><b>Spoken Languages</b></label>
+            <span class="add" (click)="addLanguage()">Add</span>
+
+            <ng-container *ngIf="spokenLanguages">
+              <mat-chip-list aria-label="Fish selection">
+                <mat-chip *ngFor="let lang of spokenLanguages">
+                  <span>{{lang.language}}</span> - <span class="level">{{lang.level}}</span>
+                  <mat-icon matChipRemove (click)="removeLanguage(lang)">cancel</mat-icon>
+                </mat-chip>
+              </mat-chip-list>
+            </ng-container>
+
+
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-select formControlName="spoken_language" [placeholder]="'Select Language'">
+                <mat-option value="English">English</mat-option>
+                <mat-option value="Arabic">Arabic</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div class="text-danger" *ngIf="spoken_language.touched && spoken_language.errors?.required">
+                Please enter your Spoken Language
+              </div>
+          </div>
+          <div class="form-group">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-select formControlName="spoken_language_level" [placeholder]="'Select Level'">
+                <mat-option value="Basic">Basic</mat-option>
+                <mat-option value="Conventional">Conventional</mat-option>
+                <mat-option value="Fluent">Fluent</mat-option>
+                <mat-option value="Native">Native</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div class="text-danger"
+                *ngIf="spoken_language_level.touched && spoken_language_level.errors?.required">
+                Please choose level of your Spoken Language
+              </div>
+          </div>
+        </form> -->
+      </div>
+
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="currentEmployer"><b>Current Employer (Optional)</b></label>
+          <input type="text" class="custom-input w-100 input-bordered" id="currentEmployer" placeholder="Enter Here"
+            formControlName="currentEmployer">
+        </div>
+        <div class="form-group">
+          <label for="currentTitle"><b>Current Title (Optional)</b></label>
+          <input type="text" class="custom-input w-100 input-bordered" id="currentTitle" placeholder="Enter Here"
+            formControlName="currentTitle">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
+        <div class="form-group mt-4 mb-2">
+          <metutors-submit-button [form]="form" [isSubmitting]="loading" [extraClasses]="'w-100'">
+            Save & Continue
+          </metutors-submit-button>
+        </div>
+      </div>
+      <div class="col-md-4"></div>
+    </div>
+  </div>
+</form>

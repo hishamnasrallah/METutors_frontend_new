@@ -10,6 +10,8 @@ export interface ILookups {
   coursePrograms: IProgram[];
   topics: IFAQTopics[];
   languages: ILanguage[];
+  countries: ICountry[];
+  cities: ICity[];
 }
 
 export interface IProgram {
@@ -18,6 +20,11 @@ export interface IProgram {
 }
 
 export interface ICountry {
+  id: number;
+  name: string;
+}
+
+export interface ICity {
   id: number;
   name: string;
 }

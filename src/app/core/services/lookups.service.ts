@@ -10,6 +10,7 @@ import {
   ICourseField,
   ICourseLevel,
   ILanguage,
+  ICity,
 } from '../models';
 
 @Injectable({
@@ -34,8 +35,18 @@ export class LookupsService {
       .pipe(catchError(this.errorHandler));
   }
 
-  getCities(id: string): Observable<any> {
-    return this.http.get<any>(`${this.BACKEND_URL}cities?country_id=${id}`);
+  getCities(id: number): Observable<any> {
+    return this.http
+      .get<{ cities: ICity[] }>(`${this.BACKEND_URL}cities?country_id=${id}`)
+      .pipe(
+        map((response) => {
+          return response.cities.map((item) => ({
+            id: item.id,
+            name: item.name,
+          }));
+        })
+      )
+      .pipe(catchError(this.errorHandler));
   }
 
   addLanguage(data: any): Observable<any> {
