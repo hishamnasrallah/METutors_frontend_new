@@ -1,4 +1,4 @@
-FROM trion/ng-cli:latest as build
+FROM trion/ng-cli:13.0.4 as build
 WORKDIR /app
 COPY . /app
 RUN npm install
