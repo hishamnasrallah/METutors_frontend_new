@@ -74,4 +74,11 @@ export class FormValidationUtilsService {
 
     return greater ? { maxlength: true } : null;
   }
+
+  numbersOnlyValidation(control: FormControl): any {
+    let value = (control.value || '').trim();
+    let isNotANumber = isNaN(value);
+
+    return isNotANumber ? { NotANumber: true } : null;
+  }
 }

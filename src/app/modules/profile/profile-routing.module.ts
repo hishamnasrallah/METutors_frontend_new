@@ -13,7 +13,11 @@ const routes: Routes = [
     // canActivate: [TutorAuthGuard],
     component: CompleteTutorProfileComponent,
     data: {
-      layout: { title: 'Complete tutor profile - MEtutors', showFooter: false },
+      layout: {
+        title: 'Complete tutor profile - MEtutors',
+        showHeader: false,
+        showFooter: false,
+      },
     },
   },
   {

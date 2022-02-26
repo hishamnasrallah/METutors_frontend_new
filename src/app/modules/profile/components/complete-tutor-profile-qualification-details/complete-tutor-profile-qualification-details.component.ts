@@ -19,7 +19,6 @@ export class CompleteTutorProfileQualificationDetailsComponent
   @Output() submitForm = new EventEmitter();
 
   form: FormGroup;
-
   language: FormGroup;
 
   constructor(private _fb: FormBuilder) {
@@ -111,7 +110,7 @@ export class CompleteTutorProfileQualificationDetailsComponent
   }
 
   submitFormData() {
-    let languages = [];
+    // let languages = [];
     // for (let i = 0; i < this.spokenLanguages.length; i++) {
     //   let data: any = {
     //     language: this.spokenLanguages[i]?.language,
@@ -121,7 +120,18 @@ export class CompleteTutorProfileQualificationDetailsComponent
     //   languages.push(data);
     // }
 
-    let data = {
+    // let spokenLanguages = [
+    //   {
+    //     name: id,
+    //     level: 'Native'
+    //   },
+    //   {
+    //     name: 'Arabic',
+    //     level: 'Basic'
+    //   }
+    // ]
+
+    const data = {
       step: '3',
       name_of_university: this.nameOfUniversity?.value,
       computer_skills: this.computerSkills?.value,
@@ -131,6 +141,9 @@ export class CompleteTutorProfileQualificationDetailsComponent
       current_employer: this.currentEmployer?.value,
       current_title: this.currentTitle?.value,
       teaching_experience_online: this.teachingExperienceOnline?.value,
+      // spoken_languages: this.spokenLanguages?.value
     };
+
+    this.submitForm.emit(data);
   }
 }

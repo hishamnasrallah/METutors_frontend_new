@@ -1,38 +1,56 @@
+<header class="header d-flex align-items-center">
+  <div class="flex-grow-1">
+    <a class="brand" routerLink="/">
+      <img alt="logo" src="assets/logo/logo-dark.png" width="170px" draggable="false">
+    </a>
+
+    <span class="step">
+      Step {{ step }} of 4
+    </span>
+  </div>
+
+  <a routerLink="/" class="exit">
+    Exit
+  </a>
+</header>
+
 <div class="container py-5">
   <div class="row h-100">
     <div class="col-md-12 align-items-center">
-      <div class="steps">
-        <ul class="list-unstyled sidebar-nav">
-          <li [ngClass]="{ 'active':  step === 'STEP1' }">
+      <h1 class="heading text-center mb-4">Complete Account Information </h1>
+
+      <div class="steps mb-5">
+        <ul class="list-unstyled list-inline text-center">
+          <li class="list-inline-item" [ngClass]="{ 'active':  step === 1 }">
             <span>Personal Information</span>
           </li>
-          <li [ngClass]="{ 'active': step === 'STEP2' }">
+          <li class="list-inline-item" [ngClass]="{ 'active': step === 2 }">
             <span>Profile Picture</span>
           </li>
-          <li [ngClass]="{ 'active': step === 'STEP3' }">
+          <li class="list-inline-item" [ngClass]="{ 'active': step === 3 }">
             <span>Qualification Details</span>
           </li>
-          <li [ngClass]="{ 'active': step === 'STEP4' }">
+          <li class="list-inline-item" [ngClass]="{ 'active': step === 4 }">
             <span>Teaching Specifications</span>
           </li>
         </ul>
       </div>
 
-      <metutors-complete-tutor-profile-personal-information *ngIf="step === 'STEP1'" [loading]="loading"
+      <metutors-complete-tutor-profile-personal-information *ngIf="step === 1" [loading]="loading"
         [countries]="countries" [cities]="cities" (loadCities)="loadCities($event)"
-        (submitForm)="sendTeacherAccount($event, 'STEP2')">
+        (submitForm)="sendTeacherAccount($event, 2)">
       </metutors-complete-tutor-profile-personal-information>
 
-      <metutors-complete-tutor-profile-profile-picture *ngIf="step === 'STEP2'" [loading]="loading"
-        (submitForm)="sendTeacherAccount($event, 'STEP3')">
+      <metutors-complete-tutor-profile-profile-picture *ngIf="step === 2" [loading]="loading"
+        (submitForm)="sendTeacherAccount($event, 3)">
       </metutors-complete-tutor-profile-profile-picture>
 
-      <metutors-complete-tutor-profile-qualification-details *ngIf="step === 'STEP3'" [loading]="loading"
-        (submitForm)="sendTeacherAccount($event, 'STEP4')">
+      <metutors-complete-tutor-profile-qualification-details *ngIf="step === 3" [loading]="loading"
+        (submitForm)="sendTeacherAccount($event, 4)">
       </metutors-complete-tutor-profile-qualification-details>
 
-      <metutors-complete-tutor-profile-teaching-specifications *ngIf="step === 'STEP4'" [loading]="loading"
-        (submitForm)="sendTeacherAccount($event, 'STEP5')">
+      <metutors-complete-tutor-profile-teaching-specifications *ngIf="step === 4" [loading]="loading"
+        (submitForm)="sendTeacherAccount($event, 5)">
       </metutors-complete-tutor-profile-teaching-specifications>
     </div>
   </div>

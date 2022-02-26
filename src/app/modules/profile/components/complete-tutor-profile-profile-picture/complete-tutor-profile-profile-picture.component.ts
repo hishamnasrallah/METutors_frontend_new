@@ -86,9 +86,9 @@ export class CompleteTutorProfileProfilePictureComponent implements OnInit {
   submitFormData() {
     const formData = new FormData();
 
-    formData.append(`step`, '2');
-    formData.append(`avatar`, this.avatar?.value);
-    formData.append(`cover_img`, this.cover?.value);
+    formData.append('step', '2');
+    formData.append('avatar', this.avatar?.value);
+    formData.append('cover_img', this.cover?.value);
 
     this.submitForm.emit(formData);
   }

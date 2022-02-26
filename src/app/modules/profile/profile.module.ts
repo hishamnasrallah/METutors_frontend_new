@@ -15,6 +15,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { SubmitButtonModule } from 'src/app/shared/components';
 import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
 
 import {
   TutorProfileComponent,
@@ -59,6 +60,7 @@ import {
     MatIconModule,
     MatChipsModule,
     MatInputModule,
+    MatRadioModule,
     DirectiveModule,
     MatButtonModule,
     MatSelectModule,

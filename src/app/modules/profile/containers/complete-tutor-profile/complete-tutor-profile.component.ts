@@ -12,13 +12,12 @@ import { LookupsService, TutorsService } from 'src/app/core/services';
 })
 export class CompleteTutorProfileComponent implements OnInit, OnDestroy {
   loading = false;
-  step: string = 'STEP3';
+  step: number = 1;
+  cities!: ICity[];
+  countries!: ICountry[];
   sendAccountSub?: Subscription;
   fetchCitiesSub?: Subscription;
   fetchCountriesSub?: Subscription;
-
-  cities!: ICity[];
-  countries!: ICountry[];
 
   constructor(
     private _tutorsService: TutorsService,
@@ -30,9 +29,9 @@ export class CompleteTutorProfileComponent implements OnInit, OnDestroy {
     this._prepareCountries();
   }
 
-  sendTeacherAccount(data: any, step: string): void {
+  sendTeacherAccount(data: any, step: number): void {
     this.loading = true;
-
+    console.log(data);
     this.sendAccountSub = this._tutorsService
       .sendTeacherAccount(data)
       .subscribe(

@@ -1,11 +1,11 @@
 <form [formGroup]="form" (ngSubmit)="submitFormData()" class="w-100">
   <div>
-    <h4 class="mb-5 heading">PROVIDE YOUR QUALIFICATION DETAILS</h4>
+    <h4 class="mb-5 heading text-center">PROVIDE YOUR QUALIFICATION DETAILS</h4>
 
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label for="nameOfUniversity"><b>Name of University</b></label>
+          <label for="nameOfUniversity" class="form-label">Name of University</label>
           <input type="text" class="custom-input w-100 input-bordered" id="nameOfUniversity" placeholder="Enter Name"
             formControlName="nameOfUniversity">
           <div class="text-danger" *ngIf="nameOfUniversity?.touched && nameOfUniversity?.invalid">
@@ -16,7 +16,7 @@
 
       <div class="col-md-6">
         <div class="form-group">
-          <label for="computerSkills"><b>Computer Skills</b></label>
+          <label for="computerSkills" class="form-label">Computer Skills</label>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="computerSkills" [placeholder]="'Above Average'">
               <mat-option value="Average">Average</mat-option>
@@ -33,7 +33,7 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label for="degreeLevel"><b>Degree Level</b></label>
+          <label for="degreeLevel" class="form-label">Degree Level</label>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="degreeLevel" [placeholder]="'Select Degree Level'">
               <mat-option value="Masters">Masters</mat-option>
@@ -48,7 +48,7 @@
 
       <div class="col-md-6">
         <div class="form-group">
-          <label for="teachingExperience"><b>Teaching Experience</b></label>
+          <label for="teachingExperience" class="form-label">Teaching Experience</label>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="teachingExperience" [placeholder]="'Select Years'">
               <mat-option value="1 Year">1 Year</mat-option>
@@ -65,7 +65,7 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label for="degreeField"><b>Degree Field</b></label>
+          <label for="degreeField" class="form-label">Degree Field</label>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="degreeField" [placeholder]="'Computer Science'">
               <mat-option value="Computer Science">Computer Science</mat-option>
@@ -80,7 +80,7 @@
 
       <div class="col-md-6">
         <div class="form-group">
-          <label for="teachingExperienceOnline"><b>Teaching Experience Online</b></label>
+          <label for="teachingExperienceOnline" class="form-label">Teaching Experience Online</label>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="teachingExperienceOnline" [placeholder]="'Select Years'">
               <mat-option value="1 Year">1 Year</mat-option>
@@ -99,7 +99,7 @@
         <!-- <form [formGroup]="language" class="w-100">
           <div class="form-group">
 
-            <label for="spoken_language"><b>Spoken Languages</b></label>
+            <label for="spoken_language" class="form-label">Spoken Languages</label>
             <span class="add" (click)="addLanguage()">Add</span>
 
             <ng-container *ngIf="spokenLanguages">
@@ -142,12 +142,12 @@
 
       <div class="col-md-6">
         <div class="form-group">
-          <label for="currentEmployer"><b>Current Employer (Optional)</b></label>
+          <label for="currentEmployer" class="form-label">Current Employer (Optional)</label>
           <input type="text" class="custom-input w-100 input-bordered" id="currentEmployer" placeholder="Enter Here"
             formControlName="currentEmployer">
         </div>
         <div class="form-group">
-          <label for="currentTitle"><b>Current Title (Optional)</b></label>
+          <label for="currentTitle" class="form-label">Current Title (Optional)</label>
           <input type="text" class="custom-input w-100 input-bordered" id="currentTitle" placeholder="Enter Here"
             formControlName="currentTitle">
         </div>

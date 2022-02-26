@@ -79,7 +79,7 @@ export class CompleteTutorProfilePersonalInformationComponent
   }
 
   submitFormData(): void {
-    let data = {
+    const data = {
       step: '1',
       middle_name: this.middleName?.value,
       gender: this.gender?.value,

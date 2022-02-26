@@ -1,11 +1,13 @@
+import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
-  FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { LONG_DAYS_WEEK } from 'src/app/config';
+import { FormValidationUtilsService } from 'src/app/core/validators';
 
 @Component({
   selector: 'metutors-complete-tutor-profile-teaching-specifications',
@@ -14,6 +16,7 @@ import {
   styleUrls: [
     './complete-tutor-profile-teaching-specifications.component.scss',
   ],
+  providers: [DatePipe],
 })
 export class CompleteTutorProfileTeachingSpecificationsComponent
   implements OnInit
@@ -23,97 +26,93 @@ export class CompleteTutorProfileTeachingSpecificationsComponent
   @Output() submitForm = new EventEmitter();
 
   form: FormGroup;
-  startDate!: string | null;
-  endDate!: string | null;
+  minDate = new Date();
+  days = LONG_DAYS_WEEK;
 
-  constructor(private _fb: FormBuilder) {
+  constructor(
+    private _fb: FormBuilder,
+    private _datePipe: DatePipe,
+    private _fv: FormValidationUtilsService
+  ) {
     this.form = this._fb.group({
-      level_of_education: [null, [Validators.required]],
-      expected_salary_per_hour: [
+      levelOfEducation: [null, [Validators.required]],
+      salaryPerHour: [
         null,
-        [Validators.required, this.numbersOnlyValidation],
+        [
+          Validators.required,
+          Validators.min(5),
+          Validators.max(999),
+          this._fv.numbersOnlyValidation,
+        ],
       ],
-      field_of_study: [null, [Validators.required]],
-      availability_start_date: [null, [Validators.required]],
+      fieldOfStudy: [null, [Validators.required]],
+      startDate: [null, [Validators.required]],
       subject: [null, [Validators.required]],
-      availability_end_date: [null, [Validators.required]],
-      type_of_tutoring: [null, [Validators.required]],
-      teaching_days: [null, [Validators.required]],
-      teaching_hours: [null, [Validators.required]],
+      endDate: [null, [Validators.required]],
+      typeOfTutoring: [null, [Validators.required]],
+      teachingDays: [null, [Validators.required]],
+      teachingHours: [null, [Validators.required]],
     });
   }
 
   ngOnInit(): void {}
 
-  numbersOnlyValidation(control: FormControl): any {
-    let value = (control.value || '').trim();
-    let isNotANumber = isNaN(value);
-
-    return isNotANumber ? { NotANumber: true } : null;
+  get levelOfEducation(): AbstractControl | null {
+    return this.form.get('levelOfEducation');
   }
 
-  get level_of_education(): AbstractControl | null {
-    return this.form.get('level_of_education');
+  get salaryPerHour(): AbstractControl | null {
+    return this.form.get('salaryPerHour');
   }
 
-  get expected_salary_per_hour(): AbstractControl | null {
-    return this.form.get('expected_salary_per_hour');
+  get fieldOfStudy(): AbstractControl | null {
+    return this.form.get('fieldOfStudy');
   }
 
-  get field_of_study(): AbstractControl | null {
-    return this.form.get('field_of_study');
-  }
-
-  get availability_start_date(): AbstractControl | null {
-    return this.form.get('availability_start_date');
+  get startDate(): AbstractControl | null {
+    return this.form.get('startDate');
   }
 
   get subject(): AbstractControl | null {
     return this.form.get('subject');
   }
 
-  get availability_end_date(): AbstractControl | null {
-    return this.form.get('availability_end_date');
+  get endDate(): AbstractControl | null {
+    return this.form.get('endDate');
   }
 
-  get type_of_tutoring(): AbstractControl | null {
-    return this.form.get('type_of_tutoring');
+  get typeOfTutoring(): AbstractControl | null {
+    return this.form.get('typeOfTutoring');
   }
 
-  get teaching_days(): AbstractControl | null {
-    return this.form.get('teaching_days');
+  get teachingDays(): AbstractControl | null {
+    return this.form.get('teachingDays');
   }
 
-  get teaching_hours(): AbstractControl | null {
-    return this.form.get('teaching_hours');
+  get teachingHours(): AbstractControl | null {
+    return this.form.get('teachingHours');
   }
 
   submitFormData() {
-    // this.loading4 = true;
-    let data = {
+    const data = {
       step: '4',
-      level_of_education: this.level_of_education?.value,
-      expected_salary_per_hour: this.expected_salary_per_hour?.value,
-      field_of_study: this.field_of_study?.value,
-      availability_start_date: this.startDate,
+      level_of_education: this.levelOfEducation?.value,
+      expected_salary_per_hour: this.salaryPerHour?.value,
+      field_of_study: this.fieldOfStudy?.value,
+      availability_start_date: this._datePipe.transform(
+        this.startDate?.value,
+        'dd/MM/yyyy'
+      ),
       subject: this.subject?.value,
-      availability_end_date: this.endDate,
-      type_of_tutoring: this.type_of_tutoring?.value,
-      teaching_days: this.teaching_days?.value,
-      teaching_hours: this.teaching_days?.value,
+      availability_end_date: this._datePipe.transform(
+        this.endDate?.value,
+        'dd/MM/yyyy'
+      ),
+      type_of_tutoring: this.typeOfTutoring?.value,
+      teaching_days: this.teachingDays?.value,
+      teaching_hours: this.teachingHours?.value,
     };
 
-    // this._tutorsService.sendTeacherAccount(data).subscribe((response) => {
-    //   if (response.status === true) {
-    //     this._alertNotificationService.success(response.message);
-    //     // this.completeAccount.emit('true');
-    //     // this._router.navigate(['/profile/tutor-profile', response?.]);
-    //   } else {
-    //     this._alertNotificationService.error(response.errors[0]);
-    //   }
-
-    //   this.loading4 = false;
-    //   this.form.reset();
-    // });
+    this.submitForm.emit(data);
   }
 }

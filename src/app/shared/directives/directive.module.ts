@@ -4,10 +4,12 @@ import { DefaultAvatarDirective } from './default-avatar.directive';
 import { DefaultCoverDirective } from './default-cover.directive';
 import { DefaultCourseDirective } from './default-course.directive';
 import { TrimInputDirective } from './trim-input.directive';
+import { OnlyNumberDirective } from './only-numbers.directive';
 
 @NgModule({
   declarations: [
     TrimInputDirective,
+    OnlyNumberDirective,
     DefaultCoverDirective,
     DefaultAvatarDirective,
     DefaultCourseDirective,
@@ -15,6 +17,7 @@ import { TrimInputDirective } from './trim-input.directive';
   imports: [CommonModule],
   exports: [
     TrimInputDirective,
+    OnlyNumberDirective,
     DefaultCoverDirective,
     DefaultAvatarDirective,
     DefaultCourseDirective,

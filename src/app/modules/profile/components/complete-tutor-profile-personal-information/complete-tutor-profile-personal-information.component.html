@@ -1,11 +1,11 @@
 <form [formGroup]="form" (ngSubmit)="submitFormData()" class="w-100">
   <div>
-    <h4 class="mb-5 heading">PROVIDE YOUR PERSONAL INFORMATION</h4>
+    <h4 class="mb-5 heading text-center">PROVIDE YOUR PERSONAL INFORMATION</h4>
 
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label for="middleName"><b>Middle Name</b></label>
+          <label for="middleName" class="form-label">Middle Name</label>
           <input type="text" class="custom-input w-100 input-bordered" id="middleName" placeholder="Enter Middle Name"
             formControlName="middleName">
           <div class="text-danger" *ngIf="middleName?.touched && middleName?.invalid">
@@ -16,7 +16,7 @@
 
       <div class="col-md-6">
         <div class="form-group">
-          <label for="nationality"><b>Nationality</b></label>
+          <label for="nationality" class="form-label">Nationality</label>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="nationality" [placeholder]="'Pakistani'">
               <mat-option *ngFor="let country of countries" [value]="country.name">{{ country.name }}</mat-option>
@@ -32,7 +32,7 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label for="dateOfBirth"><b>Date of Birth</b></label>
+          <label for="dateOfBirth" class="form-label">Date of Birth</label>
           <mat-form-field appearance="outline" class="w-100">
             <input matInput [matDatepicker]="datetPicker" [placeholder]="'04/02/2022'" (focus)="datetPicker.open()"
               formControlName="dateOfBirth">
@@ -47,7 +47,7 @@
 
       <div class="col-md-6">
         <div class="form-group">
-          <label for="address"><b>Address 1</b></label>
+          <label for="address" class="form-label">Address 1</label>
           <input type="text" class="custom-input w-100 input-bordered" id="address" placeholder="Enter street address"
             formControlName="address">
           <div class="text-danger" *ngIf="address?.touched && address?.invalid">
@@ -60,7 +60,7 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label for="gender"><b>Select Gender</b></label>
+          <label for="gender" class="form-label">Select Gender</label>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="gender" [placeholder]="'Male'">
               <mat-option value="male">Male</mat-option>
@@ -75,7 +75,7 @@
 
       <div class="col-md-6">
         <div class="form-group">
-          <label for="address2"><b>Address 2 (Optional)</b></label>
+          <label for="address2" class="form-label">Address 2 (Optional)</label>
           <input type="text" class="custom-input w-100 input-bordered" id="address2" placeholder="Enter street address"
             formControlName="address2">
         </div>
@@ -85,7 +85,7 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label for="bio">Add Bio</label>
+          <label for="bio" class="form-label">Add Bio</label>
           <textarea class="custom-input w-100 input-bordered" [placeholder]="'Add Bio here... '" rows="5"
             formControlName="bio"></textarea>
           <div class="text-danger" *ngIf="bio?.touched && bio?.invalid">
@@ -96,7 +96,7 @@
 
       <div class="col-md-6">
         <div class="form-group">
-          <label for="postalCode"><b>Postal Code</b></label>
+          <label for="postalCode" class="form-label">Postal Code</label>
           <input type="text" class="custom-input w-100 input-bordered" id="postalCode" placeholder="Postal Code"
             formControlName="postalCode">
           <div class="text-danger" *ngIf="postalCode?.touched && postalCode?.invalid">
@@ -105,7 +105,7 @@
         </div>
 
         <div class="form-group">
-          <label for="country"><b>Country</b></label>
+          <label for="country" class="form-label">Country</label>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="country" [placeholder]="'Select Country'"
               (selectionChange)="loadCities.emit(country?.value)">
@@ -118,7 +118,7 @@
         </div>
 
         <div class="form-group">
-          <label for="city"><b>City</b></label>
+          <label for="city" class="form-label">City</label>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="city" [placeholder]="'Select city'">
               <mat-option *ngFor="let city of cities" [value]="city.name">{{ city.name }}</mat-option>
