@@ -1,7 +1,7 @@
 FROM trion/ng-cli:latest as build
 WORKDIR /app
 COPY . /app
-RUN ng update @angular/core @angular/cli && ng update
+RUN ng update @angular/cli && ng update
 RUN npm install
 RUN ng build
 RUN mv /app/dist /app/html
