@@ -1,8 +1,8 @@
 FROM trion/ng-cli:latest as build
 WORKDIR /app
 COPY . /app
-RUN ng update @angular/cli && ng update
-RUN npm install
+RUN ng install
+RUN ng update
 RUN ng build
 RUN mv /app/dist /app/html
 FROM nginx:1.20.0 as statics
