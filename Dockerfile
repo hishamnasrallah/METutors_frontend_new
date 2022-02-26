@@ -1,6 +1,7 @@
 FROM node:16-buster as build
 WORKDIR /app
 COPY . /app
+RUN ng update @angular/core @angular/cli && ng update
 RUN npm install
 RUN npm run build
 RUN mv /app/dist /app/html
