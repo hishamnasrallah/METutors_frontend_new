@@ -2,7 +2,7 @@ FROM node:latest as build
 WORKDIR /app
 COPY . /app
 RUN npm install
-RUN npm build
+RUN npm run build
 RUN mv /app/dist /app/html
 FROM nginx:1.20.0 as statics
 COPY --from=build /app/html /usr/share/nginx/html
