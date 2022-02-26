@@ -1,4 +1,4 @@
-FROM trion/ng-cli:13.0.4 as build
+FROM node:16-buster as build
 WORKDIR /app
 COPY . /app
 RUN npm install
