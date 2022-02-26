@@ -8,7 +8,7 @@ import {
   FacebookLoginProvider,
 } from 'angularx-social-login';
 import { environment } from 'src/environments/environment';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { UserRole } from 'src/app/config';
 
 // const BACKEND_URL = environment.API_URL + 'auth/';
@@ -61,27 +61,21 @@ export class AuthService {
   }
 
   login(value: any): Observable<any> {
-    return this.http.post<{
-      refresh: string;
-      message: string;
-      status: boolean;
-      token: string;
-      user: any;
-    }>(BACKEND_URL + 'login', value);
+    return this.http
+      .post<{
+        message: string;
+        token: string;
+        user: any;
+      }>(BACKEND_URL + 'login', value)
+      .pipe(map((response) => response?.token));
   }
 
   logout(): Observable<any> {
     return this.http.post<any>(BACKEND_URL + 'logout', {});
   }
 
-  registerTutor(value: any): Observable<any> {
-    const sendData = value;
-    return this.http.post<any>(BACKEND_URL + 'registeration', sendData);
-  }
-
-  registerStudent(value: any): Observable<any> {
-    const sendData = value;
-    return this.http.post<any>(BACKEND_URL + 'registeration', sendData);
+  register(value: any): Observable<any> {
+    return this.http.post<any>(BACKEND_URL + 'registeration', value);
   }
 
   forgetPassword(email: string) {

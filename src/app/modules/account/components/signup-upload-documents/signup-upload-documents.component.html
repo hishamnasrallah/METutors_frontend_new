@@ -1,0 +1,19 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <h4 class="mb-5">Upload Documents</h4>
+
+  <div class="form-group">
+    <div class="block-file rounded text-center">
+      <img src="assets/svg/upload.svg" draggable="false" width="60" height="40" />
+      <h2 class="mb-3">Drag & Drop your files here</h2>
+
+      <button mat-flat-button color="primary" type="button" (click)="filePicker.click()">Browse Files</button>
+    </div>
+    <input #filePicker type="file" hidden multiple class="form-control" (change)="onFileChange($event)">
+  </div>
+
+  <div class="form-group mt-4 mb-2">
+    <metutors-submit-button [form]="form" [isSubmitting]="loading" [extraClasses]="'w-100'">
+      Submit
+    </metutors-submit-button>
+  </div>
+</form>

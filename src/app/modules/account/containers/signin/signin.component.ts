@@ -19,7 +19,6 @@ import { FormValidationUtilsService } from 'src/app/core/validators';
 })
 export class SigninComponent implements OnInit, OnDestroy {
   userRole: any;
-  isChecked: any;
   gloading = false;
   floading = false;
   signinForm: FormGroup;
@@ -62,7 +61,6 @@ export class SigninComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(form: FormGroup) {
-    this.isChecked = form.value.rememberMe;
     if (form.invalid) {
       return;
     }
@@ -73,17 +71,12 @@ export class SigninComponent implements OnInit, OnDestroy {
         if (response) {
           if (response.status === true) {
             this.signinForm.reset();
+            this.loading = false;
+
             if (response.token) {
               localStorage.setItem('token', response.token);
             }
-            if (response.refresh)
-              localStorage.setItem('refresh-token', response.refresh);
-            if (this.isChecked) {
-              localStorage.setItem('active', 'true');
-            } else {
-              sessionStorage.setItem('active', 'true');
-            }
-            this.loading = false;
+
             if (
               this._route.snapshot.queryParams['returnUrl'] &&
               decodeURIComponent(this._route.snapshot.queryParams['returnUrl'])
@@ -93,26 +86,26 @@ export class SigninComponent implements OnInit, OnDestroy {
               );
               this._router.navigate([returnUrl]);
             } else {
-              if (response.user.role_name === UserRole.student) {
-                this._router.navigate(['/student-dashboard'], {
-                  queryParams: {
-                    id: response.user.id,
-                    name: response.user.first_name,
-                  },
-                });
-              } else if (response.user.role_name === UserRole.tutor) {
-                this._router.navigate(['/teacher-dashboard'], {
-                  queryParams: {
-                    id: response.user.id,
-                    name: response.user.first_name,
-                  },
-                });
-              } else if (response.user.role_name === UserRole.admin) {
-                localStorage.setItem('role', 'admin-temporary');
-                // this.openDialog(response);
-              } else {
-                this._router.navigate(['/']);
-              }
+              // if (response.user.role_name === UserRole.student) {
+              //   this._router.navigate(['/student-dashboard'], {
+              //     queryParams: {
+              //       id: response.user.id,
+              //       name: response.user.first_name,
+              //     },
+              //   });
+              // } else if (response.user.role_name === UserRole.tutor) {
+              //   this._router.navigate(['/teacher-dashboard'], {
+              //     queryParams: {
+              //       id: response.user.id,
+              //       name: response.user.first_name,
+              //     },
+              //   });
+              // } else if (response.user.role_name === UserRole.admin) {
+              //   localStorage.setItem('role', 'admin-temporary');
+              //   // this.openDialog(response);
+              // } else {
+              this._router.navigate(['/']);
+              // }
             }
           } else {
             this._alertNotificationService.error(response.message);

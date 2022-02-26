@@ -3,7 +3,6 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
-  FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
@@ -12,6 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { CountryISO } from 'ngx-intl-tel-input';
 import { Subscription } from 'rxjs';
+import { addMisc, getMisc, UserRole } from 'src/app/config';
 import { AlertNotificationService } from 'src/app/core/components';
 import { IRole } from 'src/app/core/models';
 import { AuthService, UsersService } from 'src/app/core/services';
@@ -32,60 +32,24 @@ import { RolesSelectComponent } from '../../components';
   ],
 })
 export class SignupComponent implements OnInit, OnDestroy {
-  @ViewChild('ngOtpInput', { static: false }) ngOtpInput: any;
-
-  form!: FormGroup;
-  userType?: number;
+  roles!: IRole[];
+  step: number = 1;
+  userRole = UserRole;
   signupForm: FormGroup;
   signupSub?: Subscription;
-  signupStd?: Subscription;
   loading: boolean = false;
-  selectedCountry: string = '';
-  roles: any;
-  numberOnly = true;
-  minPhone = true;
-  maxPhone = true;
-  subloading: boolean = false;
-  reloading: boolean = false;
-  sendEmailSub?: Subscription;
-  resendEmailConfirmSub?: Subscription;
-  event = '';
-  firstStep = true;
-  secondStep = false;
-  thirdStep = false;
-  userRole: any;
+  getRolesSub?: Subscription;
+  selectedCountry!: CountryISO;
+  resendLoading: boolean = false;
+  userType?: number = UserRole.student;
+
   gloading = false;
   floading = false;
-  docLoading = false;
-  myFiles: any[] = [];
 
   preferredCountries: CountryISO[] = [
     CountryISO.UnitedStates,
     CountryISO.UnitedKingdom,
   ];
-
-  config = {
-    allowNumbersOnly: true,
-    length: 5,
-    isPasswordInput: false,
-    disableAutoFocus: false,
-    placeholder: '*',
-    inputStyles: {
-      width: '70px',
-      height: '65px',
-    },
-  };
-
-  responseData!: {
-    first_name: any;
-    last_name: any;
-    mobile: any;
-    email: any;
-    password: any;
-    confirm_password: any;
-    country_code: any;
-    role: number;
-  };
 
   constructor(
     private _router: Router,
@@ -148,50 +112,14 @@ export class SignupComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.roles = new Array<IRole>();
-
     this._userService.getUserLocation().then((res: any) => {
-      if (res && res.countryCode) {
-        this.selectedCountry = res.countryCode.toLowerCase();
+      if (res && res.countryName) {
+        const countryName: keyof CountryISO = res.countryName;
+        this.selectedCountry = CountryISO[countryName];
       }
     });
 
-    this._userService.getRoles().subscribe((response) => {
-      if (response) {
-        this.roles = response.roles;
-        this.userType = 1;
-      } else {
-      }
-    });
-  }
-
-  numberOnlyValidation(value: any): boolean {
-    if (typeof Number(value) === 'number') {
-      if (value.includes('+') || value.includes('-')) {
-        return false;
-      }
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  verifyPhoneNumber(event: any) {
-    this.numberOnly = this.numberOnlyValidation(event.target.value);
-    if (this.numberOnly) {
-      let value = event.target.value.length;
-      if (value < 5) {
-        this.minPhone = false;
-      } else {
-        this.minPhone = true;
-      }
-
-      if (value > 15) {
-        this.maxPhone = false;
-      } else {
-        this.maxPhone = true;
-      }
-    }
+    this._prepareRoles();
   }
 
   get firstName(): AbstractControl | null {
@@ -222,6 +150,7 @@ export class SignupComponent implements OnInit, OnDestroy {
     if (form.invalid) {
       return;
     }
+
     this.loading = true;
     const countryCodeLength =
       this.phoneNumber?.value.internationalNumber.length - 11;
@@ -247,88 +176,106 @@ export class SignupComponent implements OnInit, OnDestroy {
       role: this.userType,
     };
 
-    if (this.userType == 1) {
-      this.signupStd = this._authService
-        .registerStudent(data)
-        .subscribe((response) => {
-          if (response.status === true) {
-            this.signupForm.reset();
-            this.loading = false;
-            this.responseData = data;
-            this.firstStep = false;
-            this.secondStep = true;
-          } else {
-            this._alertNotificationService.error(response.errors[0]);
-          }
-          this.loading = false;
-        });
-    } else {
-      this.signupSub = this._authService
-        .registerTutor(data)
-        .subscribe((response) => {
-          if (response.status === true) {
-            this.signupForm.reset();
-            this.loading = false;
-            this.responseData = data;
-            this.firstStep = false;
-            this.secondStep = true;
-          } else {
-            this._alertNotificationService.error(response.errors[0]);
-          }
-          this.loading = false;
-        });
-    }
-  }
-
-  onOtpChange(event: any) {
-    this.event = event;
-  }
-
-  onSubmitVerifyEmail() {
-    this.subloading = true;
-    const data = {
-      username: this.responseData.email,
-      code: this.event,
-    };
-    this.sendEmailSub = this._authService
-      .verifyEmail(data)
-      .subscribe((response) => {
+    this.signupSub = this._authService.register(data).subscribe(
+      (response) => {
         if (response.status === true) {
-          this.subloading = false;
-          this._alertNotificationService.success(response.message);
-          this.resetVal();
-          if (this.userType == 1) {
-            this._router.navigate(['/signin']);
-          } else {
-            this.firstStep = false;
-            this.secondStep = false;
-            this.thirdStep = true;
-          }
+          this.step = 2;
         } else {
-          this.subloading = false;
-          this.resetVal();
           this._alertNotificationService.error(response.errors[0]);
         }
-      });
+        this.loading = false;
+      },
+      (error) => {
+        this._alertNotificationService.error(
+          error.error.message ||
+            'Something went wrong while creating an account'
+        );
+      }
+    );
   }
 
-  resetVal() {
-    this.ngOtpInput.setValue('');
+  onSubmitVerifyEmail(code: string) {
+    this.loading = true;
+    const data = {
+      username: this.email?.value,
+      code,
+    };
+
+    this.signupSub = this._authService.verifyEmail(data).subscribe(
+      (response) => {
+        if (response.status === true) {
+          this.loading = false;
+          this._alertNotificationService.success(response.message);
+
+          if (this.userType == UserRole.student) {
+            this._router.navigate(['/signin']);
+          } else {
+            this.step = 3;
+          }
+        } else {
+          this.loading = false;
+          this._alertNotificationService.error(response.errors[0]);
+        }
+      },
+      (error) => {
+        this._alertNotificationService.error(
+          error.error.message ||
+            'Something went wrong while verifing your email'
+        );
+      }
+    );
   }
 
   resendEmailConfirm(): void {
-    this.reloading = true;
-    this.resendEmailConfirmSub = this._authService
-      .resendEmailConfirm({ email: this.responseData.email })
-      .subscribe((response) => {
-        if (response.status === true) {
-          this.reloading = false;
-          this._alertNotificationService.success(response.message);
-        } else {
-          this.reloading = false;
-          this._alertNotificationService.error(response.errors[0]);
+    this.resendLoading = true;
+    this.signupSub = this._authService
+      .resendEmailConfirm({ email: this.email?.value })
+      .subscribe(
+        (response) => {
+          if (response.status === true) {
+            this.resendLoading = false;
+            this._alertNotificationService.success(response.message);
+          } else {
+            this.resendLoading = false;
+            this._alertNotificationService.error(response.errors[0]);
+          }
+        },
+        (error) => {
+          this._alertNotificationService.error(
+            error.error.message ||
+              'Something went wrong while verifing your email'
+          );
         }
-      });
+      );
+  }
+
+  submitDocuments(files: File[]) {
+    this.loading = true;
+    const formData = new FormData();
+
+    for (let i = 0; i < files.length; i++) {
+      formData.append(`documents`, files[i]);
+    }
+
+    formData.append(`email`, this.email?.value);
+
+    this.signupSub = this._authService.uploadDocuments(formData).subscribe(
+      (res) => {
+        if (res.status === 'true') {
+          this._alertNotificationService.success(res.message);
+          this._router.navigate(['/signin']);
+        } else {
+          this._alertNotificationService.error(res.errors[0]);
+        }
+        this.loading = false;
+      },
+      (error) => {
+        this._alertNotificationService.error(
+          error.error.message ||
+            'Something went wrong while uploading the documents'
+        );
+      }
+    );
   }
 
   openRolesDialog(domain: any): void {
@@ -338,7 +285,7 @@ export class SignupComponent implements OnInit, OnDestroy {
     });
 
     _dialogRef.afterClosed().subscribe((res) => {
-      this.userRole = res.data.toString();
+      this.userType = res.data.toString();
       domain === 'google' ? this.signInWithGoogle() : this.signInWithFacebook();
     });
   }
@@ -357,18 +304,18 @@ export class SignupComponent implements OnInit, OnDestroy {
       } else {
         this.gloading = true;
 
-        data['role'] = this.userRole;
+        data['role'] = this.userType;
 
         this._authService.googleSignIn(data).subscribe((res) => {
           this.gloading = false;
 
           if (res.status === true) {
             this._alertNotificationService.success(res.message);
-            if (this.userRole === '1') {
+            if (Number(this.userType) === UserRole.student) {
               this._router.navigate(['/student-dashboard'], {
                 queryParams: { name: res.user.first_name },
               });
-            } else if (this.userRole === '3') {
+            } else if (Number(this.userType) === UserRole.tutor) {
               this._router.navigate(['/teacher-dashboard'], {
                 queryParams: { name: res.user.first_name },
               });
@@ -395,7 +342,7 @@ export class SignupComponent implements OnInit, OnDestroy {
         );
         this._router.navigate([returnUrl]);
       } else {
-        // data.role = this.userRole;
+        // data.role = this.userType;
 
         this.floading = true;
 
@@ -404,11 +351,11 @@ export class SignupComponent implements OnInit, OnDestroy {
 
           if (res.status === true) {
             this._alertNotificationService.success(res.message);
-            if (this.userRole === '1') {
+            if (Number(this.userType) === UserRole.student) {
               this._router.navigate(['/student-dashboard'], {
                 queryParams: { name: res.user.first_name },
               });
-            } else if (this.userRole === '3') {
+            } else if (Number(this.userType) === UserRole.tutor) {
               this._router.navigate(['/teacher-dashboard'], {
                 queryParams: { name: res.user.first_name },
               });
@@ -423,41 +370,17 @@ export class SignupComponent implements OnInit, OnDestroy {
     });
   }
 
-  onFileChange(event: any) {
-    this.myFiles = event.target.files;
-
-    if (this.myFiles && this.myFiles.length) {
-      for (var i = 0; i < this.myFiles.length; i++) {
-        this.myFiles.push(event?.target?.files[i]);
-      }
-    }
-  }
-
-  submiDocs() {
-    this.docLoading = true;
-    var formData = new FormData();
-
-    for (var i = 0; i < this.myFiles.length; i++) {
-      formData.append(`documents`, this.myFiles[i]);
-    }
-
-    formData.append(`email`, this.responseData.email);
-
-    this._authService.uploadDocuments(formData).subscribe((res) => {
-      if (res.status === 'true') {
-        this._alertNotificationService.success(res.message);
-        this._router.navigate(['/signin']);
-      } else {
-        this._alertNotificationService.error(res.errors[0]);
-      }
-      this.docLoading = false;
-    });
-  }
-
   ngOnDestroy(): void {
     this.signupSub?.unsubscribe();
-    this.signupStd?.unsubscribe();
-    this.sendEmailSub?.unsubscribe();
-    this.resendEmailConfirmSub?.unsubscribe();
+    this.getRolesSub?.unsubscribe();
+  }
+
+  private _prepareRoles(): void {
+    this.getRolesSub = this._userService.getRoles().subscribe((response) => {
+      this.roles = response;
+      addMisc('roles', this.roles);
+    });
+
+    this.roles = getMisc().roles;
   }
 }

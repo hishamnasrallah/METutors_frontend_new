@@ -27,7 +27,6 @@ export class TutorProfileComponent implements OnInit, OnDestroy {
         .getTutorById(id)
         .subscribe((response) => {
           this.tutor = response;
-          console.log(this.tutor)
           this._title.setTitle(this.tutor?.name || '');
         });
     });

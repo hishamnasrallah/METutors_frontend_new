@@ -4,7 +4,6 @@ export interface ILookups {
   ticketTypes: any;
   courseList: any;
   courseField: ICourseField[];
-  courseFieldSubject: any;
   courseLevel: ICourseLevel[];
   courseSubjects: ISubject[];
   coursePrograms: IProgram[];

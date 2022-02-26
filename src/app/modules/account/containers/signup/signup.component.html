@@ -1,228 +1,155 @@
 <div class="container py-5 signup-block">
   <div class="row">
-    <ng-container *ngIf="firstStep">
-      <div class="col-md-5 d-flex align-items-center">
-        <form [formGroup]="signupForm" (ngSubmit)="onSubmit(signupForm)" class="w-100">
-          <div>
-            <h3 class="m-0">Welcome!</h3>
-            <h4 class="mb-5">Let's get you set up</h4>
-
-            <div class="form-group types">
-              <label>Choose account type</label>
-              <div class="row">
-                <div class="col-md-6" *ngFor="let role of roles">
-
-                  <button mat-button (click)="userType = role.id" class="w-100 text-start"
-                    [ngClass]="userType == role.id ? 'active' : ''" type="button">
-                    <mat-icon>local_library</mat-icon>
-                    I'm a {{ role.name }}
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-6">
-                <div class="form-group">
-                  <label for="name">What's your first name?</label>
-                  <input type="text" class="custom-input w-100 input-bordered" id="name" placeholder="First name"
-                    formControlName="firstName">
-                  <div class="text-danger" *ngIf="firstName?.touched && firstName?.invalid">
-                    Please write your first name
-                  </div>
-                </div>
-              </div>
-              <div class="col-6">
-                <div class="form-group">
-                  <label for="name">What's your last name?</label>
-                  <input type="text" class="custom-input w-100 input-bordered" id="name" placeholder="Last name"
-                    formControlName="lastName">
-                  <div class="text-danger" *ngIf="lastName?.touched && lastName?.invalid">
-                    Please write your last name
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="email">Email address</label>
-              <input type="email" class="custom-input w-100 input-bordered" id="email" placeholder="ku@pecafhuj.co.uk"
-                formControlName="email" email>
-              <span class="text-danger" *ngIf="email?.invalid && email?.touched">
-                Please write a valid email
-              </span>
-            </div>
-
-            <div class="form-group">
-              <label for="phone">Phone number</label>
-              <div class="w-100">
-                <!--  [selectedCountryISO]="selectedCountry" -->
-                <ngx-intl-tel-input [cssClass]="'custom-input w-100 input-bordered'"
-                  [ngClass]="{'has-error': phoneNumber?.invalid && phoneNumber?.touched}"
-                  [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="true" [enablePlaceholder]="true"
-                  [searchCountryFlag]="true" [selectFirstCountry]="true" [phoneValidation]="true"
-                  [separateDialCode]="true" name="mobileNumber" formControlName="mobileNumber"
-                  (input)="verifyPhoneNumber($event)">
-                </ngx-intl-tel-input>
-                <span class="text-danger" *ngIf="phoneNumber?.invalid && phoneNumber?.touched">
-                  Please write a correct phone number
-                </span>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="pass">Choose Password</label>
-              <input type="password" class="custom-input w-100 input-bordered" id="pass" placeholder="**********"
-                formControlName="password">
-              <span class="text-danger" *ngIf="password?.invalid && password?.touched">
-                Password cannot be less than 8 characters and cannot be more than 100 characters
-              </span>
-            </div>
-
-            <div class="form-group">
-              <label for="pass">Confirm Password</label>
-              <input type="password" class="custom-input w-100 input-bordered" id="pass" placeholder="**********"
-                formControlName="confirmPassword">
-              <div class="text-danger" *ngIf="signupForm?.hasError('passwordMismatch')">
-                Passwords do not match
-              </div>
-            </div>
-
-            <div class="form-group mt-4 mb-2">
-              <metutors-submit-button [form]="signupForm" [isSubmitting]="loading" [extraClasses]="'w-100'">
-                Create my account
-              </metutors-submit-button>
-            </div>
-
-            <div class="row mt-4 social">
-              <div class="col-md-6">
-                <button (click)="openRolesDialog('google')" mat-button type="button" class="w-100 google"
-                  [disabled]="gloading">
-                  <img src="assets/svg/google.svg" alt="">
-                  Sign up with Google
-                  <mat-icon class="spinner" *ngIf="gloading">autorenew</mat-icon>
-                </button>
-              </div>
-              <div class="col-md-6">
-                <button (click)="openRolesDialog('facebook')" mat-button type="button" class="w-100"
-                  [disabled]="floading">
-                  <img src="assets/svg/facebook.svg" alt="">
-                  Sign up with Facebook
-                  <mat-icon class="spinner" *ngIf="floading">autorenew</mat-icon>
-                </button>
-              </div>
-            </div>
-
-            <div class="form-group mt-4">
-              <p>
-                Already have an account?
-                <a routerLink="/signin">Sign in now</a>
-              </p>
-            </div>
-          </div>
-        </form>
-      </div>
-    </ng-container>
-
-    <ng-container *ngIf="secondStep">
-      <div class="col-md-5 d-flex align-items-center">
-        <form [formGroup]="form" class="w-100">
-          <div>
-            <h4 class="mb-5">Email Verification</h4>
-
-            <div class="form-group">
-              <label for="code">Enter Code</label>
-              <div class="align">
-                <ng-otp-input #ngOtpInput (onInputChange)="onOtpChange($event)" [config]="config"></ng-otp-input>
-              </div>
-            </div>
-
-            <div class="form-group mt-4 mb-2">
-              <button mat-flat-button color="primary" class="py-2 d-block w-100" cdkFocusInitial type="submit"
-                (click)="onSubmitVerifyEmail()" [disabled]="event.length != 5 || subloading">
-                Submit
-                <mat-icon class="spinner" *ngIf="subloading">autorenew</mat-icon>
-              </button>
-            </div>
-            <div class="form-group mt-4 mb-2">
-              <button mat-flat-button color="primary" class="py-2 d-block w-100" (click)="resendEmailConfirm()"
-                [disabled]="reloading">
-                Re-send email verification
-                <mat-icon class="spinner" *ngIf="reloading">autorenew</mat-icon>
-              </button>
-            </div>
-          </div>
-        </form>
-
-      </div>
-    </ng-container>
-
-    <ng-container *ngIf="thirdStep">
-      <div class="col-md-5 d-flex align-items-center">
+    <div class="col-md-5 d-flex align-items-center" *ngIf="step === 1">
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit(signupForm)" class="w-100">
         <div>
-          <h4 class="mb-5">Upload Documents</h4>
+          <h3 class="m-0">Welcome!</h3>
+          <h4 class="mb-5">Let's get you set up</h4>
+
+          <div class="form-group types">
+            <label>Choose account type</label>
+            <div class="row">
+              <div class="col-md-6" *ngFor="let role of roles">
+                <button mat-button (click)="userType = role?.id" class="w-100 text-start"
+                  [ngClass]="userType == role?.id ? 'active' : ''" type="button">
+                  <mat-icon>local_library</mat-icon>
+                  I'm a {{ role?.name }}
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <label for="firstName">What's your first name?</label>
+                <input type="text" class="custom-input w-100 input-bordered" id="firstName" placeholder="First name"
+                  formControlName="firstName">
+                <div class="text-danger" *ngIf="firstName?.touched && firstName?.invalid">
+                  Please write your first name
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="lastName">What's your last name?</label>
+                <input type="text" class="custom-input w-100 input-bordered" id="lastName" placeholder="Last name"
+                  formControlName="lastName">
+                <div class="text-danger" *ngIf="lastName?.touched && lastName?.invalid">
+                  Please write your last name
+                </div>
+              </div>
+            </div>
+          </div>
 
           <div class="form-group">
-            <label for="file">File</label>
-            <input id="file" type="file" multiple class="form-control" (change)="onFileChange($event)">
+            <label for="email">Email address</label>
+            <input type="email" class="custom-input w-100 input-bordered" id="email" placeholder="ku@pecafhuj.co.uk"
+              formControlName="email" email>
+            <span class="text-danger" *ngIf="email?.invalid && email?.touched">
+              Please write a valid email
+            </span>
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Phone number</label>
+            <div class="w-100">
+              <ngx-intl-tel-input [cssClass]="'custom-input w-100 input-bordered'"
+                [selectedCountryISO]="selectedCountry" [preferredCountries]="preferredCountries"
+                [ngClass]="{'has-error': phoneNumber?.invalid && phoneNumber?.touched}" [enableAutoCountrySelect]="true"
+                [enablePlaceholder]="true" [searchCountryFlag]="true" [selectFirstCountry]="true"
+                [phoneValidation]="true" [separateDialCode]="true" formControlName="mobileNumber">
+              </ngx-intl-tel-input>
+              <span class="text-danger" *ngIf="phoneNumber?.invalid && phoneNumber?.touched">
+                Please write a correct phone number
+              </span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="pass">Choose Password</label>
+            <input type="password" class="custom-input w-100 input-bordered" id="pass" placeholder="**********"
+              formControlName="password">
+            <span class="text-danger" *ngIf="password?.invalid && password?.touched">
+              Password cannot be less than 8 characters and cannot be more than 100 characters
+            </span>
+          </div>
+
+          <div class="form-group">
+            <label for="pass">Confirm Password</label>
+            <input type="password" class="custom-input w-100 input-bordered" id="pass" placeholder="**********"
+              formControlName="confirmPassword">
+            <div class="text-danger" *ngIf="signupForm?.hasError('passwordMismatch')">
+              Passwords do not match
+            </div>
           </div>
 
           <div class="form-group mt-4 mb-2">
-            <button mat-flat-button color="primary" class="py-2 d-block w-100" cdkFocusInitial type="submit"
-              (click)="submiDocs()" [disabled]="docLoading">
-              Submit
-              <mat-icon class="spinner" *ngIf="docLoading">autorenew</mat-icon>
-            </button>
+            <metutors-submit-button [form]="signupForm" [isSubmitting]="loading" [extraClasses]="'w-100'">
+              Create my account
+            </metutors-submit-button>
           </div>
 
-        </div>
+          <div class="row mt-4 social">
+            <div class="col-md-6">
+              <button (click)="openRolesDialog('google')" mat-button type="button" class="w-100 google"
+                [disabled]="gloading">
+                <img src="assets/svg/google.svg" alt="">
+                Sign up with Google
+                <mat-icon class="spinner" *ngIf="gloading">autorenew</mat-icon>
+              </button>
+            </div>
+            <div class="col-md-6">
+              <button (click)="openRolesDialog('facebook')" mat-button type="button" class="w-100"
+                [disabled]="floading">
+                <img src="assets/svg/facebook.svg" alt="">
+                Sign up with Facebook
+                <mat-icon class="spinner" *ngIf="floading">autorenew</mat-icon>
+              </button>
+            </div>
+          </div>
 
-      </div>
-    </ng-container>
+          <div class="form-group mt-4">
+            <p>
+              Already have an account?
+              <a routerLink="/signin">Sign in now</a>
+            </p>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-md-5 d-flex align-items-center" *ngIf="step === 2">
+      <metutors-signup-email-verification [loading]="loading" [resendLoading]="resendLoading"
+        (submitForm)="onSubmitVerifyEmail($event)" (resendEmail)="resendEmailConfirm()">
+      </metutors-signup-email-verification>
+    </div>
+
+    <div class="col-md-5" *ngIf="step === 3">
+      <metutors-signup-upload-documents [loading]="loading" (submitForm)="submitDocuments($event)">
+      </metutors-signup-upload-documents>
+    </div>
 
     <div class="col-md-7 align-items-center img-cover">
-
-      <div class="steps" [@userTypeAnimate] *ngIf="userType == 1">
+      <div class="steps" [@userTypeAnimate]>
         <h2>How to create your account</h2>
         <p>
-          In 2 steps you can create your account and starting taking
+          In {{ userType === 1 ? 2 : 3 }} steps you can create your account and starting taking
           your courses with MEtutors
         </p>
         <ul class="list-unstyled">
-          <li [ngClass]="{'active': firstStep }">
+          <li [ngClass]="{'active': step === 1}">
             <span>Step one</span>
             <h4>
               Create an account
             </h4>
           </li>
-          <li [ngClass]="{'active': secondStep}">
+          <li [ngClass]="{'active': step === 2}">
             <span>Step two</span>
             <h4>
               Verify Your Email
             </h4>
           </li>
-        </ul>
-      </div>
-
-      <div class="steps" [@userTypeAnimate] *ngIf="userType == 3">
-        <h2>How to create your account</h2>
-        <p>
-          In 3 steps you can create your account and starting create
-          your courses or teching with MEtutors
-        </p>
-        <ul class="list-unstyled">
-          <li [ngClass]="{'active': firstStep }">
-            <span>Step one</span>
-            <h4>
-              Create an account
-            </h4>
-          </li>
-          <li [ngClass]="{'active': secondStep }">
-            <span>Step two</span>
-            <h4>
-              Verify Your Email
-            </h4>
-          </li>
-          <li [ngClass]="{'active': thirdStep }">
+          <li [ngClass]="{'active': step === 3}" *ngIf="userType === userRole.tutor">
             <span>Step three</span>
             <h4>
               Upload Documents

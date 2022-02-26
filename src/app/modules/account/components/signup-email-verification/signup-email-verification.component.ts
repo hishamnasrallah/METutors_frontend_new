@@ -1,0 +1,64 @@
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+@Component({
+  selector: 'metutors-signup-email-verification',
+  templateUrl: './signup-email-verification.component.html',
+  styleUrls: ['./signup-email-verification.component.scss'],
+})
+export class SignupEmailVerificationComponent implements OnInit {
+  @ViewChild('ngOtpInput', { static: false }) ngOtpInput: any;
+
+  @Input() loading?: boolean;
+  @Input() resendLoading?: boolean;
+
+  @Output() submitForm = new EventEmitter();
+  @Output() resendEmail = new EventEmitter();
+
+  form: FormGroup;
+  config = {
+    allowNumbersOnly: true,
+    length: 5,
+    isPasswordInput: false,
+    disableAutoFocus: false,
+    placeholder: '*',
+    inputStyles: {
+      width: '70px',
+      height: '65px',
+    },
+  };
+
+  constructor(private _fb: FormBuilder) {
+    this.form = this._fb.group({
+      code: [
+        null,
+        [Validators.required, Validators.minLength(1), Validators.maxLength(5)],
+      ],
+    });
+  }
+
+  ngOnInit(): void {}
+
+  onOtpChange(value: string): void {
+    this.form.get('code')?.setValue(value);
+    this.form.updateValueAndValidity();
+    this.form.markAsDirty();
+  }
+
+  onSubmit(): void {
+    if (this.form.valid) {
+      this.submitForm.emit(this.form.value.code);
+    }
+  }
+
+  resendEmailConfirm(): void {
+    this.resendEmail.emit();
+  }
+}

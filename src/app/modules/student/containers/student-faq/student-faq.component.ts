@@ -41,7 +41,7 @@ export class StudentFaqComponent implements OnInit, OnDestroy {
         },
         () => {}
       );
-    this.systemInfoDetails = getMisc().systemInfoDetails;
+    // this.systemInfoDetails = getMisc().systemInfoDetails;
   }
 
   ngOnDestroy(): void {

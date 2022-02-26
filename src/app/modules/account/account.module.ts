@@ -20,7 +20,12 @@ import {
   ForgetPasswordComponent,
 } from './containers';
 
-import { RolesSelectComponent, AuthOpinionsComponent } from './components';
+import {
+  RolesSelectComponent,
+  AuthOpinionsComponent,
+  SignupUploadDocumentsComponent,
+  SignupEmailVerificationComponent,
+} from './components';
 
 @NgModule({
   declarations: [
@@ -31,6 +36,8 @@ import { RolesSelectComponent, AuthOpinionsComponent } from './components';
     AuthOpinionsComponent,
     ResetPasswordComponent,
     ForgetPasswordComponent,
+    SignupUploadDocumentsComponent,
+    SignupEmailVerificationComponent,
   ],
   imports: [
     FormsModule,

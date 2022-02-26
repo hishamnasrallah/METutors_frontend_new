@@ -31,7 +31,6 @@ export class CompleteTutorProfileComponent implements OnInit, OnDestroy {
 
   sendTeacherAccount(data: any, step: number): void {
     this.loading = true;
-    console.log(data);
     this.sendAccountSub = this._tutorsService
       .sendTeacherAccount(data)
       .subscribe(
