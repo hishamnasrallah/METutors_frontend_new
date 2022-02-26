@@ -1,4 +1,4 @@
-FROM node:16-buster as build
+FROM node:17.6.0-buster as build
 WORKDIR /app
 COPY . /app
 RUN npm install
