@@ -2,7 +2,6 @@ FROM trion/ng-cli:13.0.4 as build
 WORKDIR /app
 COPY . /app
 RUN npm install
-RUN ng update
 RUN ng build
 RUN mv /app/dist /app/html
 FROM nginx:1.20.0 as statics
