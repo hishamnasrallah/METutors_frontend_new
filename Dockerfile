@@ -1,4 +1,4 @@
-FROM node:latest as build
+FROM node:13.0-buster as build
 WORKDIR /app
 COPY . /app
 RUN npm install
