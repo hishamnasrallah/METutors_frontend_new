@@ -1,10 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   AbstractControl,
+  FormArray,
   FormBuilder,
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { LANGUAGES_LEVELS_CONST } from 'src/app/config';
+import { ILanguage } from 'src/app/core/models';
 
 @Component({
   selector: 'metutors-complete-tutor-profile-qualification-details',
@@ -15,11 +18,12 @@ export class CompleteTutorProfileQualificationDetailsComponent
   implements OnInit
 {
   @Input() loading?: boolean;
+  @Input() languagesList!: ILanguage[];
 
   @Output() submitForm = new EventEmitter();
 
   form: FormGroup;
-  language: FormGroup;
+  levels = LANGUAGES_LEVELS_CONST;
 
   constructor(private _fb: FormBuilder) {
     this.form = this._fb.group({
@@ -28,15 +32,13 @@ export class CompleteTutorProfileQualificationDetailsComponent
       degreeLevel: [null, [Validators.required]],
       teachingExperience: [null, [Validators.required]],
       degreeField: [null, [Validators.required]],
+      languages: this._fb.array([]),
       teachingExperienceOnline: [null, [Validators.required]],
       currentEmployer: [null],
       currentTitle: [null],
     });
 
-    this.language = this._fb.group({
-      spoken_language: [null, [Validators.required]],
-      spoken_language_level: [null, [Validators.required]],
-    });
+    this.addLanguage();
   }
 
   ngOnInit(): void {}
@@ -56,81 +58,47 @@ export class CompleteTutorProfileQualificationDetailsComponent
   get teachingExperience(): AbstractControl | null {
     return this.form.get('teachingExperience');
   }
+
   get degreeField(): AbstractControl | null {
     return this.form.get('degreeField');
   }
+
   get teachingExperienceOnline(): AbstractControl | null {
     return this.form.get('teachingExperienceOnline');
   }
+
   get currentEmployer(): AbstractControl | null {
     return this.form.get('currentEmployer');
   }
+
   get currentTitle(): AbstractControl | null {
     return this.form.get('currentTitle');
   }
-  get spoken_language(): AbstractControl | null {
-    return this.language.get('spoken_language');
+
+  get languages(): FormArray {
+    return this.form?.get('languages') as FormArray;
   }
 
-  get spoken_language_level(): AbstractControl | null {
-    return this.language.get('spoken_language_level');
+  removeLanguage(i: number): void {
+    (this.form?.get('languages') as FormArray).removeAt(i);
+
+    if (this.form.value.languages.length === 0) {
+      this.addLanguage();
+    }
   }
 
-  addLanguage() {
-    // let data = {
-    //   language: this.spoken_language?.value,
-    //   level: this.spoken_language_level?.value,
-    // };
-    // this._lookupsService.addLanguage(data).subscribe((response) => {
-    //   if (response.status === 'true') {
-    //     this._alertNotificationService.success(response.message);
-    //     this.spokenLanguages = response.language;
-    //     this.languageAdded++;
-    //   } else {
-    //     this._alertNotificationService.error(response.errors[0]);
-    //   }
-    //   this.language.reset();
-    // });
+  newLanguage(): FormGroup {
+    return this._fb.group({
+      language: [null, Validators.required],
+      level: [null, Validators.required],
+    });
   }
 
-  removeLanguage(lang: any) {
-    let data = {
-      id: lang.id,
-    };
-
-    // this._lookupsService.removeLanguage(data).subscribe((response) => {
-    //   if (response.status === 'true') {
-    //     this._alertNotificationService.success(response.message);
-    //     this.spokenLanguages = response.language;
-    //     this.languageAdded--;
-    //   } else {
-    //     this._alertNotificationService.error(response.errors[0]);
-    //   }
-    // });
+  addLanguage(): void {
+    this.languages.push(this.newLanguage());
   }
 
   submitFormData() {
-    // let languages = [];
-    // for (let i = 0; i < this.spokenLanguages.length; i++) {
-    //   let data: any = {
-    //     language: this.spokenLanguages[i]?.language,
-    //     level: this.spokenLanguages[i]?.level,
-    //   };
-
-    //   languages.push(data);
-    // }
-
-    // let spokenLanguages = [
-    //   {
-    //     name: id,
-    //     level: 'Native'
-    //   },
-    //   {
-    //     name: 'Arabic',
-    //     level: 'Basic'
-    //   }
-    // ]
-
     const data = {
       step: '3',
       name_of_university: this.nameOfUniversity?.value,
@@ -141,7 +109,10 @@ export class CompleteTutorProfileQualificationDetailsComponent
       current_employer: this.currentEmployer?.value,
       current_title: this.currentTitle?.value,
       teaching_experience_online: this.teachingExperienceOnline?.value,
-      // spoken_languages: this.spokenLanguages?.value
+      spoken_languages: this.form.value.languages.map((lang: any) => ({
+        language_id: lang?.language?.id,
+        level: lang?.level,
+      })),
     };
 
     this.submitForm.emit(data);

@@ -120,7 +120,7 @@
         <div class="form-group">
           <label for="city" class="form-label">City</label>
           <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="city" [placeholder]="'Select city'">
+            <mat-select formControlName="city" [placeholder]="'Select city'" [disabled]="!cities || !cities.length">
               <mat-option *ngFor="let city of cities" [value]="city.name">{{ city.name }}</mat-option>
             </mat-select>
           </mat-form-field>

@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { addLookups, getLookups } from 'src/app/config';
 import { AlertNotificationService } from 'src/app/core/components';
-import { ICity, ICountry } from 'src/app/core/models';
+import { ICity, ICountry, ILanguage } from 'src/app/core/models';
 import { LookupsService, TutorsService } from 'src/app/core/services';
 
 @Component({
@@ -15,9 +15,11 @@ export class CompleteTutorProfileComponent implements OnInit, OnDestroy {
   step: number = 1;
   cities!: ICity[];
   countries!: ICountry[];
+  languages!: ILanguage[];
   sendAccountSub?: Subscription;
   fetchCitiesSub?: Subscription;
   fetchCountriesSub?: Subscription;
+  fetchLanguagesSub?: Subscription;
 
   constructor(
     private _tutorsService: TutorsService,
@@ -27,6 +29,7 @@ export class CompleteTutorProfileComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this._prepareCountries();
+    this._prepareLanguages();
   }
 
   sendTeacherAccount(data: any, step: number): void {
@@ -64,6 +67,7 @@ export class CompleteTutorProfileComponent implements OnInit, OnDestroy {
     this.sendAccountSub?.unsubscribe();
     this.fetchCitiesSub?.unsubscribe();
     this.fetchCountriesSub?.unsubscribe();
+    this.fetchLanguagesSub?.unsubscribe();
   }
 
   private _prepareCountries(): void {
@@ -78,6 +82,20 @@ export class CompleteTutorProfileComponent implements OnInit, OnDestroy {
     );
 
     this.countries = getLookups().countries;
+  }
+
+  private _prepareLanguages(): void {
+    this.fetchLanguagesSub = this._lookupsService.getLanguages().subscribe(
+      (result) => {
+        this.languages = result;
+        addLookups('languages', this.languages);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+
+    this.languages = getLookups().languages;
   }
 
   private _prepareCitiesByCountryId(countryId: number): void {

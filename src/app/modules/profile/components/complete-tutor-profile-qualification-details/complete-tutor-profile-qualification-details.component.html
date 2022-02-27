@@ -96,47 +96,41 @@
 
     <div class="row">
       <div class="col-md-6">
-        <!-- <form [formGroup]="language" class="w-100">
-          <div class="form-group">
-
-            <label for="spoken_language" class="form-label">Spoken Languages</label>
-            <span class="add" (click)="addLanguage()">Add</span>
-
-            <ng-container *ngIf="spokenLanguages">
-              <mat-chip-list aria-label="Fish selection">
-                <mat-chip *ngFor="let lang of spokenLanguages">
-                  <span>{{lang.language}}</span> - <span class="level">{{lang.level}}</span>
-                  <mat-icon matChipRemove (click)="removeLanguage(lang)">cancel</mat-icon>
-                </mat-chip>
-              </mat-chip-list>
+        <div class="form-group">
+          <div>
+            <label for="languages" class="form-label">Spoken languages</label>
+            <a class="float-end cursor-pointer" (click)="addLanguage()">Add new</a>
+          </div>
+          <mat-chip-list>
+            <ng-container *ngFor="let lang of form.value.languages; let i = index">
+              <mat-chip *ngIf="lang.language && lang.level">
+                <div class="lang-info d-flex align-items-center justify-content-center">
+                  {{ lang.language?.name }} - <span>{{ lang.level }}</span>
+                  <mat-icon (click)="removeLanguage(i)">cancel</mat-icon>
+                </div>
+              </mat-chip>
             </ng-container>
+          </mat-chip-list>
+          <ng-container formArrayName="languages">
+            <ng-container *ngFor="let _ of languages.controls; let i = index" [formGroupName]="i">
+              <ng-container *ngIf="!form.value.languages[i].language || !form.value.languages[i].level">
+                <mat-form-field appearance="outline" class="w-100 mt-3">
+                  <mat-select formControlName="language" [placeholder]="'Select language'">
+                    <mat-option [value]="lang" *ngFor="let lang of languagesList">{{ lang?.name }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
 
-
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="spoken_language" [placeholder]="'Select Language'">
-                <mat-option value="English">English</mat-option>
-                <mat-option value="Arabic">Arabic</mat-option>
-              </mat-select>
-            </mat-form-field>
-            <div class="text-danger" *ngIf="spoken_language.touched && spoken_language.errors?.required">
-                Please enter your Spoken Language
-              </div>
-          </div>
-          <div class="form-group">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="spoken_language_level" [placeholder]="'Select Level'">
-                <mat-option value="Basic">Basic</mat-option>
-                <mat-option value="Conventional">Conventional</mat-option>
-                <mat-option value="Fluent">Fluent</mat-option>
-                <mat-option value="Native">Native</mat-option>
-              </mat-select>
-            </mat-form-field>
-            <div class="text-danger"
-                *ngIf="spoken_language_level.touched && spoken_language_level.errors?.required">
-                Please choose level of your Spoken Language
-              </div>
-          </div>
-        </form> -->
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-select formControlName="level" [placeholder]="'Select level'">
+                    <mat-option [value]="level?.value" *ngFor="let level of levels | keyvalue">
+                      {{ level?.value }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </div>
       </div>
 
 

@@ -65,54 +65,56 @@ export class SigninComponent implements OnInit, OnDestroy {
       return;
     }
     this.loading = true;
-    this.signinSub = this._authService
-      .login(form.value)
-      .subscribe((response: any) => {
+    this.signinSub = this._authService.login(form.value).subscribe(
+      (response: any) => {
         if (response) {
-          if (response.status === true) {
-            this.signinForm.reset();
-            this.loading = false;
+          this.signinForm.reset();
+          this.loading = false;
 
-            if (response.token) {
-              localStorage.setItem('token', response.token);
-            }
-
-            if (
-              this._route.snapshot.queryParams['returnUrl'] &&
-              decodeURIComponent(this._route.snapshot.queryParams['returnUrl'])
-            ) {
-              let returnUrl = decodeURIComponent(
-                this._route.snapshot.queryParams['returnUrl']
-              );
-              this._router.navigate([returnUrl]);
-            } else {
-              // if (response.user.role_name === UserRole.student) {
-              //   this._router.navigate(['/student-dashboard'], {
-              //     queryParams: {
-              //       id: response.user.id,
-              //       name: response.user.first_name,
-              //     },
-              //   });
-              // } else if (response.user.role_name === UserRole.tutor) {
-              //   this._router.navigate(['/teacher-dashboard'], {
-              //     queryParams: {
-              //       id: response.user.id,
-              //       name: response.user.first_name,
-              //     },
-              //   });
-              // } else if (response.user.role_name === UserRole.admin) {
-              //   localStorage.setItem('role', 'admin-temporary');
-              //   // this.openDialog(response);
-              // } else {
-              this._router.navigate(['/']);
-              // }
-            }
-          } else {
-            this._alertNotificationService.error(response.message);
+          if (response) {
+            localStorage.setItem('token', response);
           }
+
+          if (
+            this._route.snapshot.queryParams['returnUrl'] &&
+            decodeURIComponent(this._route.snapshot.queryParams['returnUrl'])
+          ) {
+            let returnUrl = decodeURIComponent(
+              this._route.snapshot.queryParams['returnUrl']
+            );
+            this._router.navigate([returnUrl]);
+          } else {
+            // if (response.user.role_name === UserRole.student) {
+            //   this._router.navigate(['/student-dashboard'], {
+            //     queryParams: {
+            //       id: response.user.id,
+            //       name: response.user.first_name,
+            //     },
+            //   });
+            // } else if (response.user.role_name === UserRole.tutor) {
+            //   this._router.navigate(['/teacher-dashboard'], {
+            //     queryParams: {
+            //       id: response.user.id,
+            //       name: response.user.first_name,
+            //     },
+            //   });
+            // } else if (response.user.role_name === UserRole.admin) {
+            //   localStorage.setItem('role', 'admin-temporary');
+            //   // this.openDialog(response);
+            // } else {
+            this._router.navigate(['/']);
+            // }
+          }
+        } else {
+          this._alertNotificationService.error(response.message);
         }
         this.loading = false;
-      });
+      },
+      (error) => {
+        this.loading = false;
+        this._alertNotificationService.error(error?.error?.message);
+      }
+    );
   }
 
   // openDialog(data: any): void {

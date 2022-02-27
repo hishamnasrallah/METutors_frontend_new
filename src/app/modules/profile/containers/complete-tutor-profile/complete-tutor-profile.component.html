@@ -46,7 +46,7 @@
       </metutors-complete-tutor-profile-profile-picture>
 
       <metutors-complete-tutor-profile-qualification-details *ngIf="step === 3" [loading]="loading"
-        (submitForm)="sendTeacherAccount($event, 4)">
+        [languagesList]="languages" (submitForm)="sendTeacherAccount($event, 4)">
       </metutors-complete-tutor-profile-qualification-details>
 
       <metutors-complete-tutor-profile-teaching-specifications *ngIf="step === 4" [loading]="loading"
