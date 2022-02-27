@@ -1,28 +1,5 @@
-.reset-block {
-  form {
-    h4 {
-      font-size: 35px;
-      line-height: 1.3;
-      color: #2a2a2a;
-    }
-
-    label {
-      font-weight: bold;
-      font-size: 15px;
-      color: #000;
-    }
-
-    .forget-link {
-      position: absolute;
-      right: 10px;
-      top: 10px;
-      color: #3bb3c1;
-    }
-
-    button {
-      font-weight: bold;
-    }
-  }
+h4 {
+  font-weight: bold;
 }
 
 .types {
@@ -31,6 +8,8 @@
     border: 1px solid #e2e2e2;
     height: 70px;
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.08);
+    color: #060606;
+    font-weight: bold;
 
     mat-icon {
       margin-right: 10px;
@@ -50,22 +29,4 @@
       }
     }
   }
-}
-
-@media(max-width:767px) {
-  .reset-block {
-    form h4 {
-      text-align: center;
-      margin-top: 20px;
-      font-size: 25px;
-    }
-
-    .img-cover {
-      display: none !important;
-    }
-  }
-}
-
-.align {
-  padding-left: 20px;
 }

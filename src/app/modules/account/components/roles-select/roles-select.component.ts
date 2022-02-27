@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, Input, OnInit, ViewChild } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -6,7 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { UsersService } from 'src/app/core/services';
+import { IRole } from 'src/app/core/models';
 
 @Component({
   selector: 'metutors-roles-select',
@@ -14,38 +14,19 @@ import { UsersService } from 'src/app/core/services';
   styleUrls: ['./roles-select.component.scss'],
 })
 export class RolesSelectComponent implements OnInit {
-  form: FormGroup;
-  loading: boolean = false;
-  roles: any;
+  roles!: IRole[];
 
   constructor(
     public dialogRef: MatDialogRef<RolesSelectComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    private userService: UsersService,
-    private fb: FormBuilder
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    this.form = this.fb.group({
-      userRole: [null, [Validators.required]],
-    });
+    this.roles = data;
   }
 
-  ngOnInit(): void {
-    this.loading = true;
-    this.userService.getRoles().subscribe((response) => {
-      if (response) {
-        this.roles = response.roles;
-        this.loading = false;
-      }
-    });
-  }
-
-  get userRole(): AbstractControl | null {
-    return this.form.get('userRole');
-  }
+  ngOnInit(): void {}
 
   onSubmit(role: any) {
-    const value = role;
-    this.dialogRef.close({ data: value });
+    this.dialogRef.close({ data: role });
   }
 
   ngOnDestroy(): void {}

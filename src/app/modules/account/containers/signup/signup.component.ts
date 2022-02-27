@@ -282,17 +282,23 @@ export class SignupComponent implements OnInit, OnDestroy {
     const _dialogRef = this._dialog.open(RolesSelectComponent, {
       width: '500px',
       disableClose: true,
+      data: this.roles,
     });
 
     _dialogRef.afterClosed().subscribe((res) => {
-      this.userType = res.data.toString();
-      domain === 'google' ? this.signInWithGoogle() : this.signInWithFacebook();
+      if (res && res.data) {
+        this.userType = res.data.toString();
+        domain === 'google'
+          ? this.signInWithGoogle()
+          : this.signInWithFacebook();
+      }
     });
   }
 
   signInWithGoogle() {
     this._authService.signInWithGoogle().then((data: any) => {
       localStorage.setItem('token', data.idToken);
+
       if (
         this._route.snapshot.queryParams['returnUrl'] &&
         decodeURIComponent(this._route.snapshot.queryParams['returnUrl'])
@@ -342,7 +348,7 @@ export class SignupComponent implements OnInit, OnDestroy {
         );
         this._router.navigate([returnUrl]);
       } else {
-        // data.role = this.userType;
+        data['role'] = this.userType;
 
         this.floading = true;
 

@@ -5,12 +5,15 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { UserRole } from 'src/app/config';
+import { addMisc, getMisc, UserRole } from 'src/app/config';
 import { AlertNotificationService } from 'src/app/core/components';
-import { AuthService } from 'src/app/core/services';
+import { IRole } from 'src/app/core/models';
+import { AuthService, UsersService } from 'src/app/core/services';
 import { FormValidationUtilsService } from 'src/app/core/validators';
+import { RolesSelectComponent } from '../../components';
 
 @Component({
   selector: 'metutors-signin',
@@ -19,18 +22,21 @@ import { FormValidationUtilsService } from 'src/app/core/validators';
 })
 export class SigninComponent implements OnInit, OnDestroy {
   userRole: any;
+  roles!: IRole[];
   gloading = false;
   floading = false;
   signinForm: FormGroup;
   loading: boolean = false;
   signinSub?: Subscription;
+  getRolesSub?: Subscription;
 
   constructor(
     private _router: Router,
-    // public dialog: MatDialog,
     private _fb: FormBuilder,
+    private _dialog: MatDialog,
     private _route: ActivatedRoute,
     private _authService: AuthService,
+    private _userService: UsersService,
     private _fv: FormValidationUtilsService,
     private _alertNotificationService: AlertNotificationService
   ) {
@@ -50,7 +56,9 @@ export class SigninComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this._prepareRoles();
+  }
 
   get username(): AbstractControl | null {
     return this.signinForm.get('username');
@@ -131,17 +139,22 @@ export class SigninComponent implements OnInit, OnDestroy {
   //   });
   // }
 
-  // openRolesDialog(domain: any): void {
-  //   const dialogRef = this.dialog.open(RolesSelectComponent, {
-  //     width: '500px',
-  //     disableClose: true,
-  //   });
+  openRolesDialog(domain: any): void {
+    const dialogRef = this._dialog.open(RolesSelectComponent, {
+      width: '500px',
+      disableClose: true,
+      data: this.roles,
+    });
 
-  //   dialogRef.afterClosed().subscribe((res: any) => {
-  //     this.userRole = res.data.toString();
-  //     domain === 'google' ? this.signInWithGoogle() : this.signInWithFacebook();
-  //   });
-  // }
+    dialogRef.afterClosed().subscribe((res: any) => {
+      if (res && res.data) {
+        this.userRole = res.data.toString();
+        domain === 'google'
+          ? this.signInWithGoogle()
+          : this.signInWithFacebook();
+      }
+    });
+  }
 
   signInWithGoogle() {
     this.gloading = true;
@@ -226,5 +239,15 @@ export class SigninComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.signinSub?.unsubscribe();
+    this.getRolesSub?.unsubscribe();
+  }
+
+  private _prepareRoles(): void {
+    this.getRolesSub = this._userService.getRoles().subscribe((response) => {
+      this.roles = response;
+      addMisc('roles', this.roles);
+    });
+
+    this.roles = getMisc().roles;
   }
 }
