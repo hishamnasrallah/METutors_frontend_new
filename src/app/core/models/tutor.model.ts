@@ -1,4 +1,5 @@
 import { generalConstants } from 'src/app/config';
+import { environment } from 'src/environments/environment';
 import {
   IAvailability,
   ILanguage,
@@ -83,7 +84,9 @@ export class ITutor {
       this.name = tutor?.first_name + ' ' + tutor?.last_name;
       this.firstName = tutor?.first_name || '';
       this.lastName = tutor?.last_name || '';
-      this.avatar = tutor?.avatar || generalConstants.defaultAvatarPath;
+      this.avatar =
+        environment.imageURL + tutor?.avatar ||
+        generalConstants.defaultAvatarPath;
       this.cover = tutor?.cover || generalConstants.defaultCoverPath;
       this.bio = tutor?.bio || '';
       this.createdAt = tutor?.created_at || '';

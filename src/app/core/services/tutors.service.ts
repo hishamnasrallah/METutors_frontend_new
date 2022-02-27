@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { ITutor } from '../models';
@@ -40,12 +40,19 @@ export class TutorsService {
       );
   }
 
-  generateTutors(value: any): Observable<any> {
+  generateTutors(filters: any): Observable<any> {
+    const object = { ...filters };
+    const params = new HttpParams({ fromObject: object });
+
     return this.http
-      .post<{ result: ITutor[] }>(`${this.mainLink}check_availability/`, value)
+      .get<{ filtered_teacher: ITutor[] }>(`${this.mainLink}filtered-teacher`, {
+        params,
+      })
       .pipe(
         map((response) => {
-          return response.result.map((item) => new ITutor(false, item));
+          return response.filtered_teacher.map(
+            (item) => new ITutor(false, item)
+          );
         })
       );
   }

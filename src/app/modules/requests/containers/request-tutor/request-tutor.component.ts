@@ -183,17 +183,11 @@ export class RequestTutorComponent implements OnInit, OnDestroy {
       const appointments = this._generateAppointments(classrooms);
 
       const value = {
-        course_field: this.courseInformationForm.value.courseField,
-        subject: this.courseInformationForm.value.subject,
-        start_date: this._datePipe.transform(
-          new Date(this.classroomDetailsForm.value?.startDate),
-          'yyyy-MM-dd'
-        ),
-        end_date: this._datePipe.transform(
-          new Date(this.classroomDetailsForm.value?.endDate),
-          'yyyy-MM-dd'
-        ),
-        appointments,
+        program_id: this.courseInformationForm.value.courseProgram,
+        field_of_study_id: this.courseInformationForm.value.courseField,
+        subject_id: this.courseInformationForm.value.subject,
+        language_id: this.courseInformationForm.value.language,
+        class_rooms: appointments,
       };
 
       this.loadingTutors = true;
@@ -369,10 +363,7 @@ export class RequestTutorComponent implements OnInit, OnDestroy {
       if (classroomValue.endTime)
         this.reviewInfo.endTime = this.classroomDetailsForm.value?.endTime;
 
-      if (classroomValue.days)
-        this.reviewInfo.days = classroomValue.days.map(
-          (day: number) => LONG_DAYS_WEEK[day - 1]
-        );
+      if (classroomValue.days) this.reviewInfo.days = classroomValue.days;
 
       if (classroomValue.type)
         this.reviewInfo.type = CLASSROOM_TYPES_CONST[classroomValue.type];
@@ -461,8 +452,10 @@ export class RequestTutorComponent implements OnInit, OnDestroy {
       appointments = value.map((item: any) => {
         const appoint: any = {
           date: this._datePipe.transform(new Date(item?.date), 'yyyy-MM-dd'),
-          from_time: item?.startTime,
-          to_time: item?.endTime,
+          day: SORTED_DAYS_WEEK[new Date(item?.date).getDay()],
+          startTime: item?.startTime,
+          endTime: item?.endTime,
+          duration: item?.duration,
         };
 
         return appoint;
