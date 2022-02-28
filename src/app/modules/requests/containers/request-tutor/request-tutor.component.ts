@@ -207,24 +207,29 @@ export class RequestTutorComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
+    // console.log(this.courseInformationForm.value);
+    // console.log(this.classroomDetailsForm.value);
+    // console.log(
+    //   'Function => ',
+    //   this._generateClassroomForm(this.classroomDetailsForm.value)
+    // );
+    // console.log(this.classroomScheduleForm.value);
+    // console.log(this.selectTutorForm.value);
+    // console.log(this.selectedClassrooms);
+
     const value = {
       ...this.courseInformationForm.value,
       ...this._generateClassroomForm(this.classroomDetailsForm.value),
       ...this.selectTutorForm.value,
-      classrooms: this.selectedClassrooms.map((item: any) => {
-        const classroom: any = {
-          number: item.number,
-          title: item.title,
-          seat_attendees: item.attendees,
-          _status_id: item.id,
-          _date: item.date,
-          _class_start_time: item.startTime,
-          _class_end_time: item.endTime,
-        };
-
-        return classroom;
-      }),
+      classrooms: this.selectedClassrooms.map((classroom: any) => ({
+        date: classroom?.date,
+        day: new Date(classroom.date).getDay(),
+        start_time: classroom?.startTime,
+        end_time: classroom?.endTime,
+        duration: classroom?.duration
+      })),
     };
+    console.log(value);
 
     this.isCreatingCourse = true;
     this._coursesService.createCourse(value).subscribe(
@@ -365,8 +370,7 @@ export class RequestTutorComponent implements OnInit, OnDestroy {
 
       if (classroomValue.days) this.reviewInfo.days = classroomValue.days;
 
-      if (classroomValue.type)
-        this.reviewInfo.type = CLASSROOM_TYPES_CONST[classroomValue.type];
+      if (classroomValue.type) this.reviewInfo.type = classroomValue.type;
 
       if (classroomValue.seatAttendees)
         this.reviewInfo.seatAttendees = classroomValue.seatAttendees;

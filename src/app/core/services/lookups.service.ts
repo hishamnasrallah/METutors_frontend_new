@@ -49,14 +49,6 @@ export class LookupsService {
       .pipe(catchError(this.errorHandler));
   }
 
-  addLanguage(data: any): Observable<any> {
-    return this.http.post<any>(`${this.BACKEND_URL}add-language`, data);
-  }
-
-  removeLanguage(data: any): Observable<any> {
-    return this.http.post<any>(`${this.BACKEND_URL}remove-language`, data);
-  }
-
   getPrograms(): Observable<any> {
     return this.http
       .get<{ programs: IProgram[] }>(`${this.BACKEND_URL}programs`)

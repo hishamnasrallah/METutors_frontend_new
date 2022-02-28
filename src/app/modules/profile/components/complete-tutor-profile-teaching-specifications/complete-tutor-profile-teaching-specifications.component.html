@@ -5,12 +5,12 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label for="levelOfEducation" class="form-label">Level</label>
+          <label for="levelOfEducation" class="form-label">Education Level</label>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="levelOfEducation" [placeholder]="'Select Level'">
-              <mat-option value="Matric">Matric</mat-option>
-              <mat-option value="Intermediate">Intermediate</mat-option>
-              <mat-option value="Bachelors">Bachelors</mat-option>
+              <mat-option [value]="level.value" *ngFor="let level of levels | keyvalue: returnZero">
+                {{ level.value }}
+              </mat-option>
             </mat-select>
           </mat-form-field>
           <div class="text-danger" *ngIf="levelOfEducation?.touched && levelOfEducation?.invalid">
@@ -97,14 +97,8 @@
         <div class="form-group">
           <label for="subject" class="form-label">Type of Tutoring</label>
           <mat-radio-group class="d-flex flex-column mt-3" formControlName="typeOfTutoring">
-            <mat-radio-button class="mb-2" [value]="'One-on-one'">
-              One-on-one
-            </mat-radio-button>
-            <mat-radio-button class="mb-2" [value]="'Group'">
-              Group
-            </mat-radio-button>
-            <mat-radio-button class="mb-2" [value]="'Both'">
-              Both
+            <mat-radio-button class="mb-2" [value]="type.value" *ngFor="let type of types | keyvalue: returnZero">
+              {{ type?.value }}
             </mat-radio-button>
           </mat-radio-group>
           <div class="text-danger" *ngIf="typeOfTutoring?.touched && typeOfTutoring?.invalid">
@@ -116,20 +110,15 @@
       <div class="col-md-6">
         <div class="form-group">
           <label for="teachingDays" class="form-label">How many days per week are you available? </label>
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="teachingDays" [placeholder]="'Select Days'" multiple>
-              <mat-option [value]="day" *ngFor="let day of days">{{ day }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <div class="text-danger" *ngIf="teachingDays?.touched && teachingDays?.invalid">
-            Please choose your Teaching Days
+          <div class="list-days">
+            <button type="button" mat-button [class.active]="selectedDays?.includes(i)"
+              *ngFor="let day of days; let i = index" (click)="onChangeDay(i)">{{ day }}</button>
           </div>
         </div>
       </div>
-
     </div>
 
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-md-6"></div>
 
       <div class="col-md-6">
@@ -147,7 +136,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <div class="row">
       <div class="col-md-4"></div>

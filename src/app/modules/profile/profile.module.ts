@@ -14,6 +14,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { SubmitButtonModule } from 'src/app/shared/components';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 
@@ -27,6 +28,7 @@ import {
   TutorProfileHeaderComponent,
   TutorProfileAboutMeComponent,
   TutorProfileLanguagesComponent,
+  DialogSelectAvailabilityDialog,
   TutorProfileTutorBadgesComponent,
   TutorProfileSpecializationComponent,
   TutorProfileFeedbackRatingsComponent,
@@ -44,6 +46,7 @@ import {
     TutorProfileAboutMeComponent,
     CompleteTutorProfileComponent,
     TutorProfileLanguagesComponent,
+    DialogSelectAvailabilityDialog,
     TutorProfileTutorBadgesComponent,
     TutorProfileSpecializationComponent,
     TutorProfileFeedbackRatingsComponent,
@@ -64,6 +67,7 @@ import {
     DirectiveModule,
     MatButtonModule,
     MatSelectModule,
+    MatDialogModule,
     ShareButtonsModule,
     SubmitButtonModule,
     MatFormFieldModule,

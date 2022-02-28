@@ -7,14 +7,14 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { IClassroom, IClass, ICourse, ICategory, ISyllabus } from '../models';
 import { catchError, map } from 'rxjs/operators';
-import { AcademicTutoringTextbook } from 'src/app/config';
+import { AcademicTutoringTextbook, SORTED_DAYS_WEEK } from 'src/app/config';
 import { Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CoursesService {
-  mainLink = environment.API_URL + 'course/';
+  mainLink = environment.API_URL;
 
   constructor(private http: HttpClient) {}
 
@@ -149,24 +149,31 @@ export class CoursesService {
     if (filters.startTime) {
       params = params.append('batch_start_time', filters.startTime);
     }
+
     if (filters.endTime) {
       params = params.append('batch_expected_end_date', filters.endTime);
     }
+
     if (filters.maxStudents) {
       params = params.append('max_students_in_group', filters.maxStudents);
     }
+
     if (filters.days) {
       params = params.append('batch_days', (+filters.days - 1).toString());
     }
+
     if (filters.type) {
       params = params.append('batch_type', filters.type);
     }
+
     if (filters.startIn) {
       params = params.append('start_in', filters.startIn);
     }
+
     if (filters.page) {
       params = params.append('page', filters.page);
     }
+
     if (filters.sort) {
       params = params.append('sort', filters.sort);
     }
@@ -190,42 +197,42 @@ export class CoursesService {
   createCourse(value: any): Observable<any> {
     const formData = new FormData();
 
+    const weekdays =
+      value.days && value.days.length
+        ? value.days.map((day: string) => SORTED_DAYS_WEEK.indexOf(day))
+        : [];
+
+    const totalPrice = (10 * +value.hours)?.toString();
+
+    if (value.courseProgram) formData.append('program_id', value.courseProgram);
     if (value.courseLevel) formData.append('course_level', value.courseLevel);
-    if (value.courseField) formData.append('course_field', value.courseField);
-    if (value.preferedTutoringLanguage)
-      formData.append(
-        'tutoring_preferred_language',
-        value.preferedTutoringLanguage
-      );
-    if (value.subject) formData.append('subject', value.subject);
-    if (value.information)
-      formData.append('textbook_information', value.information);
+    if (value.courseField) formData.append('field_of_study', value.courseField);
+    if (value.language) formData.append('language_id', value.language);
+    if (value.subject) formData.append('subject_id', value.subject);
+    if (value.information) formData.append('book_info', value.information);
     if (value.information === AcademicTutoringTextbook.pdf && value.file)
-      formData.append('textbook_pdf', value.file);
+      formData.append('files', value.file);
     if (value.information === AcademicTutoringTextbook.info) {
-      if (value.name) formData.append('textbook_name', value.name);
-      if (value.edition) formData.append('textbook_edition', value.edition);
-      if (value.author) formData.append('textbook_author', value.author);
+      if (value.name) formData.append('book_name', value.name);
+      if (value.edition) formData.append('book_edition', value.edition);
+      if (value.author) formData.append('book_author', value.author);
     }
 
-    if (value.startDate) formData.append('batch_start_date', value.startDate);
-    if (value.endDate)
-      formData.append('batch_expected_end_date', value.endDate);
-    if (value.days) formData.append('batch_days', value.days);
-    if (value.startTime) formData.append('batch_start_time', value.startTime);
-    if (value.endTime) formData.append('batch_end_time', value.endTime);
-    if (value.duration) formData.append('duration', value.duration);
+    if (value.startDate) formData.append('start_date', value.startDate);
+    if (value.endDate) formData.append('end_date', value.endDate);
+    if (weekdays) formData.append('weekdays', weekdays);
     if (value.hours) formData.append('total_hours', value.hours);
+    if (totalPrice) formData.append('total_price', totalPrice);
     if (value.classes) formData.append('total_classes', value.classes);
-    if (value.type) formData.append('batch_type', value.type);
+    if (value.type) formData.append('class_type', value.type);
 
     if (value.classrooms && value.classrooms.length)
       formData.append('classes', JSON.stringify(value.classrooms));
 
-    if (value.tutor) formData.append('tutor', value.tutor);
+    if (value.tutor) formData.append('teacher_id', value.tutor);
 
-    return this.http.post<{ result: { id: number } }>(
-      `${this.mainLink}academic_tutoring/create_course/`,
+    return this.http.post<{ class: { id: number } }>(
+      `${this.mainLink}create-class`,
       formData
     );
   }

@@ -12,7 +12,7 @@ import { LookupsService, TutorsService } from 'src/app/core/services';
 })
 export class CompleteTutorProfileComponent implements OnInit, OnDestroy {
   loading = false;
-  step: number = 1;
+  step: number = 4;
   cities!: ICity[];
   countries!: ICountry[];
   languages!: ILanguage[];

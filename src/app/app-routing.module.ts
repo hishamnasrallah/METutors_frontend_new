@@ -1,6 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard, NotAuthGuard, TutorAuthGuard } from './core/guards';
+import {
+  AuthGuard,
+  NotAuthGuard,
+  StudentAuthGuard,
+  TutorAuthGuard,
+} from './core/guards';
 
 const routes: Routes = [
   {
@@ -17,7 +22,9 @@ const routes: Routes = [
   {
     path: 'requests',
     loadChildren: () =>
-      import('./modules/requests/requests.module').then((m) => m.RequestsModule),
+      import('./modules/requests/requests.module').then(
+        (m) => m.RequestsModule
+      ),
   },
   {
     path: 'profile',
@@ -26,11 +33,13 @@ const routes: Routes = [
   },
   {
     path: 'student',
+    canActivate: [StudentAuthGuard],
     loadChildren: () =>
       import('./modules/student/student.module').then((m) => m.StudentModule),
   },
   {
     path: 'tutor',
+    canActivate: [TutorAuthGuard],
     loadChildren: () =>
       import('./modules/tutor/tutor.module').then((m) => m.TutorModule),
   },
@@ -44,6 +53,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [NotAuthGuard, AuthGuard, TutorAuthGuard],
+  providers: [NotAuthGuard, AuthGuard, TutorAuthGuard, StudentAuthGuard],
 })
 export class AppRoutingModule {}

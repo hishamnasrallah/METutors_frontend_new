@@ -11,6 +11,65 @@ export const TICKET_STATUSES_CONST: any = {
   R: 'Re-Opened',
 };
 
+export const AVAILABILITY_HOURS_CONST = [
+  {
+    startTime: '12:00 pm',
+    endTime: '12:30 pm',
+  },
+  {
+    startTime: '12:30 pm',
+    endTime: '01:00 pm',
+  },
+  {
+    startTime: '01:00 pm',
+    endTime: '01:30 pm',
+  },
+  {
+    startTime: '01:30 pm',
+    endTime: '02:00 pm',
+  },
+  {
+    startTime: '02:00 pm',
+    endTime: '02:30 pm',
+  },
+  {
+    startTime: '02:30 pm',
+    endTime: '03:00 pm',
+  },
+  {
+    startTime: '03:00 pm',
+    endTime: '03:30 pm',
+  },
+  {
+    startTime: '03:30 pm',
+    endTime: '04:00 pm',
+  },
+  {
+    startTime: '04:00 pm',
+    endTime: '04:30 pm',
+  },
+  {
+    startTime: '04:30 pm',
+    endTime: '05:00 pm',
+  },
+  {
+    startTime: '05:00 pm',
+    endTime: '05:30 pm',
+  },
+  {
+    startTime: '05:30 pm',
+    endTime: '06:00 pm',
+  },
+  {
+    startTime: '06:00 pm',
+    endTime: '06:30 pm',
+  },
+  {
+    startTime: '06:30 pm',
+    endTime: '07:00 pm',
+  },
+];
+
 export const LANGUAGES_LEVELS_CONST = {
   beginner: 'Beginner',
   elementary: 'Elementary',
@@ -18,6 +77,12 @@ export const LANGUAGES_LEVELS_CONST = {
   upperIntermediate: 'Upper Intermediate',
   advanced: 'Advanced',
   proficient: 'Proficient',
+};
+
+export const EDUCATION_LEVELS_CONST = {
+  matric: 'Matric',
+  intermediate: 'Intermediate',
+  bachelors: 'Bachelors',
 };
 
 export const COURSE_TAGS_CONST: any = {

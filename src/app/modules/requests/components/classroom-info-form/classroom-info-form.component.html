@@ -43,7 +43,7 @@
             <h3>Type of classroom</h3>
             <mat-form-field appearance="outline" class="w-100">
               <mat-select formControlName="type" (selectionChange)="onChangeType()" [placeholder]="'Choose type'">
-                <mat-option [value]="type.key" *ngFor="let type of types | keyvalue: returnZero">
+                <mat-option [value]="type.value" *ngFor="let type of types | keyvalue: returnZero">
                   {{ type.value }}
                 </mat-option>
               </mat-select>
