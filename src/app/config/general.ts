@@ -79,12 +79,6 @@ export const LANGUAGES_LEVELS_CONST = {
   proficient: 'Proficient',
 };
 
-export const EDUCATION_LEVELS_CONST = {
-  matric: 'Matric',
-  intermediate: 'Intermediate',
-  bachelors: 'Bachelors',
-};
-
 export const COURSE_TAGS_CONST: any = {
   new: 'New',
   pop: 'Popular',

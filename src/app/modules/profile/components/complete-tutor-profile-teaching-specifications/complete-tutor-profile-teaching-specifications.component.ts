@@ -22,10 +22,15 @@ import {
 import {
   AVAILABILITY_HOURS_CONST,
   COURSE_TUITION_TYPES_CONST,
-  EDUCATION_LEVELS_CONST,
   SORTED_DAYS_WEEK,
 } from 'src/app/config';
-import { IProgram } from 'src/app/core/models';
+import {
+  ICountry,
+  ICourseField,
+  ICourseLevel,
+  IProgram,
+  ISubject,
+} from 'src/app/core/models';
 import { FormValidationUtilsService } from 'src/app/core/validators';
 
 @Component({
@@ -42,14 +47,19 @@ export class CompleteTutorProfileTeachingSpecificationsComponent
 {
   @Input() loading?: boolean;
   @Input() programs!: IProgram[];
+  @Input() countries!: ICountry[];
+  @Input() fields!: ICourseField[];
+  @Input() levels!: ICourseLevel[];
+  @Input() subjectsList!: ISubject[];
 
   @Output() submitForm = new EventEmitter();
+  @Output() changeField = new EventEmitter();
 
+  nationalId = 3;
   form: FormGroup;
   minDate = new Date();
   days = SORTED_DAYS_WEEK;
   selectedDays: number[] = [];
-  levels = EDUCATION_LEVELS_CONST;
   types = COURSE_TUITION_TYPES_CONST;
 
   constructor(
@@ -69,14 +79,13 @@ export class CompleteTutorProfileTeachingSpecificationsComponent
           this._fv.numbersOnlyValidation,
         ],
       ],
-      fieldOfStudy: [null, [Validators.required]],
       startDate: [null, [Validators.required]],
       subjects: this._fb.array([]),
       endDate: [null, [Validators.required]],
       program: [null, Validators.required],
+      country: [null],
       availability: this._fb.array([]),
       typeOfTutoring: [null, [Validators.required]],
-      // teachingHours: [null, [Validators.required]],
     });
 
     this.addSubject();
@@ -99,10 +108,6 @@ export class CompleteTutorProfileTeachingSpecificationsComponent
     return this.form.get('salaryPerHour');
   }
 
-  get fieldOfStudy(): AbstractControl | null {
-    return this.form.get('fieldOfStudy');
-  }
-
   get startDate(): AbstractControl | null {
     return this.form.get('startDate');
   }
@@ -117,6 +122,10 @@ export class CompleteTutorProfileTeachingSpecificationsComponent
 
   get program(): AbstractControl | null {
     return this.form.get('program');
+  }
+
+  get country(): AbstractControl | null {
+    return this.form.get('country');
   }
 
   get availability(): FormArray {
@@ -168,6 +177,10 @@ export class CompleteTutorProfileTeachingSpecificationsComponent
     }
   }
 
+  onChangeField(event: any): void {
+    this.changeField.emit(event?.value?.id);
+  }
+
   openDialog(index: number) {
     const dialogRef = this._dialog.open(DialogSelectAvailabilityDialog, {
       width: '500px',
@@ -195,21 +208,29 @@ export class CompleteTutorProfileTeachingSpecificationsComponent
       expected_salary_per_hour: this.salaryPerHour?.value,
       availability_start_date: this._datePipe.transform(
         this.startDate?.value,
-        'dd/MM/yyyy'
+        'yyyy-MM-dd'
       ),
       availability_end_date: this._datePipe.transform(
         this.endDate?.value,
-        'dd/MM/yyyy'
+        'yyyy-MM-dd'
       ),
-
-      // subjects: this.subject?.value,
-      // program_id
-      // field_of_study: this.fieldOfStudy?.value,
-      // availability: this.teachingDays?.value,
+      subjects: this.subjects?.value?.map((subject: any) => ({
+        field_id: subject?.field?.id,
+        subject_id: [subject?.field?.id],
+      })),
+      program_id: this.program?.value,
+      availability: this.availability?.value
+        ?.filter((itm: any) => itm?.day != null)
+        ?.map((item: any) => ({
+          day: item?.day,
+          time_slots: item?.timeSlots?.map((slot: any) => ({
+            start_time: slot?.startTime,
+            end_time: slot?.endTime,
+          })),
+        })),
     };
 
-    console.log(data)
-    // this.submitForm.emit(data);
+    this.submitForm.emit(data);
   }
 }
 
@@ -255,22 +276,3 @@ export class DialogSelectAvailabilityDialog {
     }
   }
 }
-
-/**
- * [
-   {
-      "field_id":1,
-      "subject_id":[
-         1,
-         2
-      ]
-   },
-   {
-      "field_id":2,
-      "subject_id":[
-         1,
-         2
-      ]
-   }
-]
- */

@@ -3,6 +3,7 @@ import { ICourseField, ICourseLevel, IFAQTopics, ILanguage, ISubject } from '.';
 export interface ILookups {
   ticketTypes: any;
   courseList: any;
+  fields: ICourseField[];
   courseField: ICourseField[];
   courseLevel: ICourseLevel[];
   courseSubjects: ISubject[];

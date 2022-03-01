@@ -35,7 +35,7 @@
           <label for="dateOfBirth" class="form-label">Date of Birth</label>
           <mat-form-field appearance="outline" class="w-100">
             <input matInput [matDatepicker]="datetPicker" [placeholder]="'04/02/2022'" (focus)="datetPicker.open()"
-              formControlName="dateOfBirth">
+              formControlName="dateOfBirth" [max]="maxDate">
             <mat-datepicker-toggle matSuffix [for]="datetPicker"></mat-datepicker-toggle>
             <mat-datepicker #datetPicker></mat-datepicker>
           </mat-form-field>

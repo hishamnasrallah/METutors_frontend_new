@@ -8,8 +8,8 @@
           <label for="levelOfEducation" class="form-label">Education Level</label>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="levelOfEducation" [placeholder]="'Select Level'">
-              <mat-option [value]="level.value" *ngFor="let level of levels | keyvalue: returnZero">
-                {{ level.value }}
+              <mat-option [value]="level.id" *ngFor="let level of levels">
+                {{ level.name }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -37,47 +37,18 @@
           <label for="program" class="form-label">Select the program</label>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="program" [placeholder]="'Select Program'" multiple>
-              <mat-option [value]="program" *ngFor="let program of programs">{{ program?.name }}</mat-option>
+              <mat-option [value]="program?.id" *ngFor="let program of programs">{{ program?.name }}</mat-option>
             </mat-select>
           </mat-form-field>
           <div class="text-danger" *ngIf="program?.touched && program?.invalid">
             Please write your Program
           </div>
-          <div>
-            <label for="subjects" class="form-label">Field of study</label>
-            <a class="float-end cursor-pointer" (click)="addSubject()">Add new</a>
-          </div>
 
-          <ng-container formArrayName="subjects">
-            <ng-container *ngFor="let _ of subjects.controls; let i = index" [formGroupName]="i">
-              <ng-container *ngIf="!form.value.subjects[i].field || !form.value.subjects[i].subject">
-                <mat-form-field appearance="outline" class="w-100 mt-3">
-                  <mat-select formControlName="field" [placeholder]="'Select Field'">
-                    <!-- <mat-option [value]="subj" *ngFor="let subj of subjectsList">{{ subj?.name }}</mat-option> -->
-                  </mat-select>
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" class="w-100">
-                  <mat-select formControlName="subject" [placeholder]="'Select subject'">
-                    <mat-option [value]="level?.value" *ngFor="let level of levels | keyvalue">
-                      {{ level?.value }}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </ng-container>
-            </ng-container>
-          </ng-container>
-
-          <mat-chip-list>
-            <ng-container *ngFor="let subj of form.value.subjects; let i = index">
-              <mat-chip *ngIf="subj.field && subj.level">
-                <div class="subj-info d-flex align-items-center justify-content-center">
-                  {{ subj.field?.name }} - <span>{{ subj.subject }}</span>
-                  <mat-icon (click)="removeSubject(i)">cancel</mat-icon>
-                </div>
-              </mat-chip>
-            </ng-container>
-          </mat-chip-list>
+          <mat-form-field appearance="outline" class="w-100" *ngIf="form.value.program?.includes(nationalId)">
+            <mat-select formControlName="country" [placeholder]="'Select country for national'" multiple>
+              <mat-option [value]="country?.id" *ngFor="let country of countries">{{ country?.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
       </div>
 
@@ -100,6 +71,44 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
+          <div>
+            <label for="subjects" class="form-label">Field of study</label>
+            <a class="float-end cursor-pointer" (click)="addSubject()">Add new</a>
+          </div>
+
+          <ng-container formArrayName="subjects">
+            <ng-container *ngFor="let _ of subjects.controls; let i = index" [formGroupName]="i">
+              <ng-container *ngIf="!form.value.subjects[i].field || !form.value.subjects[i].subject">
+                <mat-form-field appearance="outline" class="w-100 mt-3">
+                  <mat-select formControlName="field" [placeholder]="'Select Field'" (selectionChange)="onChangeField($event)">
+                    <ng-container *ngFor="let field of fields">
+                      <mat-option [value]="field" *ngIf="form.value.program?.includes(field?.programId)">
+                        {{ field?.name }}</mat-option>
+                    </ng-container>
+                  </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-select formControlName="subject" [placeholder]="'Select subject'">
+                    <mat-option [value]="subject" *ngFor="let subject of subjectsList">
+                      {{ subject?.name }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+
+          <mat-chip-list>
+            <ng-container *ngFor="let subj of form.value.subjects; let i = index">
+              <mat-chip *ngIf="subj.field && subj.subject">
+                <div class="subj-info d-flex align-items-center justify-content-center">
+                  {{ subj.field?.name }} - <span>{{ subj.subject?.name }}</span>
+                  <mat-icon (click)="removeSubject(i)">cancel</mat-icon>
+                </div>
+              </mat-chip>
+            </ng-container>
+          </mat-chip-list>
           <!-- <label for="subject" class="form-label">Select Subject</label>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="subject" [placeholder]="'Math'">
@@ -130,7 +139,7 @@
       </div>
     </div>
 
-    <div class="row">
+    <div class="row mt-3">
       <div class="col-md-6">
         <div class="form-group">
           <label class="form-label">Type of Tutoring</label>

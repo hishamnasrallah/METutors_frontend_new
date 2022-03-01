@@ -25,6 +25,7 @@ export class CompleteTutorProfilePersonalInformationComponent
   @Output() loadCities = new EventEmitter<string>();
 
   form: FormGroup;
+  maxDate = new Date();
 
   constructor(private _fb: FormBuilder, private _datePipe: DatePipe) {
     this.form = this._fb.group({
