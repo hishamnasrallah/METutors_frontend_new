@@ -23,12 +23,12 @@ import { RolesSelectComponent } from '../../components';
 export class SigninComponent implements OnInit, OnDestroy {
   userRole: any;
   roles!: IRole[];
-  gloading = false;
-  floading = false;
+  authLoading = false;
   signinForm: FormGroup;
   loading: boolean = false;
   signinSub?: Subscription;
   getRolesSub?: Subscription;
+  authSignInSub?: Subscription;
 
   constructor(
     private _router: Router,
@@ -81,37 +81,24 @@ export class SigninComponent implements OnInit, OnDestroy {
 
           if (response) {
             localStorage.setItem('token', response);
-          }
 
-          if (
-            this._route.snapshot.queryParams['returnUrl'] &&
-            decodeURIComponent(this._route.snapshot.queryParams['returnUrl'])
-          ) {
-            let returnUrl = decodeURIComponent(
-              this._route.snapshot.queryParams['returnUrl']
-            );
-            this._router.navigate([returnUrl]);
-          } else {
-            // if (response.user.role_name === UserRole.student) {
-            //   this._router.navigate(['/student-dashboard'], {
-            //     queryParams: {
-            //       id: response.user.id,
-            //       name: response.user.first_name,
-            //     },
-            //   });
-            // } else if (response.user.role_name === UserRole.tutor) {
-            //   this._router.navigate(['/teacher-dashboard'], {
-            //     queryParams: {
-            //       id: response.user.id,
-            //       name: response.user.first_name,
-            //     },
-            //   });
-            // } else if (response.user.role_name === UserRole.admin) {
-            //   localStorage.setItem('role', 'admin-temporary');
-            //   // this.openDialog(response);
-            // } else {
-            this._router.navigate(['/']);
-            // }
+            if (
+              this._route.snapshot.queryParams['returnUrl'] &&
+              decodeURIComponent(this._route.snapshot.queryParams['returnUrl'])
+            ) {
+              let returnUrl = decodeURIComponent(
+                this._route.snapshot.queryParams['returnUrl']
+              );
+              this._router.navigate([returnUrl]);
+            } else {
+              if (this._authService.getIsStudentAuth()) {
+                this._router.navigate(['/student']);
+              } else if (this._authService.getIsTutorAuth()) {
+                this._router.navigate(['/tutor']);
+              } else {
+                this._router.navigate(['/']);
+              }
+            }
           }
         } else {
           this._alertNotificationService.error(response.message);
@@ -157,89 +144,75 @@ export class SigninComponent implements OnInit, OnDestroy {
   }
 
   signInWithGoogle() {
-    this.gloading = true;
+    this._authService.signInWithGoogle().then((response: any) => {
+      this.authLoading = true;
 
-    this._authService.signInWithGoogle().then((data: any) => {
-      localStorage.setItem('token', data.authToken);
-      if (
-        this._route.snapshot.queryParams['returnUrl'] &&
-        decodeURIComponent(this._route.snapshot.queryParams['returnUrl'])
-      ) {
-        let returnUrl = decodeURIComponent(
-          this._route.snapshot.queryParams['returnUrl']
-        );
-        this._router.navigate([returnUrl]);
-      } else {
-        data['role'] = this.userRole;
+      const data = {
+        ...response,
+        role: this.userRole,
+      };
 
-        this._authService.googleSignIn(data).subscribe((res: any) => {
-          this.gloading = false;
+      this.authSignInSub = this._authService.googleSignIn(data).subscribe(
+        (res) => {
+          this.authLoading = false;
 
-          if (res.status === true) {
-            this._alertNotificationService.success(res.message);
+          if (res) {
+            localStorage.setItem('token', res);
 
-            if (this.userRole === '1') {
-              this._router.navigate(['/student-dashboard'], {
-                queryParams: { name: res.user.first_name },
-              });
-            } else if (this.userRole === '3') {
-              this._router.navigate(['/teacher-dashboard'], {
-                queryParams: { name: res.user.first_name },
-              });
+            if (this._authService.getIsStudentAuth()) {
+              this._router.navigate(['/student']);
+            } else if (this._authService.getIsTutorAuth()) {
+              this._router.navigate(['/tutor']);
             } else {
               this._router.navigate(['/']);
             }
-          } else {
-            this._alertNotificationService.error(res.message);
           }
-        });
-      }
+        },
+        (error) => {
+          this.authLoading = false;
+          this._alertNotificationService.error(error?.error?.message);
+        }
+      );
     });
   }
 
   signInWithFacebook() {
-    this._authService.signInWithFacebook().then((data: any) => {
-      this.floading = true;
-      localStorage.setItem('token', data.authToken);
-      if (
-        this._route.snapshot.queryParams['returnUrl'] &&
-        decodeURIComponent(this._route.snapshot.queryParams['returnUrl'])
-      ) {
-        let returnUrl = decodeURIComponent(
-          this._route.snapshot.queryParams['returnUrl']
-        );
-        this._router.navigate([returnUrl]);
-      } else {
-        data['role'] = this.userRole;
+    this._authService.signInWithFacebook().then((response) => {
+      this.authLoading = true;
 
-        this._authService.facebookSignIn(data).subscribe((res: any) => {
-          this.floading = false;
+      const data = {
+        ...response,
+        role: this.userRole,
+      };
 
-          if (res.status === true) {
-            this._alertNotificationService.success(res.message);
+      this.authSignInSub = this._authService.facebookSignIn(data).subscribe(
+        (res) => {
+          this.authLoading = false;
 
-            if (this.userRole === '1') {
-              this._router.navigate(['/student-dashboard'], {
-                queryParams: { name: res.user.first_name },
-              });
-            } else if (this.userRole === '3') {
-              this._router.navigate(['/teacher-dashboard'], {
-                queryParams: { name: res.user.first_name },
-              });
+          if (res) {
+            localStorage.setItem('token', res);
+
+            if (this._authService.getIsStudentAuth()) {
+              this._router.navigate(['/student']);
+            } else if (this._authService.getIsTutorAuth()) {
+              this._router.navigate(['/tutor']);
             } else {
               this._router.navigate(['/']);
             }
-          } else {
-            this._alertNotificationService.error(res.message);
           }
-        });
-      }
+        },
+        (error) => {
+          this.authLoading = false;
+          this._alertNotificationService.error(error?.error?.message);
+        }
+      );
     });
   }
 
   ngOnDestroy(): void {
     this.signinSub?.unsubscribe();
     this.getRolesSub?.unsubscribe();
+    this.authSignInSub?.unsubscribe();
   }
 
   private _prepareRoles(): void {

@@ -39,12 +39,11 @@ export class SignupComponent implements OnInit, OnDestroy {
   signupSub?: Subscription;
   loading: boolean = false;
   getRolesSub?: Subscription;
+  authLoading: boolean = false;
   selectedCountry!: CountryISO;
+  authSignInSub?: Subscription;
   resendLoading: boolean = false;
   userType?: number = UserRole.student;
-
-  gloading = false;
-  floading = false;
 
   preferredCountries: CountryISO[] = [
     CountryISO.UnitedStates,
@@ -187,7 +186,7 @@ export class SignupComponent implements OnInit, OnDestroy {
       },
       (error) => {
         this._alertNotificationService.error(
-          error.error.message ||
+          error?.error?.message ||
             'Something went wrong while creating an account'
         );
       }
@@ -219,7 +218,7 @@ export class SignupComponent implements OnInit, OnDestroy {
       },
       (error) => {
         this._alertNotificationService.error(
-          error.error.message ||
+          error?.error?.message ||
             'Something went wrong while verifing your email'
         );
       }
@@ -242,7 +241,7 @@ export class SignupComponent implements OnInit, OnDestroy {
         },
         (error) => {
           this._alertNotificationService.error(
-            error.error.message ||
+            error?.error?.message ||
               'Something went wrong while verifing your email'
           );
         }
@@ -271,7 +270,7 @@ export class SignupComponent implements OnInit, OnDestroy {
       },
       (error) => {
         this._alertNotificationService.error(
-          error.error.message ||
+          error?.error?.message ||
             'Something went wrong while uploading the documents'
         );
       }
@@ -296,89 +295,75 @@ export class SignupComponent implements OnInit, OnDestroy {
   }
 
   signInWithGoogle() {
-    this._authService.signInWithGoogle().then((data: any) => {
-      localStorage.setItem('token', data.idToken);
+    this._authService.signInWithGoogle().then((response: any) => {
+      this.authLoading = true;
 
-      if (
-        this._route.snapshot.queryParams['returnUrl'] &&
-        decodeURIComponent(this._route.snapshot.queryParams['returnUrl'])
-      ) {
-        let returnUrl = decodeURIComponent(
-          this._route.snapshot.queryParams['returnUrl']
-        );
-        this._router.navigate([returnUrl]);
-      } else {
-        this.gloading = true;
+      const data = {
+        ...response,
+        role: this.userType,
+      };
 
-        data['role'] = this.userType;
+      this.authSignInSub = this._authService.googleSignIn(data).subscribe(
+        (res) => {
+          this.authLoading = false;
 
-        this._authService.googleSignIn(data).subscribe((res) => {
-          this.gloading = false;
+          if (res) {
+            localStorage.setItem('token', res);
 
-          if (res.status === true) {
-            this._alertNotificationService.success(res.message);
-            if (Number(this.userType) === UserRole.student) {
-              this._router.navigate(['/student-dashboard'], {
-                queryParams: { name: res.user.first_name },
-              });
-            } else if (Number(this.userType) === UserRole.tutor) {
-              this._router.navigate(['/teacher-dashboard'], {
-                queryParams: { name: res.user.first_name },
-              });
+            if (this._authService.getIsStudentAuth()) {
+              this._router.navigate(['/student']);
+            } else if (this._authService.getIsTutorAuth()) {
+              this._router.navigate(['/tutor']);
             } else {
               this._router.navigate(['/']);
             }
-          } else {
-            this._alertNotificationService.error(res.message);
           }
-        });
-      }
+        },
+        (error) => {
+          this.authLoading = false;
+          this._alertNotificationService.error(error?.error?.message);
+        }
+      );
     });
   }
 
   signInWithFacebook() {
-    this._authService.signInWithFacebook().then((data) => {
-      localStorage.setItem('token', data.authToken);
-      if (
-        this._route.snapshot.queryParams['returnUrl'] &&
-        decodeURIComponent(this._route.snapshot.queryParams['returnUrl'])
-      ) {
-        let returnUrl = decodeURIComponent(
-          this._route.snapshot.queryParams['returnUrl']
-        );
-        this._router.navigate([returnUrl]);
-      } else {
-        data['role'] = this.userType;
+    this._authService.signInWithFacebook().then((response) => {
+      this.authLoading = true;
 
-        this.floading = true;
+      const data = {
+        ...response,
+        role: this.userType,
+      };
 
-        this._authService.facebookSignIn(data).subscribe((res) => {
-          this.floading = false;
+      this.authSignInSub = this._authService.facebookSignIn(data).subscribe(
+        (res) => {
+          this.authLoading = false;
 
-          if (res.status === true) {
-            this._alertNotificationService.success(res.message);
-            if (Number(this.userType) === UserRole.student) {
-              this._router.navigate(['/student-dashboard'], {
-                queryParams: { name: res.user.first_name },
-              });
-            } else if (Number(this.userType) === UserRole.tutor) {
-              this._router.navigate(['/teacher-dashboard'], {
-                queryParams: { name: res.user.first_name },
-              });
+          if (res) {
+            localStorage.setItem('token', res);
+
+            if (this._authService.getIsStudentAuth()) {
+              this._router.navigate(['/student']);
+            } else if (this._authService.getIsTutorAuth()) {
+              this._router.navigate(['/tutor']);
             } else {
               this._router.navigate(['/']);
             }
-          } else {
-            this._alertNotificationService.error(res.message);
           }
-        });
-      }
+        },
+        (error) => {
+          this.authLoading = false;
+          this._alertNotificationService.error(error?.error?.message);
+        }
+      );
     });
   }
 
   ngOnDestroy(): void {
     this.signupSub?.unsubscribe();
     this.getRolesSub?.unsubscribe();
+    this.authSignInSub?.unsubscribe();
   }
 
   private _prepareRoles(): void {

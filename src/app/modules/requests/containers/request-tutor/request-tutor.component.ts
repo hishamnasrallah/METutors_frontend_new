@@ -25,6 +25,7 @@ import {
   ITutor,
 } from 'src/app/core/models';
 import {
+  AuthService,
   CoursesService,
   LookupsService,
   TutorsService,
@@ -65,6 +66,7 @@ export class RequestTutorComponent implements OnInit, OnDestroy {
     private _router: Router,
     private _fb: FormBuilder,
     private _datePipe: DatePipe,
+    private _authService: AuthService,
     private _tutorsService: TutorsService,
     private _lookupsService: LookupsService,
     private _coursesService: CoursesService,
@@ -112,6 +114,11 @@ export class RequestTutorComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    if (this._authService.getIsTutorAuth()) {
+      this._alertNotificationService.error('You dont have a permission to access this page from tutor account');
+      this._router.navigate(['/']);
+    }
+
     this._prepareLanguages();
     this._prepareCourseLevel();
     this._prepareCourseProgram();
@@ -207,16 +214,6 @@ export class RequestTutorComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    // console.log(this.courseInformationForm.value);
-    // console.log(this.classroomDetailsForm.value);
-    // console.log(
-    //   'Function => ',
-    //   this._generateClassroomForm(this.classroomDetailsForm.value)
-    // );
-    // console.log(this.classroomScheduleForm.value);
-    // console.log(this.selectTutorForm.value);
-    // console.log(this.selectedClassrooms);
-
     const value = {
       ...this.courseInformationForm.value,
       ...this._generateClassroomForm(this.classroomDetailsForm.value),
@@ -226,7 +223,7 @@ export class RequestTutorComponent implements OnInit, OnDestroy {
         day: new Date(classroom.date).getDay(),
         start_time: classroom?.startTime,
         end_time: classroom?.endTime,
-        duration: classroom?.duration
+        duration: classroom?.duration,
       })),
     };
     console.log(value);
@@ -243,8 +240,8 @@ export class RequestTutorComponent implements OnInit, OnDestroy {
           'Congrats! Your request has been created successfully!'
         );
         this._router.navigate([
-          '/payment/invoice-details',
-          response?.result?.id,
+          '/requests/invoice-details',
+          response?.class?.id,
         ]);
       },
       (error) => {
