@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
-import { StoreModule } from "@ngrx/store";
-import { EffectsModule } from "@ngrx/effects";
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 import { NgProgressModule } from 'ngx-progressbar';
-import {StoreDevtoolsModule} from "@ngrx/store-devtools";
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { RouterState, StoreRouterConnectingModule } from "@ngrx/router-store";
+import { RouterState, StoreRouterConnectingModule } from '@ngrx/router-store';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {
@@ -83,11 +83,11 @@ import { ComponentsModule, AlertNotificationsModule } from './core/components';
      */
     !environment.production
       ? StoreDevtoolsModule.instrument({
-        name: 'MeTutor',
-        // In a production build you would want to disable the Store Devtools
-        logOnly: environment.production,
-        maxAge: 30,
-      })
+          name: 'MeTutor',
+          // In a production build you would want to disable the Store Devtools
+          logOnly: environment.production,
+          maxAge: 30,
+        })
       : [],
   ],
   providers: [

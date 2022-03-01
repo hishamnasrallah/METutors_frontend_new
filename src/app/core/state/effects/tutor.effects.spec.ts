@@ -10,10 +10,7 @@ describe('TutorEffects', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        TutorEffects,
-        provideMockActions(() => actions$)
-      ]
+      providers: [TutorEffects, provideMockActions(() => actions$)],
     });
 
     effects = TestBed.inject(TutorEffects);

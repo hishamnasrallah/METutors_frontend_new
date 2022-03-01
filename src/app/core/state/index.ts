@@ -28,7 +28,7 @@ export const selectCoreState = createFeatureSelector<fromRoot.State, CoreState>(
 
 export const selectTutorState = createSelector(
   selectCoreState,
-  state => state[featureKeys.tutorFeatureKey]
+  (state) => state[featureKeys.tutorFeatureKey]
 );
 
 // Tutor

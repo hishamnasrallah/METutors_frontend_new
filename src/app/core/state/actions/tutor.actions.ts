@@ -1,10 +1,10 @@
 import { createAction, props } from '@ngrx/store';
 
-import {ITutor} from "@models";
+import { ITutor } from '@models';
 
 export const loadTutor = createAction(
   '[Tutor] Load Tutor',
-   props<{ id: number }>()
+  props<{ id: number }>()
 );
 
 export const loadTutorSuccess = createAction(
