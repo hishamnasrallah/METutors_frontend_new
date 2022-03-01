@@ -1,33 +1,34 @@
 import { createReducer, on } from '@ngrx/store';
 
+import {ITutor} from "@models";
 import * as tutorActions from '../actions/tutor.actions';
 
 export interface State {
-  tutors: [],
+  tutor: ITutor | null,
   isLoadingTutors: boolean,
   loadingTutorFailure: string,
 }
 
 export const initialState: State = {
-  tutors: [],
+  tutor: null,
   isLoadingTutors: false,
   loadingTutorFailure: '',
 };
 
 export const reducer = createReducer(
   initialState,
-  on(tutorActions.loadTutors, state => ({
+  on(tutorActions.loadTutor, state => ({
     ...state,
     isLoadingTutors: true,
   })),
 
-  on(tutorActions.loadTutorsSuccess, (state, { tutors }) => ({
+  on(tutorActions.loadTutorSuccess, (state, { tutor }) => ({
     ...state,
-    tutors,
+    tutor,
     isLoadingTutors: false,
   })),
 
-  on(tutorActions.loadTutorsFailure, (state, { error }) => ({
+  on(tutorActions.loadTutorFailure, (state, { error }) => ({
     ...state,
     isLoadingTutors: false,
     loadingTutorFailure: error.message,
@@ -35,8 +36,8 @@ export const reducer = createReducer(
 
 );
 
-export const selectTutors = (state: State): any[] =>
-  state.tutors;
+export const selectTutor = (state: State): ITutor | null =>
+  state.tutor;
 
-export const selectIsLoadingTutors = (state: State): boolean =>
+export const selectIsLoadingTutor = (state: State): boolean =>
   state.isLoadingTutors;

@@ -32,12 +32,12 @@ export const selectTutorState = createSelector(
 );
 
 // Tutor
-export const selectTutors = createSelector(
+export const selectTutor = createSelector(
   selectTutorState,
-  fromTutorReducer.selectTutors
+  fromTutorReducer.selectTutor
 );
 
-export const selectIsLoadingTutors = createSelector(
+export const selectIsLoadingTutor = createSelector(
   selectTutorState,
-  fromTutorReducer.selectIsLoadingTutors
+  fromTutorReducer.selectIsLoadingTutor
 );

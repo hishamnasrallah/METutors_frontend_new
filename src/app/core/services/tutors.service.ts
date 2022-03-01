@@ -1,28 +1,29 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { ITutor } from '../models';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpParams } from '@angular/common/http';
+
+import { ITutor } from '@models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TutorsService {
-  mainLink = environment.API_URL;
+  baseUrl = environment.API_URL;
 
   constructor(private http: HttpClient) {}
 
   sendTeacherAccount(data: any): Observable<any> {
     return this.http.post<any>(
-      `${this.mainLink}teacher/complete-account`,
+      `${this.baseUrl}teacher/complete-account`,
       data
     );
   }
 
   fetchFeaturedTutors(): Observable<any> {
     return this.http
-      .get<{ results: ITutor[] }>(`${this.mainLink}/featured_tutors`)
+      .get<{ results: ITutor[] }>(`${this.baseUrl}/featured_tutors`)
       .pipe(
         map((response) => {
           return response.results.map((item) => new ITutor(false, item));
@@ -30,9 +31,9 @@ export class TutorsService {
       );
   }
 
-  getTutorById(id: string): Observable<any> {
+  getTutorById(id: number | string): Observable<any> {
     return this.http
-      .get<{ user: ITutor }>(`${this.mainLink}teacher-profile?id=${id}`)
+      .get<{ user: ITutor }>(`${this.baseUrl}teacher-profile?id=${id}`)
       .pipe(
         map((response) => {
           return new ITutor(false, response.user);
@@ -45,7 +46,7 @@ export class TutorsService {
     const params = new HttpParams({ fromObject: object });
 
     return this.http
-      .get<{ filtered_teacher: ITutor[] }>(`${this.mainLink}filtered-teacher`, {
+      .get<{ filtered_teacher: ITutor[] }>(`${this.baseUrl}filtered-teacher`, {
         params,
       })
       .pipe(
@@ -59,7 +60,7 @@ export class TutorsService {
 
   sendTutorFeedback(value: any): Observable<any> {
     return this.http.post(
-      `${this.mainLink}rate/?batch_id=${value?.classroomId}&tutor_id=${value?.tutorId}`,
+      `${this.baseUrl}rate/?batch_id=${value?.classroomId}&tutor_id=${value?.tutorId}`,
       {
         expert_in_the_subject: value?.expertSubject,
         present_complex_topics_clearly_and_easily: value?.presentTopics,

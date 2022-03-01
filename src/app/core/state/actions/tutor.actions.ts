@@ -1,15 +1,18 @@
 import { createAction, props } from '@ngrx/store';
 
-export const loadTutors = createAction(
-  '[Tutor] Load Tutors'
+import {ITutor} from "@models";
+
+export const loadTutor = createAction(
+  '[Tutor] Load Tutor',
+   props<{ id: number }>()
 );
 
-export const loadTutorsSuccess = createAction(
-  '[Tutor] Load Tutors Success',
-  props<{ tutors: any }>()
+export const loadTutorSuccess = createAction(
+  '[Tutor] Load Tutor Success',
+  props<{ tutor: ITutor }>()
 );
 
-export const loadTutorsFailure = createAction(
-  '[Tutor] Load Tutors Failure',
+export const loadTutorFailure = createAction(
+  '[Tutor] Load Tutor Failure',
   props<{ error: any }>()
 );
