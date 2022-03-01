@@ -50,7 +50,9 @@
       </metutors-complete-tutor-profile-qualification-details>
 
       <metutors-complete-tutor-profile-teaching-specifications *ngIf="step === 4" [loading]="loading"
-        [programs]="coursePrograms" (submitForm)="sendTeacherAccount($event, 5)">
+        [programs]="coursePrograms" [countries]="countries" [fields]="fields" [levels]="levels"
+        [subjectsList]="subjects" (changeField)="fetchFieldSubject($event)"
+        (submitForm)="sendTeacherAccount($event, 5)">
       </metutors-complete-tutor-profile-teaching-specifications>
     </div>
   </div>

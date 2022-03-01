@@ -95,6 +95,37 @@ export class LookupsService {
       .pipe(catchError(this.errorHandler));
   }
 
+  getFields(): Observable<any> {
+    return this.http
+      .get<{ field_of_study: any }>(`${this.BACKEND_URL}field-of-studies`)
+      .pipe(
+        map((response) => {
+          return response.field_of_study.map((item: any) => ({
+            id: item.id,
+            name: item.name,
+            programId: item?.program_id,
+          }));
+        })
+      )
+      .pipe(catchError(this.errorHandler));
+  }
+
+  getFieldSubjects(fieldsId: string[]): Observable<any> {
+    return this.http
+      .get<{ subjects: ISubject[] }>(
+        `${this.BACKEND_URL}multi-field-subjects?field_id=${fieldsId}`
+      )
+      .pipe(
+        map((response) => {
+          return response.subjects.map((item) => ({
+            id: item.id,
+            name: item.name,
+          }));
+        })
+      )
+      .pipe(catchError(this.errorHandler));
+  }
+
   getCourseLevel(): Observable<any> {
     return this.http
       .get<{ course_levels: ICourseLevel[] }>(

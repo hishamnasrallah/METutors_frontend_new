@@ -25,6 +25,22 @@
   }
 }
 
+.subj-info {
+  font-size: 15px;
+  color: #000;
+
+  span {
+    font-size: 11px;
+    margin-left: 5px;
+  }
+
+  mat-icon {
+    color: #C4C4C4;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+}
+
 .dialog-title {
   font-weight: bold;
   color: #000;

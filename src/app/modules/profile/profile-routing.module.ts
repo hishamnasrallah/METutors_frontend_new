@@ -21,7 +21,7 @@ const routes: Routes = [
     },
   },
   {
-    path: 'tutor-profile/:id',
+    path: 'tutor/:id',
     component: TutorProfileComponent,
     data: { layout: { title: 'Tutor profile' } },
   },

@@ -65,6 +65,7 @@ export interface ICourseField {
   name: string;
   code: string;
   icon: string;
+  programId: number;
 }
 
 export function getTuitionValue(type: number): string {
