@@ -1,4 +1,8 @@
+import {Observable} from "rxjs";
+import {Store} from "@ngrx/store";
 import { Component, OnInit } from '@angular/core';
+
+import * as fromCore from '@metutor/core/state';
 
 @Component({
   selector: 'metutors-tutor',
@@ -6,7 +10,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./tutor.component.scss'],
 })
 export class TutorComponent implements OnInit {
-  constructor() {}
+  tutors$: Observable<any[]>;
+  loadingTutors$: Observable<boolean>;
 
-  ngOnInit(): void {}
+  constructor(private _store: Store) {}
+
+  ngOnInit(): void {
+    this._store.dispatch(fromCore.loadTutors())
+    // this.tutors$ = this._store.select(fromCore.selectTutors());
+    // this.loadingTutors$ = this._store.select(fromCore.selectIsLoadingTutors);
+  }
 }
