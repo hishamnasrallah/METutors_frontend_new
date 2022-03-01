@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { Router } from '@angular/router';
 import {
   GoogleLoginProvider,
   SocialAuthService,
@@ -10,51 +9,64 @@ import {
 import { environment } from 'src/environments/environment';
 import { map, Observable } from 'rxjs';
 import { UserRole } from 'src/app/config';
+import { Router } from '@angular/router';
+import camelcaseKeys from 'camelcase-keys';
 
-// const BACKEND_URL = environment.API_URL + 'auth/';
 const BACKEND_URL = environment.API_URL;
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   constructor(
     private http: HttpClient,
-    private router: Router,
-    private socialAuthService: SocialAuthService
+    private _router: Router,
+    private _socialAuthService: SocialAuthService
   ) {}
 
   getIsAuth(): boolean {
     const token = localStorage.getItem('token');
+
     if (!token) return false;
+
     return true;
   }
 
   getIsStudentAuth(): boolean {
     if (this.getIsAuth()) {
-      const token = localStorage.getItem('token');
       let jwtHelper = new JwtHelperService();
-      const userRole = jwtHelper.decodeToken(token || '')?.role;
 
-      if (userRole === UserRole.student) return true;
+      const token = localStorage.getItem('token');
+      const user = camelcaseKeys(jwtHelper.decodeToken(token || ''), {
+        deep: true,
+      });
+      const userRole = user?.user?.roleId;
+
+      if (userRole?.toString() === UserRole.student.toString()) return true;
       else return false;
     } else return false;
   }
 
   getIsTutorAuth(): boolean {
     if (this.getIsAuth()) {
-      const token = localStorage.getItem('token');
       let jwtHelper = new JwtHelperService();
-      const userRole = jwtHelper.decodeToken(token || '')?.role;
 
-      if (userRole === UserRole.tutor) return true;
+      const token = localStorage.getItem('token');
+      const user = camelcaseKeys(jwtHelper.decodeToken(token || ''), {
+        deep: true,
+      });
+      const userRole = user?.user?.roleId;
+
+      if (userRole?.toString() === UserRole.tutor.toString()) return true;
       else return false;
     } else return false;
   }
 
   decodeToken(): any {
     if (this.getIsAuth()) {
-      const token = localStorage.getItem('token');
       let jwtHelper = new JwtHelperService();
-      return jwtHelper.decodeToken(token || '');
+
+      const token = localStorage.getItem('token');
+
+      return camelcaseKeys(jwtHelper.decodeToken(token || ''), { deep: true });
     } else {
       return {};
     }
@@ -71,6 +83,11 @@ export class AuthService {
   }
 
   logout(): Observable<any> {
+    localStorage.removeItem('token');
+    localStorage.removeItem('refresh-token');
+    localStorage.removeItem('active');
+    this._socialAuthService.signOut();
+    this._router.navigate(['/']);
     return this.http.post<any>(BACKEND_URL + 'logout', {});
   }
 
@@ -140,19 +157,23 @@ export class AuthService {
   }
 
   signInWithGoogle(): any {
-    return this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    return this._socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
 
   googleSignIn(data: any): Observable<any> {
-    return this.http.post<any>(BACKEND_URL + 'google-signup', data);
+    return this.http
+      .post<any>(BACKEND_URL + 'google-signup', data)
+      .pipe(map((response) => response?.token));
   }
 
   facebookSignIn(data: any): Observable<any> {
-    return this.http.post<any>(BACKEND_URL + 'facebook-signup', data);
+    return this.http
+      .post<any>(BACKEND_URL + 'facebook-signup', data)
+      .pipe(map((response) => response?.token));
   }
 
   signInWithFacebook() {
-    return this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
+    return this._socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
   }
 
   validatePassword(data: any): Observable<any> {

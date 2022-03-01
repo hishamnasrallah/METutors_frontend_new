@@ -20,7 +20,6 @@ export class AuthGuard implements CanActivate {
 
     if (!isAuth) {
       localStorage.removeItem('token');
-      localStorage.removeItem('refresh-token');
       this.router.navigate(['/signin'], {
         queryParams: { returnUrl: state.url },
       });

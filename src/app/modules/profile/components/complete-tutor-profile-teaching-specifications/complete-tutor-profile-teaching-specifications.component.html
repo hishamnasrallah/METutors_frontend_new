@@ -34,12 +34,50 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label for="fieldOfStudy" class="form-label">Field of Study</label>
-          <input type="text" class="custom-input w-100 input-bordered" id="fieldOfStudy"
-            placeholder="e.g. Business Management" formControlName="fieldOfStudy">
-          <div class="text-danger" *ngIf="fieldOfStudy?.touched && fieldOfStudy?.invalid">
-            Please write your Field of Study
+          <label for="program" class="form-label">Select the program</label>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select formControlName="program" [placeholder]="'Select Program'" multiple>
+              <mat-option [value]="program" *ngFor="let program of programs">{{ program?.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div class="text-danger" *ngIf="program?.touched && program?.invalid">
+            Please write your Program
           </div>
+          <div>
+            <label for="subjects" class="form-label">Field of study</label>
+            <a class="float-end cursor-pointer" (click)="addSubject()">Add new</a>
+          </div>
+
+          <ng-container formArrayName="subjects">
+            <ng-container *ngFor="let _ of subjects.controls; let i = index" [formGroupName]="i">
+              <ng-container *ngIf="!form.value.subjects[i].field || !form.value.subjects[i].subject">
+                <mat-form-field appearance="outline" class="w-100 mt-3">
+                  <mat-select formControlName="field" [placeholder]="'Select Field'">
+                    <!-- <mat-option [value]="subj" *ngFor="let subj of subjectsList">{{ subj?.name }}</mat-option> -->
+                  </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-select formControlName="subject" [placeholder]="'Select subject'">
+                    <mat-option [value]="level?.value" *ngFor="let level of levels | keyvalue">
+                      {{ level?.value }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+
+          <mat-chip-list>
+            <ng-container *ngFor="let subj of form.value.subjects; let i = index">
+              <mat-chip *ngIf="subj.field && subj.level">
+                <div class="subj-info d-flex align-items-center justify-content-center">
+                  {{ subj.field?.name }} - <span>{{ subj.subject }}</span>
+                  <mat-icon (click)="removeSubject(i)">cancel</mat-icon>
+                </div>
+              </mat-chip>
+            </ng-container>
+          </mat-chip-list>
         </div>
       </div>
 
@@ -62,7 +100,7 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label for="subject" class="form-label">Select Subject</label>
+          <!-- <label for="subject" class="form-label">Select Subject</label>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="subject" [placeholder]="'Math'">
               <mat-option value="Math">Math</mat-option>
@@ -72,7 +110,7 @@
           </mat-form-field>
           <div class="text-danger" *ngIf="subject?.touched && subject?.invalid">
             Please choose your Subject
-          </div>
+          </div> -->
         </div>
       </div>
 
@@ -95,7 +133,7 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label for="subject" class="form-label">Type of Tutoring</label>
+          <label class="form-label">Type of Tutoring</label>
           <mat-radio-group class="d-flex flex-column mt-3" formControlName="typeOfTutoring">
             <mat-radio-button class="mb-2" [value]="type.value" *ngFor="let type of types | keyvalue: returnZero">
               {{ type?.value }}
@@ -109,7 +147,7 @@
 
       <div class="col-md-6">
         <div class="form-group">
-          <label for="teachingDays" class="form-label">How many days per week are you available? </label>
+          <label class="form-label">How many days per week are you available? </label>
           <div class="list-days">
             <button type="button" mat-button [class.active]="selectedDays?.includes(i)"
               *ngFor="let day of days; let i = index" (click)="onChangeDay(i)">{{ day }}</button>
@@ -118,32 +156,12 @@
       </div>
     </div>
 
-    <!-- <div class="row">
-      <div class="col-md-6"></div>
-
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="teachingHours" class="form-label">Availability Per Day </label>
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="teachingHours" [placeholder]="'Select Hours'">
-              <mat-option value="5 Hours">5 Hours</mat-option>
-              <mat-option value="6 Hours">6 Hours</mat-option>
-              <mat-option value="7 Hours">7 Hours</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <div class="text-danger" *ngIf="teachingHours?.touched && teachingHours?.invalid">
-            Please choose your Teaching Hours
-          </div>
-        </div>
-      </div>
-    </div> -->
-
     <div class="row">
       <div class="col-md-4"></div>
       <div class="col-md-4">
         <div class="form-group mt-4 mb-2">
           <metutors-submit-button [form]="form" [isSubmitting]="loading" [extraClasses]="'w-100'">
-            Save & Continue
+            Finish
           </metutors-submit-button>
         </div>
       </div>

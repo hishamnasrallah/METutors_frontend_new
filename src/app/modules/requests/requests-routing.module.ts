@@ -13,7 +13,7 @@ const routes: Routes = [
     },
   },
   {
-    path: 'invoice-details',
+    path: 'invoice-details/:id',
     component: InvoiceDetailsComponent,
     data: {
       layout: {

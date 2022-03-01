@@ -25,6 +25,7 @@ import {
   EDUCATION_LEVELS_CONST,
   SORTED_DAYS_WEEK,
 } from 'src/app/config';
+import { IProgram } from 'src/app/core/models';
 import { FormValidationUtilsService } from 'src/app/core/validators';
 
 @Component({
@@ -40,6 +41,7 @@ export class CompleteTutorProfileTeachingSpecificationsComponent
   implements OnInit
 {
   @Input() loading?: boolean;
+  @Input() programs!: IProgram[];
 
   @Output() submitForm = new EventEmitter();
 
@@ -69,14 +71,15 @@ export class CompleteTutorProfileTeachingSpecificationsComponent
       ],
       fieldOfStudy: [null, [Validators.required]],
       startDate: [null, [Validators.required]],
-      subject: [null, [Validators.required]],
+      subjects: this._fb.array([]),
       endDate: [null, [Validators.required]],
+      program: [null, Validators.required],
       availability: this._fb.array([]),
       typeOfTutoring: [null, [Validators.required]],
-      teachingDays: [null, [Validators.required]],
       // teachingHours: [null, [Validators.required]],
     });
 
+    this.addSubject();
     SORTED_DAYS_WEEK.forEach(() => {
       this.addAvailability();
     });
@@ -104,10 +107,6 @@ export class CompleteTutorProfileTeachingSpecificationsComponent
     return this.form.get('startDate');
   }
 
-  get subject(): AbstractControl | null {
-    return this.form.get('subject');
-  }
-
   get endDate(): AbstractControl | null {
     return this.form.get('endDate');
   }
@@ -116,20 +115,35 @@ export class CompleteTutorProfileTeachingSpecificationsComponent
     return this.form.get('typeOfTutoring');
   }
 
-  get teachingDays(): AbstractControl | null {
-    return this.form.get('teachingDays');
+  get program(): AbstractControl | null {
+    return this.form.get('program');
   }
-
-  // get teachingHours(): AbstractControl | null {
-  //   return this.form.get('teachingHours');
-  // }
 
   get availability(): FormArray {
     return this.form?.get('availability') as FormArray;
   }
 
-  removeAvailability(i: number): void {
-    (this.form?.get('availability') as FormArray).removeAt(i);
+  get subjects(): FormArray {
+    return this.form?.get('subjects') as FormArray;
+  }
+
+  removeSubject(i: number): void {
+    (this.form?.get('subjects') as FormArray).removeAt(i);
+
+    if (this.form.value.subjects.length === 0) {
+      this.addSubject();
+    }
+  }
+
+  newSubject(): FormGroup {
+    return this._fb.group({
+      field: [null, Validators.required],
+      subject: [null, Validators.required],
+    });
+  }
+
+  addSubject(): void {
+    this.subjects.push(this.newSubject());
   }
 
   newAvailability(): FormGroup {
@@ -177,23 +191,25 @@ export class CompleteTutorProfileTeachingSpecificationsComponent
     const data = {
       step: '4',
       level_of_education: this.levelOfEducation?.value,
+      type_of_tutoring: this.typeOfTutoring?.value,
       expected_salary_per_hour: this.salaryPerHour?.value,
-      field_of_study: this.fieldOfStudy?.value,
       availability_start_date: this._datePipe.transform(
         this.startDate?.value,
         'dd/MM/yyyy'
       ),
-      subject: this.subject?.value,
       availability_end_date: this._datePipe.transform(
         this.endDate?.value,
         'dd/MM/yyyy'
       ),
-      type_of_tutoring: this.typeOfTutoring?.value,
-      teaching_days: this.teachingDays?.value,
-      // teaching_hours: this.teachingHours?.value,
+
+      // subjects: this.subject?.value,
+      // program_id
+      // field_of_study: this.fieldOfStudy?.value,
+      // availability: this.teachingDays?.value,
     };
 
-    this.submitForm.emit(data);
+    console.log(data)
+    // this.submitForm.emit(data);
   }
 }
 
@@ -243,29 +259,17 @@ export class DialogSelectAvailabilityDialog {
 /**
  * [
    {
-      "day":1,
-      "time_slots":[
-         {
-            "time_from":"10:10PM",
-            "time_to":"11:50PM"
-         },
-         {
-            "time_from":"10:10PM",
-            "time_to":"11:50PM"
-         }
+      "field_id":1,
+      "subject_id":[
+         1,
+         2
       ]
    },
    {
-      "day":1,
-      "time_slots":[
-         {
-            "time_from":"10:10PM",
-            "time_to":"11:50PM"
-         },
-         {
-            "time_from":"10:10PM",
-            "time_to":"11:50PM"
-         }
+      "field_id":2,
+      "subject_id":[
+         1,
+         2
       ]
    }
 ]

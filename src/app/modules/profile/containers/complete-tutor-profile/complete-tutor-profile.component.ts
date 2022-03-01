@@ -2,8 +2,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { addLookups, getLookups } from 'src/app/config';
 import { AlertNotificationService } from 'src/app/core/components';
-import { ICity, ICountry, ILanguage } from 'src/app/core/models';
-import { LookupsService, TutorsService } from 'src/app/core/services';
+import { ICity, ICountry, ILanguage, IProgram } from 'src/app/core/models';
+import {
+  AuthService,
+  LookupsService,
+  TutorsService,
+} from 'src/app/core/services';
 
 @Component({
   selector: 'metutors-complete-tutor-profile',
@@ -16,12 +20,15 @@ export class CompleteTutorProfileComponent implements OnInit, OnDestroy {
   cities!: ICity[];
   countries!: ICountry[];
   languages!: ILanguage[];
+  coursePrograms!: IProgram[];
   sendAccountSub?: Subscription;
   fetchCitiesSub?: Subscription;
   fetchCountriesSub?: Subscription;
   fetchLanguagesSub?: Subscription;
+  getCourseProgramsSub?: Subscription;
 
   constructor(
+    private _authService: AuthService,
     private _tutorsService: TutorsService,
     private _lookupsService: LookupsService,
     private _alertNotificationService: AlertNotificationService
@@ -30,6 +37,9 @@ export class CompleteTutorProfileComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this._prepareCountries();
     this._prepareLanguages();
+    this._prepareCourseProgram();
+    // this.step =
+    //   +this._authService.decodeToken()?.user?.profileCompletedStep + 1;
   }
 
   sendTeacherAccount(data: any, step: number): void {
@@ -68,6 +78,7 @@ export class CompleteTutorProfileComponent implements OnInit, OnDestroy {
     this.fetchCitiesSub?.unsubscribe();
     this.fetchCountriesSub?.unsubscribe();
     this.fetchLanguagesSub?.unsubscribe();
+    this.getCourseProgramsSub?.unsubscribe();
   }
 
   private _prepareCountries(): void {
@@ -110,5 +121,17 @@ export class CompleteTutorProfileComponent implements OnInit, OnDestroy {
     );
 
     this.cities = getLookups().cities;
+  }
+
+  private _prepareCourseProgram(): void {
+    this.getCourseProgramsSub = this._lookupsService.getPrograms().subscribe(
+      (fetchedValues) => {
+        this.coursePrograms = fetchedValues;
+        addLookups('coursePrograms', this.coursePrograms);
+      },
+      () => {}
+    );
+
+    this.coursePrograms = getLookups().coursePrograms;
   }
 }

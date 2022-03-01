@@ -22,24 +22,10 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
     this.checkReload();
     this.checkRememberUser();
-    this.isAdmin();
-    if (!this.isRefereshed && !this.isRememberedUser)
-      localStorage.removeItem('token');
   }
 
   ngOnChanges() {
     this.checkReload();
-    this.isAdmin();
-  }
-
-  isAdmin() {
-    let session = localStorage.getItem('role');
-    if (session === 'admin-temporary') {
-      localStorage.removeItem('token');
-      localStorage.removeItem('role');
-    } else {
-      this.admin = true;
-    }
   }
 
   checkRememberUser() {
@@ -71,10 +57,5 @@ export class NavbarComponent implements OnInit {
 
   logout(): void {
     this.authService.logout();
-    localStorage.removeItem('token');
-    localStorage.removeItem('refresh-token');
-    localStorage.removeItem('active');
-    this._socialAuthService.signOut();
-    this._router.navigate(['/']);
   }
 }
