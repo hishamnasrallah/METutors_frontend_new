@@ -94,7 +94,12 @@ export class SigninComponent implements OnInit, OnDestroy {
               if (this._authService.getIsStudentAuth()) {
                 this._router.navigate(['/student']);
               } else if (this._authService.getIsTutorAuth()) {
-                this._router.navigate(['/tutor']);
+                if (
+                  +this._authService.decodeToken()?.user?.profileCompletedStep <
+                  4
+                )
+                  this._router.navigate(['/profile', 'complete-profile']);
+                else this._router.navigate(['/tutor']);
               } else {
                 this._router.navigate(['/']);
               }
