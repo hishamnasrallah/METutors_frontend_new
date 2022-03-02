@@ -43,7 +43,7 @@
             <h3>In progress</h3>
             <div class="d-flex align-items-center">
               <div class="flex-grow-1">
-                <mat-progress-bar class="example-margin" [color]="classroom.progress > 30 ? 'primary' : 'warn'"
+                <mat-progress-bar class="example-margin" [color]="classroom.progress ? classroom.progress > 30 ? 'primary' : 'warn' : 'warn'"
                   [value]="classroom?.progress">
                 </mat-progress-bar>
               </div>

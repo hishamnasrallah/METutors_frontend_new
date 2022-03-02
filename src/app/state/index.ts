@@ -55,7 +55,7 @@ export function localStorageSyncReducer(
       {
         core: [
           {
-            userService: ['user'],
+            userService: ['token'],
           },
         ],
       },
