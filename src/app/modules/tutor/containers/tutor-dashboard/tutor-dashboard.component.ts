@@ -52,8 +52,14 @@ export class TutorDashboardComponent implements OnInit {
 
   constructor(private _store: Store<any>) {}
 
+  loadDashboard(params: string): void {
+    this._store.dispatch(fromCore.loadTutorDashboard({ params, load: true }));
+  }
+
   ngOnInit(): void {
-    this._store.dispatch(fromCore.loadTutorDashboard());
+    this._store.dispatch(
+      fromCore.loadTutorDashboard({ params: '7days', load: false })
+    );
     this.tutorDashboard$ = this._store.select(fromCore.selectTutorDashboard);
     this.loadingTutorDashboard$ = this._store.select(
       fromCore.selectIsLoadingTutorDashboard

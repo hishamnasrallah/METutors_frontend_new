@@ -51,6 +51,11 @@ export const reducer = createReducer(
   on(tutorActions.loadTutorDashboardFailure, (state, { error }) => ({
     ...state,
     isLoadingDashboard: false,
+  })),
+
+  on(tutorActions.loadTutorDashboardEnded, (state) => ({
+    ...state,
+    isLoadingDashboard: false,
   }))
 );
 

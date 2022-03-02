@@ -17,7 +17,10 @@ export const loadTutorFailure = createAction(
   props<{ error: any }>()
 );
 
-export const loadTutorDashboard = createAction('[Tutor] Load Tutor Dashboard');
+export const loadTutorDashboard = createAction(
+  '[Tutor] Load Tutor Dashboard',
+  props<{ params: any; load: boolean }>()
+);
 
 export const loadTutorDashboardSuccess = createAction(
   '[Tutor] Load Tutor Dashboard Success',

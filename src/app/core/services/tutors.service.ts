@@ -38,9 +38,11 @@ export class TutorsService {
       );
   }
 
-  getTutorDashboard(): Observable<any> {
+  getTutorDashboard(params: any): Observable<any> {
     return this.http
-      .get<{ dashboard: any }>(`${this.baseUrl}teacher-dashboard`)
+      .get<{ dashboard: any }>(
+        `${this.baseUrl}teacher-dashboard?search_query=${params}`
+      )
       .pipe(map((response) => response));
   }
 

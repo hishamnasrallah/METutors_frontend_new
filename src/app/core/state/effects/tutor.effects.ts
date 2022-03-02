@@ -31,9 +31,9 @@ export class TutorEffects {
     this._actions$.pipe(
       ofType(tutorActions.loadTutorDashboard),
       withLatestFrom(this._store.select(selectTutorDashboard)),
-      mergeMap(([_, _dashboard]) => {
-        if (!_dashboard) {
-          return this._tutorService.getTutorDashboard().pipe(
+      mergeMap(([{ params, load }, _dashboard]) => {
+        if (!_dashboard || load) {
+          return this._tutorService.getTutorDashboard(params).pipe(
             map((dashboard) =>
               tutorActions.loadTutorDashboardSuccess({
                 dashboard: camelcaseKeys(dashboard, { deep: true }),
