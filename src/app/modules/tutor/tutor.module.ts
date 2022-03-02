@@ -9,15 +9,21 @@ import { FormsModule } from '@angular/forms';
 import { RatingModule } from 'ngx-bootstrap/rating';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { DirectiveModule } from '@metutor/shared/directives';
-import { ClassroomItemModule } from '@metutor/shared/components';
+import {
+  ClassroomItemModule,
+  ClassroomPlaceholderModule,
+} from '@metutor/shared/components';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 import {
   TutorComponent,
+  TutorClassesComponent,
   TutorSettingsComponent,
+  TutorSyllabusComponent,
   TutorDashboardComponent,
+  TutorClassroomsComponent,
   TutorPaymentRecordsComponent,
 } from './containers';
 
@@ -29,14 +35,21 @@ import {
   TutorSettingsUserPreferencesComponent,
   TutorSettingsPaymentInformationComponent,
 } from './components';
+import {
+  ClassroomAttendancesPopupModule,
+  LeaveFeedbackPopupModule,
+} from '@metutor/shared/popups';
 
 @NgModule({
   declarations: [
     TutorComponent,
     TutorNavbarComponent,
     TutorSidebarComponent,
+    TutorClassesComponent,
+    TutorSyllabusComponent,
     TutorSettingsComponent,
     TutorDashboardComponent,
+    TutorClassroomsComponent,
     TutorPaymentRecordsComponent,
     TutorSettingsAccountComponent,
     TutorSettingsSecurityComponent,
@@ -58,6 +71,9 @@ import {
     MatProgressBarModule,
     MatButtonToggleModule,
     RatingModule.forRoot(),
+    LeaveFeedbackPopupModule,
+    ClassroomPlaceholderModule,
+    ClassroomAttendancesPopupModule,
   ],
 })
 export class TutorModule {}
