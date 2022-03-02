@@ -2,8 +2,11 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {
   TutorComponent,
+  TutorClassesComponent,
   TutorSettingsComponent,
+  TutorSyllabusComponent,
   TutorDashboardComponent,
+  TutorClassroomsComponent,
   TutorPaymentRecordsComponent,
 } from './containers';
 
@@ -19,6 +22,44 @@ const routes: Routes = [
       },
     },
     children: [
+      {
+        path: 'classrooms',
+        children: [
+          {
+            path: '',
+            component: TutorClassroomsComponent,
+            data: {
+              layout: {
+                title: 'Tutor Classrooms - Metutors',
+                showHeader: false,
+                showFooter: false,
+              },
+            },
+          },
+          {
+            path: 'syllabus/:id',
+            component: TutorSyllabusComponent,
+            data: {
+              layout: {
+                title: 'Tutor Syllabus - Metutors',
+                showHeader: false,
+                showFooter: false,
+              },
+            },
+          },
+          {
+            path: 'classes/:id',
+            component: TutorClassesComponent,
+            data: {
+              layout: {
+                title: 'Tutor Classes - Metutors',
+                showHeader: false,
+                showFooter: false,
+              },
+            },
+          },
+        ],
+      },
       {
         path: 'dashboard',
         component: TutorDashboardComponent,
