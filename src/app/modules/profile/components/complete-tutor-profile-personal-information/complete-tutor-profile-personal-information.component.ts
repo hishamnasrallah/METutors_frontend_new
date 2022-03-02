@@ -19,7 +19,7 @@ export class CompleteTutorProfilePersonalInformationComponent
 {
   @Input() cities!: ICity[];
   @Input() loading!: boolean;
-  @Input() countries!: ICountry[];
+  @Input() countries: ICountry[] | null;
 
   @Output() submitForm = new EventEmitter();
   @Output() loadCities = new EventEmitter<string>();

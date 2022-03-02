@@ -12,7 +12,7 @@
             <mat-form-field appearance="outline" class="w-100">
               <mat-select formControlName="courseProgram" [placeholder]="'Choose program'"
                 (selectionChange)="onChangeCourseProgram()">
-                <mat-option [value]="program?.id" *ngFor="let program of coursePrograms">
+                <mat-option [value]="program?.id" *ngFor="let program of programs">
                   {{ program?.name }}
                 </mat-option>
               </mat-select>
@@ -24,7 +24,7 @@
             <h3>Course level</h3>
             <mat-form-field appearance="outline" class="w-100">
               <mat-select formControlName="courseLevel" [placeholder]="'Choose level'">
-                <mat-option [value]="level?.id" *ngFor="let level of courseLevel">
+                <mat-option [value]="level?.id" *ngFor="let level of levels">
                   {{ level?.name }}
                 </mat-option>
               </mat-select>
@@ -34,8 +34,8 @@
             <h3>Course field</h3>
             <mat-form-field appearance="outline" class="w-100">
               <mat-select formControlName="courseField" [placeholder]="'Choose field'"
-                [disabled]="!courseField || !courseField?.length">
-                <mat-option [value]="field?.id" *ngFor="let field of courseField">
+                [disabled]="!fields || !fields?.length">
+                <mat-option [value]="field?.id" *ngFor="let field of fields">
                   {{ field?.name }}
                 </mat-option>
               </mat-select>

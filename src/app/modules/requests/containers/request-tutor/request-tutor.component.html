@@ -16,9 +16,10 @@
           </div>
         </ng-template>
 
-        <metutors-course-information-form [form]="courseInformationForm" [courseLevel]="courseLevel"
-          [courseField]="courseField" [coursePrograms]="coursePrograms" [languages]="languages" [subjects]="subjects"
-          (submitForm)="nextStep()" (changeCourseProgram)="fetchCourseFieldSubject($event); fetchCourseField($event)">
+        <metutors-course-information-form [form]="courseInformationForm" [levels]="levels$ | async"
+          [fields]="fields$ | async" [programs]="programs$ | async" [languages]="languages$ | async"
+          [subjects]="subjects$ | async" (submitForm)="nextStep()"
+          (changeCourseProgram)="fetchCourseFieldSubject($event); fetchCourseField($event)">
         </metutors-course-information-form>
       </form>
     </mat-step>

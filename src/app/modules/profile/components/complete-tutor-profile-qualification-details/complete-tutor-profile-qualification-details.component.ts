@@ -18,7 +18,7 @@ export class CompleteTutorProfileQualificationDetailsComponent
   implements OnInit
 {
   @Input() loading?: boolean;
-  @Input() languagesList!: ILanguage[];
+  @Input() languagesList: ILanguage[] | null;
 
   @Output() submitForm = new EventEmitter();
 

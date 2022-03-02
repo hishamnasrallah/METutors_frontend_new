@@ -37,7 +37,7 @@
       </div>
 
       <metutors-complete-tutor-profile-personal-information *ngIf="step === 1" [loading]="loading"
-        [countries]="countries" [cities]="cities" (loadCities)="loadCities($event)"
+        [countries]="countries$ | async" [cities]="cities" (loadCities)="loadCities($event)"
         (submitForm)="sendTeacherAccount($event, 2)">
       </metutors-complete-tutor-profile-personal-information>
 
@@ -46,12 +46,12 @@
       </metutors-complete-tutor-profile-profile-picture>
 
       <metutors-complete-tutor-profile-qualification-details *ngIf="step === 3" [loading]="loading"
-        [languagesList]="languages" (submitForm)="sendTeacherAccount($event, 4)">
+        [languagesList]="languages$ | async" (submitForm)="sendTeacherAccount($event, 4)">
       </metutors-complete-tutor-profile-qualification-details>
 
       <metutors-complete-tutor-profile-teaching-specifications *ngIf="step === 4" [loading]="loading"
-        [programs]="coursePrograms" [countries]="countries" [fields]="fields" [levels]="levels"
-        [subjectsList]="subjects" (changeField)="fetchFieldSubject($event)"
+        [programs]="programs$ | async" [countries]="countries$ | async" [fields]="fields" [levels]="levels$ | async"
+        [subjectsList]="subjects$ | async" (changeField)="fetchFieldSubject($event)"
         (submitForm)="sendTeacherAccount($event, 5)">
       </metutors-complete-tutor-profile-teaching-specifications>
     </div>

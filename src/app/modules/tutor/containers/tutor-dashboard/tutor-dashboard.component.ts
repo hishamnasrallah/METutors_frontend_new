@@ -1,10 +1,10 @@
-import {Observable} from "rxjs";
-import {Store} from "@ngrx/store";
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { Component, OnInit } from '@angular/core';
 
-import {ITutor} from "@models";
-import * as fromCore from "@metutor/core/state";
+import { ITutor } from '@models';
+import * as fromCore from '@metutor/core/state';
 
 @Component({
   selector: 'metutors-tutor-dashboard',
@@ -45,7 +45,7 @@ export class TutorDashboardComponent implements OnInit {
   constructor(private _store: Store<any>) {}
 
   ngOnInit(): void {
-    this._store.dispatch(fromCore.loadTutor({id: 1145}))
+    this._store.dispatch(fromCore.loadTutor({ id: 1145 }));
     this.tutor$ = this._store.select(fromCore.selectTutor);
     this.loadingTutor$ = this._store.select(fromCore.selectIsLoadingTutor);
   }

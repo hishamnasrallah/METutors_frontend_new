@@ -15,8 +15,8 @@ import {
 } from 'src/app/config';
 import { AlertNotificationService } from 'src/app/core/components';
 import {
-  ICourseField,
-  ICourseLevel,
+  IField,
+  ILevel,
   ILanguage,
   IProgram,
   ISubject,
@@ -50,11 +50,11 @@ import {
 })
 export class CourseInformationFormComponent implements OnInit {
   @Input() form!: FormGroup;
-  @Input() subjects?: ISubject[];
-  @Input() languages?: ILanguage[];
-  @Input() coursePrograms?: IProgram[];
-  @Input() courseLevel?: ICourseLevel[];
-  @Input() courseField?: ICourseField[];
+  @Input() fields: IField[] | null;
+  @Input() levels: ILevel[] | null;
+  @Input() subjects: ISubject[] | null;
+  @Input() programs: IProgram[] | null;
+  @Input() languages: ILanguage[] | null;
 
   @Output() submitForm = new EventEmitter<FormGroup>();
   @Output() changeCourseProgram = new EventEmitter<string>();

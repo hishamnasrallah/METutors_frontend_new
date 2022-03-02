@@ -1,24 +1,23 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component,  OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertNotificationService } from 'src/app/core/components';
 import { MatStepper } from '@angular/material/stepper';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable,  tap } from 'rxjs';
+import * as fromCore from '@metutor/core/state';
 import {
   AcademicTutoringTextbook,
   addLookups,
   calculateListDays,
-  CLASSROOM_TYPES_CONST,
   getLookups,
-  LONG_DAYS_WEEK,
   SORTED_DAYS_WEEK,
   TEXTBOOK_EDITION_CONST,
 } from 'src/app/config';
 import {
   IClass,
-  ICourseField,
-  ICourseLevel,
+  IField,
+  ILevel,
   ILanguage,
   IProgram,
   ISubject,
@@ -30,6 +29,7 @@ import {
   LookupsService,
   TutorsService,
 } from 'src/app/core/services';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'metutors-request-tutor',
@@ -37,34 +37,36 @@ import {
   styleUrls: ['./request-tutor.component.scss'],
   providers: [DatePipe],
 })
-export class RequestTutorComponent implements OnInit, OnDestroy {
+export class RequestTutorComponent implements OnInit {
   @ViewChild('stepper') private myStepper?: MatStepper;
+
+  levels$: Observable<ILevel[] | null>;
+  fields$: Observable<IField[] | null>;
+  programs$: Observable<IProgram[] | null>;
+  subjects$: Observable<ISubject[] | null>;
+  languages$: Observable<ILanguage[] | null>;
 
   prices: any;
   tutors?: ITutor[];
   reviewInfo: any = {};
   classrooms!: IClass[];
   subjects!: ISubject[];
+  courseLevel?: ILevel[];
+  courseField?: IField[];
   languages?: ILanguage[];
   loadingTutors?: boolean;
   selectTutorForm: FormGroup;
   coursePrograms?: IProgram[];
-  courseLevel?: ICourseLevel[];
-  courseField?: ICourseField[];
   selectedClassrooms!: IClass[];
   classroomDetailsForm: FormGroup;
   courseInformationForm: FormGroup;
   classroomScheduleForm: FormGroup;
-  getCourseLevelSub?: Subscription;
-  getCourseFieldSub?: Subscription;
   isCreatingCourse: boolean = false;
-  getCourseProgramsSub?: Subscription;
-  getCourseLanguagesSub?: Subscription;
-  getCourseFieldSubjectSub?: Subscription;
 
   constructor(
     private _router: Router,
     private _fb: FormBuilder,
+    private _store: Store<any>,
     private _datePipe: DatePipe,
     private _authService: AuthService,
     private _tutorsService: TutorsService,
@@ -115,7 +117,9 @@ export class RequestTutorComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (this._authService.getIsTutorAuth()) {
-      this._alertNotificationService.error('You dont have a permission to access this page from tutor account');
+      this._alertNotificationService.error(
+        'You dont have a permission to access this page from tutor account'
+      );
       this._router.navigate(['/']);
     }
 
@@ -134,32 +138,26 @@ export class RequestTutorComponent implements OnInit, OnDestroy {
     this.myStepper?.previous();
   }
 
-  fetchCourseFieldSubject(fieldId: string): void {
-    this.getCourseFieldSubjectSub = this._lookupsService
-      .getCourseFieldSubject(fieldId)
-      .subscribe(
-        (fetchedValues) => {
-          this.subjects = fetchedValues;
-          addLookups('courseSubjects', this.subjects);
-        },
-        () => {}
-      );
-
-    this.subjects = getLookups().courseSubjects;
+  fetchCourseFieldSubject(programId: string): void {
+    this._store.dispatch(fromCore.loadSubjectsByProgramId({programId}));
+    this.subjects$ = this._store.select(fromCore.selectSubjects).pipe(
+      tap((subjects) => {
+        if (subjects && subjects.length) {
+          this.subjects = subjects;
+        }
+      })
+    );
   }
 
-  fetchCourseField(fieldId: string): void {
-    this.getCourseFieldSub = this._lookupsService
-      .getCourseField(fieldId)
-      .subscribe(
-        (fetchedValues) => {
-          this.courseField = fetchedValues;
-          addLookups('courseField', this.courseField);
-        },
-        () => {}
-      );
-
-    this.courseField = getLookups().courseField;
+  fetchCourseField(programId: string): void {
+    this._store.dispatch(fromCore.loadFieldsByProgramId({programId}));
+    this.fields$ = this._store.select(fromCore.selectFields).pipe(
+      tap((fields) => {
+        if (fields && fields.length) {
+          this.courseField = fields;
+        }
+      })
+    );
   }
 
   generateClassRooms(): void {
@@ -251,14 +249,6 @@ export class RequestTutorComponent implements OnInit, OnDestroy {
         );
       }
     );
-  }
-
-  ngOnDestroy(): void {
-    this.getCourseLevelSub?.unsubscribe();
-    this.getCourseFieldSub?.unsubscribe();
-    this.getCourseProgramsSub?.unsubscribe();
-    this.getCourseLanguagesSub?.unsubscribe();
-    this.getCourseFieldSubjectSub?.unsubscribe();
   }
 
   private _prepareReviewInfo(): void {
@@ -468,39 +458,36 @@ export class RequestTutorComponent implements OnInit, OnDestroy {
   }
 
   private _prepareCourseLevel(): void {
-    this.getCourseLevelSub = this._lookupsService.getCourseLevel().subscribe(
-      (fetchedValues) => {
-        this.courseLevel = fetchedValues;
-        addLookups('courseLevel', this.courseLevel);
-      },
-      () => {}
+    this._store.dispatch(fromCore.loadLevels());
+    this.levels$ = this._store.select(fromCore.selectLevels).pipe(
+      tap((levels) => {
+        if (levels && levels.length) {
+          this.courseLevel = levels;
+        }
+      })
     );
-
-    this.courseLevel = getLookups().courseLevel;
   }
 
   private _prepareCourseProgram(): void {
-    this.getCourseProgramsSub = this._lookupsService.getPrograms().subscribe(
-      (fetchedValues) => {
-        this.coursePrograms = fetchedValues;
-        addLookups('coursePrograms', this.coursePrograms);
-      },
-      () => {}
+    this._store.dispatch(fromCore.loadPrograms());
+    this.programs$ = this._store.select(fromCore.selectPrograms).pipe(
+      tap((coursePrograms) => {
+        if (coursePrograms && coursePrograms.length) {
+          this.coursePrograms = coursePrograms;
+        }
+      })
     );
-
-    this.coursePrograms = getLookups().coursePrograms;
   }
 
   private _prepareLanguages(): void {
-    this.getCourseLanguagesSub = this._lookupsService.getLanguages().subscribe(
-      (fetchedValues) => {
-        this.languages = fetchedValues;
-        addLookups('languages', this.languages);
-      },
-      () => {}
+    this._store.dispatch(fromCore.loadLanguages());
+    this.languages$ = this._store.select(fromCore.selectLanguages).pipe(
+      tap((languages) => {
+        if (languages && languages.length) {
+          this.languages = languages;
+        }
+      })
     );
-
-    this.languages = getLookups().languages;
   }
 
   // private _fetchAcademicTutoringPrice(): void {

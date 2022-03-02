@@ -1,13 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { Observable, Subscription, tap } from 'rxjs';
 import { addLookups, getLookups } from 'src/app/config';
 import { AlertNotificationService } from 'src/app/core/components';
+import * as fromCore from '@metutor/core/state';
 import {
   ICity,
   ICountry,
-  ICourseField,
-  ICourseLevel,
+  IField,
+  ILevel,
   ILanguage,
   IProgram,
   ISubject,
@@ -24,26 +26,24 @@ import {
   styleUrls: ['./complete-tutor-profile.component.scss'],
 })
 export class CompleteTutorProfileComponent implements OnInit, OnDestroy {
+  levels$: Observable<ILevel[] | null>;
+  programs$: Observable<IProgram[] | null>;
+  subjects$: Observable<ISubject[] | null>;
+  countries$: Observable<ICountry[] | null>;
+  languages$: Observable<ILanguage[] | null>;
+
   loading = false;
   step: number = 1;
   cities!: ICity[];
-  subjects!: ISubject[];
+  fields!: IField[];
   countries!: ICountry[];
-  languages!: ILanguage[];
-  fields!: ICourseField[];
-  levels!: ICourseLevel[];
   getFieldSub?: Subscription;
-  coursePrograms!: IProgram[];
-  getLevelsSub?: Subscription;
   sendAccountSub?: Subscription;
   fetchCitiesSub?: Subscription;
-  fetchCountriesSub?: Subscription;
-  fetchLanguagesSub?: Subscription;
-  getCourseProgramsSub?: Subscription;
-  getCourseFieldSubjectSub?: Subscription;
 
   constructor(
     private _router: Router,
+    private _store: Store<any>,
     private _authService: AuthService,
     private _tutorsService: TutorsService,
     private _lookupsService: LookupsService,
@@ -107,57 +107,31 @@ export class CompleteTutorProfileComponent implements OnInit, OnDestroy {
     this._prepareCitiesByCountryId(countryId);
   }
 
-  fetchFieldSubject(fieldId: string): void {
-    this.getCourseFieldSubjectSub = this._lookupsService
-      .getCourseFieldSubject(fieldId)
-      .subscribe(
-        (fetchedValues) => {
-          this.subjects = fetchedValues;
-          addLookups('courseSubjects', this.subjects);
-        },
-        () => {}
-      );
-
-    this.subjects = getLookups().courseSubjects;
+  fetchFieldSubject(programId: string): void {
+    this._store.dispatch(fromCore.loadSubjectsByProgramId({ programId }));
+    this.subjects$ = this._store.select(fromCore.selectSubjects);
   }
 
   ngOnDestroy(): void {
     this.getFieldSub?.unsubscribe();
-    this.getLevelsSub?.unsubscribe();
     this.sendAccountSub?.unsubscribe();
     this.fetchCitiesSub?.unsubscribe();
-    this.fetchCountriesSub?.unsubscribe();
-    this.fetchLanguagesSub?.unsubscribe();
-    this.getCourseProgramsSub?.unsubscribe();
-    this.getCourseFieldSubjectSub?.unsubscribe();
   }
 
   private _prepareCountries(): void {
-    this.fetchCountriesSub = this._lookupsService.getCountries().subscribe(
-      (result) => {
-        this.countries = result;
-        addLookups('countries', this.countries);
-      },
-      (error) => {
-        console.log(error);
-      }
+    this._store.dispatch(fromCore.loadCountries());
+    this.countries$ = this._store.select(fromCore.selectCountries).pipe(
+      tap((countries) => {
+        if (countries && countries.length) {
+          this.countries = countries;
+        }
+      })
     );
-
-    this.countries = getLookups().countries;
   }
 
   private _prepareLanguages(): void {
-    this.fetchLanguagesSub = this._lookupsService.getLanguages().subscribe(
-      (result) => {
-        this.languages = result;
-        addLookups('languages', this.languages);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-
-    this.languages = getLookups().languages;
+    this._store.dispatch(fromCore.loadLanguages());
+    this.languages$ = this._store.select(fromCore.selectLanguages);
   }
 
   private _prepareCitiesByCountryId(countryId: number): void {
@@ -175,15 +149,8 @@ export class CompleteTutorProfileComponent implements OnInit, OnDestroy {
   }
 
   private _prepareCourseProgram(): void {
-    this.getCourseProgramsSub = this._lookupsService.getPrograms().subscribe(
-      (fetchedValues) => {
-        this.coursePrograms = fetchedValues;
-        addLookups('coursePrograms', this.coursePrograms);
-      },
-      () => {}
-    );
-
-    this.coursePrograms = getLookups().coursePrograms;
+    this._store.dispatch(fromCore.loadPrograms());
+    this.programs$ = this._store.select(fromCore.selectPrograms);
   }
 
   private _prepareFields(): void {
@@ -199,14 +166,7 @@ export class CompleteTutorProfileComponent implements OnInit, OnDestroy {
   }
 
   private _prepareLevels(): void {
-    this.getLevelsSub = this._lookupsService.getCourseLevel().subscribe(
-      (fetchedValues) => {
-        this.levels = fetchedValues;
-        addLookups('courseLevel', this.levels);
-      },
-      () => {}
-    );
-
-    this.levels = getLookups().courseLevel;
+    this._store.dispatch(fromCore.loadLevels());
+    this.levels$ = this._store.select(fromCore.selectLevels);
   }
 }

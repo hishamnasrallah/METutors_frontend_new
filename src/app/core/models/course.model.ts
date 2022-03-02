@@ -3,6 +3,7 @@ import {
   COURSE_TAGS_CONST,
   COURSE_TUITION_TYPES_CONST,
 } from 'src/app/config/general';
+import { IField } from '.';
 import { IPriceRange } from './price-range';
 
 export class ICourse {
@@ -18,7 +19,7 @@ export class ICourse {
   tag?: string;
   priceRange?: IPriceRange;
   description?: string;
-  courseField?: ICourseField;
+  courseField?: IField;
 
   constructor(createDefault = false, course: any = null) {
     if (createDefault) {
@@ -53,19 +54,6 @@ export class ICourse {
       this.courseField = course.course_field;
     }
   }
-}
-
-export interface ICourseLevel {
-  id: number;
-  name: string;
-}
-
-export interface ICourseField {
-  id: number;
-  name: string;
-  code: string;
-  icon: string;
-  programId: number;
 }
 
 export function getTuitionValue(type: number): string {

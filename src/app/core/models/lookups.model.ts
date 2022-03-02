@@ -1,16 +1,11 @@
-import { ICourseField, ICourseLevel, IFAQTopics, ILanguage, ISubject } from '.';
+import { IFAQTopics, ILanguage, ISubject } from '.';
 
 export interface ILookups {
   ticketTypes: any;
   courseList: any;
-  fields: ICourseField[];
-  courseField: ICourseField[];
-  courseLevel: ICourseLevel[];
-  courseSubjects: ISubject[];
-  coursePrograms: IProgram[];
+  fields: IField[];
+  courseField: IField[];
   topics: IFAQTopics[];
-  languages: ILanguage[];
-  countries: ICountry[];
   cities: ICity[];
 }
 
@@ -27,4 +22,16 @@ export interface ICountry {
 export interface ICity {
   id: number;
   name: string;
+}
+export interface ILevel {
+  id: number;
+  name: string;
+}
+
+export interface IField {
+  id: number;
+  name: string;
+  code: string;
+  icon: string;
+  programId: number;
 }

@@ -7,8 +7,8 @@ import {
   IProgram,
   ICountry,
   ISubject,
-  ICourseField,
-  ICourseLevel,
+  IField,
+  ILevel,
   ILanguage,
   ICity,
 } from '../models';
@@ -63,7 +63,7 @@ export class LookupsService {
       .pipe(catchError(this.errorHandler));
   }
 
-  getCourseFieldSubject(fieldId: string): Observable<any> {
+  getSubjectsByProgramId(fieldId: string): Observable<any> {
     return this.http
       .get<{ subjects: ISubject[] }>(
         `${this.BACKEND_URL}field-subjects?field_id=${fieldId}`
@@ -79,9 +79,9 @@ export class LookupsService {
       .pipe(catchError(this.errorHandler));
   }
 
-  getCourseField(fieldId: string): Observable<any> {
+  getFieldsByProgramId(fieldId: string): Observable<any> {
     return this.http
-      .get<{ field_of_study: ICourseField[] }>(
+      .get<{ field_of_study: IField[] }>(
         `${this.BACKEND_URL}field-of-study?program_id=${fieldId}`
       )
       .pipe(
@@ -126,11 +126,9 @@ export class LookupsService {
       .pipe(catchError(this.errorHandler));
   }
 
-  getCourseLevel(): Observable<any> {
+  getLevels(): Observable<any> {
     return this.http
-      .get<{ course_levels: ICourseLevel[] }>(
-        `${this.BACKEND_URL}course-levels`
-      )
+      .get<{ course_levels: ILevel[] }>(`${this.BACKEND_URL}course-levels`)
       .pipe(
         map((response) => {
           return response.course_levels.map((item) => ({

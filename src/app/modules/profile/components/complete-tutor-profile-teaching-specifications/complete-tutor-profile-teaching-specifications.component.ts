@@ -26,8 +26,8 @@ import {
 } from 'src/app/config';
 import {
   ICountry,
-  ICourseField,
-  ICourseLevel,
+  IField,
+  ILevel,
   IProgram,
   ISubject,
 } from 'src/app/core/models';
@@ -46,11 +46,11 @@ export class CompleteTutorProfileTeachingSpecificationsComponent
   implements OnInit
 {
   @Input() loading?: boolean;
-  @Input() programs!: IProgram[];
-  @Input() countries!: ICountry[];
-  @Input() fields!: ICourseField[];
-  @Input() levels!: ICourseLevel[];
-  @Input() subjectsList!: ISubject[];
+  @Input() fields!: IField[];
+  @Input() levels: ILevel[] | null;
+  @Input() programs: IProgram[] | null;
+  @Input() countries: ICountry[] | null;
+  @Input() subjectsList: ISubject[] | null;
 
   @Output() submitForm = new EventEmitter();
   @Output() changeField = new EventEmitter();
