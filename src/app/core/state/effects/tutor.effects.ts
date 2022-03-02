@@ -31,7 +31,7 @@ export class TutorEffects {
       ofType(tutorActions.loadTutorDashboard),
       withLatestFrom(this._store.select(selectTutorDashboard)),
       mergeMap(([_, _dashboard]) => {
-        if (_dashboard) {
+        if (!_dashboard) {
           return this._tutorService.getTutorDashboard().pipe(
             map((dashboard) =>
               tutorActions.loadTutorDashboardSuccess({
