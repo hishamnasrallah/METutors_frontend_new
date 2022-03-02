@@ -1,10 +1,10 @@
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { OwlOptions } from 'ngx-owl-carousel-o';
 import { Component, OnInit } from '@angular/core';
 
-import { ITutor } from '@models';
+import { IClassroom, ITutor } from '@models';
 import * as fromCore from '@metutor/core/state';
+import { ClassroomType } from '@metutor/config';
 
 @Component({
   selector: 'metutors-tutor-dashboard',
@@ -13,34 +13,42 @@ import * as fromCore from '@metutor/core/state';
 })
 export class TutorDashboardComponent implements OnInit {
   rate = 4;
-  customOptions: OwlOptions = {
-    loop: true,
-    mouseDrag: true,
-    touchDrag: true,
-    pullDrag: true,
-    dots: false,
-    autoplay: true,
-    navSpeed: 900,
-    navText: [
-      '<mat-icon>chevron_left</mat-icon>',
-      '<mat-icon>chevron_right</mat-icon>',
-    ],
-    responsive: {
-      0: {
-        items: 1,
-      },
-      400: {
-        items: 2,
-      },
-      740: {
-        items: 2,
-      },
-    },
-    nav: false,
-  };
 
   tutor$: Observable<ITutor | null>;
   loadingTutor$: Observable<boolean>;
+
+  classroom: IClassroom = {
+    id: 1,
+    startDate: '2022-12-12',
+    expectedEndDate: '2022-12-30',
+    name: 'Python for Data Science and Machine Learning Boo …',
+    type: ClassroomType.one,
+    listDays: ['Fri', 'Sat', 'Sun'],
+    completedClasses: 10,
+    totalHours: 30,
+    startETime: new Date(),
+    endETime: new Date(),
+    remainingClasses: 10,
+    progress: 30,
+    enrolledStudents: [
+      {
+        id: 1,
+        avatar: 'https://logo.clearbit.com/tarjama.com',
+      },
+      {
+        id: 2,
+        avatar: 'https://logo.clearbit.com/noon.ae',
+      },
+      {
+        id: 3,
+        avatar: 'https://logo.clearbit.com/tamatem.co',
+      },
+      {
+        id: 4,
+        avatar: '',
+      },
+    ],
+  };
 
   constructor(private _store: Store<any>) {}
 

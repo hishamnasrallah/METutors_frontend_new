@@ -53,7 +53,7 @@
       </div>
       <div class="row mt-4">
         <div class="col-md-4 d-flex align-items-center info">
-          <div class="row">
+          <div class="row" *ngIf="classroom?.tutor">
             <div class="col-md-3 d-flex align-items-center">
               <img [src]="classroom?.tutor?.avatar" meTutorsDefaultAvatar alt="">
             </div>
@@ -68,12 +68,19 @@
               <h3>{{ classroom?.tutor?.bio }}</h3>
             </div>
           </div>
+          <div class="row" *ngIf="classroom?.enrolledStudents && classroom?.enrolledStudents?.length">
+            <div class="overflow-visible text-center logos">
+              <img *ngFor="let student of classroom?.enrolledStudents" meTutorsDefaultAvatar [src]="student?.avatar"
+                alt="" draggable="false" class="d-inline-block rounded-circle">
+            </div>
+          </div>
         </div>
         <div class="col-md-4 in-progress" *ngIf="classroom && classroom?.progress">
           <h3>In progress</h3>
           <div class="d-flex align-items-center">
             <div class="flex-grow-1">
-              <mat-progress-bar class="example-margin" [color]="classroom.progress > 30 ? 'primary' : 'warn'"
+              <mat-progress-bar class="example-margin"
+                [color]="classroom.progress ? classroom.progress > 30 ? 'primary' : 'warn' : 'warn'"
                 [value]="classroom?.progress">
               </mat-progress-bar>
             </div>
