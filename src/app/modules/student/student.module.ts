@@ -39,6 +39,7 @@ import {
 } from './containers';
 
 import {
+  StudentNavbarComponent,
   StudentSidebarComponent,
   FaqAboutStudentsComponent,
   FaqListQuestionsComponent,
@@ -54,6 +55,7 @@ import {
     StudentComponent,
     StudentFaqComponent,
     StudentHelpComponent,
+    StudentNavbarComponent,
     StudentClassesComponent,
     StudentSidebarComponent,
     StudentSettingsComponent,
