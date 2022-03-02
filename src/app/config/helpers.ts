@@ -1,4 +1,4 @@
-import { ILookups, IMisc } from '../core/models';
+import { ILookups, IMisc } from '@models';
 
 export function simpleNumber(value: number): string | number {
   const valueNum = Math.abs(Number(value));

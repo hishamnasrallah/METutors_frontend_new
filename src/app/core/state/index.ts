@@ -47,7 +47,7 @@ export const selectUserState = createSelector(
   (state) => state[featureKeys.userFeatureKey]
 );
 
-// User 
+// User
 export const selectIsSignIn = createSelector(
   selectUserState,
   fromUserReducer.selectIsSignIn
@@ -64,9 +64,19 @@ export const selectTutor = createSelector(
   fromTutorReducer.selectTutor
 );
 
+export const selectTutorDashboard = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectTutorDashboard
+);
+
 export const selectIsLoadingTutor = createSelector(
   selectTutorState,
   fromTutorReducer.selectIsLoadingTutor
+);
+
+export const selectIsLoadingTutorDashboard = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectIsLoadingTutorDashboard
 );
 
 // Lookups

@@ -15,10 +15,7 @@ export class TutorsService {
   constructor(private http: HttpClient) {}
 
   sendTeacherAccount(data: any): Observable<any> {
-    return this.http.post<any>(
-      `${this.baseUrl}teacher/complete-account`,
-      data
-    );
+    return this.http.post<any>(`${this.baseUrl}teacher/complete-account`, data);
   }
 
   fetchFeaturedTutors(): Observable<any> {
@@ -39,6 +36,12 @@ export class TutorsService {
           return new ITutor(false, response.user);
         })
       );
+  }
+
+  getTutorDashboard(): Observable<any> {
+    return this.http
+      .get<{ dashboard: any }>(`${this.baseUrl}teacher-dashboard`)
+      .pipe(map((response) => response));
   }
 
   generateTutors(filters: any): Observable<any> {

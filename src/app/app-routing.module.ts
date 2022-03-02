@@ -5,7 +5,7 @@ import {
   NotAuthGuard,
   StudentAuthGuard,
   TutorAuthGuard,
-} from './core/guards';
+} from '@guards';
 
 const routes: Routes = [
   {

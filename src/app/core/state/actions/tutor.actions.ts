@@ -16,3 +16,19 @@ export const loadTutorFailure = createAction(
   '[Tutor] Load Tutor Failure',
   props<{ error: any }>()
 );
+
+export const loadTutorDashboard = createAction('[Tutor] Load Tutor Dashboard');
+
+export const loadTutorDashboardSuccess = createAction(
+  '[Tutor] Load Tutor Dashboard Success',
+  props<{ dashboard: any }>()
+);
+
+export const loadTutorDashboardFailure = createAction(
+  '[Tutor] Load Tutor Dashboard Failure',
+  props<{ error: any }>()
+);
+
+export const loadTutorDashboardEnded = createAction(
+  '[Tutor] Load Tutor Dashboard Ended'
+);

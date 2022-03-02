@@ -2,7 +2,7 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Component, OnInit } from '@angular/core';
 
-import { IClassroom, ITutor } from '@models';
+import { IClassroom } from '@models';
 import * as fromCore from '@metutor/core/state';
 import { ClassroomType } from '@metutor/config';
 
@@ -14,8 +14,8 @@ import { ClassroomType } from '@metutor/config';
 export class TutorDashboardComponent implements OnInit {
   rate = 4;
 
-  tutor$: Observable<ITutor | null>;
-  loadingTutor$: Observable<boolean>;
+  tutorDashboard$: Observable<any | null>;
+  loadingTutorDashboard$: Observable<boolean>;
 
   classroom: IClassroom = {
     id: 1,
@@ -53,8 +53,10 @@ export class TutorDashboardComponent implements OnInit {
   constructor(private _store: Store<any>) {}
 
   ngOnInit(): void {
-    this._store.dispatch(fromCore.loadTutor({ id: 1145 }));
-    this.tutor$ = this._store.select(fromCore.selectTutor);
-    this.loadingTutor$ = this._store.select(fromCore.selectIsLoadingTutor);
+    this._store.dispatch(fromCore.loadTutorDashboard());
+    this.tutorDashboard$ = this._store.select(fromCore.selectTutorDashboard);
+    this.loadingTutorDashboard$ = this._store.select(
+      fromCore.selectIsLoadingTutorDashboard
+    );
   }
 }
