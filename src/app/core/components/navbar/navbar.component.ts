@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { SocialAuthService } from 'angularx-social-login';
-import { AuthService } from '../../services';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import * as fromCore from '@metutor/core/state';
 
 @Component({
   selector: 'metutors-navbar',
@@ -9,53 +9,15 @@ import { AuthService } from '../../services';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-  admin = false;
-  isRefereshed = true;
-  isRememberedUser = false;
+  token$: Observable<string | undefined>;
 
-  constructor(
-    private _router: Router,
-    public authService: AuthService,
-    private _socialAuthService: SocialAuthService
-  ) {}
+  constructor(private _store: Store<any>) {}
 
   ngOnInit(): void {
-    this.checkReload();
-    this.checkRememberUser();
+    this.token$ = this._store.select(fromCore.selectToken);
   }
-
-  ngOnChanges() {
-    this.checkReload();
-  }
-
-  checkRememberUser() {
-    let session = localStorage.getItem('active');
-    if (session) {
-      this.isRememberedUser = true;
-    } else {
-      this.isRememberedUser = false;
-    }
-  }
-
-  checkReload() {
-    let session = sessionStorage.getItem('active');
-    if (session) {
-      this.isRefereshed = true;
-    } else {
-      this.isRefereshed = false;
-    }
-  }
-
-  // getCookie(name: string) {
-  //   let cookie = {};
-  //   document.cookie.split(';').forEach(function (el) {
-  //     let [k, v] = el.split('=');
-  //     cookie[k.trim()] = v;
-  //   });
-  //   return cookie[name];
-  // }
 
   logout(): void {
-    this.authService.logout();
+    this._store.dispatch(fromCore.logout());
   }
 }

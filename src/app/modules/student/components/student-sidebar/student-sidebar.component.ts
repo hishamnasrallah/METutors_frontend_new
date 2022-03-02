@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter, map, mergeMap } from 'rxjs';
-import { AuthService } from 'src/app/core/services';
 
 @Component({
   selector: 'metutors-student-sidebar',
@@ -9,12 +8,13 @@ import { AuthService } from 'src/app/core/services';
   styleUrls: ['./student-sidebar.component.scss'],
 })
 export class StudentSidebarComponent implements OnInit {
+  @Input() logout = new EventEmitter();
+
   hasSidemenu = false;
 
   constructor(
     private _router: Router,
     private _route: ActivatedRoute,
-    private _authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -36,9 +36,5 @@ export class StudentSidebarComponent implements OnInit {
       .subscribe((x: any) => {
         this.hasSidemenu = x?.layout?.hideSidebar;
       });
-  }
-
-  logout(): void {
-    this._authService.logout();
   }
 }

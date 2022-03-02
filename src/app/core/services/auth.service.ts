@@ -83,11 +83,7 @@ export class AuthService {
   }
 
   logout(): Observable<any> {
-    localStorage.removeItem('token');
-    localStorage.removeItem('refresh-token');
-    localStorage.removeItem('active');
     this._socialAuthService.signOut();
-    this._router.navigate(['/']);
     return this.http.post<any>(BACKEND_URL + 'logout', {});
   }
 

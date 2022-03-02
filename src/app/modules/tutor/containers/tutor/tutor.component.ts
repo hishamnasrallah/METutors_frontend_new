@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import * as fromCore from '@metutor/core/state';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'metutors-tutor',
@@ -6,8 +8,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./tutor.component.scss'],
 })
 export class TutorComponent implements OnInit {
-  constructor() {}
+  constructor(private _store: Store<any>) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  logout(): void {
+    this._store.dispatch(fromCore.logout());
   }
 }

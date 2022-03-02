@@ -6,13 +6,15 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { addMisc, getMisc, UserRole } from 'src/app/config';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Observable, Subscription } from 'rxjs';
+import { addMisc, getMisc } from 'src/app/config';
 import { AlertNotificationService } from 'src/app/core/components';
 import { IRole } from 'src/app/core/models';
 import { AuthService, UsersService } from 'src/app/core/services';
 import { FormValidationUtilsService } from 'src/app/core/validators';
+import * as fromCore from '@metutor/core/state';
 import { RolesSelectComponent } from '../../components';
 
 @Component({
@@ -21,11 +23,12 @@ import { RolesSelectComponent } from '../../components';
   styleUrls: ['./signin.component.scss'],
 })
 export class SigninComponent implements OnInit, OnDestroy {
+  isLoading$: Observable<boolean>;
+
   userRole: any;
   roles!: IRole[];
   authLoading = false;
   signinForm: FormGroup;
-  loading: boolean = false;
   signinSub?: Subscription;
   getRolesSub?: Subscription;
   authSignInSub?: Subscription;
@@ -33,8 +36,8 @@ export class SigninComponent implements OnInit, OnDestroy {
   constructor(
     private _router: Router,
     private _fb: FormBuilder,
+    private _store: Store<any>,
     private _dialog: MatDialog,
-    private _route: ActivatedRoute,
     private _authService: AuthService,
     private _userService: UsersService,
     private _fv: FormValidationUtilsService,
@@ -52,12 +55,14 @@ export class SigninComponent implements OnInit, OnDestroy {
         ],
       ],
       password: [null, [Validators.required, this._fv.minPasswordValidation]],
-      rememberMe: [null],
+      rememberMe: [false],
     });
   }
 
   ngOnInit(): void {
     this._prepareRoles();
+
+    this.isLoading$ = this._store.select(fromCore.selectIsSignIn);
   }
 
   get username(): AbstractControl | null {
@@ -72,49 +77,8 @@ export class SigninComponent implements OnInit, OnDestroy {
     if (form.invalid) {
       return;
     }
-    this.loading = true;
-    this.signinSub = this._authService.login(form.value).subscribe(
-      (response: any) => {
-        if (response) {
-          this.signinForm.reset();
-          this.loading = false;
 
-          if (response) {
-            localStorage.setItem('token', response);
-
-            if (
-              this._route.snapshot.queryParams['returnUrl'] &&
-              decodeURIComponent(this._route.snapshot.queryParams['returnUrl'])
-            ) {
-              let returnUrl = decodeURIComponent(
-                this._route.snapshot.queryParams['returnUrl']
-              );
-              this._router.navigate([returnUrl]);
-            } else {
-              if (this._authService.getIsStudentAuth()) {
-                this._router.navigate(['/student']);
-              } else if (this._authService.getIsTutorAuth()) {
-                if (
-                  +this._authService.decodeToken()?.user?.profileCompletedStep <
-                  4
-                )
-                  this._router.navigate(['/profile', 'complete-profile']);
-                else this._router.navigate(['/tutor']);
-              } else {
-                this._router.navigate(['/']);
-              }
-            }
-          }
-        } else {
-          this._alertNotificationService.error(response.message);
-        }
-        this.loading = false;
-      },
-      (error) => {
-        this.loading = false;
-        this._alertNotificationService.error(error?.error?.message);
-      }
-    );
+    this._store.dispatch(fromCore.signIn({ user: form.value }));
   }
 
   // openDialog(data: any): void {

@@ -24,19 +24,18 @@
             Become A Tutor
           </a>
         </li>
-        <li class="nav-item" *ngIf="!authService.getIsAuth()">
+        <li class="nav-item" *ngIf="!(token$ | async)">
           <a class="nav-link nav-item-link" routerLink="/signin" routerLinkActive="active">
             Sign in
           </a>
         </li>
-        <li class="nav-item" *ngIf="authService.getIsAuth()">
+        <li class="nav-item" *ngIf="token$ | async">
           <a class="nav-link nav-item-link" (click)="logout()">
             Logout
           </a>
         </li>
-        <li class="nav-item" *ngIf="authService.getIsAuth()">
-          <a class="nav-link nav-item-link" [routerLink]="'/' + authService.getIsStudentAuth() ? 'student' : 'tutor'"
-            routerLinkActive="active">
+        <li class="nav-item" *ngIf="token$ | async">
+          <a class="nav-link nav-item-link" routerLinkActive="active">
             My Classroom
           </a>
         </li>
@@ -78,9 +77,8 @@
       <li role="menuitem">
         <a class="dropdown-item" routerLink="/become-tutor" routerLinkActive="active">Become A Tutor</a>
       </li>
-      <li role="menuitem" *ngIf="authService.getIsAuth()">
-        <a class="dropdown-item" [routerLink]="'/' + authService.getIsStudentAuth() ? 'student' : 'tutor'"
-          routerLinkActive="active">My Classroom</a>
+      <li role="menuitem" *ngIf="token$ | async">
+        <a class="dropdown-item" routerLinkActive="active">My Classroom</a>
       </li>
       <li role="menuitem">
         <a class="dropdown-item" routerLinkActive="active">
@@ -96,12 +94,13 @@
 
       <li class="divider dropdown-divider"></li>
 
-      <li role="menuitem" *ngIf="!authService.getIsAuth()">
-        <a class="main-btn rounded-pill order-0 w-100 button-auth text-center" type="button" routerLink="/signin" routerLinkActive="active">
+      <li role="menuitem" *ngIf="!(token$ | async)">
+        <a class="main-btn rounded-pill order-0 w-100 button-auth text-center" type="button" routerLink="/signin"
+          routerLinkActive="active">
           Sign in
         </a>
       </li>
-      <li role="menuitem" *ngIf="authService.getIsAuth()">
+      <li role="menuitem" *ngIf="token$ | async">
         <a class="secondary-btn mt-2 w-100 button-auth text-center" type="button" (click)="logout()">Logout</a>
       </li>
     </ul>

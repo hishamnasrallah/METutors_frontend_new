@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { AuthService } from 'src/app/core/services';
 import { filter, map, mergeMap } from 'rxjs';
 
 @Component({
@@ -9,13 +8,11 @@ import { filter, map, mergeMap } from 'rxjs';
   styleUrls: ['./tutor-sidebar.component.scss'],
 })
 export class TutorSidebarComponent implements OnInit {
+  @Input() logout = new EventEmitter();
+
   hasSidemenu = false;
 
-  constructor(
-    private _router: Router,
-    private _route: ActivatedRoute,
-    private _authService: AuthService
-  ) {}
+  constructor(private _router: Router, private _route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this._router.events
@@ -36,9 +33,5 @@ export class TutorSidebarComponent implements OnInit {
       .subscribe((x: any) => {
         this.hasSidemenu = x?.layout?.hideSidebar || false;
       });
-  }
-
-  logout(): void {
-    this._authService.logout();
   }
 }

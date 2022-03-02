@@ -55,7 +55,7 @@ export function localStorageSyncReducer(
       {
         core: [
           {
-            userService: ['token'],
+            user: ['token'],
           },
         ],
       },
@@ -68,9 +68,9 @@ export function clearState(
   reducer: ActionReducer<State>
 ): ActionReducer<State> {
   return (state, action): any => {
-    // if (action.type === fromCore.logoutSuccess.type) {
-    // state = undefined;
-    // }
+    if (action.type === fromCore.logoutSuccess.type) {
+      state = undefined;
+    }
 
     return reducer(state, action);
   };

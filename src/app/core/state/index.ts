@@ -47,6 +47,17 @@ export const selectUserState = createSelector(
   (state) => state[featureKeys.userFeatureKey]
 );
 
+// User 
+export const selectIsSignIn = createSelector(
+  selectUserState,
+  fromUserReducer.selectIsSignIn
+);
+
+export const selectToken = createSelector(
+  selectUserState,
+  fromUserReducer.selectToken
+);
+
 // Tutor
 export const selectTutor = createSelector(
   selectTutorState,

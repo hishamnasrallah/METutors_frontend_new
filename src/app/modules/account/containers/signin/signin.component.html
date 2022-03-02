@@ -31,7 +31,7 @@
           </div>
 
           <div class="form-group mt-4 mb-2">
-            <metutors-submit-button [form]="signinForm" [isSubmitting]="loading" [extraClasses]="'w-100'">
+            <metutors-submit-button [form]="signinForm" [isSubmitting]="isLoading$ | async" [extraClasses]="'w-100'">
               Login
             </metutors-submit-button>
           </div>
