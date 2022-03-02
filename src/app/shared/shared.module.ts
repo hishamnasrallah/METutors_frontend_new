@@ -18,8 +18,9 @@ import {
   CourseItemComponent,
   SubmitButtonComponent,
   ClassroomItemComponent,
+  CardPlaceholderComponent,
+  GridPlaceholderComponent,
   CourseItemHorizentalComponent,
-  ClassroomPlaceholderComponent,
   ClassroomItemHorizentalComponent,
 } from '@metutor/shared/components';
 
@@ -28,8 +29,9 @@ import {
     CourseItemComponent,
     SubmitButtonComponent,
     ClassroomItemComponent,
+    CardPlaceholderComponent,
+    GridPlaceholderComponent,
     CourseItemHorizentalComponent,
-    ClassroomPlaceholderComponent,
     ClassroomItemHorizentalComponent,
   ],
   imports: [
@@ -46,11 +48,12 @@ import {
     ClassroomDetailsPopupModule,
   ],
   exports: [
-    SubmitButtonComponent,
     CourseItemComponent,
+    SubmitButtonComponent,
     ClassroomItemComponent,
+    CardPlaceholderComponent,
+    GridPlaceholderComponent,
     CourseItemHorizentalComponent,
-    ClassroomPlaceholderComponent,
     ClassroomItemHorizentalComponent,
   ],
 })

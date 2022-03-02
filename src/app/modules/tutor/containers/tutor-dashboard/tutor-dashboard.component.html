@@ -72,106 +72,110 @@
   <div class="row">
     <div class="col-12">
       <h3 class="overview mb-3">Today's Classes - 21 March 2020 [SUNDAY]</h3>
-      <table class="table my-table">
-        <tr>
-          <th>#</th>
-          <th>Classroom Subject</th>
-          <th>Class Attendees</th>
-          <th>Start time - End time</th>
-          <th>Duration</th>
-          <th></th>
-        </tr>
-        <tr>
-          <td>01</td>
-          <td>Design homepage for …</td>
-          <td>
-            <div class="overflow-visible logos">
-              <img src="https://logo.clearbit.com/tarjama.com" alt="" draggable="false"
-                class="d-inline-block rounded-circle">
-              <img src="https://logo.clearbit.com/amazon.com" alt="" draggable="false"
-                class="d-inline-block rounded-circle ">
-              <img src="https://logo.clearbit.com/noon.ae" alt="" draggable="false"
-                class="d-inline-block rounded-circle ">
-              <img src="https://logo.clearbit.com/canon.com" alt="" draggable="false"
-                class="d-inline-block rounded-circle ">
-              <img src="https://logo.clearbit.com/axa.com" alt="" draggable="false"
-                class="d-inline-block rounded-circle ">
-              <img src="https://logo.clearbit.com/axis.xyz" alt="" draggable="false"
-                class="d-inline-block rounded-circle ">
-              <img src="https://logo.clearbit.com/tamatem.co" alt="" draggable="false"
-                class="d-inline-block rounded-circle ">
-            </div>
-          </td>
-          <td>07:10 PM - 09:40 PM </td>
-          <td>2 hours</td>
-          <td>
-            <button mat-button class="main-button-opacity">
-              <img src="assets/svg/play-fill.svg" draggable="false" alt="">
-              Launch Class
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>02</td>
-          <td>Design homepage for …</td>
-          <td>
-            <div class="overflow-visible logos">
-              <img src="https://logo.clearbit.com/tarjama.com" alt="" draggable="false"
-                class="d-inline-block rounded-circle">
-              <img src="https://logo.clearbit.com/amazon.com" alt="" draggable="false"
-                class="d-inline-block rounded-circle ">
-              <img src="https://logo.clearbit.com/noon.ae" alt="" draggable="false"
-                class="d-inline-block rounded-circle ">
-              <img src="https://logo.clearbit.com/canon.com" alt="" draggable="false"
-                class="d-inline-block rounded-circle ">
-              <img src="https://logo.clearbit.com/axa.com" alt="" draggable="false"
-                class="d-inline-block rounded-circle ">
-              <img src="https://logo.clearbit.com/axis.xyz" alt="" draggable="false"
-                class="d-inline-block rounded-circle ">
-              <img src="https://logo.clearbit.com/tamatem.co" alt="" draggable="false"
-                class="d-inline-block rounded-circle ">
-            </div>
-          </td>
-          <td>07:10 PM - 09:40 PM </td>
-          <td>2 hours</td>
-          <td>
-            <button mat-button class="main-button-opacity">
-              <img src="assets/svg/play-fill.svg" draggable="false" alt="">
-              Launch Class
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>03</td>
-          <td>Design homepage for …</td>
-          <td>
-            <div class="overflow-visible logos">
-              <img src="https://logo.clearbit.com/tarjama.com" alt="" draggable="false"
-                class="d-inline-block rounded-circle">
-              <img src="https://logo.clearbit.com/amazon.com" alt="" draggable="false"
-                class="d-inline-block rounded-circle ">
-              <img src="https://logo.clearbit.com/noon.ae" alt="" draggable="false"
-                class="d-inline-block rounded-circle ">
-              <img src="https://logo.clearbit.com/canon.com" alt="" draggable="false"
-                class="d-inline-block rounded-circle ">
-              <img src="https://logo.clearbit.com/axa.com" alt="" draggable="false"
-                class="d-inline-block rounded-circle ">
-              <img src="https://logo.clearbit.com/axis.xyz" alt="" draggable="false"
-                class="d-inline-block rounded-circle ">
-              <img src="https://logo.clearbit.com/tamatem.co" alt="" draggable="false"
-                class="d-inline-block rounded-circle ">
-            </div>
-          </td>
-          <td>07:10 PM - 09:40 PM </td>
-          <td>2 hours</td>
-          <td>
-            <button mat-button class="main-button-opacity">
-              <img src="assets/svg/play-fill.svg" draggable="false" alt="">
-              Launch Class
-            </button>
-          </td>
-        </tr>
-      </table>
+      <ng-container [ngSwitch]="loadingTutorDashboard$ | async">
+        <!--<metutors-grid-placeholde *ngSwitchCase="true"></metutors-grid-placeholde>-->
+        <table class="table my-table" *ngSwitchCase="false">
+          <tr>
+            <th>#</th>
+            <th>Classroom Subject</th>
+            <th>Class Attendees</th>
+            <th>Start time - End time</th>
+            <th>Duration</th>
+            <th></th>
+          </tr>
+          <tr>
+            <td>01</td>
+            <td>Design homepage for …</td>
+            <td>
+              <div class="overflow-visible logos">
+                <img src="https://logo.clearbit.com/tarjama.com" alt="" draggable="false"
+                     class="d-inline-block rounded-circle">
+                <img src="https://logo.clearbit.com/amazon.com" alt="" draggable="false"
+                     class="d-inline-block rounded-circle ">
+                <img src="https://logo.clearbit.com/noon.ae" alt="" draggable="false"
+                     class="d-inline-block rounded-circle ">
+                <img src="https://logo.clearbit.com/canon.com" alt="" draggable="false"
+                     class="d-inline-block rounded-circle ">
+                <img src="https://logo.clearbit.com/axa.com" alt="" draggable="false"
+                     class="d-inline-block rounded-circle ">
+                <img src="https://logo.clearbit.com/axis.xyz" alt="" draggable="false"
+                     class="d-inline-block rounded-circle ">
+                <img src="https://logo.clearbit.com/tamatem.co" alt="" draggable="false"
+                     class="d-inline-block rounded-circle ">
+              </div>
+            </td>
+            <td>07:10 PM - 09:40 PM </td>
+            <td>2 hours</td>
+            <td>
+              <button mat-button class="main-button-opacity">
+                <img src="assets/svg/play-fill.svg" draggable="false" alt="">
+                Launch Class
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>02</td>
+            <td>Design homepage for …</td>
+            <td>
+              <div class="overflow-visible logos">
+                <img src="https://logo.clearbit.com/tarjama.com" alt="" draggable="false"
+                     class="d-inline-block rounded-circle">
+                <img src="https://logo.clearbit.com/amazon.com" alt="" draggable="false"
+                     class="d-inline-block rounded-circle ">
+                <img src="https://logo.clearbit.com/noon.ae" alt="" draggable="false"
+                     class="d-inline-block rounded-circle ">
+                <img src="https://logo.clearbit.com/canon.com" alt="" draggable="false"
+                     class="d-inline-block rounded-circle ">
+                <img src="https://logo.clearbit.com/axa.com" alt="" draggable="false"
+                     class="d-inline-block rounded-circle ">
+                <img src="https://logo.clearbit.com/axis.xyz" alt="" draggable="false"
+                     class="d-inline-block rounded-circle ">
+                <img src="https://logo.clearbit.com/tamatem.co" alt="" draggable="false"
+                     class="d-inline-block rounded-circle ">
+              </div>
+            </td>
+            <td>07:10 PM - 09:40 PM </td>
+            <td>2 hours</td>
+            <td>
+              <button mat-button class="main-button-opacity">
+                <img src="assets/svg/play-fill.svg" draggable="false" alt="">
+                Launch Class
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>03</td>
+            <td>Design homepage for …</td>
+            <td>
+              <div class="overflow-visible logos">
+                <img src="https://logo.clearbit.com/tarjama.com" alt="" draggable="false"
+                     class="d-inline-block rounded-circle">
+                <img src="https://logo.clearbit.com/amazon.com" alt="" draggable="false"
+                     class="d-inline-block rounded-circle ">
+                <img src="https://logo.clearbit.com/noon.ae" alt="" draggable="false"
+                     class="d-inline-block rounded-circle ">
+                <img src="https://logo.clearbit.com/canon.com" alt="" draggable="false"
+                     class="d-inline-block rounded-circle ">
+                <img src="https://logo.clearbit.com/axa.com" alt="" draggable="false"
+                     class="d-inline-block rounded-circle ">
+                <img src="https://logo.clearbit.com/axis.xyz" alt="" draggable="false"
+                     class="d-inline-block rounded-circle ">
+                <img src="https://logo.clearbit.com/tamatem.co" alt="" draggable="false"
+                     class="d-inline-block rounded-circle ">
+              </div>
+            </td>
+            <td>07:10 PM - 09:40 PM </td>
+            <td>2 hours</td>
+            <td>
+              <button mat-button class="main-button-opacity">
+                <img src="assets/svg/play-fill.svg" draggable="false" alt="">
+                Launch Class
+              </button>
+            </td>
+          </tr>
+        </table>
+      </ng-container>
+
     </div>
   </div>
 
@@ -180,7 +184,10 @@
       <h2 class="overview mt-5">Newly Assigned Courses</h2>
     </div>
     <div class="col-12">
-      <metutors-classroom-item [classroom]="classroom"></metutors-classroom-item>
+      <ng-container [ngSwitch]="loadingTutorDashboard$ | async">
+        <metutors-card-placeholder *ngSwitchCase="true"></metutors-card-placeholder>
+        <metutors-classroom-item [classroom]="classroom" *ngSwitchCase="false"></metutors-classroom-item>
+      </ng-container>
     </div>
   </div>
 
