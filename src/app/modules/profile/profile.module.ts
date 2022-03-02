@@ -13,10 +13,10 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { SubmitButtonModule } from 'src/app/shared/components';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
+import { SharedModule } from '@metutor/shared/shared.module';
 
 import {
   TutorProfileComponent,
@@ -59,6 +59,7 @@ import {
     FormsModule,
     MomentModule,
     CommonModule,
+    SharedModule,
     RatingModule,
     MatIconModule,
     MatChipsModule,
@@ -69,7 +70,6 @@ import {
     MatSelectModule,
     MatDialogModule,
     ShareButtonsModule,
-    SubmitButtonModule,
     MatFormFieldModule,
     MatDatepickerModule,
     ReactiveFormsModule,

@@ -10,8 +10,7 @@ import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { DirectiveModule } from 'src/app/shared/directives';
 import { RatingModule } from 'ngx-bootstrap/rating';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { SubmitButtonModule } from 'src/app/shared/components/';
-
+import { SharedModule } from '@metutor/shared/shared.module';
 import {
   SigninComponent,
   SignupComponent,
@@ -43,13 +42,13 @@ import {
     FormsModule,
     RatingModule,
     CommonModule,
+    SharedModule,
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
     DirectiveModule,
     NgOtpInputModule,
     MatCheckboxModule,
-    SubmitButtonModule,
     ReactiveFormsModule,
     AccountRoutingModule,
     NgxIntlTelInputModule,

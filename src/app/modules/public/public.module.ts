@@ -12,14 +12,9 @@ import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
 import { VgBufferingModule } from '@videogular/ngx-videogular/buffering';
 import { ContactService, SupportService } from 'src/app/core/services';
 import { GoogleMapsModule } from '@angular/google-maps';
-import {
-  CourseItemModule,
-  CourseItemHorizentalModule,
-  SubmitButtonModule,
-} from 'src/app/shared/components';
 
 import { DirectiveModule } from 'src/app/shared/directives';
-
+import { SharedModule } from '@metutor/shared/shared.module';
 import {
   FaqComponent,
   HomeComponent,
@@ -125,20 +120,18 @@ import {
     FormsModule,
     VgCoreModule,
     CommonModule,
+    SharedModule,
     MatIconModule,
     CarouselModule,
     MatButtonModule,
     DirectiveModule,
     GoogleMapsModule,
-    CourseItemModule,
     VgControlsModule,
     VgBufferingModule,
-    SubmitButtonModule,
     ReactiveFormsModule,
     PublicRoutingModule,
     VgOverlayPlayModule,
     RatingModule.forRoot(),
-    CourseItemHorizentalModule,
   ],
   providers: [ContactService, SupportService],
 })

@@ -19,11 +19,6 @@ import {
 } from 'src/app/shared/popups';
 
 import {
-  ClassroomItemModule,
-  ClassroomPlaceholderModule,
-} from 'src/app/shared/components';
-
-import {
   StudentComponent,
   StudentFaqComponent,
   StudentHelpComponent,
@@ -49,6 +44,7 @@ import {
   StudentSettingsUserPrefrencesComponent,
   StudentSettingsPaymentInformationComponent,
 } from './components';
+import { SharedModule } from '@metutor/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -76,6 +72,7 @@ import {
   ],
   imports: [
     FormsModule,
+    SharedModule,
     CommonModule,
     MatIconModule,
     MatRadioModule,
@@ -84,14 +81,12 @@ import {
     MatSelectModule,
     MatFormFieldModule,
     ReactiveFormsModule,
-    ClassroomItemModule,
     NgxAutoScrollModule,
     StudentRoutingModule,
     MatProgressBarModule,
     NgxIntlTelInputModule,
     RatingModule.forRoot(),
     LeaveFeedbackPopupModule,
-    ClassroomPlaceholderModule,
     ClassroomAttendancesPopupModule,
   ],
   providers: [SupportService],

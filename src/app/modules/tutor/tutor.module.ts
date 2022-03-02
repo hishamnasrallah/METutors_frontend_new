@@ -9,10 +9,6 @@ import { FormsModule } from '@angular/forms';
 import { RatingModule } from 'ngx-bootstrap/rating';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { DirectiveModule } from '@metutor/shared/directives';
-import {
-  ClassroomItemModule,
-  ClassroomPlaceholderModule,
-} from '@metutor/shared/components';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -40,6 +36,8 @@ import {
   LeaveFeedbackPopupModule,
 } from '@metutor/shared/popups';
 
+import { SharedModule } from '@metutor/shared/shared.module';
+
 @NgModule({
   declarations: [
     TutorComponent,
@@ -59,6 +57,7 @@ import {
   imports: [
     FormsModule,
     CommonModule,
+    SharedModule,
     MatIconModule,
     CarouselModule,
     MatRadioModule,
@@ -67,12 +66,10 @@ import {
     DirectiveModule,
     MatFormFieldModule,
     TutorRoutingModule,
-    ClassroomItemModule,
     MatProgressBarModule,
     MatButtonToggleModule,
     RatingModule.forRoot(),
     LeaveFeedbackPopupModule,
-    ClassroomPlaceholderModule,
     ClassroomAttendancesPopupModule,
   ],
 })
