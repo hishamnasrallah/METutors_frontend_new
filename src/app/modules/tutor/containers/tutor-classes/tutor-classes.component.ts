@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { calculateDurationTime } from 'src/app/config';
 import { IClassroom } from 'src/app/core/models';
 import { CoursesService } from 'src/app/core/services';
+import { ClassroomType } from '@metutor/config';
 
 @Component({
   selector: 'metutors-tutor-classes',
@@ -13,11 +14,44 @@ import { CoursesService } from 'src/app/core/services';
 })
 export class TutorClassesComponent implements OnInit {
   classsroomId?: string;
-  classroom?: IClassroom;
+  // classroom?: IClassroom;
   loadingClassroom?: boolean;
   classroomSub?: Subscription;
   openLeaveFeedbackPopop = false;
   openClassroomAttendancesPopop = false;
+
+  classroom: IClassroom = {
+    id: 1,
+    startDate: '2022-12-12',
+    expectedEndDate: '2022-12-30',
+    name: 'Python for Data Science and Machine Learning Boo …',
+    type: ClassroomType.group,
+    listDays: ['Fri', 'Sat', 'Sun'],
+    completedClasses: 10,
+    totalHours: 30,
+    startETime: new Date(),
+    endETime: new Date(),
+    remainingClasses: 10,
+    progress: 30,
+    enrolledStudents: [
+      {
+        id: 1,
+        avatar: 'https://logo.clearbit.com/tarjama.com',
+      },
+      {
+        id: 2,
+        avatar: 'https://logo.clearbit.com/noon.ae',
+      },
+      {
+        id: 3,
+        avatar: 'https://logo.clearbit.com/tamatem.co',
+      },
+      {
+        id: 4,
+        avatar: '',
+      },
+    ],
+  };
 
   constructor(
     private _route: ActivatedRoute,

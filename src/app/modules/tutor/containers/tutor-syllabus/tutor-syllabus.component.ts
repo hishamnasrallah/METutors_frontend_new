@@ -12,7 +12,7 @@ import { IClassroom, ISyllabus } from 'src/app/core/models';
 import { Title } from '@angular/platform-browser';
 import { CoursesService } from 'src/app/core/services';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { calculateDurationTime } from 'src/app/config';
+import { ClassroomType } from '@metutor/config';
 
 @Component({
   selector: 'metutors-tutor-syllabus',
@@ -42,7 +42,7 @@ import { calculateDurationTime } from 'src/app/config';
 })
 export class TutorSyllabusComponent implements OnInit, OnDestroy {
   classsroomId?: string;
-  classroom?: IClassroom;
+  // classroom?: IClassroom;
   selectedCourse?: number;
   loadingSyllabus?: boolean;
   syllabusSub?: Subscription;
@@ -50,6 +50,39 @@ export class TutorSyllabusComponent implements OnInit, OnDestroy {
   openCourse: boolean = false;
   classroomSub?: Subscription;
   syllabuses: ISyllabus[] = [];
+
+  classroom: IClassroom = {
+    id: 1,
+    startDate: '2022-12-12',
+    expectedEndDate: '2022-12-30',
+    name: 'Python for Data Science and Machine Learning Boo …',
+    type: ClassroomType.one,
+    listDays: ['Fri', 'Sat', 'Sun'],
+    completedClasses: 10,
+    totalHours: 30,
+    startETime: new Date(),
+    endETime: new Date(),
+    remainingClasses: 10,
+    progress: 30,
+    enrolledStudents: [
+      {
+        id: 1,
+        avatar: 'https://logo.clearbit.com/tarjama.com',
+      },
+      {
+        id: 2,
+        avatar: 'https://logo.clearbit.com/noon.ae',
+      },
+      {
+        id: 3,
+        avatar: 'https://logo.clearbit.com/tamatem.co',
+      },
+      {
+        id: 4,
+        avatar: '',
+      },
+    ],
+  };
 
   constructor(
     private _route: ActivatedRoute,
@@ -60,32 +93,32 @@ export class TutorSyllabusComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this._route.paramMap.subscribe((res: ParamMap) => {
       this.classsroomId = res.get('id') || '';
-      this.loadingClassroom = true;
-      this.classroomSub = this._coursesService
-        .getClassroomById(this.classsroomId)
-        .subscribe(
-          (response) => {
-            this.loadingClassroom = false;
-            this.classroom = response;
-            this._title.setTitle(this.classroom?.name || '');
-          },
-          (error) => {
-            this.loadingClassroom = false;
-          }
-        );
+      // this.loadingClassroom = true;
+      // this.classroomSub = this._coursesService
+      //   .getClassroomById(this.classsroomId)
+      //   .subscribe(
+      //     (response) => {
+      //       this.loadingClassroom = false;
+      //       this.classroom = response;
+      //       this._title.setTitle(this.classroom?.name || '');
+      //     },
+      //     (error) => {
+      //       this.loadingClassroom = false;
+      //     }
+      //   );
 
-      this.loadingSyllabus = true;
-      this.syllabusSub = this._coursesService
-        .getSyllabusByCourseId(this.classsroomId)
-        .subscribe(
-          (response) => {
-            this.syllabuses = response;
-            this.loadingSyllabus = false;
-          },
-          (error) => {
-            this.loadingSyllabus = false;
-          }
-        );
+      // this.loadingSyllabus = true;
+      // this.syllabusSub = this._coursesService
+      //   .getSyllabusByCourseId(this.classsroomId)
+      //   .subscribe(
+      //     (response) => {
+      //       this.syllabuses = response;
+      //       this.loadingSyllabus = false;
+      //     },
+      //     (error) => {
+      //       this.loadingSyllabus = false;
+      //     }
+      //   );
     });
   }
 

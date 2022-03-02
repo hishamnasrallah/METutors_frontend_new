@@ -427,6 +427,20 @@ rating span.bs-rating-star {
   }
 }
 
+.logos {
+  img {
+    object-fit: contain;
+    width: 2rem;
+    height: 2rem;
+    margin-right: -0.3rem;
+    margin-left: -0.3rem;
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+}
+
 .my-table {
   border-radius: 8px;
   box-shadow: 0 8px 20px 0 rgb(0 0 0 / 8%);
@@ -446,16 +460,6 @@ rating span.bs-rating-star {
       background-color: #FFFFFF;
       border-top: 1px solid #EDEDED;
       padding: 10px;
-
-      .logos {
-        img {
-          object-fit: contain;
-          width: 2rem;
-          height: 2rem;
-          margin-right: -0.3rem;
-          margin-left: -0.3rem;
-        }
-      }
     }
   }
 
