@@ -1,6 +1,7 @@
 import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
+import camelcaseKeys from 'camelcase-keys';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 
@@ -35,7 +36,7 @@ export class TutorEffects {
           return this._tutorService.getTutorDashboard().pipe(
             map((dashboard) =>
               tutorActions.loadTutorDashboardSuccess({
-                dashboard,
+                dashboard: camelcaseKeys(dashboard, { deep: true }),
               })
             ),
             catchError((error) =>
