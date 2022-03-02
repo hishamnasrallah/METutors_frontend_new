@@ -2553,6 +2553,11 @@
     "object-keys" "^1.1.1"
     "regexp.prototype.flags" "^1.2.0"
 
+"deepmerge@^4.2.2":
+  "integrity" "sha512-FJ3UgI4gIl+PHZm53knsuSFpE+nESMr7M4v9QcgB7S63Kj/6WqMiFQJpBBYz1Pt+66bZpP3Q7Lye0Oo9MPKEdg=="
+  "resolved" "https://registry.npmjs.org/deepmerge/-/deepmerge-4.2.2.tgz"
+  "version" "4.2.2"
+
 "default-gateway@^6.0.0":
   "integrity" "sha512-fwSOJsbbNzZ/CUFpqFBqYfYNLj1NbMPm8MMCIzHjC83iSJRBEGmDUxU+WP661BaBQImeC2yHwXtz+P/O9o+XEg=="
   "resolved" "https://registry.npmjs.org/default-gateway/-/default-gateway-6.0.3.tgz"
@@ -4287,6 +4292,14 @@
   "version" "1.8.1"
   dependencies:
     "tslib" "^2.2.0"
+
+"ngrx-store-localstorage@^13.0.0":
+  "integrity" "sha512-KRYAd9uVr9Cc8ex0wh9PxnRbwxdBo+sLjwtPsL7qPQOsNtJc84offPBGJC0iGhtYWXjXtvmJnOQbaPFx1H/afw=="
+  "resolved" "https://registry.npmjs.org/ngrx-store-localstorage/-/ngrx-store-localstorage-13.0.0.tgz"
+  "version" "13.0.0"
+  dependencies:
+    "deepmerge" "^4.2.2"
+    "tslib" "^2.3.0"
 
 "ngx-auto-scroll@^1.1.0":
   "integrity" "sha512-+zYhl8OGof4LhNzTh0t2o0/L61rMIaDWdmRg8OEiqJA+ehWirlpp+IpMcLAWrXI11XtvfkPtxspmRPHzU3scXA=="

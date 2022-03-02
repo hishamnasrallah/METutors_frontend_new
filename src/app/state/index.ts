@@ -10,7 +10,7 @@ import {
   createFeatureSelector,
 } from '@ngrx/store';
 import * as fromCore from '@metutor/core/state';
-// import { localStorageSync } from 'ngrx-store-localstorage';
+import { localStorageSync } from 'ngrx-store-localstorage';
 
 export interface State {
   core: any; // fromCore.CoreState
@@ -27,7 +27,7 @@ export const reducers: ActionReducerMap<State> = {
 export const selectRouter = createFeatureSelector<
   State,
   fromRouter.RouterReducerState<any>
-  >('router');
+>('router');
 
 export const {
   selectCurrentRoute, // select the current route
@@ -45,7 +45,7 @@ export const {
 /*export const selectLayout = createSelector(
   selectRouteData,
   state => state?.layout
-);
+);*/
 
 export function localStorageSyncReducer(
   reducer: ActionReducer<any>
@@ -56,29 +56,25 @@ export function localStorageSyncReducer(
         core: [
           {
             userService: ['user'],
-            chatService: ['method'],
-            cometChatService: ['accessToken'],
-            moneyService: ['selectedCurrency'],
-            socialAuth: ['userType', 'provider'],
           },
         ],
       },
     ],
     rehydrate: true,
   })(reducer);
-}*/
+}
 
-/*export function clearState(
+export function clearState(
   reducer: ActionReducer<State>
 ): ActionReducer<State> {
   return (state, action): any => {
-    if (action.type === fromCore.logoutSuccess.type) {
-      state = undefined;
-    }
+    // if (action.type === fromCore.logoutSuccess.type) {
+    // state = undefined;
+    // }
 
     return reducer(state, action);
   };
-}*/
+}
 
 // console.log all actions
 export function logger(reducer: ActionReducer<State>): ActionReducer<State> {
@@ -106,5 +102,5 @@ export function logger(reducer: ActionReducer<State>): ActionReducer<State> {
  * that will be composed to form the root meta-reducer.
  */
 export const metaReducers: MetaReducer<State>[] = !environment.production
-  ? [logger] //  localStorageSyncReducer, clearState
-  : []; // localStorageSyncReducer, clearState
+  ? [logger, localStorageSyncReducer, clearState]
+  : [localStorageSyncReducer, clearState];
