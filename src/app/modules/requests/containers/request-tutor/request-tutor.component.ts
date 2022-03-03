@@ -8,9 +8,7 @@ import { Observable, tap } from 'rxjs';
 import * as fromCore from '@metutor/core/state';
 import {
   AcademicTutoringTextbook,
-  addLookups,
   calculateListDays,
-  getLookups,
   SORTED_DAYS_WEEK,
   TEXTBOOK_EDITION_CONST,
 } from 'src/app/config';
@@ -23,12 +21,7 @@ import {
   ISubject,
   ITutor,
 } from 'src/app/core/models';
-import {
-  AuthService,
-  CoursesService,
-  LookupsService,
-  TutorsService,
-} from 'src/app/core/services';
+import { CoursesService, TutorsService } from 'src/app/core/services';
 import { Store } from '@ngrx/store';
 
 @Component({
@@ -40,8 +33,11 @@ import { Store } from '@ngrx/store';
 export class RequestTutorComponent implements OnInit {
   @ViewChild('stepper') private myStepper?: MatStepper;
 
+  loadingTutors$: Observable<boolean>;
   levels$: Observable<ILevel[] | null>;
   fields$: Observable<IField[] | null>;
+  tutors$: Observable<ITutor[] | null>;
+  isCreatingCourse$: Observable<boolean>;
   programs$: Observable<IProgram[] | null>;
   subjects$: Observable<ISubject[] | null>;
   languages$: Observable<ILanguage[] | null>;
@@ -54,23 +50,18 @@ export class RequestTutorComponent implements OnInit {
   courseLevel?: ILevel[];
   courseField?: IField[];
   languages?: ILanguage[];
-  loadingTutors?: boolean;
   selectTutorForm: FormGroup;
   coursePrograms?: IProgram[];
   selectedClassrooms!: IClass[];
   classroomDetailsForm: FormGroup;
   courseInformationForm: FormGroup;
   classroomScheduleForm: FormGroup;
-  isCreatingCourse: boolean = false;
 
   constructor(
     private _router: Router,
     private _fb: FormBuilder,
     private _store: Store<any>,
     private _datePipe: DatePipe,
-    private _authService: AuthService,
-    private _tutorsService: TutorsService,
-    private _lookupsService: LookupsService,
     private _coursesService: CoursesService,
     private _alertNotificationService: AlertNotificationService
   ) {
@@ -126,6 +117,16 @@ export class RequestTutorComponent implements OnInit {
     this._prepareLanguages();
     this._prepareCourseLevel();
     this._prepareCourseProgram();
+
+    this.tutors$ = this._store.select(fromCore.selectGeneratingTutors).pipe(
+      tap((tutors) => {
+        if (tutors && tutors.length) {
+          this.tutors = tutors;
+        }
+      })
+    );
+    this.loadingTutors$ = this._store.select(fromCore.selectIsGeneratingTutors);
+    this.isCreatingCourse$ = this._store.select(fromCore.selectIsCreateClass);
     // this._fetchAcademicTutoringPrice();
   }
 
@@ -187,7 +188,7 @@ export class RequestTutorComponent implements OnInit {
       this.selectedClassrooms = classrooms;
       const appointments = this._generateAppointments(classrooms);
 
-      const value = {
+      const data = {
         program_id: this.courseInformationForm.value.courseProgram,
         field_of_study_id: this.courseInformationForm.value.courseField,
         subject_id: this.courseInformationForm.value.subject,
@@ -195,24 +196,12 @@ export class RequestTutorComponent implements OnInit {
         class_rooms: appointments,
       };
 
-      this.loadingTutors = true;
-      this._tutorsService.generateTutors(value).subscribe(
-        (result) => {
-          this.loadingTutors = false;
-          this.tutors = result;
-        },
-        (error) => {
-          this.loadingTutors = false;
-          this._alertNotificationService.error(
-            'Error in generating the tutors'
-          );
-        }
-      );
+      this._store.dispatch(fromCore.generateTutors({ data }));
     }
   }
 
   onSubmit(): void {
-    const value = {
+    const data = {
       ...this.courseInformationForm.value,
       ...this._generateClassroomForm(this.classroomDetailsForm.value),
       ...this.selectTutorForm.value,
@@ -224,31 +213,8 @@ export class RequestTutorComponent implements OnInit {
         duration: classroom?.duration,
       })),
     };
-    console.log(value);
 
-    this.isCreatingCourse = true;
-    this._coursesService.createCourse(value).subscribe(
-      (response) => {
-        this.isCreatingCourse = false;
-        this.classroomDetailsForm.reset();
-        this.classroomScheduleForm.reset();
-        this.courseInformationForm.reset();
-        this.selectTutorForm.reset();
-        this._alertNotificationService.success(
-          'Congrats! Your request has been created successfully!'
-        );
-        this._router.navigate([
-          '/requests/invoice-details',
-          response?.class?.id,
-        ]);
-      },
-      (error) => {
-        this.isCreatingCourse = false;
-        this._alertNotificationService.error(
-          'An error occured while creating the course '
-        );
-      }
-    );
+    this._store.dispatch(fromCore.createClass({ data }));
   }
 
   private _prepareReviewInfo(): void {

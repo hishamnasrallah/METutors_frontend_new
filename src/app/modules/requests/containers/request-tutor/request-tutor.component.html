@@ -81,8 +81,8 @@
           </div>
         </ng-template>
 
-        <metutors-select-tutor-form [form]="selectTutorForm" [loading]="loadingTutors" [tutors]="tutors"
-          (onBack)="backStep()" (submitForm)="nextStep()">
+        <metutors-select-tutor-form [form]="selectTutorForm" [loading]="loadingTutors$ | async"
+          [tutors]="tutors$ | async" (onBack)="backStep()" (submitForm)="nextStep()">
         </metutors-select-tutor-form>
       </form>
     </mat-step>
@@ -96,8 +96,8 @@
         </div>
       </ng-template>
 
-      <metutors-review-request [reviewInfo]="reviewInfo" [isCreatingCourse]="isCreatingCourse" (submitForm)="onSubmit()"
-        (onBack)="backStep()">
+      <metutors-review-request [reviewInfo]="reviewInfo" [isCreatingCourse]="isCreatingCourse$ | async"
+        (submitForm)="onSubmit()" (onBack)="backStep()">
       </metutors-review-request>
     </mat-step>
   </mat-horizontal-stepper>
