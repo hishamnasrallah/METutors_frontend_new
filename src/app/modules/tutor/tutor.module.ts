@@ -8,7 +8,6 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 import { FormsModule } from '@angular/forms';
 import { RatingModule } from 'ngx-bootstrap/rating';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { DirectiveModule } from '@metutor/shared/directives';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -63,7 +62,6 @@ import { SharedModule } from '@metutor/shared/shared.module';
     MatRadioModule,
     MatSelectModule,
     MatButtonModule,
-    DirectiveModule,
     MatFormFieldModule,
     TutorRoutingModule,
     MatProgressBarModule,

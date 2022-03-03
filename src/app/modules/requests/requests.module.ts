@@ -9,7 +9,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
-import { DirectiveModule } from 'src/app/shared/directives';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { RatingModule } from 'ngx-bootstrap/rating';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -49,7 +48,6 @@ import {
     MatInputModule,
     MatRadioModule,
     MatButtonModule,
-    DirectiveModule,
     MatSelectModule,
     MatDialogModule,
     MatStepperModule,

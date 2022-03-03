@@ -8,7 +8,7 @@ import { IClassroom } from 'src/app/core/models';
   styleUrls: ['./classroom-item.component.scss'],
 })
 export class ClassroomItemComponent implements OnInit {
-  @Input() classroom!: IClassroom;
+  @Input() classroom!: IClassroom | null;
 
   classroomType = ClassroomType;
   openClassroomDetailsPopop = false;

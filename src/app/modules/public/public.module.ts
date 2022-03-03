@@ -13,7 +13,6 @@ import { VgBufferingModule } from '@videogular/ngx-videogular/buffering';
 import { ContactService, SupportService } from 'src/app/core/services';
 import { GoogleMapsModule } from '@angular/google-maps';
 
-import { DirectiveModule } from 'src/app/shared/directives';
 import { SharedModule } from '@metutor/shared/shared.module';
 import {
   FaqComponent,
@@ -124,7 +123,6 @@ import {
     MatIconModule,
     CarouselModule,
     MatButtonModule,
-    DirectiveModule,
     GoogleMapsModule,
     VgControlsModule,
     VgBufferingModule,

@@ -1,275 +1,204 @@
 <div class="dashboard">
-  <div class="row">
-    <div class="col-md-6">
-      <h2 class="overview">Overview</h2>
-      <p class="desc">
-        See insights on how your Progress has changed from <strong>March 26 - April 26</strong>
-      </p>
-    </div>
-    <div class="col-md-6">
-      <button mat-flat-button color="primary" class="float-end ms-2">
-        Send Feedback
-      </button>
+  <ng-container *ngLet="(view$ | async) as view">
+    <div class="row">
+      <div class="col-md-6">
+        <h2 class="overview">Overview</h2>
+        <p class="desc">
+          See insights on how your Progress has changed from last <strong>{{insightRange[range]}}</strong>
+        </p>
+      </div>
+      <div class="col-md-6">
+        <button mat-flat-button color="primary" class="float-end ms-2">
+          Send Feedback
+        </button>
 
-      <mat-button-toggle-group class="float-end">
-        <mat-button-toggle value="7days" checked (change)="loadDashboard($event.value)">7 Days</mat-button-toggle>
-        <mat-button-toggle value="1month" (change)="loadDashboard($event.value)">1 Month</mat-button-toggle>
-        <mat-button-toggle value="3months" (change)="loadDashboard($event.value)">3 Months</mat-button-toggle>
-        <mat-button-toggle value="1year" (change)="loadDashboard($event.value)">Yearly</mat-button-toggle>
-      </mat-button-toggle-group>
-    </div>
-  </div>
-
-  <ng-container [ngSwitch]="loadingTutorDashboard$ | async">
-    <div class="row list-cards" *ngSwitchCase="true">
-      <div class="col-md-3" *ngFor="let _ of [1,2,3,4]">
-        <div class="ph-col-3">
-          <div class="ph-avatar rounded"></div>
-        </div>
+        <mat-button-toggle-group class="float-end">
+          <mat-button-toggle value="7days" checked (change)="loadDashboard($event.value)">7 Days</mat-button-toggle>
+          <mat-button-toggle value="1month" (change)="loadDashboard($event.value)">1 Month</mat-button-toggle>
+          <mat-button-toggle value="3months" (change)="loadDashboard($event.value)">3 Months</mat-button-toggle>
+          <mat-button-toggle value="1year" (change)="loadDashboard($event.value)">Yearly</mat-button-toggle>
+        </mat-button-toggle-group>
       </div>
     </div>
 
-    <div class="row list-cards" *ngSwitchCase="false">
-      <div class="col-md-3">
-        <div class="card">
-          <div class="card-body d-flex flex-column">
-            <h3>Total Courses</h3>
-            <h1 class="flex-grow-1">
-              15%
-              <span>+2.5%</span>
-            </h1>
-            <p>Compared to (7 last Month)</p>
+    <ng-container [ngSwitch]="view.loading">
+      <div class="row list-cards" *ngSwitchCase="true">
+        <div class="col-md-3" *ngFor="let _ of [1,2,3,4]">
+          <div class="ph-col-3">
+            <div class="ph-avatar rounded"></div>
           </div>
         </div>
       </div>
-      <div class="col-md-3">
-        <div class="card red-bo">
-          <div class="card-body d-flex flex-column">
-            <h3>Total Completed Courses</h3>
-            <h1 class="flex-grow-1">
-              20
-              <span>+0.5%</span>
-            </h1>
-            <p>Compared to 9 courses Last Month</p>
+
+      <div class="row list-cards" *ngSwitchCase="false">
+        <div class="col-md-3">
+          <div class="card">
+            <div class="card-body d-flex flex-column">
+              <h3>Total Courses</h3>
+              <h1 class="flex-grow-1">
+                {{ view.data.totalCourses}}
+                <!--<span>+2.5%</span>-->
+              </h1>
+              <p>Compared to (last {{insightRange[range]}})</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card red-bo">
+            <div class="card-body d-flex flex-column">
+              <h3>Total Completed Courses</h3>
+              <h1 class="flex-grow-1">
+                {{ view.data.totalCompletedCourses}}
+                <!--<span>+0.5%</span>-->
+              </h1>
+              <p>Compared to (last {{insightRange[range]}})</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card orange-bo">
+            <div class="card-body d-flex flex-column">
+              <h3>Kudos Points</h3>
+              <h1 class="flex-grow-1">
+                {{ view.data.kudosPoints}}
+                <!--<span class="danger">-1.5%</span>-->
+              </h1>
+              <p>Compared to (last {{insightRange[range]}})</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card purple-bo">
+            <div class="card-body d-flex flex-column">
+              <h3>Newly Assigned courses</h3>
+              <h1 class="flex-grow-1">
+                {{ view.data.totalNewlyCourses}}
+                <!--<span>+2.5%</span>-->
+              </h1>
+              <p>Compared to (last {{insightRange[range]}})</p>
+            </div>
           </div>
         </div>
       </div>
-      <div class="col-md-3">
-        <div class="card orange-bo">
-          <div class="card-body d-flex flex-column">
-            <h3>Kudus Points</h3>
-            <h1 class="flex-grow-1">
-              %50
-              <span class="danger">-1.5%</span>
-            </h1>
-            <p>Compared to (%65 last month)</p>
-          </div>
-        </div>
+    </ng-container>
+
+    <div class="row">
+      <div class="col-12">
+        <h3 class="overview mb-3">Today's Classes - {{ view.data?.todaysDate}}</h3>
+        <ng-container [ngSwitch]="view.loading">
+          <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
+          <table class="table my-table" *ngSwitchCase="false">
+            <tr>
+              <th>#</th>
+              <th>Classroom Subject</th>
+              <th>Class Attendees</th>
+              <th>Start time - End time</th>
+              <th>Duration</th>
+              <th></th>
+            </tr>
+            <tr *ngIf="!view.data.todaysClasses.length">
+              <td colspan="6">
+                <div class="text-center">No record found</div>
+              </td>
+            </tr>
+            <ng-container *ngIf="view.data.todaysClasses.length">
+              <tr *ngFor="let class of view.data.todaysClasses">
+                <td>01</td>
+                <td>Design homepage for …</td>
+                <td>
+                  <div class="overflow-visible logos">
+                    <img src="https://logo.clearbit.com/tarjama.com" alt="" draggable="false"
+                         class="d-inline-block rounded-circle">
+                    <img src="https://logo.clearbit.com/amazon.com" alt="" draggable="false"
+                         class="d-inline-block rounded-circle ">
+                    <img src="https://logo.clearbit.com/noon.ae" alt="" draggable="false"
+                         class="d-inline-block rounded-circle ">
+                    <img src="https://logo.clearbit.com/canon.com" alt="" draggable="false"
+                         class="d-inline-block rounded-circle ">
+                    <img src="https://logo.clearbit.com/axa.com" alt="" draggable="false"
+                         class="d-inline-block rounded-circle ">
+                    <img src="https://logo.clearbit.com/axis.xyz" alt="" draggable="false"
+                         class="d-inline-block rounded-circle ">
+                    <img src="https://logo.clearbit.com/tamatem.co" alt="" draggable="false"
+                         class="d-inline-block rounded-circle ">
+                  </div>
+                </td>
+                <td>07:10 PM - 09:40 PM</td>
+                <td>2 hours</td>
+                <td>
+                  <button mat-button class="main-button-opacity">
+                    <img src="assets/svg/play-fill.svg" draggable="false" alt="">
+                    Launch Class
+                  </button>
+                </td>
+              </tr>
+            </ng-container>
+          </table>
+        </ng-container>
+
       </div>
-      <div class="col-md-3">
-        <div class="card purple-bo">
-          <div class="card-body d-flex flex-column">
-            <h3>Newely Assigned courses</h3>
-            <h1 class="flex-grow-1">
-              $126
-              <span>+2.5%</span>
-            </h1>
-            <p>Compared to ($105 last month)</p>
-          </div>
-        </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <h2 class="overview mt-5">Newly Assigned Courses</h2>
+      </div>
+      <div class="col-12">
+        <ng-container [ngSwitch]="view.loading">
+          <metutors-card-placeholder *ngSwitchCase="true"></metutors-card-placeholder>
+          <metutors-classroom-item [classroom]="null" *ngSwitchCase="false"></metutors-classroom-item>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <h2 class="overview mt-5 mb-3">
+          Kudos Points Details
+
+          <a href="" class="float-end view-all">
+            View all reviews
+            <img src="assets/svg/arrow-left-line-colored.svg" alt="" class="ms-2" draggable="false">
+          </a>
+        </h2>
+      </div>
+      <div class="col-12">
+        <ng-container [ngSwitch]="view.loading">
+          <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
+          <table class="table my-table default-title" *ngSwitchCase="false">
+            <tr>
+              <th colspan="4">Kudos Points details</th>
+              <th class="sm">Total Points: 500</th>
+            </tr>
+            <tr>
+              <td>#</td>
+              <td>Student name</td>
+              <td>Course name</td>
+              <td>Course Date</td>
+              <td>Points</td>
+            </tr>
+            <tr *ngIf="!view.data.feedbacks.length">
+              <td colspan="5">
+                <div class="text-center">No record found</div>
+              </td>
+            </tr>
+            <ng-container *ngIf="view.data.feedbacks.length">
+              <tr *ngFor="let kudo of view.data.feedbacks; let i=index">
+                <td>{{ i+1}}</td>
+                <td>
+                  <img src="" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
+                       meTutorsDefaultAvatar
+                       met alt="">
+                  <span>{{ kudo.sender?.firstName}} {{ kudo.sender?.lastName}}</span>
+                </td>
+                <td>{{ kudo.course?.courseName }}</td>
+                <td>22 Feb 2020</td>
+                <td>{{ kudo.kudosPoints}} Points</td>
+              </tr>
+            </ng-container>
+          </table>
+        </ng-container>
       </div>
     </div>
   </ng-container>
-
-  <div class="row">
-    <div class="col-12">
-      <h3 class="overview mb-3">Today's Classes - 21 March 2020 [SUNDAY]</h3>
-      <ng-container [ngSwitch]="loadingTutorDashboard$ | async">
-        <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
-        <table class="table my-table" *ngSwitchCase="false">
-          <tr>
-            <th>#</th>
-            <th>Classroom Subject</th>
-            <th>Class Attendees</th>
-            <th>Start time - End time</th>
-            <th>Duration</th>
-            <th></th>
-          </tr>
-          <tr>
-            <td>01</td>
-            <td>Design homepage for …</td>
-            <td>
-              <div class="overflow-visible logos">
-                <img src="https://logo.clearbit.com/tarjama.com" alt="" draggable="false"
-                     class="d-inline-block rounded-circle">
-                <img src="https://logo.clearbit.com/amazon.com" alt="" draggable="false"
-                     class="d-inline-block rounded-circle ">
-                <img src="https://logo.clearbit.com/noon.ae" alt="" draggable="false"
-                     class="d-inline-block rounded-circle ">
-                <img src="https://logo.clearbit.com/canon.com" alt="" draggable="false"
-                     class="d-inline-block rounded-circle ">
-                <img src="https://logo.clearbit.com/axa.com" alt="" draggable="false"
-                     class="d-inline-block rounded-circle ">
-                <img src="https://logo.clearbit.com/axis.xyz" alt="" draggable="false"
-                     class="d-inline-block rounded-circle ">
-                <img src="https://logo.clearbit.com/tamatem.co" alt="" draggable="false"
-                     class="d-inline-block rounded-circle ">
-              </div>
-            </td>
-            <td>07:10 PM - 09:40 PM</td>
-            <td>2 hours</td>
-            <td>
-              <button mat-button class="main-button-opacity">
-                <img src="assets/svg/play-fill.svg" draggable="false" alt="">
-                Launch Class
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>02</td>
-            <td>Design homepage for …</td>
-            <td>
-              <div class="overflow-visible logos">
-                <img src="https://logo.clearbit.com/tarjama.com" alt="" draggable="false"
-                     class="d-inline-block rounded-circle">
-                <img src="https://logo.clearbit.com/amazon.com" alt="" draggable="false"
-                     class="d-inline-block rounded-circle ">
-                <img src="https://logo.clearbit.com/noon.ae" alt="" draggable="false"
-                     class="d-inline-block rounded-circle ">
-                <img src="https://logo.clearbit.com/canon.com" alt="" draggable="false"
-                     class="d-inline-block rounded-circle ">
-                <img src="https://logo.clearbit.com/axa.com" alt="" draggable="false"
-                     class="d-inline-block rounded-circle ">
-                <img src="https://logo.clearbit.com/axis.xyz" alt="" draggable="false"
-                     class="d-inline-block rounded-circle ">
-                <img src="https://logo.clearbit.com/tamatem.co" alt="" draggable="false"
-                     class="d-inline-block rounded-circle ">
-              </div>
-            </td>
-            <td>07:10 PM - 09:40 PM</td>
-            <td>2 hours</td>
-            <td>
-              <button mat-button class="main-button-opacity">
-                <img src="assets/svg/play-fill.svg" draggable="false" alt="">
-                Launch Class
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>03</td>
-            <td>Design homepage for …</td>
-            <td>
-              <div class="overflow-visible logos">
-                <img src="https://logo.clearbit.com/tarjama.com" alt="" draggable="false"
-                     class="d-inline-block rounded-circle">
-                <img src="https://logo.clearbit.com/amazon.com" alt="" draggable="false"
-                     class="d-inline-block rounded-circle ">
-                <img src="https://logo.clearbit.com/noon.ae" alt="" draggable="false"
-                     class="d-inline-block rounded-circle ">
-                <img src="https://logo.clearbit.com/canon.com" alt="" draggable="false"
-                     class="d-inline-block rounded-circle ">
-                <img src="https://logo.clearbit.com/axa.com" alt="" draggable="false"
-                     class="d-inline-block rounded-circle ">
-                <img src="https://logo.clearbit.com/axis.xyz" alt="" draggable="false"
-                     class="d-inline-block rounded-circle ">
-                <img src="https://logo.clearbit.com/tamatem.co" alt="" draggable="false"
-                     class="d-inline-block rounded-circle ">
-              </div>
-            </td>
-            <td>07:10 PM - 09:40 PM</td>
-            <td>2 hours</td>
-            <td>
-              <button mat-button class="main-button-opacity">
-                <img src="assets/svg/play-fill.svg" draggable="false" alt="">
-                Launch Class
-              </button>
-            </td>
-          </tr>
-        </table>
-      </ng-container>
-
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-12">
-      <h2 class="overview mt-5">Newly Assigned Courses</h2>
-    </div>
-    <div class="col-12">
-      <ng-container [ngSwitch]="loadingTutorDashboard$ | async">
-        <metutors-card-placeholder *ngSwitchCase="true"></metutors-card-placeholder>
-        <metutors-classroom-item [classroom]="classroom" *ngSwitchCase="false"></metutors-classroom-item>
-      </ng-container>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-12">
-      <h2 class="overview mt-5 mb-3">
-        Kudos Points Details
-
-        <a href="" class="float-end view-all">
-          View all reviews
-          <img src="assets/svg/arrow-left-line-colored.svg" alt="" class="ms-2" draggable="false">
-        </a>
-      </h2>
-    </div>
-    <div class="col-12">
-      <ng-container [ngSwitch]="loadingTutorDashboard$ | async">
-        <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
-        <table class="table my-table default-title" *ngSwitchCase="false">
-          <tr>
-            <th colspan="4">Kudos Points details</th>
-            <th class="sm">Total Points: 500</th>
-          </tr>
-          <tr>
-            <td>#</td>
-            <td>Student name</td>
-            <td>Course name</td>
-            <td>Course Date</td>
-            <td>Points</td>
-          </tr>
-          <tr>
-            <td>01</td>
-            <td>
-              <img src="" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false" meTutorsDefaultAvatar
-                   met alt="">
-              <span>Ahmed Hassan</span>
-            </td>
-            <td>
-              Python for Data Science and Machine …
-            </td>
-            <td>22 Feb 2020</td>
-            <td>100 Point</td>
-          </tr>
-          <tr>
-            <td>02</td>
-            <td>
-              <img src="" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false" meTutorsDefaultAvatar
-                   met alt="">
-              <span>Ahmed Hassan</span>
-            </td>
-            <td>
-              Python for Data Science and Machine …
-            </td>
-            <td>22 Feb 2020</td>
-            <td>100 Point</td>
-          </tr>
-          <tr>
-            <td>03</td>
-            <td>
-              <img src="" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false" meTutorsDefaultAvatar
-                   met alt="">
-              <span>Ahmed Hassan</span>
-            </td>
-            <td>
-              Python for Data Science and Machine …
-            </td>
-            <td>22 Feb 2020</td>
-            <td>100 Point</td>
-          </tr>
-        </table>
-      </ng-container>
-    </div>
-  </div>
 </div>

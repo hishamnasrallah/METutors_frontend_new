@@ -40,7 +40,10 @@
               "./node_modules/ngx-owl-carousel-o/lib/styles/prebuilt-themes/owl.theme.default.min.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "camelcase-keys"
+            ]
           },
           "configurations": {
             "production": {

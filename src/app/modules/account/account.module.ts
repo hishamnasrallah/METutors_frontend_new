@@ -7,7 +7,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NgOtpInputModule } from 'ng-otp-input';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
-import { DirectiveModule } from 'src/app/shared/directives';
 import { RatingModule } from 'ngx-bootstrap/rating';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { SharedModule } from '@metutor/shared/shared.module';
@@ -46,7 +45,6 @@ import {
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
-    DirectiveModule,
     NgOtpInputModule,
     MatCheckboxModule,
     ReactiveFormsModule,

@@ -1,10 +1,11 @@
-import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { map } from 'rxjs/operators';
+import { combineLatest, Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 
 import { IClassroom } from '@models';
 import * as fromCore from '@metutor/core/state';
-import { ClassroomType } from '@metutor/config';
+import { ClassroomType, insightRange } from '@metutor/config';
 
 @Component({
   selector: 'metutors-tutor-dashboard',
@@ -12,10 +13,11 @@ import { ClassroomType } from '@metutor/config';
   styleUrls: ['./tutor-dashboard.component.scss'],
 })
 export class TutorDashboardComponent implements OnInit {
+  range = '7days';
+  insightRange = insightRange;
   rate = 4;
 
-  tutorDashboard$: Observable<any | null>;
-  loadingTutorDashboard$: Observable<boolean>;
+  view$: Observable<{ loading: boolean; data: any }>;
 
   classroom: IClassroom = {
     id: 1,
@@ -53,16 +55,23 @@ export class TutorDashboardComponent implements OnInit {
   constructor(private _store: Store<any>) {}
 
   loadDashboard(params: string): void {
+    this.range = params;
     this._store.dispatch(fromCore.loadTutorDashboard({ params, load: true }));
   }
 
   ngOnInit(): void {
     this._store.dispatch(
-      fromCore.loadTutorDashboard({ params: '7days', load: false })
+      fromCore.loadTutorDashboard({ params: this.range, load: false })
     );
-    this.tutorDashboard$ = this._store.select(fromCore.selectTutorDashboard);
-    this.loadingTutorDashboard$ = this._store.select(
-      fromCore.selectIsLoadingTutorDashboard
+
+    this.view$ = combineLatest([
+      this._store.select(fromCore.selectTutorDashboard),
+      this._store.select(fromCore.selectIsLoadingTutorDashboard),
+    ]).pipe(
+      map(([data, loading]) => ({
+        data,
+        loading,
+      }))
     );
   }
 }
