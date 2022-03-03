@@ -1,9 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AlertNotificationService } from 'src/app/core/components';
 import { MatStepper } from '@angular/material/stepper';
-import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 import * as fromCore from '@metutor/core/state';
 import {
@@ -21,7 +19,6 @@ import {
   ISubject,
   ITutor,
 } from 'src/app/core/models';
-import { CoursesService, TutorsService } from 'src/app/core/services';
 import { Store } from '@ngrx/store';
 
 @Component({
@@ -58,12 +55,9 @@ export class RequestTutorComponent implements OnInit {
   classroomScheduleForm: FormGroup;
 
   constructor(
-    private _router: Router,
     private _fb: FormBuilder,
     private _store: Store<any>,
-    private _datePipe: DatePipe,
-    private _coursesService: CoursesService,
-    private _alertNotificationService: AlertNotificationService
+    private _datePipe: DatePipe
   ) {
     this.courseInformationForm = this._fb.group({
       courseProgram: [null, Validators.required],

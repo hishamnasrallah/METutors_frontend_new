@@ -5,7 +5,7 @@ import { catchError, map } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { IFAQ, IFAQTopics, ITicket } from '../models';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SupportService {
   mainLink = environment.API_URL;
 
@@ -18,6 +18,7 @@ export class SupportService {
 
     return this.http
       .get<{ faqs: IFAQ[] }>(`${this.mainLink}faqs${query}`)
+      .pipe(map((response) => response.faqs))
       .pipe(catchError(this.errorHandler));
   }
 

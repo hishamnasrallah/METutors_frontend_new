@@ -3,6 +3,8 @@ import { createReducer, on } from '@ngrx/store';
 import {
   ICity,
   ICountry,
+  IFAQ,
+  IFAQTopics,
   IField,
   ILanguage,
   ILevel,
@@ -46,16 +48,30 @@ export interface State {
   fields: IField[] | null;
   isLoadingFields?: boolean;
   loadingFieldsFailure?: string;
+
+  // Topics
+  topics: IFAQTopics[] | null;
+  isLoadingTopics: boolean;
+  loadingTopicsFailure?: string;
+
+  // FAQs
+  FAQs: IFAQ[] | null;
+  isLoadingFAQs: boolean;
+  loadingFAQsFailure?: string;
 }
 
 export const initialState: State = {
+  FAQs: null,
   fields: null,
   levels: null,
   cities: null,
+  topics: null,
   subjects: null,
   programs: null,
   languages: null,
   countries: null,
+  isLoadingFAQs: false,
+  isLoadingTopics: false,
 };
 
 export const reducer = createReducer(
@@ -189,7 +205,51 @@ export const reducer = createReducer(
       isLoadingFields: false,
       loadingFieldsFailure: error.message,
     })
-  )
+  ),
+
+  on(lookupsActions.loadTopics, (state) => ({
+    ...state,
+    isLoadingTopics: true,
+  })),
+
+  on(lookupsActions.loadTopicsSuccess, (state, { topics }) => ({
+    ...state,
+    topics,
+    isLoadingTopics: false,
+  })),
+
+  on(lookupsActions.loadTopicsFailure, (state, { error }) => ({
+    ...state,
+    isLoadingTopics: false,
+    loadingTopicsFailure: error.message,
+  })),
+
+  on(lookupsActions.loadTopicsEnded, (state) => ({
+    ...state,
+    isLoadingTopics: false,
+  })),
+
+  on(lookupsActions.loadFAQs, (state) => ({
+    ...state,
+    isLoadingFAQs: true,
+  })),
+
+  on(lookupsActions.loadFAQsSuccess, (state, { FAQs }) => ({
+    ...state,
+    FAQs,
+    isLoadingFAQs: false,
+  })),
+
+  on(lookupsActions.loadFAQsFailure, (state, { error }) => ({
+    ...state,
+    isLoadingFAQs: false,
+    loadingFAQsFailure: error.message,
+  })),
+
+  on(lookupsActions.loadFAQsEnded, (state) => ({
+    ...state,
+    isLoadingFAQs: false,
+  }))
 );
 
 export const selectLanguages = (state: State): ILanguage[] | null =>
@@ -230,3 +290,13 @@ export const selectFields = (state: State): IField[] | null => state.fields;
 
 export const selectIsLoadingFields = (state: State): boolean | undefined =>
   state.isLoadingFields;
+
+export const selectTopics = (state: State): IFAQTopics[] | null => state.topics;
+
+export const selectIsLoadingTopics = (state: State): boolean =>
+  state.isLoadingTopics;
+
+export const selectFAQs = (state: State): IFAQ[] | null => state.FAQs;
+
+export const selectIsLoadingFAQs = (state: State): boolean =>
+  state.isLoadingFAQs;

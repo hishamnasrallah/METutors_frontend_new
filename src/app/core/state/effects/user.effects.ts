@@ -13,6 +13,7 @@ import { AlertNotificationService } from '@metutor/core/components';
 import camelcaseKeys from 'camelcase-keys';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { UserRole } from '@metutor/config';
+import { environment } from '@environment';
 
 @Injectable()
 export class UserEffects {
@@ -30,7 +31,10 @@ export class UserEffects {
         if (user && token) {
           return of(
             userActions.identifyUserSuccess({
-              user,
+              user: {
+                ...user,
+                avatar: environment.imageURL + user?.avatar,
+              },
               profileStep:
                 user &&
                 user.profileCompletedStep &&
@@ -63,7 +67,10 @@ export class UserEffects {
 
             return userActions.signInSuccess({
               token: response,
-              user,
+              user: {
+                ...user,
+                avatar: environment.imageURL + user?.avatar,
+              },
               profileStep:
                 user &&
                 user.profileCompletedStep &&

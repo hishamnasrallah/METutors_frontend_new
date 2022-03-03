@@ -11,9 +11,16 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import {
+  ClassroomAttendancesPopupModule,
+  LeaveFeedbackPopupModule,
+} from '@metutor/shared/popups';
+
+import { SharedModule } from '@metutor/shared/shared.module';
 
 import {
   TutorComponent,
+  TutorBadgesComponent,
   TutorClassesComponent,
   TutorSettingsComponent,
   TutorSyllabusComponent,
@@ -30,17 +37,12 @@ import {
   TutorSettingsUserPreferencesComponent,
   TutorSettingsPaymentInformationComponent,
 } from './components';
-import {
-  ClassroomAttendancesPopupModule,
-  LeaveFeedbackPopupModule,
-} from '@metutor/shared/popups';
-
-import { SharedModule } from '@metutor/shared/shared.module';
 
 @NgModule({
   declarations: [
     TutorComponent,
     TutorNavbarComponent,
+    TutorBadgesComponent,
     TutorSidebarComponent,
     TutorClassesComponent,
     TutorSyllabusComponent,

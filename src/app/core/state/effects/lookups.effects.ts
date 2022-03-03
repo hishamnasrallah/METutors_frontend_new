@@ -10,7 +10,7 @@ import {
 } from 'rxjs/operators';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as fromCore from '@metutor/core/state';
-import { LookupsService } from '@services';
+import { LookupsService, SupportService } from '@services';
 import * as lookupsActions from '../actions/lookups.actions';
 
 @Injectable()
@@ -76,16 +76,14 @@ export class LookupsEffects {
   loadCities$ = createEffect(() =>
     this._actions$.pipe(
       ofType(lookupsActions.loadCities),
-      mergeMap(action =>
+      mergeMap((action) =>
         this._lookupsService.getCities(action.countryId).pipe(
           map((cities) =>
             lookupsActions.loadCitiesSuccess({
               cities,
             })
           ),
-          catchError((error) =>
-            of(lookupsActions.loadCitiesFailure({ error }))
-          )
+          catchError((error) => of(lookupsActions.loadCitiesFailure({ error })))
         )
       )
     )
@@ -167,9 +165,54 @@ export class LookupsEffects {
     )
   );
 
+  loadTopics$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(lookupsActions.loadTopics),
+      withLatestFrom(this._store.select(fromCore.selectTopics)),
+      mergeMap(([_, _topics]) => {
+        if (!_topics || !_topics.length) {
+          return this._supportService.fetchFaqTopics().pipe(
+            map((topics) =>
+              lookupsActions.loadTopicsSuccess({
+                topics,
+              })
+            ),
+            catchError((error) =>
+              of(lookupsActions.loadTopicsFailure({ error }))
+            )
+          );
+        } else {
+          return of(lookupsActions.loadTopicsEnded());
+        }
+      })
+    )
+  );
+
+  loadFAQs$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(lookupsActions.loadFAQs),
+      withLatestFrom(this._store.select(fromCore.selectFAQs)),
+      mergeMap(([_, _faqs]) => {
+        if (!_faqs || !_faqs.length) {
+          return this._supportService.fetchListFaq().pipe(
+            map((FAQs) =>
+              lookupsActions.loadFAQsSuccess({
+                FAQs,
+              })
+            ),
+            catchError((error) => of(lookupsActions.loadFAQsFailure({ error })))
+          );
+        } else {
+          return of(lookupsActions.loadFAQsEnded());
+        }
+      })
+    )
+  );
+
   constructor(
     private _store: Store<any>,
     private _actions$: Actions,
-    private _lookupsService: LookupsService
+    private _lookupsService: LookupsService,
+    private _supportService: SupportService
   ) {}
 }

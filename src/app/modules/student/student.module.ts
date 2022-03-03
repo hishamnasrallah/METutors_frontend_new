@@ -88,7 +88,6 @@ import { SharedModule } from '@metutor/shared/shared.module';
     RatingModule.forRoot(),
     LeaveFeedbackPopupModule,
     ClassroomAttendancesPopupModule,
-  ],
-  providers: [SupportService],
+  ]
 })
 export class StudentModule {}

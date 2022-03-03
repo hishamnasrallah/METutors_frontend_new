@@ -35,5 +35,6 @@ export const LIST_ROUTES = [
   { path: '/student/settings', title: 'Settings' },
   { path: '/tutor/dashboard', title: "Tutor's Dashboard" },
   { path: '/tutor/settings', title: 'Settings' },
+  { path: '/tutor/badges', title: 'Badges' },
   { path: '/tutor/payment-records', title: 'Payment records' },
 ];

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { addLookups, getLookups } from 'src/app/config';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import * as fromCore from '@metutor/core/state';
 import { IFAQ, IFAQTopics } from 'src/app/core/models';
-import { SupportService } from 'src/app/core/services';
 
 @Component({
   selector: 'metutors-faq',
@@ -10,35 +10,34 @@ import { SupportService } from 'src/app/core/services';
   styleUrls: ['./faq.component.scss'],
 })
 export class FaqComponent implements OnInit {
-  listFAQs: IFAQ[] = [];
-  topics!: IFAQTopics[];
-  tempListFAQs: IFAQ[] = [];
-  fetchListFaqSub?: Subscription;
-  fetchFaqTopicsSub?: Subscription;
+  FAQs$: Observable<IFAQ[] | null>;
+  loadingFAQs$: Observable<boolean>;
+  loadingTopics$: Observable<boolean>;
+  topics$: Observable<IFAQTopics[] | null>;
 
-  constructor(private _supportService: SupportService) {}
+  listFAQs: IFAQ[] = [];
+  tempListFAQs: IFAQ[] = [];
+
+  constructor(private _store: Store<any>) {}
 
   ngOnInit(): void {
-    this.fetchFaqTopicsSub = this._supportService
-      .fetchFaqTopics()
-      .subscribe((topics) => {
-        this.topics = topics;
-        addLookups('topics', topics);
-      });
-
-      this.topics = getLookups()?.topics;
-
-    this.fetchListFaqSub = this._supportService.fetchListFaq().subscribe(
-      (response) => {
-        this.listFAQs = response.faqs;
-        this.tempListFAQs = response.faqs;
-      },
-      () => {}
-    );
+    this._prepareFAQ();
+    this._prepareTopics();
   }
 
-  ngOnDestroy(): void {
-    this.fetchListFaqSub?.unsubscribe();
-    this.fetchFaqTopicsSub?.unsubscribe();
+  filterFAQs(title: string): void {
+    this._store.dispatch(fromCore.loadFAQs({ title }));
+  }
+
+  private _prepareFAQ(): void {
+    this._store.dispatch(fromCore.loadFAQs({}));
+    this.FAQs$ = this._store.select(fromCore.selectFAQs);
+    this.loadingFAQs$ = this._store.select(fromCore.selectIsLoadingFAQs);
+  }
+
+  private _prepareTopics(): void {
+    this._store.dispatch(fromCore.loadTopics());
+    this.topics$ = this._store.select(fromCore.selectTopics);
+    this.loadingTopics$ = this._store.select(fromCore.selectIsLoadingTopics);
   }
 }

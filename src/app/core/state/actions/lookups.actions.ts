@@ -3,6 +3,8 @@ import { createAction, props } from '@ngrx/store';
 import {
   ICity,
   ICountry,
+  IFAQ,
+  IFAQTopics,
   IField,
   ILanguage,
   ILevel,
@@ -114,3 +116,34 @@ export const loadFieldsFailure = createAction(
   '[Lookups] Load Fields Failure',
   props<{ error: any }>()
 );
+
+export const loadTopics = createAction('[Lookups] Load Topics');
+
+export const loadTopicsSuccess = createAction(
+  '[Lookups] Load Topics Success',
+  props<{ topics: IFAQTopics[] }>()
+);
+
+export const loadTopicsFailure = createAction(
+  '[Lookups] Load Topics Failure',
+  props<{ error: any }>()
+);
+
+export const loadTopicsEnded = createAction('[Lookups] Load Topics Ended');
+
+export const loadFAQs = createAction(
+  '[Lookups] Load FAQs',
+  props<{ title?: string; topic?: number }>()
+);
+
+export const loadFAQsSuccess = createAction(
+  '[Lookups] Load FAQs Success',
+  props<{ FAQs: IFAQ[] }>()
+);
+
+export const loadFAQsFailure = createAction(
+  '[Lookups] Load FAQs Failure',
+  props<{ error: any }>()
+);
+
+export const loadFAQsEnded = createAction('[Lookups] Load FAQs Ended');

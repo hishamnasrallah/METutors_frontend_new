@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {
   TutorComponent,
+  TutorBadgesComponent,
   TutorClassesComponent,
   TutorSettingsComponent,
   TutorSyllabusComponent,
@@ -66,6 +67,17 @@ const routes: Routes = [
         data: {
           layout: {
             title: 'Dashboard - Metutors',
+            showHeader: false,
+            showFooter: false,
+          },
+        },
+      },
+      {
+        path: 'badges',
+        component: TutorBadgesComponent,
+        data: {
+          layout: {
+            title: 'Badges - Metutors',
             showHeader: false,
             showFooter: false,
           },

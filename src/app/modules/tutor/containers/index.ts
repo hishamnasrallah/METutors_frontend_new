@@ -1,3 +1,4 @@
+export * from './tutor-badges';
 export * from './tutor-classes';
 export * from './tutor-classrooms';
 export * from './tutor-dashboard';

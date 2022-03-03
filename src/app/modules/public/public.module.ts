@@ -131,6 +131,6 @@ import {
     VgOverlayPlayModule,
     RatingModule.forRoot(),
   ],
-  providers: [ContactService, SupportService],
+  providers: [ContactService],
 })
 export class PublicModule {}

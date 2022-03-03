@@ -158,3 +158,23 @@ export const selectFields = createSelector(
   selectLookupsState,
   fromLookupsReducer.selectFields
 );
+
+export const selectTopics = createSelector(
+  selectLookupsState,
+  fromLookupsReducer.selectTopics
+);
+
+export const selectIsLoadingTopics = createSelector(
+  selectLookupsState,
+  fromLookupsReducer.selectIsLoadingTopics
+);
+
+export const selectFAQs = createSelector(
+  selectLookupsState,
+  fromLookupsReducer.selectFAQs
+);
+
+export const selectIsLoadingFAQs = createSelector(
+  selectLookupsState,
+  fromLookupsReducer.selectIsLoadingFAQs
+);

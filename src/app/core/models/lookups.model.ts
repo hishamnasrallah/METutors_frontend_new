@@ -6,7 +6,6 @@ export interface ILookups {
   fields: IField[];
   courseField: IField[];
   topics: IFAQTopics[];
-  cities: ICity[];
 }
 
 export interface IProgram {
