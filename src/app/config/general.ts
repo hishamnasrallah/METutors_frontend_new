@@ -136,3 +136,13 @@ export const COURSE_FILTER_TYPE_CONST = {
   '02': 'One to one sessions',
   '03': 'Both',
 };
+
+export const WEEK_DAYS: any = {
+  1: 'Sun',
+  2: 'Mon',
+  3: 'Tues',
+  4: 'Wed',
+  5: 'Thu',
+  6: 'Fri',
+  7: 'Sat',
+};

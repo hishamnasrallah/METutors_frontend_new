@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { IClassroom } from '@models';
 import * as fromCore from '@metutor/core/state';
-import { ClassroomType, insightRange } from '@metutor/config';
+import { ClassroomType, insightRange, WEEK_DAYS } from '@metutor/config';
 
 @Component({
   selector: 'metutors-tutor-dashboard',
@@ -64,8 +64,17 @@ export class TutorDashboardComponent implements OnInit {
       fromCore.loadTutorDashboard({ params: this.range, load: false })
     );
 
+    const dashboard$ = this._store.select(fromCore.selectTutorDashboard).pipe(
+      map((result: any) => {
+        return {
+          ...result,
+          courses: this._parseCourse(result?.newlyAssignedCourses),
+        };
+      })
+    );
+
     this.view$ = combineLatest([
-      this._store.select(fromCore.selectTutorDashboard),
+      dashboard$,
       this._store.select(fromCore.selectIsLoadingTutorDashboard),
     ]).pipe(
       map(([data, loading]) => ({
@@ -73,5 +82,35 @@ export class TutorDashboardComponent implements OnInit {
         loading,
       }))
     );
+  }
+
+  private _parseCourse(courses: any): any {
+    return courses?.map((course: any) => {
+      const completedClasses = course.classes.filter(
+        (item: any) => item.status === 'success'
+      );
+      const remainingClasses = course.classes.filter(
+        (item: any) => item.status !== 'success'
+      );
+
+      const listDays: any = [];
+      const splitDays = course.weekdays.split(',');
+
+      if (splitDays.length) {
+        splitDays.forEach((day: any) => listDays.push(WEEK_DAYS[day]));
+      }
+      return {
+        ...course,
+        type: 1,
+        listDays,
+        startETime: '',
+        endETime: '',
+        name: course.courseName,
+        startDate: '2022-02-28T20:15:52.000000Z',
+        expectedEndDate: '2022-03-28T20:15:52.000000Z',
+        completedClasses: completedClasses.length,
+        remainingClasses: remainingClasses.length,
+      };
+    });
   }
 }

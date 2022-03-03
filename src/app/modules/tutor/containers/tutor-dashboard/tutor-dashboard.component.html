@@ -146,7 +146,9 @@
       <div class="col-12">
         <ng-container [ngSwitch]="view.loading">
           <metutors-card-placeholder *ngSwitchCase="true"></metutors-card-placeholder>
-          <metutors-classroom-item [classroom]="null" *ngSwitchCase="false"></metutors-classroom-item>
+          <ng-container *ngSwitchCase="false">
+            <metutors-classroom-item [classroom]="course" *ngFor="let course of view.data.courses"></metutors-classroom-item>
+          </ng-container>
         </ng-container>
       </div>
     </div>
@@ -184,11 +186,10 @@
             </tr>
             <ng-container *ngIf="view.data.feedbacks.length">
               <tr *ngFor="let kudo of view.data.feedbacks; let i=index">
-                <td>{{ i+1}}</td>
+                <td>{{ i + 1}}</td>
                 <td>
                   <img src="" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
-                       meTutorsDefaultAvatar
-                       met alt="">
+                       meTutorsDefaultAvatar alt="">
                   <span>{{ kudo.sender?.firstName}} {{ kudo.sender?.lastName}}</span>
                 </td>
                 <td>{{ kudo.course?.courseName }}</td>

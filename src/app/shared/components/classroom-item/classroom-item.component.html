@@ -1,8 +1,9 @@
-<div class="card classroom-item">
+<div class="card classroom-item mb-4">
   <div *ngIf="!classroom" class="text-center p-xxl-5">
     No record found
   </div>
-  <div class="row" *ngIf="classroom">
+
+  <div class="row p-3" *ngIf="classroom">
     <div class="col">
       <div class="position-relative rounded date d-flex flex-column align-items-center justify-content-center h-100">
         <img src="assets/svg/calendar-fill.svg" alt="" width="30" height="30" />
@@ -25,8 +26,7 @@
           <strong>Days: </strong>
           <span>
             <ng-container *ngFor="let day of classroom?.listDays; let isLast = last">
-              {{ day }}
-              <ng-container *ngIf="!isLast"> - </ng-container>
+              {{ day}}<ng-container *ngIf="!isLast">, </ng-container>
             </ng-container>
           </span>
         </div>
