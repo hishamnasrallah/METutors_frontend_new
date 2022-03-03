@@ -70,8 +70,7 @@ export class TutorDashboardComponent implements OnInit {
         startETime: '',
         endETime: '',
         name: course.courseName,
-        startDate: '2022-02-28T20:15:52.000000Z',
-        expectedEndDate: '2022-03-28T20:15:52.000000Z',
+        expectedEndDate: course.endDate,
         completedClasses: completedClasses.length,
         remainingClasses: remainingClasses.length,
       };
