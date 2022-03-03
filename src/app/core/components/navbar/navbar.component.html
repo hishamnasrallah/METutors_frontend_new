@@ -35,7 +35,8 @@
           </a>
         </li>
         <li class="nav-item" *ngIf="token$ | async">
-          <a class="nav-link nav-item-link" routerLinkActive="active">
+          <a class="nav-link nav-item-link" routerLinkActive="active"
+            [routerLink]="(user$ | async)?.roleId === userRole.tutor ? '/tutor' : '/student'">
             My Classroom
           </a>
         </li>
@@ -78,7 +79,8 @@
         <a class="dropdown-item" routerLink="/become-tutor" routerLinkActive="active">Become A Tutor</a>
       </li>
       <li role="menuitem" *ngIf="token$ | async">
-        <a class="dropdown-item" routerLinkActive="active">My Classroom</a>
+        <a class="dropdown-item" routerLinkActive="active"
+          [routerLink]="(user$ | async)?.roleId === userRole.tutor ? '/tutor' : '/student'">My Classroom</a>
       </li>
       <li role="menuitem">
         <a class="dropdown-item" routerLinkActive="active">

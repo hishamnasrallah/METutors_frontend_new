@@ -16,6 +16,36 @@ import { UserRole } from '@metutor/config';
 
 @Injectable()
 export class UserEffects {
+  identifyUser$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(userActions.identifyUser),
+      withLatestFrom(this._store.select(fromCore.selectToken)),
+      mergeMap(([_, token]) => {
+        const jwtHelper = new JwtHelperService();
+        const decodeToken = camelcaseKeys(jwtHelper.decodeToken(token), {
+          deep: true,
+        });
+        const user: any = decodeToken?.user;
+
+        if (user && token) {
+          return of(
+            userActions.identifyUserSuccess({
+              user,
+              profileStep:
+                user &&
+                user.profileCompletedStep &&
+                !isNaN(user.profileCompletedStep)
+                  ? +user.profileCompletedStep + 1
+                  : 1,
+            })
+          );
+        } else {
+          return of(userActions.identifyUserEnded());
+        }
+      })
+    )
+  );
+
   signIn$ = createEffect(() =>
     this._actions$.pipe(
       ofType(userActions.signIn),
@@ -30,7 +60,6 @@ export class UserEffects {
               deep: true,
             });
             const user: any = decodeToken?.user;
-            console.log(user);
 
             return userActions.signInSuccess({
               token: response,

@@ -30,3 +30,12 @@ export const logoutSuccess = createAction('[User] Logout Success');
 export const enterCompleteProfile = createAction(
   '[User] Enter Complete Profile'
 );
+
+export const identifyUser = createAction('[User] Identify User');
+
+export const identifyUserSuccess = createAction(
+  '[User] Identify User Success',
+  props<{ user: IUser; profileStep: number }>()
+);
+
+export const identifyUserEnded = createAction('[User] Identify User Ended');

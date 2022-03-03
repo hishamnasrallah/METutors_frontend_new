@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { LIST_ROUTES } from 'src/app/config';
-import { AuthService } from 'src/app/core/services';
 import { Location } from '@angular/common';
+import { IUser } from '@metutor/core/models';
 
 @Component({
   selector: 'metutors-tutor-navbar',
@@ -9,9 +9,11 @@ import { Location } from '@angular/common';
   styleUrls: ['./tutor-navbar.component.scss'],
 })
 export class TutorNavbarComponent implements OnInit {
+  @Input() user: IUser | null;
+
   location: Location;
 
-  constructor(location: Location, public authService: AuthService) {
+  constructor(location: Location) {
     this.location = location;
   }
 

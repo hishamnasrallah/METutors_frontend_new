@@ -45,6 +45,12 @@ export const reducer = createReducer(
   on(tutorActions.completeTutorProfileSuccess, (state, { nextStep }) => ({
     ...state,
     profileStep: nextStep,
+  })),
+
+  on(userActions.identifyUserSuccess, (state, { profileStep, user }) => ({
+    ...state,
+    profileStep,
+    user,
   }))
 );
 
