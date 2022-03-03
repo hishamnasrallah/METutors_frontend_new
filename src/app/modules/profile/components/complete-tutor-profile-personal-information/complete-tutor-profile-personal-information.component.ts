@@ -17,8 +17,8 @@ import { ICity, ICountry } from 'src/app/core/models';
 export class CompleteTutorProfilePersonalInformationComponent
   implements OnInit
 {
-  @Input() cities!: ICity[];
-  @Input() loading!: boolean;
+  @Input() loading: boolean | null;
+  @Input() cities: ICity[] | null;
   @Input() countries: ICountry[] | null;
 
   @Output() submitForm = new EventEmitter();

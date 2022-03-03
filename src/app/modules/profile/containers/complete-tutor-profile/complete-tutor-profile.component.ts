@@ -1,9 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable, Subscription, tap } from 'rxjs';
-import { addLookups, getLookups } from 'src/app/config';
-import { AlertNotificationService } from 'src/app/core/components';
+import { Observable, tap } from 'rxjs';
 import * as fromCore from '@metutor/core/state';
 import {
   ICity,
@@ -14,41 +11,26 @@ import {
   IProgram,
   ISubject,
 } from 'src/app/core/models';
-import {
-  AuthService,
-  LookupsService,
-  TutorsService,
-} from 'src/app/core/services';
 
 @Component({
   selector: 'metutors-complete-tutor-profile',
   templateUrl: './complete-tutor-profile.component.html',
   styleUrls: ['./complete-tutor-profile.component.scss'],
 })
-export class CompleteTutorProfileComponent implements OnInit, OnDestroy {
+export class CompleteTutorProfileComponent implements OnInit {
+  step$: Observable<number>;
+  loading$: Observable<boolean>;
+  cities$: Observable<ICity[] | null>;
   levels$: Observable<ILevel[] | null>;
+  fields$: Observable<IField[] | null>;
   programs$: Observable<IProgram[] | null>;
   subjects$: Observable<ISubject[] | null>;
   countries$: Observable<ICountry[] | null>;
   languages$: Observable<ILanguage[] | null>;
 
-  loading = false;
-  step: number = 1;
-  cities!: ICity[];
-  fields!: IField[];
   countries!: ICountry[];
-  getFieldSub?: Subscription;
-  sendAccountSub?: Subscription;
-  fetchCitiesSub?: Subscription;
 
-  constructor(
-    private _router: Router,
-    private _store: Store<any>,
-    private _authService: AuthService,
-    private _tutorsService: TutorsService,
-    private _lookupsService: LookupsService,
-    private _alertNotificationService: AlertNotificationService
-  ) {}
+  constructor(private _store: Store<any>) {}
 
   ngOnInit(): void {
     this._prepareLevels();
@@ -56,43 +38,13 @@ export class CompleteTutorProfileComponent implements OnInit, OnDestroy {
     this._prepareCountries();
     this._prepareLanguages();
     this._prepareCourseProgram();
-    this.step =
-      +this._authService.decodeToken()?.user?.profileCompletedStep + 1;
-
-    if (this.step > 4) {
-      this._router.navigate([
-        '/profile',
-        'tutor-profile',
-        this._authService.decodeToken()?.user?.id,
-      ]);
-    }
+    this._store.dispatch(fromCore.enterCompleteProfile());
+    this.step$ = this._store.select(fromCore.selectProfileStep);
+    this.loading$ = this._store.select(fromCore.selectIsCompleteTutorProfile);
   }
 
-  sendTeacherAccount(data: any, step: number): void {
-    this.loading = true;
-    this.sendAccountSub = this._tutorsService
-      .sendTeacherAccount(data)
-      .subscribe(
-        (response) => {
-          this._alertNotificationService.success(response.message);
-          this.step = step;
-          this.loading = false;
-
-          if (this.step > 4) {
-            this._router.navigate([
-              '/profile',
-              'tutor-profile',
-              this._authService.decodeToken()?.user?.id,
-            ]);
-          }
-        },
-        (error) => {
-          this.loading = false;
-          this._alertNotificationService.error(
-            error.error?.message || 'Error in submitting the form'
-          );
-        }
-      );
+  sendTeacherAccount(data: any, nextStep: number): void {
+    this._store.dispatch(fromCore.completeTutorProfile({ data, nextStep }));
   }
 
   loadCities(countryName: string): void {
@@ -104,18 +56,12 @@ export class CompleteTutorProfileComponent implements OnInit, OnDestroy {
       }
     });
 
-    this._prepareCitiesByCountryId(countryId);
+    this._prepareCitiesByCountryId(countryId.toString());
   }
 
   fetchFieldSubject(programId: string): void {
     this._store.dispatch(fromCore.loadSubjectsByProgramId({ programId }));
     this.subjects$ = this._store.select(fromCore.selectSubjects);
-  }
-
-  ngOnDestroy(): void {
-    this.getFieldSub?.unsubscribe();
-    this.sendAccountSub?.unsubscribe();
-    this.fetchCitiesSub?.unsubscribe();
   }
 
   private _prepareCountries(): void {
@@ -134,18 +80,9 @@ export class CompleteTutorProfileComponent implements OnInit, OnDestroy {
     this.languages$ = this._store.select(fromCore.selectLanguages);
   }
 
-  private _prepareCitiesByCountryId(countryId: number): void {
-    this.fetchCitiesSub = this._lookupsService.getCities(countryId).subscribe(
-      (result) => {
-        this.cities = result;
-        addLookups('cities', this.cities);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-
-    this.cities = getLookups().cities;
+  private _prepareCitiesByCountryId(countryId: string): void {
+    this._store.dispatch(fromCore.loadCities({ countryId }));
+    this.cities$ = this._store.select(fromCore.selectCities);
   }
 
   private _prepareCourseProgram(): void {
@@ -154,15 +91,8 @@ export class CompleteTutorProfileComponent implements OnInit, OnDestroy {
   }
 
   private _prepareFields(): void {
-    this.getFieldSub = this._lookupsService.getFields().subscribe(
-      (fetchedValues) => {
-        this.fields = fetchedValues;
-        addLookups('fields', this.fields);
-      },
-      () => {}
-    );
-
-    this.fields = getLookups().fields;
+    this._store.dispatch(fromCore.loadFields());
+    this.fields$ = this._store.select(fromCore.selectFields);
   }
 
   private _prepareLevels(): void {

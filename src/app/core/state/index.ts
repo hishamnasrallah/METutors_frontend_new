@@ -58,6 +58,16 @@ export const selectToken = createSelector(
   fromUserReducer.selectToken
 );
 
+export const selectProfileStep = createSelector(
+  selectUserState,
+  fromUserReducer.selectProfileStep
+);
+
+export const selectUser = createSelector(
+  selectUserState,
+  fromUserReducer.selectUser
+);
+
 // Tutor
 export const selectTutor = createSelector(
   selectTutorState,
@@ -79,6 +89,11 @@ export const selectIsLoadingTutorDashboard = createSelector(
   fromTutorReducer.selectIsLoadingTutorDashboard
 );
 
+export const selectIsCompleteTutorProfile = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectIsCompleteTutorProfile
+);
+
 // Lookups
 export const selectIsLoadingLanguage = createSelector(
   selectLookupsState,
@@ -98,6 +113,11 @@ export const selectLevels = createSelector(
 export const selectCountries = createSelector(
   selectLookupsState,
   fromLookupsReducer.selectCountries
+);
+
+export const selectCities = createSelector(
+  selectLookupsState,
+  fromLookupsReducer.selectCities
 );
 
 export const selectPrograms = createSelector(

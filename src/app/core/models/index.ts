@@ -18,3 +18,4 @@ export * from './syllabus.model';
 export * from './ticket-reply.model';
 export * from './ticket.model';
 export * from './tutor.model';
+export * from './user.model';

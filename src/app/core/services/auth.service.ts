@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { JwtHelperService } from '@auth0/angular-jwt';
 import {
   GoogleLoginProvider,
   SocialAuthService,
@@ -8,9 +7,6 @@ import {
 } from 'angularx-social-login';
 import { environment } from 'src/environments/environment';
 import { map, Observable } from 'rxjs';
-import { UserRole } from 'src/app/config';
-import { Router } from '@angular/router';
-import camelcaseKeys from 'camelcase-keys';
 
 const BACKEND_URL = environment.API_URL;
 
@@ -18,59 +14,8 @@ const BACKEND_URL = environment.API_URL;
 export class AuthService {
   constructor(
     private http: HttpClient,
-    private _router: Router,
     private _socialAuthService: SocialAuthService
   ) {}
-
-  getIsAuth(): boolean {
-    const token = localStorage.getItem('token');
-
-    if (!token) return false;
-
-    return true;
-  }
-
-  getIsStudentAuth(): boolean {
-    if (this.getIsAuth()) {
-      let jwtHelper = new JwtHelperService();
-
-      const token = localStorage.getItem('token');
-      const user = camelcaseKeys(jwtHelper.decodeToken(token || ''), {
-        deep: true,
-      });
-      const userRole = user?.user?.roleId;
-
-      if (userRole?.toString() === UserRole.student.toString()) return true;
-      else return false;
-    } else return false;
-  }
-
-  getIsTutorAuth(): boolean {
-    if (this.getIsAuth()) {
-      let jwtHelper = new JwtHelperService();
-
-      const token = localStorage.getItem('token');
-      const user = camelcaseKeys(jwtHelper.decodeToken(token || ''), {
-        deep: true,
-      });
-      const userRole = user?.user?.roleId;
-
-      if (userRole?.toString() === UserRole.tutor.toString()) return true;
-      else return false;
-    } else return false;
-  }
-
-  decodeToken(): any {
-    if (this.getIsAuth()) {
-      let jwtHelper = new JwtHelperService();
-
-      const token = localStorage.getItem('token');
-
-      return camelcaseKeys(jwtHelper.decodeToken(token || ''), { deep: true });
-    } else {
-      return {};
-    }
-  }
 
   login(value: any): Observable<any> {
     return this.http

@@ -13,7 +13,7 @@ import { AlertNotificationService } from 'src/app/core/components';
   styleUrls: ['./complete-tutor-profile-profile-picture.component.scss'],
 })
 export class CompleteTutorProfileProfilePictureComponent implements OnInit {
-  @Input() loading?: boolean;
+  @Input() loading: boolean | null;
 
   @Output() submitForm = new EventEmitter();
 

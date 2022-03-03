@@ -2,7 +2,6 @@ import {
   CanActivate,
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
-  Router,
 } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
@@ -52,7 +51,6 @@ export class TutorAuthGuard implements CanActivate {
         deep: true,
       });
       const userRole = user?.user?.roleId;
-      console.log(userRole)
 
       if (userRole?.toString() === UserRole.tutor.toString()) return true;
       else return false;

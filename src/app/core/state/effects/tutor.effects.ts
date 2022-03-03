@@ -8,9 +8,28 @@ import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 import { selectTutorDashboard } from '..';
 import { TutorsService } from '@services';
 import * as tutorActions from '../actions/tutor.actions';
+import { AlertNotificationService } from '@metutor/core/components';
 
 @Injectable()
 export class TutorEffects {
+  completeTutorProfile$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorActions.completeTutorProfile),
+      mergeMap(({ data, nextStep }) =>
+        this._tutorService.sendTeacherAccount(data).pipe(
+          map(() =>
+            tutorActions.completeTutorProfileSuccess({
+              nextStep,
+            })
+          ),
+          catchError((error) =>
+            of(tutorActions.completeTutorProfileFailure({ error }))
+          )
+        )
+      )
+    )
+  );
+
   loadTutor$ = createEffect(() =>
     this._actions$.pipe(
       ofType(tutorActions.loadTutor),
@@ -50,9 +69,29 @@ export class TutorEffects {
     )
   );
 
+  failureMessages$ = createEffect(
+    () =>
+      this._actions$.pipe(
+        ofType(...[tutorActions.completeTutorProfileFailure]),
+        map((action) => {
+          if (action.error) {
+            return this._alertNotificationService.error(action.error);
+          } else {
+            return this._alertNotificationService.error(
+              'Something went wrong!'
+            );
+          }
+        })
+      ),
+    {
+      dispatch: false,
+    }
+  );
+
   constructor(
     private _store: Store<any>,
     private _actions$: Actions,
-    private _tutorService: TutorsService
+    private _tutorService: TutorsService,
+    private _alertNotificationService: AlertNotificationService
   ) {}
 }

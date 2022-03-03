@@ -2,6 +2,21 @@ import { createAction, props } from '@ngrx/store';
 
 import { ITutor } from '@models';
 
+export const completeTutorProfile = createAction(
+  '[Tutor] Complete Tutor Profile',
+  props<{ data: any; nextStep: number }>()
+);
+
+export const completeTutorProfileSuccess = createAction(
+  '[Tutor] Complete Tutor Profile Success',
+  props<{ nextStep: number }>()
+);
+
+export const completeTutorProfileFailure = createAction(
+  '[Tutor] Complete Tutor Profile Failure',
+  props<{ error: any }>()
+);
+
 export const loadTutor = createAction(
   '[Tutor] Load Tutor',
   props<{ id: number }>()
