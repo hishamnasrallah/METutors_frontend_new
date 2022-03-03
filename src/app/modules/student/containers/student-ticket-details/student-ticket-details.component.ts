@@ -2,13 +2,16 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { TicketStatus, TicketUserType } from 'src/app/config';
 import { AlertNotificationService } from 'src/app/core/components';
 import { ITicket, ITicketReply } from 'src/app/core/models';
-import { AuthService, SupportService } from 'src/app/core/services';
+import { SupportService } from 'src/app/core/services';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { NgxAutoScroll } from 'ngx-auto-scroll';
+import { IUser } from '@metutor/core/models';
+import * as fromCore from '@metutor/core/state';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'metutors-student-ticket-details',
@@ -26,6 +29,8 @@ import { NgxAutoScroll } from 'ngx-auto-scroll';
 export class StudentTicketDetailsComponent implements OnInit {
   @ViewChild(NgxAutoScroll) ngxAutoScroll?: NgxAutoScroll;
 
+  user$: Observable<IUser | null>;
+
   loading = false;
   ticket?: ITicket;
   messageForm: FormGroup;
@@ -36,8 +41,8 @@ export class StudentTicketDetailsComponent implements OnInit {
   constructor(
     private _title: Title,
     private _fb: FormBuilder,
+    private _store: Store<any>,
     private _route: ActivatedRoute,
-    public authService: AuthService,
     private _supportService: SupportService,
     private _alertNotificationService: AlertNotificationService
   ) {
@@ -47,6 +52,8 @@ export class StudentTicketDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.user$ = this._store.select(fromCore.selectUser);
+
     this._route.paramMap.subscribe((res: ParamMap) => {
       const id = res.get('id') || '';
       this.getTicketSub = this._supportService

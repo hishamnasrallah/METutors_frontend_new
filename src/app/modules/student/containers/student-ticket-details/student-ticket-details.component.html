@@ -57,7 +57,7 @@
 
           <form class="write-comment" [formGroup]="messageForm" (ngSubmit)="onSubmit(messageForm)">
             <div class="position-relative">
-              <img [src]="authService.decodeToken()?.avatar" meTutorsDefaultAvatar class="rounded-circle" alt=""
+              <img [src]="(user$ | async)?.avatar" meTutorsDefaultAvatar class="rounded-circle" alt=""
                 width="40" height="40" draggable="false">
               <input type="text" class="form-control" placeholder="Write a comment..." formControlName="reply">
               <button mat-flat-button color="primary" type="submit" [disabled]="messageForm.invalid || loading">
