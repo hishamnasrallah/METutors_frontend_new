@@ -10,8 +10,8 @@ import { ITutor } from 'src/app/core/models';
 })
 export class SelectTutorFormComponent implements OnInit {
   @Input() form!: FormGroup;
-  @Input() tutors?: ITutor[];
-  @Input() loading?: boolean;
+  @Input() tutors: ITutor[] | null;
+  @Input() loading: boolean | null;
 
   @Output() onBack = new EventEmitter();
   @Output() submitForm = new EventEmitter();
