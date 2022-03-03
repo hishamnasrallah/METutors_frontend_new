@@ -1,6 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 
 import {
+  ICity,
   ICountry,
   IField,
   ILanguage,
@@ -45,6 +46,21 @@ export const loadCountriesFailure = createAction(
   props<{ error: any }>()
 );
 
+export const loadCities = createAction(
+  '[Lookups] Load Cities',
+  props<{ countryId: string }>()
+);
+
+export const loadCitiesSuccess = createAction(
+  '[Lookups] Load Cities Success',
+  props<{ cities: ICity[] }>()
+);
+
+export const loadCitiesFailure = createAction(
+  '[Lookups] Load Cities Failure',
+  props<{ error: any }>()
+);
+
 export const loadPrograms = createAction('[Lookups] Load Programs');
 
 export const loadProgramsSuccess = createAction(
@@ -84,5 +100,17 @@ export const loadFieldsByProgramIdSuccess = createAction(
 
 export const loadFieldsByProgramIdFailure = createAction(
   '[Lookups] Load Fields By Program Id Failure',
+  props<{ error: any }>()
+);
+
+export const loadFields = createAction('[Lookups] Load Fields');
+
+export const loadFieldsSuccess = createAction(
+  '[Lookups] Load Fields Success',
+  props<{ fields: IField[] }>()
+);
+
+export const loadFieldsFailure = createAction(
+  '[Lookups] Load Fields Failure',
   props<{ error: any }>()
 );

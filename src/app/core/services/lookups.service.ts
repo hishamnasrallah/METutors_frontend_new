@@ -35,7 +35,7 @@ export class LookupsService {
       .pipe(catchError(this.errorHandler));
   }
 
-  getCities(id: number): Observable<any> {
+  getCities(id: string): Observable<any> {
     return this.http
       .get<{ cities: ICity[] }>(`${this.BACKEND_URL}cities?country_id=${id}`)
       .pipe(

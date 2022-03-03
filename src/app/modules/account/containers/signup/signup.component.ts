@@ -310,13 +310,13 @@ export class SignupComponent implements OnInit, OnDestroy {
           if (res) {
             localStorage.setItem('token', res);
 
-            if (this._authService.getIsStudentAuth()) {
-              this._router.navigate(['/student']);
-            } else if (this._authService.getIsTutorAuth()) {
-              this._router.navigate(['/tutor']);
-            } else {
+            // if (this._authService.getIsStudentAuth()) {
+            //   this._router.navigate(['/student']);
+            // } else if (this._authService.getIsTutorAuth()) {
+            //   this._router.navigate(['/tutor']);
+            // } else {
               this._router.navigate(['/']);
-            }
+            // }
           }
         },
         (error) => {
@@ -343,13 +343,13 @@ export class SignupComponent implements OnInit, OnDestroy {
           if (res) {
             localStorage.setItem('token', res);
 
-            if (this._authService.getIsStudentAuth()) {
-              this._router.navigate(['/student']);
-            } else if (this._authService.getIsTutorAuth()) {
-              this._router.navigate(['/tutor']);
-            } else {
-              this._router.navigate(['/']);
-            }
+            // if (this._authService.getIsStudentAuth()) {
+            //   this._router.navigate(['/student']);
+            // } else if (this._authService.getIsTutorAuth()) {
+            //   this._router.navigate(['/tutor']);
+            // } else {
+            this._router.navigate(['/']);
+            // }
           }
         },
         (error) => {

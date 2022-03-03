@@ -73,6 +73,24 @@ export class LookupsEffects {
     )
   );
 
+  loadCities$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(lookupsActions.loadCities),
+      mergeMap(action =>
+        this._lookupsService.getCities(action.countryId).pipe(
+          map((cities) =>
+            lookupsActions.loadCitiesSuccess({
+              cities,
+            })
+          ),
+          catchError((error) =>
+            of(lookupsActions.loadCitiesFailure({ error }))
+          )
+        )
+      )
+    )
+  );
+
   loadPrograms$ = createEffect(() =>
     this._actions$.pipe(
       ofType(lookupsActions.loadPrograms),
@@ -114,24 +132,40 @@ export class LookupsEffects {
   );
 
   loadFieldsByProgramId$ = createEffect(() =>
-  this._actions$.pipe(
-    ofType(lookupsActions.loadFieldsByProgramId),
-    // withLatestFrom(this._store.select(fromCore.selectSubjects)),
-    // filter(([_, fields]) => !fields || fields.length === 0),
-    mergeMap((action) =>
-      this._lookupsService.getFieldsByProgramId(action.programId).pipe(
-        map((fields) =>
-          lookupsActions.loadFieldsByProgramIdSuccess({
-            fields,
-          })
-        ),
-        catchError((error) =>
-          of(lookupsActions.loadFieldsByProgramIdFailure({ error }))
+    this._actions$.pipe(
+      ofType(lookupsActions.loadFieldsByProgramId),
+      // withLatestFrom(this._store.select(fromCore.selectSubjects)),
+      // filter(([_, fields]) => !fields || fields.length === 0),
+      mergeMap((action) =>
+        this._lookupsService.getFieldsByProgramId(action.programId).pipe(
+          map((fields) =>
+            lookupsActions.loadFieldsByProgramIdSuccess({
+              fields,
+            })
+          ),
+          catchError((error) =>
+            of(lookupsActions.loadFieldsByProgramIdFailure({ error }))
+          )
         )
       )
     )
-  )
-);
+  );
+
+  loadFields$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(lookupsActions.loadFields),
+      mergeMap((_) =>
+        this._lookupsService.getFields().pipe(
+          map((fields) =>
+            lookupsActions.loadFieldsSuccess({
+              fields,
+            })
+          ),
+          catchError((error) => of(lookupsActions.loadFieldsFailure({ error })))
+        )
+      )
+    )
+  );
 
   constructor(
     private _store: Store<any>,

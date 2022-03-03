@@ -45,8 +45,8 @@ import { FormValidationUtilsService } from 'src/app/core/validators';
 export class CompleteTutorProfileTeachingSpecificationsComponent
   implements OnInit
 {
-  @Input() loading?: boolean;
-  @Input() fields!: IField[];
+  @Input() loading: boolean | null;
+  @Input() fields: IField[] | null;
   @Input() levels: ILevel[] | null;
   @Input() programs: IProgram[] | null;
   @Input() countries: ICountry[] | null;

@@ -1,10 +1,10 @@
 import { DatePipe } from '@angular/common';
-import { Component,  OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertNotificationService } from 'src/app/core/components';
 import { MatStepper } from '@angular/material/stepper';
 import { Router } from '@angular/router';
-import { Observable,  tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import * as fromCore from '@metutor/core/state';
 import {
   AcademicTutoringTextbook,
@@ -116,12 +116,12 @@ export class RequestTutorComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this._authService.getIsTutorAuth()) {
-      this._alertNotificationService.error(
-        'You dont have a permission to access this page from tutor account'
-      );
-      this._router.navigate(['/']);
-    }
+    // if (this._authService.getIsTutorAuth()) {
+    //   this._alertNotificationService.error(
+    //     'You dont have a permission to access this page from tutor account'
+    //   );
+    //   this._router.navigate(['/']);
+    // }
 
     this._prepareLanguages();
     this._prepareCourseLevel();
@@ -139,7 +139,7 @@ export class RequestTutorComponent implements OnInit {
   }
 
   fetchCourseFieldSubject(programId: string): void {
-    this._store.dispatch(fromCore.loadSubjectsByProgramId({programId}));
+    this._store.dispatch(fromCore.loadSubjectsByProgramId({ programId }));
     this.subjects$ = this._store.select(fromCore.selectSubjects).pipe(
       tap((subjects) => {
         if (subjects && subjects.length) {
@@ -150,7 +150,7 @@ export class RequestTutorComponent implements OnInit {
   }
 
   fetchCourseField(programId: string): void {
-    this._store.dispatch(fromCore.loadFieldsByProgramId({programId}));
+    this._store.dispatch(fromCore.loadFieldsByProgramId({ programId }));
     this.fields$ = this._store.select(fromCore.selectFields).pipe(
       tap((fields) => {
         if (fields && fields.length) {

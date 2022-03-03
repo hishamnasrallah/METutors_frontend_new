@@ -6,12 +6,46 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as fromRoot from '@metutor/state';
 import { AuthService } from '@services';
 import * as userActions from '../actions/user.actions';
+import * as tutorActions from '../actions/tutor.actions';
 import * as fromCore from '@metutor/core/state';
 import { Router } from '@angular/router';
 import { AlertNotificationService } from '@metutor/core/components';
+import camelcaseKeys from 'camelcase-keys';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { UserRole } from '@metutor/config';
 
 @Injectable()
 export class UserEffects {
+  identifyUser$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(userActions.identifyUser),
+      withLatestFrom(this._store.select(fromCore.selectToken)),
+      mergeMap(([_, token]) => {
+        const jwtHelper = new JwtHelperService();
+        const decodeToken = camelcaseKeys(jwtHelper.decodeToken(token), {
+          deep: true,
+        });
+        const user: any = decodeToken?.user;
+
+        if (user && token) {
+          return of(
+            userActions.identifyUserSuccess({
+              user,
+              profileStep:
+                user &&
+                user.profileCompletedStep &&
+                !isNaN(user.profileCompletedStep)
+                  ? +user.profileCompletedStep + 1
+                  : 1,
+            })
+          );
+        } else {
+          return of(userActions.identifyUserEnded());
+        }
+      })
+    )
+  );
+
   signIn$ = createEffect(() =>
     this._actions$.pipe(
       ofType(userActions.signIn),
@@ -21,8 +55,21 @@ export class UserEffects {
       mergeMap(([{ user }, returnUrl]) =>
         this._authService.login(user).pipe(
           map((response) => {
+            const jwtHelper = new JwtHelperService();
+            const decodeToken = camelcaseKeys(jwtHelper.decodeToken(response), {
+              deep: true,
+            });
+            const user: any = decodeToken?.user;
+
             return userActions.signInSuccess({
               token: response,
+              user,
+              profileStep:
+                user &&
+                user.profileCompletedStep &&
+                !isNaN(user.profileCompletedStep)
+                  ? +user.profileCompletedStep + 1
+                  : 1,
               returnUrl,
             });
           }),
@@ -36,16 +83,18 @@ export class UserEffects {
     () =>
       this._actions$.pipe(
         ofType(userActions.signInSuccess),
-        map((action) => {
+        withLatestFrom(
+          this._store.select(fromCore.selectProfileStep),
+          this._store.select(fromCore.selectUser)
+        ),
+        map(([action, step, user]) => {
           if (action.returnUrl) {
             this._router.navigateByUrl(action.returnUrl);
           } else {
-            if (this._authService.getIsStudentAuth()) {
+            if (user?.roleId?.toString() === UserRole.student.toString()) {
               this._router.navigate(['/student']);
-            } else if (this._authService.getIsTutorAuth()) {
-              if (
-                +this._authService.decodeToken()?.user?.profileCompletedStep < 4
-              )
+            } else if (user?.roleId?.toString() === UserRole.tutor.toString()) {
+              if (step < 4)
                 this._router.navigate(['/profile', 'complete-profile']);
               else this._router.navigate(['/tutor']);
             } else {
@@ -99,6 +148,30 @@ export class UserEffects {
         ofType(userActions.logoutSuccess),
         map(() => {
           this._router.navigateByUrl('/login');
+        })
+      ),
+    {
+      dispatch: false,
+    }
+  );
+
+  enterCompleteProfile$ = createEffect(
+    () =>
+      this._actions$.pipe(
+        ofType(
+          ...[
+            userActions.enterCompleteProfile,
+            tutorActions.completeTutorProfileSuccess,
+          ]
+        ),
+        withLatestFrom(
+          this._store.select(fromCore.selectProfileStep),
+          this._store.select(fromCore.selectUser)
+        ),
+        map(([_, step, user]) => {
+          if (step > 4 && user && user.id) {
+            this._router.navigateByUrl(`/profile/tutor/${user.id.toString()}`);
+          }
         })
       ),
     {

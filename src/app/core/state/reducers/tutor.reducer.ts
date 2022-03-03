@@ -9,6 +9,10 @@ export interface State {
   isLoadingTutors: boolean;
   isLoadingDashboard: boolean;
   loadingTutorFailure: string;
+
+  // Complete Tutor Profile
+  isCompleteTutorProfile: boolean;
+  completeTutorProfileFailure: string;
 }
 
 export const initialState: State = {
@@ -17,6 +21,8 @@ export const initialState: State = {
   isLoadingTutors: false,
   loadingTutorFailure: '',
   isLoadingDashboard: false,
+  isCompleteTutorProfile: false,
+  completeTutorProfileFailure: '',
 };
 
 export const reducer = createReducer(
@@ -37,6 +43,7 @@ export const reducer = createReducer(
     isLoadingTutors: false,
     loadingTutorFailure: error.message,
   })),
+
   on(tutorActions.loadTutorDashboard, (state) => ({
     ...state,
     isLoadingDashboard: true,
@@ -56,6 +63,22 @@ export const reducer = createReducer(
   on(tutorActions.loadTutorDashboardEnded, (state) => ({
     ...state,
     isLoadingDashboard: false,
+  })),
+
+  on(tutorActions.completeTutorProfile, (state) => ({
+    ...state,
+    isCompleteTutorProfile: true,
+  })),
+
+  on(tutorActions.completeTutorProfileSuccess, (state) => ({
+    ...state,
+    isCompleteTutorProfile: false,
+  })),
+
+  on(tutorActions.completeTutorProfileFailure, (state, { error }) => ({
+    ...state,
+    isCompleteTutorProfile: false,
+    completeTutorProfileFailure: error.message,
   }))
 );
 
@@ -68,3 +91,6 @@ export const selectIsLoadingTutor = (state: State): boolean =>
 
 export const selectIsLoadingTutorDashboard = (state: State): boolean =>
   state.isLoadingDashboard;
+
+export const selectIsCompleteTutorProfile = (state: State): boolean =>
+  state.isCompleteTutorProfile;

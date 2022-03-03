@@ -1,6 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 
 import {
+  ICity,
   ICountry,
   IField,
   ILanguage,
@@ -26,6 +27,11 @@ export interface State {
   isLoadingCountries?: boolean;
   loadingCountriesFailure?: string;
 
+  // Cities
+  cities: ICity[] | null;
+  isLoadingCities?: boolean;
+  loadingCitiesFailure?: string;
+
   // Programs
   programs: IProgram[] | null;
   isLoadingPrograms?: boolean;
@@ -45,6 +51,7 @@ export interface State {
 export const initialState: State = {
   fields: null,
   levels: null,
+  cities: null,
   subjects: null,
   programs: null,
   languages: null,
@@ -104,6 +111,23 @@ export const reducer = createReducer(
     loadingCountriesFailure: error.message,
   })),
 
+  on(lookupsActions.loadCities, (state) => ({
+    ...state,
+    isLoadingCities: true,
+  })),
+
+  on(lookupsActions.loadCitiesSuccess, (state, { cities }) => ({
+    ...state,
+    cities,
+    isLoadingCities: false,
+  })),
+
+  on(lookupsActions.loadCitiesFailure, (state, { error }) => ({
+    ...state,
+    isLoadingCities: false,
+    loadingCitiesFailure: error.message,
+  })),
+
   on(lookupsActions.loadPrograms, (state) => ({
     ...state,
     isLoadingPrograms: true,
@@ -138,22 +162,34 @@ export const reducer = createReducer(
     loadingSubjectsFailure: error.message,
   })),
 
-  on(lookupsActions.loadFieldsByProgramId, (state) => ({
-    ...state,
-    isLoadingFields: true,
-  })),
+  on(
+    lookupsActions.loadFieldsByProgramId,
+    lookupsActions.loadFields,
+    (state) => ({
+      ...state,
+      isLoadingFields: true,
+    })
+  ),
 
-  on(lookupsActions.loadFieldsByProgramIdSuccess, (state, { fields }) => ({
-    ...state,
-    fields,
-    isLoadingFields: false,
-  })),
+  on(
+    lookupsActions.loadFieldsByProgramIdSuccess,
+    lookupsActions.loadFieldsSuccess,
+    (state, { fields }) => ({
+      ...state,
+      fields,
+      isLoadingFields: false,
+    })
+  ),
 
-  on(lookupsActions.loadFieldsByProgramIdFailure, (state, { error }) => ({
-    ...state,
-    isLoadingFields: false,
-    loadingFieldsFailure: error.message,
-  }))
+  on(
+    lookupsActions.loadFieldsByProgramIdFailure,
+    lookupsActions.loadFieldsFailure,
+    (state, { error }) => ({
+      ...state,
+      isLoadingFields: false,
+      loadingFieldsFailure: error.message,
+    })
+  )
 );
 
 export const selectLanguages = (state: State): ILanguage[] | null =>
@@ -172,6 +208,11 @@ export const selectCountries = (state: State): ICountry[] | null =>
 
 export const selectIsLoadingCountries = (state: State): boolean | undefined =>
   state.isLoadingCountries;
+
+export const selectCities = (state: State): ICity[] | null => state.cities;
+
+export const selectIsLoadingCities = (state: State): boolean | undefined =>
+  state.isLoadingCities;
 
 export const selectPrograms = (state: State): IProgram[] | null =>
   state.programs;

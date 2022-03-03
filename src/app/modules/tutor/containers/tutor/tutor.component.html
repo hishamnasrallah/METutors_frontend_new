@@ -2,7 +2,7 @@
   <metutors-tutor-sidebar (logout)="logout()"></metutors-tutor-sidebar>
 
   <div class="flex-grow-1 overflow-auto">
-    <metutors-tutor-navbar></metutors-tutor-navbar>
+    <metutors-tutor-navbar [user]="user$ | async"></metutors-tutor-navbar>
 
     <router-outlet></router-outlet>
   </div>

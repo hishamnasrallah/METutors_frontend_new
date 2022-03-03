@@ -17,7 +17,7 @@ import { ILanguage } from 'src/app/core/models';
 export class CompleteTutorProfileQualificationDetailsComponent
   implements OnInit
 {
-  @Input() loading?: boolean;
+  @Input() loading: boolean | null;
   @Input() languagesList: ILanguage[] | null;
 
   @Output() submitForm = new EventEmitter();
