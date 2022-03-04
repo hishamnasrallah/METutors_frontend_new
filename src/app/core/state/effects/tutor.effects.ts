@@ -9,6 +9,8 @@ import { selectTutorDashboard } from '..';
 import { TutorsService } from '@services';
 import * as tutorActions from '../actions/tutor.actions';
 import { AlertNotificationService } from '@metutor/core/components';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { environment } from '@environment';
 
 @Injectable()
 export class TutorEffects {
@@ -17,13 +19,31 @@ export class TutorEffects {
       ofType(tutorActions.completeTutorProfile),
       mergeMap(({ data, nextStep }) =>
         this._tutorService.sendTeacherAccount(data).pipe(
-          map(() =>
-            tutorActions.completeTutorProfileSuccess({
+          map((response) => {
+            const jwtHelper = new JwtHelperService();
+            const decodeToken = camelcaseKeys(
+              jwtHelper.decodeToken(response?.token),
+              {
+                deep: true,
+              }
+            );
+            const user: any = decodeToken?.user;
+
+            return tutorActions.completeTutorProfileSuccess({
               nextStep,
-            })
-          ),
+              token: response?.token,
+              user: {
+                ...user,
+                avatar: environment.imageURL + user?.avatar,
+              },
+            });
+          }),
           catchError((error) =>
-            of(tutorActions.completeTutorProfileFailure({ error: error?.error?.message }))
+            of(
+              tutorActions.completeTutorProfileFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
           )
         )
       )
@@ -40,7 +60,13 @@ export class TutorEffects {
               tutor,
             })
           ),
-          catchError((error) => of(tutorActions.loadTutorFailure({ error: error?.error?.message })))
+          catchError((error) =>
+            of(
+              tutorActions.loadTutorFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
         )
       )
     )
@@ -59,7 +85,11 @@ export class TutorEffects {
               })
             ),
             catchError((error) =>
-              of(tutorActions.loadTutorDashboardFailure({ error: error?.error?.message }))
+              of(
+                tutorActions.loadTutorDashboardFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
             )
           );
         } else {

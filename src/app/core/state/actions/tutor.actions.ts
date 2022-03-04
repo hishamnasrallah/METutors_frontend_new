@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { ITutor } from '@models';
+import { ITutor, IUser } from '@models';
 
 export const completeTutorProfile = createAction(
   '[Tutor] Complete Tutor Profile',
@@ -9,7 +9,7 @@ export const completeTutorProfile = createAction(
 
 export const completeTutorProfileSuccess = createAction(
   '[Tutor] Complete Tutor Profile Success',
-  props<{ nextStep: number }>()
+  props<{ nextStep: number; token: string; user: IUser }>()
 );
 
 export const completeTutorProfileFailure = createAction(

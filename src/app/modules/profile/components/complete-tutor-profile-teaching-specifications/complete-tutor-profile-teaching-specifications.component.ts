@@ -57,8 +57,10 @@ export class CompleteTutorProfileTeachingSpecificationsComponent
 
   nationalId = 3;
   form: FormGroup;
+  openSubject = true;
   minDate = new Date();
   days = SORTED_DAYS_WEEK;
+  selectedSubject: number = 0;
   selectedDays: number[] = [];
   types = COURSE_TUITION_TYPES_CONST;
 
@@ -179,6 +181,12 @@ export class CompleteTutorProfileTeachingSpecificationsComponent
 
   onChangeField(event: any): void {
     this.changeField.emit(event?.value?.id);
+  }
+
+  onOpenChange(state: boolean, index: number): void {
+    if (state === false) {
+      this.selectedSubject = index + 1;
+    }
   }
 
   openDialog(index: number) {

@@ -81,7 +81,11 @@ export class UserEffects {
             });
           }),
           catchError((error) =>
-            of(userActions.signInFailure({ error: error?.error?.message }))
+            of(
+              userActions.signInFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
           )
         )
       )
@@ -103,7 +107,7 @@ export class UserEffects {
             if (user?.roleId?.toString() === UserRole.student.toString()) {
               this._router.navigate(['/student']);
             } else if (user?.roleId?.toString() === UserRole.tutor.toString()) {
-              if (step < 4)
+              if (step <= 4)
                 this._router.navigate(['/profile', 'complete-profile']);
               else this._router.navigate(['/tutor']);
             } else {

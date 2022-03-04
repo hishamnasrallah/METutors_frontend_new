@@ -73,53 +73,53 @@
         <div class="form-group">
           <div>
             <label for="subjects" class="form-label">Field of study</label>
-            <a class="float-end cursor-pointer" (click)="addSubject()">Add new</a>
+            <a class="float-end cursor-pointer" *ngIf="selectedSubject === form.value.subjects.length"
+              (click)="addSubject(); selectedSubject = form.value.subjects.length - 1">Add new</a>
           </div>
-
           <ng-container formArrayName="subjects">
             <ng-container *ngFor="let _ of subjects.controls; let i = index" [formGroupName]="i">
-              <ng-container *ngIf="!form.value.subjects[i].field || !form.value.subjects[i].subject">
+              <div [hidden]="(form.value.subjects[i].field && form.value.subjects[i].subject) || selectedSubject !== i">
                 <mat-form-field appearance="outline" class="w-100 mt-3">
-                  <mat-select formControlName="field" [placeholder]="'Select Field'" (selectionChange)="onChangeField($event)">
+                  <mat-select formControlName="field" [placeholder]="'Select Field'"
+                    (selectionChange)="onChangeField($event)">
                     <ng-container *ngFor="let field of fields">
                       <mat-option [value]="field" *ngIf="form.value.program?.includes(field?.programId)">
-                        {{ field?.name }}</mat-option>
+                        {{ field?.name }}
+                      </mat-option>
                     </ng-container>
                   </mat-select>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="w-100">
-                  <mat-select formControlName="subject" [placeholder]="'Select subject'">
+                  <mat-select formControlName="subject" [placeholder]="'Select subject'" multiple
+                    (openedChange)="onOpenChange($event, i)">
                     <mat-option [value]="subject" *ngFor="let subject of subjectsList">
                       {{ subject?.name }}
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
-              </ng-container>
+              </div>
             </ng-container>
           </ng-container>
 
           <mat-chip-list>
             <ng-container *ngFor="let subj of form.value.subjects; let i = index">
-              <mat-chip *ngIf="subj.field && subj.subject">
-                <div class="subj-info d-flex align-items-center justify-content-center">
-                  {{ subj.field?.name }} - <span>{{ subj.subject?.name }}</span>
-                  <mat-icon (click)="removeSubject(i)">cancel</mat-icon>
+              <mat-chip *ngIf="subj.field && subj.subject && subj.subject.length" class="subj-info">
+                <div class="d-flex align-items-center justify-content-center">
+                  <div class="d-flex flex-column justify-content-center px-2">
+                    <span class="field">{{ subj.field?.name }}</span>
+                    <div class="d-block">
+                      <span class="subject" *ngFor="let sub of subj.subject; let isLast = last">
+                        {{ sub?.name }}
+                        <ng-container *ngIf="!isLast">, </ng-container>
+                      </span>
+                    </div>
+                  </div>
+                  <mat-icon (click)="removeSubject(i); selectedSubject = selectedSubject - 1">cancel</mat-icon>
                 </div>
               </mat-chip>
             </ng-container>
           </mat-chip-list>
-          <!-- <label for="subject" class="form-label">Select Subject</label>
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="subject" [placeholder]="'Math'">
-              <mat-option value="Math">Math</mat-option>
-              <mat-option value="Physics">Physics</mat-option>
-              <mat-option value="Chemistry">Chemistry</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <div class="text-danger" *ngIf="subject?.touched && subject?.invalid">
-            Please choose your Subject
-          </div> -->
         </div>
       </div>
 

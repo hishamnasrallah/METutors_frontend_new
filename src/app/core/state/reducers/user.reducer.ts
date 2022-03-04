@@ -42,10 +42,15 @@ export const reducer = createReducer(
     signInFailure: error.message,
   })),
 
-  on(tutorActions.completeTutorProfileSuccess, (state, { nextStep }) => ({
-    ...state,
-    profileStep: nextStep,
-  })),
+  on(
+    tutorActions.completeTutorProfileSuccess,
+    (state, { nextStep, user, token }) => ({
+      ...state,
+      profileStep: nextStep,
+      user,
+      token,
+    })
+  ),
 
   on(userActions.identifyUserSuccess, (state, { profileStep, user }) => ({
     ...state,

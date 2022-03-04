@@ -27,17 +27,25 @@
 
 .subj-info {
   font-size: 15px;
-  color: #000;
+  color: #FFF;
+  background: #3BB3C1;
+  border-radius: 30px;
+  height: auto;
 
-  span {
-    font-size: 11px;
-    margin-left: 5px;
+  .field {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .subject {
+    font-size: 12px;
   }
 
   mat-icon {
     color: #C4C4C4;
     cursor: pointer;
-    margin-left: 10px;
+    font-size: 30px;
+    margin: 0 5px;
   }
 }
 

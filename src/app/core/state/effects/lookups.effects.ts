@@ -30,7 +30,11 @@ export class LookupsEffects {
             })
           ),
           catchError((error) =>
-            of(lookupsActions.loadLanguagesFailure({ error: error?.error?.message }))
+            of(
+              lookupsActions.loadLanguagesFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
           )
         )
       )
@@ -49,7 +53,13 @@ export class LookupsEffects {
               levels,
             })
           ),
-          catchError((error) => of(lookupsActions.loadLevelsFailure({ error: error?.error?.message })))
+          catchError((error) =>
+            of(
+              lookupsActions.loadLevelsFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
         )
       )
     )
@@ -68,7 +78,11 @@ export class LookupsEffects {
             })
           ),
           catchError((error) =>
-            of(lookupsActions.loadCountriesFailure({ error: error?.error?.message }))
+            of(
+              lookupsActions.loadCountriesFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
           )
         )
       )
@@ -85,7 +99,13 @@ export class LookupsEffects {
               cities,
             })
           ),
-          catchError((error) => of(lookupsActions.loadCitiesFailure({ error: error?.error?.message })))
+          catchError((error) =>
+            of(
+              lookupsActions.loadCitiesFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
         )
       )
     )
@@ -104,7 +124,11 @@ export class LookupsEffects {
             })
           ),
           catchError((error) =>
-            of(lookupsActions.loadProgramsFailure({ error: error?.error?.message }))
+            of(
+              lookupsActions.loadProgramsFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
           )
         )
       )
@@ -124,7 +148,11 @@ export class LookupsEffects {
             })
           ),
           catchError((error) =>
-            of(lookupsActions.loadSubjectsByProgramIdFailure({ error: error?.error?.message }))
+            of(
+              lookupsActions.loadSubjectsByProgramIdFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
           )
         )
       )
@@ -144,7 +172,11 @@ export class LookupsEffects {
             })
           ),
           catchError((error) =>
-            of(lookupsActions.loadFieldsByProgramIdFailure({ error: error?.error?.message }))
+            of(
+              lookupsActions.loadFieldsByProgramIdFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
           )
         )
       )
@@ -161,7 +193,13 @@ export class LookupsEffects {
               fields,
             })
           ),
-          catchError((error) => of(lookupsActions.loadFieldsFailure({ error: error?.error?.message })))
+          catchError((error) =>
+            of(
+              lookupsActions.loadFieldsFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
         )
       )
     )
@@ -180,7 +218,11 @@ export class LookupsEffects {
               })
             ),
             catchError((error) =>
-              of(lookupsActions.loadTopicsFailure({ error: error?.error?.message }))
+              of(
+                lookupsActions.loadTopicsFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
             )
           );
         } else {
@@ -205,7 +247,13 @@ export class LookupsEffects {
                 FAQs,
               })
             ),
-            catchError((error) => of(lookupsActions.loadFAQsFailure({ error: error?.error?.message })))
+            catchError((error) =>
+              of(
+                lookupsActions.loadFAQsFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
           );
         } else {
           return of(lookupsActions.loadFAQsEnded());
