@@ -1,51 +1,28 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { addMisc, getMisc, TicketCategory } from 'src/app/config';
+import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import * as fromCore from '@metutor/core/state';
 import { IFAQ } from 'src/app/core/models';
-import { MiscService, SupportService } from 'src/app/core/services';
 
 @Component({
   selector: 'metutors-student-faq',
   templateUrl: './student-faq.component.html',
   styleUrls: ['./student-faq.component.scss'],
 })
-export class StudentFaqComponent implements OnInit, OnDestroy {
-  systemInfoDetails: any;
-  listFAQs?: IFAQ[] = [];
-  tempListFAQs?: IFAQ[] = [];
-  fetchListFaqSub?: Subscription;
-  getSystemInfoDetailsSub?: Subscription;
+export class StudentFaqComponent implements OnInit {
+  FAQs$: Observable<IFAQ[] | null>;
+  loadingFAQs$: Observable<boolean>;
 
-  constructor(
-    private _supportService: SupportService,
-    private _miscService: MiscService
-  ) {}
+  constructor(private _store: Store<any>) {}
 
   ngOnInit(): void {
-    this.fetchListFaqSub = this._supportService
-      .fetchListFaq()
-      .subscribe(
-        (response) => {
-          this.listFAQs = response.results;
-          this.tempListFAQs = response.results;
-        },
-        () => {}
-      );
-
-    this.getSystemInfoDetailsSub = this._miscService
-      .fetchSystemInfoDetails()
-      .subscribe(
-        (fetchedValues) => {
-          this.systemInfoDetails = fetchedValues;
-          addMisc('systemInfoDetails', this.systemInfoDetails);
-        },
-        () => {}
-      );
-    // this.systemInfoDetails = getMisc().systemInfoDetails;
+    this._store.dispatch(fromCore.loadFAQs());
+    this.FAQs$ = this._store.select(fromCore.selectFAQs);
+    this.loadingFAQs$ = this._store.select(fromCore.selectIsLoadingFAQs);
   }
 
-  ngOnDestroy(): void {
-    this.getSystemInfoDetailsSub?.unsubscribe();
-    this.fetchListFaqSub?.unsubscribe();
+  filterFAQs(title: string): void {
+    // this._store.dispatch(fromCore.loadFAQs());
+    // this.FAQs$ = this._store.select(fromCore.selectFilteredFAQs);
   }
 }

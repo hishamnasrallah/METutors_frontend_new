@@ -10,9 +10,9 @@
       <div class="col-md-6 offset-md-3">
         <div class="form-block position-relative rounded">
           <mat-icon>search</mat-icon>
-          <input type="text" placeholder="Ask a questions..." class="w-100 rounded" (keyup)="filterFAQ(searchKey.value)"
-            #searchKey>
-          <button mat-flat-button color="primary" (click)="filterFAQ(searchKey.value)">Search</button>
+          <input type="text" placeholder="Ask a questions..." class="w-100 rounded"
+            (keyup)="submitFAQ.emit(searchKey.value)" #searchKey>
+          <button mat-flat-button color="primary" (click)="submitFAQ.emit(searchKey.value)">Search</button>
         </div>
       </div>
       <div class="col-12">

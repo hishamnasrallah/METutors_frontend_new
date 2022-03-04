@@ -36,7 +36,8 @@ import {
   ],
 })
 export class FaqListQuestionsComponent implements OnInit {
-  @Input() listFAQs?: IFAQ[];
+  @Input() listFAQs: IFAQ[] | null;
+  @Input() isLoading: boolean | null;
 
   selectedQuestion?: number;
   openQuestion: boolean = false;
