@@ -192,6 +192,25 @@ export class UserEffects {
     }
   );
 
+  enterRequestTutor$ = createEffect(
+    () =>
+      this._actions$.pipe(
+        ofType(userActions.enterRequestTutor),
+        withLatestFrom(this._store.select(fromCore.selectUser)),
+        map(([_, user]) => {
+          if (user && user?.roleId?.toString() === UserRole.tutor.toString()) {
+            this._alertNotificationService.error(
+              'You dont have a permission to access this page from tutor account'
+            );
+            this._router.navigate(['/']);
+          }
+        })
+      ),
+    {
+      dispatch: false,
+    }
+  );
+
   failureMessages$ = createEffect(
     () =>
       this._actions$.pipe(

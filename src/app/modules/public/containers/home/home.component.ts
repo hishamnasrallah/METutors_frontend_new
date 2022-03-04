@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { IStatistics, ITutor } from 'src/app/core/models';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { IStatistics, ITutor, IProgram } from 'src/app/core/models';
+import * as fromCore from '@metutor/core/state';
 
 @Component({
   selector: 'metutors-home',
@@ -7,13 +10,18 @@ import { IStatistics, ITutor } from 'src/app/core/models';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
+  loadingPrograms$: Observable<boolean>;
+  programs$: Observable<IProgram[] | null>;
+
   teachers?: ITutor[];
   testmonials?: any[];
   academicStatistics?: IStatistics[];
 
-  constructor() {}
+  constructor(private _store: Store<any>) {}
 
   ngOnInit(): void {
+    this._preparePrograms();
+
     this.academicStatistics = [
       {
         id: 1,
@@ -150,5 +158,13 @@ export class HomeComponent implements OnInit {
         isVerified: true,
       },
     ];
+  }
+
+  private _preparePrograms(): void {
+    this._store.dispatch(fromCore.loadPrograms());
+    this.programs$ = this._store.select(fromCore.selectPrograms);
+    this.loadingPrograms$ = this._store.select(
+      fromCore.selectIsLoadingPrograms
+    );
   }
 }

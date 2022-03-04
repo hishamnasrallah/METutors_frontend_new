@@ -149,6 +149,11 @@ export const selectPrograms = createSelector(
   fromLookupsReducer.selectPrograms
 );
 
+export const selectIsLoadingPrograms = createSelector(
+  selectLookupsState,
+  fromLookupsReducer.selectIsLoadingPrograms
+);
+
 export const selectSubjects = createSelector(
   selectLookupsState,
   fromLookupsReducer.selectSubjects

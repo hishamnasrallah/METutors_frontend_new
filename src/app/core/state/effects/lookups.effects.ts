@@ -115,23 +115,26 @@ export class LookupsEffects {
     this._actions$.pipe(
       ofType(lookupsActions.loadPrograms),
       withLatestFrom(this._store.select(fromCore.selectPrograms)),
-      filter(([_, programs]) => !programs || programs.length === 0),
-      mergeMap((_) =>
-        this._lookupsService.getPrograms().pipe(
-          map((programs) =>
-            lookupsActions.loadProgramsSuccess({
-              programs,
-            })
-          ),
-          catchError((error) =>
-            of(
-              lookupsActions.loadProgramsFailure({
-                error: error?.error?.message || error?.error?.errors,
+      mergeMap(([_, _programs]) => {
+        if (!_programs || !_programs.length) {
+          return this._lookupsService.getPrograms().pipe(
+            map((programs) =>
+              lookupsActions.loadProgramsSuccess({
+                programs,
               })
+            ),
+            catchError((error) =>
+              of(
+                lookupsActions.loadProgramsFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
             )
-          )
-        )
-      )
+          );
+        } else {
+          return of(lookupsActions.loadProgramsEnded());
+        }
+      })
     )
   );
 

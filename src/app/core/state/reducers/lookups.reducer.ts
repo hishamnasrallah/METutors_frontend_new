@@ -36,7 +36,7 @@ export interface State {
 
   // Programs
   programs: IProgram[] | null;
-  isLoadingPrograms?: boolean;
+  isLoadingPrograms: boolean;
   loadingProgramsFailure?: string;
 
   // Subjects
@@ -72,6 +72,7 @@ export const initialState: State = {
   countries: null,
   isLoadingFAQs: false,
   isLoadingTopics: false,
+  isLoadingPrograms: false,
 };
 
 export const reducer = createReducer(
@@ -159,6 +160,11 @@ export const reducer = createReducer(
     ...state,
     isLoadingPrograms: false,
     loadingProgramsFailure: error.message,
+  })),
+
+  on(lookupsActions.loadProgramsEnded, (state) => ({
+    ...state,
+    isLoadingPrograms: false,
   })),
 
   on(lookupsActions.loadSubjectsByProgramId, (state) => ({
@@ -277,7 +283,7 @@ export const selectIsLoadingCities = (state: State): boolean | undefined =>
 export const selectPrograms = (state: State): IProgram[] | null =>
   state.programs;
 
-export const selectIsLoadingPrograms = (state: State): boolean | undefined =>
+export const selectIsLoadingPrograms = (state: State): boolean =>
   state.isLoadingPrograms;
 
 export const selectSubjects = (state: State): ISubject[] | null =>

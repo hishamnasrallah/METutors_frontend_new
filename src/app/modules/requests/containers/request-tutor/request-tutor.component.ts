@@ -20,6 +20,7 @@ import {
   ITutor,
 } from 'src/app/core/models';
 import { Store } from '@ngrx/store';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'metutors-request-tutor',
@@ -57,10 +58,14 @@ export class RequestTutorComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private _store: Store<any>,
-    private _datePipe: DatePipe
+    private _datePipe: DatePipe,
+    private _route: ActivatedRoute
   ) {
     this.courseInformationForm = this._fb.group({
-      courseProgram: [null, Validators.required],
+      courseProgram: [
+        +this._route.snapshot.queryParams['program'],
+        Validators.required,
+      ],
       courseLevel: [null, Validators.required],
       courseField: [null, Validators.required],
       language: [null, Validators.required],
@@ -101,13 +106,7 @@ export class RequestTutorComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // if (this._authService.getIsTutorAuth()) {
-    //   this._alertNotificationService.error(
-    //     'You dont have a permission to access this page from tutor account'
-    //   );
-    //   this._router.navigate(['/']);
-    // }
-
+    this._store.dispatch(fromCore.enterRequestTutor());
     this._prepareLanguages();
     this._prepareCourseLevel();
     this._prepareCourseProgram();

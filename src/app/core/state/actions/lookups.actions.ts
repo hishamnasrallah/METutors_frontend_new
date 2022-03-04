@@ -75,6 +75,8 @@ export const loadProgramsFailure = createAction(
   props<{ error: any }>()
 );
 
+export const loadProgramsEnded = createAction('[Lookups] Load Programs Ended');
+
 export const loadSubjectsByProgramId = createAction(
   '[Lookups] Load Subjects By Program Id',
   props<{ programId: string }>()

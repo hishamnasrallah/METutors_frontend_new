@@ -31,6 +31,10 @@ export const enterCompleteProfile = createAction(
   '[User] Enter Complete Profile'
 );
 
+export const enterRequestTutor = createAction(
+  '[User] Enter Request Tutor'
+);
+
 export const identifyUser = createAction('[User] Identify User');
 
 export const identifyUserSuccess = createAction(
