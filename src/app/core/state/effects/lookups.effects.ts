@@ -30,7 +30,7 @@ export class LookupsEffects {
             })
           ),
           catchError((error) =>
-            of(lookupsActions.loadLanguagesFailure({ error }))
+            of(lookupsActions.loadLanguagesFailure({ error: error?.error?.message }))
           )
         )
       )
@@ -49,7 +49,7 @@ export class LookupsEffects {
               levels,
             })
           ),
-          catchError((error) => of(lookupsActions.loadLevelsFailure({ error })))
+          catchError((error) => of(lookupsActions.loadLevelsFailure({ error: error?.error?.message })))
         )
       )
     )
@@ -68,7 +68,7 @@ export class LookupsEffects {
             })
           ),
           catchError((error) =>
-            of(lookupsActions.loadCountriesFailure({ error }))
+            of(lookupsActions.loadCountriesFailure({ error: error?.error?.message }))
           )
         )
       )
@@ -85,7 +85,7 @@ export class LookupsEffects {
               cities,
             })
           ),
-          catchError((error) => of(lookupsActions.loadCitiesFailure({ error })))
+          catchError((error) => of(lookupsActions.loadCitiesFailure({ error: error?.error?.message })))
         )
       )
     )
@@ -104,7 +104,7 @@ export class LookupsEffects {
             })
           ),
           catchError((error) =>
-            of(lookupsActions.loadProgramsFailure({ error }))
+            of(lookupsActions.loadProgramsFailure({ error: error?.error?.message }))
           )
         )
       )
@@ -124,7 +124,7 @@ export class LookupsEffects {
             })
           ),
           catchError((error) =>
-            of(lookupsActions.loadSubjectsByProgramIdFailure({ error }))
+            of(lookupsActions.loadSubjectsByProgramIdFailure({ error: error?.error?.message }))
           )
         )
       )
@@ -144,7 +144,7 @@ export class LookupsEffects {
             })
           ),
           catchError((error) =>
-            of(lookupsActions.loadFieldsByProgramIdFailure({ error }))
+            of(lookupsActions.loadFieldsByProgramIdFailure({ error: error?.error?.message }))
           )
         )
       )
@@ -161,7 +161,7 @@ export class LookupsEffects {
               fields,
             })
           ),
-          catchError((error) => of(lookupsActions.loadFieldsFailure({ error })))
+          catchError((error) => of(lookupsActions.loadFieldsFailure({ error: error?.error?.message })))
         )
       )
     )
@@ -180,7 +180,7 @@ export class LookupsEffects {
               })
             ),
             catchError((error) =>
-              of(lookupsActions.loadTopicsFailure({ error }))
+              of(lookupsActions.loadTopicsFailure({ error: error?.error?.message }))
             )
           );
         } else {
@@ -205,7 +205,7 @@ export class LookupsEffects {
                 FAQs,
               })
             ),
-            catchError((error) => of(lookupsActions.loadFAQsFailure({ error })))
+            catchError((error) => of(lookupsActions.loadFAQsFailure({ error: error?.error?.message })))
           );
         } else {
           return of(lookupsActions.loadFAQsEnded());

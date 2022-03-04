@@ -23,7 +23,7 @@ export class TutorEffects {
             })
           ),
           catchError((error) =>
-            of(tutorActions.completeTutorProfileFailure({ error }))
+            of(tutorActions.completeTutorProfileFailure({ error: error?.error?.message }))
           )
         )
       )
@@ -40,7 +40,7 @@ export class TutorEffects {
               tutor,
             })
           ),
-          catchError((error) => of(tutorActions.loadTutorFailure({ error })))
+          catchError((error) => of(tutorActions.loadTutorFailure({ error: error?.error?.message })))
         )
       )
     )
@@ -59,7 +59,7 @@ export class TutorEffects {
               })
             ),
             catchError((error) =>
-              of(tutorActions.loadTutorDashboardFailure({ error }))
+              of(tutorActions.loadTutorDashboardFailure({ error: error?.error?.message }))
             )
           );
         } else {

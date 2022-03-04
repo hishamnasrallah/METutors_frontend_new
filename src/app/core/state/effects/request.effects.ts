@@ -20,7 +20,7 @@ export class RequestEffects {
             })
           ),
           catchError((error) =>
-            of(requestActions.generateTutorsFailure({ error }))
+            of(requestActions.generateTutorsFailure({ error: error?.error?.message }))
           )
         )
       )
@@ -38,7 +38,7 @@ export class RequestEffects {
             return requestActions.createClassSuccess({});
           }),
           catchError((error) =>
-            of(requestActions.createClassFailure({ error }))
+            of(requestActions.createClassFailure({ error: error?.error?.message }))
           )
         )
       )

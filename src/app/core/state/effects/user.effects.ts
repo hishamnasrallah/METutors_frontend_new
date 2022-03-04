@@ -80,7 +80,9 @@ export class UserEffects {
               returnUrl,
             });
           }),
-          catchError((error) => of(userActions.signInFailure({ error: error?.message })))
+          catchError((error) =>
+            of(userActions.signInFailure({ error: error?.error?.message }))
+          )
         )
       )
     )
