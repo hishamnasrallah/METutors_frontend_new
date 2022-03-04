@@ -15,9 +15,6 @@ export class FaqComponent implements OnInit {
   loadingTopics$: Observable<boolean>;
   topics$: Observable<IFAQTopics[] | null>;
 
-  listFAQs: IFAQ[] = [];
-  tempListFAQs: IFAQ[] = [];
-
   constructor(private _store: Store<any>) {}
 
   ngOnInit(): void {
@@ -26,11 +23,12 @@ export class FaqComponent implements OnInit {
   }
 
   filterFAQs(title: string): void {
-    this._store.dispatch(fromCore.loadFAQs({ title }));
+    // this._store.dispatch(fromCore.loadFAQs());
+    // this.FAQs$ = this._store.select(fromCore.selectFilteredFAQs);
   }
 
   private _prepareFAQ(): void {
-    this._store.dispatch(fromCore.loadFAQs({}));
+    this._store.dispatch(fromCore.loadFAQs());
     this.FAQs$ = this._store.select(fromCore.selectFAQs);
     this.loadingFAQs$ = this._store.select(fromCore.selectIsLoadingFAQs);
   }

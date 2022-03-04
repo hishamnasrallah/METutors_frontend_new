@@ -300,3 +300,26 @@ export const selectFAQs = (state: State): IFAQ[] | null => state.FAQs;
 
 export const selectIsLoadingFAQs = (state: State): boolean =>
   state.isLoadingFAQs;
+
+export const selectFilteredFAQs = (
+  state: State,
+  props?: any
+): IFAQ[] | null => {
+  let FAQs: IFAQ[] = [];
+
+  if (state.FAQs && state.FAQs.length && props) {
+    FAQs = getFilteredFAQs(state.FAQs, props);
+  }
+
+  return FAQs;
+};
+
+const getFilteredFAQs = (faqs: IFAQ[], props: any) => {
+  if (props?.title) {
+    faqs = faqs?.filter((faq) =>
+      faq?.title.toLowerCase().includes(props.title.toLowerCase())
+    );
+  }
+
+  return faqs;
+};

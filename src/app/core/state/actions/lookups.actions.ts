@@ -131,10 +131,7 @@ export const loadTopicsFailure = createAction(
 
 export const loadTopicsEnded = createAction('[Lookups] Load Topics Ended');
 
-export const loadFAQs = createAction(
-  '[Lookups] Load FAQs',
-  props<{ title?: string; topic?: number }>()
-);
+export const loadFAQs = createAction('[Lookups] Load FAQs');
 
 export const loadFAQsSuccess = createAction(
   '[Lookups] Load FAQs Success',

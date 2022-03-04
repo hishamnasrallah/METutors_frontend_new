@@ -178,3 +178,8 @@ export const selectIsLoadingFAQs = createSelector(
   selectLookupsState,
   fromLookupsReducer.selectIsLoadingFAQs
 );
+
+export const selectFilteredFAQs  = createSelector(
+  selectLookupsState,
+  fromLookupsReducer.selectFilteredFAQs
+);
