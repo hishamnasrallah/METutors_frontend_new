@@ -23,12 +23,12 @@ export class FaqComponent implements OnInit {
   }
 
   filterFAQs(title: string): void {
-    // this._store.dispatch(fromCore.loadFAQs());
+    this._store.dispatch(fromCore.loadFAQs({ title, load: true }));
     // this.FAQs$ = this._store.select(fromCore.selectFilteredFAQs);
   }
 
   private _prepareFAQ(): void {
-    this._store.dispatch(fromCore.loadFAQs());
+    this._store.dispatch(fromCore.loadFAQs({}));
     this.FAQs$ = this._store.select(fromCore.selectFAQs);
     this.loadingFAQs$ = this._store.select(fromCore.selectIsLoadingFAQs);
   }

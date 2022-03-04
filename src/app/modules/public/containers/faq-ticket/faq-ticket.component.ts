@@ -61,12 +61,12 @@ export class FaqTicketComponent implements OnInit {
   }
 
   filterFAQs(title: string): void {
-    // this._store.dispatch(fromCore.loadFAQs());
-    // this.FAQs$ = this._store.select(fromCore.selectFilteredFAQs);
+    console.log(title);
+    this._store.dispatch(fromCore.loadFAQs({ title, load: true }));
   }
 
   private _prepareFAQ(): void {
-    this._store.dispatch(fromCore.loadFAQs());
+    this._store.dispatch(fromCore.loadFAQs({ load: true }));
     this.FAQs$ = this._store.select(fromCore.selectFAQs);
     this.loadingFAQs$ = this._store.select(fromCore.selectIsLoadingFAQs);
   }

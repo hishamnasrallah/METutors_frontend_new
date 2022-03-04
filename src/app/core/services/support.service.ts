@@ -7,24 +7,29 @@ import { IFAQ, IFAQTopics, ITicket } from '../models';
 
 @Injectable({ providedIn: 'root' })
 export class SupportService {
-  mainLink = environment.API_URL;
+  baseUrl = environment.API_URL;
 
   constructor(private http: HttpClient) {}
 
-  fetchListFaq(topic?: number): Observable<any> {
-    let query = '';
+  fetchListFaq(param: { title?: string; topic?: number }): Observable<any> {
+    let params: { title?: string; topic?: number } = {};
 
-    if (topic) query = `?topic_id=${topic}`;
+    if (param.title) {
+      params.title = param.title;
+    }
+    if (param.topic) {
+      params.topic = param.topic;
+    }
 
     return this.http
-      .get<{ faqs: IFAQ[] }>(`${this.mainLink}faqs${query}`)
+      .get<{ faqs: IFAQ[] }>(`${this.baseUrl}faqs`, { params })
       .pipe(map((response) => response.faqs))
       .pipe(catchError(this.errorHandler));
   }
 
   fetchFaqTopics(): Observable<any> {
     return this.http
-      .get<{ faq_topics: IFAQTopics[] }>(this.mainLink + 'faq-topics')
+      .get<{ faq_topics: IFAQTopics[] }>(this.baseUrl + 'faq-topics')
       .pipe(
         map((response) => {
           return response.faq_topics.map((item) => ({
@@ -37,13 +42,11 @@ export class SupportService {
   }
 
   fetchListTickets(): Observable<any> {
-    return this.http
-      .get<{ results: ITicket[] }>(`${this.mainLink}ticket/`)
-      .pipe(
-        map((response) => {
-          return response.results.map((item) => new ITicket(false, item));
-        })
-      );
+    return this.http.get<{ results: ITicket[] }>(`${this.baseUrl}ticket/`).pipe(
+      map((response) => {
+        return response.results.map((item) => new ITicket(false, item));
+      })
+    );
   }
 
   createTicket(value: any): Observable<any> {
@@ -54,13 +57,13 @@ export class SupportService {
     if (value.file) formData.append('attached_file', value.file);
 
     return this.http
-      .post(`${this.mainLink}ticket/`, formData)
+      .post(`${this.baseUrl}ticket/`, formData)
       .pipe(catchError(this.errorHandler));
   }
 
   getTicketDetailsById(id: string): Observable<any> {
     return this.http
-      .get(`${this.mainLink}ticket/detail/${id}/`)
+      .get(`${this.baseUrl}ticket/detail/${id}/`)
       .pipe(
         map((response) => {
           return new ITicket(false, response);
@@ -71,7 +74,7 @@ export class SupportService {
 
   submitMessage(value: any): Observable<any> {
     return this.http
-      .post(`${this.mainLink}ticket/reply/`, value)
+      .post(`${this.baseUrl}ticket/reply/`, value)
       .pipe(catchError(this.errorHandler));
   }
 

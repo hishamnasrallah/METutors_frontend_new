@@ -16,7 +16,7 @@ export class StudentFaqComponent implements OnInit {
   constructor(private _store: Store<any>) {}
 
   ngOnInit(): void {
-    this._store.dispatch(fromCore.loadFAQs());
+    this._store.dispatch(fromCore.loadFAQs({}));
     this.FAQs$ = this._store.select(fromCore.selectFAQs);
     this.loadingFAQs$ = this._store.select(fromCore.selectIsLoadingFAQs);
   }
