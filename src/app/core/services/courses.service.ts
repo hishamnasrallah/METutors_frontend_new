@@ -15,13 +15,13 @@ import { AcademicTutoringTextbook, SORTED_DAYS_WEEK } from 'src/app/config';
   providedIn: 'root',
 })
 export class CoursesService {
-  mainLink = environment.API_URL;
+  baseUrl = environment.API_URL;
 
   constructor(private http: HttpClient) {}
 
   loadCourses(): Observable<any> {
     return this.http
-      .get<{ classes: ICourse[] }>(`${this.mainLink}courses`)
+      .get<{ classes: ICourse[] }>(`${this.baseUrl}courses`)
       .pipe(
         map((response) =>
           response.classes.map((item) => new ICourse(false, item))
@@ -30,23 +30,22 @@ export class CoursesService {
   }
 
   fetchMainServices(): Observable<any> {
-    return this.http.get<{ results: ICategory[] }>(`${this.mainLink}category`);
+    return this.http.get<{ results: ICategory[] }>(`${this.baseUrl}category`);
   }
 
   fetchService(id: number): Observable<any> {
-    return this.http.get<ICategory>(`${this.mainLink}category/${id}/`);
+    return this.http.get<ICategory>(`${this.baseUrl}category/${id}/`);
   }
 
-  getCourseById(id: number): Observable<any> {
-    return this.http.get<ICourse>(`${this.mainLink}${id}/`).pipe(
-      map((response) => {
-        return new ICourse(false, response);
-      })
-    );
+  // todo make it get request
+  getCourseById(course_id: number): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}courses/course-detail`, {
+      course_id,
+    });
   }
 
   getClassroomById(id: string): Observable<any> {
-    return this.http.get<ICourse>(`${this.mainLink}batch/${id}/`).pipe(
+    return this.http.get<ICourse>(`${this.baseUrl}batch/${id}/`).pipe(
       map((response) => {
         return new IClassroom(false, response);
       })
@@ -55,7 +54,7 @@ export class CoursesService {
 
   getSyllabusByCourseId(courseId: string): Observable<any> {
     return this.http
-      .get<ISyllabus[]>(`${this.mainLink}syllabus/?batch_id=${courseId}`)
+      .get<ISyllabus[]>(`${this.baseUrl}syllabus/?batch_id=${courseId}`)
       .pipe(
         map((response) => {
           return response.map((item) => new ISyllabus(false, item));
@@ -77,7 +76,7 @@ export class CoursesService {
     }
 
     return this.http
-      .get<{ count: number; results: IClassroom[] }>(`${this.mainLink}batch/`, {
+      .get<{ count: number; results: IClassroom[] }>(`${this.baseUrl}batch/`, {
         params,
       })
       .pipe(
@@ -94,7 +93,7 @@ export class CoursesService {
 
   fetchCategoryCourses(id: number): Observable<any> {
     return this.http
-      .get<{ results: ICourse[] }>(`${this.mainLink}?category=${id}`)
+      .get<{ results: ICourse[] }>(`${this.baseUrl}?category=${id}`)
       .pipe(
         map((response) => {
           return response.results.map((item) => new ICourse(false, item));
@@ -104,7 +103,7 @@ export class CoursesService {
 
   fetchMyClassrooms(): Observable<any> {
     return this.http
-      .get<{ results: IClassroom[] }>(`${this.mainLink}my_classrooms/`)
+      .get<{ results: IClassroom[] }>(`${this.baseUrl}my_classrooms/`)
       .pipe(
         map((response) => {
           return response.results.map((item) => new IClassroom(false, item));
@@ -141,7 +140,7 @@ export class CoursesService {
     }
 
     return this.http
-      .get<{ results: ICourse[]; count: number }>(`${this.mainLink}`, {
+      .get<{ results: ICourse[]; count: number }>(`${this.baseUrl}`, {
         params,
       })
       .pipe(
@@ -190,7 +189,7 @@ export class CoursesService {
     }
 
     return this.http
-      .get<{ results: IClassroom[]; count: number }>(`${this.mainLink}`, {
+      .get<{ results: IClassroom[]; count: number }>(`${this.baseUrl}`, {
         params,
       })
       .pipe(
@@ -243,7 +242,7 @@ export class CoursesService {
     if (value.tutor) formData.append('teacher_id', value.tutor);
 
     return this.http.post<{ class: { id: number } }>(
-      `${this.mainLink}create-class`,
+      `${this.baseUrl}create-class`,
       formData
     );
   }
@@ -271,14 +270,14 @@ export class CoursesService {
     if (value.tutor) formData.append('tutor', value.tutor);
 
     return this.http.post<{ result: { id: number } }>(
-      `${this.mainLink}customize_exist_course/`,
+      `${this.baseUrl}customize_exist_course/`,
       formData
     );
   }
 
   sendCourseFeedback(value: any): Observable<any> {
     return this.http.post(
-      `${this.mainLink}batch/course/rate/?batch_id=${value?.classroomId}`,
+      `${this.baseUrl}batch/course/rate/?batch_id=${value?.classroomId}`,
       {
         rate: value?.rate,
         feedback: value?.feedback,
@@ -289,7 +288,7 @@ export class CoursesService {
   _fetchCustomizeExistCoursePrice(courseId: number): Observable<any> {
     return this.http
       .get<any>(
-        `${this.mainLink}customize_exist_course/estimated_price/?course_id=${courseId}`
+        `${this.baseUrl}customize_exist_course/estimated_price/?course_id=${courseId}`
       )
       .pipe(
         map((response) => {
