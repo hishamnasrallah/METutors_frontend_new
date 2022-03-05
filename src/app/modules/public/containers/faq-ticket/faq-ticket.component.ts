@@ -3,10 +3,8 @@ import { Observable, tap } from 'rxjs';
 import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-
 import * as fromCore from '@metutor/core/state';
 import { IFAQ, IFAQTopics } from 'src/app/core/models';
-import { SupportService } from 'src/app/core/services';
 
 @Component({
   selector: 'metutors-faq-ticket',
@@ -27,8 +25,7 @@ export class FaqTicketComponent implements OnInit {
   constructor(
     private _title: Title,
     private _store: Store<any>,
-    private _route: ActivatedRoute,
-    private _supportService: SupportService
+    private _route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -54,20 +51,19 @@ export class FaqTicketComponent implements OnInit {
 
   private _prepareTopics(): void {
     this._store.dispatch(fromCore.loadTopics());
-    this.topics$ = this._store.select(fromCore.selectTopics).pipe(
-      tap((topics) => {
-        if (topics && topics.length) {
-          const topicCategory: string = this._route.snapshot.params['topics'];
+    this.topics$ = this._store.select(fromCore.selectTopics);
+    this.topics$.subscribe((topics) => {
+      if (topics && topics.length) {
+        this.topicId = this._route.snapshot.params['topic'];
 
-          topics.forEach((topic) => {
-            if (topic.id === +topicCategory) {
-              this.faqTitle = `FAQ ${topic?.name}`;
-              this._title.setTitle(this.faqTitle);
-            }
-          });
-        }
-      })
-    );
+        topics.forEach((topic) => {
+          if (topic.id.toString() === this.topicId.toString()) {
+            this.faqTitle = `FAQ ${topic?.name}`;
+            this._title.setTitle(this.faqTitle);
+          }
+        });
+      }
+    });
     this.loadingTopics$ = this._store.select(fromCore.selectIsLoadingTopics);
   }
 }
