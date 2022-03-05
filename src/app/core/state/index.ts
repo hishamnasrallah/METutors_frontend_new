@@ -119,7 +119,7 @@ export const selectIsCreateClass = createSelector(
 );
 
 // Lookups
-export const selectIsLoadingLanguage = createSelector(
+export const selectIsLoadingLanguages = createSelector(
   selectLookupsState,
   fromLookupsReducer.selectIsLoadingLanguages
 );
@@ -132,6 +132,11 @@ export const selectLanguages = createSelector(
 export const selectLevels = createSelector(
   selectLookupsState,
   fromLookupsReducer.selectLevels
+);
+
+export const selectIsLoadingCountries = createSelector(
+  selectLookupsState,
+  fromLookupsReducer.selectIsLoadingCountries
 );
 
 export const selectCountries = createSelector(
@@ -159,9 +164,19 @@ export const selectSubjects = createSelector(
   fromLookupsReducer.selectSubjects
 );
 
+export const selectIsLoadingSubjects = createSelector(
+  selectLookupsState,
+  fromLookupsReducer.selectIsLoadingSubjects
+);
+
 export const selectFields = createSelector(
   selectLookupsState,
   fromLookupsReducer.selectFields
+);
+
+export const selectIsLoadingFields = createSelector(
+  selectLookupsState,
+  fromLookupsReducer.selectIsLoadingFields
 );
 
 export const selectTopics = createSelector(
@@ -184,7 +199,7 @@ export const selectIsLoadingFAQs = createSelector(
   fromLookupsReducer.selectIsLoadingFAQs
 );
 
-export const selectFilteredFAQs  = createSelector(
+export const selectFilteredFAQs = createSelector(
   selectLookupsState,
   fromLookupsReducer.selectFilteredFAQs
 );

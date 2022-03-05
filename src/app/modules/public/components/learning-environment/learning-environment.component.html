@@ -10,15 +10,23 @@
   <div class="container" *ngIf="!isLoading">
     <div class="tabs d-flex">
       <div *ngFor="let program of programsList; let i = index">
-        <button mat-button class="w-100 text-start" [class.active]="step === 'STEP-' + program?.id"
-          (click)="step = 'STEP-' + program?.id; selectedProgram = program">
+        <button mat-button class="w-100 text-start" [class.active]="step === program?.id"
+          (click)="onChangeStep(program)">
           <span class="d-block">Program {{ i + 1 }}</span>
           <strong>{{ program?.name }}</strong>
         </button>
       </div>
     </div>
     <div class="content">
-      <div class="row">
+      <ng-container *ngIf="loadingFields">
+        <div class="ph-col-3">
+          <div class="ph-avatar rounded"></div>
+        </div>
+
+        <metutors-grid-placeholder></metutors-grid-placeholder>
+      </ng-container>
+
+      <div class="row" *ngIf="!loadingFields">
         <div class="col-md-7">
           <h1>Veriety of subjects, College and High School Tutoring </h1>
 
@@ -27,20 +35,35 @@
           </p>
 
           <div class="row mt-4">
-            <div class="col-md-6 d-flex mt-4">
-              <img src="assets/svg/engineering.svg" width="65px" height="65px" draggable="false" alt="">
+            <div class="col-md-6 d-flex mt-4" *ngFor="let field of fields; let i = index">
+              <img src="assets/svg/engineering.svg" *ngIf="i % 4 === 0" width="65px" height="65px" draggable="false"
+                alt="">
+              <img src="assets/svg/science.svg" *ngIf="i % 4 === 1" width="65px" height="65px" draggable="false" alt="">
+              <img src="assets/svg/humanities.svg" *ngIf="i % 4 === 2" width="65px" height="65px" draggable="false"
+                alt="">
+              <img src="assets/svg/math.svg" *ngIf="i % 4 === 3" width="65px" height="65px" draggable="false" alt="">
               <div class="ms-2">
-                <h2>Engineering</h2>
+                <h2>
+                  <a routerLink="/requests/request-tutor"
+                    [queryParams]="{program: selectedProgram?.id, field: field?.id, country}">
+                    {{ field?.name }}
+                  </a>
+                </h2>
                 <p class="details">
-                  Computer Science Tutors,
-                  Programming Tutors
-                  Electrical Engineering,
-                  Mechanical Engineering
-                  C C# C++ HTML Java Python
+                  <ng-container *ngIf="loadingSubjects">
+                    <metutors-grid-placeholder></metutors-grid-placeholder>
+                  </ng-container>
+
+                  <ng-container *ngIf="!loadingSubjects">
+                    <a *ngFor="let subject of subjects; let isLast = last" routerLink="/requests/request-tutor"
+                      [queryParams]="{program: selectedProgram?.id, field: field?.id, subject: subject?.id, country}">
+                      {{ subject?.name }}<ng-container *ngIf="!isLast">, </ng-container>
+                    </a>
+                  </ng-container>
                 </p>
               </div>
             </div>
-            <div class="col-md-6 d-flex mt-4">
+            <!-- <div class="col-md-6 d-flex mt-4">
               <img src="assets/svg/science.svg" width="65px" height="65px" draggable="false" alt="">
               <div class="ms-2">
                 <h2>Science</h2>
@@ -75,11 +98,11 @@
                   Geometry Tutors
                 </p>
               </div>
-            </div>
+            </div> -->
           </div>
 
           <a mat-flat-button color="primary" routerLink="/requests/request-tutor"
-            [queryParams]="{program: selectedProgram?.id}">
+            [queryParams]="{program: selectedProgram?.id, country}">
             Start learning now
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -87,9 +110,14 @@
                 fill="#FFF" />
             </svg>
           </a>
+
+          <a class="pricing cursor-pointer">View pricing</a>
         </div>
-        <div class="col-md-5">
-          <img src="assets/homepage/contact.png" class="contact-img" draggable="false" height="450px" alt="">
+        <div class="col-md-5 d-flex align-items-center justify-content-center">
+          <img src="assets/homepage/contact.png" *ngIf="step === 1" class="contact-img w-100" draggable="false" alt="">
+          <img src="assets/courses/academic-learning.png" *ngIf="step === 2" class="contact-img w-100" draggable="false"
+            alt="">
+          <img src="assets/homepage/teaching.png" *ngIf="step === 3" class="contact-img w-100" draggable="false" alt="">
         </div>
       </div>
     </div>

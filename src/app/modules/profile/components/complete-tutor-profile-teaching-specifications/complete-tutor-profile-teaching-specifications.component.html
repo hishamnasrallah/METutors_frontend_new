@@ -82,10 +82,14 @@
                 <mat-form-field appearance="outline" class="w-100 mt-3">
                   <mat-select formControlName="field" [placeholder]="'Select Field'"
                     (selectionChange)="onChangeField($event)">
-                    <ng-container *ngFor="let field of fields">
-                      <mat-option [value]="field" *ngIf="form.value.program?.includes(field?.programId)">
-                        {{ field?.name }}
-                      </mat-option>
+                    <ng-container *ngFor="let program of programs">
+                      <mat-optgroup *ngIf="form.value.program?.includes(program?.id)" [label]="program.name">
+                        <ng-container *ngFor="let field of fields">
+                          <mat-option [value]="field" *ngIf="program?.id === field?.programId">
+                            {{ field?.name }}
+                          </mat-option>
+                        </ng-container>
+                      </mat-optgroup>
                     </ng-container>
                   </mat-select>
                 </mat-form-field>

@@ -23,6 +23,7 @@ import {
   AVAILABILITY_HOURS_CONST,
   COURSE_TUITION_TYPES_CONST,
   SORTED_DAYS_WEEK,
+  generalConstants,
 } from 'src/app/config';
 import {
   ICountry,
@@ -55,7 +56,6 @@ export class CompleteTutorProfileTeachingSpecificationsComponent
   @Output() submitForm = new EventEmitter();
   @Output() changeField = new EventEmitter();
 
-  nationalId = 3;
   form: FormGroup;
   openSubject = true;
   minDate = new Date();
@@ -63,6 +63,7 @@ export class CompleteTutorProfileTeachingSpecificationsComponent
   selectedSubject: number = 0;
   selectedDays: number[] = [];
   types = COURSE_TUITION_TYPES_CONST;
+  nationalId = generalConstants.nationalId;
 
   constructor(
     private _fb: FormBuilder,
@@ -227,6 +228,7 @@ export class CompleteTutorProfileTeachingSpecificationsComponent
         subject_id: [subject?.field?.id],
       })),
       program_id: this.program?.value,
+      country_id: this.country?.value,
       availability: this.availability?.value
         ?.filter((itm: any) => itm?.day != null)
         ?.map((item: any) => ({

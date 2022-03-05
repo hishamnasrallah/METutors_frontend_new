@@ -110,6 +110,10 @@ button:hover {
   z-index: 9999 !important;
 }
 
+.cdk-overlay-pane {
+  overflow: auto;
+}
+
 .mat-chip.mat-standard-chip {
   background: #FFF;
   border: 1px solid #e2e2e2;

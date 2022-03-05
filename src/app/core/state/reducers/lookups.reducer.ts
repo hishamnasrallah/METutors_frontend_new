@@ -26,7 +26,7 @@ export interface State {
 
   // Countries
   countries: ICountry[] | null;
-  isLoadingCountries?: boolean;
+  isLoadingCountries: boolean;
   loadingCountriesFailure?: string;
 
   // Cities
@@ -41,12 +41,12 @@ export interface State {
 
   // Subjects
   subjects: ISubject[] | null;
-  isLoadingSubjects?: boolean;
+  isLoadingSubjects: boolean;
   loadingSubjectsFailure?: string;
 
   // Fields
   fields: IField[] | null;
-  isLoadingFields?: boolean;
+  isLoadingFields: boolean;
   loadingFieldsFailure?: string;
 
   // Topics
@@ -72,7 +72,10 @@ export const initialState: State = {
   countries: null,
   isLoadingFAQs: false,
   isLoadingTopics: false,
+  isLoadingFields: false,
   isLoadingPrograms: false,
+  isLoadingSubjects: false,
+  isLoadingCountries: false,
 };
 
 export const reducer = createReducer(
@@ -272,7 +275,7 @@ export const selectIsLoadingLevels = (state: State): boolean | undefined =>
 export const selectCountries = (state: State): ICountry[] | null =>
   state.countries;
 
-export const selectIsLoadingCountries = (state: State): boolean | undefined =>
+export const selectIsLoadingCountries = (state: State): boolean  =>
   state.isLoadingCountries;
 
 export const selectCities = (state: State): ICity[] | null => state.cities;
@@ -289,12 +292,12 @@ export const selectIsLoadingPrograms = (state: State): boolean =>
 export const selectSubjects = (state: State): ISubject[] | null =>
   state.subjects;
 
-export const selectIsLoadingSubjects = (state: State): boolean | undefined =>
+export const selectIsLoadingSubjects = (state: State): boolean =>
   state.isLoadingSubjects;
 
 export const selectFields = (state: State): IField[] | null => state.fields;
 
-export const selectIsLoadingFields = (state: State): boolean | undefined =>
+export const selectIsLoadingFields = (state: State): boolean =>
   state.isLoadingFields;
 
 export const selectTopics = (state: State): IFAQTopics[] | null => state.topics;
