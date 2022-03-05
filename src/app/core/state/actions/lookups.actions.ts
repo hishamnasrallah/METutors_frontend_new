@@ -1,4 +1,4 @@
-import { createAction, props } from '@ngrx/store';
+import {createAction, props} from '@ngrx/store';
 
 import {
   ICity,
@@ -134,8 +134,7 @@ export const loadTopicsFailure = createAction(
 export const loadTopicsEnded = createAction('[Lookups] Load Topics Ended');
 
 export const loadFAQs = createAction(
-  '[Lookups] Load FAQs',
-  props<{ title?: string; load?: boolean }>()
+  '[Lookups] Load FAQs'
 );
 
 export const loadFAQsSuccess = createAction(

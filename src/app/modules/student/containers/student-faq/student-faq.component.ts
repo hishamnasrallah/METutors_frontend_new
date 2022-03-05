@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import * as fromCore from '@metutor/core/state';
+import { Store } from '@ngrx/store';
+import { Component, OnInit } from '@angular/core';
+
 import { IFAQ } from 'src/app/core/models';
+import * as fromCore from '@metutor/core/state';
 
 @Component({
   selector: 'metutors-student-faq',
@@ -16,13 +17,12 @@ export class StudentFaqComponent implements OnInit {
   constructor(private _store: Store<any>) {}
 
   ngOnInit(): void {
-    this._store.dispatch(fromCore.loadFAQs({}));
+    this._store.dispatch(fromCore.loadFAQs());
     this.FAQs$ = this._store.select(fromCore.selectFAQs);
     this.loadingFAQs$ = this._store.select(fromCore.selectIsLoadingFAQs);
   }
 
   filterFAQs(title: string): void {
-    // this._store.dispatch(fromCore.loadFAQs());
-    // this.FAQs$ = this._store.select(fromCore.selectFilteredFAQs);
+    this.FAQs$ = this._store.select(fromCore.selectFilteredFAQs, { title });
   }
 }

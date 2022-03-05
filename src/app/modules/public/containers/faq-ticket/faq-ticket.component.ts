@@ -1,12 +1,12 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable, Subscription, tap } from 'rxjs';
-import { getLookups, TicketCategory } from 'src/app/config';
+import { Observable, tap } from 'rxjs';
+import { Title } from '@angular/platform-browser';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
+
+import * as fromCore from '@metutor/core/state';
 import { IFAQ, IFAQTopics } from 'src/app/core/models';
 import { SupportService } from 'src/app/core/services';
-import * as fromCore from '@metutor/core/state';
 
 @Component({
   selector: 'metutors-faq-ticket',
@@ -19,10 +19,10 @@ export class FaqTicketComponent implements OnInit {
   loadingTopics$: Observable<boolean>;
   topics$: Observable<IFAQTopics[] | null>;
 
+  topicId: Params;
   faqTitle!: string;
   listFAQs: IFAQ[] = [];
   tempListFAQs: IFAQ[] = [];
-  fetchListFaqSub?: Subscription;
 
   constructor(
     private _title: Title,
@@ -34,41 +34,22 @@ export class FaqTicketComponent implements OnInit {
   ngOnInit(): void {
     this._prepareFAQ();
     this._prepareTopics();
-
-    // this._route.paramMap.subscribe((res: ParamMap) => {
-    //   const topicCategory = res.get('topic') || 0;
-    //   const topics = getLookups()?.topics;
-
-    //   if (topics && topics.length) {
-    //     topics.forEach((topic) => {
-    //       if (topic.id === +topicCategory) {
-    //         this.faqTitle = `FAQ ${topic?.name}`;
-    //         this._title.setTitle(this.faqTitle);
-    //       }
-    //     });
-    //   }
-
-    //   this.fetchListFaqSub = this._supportService
-    //     .fetchListFaq(+topicCategory)
-    //     .subscribe(
-    //       (response) => {
-    //         this.listFAQs = response.faqs;
-    //         this.tempListFAQs = response.faqs;
-    //       },
-    //       () => {}
-    //     );
-    // });
   }
 
   filterFAQs(title: string): void {
-    console.log(title);
-    this._store.dispatch(fromCore.loadFAQs({ title, load: true }));
+    this.FAQs$ = this._store.select(fromCore.selectFilteredFAQs, {
+      title,
+      topic: this.topicId,
+    });
   }
 
   private _prepareFAQ(): void {
-    this._store.dispatch(fromCore.loadFAQs({ load: true }));
-    this.FAQs$ = this._store.select(fromCore.selectFAQs);
+    this._store.dispatch(fromCore.loadFAQs());
+    this.topicId = this._route.snapshot.params['topic'];
     this.loadingFAQs$ = this._store.select(fromCore.selectIsLoadingFAQs);
+    this.FAQs$ = this._store.select(fromCore.selectFilteredFAQs, {
+      topic: this.topicId,
+    });
   }
 
   private _prepareTopics(): void {
