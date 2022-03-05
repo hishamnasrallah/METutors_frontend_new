@@ -15,3 +15,15 @@ export const loadCoursesFailure = createAction(
 );
 
 export const loadCoursesEnded = createAction('[Tutor] Load Courses Ended');
+
+export const loadCourseById = createAction('[Tutor] Load Course By Id');
+
+export const loadCourseByIdSuccess = createAction(
+  '[Tutor] Load Course By Id Success',
+  props<{ course: ICourse }>()
+);
+
+export const loadCourseByIdFailure = createAction(
+  '[Tutor] Load Course By Id Failure',
+  props<{ error: any }>()
+);

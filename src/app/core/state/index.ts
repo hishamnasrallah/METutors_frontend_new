@@ -11,7 +11,7 @@ import * as featureKeys from './feature-keys';
 
 import * as fromUserReducer from './reducers/user.reducer';
 import * as fromTutorReducer from './reducers/tutor.reducer';
-import * as fromCourseReducer from './reducers/courses.reducer';
+import * as fromCourseReducer from './reducers/course.reducer';
 import * as fromRequestReducer from './reducers/request.reducer';
 import * as fromLookupsReducer from './reducers/lookups.reducer';
 
@@ -216,6 +216,16 @@ export const selectFilteredFAQs = createSelector(
 export const selectCourses = createSelector(
   selectCourseState,
   fromCourseReducer.selectCourses
+);
+
+export const selectCourseById = createSelector(
+  selectCourseState,
+  fromCourseReducer.selectCourseById
+);
+
+export const selectIsLoadingCourseById = createSelector(
+  selectCourseState,
+  fromCourseReducer.selectIsLoadingCourseById
 );
 
 export const selectNewCourses = createSelector(

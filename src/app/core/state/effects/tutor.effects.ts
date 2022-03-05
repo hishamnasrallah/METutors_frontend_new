@@ -7,10 +7,10 @@ import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 
 import { selectTutorDashboard } from '..';
 import { TutorsService } from '@services';
+import { environment } from '@environment';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import * as tutorActions from '../actions/tutor.actions';
 import { AlertNotificationService } from '@metutor/core/components';
-import { JwtHelperService } from '@auth0/angular-jwt';
-import { environment } from '@environment';
 
 @Injectable()
 export class TutorEffects {
