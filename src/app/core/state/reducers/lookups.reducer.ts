@@ -170,21 +170,38 @@ export const reducer = createReducer(
     isLoadingPrograms: false,
   })),
 
-  on(lookupsActions.loadSubjectsByProgramId, (state) => ({
-    ...state,
-    isLoadingSubjects: true,
-  })),
+  on(
+    lookupsActions.loadSubjectsByFieldId,
+    lookupsActions.loadSubjects,
+    (state) => ({
+      ...state,
+      isLoadingSubjects: true,
+    })
+  ),
 
-  on(lookupsActions.loadSubjectsByProgramIdSuccess, (state, { subjects }) => ({
-    ...state,
-    subjects,
-    isLoadingSubjects: false,
-  })),
+  on(
+    lookupsActions.loadSubjectsByFieldIdSuccess,
+    lookupsActions.loadSubjectsSuccess,
+    (state, { subjects }) => ({
+      ...state,
+      subjects,
+      isLoadingSubjects: false,
+    })
+  ),
 
-  on(lookupsActions.loadSubjectsByProgramIdFailure, (state, { error }) => ({
+  on(
+    lookupsActions.loadSubjectsByFieldIdFailure,
+    lookupsActions.loadSubjectsFailure,
+    (state, { error }) => ({
+      ...state,
+      isLoadingSubjects: false,
+      loadingSubjectsFailure: error.message,
+    })
+  ),
+
+  on(lookupsActions.loadSubjectsEnded, (state) => ({
     ...state,
     isLoadingSubjects: false,
-    loadingSubjectsFailure: error.message,
   })),
 
   on(
@@ -275,7 +292,7 @@ export const selectIsLoadingLevels = (state: State): boolean | undefined =>
 export const selectCountries = (state: State): ICountry[] | null =>
   state.countries;
 
-export const selectIsLoadingCountries = (state: State): boolean  =>
+export const selectIsLoadingCountries = (state: State): boolean =>
   state.isLoadingCountries;
 
 export const selectCities = (state: State): ICity[] | null => state.cities;

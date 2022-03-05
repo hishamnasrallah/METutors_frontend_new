@@ -9,7 +9,7 @@
 <metutors-learning-environment [isLoading]="loadingPrograms$ | async" [programs]="programs$ | async"
   [subjects]="subjects$ | async" [loadingSubjects]="loadingSubjects$ | async" [fields]="fields$ | async"
   [loadingFields]="loadingFields$ | async" [countries]="countries$ | async"
-  [loadingCountries]="loadingCountries$ | async" (changeProgram)="fetchFieldSubjects($event); fetchFields($event)">
+  [loadingCountries]="loadingCountries$ | async" (changeProgram)="fetchFields($event)">
 </metutors-learning-environment>
 
 <div class="container">

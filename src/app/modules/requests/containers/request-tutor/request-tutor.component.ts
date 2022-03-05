@@ -132,8 +132,8 @@ export class RequestTutorComponent implements OnInit {
     this.myStepper?.previous();
   }
 
-  fetchCourseFieldSubject(programId: string): void {
-    this._store.dispatch(fromCore.loadSubjectsByProgramId({ programId }));
+  fetchCourseFieldSubject(fieldId: string): void {
+    this._store.dispatch(fromCore.loadSubjectsByFieldId({ fieldId }));
     this.subjects$ = this._store.select(fromCore.selectSubjects).pipe(
       tap((subjects) => {
         if (subjects && subjects.length) {

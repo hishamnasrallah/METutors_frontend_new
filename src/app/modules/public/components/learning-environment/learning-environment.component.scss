@@ -107,6 +107,52 @@
     color: #2a2a2a;
     margin-bottom: 20px;
   }
+
+  table {
+    margin: 0;
+    border-top: none;
+
+    th {
+      font-size: 13px;
+      border-bottom: none;
+      background: #3bb3c1;
+      color: #FFF;
+    }
+
+    td {
+      border-bottom: 1px solid #e2edef;
+      color: #2a2a2a;
+      font-size: 13px;
+      background-color: #ebf7f9;
+    }
+
+    &>:not(:first-child) {
+      border: none;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+  }
+}
+
+.fields {
+  background-color: #f4f5fa;
+  border: 1px solid #dfe0e3;
+  border-radius: 5px;
+  padding: 15px;
+
+  h2 {
+    font-size: 18px;
+    color: #3e3e3e;
+    font-weight: bold;
+  }
+
+  p {
+    font-size: 13px;
+    margin: 0;
+    color: #6b6b6f;
+  }
 }
 
 @media (max-width:767px) {

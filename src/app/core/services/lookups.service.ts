@@ -1,4 +1,8 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpParams,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError, map } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -63,27 +67,55 @@ export class LookupsService {
       .pipe(catchError(this.errorHandler));
   }
 
-  getSubjectsByProgramId(fieldId: string): Observable<any> {
+  getSubjectsByFieldId(fieldId: string): Observable<any> {
     return this.http
-      .get<{ subjects: ISubject[] }>(
+      .get<{ subjects: any }>(
         `${this.BACKEND_URL}field-subjects?field_id=${fieldId}`
       )
       .pipe(
         map((response) => {
-          return response.subjects.map((item) => ({
+          return response.subjects.map((item: any) => ({
             id: item.id,
             name: item.name,
+            pricePerHour: item.price_per_hour,
+            fieldId: item.field_id,
           }));
         })
       )
       .pipe(catchError(this.errorHandler));
   }
 
-  getFieldsByProgramId(fieldId: string): Observable<any> {
+  getSubjects(): Observable<any> {
     return this.http
-      .get<{ field_of_study: IField[] }>(
-        `${this.BACKEND_URL}field-of-study?program_id=${fieldId}`
+      .get<{ subjects: any }>(`${this.BACKEND_URL}subjects`)
+      .pipe(
+        map((response) => {
+          return response.subjects.map((item: any) => ({
+            id: item.id,
+            name: item.name,
+            pricePerHour: item.price_per_hour,
+            fieldId: item.field_id,
+          }));
+        })
       )
+      .pipe(catchError(this.errorHandler));
+  }
+
+  getFieldsByProgramId(fieldId: string, country?: string): Observable<any> {
+    let params = new HttpParams();
+
+    if (fieldId) {
+      params = params.append('program_id', fieldId);
+    }
+
+    if (country) {
+      params = params.append('country_id', country);
+    }
+
+    return this.http
+      .get<{ field_of_study: IField[] }>(`${this.BACKEND_URL}field-of-study`, {
+        params,
+      })
       .pipe(
         map((response) => {
           return response.field_of_study.map((item) => ({

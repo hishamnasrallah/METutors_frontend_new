@@ -10,8 +10,10 @@ import { VgCoreModule } from '@videogular/ngx-videogular/core';
 import { VgControlsModule } from '@videogular/ngx-videogular/controls';
 import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
 import { VgBufferingModule } from '@videogular/ngx-videogular/buffering';
-import { ContactService, SupportService } from 'src/app/core/services';
+import { ContactService } from 'src/app/core/services';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 
 import { SharedModule } from '@metutor/shared/shared.module';
 import {
@@ -27,6 +29,7 @@ import {
 } from './containers';
 
 import {
+  ViewPricesDialog,
   HomeSlideComponent,
   FaqSearchComponent,
   AboutSlideComponent,
@@ -74,6 +77,7 @@ import {
     AboutComponent,
     WelcomeComponent,
     ContactComponent,
+    ViewPricesDialog,
     FaqSearchComponent,
     HomeSlideComponent,
     FaqTicketComponent,
@@ -125,9 +129,11 @@ import {
     MatIconModule,
     CarouselModule,
     MatButtonModule,
+    MatSelectModule,
     GoogleMapsModule,
     VgControlsModule,
     VgBufferingModule,
+    MatFormFieldModule,
     ReactiveFormsModule,
     PublicRoutingModule,
     VgOverlayPlayModule,

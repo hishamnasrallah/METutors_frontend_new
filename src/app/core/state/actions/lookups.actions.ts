@@ -1,4 +1,4 @@
-import {createAction, props} from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
 
 import {
   ICity,
@@ -77,24 +77,38 @@ export const loadProgramsFailure = createAction(
 
 export const loadProgramsEnded = createAction('[Lookups] Load Programs Ended');
 
-export const loadSubjectsByProgramId = createAction(
-  '[Lookups] Load Subjects By Program Id',
-  props<{ programId: string }>()
-);
+export const loadSubjects = createAction('[Lookups] Load Subjects');
 
-export const loadSubjectsByProgramIdSuccess = createAction(
-  '[Lookups] Load Subjects By Program Id Success',
+export const loadSubjectsSuccess = createAction(
+  '[Lookups] Load Subjects Success',
   props<{ subjects: ISubject[] }>()
 );
 
-export const loadSubjectsByProgramIdFailure = createAction(
-  '[Lookups] Load Subjects By Program Id Failure',
+export const loadSubjectsFailure = createAction(
+  '[Lookups] Load Subjects Failure',
+  props<{ error: any }>()
+);
+
+export const loadSubjectsEnded = createAction('[Lookups] Load Subjects Ended');
+
+export const loadSubjectsByFieldId = createAction(
+  '[Lookups] Load Subjects By Field Id',
+  props<{ fieldId: string }>()
+);
+
+export const loadSubjectsByFieldIdSuccess = createAction(
+  '[Lookups] Load Subjects By Field Id Success',
+  props<{ subjects: ISubject[] }>()
+);
+
+export const loadSubjectsByFieldIdFailure = createAction(
+  '[Lookups] Load Subjects By Field Id Failure',
   props<{ error: any }>()
 );
 
 export const loadFieldsByProgramId = createAction(
   '[Lookups] Load Fields By Program Id',
-  props<{ programId: string }>()
+  props<{ programId: string, country?: string }>()
 );
 
 export const loadFieldsByProgramIdSuccess = createAction(
@@ -133,9 +147,7 @@ export const loadTopicsFailure = createAction(
 
 export const loadTopicsEnded = createAction('[Lookups] Load Topics Ended');
 
-export const loadFAQs = createAction(
-  '[Lookups] Load FAQs'
-);
+export const loadFAQs = createAction('[Lookups] Load FAQs');
 
 export const loadFAQsSuccess = createAction(
   '[Lookups] Load FAQs Success',

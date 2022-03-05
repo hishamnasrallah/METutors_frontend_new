@@ -60,8 +60,8 @@ export class CompleteTutorProfileComponent implements OnInit {
     this._prepareCitiesByCountryId(countryId.toString());
   }
 
-  fetchFieldSubject(programId: string): void {
-    this._store.dispatch(fromCore.loadSubjectsByProgramId({ programId }));
+  fetchFieldSubject(fieldId: string): void {
+    this._store.dispatch(fromCore.loadSubjectsByFieldId({ fieldId }));
     this.subjects$ = this._store.select(fromCore.selectSubjects);
   }
 

@@ -138,21 +138,19 @@ export class LookupsEffects {
     )
   );
 
-  loadSubjectsByProgramId$ = createEffect(() =>
+  loadSubjectsByFieldId$ = createEffect(() =>
     this._actions$.pipe(
-      ofType(lookupsActions.loadSubjectsByProgramId),
-      // withLatestFrom(this._store.select(fromCore.selectSubjects)),
-      // filter(([_, subjects]) => !subjects || subjects.length === 0),
+      ofType(lookupsActions.loadSubjectsByFieldId),
       mergeMap((action) =>
-        this._lookupsService.getSubjectsByProgramId(action.programId).pipe(
+        this._lookupsService.getSubjectsByFieldId(action.fieldId).pipe(
           map((subjects) =>
-            lookupsActions.loadSubjectsByProgramIdSuccess({
+            lookupsActions.loadSubjectsByFieldIdSuccess({
               subjects,
             })
           ),
           catchError((error) =>
             of(
-              lookupsActions.loadSubjectsByProgramIdFailure({
+              lookupsActions.loadSubjectsByFieldIdFailure({
                 error: error?.error?.message || error?.error?.errors,
               })
             )
@@ -162,13 +160,40 @@ export class LookupsEffects {
     )
   );
 
+  loadSubjects$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(lookupsActions.loadSubjects),
+      withLatestFrom(this._store.select(fromCore.selectSubjects)),
+      mergeMap(([_, _subjects]) => {
+        if (!_subjects || !_subjects.length) {
+          return this._lookupsService.getSubjects().pipe(
+            map((subjects) =>
+              lookupsActions.loadSubjectsSuccess({
+                subjects,
+              })
+            ),
+            catchError((error) =>
+              of(
+                lookupsActions.loadSubjectsFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          );
+        } else {
+          return of(lookupsActions.loadSubjectsEnded());
+        }
+      })
+    )
+  );
+
   loadFieldsByProgramId$ = createEffect(() =>
     this._actions$.pipe(
       ofType(lookupsActions.loadFieldsByProgramId),
       // withLatestFrom(this._store.select(fromCore.selectSubjects)),
       // filter(([_, fields]) => !fields || fields.length === 0),
       mergeMap((action) =>
-        this._lookupsService.getFieldsByProgramId(action.programId).pipe(
+        this._lookupsService.getFieldsByProgramId(action.programId, action.country).pipe(
           map((fields) =>
             lookupsActions.loadFieldsByProgramIdSuccess({
               fields,

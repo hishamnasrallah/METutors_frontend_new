@@ -33,11 +33,13 @@ export class LearningEnvironmentComponent implements OnInit {
       this.programsList = _programs;
       this.selectedProgram = _programs[0];
       this.step = this.selectedProgram?.id;
-      this.changeProgram.emit(this.selectedProgram?.id?.toString());
+      this.changeProgram.emit({
+        program: this.selectedProgram?.id?.toString(),
+      });
     }
   }
 
-  @Output() changeProgram = new EventEmitter<string>();
+  @Output() changeProgram = new EventEmitter<any>();
 
   step: number;
   country: number | null;
@@ -56,17 +58,30 @@ export class LearningEnvironmentComponent implements OnInit {
       });
 
       dialogRef.afterClosed().subscribe((result) => {
-        if (result) this.country = result;
-        else this.country = null;
-        this.step = program.id;
-        this.selectedProgram = program;
-        this.changeProgram.emit(program?.id?.toString());
+        if (result) {
+          this.country = result;
+          this.step = program.id;
+          this.selectedProgram = program;
+          this.changeProgram.emit({
+            program: program?.id?.toString(),
+            country: this.country,
+          });
+        }
       });
     } else {
       this.step = program.id;
       this.selectedProgram = program;
-      this.changeProgram.emit(program?.id?.toString());
+      this.changeProgram.emit({ program: program?.id?.toString() });
     }
+  }
+
+  onViewPrices(): void {
+    const dialogRef = this._dialog.open(ViewPricesDialog, {
+      width: '800px',
+      data: { fields: this.fields, subjects: this.subjects },
+    });
+
+    dialogRef.afterClosed().subscribe(() => {});
   }
 }
 
@@ -95,5 +110,30 @@ export class ChooseCountryDialog {
 
   onSelectCountry(countryId: number): void {
     this.dialogRef.close(countryId);
+  }
+}
+
+@Component({
+  selector: 'view-prices-dialog',
+  templateUrl: 'view-prices-dialog.html',
+  styleUrls: ['./learning-environment.component.scss'],
+})
+export class ViewPricesDialog {
+  fieldId!: string;
+  fields: IField[];
+  subjects: ISubject[];
+
+  constructor(
+    public dialogRef: MatDialogRef<ViewPricesDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {
+    if (data) {
+      this.fields = data.fields;
+      this.subjects = data.subjects;
+    }
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 }

@@ -34,6 +34,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this._preparePrograms();
+    this._prepareSubjects();
     this._prepareCountries();
 
     this.academicStatistics = [
@@ -174,16 +175,10 @@ export class HomeComponent implements OnInit {
     ];
   }
 
-  fetchFieldSubjects(programId: string): void {
-    this._store.dispatch(fromCore.loadSubjectsByProgramId({ programId }));
-    this.subjects$ = this._store.select(fromCore.selectSubjects);
-    this.loadingSubjects$ = this._store.select(
-      fromCore.selectIsLoadingSubjects
+  fetchFields({ program, country }: any): void {
+    this._store.dispatch(
+      fromCore.loadFieldsByProgramId({ programId: program, country })
     );
-  }
-
-  fetchFields(programId: string): void {
-    this._store.dispatch(fromCore.loadFieldsByProgramId({ programId }));
     this.fields$ = this._store.select(fromCore.selectFields);
     this.loadingFields$ = this._store.select(fromCore.selectIsLoadingFields);
   }
@@ -193,6 +188,14 @@ export class HomeComponent implements OnInit {
     this.programs$ = this._store.select(fromCore.selectPrograms);
     this.loadingPrograms$ = this._store.select(
       fromCore.selectIsLoadingPrograms
+    );
+  }
+
+  private _prepareSubjects(): void {
+    this._store.dispatch(fromCore.loadSubjects());
+    this.subjects$ = this._store.select(fromCore.selectSubjects);
+    this.loadingSubjects$ = this._store.select(
+      fromCore.selectIsLoadingSubjects
     );
   }
 
