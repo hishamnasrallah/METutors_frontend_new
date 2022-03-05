@@ -1,15 +1,20 @@
 import {
-  animate,
   group,
   state,
   style,
-  transition,
   trigger,
+  animate,
+  transition,
 } from '@angular/animations';
+import { Store } from '@ngrx/store';
+import { map } from 'rxjs/operators';
+import { combineLatest, Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
-import { ClassroomType } from '@metutor/config';
+
 import { IClassroom } from 'src/app/core/models';
-import { CoursesService } from 'src/app/core/services';
+import { ClassroomType, WEEK_DAYS } from '@metutor/config';
+import * as fromCore from '@metutor/core/state';
+import { selectIsLoadingCourses } from '@metutor/core/state';
 
 @Component({
   selector: 'metutors-tutor-classrooms',
@@ -41,6 +46,7 @@ export class TutorClassroomsComponent implements OnInit {
   openActive = true;
   isLoading?: boolean;
   openCompleted = true;
+  openNewlyAssigned = true;
   // activeClassrooms: IClassroom[] = [];
   // completedClassrooms: IClassroom[] = [];
 
@@ -57,25 +63,6 @@ export class TutorClassroomsComponent implements OnInit {
       startETime: new Date(),
       endETime: new Date(),
       remainingClasses: 10,
-      progress: 30,
-      enrolledStudents: [
-        {
-          id: 1,
-          avatar: 'https://logo.clearbit.com/tarjama.com',
-        },
-        {
-          id: 2,
-          avatar: 'https://logo.clearbit.com/noon.ae',
-        },
-        {
-          id: 3,
-          avatar: 'https://logo.clearbit.com/tamatem.co',
-        },
-        {
-          id: 4,
-          avatar: '',
-        },
-      ],
     },
     {
       id: 2,
@@ -242,25 +229,65 @@ export class TutorClassroomsComponent implements OnInit {
     },
   ];
 
-  constructor(private _courseService: CoursesService) {}
+  view$: Observable<{
+    loading: boolean;
+    newCourses: any;
+    activeCourses: any;
+    completedCourses: any;
+  }>;
+
+  constructor(private _store: Store<any>) {}
 
   ngOnInit(): void {
-    // this.isLoading = true;
-    // this._courseService.fetchMyClassrooms().subscribe(
-    //   (response) => {
-    //     this.isLoading = false;
-    //     if (response && response.length) {
-    //       this.activeClassrooms = response.filter(
-    //         (classroom: any) => classroom?.isComplete === false
-    //       );
-    //       this.completedClassrooms = response.filter(
-    //         (classroom: any) => classroom?.isComplete === true
-    //       );
-    //     }
-    //   },
-    //   (error) => {
-    //     this.isLoading = false;
-    //   }
-    // );
+    this._store.dispatch(fromCore.loadCourses());
+
+    this.view$ = combineLatest([
+      this._store
+        .select(fromCore.selectNewCourses)
+        .pipe(map((result: any) => this._parseCourse(result))),
+      this._store
+        .select(fromCore.selectActiveCourses)
+        .pipe(map((result: any) => this._parseCourse(result))),
+      this._store
+        .select(fromCore.selectCompletedCourses)
+        .pipe(map((result: any) => this._parseCourse(result))),
+      this._store.select(fromCore.selectIsLoadingCourses),
+    ]).pipe(
+      map(([newCourses, activeCourses, completedCourses, loading]) => ({
+        loading,
+        newCourses,
+        activeCourses,
+        completedCourses,
+      }))
+    );
+  }
+
+  private _parseCourse(courses: any): any {
+    return courses?.map((course: any) => {
+      /* const completedClasses = course.classes.filter(
+        (item: any) => item.status === 'success'
+      );
+      const remainingClasses = course.classes.filter(
+        (item: any) => item.status !== 'success'
+      );*/
+
+      const listDays: any = [];
+      const splitDays = course.weekdays.split(',');
+
+      if (splitDays.length) {
+        splitDays.forEach((day: any) => listDays.push(WEEK_DAYS[day]));
+      }
+      return {
+        ...course,
+        type: 1,
+        listDays,
+        startETime: '',
+        endETime: '',
+        name: course.courseName,
+        expectedEndDate: course.endDate,
+        completedClasses: '',
+        remainingClasses: '',
+      };
+    });
   }
 }

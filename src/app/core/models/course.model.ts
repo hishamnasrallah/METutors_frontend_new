@@ -1,10 +1,10 @@
+import { IField, IProgram } from '.';
 import { TuitionType } from 'src/app/config';
+import { IPriceRange } from './price-range';
 import {
   COURSE_TAGS_CONST,
   COURSE_TUITION_TYPES_CONST,
 } from 'src/app/config/general';
-import { IField } from '.';
-import { IPriceRange } from './price-range';
 
 export class ICourse {
   id!: number;
@@ -20,6 +20,16 @@ export class ICourse {
   priceRange?: IPriceRange;
   description?: string;
   courseField?: IField;
+  status?: string;
+  courseCode?: string;
+  courseName?: string;
+  startDate?: string;
+  endDate?: string;
+  totalPrice?: string;
+  totalHours?: string;
+  totalClasses?: string;
+  weekdays?: string;
+  program?: IProgram;
 
   constructor(createDefault = false, course: any = null) {
     if (createDefault) {
@@ -36,6 +46,16 @@ export class ICourse {
       this.priceRange = undefined;
       this.description = '';
       this.courseField = undefined;
+      this.status = '';
+      this.courseCode = '';
+      this.courseName = '';
+      this.startDate = '';
+      this.endDate = '';
+      this.totalPrice = '';
+      this.totalHours = '';
+      this.totalClasses = '';
+      this.weekdays = '';
+      this.program = undefined;
     }
 
     if (course) {
@@ -52,6 +72,16 @@ export class ICourse {
       this.priceRange = course.price_range || {};
       this.description = course.course_description || '';
       this.courseField = course.course_field;
+      this.status = course.status;
+      this.courseCode = course.course_code;
+      this.courseName = course.course_name;
+      this.startDate = course.state_date;
+      this.endDate = course.end_date;
+      this.totalPrice = course.total_price;
+      this.totalHours = course.total_hours;
+      this.totalClasses = course.total_classes;
+      this.weekdays = course.weekdays;
+      this.program = course.program;
     }
   }
 }

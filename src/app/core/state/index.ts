@@ -11,12 +11,14 @@ import * as featureKeys from './feature-keys';
 
 import * as fromUserReducer from './reducers/user.reducer';
 import * as fromTutorReducer from './reducers/tutor.reducer';
+import * as fromCourseReducer from './reducers/courses.reducer';
 import * as fromRequestReducer from './reducers/request.reducer';
 import * as fromLookupsReducer from './reducers/lookups.reducer';
 
 export interface CoreState {
   [featureKeys.userFeatureKey]: fromUserReducer.State;
   [featureKeys.tutorFeatureKey]: fromTutorReducer.State;
+  [featureKeys.courseFeatureKey]: fromCourseReducer.State;
   [featureKeys.requestFeatureKey]: fromRequestReducer.State;
   [featureKeys.lookupsFeatureKey]: fromLookupsReducer.State;
 }
@@ -25,6 +27,7 @@ export function reducers(state: CoreState, action: Action) {
   return combineReducers({
     [featureKeys.userFeatureKey]: fromUserReducer.reducer,
     [featureKeys.tutorFeatureKey]: fromTutorReducer.reducer,
+    [featureKeys.courseFeatureKey]: fromCourseReducer.reducer,
     [featureKeys.requestFeatureKey]: fromRequestReducer.reducer,
     [featureKeys.lookupsFeatureKey]: fromLookupsReducer.reducer,
   })(state, action);
@@ -53,6 +56,11 @@ export const selectUserState = createSelector(
 export const selectRequestState = createSelector(
   selectCoreState,
   (state) => state[featureKeys.requestFeatureKey]
+);
+
+export const selectCourseState = createSelector(
+  selectCoreState,
+  (state) => state[featureKeys.courseFeatureKey]
 );
 
 // User
@@ -184,7 +192,33 @@ export const selectIsLoadingFAQs = createSelector(
   fromLookupsReducer.selectIsLoadingFAQs
 );
 
-export const selectFilteredFAQs  = createSelector(
+export const selectFilteredFAQs = createSelector(
   selectLookupsState,
   fromLookupsReducer.selectFilteredFAQs
+);
+
+// Course
+export const selectCourses = createSelector(
+  selectCourseState,
+  fromCourseReducer.selectCourses
+);
+
+export const selectNewCourses = createSelector(
+  selectCourseState,
+  fromCourseReducer.selectNewCourses
+);
+
+export const selectActiveCourses = createSelector(
+  selectCourseState,
+  fromCourseReducer.selectActiveCourses
+);
+
+export const selectCompletedCourses = createSelector(
+  selectCourseState,
+  fromCourseReducer.selectCompletedCourses
+);
+
+export const selectIsLoadingCourses = createSelector(
+  selectCourseState,
+  fromCourseReducer.selectIsLoadingCourses
 );

@@ -1,11 +1,36 @@
 <div class="classroom">
-  <div class="row">
+  <div class="row" *ngLet="(view$ | async) as view">
     <div class="col-12">
       <button mat-flat-button color="primary" class="class-btn text-uppercase">All Courses</button>
       <button mat-button class="class-btn text-uppercase main-button-transparent">Prep Admission Courses</button>
       <button mat-button class="class-btn text-uppercase main-button-transparent">Language Courses</button>
       <button mat-button class="class-btn text-uppercase main-button-transparent">Academic Courses </button>
     </div>
+    <div class="col-12">
+      <h2 class="title cursor-pointer d-flex align-items-center" (click)="openNewlyAssigned = !openNewlyAssigned">
+        <span class="flex-grow-1">Newly Assigned Courses</span>
+        <img src="assets/svg/arrow-up.svg" [class.rotate-180]="openNewlyAssigned" draggable="false" width="30px" height="30"
+             alt="" />
+      </h2>
+      <div class="row" [@slideInOut] *ngIf="openNewlyAssigned">
+        <ng-container *ngIf="!isLoading">
+          <div class="col-md-12 mb-3" *ngFor="let newCourse of view.newCourses">
+            <metutors-classroom-item [classroom]="newCourse"></metutors-classroom-item>
+          </div>
+
+          <div class="col-md-12 mb-3" *ngIf="!view.newCourses || !view.newCourses.length">
+            <h3 class="text-center no-data">No courses found!</h3>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="view.loading">
+          <div class="col-md-12" *ngFor="let _ of [1, 2]">
+            <metutors-card-placeholder></metutors-card-placeholder>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+
     <div class="col-12">
       <h2 class="title cursor-pointer d-flex align-items-center" (click)="openActive = !openActive">
         <span class="flex-grow-1">Active courses</span>
@@ -14,16 +39,16 @@
       </h2>
       <div class="row" [@slideInOut] *ngIf="openActive">
         <ng-container *ngIf="!isLoading">
-          <div class="col-md-12 mb-3" *ngFor="let classroom of activeClassrooms">
-            <metutors-classroom-item [classroom]="classroom"></metutors-classroom-item>
+          <div class="col-md-12 mb-3" *ngFor="let activeCourse of view.activeCourses">
+            <metutors-classroom-item [classroom]="activeCourse"></metutors-classroom-item>
           </div>
 
-          <div class="col-md-12 mb-3" *ngIf="!activeClassrooms || !activeClassrooms.length">
+          <div class="col-md-12 mb-3" *ngIf="!view.activeCourses || !view.activeCourses.length">
             <h3 class="text-center no-data">No courses found!</h3>
           </div>
         </ng-container>
 
-        <ng-container *ngIf="isLoading">
+        <ng-container *ngIf="view.loading">
           <div class="col-md-12" *ngFor="let _ of [1, 2]">
             <metutors-card-placeholder></metutors-card-placeholder>
           </div>
@@ -39,15 +64,15 @@
       </h2>
       <div class="row" [@slideInOut] *ngIf="openCompleted">
         <ng-container *ngIf="!isLoading">
-          <div class="col-md-12 mb-3" *ngFor="let classroom of completedClassrooms">
-            <metutors-classroom-item [classroom]="classroom"></metutors-classroom-item>
+          <div class="col-md-12 mb-3" *ngFor="let completedCourse of view.completedCourses">
+            <metutors-classroom-item [classroom]="completedCourse"></metutors-classroom-item>
           </div>
-          <div class="col-md-12 mb-3" *ngIf="!completedClassrooms || !completedClassrooms.length">
+          <div class="col-md-12 mb-3" *ngIf="!view.completedCourses || !view.completedCourses.length">
             <h3 class="text-center no-data">No courses found!</h3>
           </div>
         </ng-container>
 
-        <ng-container *ngIf="isLoading">
+        <ng-container *ngIf="view.loading">
           <div class="col-md-12" *ngFor="let _ of [1, 2]">
             <metutors-card-placeholder></metutors-card-placeholder>
           </div>

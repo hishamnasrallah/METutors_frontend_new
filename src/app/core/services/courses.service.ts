@@ -1,14 +1,15 @@
 import {
   HttpClient,
-  HttpErrorResponse,
   HttpParams,
+  HttpErrorResponse,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
-import { IClassroom, IClass, ICourse, ICategory, ISyllabus } from '../models';
-import { catchError, map } from 'rxjs/operators';
-import { AcademicTutoringTextbook, SORTED_DAYS_WEEK } from 'src/app/config';
 import { Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+
+import { environment } from 'src/environments/environment';
+import { IClassroom, ICourse, ICategory, ISyllabus } from '@models';
+import { AcademicTutoringTextbook, SORTED_DAYS_WEEK } from 'src/app/config';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +18,16 @@ export class CoursesService {
   mainLink = environment.API_URL;
 
   constructor(private http: HttpClient) {}
+
+  loadCourses(): Observable<any> {
+    return this.http
+      .get<{ classes: ICourse[] }>(`${this.mainLink}courses`)
+      .pipe(
+        map((response) =>
+          response.classes.map((item) => new ICourse(false, item))
+        )
+      );
+  }
 
   fetchMainServices(): Observable<any> {
     return this.http.get<{ results: ICategory[] }>(`${this.mainLink}category`);
