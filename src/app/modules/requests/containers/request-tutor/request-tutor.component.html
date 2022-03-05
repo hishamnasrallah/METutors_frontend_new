@@ -18,8 +18,9 @@
 
         <metutors-course-information-form [form]="courseInformationForm" [levels]="levels$ | async"
           [fields]="fields$ | async" [programs]="programs$ | async" [languages]="languages$ | async"
-          [subjects]="subjects$ | async" (submitForm)="nextStep()"
-          (changeCourseProgram)="fetchCourseFieldSubject($event); fetchCourseField($event)">
+          [subjects]="subjects$ | async" [countries]="countries$ | async" (submitForm)="nextStep()"
+          (changeCourseProgram)="fetchCourseFieldSubject($event); fetchCourseField($event)"
+          (changeCourseSubject)="calculateEstimatedPrice($event)">
         </metutors-course-information-form>
       </form>
     </mat-step>
@@ -39,7 +40,7 @@
           </div>
         </ng-template>
 
-        <metutors-classroom-info-form [form]="classroomDetailsForm" [prices]="prices" (onBack)="backStep()"
+        <metutors-classroom-info-form [form]="classroomDetailsForm" [price]="price$ | async" (onBack)="backStep()"
           (submitForm)="nextStep(); generateClassRooms()">
         </metutors-classroom-info-form>
       </form>

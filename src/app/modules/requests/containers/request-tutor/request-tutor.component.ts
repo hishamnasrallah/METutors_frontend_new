@@ -18,6 +18,7 @@ import {
   IProgram,
   ISubject,
   ITutor,
+  ICountry,
 } from 'src/app/core/models';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
@@ -31,6 +32,7 @@ import { ActivatedRoute } from '@angular/router';
 export class RequestTutorComponent implements OnInit {
   @ViewChild('stepper') private myStepper?: MatStepper;
 
+  price$: Observable<number | null>;
   loadingTutors$: Observable<boolean>;
   levels$: Observable<ILevel[] | null>;
   fields$: Observable<IField[] | null>;
@@ -38,9 +40,10 @@ export class RequestTutorComponent implements OnInit {
   isCreatingCourse$: Observable<boolean>;
   programs$: Observable<IProgram[] | null>;
   subjects$: Observable<ISubject[] | null>;
+  countries$: Observable<ICountry[] | null>;
   languages$: Observable<ILanguage[] | null>;
 
-  prices: any;
+  price: number;
   tutors?: ITutor[];
   reviewInfo: any = {};
   classrooms!: IClass[];
@@ -50,6 +53,7 @@ export class RequestTutorComponent implements OnInit {
   languages?: ILanguage[];
   selectTutorForm: FormGroup;
   coursePrograms?: IProgram[];
+  courseCountries!: ICountry[];
   selectedClassrooms!: IClass[];
   classroomDetailsForm: FormGroup;
   courseInformationForm: FormGroup;
@@ -67,9 +71,16 @@ export class RequestTutorComponent implements OnInit {
         Validators.required,
       ],
       courseLevel: [null, Validators.required],
-      courseField: [null, Validators.required],
+      courseCountry: [+this._route.snapshot.queryParams['country']],
+      courseField: [
+        +this._route.snapshot.queryParams['field'],
+        Validators.required,
+      ],
       language: [null, Validators.required],
-      subject: [null, Validators.required],
+      subject: [
+        +this._route.snapshot.queryParams['subject'],
+        Validators.required,
+      ],
       information: [null, Validators.required],
       file: [null],
       name: [null],
@@ -110,6 +121,12 @@ export class RequestTutorComponent implements OnInit {
     this._prepareLanguages();
     this._prepareCourseLevel();
     this._prepareCourseProgram();
+    this._prepareCourseCountries();
+
+    if (this._route.snapshot.queryParams['program']) {
+      this.fetchCourseField(this._route.snapshot.queryParams['program']);
+      this.fetchCourseFieldSubject(this._route.snapshot.queryParams['program']);
+    }
 
     this.tutors$ = this._store.select(fromCore.selectGeneratingTutors).pipe(
       tap((tutors) => {
@@ -120,7 +137,6 @@ export class RequestTutorComponent implements OnInit {
     );
     this.loadingTutors$ = this._store.select(fromCore.selectIsGeneratingTutors);
     this.isCreatingCourse$ = this._store.select(fromCore.selectIsCreateClass);
-    // this._fetchAcademicTutoringPrice();
   }
 
   nextStep(): void {
@@ -133,7 +149,12 @@ export class RequestTutorComponent implements OnInit {
   }
 
   fetchCourseFieldSubject(fieldId: string): void {
-    this._store.dispatch(fromCore.loadSubjectsByFieldId({ fieldId }));
+    this._store.dispatch(
+      fromCore.loadSubjectsByFieldId({
+        fieldId,
+        country: this.courseInformationForm.value?.courseCountry,
+      })
+    );
     this.subjects$ = this._store.select(fromCore.selectSubjects).pipe(
       tap((subjects) => {
         if (subjects && subjects.length) {
@@ -149,6 +170,17 @@ export class RequestTutorComponent implements OnInit {
       tap((fields) => {
         if (fields && fields.length) {
           this.courseField = fields;
+        }
+      })
+    );
+  }
+
+  calculateEstimatedPrice(subjectId: string): void {
+    this._store.dispatch(fromCore.calculateEstimatedPrice({ subjectId }));
+    this.price$ = this._store.select(fromCore.selectEstimatedPrice).pipe(
+      tap((price) => {
+        if (price) {
+          this.price = price;
         }
       })
     );
@@ -198,6 +230,12 @@ export class RequestTutorComponent implements OnInit {
       ...this.courseInformationForm.value,
       ...this._generateClassroomForm(this.classroomDetailsForm.value),
       ...this.selectTutorForm.value,
+      startTime: this.reviewInfo.startTime,
+      endTime: this.reviewInfo.endTime,
+      totalPrice: this.reviewInfo.price,
+      startDate: this.reviewInfo.startDate,
+      endDate: this.reviewInfo.endDate,
+      classes: this.reviewInfo.classes,
       classrooms: this.selectedClassrooms.map((classroom: any) => ({
         date: classroom?.date,
         day: new Date(classroom.date).getDay(),
@@ -350,20 +388,22 @@ export class RequestTutorComponent implements OnInit {
           : [];
 
       if (this.selectedClassrooms && this.selectedClassrooms.length) {
-        const hours = this.selectedClassrooms?.reduce(
+        this.reviewInfo.startDate = this.selectedClassrooms[0].date;
+        this.reviewInfo.startTime = this.selectedClassrooms[0].startTime;
+
+        this.reviewInfo.endDate =
+          this.selectedClassrooms[this.selectedClassrooms.length - 1].date;
+        this.reviewInfo.endTime =
+          this.selectedClassrooms[this.selectedClassrooms.length - 1].endTime;
+
+        this.reviewInfo.hours = this.selectedClassrooms?.reduce(
           (sum: number, hr: any) => sum + +hr?.duration,
           0
         );
 
-        this.reviewInfo.price = 100;
-        // if (
-        //   this.classroomDetailsForm.value?.type.toString() ===
-        //   Object.keys(CLASSROOM_TYPES_CONST)[0].toString()
-        // ) {
-        //   this.reviewInfo.price = +this.prices?.oneOnOne * +hours;
-        // } else {
-        //   this.reviewInfo.price = +this.prices?.groupStudy * +hours;
-        // }
+        this.reviewInfo.classes = this.selectedClassrooms.length;
+
+        this.reviewInfo.price = +this.reviewInfo.hours * +this.price;
       }
     }
 
@@ -438,6 +478,17 @@ export class RequestTutorComponent implements OnInit {
     );
   }
 
+  private _prepareCourseCountries(): void {
+    this._store.dispatch(fromCore.loadCountries());
+    this.countries$ = this._store.select(fromCore.selectCountries).pipe(
+      tap((courseCountries) => {
+        if (courseCountries && courseCountries.length) {
+          this.courseCountries = courseCountries;
+        }
+      })
+    );
+  }
+
   private _prepareLanguages(): void {
     this._store.dispatch(fromCore.loadLanguages());
     this.languages$ = this._store.select(fromCore.selectLanguages).pipe(
@@ -448,18 +499,4 @@ export class RequestTutorComponent implements OnInit {
       })
     );
   }
-
-  // private _fetchAcademicTutoringPrice(): void {
-  //   this.getCourseFieldSub = this._miscService
-  //     ._fetchAcademicTutoringPrice()
-  //     .subscribe(
-  //       (fetchedValues) => {
-  //         this.prices = fetchedValues;
-  //         addMisc('prices', this.prices);
-  //       },
-  //       () => {}
-  //     );
-
-  //   this.prices = getMisc().prices;
-  // }
 }

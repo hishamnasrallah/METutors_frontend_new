@@ -204,6 +204,15 @@ export class CoursesService {
       );
   }
 
+  calculateEstimatedPrice(subjectId: string): Observable<any> {
+    return this.http
+      .get<{ estimated_price_per_hour: number }>(
+        `${this.baseUrl}estimated-price?subject_id=${subjectId}`
+      )
+      .pipe(map((response) => response.estimated_price_per_hour))
+      .pipe(catchError(this.errorHandler));
+  }
+
   createCourse(value: any): Observable<any> {
     const formData = new FormData();
 
@@ -211,8 +220,6 @@ export class CoursesService {
       value.days && value.days.length
         ? value.days.map((day: string) => SORTED_DAYS_WEEK.indexOf(day))
         : [];
-
-    const totalPrice = (10 * +value.hours)?.toString();
 
     if (value.courseProgram) formData.append('program_id', value.courseProgram);
     if (value.courseLevel) formData.append('course_level', value.courseLevel);
@@ -232,7 +239,7 @@ export class CoursesService {
     if (value.endDate) formData.append('end_date', value.endDate);
     if (weekdays) formData.append('weekdays', weekdays);
     if (value.hours) formData.append('total_hours', value.hours);
-    if (totalPrice) formData.append('total_price', totalPrice);
+    if (value.totalPrice) formData.append('total_price', value.totalPrice);
     if (value.classes) formData.append('total_classes', value.classes);
     if (value.type) formData.append('class_type', value.type);
 

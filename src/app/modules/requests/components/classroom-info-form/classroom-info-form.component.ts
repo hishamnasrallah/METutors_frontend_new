@@ -43,13 +43,12 @@ import {
   ],
 })
 export class ClassroomInfoFormComponent implements OnInit {
-  @Input() prices: any;
   @Input() form!: FormGroup;
+  @Input() price: number | null;
 
   @Output() onBack = new EventEmitter();
   @Output() submitForm = new EventEmitter<FormGroup>();
 
-  price = 0;
   minDate = new Date();
   showSeatAttendees = false;
   listDays = LONG_DAYS_WEEK;
@@ -177,11 +176,9 @@ export class ClassroomInfoFormComponent implements OnInit {
         this.type.value.toString() ===
         Object.keys(CLASSROOM_TYPES_CONST)[0].toString()
       ) {
-        this.price = +this.prices?.oneOnOne * +this.hours?.value;
         this.showSeatAttendees = false;
         this.seatAttendees?.setValue(1);
       } else {
-        this.price = +this.prices?.groupStudy * +this.hours?.value;
         this.showSeatAttendees = true;
       }
     }

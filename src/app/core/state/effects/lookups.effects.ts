@@ -142,7 +142,7 @@ export class LookupsEffects {
     this._actions$.pipe(
       ofType(lookupsActions.loadSubjectsByFieldId),
       mergeMap((action) =>
-        this._lookupsService.getSubjectsByFieldId(action.fieldId).pipe(
+        this._lookupsService.getSubjectsByFieldId(action.fieldId, action?.country).pipe(
           map((subjects) =>
             lookupsActions.loadSubjectsByFieldIdSuccess({
               subjects,

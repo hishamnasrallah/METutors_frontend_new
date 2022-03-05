@@ -12,6 +12,7 @@ import {
   AcademicTutoringTextbook,
   formatBytes,
   TEXTBOOK_EDITION_CONST,
+  generalConstants,
 } from 'src/app/config';
 import { AlertNotificationService } from 'src/app/core/components';
 import {
@@ -20,6 +21,7 @@ import {
   ILanguage,
   IProgram,
   ISubject,
+  ICountry,
 } from 'src/app/core/models';
 
 @Component({
@@ -54,12 +56,15 @@ export class CourseInformationFormComponent implements OnInit {
   @Input() levels: ILevel[] | null;
   @Input() subjects: ISubject[] | null;
   @Input() programs: IProgram[] | null;
+  @Input() countries: ICountry[] | null;
   @Input() languages: ILanguage[] | null;
 
   @Output() submitForm = new EventEmitter<FormGroup>();
   @Output() changeCourseProgram = new EventEmitter<string>();
+  @Output() changeCourseSubject = new EventEmitter<string>();
 
   filePreview: any;
+  nationalId = generalConstants.nationalId;
   textbookEditions = TEXTBOOK_EDITION_CONST;
   academicTutoringTextbook = AcademicTutoringTextbook;
 
@@ -107,6 +112,10 @@ export class CourseInformationFormComponent implements OnInit {
     return this.form.get('courseProgram');
   }
 
+  get subject(): AbstractControl | null {
+    return this.form.get('subject');
+  }
+
   get information(): AbstractControl | null {
     return this.form.get('information');
   }
@@ -131,6 +140,12 @@ export class CourseInformationFormComponent implements OnInit {
     const programId = this.program?.value;
 
     this.changeCourseProgram.emit(programId);
+  }
+
+  onChangeCourseSubject(): void {
+    const subjectId = this.subject?.value;
+
+    this.changeCourseSubject.emit(subjectId);
   }
 
   onFileUpload(event: any): void {

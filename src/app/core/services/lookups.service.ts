@@ -67,11 +67,21 @@ export class LookupsService {
       .pipe(catchError(this.errorHandler));
   }
 
-  getSubjectsByFieldId(fieldId: string): Observable<any> {
+  getSubjectsByFieldId(fieldId: string, country?: string): Observable<any> {
+    let params = new HttpParams();
+
+    if (fieldId) {
+      params = params.append('field_id', fieldId);
+    }
+
+    if (country) {
+      params = params.append('country_id', country);
+    }
+
     return this.http
-      .get<{ subjects: any }>(
-        `${this.BACKEND_URL}field-subjects?field_id=${fieldId}`
-      )
+      .get<{ subjects: any }>(`${this.BACKEND_URL}field-subjects`, {
+        params,
+      })
       .pipe(
         map((response) => {
           return response.subjects.map((item: any) => ({

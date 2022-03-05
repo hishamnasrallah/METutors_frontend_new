@@ -31,3 +31,18 @@ export const createClassFailure = createAction(
   '[Request] Create Class Failure',
   props<{ error: any }>()
 );
+
+export const calculateEstimatedPrice = createAction(
+  '[Request] Calculate Estimated Price',
+  props<{ subjectId: string }>()
+);
+
+export const calculateEstimatedPriceSuccess = createAction(
+  '[Request] Calculate Estimated Price Success',
+  props<{ estimatedPrice: number }>()
+);
+
+export const calculateEstimatedPriceFailure = createAction(
+  '[Request] Calculate Estimated Price Failure',
+  props<{ error: any }>()
+);

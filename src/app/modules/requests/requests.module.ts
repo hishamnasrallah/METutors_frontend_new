@@ -14,6 +14,7 @@ import { RatingModule } from 'ngx-bootstrap/rating';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatNativeDateModule } from '@angular/material/core';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { SharedModule } from '@metutor/shared/shared.module';
 
 import { RequestTutorComponent, InvoiceDetailsComponent } from './containers';
 
@@ -43,6 +44,7 @@ import {
   ],
   imports: [
     FormsModule,
+    SharedModule,
     CommonModule,
     MatIconModule,
     MatInputModule,

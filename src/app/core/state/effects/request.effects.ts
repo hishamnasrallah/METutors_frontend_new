@@ -9,6 +9,28 @@ import { AlertNotificationService } from '@metutor/core/components';
 
 @Injectable()
 export class RequestEffects {
+  calculateEstimatedPrice$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(requestActions.calculateEstimatedPrice),
+      mergeMap(({ subjectId }) =>
+        this._coursesService.calculateEstimatedPrice(subjectId).pipe(
+          map((estimatedPrice) =>
+            requestActions.calculateEstimatedPriceSuccess({
+              estimatedPrice,
+            })
+          ),
+          catchError((error) =>
+            of(
+              requestActions.calculateEstimatedPriceFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   generateTutors$ = createEffect(() =>
     this._actions$.pipe(
       ofType(requestActions.generateTutors),

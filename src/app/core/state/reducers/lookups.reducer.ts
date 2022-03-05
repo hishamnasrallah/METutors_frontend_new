@@ -229,7 +229,7 @@ export const reducer = createReducer(
     (state, { error }) => ({
       ...state,
       isLoadingFields: false,
-      loadingFieldsFailure: error.message,
+      loadingFieldsFailure: error,
     })
   ),
 

@@ -55,6 +55,7 @@ export class LearningEnvironmentComponent implements OnInit {
       const dialogRef = this._dialog.open(ChooseCountryDialog, {
         width: '1000px',
         data: { countries: this.countries, isLoading: this.isLoading },
+        panelClass: 'choose-country',
       });
 
       dialogRef.afterClosed().subscribe((result) => {

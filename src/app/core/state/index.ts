@@ -111,6 +111,16 @@ export const selectIsCompleteTutorProfile = createSelector(
 );
 
 // Requests
+export const selectEstimatedPrice = createSelector(
+  selectRequestState,
+  fromRequestReducer.selectEstimatedPrice
+);
+
+export const selectIsLoadingEstimatedPrice = createSelector(
+  selectRequestState,
+  fromRequestReducer.selectIsLoadingEstimatedPrice
+);
+
 export const selectGeneratingTutors = createSelector(
   selectRequestState,
   fromRequestReducer.selectGeneratingTutors
