@@ -6,7 +6,10 @@
 
 <metutors-facts-statistics [statistics]="academicStatistics"></metutors-facts-statistics>
 
-<metutors-learning-environment [isLoading]="loadingPrograms$ | async" [programs]="programs$ | async">
+<metutors-learning-environment [isLoading]="loadingPrograms$ | async" [programs]="programs$ | async"
+  [subjects]="subjects$ | async" [loadingSubjects]="loadingSubjects$ | async" [fields]="fields$ | async"
+  [loadingFields]="loadingFields$ | async" [countries]="countries$ | async"
+  [loadingCountries]="loadingCountries$ | async" (changeProgram)="fetchFieldSubjects($event); fetchFields($event)">
 </metutors-learning-environment>
 
 <div class="container">

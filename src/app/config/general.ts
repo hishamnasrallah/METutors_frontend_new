@@ -2,6 +2,8 @@ export const generalConstants = {
   defaultAvatarPath: 'assets/defaults/avatar.png',
   defaultCoverPath: 'assets/defaults/cover.png',
   defaultCoursePath: 'assets/defaults/course.jpg',
+  nationalId: 3,
+  studentTopicId: 1,
 };
 
 export const TICKET_STATUSES_CONST: any = {

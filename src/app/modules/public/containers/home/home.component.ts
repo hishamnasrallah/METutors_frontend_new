@@ -1,7 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { IStatistics, ITutor, IProgram } from 'src/app/core/models';
+import {
+  IStatistics,
+  ITutor,
+  IProgram,
+  ISubject,
+  IField,
+  ICountry,
+} from 'src/app/core/models';
 import * as fromCore from '@metutor/core/state';
 
 @Component({
@@ -10,8 +17,14 @@ import * as fromCore from '@metutor/core/state';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
+  loadingFields$: Observable<boolean>;
+  fields$: Observable<IField[] | null>;
   loadingPrograms$: Observable<boolean>;
+  loadingSubjects$: Observable<boolean>;
+  loadingCountries$: Observable<boolean>;
   programs$: Observable<IProgram[] | null>;
+  subjects$: Observable<ISubject[] | null>;
+  countries$: Observable<ICountry[] | null>;
 
   teachers?: ITutor[];
   testmonials?: any[];
@@ -21,6 +34,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this._preparePrograms();
+    this._prepareCountries();
 
     this.academicStatistics = [
       {
@@ -160,11 +174,33 @@ export class HomeComponent implements OnInit {
     ];
   }
 
+  fetchFieldSubjects(programId: string): void {
+    this._store.dispatch(fromCore.loadSubjectsByProgramId({ programId }));
+    this.subjects$ = this._store.select(fromCore.selectSubjects);
+    this.loadingSubjects$ = this._store.select(
+      fromCore.selectIsLoadingSubjects
+    );
+  }
+
+  fetchFields(programId: string): void {
+    this._store.dispatch(fromCore.loadFieldsByProgramId({ programId }));
+    this.fields$ = this._store.select(fromCore.selectFields);
+    this.loadingFields$ = this._store.select(fromCore.selectIsLoadingFields);
+  }
+
   private _preparePrograms(): void {
     this._store.dispatch(fromCore.loadPrograms());
     this.programs$ = this._store.select(fromCore.selectPrograms);
     this.loadingPrograms$ = this._store.select(
       fromCore.selectIsLoadingPrograms
+    );
+  }
+
+  private _prepareCountries(): void {
+    this._store.dispatch(fromCore.loadCountries());
+    this.countries$ = this._store.select(fromCore.selectCountries);
+    this.loadingCountries$ = this._store.select(
+      fromCore.selectIsLoadingCountries
     );
   }
 }
