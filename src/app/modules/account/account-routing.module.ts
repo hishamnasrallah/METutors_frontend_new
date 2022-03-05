@@ -71,7 +71,6 @@ const routes: Routes = [
     data: {
       layout: {
         title: 'Confirm email - MEtutors',
-        showHeader: false,
         showFooter: false,
       },
     },

@@ -7,7 +7,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { CountryISO } from 'ngx-intl-tel-input';
 import { Subscription } from 'rxjs';
@@ -54,7 +53,6 @@ export class SignupComponent implements OnInit, OnDestroy {
     private _router: Router,
     private _fb: FormBuilder,
     private _dialog: MatDialog,
-    private _route: ActivatedRoute,
     private _authService: AuthService,
     private _userService: UsersService,
     private _fv: FormValidationUtilsService,

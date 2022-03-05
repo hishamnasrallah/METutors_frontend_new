@@ -1,8 +1,13 @@
 <div class="container py-5 signup-block">
   <div class="row">
-    <div class="col-md-5 d-flex align-items-center" *ngIf="step === 1">
-      <form [formGroup]="signupForm" (ngSubmit)="onSubmit(signupForm)" class="w-100">
-        <div>
+    <div class="col-md-5 d-flex flex-column" *ngIf="step === 1">
+      <a class="pb-5" routerLink="/">
+        <img alt="logo" src="assets/logo/logo-dark.png" width="200px" draggable="false">
+      </a>
+
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit(signupForm)"
+        class="w-100 flex-grow-1 d-flex align-items-center">
+        <div class="w-100">
           <h3 class="m-0">Welcome!</h3>
           <h4 class="mb-5">Let's get you set up</h4>
 
@@ -116,15 +121,27 @@
       </form>
     </div>
 
-    <div class="col-md-5 d-flex align-items-center" *ngIf="step === 2">
-      <metutors-signup-email-verification [loading]="loading" [resendLoading]="resendLoading"
-        (submitForm)="onSubmitVerifyEmail($event)" (resendEmail)="resendEmailConfirm()">
-      </metutors-signup-email-verification>
+    <div class="col-md-5 d-flex flex-column" *ngIf="step === 2">
+      <a class="pb-5" routerLink="/">
+        <img alt="logo" src="assets/logo/logo-dark.png" width="200px" draggable="false">
+      </a>
+
+      <div>
+        <metutors-signup-email-verification [loading]="loading" [resendLoading]="resendLoading"
+          (submitForm)="onSubmitVerifyEmail($event)" (resendEmail)="resendEmailConfirm()">
+        </metutors-signup-email-verification>
+      </div>
     </div>
 
-    <div class="col-md-5" *ngIf="step === 3">
-      <metutors-signup-upload-documents [loading]="loading" (submitForm)="submitDocuments($event)">
-      </metutors-signup-upload-documents>
+    <div class="col-md-5 d-flex flex-column" *ngIf="step === 3">
+      <a class="pb-5" routerLink="/">
+        <img alt="logo" src="assets/logo/logo-dark.png" width="200px" draggable="false">
+      </a>
+
+      <div>
+        <metutors-signup-upload-documents [loading]="loading" (submitForm)="submitDocuments($event)">
+        </metutors-signup-upload-documents>
+      </div>
     </div>
 
     <div class="col-md-7 align-items-center img-cover">

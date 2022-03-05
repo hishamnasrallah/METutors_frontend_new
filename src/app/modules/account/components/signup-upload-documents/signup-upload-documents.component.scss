@@ -8,3 +8,30 @@
     font-size: 17px;
   }
 }
+
+.list-files {
+  border: 2px dashed;
+  border-radius: 4px;
+  background: rgb(204 204 204 / 10%);
+  padding: 5px 10px;
+
+  >div {
+    width: calc(100% - (24px + 0.5rem));
+  }
+
+  h3 {
+    font-size: 16px;
+    margin: 0;
+    color: #232323;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+  }
+
+  h5 {
+    font-size: 13px;
+    color: #696969;
+    margin: 0;
+  }
+}
