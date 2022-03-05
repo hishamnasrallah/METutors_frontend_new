@@ -1,6 +1,7 @@
 import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
+import camelcaseKeys from 'camelcase-keys';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
   map,
@@ -11,7 +12,6 @@ import {
 } from 'rxjs/operators';
 
 import * as fromCore from '@metutor/core/state';
-import * as fromRouterStore from '@metutor/state';
 import { LookupsService, SupportService } from '@services';
 import * as lookupsActions from '../actions/lookups.actions';
 
@@ -238,16 +238,13 @@ export class LookupsEffects {
   loadFAQs$ = createEffect(() =>
     this._actions$.pipe(
       ofType(lookupsActions.loadFAQs),
-      withLatestFrom(
-        this._store.select(fromCore.selectFAQs),
-        this._store.select(fromRouterStore.selectRouteParams)
-      ),
-      mergeMap(([{ title, load }, _faqs, { topic }]) => {
-        if (!_faqs || !_faqs.length || load) {
-          return this._supportService.fetchListFaq({ topic, title }).pipe(
+      withLatestFrom(this._store.select(fromCore.selectFAQs)),
+      mergeMap(([_, _faqs]) => {
+        if (!_faqs || !_faqs.length) {
+          return this._supportService.fetchListFaq().pipe(
             map((FAQs) =>
               lookupsActions.loadFAQsSuccess({
-                FAQs,
+                FAQs: camelcaseKeys(FAQs, { deep: true }),
               })
             ),
             catchError((error) =>

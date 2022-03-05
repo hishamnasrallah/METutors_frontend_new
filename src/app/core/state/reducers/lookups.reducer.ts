@@ -321,10 +321,15 @@ export const selectFilteredFAQs = (
 };
 
 const getFilteredFAQs = (faqs: IFAQ[], props: any) => {
+  console.log(props);
   if (props?.title) {
     faqs = faqs?.filter((faq) =>
       faq?.title.toLowerCase().includes(props.title.toLowerCase())
     );
+  }
+
+  if (props?.topic) {
+    faqs = faqs.filter((faq) => faq.topicId === +props.topic);
   }
 
   return faqs;

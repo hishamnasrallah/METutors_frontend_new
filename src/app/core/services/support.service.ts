@@ -1,9 +1,10 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
-import { catchError, map } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
-import { IFAQ, IFAQTopics, ITicket } from '../models';
+import { catchError, map } from 'rxjs/operators';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+
+import { IFAQ, IFAQTopics, ITicket } from '@models';
+import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class SupportService {
@@ -11,18 +12,9 @@ export class SupportService {
 
   constructor(private http: HttpClient) {}
 
-  fetchListFaq(param: { title?: string; topic?: number }): Observable<any> {
-    let params: { title?: string; topic?: number } = {};
-
-    if (param.title) {
-      params.title = param.title;
-    }
-    if (param.topic) {
-      params.topic = param.topic;
-    }
-
+  fetchListFaq(): Observable<any> {
     return this.http
-      .get<{ faqs: IFAQ[] }>(`${this.baseUrl}faqs`, { params })
+      .get<{ faqs: IFAQ[] }>(`${this.baseUrl}faqs`)
       .pipe(map((response) => response.faqs))
       .pipe(catchError(this.errorHandler));
   }
