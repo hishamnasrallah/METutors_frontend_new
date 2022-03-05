@@ -16,6 +16,7 @@ export * from './get-your-classes';
 export * from './home-courses';
 export * from './home-featured-tutors';
 export * from './home-slide';
+export * from './home-study-more-read-more';
 export * from './innovative-approach';
 export * from './language-courses';
 export * from './languages-introducing';
