@@ -27,6 +27,7 @@ import {
   TutorDashboardComponent,
   TutorClassroomsComponent,
   TutorPaymentRecordsComponent,
+  TutorClassDashboardComponent,
 } from './containers';
 
 import {
@@ -49,6 +50,7 @@ import {
     TutorSettingsComponent,
     TutorDashboardComponent,
     TutorClassroomsComponent,
+    TutorClassDashboardComponent,
     TutorPaymentRecordsComponent,
     TutorSettingsAccountComponent,
     TutorSettingsSecurityComponent,

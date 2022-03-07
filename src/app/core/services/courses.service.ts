@@ -21,10 +21,10 @@ export class CoursesService {
 
   loadCourses(): Observable<any> {
     return this.http
-      .get<{ classes: ICourse[] }>(`${this.baseUrl}courses`)
+      .get<{ courses: ICourse[] }>(`${this.baseUrl}courses`)
       .pipe(
         map((response) =>
-          response.classes.map((item) => new ICourse(false, item))
+          response.courses.map((item) => new ICourse(false, item))
         )
       );
   }

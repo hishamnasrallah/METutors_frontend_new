@@ -37,7 +37,7 @@ export const reducer = createReducer(
   on(courseActions.loadCoursesFailure, (state, { error }) => ({
     ...state,
     isLoadingCourses: false,
-    loadingCoursesFailure: error.message,
+    loadingCoursesFailure: error?.message,
   })),
 
   on(courseActions.loadCoursesEnded, (state) => ({

@@ -9,6 +9,7 @@ import {
   TutorDashboardComponent,
   TutorClassroomsComponent,
   TutorPaymentRecordsComponent,
+  TutorClassDashboardComponent,
 } from './containers';
 
 const routes: Routes = [
@@ -49,7 +50,7 @@ const routes: Routes = [
             },
           },
           {
-            path: 'classes/:id',
+            path: 'classes',
             component: TutorClassesComponent,
             data: {
               layout: {
@@ -59,6 +60,25 @@ const routes: Routes = [
                 hideSidebar: true,
               },
             },
+            children: [
+              {
+                path: ':id/dashboard',
+                component: TutorClassDashboardComponent,
+                data: {
+                  layout: {
+                    title: 'Tutor Class Dashboard - Metutors',
+                    showHeader: false,
+                    showFooter: false,
+                    hideSidebar: true,
+                  },
+                },
+              },
+              {
+                path: '',
+                redirectTo: ':id',
+                pathMatch: 'full',
+              },
+            ],
           },
         ],
       },

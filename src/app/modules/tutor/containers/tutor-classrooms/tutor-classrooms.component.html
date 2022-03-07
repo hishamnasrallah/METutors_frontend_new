@@ -15,7 +15,7 @@
       <div class="row" [@slideInOut] *ngIf="openNewlyAssigned">
         <ng-container *ngIf="!isLoading">
           <div class="col-md-12 mb-3" *ngFor="let newCourse of view.newCourses">
-            <metutors-classroom-item [classroom]="newCourse" [url]="'/tutor/classrooms/classes/'"></metutors-classroom-item>
+            <metutors-classroom-item [classroom]="newCourse" [isTutor]="true"></metutors-classroom-item>
           </div>
 
           <div class="col-md-12 mb-3" *ngIf="!view.newCourses || !view.newCourses.length">
@@ -40,7 +40,7 @@
       <div class="row" [@slideInOut] *ngIf="openActive">
         <ng-container *ngIf="!isLoading">
           <div class="col-md-12 mb-3" *ngFor="let activeCourse of view.activeCourses">
-            <metutors-classroom-item [classroom]="activeCourse" [url]="'/tutor/classrooms/classes/'"></metutors-classroom-item>
+            <metutors-classroom-item [classroom]="activeCourse" [isTutor]="true"></metutors-classroom-item>
           </div>
 
           <div class="col-md-12 mb-3" *ngIf="!view.activeCourses || !view.activeCourses.length">
@@ -65,7 +65,7 @@
       <div class="row" [@slideInOut] *ngIf="openCompleted">
         <ng-container *ngIf="!isLoading">
           <div class="col-md-12 mb-3" *ngFor="let completedCourse of view.completedCourses">
-            <metutors-classroom-item [classroom]="completedCourse" [url]="'/tutor/classrooms/classes/'"></metutors-classroom-item>
+            <metutors-classroom-item [classroom]="completedCourse" [isTutor]="true"></metutors-classroom-item>
           </div>
           <div class="col-md-12 mb-3" *ngIf="!view.completedCourses || !view.completedCourses.length">
             <h3 class="text-center no-data">No courses found!</h3>

@@ -1,9 +1,4 @@
-import { Store } from '@ngrx/store';
-import { map } from 'rxjs/operators';
-import { Observable, combineLatest } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
-
-import * as fromCore from '@metutor/core/state';
 
 @Component({
   selector: 'metutors-tutor-classes',
@@ -11,27 +6,7 @@ import * as fromCore from '@metutor/core/state';
   styleUrls: ['./tutor-classes.component.scss'],
 })
 export class TutorClassesComponent implements OnInit {
-  openLeaveFeedbackPopop = false;
-  openClassroomAttendancesPopop = false;
+  constructor() {}
 
-  view$: Observable<{
-    data: any;
-    loading: boolean;
-  }>;
-
-  constructor(private _store: Store<any>) {}
-
-  ngOnInit(): void {
-    this._store.dispatch(fromCore.loadCourseById());
-
-    this.view$ = combineLatest([
-      this._store.select(fromCore.selectCourseById),
-      this._store.select(fromCore.selectIsLoadingCourseById),
-    ]).pipe(
-      map(([data, loading]) => ({
-        loading,
-        data,
-      }))
-    );
-  }
+  ngOnInit(): void {}
 }
