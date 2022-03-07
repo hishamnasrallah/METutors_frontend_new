@@ -136,7 +136,7 @@
             <ng-container *ngIf="view.data.upcomingClasses.length">
               <tr *ngFor="let upcomingClass of view.data.upcomingClasses; let i=index">
                 <td>{{ i + 1}}</td>
-                <td>{{ upcomingClass.title }}</td>
+                <td>{{ upcomingClass.title ? upcomingClass.title : 'N/A' }}</td>
                 <td>{{ upcomingClass.startDate | date: 'EEEE'}} </td>
                 <td>{{ upcomingClass.startDate}} </td>
                 <td>{{ upcomingClass.startTime}} - {{ upcomingClass.endTime}} </td>
