@@ -80,12 +80,12 @@ export class TutorClassroomsComponent implements OnInit {
 
   private _parseCourse(courses: any): any {
     return courses?.map((course: any) => {
-      /* const completedClasses = course.classes.filter(
-        (item: any) => item.status === 'success'
+      const completedClasses = course?.classes.filter(
+        (item: any) => item.status === 'completed'
       );
-      const remainingClasses = course.classes.filter(
-        (item: any) => item.status !== 'success'
-      );*/
+      const remainingClasses = course?.classes.filter(
+        (item: any) => item.status !== 'completed'
+      );
 
       const listDays: any = [];
       const splitDays = course.weekdays.split(',');
@@ -99,11 +99,10 @@ export class TutorClassroomsComponent implements OnInit {
         listDays,
         endTime: '',
         startTime: '',
-        completedClasses: 0,
-        remainingClasses: 0,
         name: course.courseName,
         hours: course.totalHours,
-        expectedEndDate: course.endDate,
+        completedClasses: completedClasses?.length,
+        remainingClasses: remainingClasses?.length,
       };
     });
   }
