@@ -75,7 +75,7 @@ export class ICourse {
       this.status = course.status;
       this.courseCode = course.course_code;
       this.courseName = course.course_name;
-      this.startDate = course.state_date;
+      this.startDate = course.start_date;
       this.endDate = course.end_date;
       this.totalPrice = course.total_price;
       this.totalHours = course.total_hours;

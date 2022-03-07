@@ -22,10 +22,10 @@ export class CoursesService {
 
   loadCourses(): Observable<any> {
     return this.http
-      .get<{ classes: ICourse[] }>(`${this.baseUrl}courses`)
+      .get<{ courses: ICourse[] }>(`${this.baseUrl}courses`)
       .pipe(
         map((response) =>
-          response.classes.map((item) => new ICourse(false, item))
+          response.courses.map((item) => new ICourse(false, item))
         )
       );
   }
@@ -38,11 +38,10 @@ export class CoursesService {
     return this.http.get<ICategory>(`${this.baseUrl}category/${id}/`);
   }
 
-  // todo make it get request
-  getCourseById(course_id: number): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}courses/course-detail`, {
-      course_id,
-    });
+  getCourseById(courseId: number): Observable<any> {
+    return this.http.get<any>(
+      `${this.baseUrl}courses/course-detail/${courseId}`
+    );
   }
 
   getClassroomById(id: string): Observable<any> {
