@@ -97,12 +97,12 @@ export class TutorClassroomsComponent implements OnInit {
         ...course,
         type: 1,
         listDays,
-        startETime: '',
-        endETime: '',
-        name: course.courseName,
-        expectedEndDate: course.endDate,
+        endTime: '',
+        startTime: '',
         completedClasses: 0,
         remainingClasses: 0,
+        name: course.courseName,
+        expectedEndDate: course.endDate,
       };
     });
   }
