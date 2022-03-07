@@ -1,4 +1,4 @@
-import { IField, IProgram } from '.';
+import { IClass, IField, IProgram } from '.';
 import { TuitionType } from 'src/app/config';
 import { IPriceRange } from './price-range';
 import {
@@ -30,6 +30,7 @@ export class ICourse {
   totalClasses?: string;
   weekdays?: string;
   program?: IProgram;
+  classes?: IClass[];
 
   constructor(createDefault = false, course: any = null) {
     if (createDefault) {
@@ -56,6 +57,7 @@ export class ICourse {
       this.totalClasses = '';
       this.weekdays = '';
       this.program = undefined;
+      this.classes = [];
     }
 
     if (course) {
@@ -82,6 +84,7 @@ export class ICourse {
       this.totalClasses = course.total_classes;
       this.weekdays = course.weekdays;
       this.program = course.program;
+      this.classes = course.classes;
     }
   }
 }

@@ -2,9 +2,9 @@
   <div class="row">
     <div class="col-12">
       <button mat-flat-button color="primary" class="class-btn text-uppercase">All Courses</button>
-      <button mat-button class="class-btn text-uppercase main-button-transparent">Prep Admission Courses</button>
+      <!--<button mat-button class="class-btn text-uppercase main-button-transparent">Prep Admission Courses</button>
       <button mat-button class="class-btn text-uppercase main-button-transparent">Language Courses</button>
-      <button mat-button class="class-btn text-uppercase main-button-transparent">Academic Courses </button>
+      <button mat-button class="class-btn text-uppercase main-button-transparent">Academic Courses </button>-->
     </div>
     <div class="col-12">
       <h2 class="title cursor-pointer d-flex align-items-center" (click)="openActive = !openActive">
@@ -19,7 +19,7 @@
           </div>
 
           <div class="col-md-12 mb-3" *ngIf="!activeClassrooms || !activeClassrooms.length">
-            <h3 class="text-center no-data">No courses found!</h3>
+            <h3 class="text-center no-data">No course found!</h3>
           </div>
         </ng-container>
 
@@ -43,7 +43,7 @@
             <metutors-classroom-item [classroom]="classroom"></metutors-classroom-item>
           </div>
           <div class="col-md-12 mb-3" *ngIf="!completedClassrooms || !completedClassrooms.length">
-            <h3 class="text-center no-data">No courses found!</h3>
+            <h3 class="text-center no-data">No course found!</h3>
           </div>
         </ng-container>
 
