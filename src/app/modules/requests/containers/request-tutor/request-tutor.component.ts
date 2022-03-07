@@ -128,6 +128,10 @@ export class RequestTutorComponent implements OnInit {
       this.fetchCourseFieldSubject(this._route.snapshot.queryParams['program']);
     }
 
+    if (this._route.snapshot.queryParams['subject']) {
+      this.calculateEstimatedPrice(this._route.snapshot.queryParams['subject']);
+    }
+
     this.tutors$ = this._store.select(fromCore.selectGeneratingTutors).pipe(
       tap((tutors) => {
         if (tutors && tutors.length) {

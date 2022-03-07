@@ -55,7 +55,7 @@ export class LearningEnvironmentComponent implements OnInit {
       const dialogRef = this._dialog.open(ChooseCountryDialog, {
         width: '1000px',
         data: { countries: this.countries, isLoading: this.isLoading },
-        panelClass: 'choose-country',
+        panelClass: 'overflow-height',
       });
 
       dialogRef.afterClosed().subscribe((result) => {
@@ -80,6 +80,7 @@ export class LearningEnvironmentComponent implements OnInit {
     const dialogRef = this._dialog.open(ViewPricesDialog, {
       width: '800px',
       data: { fields: this.fields, subjects: this.subjects },
+      panelClass: 'overflow-height',
     });
 
     dialogRef.afterClosed().subscribe(() => {});

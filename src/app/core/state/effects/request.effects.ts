@@ -2,10 +2,12 @@ import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, mergeMap } from 'rxjs/operators';
+import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 import { CoursesService, TutorsService } from '@services';
 import * as requestActions from '../actions/request.actions';
+import * as fromCore from '@metutor/core/state';
 import { AlertNotificationService } from '@metutor/core/components';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class RequestEffects {
@@ -56,23 +58,51 @@ export class RequestEffects {
   createClass$ = createEffect(() =>
     this._actions$.pipe(
       ofType(requestActions.createClass),
-      mergeMap(({ data }) =>
-        this._coursesService.createCourse(data).pipe(
-          map((response) => {
-            console.log(response);
-
-            return requestActions.createClassSuccess({});
-          }),
-          catchError((error) =>
-            of(
-              requestActions.createClassFailure({
-                error: error?.error?.message || error?.error?.errors,
-              })
+      withLatestFrom(this._store.select(fromCore.selectUser)),
+      mergeMap(([{ data }, _user]) => {
+        if (_user) {
+          return this._coursesService.createCourse(data).pipe(
+            map((response) => {
+              return requestActions.createClassSuccess({ classroom: response });
+            }),
+            catchError((error) =>
+              of(
+                requestActions.createClassFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
             )
-          )
-        )
-      )
+          );
+        } else {
+          return of(
+            requestActions.createClassLocalStorage({ classroom: data })
+          );
+        }
+      })
     )
+  );
+
+  enterRequestTutor$ = createEffect(
+    () =>
+      this._actions$.pipe(
+        ofType(
+          requestActions.createClassSuccess,
+          requestActions.createClassLocalStorage
+        ),
+        withLatestFrom(this._store.select(fromCore.selectCreatedClass)),
+        map(([_, classroom]) => {
+          if (classroom && classroom.id) {
+            this._router.navigateByUrl(
+              `requests/invoice-details/${classroom.id.toString()}`
+            );
+          } else {
+            this._router.navigate(['requests/invoice-details']);
+          }
+        })
+      ),
+    {
+      dispatch: false,
+    }
   );
 
   failureMessages$ = createEffect(
@@ -100,6 +130,7 @@ export class RequestEffects {
   );
 
   constructor(
+    private _router: Router,
     private _store: Store<any>,
     private _actions$: Actions,
     private _tutorService: TutorsService,

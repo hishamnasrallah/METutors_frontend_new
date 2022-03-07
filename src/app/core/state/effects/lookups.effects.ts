@@ -142,20 +142,22 @@ export class LookupsEffects {
     this._actions$.pipe(
       ofType(lookupsActions.loadSubjectsByFieldId),
       mergeMap((action) =>
-        this._lookupsService.getSubjectsByFieldId(action.fieldId, action?.country).pipe(
-          map((subjects) =>
-            lookupsActions.loadSubjectsByFieldIdSuccess({
-              subjects,
-            })
-          ),
-          catchError((error) =>
-            of(
-              lookupsActions.loadSubjectsByFieldIdFailure({
-                error: error?.error?.message || error?.error?.errors,
+        this._lookupsService
+          .getSubjectsByFieldId(action.fieldId, action?.country)
+          .pipe(
+            map((subjects) =>
+              lookupsActions.loadSubjectsByFieldIdSuccess({
+                subjects,
               })
+            ),
+            catchError((error) =>
+              of(
+                lookupsActions.loadSubjectsByFieldIdFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
             )
           )
-        )
       )
     )
   );
@@ -190,23 +192,23 @@ export class LookupsEffects {
   loadFieldsByProgramId$ = createEffect(() =>
     this._actions$.pipe(
       ofType(lookupsActions.loadFieldsByProgramId),
-      // withLatestFrom(this._store.select(fromCore.selectSubjects)),
-      // filter(([_, fields]) => !fields || fields.length === 0),
       mergeMap((action) =>
-        this._lookupsService.getFieldsByProgramId(action.programId, action.country).pipe(
-          map((fields) =>
-            lookupsActions.loadFieldsByProgramIdSuccess({
-              fields,
-            })
-          ),
-          catchError((error) =>
-            of(
-              lookupsActions.loadFieldsByProgramIdFailure({
-                error: error?.error?.message || error?.error?.errors,
+        this._lookupsService
+          .getFieldsByProgramId(action.programId, action.country)
+          .pipe(
+            map((fields) =>
+              lookupsActions.loadFieldsByProgramIdSuccess({
+                fields,
               })
+            ),
+            catchError((error) =>
+              of(
+                lookupsActions.loadFieldsByProgramIdFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
             )
           )
-        )
       )
     )
   );

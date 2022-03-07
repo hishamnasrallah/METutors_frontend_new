@@ -24,12 +24,17 @@ export const createClass = createAction(
 
 export const createClassSuccess = createAction(
   '[Request] Create Class Success',
-  props<{ classroom?: IClassroom }>()
+  props<{ classroom: IClassroom }>()
 );
 
 export const createClassFailure = createAction(
   '[Request] Create Class Failure',
   props<{ error: any }>()
+);
+
+export const createClassLocalStorage = createAction(
+  '[Request] Create Class Local Storage',
+  props<{ classroom: IClassroom }>()
 );
 
 export const calculateEstimatedPrice = createAction(

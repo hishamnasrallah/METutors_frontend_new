@@ -1,6 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 
-import { ITutor } from '@models';
+import { IClassroom, ITutor } from '@models';
+import * as userActions from '../actions/user.actions';
 import * as requestActions from '../actions/request.actions';
 
 export interface State {
@@ -17,10 +18,12 @@ export interface State {
   // Create Class
   isCreateClass: boolean;
   createClassFailure: string;
+  createdClass: IClassroom | null;
 }
 
 export const initialState: State = {
   tutors: null,
+  createdClass: null,
   isCreateClass: false,
   estimatedPrice: null,
   createClassFailure: '',
@@ -73,15 +76,27 @@ export const reducer = createReducer(
     isCreateClass: true,
   })),
 
-  on(requestActions.createClassSuccess, (state) => ({
+  on(requestActions.createClassSuccess, (state, { classroom }) => ({
     ...state,
     isCreateClass: false,
+    createdClass: classroom,
   })),
 
   on(requestActions.createClassFailure, (state, { error }) => ({
     ...state,
     isCreateClass: false,
     createClassFailure: error.message,
+  })),
+
+  on(requestActions.createClassLocalStorage, (state, { classroom }) => ({
+    ...state,
+    isCreateClass: false,
+    createdClass: classroom,
+  })),
+
+  on(userActions.enterRequestTutor, (state) => ({
+    ...state,
+    createdClass: null,
   }))
 );
 
@@ -99,3 +114,6 @@ export const selectIsLoadingEstimatedPrice = (state: State): boolean =>
 
 export const selectIsCreateClass = (state: State): boolean =>
   state.isCreateClass;
+
+export const selectCreatedClass = (state: State): IClassroom | null =>
+  state.createdClass;

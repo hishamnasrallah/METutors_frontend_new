@@ -4,8 +4,7 @@
 }
 
 html,
-body,
-.choose-country {
+body {
   height: 100%;
 }
 
@@ -185,6 +184,11 @@ a {
   color: rgba(0, 0, 0, .6);
   font-weight: normal;
   font-size: 14px;
+}
+
+.overflow-height {
+  height: auto;
+  overflow: auto;
 }
 
 .main-button {

@@ -136,6 +136,11 @@ export const selectIsCreateClass = createSelector(
   fromRequestReducer.selectIsCreateClass
 );
 
+export const selectCreatedClass = createSelector(
+  selectRequestState,
+  fromRequestReducer.selectCreatedClass
+);
+
 // Lookups
 export const selectIsLoadingLanguages = createSelector(
   selectLookupsState,

@@ -251,7 +251,7 @@ export class SignupComponent implements OnInit, OnDestroy {
     const formData = new FormData();
 
     for (let i = 0; i < files.length; i++) {
-      formData.append(`documents`, files[i]);
+      formData.append(`documents[${i}]`, files[i]);
     }
 
     formData.append(`email`, this.email?.value);

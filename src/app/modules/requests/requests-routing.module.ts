@@ -13,6 +13,15 @@ const routes: Routes = [
     },
   },
   {
+    path: 'invoice-details',
+    component: InvoiceDetailsComponent,
+    data: {
+      layout: {
+        title: 'Invoice details - MEtutors',
+      },
+    },
+  },
+  {
     path: 'invoice-details/:id',
     component: InvoiceDetailsComponent,
     data: {
