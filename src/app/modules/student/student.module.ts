@@ -1,22 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { StudentRoutingModule } from './student-routing.module';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
-import { SupportService } from 'src/app/core/services';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgxAutoScrollModule } from 'ngx-auto-scroll';
 import { RatingModule } from 'ngx-bootstrap/rating';
 import { CarouselModule } from 'ngx-owl-carousel-o';
-import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+import { NgxAutoScrollModule } from 'ngx-auto-scroll';
+import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
-import {
-  ClassroomAttendancesPopupModule,
-  LeaveFeedbackPopupModule,
-} from 'src/app/shared/popups';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+
+import { StudentRoutingModule } from './student-routing.module';
 
 import {
   StudentComponent,
@@ -86,8 +82,6 @@ import { SharedModule } from '@metutor/shared/shared.module';
     MatProgressBarModule,
     NgxIntlTelInputModule,
     RatingModule.forRoot(),
-    LeaveFeedbackPopupModule,
-    ClassroomAttendancesPopupModule,
-  ]
+  ],
 })
 export class StudentModule {}

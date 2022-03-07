@@ -3,15 +3,24 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RatingModule } from 'ngx-bootstrap/rating';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 // Popups
 import {
-  CourseDetailsPopupModule,
-  ClassroomDetailsPopupModule,
+  DialogLeaveFeedbackPopup,
+  DialogCourseDetailsPopup,
+  CourseDetailsPopupComponent,
+  LeaveFeedbackPopupComponent,
+  DialogClassroomDetailsPopup,
+  ClassroomDetailsPopupComponent,
+  DialogClassroomAttendancesPopup,
+  ClassroomAttendancesPopupComponent,
 } from '@metutor/shared/popups';
 
 // Components
@@ -45,6 +54,16 @@ import {
     CourseItemHorizentalComponent,
     ClassroomItemHorizentalComponent,
 
+    // Popups
+    DialogLeaveFeedbackPopup,
+    DialogCourseDetailsPopup,
+    LeaveFeedbackPopupComponent,
+    CourseDetailsPopupComponent,
+    DialogClassroomDetailsPopup,
+    ClassroomDetailsPopupComponent,
+    DialogClassroomAttendancesPopup,
+    ClassroomAttendancesPopupComponent,
+
     // Directives
     LetDirective,
     TrimInputDirective,
@@ -59,11 +78,12 @@ import {
     RatingModule,
     RouterModule,
     MatIconModule,
+    MatTabsModule,
     MatButtonModule,
+    MatDialogModule,
     MatTooltipModule,
+    ReactiveFormsModule,
     MatProgressBarModule,
-    CourseDetailsPopupModule,
-    ClassroomDetailsPopupModule,
   ],
   exports: [
     CourseItemComponent,
@@ -73,6 +93,16 @@ import {
     GridPlaceholderComponent,
     CourseItemHorizentalComponent,
     ClassroomItemHorizentalComponent,
+
+    // Popups
+    DialogLeaveFeedbackPopup,
+    DialogCourseDetailsPopup,
+    LeaveFeedbackPopupComponent,
+    CourseDetailsPopupComponent,
+    DialogClassroomDetailsPopup,
+    ClassroomDetailsPopupComponent,
+    DialogClassroomAttendancesPopup,
+    ClassroomAttendancesPopupComponent,
 
     // Directives
     LetDirective,

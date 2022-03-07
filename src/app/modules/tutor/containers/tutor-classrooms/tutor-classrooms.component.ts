@@ -102,6 +102,7 @@ export class TutorClassroomsComponent implements OnInit {
         completedClasses: 0,
         remainingClasses: 0,
         name: course.courseName,
+        hours: course.totalHours,
         expectedEndDate: course.endDate,
       };
     });
