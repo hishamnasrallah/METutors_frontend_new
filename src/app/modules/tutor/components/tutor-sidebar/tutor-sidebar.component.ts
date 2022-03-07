@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter, map, mergeMap } from 'rxjs';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'metutors-tutor-sidebar',
@@ -8,7 +8,7 @@ import { filter, map, mergeMap } from 'rxjs';
   styleUrls: ['./tutor-sidebar.component.scss'],
 })
 export class TutorSidebarComponent implements OnInit {
-  @Input() logout = new EventEmitter();
+  @Output() logout = new EventEmitter();
 
   hasSidemenu = false;
 
