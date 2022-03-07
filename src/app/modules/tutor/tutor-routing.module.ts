@@ -56,6 +56,7 @@ const routes: Routes = [
                 title: 'Tutor Classes - Metutors',
                 showHeader: false,
                 showFooter: false,
+                hideSidebar: true,
               },
             },
           },
