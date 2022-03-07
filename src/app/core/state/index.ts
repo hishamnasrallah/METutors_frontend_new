@@ -14,6 +14,7 @@ import * as fromTutorReducer from './reducers/tutor.reducer';
 import * as fromCourseReducer from './reducers/course.reducer';
 import * as fromRequestReducer from './reducers/request.reducer';
 import * as fromLookupsReducer from './reducers/lookups.reducer';
+import * as fromStudentReducer from './reducers/student.reducer';
 
 export interface CoreState {
   [featureKeys.userFeatureKey]: fromUserReducer.State;
@@ -21,6 +22,7 @@ export interface CoreState {
   [featureKeys.courseFeatureKey]: fromCourseReducer.State;
   [featureKeys.requestFeatureKey]: fromRequestReducer.State;
   [featureKeys.lookupsFeatureKey]: fromLookupsReducer.State;
+  [featureKeys.studentFeatureKey]: fromStudentReducer.State;
 }
 
 export function reducers(state: CoreState, action: Action) {
@@ -30,6 +32,7 @@ export function reducers(state: CoreState, action: Action) {
     [featureKeys.courseFeatureKey]: fromCourseReducer.reducer,
     [featureKeys.requestFeatureKey]: fromRequestReducer.reducer,
     [featureKeys.lookupsFeatureKey]: fromLookupsReducer.reducer,
+    [featureKeys.studentFeatureKey]: fromStudentReducer.reducer,
   })(state, action);
 }
 
@@ -61,6 +64,11 @@ export const selectRequestState = createSelector(
 export const selectCourseState = createSelector(
   selectCoreState,
   (state) => state[featureKeys.courseFeatureKey]
+);
+
+export const selectStudentState = createSelector(
+  selectCoreState,
+  (state) => state[featureKeys.studentFeatureKey]
 );
 
 // User
@@ -108,6 +116,17 @@ export const selectIsLoadingTutorDashboard = createSelector(
 export const selectIsCompleteTutorProfile = createSelector(
   selectTutorState,
   fromTutorReducer.selectIsCompleteTutorProfile
+);
+
+// Student
+export const selectTickets = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectTickets
+);
+
+export const selectIsLoadingTickets = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectIsLoadingTickets
 );
 
 // Requests

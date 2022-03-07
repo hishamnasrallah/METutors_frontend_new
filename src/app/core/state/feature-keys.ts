@@ -4,3 +4,4 @@ export const tutorFeatureKey = 'tutor';
 export const courseFeatureKey = 'course';
 export const requestFeatureKey = 'request';
 export const lookupsFeatureKey = 'lookups';
+export const studentFeatureKey = 'student';
