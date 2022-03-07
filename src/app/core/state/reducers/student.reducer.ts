@@ -7,11 +7,25 @@ export interface State {
   isLoadingTickets: boolean;
   tickets: ITicket[] | null;
   loadingTicketsFailure: string;
+
+  // Loading Ticket
+  ticket: ITicket | null;
+  isLoadingTicket: boolean;
+  loadingTicketFailure: string;
+
+  // Create Ticket
+  isCreatingTicket: boolean;
+  createTicketFailure: string;
 }
 
 export const initialState: State = {
+  ticket: null,
   tickets: null,
+  isLoadingTicket: false,
   isLoadingTickets: false,
+  isCreatingTicket: false,
+  createTicketFailure: '',
+  loadingTicketFailure: '',
   loadingTicketsFailure: '',
 };
 
@@ -32,6 +46,53 @@ export const reducer = createReducer(
     ...state,
     isLoadingTickets: false,
     loadingTicketsFailure: error.message,
+  })),
+
+  on(studentActions.loadTicketsEnded, (state) => ({
+    ...state,
+    isLoadingTickets: false,
+  })),
+
+  on(studentActions.loadTicket, (state) => ({
+    ...state,
+    isLoadingTicket: true,
+  })),
+
+  on(studentActions.loadTicketSuccess, (state, { ticket }) => ({
+    ...state,
+    ticket,
+    isLoadingTicket: false,
+  })),
+
+  on(studentActions.loadTicketFailure, (state, { error }) => ({
+    ...state,
+    isLoadingTicket: false,
+    loadingTicketFailure: error.message,
+  })),
+
+  on(studentActions.loadTicketEnded, (state) => ({
+    ...state,
+    isLoadingTicket: false,
+  })),
+
+  on(studentActions.createTicket, (state) => ({
+    ...state,
+    isCreatingTicket: true,
+  })),
+
+  on(studentActions.createTicketSuccess, (state, { ticket }) => ({
+    ...state,
+    isCreatingTicket: false,
+    tickets:
+      state.tickets && state.tickets.length
+        ? [ticket, ...state.tickets]
+        : [ticket],
+  })),
+
+  on(studentActions.createTicketFailure, (state, { error }) => ({
+    ...state,
+    isCreatingTicket: false,
+    createTicketFailure: error,
   }))
 );
 
@@ -39,3 +100,11 @@ export const selectTickets = (state: State): ITicket[] | null => state.tickets;
 
 export const selectIsLoadingTickets = (state: State): boolean =>
   state.isLoadingTickets;
+
+export const selectTicket = (state: State): ITicket | null => state.ticket;
+
+export const selectIsLoadingTicket = (state: State): boolean =>
+  state.isLoadingTicket;
+
+export const selectIsCreatingTicket = (state: State): boolean =>
+  state.isCreatingTicket;

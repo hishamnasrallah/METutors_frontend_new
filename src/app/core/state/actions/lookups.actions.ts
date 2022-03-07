@@ -10,6 +10,8 @@ import {
   ILevel,
   IProgram,
   ISubject,
+  ITicketCategory,
+  ITicketPriority,
 } from '@models';
 
 export const loadLanguages = createAction('[Lookups] Load Languages');
@@ -158,3 +160,39 @@ export const loadFAQsFailure = createAction(
 );
 
 export const loadFAQsEnded = createAction('[Lookups] Load FAQs Ended');
+
+export const loadTicketCategories = createAction(
+  '[Lookups] Load Ticket Categories'
+);
+
+export const loadTicketCategoriesSuccess = createAction(
+  '[Lookups] Load Ticket Categories Success',
+  props<{ ticketCategories: ITicketCategory[] }>()
+);
+
+export const loadTicketCategoriesFailure = createAction(
+  '[Lookups] Load Ticket Categories Failure',
+  props<{ error: any }>()
+);
+
+export const loadTicketCategoriesEnded = createAction(
+  '[Lookups] Load Ticket Categories Ended'
+);
+
+export const loadTicketPriorities = createAction(
+  '[Lookups] Load Ticket Priorities'
+);
+
+export const loadTicketPrioritiesSuccess = createAction(
+  '[Lookups] Load Ticket Priorities Success',
+  props<{ ticketPriorities: ITicketPriority[] }>()
+);
+
+export const loadTicketPrioritiesFailure = createAction(
+  '[Lookups] Load Ticket Priorities Failure',
+  props<{ error: any }>()
+);
+
+export const loadTicketPrioritiesEnded = createAction(
+  '[Lookups] Load Ticket Priorities Ended'
+);

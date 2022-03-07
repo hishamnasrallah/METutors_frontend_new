@@ -2,10 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
-import { TicketStatus, TicketUserType } from 'src/app/config';
+import { Observable, tap } from 'rxjs';
+import { TicketUserType } from 'src/app/config';
 import { AlertNotificationService } from 'src/app/core/components';
-import { ITicket, ITicketReply } from 'src/app/core/models';
+import { ITicket } from 'src/app/core/models';
 import { SupportService } from 'src/app/core/services';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { NgxAutoScroll } from 'ngx-auto-scroll';
@@ -29,13 +29,12 @@ import { Store } from '@ngrx/store';
 export class StudentTicketDetailsComponent implements OnInit {
   @ViewChild(NgxAutoScroll) ngxAutoScroll?: NgxAutoScroll;
 
+  isLoading$: Observable<boolean>;
   user$: Observable<IUser | null>;
+  ticket$: Observable<ITicket | null>;
 
   loading = false;
-  ticket?: ITicket;
   messageForm: FormGroup;
-  ticketStatus = TicketStatus;
-  getTicketSub?: Subscription;
   ticketUserType = TicketUserType;
 
   constructor(
@@ -56,13 +55,8 @@ export class StudentTicketDetailsComponent implements OnInit {
 
     this._route.paramMap.subscribe((res: ParamMap) => {
       const id = res.get('id') || '';
-      this.getTicketSub = this._supportService
-        .getTicketDetailsById(id)
-        .subscribe((response) => {
-          this.ticket = response;
-          this._title.setTitle(this.ticket?.title || '');
-          this.forceScrollDown();
-        });
+
+      this._prepareTicket(id);
     });
   }
 
@@ -71,13 +65,13 @@ export class StudentTicketDetailsComponent implements OnInit {
       this.loading = true;
       const message = {
         ...value,
-        ticket: this.ticket?.id,
+        // ticket: this.ticket?.id,
       };
       this._supportService.submitMessage(message).subscribe(
         (response) => {
           this.loading = false;
           this.messageForm.reset();
-          this.ticket?.replies.push(new ITicketReply(false, response));
+          // this.ticket?.replies.push(new ITicketReply(false, response));
         },
         (error) => {
           this.loading = false;
@@ -89,11 +83,16 @@ export class StudentTicketDetailsComponent implements OnInit {
     }
   }
 
-  forceScrollDown(): void {
-    this.ngxAutoScroll?.forceScrollDown();
-  }
-
-  ngOnDestroy(): void {
-    this.getTicketSub?.unsubscribe();
+  private _prepareTicket(id: string): void {
+    this._store.dispatch(fromCore.loadTicket({ id }));
+    this.ticket$ = this._store.select(fromCore.selectTicket).pipe(
+      tap((ticket) => {
+        if (ticket) {
+          this._title.setTitle(ticket.subject);
+          this.ngxAutoScroll?.forceScrollDown();
+        }
+      })
+    );
+    this.isLoading$ = this._store.select(fromCore.selectIsLoadingTicket);
   }
 }

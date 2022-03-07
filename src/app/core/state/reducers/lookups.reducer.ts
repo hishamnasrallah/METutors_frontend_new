@@ -10,6 +10,8 @@ import {
   ILevel,
   IProgram,
   ISubject,
+  ITicketCategory,
+  ITicketPriority,
 } from '@models';
 import * as lookupsActions from '../actions/lookups.actions';
 
@@ -58,6 +60,16 @@ export interface State {
   FAQs: IFAQ[] | null;
   isLoadingFAQs: boolean;
   loadingFAQsFailure?: string;
+
+  // Ticket Categories
+  ticketCategories: ITicketCategory[] | null;
+  isLoadingTicketCategories: boolean;
+  loadingTicketCategoriesFailure?: string;
+
+  // Ticket Priorities
+  ticketPriorities: ITicketPriority[] | null;
+  isLoadingTicketPriorities: boolean;
+  loadingTicketPrioritiesFailure?: string;
 }
 
 export const initialState: State = {
@@ -71,11 +83,15 @@ export const initialState: State = {
   languages: null,
   countries: null,
   isLoadingFAQs: false,
+  ticketCategories: null,
+  ticketPriorities: null,
   isLoadingTopics: false,
   isLoadingFields: false,
   isLoadingPrograms: false,
   isLoadingSubjects: false,
   isLoadingCountries: false,
+  isLoadingTicketCategories: false,
+  isLoadingTicketPriorities: false,
 };
 
 export const reducer = createReducer(
@@ -270,6 +286,50 @@ export const reducer = createReducer(
   on(lookupsActions.loadFAQsEnded, (state) => ({
     ...state,
     isLoadingFAQs: false,
+  })),
+
+  on(lookupsActions.loadTicketCategories, (state) => ({
+    ...state,
+    isLoadingTicketCategories: true,
+  })),
+
+  on(lookupsActions.loadTicketCategoriesSuccess, (state, { ticketCategories }) => ({
+    ...state,
+    ticketCategories,
+    isLoadingTicketCategories: false,
+  })),
+
+  on(lookupsActions.loadTicketCategoriesFailure, (state, { error }) => ({
+    ...state,
+    isLoadingTicketCategories: false,
+    loadingTicketCategoriesFailure: error.message,
+  })),
+
+  on(lookupsActions.loadTicketCategoriesEnded, (state) => ({
+    ...state,
+    isLoadingTicketCategories: false,
+  })),
+
+  on(lookupsActions.loadTicketPriorities, (state) => ({
+    ...state,
+    isLoadingTicketPriorities: true,
+  })),
+
+  on(lookupsActions.loadTicketPrioritiesSuccess, (state, { ticketPriorities }) => ({
+    ...state,
+    ticketPriorities,
+    isLoadingTicketPriorities: false,
+  })),
+
+  on(lookupsActions.loadTicketPrioritiesFailure, (state, { error }) => ({
+    ...state,
+    isLoadingTicketPriorities: false,
+    loadingTicketPrioritiesFailure: error.message,
+  })),
+
+  on(lookupsActions.loadTicketPrioritiesEnded, (state) => ({
+    ...state,
+    isLoadingTicketPriorities: false,
   }))
 );
 
@@ -321,6 +381,19 @@ export const selectFAQs = (state: State): IFAQ[] | null => state.FAQs;
 
 export const selectIsLoadingFAQs = (state: State): boolean =>
   state.isLoadingFAQs;
+
+export const selectTicketCategories = (
+  state: State
+): ITicketCategory[] | null => state.ticketCategories;
+
+export const selectIsLoadingTicketCategories = (state: State): boolean =>
+  state.isLoadingTicketCategories;
+
+export const selectTicketPriorities = (state: State): ITicketPriority[] | null =>
+  state.ticketPriorities;
+
+export const selectIsLoadingTicketPriorities = (state: State): boolean =>
+  state.isLoadingTicketPriorities;
 
 export const selectFilteredFAQs = (
   state: State,

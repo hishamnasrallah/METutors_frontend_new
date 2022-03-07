@@ -41,18 +41,6 @@ export class SupportService {
     );
   }
 
-  createTicket(value: any): Observable<any> {
-    const formData = new FormData();
-    formData.append('type', value.type);
-    formData.append('title', value.title);
-    formData.append('description', value.description);
-    if (value.file) formData.append('attached_file', value.file);
-
-    return this.http
-      .post(`${this.baseUrl}ticket/`, formData)
-      .pipe(catchError(this.errorHandler));
-  }
-
   getTicketDetailsById(id: string): Observable<any> {
     return this.http
       .get(`${this.baseUrl}ticket/detail/${id}/`)

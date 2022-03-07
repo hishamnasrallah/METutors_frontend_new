@@ -129,6 +129,21 @@ export const selectIsLoadingTickets = createSelector(
   fromStudentReducer.selectIsLoadingTickets
 );
 
+export const selectTicket = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectTicket
+);
+
+export const selectIsLoadingTicket = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectIsLoadingTicket
+);
+
+export const selectIsCreatingTicket = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectIsCreatingTicket
+);
+
 // Requests
 export const selectEstimatedPrice = createSelector(
   selectRequestState,
@@ -254,6 +269,26 @@ export const selectIsLoadingFAQs = createSelector(
 export const selectFilteredFAQs = createSelector(
   selectLookupsState,
   fromLookupsReducer.selectFilteredFAQs
+);
+
+export const selectTicketCategories = createSelector(
+  selectLookupsState,
+  fromLookupsReducer.selectTicketCategories
+);
+
+export const selectIsLoadingTicketCategories = createSelector(
+  selectLookupsState,
+  fromLookupsReducer.selectIsLoadingTicketCategories
+);
+
+export const selectTicketPriorities = createSelector(
+  selectLookupsState,
+  fromLookupsReducer.selectTicketPriorities
+);
+
+export const selectIsLoadingTicketPriorities = createSelector(
+  selectLookupsState,
+  fromLookupsReducer.selectIsLoadingTicketPriorities
 );
 
 // Course

@@ -34,3 +34,13 @@ export interface IField {
   icon: string;
   programId: number;
 }
+
+export interface ITicketCategory {
+  id: number;
+  name: string;
+}
+
+export interface ITicketPriority {
+  id: number;
+  name: string;
+}

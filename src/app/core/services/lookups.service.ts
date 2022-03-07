@@ -15,6 +15,8 @@ import {
   ILevel,
   ILanguage,
   ICity,
+  ITicketCategory,
+  ITicketPriority,
 } from '../models';
 
 @Injectable({
@@ -59,6 +61,38 @@ export class LookupsService {
       .pipe(
         map((response) => {
           return response.programs.map((item) => ({
+            id: item.id,
+            name: item.name,
+          }));
+        })
+      )
+      .pipe(catchError(this.errorHandler));
+  }
+
+  getTicketCategories(): Observable<any> {
+    return this.http
+      .get<{ ticket_categories: ITicketCategory[] }>(
+        `${this.BACKEND_URL}ticket-categories`
+      )
+      .pipe(
+        map((response) => {
+          return response.ticket_categories.map((item) => ({
+            id: item.id,
+            name: item.name,
+          }));
+        })
+      )
+      .pipe(catchError(this.errorHandler));
+  }
+
+  getTicketPriorities(): Observable<any> {
+    return this.http
+      .get<{ ticket_priorities: ITicketPriority[] }>(
+        `${this.BACKEND_URL}ticket-priorities`
+      )
+      .pipe(
+        map((response) => {
+          return response.ticket_priorities.map((item) => ({
             id: item.id,
             name: item.name,
           }));

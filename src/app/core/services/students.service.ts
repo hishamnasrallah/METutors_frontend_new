@@ -1,7 +1,8 @@
-import { Observable } from 'rxjs';
+import { catchError, map, Observable, throwError } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { ITicket } from '../models';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +13,40 @@ export class StudentsService {
   constructor(private http: HttpClient) {}
 
   loadTickets(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}my_tickets`);
+    return this.http
+      .get<{ tickets: ITicket[] }>(`${this.baseUrl}my_tickets`)
+      .pipe(
+        map((response) =>
+          response.tickets.map((ticket) => new ITicket(false, ticket))
+        )
+      )
+      .pipe(catchError(this.errorHandler));
+  }
+
+  loadTicket(id: string): Observable<any> {
+    return this.http
+      .get<ITicket>(`${this.baseUrl}tickets/${id}`)
+      .pipe(map((ticket) => new ITicket(false, ticket)))
+      .pipe(catchError(this.errorHandler));
+  }
+
+  createTicket(ticket: any): Observable<any> {
+    const formData = new FormData();
+
+    formData.append('category', ticket.category);
+    formData.append('priority', ticket.priority);
+    formData.append('title', ticket.title);
+    formData.append('message', ticket.message);
+
+    if (ticket.file) formData.append('file', ticket.file);
+
+    return this.http
+      .post<{ ticket: ITicket }>(`${this.baseUrl}create-ticket`, formData)
+      .pipe(map((response) => new ITicket(false, response.ticket)))
+      .pipe(catchError(this.errorHandler));
+  }
+
+  errorHandler(error: HttpErrorResponse) {
+    return throwError(error);
   }
 }

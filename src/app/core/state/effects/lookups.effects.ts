@@ -284,6 +284,60 @@ export class LookupsEffects {
     )
   );
 
+  loadTicketCategories$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(lookupsActions.loadTicketCategories),
+      withLatestFrom(this._store.select(fromCore.selectTicketCategories)),
+      mergeMap(([_, _categories]) => {
+        if (!_categories || !_categories.length) {
+          return this._lookupsService.getTicketCategories().pipe(
+            map((ticketCategories) =>
+              lookupsActions.loadTicketCategoriesSuccess({
+                ticketCategories,
+              })
+            ),
+            catchError((error) =>
+              of(
+                lookupsActions.loadTicketCategoriesFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          );
+        } else {
+          return of(lookupsActions.loadTicketCategoriesEnded());
+        }
+      })
+    )
+  );
+
+  loadTicketPriorities$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(lookupsActions.loadTicketPriorities),
+      withLatestFrom(this._store.select(fromCore.selectTicketPriorities)),
+      mergeMap(([_, _priorities]) => {
+        if (!_priorities || !_priorities.length) {
+          return this._lookupsService.getTicketPriorities().pipe(
+            map((ticketPriorities) =>
+              lookupsActions.loadTicketPrioritiesSuccess({
+                ticketPriorities,
+              })
+            ),
+            catchError((error) =>
+              of(
+                lookupsActions.loadTicketPrioritiesFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          );
+        } else {
+          return of(lookupsActions.loadTicketPrioritiesEnded());
+        }
+      })
+    )
+  );
+
   constructor(
     private _store: Store<any>,
     private _actions$: Actions,

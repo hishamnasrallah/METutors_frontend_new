@@ -11,22 +11,31 @@
             <div class="col-md-6">
               <label for="topic">Topic *</label>
               <mat-form-field appearance="outline" class="w-100">
-                <mat-select formControlName="type" [placeholder]="'Choose topic'">
-                  <mat-option [value]="ticket?.id" *ngFor="let ticket of ticketsList">
-                    {{ ticket?.name }}
+                <mat-select formControlName="category" [placeholder]="'Choose topic'">
+                  <mat-option [value]="category?.id" *ngFor="let category of categories$ | async">
+                    {{ category?.name }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
             <div class="col-md-6">
+              <label for="priority">Priority *</label>
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-select formControlName="priority" [placeholder]="'Choose priority'">
+                  <mat-option [value]="priority?.id" *ngFor="let priority of priorities$ | async">
+                    {{ priority?.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-12 mt-3">
               <label for="subject">Subject *</label>
               <input type="text" id="subject" class="form-control custom-input" placeholder="Type subject here"
                 formControlName="title">
             </div>
             <div class="col-md-12 mt-4">
               <label for="details">Ticket details *</label>
-              <textarea id="details" class="form-control custom-input" rows="10"
-                formControlName="description"></textarea>
+              <textarea id="details" class="form-control custom-input" rows="10" formControlName="message"></textarea>
             </div>
 
             <div class="col-md-12 mt-4 mb-2">
@@ -54,11 +63,10 @@
             </div>
 
             <div class="col-12 mt-5">
-              <button mat-flat-button color="primary" class="py-2 float-end" cdkFocusInitial type="submit"
-                [disabled]="supportForm.invalid || loading">
+              <metutors-submit-button [form]="supportForm" [isSubmitting]="isCreatingTicket$ | async"
+                [extraClasses]="'float-end'">
                 Send message
-                <mat-icon class="spinner" *ngIf="loading">autorenew</mat-icon>
-              </button>
+              </metutors-submit-button>
             </div>
           </form>
         </div>
