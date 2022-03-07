@@ -42,7 +42,6 @@ import * as fromCore from '@metutor/core/state';
 })
 export class TutorClassroomsComponent implements OnInit {
   openActive = true;
-  isLoading?: boolean;
   openCompleted = true;
   openNewlyAssigned = true;
 
@@ -102,8 +101,8 @@ export class TutorClassroomsComponent implements OnInit {
         endETime: '',
         name: course.courseName,
         expectedEndDate: course.endDate,
-        completedClasses: '',
-        remainingClasses: '',
+        completedClasses: 0,
+        remainingClasses: 0,
       };
     });
   }

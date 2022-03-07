@@ -74,17 +74,17 @@ export const selectIsLoadingCourseById = (state: State): boolean =>
 export const selectNewCourses = (
   state: State
 ): ICourse[] | null | undefined => {
-  return state.courses?.filter((course) => course.status !== 'completed');
+  return state.courses?.filter((course) => course.status === 'pending');
 };
 
 export const selectActiveCourses = (
   state: State
 ): ICourse[] | null | undefined => {
-  return state.courses?.filter((course) => course.status !== 'completed');
+  return state.courses?.filter((course) => course.status === 'inprogress');
 };
 
 export const selectCompletedCourses = (
   state: State
 ): ICourse[] | null | undefined => {
-  return state.courses?.filter((course) => course.status !== 'completed');
+  return state.courses?.filter((course) => course.status === 'completed');
 };

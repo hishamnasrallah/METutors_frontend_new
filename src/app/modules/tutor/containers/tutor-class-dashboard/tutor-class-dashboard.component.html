@@ -72,7 +72,7 @@
   <div class="list-tables">
     <div class="row">
       <div class="col-12">
-        <h3 class="overview mb-3">Today's Classes - ({{ view?.data?.todaysDate ? view?.data?.todaysDate : 0}})</h3>
+        <h3 class="overview mb-3">Today's Classes - {{ view?.data?.todaysDate ? view?.data?.todaysDate : 0}}</h3>
         <ng-container [ngSwitch]="view.loading">
           <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
           <table class="table my-table" *ngSwitchCase="false">
