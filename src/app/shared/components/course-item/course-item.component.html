@@ -26,25 +26,25 @@
         <strong>Start date:</strong>
         <span>{{ classroom?.startDate | date:'d/MM/yy' }}</span>
       </div>
-      <div class="col-md-6 d-flex menu align-items-center" *ngIf="classroom?.expectedEndDate">
+      <div class="col-md-6 d-flex menu align-items-center" *ngIf="classroom?.endDate">
         <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
         <strong>End date:</strong>
-        <span>{{ classroom?.expectedEndDate | date:'d/MM/yy' }}</span>
+        <span>{{ classroom?.endDate | date:'d/MM/yy' }}</span>
       </div>
-      <div class="col-md-6 d-flex menu align-items-center" *ngIf="classroom?.totalHours">
+      <div class="col-md-6 d-flex menu align-items-center" *ngIf="classroom?.hours">
         <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
         <strong>Total hour:</strong>
-        <span>{{ classroom?.totalHours }}hrs</span>
+        <span>{{ classroom?.hours }}hrs</span>
       </div>
       <div class="col-md-6 d-flex menu align-items-center" *ngIf="classroom?.maxStudentsGroup">
         <img src="assets/svg/students.svg" alt="" width="15" height="15" draggable="false">
         <strong>Max students:</strong>
         <span>{{ classroom?.maxStudentsGroup }}</span>
       </div>
-      <div class="col-md-6 d-flex menu align-items-center" *ngIf="classroom?.totalClasses">
+      <div class="col-md-6 d-flex menu align-items-center" *ngIf="classroom?.classes">
         <img src="assets/svg/class.svg" alt="" width="15" height="15" draggable="false">
         <strong>Classes:</strong>
-        <span>{{ classroom?.totalClasses }}</span>
+        <span>{{ classroom?.classes }}</span>
       </div>
       <div class="col-md-6 d-flex menu align-items-center" *ngIf="classroom?.listDays && classroom?.listDays?.length">
         <img src="assets/svg/calendar.svg" alt="" width="15" height="15" draggable="false">

@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { IClassroom, ITutor } from '@models';
+import { IClassroom, IInvoiceDetails, ITutor } from '@models';
 
 export const generateTutors = createAction(
   '[Request] Generate Tutors',
@@ -50,4 +50,22 @@ export const calculateEstimatedPriceSuccess = createAction(
 export const calculateEstimatedPriceFailure = createAction(
   '[Request] Calculate Estimated Price Failure',
   props<{ error: any }>()
+);
+
+export const calculateFinalInvoice = createAction(
+  '[Request] Calculate Final Invoice'
+);
+
+export const calculateFinalInvoiceSuccess = createAction(
+  '[Request] Calculate Final Invoice Success',
+  props<{ invoiceDetails: IInvoiceDetails }>()
+);
+
+export const calculateFinalInvoiceFailure = createAction(
+  '[Request] Calculate Final Invoice Failure',
+  props<{ error: any }>()
+);
+
+export const calculateFinalInvoiceEnded = createAction(
+  '[Request] Calculate Final Invoice Ended'
 );

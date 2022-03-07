@@ -10,6 +10,7 @@ import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { IClassroom, ICourse, ICategory, ISyllabus } from '@models';
 import { AcademicTutoringTextbook, SORTED_DAYS_WEEK } from 'src/app/config';
+import camelcaseKeys from 'camelcase-keys';
 
 @Injectable({
   providedIn: 'root',
@@ -209,6 +210,33 @@ export class CoursesService {
         `${this.baseUrl}estimated-price?subject_id=${subjectId}`
       )
       .pipe(map((response) => response.estimated_price_per_hour))
+      .pipe(catchError(this.errorHandler));
+  }
+
+  calculateFinalInvoice(classroom: any): Observable<any> {
+    const body = {
+      subject_id: classroom?.subject,
+      classes:
+        classroom?.classrooms && classroom?.classrooms.length
+          ? classroom?.classrooms.map((clss: any) => ({
+              date: clss.date,
+              day: clss.day,
+              start_time: clss.start_time,
+              end_time: clss.end_time,
+              duration: clss.duration,
+            }))
+          : [],
+    };
+
+    return this.http
+      .post(`${this.baseUrl}final-invoice`, body)
+      .pipe(
+        map((response) =>
+          camelcaseKeys(response, {
+            deep: true,
+          })
+        )
+      )
       .pipe(catchError(this.errorHandler));
   }
 

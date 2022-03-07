@@ -58,27 +58,9 @@ export class RequestEffects {
   createClass$ = createEffect(() =>
     this._actions$.pipe(
       ofType(requestActions.createClass),
-      withLatestFrom(this._store.select(fromCore.selectUser)),
-      mergeMap(([{ data }, _user]) => {
-        if (_user) {
-          return this._coursesService.createCourse(data).pipe(
-            map((response) => {
-              return requestActions.createClassSuccess({ classroom: response });
-            }),
-            catchError((error) =>
-              of(
-                requestActions.createClassFailure({
-                  error: error?.error?.message || error?.error?.errors,
-                })
-              )
-            )
-          );
-        } else {
-          return of(
-            requestActions.createClassLocalStorage({ classroom: data })
-          );
-        }
-      })
+      mergeMap(({ data }) =>
+        of(requestActions.createClassLocalStorage({ classroom: data }))
+      )
     )
   );
 
@@ -103,6 +85,33 @@ export class RequestEffects {
     {
       dispatch: false,
     }
+  );
+
+  calculateFinalInvoice$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(requestActions.calculateFinalInvoice),
+      withLatestFrom(this._store.select(fromCore.selectCreatedClass)),
+      mergeMap(([_, _createdClass]) => {
+        if (_createdClass) {
+          return this._coursesService.calculateFinalInvoice(_createdClass).pipe(
+            map((invoiceDetails) =>
+              requestActions.calculateFinalInvoiceSuccess({
+                invoiceDetails,
+              })
+            ),
+            catchError((error) =>
+              of(
+                requestActions.calculateFinalInvoiceFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          );
+        } else {
+          return of(requestActions.calculateFinalInvoiceEnded());
+        }
+      })
+    )
   );
 
   failureMessages$ = createEffect(

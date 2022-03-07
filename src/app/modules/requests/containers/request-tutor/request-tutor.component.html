@@ -61,8 +61,8 @@
           </div>
         </ng-template>
 
-        <metutors-list-classrooms-form [form]="classroomScheduleForm" [classrooms]="classrooms" (onBack)="backStep()"
-          (onNext)="nextStep()" (loadTutors)="loadTutors($event)">
+        <metutors-list-classrooms-form [form]="classroomScheduleForm" [price]="price$ | async" [classrooms]="classrooms"
+          (onBack)="backStep()" (onNext)="nextStep()" (loadTutors)="loadTutors($event)">
         </metutors-list-classrooms-form>
       </form>
     </mat-step>
