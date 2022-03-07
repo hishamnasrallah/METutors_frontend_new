@@ -67,15 +67,15 @@ export class LookupsService {
       .pipe(catchError(this.errorHandler));
   }
 
-  getSubjectsByFieldId(fieldId: string, country?: string): Observable<any> {
+  getSubjectsByFieldId(fieldId: string, countryId?: string): Observable<any> {
     let params = new HttpParams();
 
     if (fieldId) {
       params = params.append('field_id', fieldId);
     }
 
-    if (country) {
-      params = params.append('country_id', country);
+    if (countryId) {
+      params = params.append('country_id', countryId);
     }
 
     return this.http
@@ -111,15 +111,15 @@ export class LookupsService {
       .pipe(catchError(this.errorHandler));
   }
 
-  getFieldsByProgramId(fieldId: string, country?: string): Observable<any> {
+  getFieldsByProgramId(fieldId: string, countryId?: string): Observable<any> {
     let params = new HttpParams();
 
     if (fieldId) {
       params = params.append('program_id', fieldId);
     }
 
-    if (country) {
-      params = params.append('country_id', country);
+    if (countryId) {
+      params = params.append('country_id', countryId);
     }
 
     return this.http

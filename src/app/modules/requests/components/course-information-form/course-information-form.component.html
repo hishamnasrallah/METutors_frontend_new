@@ -21,9 +21,10 @@
         </div>
         <div class="row mt-4" *ngIf="nationalId.toString() === program?.value?.toString()">
           <div class="col-md-12">
-            <h3>Course countries</h3>
+            <h3>Select country</h3>
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="courseCountry" [placeholder]="'Choose country'">
+              <mat-select formControlName="courseCountry" [placeholder]="'Choose country'"
+                (selectionChange)="onChangeCourseProgram()">
                 <mat-option [value]="country?.id" *ngFor="let country of countries">
                   {{ country?.name }}
                 </mat-option>

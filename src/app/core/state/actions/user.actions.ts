@@ -35,6 +35,10 @@ export const enterRequestTutor = createAction(
   '[User] Enter Request Tutor'
 );
 
+export const enterInvoiceDetails = createAction(
+  '[User] Enter Invoice Details'
+);
+
 export const identifyUser = createAction('[User] Identify User');
 
 export const identifyUserSuccess = createAction(

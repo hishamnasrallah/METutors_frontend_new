@@ -9,7 +9,7 @@
         <img src="assets/svg/calendar-fill.svg" alt="" width="30" height="30" />
         <h2 class="mt-2">Starting date</h2>
         <h3>{{ classroom?.startDate | date }}</h3>
-        <h4 class="m-0">Ending date: {{ classroom?.expectedEndDate | date }}</h4>
+        <h4 class="m-0">Ending date: {{ classroom?.endDate | date }}</h4>
       </div>
     </div>
     <div class="col-md-9 d-flex flex-column">
@@ -38,13 +38,13 @@
         <div class="col-md-4 d-flex menu align-items-center">
           <img src="assets/svg/timer.svg" alt="" width="15" height="15" draggable="false">
           <strong>Total hour: </strong>
-          <span>{{ classroom?.totalHours }}hrs</span>
+          <span>{{ classroom?.hours }}hrs</span>
         </div>
         <div class="col-md-4 d-flex menu align-items-center">
           <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
           <strong>Time: </strong>
           <span>
-            {{ classroom?.startETime | date: 'h a' }} : {{ classroom?.endETime | date: 'h a' }}
+            {{ classroom?.startTime | date: 'h a' }} : {{ classroom?.endTime | date: 'h a' }}
             <!-- ({{ calculateDurationTime(classroom?.startETime, classroom?.endETime) }} hours) -->
           </span>
         </div>

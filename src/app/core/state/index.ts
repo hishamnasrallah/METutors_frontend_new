@@ -141,6 +141,16 @@ export const selectCreatedClass = createSelector(
   fromRequestReducer.selectCreatedClass
 );
 
+export const selectIsCalculateFinalInvoice = createSelector(
+  selectRequestState,
+  fromRequestReducer.selectIsCalculateFinalInvoice
+);
+
+export const selectInvoiceDetails = createSelector(
+  selectRequestState,
+  fromRequestReducer.selectInvoiceDetails
+);
+
 // Lookups
 export const selectIsLoadingLanguages = createSelector(
   selectLookupsState,

@@ -8,8 +8,8 @@ export class IClassroom {
   name?: string;
   slug?: string;
   number?: number;
-  totalClasses?: number;
-  totalHours?: number;
+  classes?: number;
+  hours?: number;
   type?: number;
   oneOneTuitionPriceInHour?: number;
   groupTuitionPriceInHour?: number;
@@ -19,13 +19,11 @@ export class IClassroom {
   totalInstallments?: number;
   firstInstallment?: any;
   startDate?: string;
-  expectedEndDate?: string;
+  endDate?: string;
   days?: string[];
   listDays?: string[];
-  startTime?: string;
-  endTime?: string;
-  startETime?: Date;
-  endETime?: Date;
+  startTime?: Date;
+  endTime?: Date;
   status?: number;
   tutor?: ITutor;
   progress?: number;
@@ -41,8 +39,8 @@ export class IClassroom {
       this.name = '';
       this.slug = '';
       this.number = 0;
-      this.totalClasses = 0;
-      this.totalHours = 0;
+      this.classes = 0;
+      this.hours = 0;
       this.type = 0;
       this.oneOneTuitionPriceInHour = 0;
       this.groupTuitionPriceInHour = 0;
@@ -52,13 +50,11 @@ export class IClassroom {
       this.totalInstallments = 0;
       this.firstInstallment = 0;
       this.startDate = '';
-      this.expectedEndDate = '';
+      this.endDate = '';
       this.days = [];
       this.listDays = [];
-      this.startTime = '';
-      this.endTime = '';
-      this.startETime = new Date();
-      this.endETime = new Date();
+      this.startTime = new Date();
+      this.endTime = new Date();
       this.status = 0;
       this.tutor = new ITutor(false);
       this.progress = 0;
@@ -73,8 +69,8 @@ export class IClassroom {
       this.name = classroom.name || '';
       this.slug = classroom.slug || '';
       this.number = classroom.number || 0;
-      this.totalClasses = classroom.total_classes || 0;
-      this.totalHours = classroom.total_hours || 0;
+      this.classes = classroom.total_classes || 0;
+      this.hours = classroom.total_hours || 0;
       this.type = classroom.batch_type || 0; // 1:1 , Group
       this.oneOneTuitionPriceInHour =
         classroom.one_2_one_tuition_price_in_hour || 0;
@@ -89,17 +85,11 @@ export class IClassroom {
       this.totalInstallments = classroom.total_installments || 0;
       this.firstInstallment = classroom.first_installment;
       this.startDate = classroom.batch_start_date || '';
-      this.expectedEndDate = classroom.batch_expected_end_date || '';
+      this.endDate = classroom.batch_expected_end_date || '';
       this.days = classroom.batch_days || [];
       this.listDays = calculateListDays(classroom.batch_days);
       this.startTime = classroom.batch_start_time || '';
       this.endTime = classroom.batch_end_time || '';
-      this.startETime = classroom.batch_start_time
-        ? new Date('01-01-2017 ' + classroom.batch_start_time)
-        : new Date();
-      this.endETime = classroom.batch_end_time
-        ? new Date('01-01-2017 ' + classroom.batch_end_time)
-        : new Date();
       this.status = classroom.batch_status || false;
       this.tutor = new ITutor(false, classroom.tutor);
       this.progress = classroom.progress || 0;
@@ -126,4 +116,11 @@ export function calculateListDays(days: any) {
   });
 
   return list;
+}
+
+export interface IInvoiceDetails {
+  noOfClasses: number;
+  pricePerHour: number;
+  totalHours: number;
+  totalAmount: number;
 }

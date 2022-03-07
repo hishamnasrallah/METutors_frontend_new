@@ -89,11 +89,9 @@ export const loadSubjectsFailure = createAction(
   props<{ error: any }>()
 );
 
-export const loadSubjectsEnded = createAction('[Lookups] Load Subjects Ended');
-
 export const loadSubjectsByFieldId = createAction(
   '[Lookups] Load Subjects By Field Id',
-  props<{ fieldId: string; country?: string }>()
+  props<{ fieldId: string; countryId?: string }>()
 );
 
 export const loadSubjectsByFieldIdSuccess = createAction(
@@ -108,7 +106,7 @@ export const loadSubjectsByFieldIdFailure = createAction(
 
 export const loadFieldsByProgramId = createAction(
   '[Lookups] Load Fields By Program Id',
-  props<{ programId: string; country?: string }>()
+  props<{ programId: string; countryId?: string }>()
 );
 
 export const loadFieldsByProgramIdSuccess = createAction(

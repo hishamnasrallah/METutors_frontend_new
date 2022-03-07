@@ -90,7 +90,7 @@
             <input type="number" max="10" min="1" step="1" class="form-control" formControlName="seatAttendees">
           </div>
         </div>
-        <div class="row mt-4" [@slideInOut] *ngIf="price">
+        <div class="row mt-4" [@slideInOut] *ngIf="price && hours?.value">
           <div class="col-md-12">
             <div class="d-flex est-price">
               <div class="flex-grow-1">

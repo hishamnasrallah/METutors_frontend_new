@@ -54,14 +54,14 @@ export class TutorSyllabusComponent implements OnInit, OnDestroy {
   classroom: IClassroom = {
     id: 1,
     startDate: '2022-12-12',
-    expectedEndDate: '2022-12-30',
+    endDate: '2022-12-30',
     name: 'Python for Data Science and Machine Learning Boo …',
     type: ClassroomType.one,
     listDays: ['Fri', 'Sat', 'Sun'],
     completedClasses: 10,
-    totalHours: 30,
-    startETime: new Date(),
-    endETime: new Date(),
+    hours: 30,
+    startTime: new Date(),
+    endTime: new Date(),
     remainingClasses: 10,
     progress: 30,
     enrolledStudents: [

@@ -199,11 +199,6 @@ export const reducer = createReducer(
     })
   ),
 
-  on(lookupsActions.loadSubjectsEnded, (state) => ({
-    ...state,
-    isLoadingSubjects: false,
-  })),
-
   on(
     lookupsActions.loadFieldsByProgramId,
     lookupsActions.loadFields,

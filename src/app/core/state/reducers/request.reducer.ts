@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 
-import { IClassroom, ITutor } from '@models';
+import { IClassroom, IInvoiceDetails, ITutor } from '@models';
 import * as userActions from '../actions/user.actions';
 import * as requestActions from '../actions/request.actions';
 
@@ -19,17 +19,25 @@ export interface State {
   isCreateClass: boolean;
   createClassFailure: string;
   createdClass: IClassroom | null;
+
+  // Calculate Final Invoice
+  isCalculateFinalInvoice: boolean;
+  calculateFinalInvoiceFailure: string;
+  invoiceDetails: IInvoiceDetails | null;
 }
 
 export const initialState: State = {
   tutors: null,
   createdClass: null,
   isCreateClass: false,
+  invoiceDetails: null,
   estimatedPrice: null,
   createClassFailure: '',
   loadingTutorFailure: '',
   isGeneratingTutors: false,
+  isCalculateFinalInvoice: false,
   isLoadingEstimatedPrice: false,
+  calculateFinalInvoiceFailure: '',
 };
 
 export const reducer = createReducer(
@@ -97,6 +105,31 @@ export const reducer = createReducer(
   on(userActions.enterRequestTutor, (state) => ({
     ...state,
     createdClass: null,
+  })),
+
+  on(requestActions.calculateFinalInvoice, (state) => ({
+    ...state,
+    isCalculateFinalInvoice: true,
+  })),
+
+  on(
+    requestActions.calculateFinalInvoiceSuccess,
+    (state, { invoiceDetails }) => ({
+      ...state,
+      isCalculateFinalInvoice: false,
+      invoiceDetails,
+    })
+  ),
+
+  on(requestActions.calculateFinalInvoiceFailure, (state, { error }) => ({
+    ...state,
+    isCalculateFinalInvoice: false,
+    calculateFinalInvoiceFailure: error.message,
+  })),
+
+  on(requestActions.calculateFinalInvoiceEnded, (state) => ({
+    ...state,
+    isCalculateFinalInvoice: false,
   }))
 );
 
@@ -117,3 +150,9 @@ export const selectIsCreateClass = (state: State): boolean =>
 
 export const selectCreatedClass = (state: State): IClassroom | null =>
   state.createdClass;
+
+export const selectIsCalculateFinalInvoice = (state: State): boolean =>
+  state.isCalculateFinalInvoice;
+
+export const selectInvoiceDetails = (state: State): IInvoiceDetails | null =>
+  state.invoiceDetails;

@@ -211,6 +211,25 @@ export class UserEffects {
     }
   );
 
+  enterInvoiceDetails$ = createEffect(
+    () =>
+      this._actions$.pipe(
+        ofType(userActions.enterInvoiceDetails),
+        withLatestFrom(this._store.select(fromCore.selectCreatedClass)),
+        map(([_, _class]) => {
+          if (!_class) {
+            this._alertNotificationService.error(
+              'You dont have a permission to access this page directly'
+            );
+            this._router.navigate(['/']);
+          }
+        })
+      ),
+    {
+      dispatch: false,
+    }
+  );
+
   failureMessages$ = createEffect(
     () =>
       this._actions$.pipe(

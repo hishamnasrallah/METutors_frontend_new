@@ -143,7 +143,7 @@ export class LookupsEffects {
       ofType(lookupsActions.loadSubjectsByFieldId),
       mergeMap((action) =>
         this._lookupsService
-          .getSubjectsByFieldId(action.fieldId, action?.country)
+          .getSubjectsByFieldId(action.fieldId, action?.countryId)
           .pipe(
             map((subjects) =>
               lookupsActions.loadSubjectsByFieldIdSuccess({
@@ -165,27 +165,22 @@ export class LookupsEffects {
   loadSubjects$ = createEffect(() =>
     this._actions$.pipe(
       ofType(lookupsActions.loadSubjects),
-      withLatestFrom(this._store.select(fromCore.selectSubjects)),
-      mergeMap(([_, _subjects]) => {
-        if (!_subjects || !_subjects.length) {
-          return this._lookupsService.getSubjects().pipe(
-            map((subjects) =>
-              lookupsActions.loadSubjectsSuccess({
-                subjects,
+      mergeMap((_) =>
+        this._lookupsService.getSubjects().pipe(
+          map((subjects) =>
+            lookupsActions.loadSubjectsSuccess({
+              subjects,
+            })
+          ),
+          catchError((error) =>
+            of(
+              lookupsActions.loadSubjectsFailure({
+                error: error?.error?.message || error?.error?.errors,
               })
-            ),
-            catchError((error) =>
-              of(
-                lookupsActions.loadSubjectsFailure({
-                  error: error?.error?.message || error?.error?.errors,
-                })
-              )
             )
-          );
-        } else {
-          return of(lookupsActions.loadSubjectsEnded());
-        }
-      })
+          )
+        )
+      )
     )
   );
 
@@ -194,7 +189,7 @@ export class LookupsEffects {
       ofType(lookupsActions.loadFieldsByProgramId),
       mergeMap((action) =>
         this._lookupsService
-          .getFieldsByProgramId(action.programId, action.country)
+          .getFieldsByProgramId(action.programId, action.countryId)
           .pipe(
             map((fields) =>
               lookupsActions.loadFieldsByProgramIdSuccess({

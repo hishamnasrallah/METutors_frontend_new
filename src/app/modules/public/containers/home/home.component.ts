@@ -177,7 +177,7 @@ export class HomeComponent implements OnInit {
 
   fetchFields({ program, country }: any): void {
     this._store.dispatch(
-      fromCore.loadFieldsByProgramId({ programId: program, country })
+      fromCore.loadFieldsByProgramId({ programId: program, countryId: country })
     );
     this.fields$ = this._store.select(fromCore.selectFields);
     this.loadingFields$ = this._store.select(fromCore.selectIsLoadingFields);

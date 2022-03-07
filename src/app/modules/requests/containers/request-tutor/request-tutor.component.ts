@@ -9,6 +9,7 @@ import {
   calculateListDays,
   SORTED_DAYS_WEEK,
   TEXTBOOK_EDITION_CONST,
+  generalConstants,
 } from 'src/app/config';
 import {
   IClass,
@@ -153,12 +154,19 @@ export class RequestTutorComponent implements OnInit {
   }
 
   fetchCourseFieldSubject(fieldId: string): void {
-    this._store.dispatch(
-      fromCore.loadSubjectsByFieldId({
-        fieldId,
-        country: this.courseInformationForm.value?.courseCountry,
-      })
-    );
+    if (
+      fieldId.toString() === generalConstants.nationalId.toString() &&
+      !this.courseInformationForm.value?.courseCountry
+    ) {
+      return;
+    } else {
+      this._store.dispatch(
+        fromCore.loadSubjectsByFieldId({
+          fieldId,
+          countryId: this.courseInformationForm.value?.courseCountry,
+        })
+      );
+    }
     this.subjects$ = this._store.select(fromCore.selectSubjects).pipe(
       tap((subjects) => {
         if (subjects && subjects.length) {
@@ -169,7 +177,19 @@ export class RequestTutorComponent implements OnInit {
   }
 
   fetchCourseField(programId: string): void {
-    this._store.dispatch(fromCore.loadFieldsByProgramId({ programId }));
+    if (
+      programId.toString() === generalConstants.nationalId.toString() &&
+      !this.courseInformationForm.value?.courseCountry
+    ) {
+      return;
+    } else {
+      this._store.dispatch(
+        fromCore.loadFieldsByProgramId({
+          programId,
+          countryId: this.courseInformationForm.value?.courseCountry,
+        })
+      );
+    }
     this.fields$ = this._store.select(fromCore.selectFields).pipe(
       tap((fields) => {
         if (fields && fields.length) {
@@ -234,6 +254,7 @@ export class RequestTutorComponent implements OnInit {
       ...this.courseInformationForm.value,
       ...this._generateClassroomForm(this.classroomDetailsForm.value),
       ...this.selectTutorForm.value,
+      tutor: this.reviewInfo.tutor,
       startTime: this.reviewInfo.startTime,
       endTime: this.reviewInfo.endTime,
       totalPrice: this.reviewInfo.price,
