@@ -222,6 +222,11 @@ a {
   }
 }
 
+.mat-button-disabled {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
 .main-button-opacity {
   background-color: rgb(59 179 193 / 15%) !important;
   color: #3bb3c1 !important;
