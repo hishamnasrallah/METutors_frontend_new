@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter, map, mergeMap } from 'rxjs';
 
@@ -8,7 +8,7 @@ import { filter, map, mergeMap } from 'rxjs';
   styleUrls: ['./student-sidebar.component.scss'],
 })
 export class StudentSidebarComponent implements OnInit {
-  @Input() logout = new EventEmitter();
+  @Output() logout = new EventEmitter();
 
   hasSidemenu = false;
 

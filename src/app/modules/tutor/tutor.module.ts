@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { RatingModule } from 'ngx-bootstrap/rating';
@@ -64,6 +64,7 @@ import {
     MatButtonModule,
     MatFormFieldModule,
     TutorRoutingModule,
+    ReactiveFormsModule,
     MatProgressBarModule,
     MatButtonToggleModule,
     RatingModule.forRoot(),
