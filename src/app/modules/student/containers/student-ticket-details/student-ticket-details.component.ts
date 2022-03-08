@@ -3,10 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable, tap } from 'rxjs';
-import { TicketUserType } from 'src/app/config';
-import { AlertNotificationService } from 'src/app/core/components';
+import { TicketStatus } from 'src/app/config';
 import { ITicket } from 'src/app/core/models';
-import { SupportService } from 'src/app/core/services';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { NgxAutoScroll } from 'ngx-auto-scroll';
 import { IUser } from '@metutor/core/models';
@@ -32,26 +30,33 @@ export class StudentTicketDetailsComponent implements OnInit {
   isLoading$: Observable<boolean>;
   user$: Observable<IUser | null>;
   ticket$: Observable<ITicket | null>;
+  isSubmitTicketComment$: Observable<boolean>;
 
-  loading = false;
   messageForm: FormGroup;
-  ticketUserType = TicketUserType;
+  ticketStatus = TicketStatus;
 
   constructor(
     private _title: Title,
     private _fb: FormBuilder,
     private _store: Store<any>,
-    private _route: ActivatedRoute,
-    private _supportService: SupportService,
-    private _alertNotificationService: AlertNotificationService
+    private _route: ActivatedRoute
   ) {
     this.messageForm = this._fb.group({
-      reply: [null, Validators.required],
+      comment: [null, Validators.required],
     });
   }
 
   ngOnInit(): void {
     this.user$ = this._store.select(fromCore.selectUser);
+    this.isSubmitTicketComment$ = this._store
+      .select(fromCore.selectIsSubmitTicketComment)
+      .pipe(
+        tap((isSubmit) => {
+          if (isSubmit) {
+            this.messageForm.reset();
+          }
+        })
+      );
 
     this._route.paramMap.subscribe((res: ParamMap) => {
       const id = res.get('id') || '';
@@ -62,24 +67,9 @@ export class StudentTicketDetailsComponent implements OnInit {
 
   onSubmit({ valid, value }: any): void {
     if (valid) {
-      this.loading = true;
-      const message = {
-        ...value,
-        // ticket: this.ticket?.id,
-      };
-      this._supportService.submitMessage(message).subscribe(
-        (response) => {
-          this.loading = false;
-          this.messageForm.reset();
-          // this.ticket?.replies.push(new ITicketReply(false, response));
-        },
-        (error) => {
-          this.loading = false;
-          this._alertNotificationService.error(
-            error.error.detail || 'Error in sending message'
-          );
-        }
-      );
+      const comment = value.comment;
+
+      this._store.dispatch(fromCore.submitTicketComment({ comment }));
     }
   }
 

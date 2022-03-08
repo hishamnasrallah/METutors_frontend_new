@@ -15,7 +15,7 @@ export * from './specification.model';
 export * from './statistics.model';
 export * from './subject.model';
 export * from './syllabus.model';
-export * from './ticket-reply.model';
+export * from './ticket-comment.model';
 export * from './ticket.model';
 export * from './tutor.model';
 export * from './user.model';

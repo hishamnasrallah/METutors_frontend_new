@@ -1,4 +1,4 @@
-.ticket-details {
+:host ::ng-deep .ticket-details {
   padding: 50px 40px 20px;
 
   .title {
@@ -29,7 +29,7 @@
           background-color: #3bb3c1;
         }
 
-        &.new {
+        &.closed {
           background-color: #ff554b;
         }
 
@@ -129,7 +129,7 @@
         }
       }
 
-      button {
+      .reply-button {
         position: absolute;
         right: 0;
         top: 0;

@@ -3,7 +3,6 @@ export * from './classroom-type';
 export * from './language-level';
 export * from './ticket-category';
 export * from './ticket-status';
-export * from './ticket-user-type';
 export * from './tuition-type';
 export * from './tutor-status';
 export * from './user-role';

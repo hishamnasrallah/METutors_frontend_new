@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { ITicket } from '@models';
+import { ITicket, ITicketComment } from '@models';
 
 export const loadTickets = createAction('[Student] Load Tickets');
 
@@ -45,5 +45,20 @@ export const createTicketSuccess = createAction(
 
 export const createTicketFailure = createAction(
   '[Student] Create Ticket Failure',
+  props<{ error: any }>()
+);
+
+export const submitTicketComment = createAction(
+  '[Student] Submit Ticket Comment',
+  props<{ comment: string }>()
+);
+
+export const submitTicketCommentSuccess = createAction(
+  '[Student] Submit Ticket Comment Success',
+  props<{ comment: ITicketComment }>()
+);
+
+export const submitTicketCommentFailure = createAction(
+  '[Student] Submit Ticket Comment Failure',
   props<{ error: any }>()
 );

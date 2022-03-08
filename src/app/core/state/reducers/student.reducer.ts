@@ -16,6 +16,10 @@ export interface State {
   // Create Ticket
   isCreatingTicket: boolean;
   createTicketFailure: string;
+
+  // Submit Ticket Comment
+  isSubmitTicketComment: boolean;
+  submitTicketCommentFailure: string;
 }
 
 export const initialState: State = {
@@ -27,6 +31,8 @@ export const initialState: State = {
   createTicketFailure: '',
   loadingTicketFailure: '',
   loadingTicketsFailure: '',
+  isSubmitTicketComment: false,
+  submitTicketCommentFailure: '',
 };
 
 export const reducer = createReducer(
@@ -93,6 +99,28 @@ export const reducer = createReducer(
     ...state,
     isCreatingTicket: false,
     createTicketFailure: error,
+  })),
+
+  on(studentActions.submitTicketComment, (state) => ({
+    ...state,
+    isSubmitTicketComment: true,
+  })),
+
+  on(studentActions.submitTicketCommentSuccess, (state, { comment }) => ({
+    ...state,
+    isSubmitTicketComment: false,
+    ticket: state.ticket
+      ? {
+          ...state.ticket,
+          comments: [...state.ticket.comments, comment],
+        }
+      : null,
+  })),
+
+  on(studentActions.submitTicketCommentFailure, (state, { error }) => ({
+    ...state,
+    isSubmitTicketComment: false,
+    submitTicketCommentFailure: error,
   }))
 );
 
@@ -108,3 +136,6 @@ export const selectIsLoadingTicket = (state: State): boolean =>
 
 export const selectIsCreatingTicket = (state: State): boolean =>
   state.isCreatingTicket;
+
+export const selectIsSubmitTicketComment = (state: State): boolean =>
+  state.isSubmitTicketComment;

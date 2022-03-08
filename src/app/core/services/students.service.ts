@@ -25,8 +25,8 @@ export class StudentsService {
 
   loadTicket(id: string): Observable<any> {
     return this.http
-      .get<ITicket>(`${this.baseUrl}tickets/${id}`)
-      .pipe(map((ticket) => new ITicket(false, ticket)))
+      .get<{ ticket: ITicket }>(`${this.baseUrl}tickets/${id}`)
+      .pipe(map((response) => new ITicket(false, response.ticket)))
       .pipe(catchError(this.errorHandler));
   }
 
@@ -43,6 +43,15 @@ export class StudentsService {
     return this.http
       .post<{ ticket: ITicket }>(`${this.baseUrl}create-ticket`, formData)
       .pipe(map((response) => new ITicket(false, response.ticket)))
+      .pipe(catchError(this.errorHandler));
+  }
+
+  submitTicketComment(comment: string, ticketId?: number): Observable<any> {
+    return this.http
+      .post(`${this.baseUrl}comment`, {
+        ticket_id: ticketId,
+        comment,
+      })
       .pipe(catchError(this.errorHandler));
   }
 

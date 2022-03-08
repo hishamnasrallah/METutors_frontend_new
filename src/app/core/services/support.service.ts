@@ -52,12 +52,6 @@ export class SupportService {
       .pipe(catchError(this.errorHandler));
   }
 
-  submitMessage(value: any): Observable<any> {
-    return this.http
-      .post(`${this.baseUrl}ticket/reply/`, value)
-      .pipe(catchError(this.errorHandler));
-  }
-
   errorHandler(error: HttpErrorResponse) {
     return throwError(error);
   }

@@ -10,61 +10,61 @@
           <ng-container *ngIf="!(isLoading$ | async)">
             <h2>
               {{ ticket?.subject }}
-              <!-- <span class="label" [ngClass]="{
-                    'new': ticketStatus.new === ticket?.status,
-                    'issued': ticketStatus.open === ticket?.status,
-                    'closed': ticketStatus.closed === ticket?.status,
-                    'response': ticketStatus.reopened === ticket?.status
-              }">{{ ticket?.statusValue }}</span> -->
+              <span class="label" [ngClass]="{
+                  'issued': ticketStatus.open === ticket?.status,
+                  'closed': ticketStatus.closed === ticket?.status,
+                  'response': ticketStatus.inprogress === ticket?.status
+                }">{{ ticket?.status }}</span>
             </h2>
             <p>
-              {{ ticket?.message }}
+              <bdi>{{ ticket?.message }}</bdi>
             </p>
             <div class="row list">
-              <!-- <div class="col-md-2 d-flex menu align-items-center" *ngIf="ticket?.assignedEmployee">
+              <!-- <div class="col-md-3 d-flex menu align-items-center" *ngIf="ticket?.assignedEmployee">
               <img src="assets/homepage/courses/person.png" meTutorsDefaultAvatar alt="" width="25" height="25"
                 draggable="false">
               <strong>Agent: {{ ticket?.assignedEmployee?.official_name }}</strong>
             </div> -->
-              <div class="col-md-2 d-flex menu align-items-center">
+              <div class="col-md-3 d-flex menu align-items-center">
                 <img src="assets/svg/calendar.svg" alt="" width="15" height="15" draggable="false">
                 <span>Open : {{ ticket?.createdDate | date: 'EEEE, d MMM y' }}</span>
               </div>
-              <!-- <div class="col-md-2 d-flex menu align-items-center">
+              <!-- <div class="col-md-3 d-flex menu align-items-center">
                 <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
                 <span>Last reply : 06:40 pm</span>
               </div> -->
             </div>
 
             <div class="list-messages overflow-auto pe-5" ngx-auto-scroll [lock-y-offset]="10" observe-attributes>
-              <!-- <div class="row mb-40" [@dropMenuAnimate] *ngFor="let message of ticket?.replies">
-              <div class="col-md-2 d-flex info">
-                <img [src]="message?.avatar" meTutorsDefaultAvatar class="rounded-circle" alt="" width="40" height="40">
-                <div class="ps-3">
-                  <h3>
-                    <ng-container *ngIf="ticketUserType.publicUser === message?.userType">You</ng-container>
-                    <ng-container *ngIf="ticketUserType.meEmployee === message?.userType">
-                      Agent: {{ message?.officialName }}
-                    </ng-container>
-                  </h3>
-                  <h4>{{ message?.createdDate | date: 'EEEE, d MMM y' }}</h4>
+              <div class="row mb-40" [@dropMenuAnimate] *ngFor="let message of ticket?.comments">
+                <div class="col-md-2 d-flex info">
+                  <img [src]="message?.avatar" meTutorsDefaultAvatar class="rounded-circle" alt="" width="40"
+                    height="40">
+                  <div class="ps-3">
+                    <h3>
+                      <ng-container *ngIf="(user$ | async)?.id === message?.user?.id">You</ng-container>
+                      <ng-container *ngIf="(user$ | async)?.id !== message?.user?.id">
+                        Agent: {{ message?.user?.firstName }}
+                      </ng-container>
+                    </h3>
+                    <h4>{{ message?.createdDate | date: 'EEEE, d MMM y' }}</h4>
+                  </div>
+                </div>
+                <div class="col-md-10">
+                  <p class="m-0">{{ message?.comment }}</p>
                 </div>
               </div>
-              <div class="col-md-10">
-                <p class="m-0">{{ message?.reply }}</p>
-              </div>
-            </div> -->
             </div>
 
             <form class="write-comment" [formGroup]="messageForm" (ngSubmit)="onSubmit(messageForm)">
               <div class="position-relative">
                 <img [src]="(user$ | async)?.avatar" meTutorsDefaultAvatar class="rounded-circle" alt="" width="40"
                   height="40" draggable="false">
-                <input type="text" class="form-control" placeholder="Write a comment..." formControlName="reply">
-                <button mat-flat-button color="primary" type="submit" [disabled]="messageForm.invalid || loading">
+                <input type="text" class="form-control" placeholder="Write a comment..." formControlName="comment">
+                <metutors-submit-button [form]="messageForm" [isSubmitting]="isSubmitTicketComment$ | async"
+                  [extraClasses]="'reply-button'">
                   Reply
-                  <mat-icon class="spinner" *ngIf="loading">autorenew</mat-icon>
-                </button>
+                </metutors-submit-button>
               </div>
             </form>
           </ng-container>

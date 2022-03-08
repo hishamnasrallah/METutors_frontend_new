@@ -8,6 +8,7 @@ import * as fromCore from '@metutor/core/state';
 import * as studentActions from '../actions/student.actions';
 import { AlertNotificationService } from '@metutor/core/components';
 import { Router } from '@angular/router';
+import { ITicketComment } from '@metutor/core/models';
 
 @Injectable()
 export class StudentEffects {
@@ -100,10 +101,50 @@ export class StudentEffects {
     }
   );
 
+  submitTicketComment$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(studentActions.submitTicketComment),
+      withLatestFrom(
+        this._store.select(fromCore.selectTicket),
+        this._store.select(fromCore.selectUser)
+      ),
+      mergeMap(([action, _ticket, _user]) =>
+        this._studentService
+          .submitTicketComment(action.comment, _ticket?.id)
+          .pipe(
+            map(() => {
+              const comment: ITicketComment = {
+                id: 0,
+                comment: action.comment,
+                user: _user ? _user : undefined,
+                createdDate: new Date(),
+              };
+
+              return studentActions.submitTicketCommentSuccess({
+                comment,
+              });
+            }),
+            catchError((error) =>
+              of(
+                studentActions.submitTicketCommentFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          )
+      )
+    )
+  );
+
   failureMessages$ = createEffect(
     () =>
       this._actions$.pipe(
-        ofType(...[studentActions.loadTicketsFailure]),
+        ofType(
+          ...[
+            studentActions.loadTicketsFailure,
+            studentActions.submitTicketCommentFailure,
+          ]
+        ),
         map((action) => {
           if (action.error) {
             return this._alertNotificationService.error(action.error);
