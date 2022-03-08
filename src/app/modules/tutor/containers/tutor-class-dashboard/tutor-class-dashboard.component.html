@@ -49,8 +49,8 @@
                 Send Feedback
               </button>
               <button mat-button class="main-button-transparent float-end"
-                      (click)="openClassroomAttendancesPopop = true">
-                Attendence
+                      (click)="showAttendanceModal = true">
+                Attendance
               </button>
             </div>
           </div>
@@ -218,8 +218,11 @@
   </div>
 </div>
 
-<metutors-classroom-attendances-popup [openClassroomAttendancesPopop]="openClassroomAttendancesPopop"
-                                      (closeDialog)="openClassroomAttendancesPopop = $event"></metutors-classroom-attendances-popup>
+<metutors-tutor-attendance-modal [showModal]="showAttendanceModal"
+                                 (closeModal)="showAttendanceModal=false">
+</metutors-tutor-attendance-modal>
+<!--<metutors-classroom-attendances-popup [openClassroomAttendancesPopop]="openClassroomAttendancesPopop"
+                                      (closeDialog)="openClassroomAttendancesPopop = $event"></metutors-classroom-attendances-popup>-->
 
 <metutors-leave-feedback-popup [openLeaveFeedbackPopop]="openLeaveFeedbackPopop"
                                (closeDialog)="openLeaveFeedbackPopop = $event"

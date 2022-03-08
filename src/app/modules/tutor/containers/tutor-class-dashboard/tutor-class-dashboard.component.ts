@@ -11,6 +11,7 @@ import * as fromCore from '@metutor/core/state';
   styleUrls: ['./tutor-class-dashboard.component.scss'],
 })
 export class TutorClassDashboardComponent implements OnInit {
+  showAttendanceModal = false;
   openLeaveFeedbackPopop = false;
   openClassroomAttendancesPopop = false;
 

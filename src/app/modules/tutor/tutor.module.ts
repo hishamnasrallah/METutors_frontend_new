@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { RatingModule } from 'ngx-bootstrap/rating';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
@@ -29,6 +30,7 @@ import {
 import {
   TutorNavbarComponent,
   TutorSidebarComponent,
+  TutorAttendanceModalComponent,
   TutorSettingsAccountComponent,
   TutorSettingsSecurityComponent,
   TutorSettingsUserPreferencesComponent,
@@ -49,6 +51,7 @@ import {
     TutorClassDashboardComponent,
     TutorPaymentRecordsComponent,
     TutorSettingsAccountComponent,
+    TutorAttendanceModalComponent,
     TutorSettingsSecurityComponent,
     TutorSettingsUserPreferencesComponent,
     TutorSettingsPaymentInformationComponent,
@@ -57,6 +60,7 @@ import {
     FormsModule,
     CommonModule,
     SharedModule,
+    MatTabsModule,
     MatIconModule,
     CarouselModule,
     MatRadioModule,

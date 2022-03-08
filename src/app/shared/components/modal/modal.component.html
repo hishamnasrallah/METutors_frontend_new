@@ -1,0 +1,16 @@
+<div class="dialog">
+  <div class="d-flex" mat-dialog-title>
+    <h2 class="flex-grow-1 m-0 d-flex flex-column">
+      {{ heading }}
+      <span class="d-block mt-2">{{ subHeading }}</span>
+    </h2>
+
+    <button class="text-secondary" mat-dialog-close="true" mat-icon-button type="button">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <mat-dialog-content class="pt-2">
+    <ng-template [ngTemplateOutlet]="data.template"></ng-template>
+  </mat-dialog-content>
+</div>

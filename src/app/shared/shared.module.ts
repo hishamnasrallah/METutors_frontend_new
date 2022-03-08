@@ -25,7 +25,9 @@ import {
 
 // Components
 import {
+  ModalComponent,
   CourseItemComponent,
+  ModalComponentTemplate,
   SubmitButtonComponent,
   ClassroomItemComponent,
   CardPlaceholderComponent,
@@ -53,6 +55,10 @@ import {
     GridPlaceholderComponent,
     CourseItemHorizentalComponent,
     ClassroomItemHorizentalComponent,
+
+    // Modal
+    ModalComponent,
+    ModalComponentTemplate,
 
     // Popups
     DialogLeaveFeedbackPopup,
@@ -93,6 +99,10 @@ import {
     GridPlaceholderComponent,
     CourseItemHorizentalComponent,
     ClassroomItemHorizentalComponent,
+
+    // Modal
+    ModalComponent,
+    ModalComponentTemplate,
 
     // Popups
     DialogLeaveFeedbackPopup,

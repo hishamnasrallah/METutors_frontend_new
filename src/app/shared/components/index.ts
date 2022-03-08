@@ -1,3 +1,4 @@
+export * from './modal';
 export * from './course-item';
 export * from './submit-button';
 export * from './classroom-item';
