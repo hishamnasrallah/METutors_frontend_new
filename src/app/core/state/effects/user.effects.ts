@@ -168,6 +168,28 @@ export class UserEffects {
     }
   );
 
+  changePassword$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(userActions.changePassword),
+      mergeMap((action) =>
+        this._authService.changePassword(action.value).pipe(
+          map((response) =>
+            userActions.changePasswordSuccess({
+              message: response.message,
+            })
+          ),
+          catchError((error) =>
+            of(
+              userActions.changePasswordFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   enterCompleteProfile$ = createEffect(
     () =>
       this._actions$.pipe(
@@ -230,10 +252,33 @@ export class UserEffects {
     }
   );
 
+  successMessages$ = createEffect(
+    () =>
+      this._actions$.pipe(
+        ofType(
+          ...[userActions.changePasswordSuccess]
+        ),
+        map((action) => {
+          if (action.message) {
+            return this._alertNotificationService.success(action.message);
+          } else {
+            return this._alertNotificationService.success(
+              'Information updated successfully!'
+            );
+          }
+        })
+      ),
+    {
+      dispatch: false,
+    }
+  );
+
   failureMessages$ = createEffect(
     () =>
       this._actions$.pipe(
-        ofType(...[userActions.signInFailure]),
+        ofType(
+          ...[userActions.signInFailure, userActions.changePasswordFailure]
+        ),
         map((action) => {
           if (action.error) {
             return this._alertNotificationService.error(action.error);

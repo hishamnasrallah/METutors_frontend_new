@@ -126,7 +126,13 @@ export class AuthService {
   }
 
   changePassword(data: any): Observable<any> {
-    return this.http.post<any>(BACKEND_URL + 'change-password', data);
+    const value = {
+      current_password: data.oldPassword,
+      new_password: data.password,
+      confirm_password: data.confirmPassword
+    }
+
+    return this.http.post<any>(BACKEND_URL + 'change-password', value);
   }
 
   changeEmail(data: any): Observable<any> {

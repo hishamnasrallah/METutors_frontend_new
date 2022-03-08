@@ -183,6 +183,7 @@ export class SignupComponent implements OnInit, OnDestroy {
         this.loading = false;
       },
       (error) => {
+        this.loading = false;
         this._alertNotificationService.error(
           error?.error?.message ||
             'Something went wrong while creating an account'
@@ -215,6 +216,7 @@ export class SignupComponent implements OnInit, OnDestroy {
         }
       },
       (error) => {
+        this.loading = false;
         this._alertNotificationService.error(
           error?.error?.message ||
             'Something went wrong while verifing your email'
@@ -238,6 +240,7 @@ export class SignupComponent implements OnInit, OnDestroy {
           }
         },
         (error) => {
+          this.resendLoading = false;
           this._alertNotificationService.error(
             error?.error?.message ||
               'Something went wrong while verifing your email'
@@ -267,6 +270,7 @@ export class SignupComponent implements OnInit, OnDestroy {
         this.loading = false;
       },
       (error) => {
+        this.loading = false;
         this._alertNotificationService.error(
           error?.error?.message ||
             'Something went wrong while uploading the documents'

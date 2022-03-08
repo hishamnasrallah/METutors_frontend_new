@@ -92,6 +92,16 @@ export const selectUser = createSelector(
   fromUserReducer.selectUser
 );
 
+export const selectIsChangingPassword = createSelector(
+  selectUserState,
+  fromUserReducer.selectIsChangingPassword
+);
+
+export const selectChangePasswordSuccess = createSelector(
+  selectUserState,
+  fromUserReducer.selectChangePasswordSuccess
+);
+
 // Tutor
 export const selectTutor = createSelector(
   selectTutorState,

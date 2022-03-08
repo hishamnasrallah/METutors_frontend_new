@@ -31,13 +31,9 @@ export const enterCompleteProfile = createAction(
   '[User] Enter Complete Profile'
 );
 
-export const enterRequestTutor = createAction(
-  '[User] Enter Request Tutor'
-);
+export const enterRequestTutor = createAction('[User] Enter Request Tutor');
 
-export const enterInvoiceDetails = createAction(
-  '[User] Enter Invoice Details'
-);
+export const enterInvoiceDetails = createAction('[User] Enter Invoice Details');
 
 export const identifyUser = createAction('[User] Identify User');
 
@@ -47,3 +43,18 @@ export const identifyUserSuccess = createAction(
 );
 
 export const identifyUserEnded = createAction('[User] Identify User Ended');
+
+export const changePassword = createAction(
+  '[User] Change Password',
+  props<{ value: any }>()
+);
+
+export const changePasswordSuccess = createAction(
+  '[User] Change Password Success',
+  props<{ message: string }>()
+);
+
+export const changePasswordFailure = createAction(
+  '[User] Change Password Failure',
+  props<{ error: any }>()
+);

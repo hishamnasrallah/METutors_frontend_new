@@ -12,12 +12,19 @@ export interface State {
   // Complete profile
   profileStep: number;
   user: IUser | null;
+
+  // Change Password
+  isChangePassword: boolean;
+  changePasswordSuccess: boolean;
+  changePasswordFailure?: string;
 }
 
 export const initialState: State = {
   user: null,
   profileStep: 1,
   isSignIn: false,
+  isChangePassword: false,
+  changePasswordSuccess: false,
 };
 
 export const reducer = createReducer(
@@ -56,6 +63,25 @@ export const reducer = createReducer(
     ...state,
     profileStep,
     user,
+  })),
+
+  on(userActions.changePassword, (state) => ({
+    ...state,
+    isChangePassword: true,
+    changePasswordSuccess: false,
+  })),
+
+  on(userActions.changePasswordSuccess, (state) => ({
+    ...state,
+    isChangePassword: false,
+    changePasswordSuccess: true,
+  })),
+
+  on(userActions.changePasswordFailure, (state, { error }) => ({
+    ...state,
+    isChangePassword: false,
+    changePasswordSuccess: false,
+    changePasswordFailure: error,
   }))
 );
 
@@ -66,3 +92,9 @@ export const selectIsSignIn = (state: State): boolean => state.isSignIn;
 export const selectProfileStep = (state: State): number => state.profileStep;
 
 export const selectUser = (state: State): IUser | null => state.user;
+
+export const selectIsChangingPassword = (state: State): boolean =>
+  state.isChangePassword;
+
+export const selectChangePasswordSuccess = (state: State): boolean =>
+  state.changePasswordSuccess;
