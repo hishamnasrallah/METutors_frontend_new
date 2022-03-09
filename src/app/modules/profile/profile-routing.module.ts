@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TutorAuthGuard } from 'src/app/core/guards';
+import { TutorAuthGuard } from '@guards';
 
 import {
   TutorProfileComponent,

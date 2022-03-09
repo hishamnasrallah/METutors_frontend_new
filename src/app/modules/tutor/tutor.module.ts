@@ -11,12 +11,14 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { TwillioModule } from '@metutor/core/components';
 
 import { TutorRoutingModule } from './tutor-routing.module';
 import { SharedModule } from '@metutor/shared/shared.module';
 
 import {
   TutorComponent,
+  TutorInboxComponent,
   TutorBadgesComponent,
   TutorClassesComponent,
   TutorSettingsComponent,
@@ -41,6 +43,7 @@ import {
 @NgModule({
   declarations: [
     TutorComponent,
+    TutorInboxComponent,
     TutorNavbarComponent,
     TutorBadgesComponent,
     TutorSidebarComponent,
@@ -62,6 +65,7 @@ import {
     FormsModule,
     CommonModule,
     SharedModule,
+    TwillioModule,
     MatTabsModule,
     MatIconModule,
     CarouselModule,

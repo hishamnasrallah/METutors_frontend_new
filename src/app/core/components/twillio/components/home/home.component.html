@@ -1,0 +1,17 @@
+<div class="grid-container">
+    <div class="grid-left">
+        <metutors-rooms #rooms (roomChanged)="onRoomChanged($event)"
+                   [activeRoomName]="!!activeRoom ? activeRoom.name : null"></metutors-rooms>
+    </div>
+    <div class="grid-content">
+        <metutors-camera #camera [style.display]="!!activeRoom ? 'none' : 'block'"></metutors-camera>
+        <metutors-participants #participants
+                               (leaveRoom)="onLeaveRoom($event)"
+                               (participantsChanged)="onParticipantsChanged($event)"
+                               [style.display]="!!activeRoom ? 'block' : 'none'"
+                               [activeRoomName]="!!activeRoom ? activeRoom.name : null"></metutors-participants>
+    </div>
+    <div class="grid-right">
+        <metutors-settings #settings (settingsChanged)="onSettingsChanged($event)"></metutors-settings>
+    </div>
+</div>

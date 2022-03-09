@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {
   TutorComponent,
+  TutorInboxComponent,
   TutorBadgesComponent,
   TutorClassesComponent,
   TutorSettingsComponent,
@@ -88,6 +89,17 @@ const routes: Routes = [
         data: {
           layout: {
             title: 'Dashboard - Metutors',
+            showHeader: false,
+            showFooter: false,
+          },
+        },
+      },
+      {
+        path: 'inbox',
+        component: TutorInboxComponent,
+        data: {
+          layout: {
+            title: 'Inbox - Metutors',
             showHeader: false,
             showFooter: false,
           },

@@ -29,7 +29,7 @@
       "@services": ["src/app/core/services"],
       "@models": ["src/app/core/models"],
       "@interceptors": ["src/app/core/interceptors"],
-      "@guards": ["src/app/core/guards"],
+      "@guards": ["src/app/core/guards"]
     }
   },
   "angularCompilerOptions": {
