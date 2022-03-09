@@ -13,14 +13,10 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 // Popups
 import {
-  DialogLeaveFeedbackPopup,
   DialogCourseDetailsPopup,
   CourseDetailsPopupComponent,
-  LeaveFeedbackPopupComponent,
   DialogClassroomDetailsPopup,
   ClassroomDetailsPopupComponent,
-  DialogClassroomAttendancesPopup,
-  ClassroomAttendancesPopupComponent,
 } from '@metutor/shared/popups';
 
 // Components
@@ -61,14 +57,10 @@ import {
     ModalComponentTemplate,
 
     // Popups
-    DialogLeaveFeedbackPopup,
     DialogCourseDetailsPopup,
-    LeaveFeedbackPopupComponent,
     CourseDetailsPopupComponent,
     DialogClassroomDetailsPopup,
     ClassroomDetailsPopupComponent,
-    DialogClassroomAttendancesPopup,
-    ClassroomAttendancesPopupComponent,
 
     // Directives
     LetDirective,
@@ -105,14 +97,10 @@ import {
     ModalComponentTemplate,
 
     // Popups
-    DialogLeaveFeedbackPopup,
     DialogCourseDetailsPopup,
-    LeaveFeedbackPopupComponent,
     CourseDetailsPopupComponent,
     DialogClassroomDetailsPopup,
     ClassroomDetailsPopupComponent,
-    DialogClassroomAttendancesPopup,
-    ClassroomAttendancesPopupComponent,
 
     // Directives
     LetDirective,

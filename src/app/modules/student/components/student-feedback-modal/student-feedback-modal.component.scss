@@ -1,20 +1,4 @@
-:host ::ng-deep .leave-feedback-popup {
-  .mat-dialog-title {
-    margin: 0 0 10px;
-
-    h2 {
-      font-size: 20px;
-      font-weight: bold;
-      color: #000;
-
-      span {
-        font-weight: normal;
-        color: #696969;
-        font-size: 18px;
-      }
-    }
-  }
-
+.leave-feedback-modal {
   .rating-block {
     border-bottom: solid 1px #e2e2ea;
     background-color: #f8f8f8;

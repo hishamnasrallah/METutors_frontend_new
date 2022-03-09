@@ -12,6 +12,8 @@ import { CoursesService } from 'src/app/core/services';
   styleUrls: ['./student-classes.component.scss'],
 })
 export class StudentClassesComponent implements OnInit {
+  showAttendanceModal = false;
+  showFeedbackModal = false;
   classsroomId?: string;
   classroom?: IClassroom;
   loadingClassroom?: boolean;

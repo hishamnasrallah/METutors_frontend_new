@@ -1,24 +1,14 @@
-<div class="classroom-attendances-popup">
-  <div class="d-flex" mat-dialog-title>
-    <h2 class="flex-grow-1 m-0 d-flex flex-column">
-      Classroom attendances
-      <span class="d-block mt-2">View classroom attendances</span>
-    </h2>
-
-    <button class="text-secondary" mat-dialog-close="true" mat-icon-button type="button">
-      <mat-icon>close</mat-icon>
-    </button>
-  </div>
-
-  <mat-dialog-content class="pt-2">
-    <div class="row">
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'large'" [heading]="'Class attendances'"
+                [template]="template" [subHeading]="'View class attendances'">
+  <ng-template #template>
+    <div class="row attendance-modal">
       <div class="col-12">
         <div class="card classroom-item">
           <div class="row">
             <div class="col">
               <div
                 class="position-relative rounded date d-flex flex-column align-items-center justify-content-center h-100">
-                <img src="assets/svg/calendar-fill.svg" alt="" width="30" height="30" />
+                <img src="assets/svg/calendar-fill.svg" alt="" width="30" height="30"/>
                 <h2 class="mt-2">Starting date</h2>
                 <h3>23 Feb 20</h3>
                 <h4 class="m-0">Ending date: 30 Mar 20</h4>
@@ -30,7 +20,7 @@
                 <!-- <img src="assets/svg/user-one.svg" draggable="false" *ngIf="!classroom.isGroup" width="25px"
                   height="25px" /> -->
                 <img src="assets/svg/user-group.svg" matTooltip="One-o-One" matTooltipPosition="above" draggable="false"
-                  height="25px" />
+                     height="25px"/>
               </h5>
               <p>
                 Very few destinations in Marrakech are blessed with Very few destinations in Marrakech
@@ -74,41 +64,41 @@
             <div class="table-responsive mt-2">
               <table class="table">
                 <thead>
-                  <tr>
-                    <th scope="col">Number</th>
-                    <th scope="col">Classroom</th>
-                    <th scope="col">Attending states</th>
-                    <th scope="col">Date</th>
-                  </tr>
+                <tr>
+                  <th scope="col">Number</th>
+                  <th scope="col">Classroom</th>
+                  <th scope="col">Attending states</th>
+                  <th scope="col">Date</th>
+                </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td scope="row">1</td>
-                    <td>Understanding Operating Systems</td>
-                    <td>
-                      <button mat-button>Check in</button>
-                    </td>
-                    <td>Introduction </td>
-                    <td>08 Feb 2020</td>
-                  </tr>
-                  <tr>
-                    <td scope="row">1</td>
-                    <td>Understanding Operating Systems</td>
-                    <td>
-                      <button mat-button>Check in</button>
-                    </td>
-                    <td>Introduction </td>
-                    <td>08 Feb 2020</td>
-                  </tr>
-                  <tr>
-                    <td scope="row">1</td>
-                    <td>Understanding Operating Systems</td>
-                    <td>
-                      <button mat-button>Check in</button>
-                    </td>
-                    <td>Introduction </td>
-                    <td>08 Feb 2020</td>
-                  </tr>
+                <tr>
+                  <td scope="row">1</td>
+                  <td>Understanding Operating Systems</td>
+                  <td>
+                    <button mat-button>Check in</button>
+                  </td>
+                  <td>Introduction</td>
+                  <td>08 Feb 2020</td>
+                </tr>
+                <tr>
+                  <td scope="row">1</td>
+                  <td>Understanding Operating Systems</td>
+                  <td>
+                    <button mat-button>Check in</button>
+                  </td>
+                  <td>Introduction</td>
+                  <td>08 Feb 2020</td>
+                </tr>
+                <tr>
+                  <td scope="row">1</td>
+                  <td>Understanding Operating Systems</td>
+                  <td>
+                    <button mat-button>Check in</button>
+                  </td>
+                  <td>Introduction</td>
+                  <td>08 Feb 2020</td>
+                </tr>
                 </tbody>
               </table>
             </div>
@@ -117,41 +107,41 @@
             <div class="table-responsive mt-2">
               <table class="table">
                 <thead>
-                  <tr>
-                    <th scope="col">Number</th>
-                    <th scope="col">Classroom</th>
-                    <th scope="col">Attending states</th>
-                    <th scope="col">Date</th>
-                  </tr>
+                <tr>
+                  <th scope="col">Number</th>
+                  <th scope="col">Classroom</th>
+                  <th scope="col">Attending states</th>
+                  <th scope="col">Date</th>
+                </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td scope="row">1</td>
-                    <td>Understanding Operating Systems</td>
-                    <td>
-                      <button mat-button>Check in</button>
-                    </td>
-                    <td>Introduction </td>
-                    <td>08 Feb 2020</td>
-                  </tr>
-                  <tr>
-                    <td scope="row">1</td>
-                    <td>Understanding Operating Systems</td>
-                    <td>
-                      <button mat-button>Check in</button>
-                    </td>
-                    <td>Introduction </td>
-                    <td>08 Feb 2020</td>
-                  </tr>
-                  <tr>
-                    <td scope="row">1</td>
-                    <td>Understanding Operating Systems</td>
-                    <td>
-                      <button mat-button>Check in</button>
-                    </td>
-                    <td>Introduction </td>
-                    <td>08 Feb 2020</td>
-                  </tr>
+                <tr>
+                  <td scope="row">1</td>
+                  <td>Understanding Operating Systems</td>
+                  <td>
+                    <button mat-button>Check in</button>
+                  </td>
+                  <td>Introduction</td>
+                  <td>08 Feb 2020</td>
+                </tr>
+                <tr>
+                  <td scope="row">1</td>
+                  <td>Understanding Operating Systems</td>
+                  <td>
+                    <button mat-button>Check in</button>
+                  </td>
+                  <td>Introduction</td>
+                  <td>08 Feb 2020</td>
+                </tr>
+                <tr>
+                  <td scope="row">1</td>
+                  <td>Understanding Operating Systems</td>
+                  <td>
+                    <button mat-button>Check in</button>
+                  </td>
+                  <td>Introduction</td>
+                  <td>08 Feb 2020</td>
+                </tr>
                 </tbody>
               </table>
             </div>
@@ -159,5 +149,5 @@
         </mat-tab-group>
       </div>
     </div>
-  </mat-dialog-content>
-</div>
+  </ng-template>
+</metutors-modal>

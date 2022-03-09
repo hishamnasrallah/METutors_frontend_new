@@ -4,6 +4,7 @@ import { RatingModule } from 'ngx-bootstrap/rating';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { NgxAutoScrollModule } from 'ngx-auto-scroll';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
@@ -34,7 +35,9 @@ import {
   StudentSidebarComponent,
   FaqAboutStudentsComponent,
   FaqListQuestionsComponent,
+  StudentFeedbackModalComponent,
   FaqStillHaveQuestionsComponent,
+  StudentAttendanceModalComponent,
   StudentSettingsAccountComponent,
   StudentSettingsSecurityComponent,
   StudentSettingsUserPrefrencesComponent,
@@ -60,7 +63,9 @@ import { SharedModule } from '@metutor/shared/shared.module';
     StudentCertificatesComponent,
     StudentTicketDetailsComponent,
     StudentSupportTicketComponent,
+    StudentFeedbackModalComponent,
     FaqStillHaveQuestionsComponent,
+    StudentAttendanceModalComponent,
     StudentSettingsAccountComponent,
     StudentSettingsSecurityComponent,
     StudentSettingsUserPrefrencesComponent,
@@ -71,6 +76,7 @@ import { SharedModule } from '@metutor/shared/shared.module';
     SharedModule,
     CommonModule,
     MatIconModule,
+    MatTabsModule,
     MatRadioModule,
     CarouselModule,
     MatButtonModule,
