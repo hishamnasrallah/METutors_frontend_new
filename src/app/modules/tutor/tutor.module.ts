@@ -30,6 +30,7 @@ import {
 import {
   TutorNavbarComponent,
   TutorSidebarComponent,
+  TutorFeedbackModalComponent,
   TutorAttendanceModalComponent,
   TutorSettingsAccountComponent,
   TutorSettingsSecurityComponent,
@@ -48,6 +49,7 @@ import {
     TutorSettingsComponent,
     TutorDashboardComponent,
     TutorClassroomsComponent,
+    TutorFeedbackModalComponent,
     TutorClassDashboardComponent,
     TutorPaymentRecordsComponent,
     TutorSettingsAccountComponent,
