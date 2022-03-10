@@ -21,7 +21,7 @@
           <img src="assets/svg/user-group.svg" draggable="false" *ngIf="classroom?.type === classroomType.group"
                width="25px" height="25px" alt=""/>
         </h5>
-        <button mat-flat-button color="primary" class="class-btn text-uppercase" *ngIf="classroom?.program">{{ classroom?.program?.code}}</button>
+        <button mat-button class="class-btn text-uppercase main-button-opacity" *ngIf="classroom?.program">{{ classroom?.program?.code }}</button>
       </div>
 
       <div class="row list rounded">
@@ -30,7 +30,7 @@
           <strong>Days: </strong>
           <span>
             <ng-container *ngFor="let day of classroom?.listDays; let isLast = last">
-              {{ day}}<ng-container *ngIf="!isLast">, </ng-container>
+              {{ day }}<ng-container *ngIf="!isLast">, </ng-container>
             </ng-container>
           </span>
         </div>
@@ -50,7 +50,6 @@
             <strong>Time: </strong>
             <span>
               {{ classroom?.startTime | date: 'h a' }} : {{ classroom?.endTime | date: 'h a' }}
-              <!-- ({{ calculateDurationTime(classroom?.startETime, classroom?.endETime) }} hours) -->
             </span>
           </ng-container>
         </div>
@@ -102,16 +101,20 @@
         <div class="col flex-grow-1">
           <div class="row">
             <div class="col-md-12">
-              <a [routerLink]="'/tutor/classrooms/classes/'+ classroom?.id +'/dashboard'" mat-flat-button color="primary" *ngIf="isTutor"
-                class="h-100 book-classroom float-end">
+              <a [routerLink]="'/tutor/classrooms/classes/'+ classroom?.id +'/dashboard'" mat-button color="primary" *ngIf="isTutor"
+                class="h-100 book-classroom float-end main-button-transparent">
                 Continue
                 <mat-icon>arrow_forward</mat-icon>
               </a>
-              <a [routerLink]="'/student/classroom/syllabus/' + classroom?.id" mat-flat-button color="primary" *ngIf="!isTutor"
-                class="h-100 book-classroom float-end">
+              <a [routerLink]="'/student/classroom/syllabus/' + classroom?.id" mat-button color="primary" *ngIf="!isTutor"
+                class="h-100 book-classroom float-end main-button-transparent">
                 Continue
                 <mat-icon>arrow_forward</mat-icon>
               </a>
+              <!-- <div class="d-flex">
+                <button mat-button class="secondary-btn flex-grow-1">Reject</button>
+                <button mat-flat-button color="primary" class="flex-grow-1">Accept</button>
+              </div> -->
             </div>
           </div>
         </div>

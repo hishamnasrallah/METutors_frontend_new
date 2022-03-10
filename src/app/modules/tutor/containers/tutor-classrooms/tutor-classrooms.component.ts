@@ -14,6 +14,7 @@ import { Component, OnInit } from '@angular/core';
 import { WEEK_DAYS } from '@metutor/config';
 import * as fromCore from '@metutor/core/state';
 import { selectCourseSubjects } from '@metutor/core/state/reducers/course.reducer';
+import { IUser } from '@metutor/core/models';
 
 @Component({
   selector: 'metutors-tutor-classrooms',
@@ -42,11 +43,7 @@ import { selectCourseSubjects } from '@metutor/core/state/reducers/course.reduce
   ],
 })
 export class TutorClassroomsComponent implements OnInit {
-  programId: number;
-  openActive = true;
-  openCompleted = true;
-  openNewlyAssigned = true;
-
+  user$: Observable<IUser | null>;
   view$: Observable<{
     programs: any;
     subjects: any;
@@ -56,6 +53,11 @@ export class TutorClassroomsComponent implements OnInit {
     completedCourses: any;
   }>;
 
+  programId: number;
+  openActive = true;
+  openCompleted = true;
+  openNewlyAssigned = true;
+
   constructor(private _store: Store<any>) {}
 
   loadCourse(params: any) {
@@ -63,6 +65,7 @@ export class TutorClassroomsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.user$ = this._store.select(fromCore.selectUser);
     this._store.dispatch(fromCore.loadCourses({}));
 
     this.view$ = combineLatest([
