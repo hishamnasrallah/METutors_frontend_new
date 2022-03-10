@@ -2,11 +2,14 @@ import { createAction, props } from '@ngrx/store';
 
 import { ICourse } from '@models';
 
-export const loadCourses = createAction('[Tutor] Load Courses');
+export const loadCourses = createAction(
+  '[Tutor] Load Courses',
+  props<{ params?: any }>()
+);
 
 export const loadCoursesSuccess = createAction(
   '[Tutor] Load Courses Success',
-  props<{ courses: ICourse[] }>()
+  props<{ courses: any }>()
 );
 
 export const loadCoursesFailure = createAction(

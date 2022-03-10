@@ -21,6 +21,16 @@ export class TutorClassDashboardComponent implements OnInit {
 
   constructor(private _store: Store<any>) {}
 
+  getHours(date: string) {
+    const startDate = new Date();
+    const endDate = new Date(date);
+    const timeDif = Math.round(
+      (endDate.getTime() - startDate.getTime()) / 1000
+    );
+
+    return Math.round(timeDif / 3600);
+  }
+
   ngOnInit(): void {
     this._store.dispatch(fromCore.loadCourseById());
 

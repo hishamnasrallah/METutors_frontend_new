@@ -13,6 +13,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { WEEK_DAYS } from '@metutor/config';
 import * as fromCore from '@metutor/core/state';
+import { selectCourseSubjects } from '@metutor/core/state/reducers/course.reducer';
+import { IUser } from '@metutor/core/models';
 
 @Component({
   selector: 'metutors-tutor-classrooms',
@@ -41,23 +43,34 @@ import * as fromCore from '@metutor/core/state';
   ],
 })
 export class TutorClassroomsComponent implements OnInit {
-  openActive = true;
-  openCompleted = true;
-  openNewlyAssigned = true;
-
+  user$: Observable<IUser | null>;
   view$: Observable<{
+    programs: any;
+    subjects: any;
     loading: boolean;
     newCourses: any;
     activeCourses: any;
     completedCourses: any;
   }>;
 
+  programId: number;
+  openActive = true;
+  openCompleted = true;
+  openNewlyAssigned = true;
+
   constructor(private _store: Store<any>) {}
 
+  loadCourse(params: any) {
+    this._store.dispatch(fromCore.loadCourses({ params }));
+  }
+
   ngOnInit(): void {
-    this._store.dispatch(fromCore.loadCourses());
+    this.user$ = this._store.select(fromCore.selectUser);
+    this._store.dispatch(fromCore.loadCourses({}));
 
     this.view$ = combineLatest([
+      this._store.select(fromCore.selectCoursePrograms),
+      this._store.select(fromCore.selectCourseSubjects),
       this._store
         .select(fromCore.selectNewCourses)
         .pipe(map((result: any) => this._parseCourse(result))),
@@ -69,12 +82,23 @@ export class TutorClassroomsComponent implements OnInit {
         .pipe(map((result: any) => this._parseCourse(result))),
       this._store.select(fromCore.selectIsLoadingCourses),
     ]).pipe(
-      map(([newCourses, activeCourses, completedCourses, loading]) => ({
-        loading,
-        newCourses,
-        activeCourses,
-        completedCourses,
-      }))
+      map(
+        ([
+          programs,
+          subjects,
+          newCourses,
+          activeCourses,
+          completedCourses,
+          loading,
+        ]) => ({
+          loading,
+          subjects,
+          programs,
+          newCourses,
+          activeCourses,
+          completedCourses,
+        })
+      )
     );
   }
 
@@ -103,6 +127,7 @@ export class TutorClassroomsComponent implements OnInit {
         hours: course.totalHours,
         completedClasses: completedClasses?.length,
         remainingClasses: remainingClasses?.length,
+        progress: (completedClasses.length / course.classes.length) * 100,
       };
     });
   }

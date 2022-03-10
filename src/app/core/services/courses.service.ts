@@ -7,10 +7,10 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
+import camelcaseKeys from 'camelcase-keys';
 import { environment } from 'src/environments/environment';
 import { IClassroom, ICourse, ICategory, ISyllabus } from '@models';
 import { AcademicTutoringTextbook, SORTED_DAYS_WEEK } from 'src/app/config';
-import camelcaseKeys from 'camelcase-keys';
 
 @Injectable({
   providedIn: 'root',
@@ -20,14 +20,10 @@ export class CoursesService {
 
   constructor(private http: HttpClient) {}
 
-  loadCourses(): Observable<any> {
-    return this.http
-      .get<{ courses: ICourse[] }>(`${this.baseUrl}courses`)
-      .pipe(
-        map((response) =>
-          response.courses.map((item) => new ICourse(false, item))
-        )
-      );
+  loadCourses(params: any): Observable<any> {
+    return this.http.get<{ courses: ICourse[] }>(`${this.baseUrl}courses`, {
+      params,
+    });
   }
 
   fetchMainServices(): Observable<any> {

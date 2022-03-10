@@ -2,6 +2,22 @@
   padding: 50px 0;
   background: #2d3E49;
 
+  .heading {
+    padding: 20px 10px;
+
+    h1 {
+      font-size: 20px;
+      color: #fff;
+      text-transform: uppercase;
+    }
+
+    button {
+      background-color: rgb(59 179 193 / 15%);
+      color: #3bb3c1;
+      border-radius: 25px;
+    }
+  }
+
   ul li {
     width: 260px;
 

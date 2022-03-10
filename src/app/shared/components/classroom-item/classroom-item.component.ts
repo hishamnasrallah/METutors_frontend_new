@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { calculateDurationTime, ClassroomType } from 'src/app/config';
-import { IClassroom } from 'src/app/core/models';
+
+import { ClassroomType } from 'src/app/config';
 
 @Component({
   selector: 'metutors-classroom-item',
@@ -9,7 +9,7 @@ import { IClassroom } from 'src/app/core/models';
 })
 export class ClassroomItemComponent implements OnInit {
   @Input() isTutor: boolean;
-  @Input() classroom!: IClassroom | null;
+  @Input() classroom!: any;
 
   classroomType = ClassroomType;
   openClassroomDetailsPopop = false;

@@ -112,10 +112,15 @@
     font-weight: bold;
     transition: all 0.25s ease-in-out;
     padding: 5px 30px;
+  }
 
-    &:hover {
-      background-color: #2a2a2a;
-      color: #FFF;
-    }
+  .class-btn {
+    border-radius: 20px;
+    line-height: 0;
+  }
+
+  .secondary-btn {
+    border: 2px solid #dfdfdf;
+    margin-right: 5px;
   }
 }

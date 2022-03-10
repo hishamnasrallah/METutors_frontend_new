@@ -4,12 +4,12 @@ import { ICourse } from '@models';
 import * as courseActions from '../actions/course.actions';
 
 export interface State {
+  courses: any;
   isLoadingCourses: boolean;
   loadingCoursesFailure: string;
-  courses: ICourse[] | null;
 
   // Course by id
-  course: ICourse | null;
+  course: any | null;
   isLoadingCourse: boolean;
 }
 
@@ -62,7 +62,7 @@ export const reducer = createReducer(
   }))
 );
 
-export const selectCourses = (state: State): ICourse[] | null => state.courses;
+export const selectCourses = (state: State): any => state.courses;
 export const selectCourseById = (state: State): ICourse | null => state.course;
 
 export const selectIsLoadingCourses = (state: State): boolean =>
@@ -71,20 +71,17 @@ export const selectIsLoadingCourses = (state: State): boolean =>
 export const selectIsLoadingCourseById = (state: State): boolean =>
   state.isLoadingCourse;
 
-export const selectNewCourses = (
-  state: State
-): ICourse[] | null | undefined => {
-  return state.courses?.filter((course) => course.status === 'pending');
-};
+export const selectNewCourses = (state: State): any =>
+  state.courses?.newlyAssignedCourses;
 
-export const selectActiveCourses = (
-  state: State
-): ICourse[] | null | undefined => {
-  return state.courses?.filter((course) => course.status === 'inprogress');
-};
+export const selectActiveCourses = (state: State): any =>
+  state.courses?.activeCourses;
 
-export const selectCompletedCourses = (
-  state: State
-): ICourse[] | null | undefined => {
-  return state.courses?.filter((course) => course.status === 'completed');
-};
+export const selectCompletedCourses = (state: State): any =>
+  state?.courses?.completedCourses;
+
+export const selectCoursePrograms = (state: State): any =>
+  state?.courses?.programs;
+
+export const selectCourseSubjects = (state: State): any =>
+  state?.courses?.subjects;

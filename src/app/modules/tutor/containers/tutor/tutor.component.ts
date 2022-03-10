@@ -15,7 +15,7 @@ export class TutorComponent implements OnInit {
   constructor(private _store: Store<any>) {}
 
   ngOnInit(): void {
-    this.user$ = this._store.select(fromCore.selectUser);
+    
   }
 
   logout(): void {

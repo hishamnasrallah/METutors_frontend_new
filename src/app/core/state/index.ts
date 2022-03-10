@@ -332,6 +332,16 @@ export const selectActiveCourses = createSelector(
   fromCourseReducer.selectActiveCourses
 );
 
+export const selectCoursePrograms = createSelector(
+  selectCourseState,
+  fromCourseReducer.selectCoursePrograms
+);
+
+export const selectCourseSubjects = createSelector(
+  selectCourseState,
+  fromCourseReducer.selectCourseSubjects
+);
+
 export const selectCompletedCourses = createSelector(
   selectCourseState,
   fromCourseReducer.selectCompletedCourses
