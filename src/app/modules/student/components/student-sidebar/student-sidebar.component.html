@@ -1,7 +1,7 @@
-<div class="sidebar h-100 d-flex flex-column" [class.has-sidemenu]="hasSidemenu">
+<div class="sidebar h-100 d-flex flex-column" [class.has-sidemenu]="layout?.hideSidebar">
   <a class="sidebar-logo" routerLink="/">
-    <img alt="logo" src="assets/logo/logo-light.png" width="200px" draggable="false" *ngIf="!hasSidemenu">
-    <img alt="logo" src="assets/logo/logo-icon.png" width="100%" draggable="false" *ngIf="hasSidemenu">
+    <img alt="logo" src="assets/logo/logo-light.png" width="200px" draggable="false" *ngIf="!layout?.hideSidebar">
+    <img alt="logo" src="assets/logo/logo-icon.png" width="100%" draggable="false" *ngIf="layout?.hideSidebar">
   </a>
   <button mat-flat-button color="primary" class="d-block add-course">
     <mat-icon>add</mat-icon>

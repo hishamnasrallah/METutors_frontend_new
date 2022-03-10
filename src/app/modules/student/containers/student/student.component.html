@@ -1,5 +1,6 @@
 <div class="d-flex full-height">
-  <metutors-student-sidebar (logout)="logout()"></metutors-student-sidebar>
+  <metutors-student-sidebar [layout]="layout$ | async" (logout)="logout()"></metutors-student-sidebar>
+
   <div class="flex-grow-1 overflow-auto">
     <metutors-student-navbar [user]="user$ | async"></metutors-student-navbar>
 
