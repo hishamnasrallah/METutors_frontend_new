@@ -79,6 +79,7 @@
           </div>
           <div class="row" *ngIf="classroom?.enrolledStudents && classroom?.enrolledStudents?.length">
             <div class="overflow-visible logos">
+              <div class="fw-bold">Enrolled Students</div>
               <img *ngFor="let student of classroom?.enrolledStudents" meTutorsDefaultAvatar [src]="student?.avatar"
                 alt="" draggable="false" class="d-inline-block rounded-circle">
             </div>

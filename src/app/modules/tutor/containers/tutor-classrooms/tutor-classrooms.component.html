@@ -5,7 +5,7 @@
         <span class="m-4 fw-bold cursor-pointer" *ngFor="let program of view?.programs" (click)="loadCourse({program: program?.id}); programId = program?.id">{{ program?.code}}</span>
       </div>
       <button mat-flat-button color="primary" class="class-btn text-uppercase mb-1" (click)="loadCourse({program: programId})">All</button>
-      <button mat-flat-button color="primary" class="class-btn text-uppercase mb-1" *ngFor="let subject of view?.subjects" (click)="loadCourse({program: programId, subject: subject?.id})">{{ subject?.name}}</button>
+      <button mat-flat-button color="primary" class="class-btn text-uppercase mb-1" *ngFor="let field of view?.fieldOfStudies" (click)="loadCourse({program: programId, subject: field?.id})">{{ field?.name}}</button>
     </div>
     <div class="col-12">
       <h2 class="title cursor-pointer d-flex align-items-center" (click)="openNewlyAssigned = !openNewlyAssigned">
