@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 
 import * as fromCore from '@metutor/core/state';
 import { insightRange, WEEK_DAYS } from '@metutor/config';
+import { IUser } from '@metutor/core/models';
 
 @Component({
   selector: 'metutors-tutor-dashboard',
@@ -12,9 +13,11 @@ import { insightRange, WEEK_DAYS } from '@metutor/config';
   styleUrls: ['./tutor-dashboard.component.scss'],
 })
 export class TutorDashboardComponent implements OnInit {
+  user$: Observable<IUser | null>;
+  view$: Observable<{ loading: boolean; data: any }>;
+
   range = '7days';
   insightRange = insightRange;
-  view$: Observable<{ loading: boolean; data: any }>;
 
   constructor(private _store: Store<any>) {}
 
@@ -24,6 +27,7 @@ export class TutorDashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.user$ = this._store.select(fromCore.selectUser);
     this._store.dispatch(
       fromCore.loadTutorDashboard({ params: this.range, load: false })
     );

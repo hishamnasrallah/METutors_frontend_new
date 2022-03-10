@@ -1,18 +1,27 @@
+<metutors-tutor-navbar [user]="user$ | async"></metutors-tutor-navbar>
+
 <div class="classroom">
   <div class="row" *ngLet="(view$ | async) as view">
     <div class="col-12">
-      <div class="flex">
-        <span class="m-4 fw-bold cursor-pointer" *ngFor="let program of view?.programs" (click)="loadCourse({program: program?.id}); programId = program?.id">{{ program?.code}}</span>
+      <div class="flex mb-3 codes" *ngIf="view?.programs && view?.programs.length">
+        <span class="fw-bold cursor-pointer position-relative" *ngFor="let program of view?.programs"
+          [class.active]="programId === program?.id"
+          (click)="loadCourse({program: program?.id}); programId = program?.id">{{ program?.code }}</span>
       </div>
-      <button mat-flat-button color="primary" class="class-btn text-uppercase mb-1" (click)="loadCourse({program: programId})">All</button>
-      <button mat-flat-button color="primary" class="class-btn text-uppercase mb-1" *ngFor="let field of view?.fieldOfStudies" (click)="loadCourse({program: programId, subject: field?.id})">{{ field?.name}}</button>
+
+      <ng-container *ngIf="view?.fieldOfStudies && view?.fieldOfStudies.length">
+        <button mat-button class="class-btn main-button-transparent text-uppercase mb-1"
+          (click)="loadCourse({program: programId})">All</button>
+        <button mat-button class="class-btn main-button-transparent text-uppercase mb-1"
+          *ngFor="let field of view?.fieldOfStudies"
+          (click)="loadCourse({program: programId, subject: field?.id})">{{ field?.name }}</button>
+      </ng-container>
     </div>
     <div class="col-12">
       <h2 class="title cursor-pointer d-flex align-items-center" (click)="openNewlyAssigned = !openNewlyAssigned">
         <span class="flex-grow-1">Newly Assigned Courses</span>
         <img src="assets/svg/arrow-up.svg" [class.rotate-180]="openNewlyAssigned" draggable="false" width="30px"
-             height="30"
-             alt=""/>
+          height="30" alt="" />
       </h2>
       <div class="row" [@slideInOut] *ngIf="openNewlyAssigned">
         <ng-container [ngSwitch]="view.loading">
@@ -39,7 +48,7 @@
       <h2 class="title cursor-pointer d-flex align-items-center" (click)="openActive = !openActive">
         <span class="flex-grow-1">Active courses</span>
         <img src="assets/svg/arrow-up.svg" [class.rotate-180]="openActive" draggable="false" width="30px" height="30"
-             alt=""/>
+          alt="" />
       </h2>
       <div class="row" [@slideInOut] *ngIf="openActive">
         <ng-container [ngSwitch]="view.loading">
@@ -65,7 +74,7 @@
       <h2 class="title cursor-pointer d-flex align-items-center" (click)="openCompleted = !openCompleted">
         <span class="flex-grow-1">Completed Courses</span>
         <img src="assets/svg/arrow-up.svg" [class.rotate-180]="openCompleted" draggable="false" width="30px" height="30"
-             alt=""/>
+          alt="" />
       </h2>
       <div class="row" [@slideInOut] *ngIf="openCompleted">
         <ng-container [ngSwitch]="view.loading">

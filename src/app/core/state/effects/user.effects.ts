@@ -142,15 +142,12 @@ export class UserEffects {
       withLatestFrom(this._store.select(fromCore.selectToken)),
       mergeMap(([_, token]) => {
         if (token) {
-          return this._authService.logout().pipe(
-            map((payload) => {
-              return userActions.logoutSuccess();
-            }),
+          this._authService.logout().pipe(
+            map((payload) => {}),
             catchError((_) => of(userActions.logoutSuccess()))
           );
-        } else {
-          return of(userActions.logoutSuccess());
         }
+        return of(userActions.logoutSuccess());
       })
     )
   );
@@ -255,9 +252,7 @@ export class UserEffects {
   successMessages$ = createEffect(
     () =>
       this._actions$.pipe(
-        ofType(
-          ...[userActions.changePasswordSuccess]
-        ),
+        ofType(...[userActions.changePasswordSuccess]),
         map((action) => {
           if (action.message) {
             return this._alertNotificationService.success(action.message);

@@ -12,6 +12,7 @@ import { combineLatest, Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 
 import { WEEK_DAYS } from '@metutor/config';
+import { IUser } from '@metutor/core/models';
 import * as fromCore from '@metutor/core/state';
 
 @Component({
@@ -41,11 +42,7 @@ import * as fromCore from '@metutor/core/state';
   ],
 })
 export class TutorClassroomsComponent implements OnInit {
-  programId: number;
-  openActive = true;
-  openCompleted = true;
-  openNewlyAssigned = true;
-
+  user$: Observable<IUser | null>;
   view$: Observable<{
     programs: any;
     newCourses: any;
@@ -55,6 +52,11 @@ export class TutorClassroomsComponent implements OnInit {
     completedCourses: any;
   }>;
 
+  programId: number;
+  openActive = true;
+  openCompleted = true;
+  openNewlyAssigned = true;
+
   constructor(private _store: Store<any>) {}
 
   loadCourse(params: any) {
@@ -62,6 +64,7 @@ export class TutorClassroomsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.user$ = this._store.select(fromCore.selectUser);
     this._store.dispatch(fromCore.loadCourses({}));
 
     this.view$ = combineLatest([
