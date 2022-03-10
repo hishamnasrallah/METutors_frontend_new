@@ -34,15 +34,15 @@
           </div>
           <div class="row mt-3">
             <div class="col-md-6 in-progress">
-              <!-- <h3>In progress</h3>
-               <div class="d-flex align-items-center" *ngIf="classroom && classroom.progress">
+               <h3>In progress</h3>
+               <div class="d-flex align-items-center" *ngIf="view.data?.progress">
                  <div class="flex-grow-1">
-                   <mat-progress-bar class="example-margin" [color]="classroom.progress > 30 ? 'primary' : 'warn'"
-                                     [value]="classroom?.progress">
+                   <mat-progress-bar class="example-margin" [color]="view.data?.progress > 30 ? 'primary' : 'warn'"
+                                     [value]="view.data?.progress">
                    </mat-progress-bar>
                  </div>
-                 <strong>{{ classroom?.progress }}%</strong>
-               </div>-->
+                 <strong>{{ view.data?.progress }}%</strong>
+               </div>
             </div>
             <div class="col-md-6">
               <button mat-button class="main-button-transparent float-end ms-2" (click)="showFeedbackModal = true">
@@ -78,9 +78,8 @@
           <table class="table my-table" *ngSwitchCase="false">
             <tr>
               <th>#</th>
-              <th>Classroom Subject</th>
-              <th>Day</th>
-              <th>Date</th>
+              <th>Class Subject</th>
+              <th>Class  Attendees</th>
               <th>Start time - End time</th>
               <th>Duration</th>
               <th></th>
@@ -94,17 +93,17 @@
               <tr *ngFor="let todaysClass of view.data.todaysClasses; let i=index">
                 <td>{{ i + 1}}</td>
                 <td>{{ todaysClass.title }}</td>
-                <td>{{ todaysClass.startDate | date: 'EEEE'}} </td>
-                <td>{{ todaysClass.startDate}} </td>
+                <td></td>
                 <td>{{ todaysClass.startTime}} - {{ todaysClass.endTime}} </td>
                 <td>2 hours</td>
                 <td class="d-flex">
-                  <button mat-button class="main-button-opacity me-2 flex-grow-1">
-                    Reschedule
-                  </button>
-                  <button mat-button class="main-button-opacity flex-grow-1">
+                  <button mat-button class="main-button-opacity flex-grow-1" *ngIf="todaysClass?.status !== 'completed'">
                     <img src="assets/svg/play-fill.svg" draggable="false" alt="">
                     Launch Class
+                  </button>
+                  <button mat-button class="main-button-opacity flex-grow-1" *ngIf="todaysClass?.status === 'completed'">
+                    <img src="assets/svg/eye-fill.svg" draggable="false" alt="">
+                    View Class
                   </button>
                 </td>
               </tr>
@@ -142,10 +141,10 @@
                 <td>{{ upcomingClass.startTime}} - {{ upcomingClass.endTime}} </td>
                 <td>2 hours</td>
                 <td class="d-flex">
-                  <button mat-button class="main-button-opacity me-2 flex-grow-1">
+                  <button mat-button class="main-button-opacity me-2 flex-grow-1" *ngIf="getHours(upcomingClass.startDate) >=48">
                     Reschedule
                   </button>
-                  <button mat-button class="main-button-opacity flex-grow-1" [disabled]="true">
+                  <button mat-button class="main-button-opacity flex-grow-1" [disabled]="true" *ngIf="getHours(upcomingClass.startDate) < 48">
                     <img src="assets/svg/play-fill.svg" draggable="false" alt="">
                     Launch Class
                   </button>

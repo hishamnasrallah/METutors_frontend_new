@@ -1,10 +1,11 @@
 <div class="classroom">
   <div class="row" *ngLet="(view$ | async) as view">
     <div class="col-12">
-      <button mat-flat-button color="primary" class="class-btn text-uppercase">All Courses</button>
-      <!--<button mat-button class="class-btn text-uppercase main-button-transparent">Prep Admission Courses</button>
-      <button mat-button class="class-btn text-uppercase main-button-transparent">Language Courses</button>
-      <button mat-button class="class-btn text-uppercase main-button-transparent">Academic Courses</button>-->
+      <div class="flex">
+        <span class="m-4 fw-bold cursor-pointer" *ngFor="let program of view?.programs" (click)="loadCourse({program: program?.id}); programId = program?.id">{{ program?.code}}</span>
+      </div>
+      <button mat-flat-button color="primary" class="class-btn text-uppercase mb-1" (click)="loadCourse({program: programId})">All</button>
+      <button mat-flat-button color="primary" class="class-btn text-uppercase mb-1" *ngFor="let subject of view?.subjects" (click)="loadCourse({program: programId, subject: subject?.id})">{{ subject?.name}}</button>
     </div>
     <div class="col-12">
       <h2 class="title cursor-pointer d-flex align-items-center" (click)="openNewlyAssigned = !openNewlyAssigned">

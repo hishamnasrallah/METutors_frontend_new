@@ -33,8 +33,9 @@ export const LIST_ROUTES = [
   { path: '/student/dashboard', title: "Student's Dashboard" },
   { path: '/student/certificates', title: 'Earned certificate' },
   { path: '/student/settings', title: 'Settings' },
-  { path: '/tutor/dashboard', title: "Tutor's Dashboard" },
+  { path: '/tutor/dashboard', title: 'Tutor Dashboard' },
   { path: '/tutor/settings', title: 'Settings' },
   { path: '/tutor/badges', title: 'Badges' },
   { path: '/tutor/payment-records', title: 'Payment records' },
+  { path: '/tutor/classrooms', title: 'Classroom' },
 ];

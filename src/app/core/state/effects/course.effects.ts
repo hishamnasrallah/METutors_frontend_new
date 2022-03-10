@@ -16,12 +16,12 @@ export class CourseEffects {
     this._actions$.pipe(
       ofType(courseActions.loadCourses),
       withLatestFrom(this._store.select(selectCourses)),
-      mergeMap(([_, _courses]) => {
+      mergeMap(([{ params }, _courses]) => {
         if (!_courses || !_courses.length) {
-          return this._courseService.loadCourses().pipe(
+          return this._courseService.loadCourses(params).pipe(
             map((courses) =>
               courseActions.loadCoursesSuccess({
-                courses,
+                courses: camelcaseKeys(courses, { deep: true }),
               })
             ),
             catchError((error) =>

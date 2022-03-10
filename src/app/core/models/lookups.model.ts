@@ -11,6 +11,7 @@ export interface ILookups {
 export interface IProgram {
   id: number;
   name: string;
+  code: string;
 }
 
 export interface ICountry {

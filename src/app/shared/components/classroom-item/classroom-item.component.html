@@ -13,13 +13,17 @@
       </div>
     </div>
     <div class="col-md-9 d-flex flex-column">
-      <h5 class="card-title d-flex align-items-center m-0 h-100">
-        {{ classroom?.name }}
-        <img src="assets/svg/user-one.svg" draggable="false" *ngIf="classroom?.type === classroomType.one" width="25px"
-          height="25px" alt=""/>
-        <img src="assets/svg/user-group.svg" draggable="false" *ngIf="classroom?.type === classroomType.group"
-          width="25px" height="25px" alt=""/>
-      </h5>
+      <div class="d-flex justify-content-between">
+        <h5 class="card-title m-0 h-100">
+          {{ classroom?.name }}
+          <img src="assets/svg/user-one.svg" draggable="false" *ngIf="classroom?.type === classroomType.one" width="25px"
+               height="25px" alt=""/>
+          <img src="assets/svg/user-group.svg" draggable="false" *ngIf="classroom?.type === classroomType.group"
+               width="25px" height="25px" alt=""/>
+        </h5>
+        <button mat-flat-button color="primary" class="class-btn text-uppercase" *ngIf="classroom?.program">{{ classroom?.program?.code}}</button>
+      </div>
+
       <div class="row list rounded">
         <div class="col-md-4 d-flex menu align-items-center">
           <img src="assets/svg/calendar.svg" alt="" width="15" height="15" draggable="false">
@@ -80,12 +84,15 @@
             </div>
           </div>
         </div>
-        <div class="col-md-4 in-progress" *ngIf="classroom && classroom?.progress">
-          <h3>In progress</h3>
+        <div class="col-md-4 in-progress" *ngIf="classroom && classroom.hasOwnProperty('progress')">
+          <h3 *ngIf="classroom.progress === 100">Completed</h3>
+          <h3 *ngIf="classroom.progress === 0">Not Started yet</h3>
+          <h3 *ngIf="classroom.progress && (classroom.progress > 0 && classroom.progress < 100)">In progress</h3>
+
           <div class="d-flex align-items-center">
             <div class="flex-grow-1">
               <mat-progress-bar class="example-margin"
-                [color]="classroom.progress ? classroom.progress > 30 ? 'primary' : 'warn' : 'warn'"
+                [color]="classroom.progress ? classroom.progress > 30 ? 'primary' : 'warn' : undefined"
                 [value]="classroom?.progress">
               </mat-progress-bar>
             </div>
