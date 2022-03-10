@@ -83,5 +83,5 @@ export const selectCompletedCourses = (state: State): any =>
 export const selectCoursePrograms = (state: State): any =>
   state?.courses?.programs;
 
-export const selectCourseSubjects = (state: State): any =>
-  state?.courses?.subjects;
+export const selectCourseFieldOfStudies = (state: State): any =>
+  state?.courses?.fieldOfStudies;

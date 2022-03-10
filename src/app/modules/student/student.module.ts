@@ -14,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import { StudentRoutingModule } from './student-routing.module';
+import { SharedModule } from '@metutor/shared/shared.module';
 
 import {
   StudentComponent,
@@ -43,7 +44,6 @@ import {
   StudentSettingsUserPrefrencesComponent,
   StudentSettingsPaymentInformationComponent,
 } from './components';
-import { SharedModule } from '@metutor/shared/shared.module';
 
 @NgModule({
   declarations: [

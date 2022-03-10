@@ -12,9 +12,8 @@ import { combineLatest, Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 
 import { WEEK_DAYS } from '@metutor/config';
-import * as fromCore from '@metutor/core/state';
-import { selectCourseSubjects } from '@metutor/core/state/reducers/course.reducer';
 import { IUser } from '@metutor/core/models';
+import * as fromCore from '@metutor/core/state';
 
 @Component({
   selector: 'metutors-tutor-classrooms',
@@ -46,14 +45,14 @@ export class TutorClassroomsComponent implements OnInit {
   user$: Observable<IUser | null>;
   view$: Observable<{
     programs: any;
-    subjects: any;
-    loading: boolean;
     newCourses: any;
+    loading: boolean;
+    fieldOfStudies: any;
     activeCourses: any;
     completedCourses: any;
   }>;
 
-  programId: number;
+  programId = null;
   openActive = true;
   openCompleted = true;
   openNewlyAssigned = true;
@@ -70,7 +69,7 @@ export class TutorClassroomsComponent implements OnInit {
 
     this.view$ = combineLatest([
       this._store.select(fromCore.selectCoursePrograms),
-      this._store.select(fromCore.selectCourseSubjects),
+      this._store.select(fromCore.selectCourseFieldOfStudies),
       this._store
         .select(fromCore.selectNewCourses)
         .pipe(map((result: any) => this._parseCourse(result))),
@@ -85,16 +84,16 @@ export class TutorClassroomsComponent implements OnInit {
       map(
         ([
           programs,
-          subjects,
+          fieldOfStudies,
           newCourses,
           activeCourses,
           completedCourses,
           loading,
         ]) => ({
           loading,
-          subjects,
           programs,
           newCourses,
+          fieldOfStudies,
           activeCourses,
           completedCourses,
         })
@@ -125,6 +124,7 @@ export class TutorClassroomsComponent implements OnInit {
         startTime: '',
         name: course.courseName,
         hours: course.totalHours,
+        enrolledStudents: [course.student],
         completedClasses: completedClasses?.length,
         remainingClasses: remainingClasses?.length,
         progress: (completedClasses.length / course.classes.length) * 100,

@@ -120,7 +120,8 @@
           <table class="table my-table orange-title" *ngSwitchCase="false">
             <tr>
               <th>#</th>
-              <th>Classroom Subject</th>
+              <th>Class Subject</th>
+              <th>Class Attendees</th>
               <th>Day</th>
               <th>Date</th>
               <th>Start time - End time</th>
@@ -136,6 +137,7 @@
               <tr *ngFor="let upcomingClass of view.data.upcomingClasses; let i=index">
                 <td>{{ i + 1}}</td>
                 <td>{{ upcomingClass.title ? upcomingClass.title : 'N/A' }}</td>
+                <td></td>
                 <td>{{ upcomingClass.startDate | date: 'EEEE'}} </td>
                 <td>{{ upcomingClass.startDate}} </td>
                 <td>{{ upcomingClass.startTime}} - {{ upcomingClass.endTime}} </td>
@@ -163,8 +165,8 @@
           <table class="table my-table purple-title" *ngSwitchCase="false">
             <tr>
               <th>#</th>
-              <th>Classroom Subject</th>
-              <!--<th>Classroom Attendees</th>-->
+              <th>Class Subject</th>
+              <th>Class Attendees</th>
               <th>Day</th>
               <th>Date</th>
               <th>Start time - End time</th>
@@ -180,8 +182,8 @@
               <tr *ngFor="let pastClass of view.data.pastClasses; let i=index">
                 <td>{{ i + 1}}</td>
                 <td>{{ pastClass.title }}</td>
-                <!--<td>
-                  <div class="overflow-visible logos">
+                <td>
+                  <!--<div class="overflow-visible logos">
                     <img src="https://logo.clearbit.com/tarjama.com" alt="" draggable="false"
                       class="d-inline-block rounded-circle">
                     <img src="https://logo.clearbit.com/amazon.com" alt="" draggable="false"
@@ -196,8 +198,8 @@
                       class="d-inline-block rounded-circle ">
                     <img src="https://logo.clearbit.com/tamatem.co" alt="" draggable="false"
                       class="d-inline-block rounded-circle ">
-                  </div>
-                </td>-->
+                  </div>-->
+                </td>
                 <td>{{ pastClass.startDate | date: 'EEEE'}} </td>
                 <td>{{ pastClass.startDate}} </td>
                 <td>{{ pastClass.startTime}} - {{ pastClass.endTime}} </td>
