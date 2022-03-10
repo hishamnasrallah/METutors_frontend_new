@@ -55,10 +55,10 @@ export class TutorDashboardComponent implements OnInit {
   private _parseCourse(courses: any): any {
     return courses?.map((course: any) => {
       const completedClasses = course.classes.filter(
-        (item: any) => item.status === 'success'
+        (item: any) => item.status === 'completed'
       );
       const remainingClasses = course.classes.filter(
-        (item: any) => item.status !== 'success'
+        (item: any) => item.status !== 'completed'
       );
 
       const listDays: any = [];
@@ -76,8 +76,10 @@ export class TutorDashboardComponent implements OnInit {
         hours: course.totalHours,
         name: course.courseName,
         expectedEndDate: course.endDate,
+        enrolledStudents: [course.student],
         completedClasses: completedClasses.length,
         remainingClasses: remainingClasses.length,
+        progress: (completedClasses.length / course.classes.length) * 100,
       };
     });
   }
