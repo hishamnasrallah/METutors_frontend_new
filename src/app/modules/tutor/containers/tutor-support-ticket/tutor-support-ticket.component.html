@@ -9,7 +9,7 @@
         <div class="card" *ngFor="let ticket of tickets$ | async">
           <div class="card-body">
             <h2>
-              <a [routerLink]="'/student/help/support-ticket/ticket-details/' + ticket?.ticketId">{{ ticket?.subject }}</a>
+              <a [routerLink]="'/tutor/help/support-ticket/ticket-details/' + ticket?.ticketId">{{ ticket?.subject }}</a>
               <span class="label" [ngClass]="{
                   'issued': ticketStatus.open === ticket?.status,
                   'closed': ticketStatus.closed === ticket?.status,
