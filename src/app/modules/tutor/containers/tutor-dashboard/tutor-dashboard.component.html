@@ -39,7 +39,7 @@
               <h3>Total Courses</h3>
               <h1 class="flex-grow-1">
                 {{ view.data.totalCourses}}
-                <!--<span>+2.5%</span>-->
+                <span>+2.5%</span>
               </h1>
               <p>Compared to (last {{insightRange[range]}})</p>
             </div>
@@ -51,7 +51,7 @@
               <h3>Total Completed Courses</h3>
               <h1 class="flex-grow-1">
                 {{ view.data.totalCompletedCourses}}
-                <!--<span>+0.5%</span>-->
+                <span>+0.5%</span>
               </h1>
               <p>Compared to (last {{insightRange[range]}})</p>
             </div>
@@ -63,7 +63,7 @@
               <h3>Kudos Points</h3>
               <h1 class="flex-grow-1">
                 {{ view.data.kudosPoints}}
-                <!--<span class="danger">-1.5%</span>-->
+                <span class="danger">-1.5%</span>
               </h1>
               <p>Compared to (last {{insightRange[range]}})</p>
             </div>
@@ -75,7 +75,7 @@
               <h3>Newly Assigned courses</h3>
               <h1 class="flex-grow-1">
                 {{ view.data.totalNewlyCourses}}
-                <!--<span>+2.5%</span>-->
+                <span>+2.5%</span>
               </h1>
               <p>Compared to (last {{insightRange[range]}})</p>
             </div>
@@ -92,7 +92,9 @@
           <table class="table my-table" *ngSwitchCase="false">
             <tr>
               <th>#</th>
-              <th>Classroom Subject</th>
+              <th>Program Name</th>
+              <th>Course Name</th>
+              <th>Class Subject</th>
               <th>Start time - End time</th>
               <th>Duration</th>
               <th></th>
@@ -105,10 +107,12 @@
             <ng-container *ngIf="view.data.todaysClasses.length">
               <tr *ngFor="let class of view.data.todaysClasses; let i=index">
                 <td>{{ i+1}}</td>
+                <td>{{ class?.program?.name }}</td>
+                <td>{{ class?.course?.courseName }}</td>
                 <td>{{ class?.title }}</td>
                 <td>{{ class?.startTime}} - {{ class?.endTime}}</td>
                 <td>{{ class?.duration}} hours</td>
-                <td>
+                <td class="d-flex justify-content-end">
                   <button mat-button class="main-button-opacity">
                     <img src="assets/svg/play-fill.svg" draggable="false" alt="">
                     Launch Class

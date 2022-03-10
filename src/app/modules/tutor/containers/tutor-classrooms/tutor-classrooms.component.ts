@@ -52,7 +52,7 @@ export class TutorClassroomsComponent implements OnInit {
     completedCourses: any;
   }>;
 
-  programId: number;
+  programId = null;
   openActive = true;
   openCompleted = true;
   openNewlyAssigned = true;

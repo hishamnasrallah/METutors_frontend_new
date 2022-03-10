@@ -4,6 +4,9 @@
   <div class="row" *ngLet="(view$ | async) as view">
     <div class="col-12">
       <div class="flex mb-3 codes" *ngIf="view?.programs && view?.programs.length">
+        <span class="fw-bold cursor-pointer position-relative"
+              [class.active]="programId === null"
+              (click)="loadCourse({}); programId = null">All</span>
         <span class="fw-bold cursor-pointer position-relative" *ngFor="let program of view?.programs"
           [class.active]="programId === program?.id"
           (click)="loadCourse({program: program?.id}); programId = program?.id">{{ program?.code }}</span>
