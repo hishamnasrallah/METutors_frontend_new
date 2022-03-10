@@ -62,7 +62,7 @@ const routes: Routes = [
             },
             children: [
               {
-                path: ':id/dashboard',
+                path: 'dashboard/:id',
                 component: TutorClassDashboardComponent,
                 data: {
                   layout: {
@@ -75,7 +75,7 @@ const routes: Routes = [
               },
               {
                 path: '',
-                redirectTo: ':id',
+                redirectTo: 'dashboard/:id',
                 pathMatch: 'full',
               },
             ],
