@@ -5,7 +5,7 @@ import * as fromRouter from '@ngrx/router-store';
 import {
   MetaReducer,
   ActionReducer,
-  // createSelector,
+  createSelector,
   ActionReducerMap,
   createFeatureSelector,
 } from '@ngrx/store';
@@ -42,10 +42,10 @@ export const {
 
 // Layout Selectors
 
-/*export const selectLayout = createSelector(
+export const selectLayout = createSelector(
   selectRouteData,
-  state => state?.layout
-);*/
+  state => state['layout']
+);
 
 export function localStorageSyncReducer(
   reducer: ActionReducer<any>
