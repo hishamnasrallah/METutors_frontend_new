@@ -23,7 +23,7 @@
 
             <div class="col-md-2 d-flex menu align-items-center">
               <img src="assets/svg/play-circle-fill.svg" alt="" width="15" height="15" draggable="false">
-              <strong>Remining classes: </strong>
+              <strong>Remaining classes: </strong>
               <span>{{ view.data?.remainingClasses }}</span>
             </div>
             <div class="col-md-2 d-flex menu align-items-center">
@@ -33,11 +33,20 @@
             </div>
           </div>
           <div class="row mt-3">
-            <div class="col-md-6 in-progress">
-               <h3>In progress</h3>
+            <div class="col-md-2">
+              <div class="overflow-visible logos">
+                <div class="fw-bold">Enrolled Students</div>
+                <img [src]="''" meTutorsDefaultAvatar
+                     alt="" draggable="false" class="d-inline-block rounded-circle">
+              </div>
+            </div>
+            <div class="col-md-4 in-progress">
+              <h3 *ngIf="view.data?.progress === 100">Completed</h3>
+              <h3 *ngIf="view.data?.progress === 0">Not Started yet</h3>
+              <h3 *ngIf="view.data?.progress && (view.data?.progress > 0 && view.data?.progress < 100)">In progress</h3>
                <div class="d-flex align-items-center">
                  <div class="flex-grow-1">
-                   <mat-progress-bar class="example-margin" [color]="view.data?.progress > 30 ? 'primary' : 'warn'"
+                   <mat-progress-bar class="example-margin" [color]="view.data?.progress ? view.data?.progress > 30 ? 'primary' : 'warn' : undefined"
                                      [value]="view.data?.progress">
                    </mat-progress-bar>
                  </div>
