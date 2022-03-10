@@ -4,6 +4,7 @@ export const generalConstants = {
   defaultCoursePath: 'assets/defaults/course.jpg',
   nationalId: 3,
   studentTopicId: 1,
+  tutorTopicId: 2,
 };
 
 export const TICKET_STATUSES_CONST: any = {

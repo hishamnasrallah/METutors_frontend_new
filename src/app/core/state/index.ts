@@ -12,6 +12,7 @@ import * as featureKeys from './feature-keys';
 import * as fromUserReducer from './reducers/user.reducer';
 import * as fromTutorReducer from './reducers/tutor.reducer';
 import * as fromCourseReducer from './reducers/course.reducer';
+import * as fromTicketReducer from './reducers/ticket.reducer';
 import * as fromRequestReducer from './reducers/request.reducer';
 import * as fromLookupsReducer from './reducers/lookups.reducer';
 import * as fromStudentReducer from './reducers/student.reducer';
@@ -20,6 +21,7 @@ export interface CoreState {
   [featureKeys.userFeatureKey]: fromUserReducer.State;
   [featureKeys.tutorFeatureKey]: fromTutorReducer.State;
   [featureKeys.courseFeatureKey]: fromCourseReducer.State;
+  [featureKeys.ticketFeatureKey]: fromTicketReducer.State;
   [featureKeys.requestFeatureKey]: fromRequestReducer.State;
   [featureKeys.lookupsFeatureKey]: fromLookupsReducer.State;
   [featureKeys.studentFeatureKey]: fromStudentReducer.State;
@@ -30,6 +32,7 @@ export function reducers(state: CoreState, action: Action) {
     [featureKeys.userFeatureKey]: fromUserReducer.reducer,
     [featureKeys.tutorFeatureKey]: fromTutorReducer.reducer,
     [featureKeys.courseFeatureKey]: fromCourseReducer.reducer,
+    [featureKeys.ticketFeatureKey]: fromTicketReducer.reducer,
     [featureKeys.requestFeatureKey]: fromRequestReducer.reducer,
     [featureKeys.lookupsFeatureKey]: fromLookupsReducer.reducer,
     [featureKeys.studentFeatureKey]: fromStudentReducer.reducer,
@@ -69,6 +72,11 @@ export const selectCourseState = createSelector(
 export const selectStudentState = createSelector(
   selectCoreState,
   (state) => state[featureKeys.studentFeatureKey]
+);
+
+export const selectTicketState = createSelector(
+  selectCoreState,
+  (state) => state[featureKeys.ticketFeatureKey]
 );
 
 // User
@@ -128,35 +136,35 @@ export const selectIsCompleteTutorProfile = createSelector(
   fromTutorReducer.selectIsCompleteTutorProfile
 );
 
-// Student
+// Ticket
 export const selectTickets = createSelector(
-  selectStudentState,
-  fromStudentReducer.selectTickets
+  selectTicketState,
+  fromTicketReducer.selectTickets
 );
 
 export const selectIsLoadingTickets = createSelector(
-  selectStudentState,
-  fromStudentReducer.selectIsLoadingTickets
+  selectTicketState,
+  fromTicketReducer.selectIsLoadingTickets
 );
 
 export const selectTicket = createSelector(
-  selectStudentState,
-  fromStudentReducer.selectTicket
+  selectTicketState,
+  fromTicketReducer.selectTicket
 );
 
 export const selectIsLoadingTicket = createSelector(
-  selectStudentState,
-  fromStudentReducer.selectIsLoadingTicket
+  selectTicketState,
+  fromTicketReducer.selectIsLoadingTicket
 );
 
 export const selectIsCreatingTicket = createSelector(
-  selectStudentState,
-  fromStudentReducer.selectIsCreatingTicket
+  selectTicketState,
+  fromTicketReducer.selectIsCreatingTicket
 );
 
 export const selectIsSubmitTicketComment = createSelector(
-  selectStudentState,
-  fromStudentReducer.selectIsSubmitTicketComment
+  selectTicketState,
+  fromTicketReducer.selectIsSubmitTicketComment
 );
 
 // Requests

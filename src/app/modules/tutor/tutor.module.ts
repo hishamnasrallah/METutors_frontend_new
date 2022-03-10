@@ -12,17 +12,23 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
+import { NgxAutoScrollModule } from 'ngx-auto-scroll';
 import { TutorRoutingModule } from './tutor-routing.module';
 import { SharedModule } from '@metutor/shared/shared.module';
 
 import {
   TutorComponent,
+  TutorFaqComponent,
+  TutorHelpComponent,
   TutorBadgesComponent,
   TutorClassesComponent,
   TutorSettingsComponent,
   TutorSyllabusComponent,
   TutorDashboardComponent,
   TutorClassroomsComponent,
+  TutorCreateTicketComponent,
+  TutorSupportTicketComponent,
+  TutorTicketDetailsComponent,
   TutorPaymentRecordsComponent,
   TutorClassDashboardComponent,
 } from './containers';
@@ -30,9 +36,12 @@ import {
 import {
   TutorNavbarComponent,
   TutorSidebarComponent,
+  FaqListQuestionsComponent,
+  FaqAboutStudentsComponent,
   TutorFeedbackModalComponent,
   TutorAttendanceModalComponent,
   TutorSettingsAccountComponent,
+  FaqStillHaveQuestionsComponent,
   TutorSettingsSecurityComponent,
   TutorSettingsUserPreferencesComponent,
   TutorSettingsPaymentInformationComponent,
@@ -41,6 +50,8 @@ import {
 @NgModule({
   declarations: [
     TutorComponent,
+    TutorFaqComponent,
+    TutorHelpComponent,
     TutorNavbarComponent,
     TutorBadgesComponent,
     TutorSidebarComponent,
@@ -49,12 +60,18 @@ import {
     TutorSettingsComponent,
     TutorDashboardComponent,
     TutorClassroomsComponent,
+    FaqListQuestionsComponent,
+    FaqAboutStudentsComponent,
+    TutorCreateTicketComponent,
+    TutorSupportTicketComponent,
+    TutorTicketDetailsComponent,
     TutorFeedbackModalComponent,
     TutorClassDashboardComponent,
     TutorPaymentRecordsComponent,
     TutorSettingsAccountComponent,
     TutorAttendanceModalComponent,
     TutorSettingsSecurityComponent,
+    FaqStillHaveQuestionsComponent,
     TutorSettingsUserPreferencesComponent,
     TutorSettingsPaymentInformationComponent,
   ],
@@ -70,6 +87,7 @@ import {
     MatButtonModule,
     MatFormFieldModule,
     TutorRoutingModule,
+    NgxAutoScrollModule,
     ReactiveFormsModule,
     MatProgressBarModule,
     MatButtonToggleModule,
