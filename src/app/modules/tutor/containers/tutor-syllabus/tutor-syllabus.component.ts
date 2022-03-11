@@ -41,15 +41,139 @@ import { ClassroomType } from '@metutor/config';
   ],
 })
 export class TutorSyllabusComponent implements OnInit, OnDestroy {
-  classsroomId?: string;
-  // classroom?: IClassroom;
+  classsroomId: string;
+  // classroom: IClassroom;
   selectedCourse?: number;
-  loadingSyllabus?: boolean;
-  syllabusSub?: Subscription;
-  loadingClassroom?: boolean;
+  loadingSyllabus: boolean;
+  syllabusSub: Subscription;
+  loadingClassroom: boolean;
   openCourse: boolean = false;
-  classroomSub?: Subscription;
-  syllabuses: ISyllabus[] = [];
+  classroomSub: Subscription;
+  syllabuses: ISyllabus[] = [
+    {
+      id: 1,
+      batch: 2,
+      title: 'Matter and chemistry',
+      description:
+        'Have a fundamental understanding of the Python programming language',
+      totalHours: 10,
+      progress: 55,
+      classes: [
+        {
+          id: 1,
+          number: 2,
+          subject: 'Life Advice Looking Through A Window',
+          days: 'Sunday, Monday, Friday',
+          date: 'Sunday',
+          startTime: '12:00 PM',
+          endTime: '2:00 PM',
+          duration: 10,
+        },
+        {
+          id: 1,
+          number: 2,
+          subject: 'Life Advice Looking Through A Window',
+          days: 'Sunday, Monday, Friday',
+          date: 'Sunday',
+          startTime: '12:00 PM',
+          endTime: '2:00 PM',
+          duration: 10,
+        },
+        {
+          id: 1,
+          number: 2,
+          subject: 'Life Advice Looking Through A Window',
+          days: 'Sunday, Monday, Friday',
+          date: 'Sunday',
+          startTime: '12:00 PM',
+          endTime: '2:00 PM',
+          duration: 10,
+        },
+      ],
+    },
+    {
+      id: 2,
+      batch: 2,
+      title: 'Matter and chemistry',
+      description:
+        'Have a fundamental understanding of the Python programming language',
+      totalHours: 10,
+      progress: 55,
+      classes: [
+        {
+          id: 1,
+          number: 2,
+          subject: 'Life Advice Looking Through A Window',
+          days: 'Sunday, Monday, Friday',
+          date: 'Sunday',
+          startTime: '12:00 PM',
+          endTime: '2:00 PM',
+          duration: 10,
+        },
+        {
+          id: 1,
+          number: 2,
+          subject: 'Life Advice Looking Through A Window',
+          days: 'Sunday, Monday, Friday',
+          date: 'Sunday',
+          startTime: '12:00 PM',
+          endTime: '2:00 PM',
+          duration: 10,
+        },
+        {
+          id: 1,
+          number: 2,
+          subject: 'Life Advice Looking Through A Window',
+          days: 'Sunday, Monday, Friday',
+          date: 'Sunday',
+          startTime: '12:00 PM',
+          endTime: '2:00 PM',
+          duration: 10,
+        },
+      ],
+    },
+    {
+      id: 3,
+      batch: 2,
+      title: 'Matter and chemistry',
+      description:
+        'Have a fundamental understanding of the Python programming language',
+      totalHours: 10,
+      progress: 55,
+      classes: [
+        {
+          id: 1,
+          number: 2,
+          subject: 'Life Advice Looking Through A Window',
+          days: 'Sunday, Monday, Friday',
+          date: 'Sunday',
+          startTime: '12:00 PM',
+          endTime: '2:00 PM',
+          duration: 10,
+        },
+        {
+          id: 1,
+          number: 2,
+          subject: 'Life Advice Looking Through A Window',
+          days: 'Sunday, Monday, Friday',
+          date: 'Sunday',
+          startTime: '12:00 PM',
+          endTime: '2:00 PM',
+          duration: 10,
+        },
+        {
+          id: 1,
+          number: 2,
+          subject: 'Life Advice Looking Through A Window',
+          days: 'Sunday, Monday, Friday',
+          date: 'Sunday',
+          startTime: '12:00 PM',
+          endTime: '2:00 PM',
+          duration: 10,
+        },
+      ],
+    },
+  ];
 
   classroom: IClassroom = {
     id: 1,
@@ -122,7 +246,7 @@ export class TutorSyllabusComponent implements OnInit, OnDestroy {
     });
   }
 
-  // calculateDurationTime(startTime?: Date, endTime?: Date): number {
+  // calculateDurationTime(startTime: Date, endTime: Date): number {
   //   return calculateDurationTime(startTime, endTime);
   // }
 

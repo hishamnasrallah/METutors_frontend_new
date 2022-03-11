@@ -21,6 +21,12 @@
     }
   }
 
+  .edit-data {
+    padding: 0;
+    min-width: 0;
+    line-height: 0;
+  }
+
   .list {
     padding: 5px;
 
@@ -73,7 +79,11 @@
       }
 
       .set-padding {
-        padding: 15px 40px 15px 60px;
+        padding: 15px 40px 0 60px;
+
+        &.desc {
+          padding: 0 40px 15px 60px;
+        }
       }
 
       .number {
@@ -130,15 +140,26 @@
         border-top: none;
 
         th {
-          color: #949494;
           font-size: 13px;
           border-bottom: none;
+          color: #949494;
         }
 
         td {
-          border-bottom: 1px solid #f2f2f2;
+          border-bottom: 1px solid #e2edef;
           color: #2a2a2a;
           font-size: 13px;
+
+          .edit-btn {
+            padding: 0;
+            color: #c7c7c7;
+            line-height: 0;
+            min-width: 0;
+          }
+        }
+
+        &>:not(:first-child) {
+          border: none;
         }
 
         tr:last-child td {
