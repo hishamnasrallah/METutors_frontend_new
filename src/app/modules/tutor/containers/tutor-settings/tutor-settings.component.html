@@ -1,3 +1,5 @@
+<metutors-tutor-navbar [layout]="(layout$ | async)" [user]="user$ | async"></metutors-tutor-navbar>
+
 <div class="settings">
   <div class="card overflow-hidden">
     <div class="card-body p-0">
@@ -20,11 +22,14 @@
         </div>
         <div class="col-md-8">
           <metutors-tutor-settings-account *ngIf="tab === 'ACCOUNT_SETTINGS'"></metutors-tutor-settings-account>
+
           <metutors-tutor-settings-security *ngIf="tab === 'SECURITY_SETTINGS'"
             [isChanging]="isChangingPassword$ | async" [resetForm]="changePasswordSuccess$ | async"
             (submitForm)="onChangePassword($event)"></metutors-tutor-settings-security>
+
           <metutors-tutor-settings-user-preferences *ngIf="tab === 'USER_PREFERENCES'">
           </metutors-tutor-settings-user-preferences>
+
           <metutors-tutor-settings-payment-information *ngIf="tab === 'PAYMENT_INFORMATION'">
           </metutors-tutor-settings-payment-information>
         </div>

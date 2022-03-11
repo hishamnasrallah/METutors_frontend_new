@@ -1,4 +1,4 @@
-<metutors-tutor-navbar [user]="user$ | async"></metutors-tutor-navbar>
+<metutors-tutor-navbar [layout]="(layout$ | async)" [user]="user$ | async"></metutors-tutor-navbar>
 
 <div class="classroom">
   <div class="row" *ngLet="(view$ | async) as view">
@@ -17,7 +17,7 @@
           (click)="loadCourse({program: programId})">All</button>
         <button mat-button class="class-btn main-button-transparent text-uppercase mb-1"
           *ngFor="let field of view?.fieldOfStudies"
-          (click)="loadCourse({program: programId, subject: field?.id})">{{ field?.name }}</button>
+          (click)="loadCourse({program: programId, field_of_study: field?.id})">{{ field?.name }}</button>
       </ng-container>
     </div>
     <div class="col-12">

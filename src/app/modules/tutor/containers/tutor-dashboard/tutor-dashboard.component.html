@@ -1,4 +1,4 @@
-<metutors-tutor-navbar [user]="user$ | async"></metutors-tutor-navbar>
+<metutors-tutor-navbar [layout]="(layout$ | async)" [user]="user$ | async"></metutors-tutor-navbar>
 
 <div class="dashboard">
   <ng-container *ngLet="(view$ | async) as view">

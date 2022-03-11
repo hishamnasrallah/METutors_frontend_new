@@ -1,7 +1,8 @@
 export class IClass {
   id?: number;
+  subject?: string;
   number?: number;
-  day?: string;
+  days?: string;
   date?: string;
   startTime?: string;
   endTime?: string;
@@ -11,7 +12,8 @@ export class IClass {
     if (createDefault) {
       this.id = 0;
       this.number = 0;
-      this.day = '';
+      this.subject = '';
+      this.days = '';
       this.date = '';
       this.startTime = '';
       this.endTime = '';
@@ -20,8 +22,9 @@ export class IClass {
 
     if (classroom) {
       this.id = classroom.id;
-      this.day = classroom.day;
+      this.days = classroom.days;
       this.number = classroom.number;
+      this.subject = classroom.subject;
       this.date = classroom.date;
       this.startTime = classroom.start_time;
       this.endTime = classroom.end_time;

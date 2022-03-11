@@ -2,7 +2,7 @@ import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { combineLatest, Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
-
+import * as fromRoot from '@metutor/state';
 import * as fromCore from '@metutor/core/state';
 import { insightRange, WEEK_DAYS } from '@metutor/config';
 import { IUser } from '@metutor/core/models';
@@ -13,6 +13,7 @@ import { IUser } from '@metutor/core/models';
   styleUrls: ['./tutor-dashboard.component.scss'],
 })
 export class TutorDashboardComponent implements OnInit {
+  layout$: any;
   user$: Observable<IUser | null>;
   view$: Observable<{ loading: boolean; data: any }>;
 
@@ -27,6 +28,7 @@ export class TutorDashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.layout$ = this._store.select(fromRoot.selectLayout);
     this.user$ = this._store.select(fromCore.selectUser);
     this._store.dispatch(
       fromCore.loadTutorDashboard({ params: this.range, load: false })

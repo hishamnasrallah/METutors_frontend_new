@@ -36,6 +36,7 @@ const routes: Routes = [
             data: {
               layout: {
                 title: 'Student Classrooms - Metutors',
+                navbarTitle: 'Classrooms',
                 showHeader: false,
                 showFooter: false,
               },
@@ -47,6 +48,7 @@ const routes: Routes = [
             data: {
               layout: {
                 title: 'Student Syllabus - Metutors',
+                navbarTitle: 'Syllabus',
                 showHeader: false,
                 showFooter: false,
               },
@@ -58,6 +60,7 @@ const routes: Routes = [
             data: {
               layout: {
                 title: 'Student Classes - Metutors',
+                navbarTitle: 'Classes',
                 showHeader: false,
                 showFooter: false,
               },
@@ -71,6 +74,7 @@ const routes: Routes = [
         data: {
           layout: {
             title: 'Help - Metutors',
+            navbarTitle: 'Help',
             showHeader: false,
             showFooter: false,
             hideSidebar: true,
@@ -83,6 +87,7 @@ const routes: Routes = [
             data: {
               layout: {
                 title: 'FAQ - Metutors',
+                navbarTitle: 'FAQ',
                 showHeader: false,
                 showFooter: false,
                 hideSidebar: true,
@@ -98,6 +103,7 @@ const routes: Routes = [
                 data: {
                   layout: {
                     title: 'My tickets - Metutors',
+                    navbarTitle: 'Support ticket',
                     showHeader: false,
                     showFooter: false,
                     hideSidebar: true,
@@ -110,6 +116,7 @@ const routes: Routes = [
                 data: {
                   layout: {
                     title: 'Create ticket - Metutors',
+                    navbarTitle: 'Create ticket',
                     showHeader: false,
                     showFooter: false,
                     hideSidebar: true,
@@ -122,6 +129,7 @@ const routes: Routes = [
                 data: {
                   layout: {
                     title: 'Ticket details - Metutors',
+                    navbarTitle: 'Ticket details',
                     showHeader: false,
                     showFooter: false,
                     hideSidebar: true,
@@ -143,6 +151,7 @@ const routes: Routes = [
         data: {
           layout: {
             title: 'Dashboard - Metutors',
+            navbarTitle: 'Dashboard',
             showHeader: false,
             showFooter: false,
           },
@@ -154,6 +163,7 @@ const routes: Routes = [
         data: {
           layout: {
             title: 'Certificates - Metutors',
+            navbarTitle: 'Earned certificates',
             showHeader: false,
             showFooter: false,
           },
@@ -165,6 +175,7 @@ const routes: Routes = [
         data: {
           layout: {
             title: 'Settings - Metutors',
+            navbarTitle: 'Settings',
             showHeader: false,
             showFooter: false,
           },

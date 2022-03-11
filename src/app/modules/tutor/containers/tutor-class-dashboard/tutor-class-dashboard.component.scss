@@ -1,6 +1,10 @@
 .classes-dashboard {
   .card {
-    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 13%);
+    box-shadow: 4px 4px 8px 8px rgb(0 0 0 / 13%);
+
+    .card-body {
+      padding: 20px 40px;
+    }
 
     .title {
       color: #000;
@@ -9,7 +13,7 @@
 
     .in-progress {
       h3 {
-        font-size: 12px;
+        font-size: 20px;
         color: #000;
       }
 

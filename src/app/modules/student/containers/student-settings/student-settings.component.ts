@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromCore from '@metutor/core/state';
 import { Observable } from 'rxjs';
+import { IUser } from '@metutor/core/models';
+import * as fromRoot from '@metutor/state';
 
 @Component({
   selector: 'metutors-student-settings',
@@ -9,6 +11,8 @@ import { Observable } from 'rxjs';
   styleUrls: ['./student-settings.component.scss'],
 })
 export class StudentSettingsComponent implements OnInit {
+  layout$: any;
+  user$: Observable<IUser | null>;
   isChangingPassword$: Observable<boolean>;
   changePasswordSuccess$: Observable<boolean>;
 
@@ -17,6 +21,8 @@ export class StudentSettingsComponent implements OnInit {
   constructor(private _store: Store<any>) {}
 
   ngOnInit(): void {
+    this.layout$ = this._store.select(fromRoot.selectLayout);
+    this.user$ = this._store.select(fromCore.selectUser);
     this.isChangingPassword$ = this._store.select(
       fromCore.selectIsChangingPassword
     );
