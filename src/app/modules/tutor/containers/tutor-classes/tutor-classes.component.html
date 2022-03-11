@@ -5,19 +5,19 @@
       <button mat-button>British</button>
     </div>-->
 
-    <ul class="list-unstyled m-0">
+    <ul class="list-unstyled m-0" *ngLet="(routeParams$ | async) as params">
       <li>
-        <a routerLink="/tutor/classrooms/classes/14/syllabus" routerLinkActive="active">
+        <a [routerLink]="'/tutor/classrooms/classes/syllabus/'+ params?.id" routerLinkActive="active">
           <span class="text-uppercase">Syllabus</span>
         </a>
       </li>
       <li>
-        <a routerLink="/tutor/classrooms/classes/14/resources" routerLinkActive="active">
+        <a [routerLink]="'/tutor/classrooms/classes/resources/'+params?.id" routerLinkActive="active">
           <span class="text-uppercase">Resources</span>
         </a>
       </li>
       <li>
-        <a routerLink="/tutor/classrooms/classes" routerLinkActive="active">
+        <a [routerLink]="'/tutor/classrooms/classes/dashboard/'+params?.id" routerLinkActive="active">
           <span class="text-uppercase">Classes Dashboard</span>
         </a>
       </li>
