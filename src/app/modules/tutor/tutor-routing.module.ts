@@ -44,17 +44,6 @@ const routes: Routes = [
             },
           },
           {
-            path: 'syllabus/:id',
-            component: TutorSyllabusComponent,
-            data: {
-              layout: {
-                title: 'Tutor Syllabus - Metutors',
-                showHeader: false,
-                showFooter: false,
-              },
-            },
-          },
-          {
             path: 'classes',
             component: TutorClassesComponent,
             data: {
@@ -72,6 +61,18 @@ const routes: Routes = [
                 data: {
                   layout: {
                     title: 'Tutor Class Dashboard - Metutors',
+                    showHeader: false,
+                    showFooter: false,
+                    hideSidebar: true,
+                  },
+                },
+              },
+              {
+                path: 'syllabus/:id',
+                component: TutorSyllabusComponent,
+                data: {
+                  layout: {
+                    title: 'Tutor Syllabus - Metutors',
                     showHeader: false,
                     showFooter: false,
                     hideSidebar: true,
