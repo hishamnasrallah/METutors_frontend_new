@@ -41,7 +41,7 @@ export const reducer = createReducer(
   on(tutorActions.loadTutorFailure, (state, { error }) => ({
     ...state,
     isLoadingTutors: false,
-    loadingTutorFailure: error.message,
+    loadingTutorFailure: error,
   })),
 
   on(tutorActions.loadTutorDashboard, (state) => ({
@@ -78,7 +78,7 @@ export const reducer = createReducer(
   on(tutorActions.completeTutorProfileFailure, (state, { error }) => ({
     ...state,
     isCompleteTutorProfile: false,
-    completeTutorProfileFailure: error.message,
+    completeTutorProfileFailure: error,
   }))
 );
 

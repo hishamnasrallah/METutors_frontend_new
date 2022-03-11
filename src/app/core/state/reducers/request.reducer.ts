@@ -59,7 +59,7 @@ export const reducer = createReducer(
   on(requestActions.calculateEstimatedPriceFailure, (state, { error }) => ({
     ...state,
     isLoadingEstimatedPrice: false,
-    loadingEstimatedPriceFailure: error.message,
+    loadingEstimatedPriceFailure: error,
   })),
 
   on(requestActions.generateTutors, (state) => ({
@@ -76,7 +76,7 @@ export const reducer = createReducer(
   on(requestActions.generateTutorsFailure, (state, { error }) => ({
     ...state,
     isGeneratingTutors: false,
-    loadingTutorFailure: error.message,
+    loadingTutorFailure: error,
   })),
 
   on(requestActions.createClass, (state) => ({
@@ -93,7 +93,7 @@ export const reducer = createReducer(
   on(requestActions.createClassFailure, (state, { error }) => ({
     ...state,
     isCreateClass: false,
-    createClassFailure: error.message,
+    createClassFailure: error,
   })),
 
   on(requestActions.createClassLocalStorage, (state, { classroom }) => ({
@@ -124,7 +124,7 @@ export const reducer = createReducer(
   on(requestActions.calculateFinalInvoiceFailure, (state, { error }) => ({
     ...state,
     isCalculateFinalInvoice: false,
-    calculateFinalInvoiceFailure: error.message,
+    calculateFinalInvoiceFailure: error,
   })),
 
   on(requestActions.calculateFinalInvoiceEnded, (state) => ({

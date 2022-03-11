@@ -46,7 +46,7 @@ export const reducer = createReducer(
   on(userActions.signInFailure, (state, { error }) => ({
     ...state,
     isSignIn: false,
-    signInFailure: error.message,
+    signInFailure: error,
   })),
 
   on(

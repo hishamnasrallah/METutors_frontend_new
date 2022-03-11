@@ -51,7 +51,7 @@ export const reducer = createReducer(
   on(ticketActions.loadTicketsFailure, (state, { error }) => ({
     ...state,
     isLoadingTickets: false,
-    loadingTicketsFailure: error.message,
+    loadingTicketsFailure: error,
   })),
 
   on(ticketActions.loadTicketsEnded, (state) => ({
@@ -73,7 +73,7 @@ export const reducer = createReducer(
   on(ticketActions.loadTicketFailure, (state, { error }) => ({
     ...state,
     isLoadingTicket: false,
-    loadingTicketFailure: error.message,
+    loadingTicketFailure: error,
   })),
 
   on(ticketActions.loadTicketEnded, (state) => ({

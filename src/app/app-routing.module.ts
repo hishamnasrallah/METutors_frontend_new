@@ -3,8 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import {
   AuthGuard,
   NotAuthGuard,
-  StudentAuthGuard,
+  AdminAuthGuard,
   TutorAuthGuard,
+  StudentAuthGuard,
 } from '@guards';
 
 const routes: Routes = [
@@ -44,6 +45,12 @@ const routes: Routes = [
       import('./modules/tutor/tutor.module').then((m) => m.TutorModule),
   },
   {
+    path: 'admin',
+    canActivate: [AdminAuthGuard],
+    loadChildren: () =>
+      import('./modules/admin/admin.module').then((m) => m.AdminModule),
+  },
+  {
     path: '**',
     redirectTo: '/',
     pathMatch: 'full',
@@ -53,6 +60,12 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [NotAuthGuard, AuthGuard, TutorAuthGuard, StudentAuthGuard],
+  providers: [
+    AuthGuard,
+    NotAuthGuard,
+    TutorAuthGuard,
+    AdminAuthGuard,
+    StudentAuthGuard,
+  ],
 })
 export class AppRoutingModule {}
