@@ -29,7 +29,7 @@
     </ul>
   </div>
   <div class="flex-grow-1 overflow-auto">
-    <metutors-tutor-navbar [user]="user$ | async"></metutors-tutor-navbar>
+    <metutors-tutor-navbar [layout]="(layout$ | async)" [user]="user$ | async"></metutors-tutor-navbar>
 
     <router-outlet></router-outlet>
   </div>

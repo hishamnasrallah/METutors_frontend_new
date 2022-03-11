@@ -10,10 +10,10 @@ import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { combineLatest, Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
-
 import { WEEK_DAYS } from '@metutor/config';
 import { IUser } from '@metutor/core/models';
 import * as fromCore from '@metutor/core/state';
+import * as fromRoot from '@metutor/state';
 
 @Component({
   selector: 'metutors-tutor-classrooms',
@@ -42,6 +42,7 @@ import * as fromCore from '@metutor/core/state';
   ],
 })
 export class TutorClassroomsComponent implements OnInit {
+  layout$: any;
   user$: Observable<IUser | null>;
   view$: Observable<{
     programs: any;
@@ -64,6 +65,7 @@ export class TutorClassroomsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.layout$ = this._store.select(fromRoot.selectLayout);
     this.user$ = this._store.select(fromCore.selectUser);
     this._store.dispatch(fromCore.loadCourses({}));
 

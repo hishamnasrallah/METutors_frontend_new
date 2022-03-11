@@ -38,4 +38,10 @@ export const LIST_ROUTES = [
   { path: '/tutor/badges', title: 'Badges' },
   { path: '/tutor/payment-records', title: 'Payment records' },
   { path: '/tutor/classrooms', title: 'Classroom' },
+  { path: '/tutor/help/faq', title: 'FAQ' },
+  { path: '/tutor/help/support-ticket', title: 'Support ticket' },
+  {
+    path: '/tutor/help/support-ticket/create-ticket',
+    title: 'Create ticket',
+  },
 ];
