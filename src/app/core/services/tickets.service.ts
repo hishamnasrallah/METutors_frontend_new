@@ -55,6 +55,15 @@ export class TicketsService {
       .pipe(catchError(this.errorHandler));
   }
 
+  changeTicketStatus(status: string, ticketId: number): Observable<any> {
+    return this.http
+      .post(`${this.baseUrl}admin/ticket/change-status`, {
+        status,
+        ticket_id: ticketId,
+      })
+      .pipe(catchError(this.errorHandler));
+  }
+
   errorHandler(error: HttpErrorResponse) {
     return throwError(error);
   }

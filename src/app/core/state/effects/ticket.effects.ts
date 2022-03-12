@@ -142,6 +142,49 @@ export class TicketEffects {
     )
   );
 
+  changeTicketStatus$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(ticketActions.changeTicketStatus),
+      mergeMap((action) =>
+        this._ticketService
+          .changeTicketStatus(action.status, action.ticketId)
+          .pipe(
+            map((response) =>
+              ticketActions.changeTicketStatusSuccess({
+                message: response.message,
+              })
+            ),
+            catchError((error) =>
+              of(
+                ticketActions.changeTicketStatusFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          )
+      )
+    )
+  );
+
+  successMessages$ = createEffect(
+    () =>
+      this._actions$.pipe(
+        ofType(...[ticketActions.changeTicketStatusSuccess]),
+        map((action) => {
+          if (action.message) {
+            return this._alertNotificationService.success(action.message);
+          } else {
+            return this._alertNotificationService.success(
+              'Information updated successfully!'
+            );
+          }
+        })
+      ),
+    {
+      dispatch: false,
+    }
+  );
+
   failureMessages$ = createEffect(
     () =>
       this._actions$.pipe(
@@ -149,6 +192,7 @@ export class TicketEffects {
           ...[
             ticketActions.loadTicketsFailure,
             ticketActions.submitTicketCommentFailure,
+            ticketActions.changeTicketStatusFailure,
           ]
         ),
         map((action) => {

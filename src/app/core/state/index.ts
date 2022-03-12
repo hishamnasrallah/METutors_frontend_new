@@ -182,6 +182,11 @@ export const selectIsSubmitTicketComment = createSelector(
   fromTicketReducer.selectIsSubmitTicketComment
 );
 
+export const selectIsChangeTicketStatus = createSelector(
+  selectTicketState,
+  fromTicketReducer.selectIsChangeTicketStatus
+);
+
 // Requests
 export const selectEstimatedPrice = createSelector(
   selectRequestState,
