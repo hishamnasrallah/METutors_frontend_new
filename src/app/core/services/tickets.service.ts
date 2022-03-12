@@ -14,7 +14,7 @@ export class TicketsService {
 
   loadTickets(): Observable<any> {
     return this.http
-      .get<{ tickets: ITicket[] }>(`${this.baseUrl}my_tickets`)
+      .get<{ tickets: ITicket[] }>(`${this.baseUrl}my-tickets`)
       .pipe(
         map((response) =>
           response.tickets.map((ticket) => new ITicket(false, ticket))

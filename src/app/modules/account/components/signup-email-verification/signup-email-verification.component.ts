@@ -47,9 +47,11 @@ export class SignupEmailVerificationComponent implements OnInit {
   ngOnInit(): void {}
 
   onOtpChange(value: string): void {
-    this.form.get('code')?.setValue(value);
-    this.form.updateValueAndValidity();
-    this.form.markAsDirty();
+    if (value && value.length === 5) {
+      this.form.get('code')?.setValue(value);
+      this.form.updateValueAndValidity();
+      this.form.markAsDirty();
+    }
   }
 
   onSubmit(): void {

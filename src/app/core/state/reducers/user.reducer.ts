@@ -7,7 +7,10 @@ export interface State {
   // Sign in
   isSignIn: boolean;
   token?: string;
+  tempToken?: string;
   signInFailure?: string;
+  isSubmitOTPAdmin: boolean;
+  isResendOTPAdmin: boolean;
 
   // Complete profile
   profileStep: number;
@@ -24,6 +27,8 @@ export const initialState: State = {
   profileStep: 1,
   isSignIn: false,
   isChangePassword: false,
+  isSubmitOTPAdmin: false,
+  isResendOTPAdmin: false,
   changePasswordSuccess: false,
 };
 
@@ -41,13 +46,42 @@ export const reducer = createReducer(
     token,
     profileStep,
     user,
+    tempToken: undefined,
+    isSubmitOTPAdmin: false,
+  })),
+
+  on(userActions.signInAdminSuccess, (state, { tempToken, user }) => ({
+    ...state,
+    isSignIn: false,
+    tempToken,
+    user,
   })),
 
   on(userActions.signInFailure, (state, { error }) => ({
     ...state,
     isSignIn: false,
     signInFailure: error,
+    isSubmitOTPAdmin: false,
   })),
+
+  on(userActions.submitOTPAdmin, (state) => ({
+    ...state,
+    isSubmitOTPAdmin: true,
+  })),
+
+  on(userActions.resendOTPAdmin, (state) => ({
+    ...state,
+    isResendOTPAdmin: true,
+  })),
+
+  on(
+    userActions.resendOTPAdminSuccess,
+    userActions.resendOTPAdminFailure,
+    (state) => ({
+      ...state,
+      isResendOTPAdmin: false,
+    })
+  ),
 
   on(
     tutorActions.completeTutorProfileSuccess,
@@ -87,7 +121,16 @@ export const reducer = createReducer(
 
 export const selectToken = (state: State): string | undefined => state.token;
 
+export const selectTempToken = (state: State): string | undefined =>
+  state.tempToken;
+
 export const selectIsSignIn = (state: State): boolean => state.isSignIn;
+
+export const selectIsSubmitOTPAdmin = (state: State): boolean =>
+  state.isSubmitOTPAdmin;
+
+export const selectIsResendOTPAdmin = (state: State): boolean =>
+  state.isResendOTPAdmin;
 
 export const selectProfileStep = (state: State): number => state.profileStep;
 

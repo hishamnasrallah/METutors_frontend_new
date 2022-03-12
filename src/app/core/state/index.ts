@@ -90,6 +90,21 @@ export const selectToken = createSelector(
   fromUserReducer.selectToken
 );
 
+export const selectTempToken = createSelector(
+  selectUserState,
+  fromUserReducer.selectTempToken
+);
+
+export const selectIsSubmitOTPAdmin = createSelector(
+  selectUserState,
+  fromUserReducer.selectIsSubmitOTPAdmin
+);
+
+export const selectIsResendOTPAdmin = createSelector(
+  selectUserState,
+  fromUserReducer.selectIsResendOTPAdmin
+);
+
 export const selectProfileStep = createSelector(
   selectUserState,
   fromUserReducer.selectProfileStep

@@ -36,6 +36,15 @@ export class AuthInterceptor implements HttpInterceptor {
           });
         }
 
+        if (user && user.tempToken) {
+          request = request.clone({
+            headers: request.headers.set(
+              'Authorization',
+              `Bearer ${user.tempToken}`
+            ),
+          });
+        }
+
         return request;
       })
     );
