@@ -52,8 +52,7 @@ export class AdminAuthGuard implements CanActivate {
       });
       const userRole = user?.user?.roleId;
 
-      if (userRole?.toString() === UserRole.admin.toString()) return true;
-      else return false;
+      return userRole?.toString() === UserRole.admin.toString();
     } else return false;
   }
 }
