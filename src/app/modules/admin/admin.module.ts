@@ -5,13 +5,24 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '@metutor/shared/shared.module';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { NgxAutoScrollModule } from 'ngx-auto-scroll';
 
-import { AdminComponent } from './containers';
+import {
+  AdminComponent,
+  AdminSupportTicketComponent,
+  AdminTicketDetailsComponent,
+} from './containers';
 
-import { AdminSidebarComponent } from './components';
+import { AdminSidebarComponent, AdminNavbarComponent } from './components';
 
 @NgModule({
-  declarations: [AdminComponent, AdminSidebarComponent],
+  declarations: [
+    AdminComponent,
+    AdminNavbarComponent,
+    AdminSidebarComponent,
+    AdminSupportTicketComponent,
+    AdminTicketDetailsComponent,
+  ],
   imports: [
     FormsModule,
     CommonModule,
@@ -20,6 +31,7 @@ import { AdminSidebarComponent } from './components';
     MatButtonModule,
     AdminRoutingModule,
     ReactiveFormsModule,
+    NgxAutoScrollModule,
   ],
 })
 export class AdminModule {}
