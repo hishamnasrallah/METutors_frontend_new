@@ -56,6 +56,7 @@ export class TutorClassroomsComponent implements OnInit {
   }>;
 
   programId = null;
+  countryId = null;
   openActive = true;
   openCompleted = true;
   openNewlyAssigned = true;
@@ -63,6 +64,12 @@ export class TutorClassroomsComponent implements OnInit {
   constructor(private _store: Store<any>) {}
 
   loadCourse(params: any) {
+    if (this.countryId) {
+      params = {
+        ...params,
+        country: this.countryId,
+      };
+    }
     this._store.dispatch(fromCore.loadCourses({ params }));
   }
 

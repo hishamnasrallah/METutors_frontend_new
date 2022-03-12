@@ -10,16 +10,17 @@
         <ng-container *ngFor="let program of view?.programs">
           <span class="fw-bold cursor-pointer position-relative"
             [class.active]="programId === program?.id" *ngIf="program.code !== 'NA'"
-            (click)="loadCourse({program: program?.id}); programId = program?.id">{{ program?.code }}</span>
+            (click)=" countryId = null; loadCourse({program: program?.id}); programId = program?.id;">{{ program?.code }}</span>
 
           <div class="btn-group" dropdown>
           <span class="fw-bold cursor-pointer position-relative dropdown-toggle dropdown-toggle-split" dropdownToggle
-            [class.active]="programId === program?.id" *ngIf="program.code === 'NA'"
-            (click)="programId = program?.id">{{ program?.name }}</span>
+                [class.active]="programId === program?.id" *ngIf="program.code === 'NA'"
+                (click)="programId = program?.id">{{ program?.name }}</span>
 
             <ul id="dropdown-split" *dropdownMenu class="dropdown-menu"
                 role="menu" aria-labelledby="button-split">
-              <li role="menuitem" class="mat-menu-item" *ngFor="let country of view?.countries" (click)="loadCourse({program: programId, country: country?.id})">{{ country?.name }}</li>
+              <li role="menuitem" class="mat-menu-item" *ngFor="let country of view?.countries"
+                  (click)="loadCourse({program: programId, country: country?.id}); countryId = country?.id">{{ country?.name }}</li>
             </ul>
           </div>
         </ng-container>
