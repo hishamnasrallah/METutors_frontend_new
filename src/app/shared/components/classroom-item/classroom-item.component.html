@@ -102,15 +102,15 @@
         <div class="col flex-grow-1">
           <div class="row">
             <div class="col-md-12">
-              <a [routerLink]="url + classroom?.id" mat-button color="primary"
+              <a [routerLink]="url + classroom?.id" mat-button color="primary" *ngIf="!completeCourse"
                 class="h-100 book-classroom float-end main-button-transparent">
                 Continue
                 <mat-icon>arrow_forward</mat-icon>
               </a>
-              <!-- <div class="d-flex" *ngIf="isTutor">
+               <div class="d-flex" *ngIf="completeCourse">
                 <button mat-button class="secondary-btn flex-grow-1">Reject</button>
                 <button mat-flat-button color="primary" class="flex-grow-1">Accept</button>
-              </div> -->
+              </div>
             </div>
           </div>
         </div>
