@@ -8,8 +8,8 @@ import { ClassroomType } from 'src/app/config';
   styleUrls: ['./classroom-item.component.scss'],
 })
 export class ClassroomItemComponent implements OnInit {
-  @Input() isTutor: boolean;
   @Input() classroom!: any;
+  @Input() completeCourse: boolean;
   @Input() url = '/student/classroom/syllabus/';
 
   classroomType = ClassroomType;
