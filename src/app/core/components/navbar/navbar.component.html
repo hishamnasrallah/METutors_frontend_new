@@ -36,7 +36,7 @@
         </li>
         <li class="nav-item" *ngIf="token$ | async">
           <a class="nav-link nav-item-link" routerLinkActive="active"
-            [routerLink]="(user$ | async)?.roleId === userRole.tutor ? '/tutor' : '/student'">
+            [routerLink]="(user$ | async)?.roleId === userRole.tutor ? '/tutor' : (user$ | async)?.roleId === userRole.student ? '/student' : '/admin'">
             My Classroom
           </a>
         </li>

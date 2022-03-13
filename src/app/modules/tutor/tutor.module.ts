@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { RatingModule } from 'ngx-bootstrap/rating';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatRadioModule } from '@angular/material/radio';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { TwillioModule } from '@metutor/core/components';
@@ -89,6 +90,7 @@ import {
     MatRadioModule,
     MatSelectModule,
     MatButtonModule,
+    BsDropdownModule,
     MatFormFieldModule,
     TutorRoutingModule,
     NgxAutoScrollModule,

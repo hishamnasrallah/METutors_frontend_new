@@ -32,6 +32,16 @@ export class AuthService {
     return this.http.post<any>(BACKEND_URL + 'logout', {});
   }
 
+  submitOTPAdmin(otp: string): Observable<any> {
+    return this.http
+      .post(BACKEND_URL + 'verifyOtp', { otp })
+      .pipe(map((response) => response));
+  }
+
+  resendOTPAdmin() {
+    return this.http.get<any>(BACKEND_URL + 'resendOtp');
+  }
+
   register(value: any): Observable<any> {
     return this.http.post<any>(BACKEND_URL + 'registeration', value);
   }
@@ -53,17 +63,6 @@ export class AuthService {
   verifyEmail(value: any): Observable<any> {
     const sendData = value;
     return this.http.post<any>(BACKEND_URL + 'verification', sendData);
-  }
-
-  // work needs to be done
-  verifyOTP(value: any): Observable<any> {
-    const sendData = value;
-    return this.http.post<any>(BACKEND_URL + 'verifyOtp', sendData);
-  }
-
-  // work needs to be done
-  resendOTP() {
-    return this.http.get<any>(BACKEND_URL + 'resendOtp');
   }
 
   resendEmailConfirm(value: any): Observable<any> {
@@ -129,8 +128,8 @@ export class AuthService {
     const value = {
       current_password: data.oldPassword,
       new_password: data.password,
-      confirm_password: data.confirmPassword
-    }
+      confirm_password: data.confirmPassword,
+    };
 
     return this.http.post<any>(BACKEND_URL + 'change-password', value);
   }

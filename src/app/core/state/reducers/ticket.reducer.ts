@@ -20,6 +20,10 @@ export interface State {
   // Submit Ticket Comment
   isSubmitTicketComment: boolean;
   submitTicketCommentFailure: string;
+
+  // Change Ticket Status
+  isChangeTicketStatus: boolean;
+  changeTicketStatusFailure?: string;
 }
 
 export const initialState: State = {
@@ -32,6 +36,7 @@ export const initialState: State = {
   loadingTicketFailure: '',
   loadingTicketsFailure: '',
   isSubmitTicketComment: false,
+  isChangeTicketStatus: false,
   submitTicketCommentFailure: '',
 };
 
@@ -51,7 +56,7 @@ export const reducer = createReducer(
   on(ticketActions.loadTicketsFailure, (state, { error }) => ({
     ...state,
     isLoadingTickets: false,
-    loadingTicketsFailure: error.message,
+    loadingTicketsFailure: error,
   })),
 
   on(ticketActions.loadTicketsEnded, (state) => ({
@@ -73,7 +78,7 @@ export const reducer = createReducer(
   on(ticketActions.loadTicketFailure, (state, { error }) => ({
     ...state,
     isLoadingTicket: false,
-    loadingTicketFailure: error.message,
+    loadingTicketFailure: error,
   })),
 
   on(ticketActions.loadTicketEnded, (state) => ({
@@ -121,6 +126,22 @@ export const reducer = createReducer(
     ...state,
     isSubmitTicketComment: false,
     submitTicketCommentFailure: error,
+  })),
+
+  on(ticketActions.changeTicketStatus, (state) => ({
+    ...state,
+    isChangeTicketStatus: true,
+  })),
+
+  on(ticketActions.changeTicketStatusSuccess, (state) => ({
+    ...state,
+    isChangeTicketStatus: false,
+  })),
+
+  on(ticketActions.changeTicketStatusFailure, (state, { error }) => ({
+    ...state,
+    isChangeTicketStatus: false,
+    changeTicketStatusFailure: error,
   }))
 );
 
@@ -139,3 +160,6 @@ export const selectIsCreatingTicket = (state: State): boolean =>
 
 export const selectIsSubmitTicketComment = (state: State): boolean =>
   state.isSubmitTicketComment;
+
+export const selectIsChangeTicketStatus = (state: State): boolean =>
+  state.isChangeTicketStatus;

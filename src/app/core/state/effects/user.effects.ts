@@ -65,20 +65,31 @@ export class UserEffects {
             });
             const user: any = decodeToken?.user;
 
-            return userActions.signInSuccess({
-              token: response,
-              user: {
-                ...user,
-                avatar: environment.imageURL + user?.avatar,
-              },
-              profileStep:
-                user &&
-                user.profileCompletedStep &&
-                !isNaN(user.profileCompletedStep)
-                  ? +user.profileCompletedStep + 1
-                  : 1,
-              returnUrl,
-            });
+            if (user?.roleId?.toString() === UserRole.admin.toString()) {
+              return userActions.signInAdminSuccess({
+                tempToken: response,
+                user: {
+                  ...user,
+                  avatar: environment.imageURL + user?.avatar,
+                },
+                returnUrl,
+              });
+            } else {
+              return userActions.signInSuccess({
+                token: response,
+                user: {
+                  ...user,
+                  avatar: environment.imageURL + user?.avatar,
+                },
+                profileStep:
+                  user &&
+                  user.profileCompletedStep &&
+                  !isNaN(user.profileCompletedStep)
+                    ? +user.profileCompletedStep + 1
+                    : 1,
+                returnUrl,
+              });
+            }
           }),
           catchError((error) =>
             of(
@@ -110,6 +121,8 @@ export class UserEffects {
               if (step <= 4)
                 this._router.navigate(['/profile', 'complete-profile']);
               else this._router.navigate(['/tutor']);
+            } else if (user?.roleId?.toString() === UserRole.admin.toString()) {
+              this._router.navigate(['/admin']);
             } else {
               this._router.navigate(['/']);
             }
@@ -134,6 +147,71 @@ export class UserEffects {
     {
       dispatch: false,
     }
+  );
+
+  submitOTPAdmin$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(userActions.submitOTPAdmin),
+      withLatestFrom(
+        this._store.select(fromCore.selectTempToken),
+        this._store.select(fromRoot.selectQueryParam('returnUrl'))
+      ),
+      mergeMap(([action, token, returnUrl]) =>
+        this._authService.submitOTPAdmin(action.otp).pipe(
+          map(() => {
+            const jwtHelper = new JwtHelperService();
+            const decodeToken = camelcaseKeys(jwtHelper.decodeToken(token), {
+              deep: true,
+            });
+            const user: any = decodeToken?.user;
+
+            return userActions.signInSuccess({
+              token: token || '',
+              user: {
+                ...user,
+                avatar: environment.imageURL + user?.avatar,
+              },
+              profileStep:
+                user &&
+                user.profileCompletedStep &&
+                !isNaN(user.profileCompletedStep)
+                  ? +user.profileCompletedStep + 1
+                  : 1,
+              returnUrl,
+            });
+          }),
+          catchError((error) =>
+            of(
+              userActions.signInFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  resendOTPAdmin$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(userActions.resendOTPAdmin),
+      mergeMap(() =>
+        this._authService.resendOTPAdmin().pipe(
+          map((response) =>
+            userActions.resendOTPAdminSuccess({
+              message: response.message,
+            })
+          ),
+          catchError((error) =>
+            of(
+              userActions.resendOTPAdminFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
   );
 
   logout$ = createEffect(() =>
@@ -252,7 +330,12 @@ export class UserEffects {
   successMessages$ = createEffect(
     () =>
       this._actions$.pipe(
-        ofType(...[userActions.changePasswordSuccess]),
+        ofType(
+          ...[
+            userActions.changePasswordSuccess,
+            userActions.resendOTPAdminSuccess,
+          ]
+        ),
         map((action) => {
           if (action.message) {
             return this._alertNotificationService.success(action.message);
@@ -272,7 +355,11 @@ export class UserEffects {
     () =>
       this._actions$.pipe(
         ofType(
-          ...[userActions.signInFailure, userActions.changePasswordFailure]
+          ...[
+            userActions.signInFailure,
+            userActions.changePasswordFailure,
+            userActions.resendOTPAdminFailure,
+          ]
         ),
         map((action) => {
           if (action.error) {

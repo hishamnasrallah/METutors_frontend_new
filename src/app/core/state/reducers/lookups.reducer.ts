@@ -110,7 +110,7 @@ export const reducer = createReducer(
   on(lookupsActions.loadLanguagesFailure, (state, { error }) => ({
     ...state,
     isLoadingLanguages: false,
-    loadingLanguagesFailure: error.message,
+    loadingLanguagesFailure: error,
   })),
 
   on(lookupsActions.loadLevels, (state) => ({
@@ -127,7 +127,7 @@ export const reducer = createReducer(
   on(lookupsActions.loadLevelsFailure, (state, { error }) => ({
     ...state,
     isLoadingLevels: false,
-    loadingLevelsFailure: error.message,
+    loadingLevelsFailure: error,
   })),
 
   on(lookupsActions.loadCountries, (state) => ({
@@ -144,7 +144,7 @@ export const reducer = createReducer(
   on(lookupsActions.loadCountriesFailure, (state, { error }) => ({
     ...state,
     isLoadingCountries: false,
-    loadingCountriesFailure: error.message,
+    loadingCountriesFailure: error,
   })),
 
   on(lookupsActions.loadCities, (state) => ({
@@ -161,7 +161,7 @@ export const reducer = createReducer(
   on(lookupsActions.loadCitiesFailure, (state, { error }) => ({
     ...state,
     isLoadingCities: false,
-    loadingCitiesFailure: error.message,
+    loadingCitiesFailure: error,
   })),
 
   on(lookupsActions.loadPrograms, (state) => ({
@@ -178,7 +178,7 @@ export const reducer = createReducer(
   on(lookupsActions.loadProgramsFailure, (state, { error }) => ({
     ...state,
     isLoadingPrograms: false,
-    loadingProgramsFailure: error.message,
+    loadingProgramsFailure: error,
   })),
 
   on(lookupsActions.loadProgramsEnded, (state) => ({
@@ -211,7 +211,7 @@ export const reducer = createReducer(
     (state, { error }) => ({
       ...state,
       isLoadingSubjects: false,
-      loadingSubjectsFailure: error.message,
+      loadingSubjectsFailure: error,
     })
   ),
 
@@ -258,7 +258,7 @@ export const reducer = createReducer(
   on(lookupsActions.loadTopicsFailure, (state, { error }) => ({
     ...state,
     isLoadingTopics: false,
-    loadingTopicsFailure: error.message,
+    loadingTopicsFailure: error,
   })),
 
   on(lookupsActions.loadTopicsEnded, (state) => ({
@@ -280,7 +280,7 @@ export const reducer = createReducer(
   on(lookupsActions.loadFAQsFailure, (state, { error }) => ({
     ...state,
     isLoadingFAQs: false,
-    loadingFAQsFailure: error.message,
+    loadingFAQsFailure: error,
   })),
 
   on(lookupsActions.loadFAQsEnded, (state) => ({
@@ -302,7 +302,7 @@ export const reducer = createReducer(
   on(lookupsActions.loadTicketCategoriesFailure, (state, { error }) => ({
     ...state,
     isLoadingTicketCategories: false,
-    loadingTicketCategoriesFailure: error.message,
+    loadingTicketCategoriesFailure: error,
   })),
 
   on(lookupsActions.loadTicketCategoriesEnded, (state) => ({
@@ -324,7 +324,7 @@ export const reducer = createReducer(
   on(lookupsActions.loadTicketPrioritiesFailure, (state, { error }) => ({
     ...state,
     isLoadingTicketPriorities: false,
-    loadingTicketPrioritiesFailure: error.message,
+    loadingTicketPrioritiesFailure: error,
   })),
 
   on(lookupsActions.loadTicketPrioritiesEnded, (state) => ({

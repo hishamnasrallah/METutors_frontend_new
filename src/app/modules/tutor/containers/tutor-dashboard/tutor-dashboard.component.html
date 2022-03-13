@@ -134,7 +134,7 @@
         <ng-container [ngSwitch]="view.loading">
           <metutors-card-placeholder *ngSwitchCase="true"></metutors-card-placeholder>
           <ng-container *ngSwitchCase="false">
-            <metutors-classroom-item [classroom]="course" *ngFor="let course of view.data.courses" [isTutor]="true" [url]="'/tutor/classrooms/classes/dashboard/'"></metutors-classroom-item>
+            <metutors-classroom-item [classroom]="course" *ngFor="let course of view.data.courses" [url]="'/tutor/classrooms/classes/dashboard/'"></metutors-classroom-item>
           </ng-container>
         </ng-container>
       </div>
