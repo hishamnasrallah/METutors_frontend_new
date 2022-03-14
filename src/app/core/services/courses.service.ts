@@ -40,6 +40,13 @@ export class CoursesService {
     );
   }
 
+  acceptCourse(payload: { courseId: number }): Observable<any> {
+    return this.http.post<{ dashboard: any }>(
+      `${this.baseUrl}accept-course/${payload.courseId}`,
+      {}
+    );
+  }
+
   rejectCourse(payload: { reason: string; courseId: number }): Observable<any> {
     return this.http.post<{ dashboard: any }>(
       `${this.baseUrl}reject-course/${payload.courseId}`,

@@ -384,3 +384,8 @@ export const selectIsRejectingCourse = createSelector(
   selectCourseState,
   fromCourseReducer.selectIsRejectingCourse
 );
+
+export const selectIsAcceptingCourse = createSelector(
+  selectCourseState,
+  fromCourseReducer.selectIsAcceptingCourse
+);

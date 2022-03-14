@@ -7,6 +7,7 @@ export interface State {
   courses: any;
   isLoadingCourses: boolean;
   isRejectingCourse: boolean;
+  isAcceptingCourse: boolean;
   loadingCoursesFailure: string;
 
   // Course by id
@@ -20,6 +21,7 @@ export const initialState: State = {
   isLoadingCourse: false,
   isLoadingCourses: false,
   isRejectingCourse: false,
+  isAcceptingCourse: false,
   loadingCoursesFailure: '',
 };
 
@@ -93,6 +95,44 @@ export const reducer = createReducer(
   on(courseActions.tutorRejectCourseFailure, (state) => ({
     ...state,
     isRejectingCourse: false,
+  })),
+
+  on(courseActions.tutorAcceptCourse, (state) => ({
+    ...state,
+    isAcceptingCourse: true,
+  })),
+
+  on(courseActions.tutorAcceptCourseSuccess, (state, { courseId }) => {
+    let finalState = {
+      ...state,
+      isAcceptingCourse: false,
+    };
+
+    if (finalState?.courses?.newlyAssignedCourses) {
+      const acceptedCourse = finalState.courses.newlyAssignedCourses.find(
+        (course: any) => course.id === courseId
+      );
+
+      const courses = {
+        ...finalState.courses,
+        activeCourses: finalState.courses.activeCourses.unshift(acceptedCourse),
+        newlyAssignedCourses: finalState.courses.newlyAssignedCourses.filter(
+          (course: any) => course.id !== courseId
+        ),
+      };
+
+      finalState = {
+        ...finalState,
+        courses,
+      };
+    }
+
+    return finalState;
+  }),
+
+  on(courseActions.tutorAcceptCourseFailure, (state) => ({
+    ...state,
+    isAcceptingCourse: false,
   }))
 );
 
@@ -122,3 +162,6 @@ export const selectCourseFieldOfStudies = (state: State): any =>
 
 export const selectIsRejectingCourse = (state: State): any =>
   state.isRejectingCourse;
+
+export const selectIsAcceptingCourse = (state: State): any =>
+  state.isAcceptingCourse;

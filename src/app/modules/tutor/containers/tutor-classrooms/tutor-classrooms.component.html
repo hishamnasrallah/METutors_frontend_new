@@ -51,7 +51,8 @@
           <ng-container *ngSwitchCase="false">
             <div class="col-md-12" *ngFor="let newCourse of view.newCourses">
               <metutors-classroom-item [classroom]="newCourse"
-                                       [completeCourse]="true"
+                                       [completeCourse]="true" [isAcceptingCourse]="(isAccepting$ | async)!"
+                                       (accept)="onAcceptCourse(newCourse.id)"
                                        (reject)="onOpenRejectCourse(newCourse.id)"
                                        [url]="'/tutor/classrooms/classes/dashboard/'">
               </metutors-classroom-item>

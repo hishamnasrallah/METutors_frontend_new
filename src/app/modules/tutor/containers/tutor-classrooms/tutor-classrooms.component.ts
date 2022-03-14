@@ -49,6 +49,7 @@ export class TutorClassroomsComponent implements OnInit {
   layout$: any;
   user$: Observable<IUser | null>;
   isRejecting$: Observable<boolean>;
+  isAccepting$: Observable<boolean>;
   showRejectCourseModal$: Observable<boolean>;
   view$: Observable<{
     programs: any;
@@ -88,6 +89,14 @@ export class TutorClassroomsComponent implements OnInit {
     this._store.dispatch(fromTutorAction.closeTutorRejectCourseModal());
   }
 
+  onAcceptCourse(courseId: number): void {
+    this._store.dispatch(
+      fromCore.tutorAcceptCourse({
+        courseId,
+      })
+    );
+  }
+
   onRejectCourse(form: FormGroup): void {
     this._store.dispatch(
       fromCore.tutorRejectCourse({
@@ -103,6 +112,7 @@ export class TutorClassroomsComponent implements OnInit {
     this.user$ = this._store.select(fromCore.selectUser);
     this._store.dispatch(fromCore.loadCourses({}));
     this.isRejecting$ = this._store.select(fromCore.selectIsRejectingCourse);
+    this.isAccepting$ = this._store.select(fromCore.selectIsAcceptingCourse);
 
     this.showRejectCourseModal$ = this._store.select(
       fromTutor.selectRejectCourseModal
