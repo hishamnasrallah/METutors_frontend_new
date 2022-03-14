@@ -13,6 +13,15 @@ export const signInSuccess = createAction(
   }>()
 );
 
+export const signInAdminSuccess = createAction(
+  '[User] Sign In Admin Success',
+  props<{
+    tempToken: string;
+    user: IUser;
+    returnUrl?: string;
+  }>()
+);
+
 export const signInFailure = createAction(
   '[User] Sign In Failure',
   props<{ error: any }>()
@@ -21,6 +30,23 @@ export const signInFailure = createAction(
 export const signInRequired = createAction(
   '[User] Sign In Required',
   props<{ returnUrl?: string }>()
+);
+
+export const submitOTPAdmin = createAction(
+  '[User] Submit OTP Admin',
+  props<{ otp: string }>()
+);
+
+export const resendOTPAdmin = createAction('[User] Resend OTP Admin');
+
+export const resendOTPAdminSuccess = createAction(
+  '[User] Resend OTP Admin Success',
+  props<{ message: string }>()
+);
+
+export const resendOTPAdminFailure = createAction(
+  '[User] Resend OTP Admin Failure',
+  props<{ error: any }>()
 );
 
 export const logout = createAction('[User] Logout');

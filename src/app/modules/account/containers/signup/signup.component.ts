@@ -253,10 +253,7 @@ export class SignupComponent implements OnInit, OnDestroy {
     this.loading = true;
     const formData = new FormData();
 
-    for (let i = 0; i < files.length; i++) {
-      formData.append(`documents[${i}]`, files[i]);
-    }
-
+    formData.append(`documents[]`, files.toString());
     formData.append(`email`, this.email?.value);
 
     this.signupSub = this._authService.uploadDocuments(formData).subscribe(
@@ -317,7 +314,7 @@ export class SignupComponent implements OnInit, OnDestroy {
             // } else if (this._authService.getIsTutorAuth()) {
             //   this._router.navigate(['/tutor']);
             // } else {
-              this._router.navigate(['/']);
+            this._router.navigate(['/']);
             // }
           }
         },

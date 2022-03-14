@@ -14,7 +14,7 @@ export class TicketsService {
 
   loadTickets(): Observable<any> {
     return this.http
-      .get<{ tickets: ITicket[] }>(`${this.baseUrl}my_tickets`)
+      .get<{ tickets: ITicket[] }>(`${this.baseUrl}my-tickets`)
       .pipe(
         map((response) =>
           response.tickets.map((ticket) => new ITicket(false, ticket))
@@ -51,6 +51,15 @@ export class TicketsService {
       .post(`${this.baseUrl}comment`, {
         ticket_id: ticketId,
         comment,
+      })
+      .pipe(catchError(this.errorHandler));
+  }
+
+  changeTicketStatus(status: string, ticketId: number): Observable<any> {
+    return this.http
+      .post(`${this.baseUrl}admin/ticket/change-status`, {
+        status,
+        ticket_id: ticketId,
       })
       .pipe(catchError(this.errorHandler));
   }

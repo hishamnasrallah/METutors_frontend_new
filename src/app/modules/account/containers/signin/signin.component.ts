@@ -8,14 +8,14 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, tap } from 'rxjs';
 import { addMisc, getMisc } from 'src/app/config';
 import { AlertNotificationService } from 'src/app/core/components';
 import { IRole } from 'src/app/core/models';
 import { AuthService, UsersService } from 'src/app/core/services';
 import { FormValidationUtilsService } from 'src/app/core/validators';
 import * as fromCore from '@metutor/core/state';
-import { RolesSelectComponent } from '../../components';
+import { OtpVerifyComponent, RolesSelectComponent } from '../../components';
 
 @Component({
   selector: 'metutors-signin',
@@ -63,6 +63,12 @@ export class SigninComponent implements OnInit, OnDestroy {
     this._prepareRoles();
 
     this.isLoading$ = this._store.select(fromCore.selectIsSignIn);
+    this._store.select(fromCore.selectTempToken).subscribe((token) => {
+      console.log(token)
+      if (token) {
+        this.openOtpDialog();
+      }
+    });
   }
 
   get username(): AbstractControl | null {
@@ -73,27 +79,13 @@ export class SigninComponent implements OnInit, OnDestroy {
     return this.signinForm.get('password');
   }
 
-  onSubmit(form: FormGroup) {
+  onSubmit(form: FormGroup): void {
     if (form.invalid) {
       return;
     }
 
     this._store.dispatch(fromCore.signIn({ user: form.value }));
   }
-
-  // openDialog(data: any): void {
-  //   const dialogRef = this.dialog.open(OtpVerifyComponent, {
-  //     width: '500px',
-  //     data,
-  //     disableClose: true,
-  //   });
-
-  //   dialogRef.afterClosed().subscribe(() => {
-  //     this._router.navigate(['/admin-dashboard'], {
-  //       queryParams: { id: data.user.id, name: data.user.first_name },
-  //     });
-  //   });
-  // }
 
   openRolesDialog(domain: any): void {
     const dialogRef = this._dialog.open(RolesSelectComponent, {
@@ -109,6 +101,29 @@ export class SigninComponent implements OnInit, OnDestroy {
           ? this.signInWithGoogle()
           : this.signInWithFacebook();
       }
+    });
+  }
+
+  openOtpDialog(): void {
+    const dialogRef = this._dialog.open(OtpVerifyComponent, {
+      width: '500px',
+      disableClose: true,
+    });
+
+    dialogRef.afterClosed().subscribe((res: any) => {
+      if (res && res.data) {
+        console.log(res);
+      }
+    });
+
+    dialogRef.componentInstance.submitForm.subscribe((otp) => {
+      if (otp) {
+        this._store.dispatch(fromCore.submitOTPAdmin({ otp }));
+      }
+    });
+
+    dialogRef.componentInstance.resendOTP.subscribe(() => {
+      this._store.dispatch(fromCore.resendOTPAdmin());
     });
   }
 

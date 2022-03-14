@@ -62,3 +62,18 @@ export const submitTicketCommentFailure = createAction(
   '[Student] Submit Ticket Comment Failure',
   props<{ error: any }>()
 );
+
+export const changeTicketStatus = createAction(
+  '[Student] Change Ticket Status',
+  props<{ status: string; ticketId: number }>()
+);
+
+export const changeTicketStatusSuccess = createAction(
+  '[Student] Change Ticket Status Success',
+  props<{ message: string }>()
+);
+
+export const changeTicketStatusFailure = createAction(
+  '[Student] Change Ticket Status Failure',
+  props<{ error: any }>()
+);

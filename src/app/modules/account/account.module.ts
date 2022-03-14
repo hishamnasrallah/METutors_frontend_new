@@ -10,6 +10,7 @@ import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { RatingModule } from 'ngx-bootstrap/rating';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { SharedModule } from '@metutor/shared/shared.module';
+
 import {
   SigninComponent,
   SignupComponent,
@@ -19,6 +20,7 @@ import {
 } from './containers';
 
 import {
+  OtpVerifyComponent,
   RolesSelectComponent,
   AuthOpinionsComponent,
   SignupUploadDocumentsComponent,
@@ -29,6 +31,7 @@ import {
   declarations: [
     SigninComponent,
     SignupComponent,
+    OtpVerifyComponent,
     RolesSelectComponent,
     ConfirmEmailComponent,
     AuthOpinionsComponent,
