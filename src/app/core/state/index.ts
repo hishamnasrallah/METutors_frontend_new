@@ -359,3 +359,8 @@ export const selectIsLoadingCourses = createSelector(
   selectCourseState,
   fromCourseReducer.selectIsLoadingCourses
 );
+
+export const selectIsRejectingCourse = createSelector(
+  selectCourseState,
+  fromCourseReducer.selectIsRejectingCourse
+);

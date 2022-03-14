@@ -1,4 +1,6 @@
 import { NgModule } from '@angular/core';
+import { StoreModule } from '@ngrx/store';
+// import { EffectsModule } from '@ngrx/effects';
 import { CommonModule } from '@angular/common';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { RatingModule } from 'ngx-bootstrap/rating';
@@ -16,6 +18,10 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { NgxAutoScrollModule } from 'ngx-auto-scroll';
 import { TutorRoutingModule } from './tutor-routing.module';
 import { SharedModule } from '@metutor/shared/shared.module';
+
+import * as fromTutor from './state';
+// import * as tutorEffects from './state/effects';
+import * as featureKeys from './state/feature-keys';
 
 import {
   TutorComponent,
@@ -44,6 +50,7 @@ import {
   TutorSettingsAccountComponent,
   FaqStillHaveQuestionsComponent,
   TutorSettingsSecurityComponent,
+  TutorRejectCourseModalComponent,
   TutorSettingsUserPreferencesComponent,
   TutorSettingsPaymentInformationComponent,
 } from './components';
@@ -73,6 +80,7 @@ import {
     TutorAttendanceModalComponent,
     TutorSettingsSecurityComponent,
     FaqStillHaveQuestionsComponent,
+    TutorRejectCourseModalComponent,
     TutorSettingsUserPreferencesComponent,
     TutorSettingsPaymentInformationComponent,
   ],
@@ -94,6 +102,8 @@ import {
     MatProgressBarModule,
     MatButtonToggleModule,
     RatingModule.forRoot(),
+    // EffectsModule.forFeature(Object.values(tutorEffects)),
+    StoreModule.forFeature(featureKeys.tutorFeatureKey, fromTutor.reducers),
   ],
 })
 export class TutorModule {}

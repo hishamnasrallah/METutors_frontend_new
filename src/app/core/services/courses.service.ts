@@ -40,6 +40,14 @@ export class CoursesService {
     );
   }
 
+  rejectCourse(params: any): Observable<any> {
+    return this.http
+      .get<{ dashboard: any }>(
+        `${this.baseUrl}teacher-dashboard?search_query=${params}`
+      )
+      .pipe(map((response) => response));
+  }
+
   getClassroomById(id: string): Observable<any> {
     return this.http.get<ICourse>(`${this.baseUrl}batch/${id}/`).pipe(
       map((response) => {

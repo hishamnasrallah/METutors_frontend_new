@@ -108,8 +108,8 @@
                 <mat-icon>arrow_forward</mat-icon>
               </a>
                <div class="d-flex" *ngIf="completeCourse">
-                <button mat-button class="secondary-btn flex-grow-1">Reject</button>
-                <button mat-flat-button color="primary" class="flex-grow-1">Accept</button>
+                <button mat-button class="secondary-btn flex-grow-1" (click)="reject.emit()">Reject</button>
+                <button mat-flat-button color="primary" class="flex-grow-1" (click)="accept.emit()">Accept</button>
               </div>
             </div>
           </div>

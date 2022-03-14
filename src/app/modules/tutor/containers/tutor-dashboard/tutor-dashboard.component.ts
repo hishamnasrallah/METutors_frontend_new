@@ -1,11 +1,13 @@
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
+import { FormGroup } from '@angular/forms';
 import { combineLatest, Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
+
 import * as fromRoot from '@metutor/state';
+import { IUser } from '@metutor/core/models';
 import * as fromCore from '@metutor/core/state';
 import { insightRange, WEEK_DAYS } from '@metutor/config';
-import { IUser } from '@metutor/core/models';
 
 @Component({
   selector: 'metutors-tutor-dashboard',
@@ -14,7 +16,9 @@ import { IUser } from '@metutor/core/models';
 })
 export class TutorDashboardComponent implements OnInit {
   layout$: any;
+  showRejectCourseModal = false;
   user$: Observable<IUser | null>;
+  isRejecting$: Observable<any>;
   view$: Observable<{ loading: boolean; data: any }>;
 
   range = '7days';
@@ -27,9 +31,17 @@ export class TutorDashboardComponent implements OnInit {
     this._store.dispatch(fromCore.loadTutorDashboard({ params, load: true }));
   }
 
+  onRejectCourse(form: FormGroup): void {
+    // this.showRejectCourseModal = false;
+    this._store.dispatch(
+      fromCore.tutorRejectCourse({ reason: 'abc', courseId: 20 })
+    );
+  }
+
   ngOnInit(): void {
-    this.layout$ = this._store.select(fromRoot.selectLayout);
     this.user$ = this._store.select(fromCore.selectUser);
+    this.layout$ = this._store.select(fromRoot.selectLayout);
+    this.isRejecting$ = this._store.select(fromCore.selectIsRejectingCourse);
     this._store.dispatch(
       fromCore.loadTutorDashboard({ params: this.range, load: false })
     );
