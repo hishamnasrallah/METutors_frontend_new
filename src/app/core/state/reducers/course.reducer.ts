@@ -68,16 +68,23 @@ export const reducer = createReducer(
   })),
 
   on(courseActions.tutorRejectCourseSuccess, (state, { courseId }) => {
-    const finalState = {
+    let finalState = {
       ...state,
       isRejectingCourse: false,
     };
 
     if (finalState?.courses?.newlyAssignedCourses) {
-      finalState.courses.newlyAssignedCourses =
-        finalState.courses.newlyAssignedCourses.filter(
+      const courses = {
+        ...finalState.courses,
+        newlyAssignedCourses: finalState.courses.newlyAssignedCourses.filter(
           (course: any) => course.id !== courseId
-        );
+        ),
+      };
+
+      finalState = {
+        ...finalState,
+        courses,
+      };
     }
 
     return finalState;

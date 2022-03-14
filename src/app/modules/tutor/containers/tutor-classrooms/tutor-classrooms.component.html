@@ -50,7 +50,11 @@
 
           <ng-container *ngSwitchCase="false">
             <div class="col-md-12" *ngFor="let newCourse of view.newCourses">
-              <metutors-classroom-item [classroom]="newCourse" [completeCourse]="true" [url]="'/tutor/classrooms/classes/dashboard/'"></metutors-classroom-item>
+              <metutors-classroom-item [classroom]="newCourse"
+                                       [completeCourse]="true"
+                                       (reject)="onOpenRejectCourse(newCourse.id)"
+                                       [url]="'/tutor/classrooms/classes/dashboard/'">
+              </metutors-classroom-item>
             </div>
 
             <div class="col-md-12 mb-3" *ngIf="!view.newCourses || !view.newCourses.length">
@@ -113,3 +117,9 @@
     </div>
   </div>
 </div>
+
+<metutors-tutor-reject-course-modal (submitted)="onRejectCourse($event)"
+                                    (closeModal)="onCloseRejectCourse()"
+                                    [submitting]="(isRejecting$ | async)!"
+                                    [showModal]="(showRejectCourseModal$ | async)!">
+</metutors-tutor-reject-course-modal>

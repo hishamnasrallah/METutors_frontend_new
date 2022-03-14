@@ -8,6 +8,7 @@ import {
 } from '@angular/animations';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
+import { FormGroup } from '@angular/forms';
 import { combineLatest, Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 
@@ -15,6 +16,8 @@ import * as fromRoot from '@metutor/state';
 import { WEEK_DAYS } from '@metutor/config';
 import { IUser } from '@metutor/core/models';
 import * as fromCore from '@metutor/core/state';
+import * as fromTutor from '@metutor/modules/tutor/state';
+import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
 
 @Component({
   selector: 'metutors-tutor-classrooms',
@@ -45,6 +48,8 @@ import * as fromCore from '@metutor/core/state';
 export class TutorClassroomsComponent implements OnInit {
   layout$: any;
   user$: Observable<IUser | null>;
+  isRejecting$: Observable<boolean>;
+  showRejectCourseModal$: Observable<boolean>;
   view$: Observable<{
     programs: any;
     newCourses: any;
@@ -55,6 +60,7 @@ export class TutorClassroomsComponent implements OnInit {
     completedCourses: any;
   }>;
 
+  courseId: number;
   programId = null;
   countryId = null;
   openActive = true;
@@ -73,11 +79,34 @@ export class TutorClassroomsComponent implements OnInit {
     this._store.dispatch(fromCore.loadCourses({ params }));
   }
 
+  onOpenRejectCourse(id: number) {
+    this.courseId = id;
+    this._store.dispatch(fromTutorAction.openTutorRejectCourseModal());
+  }
+
+  onCloseRejectCourse() {
+    this._store.dispatch(fromTutorAction.closeTutorRejectCourseModal());
+  }
+
+  onRejectCourse(form: FormGroup): void {
+    this._store.dispatch(
+      fromCore.tutorRejectCourse({
+        reason: form.value.rejectReason,
+        courseId: this.courseId,
+      })
+    );
+  }
+
   ngOnInit(): void {
     this._store.dispatch(fromCore.loadCountries());
     this.layout$ = this._store.select(fromRoot.selectLayout);
     this.user$ = this._store.select(fromCore.selectUser);
     this._store.dispatch(fromCore.loadCourses({}));
+    this.isRejecting$ = this._store.select(fromCore.selectIsRejectingCourse);
+
+    this.showRejectCourseModal$ = this._store.select(
+      fromTutor.selectRejectCourseModal
+    );
 
     this.view$ = combineLatest([
       this._store.select(fromCore.selectCountries),
