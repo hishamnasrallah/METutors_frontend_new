@@ -7,8 +7,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./tutor-reject-course-modal.component.scss'],
 })
 export class TutorRejectCourseModalComponent implements OnInit {
-  @Input() showModal = false;
-  @Input() submitting: boolean;
+  @Input() showModal: boolean = false;
+  @Input() submitting: boolean = false;
 
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
   @Output() submitted: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();

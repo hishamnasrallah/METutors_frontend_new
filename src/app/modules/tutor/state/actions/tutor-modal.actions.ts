@@ -1,4 +1,4 @@
-import { createAction, props } from '@ngrx/store';
+import { createAction } from '@ngrx/store';
 
 export const openTutorRejectCourseModal = createAction(
   '[Tutor Modal] Open Tutor Reject Course Modal'

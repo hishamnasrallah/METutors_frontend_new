@@ -134,10 +134,15 @@
         <ng-container [ngSwitch]="view.loading">
           <metutors-card-placeholder *ngSwitchCase="true"></metutors-card-placeholder>
           <ng-container *ngSwitchCase="false">
+            <ng-container *ngIf="view.data.courses?.length">
             <metutors-classroom-item [classroom]="course" *ngFor="let course of view.data.courses"
-                                     [completeCourse]="true" (reject)="showRejectCourseModal = true"
+                                     [completeCourse]="true" (reject)="onOpenRejectCourse(course.id)"
                                      [url]="'/tutor/classrooms/classes/dashboard/'">
             </metutors-classroom-item>
+            </ng-container>
+            <ng-container *ngIf="!view.data.courses?.length">
+              <div class="p-5 text-center">No record found</div>
+            </ng-container>
           </ng-container>
         </ng-container>
       </div>
@@ -194,6 +199,6 @@
   </ng-container>
 </div>
 
-<metutors-tutor-reject-course-modal [showModal]="showRejectCourseModal" (submitted)="onRejectCourse($event)"
-                                    (closeModal)="showRejectCourseModal=false" [submitting]="isRejecting$ | async">
+<metutors-tutor-reject-course-modal [showModal]="(showRejectCourseModal$ | async)!" (submitted)="onRejectCourse($event)"
+                                    (closeModal)="onCloseRejectCourse()" [submitting]="(isRejecting$ | async)!">
 </metutors-tutor-reject-course-modal>

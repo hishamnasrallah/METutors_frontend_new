@@ -4,9 +4,11 @@ import { FormGroup } from '@angular/forms';
 import { combineLatest, Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 
+import * as fromTutor from '../../state';
 import * as fromRoot from '@metutor/state';
 import { IUser } from '@metutor/core/models';
 import * as fromCore from '@metutor/core/state';
+import * as fromTutorAction from '../../state/actions';
 import { insightRange, WEEK_DAYS } from '@metutor/config';
 
 @Component({
@@ -16,9 +18,10 @@ import { insightRange, WEEK_DAYS } from '@metutor/config';
 })
 export class TutorDashboardComponent implements OnInit {
   layout$: any;
-  showRejectCourseModal = false;
+  courseId: number;
   user$: Observable<IUser | null>;
-  isRejecting$: Observable<any>;
+  isRejecting$: Observable<boolean>;
+  showRejectCourseModal$: Observable<boolean>;
   view$: Observable<{ loading: boolean; data: any }>;
 
   range = '7days';
@@ -31,10 +34,21 @@ export class TutorDashboardComponent implements OnInit {
     this._store.dispatch(fromCore.loadTutorDashboard({ params, load: true }));
   }
 
+  onOpenRejectCourse(id: number) {
+    this.courseId = id;
+    this._store.dispatch(fromTutorAction.openTutorRejectCourseModal());
+  }
+
+  onCloseRejectCourse() {
+    this._store.dispatch(fromTutorAction.closeTutorRejectCourseModal());
+  }
+
   onRejectCourse(form: FormGroup): void {
-    // this.showRejectCourseModal = false;
     this._store.dispatch(
-      fromCore.tutorRejectCourse({ reason: 'abc', courseId: 20 })
+      fromCore.tutorRejectCourse({
+        reason: form.value.rejectReason,
+        courseId: this.courseId,
+      })
     );
   }
 
@@ -42,6 +56,11 @@ export class TutorDashboardComponent implements OnInit {
     this.user$ = this._store.select(fromCore.selectUser);
     this.layout$ = this._store.select(fromRoot.selectLayout);
     this.isRejecting$ = this._store.select(fromCore.selectIsRejectingCourse);
+
+    this.showRejectCourseModal$ = this._store.select(
+      fromTutor.selectRejectCourseModal
+    );
+
     this._store.dispatch(
       fromCore.loadTutorDashboard({ params: this.range, load: false })
     );

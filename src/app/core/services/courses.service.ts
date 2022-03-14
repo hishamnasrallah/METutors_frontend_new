@@ -40,12 +40,11 @@ export class CoursesService {
     );
   }
 
-  rejectCourse(params: any): Observable<any> {
-    return this.http
-      .get<{ dashboard: any }>(
-        `${this.baseUrl}teacher-dashboard?search_query=${params}`
-      )
-      .pipe(map((response) => response));
+  rejectCourse(payload: { reason: string; courseId: number }): Observable<any> {
+    return this.http.post<{ dashboard: any }>(
+      `${this.baseUrl}reject-course/${payload.courseId}`,
+      { reason: payload.reason }
+    );
   }
 
   getClassroomById(id: string): Observable<any> {

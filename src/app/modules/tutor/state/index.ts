@@ -13,8 +13,8 @@ export interface TutorState {
   [featureKeys.tutorModalFeatureKey]: fromTutorModal.State;
 }
 
-// Extends the app state to include the company feature.
-// This is required because company feature is lazy loaded.
+// Extends the app state to include the tutor feature.
+// This is required because tutor feature is lazy loaded.
 // So the reference to State cannot be added to root state directly.
 export interface State extends fromRoot.State {
   [featureKeys.tutorFeatureKey]: TutorState;

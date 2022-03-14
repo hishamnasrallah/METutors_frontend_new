@@ -70,6 +70,7 @@ export const reducer = createReducer(
   on(courseActions.tutorRejectCourseSuccess, (state, { courseId }) => {
     const finalState = {
       ...state,
+      isRejectingCourse: false,
     };
 
     if (finalState?.courses?.newlyAssignedCourses) {

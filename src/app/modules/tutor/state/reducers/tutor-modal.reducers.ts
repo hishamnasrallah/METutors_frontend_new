@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { createReducer, on } from '@ngrx/store';
 
 import * as fromCore from '@metutor/core/state';
@@ -30,6 +29,6 @@ export const reducer = createReducer(
   )
 );
 
-// company modal selectors
+// tutor modal selectors
 export const selectRejectCourseModal = (state: State): boolean =>
   state.showRejectCourseModal;

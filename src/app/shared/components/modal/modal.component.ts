@@ -55,6 +55,8 @@ export class ModalComponent implements OnInit, OnChanges {
       dialogRef.afterClosed().subscribe((result) => {
         this.closeModal.emit();
       });
+    } else {
+      this.dialog.closeAll();
     }
   }
 }

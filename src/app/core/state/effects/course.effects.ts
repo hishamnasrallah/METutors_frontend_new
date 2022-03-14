@@ -9,7 +9,6 @@ import camelcaseKeys from 'camelcase-keys';
 import { CoursesService } from '@services';
 import * as fromRouterStore from '@metutor/state';
 import * as courseActions from '../actions/course.actions';
-import * as tutorActions from '@metutor/core/state/actions/tutor.actions';
 
 @Injectable()
 export class CourseEffects {
@@ -67,20 +66,22 @@ export class CourseEffects {
     this._actions$.pipe(
       ofType(courseActions.tutorRejectCourse),
       mergeMap((action) =>
-        this._courseService.rejectCourse(action).pipe(
-          map(() =>
-            courseActions.tutorRejectCourseSuccess({
-              courseId: action.courseId,
-            })
-          ),
-          catchError((error) =>
-            of(
-              courseActions.tutorRejectCourseFailure({
-                error: error?.error?.message || error?.error?.errors,
+        this._courseService
+          .rejectCourse({ reason: action.reason, courseId: action.courseId })
+          .pipe(
+            map(() =>
+              courseActions.tutorRejectCourseSuccess({
+                courseId: action.courseId,
               })
+            ),
+            catchError((error) =>
+              of(
+                courseActions.tutorRejectCourseFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
             )
           )
-        )
       )
     )
   );
