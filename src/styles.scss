@@ -549,6 +549,30 @@ rating span.bs-rating-star {
   background-color: #e8e8e8;
 }
 
+// mat slider
+.mat-slider-track-fill,
+.mat-slider-wrapper,
+.mat-slider-track-wrapper,
+.mat-slider-track-background {
+  height: 11px !important;
+  border-radius: 10px;
+}
+
+.mat-slider-thumb {
+  bottom: -14px !important;
+  height: 28px !important;
+  width: 28px !important;
+  background-color: #3bb3c1 !important;
+}
+
+.mat-slider-thumb-label {
+  background-color: #3bb3c1 !important;
+}
+
+.mat-slider-track-fill {
+  background-color: #3bb3c1 !important;
+}
+
 metutors-navbar-mobile {
   .p-sidebar {
     width: 90%;

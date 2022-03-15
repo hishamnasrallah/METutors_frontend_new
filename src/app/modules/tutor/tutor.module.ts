@@ -10,6 +10,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSliderModule } from '@angular/material/slider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -51,6 +52,7 @@ import {
   FaqStillHaveQuestionsComponent,
   TutorSettingsSecurityComponent,
   TutorRejectCourseModalComponent,
+  TutorAddSyllabusTopicModalComponent,
   TutorSettingsUserPreferencesComponent,
   TutorSettingsPaymentInformationComponent,
 } from './components';
@@ -81,6 +83,7 @@ import {
     TutorSettingsSecurityComponent,
     FaqStillHaveQuestionsComponent,
     TutorRejectCourseModalComponent,
+    TutorAddSyllabusTopicModalComponent,
     TutorSettingsUserPreferencesComponent,
     TutorSettingsPaymentInformationComponent,
   ],
@@ -92,6 +95,7 @@ import {
     MatIconModule,
     CarouselModule,
     MatRadioModule,
+    MatSliderModule,
     MatSelectModule,
     MatButtonModule,
     BsDropdownModule,

@@ -1,0 +1,39 @@
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [heading]="'Add Course Topic'"
+                [template]="template">
+  <ng-template #template>
+    <div class="row add-topic-modal">
+      <div class="col-12">
+        <div class="classroom-item">
+          <div class="row">
+            <div class="mb-3">
+              <label for="topic" class="form-label">Enter Topic Name</label>
+              <input type="text" class="form-control custom-input input-bordered" id="topic" placeholder="Enter Topic Name">
+            </div>
+            <div class="mb-3">
+              <label for="description" class="form-label">Description</label>
+              <textarea class="form-control" id="description" rows="6" placeholder="Enter Description here"></textarea>
+            </div>
+            <div class="">
+              <label for="select-class" class="form-label">
+                Select Classes
+              <span class="remaining-class">Remaining classes (0 out of 15)</span>
+              </label>
+            </div>
+            <div class="col-auto col-10 align-middle">
+              <mat-slider thumbLabel id="select-class" min="1" max="5" class="w-100 -mt-7"></mat-slider>
+            </div>
+            <div class="col-auto col-2">
+              <input type="text" class="form-control" placeholder="0">
+            </div>
+
+            <div class="mt-3 col-auto col-3 float-end">
+              <metutors-submit-button [extraClasses]="'w-100 float-end'">
+                Add
+              </metutors-submit-button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</metutors-modal>

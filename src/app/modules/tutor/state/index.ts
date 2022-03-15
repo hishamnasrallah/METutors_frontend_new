@@ -39,6 +39,11 @@ export const selectTutorModalState = createSelector(
 );
 
 // Tutor modal selectors
+export const selectAddTopicModal = createSelector(
+  selectTutorModalState,
+  fromTutorModal.selectAddTopicModal
+);
+
 export const selectRejectCourseModal = createSelector(
   selectTutorModalState,
   fromTutorModal.selectRejectCourseModal

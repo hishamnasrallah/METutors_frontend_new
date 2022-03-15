@@ -40,7 +40,7 @@
               </div>
             </div>
             <div class="col-md-7">
-              <button mat-button class="main-button-transparent float-end">
+              <button mat-button class="main-button-transparent float-end" (click)="onShowAddTopicModal()">
                 <mat-icon>add</mat-icon>
                 Add new Topic
               </button>
@@ -181,3 +181,7 @@
     </ng-container>
   </div>
 </div>
+
+<metutors-tutor-add-syllabus-topic-modal [showModal]="(showAddTopicModal$ | async)!"
+                                         (closeModal)="onCloseAddTopicModal()">
+</metutors-tutor-add-syllabus-topic-modal>

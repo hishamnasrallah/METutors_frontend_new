@@ -16,6 +16,8 @@ import { ClassroomType, WEEK_DAYS } from '@metutor/config';
 import { Store } from '@ngrx/store';
 import * as fromCore from '@metutor/core/state';
 import { map } from 'rxjs/operators';
+import * as fromTutorAction from '../../state/actions';
+import * as fromTutor from '../../state';
 
 @Component({
   selector: 'metutors-tutor-syllabus',
@@ -211,9 +213,18 @@ export class TutorSyllabusComponent implements OnInit {
     ],
   };
 
+  showAddTopicModal$: Observable<boolean>;
   view$: Observable<{ loading: boolean; syllabus: any }>;
 
   constructor(private _store: Store<any>) {}
+
+  onShowAddTopicModal(): void {
+    this._store.dispatch(fromTutorAction.openTutorAddTopicModal());
+  }
+
+  onCloseAddTopicModal(): void {
+    this._store.dispatch(fromTutorAction.closeTutorAddTopicModal());
+  }
 
   getDays(weekdays: string) {
     const listDays: any = [];
@@ -227,6 +238,8 @@ export class TutorSyllabusComponent implements OnInit {
 
   ngOnInit(): void {
     this._store.dispatch(fromCore.loadTutorSyllabus());
+    this.showAddTopicModal$ = this._store.select(fromTutor.selectAddTopicModal);
+
     this.view$ = combineLatest([
       this._store.select(fromCore.selectTutorSyllabus),
       this._store.select(fromCore.selectIsLoadingTutorSyllabus),
