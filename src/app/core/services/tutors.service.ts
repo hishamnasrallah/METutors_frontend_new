@@ -75,4 +75,10 @@ export class TutorsService {
       }
     );
   }
+
+  getTutorSyllabus(id: number | string): Observable<any> {
+    return this.http.get<{ user: ITutor }>(
+      `${this.baseUrl}course/${id}/syllabus`
+    );
+  }
 }

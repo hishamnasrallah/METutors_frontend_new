@@ -7,12 +7,15 @@ import {
   group,
   animate,
 } from '@angular/animations';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription, combineLatest } from 'rxjs';
 import { IClassroom, ISyllabus } from 'src/app/core/models';
 import { Title } from '@angular/platform-browser';
 import { CoursesService } from 'src/app/core/services';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { ClassroomType } from '@metutor/config';
+import { ClassroomType, WEEK_DAYS } from '@metutor/config';
+import { Store } from '@ngrx/store';
+import * as fromCore from '@metutor/core/state';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'metutors-tutor-syllabus',
@@ -40,7 +43,7 @@ import { ClassroomType } from '@metutor/config';
     ]),
   ],
 })
-export class TutorSyllabusComponent implements OnInit, OnDestroy {
+export class TutorSyllabusComponent implements OnInit {
   classsroomId: string;
   // classroom: IClassroom;
   selectedCourse?: number;
@@ -208,60 +211,25 @@ export class TutorSyllabusComponent implements OnInit, OnDestroy {
     ],
   };
 
-  constructor(
-    private _route: ActivatedRoute,
-    private _coursesService: CoursesService,
-    private _title: Title
-  ) {}
+  view$: Observable<{ loading: boolean; syllabus: any }>;
+
+  constructor(private _store: Store<any>) {}
+
+  getDays(weekdays: string) {
+    const listDays: any = [];
+    const splitDays = weekdays.split(',');
+    if (splitDays.length) {
+      splitDays.forEach((day: any) => listDays.push(WEEK_DAYS[day]));
+    }
+
+    return listDays;
+  }
 
   ngOnInit(): void {
-    this._route.paramMap.subscribe((res: ParamMap) => {
-      this.classsroomId = res.get('id') || '';
-      // this.loadingClassroom = true;
-      // this.classroomSub = this._coursesService
-      //   .getClassroomById(this.classsroomId)
-      //   .subscribe(
-      //     (response) => {
-      //       this.loadingClassroom = false;
-      //       this.classroom = response;
-      //       this._title.setTitle(this.classroom?.name || '');
-      //     },
-      //     (error) => {
-      //       this.loadingClassroom = false;
-      //     }
-      //   );
-
-      // this.loadingSyllabus = true;
-      // this.syllabusSub = this._coursesService
-      //   .getSyllabusByCourseId(this.classsroomId)
-      //   .subscribe(
-      //     (response) => {
-      //       this.syllabuses = response;
-      //       this.loadingSyllabus = false;
-      //     },
-      //     (error) => {
-      //       this.loadingSyllabus = false;
-      //     }
-      //   );
-    });
-  }
-
-  // calculateDurationTime(startTime: Date, endTime: Date): number {
-  //   return calculateDurationTime(startTime, endTime);
-  // }
-
-  changeOpenSelection(id: number): void {
-    if (this.selectedCourse === id) {
-      this.openCourse = false;
-      this.selectedCourse = undefined;
-    } else {
-      this.openCourse = true;
-      this.selectedCourse = id;
-    }
-  }
-
-  ngOnDestroy(): void {
-    this.classroomSub?.unsubscribe();
-    this.syllabusSub?.unsubscribe();
+    this._store.dispatch(fromCore.loadTutorSyllabus());
+    this.view$ = combineLatest([
+      this._store.select(fromCore.selectTutorSyllabus),
+      this._store.select(fromCore.selectIsLoadingTutorSyllabus),
+    ]).pipe(map(([syllabus, loading]) => ({ loading, syllabus })));
   }
 }

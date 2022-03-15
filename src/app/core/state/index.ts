@@ -151,6 +151,16 @@ export const selectIsCompleteTutorProfile = createSelector(
   fromTutorReducer.selectIsCompleteTutorProfile
 );
 
+export const selectTutorSyllabus = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectTutorSyllabus
+);
+
+export const selectIsLoadingTutorSyllabus = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectIsLoadingTutorSyllabus
+);
+
 // Ticket
 export const selectTickets = createSelector(
   selectTicketState,

@@ -4,9 +4,11 @@ import { ITutor } from '@models';
 import * as tutorActions from '../actions/tutor.actions';
 
 export interface State {
+  syllabus: any;
   dashboard: any;
   tutor: ITutor | null;
   isLoadingTutors: boolean;
+  isLoadingSyllabus: boolean;
   isLoadingDashboard: boolean;
   loadingTutorFailure: string;
 
@@ -17,9 +19,11 @@ export interface State {
 
 export const initialState: State = {
   tutor: null,
+  syllabus: null,
   dashboard: null,
   isLoadingTutors: false,
   loadingTutorFailure: '',
+  isLoadingSyllabus: false,
   isLoadingDashboard: false,
   isCompleteTutorProfile: false,
   completeTutorProfileFailure: '',
@@ -79,10 +83,27 @@ export const reducer = createReducer(
     ...state,
     isCompleteTutorProfile: false,
     completeTutorProfileFailure: error,
+  })),
+
+  on(tutorActions.loadTutorSyllabus, (state) => ({
+    ...state,
+    isLoadingSyllabus: true,
+  })),
+
+  on(tutorActions.loadTutorSyllabusSuccess, (state, { syllabus }) => ({
+    ...state,
+    syllabus,
+    isLoadingSyllabus: false,
+  })),
+
+  on(tutorActions.loadTutorSyllabusFailure, (state) => ({
+    ...state,
+    isLoadingSyllabus: false,
   }))
 );
 
 export const selectTutor = (state: State): ITutor | null => state.tutor;
+export const selectTutorSyllabus = (state: State): any => state.syllabus;
 
 export const selectTutorDashboard = (state: State): boolean => state.dashboard;
 
@@ -94,3 +115,6 @@ export const selectIsLoadingTutorDashboard = (state: State): boolean =>
 
 export const selectIsCompleteTutorProfile = (state: State): boolean =>
   state.isCompleteTutorProfile;
+
+export const selectIsLoadingTutorSyllabus = (state: State): boolean =>
+  state.isLoadingSyllabus;

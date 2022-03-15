@@ -1,6 +1,10 @@
 .syllabus {
   .card {
-    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 13%);
+    box-shadow: 4px 4px 8px 8px rgb(0 0 0 / 13%);
+
+    .card-body {
+      padding: 20px 40px;
+    }
 
     .title {
       color: #000;
@@ -9,7 +13,7 @@
 
     .in-progress {
       h3 {
-        font-size: 12px;
+        font-size: 16px;
         color: #000;
       }
 
@@ -39,21 +43,26 @@
       }
 
       span {
-        color: #2a2a2a;
-        margin-left: 5px;
-        font-size: 14px;
+        font-size: 16px;
+        color: #696969;
+        font-weight: 400;
       }
 
       strong {
-        font-size: 16px;
+        font-size: 18px;
         color: #696969;
-        font-weight: 500;
+        font-weight: 400;
       }
     }
   }
 
   .items {
     padding: 40px;
+
+    .title {
+      color: #000;
+      font-size: 30px;
+    }
 
     .item {
       border-radius: 8px;

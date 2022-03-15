@@ -2,14 +2,15 @@ import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
 import camelcaseKeys from 'camelcase-keys';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 
-import { selectTutorDashboard } from '..';
 import { TutorsService } from '@services';
 import { environment } from '@environment';
-import { JwtHelperService } from '@auth0/angular-jwt';
+import * as fromRouterStore from '@metutor/state';
 import * as tutorActions from '../actions/tutor.actions';
+import { selectTutorDashboard, selectTutorSyllabus } from '..';
 import { AlertNotificationService } from '@metutor/core/components';
 
 @Injectable()
@@ -94,6 +95,36 @@ export class TutorEffects {
           );
         } else {
           return of(tutorActions.loadTutorDashboardEnded());
+        }
+      })
+    )
+  );
+
+  loadTutorSyllabus$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorActions.loadTutorSyllabus),
+      withLatestFrom(
+        this._store.select(selectTutorSyllabus),
+        this._store.select(fromRouterStore.selectRouteParams)
+      ),
+      mergeMap(([_, _syllabus, { id }]) => {
+        if (!_syllabus) {
+          return this._tutorService.getTutorSyllabus(id).pipe(
+            map((syllabus) =>
+              tutorActions.loadTutorSyllabusSuccess({
+                syllabus: camelcaseKeys(syllabus, { deep: true }),
+              })
+            ),
+            catchError((error) =>
+              of(
+                tutorActions.loadTutorSyllabusFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          );
+        } else {
+          return of(tutorActions.loadTutorSyllabusEnded());
         }
       })
     )

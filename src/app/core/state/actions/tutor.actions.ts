@@ -50,3 +50,19 @@ export const loadTutorDashboardFailure = createAction(
 export const loadTutorDashboardEnded = createAction(
   '[Tutor] Load Tutor Dashboard Ended'
 );
+
+export const loadTutorSyllabus = createAction('[Tutor] Load Tutor Syllabus');
+
+export const loadTutorSyllabusSuccess = createAction(
+  '[Tutor] Load Tutor Syllabus Success',
+  props<{ syllabus: any }>()
+);
+
+export const loadTutorSyllabusFailure = createAction(
+  '[Tutor] Load Tutor Syllabus Failure',
+  props<{ error: any }>()
+);
+
+export const loadTutorSyllabusEnded = createAction(
+  '[Tutor] Load Tutor Syllabus Ended'
+);
