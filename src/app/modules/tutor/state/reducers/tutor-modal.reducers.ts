@@ -33,10 +33,14 @@ export const reducer = createReducer(
     ...state,
     showAddTopicModal: true,
   })),
-  on(tutorModalActions.closeTutorAddTopicModal, (state) => ({
-    ...state,
-    showAddTopicModal: false,
-  }))
+  on(
+    fromCore.tutorAddSyllabusTopicSuccess,
+    tutorModalActions.closeTutorAddTopicModal,
+    (state) => ({
+      ...state,
+      showAddTopicModal: false,
+    })
+  )
 );
 
 // tutor modal selectors

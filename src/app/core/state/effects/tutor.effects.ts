@@ -130,10 +130,50 @@ export class TutorEffects {
     )
   );
 
+  tutorAddSyllabusTopic$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorActions.tutorAddSyllabusTopic),
+      withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
+      mergeMap(([{ body }, { id }]) =>
+        this._tutorService.addSyllabusTopic(body, id).pipe(
+          map((syllabus) =>
+            tutorActions.tutorAddSyllabusTopicSuccess({
+              syllabus,
+              message: 'Topic has been successfully added',
+            })
+          ),
+          catchError((error) =>
+            of(
+              tutorActions.tutorAddSyllabusTopicFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  successMessages$ = createEffect(
+    () =>
+      this._actions$.pipe(
+        ofType(...[tutorActions.tutorAddSyllabusTopicSuccess]),
+        map(({ message }) => this._alertNotificationService.success(message))
+      ),
+    {
+      dispatch: false,
+    }
+  );
+
   failureMessages$ = createEffect(
     () =>
       this._actions$.pipe(
-        ofType(...[tutorActions.completeTutorProfileFailure]),
+        ofType(
+          ...[
+            tutorActions.completeTutorProfileFailure,
+            tutorActions.tutorAddSyllabusTopicFailure,
+          ]
+        ),
         map((action) => {
           if (action.error) {
             return this._alertNotificationService.error(action.error);

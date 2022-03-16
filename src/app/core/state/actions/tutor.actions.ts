@@ -66,3 +66,18 @@ export const loadTutorSyllabusFailure = createAction(
 export const loadTutorSyllabusEnded = createAction(
   '[Tutor] Load Tutor Syllabus Ended'
 );
+
+export const tutorAddSyllabusTopic = createAction(
+  '[Tutor] Load Tutor Add Syllabus Topic',
+  props<{ body: any }>()
+);
+
+export const tutorAddSyllabusTopicSuccess = createAction(
+  '[Tutor] Load Tutor Add Syllabus Topic Success',
+  props<{ syllabus: any; message: string }>()
+);
+
+export const tutorAddSyllabusTopicFailure = createAction(
+  '[Tutor] Load Tutor Add Syllabus Topic Failure',
+  props<{ error: any }>()
+);

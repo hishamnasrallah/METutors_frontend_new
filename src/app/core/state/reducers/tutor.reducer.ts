@@ -11,6 +11,7 @@ export interface State {
   isLoadingSyllabus: boolean;
   isLoadingDashboard: boolean;
   loadingTutorFailure: string;
+  isAddingSyllabusTopic: boolean;
 
   // Complete Tutor Profile
   isCompleteTutorProfile: boolean;
@@ -25,6 +26,7 @@ export const initialState: State = {
   loadingTutorFailure: '',
   isLoadingSyllabus: false,
   isLoadingDashboard: false,
+  isAddingSyllabusTopic: false,
   isCompleteTutorProfile: false,
   completeTutorProfileFailure: '',
 };
@@ -99,6 +101,20 @@ export const reducer = createReducer(
   on(tutorActions.loadTutorSyllabusFailure, (state) => ({
     ...state,
     isLoadingSyllabus: false,
+  })),
+  on(tutorActions.tutorAddSyllabusTopic, (state) => ({
+    ...state,
+    isAddingSyllabusTopic: true,
+  })),
+
+  on(tutorActions.tutorAddSyllabusTopicSuccess, (state) => ({
+    ...state,
+    isAddingSyllabusTopic: false,
+  })),
+
+  on(tutorActions.tutorAddSyllabusTopicFailure, (state) => ({
+    ...state,
+    isAddingSyllabusTopic: false,
   }))
 );
 
@@ -118,3 +134,6 @@ export const selectIsCompleteTutorProfile = (state: State): boolean =>
 
 export const selectIsLoadingTutorSyllabus = (state: State): boolean =>
   state.isLoadingSyllabus;
+
+export const selectIsAddingSyllabusTopic = (state: State): boolean =>
+  state.isAddingSyllabusTopic;

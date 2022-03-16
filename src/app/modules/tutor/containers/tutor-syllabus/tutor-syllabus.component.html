@@ -185,6 +185,7 @@
                                            *ngIf="(showAddTopicModal$ | async)!"
                                            [showModal]="(showAddTopicModal$ | async)!"
                                            (submitted)="onAddTopic($event)"
+                                           [isSubmitting]="(isAddingTopic$ | async)!"
                                            [totalClasses]="view.syllabus?.unclassifiedClasses?.length">
   </metutors-tutor-add-syllabus-topic-modal>
 

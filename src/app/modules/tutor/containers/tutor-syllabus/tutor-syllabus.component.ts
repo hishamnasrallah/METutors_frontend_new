@@ -19,6 +19,7 @@ import { map } from 'rxjs/operators';
 import * as fromTutorAction from '../../state/actions';
 import * as fromTutor from '../../state';
 import { FormGroup } from '@angular/forms';
+import { selectIsAddingSyllabusTopic } from '@metutor/core/state';
 
 @Component({
   selector: 'metutors-tutor-syllabus',
@@ -214,6 +215,7 @@ export class TutorSyllabusComponent implements OnInit {
     ],
   };
 
+  isAddingTopic$: Observable<boolean>;
   showAddTopicModal$: Observable<boolean>;
   view$: Observable<{ loading: boolean; syllabus: any }>;
 
@@ -228,7 +230,7 @@ export class TutorSyllabusComponent implements OnInit {
   }
 
   onAddTopic(form: FormGroup): void {
-    console.log(form.value);
+    this._store.dispatch(fromCore.tutorAddSyllabusTopic({ body: form.value }));
   }
 
   getDays(weekdays: string) {
@@ -244,6 +246,9 @@ export class TutorSyllabusComponent implements OnInit {
   ngOnInit(): void {
     this._store.dispatch(fromCore.loadTutorSyllabus());
     this.showAddTopicModal$ = this._store.select(fromTutor.selectAddTopicModal);
+    this.isAddingTopic$ = this._store.select(
+      fromCore.selectIsAddingSyllabusTopic
+    );
 
     this.view$ = combineLatest([
       this._store.select(fromCore.selectTutorSyllabus),
