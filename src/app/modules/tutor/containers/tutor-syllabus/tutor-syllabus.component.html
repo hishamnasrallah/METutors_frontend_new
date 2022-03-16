@@ -215,7 +215,7 @@
       </ng-container>
     </div>
   </form>
-  <metutors-tutor-add-syllabus-topic-modal (closeModal)="onCloseAddTopicModal()"
+  <metutors-tutor-add-syllabus-topic-modal *ngIf="(showAddTopicModal$ | async)" (closeModal)="onCloseAddTopicModal()"
                                            [showModal]="(showAddTopicModal$ | async)!"
                                            (submitted)="onAddTopic($event)"
                                            [isSubmitting]="(isAddingTopic$ | async)!"

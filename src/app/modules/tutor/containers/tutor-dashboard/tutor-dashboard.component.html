@@ -199,6 +199,7 @@
   </ng-container>
 </div>
 
-<metutors-tutor-reject-course-modal [showModal]="(showRejectCourseModal$ | async)!" (submitted)="onRejectCourse($event)"
+<metutors-tutor-reject-course-modal *ngIf="(showRejectCourseModal$ | async)"
+                                    [showModal]="(showRejectCourseModal$ | async)!" (submitted)="onRejectCourse($event)"
                                     (closeModal)="onCloseRejectCourse()" [submitting]="(isRejecting$ | async)!">
 </metutors-tutor-reject-course-modal>
