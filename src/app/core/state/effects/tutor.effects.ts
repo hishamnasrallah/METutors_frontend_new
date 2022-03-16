@@ -103,30 +103,23 @@ export class TutorEffects {
   loadTutorSyllabus$ = createEffect(() =>
     this._actions$.pipe(
       ofType(tutorActions.loadTutorSyllabus),
-      withLatestFrom(
-        this._store.select(selectTutorSyllabus),
-        this._store.select(fromRouterStore.selectRouteParams)
-      ),
-      mergeMap(([_, _syllabus, { id }]) => {
-        if (!_syllabus) {
-          return this._tutorService.getTutorSyllabus(id).pipe(
-            map((syllabus) =>
-              tutorActions.loadTutorSyllabusSuccess({
-                syllabus: camelcaseKeys(syllabus, { deep: true }),
+      withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
+      mergeMap(([_, { id }]) =>
+        this._tutorService.getTutorSyllabus(id).pipe(
+          map((syllabus) =>
+            tutorActions.loadTutorSyllabusSuccess({
+              syllabus: camelcaseKeys(syllabus, { deep: true }),
+            })
+          ),
+          catchError((error) =>
+            of(
+              tutorActions.loadTutorSyllabusFailure({
+                error: error?.error?.message || error?.error?.errors,
               })
-            ),
-            catchError((error) =>
-              of(
-                tutorActions.loadTutorSyllabusFailure({
-                  error: error?.error?.message || error?.error?.errors,
-                })
-              )
             )
-          );
-        } else {
-          return of(tutorActions.loadTutorSyllabusEnded());
-        }
-      })
+          )
+        )
+      )
     )
   );
 
@@ -138,7 +131,7 @@ export class TutorEffects {
         this._tutorService.addSyllabusTopic(body, id).pipe(
           map((syllabus) =>
             tutorActions.tutorAddSyllabusTopicSuccess({
-              syllabus,
+              syllabus: camelcaseKeys(syllabus, { deep: true }),
               message: 'Topic has been successfully added',
             })
           ),

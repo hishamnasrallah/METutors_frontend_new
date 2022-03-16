@@ -63,10 +63,6 @@ export const loadTutorSyllabusFailure = createAction(
   props<{ error: any }>()
 );
 
-export const loadTutorSyllabusEnded = createAction(
-  '[Tutor] Load Tutor Syllabus Ended'
-);
-
 export const tutorAddSyllabusTopic = createAction(
   '[Tutor] Load Tutor Add Syllabus Topic',
   props<{ body: any }>()

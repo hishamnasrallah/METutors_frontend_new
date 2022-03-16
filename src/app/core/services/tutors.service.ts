@@ -1,4 +1,4 @@
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
@@ -87,10 +87,10 @@ export class TutorsService {
       ...data,
       course_id,
     };
-    return of('');
-    /* return this.http.post<{ user: ITutor }>(
+
+    return this.http.post<{ user: ITutor }>(
       `${this.baseUrl}course/add-topic`,
       body
-    );*/
+    );
   }
 }

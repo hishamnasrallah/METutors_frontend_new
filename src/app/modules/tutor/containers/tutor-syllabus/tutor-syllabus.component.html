@@ -26,7 +26,7 @@
             </div>
           </div>
           <div class="row mt-3">
-            <div class="col-md-5 in-progress" *ngIf="classroom && classroom?.progress">
+            <div class="col-md-5 in-progress">
               <h3 *ngIf="view.syllabus?.courseProgress === 100">Completed</h3>
               <h3 *ngIf="view.syllabus?.courseProgress === 0">Not Started yet</h3>
               <h3 *ngIf="view.syllabus?.courseProgress&& (view.syllabus?.courseProgress > 0 && view.syllabus?.courseProgress < 100)">In progress</h3>
@@ -36,7 +36,7 @@
                                     [value]="view.syllabus?.courseProgress">
                   </mat-progress-bar>
                 </div>
-                <strong>{{ classroom?.progress }}%</strong>
+                <strong>{{ view.syllabus?.courseProgress }}%</strong>
               </div>
             </div>
             <div class="col-md-7">
@@ -103,27 +103,28 @@
             <span class="number">{{ i + 1 }}</span>
             <div class="row set-padding">
               <div class="col-md-9">
-                <h2>{{ syllabus?.title }}</h2>
+                <h2>{{ syllabus?.topic?.name }}</h2>
                 <div class="row list p-0">
                   <div class="col-md-2 d-flex menu align-items-center">
                     <img src="assets/svg/play-circle-fill.svg" alt="" width="15" height="15" draggable="false">
                     <strong>Total classes: </strong>
-                    <span>{{ syllabus?.classes?.length }}</span>
+                    <span>{{ syllabus?.totalClasses }}</span>
                   </div>
                   <div class="col-md-2 d-flex menu align-items-center">
                     <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
                     <strong>Total hour: </strong>
-                    <span>{{ syllabus?.totalHours }}hrs</span>
+                    <span>{{ syllabus?.totalTopicHours }}hrs</span>
                   </div>
                 </div>
               </div>
               <div class="col-md-3">
                 <div class="row">
                   <div class="col">
-                    <h3 *ngIf="syllabus.progress > 0">{{ syllabus?.progress }}% Completed</h3>
-                    <h3 *ngIf="syllabus.progress === 0">Not started yet</h3>
-                    <mat-progress-bar class="example-margin" [color]="syllabus.progress > 30 ? 'primary' : 'warn'"
-                                      [value]="syllabus?.progress">
+                    <h3 *ngIf="syllabus?.topicProgress === 100">Completed</h3>
+                    <h3 *ngIf="syllabus?.topicProgress === 0">Not Started yet</h3>
+                    <h3 *ngIf="syllabus?.topicProgress && (syllabus?.topicProgress > 0 && syllabus?.topicProgress < 100)">In progress</h3>
+                    <mat-progress-bar class="example-margin" [color]="syllabus.topicProgress ? syllabus.topicProgress > 30 ? 'primary' : 'warn' : undefined"
+                                      [value]="syllabus?.topicProgress">
                     </mat-progress-bar>
                   </div>
                   <div class="col-md-2 d-flex align-items-center">
@@ -135,34 +136,35 @@
               </div>
             </div>
             <div class="row set-padding desc">
-              <p class="col">{{ syllabus?.description }}</p>
-              <ng-container *ngIf="syllabus?.classes && syllabus?.classes?.length">
-                <button mat-button class="expand" *ngIf="selectedCourse !== syllabus.id">
+              <p class="col">{{ syllabus?.topic?.description }}</p>
+              <ng-container *ngIf="view.syllabus?.topics && view.syllabus?.topics?.length">
+                <button mat-button class="expand" *ngIf="selectedCourse !== syllabus?.topic?.id">
                   <mat-icon>expand_more</mat-icon>
                 </button>
-                <button mat-button class="expand" *ngIf="openCourse && selectedCourse === syllabus.id">
+                <button mat-button class="expand" *ngIf="openCourse && selectedCourse === syllabus?.topic?.id">
                   <mat-icon>expand_less</mat-icon>
                 </button>
               </ng-container>
             </div>
-            <ng-container *ngIf="syllabus?.classes && syllabus?.classes?.length">
-              <div class="table-responsive" *ngIf="openCourse && selectedCourse === syllabus.id" [@slideInOut]>
+            <ng-container *ngIf="view.syllabus?.topics && view.syllabus?.topics?.length">
+              <!--*ngIf="openCourse && selectedCourse === syllabus?.topic?.id"-->
+              <div class="table-responsive" [@slideInOut]>
                 <table class="table">
                   <thead>
                   <tr>
                     <th scope="col">Class Number</th>
-                    <th scope="col">Classroom subject</th>
-                    <th scope="col">Classroom Days</th>
+                    <th scope="col">Class Subject</th>
+                    <th scope="col">Class Days</th>
                     <th scope="col">Start time - End time</th>
                     <th scope="col">Duration</th>
                     <th scope="col">Action</th>
                   </tr>
                   </thead>
                   <tbody>
-                  <tr *ngFor="let slybClass of syllabus?.classes">
-                    <td scope="row">{{ slybClass?.number }}</td>
-                    <td>{{ slybClass?.subject }}</td>
-                    <td>{{ slybClass?.days }}</td>
+                  <tr *ngFor="let slybClass of syllabus?.topic?.classes; let i = index">
+                    <td scope="row">{{ i+1 }}</td>
+                    <td>{{ slybClass?.title }}</td>
+                    <td>{{ slybClass?.startDate | date : 'EEEE, dd MMM Y'}}</td>
                     <td>{{ slybClass?.startTime + '-' + slybClass?.endTime }}</td>
                     <td>{{ slybClass?.duration + 'hrs' }}</td>
                     <td>
