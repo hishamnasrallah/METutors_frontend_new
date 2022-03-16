@@ -48,7 +48,8 @@ import { selectIsAddingSyllabusTopic } from '@metutor/core/state';
   ],
 })
 export class TutorSyllabusComponent implements OnInit {
-  selectedCourse: number;
+  subjectId = null;
+  selectedCourse = null;
   openCourse: boolean = false;
 
   isAddingTopic$: Observable<boolean>;
@@ -67,6 +68,10 @@ export class TutorSyllabusComponent implements OnInit {
 
   onAddTopic(form: FormGroup): void {
     this._store.dispatch(fromCore.tutorAddSyllabusTopic({ body: form.value }));
+  }
+
+  onSaveSubjectTitle(classId: number): void {
+    console.log(classId);
   }
 
   getDays(weekdays: string) {

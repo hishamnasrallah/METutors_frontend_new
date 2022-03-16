@@ -82,13 +82,22 @@
               </td>
             </tr>
             <ng-container *ngIf="view.syllabus.unclassifiedClasses.length">
-              <tr *ngFor="let class of view.syllabus.unclassifiedClasses; let i=index">
+              <tr *ngFor="let unclassifiedClass of view.syllabus.unclassifiedClasses; let i=index">
                 <td>{{ i + 1}}</td>
-                <td><span>{{ class?.title}}</span></td>
-                <td>{{ class?.startDate | date: 'EEEE, dd MMM Y'}}</td>
-                <td>{{ class?.startTime }} - {{ class?.endTime}}</td>
-                <td>{{ class?.duration}}hrs</td>
-                <td>Edit</td>
+                <td *ngIf="subjectId !== unclassifiedClass.id">{{ unclassifiedClass?.title }}</td>
+                <td *ngIf="subjectId === unclassifiedClass.id"><input type="text" class="subject-field" placeholder="Add topic here..." autofocus></td>
+                <td>{{ unclassifiedClass?.startDate | date: 'EEEE, dd MMM Y'}}</td>
+                <td>{{ unclassifiedClass?.startTime }} - {{ unclassifiedClass?.endTime}}</td>
+                <td>{{ unclassifiedClass?.duration}}hrs</td>
+                <td>
+                  <button class="edit-btn" mat-button *ngIf="subjectId !== unclassifiedClass.id"
+                          (click)="subjectId = unclassifiedClass.id">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button class="save-topic-btn" *ngIf="subjectId === unclassifiedClass.id"
+                          (click)="onSaveSubjectTitle(unclassifiedClass.id)">
+                    Save
+                  </button></td>
               </tr>
             </ng-container>
           </table>
@@ -139,16 +148,15 @@
               <p class="col">{{ syllabus?.topic?.description }}</p>
               <ng-container *ngIf="view.syllabus?.topics && view.syllabus?.topics?.length">
                 <button mat-button class="expand" *ngIf="selectedCourse !== syllabus?.topic?.id">
-                  <mat-icon>expand_more</mat-icon>
+                  <mat-icon (click)="openCourse = true; selectedCourse = syllabus?.topic?.id">expand_more</mat-icon>
                 </button>
                 <button mat-button class="expand" *ngIf="openCourse && selectedCourse === syllabus?.topic?.id">
-                  <mat-icon>expand_less</mat-icon>
+                  <mat-icon (click)="openCourse = false; selectedCourse = null">expand_less</mat-icon>
                 </button>
               </ng-container>
             </div>
             <ng-container *ngIf="view.syllabus?.topics && view.syllabus?.topics?.length">
-              <!--*ngIf="openCourse && selectedCourse === syllabus?.topic?.id"-->
-              <div class="table-responsive" [@slideInOut]>
+              <div class="table-responsive" *ngIf="openCourse && selectedCourse === syllabus?.topic?.id" [@slideInOut]>
                 <table class="table">
                   <thead>
                   <tr>
@@ -161,15 +169,19 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr *ngFor="let slybClass of syllabus?.topic?.classes; let i = index">
+                  <tr *ngFor="let syllabusClass of syllabus?.topic?.classes; let i = index">
                     <td scope="row">{{ i+1 }}</td>
-                    <td>{{ slybClass?.title }}</td>
-                    <td>{{ slybClass?.startDate | date : 'EEEE, dd MMM Y'}}</td>
-                    <td>{{ slybClass?.startTime + '-' + slybClass?.endTime }}</td>
-                    <td>{{ slybClass?.duration + 'hrs' }}</td>
+                    <td *ngIf="subjectId !== syllabusClass.id">{{ syllabusClass?.title }}</td>
+                    <td *ngIf="subjectId === syllabusClass.id"><input type="text" class="subject-field" placeholder="Add topic here..." autofocus></td>
+                    <td>{{ syllabusClass?.startDate | date : 'EEEE, dd MMM Y'}}</td>
+                    <td>{{ syllabusClass?.startTime + '-' + syllabusClass?.endTime }}</td>
+                    <td>{{ syllabusClass?.duration + 'hrs' }}</td>
                     <td>
-                      <button class="edit-btn" mat-button>
+                      <button class="edit-btn" mat-button *ngIf="subjectId !== syllabusClass.id" (click)="subjectId = syllabusClass.id">
                         <mat-icon>edit</mat-icon>
+                      </button>
+                      <button class="save-topic-btn" *ngIf="subjectId === syllabusClass.id" (click)="onSaveSubjectTitle(syllabusClass.id)">
+                       Save
                       </button>
                     </td>
                   </tr>
@@ -184,7 +196,6 @@
   </div>
 
   <metutors-tutor-add-syllabus-topic-modal (closeModal)="onCloseAddTopicModal()"
-                                           *ngIf="(showAddTopicModal$ | async)!"
                                            [showModal]="(showAddTopicModal$ | async)!"
                                            (submitted)="onAddTopic($event)"
                                            [isSubmitting]="(isAddingTopic$ | async)!"
