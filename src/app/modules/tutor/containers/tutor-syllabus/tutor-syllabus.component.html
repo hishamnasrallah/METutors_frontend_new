@@ -159,12 +159,12 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr *ngFor="let class of syllabus?.classes">
-                    <td scope="row">{{ class?.number }}</td>
-                    <td>{{ class?.subject }}</td>
-                    <td>{{ class?.days }}</td>
-                    <td>{{ class?.startTime + '-' + class?.endTime }}</td>
-                    <td>{{ class?.duration + 'hrs' }}</td>
+                  <tr *ngFor="let slybClass of syllabus?.classes">
+                    <td scope="row">{{ slybClass?.number }}</td>
+                    <td>{{ slybClass?.subject }}</td>
+                    <td>{{ slybClass?.days }}</td>
+                    <td>{{ slybClass?.startTime + '-' + slybClass?.endTime }}</td>
+                    <td>{{ slybClass?.duration + 'hrs' }}</td>
                     <td>
                       <button class="edit-btn" mat-button>
                         <mat-icon>edit</mat-icon>
@@ -180,8 +180,12 @@
       </ng-container>
     </ng-container>
   </div>
-</div>
 
-<metutors-tutor-add-syllabus-topic-modal [showModal]="(showAddTopicModal$ | async)!"
-                                         (closeModal)="onCloseAddTopicModal()">
-</metutors-tutor-add-syllabus-topic-modal>
+  <metutors-tutor-add-syllabus-topic-modal (closeModal)="onCloseAddTopicModal()"
+                                           *ngIf="(showAddTopicModal$ | async)!"
+                                           [showModal]="(showAddTopicModal$ | async)!"
+                                           (submitted)="onAddTopic($event)"
+                                           [totalClasses]="view.syllabus?.unclassifiedClasses?.length">
+  </metutors-tutor-add-syllabus-topic-modal>
+
+</div>

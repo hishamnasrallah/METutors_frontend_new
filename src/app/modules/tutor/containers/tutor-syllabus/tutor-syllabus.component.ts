@@ -18,6 +18,7 @@ import * as fromCore from '@metutor/core/state';
 import { map } from 'rxjs/operators';
 import * as fromTutorAction from '../../state/actions';
 import * as fromTutor from '../../state';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'metutors-tutor-syllabus',
@@ -224,6 +225,10 @@ export class TutorSyllabusComponent implements OnInit {
 
   onCloseAddTopicModal(): void {
     this._store.dispatch(fromTutorAction.closeTutorAddTopicModal());
+  }
+
+  onAddTopic(form: FormGroup): void {
+    console.log(form.value);
   }
 
   getDays(weekdays: string) {
