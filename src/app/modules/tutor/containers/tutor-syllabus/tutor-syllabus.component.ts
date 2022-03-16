@@ -1,25 +1,29 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
-  trigger,
   state,
   style,
-  transition,
   group,
+  trigger,
   animate,
+  transition,
 } from '@angular/animations';
-import { Observable, Subscription, combineLatest } from 'rxjs';
-import { IClassroom, ISyllabus } from 'src/app/core/models';
-import { Title } from '@angular/platform-browser';
-import { CoursesService } from 'src/app/core/services';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import { ClassroomType, WEEK_DAYS } from '@metutor/config';
+
+import {
+  FormGroup,
+  Validators,
+  FormBuilder,
+  AbstractControl,
+} from '@angular/forms';
+
 import { Store } from '@ngrx/store';
-import * as fromCore from '@metutor/core/state';
 import { map } from 'rxjs/operators';
-import * as fromTutorAction from '../../state/actions';
+import { Observable, combineLatest } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+
 import * as fromTutor from '../../state';
-import { FormGroup } from '@angular/forms';
-import { selectIsAddingSyllabusTopic } from '@metutor/core/state';
+import { WEEK_DAYS } from '@metutor/config';
+import * as fromCore from '@metutor/core/state';
+import * as fromTutorAction from '../../state/actions';
+import { selectIsSavingSubjectTitle } from '@metutor/core/state/reducers/tutor.reducer';
 
 @Component({
   selector: 'metutors-tutor-syllabus',
@@ -52,11 +56,17 @@ export class TutorSyllabusComponent implements OnInit {
   selectedCourse = null;
   openCourse: boolean = false;
 
+  form: FormGroup;
   isAddingTopic$: Observable<boolean>;
   showAddTopicModal$: Observable<boolean>;
+  isSavingSubjectTitle$: Observable<boolean>;
   view$: Observable<{ loading: boolean; syllabus: any }>;
 
-  constructor(private _store: Store<any>) {}
+  constructor(private _store: Store<any>, private _formBuilder: FormBuilder) {}
+
+  get subjectTitle(): AbstractControl | null {
+    return this.form.get('subjectTitle');
+  }
 
   onShowAddTopicModal(): void {
     this._store.dispatch(fromTutorAction.openTutorAddTopicModal());
@@ -71,7 +81,12 @@ export class TutorSyllabusComponent implements OnInit {
   }
 
   onSaveSubjectTitle(classId: number): void {
-    console.log(classId);
+    this._store.dispatch(
+      fromCore.tutorEditSubjectTitle({
+        classId,
+        title: this.subjectTitle?.value,
+      })
+    );
   }
 
   getDays(weekdays: string) {
@@ -85,8 +100,15 @@ export class TutorSyllabusComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.form = this._formBuilder.group({
+      subjectTitle: [null, Validators.required],
+    });
+
     this._store.dispatch(fromCore.loadTutorSyllabus());
     this.showAddTopicModal$ = this._store.select(fromTutor.selectAddTopicModal);
+    this.isSavingSubjectTitle$ = this._store.select(
+      fromCore.selectIsSavingSubjectTitle
+    );
     this.isAddingTopic$ = this._store.select(
       fromCore.selectIsAddingSyllabusTopic
     );

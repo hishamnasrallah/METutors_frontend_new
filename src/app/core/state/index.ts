@@ -166,6 +166,11 @@ export const selectIsAddingSyllabusTopic = createSelector(
   fromTutorReducer.selectIsAddingSyllabusTopic
 );
 
+export const selectIsSavingSubjectTitle = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectIsSavingSubjectTitle
+);
+
 // Ticket
 export const selectTickets = createSelector(
   selectTicketState,

@@ -190,5 +190,9 @@
     padding: 2px 10px;
     border-radius: 2px;
     background: #3bb3c1;
+
+    &.disabled {
+      background: #c7c7c7 !important;
+    }
   }
 }

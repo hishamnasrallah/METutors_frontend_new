@@ -1,71 +1,76 @@
 <div class="syllabus" *ngLet="(view$ | async) as view">
-  <div class="card">
-    <div class="card-body">
-      <ng-container [ngSwitch]="view.loading">
-        <ng-container *ngSwitchCase="false">
-          <h1 class="title">{{ view.syllabus?.course?.courseName }}</h1>
-          <div class="row list rounded">
-            <div class="col-md-4 d-flex menu align-items-center">
-              <img src="assets/svg/calendar.svg" alt="" width="15" height="15" draggable="false">
-              <strong>Days: </strong>
-              <span>
+  <form [formGroup]="form">
+    <div class="card">
+      <div class="card-body">
+        <ng-container [ngSwitch]="view.loading">
+          <ng-container *ngSwitchCase="false">
+            <h1 class="title">{{ view.syllabus?.course?.courseName }}</h1>
+            <div class="row list rounded">
+              <div class="col-md-4 d-flex menu align-items-center">
+                <img src="assets/svg/calendar.svg" alt="" width="15" height="15" draggable="false">
+                <strong>Days: </strong>
+                <span>
             <ng-container *ngFor="let day of getDays(view.syllabus?.course?.weekdays); let isLast = last">
-              {{ day }}<ng-container *ngIf="!isLast">, </ng-container>
+              {{ day }}
+              <ng-container *ngIf="!isLast">, </ng-container>
             </ng-container>
           </span>
-            </div>
-            <div class="col-md-2 d-flex menu align-items-center">
-              <img src="assets/svg/play-circle-fill.svg" alt="" width="15" height="15" draggable="false">
-              <strong>Total hour: </strong>
-              <span>{{ view.syllabus?.course?.totalHours }}hrs</span>
-            </div>
-            <div class="col-md-2 d-flex menu align-items-center">
-              <img src="assets/svg/checkbox-circle-fill.svg" alt="" width="15" height="15" draggable="false">
-              <strong>Total classes: </strong>
-              <span>{{ view.syllabus?.course?.totalClasses }}</span>
-            </div>
-          </div>
-          <div class="row mt-3">
-            <div class="col-md-5 in-progress">
-              <h3 *ngIf="view.syllabus?.courseProgress === 100">Completed</h3>
-              <h3 *ngIf="view.syllabus?.courseProgress === 0">Not Started yet</h3>
-              <h3 *ngIf="view.syllabus?.courseProgress&& (view.syllabus?.courseProgress > 0 && view.syllabus?.courseProgress < 100)">In progress</h3>
-              <div class="d-flex align-items-center">
-                <div class="flex-grow-1">
-                  <mat-progress-bar class="example-margin" [color]="view.syllabus?.courseProgress ? view.syllabus?.courseProgress > 30 ? 'primary' : 'warn' : undefined"
-                                    [value]="view.syllabus?.courseProgress">
-                  </mat-progress-bar>
-                </div>
-                <strong>{{ view.syllabus?.courseProgress }}%</strong>
+              </div>
+              <div class="col-md-2 d-flex menu align-items-center">
+                <img src="assets/svg/play-circle-fill.svg" alt="" width="15" height="15" draggable="false">
+                <strong>Total hour: </strong>
+                <span>{{ view.syllabus?.course?.totalHours }}hrs</span>
+              </div>
+              <div class="col-md-2 d-flex menu align-items-center">
+                <img src="assets/svg/checkbox-circle-fill.svg" alt="" width="15" height="15" draggable="false">
+                <strong>Total classes: </strong>
+                <span>{{ view.syllabus?.course?.totalClasses }}</span>
               </div>
             </div>
-            <div class="col-md-7">
-              <button mat-button class="main-button-transparent float-end" (click)="onShowAddTopicModal()">
-                <mat-icon>add</mat-icon>
-                Add new Topic
-              </button>
+            <div class="row mt-3">
+              <div class="col-md-5 in-progress">
+                <h3 *ngIf="view.syllabus?.courseProgress === 100">Completed</h3>
+                <h3 *ngIf="view.syllabus?.courseProgress === 0">Not Started yet</h3>
+                <h3
+                  *ngIf="view.syllabus?.courseProgress&& (view.syllabus?.courseProgress > 0 && view.syllabus?.courseProgress < 100)">
+                  In progress</h3>
+                <div class="d-flex align-items-center">
+                  <div class="flex-grow-1">
+                    <mat-progress-bar class="example-margin"
+                                      [color]="view.syllabus?.courseProgress ? view.syllabus?.courseProgress > 30 ? 'primary' : 'warn' : undefined"
+                                      [value]="view.syllabus?.courseProgress">
+                    </mat-progress-bar>
+                  </div>
+                  <strong>{{ view.syllabus?.courseProgress }}%</strong>
+                </div>
+              </div>
+              <div class="col-md-7">
+                <button mat-button class="main-button-transparent float-end" (click)="onShowAddTopicModal()">
+                  <mat-icon>add</mat-icon>
+                  Add new Topic
+                </button>
+              </div>
             </div>
-          </div>
-        </ng-container>
+          </ng-container>
 
-        <ng-container *ngSwitchCase="true">
-          <div class="ph-row">
-            <div class="ph-col-8 big"></div>
-            <div class="ph-col-4 big empty"></div>
-            <div class="ph-col-10 big mt-3"></div>
-            <div class="ph-col-2 big empty mt-3"></div>
-            <div class="ph-col-6 mt-4"></div>
-            <div class="ph-col-6 mt-4 empty"></div>
-          </div>
+          <ng-container *ngSwitchCase="true">
+            <div class="ph-row">
+              <div class="ph-col-8 big"></div>
+              <div class="ph-col-4 big empty"></div>
+              <div class="ph-col-10 big mt-3"></div>
+              <div class="ph-col-2 big empty mt-3"></div>
+              <div class="ph-col-6 mt-4"></div>
+              <div class="ph-col-6 mt-4 empty"></div>
+            </div>
+          </ng-container>
         </ng-container>
-      </ng-container>
+      </div>
     </div>
-  </div>
 
-  <div class="items">
-    <ng-container [ngSwitch]="view.loading">
-      <h1 class="title">Unclassified Classes</h1>
-      <div class="col-12">
+    <div class="items">
+      <ng-container [ngSwitch]="view.loading">
+        <h1 class="title">Unclassified Classes</h1>
+        <div class="col-12">
           <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
           <table class="table my-table default-title" *ngSwitchCase="false">
             <tr>
@@ -85,116 +90,131 @@
               <tr *ngFor="let unclassifiedClass of view.syllabus.unclassifiedClasses; let i=index">
                 <td>{{ i + 1}}</td>
                 <td *ngIf="subjectId !== unclassifiedClass.id">{{ unclassifiedClass?.title }}</td>
-                <td *ngIf="subjectId === unclassifiedClass.id"><input type="text" class="subject-field" placeholder="Add topic here..." autofocus></td>
+                <td *ngIf="subjectId === unclassifiedClass.id"><input type="text" class="subject-field"
+                                                                      formControlName="subjectTitle"
+                                                                      placeholder="Add topic here..." autofocus></td>
                 <td>{{ unclassifiedClass?.startDate | date: 'EEEE, dd MMM Y'}}</td>
                 <td>{{ unclassifiedClass?.startTime }} - {{ unclassifiedClass?.endTime}}</td>
                 <td>{{ unclassifiedClass?.duration}}hrs</td>
                 <td>
                   <button class="edit-btn" mat-button *ngIf="subjectId !== unclassifiedClass.id"
-                          (click)="subjectId = unclassifiedClass.id">
+                          (click)="subjectId = unclassifiedClass.id; form.reset()">
                     <mat-icon>edit</mat-icon>
                   </button>
-                  <button class="save-topic-btn" *ngIf="subjectId === unclassifiedClass.id"
+                  <button class="btn save-topic-btn" [ngClass]="{'disabled': !subjectTitle?.value?.trim() || (isSavingSubjectTitle$ | async)}"
+                          *ngIf="subjectId === unclassifiedClass.id" [disabled]="!subjectTitle?.value?.trim() || (isSavingSubjectTitle$ | async)"
                           (click)="onSaveSubjectTitle(unclassifiedClass.id)">
+                    <metutors-spinner class="mt-1" *ngIf="(isSavingSubjectTitle$ | async)"></metutors-spinner>
                     Save
-                  </button></td>
+                  </button>
+                </td>
               </tr>
             </ng-container>
           </table>
-      </div>
+        </div>
 
-      <h1 class="title pt-5">Classified Topics</h1>
-      <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
-      <ng-container *ngSwitchCase="false">
-        <div class="text-center p-3" *ngIf="!view.syllabus?.topics.length">No record found</div>
-        <ng-container *ngIf="view.syllabus?.topics.length">
-          <div class="item position-relative" *ngFor="let syllabus of view.syllabus?.topics; let i = index">
-            <span class="number">{{ i + 1 }}</span>
-            <div class="row set-padding">
-              <div class="col-md-9">
-                <h2>{{ syllabus?.topic?.name }}</h2>
-                <div class="row list p-0">
-                  <div class="col-md-2 d-flex menu align-items-center">
-                    <img src="assets/svg/play-circle-fill.svg" alt="" width="15" height="15" draggable="false">
-                    <strong>Total classes: </strong>
-                    <span>{{ syllabus?.totalClasses }}</span>
-                  </div>
-                  <div class="col-md-2 d-flex menu align-items-center">
-                    <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
-                    <strong>Total hour: </strong>
-                    <span>{{ syllabus?.totalTopicHours }}hrs</span>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3">
-                <div class="row">
-                  <div class="col">
-                    <h3 *ngIf="syllabus?.topicProgress === 100">Completed</h3>
-                    <h3 *ngIf="syllabus?.topicProgress === 0">Not Started yet</h3>
-                    <h3 *ngIf="syllabus?.topicProgress && (syllabus?.topicProgress > 0 && syllabus?.topicProgress < 100)">In progress</h3>
-                    <mat-progress-bar class="example-margin" [color]="syllabus.topicProgress ? syllabus.topicProgress > 30 ? 'primary' : 'warn' : undefined"
-                                      [value]="syllabus?.topicProgress">
-                    </mat-progress-bar>
-                  </div>
-                  <div class="col-md-2 d-flex align-items-center">
-                    <button class="edit-data" mat-button>
-                      <mat-icon>edit</mat-icon>
-                    </button>
+        <h1 class="title pt-5">Classified Topics</h1>
+        <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
+        <ng-container *ngSwitchCase="false">
+          <div class="text-center p-3" *ngIf="!view.syllabus?.topics.length">No record found</div>
+          <ng-container *ngIf="view.syllabus?.topics.length">
+            <div class="item position-relative" *ngFor="let syllabus of view.syllabus?.topics; let i = index">
+              <span class="number">{{ i + 1 }}</span>
+              <div class="row set-padding">
+                <div class="col-md-9">
+                  <h2>{{ syllabus?.topic?.name }}</h2>
+                  <div class="row list p-0">
+                    <div class="col-md-2 d-flex menu align-items-center">
+                      <img src="assets/svg/play-circle-fill.svg" alt="" width="15" height="15" draggable="false">
+                      <strong>Total classes: </strong>
+                      <span>{{ syllabus?.totalClasses }}</span>
+                    </div>
+                    <div class="col-md-2 d-flex menu align-items-center">
+                      <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
+                      <strong>Total hour: </strong>
+                      <span>{{ syllabus?.totalTopicHours }}hrs</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div class="row set-padding desc">
-              <p class="col">{{ syllabus?.topic?.description }}</p>
-              <ng-container *ngIf="view.syllabus?.topics && view.syllabus?.topics?.length">
-                <button mat-button class="expand" *ngIf="selectedCourse !== syllabus?.topic?.id">
-                  <mat-icon (click)="openCourse = true; selectedCourse = syllabus?.topic?.id">expand_more</mat-icon>
-                </button>
-                <button mat-button class="expand" *ngIf="openCourse && selectedCourse === syllabus?.topic?.id">
-                  <mat-icon (click)="openCourse = false; selectedCourse = null">expand_less</mat-icon>
-                </button>
-              </ng-container>
-            </div>
-            <ng-container *ngIf="view.syllabus?.topics && view.syllabus?.topics?.length">
-              <div class="table-responsive" *ngIf="openCourse && selectedCourse === syllabus?.topic?.id" [@slideInOut]>
-                <table class="table">
-                  <thead>
-                  <tr>
-                    <th scope="col">Class Number</th>
-                    <th scope="col">Class Subject</th>
-                    <th scope="col">Class Days</th>
-                    <th scope="col">Start time - End time</th>
-                    <th scope="col">Duration</th>
-                    <th scope="col">Action</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr *ngFor="let syllabusClass of syllabus?.topic?.classes; let i = index">
-                    <td scope="row">{{ i+1 }}</td>
-                    <td *ngIf="subjectId !== syllabusClass.id">{{ syllabusClass?.title }}</td>
-                    <td *ngIf="subjectId === syllabusClass.id"><input type="text" class="subject-field" placeholder="Add topic here..." autofocus></td>
-                    <td>{{ syllabusClass?.startDate | date : 'EEEE, dd MMM Y'}}</td>
-                    <td>{{ syllabusClass?.startTime + '-' + syllabusClass?.endTime }}</td>
-                    <td>{{ syllabusClass?.duration + 'hrs' }}</td>
-                    <td>
-                      <button class="edit-btn" mat-button *ngIf="subjectId !== syllabusClass.id" (click)="subjectId = syllabusClass.id">
+                <div class="col-md-3">
+                  <div class="row">
+                    <div class="col">
+                      <h3 *ngIf="syllabus?.topicProgress === 100">Completed</h3>
+                      <h3 *ngIf="syllabus?.topicProgress === 0">Not Started yet</h3>
+                      <h3
+                        *ngIf="syllabus?.topicProgress && (syllabus?.topicProgress > 0 && syllabus?.topicProgress < 100)">
+                        In progress</h3>
+                      <mat-progress-bar class="example-margin"
+                                        [color]="syllabus.topicProgress ? syllabus.topicProgress > 30 ? 'primary' : 'warn' : undefined"
+                                        [value]="syllabus?.topicProgress">
+                      </mat-progress-bar>
+                    </div>
+                    <div class="col-md-2 d-flex align-items-center">
+                      <button class="edit-data" mat-button>
                         <mat-icon>edit</mat-icon>
                       </button>
-                      <button class="save-topic-btn" *ngIf="subjectId === syllabusClass.id" (click)="onSaveSubjectTitle(syllabusClass.id)">
-                       Save
-                      </button>
-                    </td>
-                  </tr>
-                  </tbody>
-                </table>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </ng-container>
-          </div>
+              <div class="row set-padding desc">
+                <p class="col">{{ syllabus?.topic?.description }}</p>
+                <ng-container *ngIf="view.syllabus?.topics && view.syllabus?.topics?.length">
+                  <button mat-button class="expand" *ngIf="selectedCourse !== syllabus?.topic?.id">
+                    <mat-icon (click)="openCourse = true; selectedCourse = syllabus?.topic?.id">expand_more</mat-icon>
+                  </button>
+                  <button mat-button class="expand" *ngIf="openCourse && selectedCourse === syllabus?.topic?.id">
+                    <mat-icon (click)="openCourse = false; selectedCourse = null">expand_less</mat-icon>
+                  </button>
+                </ng-container>
+              </div>
+              <ng-container *ngIf="view.syllabus?.topics && view.syllabus?.topics?.length">
+                <div class="table-responsive" *ngIf="openCourse && selectedCourse === syllabus?.topic?.id"
+                     [@slideInOut]>
+                  <table class="table">
+                    <thead>
+                    <tr>
+                      <th scope="col">Class Number</th>
+                      <th scope="col">Class Subject</th>
+                      <th scope="col">Class Days</th>
+                      <th scope="col">Start time - End time</th>
+                      <th scope="col">Duration</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let syllabusClass of syllabus?.topic?.classes; let i = index">
+                      <td scope="row">{{ i + 1 }}</td>
+                      <td *ngIf="subjectId !== syllabusClass.id">{{ syllabusClass?.title }}</td>
+                      <td *ngIf="subjectId === syllabusClass.id"><input type="text" class="subject-field"
+                                                                        formControlName="subjectTitle"
+                                                                        placeholder="Add topic here..." autofocus></td>
+                      <td>{{ syllabusClass?.startDate | date : 'EEEE, dd MMM Y'}}</td>
+                      <td>{{ syllabusClass?.startTime + '-' + syllabusClass?.endTime }}</td>
+                      <td>{{ syllabusClass?.duration + 'hrs' }}</td>
+                      <td>
+                        <button class="edit-btn" mat-button *ngIf="subjectId !== syllabusClass.id"
+                                (click)="subjectId = syllabusClass.id; form.reset()">
+                          <mat-icon>edit</mat-icon>
+                        </button>
+                        <button class="save-topic-btn" [ngClass]="{'disabled': !subjectTitle?.value?.trim() || (isSavingSubjectTitle$ | async)}"
+                                [disabled]="!subjectTitle?.value?.trim() || (isSavingSubjectTitle$ | async)" *ngIf="subjectId === syllabusClass.id"
+                                (click)="onSaveSubjectTitle(syllabusClass.id)">
+                          <metutors-spinner class="mt-1" *ngIf="(isSavingSubjectTitle$ | async)"></metutors-spinner>
+                          Save
+                        </button>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </ng-container>
+            </div>
+          </ng-container>
         </ng-container>
       </ng-container>
-    </ng-container>
-  </div>
-
+    </div>
+  </form>
   <metutors-tutor-add-syllabus-topic-modal (closeModal)="onCloseAddTopicModal()"
                                            [showModal]="(showAddTopicModal$ | async)!"
                                            (submitted)="onAddTopic($event)"

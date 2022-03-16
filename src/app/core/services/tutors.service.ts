@@ -93,4 +93,11 @@ export class TutorsService {
       body
     );
   }
+
+  editSubjectTitle(title: string, class_id: number): Observable<any> {
+    return this.http.post<{ user: ITutor }>(
+      `${this.baseUrl}course/topic/edit-class`,
+      { title, class_id }
+    );
+  }
 }

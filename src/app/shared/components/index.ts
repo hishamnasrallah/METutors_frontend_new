@@ -1,4 +1,5 @@
 export * from './modal';
+export * from './spinner';
 export * from './course-item';
 export * from './submit-button';
 export * from './classroom-item';

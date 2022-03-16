@@ -147,10 +147,39 @@ export class TutorEffects {
     )
   );
 
+  tutorEditSubjectTitle$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorActions.tutorEditSubjectTitle),
+      mergeMap(({ title, classId }) =>
+        this._tutorService.editSubjectTitle(title, classId).pipe(
+          map(() =>
+            tutorActions.tutorEditSubjectTitleSuccess({
+              title,
+              classId,
+              message: 'Class subject has been successfully updated',
+            })
+          ),
+          catchError((error) =>
+            of(
+              tutorActions.tutorEditSubjectTitleFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   successMessages$ = createEffect(
     () =>
       this._actions$.pipe(
-        ofType(...[tutorActions.tutorAddSyllabusTopicSuccess]),
+        ofType(
+          ...[
+            tutorActions.tutorAddSyllabusTopicSuccess,
+            tutorActions.tutorEditSubjectTitleSuccess,
+          ]
+        ),
         map(({ message }) => this._alertNotificationService.success(message))
       ),
     {
@@ -165,6 +194,7 @@ export class TutorEffects {
           ...[
             tutorActions.completeTutorProfileFailure,
             tutorActions.tutorAddSyllabusTopicFailure,
+            tutorActions.tutorEditSubjectTitleFailure,
           ]
         ),
         map((action) => {

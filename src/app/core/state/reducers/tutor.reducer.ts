@@ -11,6 +11,7 @@ export interface State {
   isLoadingSyllabus: boolean;
   isLoadingDashboard: boolean;
   loadingTutorFailure: string;
+  isSavingSubjectTitle: boolean;
   isAddingSyllabusTopic: boolean;
 
   // Complete Tutor Profile
@@ -26,6 +27,7 @@ export const initialState: State = {
   loadingTutorFailure: '',
   isLoadingSyllabus: false,
   isLoadingDashboard: false,
+  isSavingSubjectTitle: false,
   isAddingSyllabusTopic: false,
   isCompleteTutorProfile: false,
   completeTutorProfileFailure: '',
@@ -102,6 +104,7 @@ export const reducer = createReducer(
     ...state,
     isLoadingSyllabus: false,
   })),
+
   on(tutorActions.tutorAddSyllabusTopic, (state) => ({
     ...state,
     isAddingSyllabusTopic: true,
@@ -115,6 +118,21 @@ export const reducer = createReducer(
   on(tutorActions.tutorAddSyllabusTopicFailure, (state) => ({
     ...state,
     isAddingSyllabusTopic: false,
+  })),
+
+  on(tutorActions.tutorEditSubjectTitle, (state) => ({
+    ...state,
+    isSavingSubjectTitle: true,
+  })),
+
+  on(tutorActions.tutorEditSubjectTitleSuccess, (state) => ({
+    ...state,
+    isSavingSubjectTitle: false,
+  })),
+
+  on(tutorActions.tutorEditSubjectTitleFailure, (state) => ({
+    ...state,
+    isSavingSubjectTitle: false,
   }))
 );
 
@@ -137,3 +155,6 @@ export const selectIsLoadingTutorSyllabus = (state: State): boolean =>
 
 export const selectIsAddingSyllabusTopic = (state: State): boolean =>
   state.isAddingSyllabusTopic;
+
+export const selectIsSavingSubjectTitle = (state: State): boolean =>
+  state.isSavingSubjectTitle;

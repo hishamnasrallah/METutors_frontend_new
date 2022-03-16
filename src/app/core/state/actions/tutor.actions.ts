@@ -77,3 +77,18 @@ export const tutorAddSyllabusTopicFailure = createAction(
   '[Tutor] Load Tutor Add Syllabus Topic Failure',
   props<{ error: any }>()
 );
+
+export const tutorEditSubjectTitle = createAction(
+  '[Tutor] Load Tutor Edit Subject Title',
+  props<{ classId: number; title: string }>()
+);
+
+export const tutorEditSubjectTitleSuccess = createAction(
+  '[Tutor] Load Tutor Edit Subject Title Success',
+  props<{ classId: number; title: string; message: string }>()
+);
+
+export const tutorEditSubjectTitleFailure = createAction(
+  '[Tutor] Load Tutor A Edit Subject Title Failure',
+  props<{ error: any }>()
+);
