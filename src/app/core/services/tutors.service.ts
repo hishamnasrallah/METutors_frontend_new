@@ -88,16 +88,18 @@ export class TutorsService {
       course_id,
     };
 
-    return this.http.post<{ user: ITutor }>(
-      `${this.baseUrl}course/add-topic`,
-      body
-    );
+    return this.http.post<any>(`${this.baseUrl}course/add-topic`, body);
   }
 
-  editSubjectTitle(title: string, class_id: number): Observable<any> {
-    return this.http.post<{ user: ITutor }>(
-      `${this.baseUrl}course/topic/edit-class`,
-      { title, class_id }
-    );
+  editSyllabusTopic(body: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}topic/update`, body);
+  }
+
+  deleteSyllabusTopic(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.baseUrl}topic/${id}`);
+  }
+
+  editSubjectTitle(title: string, id: number): Observable<any> {
+    return this.http.patch<any>(`${this.baseUrl}class/edit/${id}`, { title });
   }
 }

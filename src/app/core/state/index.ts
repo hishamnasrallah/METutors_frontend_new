@@ -171,6 +171,11 @@ export const selectIsSavingSubjectTitle = createSelector(
   fromTutorReducer.selectIsSavingSubjectTitle
 );
 
+export const selectIsDeletingTopic = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectIsDeletingTopic
+);
+
 // Ticket
 export const selectTickets = createSelector(
   selectTicketState,

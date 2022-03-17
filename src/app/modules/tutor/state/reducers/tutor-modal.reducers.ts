@@ -35,6 +35,8 @@ export const reducer = createReducer(
   })),
   on(
     fromCore.tutorAddSyllabusTopicSuccess,
+    fromCore.tutorEditSyllabusTopicSuccess,
+    fromCore.tutorDeleteSyllabusTopicSuccess,
     tutorModalActions.closeTutorAddTopicModal,
     (state) => ({
       ...state,

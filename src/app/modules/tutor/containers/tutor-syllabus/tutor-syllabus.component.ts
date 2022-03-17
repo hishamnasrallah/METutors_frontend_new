@@ -23,6 +23,7 @@ import * as fromTutor from '../../state';
 import { WEEK_DAYS } from '@metutor/config';
 import * as fromCore from '@metutor/core/state';
 import * as fromTutorAction from '../../state/actions';
+import { selectIsDeletingTopic } from '@metutor/core/state/reducers/tutor.reducer';
 
 @Component({
   selector: 'metutors-tutor-syllabus',
@@ -61,6 +62,7 @@ export class TutorSyllabusComponent implements OnInit {
   isAddingTopic$: Observable<boolean>;
   showAddTopicModal$: Observable<boolean>;
   isSavingSubjectTitle$: Observable<boolean>;
+  selectIsDeletingTopic$: Observable<boolean>;
   view$: Observable<{ loading: boolean; syllabus: any }>;
 
   constructor(private _store: Store<any>, private _formBuilder: FormBuilder) {}
@@ -80,18 +82,23 @@ export class TutorSyllabusComponent implements OnInit {
   }
 
   onAddEditTopic(form: FormGroup): void {
-    if (form.value) {
-      console.log(form.value);
+    const body = form.value;
 
-      return;
+    if (body.topic_id) {
+      this._store.dispatch(fromCore.tutorEditSyllabusTopic({ body }));
+    } else {
+      this._store.dispatch(fromCore.tutorAddSyllabusTopic({ body }));
     }
-    this._store.dispatch(fromCore.tutorAddSyllabusTopic({ body: form.value }));
   }
 
   onEditTopic(topic: any, unclassifiedClasses: number): void {
     this.topic = topic;
     this.unclassifiedClasses = topic?.classes?.length + unclassifiedClasses;
     this._store.dispatch(fromTutorAction.openTutorAddTopicModal());
+  }
+
+  onDeleteTopic(id: number): void {
+    this._store.dispatch(fromCore.tutorDeleteSyllabusTopic({ id }));
   }
 
   onSaveSubjectTitle(classId: number): void {
@@ -119,7 +126,13 @@ export class TutorSyllabusComponent implements OnInit {
     });
 
     this._store.dispatch(fromCore.loadTutorSyllabus());
+
     this.showAddTopicModal$ = this._store.select(fromTutor.selectAddTopicModal);
+
+    this.selectIsDeletingTopic$ = this._store.select(
+      fromCore.selectIsDeletingTopic
+    );
+
     this.isSavingSubjectTitle$ = this._store.select(
       fromCore.selectIsSavingSubjectTitle
     );

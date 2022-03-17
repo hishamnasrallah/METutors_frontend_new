@@ -16,8 +16,10 @@ export class TutorAddSyllabusTopicModalComponent implements OnInit {
   @Input() showModal = false;
   @Input() totalClasses: number;
   @Input() isSubmitting = false;
+  @Input() isDeletingTopic = false;
 
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
+  @Output() deleted: EventEmitter<number> = new EventEmitter<number>();
   @Output() submitted: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
 
   form: FormGroup;
@@ -35,7 +37,7 @@ export class TutorAddSyllabusTopicModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this._formBuilder.group({
-      id: [this.topic ? this.topic?.id : null],
+      topic_id: [this.topic ? this.topic?.id : null],
       name: [this.topic ? this.topic?.name : null, Validators.required],
       classes: [
         this.topic ? this.topic?.classes?.length : null,

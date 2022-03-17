@@ -217,10 +217,12 @@
   </form>
   <metutors-tutor-add-syllabus-topic-modal *ngIf="(showAddTopicModal$ | async)"
                                            [topic]="topic"
+                                           (deleted)="onDeleteTopic($event)"
                                            (submitted)="onAddEditTopic($event)"
                                            (closeModal)="onCloseAddTopicModal()"
                                            [isSubmitting]="(isAddingTopic$ | async)!"
                                            [showModal]="(showAddTopicModal$ | async)!"
+                                           [isDeletingTopic]="(selectIsDeletingTopic$ | async)!"
                                            [totalClasses]="unclassifiedClasses || view.syllabus?.unclassifiedClasses?.length">
   </metutors-tutor-add-syllabus-topic-modal>
 

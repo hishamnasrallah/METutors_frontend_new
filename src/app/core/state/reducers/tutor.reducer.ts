@@ -2,12 +2,14 @@ import { createReducer, on } from '@ngrx/store';
 
 import { ITutor } from '@models';
 import * as tutorActions from '../actions/tutor.actions';
+import { finalize } from 'rxjs';
 
 export interface State {
   syllabus: any;
   dashboard: any;
   tutor: ITutor | null;
   isLoadingTutors: boolean;
+  isDeletingTopic: boolean;
   isLoadingSyllabus: boolean;
   isLoadingDashboard: boolean;
   loadingTutorFailure: string;
@@ -24,6 +26,7 @@ export const initialState: State = {
   syllabus: null,
   dashboard: null,
   isLoadingTutors: false,
+  isDeletingTopic: false,
   loadingTutorFailure: '',
   isLoadingSyllabus: false,
   isLoadingDashboard: false,
@@ -110,14 +113,79 @@ export const reducer = createReducer(
     isAddingSyllabusTopic: true,
   })),
 
-  on(tutorActions.tutorAddSyllabusTopicSuccess, (state) => ({
-    ...state,
-    isAddingSyllabusTopic: false,
-  })),
+  on(tutorActions.tutorAddSyllabusTopicSuccess, (state, { syllabus }) => {
+    let finalState = {
+      ...state,
+      isAddingSyllabusTopic: false,
+    };
+
+    console.log(finalState);
+    console.log(syllabus);
+
+    const topics = [...finalState.syllabus.topics];
+    topics.push(syllabus.topic);
+
+    finalState.syllabus = {
+      ...finalState.syllabus,
+      topics,
+      unclassifiedClasses: syllabus.unclassifiedClasses,
+    };
+    console.log(finalState);
+    return finalState;
+  }),
 
   on(tutorActions.tutorAddSyllabusTopicFailure, (state) => ({
     ...state,
     isAddingSyllabusTopic: false,
+  })),
+
+  on(tutorActions.tutorEditSyllabusTopic, (state) => ({
+    ...state,
+    isAddingSyllabusTopic: true,
+  })),
+
+  on(tutorActions.tutorEditSyllabusTopicSuccess, (state, { syllabus }) => {
+    console.log(syllabus);
+
+    return {
+      ...state,
+      isAddingSyllabusTopic: false,
+    };
+  }),
+
+  on(tutorActions.tutorEditSyllabusTopicFailure, (state) => ({
+    ...state,
+    isAddingSyllabusTopic: false,
+  })),
+
+  on(tutorActions.tutorDeleteSyllabusTopic, (state) => ({
+    ...state,
+    isDeletingTopic: true,
+  })),
+
+  on(tutorActions.tutorDeleteSyllabusTopicSuccess, (state, { data }) => {
+    const finalState = {
+      ...state,
+      isDeletingTopic: false,
+    };
+
+    if (finalState.syllabus?.topics?.length) {
+      const topics = finalState.syllabus?.topics.filter(
+        (item: any) => item.topic.id !== data.deletedTopic?.id
+      );
+
+      finalState.syllabus = {
+        ...finalState.syllabus,
+        topics,
+        unclassifiedClasses: data?.unclassifiedClasses,
+      };
+    }
+    return finalState;
+  }),
+
+  on(tutorActions.tutorDeleteSyllabusTopicFailure, (state) => ({
+    ...state,
+    isDeletingTopic: false,
   })),
 
   on(tutorActions.tutorEditSubjectTitle, (state) => ({
@@ -158,3 +226,6 @@ export const selectIsAddingSyllabusTopic = (state: State): boolean =>
 
 export const selectIsSavingSubjectTitle = (state: State): boolean =>
   state.isSavingSubjectTitle;
+
+export const selectIsDeletingTopic = (state: State): boolean =>
+  state.isDeletingTopic;

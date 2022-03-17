@@ -147,6 +147,52 @@ export class TutorEffects {
     )
   );
 
+  tutorEditSyllabusTopic$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorActions.tutorEditSyllabusTopic),
+      mergeMap(({ body }) =>
+        this._tutorService.editSyllabusTopic(body).pipe(
+          map((syllabus) =>
+            tutorActions.tutorEditSyllabusTopicSuccess({
+              syllabus: camelcaseKeys(syllabus, { deep: true }),
+              message: 'Topic has been successfully updated',
+            })
+          ),
+          catchError((error) =>
+            of(
+              tutorActions.tutorEditSyllabusTopicFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  tutorDeleteSyllabusTopic$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorActions.tutorDeleteSyllabusTopic),
+      mergeMap(({ id }) =>
+        this._tutorService.deleteSyllabusTopic(id).pipe(
+          map((data) =>
+            tutorActions.tutorDeleteSyllabusTopicSuccess({
+              data: camelcaseKeys(data, { deep: true }),
+              message: 'Topic has been successfully deleted',
+            })
+          ),
+          catchError((error) =>
+            of(
+              tutorActions.tutorDeleteSyllabusTopicFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   tutorEditSubjectTitle$ = createEffect(() =>
     this._actions$.pipe(
       ofType(tutorActions.tutorEditSubjectTitle),
@@ -178,6 +224,8 @@ export class TutorEffects {
           ...[
             tutorActions.tutorAddSyllabusTopicSuccess,
             tutorActions.tutorEditSubjectTitleSuccess,
+            tutorActions.tutorEditSyllabusTopicSuccess,
+            tutorActions.tutorDeleteSyllabusTopicSuccess,
           ]
         ),
         map(({ message }) => this._alertNotificationService.success(message))
@@ -195,6 +243,8 @@ export class TutorEffects {
             tutorActions.completeTutorProfileFailure,
             tutorActions.tutorAddSyllabusTopicFailure,
             tutorActions.tutorEditSubjectTitleFailure,
+            tutorActions.tutorEditSyllabusTopicFailure,
+            tutorActions.tutorDeleteSyllabusTopicFailure,
           ]
         ),
         map((action) => {

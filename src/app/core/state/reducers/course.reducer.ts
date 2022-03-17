@@ -113,9 +113,12 @@ export const reducer = createReducer(
         (course: any) => course.id === courseId
       );
 
+      const activeCourses = [...finalState.courses.activeCourses];
+      activeCourses.unshift(acceptedCourse);
+
       const courses = {
         ...finalState.courses,
-        activeCourses: finalState.courses.activeCourses.unshift(acceptedCourse),
+        activeCourses,
         newlyAssignedCourses: finalState.courses.newlyAssignedCourses.filter(
           (course: any) => course.id !== courseId
         ),

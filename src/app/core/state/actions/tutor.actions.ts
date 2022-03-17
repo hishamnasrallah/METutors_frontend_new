@@ -78,6 +78,36 @@ export const tutorAddSyllabusTopicFailure = createAction(
   props<{ error: any }>()
 );
 
+export const tutorEditSyllabusTopic = createAction(
+  '[Tutor] Load Tutor Edit Syllabus Topic',
+  props<{ body: any }>()
+);
+
+export const tutorEditSyllabusTopicSuccess = createAction(
+  '[Tutor] Load Tutor Edit Syllabus Topic Success',
+  props<{ syllabus: any; message: string }>()
+);
+
+export const tutorEditSyllabusTopicFailure = createAction(
+  '[Tutor] Load Tutor Edit Syllabus Topic Failure',
+  props<{ error: any }>()
+);
+
+export const tutorDeleteSyllabusTopic = createAction(
+  '[Tutor] Load Tutor Delete Syllabus Topic',
+  props<{ id: number }>()
+);
+
+export const tutorDeleteSyllabusTopicSuccess = createAction(
+  '[Tutor] Load Tutor Delete Syllabus Topic Success',
+  props<{ data: any; message: string }>()
+);
+
+export const tutorDeleteSyllabusTopicFailure = createAction(
+  '[Tutor] Load Tutor Delete Syllabus Topic Failure',
+  props<{ error: any }>()
+);
+
 export const tutorEditSubjectTitle = createAction(
   '[Tutor] Load Tutor Edit Subject Title',
   props<{ classId: number; title: string }>()
