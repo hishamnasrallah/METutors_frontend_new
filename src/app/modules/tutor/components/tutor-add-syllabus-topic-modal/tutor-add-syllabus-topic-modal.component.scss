@@ -10,9 +10,13 @@
   }
 }
 
+.spinner {
+  margin: 3px 0 0 3px;
+}
 .delete {
   top: -6px;
   left: 35%;
+  display: flex;
   color: #979797;
   position: absolute;
 }

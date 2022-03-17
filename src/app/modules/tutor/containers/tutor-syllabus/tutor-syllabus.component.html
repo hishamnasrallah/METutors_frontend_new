@@ -72,7 +72,7 @@
         <h1 class="title">Unclassified Classes</h1>
         <div class="col-12">
           <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
-          <table class="table my-table default-title" *ngSwitchCase="false">
+          <table class="table my-table" *ngSwitchCase="false">
             <tr>
               <td>Class Number</td>
               <td>Class Subject</td>
@@ -104,8 +104,8 @@
                   <button class="btn save-topic-btn" [ngClass]="{'disabled': !subjectTitle?.value?.trim() || (isSavingSubjectTitle$ | async)}"
                           *ngIf="subjectId === unclassifiedClass.id" [disabled]="!subjectTitle?.value?.trim() || (isSavingSubjectTitle$ | async)"
                           (click)="onSaveSubjectTitle(unclassifiedClass.id)">
-                    <metutors-spinner class="mt-1" *ngIf="(isSavingSubjectTitle$ | async)"></metutors-spinner>
                     Save
+                    <mat-spinner class="spinner" [diameter]="15" *ngIf="(isSavingSubjectTitle$ | async)"></mat-spinner>
                   </button>
                 </td>
               </tr>
@@ -200,8 +200,8 @@
                         <button class="save-topic-btn" [ngClass]="{'disabled': !subjectTitle?.value?.trim() || (isSavingSubjectTitle$ | async)}"
                                 [disabled]="!subjectTitle?.value?.trim() || (isSavingSubjectTitle$ | async)" *ngIf="subjectId === syllabusClass.id"
                                 (click)="onSaveSubjectTitle(syllabusClass.id)">
-                          <metutors-spinner class="mt-1" *ngIf="(isSavingSubjectTitle$ | async)"></metutors-spinner>
                           Save
+                          <mat-spinner class="spinner" [diameter]="15" *ngIf="(isSavingSubjectTitle$ | async)"></mat-spinner>
                         </button>
                       </td>
                     </tr>

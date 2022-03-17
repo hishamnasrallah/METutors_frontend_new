@@ -119,18 +119,15 @@ export const reducer = createReducer(
       isAddingSyllabusTopic: false,
     };
 
-    console.log(finalState);
-    console.log(syllabus);
-
     const topics = [...finalState.syllabus.topics];
-    topics.push(syllabus.topic);
+    topics.push(syllabus.topicDetail);
 
     finalState.syllabus = {
       ...finalState.syllabus,
       topics,
       unclassifiedClasses: syllabus.unclassifiedClasses,
     };
-    console.log(finalState);
+
     return finalState;
   }),
 
@@ -147,10 +144,24 @@ export const reducer = createReducer(
   on(tutorActions.tutorEditSyllabusTopicSuccess, (state, { syllabus }) => {
     console.log(syllabus);
 
-    return {
+    let finalState = {
       ...state,
       isAddingSyllabusTopic: false,
     };
+
+    const topics = finalState.syllabus.topics.map((item: any) =>
+      item.topic.id === syllabus.topicDetail.topic.id
+        ? syllabus.topicDetail
+        : item
+    );
+
+    finalState.syllabus = {
+      ...finalState.syllabus,
+      topics,
+      unclassifiedClasses: syllabus.unclassifiedClasses,
+    };
+
+    return finalState;
   }),
 
   on(tutorActions.tutorEditSyllabusTopicFailure, (state) => ({

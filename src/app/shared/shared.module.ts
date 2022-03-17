@@ -22,7 +22,6 @@ import {
 // Components
 import {
   ModalComponent,
-  SpinnerComponent,
   CourseItemComponent,
   SubmitButtonComponent,
   ModalComponentTemplate,
@@ -45,7 +44,6 @@ import {
 
 @NgModule({
   declarations: [
-    SpinnerComponent,
     CourseItemComponent,
     SubmitButtonComponent,
     ClassroomItemComponent,
@@ -71,7 +69,6 @@ import {
     DefaultCoverDirective,
     DefaultAvatarDirective,
     DefaultCourseDirective,
-    SpinnerComponent,
   ],
   imports: [
     FormsModule,
@@ -87,7 +84,6 @@ import {
     MatProgressBarModule,
   ],
   exports: [
-    SpinnerComponent,
     CourseItemComponent,
     SubmitButtonComponent,
     ClassroomItemComponent,

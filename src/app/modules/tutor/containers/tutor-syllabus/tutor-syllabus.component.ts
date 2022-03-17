@@ -15,7 +15,7 @@ import {
 } from '@angular/forms';
 
 import { Store } from '@ngrx/store';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { Observable, combineLatest } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 
@@ -23,7 +23,6 @@ import * as fromTutor from '../../state';
 import { WEEK_DAYS } from '@metutor/config';
 import * as fromCore from '@metutor/core/state';
 import * as fromTutorAction from '../../state/actions';
-import { selectIsDeletingTopic } from '@metutor/core/state/reducers/tutor.reducer';
 
 @Component({
   selector: 'metutors-tutor-syllabus',

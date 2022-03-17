@@ -186,10 +186,15 @@
   .save-topic-btn {
     border: none;
     color: #fff;
+    display: flex;
     font-size: 12px;
     padding: 2px 10px;
     border-radius: 2px;
     background: #3bb3c1;
+
+    &.spinner {
+      margin-left: 3px;
+    }
 
     &.disabled {
       background: #c7c7c7 !important;

@@ -15,6 +15,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { NgxAutoScrollModule } from 'ngx-auto-scroll';
 import { TutorRoutingModule } from './tutor-routing.module';
@@ -106,6 +107,7 @@ import {
     MatProgressBarModule,
     MatButtonToggleModule,
     RatingModule.forRoot(),
+    MatProgressSpinnerModule,
     // EffectsModule.forFeature(Object.values(tutorEffects)),
     StoreModule.forFeature(featureKeys.tutorFeatureKey, fromTutor.reducers),
   ],
