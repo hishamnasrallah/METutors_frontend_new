@@ -23,7 +23,6 @@ import * as fromTutor from '../../state';
 import { WEEK_DAYS } from '@metutor/config';
 import * as fromCore from '@metutor/core/state';
 import * as fromTutorAction from '../../state/actions';
-import { selectIsSavingSubjectTitle } from '@metutor/core/state/reducers/tutor.reducer';
 
 @Component({
   selector: 'metutors-tutor-syllabus',
@@ -52,8 +51,10 @@ import { selectIsSavingSubjectTitle } from '@metutor/core/state/reducers/tutor.r
   ],
 })
 export class TutorSyllabusComponent implements OnInit {
+  topic = null;
   subjectId = null;
   selectedCourse = null;
+  unclassifiedClasses = null;
   openCourse: boolean = false;
 
   form: FormGroup;
@@ -69,6 +70,8 @@ export class TutorSyllabusComponent implements OnInit {
   }
 
   onShowAddTopicModal(): void {
+    this.topic = null;
+    this.unclassifiedClasses = null;
     this._store.dispatch(fromTutorAction.openTutorAddTopicModal());
   }
 
@@ -76,8 +79,19 @@ export class TutorSyllabusComponent implements OnInit {
     this._store.dispatch(fromTutorAction.closeTutorAddTopicModal());
   }
 
-  onAddTopic(form: FormGroup): void {
+  onAddEditTopic(form: FormGroup): void {
+    if (form.value) {
+      console.log(form.value);
+
+      return;
+    }
     this._store.dispatch(fromCore.tutorAddSyllabusTopic({ body: form.value }));
+  }
+
+  onEditTopic(topic: any, unclassifiedClasses: number): void {
+    this.topic = topic;
+    this.unclassifiedClasses = topic?.classes?.length + unclassifiedClasses;
+    this._store.dispatch(fromTutorAction.openTutorAddTopicModal());
   }
 
   onSaveSubjectTitle(classId: number): void {

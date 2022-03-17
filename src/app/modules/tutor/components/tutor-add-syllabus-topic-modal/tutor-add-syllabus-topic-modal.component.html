@@ -23,7 +23,7 @@
                 </label>
               </div>
               <div class="col-auto col-10 align-middle">
-                <mat-slider thumbLabel id="select-class" min="0" [max]="totalClasses" class="w-100 -mt-7"
+                <mat-slider thumbLabel id="select-class" min="0" [max]="totalClasses" class="w-100 -mt-7" [value]="classes?.value ? classes?.value : 0"
                             (change)="onClassSelect($event)"></mat-slider>
               </div>
               <div class="col-auto col-2">

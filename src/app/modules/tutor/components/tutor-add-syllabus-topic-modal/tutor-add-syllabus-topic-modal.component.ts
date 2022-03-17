@@ -1,8 +1,8 @@
 import {
-  AbstractControl,
-  FormBuilder,
   FormGroup,
   Validators,
+  FormBuilder,
+  AbstractControl,
 } from '@angular/forms';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
@@ -12,6 +12,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./tutor-add-syllabus-topic-modal.component.scss'],
 })
 export class TutorAddSyllabusTopicModalComponent implements OnInit {
+  @Input() topic: any;
   @Input() showModal = false;
   @Input() totalClasses: number;
   @Input() isSubmitting = false;
@@ -32,15 +33,18 @@ export class TutorAddSyllabusTopicModalComponent implements OnInit {
     return this.form.get('classes');
   }
 
-  submit(form: FormGroup) {
-    console.log(form.value);
-  }
-
   ngOnInit(): void {
     this.form = this._formBuilder.group({
-      name: [null, Validators.required],
-      classes: [null, Validators.required],
-      description: [null, Validators.required],
+      id: [this.topic ? this.topic?.id : null],
+      name: [this.topic ? this.topic?.name : null, Validators.required],
+      classes: [
+        this.topic ? this.topic?.classes?.length : null,
+        Validators.required,
+      ],
+      description: [
+        this.topic ? this.topic?.description : null,
+        Validators.required,
+      ],
     });
   }
 }

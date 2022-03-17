@@ -150,7 +150,7 @@
                       </mat-progress-bar>
                     </div>
                     <div class="col-md-2 d-flex align-items-center">
-                      <button class="edit-data" mat-button>
+                      <button class="edit-data" mat-button (click)="onEditTopic(syllabus?.topic, view.syllabus?.unclassifiedClasses?.length)">
                         <mat-icon>edit</mat-icon>
                       </button>
                     </div>
@@ -215,11 +215,13 @@
       </ng-container>
     </div>
   </form>
-  <metutors-tutor-add-syllabus-topic-modal *ngIf="(showAddTopicModal$ | async)" (closeModal)="onCloseAddTopicModal()"
-                                           [showModal]="(showAddTopicModal$ | async)!"
-                                           (submitted)="onAddTopic($event)"
+  <metutors-tutor-add-syllabus-topic-modal *ngIf="(showAddTopicModal$ | async)"
+                                           [topic]="topic"
+                                           (submitted)="onAddEditTopic($event)"
+                                           (closeModal)="onCloseAddTopicModal()"
                                            [isSubmitting]="(isAddingTopic$ | async)!"
-                                           [totalClasses]="view.syllabus?.unclassifiedClasses?.length">
+                                           [showModal]="(showAddTopicModal$ | async)!"
+                                           [totalClasses]="unclassifiedClasses || view.syllabus?.unclassifiedClasses?.length">
   </metutors-tutor-add-syllabus-topic-modal>
 
 </div>
