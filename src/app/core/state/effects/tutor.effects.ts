@@ -222,9 +222,11 @@ export class TutorEffects {
       ofType(tutorActions.tutorLaunchClass),
       mergeMap(({ classId }) =>
         this._tutorService.launchClass(classId).pipe(
-          map((launchClassLink) => {
-            if (launchClassLink) {
-              window.open(launchClassLink, '_blank');
+          map((response) => {
+            console.log(response);
+
+            if (response && response?.class_url) {
+              window.open(response.class_url, '_blank');
             }
 
             return tutorActions.tutorLaunchClassSuccess();

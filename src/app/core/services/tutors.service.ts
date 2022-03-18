@@ -104,9 +104,6 @@ export class TutorsService {
   }
 
   launchClass(id: number): Observable<any> {
-    return this.http.post<any>(
-      `https://api.braincert.com/v2/getclasslaunch`,
-      {}
-    );
+    return this.http.get<any>(`${this.baseUrl}class/launch/${id}`, {});
   }
 }

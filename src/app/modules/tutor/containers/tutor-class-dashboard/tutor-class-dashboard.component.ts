@@ -21,6 +21,11 @@ export class TutorClassDashboardComponent implements OnInit {
 
   constructor(private _store: Store<any>) {}
 
+  launchClass(classId: number): void {
+    console.log(classId);
+    this._store.dispatch(fromCore.tutorLaunchClass({ classId }));
+  }
+
   getHours(date: string) {
     const startDate = new Date();
     const endDate = new Date(date);
