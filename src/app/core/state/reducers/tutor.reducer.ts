@@ -2,7 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 
 import { ITutor } from '@models';
 import * as tutorActions from '../actions/tutor.actions';
-import { finalize } from 'rxjs';
+import * as courseActions from '../actions/course.actions';
 
 export interface State {
   syllabus: any;
@@ -212,7 +212,35 @@ export const reducer = createReducer(
   on(tutorActions.tutorEditSubjectTitleFailure, (state) => ({
     ...state,
     isSavingSubjectTitle: false,
-  }))
+  })),
+
+  // On accept/reject course filter out rejected course
+  on(
+    courseActions.tutorAcceptCourseSuccess,
+    courseActions.tutorRejectCourseSuccess,
+    (state, { courseId }) => {
+      let finalState = {
+        ...state,
+      };
+
+      if (finalState?.dashboard?.newlyAssignedCourses) {
+        const dashboard = {
+          ...finalState.dashboard,
+          newlyAssignedCourses:
+            finalState.dashboard.newlyAssignedCourses.filter(
+              (course: any) => course.id !== courseId
+            ),
+        };
+
+        finalState = {
+          ...finalState,
+          dashboard,
+        };
+      }
+
+      return finalState;
+    }
+  )
 );
 
 export const selectTutor = (state: State): ITutor | null => state.tutor;

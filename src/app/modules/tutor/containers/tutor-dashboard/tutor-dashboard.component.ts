@@ -21,6 +21,7 @@ export class TutorDashboardComponent implements OnInit {
   courseId: number;
   user$: Observable<IUser | null>;
   isRejecting$: Observable<boolean>;
+  isAccepting$: Observable<boolean>;
   showRejectCourseModal$: Observable<boolean>;
   view$: Observable<{ loading: boolean; data: any }>;
 
@@ -43,6 +44,14 @@ export class TutorDashboardComponent implements OnInit {
     this._store.dispatch(fromTutorAction.closeTutorRejectCourseModal());
   }
 
+  onAcceptCourse(courseId: number): void {
+    this._store.dispatch(
+      fromCore.tutorAcceptCourse({
+        courseId,
+      })
+    );
+  }
+
   onRejectCourse(form: FormGroup): void {
     this._store.dispatch(
       fromCore.tutorRejectCourse({
@@ -56,6 +65,7 @@ export class TutorDashboardComponent implements OnInit {
     this.user$ = this._store.select(fromCore.selectUser);
     this.layout$ = this._store.select(fromRoot.selectLayout);
     this.isRejecting$ = this._store.select(fromCore.selectIsRejectingCourse);
+    this.isAccepting$ = this._store.select(fromCore.selectIsAcceptingCourse);
 
     this.showRejectCourseModal$ = this._store.select(
       fromTutor.selectRejectCourseModal

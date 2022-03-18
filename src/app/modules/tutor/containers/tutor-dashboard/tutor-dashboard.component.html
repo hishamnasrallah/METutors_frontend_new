@@ -135,10 +135,12 @@
           <metutors-card-placeholder *ngSwitchCase="true"></metutors-card-placeholder>
           <ng-container *ngSwitchCase="false">
             <ng-container *ngIf="view.data.courses?.length">
-            <metutors-classroom-item [classroom]="course" *ngFor="let course of view.data.courses"
-                                     [completeCourse]="true" (reject)="onOpenRejectCourse(course.id)"
-                                     [url]="'/tutor/classrooms/classes/dashboard/'">
-            </metutors-classroom-item>
+              <metutors-classroom-item [classroom]="course" *ngFor="let course of view.data.courses"
+                                       [completeCourse]="true" (reject)="onOpenRejectCourse(course.id)"
+                                       [isAcceptingCourse]="(isAccepting$ | async)!"
+                                       (accept)="onAcceptCourse(course.id)"
+                                       [url]="'/tutor/classrooms/classes/dashboard/'">
+              </metutors-classroom-item>
             </ng-container>
             <ng-container *ngIf="!view.data.courses?.length">
               <div class="p-5 text-center">No record found</div>
