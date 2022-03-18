@@ -45,7 +45,8 @@
                 </div>
               </div>
               <div class="col-md-7">
-                <button mat-button class="main-button-transparent float-end" (click)="onShowAddTopicModal()">
+                <button mat-button class="main-button-transparent float-end" (click)="onShowAddTopicModal()"
+                        [disabled]="!view.syllabus?.unclassifiedClasses?.length">
                   <mat-icon>add</mat-icon>
                   Add new Topic
                 </button>
@@ -70,17 +71,20 @@
     <div class="items">
       <ng-container [ngSwitch]="view.loading">
         <h1 class="title">Unclassified Classes</h1>
-        <div class="col-12">
+        <div class="col-12 unclassified-table">
           <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
-          <table class="table my-table" *ngSwitchCase="false">
+          <table class="table" *ngSwitchCase="false">
+            <thead>
             <tr>
-              <td>Class Number</td>
-              <td>Class Subject</td>
-              <td>Class Days</td>
-              <td>Start time - End time</td>
-              <td>Duration</td>
-              <td>Action</td>
+              <th scope="col">Class Number</th>
+              <th scope="col">Class Subject</th>
+              <th scope="col">Class Days</th>
+              <th scope="col">Start time - End time</th>
+              <th scope="col">Duration</th>
+              <th scope="col">Action</th>
             </tr>
+            </thead>
+            <tbody>
             <tr *ngIf="!view.syllabus.unclassifiedClasses.length">
               <td colspan="5">
                 <div class="text-center">No record found</div>
@@ -110,6 +114,7 @@
                 </td>
               </tr>
             </ng-container>
+            </tbody>
           </table>
         </div>
 
