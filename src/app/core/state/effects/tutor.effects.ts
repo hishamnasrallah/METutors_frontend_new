@@ -217,6 +217,30 @@ export class TutorEffects {
     )
   );
 
+  tutorLaunchClass$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorActions.tutorLaunchClass),
+      mergeMap(({ classId }) =>
+        this._tutorService.launchClass(classId).pipe(
+          map((launchClassLink) => {
+            if (launchClassLink) {
+              window.open(launchClassLink, '_blank');
+            }
+
+            return tutorActions.tutorLaunchClassSuccess();
+          }),
+          catchError((error) =>
+            of(
+              tutorActions.tutorLaunchClassFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   successMessages$ = createEffect(
     () =>
       this._actions$.pipe(

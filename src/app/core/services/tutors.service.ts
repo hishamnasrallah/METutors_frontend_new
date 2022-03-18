@@ -102,4 +102,11 @@ export class TutorsService {
   editSubjectTitle(title: string, id: number): Observable<any> {
     return this.http.patch<any>(`${this.baseUrl}class/edit/${id}`, { title });
   }
+
+  launchClass(id: number): Observable<any> {
+    return this.http.post<any>(
+      `https://api.braincert.com/v2/getclasslaunch`,
+      {}
+    );
+  }
 }

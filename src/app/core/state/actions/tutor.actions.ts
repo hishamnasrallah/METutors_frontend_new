@@ -122,3 +122,17 @@ export const tutorEditSubjectTitleFailure = createAction(
   '[Tutor] Load Tutor A Edit Subject Title Failure',
   props<{ error: any }>()
 );
+
+export const tutorLaunchClass = createAction(
+  '[Tutor] Load Tutor Launch Class',
+  props<{ classId: number }>()
+);
+
+export const tutorLaunchClassSuccess = createAction(
+  '[Tutor] Load Tutor Launch Class Success'
+);
+
+export const tutorLaunchClassFailure = createAction(
+  '[Tutor] Load Tutor Launch Class Failure',
+  props<{ error: any }>()
+);
