@@ -6,16 +6,16 @@
       <div class="flex mb-3 codes" *ngIf="view?.programs && view?.programs.length">
         <span class="fw-bold cursor-pointer position-relative"
               [class.active]="programId === null"
-              (click)=" programId = null; countryId = null; loadCourse({});">All</span>
+              (click)=" programId = null; countryId = null; fieldId = null; loadCourse({});">All</span>
         <ng-container *ngFor="let program of view?.programs">
           <span class="fw-bold cursor-pointer position-relative"
             [class.active]="programId === program?.id" *ngIf="program.code !== 'NA'"
-            (click)=" countryId = null; programId = program?.id; loadCourse({program: program?.id});">{{ program?.code }}</span>
+            (click)=" countryId = null; programId = program?.id; fieldId = null; loadCourse({program: program?.id});">{{ program?.code }}</span>
 
           <div class="btn-group" dropdown>
             <span class="fw-bold cursor-pointer position-relative dropdown-toggle dropdown-toggle-split" dropdownToggle
                   [class.active]="programId === program?.id" *ngIf="program.code === 'NA'"
-                  (click)="programId = program?.id">{{ program?.name }}</span>
+                  (click)="programId = program?.id; fieldId = null;">{{ program?.name }}</span>
 
               <ul id="dropdown-split" *dropdownMenu class="dropdown-menu"
                   role="menu" aria-labelledby="button-split">
@@ -27,11 +27,11 @@
       </div>
 
       <ng-container *ngIf="view?.fieldOfStudies && view?.fieldOfStudies.length">
+        <button mat-button class="class-btn main-button-transparent text-uppercase mb-1" [class.active]="!fieldId"
+          (click)="loadCourse({program: programId}); fieldId = null">All</button>
         <button mat-button class="class-btn main-button-transparent text-uppercase mb-1"
-          (click)="loadCourse({program: programId})">All</button>
-        <button mat-button class="class-btn main-button-transparent text-uppercase mb-1"
-          *ngFor="let field of view?.fieldOfStudies"
-          (click)="loadCourse({program: programId, field_of_study: field?.id})">{{ field?.name }}</button>
+          *ngFor="let field of view?.fieldOfStudies" [class.active]="fieldId === field?.id"
+          (click)="loadCourse({program: programId, field_of_study: field?.id}); fieldId = field?.id">{{ field?.name }}</button>
       </ng-container>
     </div>
     <div class="col-12">

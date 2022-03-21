@@ -61,6 +61,7 @@ export class TutorClassroomsComponent implements OnInit {
     completedCourses: any;
   }>;
 
+  fieldId = null;
   courseId: number;
   programId = null;
   countryId = null;

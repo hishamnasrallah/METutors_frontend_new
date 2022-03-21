@@ -107,7 +107,7 @@
             <ng-container *ngIf="view.data.todaysClasses.length">
               <tr *ngFor="let todaysClass of view.data.todaysClasses; let i=index">
                 <td>{{ i+1}}</td>
-                <td>{{ todaysClass?.program?.name }}</td>
+                <td>{{ todaysClass?.course?.program?.name }}</td>
                 <td>{{ todaysClass?.course?.courseName }}</td>
                 <td>{{ todaysClass?.title }}</td>
                 <td>{{ todaysClass?.startTime}} - {{ todaysClass?.endTime}}</td>
@@ -167,12 +167,12 @@
           <table class="table my-table default-title" *ngSwitchCase="false">
             <tr>
               <th colspan="4">Kudos Points details</th>
-              <th class="sm">Total Points: 500</th>
+              <th class="sm">Total Points: {{view.data?.kudosPoints ? view.data?.kudosPoints : 0}}</th>
             </tr>
             <tr>
-              <td>#</td>
-              <td>Student name</td>
-              <td>Course name</td>
+              <td>Number</td>
+              <td>Student Name</td>
+              <td>Course Name</td>
               <td>Course Date</td>
               <td>Points</td>
             </tr>
