@@ -10,6 +10,7 @@ export interface State {
   tutor: ITutor | null;
   isLoadingTutors: boolean;
   isDeletingTopic: boolean;
+  isLaunchingClass: boolean;
   isLoadingSyllabus: boolean;
   isLoadingDashboard: boolean;
   loadingTutorFailure: string;
@@ -27,6 +28,7 @@ export const initialState: State = {
   dashboard: null,
   isLoadingTutors: false,
   isDeletingTopic: false,
+  isLaunchingClass: false,
   loadingTutorFailure: '',
   isLoadingSyllabus: false,
   isLoadingDashboard: false,
@@ -240,7 +242,22 @@ export const reducer = createReducer(
 
       return finalState;
     }
-  )
+  ),
+
+  on(tutorActions.tutorLaunchClass, (state) => ({
+    ...state,
+    isLaunchingClass: true,
+  })),
+
+  on(tutorActions.tutorLaunchClassSuccess, (state) => ({
+    ...state,
+    isLaunchingClass: false,
+  })),
+
+  on(tutorActions.tutorLaunchClassFailure, (state, { error }) => ({
+    ...state,
+    isLaunchingClass: false,
+  }))
 );
 
 export const selectTutor = (state: State): ITutor | null => state.tutor;
@@ -268,3 +285,6 @@ export const selectIsSavingSubjectTitle = (state: State): boolean =>
 
 export const selectIsDeletingTopic = (state: State): boolean =>
   state.isDeletingTopic;
+
+export const selectIsLaunchingClass = (state: State): boolean =>
+  state.isLaunchingClass;

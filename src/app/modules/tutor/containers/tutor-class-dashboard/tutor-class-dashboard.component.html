@@ -96,7 +96,8 @@
                 <td>{{ todaysClass.startTime}} - {{ todaysClass.endTime}} </td>
                 <td>2 hours</td>
                 <td class="d-flex">
-                  <button mat-button class="main-button-opacity flex-grow-1" (click)="launchClass(todaysClass.id)" *ngIf="todaysClass?.status !== 'completed'">
+                  <button mat-button class="main-button-opacity flex-grow-1" (click)="launchClass(todaysClass.id)"
+                          *ngIf="todaysClass?.status !== 'completed'" [disabled]="(isLaunchingClass$ | async)">
                     <img src="assets/svg/play-fill.svg" draggable="false" alt="">
                     Launch Class
                   </button>

@@ -266,6 +266,7 @@ export class TutorEffects {
       this._actions$.pipe(
         ofType(
           ...[
+            tutorActions.tutorLaunchClassFailure,
             tutorActions.completeTutorProfileFailure,
             tutorActions.tutorAddSyllabusTopicFailure,
             tutorActions.tutorEditSubjectTitleFailure,

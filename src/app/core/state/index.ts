@@ -176,6 +176,11 @@ export const selectIsDeletingTopic = createSelector(
   fromTutorReducer.selectIsDeletingTopic
 );
 
+export const selectIsLaunchingClass = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectIsLaunchingClass
+);
+
 // Ticket
 export const selectTickets = createSelector(
   selectTicketState,

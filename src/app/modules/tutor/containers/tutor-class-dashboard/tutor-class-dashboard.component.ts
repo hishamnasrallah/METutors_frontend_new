@@ -14,6 +14,8 @@ export class TutorClassDashboardComponent implements OnInit {
   showFeedbackModal = false;
   showAttendanceModal = false;
 
+  isLaunchingClass$: Observable<boolean>;
+
   view$: Observable<{
     data: any;
     loading: boolean;
@@ -22,7 +24,6 @@ export class TutorClassDashboardComponent implements OnInit {
   constructor(private _store: Store<any>) {}
 
   launchClass(classId: number): void {
-    console.log(classId);
     this._store.dispatch(fromCore.tutorLaunchClass({ classId }));
   }
 
@@ -38,6 +39,10 @@ export class TutorClassDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this._store.dispatch(fromCore.loadCourseById());
+
+    this.isLaunchingClass$ = this._store.select(
+      fromCore.selectIsLaunchingClass
+    );
 
     this.view$ = combineLatest([
       this._store.select(fromCore.selectCourseById),

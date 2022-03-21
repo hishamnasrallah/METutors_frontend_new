@@ -105,15 +105,15 @@
               </td>
             </tr>
             <ng-container *ngIf="view.data.todaysClasses.length">
-              <tr *ngFor="let class of view.data.todaysClasses; let i=index">
+              <tr *ngFor="let todaysClass of view.data.todaysClasses; let i=index">
                 <td>{{ i+1}}</td>
-                <td>{{ class?.program?.name }}</td>
-                <td>{{ class?.course?.courseName }}</td>
-                <td>{{ class?.title }}</td>
-                <td>{{ class?.startTime}} - {{ class?.endTime}}</td>
-                <td>{{ class?.duration}} hours</td>
+                <td>{{ todaysClass?.program?.name }}</td>
+                <td>{{ todaysClass?.course?.courseName }}</td>
+                <td>{{ todaysClass?.title }}</td>
+                <td>{{ todaysClass?.startTime}} - {{ todaysClass?.endTime}}</td>
+                <td>{{ todaysClass?.duration}} hours</td>
                 <td class="d-flex justify-content-end">
-                  <button mat-button class="main-button-opacity">
+                  <button mat-button class="main-button-opacity" (click)="launchClass(todaysClass.id)" [disabled]="(isLaunchingClass$ | async)">
                     <img src="assets/svg/play-fill.svg" draggable="false" alt="">
                     Launch Class
                   </button>

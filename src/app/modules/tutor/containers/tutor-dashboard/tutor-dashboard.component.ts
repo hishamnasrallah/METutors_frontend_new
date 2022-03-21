@@ -22,6 +22,7 @@ export class TutorDashboardComponent implements OnInit {
   user$: Observable<IUser | null>;
   isRejecting$: Observable<boolean>;
   isAccepting$: Observable<boolean>;
+  isLaunchingClass$: Observable<boolean>;
   showRejectCourseModal$: Observable<boolean>;
   view$: Observable<{ loading: boolean; data: any }>;
 
@@ -42,6 +43,11 @@ export class TutorDashboardComponent implements OnInit {
 
   onCloseRejectCourse() {
     this._store.dispatch(fromTutorAction.closeTutorRejectCourseModal());
+  }
+
+  launchClass(classId: number): void {
+    console.log(classId);
+    this._store.dispatch(fromCore.tutorLaunchClass({ classId }));
   }
 
   onAcceptCourse(courseId: number): void {
@@ -66,6 +72,9 @@ export class TutorDashboardComponent implements OnInit {
     this.layout$ = this._store.select(fromRoot.selectLayout);
     this.isRejecting$ = this._store.select(fromCore.selectIsRejectingCourse);
     this.isAccepting$ = this._store.select(fromCore.selectIsAcceptingCourse);
+    this.isLaunchingClass$ = this._store.select(
+      fromCore.selectIsLaunchingClass
+    );
 
     this.showRejectCourseModal$ = this._store.select(
       fromTutor.selectRejectCourseModal
