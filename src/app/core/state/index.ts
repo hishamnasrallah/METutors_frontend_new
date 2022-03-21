@@ -151,6 +151,41 @@ export const selectIsCompleteTutorProfile = createSelector(
   fromTutorReducer.selectIsCompleteTutorProfile
 );
 
+export const selectTutorSyllabus = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectTutorSyllabus
+);
+
+export const selectIsLoadingTutorSyllabus = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectIsLoadingTutorSyllabus
+);
+
+export const selectIsAddingSyllabusTopic = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectIsAddingSyllabusTopic
+);
+
+export const selectIsSavingSubjectTitle = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectIsSavingSubjectTitle
+);
+
+export const selectIsDeletingTopic = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectIsDeletingTopic
+);
+
+export const selectIsLaunchingClass = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectIsLaunchingClass
+);
+
+export const selectSubjectTitleEditedSuccess = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectSubjectTitleEditedSuccess
+);
+
 // Ticket
 export const selectTickets = createSelector(
   selectTicketState,
@@ -378,4 +413,14 @@ export const selectCompletedCourses = createSelector(
 export const selectIsLoadingCourses = createSelector(
   selectCourseState,
   fromCourseReducer.selectIsLoadingCourses
+);
+
+export const selectIsRejectingCourse = createSelector(
+  selectCourseState,
+  fromCourseReducer.selectIsRejectingCourse
+);
+
+export const selectIsAcceptingCourse = createSelector(
+  selectCourseState,
+  fromCourseReducer.selectIsAcceptingCourse
 );

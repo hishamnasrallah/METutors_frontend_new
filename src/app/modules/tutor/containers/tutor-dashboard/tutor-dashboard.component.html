@@ -15,7 +15,7 @@
         </button>
 
         <mat-button-toggle-group class="float-end">
-          <mat-button-toggle value="7days" checked (change)="loadDashboard($event.value)">7 Days</mat-button-toggle>
+          <mat-button-toggle value="7days" (change)="loadDashboard($event.value)">7 Days</mat-button-toggle>
           <mat-button-toggle value="1month" (change)="loadDashboard($event.value)">1 Month</mat-button-toggle>
           <mat-button-toggle value="3months" (change)="loadDashboard($event.value)">3 Months</mat-button-toggle>
           <mat-button-toggle value="1year" (change)="loadDashboard($event.value)">Yearly</mat-button-toggle>
@@ -105,15 +105,15 @@
               </td>
             </tr>
             <ng-container *ngIf="view.data.todaysClasses.length">
-              <tr *ngFor="let class of view.data.todaysClasses; let i=index">
+              <tr *ngFor="let todaysClass of view.data.todaysClasses; let i=index">
                 <td>{{ i+1}}</td>
-                <td>{{ class?.program?.name }}</td>
-                <td>{{ class?.course?.courseName }}</td>
-                <td>{{ class?.title }}</td>
-                <td>{{ class?.startTime}} - {{ class?.endTime}}</td>
-                <td>{{ class?.duration}} hours</td>
+                <td>{{ todaysClass?.course?.program?.name }}</td>
+                <td>{{ todaysClass?.course?.courseName }}</td>
+                <td>{{ todaysClass?.title }}</td>
+                <td>{{ todaysClass?.startTime}} - {{ todaysClass?.endTime}}</td>
+                <td>{{ todaysClass?.duration}} hours</td>
                 <td class="d-flex justify-content-end">
-                  <button mat-button class="main-button-opacity">
+                  <button mat-button class="main-button-opacity" (click)="launchClass(todaysClass.id)" [disabled]="(isLaunchingClass$ | async)">
                     <img src="assets/svg/play-fill.svg" draggable="false" alt="">
                     Launch Class
                   </button>
@@ -134,7 +134,17 @@
         <ng-container [ngSwitch]="view.loading">
           <metutors-card-placeholder *ngSwitchCase="true"></metutors-card-placeholder>
           <ng-container *ngSwitchCase="false">
-            <metutors-classroom-item [classroom]="course" *ngFor="let course of view.data.courses" [url]="'/tutor/classrooms/classes/dashboard/'"></metutors-classroom-item>
+            <ng-container *ngIf="view.data.courses?.length">
+              <metutors-classroom-item [classroom]="course" *ngFor="let course of view.data.courses"
+                                       [completeCourse]="true" (reject)="onOpenRejectCourse(course.id)"
+                                       [isAcceptingCourse]="(isAccepting$ | async)!"
+                                       (accept)="onAcceptCourse(course.id)"
+                                       [url]="'/tutor/classrooms/classes/dashboard/'">
+              </metutors-classroom-item>
+            </ng-container>
+            <ng-container *ngIf="!view.data.courses?.length">
+              <div class="p-5 text-center">No record found</div>
+            </ng-container>
           </ng-container>
         </ng-container>
       </div>
@@ -157,12 +167,12 @@
           <table class="table my-table default-title" *ngSwitchCase="false">
             <tr>
               <th colspan="4">Kudos Points details</th>
-              <th class="sm">Total Points: 500</th>
+              <th class="sm">Total Points: {{view.data?.kudosPoints ? view.data?.kudosPoints : 0}}</th>
             </tr>
             <tr>
-              <td>#</td>
-              <td>Student name</td>
-              <td>Course name</td>
+              <td>Number</td>
+              <td>Student Name</td>
+              <td>Course Name</td>
               <td>Course Date</td>
               <td>Points</td>
             </tr>
@@ -190,3 +200,8 @@
     </div>
   </ng-container>
 </div>
+
+<metutors-tutor-reject-course-modal *ngIf="(showRejectCourseModal$ | async)"
+                                    [showModal]="(showRejectCourseModal$ | async)!" (submitted)="onRejectCourse($event)"
+                                    (closeModal)="onCloseRejectCourse()" [submitting]="(isRejecting$ | async)!">
+</metutors-tutor-reject-course-modal>

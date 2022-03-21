@@ -1,0 +1,22 @@
+.add-topic-modal {
+  .-mt-7 {
+    margin-top: -7px;
+  }
+
+  .remaining-class {
+    color: #979797;
+    font-size: 12px;
+    margin-left: 10px;
+  }
+}
+
+.spinner {
+  margin: 3px 0 0 3px;
+}
+.delete {
+  top: -6px;
+  left: 35%;
+  display: flex;
+  color: #979797;
+  position: absolute;
+}

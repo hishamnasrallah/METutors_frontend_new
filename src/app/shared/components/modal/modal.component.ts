@@ -4,11 +4,9 @@ import {
   OnInit,
   Output,
   Component,
-  EventEmitter,
-  OnChanges,
-  SimpleChanges,
-  ViewChild,
+  OnDestroy,
   TemplateRef,
+  EventEmitter,
 } from '@angular/core';
 
 import {
@@ -27,7 +25,7 @@ export const modalSize = {
   selector: 'metutors-modal',
   template: '',
 })
-export class ModalComponent implements OnInit, OnChanges {
+export class ModalComponent implements OnInit, OnDestroy {
   @Input() heading = '';
   @Input() subHeading = '';
   @Input() size = 'medium';
@@ -38,10 +36,8 @@ export class ModalComponent implements OnInit, OnChanges {
 
   constructor(private dialog: MatDialog) {}
 
-  ngOnInit(): void {}
-
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['showModal'] && changes['showModal']?.currentValue) {
+  ngOnInit(): void {
+    if (this.showModal) {
       const dialogRef = this.dialog.open(ModalComponentTemplate, {
         disableClose: true,
         width: modalSize[this.size],
@@ -52,10 +48,16 @@ export class ModalComponent implements OnInit, OnChanges {
         },
       });
 
-      dialogRef.afterClosed().subscribe((result) => {
+      dialogRef.afterClosed().subscribe(() => {
         this.closeModal.emit();
       });
+    } else {
+      this.dialog.closeAll();
     }
+  }
+
+  ngOnDestroy() {
+    this.dialog.closeAll();
   }
 }
 

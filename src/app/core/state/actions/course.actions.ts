@@ -30,3 +30,33 @@ export const loadCourseByIdFailure = createAction(
   '[Tutor] Load Course By Id Failure',
   props<{ error: any }>()
 );
+
+export const tutorAcceptCourse = createAction(
+  '[Tutor] Tutor Accept Course',
+  props<{ courseId: number }>()
+);
+
+export const tutorAcceptCourseSuccess = createAction(
+  '[Tutor] Tutor Accept Course Success',
+  props<{ courseId: number; message: string }>()
+);
+
+export const tutorAcceptCourseFailure = createAction(
+  '[Tutor] Tutor Accept Course Failure',
+  props<{ error: any }>()
+);
+
+export const tutorRejectCourse = createAction(
+  '[Tutor] Tutor Reject Course',
+  props<{ reason: string; courseId: number }>()
+);
+
+export const tutorRejectCourseSuccess = createAction(
+  '[Tutor] Tutor Reject Course Success',
+  props<{ courseId: number; message: string }>()
+);
+
+export const tutorRejectCourseFailure = createAction(
+  '[Tutor] Tutor Reject Course Failure',
+  props<{ error: any }>()
+);

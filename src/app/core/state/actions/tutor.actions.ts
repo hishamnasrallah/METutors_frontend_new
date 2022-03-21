@@ -50,3 +50,89 @@ export const loadTutorDashboardFailure = createAction(
 export const loadTutorDashboardEnded = createAction(
   '[Tutor] Load Tutor Dashboard Ended'
 );
+
+export const loadTutorSyllabus = createAction('[Tutor] Load Tutor Syllabus');
+
+export const loadTutorSyllabusSuccess = createAction(
+  '[Tutor] Load Tutor Syllabus Success',
+  props<{ syllabus: any }>()
+);
+
+export const loadTutorSyllabusFailure = createAction(
+  '[Tutor] Load Tutor Syllabus Failure',
+  props<{ error: any }>()
+);
+
+export const tutorAddSyllabusTopic = createAction(
+  '[Tutor] Load Tutor Add Syllabus Topic',
+  props<{ body: any }>()
+);
+
+export const tutorAddSyllabusTopicSuccess = createAction(
+  '[Tutor] Load Tutor Add Syllabus Topic Success',
+  props<{ syllabus: any; message: string }>()
+);
+
+export const tutorAddSyllabusTopicFailure = createAction(
+  '[Tutor] Load Tutor Add Syllabus Topic Failure',
+  props<{ error: any }>()
+);
+
+export const tutorEditSyllabusTopic = createAction(
+  '[Tutor] Load Tutor Edit Syllabus Topic',
+  props<{ body: any }>()
+);
+
+export const tutorEditSyllabusTopicSuccess = createAction(
+  '[Tutor] Load Tutor Edit Syllabus Topic Success',
+  props<{ syllabus: any; message: string }>()
+);
+
+export const tutorEditSyllabusTopicFailure = createAction(
+  '[Tutor] Load Tutor Edit Syllabus Topic Failure',
+  props<{ error: any }>()
+);
+
+export const tutorDeleteSyllabusTopic = createAction(
+  '[Tutor] Load Tutor Delete Syllabus Topic',
+  props<{ id: number }>()
+);
+
+export const tutorDeleteSyllabusTopicSuccess = createAction(
+  '[Tutor] Load Tutor Delete Syllabus Topic Success',
+  props<{ data: any; message: string }>()
+);
+
+export const tutorDeleteSyllabusTopicFailure = createAction(
+  '[Tutor] Load Tutor Delete Syllabus Topic Failure',
+  props<{ error: any }>()
+);
+
+export const tutorEditSubjectTitle = createAction(
+  '[Tutor] Load Tutor Edit Subject Title',
+  props<{ classId: number; title: string }>()
+);
+
+export const tutorEditSubjectTitleSuccess = createAction(
+  '[Tutor] Load Tutor Edit Subject Title Success',
+  props<{ classId: number; title: string; message: string }>()
+);
+
+export const tutorEditSubjectTitleFailure = createAction(
+  '[Tutor] Load Tutor A Edit Subject Title Failure',
+  props<{ error: any }>()
+);
+
+export const tutorLaunchClass = createAction(
+  '[Tutor] Load Tutor Launch Class',
+  props<{ classId: number }>()
+);
+
+export const tutorLaunchClassSuccess = createAction(
+  '[Tutor] Load Tutor Launch Class Success'
+);
+
+export const tutorLaunchClassFailure = createAction(
+  '[Tutor] Load Tutor Launch Class Failure',
+  props<{ error: any }>()
+);

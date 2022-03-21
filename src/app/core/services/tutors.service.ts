@@ -39,11 +39,13 @@ export class TutorsService {
   }
 
   getTutorDashboard(params: any): Observable<any> {
-    return this.http
-      .get<{ dashboard: any }>(
-        `${this.baseUrl}teacher-dashboard?search_query=${params}`
-      )
-      .pipe(map((response) => response));
+    let query = '';
+    if (params) {
+      query = '?search_query=' + params;
+    }
+    return this.http.get<{ dashboard: any }>(
+      `${this.baseUrl}teacher-dashboard${query}`
+    );
   }
 
   generateTutors(filters: any): Observable<any> {
@@ -74,5 +76,36 @@ export class TutorsService {
         feedback: value?.feedback,
       }
     );
+  }
+
+  getTutorSyllabus(id: number | string): Observable<any> {
+    return this.http.get<{ user: ITutor }>(
+      `${this.baseUrl}course/${id}/syllabus`
+    );
+  }
+
+  addSyllabusTopic(data: any, course_id: number | string): Observable<any> {
+    const body = {
+      ...data,
+      course_id,
+    };
+
+    return this.http.post<any>(`${this.baseUrl}course/add-topic`, body);
+  }
+
+  editSyllabusTopic(body: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}topic/update`, body);
+  }
+
+  deleteSyllabusTopic(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.baseUrl}topic/${id}`);
+  }
+
+  editSubjectTitle(title: string, id: number): Observable<any> {
+    return this.http.patch<any>(`${this.baseUrl}class/edit/${id}`, { title });
+  }
+
+  launchClass(id: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}class/launch/${id}`, {});
   }
 }

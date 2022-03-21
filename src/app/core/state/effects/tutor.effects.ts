@@ -2,14 +2,15 @@ import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
 import camelcaseKeys from 'camelcase-keys';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 
-import { selectTutorDashboard } from '..';
 import { TutorsService } from '@services';
 import { environment } from '@environment';
-import { JwtHelperService } from '@auth0/angular-jwt';
+import * as fromRouterStore from '@metutor/state';
 import * as tutorActions from '../actions/tutor.actions';
+import { selectTutorDashboard, selectTutorSyllabus } from '..';
 import { AlertNotificationService } from '@metutor/core/components';
 
 @Injectable()
@@ -99,10 +100,180 @@ export class TutorEffects {
     )
   );
 
+  loadTutorSyllabus$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorActions.loadTutorSyllabus),
+      withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
+      mergeMap(([_, { id }]) =>
+        this._tutorService.getTutorSyllabus(id).pipe(
+          map((syllabus) =>
+            tutorActions.loadTutorSyllabusSuccess({
+              syllabus: camelcaseKeys(syllabus, { deep: true }),
+            })
+          ),
+          catchError((error) =>
+            of(
+              tutorActions.loadTutorSyllabusFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  tutorAddSyllabusTopic$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorActions.tutorAddSyllabusTopic),
+      withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
+      mergeMap(([{ body }, { id }]) =>
+        this._tutorService.addSyllabusTopic(body, id).pipe(
+          map((syllabus) =>
+            tutorActions.tutorAddSyllabusTopicSuccess({
+              syllabus: camelcaseKeys(syllabus, { deep: true }),
+              message: 'Topic has been successfully added',
+            })
+          ),
+          catchError((error) =>
+            of(
+              tutorActions.tutorAddSyllabusTopicFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  tutorEditSyllabusTopic$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorActions.tutorEditSyllabusTopic),
+      mergeMap(({ body }) =>
+        this._tutorService.editSyllabusTopic(body).pipe(
+          map((syllabus) =>
+            tutorActions.tutorEditSyllabusTopicSuccess({
+              syllabus: camelcaseKeys(syllabus, { deep: true }),
+              message: 'Topic has been successfully updated',
+            })
+          ),
+          catchError((error) =>
+            of(
+              tutorActions.tutorEditSyllabusTopicFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  tutorDeleteSyllabusTopic$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorActions.tutorDeleteSyllabusTopic),
+      mergeMap(({ id }) =>
+        this._tutorService.deleteSyllabusTopic(id).pipe(
+          map((data) =>
+            tutorActions.tutorDeleteSyllabusTopicSuccess({
+              data: camelcaseKeys(data, { deep: true }),
+              message: 'Topic has been successfully deleted',
+            })
+          ),
+          catchError((error) =>
+            of(
+              tutorActions.tutorDeleteSyllabusTopicFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  tutorEditSubjectTitle$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorActions.tutorEditSubjectTitle),
+      mergeMap(({ title, classId }) =>
+        this._tutorService.editSubjectTitle(title, classId).pipe(
+          map(() =>
+            tutorActions.tutorEditSubjectTitleSuccess({
+              title,
+              classId,
+              message: 'Class subject has been successfully updated',
+            })
+          ),
+          catchError((error) =>
+            of(
+              tutorActions.tutorEditSubjectTitleFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  tutorLaunchClass$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorActions.tutorLaunchClass),
+      mergeMap(({ classId }) =>
+        this._tutorService.launchClass(classId).pipe(
+          map((response) => {
+            console.log(response);
+
+            if (response && response?.class_url) {
+              window.open(response.class_url, '_blank');
+            }
+
+            return tutorActions.tutorLaunchClassSuccess();
+          }),
+          catchError((error) =>
+            of(
+              tutorActions.tutorLaunchClassFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  successMessages$ = createEffect(
+    () =>
+      this._actions$.pipe(
+        ofType(
+          ...[
+            tutorActions.tutorAddSyllabusTopicSuccess,
+            tutorActions.tutorEditSubjectTitleSuccess,
+            tutorActions.tutorEditSyllabusTopicSuccess,
+            tutorActions.tutorDeleteSyllabusTopicSuccess,
+          ]
+        ),
+        map(({ message }) => this._alertNotificationService.success(message))
+      ),
+    {
+      dispatch: false,
+    }
+  );
+
   failureMessages$ = createEffect(
     () =>
       this._actions$.pipe(
-        ofType(...[tutorActions.completeTutorProfileFailure]),
+        ofType(
+          ...[
+            tutorActions.tutorLaunchClassFailure,
+            tutorActions.completeTutorProfileFailure,
+            tutorActions.tutorAddSyllabusTopicFailure,
+            tutorActions.tutorEditSubjectTitleFailure,
+            tutorActions.tutorEditSyllabusTopicFailure,
+            tutorActions.tutorDeleteSyllabusTopicFailure,
+          ]
+        ),
         map((action) => {
           if (action.error) {
             return this._alertNotificationService.error(action.error);

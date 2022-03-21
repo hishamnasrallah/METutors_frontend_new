@@ -1,0 +1,55 @@
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()"
+                [heading]="topic ? 'Edit Course Topic' : 'Add Course Topic'"
+                [template]="template">
+  <ng-template #template>
+    <form [formGroup]="form" (ngSubmit)="submitted.emit(form)">
+      <button class="btn delete" *ngIf="topic" type="button" (click)="deleted.emit(topic.id)"
+              [disabled]="isDeletingTopic">
+        Delete
+        <mat-spinner mode="indeterminate" [diameter]="16" class="spinner" *ngIf="isDeletingTopic"></mat-spinner>
+      </button>
+      <div class="row add-topic-modal">
+        <div class="col-12">
+          <div class="classroom-item">
+            <div class="row">
+              <div class="mb-3">
+                <label for="topic" class="form-label">Enter Topic Name</label>
+                <input type="text" class="form-control custom-input input-bordered" formControlName="name" id="topic"
+                       placeholder="Enter Topic Name" autocomplete="off">
+              </div>
+              <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control custom-input" id="description" rows="6" formControlName="description"
+                          placeholder="Enter Description here"></textarea>
+              </div>
+              <div class="">
+                <label for="select-class" class="form-label">
+                  Select Classes
+                  <span class="remaining-class">Remaining classes ({{classes?.value ? classes?.value : 0}}
+                    out of {{ totalClasses }})</span>
+                </label>
+              </div>
+              <div class="col-auto col-10 align-middle">
+                <mat-slider thumbLabel id="select-class" min="0" [max]="totalClasses" class="w-100 -mt-7"
+                            [value]="classes?.value ? classes?.value : 0"
+                            (change)="onClassSelect($event)"></mat-slider>
+              </div>
+              <div class="col-auto col-2">
+                <input type="text" class="form-control" placeholder="0" [value]="classes?.value ? classes?.value : 0">
+              </div>
+
+              <div class="mt-3">
+                <div class="col-auto col-3 float-end">
+                  <metutors-submit-button [form]="form" [isSubmitting]="isSubmitting" [isDisabled]="isDeletingTopic"
+                                          [extraClasses]="'w-100 float-end'">
+                    {{ this.topic ? 'Edit' : 'Add'}}
+                  </metutors-submit-button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+</metutors-modal>

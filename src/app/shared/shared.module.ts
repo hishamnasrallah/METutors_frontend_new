@@ -23,8 +23,8 @@ import {
 import {
   ModalComponent,
   CourseItemComponent,
-  ModalComponentTemplate,
   SubmitButtonComponent,
+  ModalComponentTemplate,
   ClassroomItemComponent,
   CardPlaceholderComponent,
   GridPlaceholderComponent,

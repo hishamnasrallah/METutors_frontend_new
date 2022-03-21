@@ -66,7 +66,7 @@ export class HomeComponent implements OnInit {
   async onLeaveRoom(_: boolean) {
     if (this.activeRoom) {
       this.activeRoom.disconnect();
-      // this.activeRoom = null;
+      this.activeRoom = null;
     }
 
     const videoDevice: any = this.settings.hidePreviewCamera();

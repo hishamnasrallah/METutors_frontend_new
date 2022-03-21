@@ -2,13 +2,21 @@ import { createReducer, on } from '@ngrx/store';
 
 import { ITutor } from '@models';
 import * as tutorActions from '../actions/tutor.actions';
+import * as courseActions from '../actions/course.actions';
 
 export interface State {
+  syllabus: any;
   dashboard: any;
   tutor: ITutor | null;
   isLoadingTutors: boolean;
+  isDeletingTopic: boolean;
+  isLaunchingClass: boolean;
+  isLoadingSyllabus: boolean;
   isLoadingDashboard: boolean;
   loadingTutorFailure: string;
+  isSavingSubjectTitle: boolean;
+  isAddingSyllabusTopic: boolean;
+  subjectTitleEditedSuccess: boolean;
 
   // Complete Tutor Profile
   isCompleteTutorProfile: boolean;
@@ -17,12 +25,19 @@ export interface State {
 
 export const initialState: State = {
   tutor: null,
+  syllabus: null,
   dashboard: null,
   isLoadingTutors: false,
+  isDeletingTopic: false,
+  isLaunchingClass: false,
   loadingTutorFailure: '',
+  isLoadingSyllabus: false,
   isLoadingDashboard: false,
+  isSavingSubjectTitle: false,
+  isAddingSyllabusTopic: false,
   isCompleteTutorProfile: false,
   completeTutorProfileFailure: '',
+  subjectTitleEditedSuccess: false,
 };
 
 export const reducer = createReducer(
@@ -79,10 +94,236 @@ export const reducer = createReducer(
     ...state,
     isCompleteTutorProfile: false,
     completeTutorProfileFailure: error,
+  })),
+
+  on(tutorActions.loadTutorSyllabus, (state) => ({
+    ...state,
+    isLoadingSyllabus: true,
+  })),
+
+  on(tutorActions.loadTutorSyllabusSuccess, (state, { syllabus }) => ({
+    ...state,
+    syllabus,
+    isLoadingSyllabus: false,
+  })),
+
+  on(tutorActions.loadTutorSyllabusFailure, (state) => ({
+    ...state,
+    isLoadingSyllabus: false,
+  })),
+
+  on(tutorActions.tutorAddSyllabusTopic, (state) => ({
+    ...state,
+    isAddingSyllabusTopic: true,
+  })),
+
+  on(tutorActions.tutorAddSyllabusTopicSuccess, (state, { syllabus }) => {
+    let finalState = {
+      ...state,
+      isAddingSyllabusTopic: false,
+    };
+
+    const topics = [...finalState.syllabus.topics];
+    topics.push(syllabus.topicDetail);
+
+    finalState.syllabus = {
+      ...finalState.syllabus,
+      topics,
+      unclassifiedClasses: syllabus.unclassifiedClasses,
+    };
+
+    return finalState;
+  }),
+
+  on(tutorActions.tutorAddSyllabusTopicFailure, (state) => ({
+    ...state,
+    isAddingSyllabusTopic: false,
+  })),
+
+  on(tutorActions.tutorEditSyllabusTopic, (state) => ({
+    ...state,
+    isAddingSyllabusTopic: true,
+  })),
+
+  on(tutorActions.tutorEditSyllabusTopicSuccess, (state, { syllabus }) => {
+    console.log(syllabus);
+
+    let finalState = {
+      ...state,
+      isAddingSyllabusTopic: false,
+    };
+
+    const topics = finalState.syllabus.topics.map((item: any) =>
+      item.topic.id === syllabus.topicDetail.topic.id
+        ? syllabus.topicDetail
+        : item
+    );
+
+    finalState.syllabus = {
+      ...finalState.syllabus,
+      topics,
+      unclassifiedClasses: syllabus.unclassifiedClasses,
+    };
+
+    return finalState;
+  }),
+
+  on(tutorActions.tutorEditSyllabusTopicFailure, (state) => ({
+    ...state,
+    isAddingSyllabusTopic: false,
+  })),
+
+  on(tutorActions.tutorDeleteSyllabusTopic, (state) => ({
+    ...state,
+    isDeletingTopic: true,
+  })),
+
+  on(tutorActions.tutorDeleteSyllabusTopicSuccess, (state, { data }) => {
+    const finalState = {
+      ...state,
+      isDeletingTopic: false,
+    };
+
+    if (finalState.syllabus?.topics?.length) {
+      const topics = finalState.syllabus?.topics.filter(
+        (item: any) => item.topic.id !== data.deletedTopic?.id
+      );
+
+      finalState.syllabus = {
+        ...finalState.syllabus,
+        topics,
+        unclassifiedClasses: data?.unclassifiedClasses,
+      };
+    }
+    return finalState;
+  }),
+
+  on(tutorActions.tutorDeleteSyllabusTopicFailure, (state) => ({
+    ...state,
+    isDeletingTopic: false,
+  })),
+
+  on(tutorActions.tutorEditSubjectTitle, (state) => ({
+    ...state,
+    isSavingSubjectTitle: true,
+    subjectTitleEditedSuccess: false,
+  })),
+
+  on(tutorActions.tutorEditSubjectTitleSuccess, (state, { title, classId }) => {
+    const finalState = {
+      ...state,
+      isSavingSubjectTitle: false,
+      subjectTitleEditedSuccess: true,
+    };
+
+    if (finalState.syllabus.unclassifiedClasses?.length) {
+      const unclassifiedClasses = finalState.syllabus.unclassifiedClasses.map(
+        (item: any) => (item.id === classId ? { ...item, title } : item)
+      );
+
+      finalState.syllabus = {
+        ...finalState.syllabus,
+        unclassifiedClasses,
+      };
+    }
+
+    if (finalState.syllabus?.topics?.length) {
+      let topics = [];
+      console.log(finalState.syllabus.topics);
+      for (let i = 0; i < finalState.syllabus.topics?.length; i++) {
+        let classes = [];
+        if (finalState.syllabus.topics[i]?.topic?.classes?.length) {
+          for (
+            let j = 0;
+            j < finalState.syllabus.topics[i].topic.classes.length;
+            j++
+          ) {
+            if (
+              finalState.syllabus.topics[i].topic.classes[j]?.id === classId
+            ) {
+              const cls = {
+                ...finalState.syllabus.topics[i].topic.classes[j],
+                title,
+              };
+              classes.push(cls);
+            } else {
+              classes.push(finalState.syllabus.topics[i].topic.classes[j]);
+            }
+          }
+        }
+
+        const topic = {
+          ...finalState.syllabus.topics[i],
+          topic: {
+            ...finalState.syllabus.topics[i].topic,
+            classes,
+          },
+        };
+
+        topics.push(topic);
+      }
+
+      finalState.syllabus = {
+        ...finalState.syllabus,
+        topics,
+      };
+    }
+
+    return finalState;
+  }),
+
+  on(tutorActions.tutorEditSubjectTitleFailure, (state) => ({
+    ...state,
+    isSavingSubjectTitle: false,
+    subjectTitleEditedSuccess: false,
+  })),
+
+  // On accept/reject course filter out rejected course
+  on(
+    courseActions.tutorAcceptCourseSuccess,
+    courseActions.tutorRejectCourseSuccess,
+    (state, { courseId }) => {
+      let finalState = {
+        ...state,
+      };
+
+      if (finalState?.dashboard?.newlyAssignedCourses) {
+        const dashboard = {
+          ...finalState.dashboard,
+          newlyAssignedCourses:
+            finalState.dashboard.newlyAssignedCourses.filter(
+              (course: any) => course.id !== courseId
+            ),
+        };
+
+        finalState = {
+          ...finalState,
+          dashboard,
+        };
+      }
+
+      return finalState;
+    }
+  ),
+
+  on(tutorActions.tutorLaunchClass, (state) => ({
+    ...state,
+    isLaunchingClass: true,
+  })),
+
+  on(tutorActions.tutorLaunchClassSuccess, (state) => ({
+    ...state,
+    isLaunchingClass: false,
+  })),
+
+  on(tutorActions.tutorLaunchClassFailure, (state, { error }) => ({
+    ...state,
+    isLaunchingClass: false,
   }))
 );
 
 export const selectTutor = (state: State): ITutor | null => state.tutor;
+export const selectTutorSyllabus = (state: State): any => state.syllabus;
 
 export const selectTutorDashboard = (state: State): boolean => state.dashboard;
 
@@ -94,3 +335,21 @@ export const selectIsLoadingTutorDashboard = (state: State): boolean =>
 
 export const selectIsCompleteTutorProfile = (state: State): boolean =>
   state.isCompleteTutorProfile;
+
+export const selectIsLoadingTutorSyllabus = (state: State): boolean =>
+  state.isLoadingSyllabus;
+
+export const selectIsAddingSyllabusTopic = (state: State): boolean =>
+  state.isAddingSyllabusTopic;
+
+export const selectIsSavingSubjectTitle = (state: State): boolean =>
+  state.isSavingSubjectTitle;
+
+export const selectIsDeletingTopic = (state: State): boolean =>
+  state.isDeletingTopic;
+
+export const selectIsLaunchingClass = (state: State): boolean =>
+  state.isLaunchingClass;
+
+export const selectSubjectTitleEditedSuccess = (state: State): boolean =>
+  state.subjectTitleEditedSuccess;

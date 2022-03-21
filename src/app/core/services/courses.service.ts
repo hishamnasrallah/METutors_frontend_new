@@ -40,6 +40,20 @@ export class CoursesService {
     );
   }
 
+  acceptCourse(payload: { courseId: number }): Observable<any> {
+    return this.http.post<{ dashboard: any }>(
+      `${this.baseUrl}course/accept/${payload.courseId}`,
+      {}
+    );
+  }
+
+  rejectCourse(payload: { reason: string; courseId: number }): Observable<any> {
+    return this.http.post<{ dashboard: any }>(
+      `${this.baseUrl}course/reject/${payload.courseId}`,
+      { reason: payload.reason }
+    );
+  }
+
   getClassroomById(id: string): Observable<any> {
     return this.http.get<ICourse>(`${this.baseUrl}batch/${id}/`).pipe(
       map((response) => {

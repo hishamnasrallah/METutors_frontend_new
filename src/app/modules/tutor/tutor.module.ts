@@ -1,4 +1,6 @@
 import { NgModule } from '@angular/core';
+import { StoreModule } from '@ngrx/store';
+// import { EffectsModule } from '@ngrx/effects';
 import { CommonModule } from '@angular/common';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { RatingModule } from 'ngx-bootstrap/rating';
@@ -8,15 +10,21 @@ import { MatRadioModule } from '@angular/material/radio';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSliderModule } from '@angular/material/slider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { TwillioModule } from '@metutor/core/components';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { NgxAutoScrollModule } from 'ngx-auto-scroll';
 import { TutorRoutingModule } from './tutor-routing.module';
 import { SharedModule } from '@metutor/shared/shared.module';
+
+import * as fromTutor from './state';
+// import * as tutorEffects from './state/effects';
+import * as featureKeys from './state/feature-keys';
 
 import {
   TutorComponent,
@@ -46,6 +54,8 @@ import {
   TutorSettingsAccountComponent,
   FaqStillHaveQuestionsComponent,
   TutorSettingsSecurityComponent,
+  TutorRejectCourseModalComponent,
+  TutorAddSyllabusTopicModalComponent,
   TutorSettingsUserPreferencesComponent,
   TutorSettingsPaymentInformationComponent,
 } from './components';
@@ -76,6 +86,8 @@ import {
     TutorAttendanceModalComponent,
     TutorSettingsSecurityComponent,
     FaqStillHaveQuestionsComponent,
+    TutorRejectCourseModalComponent,
+    TutorAddSyllabusTopicModalComponent,
     TutorSettingsUserPreferencesComponent,
     TutorSettingsPaymentInformationComponent,
   ],
@@ -88,6 +100,7 @@ import {
     MatIconModule,
     CarouselModule,
     MatRadioModule,
+    MatSliderModule,
     MatSelectModule,
     MatButtonModule,
     BsDropdownModule,
@@ -98,6 +111,9 @@ import {
     MatProgressBarModule,
     MatButtonToggleModule,
     RatingModule.forRoot(),
+    MatProgressSpinnerModule,
+    // EffectsModule.forFeature(Object.values(tutorEffects)),
+    StoreModule.forFeature(featureKeys.tutorFeatureKey, fromTutor.reducers),
   ],
 })
 export class TutorModule {}

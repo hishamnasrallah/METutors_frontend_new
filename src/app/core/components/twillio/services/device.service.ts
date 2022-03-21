@@ -36,7 +36,8 @@ export class DeviceService {
         const result: any = await navigator.permissions.query({
           name: 'notifications',
         });
-        // navigator.permissions.query({ name: 'camera' })
+        const permissionName = 'camera' as PermissionName;
+        navigator.permissions.query({ name: permissionName });
 
         if (result) {
           if (result.state === 'granted') {

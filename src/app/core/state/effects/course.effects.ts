@@ -9,6 +9,7 @@ import camelcaseKeys from 'camelcase-keys';
 import { CoursesService } from '@services';
 import * as fromRouterStore from '@metutor/state';
 import * as courseActions from '../actions/course.actions';
+import { AlertNotificationService } from '@metutor/core/components';
 
 @Injectable()
 export class CourseEffects {
@@ -62,9 +63,88 @@ export class CourseEffects {
     )
   );
 
+  acceptCourse$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(courseActions.tutorAcceptCourse),
+      mergeMap(({ courseId }) =>
+        this._courseService.acceptCourse({ courseId }).pipe(
+          map(() =>
+            courseActions.tutorAcceptCourseSuccess({
+              courseId,
+              message: 'Course has been successfully accepted',
+            })
+          ),
+          catchError((error) =>
+            of(
+              courseActions.tutorAcceptCourseFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  rejectCourse$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(courseActions.tutorRejectCourse),
+      mergeMap(({ reason, courseId }) =>
+        this._courseService.rejectCourse({ reason, courseId }).pipe(
+          map(() =>
+            courseActions.tutorRejectCourseSuccess({
+              courseId,
+              message: 'Course has been successfully rejected',
+            })
+          ),
+          catchError((error) =>
+            of(
+              courseActions.tutorRejectCourseFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  successMessages$ = createEffect(
+    () =>
+      this._actions$.pipe(
+        ofType(
+          ...[
+            courseActions.tutorRejectCourseSuccess,
+            courseActions.tutorAcceptCourseSuccess,
+          ]
+        ),
+        map(({ message }) => this._alertNotificationService.success(message))
+      ),
+    {
+      dispatch: false,
+    }
+  );
+
+  errorMessages$ = createEffect(
+    () =>
+      this._actions$.pipe(
+        ofType(
+          ...[
+            courseActions.tutorRejectCourseFailure,
+            courseActions.tutorAcceptCourseFailure,
+          ]
+        ),
+        map(({ error }) => this._alertNotificationService.error(error))
+      ),
+    {
+      dispatch: false,
+    }
+  );
+
   constructor(
     private _store: Store<any>,
     private _actions$: Actions,
-    private _courseService: CoursesService
+    private _courseService: CoursesService,
+    private _alertNotificationService: AlertNotificationService
   ) {}
 }

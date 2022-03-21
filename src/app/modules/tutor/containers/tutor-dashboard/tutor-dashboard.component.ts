@@ -1,11 +1,15 @@
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
+import { FormGroup } from '@angular/forms';
 import { combineLatest, Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
+
+import * as fromTutor from '../../state';
 import * as fromRoot from '@metutor/state';
-import * as fromCore from '@metutor/core/state';
-import { insightRange, WEEK_DAYS } from '@metutor/config';
 import { IUser } from '@metutor/core/models';
+import * as fromCore from '@metutor/core/state';
+import * as fromTutorAction from '../../state/actions';
+import { insightRange, WEEK_DAYS } from '@metutor/config';
 
 @Component({
   selector: 'metutors-tutor-dashboard',
@@ -14,10 +18,15 @@ import { IUser } from '@metutor/core/models';
 })
 export class TutorDashboardComponent implements OnInit {
   layout$: any;
+  courseId: number;
   user$: Observable<IUser | null>;
+  isRejecting$: Observable<boolean>;
+  isAccepting$: Observable<boolean>;
+  isLaunchingClass$: Observable<boolean>;
+  showRejectCourseModal$: Observable<boolean>;
   view$: Observable<{ loading: boolean; data: any }>;
 
-  range = '7days';
+  range = '';
   insightRange = insightRange;
 
   constructor(private _store: Store<any>) {}
@@ -27,9 +36,50 @@ export class TutorDashboardComponent implements OnInit {
     this._store.dispatch(fromCore.loadTutorDashboard({ params, load: true }));
   }
 
+  onOpenRejectCourse(id: number) {
+    this.courseId = id;
+    this._store.dispatch(fromTutorAction.openTutorRejectCourseModal());
+  }
+
+  onCloseRejectCourse() {
+    this._store.dispatch(fromTutorAction.closeTutorRejectCourseModal());
+  }
+
+  launchClass(classId: number): void {
+    console.log(classId);
+    this._store.dispatch(fromCore.tutorLaunchClass({ classId }));
+  }
+
+  onAcceptCourse(courseId: number): void {
+    this._store.dispatch(
+      fromCore.tutorAcceptCourse({
+        courseId,
+      })
+    );
+  }
+
+  onRejectCourse(form: FormGroup): void {
+    this._store.dispatch(
+      fromCore.tutorRejectCourse({
+        reason: form.value.rejectReason,
+        courseId: this.courseId,
+      })
+    );
+  }
+
   ngOnInit(): void {
-    this.layout$ = this._store.select(fromRoot.selectLayout);
     this.user$ = this._store.select(fromCore.selectUser);
+    this.layout$ = this._store.select(fromRoot.selectLayout);
+    this.isRejecting$ = this._store.select(fromCore.selectIsRejectingCourse);
+    this.isAccepting$ = this._store.select(fromCore.selectIsAcceptingCourse);
+    this.isLaunchingClass$ = this._store.select(
+      fromCore.selectIsLaunchingClass
+    );
+
+    this.showRejectCourseModal$ = this._store.select(
+      fromTutor.selectRejectCourseModal
+    );
+
     this._store.dispatch(
       fromCore.loadTutorDashboard({ params: this.range, load: false })
     );

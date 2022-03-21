@@ -14,12 +14,18 @@ export class TutorClassDashboardComponent implements OnInit {
   showFeedbackModal = false;
   showAttendanceModal = false;
 
+  isLaunchingClass$: Observable<boolean>;
+
   view$: Observable<{
     data: any;
     loading: boolean;
   }>;
 
   constructor(private _store: Store<any>) {}
+
+  launchClass(classId: number): void {
+    this._store.dispatch(fromCore.tutorLaunchClass({ classId }));
+  }
 
   getHours(date: string) {
     const startDate = new Date();
@@ -33,6 +39,10 @@ export class TutorClassDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this._store.dispatch(fromCore.loadCourseById());
+
+    this.isLaunchingClass$ = this._store.select(
+      fromCore.selectIsLaunchingClass
+    );
 
     this.view$ = combineLatest([
       this._store.select(fromCore.selectCourseById),
