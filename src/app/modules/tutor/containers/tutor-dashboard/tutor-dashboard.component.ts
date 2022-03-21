@@ -26,7 +26,7 @@ export class TutorDashboardComponent implements OnInit {
   showRejectCourseModal$: Observable<boolean>;
   view$: Observable<{ loading: boolean; data: any }>;
 
-  range = '7days';
+  range = '';
   insightRange = insightRange;
 
   constructor(private _store: Store<any>) {}

@@ -15,7 +15,7 @@
         </button>
 
         <mat-button-toggle-group class="float-end">
-          <mat-button-toggle value="7days" checked (change)="loadDashboard($event.value)">7 Days</mat-button-toggle>
+          <mat-button-toggle value="7days" (change)="loadDashboard($event.value)">7 Days</mat-button-toggle>
           <mat-button-toggle value="1month" (change)="loadDashboard($event.value)">1 Month</mat-button-toggle>
           <mat-button-toggle value="3months" (change)="loadDashboard($event.value)">3 Months</mat-button-toggle>
           <mat-button-toggle value="1year" (change)="loadDashboard($event.value)">Yearly</mat-button-toggle>
