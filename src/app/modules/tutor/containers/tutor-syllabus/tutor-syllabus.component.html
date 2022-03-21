@@ -102,7 +102,7 @@
                 <td>{{ unclassifiedClass?.duration}}hrs</td>
                 <td>
                   <button class="edit-btn" mat-button *ngIf="subjectId !== unclassifiedClass.id"
-                          (click)="subjectId = unclassifiedClass.id; form.reset()">
+                          (click)="subjectId = unclassifiedClass.id; setSubjectTitle(unclassifiedClass.title)">
                     <mat-icon>edit</mat-icon>
                   </button>
                   <button class="btn save-topic-btn" [ngClass]="{'disabled': !subjectTitle?.value?.trim() || (isSavingSubjectTitle$ | async)}"
@@ -199,7 +199,7 @@
                       <td>{{ syllabusClass?.duration + 'hrs' }}</td>
                       <td>
                         <button class="edit-btn" mat-button *ngIf="subjectId !== syllabusClass.id"
-                                (click)="subjectId = syllabusClass.id; form.reset()">
+                                (click)="subjectId = syllabusClass.id; setSubjectTitle(syllabusClass.title)">
                           <mat-icon>edit</mat-icon>
                         </button>
                         <button class="save-topic-btn" [ngClass]="{'disabled': !subjectTitle?.value?.trim() || (isSavingSubjectTitle$ | async)}"

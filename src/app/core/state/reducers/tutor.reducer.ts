@@ -16,6 +16,7 @@ export interface State {
   loadingTutorFailure: string;
   isSavingSubjectTitle: boolean;
   isAddingSyllabusTopic: boolean;
+  subjectTitleEditedSuccess: boolean;
 
   // Complete Tutor Profile
   isCompleteTutorProfile: boolean;
@@ -36,6 +37,7 @@ export const initialState: State = {
   isAddingSyllabusTopic: false,
   isCompleteTutorProfile: false,
   completeTutorProfileFailure: '',
+  subjectTitleEditedSuccess: false,
 };
 
 export const reducer = createReducer(
@@ -204,16 +206,76 @@ export const reducer = createReducer(
   on(tutorActions.tutorEditSubjectTitle, (state) => ({
     ...state,
     isSavingSubjectTitle: true,
+    subjectTitleEditedSuccess: false,
   })),
 
-  on(tutorActions.tutorEditSubjectTitleSuccess, (state) => ({
-    ...state,
-    isSavingSubjectTitle: false,
-  })),
+  on(tutorActions.tutorEditSubjectTitleSuccess, (state, { title, classId }) => {
+    const finalState = {
+      ...state,
+      isSavingSubjectTitle: false,
+      subjectTitleEditedSuccess: true,
+    };
+
+    if (finalState.syllabus.unclassifiedClasses?.length) {
+      const unclassifiedClasses = finalState.syllabus.unclassifiedClasses.map(
+        (item: any) => (item.id === classId ? { ...item, title } : item)
+      );
+
+      finalState.syllabus = {
+        ...finalState.syllabus,
+        unclassifiedClasses,
+      };
+    }
+
+    if (finalState.syllabus?.topics?.length) {
+      let topics = [];
+      console.log(finalState.syllabus.topics);
+      for (let i = 0; i < finalState.syllabus.topics?.length; i++) {
+        let classes = [];
+        if (finalState.syllabus.topics[i]?.topic?.classes?.length) {
+          for (
+            let j = 0;
+            j < finalState.syllabus.topics[i].topic.classes.length;
+            j++
+          ) {
+            if (
+              finalState.syllabus.topics[i].topic.classes[j]?.id === classId
+            ) {
+              const cls = {
+                ...finalState.syllabus.topics[i].topic.classes[j],
+                title,
+              };
+              classes.push(cls);
+            } else {
+              classes.push(finalState.syllabus.topics[i].topic.classes[j]);
+            }
+          }
+        }
+
+        const topic = {
+          ...finalState.syllabus.topics[i],
+          topic: {
+            ...finalState.syllabus.topics[i].topic,
+            classes,
+          },
+        };
+
+        topics.push(topic);
+      }
+
+      finalState.syllabus = {
+        ...finalState.syllabus,
+        topics,
+      };
+    }
+
+    return finalState;
+  }),
 
   on(tutorActions.tutorEditSubjectTitleFailure, (state) => ({
     ...state,
     isSavingSubjectTitle: false,
+    subjectTitleEditedSuccess: false,
   })),
 
   // On accept/reject course filter out rejected course
@@ -288,3 +350,6 @@ export const selectIsDeletingTopic = (state: State): boolean =>
 
 export const selectIsLaunchingClass = (state: State): boolean =>
   state.isLaunchingClass;
+
+export const selectSubjectTitleEditedSuccess = (state: State): boolean =>
+  state.subjectTitleEditedSuccess;

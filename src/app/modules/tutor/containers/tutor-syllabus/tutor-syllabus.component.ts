@@ -23,6 +23,7 @@ import * as fromTutor from '../../state';
 import { WEEK_DAYS } from '@metutor/config';
 import * as fromCore from '@metutor/core/state';
 import * as fromTutorAction from '../../state/actions';
+import { selectSubjectTitleEditedSuccess } from '@metutor/core/state/reducers/tutor.reducer';
 
 @Component({
   selector: 'metutors-tutor-syllabus',
@@ -68,6 +69,10 @@ export class TutorSyllabusComponent implements OnInit {
 
   get subjectTitle(): AbstractControl | null {
     return this.form.get('subjectTitle');
+  }
+
+  setSubjectTitle(val: string): void {
+    this.subjectTitle?.setValue(val);
   }
 
   onShowAddTopicModal(): void {
@@ -142,6 +147,13 @@ export class TutorSyllabusComponent implements OnInit {
     this.view$ = combineLatest([
       this._store.select(fromCore.selectTutorSyllabus),
       this._store.select(fromCore.selectIsLoadingTutorSyllabus),
+      this._store.select(fromCore.selectSubjectTitleEditedSuccess).pipe(
+        tap((edited) => {
+          if (edited) {
+            this.subjectId = null;
+          }
+        })
+      ),
     ]).pipe(map(([syllabus, loading]) => ({ loading, syllabus })));
   }
 }

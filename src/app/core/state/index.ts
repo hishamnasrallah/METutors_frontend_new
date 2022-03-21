@@ -181,6 +181,11 @@ export const selectIsLaunchingClass = createSelector(
   fromTutorReducer.selectIsLaunchingClass
 );
 
+export const selectSubjectTitleEditedSuccess = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectSubjectTitleEditedSuccess
+);
+
 // Ticket
 export const selectTickets = createSelector(
   selectTicketState,
