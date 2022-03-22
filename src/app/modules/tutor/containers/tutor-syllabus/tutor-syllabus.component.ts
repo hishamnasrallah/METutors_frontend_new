@@ -23,7 +23,6 @@ import * as fromTutor from '../../state';
 import { WEEK_DAYS } from '@metutor/config';
 import * as fromCore from '@metutor/core/state';
 import * as fromTutorAction from '../../state/actions';
-import { selectSubjectTitleEditedSuccess } from '@metutor/core/state/reducers/tutor.reducer';
 
 @Component({
   selector: 'metutors-tutor-syllabus',
