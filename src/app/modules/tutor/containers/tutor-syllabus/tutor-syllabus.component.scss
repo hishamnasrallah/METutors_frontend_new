@@ -1,6 +1,6 @@
 .syllabus {
   .card {
-    box-shadow: 4px 4px 8px 8px rgb(0 0 0 / 13%);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.13);
 
     .card-body {
       padding: 20px 40px;
@@ -32,6 +32,8 @@
   }
 
   .list {
+    padding: 5px;
+
     .menu {
       padding-right: 0;
       margin-top: 10px;
@@ -41,15 +43,15 @@
       }
 
       span {
-        font-size: 16px;
-        color: #696969;
-        font-weight: 400;
+        color: #2a2a2a;
+        margin-left: 5px;
+        font-size: 20px;
       }
 
       strong {
-        font-size: 18px;
+        font-size: 17px;
         color: #696969;
-        font-weight: 400;
+        font-weight: 500;
       }
     }
   }
@@ -144,23 +146,13 @@
     }
   }
 
-  .subject-field {
-    height: 28px;
-    border-radius: 2px;
-    border: 1px solid #c7c7c7;
-  }
   .save-topic-btn {
-    border: none;
-    color: #fff;
-    display: flex;
-    font-size: 12px;
-    padding: 2px 10px;
-    border-radius: 2px;
+    padding: 3px 25px;
+    color: #FFF;
+    font-size: 15px;
     background: #3bb3c1;
-
-    &.spinner {
-      margin-left: 3px;
-    }
+    min-width: 0;
+    box-shadow: none;
 
     &.disabled {
       background: #c7c7c7 !important;
@@ -168,20 +160,8 @@
   }
 
   table {
-    margin: 0;
-    border-top: none;
-
-    th {
-      color: #949494;
-      font-size: 14px;
-      border-bottom: 1px solid #e2edef;
-    }
-
     td {
-      color: #2a2a2a;
-      font-size: 16px;
-      border-bottom: 1px solid #e2edef;
-      padding: 10px 0;
+      padding: 10px;
 
       .edit-btn {
         padding: 0;
@@ -189,14 +169,6 @@
         line-height: 0;
         min-width: 0;
       }
-    }
-
-    &>:not(:first-child) {
-      border: none;
-    }
-
-    tr:last-child td {
-      border-bottom: none;
     }
   }
 }

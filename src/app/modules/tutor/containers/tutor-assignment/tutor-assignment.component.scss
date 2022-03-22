@@ -1,6 +1,6 @@
 .assignments {
   .card {
-    box-shadow: 4px 4px 8px 8px rgb(0 0 0 / 13%);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.13);
 
     .card-body {
       padding: 20px 40px;
@@ -210,7 +210,7 @@
       }
 
       .late {
-        color: #ff8ca1;
+        color: #e72347;
       }
     }
 

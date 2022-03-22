@@ -2,8 +2,9 @@ import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { combineLatest, Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
-
+import * as fromTutor from '../../state';
 import * as fromCore from '@metutor/core/state';
+import * as fromTutorAction from '../../state/actions';
 
 @Component({
   selector: 'metutors-tutor-class-dashboard',
@@ -11,10 +12,10 @@ import * as fromCore from '@metutor/core/state';
   styleUrls: ['./tutor-class-dashboard.component.scss'],
 })
 export class TutorClassDashboardComponent implements OnInit {
-  showFeedbackModal = false;
-  showAttendanceModal = false;
-
   isLaunchingClass$: Observable<boolean>;
+  showCancelCourseModal$: Observable<boolean>;
+  showSendFeedbackModal$: Observable<boolean>;
+  showCourseAttendanceModal$: Observable<boolean>;
 
   view$: Observable<{
     data: any;
@@ -43,6 +44,15 @@ export class TutorClassDashboardComponent implements OnInit {
     this.isLaunchingClass$ = this._store.select(
       fromCore.selectIsLaunchingClass
     );
+    this.showCancelCourseModal$ = this._store.select(
+      fromTutor.selectCancelCourseModal
+    );
+    this.showSendFeedbackModal$ = this._store.select(
+      fromTutor.selectSendFeedbackModal
+    );
+    this.showCourseAttendanceModal$ = this._store.select(
+      fromTutor.selectCourseAttendanceModal
+    );
 
     this.view$ = combineLatest([
       this._store.select(fromCore.selectCourseById),
@@ -53,5 +63,29 @@ export class TutorClassDashboardComponent implements OnInit {
         data,
       }))
     );
+  }
+
+  onShowCancelCourseModal(): void {
+    this._store.dispatch(fromTutorAction.openTutorCancelCourseModal());
+  }
+
+  onCloseCancelCourseModal(): void {
+    this._store.dispatch(fromTutorAction.closeTutorCancelCourseModal());
+  }
+
+  onShowSendFeedbackModal(): void {
+    this._store.dispatch(fromTutorAction.openTutorSendFeedbackModal());
+  }
+
+  onCloseSendFeedbackModal(): void {
+    this._store.dispatch(fromTutorAction.closeTutorSendFeedbackModal());
+  }
+
+  onShowCourseAttendanceModal(): void {
+    this._store.dispatch(fromTutorAction.openTutorCourseAttendanceModal());
+  }
+
+  onCloseCourseAttendanceModal(): void {
+    this._store.dispatch(fromTutorAction.closeTutorCourseAttendanceModal());
   }
 }

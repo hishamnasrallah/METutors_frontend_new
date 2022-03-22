@@ -1,6 +1,6 @@
 .classes-dashboard {
   .card {
-    box-shadow: 4px 4px 8px 8px rgb(0 0 0 / 13%);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.13);
 
     .card-body {
       padding: 20px 40px;
@@ -9,11 +9,16 @@
     .title {
       color: #000;
       font-size: 30px;
+
+      button {
+        color: #e72347;
+        text-decoration: underline;
+      }
     }
 
     .in-progress {
       h3 {
-        font-size: 20px;
+        font-size: 17px;
         color: #000;
       }
 
@@ -21,6 +26,17 @@
         color: #000;
         font-size: 12px;
         margin-left: 10px;
+      }
+    }
+
+    .logos {
+      .fw-bold {
+        font-size: 14px;
+      }
+
+      img {
+        width: 30px;
+        height: 30px;
       }
     }
 
@@ -42,7 +58,7 @@
         }
 
         strong {
-          font-size: 20px;
+          font-size: 17px;
           color: #696969;
           font-weight: 500;
         }
