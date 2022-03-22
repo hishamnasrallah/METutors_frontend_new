@@ -10,6 +10,8 @@ import {
   TutorSettingsComponent,
   TutorSyllabusComponent,
   TutorDashboardComponent,
+  TutorResourcesComponent,
+  TutorAssignmentComponent,
   TutorClassroomsComponent,
   TutorCreateTicketComponent,
   TutorSupportTicketComponent,
@@ -59,12 +61,12 @@ const routes: Routes = [
             },
             children: [
               {
-                path: 'dashboard/:id',
-                component: TutorClassDashboardComponent,
+                path: 'syllabus/:id',
+                component: TutorSyllabusComponent,
                 data: {
                   layout: {
-                    title: 'Tutor Class Dashboard - Metutors',
-                    navbarTitle: 'Classes dashboard',
+                    title: 'Tutor Syllabus - Metutors',
+                    navbarTitle: 'Syllabus',
                     showHeader: false,
                     showFooter: false,
                     hideSidebar: true,
@@ -72,12 +74,38 @@ const routes: Routes = [
                 },
               },
               {
-                path: 'syllabus/:id',
-                component: TutorSyllabusComponent,
+                path: 'resources/:id',
+                component: TutorResourcesComponent,
                 data: {
                   layout: {
-                    title: 'Tutor Syllabus - Metutors',
-                    navbarTitle: 'Syllabus',
+                    title: 'Tutor Resources - Metutors',
+                    navbarTitle: 'Resources',
+                    showHeader: false,
+                    showFooter: false,
+                    hideSidebar: true,
+                  },
+                },
+              },
+              {
+                path: 'assignment/:id',
+                component: TutorAssignmentComponent,
+                data: {
+                  layout: {
+                    title: 'Tutor Assignment - Metutors',
+                    navbarTitle: 'Assignment',
+                    showHeader: false,
+                    showFooter: false,
+                    hideSidebar: true,
+                  },
+                },
+              },
+              {
+                path: 'dashboard/:id',
+                component: TutorClassDashboardComponent,
+                data: {
+                  layout: {
+                    title: 'Tutor Class Dashboard - Metutors',
+                    navbarTitle: 'Classes dashboard',
                     showHeader: false,
                     showFooter: false,
                     hideSidebar: true,
