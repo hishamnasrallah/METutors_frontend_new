@@ -1,83 +1,37 @@
-.classes-dashboard {
-  .card {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.13);
+.sidemenu {
+  padding: 50px 0;
+  background: #2d3E49;
 
-    .card-body {
-      padding: 20px 40px;
+  .heading {
+    padding: 20px 10px;
 
-      .cancel-course {
-        font-size: 20px;
-      }
+    h1 {
+      font-size: 20px;
+      color: #fff;
+      text-transform: uppercase;
     }
 
-    .title {
-      color: #000;
-      font-size: 30px;
-
-      button {
-        color: #e72347;
-        text-decoration: underline;
-      }
-    }
-
-    .in-progress {
-      h3 {
-        font-size: 17px;
-        color: #000;
-      }
-
-      strong {
-        color: #000;
-        font-size: 12px;
-        margin-left: 10px;
-      }
-    }
-
-    .logos {
-      .fw-bold {
-        font-size: 14px;
-      }
-
-      img {
-        width: 30px;
-        height: 30px;
-      }
-    }
-
-    .list {
-      padding: 5px;
-
-      .menu {
-        padding-right: 0;
-        margin-top: 10px;
-
-        img {
-          margin-right: 5px;
-        }
-
-        span {
-          color: #2a2a2a;
-          margin-left: 5px;
-          font-size: 20px;
-        }
-
-        strong {
-          font-size: 17px;
-          color: #696969;
-          font-weight: 500;
-        }
-      }
+    button {
+      background-color: rgb(59 179 193 / 15%);
+      color: #3bb3c1;
+      border-radius: 25px;
     }
   }
 
-  .list-tables {
-    padding: 45px 40px;
+  ul li {
+    width: 260px;
 
-    .overview {
-      color: #2a2a2a;
-      font-size: 20px;
-      font-weight: bold;
+    a {
+      display: block;
+      color: #ffffff;
+      font-size: 17px;
+      padding: 15px;
+      border-bottom: 1px solid rgba(226, 226, 226, 0.16);
+
+      &.active {
+        border-right: 6px solid #3bb3c1;
+        font-weight: bold;
+      }
     }
-
   }
 }

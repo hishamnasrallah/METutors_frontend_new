@@ -13,6 +13,7 @@ import {
   StudentCertificatesComponent,
   StudentSupportTicketComponent,
   StudentTicketDetailsComponent,
+  StudentClassDashboardComponent,
 } from './containers';
 
 const routes: Routes = [
@@ -43,28 +44,50 @@ const routes: Routes = [
             },
           },
           {
-            path: 'syllabus/:id',
-            component: StudentSyllabusComponent,
-            data: {
-              layout: {
-                title: 'Student Syllabus - Metutors',
-                navbarTitle: 'Syllabus',
-                showHeader: false,
-                showFooter: false,
-              },
-            },
-          },
-          {
-            path: 'classes/:id',
+            path: 'classes',
             component: StudentClassesComponent,
             data: {
               layout: {
                 title: 'Student Classes - Metutors',
-                navbarTitle: 'Classes',
+                navbarTitle: 'Classes Dashboard',
                 showHeader: false,
                 showFooter: false,
+                hideSidebar: true,
               },
             },
+            children: [
+              {
+                path: 'syllabus/:id',
+                component: StudentSyllabusComponent,
+                data: {
+                  layout: {
+                    title: 'Student Syllabus - Metutors',
+                    navbarTitle: 'Syllabus',
+                    showHeader: false,
+                    showFooter: false,
+                    hideSidebar: true,
+                  },
+                },
+              },
+              {
+                path: 'dashboard/:id',
+                component: StudentClassDashboardComponent,
+                data: {
+                  layout: {
+                    title: 'Student Classes - Metutors',
+                    navbarTitle: 'Classes Dashboard',
+                    showHeader: false,
+                    showFooter: false,
+                    hideSidebar: true,
+                  },
+                },
+              },
+              {
+                path: '',
+                redirectTo: 'dashboard/:id',
+                pathMatch: 'full',
+              },
+            ],
           },
         ],
       },

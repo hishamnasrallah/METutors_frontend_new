@@ -50,7 +50,7 @@
 
           <ng-container *ngSwitchCase="false">
             <div class="col-md-12" *ngFor="let newCourse of view.newCourses">
-              <metutors-classroom-item [classroom]="newCourse" [url]="'/student/classrooms/classes/'">
+              <metutors-classroom-item [classroom]="newCourse" [url]="'/student/classrooms/classes/dashboard/'">
               </metutors-classroom-item>
             </div>
 
@@ -81,7 +81,7 @@
           </ng-container>
           <ng-container *ngSwitchCase="false">
             <div class="col-md-12" *ngFor="let activeCourse of view.activeCourses">
-              <metutors-classroom-item [classroom]="activeCourse" [url]="'/student/classrooms/classes/'"></metutors-classroom-item>
+              <metutors-classroom-item [classroom]="activeCourse" [url]="'/student/classrooms/classes/dashboard/'"></metutors-classroom-item>
             </div>
 
             <div class="col-md-12 mb-3" *ngIf="!view.activeCourses || !view.activeCourses.length">
@@ -111,7 +111,7 @@
           </ng-container>
           <ng-container *ngSwitchCase="false">
             <div class="col-md-12" *ngFor="let completedCourse of view.completedCourses">
-              <metutors-classroom-item [classroom]="completedCourse" [url]="'/student/classrooms/classes/'"></metutors-classroom-item>
+              <metutors-classroom-item [classroom]="completedCourse" [url]="'/student/classrooms/classes/dashboard/'"></metutors-classroom-item>
             </div>
             <div class="col-md-12 mb-3" *ngIf="!view.completedCourses || !view.completedCourses.length">
               <div class="card no-data">

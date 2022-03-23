@@ -29,6 +29,7 @@ import {
   StudentCertificatesComponent,
   StudentSupportTicketComponent,
   StudentTicketDetailsComponent,
+  StudentClassDashboardComponent,
 } from './containers';
 
 import {
@@ -67,6 +68,7 @@ import {
     FaqStillHaveQuestionsComponent,
     StudentAttendanceModalComponent,
     StudentSettingsAccountComponent,
+    StudentClassDashboardComponent,
     StudentSettingsSecurityComponent,
     StudentSettingsUserPrefrencesComponent,
     StudentSettingsPaymentInformationComponent,

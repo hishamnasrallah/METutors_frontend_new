@@ -1,223 +1,41 @@
-<div class="classes-dashboard" *ngLet="(view$ | async) as view">
-  <div class="card">
-    <div class="card-body">
-      <ng-container [ngSwitch]="view.loading">
-        <ng-container *ngSwitchCase="false">
-          <h1 class="title overflow-hidden">{{ view.data?.course?.courseName }}
-            <button mat-button class="cancel-course float-end f-size-15-sm text-danger text-decoration-underline" (click)="onShowCancelCourseModal()">Cancel Course</button>
-          </h1>
-          <div class="row list rounded">
-            <div class="col-md-3 d-flex menu align-items-center">
-              <img src="assets/svg/timer.svg" alt="" width="15" height="15" draggable="false">
-              <strong>Total hour: </strong>
-              <span>{{ view.data?.course?.totalHours }}hrs</span>
-            </div>
+<div class="d-flex min-h-100">
+  <div class="sidemenu">
+    <!--    <div class="heading">
+          <h1>First Code</h1>
+          <button mat-button>British</button>
+        </div>-->
 
-            <div class="col-md-3 d-flex menu align-items-center">
-              <img src="assets/svg/play-circle-fill.svg" alt="" width="15" height="15" draggable="false">
-              <strong>Remaining classes: </strong>
-              <span>{{ view.data?.remainingClasses }}</span>
-            </div>
-            <div class="col-md-3 d-flex menu align-items-center">
-              <img src="assets/svg/checkbox-circle-fill.svg" alt="" width="15" height="15" draggable="false">
-              <strong>Completed classes: </strong>
-              <span>{{ view.data?.completedClasses }}</span>
-            </div>
-          </div>
-          <div class="row mt-3">
-            <div class="col-md-6 in-progress">
-              <h3 *ngIf="view.data?.progress === 100">Completed</h3>
-              <h3 *ngIf="view.data?.progress === 0">Not Started yet</h3>
-              <h3 *ngIf="view.data?.progress && (view.data?.progress > 0 && view.data?.progress < 100)">In progress</h3>
-              <div class="d-flex align-items-center">
-                <div class="flex-grow-1">
-                  <mat-progress-bar class="example-margin" [color]="view.data?.progress ? view.data?.progress > 30 ? 'primary' : 'warn' : undefined"
-                                    [value]="view.data?.progress">
-                  </mat-progress-bar>
-                </div>
-                <strong>{{ view.data?.progress }}%</strong>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <button mat-button class="main-button-transparent float-end ms-2" (click)="onShowSendFeedbackModal()">
-                Send Feedback
-              </button>
-              <button mat-button class="main-button-transparent float-end"
-                      (click)="onShowCourseAttendanceModal()">
-                Attendance
-              </button>
-            </div>
-          </div>
-        </ng-container>
-        <ng-container *ngSwitchCase="true">
-          <div class="ph-row">
-            <div class="ph-col-8 big"></div>
-            <div class="ph-col-4 big empty"></div>
-            <div class="ph-col-10 big mt-3"></div>
-            <div class="ph-col-2 big empty mt-3"></div>
-            <div class="ph-col-6 mt-4"></div>
-            <div class="ph-col-6 mt-4 empty"></div>
-          </div>
-        </ng-container>
-      </ng-container>
-    </div>
+    <ul class="list-unstyled m-0" *ngLet="(routeParams$ | async) as params">
+      <li>
+        <a [routerLink]="'/student/classrooms/classes/dashboard/'+params?.id" routerLinkActive="active">
+          <span class="text-uppercase">Classes Dashboard</span>
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="'/student/classrooms/classes/syllabus/'+ params?.id" routerLinkActive="active">
+          <span class="text-uppercase">My Syllabus</span>
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="'/student/classrooms/classes/resources/'+params?.id" routerLinkActive="active">
+          <span class="text-uppercase">My Resources</span>
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="'/student/classrooms/classes/assignments/'+params?.id" routerLinkActive="active">
+          <span class="text-uppercase">My Assignments</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/student/help/support-ticket" routerLinkActive="active">
+          <span class="text-uppercase">Support ticket</span>
+        </a>
+      </li>
+    </ul>
   </div>
+  <div class="flex-grow-1 overflow-auto">
+    <metutors-student-navbar [layout]="(layout$ | async)" [user]="user$ | async"></metutors-student-navbar>
 
-  <div class="list-tables">
-    <div class="row">
-      <div class="col-12">
-        <h3 class="overview mb-3">Today's Classes - {{ view?.data?.todaysDate ? view?.data?.todaysDate : 0}}</h3>
-        <ng-container [ngSwitch]="view.loading">
-          <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
-          <table class="table my-table" *ngSwitchCase="false">
-            <tr>
-              <th>#</th>
-              <th>Class Subject</th>
-              <th>Class  Tutor</th>
-              <th>Start time - End time</th>
-              <th>Duration</th>
-              <th></th>
-            </tr>
-            <tr *ngIf="!view.data.todaysClasses.length">
-              <td colspan="6">
-                <div class="text-center">No record found</div>
-              </td>
-            </tr>
-            <ng-container *ngIf="view.data.todaysClasses.length">
-              <tr *ngFor="let todaysClass of view.data.todaysClasses; let i=index">
-                <td>{{ i + 1}}</td>
-                <td>{{ todaysClass.title }}</td>
-                <td></td>
-                <td>{{ todaysClass.startTime}} - {{ todaysClass.endTime}} </td>
-                <td>2 hours</td>
-                <td class="d-flex">
-                  <button mat-button class="main-button-opacity flex-grow-1" (click)="joinClass(todaysClass.id)"
-                          *ngIf="todaysClass?.status !== 'completed'" [disabled]="(isJoiningClass$ | async)">
-                    <img src="assets/svg/play-fill.svg" draggable="false" alt="">
-                    Launch Class
-                  </button>
-                  <button mat-button class="main-button-opacity flex-grow-1" *ngIf="todaysClass?.status === 'completed'">
-                    <img src="assets/svg/eye-fill.svg" draggable="false" alt="">
-                    View Class
-                  </button>
-                </td>
-              </tr>
-            </ng-container>
-          </table>
-        </ng-container>
-      </div>
-
-      <div class="col-12 mt-5">
-        <h3 class="overview mb-3">Up Coming Classes -
-          ({{ view?.data?.totalUpcomingClasses ? view?.data?.totalUpcomingClasses : 0}})</h3>
-        <ng-container [ngSwitch]="view.loading">
-          <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
-          <table class="table my-table orange-title" *ngSwitchCase="false">
-            <tr>
-              <th>#</th>
-              <th>Class Subject</th>
-              <th>Class Tutor</th>
-              <th>Day</th>
-              <th>Date</th>
-              <th>Start time - End time</th>
-              <th>Duration</th>
-              <th></th>
-            </tr>
-            <tr *ngIf="!view.data.upcomingClasses.length">
-              <td colspan="8">
-                <div class="text-center">No record found</div>
-              </td>
-            </tr>
-            <ng-container *ngIf="view.data.upcomingClasses.length">
-              <tr *ngFor="let upcomingClass of view.data.upcomingClasses; let i=index">
-                <td>{{ i + 1}}</td>
-                <td>{{ upcomingClass.title ? upcomingClass.title : 'N/A' }}</td>
-                <td></td>
-                <td>{{ upcomingClass.startDate | date: 'EEEE'}} </td>
-                <td>{{ upcomingClass.startDate}} </td>
-                <td>{{ upcomingClass.startTime}} - {{ upcomingClass.endTime}} </td>
-                <td>2 hours</td>
-                <td class="d-flex">
-                  <button mat-button class="main-button-opacity me-2 flex-grow-1" *ngIf="getHours(upcomingClass.startDate) >=48">
-                    Reschedule
-                  </button>
-                  <button mat-button class="main-button-opacity flex-grow-1" [disabled]="true" *ngIf="getHours(upcomingClass.startDate) < 48">
-                    <img src="assets/svg/play-fill.svg" draggable="false" alt="">
-                    Launch Class
-                  </button>
-                </td>
-              </tr>
-            </ng-container>
-          </table>
-        </ng-container>
-      </div>
-
-      <div class="col-12 mt-5">
-        <h3 class="overview mb-3">Previous Classes -
-          ({{ view?.data?.totalPastClasses ? view?.data?.totalPastClasses : 0 }})</h3>
-        <ng-container [ngSwitch]="view.loading">
-          <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
-          <table class="table my-table purple-title" *ngSwitchCase="false">
-            <tr>
-              <th>#</th>
-              <th>Class Subject</th>
-              <th>Class Tutor</th>
-              <th>Day</th>
-              <th>Date</th>
-              <th>Start time - End time</th>
-              <th>Duration</th>
-              <th></th>
-            </tr>
-            <tr *ngIf="!view.data.pastClasses.length">
-              <td colspan="8">
-                <div class="text-center">No record found</div>
-              </td>
-            </tr>
-            <ng-container *ngIf="view.data.pastClasses.length">
-              <tr *ngFor="let pastClass of view.data.pastClasses; let i=index">
-                <td>{{ i + 1}}</td>
-                <td>{{ pastClass.title }}</td>
-                <td>
-                  <!--<div class="overflow-visible logos">
-                    <img src="https://logo.clearbit.com/tarjama.com" alt="" draggable="false"
-                      class="d-inline-block rounded-circle">
-                    <img src="https://logo.clearbit.com/amazon.com" alt="" draggable="false"
-                      class="d-inline-block rounded-circle ">
-                    <img src="https://logo.clearbit.com/noon.ae" alt="" draggable="false"
-                      class="d-inline-block rounded-circle ">
-                    <img src="https://logo.clearbit.com/canon.com" alt="" draggable="false"
-                      class="d-inline-block rounded-circle ">
-                    <img src="https://logo.clearbit.com/axa.com" alt="" draggable="false"
-                      class="d-inline-block rounded-circle ">
-                    <img src="https://logo.clearbit.com/axis.xyz" alt="" draggable="false"
-                      class="d-inline-block rounded-circle ">
-                    <img src="https://logo.clearbit.com/tamatem.co" alt="" draggable="false"
-                      class="d-inline-block rounded-circle ">
-                  </div>-->
-                </td>
-                <td>{{ pastClass.startDate | date: 'EEEE'}} </td>
-                <td>{{ pastClass.startDate}} </td>
-                <td>{{ pastClass.startTime}} - {{ pastClass.endTime}} </td>
-                <td>2 hours</td>
-                <td class="d-flex">
-                  <button mat-button class="main-button-opacity flex-grow-1">
-                    <img src="assets/svg/eye-fill.svg" draggable="false" alt="">
-                    View Class
-                  </button>
-                </td>
-              </tr>
-            </ng-container>
-          </table>
-        </ng-container>
-      </div>
-    </div>
+    <router-outlet></router-outlet>
   </div>
 </div>
-
-<metutors-student-attendance-modal [showModal]="showAttendanceModal"
-                                   (closeModal)="showAttendanceModal = false">
-</metutors-student-attendance-modal>
-
-<metutors-student-feedback-modal [showModal]="showFeedbackModal"
-                                   (closeModal)="showFeedbackModal = false">
-</metutors-student-feedback-modal>
