@@ -39,3 +39,11 @@ export const openTutorCourseAttendanceModal = createAction(
 export const closeTutorCourseAttendanceModal = createAction(
   '[Tutor Modal] Close Tutor Course Attendance Modal'
 );
+
+export const openTutorAddClassResourceModal = createAction(
+  '[Tutor Modal] Open Tutor Add Class Resource Modal'
+);
+
+export const closeTutorAddClassResourceModal = createAction(
+  '[Tutor Modal] Close Tutor Add Class Resource Modal'
+);

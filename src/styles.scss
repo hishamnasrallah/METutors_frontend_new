@@ -296,6 +296,55 @@ rating span.bs-rating-star {
   }
 }
 
+.list-items {
+  padding: 5px 0;
+
+  .menu {
+    padding-right: 0;
+
+    img {
+      margin-right: 5px;
+    }
+
+    span {
+      color: #2a2a2a;
+      margin-left: 5px;
+      font-size: 20px;
+    }
+
+    strong {
+      font-size: 17px;
+      color: #696969;
+      font-weight: 500;
+    }
+  }
+
+  &.sm-item {
+    .menu {
+      span {
+        font-size: 14px;
+      }
+
+      strong {
+        font-size: 13px;
+      }
+    }
+  }
+
+  &.md-item {
+    .menu {
+      span {
+        font-size: 16px;
+      }
+
+      strong {
+        font-size: 18px;
+        font-weight: 400;
+      }
+    }
+  }
+}
+
 .page-link {
   color: #5D6678;
 

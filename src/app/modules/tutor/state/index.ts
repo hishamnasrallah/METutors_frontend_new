@@ -63,3 +63,8 @@ export const selectCourseAttendanceModal = createSelector(
   selectTutorModalState,
   fromTutorModal.selectCourseAttendanceModal
 );
+
+export const selectAddClassResourceModal = createSelector(
+  selectTutorModalState,
+  fromTutorModal.selectAddClassResourceModal
+);

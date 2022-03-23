@@ -5,7 +5,7 @@
         <ng-container [ngSwitch]="view.loading">
           <ng-container *ngSwitchCase="false">
             <h1 class="title">{{ view.syllabus?.course?.courseName }}</h1>
-            <div class="row list">
+            <div class="row list-items">
               <div class="col-md-3 d-flex menu align-items-center">
                 <img src="assets/svg/calendar.svg" alt="" width="15" height="15" draggable="false">
                 <strong>Days: </strong>
@@ -124,7 +124,7 @@
               <div class="row set-padding">
                 <div class="col-md-9">
                   <h2>{{ syllabus?.topic?.name }}</h2>
-                  <div class="row list p-0">
+                  <div class="row list-items sm-item p-0">
                     <div class="col-md-2 d-flex menu align-items-center">
                       <img src="assets/svg/play-circle-fill.svg" alt="" width="15" height="15" draggable="false">
                       <strong>Total classes: </strong>

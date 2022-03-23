@@ -9,6 +9,7 @@ export interface State {
   showCancelCourseModal: boolean;
   showSendFeedbackModal: boolean;
   showCourseAttendanceModal: boolean;
+  showAddClassResourceModal: boolean;
 }
 
 export const initialState: State = {
@@ -17,6 +18,7 @@ export const initialState: State = {
   showCancelCourseModal: false,
   showSendFeedbackModal: false,
   showCourseAttendanceModal: false,
+  showAddClassResourceModal: false,
 };
 
 export const reducer = createReducer(
@@ -66,6 +68,16 @@ export const reducer = createReducer(
     showCourseAttendanceModal: false,
   })),
 
+  on(tutorModalActions.openTutorAddClassResourceModal, (state) => ({
+    ...state,
+    showAddClassResourceModal: true,
+  })),
+
+  on(tutorModalActions.closeTutorAddClassResourceModal, (state) => ({
+    ...state,
+    showAddClassResourceModal: false,
+  })),
+
   on(tutorModalActions.openTutorAddTopicModal, (state) => ({
     ...state,
     showAddTopicModal: true,
@@ -98,3 +110,6 @@ export const selectSendFeedbackModal = (state: State): boolean =>
 
 export const selectCourseAttendanceModal = (state: State): boolean =>
   state.showCourseAttendanceModal;
+
+export const selectAddClassResourceModal = (state: State): boolean =>
+  state.showAddClassResourceModal;

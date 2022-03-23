@@ -56,6 +56,7 @@ import {
   TutorRejectCourseModalComponent,
   TutorCancelCourseModalComponent,
   TutorAddSyllabusTopicModalComponent,
+  TutorAddClassResourceModalComponent,
   TutorSettingsUserPreferencesComponent,
   TutorSettingsPaymentInformationComponent,
 } from './components';
@@ -90,6 +91,7 @@ import {
     TutorRejectCourseModalComponent,
     TutorCancelCourseModalComponent,
     TutorAddSyllabusTopicModalComponent,
+    TutorAddClassResourceModalComponent,
     TutorSettingsUserPreferencesComponent,
     TutorSettingsPaymentInformationComponent,
   ],
