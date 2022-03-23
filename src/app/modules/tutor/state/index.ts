@@ -68,3 +68,8 @@ export const selectAddClassResourceModal = createSelector(
   selectTutorModalState,
   fromTutorModal.selectAddClassResourceModal
 );
+
+export const selectAddAssignmentModal = createSelector(
+  selectTutorModalState,
+  fromTutorModal.selectAddAssignmentModal
+);

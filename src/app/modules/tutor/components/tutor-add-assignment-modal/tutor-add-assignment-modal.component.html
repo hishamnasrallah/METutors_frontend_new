@@ -1,7 +1,7 @@
-<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'medium'" [heading]="'Add Resources'"
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'medium'" [heading]="'Add New Assignment'"
                 [template]="template" >
   <ng-template #template>
-    <form class="row add-class-modal" [formGroup]="form" (ngSubmit)="submitted.emit(form)">
+    <form class="row add-assignment-modal" [formGroup]="form" (ngSubmit)="submitted.emit(form)">
       <div class="col-12">
         <div class="form-group">
           <label for="description">Description</label>
@@ -62,7 +62,7 @@
         <div class="row mt-2">
           <div class="col-md-12 overflow-hidden">
             <metutors-submit-button [form]="form" [isSubmitting]="submitting" [extraClasses]="'float-end py-1 px-5'">
-              Add
+                Add
             </metutors-submit-button>
           </div>
         </div>

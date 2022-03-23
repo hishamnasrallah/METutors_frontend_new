@@ -6,8 +6,11 @@ import {
   animate,
   transition,
 } from '@angular/animations';
-
 import { Component, OnInit } from '@angular/core';
+import * as fromTutor from '@metutor/modules/tutor/state';
+import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'metutors-tutor-assignment',
@@ -36,9 +39,23 @@ import { Component, OnInit } from '@angular/core';
   ],
 })
 export class TutorAssignmentComponent implements OnInit {
+  showAddAssignmentModal$: Observable<boolean>;
+
   openBlock: boolean;
 
-  constructor() {}
+  constructor(private _store: Store<any>) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.showAddAssignmentModal$ = this._store.select(
+      fromTutor.selectAddAssignmentModal
+    );
+  }
+
+  onOpenAddAssignment() {
+    this._store.dispatch(fromTutorAction.openTutorAddAssignmentModal());
+  }
+
+  onCloseAddAssignment() {
+    this._store.dispatch(fromTutorAction.closeTutorAddAssignmentModal());
+  }
 }
