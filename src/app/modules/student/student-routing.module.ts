@@ -13,6 +13,7 @@ import {
   StudentCertificatesComponent,
   StudentSupportTicketComponent,
   StudentTicketDetailsComponent,
+  StudentClassDashboardComponent,
 } from './containers';
 
 const routes: Routes = [
@@ -35,36 +36,58 @@ const routes: Routes = [
             component: StudentClassroomsComponent,
             data: {
               layout: {
-                title: 'Student Classrooms - Metutors',
-                navbarTitle: 'Classrooms',
+                title: 'Student Classroom - Metutors',
+                navbarTitle: 'Classroom',
                 showHeader: false,
                 showFooter: false,
               },
             },
           },
           {
-            path: 'syllabus/:id',
-            component: StudentSyllabusComponent,
-            data: {
-              layout: {
-                title: 'Student Syllabus - Metutors',
-                navbarTitle: 'Syllabus',
-                showHeader: false,
-                showFooter: false,
-              },
-            },
-          },
-          {
-            path: 'classes/:id',
+            path: 'classes',
             component: StudentClassesComponent,
             data: {
               layout: {
                 title: 'Student Classes - Metutors',
-                navbarTitle: 'Classes',
+                navbarTitle: 'Classes Dashboard',
                 showHeader: false,
                 showFooter: false,
+                hideSidebar: true,
               },
             },
+            children: [
+              {
+                path: 'syllabus/:id',
+                component: StudentSyllabusComponent,
+                data: {
+                  layout: {
+                    title: 'Student Syllabus - Metutors',
+                    navbarTitle: 'Syllabus',
+                    showHeader: false,
+                    showFooter: false,
+                    hideSidebar: true,
+                  },
+                },
+              },
+              {
+                path: 'dashboard/:id',
+                component: StudentClassDashboardComponent,
+                data: {
+                  layout: {
+                    title: 'Student Classes - Metutors',
+                    navbarTitle: 'Classes Dashboard',
+                    showHeader: false,
+                    showFooter: false,
+                    hideSidebar: true,
+                  },
+                },
+              },
+              {
+                path: '',
+                redirectTo: 'dashboard/:id',
+                pathMatch: 'full',
+              },
+            ],
           },
         ],
       },
@@ -151,7 +174,7 @@ const routes: Routes = [
         data: {
           layout: {
             title: 'Dashboard - Metutors',
-            navbarTitle: 'Dashboard',
+            navbarTitle: "Student's Dashboard",
             showHeader: false,
             showFooter: false,
           },
