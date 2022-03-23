@@ -1,0 +1,175 @@
+<div class="assignments">
+  <div class="card">
+    <div class="card-body">
+      <h1 class="title">Chemistry 101</h1>
+      <div class="row list">
+        <div class="col-md-3 d-flex menu align-items-center">
+          <img src="assets/svg/timer.svg" alt="" width="15" height="15" draggable="false">
+          <strong>Total assignments: </strong>
+          <span>11</span>
+        </div>
+        <div class="col-md-3 d-flex menu align-items-center">
+          <img src="assets/svg/class.svg" alt="" width="15" height="15" draggable="false">
+          <strong>Active assignments: </strong>
+          <span>13</span>
+        </div>
+        <div class="col-md-3 d-flex menu align-items-center">
+          <img src="assets/svg/class.svg" alt="" width="15" height="15" draggable="false">
+          <strong>Completed assignments: </strong>
+          <span>10</span>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-md-5 overflow-visible logos">
+          <div class="fw-bold">Enrolled Students</div>
+          <img meTutorsDefaultAvatar src="" alt="" draggable="false" class="d-inline-block rounded-circle">
+          <img meTutorsDefaultAvatar src="" alt="" draggable="false" class="d-inline-block rounded-circle">
+          <img meTutorsDefaultAvatar src="" alt="" draggable="false" class="d-inline-block rounded-circle">
+          <img meTutorsDefaultAvatar src="" alt="" draggable="false" class="d-inline-block rounded-circle">
+        </div>
+        <div class="col-md-7">
+          <button mat-button class="main-button-transparent float-end">
+            <mat-icon>add</mat-icon>
+            Add new assignment
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="assign-tabs">
+    <button mat-button class="class-btn main-button-transparent text-uppercase active">Active assignments</button>
+    <button mat-button class="class-btn main-button-transparent text-uppercase">Completed assignments</button>
+  </div>
+
+  <div class="items">
+    <div class="item position-relative">
+      <span class="number">1</span>
+      <div class="row set-padding">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-7">
+              <h2>I am editing here</h2>
+              <p class="col">I agree and also good muslim</p>
+            </div>
+            <div class="col-md-5 d-flex align-items-start justify-content-end date-data">
+              <a>Extend Due Date</a>
+              <div class="d-flex flex-column mx-3">
+                <span>Remaining Time</span>
+                <strong class="alert-msg">2 Days</strong>
+              </div>
+              <button mat-button class="main-button-transparent">
+                View Details
+                <mat-icon>arrow_forward</mat-icon>
+              </button>
+            </div>
+          </div>
+
+          <div class="row list p-0 pb-3">
+            <div class="col d-flex menu align-items-center">
+              <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
+              <strong>Start: </strong>
+              <span>13 March 2022</span>
+            </div>
+            <div class="col d-flex menu align-items-center">
+              <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
+              <strong>Deadline: </strong>
+              <span>20 March 2022</span>
+            </div>
+            <div class="col d-flex menu align-items-center">
+              <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
+              <strong>Answer received:</strong>
+              <span>04 out of 10</span>
+            </div>
+            <div class="col-1">
+              <button mat-button class="expand" *ngIf="!openBlock">
+                <mat-icon (click)="openBlock = true">expand_more</mat-icon>
+              </button>
+              <button mat-button class="expand" *ngIf="openBlock">
+                <mat-icon (click)="openBlock = false">expand_less</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="table-responsive" *ngIf="openBlock" [@slideInOut]>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Number</th>
+                  <th scope="col">Student Name</th>
+                  <th scope="col">Time Received By Student</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td scope="row">1</td>
+                  <td>
+                    <img src="" meTutorsDefaultAvatar draggable="false" width="25" height="25" class="rounded-circle"
+                      alt="">
+                    <span class="ms-2">Ahmed Hassan</span>
+                  </td>
+                  <td>Monday, 07 Feb 2022, 12:00 pm</td>
+                  <td>
+                    <span class="status-icon pending">Pending</span>
+                    <span class="late ms-2 fw-bold">Late</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td scope="row">2</td>
+                  <td>
+                    <img src="" meTutorsDefaultAvatar draggable="false" width="25" height="25" class="rounded-circle"
+                      alt="">
+                    <span class="ms-2">Ahmed Hassan</span>
+                  </td>
+                  <td>Monday, 07 Feb 2022, 12:00 pm</td>
+                  <td>
+                    <span class="status-icon submitted">Submitted</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td scope="row">3</td>
+                  <td>
+                    <img src="" meTutorsDefaultAvatar draggable="false" width="25" height="25" class="rounded-circle"
+                      alt="">
+                    <span class="ms-2">Ahmed Hassan</span>
+                  </td>
+                  <td>Monday, 07 Feb 2022, 12:00 pm</td>
+                  <td>
+                    <span class="status-icon completed">Completed</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td scope="row">4</td>
+                  <td>
+                    <img src="" meTutorsDefaultAvatar draggable="false" width="25" height="25" class="rounded-circle"
+                      alt="">
+                    <span class="ms-2">Ahmed Hassan</span>
+                  </td>
+                  <td>Monday, 07 Feb 2022, 12:00 pm</td>
+                  <td>
+                    <span class="status-icon rejected">Rejected</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td scope="row">5</td>
+                  <td>
+                    <img src="" meTutorsDefaultAvatar draggable="false" width="25" height="25" class="rounded-circle"
+                      alt="">
+                    <span class="ms-2">Ahmed Hassan</span>
+                  </td>
+                  <td>Monday, 07 Feb 2022, 12:00 pm</td>
+                  <td>
+                    <span class="status-icon resubmitted">Resubmitted</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

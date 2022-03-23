@@ -7,6 +7,7 @@ export * from './tutor-attendance-modal';
 export * from './tutor-settings-account';
 export * from './tutor-settings-security';
 export * from './faq-still-have-questions';
+export * from './tutor-cancel-course-modal';
 export * from './tutor-reject-course-modal';
 export * from './tutor-add-syllabus-topic-modal';
 export * from './tutor-settings-user-preferences';

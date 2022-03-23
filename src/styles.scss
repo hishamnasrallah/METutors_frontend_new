@@ -222,6 +222,24 @@ a {
   }
 }
 
+.secondary-button-transparent {
+  border: 1px solid #b2b2b2 !important;
+  color: #3d3b3b !important;
+  font-weight: bold;
+  border-radius: 5px !important;
+  transition: all 0.25s ease-in-out;
+
+  &:hover {
+    background-color: #b2b2b2 !important;
+    color: #FFF !important;
+
+    svg,
+    svg path {
+      fill: #FFF !important;
+    }
+  }
+}
+
 .mat-button-disabled {
   opacity: 0.5;
   cursor: not-allowed !important;

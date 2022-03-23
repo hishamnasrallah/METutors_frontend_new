@@ -1,0 +1,55 @@
+.resources {
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.13);
+
+    .card-body {
+      padding: 20px 40px;
+    }
+
+    .title {
+      color: #000;
+      font-size: 30px;
+    }
+  }
+
+  .list {
+    .menu {
+      padding-right: 0;
+      margin-top: 10px;
+
+      img {
+        margin-right: 5px;
+      }
+
+      span {
+        font-size: 16px;
+        color: #696969;
+        font-weight: 400;
+      }
+
+      strong {
+        font-size: 17px;
+        color: #696969;
+        font-weight: 400;
+      }
+    }
+  }
+
+  .details {
+    padding: 0 40px 40px;
+
+    h3 {
+      font-size: 22px;
+      font-weight: bold;
+      color: #2a2a2a;
+      margin-top: 40px;
+      margin-bottom: 20px;
+    }
+
+    table {
+      td {
+        padding: 0;
+      }
+    }
+  }
+}

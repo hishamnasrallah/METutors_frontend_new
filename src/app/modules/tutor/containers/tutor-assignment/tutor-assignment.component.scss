@@ -1,4 +1,4 @@
-.syllabus {
+.assignments {
   .card {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.13);
 
@@ -10,30 +10,9 @@
       color: #000;
       font-size: 30px;
     }
-
-    .in-progress {
-      h3 {
-        font-size: 16px;
-        color: #000;
-      }
-
-      strong {
-        color: #000;
-        font-size: 12px;
-        margin-left: 10px;
-      }
-    }
-  }
-
-  .edit-data {
-    padding: 0;
-    min-width: 0;
-    line-height: 0;
   }
 
   .list {
-    padding: 5px;
-
     .menu {
       padding-right: 0;
       margin-top: 10px;
@@ -43,21 +22,37 @@
       }
 
       span {
-        color: #2a2a2a;
-        margin-left: 5px;
-        font-size: 20px;
+        font-size: 16px;
+        color: #696969;
+        font-weight: 400;
       }
 
       strong {
-        font-size: 17px;
+        font-size: 18px;
         color: #696969;
-        font-weight: 500;
+        font-weight: 400;
+      }
+    }
+  }
+
+  .assign-tabs {
+    padding: 20px 40px;
+
+    .class-btn {
+      font-weight: bold;
+      font-size: 18px;
+      border-radius: 20px !important;
+      margin-right: 10px;
+
+      &.active {
+        color: #FFF !important;
+        background: #3bb3c1;
       }
     }
   }
 
   .items {
-    padding: 40px;
+    padding: 0 40px 40px;
 
     .title {
       color: #000;
@@ -124,6 +119,27 @@
         color: #2a2a2a;
       }
 
+      .date-data {
+        a {
+          color: #3bb3c1;
+          font-size: 17px;
+          text-decoration: underline;
+        }
+
+        span {
+          color: #696969;
+        }
+
+        strong {
+          font-size: 18px;
+          color: #3bb3c1;
+
+          &.alert-msg {
+            color: #e72347;
+          }
+        }
+      }
+
       .menu {
         margin-top: 0;
       }
@@ -131,7 +147,6 @@
       p {
         color: #696969;
         font-size: 16px;
-        margin: 10px 0 0;
       }
 
       .expand {
@@ -146,29 +161,65 @@
     }
   }
 
-  .save-topic-btn {
-    padding: 3px 25px;
-    color: #FFF;
-    font-size: 15px;
-    background: #3bb3c1;
-    min-width: 0;
-    box-shadow: none;
-
-    &.disabled {
-      background: #c7c7c7 !important;
-    }
-  }
-
   table {
-    td {
-      padding: 10px;
+    margin: 0;
+    border-top: none;
 
-      .edit-btn {
-        padding: 0;
-        color: #c7c7c7;
-        line-height: 0;
-        min-width: 0;
+    th {
+      color: #949494;
+      font-size: 14px;
+      border-bottom: 1px solid #e2edef;
+    }
+
+    td {
+      color: #2a2a2a;
+      font-size: 16px;
+      border-bottom: 1px solid #e2edef;
+      padding: 10px 0;
+
+      .status-icon {
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-weight: bold;
+        font-size: 15px;
+
+        &.pending {
+          background-color: #f8e3cc;
+          color: #c98843;
+        }
+
+        &.submitted {
+          background-color: #eae4ff;
+          color: #7a5ce2;
+        }
+
+        &.completed {
+          background-color: #d1f7fc;
+          color: #32bed0;
+        }
+
+        &.rejected {
+          background-color: #f9d3da;
+          color: #d34c65;
+        }
+
+        &.resubmitted {
+          background-color: #e1e0fe;
+          color: #5955cd;
+        }
       }
+
+      .late {
+        color: #e72347;
+      }
+    }
+
+    &>:not(:first-child) {
+      border: none;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
     }
   }
 }

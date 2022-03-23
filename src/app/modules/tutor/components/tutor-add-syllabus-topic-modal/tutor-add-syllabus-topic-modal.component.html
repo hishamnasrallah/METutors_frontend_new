@@ -6,7 +6,7 @@
       <button class="btn delete" *ngIf="topic" type="button" (click)="deleted.emit(topic.id)"
               [disabled]="isDeletingTopic">
         Delete
-        <mat-spinner mode="indeterminate" [diameter]="16" class="spinner" *ngIf="isDeletingTopic"></mat-spinner>
+        <mat-icon class="spinner" ngIf="isDeletingTopic">autorenew</mat-icon>
       </button>
       <div class="row add-topic-modal">
         <div class="col-12">
@@ -42,7 +42,7 @@
                 <div class="col-auto col-3 float-end">
                   <metutors-submit-button [form]="form" [isSubmitting]="isSubmitting" [isDisabled]="isDeletingTopic"
                                           [extraClasses]="'w-100 float-end'">
-                    {{ this.topic ? 'Edit' : 'Add'}}
+                    {{ topic ? 'Edit' : 'Add'}}
                   </metutors-submit-button>
                 </div>
               </div>
