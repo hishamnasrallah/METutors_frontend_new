@@ -1,4 +1,3 @@
-
 <div class="classes-dashboard" *ngLet="(view$ | async) as view">
   <div class="card">
     <div class="card-body">
@@ -109,8 +108,15 @@
       </div>
 
       <div class="col-12 mt-5">
-        <h3 class="overview mb-3">Up Coming Classes -
-          ({{ view?.data?.totalUpcomingClasses ? view?.data?.totalUpcomingClasses : 0}})</h3>
+        <div class="row">
+          <h3 class="overview mb-3 col-md-10">Up Coming Classes -
+            ({{ view?.data?.totalUpcomingClasses ? view?.data?.totalUpcomingClasses : 0}})</h3>
+
+          <div class="col-md-2">
+            <span class="add-class float-end text-primary text-decoration-underline cursor-pointer">Add New Class</span>
+          </div>
+        </div>
+
         <ng-container [ngSwitch]="view.loading">
           <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
           <table class="table my-table orange-title" *ngSwitchCase="false">
