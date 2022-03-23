@@ -2,7 +2,7 @@
   <div class="card">
     <div class="card-body">
       <h1 class="title">Chemistry 101</h1>
-      <div class="row list">
+      <div class="row list-items">
         <div class="col-md-3 d-flex menu align-items-center">
           <img src="assets/svg/calendar.svg" alt="" width="15" height="15" draggable="false">
           <strong>Days: </strong>
@@ -45,7 +45,7 @@
           <td>Monday, 07 Feb 2022</td>
           <td>
             <div>
-              <button mat-button class="main-button-transparent">Add Resource</button>
+              <button mat-button class="main-button-transparent" (click)="onOpenAddClassResource()">Add Resource</button>
             </div>
           </td>
         </tr>
@@ -57,7 +57,7 @@
           <td>Monday, 07 Feb 2022</td>
           <td>
             <div>
-              <button mat-button class="secondary-button-transparent">Edit Resource</button>
+              <button mat-button class="secondary-button-transparent" (click)="onOpenAddClassResource()">Edit Resource</button>
             </div>
           </td>
         </tr>
@@ -69,7 +69,7 @@
           <td>Monday, 07 Feb 2022</td>
           <td>
             <div>
-              <button mat-button class="main-button-transparent">Add Resource</button>
+              <button mat-button class="main-button-transparent" (click)="onOpenAddClassResource()">Add Resource</button>
             </div>
           </td>
         </tr>
@@ -77,3 +77,8 @@
     </div>
   </div>
 </div>
+
+<metutors-tutor-add-class-resource-modal *ngIf="showAddClassResourceModal$ | async"
+                                         (closeModal)="onCloseAddClassResource()"
+                                         [showModal]="(showAddClassResourceModal$ | async)!">
+</metutors-tutor-add-class-resource-modal>

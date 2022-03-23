@@ -9,7 +9,7 @@
 
         <div class="row mt-2">
           <div class="col-md-12 overflow-hidden">
-            <button mat-flat-button color="primary" class="float-end" type="submit" [disabled]="form.invalid || submitting" (click)="submitted.emit(form)">
+            <button mat-flat-button color="primary" class="float-end py-1 px-5" type="submit" [disabled]="form.invalid || submitting" (click)="submitted.emit(form)">
               Submit
               <mat-icon class="spinner" *ngIf="submitting">autorenew</mat-icon>
             </button>

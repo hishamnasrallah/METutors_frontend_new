@@ -15,3 +15,35 @@ export const openTutorAddTopicModal = createAction(
 export const closeTutorAddTopicModal = createAction(
   '[Tutor Modal] Close Tutor Add Topic Modal'
 );
+
+export const openTutorCancelCourseModal = createAction(
+  '[Tutor Modal] Open Tutor Cancel Course Modal'
+);
+
+export const closeTutorCancelCourseModal = createAction(
+  '[Tutor Modal] Close Tutor Cancel Course Modal'
+);
+
+export const openTutorSendFeedbackModal = createAction(
+  '[Tutor Modal] Open Tutor Send Feedback Modal'
+);
+
+export const closeTutorSendFeedbackModal = createAction(
+  '[Tutor Modal] Close Tutor Send Feedback Modal'
+);
+
+export const openTutorCourseAttendanceModal = createAction(
+  '[Tutor Modal] Open Tutor Course Attendance Modal'
+);
+
+export const closeTutorCourseAttendanceModal = createAction(
+  '[Tutor Modal] Close Tutor Course Attendance Modal'
+);
+
+export const openTutorAddClassResourceModal = createAction(
+  '[Tutor Modal] Open Tutor Add Class Resource Modal'
+);
+
+export const closeTutorAddClassResourceModal = createAction(
+  '[Tutor Modal] Close Tutor Add Class Resource Modal'
+);

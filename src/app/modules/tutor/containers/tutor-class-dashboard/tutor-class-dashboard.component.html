@@ -3,20 +3,22 @@
     <div class="card-body">
       <ng-container [ngSwitch]="view.loading">
         <ng-container *ngSwitchCase="false">
-          <h1 class="title">{{ view.data?.course?.courseName }}</h1>
-          <div class="row list rounded">
-            <div class="col-md-2 d-flex menu align-items-center">
+          <h1 class="title overflow-hidden">{{ view.data?.course?.courseName }}
+            <button mat-button class="float-end fw-bold" (click)="onShowCancelCourseModal()">Cancel Course</button>
+          </h1>
+          <div class="row list-items">
+            <div class="col-md-3 d-flex menu align-items-center">
               <img src="assets/svg/timer.svg" alt="" width="15" height="15" draggable="false">
               <strong>Total hour: </strong>
               <span>{{ view.data?.course?.totalHours }}hrs</span>
             </div>
 
-            <div class="col-md-2 d-flex menu align-items-center">
+            <div class="col-md-3 d-flex menu align-items-center">
               <img src="assets/svg/play-circle-fill.svg" alt="" width="15" height="15" draggable="false">
               <strong>Remaining classes: </strong>
               <span>{{ view.data?.remainingClasses }}</span>
             </div>
-            <div class="col-md-2 d-flex menu align-items-center">
+            <div class="col-md-3 d-flex menu align-items-center">
               <img src="assets/svg/checkbox-circle-fill.svg" alt="" width="15" height="15" draggable="false">
               <strong>Completed classes: </strong>
               <span>{{ view.data?.completedClasses }}</span>
@@ -44,11 +46,11 @@
                </div>
             </div>
             <div class="col-md-6">
-              <button mat-button class="main-button-transparent float-end ms-2" (click)="showFeedbackModal = true">
+              <button mat-button class="main-button-transparent float-end ms-2" (click)="onShowSendFeedbackModal()">
                 Send Feedback
               </button>
               <button mat-button class="main-button-transparent float-end"
-                      (click)="showAttendanceModal = true">
+                     (click)="onShowCourseAttendanceModal()">
                 Attendance
               </button>
             </div>
@@ -219,10 +221,17 @@
   </div>
 </div>
 
-<metutors-tutor-attendance-modal [showModal]="showAttendanceModal"
-                                 (closeModal)="showAttendanceModal=false">
+<metutors-tutor-attendance-modal *ngIf="(showCourseAttendanceModal$ | async)"
+                                 [showModal]="(showCourseAttendanceModal$ | async)!"
+                                 (closeModal)="onCloseCourseAttendanceModal()">
 </metutors-tutor-attendance-modal>
 
-<metutors-tutor-feedback-modal [showModal]="showFeedbackModal"
-                                 (closeModal)="showFeedbackModal=false">
+<metutors-tutor-feedback-modal *ngIf="(showSendFeedbackModal$ | async)"
+                               [showModal]="(showSendFeedbackModal$ | async)!"
+                               (closeModal)="onCloseSendFeedbackModal()">
 </metutors-tutor-feedback-modal>
+
+<metutors-tutor-cancel-course-modal *ngIf="(showCancelCourseModal$ | async)"
+                                    [showModal]="(showCancelCourseModal$ | async)!"
+                                    (closeModal)="onCloseCancelCourseModal()">
+</metutors-tutor-cancel-course-modal>

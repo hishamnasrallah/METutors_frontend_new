@@ -1,6 +1,10 @@
 .syllabus {
   .card {
-    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 13%);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.13);
+
+    .card-body {
+      padding: 20px 40px;
+    }
 
     .title {
       color: #000;
@@ -9,7 +13,7 @@
 
     .in-progress {
       h3 {
-        font-size: 12px;
+        font-size: 16px;
         color: #000;
       }
 
@@ -21,40 +25,20 @@
     }
   }
 
-  .list {
-    padding: 5px;
-
-    .menu {
-      padding-right: 0;
-      margin-top: 10px;
-
-      img {
-        margin-right: 5px;
-      }
-
-      span {
-        color: #2a2a2a;
-        margin-left: 5px;
-        font-size: 14px;
-      }
-
-      strong {
-        font-size: 16px;
-        color: #696969;
-        font-weight: 500;
-      }
-    }
-  }
-
   .items {
     padding: 40px;
+
+    .title {
+      color: #000;
+      font-size: 30px;
+    }
 
     .item {
       border-radius: 8px;
       box-shadow: 0 8px 20px 0 rgb(0 0 0 / 4%);
       background-color: #ffffff;
       margin-bottom: 25px;
-      margin-left: 40px;
+      margin-left: 3px;
 
       &:nth-child(4n+1) {
         border-top: 2px solid #3bb3c1;
@@ -73,7 +57,11 @@
       }
 
       .set-padding {
-        padding: 15px 40px 15px 60px;
+        padding: 15px 40px 0 60px;
+
+        &.desc {
+          padding: 0 40px 15px 60px;
+        }
       }
 
       .number {
@@ -124,26 +112,31 @@
         background: rgb(234, 234, 234);
         color: #000;
       }
+    }
+  }
 
-      table {
-        margin: 0;
-        border-top: none;
+  .save-topic-btn {
+    padding: 3px 25px;
+    color: #FFF;
+    font-size: 15px;
+    background: #3bb3c1;
+    min-width: 0;
+    box-shadow: none;
 
-        th {
-          color: #949494;
-          font-size: 13px;
-          border-bottom: none;
-        }
+    &.disabled {
+      background: #c7c7c7 !important;
+    }
+  }
 
-        td {
-          border-bottom: 1px solid #f2f2f2;
-          color: #2a2a2a;
-          font-size: 13px;
-        }
+  table {
+    td {
+      padding: 10px;
 
-        tr:last-child td {
-          border-bottom: none;
-        }
+      .edit-btn {
+        padding: 0;
+        color: #c7c7c7;
+        line-height: 0;
+        min-width: 0;
       }
     }
   }

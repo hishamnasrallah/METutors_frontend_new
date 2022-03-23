@@ -16,7 +16,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { TwillioModule } from '@metutor/core/components';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { NgxAutoScrollModule } from 'ngx-auto-scroll';
 import { TutorRoutingModule } from './tutor-routing.module';
@@ -57,7 +56,9 @@ import {
   FaqStillHaveQuestionsComponent,
   TutorSettingsSecurityComponent,
   TutorRejectCourseModalComponent,
+  TutorCancelCourseModalComponent,
   TutorAddSyllabusTopicModalComponent,
+  TutorAddClassResourceModalComponent,
   TutorSettingsUserPreferencesComponent,
   TutorSettingsPaymentInformationComponent,
 } from './components';
@@ -91,7 +92,9 @@ import {
     TutorSettingsSecurityComponent,
     FaqStillHaveQuestionsComponent,
     TutorRejectCourseModalComponent,
+    TutorCancelCourseModalComponent,
     TutorAddSyllabusTopicModalComponent,
+    TutorAddClassResourceModalComponent,
     TutorSettingsUserPreferencesComponent,
     TutorSettingsPaymentInformationComponent,
   ],
@@ -115,7 +118,6 @@ import {
     MatProgressBarModule,
     MatButtonToggleModule,
     RatingModule.forRoot(),
-    MatProgressSpinnerModule,
     // EffectsModule.forFeature(Object.values(tutorEffects)),
     StoreModule.forFeature(featureKeys.tutorFeatureKey, fromTutor.reducers),
   ],

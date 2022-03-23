@@ -48,3 +48,23 @@ export const selectRejectCourseModal = createSelector(
   selectTutorModalState,
   fromTutorModal.selectRejectCourseModal
 );
+
+export const selectCancelCourseModal = createSelector(
+  selectTutorModalState,
+  fromTutorModal.selectCancelCourseModal
+);
+
+export const selectSendFeedbackModal = createSelector(
+  selectTutorModalState,
+  fromTutorModal.selectSendFeedbackModal
+);
+
+export const selectCourseAttendanceModal = createSelector(
+  selectTutorModalState,
+  fromTutorModal.selectCourseAttendanceModal
+);
+
+export const selectAddClassResourceModal = createSelector(
+  selectTutorModalState,
+  fromTutorModal.selectAddClassResourceModal
+);

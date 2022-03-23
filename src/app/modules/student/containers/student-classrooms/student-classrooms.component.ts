@@ -1,19 +1,21 @@
 import {
-  animate,
   group,
   state,
   style,
-  transition,
   trigger,
+  animate,
+  transition,
 } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
-import { IClassroom } from 'src/app/core/models';
-import { CoursesService } from 'src/app/core/services';
+
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import * as fromCore from '@metutor/core/state';
-import { IUser } from '@metutor/core/models';
+import { map } from 'rxjs/operators';
+import { combineLatest, Observable } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+
+import { WEEK_DAYS } from '@config';
 import * as fromRoot from '@metutor/state';
+import { IUser } from '@metutor/core/models';
+import * as fromCore from '@metutor/core/state';
 
 @Component({
   selector: 'metutors-student-classrooms',
@@ -45,38 +47,106 @@ export class StudentClassroomsComponent implements OnInit {
   layout$: any;
   user$: Observable<IUser | null>;
 
+  fieldId = null;
+  courseId: number;
+  programId = null;
+  countryId = null;
   openActive = true;
-  isLoading?: boolean;
   openCompleted = true;
-  activeClassrooms: IClassroom[] = [];
-  completedClassrooms: IClassroom[] = [];
+  openNewlyAssigned = true;
 
-  constructor(
-    private _courseService: CoursesService,
-    private _store: Store<any>
-  ) {}
+  view$: Observable<{
+    programs: any;
+    newCourses: any;
+    countries: any;
+    loading: boolean;
+    fieldOfStudies: any;
+    activeCourses: any;
+    completedCourses: any;
+  }>;
+
+  constructor(private _store: Store<any>) {}
+
+  loadCourse(params: any) {
+    if (this.countryId) {
+      params = {
+        ...params,
+        country: this.countryId,
+      };
+    }
+    this._store.dispatch(fromCore.loadCourses({ params }));
+  }
 
   ngOnInit(): void {
-    this.layout$ = this._store.select(fromRoot.selectLayout);
     this.user$ = this._store.select(fromCore.selectUser);
+    this.layout$ = this._store.select(fromRoot.selectLayout);
+    this._store.dispatch(fromCore.loadCourses({}));
 
-    this.isLoading = true;
-    this._courseService.fetchMyClassrooms().subscribe(
-      (response) => {
-        this.isLoading = false;
-        if (response && response.length) {
-          this.activeClassrooms = response.filter(
-            (classroom: any) => classroom?.isComplete === false
-          );
-
-          this.completedClassrooms = response.filter(
-            (classroom: any) => classroom?.isComplete === true
-          );
-        }
-      },
-      (error) => {
-        this.isLoading = false;
-      }
+    this.view$ = combineLatest([
+      this._store.select(fromCore.selectCountries),
+      this._store.select(fromCore.selectCoursePrograms),
+      this._store.select(fromCore.selectCourseFieldOfStudies),
+      this._store
+        .select(fromCore.selectNewCourses)
+        .pipe(map((result: any) => this._parseCourse(result))),
+      this._store
+        .select(fromCore.selectActiveCourses)
+        .pipe(map((result: any) => this._parseCourse(result))),
+      this._store
+        .select(fromCore.selectCompletedCourses)
+        .pipe(map((result: any) => this._parseCourse(result))),
+      this._store.select(fromCore.selectIsLoadingCourses),
+    ]).pipe(
+      map(
+        ([
+          countries,
+          programs,
+          fieldOfStudies,
+          newCourses,
+          activeCourses,
+          completedCourses,
+          loading,
+        ]) => ({
+          loading,
+          programs,
+          countries,
+          newCourses,
+          activeCourses,
+          fieldOfStudies,
+          completedCourses,
+        })
+      )
     );
+  }
+
+  private _parseCourse(courses: any): any {
+    return courses?.map((course: any) => {
+      const completedClasses = course?.classes.filter(
+        (item: any) => item.status === 'completed'
+      );
+      const remainingClasses = course?.classes.filter(
+        (item: any) => item.status !== 'completed'
+      );
+
+      const listDays: any = [];
+      const splitDays = course.weekdays.split(',');
+
+      if (splitDays.length) {
+        splitDays.forEach((day: any) => listDays.push(WEEK_DAYS[day]));
+      }
+      return {
+        ...course,
+        type: 1,
+        listDays,
+        endTime: '',
+        startTime: '',
+        name: course.courseName,
+        hours: course.totalHours,
+        enrolledStudents: [course.student],
+        completedClasses: completedClasses?.length,
+        remainingClasses: remainingClasses?.length,
+        progress: (completedClasses.length / course.classes.length) * 100,
+      };
+    });
   }
 }

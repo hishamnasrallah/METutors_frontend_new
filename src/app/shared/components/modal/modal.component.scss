@@ -1,6 +1,10 @@
 :host ::ng-deep .dialog {
   margin: 0 0 10px;
 
+  .mat-dialog-title {
+    margin-bottom: 0;
+  }
+
   h2 {
     font-size: 20px;
     font-weight: bold;

@@ -59,7 +59,11 @@
             </div>
 
             <div class="col-md-12 mb-3" *ngIf="!view.newCourses || !view.newCourses.length">
-              <h3 class="text-center no-data">No course found!</h3>
+              <div class="card no-data">
+                <div class="card-body">
+                  <h3 class="text-center m-0">No course found!</h3>
+                </div>
+              </div>
             </div>
           </ng-container>
         </ng-container>
@@ -68,7 +72,7 @@
 
     <div class="col-12">
       <h2 class="title cursor-pointer d-flex align-items-center" (click)="openActive = !openActive">
-        <span class="flex-grow-1">Active courses</span>
+        <span class="flex-grow-1">Active Courses</span>
         <img src="assets/svg/arrow-up.svg" [class.rotate-180]="openActive" draggable="false" width="30px" height="30"
           alt="" />
       </h2>
@@ -85,7 +89,11 @@
             </div>
 
             <div class="col-md-12 mb-3" *ngIf="!view.activeCourses || !view.activeCourses.length">
-              <h3 class="text-center no-data">No course found!</h3>
+              <div class="card no-data">
+                <div class="card-body">
+                  <h3 class="text-center m-0">No course found!</h3>
+                </div>
+              </div>
             </div>
           </ng-container>
         </ng-container>
@@ -110,7 +118,11 @@
               <metutors-classroom-item [classroom]="completedCourse" [url]="'/tutor/classrooms/classes/dashboard/'"></metutors-classroom-item>
             </div>
             <div class="col-md-12 mb-3" *ngIf="!view.completedCourses || !view.completedCourses.length">
-              <h3 class="text-center no-data">No course found!</h3>
+              <div class="card no-data">
+                <div class="card-body">
+                  <h3 class="text-center m-0">No course found!</h3>
+                </div>
+              </div>
             </div>
           </ng-container>
         </ng-container>
