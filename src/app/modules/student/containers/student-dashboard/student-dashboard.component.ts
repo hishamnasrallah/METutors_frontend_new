@@ -44,6 +44,8 @@ export class StudentDashboardComponent implements OnInit {
 
   constructor(private _store: Store<any>) {}
 
+  loadDashboard(range: string): void {}
+
   ngOnInit(): void {
     this.layout$ = this._store.select(fromRoot.selectLayout);
     this.user$ = this._store.select(fromCore.selectUser);

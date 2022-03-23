@@ -15,6 +15,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 // import * as tutorEffects from './state/effects';
 import { SharedModule } from '@metutor/shared/shared.module';
@@ -95,8 +96,9 @@ import {
     NgxAutoScrollModule,
     StudentRoutingModule,
     MatProgressBarModule,
-    NgxIntlTelInputModule,
+    MatButtonToggleModule,
     // EffectsModule.forFeature(Object.values(tutorEffects)),
+    NgxIntlTelInputModule,
     RatingModule.forRoot(),
     StoreModule.forFeature(featureKeys.studentFeatureKey, fromStudent.reducers),
   ],
