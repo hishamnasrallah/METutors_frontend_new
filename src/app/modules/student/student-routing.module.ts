@@ -35,8 +35,8 @@ const routes: Routes = [
             component: StudentClassroomsComponent,
             data: {
               layout: {
-                title: 'Student Classrooms - Metutors',
-                navbarTitle: 'Classrooms',
+                title: 'Student Classroom - Metutors',
+                navbarTitle: 'Classroom',
                 showHeader: false,
                 showFooter: false,
               },
