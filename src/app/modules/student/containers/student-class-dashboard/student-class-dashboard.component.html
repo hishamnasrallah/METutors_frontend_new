@@ -44,7 +44,7 @@
                 Send Feedback
               </button>
               <button mat-button class="main-button-transparent float-end"
-                      (click)="onShowCourseAttendanceModal()">
+                      (click)="onShowAttendanceModal()">
                 Attendance
               </button>
             </div>
@@ -95,7 +95,7 @@
                   <button mat-button class="main-button-opacity flex-grow-1" (click)="joinClass(todaysClass.id)"
                           *ngIf="todaysClass?.status !== 'completed'" [disabled]="(isJoiningClass$ | async)">
                     <img src="assets/svg/play-fill.svg" draggable="false" alt="">
-                    Launch Class
+                    Join Class
                   </button>
                   <button mat-button class="main-button-opacity flex-grow-1" *ngIf="todaysClass?.status === 'completed'">
                     <img src="assets/svg/eye-fill.svg" draggable="false" alt="">
@@ -215,10 +215,10 @@
   </div>
 </div>
 
-<metutors-student-attendance-modal [showModal]="showAttendanceModal"
-                                   (closeModal)="showAttendanceModal = false">
+<metutors-student-attendance-modal *ngIf="showAttendanceModal$ | async" [showModal]="(showAttendanceModal$ | async)!"
+                                   (closeModal)="onCloseAttendanceModal()">
 </metutors-student-attendance-modal>
 
-<metutors-student-feedback-modal [showModal]="showFeedbackModal"
-                                 (closeModal)="showFeedbackModal = false">
+<metutors-student-feedback-modal *ngIf="showSendFeedbackModal$ | async" [showModal]="(showSendFeedbackModal$ | async)!"
+                                 (closeModal)="onCloseFeedbackModal()">
 </metutors-student-feedback-modal>

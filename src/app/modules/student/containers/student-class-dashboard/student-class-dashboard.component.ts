@@ -3,7 +3,9 @@ import { map } from 'rxjs/operators';
 import { combineLatest, Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 
+import * as fromStudent from '../../state';
 import * as fromCore from '@metutor/core/state';
+import * as fromStudentAction from '../../state/actions';
 
 @Component({
   selector: 'metutors-student-class-dashboard',
@@ -11,12 +13,9 @@ import * as fromCore from '@metutor/core/state';
   styleUrls: ['./student-class-dashboard.component.scss'],
 })
 export class StudentClassDashboardComponent implements OnInit {
-  showAttendanceModal = false;
-  showFeedbackModal = false;
-  openLeaveFeedbackPopop = false;
-  openClassroomAttendancesPopop = false;
-
   isJoiningClass$: Observable<boolean>;
+  showAttendanceModal$: Observable<boolean>;
+  showSendFeedbackModal$: Observable<boolean>;
 
   view$: Observable<{
     data: any;
@@ -41,12 +40,30 @@ export class StudentClassDashboardComponent implements OnInit {
 
   onShowCancelCourseModal(): void {}
 
-  onShowSendFeedbackModal(): void {}
+  onShowSendFeedbackModal(): void {
+    this._store.dispatch(fromStudentAction.openStudentSendFeedbackModal());
+  }
 
-  onShowCourseAttendanceModal(): void {}
+  onCloseFeedbackModal(): void {
+    this._store.dispatch(fromStudentAction.closeStudentSendFeedbackModal());
+  }
+
+  onShowAttendanceModal(): void {
+    this._store.dispatch(fromStudentAction.openStudentAttendanceModal());
+  }
+
+  onCloseAttendanceModal(): void {
+    this._store.dispatch(fromStudentAction.closeStudentAttendanceModal());
+  }
 
   ngOnInit(): void {
     this._store.dispatch(fromCore.loadCourseById());
+    this.showAttendanceModal$ = this._store.select(
+      fromStudent.selectAttendanceModal
+    );
+    this.showSendFeedbackModal$ = this._store.select(
+      fromStudent.selectSendFeedbackModal
+    );
 
     this.view$ = combineLatest([
       this._store.select(fromCore.selectCourseById),

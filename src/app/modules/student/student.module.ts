@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
+import { StoreModule } from '@ngrx/store';
 import { CommonModule } from '@angular/common';
+// import { EffectsModule } from '@ngrx/effects';
 import { RatingModule } from 'ngx-bootstrap/rating';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { NgxAutoScrollModule } from 'ngx-auto-scroll';
@@ -13,8 +15,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
-import { StudentRoutingModule } from './student-routing.module';
+// import * as tutorEffects from './state/effects';
 import { SharedModule } from '@metutor/shared/shared.module';
+import * as fromStudent from '@metutor/modules/student/state';
+import { StudentRoutingModule } from './student-routing.module';
+import * as featureKeys from '@metutor/modules/student/state/feature-keys';
 
 import {
   StudentComponent,
@@ -90,6 +95,8 @@ import {
     MatProgressBarModule,
     NgxIntlTelInputModule,
     RatingModule.forRoot(),
+    // EffectsModule.forFeature(Object.values(tutorEffects)),
+    StoreModule.forFeature(featureKeys.studentFeatureKey, fromStudent.reducers),
   ],
 })
 export class StudentModule {}
