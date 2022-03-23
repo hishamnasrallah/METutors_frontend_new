@@ -11,6 +11,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -88,14 +89,15 @@ import {
     CarouselModule,
     MatButtonModule,
     MatSelectModule,
+    MatTooltipModule,
     MatFormFieldModule,
     ReactiveFormsModule,
     NgxAutoScrollModule,
     StudentRoutingModule,
     MatProgressBarModule,
     NgxIntlTelInputModule,
-    RatingModule.forRoot(),
     // EffectsModule.forFeature(Object.values(tutorEffects)),
+    RatingModule.forRoot(),
     StoreModule.forFeature(featureKeys.studentFeatureKey, fromStudent.reducers),
   ],
 })
