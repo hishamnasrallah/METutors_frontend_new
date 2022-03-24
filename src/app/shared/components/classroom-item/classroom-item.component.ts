@@ -9,6 +9,7 @@ import { ClassroomType } from 'src/app/config';
 })
 export class ClassroomItemComponent implements OnInit {
   @Input() classroom!: any;
+  @Input() isStudent!: boolean;
   @Input() completeCourse: boolean;
   @Input() isAcceptingCourse: boolean;
   @Input() url = '/student/classroom/syllabus/';

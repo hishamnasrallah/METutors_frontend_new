@@ -39,6 +39,28 @@ export class StudentEffects {
     )
   );
 
+  loadStudentClassroom$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(studentActions.loadStudentClassroom),
+      mergeMap(({ params }) =>
+        this._studentService.getStudentClassroom(params).pipe(
+          map((classroom) =>
+            studentActions.loadStudentClassroomSuccess({
+              classroom: camelcaseKeys(classroom, { deep: true }),
+            })
+          ),
+          catchError((error) =>
+            of(
+              studentActions.loadStudentClassroomFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   constructor(
     private _store: Store<any>,
     private _actions$: Actions,

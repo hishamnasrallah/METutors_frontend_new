@@ -18,3 +18,18 @@ export const loadStudentDashboardFailure = createAction(
 export const loadStudentDashboardEnded = createAction(
   '[Tutor] Load Student Dashboard Ended'
 );
+
+export const loadStudentClassroom = createAction(
+  '[Tutor] Load Student Classroom',
+  props<{ params?: any }>()
+);
+
+export const loadStudentClassroomSuccess = createAction(
+  '[Tutor] Load Student Classroom Success',
+  props<{ classroom: any }>()
+);
+
+export const loadStudentClassroomFailure = createAction(
+  '[Tutor] Load Student Classroom Failure',
+  props<{ error: any }>()
+);
