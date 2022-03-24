@@ -18,7 +18,7 @@ export class StudentsService {
     }
 
     return this.http.get<{ dashboard: any }>(
-      `${this.baseUrl}teacher-dashboard${query}`
+      `${this.baseUrl}student/dashboard${query}`
     );
   }
 
