@@ -19,6 +19,20 @@ export const loadStudentDashboardEnded = createAction(
   '[Tutor] Load Student Dashboard Ended'
 );
 
+export const loadStudentClassesDashboard = createAction(
+  '[Tutor] Load Student Classes Dashboard'
+);
+
+export const loadStudentClassesDashboardSuccess = createAction(
+  '[Tutor] Load Student Classes Dashboard Success',
+  props<{ classesDashboard: any }>()
+);
+
+export const loadStudentClassesDashboardFailure = createAction(
+  '[Tutor] Load Student Classes Dashboard Failure',
+  props<{ error: any }>()
+);
+
 export const loadStudentClassroom = createAction(
   '[Tutor] Load Student Classroom',
   props<{ params?: any }>()

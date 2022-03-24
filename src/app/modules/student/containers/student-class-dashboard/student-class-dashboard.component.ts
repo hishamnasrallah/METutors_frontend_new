@@ -57,7 +57,7 @@ export class StudentClassDashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._store.dispatch(fromCore.loadCourseById());
+    this._store.dispatch(fromCore.loadStudentClassesDashboard());
     this.showAttendanceModal$ = this._store.select(
       fromStudent.selectAttendanceModal
     );
@@ -66,8 +66,8 @@ export class StudentClassDashboardComponent implements OnInit {
     );
 
     this.view$ = combineLatest([
-      this._store.select(fromCore.selectCourseById),
-      this._store.select(fromCore.selectIsLoadingCourseById),
+      this._store.select(fromCore.selectStudentClassesDashboard),
+      this._store.select(fromCore.selectIsLoadingStudentClassesDashboard),
     ]).pipe(
       map(([data, loading]) => ({
         loading,

@@ -161,7 +161,7 @@
 
       <div class="col-12 mt-5">
         <h3 class="overview mb-3">Previous Classes -
-          ({{ view?.data?.totalPastClasses ? view?.data?.totalPastClasses : 0 }})</h3>
+          ({{ view?.data?.totalpreviousClasses ? view?.data?.totalpreviousClasses : 0 }})</h3>
         <ng-container [ngSwitch]="view.loading">
           <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
           <table class="table my-table purple-title" *ngSwitchCase="false">
@@ -175,15 +175,15 @@
               <th>Duration</th>
               <th></th>
             </tr>
-            <tr *ngIf="!view.data.pastClasses.length">
+            <tr *ngIf="!view.data.previousClasses.length">
               <td colspan="8">
                 <div class="text-center">No record found</div>
               </td>
             </tr>
-            <ng-container *ngIf="view.data.pastClasses.length">
-              <tr *ngFor="let pastClass of view.data.pastClasses; let i=index">
+            <ng-container *ngIf="view.data.previousClasses.length">
+              <tr *ngFor="let previousClass of view.data.previousClasses; let i=index">
                 <td>{{ i + 1}}</td>
-                <td>{{ pastClass.title }}</td>
+                <td>{{ previousClass.title }}</td>
                 <td>
                   <!--<div class="overflow-visible logos">
                     <img src="https://logo.clearbit.com/tarjama.com" alt="" draggable="false"
@@ -202,9 +202,9 @@
                       class="d-inline-block rounded-circle ">
                   </div>-->
                 </td>
-                <td>{{ pastClass.startDate | date: 'EEEE'}} </td>
-                <td>{{ pastClass.startDate}} </td>
-                <td>{{ pastClass.startTime}} - {{ pastClass.endTime}} </td>
+                <td>{{ previousClass.startDate | date: 'EEEE'}} </td>
+                <td>{{ previousClass.startDate}} </td>
+                <td>{{ previousClass.startTime}} - {{ previousClass.endTime}} </td>
                 <td>2 hours</td>
                 <td class="d-flex">
                   <button mat-button class="main-button-opacity flex-grow-1">

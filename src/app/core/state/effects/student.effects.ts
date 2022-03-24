@@ -9,6 +9,7 @@ import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 import { StudentsService } from '@services';
 import { AlertNotificationService } from '@metutor/core/components';
 import * as studentActions from '@metutor/core/state/actions/student.actions';
+import * as fromRouterStore from '@metutor/state';
 
 @Injectable()
 export class StudentEffects {
@@ -36,6 +37,29 @@ export class StudentEffects {
           return of(studentActions.loadStudentDashboardEnded());
         }
       })
+    )
+  );
+
+  loadStudentClassesDashboard$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(studentActions.loadStudentClassesDashboard),
+      withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
+      mergeMap(([_, { id }]) =>
+        this._studentService.getStudentClassDashboard(id).pipe(
+          map((classesDashboard) =>
+            studentActions.loadStudentClassesDashboardSuccess({
+              classesDashboard: camelcaseKeys(classesDashboard, { deep: true }),
+            })
+          ),
+          catchError((error) =>
+            of(
+              studentActions.loadStudentClassesDashboardFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
     )
   );
 

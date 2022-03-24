@@ -23,6 +23,12 @@ export class StudentsService {
     );
   }
 
+  getStudentClassDashboard(id: any): Observable<any> {
+    return this.http.get<{ dashboard: any }>(
+      `${this.baseUrl}student/classes/${id}`
+    );
+  }
+
   getStudentClassroom(params: any): Observable<any> {
     return this.http.get<{ dashboard: any }>(
       `${this.baseUrl}student/classroom`,
