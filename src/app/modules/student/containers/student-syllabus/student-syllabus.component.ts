@@ -59,11 +59,11 @@ export class StudentSyllabusComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._store.dispatch(fromCore.loadTutorSyllabus());
+    this._store.dispatch(fromCore.loadStudentSyllabus());
 
     this.view$ = combineLatest([
-      this._store.select(fromCore.selectTutorSyllabus),
-      this._store.select(fromCore.selectIsLoadingTutorSyllabus),
+      this._store.select(fromCore.selectStudentSyllabus),
+      this._store.select(fromCore.selectIsLoadingStudentSyllabus),
     ]).pipe(map(([syllabus, loading]) => ({ loading, syllabus })));
   }
 }

@@ -85,6 +85,29 @@ export class StudentEffects {
     )
   );
 
+  loadStudentSyllabus$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(studentActions.loadStudentSyllabus),
+      withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
+      mergeMap(([_, { id }]) =>
+        this._studentService.getStudentSyllabus(id).pipe(
+          map((syllabus) =>
+            studentActions.loadStudentSyllabusSuccess({
+              syllabus: camelcaseKeys(syllabus, { deep: true }),
+            })
+          ),
+          catchError((error) =>
+            of(
+              studentActions.loadStudentSyllabusFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   constructor(
     private _store: Store<any>,
     private _actions$: Actions,

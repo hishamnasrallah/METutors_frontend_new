@@ -36,6 +36,12 @@ export class StudentsService {
     );
   }
 
+  getStudentSyllabus(id: any): Observable<any> {
+    return this.http.get<{ dashboard: any }>(
+      `${this.baseUrl}student/syllabus/${id}`
+    );
+  }
+
   errorHandler(error: HttpErrorResponse) {
     return throwError(error);
   }

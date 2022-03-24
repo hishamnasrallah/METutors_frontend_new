@@ -237,6 +237,16 @@ export const selectIsLoadingStudentClassesDashboard = createSelector(
   fromStudentReducer.selectIsLoadingStudentClassesDashboard
 );
 
+export const selectStudentSyllabus = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectStudentSyllabus
+);
+
+export const selectIsLoadingStudentSyllabus = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectIsLoadingStudentSyllabus
+);
+
 // Ticket
 export const selectTickets = createSelector(
   selectTicketState,

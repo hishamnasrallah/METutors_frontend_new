@@ -3,18 +3,22 @@ import { createReducer, on } from '@ngrx/store';
 import * as tutorActions from '../actions/student.actions';
 
 export interface State {
+  syllabus: any;
   dashboard: any;
   classroom: any;
   classesDashboard: any;
+  isLoadingStudentSyllabus: boolean;
   isLoadingStudentDashboard: boolean;
   isLoadingStudentClassroom: boolean;
   isLoadingStudentClassesDashboard: boolean;
 }
 
 export const initialState: State = {
+  syllabus: null,
   dashboard: null,
   classroom: null,
   classesDashboard: null,
+  isLoadingStudentSyllabus: false,
   isLoadingStudentDashboard: false,
   isLoadingStudentClassroom: false,
   isLoadingStudentClassesDashboard: false,
@@ -76,6 +80,22 @@ export const reducer = createReducer(
   on(tutorActions.loadStudentClassesDashboardFailure, (state) => ({
     ...state,
     isLoadingStudentClassesDashboard: false,
+  })),
+
+  on(tutorActions.loadStudentSyllabus, (state) => ({
+    ...state,
+    isLoadingStudentSyllabus: true,
+  })),
+
+  on(tutorActions.loadStudentSyllabusSuccess, (state, { syllabus }) => ({
+    ...state,
+    syllabus,
+    isLoadingStudentSyllabus: false,
+  })),
+
+  on(tutorActions.loadStudentSyllabusFailure, (state) => ({
+    ...state,
+    isLoadingStudentSyllabus: false,
   }))
 );
 
@@ -106,5 +126,10 @@ export const selectClassroomCourseFieldOfStudies = (state: State): any =>
 export const selectIsLoadingStudentClassroom = (state: State): boolean =>
   state.isLoadingStudentClassroom;
 
+export const selectStudentSyllabus = (state: State): boolean => state.syllabus;
+
 export const selectIsLoadingStudentClassesDashboard = (state: State): boolean =>
   state.isLoadingStudentClassesDashboard;
+
+export const selectIsLoadingStudentSyllabus = (state: State): boolean =>
+  state.isLoadingStudentSyllabus;

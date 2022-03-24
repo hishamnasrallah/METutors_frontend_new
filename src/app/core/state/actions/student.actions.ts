@@ -47,3 +47,17 @@ export const loadStudentClassroomFailure = createAction(
   '[Tutor] Load Student Classroom Failure',
   props<{ error: any }>()
 );
+
+export const loadStudentSyllabus = createAction(
+  '[Tutor] Load Student Syllabus Dashboard'
+);
+
+export const loadStudentSyllabusSuccess = createAction(
+  '[Tutor] Load Student Syllabus Success',
+  props<{ syllabus: any }>()
+);
+
+export const loadStudentSyllabusFailure = createAction(
+  '[Tutor] Load Student Syllabus Failure',
+  props<{ error: any }>()
+);
