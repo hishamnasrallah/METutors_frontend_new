@@ -1,0 +1,70 @@
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'large'" [heading]="'Assignment Details'"
+                [template]="template" >
+  <ng-template #template>
+    <div class="assignment-details-modal">
+      <div class="d-flex justify-content-between">
+        <h3>Atoms and Moleclues</h3>
+        <div class="overflow-visible logos">
+          <img meTutorsDefaultAvatar src="" alt="" draggable="false" class="d-inline-block rounded-circle">
+          <img meTutorsDefaultAvatar src="" alt="" draggable="false" class="d-inline-block rounded-circle">
+          <img meTutorsDefaultAvatar src="" alt="" draggable="false" class="d-inline-block rounded-circle">
+          <img meTutorsDefaultAvatar src="" alt="" draggable="false" class="d-inline-block rounded-circle">
+        </div>
+      </div>
+      <div class="row list-items md-item">
+        <div class="col-md-3 d-flex menu align-items-center">
+          <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
+          <strong>Start: </strong>
+          <span>03 March 2022</span>
+        </div>
+        <div class="col-md-3 d-flex menu align-items-center">
+          <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
+          <strong>Deadline: </strong>
+          <span>06 March 2022</span>
+        </div>
+        <div class="col-md-4 d-flex menu align-items-center">
+          <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
+          <strong>Answer Received: </strong>
+          <span>04 out of 10</span>
+        </div>
+      </div>
+      <p class="mt-2">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea repellendus ab explicabo perferendis vitae excepturi
+        provident adipisci fugit tenetur velit dicta, praesentium porro quis illum omnis officiis quidem maxime enim!
+      </p>
+      <div class="form-group">
+        <label>URLs</label>
+        <div class="url-info d-flex flex-column my-2">
+          <span>Math</span>
+          <strong class="d-flex align-items-center">
+            https://www.youtube.com/watch?v=RdC7ZYJJfTE&ab_channel=WATCHIT
+          </strong>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-md-6 list-files d-flex mt-3">
+          <mat-icon>attach_file</mat-icon>
+          <div class="ms-2">
+            <h3>Assignment name</h3>
+            <h5>100MB</h5>
+          </div>
+          <button mat-button class="add-url float-end">
+            Download
+          </button>
+        </div>
+        <div class="col-md-6"></div>
+        <div class="col-md-6 list-files d-flex mt-3">
+          <mat-icon>attach_file</mat-icon>
+          <div class="ms-2">
+            <h3>Assignment name for this file</h3>
+            <h5>50MB</h5>
+          </div>
+          <button mat-button class="add-url float-end">
+            Download
+          </button>
+        </div>
+        <div class="col-md-6"></div>
+      </div>
+    </div>
+  </ng-template>
+</metutors-modal>

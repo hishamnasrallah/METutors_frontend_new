@@ -186,6 +186,67 @@ export const selectSubjectTitleEditedSuccess = createSelector(
   fromTutorReducer.selectSubjectTitleEditedSuccess
 );
 
+// Student
+export const selectStudentDashboard = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectStudentDashboard
+);
+
+export const selectIsLoadingStudentDashboard = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectIsLoadingStudentDashboard
+);
+
+export const selectClassroomLastActivityCourse = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectClassroomLastActivityCourse
+);
+
+export const selectActiveClassroomCourses = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectActiveClassroomCourses
+);
+
+export const selectCompletedClassroomCourses = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectCompletedClassroomCourses
+);
+
+export const selectClassroomCoursePrograms = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectClassroomCoursePrograms
+);
+
+export const selectClassroomCourseFieldOfStudies = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectClassroomCourseFieldOfStudies
+);
+
+export const selectIsLoadingStudentClassroom = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectIsLoadingStudentClassroom
+);
+
+export const selectStudentClassesDashboard = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectStudentClassesDashboard
+);
+
+export const selectIsLoadingStudentClassesDashboard = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectIsLoadingStudentClassesDashboard
+);
+
+export const selectStudentSyllabus = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectStudentSyllabus
+);
+
+export const selectIsLoadingStudentSyllabus = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectIsLoadingStudentSyllabus
+);
+
 // Ticket
 export const selectTickets = createSelector(
   selectTicketState,

@@ -28,7 +28,7 @@
           <img meTutorsDefaultAvatar src="" alt="" draggable="false" class="d-inline-block rounded-circle">
         </div>
         <div class="col-md-7">
-          <button mat-button class="main-button-transparent float-end">
+          <button mat-button class="main-button-transparent float-end" (click)="onOpenAddAssignment()">
             <mat-icon>add</mat-icon>
             Add new assignment
           </button>
@@ -58,7 +58,7 @@
                 <span>Remaining Time</span>
                 <strong class="alert-msg">2 Days</strong>
               </div>
-              <button mat-button class="main-button-transparent">
+              <button mat-button class="main-button-transparent" (click)="onOpenAssignmentDetails()">
                 View Details
                 <mat-icon>arrow_forward</mat-icon>
               </button>
@@ -94,78 +94,75 @@
 
         <div class="col-md-12">
           <div class="table-responsive" *ngIf="openBlock" [@slideInOut]>
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">Number</th>
-                  <th scope="col">Student Name</th>
-                  <th scope="col">Time Received By Student</th>
-                  <th scope="col">Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td scope="row">1</td>
-                  <td>
-                    <img src="" meTutorsDefaultAvatar draggable="false" width="25" height="25" class="rounded-circle"
-                      alt="">
-                    <span class="ms-2">Ahmed Hassan</span>
-                  </td>
-                  <td>Monday, 07 Feb 2022, 12:00 pm</td>
-                  <td>
-                    <span class="status-icon pending">Pending</span>
-                    <span class="late ms-2 fw-bold">Late</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td scope="row">2</td>
-                  <td>
-                    <img src="" meTutorsDefaultAvatar draggable="false" width="25" height="25" class="rounded-circle"
-                      alt="">
-                    <span class="ms-2">Ahmed Hassan</span>
-                  </td>
-                  <td>Monday, 07 Feb 2022, 12:00 pm</td>
-                  <td>
-                    <span class="status-icon submitted">Submitted</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td scope="row">3</td>
-                  <td>
-                    <img src="" meTutorsDefaultAvatar draggable="false" width="25" height="25" class="rounded-circle"
-                      alt="">
-                    <span class="ms-2">Ahmed Hassan</span>
-                  </td>
-                  <td>Monday, 07 Feb 2022, 12:00 pm</td>
-                  <td>
-                    <span class="status-icon completed">Completed</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td scope="row">4</td>
-                  <td>
-                    <img src="" meTutorsDefaultAvatar draggable="false" width="25" height="25" class="rounded-circle"
-                      alt="">
-                    <span class="ms-2">Ahmed Hassan</span>
-                  </td>
-                  <td>Monday, 07 Feb 2022, 12:00 pm</td>
-                  <td>
-                    <span class="status-icon rejected">Rejected</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td scope="row">5</td>
-                  <td>
-                    <img src="" meTutorsDefaultAvatar draggable="false" width="25" height="25" class="rounded-circle"
-                      alt="">
-                    <span class="ms-2">Ahmed Hassan</span>
-                  </td>
-                  <td>Monday, 07 Feb 2022, 12:00 pm</td>
-                  <td>
-                    <span class="status-icon resubmitted">Resubmitted</span>
-                  </td>
-                </tr>
-              </tbody>
+            <table class="table my-table default-title">
+              <tr>
+                <th scope="col">Number</th>
+                <th scope="col">Student Name</th>
+                <th scope="col">Time Received By Student</th>
+                <th scope="col">Status</th>
+              </tr>
+              
+              <tr>
+                <td scope="row">1</td>
+                <td>
+                  <img src="" meTutorsDefaultAvatar draggable="false" width="25" height="25" class="rounded-circle"
+                    alt="">
+                  <span class="ms-2">Ahmed Hassan</span>
+                </td>
+                <td>Monday, 07 Feb 2022, 12:00 pm</td>
+                <td>
+                  <span class="status-icon pending">Pending</span>
+                  <span class="late ms-2 fw-bold">Late</span>
+                </td>
+              </tr>
+              <tr>
+                <td scope="row">2</td>
+                <td>
+                  <img src="" meTutorsDefaultAvatar draggable="false" width="25" height="25" class="rounded-circle"
+                    alt="">
+                  <span class="ms-2">Ahmed Hassan</span>
+                </td>
+                <td>Monday, 07 Feb 2022, 12:00 pm</td>
+                <td>
+                  <span class="status-icon submitted">Submitted</span>
+                </td>
+              </tr>
+              <tr>
+                <td scope="row">3</td>
+                <td>
+                  <img src="" meTutorsDefaultAvatar draggable="false" width="25" height="25" class="rounded-circle"
+                    alt="">
+                  <span class="ms-2">Ahmed Hassan</span>
+                </td>
+                <td>Monday, 07 Feb 2022, 12:00 pm</td>
+                <td>
+                  <span class="status-icon completed">Completed</span>
+                </td>
+              </tr>
+              <tr>
+                <td scope="row">4</td>
+                <td>
+                  <img src="" meTutorsDefaultAvatar draggable="false" width="25" height="25" class="rounded-circle"
+                    alt="">
+                  <span class="ms-2">Ahmed Hassan</span>
+                </td>
+                <td>Monday, 07 Feb 2022, 12:00 pm</td>
+                <td>
+                  <span class="status-icon rejected">Rejected</span>
+                </td>
+              </tr>
+              <tr>
+                <td scope="row">5</td>
+                <td>
+                  <img src="" meTutorsDefaultAvatar draggable="false" width="25" height="25" class="rounded-circle"
+                    alt="">
+                  <span class="ms-2">Ahmed Hassan</span>
+                </td>
+                <td>Monday, 07 Feb 2022, 12:00 pm</td>
+                <td>
+                  <span class="status-icon resubmitted">Resubmitted</span>
+                </td>
+              </tr>
             </table>
           </div>
         </div>
@@ -173,3 +170,13 @@
     </div>
   </div>
 </div>
+
+<metutors-tutor-add-assignment-modal *ngIf="showAddAssignmentModal$ | async"
+                                     (closeModal)="onCloseAddAssignment()"
+                                     [showModal]="(showAddAssignmentModal$ | async)!">
+</metutors-tutor-add-assignment-modal>
+
+<metutors-tutor-assignment-details-modal *ngIf="showAssignmentDetailsModal$ | async"
+                                         (closeModal)="onCloseAssignmentDetails()"
+                                         [showModal]="(showAssignmentDetailsModal$ | async)!">
+</metutors-tutor-assignment-details-modal>

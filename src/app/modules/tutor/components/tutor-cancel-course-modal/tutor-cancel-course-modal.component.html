@@ -2,21 +2,20 @@
                 [template]="template">
                 {{ showModal }}
   <ng-template #template>
-    <div class="row leave-feedback-modal" [formGroup]="form">
+    <form class="row leave-feedback-modal" [formGroup]="form" (ngSubmit)="submitted.emit(form)">
       <div class="col-12">
         <div class="form-group">
-          <textarea class="form-control" formControlName="rejectReason" id="exampleFormControlTextarea1" rows="10" placeholder="Enter the reason here..."></textarea>
+          <textarea class="form-control custom-input input-bordered" formControlName="rejectReason" id="exampleFormControlTextarea1" rows="10" placeholder="Enter the reason here..."></textarea>
         </div>
 
         <div class="row mt-2">
           <div class="col-md-12 overflow-hidden">
-            <button mat-flat-button color="primary" class="float-end py-1 px-5" type="submit" [disabled]="form.invalid || submitting" (click)="submitted.emit(form)">
+            <metutors-submit-button [form]="form" [isSubmitting]="submitting" [extraClasses]="'float-end py-1 px-5'">
               Submit
-              <mat-icon class="spinner" *ngIf="submitting">autorenew</mat-icon>
-            </button>
+            </metutors-submit-button>
           </div>
         </div>
       </div>
-    </div>
+    </form>
   </ng-template>
 </metutors-modal>

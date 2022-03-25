@@ -16,10 +16,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { TwillioModule } from '@metutor/core/components';
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgxAutoScrollModule } from 'ngx-auto-scroll';
+import { MatNativeDateModule } from '@angular/material/core';
 import { TutorRoutingModule } from './tutor-routing.module';
 import { SharedModule } from '@metutor/shared/shared.module';
+import { MatInputModule } from '@angular/material/input';
 
 import * as fromTutor from './state';
 // import * as tutorEffects from './state/effects';
@@ -57,8 +59,10 @@ import {
   TutorSettingsSecurityComponent,
   TutorRejectCourseModalComponent,
   TutorCancelCourseModalComponent,
+  TutorAddAssignmentModalComponent,
   TutorAddSyllabusTopicModalComponent,
   TutorAddClassResourceModalComponent,
+  TutorAssignmentDetailsModalComponent,
   TutorSettingsUserPreferencesComponent,
   TutorSettingsPaymentInformationComponent,
 } from './components';
@@ -93,8 +97,10 @@ import {
     FaqStillHaveQuestionsComponent,
     TutorRejectCourseModalComponent,
     TutorCancelCourseModalComponent,
+    TutorAddAssignmentModalComponent,
     TutorAddSyllabusTopicModalComponent,
     TutorAddClassResourceModalComponent,
+    TutorAssignmentDetailsModalComponent,
     TutorSettingsUserPreferencesComponent,
     TutorSettingsPaymentInformationComponent,
   ],
@@ -107,6 +113,7 @@ import {
     MatIconModule,
     CarouselModule,
     MatRadioModule,
+    MatInputModule,
     MatSliderModule,
     MatSelectModule,
     MatButtonModule,
@@ -115,6 +122,8 @@ import {
     TutorRoutingModule,
     NgxAutoScrollModule,
     ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     MatProgressBarModule,
     MatButtonToggleModule,
     RatingModule.forRoot(),

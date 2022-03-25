@@ -283,8 +283,16 @@ rating span.bs-rating-star {
   box-shadow: 0 4px 44px rgba(17, 29, 48, 0.06);
   border-color: transparent;
 
+  &:focus {
+    box-shadow: none;
+  }
+
   &.input-bordered {
     border: 1px solid #DCDFE5;
+
+    &:focus {
+      border: 1px solid #9d9fa3;
+    }
   }
 
   &.ng-invalid.ng-touched {

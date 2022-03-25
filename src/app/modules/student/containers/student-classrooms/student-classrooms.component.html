@@ -6,11 +6,11 @@
       <div class="flex mb-3 codes" *ngIf="view?.programs && view?.programs.length">
         <span class="fw-bold cursor-pointer position-relative"
               [class.active]="programId === null"
-              (click)=" programId = null; countryId = null; fieldId = null; loadCourse({});">All</span>
+              (click)=" programId = null; countryId = null; fieldId = null; loadClassroom({});">All</span>
         <ng-container *ngFor="let program of view?.programs">
           <span class="fw-bold cursor-pointer position-relative"
                 [class.active]="programId === program?.id" *ngIf="program.code !== 'NA'"
-                (click)=" countryId = null; programId = program?.id; fieldId = null; loadCourse({program: program?.id});">{{ program?.code }}</span>
+                (click)=" countryId = null; programId = program?.id; fieldId = null; loadClassroom({program: program?.id});">{{ program?.code }}</span>
 
           <div class="btn-group" dropdown>
             <span class="fw-bold cursor-pointer position-relative dropdown-toggle dropdown-toggle-split" dropdownToggle
@@ -20,7 +20,7 @@
             <ul id="dropdown-split" *dropdownMenu class="dropdown-menu"
                 role="menu" aria-labelledby="button-split">
               <li role="menuitem" class="mat-menu-item" *ngFor="let country of view?.countries"
-                  (click)="loadCourse({program: programId, country: country?.id}); countryId = country?.id">{{ country?.name }}</li>
+                  (click)="loadClassroom({program: programId, country: country?.id}); countryId = country?.id">{{ country?.name }}</li>
             </ul>
           </div>
         </ng-container>
@@ -28,10 +28,10 @@
 
       <ng-container *ngIf="view?.fieldOfStudies && view?.fieldOfStudies.length">
         <button mat-button class="class-btn main-button-transparent text-uppercase mb-1" [class.active]="!fieldId"
-                (click)="loadCourse({program: programId}); fieldId = null">All</button>
+                (click)="loadClassroom({program: programId}); fieldId = null">All</button>
         <button mat-button class="class-btn main-button-transparent text-uppercase mb-1"
                 *ngFor="let field of view?.fieldOfStudies" [class.active]="fieldId === field?.id"
-                (click)="loadCourse({program: programId, field_of_study: field?.id}); fieldId = field?.id">{{ field?.name }}</button>
+                (click)="loadClassroom({program: programId, field_of_study: field?.id}); fieldId = field?.id">{{ field?.name }}</button>
       </ng-container>
     </div>
     <div class="col-12">
@@ -49,12 +49,12 @@
           </ng-container>
 
           <ng-container *ngSwitchCase="false">
-            <div class="col-md-12" *ngFor="let newCourse of view.newCourses">
-              <metutors-classroom-item [classroom]="newCourse" [url]="'/student/classrooms/classes/dashboard/'">
+            <div class="col-md-12">
+              <metutors-classroom-item [classroom]="view.lastActivityCourse" [isStudent]="true" [url]="'/student/classrooms/classes/dashboard/'">
               </metutors-classroom-item>
             </div>
 
-            <div class="col-md-12 mb-3" *ngIf="!view.newCourses || !view.newCourses.length">
+            <div class="col-md-12 mb-3" *ngIf="!view.lastActivityCourse">
               <div class="card no-data">
                 <div class="card-body">
                   <h3 class="text-center m-0">No course found!</h3>
@@ -81,7 +81,7 @@
           </ng-container>
           <ng-container *ngSwitchCase="false">
             <div class="col-md-12" *ngFor="let activeCourse of view.activeCourses">
-              <metutors-classroom-item [classroom]="activeCourse" [url]="'/student/classrooms/classes/dashboard/'"></metutors-classroom-item>
+              <metutors-classroom-item [classroom]="activeCourse" [isStudent]="true" [url]="'/student/classrooms/classes/dashboard/'"></metutors-classroom-item>
             </div>
 
             <div class="col-md-12 mb-3" *ngIf="!view.activeCourses || !view.activeCourses.length">
@@ -111,7 +111,7 @@
           </ng-container>
           <ng-container *ngSwitchCase="false">
             <div class="col-md-12" *ngFor="let completedCourse of view.completedCourses">
-              <metutors-classroom-item [classroom]="completedCourse" [url]="'/student/classrooms/classes/dashboard/'"></metutors-classroom-item>
+              <metutors-classroom-item [classroom]="completedCourse" [isStudent]="true" [url]="'/student/classrooms/classes/dashboard/'"></metutors-classroom-item>
             </div>
             <div class="col-md-12 mb-3" *ngIf="!view.completedCourses || !view.completedCourses.length">
               <div class="card no-data">

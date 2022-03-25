@@ -1,10 +1,13 @@
-import { OwlOptions } from 'ngx-owl-carousel-o';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, combineLatest } from 'rxjs';
+import { OwlOptions } from 'ngx-owl-carousel-o';
 import { Component, OnInit } from '@angular/core';
-import * as fromCore from '@metutor/core/state';
-import { IUser } from '@metutor/core/models';
+
+import { insightRange } from '@config';
 import * as fromRoot from '@metutor/state';
+import { IUser } from '@metutor/core/models';
+import * as fromCore from '@metutor/core/state';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'metutors-student-dashboard',
@@ -15,7 +18,6 @@ export class StudentDashboardComponent implements OnInit {
   layout$: any;
   user$: Observable<IUser | null>;
 
-  rate = 4;
   customOptions: OwlOptions = {
     loop: true,
     mouseDrag: true,
@@ -42,12 +44,37 @@ export class StudentDashboardComponent implements OnInit {
     nav: false,
   };
 
+  range = '';
+  insightRange = insightRange;
+
+  view$: Observable<{
+    loading: boolean;
+    dashboard: any;
+  }>;
+
   constructor(private _store: Store<any>) {}
 
-  loadDashboard(range: string): void {}
+  loadDashboard(params: string): void {
+    this.range = params;
+    this._store.dispatch(fromCore.loadStudentDashboard({ params, load: true }));
+  }
 
   ngOnInit(): void {
     this.layout$ = this._store.select(fromRoot.selectLayout);
     this.user$ = this._store.select(fromCore.selectUser);
+
+    this._store.dispatch(
+      fromCore.loadStudentDashboard({ params: this.range, load: false })
+    );
+
+    this.view$ = combineLatest([
+      this._store.select(fromCore.selectStudentDashboard),
+      this._store.select(fromCore.selectIsLoadingStudentDashboard),
+    ]).pipe(
+      map(([dashboard, loading]) => ({
+        loading,
+        dashboard,
+      }))
+    );
   }
 }

@@ -19,7 +19,7 @@
               </div>
               <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
-                <textarea class="form-control custom-input" id="description" rows="6" formControlName="description"
+                <textarea class="form-control custom-input input-bordered" id="description" rows="6" formControlName="description"
                           placeholder="Enter Description here"></textarea>
               </div>
               <div class="">
@@ -35,7 +35,7 @@
                             (change)="onClassSelect($event)"></mat-slider>
               </div>
               <div class="col-auto col-2">
-                <input type="text" class="form-control" placeholder="0" [value]="classes?.value ? classes?.value : 0">
+                <input type="text" class="form-control custom-input input-bordered" placeholder="0" [value]="classes?.value ? classes?.value : 0">
               </div>
 
               <div class="mt-3">

@@ -139,20 +139,12 @@
   }
 
   table {
-    margin: 0;
-    border-top: none;
-
-    th {
-      color: #949494;
-      font-size: 14px;
-      border-bottom: 1px solid #e2edef;
-    }
-
     td {
-      color: #2a2a2a;
-      font-size: 16px;
-      border-bottom: 1px solid #e2edef;
-      padding: 10px 0;
+      img {
+        width: 25px;
+        height: 25px;
+        padding: 0;
+      }
 
       .status-icon {
         padding: 4px 12px;
@@ -189,14 +181,6 @@
       .late {
         color: #e72347;
       }
-    }
-
-    &>:not(:first-child) {
-      border: none;
-    }
-
-    tr:last-child td {
-      border-bottom: none;
     }
   }
 }

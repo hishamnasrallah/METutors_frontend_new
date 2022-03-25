@@ -57,52 +57,54 @@ export class StudentClassroomsComponent implements OnInit {
 
   view$: Observable<{
     programs: any;
-    newCourses: any;
     countries: any;
     loading: boolean;
-    fieldOfStudies: any;
     activeCourses: any;
+    fieldOfStudies: any;
     completedCourses: any;
+    lastActivityCourse: any;
   }>;
 
   constructor(private _store: Store<any>) {}
 
-  loadCourse(params: any) {
+  loadClassroom(params: any) {
     if (this.countryId) {
       params = {
         ...params,
         country: this.countryId,
       };
     }
-    this._store.dispatch(fromCore.loadCourses({ params }));
+    this._store.dispatch(fromCore.loadStudentClassroom({ params }));
   }
 
   ngOnInit(): void {
     this.user$ = this._store.select(fromCore.selectUser);
     this.layout$ = this._store.select(fromRoot.selectLayout);
-    this._store.dispatch(fromCore.loadCourses({}));
+
+    this._store.dispatch(fromCore.loadCountries());
+    this._store.dispatch(fromCore.loadStudentClassroom({}));
 
     this.view$ = combineLatest([
       this._store.select(fromCore.selectCountries),
-      this._store.select(fromCore.selectCoursePrograms),
-      this._store.select(fromCore.selectCourseFieldOfStudies),
+      this._store.select(fromCore.selectClassroomCoursePrograms),
+      this._store.select(fromCore.selectClassroomCourseFieldOfStudies),
       this._store
-        .select(fromCore.selectNewCourses)
+        .select(fromCore.selectClassroomLastActivityCourse)
+        .pipe(map((result: any) => result)),
+      this._store
+        .select(fromCore.selectActiveClassroomCourses)
         .pipe(map((result: any) => this._parseCourse(result))),
       this._store
-        .select(fromCore.selectActiveCourses)
+        .select(fromCore.selectCompletedClassroomCourses)
         .pipe(map((result: any) => this._parseCourse(result))),
-      this._store
-        .select(fromCore.selectCompletedCourses)
-        .pipe(map((result: any) => this._parseCourse(result))),
-      this._store.select(fromCore.selectIsLoadingCourses),
+      this._store.select(fromCore.selectIsLoadingStudentClassroom),
     ]).pipe(
       map(
         ([
           countries,
           programs,
           fieldOfStudies,
-          newCourses,
+          lastActivityCourse,
           activeCourses,
           completedCourses,
           loading,
@@ -110,10 +112,10 @@ export class StudentClassroomsComponent implements OnInit {
           loading,
           programs,
           countries,
-          newCourses,
           activeCourses,
           fieldOfStudies,
           completedCourses,
+          lastActivityCourse,
         })
       )
     );
@@ -141,6 +143,7 @@ export class StudentClassroomsComponent implements OnInit {
         endTime: '',
         startTime: '',
         name: course.courseName,
+        teacher: course.teacher,
         hours: course.totalHours,
         enrolledStudents: [course.student],
         completedClasses: completedClasses?.length,

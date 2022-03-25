@@ -7,6 +7,7 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 import { NgxAutoScrollModule } from 'ngx-auto-scroll';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
@@ -91,15 +92,16 @@ import {
     MatButtonModule,
     MatSelectModule,
     MatTooltipModule,
+    BsDropdownModule,
     MatFormFieldModule,
     ReactiveFormsModule,
     NgxAutoScrollModule,
     StudentRoutingModule,
     MatProgressBarModule,
     MatButtonToggleModule,
-    // EffectsModule.forFeature(Object.values(tutorEffects)),
     NgxIntlTelInputModule,
     RatingModule.forRoot(),
+    // EffectsModule.forFeature(Object.values(tutorEffects)),
     StoreModule.forFeature(featureKeys.studentFeatureKey, fromStudent.reducers),
   ],
 })

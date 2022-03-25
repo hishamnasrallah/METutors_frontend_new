@@ -92,7 +92,7 @@
                 <td>{{ i + 1}}</td>
                 <td *ngIf="subjectId !== unclassifiedClass.id">{{ unclassifiedClass?.title }}</td>
                 <td *ngIf="subjectId === unclassifiedClass.id">
-                  <input type="text" class="form-control" formControlName="subjectTitle" placeholder="Add topic here..." autofocus>
+                  <input type="text" class="form-control custom-input input-bordered" formControlName="subjectTitle" placeholder="Add topic here..." autofocus>
                 </td>
                 <td>{{ unclassifiedClass?.startDate | date: 'EEEE, dd MMM Y'}}</td>
                 <td>{{ unclassifiedClass?.startTime }} - {{ unclassifiedClass?.endTime}}</td>
@@ -152,7 +152,7 @@
                     </div>
                     <div class="col-md-2 d-flex align-items-center">
                       <button class="edit-data" mat-button (click)="onEditTopic(syllabus?.topic, view.syllabus?.unclassifiedClasses?.length)">
-                        <mat-icon>edit</mat-icon>
+                        <img src="assets/svg/pen-to-square-solid.svg" width="20" height="20" />
                       </button>
                     </div>
                   </div>
@@ -172,8 +172,7 @@
               <ng-container *ngIf="view.syllabus?.topics && view.syllabus?.topics?.length">
                 <div class="table-responsive" *ngIf="openCourse && selectedCourse === syllabus?.topic?.id"
                      [@slideInOut]>
-                  <table class="table">
-                    <thead>
+                  <table class="table my-table default-title">
                     <tr>
                       <th scope="col">Class Number</th>
                       <th scope="col">Class Subject</th>
@@ -182,13 +181,12 @@
                       <th scope="col">Duration</th>
                       <th scope="col">Action</th>
                     </tr>
-                    </thead>
-                    <tbody>
+
                     <tr *ngFor="let syllabusClass of syllabus?.topic?.classes; let i = index">
                       <td scope="row">{{ i + 1 }}</td>
                       <td *ngIf="subjectId !== syllabusClass.id">{{ syllabusClass?.title }}</td>
                       <td *ngIf="subjectId === syllabusClass.id">
-                        <input type="text" class="form-control" formControlName="subjectTitle" placeholder="Add topic here..." autofocus>
+                        <input type="text" class="form-control custom-input input-bordered" formControlName="subjectTitle" placeholder="Add topic here..." autofocus>
                       </td>
                       <td>{{ syllabusClass?.startDate | date : 'EEEE, dd MMM Y'}}</td>
                       <td>{{ syllabusClass?.startTime + '-' + syllabusClass?.endTime }}</td>
@@ -196,7 +194,7 @@
                       <td>
                         <button class="edit-btn" mat-button *ngIf="subjectId !== syllabusClass.id"
                                 (click)="subjectId = syllabusClass.id; setSubjectTitle(syllabusClass.title)">
-                          <mat-icon>edit</mat-icon>
+                          <img src="assets/svg/pen-to-square-solid.svg" width="20" height="20" />
                         </button>
                         <button class="save-topic-btn d-flex" mat-button [ngClass]="{'disabled': !subjectTitle?.value?.trim() || (isSavingSubjectTitle$ | async)}"
                                 [disabled]="!subjectTitle?.value?.trim() || (isSavingSubjectTitle$ | async)" *ngIf="subjectId === syllabusClass.id"
@@ -206,7 +204,6 @@
                         </button>
                       </td>
                     </tr>
-                    </tbody>
                   </table>
                 </div>
               </ng-container>
@@ -216,6 +213,7 @@
       </ng-container>
     </div>
   </form>
+
   <metutors-tutor-add-syllabus-topic-modal *ngIf="(showAddTopicModal$ | async)"
                                            [topic]="topic"
                                            (deleted)="onDeleteTopic($event)"

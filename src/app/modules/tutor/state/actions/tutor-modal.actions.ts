@@ -47,3 +47,19 @@ export const openTutorAddClassResourceModal = createAction(
 export const closeTutorAddClassResourceModal = createAction(
   '[Tutor Modal] Close Tutor Add Class Resource Modal'
 );
+
+export const openTutorAddAssignmentModal = createAction(
+  '[Tutor Modal] Open Tutor Add Assignment Modal'
+);
+
+export const closeTutorAddAssignmentModal = createAction(
+  '[Tutor Modal] Close Tutor Add Assignment Modal'
+);
+
+export const openTutorAssignmentDetailsModal = createAction(
+  '[Tutor Modal] Open Tutor Assignment Details Modal'
+);
+
+export const closeTutorAssignmentDetailsModal = createAction(
+  '[Tutor Modal] Close Tutor Assignment Details Modal'
+);
