@@ -1,5 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormArray,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { formatBytes } from '@metutor/config';
 
 @Component({
@@ -15,6 +21,7 @@ export class TutorAddAssignmentModalComponent implements OnInit {
   @Output() submitted: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
 
   form: FormGroup;
+  minDate = new Date();
   selectedURLs: any[] = [];
   filesPreview: any[] = [];
 
@@ -22,7 +29,10 @@ export class TutorAddAssignmentModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this._fb.group({
+      title: [null, [Validators.required, Validators.minLength(3)]],
       description: [null, [Validators.required, Validators.minLength(10)]],
+      startDate: [null],
+      endDate: [null],
       urls: this._fb.array([]),
     });
 
@@ -31,6 +41,22 @@ export class TutorAddAssignmentModalComponent implements OnInit {
 
   get urls(): FormArray {
     return this.form?.get('urls') as FormArray;
+  }
+
+  get startDate(): AbstractControl | null {
+    return this.form.get('startDate');
+  }
+
+  get endDate(): AbstractControl | null {
+    return this.form.get('endDate');
+  }
+
+  onChangeDateDay(): void {
+    if (this.startDate?.value && this.endDate?.value) {
+      if (this.endDate.value < this.startDate.value) {
+        this.endDate.setValue(null);
+      }
+    }
   }
 
   removeURL(i: number): void {
