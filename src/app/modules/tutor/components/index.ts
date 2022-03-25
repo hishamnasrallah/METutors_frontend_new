@@ -12,5 +12,6 @@ export * from './tutor-reject-course-modal';
 export * from './tutor-add-assignment-modal';
 export * from './tutor-add-class-resource-modal';
 export * from './tutor-add-syllabus-topic-modal';
+export * from './tutor-assignment-details-modal';
 export * from './tutor-settings-user-preferences';
 export * from './tutor-settings-payment-information';

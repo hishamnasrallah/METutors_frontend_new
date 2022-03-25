@@ -40,6 +40,7 @@ import { Observable } from 'rxjs';
 })
 export class TutorAssignmentComponent implements OnInit {
   showAddAssignmentModal$: Observable<boolean>;
+  showAssignmentDetailsModal$: Observable<boolean>;
 
   openBlock: boolean;
 
@@ -49,6 +50,10 @@ export class TutorAssignmentComponent implements OnInit {
     this.showAddAssignmentModal$ = this._store.select(
       fromTutor.selectAddAssignmentModal
     );
+
+    this.showAssignmentDetailsModal$ = this._store.select(
+      fromTutor.selectAssignmentDetailsModal
+    );
   }
 
   onOpenAddAssignment() {
@@ -57,5 +62,13 @@ export class TutorAssignmentComponent implements OnInit {
 
   onCloseAddAssignment() {
     this._store.dispatch(fromTutorAction.closeTutorAddAssignmentModal());
+  }
+
+  onOpenAssignmentDetails() {
+    this._store.dispatch(fromTutorAction.openTutorAssignmentDetailsModal());
+  }
+
+  onCloseAssignmentDetails() {
+    this._store.dispatch(fromTutorAction.closeTutorAssignmentDetailsModal());
   }
 }

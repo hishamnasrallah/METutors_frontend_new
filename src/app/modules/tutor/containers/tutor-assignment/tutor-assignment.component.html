@@ -58,7 +58,7 @@
                 <span>Remaining Time</span>
                 <strong class="alert-msg">2 Days</strong>
               </div>
-              <button mat-button class="main-button-transparent">
+              <button mat-button class="main-button-transparent" (click)="onOpenAssignmentDetails()">
                 View Details
                 <mat-icon>arrow_forward</mat-icon>
               </button>
@@ -175,3 +175,8 @@
                                      (closeModal)="onCloseAddAssignment()"
                                      [showModal]="(showAddAssignmentModal$ | async)!">
 </metutors-tutor-add-assignment-modal>
+
+<metutors-tutor-assignment-details-modal *ngIf="showAssignmentDetailsModal$ | async"
+                                         (closeModal)="onCloseAssignmentDetails()"
+                                         [showModal]="(showAssignmentDetailsModal$ | async)!">
+</metutors-tutor-assignment-details-modal>

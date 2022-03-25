@@ -1,0 +1,57 @@
+.assignment-details-modal {
+  label {
+    font-weight: bold;
+    font-size: 15px;
+  }
+
+  p {
+    color: #696969;
+  }
+
+  .url-info {
+    span {
+      color: #696969;
+    }
+
+    strong {
+      font-size: 18px;
+      color: #2a2a2a;
+      font-weight: 500;
+
+      mat-icon {
+        width: 15px;
+        height: 15px;
+        font-size: 14px;
+        color: #696969;
+      }
+    }
+  }
+
+  .list-files {
+    >div {
+      width: calc(100% - (24px + 0.5rem));
+    }
+
+    h3 {
+      font-size: 16px;
+      margin: 0;
+      color: #2a2a2a;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+    }
+
+    h5 {
+      font-size: 13px;
+      color: #696969;
+      margin: 0;
+    }
+  }
+
+  .add-url {
+    color: #3bb3c1;
+    font-weight: bold;
+    font-size: 13px;
+  }
+}

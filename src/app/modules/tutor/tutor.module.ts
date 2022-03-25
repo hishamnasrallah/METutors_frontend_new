@@ -60,6 +60,7 @@ import {
   TutorAddAssignmentModalComponent,
   TutorAddSyllabusTopicModalComponent,
   TutorAddClassResourceModalComponent,
+  TutorAssignmentDetailsModalComponent,
   TutorSettingsUserPreferencesComponent,
   TutorSettingsPaymentInformationComponent,
 } from './components';
@@ -96,6 +97,7 @@ import {
     TutorAddAssignmentModalComponent,
     TutorAddSyllabusTopicModalComponent,
     TutorAddClassResourceModalComponent,
+    TutorAssignmentDetailsModalComponent,
     TutorSettingsUserPreferencesComponent,
     TutorSettingsPaymentInformationComponent,
   ],
