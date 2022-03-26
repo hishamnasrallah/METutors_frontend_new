@@ -206,6 +206,11 @@ export const selectIsLoadingTutorResources = createSelector(
   fromTutorReducer.selectIsLoadingTutorResources
 );
 
+export const selectIsAddingTutorResources = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectIsAddingTutorResources
+);
+
 // Student
 export const selectStudentDashboard = createSelector(
   selectStudentState,

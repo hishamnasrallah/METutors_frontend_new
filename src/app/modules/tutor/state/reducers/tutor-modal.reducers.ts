@@ -72,10 +72,14 @@ export const reducer = createReducer(
     showCourseAttendanceModal: false,
   })),
 
-  on(tutorModalActions.openTutorAddClassResourceModal, (state) => ({
-    ...state,
-    showAddClassResourceModal: true,
-  })),
+  on(
+    tutorModalActions.openTutorAddClassResourceModal,
+    tutorModalActions.openTutorEditClassResourceModal,
+    (state) => ({
+      ...state,
+      showAddClassResourceModal: true,
+    })
+  ),
 
   on(tutorModalActions.closeTutorAddClassResourceModal, (state) => ({
     ...state,

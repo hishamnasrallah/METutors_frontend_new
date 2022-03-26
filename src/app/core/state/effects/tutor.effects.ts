@@ -289,11 +289,35 @@ export class TutorEffects {
     )
   );
 
+  addTutorResource$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorActions.addTutorResource),
+      mergeMap(({ formData }) =>
+        this._tutorService.addTutorResource(formData).pipe(
+          map((resource) =>
+            tutorActions.addTutorResourceSuccess({
+              resource: camelcaseKeys(resource, { deep: true }),
+              message: 'Resource successfully added',
+            })
+          ),
+          catchError((error) =>
+            of(
+              tutorActions.addTutorResourceFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   successMessages$ = createEffect(
     () =>
       this._actions$.pipe(
         ofType(
           ...[
+            tutorActions.addTutorResourceSuccess,
             tutorActions.tutorAddSyllabusTopicSuccess,
             tutorActions.tutorEditSubjectTitleSuccess,
             tutorActions.tutorEditSyllabusTopicSuccess,
@@ -312,6 +336,7 @@ export class TutorEffects {
       this._actions$.pipe(
         ofType(
           ...[
+            tutorActions.addTutorResourceFailure,
             tutorActions.tutorLaunchClassFailure,
             tutorActions.completeTutorProfileFailure,
             tutorActions.tutorAddSyllabusTopicFailure,

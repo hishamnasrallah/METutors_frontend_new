@@ -74,7 +74,7 @@
                     </button>
                   </div>
                   <div *ngIf="!resourceClass?.resourceId">
-                    <button mat-button class="main-button-transparent" (click)="onOpenAddClassResource()">Add Resource
+                    <button mat-button class="main-button-transparent" (click)="onOpenAddClassResource(resourceClass.id)">Add Resource
                     </button>
                   </div>
                 </td>

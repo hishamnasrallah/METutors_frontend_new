@@ -19,6 +19,7 @@ export interface State {
   isSavingSubjectTitle: boolean;
   isAddingSyllabusTopic: boolean;
   isLoadingTutorResource: boolean;
+  isAddingTutorResources: boolean;
   isLoadingTutorResources: boolean;
   subjectTitleEditedSuccess: boolean;
 
@@ -42,6 +43,7 @@ export const initialState: State = {
   isSavingSubjectTitle: false,
   isAddingSyllabusTopic: false,
   isCompleteTutorProfile: false,
+  isAddingTutorResources: false,
   isLoadingTutorResource: false,
   isLoadingTutorResources: false,
   completeTutorProfileFailure: '',
@@ -360,6 +362,21 @@ export const reducer = createReducer(
   on(tutorActions.loadTutorResourceFailure, (state, { error }) => ({
     ...state,
     isLoadingTutorResource: false,
+  })),
+
+  on(tutorActions.addTutorResource, (state) => ({
+    ...state,
+    isAddingTutorResources: true,
+  })),
+
+  on(tutorActions.addTutorResourceSuccess, (state) => ({
+    ...state,
+    isAddingTutorResources: false,
+  })),
+
+  on(tutorActions.addTutorResourceFailure, (state, { error }) => ({
+    ...state,
+    isAddingTutorResources: false,
   }))
 );
 
@@ -404,3 +421,6 @@ export const selectIsLoadingTutorResources = (state: State): boolean =>
   state.isLoadingTutorResources;
 
 export const selectTutorResources = (state: State): boolean => state.resources;
+
+export const selectIsAddingTutorResources = (state: State): boolean =>
+  state.isAddingTutorResources;

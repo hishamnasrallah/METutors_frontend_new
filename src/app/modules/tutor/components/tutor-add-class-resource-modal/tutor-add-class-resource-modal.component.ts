@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+
 import { formatBytes } from '@metutor/config';
 
 @Component({
@@ -22,8 +23,10 @@ export class TutorAddClassResourceModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this._fb.group({
-      description: [null, [Validators.required, Validators.minLength(10)]],
+      id: [null],
       urls: this._fb.array([]),
+      files: this._fb.array([]),
+      description: [null, [Validators.required, Validators.minLength(10)]],
     });
 
     this.addURL();
@@ -31,6 +34,15 @@ export class TutorAddClassResourceModalComponent implements OnInit {
 
   get urls(): FormArray {
     return this.form?.get('urls') as FormArray;
+  }
+
+  get files(): FormArray {
+    return this.form?.get('files') as FormArray;
+  }
+
+  removeFile(i: number): void {
+    (this.form?.get('files') as FormArray).removeAt(i);
+    this.filesPreview.splice(i, 1);
   }
 
   removeURL(i: number): void {
@@ -44,9 +56,8 @@ export class TutorAddClassResourceModalComponent implements OnInit {
 
   newURL(): FormGroup {
     return this._fb.group({
+      url: [null],
       title: [null],
-      link: [null],
-      files:[]
     });
   }
 
@@ -55,21 +66,18 @@ export class TutorAddClassResourceModalComponent implements OnInit {
   }
 
   saveURL(): void {
-    console.log(this.urls)
     this.selectedURLs.push({
+      url: this.urls.value[this.urls.value.length - 1].url,
       title: this.urls.value[this.urls.value.length - 1].title,
-      link: this.urls.value[this.urls.value.length - 1].link,
     });
+
     this.addURL();
   }
 
   onFileChange(event: any): void {
     if (event.target && event.target.files && event.target.files.length) {
-      this.form.patchValue({ files: event.target.files });
-      this.form.get('files')?.updateValueAndValidity();
-      this.form?.markAsDirty();
-
       Array.from(event.target.files).forEach((file: any) => {
+        this.files.push(this._fb.group({ file }));
         this.filesPreview.push({
           name: file.name,
           size: formatBytes(file.size),

@@ -118,4 +118,13 @@ export class TutorsService {
   getTutorResource(id: number): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}teacher/resource/${id}`);
   }
+
+  addTutorResource(formData: any): Observable<any> {
+    const classId = 1;
+    const body = '';
+    return this.http.post<any>(
+      `${this.baseUrl}teacher/class/${classId}/resource`,
+      body
+    );
+  }
 }

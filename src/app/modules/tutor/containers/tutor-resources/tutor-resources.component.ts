@@ -1,13 +1,13 @@
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
+import { FormGroup } from '@angular/forms';
 import { Observable, combineLatest } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 
+import { WEEK_DAYS } from '@config';
 import * as fromCore from '@metutor/core/state';
 import * as fromTutor from '@metutor/modules/tutor/state';
 import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
-import { WEEK_DAYS } from '@config';
-import { openTutorEditClassResourceModal } from '@metutor/modules/tutor/state/actions';
 
 @Component({
   selector: 'metutors-tutor-resources',
@@ -15,8 +15,9 @@ import { openTutorEditClassResourceModal } from '@metutor/modules/tutor/state/ac
   styleUrls: ['./tutor-resources.component.scss'],
 })
 export class TutorResourcesComponent implements OnInit {
-  showAddClassResourceModal$: Observable<boolean>;
+  classId: string;
 
+  showAddClassResourceModal$: Observable<boolean>;
   view$: Observable<{ loading: boolean; resources: any }>;
 
   constructor(private _store: Store<any>) {}
@@ -31,7 +32,8 @@ export class TutorResourcesComponent implements OnInit {
     return listDays;
   }
 
-  onOpenAddClassResource() {
+  onOpenAddClassResource(classId: string) {
+    this.classId = classId;
     this._store.dispatch(fromTutorAction.openTutorAddClassResourceModal());
   }
 
@@ -43,8 +45,19 @@ export class TutorResourcesComponent implements OnInit {
     this._store.dispatch(fromTutorAction.closeTutorAddClassResourceModal());
   }
 
-  onSaveResource(resource: any): void {
-    console.log(resource.value);
+  onSaveResource(form: FormGroup): void {
+    const { id, urls, files, description } = form.value;
+
+    const formData = new FormData();
+    formData.append('urls', urls);
+    formData.append('files', files);
+    formData.append('classId', this.classId);
+    formData.append('description', description);
+
+    if (id) {
+    } else {
+      this._store.dispatch(fromCore.addTutorResource({ formData }));
+    }
   }
 
   ngOnInit(): void {

@@ -14,8 +14,8 @@
               <div class="url-info d-flex flex-column my-2">
                   <span>{{ url.title }}</span>
                   <strong class="d-flex align-items-center">
-                      {{ url.link }}
-                      <mat-icon class="cursor-pointer ms-2" (click)="removeURL(i)">cancel</mat-icon>
+                      {{ url.url }}
+                      <mat-icon class="cursor-pointer ms-2 delete-icon" (click)="removeURL(i)">cancel</mat-icon>
                   </strong>
               </div>
           </ng-container>
@@ -24,9 +24,9 @@
               <ng-container *ngFor="let _ of urls.controls; let i = index" [formGroupName]="i">
                 <ng-container *ngIf="i >= selectedURLs.length">
                   <input type="text" class="form-control custom-input input-bordered" formControlName="title" placeholder="Enter title here...">
-                  <input type="url" class="form-control custom-input input-bordered mt-2" formControlName="link" placeholder="Enter URL here...">
-                  <button mat-button class="add-url main-button-transparent float-end mt-2" 
-                          [disabled]="!form.value.urls[i].title || !form.value.urls[i].link" (click)="saveURL()">
+                  <input type="url" class="form-control custom-input input-bordered mt-2" formControlName="url" placeholder="Enter URL here...">
+                  <button mat-button class="add-url main-button-transparent float-end mt-2"
+                          [disabled]="!form.value.urls[i].title || !form.value.urls[i].url" (click)="saveURL()">
                           Add
                   </button>
                 </ng-container>
@@ -39,7 +39,7 @@
           <label>Files</label>
           <div class="d-flex flex-column">
             <div>
-              <button mat-button class="main-button" (click)="filePicker.click()">
+              <button mat-button type="button" class="main-button" (click)="filePicker.click()">
                 <img src="assets/svg/upload-solid.svg" width="15" height="15" alt="" />
                 Upload
               </button>
@@ -49,12 +49,13 @@
           </div>
 
           <div class="form-group row" *ngIf="filesPreview && filesPreview.length">
-            <div class="col-md-4 list-files d-flex" *ngFor="let filePreview of filesPreview">
+            <div class="col-md-4 list-files d-flex position-relative" *ngFor="let filePreview of filesPreview; let i = index">
               <mat-icon>attach_file</mat-icon>
               <div class="ms-2">
                 <h3>{{ filePreview?.name }}</h3>
                 <h5>{{ filePreview?.size }}</h5>
               </div>
+              <mat-icon class="cursor-pointer ms-2 position-absolute delete-icon file" (click)="removeFile(i)">cancel</mat-icon>
             </div>
           </div>
         </div>
