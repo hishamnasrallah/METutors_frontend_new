@@ -1,7 +1,18 @@
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormGroup,
+  Validators,
+  FormBuilder,
+  AbstractControl,
+} from '@angular/forms';
+
+import { Store } from '@ngrx/store';
+import { map, tap } from 'rxjs/operators';
+import { Observable, combineLatest } from 'rxjs';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import { formatBytes } from '@metutor/config';
+import * as fromCore from '@metutor/core/state';
+import { formatBytes, urlRegEx } from '@metutor/config';
 
 @Component({
   selector: 'metutors-tutor-add-class-resource-modal',
@@ -9,6 +20,7 @@ import { formatBytes } from '@metutor/config';
   styleUrls: ['./tutor-add-class-resource-modal.component.scss'],
 })
 export class TutorAddClassResourceModalComponent implements OnInit {
+  @Input() heading: string;
   @Input() showModal: boolean = false;
   @Input() submitting: boolean = false;
 
@@ -19,17 +31,42 @@ export class TutorAddClassResourceModalComponent implements OnInit {
   selectedURLs: any[] = [];
   filesPreview: any[] = [];
 
-  constructor(private _fb: FormBuilder) {}
+  view$: Observable<{ loading: boolean; resource: any }>;
+
+  constructor(private _fb: FormBuilder, private _store: Store<any>) {}
 
   ngOnInit(): void {
     this.form = this._fb.group({
-      id: [null],
+      resourceId: [null],
+      files: [null],
       urls: this._fb.array([]),
-      files: this._fb.array([]),
       description: [null, [Validators.required, Validators.minLength(10)]],
     });
 
     this.addURL();
+
+    this.view$ = combineLatest([
+      this._store.select(fromCore.selectTutorResource).pipe(
+        tap((data: any) => {
+          if (data) {
+            console.log(data.resource);
+            this.resourceId?.setValue(data?.resource?.class?.resourceId);
+            this.selectedURLs = [...data.resource.urls];
+            // this.urls.push(JSON.parse(data.resource.urls));
+            this.description?.setValue(data?.resource?.description);
+          }
+        })
+      ),
+      this._store.select(fromCore.selectIsLoadingTutorResource),
+    ]).pipe(map(([resource, loading]) => ({ loading, resource })));
+  }
+
+  get resourceId(): AbstractControl | null {
+    return this.form?.get('resourceId');
+  }
+
+  get description(): AbstractControl | null {
+    return this.form?.get('description');
   }
 
   get urls(): FormArray {
@@ -41,7 +78,8 @@ export class TutorAddClassResourceModalComponent implements OnInit {
   }
 
   removeFile(i: number): void {
-    (this.form?.get('files') as FormArray).removeAt(i);
+    console.log(this.files.value);
+    // this.files.value.splice(i, 1);
     this.filesPreview.splice(i, 1);
   }
 
@@ -55,10 +93,13 @@ export class TutorAddClassResourceModalComponent implements OnInit {
   }
 
   newURL(): FormGroup {
-    return this._fb.group({
-      url: [null],
-      title: [null],
-    });
+    return this._fb.group(
+      {
+        url: [null],
+        title: [null],
+      },
+      { validators: this._urlValidation.bind(this) }
+    );
   }
 
   addURL(): void {
@@ -76,13 +117,36 @@ export class TutorAddClassResourceModalComponent implements OnInit {
 
   onFileChange(event: any): void {
     if (event.target && event.target.files && event.target.files.length) {
+      this.form.patchValue({ files: event.target.files });
+      this.form.get('files')?.updateValueAndValidity();
+      this.form?.markAsDirty();
+
       Array.from(event.target.files).forEach((file: any) => {
-        this.files.push(this._fb.group({ file }));
         this.filesPreview.push({
           name: file.name,
           size: formatBytes(file.size),
         });
       });
     }
+  }
+
+  private _urlValidation(control: AbstractControl): any {
+    const url = control.get('url');
+    const title = control.get('title');
+
+    console.log(this.form);
+    if (!this.selectedURLs?.length) {
+      return { required: true };
+    }
+
+    if (url?.value) {
+      console.log(url?.value.match(urlRegEx));
+    }
+
+    if (url?.value && !url.value.match(urlRegEx)) {
+      return { required: true };
+    }
+
+    return null;
   }
 }

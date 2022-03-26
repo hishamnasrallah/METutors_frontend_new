@@ -3,6 +3,7 @@ import { createReducer, on } from '@ngrx/store';
 import { ITutor } from '@models';
 import * as tutorActions from '../actions/tutor.actions';
 import * as courseActions from '../actions/course.actions';
+import * as tutorModalActions from '@metutor/modules/tutor/state/actions';
 
 export interface State {
   syllabus: any;
@@ -362,6 +363,12 @@ export const reducer = createReducer(
   on(tutorActions.loadTutorResourceFailure, (state) => ({
     ...state,
     isLoadingTutorResource: false,
+  })),
+
+  // Reset resource on open add resource modal
+  on(tutorModalActions.openTutorAddClassResourceModal, (state) => ({
+    ...state,
+    resource: null,
   })),
 
   on(tutorActions.addTutorResource, (state) => ({

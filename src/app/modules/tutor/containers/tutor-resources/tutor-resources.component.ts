@@ -16,6 +16,7 @@ import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
 })
 export class TutorResourcesComponent implements OnInit {
   classId: string;
+  heading = 'Add Resources';
 
   showAddClassResourceModal$: Observable<boolean>;
   view$: Observable<{ loading: boolean; resources: any }>;
@@ -38,6 +39,7 @@ export class TutorResourcesComponent implements OnInit {
   }
 
   onOpenEditClassResource() {
+    this.heading = 'Edit Resources';
     this._store.dispatch(fromTutorAction.openTutorEditClassResourceModal());
   }
 
@@ -46,20 +48,20 @@ export class TutorResourcesComponent implements OnInit {
   }
 
   onSaveResource(form: FormGroup): void {
-    const { id, urls, files, description } = form.value;
-
-    const filing = files.map((f: any) => f.file);
-    console.log(filing);
+    const { resourceId, urls, files, description } = form.value;
+    console.log(form.value);
 
     const formData = new FormData();
-    formData.append('files', filing);
     formData.append('classId', this.classId);
+    formData.append('resourceId', resourceId);
+    formData.append('urls', urls.slice(0, -1));
     formData.append('description', description);
-    formData.append('urls', JSON.stringify(urls.slice(0, -1)));
+    formData.append('files[]', files.toString());
 
-    if (id) {
+    if (resourceId) {
+      // this._store.dispatch(fromCore.editTutorResource({ formData }));
     } else {
-      this._store.dispatch(fromCore.addTutorResource({ formData }));
+      // this._store.dispatch(fromCore.addTutorResource({ formData }));
     }
   }
 

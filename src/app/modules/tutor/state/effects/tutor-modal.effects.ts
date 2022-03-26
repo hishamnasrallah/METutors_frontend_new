@@ -11,7 +11,6 @@ export class TutorModalEffects {
   openEditTutorResourceModal$ = createEffect(() =>
     this._actions$.pipe(
       ofType(fromTutorAction.openTutorEditClassResourceModal),
-      // eslint-disable-next-line import/no-deprecated
       mergeMap(() => of(fromCore.loadTutorResource()))
     )
   );

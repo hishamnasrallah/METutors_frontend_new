@@ -1,73 +1,95 @@
-<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'medium'" [heading]="'Add Resources'"
-                [template]="template" >
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'medium'" [heading]="heading"
+                [template]="template">
   <ng-template #template>
-    <form class="row add-class-modal" [formGroup]="form" (ngSubmit)="submitted.emit(form)">
-      <div class="col-12">
-        <div class="form-group">
-          <label for="description">Description</label>
-          <textarea class="form-control custom-input input-bordered" formControlName="description" id="description" rows="4" placeholder="Enter description here..."></textarea>
-        </div>
+    <ng-container *ngLet="(view$ | async) as view">
+      <ng-container [ngSwitch]="view?.loading">
+        <ng-container *ngSwitchCase="true">
+          <div class="ph-row">
+            <div class="ph-col-8 big"></div>
+            <div class="ph-col-4 big empty"></div>
+            <div class="ph-col-10 big mt-3"></div>
+            <div class="ph-col-2 big empty mt-3"></div>
+            <div class="ph-col-6 mt-4"></div>
+            <div class="ph-col-6 mt-4 empty"></div>
+          </div>
+        </ng-container>
 
-        <div class="form-group">
-          <label>URLs</label>
-          <ng-container *ngFor="let url of selectedURLs; let i = index">
-              <div class="url-info d-flex flex-column my-2">
+        <form class="row add-class-modal" [formGroup]="form" (ngSubmit)="submitted.emit(form)" *ngSwitchCase="false">
+          <div class="col-12">
+            <div class="form-group">
+              <label for="description">Description<span class="text-danger">*</span></label>
+              <textarea class="form-control custom-input input-bordered" formControlName="description" id="description"
+                        rows="4" placeholder="Enter description here..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label>URLs<span class="text-danger">*</span></label>
+              <ng-container *ngFor="let url of selectedURLs; let i = index">
+                <div class="url-info d-flex flex-column my-2">
                   <span>{{ url.title }}</span>
                   <strong class="d-flex align-items-center">
-                      {{ url.url }}
-                      <mat-icon class="cursor-pointer ms-2 delete-icon" (click)="removeURL(i)">cancel</mat-icon>
+                    {{ url.url }}
+                    <mat-icon class="cursor-pointer ms-2 delete-icon" (click)="removeURL(i)">cancel</mat-icon>
                   </strong>
-              </div>
-          </ng-container>
-          <div class="overflow-hidden">
-            <ng-container formArrayName="urls">
-              <ng-container *ngFor="let _ of urls.controls; let i = index" [formGroupName]="i">
-                <ng-container *ngIf="i >= selectedURLs.length">
-                  <input type="text" class="form-control custom-input input-bordered" formControlName="title" placeholder="Enter title here...">
-                  <input type="url" class="form-control custom-input input-bordered mt-2" formControlName="url" placeholder="Enter URL here...">
-                  <button mat-button class="add-url main-button-transparent float-end mt-2"
-                          [disabled]="!form.value.urls[i].title || !form.value.urls[i].url" (click)="saveURL()">
-                          Add
-                  </button>
-                </ng-container>
+                </div>
               </ng-container>
-            </ng-container>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label>Files</label>
-          <div class="d-flex flex-column">
-            <div>
-              <button mat-button type="button" class="main-button" (click)="filePicker.click()">
-                <img src="assets/svg/upload-solid.svg" width="15" height="15" alt="" />
-                Upload
-              </button>
-            </div>
-            <span class="extensions">JPG, pdf, video, etc</span>
-            <input type="file" hidden #filePicker (change)="onFileChange($event)" multiple>
-          </div>
-
-          <div class="form-group row" *ngIf="filesPreview && filesPreview.length">
-            <div class="col-md-4 list-files d-flex position-relative" *ngFor="let filePreview of filesPreview; let i = index">
-              <mat-icon>attach_file</mat-icon>
-              <div class="ms-2">
-                <h3>{{ filePreview?.name }}</h3>
-                <h5>{{ filePreview?.size }}</h5>
+              <div class="overflow-hidden">
+                <ng-container formArrayName="urls">
+                  <ng-container *ngFor="let _ of urls.controls; let i = index" [formGroupName]="i">
+                    <ng-container *ngIf="i >= selectedURLs.length">
+                      <input type="text" class="form-control custom-input input-bordered" formControlName="title"
+                             placeholder="Enter title here...">
+                      <input type="url" class="form-control custom-input input-bordered mt-2" formControlName="url"
+                             placeholder="Enter URL here...">
+                      <button mat-button class="add-url main-button-transparent float-end mt-2"
+                              [disabled]="!form.value.urls[i].title || !form.value.urls[i].url" (click)="saveURL()">
+                        Add
+                      </button>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
               </div>
-              <mat-icon class="cursor-pointer ms-2 position-absolute delete-icon file" (click)="removeFile(i)">cancel</mat-icon>
+            </div>
+
+            <div class="form-group">
+              <label>Files<span class="text-danger">*</span></label>
+              <div class="d-flex flex-column">
+                <div>
+                  <button mat-button type="button" class="main-button" (click)="filePicker.click()">
+                    <img src="assets/svg/upload-solid.svg" width="15" height="15" alt=""/>
+                    Upload
+                  </button>
+                </div>
+                <span class="extensions">JPG, pdf, video, etc</span>
+                <input type="file" hidden multiple #filePicker (change)="onFileChange($event)">
+              </div>
+
+              <div class="form-group row" *ngIf="filesPreview && filesPreview.length">
+                <div class="col-md-4 list-files d-flex position-relative"
+                     *ngFor="let filePreview of filesPreview; let i = index">
+                  <mat-icon>attach_file</mat-icon>
+                  <div class="ms-2">
+                    <h3>{{ filePreview?.name }}</h3>
+                    <h5>{{ filePreview?.size }}</h5>
+                  </div>
+                  <mat-icon class="cursor-pointer ms-2 position-absolute delete-icon file" (click)="removeFile(i)">
+                    cancel
+                  </mat-icon>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mt-2">
+              <div class="col-md-12 overflow-hidden">
+                <metutors-submit-button [form]="form" [isSubmitting]="submitting"
+                                        [extraClasses]="'float-end py-1 px-5'">
+                  Add
+                </metutors-submit-button>
+              </div>
             </div>
           </div>
-        </div>
-
-        <div class="row mt-2">
-          <div class="col-md-12 overflow-hidden">
-            <metutors-submit-button [form]="form" [isSubmitting]="submitting" [extraClasses]="'float-end py-1 px-5'">
-              Add
-            </metutors-submit-button>
-          </div>
-        </div>
-      </div>
-    </form>
+        </form>
+      </ng-container>
+    </ng-container>
   </ng-template>
 </metutors-modal>

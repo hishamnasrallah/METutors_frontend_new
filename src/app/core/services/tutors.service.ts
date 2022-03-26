@@ -120,9 +120,10 @@ export class TutorsService {
   }
 
   addTutorResource(formData: any): Observable<any> {
-    const classId = 2;
-    const body = '';
-    console.log(formData.classId);
+    const classId = formData.get('classId');
+    formData.delete('classId');
+    formData.delete('resourceId');
+
     return this.http.post<any>(
       `${this.baseUrl}teacher/class/${classId}/resource`,
       formData
@@ -130,9 +131,13 @@ export class TutorsService {
   }
 
   editTutorResource(formData: any): Observable<any> {
-    const classId = 1;
+    const resourceId = formData.get('resourceId');
+    console.log(formData.get('files'));
+    formData.delete('classId');
+    formData.delete('resourceId');
+
     return this.http.post<any>(
-      `${this.baseUrl}teacher/class/${classId}/resource`,
+      `${this.baseUrl}teacher/resource/update/${resourceId}`,
       formData
     );
   }

@@ -87,7 +87,7 @@
   </div>
 </div>
 
-<metutors-tutor-add-class-resource-modal *ngIf="showAddClassResourceModal$ | async"
+<metutors-tutor-add-class-resource-modal *ngIf="showAddClassResourceModal$ | async" [heading]="heading"
                                          (closeModal)="onCloseAddClassResource()" (submitted)="onSaveResource($event)"
                                          [showModal]="(showAddClassResourceModal$ | async)!">
 </metutors-tutor-add-class-resource-modal>
