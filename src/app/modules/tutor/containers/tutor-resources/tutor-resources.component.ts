@@ -48,11 +48,14 @@ export class TutorResourcesComponent implements OnInit {
   onSaveResource(form: FormGroup): void {
     const { id, urls, files, description } = form.value;
 
+    const filing = files.map((f: any) => f.file);
+    console.log(filing);
+
     const formData = new FormData();
-    formData.append('urls', urls);
-    formData.append('files', files);
+    formData.append('files', filing);
     formData.append('classId', this.classId);
     formData.append('description', description);
+    formData.append('urls', JSON.stringify(urls.slice(0, -1)));
 
     if (id) {
     } else {

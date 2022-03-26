@@ -120,11 +120,20 @@ export class TutorsService {
   }
 
   addTutorResource(formData: any): Observable<any> {
-    const classId = 1;
+    const classId = 2;
     const body = '';
+    console.log(formData.classId);
     return this.http.post<any>(
       `${this.baseUrl}teacher/class/${classId}/resource`,
-      body
+      formData
+    );
+  }
+
+  editTutorResource(formData: any): Observable<any> {
+    const classId = 1;
+    return this.http.post<any>(
+      `${this.baseUrl}teacher/class/${classId}/resource`,
+      formData
     );
   }
 }

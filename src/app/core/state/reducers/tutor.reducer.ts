@@ -326,7 +326,7 @@ export const reducer = createReducer(
     isLaunchingClass: false,
   })),
 
-  on(tutorActions.tutorLaunchClassFailure, (state, { error }) => ({
+  on(tutorActions.tutorLaunchClassFailure, (state) => ({
     ...state,
     isLaunchingClass: false,
   })),
@@ -343,7 +343,7 @@ export const reducer = createReducer(
     isLoadingTutorResources: false,
   })),
 
-  on(tutorActions.loadTutorResourcesFailure, (state, { error }) => ({
+  on(tutorActions.loadTutorResourcesFailure, (state) => ({
     ...state,
     isLoadingTutorResources: false,
   })),
@@ -359,7 +359,7 @@ export const reducer = createReducer(
     isLoadingTutorResource: false,
   })),
 
-  on(tutorActions.loadTutorResourceFailure, (state, { error }) => ({
+  on(tutorActions.loadTutorResourceFailure, (state) => ({
     ...state,
     isLoadingTutorResource: false,
   })),
@@ -374,7 +374,22 @@ export const reducer = createReducer(
     isAddingTutorResources: false,
   })),
 
-  on(tutorActions.addTutorResourceFailure, (state, { error }) => ({
+  on(tutorActions.addTutorResourceFailure, (state) => ({
+    ...state,
+    isAddingTutorResources: false,
+  })),
+
+  on(tutorActions.editTutorResource, (state) => ({
+    ...state,
+    isAddingTutorResources: true,
+  })),
+
+  on(tutorActions.editTutorResourceSuccess, (state) => ({
+    ...state,
+    isAddingTutorResources: false,
+  })),
+
+  on(tutorActions.editTutorResourceFailure, (state) => ({
     ...state,
     isAddingTutorResources: false,
   }))

@@ -175,3 +175,18 @@ export const addTutorResourceFailure = createAction(
   '[Tutor] Add Tutor Resource Failure',
   props<{ error: any }>()
 );
+
+export const editTutorResource = createAction(
+  '[Tutor] Edit Tutor Resource',
+  props<{ formData: any }>()
+);
+
+export const editTutorResourceSuccess = createAction(
+  '[Tutor] Edit Tutor Resource Success',
+  props<{ resource: any; message: string }>()
+);
+
+export const editTutorResourceFailure = createAction(
+  '[Tutor] Edit Tutor Resource Failure',
+  props<{ error: any }>()
+);
