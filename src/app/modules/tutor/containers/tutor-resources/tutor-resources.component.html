@@ -3,12 +3,12 @@
     <div class="card-body">
       <ng-container [ngSwitch]="view.loading">
         <ng-container *ngSwitchCase="false">
-          <h1 class="title">{{ view.resource?.course?.courseName }}</h1>
+          <h1 class="title">{{ view.resources?.course?.courseName }}</h1>
           <div class="row list-items">
             <div class="col-md-3 d-flex menu align-items-center">
               <img src="assets/svg/calendar.svg" alt="" width="15" height="15" draggable="false">
               <strong>Days: </strong>
-              <ng-container *ngFor="let day of getDays(view.resource?.course?.weekdays); let isLast = last">
+              <ng-container *ngFor="let day of getDays(view.resources?.course?.weekdays); let isLast = last">
                 {{ day }}
                 <ng-container *ngIf="!isLast">,</ng-container>
               </ng-container>
@@ -16,17 +16,17 @@
             <div class="col-md-3 d-flex menu align-items-center">
               <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
               <strong>Time: </strong>
-              <span>{{ view.resource?.course?.startTime }} - {{ view.resource?.course?.endTime }}</span>
+              <span>{{ view.resources?.course?.startTime }} - {{ view.resources?.course?.endTime }}</span>
             </div>
             <div class="col-md-3 d-flex menu align-items-center">
               <img src="assets/svg/timer.svg" alt="" width="15" height="15" draggable="false">
               <strong>Total Hours: </strong>
-              <span>{{ view.resource?.course?.totalHours }}</span>
+              <span>{{ view.resources?.course?.totalHours }}</span>
             </div>
             <div class="col-md-3 d-flex menu align-items-center">
               <img src="assets/svg/play-circle-fill.svg" alt="" width="15" height="15" draggable="false">
               <strong>Total Classes: </strong>
-              <span>{{ view.resource?.course?.totalClasses }}</span>
+              <span>{{ view.resources?.course?.totalClasses }}</span>
             </div>
           </div>
         </ng-container>
@@ -57,19 +57,26 @@
               <th scope="col">Class Days</th>
               <th scope="col">Action</th>
             </tr>
-            <tr *ngIf="!view.resource?.course?.classes?.length">
+            <tr *ngIf="!view.resources?.course?.classes?.length">
               <td colspan="5">
                 <div class="text-center">No record found</div>
               </td>
             </tr>
-            <ng-container *ngIf="view.resource?.course?.classes?.length">
-              <tr *ngFor="let resourceClass of view?.resource?.course?.classes; let i=index">
+            <ng-container *ngIf="view.resources?.course?.classes?.length">
+              <tr *ngFor="let resourceClass of view?.resources?.course?.classes; let i=index">
                 <td scope="row">{{ i + 1}}</td>
                 <td>{{ resourceClass?.title }}</td>
                 <td>{{ resourceClass?.startDate | date: 'EEEE, dd MMM Y'}}</td>
                 <td>
-                  <div *ngIf="resourceClass?.resourceId"><button mat-button class="secondary-button-transparent" (click)="onOpenAddClassResource()">Edit Resource</button></div>
-                  <div *ngIf="!resourceClass?.resourceId"><button mat-button class="main-button-transparent" (click)="onOpenAddClassResource()">Add Resource</button></div>
+                  <div *ngIf="resourceClass?.resourceId">
+                    <button mat-button class="secondary-button-transparent" (click)="onOpenEditClassResource()">Edit
+                      Resource
+                    </button>
+                  </div>
+                  <div *ngIf="!resourceClass?.resourceId">
+                    <button mat-button class="main-button-transparent" (click)="onOpenAddClassResource()">Add Resource
+                    </button>
+                  </div>
                 </td>
               </tr>
             </ng-container>

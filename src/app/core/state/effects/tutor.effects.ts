@@ -249,14 +249,37 @@ export class TutorEffects {
       withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
       mergeMap(([_, { id }]) =>
         this._tutorService.getTutorResources(id).pipe(
-          map((resource) =>
+          map((resources) =>
             tutorActions.loadTutorResourcesSuccess({
-              resource: camelcaseKeys(resource, { deep: true }),
+              resources: camelcaseKeys(resources, { deep: true }),
             })
           ),
           catchError((error) =>
             of(
               tutorActions.loadTutorResourcesFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  loadTutorResource$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorActions.loadTutorResource),
+      withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
+      mergeMap(([_, { id }]) =>
+        this._tutorService.getTutorResource(id).pipe(
+          map((resource) =>
+            tutorActions.loadTutorResourceSuccess({
+              resource: camelcaseKeys(resource, { deep: true }),
+            })
+          ),
+          catchError((error) =>
+            of(
+              tutorActions.loadTutorResourceFailure({
                 error: error?.error?.message || error?.error?.errors,
               })
             )

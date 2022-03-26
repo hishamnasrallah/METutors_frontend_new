@@ -141,10 +141,22 @@ export const loadTutorResources = createAction('[Tutor] Load Tutor Resources');
 
 export const loadTutorResourcesSuccess = createAction(
   '[Tutor] Load Tutor Resources Success',
-  props<{ resource: any }>()
+  props<{ resources: any }>()
 );
 
 export const loadTutorResourcesFailure = createAction(
   '[Tutor] Load Tutor Resources Failure',
+  props<{ error: any }>()
+);
+
+export const loadTutorResource = createAction('[Tutor] Load Tutor Resource');
+
+export const loadTutorResourceSuccess = createAction(
+  '[Tutor] Load Tutor Resource Success',
+  props<{ resource: any }>()
+);
+
+export const loadTutorResourceFailure = createAction(
+  '[Tutor] Load Tutor Resource Failure',
   props<{ error: any }>()
 );

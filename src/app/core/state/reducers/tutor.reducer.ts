@@ -8,6 +8,7 @@ export interface State {
   syllabus: any;
   dashboard: any;
   resource: any;
+  resources: any;
   tutor: ITutor | null;
   isLoadingTutors: boolean;
   isDeletingTopic: boolean;
@@ -18,6 +19,7 @@ export interface State {
   isSavingSubjectTitle: boolean;
   isAddingSyllabusTopic: boolean;
   isLoadingTutorResource: boolean;
+  isLoadingTutorResources: boolean;
   subjectTitleEditedSuccess: boolean;
 
   // Complete Tutor Profile
@@ -29,6 +31,7 @@ export const initialState: State = {
   tutor: null,
   syllabus: null,
   resource: null,
+  resources: null,
   dashboard: null,
   isLoadingTutors: false,
   isDeletingTopic: false,
@@ -40,6 +43,7 @@ export const initialState: State = {
   isAddingSyllabusTopic: false,
   isCompleteTutorProfile: false,
   isLoadingTutorResource: false,
+  isLoadingTutorResources: false,
   completeTutorProfileFailure: '',
   subjectTitleEditedSuccess: false,
 };
@@ -328,16 +332,32 @@ export const reducer = createReducer(
   // Tutor resources
   on(tutorActions.loadTutorResources, (state) => ({
     ...state,
+    isLoadingTutorResources: true,
+  })),
+
+  on(tutorActions.loadTutorResourcesSuccess, (state, { resources }) => ({
+    ...state,
+    resources,
+    isLoadingTutorResources: false,
+  })),
+
+  on(tutorActions.loadTutorResourcesFailure, (state, { error }) => ({
+    ...state,
+    isLoadingTutorResources: false,
+  })),
+
+  on(tutorActions.loadTutorResource, (state) => ({
+    ...state,
     isLoadingTutorResource: true,
   })),
 
-  on(tutorActions.loadTutorResourcesSuccess, (state, { resource }) => ({
+  on(tutorActions.loadTutorResourceSuccess, (state, { resource }) => ({
     ...state,
     resource,
     isLoadingTutorResource: false,
   })),
 
-  on(tutorActions.loadTutorResourcesFailure, (state, { error }) => ({
+  on(tutorActions.loadTutorResourceFailure, (state, { error }) => ({
     ...state,
     isLoadingTutorResource: false,
   }))
@@ -379,3 +399,8 @@ export const selectIsLoadingTutorResource = (state: State): boolean =>
   state.isLoadingTutorResource;
 
 export const selectTutorResource = (state: State): boolean => state.resource;
+
+export const selectIsLoadingTutorResources = (state: State): boolean =>
+  state.isLoadingTutorResources;
+
+export const selectTutorResources = (state: State): boolean => state.resources;

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
-// import { EffectsModule } from '@ngrx/effects';
+import { EffectsModule } from '@ngrx/effects';
 import { CommonModule } from '@angular/common';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { RatingModule } from 'ngx-bootstrap/rating';
@@ -23,7 +23,7 @@ import { SharedModule } from '@metutor/shared/shared.module';
 import { MatInputModule } from '@angular/material/input';
 
 import * as fromTutor from './state';
-// import * as tutorEffects from './state/effects';
+import * as tutorEffects from './state/effects';
 import * as featureKeys from './state/feature-keys';
 
 import {
@@ -123,7 +123,7 @@ import {
     MatProgressBarModule,
     MatButtonToggleModule,
     RatingModule.forRoot(),
-    // EffectsModule.forFeature(Object.values(tutorEffects)),
+    EffectsModule.forFeature(Object.values(tutorEffects)),
     StoreModule.forFeature(featureKeys.tutorFeatureKey, fromTutor.reducers),
   ],
 })

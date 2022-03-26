@@ -7,6 +7,7 @@ import * as fromCore from '@metutor/core/state';
 import * as fromTutor from '@metutor/modules/tutor/state';
 import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
 import { WEEK_DAYS } from '@config';
+import { openTutorEditClassResourceModal } from '@metutor/modules/tutor/state/actions';
 
 @Component({
   selector: 'metutors-tutor-resources',
@@ -16,7 +17,7 @@ import { WEEK_DAYS } from '@config';
 export class TutorResourcesComponent implements OnInit {
   showAddClassResourceModal$: Observable<boolean>;
 
-  view$: Observable<{ loading: boolean; resource: any }>;
+  view$: Observable<{ loading: boolean; resources: any }>;
 
   constructor(private _store: Store<any>) {}
 
@@ -34,6 +35,10 @@ export class TutorResourcesComponent implements OnInit {
     this._store.dispatch(fromTutorAction.openTutorAddClassResourceModal());
   }
 
+  onOpenEditClassResource() {
+    this._store.dispatch(fromTutorAction.openTutorEditClassResourceModal());
+  }
+
   onCloseAddClassResource() {
     this._store.dispatch(fromTutorAction.closeTutorAddClassResourceModal());
   }
@@ -49,8 +54,8 @@ export class TutorResourcesComponent implements OnInit {
     );
 
     this.view$ = combineLatest([
-      this._store.select(fromCore.selectTutorResource),
-      this._store.select(fromCore.selectIsLoadingTutorResource),
-    ]).pipe(map(([resource, loading]) => ({ loading, resource })));
+      this._store.select(fromCore.selectTutorResources),
+      this._store.select(fromCore.selectIsLoadingTutorResources),
+    ]).pipe(map(([resources, loading]) => ({ loading, resources })));
   }
 }

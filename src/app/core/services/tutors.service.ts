@@ -114,4 +114,8 @@ export class TutorsService {
   getTutorResources(id: number): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}teacher/resources/${id}`);
   }
+
+  getTutorResource(id: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}teacher/resource/${id}`);
+  }
 }
