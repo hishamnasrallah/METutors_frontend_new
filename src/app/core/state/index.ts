@@ -186,6 +186,16 @@ export const selectSubjectTitleEditedSuccess = createSelector(
   fromTutorReducer.selectSubjectTitleEditedSuccess
 );
 
+export const selectTutorResource = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectTutorResource
+);
+
+export const selectIsLoadingTutorResource = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectIsLoadingTutorResource
+);
+
 // Student
 export const selectStudentDashboard = createSelector(
   selectStudentState,

@@ -1,84 +1,86 @@
-<div class="resources">
+<div class="resources" *ngLet="(view$ | async) as view">
   <div class="card">
     <div class="card-body">
-      <h1 class="title">Chemistry 101</h1>
-      <div class="row list-items">
-        <div class="col-md-3 d-flex menu align-items-center">
-          <img src="assets/svg/calendar.svg" alt="" width="15" height="15" draggable="false">
-          <strong>Days: </strong>
-          <span>Fri, Sat, Sun</span>
-        </div>
-        <div class="col-md-3 d-flex menu align-items-center">
-          <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
-          <strong>Time: </strong>
-          <span>13</span>
-        </div>
-        <div class="col-md-3 d-flex menu align-items-center">
-          <img src="assets/svg/timer.svg" alt="" width="15" height="15" draggable="false">
-          <strong>Total Hours: </strong>
-          <span>10</span>
-        </div>
-        <div class="col-md-3 d-flex menu align-items-center">
-          <img src="assets/svg/play-circle-fill.svg" alt="" width="15" height="15" draggable="false">
-          <strong>Total Classes: </strong>
-          <span>10</span>
-        </div>
-      </div>
+      <ng-container [ngSwitch]="view.loading">
+        <ng-container *ngSwitchCase="false">
+          <h1 class="title">{{ view.resource?.course?.courseName }}</h1>
+          <div class="row list-items">
+            <div class="col-md-3 d-flex menu align-items-center">
+              <img src="assets/svg/calendar.svg" alt="" width="15" height="15" draggable="false">
+              <strong>Days: </strong>
+              <ng-container *ngFor="let day of getDays(view.resource?.course?.weekdays); let isLast = last">
+                {{ day }}
+                <ng-container *ngIf="!isLast">,</ng-container>
+              </ng-container>
+            </div>
+            <div class="col-md-3 d-flex menu align-items-center">
+              <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
+              <strong>Time: </strong>
+              <span>{{ view.resource?.course?.startTime }} - {{ view.resource?.course?.endTime }}</span>
+            </div>
+            <div class="col-md-3 d-flex menu align-items-center">
+              <img src="assets/svg/timer.svg" alt="" width="15" height="15" draggable="false">
+              <strong>Total Hours: </strong>
+              <span>{{ view.resource?.course?.totalHours }}</span>
+            </div>
+            <div class="col-md-3 d-flex menu align-items-center">
+              <img src="assets/svg/play-circle-fill.svg" alt="" width="15" height="15" draggable="false">
+              <strong>Total Classes: </strong>
+              <span>{{ view.resource?.course?.totalClasses }}</span>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngSwitchCase="true">
+          <div class="ph-row">
+            <div class="ph-col-8 big"></div>
+            <div class="ph-col-4 big empty"></div>
+            <div class="ph-col-10 big mt-3"></div>
+            <div class="ph-col-2 big empty mt-3"></div>
+            <div class="ph-col-6 mt-4"></div>
+            <div class="ph-col-6 mt-4 empty"></div>
+          </div>
+        </ng-container>
+      </ng-container>
     </div>
   </div>
 
   <div class="details">
     <h3>Classes</h3>
-    <div class="table-responsive">
-      <table class="table my-table default-title">
-        <tr>
-          <th scope="col">Class Number</th>
-          <th scope="col">Class Subject</th>
-          <th scope="col">Class Days</th>
-          <th scope="col">Action</th>
-        </tr>
-        <tr>
-          <td scope="row">1</td>
-          <td>
-            Introduction Class
-          </td>
-          <td>Monday, 07 Feb 2022</td>
-          <td>
-            <div>
-              <button mat-button class="main-button-transparent" (click)="onOpenAddClassResource()">Add Resource</button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td scope="row">1</td>
-          <td>
-            Introduction Class
-          </td>
-          <td>Monday, 07 Feb 2022</td>
-          <td>
-            <div>
-              <button mat-button class="secondary-button-transparent" (click)="onOpenAddClassResource()">Edit Resource</button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td scope="row">1</td>
-          <td>
-            Introduction Class
-          </td>
-          <td>Monday, 07 Feb 2022</td>
-          <td>
-            <div>
-              <button mat-button class="main-button-transparent" (click)="onOpenAddClassResource()">Add Resource</button>
-            </div>
-          </td>
-        </tr>
-      </table>
-    </div>
+    <ng-container [ngSwitch]="view.loading">
+      <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
+      <ng-container *ngSwitchCase="false">
+        <div class="table-responsive">
+          <table class="table my-table default-title">
+            <tr>
+              <th scope="col">Class Number</th>
+              <th scope="col">Class Subject</th>
+              <th scope="col">Class Days</th>
+              <th scope="col">Action</th>
+            </tr>
+            <tr *ngIf="!view.resource?.course?.classes?.length">
+              <td colspan="5">
+                <div class="text-center">No record found</div>
+              </td>
+            </tr>
+            <ng-container *ngIf="view.resource?.course?.classes?.length">
+              <tr *ngFor="let resourceClass of view?.resource?.course?.classes; let i=index">
+                <td scope="row">{{ i + 1}}</td>
+                <td>{{ resourceClass?.title }}</td>
+                <td>{{ resourceClass?.startDate | date: 'EEEE, dd MMM Y'}}</td>
+                <td>
+                  <div *ngIf="resourceClass?.resourceId"><button mat-button class="secondary-button-transparent" (click)="onOpenAddClassResource()">Edit Resource</button></div>
+                  <div *ngIf="!resourceClass?.resourceId"><button mat-button class="main-button-transparent" (click)="onOpenAddClassResource()">Add Resource</button></div>
+                </td>
+              </tr>
+            </ng-container>
+          </table>
+        </div>
+      </ng-container>
+    </ng-container>
   </div>
 </div>
 
 <metutors-tutor-add-class-resource-modal *ngIf="showAddClassResourceModal$ | async"
-                                         (closeModal)="onCloseAddClassResource()"
+                                         (closeModal)="onCloseAddClassResource()" (submitted)="onSaveResource($event)"
                                          [showModal]="(showAddClassResourceModal$ | async)!">
 </metutors-tutor-add-class-resource-modal>

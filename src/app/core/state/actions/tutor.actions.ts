@@ -136,3 +136,15 @@ export const tutorLaunchClassFailure = createAction(
   '[Tutor] Load Tutor Launch Class Failure',
   props<{ error: any }>()
 );
+
+export const loadTutorResources = createAction('[Tutor] Load Tutor Resources');
+
+export const loadTutorResourcesSuccess = createAction(
+  '[Tutor] Load Tutor Resources Success',
+  props<{ resource: any }>()
+);
+
+export const loadTutorResourcesFailure = createAction(
+  '[Tutor] Load Tutor Resources Failure',
+  props<{ error: any }>()
+);

@@ -78,6 +78,7 @@ export class TutorsService {
     );
   }
 
+  // Tutor Syllabus
   getTutorSyllabus(id: number | string): Observable<any> {
     return this.http.get<{ user: ITutor }>(
       `${this.baseUrl}course/${id}/syllabus`
@@ -107,5 +108,10 @@ export class TutorsService {
 
   launchClass(id: number): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}class/launch/${id}`, {});
+  }
+
+  // Tutor resources
+  getTutorResources(id: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}teacher/resources/${id}`);
   }
 }

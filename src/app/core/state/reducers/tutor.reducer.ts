@@ -7,6 +7,7 @@ import * as courseActions from '../actions/course.actions';
 export interface State {
   syllabus: any;
   dashboard: any;
+  resource: any;
   tutor: ITutor | null;
   isLoadingTutors: boolean;
   isDeletingTopic: boolean;
@@ -16,6 +17,7 @@ export interface State {
   loadingTutorFailure: string;
   isSavingSubjectTitle: boolean;
   isAddingSyllabusTopic: boolean;
+  isLoadingTutorResource: boolean;
   subjectTitleEditedSuccess: boolean;
 
   // Complete Tutor Profile
@@ -26,6 +28,7 @@ export interface State {
 export const initialState: State = {
   tutor: null,
   syllabus: null,
+  resource: null,
   dashboard: null,
   isLoadingTutors: false,
   isDeletingTopic: false,
@@ -36,6 +39,7 @@ export const initialState: State = {
   isSavingSubjectTitle: false,
   isAddingSyllabusTopic: false,
   isCompleteTutorProfile: false,
+  isLoadingTutorResource: false,
   completeTutorProfileFailure: '',
   subjectTitleEditedSuccess: false,
 };
@@ -319,6 +323,23 @@ export const reducer = createReducer(
   on(tutorActions.tutorLaunchClassFailure, (state, { error }) => ({
     ...state,
     isLaunchingClass: false,
+  })),
+
+  // Tutor resources
+  on(tutorActions.loadTutorResources, (state) => ({
+    ...state,
+    isLoadingTutorResource: true,
+  })),
+
+  on(tutorActions.loadTutorResourcesSuccess, (state, { resource }) => ({
+    ...state,
+    resource,
+    isLoadingTutorResource: false,
+  })),
+
+  on(tutorActions.loadTutorResourcesFailure, (state, { error }) => ({
+    ...state,
+    isLoadingTutorResource: false,
   }))
 );
 
@@ -353,3 +374,8 @@ export const selectIsLaunchingClass = (state: State): boolean =>
 
 export const selectSubjectTitleEditedSuccess = (state: State): boolean =>
   state.subjectTitleEditedSuccess;
+
+export const selectIsLoadingTutorResource = (state: State): boolean =>
+  state.isLoadingTutorResource;
+
+export const selectTutorResource = (state: State): boolean => state.resource;
