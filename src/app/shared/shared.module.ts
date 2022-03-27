@@ -28,6 +28,8 @@ import {
   ClassroomItemComponent,
   CardPlaceholderComponent,
   GridPlaceholderComponent,
+  UploadedFilesListComponent,
+  FileUploadProgressComponent,
   CourseItemHorizentalComponent,
   ClassroomItemHorizentalComponent,
 } from '@metutor/shared/components';
@@ -49,6 +51,8 @@ import {
     ClassroomItemComponent,
     CardPlaceholderComponent,
     GridPlaceholderComponent,
+    UploadedFilesListComponent,
+    FileUploadProgressComponent,
     CourseItemHorizentalComponent,
     ClassroomItemHorizentalComponent,
 
@@ -109,6 +113,7 @@ import {
     DefaultCoverDirective,
     DefaultAvatarDirective,
     DefaultCourseDirective,
+    FileUploadProgressComponent,
   ],
 })
 export class SharedModule {}

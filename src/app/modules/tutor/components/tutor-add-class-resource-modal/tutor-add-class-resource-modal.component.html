@@ -59,6 +59,18 @@
                 <input type="file" hidden multiple #filePicker (change)="onFileChange($event)">
               </div>
 
+              <ng-container *ngLet="fileUploadProgress$ | async as fileUploadProgress">
+              <ng-container *ngIf="fileUploadProgress?.length">
+                <ng-container *ngFor="let uploadProgress of fileUploadProgress">
+                  <ng-container *ngIf="uploadProgress.responseType !== uploadComplete">
+                    <metutors-file-upload-progress [fileName]="uploadProgress.fileName"
+                                                   [uploadedPercentage]="uploadProgress.progress">
+                    </metutors-file-upload-progress>
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+              </ng-container>
+
               <div class="form-group row" *ngIf="filesPreview && filesPreview.length">
                 <div class="col-md-4 list-files d-flex position-relative"
                      *ngFor="let filePreview of filesPreview; let i = index">

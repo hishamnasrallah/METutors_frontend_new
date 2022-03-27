@@ -1,10 +1,13 @@
+import { HttpEventType } from '@angular/common/http';
+
 export const generalConstants = {
-  defaultAvatarPath: 'assets/defaults/avatar.png',
-  defaultCoverPath: 'assets/defaults/cover.png',
-  defaultCoursePath: 'assets/defaults/course.jpg',
   nationalId: 3,
-  studentTopicId: 1,
   tutorTopicId: 2,
+  studentTopicId: 1,
+  uploadComplete: HttpEventType.Response,
+  defaultCoverPath: 'assets/defaults/cover.png',
+  defaultAvatarPath: 'assets/defaults/avatar.png',
+  defaultCoursePath: 'assets/defaults/course.jpg',
 };
 
 export const TICKET_STATUSES_CONST: any = {

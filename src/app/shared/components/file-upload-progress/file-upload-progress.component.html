@@ -1,0 +1,6 @@
+<div class="progress-wrapper">
+  <div class="file-name">{{ fileName }}</div>
+  <div
+    class="percentage">{{ uploadedPercentage === 100 ? 'Processing uploaded file...' : uploadedPercentage + '%' }}</div>
+  <mat-progress-bar [value]="uploadedPercentage"></mat-progress-bar>
+</div>

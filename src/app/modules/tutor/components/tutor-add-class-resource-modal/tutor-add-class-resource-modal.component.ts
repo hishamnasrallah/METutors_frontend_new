@@ -12,7 +12,7 @@ import { Observable, combineLatest } from 'rxjs';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import * as fromCore from '@metutor/core/state';
-import { formatBytes, urlRegEx } from '@metutor/config';
+import { formatBytes, generalConstants } from '@metutor/config';
 
 @Component({
   selector: 'metutors-tutor-add-class-resource-modal',
@@ -31,11 +31,21 @@ export class TutorAddClassResourceModalComponent implements OnInit {
   selectedURLs: any[] = [];
   filesPreview: any[] = [];
 
+  uploadedFiles$: Observable<any>;
+  fileUploadProgress$: Observable<any>;
+  isUploadingFile$: Observable<boolean>;
+  uploadComplete = generalConstants.uploadComplete;
   view$: Observable<{ loading: boolean; resource: any }>;
 
   constructor(private _fb: FormBuilder, private _store: Store<any>) {}
 
   ngOnInit(): void {
+    this.uploadedFiles$ = this._store.select(fromCore.selectUploadedFiles);
+    this.isUploadingFile$ = this._store.select(fromCore.selectIsUploadingFile);
+    this.fileUploadProgress$ = this._store.select(
+      fromCore.selectFileUploadingProgress
+    );
+
     this.form = this._fb.group({
       resourceId: [null],
       files: [null, Validators.required],
@@ -106,19 +116,21 @@ export class TutorAddClassResourceModalComponent implements OnInit {
 
   onFileChange(event: any): void {
     if (event.target && event.target.files && event.target.files.length) {
-      Array.from(event.target.files).forEach((file: any) => {
+      const file = [...event.target.files];
+      this._store.dispatch(fromCore.uploadFile({ file }));
+      /* Array.from(event.target.files).forEach((file: any) => {
         this.filesPreview.push({
           file,
           name: file.name,
           size: formatBytes(file.size),
         });
-      });
+      });*/
 
-      const files = this.filesPreview.map((f) => f.file);
+      /* const files = this.filesPreview.map((f) => f.file);
 
       this.form.patchValue({ files });
       this.form.get('files')?.updateValueAndValidity();
-      this.form?.markAsDirty();
+      this.form?.markAsDirty();*/
     }
   }
 

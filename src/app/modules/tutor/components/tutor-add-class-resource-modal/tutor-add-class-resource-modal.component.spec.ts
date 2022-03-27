@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TutorAddClassResourceModalComponent } from './tutor-add-class-resource-modal.component';
+import { TutorAddClassResourceModalComponent } from '@metutor/modules/tutor/components';
 
 describe('TutorAddClassResourceModalComponent', () => {
   let component: TutorAddClassResourceModalComponent;

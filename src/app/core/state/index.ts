@@ -13,6 +13,7 @@ import * as fromUserReducer from './reducers/user.reducer';
 import * as fromTutorReducer from './reducers/tutor.reducer';
 import * as fromCourseReducer from './reducers/course.reducer';
 import * as fromTicketReducer from './reducers/ticket.reducer';
+import * as fromUploadReducer from './reducers/upload.reducer';
 import * as fromRequestReducer from './reducers/request.reducer';
 import * as fromLookupsReducer from './reducers/lookups.reducer';
 import * as fromStudentReducer from './reducers/student.reducer';
@@ -22,6 +23,7 @@ export interface CoreState {
   [featureKeys.tutorFeatureKey]: fromTutorReducer.State;
   [featureKeys.courseFeatureKey]: fromCourseReducer.State;
   [featureKeys.ticketFeatureKey]: fromTicketReducer.State;
+  [featureKeys.uploadFeatureKey]: fromUploadReducer.State;
   [featureKeys.requestFeatureKey]: fromRequestReducer.State;
   [featureKeys.lookupsFeatureKey]: fromLookupsReducer.State;
   [featureKeys.studentFeatureKey]: fromStudentReducer.State;
@@ -33,6 +35,7 @@ export function reducers(state: CoreState, action: Action) {
     [featureKeys.tutorFeatureKey]: fromTutorReducer.reducer,
     [featureKeys.courseFeatureKey]: fromCourseReducer.reducer,
     [featureKeys.ticketFeatureKey]: fromTicketReducer.reducer,
+    [featureKeys.uploadFeatureKey]: fromUploadReducer.reducer,
     [featureKeys.requestFeatureKey]: fromRequestReducer.reducer,
     [featureKeys.lookupsFeatureKey]: fromLookupsReducer.reducer,
     [featureKeys.studentFeatureKey]: fromStudentReducer.reducer,
@@ -77,6 +80,11 @@ export const selectStudentState = createSelector(
 export const selectTicketState = createSelector(
   selectCoreState,
   (state) => state[featureKeys.ticketFeatureKey]
+);
+
+export const selectUploadState = createSelector(
+  selectCoreState,
+  (state) => state[featureKeys.uploadFeatureKey]
 );
 
 // User
@@ -529,4 +537,20 @@ export const selectIsRejectingCourse = createSelector(
 export const selectIsAcceptingCourse = createSelector(
   selectCourseState,
   fromCourseReducer.selectIsAcceptingCourse
+);
+
+// Upload files
+export const selectUploadedFiles = createSelector(
+  selectUploadState,
+  fromUploadReducer.selectUploadedFiles
+);
+
+export const selectIsUploadingFile = createSelector(
+  selectUploadState,
+  fromUploadReducer.selectIsUploadingFile
+);
+
+export const selectFileUploadingProgress = createSelector(
+  selectUploadState,
+  fromUploadReducer.selectFileUploadingProgress
 );
