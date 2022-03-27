@@ -1,6 +1,5 @@
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { FormGroup } from '@angular/forms';
 import { Observable, combineLatest } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 
@@ -38,30 +37,31 @@ export class TutorResourcesComponent implements OnInit {
     this._store.dispatch(fromTutorAction.openTutorAddClassResourceModal());
   }
 
-  onOpenEditClassResource() {
+  onOpenEditClassResource(id: number) {
     this.heading = 'Edit Resources';
-    this._store.dispatch(fromTutorAction.openTutorEditClassResourceModal());
+    this._store.dispatch(
+      fromTutorAction.openTutorEditClassResourceModal({ id })
+    );
   }
 
   onCloseAddClassResource() {
     this._store.dispatch(fromTutorAction.closeTutorAddClassResourceModal());
   }
 
-  onSaveResource(form: FormGroup): void {
-    const { resourceId, urls, files, description } = form.value;
-    console.log(form.value);
+  onSaveResource(data: any): void {
+    const { resourceId, urls, files, description } = data;
 
     const formData = new FormData();
+    formData.append('urls', urls);
     formData.append('classId', this.classId);
     formData.append('resourceId', resourceId);
-    formData.append('urls', urls.slice(0, -1));
     formData.append('description', description);
-    formData.append('files[]', files.toString());
+    formData.append('files', files.toString());
 
     if (resourceId) {
-      // this._store.dispatch(fromCore.editTutorResource({ formData }));
+      this._store.dispatch(fromCore.editTutorResource({ formData }));
     } else {
-      // this._store.dispatch(fromCore.addTutorResource({ formData }));
+      this._store.dispatch(fromCore.addTutorResource({ formData }));
     }
   }
 

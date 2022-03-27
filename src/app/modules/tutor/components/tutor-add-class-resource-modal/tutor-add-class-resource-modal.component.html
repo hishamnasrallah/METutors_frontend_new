@@ -14,7 +14,7 @@
           </div>
         </ng-container>
 
-        <form class="row add-class-modal" [formGroup]="form" (ngSubmit)="submitted.emit(form)" *ngSwitchCase="false">
+        <form class="row add-class-modal" [formGroup]="form" (ngSubmit)="onSubmit()" *ngSwitchCase="false">
           <div class="col-12">
             <div class="form-group">
               <label for="description">Description<span class="text-danger">*</span></label>
@@ -34,19 +34,14 @@
                 </div>
               </ng-container>
               <div class="overflow-hidden">
-                <ng-container formArrayName="urls">
-                  <ng-container *ngFor="let _ of urls.controls; let i = index" [formGroupName]="i">
-                    <ng-container *ngIf="i >= selectedURLs.length">
-                      <input type="text" class="form-control custom-input input-bordered" formControlName="title"
-                             placeholder="Enter title here...">
-                      <input type="url" class="form-control custom-input input-bordered mt-2" formControlName="url"
-                             placeholder="Enter URL here...">
-                      <button mat-button class="add-url main-button-transparent float-end mt-2"
-                              [disabled]="!form.value.urls[i].title || !form.value.urls[i].url" (click)="saveURL()">
-                        Add
-                      </button>
-                    </ng-container>
-                  </ng-container>
+                <ng-container formGroupName="urls">
+                  <input type="text" class="form-control custom-input input-bordered" formControlName="title"
+                         placeholder="Enter title here...">
+                  <input type="url" class="form-control custom-input input-bordered mt-2" formControlName="url"
+                         placeholder="Enter URL here...">
+                  <button mat-button type="button" class="add-url main-button-transparent float-end mt-2" [disabled]="!form.value.urls.title || !form.value.urls.url" (click)="addURL()">
+                    Add
+                  </button>
                 </ng-container>
               </div>
             </div>

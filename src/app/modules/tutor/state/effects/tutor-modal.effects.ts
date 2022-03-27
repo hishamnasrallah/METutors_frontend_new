@@ -11,7 +11,7 @@ export class TutorModalEffects {
   openEditTutorResourceModal$ = createEffect(() =>
     this._actions$.pipe(
       ofType(fromTutorAction.openTutorEditClassResourceModal),
-      mergeMap(() => of(fromCore.loadTutorResource()))
+      mergeMap(({ id }) => of(fromCore.loadTutorResource({ id })))
     )
   );
 

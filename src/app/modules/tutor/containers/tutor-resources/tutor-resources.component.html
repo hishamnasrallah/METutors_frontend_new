@@ -69,7 +69,7 @@
                 <td>{{ resourceClass?.startDate | date: 'EEEE, dd MMM Y'}}</td>
                 <td>
                   <div *ngIf="resourceClass?.resourceId">
-                    <button mat-button class="secondary-button-transparent" (click)="onOpenEditClassResource()">Edit
+                    <button mat-button class="secondary-button-transparent" (click)="onOpenEditClassResource(resourceClass.resourceId)">Edit
                       Resource
                     </button>
                   </div>

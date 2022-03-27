@@ -366,10 +366,14 @@ export const reducer = createReducer(
   })),
 
   // Reset resource on open add resource modal
-  on(tutorModalActions.openTutorAddClassResourceModal, (state) => ({
-    ...state,
-    resource: null,
-  })),
+  on(
+    tutorModalActions.openTutorAddClassResourceModal,
+    tutorModalActions.openTutorEditClassResourceModal,
+    (state) => ({
+      ...state,
+      resource: null,
+    })
+  ),
 
   on(tutorActions.addTutorResource, (state) => ({
     ...state,

@@ -24,8 +24,8 @@ export class TutorAddClassResourceModalComponent implements OnInit {
   @Input() showModal: boolean = false;
   @Input() submitting: boolean = false;
 
+  @Output() submitted: EventEmitter<any> = new EventEmitter<any>();
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
-  @Output() submitted: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
 
   form: FormGroup;
   selectedURLs: any[] = [];
@@ -38,22 +38,32 @@ export class TutorAddClassResourceModalComponent implements OnInit {
   ngOnInit(): void {
     this.form = this._fb.group({
       resourceId: [null],
-      files: [null],
-      urls: this._fb.array([]),
+      files: [null, Validators.required],
       description: [null, [Validators.required, Validators.minLength(10)]],
+      urls: this._fb.group(
+        {
+          url: [null],
+          title: [null],
+        },
+        { validators: this._urlValidation.bind(this) }
+      ),
     });
-
-    this.addURL();
 
     this.view$ = combineLatest([
       this._store.select(fromCore.selectTutorResource).pipe(
         tap((data: any) => {
           if (data) {
-            console.log(data.resource);
-            this.resourceId?.setValue(data?.resource?.class?.resourceId);
-            this.selectedURLs = [...data.resource.urls];
-            // this.urls.push(JSON.parse(data.resource.urls));
+            if (data?.resource?.urls?.length) {
+              this.selectedURLs = [...data.resource?.urls];
+            }
+
+            if (data?.resource?.files?.length) {
+              this.filesPreview = [...data.resource?.files];
+              this.files.setValue(data.resource.files);
+            }
+
             this.description?.setValue(data?.resource?.description);
+            this.resourceId?.setValue(data?.resource?.class?.resourceId);
           }
         })
       ),
@@ -69,8 +79,8 @@ export class TutorAddClassResourceModalComponent implements OnInit {
     return this.form?.get('description');
   }
 
-  get urls(): FormArray {
-    return this.form?.get('urls') as FormArray;
+  get urls(): FormGroup {
+    return this.form?.get('urls') as FormGroup;
   }
 
   get files(): FormArray {
@@ -83,67 +93,57 @@ export class TutorAddClassResourceModalComponent implements OnInit {
     this.filesPreview.splice(i, 1);
   }
 
-  removeURL(i: number): void {
-    (this.form?.get('urls') as FormArray).removeAt(i);
-    this.selectedURLs.splice(i, 1);
-
-    if (this.form.value.urls.length === 0) {
-      this.addURL();
-    }
-  }
-
-  newURL(): FormGroup {
-    return this._fb.group(
-      {
-        url: [null],
-        title: [null],
-      },
-      { validators: this._urlValidation.bind(this) }
-    );
-  }
-
   addURL(): void {
-    this.urls.push(this.newURL());
+    this.selectedURLs.push(this.urls.value);
+    this.urls.get('url')?.setValue(null);
+    this.urls.get('title')?.setValue(null);
   }
 
-  saveURL(): void {
-    this.selectedURLs.push({
-      url: this.urls.value[this.urls.value.length - 1].url,
-      title: this.urls.value[this.urls.value.length - 1].title,
-    });
-
-    this.addURL();
+  removeURL(i: number): void {
+    this.selectedURLs.splice(i, 1);
+    this.form.get('urls')?.updateValueAndValidity();
   }
 
   onFileChange(event: any): void {
     if (event.target && event.target.files && event.target.files.length) {
-      this.form.patchValue({ files: event.target.files });
-      this.form.get('files')?.updateValueAndValidity();
-      this.form?.markAsDirty();
-
       Array.from(event.target.files).forEach((file: any) => {
         this.filesPreview.push({
+          file,
           name: file.name,
           size: formatBytes(file.size),
         });
       });
+
+      const files = this.filesPreview.map((f) => f.file);
+
+      this.form.patchValue({ files });
+      this.form.get('files')?.updateValueAndValidity();
+      this.form?.markAsDirty();
     }
+  }
+
+  onSubmit(): void {
+    const data = {
+      ...this.form.value,
+      urls: this.selectedURLs,
+    };
+
+    this.submitted.emit(data);
   }
 
   private _urlValidation(control: AbstractControl): any {
     const url = control.get('url');
     const title = control.get('title');
 
-    console.log(this.form);
-    if (!this.selectedURLs?.length) {
+    if (!this.selectedURLs.length) {
       return { required: true };
     }
 
-    if (url?.value) {
-      console.log(url?.value.match(urlRegEx));
+    if (url?.value && !title?.value) {
+      return { required: true };
     }
 
-    if (url?.value && !url.value.match(urlRegEx)) {
+    if (!url?.value && title?.value) {
       return { required: true };
     }
 

@@ -1,4 +1,4 @@
-import { createAction } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
 
 export const openTutorRejectCourseModal = createAction(
   '[Tutor Modal] Open Tutor Reject Course Modal'
@@ -49,7 +49,8 @@ export const closeTutorAddClassResourceModal = createAction(
 );
 
 export const openTutorEditClassResourceModal = createAction(
-  '[Tutor Modal] Open Tutor Edit Class Resource Modal'
+  '[Tutor Modal] Open Tutor Edit Class Resource Modal',
+  props<{ id: number }>()
 );
 
 export const closeTutorEditClassResourceModal = createAction(

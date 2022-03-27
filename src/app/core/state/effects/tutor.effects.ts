@@ -269,8 +269,7 @@ export class TutorEffects {
   loadTutorResource$ = createEffect(() =>
     this._actions$.pipe(
       ofType(tutorActions.loadTutorResource),
-      withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
-      mergeMap(([_, { id }]) =>
+      mergeMap(({ id }) =>
         this._tutorService.getTutorResource(id).pipe(
           map((resource) =>
             tutorActions.loadTutorResourceSuccess({
