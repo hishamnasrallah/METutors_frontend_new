@@ -1,0 +1,50 @@
+<div class="interview-list">
+  <div class="row filters">
+    <div class="col-md-9">
+      <div class="position-relative">
+        <mat-icon>search</mat-icon>
+        <input type="text" class="form-control custom-input input-bordered search-request"
+          placeholder="Search requests...">
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="position-relative">
+        <input type="text" class="form-control custom-input input-bordered" placeholder="Apply filters">
+        <mat-icon class="filter">filter_alt</mat-icon>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <mat-tab-group mat-align-tabs="start">
+        <mat-tab label="New">
+          <div class="mt-2 px-1">
+            <metutors-interview-card [status]="'Pending'" (sendMeetingLink)="onOpenSendMeetingLinkModal()"></metutors-interview-card>
+            <metutors-interview-card [status]="'Accepted'" (sendMeetingLink)="onOpenSendMeetingLinkModal()"></metutors-interview-card>
+            <metutors-interview-card [status]="'Rejected'" (sendMeetingLink)="onOpenSendMeetingLinkModal()"></metutors-interview-card>
+          </div>
+        </mat-tab>
+        <mat-tab label="Accepted">
+          <div class="mt-2 px-1">
+            <metutors-interview-card [status]="'Pending'" (sendMeetingLink)="onOpenSendMeetingLinkModal()"></metutors-interview-card>
+            <metutors-interview-card [status]="'Accepted'" (sendMeetingLink)="onOpenSendMeetingLinkModal()"></metutors-interview-card>
+            <metutors-interview-card [status]="'Rejected'" (sendMeetingLink)="onOpenSendMeetingLinkModal()"></metutors-interview-card>
+          </div>
+        </mat-tab>
+        <mat-tab label="Rejected">
+          <div class="mt-2 px-1">
+            <metutors-interview-card [status]="'Pending'" (sendMeetingLink)="onOpenSendMeetingLinkModal()"></metutors-interview-card>
+            <metutors-interview-card [status]="'Accepted'" (sendMeetingLink)="onOpenSendMeetingLinkModal()"></metutors-interview-card>
+            <metutors-interview-card [status]="'Rejected'" (sendMeetingLink)="onOpenSendMeetingLinkModal()"></metutors-interview-card>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</div>
+
+<metutors-admin-send-meeting-link-modal *ngIf="showSendMeetingLinkModal$ | async"
+                                        (closeModal)="onCloseSendMeetingLinkModal()"
+                                        [showModal]="(showSendMeetingLinkModal$ | async)!">
+</metutors-admin-send-meeting-link-modal>

@@ -1,0 +1,59 @@
+<div class="card interview">
+  <div class="card-body p-0">
+    <div class="row mb-3">
+      <div class="col-md-4 d-flex align-items-center info">
+        <div class="row">
+          <div class="col-md-3 d-flex align-items-center">
+            <img src="assets/homepage/courses/person.png" alt="">
+          </div>
+          <div class="col-md-9 d-flex justify-content-center flex-column">
+            <h2 class="d-flex">
+              David Stevenson
+            </h2>
+            <h3>3 years of experience</h3>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8 d-flex justify-content-end align-items-center">
+        <a class="cursor-pointer send-link" *ngIf="status === 'Pending'" (click)="sendMeetingLink.emit(1)">
+          Send Meeting Link
+        </a>
+        <span class="status-icon" [ngClass]="{
+            'pending': status === 'Pending',
+            'accepted': status === 'Accepted',
+            'rejected': status === 'Rejected'
+        }">{{ status }}</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-10">
+        <div class="row list-items md-item">
+          <div class="col-md-4 d-flex menu align-items-center mt-3">
+            <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
+            <strong>Master in Engineering</strong>
+          </div>
+          <div class="col-md-4 d-flex menu align-items-center mt-3">
+            <img src="assets/svg/students.svg" alt="" width="15" height="15" draggable="false">
+            <strong>$3000 Expected Salary</strong>
+          </div>
+          <div class="col-md-4"></div>
+          <div class="col-md-4 d-flex menu align-items-center mt-3">
+            <img src="assets/svg/map.svg" alt="" width="15" height="15" draggable="false">
+            <strong>From Saudi Arabia</strong>
+          </div>
+          <div class="col-md-4 d-flex menu align-items-center mt-3">
+            <img src="assets/svg/calendar.svg" alt="" width="15" height="15" draggable="false">
+            <strong>Feb 10, 2022</strong>
+          </div>
+          <div class="col-md-4 d-flex menu align-items-center mt-3">
+            <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
+            <strong>10AM PKT</strong>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2 d-flex justify-content-end align-items-end">
+        <button mat-flat-button color="primary" class="px-4 py-1 fw-bold">View Details</button>
+      </div>
+    </div>
+  </div>
+</div>

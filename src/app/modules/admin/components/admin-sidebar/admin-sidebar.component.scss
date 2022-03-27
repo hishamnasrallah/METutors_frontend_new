@@ -26,14 +26,6 @@
     text-align: center;
   }
 
-  .add-course {
-    width: calc(100% - 80px);
-    margin: 0 auto 30px;
-    padding: 5px;
-    font-size: 17px;
-    font-weight: bold;
-  }
-
   ul li {
     a {
       color: #fff;
@@ -50,6 +42,17 @@
     span {
       font-size: 20px;
       margin-left: 10px;
+    }
+
+    ul li a {
+      padding: 8px 0;
+      color: #c4c3c3;
+
+      &.active {
+        background: transparent;
+        border: none;
+        color: #FFF;
+      }
     }
   }
 

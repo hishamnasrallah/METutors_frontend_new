@@ -1,0 +1,19 @@
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'medium'" [heading]="'Send Meeting Link'"
+                [template]="template">
+  <ng-template #template>
+    <form class="row" [formGroup]="form" (ngSubmit)="submitted.emit(form)">
+        <div class="col-12">
+          <div class="form-group">
+            <input type="url" class="form-control custom-input input-bordered" formControlName="link" placeholder="Type Meeting Link">
+          </div>
+
+          <div class="mt-4">
+            <!-- [isSubmitting]="submitting" -->
+            <metutors-submit-button [form]="form" [extraClasses]="'float-end py-1 px-5'">
+                Send Link
+            </metutors-submit-button>
+          </div>
+        </div>
+    </form>
+  </ng-template>
+</metutors-modal>
