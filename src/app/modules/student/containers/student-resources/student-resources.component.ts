@@ -5,6 +5,9 @@ import { combineLatest, Observable } from 'rxjs';
 
 import { Component, OnInit } from '@angular/core';
 import * as fromCore from '@metutor/core/state';
+import * as fromStudent from '@metutor/modules/student/state';
+import * as fromStudentAction from '@metutor/modules/student/state/actions';
+import { selectViewResourceModal } from '@metutor/modules/student/state/reducers/student-modal.reducers';
 
 @Component({
   selector: 'metutors-student-resources',
@@ -12,6 +15,7 @@ import * as fromCore from '@metutor/core/state';
   styleUrls: ['./student-resources.component.scss'],
 })
 export class StudentResourcesComponent implements OnInit {
+  openViewResourceModal$: Observable<boolean>;
   view$: Observable<{ loading: boolean; resources: any }>;
 
   constructor(private _store: Store<any>) {}
@@ -26,8 +30,21 @@ export class StudentResourcesComponent implements OnInit {
     return listDays;
   }
 
+  openViewResourceModal(id: number): void {
+    this._store.dispatch(
+      fromStudentAction.openStudentViewResourceModal({ id })
+    );
+  }
+
+  onCloseViewResourceModal(): void {
+    this._store.dispatch(fromStudentAction.closeStudentViewResourceModal());
+  }
+
   ngOnInit(): void {
     this._store.dispatch(fromCore.loadStudentResources());
+    this.openViewResourceModal$ = this._store.select(
+      fromStudent.selectViewResourceModal
+    );
 
     this.view$ = combineLatest([
       this._store.select(fromCore.selectStudentResources),

@@ -6,11 +6,13 @@ import * as studentModalActions from '../actions/student-modal.actions';
 export interface State {
   showAttendanceModal: boolean;
   showSendFeedbackModal: boolean;
+  showViewResourceModal: boolean;
 }
 
 export const initialState: State = {
   showAttendanceModal: false,
   showSendFeedbackModal: false,
+  showViewResourceModal: false,
 };
 
 export const reducer = createReducer(
@@ -34,6 +36,16 @@ export const reducer = createReducer(
   on(studentModalActions.closeStudentSendFeedbackModal, (state) => ({
     ...state,
     showSendFeedbackModal: false,
+  })),
+
+  on(studentModalActions.openStudentViewResourceModal, (state) => ({
+    ...state,
+    showViewResourceModal: true,
+  })),
+
+  on(studentModalActions.closeStudentViewResourceModal, (state) => ({
+    ...state,
+    showViewResourceModal: false,
   }))
 );
 
@@ -43,3 +55,6 @@ export const selectAttendanceModal = (state: State): boolean =>
 
 export const selectSendFeedbackModal = (state: State): boolean =>
   state.showSendFeedbackModal;
+
+export const selectViewResourceModal = (state: State): boolean =>
+  state.showViewResourceModal;

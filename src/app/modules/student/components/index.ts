@@ -7,5 +7,6 @@ export * from './student-attendance-modal';
 export * from './faq-still-have-questions';
 export * from './student-settings-account';
 export * from './student-settings-security';
+export * from './student-view-resource-modal';
 export * from './student-settings-user-prefrences';
 export * from './student-settings-payment-information';
