@@ -132,6 +132,28 @@ export class StudentEffects {
     )
   );
 
+  loadStudentResource$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(studentActions.loadStudentResource),
+      mergeMap(({ id }) =>
+        this._studentService.getStudentResource(id).pipe(
+          map((resource) =>
+            studentActions.loadStudentResourceSuccess({
+              resource: camelcaseKeys(resource, { deep: true }),
+            })
+          ),
+          catchError((error) =>
+            of(
+              studentActions.loadStudentResourceFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   constructor(
     private _store: Store<any>,
     private _actions$: Actions,

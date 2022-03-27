@@ -1,0 +1,52 @@
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'medium'" [heading]="'View Resources'"
+                [template]="template">
+  <ng-template #template>
+    <ng-container *ngLet="(view$ | async) as view">
+      <ng-container [ngSwitch]="view?.loading">
+        <ng-container *ngSwitchCase="true">
+          <div class="ph-row">
+            <div class="ph-col-8 big"></div>
+            <div class="ph-col-4 big empty"></div>
+            <div class="ph-col-10 big mt-3"></div>
+            <div class="ph-col-2 big empty mt-3"></div>
+            <div class="ph-col-6 mt-4"></div>
+            <div class="ph-col-6 mt-4 empty"></div>
+          </div>
+        </ng-container>
+
+        <div class="col-12" *ngSwitchCase="false">
+          <div class="form-group">
+            <label>Description</label>
+             <p>{{ view.data?.resource?.description}}</p>
+          </div>
+
+          <div class="form-group">
+            <label>URLs</label>
+            <ng-container *ngFor="let url of view.data?.resource?.urls; let i = index">
+              <div class="url-info d-flex flex-column my-2">
+                <span>{{ url.title }}</span>
+                <strong class="d-flex align-items-center">
+                  {{ url.url }}
+                </strong>
+              </div>
+            </ng-container>
+          </div>
+
+          <div class="form-group">
+            <label>Files</label>
+            <div class="form-group row" *ngIf="view.data?.resource?.files && view.data?.resource?.files?.length">
+              <div class="col-md-4 list-files d-flex position-relative"
+                   *ngFor="let file of view.data?.resource?.files; let i = index">
+                <mat-icon>attach_file</mat-icon>
+                <div class="ms-2">
+                  <h3>{{ file?.name }}</h3>
+                  <h5>{{ file?.size }}</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </ng-template>
+</metutors-modal>

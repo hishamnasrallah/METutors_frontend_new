@@ -47,3 +47,8 @@ export const selectSendFeedbackModal = createSelector(
   selectStudentModalState,
   fromStudentModal.selectSendFeedbackModal
 );
+
+export const selectViewResourceModal = createSelector(
+  selectStudentModalState,
+  fromStudentModal.selectViewResourceModal
+);

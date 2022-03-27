@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
 import { CommonModule } from '@angular/common';
-// import { EffectsModule } from '@ngrx/effects';
+import { EffectsModule } from '@ngrx/effects';
 import { RatingModule } from 'ngx-bootstrap/rating';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { NgxAutoScrollModule } from 'ngx-auto-scroll';
@@ -18,7 +18,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
-// import * as tutorEffects from './state/effects';
+import * as tutorEffects from './state/effects';
 import { SharedModule } from '@metutor/shared/shared.module';
 import * as fromStudent from '@metutor/modules/student/state';
 import { StudentRoutingModule } from './student-routing.module';
@@ -51,6 +51,7 @@ import {
   StudentAttendanceModalComponent,
   StudentSettingsAccountComponent,
   StudentSettingsSecurityComponent,
+  StudentViewResourceModalComponent,
   StudentSettingsUserPrefrencesComponent,
   StudentSettingsPaymentInformationComponent,
 } from './components';
@@ -77,9 +78,10 @@ import {
     StudentFeedbackModalComponent,
     FaqStillHaveQuestionsComponent,
     StudentAttendanceModalComponent,
-    StudentSettingsAccountComponent,
     StudentClassDashboardComponent,
+    StudentSettingsAccountComponent,
     StudentSettingsSecurityComponent,
+    StudentViewResourceModalComponent,
     StudentSettingsUserPrefrencesComponent,
     StudentSettingsPaymentInformationComponent,
   ],
@@ -103,7 +105,7 @@ import {
     MatButtonToggleModule,
     NgxIntlTelInputModule,
     RatingModule.forRoot(),
-    // EffectsModule.forFeature(Object.values(tutorEffects)),
+    EffectsModule.forFeature(Object.values(tutorEffects)),
     StoreModule.forFeature(featureKeys.studentFeatureKey, fromStudent.reducers),
   ],
 })

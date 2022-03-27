@@ -76,3 +76,18 @@ export const loadStudentResourcesFailure = createAction(
   '[Student] Load Student Resources Failure',
   props<{ error: any }>()
 );
+
+export const loadStudentResource = createAction(
+  '[Student] Load Student Resource',
+  props<{ id: number }>()
+);
+
+export const loadStudentResourceSuccess = createAction(
+  '[Student] Load Student Resource Success',
+  props<{ resource: any }>()
+);
+
+export const loadStudentResourceFailure = createAction(
+  '[Student] Load Student Resource Failure',
+  props<{ error: any }>()
+);

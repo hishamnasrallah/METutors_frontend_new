@@ -282,6 +282,16 @@ export const selectIsLoadingStudentResources = createSelector(
   fromStudentReducer.selectIsLoadingStudentResources
 );
 
+export const selectStudentResource = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectStudentResource
+);
+
+export const selectIsLoadingStudentResource = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectIsLoadingStudentResource
+);
+
 // Ticket
 export const selectTickets = createSelector(
   selectTicketState,

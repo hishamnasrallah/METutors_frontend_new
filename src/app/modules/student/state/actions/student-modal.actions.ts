@@ -1,17 +1,26 @@
-import { createAction } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
 
 export const openStudentSendFeedbackModal = createAction(
-  '[Tutor Modal] Open Student Send Feedback Modal'
+  '[Student Modal] Open Student Send Feedback Modal'
 );
 
 export const closeStudentSendFeedbackModal = createAction(
-  '[Tutor Modal] Close Student Send Feedback Modal'
+  '[Student Modal] Close Student Send Feedback Modal'
 );
 
 export const openStudentAttendanceModal = createAction(
-  '[Tutor Modal] Open Student Attendance Modal'
+  '[Student Modal] Open Student Attendance Modal'
 );
 
 export const closeStudentAttendanceModal = createAction(
-  '[Tutor Modal] Close Student Attendance Modal'
+  '[Student Modal] Close Student Attendance Modal'
+);
+
+export const openStudentViewResourceModal = createAction(
+  '[Student Modal] Open Student View Resource Modal',
+  props<{ id: number }>()
+);
+
+export const closeStudentViewResourceModal = createAction(
+  '[Student Modal] Close Student View Resource Modal'
 );
