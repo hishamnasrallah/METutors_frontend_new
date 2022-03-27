@@ -6,8 +6,10 @@ export interface State {
   syllabus: any;
   dashboard: any;
   classroom: any;
+  resources: any;
   classesDashboard: any;
   isLoadingStudentSyllabus: boolean;
+  isLoadingStudentResources: boolean;
   isLoadingStudentDashboard: boolean;
   isLoadingStudentClassroom: boolean;
   isLoadingStudentClassesDashboard: boolean;
@@ -16,9 +18,11 @@ export interface State {
 export const initialState: State = {
   syllabus: null,
   dashboard: null,
+  resources: null,
   classroom: null,
   classesDashboard: null,
   isLoadingStudentSyllabus: false,
+  isLoadingStudentResources: false,
   isLoadingStudentDashboard: false,
   isLoadingStudentClassroom: false,
   isLoadingStudentClassesDashboard: false,
@@ -96,6 +100,22 @@ export const reducer = createReducer(
   on(tutorActions.loadStudentSyllabusFailure, (state) => ({
     ...state,
     isLoadingStudentSyllabus: false,
+  })),
+
+  on(tutorActions.loadStudentResources, (state) => ({
+    ...state,
+    isLoadingStudentResources: true,
+  })),
+
+  on(tutorActions.loadStudentResourcesSuccess, (state, { resources }) => ({
+    ...state,
+    resources,
+    isLoadingStudentResources: false,
+  })),
+
+  on(tutorActions.loadStudentResourcesFailure, (state) => ({
+    ...state,
+    isLoadingStudentResources: false,
   }))
 );
 
@@ -133,3 +153,9 @@ export const selectIsLoadingStudentClassesDashboard = (state: State): boolean =>
 
 export const selectIsLoadingStudentSyllabus = (state: State): boolean =>
   state.isLoadingStudentSyllabus;
+
+export const selectStudentResources = (state: State): boolean =>
+  state.resources;
+
+export const selectIsLoadingStudentResources = (state: State): boolean =>
+  state.isLoadingStudentResources;

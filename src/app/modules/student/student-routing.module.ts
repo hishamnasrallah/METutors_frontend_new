@@ -8,6 +8,7 @@ import {
   StudentSyllabusComponent,
   StudentSettingsComponent,
   StudentDashboardComponent,
+  StudentResourcesComponent,
   StudentClassroomsComponent,
   StudentCreateTicketComponent,
   StudentCertificatesComponent,
@@ -63,6 +64,19 @@ const routes: Routes = [
                   layout: {
                     title: 'Student Syllabus - Metutors',
                     navbarTitle: 'Syllabus',
+                    showHeader: false,
+                    showFooter: false,
+                    hideSidebar: true,
+                  },
+                },
+              },
+              {
+                path: 'resources/:id',
+                component: StudentResourcesComponent,
+                data: {
+                  layout: {
+                    title: 'Student Resources - Metutors',
+                    navbarTitle: 'Resources',
                     showHeader: false,
                     showFooter: false,
                     hideSidebar: true,

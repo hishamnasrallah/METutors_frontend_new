@@ -4,6 +4,7 @@ export * from './student-help';
 export * from './student-classes';
 export * from './student-settings';
 export * from './student-syllabus';
+export * from './student-resources';
 export * from './student-dashboard';
 export * from './student-classrooms';
 export * from './student-certificates';

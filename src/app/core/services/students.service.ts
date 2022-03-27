@@ -42,6 +42,10 @@ export class StudentsService {
     );
   }
 
+  getStudentResources(id: any): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}student/resources/${id}`);
+  }
+
   errorHandler(error: HttpErrorResponse) {
     return throwError(error);
   }

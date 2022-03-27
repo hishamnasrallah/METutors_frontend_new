@@ -10,6 +10,7 @@ import { StudentsService } from '@services';
 import { AlertNotificationService } from '@metutor/core/components';
 import * as studentActions from '@metutor/core/state/actions/student.actions';
 import * as fromRouterStore from '@metutor/state';
+import * as tutorActions from '@metutor/core/state/actions/tutor.actions';
 
 @Injectable()
 export class StudentEffects {
@@ -99,6 +100,29 @@ export class StudentEffects {
           catchError((error) =>
             of(
               studentActions.loadStudentSyllabusFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  loadStudentResources$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(studentActions.loadStudentResources),
+      withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
+      mergeMap(([_, { id }]) =>
+        this._studentService.getStudentResources(id).pipe(
+          map((resources) =>
+            studentActions.loadStudentResourcesSuccess({
+              resources: camelcaseKeys(resources, { deep: true }),
+            })
+          ),
+          catchError((error) =>
+            of(
+              studentActions.loadStudentResourcesFailure({
                 error: error?.error?.message || error?.error?.errors,
               })
             )
