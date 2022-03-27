@@ -6,6 +6,8 @@ import {
   AdminComponent,
   AdminSupportTicketComponent,
   AdminTicketDetailsComponent,
+  AdminTutorInterviewComponent,
+  AdminTutorListComponent,
 } from './containers';
 
 const routes: Routes = [
@@ -21,6 +23,40 @@ const routes: Routes = [
       },
     },
     children: [
+      {
+        path: 'tutor',
+        children: [
+          {
+            path: 'interview',
+            component: AdminTutorInterviewComponent,
+            data: {
+              layout: {
+                title: 'Tutor interview - Metutors',
+                navbarTitle: 'Interview requests',
+                showHeader: false,
+                showFooter: false,
+              },
+            },
+          },
+          {
+            path: 'list',
+            component: AdminTutorListComponent,
+            data: {
+              layout: {
+                title: 'Tutor list - Metutors',
+                navbarTitle: 'Tutor list',
+                showHeader: false,
+                showFooter: false,
+              },
+            },
+          },
+          {
+            path: '',
+            redirectTo: 'list',
+            pathMatch: 'full',
+          },
+        ],
+      },
       {
         path: 'support-ticket',
         children: [
