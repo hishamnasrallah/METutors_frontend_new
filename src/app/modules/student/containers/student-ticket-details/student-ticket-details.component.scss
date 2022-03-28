@@ -26,15 +26,15 @@
         margin-left: 10px;
 
         &.response {
-          background-color: var(--main-color);
+          background-color: #ff8300;
         }
 
         &.closed {
-          background-color: #ff554b;
+          background-color: #50C394;
         }
 
         &.issued {
-          background-color: #ff8300;
+          background-color: var(--main-color);
         }
       }
     }

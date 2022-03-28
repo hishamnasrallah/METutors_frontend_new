@@ -3,7 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable, tap } from 'rxjs';
-import { TicketStatus } from 'src/app/config';
+import {
+  TicketStatus,
+  TicketPriority,
+  TICKET_STATUSES_CONST,
+} from 'src/app/config';
 import { ITicket } from 'src/app/core/models';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { NgxAutoScroll } from 'ngx-auto-scroll';
@@ -30,10 +34,14 @@ export class AdminTicketDetailsComponent implements OnInit {
   isLoading$: Observable<boolean>;
   user$: Observable<IUser | null>;
   ticket$: Observable<ITicket | null>;
+  isChangeTicketStatus$: Observable<boolean>;
   isSubmitTicketComment$: Observable<boolean>;
 
+  ticketId: string;
   messageForm: FormGroup;
   ticketStatus = TicketStatus;
+  ticketPriority = TicketPriority;
+  ticketStatuses = TICKET_STATUSES_CONST;
 
   constructor(
     private _title: Title,
@@ -63,6 +71,10 @@ export class AdminTicketDetailsComponent implements OnInit {
 
       this._prepareTicket(id);
     });
+
+    this.isChangeTicketStatus$ = this._store.select(
+      fromCore.selectIsChangeTicketStatus
+    );
   }
 
   onSubmit({ valid, value }: any): void {
@@ -71,6 +83,11 @@ export class AdminTicketDetailsComponent implements OnInit {
 
       this._store.dispatch(fromCore.submitTicketComment({ comment }));
     }
+  }
+
+  onChangeTicketStatus({ ticketId, status }: any): void {
+    this.ticketId = ticketId;
+    this._store.dispatch(fromCore.changeTicketStatus({ ticketId, status }));
   }
 
   private _prepareTicket(id: string): void {

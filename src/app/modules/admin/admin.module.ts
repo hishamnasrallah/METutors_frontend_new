@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AdminRoutingModule } from './admin-routing.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SharedModule } from '@metutor/shared/shared.module';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
 import { NgxAutoScrollModule } from 'ngx-auto-scroll';
+import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { MatButtonModule } from '@angular/material/button';
+import { AdminRoutingModule } from './admin-routing.module';
+import { SharedModule } from '@metutor/shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { StoreModule } from '@ngrx/store';
 import * as fromAdmin from './state';
@@ -58,6 +59,7 @@ import {
     AdminRoutingModule,
     ReactiveFormsModule,
     NgxAutoScrollModule,
+    BsDropdownModule.forRoot(),
     // EffectsModule.forFeature(Object.values(adminEffects)),
     StoreModule.forFeature(featureKeys.adminFeatureKey, fromAdmin.reducers),
   ],

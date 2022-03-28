@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromCore from '@metutor/core/state';
 import { Observable } from 'rxjs';
-import { ITicket } from '@metutor/core/models';
+import { ITicket, ITicketFilters } from '@metutor/core/models';
 import { TicketStatus } from '@metutor/config';
 
 @Component({
@@ -30,6 +30,22 @@ export class AdminSupportTicketComponent implements OnInit {
   onChangeTicketStatus({ ticketId, status }: any): void {
     this.ticketId = ticketId;
     this._store.dispatch(fromCore.changeTicketStatus({ ticketId, status }));
+  }
+
+  filterTickets(filters: ITicketFilters): void {
+    this.tickets$ = this._store.select(fromCore.selectFilteredTickets, {
+      ...filters,
+    });
+  }
+
+  onChangeTab(event: any) {
+    if (event.index === 0) {
+      this.filterTickets({});
+    } else if (event.index === 1) {
+      this.filterTickets({ status: TicketStatus.open });
+    } else if (event.index === 2) {
+      this.filterTickets({ status: TicketStatus.closed });
+    }
   }
 
   private _prepareTickets(): void {

@@ -146,6 +146,12 @@ export const reducer = createReducer(
                 : { ...ticket }
             )
           : [],
+      ticket: state.ticket
+        ? {
+            ...state.ticket,
+            status,
+          }
+        : null,
     })
   ),
 
@@ -174,3 +180,34 @@ export const selectIsSubmitTicketComment = (state: State): boolean =>
 
 export const selectIsChangeTicketStatus = (state: State): boolean =>
   state.isChangeTicketStatus;
+
+export const selectFilteredTickets = (
+  state: State,
+  props?: any
+): ITicket[] | null => {
+  let tickets: ITicket[] = [];
+
+  if (state.tickets && state.tickets.length && props) {
+    tickets = getFilteredTickets(state.tickets, props);
+  }
+
+  return tickets;
+};
+
+const getFilteredTickets = (tickets: ITicket[], props: any) => {
+  if (props?.status) {
+    tickets = tickets?.filter((ticket) => ticket?.status === props.status);
+  }
+
+  if (props?.title) {
+    tickets = tickets?.filter((ticket) =>
+      ticket?.subject.toLowerCase().includes(props.title.toLowerCase())
+    );
+  }
+
+  if (props?.priority) {
+    tickets = tickets.filter((ticket) => ticket.priority === props.priority);
+  }
+
+  return tickets;
+};

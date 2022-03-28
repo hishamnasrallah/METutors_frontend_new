@@ -316,6 +316,11 @@ export const selectTickets = createSelector(
   fromTicketReducer.selectTickets
 );
 
+export const selectFilteredTickets = createSelector(
+  selectTicketState,
+  fromTicketReducer.selectFilteredTickets
+);
+
 export const selectIsLoadingTickets = createSelector(
   selectTicketState,
   fromTicketReducer.selectIsLoadingTickets
