@@ -64,7 +64,6 @@ export class SigninComponent implements OnInit, OnDestroy {
 
     this.isLoading$ = this._store.select(fromCore.selectIsSignIn);
     this._store.select(fromCore.selectTempToken).subscribe((token) => {
-      console.log(token)
       if (token) {
         this.openOtpDialog();
       }
