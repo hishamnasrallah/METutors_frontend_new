@@ -49,8 +49,8 @@
           </ng-container>
 
           <ng-container *ngSwitchCase="false">
-            <div class="col-md-12">
-              <metutors-classroom-item [classroom]="view.lastActivityCourse" [isStudent]="true" [url]="'/student/classrooms/classes/dashboard/'">
+            <div class="col-md-12" *ngFor="let lastActivityCourse of view.lastActivityCourse">
+              <metutors-classroom-item [classroom]="lastActivityCourse" [isStudent]="true" [url]="'/student/classrooms/classes/dashboard/'">
               </metutors-classroom-item>
             </div>
 
