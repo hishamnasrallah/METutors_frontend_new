@@ -1,5 +1,10 @@
 import { createAction, props } from '@ngrx/store';
 
+export const setFiles = createAction(
+  '[Upload Service] Set Files',
+  props<{ files: any }>()
+);
+
 export const uploadFile = createAction(
   '[Upload Service] Upload File',
   props<{ file: any }>()

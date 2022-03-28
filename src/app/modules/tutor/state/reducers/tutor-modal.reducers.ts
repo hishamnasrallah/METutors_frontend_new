@@ -81,10 +81,15 @@ export const reducer = createReducer(
     })
   ),
 
-  on(tutorModalActions.closeTutorAddClassResourceModal, (state) => ({
-    ...state,
-    showAddClassResourceModal: false,
-  })),
+  on(
+    fromCore.addTutorResourceSuccess,
+    fromCore.editTutorResourceSuccess,
+    tutorModalActions.closeTutorAddClassResourceModal,
+    (state) => ({
+      ...state,
+      showAddClassResourceModal: false,
+    })
+  ),
 
   on(tutorModalActions.openTutorAddAssignmentModal, (state) => ({
     ...state,

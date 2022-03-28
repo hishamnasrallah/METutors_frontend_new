@@ -96,7 +96,7 @@
               <div class="col-md-12 overflow-hidden">
                 <metutors-submit-button [form]="form" [isSubmitting]="submitting"
                                         [extraClasses]="'float-end py-1 px-5'">
-                  Add
+                  {{ this.resourceId?.value ? 'Edit' : 'Add'}}
                 </metutors-submit-button>
               </div>
             </div>

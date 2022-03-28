@@ -1,5 +1,4 @@
 import {
-  FormArray,
   FormGroup,
   Validators,
   FormBuilder,
@@ -33,7 +32,6 @@ export class TutorAddClassResourceModalComponent implements OnInit {
 
   uploadedFiles$: Observable<any>;
   fileUploadProgress$: Observable<any>;
-  isUploadingFile$: Observable<boolean>;
   isDeletingResource$: Observable<boolean>;
   uploadComplete = generalConstants.uploadComplete;
   view$: Observable<{ loading: boolean; resource: any }>;
@@ -63,9 +61,10 @@ export class TutorAddClassResourceModalComponent implements OnInit {
             }
 
             if (data?.resource?.files?.length) {
-              console.log(data.resource.files);
-              // this.filesPreview = [...data.resource?.files];
-              this.files.setValue(data.resource.files);
+              this.files?.setValue(data.resource.files);
+              this._store.dispatch(
+                fromCore.setFiles({ files: data.resource.files })
+              );
             }
 
             this.description?.setValue(data?.resource?.description);
@@ -76,7 +75,6 @@ export class TutorAddClassResourceModalComponent implements OnInit {
       this._store.select(fromCore.selectIsLoadingTutorResource),
     ]).pipe(map(([resource, loading]) => ({ loading, resource })));
 
-    // this.isUploadingFile$ = this._store.select(fromCore.selectIsUploadingFile);
     // this.isDeletingResource$ = this._store.select(fromCore.isdeleting);
 
     this.fileUploadProgress$ = this._store.select(
@@ -85,7 +83,7 @@ export class TutorAddClassResourceModalComponent implements OnInit {
 
     this.uploadedFiles$ = this._store
       .select(fromCore.selectUploadedFiles)
-      .pipe(tap((files) => this.files.setValue(files)));
+      .pipe(tap((files) => this.files?.setValue(files)));
   }
 
   get resourceId(): AbstractControl | null {
@@ -100,8 +98,8 @@ export class TutorAddClassResourceModalComponent implements OnInit {
     return this.form?.get('urls') as FormGroup;
   }
 
-  get files(): FormArray {
-    return this.form?.get('files') as FormArray;
+  get files(): AbstractControl | null {
+    return this.form?.get('files');
   }
 
   removeFile(id: number): void {

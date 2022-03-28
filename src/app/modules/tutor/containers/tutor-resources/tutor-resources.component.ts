@@ -7,6 +7,7 @@ import { WEEK_DAYS } from '@config';
 import * as fromCore from '@metutor/core/state';
 import * as fromTutor from '@metutor/modules/tutor/state';
 import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
+import { selectIsAddingTutorResources } from '@metutor/core/state/reducers/tutor.reducer';
 
 @Component({
   selector: 'metutors-tutor-resources',
@@ -17,6 +18,7 @@ export class TutorResourcesComponent implements OnInit {
   classId: string;
   heading = 'Add Resources';
 
+  isSavingResource$: Observable<boolean>;
   showAddClassResourceModal$: Observable<boolean>;
   view$: Observable<{ loading: boolean; resources: any }>;
 
@@ -76,6 +78,10 @@ export class TutorResourcesComponent implements OnInit {
     this._store.dispatch(fromCore.loadTutorResources());
     this.showAddClassResourceModal$ = this._store.select(
       fromTutor.selectAddClassResourceModal
+    );
+
+    this.isSavingResource$ = this._store.select(
+      fromCore.selectIsAddingTutorResources
     );
 
     this.view$ = combineLatest([

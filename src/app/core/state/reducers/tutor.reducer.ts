@@ -157,8 +157,6 @@ export const reducer = createReducer(
   })),
 
   on(tutorActions.tutorEditSyllabusTopicSuccess, (state, { syllabus }) => {
-    console.log(syllabus);
-
     let finalState = {
       ...state,
       isAddingSyllabusTopic: false,
@@ -240,7 +238,6 @@ export const reducer = createReducer(
 
     if (finalState.syllabus?.topics?.length) {
       let topics = [];
-      console.log(finalState.syllabus.topics);
       for (let i = 0; i < finalState.syllabus.topics?.length; i++) {
         let classes = [];
         if (finalState.syllabus.topics[i]?.topic?.classes?.length) {
@@ -380,10 +377,30 @@ export const reducer = createReducer(
     isAddingTutorResources: true,
   })),
 
-  on(tutorActions.addTutorResourceSuccess, (state) => ({
-    ...state,
-    isAddingTutorResources: false,
-  })),
+  on(tutorActions.addTutorResourceSuccess, (state, { resource }) => {
+    const finalState = {
+      ...state,
+      isAddingTutorResources: false,
+    };
+
+    if (
+      finalState.resources?.course?.classes &&
+      finalState.resources?.course?.classes?.length
+    ) {
+      const classes = finalState.resources.course.classes.map((cls: any) =>
+        cls.id === resource?.resource?.class?.id
+          ? { ...cls, resourceId: resource?.resource?.class?.resourceId }
+          : { ...cls }
+      );
+
+      finalState.resources.course.classes = {
+        ...finalState.resources.course.classes,
+        classes,
+      };
+    }
+
+    return finalState;
+  }),
 
   on(tutorActions.addTutorResourceFailure, (state) => ({
     ...state,
