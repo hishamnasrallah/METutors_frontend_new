@@ -50,6 +50,10 @@ export class StudentsService {
     return this.http.get<any>(`${this.baseUrl}student/resource/${id}`);
   }
 
+  studentJoinClass(id: any): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}class/launch/${id}`, {});
+  }
+
   errorHandler(error: HttpErrorResponse) {
     return throwError(error);
   }

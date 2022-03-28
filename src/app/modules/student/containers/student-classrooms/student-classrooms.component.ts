@@ -90,7 +90,7 @@ export class StudentClassroomsComponent implements OnInit {
       this._store.select(fromCore.selectClassroomCourseFieldOfStudies),
       this._store
         .select(fromCore.selectClassroomLastActivityCourse)
-        .pipe(map((result: any) => result)),
+        .pipe(map((result: any) => this._parseCourse(result))),
       this._store
         .select(fromCore.selectActiveClassroomCourses)
         .pipe(map((result: any) => this._parseCourse(result))),

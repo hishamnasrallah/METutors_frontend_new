@@ -7,10 +7,9 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 
 import { StudentsService } from '@services';
+import * as fromRouterStore from '@metutor/state';
 import { AlertNotificationService } from '@metutor/core/components';
 import * as studentActions from '@metutor/core/state/actions/student.actions';
-import * as fromRouterStore from '@metutor/state';
-import * as tutorActions from '@metutor/core/state/actions/tutor.actions';
 
 @Injectable()
 export class StudentEffects {
@@ -152,6 +151,49 @@ export class StudentEffects {
         )
       )
     )
+  );
+
+  studentJoinClass$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(studentActions.studentJoinClass),
+      mergeMap(({ id }) =>
+        this._studentService.studentJoinClass(id).pipe(
+          map((response) => {
+            if (response && response?.class_url) {
+              window.open(response.class_url, '_blank');
+            }
+
+            return studentActions.studentJoinClassSuccess();
+          }),
+          catchError((error) =>
+            of(
+              studentActions.studentJoinClassFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  failureMessages$ = createEffect(
+    () =>
+      this._actions$.pipe(
+        ofType(...[studentActions.studentJoinClassFailure]),
+        map((action) => {
+          if (action.error) {
+            return this._alertNotificationService.error(action.error);
+          } else {
+            return this._alertNotificationService.error(
+              'Something went wrong!'
+            );
+          }
+        })
+      ),
+    {
+      dispatch: false,
+    }
   );
 
   constructor(

@@ -91,3 +91,17 @@ export const loadStudentResourceFailure = createAction(
   '[Student] Load Student Resource Failure',
   props<{ error: any }>()
 );
+
+export const studentJoinClass = createAction(
+  '[Student] Student Join Class',
+  props<{ id: number }>()
+);
+
+export const studentJoinClassSuccess = createAction(
+  '[Student] Student Join Class Success'
+);
+
+export const studentJoinClassFailure = createAction(
+  '[Student] Student Join Class Failure',
+  props<{ error: any }>()
+);

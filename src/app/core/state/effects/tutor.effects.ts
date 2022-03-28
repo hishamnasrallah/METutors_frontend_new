@@ -223,8 +223,6 @@ export class TutorEffects {
       mergeMap(({ classId }) =>
         this._tutorService.launchClass(classId).pipe(
           map((response) => {
-            console.log(response);
-
             if (response && response?.class_url) {
               window.open(response.class_url, '_blank');
             }

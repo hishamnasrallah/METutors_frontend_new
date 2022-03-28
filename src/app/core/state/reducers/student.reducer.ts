@@ -9,6 +9,7 @@ export interface State {
   classroom: any;
   resources: any;
   classesDashboard: any;
+  isJoiningClass: boolean;
   isLoadingStudentSyllabus: boolean;
   isLoadingStudentResource: boolean;
   isLoadingStudentResources: boolean;
@@ -23,6 +24,7 @@ export const initialState: State = {
   dashboard: null,
   resources: null,
   classroom: null,
+  isJoiningClass: false,
   classesDashboard: null,
   isLoadingStudentSyllabus: false,
   isLoadingStudentResource: false,
@@ -136,6 +138,21 @@ export const reducer = createReducer(
   on(tutorActions.loadStudentResourceFailure, (state) => ({
     ...state,
     isLoadingStudentResource: false,
+  })),
+
+  on(tutorActions.studentJoinClass, (state) => ({
+    ...state,
+    isJoiningClass: true,
+  })),
+
+  on(tutorActions.studentJoinClassSuccess, (state) => ({
+    ...state,
+    isJoiningClass: false,
+  })),
+
+  on(tutorActions.studentJoinClassFailure, (state) => ({
+    ...state,
+    isJoiningClass: false,
   }))
 );
 
@@ -184,3 +201,6 @@ export const selectStudentResource = (state: State): boolean => state.resource;
 
 export const selectIsLoadingStudentResource = (state: State): boolean =>
   state.isLoadingStudentResource;
+
+export const selectIsJoiningClass = (state: State): boolean =>
+  state.isJoiningClass;

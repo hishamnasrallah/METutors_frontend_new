@@ -34,8 +34,8 @@ export class StudentClassDashboardComponent implements OnInit {
     return Math.round(timeDif / 3600);
   }
 
-  joinClass(classId: number): void {
-    console.log(classId);
+  joinClass(id: number): void {
+    this._store.dispatch(fromCore.studentJoinClass({ id }));
   }
 
   onShowCancelCourseModal(): void {}
@@ -61,9 +61,12 @@ export class StudentClassDashboardComponent implements OnInit {
     this.showAttendanceModal$ = this._store.select(
       fromStudent.selectAttendanceModal
     );
+
     this.showSendFeedbackModal$ = this._store.select(
       fromStudent.selectSendFeedbackModal
     );
+
+    this.isJoiningClass$ = this._store.select(fromCore.selectIsJoiningClass);
 
     this.view$ = combineLatest([
       this._store.select(fromCore.selectStudentClassesDashboard),
