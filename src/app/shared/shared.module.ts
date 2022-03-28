@@ -6,6 +6,7 @@ import { RatingModule } from 'ngx-bootstrap/rating';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -13,8 +14,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import { VgCoreModule } from '@videogular/ngx-videogular/core';
 import { VgControlsModule } from '@videogular/ngx-videogular/controls';
-import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
 import { VgBufferingModule } from '@videogular/ngx-videogular/buffering';
+import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
 
 // Popups
 import {
@@ -34,6 +35,7 @@ import {
   ClassroomItemComponent,
   CardPlaceholderComponent,
   GridPlaceholderComponent,
+  SupportTicketCardComponent,
   UploadedFilesListComponent,
   FileUploadProgressComponent,
   CourseItemHorizentalComponent,
@@ -58,6 +60,7 @@ import {
     ClassroomItemComponent,
     CardPlaceholderComponent,
     GridPlaceholderComponent,
+    SupportTicketCardComponent,
     UploadedFilesListComponent,
     FileUploadProgressComponent,
     CourseItemHorizentalComponent,
@@ -97,6 +100,7 @@ import {
     VgOverlayPlayModule,
     ReactiveFormsModule,
     MatProgressBarModule,
+    BsDropdownModule.forRoot(),
   ],
   exports: [
     CourseItemComponent,
@@ -105,6 +109,7 @@ import {
     ClassroomItemComponent,
     CardPlaceholderComponent,
     GridPlaceholderComponent,
+    SupportTicketCardComponent,
     CourseItemHorizentalComponent,
     ClassroomItemHorizentalComponent,
 

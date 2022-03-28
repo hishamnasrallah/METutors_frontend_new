@@ -3,7 +3,6 @@ import { Store } from '@ngrx/store';
 import * as fromCore from '@metutor/core/state';
 import { Observable } from 'rxjs';
 import { ITicket } from '@metutor/core/models';
-import { TicketStatus } from '@metutor/config';
 
 @Component({
   selector: 'metutors-student-support-ticket',
@@ -13,8 +12,6 @@ import { TicketStatus } from '@metutor/config';
 export class StudentSupportTicketComponent implements OnInit {
   isLoading$: Observable<boolean>;
   tickets$: Observable<ITicket[] | null>;
-
-  ticketStatus = TicketStatus;
 
   constructor(private _store: Store<any>) {}
 

@@ -23,6 +23,17 @@ export class TicketsService {
       .pipe(catchError(this.errorHandler));
   }
 
+  loadAdminTickets(): Observable<any> {
+    return this.http
+      .get<{ tickets: ITicket[] }>(`${this.baseUrl}admin/tickets`)
+      .pipe(
+        map((response) =>
+          response.tickets.map((ticket) => new ITicket(false, ticket))
+        )
+      )
+      .pipe(catchError(this.errorHandler));
+  }
+
   loadTicket(id: string): Observable<any> {
     return this.http
       .get<{ ticket: ITicket }>(`${this.baseUrl}tickets/${id}`)
@@ -55,7 +66,7 @@ export class TicketsService {
       .pipe(catchError(this.errorHandler));
   }
 
-  changeTicketStatus(status: string, ticketId: number): Observable<any> {
+  changeTicketStatus(status: string, ticketId: string): Observable<any> {
     return this.http
       .post(`${this.baseUrl}admin/ticket/change-status`, {
         status,

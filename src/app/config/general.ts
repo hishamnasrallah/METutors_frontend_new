@@ -1,4 +1,5 @@
 import { HttpEventType } from '@angular/common/http';
+import { TicketStatus } from './enums';
 
 export const generalConstants = {
   nationalId: 3,
@@ -10,12 +11,11 @@ export const generalConstants = {
   defaultCoursePath: 'assets/defaults/course.jpg',
 };
 
-export const TICKET_STATUSES_CONST: any = {
-  N: 'New',
-  M: 'Open',
-  C: 'Closed',
-  R: 'Re-Opened',
-};
+export const TICKET_STATUSES_CONST: any = [
+  TicketStatus.open,
+  TicketStatus.closed,
+  TicketStatus.inprogress,
+];
 
 export const AVAILABILITY_HOURS_CONST = [
   {

@@ -2,78 +2,80 @@ import { createAction, props } from '@ngrx/store';
 
 import { ITicket, ITicketComment } from '@models';
 
-export const loadTickets = createAction('[Student] Load Tickets');
+export const loadTickets = createAction('[Ticket] Load Tickets');
+
+export const loadAdminTickets = createAction('[Ticket] Load Admin Tickets');
 
 export const loadTicketsSuccess = createAction(
-  '[Student] Load Tickets Success',
+  '[Ticket] Load Tickets Success',
   props<{ tickets: ITicket[] }>()
 );
 
 export const loadTicketsFailure = createAction(
-  '[Student] Load Tickets Failure',
+  '[Ticket] Load Tickets Failure',
   props<{ error: any }>()
 );
 
-export const loadTicketsEnded = createAction('[Student] Load Tickets Ended');
+export const loadTicketsEnded = createAction('[Ticket] Load Tickets Ended');
 
 export const loadTicket = createAction(
-  '[Student] Load Ticket',
+  '[Ticket] Load Ticket',
   props<{ id: string }>()
 );
 
 export const loadTicketSuccess = createAction(
-  '[Student] Load Ticket Success',
+  '[Ticket] Load Ticket Success',
   props<{ ticket: ITicket }>()
 );
 
 export const loadTicketFailure = createAction(
-  '[Student] Load Ticket Failure',
+  '[Ticket] Load Ticket Failure',
   props<{ error: any }>()
 );
 
-export const loadTicketEnded = createAction('[Student] Load Ticket Ended');
+export const loadTicketEnded = createAction('[Ticket] Load Ticket Ended');
 
 export const createTicket = createAction(
-  '[Student] Create Ticket',
+  '[Ticket] Create Ticket',
   props<{ ticket: any }>()
 );
 
 export const createTicketSuccess = createAction(
-  '[Student] Create Ticket Success',
+  '[Ticket] Create Ticket Success',
   props<{ ticket: ITicket }>()
 );
 
 export const createTicketFailure = createAction(
-  '[Student] Create Ticket Failure',
+  '[Ticket] Create Ticket Failure',
   props<{ error: any }>()
 );
 
 export const submitTicketComment = createAction(
-  '[Student] Submit Ticket Comment',
+  '[Ticket] Submit Ticket Comment',
   props<{ comment: string }>()
 );
 
 export const submitTicketCommentSuccess = createAction(
-  '[Student] Submit Ticket Comment Success',
+  '[Ticket] Submit Ticket Comment Success',
   props<{ comment: ITicketComment }>()
 );
 
 export const submitTicketCommentFailure = createAction(
-  '[Student] Submit Ticket Comment Failure',
+  '[Ticket] Submit Ticket Comment Failure',
   props<{ error: any }>()
 );
 
 export const changeTicketStatus = createAction(
-  '[Student] Change Ticket Status',
-  props<{ status: string; ticketId: number }>()
+  '[Ticket] Change Ticket Status',
+  props<{ status: string; ticketId: string }>()
 );
 
 export const changeTicketStatusSuccess = createAction(
-  '[Student] Change Ticket Status Success',
-  props<{ message: string }>()
+  '[Ticket] Change Ticket Status Success',
+  props<{ message: string; status: string; ticketId: string }>()
 );
 
 export const changeTicketStatusFailure = createAction(
-  '[Student] Change Ticket Status Failure',
+  '[Ticket] Change Ticket Status Failure',
   props<{ error: any }>()
 );

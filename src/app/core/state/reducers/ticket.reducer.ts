@@ -42,7 +42,7 @@ export const initialState: State = {
 
 export const reducer = createReducer(
   initialState,
-  on(ticketActions.loadTickets, (state) => ({
+  on(ticketActions.loadTickets, ticketActions.loadAdminTickets, (state) => ({
     ...state,
     isLoadingTickets: true,
   })),
@@ -133,10 +133,21 @@ export const reducer = createReducer(
     isChangeTicketStatus: true,
   })),
 
-  on(ticketActions.changeTicketStatusSuccess, (state) => ({
-    ...state,
-    isChangeTicketStatus: false,
-  })),
+  on(
+    ticketActions.changeTicketStatusSuccess,
+    (state, { status, ticketId }) => ({
+      ...state,
+      isChangeTicketStatus: false,
+      tickets:
+        state.tickets && state.tickets.length
+          ? state.tickets?.map((ticket) =>
+              ticket.ticketId === ticketId
+                ? { ...ticket, status }
+                : { ...ticket }
+            )
+          : [],
+    })
+  ),
 
   on(ticketActions.changeTicketStatusFailure, (state, { error }) => ({
     ...state,

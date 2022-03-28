@@ -40,6 +40,33 @@ export class TicketEffects {
     )
   );
 
+  loadAdminTickets$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(ticketActions.loadAdminTickets),
+      withLatestFrom(this._store.select(fromCore.selectTickets)),
+      mergeMap(([_, _tickets]) => {
+        if (!_tickets || !_tickets.length) {
+          return this._ticketService.loadAdminTickets().pipe(
+            map((tickets) =>
+              ticketActions.loadTicketsSuccess({
+                tickets,
+              })
+            ),
+            catchError((error) =>
+              of(
+                ticketActions.loadTicketsFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          );
+        } else {
+          return of(ticketActions.loadTicketsEnded());
+        }
+      })
+    )
+  );
+
   loadTicket$ = createEffect(() =>
     this._actions$.pipe(
       ofType(ticketActions.loadTicket),
@@ -152,6 +179,8 @@ export class TicketEffects {
             map((response) =>
               ticketActions.changeTicketStatusSuccess({
                 message: response.message,
+                status: action.status,
+                ticketId: action.ticketId,
               })
             ),
             catchError((error) =>

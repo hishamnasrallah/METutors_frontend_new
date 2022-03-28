@@ -1,0 +1,54 @@
+<div class="card">
+  <div class="card-body">
+    <div class="priority">
+      Priority
+      <span class="status" [ngClass]="{
+          'high': ticketPriority.high === ticket?.priority?.name,
+          'low': ticketPriority.low === ticket?.priority?.name,
+          'critical': ticketPriority.critical === ticket?.priority?.name
+        }">{{ ticket?.priority?.name }}</span>
+
+      <div dropdown class="change-status float-end position-relative d-flex" *ngIf="isAdmin">
+        <mat-icon class="spinner me-2" *ngIf="isChangeStatus && ticketId === ticket?.ticketId">autorenew</mat-icon>
+        <a dropdownToggle class="cursor-pointer">Change Status</a>
+        <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
+          <li role="menuitem" class="mat-menu-item cursor-pointer" *ngFor="let status of ticketStatuses" [ngClass]="{
+              'issued': ticketStatus.open === status,
+              'closed': ticketStatus.closed === status,
+              'response': ticketStatus.inprogress === status
+            }" (click)="changeStatus.emit({ticketId: ticket?.ticketId, status})">
+            {{ status }}
+          </li>
+        </ul>
+      </div>
+    </div>
+    <h2>
+      <a [routerLink]="linkUrl">{{ ticket?.subject }}</a>
+      <span class="label" [ngClass]="{
+            'issued': ticketStatus.open === ticket?.status,
+            'closed': ticketStatus.closed === ticket?.status,
+            'response': ticketStatus.inprogress === ticket?.status
+          }">{{ ticket?.status }}</span>
+    </h2>
+    <p><bdi>{{ ticket?.message }}</bdi></p>
+    <div class="row list-items sm-item">
+      <div class="col-md-3 d-flex menu align-items-center" *ngIf="ticket?.user">
+        <img [src]="ticket?.user?.avatar" meTutorsDefaultAvatar class="rounded-circle" alt="" width="25" height="25"
+          draggable="false">
+        <strong>Agent: {{ ticket?.user?.name }}</strong>
+      </div>
+      <div class="col-md-3 d-flex menu align-items-center">
+        <img src="assets/svg/calendar.svg" alt="" width="15" height="15" draggable="false">
+        <span>Open : {{ ticket?.createdDate | date: 'EEEE, d MMM y' }}</span>
+      </div>
+      <div class="col-md-3 d-flex menu align-items-center">
+        <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
+        <span>Last Reply: {{ ticket?.updatedDate | date: 'EEEE, d MMM y' }}</span>
+      </div>
+      <div class="col-md-3 d-flex menu align-items-center">
+        <img src="assets/svg/checkbox-circle-fill.svg" alt="" width="15" height="15" draggable="false">
+        <span>{{ ticket?.category?.name }}</span>
+      </div>
+    </div>
+  </div>
+</div>
