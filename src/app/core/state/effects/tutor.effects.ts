@@ -334,6 +334,29 @@ export class TutorEffects {
     )
   );
 
+  deleteTutorResource$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorActions.deleteTutorResource),
+      mergeMap(({ id }) =>
+        this._tutorService.deleteTutorResource(id).pipe(
+          map((resource) =>
+            tutorActions.deleteTutorResourceSuccess({
+              id,
+              message: 'Resource successfully deleted',
+            })
+          ),
+          catchError((error) =>
+            of(
+              tutorActions.deleteTutorResourceFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   successMessages$ = createEffect(
     () =>
       this._actions$.pipe(
@@ -341,6 +364,7 @@ export class TutorEffects {
           ...[
             tutorActions.addTutorResourceSuccess,
             tutorActions.editTutorResourceSuccess,
+            tutorActions.deleteTutorResourceSuccess,
             tutorActions.tutorAddSyllabusTopicSuccess,
             tutorActions.tutorEditSubjectTitleSuccess,
             tutorActions.tutorEditSyllabusTopicSuccess,
@@ -359,9 +383,10 @@ export class TutorEffects {
       this._actions$.pipe(
         ofType(
           ...[
+            tutorActions.tutorLaunchClassFailure,
             tutorActions.addTutorResourceFailure,
             tutorActions.editTutorResourceFailure,
-            tutorActions.tutorLaunchClassFailure,
+            tutorActions.deleteTutorResourceFailure,
             tutorActions.completeTutorProfileFailure,
             tutorActions.tutorAddSyllabusTopicFailure,
             tutorActions.tutorEditSubjectTitleFailure,

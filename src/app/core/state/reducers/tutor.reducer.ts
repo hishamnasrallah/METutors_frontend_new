@@ -16,6 +16,7 @@ export interface State {
   isLaunchingClass: boolean;
   isLoadingSyllabus: boolean;
   isLoadingDashboard: boolean;
+  isDeletingResource: boolean;
   loadingTutorFailure: string;
   isSavingSubjectTitle: boolean;
   isAddingSyllabusTopic: boolean;
@@ -40,6 +41,7 @@ export const initialState: State = {
   isLaunchingClass: false,
   loadingTutorFailure: '',
   isLoadingSyllabus: false,
+  isDeletingResource: false,
   isLoadingDashboard: false,
   isSavingSubjectTitle: false,
   isAddingSyllabusTopic: false,
@@ -393,9 +395,14 @@ export const reducer = createReducer(
           : { ...cls }
       );
 
-      finalState.resources.course.classes = {
-        ...finalState.resources.course.classes,
+      const course = {
+        ...finalState.resources.course,
         classes,
+      };
+
+      finalState.resources = {
+        ...finalState.resources,
+        course,
       };
     }
 
@@ -420,6 +427,44 @@ export const reducer = createReducer(
   on(tutorActions.editTutorResourceFailure, (state) => ({
     ...state,
     isAddingTutorResources: false,
+  })),
+
+  on(tutorActions.deleteTutorResource, (state) => ({
+    ...state,
+    isDeletingResource: true,
+  })),
+
+  on(tutorActions.deleteTutorResourceSuccess, (state, { id }) => {
+    const finalState = {
+      ...state,
+      isDeletingResource: false,
+    };
+
+    if (
+      finalState.resources?.course?.classes &&
+      finalState.resources?.course?.classes?.length
+    ) {
+      const classes = finalState.resources.course.classes.map((cls: any) =>
+        cls.resourceId === id ? { ...cls, resourceId: null } : { ...cls }
+      );
+
+      const course = {
+        ...finalState.resources.course,
+        classes,
+      };
+
+      finalState.resources = {
+        ...finalState.resources,
+        course,
+      };
+    }
+
+    return finalState;
+  }),
+
+  on(tutorActions.deleteTutorResourceFailure, (state) => ({
+    ...state,
+    isDeletingResource: false,
   }))
 );
 
@@ -467,3 +512,6 @@ export const selectTutorResources = (state: State): boolean => state.resources;
 
 export const selectIsAddingTutorResources = (state: State): boolean =>
   state.isAddingTutorResources;
+
+export const selectIsDeletingResource = (state: State): boolean =>
+  state.isDeletingResource;

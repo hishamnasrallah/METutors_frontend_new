@@ -75,7 +75,9 @@ export class TutorAddClassResourceModalComponent implements OnInit {
       this._store.select(fromCore.selectIsLoadingTutorResource),
     ]).pipe(map(([resource, loading]) => ({ loading, resource })));
 
-    // this.isDeletingResource$ = this._store.select(fromCore.isdeleting);
+    this.isDeletingResource$ = this._store.select(
+      fromCore.selectIsDeletingResource
+    );
 
     this.fileUploadProgress$ = this._store.select(
       fromCore.selectFileUploadingProgress

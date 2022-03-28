@@ -136,4 +136,8 @@ export class TutorsService {
       _body
     );
   }
+
+  deleteTutorResource(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.baseUrl}teacher/resource/${id}`);
+  }
 }

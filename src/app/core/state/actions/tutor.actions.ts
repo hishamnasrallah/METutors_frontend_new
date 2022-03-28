@@ -193,3 +193,18 @@ export const editTutorResourceFailure = createAction(
   '[Tutor] Edit Tutor Resource Failure',
   props<{ error: any }>()
 );
+
+export const deleteTutorResource = createAction(
+  '[Tutor] Delete Tutor Resource',
+  props<{ id: number }>()
+);
+
+export const deleteTutorResourceSuccess = createAction(
+  '[Tutor] Delete Tutor Resource Success',
+  props<{ id: number; message: string }>()
+);
+
+export const deleteTutorResourceFailure = createAction(
+  '[Tutor] Delete Tutor Resource Failure',
+  props<{ error: any }>()
+);

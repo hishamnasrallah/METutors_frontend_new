@@ -7,7 +7,6 @@ import { WEEK_DAYS } from '@config';
 import * as fromCore from '@metutor/core/state';
 import * as fromTutor from '@metutor/modules/tutor/state';
 import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
-import { selectIsAddingTutorResources } from '@metutor/core/state/reducers/tutor.reducer';
 
 @Component({
   selector: 'metutors-tutor-resources',
@@ -36,6 +35,7 @@ export class TutorResourcesComponent implements OnInit {
 
   onOpenAddClassResource(classId: string) {
     this.classId = classId;
+    this.heading = 'Add Resources';
     this._store.dispatch(fromTutorAction.openTutorAddClassResourceModal());
   }
 
@@ -48,6 +48,10 @@ export class TutorResourcesComponent implements OnInit {
 
   onCloseAddClassResource() {
     this._store.dispatch(fromTutorAction.closeTutorAddClassResourceModal());
+  }
+
+  onDeleteResource(id: number): void {
+    this._store.dispatch(fromCore.deleteTutorResource({ id }));
   }
 
   onSaveResource(data: any): void {

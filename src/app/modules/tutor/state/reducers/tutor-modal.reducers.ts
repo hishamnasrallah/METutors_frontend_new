@@ -84,6 +84,7 @@ export const reducer = createReducer(
   on(
     fromCore.addTutorResourceSuccess,
     fromCore.editTutorResourceSuccess,
+    fromCore.deleteTutorResourceSuccess,
     tutorModalActions.closeTutorAddClassResourceModal,
     (state) => ({
       ...state,
