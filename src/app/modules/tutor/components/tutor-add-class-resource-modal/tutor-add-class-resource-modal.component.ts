@@ -1,5 +1,4 @@
 import {
-  FormArray,
   FormGroup,
   Validators,
   FormBuilder,
@@ -12,7 +11,7 @@ import { Observable, combineLatest } from 'rxjs';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import * as fromCore from '@metutor/core/state';
-import { formatBytes, generalConstants } from '@metutor/config';
+import { generalConstants } from '@metutor/config';
 
 @Component({
   selector: 'metutors-tutor-add-class-resource-modal',
@@ -26,26 +25,20 @@ export class TutorAddClassResourceModalComponent implements OnInit {
 
   @Output() submitted: EventEmitter<any> = new EventEmitter<any>();
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
+  @Output() deleted: EventEmitter<number> = new EventEmitter<number>();
 
   form: FormGroup;
   selectedURLs: any[] = [];
-  filesPreview: any[] = [];
 
   uploadedFiles$: Observable<any>;
   fileUploadProgress$: Observable<any>;
-  isUploadingFile$: Observable<boolean>;
+  isDeletingResource$: Observable<boolean>;
   uploadComplete = generalConstants.uploadComplete;
   view$: Observable<{ loading: boolean; resource: any }>;
 
   constructor(private _fb: FormBuilder, private _store: Store<any>) {}
 
   ngOnInit(): void {
-    this.uploadedFiles$ = this._store.select(fromCore.selectUploadedFiles);
-    this.isUploadingFile$ = this._store.select(fromCore.selectIsUploadingFile);
-    this.fileUploadProgress$ = this._store.select(
-      fromCore.selectFileUploadingProgress
-    );
-
     this.form = this._fb.group({
       resourceId: [null],
       files: [null, Validators.required],
@@ -68,8 +61,10 @@ export class TutorAddClassResourceModalComponent implements OnInit {
             }
 
             if (data?.resource?.files?.length) {
-              this.filesPreview = [...data.resource?.files];
-              this.files.setValue(data.resource.files);
+              this.files?.setValue(data.resource.files);
+              this._store.dispatch(
+                fromCore.setFiles({ files: data.resource.files })
+              );
             }
 
             this.description?.setValue(data?.resource?.description);
@@ -79,6 +74,18 @@ export class TutorAddClassResourceModalComponent implements OnInit {
       ),
       this._store.select(fromCore.selectIsLoadingTutorResource),
     ]).pipe(map(([resource, loading]) => ({ loading, resource })));
+
+    this.isDeletingResource$ = this._store.select(
+      fromCore.selectIsDeletingResource
+    );
+
+    this.fileUploadProgress$ = this._store.select(
+      fromCore.selectFileUploadingProgress
+    );
+
+    this.uploadedFiles$ = this._store
+      .select(fromCore.selectUploadedFiles)
+      .pipe(tap((files) => this.files?.setValue(files)));
   }
 
   get resourceId(): AbstractControl | null {
@@ -93,14 +100,12 @@ export class TutorAddClassResourceModalComponent implements OnInit {
     return this.form?.get('urls') as FormGroup;
   }
 
-  get files(): FormArray {
-    return this.form?.get('files') as FormArray;
+  get files(): AbstractControl | null {
+    return this.form?.get('files');
   }
 
-  removeFile(i: number): void {
-    console.log(this.files.value);
-    // this.files.value.splice(i, 1);
-    this.filesPreview.splice(i, 1);
+  removeFile(id: number): void {
+    this._store.dispatch(fromCore.deleteUploadedFile({ id }));
   }
 
   addURL(): void {

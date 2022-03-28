@@ -166,7 +166,7 @@ export const loadTutorResourceFailure = createAction(
 
 export const addTutorResource = createAction(
   '[Tutor] Add Tutor Resource',
-  props<{ formData: any }>()
+  props<{ body: any }>()
 );
 
 export const addTutorResourceSuccess = createAction(
@@ -181,7 +181,7 @@ export const addTutorResourceFailure = createAction(
 
 export const editTutorResource = createAction(
   '[Tutor] Edit Tutor Resource',
-  props<{ formData: any }>()
+  props<{ body: any }>()
 );
 
 export const editTutorResourceSuccess = createAction(
@@ -191,5 +191,20 @@ export const editTutorResourceSuccess = createAction(
 
 export const editTutorResourceFailure = createAction(
   '[Tutor] Edit Tutor Resource Failure',
+  props<{ error: any }>()
+);
+
+export const deleteTutorResource = createAction(
+  '[Tutor] Delete Tutor Resource',
+  props<{ id: number }>()
+);
+
+export const deleteTutorResourceSuccess = createAction(
+  '[Tutor] Delete Tutor Resource Success',
+  props<{ id: number; message: string }>()
+);
+
+export const deleteTutorResourceFailure = createAction(
+  '[Tutor] Delete Tutor Resource Failure',
   props<{ error: any }>()
 );

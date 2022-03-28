@@ -16,6 +16,7 @@ export interface State {
   isLaunchingClass: boolean;
   isLoadingSyllabus: boolean;
   isLoadingDashboard: boolean;
+  isDeletingResource: boolean;
   loadingTutorFailure: string;
   isSavingSubjectTitle: boolean;
   isAddingSyllabusTopic: boolean;
@@ -40,6 +41,7 @@ export const initialState: State = {
   isLaunchingClass: false,
   loadingTutorFailure: '',
   isLoadingSyllabus: false,
+  isDeletingResource: false,
   isLoadingDashboard: false,
   isSavingSubjectTitle: false,
   isAddingSyllabusTopic: false,
@@ -157,8 +159,6 @@ export const reducer = createReducer(
   })),
 
   on(tutorActions.tutorEditSyllabusTopicSuccess, (state, { syllabus }) => {
-    console.log(syllabus);
-
     let finalState = {
       ...state,
       isAddingSyllabusTopic: false,
@@ -240,7 +240,6 @@ export const reducer = createReducer(
 
     if (finalState.syllabus?.topics?.length) {
       let topics = [];
-      console.log(finalState.syllabus.topics);
       for (let i = 0; i < finalState.syllabus.topics?.length; i++) {
         let classes = [];
         if (finalState.syllabus.topics[i]?.topic?.classes?.length) {
@@ -380,10 +379,35 @@ export const reducer = createReducer(
     isAddingTutorResources: true,
   })),
 
-  on(tutorActions.addTutorResourceSuccess, (state) => ({
-    ...state,
-    isAddingTutorResources: false,
-  })),
+  on(tutorActions.addTutorResourceSuccess, (state, { resource }) => {
+    const finalState = {
+      ...state,
+      isAddingTutorResources: false,
+    };
+
+    if (
+      finalState.resources?.course?.classes &&
+      finalState.resources?.course?.classes?.length
+    ) {
+      const classes = finalState.resources.course.classes.map((cls: any) =>
+        cls.id === resource?.resource?.class?.id
+          ? { ...cls, resourceId: resource?.resource?.class?.resourceId }
+          : { ...cls }
+      );
+
+      const course = {
+        ...finalState.resources.course,
+        classes,
+      };
+
+      finalState.resources = {
+        ...finalState.resources,
+        course,
+      };
+    }
+
+    return finalState;
+  }),
 
   on(tutorActions.addTutorResourceFailure, (state) => ({
     ...state,
@@ -403,6 +427,44 @@ export const reducer = createReducer(
   on(tutorActions.editTutorResourceFailure, (state) => ({
     ...state,
     isAddingTutorResources: false,
+  })),
+
+  on(tutorActions.deleteTutorResource, (state) => ({
+    ...state,
+    isDeletingResource: true,
+  })),
+
+  on(tutorActions.deleteTutorResourceSuccess, (state, { id }) => {
+    const finalState = {
+      ...state,
+      isDeletingResource: false,
+    };
+
+    if (
+      finalState.resources?.course?.classes &&
+      finalState.resources?.course?.classes?.length
+    ) {
+      const classes = finalState.resources.course.classes.map((cls: any) =>
+        cls.resourceId === id ? { ...cls, resourceId: null } : { ...cls }
+      );
+
+      const course = {
+        ...finalState.resources.course,
+        classes,
+      };
+
+      finalState.resources = {
+        ...finalState.resources,
+        course,
+      };
+    }
+
+    return finalState;
+  }),
+
+  on(tutorActions.deleteTutorResourceFailure, (state) => ({
+    ...state,
+    isDeletingResource: false,
   }))
 );
 
@@ -450,3 +512,6 @@ export const selectTutorResources = (state: State): boolean => state.resources;
 
 export const selectIsAddingTutorResources = (state: State): boolean =>
   state.isAddingTutorResources;
+
+export const selectIsDeletingResource = (state: State): boolean =>
+  state.isDeletingResource;

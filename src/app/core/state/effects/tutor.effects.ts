@@ -291,8 +291,8 @@ export class TutorEffects {
   addTutorResource$ = createEffect(() =>
     this._actions$.pipe(
       ofType(tutorActions.addTutorResource),
-      mergeMap(({ formData }) =>
-        this._tutorService.addTutorResource(formData).pipe(
+      mergeMap(({ body }) =>
+        this._tutorService.addTutorResource(body).pipe(
           map((resource) =>
             tutorActions.addTutorResourceSuccess({
               resource: camelcaseKeys(resource, { deep: true }),
@@ -314,8 +314,8 @@ export class TutorEffects {
   editTutorResource$ = createEffect(() =>
     this._actions$.pipe(
       ofType(tutorActions.editTutorResource),
-      mergeMap(({ formData }) =>
-        this._tutorService.editTutorResource(formData).pipe(
+      mergeMap(({ body }) =>
+        this._tutorService.editTutorResource(body).pipe(
           map((resource) =>
             tutorActions.editTutorResourceSuccess({
               resource: camelcaseKeys(resource, { deep: true }),
@@ -334,6 +334,29 @@ export class TutorEffects {
     )
   );
 
+  deleteTutorResource$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorActions.deleteTutorResource),
+      mergeMap(({ id }) =>
+        this._tutorService.deleteTutorResource(id).pipe(
+          map((resource) =>
+            tutorActions.deleteTutorResourceSuccess({
+              id,
+              message: 'Resource successfully deleted',
+            })
+          ),
+          catchError((error) =>
+            of(
+              tutorActions.deleteTutorResourceFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   successMessages$ = createEffect(
     () =>
       this._actions$.pipe(
@@ -341,6 +364,7 @@ export class TutorEffects {
           ...[
             tutorActions.addTutorResourceSuccess,
             tutorActions.editTutorResourceSuccess,
+            tutorActions.deleteTutorResourceSuccess,
             tutorActions.tutorAddSyllabusTopicSuccess,
             tutorActions.tutorEditSubjectTitleSuccess,
             tutorActions.tutorEditSyllabusTopicSuccess,
@@ -359,9 +383,10 @@ export class TutorEffects {
       this._actions$.pipe(
         ofType(
           ...[
+            tutorActions.tutorLaunchClassFailure,
             tutorActions.addTutorResourceFailure,
             tutorActions.editTutorResourceFailure,
-            tutorActions.tutorLaunchClassFailure,
+            tutorActions.deleteTutorResourceFailure,
             tutorActions.completeTutorProfileFailure,
             tutorActions.tutorAddSyllabusTopicFailure,
             tutorActions.tutorEditSubjectTitleFailure,

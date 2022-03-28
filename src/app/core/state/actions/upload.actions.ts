@@ -1,5 +1,10 @@
 import { createAction, props } from '@ngrx/store';
 
+export const setFiles = createAction(
+  '[Upload Service] Set Files',
+  props<{ files: any }>()
+);
+
 export const uploadFile = createAction(
   '[Upload Service] Upload File',
   props<{ file: any }>()
@@ -27,4 +32,19 @@ export const loadUploadFileProgress = createAction(
 
 export const resetUploadedFiles = createAction(
   '[Upload Service] Reset Uploaded Files'
+);
+
+export const deleteUploadedFile = createAction(
+  '[Upload Service] Delete Uploaded File',
+  props<{ id: number }>()
+);
+
+export const deleteUploadedFileSuccess = createAction(
+  '[Upload Service] Delete Uploaded File Success',
+  props<{ id: number; message?: any }>()
+);
+
+export const deleteUploadedFileFailure = createAction(
+  '[Upload Service] Delete Uploaded File Failure',
+  props<{ error?: string }>()
 );

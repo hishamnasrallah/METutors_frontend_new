@@ -17,6 +17,7 @@ export class TutorResourcesComponent implements OnInit {
   classId: string;
   heading = 'Add Resources';
 
+  isSavingResource$: Observable<boolean>;
   showAddClassResourceModal$: Observable<boolean>;
   view$: Observable<{ loading: boolean; resources: any }>;
 
@@ -34,6 +35,7 @@ export class TutorResourcesComponent implements OnInit {
 
   onOpenAddClassResource(classId: string) {
     this.classId = classId;
+    this.heading = 'Add Resources';
     this._store.dispatch(fromTutorAction.openTutorAddClassResourceModal());
   }
 
@@ -48,20 +50,31 @@ export class TutorResourcesComponent implements OnInit {
     this._store.dispatch(fromTutorAction.closeTutorAddClassResourceModal());
   }
 
+  onDeleteResource(id: number): void {
+    this._store.dispatch(fromCore.deleteTutorResource({ id }));
+  }
+
   onSaveResource(data: any): void {
     const { resourceId, urls, files, description } = data;
 
-    const formData = new FormData();
+    const body = {
+      urls,
+      files,
+      resourceId,
+      description,
+      classId: this.classId,
+    };
+    /*    const formData = new FormData();
     formData.append('urls', urls);
     formData.append('classId', this.classId);
     formData.append('resourceId', resourceId);
     formData.append('description', description);
-    formData.append('files', files.toString());
+    formData.append('files', files.toString());*/
 
     if (resourceId) {
-      this._store.dispatch(fromCore.editTutorResource({ formData }));
+      this._store.dispatch(fromCore.editTutorResource({ body }));
     } else {
-      this._store.dispatch(fromCore.addTutorResource({ formData }));
+      this._store.dispatch(fromCore.addTutorResource({ body }));
     }
   }
 
@@ -69,6 +82,10 @@ export class TutorResourcesComponent implements OnInit {
     this._store.dispatch(fromCore.loadTutorResources());
     this.showAddClassResourceModal$ = this._store.select(
       fromTutor.selectAddClassResourceModal
+    );
+
+    this.isSavingResource$ = this._store.select(
+      fromCore.selectIsAddingTutorResources
     );
 
     this.view$ = combineLatest([

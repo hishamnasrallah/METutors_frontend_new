@@ -219,6 +219,11 @@ export const selectIsAddingTutorResources = createSelector(
   fromTutorReducer.selectIsAddingTutorResources
 );
 
+export const selectIsDeletingResource = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectIsDeletingResource
+);
+
 // Student
 export const selectStudentDashboard = createSelector(
   selectStudentState,
@@ -553,4 +558,9 @@ export const selectIsUploadingFile = createSelector(
 export const selectFileUploadingProgress = createSelector(
   selectUploadState,
   fromUploadReducer.selectFileUploadingProgress
+);
+
+export const selectIsDeletingFile = createSelector(
+  selectUploadState,
+  fromUploadReducer.selectIsDeletingFile
 );
