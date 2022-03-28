@@ -13,7 +13,7 @@
       letter-spacing: 1px;
 
       &.active {
-        color: #3bb3c1;
+        color: var(--main-color);
 
         &:after {
           content: "";
@@ -22,7 +22,7 @@
           left: 0;
           right: 0;
           bottom: -2px;
-          background: #3bb3c1;
+          background: var(--main-color);
         }
       }
     }
@@ -36,7 +36,7 @@
 
     &.active {
       color: #FFF !important;
-      background: #3bb3c1;
+      background: var(--main-color);
     }
   }
 

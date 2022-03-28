@@ -21,7 +21,7 @@
         &.active {
           color: #2a2a2a;
           font-weight: bold;
-          border-left: 5px solid #3bb3c1;
+          border-left: 5px solid var(--main-color);
         }
       }
     }

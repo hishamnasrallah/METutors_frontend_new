@@ -13,7 +13,7 @@
 
     button {
       background-color: rgb(59 179 193 / 15%);
-      color: #3bb3c1;
+      color: var(--main-color);
       border-radius: 25px;
     }
   }
@@ -29,7 +29,7 @@
       border-bottom: 1px solid rgba(226, 226, 226, 0.16);
 
       &.active {
-        border-right: 6px solid #3bb3c1;
+        border-right: 6px solid var(--main-color);
         font-weight: bold;
       }
     }

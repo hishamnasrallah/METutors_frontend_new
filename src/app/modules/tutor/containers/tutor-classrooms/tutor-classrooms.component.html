@@ -9,12 +9,12 @@
               (click)=" programId = null; countryId = null; fieldId = null; loadCourse({});">All</span>
         <ng-container *ngFor="let program of view?.programs">
           <span class="fw-bold cursor-pointer position-relative"
-            [class.active]="programId === program?.id" *ngIf="program.code !== 'NA'"
+            [class.active]="programId === program?.id" *ngIf="+program.id !== nationalId"
             (click)=" countryId = null; programId = program?.id; fieldId = null; loadCourse({program: program?.id});">{{ program?.code }}</span>
 
           <div class="btn-group" dropdown>
             <span class="fw-bold cursor-pointer position-relative dropdown-toggle dropdown-toggle-split" dropdownToggle
-                  [class.active]="programId === program?.id" *ngIf="program.code === 'NA'"
+                  [class.active]="programId === program?.id" *ngIf="+program.id === nationalId"
                   (click)="programId = program?.id; fieldId = null;">{{ program?.name }}</span>
 
               <ul id="dropdown-split" *dropdownMenu class="dropdown-menu"

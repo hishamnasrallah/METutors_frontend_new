@@ -18,7 +18,7 @@
   }
 
   .item {
-    border: 1px solid #3BB3C1;
+    border: 1px solid var(--main-color);
     padding: 30px;
     border-radius: 5px;
 
@@ -42,9 +42,9 @@
     }
 
     button {
-      border: 1px solid #3BB3C1;
+      border: 1px solid var(--main-color);
       width: 100%;
-      color: #3BB3C1;
+      color: var(--main-color);
       padding: 3px;
       font-size: 20px;
       margin-top: 20px;

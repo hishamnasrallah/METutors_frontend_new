@@ -43,3 +43,13 @@ export const selectIsSendMeetingLinkModal = createSelector(
   selectAdminModalState,
   fromAdminModal.selectIsSendMeetingLinkModal
 );
+
+export const selectIsHourlyRatePerSubjectModal = createSelector(
+  selectAdminModalState,
+  fromAdminModal.selectIsHourlyRatePerSubjectModal
+);
+
+export const selectIsInterviewAttachmentModal = createSelector(
+  selectAdminModalState,
+  fromAdminModal.selectIsInterviewAttachmentModal
+);

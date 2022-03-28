@@ -29,6 +29,7 @@ export class ModalComponent implements OnInit, OnDestroy {
   @Input() heading = '';
   @Input() subHeading = '';
   @Input() size = 'medium';
+  @Input() showHeader = true;
   @Input() showModal: boolean;
   @Input() template: TemplateRef<any>;
 
@@ -44,6 +45,7 @@ export class ModalComponent implements OnInit, OnDestroy {
         data: {
           heading: this.heading,
           template: this.template,
+          showHeader: this.showHeader,
           subHeading: this.subHeading,
         },
       });
@@ -69,6 +71,7 @@ export class ModalComponent implements OnInit, OnDestroy {
 export class ModalComponentTemplate implements OnInit {
   heading: string;
   subHeading: string;
+  showHeader: boolean;
   template: TemplateRef<any>;
 
   constructor(
@@ -80,5 +83,6 @@ export class ModalComponentTemplate implements OnInit {
     this.heading = this.data.heading;
     this.template = this.data.template;
     this.subHeading = this.data.subHeading;
+    this.showHeader = this.data.showHeader;
   }
 }

@@ -6,10 +6,6 @@ import { PublicRoutingModule } from './public-routing.module';
 import { MatIconModule } from '@angular/material/icon';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { VgCoreModule } from '@videogular/ngx-videogular/core';
-import { VgControlsModule } from '@videogular/ngx-videogular/controls';
-import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
-import { VgBufferingModule } from '@videogular/ngx-videogular/buffering';
 import { ContactService } from 'src/app/core/services';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -39,7 +35,6 @@ import {
   AboutValuesComponent,
   WhyMetutorsComponent,
   HomeCoursesComponent,
-  VideoPlayerComponent,
   WhyTeachingUsComponent,
   GetYourClassesComponent,
   LanguagesSlideComponent,
@@ -89,7 +84,6 @@ import {
     FounderTeamComponent,
     WhyMetutorsComponent,
     HomeCoursesComponent,
-    VideoPlayerComponent,
     BecomeTutorComponent,
     WhyTeachingUsComponent,
     SelectFaqTopicComponent,
@@ -125,7 +119,6 @@ import {
   ],
   imports: [
     FormsModule,
-    VgCoreModule,
     CommonModule,
     SharedModule,
     MatIconModule,
@@ -133,12 +126,9 @@ import {
     MatButtonModule,
     MatSelectModule,
     GoogleMapsModule,
-    VgControlsModule,
-    VgBufferingModule,
     MatFormFieldModule,
     ReactiveFormsModule,
     PublicRoutingModule,
-    VgOverlayPlayModule,
     RatingModule.forRoot(),
   ],
   providers: [ContactService],

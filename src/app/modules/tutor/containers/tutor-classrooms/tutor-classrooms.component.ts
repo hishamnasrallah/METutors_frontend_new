@@ -12,7 +12,7 @@ import { FormGroup } from '@angular/forms';
 import { combineLatest, Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import * as fromRoot from '@metutor/state';
-import { WEEK_DAYS } from '@metutor/config';
+import { generalConstants, WEEK_DAYS } from '@metutor/config';
 import { IUser } from '@metutor/core/models';
 import * as fromCore from '@metutor/core/state';
 import * as fromTutor from '@metutor/modules/tutor/state';
@@ -67,6 +67,7 @@ export class TutorClassroomsComponent implements OnInit {
   openActive = true;
   openCompleted = true;
   openNewlyAssigned = true;
+  nationalId = generalConstants.nationalId;
 
   constructor(private _store: Store<any>) {}
 
