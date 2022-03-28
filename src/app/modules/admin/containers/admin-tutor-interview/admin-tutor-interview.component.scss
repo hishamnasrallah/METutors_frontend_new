@@ -26,7 +26,7 @@
     margin-right: 15px;
 
     &.mat-tab-label-active {
-      color: #3bb3c1;
+      color: var(--main-color);
       opacity: 1;
     }
   }

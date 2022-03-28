@@ -18,9 +18,9 @@
     margin-right: 15px;
 
     &.active {
-      background-color: #3BB3C1;
+      background-color: var(--main-color);
       color: #FFF;
-      border-color: #3BB3C1;
+      border-color: var(--main-color);
     }
   }
 }
@@ -28,7 +28,7 @@
 .subj-info {
   font-size: 15px;
   color: #FFF;
-  background: #3BB3C1;
+  background: var(--main-color);
   border-radius: 30px;
   height: auto;
 
@@ -62,9 +62,9 @@
   padding: 4px;
 
   &.active {
-    background-color: #3BB3C1;
+    background-color: var(--main-color);
     color: #FFF;
-    border-color: #3BB3C1;
+    border-color: var(--main-color);
   }
 }
 

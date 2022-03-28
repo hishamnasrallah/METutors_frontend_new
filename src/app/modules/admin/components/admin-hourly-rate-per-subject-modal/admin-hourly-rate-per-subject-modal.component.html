@@ -1,0 +1,90 @@
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'medium'" [heading]="'Tutor Hourly Rate per Subject'"
+                [template]="template">
+  <ng-template #template>
+    <form class="hourly-rate" [formGroup]="form" (ngSubmit)="submitted.emit(form)">
+        <table class="table my-table default-title">
+            <tr>
+                <th class="heading">Program <span>National Pakistan</span></th>
+                <th class="heading">Field Name <span>Math</span></th>
+            </tr>
+            <tr>
+                <th>Subject Name</th>
+                <th>Hourly Rate</th>
+            </tr>
+            <tr>
+                <td>Science</td>
+                <td>
+                    <input type="number" placeholder="Enter Price" class="p-0">
+                </td>
+            </tr>
+            <tr>
+                <td>Science</td>
+                <td>
+                    <input type="number" placeholder="Enter Price" class="p-0">
+                </td>
+            </tr>
+            <tr>
+                <td>Math</td>
+                <td>
+                    <input type="number" placeholder="Enter Price" class="p-0">
+                </td>
+            </tr>
+        </table>
+        <table class="table my-table default-title mt-2">
+            <tr>
+                <th class="heading" colspan="2">Program <span>National Pakistan</span></th>
+                <th class="heading">Field Name <span>Math</span></th>
+            </tr>
+            <tr>
+                <th>Subject Name</th>
+                <th>Grade</th>
+                <th>Hourly Rate</th>
+            </tr>
+            <tr>
+                <td>Science</td>
+                <td>12 th</td>
+                <td>
+                    <input type="number" placeholder="Enter Price" class="p-0">
+                </td>
+            </tr>
+            <tr>
+                <td>Science</td>
+                <td>10 th</td>
+                <td>
+                    <input type="number" placeholder="Enter Price" class="p-0">
+                </td>
+            </tr>
+            <tr>
+                <td>Math</td>
+                <td>9 th</td>
+                <td>
+                    <input type="number" placeholder="Enter Price" class="p-0">
+                </td>
+            </tr>
+        </table>
+
+        <div class="mt-4">
+            <!-- [isSubmitting]="submitting" -->
+            <metutors-submit-button [form]="form" [extraClasses]="'float-end py-1 px-5'">
+                Updated
+            </metutors-submit-button>
+        </div>
+    </form>
+
+    <form class="hourly-rate" [formGroup]="form">
+        <h2 class="note">Send Acceptance Message to Tutor</h2>
+        <div class="form-group">
+        <textarea class="form-control custom-input input-bordered" formControlName="message" rows="10" placeholder="Enter the reason here..."></textarea>
+        </div>
+
+        <div class="row mt-2">
+        <div class="col-md-12 overflow-hidden">
+            <!-- [isSubmitting]="submitting" -->
+            <metutors-submit-button [form]="form" [extraClasses]="'float-end py-1 px-5'">
+                Updated
+            </metutors-submit-button>
+        </div>
+        </div>
+    </form>
+  </ng-template>
+</metutors-modal>

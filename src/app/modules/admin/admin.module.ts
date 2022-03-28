@@ -19,6 +19,8 @@ import {
   AdminSupportTicketComponent,
   AdminTicketDetailsComponent,
   AdminTutorInterviewComponent,
+  AdminTutorInterviewDetailsComponent,
+  AdminTutorInterviewDocumentsComponent,
 } from './containers';
 
 import {
@@ -26,6 +28,8 @@ import {
   AdminSidebarComponent,
   InterviewCardComponent,
   AdminSendMeetingLinkModalComponent,
+  AdminHourlyRatePerSubjectModalComponent,
+  AdminTutorInterviewAttachmentModalComponent,
 } from './components';
 
 @NgModule({
@@ -39,6 +43,10 @@ import {
     AdminTicketDetailsComponent,
     AdminTutorInterviewComponent,
     AdminSendMeetingLinkModalComponent,
+    AdminTutorInterviewDetailsComponent,
+    AdminTutorInterviewDocumentsComponent,
+    AdminHourlyRatePerSubjectModalComponent,
+    AdminTutorInterviewAttachmentModalComponent,
   ],
   imports: [
     FormsModule,

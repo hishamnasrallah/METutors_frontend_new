@@ -1,0 +1,84 @@
+.interview-details {
+  padding: 30px 40px 20px;
+
+  .card-body {
+    padding: 30px;
+  }
+
+  h1 {
+    color: var(--main-color);
+    font-weight: bold;
+    font-size: 30px;
+    margin: 0;
+  }
+
+  .actions-interview {
+    font-weight: bold;
+
+    .send-link {
+      color: #51C395;
+      text-decoration: underline;
+      font-size: 17px;
+      margin-left: 30px;
+    }
+  }
+
+  .title {
+    color: #7D7D7D;
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+
+  .basic-table {
+    tr {
+      td {
+        width: 50%;
+        padding-bottom: 7px;
+        font-weight: bold;
+
+        &:first-child {
+          color: #696969;
+        }
+
+        &:last-child {
+          color: #2a2a2a;
+        }
+      }
+    }
+  }
+
+  .my-table.default-title tr th {
+    color: #696969;
+    font-size: 13px;
+    background-color: transparent;
+
+    &.heading {
+      background: #F7F7F7;
+    }
+
+    span {
+      color: #2a2a2a;
+    }
+  }
+
+  .notes {
+    h2 {
+      font-size: 20px;
+      font-weight: 600;
+      color: #2a2a2a;
+    }
+
+    p {
+      color: #696969;
+      font-size: 18px;
+    }
+  }
+
+  .actions {
+    .decline {
+      background: #FF385C;
+      color: #FFF;
+    }
+  }
+}

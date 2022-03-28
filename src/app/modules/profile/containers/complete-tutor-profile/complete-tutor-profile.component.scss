@@ -1,5 +1,5 @@
 .header {
-  border-bottom: 10px solid #3BB3C1;
+  border-bottom: 10px solid var(--main-color);
   padding: 20px 60px;
 
   .brand {
@@ -14,7 +14,7 @@
   }
 
   .exit {
-    color: #3BB3C1;
+    color: var(--main-color);
     font-size: 20px;
   }
 }
@@ -48,11 +48,11 @@
       position: relative;
 
       &.active {
-        color: #3bb3c1;
+        color: var(--main-color);
 
         &:after {
           content: "";
-          background: #3BB3C1;
+          background: var(--main-color);
           height: 4px;
           position: absolute;
           left: calc(25px + 5%);

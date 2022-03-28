@@ -8,6 +8,10 @@ body {
   height: 100%;
 }
 
+:root {
+  --main-color: #3bb3c1;
+}
+
 body {
   margin: 0;
   font-family: 'Proxima Nova', sans-serif;
@@ -67,7 +71,7 @@ button:hover {
 
 .mat-progress-bar-fill::after,
 .mat-slide-toggle.mat-primary.mat-checked .mat-slide-toggle-bar {
-  background-color: #3bb3c1;
+  background-color: var(--main-color);
 }
 
 .mat-tab-group.mat-primary .mat-ink-bar,
@@ -93,17 +97,17 @@ button:hover {
 .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background,
 .mat-checkbox-checked.mat-accent .mat-checkbox-background,
 .mat-accent .mat-pseudo-checkbox-indeterminate .mat-primary .mat-pseudo-checkbox-indeterminate {
-  background-color: #3bb3c1;
+  background-color: var(--main-color);
 }
 
 .timepicker__header,
 .clock-face__number>span.active,
 .clock-face__clock-hand {
-  background-color: #3bb3c1 !important;
+  background-color: var(--main-color) !important;
 }
 
 .timepicker-button {
-  color: #3bb3c1 !important;
+  color: var(--main-color) !important;
 }
 
 .timepicker-overlay {
@@ -118,11 +122,12 @@ button:hover {
 }
 
 a {
-  color: #3bb3c1;
+  color: var(--main-color);
   text-decoration: none;
 
   &:hover {
     text-decoration: none;
+    color: var(--main-color);
   }
 }
 
@@ -198,21 +203,21 @@ a {
   transition: all 0.5s ease-in-out;
 
   &:hover {
-    background-color: #3bb3c1;
+    background-color: var(--main-color);
     color: #FFF;
   }
 }
 
 .main-button-transparent {
   border-radius: 5px !important;
-  border: solid 1px #3bb3c1 !important;
+  border: solid 1px var(--main-color) !important;
   background-color: rgba(255, 255, 255, 0);
   font-weight: bold;
-  color: #3bb3c1 !important;
+  color: var(--main-color) !important;
   transition: all 0.25s ease-in-out;
 
   &:hover {
-    background-color: #3bb3c1 !important;
+    background-color: var(--main-color) !important;
     color: #FFF !important;
 
     svg,
@@ -247,7 +252,7 @@ a {
 
 .main-button-opacity {
   background-color: rgb(59 179 193 / 15%) !important;
-  color: #3bb3c1 !important;
+  color: var(--main-color) !important;
   font-weight: bold;
   padding: 0 15px !important;
 }
@@ -364,8 +369,8 @@ rating span.bs-rating-star {
 }
 
 .page-item.active .page-link {
-  background-color: #3bb3c1;
-  border-color: #3bb3c1;
+  background-color: var(--main-color);
+  border-color: var(--main-color);
 }
 
 .page-item:last-child .page-link {
@@ -397,11 +402,11 @@ rating span.bs-rating-star {
 }
 
 .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
-  color: #3bb3c1;
+  color: var(--main-color);
 }
 
 .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
-  border-color: #3bb3c1;
+  border-color: var(--main-color);
 }
 
 .mat-form-field-type-mat-select:not(.mat-form-field-disabled) .mat-form-field-flex {
@@ -537,7 +542,7 @@ rating span.bs-rating-star {
 
     th {
       padding: 10px;
-      background-color: #3BB3C1;
+      background-color: var(--main-color);
       color: #FFF;
     }
 
@@ -578,9 +583,9 @@ rating span.bs-rating-star {
   }
 
   input:focus~button {
-    background-color: #3bb3c1 !important;
+    background-color: var(--main-color) !important;
     color: #fff !important;
-    border-color: #3bb3c1 !important;
+    border-color: var(--main-color) !important;
   }
 }
 
@@ -605,7 +610,7 @@ rating span.bs-rating-star {
 }
 
 .cal-month-view .cal-day-badge {
-  background-color: #3bb3c1;
+  background-color: var(--main-color);
   margin-right: 10px;
   margin-left: 0;
 }
@@ -637,15 +642,15 @@ rating span.bs-rating-star {
   bottom: -14px !important;
   height: 28px !important;
   width: 28px !important;
-  background-color: #3bb3c1 !important;
+  background-color: var(--main-color) !important;
 }
 
 .mat-slider-thumb-label {
-  background-color: #3bb3c1 !important;
+  background-color: var(--main-color) !important;
 }
 
 .mat-slider-track-fill {
-  background-color: #3bb3c1 !important;
+  background-color: var(--main-color) !important;
 }
 
 metutors-navbar-mobile {

@@ -4,10 +4,12 @@ import { AdminAuthGuard } from '@metutor/core/guards';
 
 import {
   AdminComponent,
+  AdminTutorListComponent,
   AdminSupportTicketComponent,
   AdminTicketDetailsComponent,
   AdminTutorInterviewComponent,
-  AdminTutorListComponent,
+  AdminTutorInterviewDetailsComponent,
+  AdminTutorInterviewDocumentsComponent,
 } from './containers';
 
 const routes: Routes = [
@@ -28,15 +30,49 @@ const routes: Routes = [
         children: [
           {
             path: 'interview',
-            component: AdminTutorInterviewComponent,
-            data: {
-              layout: {
-                title: 'Tutor interview - Metutors',
-                navbarTitle: 'Interview requests',
-                showHeader: false,
-                showFooter: false,
+            children: [
+              {
+                path: 'details/:id',
+                children: [
+                  {
+                    path: 'documents',
+                    component: AdminTutorInterviewDocumentsComponent,
+                    data: {
+                      layout: {
+                        title: 'Tutor interview - Metutors',
+                        navbarTitle: 'Interview requests',
+                        showHeader: false,
+                        showFooter: false,
+                      },
+                    },
+                  },
+                  {
+                    path: '',
+                    component: AdminTutorInterviewDetailsComponent,
+                    data: {
+                      layout: {
+                        title: 'Tutor interview - Metutors',
+                        navbarTitle: 'Interview requests',
+                        showHeader: false,
+                        showFooter: false,
+                      },
+                    },
+                  },
+                ],
               },
-            },
+              {
+                path: '',
+                component: AdminTutorInterviewComponent,
+                data: {
+                  layout: {
+                    title: 'Tutor interview - Metutors',
+                    navbarTitle: 'Interview requests',
+                    showHeader: false,
+                    showFooter: false,
+                  },
+                },
+              },
+            ],
           },
           {
             path: 'list',

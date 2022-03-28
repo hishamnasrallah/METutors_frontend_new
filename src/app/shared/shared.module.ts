@@ -11,6 +11,11 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
+import { VgCoreModule } from '@videogular/ngx-videogular/core';
+import { VgControlsModule } from '@videogular/ngx-videogular/controls';
+import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
+import { VgBufferingModule } from '@videogular/ngx-videogular/buffering';
+
 // Popups
 import {
   DialogCourseDetailsPopup,
@@ -23,6 +28,7 @@ import {
 import {
   ModalComponent,
   CourseItemComponent,
+  VideoPlayerComponent,
   SubmitButtonComponent,
   ModalComponentTemplate,
   ClassroomItemComponent,
@@ -47,6 +53,7 @@ import {
 @NgModule({
   declarations: [
     CourseItemComponent,
+    VideoPlayerComponent,
     SubmitButtonComponent,
     ClassroomItemComponent,
     CardPlaceholderComponent,
@@ -77,6 +84,7 @@ import {
   imports: [
     FormsModule,
     CommonModule,
+    VgCoreModule,
     RatingModule,
     RouterModule,
     MatIconModule,
@@ -84,11 +92,15 @@ import {
     MatButtonModule,
     MatDialogModule,
     MatTooltipModule,
+    VgControlsModule,
+    VgBufferingModule,
+    VgOverlayPlayModule,
     ReactiveFormsModule,
     MatProgressBarModule,
   ],
   exports: [
     CourseItemComponent,
+    VideoPlayerComponent,
     SubmitButtonComponent,
     ClassroomItemComponent,
     CardPlaceholderComponent,

@@ -12,7 +12,7 @@ import { map } from 'rxjs/operators';
 import { combineLatest, Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 
-import { WEEK_DAYS } from '@config';
+import { generalConstants, WEEK_DAYS } from '@config';
 import * as fromRoot from '@metutor/state';
 import { IUser } from '@metutor/core/models';
 import * as fromCore from '@metutor/core/state';
@@ -54,6 +54,7 @@ export class StudentClassroomsComponent implements OnInit {
   openActive = true;
   openCompleted = true;
   openNewlyAssigned = true;
+  nationalId = generalConstants.nationalId;
 
   view$: Observable<{
     programs: any;

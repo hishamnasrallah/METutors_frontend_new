@@ -32,7 +32,6 @@ export * from './still-have-questions';
 export * from './student-success-slide';
 export * from './success-stories';
 export * from './trust-happy-students';
-export * from './video-player';
 export * from './why-metutors';
 export * from './why-teaching-us';
 export * from './why-we-teach';
