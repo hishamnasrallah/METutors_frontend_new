@@ -3,14 +3,16 @@ import { createReducer, on } from '@ngrx/store';
 import * as uploadActions from '../actions/upload.actions';
 
 export interface State {
-  files: any;
+  files: any[];
   uploadProgress: any;
+  isDeletingFile: boolean;
   isUploadingFile: boolean;
 }
 
 export const initialState: State = {
-  files: null,
+  files: [],
   uploadProgress: null,
+  isDeletingFile: false,
   isUploadingFile: false,
 };
 
@@ -33,10 +35,22 @@ export const reducer = createReducer(
   })),
 
   // Load uploaded files
-  on(uploadActions.loadUploadedFiles, (state, { files }) => ({
-    ...state,
-    files,
-  })),
+  on(uploadActions.loadUploadedFiles, (state, { files }) => {
+    let finalState = {
+      ...state,
+    };
+
+    const fileClone = [...finalState.files];
+
+    fileClone.push(files[0]);
+
+    finalState = {
+      ...finalState,
+      files: fileClone,
+    };
+
+    return finalState;
+  }),
 
   // Load upload file progress
   on(uploadActions.loadUploadFileProgress, (state, { uploadProgress }) => ({
@@ -44,10 +58,33 @@ export const reducer = createReducer(
     uploadProgress,
   })),
 
+  // Delete file
+  on(uploadActions.deleteUploadedFile, (state) => ({
+    ...state,
+    isDeletingFile: true,
+  })),
+
+  on(uploadActions.deleteUploadedFileSuccess, (state, { id }) => {
+    const finalState = {
+      ...state,
+    };
+
+    if (finalState.files && finalState.files.length) {
+      finalState.files = finalState.files.filter((file) => file.id !== id);
+    }
+
+    return finalState;
+  }),
+
+  on(uploadActions.deleteUploadedFileFailure, (state) => ({
+    ...state,
+    isDeletingFile: false,
+  })),
+
   // Reset Uploaded Files resetUploadedFiles
   on(uploadActions.resetUploadedFiles, (state) => ({
     ...state,
-    files: undefined,
+    files: [],
   }))
 );
 
@@ -58,3 +95,5 @@ export const selectIsUploadingFile = (state: State): boolean =>
 
 export const selectFileUploadingProgress = (state: State): any =>
   state.uploadProgress;
+
+export const selectIsDeletingFile = (state: State): any => state.isDeletingFile;

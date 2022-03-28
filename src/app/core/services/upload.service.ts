@@ -36,11 +36,17 @@ export class UploadService {
             progress: Math.round((100 * event.loaded) / event.total),
           };
         } else if (event.type === HttpEventType.Response) {
-          this.uploadedFiles = event?.body;
+          this.uploadedFiles = event?.body?.file;
           this.fileUploadProgress[index] = {
             ...this.fileUploadProgress[index],
             responseType: event.type,
           };
+
+          this._store.dispatch(
+            fromCore.loadUploadedFiles({
+              files: this.uploadedFiles,
+            })
+          );
         }
 
         this._store.dispatch(
@@ -48,23 +54,21 @@ export class UploadService {
             uploadProgress: [...this.fileUploadProgress],
           })
         );
-
-        this._store.dispatch(
-          fromCore.loadUploadedFiles({
-            files: this.uploadedFiles,
-          })
-        );
       });
     });
   }
 
-  onUploadFile(files: any): Observable<any> {
+  onUploadFile(file: any): Observable<any> {
     return this._http
-      .post<HttpResponse<any>>(`${this.baseUrl}upload`, files, {
+      .post<HttpResponse<any>>(`${this.baseUrl}upload`, file, {
         reportProgress: true,
         observe: 'events',
       })
       .pipe(map((response) => camelcaseKeys(response, { deep: true })));
+  }
+
+  deleteUploadedFile(id: number): Observable<any> {
+    return this._http.delete<any>(`${this.baseUrl}file/${id}`);
   }
 
   constructor(private _http: HttpClient, private _store: Store<any>) {}

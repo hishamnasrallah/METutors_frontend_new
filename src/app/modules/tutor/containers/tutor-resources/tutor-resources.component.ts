@@ -51,17 +51,24 @@ export class TutorResourcesComponent implements OnInit {
   onSaveResource(data: any): void {
     const { resourceId, urls, files, description } = data;
 
-    const formData = new FormData();
+    const body = {
+      urls,
+      files,
+      resourceId,
+      description,
+      classId: this.classId,
+    };
+    /*    const formData = new FormData();
     formData.append('urls', urls);
     formData.append('classId', this.classId);
     formData.append('resourceId', resourceId);
     formData.append('description', description);
-    formData.append('files', files.toString());
+    formData.append('files', files.toString());*/
 
     if (resourceId) {
-      this._store.dispatch(fromCore.editTutorResource({ formData }));
+      this._store.dispatch(fromCore.editTutorResource({ body }));
     } else {
-      this._store.dispatch(fromCore.addTutorResource({ formData }));
+      this._store.dispatch(fromCore.addTutorResource({ body }));
     }
   }
 

@@ -291,8 +291,8 @@ export class TutorEffects {
   addTutorResource$ = createEffect(() =>
     this._actions$.pipe(
       ofType(tutorActions.addTutorResource),
-      mergeMap(({ formData }) =>
-        this._tutorService.addTutorResource(formData).pipe(
+      mergeMap(({ body }) =>
+        this._tutorService.addTutorResource(body).pipe(
           map((resource) =>
             tutorActions.addTutorResourceSuccess({
               resource: camelcaseKeys(resource, { deep: true }),
@@ -314,8 +314,8 @@ export class TutorEffects {
   editTutorResource$ = createEffect(() =>
     this._actions$.pipe(
       ofType(tutorActions.editTutorResource),
-      mergeMap(({ formData }) =>
-        this._tutorService.editTutorResource(formData).pipe(
+      mergeMap(({ body }) =>
+        this._tutorService.editTutorResource(body).pipe(
           map((resource) =>
             tutorActions.editTutorResourceSuccess({
               resource: camelcaseKeys(resource, { deep: true }),

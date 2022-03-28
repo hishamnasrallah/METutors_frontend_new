@@ -554,3 +554,8 @@ export const selectFileUploadingProgress = createSelector(
   selectUploadState,
   fromUploadReducer.selectFileUploadingProgress
 );
+
+export const selectIsDeletingFile = createSelector(
+  selectUploadState,
+  fromUploadReducer.selectIsDeletingFile
+);
