@@ -1,0 +1,49 @@
+.add-class-modal {
+  label {
+    font-weight: bold;
+    font-size: 15px;
+  }
+
+  .url-info {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    span {
+      color: #696969;
+    }
+
+    strong {
+      font-size: 18px;
+      color: #2a2a2a;
+      font-weight: 500;
+    }
+
+    .link {
+      margin: 6px 0 0 6px;
+    }
+  }
+
+  .list-files {
+    >div {
+      width: calc(100% - (24px + 0.5rem));
+    }
+
+    h3 {
+      font-size: 16px;
+      margin: 0;
+      color: #2a2a2a;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+    }
+
+    h5 {
+      font-size: 13px;
+      color: #696969;
+      margin: 0;
+    }
+  }
+}
