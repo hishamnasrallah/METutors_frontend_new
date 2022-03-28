@@ -1,0 +1,10 @@
+<metutors-modal [showModal]="showModal" [size]="'medium'" [template]="template" [showHeader]="false">
+  <ng-template #template>
+    <img src="assets/about/meeting.png" alt="" class="w-100">
+
+    <div class="actions d-flex justify-content-center mt-4">
+      <button mat-button class="fw-bold me-3 decline" (click)="closeModal.emit()">Rejected</button>
+      <button mat-flat-button color="primary" class="fw-bold">Approve</button>
+    </div>
+  </ng-template>
+</metutors-modal>
