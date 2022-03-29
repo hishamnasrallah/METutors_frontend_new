@@ -100,6 +100,7 @@ export class TutorEffects {
     )
   );
 
+  // Tutor syllabus
   loadTutorSyllabus$ = createEffect(() =>
     this._actions$.pipe(
       ofType(tutorActions.loadTutorSyllabus),
@@ -346,6 +347,30 @@ export class TutorEffects {
           catchError((error) =>
             of(
               tutorActions.deleteTutorResourceFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  // Tutor assignments
+  loadTutorAssignments$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorActions.loadTutorAssignments),
+      withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
+      mergeMap(([_, { id }]) =>
+        this._tutorService.getTutorAssignments(id).pipe(
+          map((assignments) =>
+            tutorActions.loadTutorAssignmentsSuccess({
+              assignments: camelcaseKeys(assignments, { deep: true }),
+            })
+          ),
+          catchError((error) =>
+            of(
+              tutorActions.loadTutorAssignmentsFailure({
                 error: error?.error?.message || error?.error?.errors,
               })
             )

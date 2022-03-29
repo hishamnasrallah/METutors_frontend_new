@@ -140,4 +140,11 @@ export class TutorsService {
   deleteTutorResource(id: number): Observable<any> {
     return this.http.delete<any>(`${this.baseUrl}teacher/resource/${id}`);
   }
+
+  // Tutor assignments
+  getTutorAssignments(id: number | string): Observable<any> {
+    return this.http.get<{ user: ITutor }>(
+      `${this.baseUrl}teacher/assignments/${id}`
+    );
+  }
 }

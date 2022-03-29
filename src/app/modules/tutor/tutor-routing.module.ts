@@ -91,7 +91,7 @@ const routes: Routes = [
                 data: {
                   layout: {
                     title: 'Tutor Assignment - Metutors',
-                    navbarTitle: 'Assignment',
+                    navbarTitle: 'Assignment Dashboard',
                     showHeader: false,
                     showFooter: false,
                     hideSidebar: true,

@@ -17,6 +17,7 @@ export const completeTutorProfileFailure = createAction(
   props<{ error: any }>()
 );
 
+// Load tutor
 export const loadTutor = createAction(
   '[Tutor] Load Tutor',
   props<{ id: number }>()
@@ -32,6 +33,7 @@ export const loadTutorFailure = createAction(
   props<{ error: any }>()
 );
 
+// Tutor Dashboard
 export const loadTutorDashboard = createAction(
   '[Tutor] Load Tutor Dashboard',
   props<{ params: any; load: boolean }>()
@@ -51,6 +53,7 @@ export const loadTutorDashboardEnded = createAction(
   '[Tutor] Load Tutor Dashboard Ended'
 );
 
+// Tutor syllabus & topics
 export const loadTutorSyllabus = createAction('[Tutor] Load Tutor Syllabus');
 
 export const loadTutorSyllabusSuccess = createAction(
@@ -123,6 +126,7 @@ export const tutorEditSubjectTitleFailure = createAction(
   props<{ error: any }>()
 );
 
+// Tutor launch class
 export const tutorLaunchClass = createAction(
   '[Tutor] Load Tutor Launch Class',
   props<{ classId: number }>()
@@ -137,6 +141,7 @@ export const tutorLaunchClassFailure = createAction(
   props<{ error: any }>()
 );
 
+// Tutor resources
 export const loadTutorResources = createAction('[Tutor] Load Tutor Resources');
 
 export const loadTutorResourcesSuccess = createAction(
@@ -206,5 +211,20 @@ export const deleteTutorResourceSuccess = createAction(
 
 export const deleteTutorResourceFailure = createAction(
   '[Tutor] Delete Tutor Resource Failure',
+  props<{ error: any }>()
+);
+
+// Tutor assignments
+export const loadTutorAssignments = createAction(
+  '[Tutor] Load Tutor Assignments'
+);
+
+export const loadTutorAssignmentsSuccess = createAction(
+  '[Tutor] Load Tutor Assignments Success',
+  props<{ assignments: any }>()
+);
+
+export const loadTutorAssignmentsFailure = createAction(
+  '[Tutor] Load Tutor Assignments Failure',
   props<{ error: any }>()
 );

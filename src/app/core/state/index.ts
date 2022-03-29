@@ -224,6 +224,16 @@ export const selectIsDeletingResource = createSelector(
   fromTutorReducer.selectIsDeletingResource
 );
 
+export const selectTutorAssignments = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectTutorAssignments
+);
+
+export const selectIsLoadingTutorAssignments = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectIsLoadingTutorAssignments
+);
+
 // Student
 export const selectStudentDashboard = createSelector(
   selectStudentState,
