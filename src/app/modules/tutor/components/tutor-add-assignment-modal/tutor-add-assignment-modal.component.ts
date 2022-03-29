@@ -4,6 +4,7 @@ import {
   FormBuilder,
   AbstractControl,
 } from '@angular/forms';
+import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { tap } from 'rxjs/operators';
@@ -111,9 +112,9 @@ export class TutorAddAssignmentModalComponent implements OnInit {
     const data = {
       ...this.form.value,
       urls: this.selectedURLs,
+      endDate: moment(this.startDate?.value).format('Y-MM-DD'),
+      startDate: moment(this.endDate?.value).format('Y-MM-DD'),
     };
-
-    console.log(data);
 
     this.submitted.emit(data);
   }
