@@ -7,3 +7,4 @@ export const ticketFeatureKey = 'ticket';
 export const requestFeatureKey = 'request';
 export const lookupsFeatureKey = 'lookups';
 export const studentFeatureKey = 'student';
+export const interviewFeatureKey = 'interview';

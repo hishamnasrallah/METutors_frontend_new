@@ -9,3 +9,4 @@ export * from './lookups.service';
 export * from './tickets.service';
 export * from './support.service';
 export * from './students.service';
+export * from './interviews.service';

@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { InterviewStatus } from '@metutor/config';
+import { IInterview } from '@metutor/core/models';
 
 @Component({
   selector: 'metutors-interview-card',
@@ -6,9 +8,11 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./interview-card.component.scss'],
 })
 export class InterviewCardComponent implements OnInit {
-  @Input() status: string;
+  @Input() interview: IInterview;
 
   @Output() sendMeetingLink: EventEmitter<number> = new EventEmitter<number>();
+
+  interviewStatus = InterviewStatus;
 
   constructor() {}
 

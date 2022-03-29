@@ -1,5 +1,6 @@
 export * from './academic-tutoring-textbook';
 export * from './classroom-type';
+export * from './interview-status';
 export * from './language-level';
 export * from './ticket-category';
 export * from './ticket-priority';

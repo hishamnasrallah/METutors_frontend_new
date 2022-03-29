@@ -4,6 +4,7 @@ export * from './class.model';
 export * from './classroom.model';
 export * from './course.model';
 export * from './faq.model';
+export * from './interview.model';
 export * from './language.model';
 export * from './lookups.model';
 export * from './misc.model';

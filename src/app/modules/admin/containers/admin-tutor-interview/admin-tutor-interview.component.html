@@ -4,7 +4,7 @@
       <div class="position-relative">
         <mat-icon>search</mat-icon>
         <input type="text" class="form-control custom-input input-bordered search-request"
-          placeholder="Search requests...">
+          placeholder="Search requests..." [(ngModel)]="title" (keyup)="onChangeSelection()">
       </div>
     </div>
     <div class="col-md-3">
@@ -17,26 +17,71 @@
 
   <div class="row mt-4">
     <div class="col-md-12">
-      <mat-tab-group mat-align-tabs="start">
+      <mat-tab-group mat-align-tabs="start" (selectedTabChange)="onChangeTab($event)">
         <mat-tab label="New">
           <div class="mt-2 px-1">
-            <metutors-interview-card [status]="'Pending'" (sendMeetingLink)="onOpenSendMeetingLinkModal()"></metutors-interview-card>
-            <metutors-interview-card [status]="'Accepted'" (sendMeetingLink)="onOpenSendMeetingLinkModal()"></metutors-interview-card>
-            <metutors-interview-card [status]="'Rejected'" (sendMeetingLink)="onOpenSendMeetingLinkModal()"></metutors-interview-card>
+            <ng-container *ngIf="!(isLoading$ | async)">
+              <metutors-interview-card *ngFor="let interview of interviews$ | async" 
+                                       [interview]="interview" 
+                                       (sendMeetingLink)="onOpenSendMeetingLinkModal()">
+              </metutors-interview-card>
+
+              <div class="text-center py-5 no-data" *ngIf="!(interviews$ | async) || !(interviews$ | async)?.length">
+                No Interviews found
+              </div>
+            </ng-container>
+
+            <ng-container *ngIf="isLoading$ | async">
+              <div class="card" *ngFor="let _ of [1, 2, 3]">
+                <div class="card-body">
+                  <metutors-grid-placeholder></metutors-grid-placeholder>
+                </div>
+              </div>
+            </ng-container>
           </div>
         </mat-tab>
         <mat-tab label="Accepted">
           <div class="mt-2 px-1">
-            <metutors-interview-card [status]="'Pending'" (sendMeetingLink)="onOpenSendMeetingLinkModal()"></metutors-interview-card>
-            <metutors-interview-card [status]="'Accepted'" (sendMeetingLink)="onOpenSendMeetingLinkModal()"></metutors-interview-card>
-            <metutors-interview-card [status]="'Rejected'" (sendMeetingLink)="onOpenSendMeetingLinkModal()"></metutors-interview-card>
+            <ng-container *ngIf="!(isLoading$ | async)">
+              <metutors-interview-card *ngFor="let interview of interviews$ | async" 
+                                       [interview]="interview" 
+                                       (sendMeetingLink)="onOpenSendMeetingLinkModal()">
+              </metutors-interview-card>
+
+              <div class="text-center py-5 no-data" *ngIf="!(interviews$ | async) || !(interviews$ | async)?.length">
+                No Interviews found
+              </div>
+            </ng-container>
+
+            <ng-container *ngIf="isLoading$ | async">
+              <div class="card" *ngFor="let _ of [1, 2, 3]">
+                <div class="card-body">
+                  <metutors-grid-placeholder></metutors-grid-placeholder>
+                </div>
+              </div>
+            </ng-container>
           </div>
         </mat-tab>
         <mat-tab label="Rejected">
           <div class="mt-2 px-1">
-            <metutors-interview-card [status]="'Pending'" (sendMeetingLink)="onOpenSendMeetingLinkModal()"></metutors-interview-card>
-            <metutors-interview-card [status]="'Accepted'" (sendMeetingLink)="onOpenSendMeetingLinkModal()"></metutors-interview-card>
-            <metutors-interview-card [status]="'Rejected'" (sendMeetingLink)="onOpenSendMeetingLinkModal()"></metutors-interview-card>
+            <ng-container *ngIf="!(isLoading$ | async)">
+              <metutors-interview-card *ngFor="let interview of interviews$ | async" 
+                                       [interview]="interview" 
+                                       (sendMeetingLink)="onOpenSendMeetingLinkModal()">
+              </metutors-interview-card>
+
+              <div class="text-center py-5 no-data" *ngIf="!(interviews$ | async) || !(interviews$ | async)?.length">
+                No Interviews found
+              </div>
+            </ng-container>
+
+            <ng-container *ngIf="isLoading$ | async">
+              <div class="card" *ngFor="let _ of [1, 2, 3]">
+                <div class="card-body">
+                  <metutors-grid-placeholder></metutors-grid-placeholder>
+                </div>
+              </div>
+            </ng-container>
           </div>
         </mat-tab>
       </mat-tab-group>

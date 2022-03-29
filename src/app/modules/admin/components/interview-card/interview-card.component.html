@@ -4,25 +4,26 @@
       <div class="col-md-4 d-flex align-items-center info">
         <div class="row">
           <div class="col-md-3 d-flex align-items-center">
-            <img src="assets/homepage/courses/person.png" alt="">
+            <img [src]="interview?.tutor?.avatar" metutorsDefaultAvatar alt="">
           </div>
           <div class="col-md-9 d-flex justify-content-center flex-column">
             <h2 class="d-flex">
-              David Stevenson
+              <bdi>{{ interview?.tutor?.name }}</bdi>
             </h2>
             <h3>3 years of experience</h3>
           </div>
         </div>
       </div>
       <div class="col-md-8 d-flex justify-content-end align-items-center">
-        <a class="cursor-pointer send-link" *ngIf="status === 'Pending'" (click)="sendMeetingLink.emit(1)">
+        <a class="cursor-pointer send-link" *ngIf="interview.status === interviewStatus.pending"
+          (click)="sendMeetingLink.emit(interview?.id)">
           Send Meeting Link
         </a>
         <span class="status-icon" [ngClass]="{
-            'pending': status === 'Pending',
-            'accepted': status === 'Accepted',
-            'rejected': status === 'Rejected'
-        }">{{ status }}</span>
+            'pending': interview.status === interviewStatus.pending,
+            'accepted': interview.status === interviewStatus.approved,
+            'rejected': interview.status === interviewStatus.rejected
+        }">{{ interview.status }}</span>
       </div>
     </div>
     <div class="row">
@@ -39,21 +40,21 @@
           <div class="col-md-4"></div>
           <div class="col-md-4 d-flex menu align-items-center mt-3">
             <img src="assets/svg/map.svg" alt="" width="15" height="15" draggable="false">
-            <strong>From Saudi Arabia</strong>
+            <strong>From {{ interview?.tutor?.country }}</strong>
           </div>
           <div class="col-md-4 d-flex menu align-items-center mt-3">
             <img src="assets/svg/calendar.svg" alt="" width="15" height="15" draggable="false">
-            <strong>Feb 10, 2022</strong>
+            <strong>{{ interview?.interviewDate | date }}</strong>
           </div>
           <div class="col-md-4 d-flex menu align-items-center mt-3">
             <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
-            <strong>10AM PKT</strong>
+            <strong>{{ interview?.interviewTime }}</strong>
           </div>
         </div>
       </div>
       <div class="col-md-2 d-flex justify-content-end align-items-end">
         <button mat-flat-button color="primary" class="px-4 py-1 fw-bold"
-          [routerLink]="['/admin', 'tutor', 'interview', 'details', '1']">View Details</button>
+          [routerLink]="['/admin', 'tutor', 'interview', 'details', interview?.id]">View Details</button>
       </div>
     </div>
   </div>

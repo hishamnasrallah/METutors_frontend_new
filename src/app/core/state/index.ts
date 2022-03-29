@@ -17,6 +17,7 @@ import * as fromUploadReducer from './reducers/upload.reducer';
 import * as fromRequestReducer from './reducers/request.reducer';
 import * as fromLookupsReducer from './reducers/lookups.reducer';
 import * as fromStudentReducer from './reducers/student.reducer';
+import * as fromInterviewReducer from './reducers/interview.reducer';
 
 export interface CoreState {
   [featureKeys.userFeatureKey]: fromUserReducer.State;
@@ -27,6 +28,7 @@ export interface CoreState {
   [featureKeys.requestFeatureKey]: fromRequestReducer.State;
   [featureKeys.lookupsFeatureKey]: fromLookupsReducer.State;
   [featureKeys.studentFeatureKey]: fromStudentReducer.State;
+  [featureKeys.interviewFeatureKey]: fromInterviewReducer.State;
 }
 
 export function reducers(state: CoreState, action: Action) {
@@ -39,6 +41,7 @@ export function reducers(state: CoreState, action: Action) {
     [featureKeys.requestFeatureKey]: fromRequestReducer.reducer,
     [featureKeys.lookupsFeatureKey]: fromLookupsReducer.reducer,
     [featureKeys.studentFeatureKey]: fromStudentReducer.reducer,
+    [featureKeys.interviewFeatureKey]: fromInterviewReducer.reducer,
   })(state, action);
 }
 
@@ -80,6 +83,11 @@ export const selectStudentState = createSelector(
 export const selectTicketState = createSelector(
   selectCoreState,
   (state) => state[featureKeys.ticketFeatureKey]
+);
+
+export const selectInterviewState = createSelector(
+  selectCoreState,
+  (state) => state[featureKeys.interviewFeatureKey]
 );
 
 export const selectUploadState = createSelector(
@@ -379,6 +387,32 @@ export const selectIsSubmitTicketComment = createSelector(
 export const selectIsChangeTicketStatus = createSelector(
   selectTicketState,
   fromTicketReducer.selectIsChangeTicketStatus
+);
+
+// Interview Requests
+export const selectInterviews = createSelector(
+  selectInterviewState,
+  fromInterviewReducer.selectInterviews
+);
+
+export const selectFilteredInterviews = createSelector(
+  selectInterviewState,
+  fromInterviewReducer.selectFilteredInterviews
+);
+
+export const selectIsLoadingInterviews = createSelector(
+  selectInterviewState,
+  fromInterviewReducer.selectIsLoadingInterviews
+);
+
+export const selectInterview = createSelector(
+  selectInterviewState,
+  fromInterviewReducer.selectInterview
+);
+
+export const selectIsLoadingInterview = createSelector(
+  selectInterviewState,
+  fromInterviewReducer.selectIsLoadingInterview
 );
 
 // Requests

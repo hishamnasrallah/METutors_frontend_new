@@ -6,3 +6,4 @@ export * from './upload.actions';
 export * from './request.actions';
 export * from './lookups.actions';
 export * from './student.actions';
+export * from './interview.actions';

@@ -28,10 +28,10 @@ export class ITutor {
   qualifications?: IQualification[];
   specifications?: ISpecification[];
   subject?: ISubject[];
+  country?: string;
 
   rate?: number;
   badges?: any[];
-  country?: string;
   courseNumber?: number;
   reviewsCount?: number;
   studentNumber?: number;
@@ -124,12 +124,12 @@ export class ITutor {
         tutor?.teacher_subject && tutor?.teacher_subject?.length
           ? tutor?.teacher_subject.map((item: any) => new ISubject(false, item))
           : [];
+          this.country = tutor?.country || '';
 
       this.badges = tutor?.badges || [];
       this.rate = tutor?.rate || 0;
       this.reviewsCount = tutor?.reviews_count || 0;
       this.studentNumber = tutor?.student_number || 0;
-      this.country = tutor?.country || '';
       this.courseNumber = tutor?.course_number || 0;
       this.teachingExperienceYears = tutor?.teaching_experience_years || 0;
       this.onlineTeachingExperienceYears =
