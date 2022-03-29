@@ -15,9 +15,12 @@ export class TutorAssignmentDetailsModalComponent implements OnInit {
 
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
 
+  isDeletingAssignment$: Observable<boolean>;
   view$: Observable<{ loading: boolean; assignment: any }>;
 
   constructor(private _store: Store<any>) {}
+
+  deleteAssignment(id: number): void {}
 
   ngOnInit(): void {
     this.view$ = combineLatest([

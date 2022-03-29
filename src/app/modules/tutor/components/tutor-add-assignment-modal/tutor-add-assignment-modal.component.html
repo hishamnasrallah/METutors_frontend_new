@@ -112,7 +112,7 @@
 
         <div class="row mt-2">
           <div class="col-md-12 overflow-hidden">
-            <metutors-submit-button [form]="form" [isSubmitting]="submitting" [extraClasses]="'float-end py-1 px-5'">
+            <metutors-submit-button [form]="form" [isSubmitting]="(isAddingAssignment$ | async)!" [extraClasses]="'float-end py-1 px-5'">
               Add
             </metutors-submit-button>
           </div>

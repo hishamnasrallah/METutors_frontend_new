@@ -4,23 +4,20 @@
   <ng-template #template>
     <ng-container *ngLet="(view$ | async) as view">
       <ng-container [ngSwitch]="view?.loading">
-        <ng-container *ngSwitchCase="true">
-          <div class="ph-row">
-            <div class="ph-col-8 big"></div>
-            <div class="ph-col-4 big empty"></div>
-            <div class="ph-col-10 big mt-3"></div>
-            <div class="ph-col-2 big empty mt-3"></div>
-            <div class="ph-col-6 mt-4"></div>
-            <div class="ph-col-6 mt-4 empty"></div>
-            <div class="ph-col-8 big"></div>
-            <div class="ph-col-4 big empty"></div>
-            <div class="ph-col-10 big mt-3"></div>
-            <div class="ph-col-2 big empty mt-3"></div>
-            <div class="ph-col-6 mt-4"></div>
-            <div class="ph-col-6 mt-4 empty"></div>
-          </div>
-        </ng-container>
+        <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
+
         <div class="assignment-details-modal" *ngSwitchCase="false">
+          <button class="btn edit-icon" type="button" (click)="deleteAssignment(view?.assignment.assignment.id)"
+                  [disabled]="(isDeletingAssignment$ | async)!">
+            Edit
+            <mat-icon class="spinner" *ngIf="(isDeletingAssignment$ | async)!">autorenew</mat-icon>
+          </button>
+
+          <button class="btn delete-icon" type="button" (click)="deleteAssignment(view?.assignment.assignment.id)"
+                  [disabled]="(isDeletingAssignment$ | async)!">
+            Delete
+            <mat-icon class="spinner" *ngIf="(isDeletingAssignment$ | async)!">autorenew</mat-icon>
+          </button>
           <div class="d-flex justify-content-between">
             <h3>{{ view?.assignment?.assignment?.title }}</h3>
             <div class="overflow-visible logos">
@@ -62,7 +59,7 @@
             </div>
           </div>
           <div class="form-group row">
-            <label>URLs</label>
+            <label>Files</label>
             <ng-container *ngFor="let file of view.assignment?.assignment?.files">
               <div class="col-md-6 list-files d-flex mt-3">
                 <mat-icon>attach_file</mat-icon>
