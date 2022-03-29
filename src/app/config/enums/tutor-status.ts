@@ -4,4 +4,6 @@ export enum TutorStatus {
   offline = 'offline',
   pending = 'pending',
   away = 'away',
+  active = 'active',
+  deactive = 'deactive',
 }

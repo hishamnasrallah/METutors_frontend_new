@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NgxAutoScrollModule } from 'ngx-auto-scroll';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatMenuModule } from '@angular/material/menu';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
@@ -19,6 +20,7 @@ import * as featureKeys from './state/feature-keys';
 import {
   AdminComponent,
   AdminTutorListComponent,
+  AdminStudentListComponent,
   AdminSupportTicketComponent,
   AdminTicketDetailsComponent,
   AdminTutorInterviewComponent,
@@ -42,6 +44,7 @@ import {
     AdminSidebarComponent,
     InterviewCardComponent,
     AdminTutorListComponent,
+    AdminStudentListComponent,
     AdminSupportTicketComponent,
     AdminTicketDetailsComponent,
     AdminTutorInterviewComponent,
@@ -57,6 +60,7 @@ import {
     SharedModule,
     MatTabsModule,
     MatIconModule,
+    MatMenuModule,
     MatButtonModule,
     MatSelectModule,
     MatFormFieldModule,
