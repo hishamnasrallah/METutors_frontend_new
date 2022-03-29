@@ -1,6 +1,5 @@
 import { createAction, props } from '@ngrx/store';
 
-// Tutor assignments
 export const loadTutorAssignments = createAction(
   '[Tutor Assignment] Load Tutor Assignments'
 );
@@ -42,5 +41,34 @@ export const tutorAddAssignmentSuccess = createAction(
 
 export const tutorAddAssignmentFailure = createAction(
   '[Tutor Assignment] Tutor Add Assignment Failure',
+  props<{ error: any }>()
+);
+
+export const loadTutorAssignmentAssignees = createAction(
+  '[Tutor Assignment] Load Tutor Assignment Assignees'
+);
+
+export const loadTutorAssignmentAssigneesSuccess = createAction(
+  '[Tutor Assignment] Load Tutor Assignment Assignees Success',
+  props<{ assignees: any }>()
+);
+
+export const loadTutorAssignmentAssigneesFailure = createAction(
+  '[Tutor Assignment] Load Tutor Assignment Assignees Failure',
+  props<{ error: any }>()
+);
+
+export const deleteTutorAssignment = createAction(
+  '[Tutor Assignment] Delete Tutor Assignment',
+  props<{ id: number }>()
+);
+
+export const deleteTutorAssignmentSuccess = createAction(
+  '[Tutor Assignment] Delete Tutor Assignment Success',
+  props<{ id: number; message: string }>()
+);
+
+export const deleteTutorAssignmentFailure = createAction(
+  '[Tutor Assignment] Delete Tutor Assignment Failure',
   props<{ error: any }>()
 );

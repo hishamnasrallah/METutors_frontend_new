@@ -7,10 +7,8 @@
         <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
 
         <div class="assignment-details-modal" *ngSwitchCase="false">
-          <button class="btn edit-icon" type="button" (click)="deleteAssignment(view?.assignment.assignment.id)"
-                  [disabled]="(isDeletingAssignment$ | async)!">
+          <button class="btn edit-icon" type="button" (click)="openEditAssignmentModal(view?.assignment.assignment.id)">
             Edit
-            <mat-icon class="spinner" *ngIf="(isDeletingAssignment$ | async)!">autorenew</mat-icon>
           </button>
 
           <button class="btn delete-icon" type="button" (click)="deleteAssignment(view?.assignment.assignment.id)"

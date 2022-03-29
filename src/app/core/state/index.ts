@@ -296,6 +296,21 @@ export const selectIsAddingAssignment = createSelector(
   fromTutorAssignmentReducer.selectIsAddingAssignment
 );
 
+export const selectIsLoadingAssignees = createSelector(
+  selectTutorAssignmentState,
+  fromTutorAssignmentReducer.selectIsLoadingAssignees
+);
+
+export const selectTutorAssignmentAssignees = createSelector(
+  selectTutorAssignmentState,
+  fromTutorAssignmentReducer.selectTutorAssignmentAssignees
+);
+
+export const selectIsDeletingTutorAssignment = createSelector(
+  selectTutorAssignmentState,
+  fromTutorAssignmentReducer.selectIsDeletingTutorAssignment
+);
+
 /**
  * ========================== STUDENT ==============================
  */

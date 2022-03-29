@@ -12,6 +12,29 @@ import * as tutorAssignmentActions from '../actions/tutor-assignment.actions';
 
 @Injectable()
 export class TutorAssignmentEffects {
+  loadTutorAssignmentAssignees$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorAssignmentActions.loadTutorAssignmentAssignees),
+      withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
+      mergeMap(([_, { id }]) =>
+        this._tutorService.getTutorAssignmentAssignees(id).pipe(
+          map((assignees) =>
+            tutorAssignmentActions.loadTutorAssignmentAssigneesSuccess({
+              assignees: camelcaseKeys(assignees, { deep: true }),
+            })
+          ),
+          catchError((error) =>
+            of(
+              tutorAssignmentActions.loadTutorAssignmentAssigneesFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   loadTutorAssignments$ = createEffect(() =>
     this._actions$.pipe(
       ofType(tutorAssignmentActions.loadTutorAssignments),
@@ -80,10 +103,38 @@ export class TutorAssignmentEffects {
     )
   );
 
+  deleteTutorAssignment$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorAssignmentActions.deleteTutorAssignment),
+      mergeMap(({ id }) =>
+        this._tutorService.tutorDeleteAssignment(id).pipe(
+          map(() =>
+            tutorAssignmentActions.deleteTutorAssignmentSuccess({
+              id,
+              message: 'Assignment successfully deleted',
+            })
+          ),
+          catchError((error) =>
+            of(
+              tutorAssignmentActions.deleteTutorAssignmentFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   successMessages$ = createEffect(
     () =>
       this._actions$.pipe(
-        ofType(...[tutorAssignmentActions.tutorAddAssignmentSuccess]),
+        ofType(
+          ...[
+            tutorAssignmentActions.tutorAddAssignmentSuccess,
+            tutorAssignmentActions.deleteTutorAssignmentSuccess,
+          ]
+        ),
         map(({ message }) => this._alertNotificationService.success(message))
       ),
     {
@@ -94,7 +145,12 @@ export class TutorAssignmentEffects {
   failureMessages$ = createEffect(
     () =>
       this._actions$.pipe(
-        ofType(...[tutorAssignmentActions.tutorAddAssignmentFailure]),
+        ofType(
+          ...[
+            tutorAssignmentActions.tutorAddAssignmentFailure,
+            tutorAssignmentActions.deleteTutorAssignmentFailure,
+          ]
+        ),
         map((action) => {
           if (action.error) {
             return this._alertNotificationService.error(action.error);

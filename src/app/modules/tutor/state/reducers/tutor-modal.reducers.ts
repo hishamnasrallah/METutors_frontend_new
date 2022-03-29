@@ -111,10 +111,14 @@ export const reducer = createReducer(
     showAssignmentDetailsModal: true,
   })),
 
-  on(tutorModalActions.closeTutorAssignmentDetailsModal, (state) => ({
-    ...state,
-    showAssignmentDetailsModal: false,
-  })),
+  on(
+    fromCore.deleteTutorAssignmentSuccess,
+    tutorModalActions.closeTutorAssignmentDetailsModal,
+    (state) => ({
+      ...state,
+      showAssignmentDetailsModal: false,
+    })
+  ),
 
   on(tutorModalActions.openTutorAddTopicModal, (state) => ({
     ...state,

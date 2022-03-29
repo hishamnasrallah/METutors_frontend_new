@@ -3,17 +3,23 @@ import { createReducer, on } from '@ngrx/store';
 import * as tutorAssignmentActions from '../actions/tutor-assignment.actions';
 
 export interface State {
-  assignments: any;
+  assignees: any;
   assignment: any;
+  assignments: any;
+  isLoadingAssignees: boolean;
   isAddingAssignment: boolean;
+  isDeletingAssignment: boolean;
   isLoadingTutorAssignment: boolean;
   isLoadingTutorAssignments: boolean;
 }
 
 export const initialState: State = {
+  assignees: null,
   assignment: null,
   assignments: null,
+  isLoadingAssignees: false,
   isAddingAssignment: false,
+  isDeletingAssignment: false,
   isLoadingTutorAssignment: false,
   isLoadingTutorAssignments: false,
 };
@@ -21,7 +27,25 @@ export const initialState: State = {
 export const reducer = createReducer(
   initialState,
 
-  //Tutor assignments
+  on(tutorAssignmentActions.loadTutorAssignmentAssignees, (state) => ({
+    ...state,
+    isLoadingAssignees: true,
+  })),
+
+  on(
+    tutorAssignmentActions.loadTutorAssignmentAssigneesSuccess,
+    (state, { assignees }) => ({
+      ...state,
+      assignees,
+      isLoadingAssignees: false,
+    })
+  ),
+
+  on(tutorAssignmentActions.loadTutorAssignmentAssigneesFailure, (state) => ({
+    ...state,
+    isLoadingAssignees: false,
+  })),
+
   on(tutorAssignmentActions.loadTutorAssignments, (state) => ({
     ...state,
     isLoadingTutorAssignments: true,
@@ -60,6 +84,44 @@ export const reducer = createReducer(
     isLoadingTutorAssignment: false,
   })),
 
+  on(tutorAssignmentActions.deleteTutorAssignment, (state) => ({
+    ...state,
+    isDeletingAssignment: true,
+  })),
+
+  on(tutorAssignmentActions.deleteTutorAssignmentSuccess, (state, { id }) => {
+    const finalState = {
+      ...state,
+      isDeletingAssignment: false,
+    };
+
+    if (
+      finalState.assignments?.course?.assignments &&
+      finalState.assignments?.course.assignments?.length
+    ) {
+      const assignments = finalState.assignments.course.assignments.filter(
+        (assign: any) => assign.id !== id
+      );
+
+      const course = {
+        ...finalState.assignments?.course,
+        assignments,
+      };
+
+      finalState.assignments = {
+        ...finalState.assignments,
+        course,
+      };
+    }
+
+    return finalState;
+  }),
+
+  on(tutorAssignmentActions.deleteTutorAssignmentFailure, (state) => ({
+    ...state,
+    isDeletingAssignment: false,
+  })),
+
   on(tutorAssignmentActions.tutorAddAssignment, (state) => ({
     ...state,
     isAddingAssignment: true,
@@ -85,7 +147,6 @@ export const reducer = createReducer(
   }))
 );
 
-// Assignments
 export const selectTutorAssignments = (state: State): any => state.assignments;
 
 export const selectTutorActiveAssignments = (state: State): any => {
@@ -126,8 +187,17 @@ export const selectIsLoadingTutorAssignments = (state: State): boolean =>
 export const selectTutorAssignment = (state: State): boolean =>
   state.assignment;
 
+export const selectTutorAssignmentAssignees = (state: State): boolean =>
+  state.assignees;
+
+export const selectIsLoadingAssignees = (state: State): boolean =>
+  state.isLoadingAssignees;
+
 export const selectIsLoadingTutorAssignment = (state: State): boolean =>
   state.isLoadingTutorAssignment;
 
 export const selectIsAddingAssignment = (state: State): boolean =>
   state.isAddingAssignment;
+
+export const selectIsDeletingTutorAssignment = (state: State): boolean =>
+  state.isDeletingAssignment;

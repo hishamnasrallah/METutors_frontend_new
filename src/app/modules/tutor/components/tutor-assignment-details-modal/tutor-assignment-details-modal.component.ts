@@ -20,9 +20,17 @@ export class TutorAssignmentDetailsModalComponent implements OnInit {
 
   constructor(private _store: Store<any>) {}
 
-  deleteAssignment(id: number): void {}
+  deleteAssignment(id: number): void {
+    this._store.dispatch(fromCore.deleteTutorAssignment({ id }));
+  }
+
+  openEditAssignmentModal(id: number): void {}
 
   ngOnInit(): void {
+    this.isDeletingAssignment$ = this._store.select(
+      fromCore.selectIsDeletingTutorAssignment
+    );
+
     this.view$ = combineLatest([
       this._store.select(fromCore.selectTutorAssignment),
       this._store.select(fromCore.selectIsLoadingTutorAssignment),

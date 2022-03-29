@@ -60,8 +60,8 @@
     <ng-container [ngSwitch]="view.loading">
       <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
       <ng-container *ngSwitchCase="false">
-        <div class="text-center p-xxl-5"
-             *ngIf="!view.assignments?.course?.assignments && !view.assignments?.course?.assignments?.length">No record
+        <div class="text-center p-xxl-5 fw-bold"
+             *ngIf="!view.assignments?.course?.assignments?.length">No record
           found
         </div>
 
