@@ -158,6 +158,14 @@ export class TutorsService {
     return this.http.post<any>(`${this.baseUrl}teacher/assignment`, body);
   }
 
+  tutorEditAssignment(body: any): Observable<any> {
+    const { id, ..._body } = body;
+    return this.http.post<any>(
+      `${this.baseUrl}teacher/assignment/update/${id}`,
+      _body
+    );
+  }
+
   tutorDeleteAssignment(id: number): Observable<any> {
     return this.http.delete<any>(`${this.baseUrl}teacher/assignment/${id}`);
   }

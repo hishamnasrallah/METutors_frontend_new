@@ -103,6 +103,29 @@ export class TutorAssignmentEffects {
     )
   );
 
+  tutorEditAssignment$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorAssignmentActions.tutorEditAssignment),
+      mergeMap(({ body }) =>
+        this._tutorService.tutorEditAssignment(body).pipe(
+          map((assignment) =>
+            tutorAssignmentActions.tutorEditAssignmentSuccess({
+              message: 'Assignment successfully added',
+              assignment: camelcaseKeys(assignment, { deep: true }),
+            })
+          ),
+          catchError((error) =>
+            of(
+              tutorAssignmentActions.tutorEditAssignmentFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   deleteTutorAssignment$ = createEffect(() =>
     this._actions$.pipe(
       ofType(tutorAssignmentActions.deleteTutorAssignment),
@@ -132,6 +155,7 @@ export class TutorAssignmentEffects {
         ofType(
           ...[
             tutorAssignmentActions.tutorAddAssignmentSuccess,
+            tutorAssignmentActions.tutorEditAssignmentSuccess,
             tutorAssignmentActions.deleteTutorAssignmentSuccess,
           ]
         ),
@@ -148,6 +172,7 @@ export class TutorAssignmentEffects {
         ofType(
           ...[
             tutorAssignmentActions.tutorAddAssignmentFailure,
+            tutorAssignmentActions.tutorEditAssignmentFailure,
             tutorAssignmentActions.deleteTutorAssignmentFailure,
           ]
         ),

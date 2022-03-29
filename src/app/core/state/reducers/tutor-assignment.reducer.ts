@@ -122,11 +122,23 @@ export const reducer = createReducer(
     isDeletingAssignment: false,
   })),
 
-  on(tutorAssignmentActions.tutorAddAssignment, (state) => ({
-    ...state,
-    isAddingAssignment: true,
-  })),
+  on(
+    tutorAssignmentActions.tutorAddAssignment,
+    tutorAssignmentActions.tutorEditAssignment,
+    (state) => ({
+      ...state,
+      isAddingAssignment: true,
+    })
+  ),
 
+  on(
+    tutorAssignmentActions.tutorAddAssignmentFailure,
+    tutorAssignmentActions.tutorEditAssignmentFailure,
+    (state) => ({
+      ...state,
+      isAddingAssignment: false,
+    })
+  ),
   on(
     tutorAssignmentActions.tutorAddAssignmentSuccess,
     (state, { assignment }) => {
@@ -135,16 +147,48 @@ export const reducer = createReducer(
         isAddingAssignment: false,
       };
 
-      console.log(assignment);
+      const assignments = [...finalState.assignments?.course?.assignments];
+
+      assignments.unshift(assignment);
+
+      const course = {
+        ...finalState.assignments.course,
+        assignments,
+      };
+
+      finalState.assignments = {
+        ...finalState.assignments,
+        course,
+      };
 
       return finalState;
     }
   ),
+  on(
+    tutorAssignmentActions.tutorEditAssignmentSuccess,
+    (state, { assignment }) => {
+      const finalState = {
+        ...state,
+        isAddingAssignment: false,
+      };
 
-  on(tutorAssignmentActions.tutorAddAssignmentFailure, (state) => ({
-    ...state,
-    isAddingAssignment: false,
-  }))
+      const assignments = finalState.assignments?.course?.assignments.map(
+        (assign: any) => (assign.id === assignment.id ? assignment : assign)
+      );
+
+      const course = {
+        ...finalState.assignments.course,
+        assignments,
+      };
+
+      finalState.assignments = {
+        ...finalState.assignments,
+        course,
+      };
+
+      return finalState;
+    }
+  )
 );
 
 export const selectTutorAssignments = (state: State): any => state.assignments;

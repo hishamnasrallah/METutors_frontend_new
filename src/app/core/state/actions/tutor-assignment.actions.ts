@@ -29,6 +29,20 @@ export const loadTutorAssignmentFailure = createAction(
   props<{ error: any }>()
 );
 
+export const loadTutorAssignmentAssignees = createAction(
+  '[Tutor Assignment] Load Tutor Assignment Assignees'
+);
+
+export const loadTutorAssignmentAssigneesSuccess = createAction(
+  '[Tutor Assignment] Load Tutor Assignment Assignees Success',
+  props<{ assignees: any }>()
+);
+
+export const loadTutorAssignmentAssigneesFailure = createAction(
+  '[Tutor Assignment] Load Tutor Assignment Assignees Failure',
+  props<{ error: any }>()
+);
+
 export const tutorAddAssignment = createAction(
   '[Tutor Assignment] Tutor Add Assignment',
   props<{ body: any }>()
@@ -44,17 +58,18 @@ export const tutorAddAssignmentFailure = createAction(
   props<{ error: any }>()
 );
 
-export const loadTutorAssignmentAssignees = createAction(
-  '[Tutor Assignment] Load Tutor Assignment Assignees'
+export const tutorEditAssignment = createAction(
+  '[Tutor Assignment] Tutor Edit Assignment',
+  props<{ body: any }>()
 );
 
-export const loadTutorAssignmentAssigneesSuccess = createAction(
-  '[Tutor Assignment] Load Tutor Assignment Assignees Success',
-  props<{ assignees: any }>()
+export const tutorEditAssignmentSuccess = createAction(
+  '[Tutor Assignment] Tutor Edit Assignment Success',
+  props<{ assignment: any; message: string }>()
 );
 
-export const loadTutorAssignmentAssigneesFailure = createAction(
-  '[Tutor Assignment] Load Tutor Assignment Assignees Failure',
+export const tutorEditAssignmentFailure = createAction(
+  '[Tutor Assignment] Tutor Edit Assignment Failure',
   props<{ error: any }>()
 );
 
