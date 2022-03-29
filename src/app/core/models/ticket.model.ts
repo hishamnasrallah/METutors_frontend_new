@@ -59,4 +59,5 @@ export interface ITicketFilters {
   status?: string;
   title?: string;
   priority?: string;
+  category?: string;
 }

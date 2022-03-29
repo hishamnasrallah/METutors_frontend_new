@@ -1,5 +1,4 @@
 import { environment } from '@environment';
-import camelcaseKeys from 'camelcase-keys';
 import { IUser } from '.';
 
 export class ITicketComment {
@@ -21,9 +20,7 @@ export class ITicketComment {
       this.id = reply.id;
       this.comment = reply.comment;
       this.file = reply.file ? environment.imageURL + reply.file : '';
-      this.user = camelcaseKeys(reply.user, {
-        deep: true,
-      });
+      this.user = new IUser(false, reply.user);
       this.createdDate = reply.created_at;
     }
   }

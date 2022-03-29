@@ -21,8 +21,8 @@
             </p>
             <div class="row list-items sm-item">
               <div class="col-md-3 d-flex menu align-items-center" *ngIf="ticket?.user">
-                <img [src]="ticket?.user?.avatar" meTutorsDefaultAvatar class="rounded-circle" alt="" width="25" height="25"
-                  draggable="false">
+                <img [src]="ticket?.user?.avatar" meTutorsDefaultAvatar class="rounded-circle" alt="" width="25"
+                  height="25" draggable="false">
                 <strong>Agent: {{ ticket?.user?.name }}</strong>
               </div>
               <div class="col-md-3 d-flex menu align-items-center">
@@ -40,9 +40,10 @@
             </div>
 
             <div class="list-messages overflow-auto pe-5" ngx-auto-scroll [lock-y-offset]="10" observe-attributes>
-              <div class="row mb-40" [@dropMenuAnimate] *ngFor="let message of ticket?.comments">
+              <div class="row mb-40" [@dropMenuAnimate] *ngFor="let message of ticket?.comments"
+                [class.add-margin]="(user$ | async)?.id !== message?.user?.id">
                 <div class="col-md-2 d-flex info">
-                  <img [src]="message?.avatar" meTutorsDefaultAvatar class="rounded-circle" alt="" width="40"
+                  <img [src]="message?.user?.avatar" meTutorsDefaultAvatar class="rounded-circle" alt="" width="40"
                     height="40">
                   <div class="ps-3">
                     <h3>
