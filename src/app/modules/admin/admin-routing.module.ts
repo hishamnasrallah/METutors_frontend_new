@@ -5,6 +5,7 @@ import { AdminAuthGuard } from '@metutor/core/guards';
 import {
   AdminComponent,
   AdminTutorListComponent,
+  AdminStudentListComponent,
   AdminSupportTicketComponent,
   AdminTicketDetailsComponent,
   AdminTutorInterviewComponent,
@@ -92,6 +93,18 @@ const routes: Routes = [
             pathMatch: 'full',
           },
         ],
+      },
+      {
+        path: 'student',
+        component: AdminStudentListComponent,
+        data: {
+          layout: {
+            title: 'Student List - Metutors',
+            navbarTitle: 'Student list',
+            showHeader: false,
+            showFooter: false,
+          },
+        },
       },
       {
         path: 'support-ticket',

@@ -1,10 +1,10 @@
-<div class="tutors-list">
+<div class="students-list">
   <div class="row filters">
     <div class="col-md-9">
       <div class="position-relative">
         <mat-icon>search</mat-icon>
         <input type="text" class="form-control custom-input input-bordered search-request"
-          placeholder="Search tutors...">
+          placeholder="Search students...">
       </div>
     </div>
     <div class="col-md-3">
@@ -20,11 +20,11 @@
       <table class="table my-table default-title mt-4">
         <tr>
           <th>Number</th>
-          <th>Teacher Name</th>
+          <th>Student Name</th>
           <th>Gender</th>
           <th>Phone Number</th>
           <th>Country</th>
-          <th>Level of Education</th>
+          <th>Total Completed Course</th>
           <th>Status</th>
           <th>Action</th>
         </tr>
@@ -40,16 +40,16 @@
           <td>Male</td>
           <td>+201112365233</td>
           <td>Egypt</td>
-          <td>Engineering</td>
+          <td>4 Courses</td>
           <td>
             <div dropdown class="change-status position-relative d-flex">
               <button dropdownToggle class="status active" mat-button>Active</button>
               <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
                 <li role="menuitem" class="cursor-pointer" *ngFor="let status of tutorStatuses" [ngClass]="{
-                    'issued': tutorStatus.active === status,
-                    'closed': tutorStatus.pending === status,
-                    'response': tutorStatus.deactive === status
-                  }">
+                      'issued': tutorStatus.active === status,
+                      'closed': tutorStatus.pending === status,
+                      'response': tutorStatus.deactive === status
+                    }">
                   {{ status }}
                 </li>
               </ul>
@@ -73,16 +73,16 @@
           <td>Male</td>
           <td>+201112365233</td>
           <td>Egypt</td>
-          <td>Engineering</td>
+          <td>4 Courses</td>
           <td>
             <div dropdown class="change-status position-relative d-flex">
               <button dropdownToggle class="status pending" mat-button>Pending</button>
               <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
                 <li role="menuitem" class="cursor-pointer" *ngFor="let status of tutorStatuses" [ngClass]="{
-                      'issued': tutorStatus.active === status,
-                      'closed': tutorStatus.pending === status,
-                      'response': tutorStatus.deactive === status
-                    }">
+                        'issued': tutorStatus.active === status,
+                        'closed': tutorStatus.pending === status,
+                        'response': tutorStatus.deactive === status
+                      }">
                   {{ status }}
                 </li>
               </ul>
@@ -106,16 +106,16 @@
           <td>Male</td>
           <td>+201112365233</td>
           <td>Egypt</td>
-          <td>Engineering</td>
+          <td>4 Courses</td>
           <td>
             <div dropdown class="change-status position-relative d-flex">
               <button dropdownToggle class="status deactive" mat-button>Deactive</button>
               <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
                 <li role="menuitem" class="cursor-pointer" *ngFor="let status of tutorStatuses" [ngClass]="{
-                      'issued': tutorStatus.active === status,
-                      'closed': tutorStatus.pending === status,
-                      'response': tutorStatus.deactive === status
-                    }">
+                        'issued': tutorStatus.active === status,
+                        'closed': tutorStatus.pending === status,
+                        'response': tutorStatus.deactive === status
+                      }">
                   {{ status }}
                 </li>
               </ul>
