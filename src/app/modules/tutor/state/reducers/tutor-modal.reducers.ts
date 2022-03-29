@@ -92,14 +92,19 @@ export const reducer = createReducer(
     })
   ),
 
-  on(tutorModalActions.openTutorAddAssignmentModal, (state) => ({
-    ...state,
-    showAddAssignmentModal: true,
-  })),
+  on(
+    tutorModalActions.openTutorAddAssignmentModal,
+    tutorModalActions.openTutorEditAssignmentModal,
+    (state) => ({
+      ...state,
+      showAddAssignmentModal: true,
+    })
+  ),
 
   on(
     fromCore.tutorAddAssignmentSuccess,
     tutorModalActions.closeTutorAddAssignmentModal,
+    tutorModalActions.closeTutorEditAssignmentModal,
     (state) => ({
       ...state,
       showAddAssignmentModal: false,

@@ -1,6 +1,7 @@
-import { mergeMap, of } from 'rxjs';
+import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
+import { mergeMap, switchMap } from 'rxjs/operators';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 
 import * as fromTutorAction from '../actions';
@@ -26,6 +27,16 @@ export class TutorModalEffects {
     this._actions$.pipe(
       ofType(fromTutorAction.openTutorAddAssignmentModal),
       mergeMap(() => of(fromCore.loadTutorAssignmentAssignees()))
+    )
+  );
+
+  openTutorEditAssignmentModal$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(fromTutorAction.openTutorEditAssignmentModal),
+      switchMap(({ id }) => [
+        fromCore.loadTutorAssignmentAssignees(),
+        fromCore.loadTutorAssignment({ id }),
+      ])
     )
   );
 

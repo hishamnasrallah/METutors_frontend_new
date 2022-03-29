@@ -4,6 +4,7 @@ import { combineLatest, Observable } from 'rxjs';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import * as fromCore from '@metutor/core/state';
+import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
 
 @Component({
   selector: 'metutors-tutor-assignment-details-modal',
@@ -24,7 +25,9 @@ export class TutorAssignmentDetailsModalComponent implements OnInit {
     this._store.dispatch(fromCore.deleteTutorAssignment({ id }));
   }
 
-  openEditAssignmentModal(id: number): void {}
+  openEditAssignmentModal(id: number): void {
+    this._store.dispatch(fromTutorAction.openTutorEditAssignmentModal({ id }));
+  }
 
   ngOnInit(): void {
     this.isDeletingAssignment$ = this._store.select(

@@ -5,9 +5,9 @@ import {
   AbstractControl,
 } from '@angular/forms';
 import * as moment from 'moment';
-import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
+import { Observable, combineLatest } from 'rxjs';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { generalConstants } from '@config';
@@ -33,6 +33,7 @@ export class TutorAddAssignmentModalComponent implements OnInit {
   fileUploadProgress$: Observable<any>;
   isAddingAssignment$: Observable<boolean>;
   uploadComplete = generalConstants.uploadComplete;
+  view$: Observable<{ loading: boolean; assignment: any }>;
 
   constructor(private _fb: FormBuilder, private _store: Store<any>) {}
 
@@ -65,6 +66,11 @@ export class TutorAddAssignmentModalComponent implements OnInit {
     this.uploadedFiles$ = this._store
       .select(fromCore.selectUploadedFiles)
       .pipe(tap((files) => this.files?.setValue(files)));
+
+    this.view$ = combineLatest([
+      this._store.select(fromCore.selectTutorAssignment),
+      this._store.select(fromCore.selectIsLoadingTutorAssignment),
+    ]).pipe(map(([assignment, loading]) => ({ loading, assignment })));
   }
 
   get files(): AbstractControl | null {
