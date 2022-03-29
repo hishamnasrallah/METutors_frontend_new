@@ -1,4 +1,9 @@
+import { Store } from '@ngrx/store';
+import { map } from 'rxjs/operators';
+import { combineLatest, Observable } from 'rxjs';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+
+import * as fromCore from '@metutor/core/state';
 
 @Component({
   selector: 'metutors-tutor-assignment-details-modal',
@@ -10,7 +15,14 @@ export class TutorAssignmentDetailsModalComponent implements OnInit {
 
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
 
-  constructor() {}
+  view$: Observable<{ loading: boolean; assignment: any }>;
 
-  ngOnInit(): void {}
+  constructor(private _store: Store<any>) {}
+
+  ngOnInit(): void {
+    this.view$ = combineLatest([
+      this._store.select(fromCore.selectTutorAssignment),
+      this._store.select(fromCore.selectIsLoadingTutorAssignment),
+    ]).pipe(map(([assignment, loading]) => ({ loading, assignment })));
+  }
 }

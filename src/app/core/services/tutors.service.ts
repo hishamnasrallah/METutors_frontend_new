@@ -143,8 +143,10 @@ export class TutorsService {
 
   // Tutor assignments
   getTutorAssignments(id: number | string): Observable<any> {
-    return this.http.get<{ user: ITutor }>(
-      `${this.baseUrl}teacher/assignments/${id}`
-    );
+    return this.http.get<any>(`${this.baseUrl}teacher/assignments/${id}`);
+  }
+
+  getTutorAssignment(id: number | string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}teacher/assignment/${id}`);
   }
 }

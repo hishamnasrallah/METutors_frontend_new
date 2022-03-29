@@ -11,6 +11,7 @@ export interface State {
   resource: any;
   resources: any;
   assignments: any;
+  assignment: any;
   tutor: ITutor | null;
   isLoadingTutors: boolean;
   isDeletingTopic: boolean;
@@ -24,6 +25,7 @@ export interface State {
   isLoadingTutorResource: boolean;
   isAddingTutorResources: boolean;
   isLoadingTutorResources: boolean;
+  isLoadingTutorAssignment: boolean;
   subjectTitleEditedSuccess: boolean;
   isLoadingTutorAssignments: boolean;
 
@@ -38,6 +40,7 @@ export const initialState: State = {
   resource: null,
   resources: null,
   dashboard: null,
+  assignment: null,
   assignments: null,
   isLoadingTutors: false,
   isDeletingTopic: false,
@@ -53,6 +56,7 @@ export const initialState: State = {
   isLoadingTutorResource: false,
   isLoadingTutorResources: false,
   completeTutorProfileFailure: '',
+  isLoadingTutorAssignment: false,
   subjectTitleEditedSuccess: false,
   isLoadingTutorAssignments: false,
 };
@@ -486,6 +490,22 @@ export const reducer = createReducer(
   on(tutorActions.loadTutorAssignmentsFailure, (state) => ({
     ...state,
     isLoadingTutorAssignments: false,
+  })),
+
+  on(tutorActions.loadTutorAssignment, (state) => ({
+    ...state,
+    isLoadingTutorAssignment: true,
+  })),
+
+  on(tutorActions.loadTutorAssignmentSuccess, (state, { assignment }) => ({
+    ...state,
+    assignment,
+    isLoadingTutorAssignment: false,
+  })),
+
+  on(tutorActions.loadTutorAssignmentFailure, (state) => ({
+    ...state,
+    isLoadingTutorAssignment: false,
   }))
 );
 
@@ -543,3 +563,9 @@ export const selectTutorAssignments = (state: State): boolean =>
 
 export const selectIsLoadingTutorAssignments = (state: State): boolean =>
   state.isLoadingTutorAssignments;
+
+export const selectTutorAssignment = (state: State): boolean =>
+  state.assignment;
+
+export const selectIsLoadingTutorAssignment = (state: State): boolean =>
+  state.isLoadingTutorAssignment;

@@ -81,7 +81,7 @@
                       <span>Remaining Time</span>
                       <strong class="alert-msg">2 Days</strong>
                     </div>
-                    <button mat-button class="main-button-transparent" (click)="onOpenAssignmentDetails()">
+                    <button mat-button class="main-button-transparent" (click)="onOpenAssignmentDetails(assignment.id)">
                       View Details
                       <mat-icon>arrow_forward</mat-icon>
                     </button>
@@ -125,70 +125,18 @@
                       <th scope="col">Status</th>
                     </tr>
 
-                    <tr>
-                      <td scope="row">1</td>
+                    <tr *ngFor="let assignee of assignment?.assignees; let num = index">
+                      <td scope="row">{{ num + 1}}</td>
                       <td>
-                        <img src="" meTutorsDefaultAvatar draggable="false" width="25" height="25"
+                        <img [src]="assignee?.user?.avatar" meTutorsDefaultAvatar draggable="false" width="25" height="25"
                              class="rounded-circle"
                              alt="">
-                        <span class="ms-2">Ahmed Hassan</span>
+                        <span class="ms-2">{{ assignee?.user?.firstName }} {{ assignee?.user?.lastName }}</span>
                       </td>
-                      <td>Monday, 07 Feb 2022, 12:00 pm</td>
+                      <td>{{ assignee?.createdAt | date: 'EEEE, d MMM y, h:mm a'}}</td>
                       <td>
-                        <span class="status-icon pending">Pending</span>
-                        <span class="late ms-2 fw-bold">Late</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td scope="row">2</td>
-                      <td>
-                        <img src="" meTutorsDefaultAvatar draggable="false" width="25" height="25"
-                             class="rounded-circle"
-                             alt="">
-                        <span class="ms-2">Ahmed Hassan</span>
-                      </td>
-                      <td>Monday, 07 Feb 2022, 12:00 pm</td>
-                      <td>
-                        <span class="status-icon submitted">Submitted</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td scope="row">3</td>
-                      <td>
-                        <img src="" meTutorsDefaultAvatar draggable="false" width="25" height="25"
-                             class="rounded-circle"
-                             alt="">
-                        <span class="ms-2">Ahmed Hassan</span>
-                      </td>
-                      <td>Monday, 07 Feb 2022, 12:00 pm</td>
-                      <td>
-                        <span class="status-icon completed">Completed</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td scope="row">4</td>
-                      <td>
-                        <img src="" meTutorsDefaultAvatar draggable="false" width="25" height="25"
-                             class="rounded-circle"
-                             alt="">
-                        <span class="ms-2">Ahmed Hassan</span>
-                      </td>
-                      <td>Monday, 07 Feb 2022, 12:00 pm</td>
-                      <td>
-                        <span class="status-icon rejected">Rejected</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td scope="row">5</td>
-                      <td>
-                        <img src="" meTutorsDefaultAvatar draggable="false" width="25" height="25"
-                             class="rounded-circle"
-                             alt="">
-                        <span class="ms-2">Ahmed Hassan</span>
-                      </td>
-                      <td>Monday, 07 Feb 2022, 12:00 pm</td>
-                      <td>
-                        <span class="status-icon resubmitted">Resubmitted</span>
+                        <span class="status-icon text-capitalize" [ngClass]="assignee?.status">{{ assignee?.status }}</span>
+                        <span class="late ms-2">Late</span>
                       </td>
                     </tr>
                   </table>

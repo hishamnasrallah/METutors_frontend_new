@@ -228,3 +228,18 @@ export const loadTutorAssignmentsFailure = createAction(
   '[Tutor] Load Tutor Assignments Failure',
   props<{ error: any }>()
 );
+
+export const loadTutorAssignment = createAction(
+  '[Tutor] Load Tutor Assignment',
+  props<{ id: number }>()
+);
+
+export const loadTutorAssignmentSuccess = createAction(
+  '[Tutor] Load Tutor Assignment Success',
+  props<{ assignment: any }>()
+);
+
+export const loadTutorAssignmentFailure = createAction(
+  '[Tutor] Load Tutor Assignment Failure',
+  props<{ error: any }>()
+);

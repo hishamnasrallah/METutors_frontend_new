@@ -380,6 +380,28 @@ export class TutorEffects {
     )
   );
 
+  loadTutorAssignment$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorActions.loadTutorAssignment),
+      mergeMap(({ id }) =>
+        this._tutorService.getTutorAssignment(id).pipe(
+          map((assignment) =>
+            tutorActions.loadTutorAssignmentSuccess({
+              assignment: camelcaseKeys(assignment, { deep: true }),
+            })
+          ),
+          catchError((error) =>
+            of(
+              tutorActions.loadTutorAssignmentFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   successMessages$ = createEffect(
     () =>
       this._actions$.pipe(

@@ -76,8 +76,10 @@ export class TutorAssignmentComponent implements OnInit {
     this._store.dispatch(fromTutorAction.closeTutorAddAssignmentModal());
   }
 
-  onOpenAssignmentDetails() {
-    this._store.dispatch(fromTutorAction.openTutorAssignmentDetailsModal());
+  onOpenAssignmentDetails(id: number) {
+    this._store.dispatch(
+      fromTutorAction.openTutorAssignmentDetailsModal({ id })
+    );
   }
 
   onCloseAssignmentDetails() {
