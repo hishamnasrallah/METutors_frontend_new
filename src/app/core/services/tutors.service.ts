@@ -149,4 +149,8 @@ export class TutorsService {
   getTutorAssignment(id: number | string): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}teacher/assignment/${id}`);
   }
+
+  tutorAddAssignment(body: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}teacher/assignment`, body);
+  }
 }

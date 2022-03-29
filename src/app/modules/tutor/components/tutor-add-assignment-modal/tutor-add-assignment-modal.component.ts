@@ -19,11 +19,10 @@ import * as fromCore from '@metutor/core/state';
   styleUrls: ['./tutor-add-assignment-modal.component.scss'],
 })
 export class TutorAddAssignmentModalComponent implements OnInit {
+  @Input() courseId: number;
   @Input() showModal: boolean = false;
-  @Input() submitting: boolean = false;
 
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
-  @Output() submitted: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
 
   form: FormGroup;
   minDate = new Date();
@@ -32,6 +31,7 @@ export class TutorAddAssignmentModalComponent implements OnInit {
 
   uploadedFiles$: Observable<any>;
   fileUploadProgress$: Observable<any>;
+  isAddingAssignment$: Observable<boolean>;
   uploadComplete = generalConstants.uploadComplete;
 
   constructor(private _fb: FormBuilder, private _store: Store<any>) {}
@@ -42,6 +42,7 @@ export class TutorAddAssignmentModalComponent implements OnInit {
       endDate: [null, Validators.required],
       assignee: [null, Validators.required],
       startDate: [null, Validators.required],
+      course_id: [this.courseId, Validators.required],
       title: [null, [Validators.required, Validators.minLength(3)]],
       description: [null, [Validators.required, Validators.minLength(10)]],
       urls: this._fb.group(
@@ -55,6 +56,10 @@ export class TutorAddAssignmentModalComponent implements OnInit {
 
     this.fileUploadProgress$ = this._store.select(
       fromCore.selectFileUploadingProgress
+    );
+
+    this.isAddingAssignment$ = this._store.select(
+      fromCore.selectIsAddingAssignment
     );
 
     this.uploadedFiles$ = this._store
@@ -109,14 +114,15 @@ export class TutorAddAssignmentModalComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const data = {
-      ...this.form.value,
+    const { startDate, endDate, ..._body } = this.form.value;
+    const body = {
+      ..._body,
       urls: this.selectedURLs,
-      endDate: moment(this.startDate?.value).format('Y-MM-DD'),
-      startDate: moment(this.endDate?.value).format('Y-MM-DD'),
+      deadline: moment(this.endDate?.value).format('Y-MM-DD'),
+      start_date: moment(this.startDate?.value).format('Y-MM-DD'),
     };
 
-    this.submitted.emit(data);
+    this._store.dispatch(fromCore.tutorAddAssignment({ body }));
   }
 
   private _urlValidation(control: AbstractControl): any {

@@ -148,14 +148,14 @@
       </ng-container>
     </ng-container>
   </div>
+
+  <metutors-tutor-add-assignment-modal *ngIf="showAddAssignmentModal$ | async"
+                                       (closeModal)="onCloseAddAssignment()" [courseId]="view.assignments?.course?.id"
+                                       [showModal]="(showAddAssignmentModal$ | async)!">
+  </metutors-tutor-add-assignment-modal>
+
+  <metutors-tutor-assignment-details-modal *ngIf="showAssignmentDetailsModal$ | async"
+                                           (closeModal)="onCloseAssignmentDetails()"
+                                           [showModal]="(showAssignmentDetailsModal$ | async)!">
+  </metutors-tutor-assignment-details-modal>
 </div>
-
-<metutors-tutor-add-assignment-modal *ngIf="showAddAssignmentModal$ | async"
-                                     (closeModal)="onCloseAddAssignment()"
-                                     [showModal]="(showAddAssignmentModal$ | async)!">
-</metutors-tutor-add-assignment-modal>
-
-<metutors-tutor-assignment-details-modal *ngIf="showAssignmentDetailsModal$ | async"
-                                         (closeModal)="onCloseAssignmentDetails()"
-                                         [showModal]="(showAssignmentDetailsModal$ | async)!">
-</metutors-tutor-assignment-details-modal>
