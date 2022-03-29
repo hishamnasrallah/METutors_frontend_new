@@ -558,8 +558,39 @@ export const selectIsDeletingResource = (state: State): boolean =>
   state.isDeletingResource;
 
 // Assignments
-export const selectTutorAssignments = (state: State): boolean =>
-  state.assignments;
+export const selectTutorAssignments = (state: State): any => state.assignments;
+
+export const selectTutorActiveAssignments = (state: State): any => {
+  const assignments = state.assignments.course.assignments.filter(
+    (assignment: any) => assignment.status === 'active'
+  );
+
+  const course = {
+    ...state.assignments.course,
+    assignments,
+  };
+
+  return {
+    ...state.assignments,
+    course,
+  };
+};
+
+export const selectTutorCompletedAssignments = (state: State): any => {
+  const assignments = state.assignments.course.assignments.filter(
+    (assignment: any) => assignment.status === 'completed'
+  );
+
+  const course = {
+    ...state.assignments.course,
+    assignments,
+  };
+
+  return {
+    ...state.assignments,
+    course,
+  };
+};
 
 export const selectIsLoadingTutorAssignments = (state: State): boolean =>
   state.isLoadingTutorAssignments;
