@@ -18,6 +18,9 @@ import * as fromRequestReducer from './reducers/request.reducer';
 import * as fromLookupsReducer from './reducers/lookups.reducer';
 import * as fromStudentReducer from './reducers/student.reducer';
 import * as fromInterviewReducer from './reducers/interview.reducer';
+import * as fromTutorSyllabusReducer from './reducers/tutor-syllabus.reducer';
+import * as fromTutorResourceReducer from './reducers/tutor-resource.reducer';
+import * as fromTutorAssignmentReducer from './reducers/tutor-assignment.reducer';
 
 export interface CoreState {
   [featureKeys.userFeatureKey]: fromUserReducer.State;
@@ -29,6 +32,9 @@ export interface CoreState {
   [featureKeys.lookupsFeatureKey]: fromLookupsReducer.State;
   [featureKeys.studentFeatureKey]: fromStudentReducer.State;
   [featureKeys.interviewFeatureKey]: fromInterviewReducer.State;
+  [featureKeys.tutorResourceFeatureKey]: fromTutorResourceReducer.State;
+  [featureKeys.tutorSyllabusFeatureKey]: fromTutorSyllabusReducer.State;
+  [featureKeys.tutorAssignmentFeatureKey]: fromTutorAssignmentReducer.State;
 }
 
 export function reducers(state: CoreState, action: Action) {
@@ -42,6 +48,9 @@ export function reducers(state: CoreState, action: Action) {
     [featureKeys.lookupsFeatureKey]: fromLookupsReducer.reducer,
     [featureKeys.studentFeatureKey]: fromStudentReducer.reducer,
     [featureKeys.interviewFeatureKey]: fromInterviewReducer.reducer,
+    [featureKeys.tutorSyllabusFeatureKey]: fromTutorSyllabusReducer.reducer,
+    [featureKeys.tutorResourceFeatureKey]: fromTutorResourceReducer.reducer,
+    [featureKeys.tutorAssignmentFeatureKey]: fromTutorAssignmentReducer.reducer,
   })(state, action);
 }
 
@@ -53,6 +62,21 @@ export const selectCoreState = createFeatureSelector<fromRoot.State, CoreState>(
 export const selectTutorState = createSelector(
   selectCoreState,
   (state) => state[featureKeys.tutorFeatureKey]
+);
+
+export const selectTutorAssignmentState = createSelector(
+  selectCoreState,
+  (state) => state[featureKeys.tutorAssignmentFeatureKey]
+);
+
+export const selectTutorResourceState = createSelector(
+  selectCoreState,
+  (state) => state[featureKeys.tutorResourceFeatureKey]
+);
+
+export const selectTutorSyllabusState = createSelector(
+  selectCoreState,
+  (state) => state[featureKeys.tutorSyllabusFeatureKey]
 );
 
 export const selectLookupsState = createSelector(
@@ -141,7 +165,9 @@ export const selectChangePasswordSuccess = createSelector(
   fromUserReducer.selectChangePasswordSuccess
 );
 
-// Tutor
+/**
+ * ========================== TUTOR ==============================
+ */
 export const selectTutor = createSelector(
   selectTutorState,
   fromTutorReducer.selectTutor
@@ -167,29 +193,35 @@ export const selectIsCompleteTutorProfile = createSelector(
   fromTutorReducer.selectIsCompleteTutorProfile
 );
 
+// Tutor syllabus
 export const selectTutorSyllabus = createSelector(
-  selectTutorState,
-  fromTutorReducer.selectTutorSyllabus
+  selectTutorSyllabusState,
+  fromTutorSyllabusReducer.selectTutorSyllabus
 );
 
 export const selectIsLoadingTutorSyllabus = createSelector(
-  selectTutorState,
-  fromTutorReducer.selectIsLoadingTutorSyllabus
+  selectTutorSyllabusState,
+  fromTutorSyllabusReducer.selectIsLoadingTutorSyllabus
 );
 
 export const selectIsAddingSyllabusTopic = createSelector(
-  selectTutorState,
-  fromTutorReducer.selectIsAddingSyllabusTopic
+  selectTutorSyllabusState,
+  fromTutorSyllabusReducer.selectIsAddingSyllabusTopic
 );
 
 export const selectIsSavingSubjectTitle = createSelector(
-  selectTutorState,
-  fromTutorReducer.selectIsSavingSubjectTitle
+  selectTutorSyllabusState,
+  fromTutorSyllabusReducer.selectIsSavingSubjectTitle
 );
 
 export const selectIsDeletingTopic = createSelector(
-  selectTutorState,
-  fromTutorReducer.selectIsDeletingTopic
+  selectTutorSyllabusState,
+  fromTutorSyllabusReducer.selectIsDeletingTopic
+);
+
+export const selectSubjectTitleEditedSuccess = createSelector(
+  selectTutorSyllabusState,
+  fromTutorSyllabusReducer.selectSubjectTitleEditedSuccess
 );
 
 export const selectIsLaunchingClass = createSelector(
@@ -197,77 +229,77 @@ export const selectIsLaunchingClass = createSelector(
   fromTutorReducer.selectIsLaunchingClass
 );
 
-export const selectSubjectTitleEditedSuccess = createSelector(
-  selectTutorState,
-  fromTutorReducer.selectSubjectTitleEditedSuccess
-);
-
+// Tutor resource
 export const selectTutorResource = createSelector(
-  selectTutorState,
-  fromTutorReducer.selectTutorResource
+  selectTutorResourceState,
+  fromTutorResourceReducer.selectTutorResource
 );
 
 export const selectIsLoadingTutorResource = createSelector(
-  selectTutorState,
-  fromTutorReducer.selectIsLoadingTutorResource
+  selectTutorResourceState,
+  fromTutorResourceReducer.selectIsLoadingTutorResource
 );
 
 export const selectTutorResources = createSelector(
-  selectTutorState,
-  fromTutorReducer.selectTutorResources
+  selectTutorResourceState,
+  fromTutorResourceReducer.selectTutorResources
 );
 
 export const selectIsLoadingTutorResources = createSelector(
-  selectTutorState,
-  fromTutorReducer.selectIsLoadingTutorResources
+  selectTutorResourceState,
+  fromTutorResourceReducer.selectIsLoadingTutorResources
 );
 
 export const selectIsAddingTutorResources = createSelector(
-  selectTutorState,
-  fromTutorReducer.selectIsAddingTutorResources
+  selectTutorResourceState,
+  fromTutorResourceReducer.selectIsAddingTutorResources
 );
 
 export const selectIsDeletingResource = createSelector(
-  selectTutorState,
-  fromTutorReducer.selectIsDeletingResource
+  selectTutorResourceState,
+  fromTutorResourceReducer.selectIsDeletingResource
 );
 
+// Tutor assignment
 export const selectTutorAssignment = createSelector(
-  selectTutorState,
-  fromTutorReducer.selectTutorAssignment
+  selectTutorAssignmentState,
+  fromTutorAssignmentReducer.selectTutorAssignment
 );
 
 export const selectTutorActiveAssignments = createSelector(
-  selectTutorState,
-  fromTutorReducer.selectTutorActiveAssignments
+  selectTutorAssignmentState,
+  fromTutorAssignmentReducer.selectTutorActiveAssignments
 );
 
 export const selectTutorCompletedAssignments = createSelector(
-  selectTutorState,
-  fromTutorReducer.selectTutorCompletedAssignments
+  selectTutorAssignmentState,
+  fromTutorAssignmentReducer.selectTutorCompletedAssignments
 );
 
 export const selectIsLoadingTutorAssignment = createSelector(
-  selectTutorState,
-  fromTutorReducer.selectIsLoadingTutorAssignment
+  selectTutorAssignmentState,
+  fromTutorAssignmentReducer.selectIsLoadingTutorAssignment
 );
 
 export const selectTutorAssignments = createSelector(
-  selectTutorState,
-  fromTutorReducer.selectTutorAssignments
+  selectTutorAssignmentState,
+  fromTutorAssignmentReducer.selectTutorAssignments
 );
 
 export const selectIsLoadingTutorAssignments = createSelector(
-  selectTutorState,
-  fromTutorReducer.selectIsLoadingTutorAssignments
+  selectTutorAssignmentState,
+  fromTutorAssignmentReducer.selectIsLoadingTutorAssignments
 );
 
 export const selectIsAddingAssignment = createSelector(
-  selectTutorState,
-  fromTutorReducer.selectIsAddingAssignment
+  selectTutorAssignmentState,
+  fromTutorAssignmentReducer.selectIsAddingAssignment
 );
 
-// Student
+/**
+ * ========================== STUDENT ==============================
+ */
+
 export const selectStudentDashboard = createSelector(
   selectStudentState,
   fromStudentReducer.selectStudentDashboard

@@ -8,3 +8,6 @@ export const requestFeatureKey = 'request';
 export const lookupsFeatureKey = 'lookups';
 export const studentFeatureKey = 'student';
 export const interviewFeatureKey = 'interview';
+export const tutorResourceFeatureKey = 'tutorResource';
+export const tutorSyllabusFeatureKey = 'tutorSyllabus';
+export const tutorAssignmentFeatureKey = 'tutorAssignment';
