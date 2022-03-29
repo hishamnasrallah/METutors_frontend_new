@@ -7,3 +7,6 @@ export * from './lookups.effects';
 export * from './request.effects';
 export * from './student.effects';
 export * from './interview.effects';
+export * from './tutor-syllabus.effects';
+export * from './tutor-resource.effects';
+export * from './tutor-assignment.effects';

@@ -64,12 +64,6 @@ export class TutorResourcesComponent implements OnInit {
       description,
       classId: this.classId,
     };
-    /*    const formData = new FormData();
-    formData.append('urls', urls);
-    formData.append('classId', this.classId);
-    formData.append('resourceId', resourceId);
-    formData.append('description', description);
-    formData.append('files', files.toString());*/
 
     if (resourceId) {
       this._store.dispatch(fromCore.editTutorResource({ body }));

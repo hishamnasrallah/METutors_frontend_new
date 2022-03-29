@@ -106,7 +106,7 @@ export class TutorSyllabusComponent implements OnInit {
 
   onSaveSubjectTitle(classId: number): void {
     this._store.dispatch(
-      fromCore.tutorEditSubjectTitle({
+      fromCore.tutorEditSyllabusSubjectTitle({
         classId,
         title: this.subjectTitle?.value,
       })

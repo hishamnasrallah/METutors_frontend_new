@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 
-import * as tutorActions from '../actions/tutor.actions';
+import * as tutorResourceActions from '../actions/tutor-resource.actions';
 import * as uploadActions from '../actions/upload.actions';
 import * as tutorModalActions from '@metutor/modules/tutor/state/actions';
 
@@ -86,7 +86,7 @@ export const reducer = createReducer(
   // Reset Uploaded Files resetUploadedFiles
   on(
     uploadActions.resetUploadedFiles,
-    tutorActions.deleteTutorResourceSuccess,
+    tutorResourceActions.deleteTutorResourceSuccess,
     tutorModalActions.openTutorAddClassResourceModal,
     tutorModalActions.openTutorEditClassResourceModal,
     (state) => ({
