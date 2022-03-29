@@ -58,4 +58,19 @@
     font-weight: bold;
     font-size: 13px;
   }
+
+  .edit-icon, .delete-icon {
+    top: -6px;
+    width: 75px;
+    display: flex;
+    color: #979797;
+    position: absolute;
+  }
+  .edit-icon {
+    left: 25%;
+  }
+
+  .delete-icon {
+    left: 30%;
+  }
 }
