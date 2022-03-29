@@ -1,7 +1,7 @@
 <metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'medium'" [heading]="'Add New Assignment'"
                 [template]="template" >
   <ng-template #template>
-    <form class="row add-assignment-modal" [formGroup]="form" (ngSubmit)="submitted.emit(form)">
+    <form class="row add-assignment-modal" [formGroup]="form" (ngSubmit)="onSubmit()">
       <div class="col-12">
         <div class="form-group">
           <label for="title">Title</label>
@@ -18,7 +18,7 @@
             <div class="col-md-6">
               <label>Start Date</label>
               <mat-form-field appearance="outline" class="w-100">
-                <input matInput [matDatepicker]="startPicker" [placeholder]="'Choose a date'" (focus)="startPicker.open()"
+                <input matInput [matDatepicker]="startPicker" [placeholder]="'Choose a date'" (focus)="startPicker.open()" autocomplete="off"
                   [min]="minDate" (dateChange)="onChangeDateDay()" formControlName="startDate">
                 <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
                 <mat-datepicker #startPicker></mat-datepicker>
@@ -27,7 +27,7 @@
             <div class="col-md-6">
               <label>End Date</label>
               <mat-form-field appearance="outline" class="w-100">
-                <input matInput [matDatepicker]="endPicker" [placeholder]="'Choose a date'" (focus)="endPicker.open()"
+                <input matInput [matDatepicker]="endPicker" [placeholder]="'Choose a date'" (focus)="endPicker.open()" autocomplete="off"
                   [min]="startDate?.value" (dateChange)="onChangeDateDay()" formControlName="endDate">
                 <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
                 <mat-datepicker #endPicker></mat-datepicker>
@@ -37,52 +37,75 @@
         </div>
 
         <div class="form-group">
-          <label>URLs</label>
+          <label>Assignee</label>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select formControlName="assignee" [placeholder]="'Select Student'" multiple>
+              <mat-option [value]="7">Teacher Zoobia</mat-option>
+              <mat-option [value]="8">Std ABC</mat-option>
+              <mat-option [value]="9">ASD SDFS</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <label>URLs<span class="text-danger">*</span></label>
           <ng-container *ngFor="let url of selectedURLs; let i = index">
-              <div class="url-info d-flex flex-column my-2">
-                  <span>{{ url.title }}</span>
-                  <strong class="d-flex align-items-center">
-                      {{ url.link }}
-                      <mat-icon class="cursor-pointer ms-2" (click)="removeURL(i)">cancel</mat-icon>
-                  </strong>
-              </div>
+            <div class="url-info d-flex flex-column my-2">
+              <span>{{ url.title }}</span>
+              <strong class="d-flex align-items-center">
+                {{ url.url }}
+                <mat-icon class="cursor-pointer ms-2 delete-icon" (click)="removeURL(i)">cancel</mat-icon>
+              </strong>
+            </div>
           </ng-container>
           <div class="overflow-hidden">
-            <ng-container formArrayName="urls">
-              <ng-container *ngFor="let _ of urls.controls; let i = index" [formGroupName]="i">
-                <ng-container *ngIf="i >= selectedURLs.length">
-                  <input type="text" class="form-control custom-input input-bordered" formControlName="title" placeholder="Enter title here...">
-                  <input type="url" class="form-control custom-input input-bordered mt-2" formControlName="link" placeholder="Enter URL here...">
-                  <button mat-button class="add-url main-button-transparent float-end mt-2" 
-                          [disabled]="!form.value.urls[i].title || !form.value.urls[i].link" (click)="saveURL()">
-                          Add
-                  </button>
-                </ng-container>
-              </ng-container>
+            <ng-container formGroupName="urls">
+              <input type="text" class="form-control custom-input input-bordered" formControlName="title"
+                     placeholder="Enter title here...">
+              <input type="url" class="form-control custom-input input-bordered mt-2" formControlName="url"
+                     placeholder="Enter URL here...">
+              <button mat-button type="button" class="add-url main-button-transparent float-end mt-2" [disabled]="!form.value.urls.title || !form.value.urls.url" (click)="addURL()">
+                Add
+              </button>
             </ng-container>
           </div>
         </div>
 
         <div class="form-group">
-          <label>Files</label>
+          <label>Files<span class="text-danger">*</span></label>
           <div class="d-flex flex-column">
             <div>
-              <button mat-button class="main-button" (click)="filePicker.click()">
-                <img src="assets/svg/upload-solid.svg" width="15" height="15" alt="" />
+              <button mat-button type="button" class="main-button" (click)="filePicker.click()">
+                <img src="assets/svg/upload-solid.svg" width="15" height="15" alt=""/>
                 Upload
               </button>
             </div>
             <span class="extensions">JPG, pdf, video, etc</span>
-            <input type="file" hidden #filePicker (change)="onFileChange($event)" multiple>
+            <input type="file" hidden multiple #filePicker (change)="onFileChange($event)">
           </div>
 
-          <div class="form-group row" *ngIf="filesPreview && filesPreview.length">
-            <div class="col-md-4 list-files d-flex" *ngFor="let filePreview of filesPreview">
+          <ng-container *ngLet="fileUploadProgress$ | async as fileUploadProgress">
+            <ng-container *ngIf="fileUploadProgress?.length">
+              <ng-container *ngFor="let uploadProgress of fileUploadProgress">
+                <ng-container *ngIf="uploadProgress.responseType !== uploadComplete">
+                  <metutors-file-upload-progress [fileName]="uploadProgress.fileName"
+                                                 [uploadedPercentage]="uploadProgress.progress">
+                  </metutors-file-upload-progress>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+
+          <div class="form-group row" *ngIf="(uploadedFiles$ | async)?.length">
+            <div class="col-md-4 list-files d-flex position-relative"
+                 *ngFor="let file of (uploadedFiles$ | async); let i = index">
               <mat-icon>attach_file</mat-icon>
               <div class="ms-2">
-                <h3>{{ filePreview?.name }}</h3>
-                <h5>{{ filePreview?.size }}</h5>
+                <h3>{{ file?.url }}</h3>
+                <!--<h5>{{ filePreview?.size }}</h5>-->
               </div>
+              <mat-icon class="cursor-pointer ms-2 position-absolute delete-icon file" (click)="removeFile(file.id)">
+                cancel
+              </mat-icon>
             </div>
           </div>
         </div>

@@ -1,12 +1,16 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
-  AbstractControl,
-  FormArray,
-  FormBuilder,
   FormGroup,
   Validators,
+  FormBuilder,
+  AbstractControl,
 } from '@angular/forms';
-import { formatBytes } from '@metutor/config';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { tap } from 'rxjs/operators';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+
+import { generalConstants } from '@config';
+import * as fromCore from '@metutor/core/state';
 
 @Component({
   selector: 'metutors-tutor-add-assignment-modal',
@@ -25,22 +29,44 @@ export class TutorAddAssignmentModalComponent implements OnInit {
   selectedURLs: any[] = [];
   filesPreview: any[] = [];
 
-  constructor(private _fb: FormBuilder) {}
+  uploadedFiles$: Observable<any>;
+  fileUploadProgress$: Observable<any>;
+  uploadComplete = generalConstants.uploadComplete;
+
+  constructor(private _fb: FormBuilder, private _store: Store<any>) {}
 
   ngOnInit(): void {
     this.form = this._fb.group({
+      files: [null, Validators.required],
+      endDate: [null, Validators.required],
+      assignee: [null, Validators.required],
+      startDate: [null, Validators.required],
       title: [null, [Validators.required, Validators.minLength(3)]],
       description: [null, [Validators.required, Validators.minLength(10)]],
-      startDate: [null],
-      endDate: [null],
-      urls: this._fb.array([]),
+      urls: this._fb.group(
+        {
+          url: [null],
+          title: [null],
+        },
+        { validators: this._urlValidation.bind(this) }
+      ),
     });
 
-    this.addURL();
+    this.fileUploadProgress$ = this._store.select(
+      fromCore.selectFileUploadingProgress
+    );
+
+    this.uploadedFiles$ = this._store
+      .select(fromCore.selectUploadedFiles)
+      .pipe(tap((files) => this.files?.setValue(files)));
   }
 
-  get urls(): FormArray {
-    return this.form?.get('urls') as FormArray;
+  get files(): AbstractControl | null {
+    return this.form?.get('files');
+  }
+
+  get urls(): FormGroup {
+    return this.form?.get('urls') as FormGroup;
   }
 
   get startDate(): AbstractControl | null {
@@ -60,47 +86,54 @@ export class TutorAddAssignmentModalComponent implements OnInit {
   }
 
   removeURL(i: number): void {
-    (this.form?.get('urls') as FormArray).removeAt(i);
     this.selectedURLs.splice(i, 1);
-
-    if (this.form.value.urls.length === 0) {
-      this.addURL();
-    }
-  }
-
-  newURL(): FormGroup {
-    return this._fb.group({
-      title: [null],
-      link: [null],
-      files: [],
-    });
+    this.form.get('urls')?.updateValueAndValidity();
   }
 
   addURL(): void {
-    this.urls.push(this.newURL());
+    this.selectedURLs.push(this.urls.value);
+    this.urls.get('url')?.setValue(null);
+    this.urls.get('title')?.setValue(null);
   }
 
-  saveURL(): void {
-    console.log(this.urls);
-    this.selectedURLs.push({
-      title: this.urls.value[this.urls.value.length - 1].title,
-      link: this.urls.value[this.urls.value.length - 1].link,
-    });
-    this.addURL();
+  removeFile(id: number): void {
+    this._store.dispatch(fromCore.deleteUploadedFile({ id }));
   }
 
   onFileChange(event: any): void {
     if (event.target && event.target.files && event.target.files.length) {
-      this.form.patchValue({ files: event.target.files });
-      this.form.get('files')?.updateValueAndValidity();
-      this.form?.markAsDirty();
-
-      Array.from(event.target.files).forEach((file: any) => {
-        this.filesPreview.push({
-          name: file.name,
-          size: formatBytes(file.size),
-        });
-      });
+      const file = [...event.target.files];
+      this._store.dispatch(fromCore.uploadFile({ file }));
     }
+  }
+
+  onSubmit(): void {
+    const data = {
+      ...this.form.value,
+      urls: this.selectedURLs,
+    };
+
+    console.log(data);
+
+    this.submitted.emit(data);
+  }
+
+  private _urlValidation(control: AbstractControl): any {
+    const url = control.get('url');
+    const title = control.get('title');
+
+    if (!this.selectedURLs.length) {
+      return { required: true };
+    }
+
+    if (url?.value && !title?.value) {
+      return { required: true };
+    }
+
+    if (!url?.value && title?.value) {
+      return { required: true };
+    }
+
+    return null;
   }
 }

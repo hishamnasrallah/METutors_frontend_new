@@ -123,19 +123,6 @@ export class TutorAddClassResourceModalComponent implements OnInit {
     if (event.target && event.target.files && event.target.files.length) {
       const file = [...event.target.files];
       this._store.dispatch(fromCore.uploadFile({ file }));
-      /* Array.from(event.target.files).forEach((file: any) => {
-        this.filesPreview.push({
-          file,
-          name: file.name,
-          size: formatBytes(file.size),
-        });
-      });*/
-
-      /* const files = this.filesPreview.map((f) => f.file);
-
-      this.form.patchValue({ files });
-      this.form.get('files')?.updateValueAndValidity();
-      this.form?.markAsDirty();*/
     }
   }
 

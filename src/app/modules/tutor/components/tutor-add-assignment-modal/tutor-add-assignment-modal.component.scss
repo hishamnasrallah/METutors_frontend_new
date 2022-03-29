@@ -1,4 +1,15 @@
 .add-assignment-modal {
+  .delete-icon {
+    width: 15px;
+    height: 15px;
+    font-size: 14px;
+    color: #696969;
+
+    &.file {
+      right: 0;
+    }
+  }
+
   label {
     font-weight: bold;
     font-size: 15px;
@@ -53,5 +64,14 @@
 
   .add-url {
     line-height: 25px;
+  }
+
+  .delete {
+    top: -6px;
+    left: 35%;
+    width: 75px;
+    display: flex;
+    color: #979797;
+    position: absolute;
   }
 }
