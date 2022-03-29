@@ -39,6 +39,7 @@ export class TutorAddAssignmentModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this._fb.group({
+      id: [null],
       files: [null, Validators.required],
       endDate: [null, Validators.required],
       assignee: [null, Validators.required],
@@ -68,13 +69,35 @@ export class TutorAddAssignmentModalComponent implements OnInit {
       .pipe(tap((files) => this.files?.setValue(files)));
 
     this.view$ = combineLatest([
-      this._store.select(fromCore.selectTutorAssignment),
+      this._store.select(fromCore.selectTutorAssignment).pipe(
+        tap((data) => {
+          if (data) {
+            // todo: start adding assignment pre filled data
+            /* if (data?.resource?.urls?.length) {
+              this.selectedURLs = [...data.resource?.urls];
+            }
+
+            if (data?.resource?.files?.length) {
+              this.files?.setValue(data.resource.files);
+              this._store.dispatch(
+                fromCore.setFiles({ files: data.resource.files })
+              );
+            }
+
+            this.description?.setValue(data?.resource?.description);*/
+          }
+        })
+      ),
       this._store.select(fromCore.selectIsLoadingTutorAssignment),
     ]).pipe(map(([assignment, loading]) => ({ loading, assignment })));
   }
 
   get files(): AbstractControl | null {
     return this.form?.get('files');
+  }
+
+  get description(): AbstractControl | null {
+    return this.form?.get('description');
   }
 
   get urls(): FormGroup {
