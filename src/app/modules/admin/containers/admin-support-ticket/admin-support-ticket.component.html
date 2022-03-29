@@ -5,15 +5,29 @@
         <mat-tab label="All">
           <div class="mt-2">
             <ng-container *ngIf="!(isLoading$ | async)">
-              <div class="row">
+              <div class="row filters">
                 <div class="col-md-9">
-
+                  <span class="title">Filters</span>
+                  <mat-form-field appearance="outline" class="me-2">
+                    <mat-select [placeholder]="'By Priority'" [(ngModel)]="priority" (selectionChange)="onChangeSelection()">
+                      <mat-option [value]="priority?.id" *ngFor="let priority of priorities$ | async">
+                        {{ priority?.name }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-form-field appearance="outline">
+                    <mat-select [placeholder]="'By Category'" [(ngModel)]="category" (selectionChange)="onChangeSelection()">
+                      <mat-option [value]="category?.id" *ngFor="let category of categories$ | async">
+                        {{ category?.name }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
                 </div>
                 <div class="col-md-3">
-                  <div class="position-relative">
+                  <div class="position-relative search-request">
                     <mat-icon>search</mat-icon>
-                    <input type="text" class="form-control custom-input input-bordered search-request" #search
-                      placeholder="Search..." (keyup)="filterTickets({title: search.value})">
+                    <input type="text" class="form-control custom-input input-bordered" [(ngModel)]="title"
+                      placeholder="Search..." (keyup)="onChangeSelection()">
                   </div>
                 </div>
               </div>
@@ -40,6 +54,32 @@
         <mat-tab label="Open">
           <div class="mt-2">
             <ng-container *ngIf="!(isLoading$ | async)">
+              <div class="row filters">
+                <div class="col-md-9">
+                  <span class="title">Filters</span>
+                  <mat-form-field appearance="outline" class="me-2">
+                    <mat-select [placeholder]="'By Priority'" [(ngModel)]="priority" (selectionChange)="onChangeSelection()">
+                      <mat-option [value]="priority?.id" *ngFor="let priority of priorities$ | async">
+                        {{ priority?.name }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-form-field appearance="outline">
+                    <mat-select [placeholder]="'By Category'" [(ngModel)]="category" (selectionChange)="onChangeSelection()">
+                      <mat-option [value]="category?.id" *ngFor="let category of categories$ | async">
+                        {{ category?.name }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                  <div class="position-relative search-request">
+                    <mat-icon>search</mat-icon>
+                    <input type="text" class="form-control custom-input input-bordered" [(ngModel)]="title"
+                      placeholder="Search..." (keyup)="onChangeSelection()">
+                  </div>
+                </div>
+              </div>
               <metutors-support-ticket-card *ngFor="let ticket of tickets$ | async" [ticket]="ticket" [isAdmin]="true"
                                             [linkUrl]="'/admin/support-ticket/ticket-details/' + ticket?.ticketId"
                                             [ticketId]="ticketId" [isChangeStatus]="(isChangeTicketStatus$ | async)!"
@@ -63,6 +103,32 @@
         <mat-tab label="Closed">
           <div class="mt-2">
             <ng-container *ngIf="!(isLoading$ | async)">
+              <div class="row filters">
+                <div class="col-md-9">
+                  <span class="title">Filters</span>
+                  <mat-form-field appearance="outline" class="me-2">
+                    <mat-select [placeholder]="'By Priority'" [(ngModel)]="priority" (selectionChange)="onChangeSelection()">
+                      <mat-option [value]="priority?.id" *ngFor="let priority of priorities$ | async">
+                        {{ priority?.name }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-form-field appearance="outline">
+                    <mat-select [placeholder]="'By Category'" [(ngModel)]="category" (selectionChange)="onChangeSelection()">
+                      <mat-option [value]="category?.id" *ngFor="let category of categories$ | async">
+                        {{ category?.name }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                  <div class="position-relative search-request">
+                    <mat-icon>search</mat-icon>
+                    <input type="text" class="form-control custom-input input-bordered" [(ngModel)]="title"
+                      placeholder="Search..." (keyup)="onChangeSelection()">
+                  </div>
+                </div>
+              </div>
               <metutors-support-ticket-card *ngFor="let ticket of tickets$ | async" [ticket]="ticket" [isAdmin]="true"
                                             [linkUrl]="'/admin/support-ticket/ticket-details/' + ticket?.ticketId"
                                             [ticketId]="ticketId" [isChangeStatus]="(isChangeTicketStatus$ | async)!"

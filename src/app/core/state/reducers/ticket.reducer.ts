@@ -206,7 +206,15 @@ const getFilteredTickets = (tickets: ITicket[], props: any) => {
   }
 
   if (props?.priority) {
-    tickets = tickets.filter((ticket) => ticket.priority === props.priority);
+    tickets = tickets.filter(
+      (ticket) => ticket.priority?.id?.toString() === props.priority.toString()
+    );
+  }
+
+  if (props?.category) {
+    tickets = tickets.filter(
+      (ticket) => ticket.category?.id?.toString() === props.category.toString()
+    );
   }
 
   return tickets;
