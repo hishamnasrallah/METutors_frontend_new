@@ -86,7 +86,7 @@
                       <p class="col">{{ assignment?.description}}</p>
                     </div>
                     <div class="col-md-5 d-flex align-items-start justify-content-end date-data">
-                      <a>Extend Due Date</a>
+                      <span class="cursor-pointer text-decoration-underline extend-date" *ngIf="assignment.status === 'active'" (click)="onOpenEditAssignmentModal(assignment.id)">Extend Due Date</span>
                       <div class="d-flex flex-column mx-3">
                         <span>Remaining Time</span>
                         <strong class="alert-msg">2 Days</strong>

@@ -221,12 +221,9 @@ export const selectTutorFilteredAssignments = (
   state: State,
   props?: any
 ): any => {
-  console.log(props);
   const assignments = state.assignments.course.assignments.filter(
     (assignment: any) => assignment.status === props?.status
   );
-
-  console.log(assignments);
 
   const course = {
     ...state.assignments.course,
