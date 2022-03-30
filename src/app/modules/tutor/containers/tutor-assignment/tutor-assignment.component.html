@@ -86,10 +86,11 @@
                       <p class="col">{{ assignment?.description}}</p>
                     </div>
                     <div class="col-md-5 d-flex align-items-start justify-content-end date-data">
-                      <a>Extend Due Date</a>
+                      <span class="cursor-pointer text-decoration-underline extend-date" *ngIf="assignment.status === 'active'" (click)="onOpenEditAssignmentModal(assignment.id)">Extend Due Date</span>
                       <div class="d-flex flex-column mx-3">
                         <span>Remaining Time</span>
-                        <strong class="alert-msg">2 Days</strong>
+                        <strong class="alert-msg" *ngIf="assignment?.remainingDays <= 1">{{ assignment?.remainingDays ? assignment?.remainingDays : 0 }} Days</strong>
+                        <strong *ngIf="assignment?.remainingDays > 1">{{ assignment?.remainingDays }} Days</strong>
                       </div>
                       <button mat-button class="main-button-transparent"
                               (click)="onOpenAssignmentDetails(assignment.id)">
@@ -150,7 +151,7 @@
                         <td>
                           <span class="status-icon text-capitalize"
                                 [ngClass]="assignee?.status">{{ assignee?.status }}</span>
-                          <span class="late ms-2">Late</span>
+                          <span class="late ms-2" *ngIf="!assignment?.remainingDays && assignee.status !== 'submitted'">Late</span>
                         </td>
                       </tr>
                     </table>

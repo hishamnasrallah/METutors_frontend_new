@@ -6,9 +6,9 @@ import {
   animate,
   transition,
 } from '@angular/animations';
+import * as moment from 'moment';
+import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { map } from 'rxjs/operators';
-import { Observable, combineLatest } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import * as fromTutor from '@metutor/modules/tutor/state';
 import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
@@ -60,6 +60,10 @@ export class TutorAssignmentComponent implements OnInit {
 
   onCloseAddAssignment() {
     this._store.dispatch(fromTutorAction.closeTutorAddAssignmentModal());
+  }
+
+  onOpenEditAssignmentModal(id: number): void {
+    this._store.dispatch(fromTutorAction.openTutorEditAssignmentModal({ id }));
   }
 
   onOpenAssignmentDetails(id: number) {
