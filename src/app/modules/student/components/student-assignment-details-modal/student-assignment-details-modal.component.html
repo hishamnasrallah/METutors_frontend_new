@@ -7,23 +7,8 @@
         <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
 
         <div class="assignment-details-modal" *ngSwitchCase="false">
-          <button class="btn edit-icon" type="button" (click)="openEditAssignmentModal(view?.assignment.assignment.id)">
-            Edit
-          </button>
-
-          <button class="btn delete-icon" type="button" (click)="deleteAssignment(view?.assignment.assignment.id)"
-                  [disabled]="(isDeletingAssignment$ | async)!">
-            Delete
-            <mat-icon class="spinner" *ngIf="(isDeletingAssignment$ | async)!">autorenew</mat-icon>
-          </button>
           <div class="d-flex justify-content-between">
             <h3>{{ view?.assignment?.assignment?.title }}</h3>
-            <div class="overflow-visible logos">
-              <img meTutorsDefaultAvatar src="" alt="" draggable="false" class="d-inline-block rounded-circle">
-              <img meTutorsDefaultAvatar src="" alt="" draggable="false" class="d-inline-block rounded-circle">
-              <img meTutorsDefaultAvatar src="" alt="" draggable="false" class="d-inline-block rounded-circle">
-              <img meTutorsDefaultAvatar src="" alt="" draggable="false" class="d-inline-block rounded-circle">
-            </div>
           </div>
           <div class="row list-items md-item">
             <div class="col-md-3 d-flex menu align-items-center">
@@ -37,9 +22,6 @@
               <span>{{ view?.assignment?.assignment?.deadline | date: 'MMMM d y' }}</span>
             </div>
             <div class="col-md-4 d-flex menu align-items-center">
-              <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
-              <strong>Answer Received: </strong>
-              <span>04 out of 10</span>
             </div>
           </div>
           <p class="mt-2">

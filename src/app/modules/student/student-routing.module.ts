@@ -10,6 +10,7 @@ import {
   StudentDashboardComponent,
   StudentResourcesComponent,
   StudentClassroomsComponent,
+  StudentAssignmentsComponent,
   StudentCreateTicketComponent,
   StudentCertificatesComponent,
   StudentSupportTicketComponent,
@@ -77,6 +78,20 @@ const routes: Routes = [
                   layout: {
                     title: 'Student Resources - Metutors',
                     navbarTitle: 'Resources',
+                    showHeader: false,
+                    showFooter: false,
+                    hideSidebar: true,
+                  },
+                },
+              },
+
+              {
+                path: 'assignments/:id',
+                component: StudentAssignmentsComponent,
+                data: {
+                  layout: {
+                    title: 'Student Assignments - Metutors',
+                    navbarTitle: 'Assignments Dashboard',
                     showHeader: false,
                     showFooter: false,
                     hideSidebar: true,

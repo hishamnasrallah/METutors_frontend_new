@@ -34,6 +34,7 @@ import {
   StudentResourcesComponent,
   StudentDashboardComponent,
   StudentClassroomsComponent,
+  StudentAssignmentsComponent,
   StudentCreateTicketComponent,
   StudentCertificatesComponent,
   StudentSupportTicketComponent,
@@ -53,6 +54,7 @@ import {
   StudentSettingsSecurityComponent,
   StudentViewResourceModalComponent,
   StudentSettingsUserPrefrencesComponent,
+  StudentAssignmentDetailsModalComponent,
   StudentSettingsPaymentInformationComponent,
 } from './components';
 
@@ -71,6 +73,7 @@ import {
     FaqAboutStudentsComponent,
     StudentDashboardComponent,
     StudentClassroomsComponent,
+    StudentAssignmentsComponent,
     StudentCreateTicketComponent,
     StudentCertificatesComponent,
     StudentTicketDetailsComponent,
@@ -83,6 +86,7 @@ import {
     StudentSettingsSecurityComponent,
     StudentViewResourceModalComponent,
     StudentSettingsUserPrefrencesComponent,
+    StudentAssignmentDetailsModalComponent,
     StudentSettingsPaymentInformationComponent,
   ],
   imports: [

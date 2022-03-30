@@ -1,6 +1,7 @@
 import { IStudent } from '@metutor/core/models';
 import { createReducer, on } from '@ngrx/store';
 
+import * as moment from 'moment';
 import * as studentActions from '../actions/student.actions';
 
 export interface State {
@@ -9,6 +10,8 @@ export interface State {
   dashboard: any;
   classroom: any;
   resources: any;
+  assignments: any;
+  assignment: any;
   classesDashboard: any;
   isJoiningClass: boolean;
   students: IStudent[] | null;
@@ -18,6 +21,8 @@ export interface State {
   isLoadingStudentResources: boolean;
   isLoadingStudentDashboard: boolean;
   isLoadingStudentClassroom: boolean;
+  isLoadingStudentAssignment: boolean;
+  isLoadingStudentAssignments: boolean;
   isLoadingStudentClassesDashboard: boolean;
 }
 
@@ -28,6 +33,8 @@ export const initialState: State = {
   dashboard: null,
   resources: null,
   classroom: null,
+  assignment: null,
+  assignments: null,
   isJoiningClass: false,
   classesDashboard: null,
   isLoadingStudents: false,
@@ -36,6 +43,8 @@ export const initialState: State = {
   isLoadingStudentResources: false,
   isLoadingStudentDashboard: false,
   isLoadingStudentClassroom: false,
+  isLoadingStudentAssignment: false,
+  isLoadingStudentAssignments: false,
   isLoadingStudentClassesDashboard: false,
 };
 
@@ -181,6 +190,41 @@ export const reducer = createReducer(
   on(studentActions.studentJoinClassFailure, (state) => ({
     ...state,
     isJoiningClass: false,
+  })),
+
+  on(studentActions.loadStudentAssignments, (state) => ({
+    ...state,
+    isLoadingStudentAssignments: true,
+  })),
+
+  on(
+    studentActions.loadStudentAssignmentsSuccess,
+    (state, { assignments }) => ({
+      ...state,
+      assignments,
+      isLoadingStudentAssignments: false,
+    })
+  ),
+
+  on(studentActions.loadStudentAssignmentsFailure, (state) => ({
+    ...state,
+    isLoadingStudentAssignments: false,
+  })),
+
+  on(studentActions.loadStudentAssignment, (state) => ({
+    ...state,
+    isLoadingStudentAssignment: true,
+  })),
+
+  on(studentActions.loadStudentAssignmentSuccess, (state, { assignment }) => ({
+    ...state,
+    assignment,
+    isLoadingStudentAssignment: false,
+  })),
+
+  on(studentActions.loadStudentAssignmentFailure, (state) => ({
+    ...state,
+    isLoadingStudentAssignment: false,
   }))
 );
 
@@ -239,6 +283,18 @@ export const selectIsLoadingStudentResource = (state: State): boolean =>
 export const selectIsJoiningClass = (state: State): boolean =>
   state.isJoiningClass;
 
+export const selectStudentAssignments = (state: State): boolean =>
+  state.assignments;
+
+export const selectIsLoadingStudentAssignments = (state: State): boolean =>
+  state.isLoadingStudentAssignments;
+
+export const selectStudentAssignment = (state: State): boolean =>
+  state.assignment;
+
+export const selectIsLoadingStudentAssignment = (state: State): boolean =>
+  state.isLoadingStudentAssignment;
+
 export const selectFilteredStudents = (
   state: State,
   props?: any
@@ -250,6 +306,37 @@ export const selectFilteredStudents = (
   }
 
   return students;
+};
+
+export const selectStudentFilteredAssignments = (
+  state: State,
+  props?: any
+): any => {
+  let assignments = state.assignments.course.assignments.filter(
+    (assignment: any) => assignment.status === props?.status
+  );
+
+  assignments = assignments.map((assignment: any) => ({
+    ...assignment,
+    remainingDays: getRemainingDays(assignment.deadline),
+  }));
+
+  const course = {
+    ...state.assignments.course,
+    assignments,
+  };
+
+  return {
+    ...state.assignments,
+    course,
+  };
+};
+
+const getRemainingDays = (deadline: string) => {
+  const endDate = moment(deadline, 'YYYY-MM-DD');
+  const currentDate = moment().startOf('day');
+
+  return moment.duration(endDate.diff(currentDate)).asDays();
 };
 
 const getFilteredStudents = (students: IStudent[], props: any) => {

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { map, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { loadStudentAssignments } from '@metutor/core/state';
 
 @Injectable({
   providedIn: 'root',
@@ -69,5 +70,14 @@ export class StudentsService {
 
   errorHandler(error: HttpErrorResponse) {
     return throwError(error);
+  }
+
+  // Assignments
+  getStudentAssignments(id: any): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}student/assignments/${id}`);
+  }
+
+  getStudentAssignment(id: any): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}student/assignment/${id}`);
   }
 }

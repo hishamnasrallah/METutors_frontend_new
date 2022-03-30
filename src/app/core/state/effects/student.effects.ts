@@ -2,7 +2,11 @@ import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
 import camelcaseKeys from 'camelcase-keys';
-import { selectStudentDashboard, selectStudents } from '@metutor/core/state';
+import {
+  loadStudentAssignments,
+  selectStudentDashboard,
+  selectStudents,
+} from '@metutor/core/state';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 
@@ -195,6 +199,52 @@ export class StudentEffects {
           catchError((error) =>
             of(
               studentActions.studentJoinClassFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  // Assignments
+  loadStudentAssignments$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(studentActions.loadStudentAssignments),
+      withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
+      mergeMap(([_, { id }]) =>
+        this._studentService.getStudentAssignments(id).pipe(
+          map((assignments) =>
+            studentActions.loadStudentAssignmentsSuccess({
+              assignments: camelcaseKeys(assignments, { deep: true }),
+            })
+          ),
+          catchError((error) =>
+            of(
+              studentActions.loadStudentAssignmentsFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  loadStudentAssignment$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(studentActions.loadStudentAssignment),
+      mergeMap(({ id }) =>
+        this._studentService.getStudentAssignment(id).pipe(
+          map((assignment) =>
+            studentActions.loadStudentAssignmentSuccess({
+              assignment: camelcaseKeys(assignment, { deep: true }),
+            })
+          ),
+          catchError((error) =>
+            of(
+              studentActions.loadStudentAssignmentFailure({
                 error: error?.error?.message || error?.error?.errors,
               })
             )

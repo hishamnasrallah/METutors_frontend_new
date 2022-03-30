@@ -6,7 +6,6 @@ import {
   animate,
   transition,
 } from '@angular/animations';
-import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Component, OnInit } from '@angular/core';

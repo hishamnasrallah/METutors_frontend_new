@@ -424,6 +424,31 @@ export const selectIsJoiningClass = createSelector(
   fromStudentReducer.selectIsJoiningClass
 );
 
+export const selectStudentAssignments = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectStudentAssignments
+);
+
+export const selectStudentFilteredAssignments = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectStudentFilteredAssignments
+);
+
+export const selectIsLoadingStudentAssignments = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectIsLoadingStudentAssignments
+);
+
+export const selectStudentAssignment = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectStudentAssignment
+);
+
+export const selectIsLoadingStudentAssignment = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectIsLoadingStudentAssignment
+);
+
 // Ticket
 export const selectTickets = createSelector(
   selectTicketState,

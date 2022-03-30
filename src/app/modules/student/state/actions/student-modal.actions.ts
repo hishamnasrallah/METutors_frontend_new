@@ -24,3 +24,12 @@ export const openStudentViewResourceModal = createAction(
 export const closeStudentViewResourceModal = createAction(
   '[Student Modal] Close Student View Resource Modal'
 );
+
+export const openStudentViewAssignmentModal = createAction(
+  '[Student Modal] Open Student View Assignment Modal',
+  props<{ id: number }>()
+);
+
+export const closeStudentViewAssignmentModal = createAction(
+  '[Student Modal] Close Student View Assignment Modal'
+);

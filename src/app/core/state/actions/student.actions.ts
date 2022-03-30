@@ -121,3 +121,33 @@ export const studentJoinClassFailure = createAction(
   '[Student] Student Join Class Failure',
   props<{ error: any }>()
 );
+
+// Student assignments
+export const loadStudentAssignments = createAction(
+  '[Student] Load Student Assignments'
+);
+
+export const loadStudentAssignmentsSuccess = createAction(
+  '[Student] Load Student Assignments Success',
+  props<{ assignments: any }>()
+);
+
+export const loadStudentAssignmentsFailure = createAction(
+  '[Student] Load Student Assignments Failure',
+  props<{ error: any }>()
+);
+
+export const loadStudentAssignment = createAction(
+  '[Student] Load Student Assignment',
+  props<{ id: number }>()
+);
+
+export const loadStudentAssignmentSuccess = createAction(
+  '[Student] Load Student Assignment Success',
+  props<{ assignment: any }>()
+);
+
+export const loadStudentAssignmentFailure = createAction(
+  '[Student] Load Student Assignment Failure',
+  props<{ error: any }>()
+);

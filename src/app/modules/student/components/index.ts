@@ -9,4 +9,5 @@ export * from './student-settings-account';
 export * from './student-settings-security';
 export * from './student-view-resource-modal';
 export * from './student-settings-user-prefrences';
+export * from './student-assignment-details-modal';
 export * from './student-settings-payment-information';

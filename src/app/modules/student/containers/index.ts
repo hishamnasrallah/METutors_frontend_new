@@ -7,6 +7,7 @@ export * from './student-syllabus';
 export * from './student-resources';
 export * from './student-dashboard';
 export * from './student-classrooms';
+export * from './student-assignments';
 export * from './student-certificates';
 export * from './student-create-ticket';
 export * from './student-support-ticket';
