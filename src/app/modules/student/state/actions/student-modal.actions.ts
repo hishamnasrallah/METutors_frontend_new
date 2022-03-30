@@ -33,3 +33,12 @@ export const openStudentViewAssignmentModal = createAction(
 export const closeStudentViewAssignmentModal = createAction(
   '[Student Modal] Close Student View Assignment Modal'
 );
+
+export const openSubmitAssignmentModal = createAction(
+  '[Student Modal] Open Submit Assignment Modal',
+  props<{ id: number }>()
+);
+
+export const closeSubmitAssignmentModal = createAction(
+  '[Student Modal] Close Submit Assignment Modal'
+);

@@ -16,6 +16,7 @@ export interface State {
   isJoiningClass: boolean;
   students: IStudent[] | null;
   isLoadingStudents: boolean;
+  isSubmittingAssignment: boolean;
   isLoadingStudentSyllabus: boolean;
   isLoadingStudentResource: boolean;
   isLoadingStudentResources: boolean;
@@ -38,6 +39,7 @@ export const initialState: State = {
   isJoiningClass: false,
   classesDashboard: null,
   isLoadingStudents: false,
+  isSubmittingAssignment: false,
   isLoadingStudentSyllabus: false,
   isLoadingStudentResource: false,
   isLoadingStudentResources: false,
@@ -294,6 +296,9 @@ export const selectStudentAssignment = (state: State): boolean =>
 
 export const selectIsLoadingStudentAssignment = (state: State): boolean =>
   state.isLoadingStudentAssignment;
+
+export const selectIsSubmittingAssignment = (state: State): boolean =>
+  state.isSubmittingAssignment;
 
 export const selectFilteredStudents = (
   state: State,

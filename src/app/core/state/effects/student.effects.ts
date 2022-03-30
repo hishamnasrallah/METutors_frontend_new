@@ -2,17 +2,13 @@ import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
 import camelcaseKeys from 'camelcase-keys';
-import {
-  loadStudentAssignments,
-  selectStudentDashboard,
-  selectStudents,
-} from '@metutor/core/state';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 
 import { StudentsService } from '@services';
 import * as fromRouterStore from '@metutor/state';
 import { AlertNotificationService } from '@metutor/core/components';
+import { selectStudentDashboard, selectStudents } from '@metutor/core/state';
 import * as studentActions from '@metutor/core/state/actions/student.actions';
 
 @Injectable()
@@ -254,10 +250,48 @@ export class StudentEffects {
     )
   );
 
+  studentSubmitAssignment$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(studentActions.studentSubmitAssignment),
+      mergeMap(({ body }) =>
+        this._studentService.studentSubmitAssignment(body).pipe(
+          map(() =>
+            studentActions.studentSubmitAssignmentSuccess({
+              message: 'Assignment successfully submitted',
+            })
+          ),
+          catchError((error) =>
+            of(
+              studentActions.studentSubmitAssignmentFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  successMessages$ = createEffect(
+    () =>
+      this._actions$.pipe(
+        ofType(...[studentActions.studentSubmitAssignmentSuccess]),
+        map(({ message }) => this._alertNotificationService.success(message))
+      ),
+    {
+      dispatch: false,
+    }
+  );
+
   failureMessages$ = createEffect(
     () =>
       this._actions$.pipe(
-        ofType(...[studentActions.studentJoinClassFailure]),
+        ofType(
+          ...[
+            studentActions.studentJoinClassFailure,
+            studentActions.studentSubmitAssignmentFailure,
+          ]
+        ),
         map((action) => {
           if (action.error) {
             return this._alertNotificationService.error(action.error);

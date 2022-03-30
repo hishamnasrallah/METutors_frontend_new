@@ -44,6 +44,7 @@ export class StudentAssignmentsComponent implements OnInit {
   loading$: Observable<boolean>;
   assignments$: Observable<any>;
   showAssignmentDetailsModal$: Observable<boolean>;
+  showSubmitAssignmentModal$: Observable<boolean>;
 
   openBlock: boolean;
   selectedBlock: null;
@@ -70,6 +71,10 @@ export class StudentAssignmentsComponent implements OnInit {
     this._store.dispatch(fromStudentActions.closeStudentViewAssignmentModal());
   }
 
+  onCloseSubmitAssignmentModal(): void {
+    this._store.dispatch(fromStudentActions.closeSubmitAssignmentModal());
+  }
+
   ngOnInit(): void {
     this._store.dispatch(fromCore.loadStudentAssignments());
 
@@ -79,6 +84,10 @@ export class StudentAssignmentsComponent implements OnInit {
 
     this.showAssignmentDetailsModal$ = this._store.select(
       fromStudent.selectViewAssignmentModal
+    );
+
+    this.showSubmitAssignmentModal$ = this._store.select(
+      fromStudent.selectSubmitAssignmentModal
     );
 
     this.assignments$ = this._store.select(

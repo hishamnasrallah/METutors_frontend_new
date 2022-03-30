@@ -80,4 +80,12 @@ export class StudentsService {
   getStudentAssignment(id: any): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}student/assignment/${id}`);
   }
+
+  studentSubmitAssignment(body: any): Observable<any> {
+    const { id, ..._body } = body;
+    return this.http.post<any>(
+      `${this.baseUrl}student/assignment/${id}`,
+      _body
+    );
+  }
 }
