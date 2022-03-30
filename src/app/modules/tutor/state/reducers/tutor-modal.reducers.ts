@@ -98,6 +98,7 @@ export const reducer = createReducer(
     (state) => ({
       ...state,
       showAddAssignmentModal: true,
+      showAssignmentDetailsModal: false,
     })
   ),
 

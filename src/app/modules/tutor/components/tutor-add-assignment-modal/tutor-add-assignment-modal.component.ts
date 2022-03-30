@@ -70,21 +70,23 @@ export class TutorAddAssignmentModalComponent implements OnInit {
 
     this.view$ = combineLatest([
       this._store.select(fromCore.selectTutorAssignment).pipe(
-        tap((data) => {
+        tap((data: any) => {
           if (data) {
-            // todo: start adding assignment pre filled data
-            /* if (data?.resource?.urls?.length) {
-              this.selectedURLs = [...data.resource?.urls];
+            if (data?.assignment?.urls?.length) {
+              this.selectedURLs = [...data.assignment?.urls];
             }
 
-            if (data?.resource?.files?.length) {
-              this.files?.setValue(data.resource.files);
+            if (data?.assignment?.files?.length) {
+              this.files?.setValue(data.assignment.files);
               this._store.dispatch(
-                fromCore.setFiles({ files: data.resource.files })
+                fromCore.setFiles({ files: data.assignment.files })
               );
             }
 
-            this.description?.setValue(data?.resource?.description);*/
+            this.title?.setValue(data?.assignment?.title);
+            this.endDate?.setValue(data?.assignment?.deadline);
+            this.startDate?.setValue(data?.assignment?.startDate);
+            this.description?.setValue(data?.assignment?.description);
           }
         })
       ),
@@ -110,6 +112,10 @@ export class TutorAddAssignmentModalComponent implements OnInit {
 
   get endDate(): AbstractControl | null {
     return this.form.get('endDate');
+  }
+
+  get title(): AbstractControl | null {
+    return this.form.get('title');
   }
 
   onChangeDateDay(): void {

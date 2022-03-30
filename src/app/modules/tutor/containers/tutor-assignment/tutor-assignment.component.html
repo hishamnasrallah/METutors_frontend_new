@@ -105,18 +105,18 @@
                     <span>04 out of 10</span>
                   </div>
                   <div class="col-1">
-                    <button mat-button class="expand" *ngIf="!openBlock">
-                      <mat-icon (click)="openBlock = true">expand_more</mat-icon>
+                    <button mat-button class="expand" *ngIf="selectedBlock !== assignment.id">
+                      <mat-icon (click)="openBlock = true; selectedBlock = assignment.id">expand_more</mat-icon>
                     </button>
-                    <button mat-button class="expand" *ngIf="openBlock">
-                      <mat-icon (click)="openBlock = false">expand_less</mat-icon>
+                    <button mat-button class="expand" *ngIf="openBlock && selectedBlock === assignment.id">
+                      <mat-icon (click)="openBlock = false; selectedBlock = null">expand_less</mat-icon>
                     </button>
                   </div>
                 </div>
               </div>
 
               <div class="col-md-12">
-                <div class="table-responsive" *ngIf="openBlock" [@slideInOut]>
+                <div class="table-responsive" *ngIf="openBlock && selectedBlock === assignment.id" [@slideInOut]>
                   <table class="table my-table default-title">
                     <tr>
                       <th scope="col">Number</th>

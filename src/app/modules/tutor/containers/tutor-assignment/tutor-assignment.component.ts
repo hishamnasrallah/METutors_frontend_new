@@ -48,6 +48,7 @@ export class TutorAssignmentComponent implements OnInit {
   view$: Observable<{ loading: boolean; assignments: any }>;
 
   openBlock: boolean;
+  selectedBlock: null;
 
   constructor(private _store: Store<any>) {}
 

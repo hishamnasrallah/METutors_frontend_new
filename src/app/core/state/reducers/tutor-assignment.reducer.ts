@@ -149,7 +149,7 @@ export const reducer = createReducer(
 
       const assignments = [...finalState.assignments?.course?.assignments];
 
-      assignments.unshift(assignment);
+      assignments.unshift(assignment.assignment);
 
       const course = {
         ...finalState.assignments.course,
@@ -173,7 +173,8 @@ export const reducer = createReducer(
       };
 
       const assignments = finalState.assignments?.course?.assignments.map(
-        (assign: any) => (assign.id === assignment.id ? assignment : assign)
+        (assign: any) =>
+          assign.id === assignment.assignment.id ? assignment : assign
       );
 
       const course = {
