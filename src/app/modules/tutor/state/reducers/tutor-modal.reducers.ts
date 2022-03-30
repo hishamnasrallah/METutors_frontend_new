@@ -104,6 +104,7 @@ export const reducer = createReducer(
 
   on(
     fromCore.tutorAddAssignmentSuccess,
+    fromCore.tutorEditAssignmentSuccess,
     tutorModalActions.closeTutorAddAssignmentModal,
     tutorModalActions.closeTutorEditAssignmentModal,
     (state) => ({

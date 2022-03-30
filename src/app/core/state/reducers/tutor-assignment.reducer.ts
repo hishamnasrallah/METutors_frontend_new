@@ -174,7 +174,9 @@ export const reducer = createReducer(
 
       const assignments = finalState.assignments?.course?.assignments.map(
         (assign: any) =>
-          assign.id === assignment.assignment.id ? assignment : assign
+          assign.id === assignment.assignment.id
+            ? assignment.assignment
+            : assign
       );
 
       const course = {

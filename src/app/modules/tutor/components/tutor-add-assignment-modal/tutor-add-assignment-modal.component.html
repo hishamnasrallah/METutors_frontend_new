@@ -61,7 +61,7 @@
                               *ngFor="let assignee of (assignees$ | async)?.participants">{{assignee?.user?.firstName}} {{assignee?.user?.lastName}}</mat-option>
                 </mat-select>
               </mat-form-field>
-            </div>?
+            </div>
             <div class="form-group">
               <label>URLs<span class="text-danger">*</span></label>
               <ng-container *ngFor="let url of selectedURLs; let i = index">
