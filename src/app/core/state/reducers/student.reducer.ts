@@ -1,6 +1,7 @@
+import { IStudent } from '@metutor/core/models';
 import { createReducer, on } from '@ngrx/store';
 
-import * as tutorActions from '../actions/student.actions';
+import * as studentActions from '../actions/student.actions';
 
 export interface State {
   resource: any;
@@ -10,6 +11,8 @@ export interface State {
   resources: any;
   classesDashboard: any;
   isJoiningClass: boolean;
+  students: IStudent[] | null;
+  isLoadingStudents: boolean;
   isLoadingStudentSyllabus: boolean;
   isLoadingStudentResource: boolean;
   isLoadingStudentResources: boolean;
@@ -21,11 +24,13 @@ export interface State {
 export const initialState: State = {
   resource: null,
   syllabus: null,
+  students: null,
   dashboard: null,
   resources: null,
   classroom: null,
   isJoiningClass: false,
   classesDashboard: null,
+  isLoadingStudents: false,
   isLoadingStudentSyllabus: false,
   isLoadingStudentResource: false,
   isLoadingStudentResources: false,
@@ -36,50 +41,73 @@ export const initialState: State = {
 
 export const reducer = createReducer(
   initialState,
-  on(tutorActions.loadStudentDashboard, (state) => ({
+
+  on(studentActions.loadStudents, (state) => ({
+    ...state,
+    isLoadingStudents: true,
+  })),
+
+  on(studentActions.loadStudentsSuccess, (state, { students }) => ({
+    ...state,
+    students,
+    isLoadingStudents: false,
+  })),
+
+  on(studentActions.loadStudentsFailure, (state, { error }) => ({
+    ...state,
+    isLoadingStudents: false,
+    loadingStudentsFailure: error,
+  })),
+
+  on(studentActions.loadStudentsEnded, (state) => ({
+    ...state,
+    isLoadingStudents: false,
+  })),
+
+  on(studentActions.loadStudentDashboard, (state) => ({
     ...state,
     isLoadingStudentDashboard: true,
   })),
 
-  on(tutorActions.loadStudentDashboardSuccess, (state, { dashboard }) => ({
+  on(studentActions.loadStudentDashboardSuccess, (state, { dashboard }) => ({
     ...state,
     dashboard,
     isLoadingStudentDashboard: false,
   })),
 
-  on(tutorActions.loadStudentDashboardFailure, (state) => ({
+  on(studentActions.loadStudentDashboardFailure, (state) => ({
     ...state,
     isLoadingStudentDashboard: false,
   })),
 
-  on(tutorActions.loadStudentDashboardEnded, (state) => ({
+  on(studentActions.loadStudentDashboardEnded, (state) => ({
     ...state,
     isLoadingStudentDashboard: false,
   })),
 
-  on(tutorActions.loadStudentClassroom, (state) => ({
+  on(studentActions.loadStudentClassroom, (state) => ({
     ...state,
     isLoadingStudentClassroom: true,
   })),
 
-  on(tutorActions.loadStudentClassroomSuccess, (state, { classroom }) => ({
+  on(studentActions.loadStudentClassroomSuccess, (state, { classroom }) => ({
     ...state,
     classroom,
     isLoadingStudentClassroom: false,
   })),
 
-  on(tutorActions.loadStudentClassroomFailure, (state) => ({
+  on(studentActions.loadStudentClassroomFailure, (state) => ({
     ...state,
     isLoadingStudentClassroom: false,
   })),
 
-  on(tutorActions.loadStudentClassesDashboard, (state) => ({
+  on(studentActions.loadStudentClassesDashboard, (state) => ({
     ...state,
     isLoadingStudentClassesDashboard: true,
   })),
 
   on(
-    tutorActions.loadStudentClassesDashboardSuccess,
+    studentActions.loadStudentClassesDashboardSuccess,
     (state, { classesDashboard }) => ({
       ...state,
       classesDashboard,
@@ -87,74 +115,80 @@ export const reducer = createReducer(
     })
   ),
 
-  on(tutorActions.loadStudentClassesDashboardFailure, (state) => ({
+  on(studentActions.loadStudentClassesDashboardFailure, (state) => ({
     ...state,
     isLoadingStudentClassesDashboard: false,
   })),
 
-  on(tutorActions.loadStudentSyllabus, (state) => ({
+  on(studentActions.loadStudentSyllabus, (state) => ({
     ...state,
     isLoadingStudentSyllabus: true,
   })),
 
-  on(tutorActions.loadStudentSyllabusSuccess, (state, { syllabus }) => ({
+  on(studentActions.loadStudentSyllabusSuccess, (state, { syllabus }) => ({
     ...state,
     syllabus,
     isLoadingStudentSyllabus: false,
   })),
 
-  on(tutorActions.loadStudentSyllabusFailure, (state) => ({
+  on(studentActions.loadStudentSyllabusFailure, (state) => ({
     ...state,
     isLoadingStudentSyllabus: false,
   })),
 
-  on(tutorActions.loadStudentResources, (state) => ({
+  on(studentActions.loadStudentResources, (state) => ({
     ...state,
     isLoadingStudentResources: true,
   })),
 
-  on(tutorActions.loadStudentResourcesSuccess, (state, { resources }) => ({
+  on(studentActions.loadStudentResourcesSuccess, (state, { resources }) => ({
     ...state,
     resources,
     isLoadingStudentResources: false,
   })),
 
-  on(tutorActions.loadStudentResourcesFailure, (state) => ({
+  on(studentActions.loadStudentResourcesFailure, (state) => ({
     ...state,
     isLoadingStudentResources: false,
   })),
 
-  on(tutorActions.loadStudentResource, (state) => ({
+  on(studentActions.loadStudentResource, (state) => ({
     ...state,
     isLoadingStudentResource: true,
   })),
 
-  on(tutorActions.loadStudentResourceSuccess, (state, { resource }) => ({
+  on(studentActions.loadStudentResourceSuccess, (state, { resource }) => ({
     ...state,
     resource,
     isLoadingStudentResource: false,
   })),
 
-  on(tutorActions.loadStudentResourceFailure, (state) => ({
+  on(studentActions.loadStudentResourceFailure, (state) => ({
     ...state,
     isLoadingStudentResource: false,
   })),
 
-  on(tutorActions.studentJoinClass, (state) => ({
+  on(studentActions.studentJoinClass, (state) => ({
     ...state,
     isJoiningClass: true,
   })),
 
-  on(tutorActions.studentJoinClassSuccess, (state) => ({
+  on(studentActions.studentJoinClassSuccess, (state) => ({
     ...state,
     isJoiningClass: false,
   })),
 
-  on(tutorActions.studentJoinClassFailure, (state) => ({
+  on(studentActions.studentJoinClassFailure, (state) => ({
     ...state,
     isJoiningClass: false,
   }))
 );
+
+export const selectStudents = (state: State): IStudent[] | null =>
+  state.students;
+
+export const selectIsLoadingStudents = (state: State): boolean =>
+  state.isLoadingStudents;
 
 export const selectStudentDashboard = (state: State): boolean =>
   state.dashboard;
@@ -204,3 +238,26 @@ export const selectIsLoadingStudentResource = (state: State): boolean =>
 
 export const selectIsJoiningClass = (state: State): boolean =>
   state.isJoiningClass;
+
+export const selectFilteredStudents = (
+  state: State,
+  props?: any
+): IStudent[] | null => {
+  let students: IStudent[] = [];
+
+  if (state.students && state.students.length && props) {
+    students = getFilteredStudents(state.students, props);
+  }
+
+  return students;
+};
+
+const getFilteredStudents = (students: IStudent[], props: any) => {
+  if (props?.name) {
+    students = students?.filter((student) =>
+      student?.name?.toLowerCase()?.includes(props.name.toLowerCase())
+    );
+  }
+
+  return students;
+};

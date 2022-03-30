@@ -3,7 +3,7 @@
     <h1 class="title">Specialization</h1>
     <div class="list">
       <h2>Fields</h2>
-      <span *ngFor="let qualification of tutor?.qualifications">{{ qualification?.title }}</span>
+      <span>{{ tutor?.qualifications?.currentTitle }}</span>
     </div>
 
     <div class="list">

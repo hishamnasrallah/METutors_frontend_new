@@ -29,10 +29,10 @@ export class InterviewsService {
 
   loadInterview(id: string): Observable<any> {
     return this.http
-      .get<{ interview: IInterview }>(
+      .get<{ interview_request: IInterview }>(
         `${this.baseUrl}admin/interview-request/${id}`
       )
-      .pipe(map((response) => new IInterview(false, response.interview)))
+      .pipe(map((response) => new IInterview(false, response.interview_request)))
       .pipe(catchError(this.errorHandler));
   }
 

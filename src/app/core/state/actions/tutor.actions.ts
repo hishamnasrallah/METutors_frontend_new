@@ -2,6 +2,7 @@ import { createAction, props } from '@ngrx/store';
 
 import { ITutor, IUser } from '@models';
 
+// Complete tutor profile
 export const completeTutorProfile = createAction(
   '[Tutor] Complete Tutor Profile',
   props<{ data: any; nextStep: number }>()
@@ -16,6 +17,21 @@ export const completeTutorProfileFailure = createAction(
   '[Tutor] Complete Tutor Profile Failure',
   props<{ error: any }>()
 );
+
+// Load all tutors
+export const loadTutors = createAction('[Tutor] Load Tutors');
+
+export const loadTutorsSuccess = createAction(
+  '[Tutor] Load Tutors Success',
+  props<{ tutors: ITutor[] }>()
+);
+
+export const loadTutorsFailure = createAction(
+  '[Tutor] Load Tutors Failure',
+  props<{ error: any }>()
+);
+
+export const loadTutorsEnded = createAction('[Tutor] Load Tutors Ended');
 
 // Load tutor
 export const loadTutor = createAction(
@@ -33,7 +49,7 @@ export const loadTutorFailure = createAction(
   props<{ error: any }>()
 );
 
-// Tutor Dashboard
+// Tutor dashboard
 export const loadTutorDashboard = createAction(
   '[Tutor] Load Tutor Dashboard',
   props<{ params: any; load: boolean }>()

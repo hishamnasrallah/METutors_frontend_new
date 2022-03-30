@@ -2,7 +2,7 @@ import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
 import camelcaseKeys from 'camelcase-keys';
-import { selectStudentDashboard } from '@metutor/core/state';
+import { selectStudentDashboard, selectStudents } from '@metutor/core/state';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 
@@ -13,6 +13,33 @@ import * as studentActions from '@metutor/core/state/actions/student.actions';
 
 @Injectable()
 export class StudentEffects {
+  loadStudents$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(studentActions.loadStudents),
+      withLatestFrom(this._store.select(selectStudents)),
+      mergeMap(([_, _students]) => {
+        if (!_students || !_students?.length) {
+          return this._studentService.getStudents().pipe(
+            map((students) =>
+              studentActions.loadStudentsSuccess({
+                students,
+              })
+            ),
+            catchError((error) =>
+              of(
+                studentActions.loadStudentsFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          );
+        } else {
+          return of(studentActions.loadStudentsEnded());
+        }
+      })
+    )
+  );
+
   loadStudentDashboard$ = createEffect(() =>
     this._actions$.pipe(
       ofType(studentActions.loadStudentDashboard),

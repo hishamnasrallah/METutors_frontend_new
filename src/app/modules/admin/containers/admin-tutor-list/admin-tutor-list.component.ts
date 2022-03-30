@@ -1,4 +1,8 @@
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import * as fromCore from '@metutor/core/state';
 import { Component, OnInit } from '@angular/core';
+import { ITutor, ITutorFilters } from '@metutor/core/models';
 import { TutorStatus, TUTOR_STATUSES_CONST } from '@metutor/config';
 
 @Component({
@@ -7,10 +11,34 @@ import { TutorStatus, TUTOR_STATUSES_CONST } from '@metutor/config';
   styleUrls: ['./admin-tutor-list.component.scss'],
 })
 export class AdminTutorListComponent implements OnInit {
+  isLoading$: Observable<boolean>;
+  tutors$: Observable<ITutor[] | null>;
+
+  name: string;
   tutorStatus = TutorStatus;
   tutorStatuses = TUTOR_STATUSES_CONST;
 
-  constructor() {}
+  constructor(private _store: Store<any>) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this._prepareTutors();
+  }
+
+  filterTutors(filters: ITutorFilters): void {
+    this.tutors$ = this._store.select(fromCore.selectFilteredTutors, {
+      ...filters,
+    });
+  }
+
+  onFilterTutors(): void {
+    this.filterTutors({
+      name: this.name,
+    });
+  }
+
+  private _prepareTutors(): void {
+    this._store.dispatch(fromCore.loadTutors());
+    this.tutors$ = this._store.select(fromCore.selectTutors);
+    this.isLoading$ = this._store.select(fromCore.selectIsLoadingTutors);
+  }
 }

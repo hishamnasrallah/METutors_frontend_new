@@ -1,10 +1,10 @@
-<div class="tutors-list">
+<div class="tutors-list" *ngLet="(tutors$ | async) as tutors">
   <div class="row filters">
     <div class="col-md-9">
       <div class="position-relative">
         <mat-icon>search</mat-icon>
-        <input type="text" class="form-control custom-input input-bordered search-request"
-          placeholder="Search tutors...">
+        <input type="text" class="form-control custom-input input-bordered search-request" [(ngModel)]="name"
+          (keyup)="onFilterTutors()" placeholder="Search tutors...">
       </div>
     </div>
     <div class="col-md-3">
@@ -17,117 +17,71 @@
 
   <div class="row">
     <div class="col-md-12">
-      <table class="table my-table default-title mt-4">
-        <tr>
-          <th>Number</th>
-          <th>Teacher Name</th>
-          <th>Gender</th>
-          <th>Phone Number</th>
-          <th>Country</th>
-          <th>Level of Education</th>
-          <th>Status</th>
-          <th>Action</th>
-        </tr>
-        <tr>
-          <td>01</td>
-          <td>
-            <div class="d-flex align-items-center">
-              <img src="" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false" meTutorsDefaultAvatar
-                alt="">
-              <span>Ahmed Hassan</span>
-            </div>
-          </td>
-          <td>Male</td>
-          <td>+201112365233</td>
-          <td>Egypt</td>
-          <td>Engineering</td>
-          <td>
-            <div dropdown class="change-status position-relative d-flex">
-              <button dropdownToggle class="status active" mat-button>Active</button>
-              <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
-                <li role="menuitem" class="cursor-pointer" *ngFor="let status of tutorStatuses" [ngClass]="{
-                    'issued': tutorStatus.active === status,
-                    'closed': tutorStatus.pending === status,
-                    'response': tutorStatus.deactive === status
-                  }">
-                  {{ status }}
-                </li>
-              </ul>
-            </div>
-          </td>
-          <td>
-            <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>02</td>
-          <td>
-            <div class="d-flex align-items-center">
-              <img src="" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false" meTutorsDefaultAvatar
-                alt="">
-              <span>Ahmed Hassan</span>
-            </div>
-          </td>
-          <td>Male</td>
-          <td>+201112365233</td>
-          <td>Egypt</td>
-          <td>Engineering</td>
-          <td>
-            <div dropdown class="change-status position-relative d-flex">
-              <button dropdownToggle class="status pending" mat-button>Pending</button>
-              <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
-                <li role="menuitem" class="cursor-pointer" *ngFor="let status of tutorStatuses" [ngClass]="{
-                      'issued': tutorStatus.active === status,
-                      'closed': tutorStatus.pending === status,
+      <ng-container [ngSwitch]="isLoading$ | async">
+        <div class="mt-4" *ngSwitchCase="true">
+          <metutors-grid-placeholder></metutors-grid-placeholder>
+        </div>
+
+        <table class="table my-table default-title mt-4" *ngSwitchCase="false">
+          <tr>
+            <th>Number</th>
+            <th>Teacher Name</th>
+            <th>Gender</th>
+            <th>Phone Number</th>
+            <th>Country</th>
+            <th>Level of Education</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+          <tr *ngIf="!tutors || !tutors.length">
+            <td colspan="8">
+              <div class="text-center">No records found</div>
+            </td>
+          </tr>
+          <tr *ngFor="let tutor of tutors; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>
+              <div class="d-flex align-items-center">
+                <img [src]="tutor?.avatar" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
+                  meTutorsDefaultAvatar alt="">
+                <span>
+                  <bdi>{{ tutor?.name }}</bdi>
+                </span>
+              </div>
+            </td>
+            <td class="text-capitalize">{{ tutor?.gender }}</td>
+            <td>{{ tutor?.mobile }}</td>
+            <td>{{ tutor?.country }}</td>
+            <td>{{ tutor?.specifications?.levelOfEducation }}</td>
+            <td>
+              <div dropdown class="change-status position-relative d-flex">
+                <button dropdownToggle class="status text-capitalize" mat-button [ngClass]="{
+                    'active': tutorStatus.active === tutor?.status,
+                    'pending': tutorStatus.pending === tutor?.status,
+                    'deactive': tutorStatus.deactive === tutor?.status
+                 }">
+                  {{ tutor?.status }}
+                </button>
+                <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
+                  <li role="menuitem" class="cursor-pointer text-capitalize" *ngFor="let status of tutorStatuses"
+                    [ngClass]="{
+                      'closed': tutorStatus.active === status,
+                      'issued': tutorStatus.pending === status,
                       'response': tutorStatus.deactive === status
                     }">
-                  {{ status }}
-                </li>
-              </ul>
-            </div>
-          </td>
-          <td>
-            <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>03</td>
-          <td>
-            <div class="d-flex align-items-center">
-              <img src="" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false" meTutorsDefaultAvatar
-                alt="">
-              <span>Ahmed Hassan</span>
-            </div>
-          </td>
-          <td>Male</td>
-          <td>+201112365233</td>
-          <td>Egypt</td>
-          <td>Engineering</td>
-          <td>
-            <div dropdown class="change-status position-relative d-flex">
-              <button dropdownToggle class="status deactive" mat-button>Deactive</button>
-              <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
-                <li role="menuitem" class="cursor-pointer" *ngFor="let status of tutorStatuses" [ngClass]="{
-                      'issued': tutorStatus.active === status,
-                      'closed': tutorStatus.pending === status,
-                      'response': tutorStatus.deactive === status
-                    }">
-                  {{ status }}
-                </li>
-              </ul>
-            </div>
-          </td>
-          <td>
-            <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-          </td>
-        </tr>
-      </table>
+                    {{ status }}
+                  </li>
+                </ul>
+              </div>
+            </td>
+            <td>
+              <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+            </td>
+          </tr>
+        </table>
+      </ng-container>
     </div>
   </div>
 </div>

@@ -183,6 +183,21 @@ export const selectIsLoadingTutor = createSelector(
   fromTutorReducer.selectIsLoadingTutor
 );
 
+export const selectTutors = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectTutors
+);
+
+export const selectFilteredTutors = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectFilteredTutors
+);
+
+export const selectIsLoadingTutors = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectIsLoadingTutors
+);
+
 export const selectIsLoadingTutorDashboard = createSelector(
   selectTutorState,
   fromTutorReducer.selectIsLoadingTutorDashboard
@@ -309,6 +324,20 @@ export const selectIsDeletingTutorAssignment = createSelector(
 /**
  * ========================== STUDENT ==============================
  */
+export const selectStudents = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectStudents
+);
+
+export const selectFilteredStudents = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectFilteredStudents
+);
+
+export const selectIsLoadingStudents = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectIsLoadingStudents
+);
 
 export const selectStudentDashboard = createSelector(
   selectStudentState,

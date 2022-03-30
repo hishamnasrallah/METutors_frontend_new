@@ -2,15 +2,17 @@
   <div class="card-body p-0">
     <div class="row mb-3">
       <div class="col-md-4 d-flex align-items-center info">
-        <div class="row">
-          <div class="col-md-3 d-flex align-items-center">
-            <img [src]="interview?.tutor?.avatar" meTutorsDefaultAvatar alt="">
+        <div class="row w-100">
+          <div class="col-md-2 d-flex align-items-center">
+            <img [src]="interview?.tutor?.avatar" draggable="false" width="50" height="50" meTutorsDefaultAvatar alt="">
           </div>
-          <div class="col-md-9 d-flex justify-content-center flex-column">
+          <div class="col-md-10 d-flex justify-content-center flex-column">
             <h2 class="d-flex">
               <bdi>{{ interview?.tutor?.name }}</bdi>
             </h2>
-            <h3>3 years of experience</h3>
+            <h3 *ngIf="interview?.tutor?.qualifications?.teachingExperience">
+              {{ interview?.tutor?.qualifications?.teachingExperience }} of experience
+            </h3>
           </div>
         </div>
       </div>
@@ -19,7 +21,7 @@
           (click)="sendMeetingLink.emit(interview?.id)">
           Send Meeting Link
         </a>
-        <span class="status-icon" [ngClass]="{
+        <span class="status-icon text-capitalize" [ngClass]="{
             'pending': interview.status === interviewStatus.pending,
             'accepted': interview.status === interviewStatus.approved,
             'rejected': interview.status === interviewStatus.rejected
@@ -29,24 +31,30 @@
     <div class="row">
       <div class="col-md-10">
         <div class="row list-items md-item">
-          <div class="col-md-4 d-flex menu align-items-center mt-3">
+          <div class="col-md-4 d-flex menu align-items-center mt-3"
+            *ngIf="interview?.tutor?.specifications?.levelOfEducation && interview?.tutor?.specifications?.subject">
             <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
-            <strong>Master in Engineering</strong>
+            <strong>
+              {{ interview?.tutor?.specifications?.levelOfEducation }}
+              of {{ interview?.tutor?.specifications?.subject }}
+            </strong>
           </div>
-          <div class="col-md-4 d-flex menu align-items-center mt-3">
+          <div class="col-md-4 d-flex menu align-items-center mt-3"
+            *ngIf="interview?.tutor?.specifications?.typeOfTutoring">
             <img src="assets/svg/students.svg" alt="" width="15" height="15" draggable="false">
-            <strong>$3000 Expected Salary</strong>
+            <strong>{{ interview?.tutor?.specifications?.typeOfTutoring }}</strong>
           </div>
-          <div class="col-md-4"></div>
-          <div class="col-md-4 d-flex menu align-items-center mt-3">
+        </div>
+        <div class="row list-items md-item">
+          <div class="col-md-4 d-flex menu align-items-center" *ngIf="interview?.tutor?.country">
             <img src="assets/svg/map.svg" alt="" width="15" height="15" draggable="false">
             <strong>From {{ interview?.tutor?.country }}</strong>
           </div>
-          <div class="col-md-4 d-flex menu align-items-center mt-3">
+          <div class="col-md-4 d-flex menu align-items-center" *ngIf="interview?.interviewDate">
             <img src="assets/svg/calendar.svg" alt="" width="15" height="15" draggable="false">
-            <strong>{{ interview?.interviewDate | date }}</strong>
+            <strong>{{ interview?.interviewDate }}</strong>
           </div>
-          <div class="col-md-4 d-flex menu align-items-center mt-3">
+          <div class="col-md-4 d-flex menu align-items-center" *ngIf="interview?.interviewTime">
             <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
             <strong>{{ interview?.interviewTime }}</strong>
           </div>

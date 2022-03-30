@@ -1,13 +1,14 @@
 import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 import { InterviewsService } from '@services';
 import * as fromCore from '@metutor/core/state';
+import * as fromRouterStore from '@metutor/state';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as interviewActions from '../actions/interview.actions';
 import { AlertNotificationService } from '@metutor/core/components';
-import { Router } from '@angular/router';
+import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 
 @Injectable()
 export class InterviewEffects {
@@ -41,12 +42,17 @@ export class InterviewEffects {
   loadInterview$ = createEffect(() =>
     this._actions$.pipe(
       ofType(interviewActions.loadInterview),
-      withLatestFrom(this._store.select(fromCore.selectInterview)),
-      mergeMap(([action, _interview]) => {
-        // if (_interview && _interview.interviewId === action.id) {
-        //   return of(interviewActions.loadInterviewEnded());
-        // } else {
-          return this._interviewService.loadInterview(action.id).pipe(
+      withLatestFrom(
+        this._store.select(fromCore.selectInterview),
+        this._store.select(fromRouterStore.selectRouteParams)
+      ),
+      mergeMap(([action, _interview, { id }]) => {
+        const interviewId = action.id ? action.id : id;
+
+        if (_interview && _interview.id === interviewId) {
+          return of(interviewActions.loadInterviewEnded());
+        } else {
+          return this._interviewService.loadInterview(interviewId).pipe(
             map((interview) =>
               interviewActions.loadInterviewSuccess({
                 interview,
@@ -60,7 +66,7 @@ export class InterviewEffects {
               )
             )
           );
-        // }
+        }
       })
     )
   );

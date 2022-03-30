@@ -18,7 +18,7 @@ export const loadInterviewsEnded = createAction('[Interview] Load Interviews End
 
 export const loadInterview = createAction(
   '[Interview] Load Interview',
-  props<{ id: string }>()
+  props<{ id?: string }>()
 );
 
 export const loadInterviewSuccess = createAction(

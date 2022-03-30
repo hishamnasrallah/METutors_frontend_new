@@ -1,235 +1,256 @@
-<div class="interview-details">
+<div class="interview-details" *ngLet="(interview$ | async) as interview">
   <div class="card">
     <div class="card-body">
-      <div class="row">
-        <div class="col-md-6">
-          <h1>Tutor Data Sheet</h1>
-          <div class="row list-items md-item p-0 mt-3">
-            <div class="col-md-5 d-flex menu align-items-center">
-              <img src="assets/svg/map.svg" alt="" width="15" height="15" draggable="false">
-              <strong>From Saudi Arabia</strong>
+      <ng-container *ngIf="!(isLoading$ | async)">
+        <div class="row">
+          <div class="col-md-6">
+            <h1>Tutor Data Sheet</h1>
+            <div class="row list-items md-item p-0 mt-3">
+              <div class="col-md-5 d-flex menu align-items-center" *ngIf="interview?.tutor?.country">
+                <img src="assets/svg/map.svg" alt="" width="15" height="15" draggable="false">
+                <strong>From {{ interview?.tutor?.country }}</strong>
+              </div>
+              <div class="col-md-5 d-flex menu align-items-center"
+                *ngIf="interview?.tutor?.specifications?.levelOfEducation && interview?.tutor?.specifications?.subject">
+                <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
+                <strong>
+                  {{ interview?.tutor?.specifications?.levelOfEducation }}
+                  of {{ interview?.tutor?.specifications?.subject }}
+                </strong>
+              </div>
             </div>
-            <div class="col-md-5 d-flex menu align-items-center">
-              <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
-              <strong>Master in Engineering</strong>
+          </div>
+          <div class="col-md-6">
+            <div class="d-flex justify-content-end actions-interview">
+              <a class="submit-document" [routerLink]="['/admin', 'tutor', 'interview', 'details', '1', 'documents']">
+                Submitted Documents
+              </a>
+              <a class="send-link cursor-pointer" (click)="onOpenSendMeetingLinkModal()">Send Meeting Link</a>
+            </div>
+            <div class="row list-items md-item p-0 d-flex justify-content-end mt-3">
+              <div class="col-md-3 d-flex menu align-items-center" *ngIf="interview?.interviewDate">
+                <img src="assets/svg/calendar.svg" alt="" width="15" height="15" draggable="false">
+                <strong>{{ interview?.interviewDate }}</strong>
+              </div>
+              <div class="col-md-3 d-flex menu align-items-center" *ngIf="interview?.interviewTime">
+                <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
+                <strong>{{ interview?.interviewTime }}</strong>
+              </div>
             </div>
           </div>
         </div>
-        <div class="col-md-6">
-          <div class="d-flex justify-content-end actions-interview">
-            <a class="submit-document" [routerLink]="['/admin', 'tutor', 'interview', 'details', '1', 'documents']">
-              Submitted Documents
-            </a>
-            <a class="send-link cursor-pointer" (click)="onOpenSendMeetingLinkModal()">Send Meeting Link</a>
+
+        <div class="row mt-5">
+          <div class="col-md-5">
+            <h3 class="title d-flex align-items-center">
+              <img [src]="interview?.tutor?.avatar" meTutorsDefaultAvatar alt="" class="rounded-circle me-3"
+                width="50px" height="50px">
+              Personal Information
+            </h3>
+            <table class="basic-table">
+              <tr>
+                <td>Full Name</td>
+                <td><bdi>{{ interview?.tutor?.name }}</bdi></td>
+              </tr>
+              <tr *ngIf="interview?.tutor?.email">
+                <td>Email</td>
+                <td>{{ interview?.tutor?.email }}</td>
+              </tr>
+              <tr *ngIf="interview?.tutor?.mobile">
+                <td>Phone</td>
+                <td>{{ interview?.tutor?.mobile }}</td>
+              </tr>
+              <tr *ngIf="interview?.tutor?.gender">
+                <td>Gender</td>
+                <td class="text-capitalize">{{ interview?.tutor?.gender }}</td>
+              </tr>
+              <tr *ngIf="interview?.tutor?.country">
+                <td>Location</td>
+                <td>
+                  {{ interview?.tutor?.country }}
+                  <ng-container *ngIf="interview?.tutor?.city">, {{  interview?.tutor?.city }}</ng-container>
+                </td>
+              </tr>
+              <tr *ngIf="interview?.tutor?.nationality">
+                <td>Nationality</td>
+                <td>{{ interview?.tutor?.nationality }}</td>
+              </tr>
+              <tr *ngIf="interview?.tutor?.dateOfBirth">
+                <td>Date of birth</td>
+                <td>{{ interview?.tutor?.dateOfBirth }}</td>
+              </tr>
+            </table>
           </div>
-          <div class="row list-items md-item p-0 d-flex justify-content-end mt-3">
-            <div class="col-md-3 d-flex menu align-items-center">
-              <img src="assets/svg/calendar.svg" alt="" width="15" height="15" draggable="false">
-              <strong>Feb 10, 2022</strong>
+          <div class="col-md-7" *ngIf="interview?.tutor?.qualifications?.video">
+            <metutors-video-player [videoSrc]="interview?.tutor?.qualifications?.video">
+            </metutors-video-player>
+          </div>
+        </div>
+
+        <div class="row mt-5">
+          <h3 class="title">Qualification Details</h3>
+          <div class="col-md-6">
+            <table class="basic-table w-100">
+              <tr *ngIf="interview?.tutor?.qualifications?.nameOfUniversity">
+                <td>University</td>
+                <td>{{ interview?.tutor?.qualifications?.nameOfUniversity }}</td>
+              </tr>
+              <tr *ngIf="interview?.tutor?.qualifications?.degreeLevel">
+                <td>Degree Level</td>
+                <td>{{ interview?.tutor?.qualifications?.degreeLevel }}</td>
+              </tr>
+              <tr *ngIf="interview?.tutor?.qualifications?.degreeField">
+                <td>Degree Field/Major</td>
+                <td>{{ interview?.tutor?.qualifications?.degreeField }}</td>
+              </tr>
+              <tr *ngIf="interview?.tutor?.languages && interview?.tutor?.languages?.length">
+                <td>Spoken Languages</td>
+                <td>
+                  <ng-container *ngFor="let lang of interview?.tutor?.languages; let isLast = last">
+                    {{ lang }}<ng-container *ngIf="!isLast">, </ng-container>
+                  </ng-container>
+                </td>
+              </tr>
+              <tr *ngIf="interview?.tutor?.qualifications?.currentEmployer">
+                <td>Current Employer</td>
+                <td>{{ interview?.tutor?.qualifications?.currentEmployer }}</td>
+              </tr>
+            </table>
+          </div>
+          <div class="col-md-6">
+            <table class="basic-table w-100">
+              <tr *ngIf="interview?.tutor?.qualifications?.computerSkills">
+                <td>Computer Skills Level</td>
+                <td>{{ interview?.tutor?.qualifications?.computerSkills }}</td>
+              </tr>
+              <tr *ngIf="interview?.tutor?.specifications?.typeOfTutoring">
+                <td>Type</td>
+                <td>{{ interview?.tutor?.specifications?.typeOfTutoring }}</td>
+              </tr>
+              <tr *ngIf="interview?.tutor?.qualifications?.teachingExperience">
+                <td>Teaching Experience<span>(In Schools)</span></td>
+                <td>{{ interview?.tutor?.qualifications?.teachingExperience }}</td>
+              </tr>
+              <tr *ngIf="interview?.tutor?.qualifications?.teachingExperienceOnline">
+                <td>Teaching Experience<span>(Online)</span></td>
+                <td>{{ interview?.tutor?.qualifications?.teachingExperienceOnline }}</td>
+              </tr>
+              <tr *ngIf="interview?.tutor?.qualifications?.currentTitle">
+                <td>Current Title</td>
+                <td>{{ interview?.tutor?.qualifications?.currentTitle }}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="row mt-5">
+          <h3 class="title">Teaching Specifications</h3>
+          <div class="col-md-6">
+            <table class="basic-table w-100">
+              <tr *ngIf="interview?.tutor?.specifications?.levelOfEducation">
+                <td>Level of Education</td>
+                <td>{{ interview?.tutor?.specifications?.levelOfEducation }}</td>
+              </tr>
+              <tr *ngIf="interview?.tutor?.specifications?.typeOfTutoring">
+                <td>Type of Tutoring</td>
+                <td>{{ interview?.tutor?.specifications?.typeOfTutoring }}</td>
+              </tr>
+              <tr *ngIf="interview?.tutor?.specifications?.teachingDays">
+                <td>Days</td>
+                <td>{{ interview?.tutor?.specifications?.teachingDays }}</td>
+              </tr>
+            </table>
+          </div>
+          <div class="col-md-6">
+            <table class="basic-table w-100">
+              <tr *ngIf="interview?.tutor?.specifications?.availabilityStartDate">
+                <td>Expected Starting Date</td>
+                <td>{{ interview?.tutor?.specifications?.availabilityStartDate }}</td>
+              </tr>
+              <tr *ngIf="interview?.tutor?.specifications?.availabilityEndDate">
+                <td>Availability Ending Date</td>
+                <td>{{ interview?.tutor?.specifications?.availabilityEndDate }}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <!-- <div class="row">
+          <div class="col-md-6">
+            <table class="table my-table default-title mt-4">
+              <tr>
+                <th class="heading" colspan="2">Program <span>AP</span></th>
+              </tr>
+              <tr>
+                <th>Field</th>
+                <th>Program</th>
+              </tr>
+              <tr>
+                <td>Science</td>
+                <td>Program 1</td>
+              </tr>
+              <tr>
+                <td>Science</td>
+                <td>Program 2</td>
+              </tr>
+              <tr>
+                <td>Math</td>
+                <td>Program 3</td>
+              </tr>
+            </table>
+          </div>
+          <div class="col-md-6">
+            <table class="table my-table default-title mt-4">
+              <tr>
+                <th class="heading" colspan="3">Program <span>National Pakistan</span></th>
+              </tr>
+              <tr>
+                <th>Field</th>
+                <th>Program</th>
+                <th>Grades</th>
+              </tr>
+              <tr>
+                <td>Science</td>
+                <td>Program 1</td>
+                <td>G10, G11, G12</td>
+              </tr>
+              <tr>
+                <td>Science</td>
+                <td>Program 2</td>
+                <td>G10, G11, G12</td>
+              </tr>
+              <tr>
+                <td>Math</td>
+                <td>Program 3</td>
+                <td>G10, G11, G12</td>
+              </tr>
+            </table>
+          </div>
+        </div> -->
+
+        <div class="row mt-4">
+          <div class="col-md-12 notes">
+            <ng-container *ngIf="interview?.additionalComments">
+              <h2>Notes:</h2>
+              <p>
+                <bdi>{{ interview?.additionalComments }}</bdi>
+              </p>
+            </ng-container>
+
+            <div class="actions d-flex justify-content-end">
+              <button mat-button class="fw-bold me-3 decline">Decline</button>
+              <button mat-flat-button color="primary" class="fw-bold" (click)="onOpenHourlyRatePerSubjectModal()">
+                Accept Request
+              </button>
             </div>
-            <div class="col-md-3 d-flex menu align-items-center">
-              <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
-              <strong>10AM PKT</strong>
-            </div>
           </div>
         </div>
-      </div>
+      </ng-container>
 
-      <div class="row mt-5">
-        <div class="col-md-5">
-          <h3 class="title d-flex align-items-center">
-            <img src="" meTutorsDefaultAvatar alt="" class="rounded-circle me-3" width="50px" height="50px">
-            Personal Information
-          </h3>
-          <table class="basic-table">
-            <tr>
-              <td>Full Name</td>
-              <td>Ahmed Hassan</td>
-            </tr>
-            <tr>
-              <td>Email</td>
-              <td>ahmedhassan.fci@gmail.com</td>
-            </tr>
-            <tr>
-              <td>Phone</td>
-              <td>+201112365233</td>
-            </tr>
-            <tr>
-              <td>Gender</td>
-              <td>Male</td>
-            </tr>
-            <tr>
-              <td>Location</td>
-              <td>Egypt</td>
-            </tr>
-            <tr>
-              <td>Nationality</td>
-              <td>Saudi Arabia</td>
-            </tr>
-            <tr>
-              <td>Date of birth</td>
-              <td>01/09/1995</td>
-            </tr>
-          </table>
-        </div>
-        <div class="col-md-7">
-          <metutors-video-player [videoSrc]="'http://static.videogular.com/assets/videos/videogular.mp4'">
-          </metutors-video-player>
-        </div>
-      </div>
-
-      <div class="row mt-5">
-        <h3 class="title">Qualification Details</h3>
-        <div class="col-md-6">
-          <table class="basic-table w-100">
-            <tr>
-              <td>University</td>
-              <td>FCI</td>
-            </tr>
-            <tr>
-              <td>Degree Level</td>
-              <td>Mator</td>
-            </tr>
-            <tr>
-              <td>Degree Field/Major</td>
-              <td>Computer Science</td>
-            </tr>
-            <tr>
-              <td>Spoken Languages</td>
-              <td>English, Arabic</td>
-            </tr>
-            <tr>
-              <td>Current Employer</td>
-              <td>Yes</td>
-            </tr>
-          </table>
-        </div>
-        <div class="col-md-6">
-          <table class="basic-table w-100">
-            <tr>
-              <td>Computer Skills Level</td>
-              <td>Expert</td>
-            </tr>
-            <tr>
-              <td>Type</td>
-              <td>One-On-One</td>
-            </tr>
-            <tr>
-              <td>Teaching Experience<span>(In Scools)</span></td>
-              <td>5 Years</td>
-            </tr>
-            <tr>
-              <td>Teaching Experience<span>(Online)</span></td>
-              <td>7 Years</td>
-            </tr>
-            <tr>
-              <td>Current Title</td>
-              <td>Senior Computer Teacher</td>
-            </tr>
-          </table>
-        </div>
-      </div>
-
-      <div class="row mt-5">
-        <h3 class="title">Teaching Specifications</h3>
-        <div class="col-md-6">
-          <table class="basic-table w-100">
-            <tr>
-              <td>Level of Education</td>
-              <td>Engineering</td>
-            </tr>
-            <tr>
-              <td>Type of Tutoring</td>
-              <td>One-On-One</td>
-            </tr>
-            <tr>
-              <td>Days</td>
-              <td>Monday, Sunday, Friday</td>
-            </tr>
-          </table>
-        </div>
-        <div class="col-md-6">
-          <table class="basic-table w-100">
-            <tr>
-              <td>Expected Starting Date</td>
-              <td>12/03/2022</td>
-            </tr>
-            <tr>
-              <td>Availability Ending Date</td>
-              <td>30/05/2022</td>
-            </tr>
-          </table>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-6">
-          <table class="table my-table default-title mt-4">
-            <tr>
-              <th class="heading" colspan="2">Program <span>AP</span></th>
-            </tr>
-            <tr>
-              <th>Field</th>
-              <th>Program</th>
-            </tr>
-            <tr>
-              <td>Science</td>
-              <td>Program 1</td>
-            </tr>
-            <tr>
-              <td>Science</td>
-              <td>Program 2</td>
-            </tr>
-            <tr>
-              <td>Math</td>
-              <td>Program 3</td>
-            </tr>
-          </table>
-        </div>
-        <div class="col-md-6">
-          <table class="table my-table default-title mt-4">
-            <tr>
-              <th class="heading" colspan="3">Program <span>National Pakistan</span></th>
-            </tr>
-            <tr>
-              <th>Field</th>
-              <th>Program</th>
-              <th>Grades</th>
-            </tr>
-            <tr>
-              <td>Science</td>
-              <td>Program 1</td>
-              <td>G10, G11, G12</td>
-            </tr>
-            <tr>
-              <td>Science</td>
-              <td>Program 2</td>
-              <td>G10, G11, G12</td>
-            </tr>
-            <tr>
-              <td>Math</td>
-              <td>Program 3</td>
-              <td>G10, G11, G12</td>
-            </tr>
-          </table>
-        </div>
-      </div>
-
-      <div class="row mt-4">
-        <div class="col-md-12 notes">
-          <h2>Notes:</h2>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo nisi dolorum incidunt iusto, temporibus qui
-            modi, error debitis voluptatum velit magnam vitae quas, mollitia rerum quaerat quidem asperiores quisquam
-            repellendus.
-          </p>
-
-          <div class="actions d-flex justify-content-end">
-            <button mat-button class="fw-bold me-3 decline">Decline</button>
-            <button mat-flat-button color="primary" class="fw-bold" (click)="onOpenHourlyRatePerSubjectModal()">Accept Request</button>
-          </div>
-        </div>
-      </div>
+      <ng-container *ngIf="isLoading$ | async">
+        <metutors-grid-placeholder></metutors-grid-placeholder>
+        <metutors-grid-placeholder></metutors-grid-placeholder>
+      </ng-container>
     </div>
   </div>
 </div>

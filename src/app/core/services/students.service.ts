@@ -1,5 +1,6 @@
+import { IStudent } from '../models';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
+import { map, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
@@ -10,6 +11,18 @@ export class StudentsService {
   baseUrl = environment.API_URL;
 
   constructor(private http: HttpClient) {}
+
+  getStudents(): Observable<any> {
+    return this.http
+      .get<{ students: IStudent[] }>(`${this.baseUrl}registered-students`)
+      .pipe(
+        map((response) => {
+          return response.students.map(
+            (student) => new IStudent(false, student)
+          );
+        })
+      );
+  }
 
   getStudentDashboard(search_query: any): Observable<any> {
     let params = {};

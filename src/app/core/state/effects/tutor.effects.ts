@@ -7,7 +7,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 
 import { TutorsService } from '@services';
-import { selectTutorDashboard } from '..';
+import { selectTutorDashboard, selectTutors } from '..';
 import { environment } from '@environment';
 import * as tutorActions from '../actions/tutor.actions';
 import { AlertNotificationService } from '@metutor/core/components';
@@ -47,6 +47,33 @@ export class TutorEffects {
           )
         )
       )
+    )
+  );
+
+  loadTutors$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorActions.loadTutors),
+      withLatestFrom(this._store.select(selectTutors)),
+      mergeMap(([_, _tutors]) => {
+        if (!_tutors || !_tutors?.length) {
+          return this._tutorService.getTutors().pipe(
+            map((tutors) =>
+              tutorActions.loadTutorsSuccess({
+                tutors,
+              })
+            ),
+            catchError((error) =>
+              of(
+                tutorActions.loadTutorsFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          );
+        } else {
+          return of(tutorActions.loadTutorsEnded());
+        }
+      })
     )
   );
 

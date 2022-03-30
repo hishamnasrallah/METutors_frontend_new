@@ -73,8 +73,8 @@ export class AdminTutorInterviewComponent implements OnInit {
   }
 
   private _prepareInterviews(): void {
-    this._store.dispatch(fromCore.loadInterviews());
     this.status = InterviewStatus.pending;
+    this._store.dispatch(fromCore.loadInterviews());
     this.filterInterviews({ status: InterviewStatus.pending });
     this.isLoading$ = this._store.select(fromCore.selectIsLoadingInterviews);
   }

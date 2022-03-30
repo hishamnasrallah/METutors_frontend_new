@@ -25,10 +25,13 @@ export class ITutor {
   verified?: number;
   languages?: ILanguage[];
   availability?: IAvailability[];
-  qualifications?: IQualification[];
-  specifications?: ISpecification[];
+  qualifications?: IQualification;
+  specifications?: ISpecification;
   subject?: ISubject[];
   country?: string;
+  city?: string;
+  gender?: string;
+  nationality?: string;
 
   rate?: number;
   badges?: any[];
@@ -64,8 +67,11 @@ export class ITutor {
       this.verified = 0;
       this.languages = [];
       this.availability = [];
-      this.qualifications = [];
-      this.specifications = [];
+      this.gender = '';
+      this.city = '';
+      this.nationality = '';
+      this.qualifications = undefined;
+      this.specifications = undefined;
       this.subject = [];
       this.badges = [];
       this.country = '';
@@ -108,23 +114,22 @@ export class ITutor {
               (item: any) => new IAvailability(false, item)
             )
           : [];
-      this.qualifications =
-        tutor?.teacher_qualifications && tutor?.teacher_qualifications?.length
-          ? tutor?.teacher_qualifications.map(
-              (item: any) => new IQualification(false, item)
-            )
-          : [];
-      this.specifications =
-        tutor?.teacher_specifications && tutor?.teacher_specifications?.length
-          ? tutor?.teacher_specifications.map(
-              (item: any) => new ISpecification(false, item)
-            )
-          : [];
+      this.qualifications = new IQualification(
+        false,
+        tutor?.teacher_qualifications
+      );
+      this.specifications = new ISpecification(
+        false,
+        tutor?.teacher_specifications
+      );
       this.subject =
         tutor?.teacher_subject && tutor?.teacher_subject?.length
           ? tutor?.teacher_subject.map((item: any) => new ISubject(false, item))
           : [];
-          this.country = tutor?.country || '';
+      this.country = tutor?.country || '';
+      this.city = tutor?.city || '';
+      this.gender = tutor?.gender || '';
+      this.nationality = tutor?.nationality || '';
 
       this.badges = tutor?.badges || [];
       this.rate = tutor?.rate || 0;
@@ -141,4 +146,8 @@ export class ITutor {
       this.reviews = [];
     }
   }
+}
+
+export interface ITutorFilters {
+  name: string;
 }

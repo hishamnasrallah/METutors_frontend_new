@@ -7,10 +7,13 @@ import * as courseActions from '../actions/course.actions';
 export interface State {
   dashboard: any;
   tutor: ITutor | null;
+  tutors: ITutor[] | null;
+  isLoadingTutor: boolean;
   isLoadingTutors: boolean;
   isLaunchingClass: boolean;
   isLoadingDashboard: boolean;
   loadingTutorFailure: string;
+  loadingTutorsFailure: string;
 
   // Complete Tutor Profile
   isCompleteTutorProfile: boolean;
@@ -19,10 +22,13 @@ export interface State {
 
 export const initialState: State = {
   tutor: null,
+  tutors: null,
   dashboard: null,
+  isLoadingTutor: false,
   isLoadingTutors: false,
   isLaunchingClass: false,
   loadingTutorFailure: '',
+  loadingTutorsFailure: '',
   isLoadingDashboard: false,
   isCompleteTutorProfile: false,
   completeTutorProfileFailure: '',
@@ -32,19 +38,41 @@ export const reducer = createReducer(
   initialState,
   on(tutorActions.loadTutor, (state) => ({
     ...state,
-    isLoadingTutors: true,
+    isLoadingTutor: true,
   })),
 
   on(tutorActions.loadTutorSuccess, (state, { tutor }) => ({
     ...state,
     tutor,
-    isLoadingTutors: false,
+    isLoadingTutor: false,
   })),
 
   on(tutorActions.loadTutorFailure, (state, { error }) => ({
     ...state,
-    isLoadingTutors: false,
+    isLoadingTutor: false,
     loadingTutorFailure: error,
+  })),
+
+  on(tutorActions.loadTutors, (state) => ({
+    ...state,
+    isLoadingTutors: true,
+  })),
+
+  on(tutorActions.loadTutorsSuccess, (state, { tutors }) => ({
+    ...state,
+    tutors,
+    isLoadingTutors: false,
+  })),
+
+  on(tutorActions.loadTutorsFailure, (state, { error }) => ({
+    ...state,
+    isLoadingTutors: false,
+    loadingTutorsFailure: error,
+  })),
+
+  on(tutorActions.loadTutorsEnded, (state) => ({
+    ...state,
+    isLoadingTutors: false,
   })),
 
   on(tutorActions.loadTutorDashboard, (state) => ({
@@ -133,6 +161,11 @@ export const selectTutor = (state: State): ITutor | null => state.tutor;
 export const selectTutorDashboard = (state: State): boolean => state.dashboard;
 
 export const selectIsLoadingTutor = (state: State): boolean =>
+  state.isLoadingTutor;
+
+export const selectTutors = (state: State): ITutor[] | null => state.tutors;
+
+export const selectIsLoadingTutors = (state: State): boolean =>
   state.isLoadingTutors;
 
 export const selectIsLoadingTutorDashboard = (state: State): boolean =>
@@ -143,3 +176,26 @@ export const selectIsCompleteTutorProfile = (state: State): boolean =>
 
 export const selectIsLaunchingClass = (state: State): boolean =>
   state.isLaunchingClass;
+
+  export const selectFilteredTutors = (
+    state: State,
+    props?: any
+  ): ITutor[] | null => {
+    let tutors: ITutor[] = [];
+  
+    if (state.tutors && state.tutors.length && props) {
+      tutors = getFilteredTutors(state.tutors, props);
+    }
+  
+    return tutors;
+  };
+  
+  const getFilteredTutors = (tutors: ITutor[], props: any) => {  
+    if (props?.name) {
+      tutors = tutors?.filter((tutor) =>
+        tutor?.name?.toLowerCase()?.includes(props.name.toLowerCase())
+      );
+    }
+  
+    return tutors;
+  };

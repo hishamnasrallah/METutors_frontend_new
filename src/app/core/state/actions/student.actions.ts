@@ -1,4 +1,20 @@
+import { IStudent } from '@metutor/core/models';
 import { createAction, props } from '@ngrx/store';
+
+// Load all students
+export const loadStudents = createAction('[Student] Load Students');
+
+export const loadStudentsSuccess = createAction(
+  '[Student] Load Students Success',
+  props<{ students: IStudent[] }>()
+);
+
+export const loadStudentsFailure = createAction(
+  '[Student] Load Students Failure',
+  props<{ error: any }>()
+);
+
+export const loadStudentsEnded = createAction('[Student] Load Students Ended');
 
 export const loadStudentDashboard = createAction(
   '[Student] Load Student Dashboard',
