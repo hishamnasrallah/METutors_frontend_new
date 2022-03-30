@@ -12,6 +12,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { generalConstants } from '@config';
 import * as fromCore from '@metutor/core/state';
+import { selectTutorAssignmentAssignees } from '@metutor/core/state/reducers/tutor-assignment.reducer';
 
 @Component({
   selector: 'metutors-tutor-add-assignment-modal',
@@ -29,6 +30,7 @@ export class TutorAddAssignmentModalComponent implements OnInit {
   selectedURLs: any[] = [];
   filesPreview: any[] = [];
 
+  assignees$: Observable<any>;
   uploadedFiles$: Observable<any>;
   fileUploadProgress$: Observable<any>;
   isAddingAssignment$: Observable<boolean>;
@@ -64,6 +66,10 @@ export class TutorAddAssignmentModalComponent implements OnInit {
       fromCore.selectIsAddingAssignment
     );
 
+    this.assignees$ = this._store.select(
+      fromCore.selectTutorAssignmentAssignees
+    );
+
     this.uploadedFiles$ = this._store
       .select(fromCore.selectUploadedFiles)
       .pipe(tap((files) => this.files?.setValue(files)));
@@ -83,6 +89,12 @@ export class TutorAddAssignmentModalComponent implements OnInit {
               );
             }
 
+            const assignees = data?.assignment?.assignees.map(
+              (assi: any) => assi.userId
+            );
+
+            this.assignee?.setValue(assignees);
+            this.id?.setValue(data?.assignment?.id);
             this.title?.setValue(data?.assignment?.title);
             this.endDate?.setValue(data?.assignment?.deadline);
             this.startDate?.setValue(data?.assignment?.startDate);
@@ -116,6 +128,14 @@ export class TutorAddAssignmentModalComponent implements OnInit {
 
   get title(): AbstractControl | null {
     return this.form.get('title');
+  }
+
+  get assignee(): AbstractControl | null {
+    return this.form.get('assignee');
+  }
+
+  get id(): AbstractControl | null {
+    return this.form.get('id');
   }
 
   onChangeDateDay(): void {
@@ -157,7 +177,11 @@ export class TutorAddAssignmentModalComponent implements OnInit {
       start_date: moment(this.startDate?.value).format('Y-MM-DD'),
     };
 
-    this._store.dispatch(fromCore.tutorAddAssignment({ body }));
+    if (this.id?.value) {
+      this._store.dispatch(fromCore.tutorEditAssignment({ body }));
+    } else {
+      this._store.dispatch(fromCore.tutorAddAssignment({ body }));
+    }
   }
 
   private _urlValidation(control: AbstractControl): any {

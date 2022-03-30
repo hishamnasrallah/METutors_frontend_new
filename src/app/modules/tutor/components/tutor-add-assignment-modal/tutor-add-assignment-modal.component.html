@@ -57,12 +57,11 @@
               <label>Assignee</label>
               <mat-form-field appearance="outline" class="w-100">
                 <mat-select formControlName="assignee" [placeholder]="'Select Student'" multiple>
-                  <mat-option [value]="7">Teacher Zoobia</mat-option>
-                  <mat-option [value]="8">Std ABC</mat-option>
-                  <mat-option [value]="9">ASD SDFS</mat-option>
+                  <mat-option [value]="assignee?.studentId"
+                              *ngFor="let assignee of (assignees$ | async)?.participants">{{assignee?.user?.firstName}} {{assignee?.user?.lastName}}</mat-option>
                 </mat-select>
               </mat-form-field>
-            </div>
+            </div>?
             <div class="form-group">
               <label>URLs<span class="text-danger">*</span></label>
               <ng-container *ngFor="let url of selectedURLs; let i = index">
