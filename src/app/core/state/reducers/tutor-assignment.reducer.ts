@@ -1,6 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 
 import * as tutorAssignmentActions from '../actions/tutor-assignment.actions';
+import * as moment from 'moment';
 
 export interface State {
   assignees: any;
@@ -221,9 +222,14 @@ export const selectTutorFilteredAssignments = (
   state: State,
   props?: any
 ): any => {
-  const assignments = state.assignments.course.assignments.filter(
+  let assignments = state.assignments.course.assignments.filter(
     (assignment: any) => assignment.status === props?.status
   );
+
+  assignments = assignments.map((assignment: any) => ({
+    ...assignment,
+    remainingDays: getRemainingDays(assignment.deadline),
+  }));
 
   const course = {
     ...state.assignments.course,
@@ -234,4 +240,11 @@ export const selectTutorFilteredAssignments = (
     ...state.assignments,
     course,
   };
+};
+
+const getRemainingDays = (deadline: string) => {
+  const endDate = moment(deadline, 'YYYY-MM-DD');
+  const currentDate = moment().startOf('day');
+
+  return moment.duration(endDate.diff(currentDate)).asDays();
 };
