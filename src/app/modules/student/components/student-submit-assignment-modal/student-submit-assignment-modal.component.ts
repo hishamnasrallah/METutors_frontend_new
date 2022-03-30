@@ -19,6 +19,7 @@ import * as fromCore from '@metutor/core/state';
   styleUrls: ['./student-submit-assignment-modal.component.scss'],
 })
 export class StudentSubmitAssignmentModalComponent implements OnInit {
+  @Input() assignmentId: number;
   @Input() showModal: boolean = false;
 
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
@@ -32,7 +33,10 @@ export class StudentSubmitAssignmentModalComponent implements OnInit {
 
   constructor(private _fb: FormBuilder, private _store: Store<any>) {}
 
-  onSubmit(): void {}
+  onSubmit(): void {
+    const body = this.form.value;
+    this._store.dispatch(fromCore.studentSubmitAssignment({ body }));
+  }
 
   removeFile(id: number): void {
     this._store.dispatch(fromCore.deleteUploadedFile({ id }));
@@ -59,6 +63,7 @@ export class StudentSubmitAssignmentModalComponent implements OnInit {
       .pipe(tap((files) => this.files?.setValue(files)));
 
     this.form = this._fb.group({
+      id: [this.assignmentId],
       files: [null, Validators.required],
       description: [null, [Validators.required, Validators.minLength(10)]],
     });

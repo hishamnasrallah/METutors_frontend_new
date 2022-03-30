@@ -48,6 +48,7 @@ export class StudentAssignmentsComponent implements OnInit {
 
   openBlock: boolean;
   selectedBlock: null;
+  assignmentId: number;
   activeAssignment = true;
 
   constructor(private _store: Store<any>) {}
@@ -62,6 +63,7 @@ export class StudentAssignmentsComponent implements OnInit {
   }
 
   onOpenAssignmentDetails(id: number): void {
+    this.assignmentId = id;
     this._store.dispatch(
       fromStudentActions.openStudentViewAssignmentModal({ id })
     );

@@ -21,8 +21,8 @@ export class StudentAssignmentDetailsModalComponent implements OnInit {
   constructor(private _store: Store<any>) {}
 
   onOpenSubmitAssignment(id: number): void {
+    this._store.dispatch(fromStudentActions.openSubmitAssignmentModal());
     this._store.dispatch(fromStudentActions.closeStudentViewAssignmentModal());
-    this._store.dispatch(fromStudentActions.openSubmitAssignmentModal({ id }));
   }
 
   ngOnInit(): void {
