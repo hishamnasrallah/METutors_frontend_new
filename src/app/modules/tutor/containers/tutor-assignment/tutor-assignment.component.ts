@@ -45,10 +45,12 @@ export class TutorAssignmentComponent implements OnInit {
   showAddAssignmentModal$: Observable<boolean>;
   showAssignmentDetailsModal$: Observable<boolean>;
 
-  view$: Observable<{ loading: boolean; assignments: any }>;
+  loading$: Observable<boolean>;
+  assignments$: Observable<any>;
 
   openBlock: boolean;
   selectedBlock: null;
+  activeAssignment = true;
 
   constructor(private _store: Store<any>) {}
 
@@ -70,6 +72,21 @@ export class TutorAssignmentComponent implements OnInit {
     this._store.dispatch(fromTutorAction.closeTutorAssignmentDetailsModal());
   }
 
+  acceptRejectAssignment(assignee: number): void {
+    console.log(assignee);
+  }
+
+  filterAssignments(status: string): void {
+    this.activeAssignment = status === 'active';
+
+    this.assignments$ = this._store.select(
+      fromCore.selectTutorFilteredAssignments,
+      {
+        status,
+      }
+    );
+  }
+
   ngOnInit(): void {
     this._store.dispatch(fromCore.loadTutorAssignments());
 
@@ -81,9 +98,15 @@ export class TutorAssignmentComponent implements OnInit {
       fromTutor.selectAssignmentDetailsModal
     );
 
-    this.view$ = combineLatest([
-      this._store.select(fromCore.selectTutorAssignments),
-      this._store.select(fromCore.selectIsLoadingTutorAssignments),
-    ]).pipe(map(([assignments, loading]) => ({ loading, assignments })));
+    this.loading$ = this._store.select(
+      fromCore.selectIsLoadingTutorAssignments
+    );
+
+    this.assignments$ = this._store.select(
+      fromCore.selectTutorFilteredAssignments,
+      {
+        status: 'active',
+      }
+    );
   }
 }

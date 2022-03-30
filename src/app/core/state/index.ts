@@ -266,14 +266,9 @@ export const selectTutorAssignment = createSelector(
   fromTutorAssignmentReducer.selectTutorAssignment
 );
 
-export const selectTutorActiveAssignments = createSelector(
+export const selectTutorFilteredAssignments = createSelector(
   selectTutorAssignmentState,
-  fromTutorAssignmentReducer.selectTutorActiveAssignments
-);
-
-export const selectTutorCompletedAssignments = createSelector(
-  selectTutorAssignmentState,
-  fromTutorAssignmentReducer.selectTutorCompletedAssignments
+  fromTutorAssignmentReducer.selectTutorFilteredAssignments
 );
 
 export const selectIsLoadingTutorAssignment = createSelector(

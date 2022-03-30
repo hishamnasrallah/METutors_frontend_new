@@ -1,41 +1,43 @@
-<div class="assignments" *ngLet="(view$ | async) as view">
+<div class="assignments">
   <div class="card">
     <div class="card-body">
-      <ng-container [ngSwitch]="view.loading">
+      <ng-container [ngSwitch]="loading$ | async">
         <ng-container *ngSwitchCase="false">
-          <h1 class="title">{{ view.assignments?.course?.courseName }}</h1>
-          <div class="row list-items">
-            <div class="col-md-3 d-flex menu align-items-center">
-              <img src="assets/svg/timer.svg" alt="" width="15" height="15" draggable="false">
-              <strong>Total assignments: </strong>
-              <span>{{ view.assignments?.totalAssignments }}</span>
+          <ng-container *ngLet="(assignments$ | async) as assignments">
+            <h1 class="title">{{ assignments?.course?.courseName }}</h1>
+            <div class="row list-items">
+              <div class="col-md-3 d-flex menu align-items-center">
+                <img src="assets/svg/timer.svg" alt="" width="15" height="15" draggable="false">
+                <strong>Total assignments: </strong>
+                <span>{{ assignments?.totalAssignments }}</span>
+              </div>
+              <div class="col-md-3 d-flex menu align-items-center">
+                <img src="assets/svg/class.svg" alt="" width="15" height="15" draggable="false">
+                <strong>Active assignments: </strong>
+                <span>{{ assignments?.activeAssignments }}</span>
+              </div>
+              <div class="col-md-3 d-flex menu align-items-center">
+                <img src="assets/svg/class.svg" alt="" width="15" height="15" draggable="false">
+                <strong>Completed assignments: </strong>
+                <span>{{ assignments?.completedAssignments }}</span>
+              </div>
             </div>
-            <div class="col-md-3 d-flex menu align-items-center">
-              <img src="assets/svg/class.svg" alt="" width="15" height="15" draggable="false">
-              <strong>Active assignments: </strong>
-              <span>{{ view.assignments?.activeAssignments }}</span>
+            <div class="row mt-3">
+              <div class="col-md-5 overflow-visible logos">
+                <div class="fw-bold">Enrolled Students</div>
+                <ng-container *ngFor="let participant of assignments?.course.participants">
+                  <img meTutorsDefaultAvatar [src]="participant?.user?.avatar" alt="" draggable="false"
+                       class="d-inline-block rounded-circle">
+                </ng-container>
+              </div>
+              <div class="col-md-7">
+                <button mat-button class="main-button-transparent float-end" (click)="onOpenAddAssignment()">
+                  <mat-icon>add</mat-icon>
+                  Add new assignment
+                </button>
+              </div>
             </div>
-            <div class="col-md-3 d-flex menu align-items-center">
-              <img src="assets/svg/class.svg" alt="" width="15" height="15" draggable="false">
-              <strong>Completed assignments: </strong>
-              <span>{{ view.assignments?.completedAssignments }}</span>
-            </div>
-          </div>
-          <div class="row mt-3">
-            <div class="col-md-5 overflow-visible logos">
-              <div class="fw-bold">Enrolled Students</div>
-              <ng-container *ngFor="let participant of view.assignments?.course.participants">
-                <img meTutorsDefaultAvatar [src]="participant?.user?.avatar" alt="" draggable="false"
-                     class="d-inline-block rounded-circle">
-              </ng-container>
-            </div>
-            <div class="col-md-7">
-              <button mat-button class="main-button-transparent float-end" (click)="onOpenAddAssignment()">
-                <mat-icon>add</mat-icon>
-                Add new assignment
-              </button>
-            </div>
-          </div>
+          </ng-container>
         </ng-container>
         <ng-container *ngSwitchCase="true">
           <div class="ph-row">
@@ -52,110 +54,124 @@
   </div>
 
   <div class="assign-tabs">
-    <button mat-button class="class-btn main-button-transparent text-uppercase active">Active assignments</button>
-    <button mat-button class="class-btn main-button-transparent text-uppercase">Completed assignments</button>
+    <button mat-button class="class-btn main-button-transparent text-uppercase"
+            (click)="filterAssignments('active')" [ngClass]="{'active': activeAssignment}">
+      Active assignments
+    </button>
+    <button mat-button class="class-btn main-button-transparent text-uppercase"
+            (click)="filterAssignments('completed')" [ngClass]="{'active': !activeAssignment}">
+      Completed assignments
+    </button>
   </div>
 
   <div class="items">
-    <ng-container [ngSwitch]="view.loading">
+    <ng-container [ngSwitch]="loading$ | async">
       <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
       <ng-container *ngSwitchCase="false">
-        <div class="text-center p-xxl-5 fw-bold"
-             *ngIf="!view.assignments?.course?.assignments?.length">No record
-          found
-        </div>
+        <ng-container *ngLet="(assignments$ | async) as assignments">
+          <div class="text-center p-xxl-5 fw-bold"
+               *ngIf="!assignments?.course?.assignments?.length">No record
+            found
+          </div>
 
-        <ng-container *ngIf="view.assignments?.course?.assignments && view.assignments?.course?.assignments?.length">
-          <div class="item position-relative" *ngFor="let assignment of view.assignments?.course?.assignments; let i = index">
-            <span class="number">{{ i+ 1}}</span>
-            <div class="row set-padding">
-              <div class="col-md-12">
-                <div class="row">
-                  <div class="col-md-7">
-                    <h2>{{ assignment?.title}}</h2>
-                    <p class="col">{{ assignment?.description}}</p>
-                  </div>
-                  <div class="col-md-5 d-flex align-items-start justify-content-end date-data">
-                    <a>Extend Due Date</a>
-                    <div class="d-flex flex-column mx-3">
-                      <span>Remaining Time</span>
-                      <strong class="alert-msg">2 Days</strong>
+          <ng-container *ngIf="assignments?.course?.assignments && assignments?.course?.assignments?.length">
+            <div class="item position-relative"
+                 *ngFor="let assignment of assignments?.course?.assignments; let i = index">
+              <span class="number">{{ i + 1}}</span>
+              <div class="row set-padding">
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-7">
+                      <h2>{{ assignment?.title}}</h2>
+                      <p class="col">{{ assignment?.description}}</p>
                     </div>
-                    <button mat-button class="main-button-transparent" (click)="onOpenAssignmentDetails(assignment.id)">
-                      View Details
-                      <mat-icon>arrow_forward</mat-icon>
-                    </button>
+                    <div class="col-md-5 d-flex align-items-start justify-content-end date-data">
+                      <a>Extend Due Date</a>
+                      <div class="d-flex flex-column mx-3">
+                        <span>Remaining Time</span>
+                        <strong class="alert-msg">2 Days</strong>
+                      </div>
+                      <button mat-button class="main-button-transparent"
+                              (click)="onOpenAssignmentDetails(assignment.id)">
+                        View Details
+                        <mat-icon>arrow_forward</mat-icon>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="row list-items md-item p-0 pb-3">
+                    <div class="col d-flex menu align-items-center">
+                      <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
+                      <strong>Start: </strong>
+                      <span>{{ assignment?.startDate | date: 'MMMM d y' }}</span>
+                    </div>
+                    <div class="col d-flex menu align-items-center">
+                      <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
+                      <strong>Deadline: </strong>
+                      <span>{{ assignment?.deadline | date: 'MMMM d y'}}</span>
+                    </div>
+                    <div class="col d-flex menu align-items-center">
+                      <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
+                      <strong>Answer received:</strong>
+                      <span>04 out of 10</span>
+                    </div>
+                    <div class="col-1">
+                      <button mat-button class="expand" *ngIf="selectedBlock !== assignment.id">
+                        <mat-icon (click)="openBlock = true; selectedBlock = assignment.id">expand_more</mat-icon>
+                      </button>
+                      <button mat-button class="expand" *ngIf="openBlock && selectedBlock === assignment.id">
+                        <mat-icon (click)="openBlock = false; selectedBlock = null">expand_less</mat-icon>
+                      </button>
+                    </div>
                   </div>
                 </div>
 
-                <div class="row list-items md-item p-0 pb-3">
-                  <div class="col d-flex menu align-items-center">
-                    <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
-                    <strong>Start: </strong>
-                    <span>{{ assignment?.startDate | date: 'MMMM d y' }}</span>
-                  </div>
-                  <div class="col d-flex menu align-items-center">
-                    <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
-                    <strong>Deadline: </strong>
-                    <span>{{ assignment?.deadline | date: 'MMMM d y'}}</span>
-                  </div>
-                  <div class="col d-flex menu align-items-center">
-                    <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
-                    <strong>Answer received:</strong>
-                    <span>04 out of 10</span>
-                  </div>
-                  <div class="col-1">
-                    <button mat-button class="expand" *ngIf="selectedBlock !== assignment.id">
-                      <mat-icon (click)="openBlock = true; selectedBlock = assignment.id">expand_more</mat-icon>
-                    </button>
-                    <button mat-button class="expand" *ngIf="openBlock && selectedBlock === assignment.id">
-                      <mat-icon (click)="openBlock = false; selectedBlock = null">expand_less</mat-icon>
-                    </button>
-                  </div>
-                </div>
-              </div>
+                <div class="col-md-12">
+                  <div class="table-responsive" *ngIf="openBlock && selectedBlock === assignment.id" [@slideInOut]>
+                    <table class="table my-table default-title">
+                      <tr>
+                        <th scope="col">Number</th>
+                        <th scope="col">Student Name</th>
+                        <th scope="col">Time Received By Student</th>
+                        <th scope="col">Status</th>
+                      </tr>
 
-              <div class="col-md-12">
-                <div class="table-responsive" *ngIf="openBlock && selectedBlock === assignment.id" [@slideInOut]>
-                  <table class="table my-table default-title">
-                    <tr>
-                      <th scope="col">Number</th>
-                      <th scope="col">Student Name</th>
-                      <th scope="col">Time Received By Student</th>
-                      <th scope="col">Status</th>
-                    </tr>
-
-                    <tr *ngFor="let assignee of assignment?.assignees; let num = index">
-                      <td scope="row">{{ num + 1}}</td>
-                      <td>
-                        <img [src]="assignee?.user?.avatar" meTutorsDefaultAvatar draggable="false" width="25" height="25"
-                             class="rounded-circle"
-                             alt="">
-                        <span class="ms-2">{{ assignee?.user?.firstName }} {{ assignee?.user?.lastName }}</span>
-                      </td>
-                      <td>{{ assignee?.createdAt | date: 'EEEE, d MMM y, h:mm a'}}</td>
-                      <td>
-                        <span class="status-icon text-capitalize" [ngClass]="assignee?.status">{{ assignee?.status }}</span>
-                        <span class="late ms-2">Late</span>
-                      </td>
-                    </tr>
-                  </table>
+                      <tr *ngFor="let assignee of assignment?.assignees; let num = index" class="cursor-pointer"
+                          (click)="acceptRejectAssignment(assignee.id)">
+                        <td scope="row">{{ num + 1}}</td>
+                        <td>
+                          <img [src]="assignee?.user?.avatar" meTutorsDefaultAvatar draggable="false" width="25"
+                               height="25"
+                               class="rounded-circle"
+                               alt="">
+                          <span class="ms-2">{{ assignee?.user?.firstName }} {{ assignee?.user?.lastName }}</span>
+                        </td>
+                        <td>{{ assignee?.createdAt | date: 'EEEE, d MMM y, h:mm a'}}</td>
+                        <td>
+                          <span class="status-icon text-capitalize"
+                                [ngClass]="assignee?.status">{{ assignee?.status }}</span>
+                          <span class="late ms-2">Late</span>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          </ng-container>
+          <metutors-tutor-add-assignment-modal *ngIf="showAddAssignmentModal$ | async"
+                                               (closeModal)="onCloseAddAssignment()"
+                                               [courseId]="assignments?.course?.id"
+                                               [showModal]="(showAddAssignmentModal$ | async)!">
+          </metutors-tutor-add-assignment-modal>
+
+          <metutors-tutor-assignment-details-modal *ngIf="showAssignmentDetailsModal$ | async"
+                                                   (closeModal)="onCloseAssignmentDetails()"
+                                                   [showModal]="(showAssignmentDetailsModal$ | async)!">
+          </metutors-tutor-assignment-details-modal>
         </ng-container>
       </ng-container>
     </ng-container>
   </div>
 
-  <metutors-tutor-add-assignment-modal *ngIf="showAddAssignmentModal$ | async"
-                                       (closeModal)="onCloseAddAssignment()" [courseId]="view.assignments?.course?.id"
-                                       [showModal]="(showAddAssignmentModal$ | async)!">
-  </metutors-tutor-add-assignment-modal>
-
-  <metutors-tutor-assignment-details-modal *ngIf="showAssignmentDetailsModal$ | async"
-                                           (closeModal)="onCloseAssignmentDetails()"
-                                           [showModal]="(showAssignmentDetailsModal$ | async)!">
-  </metutors-tutor-assignment-details-modal>
 </div>
