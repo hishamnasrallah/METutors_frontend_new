@@ -2,6 +2,63 @@
                 [heading]="'Submit Assignment'"
                 [template]="template">
   <ng-template #template>
-   hello and welcom eman
+    <form class="row add-assignment-modal" [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="col-12">
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea class="form-control custom-input input-bordered" formControlName="description" id="description"
+                    rows="4" placeholder="Enter description here..."></textarea>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>File<span class="text-danger">*</span></label>
+        <div class="d-flex flex-column">
+          <div>
+            <button mat-button type="button" class="main-button mb-4" (click)="filePicker.click()">
+              <img src="assets/svg/upload-solid.svg" width="15" height="15" alt=""/>
+              Upload
+            </button>
+          </div>
+          <input type="file" hidden #filePicker (change)="onFileChange($event)">
+        </div>
+
+        <ng-container *ngLet="fileUploadProgress$ | async as fileUploadProgress">
+          <ng-container *ngIf="fileUploadProgress?.length">
+            <ng-container *ngFor="let uploadProgress of fileUploadProgress">
+              <ng-container *ngIf="uploadProgress.responseType !== uploadComplete">
+                <metutors-file-upload-progress [fileName]="uploadProgress.fileName"
+                                               [uploadedPercentage]="uploadProgress.progress">
+                </metutors-file-upload-progress>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+
+        <div class="form-group row" *ngIf="(uploadedFiles$ | async)?.length">
+          <div class="col-md-4 list-files d-flex position-relative"
+               *ngFor="let file of (uploadedFiles$ | async); let i = index">
+            <mat-icon>attach_file</mat-icon>
+            <div class="ms-2">
+              <h3>{{ file?.url }}</h3>
+              <!--<h5>{{ filePreview?.size }}</h5>-->
+            </div>
+            <mat-icon class="cursor-pointer ms-2 position-absolute delete-icon file"
+                      (click)="removeFile(file.id)">
+              cancel
+            </mat-icon>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-2">
+        <div class="col-md-12 overflow-hidden">
+          <metutors-submit-button [form]="form" [isSubmitting]="(isSubmittingAssignment$ | async)!"
+                                  [extraClasses]="'float-end py-1 px-5'">
+            Submit
+          </metutors-submit-button>
+        </div>
+      </div>
+    </form>
   </ng-template>
 </metutors-modal>
