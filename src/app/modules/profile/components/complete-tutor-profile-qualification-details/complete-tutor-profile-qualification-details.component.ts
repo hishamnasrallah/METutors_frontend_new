@@ -6,7 +6,14 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { LANGUAGES_LEVELS_CONST } from 'src/app/config';
+import { AlertNotificationService } from '@metutor/core/components';
+import {
+  DEGREE_LEVELS,
+  DEGREE_FIELDS,
+  COMPUTER_SKILLS,
+  TEACHING_EXPERIENCE,
+  LANGUAGES_LEVELS_CONST,
+} from 'src/app/config';
 import { ILanguage } from 'src/app/core/models';
 
 @Component({
@@ -22,10 +29,18 @@ export class CompleteTutorProfileQualificationDetailsComponent
 
   @Output() submitForm = new EventEmitter();
 
+  videoDemo: any;
   form: FormGroup;
+  skills = COMPUTER_SKILLS;
+  degreeLevels = DEGREE_LEVELS;
+  degreeFields = DEGREE_FIELDS;
   levels = LANGUAGES_LEVELS_CONST;
+  experiences = TEACHING_EXPERIENCE;
 
-  constructor(private _fb: FormBuilder) {
+  constructor(
+    private _fb: FormBuilder,
+    private _alertNotificationService: AlertNotificationService
+  ) {
     this.form = this._fb.group({
       nameOfUniversity: [null, [Validators.required]],
       computerSkills: [null, [Validators.required]],
@@ -36,6 +51,7 @@ export class CompleteTutorProfileQualificationDetailsComponent
       teachingExperienceOnline: [null, [Validators.required]],
       currentEmployer: [null],
       currentTitle: [null],
+      video: [null, Validators.required],
     });
 
     this.addLanguage();
@@ -75,6 +91,10 @@ export class CompleteTutorProfileQualificationDetailsComponent
     return this.form.get('currentTitle');
   }
 
+  get video(): AbstractControl | null {
+    return this.form.get('video');
+  }
+
   get languages(): FormArray {
     return this.form?.get('languages') as FormArray;
   }
@@ -98,23 +118,57 @@ export class CompleteTutorProfileQualificationDetailsComponent
     this.languages.push(this.newLanguage());
   }
 
-  submitFormData() {
-    const data = {
-      step: '3',
-      name_of_university: this.nameOfUniversity?.value,
-      computer_skills: this.computerSkills?.value,
-      degree_level: this.degreeLevel?.value,
-      teaching_experience: this.teachingExperience?.value,
-      degree_field: this.degreeField?.value,
-      current_employer: this.currentEmployer?.value,
-      current_title: this.currentTitle?.value,
-      teaching_experience_online: this.teachingExperienceOnline?.value,
-      spoken_languages: this.form.value.languages.map((lang: any) => ({
-        language_id: lang?.language?.id,
-        level: lang?.level,
-      })),
-    };
+  onChangeVideo(event: any): void {
+    if (event.target && event.target.files && event.target.files.length) {
+      const file = event.target?.files[0];
+      const mimeType = event.target.files[0].type;
 
-    this.submitForm.emit(data);
+      if (mimeType.match(/video\/*/) == null) {
+        this._alertNotificationService.error('Only Videos are allowed');
+
+        return;
+      }
+
+      if (file.size > 10 * 1024 * 1024) {
+        this._alertNotificationService.error('Allowed file size is 10MB');
+
+        return;
+      }
+
+      this.form.patchValue({ video: file });
+      this.form.get('video')?.updateValueAndValidity();
+      this.form?.markAsDirty();
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.videoDemo = reader.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  submitFormData() {
+    const formData = new FormData();
+    const spokenLanguages = this.form.value.languages.map((lang: any) => ({
+      language_id: lang?.language?.id,
+      level: lang?.level,
+    }));
+
+    formData.append('step', '3');
+    formData.append('name_of_university', this.nameOfUniversity?.value);
+    formData.append('computer_skills', this.computerSkills?.value);
+    formData.append('degree_level', this.degreeLevel?.value);
+    formData.append('teaching_experience', this.teachingExperience?.value);
+    formData.append(
+      'teaching_experience_online',
+      this.teachingExperienceOnline?.value
+    );
+    formData.append('degree_field', this.degreeField?.value);
+    formData.append('current_employer', this.currentEmployer?.value);
+    formData.append('current_title', this.currentTitle?.value);
+    formData.append('video', this.video?.value);
+    formData.append('spoken_languages', JSON.stringify(spokenLanguages));
+
+    this.submitForm.emit(formData);
   }
 }

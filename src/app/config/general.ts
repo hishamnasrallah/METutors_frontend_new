@@ -100,7 +100,7 @@ export const COURSE_TAGS_CONST: any = {
 export const COURSE_TUITION_TYPES_CONST = {
   one: 'One-on-One',
   group: 'Group Study',
-  both: 'ALL',
+  both: 'Both',
 };
 
 export const TEXTBOOK_EDITION_CONST: any = {

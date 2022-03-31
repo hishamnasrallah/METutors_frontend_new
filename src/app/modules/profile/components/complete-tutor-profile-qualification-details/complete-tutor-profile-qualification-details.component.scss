@@ -23,3 +23,16 @@
     margin-left: 10px;
   }
 }
+
+.video-preview {
+  height: 200px;
+  background: #FAFAFA;
+  border: 1px solid rgba(0, 0, 0, 0.6);
+}
+
+.edit-video {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  z-index: 999;
+}

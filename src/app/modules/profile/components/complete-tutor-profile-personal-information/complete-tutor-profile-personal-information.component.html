@@ -18,7 +18,7 @@
         <div class="form-group">
           <label for="nationality" class="form-label">Nationality</label>
           <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="nationality" [placeholder]="'Pakistani'">
+            <mat-select formControlName="nationality" [placeholder]="'Select your nationality'">
               <mat-option *ngFor="let country of countries" [value]="country.name">{{ country.name }}</mat-option>
             </mat-select>
           </mat-form-field>
@@ -34,8 +34,8 @@
         <div class="form-group">
           <label for="dateOfBirth" class="form-label">Date of Birth</label>
           <mat-form-field appearance="outline" class="w-100">
-            <input matInput [matDatepicker]="datetPicker" [placeholder]="'04/02/2022'" (focus)="datetPicker.open()"
-              formControlName="dateOfBirth" [max]="maxDate">
+            <input matInput [matDatepicker]="datetPicker" [placeholder]="'Select Your Date of Birth'"
+              (focus)="datetPicker.open()" formControlName="dateOfBirth" [max]="maxDate">
             <mat-datepicker-toggle matSuffix [for]="datetPicker"></mat-datepicker-toggle>
             <mat-datepicker #datetPicker></mat-datepicker>
           </mat-form-field>
@@ -48,7 +48,7 @@
       <div class="col-md-6">
         <div class="form-group">
           <label for="address" class="form-label">Address 1</label>
-          <input type="text" class="custom-input w-100 input-bordered" id="address" placeholder="Enter street address"
+          <input type="text" class="custom-input w-100 input-bordered" id="address" placeholder="Enter Street Address"
             formControlName="address">
           <div class="text-danger" *ngIf="address?.touched && address?.invalid">
             Please write your Address
@@ -63,8 +63,7 @@
           <label for="gender" class="form-label">Select Gender</label>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="gender" [placeholder]="'Male'">
-              <mat-option value="male">Male</mat-option>
-              <mat-option value="female">Female</mat-option>
+              <mat-option [value]="gender" *ngFor="let gender of genders">{{ gender }}</mat-option>
             </mat-select>
           </mat-form-field>
           <div class="text-danger" *ngIf="gender?.touched && gender?.invalid">

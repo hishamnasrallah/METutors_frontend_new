@@ -1,0 +1,33 @@
+.heading {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 25px;
+}
+
+.form-label {
+  color: #000;
+  font-size: 15px;
+}
+
+.subj-info {
+  font-size: 15px;
+  color: #FFF;
+  background: var(--main-color);
+  border-radius: 30px;
+  height: auto;
+
+  .field {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .subject {
+    font-size: 12px;
+  }
+
+  mat-icon {
+    color: #C4C4C4;
+    cursor: pointer;
+    font-size: 30px;
+    margin: 0 5px;
+  }
+}

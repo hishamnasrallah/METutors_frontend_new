@@ -11,11 +11,12 @@
             <div class="preview-box d-flex align-items-center justify-content-center" *ngIf="!profilePic">Preview</div>
           </div>
 
-          <div class="col-md-6">
-            <div class="guide1">Your image should be at least 300 x 300 px</div>
+          <div class="col-md-5">
+            <div class="guide1">Your image should be 300 x 300 px at least</div>
+            <div class="guide2">Size 1MB max</div>
             <input type="file" #filePicker1 (change)="onChangeAvatar($event)" hidden accept="image/*" />
             <div class="form-group mt-4 mb-2">
-              <button mat-flat-button color="primary" class="py-2 d-block w-100" cdkFocusInitial type="button"
+              <button mat-flat-button color="primary" class="d-block py-1 px-5" cdkFocusInitial type="button"
                 (click)="filePicker1.click()"> Upload
               </button>
             </div>
@@ -41,7 +42,7 @@
               </button>
             </div>
             <div class="cover-preview d-flex align-items-center justify-content-center flex-column" *ngIf="!coverPic">
-              <div class="guide1">(Image should be jpeg, jpg, png max:10MB)</div>
+              <div class="guide1">Your image should be at least 700 x 300 px</div>
 
               <button mat-flat-button color="primary" class="px-4 mt-2" cdkFocusInitial type="button"
                 (click)="filePicker2.click()"> Upload

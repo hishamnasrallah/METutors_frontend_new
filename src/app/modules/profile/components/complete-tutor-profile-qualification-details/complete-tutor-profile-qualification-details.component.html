@@ -19,8 +19,7 @@
           <label for="computerSkills" class="form-label">Computer Skills</label>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="computerSkills" [placeholder]="'Above Average'">
-              <mat-option value="Average">Average</mat-option>
-              <mat-option value="Above Average">Above Average</mat-option>
+              <mat-option [value]="skill" *ngFor="let skill of skills">{{ skill }}</mat-option>
             </mat-select>
           </mat-form-field>
           <div class="text-danger" *ngIf="computerSkills?.touched && computerSkills?.invalid">
@@ -36,8 +35,7 @@
           <label for="degreeLevel" class="form-label">Degree Level</label>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="degreeLevel" [placeholder]="'Select Degree Level'">
-              <mat-option value="Masters">Masters</mat-option>
-              <mat-option value="Bachlors">Bachlors</mat-option>
+              <mat-option [value]="level" *ngFor="let level of degreeLevels">{{ level }}</mat-option>
             </mat-select>
           </mat-form-field>
           <div class="text-danger" *ngIf="degreeLevel?.touched && degreeLevel?.invalid">
@@ -51,8 +49,7 @@
           <label for="teachingExperience" class="form-label">Teaching Experience</label>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="teachingExperience" [placeholder]="'Select Years'">
-              <mat-option value="1 Year">1 Year</mat-option>
-              <mat-option value="2 Years">2 Years</mat-option>
+              <mat-option [value]="experience" *ngFor="let experience of experiences">{{ experience }}</mat-option>
             </mat-select>
           </mat-form-field>
           <div class="text-danger" *ngIf="teachingExperience?.touched && teachingExperience?.invalid">
@@ -68,8 +65,7 @@
           <label for="degreeField" class="form-label">Degree Field</label>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="degreeField" [placeholder]="'Computer Science'">
-              <mat-option value="Computer Science">Computer Science</mat-option>
-              <mat-option value="Mathematics">Mathematics</mat-option>
+              <mat-option [value]="field" *ngFor="let field of degreeFields">{{ field }}</mat-option>
             </mat-select>
           </mat-form-field>
           <div class="text-danger" *ngIf="degreeField?.touched && degreeField?.invalid">
@@ -83,8 +79,7 @@
           <label for="teachingExperienceOnline" class="form-label">Teaching Experience Online</label>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="teachingExperienceOnline" [placeholder]="'Select Years'">
-              <mat-option value="1 Year">1 Year</mat-option>
-              <mat-option value="2 Years">2 Years</mat-option>
+              <mat-option [value]="experience" *ngFor="let experience of experiences">{{ experience }}</mat-option>
             </mat-select>
           </mat-form-field>
           <div class="text-danger" *ngIf="teachingExperienceOnline?.touched && teachingExperienceOnline?.invalid">
@@ -144,6 +139,25 @@
           <label for="currentTitle" class="form-label">Current Title (Optional)</label>
           <input type="text" class="custom-input w-100 input-bordered" id="currentTitle" placeholder="Enter Here"
             formControlName="currentTitle">
+        </div>
+
+        <div class="form-group">
+          <input type="file" #filePicker (change)="onChangeVideo($event)" hidden accept="video/*" />
+
+          <div class="position-relative">
+            <metutors-video-player [videoSrc]="videoDemo" *ngIf="videoDemo">
+            </metutors-video-player>
+            <button mat-flat-button color="primary" class="px-4 edit-video" cdkFocusInitial type="button"
+              *ngIf="videoDemo" (click)="filePicker.click()"> change
+            </button>
+          </div>
+          <div class="video-preview d-flex align-items-center justify-content-center flex-column" *ngIf="!videoDemo">
+            <div class="guide1">Upload video demo</div>
+
+            <button mat-flat-button color="primary" class="px-4 mt-2" cdkFocusInitial type="button"
+              (click)="filePicker.click()"> Upload
+            </button>
+          </div>
         </div>
       </div>
     </div>

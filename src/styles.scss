@@ -47,6 +47,10 @@ mat-label,
   font-family: 'Proxima Nova', sans-serif;
 }
 
+.mat-form-field.mat-form-field-disabled {
+  cursor: not-allowed;
+}
+
 button:focus,
 button:hover {
   outline: none;

@@ -25,30 +25,6 @@
   }
 }
 
-.subj-info {
-  font-size: 15px;
-  color: #FFF;
-  background: var(--main-color);
-  border-radius: 30px;
-  height: auto;
-
-  .field {
-    font-size: 18px;
-    font-weight: bold;
-  }
-
-  .subject {
-    font-size: 12px;
-  }
-
-  mat-icon {
-    color: #C4C4C4;
-    cursor: pointer;
-    font-size: 30px;
-    margin: 0 5px;
-  }
-}
-
 .dialog-title {
   font-weight: bold;
   color: #000;

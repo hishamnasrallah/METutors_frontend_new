@@ -20,19 +20,11 @@ import {
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
 import {
+  SORTED_DAYS_WEEK,
   AVAILABILITY_HOURS_CONST,
   COURSE_TUITION_TYPES_CONST,
-  SORTED_DAYS_WEEK,
-  generalConstants,
 } from 'src/app/config';
-import {
-  ICountry,
-  IField,
-  ILevel,
-  IProgram,
-  ISubject,
-} from 'src/app/core/models';
-import { FormValidationUtilsService } from 'src/app/core/validators';
+import { ILevel } from 'src/app/core/models';
 
 @Component({
   selector: 'metutors-complete-tutor-profile-teaching-specifications',
@@ -47,51 +39,28 @@ export class CompleteTutorProfileTeachingSpecificationsComponent
   implements OnInit
 {
   @Input() loading: boolean | null;
-  @Input() fields: IField[] | null;
   @Input() levels: ILevel[] | null;
-  @Input() programs: IProgram[] | null;
-  @Input() countries: ICountry[] | null;
-  @Input() subjectsList: ISubject[] | null;
 
   @Output() submitForm = new EventEmitter();
-  @Output() changeField = new EventEmitter();
 
   form: FormGroup;
-  openSubject = true;
   minDate = new Date();
   days = SORTED_DAYS_WEEK;
-  selectedSubject: number = 0;
   selectedDays: number[] = [];
   types = COURSE_TUITION_TYPES_CONST;
-  nationalId = generalConstants.nationalId;
 
   constructor(
     private _fb: FormBuilder,
     private _dialog: MatDialog,
-    private _datePipe: DatePipe,
-    private _fv: FormValidationUtilsService
+    private _datePipe: DatePipe
   ) {
     this.form = this._fb.group({
-      levelOfEducation: [null, [Validators.required]],
-      salaryPerHour: [
-        null,
-        [
-          Validators.required,
-          Validators.min(5),
-          Validators.max(999),
-          this._fv.numbersOnlyValidation,
-        ],
-      ],
       startDate: [null, [Validators.required]],
-      subjects: this._fb.array([]),
       endDate: [null, [Validators.required]],
-      program: [null, Validators.required],
-      country: [null],
       availability: this._fb.array([]),
       typeOfTutoring: [null, [Validators.required]],
     });
 
-    this.addSubject();
     SORTED_DAYS_WEEK.forEach(() => {
       this.addAvailability();
     });
@@ -101,14 +70,6 @@ export class CompleteTutorProfileTeachingSpecificationsComponent
 
   returnZero(): number {
     return 0;
-  }
-
-  get levelOfEducation(): AbstractControl | null {
-    return this.form.get('levelOfEducation');
-  }
-
-  get salaryPerHour(): AbstractControl | null {
-    return this.form.get('salaryPerHour');
   }
 
   get startDate(): AbstractControl | null {
@@ -123,39 +84,8 @@ export class CompleteTutorProfileTeachingSpecificationsComponent
     return this.form.get('typeOfTutoring');
   }
 
-  get program(): AbstractControl | null {
-    return this.form.get('program');
-  }
-
-  get country(): AbstractControl | null {
-    return this.form.get('country');
-  }
-
   get availability(): FormArray {
     return this.form?.get('availability') as FormArray;
-  }
-
-  get subjects(): FormArray {
-    return this.form?.get('subjects') as FormArray;
-  }
-
-  removeSubject(i: number): void {
-    (this.form?.get('subjects') as FormArray).removeAt(i);
-
-    if (this.form.value.subjects.length === 0) {
-      this.addSubject();
-    }
-  }
-
-  newSubject(): FormGroup {
-    return this._fb.group({
-      field: [null, Validators.required],
-      subject: [null, Validators.required],
-    });
-  }
-
-  addSubject(): void {
-    this.subjects.push(this.newSubject());
   }
 
   newAvailability(): FormGroup {
@@ -177,16 +107,6 @@ export class CompleteTutorProfileTeachingSpecificationsComponent
       this.selectedDays.push(index);
       this.availability.at(index).patchValue({ day: index });
       this.openDialog(index);
-    }
-  }
-
-  onChangeField(event: any): void {
-    this.changeField.emit(event?.value?.id);
-  }
-
-  onOpenChange(state: boolean, index: number): void {
-    if (state === false) {
-      this.selectedSubject = index + 1;
     }
   }
 
@@ -212,9 +132,7 @@ export class CompleteTutorProfileTeachingSpecificationsComponent
   submitFormData() {
     const data = {
       step: '4',
-      level_of_education: this.levelOfEducation?.value,
       type_of_tutoring: this.typeOfTutoring?.value,
-      expected_salary_per_hour: this.salaryPerHour?.value,
       availability_start_date: this._datePipe.transform(
         this.startDate?.value,
         'yyyy-MM-dd'
@@ -223,12 +141,6 @@ export class CompleteTutorProfileTeachingSpecificationsComponent
         this.endDate?.value,
         'yyyy-MM-dd'
       ),
-      subjects: this.subjects?.value?.map((subject: any) => ({
-        field_id: subject?.field?.id,
-        subject_id: [subject?.field?.id],
-      })),
-      program_id: this.program?.value,
-      country_id: this.country?.value,
       availability: this.availability?.value
         ?.filter((itm: any) => itm?.day != null)
         ?.map((item: any) => ({

@@ -48,6 +48,14 @@ export class CompleteTutorProfileProfilePictureComponent implements OnInit {
 
       if (mimeType.match(/image\/*/) == null) {
         this._alertNotificationService.error('Only images are allowed');
+
+        return;
+      }
+
+      if (file.size > 1 * 1024 * 1024) {
+        this._alertNotificationService.error('Allowed file size is 1MB');
+
+        return;
       }
 
       this.form.patchValue({ avatar: file });
@@ -69,6 +77,14 @@ export class CompleteTutorProfileProfilePictureComponent implements OnInit {
 
       if (mimeType.match(/image\/*/) == null) {
         this._alertNotificationService.error('Only images are allowed');
+
+        return;
+      }
+
+      if (file.size > 1 * 1024 * 1024) {
+        this._alertNotificationService.error('Allowed file size is 1MB');
+
+        return;
       }
 
       this.form.patchValue({ cover: file });
@@ -83,7 +99,7 @@ export class CompleteTutorProfileProfilePictureComponent implements OnInit {
     }
   }
 
-  submitFormData() {
+  submitFormData(): void {
     const formData = new FormData();
 
     formData.append('step', '2');

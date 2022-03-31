@@ -6,6 +6,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { GENDERS } from '@metutor/config';
 import { ICity, ICountry } from 'src/app/core/models';
 
 @Component({
@@ -25,6 +26,7 @@ export class CompleteTutorProfilePersonalInformationComponent
   @Output() loadCities = new EventEmitter<string>();
 
   form: FormGroup;
+  genders = GENDERS;
   maxDate = new Date();
 
   constructor(private _fb: FormBuilder, private _datePipe: DatePipe) {
