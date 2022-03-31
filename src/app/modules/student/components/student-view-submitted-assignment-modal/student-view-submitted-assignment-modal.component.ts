@@ -4,6 +4,7 @@ import { combineLatest, Observable } from 'rxjs';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import * as fromCore from '@metutor/core/state';
+import * as fromStudentActions from '@metutor/modules/student/state/actions';
 
 @Component({
   selector: 'metutors-student-view-submitted-assignment-modal',
@@ -18,6 +19,15 @@ export class StudentViewSubmittedAssignmentModalComponent implements OnInit {
   view$: Observable<{ loading: boolean; assignment: any }>;
 
   constructor(private _store: Store<any>) {}
+
+  onBack(id: number): void {
+    this._store.dispatch(
+      fromStudentActions.closeViewSubmittedAssignmentModal()
+    );
+    this._store.dispatch(
+      fromStudentActions.openStudentViewAssignmentModal({ id })
+    );
+  }
 
   ngOnInit(): void {
     this.view$ = combineLatest([
