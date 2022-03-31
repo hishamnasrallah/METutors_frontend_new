@@ -227,6 +227,21 @@ export const reducer = createReducer(
   on(studentActions.loadStudentAssignmentFailure, (state) => ({
     ...state,
     isLoadingStudentAssignment: false,
+  })),
+
+  on(studentActions.studentSubmitAssignment, (state) => ({
+    ...state,
+    isSubmittingAssignment: true,
+  })),
+
+  on(studentActions.studentSubmitAssignmentSuccess, (state) => ({
+    ...state,
+    isSubmittingAssignment: false,
+  })),
+
+  on(studentActions.studentSubmitAssignmentFailure, (state) => ({
+    ...state,
+    isSubmittingAssignment: false,
   }))
 );
 

@@ -70,6 +70,12 @@ export const reducer = createReducer(
   on(studentModalActions.closeSubmitAssignmentModal, (state) => ({
     ...state,
     showSubmitAssignmentModal: false,
+  })),
+
+  on(fromCore.studentSubmitAssignmentSuccess, (state) => ({
+    ...state,
+    showViewAssignmentModal: true,
+    showSubmitAssignmentModal: false,
   }))
 );
 

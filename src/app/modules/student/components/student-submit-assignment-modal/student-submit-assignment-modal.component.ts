@@ -49,8 +49,8 @@ export class StudentSubmitAssignmentModalComponent implements OnInit {
     }
   }
 
-  get files(): AbstractControl | null {
-    return this.form?.get('files');
+  get file(): AbstractControl | null {
+    return this.form?.get('file');
   }
 
   ngOnInit(): void {
@@ -58,13 +58,17 @@ export class StudentSubmitAssignmentModalComponent implements OnInit {
       fromCore.selectFileUploadingProgress
     );
 
+    this.isSubmittingAssignment$ = this._store.select(
+      fromCore.selectIsSubmittingAssignment
+    );
+
     this.uploadedFiles$ = this._store
       .select(fromCore.selectUploadedFiles)
-      .pipe(tap((files) => this.files?.setValue(files)));
+      .pipe(tap((files) => this.file?.setValue(files)));
 
     this.form = this._fb.group({
       id: [this.assignmentId],
-      files: [null, Validators.required],
+      file: [null, Validators.required],
       description: [null, [Validators.required, Validators.minLength(10)]],
     });
   }
