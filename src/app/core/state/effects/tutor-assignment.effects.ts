@@ -149,6 +149,30 @@ export class TutorAssignmentEffects {
     )
   );
 
+  loadTutorStudentAssignmentDetails$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorAssignmentActions.loadTutorStudentAssignmentDetail),
+      mergeMap(({ id, userId }) =>
+        this._tutorService.getStudentAssignmentDetail(id, userId).pipe(
+          map((studentAssignment) =>
+            tutorAssignmentActions.loadTutorStudentAssignmentDetailSuccess({
+              studentAssignment: camelcaseKeys(studentAssignment, {
+                deep: true,
+              }),
+            })
+          ),
+          catchError((error) =>
+            of(
+              tutorAssignmentActions.loadTutorStudentAssignmentDetailFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   successMessages$ = createEffect(
     () =>
       this._actions$.pipe(

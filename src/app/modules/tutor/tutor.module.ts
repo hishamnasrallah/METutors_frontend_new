@@ -63,6 +63,8 @@ import {
   TutorAssignmentDetailsModalComponent,
   TutorSettingsUserPreferencesComponent,
   TutorSettingsPaymentInformationComponent,
+  TutorAcceptRejectAssignmentModalComponent,
+  TutorViewSubmittedAssignmentModalComponent,
 } from './components';
 
 @NgModule({
@@ -100,6 +102,8 @@ import {
     TutorAssignmentDetailsModalComponent,
     TutorSettingsUserPreferencesComponent,
     TutorSettingsPaymentInformationComponent,
+    TutorAcceptRejectAssignmentModalComponent,
+    TutorViewSubmittedAssignmentModalComponent,
   ],
   imports: [
     FormsModule,

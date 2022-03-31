@@ -179,4 +179,10 @@ export class TutorsService {
   tutorDeleteAssignment(id: number): Observable<any> {
     return this.http.delete<any>(`${this.baseUrl}teacher/assignment/${id}`);
   }
+
+  getStudentAssignmentDetail(id: number, userId: number): Observable<any> {
+    return this.http.get<any>(
+      `${this.baseUrl}teacher/assignment/${id}/user/${userId}`
+    );
+  }
 }

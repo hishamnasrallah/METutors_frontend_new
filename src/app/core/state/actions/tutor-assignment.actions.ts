@@ -87,3 +87,18 @@ export const deleteTutorAssignmentFailure = createAction(
   '[Tutor Assignment] Delete Tutor Assignment Failure',
   props<{ error: any }>()
 );
+
+export const loadTutorStudentAssignmentDetail = createAction(
+  '[Tutor Assignment] Load Tutor Student Assignment Detail',
+  props<{ id: number; userId: number }>()
+);
+
+export const loadTutorStudentAssignmentDetailSuccess = createAction(
+  '[Tutor Assignment] Load Tutor Student Assignment Detail Success',
+  props<{ studentAssignment: any }>()
+);
+
+export const loadTutorStudentAssignmentDetailFailure = createAction(
+  '[Tutor Assignment] Load Tutor Student Assignment Detail Failure',
+  props<{ error: any }>()
+);

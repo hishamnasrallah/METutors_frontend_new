@@ -15,3 +15,5 @@ export * from './tutor-add-syllabus-topic-modal';
 export * from './tutor-assignment-details-modal';
 export * from './tutor-settings-user-preferences';
 export * from './tutor-settings-payment-information';
+export * from './tutor-accept-reject-assignment-modal';
+export * from './tutor-view-submitted-assignment-modal';

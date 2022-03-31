@@ -82,3 +82,12 @@ export const openTutorAssignmentDetailsModal = createAction(
 export const closeTutorAssignmentDetailsModal = createAction(
   '[Tutor Modal] Close Tutor Assignment Details Modal'
 );
+
+export const openTutorViewStudentAssignmentModal = createAction(
+  '[Tutor Modal] Open Tutor View Assignment Modal',
+  props<{ id: number; userId: number }>()
+);
+
+export const closeTutorViewStudentAssignmentModal = createAction(
+  '[Tutor Modal] Close Tutor View Assignment Modal'
+);

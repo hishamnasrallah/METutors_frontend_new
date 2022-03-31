@@ -13,6 +13,8 @@ import * as fromTutor from '@metutor/modules/tutor/state';
 import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
 
 import * as fromCore from '@metutor/core/state';
+import { selectViewAssignmentModal } from '@metutor/modules/tutor/state/reducers/tutor-modal.reducers';
+import { selectViewStudentAssignmentModal } from '@metutor/modules/tutor/state';
 
 @Component({
   selector: 'metutors-tutor-assignment',
@@ -43,6 +45,7 @@ import * as fromCore from '@metutor/core/state';
 export class TutorAssignmentComponent implements OnInit {
   showAddAssignmentModal$: Observable<boolean>;
   showAssignmentDetailsModal$: Observable<boolean>;
+  showViewStudentAssignmentModal$: Observable<boolean>;
 
   loading$: Observable<boolean>;
   assignments$: Observable<any>;
@@ -75,8 +78,16 @@ export class TutorAssignmentComponent implements OnInit {
     this._store.dispatch(fromTutorAction.closeTutorAssignmentDetailsModal());
   }
 
-  acceptRejectAssignment(assignee: number): void {
-    console.log(assignee);
+  onCloseTutorViewStudentAssignmentModal() {
+    this._store.dispatch(
+      fromTutorAction.closeTutorViewStudentAssignmentModal()
+    );
+  }
+
+  openViewStudentAssignmentModal(id: number, userId: number): void {
+    this._store.dispatch(
+      fromTutorAction.openTutorViewStudentAssignmentModal({ id, userId })
+    );
   }
 
   filterAssignments(status: string): void {
@@ -95,6 +106,10 @@ export class TutorAssignmentComponent implements OnInit {
 
     this.showAddAssignmentModal$ = this._store.select(
       fromTutor.selectAddAssignmentModal
+    );
+
+    this.showViewStudentAssignmentModal$ = this._store.select(
+      fromTutor.selectViewStudentAssignmentModal
     );
 
     this.showAssignmentDetailsModal$ = this._store.select(

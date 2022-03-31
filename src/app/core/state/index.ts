@@ -321,6 +321,16 @@ export const selectIsDeletingTutorAssignment = createSelector(
   fromTutorAssignmentReducer.selectIsDeletingTutorAssignment
 );
 
+export const selectTutorViewStudentAssignment = createSelector(
+  selectTutorAssignmentState,
+  fromTutorAssignmentReducer.selectTutorStudentAssignment
+);
+
+export const selectIsLoadingTutorViewStudentAssignment = createSelector(
+  selectTutorAssignmentState,
+  fromTutorAssignmentReducer.selectIsLoadingTutorStudentAssignment
+);
+
 /**
  * ========================== STUDENT ==============================
  */

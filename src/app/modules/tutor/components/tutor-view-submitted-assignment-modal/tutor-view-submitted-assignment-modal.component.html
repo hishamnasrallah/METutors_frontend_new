@@ -1,0 +1,37 @@
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'medium'" [template]="template">
+  <ng-template #template>
+    <ng-container *ngLet="(view$ | async) as view">
+      <ng-container [ngSwitch]="view?.loading">
+        <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
+
+        <div class="assignment-details-modal" *ngSwitchCase="false">
+          <label>Time received by student</label>
+          <p class="mt-2">
+            {{ view?.assignment?.assignment?.createdAt | date: 'EEEE, d MMM y, h:mm a' }}
+          </p>
+
+          <label>Details</label>
+          <p class="mt-2">
+            {{ view?.assignment?.assignment?.description }}
+          </p>
+
+          <div class="form-group row">
+              <div class="col-md-6 list-files d-flex mt-3">
+                <mat-icon>attach_file</mat-icon>
+                <div class="ms-2">
+                  <h3>{{  view?.assignment?.assignment?.file}}</h3>
+                  <!--<h5>100MB</h5>-->
+                </div>
+                <a [href]="view?.assignment?.assignment?.file" target="_blank">
+                  <button mat-button class="add-url float-end">
+                    Download
+                  </button>
+                </a>
+              </div>
+              <div class="col-md-6"></div>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </ng-template>
+</metutors-modal>

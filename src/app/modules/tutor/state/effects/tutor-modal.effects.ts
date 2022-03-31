@@ -40,5 +40,14 @@ export class TutorModalEffects {
     )
   );
 
+  openTutorStudentAssignmentDetailsModal$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(fromTutorAction.openTutorViewStudentAssignmentModal),
+      mergeMap(({ id, userId }) =>
+        of(fromCore.loadTutorStudentAssignmentDetail({ id, userId }))
+      )
+    )
+  );
+
   constructor(private _actions$: Actions, private _store: Store) {}
 }
