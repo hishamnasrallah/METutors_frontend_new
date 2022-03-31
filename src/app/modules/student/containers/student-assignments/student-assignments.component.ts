@@ -43,8 +43,9 @@ import * as fromStudentActions from '@metutor/modules/student/state/actions';
 export class StudentAssignmentsComponent implements OnInit {
   loading$: Observable<boolean>;
   assignments$: Observable<any>;
-  showAssignmentDetailsModal$: Observable<boolean>;
   showSubmitAssignmentModal$: Observable<boolean>;
+  showAssignmentDetailsModal$: Observable<boolean>;
+  showViewSubmitAssignmentModal$: Observable<boolean>;
 
   openBlock: boolean;
   selectedBlock: null;
@@ -77,6 +78,12 @@ export class StudentAssignmentsComponent implements OnInit {
     this._store.dispatch(fromStudentActions.closeSubmitAssignmentModal());
   }
 
+  onCloseViewSubmittedAssignmentModal(): void {
+    this._store.dispatch(
+      fromStudentActions.closeViewSubmittedAssignmentModal()
+    );
+  }
+
   ngOnInit(): void {
     this._store.dispatch(fromCore.loadStudentAssignments());
 
@@ -90,6 +97,10 @@ export class StudentAssignmentsComponent implements OnInit {
 
     this.showSubmitAssignmentModal$ = this._store.select(
       fromStudent.selectSubmitAssignmentModal
+    );
+
+    this.showViewSubmitAssignmentModal$ = this._store.select(
+      fromStudent.selectViewSubmittedAssignmentModal
     );
 
     this.assignments$ = this._store.select(

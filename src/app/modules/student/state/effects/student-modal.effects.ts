@@ -22,5 +22,12 @@ export class TutorModalEffects {
     )
   );
 
+  openStudentViewSubmittedAssignmentModal$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(fromStudentAction.openViewSubmittedAssignmentModal),
+      mergeMap(({ id }) => of(fromCore.loadStudentSubmittedAssignment({ id })))
+    )
+  );
+
   constructor(private _actions$: Actions, private _store: Store) {}
 }

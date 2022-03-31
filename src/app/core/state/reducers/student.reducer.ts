@@ -13,6 +13,7 @@ export interface State {
   assignments: any;
   assignment: any;
   classesDashboard: any;
+  submittedAssignment: any;
   isJoiningClass: boolean;
   students: IStudent[] | null;
   isLoadingStudents: boolean;
@@ -25,6 +26,7 @@ export interface State {
   isLoadingStudentAssignment: boolean;
   isLoadingStudentAssignments: boolean;
   isLoadingStudentClassesDashboard: boolean;
+  isLoadingStudentSubmittedAssignment: boolean;
 }
 
 export const initialState: State = {
@@ -39,6 +41,7 @@ export const initialState: State = {
   isJoiningClass: false,
   classesDashboard: null,
   isLoadingStudents: false,
+  submittedAssignment: null,
   isSubmittingAssignment: false,
   isLoadingStudentSyllabus: false,
   isLoadingStudentResource: false,
@@ -48,6 +51,7 @@ export const initialState: State = {
   isLoadingStudentAssignment: false,
   isLoadingStudentAssignments: false,
   isLoadingStudentClassesDashboard: false,
+  isLoadingStudentSubmittedAssignment: false,
 };
 
 export const reducer = createReducer(
@@ -242,6 +246,25 @@ export const reducer = createReducer(
   on(studentActions.studentSubmitAssignmentFailure, (state) => ({
     ...state,
     isSubmittingAssignment: false,
+  })),
+
+  on(studentActions.loadStudentSubmittedAssignment, (state) => ({
+    ...state,
+    isLoadingStudentSubmittedAssignment: true,
+  })),
+
+  on(
+    studentActions.loadStudentSubmittedAssignmentSuccess,
+    (state, { submittedAssignment }) => ({
+      ...state,
+      submittedAssignment,
+      isLoadingStudentSubmittedAssignment: false,
+    })
+  ),
+
+  on(studentActions.loadStudentSubmittedAssignmentFailure, (state) => ({
+    ...state,
+    isLoadingStudentSubmittedAssignment: false,
   }))
 );
 
@@ -314,6 +337,13 @@ export const selectIsLoadingStudentAssignment = (state: State): boolean =>
 
 export const selectIsSubmittingAssignment = (state: State): boolean =>
   state.isSubmittingAssignment;
+
+export const selectStudentSubmittedAssignment = (state: State): boolean =>
+  state.submittedAssignment;
+
+export const selectIsLoadingStudentSubmittedAssignment = (
+  state: State
+): boolean => state.isLoadingStudentSubmittedAssignment;
 
 export const selectFilteredStudents = (
   state: State,

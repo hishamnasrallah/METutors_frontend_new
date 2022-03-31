@@ -272,6 +272,30 @@ export class StudentEffects {
     )
   );
 
+  viewStudentSubmittedAssignment$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(studentActions.loadStudentSubmittedAssignment),
+      mergeMap(({ id }) =>
+        this._studentService.getStudentSubmittedAssignment(id).pipe(
+          map((submittedAssignment) =>
+            studentActions.loadStudentSubmittedAssignmentSuccess({
+              submittedAssignment: camelcaseKeys(submittedAssignment, {
+                deep: true,
+              }),
+            })
+          ),
+          catchError((error) =>
+            of(
+              studentActions.loadStudentSubmittedAssignmentFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   successMessages$ = createEffect(
     () =>
       this._actions$.pipe(

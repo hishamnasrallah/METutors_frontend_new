@@ -62,3 +62,8 @@ export const selectSubmitAssignmentModal = createSelector(
   selectStudentModalState,
   fromStudentModal.selectSubmitAssignmentModal
 );
+
+export const selectViewSubmittedAssignmentModal = createSelector(
+  selectStudentModalState,
+  fromStudentModal.selectViewSubmittedAssignmentModal
+);

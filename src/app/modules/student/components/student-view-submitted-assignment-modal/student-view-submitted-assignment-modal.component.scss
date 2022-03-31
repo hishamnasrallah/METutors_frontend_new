@@ -1,0 +1,26 @@
+.assignment-details-modal {
+  label {
+    font-weight: bold;
+    font-size: 15px;
+  }
+
+  p {
+    color: #696969;
+  }
+
+  .list-files {
+    >div {
+      width: calc(100% - (24px + 0.5rem));
+    }
+
+    h3 {
+      font-size: 16px;
+      margin: 0;
+      color: #2a2a2a;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+    }
+  }
+}

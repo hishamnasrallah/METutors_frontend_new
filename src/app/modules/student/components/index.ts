@@ -12,3 +12,4 @@ export * from './student-submit-assignment-modal';
 export * from './student-settings-user-prefrences';
 export * from './student-assignment-details-modal';
 export * from './student-settings-payment-information';
+export * from './student-view-submitted-assignment-modal';

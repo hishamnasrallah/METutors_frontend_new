@@ -166,3 +166,18 @@ export const studentSubmitAssignmentFailure = createAction(
   '[Student] Load Student Assignment Failure',
   props<{ error: any }>()
 );
+
+export const loadStudentSubmittedAssignment = createAction(
+  '[Student] Load Student Submitted Assignment',
+  props<{ id: number }>()
+);
+
+export const loadStudentSubmittedAssignmentSuccess = createAction(
+  '[Student] Load Student Submitted Assignment Success',
+  props<{ submittedAssignment: any }>()
+);
+
+export const loadStudentSubmittedAssignmentFailure = createAction(
+  '[Student] Load Student Submitted Assignment Failure',
+  props<{ error: any }>()
+);

@@ -57,8 +57,8 @@ import {
   StudentSettingsUserPrefrencesComponent,
   StudentAssignmentDetailsModalComponent,
   StudentSettingsPaymentInformationComponent,
+  StudentViewSubmittedAssignmentModalComponent,
 } from './components';
-
 @NgModule({
   declarations: [
     StudentComponent,
@@ -90,6 +90,7 @@ import {
     StudentSettingsUserPrefrencesComponent,
     StudentAssignmentDetailsModalComponent,
     StudentSettingsPaymentInformationComponent,
+    StudentViewSubmittedAssignmentModalComponent,
   ],
   imports: [
     FormsModule,

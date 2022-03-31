@@ -60,8 +60,8 @@
           <div class="form-group row">
             <div class="">
 
-              <button mat-flat-button color="primary" class="fw-bold float-end" *ngIf="view.assignment?.assignment?.assignees[0]?.status !=='submitted'" (click)="onOpenSubmitAssignment(view.assignment.assignment.id)">Submit Assignment</button>
-              <button mat-flat-button color="primary" class="fw-bold float-end" *ngIf="view.assignment?.assignment?.assignees[0]?.status ==='submitted'" (click)="onOpenSubmitAssignment(view.assignment.assignment.id)">View Submitted Assignment</button>
+              <button mat-flat-button color="primary" class="fw-bold float-end" *ngIf="view.assignment?.assignment?.userAssignmentStatus !=='submitted'" (click)="onOpenSubmitAssignmentModal()">Submit Assignment</button>
+              <button mat-flat-button color="primary" class="fw-bold float-end" *ngIf="view.assignment?.assignment?.userAssignmentStatus ==='submitted'" (click)="onOpenSubmittedAssignmentModal(view.assignment.assignment.id)">View Submitted Assignment</button>
             </div>
           </div>
         </div>

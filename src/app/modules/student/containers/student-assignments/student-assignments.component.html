@@ -163,6 +163,11 @@
                                                       (closeModal)="onCloseSubmitAssignmentModal()"
                                                       [showModal]="(showSubmitAssignmentModal$ | async)!">
             </metutors-student-submit-assignment-modal>
+
+            <metutors-student-view-submitted-assignment-modal *ngIf="showViewSubmitAssignmentModal$ | async"
+                                                      (closeModal)="onCloseViewSubmittedAssignmentModal()"
+                                                      [showModal]="(showViewSubmitAssignmentModal$ | async)!">
+            </metutors-student-view-submitted-assignment-modal>
           </ng-container>
         </ng-container>
       </ng-container>

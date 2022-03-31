@@ -81,6 +81,10 @@ export class StudentsService {
     return this.http.get<any>(`${this.baseUrl}student/assignment/${id}`);
   }
 
+  getStudentSubmittedAssignment(id: any): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}student/assignment/${id}/user`);
+  }
+
   studentSubmitAssignment(body: any): Observable<any> {
     const { id, ..._body } = body;
     return this.http.post<any>(

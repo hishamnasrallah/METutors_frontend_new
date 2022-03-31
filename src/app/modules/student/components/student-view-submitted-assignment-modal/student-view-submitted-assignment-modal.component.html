@@ -1,0 +1,64 @@
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'medium'"
+                [heading]="'View Submitted Assignment'"
+                [template]="template">
+  <ng-template #template>
+    <ng-container *ngLet="(view$ | async) as view">
+      <ng-container [ngSwitch]="view?.loading">
+        <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
+
+        <div class="assignment-details-modal" *ngSwitchCase="false">
+          <div class="form-group row">
+            <label>Description</label>
+            <p class="mt-2">
+              {{ view?.assignment?.assignment?.description }}
+            </p>
+          </div>
+
+          <div class="form-group row">
+            <label>File</label>
+            <div class="col-md-6 list-files d-flex mt-3">
+              <mat-icon>attach_file</mat-icon>
+              <div class="ms-2">
+                <h3>{{ view?.assignment?.assignment?.file}}</h3>
+                <!--<h5>100MB</h5>-->
+              </div>
+            </div>
+            <div class="col-md-6"></div>
+          </div>
+
+          <ng-container
+            *ngIf="view?.assignment?.assignment?.feedback && view?.assignment?.assignment?.feedback?.length">
+            <div class="form-group row mt-5">
+              <label>Assignment Feedback</label>
+              <p class="mt-2">
+                <span>Grade Rating: </span>
+                <span> {{ view?.assignment?.assignment?.feedback[0]?.rating}}on a scale of 10 </span>
+              </p>
+
+              <p>
+                {{ view?.assignment?.assignment?.feedback[0]?.review }}
+              </p>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-md-6 list-files d-flex">
+                <mat-icon>attach_file</mat-icon>
+                <div class="ms-2">
+                  <h3>{{ view?.assignment?.assignment?.feedback[0]?.file}}</h3>
+                  <!--<h5>100MB</h5>-->
+                </div>
+              </div>
+              <div class="col-md-6"></div>
+            </div>
+          </ng-container>
+
+          <div class="form-group row">
+            <div class="">
+              <button mat-flat-button color="primary" class="fw-bold float-end">Back</button>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </ng-template>
+</metutors-modal>
