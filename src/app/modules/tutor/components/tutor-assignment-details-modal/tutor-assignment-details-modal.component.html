@@ -1,21 +1,17 @@
-<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'large'"
-                [heading]="'Assignment Details'"
-                [template]="template">
-  <ng-template #template>
-    <ng-container *ngLet="(view$ | async) as view">
+<ng-container *ngLet="(view$ | async) as view">
+  <metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'large'"
+                  [heading]="'Assignment Details'"
+                  [showEditIcon]="true"
+                  [showDeleteIcon]="true"
+                  [isDeletingAssignment]="(isDeletingAssignment$ | async)!"
+                  [template]="template"
+                  (editClicked)="openEditAssignmentModal(view?.assignment.assignment.id)"
+                  (deleteClicked)="deleteAssignment(view?.assignment.assignment.id)">
+    <ng-template #template>
       <ng-container [ngSwitch]="view?.loading">
         <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
 
         <div class="assignment-details-modal" *ngSwitchCase="false">
-          <button class="btn edit-icon" type="button" (click)="openEditAssignmentModal(view?.assignment.assignment.id)">
-            Edit
-          </button>
-
-          <button class="btn delete-icon" type="button" (click)="deleteAssignment(view?.assignment.assignment.id)"
-                  [disabled]="(isDeletingAssignment$ | async)!">
-            Delete
-            <mat-icon class="spinner" *ngIf="(isDeletingAssignment$ | async)!">autorenew</mat-icon>
-          </button>
           <div class="d-flex justify-content-between">
             <h3>{{ view?.assignment?.assignment?.title }}</h3>
             <div class="overflow-visible logos">
@@ -48,34 +44,32 @@
           <div class="form-group">
             <label>URLs</label>
             <div class="url-info d-flex flex-column my-2" *ngFor="let urlInfo of view.assignment?.assignment?.urls">
-              <span>{{ urlInfo?.title}}</span>
+              <span>{{ urlInfo?.title }}</span>
               <strong class="d-flex align-items-center">
-                {{ urlInfo?.url }} <a [href]="urlInfo?.url" target="_blank" class="link">
-                <mat-icon>link</mat-icon>
-              </a>
+                {{ urlInfo?.url }} 
+                <a [href]="urlInfo?.url" target="_blank" class="ms-3 d-flex align-items-center">
+                  <mat-icon>link</mat-icon>
+                </a>
               </strong>
             </div>
           </div>
           <div class="form-group row">
             <label>Files</label>
             <ng-container *ngFor="let file of view.assignment?.assignment?.files">
-              <div class="col-md-6 list-files d-flex mt-3">
+              <div class="col-md-6 list-files d-flex align-items-center mt-3">
                 <mat-icon>attach_file</mat-icon>
-                <div class="ms-2">
-                  <h3>{{ file?.url}}</h3>
+                <div class="ms-2 flex-grow-1">
+                  <h3>{{ file?.url }}</h3>
                   <!--<h5>100MB</h5>-->
                 </div>
-                <a [href]="file?.url" target="_blank">
-                  <button mat-button class="add-url float-end">
-                    Download
-                  </button>
+                <a [href]="file?.url" mat-button class="add-url float-end" target="_blank">
+                  Download
                 </a>
               </div>
-              <div class="col-md-6"></div>
             </ng-container>
           </div>
         </div>
       </ng-container>
-    </ng-container>
-  </ng-template>
-</metutors-modal>
+    </ng-template>
+  </metutors-modal>
+</ng-container>

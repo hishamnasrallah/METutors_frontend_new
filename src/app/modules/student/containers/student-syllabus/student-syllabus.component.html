@@ -146,8 +146,7 @@
               <ng-container *ngIf="view.syllabus?.topics && view.syllabus?.topics?.length">
                 <div class="table-responsive" *ngIf="openCourse && selectedCourse === syllabus?.topic?.id"
                      [@slideInOut]>
-                  <table class="table">
-                    <thead>
+                  <table class="table my-table default-title">
                     <tr>
                       <th scope="col">Class Number</th>
                       <th scope="col">Class Subject</th>
@@ -155,8 +154,7 @@
                       <th scope="col">Start time - End time</th>
                       <th scope="col">Duration</th>
                     </tr>
-                    </thead>
-                    <tbody>
+
                     <tr *ngFor="let syllabusClass of syllabus?.topic?.classes; let i = index">
                       <td scope="row">{{ i + 1 }}</td>
                       <td>{{ syllabusClass?.title }}</td>
@@ -164,7 +162,6 @@
                       <td>{{ syllabusClass?.startTime + '-' + syllabusClass?.endTime }}</td>
                       <td>{{ syllabusClass?.duration + 'hrs' }}</td>
                     </tr>
-                    </tbody>
                   </table>
                 </div>
               </ng-container>

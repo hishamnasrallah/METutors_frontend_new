@@ -26,7 +26,10 @@
               <div class="url-info d-flex flex-column my-2">
                 <span>{{ url.title }}</span>
                 <strong class="d-flex align-items-center">
-                  {{ url.url }}  <a [href]="url.url" target="_blank" class="link"><mat-icon>link</mat-icon></a>
+                  {{ url.url }}  
+                  <a [href]="url.url" target="_blank" class="d-flex ms-2">
+                    <mat-icon>link</mat-icon>
+                  </a>
                 </strong>
               </div>
             </ng-container>
@@ -35,7 +38,7 @@
           <div class="form-group row">
             <label>Files</label>
             <ng-container *ngIf="view.data?.resource?.files && view.data?.resource?.files?.length">
-              <div class="col-md-4 list-files d-flex position-relative my-2"
+              <div class="col-md-6 list-files d-flex position-relative my-2"
                    *ngFor="let file of view.data?.resource?.files; let i = index">
                 <mat-icon>attach_file</mat-icon>
                 <div class="ms-2">

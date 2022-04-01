@@ -4,7 +4,7 @@
       <ng-container [ngSwitch]="view.loading">
         <ng-container *ngSwitchCase="false">
           <h1 class="title overflow-hidden">{{ view.data?.course?.courseName }}
-            <button mat-button class="cancel-course float-end f-size-15-sm text-danger text-decoration-underline" (click)="onShowCancelCourseModal()">Cancel Course</button>
+            <button mat-button class="float-end fw-bold" (click)="onShowCancelCourseModal()">Cancel Course</button>
           </h1>
           <div class="row list rounded">
             <div class="col-md-3 d-flex menu align-items-center">

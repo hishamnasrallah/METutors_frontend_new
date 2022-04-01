@@ -1,13 +1,9 @@
 .add-class-modal {
   .delete-icon {
-    width: 15px;
-    height: 15px;
-    font-size: 14px;
+    width: 16px;
+    height: 16px;
+    font-size: 16px;
     color: #696969;
-
-    &.file {
-      right: 0;
-    }
   }
 
   label {
@@ -35,7 +31,7 @@
 
   .list-files {
     >div {
-      width: calc(100% - (24px + 0.5rem));
+      width: 50%;
     }
 
     h3 {
@@ -57,14 +53,5 @@
 
   .add-url {
     line-height: 25px;
-  }
-
-  .delete {
-    top: -6px;
-    left: 35%;
-    width: 75px;
-    display: flex;
-    color: #979797;
-    position: absolute;
   }
 }

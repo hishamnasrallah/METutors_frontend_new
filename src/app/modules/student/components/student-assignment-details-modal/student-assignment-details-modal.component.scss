@@ -4,6 +4,10 @@
     font-size: 15px;
   }
 
+  h3 {
+    font-size: 25px;
+  }
+
   p {
     color: #696969;
   }
@@ -13,19 +17,15 @@
       color: #696969;
     }
 
-    .link {
-      margin: 6px 0 0 6px;
-    }
-
     strong {
       font-size: 18px;
       color: #2a2a2a;
       font-weight: 500;
 
       mat-icon {
-        width: 15px;
-        height: 15px;
-        font-size: 14px;
+        width: 20px;
+        height: 20px;
+        font-size: 20px;
         color: #696969;
       }
     }
@@ -33,7 +33,7 @@
 
   .list-files {
     >div {
-      width: calc(100% - (24px + 0.5rem));
+      width: 50%;
     }
 
     h3 {
@@ -57,21 +57,5 @@
     color: var(--main-color);
     font-weight: bold;
     font-size: 13px;
-    margin-top: -10px;
-  }
-
-  .edit-icon, .delete-icon {
-    top: -6px;
-    width: 75px;
-    display: flex;
-    color: #979797;
-    position: absolute;
-  }
-  .edit-icon {
-    left: 25%;
-  }
-
-  .delete-icon {
-    left: 30%;
   }
 }

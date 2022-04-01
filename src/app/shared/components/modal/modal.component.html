@@ -1,7 +1,20 @@
 <div class="dialog position-relative">
   <div class="d-flex align-items-center" mat-dialog-title *ngIf="showHeader">
     <h2 class="flex-grow-1 m-0 d-flex flex-column">
-      {{ heading }}
+      <div class="d-flex align-items-center">
+        {{ heading }}
+
+        <button mat-button class="btn action-icon p-0 ms-3" type="button" *ngIf="showEditIcon" (click)="editClicked.emit()">
+          <img src="assets/svg/edit-green.svg" draggable="false" width="15" height="15" />
+          Edit
+        </button>
+
+        <button mat-button class="btn action-icon p-0 ms-3" type="button" *ngIf="showDeleteIcon" (click)="deleteClicked.emit()" [disabled]="isDeletingAssignment">
+          <mat-icon class="delete">delete</mat-icon>
+          Delete
+          <mat-icon class="spinner" *ngIf="isDeletingAssignment">autorenew</mat-icon>
+        </button>
+      </div>
       <span class="d-block mt-2">{{ subHeading }}</span>
     </h2>
 

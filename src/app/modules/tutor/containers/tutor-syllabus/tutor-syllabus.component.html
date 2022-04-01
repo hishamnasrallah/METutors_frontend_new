@@ -152,7 +152,7 @@
                     </div>
                     <div class="col-md-2 d-flex align-items-center">
                       <button class="edit-data" mat-button (click)="onEditTopic(syllabus?.topic, view.syllabus?.unclassifiedClasses?.length)">
-                        <img src="assets/svg/pen-to-square-solid.svg" width="20" height="20" />
+                        <img src="assets/svg/edit.svg" width="20" height="20" />
                       </button>
                     </div>
                   </div>
@@ -194,7 +194,7 @@
                       <td>
                         <button class="edit-btn" mat-button *ngIf="subjectId !== syllabusClass.id"
                                 (click)="subjectId = syllabusClass.id; setSubjectTitle(syllabusClass.title)">
-                          <img src="assets/svg/pen-to-square-solid.svg" width="20" height="20" />
+                          <img src="assets/svg/edit.svg" width="20" height="20" />
                         </button>
                         <button class="save-topic-btn d-flex" mat-button [ngClass]="{'disabled': !subjectTitle?.value?.trim() || (isSavingSubjectTitle$ | async)}"
                                 [disabled]="!subjectTitle?.value?.trim() || (isSavingSubjectTitle$ | async)" *ngIf="subjectId === syllabusClass.id"

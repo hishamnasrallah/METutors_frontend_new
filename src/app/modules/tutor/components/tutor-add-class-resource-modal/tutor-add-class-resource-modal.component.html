@@ -1,5 +1,8 @@
 <metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'medium'" [heading]="heading"
-                [template]="template">
+                [template]="template"
+                [showDeleteIcon]="resourceId?.value ? true : false"
+                [isDeletingAssignment]="(isDeletingResource$ | async)!"
+                (deleteClicked)="deleted.emit(resourceId?.value)">
   <ng-template #template>
     <ng-container *ngLet="(view$ | async) as view">
       <ng-container [ngSwitch]="view?.loading">
@@ -15,12 +18,6 @@
         </ng-container>
 
         <form class="row add-class-modal" [formGroup]="form" (ngSubmit)="onSubmit()" *ngSwitchCase="false">
-          <button class="btn delete" *ngIf="resourceId?.value" type="button" (click)="deleted.emit(resourceId?.value)"
-                  [disabled]="(isDeletingResource$ | async)!">
-            Delete
-            <mat-icon class="spinner" *ngIf="(isDeletingResource$ | async)!">autorenew</mat-icon>
-          </button>
-
           <div class="col-12">
             <div class="form-group">
               <label for="description">Description<span class="text-danger">*</span></label>
@@ -78,14 +75,14 @@
               </ng-container>
 
               <div class="form-group row" *ngIf="(uploadedFiles$ | async)?.length">
-                <div class="col-md-4 list-files d-flex position-relative"
+                <div class="col-md-6 list-files d-flex align-items-center position-relative"
                      *ngFor="let file of (uploadedFiles$ | async); let i = index">
                   <mat-icon>attach_file</mat-icon>
-                  <div class="ms-2">
+                  <div class="ms-2 flex-grow-1">
                     <h3>{{ file?.url }}</h3>
                     <!--<h5>{{ filePreview?.size }}</h5>-->
                   </div>
-                  <mat-icon class="cursor-pointer ms-2 position-absolute delete-icon file" (click)="removeFile(file.id)">
+                  <mat-icon class="cursor-pointer ms-2 delete-icon" (click)="removeFile(file.id)">
                     cancel
                   </mat-icon>
                 </div>
@@ -96,7 +93,7 @@
               <div class="col-md-12 overflow-hidden">
                 <metutors-submit-button [form]="form" [isSubmitting]="submitting"
                                         [extraClasses]="'float-end py-1 px-5'">
-                  {{ this.resourceId?.value ? 'Edit' : 'Add'}}
+                  {{ this.resourceId?.value ? 'Edit' : 'Add' }}
                 </metutors-submit-button>
               </div>
             </div>
