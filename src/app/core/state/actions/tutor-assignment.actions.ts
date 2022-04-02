@@ -102,3 +102,18 @@ export const loadTutorStudentAssignmentDetailFailure = createAction(
   '[Tutor Assignment] Load Tutor Student Assignment Detail Failure',
   props<{ error: any }>()
 );
+
+export const tutorRejectAssignment = createAction(
+  '[Tutor Assignment] Tutor Reject Assignment',
+  props<{ body: any }>()
+);
+
+export const tutorRejectAssignmentSuccess = createAction(
+  '[Tutor Assignment] Tutor Reject Assignment Success',
+  props<{ message: string }>()
+);
+
+export const tutorRejectAssignmentFailure = createAction(
+  '[Tutor Assignment] Tutor Reject Assignment Failure',
+  props<{ error: any }>()
+);

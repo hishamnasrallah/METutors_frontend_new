@@ -13,8 +13,6 @@ import * as fromTutor from '@metutor/modules/tutor/state';
 import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
 
 import * as fromCore from '@metutor/core/state';
-import { selectViewAssignmentModal } from '@metutor/modules/tutor/state/reducers/tutor-modal.reducers';
-import { selectViewStudentAssignmentModal } from '@metutor/modules/tutor/state';
 
 @Component({
   selector: 'metutors-tutor-assignment',

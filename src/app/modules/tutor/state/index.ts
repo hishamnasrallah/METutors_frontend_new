@@ -83,3 +83,8 @@ export const selectViewStudentAssignmentModal = createSelector(
   selectTutorModalState,
   fromTutorModal.selectViewAssignmentModal
 );
+
+export const selectAcceptRejectAssignmentModal = createSelector(
+  selectTutorModalState,
+  fromTutorModal.selectAcceptRejectAssignmentModal
+);

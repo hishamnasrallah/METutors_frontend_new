@@ -16,28 +16,36 @@
           </p>
 
           <div class="form-group row">
-              <div class="col-md-6 list-files d-flex mt-3">
-                <mat-icon>attach_file</mat-icon>
-                <div class="ms-2">
-                  <h3>{{  view?.assignment?.assignment?.file}}</h3>
-                  <!--<h5>100MB</h5>-->
-                </div>
-                <a [href]="view?.assignment?.assignment?.file" target="_blank">
-                  <button mat-button class="add-url float-end">
-                    Download
-                  </button>
-                </a>
+            <div class="col-md-6 list-files d-flex mt-3">
+              <mat-icon>attach_file</mat-icon>
+              <div class="ms-2">
+                <h3>{{  view?.assignment?.assignment?.file}}</h3>
+                <!--<h5>100MB</h5>-->
               </div>
-              <div class="col-md-6"></div>
+              <a [href]="view?.assignment?.assignment?.file" target="_blank">
+                <button mat-button class="add-url float-end">
+                  Download
+                </button>
+              </a>
+            </div>
+            <div class="col-md-6"></div>
           </div>
 
           <div class="row mt-2">
             <div class="col-md-12 overflow-hidden">
-              <button mat-flat-button color="primary" class="float-end">Reject</button>
-              <button mat-button class="secondary-button-transparent float-end">Reject</button>
+              <button mat-flat-button color="primary" class="float-end">Accept</button>
+              <button mat-button class="secondary-button-transparent float-end" (click)="onOpenRejectAssignmentModal()">Reject</button>
             </div>
           </div>
         </div>
+
+        <metutors-tutor-accept-reject-assignment-modal *ngIf="showAcceptRejectAssignmentModal$ | async"
+                                                       [heading]="heading" [isReject]="isReject"
+                                                       [id]="view.assignment.assignment.assignmentId"
+                                                       [studentId]="view.assignment.assignment.userId"
+                                                       (closeModal)="onCloseAcceptRejectAssignmentModal()"
+                                                       [showModal]="(showAcceptRejectAssignmentModal$ | async)!">
+        </metutors-tutor-accept-reject-assignment-modal>
       </ng-container>
     </ng-container>
   </ng-template>

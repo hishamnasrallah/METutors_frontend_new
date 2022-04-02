@@ -91,3 +91,11 @@ export const openTutorViewStudentAssignmentModal = createAction(
 export const closeTutorViewStudentAssignmentModal = createAction(
   '[Tutor Modal] Close Tutor View Assignment Modal'
 );
+
+export const openAcceptRejectAssignmentModal = createAction(
+  '[Tutor Modal] Open Accept Reject Assignment Modal'
+);
+
+export const closeAcceptRejectAssignmentModal = createAction(
+  '[Tutor Modal] Close Accept Reject Assignment Modal'
+);

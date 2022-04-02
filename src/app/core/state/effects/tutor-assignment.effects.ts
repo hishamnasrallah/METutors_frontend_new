@@ -149,6 +149,28 @@ export class TutorAssignmentEffects {
     )
   );
 
+  tutorRejectAssignment$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorAssignmentActions.tutorRejectAssignment),
+      mergeMap(({ body }) =>
+        this._tutorService.tutorRejectAssignment(body).pipe(
+          map(() =>
+            tutorAssignmentActions.tutorRejectAssignmentSuccess({
+              message: 'Assignment successfully rejected',
+            })
+          ),
+          catchError((error) =>
+            of(
+              tutorAssignmentActions.tutorRejectAssignmentFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   loadTutorStudentAssignmentDetails$ = createEffect(() =>
     this._actions$.pipe(
       ofType(tutorAssignmentActions.loadTutorStudentAssignmentDetail),
@@ -181,6 +203,7 @@ export class TutorAssignmentEffects {
             tutorAssignmentActions.tutorAddAssignmentSuccess,
             tutorAssignmentActions.tutorEditAssignmentSuccess,
             tutorAssignmentActions.deleteTutorAssignmentSuccess,
+            tutorAssignmentActions.tutorRejectAssignmentSuccess,
           ]
         ),
         map(({ message }) => this._alertNotificationService.success(message))
@@ -198,6 +221,7 @@ export class TutorAssignmentEffects {
             tutorAssignmentActions.tutorAddAssignmentFailure,
             tutorAssignmentActions.tutorEditAssignmentFailure,
             tutorAssignmentActions.deleteTutorAssignmentFailure,
+            tutorAssignmentActions.tutorRejectAssignmentFailure,
           ]
         ),
         map((action) => {

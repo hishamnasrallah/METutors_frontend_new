@@ -11,6 +11,7 @@ export interface State {
   isLoadingAssignees: boolean;
   isAddingAssignment: boolean;
   isDeletingAssignment: boolean;
+  isRejectingAssignment: boolean;
   isLoadingTutorAssignment: boolean;
   isLoadingTutorAssignments: boolean;
   isLoadingTutorStudentAssignment: boolean;
@@ -24,6 +25,7 @@ export const initialState: State = {
   isLoadingAssignees: false,
   isAddingAssignment: false,
   isDeletingAssignment: false,
+  isRejectingAssignment: false,
   isLoadingTutorAssignment: false,
   isLoadingTutorAssignments: false,
   isLoadingTutorStudentAssignment: false,
@@ -218,7 +220,21 @@ export const reducer = createReducer(
       ...state,
       isLoadingTutorStudentAssignment: false,
     })
-  )
+  ),
+  on(tutorAssignmentActions.tutorRejectAssignment, (state) => ({
+    ...state,
+    isRejectingAssignment: true,
+  })),
+
+  on(tutorAssignmentActions.tutorRejectAssignmentSuccess, (state) => ({
+    ...state,
+    isRejectingAssignment: false,
+  })),
+
+  on(tutorAssignmentActions.tutorRejectAssignmentFailure, (state) => ({
+    ...state,
+    isRejectingAssignment: false,
+  }))
 );
 
 export const selectTutorAssignments = (state: State): any => state.assignments;
@@ -249,6 +265,9 @@ export const selectTutorStudentAssignment = (state: State): boolean =>
 
 export const selectIsLoadingTutorStudentAssignment = (state: State): boolean =>
   state.isLoadingTutorStudentAssignment;
+
+export const selectIsRejectingAssignment = (state: State): boolean =>
+  state.isRejectingAssignment;
 
 export const selectTutorFilteredAssignments = (
   state: State,

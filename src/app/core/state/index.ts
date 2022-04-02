@@ -331,6 +331,11 @@ export const selectIsLoadingTutorViewStudentAssignment = createSelector(
   fromTutorAssignmentReducer.selectIsLoadingTutorStudentAssignment
 );
 
+export const selectIsRejectingAssignment = createSelector(
+  selectTutorAssignmentState,
+  fromTutorAssignmentReducer.selectIsRejectingAssignment
+);
+
 /**
  * ========================== STUDENT ==============================
  */
