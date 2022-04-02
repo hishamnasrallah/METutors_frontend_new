@@ -2,6 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 
 import * as tutorAssignmentActions from '../actions/tutor-assignment.actions';
 import * as moment from 'moment';
+import { tutorResetSelectedAssignment } from '../actions/tutor-assignment.actions';
 
 export interface State {
   assignees: any;
@@ -246,7 +247,12 @@ export const reducer = createReducer(
       ...state,
       isAcceptRejectAssignment: false,
     })
-  )
+  ),
+
+  on(tutorAssignmentActions.tutorResetSelectedAssignment, (state) => ({
+    ...state,
+    assignment: null,
+  }))
 );
 
 export const selectTutorAssignments = (state: State): any => state.assignments;

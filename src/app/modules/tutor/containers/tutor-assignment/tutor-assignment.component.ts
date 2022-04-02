@@ -56,7 +56,11 @@ export class TutorAssignmentComponent implements OnInit {
   constructor(private _store: Store<any>) {}
 
   onOpenAddAssignment() {
+    const params = {
+      heading: 'Add New Assignment',
+    };
     this._store.dispatch(fromTutorAction.openTutorAddAssignmentModal());
+    this._store.dispatch(fromTutorAction.setTutorStateParams({ params }));
   }
 
   onCloseAddAssignment() {
@@ -64,6 +68,11 @@ export class TutorAssignmentComponent implements OnInit {
   }
 
   onOpenEditAssignmentModal(id: number): void {
+    const params = {
+      heading: 'Edit Assignment',
+    };
+
+    this._store.dispatch(fromTutorAction.setTutorStateParams({ params }));
     this._store.dispatch(fromTutorAction.openTutorEditAssignmentModal({ id }));
   }
 

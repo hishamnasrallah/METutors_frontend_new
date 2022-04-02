@@ -26,6 +26,11 @@ export class TutorAssignmentDetailsModalComponent implements OnInit {
   }
 
   openEditAssignmentModal(id: number): void {
+    const params = {
+      heading: 'Edit Assignment',
+    };
+
+    this._store.dispatch(fromTutorAction.setTutorStateParams({ params }));
     this._store.dispatch(fromTutorAction.openTutorEditAssignmentModal({ id }));
   }
 

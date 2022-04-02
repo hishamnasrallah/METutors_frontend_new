@@ -12,7 +12,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { generalConstants } from '@config';
 import * as fromCore from '@metutor/core/state';
-import { selectTutorAssignmentAssignees } from '@metutor/core/state/reducers/tutor-assignment.reducer';
+import * as fromTutor from '@metutor/modules/tutor/state';
 
 @Component({
   selector: 'metutors-tutor-add-assignment-modal',
@@ -30,6 +30,7 @@ export class TutorAddAssignmentModalComponent implements OnInit {
   selectedURLs: any[] = [];
   filesPreview: any[] = [];
 
+  params$: Observable<any>;
   assignees$: Observable<any>;
   uploadedFiles$: Observable<any>;
   fileUploadProgress$: Observable<any>;
@@ -40,6 +41,10 @@ export class TutorAddAssignmentModalComponent implements OnInit {
   constructor(private _fb: FormBuilder, private _store: Store<any>) {}
 
   ngOnInit(): void {
+    this._store.dispatch(fromCore.resetUploadedFiles());
+    this._store.dispatch(fromCore.tutorResetSelectedAssignment());
+    this.params$ = this._store.select(fromTutor.selectTutorStateParams);
+
     this.form = this._fb.group({
       id: [null],
       files: [null, Validators.required],

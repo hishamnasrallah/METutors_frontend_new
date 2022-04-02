@@ -132,3 +132,7 @@ export const tutorAcceptAssignmentFailure = createAction(
   '[Tutor Assignment] Tutor Accept Assignment Failure',
   props<{ error: any }>()
 );
+
+export const tutorResetSelectedAssignment = createAction(
+  '[Tutor Assignment] Tutor Reset Selected Assignment'
+);
