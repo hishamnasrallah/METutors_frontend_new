@@ -9,10 +9,10 @@ import {
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Component, OnInit } from '@angular/core';
-import * as fromTutor from '@metutor/modules/tutor/state';
-import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
 
 import * as fromCore from '@metutor/core/state';
+import * as fromTutor from '@metutor/modules/tutor/state';
+import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
 
 @Component({
   selector: 'metutors-tutor-assignment',
@@ -44,6 +44,7 @@ export class TutorAssignmentComponent implements OnInit {
   showAddAssignmentModal$: Observable<boolean>;
   showAssignmentDetailsModal$: Observable<boolean>;
   showViewStudentAssignmentModal$: Observable<boolean>;
+  showAcceptRejectAssignmentModal$: Observable<boolean>;
 
   loading$: Observable<boolean>;
   assignments$: Observable<any>;
@@ -74,6 +75,10 @@ export class TutorAssignmentComponent implements OnInit {
 
   onCloseAssignmentDetails() {
     this._store.dispatch(fromTutorAction.closeTutorAssignmentDetailsModal());
+  }
+
+  onCloseAcceptRejectAssignmentModal() {
+    this._store.dispatch(fromTutorAction.closeAcceptRejectAssignmentModal());
   }
 
   onCloseTutorViewStudentAssignmentModal() {
@@ -116,6 +121,10 @@ export class TutorAssignmentComponent implements OnInit {
 
     this.loading$ = this._store.select(
       fromCore.selectIsLoadingTutorAssignments
+    );
+
+    this.showAcceptRejectAssignmentModal$ = this._store.select(
+      fromTutor.selectAcceptRejectAssignmentModal
     );
 
     this.assignments$ = this._store.select(

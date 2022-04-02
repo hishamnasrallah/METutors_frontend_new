@@ -88,3 +88,8 @@ export const selectAcceptRejectAssignmentModal = createSelector(
   selectTutorModalState,
   fromTutorModal.selectAcceptRejectAssignmentModal
 );
+
+export const selectTutorStateParams = createSelector(
+  selectTutorModalState,
+  fromTutorModal.selectTutorStateParams
+);

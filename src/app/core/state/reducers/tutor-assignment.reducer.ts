@@ -11,7 +11,7 @@ export interface State {
   isLoadingAssignees: boolean;
   isAddingAssignment: boolean;
   isDeletingAssignment: boolean;
-  isRejectingAssignment: boolean;
+  isAcceptRejectAssignment: boolean;
   isLoadingTutorAssignment: boolean;
   isLoadingTutorAssignments: boolean;
   isLoadingTutorStudentAssignment: boolean;
@@ -25,7 +25,7 @@ export const initialState: State = {
   isLoadingAssignees: false,
   isAddingAssignment: false,
   isDeletingAssignment: false,
-  isRejectingAssignment: false,
+  isAcceptRejectAssignment: false,
   isLoadingTutorAssignment: false,
   isLoadingTutorAssignments: false,
   isLoadingTutorStudentAssignment: false,
@@ -221,20 +221,32 @@ export const reducer = createReducer(
       isLoadingTutorStudentAssignment: false,
     })
   ),
-  on(tutorAssignmentActions.tutorRejectAssignment, (state) => ({
-    ...state,
-    isRejectingAssignment: true,
-  })),
+  on(
+    tutorAssignmentActions.tutorRejectAssignment,
+    tutorAssignmentActions.tutorAcceptAssignment,
+    (state) => ({
+      ...state,
+      isAcceptRejectAssignment: true,
+    })
+  ),
 
-  on(tutorAssignmentActions.tutorRejectAssignmentSuccess, (state) => ({
-    ...state,
-    isRejectingAssignment: false,
-  })),
+  on(
+    tutorAssignmentActions.tutorRejectAssignmentSuccess,
+    tutorAssignmentActions.tutorAcceptAssignmentSuccess,
+    (state) => ({
+      ...state,
+      isAcceptRejectAssignment: false,
+    })
+  ),
 
-  on(tutorAssignmentActions.tutorRejectAssignmentFailure, (state) => ({
-    ...state,
-    isRejectingAssignment: false,
-  }))
+  on(
+    tutorAssignmentActions.tutorRejectAssignmentFailure,
+    tutorAssignmentActions.tutorAcceptAssignmentFailure,
+    (state) => ({
+      ...state,
+      isAcceptRejectAssignment: false,
+    })
+  )
 );
 
 export const selectTutorAssignments = (state: State): any => state.assignments;
@@ -266,8 +278,8 @@ export const selectTutorStudentAssignment = (state: State): boolean =>
 export const selectIsLoadingTutorStudentAssignment = (state: State): boolean =>
   state.isLoadingTutorStudentAssignment;
 
-export const selectIsRejectingAssignment = (state: State): boolean =>
-  state.isRejectingAssignment;
+export const selectIsAcceptRejectAssignment = (state: State): boolean =>
+  state.isAcceptRejectAssignment;
 
 export const selectTutorFilteredAssignments = (
   state: State,

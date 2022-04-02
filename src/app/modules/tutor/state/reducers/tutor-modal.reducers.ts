@@ -4,12 +4,14 @@ import * as fromCore from '@metutor/core/state';
 import * as tutorModalActions from '../actions/tutor-modal.actions';
 
 export interface State {
+  params: any;
   showAddTopicModal: boolean;
   showRejectCourseModal: boolean;
   showCancelCourseModal: boolean;
   showSendFeedbackModal: boolean;
   showAddAssignmentModal: boolean;
   showViewAssignmentModal: boolean;
+  acceptRejectModalHeading: string;
   showCourseAttendanceModal: boolean;
   showAddClassResourceModal: boolean;
   showAssignmentDetailsModal: boolean;
@@ -17,7 +19,9 @@ export interface State {
 }
 
 export const initialState: State = {
+  params: null,
   showAddTopicModal: false,
+  acceptRejectModalHeading: '',
   showRejectCourseModal: false,
   showCancelCourseModal: false,
   showSendFeedbackModal: false,
@@ -159,12 +163,23 @@ export const reducer = createReducer(
 
   on(tutorModalActions.openAcceptRejectAssignmentModal, (state) => ({
     ...state,
+    showViewAssignmentModal: false,
     showAcceptRejectAssignmentModal: true,
   })),
 
-  on(tutorModalActions.closeAcceptRejectAssignmentModal, (state) => ({
+  on(
+    fromCore.tutorRejectAssignmentSuccess,
+    fromCore.tutorAcceptAssignmentSuccess,
+    tutorModalActions.closeAcceptRejectAssignmentModal,
+    (state) => ({
+      ...state,
+      showAcceptRejectAssignmentModal: false,
+    })
+  ),
+
+  on(tutorModalActions.setTutorStateParams, (state, { params }) => ({
     ...state,
-    showAcceptRejectAssignmentModal: false,
+    params,
   }))
 );
 
@@ -198,3 +213,5 @@ export const selectViewAssignmentModal = (state: State): boolean =>
 
 export const selectAcceptRejectAssignmentModal = (state: State): boolean =>
   state.showAcceptRejectAssignmentModal;
+
+export const selectTutorStateParams = (state: State): any => state.params;

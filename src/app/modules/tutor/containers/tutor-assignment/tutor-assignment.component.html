@@ -175,6 +175,12 @@
                                                    (closeModal)="onCloseTutorViewStudentAssignmentModal()"
                                                    [showModal]="(showViewStudentAssignmentModal$ | async)!">
           </metutors-tutor-view-submitted-assignment-modal>
+
+          <metutors-tutor-accept-reject-assignment-modal *ngIf="showAcceptRejectAssignmentModal$ | async"
+                                                         (closeModal)="onCloseAcceptRejectAssignmentModal()"
+                                                         [showModal]="(showAcceptRejectAssignmentModal$ | async)!">
+          </metutors-tutor-accept-reject-assignment-modal>
+
         </ng-container>
       </ng-container>
     </ng-container>

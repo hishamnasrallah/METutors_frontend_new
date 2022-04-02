@@ -99,3 +99,8 @@ export const openAcceptRejectAssignmentModal = createAction(
 export const closeAcceptRejectAssignmentModal = createAction(
   '[Tutor Modal] Close Accept Reject Assignment Modal'
 );
+
+export const setTutorStateParams = createAction(
+  '[Tutor Modal] Set Tutor State Params',
+  props<{ params: any }>()
+);

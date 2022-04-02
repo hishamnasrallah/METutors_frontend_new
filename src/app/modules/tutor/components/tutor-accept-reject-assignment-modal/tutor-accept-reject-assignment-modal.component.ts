@@ -1,4 +1,3 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   FormGroup,
   Validators,
@@ -6,10 +5,13 @@ import {
   AbstractControl,
 } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { generalConstants } from '@config';
-import * as fromCore from '@metutor/core/state';
 import { Store } from '@ngrx/store';
 import { tap } from 'rxjs/operators';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+
+import { generalConstants } from '@config';
+import * as fromCore from '@metutor/core/state';
+import * as fromTutor from '@metutor/modules/tutor/state';
 
 @Component({
   selector: 'metutors-tutor-accept-reject-assignment-modal',
@@ -17,17 +19,14 @@ import { tap } from 'rxjs/operators';
   styleUrls: ['./tutor-accept-reject-assignment-modal.component.scss'],
 })
 export class TutorAcceptRejectAssignmentModalComponent implements OnInit {
-  @Input() id: number;
-  @Input() heading: string;
-  @Input() isReject: boolean;
   @Input() showModal = false;
-  @Input() studentId: number;
 
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
 
   form: FormGroup;
-  isSubmitting: boolean;
-  isDeletingTopic: boolean;
+  isReject: boolean;
+  params$: Observable<any>;
+  isSubmitting$: Observable<any>;
   uploadedFiles$: Observable<any>;
   fileUploadProgress$: Observable<any>;
   uploadComplete = generalConstants.uploadComplete;
@@ -36,6 +35,14 @@ export class TutorAcceptRejectAssignmentModalComponent implements OnInit {
 
   get rating(): AbstractControl | null {
     return this.form.get('rating');
+  }
+
+  get id(): AbstractControl | null {
+    return this.form.get('id');
+  }
+
+  get studentId(): AbstractControl | null {
+    return this.form.get('student_id');
   }
 
   get file(): AbstractControl | null {
@@ -66,24 +73,40 @@ export class TutorAcceptRejectAssignmentModalComponent implements OnInit {
 
     if (this.isReject) {
       this._store.dispatch(fromCore.tutorRejectAssignment({ body }));
+    } else {
+      this._store.dispatch(fromCore.tutorAcceptAssignment({ body }));
     }
   }
 
   ngOnInit(): void {
     this.form = this._fb.group({
+      id: [null, Validators.required],
       file: [null, Validators.required],
-      id: [this.id, Validators.required],
       review: [null, Validators.required],
       rating: [null, Validators.required],
-      student_id: [this.studentId, Validators.required],
+      student_id: [null, Validators.required],
     });
 
     this.fileUploadProgress$ = this._store.select(
       fromCore.selectFileUploadingProgress
     );
 
+    this.isSubmitting$ = this._store.select(
+      fromCore.selectIsAcceptRejectAssignment
+    );
+
     this.uploadedFiles$ = this._store
       .select(fromCore.selectUploadedFiles)
       .pipe(tap((files) => this.file?.setValue(files)));
+
+    this.params$ = this._store.select(fromTutor.selectTutorStateParams).pipe(
+      tap((data: any) => {
+        if (data) {
+          this.id?.setValue(data.id);
+          this.isReject = data.isReject;
+          this.studentId?.setValue(data.userId);
+        }
+      })
+    );
   }
 }
