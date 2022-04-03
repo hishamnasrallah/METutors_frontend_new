@@ -96,10 +96,16 @@ export class TutorAssignmentComponent implements OnInit {
     );
   }
 
-  openViewStudentAssignmentModal(id: number, userId: number): void {
-    this._store.dispatch(
-      fromTutorAction.openTutorViewStudentAssignmentModal({ id, userId })
-    );
+  openViewStudentAssignmentModal(
+    id: number,
+    userId: number,
+    status: string
+  ): void {
+    if (status === 'submitted' || status === 'completed') {
+      this._store.dispatch(
+        fromTutorAction.openTutorViewStudentAssignmentModal({ id, userId })
+      );
+    }
   }
 
   filterAssignments(status: string): void {

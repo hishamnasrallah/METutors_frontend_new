@@ -32,7 +32,7 @@
             <div class="url-info d-flex flex-column my-2" *ngFor="let urlInfo of view.assignment?.assignment?.urls">
               <span>{{ urlInfo?.title }}</span>
               <strong class="d-flex align-items-center">
-                {{ urlInfo?.url }} 
+                {{ urlInfo?.url }}
                 <a [href]="urlInfo?.url" target="_blank" class="ms-3 d-flex align-items-center">
                   <mat-icon>link</mat-icon>
                 </a>
@@ -57,8 +57,8 @@
 
           <div class="form-group row">
             <div class="">
-              <button mat-flat-button color="primary" class="fw-bold float-end" *ngIf="view.assignment?.assignment?.userAssignmentStatus !=='submitted'" (click)="onOpenSubmitAssignmentModal()">Submit Assignment</button>
-              <button mat-flat-button color="primary" class="fw-bold float-end" *ngIf="view.assignment?.assignment?.userAssignmentStatus ==='submitted'" (click)="onOpenSubmittedAssignmentModal(view.assignment.assignment.id)">View Submitted Assignment</button>
+              <button mat-flat-button color="primary" class="fw-bold float-end" *ngIf="view.assignment?.assignment?.userAssignmentStatus !=='completed' && view.assignment?.assignment?.userAssignmentStatus !=='submitted'" (click)="onOpenSubmitAssignmentModal()">Submit Assignment</button>
+              <button mat-flat-button color="primary" class="fw-bold float-end" *ngIf="view.assignment?.assignment?.userAssignmentStatus ==='completed' || view.assignment?.assignment?.userAssignmentStatus ==='submitted'" (click)="onOpenSubmittedAssignmentModal(view.assignment.assignment.id)">View Submitted Assignment</button>
             </div>
           </div>
         </div>
