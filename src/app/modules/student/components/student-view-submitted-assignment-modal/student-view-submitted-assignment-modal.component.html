@@ -18,8 +18,8 @@
             <label>File</label>
             <div class="col-md-6 list-files d-flex mt-3">
               <mat-icon>attach_file</mat-icon>
-              <div class="ms-2">
-                <h3>{{ view?.assignment?.assignment?.file}}</h3>
+              <div class="ms-2" *ngFor="let file of view?.assignment?.assignment?.file">
+                <h3>{{ file.url}}</h3>
                 <!--<h5>100MB</h5>-->
               </div>
             </div>

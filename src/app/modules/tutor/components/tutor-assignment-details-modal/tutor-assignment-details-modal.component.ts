@@ -40,7 +40,20 @@ export class TutorAssignmentDetailsModalComponent implements OnInit {
     );
 
     this.view$ = combineLatest([
-      this._store.select(fromCore.selectTutorAssignment),
+      this._store.select(fromCore.selectTutorAssignment).pipe(
+        map((assignment: any) => {
+          const answerReceived = assignment?.assignment?.assignees.filter(
+            (assignee: any) =>
+              assignee?.status === 'submitted' ||
+              assignee?.status === 'completed'
+          );
+
+          return {
+            ...assignment?.assignment,
+            answerReceived,
+          };
+        })
+      ),
       this._store.select(fromCore.selectIsLoadingTutorAssignment),
     ]).pipe(map(([assignment, loading]) => ({ loading, assignment })));
   }

@@ -18,8 +18,8 @@
           <div class="form-group row" *ngIf="view?.assignment?.assignment?.file">
             <div class="col-md-6 list-files d-flex align-items-center">
               <mat-icon>attach_file</mat-icon>
-              <div class="ms-2 flex-grow-1">
-                <h3>{{  view?.assignment?.assignment?.file }}</h3>
+              <div class="ms-2" *ngFor="let file of view?.assignment?.assignment?.file">
+                <h3>{{ file.url}}</h3>
                 <!--<h5>100MB</h5>-->
               </div>
               <a [href]="view?.assignment?.assignment?.file" target="_blank" mat-button class="add-url float-end">
