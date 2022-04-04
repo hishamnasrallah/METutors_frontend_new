@@ -7,8 +7,8 @@
         <div class="assignment-details-modal" *ngSwitchCase="false">
           <label>Submitted By</label>
           <div class="d-flex align-items-center mt-1 mb-4 title-info">
-            <img src="" meTutorsDefaultAvatar alt="" class="rounded-circle" width="50" height="50">
-            <h3 class="ms-2 mb-0">Ahmed Hassan</h3>
+            <img [src]="view?.assignment?.assignment?.user?.avatar" meTutorsDefaultAvatar alt="" class="rounded-circle" width="50" height="50">
+            <h3 class="ms-2 mb-0">{{ view?.assignment?.assignment?.user?.firstName }} {{ view?.assignment?.assignment?.user?.lastName }}</h3>
           </div>
 
           <label>Time received by student</label>
