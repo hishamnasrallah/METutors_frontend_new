@@ -4,12 +4,12 @@
       <div class="d-flex align-items-center">
         {{ heading }}
 
-        <button mat-button class="btn action-icon p-0 ms-3" type="button" *ngIf="showEditIcon" (click)="editClicked.emit()">
-          <img src="assets/svg/edit-green.svg" draggable="false" width="15" height="15" />
+        <button mat-button class="btn action-icon p-0 ms-3" type="button" tabindex="-1" *ngIf="showEditIcon" (click)="editClicked.emit()">
+          <img src="assets/svg/edit-green.svg" draggable="false" width="15" height="15" alt=""/>
           Edit
         </button>
 
-        <button mat-button class="btn action-icon p-0 ms-3" type="button" *ngIf="showDeleteIcon" (click)="deleteClicked.emit()" [disabled]="isDeletingAssignment">
+        <button mat-button class="btn action-icon p-0 ms-3" tabindex="-1" type="button" *ngIf="showDeleteIcon" (click)="deleteClicked.emit()" [disabled]="isDeletingAssignment">
           <mat-icon class="delete">delete</mat-icon>
           Delete
           <mat-icon class="spinner" *ngIf="isDeletingAssignment">autorenew</mat-icon>

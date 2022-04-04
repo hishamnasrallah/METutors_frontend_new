@@ -7,11 +7,16 @@
     .action-icon {
       min-width: 0;
 
+      img {
+        margin-top: -5px;
+      }
+
       .delete {
         color: #FF385C;
         font-size: 17px;
         width: 15px;
         height: 15px;
+        margin-top: -5px;
       }
 
       span {
