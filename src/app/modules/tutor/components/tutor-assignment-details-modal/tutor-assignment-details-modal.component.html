@@ -15,10 +15,9 @@
           <div class="d-flex justify-content-between">
             <h3>{{ view?.assignment?.assignment?.title }}</h3>
             <div class="overflow-visible logos">
-              <img meTutorsDefaultAvatar src="" alt="" draggable="false" class="d-inline-block rounded-circle">
-              <img meTutorsDefaultAvatar src="" alt="" draggable="false" class="d-inline-block rounded-circle">
-              <img meTutorsDefaultAvatar src="" alt="" draggable="false" class="d-inline-block rounded-circle">
-              <img meTutorsDefaultAvatar src="" alt="" draggable="false" class="d-inline-block rounded-circle">
+              <ng-container *ngFor="let assignee of view?.assignment?.assignment.assignees">
+               <img meTutorsDefaultAvatar [src]="assignee?.user?.avatar" alt="" draggable="false" class="d-inline-block rounded-circle">
+              </ng-container>
             </div>
           </div>
           <div class="row list-items md-item">
@@ -46,7 +45,7 @@
             <div class="url-info d-flex flex-column my-2" *ngFor="let urlInfo of view.assignment?.assignment?.urls">
               <span>{{ urlInfo?.title }}</span>
               <strong class="d-flex align-items-center">
-                {{ urlInfo?.url }} 
+                {{ urlInfo?.url }}
                 <a [href]="urlInfo?.url" target="_blank" class="ms-3 d-flex align-items-center">
                   <mat-icon>link</mat-icon>
                 </a>
