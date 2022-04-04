@@ -28,8 +28,6 @@ export class CompleteTutorProfileComponent implements OnInit {
   countries$: Observable<ICountry[] | null>;
   languages$: Observable<ILanguage[] | null>;
 
-  countries!: ICountry[];
-
   constructor(private _store: Store<any>) {}
 
   ngOnInit(): void {
@@ -48,16 +46,8 @@ export class CompleteTutorProfileComponent implements OnInit {
     this._store.dispatch(fromCore.completeTutorProfile({ data, nextStep }));
   }
 
-  loadCities(countryName: string): void {
-    let countryId: number = 0;
-
-    this.countries.forEach((country) => {
-      if (country?.name === countryName) {
-        countryId = country?.id;
-      }
-    });
-
-    this._prepareCitiesByCountryId(countryId.toString());
+  loadCities(countryId: string): void {
+    this._prepareCitiesByCountryId(countryId);
   }
 
   fetchFieldSubject(fieldId: string): void {
@@ -67,13 +57,7 @@ export class CompleteTutorProfileComponent implements OnInit {
 
   private _prepareCountries(): void {
     this._store.dispatch(fromCore.loadCountries());
-    this.countries$ = this._store.select(fromCore.selectCountries).pipe(
-      tap((countries) => {
-        if (countries && countries.length) {
-          this.countries = countries;
-        }
-      })
-    );
+    this.countries$ = this._store.select(fromCore.selectCountries);
   }
 
   private _prepareLanguages(): void {

@@ -26,6 +26,7 @@ export const modalSize = {
   template: '',
 })
 export class ModalComponent implements OnInit, OnDestroy {
+  @Input() status = '';
   @Input() heading = '';
   @Input() subHeading = '';
   @Input() size = 'medium';
@@ -48,6 +49,7 @@ export class ModalComponent implements OnInit, OnDestroy {
         disableClose: true,
         width: modalSize[this.size],
         data: {
+          status: this.status,
           heading: this.heading,
           template: this.template,
           showHeader: this.showHeader,
@@ -85,6 +87,7 @@ export class ModalComponent implements OnInit, OnDestroy {
   styleUrls: ['./modal.component.scss'],
 })
 export class ModalComponentTemplate implements OnInit {
+  status: string;
   heading: string;
   subHeading: string;
   showHeader: boolean;
@@ -102,6 +105,7 @@ export class ModalComponentTemplate implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.status = this.data.status;
     this.heading = this.data.heading;
     this.template = this.data.template;
     this.subHeading = this.data.subHeading;

@@ -180,6 +180,8 @@ export class LookupsService {
             id: item.id,
             name: item.name,
             programId: item?.program_id,
+            countryId: item?.country_id,
+            grade: item?.grade,
           }));
         })
       )

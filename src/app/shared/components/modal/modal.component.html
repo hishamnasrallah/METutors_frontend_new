@@ -4,6 +4,7 @@
       <div class="d-flex align-items-center">
         {{ heading }}
 
+        <span class="status-icon text-capitalize ms-2" *ngIf="status" [ngClass]="status">{{ status }}</span>
         <button mat-button class="btn action-icon p-0 ms-3" type="button" tabindex="-1" *ngIf="showEditIcon" (click)="editClicked.emit()">
           <img src="assets/svg/edit-green.svg" draggable="false" width="15" height="15" alt=""/>
           Edit

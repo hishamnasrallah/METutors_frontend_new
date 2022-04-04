@@ -24,7 +24,7 @@ export interface State {
 
 export const initialState: State = {
   user: null,
-  profileStep: 1,
+  profileStep: 5,
   isSignIn: false,
   isChangePassword: false,
   isSubmitOTPAdmin: false,
@@ -93,11 +93,11 @@ export const reducer = createReducer(
     })
   ),
 
-  on(userActions.identifyUserSuccess, (state, { profileStep, user }) => ({
-    ...state,
-    profileStep,
-    user,
-  })),
+  // on(userActions.identifyUserSuccess, (state, { profileStep, user }) => ({
+  //   ...state,
+  //   profileStep,
+  //   user,
+  // })),
 
   on(userActions.changePassword, (state) => ({
     ...state,
