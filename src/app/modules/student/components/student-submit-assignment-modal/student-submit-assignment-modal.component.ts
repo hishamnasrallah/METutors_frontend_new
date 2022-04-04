@@ -54,6 +54,7 @@ export class StudentSubmitAssignmentModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this._store.dispatch(fromCore.resetUploadedFiles());
     this.fileUploadProgress$ = this._store.select(
       fromCore.selectFileUploadingProgress
     );

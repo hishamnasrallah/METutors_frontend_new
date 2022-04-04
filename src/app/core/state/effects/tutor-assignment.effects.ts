@@ -156,6 +156,8 @@ export class TutorAssignmentEffects {
         this._tutorService.tutorRejectAssignment(body).pipe(
           map(() =>
             tutorAssignmentActions.tutorRejectAssignmentSuccess({
+              status: 'rejected',
+              assignmentId: body.id,
               message: 'Assignment successfully rejected',
             })
           ),
@@ -178,6 +180,8 @@ export class TutorAssignmentEffects {
         this._tutorService.tutorAcceptAssignment(body).pipe(
           map(() =>
             tutorAssignmentActions.tutorAcceptAssignmentSuccess({
+              status: 'completed',
+              assignmentId: body.id,
               message: 'Assignment successfully accepted',
             })
           ),

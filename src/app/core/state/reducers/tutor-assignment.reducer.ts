@@ -232,8 +232,8 @@ export const reducer = createReducer(
   ),
 
   on(
-    tutorAssignmentActions.tutorRejectAssignmentSuccess,
-    tutorAssignmentActions.tutorAcceptAssignmentSuccess,
+    tutorAssignmentActions.tutorRejectAssignmentFailure,
+    tutorAssignmentActions.tutorAcceptAssignmentFailure,
     (state) => ({
       ...state,
       isAcceptRejectAssignment: false,
@@ -241,12 +241,57 @@ export const reducer = createReducer(
   ),
 
   on(
-    tutorAssignmentActions.tutorRejectAssignmentFailure,
-    tutorAssignmentActions.tutorAcceptAssignmentFailure,
-    (state) => ({
-      ...state,
-      isAcceptRejectAssignment: false,
-    })
+    tutorAssignmentActions.tutorRejectAssignmentSuccess,
+    tutorAssignmentActions.tutorAcceptAssignmentSuccess,
+    (state, { status, assignmentId }) => {
+      const finalState = {
+        ...state,
+        isAcceptRejectAssignment: false,
+      };
+
+      const _assignments = finalState.assignments?.course?.assignments;
+
+      if (_assignments?.length) {
+        let assignments = [];
+
+        for (let i = 0; i < _assignments.length; i++) {
+          let assignees = [];
+
+          if (_assignments[i].assignees?.length) {
+            for (let j = 0; j < _assignments[i].assignees.length; j++) {
+              if (_assignments[i].assignees[j].assignmentId === assignmentId) {
+                const assignee = {
+                  ..._assignments[i].assignees[j],
+                  status,
+                };
+                assignees.push(assignee);
+              } else {
+                assignees.push(_assignments[i].assignees[j]);
+              }
+            }
+          }
+
+          const assignment = {
+            ..._assignments[i],
+            assignees,
+          };
+
+          assignments.push(assignment);
+        }
+
+        const course = {
+          ...finalState.assignments.course,
+          assignments,
+        };
+
+        finalState.assignments = {
+          ...finalState.assignments,
+          course,
+        };
+      }
+
+      return finalState;
+    }
   ),
 
   on(tutorAssignmentActions.tutorResetSelectedAssignment, (state) => ({

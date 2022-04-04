@@ -80,8 +80,8 @@ export class TutorAcceptRejectAssignmentModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this._fb.group({
+      file: [null],
       id: [null, Validators.required],
-      file: [null, Validators.required],
       review: [null, Validators.required],
       rating: [null, Validators.required],
       student_id: [null, Validators.required],

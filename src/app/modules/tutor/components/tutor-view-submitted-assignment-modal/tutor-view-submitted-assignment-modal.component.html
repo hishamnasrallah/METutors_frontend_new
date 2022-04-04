@@ -41,7 +41,7 @@
               <p class="mb-1">
                 {{ view?.assignment?.assignment?.feedback[0]?.review }}
               </p>
-              <p class="mb-0">
+              <p class="mt-2">
                 <span class="grade">Grade Rating: </span>
                 <span> {{ view?.assignment?.assignment?.feedback[0]?.rating }} on a scale of 10 </span>
               </p>
@@ -51,7 +51,7 @@
               <div class="col-md-6 list-files d-flex align-items-center">
                 <mat-icon>attach_file</mat-icon>
                 <div class="ms-2 flex-grow-1">
-                  <h3>{{ view?.assignment?.assignment?.feedback[0]?.file }}</h3>
+                  <h3>{{ view?.assignment?.assignment?.feedback[0]?.file?.url }}</h3>
                   <!--<h5>100MB</h5>-->
                 </div>
               </div>

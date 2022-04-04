@@ -110,7 +110,7 @@ export const tutorRejectAssignment = createAction(
 
 export const tutorRejectAssignmentSuccess = createAction(
   '[Tutor Assignment] Tutor Reject Assignment Success',
-  props<{ message: string }>()
+  props<{ assignmentId: number; status: string; message: string }>()
 );
 
 export const tutorRejectAssignmentFailure = createAction(
@@ -125,7 +125,7 @@ export const tutorAcceptAssignment = createAction(
 
 export const tutorAcceptAssignmentSuccess = createAction(
   '[Tutor Assignment] Tutor Accept Assignment Success',
-  props<{ message: string }>()
+  props<{ assignmentId: number; status: string; message: string }>()
 );
 
 export const tutorAcceptAssignmentFailure = createAction(
