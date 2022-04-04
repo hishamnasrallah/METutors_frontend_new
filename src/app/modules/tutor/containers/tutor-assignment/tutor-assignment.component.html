@@ -114,7 +114,7 @@
                     <div class="col d-flex menu align-items-center">
                       <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
                       <strong>Answer received:</strong>
-                      <span>04 out of 10</span>
+                      <span>{{ assignment?.answerReceived?.length }} out of {{ assignment?.assignees?.length }}</span>
                     </div>
                     <div class="col-1">
                       <button mat-button class="expand" *ngIf="selectedBlock !== assignment.id">
@@ -151,7 +151,7 @@
                         <td>
                           <span class="status-icon text-capitalize"
                                 [ngClass]="assignee?.status">{{ assignee?.status }}</span>
-                          <span class="late ms-2" *ngIf="!assignment?.remainingDays && assignee.status !== 'submitted'">Late</span>
+                          <span class="late ms-2" *ngIf="!assignment?.remainingDays && (assignee.status !== 'submitted' || assignee.status !== 'completed')">Late</span>
                         </td>
                       </tr>
                     </table>

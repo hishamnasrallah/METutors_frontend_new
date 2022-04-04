@@ -159,7 +159,7 @@ export const studentSubmitAssignment = createAction(
 
 export const studentSubmitAssignmentSuccess = createAction(
   '[Student] Student Submit Assignment Success',
-  props<{ message: string }>()
+  props<{ id: number; message: string }>()
 );
 
 export const studentSubmitAssignmentFailure = createAction(

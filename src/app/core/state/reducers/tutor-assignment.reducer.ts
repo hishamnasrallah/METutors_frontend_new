@@ -297,6 +297,10 @@ export const selectTutorFilteredAssignments = (
 
   assignments = assignments.map((assignment: any) => ({
     ...assignment,
+    answerReceived: assignment.assignees.filter(
+      (assignee: any) =>
+        assignee?.status === 'submitted' || assignee?.status === 'completed'
+    ),
     remainingDays: getRemainingDays(assignment.deadline),
   }));
 

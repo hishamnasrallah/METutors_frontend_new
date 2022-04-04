@@ -5,17 +5,17 @@
                   [showDeleteIcon]="true"
                   [isDeletingAssignment]="(isDeletingAssignment$ | async)!"
                   [template]="template"
-                  (editClicked)="openEditAssignmentModal(view?.assignment.assignment.id)"
-                  (deleteClicked)="deleteAssignment(view?.assignment.assignment.id)">
+                  (editClicked)="openEditAssignmentModal(view?.assignment.id)"
+                  (deleteClicked)="deleteAssignment(view?.assignment.id)">
     <ng-template #template>
       <ng-container [ngSwitch]="view?.loading">
         <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
 
         <div class="assignment-details-modal" *ngSwitchCase="false">
           <div class="d-flex justify-content-between">
-            <h3>{{ view?.assignment?.assignment?.title }}</h3>
+            <h3>{{ view?.assignment?.title }}</h3>
             <div class="overflow-visible logos">
-              <ng-container *ngFor="let assignee of view?.assignment?.assignment.assignees">
+              <ng-container *ngFor="let assignee of view?.assignment?.assignees">
                <img meTutorsDefaultAvatar [src]="assignee?.user?.avatar" alt="" draggable="false" class="d-inline-block rounded-circle">
               </ng-container>
             </div>
@@ -24,25 +24,25 @@
             <div class="col-md-3 d-flex menu align-items-center">
               <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
               <strong>Start: </strong>
-              <span>{{ view?.assignment?.assignment?.startDate | date: 'MMMM d y' }}</span>
+              <span>{{ view?.assignment?.startDate | date: 'MMMM d y' }}</span>
             </div>
             <div class="col-md-3 d-flex menu align-items-center">
               <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
               <strong>Deadline: </strong>
-              <span>{{ view?.assignment?.assignment?.deadline | date: 'MMMM d y' }}</span>
+              <span>{{ view?.assignment?.deadline | date: 'MMMM d y' }}</span>
             </div>
             <div class="col-md-4 d-flex menu align-items-center">
               <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
               <strong>Answer Received: </strong>
-              <span>04 out of 10</span>
+              <span>{{ view?.assignment?.answerReceived?.length}} out of {{ view?.assignment?.assignees?.length}}</span>
             </div>
           </div>
           <p class="mt-2">
-            {{ view?.assignment?.assignment?.description }}
+            {{ view?.assignment?.description }}
           </p>
           <div class="form-group">
             <label>URLs</label>
-            <div class="url-info d-flex flex-column my-2" *ngFor="let urlInfo of view.assignment?.assignment?.urls">
+            <div class="url-info d-flex flex-column my-2" *ngFor="let urlInfo of view.assignment?.urls">
               <span>{{ urlInfo?.title }}</span>
               <strong class="d-flex align-items-center">
                 {{ urlInfo?.url }}
@@ -54,7 +54,7 @@
           </div>
           <div class="form-group row">
             <label>Files</label>
-            <ng-container *ngFor="let file of view.assignment?.assignment?.files">
+            <ng-container *ngFor="let file of view.assignment?.files">
               <div class="col-md-6 list-files d-flex align-items-center mt-3">
                 <mat-icon>attach_file</mat-icon>
                 <div class="ms-2 flex-grow-1">

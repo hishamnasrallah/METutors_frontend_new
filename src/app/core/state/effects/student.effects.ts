@@ -1,4 +1,4 @@
-import { of } from 'rxjs';
+import { of, tap } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
 import camelcaseKeys from 'camelcase-keys';
@@ -10,6 +10,7 @@ import * as fromRouterStore from '@metutor/state';
 import { AlertNotificationService } from '@metutor/core/components';
 import { selectStudentDashboard, selectStudents } from '@metutor/core/state';
 import * as studentActions from '@metutor/core/state/actions/student.actions';
+import * as fromStudentActions from '@metutor/modules/student/state/actions';
 
 @Injectable()
 export class StudentEffects {
@@ -257,6 +258,7 @@ export class StudentEffects {
         this._studentService.studentSubmitAssignment(body).pipe(
           map(() =>
             studentActions.studentSubmitAssignmentSuccess({
+              id: body.id,
               message: 'Assignment successfully submitted',
             })
           ),
@@ -293,6 +295,13 @@ export class StudentEffects {
           )
         )
       )
+    )
+  );
+
+  studentSubmitAssignmentSuccess$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(studentActions.studentSubmitAssignmentSuccess),
+      map(({ id }) => studentActions.loadStudentAssignment({ id }))
     )
   );
 
