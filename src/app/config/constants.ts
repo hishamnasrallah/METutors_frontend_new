@@ -28,5 +28,25 @@ export const DEGREE_LEVELS = ['Masters', 'Bachlors'];
 
 export const DEGREE_FIELDS = ['Computer Science', 'Mathematics'];
 
-export const TEACHING_EXPERIENCE = ['1 Year', '2 Years', '3 Years', '4 Years', '5 Years'];
+export const TEACHING_EXPERIENCE = [
+  '1 Year',
+  '2 Years',
+  '3 Years',
+  '4 Years',
+  '5 Years',
+];
 
+export const GRADES = [
+  '1st',
+  '2nd',
+  '3rd',
+  '4th',
+  '5th',
+  '6th',
+  '7th',
+  '8th',
+  '9th',
+  '10th',
+  '11th',
+  '12th',
+];
