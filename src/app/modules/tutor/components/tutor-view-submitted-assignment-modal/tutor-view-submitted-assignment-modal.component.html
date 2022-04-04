@@ -5,6 +5,12 @@
         <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
 
         <div class="assignment-details-modal" *ngSwitchCase="false">
+          <label>Submitted By</label>
+          <div class="d-flex align-items-center mt-1 mb-4 title-info">
+            <img src="" meTutorsDefaultAvatar alt="" class="rounded-circle" width="50" height="50">
+            <h3 class="ms-2 mb-0">Ahmed Hassan</h3>
+          </div>
+
           <label>Time received by student</label>
           <p class="mt-1 mb-0">
             {{ view?.assignment?.assignment?.createdAt | date: 'EEEE, d MMM y, h:mm a' }}
@@ -54,18 +60,18 @@
 
           <div class="row mt-2">
             <div class="col-md-12 overflow-hidden" *ngIf="view?.assignment?.assignment.status !== 'completed'">
-              <button mat-flat-button color="primary" class="float-end"
+              <button mat-flat-button color="primary" class="float-end px-4 py-1"
                       (click)="onOpenAcceptRejectAssignmentModal(view?.assignment?.assignment.assignmentId, view?.assignment?.assignment.userId)">
                 Accept
               </button>
-              <button mat-button class="secondary-button-transparent float-end me-2"
+              <button mat-button class="secondary-button-transparent reject-btn float-end me-2 px-4 py-1"
                       (click)="onOpenAcceptRejectAssignmentModal(view?.assignment?.assignment.assignmentId, view?.assignment?.assignment.userId,true)">
                 Reject
               </button>
             </div>
 
             <div class="col-md-12 overflow-hidden" *ngIf="view?.assignment?.assignment.status === 'completed'">
-              <button mat-flat-button color="primary" class="float-end"
+              <button mat-flat-button color="primary" class="float-end px-4 py-1"
                       (click)="onBack()">
                 Back
               </button>
