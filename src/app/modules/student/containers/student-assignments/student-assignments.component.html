@@ -73,13 +73,13 @@
           <ng-container *ngIf="assignments?.course?.assignments && assignments?.course?.assignments?.length">
             <div class="item position-relative"
                  *ngFor="let assignment of assignments?.course?.assignments; let i = index">
-              <span class="number">{{ i + 1}}</span>
+              <span class="number">{{ i + 1 }}</span>
               <div class="row set-padding">
                 <div class="col-md-12">
                   <div class="row">
                     <div class="col-md-7">
-                      <h2>{{ assignment?.title}}</h2>
-                      <p class="col">{{ assignment?.description}}</p>
+                      <h2>{{ assignment?.title }}</h2>
+                      <p class="col">{{ assignment?.description }}</p>
                     </div>
                     <div class="col-md-5 d-flex align-items-start justify-content-end date-data">
                       <!--<span class="cursor-pointer text-decoration-underline extend-date" *ngIf="assignment.status === 'active'" (click)="onOpenEditAssignmentModal(assignment.id)">Extend Due Date</span>-->
@@ -103,7 +103,7 @@
                     <div class="col d-flex menu align-items-center">
                       <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
                       <strong>Deadline: </strong>
-                      <span>{{ assignment?.deadline | date: 'MMMM d y'}}</span>
+                      <span>{{ assignment?.deadline | date: 'MMMM d y' }}</span>
                     </div>
                     <div class="col d-flex align-items-center justify-content-end">
                       <button mat-button class="main-button-transparent" (click)="onOpenAssignmentDetails(assignment.id)">
@@ -133,7 +133,7 @@
                       </tr>
 
                       <tr *ngFor="let assignee of assignment?.assignees; let num = index" class="cursor-pointer">
-                        <td scope="row">{{ num + 1}}</td>
+                        <td scope="row">{{ num + 1 }}</td>
                         <td>
                           <img [src]="assignee?.user?.avatar" meTutorsDefaultAvatar draggable="false" width="25"
                                height="25"
@@ -141,7 +141,7 @@
                                alt="">
                           <span class="ms-2">{{ assignee?.user?.firstName }} {{ assignee?.user?.lastName }}</span>
                         </td>
-                        <td>{{ assignee?.createdAt | date: 'EEEE, d MMM y, h:mm a'}}</td>
+                        <td>{{ assignee?.createdAt | date: 'EEEE, d MMM y, h:mm a' }}</td>
                         <td>
                           <span class="status-icon text-capitalize"
                                 [ngClass]="assignee?.status">{{ assignee?.status }}</span>

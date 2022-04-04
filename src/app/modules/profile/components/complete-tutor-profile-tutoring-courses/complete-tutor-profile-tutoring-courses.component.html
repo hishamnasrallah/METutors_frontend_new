@@ -1,87 +1,138 @@
 <form [formGroup]="form" (ngSubmit)="submitFormData()" class="w-100">
   <div>
     <h4 class="mb-5 heading text-center">PROVIDE YOUR TUTORING COURSES</h4>
+    <!-- <pre>{{ form.value | json }}</pre> -->
+    <div class="row" formArrayName="programs">
+      <ng-container *ngFor="let _ of programs.controls; let i = index" [formGroupName]="i">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="program" class="form-label d-flex justify-content-between">
+              Select the program
+              <a class="float-end cursor-pointer" *ngIf="i !== 0" (click)="removeProgram(i)">
+                <mat-icon>delete</mat-icon>
+              </a>
+              <!--  && +programs.controls.length < +programsList.length -->
+              <a class="float-end cursor-pointer" *ngIf="i === 0" (click)="addProgram()">
+                Add new
+              </a>
+            </label>
 
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="program" class="form-label">Select the program</label>
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="program" [placeholder]="'Select Program'" multiple>
-              <mat-option [value]="program?.id" *ngFor="let program of programs">{{ program?.name }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <div class="text-danger" *ngIf="program?.touched && program?.invalid">
-            Please write your Program
-          </div>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-select formControlName="programId" [placeholder]="'Select Program'"
+                (selectionChange)="onChangeProgram($event, i)">
+                <ng-container *ngFor="let program of programsList">
+                  <!-- [hidden]="!checkProgram(program.id)" -->
+                  <mat-option [value]="program?.id">{{ program?.name }}
+                  </mat-option>
+                </ng-container>
+              </mat-select>
+            </mat-form-field>
+            <!-- <div class="text-danger" *ngIf="programId?.touched && programId?.invalid">
+              Please write your Program
+            </div> -->
 
-          <mat-form-field appearance="outline" class="w-100" *ngIf="form.value.program?.includes(nationalId)">
-            <mat-select formControlName="country" [placeholder]="'Select country for national'" multiple>
-              <mat-option [value]="country?.id" *ngFor="let country of countries">{{ country?.name }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </div>
-    </div>
+            <ng-container *ngIf="form.value.programs[i].programId === nationalId">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-select formControlName="countries" [placeholder]="'Select countries for national'" multiple>
+                  <mat-option [value]="country?.id" *ngFor="let country of countries">{{ country?.name }}</mat-option>
+                </mat-select>
+              </mat-form-field>
 
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <div>
-            <label for="subjects" class="form-label">Field of study</label>
-            <a class="float-end cursor-pointer" *ngIf="selectedSubject === form.value.subjects.length"
-              (click)="addSubject(); selectedSubject = form.value.subjects.length - 1">Add new</a>
-          </div>
-          <ng-container formArrayName="subjects">
-            <ng-container *ngFor="let _ of subjects.controls; let i = index" [formGroupName]="i">
-              <div [hidden]="(form.value.subjects[i].field && form.value.subjects[i].subject) || selectedSubject !== i">
-                <mat-form-field appearance="outline" class="w-100 mt-3">
-                  <mat-select formControlName="field" [placeholder]="'Select Field'"
-                    (selectionChange)="onChangeField($event)">
-                    <ng-container *ngFor="let program of programs">
-                      <mat-optgroup *ngIf="form.value.program?.includes(program?.id)" [label]="program.name">
-                        <ng-container *ngFor="let field of fields">
-                          <mat-option [value]="field" *ngIf="program?.id === field?.programId">
-                            {{ field?.name }}
-                          </mat-option>
-                        </ng-container>
-                      </mat-optgroup>
-                    </ng-container>
-                  </mat-select>
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" class="w-100">
-                  <mat-select formControlName="subject" [placeholder]="'Select subject'" multiple
-                    (openedChange)="onOpenChange($event, i)">
-                    <mat-option [value]="subject" *ngFor="let subject of subjectsList">
-                      {{ subject?.name }}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-select formControlName="grades" [placeholder]="'Select grades for national'" multiple>
+                  <mat-option [value]="i + 1" *ngFor="let grade of grades; let i = index">{{ grade }}</mat-option>
+                </mat-select>
+              </mat-form-field>
             </ng-container>
-          </ng-container>
+          </div>
+        </div>
 
-          <mat-chip-list>
-            <ng-container *ngFor="let subj of form.value.subjects; let i = index">
-              <mat-chip *ngIf="subj.field && subj.subject && subj.subject.length" class="subj-info">
-                <div class="d-flex align-items-center justify-content-center">
-                  <div class="d-flex flex-column justify-content-center px-2">
-                    <span class="field">{{ subj.field?.name }}</span>
-                    <div class="d-block">
-                      <span class="subject" *ngFor="let sub of subj.subject; let isLast = last">
-                        {{ sub?.name }}
-                        <ng-container *ngIf="!isLast">, </ng-container>
-                      </span>
-                    </div>
-                  </div>
-                  <mat-icon (click)="removeSubject(i); selectedSubject = selectedSubject - 1">cancel</mat-icon>
+        <div class="col-md-6">
+          <div class="form-group">
+            <div>
+              <label for="subjects" class="form-label">Field of study</label>
+            </div>
+
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-select formControlName="fieldId" [placeholder]="'Select Field'"
+                (selectionChange)="onChangeField($event)">
+                <!-- <ng-container *ngFor="let program of programsList">
+                  <mat-optgroup *ngIf="form.value.program?.includes(program?.id)" [label]="program.name"> -->
+                <ng-container *ngFor="let field of fields">
+                  <mat-option [value]="field" *ngIf="form.value.programs[i].programId === field?.programId">
+                    {{ field?.name }}
+                  </mat-option>
+                </ng-container>
+                <!-- </mat-optgroup>
+                </ng-container> -->
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-select formControlName="subjects" [placeholder]="'Select Subject'" multiple>
+                <mat-option [value]="subject" *ngFor="let subject of subjectsList">
+                  {{ subject?.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <!-- <div>
+              <label for="subjects" class="form-label">Field of study</label>
+              <a class="float-end cursor-pointer" *ngIf="selectedSubject === form.value.subjects.length"
+                (click)="addSubject(); selectedSubject = form.value.subjects.length - 1">Add new</a>
+            </div>
+            <ng-container formArrayName="subjects">
+              <ng-container *ngFor="let _ of subjects.controls; let i = index" [formGroupName]="i">
+                <div
+                  [hidden]="(form.value.subjects[i].field && form.value.subjects[i].subject) || selectedSubject !== i">
+                  <mat-form-field appearance="outline" class="w-100 mt-3">
+                    <mat-select formControlName="field" [placeholder]="'Select Field'"
+                      (selectionChange)="onChangeField($event)">
+                      <ng-container *ngFor="let program of programsList">
+                        <mat-optgroup *ngIf="form.value.program?.includes(program?.id)" [label]="program.name">
+                          <ng-container *ngFor="let field of fields">
+                            <mat-option [value]="field" *ngIf="program?.id === field?.programId">
+                              {{ field?.name }}
+                            </mat-option>
+                          </ng-container>
+                        </mat-optgroup>
+                      </ng-container>
+                    </mat-select>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-select formControlName="subject" [placeholder]="'Select subject'" multiple
+                      (openedChange)="onOpenChange($event, i)">
+                      <mat-option [value]="subject" *ngFor="let subject of subjectsList">
+                        {{ subject?.name }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
                 </div>
-              </mat-chip>
+              </ng-container>
             </ng-container>
-          </mat-chip-list>
+
+            <mat-chip-list>
+              <ng-container *ngFor="let subj of form.value.subjects; let i = index">
+                <mat-chip *ngIf="subj.field && subj.subject && subj.subject.length" class="subj-info">
+                  <div class="d-flex align-items-center justify-content-center">
+                    <div class="d-flex flex-column justify-content-center px-2">
+                      <span class="field">{{ subj.field?.name }}</span>
+                      <div class="d-block">
+                        <span class="subject" *ngFor="let sub of subj.subject; let isLast = last">
+                          {{ sub?.name }}
+                          <ng-container *ngIf="!isLast">, </ng-container>
+                        </span>
+                      </div>
+                    </div>
+                    <mat-icon (click)="removeSubject(i); selectedSubject = selectedSubject - 1">cancel</mat-icon>
+                  </div>
+                </mat-chip>
+              </ng-container>
+            </mat-chip-list> -->
+          </div>
         </div>
-      </div>
+      </ng-container>
     </div>
 
     <div class="row">

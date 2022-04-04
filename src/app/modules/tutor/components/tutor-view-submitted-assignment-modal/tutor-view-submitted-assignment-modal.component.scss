@@ -1,0 +1,46 @@
+.assignment-details-modal {
+  margin-top: -10px;
+
+  label {
+    color: #696969;
+    font-size: 15px;
+  }
+
+  p {
+    color: #2A2A2A;
+
+    .grade {
+        color: #949494;
+        font-weight: bold;
+        font-size: 14px;
+    }
+  }
+
+  .list-files {
+    >div {
+      width: 50%;
+    }
+
+    h3 {
+      font-size: 16px;
+      margin: 0;
+      color: #2a2a2a;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+    }
+
+    h5 {
+      font-size: 13px;
+      color: #696969;
+      margin: 0;
+    }
+
+    .add-url {
+      color: var(--main-color);
+      font-weight: bold;
+      font-size: 13px;
+    }
+  }
+}

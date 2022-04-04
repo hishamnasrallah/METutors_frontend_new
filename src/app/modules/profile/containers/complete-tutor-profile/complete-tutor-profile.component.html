@@ -14,32 +14,32 @@
   </a>
 </header>
 
-<div class="container py-5">
+<div class="container py-5" *ngLet="(step$ | async) as step">
   <div class="row h-100">
     <div class="col-md-12 align-items-center">
       <h1 class="heading text-center mb-4">Complete Account Information </h1>
 
       <div class="steps mb-5">
         <ul class="list-unstyled list-inline text-center">
-          <li class="list-inline-item" [ngClass]="{ 'active':  (step$ | async) === 1 }">
+          <li class="list-inline-item" [ngClass]="{ 'active': step === 1 }">
             <span>Personal Information</span>
           </li>
-          <li class="list-inline-item" [ngClass]="{ 'active': (step$ | async) === 2 }">
+          <li class="list-inline-item" [ngClass]="{ 'active': step === 2 }">
             <span>Profile Picture</span>
           </li>
-          <li class="list-inline-item" [ngClass]="{ 'active': (step$ | async) === 3 }">
+          <li class="list-inline-item" [ngClass]="{ 'active': step === 3 }">
             <span>Qualification Details</span>
           </li>
-          <li class="list-inline-item" [ngClass]="{ 'active': (step$ | async) === 4 }">
+          <li class="list-inline-item" [ngClass]="{ 'active': step === 4 }">
             <span>Teaching Specifications</span>
           </li>
-          <li class="list-inline-item" [ngClass]="{ 'active': (step$ | async) === 5 }">
+          <li class="list-inline-item" [ngClass]="{ 'active': step === 5 }">
             <span>Tutoring Courses</span>
           </li>
         </ul>
       </div>
 
-      <metutors-complete-tutor-profile-personal-information *ngIf="(step$ | async) === 1" 
+      <metutors-complete-tutor-profile-personal-information *ngIf="step === 1" 
                                                             [loading]="loading$ | async"
                                                             [countries]="countries$ | async" 
                                                             [cities]="cities$ | async" 
@@ -47,26 +47,26 @@
                                                             (submitForm)="sendTeacherAccount($event, 2)">
       </metutors-complete-tutor-profile-personal-information>
 
-      <metutors-complete-tutor-profile-profile-picture *ngIf="(step$ | async) === 2"
+      <metutors-complete-tutor-profile-profile-picture *ngIf="step === 2"
                                                        [loading]="loading$ | async"
                                                        (submitForm)="sendTeacherAccount($event, 3)">
       </metutors-complete-tutor-profile-profile-picture>
 
-      <metutors-complete-tutor-profile-qualification-details *ngIf="(step$ | async) === 3"
+      <metutors-complete-tutor-profile-qualification-details *ngIf="step === 3"
                                                              [loading]="loading$ | async"
                                                              [languagesList]="languages$ | async"
                                                              (submitForm)="sendTeacherAccount($event, 4)">
       </metutors-complete-tutor-profile-qualification-details>
 
-      <metutors-complete-tutor-profile-teaching-specifications *ngIf="(step$ | async) === 4"
+      <metutors-complete-tutor-profile-teaching-specifications *ngIf="step === 4"
                                                                [loading]="loading$ | async"
                                                                [levels]="levels$ | async"
                                                                (submitForm)="sendTeacherAccount($event, 5)">
       </metutors-complete-tutor-profile-teaching-specifications>
 
-      <metutors-complete-tutor-profile-tutoring-courses *ngIf="(step$ | async) === 5"
+      <metutors-complete-tutor-profile-tutoring-courses *ngIf="step === 5"
                                                         [loading]="loading$ | async"
-                                                        [programs]="programs$ | async"
+                                                        [programsList]="(programs$ | async)!"
                                                         [countries]="countries$ | async"
                                                         [fields]="fields$ | async"
                                                         [subjectsList]="subjects$ | async"
