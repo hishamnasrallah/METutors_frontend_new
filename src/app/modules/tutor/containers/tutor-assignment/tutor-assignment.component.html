@@ -151,7 +151,7 @@
                         <td>
                           <span class="status-icon text-capitalize"
                                 [ngClass]="assignee?.status">{{ assignee?.status }}</span>
-                          <span class="late ms-2" *ngIf="!assignment?.remainingDays && assignee.status !== 'submitted'">Late</span>
+                          <span class="late ms-2" *ngIf="!assignment?.remainingDays && (assignee.status !== 'submitted' || assignee.status !== 'completed')">Late</span>
                         </td>
                       </tr>
                     </table>
