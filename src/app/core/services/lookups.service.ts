@@ -41,6 +41,22 @@ export class LookupsService {
       .pipe(catchError(this.errorHandler));
   }
 
+  getProgramCountries(): Observable<any> {
+    return this.http
+      .get<{ program_countries: ICountry[] }>(
+        `${this.BACKEND_URL}program-country`
+      )
+      .pipe(
+        map((response) => {
+          return response.program_countries.map((item) => ({
+            id: item.id,
+            name: item.name,
+          }));
+        })
+      )
+      .pipe(catchError(this.errorHandler));
+  }
+
   getCities(id: string): Observable<any> {
     return this.http
       .get<{ cities: ICity[] }>(`${this.BACKEND_URL}cities?country_id=${id}`)
@@ -134,12 +150,9 @@ export class LookupsService {
       .get<{ subjects: any }>(`${this.BACKEND_URL}subjects`)
       .pipe(
         map((response) => {
-          return response.subjects.map((item: any) => ({
-            id: item.id,
-            name: item.name,
-            pricePerHour: item.price_per_hour,
-            fieldId: item.field_id,
-          }));
+          return response.subjects.map(
+            (item: any) => new ISubject(false, item)
+          );
         })
       )
       .pipe(catchError(this.errorHandler));

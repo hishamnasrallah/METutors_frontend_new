@@ -1,14 +1,8 @@
 import { DatePipe } from '@angular/common';
 import { generalConstants, GRADES } from 'src/app/config';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ICountry, IField, IProgram, ISubject } from 'src/app/core/models';
-import {
-  AbstractControl,
-  FormArray,
-  FormBuilder,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'metutors-complete-tutor-profile-tutoring-courses',
@@ -17,26 +11,21 @@ import {
   providers: [DatePipe],
 })
 export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
+  @Input() fields: IField[];
   @Input() loading: boolean | null;
-  @Input() fields: IField[] | null;
   @Input() programsList: IProgram[];
   @Input() countries: ICountry[] | null;
   @Input() subjectsList: ISubject[] | null;
 
   @Output() submitForm = new EventEmitter();
-  @Output() changeField = new EventEmitter();
 
   grades = GRADES;
   form: FormGroup;
-  openSubject = true;
-  selectedSubject: number = 0;
   nationalId = generalConstants.nationalId;
 
   constructor(private _fb: FormBuilder) {
     this.form = this._fb.group({
       programs: this._fb.array([]),
-      // program: [null, Validators.required],
-      // country: [null],
     });
 
     this.addProgram();
@@ -48,69 +37,32 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
     return this.form?.get('programs') as FormArray;
   }
 
-  get country(): AbstractControl | null {
-    return this.form.get('country');
-  }
-
-  get subjects(): FormArray {
-    return this.form?.get('subjects') as FormArray;
+  addProgram(): void {
+    this.programs.push(this.newProgram());
   }
 
   removeProgram(i: number): void {
     (this.form?.get('programs') as FormArray).removeAt(i);
-
-    if (this.form.value.programs.length === 0) {
-      this.addSubject();
-    }
   }
 
   newProgram(): FormGroup {
     return this._fb.group({
       programId: [null, Validators.required],
-      fieldId: [null, Validators.required],
+      fields: [null, Validators.required],
       subjects: [null, Validators.required],
+      sortedSubjects: [[]],
       countries: [null],
       grades: [null],
     });
   }
 
-  addProgram(): void {
-    this.programs.push(this.newProgram());
-  }
-
-  removeSubject(i: number): void {
-    (this.form?.get('subjects') as FormArray).removeAt(i);
-
-    if (this.form.value.subjects.length === 0) {
-      this.addSubject();
-    }
-  }
-
-  newSubject(): FormGroup {
-    return this._fb.group({
-      field: [null, Validators.required],
-      subject: [null, Validators.required],
-    });
-  }
-
-  addSubject(): void {
-    this.subjects.push(this.newSubject());
-  }
-
-  onChangeField(event: any): void {
-    this.changeField.emit(event?.value?.id);
-  }
-
-  onOpenChange(state: boolean, index: number): void {
-    if (state === false) {
-      this.selectedSubject = index + 1;
-    }
-  }
-
   checkProgram(id: number): boolean {
-    const listPrograms = this.programs.value.map((item: any) => item.programId);
+    const listPrograms = this.programs.value?.map(
+      (item: any) => item?.programId
+    );
+    const filteredPrograms = listPrograms?.map((item: any) => item?.id);
 
-    if (listPrograms.includes(id)) {
+    if (filteredPrograms.includes(id)) {
       return false;
     }
 
@@ -118,26 +70,116 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
   }
 
   onChangeProgram({ value }: any, i: number): void {
-    // console.log(value);
-    // console.log(this.programs.value)
-    // if (value === this.nationalId) {
-    //   // this.programs.value[i]?.countries?.setValidators(Validators.required);
-    //   // this.programs.at(i)?.addValidators
-    //   this.programs.at(i)?.controls.name.clearValidators();
-    // } else {
-    //   this.programs.value[i]?.countries?.setValidators([]);
-    // }
+    if (value.id === this.nationalId) {
+      this.programs
+        .at(i)
+        ?.get('countries')
+        ?.setValidators([Validators.required]);
+      this.programs.at(i)?.get('grades')?.setValidators([Validators.required]);
+    } else {
+      this.programs.at(i)?.get('countries')?.clearValidators();
+      this.programs.at(i)?.get('grades')?.clearValidators();
+    }
+    this.programs.at(i)?.get('countries')?.updateValueAndValidity();
+    this.programs.at(i)?.get('grades')?.updateValueAndValidity();
+  }
+
+  onChange(index: number): void {
+    const output: any[] = [];
+    const subjects = this.form.value.programs[index].subjects;
+
+    subjects.forEach((item: any) => {
+      const existing = output.filter((v, i) => {
+        return v.fieldId == item.fieldId;
+      });
+
+      if (existing.length) {
+        const existingIndex = output.indexOf(existing[0]);
+
+        output[existingIndex].subjects = [
+          ...output[existingIndex].subjects,
+          { ...item, pricePerHour: null },
+        ];
+      } else {
+        output.push({
+          fieldId: item.fieldId,
+          fieldName: this.fields.filter(
+            (field: any) => field.id === item.fieldId
+          )[0]?.name,
+          countryName: this.countries?.filter(
+            (country: any) => country.id === item.countryId
+          )[0]?.name,
+          subjects: [
+            {
+              ...item,
+              pricePerHour: null,
+              gradeName: this.grades[item.grade - 1],
+            },
+          ],
+        });
+      }
+    });
+
+    this.programs.at(index).patchValue({
+      sortedSubjects: output,
+    });
+  }
+
+  changePrice(
+    index: number,
+    indexSubjects: number,
+    indexSubject: number,
+    event: any
+  ): void {
+    const sortedSubjects = this.programs.at(index).get('sortedSubjects')?.value;
+
+    this.programs.at(index).patchValue({
+      sortedSubjects: sortedSubjects.map((subject: any, index: number) => {
+        let subject_ = { ...subject };
+
+        if (index === indexSubjects) {
+          subject_ = {
+            fieldId: subject.fieldId,
+            fieldName: subject.fieldName,
+            subjects: subject.subjects.map((sub: any, indexSub: number) =>
+              indexSub === indexSubject
+                ? { ...sub, pricePerHour: event.target.value }
+                : { ...sub }
+            ),
+          };
+        }
+
+        return subject_;
+      }),
+    });
   }
 
   submitFormData() {
+    const allSubjects = [
+      ...this.programs.value.map((program: any) => {
+        const sortedSubjects = [
+          ...program.sortedSubjects.map((subject: any) => [
+            ...subject.subjects,
+          ]),
+        ];
+
+        return sortedSubjects;
+      }),
+    ];
+
+    const subjects = allSubjects.flat(Infinity);
+
     const data = {
-      step: '4',
-      // subjects: this.subjects?.value?.map((subject: any) => ({
-      //   field_id: subject?.field?.id,
-      //   subject_id: [subject?.field?.id],
-      // })),
-      // program_id: this.program?.value,
-      // country_id: this.country?.value,
+      step: '5',
+      subjects: subjects?.map((subject: any) => ({
+        subject_id: subject?.id,
+        program_id: subject?.programId,
+        country_id: subject?.countryId,
+        field_id: subject?.fieldId,
+        grade: subject?.grade,
+        name: subject?.name,
+        hourly_price: +subject?.pricePerHour,
+      })),
     };
 
     this.submitForm.emit(data);

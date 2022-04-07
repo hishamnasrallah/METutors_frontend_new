@@ -118,7 +118,7 @@ export class UserEffects {
             if (user?.roleId?.toString() === UserRole.student.toString()) {
               this._router.navigate(['/student']);
             } else if (user?.roleId?.toString() === UserRole.tutor.toString()) {
-              if (step <= 4)
+              if (step <= 5)
                 this._router.navigate(['/profile', 'complete-profile']);
               else this._router.navigate(['/tutor']);
             } else if (user?.roleId?.toString() === UserRole.admin.toString()) {
@@ -279,7 +279,7 @@ export class UserEffects {
           this._store.select(fromCore.selectUser)
         ),
         map(([_, step, user]) => {
-          if (step > 4 && user && user.id) {
+          if (step > 5 && user && user.id) {
             this._router.navigateByUrl(`/profile/tutor/${user.id.toString()}`);
           }
         })

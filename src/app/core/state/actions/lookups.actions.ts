@@ -50,6 +50,28 @@ export const loadCountriesFailure = createAction(
   props<{ error: any }>()
 );
 
+export const loadCountriesEnded = createAction(
+  '[Lookups] Load Countries Ended'
+);
+
+export const loadProgramCountries = createAction(
+  '[Lookups] Load Program Countries'
+);
+
+export const loadProgramCountriesSuccess = createAction(
+  '[Lookups] Load Program Countries Success',
+  props<{ countries: ICountry[] }>()
+);
+
+export const loadProgramCountriesFailure = createAction(
+  '[Lookups] Load Program Countries Failure',
+  props<{ error: any }>()
+);
+
+export const loadProgramCountriesEnded = createAction(
+  '[Lookups] Load Program Countries Ended'
+);
+
 export const loadCities = createAction(
   '[Lookups] Load Cities',
   props<{ countryId: string }>()

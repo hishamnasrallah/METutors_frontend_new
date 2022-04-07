@@ -69,23 +69,53 @@ export class LookupsEffects {
     this._actions$.pipe(
       ofType(lookupsActions.loadCountries),
       withLatestFrom(this._store.select(fromCore.selectCountries)),
-      filter(([_, countries]) => !countries || countries.length === 0),
-      mergeMap((_) =>
-        this._lookupsService.getCountries().pipe(
-          map((countries) =>
-            lookupsActions.loadCountriesSuccess({
-              countries,
-            })
-          ),
-          catchError((error) =>
-            of(
-              lookupsActions.loadCountriesFailure({
-                error: error?.error?.message || error?.error?.errors,
+      mergeMap(([_, _countries]) => {
+        if (!_countries || !_countries.length) {
+          return this._lookupsService.getCountries().pipe(
+            map((countries) =>
+              lookupsActions.loadCountriesSuccess({
+                countries,
               })
+            ),
+            catchError((error) =>
+              of(
+                lookupsActions.loadCountriesFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
             )
-          )
-        )
-      )
+          );
+        } else {
+          return of(lookupsActions.loadCountriesEnded());
+        }
+      })
+    )
+  );
+
+  loadProgramCountries$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(lookupsActions.loadProgramCountries),
+      withLatestFrom(this._store.select(fromCore.selectProgramCountries)),
+      mergeMap(([_, _countries]) => {
+        if (!_countries || !_countries.length) {
+          return this._lookupsService.getProgramCountries().pipe(
+            map((countries) =>
+              lookupsActions.loadProgramCountriesSuccess({
+                countries,
+              })
+            ),
+            catchError((error) =>
+              of(
+                lookupsActions.loadProgramCountriesFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          );
+        } else {
+          return of(lookupsActions.loadProgramCountriesEnded());
+        }
+      })
     )
   );
 

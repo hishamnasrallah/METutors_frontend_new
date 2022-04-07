@@ -5,7 +5,7 @@
     </a>
 
     <span class="step">
-      Step {{ step$ | async }} of 4
+      Step {{ step$ | async }} of 5
     </span>
   </div>
 
@@ -67,10 +67,9 @@
       <metutors-complete-tutor-profile-tutoring-courses *ngIf="step === 5"
                                                         [loading]="loading$ | async"
                                                         [programsList]="(programs$ | async)!"
-                                                        [countries]="countries$ | async"
-                                                        [fields]="fields$ | async"
+                                                        [countries]="programCountries$ | async"
+                                                        [fields]="(fields$ | async)!"
                                                         [subjectsList]="subjects$ | async"
-                                                        (changeField)="fetchFieldSubject($event)"
                                                         (submitForm)="sendTeacherAccount($event, 6)">
       </metutors-complete-tutor-profile-tutoring-courses>
     </div>

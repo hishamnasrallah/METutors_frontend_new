@@ -613,6 +613,16 @@ export const selectCountries = createSelector(
   fromLookupsReducer.selectCountries
 );
 
+export const selectIsLoadingProgramCountries = createSelector(
+  selectLookupsState,
+  fromLookupsReducer.selectIsLoadingProgramCountries
+);
+
+export const selectProgramCountries = createSelector(
+  selectLookupsState,
+  fromLookupsReducer.selectProgramCountries
+);
+
 export const selectCities = createSelector(
   selectLookupsState,
   fromLookupsReducer.selectCities

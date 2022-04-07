@@ -31,6 +31,11 @@ export interface State {
   isLoadingCountries: boolean;
   loadingCountriesFailure?: string;
 
+  // Program countries
+  programCountries: ICountry[] | null;
+  isLoadingProgramCountries: boolean;
+  loadingProgramCountriesFailure?: string;
+
   // Cities
   cities: ICity[] | null;
   isLoadingCities?: boolean;
@@ -83,6 +88,7 @@ export const initialState: State = {
   languages: null,
   countries: null,
   isLoadingFAQs: false,
+  programCountries: null,
   ticketCategories: null,
   ticketPriorities: null,
   isLoadingTopics: false,
@@ -92,6 +98,7 @@ export const initialState: State = {
   isLoadingCountries: false,
   isLoadingTicketCategories: false,
   isLoadingTicketPriorities: false,
+  isLoadingProgramCountries: false,
 };
 
 export const reducer = createReducer(
@@ -145,6 +152,33 @@ export const reducer = createReducer(
     ...state,
     isLoadingCountries: false,
     loadingCountriesFailure: error,
+  })),
+
+  on(lookupsActions.loadCountriesEnded, (state) => ({
+    ...state,
+    isLoadingCountries: false,
+  })),
+
+  on(lookupsActions.loadProgramCountries, (state) => ({
+    ...state,
+    isLoadingProgramCountries: true,
+  })),
+
+  on(lookupsActions.loadProgramCountriesSuccess, (state, { countries }) => ({
+    ...state,
+    programCountries: countries,
+    isLoadingProgramCountries: false,
+  })),
+
+  on(lookupsActions.loadProgramCountriesFailure, (state, { error }) => ({
+    ...state,
+    isLoadingProgramCountries: false,
+    loadingProgramCountriesFailure: error,
+  })),
+
+  on(lookupsActions.loadProgramCountriesEnded, (state) => ({
+    ...state,
+    isLoadingProgramCountries: false,
   })),
 
   on(lookupsActions.loadCities, (state) => ({
@@ -293,11 +327,14 @@ export const reducer = createReducer(
     isLoadingTicketCategories: true,
   })),
 
-  on(lookupsActions.loadTicketCategoriesSuccess, (state, { ticketCategories }) => ({
-    ...state,
-    ticketCategories,
-    isLoadingTicketCategories: false,
-  })),
+  on(
+    lookupsActions.loadTicketCategoriesSuccess,
+    (state, { ticketCategories }) => ({
+      ...state,
+      ticketCategories,
+      isLoadingTicketCategories: false,
+    })
+  ),
 
   on(lookupsActions.loadTicketCategoriesFailure, (state, { error }) => ({
     ...state,
@@ -315,11 +352,14 @@ export const reducer = createReducer(
     isLoadingTicketPriorities: true,
   })),
 
-  on(lookupsActions.loadTicketPrioritiesSuccess, (state, { ticketPriorities }) => ({
-    ...state,
-    ticketPriorities,
-    isLoadingTicketPriorities: false,
-  })),
+  on(
+    lookupsActions.loadTicketPrioritiesSuccess,
+    (state, { ticketPriorities }) => ({
+      ...state,
+      ticketPriorities,
+      isLoadingTicketPriorities: false,
+    })
+  ),
 
   on(lookupsActions.loadTicketPrioritiesFailure, (state, { error }) => ({
     ...state,
@@ -347,8 +387,14 @@ export const selectIsLoadingLevels = (state: State): boolean | undefined =>
 export const selectCountries = (state: State): ICountry[] | null =>
   state.countries;
 
+export const selectProgramCountries = (state: State): ICountry[] | null =>
+  state.programCountries;
+
 export const selectIsLoadingCountries = (state: State): boolean =>
   state.isLoadingCountries;
+
+export const selectIsLoadingProgramCountries = (state: State): boolean =>
+  state.isLoadingProgramCountries;
 
 export const selectCities = (state: State): ICity[] | null => state.cities;
 
@@ -389,8 +435,9 @@ export const selectTicketCategories = (
 export const selectIsLoadingTicketCategories = (state: State): boolean =>
   state.isLoadingTicketCategories;
 
-export const selectTicketPriorities = (state: State): ITicketPriority[] | null =>
-  state.ticketPriorities;
+export const selectTicketPriorities = (
+  state: State
+): ITicketPriority[] | null => state.ticketPriorities;
 
 export const selectIsLoadingTicketPriorities = (state: State): boolean =>
   state.isLoadingTicketPriorities;

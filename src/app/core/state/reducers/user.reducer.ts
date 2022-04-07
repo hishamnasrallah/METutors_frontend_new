@@ -5,16 +5,16 @@ import * as tutorActions from '../actions/tutor.actions';
 
 export interface State {
   // Sign in
-  isSignIn: boolean;
   token?: string;
+  isSignIn: boolean;
   tempToken?: string;
   signInFailure?: string;
   isSubmitOTPAdmin: boolean;
   isResendOTPAdmin: boolean;
 
   // Complete profile
-  profileStep: number;
   user: IUser | null;
+  profileStep: number;
 
   // Change Password
   isChangePassword: boolean;
@@ -24,7 +24,7 @@ export interface State {
 
 export const initialState: State = {
   user: null,
-  profileStep: 5,
+  profileStep: 1,
   isSignIn: false,
   isChangePassword: false,
   isSubmitOTPAdmin: false,
@@ -93,11 +93,11 @@ export const reducer = createReducer(
     })
   ),
 
-  // on(userActions.identifyUserSuccess, (state, { profileStep, user }) => ({
-  //   ...state,
-  //   profileStep,
-  //   user,
-  // })),
+  on(userActions.identifyUserSuccess, (state, { profileStep, user }) => ({
+    ...state,
+    profileStep,
+    user,
+  })),
 
   on(userActions.changePassword, (state) => ({
     ...state,

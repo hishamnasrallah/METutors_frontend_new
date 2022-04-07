@@ -46,7 +46,6 @@ export class TutorDashboardComponent implements OnInit {
   }
 
   launchClass(classId: number): void {
-    console.log(classId);
     this._store.dispatch(fromCore.tutorLaunchClass({ classId }));
   }
 

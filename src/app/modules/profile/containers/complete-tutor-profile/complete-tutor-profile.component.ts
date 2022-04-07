@@ -27,15 +27,18 @@ export class CompleteTutorProfileComponent implements OnInit {
   subjects$: Observable<ISubject[] | null>;
   countries$: Observable<ICountry[] | null>;
   languages$: Observable<ILanguage[] | null>;
+  programCountries$: Observable<ICountry[] | null>;
 
   constructor(private _store: Store<any>) {}
 
   ngOnInit(): void {
     this._prepareLevels();
     this._prepareFields();
+    this._prepareSubjects();
     this._prepareCountries();
     this._prepareLanguages();
     this._prepareCourseProgram();
+    this._prepareProgramCountries();
 
     this._store.dispatch(fromCore.enterCompleteProfile());
     this.step$ = this._store.select(fromCore.selectProfileStep);
@@ -50,14 +53,16 @@ export class CompleteTutorProfileComponent implements OnInit {
     this._prepareCitiesByCountryId(countryId);
   }
 
-  fetchFieldSubject(fieldId: string): void {
-    this._store.dispatch(fromCore.loadSubjectsByFieldId({ fieldId }));
-    this.subjects$ = this._store.select(fromCore.selectSubjects);
-  }
-
   private _prepareCountries(): void {
     this._store.dispatch(fromCore.loadCountries());
     this.countries$ = this._store.select(fromCore.selectCountries);
+  }
+
+  private _prepareProgramCountries(): void {
+    this._store.dispatch(fromCore.loadProgramCountries());
+    this.programCountries$ = this._store.select(
+      fromCore.selectProgramCountries
+    );
   }
 
   private _prepareLanguages(): void {
@@ -83,5 +88,10 @@ export class CompleteTutorProfileComponent implements OnInit {
   private _prepareLevels(): void {
     this._store.dispatch(fromCore.loadLevels());
     this.levels$ = this._store.select(fromCore.selectLevels);
+  }
+
+  private _prepareSubjects(): void {
+    this._store.dispatch(fromCore.loadSubjects());
+    this.subjects$ = this._store.select(fromCore.selectSubjects);
   }
 }

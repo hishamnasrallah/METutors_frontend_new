@@ -5,25 +5,25 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label for="nameOfUniversity" class="form-label">Name of University</label>
+          <label for="nameOfUniversity" class="form-label">University Name</label>
           <input type="text" class="custom-input w-100 input-bordered" id="nameOfUniversity" placeholder="Enter Name"
             formControlName="nameOfUniversity">
           <div class="text-danger" *ngIf="nameOfUniversity?.touched && nameOfUniversity?.invalid">
-            Please write your University Name
+            Please Write Your University Name
           </div>
         </div>
       </div>
 
       <div class="col-md-6">
         <div class="form-group">
-          <label for="computerSkills" class="form-label">Computer Skills</label>
+          <label for="computerSkills" class="form-label">Computer Skills Level</label>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="computerSkills" [placeholder]="'Above Average'">
               <mat-option [value]="skill" *ngFor="let skill of skills">{{ skill }}</mat-option>
             </mat-select>
           </mat-form-field>
           <div class="text-danger" *ngIf="computerSkills?.touched && computerSkills?.invalid">
-            Please choose your Computer Skills Level
+            Please Choose Your Computer Skills Level
           </div>
         </div>
       </div>
@@ -39,21 +39,21 @@
             </mat-select>
           </mat-form-field>
           <div class="text-danger" *ngIf="degreeLevel?.touched && degreeLevel?.invalid">
-            Please choose your Degree Level
+            Please Choose Your Degree Level
           </div>
         </div>
       </div>
 
       <div class="col-md-6">
         <div class="form-group">
-          <label for="teachingExperience" class="form-label">Teaching Experience</label>
+          <label for="teachingExperience" class="form-label">Teaching Experience (In Schools)</label>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="teachingExperience" [placeholder]="'Select Years'">
               <mat-option [value]="experience" *ngFor="let experience of experiences">{{ experience }}</mat-option>
             </mat-select>
           </mat-form-field>
           <div class="text-danger" *ngIf="teachingExperience?.touched && teachingExperience?.invalid">
-            Please choose your Years of Teacher Experience
+            Please Choose Your Years of Teacher Experience
           </div>
         </div>
       </div>
@@ -62,28 +62,28 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label for="degreeField" class="form-label">Degree Field</label>
+          <label for="degreeField" class="form-label">Degree Field/Major</label>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="degreeField" [placeholder]="'Computer Science'">
               <mat-option [value]="field" *ngFor="let field of degreeFields">{{ field }}</mat-option>
             </mat-select>
           </mat-form-field>
           <div class="text-danger" *ngIf="degreeField?.touched && degreeField?.invalid">
-            Please choose your Degree Field
+            Please Choose Your Degree Field
           </div>
         </div>
       </div>
 
       <div class="col-md-6">
         <div class="form-group">
-          <label for="teachingExperienceOnline" class="form-label">Teaching Experience Online</label>
+          <label for="teachingExperienceOnline" class="form-label">Teaching Experience (Online)</label>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="teachingExperienceOnline" [placeholder]="'Select Years'">
               <mat-option [value]="experience" *ngFor="let experience of experiences">{{ experience }}</mat-option>
             </mat-select>
           </mat-form-field>
           <div class="text-danger" *ngIf="teachingExperienceOnline?.touched && teachingExperienceOnline?.invalid">
-            Please choose your Years of Teacher Experience Online
+            Please Choose Your Years of Teacher Experience Online
           </div>
         </div>
       </div>
@@ -93,7 +93,7 @@
       <div class="col-md-6">
         <div class="form-group">
           <div>
-            <label for="languages" class="form-label">Spoken languages</label>
+            <label for="languages" class="form-label">Spoken languages (For teaching)</label>
             <a class="float-end cursor-pointer" (click)="addLanguage()">Add new</a>
           </div>
           <mat-chip-list>
@@ -147,7 +147,7 @@
             <metutors-video-player [videoSrc]="videoDemo" *ngIf="videoDemo">
             </metutors-video-player>
             <button mat-flat-button color="primary" class="px-4 edit-video" cdkFocusInitial type="button"
-              *ngIf="videoDemo" (click)="filePicker.click()"> change
+              *ngIf="videoDemo" (click)="filePicker.click()"> Change
             </button>
           </div>
           <div class="video-preview d-flex align-items-center justify-content-center flex-column" *ngIf="!videoDemo">

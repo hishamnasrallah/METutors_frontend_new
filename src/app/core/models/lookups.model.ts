@@ -33,6 +33,8 @@ export interface IField {
   name: string;
   code: string;
   icon: string;
+  grade: number;
+  countryId: number;
   programId: number;
 }
 

@@ -1,7 +1,7 @@
 <form [formGroup]="form" (ngSubmit)="submitFormData()" class="w-100">
   <div>
     <h4 class="mb-5 heading text-center">PROVIDE YOUR TUTORING COURSES</h4>
-    <!-- <pre>{{ form.value | json }}</pre> -->
+
     <div class="row" formArrayName="programs">
       <ng-container *ngFor="let _ of programs.controls; let i = index" [formGroupName]="i">
         <div class="col-md-6">
@@ -11,8 +11,9 @@
               <a class="float-end cursor-pointer" *ngIf="i !== 0" (click)="removeProgram(i)">
                 <mat-icon>delete</mat-icon>
               </a>
-              <!--  && +programs.controls.length < +programsList.length -->
-              <a class="float-end cursor-pointer" *ngIf="i === 0" (click)="addProgram()">
+
+              <a class="float-end cursor-pointer" *ngIf="i === 0 && programs.controls.length < programsList.length"
+                (click)="addProgram()">
                 Add new
               </a>
             </label>
@@ -21,8 +22,8 @@
               <mat-select formControlName="programId" [placeholder]="'Select Program'"
                 (selectionChange)="onChangeProgram($event, i)">
                 <ng-container *ngFor="let program of programsList">
-                  <!-- [hidden]="!checkProgram(program.id)" -->
-                  <mat-option [value]="program?.id">{{ program?.name }}
+                  <mat-option [value]="program" [hidden]="!checkProgram(program.id)">
+                    {{ program?.name }}
                   </mat-option>
                 </ng-container>
               </mat-select>
@@ -31,7 +32,7 @@
               Please write your Program
             </div> -->
 
-            <ng-container *ngIf="form.value.programs[i].programId === nationalId">
+            <ng-container *ngIf="form.value.programs[i]?.programId?.id === nationalId">
               <mat-form-field appearance="outline" class="w-100">
                 <mat-select formControlName="countries" [placeholder]="'Select countries for national'" multiple>
                   <mat-option [value]="country?.id" *ngFor="let country of countries">{{ country?.name }}</mat-option>
@@ -54,82 +55,78 @@
             </div>
 
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="fieldId" [placeholder]="'Select Field'"
-                (selectionChange)="onChangeField($event)">
-                <!-- <ng-container *ngFor="let program of programsList">
-                  <mat-optgroup *ngIf="form.value.program?.includes(program?.id)" [label]="program.name"> -->
+              <mat-select formControlName="fields" [placeholder]="'Select Field'" multiple>
                 <ng-container *ngFor="let field of fields">
-                  <mat-option [value]="field" *ngIf="form.value.programs[i].programId === field?.programId">
+                  <mat-option [value]="field?.id" *ngIf="
+                    (
+                      form.value.programs[i]?.programId?.id !== nationalId && 
+                      form.value.programs[i]?.programId?.id === field?.programId
+                    ) || 
+                    (
+                      form.value.programs[i]?.programId?.id === nationalId && 
+                      form.value.programs[i]?.programId?.id === field?.programId &&
+                      form.value.programs[i].countries?.includes(field.countryId) &&
+                      form.value.programs[i].grades?.includes(field.grade)
+                    )
+                  ">
                     {{ field?.name }}
                   </mat-option>
                 </ng-container>
-                <!-- </mat-optgroup>
-                </ng-container> -->
               </mat-select>
             </mat-form-field>
 
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="subjects" [placeholder]="'Select Subject'" multiple>
-                <mat-option [value]="subject" *ngFor="let subject of subjectsList">
-                  {{ subject?.name }}
-                </mat-option>
+              <mat-select formControlName="subjects" [placeholder]="'Select Subject'" (selectionChange)="onChange(i)"
+                multiple>
+                <ng-container *ngFor="let subject of subjectsList">
+                  <mat-option [value]="subject" *ngIf="
+                    (
+                      form.value.programs[i]?.programId?.id !== nationalId && 
+                      form.value.programs[i]?.programId?.id === subject.programId && 
+                      form.value.programs[i].fields?.includes(subject.fieldId)
+                    ) ||
+                    (
+                      form.value.programs[i]?.programId?.id === nationalId && 
+                      form.value.programs[i]?.programId?.id === subject.programId && 
+                      form.value.programs[i].fields?.includes(subject.fieldId) &&
+                      form.value.programs[i].countries?.includes(subject.countryId) &&
+                      form.value.programs[i].grades?.includes(subject.grade)
+                    )
+                  ">
+                    {{ subject?.name }}
+                  </mat-option>
+                </ng-container>
               </mat-select>
             </mat-form-field>
 
-            <!-- <div>
-              <label for="subjects" class="form-label">Field of study</label>
-              <a class="float-end cursor-pointer" *ngIf="selectedSubject === form.value.subjects.length"
-                (click)="addSubject(); selectedSubject = form.value.subjects.length - 1">Add new</a>
-            </div>
-            <ng-container formArrayName="subjects">
-              <ng-container *ngFor="let _ of subjects.controls; let i = index" [formGroupName]="i">
-                <div
-                  [hidden]="(form.value.subjects[i].field && form.value.subjects[i].subject) || selectedSubject !== i">
-                  <mat-form-field appearance="outline" class="w-100 mt-3">
-                    <mat-select formControlName="field" [placeholder]="'Select Field'"
-                      (selectionChange)="onChangeField($event)">
-                      <ng-container *ngFor="let program of programsList">
-                        <mat-optgroup *ngIf="form.value.program?.includes(program?.id)" [label]="program.name">
-                          <ng-container *ngFor="let field of fields">
-                            <mat-option [value]="field" *ngIf="program?.id === field?.programId">
-                              {{ field?.name }}
-                            </mat-option>
-                          </ng-container>
-                        </mat-optgroup>
+            <table class="table my-table default-title"
+              *ngIf="form.value.programs[i].sortedSubjects && form.value.programs[i].sortedSubjects.length">
+              <ng-container *ngFor="let item of form.value.programs[i].sortedSubjects; let indexSubjects = index">
+                <tr>
+                  <th class="heading" [attr.colspan]="form.value.programs[i]?.programId?.id === nationalId ? '2' : '1'">
+                    Program <span>
+                      {{ form.value.programs[i]?.programId?.name }}<ng-container
+                        *ngIf="form.value.programs[i]?.programId?.id === nationalId">, {{ item?.countryName }}
                       </ng-container>
-                    </mat-select>
-                  </mat-form-field>
-
-                  <mat-form-field appearance="outline" class="w-100">
-                    <mat-select formControlName="subject" [placeholder]="'Select subject'" multiple
-                      (openedChange)="onOpenChange($event, i)">
-                      <mat-option [value]="subject" *ngFor="let subject of subjectsList">
-                        {{ subject?.name }}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
+                    </span>
+                  </th>
+                  <th class="heading">Field Name <span>{{ item?.fieldName }}</span></th>
+                </tr>
+                <tr>
+                  <th>Subject Name</th>
+                  <th *ngIf="form.value.programs[i]?.programId?.id === nationalId">Grade</th>
+                  <th>Hourly Rate</th>
+                </tr>
+                <tr *ngFor="let subject of item.subjects; let indexSubject = index">
+                  <td>{{ subject?.name }}</td>
+                  <td *ngIf="form.value.programs[i]?.programId?.id === nationalId">{{ subject?.gradeName }}</td>
+                  <td>
+                    <input type="number" min="0" step="1" max="20" placeholder="Enter Price" class="p-0" [value]="subject.pricePerHour"
+                      (change)="changePrice(i, indexSubjects, indexSubject, $event)">
+                  </td>
+                </tr>
               </ng-container>
-            </ng-container>
-
-            <mat-chip-list>
-              <ng-container *ngFor="let subj of form.value.subjects; let i = index">
-                <mat-chip *ngIf="subj.field && subj.subject && subj.subject.length" class="subj-info">
-                  <div class="d-flex align-items-center justify-content-center">
-                    <div class="d-flex flex-column justify-content-center px-2">
-                      <span class="field">{{ subj.field?.name }}</span>
-                      <div class="d-block">
-                        <span class="subject" *ngFor="let sub of subj.subject; let isLast = last">
-                          {{ sub?.name }}
-                          <ng-container *ngIf="!isLast">, </ng-container>
-                        </span>
-                      </div>
-                    </div>
-                    <mat-icon (click)="removeSubject(i); selectedSubject = selectedSubject - 1">cancel</mat-icon>
-                  </div>
-                </mat-chip>
-              </ng-container>
-            </mat-chip-list> -->
+            </table>
           </div>
         </div>
       </ng-container>
