@@ -638,6 +638,11 @@ export const selectIsLoadingPrograms = createSelector(
   fromLookupsReducer.selectIsLoadingPrograms
 );
 
+export const selectFilteredPrograms = createSelector(
+  selectLookupsState,
+  fromLookupsReducer.selectFilteredPrograms
+);
+
 export const selectSubjects = createSelector(
   selectLookupsState,
   fromLookupsReducer.selectSubjects
@@ -701,6 +706,16 @@ export const selectTicketPriorities = createSelector(
 export const selectIsLoadingTicketPriorities = createSelector(
   selectLookupsState,
   fromLookupsReducer.selectIsLoadingTicketPriorities
+);
+
+export const selectIsAddingEditingProgram = createSelector(
+  selectLookupsState,
+  fromLookupsReducer.selectIsAddingEditingProgram
+);
+
+export const selectIsDeletingProgram = createSelector(
+  selectLookupsState,
+  fromLookupsReducer.selectIsDeletingProgram
 );
 
 // Course

@@ -4,11 +4,11 @@ import {
   HttpParams,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ProgramStatus } from '@metutor/config';
 import { Observable, throwError, map } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import {
-  IProgram,
   ICountry,
   ISubject,
   IField,
@@ -73,15 +73,67 @@ export class LookupsService {
 
   getPrograms(): Observable<any> {
     return this.http
-      .get<{ programs: IProgram[] }>(`${this.BACKEND_URL}programs`)
+      .get<{ programs: any[] }>(`${this.BACKEND_URL}programs`)
       .pipe(
         map((response) => {
           return response.programs.map((item) => ({
             id: item.id,
             name: item.name,
+            status: item.status,
+            createdAt: item.created_at,
           }));
         })
       )
+      .pipe(catchError(this.errorHandler));
+  }
+
+  addNewProgram(value: any): Observable<any> {
+    return this.http
+      .post<{ program: any; message: string }>(
+        `${this.BACKEND_URL}program`,
+        value
+      )
+      .pipe(
+        map((response) => {
+          return {
+            message: response.message,
+            program: {
+              id: response.program.id,
+              name: response.program.name,
+              status: ProgramStatus.active,
+              createdAt: response.program.created_at,
+            },
+          };
+        })
+      )
+      .pipe(catchError(this.errorHandler));
+  }
+
+  editProgram(value: any): Observable<any> {
+    return this.http
+      .patch<{ program: any; message: string }>(
+        `${this.BACKEND_URL}program/${value.id}`,
+        value
+      )
+      .pipe(
+        map((response) => {
+          return {
+            message: response.message,
+            program: {
+              id: response.program.id,
+              name: response.program.name,
+              status: ProgramStatus.active,
+              createdAt: response.program.created_at,
+            },
+          };
+        })
+      )
+      .pipe(catchError(this.errorHandler));
+  }
+
+  deleteProgram(id: number): Observable<any> {
+    return this.http
+      .delete<{ message: string }>(`${this.BACKEND_URL}program/${id}`)
       .pipe(catchError(this.errorHandler));
   }
 

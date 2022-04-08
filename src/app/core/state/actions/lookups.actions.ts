@@ -218,3 +218,33 @@ export const loadTicketPrioritiesFailure = createAction(
 export const loadTicketPrioritiesEnded = createAction(
   '[Lookups] Load Ticket Priorities Ended'
 );
+
+export const addEditProgram = createAction(
+  '[Lookups] Add Edit Program',
+  props<{ program: IProgram }>()
+);
+
+export const addEditProgramSuccess = createAction(
+  '[Lookups] Add Edit Program Success',
+  props<{ program: IProgram; message: string; isEdit: boolean }>()
+);
+
+export const addEditProgramFailure = createAction(
+  '[Lookups] Add Edit Program Failure',
+  props<{ error: any }>()
+);
+
+export const deleteProgram = createAction(
+  '[Lookups] Delete Program',
+  props<{ id: number }>()
+);
+
+export const deleteProgramSuccess = createAction(
+  '[Lookups] Delete Program Success',
+  props<{ id: number; message: string }>()
+);
+
+export const deleteProgramFailure = createAction(
+  '[Lookups] Delete Program Failure',
+  props<{ error: any }>()
+);

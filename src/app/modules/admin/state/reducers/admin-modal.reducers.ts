@@ -1,13 +1,16 @@
 import { createReducer, on } from '@ngrx/store';
+import * as fromCore from '@metutor/core/state';
 import * as adminModalActions from '../actions/admin-modal.actions';
 
 export interface State {
+  showAddNewProgramModal: boolean;
   showSendMeetingLinkModal: boolean;
   showInterviewAttachmentModal: boolean;
   showHourlyRatePerSubjectModal: boolean;
 }
 
 export const initialState: State = {
+  showAddNewProgramModal: false,
   showSendMeetingLinkModal: false,
   showInterviewAttachmentModal: false,
   showHourlyRatePerSubjectModal: false,
@@ -44,7 +47,21 @@ export const reducer = createReducer(
   on(adminModalActions.closeAdminInterviewAttachmentModal, (state) => ({
     ...state,
     showInterviewAttachmentModal: false,
-  }))
+  })),
+
+  on(adminModalActions.openAdminAddNewProgramModal, (state) => ({
+    ...state,
+    showAddNewProgramModal: true,
+  })),
+
+  on(
+    fromCore.addEditProgramSuccess,
+    adminModalActions.closeAdminAddNewProgramModal,
+    (state) => ({
+      ...state,
+      showAddNewProgramModal: false,
+    })
+  )
 );
 
 // Admin modal selectors
@@ -56,3 +73,6 @@ export const selectIsHourlyRatePerSubjectModal = (state: State): boolean =>
 
 export const selectIsInterviewAttachmentModal = (state: State): boolean =>
   state.showInterviewAttachmentModal;
+
+export const selectAddNewProgramModal = (state: State): boolean =>
+  state.showAddNewProgramModal;

@@ -23,3 +23,11 @@ export const openAdminInterviewAttachmentModal = createAction(
 export const closeAdminInterviewAttachmentModal = createAction(
   '[Admin Modal] Close Admin Interview Attachment Modal'
 );
+
+export const openAdminAddNewProgramModal = createAction(
+  '[Admin Modal] Open Admin Add New Program Modal'
+);
+
+export const closeAdminAddNewProgramModal = createAction(
+  '[Admin Modal] Close Admin Add New Program Modal'
+);
