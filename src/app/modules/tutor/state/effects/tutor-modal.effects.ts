@@ -6,6 +6,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 
 import * as fromTutorAction from '../actions';
 import * as fromCore from '@metutor/core/state';
+import { openTutorCourseAttendanceModal } from '../actions';
 
 @Injectable()
 export class TutorModalEffects {
@@ -46,6 +47,13 @@ export class TutorModalEffects {
       mergeMap(({ id, userId }) =>
         of(fromCore.loadTutorStudentAssignmentDetail({ id, userId }))
       )
+    )
+  );
+
+  openTutorAttendanceModal$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(fromTutorAction.openTutorCourseAttendanceModal),
+      mergeMap(({ params }) => of(fromCore.loadTutorAttendance({ params })))
     )
   );
 

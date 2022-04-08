@@ -6,21 +6,22 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 import { RatingModule } from 'ngx-bootstrap/rating';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
+import { NgxAutoScrollModule } from 'ngx-auto-scroll';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatInputModule } from '@angular/material/input';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
+import { TutorRoutingModule } from './tutor-routing.module';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatNativeDateModule } from '@angular/material/core';
+import { SharedModule } from '@metutor/shared/shared.module';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { NgxAutoScrollModule } from 'ngx-auto-scroll';
-import { MatNativeDateModule } from '@angular/material/core';
-import { TutorRoutingModule } from './tutor-routing.module';
-import { SharedModule } from '@metutor/shared/shared.module';
-import { MatInputModule } from '@angular/material/input';
 
 import * as fromTutor from './state';
 import * as tutorEffects from './state/effects';
@@ -118,6 +119,7 @@ import {
     MatSelectModule,
     MatButtonModule,
     BsDropdownModule,
+    MatTooltipModule,
     MatFormFieldModule,
     TutorRoutingModule,
     NgxAutoScrollModule,
