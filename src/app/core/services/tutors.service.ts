@@ -201,4 +201,13 @@ export class TutorsService {
       `${this.baseUrl}teacher/assignment/${id}/user/${userId}`
     );
   }
+
+  // Attenance
+  getTutorAttendance(params: any, id: number): Observable<any> {
+    const { my_attendance } = params;
+    console.log(my_attendance);
+    return this.http.get<any>(
+      `${this.baseUrl}teacher/course/${id}/attendence?students_attendance`
+    );
+  }
 }

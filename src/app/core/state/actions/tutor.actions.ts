@@ -83,3 +83,23 @@ export const tutorLaunchClassFailure = createAction(
   '[Tutor] Load Tutor Launch Class Failure',
   props<{ error: any }>()
 );
+
+// Tutor attendance
+export const loadTutorAttendance = createAction(
+  '[Tutor] Load Tutor Attendance',
+  props<{ params: any }>()
+);
+
+export const loadTutorAttendanceSuccess = createAction(
+  '[Tutor] Load Tutor Attendance Success',
+  props<{ attendance: any }>()
+);
+
+export const loadTutorAttendanceFailure = createAction(
+  '[Tutor] Load Tutor Attendance Failure',
+  props<{ error: any }>()
+);
+
+export const loadTutorAttendanceEnded = createAction(
+  '[Tutor] Load Tutor Attendance Ended'
+);

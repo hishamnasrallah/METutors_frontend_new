@@ -208,6 +208,16 @@ export const selectIsCompleteTutorProfile = createSelector(
   fromTutorReducer.selectIsCompleteTutorProfile
 );
 
+export const selectTutorAttendance = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectTutorAttendance
+);
+
+export const selectIsLoadingTutorAttendance = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectIsLoadingTutorAttendance
+);
+
 // Tutor syllabus
 export const selectTutorSyllabus = createSelector(
   selectTutorSyllabusState,

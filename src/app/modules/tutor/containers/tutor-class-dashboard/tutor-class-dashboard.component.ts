@@ -82,7 +82,9 @@ export class TutorClassDashboardComponent implements OnInit {
   }
 
   onShowCourseAttendanceModal(): void {
-    this._store.dispatch(fromTutorAction.openTutorCourseAttendanceModal());
+    this._store.dispatch(
+      fromTutorAction.openTutorCourseAttendanceModal({ params: '' })
+    );
   }
 
   onCloseCourseAttendanceModal(): void {

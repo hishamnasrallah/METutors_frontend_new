@@ -6,6 +6,7 @@ import * as courseActions from '../actions/course.actions';
 
 export interface State {
   dashboard: any;
+  attendance: any;
   tutor: ITutor | null;
   tutors: ITutor[] | null;
   isLoadingTutor: boolean;
@@ -14,6 +15,7 @@ export interface State {
   isLoadingDashboard: boolean;
   loadingTutorFailure: string;
   loadingTutorsFailure: string;
+  isLoadingTutorAttendance: boolean;
 
   // Complete Tutor Profile
   isCompleteTutorProfile: boolean;
@@ -24,6 +26,7 @@ export const initialState: State = {
   tutor: null,
   tutors: null,
   dashboard: null,
+  attendance: null,
   isLoadingTutor: false,
   isLoadingTutors: false,
   isLaunchingClass: false,
@@ -31,6 +34,7 @@ export const initialState: State = {
   loadingTutorsFailure: '',
   isLoadingDashboard: false,
   isCompleteTutorProfile: false,
+  isLoadingTutorAttendance: false,
   completeTutorProfileFailure: '',
 };
 
@@ -153,6 +157,27 @@ export const reducer = createReducer(
   on(tutorActions.tutorLaunchClassFailure, (state) => ({
     ...state,
     isLaunchingClass: false,
+  })),
+
+  on(tutorActions.loadTutorAttendance, (state) => ({
+    ...state,
+    isLoadingTutorAttendance: true,
+  })),
+
+  on(tutorActions.loadTutorAttendanceSuccess, (state, { attendance }) => ({
+    ...state,
+    attendance,
+    isLoadingTutorAttendance: false,
+  })),
+
+  on(tutorActions.loadTutorAttendanceFailure, (state) => ({
+    ...state,
+    isLoadingTutorAttendance: false,
+  })),
+
+  on(tutorActions.loadTutorAttendanceEnded, (state) => ({
+    ...state,
+    isLoadingTutorAttendance: false,
   }))
 );
 
@@ -177,25 +202,30 @@ export const selectIsCompleteTutorProfile = (state: State): boolean =>
 export const selectIsLaunchingClass = (state: State): boolean =>
   state.isLaunchingClass;
 
-  export const selectFilteredTutors = (
-    state: State,
-    props?: any
-  ): ITutor[] | null => {
-    let tutors: ITutor[] = [];
-  
-    if (state.tutors && state.tutors.length && props) {
-      tutors = getFilteredTutors(state.tutors, props);
-    }
-  
-    return tutors;
-  };
-  
-  const getFilteredTutors = (tutors: ITutor[], props: any) => {  
-    if (props?.name) {
-      tutors = tutors?.filter((tutor) =>
-        tutor?.name?.toLowerCase()?.includes(props.name.toLowerCase())
-      );
-    }
-  
-    return tutors;
-  };
+export const selectTutorAttendance = (state: State): any => state.attendance;
+
+export const selectIsLoadingTutorAttendance = (state: State): boolean =>
+  state.isLoadingTutorAttendance;
+
+export const selectFilteredTutors = (
+  state: State,
+  props?: any
+): ITutor[] | null => {
+  let tutors: ITutor[] = [];
+
+  if (state.tutors && state.tutors.length && props) {
+    tutors = getFilteredTutors(state.tutors, props);
+  }
+
+  return tutors;
+};
+
+const getFilteredTutors = (tutors: ITutor[], props: any) => {
+  if (props?.name) {
+    tutors = tutors?.filter((tutor) =>
+      tutor?.name?.toLowerCase()?.includes(props.name.toLowerCase())
+    );
+  }
+
+  return tutors;
+};
