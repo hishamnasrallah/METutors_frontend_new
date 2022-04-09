@@ -1,0 +1,22 @@
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'medium'"
+                [heading]="country ? 'Edit Country' : 'Add Country'"
+                [template]="template">
+  <ng-template #template>
+    <form class="row add-country-modal" [formGroup]="form" (ngSubmit)="onSubmit(form)">
+        <div class="col-12">
+          <div class="form-group">
+            <label for="name">Country Name</label>
+            <input class="form-control custom-input input-bordered" formControlName="name" id="name"
+                   placeholder="Enter Country Name">
+          </div>
+        </div>
+
+        <div class="col-md-12 mt-2 overflow-hidden">
+            <metutors-submit-button [form]="form" [isSubmitting]="isAdding"
+                                    [extraClasses]="'float-end py-1 px-5'">
+            {{ country ? 'Edit Country' : 'Add Country' }}
+            </metutors-submit-button>
+        </div>
+    </form>
+  </ng-template>
+</metutors-modal>

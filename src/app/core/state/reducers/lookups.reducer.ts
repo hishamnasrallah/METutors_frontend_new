@@ -99,6 +99,14 @@ export interface State {
   // Delete Field
   isDeletingSubject: boolean;
   deletingSubjectFailure?: string;
+
+  // Add Edit Program Countries
+  isAddingEditingProgramCountries: boolean;
+  addingEditingProgramCountriesFailure?: string;
+
+  // Delete Program Countries
+  isDeletingProgramCountries: boolean;
+  deletingProgramCountriesFailure?: string;
 }
 
 export const initialState: State = {
@@ -129,6 +137,8 @@ export const initialState: State = {
   isLoadingTicketCategories: false,
   isLoadingTicketPriorities: false,
   isLoadingProgramCountries: false,
+  isDeletingProgramCountries: false,
+  isAddingEditingProgramCountries: false,
 };
 
 export const reducer = createReducer(
@@ -534,6 +544,53 @@ export const reducer = createReducer(
     ...state,
     isDeletingSubject: false,
     deletingSubjectFailure: error,
+  })),
+
+  on(lookupsActions.addEditProgramCountries, (state) => ({
+    ...state,
+    isAddingEditingProgramCountries: true,
+  })),
+
+  on(
+    lookupsActions.addEditProgramCountriesSuccess,
+    (state, { country, isEdit }) => ({
+      ...state,
+      programCountries:
+        state.programCountries && state.programCountries.length
+          ? isEdit
+            ? state.programCountries.map((prog) =>
+                prog.id === country.id ? { ...country } : { ...prog }
+              )
+            : [...state.programCountries, country]
+          : [country],
+      isAddingEditingProgramCountries: false,
+    })
+  ),
+
+  on(lookupsActions.addEditProgramCountriesFailure, (state, { error }) => ({
+    ...state,
+    isAddingEditingProgramCountries: false,
+    addingEditingProgramCountriesFailure: error,
+  })),
+
+  on(lookupsActions.deleteProgramCountries, (state) => ({
+    ...state,
+    isDeletingProgramCountries: true,
+  })),
+
+  on(lookupsActions.deleteProgramCountriesSuccess, (state, { id }) => ({
+    ...state,
+    programCountries:
+      state.programCountries && state.programCountries.length
+        ? state.programCountries.filter((prog) => prog.id !== id)
+        : [],
+    isDeletingProgramCountries: false,
+  })),
+
+  on(lookupsActions.deleteProgramCountriesFailure, (state, { error }) => ({
+    ...state,
+    isDeletingProgramCountries: false,
+    deletingProgramCountriesFailure: error,
   }))
 );
 
@@ -623,6 +680,12 @@ export const selectIsAddingEditingSubject = (state: State): boolean =>
 
 export const selectIsDeletingSubject = (state: State): boolean =>
   state.isDeletingSubject;
+
+export const selectIsAddingEditingProgramCountries = (state: State): boolean =>
+  state.isAddingEditingProgramCountries;
+
+export const selectIsDeletingProgramCountries = (state: State): boolean =>
+  state.isDeletingProgramCountries;
 
 export const selectFilteredFAQs = (
   state: State,
@@ -762,4 +825,39 @@ const getFilteredSubjects = (subjects: ISubject[], props: any) => {
   }
 
   return subjects;
+};
+
+export const selectFilteredProgramCountries = (
+  state: State,
+  props?: any
+): ICountry[] | null => {
+  let programCountries: ICountry[] = [];
+
+  if (state.programCountries && state.programCountries.length && props) {
+    programCountries = getFilteredProgramCountries(
+      state.programCountries,
+      props
+    );
+  }
+
+  return programCountries;
+};
+
+const getFilteredProgramCountries = (
+  programCountries: ICountry[],
+  props: any
+) => {
+  if (props?.title) {
+    programCountries = programCountries?.filter((country) =>
+      country?.name.toLowerCase().includes(props.title.toLowerCase())
+    );
+  }
+
+  if (props?.status) {
+    programCountries = programCountries.filter(
+      (country) => country.status === +props.status
+    );
+  }
+
+  return programCountries;
 };

@@ -43,14 +43,14 @@ export class LookupsService {
 
   getProgramCountries(): Observable<any> {
     return this.http
-      .get<{ program_countries: ICountry[] }>(
-        `${this.BACKEND_URL}program-country`
-      )
+      .get<{ program_countries: any[] }>(`${this.BACKEND_URL}program-country`)
       .pipe(
         map((response) => {
           return response.program_countries.map((item) => ({
             id: item.id,
             name: item.name,
+            updatedAt: item.updated_at,
+            status: item.status,
           }));
         })
       )
@@ -425,6 +425,56 @@ export class LookupsService {
   deleteField(id: number): Observable<any> {
     return this.http
       .delete<{ message: string }>(`${this.BACKEND_URL}fieldofstudy/${id}`)
+      .pipe(catchError(this.errorHandler));
+  }
+
+  addNewProgramCountries(value: any): Observable<any> {
+    return this.http
+      .post<{ program_country: any; message: string }>(
+        `${this.BACKEND_URL}program-country`,
+        value
+      )
+      .pipe(
+        map((response) => {
+          return {
+            message: response.message,
+            country: {
+              id: response.program_country.id,
+              name: response.program_country.name,
+              status: ProgramStatus.active,
+              updatedAt: response.program_country.updated_at,
+            },
+          };
+        })
+      )
+      .pipe(catchError(this.errorHandler));
+  }
+
+  editProgramCountries(value: any): Observable<any> {
+    return this.http
+      .patch<{ program_country: any; message: string }>(
+        `${this.BACKEND_URL}program-country/${value.id}`,
+        value
+      )
+      .pipe(
+        map((response) => {
+          return {
+            message: response.message,
+            country: {
+              id: response.program_country.id,
+              name: response.program_country.name,
+              status: response.program_country.status,
+              updatedAt: response.program_country.updated_at,
+            },
+          };
+        })
+      )
+      .pipe(catchError(this.errorHandler));
+  }
+
+  deleteProgramCountries(id: number): Observable<any> {
+    return this.http
+      .delete<{ message: string }>(`${this.BACKEND_URL}program-country/${id}`)
       .pipe(catchError(this.errorHandler));
   }
 

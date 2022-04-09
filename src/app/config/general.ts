@@ -1,5 +1,6 @@
 import { HttpEventType } from '@angular/common/http';
 import {
+  CountryStatus,
   FieldStatus,
   ProgramStatus,
   SubjectStatus,
@@ -58,6 +59,17 @@ export const SUBJECT_STATUSES_CONST: any = [
   },
   {
     id: SubjectStatus.inActive,
+    name: 'Inactive',
+  },
+];
+
+export const COUNTRY_STATUSES_CONST: any = [
+  {
+    id: CountryStatus.active,
+    name: 'Active',
+  },
+  {
+    id: CountryStatus.inActive,
     name: 'Inactive',
   },
 ];

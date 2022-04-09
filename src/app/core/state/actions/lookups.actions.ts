@@ -312,3 +312,33 @@ export const deleteSubjectFailure = createAction(
   '[Lookups] Delete Subject Failure',
   props<{ error: any }>()
 );
+
+export const addEditProgramCountries = createAction(
+  '[Lookups] Add Edit Program Countries',
+  props<{ country: ICountry }>()
+);
+
+export const addEditProgramCountriesSuccess = createAction(
+  '[Lookups] Add Edit Program Countries Success',
+  props<{ country: ICountry; message: string; isEdit: boolean }>()
+);
+
+export const addEditProgramCountriesFailure = createAction(
+  '[Lookups] Add Edit Program Countries Failure',
+  props<{ error: any }>()
+);
+
+export const deleteProgramCountries = createAction(
+  '[Lookups] Delete Program Countries',
+  props<{ id: number }>()
+);
+
+export const deleteProgramCountriesSuccess = createAction(
+  '[Lookups] Delete Program Countries Success',
+  props<{ id: number; message: string }>()
+);
+
+export const deleteProgramCountriesFailure = createAction(
+  '[Lookups] Delete Program Countries Failure',
+  props<{ error: any }>()
+);

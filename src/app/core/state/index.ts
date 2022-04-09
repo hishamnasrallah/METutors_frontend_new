@@ -658,6 +658,11 @@ export const selectProgramCountries = createSelector(
   fromLookupsReducer.selectProgramCountries
 );
 
+export const selectFilteredProgramCountries = createSelector(
+  selectLookupsState,
+  fromLookupsReducer.selectFilteredProgramCountries
+);
+
 export const selectCities = createSelector(
   selectLookupsState,
   fromLookupsReducer.selectCities
@@ -781,6 +786,16 @@ export const selectIsAddingEditingSubject = createSelector(
 export const selectIsDeletingSubject = createSelector(
   selectLookupsState,
   fromLookupsReducer.selectIsDeletingSubject
+);
+
+export const selectIsAddingEditingProgramCountries = createSelector(
+  selectLookupsState,
+  fromLookupsReducer.selectIsAddingEditingProgramCountries
+);
+
+export const selectIsDeletingProgramCountries = createSelector(
+  selectLookupsState,
+  fromLookupsReducer.selectIsDeletingProgramCountries
 );
 
 // Course
