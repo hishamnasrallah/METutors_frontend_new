@@ -216,6 +216,20 @@ export const loadStudentFeedbackOptionsFailure = createAction(
   props<{ error: any }>()
 );
 
+export const loadStudentPlatformFeedbackOptions = createAction(
+  '[Student] Load Student Platform Feedback Options'
+);
+
+export const loadStudentPlatformFeedbackOptionsSuccess = createAction(
+  '[Student] Load Student Platform Feedback Options Success',
+  props<{ feedbackOptions: any }>()
+);
+
+export const loadStudentPlatformFeedbackOptionsFailure = createAction(
+  '[Student] Load Student Platform Feedback Options Failure',
+  props<{ error: any }>()
+);
+
 export const studentSubmitFeedback = createAction(
   '[Student] Student Submit Feedback',
   props<{ body: any }>()
@@ -228,5 +242,20 @@ export const studentSubmitFeedbackSuccess = createAction(
 
 export const studentSubmitFeedbackFailure = createAction(
   '[Student] Student Submit Feedback Failure',
+  props<{ error: any }>()
+);
+
+export const studentSubmitPlatformFeedback = createAction(
+  '[Student] Student Submit Platform Feedback',
+  props<{ body: any }>()
+);
+
+export const studentSubmitPlatformFeedbackSuccess = createAction(
+  '[Student] Student Submit Platform Feedback Success',
+  props<{ message: string }>()
+);
+
+export const studentSubmitPlatformFeedbackFailure = createAction(
+  '[Student] Student Submit Platform Feedback Failure',
   props<{ error: any }>()
 );

@@ -13,8 +13,12 @@ import * as fromCore from '@metutor/core/state';
 })
 export class StudentFeedbackModalComponent implements OnInit {
   @Input() showModal = false;
+  @Input() tabLabel = 'Tutor Feedback';
+  @Input() messageLabel = 'Write a message to your teacher';
+  @Input() heading = 'Share with us your feedback on your teacher';
 
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
+  @Output() submitFeedback: EventEmitter<any> = new EventEmitter<any>();
 
   form!: FormGroup;
 
@@ -22,11 +26,6 @@ export class StudentFeedbackModalComponent implements OnInit {
   view$: Observable<{ loading: boolean; feedbackOptions: any }>;
 
   constructor(private _store: Store<any>, private _fb: FormBuilder) {}
-
-  onSubmitTutorFeedback(form: FormGroup) {
-    const body = form.value;
-    this._store.dispatch(fromCore.studentSubmitFeedback({ body }));
-  }
 
   get feedbacks(): FormArray {
     return this.form?.get('feedbacks') as FormArray;

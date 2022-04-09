@@ -1,13 +1,17 @@
 import { Store } from '@ngrx/store';
+import { map } from 'rxjs/operators';
 import { Observable, combineLatest } from 'rxjs';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { Component, OnInit } from '@angular/core';
 
 import { insightRange } from '@config';
 import * as fromRoot from '@metutor/state';
+import * as fromStudent from '../../state';
 import { IUser } from '@metutor/core/models';
 import * as fromCore from '@metutor/core/state';
-import { map } from 'rxjs/operators';
+import * as fromStudentActions from '../../state/actions';
+import { FormGroup } from '@angular/forms';
+import { studentSubmitPlatformFeedback } from '@metutor/core/state';
 
 @Component({
   selector: 'metutors-student-dashboard',
@@ -46,6 +50,11 @@ export class StudentDashboardComponent implements OnInit {
 
   range = '';
   insightRange = insightRange;
+  tabLabel = 'Metutors Feedback';
+  showSendFeedbackModal$: Observable<boolean>;
+  heading = 'Share with us your feedback on MeTutors service';
+  messageLabel =
+    'Please share with us your thoughts on how to improve our services';
 
   view$: Observable<{
     loading: boolean;
@@ -59,9 +68,30 @@ export class StudentDashboardComponent implements OnInit {
     this._store.dispatch(fromCore.loadStudentDashboard({ params, load: true }));
   }
 
+  onOpenFeedbackModal(): void {
+    this._store.dispatch(
+      fromStudentActions.openStudentSendPlatformFeedbackModal()
+    );
+  }
+
+  onCloseFeedbackModal(): void {
+    this._store.dispatch(
+      fromStudentActions.closeStudentSendPlatformFeedbackModal()
+    );
+  }
+
+  onSubmitFeedback(form: FormGroup): void {
+    const body = form.value;
+    this._store.dispatch(fromCore.studentSubmitPlatformFeedback({ body }));
+  }
+
   ngOnInit(): void {
-    this.layout$ = this._store.select(fromRoot.selectLayout);
     this.user$ = this._store.select(fromCore.selectUser);
+    this.layout$ = this._store.select(fromRoot.selectLayout);
+
+    this.showSendFeedbackModal$ = this._store.select(
+      fromStudent.selectSendFeedbackModal
+    );
 
     this._store.dispatch(
       fromCore.loadStudentDashboard({ params: this.range, load: false })

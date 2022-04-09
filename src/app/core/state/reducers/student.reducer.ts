@@ -298,13 +298,18 @@ export const reducer = createReducer(
     isLoadingStudentAttendance: false,
   })),
 
-  on(studentActions.loadStudentFeedbackOptions, (state) => ({
-    ...state,
-    isLoadingStudentFeedbackOptions: true,
-  })),
+  on(
+    studentActions.loadStudentFeedbackOptions,
+    studentActions.loadStudentPlatformFeedbackOptions,
+    (state) => ({
+      ...state,
+      isLoadingStudentFeedbackOptions: true,
+    })
+  ),
 
   on(
     studentActions.loadStudentFeedbackOptionsSuccess,
+    studentActions.loadStudentPlatformFeedbackOptionsSuccess,
     (state, { feedbackOptions }) => ({
       ...state,
       feedbackOptions,
@@ -312,25 +317,41 @@ export const reducer = createReducer(
     })
   ),
 
-  on(studentActions.loadStudentFeedbackOptionsFailure, (state) => ({
-    ...state,
-    isLoadingStudentFeedbackOptions: false,
-  })),
+  on(
+    studentActions.loadStudentFeedbackOptionsFailure,
+    studentActions.loadStudentPlatformFeedbackOptionsFailure,
+    (state) => ({
+      ...state,
+      isLoadingStudentFeedbackOptions: false,
+    })
+  ),
 
-  on(studentActions.studentSubmitFeedback, (state) => ({
-    ...state,
-    isSubmittingFeedback: true,
-  })),
+  on(
+    studentActions.studentSubmitFeedback,
+    studentActions.studentSubmitPlatformFeedback,
+    (state) => ({
+      ...state,
+      isSubmittingFeedback: true,
+    })
+  ),
 
-  on(studentActions.studentSubmitFeedbackSuccess, (state) => ({
-    ...state,
-    isSubmittingFeedback: false,
-  })),
+  on(
+    studentActions.studentSubmitFeedbackSuccess,
+    studentActions.studentSubmitPlatformFeedbackSuccess,
+    (state) => ({
+      ...state,
+      isSubmittingFeedback: false,
+    })
+  ),
 
-  on(studentActions.studentSubmitFeedbackFailure, (state) => ({
-    ...state,
-    isSubmittingFeedback: false,
-  }))
+  on(
+    studentActions.studentSubmitFeedbackFailure,
+    studentActions.studentSubmitPlatformFeedbackFailure,
+    (state) => ({
+      ...state,
+      isSubmittingFeedback: false,
+    })
+  )
 );
 
 export const selectStudents = (state: State): IStudent[] | null =>

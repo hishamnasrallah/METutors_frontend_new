@@ -44,5 +44,12 @@ export class TutorModalEffects {
     )
   );
 
+  openStudentSendPlatformFeedbackModal$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(fromStudentAction.openStudentSendPlatformFeedbackModal),
+      mergeMap(() => of(fromCore.loadStudentPlatformFeedbackOptions()))
+    )
+  );
+
   constructor(private _actions$: Actions, private _store: Store) {}
 }

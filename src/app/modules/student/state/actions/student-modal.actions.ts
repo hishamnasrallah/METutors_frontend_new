@@ -8,6 +8,14 @@ export const closeStudentSendFeedbackModal = createAction(
   '[Student Modal] Close Student Send Feedback Modal'
 );
 
+export const openStudentSendPlatformFeedbackModal = createAction(
+  '[Student Modal] Open Student Send Platform Feedback Modal'
+);
+
+export const closeStudentSendPlatformFeedbackModal = createAction(
+  '[Student Modal] Close Student Send Platform Feedback Modal'
+);
+
 export const openStudentAttendanceModal = createAction(
   '[Student Modal] Open Student Attendance Modal'
 );

@@ -9,6 +9,7 @@ import {
   selectStudents,
   selectStudentDashboard,
   selectStudentAttendance,
+  studentSubmitPlatformFeedback,
 } from '@metutor/core/state';
 
 import { StudentsService } from '@services';
@@ -354,6 +355,28 @@ export class StudentEffects {
     )
   );
 
+  loadStudentPlatformFeedbackOptions$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(studentActions.loadStudentPlatformFeedbackOptions),
+      mergeMap(() =>
+        this._studentService.getStudentPlatformFeedbackOptions().pipe(
+          map((feedbackOptions) =>
+            studentActions.loadStudentPlatformFeedbackOptionsSuccess({
+              feedbackOptions: camelcaseKeys(feedbackOptions, { deep: true }),
+            })
+          ),
+          catchError((error) =>
+            of(
+              studentActions.loadStudentPlatformFeedbackOptionsFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   studentSubmitFeedback$ = createEffect(() =>
     this._actions$.pipe(
       ofType(studentActions.studentSubmitFeedback),
@@ -377,6 +400,29 @@ export class StudentEffects {
     )
   );
 
+  studentSubmitPlatformFeedback$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(studentActions.studentSubmitPlatformFeedback),
+      withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
+      mergeMap(([{ body }, { id }]) =>
+        this._studentService.studentSubmitPlatformFeedback(body, id).pipe(
+          map((attendance) =>
+            studentActions.studentSubmitPlatformFeedbackSuccess({
+              message: 'Feedback successfully submitted',
+            })
+          ),
+          catchError((error) =>
+            of(
+              studentActions.studentSubmitPlatformFeedbackFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   studentSubmitAssignmentSuccess$ = createEffect(() =>
     this._actions$.pipe(
       ofType(studentActions.studentSubmitAssignmentSuccess),
@@ -391,6 +437,7 @@ export class StudentEffects {
           ...[
             studentActions.studentSubmitFeedbackSuccess,
             studentActions.studentSubmitAssignmentSuccess,
+            studentActions.studentSubmitPlatformFeedbackSuccess,
           ]
         ),
         map(({ message }) => this._alertNotificationService.success(message))
@@ -408,6 +455,7 @@ export class StudentEffects {
             studentActions.studentJoinClassFailure,
             studentActions.studentSubmitFeedbackFailure,
             studentActions.studentSubmitAssignmentFailure,
+            studentActions.studentSubmitPlatformFeedbackFailure,
           ]
         ),
         map((action) => {
