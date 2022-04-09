@@ -5,17 +5,16 @@ import camelcaseKeys from 'camelcase-keys';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 
+import {
+  selectStudents,
+  selectStudentDashboard,
+  selectStudentAttendance,
+} from '@metutor/core/state';
+
 import { StudentsService } from '@services';
 import * as fromRouterStore from '@metutor/state';
 import { AlertNotificationService } from '@metutor/core/components';
-import {
-  selectStudentDashboard,
-  selectStudents,
-  selectTutorAttendance,
-} from '@metutor/core/state';
 import * as studentActions from '@metutor/core/state/actions/student.actions';
-import * as fromStudentActions from '@metutor/modules/student/state/actions';
-import * as tutorActions from '@metutor/core/state/actions/tutor.actions';
 
 @Injectable()
 export class StudentEffects {
@@ -260,7 +259,7 @@ export class StudentEffects {
     this._actions$.pipe(
       ofType(studentActions.loadStudentAttendance),
       withLatestFrom(
-        this._store.select(selectTutorAttendance),
+        this._store.select(selectStudentAttendance),
         this._store.select(fromRouterStore.selectRouteParams)
       ),
       mergeMap(([_, _attendance, { id }]) => {
