@@ -1,5 +1,6 @@
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
+import { FormGroup } from '@angular/forms';
 import { combineLatest, Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 
@@ -54,6 +55,11 @@ export class StudentClassDashboardComponent implements OnInit {
 
   onCloseAttendanceModal(): void {
     this._store.dispatch(fromStudentAction.closeStudentAttendanceModal());
+  }
+
+  onSubmitFeedback(form: FormGroup): void {
+    const body = form.value;
+    this._store.dispatch(fromCore.studentSubmitFeedback({ body }));
   }
 
   ngOnInit(): void {

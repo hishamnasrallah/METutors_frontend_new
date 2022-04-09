@@ -18,6 +18,7 @@ import {
 export const modalSize = {
   small: '250px',
   medium: '500px',
+  xmedium: '750px',
   large: '1000px',
 };
 

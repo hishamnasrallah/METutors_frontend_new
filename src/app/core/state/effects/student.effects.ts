@@ -9,6 +9,7 @@ import {
   selectStudents,
   selectStudentDashboard,
   selectStudentAttendance,
+  studentSubmitPlatformFeedback,
 } from '@metutor/core/state';
 
 import { StudentsService } from '@services';
@@ -255,36 +256,6 @@ export class StudentEffects {
     )
   );
 
-  loadStudentAttendance$ = createEffect(() =>
-    this._actions$.pipe(
-      ofType(studentActions.loadStudentAttendance),
-      withLatestFrom(
-        this._store.select(selectStudentAttendance),
-        this._store.select(fromRouterStore.selectRouteParams)
-      ),
-      mergeMap(([_, _attendance, { id }]) => {
-        if (!_attendance) {
-          return this._studentService.getStudentAttendance(id).pipe(
-            map((attendance) =>
-              studentActions.loadStudentAttendanceSuccess({
-                attendance: camelcaseKeys(attendance, { deep: true }),
-              })
-            ),
-            catchError((error) =>
-              of(
-                studentActions.loadStudentAttendanceFailure({
-                  error: error?.error?.message || error?.error?.errors,
-                })
-              )
-            )
-          );
-        } else {
-          return of(studentActions.loadStudentAttendanceEnded());
-        }
-      })
-    )
-  );
-
   studentSubmitAssignment$ = createEffect(() =>
     this._actions$.pipe(
       ofType(studentActions.studentSubmitAssignment),
@@ -332,6 +303,126 @@ export class StudentEffects {
     )
   );
 
+  loadStudentAttendance$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(studentActions.loadStudentAttendance),
+      withLatestFrom(
+        this._store.select(selectStudentAttendance),
+        this._store.select(fromRouterStore.selectRouteParams)
+      ),
+      mergeMap(([_, _attendance, { id }]) => {
+        if (!_attendance) {
+          return this._studentService.getStudentAttendance(id).pipe(
+            map((attendance) =>
+              studentActions.loadStudentAttendanceSuccess({
+                attendance: camelcaseKeys(attendance, { deep: true }),
+              })
+            ),
+            catchError((error) =>
+              of(
+                studentActions.loadStudentAttendanceFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          );
+        } else {
+          return of(studentActions.loadStudentAttendanceEnded());
+        }
+      })
+    )
+  );
+
+  loadStudentFeedbackOptions$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(studentActions.loadStudentFeedbackOptions),
+      mergeMap(() =>
+        this._studentService.getStudentFeedbackOptions().pipe(
+          map((feedbackOptions) =>
+            studentActions.loadStudentFeedbackOptionsSuccess({
+              feedbackOptions: camelcaseKeys(feedbackOptions, { deep: true }),
+            })
+          ),
+          catchError((error) =>
+            of(
+              studentActions.loadStudentFeedbackOptionsFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  loadStudentPlatformFeedbackOptions$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(studentActions.loadStudentPlatformFeedbackOptions),
+      mergeMap(() =>
+        this._studentService.getStudentPlatformFeedbackOptions().pipe(
+          map((feedbackOptions) =>
+            studentActions.loadStudentPlatformFeedbackOptionsSuccess({
+              feedbackOptions: camelcaseKeys(feedbackOptions, { deep: true }),
+            })
+          ),
+          catchError((error) =>
+            of(
+              studentActions.loadStudentPlatformFeedbackOptionsFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  studentSubmitFeedback$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(studentActions.studentSubmitFeedback),
+      withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
+      mergeMap(([{ body }, { id }]) =>
+        this._studentService.studentSubmitFeedback(body, id).pipe(
+          map((attendance) =>
+            studentActions.studentSubmitFeedbackSuccess({
+              message: 'Feedback successfully submitted',
+            })
+          ),
+          catchError((error) =>
+            of(
+              studentActions.studentSubmitFeedbackFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  studentSubmitPlatformFeedback$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(studentActions.studentSubmitPlatformFeedback),
+      withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
+      mergeMap(([{ body }, { id }]) =>
+        this._studentService.studentSubmitPlatformFeedback(body, id).pipe(
+          map((attendance) =>
+            studentActions.studentSubmitPlatformFeedbackSuccess({
+              message: 'Feedback successfully submitted',
+            })
+          ),
+          catchError((error) =>
+            of(
+              studentActions.studentSubmitPlatformFeedbackFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   studentSubmitAssignmentSuccess$ = createEffect(() =>
     this._actions$.pipe(
       ofType(studentActions.studentSubmitAssignmentSuccess),
@@ -342,7 +433,13 @@ export class StudentEffects {
   successMessages$ = createEffect(
     () =>
       this._actions$.pipe(
-        ofType(...[studentActions.studentSubmitAssignmentSuccess]),
+        ofType(
+          ...[
+            studentActions.studentSubmitFeedbackSuccess,
+            studentActions.studentSubmitAssignmentSuccess,
+            studentActions.studentSubmitPlatformFeedbackSuccess,
+          ]
+        ),
         map(({ message }) => this._alertNotificationService.success(message))
       ),
     {
@@ -356,7 +453,9 @@ export class StudentEffects {
         ofType(
           ...[
             studentActions.studentJoinClassFailure,
+            studentActions.studentSubmitFeedbackFailure,
             studentActions.studentSubmitAssignmentFailure,
+            studentActions.studentSubmitPlatformFeedbackFailure,
           ]
         ),
         map((action) => {

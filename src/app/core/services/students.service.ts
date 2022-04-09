@@ -3,7 +3,10 @@ import { Injectable } from '@angular/core';
 import { map, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { loadStudentAssignments } from '@metutor/core/state';
+import {
+  loadStudentAssignments,
+  studentSubmitPlatformFeedback,
+} from '@metutor/core/state';
 
 @Injectable({
   providedIn: 'root',
@@ -87,6 +90,40 @@ export class StudentsService {
 
   getStudentAttendance(id: number): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}student/course/${id}/attendence`);
+  }
+
+  getStudentFeedbackOptions(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}student/feedback/params`);
+  }
+
+  getStudentPlatformFeedbackOptions(): Observable<any> {
+    return this.http.get<any>(
+      `${this.baseUrl}student/feedback/platform/params`
+    );
+  }
+
+  studentSubmitFeedback(payload: any, course_id: number): Observable<any> {
+    const body = {
+      ...payload,
+      course_id,
+    };
+
+    return this.http.post<any>(`${this.baseUrl}student/feedback`, body);
+  }
+
+  studentSubmitPlatformFeedback(
+    payload: any,
+    course_id: number
+  ): Observable<any> {
+    const body = {
+      ...payload,
+      course_id,
+    };
+
+    return this.http.post<any>(
+      `${this.baseUrl}student/feedback/platform`,
+      body
+    );
   }
 
   studentSubmitAssignment(body: any): Observable<any> {
