@@ -75,6 +75,14 @@ export interface State {
   ticketPriorities: ITicketPriority[] | null;
   isLoadingTicketPriorities: boolean;
   loadingTicketPrioritiesFailure?: string;
+
+  // Add Edit Program
+  isAddingEditingProgram: boolean;
+  addingEditingProgramFailure?: string;
+
+  // Delete Program
+  isDeletingProgram: boolean;
+  deletingProgramFailure?: string;
 }
 
 export const initialState: State = {
@@ -95,7 +103,9 @@ export const initialState: State = {
   isLoadingFields: false,
   isLoadingPrograms: false,
   isLoadingSubjects: false,
+  isDeletingProgram: false,
   isLoadingCountries: false,
+  isAddingEditingProgram: false,
   isLoadingTicketCategories: false,
   isLoadingTicketPriorities: false,
   isLoadingProgramCountries: false,
@@ -370,6 +380,50 @@ export const reducer = createReducer(
   on(lookupsActions.loadTicketPrioritiesEnded, (state) => ({
     ...state,
     isLoadingTicketPriorities: false,
+  })),
+
+  on(lookupsActions.addEditProgram, (state) => ({
+    ...state,
+    isAddingEditingProgram: true,
+  })),
+
+  on(lookupsActions.addEditProgramSuccess, (state, { program, isEdit }) => ({
+    ...state,
+    programs:
+      state.programs && state.programs.length
+        ? isEdit
+          ? state.programs.map((prog) =>
+              prog.id === program.id ? { ...program } : { ...prog }
+            )
+          : [...state.programs, program]
+        : [program],
+    isAddingEditingProgram: false,
+  })),
+
+  on(lookupsActions.addEditProgramFailure, (state, { error }) => ({
+    ...state,
+    isAddingEditingProgram: false,
+    addingEditingProgramFailure: error,
+  })),
+
+  on(lookupsActions.deleteProgram, (state) => ({
+    ...state,
+    isDeletingProgram: true,
+  })),
+
+  on(lookupsActions.deleteProgramSuccess, (state, { id }) => ({
+    ...state,
+    programs:
+      state.programs && state.programs.length
+        ? state.programs.filter((prog) => prog.id !== id)
+        : [],
+    isDeletingProgram: false,
+  })),
+
+  on(lookupsActions.deleteProgramFailure, (state, { error }) => ({
+    ...state,
+    isDeletingProgram: false,
+    deletingProgramFailure: error,
   }))
 );
 
@@ -442,6 +496,12 @@ export const selectTicketPriorities = (
 export const selectIsLoadingTicketPriorities = (state: State): boolean =>
   state.isLoadingTicketPriorities;
 
+export const selectIsAddingEditingProgram = (state: State): boolean =>
+  state.isAddingEditingProgram;
+
+export const selectIsDeletingProgram = (state: State): boolean =>
+  state.isDeletingProgram;
+
 export const selectFilteredFAQs = (
   state: State,
   props?: any
@@ -467,4 +527,31 @@ const getFilteredFAQs = (faqs: IFAQ[], props: any) => {
   }
 
   return faqs;
+};
+
+export const selectFilteredPrograms = (
+  state: State,
+  props?: any
+): IProgram[] | null => {
+  let programs: IProgram[] = [];
+
+  if (state.programs && state.programs.length && props) {
+    programs = getFilteredPrograms(state.programs, props);
+  }
+
+  return programs;
+};
+
+const getFilteredPrograms = (programs: IProgram[], props: any) => {
+  if (props?.title) {
+    programs = programs?.filter((program) =>
+      program?.name.toLowerCase().includes(props.title.toLowerCase())
+    );
+  }
+
+  if (props?.status) {
+    programs = programs.filter((program) => program.status === +props.status);
+  }
+
+  return programs;
 };

@@ -6,6 +6,7 @@ import {
   AdminComponent,
   AdminTutorListComponent,
   AdminStudentListComponent,
+  AdminProgramListComponent,
   AdminSupportTicketComponent,
   AdminTicketDetailsComponent,
   AdminTutorInterviewComponent,
@@ -105,6 +106,28 @@ const routes: Routes = [
             showFooter: false,
           },
         },
+      },
+      {
+        path: 'program',
+        children: [
+          {
+            path: 'list',
+            component: AdminProgramListComponent,
+            data: {
+              layout: {
+                title: 'Program list - Metutors',
+                navbarTitle: 'Program',
+                showHeader: false,
+                showFooter: false,
+              },
+            },
+          },
+          {
+            path: '',
+            redirectTo: 'list',
+            pathMatch: 'full',
+          },
+        ],
       },
       {
         path: 'support-ticket',

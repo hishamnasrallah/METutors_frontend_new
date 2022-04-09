@@ -1,0 +1,94 @@
+<div class="program-list" *ngLet="(programs$ | async) as programs">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="mt-2">
+        <ng-container [ngSwitch]="isLoading$ | async">
+          <div class="mt-4" *ngSwitchCase="true">
+            <metutors-grid-placeholder></metutors-grid-placeholder>
+          </div>
+
+          <ng-container *ngSwitchCase="false">
+            <div class="row mb-3">
+              <div class="col-12">
+                <h2 class="title"> Programs
+                  <button mat-flat-button color="primary" class="float-end" (click)="onOpenAddNewProgram(); selectedProgram = undefined">
+                    Add New Program
+                  </button>
+                </h2>
+              </div>
+            </div>
+            <div class="row filters">
+              <div class="col-md-9">
+                <span class="title">Filters</span>
+                <mat-form-field appearance="outline" class="me-2">
+                  <mat-select [placeholder]="'By Status'" [(ngModel)]="status" (selectionChange)="onChangeSelection()">
+                    <mat-option [value]="state.id" *ngFor="let state of statuses">
+                      {{ state.name }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-md-3">
+                <div class="position-relative search-request">
+                  <mat-icon>search</mat-icon>
+                  <input type="text" class="form-control custom-input input-bordered" [(ngModel)]="title"
+                    placeholder="Search..." (keyup)="onChangeSelection()">
+                </div>
+              </div>
+            </div>
+
+            <table class="table my-table default-title mt-4">
+              <tr>
+                <th>Number</th>
+                <th>Program</th>
+                <th>Last Updated</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+              <tr *ngIf="!programs || !programs.length">
+                <td colspan="5">
+                  <div class="text-center">No records found</div>
+                </td>
+              </tr>
+              <tr *ngFor="let program of programs; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ program?.name }}</td>
+                <td>{{ program?.createdAt | date: 'EEEE, d MMM y' }}</td>
+                <td>
+                  <button class="status text-capitalize" mat-button [ngClass]="{
+                        'active': programStatus.active === program?.status,
+                        'inactive': programStatus.inActive === program?.status
+                    }">
+                    <ng-container *ngIf="programStatus.active === program?.status">Active</ng-container>
+                    <ng-container *ngIf="programStatus.inActive === program?.status">Inactive</ng-container>
+                  </button>
+                </td>
+                <td>
+                  <button mat-icon-button  class="p-0 action me-2" disabled 
+                          *ngIf="(isDeletingProgram$ | async) && deletedProgram?.id === program.id">
+                    <mat-icon class="spinner">autorenew</mat-icon>
+                  </button>
+                  <button mat-icon-button class="p-0 action me-2" (click)="deleteProgram(program)"
+                          *ngIf="deletedProgram?.id !== program.id">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                  <button mat-icon-button class="p-0 action" (click)="onOpenAddNewProgram(); selectedProgram = program">
+                    <img src="assets/svg/edit-green.svg" width="17" height="17" alt="">
+                  </button>
+                </td>
+              </tr>
+            </table>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+
+<metutors-admin-add-new-program-modal *ngIf="showAddNewProgramModal$ | async"
+                                      (closeModal)="onCloseAddNewProgram()"
+                                      [selectedProgram]="selectedProgram!"
+                                      [isAdding]="(isAddingEditingProgram$ | async)!"
+                                      [showModal]="(showAddNewProgramModal$ | async)!"
+                                      (submitForm)="onAddEditProgram($event)">
+</metutors-admin-add-new-program-modal>

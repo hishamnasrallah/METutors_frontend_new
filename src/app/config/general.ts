@@ -1,5 +1,5 @@
 import { HttpEventType } from '@angular/common/http';
-import { TicketStatus, TutorStatus } from './enums';
+import { ProgramStatus, TicketStatus, TutorStatus } from './enums';
 
 export const generalConstants = {
   nationalId: 3,
@@ -21,6 +21,17 @@ export const TUTOR_STATUSES_CONST: any = [
   TutorStatus.active,
   TutorStatus.deactive,
   TutorStatus.pending,
+];
+
+export const PROGRAM_STATUSES_CONST: any = [
+  {
+    id: ProgramStatus.active,
+    name: 'Active',
+  },
+  {
+    id: ProgramStatus.inActive,
+    name: 'Inactive',
+  },
 ];
 
 export const AVAILABILITY_HOURS_CONST = [

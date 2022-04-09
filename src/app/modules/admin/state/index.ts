@@ -53,3 +53,8 @@ export const selectIsInterviewAttachmentModal = createSelector(
   selectAdminModalState,
   fromAdminModal.selectIsInterviewAttachmentModal
 );
+
+export const selectAddNewProgramModal = createSelector(
+  selectAdminModalState,
+  fromAdminModal.selectAddNewProgramModal
+);

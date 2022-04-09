@@ -12,6 +12,8 @@ export interface IProgram {
   id: number;
   name: string;
   code: string;
+  status: number;
+  createdAt: string;
 }
 
 export interface ICountry {
@@ -46,4 +48,9 @@ export interface ITicketCategory {
 export interface ITicketPriority {
   id: number;
   name: string;
+}
+
+export interface IProgramFilters {
+  title?: string;
+  status?: number;
 }
