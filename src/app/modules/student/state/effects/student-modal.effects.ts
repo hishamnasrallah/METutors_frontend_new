@@ -29,5 +29,12 @@ export class TutorModalEffects {
     )
   );
 
+  openStudentAttendanceModal$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(fromStudentAction.openStudentAttendanceModal),
+      mergeMap(() => of(fromCore.loadStudentAttendance()))
+    )
+  );
+
   constructor(private _actions$: Actions, private _store: Store) {}
 }

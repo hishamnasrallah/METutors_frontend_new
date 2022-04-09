@@ -46,14 +46,23 @@
   table {
     td {
       button {
-        color: var(--main-color);
+        text-transform: capitalize;
         font-weight: bold;
-        background-color: rgb(59 179 193 / 12%);
         font-size: 11px;
         border-radius: 10px;
         min-width: 0;
         padding: 11px;
         line-height: 0;
+
+        &.absent {
+          color: var(--bs-danger);
+          background-color: rgba(193, 59, 59, 0.12);
+        }
+
+        &:not(.absent) {
+          color: var(--main-color);
+          background-color: rgb(59 179 193 / 12%);
+        }
       }
     }
   }

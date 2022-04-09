@@ -53,7 +53,7 @@ export class TutorModalEffects {
   openTutorAttendanceModal$ = createEffect(() =>
     this._actions$.pipe(
       ofType(fromTutorAction.openTutorCourseAttendanceModal),
-      mergeMap(({ params }) => of(fromCore.loadTutorAttendance({ params })))
+      mergeMap(() => of(fromCore.loadTutorAttendance()))
     )
   );
 

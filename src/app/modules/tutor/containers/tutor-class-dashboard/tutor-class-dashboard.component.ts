@@ -2,6 +2,7 @@ import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { combineLatest, Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
+
 import * as fromTutor from '../../state';
 import * as fromCore from '@metutor/core/state';
 import * as fromTutorAction from '../../state/actions';
@@ -82,9 +83,7 @@ export class TutorClassDashboardComponent implements OnInit {
   }
 
   onShowCourseAttendanceModal(): void {
-    this._store.dispatch(
-      fromTutorAction.openTutorCourseAttendanceModal({ params: '' })
-    );
+    this._store.dispatch(fromTutorAction.openTutorCourseAttendanceModal());
   }
 
   onCloseCourseAttendanceModal(): void {

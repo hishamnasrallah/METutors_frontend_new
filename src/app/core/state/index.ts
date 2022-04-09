@@ -489,6 +489,16 @@ export const selectIsLoadingStudentSubmittedAssignment = createSelector(
   fromStudentReducer.selectIsLoadingStudentSubmittedAssignment
 );
 
+export const selectStudentAttendance = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectStudentAttendance
+);
+
+export const selectIsLoadingStudentAttendance = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectIsLoadingStudentAttendance
+);
+
 // Ticket
 export const selectTickets = createSelector(
   selectTicketState,

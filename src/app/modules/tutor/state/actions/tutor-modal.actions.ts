@@ -33,8 +33,7 @@ export const closeTutorSendFeedbackModal = createAction(
 );
 
 export const openTutorCourseAttendanceModal = createAction(
-  '[Tutor Modal] Open Tutor Course Attendance Modal',
-  props<{ params: any }>()
+  '[Tutor Modal] Open Tutor Course Attendance Modal'
 );
 
 export const closeTutorCourseAttendanceModal = createAction(

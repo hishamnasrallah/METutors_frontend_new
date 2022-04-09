@@ -10,8 +10,9 @@ export interface State {
   dashboard: any;
   classroom: any;
   resources: any;
-  assignments: any;
+  attendance: any;
   assignment: any;
+  assignments: any;
   classesDashboard: any;
   submittedAssignment: any;
   isJoiningClass: boolean;
@@ -23,6 +24,7 @@ export interface State {
   isLoadingStudentResources: boolean;
   isLoadingStudentDashboard: boolean;
   isLoadingStudentClassroom: boolean;
+  isLoadingStudentAttendance: boolean;
   isLoadingStudentAssignment: boolean;
   isLoadingStudentAssignments: boolean;
   isLoadingStudentClassesDashboard: boolean;
@@ -37,6 +39,7 @@ export const initialState: State = {
   resources: null,
   classroom: null,
   assignment: null,
+  attendance: null,
   assignments: null,
   isJoiningClass: false,
   classesDashboard: null,
@@ -48,6 +51,7 @@ export const initialState: State = {
   isLoadingStudentResources: false,
   isLoadingStudentDashboard: false,
   isLoadingStudentClassroom: false,
+  isLoadingStudentAttendance: false,
   isLoadingStudentAssignment: false,
   isLoadingStudentAssignments: false,
   isLoadingStudentClassesDashboard: false,
@@ -265,6 +269,27 @@ export const reducer = createReducer(
   on(studentActions.loadStudentSubmittedAssignmentFailure, (state) => ({
     ...state,
     isLoadingStudentSubmittedAssignment: false,
+  })),
+
+  on(studentActions.loadStudentAttendance, (state) => ({
+    ...state,
+    isLoadingStudentAttendance: true,
+  })),
+
+  on(studentActions.loadStudentAttendanceSuccess, (state, { attendance }) => ({
+    ...state,
+    attendance,
+    isLoadingStudentAttendance: false,
+  })),
+
+  on(studentActions.loadStudentAttendanceFailure, (state) => ({
+    ...state,
+    isLoadingStudentAttendance: false,
+  })),
+
+  on(studentActions.loadStudentAttendanceEnded, (state) => ({
+    ...state,
+    isLoadingStudentAttendance: false,
   }))
 );
 
@@ -344,6 +369,11 @@ export const selectStudentSubmittedAssignment = (state: State): boolean =>
 export const selectIsLoadingStudentSubmittedAssignment = (
   state: State
 ): boolean => state.isLoadingStudentSubmittedAssignment;
+
+export const selectStudentAttendance = (state: State): any => state.attendance;
+
+export const selectIsLoadingStudentAttendance = (state: State): boolean =>
+  state.isLoadingStudentAttendance;
 
 export const selectFilteredStudents = (
   state: State,

@@ -107,9 +107,9 @@ export class TutorEffects {
         this._store.select(selectTutorAttendance),
         this._store.select(fromRouterStore.selectRouteParams)
       ),
-      mergeMap(([{ params }, _attendance, { id }]) => {
+      mergeMap(([_, _attendance, { id }]) => {
         if (!_attendance) {
-          return this._tutorService.getTutorAttendance(params, id).pipe(
+          return this._tutorService.getTutorAttendance(id).pipe(
             map((attendance) =>
               tutorActions.loadTutorAttendanceSuccess({
                 attendance: camelcaseKeys(attendance, { deep: true }),
