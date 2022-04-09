@@ -13,11 +13,13 @@ export interface State {
   attendance: any;
   assignment: any;
   assignments: any;
+  feedbackOptions: any;
   classesDashboard: any;
   submittedAssignment: any;
   isJoiningClass: boolean;
   students: IStudent[] | null;
   isLoadingStudents: boolean;
+  isSubmittingFeedback: boolean;
   isSubmittingAssignment: boolean;
   isLoadingStudentSyllabus: boolean;
   isLoadingStudentResource: boolean;
@@ -27,6 +29,7 @@ export interface State {
   isLoadingStudentAttendance: boolean;
   isLoadingStudentAssignment: boolean;
   isLoadingStudentAssignments: boolean;
+  isLoadingStudentFeedbackOptions: boolean;
   isLoadingStudentClassesDashboard: boolean;
   isLoadingStudentSubmittedAssignment: boolean;
 }
@@ -41,10 +44,12 @@ export const initialState: State = {
   assignment: null,
   attendance: null,
   assignments: null,
+  feedbackOptions: null,
   isJoiningClass: false,
   classesDashboard: null,
   isLoadingStudents: false,
   submittedAssignment: null,
+  isSubmittingFeedback: false,
   isSubmittingAssignment: false,
   isLoadingStudentSyllabus: false,
   isLoadingStudentResource: false,
@@ -54,6 +59,7 @@ export const initialState: State = {
   isLoadingStudentAttendance: false,
   isLoadingStudentAssignment: false,
   isLoadingStudentAssignments: false,
+  isLoadingStudentFeedbackOptions: false,
   isLoadingStudentClassesDashboard: false,
   isLoadingStudentSubmittedAssignment: false,
 };
@@ -290,6 +296,40 @@ export const reducer = createReducer(
   on(studentActions.loadStudentAttendanceEnded, (state) => ({
     ...state,
     isLoadingStudentAttendance: false,
+  })),
+
+  on(studentActions.loadStudentFeedbackOptions, (state) => ({
+    ...state,
+    isLoadingStudentFeedbackOptions: true,
+  })),
+
+  on(
+    studentActions.loadStudentFeedbackOptionsSuccess,
+    (state, { feedbackOptions }) => ({
+      ...state,
+      feedbackOptions,
+      isLoadingStudentFeedbackOptions: false,
+    })
+  ),
+
+  on(studentActions.loadStudentFeedbackOptionsFailure, (state) => ({
+    ...state,
+    isLoadingStudentFeedbackOptions: false,
+  })),
+
+  on(studentActions.studentSubmitFeedback, (state) => ({
+    ...state,
+    isSubmittingFeedback: true,
+  })),
+
+  on(studentActions.studentSubmitFeedbackSuccess, (state) => ({
+    ...state,
+    isSubmittingFeedback: false,
+  })),
+
+  on(studentActions.studentSubmitFeedbackFailure, (state) => ({
+    ...state,
+    isSubmittingFeedback: false,
   }))
 );
 
@@ -374,6 +414,15 @@ export const selectStudentAttendance = (state: State): any => state.attendance;
 
 export const selectIsLoadingStudentAttendance = (state: State): boolean =>
   state.isLoadingStudentAttendance;
+
+export const selectStudentFeedbackOptions = (state: State): any =>
+  state.feedbackOptions;
+
+export const selectIsLoadingStudentFeedbackOptions = (state: State): boolean =>
+  state.isLoadingStudentFeedbackOptions;
+
+export const selectIsSubmittingFeedback = (state: State): boolean =>
+  state.isSubmittingFeedback;
 
 export const selectFilteredStudents = (
   state: State,

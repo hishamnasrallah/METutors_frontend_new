@@ -39,10 +39,14 @@ export const reducer = createReducer(
     showSendFeedbackModal: true,
   })),
 
-  on(studentModalActions.closeStudentSendFeedbackModal, (state) => ({
-    ...state,
-    showSendFeedbackModal: false,
-  })),
+  on(
+    fromCore.studentSubmitFeedbackSuccess,
+    studentModalActions.closeStudentSendFeedbackModal,
+    (state) => ({
+      ...state,
+      showSendFeedbackModal: false,
+    })
+  ),
 
   on(studentModalActions.openStudentViewResourceModal, (state) => ({
     ...state,

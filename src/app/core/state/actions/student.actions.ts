@@ -200,3 +200,33 @@ export const loadStudentAttendanceFailure = createAction(
 export const loadStudentAttendanceEnded = createAction(
   '[Student] Load Student Attendance Ended'
 );
+
+// Student feedback
+export const loadStudentFeedbackOptions = createAction(
+  '[Student] Load Student Feedback Options'
+);
+
+export const loadStudentFeedbackOptionsSuccess = createAction(
+  '[Student] Load Student Feedback Options Success',
+  props<{ feedbackOptions: any }>()
+);
+
+export const loadStudentFeedbackOptionsFailure = createAction(
+  '[Student] Load Student Feedback Options Failure',
+  props<{ error: any }>()
+);
+
+export const studentSubmitFeedback = createAction(
+  '[Student] Student Submit Feedback',
+  props<{ body: any }>()
+);
+
+export const studentSubmitFeedbackSuccess = createAction(
+  '[Student] Student Submit Feedback Success',
+  props<{ message: string }>()
+);
+
+export const studentSubmitFeedbackFailure = createAction(
+  '[Student] Student Submit Feedback Failure',
+  props<{ error: any }>()
+);

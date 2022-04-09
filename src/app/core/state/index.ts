@@ -499,6 +499,21 @@ export const selectIsLoadingStudentAttendance = createSelector(
   fromStudentReducer.selectIsLoadingStudentAttendance
 );
 
+export const selectStudentFeedbackOptions = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectStudentFeedbackOptions
+);
+
+export const selectIsLoadingStudentFeedbackOptions = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectIsLoadingStudentFeedbackOptions
+);
+
+export const selectIsSubmittingFeedback = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectIsSubmittingFeedback
+);
+
 // Ticket
 export const selectTickets = createSelector(
   selectTicketState,

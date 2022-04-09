@@ -89,6 +89,21 @@ export class StudentsService {
     return this.http.get<any>(`${this.baseUrl}student/course/${id}/attendence`);
   }
 
+  getStudentFeedbackOptions(): Observable<any> {
+    return this.http.get<any>(
+      `${this.baseUrl}student/feedback/platform/params`
+    );
+  }
+
+  studentSubmitFeedback(payload: any, course_id: number): Observable<any> {
+    const body = {
+      ...payload,
+      course_id,
+    };
+
+    return this.http.post<any>(`${this.baseUrl}student/feedback`, body);
+  }
+
   studentSubmitAssignment(body: any): Observable<any> {
     const { id, ..._body } = body;
     return this.http.post<any>(
