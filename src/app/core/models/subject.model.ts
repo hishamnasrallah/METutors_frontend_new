@@ -1,10 +1,15 @@
+import { ICountry, IProgram } from './lookups.model';
+
 export class ISubject {
-  id?: number;
+  id!: number;
   name!: string;
   subject?: string;
   programId?: number;
+  program?: IProgram;
   countryId?: number;
+  country?: ICountry;
   grade?: number;
+  status?: number;
   fieldId?: number;
   pricePerHour?: number;
 
@@ -16,7 +21,10 @@ export class ISubject {
       this.fieldId = 0;
       this.programId = 0;
       this.countryId = 0;
+      this.program = undefined;
+      this.country = undefined;
       this.grade = 0;
+      this.status = 0;
       this.pricePerHour = 0;
     }
 
@@ -26,9 +34,21 @@ export class ISubject {
       this.subject = subject?.subject?.name || '';
       this.fieldId = subject?.field_id || 0;
       this.programId = subject?.program_id || 0;
-      this.countryId = subject.country_id || 0;
-      this.grade = subject.grade || 0;
+      this.program = subject?.program;
+      this.countryId = subject?.country_id || 0;
+      this.country = subject?.country;
+      this.grade = subject?.grade || 0;
+      this.status = subject?.status || 0;
       this.pricePerHour = subject?.price_per_hour || 0;
     }
   }
+}
+
+export interface ISubjectFilters {
+  title?: string;
+  grade?: string;
+  status?: string;
+  field?: number;
+  program?: number;
+  country?: number;
 }

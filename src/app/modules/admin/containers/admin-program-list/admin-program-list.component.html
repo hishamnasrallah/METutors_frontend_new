@@ -53,7 +53,7 @@
               <tr *ngFor="let program of programs; let i = index">
                 <td>{{ i + 1 }}</td>
                 <td>{{ program?.name }}</td>
-                <td>{{ program?.createdAt | date: 'EEEE, d MMM y' }}</td>
+                <td>{{ program?.updatedAt | date: 'EEEE, d MMM y' }}</td>
                 <td>
                   <div dropdown class="change-status position-relative d-flex">
                     <button dropdownToggle class="status text-capitalize" mat-button [ngClass]="{

@@ -122,7 +122,7 @@ export class AdminFieldOfStudyComponent implements OnInit {
   }
 
   private _prepareCountries(): void {
-    this._store.dispatch(fromCore.loadCountries());
-    this.countries$ = this._store.select(fromCore.selectCountries);
+    this._store.dispatch(fromCore.loadProgramCountries());
+    this.countries$ = this._store.select(fromCore.selectProgramCountries);
   }
 }

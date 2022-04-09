@@ -91,6 +91,14 @@ export interface State {
   // Delete Field
   isDeletingField: boolean;
   deletingFieldFailure?: string;
+
+  // Add Edit Subject
+  isAddingEditingSubject: boolean;
+  addingEditingSubjectFailure?: string;
+
+  // Delete Field
+  isDeletingSubject: boolean;
+  deletingSubjectFailure?: string;
 }
 
 export const initialState: State = {
@@ -110,11 +118,13 @@ export const initialState: State = {
   isLoadingTopics: false,
   isLoadingFields: false,
   isDeletingField: false,
+  isDeletingSubject: false,
   isLoadingPrograms: false,
   isLoadingSubjects: false,
   isDeletingProgram: false,
   isLoadingCountries: false,
   isAddingEditingField: false,
+  isAddingEditingSubject: false,
   isAddingEditingProgram: false,
   isLoadingTicketCategories: false,
   isLoadingTicketPriorities: false,
@@ -241,8 +251,9 @@ export const reducer = createReducer(
   })),
 
   on(
-    lookupsActions.loadSubjectsByFieldId,
     lookupsActions.loadSubjects,
+    lookupsActions.loadAdminSubjects,
+    lookupsActions.loadSubjectsByFieldId,
     (state) => ({
       ...state,
       isLoadingSubjects: true,
@@ -250,8 +261,8 @@ export const reducer = createReducer(
   ),
 
   on(
-    lookupsActions.loadSubjectsByFieldIdSuccess,
     lookupsActions.loadSubjectsSuccess,
+    lookupsActions.loadSubjectsByFieldIdSuccess,
     (state, { subjects }) => ({
       ...state,
       subjects,
@@ -260,8 +271,8 @@ export const reducer = createReducer(
   ),
 
   on(
-    lookupsActions.loadSubjectsByFieldIdFailure,
     lookupsActions.loadSubjectsFailure,
+    lookupsActions.loadSubjectsByFieldIdFailure,
     (state, { error }) => ({
       ...state,
       isLoadingSubjects: false,
@@ -270,9 +281,9 @@ export const reducer = createReducer(
   ),
 
   on(
-    lookupsActions.loadFieldsByProgramId,
     lookupsActions.loadFields,
     lookupsActions.loadAdminFields,
+    lookupsActions.loadFieldsByProgramId,
     (state) => ({
       ...state,
       isLoadingFields: true,
@@ -280,8 +291,8 @@ export const reducer = createReducer(
   ),
 
   on(
-    lookupsActions.loadFieldsByProgramIdSuccess,
     lookupsActions.loadFieldsSuccess,
+    lookupsActions.loadFieldsByProgramIdSuccess,
     (state, { fields }) => ({
       ...state,
       fields,
@@ -290,8 +301,8 @@ export const reducer = createReducer(
   ),
 
   on(
-    lookupsActions.loadFieldsByProgramIdFailure,
     lookupsActions.loadFieldsFailure,
+    lookupsActions.loadFieldsByProgramIdFailure,
     (state, { error }) => ({
       ...state,
       isLoadingFields: false,
@@ -479,6 +490,50 @@ export const reducer = createReducer(
     ...state,
     isDeletingField: false,
     deletingFieldFailure: error,
+  })),
+
+  on(lookupsActions.addEditSubject, (state) => ({
+    ...state,
+    isAddingEditingSubject: true,
+  })),
+
+  on(lookupsActions.addEditSubjectSuccess, (state, { subject, isEdit }) => ({
+    ...state,
+    subjects:
+      state.subjects && state.subjects.length
+        ? isEdit
+          ? state.subjects.map((fld) =>
+              fld.id === subject.id ? { ...subject } : { ...fld }
+            )
+          : [...state.subjects, subject]
+        : [subject],
+    isAddingEditingSubject: false,
+  })),
+
+  on(lookupsActions.addEditSubjectFailure, (state, { error }) => ({
+    ...state,
+    isAddingEditingSubject: false,
+    addingEditingSubjectFailure: error,
+  })),
+
+  on(lookupsActions.deleteSubject, (state) => ({
+    ...state,
+    isDeletingSubject: true,
+  })),
+
+  on(lookupsActions.deleteSubjectSuccess, (state, { id }) => ({
+    ...state,
+    subjects:
+      state.subjects && state.subjects.length
+        ? state.subjects.filter((fld) => fld.id !== id)
+        : [],
+    isDeletingSubject: false,
+  })),
+
+  on(lookupsActions.deleteSubjectFailure, (state, { error }) => ({
+    ...state,
+    isDeletingSubject: false,
+    deletingSubjectFailure: error,
   }))
 );
 
@@ -562,6 +617,12 @@ export const selectIsAddingEditingField = (state: State): boolean =>
 
 export const selectIsDeletingField = (state: State): boolean =>
   state.isDeletingField;
+
+export const selectIsAddingEditingSubject = (state: State): boolean =>
+  state.isAddingEditingSubject;
+
+export const selectIsDeletingSubject = (state: State): boolean =>
+  state.isDeletingSubject;
 
 export const selectFilteredFAQs = (
   state: State,
@@ -654,4 +715,51 @@ const getFilteredFields = (fields: IField[], props: any) => {
   }
 
   return fields;
+};
+
+export const selectFilteredSubjects = (
+  state: State,
+  props?: any
+): ISubject[] | null => {
+  let subjects: ISubject[] = [];
+
+  if (state.subjects && state.subjects.length && props) {
+    subjects = getFilteredSubjects(state.subjects, props);
+  }
+
+  return subjects;
+};
+
+const getFilteredSubjects = (subjects: ISubject[], props: any) => {
+  if (props?.title) {
+    subjects = subjects?.filter((subject) =>
+      subject?.name.toLowerCase().includes(props.title.toLowerCase())
+    );
+  }
+
+  if (props?.status) {
+    subjects = subjects.filter((subject) => subject.status === +props.status);
+  }
+
+  if (props?.field) {
+    subjects = subjects.filter((subject) => subject.fieldId === +props.field);
+  }
+
+  if (props?.grade) {
+    subjects = subjects.filter((subject) => subject.grade === +props.grade);
+  }
+
+  if (props?.program) {
+    subjects = subjects.filter(
+      (subject) => subject.programId === +props.program
+    );
+  }
+
+  if (props?.country) {
+    subjects = subjects.filter(
+      (subject) => subject.countryId === +props.country
+    );
+  }
+
+  return subjects;
 };

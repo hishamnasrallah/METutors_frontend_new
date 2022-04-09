@@ -673,6 +673,11 @@ export const selectIsLoadingSubjects = createSelector(
   fromLookupsReducer.selectIsLoadingSubjects
 );
 
+export const selectFilteredSubjects = createSelector(
+  selectLookupsState,
+  fromLookupsReducer.selectFilteredSubjects
+);
+
 export const selectFields = createSelector(
   selectLookupsState,
   fromLookupsReducer.selectFields
@@ -751,6 +756,16 @@ export const selectIsAddingEditingField = createSelector(
 export const selectIsDeletingField = createSelector(
   selectLookupsState,
   fromLookupsReducer.selectIsDeletingField
+);
+
+export const selectIsAddingEditingSubject = createSelector(
+  selectLookupsState,
+  fromLookupsReducer.selectIsAddingEditingSubject
+);
+
+export const selectIsDeletingSubject = createSelector(
+  selectLookupsState,
+  fromLookupsReducer.selectIsDeletingSubject
 );
 
 // Course

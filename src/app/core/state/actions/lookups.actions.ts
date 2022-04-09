@@ -103,6 +103,8 @@ export const loadProgramsEnded = createAction('[Lookups] Load Programs Ended');
 
 export const loadSubjects = createAction('[Lookups] Load Subjects');
 
+export const loadAdminSubjects = createAction('[Lookups] Load Admin Subjects');
+
 export const loadSubjectsSuccess = createAction(
   '[Lookups] Load Subjects Success',
   props<{ subjects: ISubject[] }>()
@@ -278,5 +280,35 @@ export const deleteFieldSuccess = createAction(
 
 export const deleteFieldFailure = createAction(
   '[Lookups] Delete Field Failure',
+  props<{ error: any }>()
+);
+
+export const addEditSubject = createAction(
+  '[Lookups] Add Edit Subject',
+  props<{ subject: ISubject }>()
+);
+
+export const addEditSubjectSuccess = createAction(
+  '[Lookups] Add Edit Subject Success',
+  props<{ subject: ISubject; message: string; isEdit: boolean }>()
+);
+
+export const addEditSubjectFailure = createAction(
+  '[Lookups] Add Edit Subject Failure',
+  props<{ error: any }>()
+);
+
+export const deleteSubject = createAction(
+  '[Lookups] Delete Subject',
+  props<{ id: number }>()
+);
+
+export const deleteSubjectSuccess = createAction(
+  '[Lookups] Delete Subject Success',
+  props<{ id: number; message: string }>()
+);
+
+export const deleteSubjectFailure = createAction(
+  '[Lookups] Delete Subject Failure',
   props<{ error: any }>()
 );

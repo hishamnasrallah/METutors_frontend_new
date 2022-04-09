@@ -4,6 +4,7 @@ import * as adminModalActions from '../actions/admin-modal.actions';
 
 export interface State {
   showAddNewFieldModal: boolean;
+  showAddNewSubjectModal: boolean;
   showAddNewProgramModal: boolean;
   showSendMeetingLinkModal: boolean;
   showInterviewAttachmentModal: boolean;
@@ -12,6 +13,7 @@ export interface State {
 
 export const initialState: State = {
   showAddNewFieldModal: false,
+  showAddNewSubjectModal: false,
   showAddNewProgramModal: false,
   showSendMeetingLinkModal: false,
   showInterviewAttachmentModal: false,
@@ -77,6 +79,20 @@ export const reducer = createReducer(
       ...state,
       showAddNewFieldModal: false,
     })
+  ),
+
+  on(adminModalActions.openAdminAddNewSubjectModal, (state) => ({
+    ...state,
+    showAddNewSubjectModal: true,
+  })),
+
+  on(
+    fromCore.addEditSubjectSuccess,
+    adminModalActions.closeAdminAddNewSubjectModal,
+    (state) => ({
+      ...state,
+      showAddNewSubjectModal: false,
+    })
   )
 );
 
@@ -95,3 +111,6 @@ export const selectAddNewProgramModal = (state: State): boolean =>
 
 export const selectAddNewFieldModal = (state: State): boolean =>
   state.showAddNewFieldModal;
+
+export const selectAddNewSubjectModal = (state: State): boolean =>
+  state.showAddNewSubjectModal;
