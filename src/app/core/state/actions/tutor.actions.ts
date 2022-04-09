@@ -86,8 +86,7 @@ export const tutorLaunchClassFailure = createAction(
 
 // Tutor attendance
 export const loadTutorAttendance = createAction(
-  '[Tutor] Load Tutor Attendance',
-  props<{ params: any }>()
+  '[Tutor] Load Tutor Attendance'
 );
 
 export const loadTutorAttendanceSuccess = createAction(

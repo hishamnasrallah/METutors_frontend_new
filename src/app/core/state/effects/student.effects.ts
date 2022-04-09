@@ -5,12 +5,16 @@ import camelcaseKeys from 'camelcase-keys';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 
+import {
+  selectStudents,
+  selectStudentDashboard,
+  selectStudentAttendance,
+} from '@metutor/core/state';
+
 import { StudentsService } from '@services';
 import * as fromRouterStore from '@metutor/state';
 import { AlertNotificationService } from '@metutor/core/components';
-import { selectStudentDashboard, selectStudents } from '@metutor/core/state';
 import * as studentActions from '@metutor/core/state/actions/student.actions';
-import * as fromStudentActions from '@metutor/modules/student/state/actions';
 
 @Injectable()
 export class StudentEffects {
@@ -248,6 +252,36 @@ export class StudentEffects {
           )
         )
       )
+    )
+  );
+
+  loadStudentAttendance$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(studentActions.loadStudentAttendance),
+      withLatestFrom(
+        this._store.select(selectStudentAttendance),
+        this._store.select(fromRouterStore.selectRouteParams)
+      ),
+      mergeMap(([_, _attendance, { id }]) => {
+        if (!_attendance) {
+          return this._studentService.getStudentAttendance(id).pipe(
+            map((attendance) =>
+              studentActions.loadStudentAttendanceSuccess({
+                attendance: camelcaseKeys(attendance, { deep: true }),
+              })
+            ),
+            catchError((error) =>
+              of(
+                studentActions.loadStudentAttendanceFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          );
+        } else {
+          return of(studentActions.loadStudentAttendanceEnded());
+        }
+      })
     )
   );
 
