@@ -1,5 +1,5 @@
 import { HttpEventType } from '@angular/common/http';
-import { ProgramStatus, TicketStatus, TutorStatus } from './enums';
+import { FieldStatus, ProgramStatus, TicketStatus, TutorStatus } from './enums';
 
 export const generalConstants = {
   nationalId: 3,
@@ -30,6 +30,17 @@ export const PROGRAM_STATUSES_CONST: any = [
   },
   {
     id: ProgramStatus.inActive,
+    name: 'Inactive',
+  },
+];
+
+export const FIELD_STATUSES_CONST: any = [
+  {
+    id: FieldStatus.active,
+    name: 'Active',
+  },
+  {
+    id: FieldStatus.inActive,
     name: 'Inactive',
   },
 ];

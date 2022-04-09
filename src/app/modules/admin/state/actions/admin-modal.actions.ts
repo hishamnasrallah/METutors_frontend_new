@@ -31,3 +31,11 @@ export const openAdminAddNewProgramModal = createAction(
 export const closeAdminAddNewProgramModal = createAction(
   '[Admin Modal] Close Admin Add New Program Modal'
 );
+
+export const openAdminAddNewFieldModal = createAction(
+  '[Admin Modal] Open Admin Add New Field Modal'
+);
+
+export const closeAdminAddNewFieldModal = createAction(
+  '[Admin Modal] Close Admin Add New Field Modal'
+);

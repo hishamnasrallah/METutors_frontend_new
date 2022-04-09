@@ -58,3 +58,8 @@ export const selectAddNewProgramModal = createSelector(
   selectAdminModalState,
   fromAdminModal.selectAddNewProgramModal
 );
+
+export const selectAddNewFieldModal = createSelector(
+  selectAdminModalState,
+  fromAdminModal.selectAddNewFieldModal
+);

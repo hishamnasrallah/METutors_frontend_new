@@ -261,6 +261,28 @@ export class LookupsEffects {
     )
   );
 
+  loadAdminFields$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(lookupsActions.loadAdminFields),
+      mergeMap((_) =>
+        this._lookupsService.getAdminFields().pipe(
+          map((fields) =>
+            lookupsActions.loadFieldsSuccess({
+              fields,
+            })
+          ),
+          catchError((error) =>
+            of(
+              lookupsActions.loadFieldsFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   loadTopics$ = createEffect(() =>
     this._actions$.pipe(
       ofType(lookupsActions.loadTopics),
@@ -435,6 +457,72 @@ export class LookupsEffects {
     )
   );
 
+  addEditField$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(lookupsActions.addEditField),
+      mergeMap((action) => {
+        if (action.field.id) {
+          return this._lookupsService.editField(action.field).pipe(
+            map((response) =>
+              lookupsActions.addEditFieldSuccess({
+                field: response.field,
+                message: response.message,
+                isEdit: true,
+              })
+            ),
+            catchError((error) =>
+              of(
+                lookupsActions.addEditFieldFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          );
+        } else {
+          return this._lookupsService.addNewField(action.field).pipe(
+            map((response) =>
+              lookupsActions.addEditFieldSuccess({
+                field: response.field,
+                message: response.message,
+                isEdit: false,
+              })
+            ),
+            catchError((error) =>
+              of(
+                lookupsActions.addEditFieldFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          );
+        }
+      })
+    )
+  );
+
+  deleteField$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(lookupsActions.deleteField),
+      mergeMap((action) =>
+        this._lookupsService.deleteField(action.id).pipe(
+          map((response) =>
+            lookupsActions.deleteFieldSuccess({
+              id: action.id,
+              message: response.message,
+            })
+          ),
+          catchError((error) =>
+            of(
+              lookupsActions.deleteFieldFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   successMessages$ = createEffect(
     () =>
       this._actions$.pipe(
@@ -442,6 +530,8 @@ export class LookupsEffects {
           ...[
             lookupsActions.addEditProgramSuccess,
             lookupsActions.deleteProgramSuccess,
+            lookupsActions.addEditFieldSuccess,
+            lookupsActions.deleteFieldSuccess,
           ]
         ),
         map((action) => {
@@ -466,6 +556,8 @@ export class LookupsEffects {
           ...[
             lookupsActions.addEditProgramFailure,
             lookupsActions.deleteProgramFailure,
+            lookupsActions.addEditFieldFailure,
+            lookupsActions.deleteFieldFailure,
           ]
         ),
         map((action) => {

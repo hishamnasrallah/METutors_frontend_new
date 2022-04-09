@@ -61,7 +61,7 @@ export class AdminProgramListComponent implements OnInit {
   onChangeSelection(): void {
     this.filterPrograms({
       title: this.title,
-      status: this.status,
+      status: this.status?.toString(),
     });
   }
 
@@ -75,6 +75,14 @@ export class AdminProgramListComponent implements OnInit {
     } else {
       this._store.dispatch(fromCore.addEditProgram({ program }));
     }
+  }
+
+  onChangeStatus(program: IProgram, status: number): void {
+    this._store.dispatch(
+      fromCore.addEditProgram({
+        program: { ...program, status },
+      })
+    );
   }
 
   deleteProgram(program: IProgram): void {
