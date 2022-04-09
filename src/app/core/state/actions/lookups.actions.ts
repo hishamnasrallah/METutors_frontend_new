@@ -145,6 +145,8 @@ export const loadFieldsByProgramIdFailure = createAction(
 
 export const loadFields = createAction('[Lookups] Load Fields');
 
+export const loadAdminFields = createAction('[Lookups] Load Admin Fields');
+
 export const loadFieldsSuccess = createAction(
   '[Lookups] Load Fields Success',
   props<{ fields: IField[] }>()
@@ -246,5 +248,35 @@ export const deleteProgramSuccess = createAction(
 
 export const deleteProgramFailure = createAction(
   '[Lookups] Delete Program Failure',
+  props<{ error: any }>()
+);
+
+export const addEditField = createAction(
+  '[Lookups] Add Edit Field',
+  props<{ field: IField }>()
+);
+
+export const addEditFieldSuccess = createAction(
+  '[Lookups] Add Edit Field Success',
+  props<{ field: IField; message: string; isEdit: boolean }>()
+);
+
+export const addEditFieldFailure = createAction(
+  '[Lookups] Add Edit Field Failure',
+  props<{ error: any }>()
+);
+
+export const deleteField = createAction(
+  '[Lookups] Delete Field',
+  props<{ id: number }>()
+);
+
+export const deleteFieldSuccess = createAction(
+  '[Lookups] Delete Field Success',
+  props<{ id: number; message: string }>()
+);
+
+export const deleteFieldFailure = createAction(
+  '[Lookups] Delete Field Failure',
   props<{ error: any }>()
 );

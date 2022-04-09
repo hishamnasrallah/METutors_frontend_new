@@ -14,7 +14,6 @@ export class AdminAddNewProgramModalComponent implements OnInit {
   @Input() set selectedProgram(_program: IProgram) {
     if (_program) {
       this.program = _program;
-      console.log(_program);
       this.form?.patchValue({ name: _program.name });
     }
   }

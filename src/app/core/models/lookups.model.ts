@@ -38,6 +38,9 @@ export interface IField {
   grade: number;
   countryId: number;
   programId: number;
+  status: number;
+  program: IProgram;
+  country: ICountry;
 }
 
 export interface ITicketCategory {
@@ -52,5 +55,13 @@ export interface ITicketPriority {
 
 export interface IProgramFilters {
   title?: string;
-  status?: number;
+  status?: string;
+}
+
+export interface IFieldFilters {
+  title?: string;
+  grade?: string;
+  status?: string;
+  program?: number;
+  country?: number;
 }

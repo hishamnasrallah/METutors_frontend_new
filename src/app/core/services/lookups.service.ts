@@ -4,7 +4,7 @@ import {
   HttpParams,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ProgramStatus } from '@metutor/config';
+import { FieldStatus, ProgramStatus } from '@metutor/config';
 import { Observable, throwError, map } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -122,7 +122,7 @@ export class LookupsService {
             program: {
               id: response.program.id,
               name: response.program.name,
-              status: ProgramStatus.active,
+              status: response.program.status,
               createdAt: response.program.created_at,
             },
           };
@@ -247,6 +247,31 @@ export class LookupsService {
             programId: item?.program_id,
             countryId: item?.country_id,
             grade: item?.grade,
+            status: item?.status,
+            created_at: item?.created_at,
+            program: item?.program,
+            country: item?.country,
+          }));
+        })
+      )
+      .pipe(catchError(this.errorHandler));
+  }
+
+  getAdminFields(): Observable<any> {
+    return this.http
+      .get<{ FieldOfStudy: any }>(`${this.BACKEND_URL}fieldofstudy`)
+      .pipe(
+        map((response) => {
+          return response.FieldOfStudy.map((item: any) => ({
+            id: item.id,
+            name: item.name,
+            programId: item?.program_id,
+            countryId: item?.country_id,
+            grade: item?.grade,
+            status: item?.status,
+            created_at: item?.created_at,
+            program: item?.program,
+            country: item?.country,
           }));
         })
       )
@@ -266,6 +291,77 @@ export class LookupsService {
           }));
         })
       )
+      .pipe(catchError(this.errorHandler));
+  }
+
+  addNewField(value: any): Observable<any> {
+    return this.http
+      .post<{ FieldOfStudy: any; message: string }>(
+        `${this.BACKEND_URL}fieldofstudy`,
+        {
+          name: value.name,
+          grade: value.grade,
+          program_id: value.program,
+          country_id: value.country,
+        }
+      )
+      .pipe(
+        map((response) => {
+          return {
+            message: response.message,
+            field: {
+              id: response.FieldOfStudy.id,
+              name: response.FieldOfStudy.name,
+              programId: response.FieldOfStudy?.program_id,
+              countryId: response.FieldOfStudy?.country_id,
+              grade: response.FieldOfStudy?.grade,
+              status: response.FieldOfStudy?.status,
+              created_at: response.FieldOfStudy?.created_at,
+              program: response.FieldOfStudy?.program,
+              country: response.FieldOfStudy?.country,
+            },
+          };
+        })
+      )
+      .pipe(catchError(this.errorHandler));
+  }
+
+  editField(value: any): Observable<any> {
+    return this.http
+      .patch<{ FieldOfStudy: any; message: string }>(
+        `${this.BACKEND_URL}fieldofstudy/${value.id}`,
+        {
+          name: value.name,
+          grade: value.grade,
+          program_id: value.program,
+          country_id: value.country,
+          status: value.status,
+        }
+      )
+      .pipe(
+        map((response) => {
+          return {
+            message: response.message,
+            field: {
+              id: response.FieldOfStudy.id,
+              name: response.FieldOfStudy.name,
+              programId: response.FieldOfStudy?.program_id,
+              countryId: response.FieldOfStudy?.country_id,
+              grade: response.FieldOfStudy?.grade,
+              status: response.FieldOfStudy?.status,
+              created_at: response.FieldOfStudy?.created_at,
+              program: response.FieldOfStudy?.program,
+              country: response.FieldOfStudy?.country,
+            },
+          };
+        })
+      )
+      .pipe(catchError(this.errorHandler));
+  }
+
+  deleteField(id: number): Observable<any> {
+    return this.http
+      .delete<{ message: string }>(`${this.BACKEND_URL}fieldofstudy/${id}`)
       .pipe(catchError(this.errorHandler));
   }
 

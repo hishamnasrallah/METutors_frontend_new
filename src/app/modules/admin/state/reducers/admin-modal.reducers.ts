@@ -3,6 +3,7 @@ import * as fromCore from '@metutor/core/state';
 import * as adminModalActions from '../actions/admin-modal.actions';
 
 export interface State {
+  showAddNewFieldModal: boolean;
   showAddNewProgramModal: boolean;
   showSendMeetingLinkModal: boolean;
   showInterviewAttachmentModal: boolean;
@@ -10,6 +11,7 @@ export interface State {
 }
 
 export const initialState: State = {
+  showAddNewFieldModal: false,
   showAddNewProgramModal: false,
   showSendMeetingLinkModal: false,
   showInterviewAttachmentModal: false,
@@ -61,6 +63,20 @@ export const reducer = createReducer(
       ...state,
       showAddNewProgramModal: false,
     })
+  ),
+
+  on(adminModalActions.openAdminAddNewFieldModal, (state) => ({
+    ...state,
+    showAddNewFieldModal: true,
+  })),
+
+  on(
+    fromCore.addEditFieldSuccess,
+    adminModalActions.closeAdminAddNewFieldModal,
+    (state) => ({
+      ...state,
+      showAddNewFieldModal: false,
+    })
   )
 );
 
@@ -76,3 +92,6 @@ export const selectIsInterviewAttachmentModal = (state: State): boolean =>
 
 export const selectAddNewProgramModal = (state: State): boolean =>
   state.showAddNewProgramModal;
+
+export const selectAddNewFieldModal = (state: State): boolean =>
+  state.showAddNewFieldModal;

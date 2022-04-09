@@ -4,9 +4,12 @@ import { AdminAuthGuard } from '@metutor/core/guards';
 
 import {
   AdminComponent,
+  AdminCountryComponent,
+  AdminSubjectComponent,
   AdminTutorListComponent,
   AdminStudentListComponent,
   AdminProgramListComponent,
+  AdminFieldOfStudyComponent,
   AdminSupportTicketComponent,
   AdminTicketDetailsComponent,
   AdminTutorInterviewComponent,
@@ -117,6 +120,42 @@ const routes: Routes = [
               layout: {
                 title: 'Program list - Metutors',
                 navbarTitle: 'Program',
+                showHeader: false,
+                showFooter: false,
+              },
+            },
+          },
+          {
+            path: 'field-of-study',
+            component: AdminFieldOfStudyComponent,
+            data: {
+              layout: {
+                title: 'Field of Study - Metutors',
+                navbarTitle: 'Field of Study',
+                showHeader: false,
+                showFooter: false,
+              },
+            },
+          },
+          {
+            path: 'subject',
+            component: AdminSubjectComponent,
+            data: {
+              layout: {
+                title: 'Subject - Metutors',
+                navbarTitle: 'Subject',
+                showHeader: false,
+                showFooter: false,
+              },
+            },
+          },
+          {
+            path: 'country',
+            component: AdminCountryComponent,
+            data: {
+              layout: {
+                title: 'Country - Metutors',
+                navbarTitle: 'Country List',
                 showHeader: false,
                 showFooter: false,
               },

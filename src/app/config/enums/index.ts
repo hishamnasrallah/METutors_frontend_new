@@ -1,6 +1,7 @@
 export * from './user-role';
 export * from './tuition-type';
 export * from './tutor-status';
+export * from './field-status';
 export * from './ticket-status';
 export * from './classroom-type';
 export * from './language-level';
