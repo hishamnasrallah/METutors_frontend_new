@@ -97,4 +97,10 @@ export class TutorClassDashboardComponent implements OnInit {
     const body = form.value;
     this._store.dispatch(fromCore.tutorSubmitFeedback({ body }));
   }
+
+  onCancelCourse(form: FormGroup): void {
+    const reason = form.value;
+
+    this._store.dispatch(fromCore.tutorCancelCourse({ reason }));
+  }
 }

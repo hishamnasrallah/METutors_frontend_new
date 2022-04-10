@@ -869,6 +869,11 @@ export const selectIsAcceptingCourse = createSelector(
   fromCourseReducer.selectIsAcceptingCourse
 );
 
+export const selectIsCancelingCourse = createSelector(
+  selectCourseState,
+  fromCourseReducer.selectIsCancelingCourse
+);
+
 // Upload files
 export const selectUploadedFiles = createSelector(
   selectUploadState,

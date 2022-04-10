@@ -5,12 +5,12 @@
     <form class="row leave-feedback-modal" [formGroup]="form" (ngSubmit)="submitted.emit(form)">
       <div class="col-12">
         <div class="form-group">
-          <textarea class="form-control custom-input input-bordered" formControlName="rejectReason" id="exampleFormControlTextarea1" rows="10" placeholder="Enter the reason here..."></textarea>
+          <textarea class="form-control custom-input input-bordered" formControlName="reason" id="exampleFormControlTextarea1" rows="10" placeholder="Enter the reason here..."></textarea>
         </div>
 
         <div class="row mt-2">
           <div class="col-md-12 overflow-hidden">
-            <metutors-submit-button [form]="form" [isSubmitting]="submitting" [extraClasses]="'float-end py-1 px-5'">
+            <metutors-submit-button [form]="form" [isSubmitting]="isCanceling$ | async" [extraClasses]="'float-end py-1 px-5'">
               Submit
             </metutors-submit-button>
           </div>

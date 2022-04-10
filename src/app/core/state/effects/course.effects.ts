@@ -10,6 +10,7 @@ import { CoursesService } from '@services';
 import * as fromRouterStore from '@metutor/state';
 import * as courseActions from '../actions/course.actions';
 import { AlertNotificationService } from '@metutor/core/components';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class CourseEffects {
@@ -109,13 +110,48 @@ export class CourseEffects {
     )
   );
 
+  cancelCourse$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(courseActions.tutorCancelCourse),
+      withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
+      mergeMap(([{ reason }, { id }]) =>
+        this._courseService.cancelCourse(reason, id).pipe(
+          map(() =>
+            courseActions.tutorCancelCourseSuccess({
+              message: 'Course has been successfully canceled',
+            })
+          ),
+          catchError((error) =>
+            of(
+              courseActions.tutorCancelCourseFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  tutorCancelCourseSuccess$ = createEffect(
+    () =>
+      this._actions$.pipe(
+        ofType(courseActions.tutorCancelCourseSuccess),
+        map(() => this._router.navigate(['/tutor/classrooms']))
+      ),
+    {
+      dispatch: false,
+    }
+  );
+
   successMessages$ = createEffect(
     () =>
       this._actions$.pipe(
         ofType(
           ...[
-            courseActions.tutorRejectCourseSuccess,
             courseActions.tutorAcceptCourseSuccess,
+            courseActions.tutorRejectCourseSuccess,
+            courseActions.tutorCancelCourseSuccess,
           ]
         ),
         map(({ message }) => this._alertNotificationService.success(message))
@@ -130,8 +166,9 @@ export class CourseEffects {
       this._actions$.pipe(
         ofType(
           ...[
-            courseActions.tutorRejectCourseFailure,
             courseActions.tutorAcceptCourseFailure,
+            courseActions.tutorRejectCourseFailure,
+            courseActions.tutorCancelCourseFailure,
           ]
         ),
         map(({ error }) => this._alertNotificationService.error(error))
@@ -142,6 +179,7 @@ export class CourseEffects {
   );
 
   constructor(
+    private _router: Router,
     private _store: Store<any>,
     private _actions$: Actions,
     private _courseService: CoursesService,

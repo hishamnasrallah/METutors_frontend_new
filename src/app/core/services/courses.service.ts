@@ -54,6 +54,13 @@ export class CoursesService {
     );
   }
 
+  cancelCourse(body: string, courseId: number): Observable<any> {
+    return this.http.post<{ dashboard: any }>(
+      `${this.baseUrl}teacher/course/${courseId}/cancel`,
+      body
+    );
+  }
+
   getClassroomById(id: string): Observable<any> {
     return this.http.get<ICourse>(`${this.baseUrl}batch/${id}/`).pipe(
       map((response) => {

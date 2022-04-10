@@ -60,3 +60,18 @@ export const tutorRejectCourseFailure = createAction(
   '[Tutor] Tutor Reject Course Failure',
   props<{ error: any }>()
 );
+
+export const tutorCancelCourse = createAction(
+  '[Tutor] Tutor Cancel Course',
+  props<{ reason: string }>()
+);
+
+export const tutorCancelCourseSuccess = createAction(
+  '[Tutor] Tutor Cancel Course Success',
+  props<{ message: string }>()
+);
+
+export const tutorCancelCourseFailure = createAction(
+  '[Tutor] Tutor Cancel Course Failure',
+  props<{ error: any }>()
+);

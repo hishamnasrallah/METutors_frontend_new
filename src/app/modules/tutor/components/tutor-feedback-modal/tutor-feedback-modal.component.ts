@@ -13,7 +13,6 @@ import {
 
 import * as fromStudent from '../../state';
 import * as fromCore from '@metutor/core/state';
-import { selectIsSubmittingTutorFeedback } from '@metutor/core/state';
 
 @Component({
   selector: 'metutors-tutor-feedback-modal',

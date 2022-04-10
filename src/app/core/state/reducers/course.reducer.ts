@@ -8,6 +8,7 @@ export interface State {
   isLoadingCourses: boolean;
   isRejectingCourse: boolean;
   isAcceptingCourse: boolean;
+  isCancelingCourse: boolean;
   loadingCoursesFailure: string;
 
   // Course by id
@@ -22,6 +23,7 @@ export const initialState: State = {
   isLoadingCourses: false,
   isRejectingCourse: false,
   isAcceptingCourse: false,
+  isCancelingCourse: false,
   loadingCoursesFailure: '',
 };
 
@@ -64,6 +66,22 @@ export const reducer = createReducer(
     ...state,
     isLoadingCourse: false,
   })),
+
+  on(courseActions.tutorCancelCourse, (state) => ({
+    ...state,
+    isCancelingCourse: true,
+  })),
+
+  on(courseActions.tutorCancelCourseSuccess, (state) => ({
+    ...state,
+    isCancelingCourse: false,
+  })),
+
+  on(courseActions.tutorCancelCourseFailure, (state) => ({
+    ...state,
+    isCancelingCourse: false,
+  })),
+
   on(courseActions.tutorRejectCourse, (state) => ({
     ...state,
     isRejectingCourse: true,
@@ -168,3 +186,6 @@ export const selectIsRejectingCourse = (state: State): any =>
 
 export const selectIsAcceptingCourse = (state: State): any =>
   state.isAcceptingCourse;
+
+export const selectIsCancelingCourse = (state: State): any =>
+  state.isCancelingCourse;
