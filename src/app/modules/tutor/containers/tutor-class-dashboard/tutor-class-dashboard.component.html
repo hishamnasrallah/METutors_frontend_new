@@ -46,7 +46,7 @@
                </div>
             </div>
             <div class="col-md-6">
-              <button mat-button class="main-button-transparent float-end ms-2" (click)="onShowSendFeedbackModal()">
+              <button mat-button class="main-button-transparent float-end ms-2" (click)="onShowSendFeedbackModal(view.data?.course?.studentId)">
                 Send Feedback
               </button>
               <button mat-button class="main-button-transparent float-end"
@@ -228,7 +228,7 @@
 
 <metutors-tutor-feedback-modal *ngIf="(showSendFeedbackModal$ | async)"
                                [showModal]="(showSendFeedbackModal$ | async)!"
-                               (closeModal)="onCloseSendFeedbackModal()">
+                               (closeModal)="onCloseSendFeedbackModal()" (submitFeedback)="onSubmitFeedback($event)">
 </metutors-tutor-feedback-modal>
 
 <metutors-tutor-cancel-course-modal *ngIf="(showCancelCourseModal$ | async)"

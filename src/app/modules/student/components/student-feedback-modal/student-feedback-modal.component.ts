@@ -33,7 +33,7 @@ export class StudentFeedbackModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.submittingFeedback$ = this._store.select(
-      fromCore.selectIsSubmittingFeedback
+      fromCore.selectIsSubmittingStudentFeedback
     );
 
     this.form = this._fb.group({

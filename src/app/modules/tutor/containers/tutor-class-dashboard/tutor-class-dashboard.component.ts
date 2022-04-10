@@ -1,5 +1,6 @@
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
+import { FormGroup } from '@angular/forms';
 import { combineLatest, Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 
@@ -74,8 +75,10 @@ export class TutorClassDashboardComponent implements OnInit {
     this._store.dispatch(fromTutorAction.closeTutorCancelCourseModal());
   }
 
-  onShowSendFeedbackModal(): void {
+  onShowSendFeedbackModal(studentId: number): void {
+    const params = { studentId };
     this._store.dispatch(fromTutorAction.openTutorSendFeedbackModal());
+    this._store.dispatch(fromTutorAction.setTutorStateParams({ params }));
   }
 
   onCloseSendFeedbackModal(): void {
@@ -88,5 +91,10 @@ export class TutorClassDashboardComponent implements OnInit {
 
   onCloseCourseAttendanceModal(): void {
     this._store.dispatch(fromTutorAction.closeTutorCourseAttendanceModal());
+  }
+
+  onSubmitFeedback(form: FormGroup): void {
+    const body = form.value;
+    this._store.dispatch(fromCore.tutorSubmitFeedback({ body }));
   }
 }

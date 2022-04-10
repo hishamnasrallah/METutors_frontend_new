@@ -7,6 +7,7 @@ import * as courseActions from '../actions/course.actions';
 export interface State {
   dashboard: any;
   attendance: any;
+  feedbackOptions: any;
   tutor: ITutor | null;
   tutors: ITutor[] | null;
   isLoadingTutor: boolean;
@@ -15,7 +16,9 @@ export interface State {
   isLoadingDashboard: boolean;
   loadingTutorFailure: string;
   loadingTutorsFailure: string;
+  isSubmittingFeedback: boolean;
   isLoadingTutorAttendance: boolean;
+  isLoadingTutorFeedbackOptions: boolean;
 
   // Complete Tutor Profile
   isCompleteTutorProfile: boolean;
@@ -27,15 +30,18 @@ export const initialState: State = {
   tutors: null,
   dashboard: null,
   attendance: null,
+  feedbackOptions: null,
   isLoadingTutor: false,
   isLoadingTutors: false,
   isLaunchingClass: false,
   loadingTutorFailure: '',
   loadingTutorsFailure: '',
   isLoadingDashboard: false,
+  isSubmittingFeedback: false,
   isCompleteTutorProfile: false,
   isLoadingTutorAttendance: false,
   completeTutorProfileFailure: '',
+  isLoadingTutorFeedbackOptions: false,
 };
 
 export const reducer = createReducer(
@@ -178,6 +184,40 @@ export const reducer = createReducer(
   on(tutorActions.loadTutorAttendanceEnded, (state) => ({
     ...state,
     isLoadingTutorAttendance: false,
+  })),
+
+  on(tutorActions.loadTutorFeedbackOptions, (state) => ({
+    ...state,
+    isLoadingTutorFeedbackOptions: true,
+  })),
+
+  on(
+    tutorActions.loadTutorFeedbackOptionsSuccess,
+    (state, { feedbackOptions }) => ({
+      ...state,
+      feedbackOptions,
+      isLoadingTutorFeedbackOptions: false,
+    })
+  ),
+
+  on(tutorActions.loadTutorFeedbackOptionsFailure, (state) => ({
+    ...state,
+    isLoadingTutorFeedbackOptions: false,
+  })),
+
+  on(tutorActions.tutorSubmitFeedback, (state) => ({
+    ...state,
+    isSubmittingFeedback: true,
+  })),
+
+  on(tutorActions.tutorSubmitFeedbackSuccess, (state) => ({
+    ...state,
+    isSubmittingFeedback: false,
+  })),
+
+  on(tutorActions.tutorSubmitFeedbackFailure, (state) => ({
+    ...state,
+    isSubmittingFeedback: false,
   }))
 );
 
@@ -206,6 +246,15 @@ export const selectTutorAttendance = (state: State): any => state.attendance;
 
 export const selectIsLoadingTutorAttendance = (state: State): boolean =>
   state.isLoadingTutorAttendance;
+
+export const selectTutorFeedbackOptions = (state: State): any =>
+  state.feedbackOptions;
+
+export const selectIsLoadingTutorFeedbackOptions = (state: State): boolean =>
+  state.isLoadingTutorFeedbackOptions;
+
+export const selectIsSubmittingTutorFeedback = (state: State): boolean =>
+  state.isSubmittingFeedback;
 
 export const selectFilteredTutors = (
   state: State,

@@ -100,36 +100,6 @@ export class TutorEffects {
     )
   );
 
-  loadTutorAttendance$ = createEffect(() =>
-    this._actions$.pipe(
-      ofType(tutorActions.loadTutorAttendance),
-      withLatestFrom(
-        this._store.select(selectTutorAttendance),
-        this._store.select(fromRouterStore.selectRouteParams)
-      ),
-      mergeMap(([_, _attendance, { id }]) => {
-        if (!_attendance) {
-          return this._tutorService.getTutorAttendance(id).pipe(
-            map((attendance) =>
-              tutorActions.loadTutorAttendanceSuccess({
-                attendance: camelcaseKeys(attendance, { deep: true }),
-              })
-            ),
-            catchError((error) =>
-              of(
-                tutorActions.loadTutorAttendanceFailure({
-                  error: error?.error?.message || error?.error?.errors,
-                })
-              )
-            )
-          );
-        } else {
-          return of(tutorActions.loadTutorAttendanceEnded());
-        }
-      })
-    )
-  );
-
   loadTutorDashboard$ = createEffect(() =>
     this._actions$.pipe(
       ofType(tutorActions.loadTutorDashboard),
@@ -181,12 +151,99 @@ export class TutorEffects {
     )
   );
 
+  loadTutorAttendance$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorActions.loadTutorAttendance),
+      withLatestFrom(
+        this._store.select(selectTutorAttendance),
+        this._store.select(fromRouterStore.selectRouteParams)
+      ),
+      mergeMap(([_, _attendance, { id }]) => {
+        if (!_attendance) {
+          return this._tutorService.getTutorAttendance(id).pipe(
+            map((attendance) =>
+              tutorActions.loadTutorAttendanceSuccess({
+                attendance: camelcaseKeys(attendance, { deep: true }),
+              })
+            ),
+            catchError((error) =>
+              of(
+                tutorActions.loadTutorAttendanceFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          );
+        } else {
+          return of(tutorActions.loadTutorAttendanceEnded());
+        }
+      })
+    )
+  );
+
+  loadTutorFeedbackOptions$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorActions.loadTutorFeedbackOptions),
+      mergeMap(() =>
+        this._tutorService.getTutorFeedbackOptions().pipe(
+          map((feedbackOptions) =>
+            tutorActions.loadTutorFeedbackOptionsSuccess({
+              feedbackOptions: camelcaseKeys(feedbackOptions, { deep: true }),
+            })
+          ),
+          catchError((error) =>
+            of(
+              tutorActions.loadTutorFeedbackOptionsFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  tutorSubmitFeedback$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorActions.tutorSubmitFeedback),
+      withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
+      mergeMap(([{ body }, { id }]) =>
+        this._tutorService.tutorSubmitFeedback(body, id).pipe(
+          map((attendance) =>
+            tutorActions.tutorSubmitFeedbackSuccess({
+              message: 'Feedback successfully submitted',
+            })
+          ),
+          catchError((error) =>
+            of(
+              tutorActions.tutorSubmitFeedbackFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  successMessages$ = createEffect(
+    () =>
+      this._actions$.pipe(
+        ofType(...[tutorActions.tutorSubmitFeedbackSuccess]),
+        map(({ message }) => this._alertNotificationService.success(message))
+      ),
+    {
+      dispatch: false,
+    }
+  );
+
   failureMessages$ = createEffect(
     () =>
       this._actions$.pipe(
         ofType(
           ...[
             tutorActions.tutorLaunchClassFailure,
+            tutorActions.tutorSubmitFeedbackFailure,
             tutorActions.completeTutorProfileFailure,
           ]
         ),

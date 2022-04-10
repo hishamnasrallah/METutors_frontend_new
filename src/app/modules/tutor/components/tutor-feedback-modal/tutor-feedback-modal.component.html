@@ -1,103 +1,45 @@
-<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'large'" [heading]="'Leave a feedback'"
-                [template]="template" [subHeading]="'Write your feedback to your tutor'">
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'xmedium'"
+                [heading]="'Leave a feedback'"
+                [template]="template" [subHeading]="heading">
   <ng-template #template>
-    <div class="row leave-feedback-modal">
+    <div class="row leave-feedback-modal" *ngLet="(view$ | async) as view">
       <div class="col-12">
         <mat-tab-group mat-align-tabs="start">
-          <mat-tab label="Tutor Feedback">
-            <form [formGroup]="tutorFeedbackForm" (ngSubmit)="onSubmitTutorFeedback(tutorFeedbackForm)"
-                  class="rating-block">
-              <div class="row mt-3">
-                <div class="col">
-                  <h2>Fast learner</h2>
-                </div>
-                <div class="col-md-2">
-                  <rating [max]="5" formControlName="expertSubject"></rating>
-                </div>
-              </div>
-              <div class="row mt-3">
-                <div class="col">
-                  <h2>Focuses in class and paying attention
-                  </h2>
-                </div>
-                <div class="col-md-2">
-                  <rating [max]="5" formControlName="presentTopics"></rating>
-                </div>
-              </div>
-              <div class="row mt-3">
-                <div class="col">
-                  <h2>Attend class on-time</h2>
-                </div>
-                <div class="col-md-2">
-                  <rating [max]="5" formControlName="skillfulStudents"></rating>
-                </div>
-              </div>
-              <div class="row mt-3">
-                <div class="col">
-                  <h2>Complete homework on time</h2>
-                </div>
-                <div class="col-md-2">
-                  <rating [max]="5" formControlName="alwaysTime"></rating>
-                </div>
-              </div>
-              <div class="row mt-3">
-                <div class="col">
-                  <h2>Active participation in class</h2>
-                </div>
-                <div class="col-md-2">
-                  <rating [max]="5" formControlName="alwaysTime"></rating>
-                </div>
-              </div>
-              <div class="row mt-3">
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label for="message">Write a feedback*</label>
-                    <textarea rows="5" class="custom-input w-100 input-bordered" id="message"
-                              placeholder="Type your Write a feedback …" formControlName="feedback"></textarea>
+          <mat-tab [label]="tabLabel">
+            <ng-container [ngSwitch]="view?.loading">
+              <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
+              <form [formGroup]="form" (ngSubmit)="submitFeedback.emit(form)"
+                    class="rating-block" *ngSwitchCase="false">
+                <ng-container formArrayName="feedbacks">
+                  <div class="row mt-1" *ngFor="let option of view?.feedbackOptions?.params; let i =index; " [formGroupName]="i">
+                    <div class="col">
+                      <p>{{ option?.name }}</p>
+                    </div>
+                    <div class="col-md-2">
+                      <rating [max]="5" formControlName="rating"></rating>
+                    </div>
+                  </div>
+                </ng-container>
+
+                <div class="row mt-3">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="message" class="fw-bold">{{ messageLabel }}*</label>
+                      <textarea rows="5" class="custom-input w-100 input-bordered" id="message"
+                                placeholder="Enter your text here"
+                                formControlName="review"></textarea>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="row mt-2">
-                <div class="col-md-12 overflow-hidden">
-                  <button mat-flat-button color="primary" class="float-end" type="submit"
-                          [disabled]="tutorFeedbackForm.invalid || isSendFeedback">
-                    Send feedback
-                    <mat-icon class="spinner" *ngIf="isSendFeedback">autorenew</mat-icon>
-                  </button>
-                </div>
-              </div>
-            </form>
-          </mat-tab>
-          <mat-tab label="Course feedback">
-            <form [formGroup]="courseFeedbackForm" (ngSubmit)="onSubmitCourseFeedback(courseFeedbackForm)"
-                  class="rating-block">
-              <div class="row mt-3">
-                <div class="col">
-                  <h2>Rate</h2>
-                </div>
-                <div class="col-md-2">
-                  <rating [max]="5" formControlName="rate"></rating>
-                </div>
-              </div>
-              <div class="row mt-3">
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label for="feedback">Write a feedback*</label>
-                    <textarea rows="5" class="custom-input w-100 input-bordered" id="feedback"
-                              placeholder="Type your Write a feedback …" formControlName="feedback"></textarea>
+                <div class="row mt-2">
+                  <div class="col-md-12 overflow-hidden">
+                    <metutors-submit-button [form]="form" [isSubmitting]="submittingFeedback$ | async" [extraClasses]="'float-end py-1 px-5'">
+                      Send Feedback
+                    </metutors-submit-button>
                   </div>
                 </div>
-              </div>
-              <div class="row mt-2">
-                <div class="col-md-12 overflow-hidden">
-                  <button mat-flat-button color="primary" class="float-end" type="submit"
-                          [disabled]="courseFeedbackForm.invalid || isSendFeedback">
-                    Send feedback
-                    <mat-icon class="spinner" *ngIf="isSendFeedback">autorenew</mat-icon>
-                  </button>
-                </div>
-              </div>
-            </form>
+              </form>
+            </ng-container>
           </mat-tab>
         </mat-tab-group>
       </div>

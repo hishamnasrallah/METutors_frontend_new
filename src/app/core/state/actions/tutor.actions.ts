@@ -102,3 +102,33 @@ export const loadTutorAttendanceFailure = createAction(
 export const loadTutorAttendanceEnded = createAction(
   '[Tutor] Load Tutor Attendance Ended'
 );
+
+// Tutor feedback
+export const loadTutorFeedbackOptions = createAction(
+  '[Tutor] Load Tutor Feedback Options'
+);
+
+export const loadTutorFeedbackOptionsSuccess = createAction(
+  '[Tutor] Load Tutor Feedback Options Success',
+  props<{ feedbackOptions: any }>()
+);
+
+export const loadTutorFeedbackOptionsFailure = createAction(
+  '[Tutor] Load Tutor Feedback Options Failure',
+  props<{ error: any }>()
+);
+
+export const tutorSubmitFeedback = createAction(
+  '[Tutor] Tutor Submit Feedback',
+  props<{ body: any }>()
+);
+
+export const tutorSubmitFeedbackSuccess = createAction(
+  '[Tutor] Tutor Submit Feedback Success',
+  props<{ message: string }>()
+);
+
+export const tutorSubmitFeedbackFailure = createAction(
+  '[Tutor] Tutor Submit Feedback Failure',
+  props<{ error: any }>()
+);

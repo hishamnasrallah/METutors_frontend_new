@@ -218,6 +218,21 @@ export const selectIsLoadingTutorAttendance = createSelector(
   fromTutorReducer.selectIsLoadingTutorAttendance
 );
 
+export const selectIsSubmittingTutorFeedback = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectIsSubmittingTutorFeedback
+);
+
+export const selectTutorFeedbackOptions = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectTutorFeedbackOptions
+);
+
+export const selectIsLoadingTutorFeedbackOptions = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectIsLoadingTutorFeedbackOptions
+);
+
 // Tutor syllabus
 export const selectTutorSyllabus = createSelector(
   selectTutorSyllabusState,
@@ -509,7 +524,7 @@ export const selectIsLoadingStudentFeedbackOptions = createSelector(
   fromStudentReducer.selectIsLoadingStudentFeedbackOptions
 );
 
-export const selectIsSubmittingFeedback = createSelector(
+export const selectIsSubmittingStudentFeedback = createSelector(
   selectStudentState,
   fromStudentReducer.selectIsSubmittingFeedback
 );

@@ -1,5 +1,19 @@
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { map } from 'rxjs/operators';
+import { combineLatest, Observable, tap } from 'rxjs';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+
+import {
+  FormArray,
+  FormGroup,
+  Validators,
+  FormBuilder,
+  AbstractControl,
+} from '@angular/forms';
+
+import * as fromStudent from '../../state';
+import * as fromCore from '@metutor/core/state';
+import { selectIsSubmittingTutorFeedback } from '@metutor/core/state';
 
 @Component({
   selector: 'metutors-tutor-feedback-modal',
@@ -8,35 +22,62 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class TutorFeedbackModalComponent implements OnInit {
   @Input() showModal = false;
+  @Input() tabLabel = 'Student Feedback';
+  @Input() messageLabel = 'Write a feedback';
+  @Input() heading = 'Write your feedback for the class';
 
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
+  @Output() submitFeedback: EventEmitter<any> = new EventEmitter<any>();
 
-  isSendFeedback = false; // loading
-  tutorFeedbackForm!: FormGroup;
-  courseFeedbackForm!: FormGroup;
+  form!: FormGroup;
 
-  constructor(private _formBuilder: FormBuilder) {}
+  submittingFeedback$: Observable<boolean>;
+  view$: Observable<{ loading: boolean; feedbackOptions: any }>;
 
-  onSubmitTutorFeedback(form: FormGroup) {
-    console.log(form.value);
+  constructor(private _store: Store<any>, private _fb: FormBuilder) {}
+
+  get feedbacks(): FormArray {
+    return this.form?.get('feedbacks') as FormArray;
   }
 
-  onSubmitCourseFeedback(form: FormGroup) {
-    console.log(form.value);
+  get receiverId(): AbstractControl | null {
+    return this.form?.get('receiver_id');
   }
 
   ngOnInit(): void {
-    this.tutorFeedbackForm = this._formBuilder.group({
-      expertSubject: [null, Validators.required],
-      presentTopics: [null, Validators.required],
-      skillfulStudents: [null, Validators.required],
-      alwaysTime: [null, Validators.required],
-      feedback: [null, Validators.required],
+    this.submittingFeedback$ = this._store.select(
+      fromCore.selectIsSubmittingTutorFeedback
+    );
+
+    this.form = this._fb.group({
+      review: [null, Validators.required],
+      receiver_id: [null, Validators.required],
+      feedbacks: this._fb.array([]),
     });
 
-    this.courseFeedbackForm = this._formBuilder.group({
-      rate: [null, Validators.required],
-      feedback: [null, Validators.required],
-    });
+    this.view$ = combineLatest([
+      this._store.select(fromCore.selectIsLoadingTutorFeedbackOptions),
+      this._store.select(fromCore.selectTutorFeedbackOptions).pipe(
+        tap((options) => {
+          if (options) {
+            this.feedbacks.clear();
+
+            options.params.forEach((option: any) => {
+              this.feedbacks.push(
+                this._fb.group({
+                  rating: [null, Validators.required],
+                  feedback_id: [option.id, Validators.required],
+                })
+              );
+            });
+          }
+        })
+      ),
+      this._store
+        .select(fromStudent.selectTutorStateParams)
+        .pipe(tap((params) => this.receiverId?.setValue(params?.studentId))),
+    ]).pipe(
+      map(([loading, feedbackOptions]) => ({ loading, feedbackOptions }))
+    );
   }
 }

@@ -65,10 +65,14 @@ export const reducer = createReducer(
     showSendFeedbackModal: true,
   })),
 
-  on(tutorModalActions.closeTutorSendFeedbackModal, (state) => ({
-    ...state,
-    showSendFeedbackModal: false,
-  })),
+  on(
+    fromCore.tutorSubmitFeedbackSuccess,
+    tutorModalActions.closeTutorSendFeedbackModal,
+    (state) => ({
+      ...state,
+      showSendFeedbackModal: false,
+    })
+  ),
 
   on(tutorModalActions.openTutorCourseAttendanceModal, (state) => ({
     ...state,

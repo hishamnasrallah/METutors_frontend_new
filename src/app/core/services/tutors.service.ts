@@ -206,4 +206,18 @@ export class TutorsService {
   getTutorAttendance(id: number): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}teacher/course/${id}/attendence`);
   }
+
+  // Feedback
+  getTutorFeedbackOptions(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}teacher/feedback/params`);
+  }
+
+  tutorSubmitFeedback(payload: any, course_id: number): Observable<any> {
+    const body = {
+      ...payload,
+      course_id,
+    };
+
+    return this.http.post<any>(`${this.baseUrl}teacher/feedback`, body);
+  }
 }
