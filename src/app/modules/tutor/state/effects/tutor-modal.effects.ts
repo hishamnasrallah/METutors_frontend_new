@@ -9,6 +9,7 @@ import * as fromCore from '@metutor/core/state';
 import {
   openTutorCourseAttendanceModal,
   openTutorSendFeedbackModal,
+  openTutorSendPlatformFeedbackModal,
 } from '../actions';
 
 @Injectable()
@@ -64,6 +65,13 @@ export class TutorModalEffects {
     this._actions$.pipe(
       ofType(fromTutorAction.openTutorSendFeedbackModal),
       mergeMap(() => of(fromCore.loadTutorFeedbackOptions()))
+    )
+  );
+
+  openTutorPlatformFeedbackModal$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(fromTutorAction.openTutorSendPlatformFeedbackModal),
+      mergeMap(() => of(fromCore.loadTutorFeedbackPlatformOptions()))
     )
   );
 

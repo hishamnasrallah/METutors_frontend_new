@@ -5,6 +5,7 @@ import * as studentModalActions from '../actions/student-modal.actions';
 
 export interface State {
   showAttendanceModal: boolean;
+  showCancelCourseModal: boolean;
   showSendFeedbackModal: boolean;
   showViewResourceModal: boolean;
   showViewAssignmentModal: boolean;
@@ -14,6 +15,7 @@ export interface State {
 
 export const initialState: State = {
   showAttendanceModal: false,
+  showCancelCourseModal: false,
   showSendFeedbackModal: false,
   showViewResourceModal: false,
   showViewAssignmentModal: false,
@@ -98,6 +100,16 @@ export const reducer = createReducer(
   on(studentModalActions.closeViewSubmittedAssignmentModal, (state) => ({
     ...state,
     showViewSubmittedAssignmentModal: false,
+  })),
+
+  on(studentModalActions.openCancelCourseModal, (state) => ({
+    ...state,
+    showCancelCourseModal: true,
+  })),
+
+  on(studentModalActions.closeCancelCourse, (state) => ({
+    ...state,
+    showCancelCourseModal: false,
   }))
 );
 
@@ -119,3 +131,6 @@ export const selectSubmitAssignmentModal = (state: State): boolean =>
 
 export const selectViewSubmittedAssignmentModal = (state: State): boolean =>
   state.showViewSubmittedAssignmentModal;
+
+export const selectCancelCourseModal = (state: State): boolean =>
+  state.showCancelCourseModal;

@@ -55,19 +55,29 @@ export const reducer = createReducer(
     showCancelCourseModal: true,
   })),
 
-  on(tutorModalActions.closeTutorCancelCourseModal, (state) => ({
-    ...state,
-    showCancelCourseModal: false,
-  })),
+  on(
+    fromCore.tutorCancelCourseSuccess,
+    tutorModalActions.closeTutorCancelCourseModal,
+    (state) => ({
+      ...state,
+      showCancelCourseModal: false,
+    })
+  ),
 
-  on(tutorModalActions.openTutorSendFeedbackModal, (state) => ({
-    ...state,
-    showSendFeedbackModal: true,
-  })),
+  on(
+    tutorModalActions.openTutorSendFeedbackModal,
+    tutorModalActions.openTutorSendPlatformFeedbackModal,
+    (state) => ({
+      ...state,
+      showSendFeedbackModal: true,
+    })
+  ),
 
   on(
     fromCore.tutorSubmitFeedbackSuccess,
+    fromCore.tutorSubmitPlatformFeedbackSuccess,
     tutorModalActions.closeTutorSendFeedbackModal,
+    tutorModalActions.closeTutorSendPlatformFeedbackModal,
     (state) => ({
       ...state,
       showSendFeedbackModal: false,

@@ -32,6 +32,14 @@ export const closeTutorSendFeedbackModal = createAction(
   '[Tutor Modal] Close Tutor Send Feedback Modal'
 );
 
+export const openTutorSendPlatformFeedbackModal = createAction(
+  '[Tutor Modal] Open Tutor Send Platform Feedback Modal'
+);
+
+export const closeTutorSendPlatformFeedbackModal = createAction(
+  '[Tutor Modal] Close Tutor Send Platform Feedback Modal'
+);
+
 export const openTutorCourseAttendanceModal = createAction(
   '[Tutor Modal] Open Tutor Course Attendance Modal'
 );

@@ -83,7 +83,7 @@
 
                   <tr *ngFor="let attendance of view.attendance?.studentsAttendance; let i = index">
                     <td scope="row">{{ i + 1}}</td>
-                    <td>Understanding Operating Systems</td>
+                    <td>{{ attendance?.class?.title }}</td>
                     <td>
                       <button mat-button [class]="attendance?.status">{{ attendance?.status }}</button>
                     </td>
@@ -109,7 +109,7 @@
                 </tr>
                 <tr *ngFor="let attendance of view.attendance?.myAttendence; let i = index">
                   <td scope="row">{{ i + 1}}</td>
-                  <td>Understanding Operating Systems</td>
+                  <td>{{ attendance?.class?.title }}</td>
                   <td>
                     <button mat-button [class]="attendance?.status">{{ attendance?.status }}</button>
                   </td>

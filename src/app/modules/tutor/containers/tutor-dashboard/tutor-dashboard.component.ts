@@ -23,6 +23,7 @@ export class TutorDashboardComponent implements OnInit {
   isRejecting$: Observable<boolean>;
   isAccepting$: Observable<boolean>;
   isLaunchingClass$: Observable<boolean>;
+  showSendFeedbackModal$: Observable<boolean>;
   showRejectCourseModal$: Observable<boolean>;
   view$: Observable<{ loading: boolean; data: any }>;
 
@@ -66,6 +67,19 @@ export class TutorDashboardComponent implements OnInit {
     );
   }
 
+  onShowSendFeedbackModal(): void {
+    this._store.dispatch(fromTutorAction.openTutorSendPlatformFeedbackModal());
+  }
+
+  onCloseSendFeedbackModal(): void {
+    this._store.dispatch(fromTutorAction.closeTutorSendPlatformFeedbackModal());
+  }
+
+  onSubmitFeedback(form: FormGroup): void {
+    const body = form.value;
+    this._store.dispatch(fromCore.tutorSubmitPlatformFeedback({ body }));
+  }
+
   ngOnInit(): void {
     this.user$ = this._store.select(fromCore.selectUser);
     this.layout$ = this._store.select(fromRoot.selectLayout);
@@ -77,6 +91,10 @@ export class TutorDashboardComponent implements OnInit {
 
     this.showRejectCourseModal$ = this._store.select(
       fromTutor.selectRejectCourseModal
+    );
+
+    this.showSendFeedbackModal$ = this._store.select(
+      fromTutor.selectSendFeedbackModal
     );
 
     this._store.dispatch(

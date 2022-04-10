@@ -89,7 +89,7 @@ export class StudentsService {
   }
 
   getStudentAttendance(id: number): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}student/course/${id}/attendence`);
+    return this.http.get<any>(`${this.baseUrl}student/course/${id}/attendance`);
   }
 
   getStudentFeedbackOptions(): Observable<any> {

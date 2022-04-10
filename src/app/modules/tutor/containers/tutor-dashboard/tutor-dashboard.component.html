@@ -10,7 +10,7 @@
         </p>
       </div>
       <div class="col-md-6">
-        <button mat-flat-button color="primary" class="float-end ms-2">
+        <button mat-flat-button color="primary" class="float-end ms-2" (click)="onShowSendFeedbackModal()">
           Send Feedback
         </button>
 
@@ -205,3 +205,8 @@
                                     [showModal]="(showRejectCourseModal$ | async)!" (submitted)="onRejectCourse($event)"
                                     (closeModal)="onCloseRejectCourse()" [submitting]="(isRejecting$ | async)!">
 </metutors-tutor-reject-course-modal>
+
+<metutors-tutor-feedback-modal *ngIf="(showSendFeedbackModal$ | async)"
+                               [showModal]="(showSendFeedbackModal$ | async)!" [isPlatform]="true"
+                               (closeModal)="onCloseSendFeedbackModal()" (submitFeedback)="onSubmitFeedback($event)">
+</metutors-tutor-feedback-modal>

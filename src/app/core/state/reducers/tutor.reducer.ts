@@ -186,13 +186,18 @@ export const reducer = createReducer(
     isLoadingTutorAttendance: false,
   })),
 
-  on(tutorActions.loadTutorFeedbackOptions, (state) => ({
-    ...state,
-    isLoadingTutorFeedbackOptions: true,
-  })),
+  on(
+    tutorActions.loadTutorFeedbackOptions,
+    tutorActions.loadTutorFeedbackPlatformOptions,
+    (state) => ({
+      ...state,
+      isLoadingTutorFeedbackOptions: true,
+    })
+  ),
 
   on(
     tutorActions.loadTutorFeedbackOptionsSuccess,
+    tutorActions.loadTutorFeedbackPlatformOptionsSuccess,
     (state, { feedbackOptions }) => ({
       ...state,
       feedbackOptions,
@@ -200,25 +205,41 @@ export const reducer = createReducer(
     })
   ),
 
-  on(tutorActions.loadTutorFeedbackOptionsFailure, (state) => ({
-    ...state,
-    isLoadingTutorFeedbackOptions: false,
-  })),
+  on(
+    tutorActions.loadTutorFeedbackOptionsFailure,
+    tutorActions.loadTutorFeedbackPlatformOptionsFailure,
+    (state) => ({
+      ...state,
+      isLoadingTutorFeedbackOptions: false,
+    })
+  ),
 
-  on(tutorActions.tutorSubmitFeedback, (state) => ({
-    ...state,
-    isSubmittingFeedback: true,
-  })),
+  on(
+    tutorActions.tutorSubmitFeedback,
+    tutorActions.tutorSubmitPlatformFeedback,
+    (state) => ({
+      ...state,
+      isSubmittingFeedback: true,
+    })
+  ),
 
-  on(tutorActions.tutorSubmitFeedbackSuccess, (state) => ({
-    ...state,
-    isSubmittingFeedback: false,
-  })),
+  on(
+    tutorActions.tutorSubmitFeedbackSuccess,
+    tutorActions.tutorSubmitPlatformFeedbackSuccess,
+    (state) => ({
+      ...state,
+      isSubmittingFeedback: false,
+    })
+  ),
 
-  on(tutorActions.tutorSubmitFeedbackFailure, (state) => ({
-    ...state,
-    isSubmittingFeedback: false,
-  }))
+  on(
+    tutorActions.tutorSubmitFeedbackFailure,
+    tutorActions.tutorSubmitPlatformFeedbackFailure,
+    (state) => ({
+      ...state,
+      isSubmittingFeedback: false,
+    })
+  )
 );
 
 export const selectTutor = (state: State): ITutor | null => state.tutor;

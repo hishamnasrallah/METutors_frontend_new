@@ -58,3 +58,11 @@ export const openViewSubmittedAssignmentModal = createAction(
 export const closeViewSubmittedAssignmentModal = createAction(
   '[Student Modal] Close View Submitted Assignment Modal'
 );
+
+export const openCancelCourseModal = createAction(
+  '[Student Modal] Open Cancel Course Modal'
+);
+
+export const closeCancelCourse = createAction(
+  '[Student Modal] Close Cancel Course Modal'
+);

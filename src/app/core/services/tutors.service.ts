@@ -204,12 +204,18 @@ export class TutorsService {
 
   // Attendance
   getTutorAttendance(id: number): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}teacher/course/${id}/attendence`);
+    return this.http.get<any>(`${this.baseUrl}teacher/course/${id}/attendance`);
   }
 
   // Feedback
   getTutorFeedbackOptions(): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}teacher/feedback/params`);
+  }
+
+  getTutorFeedbackPlatformOptions(): Observable<any> {
+    return this.http.get<any>(
+      `${this.baseUrl}teacher/feedback/platform/params`
+    );
   }
 
   tutorSubmitFeedback(payload: any, course_id: number): Observable<any> {
@@ -219,5 +225,20 @@ export class TutorsService {
     };
 
     return this.http.post<any>(`${this.baseUrl}teacher/feedback`, body);
+  }
+
+  tutorSubmitPlatformFeedback(
+    payload: any,
+    course_id: number
+  ): Observable<any> {
+    const body = {
+      ...payload,
+      course_id,
+    };
+
+    return this.http.post<any>(
+      `${this.baseUrl}teacher/feedback/platform`,
+      body
+    );
   }
 }

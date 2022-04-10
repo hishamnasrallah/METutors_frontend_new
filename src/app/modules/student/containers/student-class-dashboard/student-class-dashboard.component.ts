@@ -16,6 +16,7 @@ import * as fromStudentAction from '../../state/actions';
 export class StudentClassDashboardComponent implements OnInit {
   isJoiningClass$: Observable<boolean>;
   showAttendanceModal$: Observable<boolean>;
+  showCancelCourseModal$: Observable<boolean>;
   showSendFeedbackModal$: Observable<boolean>;
 
   view$: Observable<{
@@ -39,7 +40,9 @@ export class StudentClassDashboardComponent implements OnInit {
     this._store.dispatch(fromCore.studentJoinClass({ id }));
   }
 
-  onShowCancelCourseModal(): void {}
+  onShowCancelCourseModal(): void {
+    this._store.dispatch(fromStudentAction.openCancelCourseModal());
+  }
 
   onShowSendFeedbackModal(): void {
     this._store.dispatch(fromStudentAction.openStudentSendFeedbackModal());
@@ -62,6 +65,11 @@ export class StudentClassDashboardComponent implements OnInit {
     this._store.dispatch(fromCore.studentSubmitFeedback({ body }));
   }
 
+  onSubmitCancelCourse(form: FormGroup): void {
+    const reason = form.value;
+    this._store.dispatch(fromCore.studentCancelCourse({ reason }));
+  }
+
   ngOnInit(): void {
     this._store.dispatch(fromCore.loadStudentClassesDashboard());
     this.showAttendanceModal$ = this._store.select(
@@ -70,6 +78,10 @@ export class StudentClassDashboardComponent implements OnInit {
 
     this.showSendFeedbackModal$ = this._store.select(
       fromStudent.selectSendFeedbackModal
+    );
+
+    this.showCancelCourseModal$ = this._store.select(
+      fromStudent.selectCancelCourseModal
     );
 
     this.isJoiningClass$ = this._store.select(fromCore.selectIsJoiningClass);

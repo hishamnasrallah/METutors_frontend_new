@@ -118,6 +118,20 @@ export const loadTutorFeedbackOptionsFailure = createAction(
   props<{ error: any }>()
 );
 
+export const loadTutorFeedbackPlatformOptions = createAction(
+  '[Tutor] Load Tutor Feedback Platform Options'
+);
+
+export const loadTutorFeedbackPlatformOptionsSuccess = createAction(
+  '[Tutor] Load Tutor Feedback Platform Options Success',
+  props<{ feedbackOptions: any }>()
+);
+
+export const loadTutorFeedbackPlatformOptionsFailure = createAction(
+  '[Tutor] Load Tutor Feedback Platform Options Failure',
+  props<{ error: any }>()
+);
+
 export const tutorSubmitFeedback = createAction(
   '[Tutor] Tutor Submit Feedback',
   props<{ body: any }>()
@@ -130,5 +144,20 @@ export const tutorSubmitFeedbackSuccess = createAction(
 
 export const tutorSubmitFeedbackFailure = createAction(
   '[Tutor] Tutor Submit Feedback Failure',
+  props<{ error: any }>()
+);
+
+export const tutorSubmitPlatformFeedback = createAction(
+  '[Tutor] Tutor Submit Platform Feedback',
+  props<{ body: any }>()
+);
+
+export const tutorSubmitPlatformFeedbackSuccess = createAction(
+  '[Tutor] Tutor Submit Platform Feedback Success',
+  props<{ message: string }>()
+);
+
+export const tutorSubmitPlatformFeedbackFailure = createAction(
+  '[Tutor] Tutor Submit Platform Feedback Failure',
   props<{ error: any }>()
 );

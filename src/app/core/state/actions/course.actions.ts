@@ -75,3 +75,18 @@ export const tutorCancelCourseFailure = createAction(
   '[Tutor] Tutor Cancel Course Failure',
   props<{ error: any }>()
 );
+
+export const studentCancelCourse = createAction(
+  '[Student] Student Cancel Course',
+  props<{ reason: string }>()
+);
+
+export const studentCancelCourseSuccess = createAction(
+  '[Student] Student Cancel Course Success',
+  props<{ message: string }>()
+);
+
+export const studentCancelCourseFailure = createAction(
+  '[Student] Student Cancel Course Failure',
+  props<{ error: any }>()
+);

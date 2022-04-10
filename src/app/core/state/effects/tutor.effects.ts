@@ -203,6 +203,28 @@ export class TutorEffects {
     )
   );
 
+  loadTutorFeedbackPlatformOptions$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorActions.loadTutorFeedbackPlatformOptions),
+      mergeMap(() =>
+        this._tutorService.getTutorFeedbackPlatformOptions().pipe(
+          map((feedbackOptions) =>
+            tutorActions.loadTutorFeedbackPlatformOptionsSuccess({
+              feedbackOptions: camelcaseKeys(feedbackOptions, { deep: true }),
+            })
+          ),
+          catchError((error) =>
+            of(
+              tutorActions.loadTutorFeedbackPlatformOptionsFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   tutorSubmitFeedback$ = createEffect(() =>
     this._actions$.pipe(
       ofType(tutorActions.tutorSubmitFeedback),
@@ -226,10 +248,38 @@ export class TutorEffects {
     )
   );
 
+  tutorSubmitPlatformFeedback$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorActions.tutorSubmitPlatformFeedback),
+      withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
+      mergeMap(([{ body }, { id }]) =>
+        this._tutorService.tutorSubmitPlatformFeedback(body, id).pipe(
+          map((attendance) =>
+            tutorActions.tutorSubmitPlatformFeedbackSuccess({
+              message: 'Feedback successfully submitted',
+            })
+          ),
+          catchError((error) =>
+            of(
+              tutorActions.tutorSubmitPlatformFeedbackFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   successMessages$ = createEffect(
     () =>
       this._actions$.pipe(
-        ofType(...[tutorActions.tutorSubmitFeedbackSuccess]),
+        ofType(
+          ...[
+            tutorActions.tutorSubmitFeedbackSuccess,
+            tutorActions.tutorSubmitPlatformFeedbackSuccess,
+          ]
+        ),
         map(({ message }) => this._alertNotificationService.success(message))
       ),
     {
@@ -245,6 +295,8 @@ export class TutorEffects {
             tutorActions.tutorLaunchClassFailure,
             tutorActions.tutorSubmitFeedbackFailure,
             tutorActions.completeTutorProfileFailure,
+            tutorActions.completeTutorProfileFailure,
+            tutorActions.tutorSubmitPlatformFeedbackFailure,
           ]
         ),
         map((action) => {

@@ -21,6 +21,7 @@ import * as fromCore from '@metutor/core/state';
 })
 export class TutorFeedbackModalComponent implements OnInit {
   @Input() showModal = false;
+  @Input() isPlatform = false;
   @Input() tabLabel = 'Student Feedback';
   @Input() messageLabel = 'Write a feedback';
   @Input() heading = 'Write your feedback for the class';
@@ -49,8 +50,8 @@ export class TutorFeedbackModalComponent implements OnInit {
     );
 
     this.form = this._fb.group({
+      receiver_id: [null],
       review: [null, Validators.required],
-      receiver_id: [null, Validators.required],
       feedbacks: this._fb.array([]),
     });
 
@@ -61,11 +62,13 @@ export class TutorFeedbackModalComponent implements OnInit {
           if (options) {
             this.feedbacks.clear();
 
+            const id = this.isPlatform ? 'testimonial_id' : 'feedback_id';
+
             options.params.forEach((option: any) => {
               this.feedbacks.push(
                 this._fb.group({
                   rating: [null, Validators.required],
-                  feedback_id: [option.id, Validators.required],
+                  [id]: [option.id, Validators.required],
                 })
               );
             });

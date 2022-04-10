@@ -67,20 +67,32 @@ export const reducer = createReducer(
     isLoadingCourse: false,
   })),
 
-  on(courseActions.tutorCancelCourse, (state) => ({
-    ...state,
-    isCancelingCourse: true,
-  })),
+  on(
+    courseActions.tutorCancelCourse,
+    courseActions.studentCancelCourse,
+    (state) => ({
+      ...state,
+      isCancelingCourse: true,
+    })
+  ),
 
-  on(courseActions.tutorCancelCourseSuccess, (state) => ({
-    ...state,
-    isCancelingCourse: false,
-  })),
+  on(
+    courseActions.tutorCancelCourseSuccess,
+    courseActions.studentCancelCourseSuccess,
+    (state) => ({
+      ...state,
+      isCancelingCourse: false,
+    })
+  ),
 
-  on(courseActions.tutorCancelCourseFailure, (state) => ({
-    ...state,
-    isCancelingCourse: false,
-  })),
+  on(
+    courseActions.tutorCancelCourseFailure,
+    courseActions.studentCancelCourseFailure,
+    (state) => ({
+      ...state,
+      isCancelingCourse: false,
+    })
+  ),
 
   on(courseActions.tutorRejectCourse, (state) => ({
     ...state,

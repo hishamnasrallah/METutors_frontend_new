@@ -54,9 +54,16 @@ export class CoursesService {
     );
   }
 
-  cancelCourse(body: string, courseId: number): Observable<any> {
+  tutorCancelCourse(body: string, courseId: number): Observable<any> {
     return this.http.post<{ dashboard: any }>(
       `${this.baseUrl}teacher/course/${courseId}/cancel`,
+      body
+    );
+  }
+
+  studentCancelCourse(body: string, courseId: number): Observable<any> {
+    return this.http.post<{ dashboard: any }>(
+      `${this.baseUrl}student/course/${courseId}/cancel`,
       body
     );
   }
