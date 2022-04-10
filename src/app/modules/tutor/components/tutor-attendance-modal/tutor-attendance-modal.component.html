@@ -73,6 +73,7 @@
                     <th scope="col">Classroom Title</th>
                     <th scope="col">Attending States</th>
                     <th scope="col">Date</th>
+                    <th scope="col"></th>
                   </tr>
 
                   <tr *ngIf="!view.attendance?.studentsAttendance || !view.attendance?.studentsAttendance?.length">
@@ -88,6 +89,7 @@
                       <button mat-button [class]="attendance?.status">{{ attendance?.status }}</button>
                     </td>
                     <td>{{ attendance?.updatedAt | date}}</td>
+                    <td><button mat-button (click)="onOpenFeedbackModal(attendance?.userId)">Feedback</button></td>
                   </tr>
                 </table>
               </ng-container>

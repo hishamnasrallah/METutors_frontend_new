@@ -5,6 +5,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { WEEK_DAYS } from '@config';
 import * as fromCore from '@metutor/core/state';
+import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
 
 @Component({
   selector: 'metutors-tutor-attendance-modal',
@@ -28,6 +29,13 @@ export class TutorAttendanceModalComponent implements OnInit {
     }
 
     return listDays;
+  }
+
+  onOpenFeedbackModal(studentId: number): void {
+    const params = { studentId };
+    this._store.dispatch(fromTutorAction.openTutorSendFeedbackModal());
+    this._store.dispatch(fromTutorAction.closeTutorCourseAttendanceModal());
+    this._store.dispatch(fromTutorAction.setTutorStateParams({ params }));
   }
 
   ngOnInit(): void {
