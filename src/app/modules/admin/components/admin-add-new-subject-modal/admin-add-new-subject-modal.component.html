@@ -1,0 +1,89 @@
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'large'"
+                [heading]="subject ? 'Edit Subject' : 'Add Subject'"
+                [template]="template">
+  <ng-template #template>
+    <form class="add-subject-modal" [formGroup]="form" (ngSubmit)="onSubmit(form)">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Select Program</label>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-select formControlName="program" [placeholder]="'Select Program'"
+                (selectionChange)="onChangeProgram()">
+                <mat-option [value]="program?.id" *ngFor="let program of programs">
+                  {{ program?.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="name">Subject Name</label>
+            <input class="form-control custom-input input-bordered" formControlName="name" id="name"
+                   placeholder="Enter Subject Name">
+          </div>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="nationalId.toString() === program?.value?.toString()">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Select Country</label>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-select formControlName="country" [placeholder]="'Choose Country'">
+                <mat-option [value]="country?.id" *ngFor="let country of countries">
+                  {{ country?.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Select Grade</label>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-select formControlName="grade" [placeholder]="'Choose Grade'">
+                <mat-option [value]="i" *ngFor="let grade of grades; let i = index">
+                  {{ grade }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Select Field of Study</label>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-select formControlName="field" [placeholder]="'Choose Field of Study'">
+                <mat-option [value]="field?.id" *ngFor="let field of fields">
+                  {{ field?.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="price">Select Hourly Price</label>
+            <input class="form-control custom-input input-bordered" formControlName="price" id="price"
+                   placeholder="Enter Hourly Price" type="number" min="0" step="1">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 mt-2 overflow-hidden">
+            <metutors-submit-button [form]="form" [isSubmitting]="isAdding"
+                                    [extraClasses]="'float-end py-1 px-5'">
+            {{ subject ? 'Edit Subject' : 'Add Subject' }}
+            </metutors-submit-button>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+</metutors-modal>

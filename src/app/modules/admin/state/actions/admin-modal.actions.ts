@@ -39,3 +39,19 @@ export const openAdminAddNewFieldModal = createAction(
 export const closeAdminAddNewFieldModal = createAction(
   '[Admin Modal] Close Admin Add New Field Modal'
 );
+
+export const openAdminAddNewSubjectModal = createAction(
+  '[Admin Modal] Open Admin Add New Subject Modal'
+);
+
+export const closeAdminAddNewSubjectModal = createAction(
+  '[Admin Modal] Close Admin Add New Subject Modal'
+);
+
+export const openAdminAddNewCountryModal = createAction(
+  '[Admin Modal] Open Admin Add New Country Modal'
+);
+
+export const closeAdminAddNewCountryModal = createAction(
+  '[Admin Modal] Close Admin Add New Country Modal'
+);

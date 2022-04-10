@@ -19,6 +19,7 @@ export interface IProgram {
 export interface ICountry {
   id: number;
   name: string;
+  status?: number;
 }
 
 export interface ICity {
@@ -64,4 +65,9 @@ export interface IFieldFilters {
   status?: string;
   program?: number;
   country?: number;
+}
+
+export interface ICountryFilters {
+  title?: string;
+  status?: string;
 }

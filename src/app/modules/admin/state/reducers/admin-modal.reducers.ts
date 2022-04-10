@@ -4,7 +4,9 @@ import * as adminModalActions from '../actions/admin-modal.actions';
 
 export interface State {
   showAddNewFieldModal: boolean;
+  showAddNewSubjectModal: boolean;
   showAddNewProgramModal: boolean;
+  showAddNewCountryModal: boolean;
   showSendMeetingLinkModal: boolean;
   showInterviewAttachmentModal: boolean;
   showHourlyRatePerSubjectModal: boolean;
@@ -12,7 +14,9 @@ export interface State {
 
 export const initialState: State = {
   showAddNewFieldModal: false,
+  showAddNewSubjectModal: false,
   showAddNewProgramModal: false,
+  showAddNewCountryModal: false,
   showSendMeetingLinkModal: false,
   showInterviewAttachmentModal: false,
   showHourlyRatePerSubjectModal: false,
@@ -77,6 +81,34 @@ export const reducer = createReducer(
       ...state,
       showAddNewFieldModal: false,
     })
+  ),
+
+  on(adminModalActions.openAdminAddNewSubjectModal, (state) => ({
+    ...state,
+    showAddNewSubjectModal: true,
+  })),
+
+  on(
+    fromCore.addEditSubjectSuccess,
+    adminModalActions.closeAdminAddNewSubjectModal,
+    (state) => ({
+      ...state,
+      showAddNewSubjectModal: false,
+    })
+  ),
+
+  on(adminModalActions.openAdminAddNewCountryModal, (state) => ({
+    ...state,
+    showAddNewCountryModal: true,
+  })),
+
+  on(
+    fromCore.addEditProgramCountriesSuccess,
+    adminModalActions.closeAdminAddNewCountryModal,
+    (state) => ({
+      ...state,
+      showAddNewCountryModal: false,
+    })
   )
 );
 
@@ -95,3 +127,9 @@ export const selectAddNewProgramModal = (state: State): boolean =>
 
 export const selectAddNewFieldModal = (state: State): boolean =>
   state.showAddNewFieldModal;
+
+export const selectAddNewSubjectModal = (state: State): boolean =>
+  state.showAddNewSubjectModal;
+
+export const selectAddNewCountryModal = (state: State): boolean =>
+  state.showAddNewCountryModal;

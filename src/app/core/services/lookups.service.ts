@@ -43,14 +43,14 @@ export class LookupsService {
 
   getProgramCountries(): Observable<any> {
     return this.http
-      .get<{ program_countries: ICountry[] }>(
-        `${this.BACKEND_URL}program-country`
-      )
+      .get<{ program_countries: any[] }>(`${this.BACKEND_URL}program-country`)
       .pipe(
         map((response) => {
           return response.program_countries.map((item) => ({
             id: item.id,
             name: item.name,
+            updatedAt: item.updated_at,
+            status: item.status,
           }));
         })
       )
@@ -80,7 +80,7 @@ export class LookupsService {
             id: item.id,
             name: item.name,
             status: item.status,
-            createdAt: item.created_at,
+            updatedAt: item.updated_at,
           }));
         })
       )
@@ -101,7 +101,7 @@ export class LookupsService {
               id: response.program.id,
               name: response.program.name,
               status: ProgramStatus.active,
-              createdAt: response.program.created_at,
+              updatedAt: response.program.updated_at,
             },
           };
         })
@@ -123,7 +123,7 @@ export class LookupsService {
               id: response.program.id,
               name: response.program.name,
               status: response.program.status,
-              createdAt: response.program.created_at,
+              updatedAt: response.program.updated_at,
             },
           };
         })
@@ -210,6 +210,69 @@ export class LookupsService {
       .pipe(catchError(this.errorHandler));
   }
 
+  getAdminSubjects(): Observable<any> {
+    return this.http
+      .get<{ subject: any }>(`${this.BACKEND_URL}subject`)
+      .pipe(
+        map((response) => {
+          return response.subject.map((item: any) => new ISubject(false, item));
+        })
+      )
+      .pipe(catchError(this.errorHandler));
+  }
+
+  addNewSubject(value: any): Observable<any> {
+    return this.http
+      .post<{ subject: any; message: string }>(`${this.BACKEND_URL}subject`, {
+        name: value.name,
+        grade: value.grade,
+        program_id: value.program,
+        country_id: value.country,
+        field_id: value.field,
+        price_per_hour: value.price,
+      })
+      .pipe(
+        map((response) => {
+          return {
+            message: response.message,
+            subject: new ISubject(false, response.subject),
+          };
+        })
+      )
+      .pipe(catchError(this.errorHandler));
+  }
+
+  editSubject(value: any): Observable<any> {
+    return this.http
+      .patch<{ subject: any; message: string }>(
+        `${this.BACKEND_URL}subject/${value.id}`,
+        {
+          name: value.name,
+          grade: value.grade,
+          program_id: value.program,
+          country_id: value.country,
+          field_id: value.field,
+          price_per_hour: value.price,
+          status: value.status,
+        }
+      )
+      .pipe(
+        map((response) => {
+          return {
+            message: response.message,
+            subject: new ISubject(false, response.subject),
+          };
+        })
+      )
+      .pipe(catchError(this.errorHandler));
+  }
+
+  deleteSubject(id: number): Observable<any> {
+    return this.http
+      .delete<{ message: string }>(`${this.BACKEND_URL}subject/${id}`)
+      .pipe(catchError(this.errorHandler));
+  }
+
   getFieldsByProgramId(fieldId: string, countryId?: string): Observable<any> {
     let params = new HttpParams();
 
@@ -248,7 +311,7 @@ export class LookupsService {
             countryId: item?.country_id,
             grade: item?.grade,
             status: item?.status,
-            created_at: item?.created_at,
+            updatedAt: item?.updated_at,
             program: item?.program,
             country: item?.country,
           }));
@@ -269,7 +332,7 @@ export class LookupsService {
             countryId: item?.country_id,
             grade: item?.grade,
             status: item?.status,
-            created_at: item?.created_at,
+            updatedAt: item?.updated_at,
             program: item?.program,
             country: item?.country,
           }));
@@ -316,7 +379,7 @@ export class LookupsService {
               countryId: response.FieldOfStudy?.country_id,
               grade: response.FieldOfStudy?.grade,
               status: response.FieldOfStudy?.status,
-              created_at: response.FieldOfStudy?.created_at,
+              updatedAt: response.FieldOfStudy?.updated_at,
               program: response.FieldOfStudy?.program,
               country: response.FieldOfStudy?.country,
             },
@@ -349,7 +412,7 @@ export class LookupsService {
               countryId: response.FieldOfStudy?.country_id,
               grade: response.FieldOfStudy?.grade,
               status: response.FieldOfStudy?.status,
-              created_at: response.FieldOfStudy?.created_at,
+              updatedAt: response.FieldOfStudy?.updated_at,
               program: response.FieldOfStudy?.program,
               country: response.FieldOfStudy?.country,
             },
@@ -362,6 +425,56 @@ export class LookupsService {
   deleteField(id: number): Observable<any> {
     return this.http
       .delete<{ message: string }>(`${this.BACKEND_URL}fieldofstudy/${id}`)
+      .pipe(catchError(this.errorHandler));
+  }
+
+  addNewProgramCountries(value: any): Observable<any> {
+    return this.http
+      .post<{ program_country: any; message: string }>(
+        `${this.BACKEND_URL}program-country`,
+        value
+      )
+      .pipe(
+        map((response) => {
+          return {
+            message: response.message,
+            country: {
+              id: response.program_country.id,
+              name: response.program_country.name,
+              status: ProgramStatus.active,
+              updatedAt: response.program_country.updated_at,
+            },
+          };
+        })
+      )
+      .pipe(catchError(this.errorHandler));
+  }
+
+  editProgramCountries(value: any): Observable<any> {
+    return this.http
+      .patch<{ program_country: any; message: string }>(
+        `${this.BACKEND_URL}program-country/${value.id}`,
+        value
+      )
+      .pipe(
+        map((response) => {
+          return {
+            message: response.message,
+            country: {
+              id: response.program_country.id,
+              name: response.program_country.name,
+              status: response.program_country.status,
+              updatedAt: response.program_country.updated_at,
+            },
+          };
+        })
+      )
+      .pipe(catchError(this.errorHandler));
+  }
+
+  deleteProgramCountries(id: number): Observable<any> {
+    return this.http
+      .delete<{ message: string }>(`${this.BACKEND_URL}program-country/${id}`)
       .pipe(catchError(this.errorHandler));
   }
 

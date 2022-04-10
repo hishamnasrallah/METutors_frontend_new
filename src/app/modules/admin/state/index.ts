@@ -63,3 +63,13 @@ export const selectAddNewFieldModal = createSelector(
   selectAdminModalState,
   fromAdminModal.selectAddNewFieldModal
 );
+
+export const selectAddNewSubjectModal = createSelector(
+  selectAdminModalState,
+  fromAdminModal.selectAddNewSubjectModal
+);
+
+export const selectAddNewCountryModal = createSelector(
+  selectAdminModalState,
+  fromAdminModal.selectAddNewCountryModal
+);

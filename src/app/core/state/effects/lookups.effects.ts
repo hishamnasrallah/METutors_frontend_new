@@ -215,6 +215,28 @@ export class LookupsEffects {
     )
   );
 
+  loadAdminSubjects$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(lookupsActions.loadAdminSubjects),
+      mergeMap((_) =>
+        this._lookupsService.getAdminSubjects().pipe(
+          map((subjects) =>
+            lookupsActions.loadSubjectsSuccess({
+              subjects,
+            })
+          ),
+          catchError((error) =>
+            of(
+              lookupsActions.loadSubjectsFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   loadFieldsByProgramId$ = createEffect(() =>
     this._actions$.pipe(
       ofType(lookupsActions.loadFieldsByProgramId),
@@ -523,6 +545,138 @@ export class LookupsEffects {
     )
   );
 
+  addEditSubject$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(lookupsActions.addEditSubject),
+      mergeMap((action) => {
+        if (action.subject.id) {
+          return this._lookupsService.editSubject(action.subject).pipe(
+            map((response) =>
+              lookupsActions.addEditSubjectSuccess({
+                subject: response.subject,
+                message: response.message,
+                isEdit: true,
+              })
+            ),
+            catchError((error) =>
+              of(
+                lookupsActions.addEditSubjectFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          );
+        } else {
+          return this._lookupsService.addNewSubject(action.subject).pipe(
+            map((response) =>
+              lookupsActions.addEditSubjectSuccess({
+                subject: response.subject,
+                message: response.message,
+                isEdit: false,
+              })
+            ),
+            catchError((error) =>
+              of(
+                lookupsActions.addEditSubjectFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          );
+        }
+      })
+    )
+  );
+
+  deleteSubject$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(lookupsActions.deleteSubject),
+      mergeMap((action) =>
+        this._lookupsService.deleteSubject(action.id).pipe(
+          map((response) =>
+            lookupsActions.deleteSubjectSuccess({
+              id: action.id,
+              message: response.message,
+            })
+          ),
+          catchError((error) =>
+            of(
+              lookupsActions.deleteSubjectFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  addEditProgramCountries$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(lookupsActions.addEditProgramCountries),
+      mergeMap((action) => {
+        if (action.country.id) {
+          return this._lookupsService.editProgramCountries(action.country).pipe(
+            map((response) =>
+              lookupsActions.addEditProgramCountriesSuccess({
+                country: response.country,
+                message: response.message,
+                isEdit: true,
+              })
+            ),
+            catchError((error) =>
+              of(
+                lookupsActions.addEditProgramCountriesFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          );
+        } else {
+          return this._lookupsService.addNewProgramCountries(action.country).pipe(
+            map((response) =>
+              lookupsActions.addEditProgramCountriesSuccess({
+                country: response.country,
+                message: response.message,
+                isEdit: false,
+              })
+            ),
+            catchError((error) =>
+              of(
+                lookupsActions.addEditProgramCountriesFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          );
+        }
+      })
+    )
+  );
+
+  deleteProgramCountries$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(lookupsActions.deleteProgramCountries),
+      mergeMap((action) =>
+        this._lookupsService.deleteProgramCountries(action.id).pipe(
+          map((response) =>
+            lookupsActions.deleteProgramCountriesSuccess({
+              id: action.id,
+              message: response.message,
+            })
+          ),
+          catchError((error) =>
+            of(
+              lookupsActions.deleteProgramCountriesFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   successMessages$ = createEffect(
     () =>
       this._actions$.pipe(
@@ -532,6 +686,10 @@ export class LookupsEffects {
             lookupsActions.deleteProgramSuccess,
             lookupsActions.addEditFieldSuccess,
             lookupsActions.deleteFieldSuccess,
+            lookupsActions.addEditSubjectSuccess,
+            lookupsActions.deleteSubjectSuccess,
+            lookupsActions.addEditProgramCountriesSuccess,
+            lookupsActions.deleteProgramCountriesSuccess,
           ]
         ),
         map((action) => {
@@ -558,6 +716,10 @@ export class LookupsEffects {
             lookupsActions.deleteProgramFailure,
             lookupsActions.addEditFieldFailure,
             lookupsActions.deleteFieldFailure,
+            lookupsActions.addEditSubjectFailure,
+            lookupsActions.deleteSubjectFailure,
+            lookupsActions.addEditProgramCountriesFailure,
+            lookupsActions.deleteProgramCountriesFailure,
           ]
         ),
         map((action) => {
