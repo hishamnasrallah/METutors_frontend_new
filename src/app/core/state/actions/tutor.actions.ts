@@ -99,10 +99,6 @@ export const loadTutorAttendanceFailure = createAction(
   props<{ error: any }>()
 );
 
-export const loadTutorAttendanceEnded = createAction(
-  '[Tutor] Load Tutor Attendance Ended'
-);
-
 // Tutor feedback
 export const loadTutorFeedbackOptions = createAction(
   '[Tutor] Load Tutor Feedback Options'

@@ -9,9 +9,9 @@ import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 import { TutorsService } from '@services';
 import { environment } from '@environment';
 import * as fromRouterStore from '@metutor/state';
+import { selectTutorDashboard, selectTutors } from '..';
 import * as tutorActions from '../actions/tutor.actions';
 import { AlertNotificationService } from '@metutor/core/components';
-import { selectTutorDashboard, selectTutors, selectTutorAttendance } from '..';
 
 @Injectable()
 export class TutorEffects {
@@ -154,30 +154,23 @@ export class TutorEffects {
   loadTutorAttendance$ = createEffect(() =>
     this._actions$.pipe(
       ofType(tutorActions.loadTutorAttendance),
-      withLatestFrom(
-        this._store.select(selectTutorAttendance),
-        this._store.select(fromRouterStore.selectRouteParams)
-      ),
-      mergeMap(([_, _attendance, { id }]) => {
-        if (!_attendance) {
-          return this._tutorService.getTutorAttendance(id).pipe(
-            map((attendance) =>
-              tutorActions.loadTutorAttendanceSuccess({
-                attendance: camelcaseKeys(attendance, { deep: true }),
+      withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
+      mergeMap(([_, { id }]) =>
+        this._tutorService.getTutorAttendance(id).pipe(
+          map((attendance) =>
+            tutorActions.loadTutorAttendanceSuccess({
+              attendance: camelcaseKeys(attendance, { deep: true }),
+            })
+          ),
+          catchError((error) =>
+            of(
+              tutorActions.loadTutorAttendanceFailure({
+                error: error?.error?.message || error?.error?.errors,
               })
-            ),
-            catchError((error) =>
-              of(
-                tutorActions.loadTutorAttendanceFailure({
-                  error: error?.error?.message || error?.error?.errors,
-                })
-              )
             )
-          );
-        } else {
-          return of(tutorActions.loadTutorAttendanceEnded());
-        }
-      })
+          )
+        )
+      )
     )
   );
 

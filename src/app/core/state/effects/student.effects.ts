@@ -5,16 +5,10 @@ import camelcaseKeys from 'camelcase-keys';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 
-import {
-  selectStudents,
-  selectStudentDashboard,
-  selectStudentAttendance,
-  studentSubmitPlatformFeedback,
-} from '@metutor/core/state';
-
 import { StudentsService } from '@services';
 import * as fromRouterStore from '@metutor/state';
 import { AlertNotificationService } from '@metutor/core/components';
+import { selectStudents, selectStudentDashboard } from '@metutor/core/state';
 import * as studentActions from '@metutor/core/state/actions/student.actions';
 
 @Injectable()
@@ -306,30 +300,23 @@ export class StudentEffects {
   loadStudentAttendance$ = createEffect(() =>
     this._actions$.pipe(
       ofType(studentActions.loadStudentAttendance),
-      withLatestFrom(
-        this._store.select(selectStudentAttendance),
-        this._store.select(fromRouterStore.selectRouteParams)
-      ),
-      mergeMap(([_, _attendance, { id }]) => {
-        if (!_attendance) {
-          return this._studentService.getStudentAttendance(id).pipe(
-            map((attendance) =>
-              studentActions.loadStudentAttendanceSuccess({
-                attendance: camelcaseKeys(attendance, { deep: true }),
+      withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
+      mergeMap(([_, { id }]) =>
+        this._studentService.getStudentAttendance(id).pipe(
+          map((attendance) =>
+            studentActions.loadStudentAttendanceSuccess({
+              attendance: camelcaseKeys(attendance, { deep: true }),
+            })
+          ),
+          catchError((error) =>
+            of(
+              studentActions.loadStudentAttendanceFailure({
+                error: error?.error?.message || error?.error?.errors,
               })
-            ),
-            catchError((error) =>
-              of(
-                studentActions.loadStudentAttendanceFailure({
-                  error: error?.error?.message || error?.error?.errors,
-                })
-              )
             )
-          );
-        } else {
-          return of(studentActions.loadStudentAttendanceEnded());
-        }
-      })
+          )
+        )
+      )
     )
   );
 

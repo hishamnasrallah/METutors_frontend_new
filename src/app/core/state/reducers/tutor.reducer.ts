@@ -181,11 +181,6 @@ export const reducer = createReducer(
     isLoadingTutorAttendance: false,
   })),
 
-  on(tutorActions.loadTutorAttendanceEnded, (state) => ({
-    ...state,
-    isLoadingTutorAttendance: false,
-  })),
-
   on(
     tutorActions.loadTutorFeedbackOptions,
     tutorActions.loadTutorFeedbackPlatformOptions,

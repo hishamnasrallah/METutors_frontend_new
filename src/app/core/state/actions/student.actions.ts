@@ -197,10 +197,6 @@ export const loadStudentAttendanceFailure = createAction(
   props<{ error: any }>()
 );
 
-export const loadStudentAttendanceEnded = createAction(
-  '[Student] Load Student Attendance Ended'
-);
-
 // Student feedback
 export const loadStudentFeedbackOptions = createAction(
   '[Student] Load Student Feedback Options'
