@@ -206,7 +206,8 @@
                                     (closeModal)="onCloseRejectCourse()" [submitting]="(isRejecting$ | async)!">
 </metutors-tutor-reject-course-modal>
 
-<metutors-tutor-feedback-modal *ngIf="(showSendFeedbackModal$ | async)"
+<metutors-tutor-feedback-modal *ngIf="(showSendFeedbackModal$ | async)" [heading]="heading"
+                               [messageLabel]="messageLabel" [tabLabel]="tabLabel"
                                [showModal]="(showSendFeedbackModal$ | async)!" [isPlatform]="true"
                                (closeModal)="onCloseSendFeedbackModal()" (submitFeedback)="onSubmitFeedback($event)">
 </metutors-tutor-feedback-modal>

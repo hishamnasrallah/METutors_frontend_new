@@ -1,6 +1,6 @@
 <metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'large'"
-                [heading]="'Class Attendance'"
-                [template]="template" [subHeading]="'View Class Attendance'">
+                [heading]="'Classroom Attendance'"
+                [template]="template" [subHeading]="'View Classroom Attendance'">
   <ng-template #template>
     <div class="row attendance-modal" *ngLet="(view$ | async) as view">
       <div class="col-12">
@@ -63,7 +63,7 @@
 
       <div class="col-12 mt-4">
         <mat-tab-group mat-align-tabs="start">
-          <mat-tab label="Student Attendance">
+          <mat-tab label="Tutor Attendance">
             <div class="table-responsive mt-2">
               <ng-container [ngSwitch]="view.loading">
                 <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>

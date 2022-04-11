@@ -181,10 +181,9 @@ export class TutorsService {
   }
 
   tutorRejectAssignment(body: any): Observable<any> {
-    const { id, ..._body } = body;
     return this.http.post<any>(
-      `${this.baseUrl}teacher/assignment/${id}/reject`,
-      _body
+      `${this.baseUrl}teacher/assignment/${body.user_assignment_id}/reject`,
+      body
     );
   }
 

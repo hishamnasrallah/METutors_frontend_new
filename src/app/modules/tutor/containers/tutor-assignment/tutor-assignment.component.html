@@ -134,6 +134,7 @@
                         <th scope="col">Number</th>
                         <th scope="col">Student Name</th>
                         <th scope="col">Time Received By Student</th>
+                        <th scope="col">Submitted At</th>
                         <th scope="col">Status</th>
                       </tr>
 
@@ -148,6 +149,7 @@
                           <span class="ms-2">{{ assignee?.user?.firstName }} {{ assignee?.user?.lastName }}</span>
                         </td>
                         <td>{{ assignee?.createdAt | date: 'EEEE, d MMM y, h:mm a' }}</td>
+                        <td>{{ assignee.status !== 'pending' ? (assignee?.updatedAt | date) : ''}}</td>
                         <td>
                           <span class="status-icon text-capitalize"
                                 [ngClass]="assignee?.status">{{ assignee?.status }}</span>

@@ -101,7 +101,11 @@ export class TutorAssignmentComponent implements OnInit {
     userId: number,
     status: string
   ): void {
-    if (status === 'submitted' || status === 'completed') {
+    if (
+      status === 'submitted' ||
+      status === 'completed' ||
+      status === 'resubmitted'
+    ) {
       this._store.dispatch(
         fromTutorAction.openTutorViewStudentAssignmentModal({ id, userId })
       );

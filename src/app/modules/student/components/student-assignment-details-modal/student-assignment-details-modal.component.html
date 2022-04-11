@@ -22,7 +22,12 @@
               <strong>Deadline: </strong>
               <span>{{ view?.assignment?.assignment?.deadline | date: 'MMMM d y' }}</span>
             </div>
-            <div class="col-md-4 d-flex menu align-items-center">
+            <div class="col-md-3 d-flex menu align-items-center">
+              <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
+              <strong>Submitted At: </strong>
+              <span>{{ view?.assignment?.assignment?.assignees[0]?.status !== 'active' ? (view?.assignment?.assignment?.assignees[0]?.updatedAt | date) : '' }}</span>
+            </div>
+            <div class="col-md-3 d-flex menu align-items-center">
             </div>
           </div>
           <p class="mt-2">
