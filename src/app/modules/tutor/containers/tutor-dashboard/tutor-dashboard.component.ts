@@ -29,6 +29,10 @@ export class TutorDashboardComponent implements OnInit {
 
   range = '';
   insightRange = insightRange;
+  tabLabel = 'Metutors Feedback';
+  heading = 'Share with us your feedback on METutors service';
+  messageLabel =
+    'Please share with us your thoughts on how to improve our services';
 
   constructor(private _store: Store<any>) {}
 

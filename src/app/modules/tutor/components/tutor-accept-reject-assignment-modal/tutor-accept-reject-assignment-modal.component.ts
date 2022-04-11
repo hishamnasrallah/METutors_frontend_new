@@ -37,8 +37,8 @@ export class TutorAcceptRejectAssignmentModalComponent implements OnInit {
     return this.form.get('rating');
   }
 
-  get id(): AbstractControl | null {
-    return this.form.get('id');
+  get userAssignmentId(): AbstractControl | null {
+    return this.form.get('user_assignment_id');
   }
 
   get studentId(): AbstractControl | null {
@@ -81,10 +81,10 @@ export class TutorAcceptRejectAssignmentModalComponent implements OnInit {
   ngOnInit(): void {
     this.form = this._fb.group({
       file: [null],
-      id: [null, Validators.required],
       review: [null, Validators.required],
       rating: [null, Validators.required],
       student_id: [null, Validators.required],
+      user_assignment_id: [null, Validators.required],
     });
 
     this.fileUploadProgress$ = this._store.select(
@@ -102,9 +102,9 @@ export class TutorAcceptRejectAssignmentModalComponent implements OnInit {
     this.params$ = this._store.select(fromTutor.selectTutorStateParams).pipe(
       tap((data: any) => {
         if (data) {
-          this.id?.setValue(data.id);
           this.isReject = data.isReject;
           this.studentId?.setValue(data.userId);
+          this.userAssignmentId?.setValue(data.id);
         }
       })
     );
