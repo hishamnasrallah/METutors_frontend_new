@@ -1,4 +1,4 @@
-import { ICountry, IProgram } from './lookups.model';
+import { ICountry, IField, IProgram } from './lookups.model';
 
 export class ISubject {
   id!: number;
@@ -8,6 +8,7 @@ export class ISubject {
   program?: IProgram;
   countryId?: number;
   country?: ICountry;
+  field?: IField;
   grade?: number;
   status?: number;
   fieldId?: number;
@@ -23,6 +24,7 @@ export class ISubject {
       this.countryId = 0;
       this.program = undefined;
       this.country = undefined;
+      this.field = undefined;
       this.grade = 0;
       this.status = 0;
       this.pricePerHour = 0;
@@ -36,10 +38,11 @@ export class ISubject {
       this.programId = subject?.program_id || 0;
       this.program = subject?.program;
       this.countryId = subject?.country_id || 0;
+      this.field = subject?.field;
       this.country = subject?.country;
       this.grade = subject?.grade || 0;
       this.status = subject?.status || 0;
-      this.pricePerHour = subject?.price_per_hour || 0;
+      this.pricePerHour = subject?.price_per_hour || subject?.hourly_price || 0;
     }
   }
 }

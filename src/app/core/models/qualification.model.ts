@@ -1,3 +1,5 @@
+import { environment } from '@environment';
+
 export class IQualification {
   id!: number;
   computerSkills?: string;
@@ -29,7 +31,7 @@ export class IQualification {
       this.computerSkills = qualification?.computer_skills || '';
       this.currentEmployer = qualification?.current_employer || '';
       this.currentTitle = qualification?.current_title || '';
-      this.video = qualification?.video || '';
+      this.video = environment.videoURL + qualification?.video || '';
       this.degreeField = qualification?.degree_field || '';
       this.degreeLevel = qualification?.degree_level || '';
       this.nameOfUniversity = qualification?.name_of_university || '';

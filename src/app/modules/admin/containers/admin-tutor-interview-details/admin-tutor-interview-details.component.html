@@ -68,7 +68,7 @@
                 <td>Location</td>
                 <td>
                   {{ interview?.tutor?.country }}
-                  <ng-container *ngIf="interview?.tutor?.city">, {{  interview?.tutor?.city }}</ng-container>
+                  <ng-container *ngIf="interview?.tutor?.city">, {{ interview?.tutor?.city }}</ng-container>
                 </td>
               </tr>
               <tr *ngIf="interview?.tutor?.nationality">
@@ -107,7 +107,7 @@
                 <td>Spoken Languages</td>
                 <td>
                   <ng-container *ngFor="let lang of interview?.tutor?.languages; let isLast = last">
-                    {{ lang }}<ng-container *ngIf="!isLast">, </ng-container>
+                    {{ lang?.name?.name }}<ng-container *ngIf="!isLast">, </ng-container>
                   </ng-container>
                 </td>
               </tr>
@@ -175,58 +175,34 @@
           </div>
         </div>
 
-        <!-- <div class="row">
-          <div class="col-md-6">
-            <table class="table my-table default-title mt-4">
+        <div class="row mt-5" *ngIf="interview?.tutor?.sortedSubjects && interview?.tutor?.sortedSubjects.length">
+          <div class="col-md-6 mb-3" *ngFor="let item of interview?.tutor?.sortedSubjects; let indexSubjects = index">
+            <table class="table my-table default-title">
               <tr>
-                <th class="heading" colspan="2">Program <span>AP</span></th>
+                <th class="heading" [attr.colspan]="item?.programId === nationalId ? '2' : '1'">
+                  Program <span>
+                    {{ item?.programName }}<ng-container *ngIf="item?.programId === nationalId">,
+                      {{ item?.countryName }}
+                    </ng-container>
+                  </span>
+                </th>
+                <th class="heading">Field Name <span>{{ item?.fieldName }}</span></th>
               </tr>
               <tr>
                 <th>Field</th>
-                <th>Program</th>
+                <th *ngIf="item?.programId === nationalId">Grade</th>
+                <th>Hourly Rate</th>
               </tr>
-              <tr>
-                <td>Science</td>
-                <td>Program 1</td>
-              </tr>
-              <tr>
-                <td>Science</td>
-                <td>Program 2</td>
-              </tr>
-              <tr>
-                <td>Math</td>
-                <td>Program 3</td>
+              <tr *ngFor="let subject of item.subjects">
+                <td>{{ subject?.subject }}</td>
+                <td *ngIf="item?.programId === nationalId">{{ subject?.gradeName }}</td>
+                <td>
+                  {{ subject?.pricePerHour }}
+                </td>
               </tr>
             </table>
           </div>
-          <div class="col-md-6">
-            <table class="table my-table default-title mt-4">
-              <tr>
-                <th class="heading" colspan="3">Program <span>National Pakistan</span></th>
-              </tr>
-              <tr>
-                <th>Field</th>
-                <th>Program</th>
-                <th>Grades</th>
-              </tr>
-              <tr>
-                <td>Science</td>
-                <td>Program 1</td>
-                <td>G10, G11, G12</td>
-              </tr>
-              <tr>
-                <td>Science</td>
-                <td>Program 2</td>
-                <td>G10, G11, G12</td>
-              </tr>
-              <tr>
-                <td>Math</td>
-                <td>Program 3</td>
-                <td>G10, G11, G12</td>
-              </tr>
-            </table>
-          </div>
-        </div> -->
+        </div>
 
         <div class="row mt-4">
           <div class="col-md-12 notes">

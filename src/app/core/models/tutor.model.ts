@@ -1,4 +1,4 @@
-import { generalConstants } from 'src/app/config';
+import { generalConstants, GRADES } from 'src/app/config';
 import { environment } from 'src/environments/environment';
 import {
   IAvailability,
@@ -27,7 +27,8 @@ export class ITutor {
   availability?: IAvailability[];
   qualifications?: IQualification;
   specifications?: ISpecification;
-  subject?: ISubject[];
+  subjects?: ISubject[];
+  sortedSubjects?: any[];
   country?: string;
   city?: string;
   gender?: string;
@@ -72,7 +73,8 @@ export class ITutor {
       this.nationality = '';
       this.qualifications = undefined;
       this.specifications = undefined;
-      this.subject = [];
+      this.subjects = [];
+      this.sortedSubjects = [];
       this.badges = [];
       this.country = '';
       this.courseNumber = 0;
@@ -93,7 +95,9 @@ export class ITutor {
       this.avatar =
         environment.imageURL + tutor?.avatar ||
         generalConstants.defaultAvatarPath;
-      this.cover = tutor?.cover || generalConstants.defaultCoverPath;
+      this.cover =
+        environment.imageURL + tutor?.cover ||
+        generalConstants.defaultCoverPath;
       this.bio = tutor?.bio || '';
       this.createdAt = tutor?.created_at || '';
       this.dateOfBirth = tutor?.date_of_birth || '';
@@ -122,10 +126,13 @@ export class ITutor {
         false,
         tutor?.teacher_specifications
       );
-      this.subject =
-        tutor?.teacher_subject && tutor?.teacher_subject?.length
-          ? tutor?.teacher_subject.map((item: any) => new ISubject(false, item))
+      this.subjects =
+        tutor?.teacher_subjects && tutor?.teacher_subjects?.length
+          ? tutor?.teacher_subjects.map(
+              (item: any) => new ISubject(false, item)
+            )
           : [];
+      this.sortedSubjects = sortSubjects(this.subjects);
       this.country = tutor?.country || '';
       this.city = tutor?.city || '';
       this.gender = tutor?.gender || '';
@@ -150,4 +157,39 @@ export class ITutor {
 
 export interface ITutorFilters {
   name: string;
+}
+
+export function sortSubjects(subjects?: ISubject[]): any[] {
+  const output: any[] = [];
+
+  subjects?.forEach((item: any) => {
+    const existing = output.filter((v, i) => {
+      return v.fieldId == item.fieldId;
+    });
+
+    if (existing.length) {
+      const existingIndex = output.indexOf(existing[0]);
+
+      output[existingIndex].subjects = [
+        ...output[existingIndex].subjects,
+        { ...item },
+      ];
+    } else {
+      output.push({
+        fieldId: item.fieldId,
+        fieldName: item?.field?.name,
+        programName: item?.program?.name,
+        programId: item?.program?.id,
+        countryName: item?.country?.name,
+        subjects: [
+          {
+            ...item,
+            gradeName: GRADES[item.grade - 1],
+          },
+        ],
+      });
+    }
+  });
+
+  return output;
 }

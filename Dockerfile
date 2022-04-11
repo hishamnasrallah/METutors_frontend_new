@@ -2,6 +2,7 @@ FROM node:17.6.0-buster as build
 WORKDIR /app
 COPY . /app
 ENV imageURL=https://test.zaptatechnologies.com/public/uploads/images/
+ENV videoURL=https://test.zaptatechnologies.com/public/uploads/teacher_videos/
 RUN npm install
 RUN npm run build
 RUN mv /app/dist/metutors /app/html

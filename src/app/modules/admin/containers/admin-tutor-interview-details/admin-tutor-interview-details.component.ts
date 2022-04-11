@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import * as fromCore from '@metutor/core/state';
 import { Component, OnInit } from '@angular/core';
 import { IInterview } from '@metutor/core/models';
+import { generalConstants } from '@metutor/config';
 import * as fromAdmin from '@metutor/modules/admin/state';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 
@@ -16,6 +17,8 @@ export class AdminTutorInterviewDetailsComponent implements OnInit {
   interview$: Observable<IInterview | null>;
   showSendMeetingLinkModal$: Observable<boolean>;
   showHourlyRatePerSubjectModal$: Observable<boolean>;
+
+  nationalId = generalConstants.nationalId;
 
   constructor(private _store: Store<any>) {}
 

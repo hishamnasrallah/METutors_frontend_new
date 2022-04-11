@@ -61,7 +61,7 @@
               </div>
             </div>
 
-            <form class="write-comment" [formGroup]="messageForm" (ngSubmit)="onSubmit(messageForm)">
+            <form class="write-comment" [formGroup]="messageForm" (ngSubmit)="onSubmit(messageForm)" *ngIf="ticketStatus.closed !== ticket?.status">
               <div class="position-relative">
                 <img [src]="(user$ | async)?.avatar" meTutorsDefaultAvatar class="rounded-circle" alt="" width="40"
                   height="40" draggable="false">

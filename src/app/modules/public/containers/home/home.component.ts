@@ -76,7 +76,7 @@ export class HomeComponent implements OnInit {
         country: 'Egypt',
         studentNumber: 100,
         bio: "Bio: Hello everyone! My name is Charlene and I'm from China.",
-        subject: [
+        subjects: [
           { id: 1, name: 'Geographics' },
           { id: 2, name: 'Math' },
           { id: 3, name: 'Science' },
@@ -93,7 +93,7 @@ export class HomeComponent implements OnInit {
         country: 'Egypt',
         studentNumber: 100,
         bio: "Bio: Hello everyone! My name is Charlene and I'm from China.",
-        subject: [
+        subjects: [
           { id: 1, name: 'Geographics' },
           { id: 2, name: 'Math' },
           { id: 3, name: 'Science' },
@@ -110,7 +110,7 @@ export class HomeComponent implements OnInit {
         country: 'Egypt',
         studentNumber: 100,
         bio: "Bio: Hello everyone! My name is Charlene and I'm from China.",
-        subject: [
+        subjects: [
           { id: 1, name: 'Geographics' },
           { id: 2, name: 'Math' },
           { id: 3, name: 'Science' },
@@ -127,7 +127,7 @@ export class HomeComponent implements OnInit {
         country: 'Egypt',
         studentNumber: 100,
         bio: "Bio: Hello everyone! My name is Charlene and I'm from China.",
-        subject: [
+        subjects: [
           { id: 1, name: 'Geographics' },
           { id: 2, name: 'Math' },
           { id: 3, name: 'Science' },

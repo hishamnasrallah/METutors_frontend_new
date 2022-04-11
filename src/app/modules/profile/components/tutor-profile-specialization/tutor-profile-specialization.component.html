@@ -1,4 +1,4 @@
-<div class="card" *ngIf="tutor?.subject && tutor?.subject?.length">
+<div class="card" *ngIf="tutor?.subjects && tutor?.subjects?.length">
   <div class="card-body">
     <h1 class="title">Specialization</h1>
     <div class="list">
@@ -8,7 +8,7 @@
 
     <div class="list">
       <h2>Subjects</h2>
-      <span *ngFor="let subject of tutor?.subject">{{ subject?.name }}</span>
+      <span *ngFor="let subject of tutor?.subjects">{{ subject?.name }}</span>
     </div>
   </div>
 </div>
