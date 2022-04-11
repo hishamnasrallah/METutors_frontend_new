@@ -93,3 +93,8 @@ export const selectTutorStateParams = createSelector(
   selectTutorModalState,
   fromTutorModal.selectTutorStateParams
 );
+
+export const selectSubmitInterviewModal = createSelector(
+  selectTutorModalState,
+  fromTutorModal.selectSubmitInterviewModal
+);

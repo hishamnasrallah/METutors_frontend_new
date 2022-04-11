@@ -1,0 +1,21 @@
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'medium'" [heading]="'Submit Interview Request'"
+                [template]="template" >
+  <ng-template #template>
+    <form class="row" [formGroup]="form" (ngSubmit)="submitted.emit(form)">
+      <div class="col-12">
+        <div class="form-group">
+          <textarea class="form-control custom-input input-bordered" formControlName="rejectReason" rows="10" placeholder="Enter the reason here..."></textarea>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-md-12 overflow-hidden">
+              <!--  [isSubmitting]="submitting" -->
+            <metutors-submit-button [form]="form" [extraClasses]="'float-end py-1 px-5'">
+              Updated
+            </metutors-submit-button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+</metutors-modal>

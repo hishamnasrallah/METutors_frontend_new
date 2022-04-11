@@ -112,3 +112,11 @@ export const setTutorStateParams = createAction(
   '[Tutor Modal] Set Tutor State Params',
   props<{ params: any }>()
 );
+
+export const openTutorSubmitInterviewModal = createAction(
+  '[Tutor Modal] Open Tutor Submit Interview Modal'
+);
+
+export const closeTutorSubmitInterviewModal = createAction(
+  '[Tutor Modal] Close Tutor Submit Interview Modal'
+);

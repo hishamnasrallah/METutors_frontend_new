@@ -1,0 +1,36 @@
+.profile-header {
+  border-radius: 15px;
+  background-color: #FFF;
+  border: solid 1px #e2e2ea;
+  overflow: hidden;
+
+  .cover {
+    height: 145px;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .avatar-name {
+    margin-top: -130px;
+    padding: 0 30px;
+    color: #FFF;
+
+    .img-status {
+      width: 100px;
+      height: 100px;
+      background-color: #F8F8F8;
+    }
+  }
+}
+
+.complete-form {
+  .title {
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .form-label {
+    color: #000;
+    font-size: 15px;
+  }
+}

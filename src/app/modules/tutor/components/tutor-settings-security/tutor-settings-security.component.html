@@ -1,46 +1,50 @@
-<div class="py-5 security-settings">
-  <div class="row h-100">
-    <div class="col-md-12 align-items-center">
-      <form [formGroup]="form" class="w-100" (ngSubmit)="onSubmit(form)">
-        <div>
-          <h4 class="mb-5">Change Password</h4>
+<div class="card">
+  <div class="card-body">
+    <div class="security-settings">
+      <div class="row h-100">
+        <div class="col-md-12 align-items-center">
+          <form [formGroup]="form" class="w-100" (ngSubmit)="onSubmit(form)">
+            <div>
+              <h4 class="mb-4">Change Password</h4>
 
-          <div class="form-group">
-            <label for="oldPassword">Current Password</label>
-            <input type="password" class="custom-input w-100 input-bordered" id="oldPassword"
-              placeholder="ku@pecafhuj.co.uk" formControlName="oldPassword">
-            <span class="text-danger" *ngIf="oldPassword?.invalid && oldPassword?.touched">
-              Password cannot be less than 8 characters and cannot be more than 100 characters
-            </span>
-          </div>
+              <div class="form-group">
+                <label for="oldPassword">Current Password</label>
+                <input type="password" class="custom-input w-100 input-bordered" id="oldPassword"
+                  placeholder="ku@pecafhuj.co.uk" formControlName="oldPassword">
+                <span class="text-danger" *ngIf="oldPassword?.invalid && oldPassword?.touched">
+                  Password cannot be less than 8 characters and cannot be more than 100 characters
+                </span>
+              </div>
 
-          <div class="form-group">
-            <label for="password">New Password</label>
-            <input type="password" class="custom-input w-100 input-bordered" id="password"
-              placeholder="ku@pecafhuj.co.uk" formControlName="password">
-            <span class="text-danger" *ngIf="password?.invalid && password?.touched">
-              Password cannot be less than 8 characters and cannot be more than 100 characters
-            </span>
-          </div>
+              <div class="form-group">
+                <label for="password">New Password</label>
+                <input type="password" class="custom-input w-100 input-bordered" id="password"
+                  placeholder="ku@pecafhuj.co.uk" formControlName="password">
+                <span class="text-danger" *ngIf="password?.invalid && password?.touched">
+                  Password cannot be less than 8 characters and cannot be more than 100 characters
+                </span>
+              </div>
 
-          <div class="form-group">
-            <label for="confirmPassword">Confirm Password</label>
-            <input type="password" class="custom-input w-100 input-bordered" id="confirmPassword"
-              placeholder="ku@pecafhuj.co.uk" formControlName="confirmPassword">
-            <div class="text-danger" *ngIf="form?.hasError('passwordMismatch')">
-              Passwords do not match
+              <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" class="custom-input w-100 input-bordered" id="confirmPassword"
+                  placeholder="ku@pecafhuj.co.uk" formControlName="confirmPassword">
+                <div class="text-danger" *ngIf="form?.hasError('passwordMismatch')">
+                  Passwords do not match
+                </div>
+              </div>
+
+              <div class="row btn-list mt-5 pt-3">
+                <div class="col-12 d-flex justify-content-end">
+                  <metutors-submit-button [form]="form" [isSubmitting]="isChanging">
+                    Change Password
+                  </metutors-submit-button>
+                </div>
+              </div>
             </div>
-          </div>
-
-          <div class="row btn-list mt-5">
-            <div class="col-12 d-flex justify-content-end">
-              <metutors-submit-button [form]="form" [isSubmitting]="isChanging">
-                Change Password
-              </metutors-submit-button>
-            </div>
-          </div>
+          </form>
         </div>
-      </form>
+      </div>
     </div>
   </div>
 </div>

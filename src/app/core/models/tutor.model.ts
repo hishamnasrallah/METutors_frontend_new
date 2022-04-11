@@ -95,9 +95,9 @@ export class ITutor {
       this.avatar =
         environment.imageURL + tutor?.avatar ||
         generalConstants.defaultAvatarPath;
-      this.cover =
-        environment.imageURL + tutor?.cover ||
-        generalConstants.defaultCoverPath;
+      this.cover = tutor?.cover
+        ? environment.imageURL + tutor?.cover
+        : generalConstants.defaultCoverPath;
       this.bio = tutor?.bio || '';
       this.createdAt = tutor?.created_at || '';
       this.dateOfBirth = tutor?.date_of_birth || '';

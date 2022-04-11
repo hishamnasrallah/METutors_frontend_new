@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import * as fromCore from '@metutor/core/state';
-import { Observable } from 'rxjs';
-import { IUser } from '@metutor/core/models';
 import * as fromRoot from '@metutor/state';
+import { filter, Observable, tap } from 'rxjs';
+import * as fromCore from '@metutor/core/state';
+import { Component, OnInit } from '@angular/core';
+import * as fromTutor from '@metutor/modules/tutor/state';
+import { ICity, ICountry, ITutor, IUser } from '@metutor/core/models';
+import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
 
 @Component({
   selector: 'metutors-tutor-settings',
@@ -13,16 +15,30 @@ import * as fromRoot from '@metutor/state';
 export class TutorSettingsComponent implements OnInit {
   layout$: any;
   user$: Observable<IUser | null>;
+  tutor$: Observable<ITutor | null>;
+  cities$: Observable<ICity[] | null>;
   isChangingPassword$: Observable<boolean>;
+  countries$: Observable<ICountry[] | null>;
   changePasswordSuccess$: Observable<boolean>;
+  showSubmitInterviewModal$: Observable<boolean>;
 
-  tab = 'ACCOUNT_SETTINGS';
+  tab = 'MY_PROFILE';
 
   constructor(private _store: Store<any>) {}
 
   ngOnInit(): void {
+    this._prepareCountries();
+
     this.layout$ = this._store.select(fromRoot.selectLayout);
-    this.user$ = this._store.select(fromCore.selectUser);
+    this.user$ = this._store.select(fromCore.selectUser).pipe(
+      filter((employer) => !!employer),
+      tap((user) => {
+        if (user) {
+          this._store.dispatch(fromCore.loadTutor({ id: user.id }));
+        }
+      })
+    );
+    this.tutor$ = this._store.select(fromCore.selectTutor);
 
     this.isChangingPassword$ = this._store.select(
       fromCore.selectIsChangingPassword
@@ -31,9 +47,35 @@ export class TutorSettingsComponent implements OnInit {
     this.changePasswordSuccess$ = this._store.select(
       fromCore.selectChangePasswordSuccess
     );
+
+    this.showSubmitInterviewModal$ = this._store.select(
+      fromTutor.selectSubmitInterviewModal
+    );
+  }
+
+  onOpenSubmitInterview() {
+    this._store.dispatch(fromTutorAction.openTutorSubmitInterviewModal());
+  }
+
+  onCloseSubmitInterview() {
+    this._store.dispatch(fromTutorAction.closeTutorSubmitInterviewModal());
   }
 
   onChangePassword(value: any): void {
     this._store.dispatch(fromCore.changePassword({ value }));
+  }
+
+  loadCities(countryId: string): void {
+    this._prepareCitiesByCountryId(countryId);
+  }
+
+  private _prepareCountries(): void {
+    this._store.dispatch(fromCore.loadCountries());
+    this.countries$ = this._store.select(fromCore.selectCountries);
+  }
+
+  private _prepareCitiesByCountryId(countryId: string): void {
+    this._store.dispatch(fromCore.loadCities({ countryId }));
+    this.cities$ = this._store.select(fromCore.selectCities);
   }
 }

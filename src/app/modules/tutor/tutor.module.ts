@@ -52,6 +52,7 @@ import {
   FaqListQuestionsComponent,
   FaqAboutStudentsComponent,
   TutorFeedbackModalComponent,
+  TutorSettingsProfileComponent,
   TutorAttendanceModalComponent,
   TutorSettingsAccountComponent,
   FaqStillHaveQuestionsComponent,
@@ -65,6 +66,7 @@ import {
   TutorSettingsUserPreferencesComponent,
   TutorSettingsPaymentInformationComponent,
   TutorAcceptRejectAssignmentModalComponent,
+  TutorSubmitInterviewRequestModalComponent,
   TutorViewSubmittedAssignmentModalComponent,
 } from './components';
 
@@ -93,6 +95,7 @@ import {
     TutorPaymentRecordsComponent,
     TutorSettingsAccountComponent,
     TutorAttendanceModalComponent,
+    TutorSettingsProfileComponent,
     TutorSettingsSecurityComponent,
     FaqStillHaveQuestionsComponent,
     TutorRejectCourseModalComponent,
@@ -104,6 +107,7 @@ import {
     TutorSettingsUserPreferencesComponent,
     TutorSettingsPaymentInformationComponent,
     TutorAcceptRejectAssignmentModalComponent,
+    TutorSubmitInterviewRequestModalComponent,
     TutorViewSubmittedAssignmentModalComponent,
   ],
   imports: [
