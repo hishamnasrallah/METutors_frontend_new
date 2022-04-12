@@ -1,6 +1,39 @@
 .assignment-details-modal {
   margin-top: -10px;
 
+  .status-icon {
+    margin-left: 10px;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 15px;
+
+    &.pending {
+      background-color: #f8e3cc;
+      color: #c98843;
+    }
+
+    &.submitted {
+      background-color: #eae4ff;
+      color: #7a5ce2;
+    }
+
+    &.completed {
+      background-color: #d1f7fc;
+      color: #32bed0;
+    }
+
+    &.rejected {
+      background-color: #f9d3da;
+      color: #d34c65;
+    }
+
+    &.resubmitted {
+      background-color: #e1e0fe;
+      color: #5955cd;
+    }
+  }
+
   .title-info {
     h3 {
       color: #2A2A2A;

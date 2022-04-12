@@ -11,12 +11,28 @@
               <img [src]="assignment?.user?.avatar" meTutorsDefaultAvatar alt="" class="rounded-circle" width="50"
                    height="50">
               <h3 class="ms-2 mb-0">{{ assignment?.user?.firstName }} {{ assignment?.user?.lastName }}</h3>
+
+              <span class="status-icon text-capitalize"
+                    [ngClass]="assignment?.status">{{ assignment?.status }}</span>
             </div>
 
-            <label>Time received by student</label>
-            <p class="mt-1 mb-0">
-              {{ assignment?.createdAt | date: 'EEEE, d MMM y, h:mm a' }}
-            </p>
+            <div class="d-flex align-items-center mt-1 mb-4 title-info">
+              <div class="col-md-7">
+                <label>Time received by student</label>
+                <p class="mt-1 mb-0">
+                  {{ assignment?.createdAt | date: 'EEEE, d MMM y, h:mm a' }}
+                </p>
+              </div>
+
+              <div class="col-md-5">
+                <label>Submitted At</label>
+                <p class="mt-1 mb-0">
+                  {{ assignment?.updatedAt | date: 'MMM d, y, h:mm a' }}
+                </p>
+              </div>
+
+
+            </div>
 
             <label class="mt-3">Details</label>
             <p class="mt-1">
