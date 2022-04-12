@@ -27,12 +27,12 @@ export class TutorViewSubmittedAssignmentModalComponent implements OnInit {
     );
   }
 
-  onOpenAcceptRejectAssignmentModal(
-    id: number,
-    userId: number,
-    isReject = false
-  ): void {
-    const params = { id, userId, isReject, heading: '' };
+  onOpenAcceptRejectAssignmentModal(assignments: any, isReject = false): void {
+    const id = assignments[assignments.length - 1]?.id;
+    const userId = assignments[assignments.length - 1]?.userId;
+    const assignmentId = assignments[assignments.length - 1]?.assignmentId;
+
+    const params = { id, userId, isReject, heading: '', assignmentId };
 
     params.heading = isReject
       ? 'Rejection Reason'

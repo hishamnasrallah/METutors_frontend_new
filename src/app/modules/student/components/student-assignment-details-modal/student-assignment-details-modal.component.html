@@ -1,6 +1,5 @@
 <metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'large'"
                 [heading]="'Assignment Details'"
-                [status]="'active'"
                 [template]="template">
   <ng-template #template>
     <ng-container *ngLet="(view$ | async) as view">
@@ -64,7 +63,7 @@
           <div class="form-group row">
             <div class="">
               <button mat-flat-button color="primary" class="fw-bold float-end px-4 py-1" *ngIf="view.assignment?.assignment?.userAssignmentStatus !=='completed' && view.assignment?.assignment?.userAssignmentStatus !=='submitted'" (click)="onOpenSubmitAssignmentModal()">Submit Assignment</button>
-              <button mat-flat-button color="primary" class="fw-bold float-end px-4 py-1" *ngIf="view.assignment?.assignment?.userAssignmentStatus ==='completed' || view.assignment?.assignment?.userAssignmentStatus ==='submitted'" (click)="onOpenSubmittedAssignmentModal(view.assignment.assignment.id)">View Submitted Assignment</button>
+              <button mat-flat-button color="primary" class="fw-bold float-end px-4 py-1" *ngIf="view.assignment?.assignment?.userAssignmentStatus ==='completed' || view.assignment?.assignment?.userAssignmentStatus ==='submitted'" (click)="onOpenSubmittedAssignmentModal(view.assignment.assignment?.assignees)">View Submitted Assignment</button>
             </div>
           </div>
         </div>

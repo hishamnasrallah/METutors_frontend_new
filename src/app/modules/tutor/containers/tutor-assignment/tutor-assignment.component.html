@@ -139,7 +139,7 @@
                       </tr>
 
                       <tr *ngFor="let assignee of assignment?.assignees; let num = index" class="cursor-pointer"
-                          (click)="openViewStudentAssignmentModal(assignment.id, assignee.userId, assignee?.status)">
+                          (click)="openViewStudentAssignmentModal(assignment.id, assignee.userId)">
                         <td scope="row">{{ num + 1 }}</td>
                         <td>
                           <img [src]="assignee?.user?.avatar" meTutorsDefaultAvatar draggable="false" width="25"

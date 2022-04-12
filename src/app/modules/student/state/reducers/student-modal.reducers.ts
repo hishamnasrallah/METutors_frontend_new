@@ -4,6 +4,7 @@ import * as fromCore from '@metutor/core/state';
 import * as studentModalActions from '../actions/student-modal.actions';
 
 export interface State {
+  params: any;
   showAttendanceModal: boolean;
   showCancelCourseModal: boolean;
   showSendFeedbackModal: boolean;
@@ -14,6 +15,7 @@ export interface State {
 }
 
 export const initialState: State = {
+  params: null,
   showAttendanceModal: false,
   showCancelCourseModal: false,
   showSendFeedbackModal: false,
@@ -25,6 +27,11 @@ export const initialState: State = {
 
 export const reducer = createReducer(
   initialState,
+
+  on(studentModalActions.setStudentStateParams, (state, { params }) => ({
+    ...state,
+    params,
+  })),
 
   on(studentModalActions.openStudentAttendanceModal, (state) => ({
     ...state,
@@ -47,6 +54,7 @@ export const reducer = createReducer(
 
   on(
     fromCore.studentSubmitFeedbackSuccess,
+    fromCore.studentSubmitPlatformFeedbackSuccess,
     studentModalActions.closeStudentSendFeedbackModal,
     studentModalActions.closeStudentSendPlatformFeedbackModal,
     (state) => ({
@@ -134,3 +142,5 @@ export const selectViewSubmittedAssignmentModal = (state: State): boolean =>
 
 export const selectCancelCourseModal = (state: State): boolean =>
   state.showCancelCourseModal;
+
+export const selectStudentStateParams = (state: State): any => state.params;

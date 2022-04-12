@@ -1,5 +1,10 @@
 import { createAction, props } from '@ngrx/store';
 
+export const setStudentStateParams = createAction(
+  '[Student Modal] Set Student State Params',
+  props<{ params: any }>()
+);
+
 export const openStudentSendFeedbackModal = createAction(
   '[Student Modal] Open Student Send Feedback Modal'
 );

@@ -25,7 +25,9 @@ export class StudentAssignmentDetailsModalComponent implements OnInit {
     this._store.dispatch(fromStudentActions.closeStudentViewAssignmentModal());
   }
 
-  onOpenSubmittedAssignmentModal(id: number): void {
+  onOpenSubmittedAssignmentModal(assignees: any): void {
+    const id = assignees[assignees.length - 1]?.id;
+
     this._store.dispatch(
       fromStudentActions.openViewSubmittedAssignmentModal({ id })
     );

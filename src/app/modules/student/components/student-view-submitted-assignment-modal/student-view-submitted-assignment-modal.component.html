@@ -16,45 +16,52 @@
 
           <div class="form-group row">
             <label>File</label>
-            <div class="col-md-6 list-files d-flex mt-3">
-              <mat-icon>attach_file</mat-icon>
-              <div class="ms-2" *ngFor="let file of view?.assignment?.assignment?.file">
-                <h3>{{ file.url}}</h3>
-                <!--<h5>100MB</h5>-->
+            <ng-container *ngFor="let file of view.assignment?.assignment?.file">
+              <div class="col-md-6 list-files d-flex align-items-center mt-3">
+                <mat-icon>attach_file</mat-icon>
+                <div class="ms-2 flex-grow-1">
+                  <h3>{{ file?.url }}</h3>
+                  <!--<h5>100MB</h5>-->
+                </div>
+                <a [href]="file?.url" target="_blank" mat-button class="add-url">
+                  Download
+                </a>
               </div>
-            </div>
+            </ng-container>
             <div class="col-md-6"></div>
           </div>
 
           <ng-container
             *ngIf="view?.assignment?.assignment?.feedback && view?.assignment?.assignment?.feedback?.length">
+            <ng-container *ngFor="let feedback of view?.assignment?.assignment?.feedback">
             <div class="form-group row mt-5">
               <label>Assignment Feedback</label>
               <p class="mt-2">
                 <span>Grade Rating: </span>
-                <span class="rating"> {{ view?.assignment?.assignment?.feedback[0]?.rating}} on a scale of 10 </span>
+                <span class="rating"> {{ feedback?.rating}} on a scale of 10 </span>
               </p>
 
-              <p>
-                {{ view?.assignment?.assignment?.feedback[0]?.review }}
-              </p>
+              <p>{{ feedback?.review }}</p>
             </div>
 
-            <div class="form-group row">
+            <div class="form-group row" *ngIf="feedback?.file">
               <div class="col-md-6 list-files d-flex">
                 <mat-icon>attach_file</mat-icon>
                 <div class="ms-2">
-                  <h3>{{ view?.assignment?.assignment?.feedback[0]?.file?.url}}</h3>
+                  <h3>{{ feedback?.file?.url}}</h3>
                   <!--<h5>100MB</h5>-->
                 </div>
               </div>
               <div class="col-md-6"></div>
             </div>
+            </ng-container>
           </ng-container>
 
           <div class="form-group row">
             <div class="">
-              <button mat-flat-button color="primary" class="fw-bold float-end px-4 py-1" (click)="onBack(view?.assignment?.assignment.assignmentId)">Back</button>
+              <button mat-flat-button color="primary" class="fw-bold float-end px-4 py-1"
+                      (click)="onBack(view?.assignment?.assignment.assignmentId)">Back
+              </button>
             </div>
           </div>
         </div>

@@ -37,6 +37,10 @@ export class TutorAcceptRejectAssignmentModalComponent implements OnInit {
     return this.form.get('rating');
   }
 
+  get assignmentId(): AbstractControl | null {
+    return this.form.get('assignment_id');
+  }
+
   get userAssignmentId(): AbstractControl | null {
     return this.form.get('user_assignment_id');
   }
@@ -84,6 +88,7 @@ export class TutorAcceptRejectAssignmentModalComponent implements OnInit {
       review: [null, Validators.required],
       rating: [null, Validators.required],
       student_id: [null, Validators.required],
+      assignment_id: [null, Validators.required],
       user_assignment_id: [null, Validators.required],
     });
 
@@ -105,6 +110,7 @@ export class TutorAcceptRejectAssignmentModalComponent implements OnInit {
           this.isReject = data.isReject;
           this.studentId?.setValue(data.userId);
           this.userAssignmentId?.setValue(data.id);
+          this.assignmentId?.setValue(data.assignmentId);
         }
       })
     );

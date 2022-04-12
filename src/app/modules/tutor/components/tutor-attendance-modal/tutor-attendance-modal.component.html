@@ -1,6 +1,6 @@
 <metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'large'"
-                [heading]="'Class Attendance'"
-                [template]="template" [subHeading]="'View Class Attendance'">
+                [heading]="'Classroom Attendance & Feedback'"
+                [template]="template" [subHeading]="'View Classroom Attendance'">
   <ng-template #template>
     <div class="row attendance-modal" *ngLet="(view$ | async) as view">
       <div class="col-12">
@@ -63,7 +63,7 @@
 
       <div class="col-12 mt-4">
         <mat-tab-group mat-align-tabs="start">
-          <mat-tab label="Student Attendance">
+          <mat-tab label="Student Attendances">
             <div class="table-responsive mt-2">
               <ng-container [ngSwitch]="view.loading">
                 <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
@@ -71,7 +71,7 @@
                   <tr>
                     <th scope="col">Number</th>
                     <th scope="col">Classroom Title</th>
-                    <th scope="col">Attending States</th>
+                    <th scope="col">Attendance Status</th>
                     <th scope="col">Date</th>
                     <th scope="col"></th>
                   </tr>
@@ -89,7 +89,10 @@
                       <button mat-button [class]="attendance?.status">{{ attendance?.status }}</button>
                     </td>
                     <td>{{ attendance?.updatedAt | date}}</td>
-                    <td><button mat-button (click)="onOpenFeedbackModal(attendance?.userId)">Feedback</button></td>
+                    <td>
+                      <button mat-button (click)="onOpenFeedbackModal(attendance?.userId)">Feedback</button>
+                      <button mat-button class="ml-2">Chat</button>
+                    </td>
                   </tr>
                 </table>
               </ng-container>
