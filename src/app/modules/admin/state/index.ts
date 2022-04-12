@@ -49,6 +49,11 @@ export const selectIsHourlyRatePerSubjectModal = createSelector(
   fromAdminModal.selectIsHourlyRatePerSubjectModal
 );
 
+export const selectIsDeclineInterviewModal = createSelector(
+  selectAdminModalState,
+  fromAdminModal.selectIsDeclineInterviewModal
+);
+
 export const selectIsInterviewAttachmentModal = createSelector(
   selectAdminModalState,
   fromAdminModal.selectIsInterviewAttachmentModal

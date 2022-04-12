@@ -16,6 +16,14 @@ export const closeAdminHourlyRatePerSubjectModal = createAction(
   '[Admin Modal] Close Admin Hourly Rate Per Subject Modal'
 );
 
+export const openAdminDeclineInterviewModal = createAction(
+  '[Admin Modal] Open Admin Decline Interview Modal'
+);
+
+export const closeAdminDeclineInterviewModal = createAction(
+  '[Admin Modal] Close Admin Decline Interview Modal'
+);
+
 export const openAdminInterviewAttachmentModal = createAction(
   '[Admin Modal] Open Admin Interview Attachment Modal'
 );

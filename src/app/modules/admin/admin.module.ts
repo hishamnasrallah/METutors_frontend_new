@@ -41,6 +41,7 @@ import {
   AdminAddNewCountryModalComponent,
   AdminSendMeetingLinkModalComponent,
   AdminAddNewFieldStudyModalComponent,
+  AdminDeclineInterviewModalComponent,
   AdminHourlyRatePerSubjectModalComponent,
   AdminTutorInterviewAttachmentModalComponent,
 } from './components';
@@ -66,6 +67,7 @@ import {
     AdminSendMeetingLinkModalComponent,
     AdminTutorInterviewDetailsComponent,
     AdminAddNewFieldStudyModalComponent,
+    AdminDeclineInterviewModalComponent,
     AdminTutorInterviewDocumentsComponent,
     AdminHourlyRatePerSubjectModalComponent,
     AdminTutorInterviewAttachmentModalComponent,

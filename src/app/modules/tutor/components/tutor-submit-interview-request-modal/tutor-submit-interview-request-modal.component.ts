@@ -13,12 +13,15 @@ export class TutorSubmitInterviewRequestModalComponent implements OnInit {
   @Output() submitted: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
 
   form: FormGroup;
+  minDate = new Date();
 
   constructor(private _formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
     this.form = this._formBuilder.group({
-      rejectReason: [null, [Validators.required, Validators.minLength(10)]],
+      interviewDate: [null, [Validators.required]],
+      interviewTime: [null, Validators.required],
+      notes: [null, [Validators.minLength(10)]],
     });
   }
 }

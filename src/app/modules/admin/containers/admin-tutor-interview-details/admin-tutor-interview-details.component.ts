@@ -1,9 +1,10 @@
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { FormGroup } from '@angular/forms';
 import * as fromCore from '@metutor/core/state';
 import { Component, OnInit } from '@angular/core';
 import { IInterview } from '@metutor/core/models';
-import { generalConstants } from '@metutor/config';
+import { generalConstants, InterviewStatus } from '@metutor/config';
 import * as fromAdmin from '@metutor/modules/admin/state';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 
@@ -14,10 +15,14 @@ import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 })
 export class AdminTutorInterviewDetailsComponent implements OnInit {
   isLoading$: Observable<boolean>;
+  isDeclineRequest$: Observable<boolean>;
+  isAcceptingRequest$: Observable<boolean>;
   interview$: Observable<IInterview | null>;
+  showDeclineRequestModal$: Observable<boolean>;
   showSendMeetingLinkModal$: Observable<boolean>;
   showHourlyRatePerSubjectModal$: Observable<boolean>;
 
+  interviewStatus = InterviewStatus;
   nationalId = generalConstants.nationalId;
 
   constructor(private _store: Store<any>) {}
@@ -30,6 +35,18 @@ export class AdminTutorInterviewDetailsComponent implements OnInit {
 
     this.showHourlyRatePerSubjectModal$ = this._store.select(
       fromAdmin.selectIsHourlyRatePerSubjectModal
+    );
+
+    this.isAcceptingRequest$ = this._store.select(
+      fromCore.selectIsAcceptingInterview
+    );
+
+    this.showDeclineRequestModal$ = this._store.select(
+      fromAdmin.selectIsDeclineInterviewModal
+    );
+
+    this.isDeclineRequest$ = this._store.select(
+      fromCore.selectIsDeclineInterview
     );
   }
 
@@ -47,6 +64,30 @@ export class AdminTutorInterviewDetailsComponent implements OnInit {
 
   onCloseHourlyRatePerSubjectModal() {
     this._store.dispatch(fromAdminAction.closeAdminHourlyRatePerSubjectModal());
+  }
+
+  onOpenDeclineInterviewModal() {
+    this._store.dispatch(fromAdminAction.openAdminDeclineInterviewModal());
+  }
+
+  onCloseDeclineRequestModal() {
+    this._store.dispatch(fromAdminAction.closeAdminDeclineInterviewModal());
+  }
+
+  acceptInterviewRequest(form: FormGroup, interviewId: number): void {
+    if (form.valid) {
+      this._store.dispatch(
+        fromCore.acceptInterviewRequest({ id: interviewId, body: form.value })
+      );
+    }
+  }
+
+  declineInterviewRequest(form: FormGroup, interviewId: number): void {
+    if (form.valid) {
+      this._store.dispatch(
+        fromCore.declineInterviewRequest({ id: interviewId, body: form.value })
+      );
+    }
   }
 
   private _prepareInterview(): void {

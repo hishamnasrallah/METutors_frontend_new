@@ -8,6 +8,7 @@ export interface State {
   showAddNewProgramModal: boolean;
   showAddNewCountryModal: boolean;
   showSendMeetingLinkModal: boolean;
+  showDeclineInterviewModal: boolean;
   showInterviewAttachmentModal: boolean;
   showHourlyRatePerSubjectModal: boolean;
 }
@@ -18,6 +19,7 @@ export const initialState: State = {
   showAddNewProgramModal: false,
   showAddNewCountryModal: false,
   showSendMeetingLinkModal: false,
+  showDeclineInterviewModal: false,
   showInterviewAttachmentModal: false,
   showHourlyRatePerSubjectModal: false,
 };
@@ -40,10 +42,28 @@ export const reducer = createReducer(
     showHourlyRatePerSubjectModal: true,
   })),
 
-  on(adminModalActions.closeAdminHourlyRatePerSubjectModal, (state) => ({
+  on(
+    fromCore.acceptInterviewRequestSuccess,
+    adminModalActions.closeAdminHourlyRatePerSubjectModal,
+    (state) => ({
+      ...state,
+      showHourlyRatePerSubjectModal: false,
+    })
+  ),
+
+  on(adminModalActions.openAdminDeclineInterviewModal, (state) => ({
     ...state,
-    showHourlyRatePerSubjectModal: false,
+    showDeclineInterviewModal: true,
   })),
+
+  on(
+    fromCore.declineInterviewRequestSuccess,
+    adminModalActions.closeAdminDeclineInterviewModal,
+    (state) => ({
+      ...state,
+      showDeclineInterviewModal: false,
+    })
+  ),
 
   on(adminModalActions.openAdminInterviewAttachmentModal, (state) => ({
     ...state,
@@ -118,6 +138,9 @@ export const selectIsSendMeetingLinkModal = (state: State): boolean =>
 
 export const selectIsHourlyRatePerSubjectModal = (state: State): boolean =>
   state.showHourlyRatePerSubjectModal;
+
+export const selectIsDeclineInterviewModal = (state: State): boolean =>
+  state.showDeclineInterviewModal;
 
 export const selectIsInterviewAttachmentModal = (state: State): boolean =>
   state.showInterviewAttachmentModal;

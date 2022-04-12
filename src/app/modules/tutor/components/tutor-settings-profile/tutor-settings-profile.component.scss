@@ -11,8 +11,7 @@
   }
 
   .avatar-name {
-    margin-top: -130px;
-    padding: 0 30px;
+    margin-top: -50px;
     color: #FFF;
 
     .img-status {
@@ -20,6 +19,12 @@
       height: 100px;
       background-color: #F8F8F8;
     }
+  }
+
+  .upload-btn {
+    color: #949494;
+    font-size: 12px;
+    font-weight: bold;
   }
 }
 

@@ -22,15 +22,45 @@ import { ICity, ICountry, ITutor } from '@metutor/core/models';
   styleUrls: ['./tutor-settings-profile.component.scss'],
 })
 export class TutorSettingsProfileComponent implements OnInit {
-  @Input() tutor?: ITutor;
+  @Input() set user(_tutor: ITutor) {
+    if (_tutor) {
+      this.tutor = _tutor;
+      console.log(_tutor);
+      this.personalInfoForm?.patchValue({
+        middleName: _tutor?.middleName,
+        nationality: _tutor?.nationality,
+        dateOfBirth: _tutor?.dateOfBirth,
+        address: _tutor?.address,
+        address2: _tutor?.address2,
+        gender: _tutor?.gender,
+        country: _tutor?.country,
+        city: _tutor?.city,
+        bio: _tutor?.bio,
+        postalCode: _tutor?.postalCode,
+      });
+
+      this.qualificationForm?.patchValue({
+        nameOfUniversity: _tutor?.nameOfUniversity,
+        computerSkills: _tutor?.computerSkills,
+        degreeLevel: _tutor?.degreeLevel,
+        teachingExperience: _tutor?.teachingExperience,
+        degreeField: _tutor?.degreeField,
+        teachingExperienceOnline: _tutor?.teachingExperienceOnline,
+        currentEmployer: _tutor?.currentEmployer,
+        currentTitle: _tutor?.currentTitle,
+      });
+    }
+  }
   @Input() cities: ICity[] | null;
   @Input() loading: boolean | null;
+  @Input() isLoadingTutor: boolean;
   @Input() countries: ICountry[] | null;
 
   @Output() submitForm = new EventEmitter();
   @Output() submitInterview = new EventEmitter();
   @Output() loadCities = new EventEmitter<string>();
 
+  tutor: ITutor;
   genders = GENDERS;
   maxDate = new Date();
   skills = COMPUTER_SKILLS;

@@ -12,13 +12,23 @@ export interface State {
   interview: IInterview | null;
   isLoadingInterview: boolean;
   loadingInterviewFailure: string;
+
+  // Accept Interview
+  isAcceptingInterview: boolean;
+  acceptingInterviewFailure?: string;
+
+  // Decline Interview
+  isDeclineInterview: boolean;
+  declineInterviewFailure?: string;
 }
 
 export const initialState: State = {
   interview: null,
   interviews: null,
   isLoadingInterview: false,
+  isDeclineInterview: false,
   isLoadingInterviews: false,
+  isAcceptingInterview: false,
   loadingInterviewFailure: '',
   loadingInterviewsFailure: '',
 };
@@ -67,6 +77,38 @@ export const reducer = createReducer(
   on(interviewActions.loadInterviewEnded, (state) => ({
     ...state,
     isLoadingInterview: false,
+  })),
+
+  on(interviewActions.acceptInterviewRequest, (state) => ({
+    ...state,
+    isAcceptingInterview: true,
+  })),
+
+  on(interviewActions.acceptInterviewRequestSuccess, (state) => ({
+    ...state,
+    isAcceptingInterview: false,
+  })),
+
+  on(interviewActions.acceptInterviewRequestFailure, (state, { error }) => ({
+    ...state,
+    isAcceptingInterview: false,
+    acceptingInterviewFailure: error,
+  })),
+
+  on(interviewActions.declineInterviewRequest, (state) => ({
+    ...state,
+    isDeclineInterview: true,
+  })),
+
+  on(interviewActions.declineInterviewRequestSuccess, (state) => ({
+    ...state,
+    isDeclineInterview: false,
+  })),
+
+  on(interviewActions.declineInterviewRequestFailure, (state, { error }) => ({
+    ...state,
+    isDeclineInterview: false,
+    declineInterviewFailure: error,
   }))
 );
 
@@ -81,6 +123,12 @@ export const selectInterview = (state: State): IInterview | null =>
 
 export const selectIsLoadingInterview = (state: State): boolean =>
   state.isLoadingInterview;
+
+export const selectIsAcceptingInterview = (state: State): boolean =>
+  state.isAcceptingInterview;
+
+export const selectIsDeclineInterview = (state: State): boolean =>
+  state.isDeclineInterview;
 
 export const selectFilteredInterviews = (
   state: State,

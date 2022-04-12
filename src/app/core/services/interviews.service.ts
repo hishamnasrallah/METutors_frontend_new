@@ -32,7 +32,36 @@ export class InterviewsService {
       .get<{ interview_request: IInterview }>(
         `${this.baseUrl}admin/interview-request/${id}`
       )
-      .pipe(map((response) => new IInterview(false, response.interview_request)))
+      .pipe(
+        map((response) => new IInterview(false, response.interview_request))
+      )
+      .pipe(catchError(this.errorHandler));
+  }
+
+  acceptInterviewRequest(id: number, value: any): Observable<any> {
+    const body = {
+      admin_comments: value?.message,
+      subjects:
+        value.subjects && value.subjects.length
+          ? value.subjects.map((subject: any) => ({
+              id: subject.id,
+              hourly_price: subject.pricePerHour,
+            }))
+          : [],
+    };
+
+    return this.http
+      .post<{ message: string }>(`${this.baseUrl}teacher/approve/${id}`, body)
+      .pipe(catchError(this.errorHandler));
+  }
+
+  declineInterviewRequest(id: number, value: any): Observable<any> {
+    const body = {
+      admin_comments: value?.message,
+    };
+
+    return this.http
+      .post<{ message: string }>(`${this.baseUrl}teacher/reject/${id}`, body)
       .pipe(catchError(this.errorHandler));
   }
 

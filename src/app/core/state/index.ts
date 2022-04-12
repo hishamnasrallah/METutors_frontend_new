@@ -596,6 +596,16 @@ export const selectIsLoadingInterview = createSelector(
   fromInterviewReducer.selectIsLoadingInterview
 );
 
+export const selectIsAcceptingInterview = createSelector(
+  selectInterviewState,
+  fromInterviewReducer.selectIsAcceptingInterview
+);
+
+export const selectIsDeclineInterview = createSelector(
+  selectInterviewState,
+  fromInterviewReducer.selectIsDeclineInterview
+);
+
 // Requests
 export const selectEstimatedPrice = createSelector(
   selectRequestState,

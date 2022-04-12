@@ -71,11 +71,76 @@ export class InterviewEffects {
     )
   );
 
-  /*
+  acceptInterviewRequest$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(interviewActions.acceptInterviewRequest),
+      mergeMap((action) =>
+        this._interviewService
+          .acceptInterviewRequest(action.id, action.body)
+          .pipe(
+            map((acceptInterviewPayload) =>
+              interviewActions.acceptInterviewRequestSuccess({
+                message: acceptInterviewPayload.message,
+              })
+            ),
+            catchError((error) =>
+              of(
+                interviewActions.acceptInterviewRequestFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          )
+      )
+    )
+  );
+
+  declineInterviewRequest$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(interviewActions.declineInterviewRequest),
+      mergeMap((action) =>
+        this._interviewService
+          .declineInterviewRequest(action.id, action.body)
+          .pipe(
+            map((declineInterviewPayload) =>
+              interviewActions.declineInterviewRequestSuccess({
+                message: declineInterviewPayload.message,
+              })
+            ),
+            catchError((error) =>
+              of(
+                interviewActions.declineInterviewRequestFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          )
+      )
+    )
+  );
+
+  acceptInterviewRequestSuccess$ = createEffect(
+    () =>
+      this._actions$.pipe(
+        ofType(
+          ...[
+            interviewActions.acceptInterviewRequestSuccess,
+            interviewActions.declineInterviewRequestSuccess,
+          ]
+        ),
+        map(() => {
+          this._router.navigate(['/admin/tutor/interview']);
+        })
+      ),
+    {
+      dispatch: false,
+    }
+  );
+
   successMessages$ = createEffect(
     () =>
       this._actions$.pipe(
-        ofType(...[]),
+        ofType(...[interviewActions.acceptInterviewRequestSuccess]),
         map((action) => {
           if (action.message) {
             return this._alertNotificationService.success(action.message);
@@ -90,7 +155,6 @@ export class InterviewEffects {
       dispatch: false,
     }
   );
-  */
 
   failureMessages$ = createEffect(
     () =>

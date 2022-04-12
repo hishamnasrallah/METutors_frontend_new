@@ -25,7 +25,8 @@
 
     <div class="col-md-8">
       <metutors-tutor-settings-profile *ngIf="tab === 'MY_PROFILE'"
-                                       [tutor]="(tutor$ | async)!"
+                                       [user]="(tutor$ | async)!"
+                                       [isLoadingTutor]="(isLoadingTutor$ | async)!"
                                        [countries]="countries$ | async" 
                                        [cities]="cities$ | async" 
                                        (loadCities)="loadCities($event)"

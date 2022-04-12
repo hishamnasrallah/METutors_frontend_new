@@ -17,6 +17,7 @@ export class TutorSettingsComponent implements OnInit {
   user$: Observable<IUser | null>;
   tutor$: Observable<ITutor | null>;
   cities$: Observable<ICity[] | null>;
+  isLoadingTutor$: Observable<boolean>;
   isChangingPassword$: Observable<boolean>;
   countries$: Observable<ICountry[] | null>;
   changePasswordSuccess$: Observable<boolean>;
@@ -39,6 +40,7 @@ export class TutorSettingsComponent implements OnInit {
       })
     );
     this.tutor$ = this._store.select(fromCore.selectTutor);
+    this.isLoadingTutor$ = this._store.select(fromCore.selectIsLoadingTutor);
 
     this.isChangingPassword$ = this._store.select(
       fromCore.selectIsChangingPassword

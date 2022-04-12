@@ -1,277 +1,292 @@
-<div class="profile-header mb-5">
-  <div class="row">
-    <div class="col-12">
-      <div class="cover" [ngStyle]="{'background-image': 'url(' + tutor?.cover + ')'}"></div>
-      <div class="row avatar-name align-items-center">
-        <div class="col-md-3">
-          <div class="position-relative">
-            <img [src]="tutor?.avatar" meTutorsDefaultAvatar alt="" class="rounded-circle img-status" draggable="false">
-            <button mat-button>
-              <img src="assets/svg/upload-solid.svg" width="30" height="30" alt="">
+<ng-container *ngIf="isLoadingTutor">
+  <metutors-grid-placeholder></metutors-grid-placeholder>
+  <metutors-grid-placeholder></metutors-grid-placeholder>
+</ng-container>
+
+<ng-container *ngIf="!isLoadingTutor">
+  <div class="profile-header mb-3">
+    <div class="row">
+      <div class="col-12">
+        <div class="cover" [ngStyle]="{'background-image': 'url(' + tutor?.cover + ')'}"></div>
+        <div class="row avatar-name align-items-center">
+          <div class="col-md-3">
+            <div class="position-relative px-3">
+              <img [src]="tutor?.avatar" meTutorsDefaultAvatar alt="" class="rounded-circle img-status"
+                draggable="false">
+            </div>
+          </div>
+        </div>
+        <div class="row mt-1 mb-2">
+          <div class="col-md-3">
+            <button mat-button class="upload-btn mx-2">
+              <img src="assets/svg/upload-solid.svg" width="15" height="15" draggable="false" alt="">
               Upload Profile Picture
+            </button>
+          </div>
+          <div class="col-md-9">
+            <button mat-flat-button color="primary" class="float-end mx-2" (click)="submitInterview.emit()">
+              Submit Interview Request
             </button>
           </div>
         </div>
       </div>
-
-      <button mat-flat-button color="primary" (click)="submitInterview.emit()">Submit Interview Request</button>
     </div>
   </div>
-</div>
 
-<div class="card complete-form mb-3">
-  <form class="card-body" [formGroup]="personalInfoForm">
-    <div class="d-flex justify-content-between align-items-center w-100 mb-4">
-      <h1 class="title">Personal Information</h1>
+  <div class="card complete-form mb-3">
+    <form class="card-body" [formGroup]="personalInfoForm">
+      <div class="d-flex justify-content-between align-items-center w-100 mb-4">
+        <h1 class="title">Personal Information</h1>
 
-      <div>
-        <!-- [isSubmitting]="loading" [extraClasses]="'w-100'" -->
-        <metutors-submit-button [form]="personalInfoForm">
-          Update
-        </metutors-submit-button>
+        <div>
+          <!-- [isSubmitting]="loading" [extraClasses]="'w-100'" -->
+          <metutors-submit-button [form]="personalInfoForm">
+            Update
+          </metutors-submit-button>
+        </div>
       </div>
-    </div>
 
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="middleName" class="form-label">Middle Name</label>
-          <input type="text" class="custom-input w-100 input-bordered" id="middleName" placeholder="Enter Middle Name"
-            formControlName="middleName">
-          <div class="text-danger" *ngIf="middleName?.touched && middleName?.invalid">
-            Please write your middle name
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="middleName" class="form-label">Middle Name</label>
+            <input type="text" class="custom-input w-100 input-bordered" id="middleName" placeholder="Enter Middle Name"
+              formControlName="middleName">
+            <div class="text-danger" *ngIf="middleName?.touched && middleName?.invalid">
+              Please write your middle name
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="nationality" class="form-label">Nationality</label>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-select formControlName="nationality" [placeholder]="'Select your nationality'">
+                <mat-option *ngFor="let country of countries" [value]="country.name">{{ country.name }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div class="text-danger" *ngIf="nationality?.touched && nationality?.invalid">
+              Please choose your Nationality
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="nationality" class="form-label">Nationality</label>
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="nationality" [placeholder]="'Select your nationality'">
-              <mat-option *ngFor="let country of countries" [value]="country.name">{{ country.name }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <div class="text-danger" *ngIf="nationality?.touched && nationality?.invalid">
-            Please choose your Nationality
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="dateOfBirth" class="form-label">Date of Birth</label>
+            <mat-form-field appearance="outline" class="w-100">
+              <input matInput [matDatepicker]="datetPicker" [placeholder]="'Select Your Date of Birth'"
+                (focus)="datetPicker.open()" formControlName="dateOfBirth" [max]="maxDate">
+              <mat-datepicker-toggle matSuffix [for]="datetPicker"></mat-datepicker-toggle>
+              <mat-datepicker #datetPicker></mat-datepicker>
+            </mat-form-field>
+            <div class="text-danger" *ngIf="dateOfBirth?.touched && dateOfBirth?.invalid">
+              Please select your Date of Birth
+            </div>
           </div>
         </div>
-      </div>
-    </div>
 
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="dateOfBirth" class="form-label">Date of Birth</label>
-          <mat-form-field appearance="outline" class="w-100">
-            <input matInput [matDatepicker]="datetPicker" [placeholder]="'Select Your Date of Birth'"
-              (focus)="datetPicker.open()" formControlName="dateOfBirth" [max]="maxDate">
-            <mat-datepicker-toggle matSuffix [for]="datetPicker"></mat-datepicker-toggle>
-            <mat-datepicker #datetPicker></mat-datepicker>
-          </mat-form-field>
-          <div class="text-danger" *ngIf="dateOfBirth?.touched && dateOfBirth?.invalid">
-            Please select your Date of Birth
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="address" class="form-label">Address 1</label>
-          <input type="text" class="custom-input w-100 input-bordered" id="address" placeholder="Enter Street Address"
-            formControlName="address">
-          <div class="text-danger" *ngIf="address?.touched && address?.invalid">
-            Please write your Address
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="gender" class="form-label">Select Gender</label>
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="gender" [placeholder]="'Male'">
-              <mat-option [value]="gender" *ngFor="let gender of genders">{{ gender }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <div class="text-danger" *ngIf="gender?.touched && gender?.invalid">
-            Please choose your Gender
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="address" class="form-label">Address 1</label>
+            <input type="text" class="custom-input w-100 input-bordered" id="address" placeholder="Enter Street Address"
+              formControlName="address">
+            <div class="text-danger" *ngIf="address?.touched && address?.invalid">
+              Please write your Address
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="address2" class="form-label">Address 2 (Optional)</label>
-          <input type="text" class="custom-input w-100 input-bordered" id="address2" placeholder="Enter street address"
-            formControlName="address2">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="gender" class="form-label">Select Gender</label>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-select formControlName="gender" [placeholder]="'Male'">
+                <mat-option [value]="gender" *ngFor="let gender of genders">{{ gender }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div class="text-danger" *ngIf="gender?.touched && gender?.invalid">
+              Please choose your Gender
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
 
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="bio" class="form-label">Add Bio</label>
-          <textarea class="custom-input w-100 input-bordered" [placeholder]="'Add Bio here... '" rows="10"
-            formControlName="bio"></textarea>
-          <div class="text-danger" *ngIf="bio?.touched && bio?.invalid">
-            Please write your Bio
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="address2" class="form-label">Address 2 (Optional)</label>
+            <input type="text" class="custom-input w-100 input-bordered" id="address2"
+              placeholder="Enter street address" formControlName="address2">
           </div>
         </div>
       </div>
 
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="postalCode" class="form-label">Postal Code</label>
-          <input type="text" class="custom-input w-100 input-bordered" id="postalCode" placeholder="Postal Code"
-            formControlName="postalCode">
-          <div class="text-danger" *ngIf="postalCode?.touched && postalCode?.invalid">
-            Please write your Postal Code
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="bio" class="form-label">Add Bio</label>
+            <textarea class="custom-input w-100 input-bordered" [placeholder]="'Add Bio here... '" rows="10"
+              formControlName="bio"></textarea>
+            <div class="text-danger" *ngIf="bio?.touched && bio?.invalid">
+              Please write your Bio
+            </div>
           </div>
         </div>
 
-        <div class="form-group">
-          <label for="country" class="form-label">Country</label>
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="country" [placeholder]="'Select Country'"
-              (selectionChange)="loadCities.emit(country?.value)">
-              <mat-option *ngFor="let country of countries" [value]="country.id">{{ country.name }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <div class="text-danger" *ngIf="country?.touched && country?.invalid">
-            Please choose your Country
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="postalCode" class="form-label">Postal Code</label>
+            <input type="text" class="custom-input w-100 input-bordered" id="postalCode" placeholder="Postal Code"
+              formControlName="postalCode">
+            <div class="text-danger" *ngIf="postalCode?.touched && postalCode?.invalid">
+              Please write your Postal Code
+            </div>
           </div>
-        </div>
 
-        <div class="form-group">
-          <label for="city" class="form-label">City</label>
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="city" [placeholder]="'Select city'" [disabled]="!cities || !cities.length">
-              <mat-option *ngFor="let city of cities" [value]="city.name">{{ city.name }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <div class="text-danger" *ngIf="city?.touched && city?.invalid">
-            Please choose your City
+          <div class="form-group">
+            <label for="country" class="form-label">Country</label>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-select formControlName="country" [placeholder]="'Select Country'"
+                (selectionChange)="loadCities.emit(country?.value)">
+                <mat-option *ngFor="let country of countries" [value]="country.id">{{ country.name }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div class="text-danger" *ngIf="country?.touched && country?.invalid">
+              Please choose your Country
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </form>
-</div>
 
-<div class="card complete-form">
-  <form class="card-body" [formGroup]="qualificationForm">
-    <div class="d-flex justify-content-between align-items-center w-100 mb-4">
-      <h1 class="title">Qualification Details</h1>
-
-      <div>
-        <!-- [isSubmitting]="loading" [extraClasses]="'w-100'" -->
-        <metutors-submit-button [form]="qualificationForm">
-          Update
-        </metutors-submit-button>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="nameOfUniversity" class="form-label">University Name</label>
-          <input type="text" class="custom-input w-100 input-bordered" id="nameOfUniversity" placeholder="Enter Name"
-            formControlName="nameOfUniversity">
-          <div class="text-danger" *ngIf="nameOfUniversity?.touched && nameOfUniversity?.invalid">
-            Please Write Your University Name
+          <div class="form-group">
+            <label for="city" class="form-label">City</label>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-select formControlName="city" [placeholder]="'Select city'" [disabled]="!cities || !cities.length">
+                <mat-option *ngFor="let city of cities" [value]="city.name">{{ city.name }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div class="text-danger" *ngIf="city?.touched && city?.invalid">
+              Please choose your City
+            </div>
           </div>
         </div>
       </div>
+    </form>
+  </div>
 
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="teachingExperience" class="form-label">Teaching Experience (In Schools)</label>
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="teachingExperience" [placeholder]="'Select Years'">
-              <mat-option [value]="experience" *ngFor="let experience of experiences">{{ experience }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <div class="text-danger" *ngIf="teachingExperience?.touched && teachingExperience?.invalid">
-            Please Choose Your Years of Teacher Experience
+  <div class="card complete-form">
+    <form class="card-body" [formGroup]="qualificationForm">
+      <div class="d-flex justify-content-between align-items-center w-100 mb-4">
+        <h1 class="title">Qualification Details</h1>
+
+        <div>
+          <!-- [isSubmitting]="loading" [extraClasses]="'w-100'" -->
+          <metutors-submit-button [form]="qualificationForm">
+            Update
+          </metutors-submit-button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="nameOfUniversity" class="form-label">University Name</label>
+            <input type="text" class="custom-input w-100 input-bordered" id="nameOfUniversity" placeholder="Enter Name"
+              formControlName="nameOfUniversity">
+            <div class="text-danger" *ngIf="nameOfUniversity?.touched && nameOfUniversity?.invalid">
+              Please Write Your University Name
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="teachingExperience" class="form-label">Teaching Experience (In Schools)</label>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-select formControlName="teachingExperience" [placeholder]="'Select Years'">
+                <mat-option [value]="experience" *ngFor="let experience of experiences">{{ experience }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div class="text-danger" *ngIf="teachingExperience?.touched && teachingExperience?.invalid">
+              Please Choose Your Years of Teacher Experience
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="degreeLevel" class="form-label">Degree Level</label>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-select formControlName="degreeLevel" [placeholder]="'Select Degree Level'">
+                <mat-option [value]="level" *ngFor="let level of degreeLevels">{{ level }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div class="text-danger" *ngIf="degreeLevel?.touched && degreeLevel?.invalid">
+              Please Choose Your Degree Level
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="teachingExperienceOnline" class="form-label">Teaching Experience (Online)</label>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-select formControlName="teachingExperienceOnline" [placeholder]="'Select Years'">
+                <mat-option [value]="experience" *ngFor="let experience of experiences">{{ experience }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div class="text-danger" *ngIf="teachingExperienceOnline?.touched && teachingExperienceOnline?.invalid">
+              Please Choose Your Years of Teacher Experience Online
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="degreeField" class="form-label">Degree Field/Major</label>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-select formControlName="degreeField" [placeholder]="'Computer Science'">
+                <mat-option [value]="field" *ngFor="let field of degreeFields">{{ field }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div class="text-danger" *ngIf="degreeField?.touched && degreeField?.invalid">
+              Please Choose Your Degree Field
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="currentEmployer" class="form-label">Current Employer (Optional)</label>
+            <input type="text" class="custom-input w-100 input-bordered" id="currentEmployer" placeholder="Enter Here"
+              formControlName="currentEmployer">
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="computerSkills" class="form-label">Computer Skills Level</label>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-select formControlName="computerSkills" [placeholder]="'Above Average'">
+                <mat-option [value]="skill" *ngFor="let skill of skills">{{ skill }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div class="text-danger" *ngIf="computerSkills?.touched && computerSkills?.invalid">
+              Please Choose Your Computer Skills Level
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="currentTitle" class="form-label">Current Title (Optional)</label>
+            <input type="text" class="custom-input w-100 input-bordered" id="currentTitle" placeholder="Enter Here"
+              formControlName="currentTitle">
           </div>
         </div>
       </div>
-
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="degreeLevel" class="form-label">Degree Level</label>
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="degreeLevel" [placeholder]="'Select Degree Level'">
-              <mat-option [value]="level" *ngFor="let level of degreeLevels">{{ level }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <div class="text-danger" *ngIf="degreeLevel?.touched && degreeLevel?.invalid">
-            Please Choose Your Degree Level
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="teachingExperienceOnline" class="form-label">Teaching Experience (Online)</label>
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="teachingExperienceOnline" [placeholder]="'Select Years'">
-              <mat-option [value]="experience" *ngFor="let experience of experiences">{{ experience }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <div class="text-danger" *ngIf="teachingExperienceOnline?.touched && teachingExperienceOnline?.invalid">
-            Please Choose Your Years of Teacher Experience Online
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="degreeField" class="form-label">Degree Field/Major</label>
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="degreeField" [placeholder]="'Computer Science'">
-              <mat-option [value]="field" *ngFor="let field of degreeFields">{{ field }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <div class="text-danger" *ngIf="degreeField?.touched && degreeField?.invalid">
-            Please Choose Your Degree Field
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="currentEmployer" class="form-label">Current Employer (Optional)</label>
-          <input type="text" class="custom-input w-100 input-bordered" id="currentEmployer" placeholder="Enter Here"
-            formControlName="currentEmployer">
-        </div>
-      </div>
-
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="computerSkills" class="form-label">Computer Skills Level</label>
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="computerSkills" [placeholder]="'Above Average'">
-              <mat-option [value]="skill" *ngFor="let skill of skills">{{ skill }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <div class="text-danger" *ngIf="computerSkills?.touched && computerSkills?.invalid">
-            Please Choose Your Computer Skills Level
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="currentTitle" class="form-label">Current Title (Optional)</label>
-          <input type="text" class="custom-input w-100 input-bordered" id="currentTitle" placeholder="Enter Here"
-            formControlName="currentTitle">
-        </div>
-      </div>
-    </div>
-  </form>
-</div>
+    </form>
+  </div>
+</ng-container>

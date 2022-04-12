@@ -12,12 +12,15 @@ export class ITutor {
   id!: number;
   name?: string;
   firstName?: string;
+  middleName?: string;
   lastName?: string;
   avatar?: string;
   cover?: string;
   bio?: string;
   createdAt?: string;
   dateOfBirth?: string;
+  address?: string;
+  address2?: string;
   email?: string;
   mobile?: string;
   roleName?: string;
@@ -33,6 +36,15 @@ export class ITutor {
   city?: string;
   gender?: string;
   nationality?: string;
+  postalCode?: string;
+  nameOfUniversity?: string;
+  computerSkills?: string;
+  degreeLevel?: string;
+  teachingExperience?: string;
+  degreeField?: string;
+  teachingExperienceOnline?: string;
+  currentEmployer?: string;
+  currentTitle?: string;
 
   rate?: number;
   badges?: any[];
@@ -52,6 +64,7 @@ export class ITutor {
       this.id = 0;
       this.name = '';
       this.firstName = '';
+      this.middleName = '';
       this.lastName = '';
       this.avatar = generalConstants.defaultAvatarPath;
       this.cover = generalConstants.defaultCoverPath;
@@ -59,6 +72,8 @@ export class ITutor {
       this.createdAt = '';
       this.rate = 0;
       this.dateOfBirth = '';
+      this.address = '';
+      this.address2 = '';
       this.email = '';
       this.mobile = '';
       this.roleName = '';
@@ -85,12 +100,22 @@ export class ITutor {
       this.skillfulInEngagingStudentsRate = 0;
       this.alwaysOnTimeRate = 0;
       this.reviews = [];
+      this.postalCode = '';
+      this.nameOfUniversity = '';
+      this.computerSkills = '';
+      this.degreeLevel = '';
+      this.teachingExperience = '';
+      this.degreeField = '';
+      this.teachingExperienceOnline = '';
+      this.currentEmployer = '';
+      this.currentTitle = '';
     }
 
     if (tutor) {
       this.id = tutor?.id;
       this.name = tutor?.first_name + ' ' + tutor?.last_name;
       this.firstName = tutor?.first_name || '';
+      this.middleName = tutor?.middle_name || '';
       this.lastName = tutor?.last_name || '';
       this.avatar =
         environment.imageURL + tutor?.avatar ||
@@ -101,11 +126,14 @@ export class ITutor {
       this.bio = tutor?.bio || '';
       this.createdAt = tutor?.created_at || '';
       this.dateOfBirth = tutor?.date_of_birth || '';
+      this.address = tutor?.address;
+      this.address2 = tutor?.address2;
       this.email = tutor?.email || '';
       this.mobile = tutor?.mobile || '';
       this.roleName = tutor?.role_name || '';
       this.status = tutor?.status || '';
       this.verified = tutor?.verified || 0;
+      this.postalCode = tutor?.postal_code || '';
       this.languages =
         tutor?.spoken_languages && tutor?.spoken_languages?.length
           ? tutor?.spoken_languages.map(
@@ -137,6 +165,14 @@ export class ITutor {
       this.city = tutor?.city || '';
       this.gender = tutor?.gender || '';
       this.nationality = tutor?.nationality || '';
+      this.nameOfUniversity = tutor?.name_of_university || '';
+      this.computerSkills = tutor?.computer_skills || '';
+      this.degreeLevel = tutor?.degree_level || '';
+      this.teachingExperience = tutor?.teaching_experience || '';
+      this.degreeField = tutor?.degree_field || '';
+      this.teachingExperienceOnline = tutor?.teaching_experience_online || '';
+      this.currentEmployer = tutor?.current_employer || '';
+      this.currentTitle = tutor?.current_title || '';
 
       this.badges = tutor?.badges || [];
       this.rate = tutor?.rate || 0;

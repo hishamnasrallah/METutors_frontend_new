@@ -1,0 +1,19 @@
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'medium'" [heading]="'Decline Request'"
+                [template]="template">
+  <ng-template #template>
+    <form class="decline-interview" [formGroup]="form" (ngSubmit)="submitted.emit(form)">
+      <h2 class="note">Send Decline Message to Tutor</h2>
+      <div class="form-group">
+        <textarea class="form-control custom-input input-bordered" formControlName="message" rows="10"
+          placeholder="Enter the reason here..."></textarea>
+      </div>
+
+      <div class="mt-4">
+        <metutors-submit-button [form]="form" [extraClasses]="'float-end py-1 px-5'"
+          [isSubmitting]="isDeclineRequest">
+          Decline Request
+        </metutors-submit-button>
+      </div>
+    </form>
+  </ng-template>
+</metutors-modal>
