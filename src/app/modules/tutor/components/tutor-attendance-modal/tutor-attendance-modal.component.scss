@@ -63,6 +63,10 @@
           color: var(--main-color);
           background-color: rgb(59 179 193 / 12%);
         }
+
+        &.ml-2 {
+          margin-left: 8px;
+        }
       }
     }
   }

@@ -182,15 +182,15 @@ export class TutorsService {
 
   tutorRejectAssignment(body: any): Observable<any> {
     return this.http.post<any>(
-      `${this.baseUrl}teacher/assignment/${body.user_assignment_id}/reject`,
+      `${this.baseUrl}teacher/assignment/${body.assignment_id}/reject`,
       body
     );
   }
 
   tutorAcceptAssignment(body: any): Observable<any> {
-    const { id, ..._body } = body;
+    const { assignment_id, ..._body } = body;
     return this.http.post<any>(
-      `${this.baseUrl}teacher/assignment/${id}/accept`,
+      `${this.baseUrl}teacher/assignment/${assignment_id}/accept`,
       _body
     );
   }

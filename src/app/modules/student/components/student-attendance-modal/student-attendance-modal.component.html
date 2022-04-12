@@ -71,17 +71,17 @@
                   <tr>
                     <th scope="col">Number</th>
                     <th scope="col">Classroom Title</th>
-                    <th scope="col">Attending States</th>
+                    <th scope="col">Attendance Status</th>
                     <th scope="col">Date</th>
                   </tr>
 
-                  <tr *ngIf="!view.attendance?.studentsAttendance || !view.attendance?.studentsAttendance?.length">
+                  <tr *ngIf="!view.attendance?.teacherAttendence || !view.attendance?.teacherAttendence?.length">
                     <td colspan="8">
                       <div class="text-center">No records found</div>
                     </td>
                   </tr>
 
-                  <tr *ngFor="let attendance of view.attendance?.studentsAttendance; let i = index">
+                  <tr *ngFor="let attendance of view.attendance?.teacherAttendence; let i = index">
                     <td scope="row">{{ i + 1}}</td>
                     <td>{{ attendance?.class?.title }}</td>
                     <td>

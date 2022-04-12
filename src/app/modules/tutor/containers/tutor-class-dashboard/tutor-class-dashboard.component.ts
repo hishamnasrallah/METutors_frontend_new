@@ -75,12 +75,6 @@ export class TutorClassDashboardComponent implements OnInit {
     this._store.dispatch(fromTutorAction.closeTutorCancelCourseModal());
   }
 
-  onShowSendFeedbackModal(studentId: number): void {
-    const params = { studentId };
-    this._store.dispatch(fromTutorAction.openTutorSendFeedbackModal());
-    this._store.dispatch(fromTutorAction.setTutorStateParams({ params }));
-  }
-
   onCloseSendFeedbackModal(): void {
     this._store.dispatch(fromTutorAction.closeTutorSendFeedbackModal());
   }
