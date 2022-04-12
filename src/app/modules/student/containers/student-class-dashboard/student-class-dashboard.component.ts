@@ -44,8 +44,10 @@ export class StudentClassDashboardComponent implements OnInit {
     this._store.dispatch(fromStudentAction.openCancelCourseModal());
   }
 
-  onShowSendFeedbackModal(): void {
+  onShowSendFeedbackModal(teacherId: number): void {
+    const params = { teacherId };
     this._store.dispatch(fromStudentAction.openStudentSendFeedbackModal());
+    this._store.dispatch(fromStudentAction.setStudentStateParams({ params }));
   }
 
   onCloseFeedbackModal(): void {
