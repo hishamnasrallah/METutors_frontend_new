@@ -38,6 +38,16 @@ export class TutorsService {
       );
   }
 
+  getProfileTutor(): Observable<any> {
+    return this.http
+      .get<{ user: ITutor }>(`${this.baseUrl}teacher/profile`)
+      .pipe(
+        map((response) => {
+          return new ITutor(false, response.user);
+        })
+      );
+  }
+
   getTutors(): Observable<any> {
     return this.http
       .get<{ teachers: ITutor[] }>(`${this.baseUrl}registered-teachers`)

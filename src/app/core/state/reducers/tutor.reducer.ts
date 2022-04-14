@@ -20,6 +20,10 @@ export interface State {
   isLoadingTutorAttendance: boolean;
   isLoadingTutorFeedbackOptions: boolean;
 
+  // Loading Profile Tutor
+  isLoadingProfileTutor: boolean;
+  profileTutor: ITutor | null;
+
   // Complete Tutor Profile
   isCompleteTutorProfile: boolean;
   completeTutorProfileFailure: string;
@@ -30,6 +34,7 @@ export const initialState: State = {
   tutors: null,
   dashboard: null,
   attendance: null,
+  profileTutor: null,
   feedbackOptions: null,
   isLoadingTutor: false,
   isLoadingTutors: false,
@@ -38,6 +43,7 @@ export const initialState: State = {
   loadingTutorsFailure: '',
   isLoadingDashboard: false,
   isSubmittingFeedback: false,
+  isLoadingProfileTutor: false,
   isCompleteTutorProfile: false,
   isLoadingTutorAttendance: false,
   completeTutorProfileFailure: '',
@@ -61,6 +67,28 @@ export const reducer = createReducer(
     ...state,
     isLoadingTutor: false,
     loadingTutorFailure: error,
+  })),
+
+  on(tutorActions.loadProfileTutor, (state) => ({
+    ...state,
+    isLoadingProfileTutor: true,
+  })),
+
+  on(tutorActions.loadProfileTutorSuccess, (state, { tutor }) => ({
+    ...state,
+    profileTutor: tutor,
+    isLoadingProfileTutor: false,
+  })),
+
+  on(tutorActions.loadProfileTutorFailure, (state, { error }) => ({
+    ...state,
+    isLoadingProfileTutor: false,
+    loadingProfileTutorFailure: error,
+  })),
+
+  on(tutorActions.loadProfileTutorEnded, (state) => ({
+    ...state,
+    isLoadingProfileTutor: false,
   })),
 
   on(tutorActions.loadTutors, (state) => ({
@@ -239,10 +267,16 @@ export const reducer = createReducer(
 
 export const selectTutor = (state: State): ITutor | null => state.tutor;
 
+export const selectProfileTutor = (state: State): ITutor | null =>
+  state.profileTutor;
+
 export const selectTutorDashboard = (state: State): boolean => state.dashboard;
 
 export const selectIsLoadingTutor = (state: State): boolean =>
   state.isLoadingTutor;
+
+export const selectIsLoadingProfileTutor = (state: State): boolean =>
+  state.isLoadingProfileTutor;
 
 export const selectTutors = (state: State): ITutor[] | null => state.tutors;
 

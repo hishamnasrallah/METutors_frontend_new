@@ -31,16 +31,13 @@ export class TutorSettingsComponent implements OnInit {
     this._prepareCountries();
 
     this.layout$ = this._store.select(fromRoot.selectLayout);
-    this.user$ = this._store.select(fromCore.selectUser).pipe(
-      filter((employer) => !!employer),
-      tap((user) => {
-        if (user) {
-          this._store.dispatch(fromCore.loadTutor({ id: user.id }));
-        }
-      })
+    this.user$ = this._store.select(fromCore.selectUser);
+
+    this._store.dispatch(fromCore.loadProfileTutor());
+    this.tutor$ = this._store.select(fromCore.selectProfileTutor);
+    this.isLoadingTutor$ = this._store.select(
+      fromCore.selectIsLoadingProfileTutor
     );
-    this.tutor$ = this._store.select(fromCore.selectTutor);
-    this.isLoadingTutor$ = this._store.select(fromCore.selectIsLoadingTutor);
 
     this.isChangingPassword$ = this._store.select(
       fromCore.selectIsChangingPassword

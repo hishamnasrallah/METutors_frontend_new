@@ -49,6 +49,23 @@ export const loadTutorFailure = createAction(
   props<{ error: any }>()
 );
 
+// Load Profile Tutor
+export const loadProfileTutor = createAction('[Tutor] Load profile Tutor');
+
+export const loadProfileTutorSuccess = createAction(
+  '[Tutor] Load profile Tutor Success',
+  props<{ tutor: ITutor }>()
+);
+
+export const loadProfileTutorFailure = createAction(
+  '[Tutor] Load profile Tutor Failure',
+  props<{ error: any }>()
+);
+
+export const loadProfileTutorEnded = createAction(
+  '[Tutor] Load profile Tutor Ended'
+);
+
 // Tutor dashboard
 export const loadTutorDashboard = createAction(
   '[Tutor] Load Tutor Dashboard',
