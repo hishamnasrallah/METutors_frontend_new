@@ -7,6 +7,7 @@ import { IInterview } from '@metutor/core/models';
 import { generalConstants, InterviewStatus } from '@metutor/config';
 import * as fromAdmin from '@metutor/modules/admin/state';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
+import { selectIsSchedulingInterview } from '@metutor/core/state';
 
 @Component({
   selector: 'metutors-admin-tutor-interview-details',
@@ -17,20 +18,22 @@ export class AdminTutorInterviewDetailsComponent implements OnInit {
   isLoading$: Observable<boolean>;
   isDeclineRequest$: Observable<boolean>;
   isAcceptingRequest$: Observable<boolean>;
+  isSchedulingRequest$: Observable<boolean>;
   interview$: Observable<IInterview | null>;
   showDeclineRequestModal$: Observable<boolean>;
-  showSendMeetingLinkModal$: Observable<boolean>;
+  showScheduleInterviewModal$: Observable<boolean>;
   showHourlyRatePerSubjectModal$: Observable<boolean>;
 
   interviewStatus = InterviewStatus;
+  data: { date: string; time: string };
   nationalId = generalConstants.nationalId;
 
   constructor(private _store: Store<any>) {}
 
   ngOnInit(): void {
     this._prepareInterview();
-    this.showSendMeetingLinkModal$ = this._store.select(
-      fromAdmin.selectIsSendMeetingLinkModal
+    this.showScheduleInterviewModal$ = this._store.select(
+      fromAdmin.selectScheduleInterviewModal
     );
 
     this.showHourlyRatePerSubjectModal$ = this._store.select(
@@ -48,14 +51,22 @@ export class AdminTutorInterviewDetailsComponent implements OnInit {
     this.isDeclineRequest$ = this._store.select(
       fromCore.selectIsDeclineInterview
     );
+
+    this.isSchedulingRequest$ = this._store.select(
+      fromCore.selectIsSchedulingInterview
+    );
   }
 
-  onOpenSendMeetingLinkModal() {
-    this._store.dispatch(fromAdminAction.openAdminSendMeetingLinkModal());
+  onOpenScheduleInterviewModal(interview: any) {
+    this.data = {
+      date: interview.interviewDate,
+      time: interview.interviewTime,
+    };
+    this._store.dispatch(fromAdminAction.openAdminScheduleInterviewModal());
   }
 
-  onCloseSendMeetingLinkModal() {
-    this._store.dispatch(fromAdminAction.closeAdminSendMeetingLinkModal());
+  onCloseScheduleInterviewModal() {
+    this._store.dispatch(fromAdminAction.closeAdminScheduleInterviewModal());
   }
 
   onOpenHourlyRatePerSubjectModal() {
@@ -88,6 +99,11 @@ export class AdminTutorInterviewDetailsComponent implements OnInit {
         fromCore.declineInterviewRequest({ id: interviewId, body: form.value })
       );
     }
+  }
+
+  scheduleInterviewRequest(form: FormGroup): void {
+    const body = form.value;
+    this._store.dispatch(fromCore.scheduleInterviewRequest({ body }));
   }
 
   private _prepareInterview(): void {

@@ -66,3 +66,18 @@ export const declineInterviewRequestFailure = createAction(
   '[Interview] Decline Interview Request Failure',
   props<{ error: any }>()
 );
+
+export const scheduleInterviewRequest = createAction(
+  '[Interview] Schedule Interview Request',
+  props<{ body: any }>()
+);
+
+export const scheduleInterviewRequestSuccess = createAction(
+  '[Interview] Schedule Interview Request Success',
+  props<{ message: string }>()
+);
+
+export const scheduleInterviewRequestFailure = createAction(
+  '[Interview] Schedule Interview Request Failure',
+  props<{ error: any }>()
+);

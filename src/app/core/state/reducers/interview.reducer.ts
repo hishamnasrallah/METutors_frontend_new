@@ -20,6 +20,8 @@ export interface State {
   // Decline Interview
   isDeclineInterview: boolean;
   declineInterviewFailure?: string;
+
+  isSchedulingInterview: boolean;
 }
 
 export const initialState: State = {
@@ -29,6 +31,7 @@ export const initialState: State = {
   isDeclineInterview: false,
   isLoadingInterviews: false,
   isAcceptingInterview: false,
+  isSchedulingInterview: false,
   loadingInterviewFailure: '',
   loadingInterviewsFailure: '',
 };
@@ -109,6 +112,21 @@ export const reducer = createReducer(
     ...state,
     isDeclineInterview: false,
     declineInterviewFailure: error,
+  })),
+
+  on(interviewActions.scheduleInterviewRequest, (state) => ({
+    ...state,
+    isSchedulingInterview: true,
+  })),
+
+  on(interviewActions.scheduleInterviewRequestSuccess, (state) => ({
+    ...state,
+    isSchedulingInterview: false,
+  })),
+
+  on(interviewActions.scheduleInterviewRequestFailure, (state) => ({
+    ...state,
+    isSchedulingInterview: false,
   }))
 );
 
@@ -129,6 +147,9 @@ export const selectIsAcceptingInterview = (state: State): boolean =>
 
 export const selectIsDeclineInterview = (state: State): boolean =>
   state.isDeclineInterview;
+
+export const selectIsSchedulingInterview = (state: State): boolean =>
+  state.isSchedulingInterview;
 
 export const selectFilteredInterviews = (
   state: State,

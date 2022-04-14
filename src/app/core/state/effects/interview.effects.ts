@@ -119,6 +119,29 @@ export class InterviewEffects {
     )
   );
 
+  scheduleInterviewRequest$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(interviewActions.scheduleInterviewRequest),
+      withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
+      mergeMap(([{ body }, { id }]) =>
+        this._interviewService.scheduleInterviewRequest(id, body).pipe(
+          map(() =>
+            interviewActions.scheduleInterviewRequestSuccess({
+              message: 'Interview request successfully sent',
+            })
+          ),
+          catchError((error) =>
+            of(
+              interviewActions.scheduleInterviewRequestFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   acceptInterviewRequestSuccess$ = createEffect(
     () =>
       this._actions$.pipe(
@@ -126,6 +149,7 @@ export class InterviewEffects {
           ...[
             interviewActions.acceptInterviewRequestSuccess,
             interviewActions.declineInterviewRequestSuccess,
+            interviewActions.scheduleInterviewRequestSuccess,
           ]
         ),
         map(() => {
@@ -159,7 +183,14 @@ export class InterviewEffects {
   failureMessages$ = createEffect(
     () =>
       this._actions$.pipe(
-        ofType(...[interviewActions.loadInterviewsFailure]),
+        ofType(
+          ...[
+            interviewActions.loadInterviewsFailure,
+            interviewActions.acceptInterviewRequestFailure,
+            interviewActions.declineInterviewRequestFailure,
+            interviewActions.scheduleInterviewRequestFailure,
+          ]
+        ),
         map((action) => {
           if (action.error) {
             return this._alertNotificationService.error(action.error);
