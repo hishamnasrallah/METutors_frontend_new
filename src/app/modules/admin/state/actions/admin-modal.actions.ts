@@ -63,3 +63,11 @@ export const openAdminAddNewCountryModal = createAction(
 export const closeAdminAddNewCountryModal = createAction(
   '[Admin Modal] Close Admin Add New Country Modal'
 );
+
+export const openAdminScheduleInterviewModal = createAction(
+  '[Admin Modal] Open Admin Schedule Interview Modal'
+);
+
+export const closeAdminScheduleInterviewModal = createAction(
+  '[Admin Modal] Close Admin schedule Interview Modal'
+);

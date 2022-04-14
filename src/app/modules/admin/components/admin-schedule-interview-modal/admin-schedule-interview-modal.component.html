@@ -1,0 +1,40 @@
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'medium'"
+                [heading]="'Submit Interview Request'"
+                [template]="template">
+  <ng-template #template>
+    <form class="row" [formGroup]="form" (ngSubmit)="submitted.emit(form)">
+      <div class="col-12">
+        <div class="form-group">
+          <label>Select Interview Date</label>
+          <input class="form-control custom-input input-bordered" matInput [matDatepicker]="endPicker"
+                 [placeholder]="'04/05/2022'" (focus)="endPicker.open()" [min]="minDate"
+                 formControlName="date">
+          <mat-datepicker #endPicker></mat-datepicker>
+        </div>
+
+        <div class="form-group">
+          <label>Select Start Time</label>
+          <input type="url" class="form-control custom-input input-bordered" formControlName="start_time"
+                 placeholder="12:00 PM" [ngxTimepicker]="startTime">
+          <ngx-material-timepicker #startTime [appendToInput]="true">
+          </ngx-material-timepicker>
+        </div>
+
+        <div class="form-group">
+          <label>Select End Time</label>
+          <input type="url" class="form-control custom-input input-bordered" formControlName="end_time"
+                 placeholder="01:00 PM" [ngxTimepicker]="endTime">
+          <ngx-material-timepicker #endTime [appendToInput]="true">
+          </ngx-material-timepicker>
+        </div>
+
+        <div class="mt-4">
+          <metutors-submit-button [form]="form" [isSubmitting]="isSchedulingRequest"
+                                  [extraClasses]="'float-end py-1 px-5'">
+            Submit Request
+          </metutors-submit-button>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+</metutors-modal>

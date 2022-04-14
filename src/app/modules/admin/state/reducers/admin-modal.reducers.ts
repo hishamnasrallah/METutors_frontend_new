@@ -9,6 +9,7 @@ export interface State {
   showAddNewCountryModal: boolean;
   showSendMeetingLinkModal: boolean;
   showDeclineInterviewModal: boolean;
+  showScheduleInterviewModal: boolean;
   showInterviewAttachmentModal: boolean;
   showHourlyRatePerSubjectModal: boolean;
 }
@@ -20,6 +21,7 @@ export const initialState: State = {
   showAddNewCountryModal: false,
   showSendMeetingLinkModal: false,
   showDeclineInterviewModal: false,
+  showScheduleInterviewModal: false,
   showInterviewAttachmentModal: false,
   showHourlyRatePerSubjectModal: false,
 };
@@ -129,7 +131,17 @@ export const reducer = createReducer(
       ...state,
       showAddNewCountryModal: false,
     })
-  )
+  ),
+
+  on(adminModalActions.openAdminScheduleInterviewModal, (state) => ({
+    ...state,
+    showScheduleInterviewModal: true,
+  })),
+
+  on(adminModalActions.closeAdminScheduleInterviewModal, (state) => ({
+    ...state,
+    showScheduleInterviewModal: false,
+  }))
 );
 
 // Admin modal selectors
@@ -156,3 +168,6 @@ export const selectAddNewSubjectModal = (state: State): boolean =>
 
 export const selectAddNewCountryModal = (state: State): boolean =>
   state.showAddNewCountryModal;
+
+export const selectScheduleInterviewModal = (state: State): boolean =>
+  state.showScheduleInterviewModal;

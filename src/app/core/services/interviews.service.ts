@@ -65,6 +65,20 @@ export class InterviewsService {
       .pipe(catchError(this.errorHandler));
   }
 
+  scheduleInterviewRequest(
+    interview_request_id: number,
+    data: any
+  ): Observable<any> {
+    const body = {
+      interview_request_id,
+      ...data,
+    };
+
+    return this.http
+      .post<any>(`${this.baseUrl}admin/schedule-meeting`, body)
+      .pipe(catchError(this.errorHandler));
+  }
+
   errorHandler(error: HttpErrorResponse) {
     return throwError(error);
   }

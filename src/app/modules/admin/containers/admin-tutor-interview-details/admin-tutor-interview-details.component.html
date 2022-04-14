@@ -26,7 +26,7 @@
                 <a class="submit-document" [routerLink]="['/admin', 'tutor', 'interview', 'details', '1', 'documents']">
                   Submitted Documents
                 </a>
-                <a class="send-link cursor-pointer" (click)="onOpenSendMeetingLinkModal()">Send Meeting Link</a>
+                <a class="send-link cursor-pointer" (click)="onOpenScheduleInterviewModal(interview)">Schedule Interview</a>
               </div>
               <div class="row list-items md-item p-0 d-flex justify-content-end mt-3">
                 <div class="col-md-3 d-flex menu align-items-center" *ngIf="interview?.interviewDate">
@@ -232,23 +232,25 @@
     </div>
   </div>
 
-  <metutors-admin-send-meeting-link-modal *ngIf="showSendMeetingLinkModal$ | async"
-                                          (closeModal)="onCloseSendMeetingLinkModal()" 
-                                          [showModal]="(showSendMeetingLinkModal$ | async)!">
-  </metutors-admin-send-meeting-link-modal>
+  <metutors-admin-schedule-interview-modal *ngIf="showScheduleInterviewModal$ | async" [data]="data"
+                                           [isSchedulingRequest]="(isSchedulingRequest$ | async)!"
+                                           (closeModal)="onCloseScheduleInterviewModal()"
+                                           (submitted)="scheduleInterviewRequest($event)"
+                                           [showModal]="(showScheduleInterviewModal$ | async)!">
+  </metutors-admin-schedule-interview-modal>
 
   <metutors-admin-hourly-rate-per-subject-modal *ngIf="showHourlyRatePerSubjectModal$ | async"
                                                 [subjects]="interview?.tutor?.subjects"
                                                 [sortedSubjects]="interview.tutor?.sortedSubjects"
                                                 [isAcceptingRequest]="(isAcceptingRequest$ | async)!"
-                                                (closeModal)="onCloseHourlyRatePerSubjectModal()" 
+                                                (closeModal)="onCloseHourlyRatePerSubjectModal()"
                                                 (submitted)="acceptInterviewRequest($event, interview.id)"
                                                 [showModal]="(showHourlyRatePerSubjectModal$ | async)!">
   </metutors-admin-hourly-rate-per-subject-modal>
 
   <metutors-admin-decline-interview-modal *ngIf="showDeclineRequestModal$ | async"
                                           [isDeclineRequest]="(isDeclineRequest$ | async)!"
-                                          (closeModal)="onCloseDeclineRequestModal()" 
+                                          (closeModal)="onCloseDeclineRequestModal()"
                                           (submitted)="declineInterviewRequest($event, interview.id)"
                                           [showModal]="(showDeclineRequestModal$ | async)!">
   </metutors-admin-decline-interview-modal>

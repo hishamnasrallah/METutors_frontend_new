@@ -4,13 +4,17 @@ import { NgxAutoScrollModule } from 'ngx-auto-scroll';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatInputModule } from '@angular/material/input';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { AdminRoutingModule } from './admin-routing.module';
 import { SharedModule } from '@metutor/shared/shared.module';
+import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 import * as fromAdmin from './state';
 import { StoreModule } from '@ngrx/store';
@@ -40,6 +44,7 @@ import {
   AdminAddNewProgramModalComponent,
   AdminAddNewCountryModalComponent,
   AdminSendMeetingLinkModalComponent,
+  AdminScheduleInterviewModalComponent,
   AdminAddNewFieldStudyModalComponent,
   AdminDeclineInterviewModalComponent,
   AdminHourlyRatePerSubjectModalComponent,
@@ -65,6 +70,7 @@ import {
     AdminAddNewCountryModalComponent,
     AdminAddNewSubjectModalComponent,
     AdminSendMeetingLinkModalComponent,
+    AdminScheduleInterviewModalComponent,
     AdminTutorInterviewDetailsComponent,
     AdminAddNewFieldStudyModalComponent,
     AdminDeclineInterviewModalComponent,
@@ -79,12 +85,16 @@ import {
     MatTabsModule,
     MatIconModule,
     MatMenuModule,
+    MatInputModule,
     MatButtonModule,
     MatSelectModule,
     MatFormFieldModule,
     AdminRoutingModule,
     ReactiveFormsModule,
     NgxAutoScrollModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    NgxMaterialTimepickerModule,
     BsDropdownModule.forRoot(),
     // EffectsModule.forFeature(Object.values(adminEffects)),
     StoreModule.forFeature(featureKeys.adminFeatureKey, fromAdmin.reducers),
