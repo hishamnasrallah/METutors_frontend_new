@@ -138,10 +138,14 @@ export const reducer = createReducer(
     showScheduleInterviewModal: true,
   })),
 
-  on(adminModalActions.closeAdminScheduleInterviewModal, (state) => ({
-    ...state,
-    showScheduleInterviewModal: false,
-  }))
+  on(
+    fromCore.scheduleInterviewRequestSuccess,
+    adminModalActions.closeAdminScheduleInterviewModal,
+    (state) => ({
+      ...state,
+      showScheduleInterviewModal: false,
+    })
+  )
 );
 
 // Admin modal selectors

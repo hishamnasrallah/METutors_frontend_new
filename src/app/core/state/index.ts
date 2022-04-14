@@ -611,6 +611,11 @@ export const selectIsSchedulingInterview = createSelector(
   fromInterviewReducer.selectIsSchedulingInterview
 );
 
+export const selectIsJoiningInterview = createSelector(
+  selectInterviewState,
+  fromInterviewReducer.selectIsJoiningInterview
+);
+
 // Requests
 export const selectEstimatedPrice = createSelector(
   selectRequestState,

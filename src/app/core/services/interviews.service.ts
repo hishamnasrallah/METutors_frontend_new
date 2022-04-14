@@ -79,6 +79,12 @@ export class InterviewsService {
       .pipe(catchError(this.errorHandler));
   }
 
+  joinInterview(id: number): Observable<any> {
+    return this.http
+      .get<any>(`${this.baseUrl}join-meeting/${id}`)
+      .pipe(catchError(this.errorHandler));
+  }
+
   errorHandler(error: HttpErrorResponse) {
     return throwError(error);
   }

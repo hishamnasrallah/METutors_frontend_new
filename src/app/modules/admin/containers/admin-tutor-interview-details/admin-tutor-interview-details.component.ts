@@ -18,6 +18,7 @@ export class AdminTutorInterviewDetailsComponent implements OnInit {
   isLoading$: Observable<boolean>;
   isDeclineRequest$: Observable<boolean>;
   isAcceptingRequest$: Observable<boolean>;
+  isJoiningInterview$: Observable<boolean>;
   isSchedulingRequest$: Observable<boolean>;
   interview$: Observable<IInterview | null>;
   showDeclineRequestModal$: Observable<boolean>;
@@ -54,6 +55,10 @@ export class AdminTutorInterviewDetailsComponent implements OnInit {
 
     this.isSchedulingRequest$ = this._store.select(
       fromCore.selectIsSchedulingInterview
+    );
+
+    this.isJoiningInterview$ = this._store.select(
+      fromCore.selectIsJoiningInterview
     );
   }
 
@@ -104,6 +109,10 @@ export class AdminTutorInterviewDetailsComponent implements OnInit {
   scheduleInterviewRequest(form: FormGroup): void {
     const body = form.value;
     this._store.dispatch(fromCore.scheduleInterviewRequest({ body }));
+  }
+
+  joinInterview(): void {
+    this._store.dispatch(fromCore.joinInterview());
   }
 
   private _prepareInterview(): void {

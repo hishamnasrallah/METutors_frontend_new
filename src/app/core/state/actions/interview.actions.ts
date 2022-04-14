@@ -81,3 +81,14 @@ export const scheduleInterviewRequestFailure = createAction(
   '[Interview] Schedule Interview Request Failure',
   props<{ error: any }>()
 );
+
+export const joinInterview = createAction('[Interview] Join Interview');
+
+export const joinInterviewSuccess = createAction(
+  '[Interview] Join Interview Success'
+);
+
+export const joinInterviewFailure = createAction(
+  '[Interview] Join Interview Failure',
+  props<{ error: any }>()
+);

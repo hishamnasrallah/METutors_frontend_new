@@ -142,6 +142,25 @@ export class InterviewEffects {
     )
   );
 
+  joinInterview$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(interviewActions.joinInterview),
+      withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
+      mergeMap(([_, { id }]) =>
+        this._interviewService.joinInterview(id).pipe(
+          map(() => interviewActions.joinInterviewSuccess()),
+          catchError((error) =>
+            of(
+              interviewActions.joinInterviewFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   acceptInterviewRequestSuccess$ = createEffect(
     () =>
       this._actions$.pipe(
@@ -149,7 +168,6 @@ export class InterviewEffects {
           ...[
             interviewActions.acceptInterviewRequestSuccess,
             interviewActions.declineInterviewRequestSuccess,
-            interviewActions.scheduleInterviewRequestSuccess,
           ]
         ),
         map(() => {
@@ -164,7 +182,13 @@ export class InterviewEffects {
   successMessages$ = createEffect(
     () =>
       this._actions$.pipe(
-        ofType(...[interviewActions.acceptInterviewRequestSuccess]),
+        ofType(
+          ...[
+            interviewActions.acceptInterviewRequestSuccess,
+            interviewActions.declineInterviewRequestSuccess,
+            interviewActions.scheduleInterviewRequestSuccess,
+          ]
+        ),
         map((action) => {
           if (action.message) {
             return this._alertNotificationService.success(action.message);
