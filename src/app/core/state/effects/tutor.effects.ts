@@ -9,7 +9,7 @@ import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 import { TutorsService } from '@services';
 import { environment } from '@environment';
 import * as fromRouterStore from '@metutor/state';
-import { selectTutorDashboard, selectTutors } from '..';
+import { selectTutorDashboard, selectTutors, selectProfileTutor } from '..';
 import * as tutorActions from '../actions/tutor.actions';
 import { AlertNotificationService } from '@metutor/core/components';
 
@@ -97,6 +97,33 @@ export class TutorEffects {
           )
         )
       )
+    )
+  );
+
+  loadProfileTutor$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorActions.loadProfileTutor),
+      withLatestFrom(this._store.select(selectProfileTutor)),
+      mergeMap(([_, _profile]) => {
+        if (!_profile) {
+          return this._tutorService.getProfileTutor().pipe(
+            map((tutor) =>
+              tutorActions.loadProfileTutorSuccess({
+                tutor,
+              })
+            ),
+            catchError((error) =>
+              of(
+                tutorActions.loadProfileTutorFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          );
+        } else {
+          return of(tutorActions.loadProfileTutorEnded());
+        }
+      })
     )
   );
 

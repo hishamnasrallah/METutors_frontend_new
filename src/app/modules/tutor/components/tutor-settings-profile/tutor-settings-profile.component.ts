@@ -40,14 +40,15 @@ export class TutorSettingsProfileComponent implements OnInit {
       });
 
       this.qualificationForm?.patchValue({
-        nameOfUniversity: _tutor?.nameOfUniversity,
-        computerSkills: _tutor?.computerSkills,
-        degreeLevel: _tutor?.degreeLevel,
-        teachingExperience: _tutor?.teachingExperience,
-        degreeField: _tutor?.degreeField,
-        teachingExperienceOnline: _tutor?.teachingExperienceOnline,
-        currentEmployer: _tutor?.currentEmployer,
-        currentTitle: _tutor?.currentTitle,
+        nameOfUniversity: _tutor?.qualifications?.nameOfUniversity,
+        computerSkills: _tutor?.qualifications?.computerSkills,
+        degreeLevel: _tutor?.qualifications?.degreeLevel,
+        teachingExperience: _tutor?.qualifications?.teachingExperience,
+        degreeField: _tutor?.qualifications?.degreeField,
+        teachingExperienceOnline:
+          _tutor?.qualifications?.teachingExperienceOnline,
+        currentEmployer: _tutor?.qualifications?.currentEmployer,
+        currentTitle: _tutor?.qualifications?.currentTitle,
       });
     }
   }

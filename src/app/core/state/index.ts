@@ -183,6 +183,16 @@ export const selectIsLoadingTutor = createSelector(
   fromTutorReducer.selectIsLoadingTutor
 );
 
+export const selectProfileTutor = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectProfileTutor
+);
+
+export const selectIsLoadingProfileTutor = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectIsLoadingProfileTutor
+);
+
 export const selectTutors = createSelector(
   selectTutorState,
   fromTutorReducer.selectTutors

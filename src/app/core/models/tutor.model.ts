@@ -37,14 +37,6 @@ export class ITutor {
   gender?: string;
   nationality?: string;
   postalCode?: string;
-  nameOfUniversity?: string;
-  computerSkills?: string;
-  degreeLevel?: string;
-  teachingExperience?: string;
-  degreeField?: string;
-  teachingExperienceOnline?: string;
-  currentEmployer?: string;
-  currentTitle?: string;
 
   rate?: number;
   badges?: any[];
@@ -101,14 +93,6 @@ export class ITutor {
       this.alwaysOnTimeRate = 0;
       this.reviews = [];
       this.postalCode = '';
-      this.nameOfUniversity = '';
-      this.computerSkills = '';
-      this.degreeLevel = '';
-      this.teachingExperience = '';
-      this.degreeField = '';
-      this.teachingExperienceOnline = '';
-      this.currentEmployer = '';
-      this.currentTitle = '';
     }
 
     if (tutor) {
@@ -165,14 +149,6 @@ export class ITutor {
       this.city = tutor?.city || '';
       this.gender = tutor?.gender || '';
       this.nationality = tutor?.nationality || '';
-      this.nameOfUniversity = tutor?.name_of_university || '';
-      this.computerSkills = tutor?.computer_skills || '';
-      this.degreeLevel = tutor?.degree_level || '';
-      this.teachingExperience = tutor?.teaching_experience || '';
-      this.degreeField = tutor?.degree_field || '';
-      this.teachingExperienceOnline = tutor?.teaching_experience_online || '';
-      this.currentEmployer = tutor?.current_employer || '';
-      this.currentTitle = tutor?.current_title || '';
 
       this.badges = tutor?.badges || [];
       this.rate = tutor?.rate || 0;
