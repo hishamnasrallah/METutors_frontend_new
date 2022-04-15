@@ -943,3 +943,13 @@ export const selectIsLoadingAdminDocuments = createSelector(
   selectAdminState,
   fromAdminReducer.selectIsLoadingAdminDocs
 );
+
+export const selectIsRejectingAdminDocs = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectIsRejectingAdminDocs
+);
+
+export const selectIsApprovingAdminDocs = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectIsApprovingAdminDocs
+);

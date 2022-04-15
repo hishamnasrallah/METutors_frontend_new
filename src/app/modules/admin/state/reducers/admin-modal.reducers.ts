@@ -67,10 +67,15 @@ export const reducer = createReducer(
     })
   ),
 
-  on(adminModalActions.openAdminInterviewAttachmentModal, (state) => ({
-    ...state,
-    showInterviewAttachmentModal: true,
-  })),
+  on(
+    fromCore.adminRejectDocumentSuccess,
+    fromCore.adminApproveDocumentSuccess,
+    adminModalActions.openAdminInterviewAttachmentModal,
+    (state) => ({
+      ...state,
+      showInterviewAttachmentModal: true,
+    })
+  ),
 
   on(adminModalActions.closeAdminInterviewAttachmentModal, (state) => ({
     ...state,

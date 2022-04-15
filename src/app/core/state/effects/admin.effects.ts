@@ -14,7 +14,7 @@ import { AlertNotificationService } from '@metutor/core/components';
 
 @Injectable()
 export class AdminEffects {
-  loadInterviews$ = createEffect(() =>
+  loadAdminDocuments$ = createEffect(() =>
     this._actions$.pipe(
       ofType(adminActions.loadAdminDocuments),
       withLatestFrom(
@@ -46,15 +46,62 @@ export class AdminEffects {
       })
     )
   );
-  /*
+
+  adminApproveDocument$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(adminActions.adminApproveDocument),
+      mergeMap(({ id }) =>
+        this._adminService.adminApproveDocument(id).pipe(
+          map(
+            (documents) =>
+              adminActions.adminApproveDocumentSuccess({
+                id,
+                message: 'Document Approved successfully',
+              }),
+            catchError((error) =>
+              of(
+                adminActions.adminApproveDocumentFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          )
+        )
+      )
+    )
+  );
+
+  adminRejectDocument$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(adminActions.adminRejectDocument),
+      mergeMap(({ id }) =>
+        this._adminService.adminRejectDocument(id).pipe(
+          map(
+            (documents) =>
+              adminActions.adminRejectDocumentSuccess({
+                id,
+                message: 'Document rejected successfully',
+              }),
+            catchError((error) =>
+              of(
+                adminActions.adminRejectDocumentFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          )
+        )
+      )
+    )
+  );
+
   successMessages$ = createEffect(
     () =>
       this._actions$.pipe(
         ofType(
           ...[
-            interviewActions.acceptInterviewRequestSuccess,
-            interviewActions.declineInterviewRequestSuccess,
-            interviewActions.scheduleInterviewRequestSuccess,
+            adminActions.adminRejectDocumentSuccess,
+            adminActions.adminApproveDocumentSuccess,
           ]
         ),
         map((action) => this._alertNotificationService.success(action.message))
@@ -67,9 +114,15 @@ export class AdminEffects {
   failureMessages$ = createEffect(
     () =>
       this._actions$.pipe(
-        ofType(...[]),
+        ofType(
+          ...[
+            adminActions.adminRejectDocumentFailure,
+            adminActions.adminApproveDocumentFailure,
+          ]
+        ),
         map((action) => {
-          if (action.error) {
+          console.log('action', action);
+          if (action?.error) {
             return this._alertNotificationService.error(action.error);
           } else {
             return this._alertNotificationService.error(
@@ -81,7 +134,7 @@ export class AdminEffects {
     {
       dispatch: false,
     }
-  );*/
+  );
 
   constructor(
     private _router: Router,

@@ -43,5 +43,8 @@
 
 <metutors-admin-tutor-interview-attachment-modal *ngIf="showInterviewAttachmentModal$ | async" [docUrl]="docUrl"
                                                  (closeModal)="onCloseInterviewAttachmentModal()"
+                                                 [isApproving]="(isApproving$ | async)!"
+                                                 [isRejecting]="(isRejecting$ | async)!"
+                                                 (rejectDoc)="onRejectDoc()" (approveDoc)="onApproveDoc()"
                                                  [showModal]="(showInterviewAttachmentModal$ | async)!">
 </metutors-admin-tutor-interview-attachment-modal>

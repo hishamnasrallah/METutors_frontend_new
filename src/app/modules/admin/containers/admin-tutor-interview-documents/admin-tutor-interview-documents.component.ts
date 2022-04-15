@@ -16,8 +16,11 @@ import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 export class AdminTutorInterviewDocumentsComponent implements OnInit {
   showInterviewAttachmentModal$: Observable<boolean>;
 
+  isRejecting$: Observable<boolean>;
+  isApproving$: Observable<boolean>;
   view$: Observable<{ documents: any; loading: boolean }>;
 
+  docId: number;
   docUrl: string;
   constructor(private _store: Store<any>) {}
 
@@ -27,13 +30,27 @@ export class AdminTutorInterviewDocumentsComponent implements OnInit {
       fromAdmin.selectIsInterviewAttachmentModal
     );
 
+    this.isApproving$ = this._store.select(fromCore.selectIsApprovingAdminDocs);
+    this.isRejecting$ = this._store.select(fromCore.selectIsRejectingAdminDocs);
+
     this.view$ = combineLatest([
       this._store.select(fromCore.selectAdminDocuments),
       this._store.select(fromCore.selectIsLoadingAdminDocuments),
     ]).pipe(map(([documents, loading]) => ({ loading, documents })));
   }
 
+  onRejectDoc(): void {
+    const id = this.docId;
+    this._store.dispatch(fromCore.adminRejectDocument({ id }));
+  }
+
+  onApproveDoc(): void {
+    const id = this.docId;
+    this._store.dispatch(fromCore.adminApproveDocument({ id }));
+  }
+
   onOpenInterviewAttachmentModal(document: any) {
+    this.docId = document.id;
     this.docUrl = document.value;
     this._store.dispatch(fromAdminAction.openAdminInterviewAttachmentModal());
   }
