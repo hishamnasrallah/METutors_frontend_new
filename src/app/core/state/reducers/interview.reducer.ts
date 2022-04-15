@@ -1,6 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { IInterview } from '@models';
 import * as interviewActions from '../actions/interview.actions';
+import { InterviewStatus } from '@config';
 
 export interface State {
   // Loading Interviews
@@ -121,10 +122,29 @@ export const reducer = createReducer(
     isSchedulingInterview: true,
   })),
 
-  on(interviewActions.scheduleInterviewRequestSuccess, (state) => ({
-    ...state,
-    isSchedulingInterview: false,
-  })),
+  on(interviewActions.scheduleInterviewRequestSuccess, (state, { id }) => {
+    const finalState = {
+      ...state,
+      isSchedulingInterview: false,
+    };
+
+    if (finalState.interview) {
+      finalState.interview = {
+        ...finalState.interview,
+        status: InterviewStatus.scheduled,
+      };
+    }
+
+    if (finalState.interviews && finalState.interviews?.length) {
+      finalState.interviews = finalState.interviews.map((interview) =>
+        interview.id === id
+          ? { ...interview, status: InterviewStatus.scheduled }
+          : { ...interview }
+      );
+    }
+
+    return finalState;
+  }),
 
   on(interviewActions.scheduleInterviewRequestFailure, (state) => ({
     ...state,
@@ -186,8 +206,11 @@ export const selectFilteredInterviews = (
 
 const getFilteredInterviews = (interviews: IInterview[], props: any) => {
   if (props?.status) {
-    interviews = interviews?.filter(
-      (interview) => interview?.status === props.status
+    interviews = interviews?.filter((interview) =>
+      props.status === InterviewStatus.pending
+        ? interview?.status === props.status ||
+          interview?.status === InterviewStatus.scheduled
+        : interview?.status === props.status
     );
   }
 

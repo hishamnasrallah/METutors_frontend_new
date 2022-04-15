@@ -123,21 +123,24 @@ export class InterviewEffects {
     this._actions$.pipe(
       ofType(interviewActions.scheduleInterviewRequest),
       withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
-      mergeMap(([{ body }, { id }]) =>
-        this._interviewService.scheduleInterviewRequest(id, body).pipe(
-          map(() =>
-            interviewActions.scheduleInterviewRequestSuccess({
-              message: 'Interview request successfully sent',
-            })
-          ),
-          catchError((error) =>
-            of(
-              interviewActions.scheduleInterviewRequestFailure({
-                error: error?.error?.message || error?.error?.errors,
+      mergeMap(([{ body, interviewId }, { id }]) =>
+        this._interviewService
+          .scheduleInterviewRequest(id || interviewId, body)
+          .pipe(
+            map(() =>
+              interviewActions.scheduleInterviewRequestSuccess({
+                id: id || interviewId,
+                message: 'Interview request successfully sent',
               })
+            ),
+            catchError((error) =>
+              of(
+                interviewActions.scheduleInterviewRequestFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
             )
           )
-        )
       )
     )
   );
@@ -146,9 +149,15 @@ export class InterviewEffects {
     this._actions$.pipe(
       ofType(interviewActions.joinInterview),
       withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
-      mergeMap(([_, { id }]) =>
-        this._interviewService.joinInterview(id).pipe(
-          map(() => interviewActions.joinInterviewSuccess()),
+      mergeMap(([{ interviewId }, { id }]) =>
+        this._interviewService.joinInterview(id || interviewId).pipe(
+          map((result) => {
+            if (result?.meeting_url) {
+              window.open(result.meeting_url, '_blank');
+            }
+
+            return interviewActions.joinInterviewSuccess();
+          }),
           catchError((error) =>
             of(
               interviewActions.joinInterviewFailure({
@@ -209,6 +218,7 @@ export class InterviewEffects {
       this._actions$.pipe(
         ofType(
           ...[
+            interviewActions.joinInterviewFailure,
             interviewActions.loadInterviewsFailure,
             interviewActions.acceptInterviewRequestFailure,
             interviewActions.declineInterviewRequestFailure,

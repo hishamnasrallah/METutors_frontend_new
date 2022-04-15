@@ -27,7 +27,7 @@
                   Submitted Documents
                 </a>
                 <a class="send-link cursor-pointer" *ngIf="interview.status === 'pending'" (click)="onOpenScheduleInterviewModal(interview)">Schedule Interview</a>
-                <ng-container>
+                <ng-container *ngIf="interview.status === 'scheduled'">
                   <ng-container [ngSwitch]="isJoiningInterview$ | async">
                     <span *ngSwitchCase="true" class="joining-interview">Join Interview</span>
                     <a class="send-link cursor-pointer" *ngSwitchCase="false" (click)="joinInterview()">Join Interview</a>
@@ -220,7 +220,7 @@
                   <bdi>{{ interview?.additionalComments }}</bdi>
                 </p>
               </ng-container>
- 
+
               <div class="actions d-flex justify-content-end" *ngIf="interview?.status === interviewStatus.pending">
                 <button mat-button class="fw-bold me-3 decline"  (click)="onOpenDeclineInterviewModal()">Decline</button>
                 <button mat-flat-button color="primary" class="fw-bold" (click)="onOpenHourlyRatePerSubjectModal()">

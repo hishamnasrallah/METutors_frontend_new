@@ -2,6 +2,7 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as fromCore from '@metutor/core/state';
 import { Component, OnInit } from '@angular/core';
+
 import { InterviewStatus } from '@metutor/config';
 import * as fromAdmin from '@metutor/modules/admin/state';
 import { IInterview, IInterviewFilters } from '@metutor/core/models';
@@ -13,9 +14,11 @@ import * as fromAdminAction from '@metutor/modules/admin/state/actions';
   styleUrls: ['./admin-tutor-interview.component.scss'],
 })
 export class AdminTutorInterviewComponent implements OnInit {
+  interviewId: number;
   isLoading$: Observable<boolean>;
+  isSchedulingRequest$: Observable<boolean>;
   interviews$: Observable<IInterview[] | null>;
-  showSendMeetingLinkModal$: Observable<boolean>;
+  showScheduleInterviewModal$: Observable<boolean>;
 
   title: string;
   status: string;
@@ -24,8 +27,13 @@ export class AdminTutorInterviewComponent implements OnInit {
 
   ngOnInit(): void {
     this._prepareInterviews();
-    this.showSendMeetingLinkModal$ = this._store.select(
-      fromAdmin.selectIsSendMeetingLinkModal
+
+    this.showScheduleInterviewModal$ = this._store.select(
+      fromAdmin.selectScheduleInterviewModal
+    );
+
+    this.isSchedulingRequest$ = this._store.select(
+      fromCore.selectIsSchedulingInterview
     );
   }
 
@@ -64,12 +72,25 @@ export class AdminTutorInterviewComponent implements OnInit {
     });
   }
 
-  onOpenSendMeetingLinkModal() {
-    this._store.dispatch(fromAdminAction.openAdminSendMeetingLinkModal());
+  onOpenScheduleInterviewModal(data: any) {
+    if (data.joinInterview) {
+      const interviewId = data.id;
+      this._store.dispatch(fromCore.joinInterview({ interviewId }));
+    } else {
+      this.interviewId = data.id;
+      this._store.dispatch(fromAdminAction.openAdminScheduleInterviewModal());
+    }
   }
 
-  onCloseSendMeetingLinkModal() {
-    this._store.dispatch(fromAdminAction.closeAdminSendMeetingLinkModal());
+  onCloseScheduleInterviewModal() {
+    this._store.dispatch(fromAdminAction.closeAdminScheduleInterviewModal());
+  }
+
+  scheduleInterviewRequest(body: any): void {
+    const interviewId = this.interviewId;
+    this._store.dispatch(
+      fromCore.scheduleInterviewRequest({ interviewId, body })
+    );
   }
 
   private _prepareInterviews(): void {

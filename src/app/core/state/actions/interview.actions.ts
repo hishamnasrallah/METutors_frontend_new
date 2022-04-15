@@ -69,12 +69,12 @@ export const declineInterviewRequestFailure = createAction(
 
 export const scheduleInterviewRequest = createAction(
   '[Interview] Schedule Interview Request',
-  props<{ body: any }>()
+  props<{ interviewId?: number; body: any }>()
 );
 
 export const scheduleInterviewRequestSuccess = createAction(
   '[Interview] Schedule Interview Request Success',
-  props<{ message: string }>()
+  props<{ id: number; message: string }>()
 );
 
 export const scheduleInterviewRequestFailure = createAction(
@@ -82,7 +82,10 @@ export const scheduleInterviewRequestFailure = createAction(
   props<{ error: any }>()
 );
 
-export const joinInterview = createAction('[Interview] Join Interview');
+export const joinInterview = createAction(
+  '[Interview] Join Interview',
+  props<{ interviewId?: number }>()
+);
 
 export const joinInterviewSuccess = createAction(
   '[Interview] Join Interview Success'

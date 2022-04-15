@@ -21,9 +21,9 @@
         <mat-tab label="New">
           <div class="mt-2 px-1">
             <ng-container *ngIf="!(isLoading$ | async)">
-              <metutors-interview-card *ngFor="let interview of interviews$ | async" 
-                                       [interview]="interview" 
-                                       (sendMeetingLink)="onOpenSendMeetingLinkModal()">
+              <metutors-interview-card *ngFor="let interview of interviews$ | async"
+                                       [interview]="interview"
+                                       (scheduleInterview)="onOpenScheduleInterviewModal($event)">
               </metutors-interview-card>
 
               <div class="text-center py-5 no-data" *ngIf="!(interviews$ | async) || !(interviews$ | async)?.length">
@@ -43,9 +43,9 @@
         <mat-tab label="Approved">
           <div class="mt-2 px-1">
             <ng-container *ngIf="!(isLoading$ | async)">
-              <metutors-interview-card *ngFor="let interview of interviews$ | async" 
-                                       [interview]="interview" 
-                                       (sendMeetingLink)="onOpenSendMeetingLinkModal()">
+              <metutors-interview-card *ngFor="let interview of interviews$ | async"
+                                       [interview]="interview"
+                                       (scheduleInterview)="onOpenScheduleInterviewModal($event)">
               </metutors-interview-card>
 
               <div class="text-center py-5 no-data" *ngIf="!(interviews$ | async) || !(interviews$ | async)?.length">
@@ -65,9 +65,9 @@
         <mat-tab label="Rejected">
           <div class="mt-2 px-1">
             <ng-container *ngIf="!(isLoading$ | async)">
-              <metutors-interview-card *ngFor="let interview of interviews$ | async" 
-                                       [interview]="interview" 
-                                       (sendMeetingLink)="onOpenSendMeetingLinkModal()">
+              <metutors-interview-card *ngFor="let interview of interviews$ | async"
+                                       [interview]="interview"
+                                       (scheduleInterview)="onOpenScheduleInterviewModal($event)">
               </metutors-interview-card>
 
               <div class="text-center py-5 no-data" *ngIf="!(interviews$ | async) || !(interviews$ | async)?.length">
@@ -89,7 +89,9 @@
   </div>
 </div>
 
-<metutors-admin-send-meeting-link-modal *ngIf="showSendMeetingLinkModal$ | async"
-                                        (closeModal)="onCloseSendMeetingLinkModal()"
-                                        [showModal]="(showSendMeetingLinkModal$ | async)!">
-</metutors-admin-send-meeting-link-modal>
+<metutors-admin-schedule-interview-modal *ngIf="showScheduleInterviewModal$ | async"
+                                         [isSchedulingRequest]="(isSchedulingRequest$ | async)!"
+                                         (closeModal)="onCloseScheduleInterviewModal()"
+                                         (submitted)="scheduleInterviewRequest($event)"
+                                         [showModal]="(showScheduleInterviewModal$ | async)!">
+</metutors-admin-schedule-interview-modal>

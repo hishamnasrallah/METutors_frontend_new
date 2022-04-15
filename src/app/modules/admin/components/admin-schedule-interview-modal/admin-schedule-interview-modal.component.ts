@@ -1,3 +1,4 @@
+import * as moment from 'moment';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import {
@@ -25,11 +26,24 @@ export class AdminScheduleInterviewModalComponent implements OnInit {
 
   constructor(private _fb: FormBuilder) {}
 
+  get date(): AbstractControl | null {
+    return this.form.get('date');
+  }
+
+  onSubmit(): void {
+    const body = {
+      ...this.form.value,
+      date: moment(this.date?.value).format('Y-MM-DD'),
+    };
+
+    this.submitted.emit(body);
+  }
+
   ngOnInit(): void {
     this.form = this._fb.group({
-      date: [this.data.date, [Validators.required]],
       end_time: [null, [Validators.required]],
-      start_time: [this.data.time, [Validators.required]],
+      date: [this.data?.date, [Validators.required]],
+      start_time: [this.data?.time, [Validators.required]],
     });
   }
 }

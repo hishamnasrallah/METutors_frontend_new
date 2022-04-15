@@ -1,13 +1,13 @@
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { FormGroup } from '@angular/forms';
-import * as fromCore from '@metutor/core/state';
 import { Component, OnInit } from '@angular/core';
+
+import * as fromCore from '@metutor/core/state';
 import { IInterview } from '@metutor/core/models';
-import { generalConstants, InterviewStatus } from '@metutor/config';
 import * as fromAdmin from '@metutor/modules/admin/state';
+import { generalConstants, InterviewStatus } from '@metutor/config';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
-import { selectIsSchedulingInterview } from '@metutor/core/state';
 
 @Component({
   selector: 'metutors-admin-tutor-interview-details',
@@ -106,13 +106,12 @@ export class AdminTutorInterviewDetailsComponent implements OnInit {
     }
   }
 
-  scheduleInterviewRequest(form: FormGroup): void {
-    const body = form.value;
+  scheduleInterviewRequest(body: any): void {
     this._store.dispatch(fromCore.scheduleInterviewRequest({ body }));
   }
 
   joinInterview(): void {
-    this._store.dispatch(fromCore.joinInterview());
+    this._store.dispatch(fromCore.joinInterview({}));
   }
 
   private _prepareInterview(): void {

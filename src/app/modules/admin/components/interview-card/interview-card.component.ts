@@ -10,7 +10,7 @@ import { IInterview } from '@metutor/core/models';
 export class InterviewCardComponent implements OnInit {
   @Input() interview: IInterview;
 
-  @Output() sendMeetingLink: EventEmitter<number> = new EventEmitter<number>();
+  @Output() scheduleInterview: EventEmitter<any> = new EventEmitter<any>();
 
   interviewStatus = InterviewStatus;
 

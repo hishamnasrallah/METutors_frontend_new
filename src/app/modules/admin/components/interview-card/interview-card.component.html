@@ -18,13 +18,19 @@
       </div>
       <div class="col-md-8 d-flex justify-content-end align-items-center">
         <a class="cursor-pointer send-link" *ngIf="interview.status === interviewStatus.pending"
-          (click)="sendMeetingLink.emit(interview?.id)">
-          Send Meeting Link
+          (click)="scheduleInterview.emit({id: interview?.id, joinInterview: false})">
+          Schedule Interview
+        </a>
+
+        <a class="cursor-pointer send-link" *ngIf="interview.status === interviewStatus.scheduled"
+          (click)="scheduleInterview.emit({id: interview?.id, joinInterview: true})">
+          Join Interview
         </a>
         <span class="status-icon text-capitalize" [ngClass]="{
             'pending': interview.status === interviewStatus.pending,
             'accepted': interview.status === interviewStatus.approved,
-            'rejected': interview.status === interviewStatus.rejected
+            'rejected': interview.status === interviewStatus.rejected,
+            'scheduled': interview.status === interviewStatus.scheduled
         }">{{ interview.status }}</span>
       </div>
     </div>

@@ -44,6 +44,11 @@
         color: #FF8300;
       }
 
+      &.scheduled {
+        background-color: rgba(0, 178, 255, 0.15);
+        color: #3bb3c1;
+      }
+
       &.accepted {
         background-color: rgb(80 195 148 / 15%);
         color: #50C394;
