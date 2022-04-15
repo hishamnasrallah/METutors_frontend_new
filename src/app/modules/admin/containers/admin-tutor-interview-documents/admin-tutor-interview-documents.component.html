@@ -1,77 +1,47 @@
 <div class="interview-documents">
   <div class="card">
-    <div class="card-body">
+    <div class="card-body" *ngLet="(view$ | async) as view">
       <h2>Submitted Documents</h2>
 
       <h3>Educational</h3>
 
       <div class="items d-flex flex-wrap">
-        <div class="item text-center">
-          <h4>Document 1</h4>
-          <div class="content position-relative rounded overflow-hidden">
-            <img src="assets/about/meeting.png" alt="">
-            <button (click)="onOpenInterviewAttachmentModal()"
-              class="d-flex align-items-center justify-content-center fw-bold">
-              <mat-icon>zoom_in</mat-icon>
-              Preview
-            </button>
-          </div>
-          <h5 class="pending">Pending Approval</h5>
-        </div>
-        <div class="item text-center">
-          <h4>Document 2</h4>
-          <div class="content position-relative rounded overflow-hidden">
-            <img src="assets/about/meeting.png" alt="">
-            <button (click)="onOpenInterviewAttachmentModal()"
-              class="d-flex align-items-center justify-content-center fw-bold">
-              <mat-icon>zoom_in</mat-icon>
-              Preview
-            </button>
-          </div>
-          <h5 class="approved">Approval</h5>
-        </div>
-        <div class="item text-center">
-          <h4>Document 3</h4>
-          <div class="content position-relative rounded overflow-hidden">
-            <img src="assets/about/meeting.png" alt="">
-            <button (click)="onOpenInterviewAttachmentModal()"
-              class="d-flex align-items-center justify-content-center fw-bold">
-              <mat-icon>zoom_in</mat-icon>
-              Preview
-            </button>
-          </div>
-          <h5 class="rejected">Rejected</h5>
-        </div>
-        <div class="item text-center">
-          <h4>Document 4</h4>
-          <div class="content position-relative rounded overflow-hidden">
-            <img src="assets/about/meeting.png" alt="">
-            <button (click)="onOpenInterviewAttachmentModal()"
-              lass="d-flex align-items-center justify-content-center fw-bold">
-              <mat-icon>zoom_in</mat-icon>
-              Preview
-            </button>
-          </div>
-          <h5 class="pending">Pending Approval</h5>
-        </div>
-        <div class="item text-center">
-          <h4>Document 5</h4>
-          <div class="content position-relative rounded overflow-hidden">
-            <img src="assets/about/meeting.png" alt="">
-            <button (click)="onOpenInterviewAttachmentModal()"
-              class="d-flex align-items-center justify-content-center fw-bold">
-              <mat-icon>zoom_in</mat-icon>
-              Preview
-            </button>
-          </div>
-          <h5 class="rejected">Rejected</h5>
-        </div>
+        <ng-container [ngSwitch]="view.loading">
+          <ng-container *ngSwitchCase="true">
+            <div class="col-md-3 bcx" *ngFor="let _ of [1,2,3,4]">
+              <div class="ph-col-3">
+                <div class="ph-avatar rounded"></div>
+              </div>
+            </div>
+          </ng-container>
+
+          <ng-container *ngSwitchCase="false">
+            <ng-container *ngIf="!view.documents?.length">
+              <div class="col-md-12 text-center p-3">No Record Found!</div>
+            </ng-container>
+
+            <ng-container *ngIf="view.documents && view.documents?.length">
+              <div class="item text-center" *ngFor="let document of view.documents; let i = index">
+                <h4>Document {{ i+ 1}}</h4>
+                <div class="content position-relative rounded overflow-hidden">
+                  <img src="assets/about/meeting.png" alt="">
+                  <button (click)="onOpenInterviewAttachmentModal(document)"
+                          class="d-flex align-items-center justify-content-center fw-bold">
+                    <mat-icon>zoom_in</mat-icon>
+                    Preview
+                  </button>
+                </div>
+                <h5 class="pending">Pending Approval</h5>
+              </div>
+            </ng-container>
+          </ng-container>
+        </ng-container>
       </div>
     </div>
   </div>
 </div>
 
-<metutors-admin-tutor-interview-attachment-modal *ngIf="showInterviewAttachmentModal$ | async"
-                                                 (closeModal)="onCloseInterviewAttachmentModal()" 
+<metutors-admin-tutor-interview-attachment-modal *ngIf="showInterviewAttachmentModal$ | async" [docUrl]="docUrl"
+                                                 (closeModal)="onCloseInterviewAttachmentModal()"
                                                  [showModal]="(showInterviewAttachmentModal$ | async)!">
 </metutors-admin-tutor-interview-attachment-modal>

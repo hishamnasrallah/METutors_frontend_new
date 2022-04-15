@@ -1,6 +1,6 @@
-<metutors-modal [showModal]="showModal" [size]="'medium'" [template]="template" [showHeader]="false">
+<metutors-modal [showModal]="showModal" [size]="'medium'" [template]="template" (closeModal)="closeModal.emit()">
   <ng-template #template>
-    <img src="assets/about/meeting.png" alt="" class="w-100">
+    <ngx-doc-viewer [viewer]="viewer" [url]="filePath+docUrl" style="width:100%;height:100vh;"></ngx-doc-viewer>
 
     <div class="actions d-flex justify-content-center mt-4">
       <button mat-button class="fw-bold me-3 decline" (click)="closeModal.emit()">Rejected</button>

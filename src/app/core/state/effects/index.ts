@@ -1,5 +1,6 @@
 export * from './user.effects';
 export * from './tutor.effects';
+export * from './admin.effects';
 export * from './upload.effects';
 export * from './ticket.effects';
 export * from './course.effects';

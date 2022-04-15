@@ -1,5 +1,6 @@
 export * from './user.actions';
 export * from './tutor.actions';
+export * from './admin.actions';
 export * from './course.actions';
 export * from './ticket.actions';
 export * from './upload.actions';

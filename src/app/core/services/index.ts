@@ -1,6 +1,7 @@
 export * from './auth.service';
 export * from './misc.service';
 export * from './users.service';
+export * from './admin.service';
 export * from './contact.service';
 export * from './tutors.service';
 export * from './upload.service';

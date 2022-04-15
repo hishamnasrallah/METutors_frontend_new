@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { combineLatest } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
+
+import * as fromCore from '@metutor/core/state';
 import * as fromAdmin from '@metutor/modules/admin/state';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 
@@ -12,15 +16,25 @@ import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 export class AdminTutorInterviewDocumentsComponent implements OnInit {
   showInterviewAttachmentModal$: Observable<boolean>;
 
+  view$: Observable<{ documents: any; loading: boolean }>;
+
+  docUrl: string;
   constructor(private _store: Store<any>) {}
 
   ngOnInit(): void {
+    this._store.dispatch(fromCore.loadAdminDocuments());
     this.showInterviewAttachmentModal$ = this._store.select(
       fromAdmin.selectIsInterviewAttachmentModal
     );
+
+    this.view$ = combineLatest([
+      this._store.select(fromCore.selectAdminDocuments),
+      this._store.select(fromCore.selectIsLoadingAdminDocuments),
+    ]).pipe(map(([documents, loading]) => ({ loading, documents })));
   }
 
-  onOpenInterviewAttachmentModal() {
+  onOpenInterviewAttachmentModal(document: any) {
+    this.docUrl = document.value;
     this._store.dispatch(fromAdminAction.openAdminInterviewAttachmentModal());
   }
 

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { NgxAutoScrollModule } from 'ngx-auto-scroll';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -90,13 +91,14 @@ import {
     MatSelectModule,
     MatFormFieldModule,
     AdminRoutingModule,
+    NgxDocViewerModule,
     ReactiveFormsModule,
     NgxAutoScrollModule,
     MatDatepickerModule,
     MatNativeDateModule,
     NgxMaterialTimepickerModule,
-    BsDropdownModule.forRoot(),
     // EffectsModule.forFeature(Object.values(adminEffects)),
+    BsDropdownModule.forRoot(),
     StoreModule.forFeature(featureKeys.adminFeatureKey, fromAdmin.reducers),
   ],
 })

@@ -23,7 +23,7 @@
             </div>
             <div class="col-md-6">
               <div class="d-flex justify-content-end actions-interview">
-                <a class="submit-document" [routerLink]="['/admin', 'tutor', 'interview', 'details', '1', 'documents']">
+                <a class="submit-document" [routerLink]="['/admin', 'tutor', 'interview', 'details',  interview?.tutor?.id, 'documents']">
                   Submitted Documents
                 </a>
                 <a class="send-link cursor-pointer" *ngIf="interview.status === 'pending'" (click)="onOpenScheduleInterviewModal(interview)">Schedule Interview</a>

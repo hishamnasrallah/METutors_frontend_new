@@ -10,6 +10,7 @@ import * as fromRoot from '@metutor/state';
 import * as featureKeys from './feature-keys';
 
 import * as fromUserReducer from './reducers/user.reducer';
+import * as fromAdminReducer from './reducers/admin.reducer';
 import * as fromTutorReducer from './reducers/tutor.reducer';
 import * as fromCourseReducer from './reducers/course.reducer';
 import * as fromTicketReducer from './reducers/ticket.reducer';
@@ -25,6 +26,7 @@ import * as fromTutorAssignmentReducer from './reducers/tutor-assignment.reducer
 export interface CoreState {
   [featureKeys.userFeatureKey]: fromUserReducer.State;
   [featureKeys.tutorFeatureKey]: fromTutorReducer.State;
+  [featureKeys.adminFeatureKey]: fromAdminReducer.State;
   [featureKeys.courseFeatureKey]: fromCourseReducer.State;
   [featureKeys.ticketFeatureKey]: fromTicketReducer.State;
   [featureKeys.uploadFeatureKey]: fromUploadReducer.State;
@@ -41,6 +43,7 @@ export function reducers(state: CoreState, action: Action) {
   return combineReducers({
     [featureKeys.userFeatureKey]: fromUserReducer.reducer,
     [featureKeys.tutorFeatureKey]: fromTutorReducer.reducer,
+    [featureKeys.adminFeatureKey]: fromAdminReducer.reducer,
     [featureKeys.courseFeatureKey]: fromCourseReducer.reducer,
     [featureKeys.ticketFeatureKey]: fromTicketReducer.reducer,
     [featureKeys.uploadFeatureKey]: fromUploadReducer.reducer,
@@ -117,6 +120,11 @@ export const selectInterviewState = createSelector(
 export const selectUploadState = createSelector(
   selectCoreState,
   (state) => state[featureKeys.uploadFeatureKey]
+);
+
+export const selectAdminState = createSelector(
+  selectCoreState,
+  (state) => state[featureKeys.adminFeatureKey]
 );
 
 // User
@@ -923,4 +931,15 @@ export const selectFileUploadingProgress = createSelector(
 export const selectIsDeletingFile = createSelector(
   selectUploadState,
   fromUploadReducer.selectIsDeletingFile
+);
+
+// Admin selectors
+export const selectAdminDocuments = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectAdminDocuments
+);
+
+export const selectIsLoadingAdminDocuments = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectIsLoadingAdminDocs
 );
