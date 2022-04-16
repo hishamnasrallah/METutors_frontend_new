@@ -1,11 +1,12 @@
-import { generalConstants, GRADES } from 'src/app/config';
+import { generalConstants, GRADES, InterviewStatus } from 'src/app/config';
 import { environment } from 'src/environments/environment';
 import {
-  IAvailability,
+  ISubject,
   ILanguage,
+  IInterview,
+  IAvailability,
   IQualification,
   ISpecification,
-  ISubject,
 } from '.';
 
 export class ITutor {
@@ -38,6 +39,7 @@ export class ITutor {
   nationality?: string;
   postalCode?: string;
   approvedTutor?: boolean;
+  interviewRequest?: IInterview;
 
   rate?: number;
   badges?: any[];
@@ -95,6 +97,7 @@ export class ITutor {
       this.reviews = [];
       this.postalCode = '';
       this.approvedTutor = false;
+      this.interviewRequest = undefined;
     }
 
     if (tutor) {
@@ -152,6 +155,10 @@ export class ITutor {
       this.gender = tutor?.gender || '';
       this.nationality = tutor?.nationality || '';
       this.approvedTutor = checkApprovedTutor(tutor?.teacher_interview_request);
+      this.interviewRequest = new IInterview(
+        false,
+        tutor?.teacher_interview_request
+      );
 
       this.badges = tutor?.badges || [];
       this.rate = tutor?.rate || 0;
@@ -211,6 +218,16 @@ export function sortSubjects(subjects?: ISubject[]): any[] {
 
 export function checkApprovedTutor(request: any): boolean {
   if (!request) {
+    return false;
+  }
+
+  if (
+    request &&
+    request.status &&
+    (request.status === InterviewStatus.rejected ||
+      request.status === InterviewStatus.pending ||
+      request.status === InterviewStatus.scheduled)
+  ) {
     return false;
   }
 

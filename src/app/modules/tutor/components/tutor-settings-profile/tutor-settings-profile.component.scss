@@ -2,9 +2,9 @@
   border-radius: 15px;
   background-color: #FFF;
   border: solid 1px #e2e2ea;
-  overflow: hidden;
 
   .cover {
+    border-radius: 15px 15px 0 0;
     height: 145px;
     background-size: cover;
     background-repeat: no-repeat;
@@ -25,6 +25,32 @@
     color: #949494;
     font-size: 12px;
     font-weight: bold;
+  }
+
+  .status-interview {
+    position: absolute;
+    border-radius: 25px;
+    left: 10px;
+    top: -13px;
+    padding: 0 15px;
+    color: #FFF;
+    line-height: 30px;
+
+    &.pending {
+      background-color: #FF8300;
+    }
+
+    &.approved {
+      background-color: var(--main-color)
+    }
+
+    &.rejected {
+      background-color: #d34c65;
+    }
+
+    &.scheduled {
+      background-color: #C4C4C4;
+    }
   }
 }
 

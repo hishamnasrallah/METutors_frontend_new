@@ -26,6 +26,7 @@ import {
   DEGREE_FIELDS,
   DEGREE_LEVELS,
   GENDERS,
+  InterviewStatus,
   LANGUAGES_LEVELS_CONST,
   SORTED_DAYS_WEEK,
   TEACHING_EXPERIENCE,
@@ -105,6 +106,7 @@ export class TutorSettingsProfileComponent implements OnInit {
   degreeFields = DEGREE_FIELDS;
   levels = LANGUAGES_LEVELS_CONST;
   experiences = TEACHING_EXPERIENCE;
+  interviewStatus = InterviewStatus;
   types = COURSE_TUITION_TYPES_CONST;
 
   constructor(

@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
-import { ITutor } from '@models';
+import { ITutor, SubmitInterviewInput } from '@models';
 
 @Injectable({
   providedIn: 'root',
@@ -234,6 +234,16 @@ export class TutorsService {
     };
 
     return this.http.post<any>(`${this.baseUrl}teacher/feedback`, body);
+  }
+
+  tutorSubmitInterview(payload: SubmitInterviewInput): Observable<any> {
+    const body = {
+      date_for_interview: payload.interviewDate,
+      time_for_interview: payload.interviewTime,
+      addtional_comments: payload?.notes,
+    };
+
+    return this.http.post<any>(`${this.baseUrl}interview-request`, body);
   }
 
   tutorSubmitPlatformFeedback(

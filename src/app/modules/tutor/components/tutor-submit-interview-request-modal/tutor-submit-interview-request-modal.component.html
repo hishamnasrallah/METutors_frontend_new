@@ -1,13 +1,13 @@
-<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'medium'" [heading]="'Submit Interview Request'"
-                [template]="template" >
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'medium'"
+  [heading]="'Submit Interview Request'" [template]="template">
   <ng-template #template>
-    <form class="row submit-interview" [formGroup]="form" (ngSubmit)="submitted.emit(form)">
+    <form class="row submit-interview" [formGroup]="form" (ngSubmit)="onSubmit(form)">
       <div class="col-12">
         <div class="form-group">
           <h3>Select Interview Date</h3>
           <mat-form-field appearance="outline" class="w-100">
-            <input matInput [matDatepicker]="interviewPicker" [placeholder]="'Choose a date'" (focus)="interviewPicker.open()"
-              [min]="minDate" formControlName="interviewDate">
+            <input matInput [matDatepicker]="interviewPicker" [placeholder]="'Choose a date'"
+              (focus)="interviewPicker.open()" [min]="minDate" formControlName="interviewDate">
             <mat-datepicker-toggle matSuffix [for]="interviewPicker"></mat-datepicker-toggle>
             <mat-datepicker #interviewPicker></mat-datepicker>
           </mat-form-field>
@@ -16,8 +16,8 @@
         <div class="form-group">
           <h3>Select Time</h3>
           <div class="ngx-timepicker-field-example">
-            <input placeholder="Select interview time" aria-label="Select interview time" [ngxTimepicker]="interviewTime"
-              formControlName="interviewTime" class="form-control">
+            <input placeholder="Select interview time" aria-label="Select interview time"
+              [ngxTimepicker]="interviewTime" formControlName="interviewTime" class="form-control">
             <ngx-material-timepicker #interviewTime [appendToInput]="true">
             </ngx-material-timepicker>
           </div>
@@ -26,13 +26,13 @@
         <div class="form-group">
           <h3>Additional Information (Optional)</h3>
 
-          <textarea class="form-control custom-input input-bordered" formControlName="notes" rows="5" placeholder="Enter here..."></textarea>
+          <textarea class="form-control custom-input input-bordered" formControlName="notes" rows="5"
+            placeholder="Enter here..."></textarea>
         </div>
 
         <div class="row mt-2">
           <div class="col-md-12 overflow-hidden">
-              <!--  [isSubmitting]="submitting" -->
-            <metutors-submit-button [form]="form" [extraClasses]="'float-end py-1 px-5'">
+            <metutors-submit-button [form]="form" [extraClasses]="'float-end py-1 px-5'" [isSubmitting]="submitting">
               Submit Request
             </metutors-submit-button>
           </div>

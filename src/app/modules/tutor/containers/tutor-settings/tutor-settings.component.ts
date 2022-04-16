@@ -4,7 +4,13 @@ import { filter, Observable, tap } from 'rxjs';
 import * as fromCore from '@metutor/core/state';
 import { Component, OnInit } from '@angular/core';
 import * as fromTutor from '@metutor/modules/tutor/state';
-import { ICity, ICountry, ITutor, IUser } from '@metutor/core/models';
+import {
+  ICity,
+  ICountry,
+  ITutor,
+  IUser,
+  SubmitInterviewInput,
+} from '@metutor/core/models';
 import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
 
 @Component({
@@ -21,6 +27,7 @@ export class TutorSettingsComponent implements OnInit {
   isChangingPassword$: Observable<boolean>;
   countries$: Observable<ICountry[] | null>;
   changePasswordSuccess$: Observable<boolean>;
+  isSubmittingInterview$: Observable<boolean>;
   isCompleteTutorProfile$: Observable<boolean>;
   showSubmitInterviewModal$: Observable<boolean>;
 
@@ -39,7 +46,13 @@ export class TutorSettingsComponent implements OnInit {
       fromCore.selectIsLoadingProfileTutor
     );
 
-    this.isCompleteTutorProfile$ = this._store.select(fromCore.selectIsCompleteTutorProfile);
+    this.isCompleteTutorProfile$ = this._store.select(
+      fromCore.selectIsCompleteTutorProfile
+    );
+
+    this.isSubmittingInterview$ = this._store.select(
+      fromCore.selectIsSubmittingInterview
+    );
 
     this.isChangingPassword$ = this._store.select(
       fromCore.selectIsChangingPassword
@@ -64,6 +77,10 @@ export class TutorSettingsComponent implements OnInit {
 
   onChangePassword(value: any): void {
     this._store.dispatch(fromCore.changePassword({ value }));
+  }
+
+  onSubmitInterview(submitInterviewInput: SubmitInterviewInput): void {
+    this._store.dispatch(fromCore.submitInterview({ submitInterviewInput }));
   }
 
   loadCities(countryId: string): void {

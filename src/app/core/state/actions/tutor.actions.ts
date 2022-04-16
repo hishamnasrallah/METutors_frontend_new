@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { ITutor, IUser } from '@models';
+import { ITutor, IUser, SubmitInterviewInput } from '@models';
 
 // Complete tutor profile
 export const completeTutorProfile = createAction(
@@ -145,6 +145,7 @@ export const loadTutorFeedbackPlatformOptionsFailure = createAction(
   props<{ error: any }>()
 );
 
+// Submit Feedback
 export const tutorSubmitFeedback = createAction(
   '[Tutor] Tutor Submit Feedback',
   props<{ body: any }>()
@@ -160,6 +161,7 @@ export const tutorSubmitFeedbackFailure = createAction(
   props<{ error: any }>()
 );
 
+// Submit Platform Feedback
 export const tutorSubmitPlatformFeedback = createAction(
   '[Tutor] Tutor Submit Platform Feedback',
   props<{ body: any }>()
@@ -172,5 +174,21 @@ export const tutorSubmitPlatformFeedbackSuccess = createAction(
 
 export const tutorSubmitPlatformFeedbackFailure = createAction(
   '[Tutor] Tutor Submit Platform Feedback Failure',
+  props<{ error: any }>()
+);
+
+// Submit Interview
+export const submitInterview = createAction(
+  '[Tutor] Submit Interview',
+  props<{ submitInterviewInput: SubmitInterviewInput }>()
+);
+
+export const submitInterviewSuccess = createAction(
+  '[Tutor] Submit Interview Success',
+  props<{ message: string }>()
+);
+
+export const submitInterviewFailure = createAction(
+  '[Tutor] Submit Interview Failure',
   props<{ error: any }>()
 );

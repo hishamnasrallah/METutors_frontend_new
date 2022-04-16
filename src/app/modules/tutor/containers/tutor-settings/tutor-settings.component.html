@@ -50,7 +50,9 @@
   </div>
 </div>
 
-<metutors-tutor-submit-interview-request-modal  *ngIf="showSubmitInterviewModal$ | async"
-                                                (closeModal)="onCloseSubmitInterview()"
-                                                [showModal]="(showSubmitInterviewModal$ | async)!">
+<metutors-tutor-submit-interview-request-modal *ngIf="showSubmitInterviewModal$ | async"
+                                               (closeModal)="onCloseSubmitInterview()"
+                                               [submitting]="(isSubmittingInterview$ | async)!"
+                                               (submitted)="onSubmitInterview($event)"
+                                               [showModal]="(showSubmitInterviewModal$ | async)!">
 </metutors-tutor-submit-interview-request-modal>

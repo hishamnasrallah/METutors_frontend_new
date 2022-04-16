@@ -226,6 +226,11 @@ export const selectIsCompleteTutorProfile = createSelector(
   fromTutorReducer.selectIsCompleteTutorProfile
 );
 
+export const selectIsSubmittingInterview = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectIsSubmittingInterview
+);
+
 export const selectTutorAttendance = createSelector(
   selectTutorState,
   fromTutorReducer.selectTutorAttendance

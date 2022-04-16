@@ -4,7 +4,26 @@
 </ng-container>
 
 <ng-container *ngIf="!isLoadingTutor">
-  <div class="profile-header mb-3">
+  <div class="profile-header mb-3 position-relative">
+    <button mat-button class="status-interview" *ngIf="tutor?.interviewRequest" [ngClass]="{
+      'pending': tutor?.interviewRequest?.status === interviewStatus.pending,
+      'approved': tutor?.interviewRequest?.status === interviewStatus.approved,
+      'rejected': tutor?.interviewRequest?.status === interviewStatus.rejected,
+      'scheduled': tutor?.interviewRequest?.status === interviewStatus.scheduled
+    }">
+      <ng-container *ngIf="tutor?.interviewRequest?.status === interviewStatus.pending">
+        Account Under Review
+      </ng-container>
+      <ng-container *ngIf="tutor?.interviewRequest?.status === interviewStatus.approved">
+        Account Approved
+      </ng-container>
+      <ng-container *ngIf="tutor?.interviewRequest?.status === interviewStatus.rejected">
+        Account Rejected
+      </ng-container>
+      <ng-container *ngIf="tutor?.interviewRequest?.status === interviewStatus.scheduled">
+        Account Scheduled
+      </ng-container>
+    </button>
     <div class="row">
       <div class="col-12">
         <div class="cover" [ngStyle]="{'background-image': 'url(' + tutor?.cover + ')'}"></div>
@@ -24,7 +43,8 @@
             </button>
           </div>
           <div class="col-md-9">
-            <button mat-flat-button color="primary" class="float-end mx-2" (click)="submitInterview.emit()">
+            <button mat-flat-button color="primary" class="float-end mx-2" (click)="submitInterview.emit()"
+              *ngIf="!tutor?.interviewRequest">
               Submit Interview Request
             </button>
           </div>
@@ -77,10 +97,10 @@
           <div class="form-group">
             <label for="dateOfBirth" class="form-label">Date of Birth</label>
             <mat-form-field appearance="outline" class="w-100">
-              <input matInput [matDatepicker]="datetPicker" [placeholder]="'Select Your Date of Birth'"
-                (focus)="datetPicker.open()" formControlName="dateOfBirth" [max]="maxDate">
-              <mat-datepicker-toggle matSuffix [for]="datetPicker"></mat-datepicker-toggle>
-              <mat-datepicker #datetPicker></mat-datepicker>
+              <input matInput [matDatepicker]="dateOfBirthPicker" [placeholder]="'Select Your Date of Birth'"
+                (focus)="dateOfBirthPicker.open()" formControlName="dateOfBirth" [max]="maxDate">
+              <mat-datepicker-toggle matSuffix [for]="dateOfBirthPicker"></mat-datepicker-toggle>
+              <mat-datepicker #dateOfBirthPicker></mat-datepicker>
             </mat-form-field>
             <div class="text-danger" *ngIf="dateOfBirth?.touched && dateOfBirth?.invalid">
               Please select your Date of Birth
@@ -307,10 +327,10 @@
           <div class="form-group">
             <label for="startDate" class="form-label">When you are Available to Start?</label>
             <mat-form-field appearance="outline" class="w-100">
-              <input matInput [matDatepicker]="datetPicker" [placeholder]="'Select Start Date'"
-                (focus)="datetPicker.open()" [min]="minDate" formControlName="startDate">
-              <mat-datepicker-toggle matSuffix [for]="datetPicker"></mat-datepicker-toggle>
-              <mat-datepicker #datetPicker></mat-datepicker>
+              <input matInput [matDatepicker]="startDatePicker" [placeholder]="'Select Start Date'"
+                (focus)="startDatePicker.open()" [min]="minDate" formControlName="startDate">
+              <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+              <mat-datepicker #startDatePicker></mat-datepicker>
             </mat-form-field>
             <div class="text-danger" *ngIf="startDate?.touched && startDate?.invalid">
               Please select your Availability to Start
@@ -337,10 +357,10 @@
           <div class="form-group">
             <label for="endDate" class="form-label">Availability End Date</label>
             <mat-form-field appearance="outline" class="w-100">
-              <input matInput [matDatepicker]="datetPicker2" [placeholder]="'Select Availability End Date'"
-                (focus)="datetPicker2.open()" [min]="startDate?.value" formControlName="endDate">
-              <mat-datepicker-toggle matSuffix [for]="datetPicker2"></mat-datepicker-toggle>
-              <mat-datepicker #datetPicker2></mat-datepicker>
+              <input matInput [matDatepicker]="endDatePicker" [placeholder]="'Select Availability End Date'"
+                (focus)="endDatePicker.open()" [min]="startDate?.value" formControlName="endDate">
+              <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+              <mat-datepicker #endDatePicker></mat-datepicker>
             </mat-form-field>
             <div class="text-danger" *ngIf="endDate?.touched && endDate?.invalid">
               Please select your Availability End Date

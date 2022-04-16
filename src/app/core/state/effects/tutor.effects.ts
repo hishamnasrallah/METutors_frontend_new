@@ -127,6 +127,30 @@ export class TutorEffects {
     )
   );
 
+  submitInterview$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorActions.submitInterview),
+      mergeMap((action) =>
+        this._tutorService
+          .tutorSubmitInterview(action.submitInterviewInput)
+          .pipe(
+            map((response) =>
+              tutorActions.submitInterviewSuccess({
+                message: response.message,
+              })
+            ),
+            catchError((error) =>
+              of(
+                tutorActions.submitInterviewFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          )
+      )
+    )
+  );
+
   loadTutorDashboard$ = createEffect(() =>
     this._actions$.pipe(
       ofType(tutorActions.loadTutorDashboard),
@@ -296,6 +320,7 @@ export class TutorEffects {
       this._actions$.pipe(
         ofType(
           ...[
+            tutorActions.submitInterviewSuccess,
             tutorActions.tutorSubmitFeedbackSuccess,
             tutorActions.tutorSubmitPlatformFeedbackSuccess,
           ]
@@ -312,6 +337,7 @@ export class TutorEffects {
       this._actions$.pipe(
         ofType(
           ...[
+            tutorActions.submitInterviewFailure,
             tutorActions.tutorLaunchClassFailure,
             tutorActions.tutorSubmitFeedbackFailure,
             tutorActions.completeTutorProfileFailure,

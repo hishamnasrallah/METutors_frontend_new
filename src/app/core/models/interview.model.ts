@@ -42,3 +42,9 @@ export interface IInterviewFilters {
   status?: string;
   title?: string;
 }
+
+export interface SubmitInterviewInput {
+  notes?: string;
+  interviewDate: string;
+  interviewTime: string;
+}

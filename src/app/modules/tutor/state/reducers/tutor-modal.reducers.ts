@@ -203,10 +203,14 @@ export const reducer = createReducer(
     showSubmitInterviewModal: true,
   })),
 
-  on(tutorModalActions.closeTutorSubmitInterviewModal, (state) => ({
-    ...state,
-    showSubmitInterviewModal: false,
-  }))
+  on(
+    fromCore.submitInterviewSuccess,
+    tutorModalActions.closeTutorSubmitInterviewModal,
+    (state) => ({
+      ...state,
+      showSubmitInterviewModal: false,
+    })
+  )
 );
 
 // tutor modal selectors

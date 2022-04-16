@@ -27,6 +27,10 @@ export interface State {
   // Complete Tutor Profile
   isCompleteTutorProfile: boolean;
   completeTutorProfileFailure: string;
+
+  // Submit Interview Request
+  isSubmittingInterview: boolean;
+  SubmitInterviewFailure?: string;
 }
 
 export const initialState: State = {
@@ -43,6 +47,7 @@ export const initialState: State = {
   loadingTutorsFailure: '',
   isLoadingDashboard: false,
   isSubmittingFeedback: false,
+  isSubmittingInterview: false,
   isLoadingProfileTutor: false,
   isCompleteTutorProfile: false,
   isLoadingTutorAttendance: false,
@@ -106,6 +111,21 @@ export const reducer = createReducer(
     ...state,
     isLoadingTutors: false,
     loadingTutorsFailure: error,
+  })),
+
+  on(tutorActions.submitInterview, (state) => ({
+    ...state,
+    isSubmittingInterview: true,
+  })),
+
+  on(tutorActions.submitInterviewSuccess, (state) => ({
+    ...state,
+    isSubmittingInterview: false,
+  })),
+
+  on(tutorActions.submitInterviewFailure, (state) => ({
+    ...state,
+    isSubmittingInterview: false,
   })),
 
   on(tutorActions.loadTutorsEnded, (state) => ({
@@ -288,6 +308,9 @@ export const selectIsLoadingTutorDashboard = (state: State): boolean =>
 
 export const selectIsCompleteTutorProfile = (state: State): boolean =>
   state.isCompleteTutorProfile;
+
+  export const selectIsSubmittingInterview = (state: State): boolean =>
+  state.isSubmittingInterview;
 
 export const selectIsLaunchingClass = (state: State): boolean =>
   state.isLaunchingClass;
