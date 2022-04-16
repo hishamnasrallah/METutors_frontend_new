@@ -11,6 +11,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatInputModule } from '@angular/material/input';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
 import { TutorRoutingModule } from './tutor-routing.module';
@@ -58,6 +59,7 @@ import {
   TutorSettingsAccountComponent,
   FaqStillHaveQuestionsComponent,
   TutorSettingsSecurityComponent,
+  DialogSelectAvailabilityDialog,
   TutorRejectCourseModalComponent,
   TutorCancelCourseModalComponent,
   TutorAddAssignmentModalComponent,
@@ -97,6 +99,7 @@ import {
     TutorSettingsAccountComponent,
     TutorAttendanceModalComponent,
     TutorSettingsProfileComponent,
+    DialogSelectAvailabilityDialog,
     TutorSettingsSecurityComponent,
     FaqStillHaveQuestionsComponent,
     TutorRejectCourseModalComponent,
@@ -120,6 +123,7 @@ import {
     CarouselModule,
     MatRadioModule,
     MatInputModule,
+    MatDialogModule,
     MatSliderModule,
     MatSelectModule,
     MatButtonModule,

@@ -132,7 +132,7 @@ export const loadSubjectsByFieldIdFailure = createAction(
 
 export const loadFieldsByProgramId = createAction(
   '[Lookups] Load Fields By Program Id',
-  props<{ programId: string; countryId?: string }>()
+  props<{ programId: string; countryId?: string; grade?: number }>()
 );
 
 export const loadFieldsByProgramIdSuccess = createAction(

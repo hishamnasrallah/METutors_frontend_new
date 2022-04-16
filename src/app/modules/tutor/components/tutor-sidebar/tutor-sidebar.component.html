@@ -9,7 +9,7 @@
   </button>-->
   <ul class="list-unstyled">
     <li class="d-flex align-items-center">
-      <a routerLink="/tutor/classrooms" routerLinkActive="active">
+      <a routerLink="/tutor/classrooms" routerLinkActive="active" [class.disabled-link]="!tutor?.approvedTutor">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd"
             d="M19 21C19.5523 21 20 20.5523 20 20V11H23L12.673 1.61204C12.2915 1.2649 11.7085 1.2649 11.327 1.61204L1 11H4V20C4 20.5523 4.44772 21 5 21H19ZM11 19V13H13V19H11Z"
@@ -19,7 +19,7 @@
       </a>
     </li>
     <li class="d-flex align-items-center">
-      <a routerLink="/tutor/dashboard" routerLinkActive="active">
+      <a routerLink="/tutor/dashboard" routerLinkActive="active" [class.disabled-link]="!tutor?.approvedTutor">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd"
             d="M13 20V18H21C21.5523 18 22 17.5523 22 17V4C22 3.44772 21.5523 3 21 3H3C2.44772 3 2 3.44772 2 4V17C2 17.5523 2.44772 18 3 18H11V20H7V22H17V20H13ZM15 10.5L10 13.5V7.5L15 10.5Z"
@@ -29,7 +29,7 @@
       </a>
     </li>
     <li class="d-flex align-items-center">
-      <a routerLink="/tutor/inbox" routerLinkActive="active">
+      <a routerLink="/tutor/inbox" routerLinkActive="active" [class.disabled-link]="!tutor?.approvedTutor">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd"
             d="M11.49 1.30999L2.243 6.85399C2.09222 6.94434 1.99996 7.10722 2 7.28299V20C2 20.5523 2.44772 21 3 21H21C21.5523 21 22 20.5523 22 20V7.28399C22 7.10822 21.9078 6.94534 21.757 6.85499L12.519 1.30999C12.2023 1.11998 11.8067 1.11998 11.49 1.30999ZM12.061 13.683L18.346 8.24399L19.654 9.75699L12.073 16.317L4.353 9.76199L5.647 8.23799L12.061 13.683Z"
@@ -39,7 +39,7 @@
       </a>
     </li>
     <li class="d-flex align-items-center">
-      <a routerLink="/tutor/badges" routerLinkActive="active">
+      <a routerLink="/tutor/badges" routerLinkActive="active" [class.disabled-link]="!tutor?.approvedTutor">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <ellipse cx="12.0234" cy="16.2429" rx="2.34375" ry="2.34366" fill="white" />
           <path fill-rule="evenodd" clip-rule="evenodd"
@@ -75,7 +75,7 @@
       </a>
     </li>
     <li class="d-flex align-items-center">
-      <a routerLink="/tutor/payment-records" routerLinkActive="active">
+      <a routerLink="/tutor/payment-records" routerLinkActive="active" [class.disabled-link]="!tutor?.approvedTutor">
         <svg width="24" height="24" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd"
             d="M3.75 3.75H22.5V8.75H2.5V5C2.5 4.30964 3.05964 3.75 3.75 3.75ZM2.5 11.25H26.25C26.9404 11.25 27.5 11.8096 27.5 12.5V25C27.5 25.6904 26.9404 26.25 26.25 26.25H3.75C3.05964 26.25 2.5 25.6904 2.5 25V11.25ZM18.75 20V17.5H22.5V20H18.75Z"

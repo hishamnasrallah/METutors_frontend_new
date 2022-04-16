@@ -37,6 +37,7 @@ export class ITutor {
   gender?: string;
   nationality?: string;
   postalCode?: string;
+  approvedTutor?: boolean;
 
   rate?: number;
   badges?: any[];
@@ -93,6 +94,7 @@ export class ITutor {
       this.alwaysOnTimeRate = 0;
       this.reviews = [];
       this.postalCode = '';
+      this.approvedTutor = false;
     }
 
     if (tutor) {
@@ -101,11 +103,11 @@ export class ITutor {
       this.firstName = tutor?.first_name || '';
       this.middleName = tutor?.middle_name || '';
       this.lastName = tutor?.last_name || '';
-      this.avatar =
-        environment.imageURL + tutor?.avatar ||
-        generalConstants.defaultAvatarPath;
-      this.cover = tutor?.cover
-        ? environment.imageURL + tutor?.cover
+      this.avatar = tutor?.avatar
+        ? environment.imageURL + tutor?.avatar
+        : generalConstants.defaultAvatarPath;
+      this.cover = tutor?.cover_img
+        ? environment.imageURL + tutor?.cover_img
         : generalConstants.defaultCoverPath;
       this.bio = tutor?.bio || '';
       this.createdAt = tutor?.created_at || '';
@@ -149,6 +151,7 @@ export class ITutor {
       this.city = tutor?.city || '';
       this.gender = tutor?.gender || '';
       this.nationality = tutor?.nationality || '';
+      this.approvedTutor = checkApprovedTutor(tutor?.teacher_interview_request);
 
       this.badges = tutor?.badges || [];
       this.rate = tutor?.rate || 0;
@@ -204,4 +207,12 @@ export function sortSubjects(subjects?: ISubject[]): any[] {
   });
 
   return output;
+}
+
+export function checkApprovedTutor(request: any): boolean {
+  if (!request) {
+    return false;
+  }
+
+  return true;
 }

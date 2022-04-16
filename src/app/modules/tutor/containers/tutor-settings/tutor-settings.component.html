@@ -29,7 +29,9 @@
                                        [isLoadingTutor]="(isLoadingTutor$ | async)!"
                                        [countries]="countries$ | async" 
                                        [cities]="cities$ | async" 
+                                       [isCompleteProfile]="(isCompleteTutorProfile$ | async)!"
                                        (loadCities)="loadCities($event)"
+                                       (submitForm)="sendTeacherAccount($event)"
                                        (submitInterview)="onOpenSubmitInterview()">
       </metutors-tutor-settings-profile>
 

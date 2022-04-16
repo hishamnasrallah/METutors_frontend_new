@@ -9,6 +9,7 @@ import {
 } from '@angular/animations';
 import { AbstractControl, FormGroup, Validators } from '@angular/forms';
 import {
+  GRADES,
   AcademicTutoringTextbook,
   formatBytes,
   TEXTBOOK_EDITION_CONST,
@@ -17,7 +18,6 @@ import {
 import { AlertNotificationService } from 'src/app/core/components';
 import {
   IField,
-  ILevel,
   ILanguage,
   IProgram,
   ISubject,
@@ -53,16 +53,17 @@ import {
 export class CourseInformationFormComponent implements OnInit {
   @Input() form!: FormGroup;
   @Input() fields: IField[] | null;
-  @Input() levels: ILevel[] | null;
   @Input() subjects: ISubject[] | null;
   @Input() programs: IProgram[] | null;
   @Input() countries: ICountry[] | null;
   @Input() languages: ILanguage[] | null;
 
   @Output() submitForm = new EventEmitter<FormGroup>();
+  @Output() changeCourseField = new EventEmitter<string>();
   @Output() changeCourseProgram = new EventEmitter<string>();
   @Output() changeCourseSubject = new EventEmitter<string>();
 
+  grades = GRADES;
   filePreview: any;
   nationalId = generalConstants.nationalId;
   textbookEditions = TEXTBOOK_EDITION_CONST;
@@ -140,6 +141,12 @@ export class CourseInformationFormComponent implements OnInit {
     const programId = this.program?.value;
 
     this.changeCourseProgram.emit(programId);
+  }
+
+  onChangeCourseField(): void {
+    const fieldId = this.field?.value;
+
+    this.changeCourseField.emit(fieldId);
   }
 
   onChangeCourseSubject(): void {

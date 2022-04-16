@@ -14,7 +14,6 @@ import {
 import {
   IClass,
   IField,
-  ILevel,
   ILanguage,
   IProgram,
   ISubject,
@@ -35,7 +34,6 @@ export class RequestTutorComponent implements OnInit {
 
   price$: Observable<number | null>;
   loadingTutors$: Observable<boolean>;
-  levels$: Observable<ILevel[] | null>;
   fields$: Observable<IField[] | null>;
   tutors$: Observable<ITutor[] | null>;
   isCreatingCourse$: Observable<boolean>;
@@ -49,7 +47,6 @@ export class RequestTutorComponent implements OnInit {
   reviewInfo: any = {};
   classrooms!: IClass[];
   subjects!: ISubject[];
-  courseLevel?: ILevel[];
   courseField?: IField[];
   languages?: ILanguage[];
   selectTutorForm: FormGroup;
@@ -71,8 +68,8 @@ export class RequestTutorComponent implements OnInit {
         +this._route.snapshot.queryParams['program'],
         Validators.required,
       ],
-      courseLevel: [null, Validators.required],
       courseCountry: [+this._route.snapshot.queryParams['country']],
+      courseGrade: [null],
       courseField: [
         +this._route.snapshot.queryParams['field'],
         Validators.required,
@@ -120,7 +117,6 @@ export class RequestTutorComponent implements OnInit {
   ngOnInit(): void {
     this._store.dispatch(fromCore.enterRequestTutor());
     this._prepareLanguages();
-    this._prepareCourseLevel();
     this._prepareCourseProgram();
     this._prepareCourseCountries();
 
@@ -154,19 +150,11 @@ export class RequestTutorComponent implements OnInit {
   }
 
   fetchCourseFieldSubject(fieldId: string): void {
-    if (
-      fieldId.toString() === generalConstants.nationalId.toString() &&
-      !this.courseInformationForm.value?.courseCountry
-    ) {
-      return;
-    } else {
-      this._store.dispatch(
-        fromCore.loadSubjectsByFieldId({
-          fieldId,
-          countryId: this.courseInformationForm.value?.courseCountry,
-        })
-      );
-    }
+    this._store.dispatch(
+      fromCore.loadSubjectsByFieldId({
+        fieldId,
+      })
+    );
     this.subjects$ = this._store.select(fromCore.selectSubjects).pipe(
       tap((subjects) => {
         if (subjects && subjects.length) {
@@ -179,7 +167,8 @@ export class RequestTutorComponent implements OnInit {
   fetchCourseField(programId: string): void {
     if (
       programId.toString() === generalConstants.nationalId.toString() &&
-      !this.courseInformationForm.value?.courseCountry
+      (!this.courseInformationForm.value?.courseCountry ||
+        !this.courseInformationForm.value?.courseGrade)
     ) {
       return;
     } else {
@@ -187,6 +176,7 @@ export class RequestTutorComponent implements OnInit {
         fromCore.loadFieldsByProgramId({
           programId,
           countryId: this.courseInformationForm.value?.courseCountry,
+          grade: this.courseInformationForm.value?.courseGrade,
         })
       );
     }
@@ -281,15 +271,6 @@ export class RequestTutorComponent implements OnInit {
             ? this.coursePrograms.filter(
                 (sub) =>
                   sub?.id === this.courseInformationForm.value.courseProgram
-              )[0]?.name
-            : '';
-
-      if (this.courseInformationForm.value.courseLevel)
-        this.reviewInfo.courseLevel =
-          this.courseLevel && this.courseLevel.length
-            ? this.courseLevel.filter(
-                (sub) =>
-                  sub?.id === this.courseInformationForm.value.courseLevel
               )[0]?.name
             : '';
 
@@ -481,17 +462,6 @@ export class RequestTutorComponent implements OnInit {
     return [];
   }
 
-  private _prepareCourseLevel(): void {
-    this._store.dispatch(fromCore.loadLevels());
-    this.levels$ = this._store.select(fromCore.selectLevels).pipe(
-      tap((levels) => {
-        if (levels && levels.length) {
-          this.courseLevel = levels;
-        }
-      })
-    );
-  }
-
   private _prepareCourseProgram(): void {
     this._store.dispatch(fromCore.loadPrograms());
     this.programs$ = this._store.select(fromCore.selectPrograms).pipe(
@@ -504,8 +474,8 @@ export class RequestTutorComponent implements OnInit {
   }
 
   private _prepareCourseCountries(): void {
-    this._store.dispatch(fromCore.loadCountries());
-    this.countries$ = this._store.select(fromCore.selectCountries).pipe(
+    this._store.dispatch(fromCore.loadProgramCountries());
+    this.countries$ = this._store.select(fromCore.selectProgramCountries).pipe(
       tap((courseCountries) => {
         if (courseCountries && courseCountries.length) {
           this.courseCountries = courseCountries;

@@ -21,6 +21,7 @@ export class TutorSettingsComponent implements OnInit {
   isChangingPassword$: Observable<boolean>;
   countries$: Observable<ICountry[] | null>;
   changePasswordSuccess$: Observable<boolean>;
+  isCompleteTutorProfile$: Observable<boolean>;
   showSubmitInterviewModal$: Observable<boolean>;
 
   tab = 'MY_PROFILE';
@@ -33,11 +34,12 @@ export class TutorSettingsComponent implements OnInit {
     this.layout$ = this._store.select(fromRoot.selectLayout);
     this.user$ = this._store.select(fromCore.selectUser);
 
-    this._store.dispatch(fromCore.loadProfileTutor());
     this.tutor$ = this._store.select(fromCore.selectProfileTutor);
     this.isLoadingTutor$ = this._store.select(
       fromCore.selectIsLoadingProfileTutor
     );
+
+    this.isCompleteTutorProfile$ = this._store.select(fromCore.selectIsCompleteTutorProfile);
 
     this.isChangingPassword$ = this._store.select(
       fromCore.selectIsChangingPassword
@@ -66,6 +68,10 @@ export class TutorSettingsComponent implements OnInit {
 
   loadCities(countryId: string): void {
     this._prepareCitiesByCountryId(countryId);
+  }
+
+  sendTeacherAccount(data: any): void {
+    this._store.dispatch(fromCore.completeTutorProfile({ data, nextStep: 6 }));
   }
 
   private _prepareCountries(): void {

@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import * as fromCore from '@metutor/core/state';
+import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '@metutor/state';
+import { ITutor } from '@metutor/core/models';
+import * as fromCore from '@metutor/core/state';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'metutors-tutor',
@@ -10,10 +12,13 @@ import * as fromRoot from '@metutor/state';
 })
 export class TutorComponent implements OnInit {
   layout$: any;
+  tutor$: Observable<ITutor | null>;
 
   constructor(private _store: Store<any>) {}
 
   ngOnInit(): void {
+    this._store.dispatch(fromCore.loadProfileTutor());
+    this.tutor$ = this._store.select(fromCore.selectProfileTutor);
     this.layout$ = this._store.select(fromRoot.selectLayout);
   }
 

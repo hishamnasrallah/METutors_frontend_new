@@ -1,5 +1,6 @@
 <div class="d-flex full-height">
-  <metutors-tutor-sidebar [layout]="layout$ | async" (logout)="logout()"></metutors-tutor-sidebar>
+  <metutors-tutor-sidebar [layout]="layout$ | async" [tutor]="(tutor$ | async)!" (logout)="logout()">
+  </metutors-tutor-sidebar>
 
   <div class="flex-grow-1 overflow-auto">
     <router-outlet></router-outlet>

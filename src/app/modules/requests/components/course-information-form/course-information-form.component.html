@@ -8,9 +8,9 @@
       <div class="col-md-8">
         <div class="row">
           <div class="col-md-12">
-            <h3>Course programs</h3>
+            <h3>Course Programs</h3>
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="courseProgram" [placeholder]="'Choose program'"
+              <mat-select formControlName="courseProgram" [placeholder]="'Choose Program'"
                 (selectionChange)="onChangeCourseProgram()">
                 <mat-option [value]="program?.id" *ngFor="let program of programs">
                   {{ program?.name }}
@@ -20,10 +20,10 @@
           </div>
         </div>
         <div class="row mt-4" *ngIf="nationalId.toString() === program?.value?.toString()">
-          <div class="col-md-12">
-            <h3>Select country</h3>
+          <div class="col-md-6">
+            <h3>Select Country</h3>
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="courseCountry" [placeholder]="'Choose country'"
+              <mat-select formControlName="courseCountry" [placeholder]="'Choose Country'"
                 (selectionChange)="onChangeCourseProgram()">
                 <mat-option [value]="country?.id" *ngFor="let country of countries">
                   {{ country?.name }}
@@ -31,23 +31,24 @@
               </mat-select>
             </mat-form-field>
           </div>
-        </div>
-        <div class="row mt-4">
           <div class="col-md-6">
-            <h3>Course level</h3>
+            <h3>Select Grade</h3>
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="courseLevel" [placeholder]="'Choose level'">
-                <mat-option [value]="level?.id" *ngFor="let level of levels">
-                  {{ level?.name }}
+              <mat-select formControlName="courseGrade" [placeholder]="'Choose Grade'"
+                (selectionChange)="onChangeCourseProgram()">
+                <mat-option [value]="i + 1" *ngFor="let grade of grades; let i = index">
+                  {{ grade }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
           </div>
-          <div class="col-md-6">
-            <h3>Course field</h3>
+        </div>
+        <div class="row mt-4">
+          <div class="col-md-12">
+            <h3>Course Field</h3>
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="courseField" [placeholder]="'Choose field'"
-                [disabled]="!fields || !fields?.length">
+              <mat-select formControlName="courseField" [placeholder]="'Choose Field'"
+                [disabled]="!fields || !fields?.length" (selectionChange)="onChangeCourseField()">
                 <mat-option [value]="field?.id" *ngFor="let field of fields">
                   {{ field?.name }}
                 </mat-option>
@@ -57,9 +58,9 @@
         </div>
         <div class="row mt-4">
           <div class="col-md-6">
-            <h3>Prefered tutoring language</h3>
+            <h3>Prefered Tutoring Language</h3>
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="language" [placeholder]="'Choose language'">
+              <mat-select formControlName="language" [placeholder]="'Choose Language'">
                 <mat-option [value]="lang?.id" *ngFor="let lang of languages">
                   {{ lang?.name }}
                 </mat-option>
@@ -69,7 +70,7 @@
           <div class="col-md-6">
             <h3>Subject</h3>
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="subject" [placeholder]="'Choose subject'"
+              <mat-select formControlName="subject" [placeholder]="'Choose Subject'"
                 [disabled]="!subjects || !subjects?.length" (selectionChange)="onChangeCourseSubject()">
                 <ng-container *ngFor="let subject of subjects">
                   <mat-option [value]="subject?.id">
@@ -160,7 +161,7 @@
     <div class="row">
       <div class="col-12 overflow-hidden">
         <button mat-flat-button color="primary" class="float-end" type="submit" [disabled]="form.invalid">
-          Save & continue
+          Save & Continue
           <mat-icon>arrow_forward</mat-icon>
         </button>
       </div>

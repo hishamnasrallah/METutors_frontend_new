@@ -265,15 +265,29 @@ export class UserEffects {
     )
   );
 
+  completeTutorProfileSuccess$ = createEffect(
+    () =>
+      this._actions$.pipe(
+        ofType(tutorActions.completeTutorProfileSuccess),
+        withLatestFrom(
+          this._store.select(fromCore.selectProfileStep),
+          this._store.select(fromCore.selectUser)
+        ),
+        map(([_, step, user]) => {
+          if (step > 5 && user && user.id) {
+            this._router.navigateByUrl('/tutor/settings');
+          }
+        })
+      ),
+    {
+      dispatch: false,
+    }
+  );
+
   enterCompleteProfile$ = createEffect(
     () =>
       this._actions$.pipe(
-        ofType(
-          ...[
-            userActions.enterCompleteProfile,
-            tutorActions.completeTutorProfileSuccess,
-          ]
-        ),
+        ofType(userActions.enterCompleteProfile),
         withLatestFrom(
           this._store.select(fromCore.selectProfileStep),
           this._store.select(fromCore.selectUser)

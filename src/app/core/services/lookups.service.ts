@@ -273,7 +273,7 @@ export class LookupsService {
       .pipe(catchError(this.errorHandler));
   }
 
-  getFieldsByProgramId(fieldId: string, countryId?: string): Observable<any> {
+  getFieldsByProgramId(fieldId: string, countryId?: string, grade?: number): Observable<any> {
     let params = new HttpParams();
 
     if (fieldId) {
@@ -282,6 +282,10 @@ export class LookupsService {
 
     if (countryId) {
       params = params.append('country_id', countryId);
+    }
+
+    if (grade) {
+      params = params.append('grade', grade);
     }
 
     return this.http

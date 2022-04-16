@@ -34,13 +34,12 @@
   </div>
 
   <div class="card complete-form mb-3">
-    <form class="card-body" [formGroup]="personalInfoForm">
+    <form class="card-body" [formGroup]="personalInfoForm" (ngSubmit)="submitPersonalInfo(personalInfoForm)">
       <div class="d-flex justify-content-between align-items-center w-100 mb-4">
         <h1 class="title">Personal Information</h1>
 
         <div>
-          <!-- [isSubmitting]="loading" [extraClasses]="'w-100'" -->
-          <metutors-submit-button [form]="personalInfoForm">
+          <metutors-submit-button [form]="personalInfoForm" [isSubmitting]="isCompleteProfile">
             Update
           </metutors-submit-button>
         </div>
@@ -176,7 +175,7 @@
     </form>
   </div>
 
-  <div class="card complete-form">
+  <div class="card complete-form mb-3">
     <form class="card-body" [formGroup]="qualificationForm">
       <div class="d-flex justify-content-between align-items-center w-100 mb-4">
         <h1 class="title">Qualification Details</h1>
@@ -284,6 +283,78 @@
             <label for="currentTitle" class="form-label">Current Title (Optional)</label>
             <input type="text" class="custom-input w-100 input-bordered" id="currentTitle" placeholder="Enter Here"
               formControlName="currentTitle">
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="card complete-form">
+    <form class="card-body" [formGroup]="teachingForm">
+      <div class="d-flex justify-content-between align-items-center w-100 mb-4">
+        <h1 class="title">Teaching Specifications</h1>
+
+        <div>
+          <!-- [isSubmitting]="loading" [extraClasses]="'w-100'" -->
+          <metutors-submit-button [form]="teachingForm">
+            Update
+          </metutors-submit-button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="startDate" class="form-label">When you are Available to Start?</label>
+            <mat-form-field appearance="outline" class="w-100">
+              <input matInput [matDatepicker]="datetPicker" [placeholder]="'Select Start Date'"
+                (focus)="datetPicker.open()" [min]="minDate" formControlName="startDate">
+              <mat-datepicker-toggle matSuffix [for]="datetPicker"></mat-datepicker-toggle>
+              <mat-datepicker #datetPicker></mat-datepicker>
+            </mat-form-field>
+            <div class="text-danger" *ngIf="startDate?.touched && startDate?.invalid">
+              Please select your Availability to Start
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="form-label">Type of Tutoring</label>
+            <mat-radio-group class="d-flex flex-row mt-3" formControlName="typeOfTutoring">
+              <mat-radio-button [class.ms-3]="!isFirst" [value]="type.value"
+                *ngFor="let type of types | keyvalue: returnZero; let isFirst = first">
+                {{ type?.value }}
+              </mat-radio-button>
+            </mat-radio-group>
+            <div class="text-danger" *ngIf="typeOfTutoring?.touched && typeOfTutoring?.invalid">
+              Please select Type of Tutoring
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="endDate" class="form-label">Availability End Date</label>
+            <mat-form-field appearance="outline" class="w-100">
+              <input matInput [matDatepicker]="datetPicker2" [placeholder]="'Select Availability End Date'"
+                (focus)="datetPicker2.open()" [min]="startDate?.value" formControlName="endDate">
+              <mat-datepicker-toggle matSuffix [for]="datetPicker2"></mat-datepicker-toggle>
+              <mat-datepicker #datetPicker2></mat-datepicker>
+            </mat-form-field>
+            <div class="text-danger" *ngIf="endDate?.touched && endDate?.invalid">
+              Please select your Availability End Date
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="form-label">How many days per week are you available? </label>
+            <div class="list-days">
+              <button type="button" mat-button [class.active]="selectedDays?.includes(i)"
+                *ngFor="let day of days; let i = index" (click)="onChangeDay(i)">{{ day }}</button>
+            </div>
           </div>
         </div>
       </div>

@@ -242,7 +242,7 @@ export class LookupsEffects {
       ofType(lookupsActions.loadFieldsByProgramId),
       mergeMap((action) =>
         this._lookupsService
-          .getFieldsByProgramId(action.programId, action.countryId)
+          .getFieldsByProgramId(action.programId, action.countryId, action.grade)
           .pipe(
             map((fields) =>
               lookupsActions.loadFieldsByProgramIdSuccess({

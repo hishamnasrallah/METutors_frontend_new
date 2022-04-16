@@ -62,6 +62,10 @@ export class CompleteTutorProfilePersonalInformationComponent
     return this.form.get('address');
   }
 
+  get address2(): AbstractControl | null {
+    return this.form.get('address2');
+  }
+
   get gender(): AbstractControl | null {
     return this.form.get('gender');
   }
@@ -92,6 +96,7 @@ export class CompleteTutorProfilePersonalInformationComponent
         'dd/MM/yyyy'
       ),
       address: this.address?.value,
+      address2: this.address2?.value || '',
       bio: this.bio?.value,
       country: this.country?.value,
       city: this.city?.value,

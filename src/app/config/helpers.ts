@@ -58,7 +58,7 @@ export function calculateDurationTime(start: string, end: string) {
   const timeHourEnd = parseTime(end)?.hours;
 
   const timeMinuteStart = parseTime(start)?.minutes;
-  const timeMinuteEnd = parseTime(start)?.minutes;
+  const timeMinuteEnd = parseTime(end)?.minutes;
 
   let hourDiff = timeHourEnd - timeHourStart;
   let minuteDiff = timeMinuteEnd - timeMinuteStart;
