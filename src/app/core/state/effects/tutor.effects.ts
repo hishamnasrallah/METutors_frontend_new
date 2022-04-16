@@ -127,6 +127,50 @@ export class TutorEffects {
     )
   );
 
+  changeTutorAvatar$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorActions.changeTutorAvatar),
+      mergeMap(({ file }) =>
+        this._tutorService.changeAvatar(file).pipe(
+          map((response) =>
+            tutorActions.changeTutorAvatarSuccess({
+              avatar: environment.imageURL + response?.avatar,
+            })
+          ),
+          catchError((error) =>
+            of(
+              tutorActions.changeTutorAvatarFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  changeTutorCoverr$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorActions.changeTutorCover),
+      mergeMap(({ file }) =>
+        this._tutorService.changeCover(file).pipe(
+          map((response) =>
+            tutorActions.changeTutorCoverSuccess({
+              cover: environment.imageURL + response?.cover_img,
+            })
+          ),
+          catchError((error) =>
+            of(
+              tutorActions.changeTutorCoverFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   submitInterview$ = createEffect(() =>
     this._actions$.pipe(
       ofType(tutorActions.submitInterview),
@@ -339,6 +383,7 @@ export class TutorEffects {
           ...[
             tutorActions.submitInterviewFailure,
             tutorActions.tutorLaunchClassFailure,
+            tutorActions.changeTutorAvatarFailure,
             tutorActions.tutorSubmitFeedbackFailure,
             tutorActions.completeTutorProfileFailure,
             tutorActions.completeTutorProfileFailure,

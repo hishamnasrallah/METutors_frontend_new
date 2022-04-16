@@ -6,6 +6,7 @@ import {
   AdminAuthGuard,
   TutorAuthGuard,
   StudentAuthGuard,
+  TutorAuthorizeGuard,
 } from '@guards';
 
 const routes: Routes = [
@@ -66,6 +67,7 @@ const routes: Routes = [
     TutorAuthGuard,
     AdminAuthGuard,
     StudentAuthGuard,
+    TutorAuthorizeGuard,
   ],
 })
 export class AppRoutingModule {}

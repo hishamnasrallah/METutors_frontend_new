@@ -226,6 +226,16 @@ export const selectIsCompleteTutorProfile = createSelector(
   fromTutorReducer.selectIsCompleteTutorProfile
 );
 
+export const selectIsChangeTutorAvatar = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectIsChangeTutorAvatar
+);
+
+export const selectIsChangeTutorCover = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectIsChangeTutorCover
+);
+
 export const selectIsSubmittingInterview = createSelector(
   selectTutorState,
   fromTutorReducer.selectIsSubmittingInterview

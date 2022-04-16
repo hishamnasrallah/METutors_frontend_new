@@ -25,7 +25,9 @@ export class TutorSettingsComponent implements OnInit {
   cities$: Observable<ICity[] | null>;
   isLoadingTutor$: Observable<boolean>;
   isChangingPassword$: Observable<boolean>;
+  isChangeTutorCover$: Observable<boolean>;
   countries$: Observable<ICountry[] | null>;
+  isChangeTutorAvatar$: Observable<boolean>;
   changePasswordSuccess$: Observable<boolean>;
   isSubmittingInterview$: Observable<boolean>;
   isCompleteTutorProfile$: Observable<boolean>;
@@ -48,6 +50,14 @@ export class TutorSettingsComponent implements OnInit {
 
     this.isCompleteTutorProfile$ = this._store.select(
       fromCore.selectIsCompleteTutorProfile
+    );
+
+    this.isChangeTutorAvatar$ = this._store.select(
+      fromCore.selectIsChangeTutorAvatar
+    );
+
+    this.isChangeTutorCover$ = this._store.select(
+      fromCore.selectIsChangeTutorCover
     );
 
     this.isSubmittingInterview$ = this._store.select(
@@ -89,6 +99,14 @@ export class TutorSettingsComponent implements OnInit {
 
   sendTeacherAccount(data: any): void {
     this._store.dispatch(fromCore.completeTutorProfile({ data, nextStep: 6 }));
+  }
+
+  changetutorAvatar(file: File): void {
+    this._store.dispatch(fromCore.changeTutorAvatar({ file }));
+  }
+
+  changetutorCover(file: File): void {
+    this._store.dispatch(fromCore.changeTutorCover({ file }));
   }
 
   private _prepareCountries(): void {

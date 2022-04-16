@@ -33,7 +33,7 @@ export class ITutor {
   specifications?: ISpecification;
   subjects?: ISubject[];
   sortedSubjects?: any[];
-  country?: string;
+  country?: any;
   city?: string;
   gender?: string;
   nationality?: string;

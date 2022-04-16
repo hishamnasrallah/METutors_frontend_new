@@ -26,18 +26,32 @@
     </button>
     <div class="row">
       <div class="col-12">
-        <div class="cover" [ngStyle]="{'background-image': 'url(' + tutor?.cover + ')'}"></div>
+        <div class="cover position-relative" [ngStyle]="{'background-image': 'url(' + tutor?.cover + ')'}">
+          <input type="file" #filePicker (change)="onChangeCover($event)" hidden accept="image/*" />
+          <button type="button" mat-flat-button color="primary" class="upload-cover" [disabled]="isChangeCover"
+            (click)="filePicker.click()">
+            <img src="assets/svg/upload-solid-white.svg" draggable="false" width="15" height="15"
+              *ngIf="!isChangeCover" />
+            <mat-icon class="spinner" *ngIf="isChangeCover">autorenew</mat-icon>
+            Upload
+          </button>
+        </div>
         <div class="row avatar-name align-items-center">
           <div class="col-md-3">
             <div class="position-relative px-3">
-              <img [src]="tutor?.avatar" meTutorsDefaultAvatar alt="" class="rounded-circle img-status"
-                draggable="false">
+              <div class="img-status position-relative">
+                <img [src]="tutor?.avatar" meTutorsDefaultAvatar alt="" class="rounded-circle" draggable="false"
+                  [class.uploading]="isChangeAvatar">
+                <mat-icon class="spinner" *ngIf="isChangeAvatar">autorenew</mat-icon>
+              </div>
             </div>
           </div>
         </div>
         <div class="row mt-1 mb-2">
           <div class="col-md-3">
-            <button mat-button class="upload-btn mx-2">
+            <input type="file" #filePicker1 (change)="onChangeAvatar($event)" hidden accept="image/*" />
+            <button type="button" mat-button class="upload-btn mx-2" (click)="filePicker1.click()"
+              [disabled]="isChangeAvatar">
               <img src="assets/svg/upload-solid.svg" width="15" height="15" draggable="false" alt="">
               Upload Profile Picture
             </button>

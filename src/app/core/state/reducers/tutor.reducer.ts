@@ -28,6 +28,10 @@ export interface State {
   isCompleteTutorProfile: boolean;
   completeTutorProfileFailure: string;
 
+  // Change Tutor Avatar
+  isChangeTutorAvatar: boolean;
+  isChangeTutorCover: boolean;
+
   // Submit Interview Request
   isSubmittingInterview: boolean;
   SubmitInterviewFailure?: string;
@@ -46,6 +50,8 @@ export const initialState: State = {
   loadingTutorFailure: '',
   loadingTutorsFailure: '',
   isLoadingDashboard: false,
+  isChangeTutorCover: false,
+  isChangeTutorAvatar: false,
   isSubmittingFeedback: false,
   isSubmittingInterview: false,
   isLoadingProfileTutor: false,
@@ -168,6 +174,38 @@ export const reducer = createReducer(
     ...state,
     isCompleteTutorProfile: false,
     completeTutorProfileFailure: error,
+  })),
+
+  on(tutorActions.changeTutorAvatar, (state) => ({
+    ...state,
+    isChangeTutorAvatar: true,
+  })),
+
+  on(tutorActions.changeTutorAvatarSuccess, (state, { avatar }) => ({
+    ...state,
+    isChangeTutorAvatar: false,
+    profileTutor: state.profileTutor ? { ...state.profileTutor, avatar } : null,
+  })),
+
+  on(tutorActions.changeTutorAvatarFailure, (state, { error }) => ({
+    ...state,
+    isChangeTutorAvatar: false,
+  })),
+
+  on(tutorActions.changeTutorCover, (state) => ({
+    ...state,
+    isChangeTutorCover: true,
+  })),
+
+  on(tutorActions.changeTutorCoverSuccess, (state, { cover }) => ({
+    ...state,
+    isChangeTutorCover: false,
+    profileTutor: state.profileTutor ? { ...state.profileTutor, cover } : null,
+  })),
+
+  on(tutorActions.changeTutorCoverFailure, (state, { error }) => ({
+    ...state,
+    isChangeTutorCover: false,
   })),
 
   // On accept/reject course filter out rejected course
@@ -309,7 +347,13 @@ export const selectIsLoadingTutorDashboard = (state: State): boolean =>
 export const selectIsCompleteTutorProfile = (state: State): boolean =>
   state.isCompleteTutorProfile;
 
-  export const selectIsSubmittingInterview = (state: State): boolean =>
+export const selectIsChangeTutorAvatar = (state: State): boolean =>
+  state.isChangeTutorAvatar;
+
+export const selectIsChangeTutorCover = (state: State): boolean =>
+  state.isChangeTutorCover;
+
+export const selectIsSubmittingInterview = (state: State): boolean =>
   state.isSubmittingInterview;
 
 export const selectIsLaunchingClass = (state: State): boolean =>

@@ -29,9 +29,13 @@
                                        [isLoadingTutor]="(isLoadingTutor$ | async)!"
                                        [countries]="countries$ | async" 
                                        [cities]="cities$ | async" 
+                                       [isChangeAvatar]="(isChangeTutorAvatar$ | async)!"
+                                       [isChangeCover]="(isChangeTutorCover$ | async)!"
                                        [isCompleteProfile]="(isCompleteTutorProfile$ | async)!"
                                        (loadCities)="loadCities($event)"
                                        (submitForm)="sendTeacherAccount($event)"
+                                       (changeAvatar)="changetutorAvatar($event)"
+                                       (changeCover)="changetutorCover($event)"
                                        (submitInterview)="onOpenSubmitInterview()">
       </metutors-tutor-settings-profile>
 

@@ -32,6 +32,7 @@ import {
   SORTED_DAYS_WEEK,
   TEACHING_EXPERIENCE,
 } from '@metutor/config';
+import { AlertNotificationService } from '@metutor/core/components';
 import { ICity, ICountry, ITutor } from '@metutor/core/models';
 
 @Component({
@@ -52,7 +53,7 @@ export class TutorSettingsProfileComponent implements OnInit {
         address: _tutor?.address,
         address2: _tutor?.address2,
         gender: _tutor?.gender,
-        country: _tutor?.country,
+        country: _tutor?.country?.id,
         city: _tutor?.city,
         bio: _tutor?.bio,
         postalCode: _tutor?.postalCode,
@@ -80,18 +81,22 @@ export class TutorSettingsProfileComponent implements OnInit {
       });
       this.teachingForm.updateValueAndValidity();
 
-      this.loadCities.emit(_tutor?.country);
+      this.loadCities.emit(_tutor?.country?.id);
     }
   }
   @Input() cities: ICity[] | null;
+  @Input() isChangeCover: boolean;
   @Input() loading: boolean | null;
   @Input() isLoadingTutor: boolean;
+  @Input() isChangeAvatar: boolean;
   @Input() isCompleteProfile: boolean;
   @Input() countries: ICountry[] | null;
 
   @Output() submitForm = new EventEmitter();
   @Output() submitInterview = new EventEmitter();
+  @Output() changeCover = new EventEmitter<File>();
   @Output() loadCities = new EventEmitter<string>();
+  @Output() changeAvatar = new EventEmitter<File>();
 
   tutor: ITutor;
   genders = GENDERS;
@@ -114,7 +119,8 @@ export class TutorSettingsProfileComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private _dialog: MatDialog,
-    private _datePipe: DatePipe
+    private _datePipe: DatePipe,
+    private _alertNotificationService: AlertNotificationService
   ) {
     this.personalInfoForm = this._fb.group({
       middleName: [null, [Validators.required]],
@@ -294,6 +300,48 @@ export class TutorSettingsProfileComponent implements OnInit {
         this.availability.at(index).patchValue({ day: null, timeSlots: [] });
       }
     });
+  }
+
+  onChangeAvatar(event: any): void {
+    if (event.target && event.target.files && event.target.files.length) {
+      const file = event.target?.files[0];
+      const mimeType = event.target.files[0].type;
+
+      if (mimeType.match(/image\/*/) == null) {
+        this._alertNotificationService.error('Only images are allowed');
+
+        return;
+      }
+
+      if (file.size > 1 * 1024 * 1024) {
+        this._alertNotificationService.error('Allowed file size is 1MB');
+
+        return;
+      }
+
+      this.changeAvatar.emit(file);
+    }
+  }
+
+  onChangeCover(event: any): void {
+    if (event.target && event.target.files && event.target.files.length) {
+      const file = event.target?.files[0];
+      const mimeType = event.target.files[0].type;
+
+      if (mimeType.match(/image\/*/) == null) {
+        this._alertNotificationService.error('Only images are allowed');
+
+        return;
+      }
+
+      if (file.size > 1 * 1024 * 1024) {
+        this._alertNotificationService.error('Allowed file size is 1MB');
+
+        return;
+      }
+
+      this.changeCover.emit(file);
+    }
   }
 
   submitPersonalInfo(form: FormGroup): void {
