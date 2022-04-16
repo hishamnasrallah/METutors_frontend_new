@@ -5,7 +5,6 @@ export * from './faq-list-questions';
 export * from './tutor-feedback-modal';
 export * from './tutor-attendance-modal';
 export * from './tutor-settings-profile';
-export * from './tutor-settings-account';
 export * from './tutor-settings-security';
 export * from './faq-still-have-questions';
 export * from './tutor-cancel-course-modal';

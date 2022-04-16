@@ -112,3 +112,17 @@
     border: 1px solid #000000;
   }
 }
+
+.my-table.default-title tr th {
+  color: #696969;
+  font-size: 13px;
+  background-color: transparent;
+
+  &.heading {
+    background: #F7F7F7;
+  }
+
+  span {
+    color: #2a2a2a;
+  }
+}

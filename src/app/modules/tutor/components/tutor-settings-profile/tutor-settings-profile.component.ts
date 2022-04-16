@@ -26,6 +26,7 @@ import {
   DEGREE_FIELDS,
   DEGREE_LEVELS,
   GENDERS,
+  generalConstants,
   InterviewStatus,
   LANGUAGES_LEVELS_CONST,
   SORTED_DAYS_WEEK,
@@ -108,6 +109,7 @@ export class TutorSettingsProfileComponent implements OnInit {
   experiences = TEACHING_EXPERIENCE;
   interviewStatus = InterviewStatus;
   types = COURSE_TUITION_TYPES_CONST;
+  nationalId = generalConstants.nationalId;
 
   constructor(
     private _fb: FormBuilder,

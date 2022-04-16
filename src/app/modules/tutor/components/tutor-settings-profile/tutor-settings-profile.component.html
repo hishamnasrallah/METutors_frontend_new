@@ -309,7 +309,7 @@
     </form>
   </div>
 
-  <div class="card complete-form">
+  <div class="card complete-form mb-3">
     <form class="card-body" [formGroup]="teachingForm">
       <div class="d-flex justify-content-between align-items-center w-100 mb-4">
         <h1 class="title">Teaching Specifications</h1>
@@ -379,5 +379,41 @@
         </div>
       </div>
     </form>
+  </div>
+
+  <div class="card complete-form">
+    <div class="card-body">
+      <h1 class="title">Subjects</h1>
+
+      <div class="row mt-4" *ngIf="tutor?.sortedSubjects && tutor?.sortedSubjects?.length">
+        <div class="col-md-12" *ngFor="let item of tutor?.sortedSubjects; let indexSubjects = index; let isLast = last"
+          [class.mb-4]="!isLast">
+          <table class="table my-table default-title mb-0">
+            <tr>
+              <th class="heading" [attr.colspan]="item?.programId === nationalId ? '2' : '1'">
+                Program <span>
+                  {{ item?.programName }}<ng-container *ngIf="item?.programId === nationalId">,
+                    {{ item?.countryName }}
+                  </ng-container>
+                </span>
+              </th>
+              <th class="heading">Field Name <span>{{ item?.fieldName }}</span></th>
+            </tr>
+            <tr>
+              <th>Field</th>
+              <th *ngIf="item?.programId === nationalId">Grade</th>
+              <th>Hourly Price</th>
+            </tr>
+            <tr *ngFor="let subject of item.subjects">
+              <td>{{ subject?.subject }}</td>
+              <td *ngIf="item?.programId === nationalId">{{ subject?.gradeName }}</td>
+              <td>
+                {{ subject?.pricePerHour }}
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
 </ng-container>
