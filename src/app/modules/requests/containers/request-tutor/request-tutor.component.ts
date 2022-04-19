@@ -248,8 +248,14 @@ export class RequestTutorComponent implements OnInit {
       startTime: this.reviewInfo.startTime,
       endTime: this.reviewInfo.endTime,
       totalPrice: this.reviewInfo.price,
-      startDate: this.reviewInfo.startDate,
-      endDate: this.reviewInfo.endDate,
+      startDate: this._datePipe.transform(
+        new Date(this.reviewInfo.startDate),
+        'yyyy-MM-dd'
+      ),
+      endDate: this._datePipe.transform(
+        new Date(this.reviewInfo.endDate),
+        'yyyy-MM-dd'
+      ),
       classes: this.reviewInfo.classes,
       classrooms: this.selectedClassrooms.map((classroom: any) => ({
         date: classroom?.date,

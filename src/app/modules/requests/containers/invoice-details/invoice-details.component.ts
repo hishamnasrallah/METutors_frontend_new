@@ -9,6 +9,8 @@ import {
   MatDialogRef,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
+import * as fromRequests from '@metutor/modules/requests/state';
+import * as fromRequestsActions from '@metutor/modules/requests/state/actions';
 
 @Component({
   selector: 'metutors-invoice-details',
@@ -18,6 +20,7 @@ import {
 export class InvoiceDetailsComponent implements OnInit {
   user$: Observable<IUser | null>;
   classroom$: Observable<IClassroom | null>;
+  showConfirmPaymentModal$: Observable<boolean>;
   isCalculateInvoiceDetails$: Observable<boolean>;
   invoiceDetails$: Observable<IInvoiceDetails | null>;
 
@@ -36,27 +39,17 @@ export class InvoiceDetailsComponent implements OnInit {
     this.isCalculateInvoiceDetails$ = this._store.select(
       fromCore.selectIsCalculateFinalInvoice
     );
+
+    this.showConfirmPaymentModal$ = this._store.select(
+      fromRequests.selectIsConfirmPaymentModal
+    );
   }
 
-  payNow(user: IUser, classroom: IClassroom): void {
+  openRequestsConfirmPaymentModal(user: IUser): void {
     if (user) {
-      const dialogRef = this._dialog.open(DialogConfirmPayment, {
-        width: '800px',
-        data: classroom,
-      });
-
-      dialogRef.afterClosed().subscribe((result) => {
-        if (result) {}
-      });
-
-      const dialogSubmitSubscription =
-        dialogRef.componentInstance.payNow.subscribe((data) => {
-          console.log(data);
-          if (data) {
-            this._store.dispatch(fromCore.createPaidClass({ data }));
-            dialogSubmitSubscription.unsubscribe();
-          }
-        });
+      this._store.dispatch(
+        fromRequestsActions.openRequestsConfirmPaymentModal()
+      );
     } else {
       this._router.navigate(['/signin'], {
         queryParams: {
@@ -65,29 +58,14 @@ export class InvoiceDetailsComponent implements OnInit {
       });
     }
   }
-}
-@Component({
-  selector: 'dialog-confirm-payment',
-  templateUrl: 'dialog-confirm-payment.component.html',
-  styleUrls: ['./invoice-details.component.scss'],
-})
-export class DialogConfirmPayment implements OnInit {
-  @Output() payNow = new EventEmitter();
 
-  classroom: IClassroom;
-
-  constructor(
-    public dialogRef: MatDialogRef<DialogConfirmPayment>,
-    @Inject(MAT_DIALOG_DATA) public data: any
-  ) {
-    if (data) {
-      this.classroom = data;
-    }
+  closeRequestsConfirmPaymentModal(): void {
+    this._store.dispatch(
+      fromRequestsActions.closeRequestsConfirmPaymentModal()
+    );
   }
 
-  ngOnInit(): void {}
-
-  onNoClick(): void {
-    this.dialogRef.close();
+  payNow(classroom: IClassroom): void {
+    this._store.dispatch(fromCore.createPaidClass({ data: classroom }));
   }
 }
