@@ -4,6 +4,7 @@ import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 
+import { ITeacherDocument } from '@models';
 import * as fromCore from '@metutor/core/state';
 import * as fromAdmin from '@metutor/modules/admin/state';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
@@ -18,10 +19,10 @@ export class AdminTutorInterviewDocumentsComponent implements OnInit {
 
   isRejecting$: Observable<boolean>;
   isApproving$: Observable<boolean>;
-  view$: Observable<{ documents: any; loading: boolean }>;
+  view$: Observable<{ documents: ITeacherDocument[]; loading: boolean }>;
 
-  docId: number;
-  docUrl: string;
+  document: ITeacherDocument;
+
   constructor(private _store: Store<any>) {}
 
   ngOnInit(): void {
@@ -40,18 +41,17 @@ export class AdminTutorInterviewDocumentsComponent implements OnInit {
   }
 
   onRejectDoc(): void {
-    const id = this.docId;
+    const id = this.document.id;
     this._store.dispatch(fromCore.adminRejectDocument({ id }));
   }
 
   onApproveDoc(): void {
-    const id = this.docId;
+    const id = this.document.id;
     this._store.dispatch(fromCore.adminApproveDocument({ id }));
   }
 
-  onOpenInterviewAttachmentModal(document: any) {
-    this.docId = document.id;
-    this.docUrl = document.value;
+  onOpenInterviewAttachmentModal(document: ITeacherDocument) {
+    this.document = document;
     this._store.dispatch(fromAdminAction.openAdminInterviewAttachmentModal());
   }
 

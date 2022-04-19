@@ -21,3 +21,4 @@ export * from './ticket-comment.model';
 export * from './ticket.model';
 export * from './tutor.model';
 export * from './user.model';
+export * from './admin.model';

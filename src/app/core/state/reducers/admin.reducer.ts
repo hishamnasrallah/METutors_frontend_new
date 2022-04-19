@@ -1,16 +1,17 @@
 import { createReducer, on } from '@ngrx/store';
 
+import { ITeacherDocument } from '@models';
 import * as adminActions from '../actions/admin.actions';
 
 export interface State {
-  documents: any;
   isApprovingDoc: boolean;
   isRejectingDoc: boolean;
   isLoadingAdminDocs: boolean;
+  documents: ITeacherDocument[];
 }
 
 export const initialState: State = {
-  documents: null,
+  documents: [],
   isApprovingDoc: false,
   isRejectingDoc: false,
   isLoadingAdminDocs: false,
@@ -39,10 +40,21 @@ export const reducer = createReducer(
     isRejectingDoc: true,
   })),
 
-  on(adminActions.adminRejectDocumentSuccess, (state) => ({
-    ...state,
-    isRejectingDoc: false,
-  })),
+  on(adminActions.adminRejectDocumentSuccess, (state, { id }) => {
+    const finalState = {
+      ...state,
+      isRejectingDoc: false,
+    };
+
+    if (finalState.documents.length) {
+      finalState.documents = finalState.documents.map(
+        (document: ITeacherDocument) =>
+          document.id === id ? { ...document, status: 'rejected' } : document
+      );
+    }
+
+    return finalState;
+  }),
 
   on(adminActions.adminRejectDocumentFailure, (state) => ({
     ...state,
@@ -54,10 +66,21 @@ export const reducer = createReducer(
     isRejectingDoc: true,
   })),
 
-  on(adminActions.adminApproveDocumentSuccess, (state) => ({
-    ...state,
-    isRejectingDoc: false,
-  })),
+  on(adminActions.adminApproveDocumentSuccess, (state, { id }) => {
+    const finalState = {
+      ...state,
+      isRejectingDoc: false,
+    };
+
+    if (finalState.documents.length) {
+      finalState.documents = finalState.documents.map(
+        (document: ITeacherDocument) =>
+          document.id === id ? { ...document, status: 'approved' } : document
+      );
+    }
+
+    return finalState;
+  }),
 
   on(adminActions.adminApproveDocumentFailure, (state) => ({
     ...state,
@@ -65,7 +88,7 @@ export const reducer = createReducer(
   }))
 );
 
-export const selectAdminDocuments = (state: State): any[] | null =>
+export const selectAdminDocuments = (state: State): ITeacherDocument[] =>
   state.documents;
 
 export const selectIsLoadingAdminDocs = (state: State): boolean =>

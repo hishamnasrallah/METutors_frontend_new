@@ -5,4 +5,6 @@ export const environment = {
   clientUrl: 'http://localhost:4200',
   imageURL: 'https://testing.zaptatech.com/public/uploads/images/',
   videoURL: 'https://testing.zaptatech.com/public/uploads/teacher_videos/',
+  teacherDocs:
+    'https://testing.zaptatech.com/public/uploads/teacher_documents/',
 };
