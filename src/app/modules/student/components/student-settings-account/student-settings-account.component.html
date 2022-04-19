@@ -2,28 +2,43 @@
   <div class="avatar-block">
     <div class="row mb-3">
       <div class="col-md-12 d-flex">
-        <!-- <mat-icon *ngIf="!profilePic" class="person">person</mat-icon> -->
-        <div class="person">
-          <img id="output" />
-        </div>
+         <mat-icon *ngIf="!(uploadedFiles$ | async)?.length" class="person">person</mat-icon>
+        <ng-container *ngIf="(uploadedFiles$ | async)?.length">
+          <ng-container *ngFor="let file of (uploadedFiles$ | async); let i = index">
+            <img [src]="file?.url" alt="">
+          </ng-container>
+        </ng-container>
+
         <div>
           <h2>Upload profile photo</h2>
           <h5>JPG, GIF or PNG. Max size of 800K</h5>
           <div style="height:0;overflow:hidden">
-            <input type="file" id="fileInput" name="fileInput" (change)="uploadProfilePic($event)" />
+            <input type="file" id="fileInput" name="fileInput" #filePicker (change)="uploadProfilePic($event)" />
           </div>
-          <button mat-button type="button" (click)="upload()" [disabled]="subloading">
+          <button mat-button type="button" (click)="filePicker.click()">
             <mat-icon>cloud_upload</mat-icon>
             Upload file
           </button>
+
+          <ng-container *ngLet="fileUploadProgress$ | async as fileUploadProgress">
+            <ng-container *ngIf="fileUploadProgress?.length">
+              <ng-container *ngFor="let uploadProgress of fileUploadProgress">
+                <ng-container *ngIf="uploadProgress.responseType !== uploadComplete">
+                  <metutors-file-upload-progress [fileName]="uploadProgress.fileName"
+                                                 [uploadedPercentage]="uploadProgress.progress">
+                  </metutors-file-upload-progress>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </ng-container>
         </div>
       </div>
     </div>
   </div>
-  <div class="row mb-3">
-    <div class="col-md-6 form-group">
+  <div class="row mb-3 form-group">
+    <div class="col-md-6">
       <h3>First Name</h3>
-      <input type="text" class="form-control custom-input input-bordered" placeholder="Ex: Mohamed" formControlName="firstName">
+      <input type="text" class="form-control custom-input input-bordered" placeholder="Kamran" formControlName="firstName">
        <div class="text-danger" *ngIf="firstName?.['touched'] && firstName?.errors?.['required']">
         Please write your First Name
       </div>
@@ -42,7 +57,7 @@
   <div class="row mb-3 form-group">
     <div class="col-md-6">
       <h3>Last Name</h3>
-      <input type="text" class="form-control custom-input input-bordered" placeholder="Ex: Ahmed" formControlName="lastName">
+      <input type="text" class="form-control custom-input input-bordered" placeholder="Khatti" formControlName="lastName">
        <div class="text-danger" *ngIf="lastName?.['touched'] && lastName?.errors?.['required']">
         Please write your Last Name
       </div>
@@ -60,8 +75,8 @@
   </div>
   <div class="row mb-3 form-group">
     <div class="col-md-6">
-      <h3>Email address</h3>
-      <input type="email" class="form-control custom-input input-bordered" placeholder="Ex: xxx@xxx.com" formControlName="email" email>
+      <h3>Email Address</h3>
+      <input type="email" class="form-control custom-input input-bordered" placeholder="hello@gmail.com" formControlName="email" email>
        <div class="text-danger" *ngIf="email?.['touched'] && email?.errors?.['required']">
         Please write your Email
       </div>
@@ -74,37 +89,43 @@
       </div>
     </div>
   </div>
+
   <div class="row mb-3 form-group">
     <div class="col-md-6">
-      <h3>Phone Number</h3>
-      <!-- [selectedCountryISO]="selectedCountry" -->
-      <ngx-intl-tel-input [cssClass]="'custom-input w-100 input-bordered'" [preferredCountries]="preferredCountries"
-        [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
-        [selectFirstCountry]="true" [phoneValidation]="true" [separateDialCode]="true"
-        (input)="verifyPhoneNumber($event)" formControlName="mobileNumber">
-      </ngx-intl-tel-input>
-       <div class="text-danger" *ngIf="f.form.controls['mobileNumber'].touched && !f.form.value.mobileNumber">
-        Phone Number is Required
-      </div>
-      <div class="text-danger"
-        *ngIf="f.form.controls['mobileNumber'].touched && f.form.value.mobileNumber && !numberOnly">
-        Phone Number should contains digits only
-      </div>
-      <div class="text-danger"
-        *ngIf="f.form.controls['mobileNumber'].touched && f.form.value.mobileNumber && numberOnly && !minPhone">
-        Phone Number cannot be less than 5 digits
-      </div>
-      <div class="text-danger"
-        *ngIf="f.form.controls['mobileNumber'].touched && f.form.value.mobileNumber && numberOnly && !maxPhone">
-        Phone Number cannot be greater than 15 digits
-      </div>
+      <h3>Headline</h3>
+      <input type="text" class="form-control custom-input input-bordered" placeholder="Add a professional headline like, 'Student at harvard' " formControlName="headline">
     </div>
   </div>
+
+  <div class="row mb-3 form-group">
+    <div class="col-md-6">
+      <h3>Country of Residence</h3>
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-select formControlName="country" [placeholder]="'Choose Country'">
+          <mat-option [value]="country?.id" *ngFor="let country of (countries$ | async)">
+            {{ country?.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row mb-3 form-group">
+    <div class="col-md-6">
+      <h3>Gender</h3>
+      <mat-form-field appearance="outline" class="w-100">
+      <mat-select formControlName="gender" [placeholder]="'Male'">
+        <mat-option [value]="gender" *ngFor="let gender of genders">{{ gender }}</mat-option>
+      </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
   <div class="row btn-list">
     <div class="col-12 d-flex justify-content-end">
       <button mat-flat-button color="primary" type="submit"
-        [disabled]="form.invalid || loading || !f.form.value.mobileNumber || !profilePic || !numberOnly || !minPhone || !maxPhone">Update
-        <mat-icon class="spinner" *ngIf="loading">autorenew</mat-icon>
+        [disabled]="form.invalid">Update
+        <mat-icon class="spinner">autorenew</mat-icon>
       </button>
     </div>
   </div>

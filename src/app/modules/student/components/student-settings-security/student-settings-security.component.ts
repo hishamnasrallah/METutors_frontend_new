@@ -27,7 +27,9 @@ export class StudentSettingsSecurityComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private _fv: FormValidationUtilsService
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     this.form = this._fb.group(
       {
         oldPassword: [
@@ -56,8 +58,6 @@ export class StudentSettingsSecurityComponent implements OnInit {
       }
     );
   }
-
-  ngOnInit(): void {}
 
   get oldPassword(): AbstractControl | null {
     return this.form.get('oldPassword');
