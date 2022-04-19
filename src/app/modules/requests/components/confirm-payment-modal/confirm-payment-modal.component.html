@@ -1,0 +1,11 @@
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'medium'"
+                [heading]="'Pay now'"
+                [template]="template">
+  <ng-template #template>
+    <div class="confirm-invoice">
+        <button mat-button class="btn-save" type="button" (click)="payNow.emit()" cdkFocusInitial>
+        Pay Now
+        </button>
+    </div>      
+  </ng-template>
+</metutors-modal>

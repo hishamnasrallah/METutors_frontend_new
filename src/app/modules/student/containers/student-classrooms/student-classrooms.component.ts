@@ -82,11 +82,11 @@ export class StudentClassroomsComponent implements OnInit {
     this.user$ = this._store.select(fromCore.selectUser);
     this.layout$ = this._store.select(fromRoot.selectLayout);
 
-    this._store.dispatch(fromCore.loadCountries());
+    this._store.dispatch(fromCore.loadProgramCountries());
     this._store.dispatch(fromCore.loadStudentClassroom({}));
 
     this.view$ = combineLatest([
-      this._store.select(fromCore.selectCountries),
+      this._store.select(fromCore.selectProgramCountries),
       this._store.select(fromCore.selectClassroomCoursePrograms),
       this._store.select(fromCore.selectClassroomCourseFieldOfStudies),
       this._store

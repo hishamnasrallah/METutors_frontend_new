@@ -77,7 +77,7 @@ export const createPaidClass = createAction(
 
 export const createPaidClassSuccess = createAction(
   '[Request] Create Paid Class Success',
-  props<{ classroom: IClassroom }>()
+  props<{ classroom: IClassroom; message: string }>()
 );
 
 export const createPaidClassFailure = createAction(

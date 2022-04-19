@@ -119,9 +119,10 @@ export class RequestEffects {
       ofType(requestActions.createPaidClass),
       mergeMap((action) =>
         this._coursesService.createCourse(action.data).pipe(
-          map((classroom) =>
+          map((response) =>
             requestActions.createPaidClassSuccess({
-              classroom,
+              classroom: response.classroom,
+              message: response.message,
             })
           ),
           catchError((error) =>
@@ -134,6 +135,30 @@ export class RequestEffects {
         )
       )
     )
+  );
+
+  createPaidClassSuccess$ = createEffect(
+    () =>
+      this._actions$.pipe(
+        ofType(requestActions.createPaidClassSuccess),
+        map((_) => {
+          this._router.navigate(['/student/classrooms']);
+        })
+      ),
+    {
+      dispatch: false,
+    }
+  );
+
+  successMessages$ = createEffect(
+    () =>
+      this._actions$.pipe(
+        ofType(...[requestActions.createPaidClassSuccess]),
+        map(({ message }) => this._alertNotificationService.success(message))
+      ),
+    {
+      dispatch: false,
+    }
   );
 
   failureMessages$ = createEffect(

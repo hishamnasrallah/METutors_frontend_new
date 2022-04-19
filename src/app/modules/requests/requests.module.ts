@@ -16,11 +16,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
-import {
-  DialogConfirmPayment,
-  RequestTutorComponent,
-  InvoiceDetailsComponent,
-} from './containers';
+import * as fromRequests from './state';
+import { StoreModule } from '@ngrx/store';
+// import * as adminEffects from './state/effects';
+import * as featureKeys from './state/feature-keys';
+
+import { RequestTutorComponent, InvoiceDetailsComponent } from './containers';
 
 import {
   DialogEditClassroom,
@@ -29,6 +30,7 @@ import {
   SelectTutorFormComponent,
   ClassroomInfoFormComponent,
   ListClassroomsFormComponent,
+  ConfirmPaymentModalComponent,
   CourseInformationFormComponent,
   InvoiceClassroomDetailsComponent,
 } from './components';
@@ -36,7 +38,6 @@ import {
 @NgModule({
   declarations: [
     DialogEditClassroom,
-    DialogConfirmPayment,
     DialogRemoveClassroom,
     RequestTutorComponent,
     ReviewRequestComponent,
@@ -44,6 +45,7 @@ import {
     SelectTutorFormComponent,
     ClassroomInfoFormComponent,
     ListClassroomsFormComponent,
+    ConfirmPaymentModalComponent,
     CourseInformationFormComponent,
     InvoiceClassroomDetailsComponent,
   ],
@@ -65,6 +67,11 @@ import {
     RequestsRoutingModule,
     RatingModule.forRoot(),
     NgxMaterialTimepickerModule,
+    // EffectsModule.forFeature(Object.values(adminEffects)),
+    StoreModule.forFeature(
+      featureKeys.requestsFeatureKey,
+      fromRequests.reducers
+    ),
   ],
 })
 export class RequestsModule {}

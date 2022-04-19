@@ -102,6 +102,11 @@ export const reducer = createReducer(
     createdClass: classroom,
   })),
 
+  on(requestActions.createPaidClassSuccess, (state) => ({
+    ...state,
+    createdClass: null,
+  })),
+
   on(userActions.enterRequestTutor, (state) => ({
     ...state,
     createdClass: null,

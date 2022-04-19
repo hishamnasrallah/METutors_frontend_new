@@ -139,31 +139,7 @@
               <!-- <span class="text-uppercase pro">Pro</span>
                     <span class="text-uppercase verified">Verified</span> -->
             </h2>
-            <h3 *ngIf="reviewInfo?.tutor?.bio">{{ reviewInfo?.tutor?.bio }}</h3>
-            <div class="row">
-              <div class="col-12 d-flex align-items-center">
-                <div>
-                  <rating [ngModel]="reviewInfo?.tutor?.rate" [ngModelOptions]="{standalone: true}" [max]="5"
-                    [readonly]="true">
-                  </rating>
-                  <span class="count">{{ reviewInfo?.tutor?.rate }}</span>
-                  <span class="review" *ngIf="reviewInfo?.tutor?.reviewsCount">({{ reviewInfo?.tutor?.reviewsCount }}
-                    reviews)</span>
-                </div>
-                <div class="d-flex ms-3" *ngIf="reviewInfo?.tutor?.country">
-                  <img src="assets/svg/map.svg" class="icon" draggable="false" width="16" height="16" alt="">
-                  <span class="review">
-                    From {{ reviewInfo?.tutor?.country }}
-                  </span>
-                </div>
-                <div class="d-flex ms-3" *ngIf="reviewInfo?.tutor?.studentNumber">
-                  <img src="assets/svg/students.svg" class="icon" draggable="false" width="16" height="16" alt="">
-                  <span class="review">
-                    Help {{ reviewInfo?.tutor?.studentNumber }} Student
-                  </span>
-                </div>
-              </div>
-            </div>
+            <h3 class="mb-0" *ngIf="reviewInfo?.tutor?.bio">{{ reviewInfo?.tutor?.bio }}</h3>
           </div>
           <a class="col-md-3 full-profile" [routerLink]="'/tutor-profile/' + reviewInfo?.tutor?.id" target="_blank">
             <img src="assets/svg/share-link.svg" draggable="false" width="16px" height="16px" alt="">
