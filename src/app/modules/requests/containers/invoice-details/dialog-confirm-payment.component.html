@@ -1,0 +1,16 @@
+<div class="confirm-invoice">
+  <div class="d-flex" mat-dialog-title>
+    <h2 class="flex-grow-1 m-0 d-flex flex-column">
+      Pay now
+    </h2>
+
+    <button class="text-secondary" mat-dialog-close mat-icon-button type="button">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div mat-dialog-content>
+    <button mat-button class="btn-save" type="button" (click)="payNow.emit(classroom)" cdkFocusInitial>
+      Pay Now
+    </button>
+  </div>
+</div>

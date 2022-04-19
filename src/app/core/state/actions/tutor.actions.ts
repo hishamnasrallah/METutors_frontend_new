@@ -26,7 +26,7 @@ export const changeTutorAvatar = createAction(
 
 export const changeTutorAvatarSuccess = createAction(
   '[Tutor] Change Tutor Avatar Success',
-  props<{ avatar: string }>()
+  props<{ token: string; avatar: string; user: IUser }>()
 );
 
 export const changeTutorAvatarFailure = createAction(

@@ -132,10 +132,25 @@ export class TutorEffects {
       ofType(tutorActions.changeTutorAvatar),
       mergeMap(({ file }) =>
         this._tutorService.changeAvatar(file).pipe(
-          map((response) =>
-            tutorActions.changeTutorAvatarSuccess({
+          map((response) => {
+            const jwtHelper = new JwtHelperService();
+            const decodeToken = camelcaseKeys(
+              jwtHelper.decodeToken(response?.token),
+              {
+                deep: true,
+              }
+            );
+            const user: any = decodeToken?.user;
+
+            return tutorActions.changeTutorAvatarSuccess({
+              token: response?.token,
+              user: {
+                ...user,
+                avatar: environment.imageURL + user?.avatar,
+              },
               avatar: environment.imageURL + response?.avatar,
             })
+          }
           ),
           catchError((error) =>
             of(

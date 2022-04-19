@@ -16,7 +16,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
-import { RequestTutorComponent, InvoiceDetailsComponent } from './containers';
+import {
+  DialogConfirmPayment,
+  RequestTutorComponent,
+  InvoiceDetailsComponent,
+} from './containers';
 
 import {
   DialogEditClassroom,
@@ -32,6 +36,7 @@ import {
 @NgModule({
   declarations: [
     DialogEditClassroom,
+    DialogConfirmPayment,
     DialogRemoveClassroom,
     RequestTutorComponent,
     ReviewRequestComponent,
