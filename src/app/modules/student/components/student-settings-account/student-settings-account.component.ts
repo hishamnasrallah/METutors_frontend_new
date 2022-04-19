@@ -1,20 +1,19 @@
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { tap } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
+import { FormValidationUtilsService } from '@metutor/core/validators';
+
 import {
-  AbstractControl,
-  FormBuilder,
   FormGroup,
   Validators,
+  FormBuilder,
+  AbstractControl,
 } from '@angular/forms';
-import { CountryISO } from 'ngx-intl-tel-input';
-import { AlertNotificationService } from 'src/app/core/components';
-import { AuthService, UsersService } from 'src/app/core/services';
-import { FormValidationUtilsService } from '@metutor/core/validators';
-import * as fromCore from '@metutor/core/state';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { GENDERS, generalConstants } from '@config';
+
 import { ICountry } from '@models';
+import * as fromCore from '@metutor/core/state';
+import { GENDERS, generalConstants } from '@config';
 
 @Component({
   selector: 'metutors-student-settings-account',
@@ -24,11 +23,6 @@ import { ICountry } from '@models';
 export class StudentSettingsAccountComponent implements OnInit {
   form: FormGroup;
   genders = GENDERS;
-  preferredCountries: CountryISO[] = [
-    CountryISO.UnitedStates,
-    CountryISO.UnitedKingdom,
-  ];
-
   uploadedFiles$: Observable<any>;
   fileUploadProgress$: Observable<any>;
   countries$: Observable<ICountry[] | null>;
@@ -37,16 +31,13 @@ export class StudentSettingsAccountComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private _store: Store<any>,
-    private _authService: AuthService,
-    private _userService: UsersService,
-    private _fv: FormValidationUtilsService,
-    private _alertNotificationService: AlertNotificationService
+    private _fv: FormValidationUtilsService
   ) {}
 
   ngOnInit(): void {
     this.form = this._fb.group({
       picture: [null, Validators.required],
-      firstName: [
+      first_name: [
         null,
         [
           Validators.required,
@@ -55,7 +46,7 @@ export class StudentSettingsAccountComponent implements OnInit {
           this._fv.maxCharacterValidator,
         ],
       ],
-      lastName: [
+      last_name: [
         null,
         [
           Validators.required,
@@ -90,11 +81,11 @@ export class StudentSettingsAccountComponent implements OnInit {
   }
 
   get firstName(): AbstractControl | null {
-    return this.form.get('firstName');
+    return this.form.get('first_name');
   }
 
   get lastName(): AbstractControl | null {
-    return this.form.get('lastName');
+    return this.form.get('last_name');
   }
 
   get email(): AbstractControl | null {
@@ -110,20 +101,7 @@ export class StudentSettingsAccountComponent implements OnInit {
   }
 
   onSubmit(form: FormGroup) {
-    if (form) {
-      console.log(form.value);
-      return;
-    }
-    const formData = new FormData();
-
-    this._authService.updateStudentProfile(formData).subscribe((response) => {
-      if (response.status === true) {
-        this.form.reset();
-
-        this._alertNotificationService.success(response.message);
-      } else {
-        this._alertNotificationService.error(response.errors[0]);
-      }
-    });
+    const body = form.value;
+    this._store.dispatch(fromCore.studentUpdateProfile({ body }));
   }
 }

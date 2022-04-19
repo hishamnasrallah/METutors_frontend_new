@@ -255,3 +255,18 @@ export const studentSubmitPlatformFeedbackFailure = createAction(
   '[Student] Student Submit Platform Feedback Failure',
   props<{ error: any }>()
 );
+
+export const studentUpdateProfile = createAction(
+  '[Student] Student Update Profile',
+  props<{ body: any }>()
+);
+
+export const studentUpdateProfileSuccess = createAction(
+  '[Student] Student Update Profile Success',
+  props<{ message: string }>()
+);
+
+export const studentUpdateProfileFailure = createAction(
+  '[Student] Student Update Profile Failure',
+  props<{ error: any }>()
+);

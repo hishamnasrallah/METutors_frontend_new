@@ -1,4 +1,4 @@
-import { of, tap } from 'rxjs';
+import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
 import camelcaseKeys from 'camelcase-keys';
@@ -8,7 +8,11 @@ import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 import { StudentsService } from '@services';
 import * as fromRouterStore from '@metutor/state';
 import { AlertNotificationService } from '@metutor/core/components';
-import { selectStudents, selectStudentDashboard } from '@metutor/core/state';
+import {
+  selectStudents,
+  selectStudentDashboard,
+  studentUpdateProfile,
+} from '@metutor/core/state';
 import * as studentActions from '@metutor/core/state/actions/student.actions';
 
 @Injectable()
@@ -410,6 +414,29 @@ export class StudentEffects {
     )
   );
 
+  // Student profile
+  studentUpdateProfile$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(studentActions.studentUpdateProfile),
+      mergeMap(({ body }) =>
+        this._studentService.updateStudentProfile(body).pipe(
+          map(() =>
+            studentActions.studentUpdateProfileSuccess({
+              message: 'Account settings successfully updated',
+            })
+          ),
+          catchError((error) =>
+            of(
+              studentActions.studentUpdateProfileFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   studentSubmitAssignmentSuccess$ = createEffect(() =>
     this._actions$.pipe(
       ofType(studentActions.studentSubmitAssignmentSuccess),
@@ -422,6 +449,7 @@ export class StudentEffects {
       this._actions$.pipe(
         ofType(
           ...[
+            studentActions.studentUpdateProfileSuccess,
             studentActions.studentSubmitFeedbackSuccess,
             studentActions.studentSubmitAssignmentSuccess,
             studentActions.studentSubmitPlatformFeedbackSuccess,
@@ -440,6 +468,7 @@ export class StudentEffects {
         ofType(
           ...[
             studentActions.studentJoinClassFailure,
+            studentActions.studentUpdateProfileFailure,
             studentActions.studentSubmitFeedbackFailure,
             studentActions.studentSubmitAssignmentFailure,
             studentActions.studentSubmitPlatformFeedbackFailure,

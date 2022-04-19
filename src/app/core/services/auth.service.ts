@@ -168,10 +168,6 @@ export class AuthService {
     return this.http.get<any>(BACKEND_URL + `teacher/${id}/profile`);
   }
 
-  updateStudentProfile(data: any): Observable<any> {
-    return this.http.post<any>(BACKEND_URL + 'student/setting', data);
-  }
-
   inviteFriends(data: any): Observable<any> {
     return this.http.post<any>(BACKEND_URL + 'invite/friends', data);
   }

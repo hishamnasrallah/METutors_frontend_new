@@ -133,4 +133,8 @@ export class StudentsService {
       _body
     );
   }
+
+  updateStudentProfile(body: any): Observable<any> {
+    return this.http.patch<any>(`${this.baseUrl}student/account/setting`, body);
+  }
 }
