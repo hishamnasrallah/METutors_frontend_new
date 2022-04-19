@@ -82,6 +82,12 @@ export class TutorSettingsProfileComponent implements OnInit {
       this.teachingForm.updateValueAndValidity();
 
       this.loadCities.emit(_tutor?.country?.id);
+
+      this.tutor?.availability?.forEach((avail: any) => {
+        if (!this.selectedDays.includes(+avail?.day)) {
+          this.selectedDays.push(+avail?.day);
+        }
+      });
     }
   }
   @Input() cities: ICity[] | null;

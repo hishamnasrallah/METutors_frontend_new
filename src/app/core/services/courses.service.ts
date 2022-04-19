@@ -288,16 +288,19 @@ export class CoursesService {
 
     if (value.startDate) formData.append('start_date', value.startDate);
     if (value.endDate) formData.append('end_date', value.endDate);
+    if (value.startTime) formData.append('start_time', value.startTime);
+    if (value.endTime) formData.append('end_time', value.endTime);
     if (weekdays) formData.append('weekdays', weekdays);
     if (value.hours) formData.append('total_hours', value.hours);
     if (value.totalPrice) formData.append('total_price', value.totalPrice);
     if (value.classes) formData.append('total_classes', value.classes);
+    if (value.courseCountry) formData.append('country_id', value.courseCountry);
     if (value.type) formData.append('class_type', value.type);
 
     if (value.classrooms && value.classrooms.length)
       formData.append('classes', JSON.stringify(value.classrooms));
 
-    if (value.tutor) formData.append('teacher_id', value.tutor);
+    if (value.tutor) formData.append('teacher_id', value.tutor?.id);
 
     return this.http.post<{ class: { id: number } }>(
       `${this.baseUrl}create-class`,

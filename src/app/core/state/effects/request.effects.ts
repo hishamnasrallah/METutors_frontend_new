@@ -114,6 +114,28 @@ export class RequestEffects {
     )
   );
 
+  createPaidClass$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(requestActions.createPaidClass),
+      mergeMap((action) =>
+        this._coursesService.createCourse(action.data).pipe(
+          map((classroom) =>
+            requestActions.createPaidClassSuccess({
+              classroom,
+            })
+          ),
+          catchError((error) =>
+            of(
+              requestActions.createPaidClassFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   failureMessages$ = createEffect(
     () =>
       this._actions$.pipe(

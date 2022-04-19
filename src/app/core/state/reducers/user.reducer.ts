@@ -93,9 +93,10 @@ export const reducer = createReducer(
     })
   ),
 
-  on(tutorActions.changeTutorAvatarSuccess, (state, { avatar }) => ({
+  on(tutorActions.changeTutorAvatarSuccess, (state, { user, token }) => ({
     ...state,
-    user: state.user ? { ...state.user, avatar } : null,
+    user,
+    token,
   })),
 
   on(userActions.identifyUserSuccess, (state, { profileStep, user }) => ({

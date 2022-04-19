@@ -1,5 +1,5 @@
 <div class="container invoice-details" *ngLet="(invoiceDetails$ | async) as invoiceDetails">
-  <div class="row">
+  <div class="row" *ngLet="(classroom$ | async) as classroom">
     <div class="col-md-8">
       <h2>Invoice details</h2>
       <div class="card">
@@ -38,8 +38,8 @@
               </li>
             </ul>
             <div class="overflow-hidden" *ngLet="(user$ | async) as user">
-              <button mat-flat-button color="primary" class="float-end pay-now" (click)="payNow(user)">
-                Pay now
+              <button mat-flat-button color="primary" class="float-end pay-now" (click)="payNow(user, classroom)">
+                Pay Now
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
                     d="M16.172 10.9999H4V12.9999H16.172L10.808 18.3639L12.222 19.7779L20 11.9999L12.222 4.22192L10.808 5.63592L16.172 10.9999Z"
@@ -56,7 +56,7 @@
       </div>
     </div>
     <div class="col-md-4">
-      <metutors-invoice-classroom-details [classroom]="classroom$ | async"></metutors-invoice-classroom-details>
+      <metutors-invoice-classroom-details [classroom]="classroom"></metutors-invoice-classroom-details>
     </div>
   </div>
 </div>

@@ -88,7 +88,7 @@ export class SignupComponent implements OnInit, OnDestroy {
             ),
           ],
         ],
-        mobileNumber: [null, []],
+        mobileNumber: [null, [Validators.required]],
         password: [
           null,
           [
