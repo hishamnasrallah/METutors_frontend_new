@@ -92,26 +92,15 @@ export class StudentSettingsAccountComponent implements OnInit {
     this.numberOnly = this.numberOnlyValidation(event.target.value);
     if (this.numberOnly) {
       let value = event.target.value.length;
-      if (value < 5) {
-        this.minPhone = false;
-      } else {
-        this.minPhone = true;
-      }
 
-      if (value > 15) {
-        this.maxPhone = false;
-      } else {
-        this.maxPhone = true;
-      }
+      this.minPhone = value >= 5;
+      this.maxPhone = value <= 15;
     }
   }
 
   numberOnlyValidation(value: any) {
     if (typeof Number(value) === 'number') {
-      if (value.includes('+') || value.includes('-')) {
-        return false;
-      }
-      return true;
+      return !(value.includes('+') || value.includes('-'));
     } else {
       return false;
     }
