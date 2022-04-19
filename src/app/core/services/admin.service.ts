@@ -19,14 +19,16 @@ export class AdminService {
   }
 
   adminApproveDocument(id: number): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}approve-document`, {
-      params: { id },
-    });
+    return this.http.post<any>(
+      `${this.baseUrl}admin/approve-document/${id}`,
+      {}
+    );
   }
 
   adminRejectDocument(id: number): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}reject-document`, {
-      params: { id },
-    });
+    return this.http.post<any>(
+      `${this.baseUrl}admin/reject-document/${id}`,
+      {}
+    );
   }
 }

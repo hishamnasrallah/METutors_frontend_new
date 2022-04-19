@@ -24,14 +24,15 @@
               <div class="item text-center" *ngFor="let document of view.documents; let i = index">
                 <h4>Document {{ i+ 1}}</h4>
                 <div class="content position-relative rounded overflow-hidden">
-                  <img src="assets/about/meeting.png" alt="">
                   <button (click)="onOpenInterviewAttachmentModal(document)"
                           class="d-flex align-items-center justify-content-center fw-bold">
                     <mat-icon>zoom_in</mat-icon>
                     Preview
                   </button>
                 </div>
-                <h5 class="pending">Pending Approval</h5>
+                <h5 class="approved" *ngIf="document.status === 'approved'">Approved</h5>
+                <h5 class="rejected" *ngIf="document.status === 'rejected'">Rejected</h5>
+                <h5 class="pending" *ngIf="document.status === 'pending'">Pending Approval</h5>
               </div>
             </ng-container>
           </ng-container>
@@ -41,7 +42,7 @@
   </div>
 </div>
 
-<metutors-admin-tutor-interview-attachment-modal *ngIf="showInterviewAttachmentModal$ | async" [docUrl]="docUrl"
+<metutors-admin-tutor-interview-attachment-modal *ngIf="showInterviewAttachmentModal$ | async" [document]="document"
                                                  (closeModal)="onCloseInterviewAttachmentModal()"
                                                  [isApproving]="(isApproving$ | async)!"
                                                  [isRejecting]="(isRejecting$ | async)!"
