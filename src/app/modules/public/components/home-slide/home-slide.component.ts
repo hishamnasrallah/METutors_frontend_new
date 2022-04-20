@@ -7,11 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home-slide.component.scss'],
 })
 export class HomeSlideComponent implements OnInit {
-  constructor(private viewportScroller: ViewportScroller) {}
+  constructor(private _viewportScroller: ViewportScroller) {}
 
   ngOnInit(): void {}
 
   scrollToAnchor(): void {
-    this.viewportScroller.scrollToAnchor('exploreServices');
+    this._viewportScroller.scrollToAnchor('exploreServices');
   }
 }

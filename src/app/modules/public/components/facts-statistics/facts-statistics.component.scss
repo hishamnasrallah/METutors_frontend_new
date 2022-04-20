@@ -1,21 +1,21 @@
 .facts-statistics {
-  background-color: rgba(59, 179, 193, 0.04);
+  background-color: var(--main-color);
   padding: 70px 0;
 
   h2 {
-    color: #183b56;
+    color: #FFF;
     font-size: 40px;
     font-weight: bold;
   }
 
   p {
     font-size: 17px;
-    color: #5a7184;
+    color: #FFF;
   }
 
   .card {
     img {
-      background: rgb(179 186 197 / 10%);
+      background: rgb(59 179 193 / 20%);
       padding: 10px;
       border-radius: 12px;
     }
