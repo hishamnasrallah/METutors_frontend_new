@@ -258,7 +258,7 @@ export class RequestTutorComponent implements OnInit {
       ),
       classes: this.reviewInfo.classes,
       classrooms: this.selectedClassrooms.map((classroom: any) => ({
-        date: classroom?.date,
+        date: this._datePipe.transform(new Date(classroom?.date), 'yyyy-MM-dd'),
         day: new Date(classroom.date).getDay(),
         start_time: classroom?.startTime,
         end_time: classroom?.endTime,
