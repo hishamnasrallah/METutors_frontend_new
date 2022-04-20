@@ -1,5 +1,7 @@
-import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { map, tap } from 'rxjs/operators';
+import { environment } from '@environment';
+import { Observable, combineLatest } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { FormValidationUtilsService } from '@metutor/core/validators';
 
@@ -11,9 +13,10 @@ import {
 } from '@angular/forms';
 
 import { GENDERS } from '@config';
-import { ICountry } from '@models';
+import { ICountry, IStudent } from '@models';
 import * as fromCore from '@metutor/core/state';
 import { AlertNotificationService } from '@metutor/core/components';
+import { selectIsUpdatingStudentProfile } from '@metutor/core/state/reducers/student.reducer';
 
 @Component({
   selector: 'metutors-student-settings-account',
@@ -23,7 +26,11 @@ import { AlertNotificationService } from '@metutor/core/components';
 export class StudentSettingsAccountComponent implements OnInit {
   form: FormGroup;
   genders = GENDERS;
+  imageUrl = environment.imageURL;
+  isChangeAvatar$: Observable<boolean>;
+  isSavingProfile: Observable<boolean>;
   countries$: Observable<ICountry[] | null>;
+  view$: Observable<{ student: IStudent | null; loading: boolean }>;
 
   constructor(
     private _fb: FormBuilder,
@@ -33,36 +40,29 @@ export class StudentSettingsAccountComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.form = this._fb.group({
-      first_name: [
-        null,
-        [
-          Validators.required,
-          Validators.pattern("^[a-zA-Z -']+"),
-          this._fv.minCharacterValidator,
-          this._fv.maxCharacterValidator,
-        ],
-      ],
-      last_name: [
-        null,
-        [
-          Validators.required,
-          this._fv.minCharacterValidator,
-          this._fv.maxCharacterValidator,
-          Validators.pattern("^[a-zA-Z -']+"),
-        ],
-      ],
-      email: [
-        null,
-        [Validators.required, Validators.email, this._fv.maxCharacterValidator],
-      ],
-      gender: [null],
-      country: [null],
-      headline: [null],
-    });
-
+    this._store.dispatch(fromCore.loadStudent());
     this._store.dispatch(fromCore.loadProgramCountries());
     this.countries$ = this._store.select(fromCore.selectProgramCountries);
+    this.isChangeAvatar$ = this._store.select(fromCore.selectIsUploadingAvatar);
+    this.isSavingProfile = this._store.select(
+      fromCore.selectIsUpdatingStudentProfile
+    );
+
+    this.view$ = combineLatest([
+      this._store.select(fromCore.selectStudent).pipe(
+        tap((student) => {
+          if (student) {
+            this._form(student);
+          }
+        })
+      ),
+      this._store.select(fromCore.selectIsLoadingStudents),
+    ]).pipe(
+      map(([student, loading]) => ({
+        loading,
+        student,
+      }))
+    );
   }
 
   get firstName(): AbstractControl | null {
@@ -71,10 +71,6 @@ export class StudentSettingsAccountComponent implements OnInit {
 
   get lastName(): AbstractControl | null {
     return this.form.get('last_name');
-  }
-
-  get email(): AbstractControl | null {
-    return this.form.get('email');
   }
 
   uploadProfilePic(event: any): void {
@@ -101,5 +97,32 @@ export class StudentSettingsAccountComponent implements OnInit {
   onSubmit(form: FormGroup) {
     const body = form.value;
     this._store.dispatch(fromCore.studentUpdateProfile({ body }));
+  }
+
+  private _form(student: IStudent): void {
+    this.form = this._fb.group({
+      first_name: [
+        student.firstName || null,
+        [
+          Validators.required,
+          Validators.pattern("^[a-zA-Z -']+"),
+          this._fv.minCharacterValidator,
+          this._fv.maxCharacterValidator,
+        ],
+      ],
+      last_name: [
+        student.lastName || null,
+        [
+          Validators.required,
+          this._fv.minCharacterValidator,
+          this._fv.maxCharacterValidator,
+          Validators.pattern("^[a-zA-Z -']+"),
+        ],
+      ],
+      email: [student.email || null],
+      gender: [student.gender || null],
+      country: [student.country || null],
+      headline: [student.headline || null],
+    });
   }
 }

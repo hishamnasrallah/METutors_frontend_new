@@ -392,6 +392,11 @@ export const selectIsAcceptRejectAssignment = createSelector(
 /**
  * ========================== STUDENT ==============================
  */
+export const selectStudent = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectStudent
+);
+
 export const selectStudents = createSelector(
   selectStudentState,
   fromStudentReducer.selectStudents
@@ -555,6 +560,11 @@ export const selectIsLoadingStudentFeedbackOptions = createSelector(
 export const selectIsSubmittingStudentFeedback = createSelector(
   selectStudentState,
   fromStudentReducer.selectIsSubmittingFeedback
+);
+
+export const selectIsUpdatingStudentProfile = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectIsUpdatingStudentProfile
 );
 
 // Ticket

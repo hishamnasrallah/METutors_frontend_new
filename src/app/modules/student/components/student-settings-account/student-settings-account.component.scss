@@ -1,6 +1,35 @@
 .account-settings {
   padding: 30px 0;
 
+  .avatar-name {
+    color: #FFF;
+
+    .img-status {
+      width: 60px;
+      height: 60px;
+
+      img {
+        width: 100%;
+        height: 100%;
+        background-color: #F8F8F8;
+
+        &.uploading {
+          opacity: 0.5;
+        }
+      }
+
+      mat-icon {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        font-size: 30px;
+        right: calc(50% - 15px);
+        top: calc(50% - 15px);
+        color: var(--main-color);
+      }
+    }
+  }
+
   .avatar-block {
     border-bottom: 1px solid #e0e0e0;
     margin: 0 20px 20px 0;

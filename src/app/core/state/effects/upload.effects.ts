@@ -44,7 +44,7 @@ export class UploadEffects {
                 ...user,
                 avatar: environment.imageURL + user?.avatar,
               },
-              avatar: environment.imageURL + response?.avatar,
+              avatar: response?.avatar,
             });
           }),
           catchError((error) =>

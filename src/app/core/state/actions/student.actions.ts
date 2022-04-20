@@ -2,6 +2,20 @@ import { IStudent } from '@metutor/core/models';
 import { createAction, props } from '@ngrx/store';
 
 // Load all students
+export const loadStudent = createAction('[Student] Load Student');
+
+export const loadStudentSuccess = createAction(
+  '[Student] Load Student Success',
+  props<{ student: IStudent }>()
+);
+
+export const loadStudentFailure = createAction(
+  '[Student] Load Student Failure',
+  props<{ error: any }>()
+);
+
+export const loadStudentEnded = createAction('[Student] Load Student Ended');
+
 export const loadStudents = createAction('[Student] Load Students');
 
 export const loadStudentsSuccess = createAction(
@@ -263,7 +277,7 @@ export const studentUpdateProfile = createAction(
 
 export const studentUpdateProfileSuccess = createAction(
   '[Student] Student Update Profile Success',
-  props<{ message: string }>()
+  props<{ message: string; body: any }>()
 );
 
 export const studentUpdateProfileFailure = createAction(
