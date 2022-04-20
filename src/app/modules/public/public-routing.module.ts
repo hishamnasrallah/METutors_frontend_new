@@ -8,6 +8,7 @@ import {
   ContactComponent,
   WelcomeComponent,
   FaqTicketComponent,
+  AllCoursesComponent,
   BecomeTutorComponent,
   StudentSuccessComponent,
   LanguagesCoursesComponent,
@@ -58,6 +59,11 @@ const routes: Routes = [
     path: 'languages-courses',
     component: LanguagesCoursesComponent,
     data: { layout: { title: 'Languages - Metutors' } },
+  },
+  {
+    path: 'all-courses/:programId',
+    component: AllCoursesComponent,
+    data: { layout: { title: 'Courses - Metutors' } },
   },
 ];
 

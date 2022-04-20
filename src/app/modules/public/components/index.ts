@@ -1,5 +1,6 @@
 export * from './about-slide';
 export * from './about-values';
+export * from './academic-learning-environment';
 export * from './become-online-tutor';
 export * from './become-tutor-slide';
 export * from './become-tutors-us';
@@ -8,6 +9,7 @@ export * from './benefits-online-tutoring';
 export * from './contact-help-to-here';
 export * from './contact-send-message';
 export * from './exceptional-opportunities';
+export * from './explore-courses';
 export * from './facts-statistics';
 export * from './faq-list-questions';
 export * from './faq-search';

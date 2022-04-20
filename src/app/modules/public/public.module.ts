@@ -12,6 +12,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 
 import { SharedModule } from '@metutor/shared/shared.module';
+
 import {
   FaqComponent,
   HomeComponent,
@@ -19,6 +20,7 @@ import {
   ContactComponent,
   WelcomeComponent,
   FaqTicketComponent,
+  AllCoursesComponent,
   BecomeTutorComponent,
   StudentSuccessComponent,
   LanguagesCoursesComponent,
@@ -37,6 +39,7 @@ import {
   HomeCoursesComponent,
   WhyTeachingUsComponent,
   GetYourClassesComponent,
+  ExploreCoursesComponent,
   LanguagesSlideComponent,
   SelectFaqTopicComponent,
   SuccessStoriesComponent,
@@ -65,6 +68,7 @@ import {
   BenefitsOnlineTutoringComponent,
   BenefitsAcademicTutoringComponent,
   ExceptionalOpportunitiesComponent,
+  AcademicLearningEnvironmentComponent,
 } from './components';
 
 @NgModule({
@@ -81,6 +85,7 @@ import {
     AboutSlideComponent,
     WhyWeTeachComponent,
     ChooseCountryDialog,
+    AllCoursesComponent,
     AboutValuesComponent,
     FounderTeamComponent,
     WhyMetutorsComponent,
@@ -93,6 +98,7 @@ import {
     LanguagesSlideComponent,
     SuccessStoriesComponent,
     GetYourClassesComponent,
+    ExploreCoursesComponent,
     LanguageCoursesComponent,
     FactsStatisticsComponent,
     StartLearningNowComponent,
@@ -118,6 +124,7 @@ import {
     BenefitsOnlineTutoringComponent,
     ExceptionalOpportunitiesComponent,
     BenefitsAcademicTutoringComponent,
+    AcademicLearningEnvironmentComponent,
   ],
   imports: [
     FormsModule,
