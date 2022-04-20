@@ -1,6 +1,13 @@
 .learning-environment {
-  background-color: #f3f4f5;
+  background-color: #F1F6F7;
   padding: 40px 100px 100px;
+
+  h3 {
+    color: #2A2A2A;
+    text-align: center;
+    margin: 30px 0 50px;
+    font-size: 40px;
+  }
 
   .tabs {
     button {
@@ -80,6 +87,12 @@
         color: var(--main-color);
         text-decoration: underline;
         font-size: 20px;
+        padding-left: 0;
+      }
+
+      &.explore-all {
+        color: #707070;
+        border: 1px solid #707070;
       }
     }
   }

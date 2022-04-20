@@ -1,0 +1,50 @@
+.services-features {
+  padding: 100px 0;
+  background-origin: padding-box;
+  background-color: rgba(243, 244, 245, 0.4);
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  .card {
+    .card-body {
+      padding: 60px 30px 35px;
+
+      span {
+        position: absolute;
+        top: -10px;
+        left: 10px;
+        font-size: 30px;
+        padding: 0 8px;
+        border-radius: 5px;
+        color: #FFF;
+
+        &.first {
+          background-color: #50C394;
+        }
+
+        &.second {
+          background-color: #007CFF;
+        }
+
+        &.third {
+          background-color: #FF8300;
+        }
+
+        &.forth {
+          background-color: var(--main-color);
+        }
+      }
+
+      h1 {
+        color: #2A2A2A;
+        font-size: 30px;
+      }
+
+      p {
+        color: #5A7184;
+        margin-top: 20px;
+        font-size: 19px;
+      }
+    }
+  }
+}

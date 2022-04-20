@@ -1,6 +1,6 @@
 .study-more {
   padding: 80px 30px;
-  background-origin: content-box;
+  background-origin: padding-box;
   background-color: rgba(243, 244, 245, 0.4);
   background-size: cover;
   background-repeat: no-repeat;
@@ -11,30 +11,23 @@
     color: #2a2a2a;
   }
 
-  p {
-    font-size: 20px;
-    color: #949494;
-    margin-bottom: 50px;
-  }
-
   .item {
-    border: 1px solid var(--main-color);
     padding: 30px;
     border-radius: 5px;
 
     h2 {
-      color: #000;
+      color: #FFF;
       font-weight: 600;
       font-size: 40px;
     }
 
     h3 {
       font-size: 30px;
-      color: #000;
-      margin: 20px 0;
+      color: #FFF;
+      margin-top: 30px;
 
       span {
-        color: rgba(0, 0, 0, 0.6);
+        color: #FFFFFF99;
         font-size: 15px;
         display: block;
         margin-bottom: 5px;
@@ -42,12 +35,24 @@
     }
 
     button {
-      border: 1px solid var(--main-color);
+      border: 1px solid #FFF;
       width: 100%;
-      color: var(--main-color);
-      padding: 3px;
+      color: #FFF;
+      padding: 5px 0;
       font-size: 20px;
-      margin-top: 20px;
+      margin-top: 50px;
+    }
+
+    &.first {
+      background-color: #36C6BE;
+    }
+
+    &.second {
+      background-color: #3BB3C1;
+    }
+
+    &.third {
+      background-color: #0BB4D1;
     }
   }
 }

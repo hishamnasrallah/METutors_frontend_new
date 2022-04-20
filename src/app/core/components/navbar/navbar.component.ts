@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import * as fromCore from '@metutor/core/state';
 import { IUser } from '@metutor/core/models';
 import { UserRole } from '@metutor/config';
+import { ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'metutors-navbar',
@@ -16,11 +17,18 @@ export class NavbarComponent implements OnInit {
 
   userRole = UserRole;
 
-  constructor(private _store: Store<any>) {}
+  constructor(
+    private _store: Store<any>,
+    private _viewportScroller: ViewportScroller
+  ) {}
 
   ngOnInit(): void {
     this.token$ = this._store.select(fromCore.selectToken);
     this.user$ = this._store.select(fromCore.selectUser);
+  }
+
+  scrollToAnchor(): void {
+    this._viewportScroller.scrollToAnchor('exploreServices');
   }
 
   logout(): void {

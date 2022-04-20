@@ -44,6 +44,14 @@
     font-weight: bold;
     margin-top: 20px;
     padding: 8px 30px;
+    border: 1px solid #FFF;
+    color: #FFF;
+    transition: all 0.25s ease-in-out;
+
+    &:hover {
+      background-color: var(--main-color);
+      border-color: var(--main-color);
+    }
   }
 }
 

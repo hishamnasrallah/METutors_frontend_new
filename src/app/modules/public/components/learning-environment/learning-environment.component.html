@@ -1,91 +1,107 @@
 <div class="learning-environment" id="exploreServices">
-  <div class="container" *ngIf="isLoading">
-    <div class="ph-col-3">
-      <div class="ph-avatar rounded"></div>
-    </div>
+  <div class="container">
+    <h3>Choose your Subject and Start Learning Today</h3>
 
-    <metutors-grid-placeholder></metutors-grid-placeholder>
-  </div>
-
-  <div class="container" *ngIf="!isLoading">
-    <div class="tabs d-flex">
-      <div *ngFor="let program of programsList; let i = index">
-        <button mat-button class="w-100 text-start" [class.active]="step === program?.id"
-          (click)="onChangeStep(program)">
-          <span class="d-block">Program {{ i + 1 }}</span>
-          <strong>{{ program?.name }}</strong>
-        </button>
+    <ng-container *ngIf="isLoading">
+      <div class="ph-col-3">
+        <div class="ph-avatar rounded"></div>
       </div>
-    </div>
-    <div class="content">
-      <ng-container *ngIf="loadingFields">
-        <div class="ph-col-3">
-          <div class="ph-avatar rounded"></div>
+
+      <metutors-grid-placeholder></metutors-grid-placeholder>
+    </ng-container>
+
+    <ng-container *ngIf="!isLoading">
+      <div class="tabs d-flex">
+        <div *ngFor="let program of programsList; let i = index">
+          <button mat-button class="w-100 text-start" [class.active]="step === program?.id"
+            (click)="onChangeStep(program)">
+            <span class="d-block">Program {{ i + 1 }}</span>
+            <strong>{{ program?.name }}</strong>
+          </button>
         </div>
-
-        <metutors-grid-placeholder></metutors-grid-placeholder>
-      </ng-container>
-
-      <div class="row" *ngIf="!loadingFields">
-        <div class="col-md-7">
-          <h1>Veriety of subjects, College and High School Tutoring </h1>
-
-          <p>
-            We offer one-on-one tutoring at the cost you can afford resulting in an experience quality learning time.
-          </p>
-
-          <div class="row mt-4">
-            <div class="col-md-6 d-flex mt-4" *ngFor="let field of fields; let i = index">
-              <img src="assets/svg/engineering.svg" *ngIf="i % 4 === 0" width="65px" height="65px" draggable="false"
-                alt="">
-              <img src="assets/svg/science.svg" *ngIf="i % 4 === 1" width="65px" height="65px" draggable="false" alt="">
-              <img src="assets/svg/humanities.svg" *ngIf="i % 4 === 2" width="65px" height="65px" draggable="false"
-                alt="">
-              <img src="assets/svg/math.svg" *ngIf="i % 4 === 3" width="65px" height="65px" draggable="false" alt="">
-              <div class="ms-2">
-                <h2>
-                  <a routerLink="/requests/request-tutor"
-                    [queryParams]="{program: selectedProgram?.id, field: field?.id, country}">
-                    {{ field?.name }}
-                  </a>
-                </h2>
-                <p class="details">
-                  <ng-container *ngIf="loadingSubjects">
-                    <metutors-grid-placeholder></metutors-grid-placeholder>
-                  </ng-container>
-
-                  <ng-container *ngIf="!loadingSubjects">
-                    <a *ngFor="let subject of subjects; let isLast = last" routerLink="/requests/request-tutor"
-                      [queryParams]="{program: selectedProgram?.id, field: field?.id, subject: subject?.id, country}">
-                      <ng-container *ngIf="subject?.fieldId === field.id">
-                      {{ subject?.name }}<ng-container *ngIf="!isLast">, </ng-container>
-                      </ng-container>
-                    </a>
-                  </ng-container>
-                </p>
-              </div>
-            </div>
+      </div>
+      <div class="content">
+        <ng-container *ngIf="loadingFields">
+          <div class="ph-col-3">
+            <div class="ph-avatar rounded"></div>
           </div>
 
-          <a mat-flat-button color="primary" routerLink="/requests/request-tutor"
-            [queryParams]="{program: selectedProgram?.id, country}">
-            Start learning now
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M16.172 10.9999H4V12.9999H16.172L10.808 18.3639L12.222 19.7779L20 11.9999L12.222 4.22192L10.808 5.63592L16.172 10.9999Z"
-                fill="#FFF" />
-            </svg>
-          </a>
+          <metutors-grid-placeholder></metutors-grid-placeholder>
+        </ng-container>
 
-          <a class="pricing cursor-pointer" (click)="onViewPrices()">View pricing</a>
-        </div>
-        <div class="col-md-5 d-flex align-items-center justify-content-center">
-          <img src="assets/homepage/contact.png" *ngIf="step === 1" class="contact-img w-100" draggable="false" alt="">
-          <img src="assets/courses/academic-learning.png" *ngIf="step === 2" class="contact-img w-100" draggable="false"
-            alt="">
-          <img src="assets/homepage/teaching.png" *ngIf="step === 3" class="contact-img w-100" draggable="false" alt="">
+        <div class="row" *ngIf="!loadingFields">
+          <div class="col-md-7">
+            <h1>Veriety of subjects, College and High School Tutoring </h1>
+
+            <p>
+              We offer one-on-one tutoring at the cost you can afford resulting in an experience quality learning time.
+            </p>
+
+            <div class="row mt-4">
+              <div class="col-md-6 d-flex mt-4" *ngFor="let field of fields; let i = index">
+                <img src="assets/svg/engineering.svg" *ngIf="i % 4 === 0" width="65px" height="65px" draggable="false"
+                  alt="">
+                <img src="assets/svg/science.svg" *ngIf="i % 4 === 1" width="65px" height="65px" draggable="false"
+                  alt="">
+                <img src="assets/svg/humanities.svg" *ngIf="i % 4 === 2" width="65px" height="65px" draggable="false"
+                  alt="">
+                <img src="assets/svg/math.svg" *ngIf="i % 4 === 3" width="65px" height="65px" draggable="false" alt="">
+                <div class="ms-2">
+                  <h2>
+                    <a routerLink="/requests/request-tutor"
+                      [queryParams]="{program: selectedProgram?.id, field: field?.id, country}">
+                      {{ field?.name }}
+                    </a>
+                  </h2>
+                  <p class="details">
+                    <ng-container *ngIf="loadingSubjects">
+                      <metutors-grid-placeholder></metutors-grid-placeholder>
+                    </ng-container>
+
+                    <ng-container *ngIf="!loadingSubjects">
+                      <a *ngFor="let subject of subjects; let isLast = last" routerLink="/requests/request-tutor"
+                        [queryParams]="{program: selectedProgram?.id, field: field?.id, subject: subject?.id, country}">
+                        <ng-container *ngIf="subject?.fieldId === field.id">
+                          {{ subject?.name }}<ng-container *ngIf="!isLast">, </ng-container>
+                        </ng-container>
+                      </a>
+                    </ng-container>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <a mat-flat-button color="primary" routerLink="/requests/request-tutor"
+              [queryParams]="{program: selectedProgram?.id, country}">
+              Start Learning Now
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M16.172 10.9999H4V12.9999H16.172L10.808 18.3639L12.222 19.7779L20 11.9999L12.222 4.22192L10.808 5.63592L16.172 10.9999Z"
+                  fill="#FFF" />
+              </svg>
+            </a>
+
+            <a mat-button class="explore-all ms-3" routerLink="/all-courses">
+              Explore All Courses
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M16.172 10.9999H4V12.9999H16.172L10.808 18.3639L12.222 19.7779L20 11.9999L12.222 4.22192L10.808 5.63592L16.172 10.9999Z"
+                  fill="#707070" />
+              </svg>
+            </a>
+
+            <a class="pricing cursor-pointer ms-3" (click)="onViewPrices()">View pricing</a>
+          </div>
+          <div class="col-md-5 d-flex align-items-center justify-content-center">
+            <img src="assets/homepage/contact.png" *ngIf="step === 1" class="contact-img w-100" draggable="false"
+              alt="">
+            <img src="assets/courses/academic-learning.png" *ngIf="step === 2" class="contact-img w-100"
+              draggable="false" alt="">
+            <img src="assets/homepage/teaching.png" *ngIf="step === 3" class="contact-img w-100" draggable="false"
+              alt="">
+          </div>
         </div>
       </div>
-    </div>
+    </ng-container>
   </div>
 </div>
