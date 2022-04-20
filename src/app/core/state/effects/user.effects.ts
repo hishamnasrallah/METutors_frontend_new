@@ -1,19 +1,20 @@
 import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
+import camelcaseKeys from 'camelcase-keys';
 import { Injectable } from '@angular/core';
-import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
+import { environment } from '@environment';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import * as fromRoot from '@metutor/state';
+import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
+
 import { AuthService } from '@services';
+import * as fromRoot from '@metutor/state';
+import { UserRole } from '@metutor/config';
+import * as fromCore from '@metutor/core/state';
 import * as userActions from '../actions/user.actions';
 import * as tutorActions from '../actions/tutor.actions';
-import * as fromCore from '@metutor/core/state';
-import { Router } from '@angular/router';
 import { AlertNotificationService } from '@metutor/core/components';
-import camelcaseKeys from 'camelcase-keys';
-import { JwtHelperService } from '@auth0/angular-jwt';
-import { UserRole } from '@metutor/config';
-import { environment } from '@environment';
 
 @Injectable()
 export class UserEffects {
@@ -256,7 +257,10 @@ export class UserEffects {
           catchError((error) =>
             of(
               userActions.changePasswordFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error:
+                  error?.error?.message ||
+                  error?.error?.error?.new_password ||
+                  error?.error?.errors,
               })
             )
           )
