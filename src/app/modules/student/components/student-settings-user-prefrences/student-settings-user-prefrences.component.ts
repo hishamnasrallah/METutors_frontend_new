@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { ILanguage } from '@models';
+import * as fromCore from '@metutor/core/state';
+import { Store } from '@ngrx/store';
+import { GENDERS } from '@config';
 
 @Component({
   selector: 'metutors-student-settings-user-prefrences',
@@ -6,17 +11,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./student-settings-user-prefrences.component.scss'],
 })
 export class StudentSettingsUserPrefrencesComponent implements OnInit {
+  genders = GENDERS;
   showLanguages = false;
+  languages$: Observable<ILanguage[] | null>;
 
-  constructor() {}
+  constructor(private _store: Store<any>) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this._store.dispatch(fromCore.loadLanguages());
+    this.languages$ = this._store.select(fromCore.selectLanguages);
+  }
 
   onChange(event: any): void {
-    if (event.value === '-1') {
-      this.showLanguages = true;
-    } else {
-      this.showLanguages = false;
-    }
+    this.showLanguages = event.value === '-1';
   }
 }
