@@ -127,43 +127,6 @@ export class TutorEffects {
     )
   );
 
-  changeTutorAvatar$ = createEffect(() =>
-    this._actions$.pipe(
-      ofType(tutorActions.changeTutorAvatar),
-      mergeMap(({ file }) =>
-        this._tutorService.changeAvatar(file).pipe(
-          map((response) => {
-            const jwtHelper = new JwtHelperService();
-            const decodeToken = camelcaseKeys(
-              jwtHelper.decodeToken(response?.token),
-              {
-                deep: true,
-              }
-            );
-            const user: any = decodeToken?.user;
-
-            return tutorActions.changeTutorAvatarSuccess({
-              token: response?.token,
-              user: {
-                ...user,
-                avatar: environment.imageURL + user?.avatar,
-              },
-              avatar: environment.imageURL + response?.avatar,
-            })
-          }
-          ),
-          catchError((error) =>
-            of(
-              tutorActions.changeTutorAvatarFailure({
-                error: error?.error?.message || error?.error?.errors,
-              })
-            )
-          )
-        )
-      )
-    )
-  );
-
   changeTutorCoverr$ = createEffect(() =>
     this._actions$.pipe(
       ofType(tutorActions.changeTutorCover),
@@ -398,7 +361,6 @@ export class TutorEffects {
           ...[
             tutorActions.submitInterviewFailure,
             tutorActions.tutorLaunchClassFailure,
-            tutorActions.changeTutorAvatarFailure,
             tutorActions.tutorSubmitFeedbackFailure,
             tutorActions.completeTutorProfileFailure,
             tutorActions.completeTutorProfileFailure,

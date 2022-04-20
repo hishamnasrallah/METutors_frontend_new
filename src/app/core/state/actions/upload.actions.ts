@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+import { IUser } from '@models';
 
 export const setFiles = createAction(
   '[Upload Service] Set Files',
@@ -47,4 +48,19 @@ export const deleteUploadedFileSuccess = createAction(
 export const deleteUploadedFileFailure = createAction(
   '[Upload Service] Delete Uploaded File Failure',
   props<{ error?: string }>()
+);
+
+export const changeAvatar = createAction(
+  '[Tutor] Change Avatar',
+  props<{ file: File }>()
+);
+
+export const changeAvatarSuccess = createAction(
+  '[Tutor] Change Avatar Success',
+  props<{ message: string; token: string; avatar: string; user: IUser }>()
+);
+
+export const changeAvatarFailure = createAction(
+  '[Tutor] Change Avatar Failure',
+  props<{ error: any }>()
 );

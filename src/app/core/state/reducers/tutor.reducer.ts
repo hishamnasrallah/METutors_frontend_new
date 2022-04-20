@@ -2,6 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 
 import { ITutor } from '@models';
 import * as tutorActions from '../actions/tutor.actions';
+import * as uploadActions from '../actions/upload.actions';
 import * as courseActions from '../actions/course.actions';
 
 export interface State {
@@ -29,7 +30,6 @@ export interface State {
   completeTutorProfileFailure: string;
 
   // Change Tutor Avatar
-  isChangeTutorAvatar: boolean;
   isChangeTutorCover: boolean;
 
   // Submit Interview Request
@@ -51,7 +51,6 @@ export const initialState: State = {
   loadingTutorsFailure: '',
   isLoadingDashboard: false,
   isChangeTutorCover: false,
-  isChangeTutorAvatar: false,
   isSubmittingFeedback: false,
   isSubmittingInterview: false,
   isLoadingProfileTutor: false,
@@ -176,20 +175,9 @@ export const reducer = createReducer(
     completeTutorProfileFailure: error,
   })),
 
-  on(tutorActions.changeTutorAvatar, (state) => ({
+  on(uploadActions.changeAvatarSuccess, (state, { avatar }) => ({
     ...state,
-    isChangeTutorAvatar: true,
-  })),
-
-  on(tutorActions.changeTutorAvatarSuccess, (state, { avatar }) => ({
-    ...state,
-    isChangeTutorAvatar: false,
     profileTutor: state.profileTutor ? { ...state.profileTutor, avatar } : null,
-  })),
-
-  on(tutorActions.changeTutorAvatarFailure, (state, { error }) => ({
-    ...state,
-    isChangeTutorAvatar: false,
   })),
 
   on(tutorActions.changeTutorCover, (state) => ({
@@ -346,9 +334,6 @@ export const selectIsLoadingTutorDashboard = (state: State): boolean =>
 
 export const selectIsCompleteTutorProfile = (state: State): boolean =>
   state.isCompleteTutorProfile;
-
-export const selectIsChangeTutorAvatar = (state: State): boolean =>
-  state.isChangeTutorAvatar;
 
 export const selectIsChangeTutorCover = (state: State): boolean =>
   state.isChangeTutorCover;

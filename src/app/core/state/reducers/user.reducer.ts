@@ -2,6 +2,7 @@ import { IUser } from '@metutor/core/models';
 import { createReducer, on } from '@ngrx/store';
 import * as userActions from '../actions/user.actions';
 import * as tutorActions from '../actions/tutor.actions';
+import * as uploadActions from '../actions/upload.actions';
 
 export interface State {
   // Sign in
@@ -93,7 +94,7 @@ export const reducer = createReducer(
     })
   ),
 
-  on(tutorActions.changeTutorAvatarSuccess, (state, { user, token }) => ({
+  on(uploadActions.changeAvatarSuccess, (state, { user, token }) => ({
     ...state,
     user,
     token,

@@ -18,22 +18,6 @@ export const completeTutorProfileFailure = createAction(
   props<{ error: any }>()
 );
 
-// Change tutor avatar
-export const changeTutorAvatar = createAction(
-  '[Tutor] Change Tutor Avatar',
-  props<{ file: File }>()
-);
-
-export const changeTutorAvatarSuccess = createAction(
-  '[Tutor] Change Tutor Avatar Success',
-  props<{ token: string; avatar: string; user: IUser }>()
-);
-
-export const changeTutorAvatarFailure = createAction(
-  '[Tutor] Change Tutor Avatar Failure',
-  props<{ error: any }>()
-);
-
 // Change tutor cover
 export const changeTutorCover = createAction(
   '[Tutor] Change Tutor Cover',

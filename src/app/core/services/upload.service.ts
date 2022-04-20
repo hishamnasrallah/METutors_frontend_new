@@ -1,8 +1,8 @@
+import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import camelcaseKeys from 'camelcase-keys';
-import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
 
 import * as fromCore from '@metutor/core/state';
@@ -69,6 +69,13 @@ export class UploadService {
 
   deleteUploadedFile(id: number): Observable<any> {
     return this._http.delete<any>(`${this.baseUrl}file/${id}`);
+  }
+
+  changeAvatar(file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('avatar', file);
+
+    return this._http.post<any>(`${this.baseUrl}change-avatar`, formData);
   }
 
   constructor(private _http: HttpClient, private _store: Store<any>) {}

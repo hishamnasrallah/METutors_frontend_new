@@ -226,11 +226,6 @@ export const selectIsCompleteTutorProfile = createSelector(
   fromTutorReducer.selectIsCompleteTutorProfile
 );
 
-export const selectIsChangeTutorAvatar = createSelector(
-  selectTutorState,
-  fromTutorReducer.selectIsChangeTutorAvatar
-);
-
 export const selectIsChangeTutorCover = createSelector(
   selectTutorState,
   fromTutorReducer.selectIsChangeTutorCover
@@ -946,6 +941,11 @@ export const selectFileUploadingProgress = createSelector(
 export const selectIsDeletingFile = createSelector(
   selectUploadState,
   fromUploadReducer.selectIsDeletingFile
+);
+
+export const selectIsUploadingAvatar = createSelector(
+  selectUploadState,
+  fromUploadReducer.selectIsUploadingAvatar
 );
 
 // Admin selectors

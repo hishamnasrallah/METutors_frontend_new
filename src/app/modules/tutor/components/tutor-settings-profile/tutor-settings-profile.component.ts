@@ -319,7 +319,7 @@ export class TutorSettingsProfileComponent implements OnInit {
         return;
       }
 
-      if (file.size > 1 * 1024 * 1024) {
+      if (file.size > 1024 * 1024) {
         this._alertNotificationService.error('Allowed file size is 1MB');
 
         return;

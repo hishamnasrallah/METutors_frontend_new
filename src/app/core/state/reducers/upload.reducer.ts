@@ -9,6 +9,7 @@ export interface State {
   uploadProgress: any;
   isDeletingFile: boolean;
   isUploadingFile: boolean;
+  isUploadingAvatar: boolean;
 }
 
 export const initialState: State = {
@@ -16,6 +17,7 @@ export const initialState: State = {
   uploadProgress: null,
   isDeletingFile: false,
   isUploadingFile: false,
+  isUploadingAvatar: false,
 };
 
 export const reducer = createReducer(
@@ -99,6 +101,22 @@ export const reducer = createReducer(
   on(uploadActions.setFiles, (state, { files }) => ({
     ...state,
     files,
+  })),
+
+  // upload avatar
+  on(uploadActions.changeAvatar, (state) => ({
+    ...state,
+    isUploadingAvatar: true,
+  })),
+
+  on(uploadActions.changeAvatarSuccess, (state) => ({
+    ...state,
+    isUploadingAvatar: false,
+  })),
+
+  on(uploadActions.changeAvatarFailure, (state) => ({
+    ...state,
+    isUploadingAvatar: false,
   }))
 );
 
@@ -111,3 +129,5 @@ export const selectFileUploadingProgress = (state: State): any =>
   state.uploadProgress;
 
 export const selectIsDeletingFile = (state: State): any => state.isDeletingFile;
+export const selectIsUploadingAvatar = (state: State): any =>
+  state.isUploadingAvatar;

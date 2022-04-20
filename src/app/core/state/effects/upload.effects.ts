@@ -1,6 +1,9 @@
 import { of, tap } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
+import { environment } from '@environment';
+import camelcaseKeys from 'camelcase-keys';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 
@@ -17,6 +20,43 @@ export class UploadEffects {
         tap(({ file }) => this._uploadService.uploadFile(file))
       ),
     { dispatch: false }
+  );
+
+  changeAvatar$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(uploadActions.changeAvatar),
+      mergeMap(({ file }) =>
+        this._uploadService.changeAvatar(file).pipe(
+          map((response) => {
+            const jwtHelper = new JwtHelperService();
+            const decodeToken = camelcaseKeys(
+              jwtHelper.decodeToken(response?.token),
+              {
+                deep: true,
+              }
+            );
+            const user: any = decodeToken?.user;
+
+            return uploadActions.changeAvatarSuccess({
+              message: 'Profile image successfully changed',
+              token: response?.token,
+              user: {
+                ...user,
+                avatar: environment.imageURL + user?.avatar,
+              },
+              avatar: environment.imageURL + response?.avatar,
+            });
+          }),
+          catchError((error) =>
+            of(
+              uploadActions.changeAvatarFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
   );
 
   deleteUploadedFile$ = createEffect(() =>
@@ -45,7 +85,12 @@ export class UploadEffects {
   successMessages$ = createEffect(
     () =>
       this._actions$.pipe(
-        ofType(...[uploadActions.deleteUploadedFileSuccess]),
+        ofType(
+          ...[
+            uploadActions.changeAvatarSuccess,
+            uploadActions.deleteUploadedFileSuccess,
+          ]
+        ),
         map(({ message }) => this._alertNotificationService.success(message))
       ),
     {
@@ -56,7 +101,12 @@ export class UploadEffects {
   failureMessages$ = createEffect(
     () =>
       this._actions$.pipe(
-        ofType(...[uploadActions.deleteUploadedFileFailure]),
+        ofType(
+          ...[
+            uploadActions.changeAvatarFailure,
+            uploadActions.deleteUploadedFileFailure,
+          ]
+        ),
         map((action) => {
           if (action.error) {
             return this._alertNotificationService.error(action.error);

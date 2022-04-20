@@ -53,7 +53,7 @@ export class TutorSettingsComponent implements OnInit {
     );
 
     this.isChangeTutorAvatar$ = this._store.select(
-      fromCore.selectIsChangeTutorAvatar
+      fromCore.selectIsUploadingAvatar
     );
 
     this.isChangeTutorCover$ = this._store.select(
@@ -102,7 +102,7 @@ export class TutorSettingsComponent implements OnInit {
   }
 
   changetutorAvatar(file: File): void {
-    this._store.dispatch(fromCore.changeTutorAvatar({ file }));
+    this._store.dispatch(fromCore.changeAvatar({ file }));
   }
 
   changetutorCover(file: File): void {

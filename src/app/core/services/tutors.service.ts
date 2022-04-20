@@ -18,13 +18,6 @@ export class TutorsService {
     return this.http.post<any>(`${this.baseUrl}teacher/complete-account`, data);
   }
 
-  changeAvatar(file: File): Observable<any> {
-    const formData = new FormData();
-    formData.append('avatar', file);
-
-    return this.http.post<any>(`${this.baseUrl}change-avatar`, formData);
-  }
-
   changeCover(file: File): Observable<any> {
     const formData = new FormData();
     formData.append('cover_img', file);
