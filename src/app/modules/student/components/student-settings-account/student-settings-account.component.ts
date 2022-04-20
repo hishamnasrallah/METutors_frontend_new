@@ -1,6 +1,5 @@
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { tap } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { FormValidationUtilsService } from '@metutor/core/validators';
 
@@ -11,9 +10,10 @@ import {
   AbstractControl,
 } from '@angular/forms';
 
+import { GENDERS } from '@config';
 import { ICountry } from '@models';
 import * as fromCore from '@metutor/core/state';
-import { GENDERS, generalConstants } from '@config';
+import { AlertNotificationService } from '@metutor/core/components';
 
 @Component({
   selector: 'metutors-student-settings-account',
@@ -23,20 +23,17 @@ import { GENDERS, generalConstants } from '@config';
 export class StudentSettingsAccountComponent implements OnInit {
   form: FormGroup;
   genders = GENDERS;
-  uploadedFiles$: Observable<any>;
-  fileUploadProgress$: Observable<any>;
   countries$: Observable<ICountry[] | null>;
-  uploadComplete = generalConstants.uploadComplete;
 
   constructor(
     private _fb: FormBuilder,
     private _store: Store<any>,
-    private _fv: FormValidationUtilsService
+    private _fv: FormValidationUtilsService,
+    private _alertNotificationService: AlertNotificationService
   ) {}
 
   ngOnInit(): void {
     this.form = this._fb.group({
-      picture: [null, Validators.required],
       first_name: [
         null,
         [
@@ -64,20 +61,8 @@ export class StudentSettingsAccountComponent implements OnInit {
       headline: [null],
     });
 
-    this.fileUploadProgress$ = this._store.select(
-      fromCore.selectFileUploadingProgress
-    );
-
-    this.uploadedFiles$ = this._store
-      .select(fromCore.selectUploadedFiles)
-      .pipe(tap((files) => this.picture?.setValue(files)));
-
     this._store.dispatch(fromCore.loadProgramCountries());
     this.countries$ = this._store.select(fromCore.selectProgramCountries);
-  }
-
-  get picture(): AbstractControl | null {
-    return this.form?.get('picture');
   }
 
   get firstName(): AbstractControl | null {
@@ -93,10 +78,23 @@ export class StudentSettingsAccountComponent implements OnInit {
   }
 
   uploadProfilePic(event: any): void {
-    this._store.dispatch(fromCore.resetUploadedFiles());
     if (event.target && event.target.files && event.target.files.length) {
-      const file = [...event.target.files];
-      this._store.dispatch(fromCore.uploadFile({ file }));
+      const file = event.target?.files[0];
+      const mimeType = event.target.files[0].type;
+
+      if (mimeType.match(/image\/*/) == null) {
+        this._alertNotificationService.error('Only images are allowed');
+
+        return;
+      }
+
+      if (file.size > 1024 * 1024) {
+        this._alertNotificationService.error('Allowed file size is 1MB');
+
+        return;
+      }
+
+      this._store.dispatch(fromCore.changeAvatar({ file }));
     }
   }
 

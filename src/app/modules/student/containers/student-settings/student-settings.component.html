@@ -15,9 +15,6 @@
             <li [class.active]="tab === 'USER_PREFERENCES'" (click)="tab = 'USER_PREFERENCES'">
               User preferences
             </li>
-            <li [class.active]="tab === 'PAYMENT_INFORMATION'" (click)="tab = 'PAYMENT_INFORMATION'">
-              Payment information
-            </li>
           </ul>
         </div>
         <div class="col-md-8">
@@ -30,9 +27,6 @@
 
           <metutors-student-settings-user-prefrences *ngIf="tab === 'USER_PREFERENCES'">
           </metutors-student-settings-user-prefrences>
-
-          <metutors-student-settings-payment-information *ngIf="tab === 'PAYMENT_INFORMATION'">
-          </metutors-student-settings-payment-information>
         </div>
       </div>
     </div>
