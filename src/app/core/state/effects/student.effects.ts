@@ -8,15 +8,43 @@ import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 import { StudentsService } from '@services';
 import * as fromRouterStore from '@metutor/state';
 import { AlertNotificationService } from '@metutor/core/components';
+import * as studentActions from '@metutor/core/state/actions/student.actions';
+
 import {
   selectStudents,
+  selectStudent,
   selectStudentDashboard,
-  studentUpdateProfile,
 } from '@metutor/core/state';
-import * as studentActions from '@metutor/core/state/actions/student.actions';
 
 @Injectable()
 export class StudentEffects {
+  loadStudentStudent$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(studentActions.loadStudent),
+      withLatestFrom(this._store.select(selectStudent)),
+      mergeMap(([_, _student]) => {
+        if (!_student) {
+          return this._studentService.getStudent().pipe(
+            map((student) =>
+              studentActions.loadStudentSuccess({
+                student: camelcaseKeys(student, { deep: true }),
+              })
+            ),
+            catchError((error) =>
+              of(
+                studentActions.loadStudentFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          );
+        } else {
+          return of(studentActions.loadStudentEnded());
+        }
+      })
+    )
+  );
+
   loadStudents$ = createEffect(() =>
     this._actions$.pipe(
       ofType(studentActions.loadStudents),
@@ -422,6 +450,7 @@ export class StudentEffects {
         this._studentService.updateStudentProfile(body).pipe(
           map(() =>
             studentActions.studentUpdateProfileSuccess({
+              body,
               message: 'Account settings successfully updated',
             })
           ),

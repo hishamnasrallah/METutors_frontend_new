@@ -2,6 +2,8 @@ import { IStudent } from '@metutor/core/models';
 import { createReducer, on } from '@ngrx/store';
 
 import * as moment from 'moment';
+import camelcaseKeys from 'camelcase-keys';
+import * as uploadActions from '../actions/upload.actions';
 import * as studentActions from '../actions/student.actions';
 
 export interface State {
@@ -15,10 +17,12 @@ export interface State {
   assignments: any;
   feedbackOptions: any;
   classesDashboard: any;
-  submittedAssignment: any;
   isJoiningClass: boolean;
-  students: IStudent[] | null;
+  student: IStudent | null;
+  submittedAssignment: any;
   isLoadingStudents: boolean;
+  isUpdatingProfile: boolean;
+  students: IStudent[] | null;
   isSubmittingFeedback: boolean;
   isSubmittingAssignment: boolean;
   isLoadingStudentSyllabus: boolean;
@@ -35,6 +39,7 @@ export interface State {
 }
 
 export const initialState: State = {
+  student: null,
   resource: null,
   syllabus: null,
   students: null,
@@ -48,6 +53,7 @@ export const initialState: State = {
   isJoiningClass: false,
   classesDashboard: null,
   isLoadingStudents: false,
+  isUpdatingProfile: false,
   submittedAssignment: null,
   isSubmittingFeedback: false,
   isSubmittingAssignment: false,
@@ -66,6 +72,44 @@ export const initialState: State = {
 
 export const reducer = createReducer(
   initialState,
+
+  on(studentActions.loadStudent, (state) => ({
+    ...state,
+    isLoadingStudents: true,
+  })),
+
+  on(studentActions.loadStudentSuccess, (state, { student }) => ({
+    ...state,
+    student,
+    isLoadingStudents: false,
+  })),
+
+  on(studentActions.loadStudentFailure, (state, { error }) => ({
+    ...state,
+    isLoadingStudents: false,
+    loadingStudentsFailure: error,
+  })),
+
+  on(studentActions.loadStudentEnded, (state) => ({
+    ...state,
+    isLoadingStudents: false,
+  })),
+
+  on(uploadActions.changeAvatarSuccess, (state, { avatar }) => {
+    const finalState = {
+      ...state,
+    };
+
+    console.log(avatar);
+    if (finalState.student) {
+      finalState.student = {
+        ...finalState.student,
+        avatar,
+      };
+    }
+
+    return finalState;
+  }),
 
   on(studentActions.loadStudents, (state) => ({
     ...state,
@@ -346,8 +390,36 @@ export const reducer = createReducer(
       ...state,
       isSubmittingFeedback: false,
     })
-  )
+  ),
+
+  on(studentActions.studentUpdateProfile, (state) => ({
+    ...state,
+    isUpdatingProfile: true,
+  })),
+
+  on(studentActions.studentUpdateProfileSuccess, (state, { body }) => {
+    const finalState = {
+      ...state,
+      isUpdatingProfile: false,
+    };
+
+    if (finalState.student) {
+      finalState.student = {
+        ...finalState.student,
+        ...camelcaseKeys(body, { deep: true }),
+      };
+    }
+
+    return finalState;
+  }),
+
+  on(studentActions.studentUpdateProfileFailure, (state) => ({
+    ...state,
+    isUpdatingProfile: false,
+  }))
 );
+
+export const selectStudent = (state: State): IStudent | null => state.student;
 
 export const selectStudents = (state: State): IStudent[] | null =>
   state.students;
@@ -439,6 +511,10 @@ export const selectIsLoadingStudentFeedbackOptions = (state: State): boolean =>
 
 export const selectIsSubmittingFeedback = (state: State): boolean =>
   state.isSubmittingFeedback;
+2;
+
+export const selectIsUpdatingStudentProfile = (state: State): boolean =>
+  state.isUpdatingProfile;
 
 export const selectFilteredStudents = (
   state: State,

@@ -1,120 +1,129 @@
-<form #f="ngForm" class="account-settings" [formGroup]="form" (ngSubmit)="onSubmit(form)">
-  <div class="avatar-block">
-    <div class="row mb-3">
-      <div class="col-md-12 d-flex">
-<!--         <mat-icon *ngIf="!(uploadedFiles$ | async)?.length" class="person">person</mat-icon>
-        <ng-container *ngIf="(uploadedFiles$ | async)?.length">
-          <ng-container *ngFor="let file of (uploadedFiles$ | async); let i = index">
-            <img [src]="file?.url" alt="">
-          </ng-container>
-        </ng-container>-->
+<ng-container *ngLet="(view$ | async) as view">
+  <ng-container [ngSwitch]="view.loading">
+    <div class="p-4" *ngSwitchCase="true">
+      <metutors-grid-placeholder></metutors-grid-placeholder>
+    </div>
 
-        <div>
-          <h2>Upload profile photo</h2>
-          <h5>JPG, GIF or PNG. Max size of 800K</h5>
-          <div style="height:0;overflow:hidden">
-            <input type="file" id="fileInput" name="fileInput" #filePicker (change)="uploadProfilePic($event)" />
+    <form #f="ngForm" class="account-settings" [formGroup]="form" (ngSubmit)="onSubmit(form)" *ngSwitchCase="false">
+      <div class="avatar-block">
+        <div class="row mb-3">
+          <div class="col-md-12 d-flex">
+            <div class="row avatar-name align-items-center">
+              <div class="col-md-3">
+                <div class="position-relative px-3">
+                  <div class="img-status position-relative">
+                    <img [src]="imageUrl+view.student?.avatar" meTutorsDefaultAvatar alt="" class="rounded-circle" draggable="false"
+                         [class.uploading]="isChangeAvatar$ | async">
+                    <mat-icon class="spinner" *ngIf="isChangeAvatar$ | async">autorenew</mat-icon>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h2>Upload profile photo</h2>
+              <h5>JPG, GIF or PNG. Max size of 1MB</h5>
+              <div style="height:0;overflow:hidden">
+                <input type="file" id="fileInput" name="fileInput" #filePicker (change)="uploadProfilePic($event)"/>
+              </div>
+              <button mat-button type="button" (click)="filePicker.click()">
+                <mat-icon>cloud_upload</mat-icon>
+                Upload file
+              </button>
+            </div>
           </div>
-          <button mat-button type="button" (click)="filePicker.click()">
-            <mat-icon>cloud_upload</mat-icon>
-            Upload file
+        </div>
+      </div>
+      <div class="row mb-3 form-group">
+        <div class="col-md-6">
+          <h3>First Name</h3>
+          <input type="text" class="form-control custom-input input-bordered" placeholder="Kamran"
+                 formControlName="first_name">
+          <div class="text-danger" *ngIf="firstName?.['touched'] && firstName?.errors?.['required']">
+            Please write your First Name
+          </div>
+          <div class="text-danger" *ngIf="firstName?.['touched'] && firstName?.errors?.['pattern']">
+            First Name should only contains alphabets
+          </div>
+          <div class="text-danger"
+               *ngIf="firstName?.['touched'] && firstName?.errors?.['minlength'] && !firstName?.errors?.['required'] && !firstName?.errors?.['pattern']">
+            First Name cannot be less than 3 characters
+          </div>
+          <div class="text-danger"
+               *ngIf="firstName?.['touched'] && firstName?.errors?.['maxlength'] && !firstName?.errors?.['pattern']">
+            First Name cannot be greater than 100 characters
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3 form-group">
+        <div class="col-md-6">
+          <h3>Last Name</h3>
+          <input type="text" class="form-control custom-input input-bordered" placeholder="Khatti"
+                 formControlName="last_name">
+          <div class="text-danger" *ngIf="lastName?.['touched'] && lastName?.errors?.['required']">
+            Please write your Last Name
+          </div>
+          <div class="text-danger" *ngIf="lastName?.['touched'] && lastName?.errors?.['pattern']">
+            Last Name should only contains alphabets
+          </div>
+          <div class="text-danger"
+               *ngIf="lastName?.['touched'] && lastName?.errors?.['minlength'] && !lastName?.errors?.['required'] && !lastName?.errors?.['pattern']">
+            Last Name cannot be less than 3 characters
+          </div>
+          <div class="text-danger"
+               *ngIf="lastName?.['touched'] && lastName?.errors?.['maxlength'] && !lastName?.errors?.['pattern']">
+            Last Name cannot be greater than 100 characters
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3 form-group">
+        <div class="col-md-6">
+          <h3>Email Address</h3>
+          <input type="email" class="form-control custom-input input-bordered" placeholder="hello@gmail.com"
+                 formControlName="email" [disabled]="true">
+        </div>
+      </div>
+
+      <div class="row mb-3 form-group">
+        <div class="col-md-6">
+          <h3>Headline</h3>
+          <input type="text" class="form-control custom-input input-bordered"
+                 placeholder="Add a professional headline like, 'Student at harvard' " formControlName="headline">
+        </div>
+      </div>
+
+      <div class="row mb-3 form-group">
+        <div class="col-md-6">
+          <h3>Country of Residence</h3>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select formControlName="country" [placeholder]="'Choose Country'">
+              <mat-option [value]="country?.id" *ngFor="let country of (countries$ | async)">
+                {{ country?.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row mb-3 form-group">
+        <div class="col-md-6">
+          <h3>Gender</h3>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select formControlName="gender" [placeholder]="'Male'">
+              <mat-option [value]="gender" *ngFor="let gender of genders">{{ gender }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row btn-list">
+        <div class="col-12 d-flex justify-content-end">
+          <button mat-flat-button color="primary" type="submit"
+                  [disabled]="form.invalid || (isSavingProfile | async)">Update
+            <mat-icon class="spinner" *ngIf="(isSavingProfile | async)">autorenew</mat-icon>
           </button>
         </div>
       </div>
-    </div>
-  </div>
-  <div class="row mb-3 form-group">
-    <div class="col-md-6">
-      <h3>First Name</h3>
-      <input type="text" class="form-control custom-input input-bordered" placeholder="Kamran" formControlName="first_name">
-       <div class="text-danger" *ngIf="firstName?.['touched'] && firstName?.errors?.['required']">
-        Please write your First Name
-      </div>
-      <div class="text-danger" *ngIf="firstName?.['touched'] && firstName?.errors?.['pattern']">
-        First Name should only contains alphabets
-      </div>
-      <div class="text-danger"
-        *ngIf="firstName?.['touched'] && firstName?.errors?.['minlength'] && !firstName?.errors?.['required'] && !firstName?.errors?.['pattern']">
-        First Name cannot be less than 3 characters
-      </div>
-      <div class="text-danger" *ngIf="firstName?.['touched'] && firstName?.errors?.['maxlength'] && !firstName?.errors?.['pattern']">
-        First Name cannot be greater than 100 characters
-      </div>
-    </div>
-  </div>
-  <div class="row mb-3 form-group">
-    <div class="col-md-6">
-      <h3>Last Name</h3>
-      <input type="text" class="form-control custom-input input-bordered" placeholder="Khatti" formControlName="last_name">
-       <div class="text-danger" *ngIf="lastName?.['touched'] && lastName?.errors?.['required']">
-        Please write your Last Name
-      </div>
-      <div class="text-danger" *ngIf="lastName?.['touched'] && lastName?.errors?.['pattern']">
-        Last Name should only contains alphabets
-      </div>
-      <div class="text-danger"
-        *ngIf="lastName?.['touched'] && lastName?.errors?.['minlength'] && !lastName?.errors?.['required'] && !lastName?.errors?.['pattern']">
-        Last Name cannot be less than 3 characters
-      </div>
-      <div class="text-danger" *ngIf="lastName?.['touched'] && lastName?.errors?.['maxlength'] && !lastName?.errors?.['pattern']">
-        Last Name cannot be greater than 100 characters
-      </div>
-    </div>
-  </div>
-  <div class="row mb-3 form-group">
-    <div class="col-md-6">
-      <h3>Email Address</h3>
-      <input type="email" class="form-control custom-input input-bordered" placeholder="hello@gmail.com" formControlName="email" email>
-       <div class="text-danger" *ngIf="email?.['touched'] && email?.errors?.['required']">
-        Please write your Email
-      </div>
-      <div class="text-danger" *ngIf="email?.['touched'] && !email?.errors?.['required'] && email?.errors?.['email']">
-        Email is not valid
-      </div>
-      <div class="text-danger"
-        *ngIf="email?.['touched'] && !email?.errors?.['required'] && !email?.errors?.['email'] && email?.errors?.['maxlength']">
-        Email cannot be more than 100 characters
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-3 form-group">
-    <div class="col-md-6">
-      <h3>Headline</h3>
-      <input type="text" class="form-control custom-input input-bordered" placeholder="Add a professional headline like, 'Student at harvard' " formControlName="headline">
-    </div>
-  </div>
-
-  <div class="row mb-3 form-group">
-    <div class="col-md-6">
-      <h3>Country of Residence</h3>
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-select formControlName="country" [placeholder]="'Choose Country'">
-          <mat-option [value]="country?.id" *ngFor="let country of (countries$ | async)">
-            {{ country?.name }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-  </div>
-
-  <div class="row mb-3 form-group">
-    <div class="col-md-6">
-      <h3>Gender</h3>
-      <mat-form-field appearance="outline" class="w-100">
-      <mat-select formControlName="gender" [placeholder]="'Male'">
-        <mat-option [value]="gender" *ngFor="let gender of genders">{{ gender }}</mat-option>
-      </mat-select>
-      </mat-form-field>
-    </div>
-  </div>
-
-  <div class="row btn-list">
-    <div class="col-12 d-flex justify-content-end">
-      <button mat-flat-button color="primary" type="submit"
-        [disabled]="form.invalid">Update
-        <mat-icon class="spinner">autorenew</mat-icon>
-      </button>
-    </div>
-  </div>
-</form>
+    </form>
+  </ng-container>
+</ng-container>

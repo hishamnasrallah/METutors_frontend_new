@@ -1,12 +1,8 @@
-import { IStudent } from '../models';
+import { IStudent } from '@models';
 import { Injectable } from '@angular/core';
 import { map, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import {
-  loadStudentAssignments,
-  studentSubmitPlatformFeedback,
-} from '@metutor/core/state';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +11,12 @@ export class StudentsService {
   baseUrl = environment.API_URL;
 
   constructor(private http: HttpClient) {}
+
+  getStudent(): Observable<any> {
+    return this.http
+      .get<any>(`${this.baseUrl}student/profile`)
+      .pipe(map((response) => response.profile));
+  }
 
   getStudents(): Observable<any> {
     return this.http
