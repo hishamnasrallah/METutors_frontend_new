@@ -572,6 +572,16 @@ export const selectIsUpdatingStudentProfile = createSelector(
   fromStudentReducer.selectIsUpdatingStudentProfile
 );
 
+export const selectStudentPreferences = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectStudentPreferences
+);
+
+export const selectIsLoadingStudentPreferences = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectIsLoadingStudentPreferences
+);
+
 // Ticket
 export const selectTickets = createSelector(
   selectTicketState,

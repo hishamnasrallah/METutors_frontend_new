@@ -11,11 +11,11 @@ import { AlertNotificationService } from '@metutor/core/components';
 import * as studentActions from '@metutor/core/state/actions/student.actions';
 
 import {
-  selectStudents,
   selectStudent,
+  selectStudents,
   selectStudentDashboard,
+  selectStudentPreferences,
 } from '@metutor/core/state';
-import { studentUpdatePreferences } from '@metutor/core/state/actions/student.actions';
 
 @Injectable()
 export class StudentEffects {
@@ -68,6 +68,33 @@ export class StudentEffects {
           );
         } else {
           return of(studentActions.loadStudentsEnded());
+        }
+      })
+    )
+  );
+
+  loadStudentPreference$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(studentActions.loadStudentPreference),
+      withLatestFrom(this._store.select(selectStudentPreferences)),
+      mergeMap(([_, _preferences]) => {
+        if (!_preferences) {
+          return this._studentService.getStudentsPreference().pipe(
+            map((preferences) =>
+              studentActions.loadStudentPreferenceSuccess({
+                preferences: camelcaseKeys(preferences, { deep: true }),
+              })
+            ),
+            catchError((error) =>
+              of(
+                studentActions.loadStudentPreferenceFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          );
+        } else {
+          return of(studentActions.loadStudentPreferenceEnded());
         }
       })
     )

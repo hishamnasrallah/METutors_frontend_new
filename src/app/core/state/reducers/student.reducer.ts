@@ -15,6 +15,7 @@ export interface State {
   attendance: any;
   assignment: any;
   assignments: any;
+  preferences: any;
   feedbackOptions: any;
   classesDashboard: any;
   isJoiningClass: boolean;
@@ -24,6 +25,7 @@ export interface State {
   isUpdatingProfile: boolean;
   students: IStudent[] | null;
   isSubmittingFeedback: boolean;
+  isLoadingPreferences: boolean;
   isSubmittingAssignment: boolean;
   isLoadingStudentSyllabus: boolean;
   isLoadingStudentResource: boolean;
@@ -46,6 +48,7 @@ export const initialState: State = {
   dashboard: null,
   resources: null,
   classroom: null,
+  preferences: null,
   assignment: null,
   attendance: null,
   assignments: null,
@@ -55,6 +58,7 @@ export const initialState: State = {
   isLoadingStudents: false,
   isUpdatingProfile: false,
   submittedAssignment: null,
+  isLoadingPreferences: false,
   isSubmittingFeedback: false,
   isSubmittingAssignment: false,
   isLoadingStudentSyllabus: false,
@@ -428,7 +432,28 @@ export const reducer = createReducer(
       ...state,
       isUpdatingProfile: false,
     })
-  )
+  ),
+
+  on(studentActions.loadStudentPreference, (state) => ({
+    ...state,
+    isLoadingPreferences: true,
+  })),
+
+  on(studentActions.loadStudentPreferenceSuccess, (state, { preferences }) => ({
+    ...state,
+    preferences,
+    isLoadingPreferences: false,
+  })),
+
+  on(studentActions.loadStudentPreferenceFailure, (state) => ({
+    ...state,
+    isLoadingPreferences: false,
+  })),
+
+  on(studentActions.loadStudentPreferenceEnded, (state) => ({
+    ...state,
+    isLoadingPreferences: false,
+  }))
 );
 
 export const selectStudent = (state: State): IStudent | null => state.student;
@@ -527,6 +552,12 @@ export const selectIsSubmittingFeedback = (state: State): boolean =>
 
 export const selectIsUpdatingStudentProfile = (state: State): boolean =>
   state.isUpdatingProfile;
+
+export const selectIsLoadingStudentPreferences = (state: State): boolean =>
+  state.isLoadingPreferences;
+
+export const selectStudentPreferences = (state: State): any =>
+  state.preferences;
 
 export const selectFilteredStudents = (
   state: State,

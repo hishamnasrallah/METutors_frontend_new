@@ -1,5 +1,6 @@
-import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { map, tap } from 'rxjs/operators';
+import { Observable, combineLatest } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 
 import {
@@ -22,8 +23,13 @@ export class StudentSettingsUserPrefrencesComponent implements OnInit {
   form: FormGroup;
   genders = GENDERS;
   showLanguages = false;
-  isSavingProfile: Observable<boolean>;
-  languages$: Observable<ILanguage[] | null>;
+  isSavingPreferences: Observable<boolean>;
+
+  view$: Observable<{
+    preferences: any;
+    loading: boolean;
+    languages: ILanguage[] | null;
+  }>;
 
   constructor(private _store: Store<any>, private _fb: FormBuilder) {}
 
@@ -44,17 +50,29 @@ export class StudentSettingsUserPrefrencesComponent implements OnInit {
 
   ngOnInit(): void {
     this._store.dispatch(fromCore.loadLanguages());
-    this.languages$ = this._store.select(fromCore.selectLanguages);
+    this._store.dispatch(fromCore.loadStudentPreference());
 
-    this.isSavingProfile = this._store.select(
-      fromCore.selectIsUpdatingStudentProfile
+    this.view$ = combineLatest([
+      this._store.select(fromCore.selectLanguages),
+      this._store.select(fromCore.selectStudentPreferences).pipe(
+        tap((preferences) => {
+          if (preferences) {
+            this._form(preferences);
+          }
+        })
+      ),
+      this._store.select(fromCore.selectIsLoadingStudentPreferences),
+    ]).pipe(
+      map(([languages, preferences, loading]) => ({
+        loading,
+        languages,
+        preferences,
+      }))
     );
 
-    this.form = this._fb.group({
-      teacher_language: [null],
-      preferred_gender: [null, Validators.required],
-      preferred_language: [null, Validators.required],
-    });
+    this.isSavingPreferences = this._store.select(
+      fromCore.selectIsUpdatingStudentProfile
+    );
   }
 
   onChange(event: any): void {
@@ -67,5 +85,19 @@ export class StudentSettingsUserPrefrencesComponent implements OnInit {
     }
 
     this.teacherLanguage?.updateValueAndValidity();
+  }
+
+  private _form(preference: any): void {
+    this.form = this._fb.group({
+      teacher_language: [preference?.teacherLanguage?.id || null],
+      preferred_gender: [
+        preference?.preferredGender || null,
+        Validators.required,
+      ],
+      preferred_language: [
+        preference?.preferredLanguage?.id || null,
+        Validators.required,
+      ],
+    });
   }
 }

@@ -22,23 +22,26 @@ export class LookupsEffects {
     this._actions$.pipe(
       ofType(lookupsActions.loadLanguages),
       withLatestFrom(this._store.select(fromCore.selectLanguages)),
-      filter(([_, languages]) => !languages || languages.length === 0),
-      mergeMap((_) =>
-        this._lookupsService.getLanguages().pipe(
-          map((languages) =>
-            lookupsActions.loadLanguagesSuccess({
-              languages,
-            })
-          ),
-          catchError((error) =>
-            of(
-              lookupsActions.loadLanguagesFailure({
-                error: error?.error?.message || error?.error?.errors,
+      mergeMap(([_, _languages]) => {
+        if (!_languages || !_languages?.length) {
+          return this._lookupsService.getLanguages().pipe(
+            map((languages) =>
+              lookupsActions.loadLanguagesSuccess({
+                languages,
               })
+            ),
+            catchError((error) =>
+              of(
+                lookupsActions.loadLanguagesFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
             )
-          )
-        )
-      )
+          );
+        } else {
+          return of(lookupsActions.loadLanguagesEnded());
+        }
+      })
     )
   );
 
@@ -242,7 +245,11 @@ export class LookupsEffects {
       ofType(lookupsActions.loadFieldsByProgramId),
       mergeMap((action) =>
         this._lookupsService
-          .getFieldsByProgramId(action.programId, action.countryId, action.grade)
+          .getFieldsByProgramId(
+            action.programId,
+            action.countryId,
+            action.grade
+          )
           .pipe(
             map((fields) =>
               lookupsActions.loadFieldsByProgramIdSuccess({
@@ -633,22 +640,24 @@ export class LookupsEffects {
             )
           );
         } else {
-          return this._lookupsService.addNewProgramCountries(action.country).pipe(
-            map((response) =>
-              lookupsActions.addEditProgramCountriesSuccess({
-                country: response.country,
-                message: response.message,
-                isEdit: false,
-              })
-            ),
-            catchError((error) =>
-              of(
-                lookupsActions.addEditProgramCountriesFailure({
-                  error: error?.error?.message || error?.error?.errors,
+          return this._lookupsService
+            .addNewProgramCountries(action.country)
+            .pipe(
+              map((response) =>
+                lookupsActions.addEditProgramCountriesSuccess({
+                  country: response.country,
+                  message: response.message,
+                  isEdit: false,
                 })
+              ),
+              catchError((error) =>
+                of(
+                  lookupsActions.addEditProgramCountriesFailure({
+                    error: error?.error?.message || error?.error?.errors,
+                  })
+                )
               )
-            )
-          );
+            );
         }
       })
     )

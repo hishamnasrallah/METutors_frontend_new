@@ -26,6 +26,10 @@ export const loadLanguagesFailure = createAction(
   props<{ error: any }>()
 );
 
+export const loadLanguagesEnded = createAction(
+  '[Lookups] Load Languages Ended'
+);
+
 export const loadLevels = createAction('[Lookups] Load Levels');
 
 export const loadLevelsSuccess = createAction(

@@ -160,6 +160,11 @@ export const reducer = createReducer(
     loadingLanguagesFailure: error,
   })),
 
+  on(lookupsActions.loadLanguagesEnded, (state) => ({
+    ...state,
+    isLoadingLanguages: false,
+  })),
+
   on(lookupsActions.loadLevels, (state) => ({
     ...state,
     isLoadingLevels: true,
