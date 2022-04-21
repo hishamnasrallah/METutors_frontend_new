@@ -295,7 +295,7 @@ export const studentUpdateProfile = createAction(
 
 export const studentUpdateProfileSuccess = createAction(
   '[Student] Student Update Profile Success',
-  props<{ message: string; body: any }>()
+  props<{ message: string; body: any; isPreference?: boolean }>()
 );
 
 export const studentUpdateProfileFailure = createAction(
@@ -310,7 +310,7 @@ export const studentUpdatePreferences = createAction(
 
 export const studentUpdatePreferencesSuccess = createAction(
   '[Student] Student Update Preferences Success',
-  props<{ message: string; body: any }>()
+  props<{ message: string; body: any; isPreference?: boolean }>()
 );
 
 export const studentUpdatePreferencesFailure = createAction(

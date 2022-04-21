@@ -408,15 +408,24 @@ export const reducer = createReducer(
   on(
     studentActions.studentUpdateProfileSuccess,
     studentActions.studentUpdatePreferencesSuccess,
-    (state, { body }) => {
+    (state, { body, isPreference }) => {
       const finalState = {
         ...state,
         isUpdatingProfile: false,
       };
 
-      if (finalState.student) {
+      if (finalState.student && !isPreference) {
         finalState.student = {
           ...finalState.student,
+          ...camelcaseKeys(body, { deep: true }),
+        };
+      }
+
+      if (finalState.preferences && isPreference) {
+        const teacherLanguage = body?.teacher_language;
+        finalState.preferences = {
+          ...finalState.preferences,
+          teacherLanguage,
           ...camelcaseKeys(body, { deep: true }),
         };
       }

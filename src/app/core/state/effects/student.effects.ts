@@ -502,6 +502,7 @@ export class StudentEffects {
           map(() =>
             studentActions.studentUpdatePreferencesSuccess({
               body,
+              isPreference: true,
               message: 'User preferences successfully updated',
             })
           ),

@@ -88,14 +88,15 @@ export class StudentSettingsUserPrefrencesComponent implements OnInit {
   }
 
   private _form(preference: any): void {
+    this.showLanguages = !!preference?.teacherLanguage;
     this.form = this._fb.group({
-      teacher_language: [preference?.teacherLanguage?.id || null],
+      teacher_language: [preference?.teacherLanguage || null],
       preferred_gender: [
         preference?.preferredGender || null,
         Validators.required,
       ],
       preferred_language: [
-        preference?.preferredLanguage?.id || null,
+        preference?.preferredLanguage || null,
         Validators.required,
       ],
     });
