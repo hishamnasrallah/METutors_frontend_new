@@ -70,17 +70,7 @@ export class AuthService {
   }
 
   uploadDocuments(data: any): Observable<any> {
-    const params = new HttpParams();
-
-    const options = {
-      params,
-      reportProgress: true,
-    };
-    return this.http.post<any>(
-      BACKEND_URL + 'teacher/upload-documents',
-      data,
-      options
-    );
+    return this.http.post<any>(BACKEND_URL + 'teacher/upload-documents', data);
   }
 
   uploadSingleDocuments(data: any): Observable<any> {

@@ -252,8 +252,11 @@ export class SignupComponent implements OnInit, OnDestroy {
   submitDocuments(files: File[]) {
     this.loading = true;
     const formData = new FormData();
+    const sendFiles: any = [...files];
 
-    formData.append(`documents[]`, files.toString());
+    sendFiles.forEach((file: any, index: number) => {
+      formData.append(`documents[${index}]`, file);
+    });
     formData.append(`email`, this.email?.value);
 
     this.signupSub = this._authService.uploadDocuments(formData).subscribe(
