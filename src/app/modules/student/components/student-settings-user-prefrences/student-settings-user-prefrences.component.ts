@@ -1,7 +1,13 @@
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import {
+  FormGroup,
+  Validators,
+  FormBuilder,
+  AbstractControl,
+} from '@angular/forms';
 
 import { GENDERS } from '@config';
 import { ILanguage } from '@models';
@@ -21,8 +27,17 @@ export class StudentSettingsUserPrefrencesComponent implements OnInit {
 
   constructor(private _store: Store<any>, private _fb: FormBuilder) {}
 
+  get teacherLanguage(): AbstractControl | null {
+    return this.form.get('teacher_language');
+  }
+
   onSubmit(form: FormGroup): void {
-    const body = form.value;
+    let body = form.value;
+
+    if (!this.showLanguages) {
+      const { teacher_language, ...rest } = form.value;
+      body = rest;
+    }
 
     this._store.dispatch(fromCore.studentUpdatePreferences({ body }));
   }
@@ -36,13 +51,21 @@ export class StudentSettingsUserPrefrencesComponent implements OnInit {
     );
 
     this.form = this._fb.group({
+      teacher_language: [null],
       preferred_gender: [null, Validators.required],
-      teacher_language: [null, Validators.required],
       preferred_language: [null, Validators.required],
     });
   }
 
   onChange(event: any): void {
     this.showLanguages = event.value === '-1';
+
+    if (this.showLanguages) {
+      this.teacherLanguage?.addValidators(Validators.required);
+    } else {
+      this.teacherLanguage?.clearValidators();
+    }
+
+    this.teacherLanguage?.updateValueAndValidity();
   }
 }
