@@ -30,6 +30,24 @@ export const loadStudentsFailure = createAction(
 
 export const loadStudentsEnded = createAction('[Student] Load Students Ended');
 
+export const loadStudentPreference = createAction(
+  '[Student] Load Student Preference'
+);
+
+export const loadStudentPreferenceSuccess = createAction(
+  '[Student] Load Student Preference Success',
+  props<{ preferences: any }>()
+);
+
+export const loadStudentPreferenceFailure = createAction(
+  '[Student] Load Student Preference Failure',
+  props<{ error: any }>()
+);
+
+export const loadStudentPreferenceEnded = createAction(
+  '[Student] Load Student Preference Ended'
+);
+
 export const loadStudentDashboard = createAction(
   '[Student] Load Student Dashboard',
   props<{ params: any; load: boolean }>()

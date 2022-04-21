@@ -16,7 +16,6 @@ import { GENDERS } from '@config';
 import { ICountry, IStudent } from '@models';
 import * as fromCore from '@metutor/core/state';
 import { AlertNotificationService } from '@metutor/core/components';
-import { selectIsUpdatingStudentProfile } from '@metutor/core/state/reducers/student.reducer';
 
 @Component({
   selector: 'metutors-student-settings-account',

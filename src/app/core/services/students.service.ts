@@ -3,7 +3,10 @@ import { Injectable } from '@angular/core';
 import { map, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { studentUpdatePreferences } from '@metutor/core/state';
+import {
+  loadStudentPreference,
+  studentUpdatePreferences,
+} from '@metutor/core/state';
 
 @Injectable({
   providedIn: 'root',
@@ -29,6 +32,12 @@ export class StudentsService {
           );
         })
       );
+  }
+
+  getStudentsPreference(): Observable<any> {
+    return this.http
+      .get<{ students: IStudent[] }>(`${this.baseUrl}student/preference`)
+      .pipe(map((response: any) => response.preference));
   }
 
   getStudentDashboard(search_query: any): Observable<any> {
@@ -142,6 +151,6 @@ export class StudentsService {
   }
 
   updateStudentPreferences(body: any): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}student/prefrences`, body);
+    return this.http.post<any>(`${this.baseUrl}student/preference`, body);
   }
 }
