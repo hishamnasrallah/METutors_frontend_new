@@ -31,7 +31,7 @@
                                        [cities]="cities$ | async" 
                                        [isChangeAvatar]="(isChangeTutorAvatar$ | async)!"
                                        [isChangeCover]="(isChangeTutorCover$ | async)!"
-                                       [isCompleteProfile]="(isCompleteTutorProfile$ | async)!"
+                                       [isUpdateProfile]="(isUpdateTutorProfile$ | async)!"
                                        (loadCities)="loadCities($event)"
                                        (submitForm)="sendTeacherAccount($event)"
                                        (changeAvatar)="changetutorAvatar($event)"

@@ -73,7 +73,7 @@
         <h1 class="title">Personal Information</h1>
 
         <div>
-          <metutors-submit-button [form]="personalInfoForm" [isSubmitting]="isCompleteProfile">
+          <metutors-submit-button [form]="personalInfoForm" [isSubmitting]="isUpdateProfile && selectedForm === 1">
             Update
           </metutors-submit-button>
         </div>
@@ -210,13 +210,12 @@
   </div>
 
   <div class="card complete-form mb-3">
-    <form class="card-body" [formGroup]="qualificationForm">
+    <form class="card-body" [formGroup]="qualificationForm" (ngSubmit)="submitQualificationDetails(qualificationForm)">
       <div class="d-flex justify-content-between align-items-center w-100 mb-4">
         <h1 class="title">Qualification Details</h1>
 
         <div>
-          <!-- [isSubmitting]="loading" [extraClasses]="'w-100'" -->
-          <metutors-submit-button [form]="qualificationForm">
+          <metutors-submit-button [form]="qualificationForm" [isSubmitting]="isUpdateProfile && selectedForm === 2">
             Update
           </metutors-submit-button>
         </div>
@@ -324,13 +323,12 @@
   </div>
 
   <div class="card complete-form mb-3">
-    <form class="card-body" [formGroup]="teachingForm">
+    <form class="card-body" [formGroup]="teachingForm" (ngSubmit)="submitTeachingSpecification(teachingForm)">
       <div class="d-flex justify-content-between align-items-center w-100 mb-4">
         <h1 class="title">Teaching Specifications</h1>
 
         <div>
-          <!-- [isSubmitting]="loading" [extraClasses]="'w-100'" -->
-          <metutors-submit-button [form]="teachingForm">
+          <metutors-submit-button [form]="teachingForm" [isSubmitting]="isUpdateProfile && selectedForm === 3">
             Update
           </metutors-submit-button>
         </div>
