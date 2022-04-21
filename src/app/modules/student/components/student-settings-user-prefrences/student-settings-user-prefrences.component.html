@@ -1,9 +1,9 @@
-<form class="user-prefrences">
+<form class="user-prefrences" [formGroup]="form" (ngSubmit)="onSubmit(form)">
   <div class="row mb-3">
     <div class="col-md-6">
       <h3>What’s languages you prefer?</h3>
       <mat-form-field appearance="outline" class="w-100">
-        <mat-select [placeholder]="'Choose language'">
+        <mat-select [placeholder]="'Choose language'" formControlName="preferred_language">
           <mat-option [value]="language.id" *ngFor="let language of (languages$ | async)">{{ language.name}}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -13,7 +13,7 @@
     <div class="col-md-6">
       <h3>What’s tutor gender you prefer? </h3>
       <mat-form-field appearance="outline" class="w-100">
-        <mat-select [placeholder]="'Choose gender'">
+        <mat-select [placeholder]="'Choose gender'" formControlName="preferred_gender">
           <mat-option [value]="gender" *ngFor="let gender of genders">{{ gender }}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -27,7 +27,7 @@
         <mat-radio-button class="w-50" value="-1">Select a language</mat-radio-button>
       </mat-radio-group>
       <mat-form-field appearance="outline" class="w-100 mt-3" *ngIf="showLanguages">
-        <mat-select [placeholder]="'Choose language'">
+        <mat-select [placeholder]="'Choose language'" formControlName="teacher_language">
           <mat-option [value]="language.id" *ngFor="let language of (languages$ | async)">{{ language.name}}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -35,7 +35,10 @@
   </div>
   <div class="row btn-list mt-5">
     <div class="col-12 d-flex justify-content-end">
-      <button mat-flat-button color="primary" type="submit">Update </button>
+      <button mat-flat-button color="primary" type="submit"
+              [disabled]="form.invalid || (isSavingProfile | async)">Update
+        <mat-icon class="spinner" *ngIf="(isSavingProfile | async)">autorenew</mat-icon>
+      </button>
     </div>
   </div>
 </form>

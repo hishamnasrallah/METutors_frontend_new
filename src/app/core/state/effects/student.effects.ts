@@ -15,6 +15,7 @@ import {
   selectStudent,
   selectStudentDashboard,
 } from '@metutor/core/state';
+import { studentUpdatePreferences } from '@metutor/core/state/actions/student.actions';
 
 @Injectable()
 export class StudentEffects {
@@ -466,6 +467,29 @@ export class StudentEffects {
     )
   );
 
+  studentUpdatePreferences$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(studentActions.studentUpdatePreferences),
+      mergeMap(({ body }) =>
+        this._studentService.updateStudentPreferences(body).pipe(
+          map(() =>
+            studentActions.studentUpdatePreferencesSuccess({
+              body,
+              message: 'User preferences successfully updated',
+            })
+          ),
+          catchError((error) =>
+            of(
+              studentActions.studentUpdatePreferencesFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   studentSubmitAssignmentSuccess$ = createEffect(() =>
     this._actions$.pipe(
       ofType(studentActions.studentSubmitAssignmentSuccess),
@@ -481,6 +505,7 @@ export class StudentEffects {
             studentActions.studentUpdateProfileSuccess,
             studentActions.studentSubmitFeedbackSuccess,
             studentActions.studentSubmitAssignmentSuccess,
+            studentActions.studentUpdatePreferencesSuccess,
             studentActions.studentSubmitPlatformFeedbackSuccess,
           ]
         ),
@@ -500,6 +525,7 @@ export class StudentEffects {
             studentActions.studentUpdateProfileFailure,
             studentActions.studentSubmitFeedbackFailure,
             studentActions.studentSubmitAssignmentFailure,
+            studentActions.studentUpdatePreferencesFailure,
             studentActions.studentSubmitPlatformFeedbackFailure,
           ]
         ),

@@ -284,3 +284,18 @@ export const studentUpdateProfileFailure = createAction(
   '[Student] Student Update Profile Failure',
   props<{ error: any }>()
 );
+
+export const studentUpdatePreferences = createAction(
+  '[Student] Student Update Preferences',
+  props<{ body: any }>()
+);
+
+export const studentUpdatePreferencesSuccess = createAction(
+  '[Student] Student Update Preferences Success',
+  props<{ message: string; body: any }>()
+);
+
+export const studentUpdatePreferencesFailure = createAction(
+  '[Student] Student Update Preferences Failure',
+  props<{ error: any }>()
+);
