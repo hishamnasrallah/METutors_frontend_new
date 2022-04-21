@@ -6,11 +6,14 @@
 <ng-container *ngIf="!isLoadingTutor">
   <div class="profile-header mb-3 position-relative">
     <button mat-button class="status-interview" *ngIf="tutor?.interviewRequest" [ngClass]="{
-      'pending': tutor?.interviewRequest?.status === interviewStatus.pending,
-      'approved': tutor?.interviewRequest?.status === interviewStatus.approved,
-      'rejected': tutor?.interviewRequest?.status === interviewStatus.rejected,
-      'scheduled': tutor?.interviewRequest?.status === interviewStatus.scheduled
-    }">
+        'pending': tutor?.interviewRequest?.status === interviewStatus.pending,
+        'approved': tutor?.interviewRequest?.status === interviewStatus.approved,
+        'rejected': tutor?.interviewRequest?.status === interviewStatus.rejected,
+        'scheduled': tutor?.interviewRequest?.status === interviewStatus.scheduled
+      }"
+      [matTooltip]="tutor.interviewRequest && tutor.interviewRequest.adminComments ? tutor.interviewRequest.adminComments : ''"
+      [matTooltipPosition]="'above'" matTooltipHideDelay="100000"
+      [matTooltipDisabled]="!tutor?.interviewRequest?.adminComments">
       <ng-container *ngIf="tutor?.interviewRequest?.status === interviewStatus.pending">
         Account Under Review
       </ng-container>
@@ -73,7 +76,8 @@
         <h1 class="title">Personal Information</h1>
 
         <div>
-          <metutors-submit-button [form]="personalInfoForm" [isSubmitting]="isUpdateProfile && selectedForm === 1">
+          <metutors-submit-button [form]="personalInfoForm" [isSubmitting]="isUpdateProfile && selectedForm === 1"
+            [isDisabled]="tutor?.interviewRequest?.status === interviewStatus.pending || tutor?.interviewRequest?.status === interviewStatus.scheduled || tutor?.interviewRequest?.status === interviewStatus.rejected">
             Update
           </metutors-submit-button>
         </div>
@@ -215,7 +219,8 @@
         <h1 class="title">Qualification Details</h1>
 
         <div>
-          <metutors-submit-button [form]="qualificationForm" [isSubmitting]="isUpdateProfile && selectedForm === 2">
+          <metutors-submit-button [form]="qualificationForm" [isSubmitting]="isUpdateProfile && selectedForm === 2"
+            [isDisabled]="tutor?.interviewRequest?.status === interviewStatus.pending || tutor?.interviewRequest?.status === interviewStatus.scheduled || tutor?.interviewRequest?.status === interviewStatus.rejected">
             Update
           </metutors-submit-button>
         </div>
@@ -328,7 +333,8 @@
         <h1 class="title">Teaching Specifications</h1>
 
         <div>
-          <metutors-submit-button [form]="teachingForm" [isSubmitting]="isUpdateProfile && selectedForm === 3">
+          <metutors-submit-button [form]="teachingForm" [isSubmitting]="isUpdateProfile && selectedForm === 3"
+            [isDisabled]="tutor?.interviewRequest?.status === interviewStatus.pending || tutor?.interviewRequest?.status === interviewStatus.scheduled || tutor?.interviewRequest?.status === interviewStatus.rejected">
             Update
           </metutors-submit-button>
         </div>

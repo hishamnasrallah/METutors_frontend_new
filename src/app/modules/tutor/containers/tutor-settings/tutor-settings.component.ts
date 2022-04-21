@@ -11,6 +11,7 @@ import {
   IUser,
   SubmitInterviewInput,
 } from '@metutor/core/models';
+import { InterviewStatus } from '@metutor/config';
 import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
 
 @Component({
@@ -97,7 +98,15 @@ export class TutorSettingsComponent implements OnInit {
     this._prepareCitiesByCountryId(countryId);
   }
 
-  sendTeacherAccount(data: any): void {
+  sendTeacherAccount(tutor: ITutor, data: any): void {
+    if (
+      tutor?.interviewRequest?.status === InterviewStatus.pending ||
+      tutor?.interviewRequest?.status === InterviewStatus.scheduled ||
+      tutor?.interviewRequest?.status === InterviewStatus.rejected
+    ) {
+      return;
+    }
+
     this._store.dispatch(fromCore.updateTutorProfile({ data }));
   }
 

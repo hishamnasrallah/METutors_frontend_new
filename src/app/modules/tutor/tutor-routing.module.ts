@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { TutorAuthorizeGuard } from '@metutor/core/guards';
 import {
   TutorComponent,
   TutorFaqComponent,
@@ -33,6 +34,7 @@ const routes: Routes = [
     children: [
       {
         path: 'classrooms',
+        canActivate: [TutorAuthorizeGuard],
         children: [
           {
             path: '',
@@ -199,6 +201,7 @@ const routes: Routes = [
       },
       {
         path: 'dashboard',
+        canActivate: [TutorAuthorizeGuard],
         component: TutorDashboardComponent,
         data: {
           layout: {
@@ -211,6 +214,7 @@ const routes: Routes = [
       },
       {
         path: 'badges',
+        canActivate: [TutorAuthorizeGuard],
         component: TutorBadgesComponent,
         data: {
           layout: {
@@ -235,6 +239,7 @@ const routes: Routes = [
       },
       {
         path: 'payment-records',
+        canActivate: [TutorAuthorizeGuard],
         component: TutorPaymentRecordsComponent,
         data: {
           layout: {

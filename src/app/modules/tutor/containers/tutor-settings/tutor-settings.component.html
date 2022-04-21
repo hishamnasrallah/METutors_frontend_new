@@ -23,7 +23,7 @@
       </div>
     </div>
 
-    <div class="col-md-8">
+    <div class="col-md-8" *ngLet="(tutor$ | async) as tutor">
       <metutors-tutor-settings-profile *ngIf="tab === 'MY_PROFILE'"
                                        [user]="(tutor$ | async)!"
                                        [isLoadingTutor]="(isLoadingTutor$ | async)!"
@@ -33,7 +33,7 @@
                                        [isChangeCover]="(isChangeTutorCover$ | async)!"
                                        [isUpdateProfile]="(isUpdateTutorProfile$ | async)!"
                                        (loadCities)="loadCities($event)"
-                                       (submitForm)="sendTeacherAccount($event)"
+                                       (submitForm)="sendTeacherAccount(tutor, $event)"
                                        (changeAvatar)="changetutorAvatar($event)"
                                        (changeCover)="changetutorCover($event)"
                                        (submitInterview)="onOpenSubmitInterview()">

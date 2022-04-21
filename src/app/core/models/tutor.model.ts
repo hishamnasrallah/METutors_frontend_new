@@ -155,10 +155,9 @@ export class ITutor {
       this.gender = tutor?.gender || '';
       this.nationality = tutor?.nationality || '';
       this.approvedTutor = checkApprovedTutor(tutor?.teacher_interview_request);
-      this.interviewRequest = new IInterview(
-        false,
-        tutor?.teacher_interview_request
-      );
+      this.interviewRequest = tutor?.teacher_interview_request
+        ? new IInterview(false, tutor?.teacher_interview_request)
+        : undefined;
 
       this.badges = tutor?.badges || [];
       this.rate = tutor?.rate || 0;
