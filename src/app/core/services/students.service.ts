@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { map, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { studentUpdatePreferences } from '@metutor/core/state';
 
 @Injectable({
   providedIn: 'root',
@@ -138,5 +139,9 @@ export class StudentsService {
 
   updateStudentProfile(body: any): Observable<any> {
     return this.http.patch<any>(`${this.baseUrl}student/account/setting`, body);
+  }
+
+  updateStudentPreferences(body: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}student/prefrences`, body);
   }
 }

@@ -392,31 +392,43 @@ export const reducer = createReducer(
     })
   ),
 
-  on(studentActions.studentUpdateProfile, (state) => ({
-    ...state,
-    isUpdatingProfile: true,
-  })),
+  on(
+    studentActions.studentUpdateProfile,
+    studentActions.studentUpdatePreferences,
+    (state) => ({
+      ...state,
+      isUpdatingProfile: true,
+    })
+  ),
 
-  on(studentActions.studentUpdateProfileSuccess, (state, { body }) => {
-    const finalState = {
+  on(
+    studentActions.studentUpdateProfileSuccess,
+    studentActions.studentUpdatePreferencesSuccess,
+    (state, { body }) => {
+      const finalState = {
+        ...state,
+        isUpdatingProfile: false,
+      };
+
+      if (finalState.student) {
+        finalState.student = {
+          ...finalState.student,
+          ...camelcaseKeys(body, { deep: true }),
+        };
+      }
+
+      return finalState;
+    }
+  ),
+
+  on(
+    studentActions.studentUpdateProfileFailure,
+    studentActions.studentUpdatePreferencesFailure,
+    (state) => ({
       ...state,
       isUpdatingProfile: false,
-    };
-
-    if (finalState.student) {
-      finalState.student = {
-        ...finalState.student,
-        ...camelcaseKeys(body, { deep: true }),
-      };
-    }
-
-    return finalState;
-  }),
-
-  on(studentActions.studentUpdateProfileFailure, (state) => ({
-    ...state,
-    isUpdatingProfile: false,
-  }))
+    })
+  )
 );
 
 export const selectStudent = (state: State): IStudent | null => state.student;
