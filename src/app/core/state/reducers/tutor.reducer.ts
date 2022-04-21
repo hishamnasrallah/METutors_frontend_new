@@ -128,9 +128,12 @@ export const reducer = createReducer(
     isSubmittingInterview: true,
   })),
 
-  on(tutorActions.submitInterviewSuccess, (state) => ({
+  on(tutorActions.submitInterviewSuccess, (state, { interviewRequest }) => ({
     ...state,
     isSubmittingInterview: false,
+    profileTutor: state.profileTutor
+      ? { ...state.profileTutor, interviewRequest }
+      : null,
   })),
 
   on(tutorActions.submitInterviewFailure, (state) => ({

@@ -76,7 +76,6 @@ export class TutorSettingsProfileComponent implements OnInit {
       this.teachingForm?.patchValue({
         startDate: _tutor?.specifications?.availabilityStartDate,
         endDate: _tutor?.specifications?.availabilityEndDate,
-        // availability: _tutor?.specifications?.degreeLevel,
         typeOfTutoring: _tutor?.specifications?.typeOfTutoring,
       });
       this.teachingForm.updateValueAndValidity();
@@ -89,7 +88,7 @@ export class TutorSettingsProfileComponent implements OnInit {
           this.selectedDays.push(+avail?.day);
         }
 
-        const existing = output.filter((v, i) => {
+        const existing = output.filter((v) => {
           return +v.day == +avail.day;
         });
 

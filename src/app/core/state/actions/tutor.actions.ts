@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { ITutor, IUser, SubmitInterviewInput } from '@models';
+import { IInterview, ITutor, IUser, SubmitInterviewInput } from '@models';
 
 // Complete tutor profile
 export const completeTutorProfile = createAction(
@@ -217,7 +217,7 @@ export const submitInterview = createAction(
 
 export const submitInterviewSuccess = createAction(
   '[Tutor] Submit Interview Success',
-  props<{ message: string }>()
+  props<{ message: string; interviewRequest: IInterview }>()
 );
 
 export const submitInterviewFailure = createAction(

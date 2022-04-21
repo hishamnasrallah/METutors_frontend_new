@@ -108,7 +108,7 @@ export class TutorClassroomsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._store.dispatch(fromCore.loadCountries());
+    this._store.dispatch(fromCore.loadProgramCountries());
     this.layout$ = this._store.select(fromRoot.selectLayout);
     this.user$ = this._store.select(fromCore.selectUser);
     this._store.dispatch(fromCore.loadCourses({}));
@@ -120,7 +120,7 @@ export class TutorClassroomsComponent implements OnInit {
     );
 
     this.view$ = combineLatest([
-      this._store.select(fromCore.selectCountries),
+      this._store.select(fromCore.selectProgramCountries),
       this._store.select(fromCore.selectCoursePrograms),
       this._store.select(fromCore.selectCourseFieldOfStudies),
       this._store

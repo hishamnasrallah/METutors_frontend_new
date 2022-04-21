@@ -2,10 +2,10 @@ import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
 import camelcaseKeys from 'camelcase-keys';
+import { IInterview } from '@metutor/core/models';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
-
 import { TutorsService } from '@services';
 import { environment } from '@environment';
 import * as fromRouterStore from '@metutor/state';
@@ -181,6 +181,10 @@ export class TutorEffects {
             map((response) =>
               tutorActions.submitInterviewSuccess({
                 message: response.message,
+                interviewRequest: new IInterview(
+                  false,
+                  response.interview_request
+                ),
               })
             ),
             catchError((error) =>
