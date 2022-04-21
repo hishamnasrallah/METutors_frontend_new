@@ -18,6 +18,22 @@ export const completeTutorProfileFailure = createAction(
   props<{ error: any }>()
 );
 
+// Update tutor profile
+export const updateTutorProfile = createAction(
+  '[Tutor] Update Tutor Profile',
+  props<{ data: any }>()
+);
+
+export const updateTutorProfileSuccess = createAction(
+  '[Tutor] Update Tutor Profile Success',
+  props<{ message: string }>()
+);
+
+export const updateTutorProfileFailure = createAction(
+  '[Tutor] Update Tutor Profile Failure',
+  props<{ error: any }>()
+);
+
 // Change tutor cover
 export const changeTutorCover = createAction(
   '[Tutor] Change Tutor Cover',

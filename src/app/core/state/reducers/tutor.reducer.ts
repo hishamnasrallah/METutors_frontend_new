@@ -29,6 +29,10 @@ export interface State {
   isCompleteTutorProfile: boolean;
   completeTutorProfileFailure: string;
 
+  // Update Tutor Profile
+  isUpdateTutorProfile: boolean;
+  updateTutorProfileFailure?: string;
+
   // Change Tutor Avatar
   isChangeTutorCover: boolean;
 
@@ -52,6 +56,7 @@ export const initialState: State = {
   isLoadingDashboard: false,
   isChangeTutorCover: false,
   isSubmittingFeedback: false,
+  isUpdateTutorProfile: false,
   isSubmittingInterview: false,
   isLoadingProfileTutor: false,
   isCompleteTutorProfile: false,
@@ -173,6 +178,22 @@ export const reducer = createReducer(
     ...state,
     isCompleteTutorProfile: false,
     completeTutorProfileFailure: error,
+  })),
+
+  on(tutorActions.updateTutorProfile, (state) => ({
+    ...state,
+    isUpdateTutorProfile: true,
+  })),
+
+  on(tutorActions.updateTutorProfileSuccess, (state) => ({
+    ...state,
+    isUpdateTutorProfile: false,
+  })),
+
+  on(tutorActions.updateTutorProfileFailure, (state, { error }) => ({
+    ...state,
+    isUpdateTutorProfile: false,
+    updateTutorProfileFailure: error,
   })),
 
   on(uploadActions.changeAvatarSuccess, (state, { avatar }) => ({
@@ -334,6 +355,9 @@ export const selectIsLoadingTutorDashboard = (state: State): boolean =>
 
 export const selectIsCompleteTutorProfile = (state: State): boolean =>
   state.isCompleteTutorProfile;
+
+export const selectIsUpdateTutorProfile = (state: State): boolean =>
+  state.isUpdateTutorProfile;
 
 export const selectIsChangeTutorCover = (state: State): boolean =>
   state.isChangeTutorCover;

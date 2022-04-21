@@ -226,6 +226,11 @@ export const selectIsCompleteTutorProfile = createSelector(
   fromTutorReducer.selectIsCompleteTutorProfile
 );
 
+export const selectIsUpdateTutorProfile = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectIsUpdateTutorProfile
+);
+
 export const selectIsChangeTutorCover = createSelector(
   selectTutorState,
   fromTutorReducer.selectIsChangeTutorCover

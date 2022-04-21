@@ -45,7 +45,7 @@ export class TutorSettingsProfileComponent implements OnInit {
   @Input() set user(_tutor: ITutor) {
     if (_tutor) {
       this.tutor = _tutor;
-      console.log(_tutor);
+
       this.personalInfoForm?.patchValue({
         middleName: _tutor?.middleName,
         nationality: _tutor?.nationality,
@@ -83,10 +83,45 @@ export class TutorSettingsProfileComponent implements OnInit {
 
       this.loadCities.emit(_tutor?.country?.id);
 
+      const output: any[] = [];
       this.tutor?.availability?.forEach((avail: any) => {
         if (!this.selectedDays.includes(+avail?.day)) {
           this.selectedDays.push(+avail?.day);
         }
+
+        const existing = output.filter((v, i) => {
+          return +v.day == +avail.day;
+        });
+
+        if (existing.length) {
+          const existingIndex = output.indexOf(existing[0]);
+
+          output[existingIndex].timeSlots = [
+            ...output[existingIndex].timeSlots,
+            {
+              id: avail?.id,
+              startTime: avail?.timeFrom,
+              endTime: avail?.timeTo,
+            },
+          ];
+        } else {
+          output.push({
+            day: +avail.day,
+            timeSlots: [
+              {
+                id: avail?.id,
+                startTime: avail?.timeFrom,
+                endTime: avail?.timeTo,
+              },
+            ],
+          });
+        }
+      });
+
+      output.forEach((item) => {
+        this.availability
+          .at(item.day)
+          .patchValue({ day: item.day, timeSlots: item.timeSlots });
       });
     }
   }
@@ -95,7 +130,7 @@ export class TutorSettingsProfileComponent implements OnInit {
   @Input() loading: boolean | null;
   @Input() isLoadingTutor: boolean;
   @Input() isChangeAvatar: boolean;
-  @Input() isCompleteProfile: boolean;
+  @Input() isUpdateProfile: boolean;
   @Input() countries: ICountry[] | null;
 
   @Output() submitForm = new EventEmitter();
@@ -108,6 +143,7 @@ export class TutorSettingsProfileComponent implements OnInit {
   genders = GENDERS;
   maxDate = new Date();
   minDate = new Date();
+  selectedForm: number;
   teachingForm: FormGroup;
   days = SORTED_DAYS_WEEK;
   skills = COMPUTER_SKILLS;
@@ -147,11 +183,9 @@ export class TutorSettingsProfileComponent implements OnInit {
       degreeLevel: [null, [Validators.required]],
       teachingExperience: [null, [Validators.required]],
       degreeField: [null, [Validators.required]],
-      // languages: this._fb.array([]),
       teachingExperienceOnline: [null, [Validators.required]],
       currentEmployer: [null],
       currentTitle: [null],
-      // video: [null, Validators.required],
     });
 
     this.teachingForm = this._fb.group({
@@ -305,6 +339,8 @@ export class TutorSettingsProfileComponent implements OnInit {
         this.selectedDays.splice(this.selectedDays.indexOf(index), 1);
         this.availability.at(index).patchValue({ day: null, timeSlots: [] });
       }
+
+      this.teachingForm?.markAsDirty();
     });
   }
 
@@ -352,6 +388,8 @@ export class TutorSettingsProfileComponent implements OnInit {
 
   submitPersonalInfo(form: FormGroup): void {
     if (form.valid) {
+      this.selectedForm = 1;
+
       const data = {
         step: '1',
         middle_name: this.middleName?.value,
@@ -367,6 +405,56 @@ export class TutorSettingsProfileComponent implements OnInit {
         country: this.country?.value,
         city: this.city?.value,
         postal_code: this.postalCode?.value,
+      };
+
+      this.submitForm.emit(data);
+    }
+  }
+
+  submitQualificationDetails(form: FormGroup): void {
+    if (form.valid) {
+      this.selectedForm = 2;
+
+      const data = {
+        step: '3',
+        name_of_university: this.nameOfUniversity?.value,
+        degree_level: this.degreeLevel?.value,
+        degree_field: this.degreeField?.value,
+        computer_skills: this.computerSkills?.value,
+        teaching_experience: this.teachingExperience?.value,
+        current_employer: this.currentEmployer?.value,
+        current_title: this.currentTitle?.value,
+        teaching_experience_online: this.teachingExperienceOnline?.value,
+      };
+
+      this.submitForm.emit(data);
+    }
+  }
+
+  submitTeachingSpecification(form: FormGroup): void {
+    if (form.valid) {
+      this.selectedForm = 3;
+
+      const data = {
+        step: '4',
+        type_of_tutoring: this.typeOfTutoring?.value,
+        availability_start_date: this._datePipe.transform(
+          this.startDate?.value,
+          'yyyy-MM-dd'
+        ),
+        availability_end_date: this._datePipe.transform(
+          this.endDate?.value,
+          'yyyy-MM-dd'
+        ),
+        availability: this.availability?.value
+          ?.filter((itm: any) => itm?.day != null)
+          ?.map((item: any) => ({
+            day: item?.day,
+            time_slots: item?.timeSlots?.map((slot: any) => ({
+              start_time: slot?.startTime,
+              end_time: slot?.endTime,
+            })),
+          })),
       };
 
       this.submitForm.emit(data);
