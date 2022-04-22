@@ -1,6 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 
 import { ICourse } from '@models';
+import camelcaseKeys from 'camelcase-keys';
 import * as tutorActions from '../actions/tutor.actions';
 import * as courseActions from '../actions/course.actions';
 
@@ -182,7 +183,7 @@ export const reducer = createReducer(
       const upcomingClasses = finalState.course.upcomingClasses.map(
         (upComingClass: any) =>
           upComingClass.id === body.academic_class_id
-            ? { ...upComingClass, ...body }
+            ? { ...upComingClass, ...camelcaseKeys(body) }
             : upComingClass
       );
 
