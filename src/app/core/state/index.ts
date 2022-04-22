@@ -266,6 +266,11 @@ export const selectIsLoadingTutorFeedbackOptions = createSelector(
   fromTutorReducer.selectIsLoadingTutorFeedbackOptions
 );
 
+export const selectIsReschedulingTutorClass = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectIsReschedulingTutorClass
+);
+
 // Tutor syllabus
 export const selectTutorSyllabus = createSelector(
   selectTutorSyllabusState,

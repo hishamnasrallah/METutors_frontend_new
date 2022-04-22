@@ -120,3 +120,11 @@ export const openTutorSubmitInterviewModal = createAction(
 export const closeTutorSubmitInterviewModal = createAction(
   '[Tutor Modal] Close Tutor Submit Interview Modal'
 );
+
+export const openTutorRescheduleClassModal = createAction(
+  '[Tutor Modal] Open Tutor Reschedule Class Modal'
+);
+
+export const closeTutorRescheduleClassModal = createAction(
+  '[Tutor Modal] Close Tutor Reschedule Class Modal'
+);

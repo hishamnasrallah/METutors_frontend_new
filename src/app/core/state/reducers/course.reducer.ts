@@ -1,6 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 
 import { ICourse } from '@models';
+import * as tutorActions from '../actions/tutor.actions';
 import * as courseActions from '../actions/course.actions';
 
 export interface State {
@@ -166,7 +167,33 @@ export const reducer = createReducer(
   on(courseActions.tutorAcceptCourseFailure, (state) => ({
     ...state,
     isAcceptingCourse: false,
-  }))
+  })),
+
+  // update reschedule class in upcoming classes
+  on(tutorActions.tutorRescheduleClassSuccess, (state, { body }) => {
+    const finalState = {
+      ...state,
+    };
+
+    if (
+      finalState.course?.upcomingClasses &&
+      finalState.course?.upcomingClasses?.length
+    ) {
+      const upcomingClasses = finalState.course.upcomingClasses.map(
+        (upComingClass: any) =>
+          upComingClass.id === body.academic_class_id
+            ? { ...upComingClass, ...body }
+            : upComingClass
+      );
+
+      finalState.course = {
+        ...finalState.course,
+        upcomingClasses,
+      };
+    }
+
+    return finalState;
+  })
 );
 
 export const selectCourses = (state: State): any => state.courses;

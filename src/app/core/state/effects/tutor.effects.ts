@@ -6,12 +6,13 @@ import { IInterview } from '@metutor/core/models';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
+
 import { TutorsService } from '@services';
 import { environment } from '@environment';
 import * as fromRouterStore from '@metutor/state';
-import { selectTutorDashboard, selectTutors, selectProfileTutor } from '..';
 import * as tutorActions from '../actions/tutor.actions';
 import { AlertNotificationService } from '@metutor/core/components';
+import { selectTutorDashboard, selectTutors, selectProfileTutor } from '..';
 
 @Injectable()
 export class TutorEffects {
@@ -363,6 +364,29 @@ export class TutorEffects {
     )
   );
 
+  tutorRescheduleClass$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorActions.tutorRescheduleClass),
+      mergeMap(({ body }) =>
+        this._tutorService.tutorRescheduleClass(body).pipe(
+          map((attendance) =>
+            tutorActions.tutorRescheduleClassSuccess({
+              body,
+              message: 'Class successfully rescheduled',
+            })
+          ),
+          catchError((error) =>
+            of(
+              tutorActions.tutorRescheduleClassFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   successMessages$ = createEffect(
     () =>
       this._actions$.pipe(
@@ -371,6 +395,7 @@ export class TutorEffects {
             tutorActions.submitInterviewSuccess,
             tutorActions.updateTutorProfileSuccess,
             tutorActions.tutorSubmitFeedbackSuccess,
+            tutorActions.tutorRescheduleClassSuccess,
             tutorActions.tutorSubmitPlatformFeedbackSuccess,
           ]
         ),
@@ -392,6 +417,7 @@ export class TutorEffects {
             tutorActions.tutorSubmitFeedbackFailure,
             tutorActions.completeTutorProfileFailure,
             tutorActions.completeTutorProfileFailure,
+            tutorActions.tutorRescheduleClassFailure,
             tutorActions.tutorSubmitPlatformFeedbackFailure,
           ]
         ),

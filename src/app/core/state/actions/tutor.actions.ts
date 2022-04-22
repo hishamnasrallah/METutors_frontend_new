@@ -224,3 +224,19 @@ export const submitInterviewFailure = createAction(
   '[Tutor] Submit Interview Failure',
   props<{ error: any }>()
 );
+
+// Reschedule class
+export const tutorRescheduleClass = createAction(
+  '[Tutor] Tutor Reschedule Class',
+  props<{ body: any }>()
+);
+
+export const tutorRescheduleClassSuccess = createAction(
+  '[Tutor] Tutor Reschedule Class Success',
+  props<{ message: string; body: any }>()
+);
+
+export const tutorRescheduleClassFailure = createAction(
+  '[Tutor] Tutor Reschedule Class Failure',
+  props<{ error: any }>()
+);

@@ -12,6 +12,7 @@ export interface State {
   showAddAssignmentModal: boolean;
   showViewAssignmentModal: boolean;
   acceptRejectModalHeading: string;
+  showRescheduleClassModal: boolean;
   showSubmitInterviewModal: boolean;
   showCourseAttendanceModal: boolean;
   showAddClassResourceModal: boolean;
@@ -28,6 +29,7 @@ export const initialState: State = {
   showSendFeedbackModal: false,
   showAddAssignmentModal: false,
   showViewAssignmentModal: false,
+  showRescheduleClassModal: false,
   showSubmitInterviewModal: false,
   showCourseAttendanceModal: false,
   showAddClassResourceModal: false,
@@ -210,6 +212,20 @@ export const reducer = createReducer(
       ...state,
       showSubmitInterviewModal: false,
     })
+  ),
+
+  on(tutorModalActions.openTutorRescheduleClassModal, (state) => ({
+    ...state,
+    showRescheduleClassModal: true,
+  })),
+
+  on(
+    fromCore.tutorRescheduleClassSuccess,
+    tutorModalActions.closeTutorRescheduleClassModal,
+    (state) => ({
+      ...state,
+      showRescheduleClassModal: false,
+    })
   )
 );
 
@@ -248,3 +264,6 @@ export const selectTutorStateParams = (state: State): any => state.params;
 
 export const selectSubmitInterviewModal = (state: State): boolean =>
   state.showSubmitInterviewModal;
+
+export const selectRescheduleClassModal = (state: State): boolean =>
+  state.showRescheduleClassModal;

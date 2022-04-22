@@ -98,3 +98,8 @@ export const selectSubmitInterviewModal = createSelector(
   selectTutorModalState,
   fromTutorModal.selectSubmitInterviewModal
 );
+
+export const selectRescheduleClassModal = createSelector(
+  selectTutorModalState,
+  fromTutorModal.selectRescheduleClassModal
+);

@@ -24,7 +24,7 @@ export const GENDERS = ['Male', 'Female'];
 
 export const COMPUTER_SKILLS = ['Average', 'Above Average'];
 
-export const DEGREE_LEVELS = ['Masters', 'Bachlors'];
+export const DEGREE_LEVELS = ['Masters', 'Bachelors'];
 
 export const DEGREE_FIELDS = ['Computer Science', 'Mathematics'];
 

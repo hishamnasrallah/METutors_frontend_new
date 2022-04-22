@@ -18,6 +18,7 @@ export interface State {
   loadingTutorFailure: string;
   loadingTutorsFailure: string;
   isSubmittingFeedback: boolean;
+  isReschedulingClass: boolean;
   isLoadingTutorAttendance: boolean;
   isLoadingTutorFeedbackOptions: boolean;
 
@@ -55,6 +56,7 @@ export const initialState: State = {
   loadingTutorsFailure: '',
   isLoadingDashboard: false,
   isChangeTutorCover: false,
+  isReschedulingClass: false,
   isSubmittingFeedback: false,
   isUpdateTutorProfile: false,
   isSubmittingInterview: false,
@@ -332,7 +334,23 @@ export const reducer = createReducer(
       ...state,
       isSubmittingFeedback: false,
     })
-  )
+  ),
+
+  // Reschedule class
+  on(tutorActions.tutorRescheduleClass, (state) => ({
+    ...state,
+    isReschedulingClass: true,
+  })),
+
+  on(tutorActions.tutorRescheduleClassSuccess, (state, { body }) => ({
+    ...state,
+    isReschedulingClass: false,
+  })),
+
+  on(tutorActions.tutorRescheduleClassFailure, (state) => ({
+    ...state,
+    isReschedulingClass: false,
+  }))
 );
 
 export const selectTutor = (state: State): ITutor | null => state.tutor;
@@ -384,6 +402,9 @@ export const selectIsLoadingTutorFeedbackOptions = (state: State): boolean =>
 
 export const selectIsSubmittingTutorFeedback = (state: State): boolean =>
   state.isSubmittingFeedback;
+
+export const selectIsReschedulingTutorClass = (state: State): boolean =>
+  state.isReschedulingClass;
 
 export const selectFilteredTutors = (
   state: State,

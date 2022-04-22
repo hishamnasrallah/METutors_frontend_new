@@ -112,7 +112,7 @@
       </div>
 
       <div class="col-12 mt-5">
-        <h3 class="overview mb-3">Up Coming Classes -
+        <h3 class="overview mb-3">Upcoming Classes -
           ({{ view?.data?.totalUpcomingClasses ? view?.data?.totalUpcomingClasses : 0}})</h3>
         <ng-container [ngSwitch]="view.loading">
           <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
@@ -140,14 +140,11 @@
                 <td>{{ upcomingClass.startDate | date: 'EEEE'}} </td>
                 <td>{{ upcomingClass.startDate}} </td>
                 <td>{{ upcomingClass.startTime}} - {{ upcomingClass.endTime}} </td>
-                <td>2 hours</td>
+                <td>{{ upcomingClass?.duration }} hours</td>
                 <td class="d-flex">
-                  <button mat-button class="main-button-opacity me-2 flex-grow-1" *ngIf="getHours(upcomingClass.startDate) >=48">
+                  <button mat-button class="main-button-opacity me-2 flex-grow-1" (click)="onOpenRescheduleModal(upcomingClass.id)"
+                          [disabled]="getHours(upcomingClass.startDate) < 48">
                     Reschedule
-                  </button>
-                  <button mat-button class="main-button-opacity flex-grow-1" [disabled]="true" *ngIf="getHours(upcomingClass.startDate) < 48">
-                    <img src="assets/svg/play-fill.svg" draggable="false" alt="">
-                    Launch Class
                   </button>
                 </td>
               </tr>
@@ -232,3 +229,11 @@
                                     [showModal]="(showCancelCourseModal$ | async)!"
                                     (closeModal)="onCloseCancelCourseModal()" (submitted)="onCancelCourse($event)">
 </metutors-tutor-cancel-course-modal>
+
+<metutors-tutor-reschedule-class-modal *ngIf="(showRescheduleModal | async)"
+                                       [classId]="classId"
+                                       [showModal]="(showRescheduleModal | async)!"
+                                       [submitting]="(isReschedulingClass$ | async)!"
+                                       (closeModal)="onCloseRescheduleModal()"
+                                       (submitted)="onSubmitRescheduleClass($event)">
+</metutors-tutor-reschedule-class-modal>

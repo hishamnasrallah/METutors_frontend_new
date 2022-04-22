@@ -271,4 +271,8 @@ export class TutorsService {
       body
     );
   }
+
+  tutorRescheduleClass(body: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}teacher/class/reschedule`, body);
+  }
 }

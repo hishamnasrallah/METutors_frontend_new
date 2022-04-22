@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 import * as fromTutor from '../../state';
 import * as fromCore from '@metutor/core/state';
 import * as fromTutorAction from '../../state/actions';
+import * as moment from 'moment';
+import { WEEK_DAYS_LONG } from '@config';
 
 @Component({
   selector: 'metutors-tutor-class-dashboard',
@@ -14,7 +16,10 @@ import * as fromTutorAction from '../../state/actions';
   styleUrls: ['./tutor-class-dashboard.component.scss'],
 })
 export class TutorClassDashboardComponent implements OnInit {
+  classId: number;
   isLaunchingClass$: Observable<boolean>;
+  showRescheduleModal: Observable<boolean>;
+  isReschedulingClass$: Observable<boolean>;
   showCancelCourseModal$: Observable<boolean>;
   showSendFeedbackModal$: Observable<boolean>;
   showCourseAttendanceModal$: Observable<boolean>;
@@ -46,14 +51,25 @@ export class TutorClassDashboardComponent implements OnInit {
     this.isLaunchingClass$ = this._store.select(
       fromCore.selectIsLaunchingClass
     );
+
+    this.isReschedulingClass$ = this._store.select(
+      fromCore.selectIsReschedulingTutorClass
+    );
+
     this.showCancelCourseModal$ = this._store.select(
       fromTutor.selectCancelCourseModal
     );
+
     this.showSendFeedbackModal$ = this._store.select(
       fromTutor.selectSendFeedbackModal
     );
+
     this.showCourseAttendanceModal$ = this._store.select(
       fromTutor.selectCourseAttendanceModal
+    );
+
+    this.showRescheduleModal = this._store.select(
+      fromTutor.selectRescheduleClassModal
     );
 
     this.view$ = combineLatest([
@@ -87,6 +103,15 @@ export class TutorClassDashboardComponent implements OnInit {
     this._store.dispatch(fromTutorAction.closeTutorCourseAttendanceModal());
   }
 
+  onOpenRescheduleModal(id: number): void {
+    this.classId = id;
+    this._store.dispatch(fromTutorAction.openTutorRescheduleClassModal());
+  }
+
+  onCloseRescheduleModal(): void {
+    this._store.dispatch(fromTutorAction.closeTutorRescheduleClassModal());
+  }
+
   onSubmitFeedback(form: FormGroup): void {
     const body = form.value;
     this._store.dispatch(fromCore.tutorSubmitFeedback({ body }));
@@ -96,5 +121,15 @@ export class TutorClassDashboardComponent implements OnInit {
     const reason = form.value;
 
     this._store.dispatch(fromCore.tutorCancelCourse({ reason }));
+  }
+
+  onSubmitRescheduleClass(form: FormGroup): void {
+    const body = {
+      ...form.value,
+      day: WEEK_DAYS_LONG[form.value.day],
+      start_date: moment(form.value.start_date).format('Y-MM-DD'),
+    };
+
+    this._store.dispatch(fromCore.tutorRescheduleClass({ body }));
   }
 }
