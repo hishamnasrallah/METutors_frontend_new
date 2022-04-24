@@ -8,6 +8,7 @@ export * from './benefits-academic-tutoring';
 export * from './benefits-online-tutoring';
 export * from './contact-help-to-here';
 export * from './contact-send-message';
+export * from './course-card';
 export * from './exceptional-opportunities';
 export * from './explore-courses';
 export * from './facts-statistics';

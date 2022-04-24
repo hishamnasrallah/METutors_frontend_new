@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RatingModule } from 'ngx-bootstrap/rating';
-import { MatButtonModule } from '@angular/material/button';
-import { PublicRoutingModule } from './public-routing.module';
-import { MatIconModule } from '@angular/material/icon';
 import { CarouselModule } from 'ngx-owl-carousel-o';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
 import { ContactService } from 'src/app/core/services';
 import { GoogleMapsModule } from '@angular/google-maps';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
-
 import { SharedModule } from '@metutor/shared/shared.module';
+import { PublicRoutingModule } from './public-routing.module';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 import {
   FaqComponent,
@@ -30,6 +30,7 @@ import {
   ViewPricesDialog,
   HomeSlideComponent,
   FaqSearchComponent,
+  CourseCardComponent,
   AboutSlideComponent,
   WhyWeTeachComponent,
   ChooseCountryDialog,
@@ -86,6 +87,7 @@ import {
     WhyWeTeachComponent,
     ChooseCountryDialog,
     AllCoursesComponent,
+    CourseCardComponent,
     AboutValuesComponent,
     FounderTeamComponent,
     WhyMetutorsComponent,
@@ -135,6 +137,7 @@ import {
     MatButtonModule,
     MatSelectModule,
     GoogleMapsModule,
+    MatCheckboxModule,
     MatFormFieldModule,
     ReactiveFormsModule,
     PublicRoutingModule,

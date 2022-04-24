@@ -1,0 +1,31 @@
+<div class="card course-card mb-3">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="position-relative">
+        <img [src]="course?.picture" meTutorsDefaultCourse class="card-img-top rounded" alt width="230" height="230">
+        <label class="badge-item" [ngClass]="{
+            'popular': course?.tag === courseTags['pop'],
+            'new': course?.tag === courseTags['new'],
+            'top': course?.tag === courseTags['top']
+          }">{{ course?.tag }}</label>
+      </div>
+    </div>
+    <div class="col-md-9 d-flex flex-column">
+      <h5 class="card-title">
+        {{ course?.name }}
+      </h5>
+      <p class="desc flex-grow-1" [innerHTML]="course?.description"></p>
+      <div class="row list rounded">
+        <div class="col-md-4 d-flex menu align-items-center">
+          <strong>Price per Hour : </strong>
+          <span>{{ course?.totalPrice }}</span>
+        </div>
+        <div class="col">
+          <a mat-button class="main-button-transparent float-end">
+            Start Learning Now
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,2 +1,52 @@
 <metutors-explore-courses></metutors-explore-courses>
+
+<div class="container all-courses mt-5">
+  <div class="row">
+    <div class="col-md-7">
+      <h1>All Available Courses</h1>
+    </div>
+    <div class="col-md-5">
+      <a mat-button class="main-button-transparent float-end">
+        Request New Course
+      </a>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-md-3 filters">
+      <div class="d-flex align-items-center cursor-pointer title justify-content-between"
+        [class.open]="openFilter && selectedFilter === 1" (click)="changeOpenSelection(1)">
+        <h3 class="m-0">
+          Choose field of study
+        </h3>
+        <button mat-button *ngIf="selectedFilter !== 1">
+          <mat-icon>expand_more</mat-icon>
+        </button>
+        <button mat-button *ngIf="openFilter && selectedFilter === 1">
+          <mat-icon>expand_less</mat-icon>
+        </button>
+      </div>
+      <div class="content" *ngIf="openFilter && selectedFilter === 1" [@slideInOut]>
+        <div class="d-block mb-2">
+          <mat-checkbox>Field of Study</mat-checkbox>
+        </div>
+        <div class="d-block mb-2">
+          <mat-checkbox>Field of Study</mat-checkbox>
+        </div>
+        <div class="d-block mb-2">
+          <mat-checkbox>Field of Study</mat-checkbox>
+        </div>
+        <div class="d-block mb-2">
+          <mat-checkbox>Field of Study</mat-checkbox>
+        </div>
+        <div class="d-block mb-2">
+          <mat-checkbox>Field of Study</mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <metutors-course-card *ngFor="let course of courses" [course]="course"></metutors-course-card>
+    </div>
+  </div>
+</div>
+
 <metutors-academic-learning-environment></metutors-academic-learning-environment>
