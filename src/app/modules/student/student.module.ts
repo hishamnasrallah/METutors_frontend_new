@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { EffectsModule } from '@ngrx/effects';
 import { RatingModule } from 'ngx-bootstrap/rating';
 import { CarouselModule } from 'ngx-owl-carousel-o';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { NgxAutoScrollModule } from 'ngx-auto-scroll';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -98,6 +99,7 @@ import {
     CommonModule,
     MatIconModule,
     MatTabsModule,
+    TooltipModule,
     MatRadioModule,
     CarouselModule,
     MatButtonModule,

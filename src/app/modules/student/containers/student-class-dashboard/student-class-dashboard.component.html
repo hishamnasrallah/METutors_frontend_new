@@ -147,15 +147,12 @@
                 <td>{{ upcomingClass.startTime}} - {{ upcomingClass.endTime}} </td>
                 <td>2 hours</td>
                 <td class="d-flex">
-                  <button mat-button class="main-button-opacity me-2 flex-grow-1"
-                          *ngIf="getHours(upcomingClass.startDate) >=48">
-                    Reschedule
-                  </button>
-                  <button mat-button class="main-button-opacity flex-grow-1" [disabled]="true"
-                          *ngIf="getHours(upcomingClass.startDate) < 48">
-                    <img src="assets/svg/play-fill.svg" draggable="false" alt="">
-                    Launch Class
-                  </button>
+                  <span [tooltip]="getHours(upcomingClass.startDate) < 48 ? 'Class start time must be more than two days to reschedule' : ''" class="w-100">
+                    <button mat-button class="main-button-opacity me-2 flex-grow-1 w-100"
+                            [disabled]="getHours(upcomingClass.startDate) < 48">
+                      Reschedule
+                    </button>
+                  </span>
                 </td>
               </tr>
             </ng-container>
