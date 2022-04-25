@@ -1,11 +1,10 @@
 import { Store } from '@ngrx/store';
-import { mergeMap, of } from 'rxjs';
+import { mergeMap, of, withLatestFrom } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 
 import * as fromCore from '@metutor/core/state';
 import * as fromStudentAction from '@metutor/modules/student/state/actions';
-import { openStudentSendFeedbackModal } from '@metutor/modules/student/state/actions';
 
 @Injectable()
 export class TutorModalEffects {
@@ -48,6 +47,19 @@ export class TutorModalEffects {
     this._actions$.pipe(
       ofType(fromStudentAction.openStudentSendPlatformFeedbackModal),
       mergeMap(() => of(fromCore.loadStudentPlatformFeedbackOptions()))
+    )
+  );
+
+  openAddCourseModal$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(fromStudentAction.openAddCourseModal),
+      mergeMap(({ subjectId }) =>
+        of(
+          fromCore.calculateEstimatedPrice({
+            subjectId,
+          })
+        )
+      )
     )
   );
 

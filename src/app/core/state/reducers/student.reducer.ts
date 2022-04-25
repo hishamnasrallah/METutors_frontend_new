@@ -25,6 +25,7 @@ export interface State {
   submittedAssignment: any;
   isLoadingStudents: boolean;
   isUpdatingProfile: boolean;
+  isCreatingNewClass: boolean;
   students: IStudent[] | null;
   isLoadingTimeSlots: boolean;
   isSubmittingFeedback: boolean;
@@ -63,6 +64,7 @@ export const initialState: State = {
   isLoadingStudents: false,
   isUpdatingProfile: false,
   isLoadingTimeSlots: false,
+  isCreatingNewClass: false,
   submittedAssignment: null,
   isLoadingPreferences: false,
   isSubmittingFeedback: false,
@@ -499,6 +501,21 @@ export const reducer = createReducer(
   on(studentActions.studentMakeupClassFailure, (state) => ({
     ...state,
     isMakeupClass: false,
+  })),
+
+  on(studentActions.studentAddNewClass, (state) => ({
+    ...state,
+    isCreatingNewClass: true,
+  })),
+
+  on(studentActions.studentAddNewClassSuccess, (state) => ({
+    ...state,
+    isCreatingNewClass: false,
+  })),
+
+  on(studentActions.studentAddNewClassFailure, (state) => ({
+    ...state,
+    isCreatingNewClass: false,
   }))
 );
 
@@ -518,6 +535,9 @@ export const selectStudentClassesDashboard = (state: State): boolean =>
 
 export const selectIsLoadingStudentDashboard = (state: State): boolean =>
   state.isLoadingStudentDashboard;
+
+export const selectIsCreatingNewClass = (state: State): boolean =>
+  state.isCreatingNewClass;
 
 export const selectActiveClassroomCourses = (state: State): any =>
   state.classroom?.activeCourses;

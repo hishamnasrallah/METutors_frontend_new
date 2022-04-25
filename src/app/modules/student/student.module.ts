@@ -11,6 +11,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatInputModule } from '@angular/material/input';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { MatDialogModule } from '@angular/material/dialog';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
@@ -48,11 +49,14 @@ import {
 } from './containers';
 
 import {
+  DialogEditClassroom,
+  DialogRemoveClassroom,
   StudentNavbarComponent,
   StudentSidebarComponent,
   FaqAboutStudentsComponent,
   FaqListQuestionsComponent,
   StudentFeedbackModalComponent,
+  StudentAddCourseModalComponent,
   FaqStillHaveQuestionsComponent,
   StudentAttendanceModalComponent,
   StudentSettingsAccountComponent,
@@ -69,7 +73,9 @@ import {
   declarations: [
     StudentComponent,
     StudentFaqComponent,
+    DialogEditClassroom,
     StudentHelpComponent,
+    DialogRemoveClassroom,
     StudentNavbarComponent,
     StudentClassesComponent,
     StudentSidebarComponent,
@@ -87,8 +93,9 @@ import {
     StudentSupportTicketComponent,
     StudentFeedbackModalComponent,
     FaqStillHaveQuestionsComponent,
-    StudentAttendanceModalComponent,
     StudentClassDashboardComponent,
+    StudentAddCourseModalComponent,
+    StudentAttendanceModalComponent,
     StudentSettingsAccountComponent,
     StudentSettingsSecurityComponent,
     StudentMakeupClassModalComponent,
@@ -110,6 +117,7 @@ import {
     CarouselModule,
     MatInputModule,
     MatButtonModule,
+    MatDialogModule,
     MatSelectModule,
     MatTooltipModule,
     BsDropdownModule,
@@ -117,6 +125,7 @@ import {
     ReactiveFormsModule,
     MatDatepickerModule,
     NgxAutoScrollModule,
+    MatDatepickerModule,
     MatNativeDateModule,
     StudentRoutingModule,
     MatProgressBarModule,

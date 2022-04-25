@@ -288,6 +288,7 @@ export const studentSubmitPlatformFeedbackFailure = createAction(
   props<{ error: any }>()
 );
 
+// Update Profile
 export const studentUpdateProfile = createAction(
   '[Student] Student Update Profile',
   props<{ body: any }>()
@@ -345,5 +346,21 @@ export const studentMakeupClassSuccess = createAction(
 
 export const studentMakeupClassFailure = createAction(
   '[Student] Student Makeup Class Failure',
+  props<{ error: any }>()
+);
+
+// Add New Class
+export const studentAddNewClass = createAction(
+  '[Student] Student Add New Class',
+  props<{ id: number; data: any }>()
+);
+
+export const studentAddNewClassSuccess = createAction(
+  '[Student] Student Add New Class Success',
+  props<{ message: string }>()
+);
+
+export const studentAddNewClassFailure = createAction(
+  '[Student] Student Add New Class Failure',
   props<{ error: any }>()
 );

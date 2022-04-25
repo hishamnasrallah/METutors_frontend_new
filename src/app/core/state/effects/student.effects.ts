@@ -570,6 +570,35 @@ export class StudentEffects {
     )
   );
 
+  studentAddNewClass$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(studentActions.studentAddNewClass),
+      mergeMap(({ id, data }) =>
+        this._studentService.studentAddNewClass(id, data).pipe(
+          map((response) =>
+            studentActions.studentAddNewClassSuccess({
+              message: response.message,
+            })
+          ),
+          catchError((error) =>
+            of(
+              studentActions.studentAddNewClassFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  studentAddNewClassSuccess$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(studentActions.studentAddNewClassSuccess),
+      map(() => studentActions.loadStudentClassesDashboard())
+    )
+  );
+
   successMessages$ = createEffect(
     () =>
       this._actions$.pipe(
@@ -597,6 +626,7 @@ export class StudentEffects {
           ...[
             studentActions.studentJoinClassFailure,
             studentActions.studentMakeupClassFailure,
+            studentActions.studentAddNewClassFailure,
             studentActions.studentUpdateProfileFailure,
             studentActions.studentSubmitFeedbackFailure,
             studentActions.studentSubmitAssignmentFailure,

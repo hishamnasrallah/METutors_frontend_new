@@ -73,6 +73,11 @@ export const selectCancelCourseModal = createSelector(
   fromStudentModal.selectCancelCourseModal
 );
 
+export const selectAddCourseModal = createSelector(
+  selectStudentModalState,
+  fromStudentModal.selectAddCourseModal
+);
+
 export const selectStudentStateParams = createSelector(
   selectStudentModalState,
   fromStudentModal.selectStudentStateParams
