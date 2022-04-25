@@ -21,6 +21,7 @@ export class StudentClassDashboardComponent implements OnInit {
   isCreatingNewClass$: Observable<boolean>;
   showAddCourseModal$: Observable<boolean>;
   showAttendanceModal$: Observable<boolean>;
+  showMakeupClassModal$: Observable<boolean>;
   showCancelCourseModal$: Observable<boolean>;
   showSendFeedbackModal$: Observable<boolean>;
 
@@ -99,6 +100,16 @@ export class StudentClassDashboardComponent implements OnInit {
     this._store.dispatch(fromStudentAction.closeStudentAttendanceModal());
   }
 
+  onCloseMakeupClassModal(): void {
+    this._store.dispatch(fromStudentAction.closeMakeupClassModal());
+  }
+
+  onOpenMakeupClassModal(): void {
+    this._store.dispatch(fromStudentAction.openMakeupClassModal());
+  }
+
+  onSubmitMakeupClass(form: FormGroup): void {}
+
   onSubmitFeedback(form: FormGroup): void {
     const body = form.value;
     this._store.dispatch(fromCore.studentSubmitFeedback({ body }));
@@ -125,6 +136,10 @@ export class StudentClassDashboardComponent implements OnInit {
 
     this.showAddCourseModal$ = this._store.select(
       fromStudent.selectAddCourseModal
+    );
+
+    this.showMakeupClassModal$ = this._store.select(
+      fromStudent.selectMakeupClassModal
     );
 
     this.isJoiningClass$ = this._store.select(fromCore.selectIsJoiningClass);

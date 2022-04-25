@@ -7,6 +7,7 @@ export interface State {
   params: any;
   showAddCourseModal: boolean;
   showAttendanceModal: boolean;
+  showMakeupClassModal: boolean;
   showCancelCourseModal: boolean;
   showSendFeedbackModal: boolean;
   showViewResourceModal: boolean;
@@ -19,6 +20,7 @@ export const initialState: State = {
   params: null,
   showAddCourseModal: false,
   showAttendanceModal: false,
+  showMakeupClassModal: false,
   showCancelCourseModal: false,
   showSendFeedbackModal: false,
   showViewResourceModal: false,
@@ -134,7 +136,17 @@ export const reducer = createReducer(
       ...state,
       showAddCourseModal: false,
     })
-  )
+  ),
+
+  on(studentModalActions.openMakeupClassModal, (state) => ({
+    ...state,
+    showMakeupClassModal: true,
+  })),
+
+  on(studentModalActions.closeMakeupClassModal, (state) => ({
+    ...state,
+    showMakeupClassModal: false,
+  }))
 );
 
 // student modal selectors
@@ -161,5 +173,8 @@ export const selectCancelCourseModal = (state: State): boolean =>
 
 export const selectAddCourseModal = (state: State): boolean =>
   state.showAddCourseModal;
+
+export const selectMakeupClassModal = (state: State): boolean =>
+  state.showMakeupClassModal;
 
 export const selectStudentStateParams = (state: State): any => state.params;

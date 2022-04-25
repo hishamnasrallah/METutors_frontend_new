@@ -4,6 +4,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { CommonModule } from '@angular/common';
 import { RatingModule } from 'ngx-bootstrap/rating';
 import { CarouselModule } from 'ngx-owl-carousel-o';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { NgxAutoScrollModule } from 'ngx-auto-scroll';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -11,16 +12,16 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatInputModule } from '@angular/material/input';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSelectModule } from '@angular/material/select';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 import * as tutorEffects from './state/effects';
@@ -60,6 +61,7 @@ import {
   StudentAttendanceModalComponent,
   StudentSettingsAccountComponent,
   StudentSettingsSecurityComponent,
+  StudentMakeupClassModalComponent,
   StudentViewResourceModalComponent,
   StudentCancelCourseModalComponent,
   StudentSubmitAssignmentModalComponent,
@@ -96,6 +98,7 @@ import {
     StudentAttendanceModalComponent,
     StudentSettingsAccountComponent,
     StudentSettingsSecurityComponent,
+    StudentMakeupClassModalComponent,
     StudentViewResourceModalComponent,
     StudentCancelCourseModalComponent,
     StudentSubmitAssignmentModalComponent,
@@ -109,6 +112,7 @@ import {
     CommonModule,
     MatIconModule,
     MatTabsModule,
+    TooltipModule,
     MatRadioModule,
     CarouselModule,
     MatInputModule,
@@ -119,6 +123,7 @@ import {
     BsDropdownModule,
     MatFormFieldModule,
     ReactiveFormsModule,
+    MatDatepickerModule,
     NgxAutoScrollModule,
     MatDatepickerModule,
     MatNativeDateModule,
@@ -131,5 +136,6 @@ import {
     EffectsModule.forFeature(Object.values(tutorEffects)),
     StoreModule.forFeature(featureKeys.studentFeatureKey, fromStudent.reducers),
   ],
+  exports: [StudentMakeupClassModalComponent],
 })
 export class StudentModule {}
