@@ -432,6 +432,11 @@ export const selectIsLoadingStudentDashboard = createSelector(
   fromStudentReducer.selectIsLoadingStudentDashboard
 );
 
+export const selectIsCreatingNewClass = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectIsCreatingNewClass
+);
+
 export const selectClassroomLastActivityCourse = createSelector(
   selectStudentState,
   fromStudentReducer.selectClassroomLastActivityCourse

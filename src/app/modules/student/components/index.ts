@@ -3,6 +3,7 @@ export * from './student-sidebar';
 export * from './faq-about-students';
 export * from './faq-list-questions';
 export * from './student-feedback-modal';
+export * from './student-add-course-modal';
 export * from './student-attendance-modal';
 export * from './faq-still-have-questions';
 export * from './student-settings-account';

@@ -9,11 +9,11 @@ import {
 } from '@angular/animations';
 import { AbstractControl, FormGroup } from '@angular/forms';
 import {
-  calculateDurationTime,
-  calculateListDays,
-  CLASSROOM_TYPES_CONST,
   LONG_DAYS_WEEK,
   SORTED_DAYS_WEEK,
+  calculateListDays,
+  calculateDurationTime,
+  CLASSROOM_TYPES_CONST,
 } from 'src/app/config';
 
 @Component({

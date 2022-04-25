@@ -1,0 +1,166 @@
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'large'" [heading]="'Add New Classes'"
+  [template]="template">
+  <ng-template #template>
+    <form [formGroup]="form" class="classroom-info">
+      <ng-container *ngIf="step === 1">
+        <div class="row">
+          <div class="col-md-6">
+            <h3>Classes Starting Date</h3>
+            <mat-form-field appearance="outline" class="w-100">
+              <input matInput [matDatepicker]="startPicker" [placeholder]="'Choose a Date'" (focus)="startPicker.open()"
+                [min]="minDate" (dateChange)="onChangeDateDay(); onChangeDate()" formControlName="startDate">
+              <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+              <mat-datepicker #startPicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <h3>Classes Ending Date</h3>
+            <mat-form-field appearance="outline" class="w-100">
+              <input matInput [matDatepicker]="endPicker" [placeholder]="'Choose a Date'" (focus)="endPicker.open()"
+                [min]="startDate?.value" (dateChange)="onChangeDateDay(); onChangeDate()" formControlName="endDate">
+              <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+              <mat-datepicker #endPicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-md-12">
+            <h3>Classroom Days</h3>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-select formControlName="days" [placeholder]="'Choose Days'" multiple
+                (selectionChange)="onChangeDateDay()">
+                <mat-option [value]="day" [disabled]="checkDisabledDays(day)"
+                  *ngFor="let day of listDays; let i = index">
+                  {{ day }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-md-6">
+            <h3>Classes Starting Time</h3>
+            <div class="ngx-timepicker-field-example">
+              <input placeholder="Select Starting Time" aria-label="Select starting time" [ngxTimepicker]="startingTime"
+                formControlName="startTime" class="form-control">
+              <ngx-material-timepicker #startingTime [appendToInput]="true" [minutesGap]="30"
+                (closed)="onChangeTimePicker()">
+              </ngx-material-timepicker>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <h3>Classes Ending Time</h3>
+            <div class="ngx-timepicker-field-example">
+              <input placeholder="Select Ending Time" aria-label="Select ending time" [ngxTimepicker]="endingTime"
+                formControlName="endTime" class="form-control">
+              <ngx-material-timepicker #endingTime [appendToInput]="true" [minutesGap]="30"
+                (closed)="onChangeTimePicker()">
+              </ngx-material-timepicker>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-md-6">
+            <h3>Duration</h3>
+            <input type="text" class="form-control" formControlName="duration">
+          </div>
+          <div class="col-md-6">
+            <h3>Total Hours</h3>
+            <input type="text" class="form-control" formControlName="hours">
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-md-6">
+            <h3>Total Classes</h3>
+            <input type="text" class="form-control" formControlName="totalClasses">
+          </div>
+        </div>
+
+        <div class="row mt-4" [@slideInOut]>
+          <div class="col-md-12">
+            <div class="d-flex justify-content-between est-price">
+              <div>
+                <h5>Estimated Price:
+                  <span>{{ (price * +hours?.value) | currency: 'USD' }}</span>
+                </h5>
+                <p class="mb-0">Price change based on total hours, total classes, time</p>
+              </div>
+              <div>
+                <h5>Total Hours: <span>{{ hours?.value }} hrs</span></h5>
+                <p class="mb-0">Hourly Rate: {{ price | currency: 'USD' }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col-12 overflow-hidden">
+            <button mat-flat-button color="primary" class="float-end" [disabled]="form.invalid"
+              (click)="generateClassrooms(form)" type="submit">
+              Next
+            </button>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="step === 2">
+        <div class="list-classroom">
+          <div class="list-classes">
+            <table class="table table-striped table-hover">
+              <tr>
+                <th>Day</th>
+                <th>Date</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Duration</th>
+              </tr>
+              <tr *ngFor="let classroom of classrooms">
+                <td>{{ classroom?.date | date: 'EEEE' }}</td>
+                <td>{{ classroom?.date | date: 'd MMM y' }}</td>
+                <td>{{ classroom?.startTime }}</td>
+                <td>{{ classroom?.endTime }}</td>
+                <td>{{ classroom?.duration + 'hrs' }}</td>
+                <div class="actions">
+                  <button mat-button class="delete-btn" *ngIf="classrooms.length > 1"
+                    (click)="deleteClassroom(classroom?.number)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                  <button mat-button class="edit-btn" (click)="editClassroom(classroom)">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                </div>
+              </tr>
+            </table>
+          </div>
+
+          <div class="row mt-4" [@slideInOut] *ngIf="price && allHours">
+            <div class="col-md-12">
+              <div class="d-flex justify-content-between est-price">
+                <div>
+                  <h5>Estimated Price:
+                    <span>{{ (price * +allHours) | currency: 'USD' }}</span>
+                  </h5>
+                  <p class="mb-0">Price change based on total hours, total classes, time</p>
+                </div>
+                <div>
+                  <h5>Total Hours: <span>{{ allHours }} hrs</span></h5>
+                  <p class="mb-0">Hourly Rate: {{ price | currency: 'USD' }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col-12 overflow-hidden">
+              <button mat-flat-button color="primary" class="float-end" [disabled]="form.invalid || isCreating"
+                (click)="onSubmit(form)" type="submit">
+                Schedule
+                <mat-icon class="spinner" *ngIf="isCreating">autorenew</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </form>
+  </ng-template>
+</metutors-modal>

@@ -68,6 +68,15 @@ export const openCancelCourseModal = createAction(
   '[Student Modal] Open Cancel Course Modal'
 );
 
-export const closeCancelCourse = createAction(
+export const closeCancelCourseModal = createAction(
   '[Student Modal] Close Cancel Course Modal'
+);
+
+export const openAddCourseModal = createAction(
+  '[Student Modal] Open Add Course Modal',
+  props<{ subjectId: string }>()
+);
+
+export const closeAddCourseModal = createAction(
+  '[Student Modal] Close Add Course Modal'
 );
