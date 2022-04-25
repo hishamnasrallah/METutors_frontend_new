@@ -157,4 +157,18 @@ export class StudentsService {
   updateStudentPreferences(body: any): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}student/preference`, body);
   }
+
+  loadMakeupClassSlots(body: { date: string; id: number }): Observable<any> {
+    return this.http.get<any>(
+      `${this.baseUrl}student/class/${body.id}/makeup-slots?start_date=${body.date}`
+    );
+  }
+
+  studentMakeupClass(body: any): Observable<any> {
+    const { id, ..._body } = body;
+    return this.http.post<any>(
+      `${this.baseUrl}student/class/${id}/makeup`,
+      _body
+    );
+  }
 }

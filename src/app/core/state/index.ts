@@ -592,6 +592,22 @@ export const selectIsLoadingStudentPreferences = createSelector(
   fromStudentReducer.selectIsLoadingStudentPreferences
 );
 
+export const selectStudentTimeSlots = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectStudentTimeSlots
+);
+
+export const selectIsLoadingTimeSlots = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectIsLoadingTimeSlots
+);
+2;
+
+export const selectIsStudentMakeupClass = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectIsStudentMakeupClass
+);
+
 // Ticket
 export const selectTickets = createSelector(
   selectTicketState,

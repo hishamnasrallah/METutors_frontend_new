@@ -5,6 +5,7 @@ import { DatePipe } from '@angular/common';
 import { combineLatest, Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 
+import * as moment from 'moment';
 import * as fromStudent from '../../state';
 import * as fromCore from '@metutor/core/state';
 import * as fromStudentAction from '../../state/actions';
@@ -16,8 +17,12 @@ import * as fromStudentAction from '../../state/actions';
   providers: [DatePipe],
 })
 export class StudentClassDashboardComponent implements OnInit {
+  classId: number;
+  timeSlots$: Observable<any>;
+  isMakeupClass$: Observable<boolean>;
   price$: Observable<number | null>;
   isJoiningClass$: Observable<boolean>;
+  isLoadingTimeSlots$: Observable<boolean>;
   isCreatingNewClass$: Observable<boolean>;
   showAddCourseModal$: Observable<boolean>;
   showAttendanceModal$: Observable<boolean>;
@@ -104,11 +109,25 @@ export class StudentClassDashboardComponent implements OnInit {
     this._store.dispatch(fromStudentAction.closeMakeupClassModal());
   }
 
-  onOpenMakeupClassModal(): void {
+  onOpenMakeupClassModal(previousClass: any): void {
+    this.classId = previousClass.id;
     this._store.dispatch(fromStudentAction.openMakeupClassModal());
   }
 
-  onSubmitMakeupClass(form: FormGroup): void {}
+  onSubmitMakeupClass(form: FormGroup): void {
+    const body = {
+      ...form.value,
+      id: this.classId,
+      start_date: moment(form.value.start_date).format('Y-MM-DD'),
+    };
+
+    this._store.dispatch(fromCore.studentMakeupClass({ body }));
+  }
+
+  onChangeDate(date: Date): void {
+    const body = { date: moment(date).format('Y-MM-DD'), id: this.classId };
+    this._store.dispatch(fromCore.loadMakeupClassSlots({ body }));
+  }
 
   onSubmitFeedback(form: FormGroup): void {
     const body = form.value;
@@ -143,6 +162,16 @@ export class StudentClassDashboardComponent implements OnInit {
     );
 
     this.isJoiningClass$ = this._store.select(fromCore.selectIsJoiningClass);
+
+    this.timeSlots$ = this._store.select(fromCore.selectStudentTimeSlots);
+
+    this.isLoadingTimeSlots$ = this._store.select(
+      fromCore.selectIsLoadingTimeSlots
+    );
+
+    this.isMakeupClass$ = this._store.select(
+      fromCore.selectIsStudentMakeupClass
+    );
 
     this.isCreatingNewClass$ = this._store.select(
       fromCore.selectIsCreatingNewClass

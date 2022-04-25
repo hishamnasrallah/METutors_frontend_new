@@ -319,6 +319,36 @@ export const studentUpdatePreferencesFailure = createAction(
   props<{ error: any }>()
 );
 
+export const loadMakeupClassSlots = createAction(
+  '[Student] Load Makeup Class Slots',
+  props<{ body: { date: string; id: number } }>()
+);
+
+export const loadMakeupClassSlotsSuccess = createAction(
+  '[Student] Load Makeup Class Slots Success',
+  props<{ timeSlots: any }>()
+);
+
+export const loadMakeupClassSlotsFailure = createAction(
+  '[Student] Load Makeup Class Slots Failure',
+  props<{ error: any }>()
+);
+
+export const studentMakeupClass = createAction(
+  '[Student] Student Makeup Class',
+  props<{ body: any }>()
+);
+
+export const studentMakeupClassSuccess = createAction(
+  '[Student] Student Makeup Class Success',
+  props<{ message: string }>()
+);
+
+export const studentMakeupClassFailure = createAction(
+  '[Student] Student Makeup Class Failure',
+  props<{ error: any }>()
+);
+
 // Add New Class
 export const studentAddNewClass = createAction(
   '[Student] Student Add New Class',
