@@ -127,10 +127,14 @@ export const reducer = createReducer(
     showMakeupClassModal: true,
   })),
 
-  on(studentModalActions.closeMakeupClassModal, (state) => ({
-    ...state,
-    showMakeupClassModal: false,
-  }))
+  on(
+    fromCore.studentMakeupClassSuccess,
+    studentModalActions.closeMakeupClassModal,
+    (state) => ({
+      ...state,
+      showMakeupClassModal: false,
+    })
+  )
 );
 
 // student modal selectors

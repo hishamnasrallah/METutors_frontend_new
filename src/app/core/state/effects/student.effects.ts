@@ -424,6 +424,51 @@ export class StudentEffects {
     )
   );
 
+  loadMakeupClassSlots$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(studentActions.loadMakeupClassSlots),
+      mergeMap(({ body }) =>
+        this._studentService.loadMakeupClassSlots(body).pipe(
+          map((timeSlots) =>
+            studentActions.loadMakeupClassSlotsSuccess({
+              timeSlots: camelcaseKeys(timeSlots, { deep: true }),
+            })
+          ),
+          catchError((error) =>
+            of(
+              studentActions.loadMakeupClassSlotsFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  studentMakeupClass$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(studentActions.studentMakeupClass),
+      mergeMap(({ body }) =>
+        this._studentService.studentMakeupClass(body).pipe(
+          map(() =>
+            studentActions.studentMakeupClassSuccess({
+              body: camelcaseKeys(body),
+              message: 'You have successfully makeup class',
+            })
+          ),
+          catchError((error) =>
+            of(
+              studentActions.studentMakeupClassFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   studentSubmitFeedback$ = createEffect(() =>
     this._actions$.pipe(
       ofType(studentActions.studentSubmitFeedback),
@@ -530,6 +575,7 @@ export class StudentEffects {
       this._actions$.pipe(
         ofType(
           ...[
+            studentActions.studentMakeupClassSuccess,
             studentActions.studentUpdateProfileSuccess,
             studentActions.studentSubmitFeedbackSuccess,
             studentActions.studentSubmitAssignmentSuccess,
@@ -550,6 +596,7 @@ export class StudentEffects {
         ofType(
           ...[
             studentActions.studentJoinClassFailure,
+            studentActions.studentMakeupClassFailure,
             studentActions.studentUpdateProfileFailure,
             studentActions.studentSubmitFeedbackFailure,
             studentActions.studentSubmitAssignmentFailure,

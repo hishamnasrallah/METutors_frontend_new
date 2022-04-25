@@ -208,7 +208,7 @@
                 <td>{{ previousClass.startTime}} - {{ previousClass.endTime}} </td>
                 <td>2 hours</td>
                 <td class="d-flex">
-                  <button mat-button class="main-button-opacity flex-grow-1" (click)="onOpenMakeupClassModal()">
+                  <button mat-button class="main-button-opacity flex-grow-1" (click)="onOpenMakeupClassModal(previousClass)">
                     <img src="assets/svg/eye-fill.svg" draggable="false" alt="">
                     View Class
                   </button>
@@ -236,6 +236,8 @@
 </metutors-student-cancel-course-modal>
 
 <metutors-student-makeup-class-modal *ngIf="showMakeupClassModal$ | async"
-                                     [showModal]="(showMakeupClassModal$ | async)!"
+                                     [isLoadingTimeSlots]="(isLoadingTimeSlots$ | async)!"
+                                     [timeSlots]="(timeSlots$ | async)!" [isSubmitting]="(isMakeupClass$ | async)!"
+                                     [showModal]="(showMakeupClassModal$ | async)!" (changeDate)="onChangeDate($event)"
                                      (closeModal)="onCloseMakeupClassModal()" (submitted)="onSubmitMakeupClass($event)">
 </metutors-student-makeup-class-modal>

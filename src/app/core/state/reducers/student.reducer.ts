@@ -12,18 +12,21 @@ export interface State {
   dashboard: any;
   classroom: any;
   resources: any;
+  timeSlots: any;
   attendance: any;
   assignment: any;
   assignments: any;
   preferences: any;
   feedbackOptions: any;
   classesDashboard: any;
+  isMakeupClass: boolean;
   isJoiningClass: boolean;
   student: IStudent | null;
   submittedAssignment: any;
   isLoadingStudents: boolean;
   isUpdatingProfile: boolean;
   students: IStudent[] | null;
+  isLoadingTimeSlots: boolean;
   isSubmittingFeedback: boolean;
   isLoadingPreferences: boolean;
   isSubmittingAssignment: boolean;
@@ -45,6 +48,7 @@ export const initialState: State = {
   resource: null,
   syllabus: null,
   students: null,
+  timeSlots: null,
   dashboard: null,
   resources: null,
   classroom: null,
@@ -52,11 +56,13 @@ export const initialState: State = {
   assignment: null,
   attendance: null,
   assignments: null,
+  isMakeupClass: false,
   feedbackOptions: null,
   isJoiningClass: false,
   classesDashboard: null,
   isLoadingStudents: false,
   isUpdatingProfile: false,
+  isLoadingTimeSlots: false,
   submittedAssignment: null,
   isLoadingPreferences: false,
   isSubmittingFeedback: false,
@@ -462,6 +468,37 @@ export const reducer = createReducer(
   on(studentActions.loadStudentPreferenceEnded, (state) => ({
     ...state,
     isLoadingPreferences: false,
+  })),
+
+  on(studentActions.loadMakeupClassSlots, (state) => ({
+    ...state,
+    isLoadingTimeSlots: true,
+  })),
+
+  on(studentActions.loadMakeupClassSlotsSuccess, (state, { timeSlots }) => ({
+    ...state,
+    timeSlots,
+    isLoadingTimeSlots: false,
+  })),
+
+  on(studentActions.loadMakeupClassSlotsFailure, (state) => ({
+    ...state,
+    isLoadingTimeSlots: false,
+  })),
+
+  on(studentActions.studentMakeupClass, (state) => ({
+    ...state,
+    isMakeupClass: true,
+  })),
+
+  on(studentActions.studentMakeupClassSuccess, (state) => ({
+    ...state,
+    isMakeupClass: false,
+  })),
+
+  on(studentActions.studentMakeupClassFailure, (state) => ({
+    ...state,
+    isMakeupClass: false,
   }))
 );
 
@@ -567,6 +604,14 @@ export const selectIsLoadingStudentPreferences = (state: State): boolean =>
 
 export const selectStudentPreferences = (state: State): any =>
   state.preferences;
+
+export const selectIsLoadingTimeSlots = (state: State): boolean =>
+  state.isLoadingTimeSlots;
+
+export const selectIsStudentMakeupClass = (state: State): boolean =>
+  state.isMakeupClass;
+
+export const selectStudentTimeSlots = (state: State): any => state.timeSlots;
 
 export const selectFilteredStudents = (
   state: State,
