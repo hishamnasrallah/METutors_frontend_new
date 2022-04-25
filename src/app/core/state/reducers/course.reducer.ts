@@ -16,17 +16,23 @@ export interface State {
   // Course by id
   course: any | null;
   isLoadingCourse: boolean;
+
+  // Explore courses
+  exploredCourses: any;
+  isLoadingExploreCourses: boolean;
 }
 
 export const initialState: State = {
   course: null,
   courses: null,
+  exploredCourses: null,
   isLoadingCourse: false,
   isLoadingCourses: false,
   isRejectingCourse: false,
   isAcceptingCourse: false,
   isCancelingCourse: false,
   loadingCoursesFailure: '',
+  isLoadingExploreCourses: false,
 };
 
 export const reducer = createReducer(
@@ -67,6 +73,22 @@ export const reducer = createReducer(
   on(courseActions.loadCourseByIdFailure, (state) => ({
     ...state,
     isLoadingCourse: false,
+  })),
+
+  on(courseActions.exploreCourses, (state) => ({
+    ...state,
+    isLoadingExploreCourses: true,
+  })),
+
+  on(courseActions.exploreCoursesSuccess, (state, { exploredCourses }) => ({
+    ...state,
+    exploredCourses,
+    isLoadingExploreCourses: false,
+  })),
+
+  on(courseActions.exploreCoursesFailure, (state) => ({
+    ...state,
+    isLoadingExploreCourses: false,
   })),
 
   on(
@@ -198,7 +220,14 @@ export const reducer = createReducer(
 );
 
 export const selectCourses = (state: State): any => state.courses;
+
 export const selectCourseById = (state: State): ICourse | null => state.course;
+
+export const selectExploredCourses = (state: State): any =>
+  state.exploredCourses;
+
+export const selectIsLoadingExploredCourses = (state: State): boolean =>
+  state.isLoadingExploreCourses;
 
 export const selectIsLoadingCourses = (state: State): boolean =>
   state.isLoadingCourses;
@@ -229,3 +258,38 @@ export const selectIsAcceptingCourse = (state: State): any =>
 
 export const selectIsCancelingCourse = (state: State): any =>
   state.isCancelingCourse;
+
+export const selectFilteredExploredCourses = (
+  state: State,
+  props?: any
+): any => {
+  let exploredCourses: any = state.exploredCourses;
+
+  if (state.exploredCourses && props) {
+    exploredCourses = {
+      subjects: getFilteredExploredCourses(
+        state.exploredCourses?.subjects,
+        props
+      ),
+      fieldOfStudies: state.exploredCourses?.fieldOfStudies,
+    };
+  }
+
+  return exploredCourses;
+};
+
+const getFilteredExploredCourses = (exploredCourses: any[], props: any) => {
+  if (props?.name) {
+    exploredCourses = exploredCourses?.filter((course) =>
+      course?.name.toLowerCase().includes(props.name.toLowerCase())
+    );
+  }
+
+  if (props?.fieldIds && props?.fieldIds?.length) {
+    exploredCourses = exploredCourses.filter((course) =>
+      props?.fieldIds?.includes(course?.fieldId)
+    );
+  }
+
+  return exploredCourses;
+};

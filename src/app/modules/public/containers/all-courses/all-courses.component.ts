@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ICourse } from '@metutor/core/models';
+import * as fromCore from '@metutor/core/state';
 import {
   trigger,
   state,
@@ -8,6 +9,8 @@ import {
   group,
   animate,
 } from '@angular/animations';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'metutors-all-courses',
@@ -36,49 +39,45 @@ import {
   ],
 })
 export class AllCoursesComponent implements OnInit {
-  selectedFilter?: number;
-  openFilter: boolean = false;
-  courses: ICourse[] = [
-    {
-      id: 1,
-      picture: '',
-      name: 'Information Architecture',
-      tag: 'Popular',
-      description:
-        'Understand Bitcoin’s real-life applications and learn how to attack and destroy Bitcoin, Ethereum, smart contracts and Dapps, and alternatives to Bitcoin’s Proof-of-Work',
-      totalPrice: '$25',
-    },
-    {
-      id: 2,
-      picture: '',
-      name: 'Information Architecture',
-      tag: 'New',
-      description:
-        'Understand Bitcoin’s real-life applications and learn how to attack and destroy Bitcoin, Ethereum, smart contracts and Dapps, and alternatives to Bitcoin’s Proof-of-Work',
-      totalPrice: '$25',
-    },
-    {
-      id: 3,
-      picture: '',
-      name: 'Information Architecture',
-      tag: 'New',
-      description:
-        'Understand Bitcoin’s real-life applications and learn how to attack and destroy Bitcoin, Ethereum, smart contracts and Dapps, and alternatives to Bitcoin’s Proof-of-Work',
-      totalPrice: '$25',
-    },
-  ];
+  isLoading$: Observable<boolean>;
+  exploredCourses$: Observable<any>;
 
-  constructor() {}
+  name?: string;
+  openFilter: boolean = true;
+  selectedFieldOfStudy: number[] = [];
 
-  ngOnInit(): void {}
+  constructor(private _store: Store<any>) {}
 
-  changeOpenSelection(id: number) {
-    if (this.selectedFilter === id) {
-      this.openFilter = false;
-      this.selectedFilter = undefined;
+  ngOnInit(): void {
+    this._prepareCourses();
+  }
+
+  onChangeField(event: any, id: number): void {
+    if (event?.checked) {
+      this.selectedFieldOfStudy.push(id);
     } else {
-      this.openFilter = true;
-      this.selectedFilter = id;
+      this.selectedFieldOfStudy.splice(
+        this.selectedFieldOfStudy.indexOf(id),
+        1
+      );
     }
+  }
+
+  filterCourses(): void {
+    this.exploredCourses$ = this._store.select(
+      fromCore.selectFilteredExploredCourses,
+      {
+        name: this.name,
+        fieldIds: this.selectedFieldOfStudy,
+      }
+    );
+  }
+
+  private _prepareCourses(): void {
+    this._store.dispatch(fromCore.exploreCourses());
+    this.exploredCourses$ = this._store.select(fromCore.selectExploredCourses);
+    this.isLoading$ = this._store.select(
+      fromCore.selectIsLoadingExploredCourses
+    );
   }
 }

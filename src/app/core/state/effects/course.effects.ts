@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 
-import { selectCourses } from '..';
+import { selectCourses, selectExploredCourses } from '..';
 import camelcaseKeys from 'camelcase-keys';
 import { CoursesService } from '@services';
 import * as fromRouterStore from '@metutor/state';
@@ -55,6 +55,32 @@ export class CourseEffects {
           catchError((error) =>
             of(
               courseActions.loadCourseByIdFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  exploreCourses$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(courseActions.exploreCourses),
+      withLatestFrom(
+        this._store.select(fromRouterStore.selectRouteParams),
+        this._store.select(fromRouterStore.selectQueryParams)
+      ),
+      mergeMap(([_, { programId }, { country }]) =>
+        this._courseService.loadExploredCourses(programId, country).pipe(
+          map((courses) =>
+            courseActions.exploreCoursesSuccess({
+              exploredCourses: camelcaseKeys(courses, { deep: true }),
+            })
+          ),
+          catchError((error) =>
+            of(
+              courseActions.exploreCoursesFailure({
                 error: error?.error?.message || error?.error?.errors,
               })
             )

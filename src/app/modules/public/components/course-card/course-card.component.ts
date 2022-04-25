@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { COURSE_TAGS_CONST } from '@metutor/config';
-import { ICourse } from '@metutor/core/models';
 
 @Component({
   selector: 'metutors-course-card',
@@ -8,7 +7,7 @@ import { ICourse } from '@metutor/core/models';
   styleUrls: ['./course-card.component.scss'],
 })
 export class CourseCardComponent implements OnInit {
-  @Input() course?: ICourse;
+  @Input() course?: any;
 
   courseTags = COURSE_TAGS_CONST;
 

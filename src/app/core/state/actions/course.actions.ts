@@ -31,6 +31,18 @@ export const loadCourseByIdFailure = createAction(
   props<{ error: any }>()
 );
 
+export const exploreCourses = createAction('[General] Explore Courses');
+
+export const exploreCoursesSuccess = createAction(
+  '[General] Explore Courses Success',
+  props<{ exploredCourses: any }>()
+);
+
+export const exploreCoursesFailure = createAction(
+  '[General] Explore Courses Failure',
+  props<{ error: any }>()
+);
+
 export const tutorAcceptCourse = createAction(
   '[Tutor] Tutor Accept Course',
   props<{ courseId: number }>()

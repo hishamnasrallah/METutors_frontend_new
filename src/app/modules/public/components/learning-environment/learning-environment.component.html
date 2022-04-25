@@ -81,7 +81,8 @@
               </svg>
             </a>
 
-            <a mat-button class="explore-all ms-3" [routerLink]="['/all-courses', selectedProgram?.id]">
+            <a mat-button class="explore-all ms-3" [routerLink]="['/all-courses', selectedProgram?.id]"
+              [queryParams]="{country}">
               Explore All Courses
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path

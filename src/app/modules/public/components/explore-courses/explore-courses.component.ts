@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'metutors-explore-courses',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./explore-courses.component.scss'],
 })
 export class ExploreCoursesComponent implements OnInit {
+  @Output() filterCourses = new EventEmitter();
+
   constructor() {}
 
   ngOnInit(): void {}

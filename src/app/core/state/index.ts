@@ -907,6 +907,21 @@ export const selectCourseById = createSelector(
   fromCourseReducer.selectCourseById
 );
 
+export const selectExploredCourses = createSelector(
+  selectCourseState,
+  fromCourseReducer.selectExploredCourses
+);
+
+export const selectIsLoadingExploredCourses = createSelector(
+  selectCourseState,
+  fromCourseReducer.selectIsLoadingExploredCourses
+);
+
+export const selectFilteredExploredCourses = createSelector(
+  selectCourseState,
+  fromCourseReducer.selectFilteredExploredCourses
+);
+
 export const selectIsLoadingCourseById = createSelector(
   selectCourseState,
   fromCourseReducer.selectIsLoadingCourseById

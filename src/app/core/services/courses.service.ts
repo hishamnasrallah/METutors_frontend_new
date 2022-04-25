@@ -26,6 +26,14 @@ export class CoursesService {
     });
   }
 
+  loadExploredCourses(programId: string, countryId?: string): Observable<any> {
+    const query = countryId ? `?country_id=${countryId}` : '';
+
+    return this.http.get<{ field_of_studies: any[]; subjects: any[] }>(
+      `${this.baseUrl}courses/${programId}${query}`
+    );
+  }
+
   fetchMainServices(): Observable<any> {
     return this.http.get<{ results: ICategory[] }>(`${this.baseUrl}category`);
   }
