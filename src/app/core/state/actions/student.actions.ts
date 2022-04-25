@@ -341,7 +341,7 @@ export const studentMakeupClass = createAction(
 
 export const studentMakeupClassSuccess = createAction(
   '[Student] Student Makeup Class Success',
-  props<{ body: any; message: string }>()
+  props<{ message: string }>()
 );
 
 export const studentMakeupClassFailure = createAction(

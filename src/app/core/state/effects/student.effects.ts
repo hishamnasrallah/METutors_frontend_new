@@ -453,7 +453,6 @@ export class StudentEffects {
         this._studentService.studentMakeupClass(body).pipe(
           map(() =>
             studentActions.studentMakeupClassSuccess({
-              body: camelcaseKeys(body),
               message: 'You have successfully makeup class',
             })
           ),
@@ -563,13 +562,6 @@ export class StudentEffects {
     )
   );
 
-  studentSubmitAssignmentSuccess$ = createEffect(() =>
-    this._actions$.pipe(
-      ofType(studentActions.studentSubmitAssignmentSuccess),
-      map(({ id }) => studentActions.loadStudentAssignment({ id }))
-    )
-  );
-
   studentAddNewClass$ = createEffect(() =>
     this._actions$.pipe(
       ofType(studentActions.studentAddNewClass),
@@ -592,9 +584,19 @@ export class StudentEffects {
     )
   );
 
+  studentSubmitAssignmentSuccess$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(studentActions.studentSubmitAssignmentSuccess),
+      map(({ id }) => studentActions.loadStudentAssignment({ id }))
+    )
+  );
+
   studentAddNewClassSuccess$ = createEffect(() =>
     this._actions$.pipe(
-      ofType(studentActions.studentAddNewClassSuccess),
+      ofType(
+        studentActions.studentMakeupClassSuccess,
+        studentActions.studentAddNewClassSuccess
+      ),
       map(() => studentActions.loadStudentClassesDashboard())
     )
   );
