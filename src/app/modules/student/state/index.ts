@@ -77,3 +77,8 @@ export const selectStudentStateParams = createSelector(
   selectStudentModalState,
   fromStudentModal.selectStudentStateParams
 );
+
+export const selectMakeupClassModal = createSelector(
+  selectStudentModalState,
+  fromStudentModal.selectMakeupClassModal
+);

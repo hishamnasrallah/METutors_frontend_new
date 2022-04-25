@@ -71,3 +71,11 @@ export const openCancelCourseModal = createAction(
 export const closeCancelCourse = createAction(
   '[Student Modal] Close Cancel Course Modal'
 );
+
+export const openMakeupClassModal = createAction(
+  '[Student Modal] Open Makeup Class Modal'
+);
+
+export const closeMakeupClassModal = createAction(
+  '[Student Modal] Close Makeup Class Modal'
+);

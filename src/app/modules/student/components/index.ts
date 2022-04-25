@@ -7,6 +7,7 @@ export * from './student-attendance-modal';
 export * from './faq-still-have-questions';
 export * from './student-settings-account';
 export * from './student-settings-security';
+export * from './student-makeup-class-modal';
 export * from './student-cancel-course-modal';
 export * from './student-view-resource-modal';
 export * from './student-submit-assignment-modal';
