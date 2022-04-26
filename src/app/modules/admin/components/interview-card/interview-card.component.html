@@ -54,7 +54,7 @@
         <div class="row list-items md-item">
           <div class="col-md-4 d-flex menu align-items-center" *ngIf="interview?.tutor?.country">
             <img src="assets/svg/map.svg" alt="" width="15" height="15" draggable="false">
-            <strong>From {{ interview?.tutor?.country }}</strong>
+            <strong>From {{ interview?.tutor?.country?.name }}</strong>
           </div>
           <div class="col-md-4 d-flex menu align-items-center" *ngIf="interview?.interviewDate">
             <img src="assets/svg/calendar.svg" alt="" width="15" height="15" draggable="false">

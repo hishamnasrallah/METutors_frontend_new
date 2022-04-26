@@ -28,6 +28,7 @@ export class TutorAuthorizeGuard implements CanActivate {
       .pipe(filter((profileTutor) => !!profileTutor))
       .subscribe((tutor) => {
         if (
+          !tutor?.interviewRequest ||
           tutor?.interviewRequest?.status === InterviewStatus.pending ||
           tutor?.interviewRequest?.status === InterviewStatus.scheduled ||
           tutor?.interviewRequest?.status === InterviewStatus.rejected
