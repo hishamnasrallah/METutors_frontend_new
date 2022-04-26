@@ -135,6 +135,7 @@ export class TutorSettingsProfileComponent implements OnInit {
   @Output() submitForm = new EventEmitter();
   @Output() submitInterview = new EventEmitter();
   @Output() changeCover = new EventEmitter<File>();
+  @Output() joinMeeting = new EventEmitter<number>();
   @Output() loadCities = new EventEmitter<string>();
   @Output() changeAvatar = new EventEmitter<File>();
 

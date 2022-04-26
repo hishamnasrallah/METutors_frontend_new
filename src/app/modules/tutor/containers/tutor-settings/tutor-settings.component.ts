@@ -118,6 +118,10 @@ export class TutorSettingsComponent implements OnInit {
     this._store.dispatch(fromCore.changeTutorCover({ file }));
   }
 
+  onJoinMeeting(interviewId: number): void {
+    this._store.dispatch(fromCore.joinInterview({ interviewId }));
+  }
+
   private _prepareCountries(): void {
     this._store.dispatch(fromCore.loadCountries());
     this.countries$ = this._store.select(fromCore.selectCountries);

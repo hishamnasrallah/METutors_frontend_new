@@ -27,8 +27,8 @@
       <metutors-tutor-settings-profile *ngIf="tab === 'MY_PROFILE'"
                                        [user]="(tutor$ | async)!"
                                        [isLoadingTutor]="(isLoadingTutor$ | async)!"
-                                       [countries]="countries$ | async" 
-                                       [cities]="cities$ | async" 
+                                       [countries]="countries$ | async"
+                                       [cities]="cities$ | async"
                                        [isChangeAvatar]="(isChangeTutorAvatar$ | async)!"
                                        [isChangeCover]="(isChangeTutorCover$ | async)!"
                                        [isUpdateProfile]="(isUpdateTutorProfile$ | async)!"
@@ -36,11 +36,12 @@
                                        (submitForm)="sendTeacherAccount(tutor, $event)"
                                        (changeAvatar)="changetutorAvatar($event)"
                                        (changeCover)="changetutorCover($event)"
-                                       (submitInterview)="onOpenSubmitInterview()">
+                                       (submitInterview)="onOpenSubmitInterview()"
+                                       (joinMeeting)="onJoinMeeting($event)">
       </metutors-tutor-settings-profile>
 
       <metutors-tutor-settings-security *ngIf="tab === 'SECURITY_SETTINGS'"
-                                        [isChanging]="isChangingPassword$ | async" 
+                                        [isChanging]="isChangingPassword$ | async"
                                         [resetForm]="changePasswordSuccess$ | async"
                                         (submitForm)="onChangePassword($event)">
       </metutors-tutor-settings-security>

@@ -65,6 +65,12 @@
               Submit Interview Request
             </button>
           </div>
+          <div class="col-md-9">
+            <button mat-flat-button color="primary" class="float-end mx-2" (click)="joinMeeting.emit(tutor?.interviewRequest?.id)"
+                    *ngIf="tutor?.interviewRequest?.status === interviewStatus.scheduled">
+              Join Meeting
+            </button>
+          </div>
         </div>
       </div>
     </div>
