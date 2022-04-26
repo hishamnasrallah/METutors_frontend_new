@@ -1,4 +1,4 @@
-<metutors-modal [showModal]="showModal" [size]="'medium'" [template]="template" (closeModal)="closeModal.emit()">
+<metutors-modal [showModal]="showModal" [size]="'large'" [template]="template" (closeModal)="closeModal.emit()">
   <ng-template #template>
     <ngx-doc-viewer [viewer]="getViewer(document.value)" [url]="filePath+document.value" style="width:100%;height:100vh;"></ngx-doc-viewer>
 
