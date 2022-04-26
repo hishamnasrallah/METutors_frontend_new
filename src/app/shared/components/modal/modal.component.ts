@@ -33,14 +33,9 @@ export class ModalComponent implements OnInit, OnDestroy {
   @Input() size = 'medium';
   @Input() showHeader = true;
   @Input() showModal: boolean;
-  @Input() showEditIcon = false;
-  @Input() showDeleteIcon = false;
   @Input() template: TemplateRef<any>;
-  @Input() isDeletingAssignment = false;
 
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
-  @Output() editClicked: EventEmitter<void> = new EventEmitter<void>();
-  @Output() deleteClicked: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(private dialog: MatDialog) {}
 
@@ -55,22 +50,11 @@ export class ModalComponent implements OnInit, OnDestroy {
           template: this.template,
           showHeader: this.showHeader,
           subHeading: this.subHeading,
-          showEditIcon: this.showEditIcon,
-          showDeleteIcon: this.showDeleteIcon,
-          isDeletingAssignment: this.isDeletingAssignment,
         },
       });
 
       dialogRef.afterClosed().subscribe(() => {
         this.closeModal.emit();
-      });
-
-      dialogRef.componentInstance.editClicked.subscribe(() => {
-        this.editClicked.emit();
-      });
-
-      dialogRef.componentInstance.deleteClicked.subscribe(() => {
-        this.deleteClicked.emit();
       });
     } else {
       this.dialog.closeAll();
@@ -92,10 +76,7 @@ export class ModalComponentTemplate implements OnInit {
   heading: string;
   subHeading: string;
   showHeader: boolean;
-  showEditIcon: boolean;
-  showDeleteIcon: boolean;
   template: TemplateRef<any>;
-  isDeletingAssignment: boolean;
 
   @Output() editClicked: EventEmitter<void> = new EventEmitter<void>();
   @Output() deleteClicked: EventEmitter<void> = new EventEmitter<void>();
@@ -111,8 +92,5 @@ export class ModalComponentTemplate implements OnInit {
     this.template = this.data.template;
     this.subHeading = this.data.subHeading;
     this.showHeader = this.data.showHeader;
-    this.showEditIcon = this.data.showEditIcon;
-    this.showDeleteIcon = this.data.showDeleteIcon;
-    this.isDeletingAssignment = this.data.isDeletingAssignment;
   }
 }

@@ -1,9 +1,24 @@
-<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'medium'" [heading]="heading"
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'medium'"
                 [template]="template"
-                [showDeleteIcon]="resourceId?.value ? true : false"
-                [isDeletingAssignment]="(isDeletingResource$ | async)!"
-                (deleteClicked)="deleted.emit(resourceId?.value)">
+                [showHeader]="false">
   <ng-template #template>
+    <div class="d-flex align-items-center modal-title" mat-dialog-title>
+      <h2 class="flex-grow-1 m-0 d-flex flex-column">
+        <div class="d-flex align-items-center">
+          {{ heading }}
+          <button mat-button class="btn action-icon p-0 ms-3" tabindex="-1" type="button" *ngIf="resourceId?.value ? true : false"
+                  (click)="deleted.emit(resourceId?.value)" [disabled]="(isDeletingResource$ | async)!">
+            <mat-icon class="delete">delete</mat-icon>
+            Delete
+            <mat-icon class="spinner" *ngIf="(isDeletingResource$ | async)!">autorenew</mat-icon>
+          </button>
+        </div>
+      </h2>
+  
+      <button class="text-secondary" (click)="closeModal.emit()" mat-icon-button type="button">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
     <ng-container *ngLet="(view$ | async) as view">
       <ng-container [ngSwitch]="view?.loading">
         <ng-container *ngSwitchCase="true">
