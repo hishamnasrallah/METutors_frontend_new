@@ -35,8 +35,23 @@
       </a>
       <ul class="list-unstyled" [@slideInOut] *ngIf="openTutor">
         <li class="d-flex align-items-center">
-          <a routerLink="/admin/tutor/list" routerLinkActive="active">
-            <span class="text-uppercase hide-sidemenu">Tutor List</span>
+          <a routerLink="/admin/tutor/all" routerLinkActive="active">
+            <span class="text-uppercase hide-sidemenu">All Tutors</span>
+          </a>
+        </li>
+        <li class="d-flex align-items-center">
+          <a routerLink="/admin/tutor/current" routerLinkActive="active">
+            <span class="text-uppercase hide-sidemenu">Current Tutors</span>
+          </a>
+        </li>
+        <li class="d-flex align-items-center">
+          <a routerLink="/admin/tutor/pending" routerLinkActive="active">
+            <span class="text-uppercase hide-sidemenu">Pending Tutors</span>
+          </a>
+        </li>
+        <li class="d-flex align-items-center">
+          <a routerLink="/admin/tutor/suspended" routerLinkActive="active">
+            <span class="text-uppercase hide-sidemenu">Suspended Tutors</span>
           </a>
         </li>
         <li class="d-flex align-items-center">

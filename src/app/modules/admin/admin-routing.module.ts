@@ -10,9 +10,12 @@ import {
   AdminStudentListComponent,
   AdminProgramListComponent,
   AdminFieldOfStudyComponent,
+  AdminCurrentTutorsComponent,
+  AdminPendingTutorsComponent,
   AdminSupportTicketComponent,
   AdminTicketDetailsComponent,
   AdminTutorInterviewComponent,
+  AdminSuspendedTutorsComponent,
   AdminTutorInterviewDetailsComponent,
   AdminTutorInterviewDocumentsComponent,
 } from './containers';
@@ -80,12 +83,48 @@ const routes: Routes = [
             ],
           },
           {
-            path: 'list',
+            path: 'all',
             component: AdminTutorListComponent,
             data: {
               layout: {
-                title: 'Tutor list - Metutors',
-                navbarTitle: 'Tutor list',
+                title: 'All Tutors - Metutors',
+                navbarTitle: 'All Tutors',
+                showHeader: false,
+                showFooter: false,
+              },
+            },
+          },
+          {
+            path: 'current',
+            component: AdminCurrentTutorsComponent,
+            data: {
+              layout: {
+                title: 'Current Tutors - Metutors',
+                navbarTitle: 'Current Tutors',
+                showHeader: false,
+                showFooter: false,
+              },
+            },
+          },
+          {
+            path: 'pending',
+            component: AdminPendingTutorsComponent,
+            data: {
+              layout: {
+                title: 'Pending Tutors - Metutors',
+                navbarTitle: 'Pending Tutors',
+                showHeader: false,
+                showFooter: false,
+              },
+            },
+          },
+          {
+            path: 'suspended',
+            component: AdminSuspendedTutorsComponent,
+            data: {
+              layout: {
+                title: 'Suspended Tutors - Metutors',
+                navbarTitle: 'Suspended Tutors',
                 showHeader: false,
                 showFooter: false,
               },
@@ -93,7 +132,7 @@ const routes: Routes = [
           },
           {
             path: '',
-            redirectTo: 'list',
+            redirectTo: 'all',
             pathMatch: 'full',
           },
         ],

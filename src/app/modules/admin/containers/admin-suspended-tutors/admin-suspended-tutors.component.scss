@@ -1,0 +1,46 @@
+.tutors-list {
+  padding: 30px 40px 20px;
+
+  .filters {
+    h1 {
+      font-size: 25px;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    mat-icon {
+      position: absolute;
+      left: 15px;
+      top: 11px;
+
+      &.filter {
+        left: auto;
+        right: 15px;
+      }
+    }
+
+    .search-request {
+      padding-left: 45px;
+    }
+  }
+
+  .my-table {
+    overflow: visible;
+
+    th {
+      color: #696969;
+      font-size: 14px;
+    }
+
+    .change-status {
+      .status {
+        color: #FFF;
+        line-height: 0;
+        min-width: 0;
+        padding: 15px;
+        border-radius: 25px;
+        background-color: #FF0000;
+      }
+    }
+  }
+}

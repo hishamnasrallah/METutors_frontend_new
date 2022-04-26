@@ -4,6 +4,7 @@ import { ITutor } from '@models';
 import * as tutorActions from '../actions/tutor.actions';
 import * as uploadActions from '../actions/upload.actions';
 import * as courseActions from '../actions/course.actions';
+import { TutorStatus } from '@metutor/config';
 
 export interface State {
   dashboard: any;
@@ -11,6 +12,7 @@ export interface State {
   feedbackOptions: any;
   tutor: ITutor | null;
   tutors: ITutor[] | null;
+  tutorsCounts: any;
   isLoadingTutor: boolean;
   isLoadingTutors: boolean;
   isLaunchingClass: boolean;
@@ -40,6 +42,14 @@ export interface State {
   // Submit Interview Request
   isSubmittingInterview: boolean;
   SubmitInterviewFailure?: string;
+
+  // Loading Tutors
+  currentTutors: ITutor[] | null;
+  isLoadingCurrentTutors: boolean;
+  pendingTutors: ITutor[] | null;
+  isLoadingPendingTutors: boolean;
+  suspendedTutors: ITutor[] | null;
+  isLoadingSuspendedTutors: boolean;
 }
 
 export const initialState: State = {
@@ -47,8 +57,12 @@ export const initialState: State = {
   tutors: null,
   dashboard: null,
   attendance: null,
+  tutorsCounts: {},
   profileTutor: null,
+  currentTutors: null,
+  pendingTutors: null,
   feedbackOptions: null,
+  suspendedTutors: null,
   isLoadingTutor: false,
   isLoadingTutors: false,
   isLaunchingClass: false,
@@ -62,7 +76,10 @@ export const initialState: State = {
   isSubmittingInterview: false,
   isLoadingProfileTutor: false,
   isCompleteTutorProfile: false,
+  isLoadingCurrentTutors: false,
+  isLoadingPendingTutors: false,
   isLoadingTutorAttendance: false,
+  isLoadingSuspendedTutors: false,
   completeTutorProfileFailure: '',
   isLoadingTutorFeedbackOptions: false,
 };
@@ -113,9 +130,10 @@ export const reducer = createReducer(
     isLoadingTutors: true,
   })),
 
-  on(tutorActions.loadTutorsSuccess, (state, { tutors }) => ({
+  on(tutorActions.loadTutorsSuccess, (state, { tutors, tutorsCounts }) => ({
     ...state,
     tutors,
+    tutorsCounts,
     isLoadingTutors: false,
   })),
 
@@ -123,6 +141,74 @@ export const reducer = createReducer(
     ...state,
     isLoadingTutors: false,
     loadingTutorsFailure: error,
+  })),
+
+  on(tutorActions.loadTutorsEnded, (state) => ({
+    ...state,
+    isLoadingTutors: false,
+  })),
+
+  on(tutorActions.loadCurrentTutors, (state) => ({
+    ...state,
+    isLoadingCurrentTutors: true,
+  })),
+
+  on(tutorActions.loadCurrentTutorsSuccess, (state, { currentTutors }) => ({
+    ...state,
+    currentTutors,
+    isLoadingCurrentTutors: false,
+  })),
+
+  on(tutorActions.loadCurrentTutorsFailure, (state) => ({
+    ...state,
+    isLoadingCurrentTutors: false,
+  })),
+
+  on(tutorActions.loadCurrentTutorsEnded, (state) => ({
+    ...state,
+    isLoadingCurrentTutors: false,
+  })),
+
+  on(tutorActions.loadPendingTutors, (state) => ({
+    ...state,
+    isLoadingPendingTutors: true,
+  })),
+
+  on(tutorActions.loadPendingTutorsSuccess, (state, { pendingTutors }) => ({
+    ...state,
+    pendingTutors,
+    isLoadingPendingTutors: false,
+  })),
+
+  on(tutorActions.loadPendingTutorsFailure, (state) => ({
+    ...state,
+    isLoadingPendingTutors: false,
+  })),
+
+  on(tutorActions.loadPendingTutorsEnded, (state) => ({
+    ...state,
+    isLoadingPendingTutors: false,
+  })),
+
+  on(tutorActions.loadSuspendedTutors, (state) => ({
+    ...state,
+    isLoadingSuspendedTutors: true,
+  })),
+
+  on(tutorActions.loadSuspendedTutorsSuccess, (state, { suspendedTutors }) => ({
+    ...state,
+    suspendedTutors,
+    isLoadingSuspendedTutors: false,
+  })),
+
+  on(tutorActions.loadSuspendedTutorsFailure, (state) => ({
+    ...state,
+    isLoadingSuspendedTutors: false,
+  })),
+
+  on(tutorActions.loadSuspendedTutorsEnded, (state) => ({
+    ...state,
+    isLoadingSuspendedTutors: false,
   })),
 
   on(tutorActions.submitInterview, (state) => ({
@@ -141,11 +227,6 @@ export const reducer = createReducer(
   on(tutorActions.submitInterviewFailure, (state) => ({
     ...state,
     isSubmittingInterview: false,
-  })),
-
-  on(tutorActions.loadTutorsEnded, (state) => ({
-    ...state,
-    isLoadingTutors: false,
   })),
 
   on(tutorActions.loadTutorDashboard, (state) => ({
@@ -368,8 +449,28 @@ export const selectIsLoadingProfileTutor = (state: State): boolean =>
 
 export const selectTutors = (state: State): ITutor[] | null => state.tutors;
 
+export const selectCurrentTutors = (state: State): ITutor[] | null =>
+  state.currentTutors;
+
+export const selectPendingTutors = (state: State): ITutor[] | null =>
+  state.pendingTutors;
+
+export const selectSuspendedTutors = (state: State): ITutor[] | null =>
+  state.suspendedTutors;
+
 export const selectIsLoadingTutors = (state: State): boolean =>
   state.isLoadingTutors;
+
+export const selectIsLoadingCurrentTutors = (state: State): boolean =>
+  state.isLoadingCurrentTutors;
+
+export const selectIsLoadingPendingTutors = (state: State): boolean =>
+  state.isLoadingPendingTutors;
+
+export const selectIsLoadingSuspendedTutors = (state: State): boolean =>
+  state.isLoadingSuspendedTutors;
+
+export const selectTutorsCounts = (state: State): any => state.tutorsCounts;
 
 export const selectIsLoadingTutorDashboard = (state: State): boolean =>
   state.isLoadingDashboard;
@@ -427,4 +528,73 @@ const getFilteredTutors = (tutors: ITutor[], props: any) => {
   }
 
   return tutors;
+};
+
+export const selectFilteredCurrentTutors = (
+  state: State,
+  props?: any
+): ITutor[] | null => {
+  let currentTutors: ITutor[] = [];
+
+  if (state.currentTutors && state.currentTutors.length && props) {
+    currentTutors = getFilteredCurrentTutors(state.currentTutors, props);
+  }
+
+  return currentTutors;
+};
+
+const getFilteredCurrentTutors = (currentTutors: ITutor[], props: any) => {
+  if (props?.name) {
+    currentTutors = currentTutors?.filter((tutor) =>
+      tutor?.name?.toLowerCase()?.includes(props.name.toLowerCase())
+    );
+  }
+
+  return currentTutors;
+};
+
+export const selectFilteredPendingTutors = (
+  state: State,
+  props?: any
+): ITutor[] | null => {
+  let pendingTutors: ITutor[] = [];
+
+  if (state.pendingTutors && state.pendingTutors.length && props) {
+    pendingTutors = getFilteredPendingTutors(state.pendingTutors, props);
+  }
+
+  return pendingTutors;
+};
+
+const getFilteredPendingTutors = (pendingTutors: ITutor[], props: any) => {
+  if (props?.name) {
+    pendingTutors = pendingTutors?.filter((tutor) =>
+      tutor?.name?.toLowerCase()?.includes(props.name.toLowerCase())
+    );
+  }
+
+  return pendingTutors;
+};
+
+export const selectFilteredSuspendedTutors = (
+  state: State,
+  props?: any
+): ITutor[] | null => {
+  let suspendedTutors: ITutor[] = [];
+
+  if (state.suspendedTutors && state.suspendedTutors.length && props) {
+    suspendedTutors = getFilteredSuspendedTutors(state.suspendedTutors, props);
+  }
+
+  return suspendedTutors;
+};
+
+const getFilteredSuspendedTutors = (suspendedTutors: ITutor[], props: any) => {
+  if (props?.name) {
+    suspendedTutors = suspendedTutors?.filter((tutor) =>
+      tutor?.name?.toLowerCase()?.includes(props.name.toLowerCase())
+    );
+  }
+
+  return suspendedTutors;
 };

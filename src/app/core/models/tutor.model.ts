@@ -12,6 +12,7 @@ import {
 export class ITutor {
   id!: number;
   name?: string;
+  idNumber?: string;
   firstName?: string;
   middleName?: string;
   lastName?: string;
@@ -39,6 +40,7 @@ export class ITutor {
   nationality?: string;
   postalCode?: string;
   approvedTutor?: boolean;
+  adminApproval?: string;
   interviewRequest?: IInterview;
 
   rate?: number;
@@ -58,12 +60,14 @@ export class ITutor {
     if (createDefault) {
       this.id = 0;
       this.name = '';
+      this.idNumber = '';
       this.firstName = '';
       this.middleName = '';
       this.lastName = '';
       this.avatar = generalConstants.defaultAvatarPath;
       this.cover = generalConstants.defaultCoverPath;
       this.bio = '';
+      this.adminApproval = '';
       this.createdAt = '';
       this.rate = 0;
       this.dateOfBirth = '';
@@ -102,6 +106,7 @@ export class ITutor {
 
     if (tutor) {
       this.id = tutor?.id;
+      this.idNumber = tutor?.id_number;
       this.name = tutor?.first_name + ' ' + tutor?.last_name;
       this.firstName = tutor?.first_name || '';
       this.middleName = tutor?.middle_name || '';
@@ -113,6 +118,7 @@ export class ITutor {
         ? environment.imageURL + tutor?.cover_img
         : generalConstants.defaultCoverPath;
       this.bio = tutor?.bio || '';
+      this.adminApproval = tutor?.admin_approval;
       this.createdAt = tutor?.created_at || '';
       this.dateOfBirth = tutor?.date_of_birth || '';
       this.address = tutor?.address;

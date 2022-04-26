@@ -61,11 +61,63 @@ export class TutorsService {
 
   getTutors(): Observable<any> {
     return this.http
-      .get<{ teachers: ITutor[] }>(`${this.baseUrl}registered-teachers`)
+      .get<{
+        teachers: ITutor[];
+        all_teachers: number;
+        active_teachers: number;
+        pending_teachers: number;
+        inactive_teachers: number;
+        suspended_teachers: number;
+      }>(`${this.baseUrl}admin/teachers`)
       .pipe(
         map((response) => {
-          return response.teachers.map((tutor) => new ITutor(false, tutor));
+          return {
+            tutors: response.teachers.map((tutor) => new ITutor(false, tutor)),
+            tutorsCounts: {
+              all: response?.all_teachers,
+              active: response?.active_teachers,
+              pending: response?.pending_teachers,
+              inactive: response?.inactive_teachers,
+              suspended: response?.suspended_teachers,
+            },
+          };
         })
+      );
+  }
+
+  getCurrentTutors(): Observable<any> {
+    return this.http
+      .get<{
+        teachers: ITutor[];
+      }>(`${this.baseUrl}admin/current-teachers`)
+      .pipe(
+        map((response) =>
+          response.teachers.map((tutor) => new ITutor(false, tutor))
+        )
+      );
+  }
+
+  getPendingTutors(): Observable<any> {
+    return this.http
+      .get<{
+        teachers: ITutor[];
+      }>(`${this.baseUrl}admin/pending-teachers`)
+      .pipe(
+        map((response) =>
+          response.teachers.map((tutor) => new ITutor(false, tutor))
+        )
+      );
+  }
+
+  getSuspendedTutors(): Observable<any> {
+    return this.http
+      .get<{
+        teachers: ITutor[];
+      }>(`${this.baseUrl}admin/rejected-teachers`)
+      .pipe(
+        map((response) =>
+          response.teachers.map((tutor) => new ITutor(false, tutor))
+        )
       );
   }
 

@@ -1,0 +1,94 @@
+<div class="tutors-list" *ngLet="(tutors$ | async) as tutors">
+  <div class="row filters">
+    <div class="col-md-6 d-flex align-items-center">
+      <h1>Suspended Tutors</h1>
+    </div>
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-7">
+          <div class="position-relative">
+            <mat-icon>search</mat-icon>
+            <input type="text" class="form-control custom-input input-bordered search-request" [(ngModel)]="name"
+              (keyup)="onFilterTutors()" placeholder="Search tutors...">
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="position-relative">
+            <input type="text" class="form-control custom-input input-bordered" placeholder="Apply filters">
+            <mat-icon class="filter">filter_alt</mat-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <ng-container [ngSwitch]="isLoading$ | async">
+        <div class="mt-4" *ngSwitchCase="true">
+          <metutors-grid-placeholder></metutors-grid-placeholder>
+        </div>
+
+        <table class="table my-table default-title mt-4" *ngSwitchCase="false">
+          <tr>
+            <th>Number</th>
+            <th>Tin</th>
+            <th>Teacher Name</th>
+            <th>Gender</th>
+            <th>Reason</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+          <tr *ngIf="!tutors || !tutors.length">
+            <td colspan="8">
+              <div class="text-center">No records found</div>
+            </td>
+          </tr>
+          <tr *ngFor="let tutor of tutors; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ tutor?.idNumber }}</td>
+            <td>
+              <div class="d-flex align-items-center">
+                <img [src]="tutor?.avatar" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
+                  meTutorsDefaultAvatar alt="">
+                <span>
+                  <bdi>{{ tutor?.name }}</bdi>
+                </span>
+              </div>
+            </td>
+            <td class="text-capitalize">{{ tutor?.gender }}</td>
+            <td class="text-capitalize">
+              {{ tutor?.interviewRequest?.adminComments }}
+            </td>
+            <td>{{ tutor?.interviewRequest?.updatedAt | date }}</td>
+            <td>
+              <div class="change-status position-relative d-flex">
+                <button class="status text-capitalize" mat-button>
+                  Suspended
+                </button>
+              </div>
+            </td>
+            <td>
+              <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+            </td>
+          </tr>
+        </table>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item class="h-auto btn-menu">
+    <span>View Profile</span>
+  </button>
+  <button mat-menu-item class="h-auto btn-menu">
+    <span>Edit Profile</span>
+  </button>
+  <button mat-menu-item class="h-auto btn-menu">
+    <span>Change Status</span>
+  </button>
+</mat-menu>

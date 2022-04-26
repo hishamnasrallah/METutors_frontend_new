@@ -12,7 +12,14 @@ import { environment } from '@environment';
 import * as fromRouterStore from '@metutor/state';
 import * as tutorActions from '../actions/tutor.actions';
 import { AlertNotificationService } from '@metutor/core/components';
-import { selectTutorDashboard, selectTutors, selectProfileTutor } from '..';
+import {
+  selectTutors,
+  selectProfileTutor,
+  selectCurrentTutors,
+  selectPendingTutors,
+  selectTutorDashboard,
+  selectSuspendedTutors,
+} from '..';
 
 @Injectable()
 export class TutorEffects {
@@ -81,9 +88,10 @@ export class TutorEffects {
       mergeMap(([_, _tutors]) => {
         if (!_tutors || !_tutors?.length) {
           return this._tutorService.getTutors().pipe(
-            map((tutors) =>
+            map((response) =>
               tutorActions.loadTutorsSuccess({
-                tutors,
+                tutors: response.tutors,
+                tutorsCounts: response.tutorsCounts,
               })
             ),
             catchError((error) =>
@@ -96,6 +104,87 @@ export class TutorEffects {
           );
         } else {
           return of(tutorActions.loadTutorsEnded());
+        }
+      })
+    )
+  );
+
+  loadCurrentTutors$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorActions.loadCurrentTutors),
+      withLatestFrom(this._store.select(selectCurrentTutors)),
+      mergeMap(([_, _tutors]) => {
+        if (!_tutors || !_tutors?.length) {
+          return this._tutorService.getCurrentTutors().pipe(
+            map((currentTutors) =>
+              tutorActions.loadCurrentTutorsSuccess({
+                currentTutors,
+              })
+            ),
+            catchError((error) =>
+              of(
+                tutorActions.loadCurrentTutorsFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          );
+        } else {
+          return of(tutorActions.loadCurrentTutorsEnded());
+        }
+      })
+    )
+  );
+
+  loadPendingTutors$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorActions.loadPendingTutors),
+      withLatestFrom(this._store.select(selectPendingTutors)),
+      mergeMap(([_, _tutors]) => {
+        if (!_tutors || !_tutors?.length) {
+          return this._tutorService.getPendingTutors().pipe(
+            map((pendingTutors) =>
+              tutorActions.loadPendingTutorsSuccess({
+                pendingTutors,
+              })
+            ),
+            catchError((error) =>
+              of(
+                tutorActions.loadPendingTutorsFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          );
+        } else {
+          return of(tutorActions.loadPendingTutorsEnded());
+        }
+      })
+    )
+  );
+
+  loadSuspendedTutors$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorActions.loadSuspendedTutors),
+      withLatestFrom(this._store.select(selectSuspendedTutors)),
+      mergeMap(([_, _tutors]) => {
+        if (!_tutors || !_tutors?.length) {
+          return this._tutorService.getSuspendedTutors().pipe(
+            map((suspendedTutors) =>
+              tutorActions.loadSuspendedTutorsSuccess({
+                suspendedTutors,
+              })
+            ),
+            catchError((error) =>
+              of(
+                tutorActions.loadSuspendedTutorsFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          );
+        } else {
+          return of(tutorActions.loadSuspendedTutorsEnded());
         }
       })
     )

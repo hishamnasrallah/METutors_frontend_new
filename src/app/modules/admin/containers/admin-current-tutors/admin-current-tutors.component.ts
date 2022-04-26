@@ -2,16 +2,15 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as fromCore from '@metutor/core/state';
 import { Component, OnInit } from '@angular/core';
-import { ITutor, ITutorFilters } from '@metutor/core/models';
 import { InterviewStatus, TUTOR_STATUSES_CONST } from '@metutor/config';
+import { ITutor, ITutorFilters } from '@metutor/core/models';
 
 @Component({
-  selector: 'metutors-admin-tutor-list',
-  templateUrl: './admin-tutor-list.component.html',
-  styleUrls: ['./admin-tutor-list.component.scss'],
+  selector: 'metutors-admin-current-tutors',
+  templateUrl: './admin-current-tutors.component.html',
+  styleUrls: ['./admin-current-tutors.component.scss'],
 })
-export class AdminTutorListComponent implements OnInit {
-  tutorsCounts$: Observable<any>;
+export class AdminCurrentTutorsComponent implements OnInit {
   isLoading$: Observable<boolean>;
   tutors$: Observable<ITutor[] | null>;
 
@@ -26,7 +25,7 @@ export class AdminTutorListComponent implements OnInit {
   }
 
   filterTutors(filters: ITutorFilters): void {
-    this.tutors$ = this._store.select(fromCore.selectFilteredTutors, {
+    this.tutors$ = this._store.select(fromCore.selectFilteredCurrentTutors, {
       ...filters,
     });
   }
@@ -38,9 +37,8 @@ export class AdminTutorListComponent implements OnInit {
   }
 
   private _prepareTutors(): void {
-    this._store.dispatch(fromCore.loadTutors());
-    this.tutors$ = this._store.select(fromCore.selectTutors);
-    this.isLoading$ = this._store.select(fromCore.selectIsLoadingTutors);
-    this.tutorsCounts$ = this._store.select(fromCore.selectTutorsCounts);
+    this._store.dispatch(fromCore.loadCurrentTutors());
+    this.tutors$ = this._store.select(fromCore.selectCurrentTutors);
+    this.isLoading$ = this._store.select(fromCore.selectIsLoadingCurrentTutors);
   }
 }
