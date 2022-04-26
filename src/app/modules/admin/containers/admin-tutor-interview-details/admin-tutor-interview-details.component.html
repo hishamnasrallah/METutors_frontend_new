@@ -221,8 +221,7 @@
                 </p>
               </ng-container>
 
-              <div class="actions d-flex justify-content-end" 
-                   *ngIf="interview?.status === interviewStatus.pending || interview?.status === interviewStatus.scheduled">
+              <div class="actions d-flex justify-content-end">
                 <button mat-button class="fw-bold me-3 decline"  (click)="onOpenDeclineInterviewModal()">Decline</button>
                 <button mat-flat-button color="primary" class="fw-bold" (click)="onOpenHourlyRatePerSubjectModal()">
                   Accept Request
