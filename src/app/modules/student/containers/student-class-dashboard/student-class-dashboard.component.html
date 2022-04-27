@@ -223,7 +223,7 @@
                         Makeup Class
                       </button>
 
-                      <span  *ngIf="previousClass?.teacherAttendence?.status !== 'absent' && previousClass?.studentAttendence?.status === 'absent'">Student Absent</span>
+                      <span  class="w-100 text-danger text-center" *ngIf="previousClass?.teacherAttendence?.status !== 'absent' && previousClass?.studentAttendence?.status === 'absent'">Student Absent</span>
                     </ng-container>
                     <button mat-button class="main-button-opacity flex-grow-1" *ngIf="previousClass?.status === 'completed'">
                       <img src="assets/svg/eye-fill.svg" draggable="false" alt="">
