@@ -1,6 +1,7 @@
-<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'large'" [heading]="'Add New Classes'"
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'large'" [heading]="heading" [subHeading]="subHeading"
   [template]="template">
   <ng-template #template>
+    <span *ngIf="step !== 3" class="availability position-absolute text-decoration-underline cursor-pointer" (click)="onTutorsAvailability()">Tutor Availability</span>
     <form [formGroup]="form" class="classroom-info">
       <ng-container *ngIf="step === 1">
         <div class="row">
@@ -158,6 +159,14 @@
                 <mat-icon class="spinner" *ngIf="isCreating">autorenew</mat-icon>
               </button>
             </div>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-container  *ngIf="step === 3">
+        <div class="row mt-4">
+          <div class="col-12 overflow-hidden">
+            <button mat-flat-button color="primary" class="float-end"  type="button" (click)="step = lastStep">Back</button>
           </div>
         </div>
       </ng-container>

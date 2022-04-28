@@ -70,11 +70,14 @@ export class StudentAddCourseModalComponent implements OnInit {
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
 
   step = 1;
+  lastStep = 1;
   form: FormGroup;
   minDate = new Date();
   classrooms!: IClass[];
   listDays = LONG_DAYS_WEEK;
+  heading = 'Add New Classes';
   daysSorted = SORTED_DAYS_WEEK;
+  subHeading = 'Please select classes date to view Tutors availability';
 
   constructor(
     private _fb: FormBuilder,
@@ -173,6 +176,7 @@ export class StudentAddCourseModalComponent implements OnInit {
       });
 
       this.step = 2;
+      this.heading = 'Please review new classes schedule';
       this.classes?.setValidators([Validators.required]);
       this.classes?.setValue(this.classrooms);
       this.classes?.updateValueAndValidity();
@@ -181,6 +185,12 @@ export class StudentAddCourseModalComponent implements OnInit {
 
   returnZero(): number {
     return 0;
+  }
+
+  onTutorsAvailability(): void {
+    this.step = 3;
+    this.subHeading = '';
+    this.heading = 'Tutor Availability';
   }
 
   onChangeDateDay(): void {
