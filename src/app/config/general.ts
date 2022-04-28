@@ -210,6 +210,16 @@ export const WEEK_DAYS: any = {
   7: 'Sat',
 };
 
+export const WEEK_FULL_DAYS: any = {
+  1: 'Sunday',
+  2: 'Monday',
+  3: 'Tuesday',
+  4: 'Wednesday',
+  5: 'Thursday',
+  6: 'Friday',
+  7: 'Saturday',
+};
+
 export const WEEK_DAYS_LONG: any = {
   Sunday: 1,
   Monday: 2,

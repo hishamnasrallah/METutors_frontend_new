@@ -39,15 +39,27 @@ export class ModalComponent implements OnInit, OnDestroy, OnChanges {
 
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
 
+  dialogRef: MatDialogRef<ModalComponentTemplate>;
+
   constructor(private dialog: MatDialog) {}
 
   ngOnChanges(changes: SimpleChanges) {
     if (
-      (changes?.['showModal'] && changes?.['showModal']?.currentValue) ||
       (changes?.['heading'] && changes?.['heading']?.currentValue) ||
       (changes?.['subHeading'] && changes?.['subHeading']?.currentValue)
     ) {
-      const dialogRef = this.dialog.open(ModalComponentTemplate, {
+      if (this.dialogRef && this.dialogRef.componentInstance) {
+        this.dialogRef.componentInstance.updateModalData({
+          heading: this.heading,
+          subHeading: this.subHeading,
+        });
+      }
+    }
+  }
+
+  ngOnInit(): void {
+    if (this.showModal) {
+      this.dialogRef = this.dialog.open(ModalComponentTemplate, {
         disableClose: true,
         width: modalSize[this.size],
         data: {
@@ -59,13 +71,13 @@ export class ModalComponent implements OnInit, OnDestroy, OnChanges {
         },
       });
 
-      dialogRef.afterClosed().subscribe(() => {
+      this.dialogRef.afterClosed().subscribe(() => {
         this.closeModal.emit();
       });
+    } else {
+      this.dialog.closeAll();
     }
   }
-
-  ngOnInit(): void {}
 
   ngOnDestroy() {
     this.dialog.closeAll();
@@ -98,5 +110,10 @@ export class ModalComponentTemplate implements OnInit {
     this.template = this.data.template;
     this.subHeading = this.data.subHeading;
     this.showHeader = this.data.showHeader;
+  }
+
+  updateModalData(data: { heading: string; subHeading: string }) {
+    this.heading = data.heading;
+    this.subHeading = data.subHeading;
   }
 }

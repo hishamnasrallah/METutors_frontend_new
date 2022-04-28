@@ -651,11 +651,20 @@ export const selectIsLoadingTimeSlots = createSelector(
   selectStudentState,
   fromStudentReducer.selectIsLoadingTimeSlots
 );
-2;
 
 export const selectIsStudentMakeupClass = createSelector(
   selectStudentState,
   fromStudentReducer.selectIsStudentMakeupClass
+);
+
+export const selectTutorAvailability = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectTutorAvailability
+);
+
+export const selectIsLoadingTutorAvailability = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectIsLoadingTutorAvailability
 );
 
 // Ticket

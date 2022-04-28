@@ -19,8 +19,9 @@ import * as fromStudentAction from '../../state/actions';
 export class StudentClassDashboardComponent implements OnInit {
   classId: number;
   timeSlots$: Observable<any>;
-  isMakeupClass$: Observable<boolean>;
   price$: Observable<number | null>;
+  isMakeupClass$: Observable<boolean>;
+  tutorAvailability$: Observable<any>;
   isJoiningClass$: Observable<boolean>;
   isLoadingTimeSlots$: Observable<boolean>;
   isCreatingNewClass$: Observable<boolean>;
@@ -29,6 +30,7 @@ export class StudentClassDashboardComponent implements OnInit {
   showMakeupClassModal$: Observable<boolean>;
   showCancelCourseModal$: Observable<boolean>;
   showSendFeedbackModal$: Observable<boolean>;
+  isLoadingTutorAvailability$: Observable<boolean>;
 
   view$: Observable<{
     data: any;
@@ -111,6 +113,7 @@ export class StudentClassDashboardComponent implements OnInit {
 
   onOpenMakeupClassModal(previousClass: any): void {
     this.classId = previousClass.id;
+    this._store.dispatch(fromCore.resetClassSlots());
     this._store.dispatch(fromStudentAction.openMakeupClassModal());
   }
 
@@ -127,6 +130,10 @@ export class StudentClassDashboardComponent implements OnInit {
   onChangeDate(date: Date): void {
     const body = { date: moment(date).format('Y-MM-DD'), id: this.classId };
     this._store.dispatch(fromCore.loadMakeupClassSlots({ body }));
+  }
+
+  onTutorAvailability(id: number): void {
+    this._store.dispatch(fromCore.loadTutorAvailability({ id: 1149 }));
   }
 
   onSubmitFeedback(form: FormGroup): void {
@@ -164,6 +171,14 @@ export class StudentClassDashboardComponent implements OnInit {
     this.isJoiningClass$ = this._store.select(fromCore.selectIsJoiningClass);
 
     this.timeSlots$ = this._store.select(fromCore.selectStudentTimeSlots);
+
+    this.tutorAvailability$ = this._store.select(
+      fromCore.selectTutorAvailability
+    );
+
+    this.isLoadingTutorAvailability$ = this._store.select(
+      fromCore.selectIsLoadingTutorAvailability
+    );
 
     this.isLoadingTimeSlots$ = this._store.select(
       fromCore.selectIsLoadingTimeSlots

@@ -446,6 +446,30 @@ export class StudentEffects {
     )
   );
 
+  loadTutorAvailability$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(studentActions.loadTutorAvailability),
+      mergeMap(({ id }) =>
+        this._studentService.loadTutorAvailability(id).pipe(
+          map((tutorAvailability) =>
+            studentActions.loadTutorAvailabilitySuccess({
+              tutorAvailability: camelcaseKeys(tutorAvailability, {
+                deep: true,
+              }),
+            })
+          ),
+          catchError((error) =>
+            of(
+              studentActions.loadTutorAvailabilityFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   studentMakeupClass$ = createEffect(() =>
     this._actions$.pipe(
       ofType(studentActions.studentMakeupClass),

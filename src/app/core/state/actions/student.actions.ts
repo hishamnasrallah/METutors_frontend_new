@@ -319,6 +319,8 @@ export const studentUpdatePreferencesFailure = createAction(
   props<{ error: any }>()
 );
 
+export const resetClassSlots = createAction('[Student] Reset Class Slots');
+
 export const loadMakeupClassSlots = createAction(
   '[Student] Load Makeup Class Slots',
   props<{ body: { date: string; id: number } }>()
@@ -362,5 +364,20 @@ export const studentAddNewClassSuccess = createAction(
 
 export const studentAddNewClassFailure = createAction(
   '[Student] Student Add New Class Failure',
+  props<{ error: any }>()
+);
+
+export const loadTutorAvailability = createAction(
+  '[Student] Load Tutor Availability',
+  props<{ id: number }>()
+);
+
+export const loadTutorAvailabilitySuccess = createAction(
+  '[Student] Load Tutor Availability Success',
+  props<{ tutorAvailability: any }>()
+);
+
+export const loadTutorAvailabilityFailure = createAction(
+  '[Student] Load Tutor Availability Failure',
   props<{ error: any }>()
 );

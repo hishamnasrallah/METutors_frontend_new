@@ -84,7 +84,10 @@ export class StudentsService {
   }
 
   studentAddNewClass(id: number, data: any): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}student/course/${id}/class`, data);
+    return this.http.post<any>(
+      `${this.baseUrl}student/course/${id}/class`,
+      data
+    );
   }
 
   errorHandler(error: HttpErrorResponse) {
@@ -162,6 +165,10 @@ export class StudentsService {
     return this.http.get<any>(
       `${this.baseUrl}student/class/${body.id}/makeup-slots?start_date=${body.date}`
     );
+  }
+
+  loadTutorAvailability(id: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}teacher/${id}/availability`);
   }
 
   studentMakeupClass(body: any): Observable<any> {

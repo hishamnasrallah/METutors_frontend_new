@@ -19,6 +19,7 @@ export interface State {
   preferences: any;
   feedbackOptions: any;
   classesDashboard: any;
+  tutorAvailability: any;
   isMakeupClass: boolean;
   isJoiningClass: boolean;
   student: IStudent | null;
@@ -36,6 +37,7 @@ export interface State {
   isLoadingStudentResources: boolean;
   isLoadingStudentDashboard: boolean;
   isLoadingStudentClassroom: boolean;
+  isLoadingTutorAvailability: boolean;
   isLoadingStudentAttendance: boolean;
   isLoadingStudentAssignment: boolean;
   isLoadingStudentAssignments: boolean;
@@ -61,6 +63,7 @@ export const initialState: State = {
   feedbackOptions: null,
   isJoiningClass: false,
   classesDashboard: null,
+  tutorAvailability: null,
   isLoadingStudents: false,
   isUpdatingProfile: false,
   isLoadingTimeSlots: false,
@@ -75,6 +78,7 @@ export const initialState: State = {
   isLoadingStudentDashboard: false,
   isLoadingStudentClassroom: false,
   isLoadingStudentAttendance: false,
+  isLoadingTutorAvailability: false,
   isLoadingStudentAssignment: false,
   isLoadingStudentAssignments: false,
   isLoadingStudentFeedbackOptions: false,
@@ -488,6 +492,11 @@ export const reducer = createReducer(
     isLoadingTimeSlots: false,
   })),
 
+  on(studentActions.resetClassSlots, (state) => ({
+    ...state,
+    timeSlots: [],
+  })),
+
   on(studentActions.studentMakeupClass, (state) => ({
     ...state,
     isMakeupClass: true,
@@ -516,6 +525,25 @@ export const reducer = createReducer(
   on(studentActions.studentAddNewClassFailure, (state) => ({
     ...state,
     isCreatingNewClass: false,
+  })),
+
+  on(studentActions.loadTutorAvailability, (state) => ({
+    ...state,
+    isLoadingTutorAvailability: true,
+  })),
+
+  on(
+    studentActions.loadTutorAvailabilitySuccess,
+    (state, { tutorAvailability }) => ({
+      ...state,
+      tutorAvailability,
+      isLoadingTutorAvailability: false,
+    })
+  ),
+
+  on(studentActions.loadTutorAvailabilityFailure, (state) => ({
+    ...state,
+    isLoadingTutorAvailability: false,
   }))
 );
 
@@ -614,7 +642,6 @@ export const selectIsLoadingStudentFeedbackOptions = (state: State): boolean =>
 
 export const selectIsSubmittingFeedback = (state: State): boolean =>
   state.isSubmittingFeedback;
-2;
 
 export const selectIsUpdatingStudentProfile = (state: State): boolean =>
   state.isUpdatingProfile;
@@ -630,6 +657,12 @@ export const selectIsLoadingTimeSlots = (state: State): boolean =>
 
 export const selectIsStudentMakeupClass = (state: State): boolean =>
   state.isMakeupClass;
+
+export const selectIsLoadingTutorAvailability = (state: State): boolean =>
+  state.isLoadingTutorAvailability;
+
+export const selectTutorAvailability = (state: State): boolean =>
+  state.tutorAvailability;
 
 export const selectStudentTimeSlots = (state: State): any => state.timeSlots;
 

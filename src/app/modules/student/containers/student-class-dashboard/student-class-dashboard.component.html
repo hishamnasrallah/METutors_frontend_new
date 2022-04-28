@@ -256,9 +256,11 @@
 
   <metutors-student-add-course-modal *ngIf="showAddCourseModal$ | async"
                                      [showModal]="(showAddCourseModal$ | async)!"
-                                     [price]="(price$ | async)!"
+                                     [isLoadingTimeSlots]="(isLoadingTutorAvailability$ | async)!"
+                                     [price]="(price$ | async)!" [timeSlots]="(tutorAvailability$ | async)!"
                                      (submitForm)="onAddCourse(view.data?.course?.id, $event)"
                                      [isCreating]="(isCreatingNewClass$ | async)!"
+                                     (tutorAvailability)="onTutorAvailability(view.data?.course?.teacher?.id)"
                                      (closeModal)="onCloseAddCourseModal()">
   </metutors-student-add-course-modal>
 

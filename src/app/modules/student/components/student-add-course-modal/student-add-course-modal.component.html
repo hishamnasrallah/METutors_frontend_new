@@ -1,7 +1,9 @@
-<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'large'" [heading]="heading" [subHeading]="subHeading"
-  [template]="template">
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'xmedium'" [heading]="heading"
+                [subHeading]="subHeading"
+                [template]="template">
   <ng-template #template>
-    <span *ngIf="step !== 3" class="availability position-absolute text-decoration-underline cursor-pointer" (click)="onTutorsAvailability()">Tutor Availability</span>
+    <span *ngIf="step !== 3" class="availability position-absolute text-decoration-underline cursor-pointer"
+          (click)="onTutorsAvailability()">Tutor Availability</span>
     <form [formGroup]="form" class="classroom-info">
       <ng-container *ngIf="step === 1">
         <div class="row">
@@ -9,7 +11,7 @@
             <h3>Classes Starting Date</h3>
             <mat-form-field appearance="outline" class="w-100">
               <input matInput [matDatepicker]="startPicker" [placeholder]="'Choose a Date'" (focus)="startPicker.open()"
-                [min]="minDate" (dateChange)="onChangeDateDay(); onChangeDate()" formControlName="startDate">
+                     [min]="minDate" (dateChange)="onChangeDateDay(); onChangeDate()" formControlName="startDate">
               <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
               <mat-datepicker #startPicker></mat-datepicker>
             </mat-form-field>
@@ -18,7 +20,8 @@
             <h3>Classes Ending Date</h3>
             <mat-form-field appearance="outline" class="w-100">
               <input matInput [matDatepicker]="endPicker" [placeholder]="'Choose a Date'" (focus)="endPicker.open()"
-                [min]="startDate?.value" (dateChange)="onChangeDateDay(); onChangeDate()" formControlName="endDate">
+                     [min]="startDate?.value" (dateChange)="onChangeDateDay(); onChangeDate()"
+                     formControlName="endDate">
               <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
               <mat-datepicker #endPicker></mat-datepicker>
             </mat-form-field>
@@ -29,9 +32,9 @@
             <h3>Classroom Days</h3>
             <mat-form-field appearance="outline" class="w-100">
               <mat-select formControlName="days" [placeholder]="'Choose Days'" multiple
-                (selectionChange)="onChangeDateDay()">
+                          (selectionChange)="onChangeDateDay()">
                 <mat-option [value]="day" [disabled]="checkDisabledDays(day)"
-                  *ngFor="let day of listDays; let i = index">
+                            *ngFor="let day of listDays; let i = index">
                   {{ day }}
                 </mat-option>
               </mat-select>
@@ -43,9 +46,9 @@
             <h3>Classes Starting Time</h3>
             <div class="ngx-timepicker-field-example">
               <input placeholder="Select Starting Time" aria-label="Select starting time" [ngxTimepicker]="startingTime"
-                formControlName="startTime" class="form-control">
+                     formControlName="startTime" class="form-control">
               <ngx-material-timepicker #startingTime [appendToInput]="true" [minutesGap]="30"
-                (closed)="onChangeTimePicker()">
+                                       (closed)="onChangeTimePicker()">
               </ngx-material-timepicker>
             </div>
           </div>
@@ -53,9 +56,9 @@
             <h3>Classes Ending Time</h3>
             <div class="ngx-timepicker-field-example">
               <input placeholder="Select Ending Time" aria-label="Select ending time" [ngxTimepicker]="endingTime"
-                formControlName="endTime" class="form-control">
+                     formControlName="endTime" class="form-control">
               <ngx-material-timepicker #endingTime [appendToInput]="true" [minutesGap]="30"
-                (closed)="onChangeTimePicker()">
+                                       (closed)="onChangeTimePicker()">
               </ngx-material-timepicker>
             </div>
           </div>
@@ -97,7 +100,7 @@
         <div class="row mt-4">
           <div class="col-12 overflow-hidden">
             <button mat-flat-button color="primary" class="float-end" [disabled]="form.invalid"
-              (click)="generateClassrooms(form)" type="submit">
+                    (click)="generateClassrooms(form)" type="submit">
               Next
             </button>
           </div>
@@ -123,7 +126,7 @@
                 <td>{{ classroom?.duration + 'hrs' }}</td>
                 <div class="actions">
                   <button mat-button class="delete-btn" *ngIf="classrooms.length > 1"
-                    (click)="deleteClassroom(classroom?.number)">
+                          (click)="deleteClassroom(classroom?.number)">
                     <mat-icon>delete</mat-icon>
                   </button>
                   <button mat-button class="edit-btn" (click)="editClassroom(classroom)">
@@ -154,7 +157,7 @@
           <div class="row mt-4">
             <div class="col-12 overflow-hidden">
               <button mat-flat-button color="primary" class="float-end" [disabled]="form.invalid || isCreating"
-                (click)="onSubmit(form)" type="submit">
+                      (click)="onSubmit(form)" type="submit">
                 Schedule
                 <mat-icon class="spinner" *ngIf="isCreating">autorenew</mat-icon>
               </button>
@@ -163,10 +166,54 @@
         </div>
       </ng-container>
 
-      <ng-container  *ngIf="step === 3">
+      <ng-container *ngIf="step === 3">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group mb-4">
+              <ng-container [ngSwitch]="isLoadingTimeSlots">
+                <ng-container *ngSwitchCase="true">
+                  <metutors-grid-placeholder></metutors-grid-placeholder>
+                </ng-container>
+
+                <ng-container *ngSwitchCase="false">
+                  <div *ngIf="!timeSlot" class="text-center fw-bold">No time slot found</div>
+                  <div class="row" *ngIf="timeSlot">
+                    <div class="col-4">
+                      <label class="text-secondary fw-bold">Starting Date</label>
+                      <p class="fw-bold">{{ timeSlot.startDate }}</p>
+                    </div>
+
+                    <div class="col-4">
+                      <label class="text-secondary fw-bold">Ending Date</label>
+                      <p class="fw-bold">{{ timeSlot.endDate }}</p>
+                    </div>
+
+                    <div class="col-4">
+                      <label class="text-secondary fw-bold">Days</label>
+                      <p class="fw-bold">Friday, Saturday, Sunday</p>
+                    </div>
+                  </div>
+
+                  <div class="row mt-3">
+                    <ng-container *ngFor="let key of objectKeys(availabilities)">
+                      <div class="col-2 fw-bold">{{ weekDayName[key] }}</div>
+
+                      <div class="col-10 time-box">
+                        <div class="slot" *ngFor="let slot of availabilities[key]">{{ slot.timeFrom }}
+                          to {{ slot.timeTo }}</div>
+                      </div>
+
+                    </ng-container>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+
         <div class="row mt-4">
           <div class="col-12 overflow-hidden">
-            <button mat-flat-button color="primary" class="float-end"  type="button" (click)="step = lastStep">Back</button>
+            <button mat-flat-button color="primary" class="float-end" type="button" (click)="goBack()">Back</button>
           </div>
         </div>
       </ng-container>

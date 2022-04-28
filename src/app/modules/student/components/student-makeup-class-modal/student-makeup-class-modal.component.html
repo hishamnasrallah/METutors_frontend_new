@@ -37,7 +37,7 @@
                 </ng-container>
 
                 <ng-container *ngSwitchCase="false">
-                  <div *ngIf="!timeSlots?.availabilities?.length" class="text-center fw-bold">Not time slot found</div>
+                  <div *ngIf="!timeSlots?.availabilities?.length" class="text-center fw-bold">No time slot found</div>
                   <div *ngIf="timeSlots?.availabilities?.length">
                     <div class="time-box">
                       <div *ngFor="let slot of timeSlots.availabilities; let i = index" [ngClass]="{'active': i == slotId}" class="slot" (click)="onTimeSlotSelect(slot, i)">

@@ -6,6 +6,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+
 import {
   trigger,
   state,
@@ -14,20 +15,26 @@ import {
   group,
   animate,
 } from '@angular/animations';
+
 import {
   AbstractControl,
   FormBuilder,
   FormGroup,
   Validators,
 } from '@angular/forms';
+
 import {
   LONG_DAYS_WEEK,
+  WEEK_FULL_DAYS,
   SORTED_DAYS_WEEK,
   calculateListDays,
   calculateDurationTime,
 } from '@metutor/config';
+
+import groupBy from 'lodash/groupBy';
 import { DatePipe } from '@angular/common';
 import { IClass } from '@metutor/core/models';
+
 import {
   MatDialog,
   MatDialogRef,
@@ -62,21 +69,34 @@ import {
   providers: [DatePipe],
 })
 export class StudentAddCourseModalComponent implements OnInit {
+  @Input() set timeSlots(slots: any) {
+    if (slots) {
+      this.timeSlot = slots;
+      this.availabilities = groupBy(slots.availabilites, 'day');
+    }
+  }
+
   @Input() price: number;
   @Input() isCreating: boolean;
   @Input() showModal: boolean = false;
+  @Input() isLoadingTimeSlots: boolean;
 
   @Output() submitForm: EventEmitter<any> = new EventEmitter<any>();
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
+  @Output() tutorAvailability: EventEmitter<void> = new EventEmitter<void>();
 
   step = 1;
   lastStep = 1;
+  timeSlot: any;
   form: FormGroup;
+  availabilities: any;
   minDate = new Date();
   classrooms!: IClass[];
+  objectKeys = Object.keys;
   listDays = LONG_DAYS_WEEK;
   heading = 'Add New Classes';
   daysSorted = SORTED_DAYS_WEEK;
+  weekDayName = WEEK_FULL_DAYS;
   subHeading = 'Please select classes date to view Tutors availability';
 
   constructor(
@@ -176,7 +196,8 @@ export class StudentAddCourseModalComponent implements OnInit {
       });
 
       this.step = 2;
-      this.heading = 'Please review new classes schedule';
+      this.lastStep = 2;
+      this.subHeading = 'Please review new classes schedule';
       this.classes?.setValidators([Validators.required]);
       this.classes?.setValue(this.classrooms);
       this.classes?.updateValueAndValidity();
@@ -191,6 +212,17 @@ export class StudentAddCourseModalComponent implements OnInit {
     this.step = 3;
     this.subHeading = '';
     this.heading = 'Tutor Availability';
+    this.tutorAvailability.emit();
+  }
+
+  goBack(): void {
+    this.step = this.lastStep;
+    this.heading = 'Add New Classes';
+
+    this.subHeading =
+      this.step === 1
+        ? 'Please select classes date to view Tutors availability'
+        : 'Please review new classes schedule';
   }
 
   onChangeDateDay(): void {
