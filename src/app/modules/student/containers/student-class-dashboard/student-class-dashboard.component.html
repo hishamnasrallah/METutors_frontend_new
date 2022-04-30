@@ -250,7 +250,7 @@
 
   <metutors-student-cancel-course-modal *ngIf="showCancelCourseModal$ | async"
                                         [showModal]="(showCancelCourseModal$ | async)!"
-                                        (closeModal)="onCloseFeedbackModal()"
+                                        (closeModal)="onCloseCancelCourseModal()"
                                         (submitted)="onSubmitCancelCourse($event)">
   </metutors-student-cancel-course-modal>
 
