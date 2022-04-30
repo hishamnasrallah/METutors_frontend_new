@@ -35,12 +35,12 @@ export class StudentCancelCourseModalComponent implements OnInit {
     } else {
       this.selectedClasses.splice(this.selectedClasses.indexOf(id), 1);
     }
-
-    console.log(this.selectedClasses);
   }
 
   goBack(): void {
+    this.form.reset();
     this.courseType = -1;
+    this.selectedClasses = [];
     this.heading = 'Cancel Course';
     this.hasSelectedClasses = false;
     this.subHeading = 'Select an option';
@@ -49,6 +49,8 @@ export class StudentCancelCourseModalComponent implements OnInit {
 
   onNextSelectedClassRefund(): void {
     this.hasSelectedClasses = true;
+    const params = this.selectedClasses;
+    this._store.dispatch(fromCore.studentRefundCourseClasses({ params }));
   }
 
   onCourseClassTypeSelect(courseType: any): void {
@@ -70,6 +72,23 @@ export class StudentCancelCourseModalComponent implements OnInit {
     }
   }
 
+  onSubmit(form: FormGroup): void {
+    const { reason, ...rest } = form.value;
+
+    let body: any = {
+      reason,
+    };
+
+    if (this.selectedClasses.length) {
+      body = {
+        ...body,
+        academic_classes: this.selectedClasses,
+      };
+    }
+
+    this.submitted.emit(body);
+  }
+
   ngOnInit(): void {
     this.isCanceling$ = this._store.select(fromCore.selectIsCancelingCourse);
 
@@ -83,7 +102,5 @@ export class StudentCancelCourseModalComponent implements OnInit {
       agree: [null, Validators.required],
       reason: [null, [Validators.required, Validators.minLength(10)]],
     });
-
-    this.form.valueChanges.subscribe(() => console.log(this.form));
   }
 }

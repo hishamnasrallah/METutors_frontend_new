@@ -141,8 +141,7 @@ export class StudentClassDashboardComponent implements OnInit {
     this._store.dispatch(fromCore.studentSubmitFeedback({ body }));
   }
 
-  onSubmitCancelCourse(form: FormGroup): void {
-    const body = form.value;
+  onSubmitCancelCourse(body: any): void {
     this._store.dispatch(fromCore.studentCancelCourse({ body }));
   }
 

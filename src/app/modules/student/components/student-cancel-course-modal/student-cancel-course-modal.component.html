@@ -2,7 +2,7 @@
                 [template]="template" [subHeading]="subHeading">
   <ng-template #template>
     <ng-container *ngLet="(view$ | async) as view">
-      <form class="row cancel-course-modal" [formGroup]="form" (ngSubmit)="submitted.emit(form)">
+      <form class="row cancel-course-modal" [formGroup]="form" (ngSubmit)="onSubmit(form)">
         <div class="col-md-12" *ngIf="courseType !== 1 && !hasSelectedClasses">
           <div class="form-group">
             <mat-radio-group class="d-flex flex-row mt-3" formControlName="courseType">
@@ -43,16 +43,16 @@
                 <span class="fw-bold mb-2 d-block">Summary:</span>
                 <div class="row mb-3">
                   <div class="col-md-6"><span class="text-secondary">Total classes</span></div>
-                  <div class="col-md-6 text-right">7</div>
+                  <div class="col-md-6 text-right">{{ view.refund?.totalClasses}}</div>
                 </div>
                 <hr class="text-secondary">
               </div>
 
               <div class="form-group mt-3">
                 <div class="row mb-3">
-                  <div class="col-md-6"><span class="text-secondary">Per class refunds </span></div>
-                  <div class="col-md-6 text-right"><span class="text-secondary">${{ view.refund?.perClassRefund }}
-                    *  {{ view.refund?.totalRefundableClasses}} = </span> ${{ view.refund?.totalRefunds}}</div>
+                  <div class="col-md-6"><span class="text-secondary">Per hour price </span></div>
+                  <div class="col-md-6 text-right"><span class="text-secondary">${{ view.refund?.perHourPrice }}
+                    *  {{ view.refund?.totalDuration}} = </span> ${{ view.refund?.subtotalRefunds}}</div>
                 </div>
 
                 <div class="row mb-4">
@@ -85,7 +85,7 @@
               <div class="row mt-2">
                 <div class="col-md-12 overflow-hidden">
                   <metutors-submit-button [form]="form" [isSubmitting]="isCanceling$ | async"
-                                          [isDisabled]="view.refund?.totalRefunds"
+                                          [isDisabled]="!view.refund?.totalRefunds"
                                           [extraClasses]="'float-end py-1 px-5'">
                     Confirm
                   </metutors-submit-button>

@@ -119,10 +119,14 @@ export const reducer = createReducer(
     showCancelCourseModal: true,
   })),
 
-  on(studentModalActions.closeCancelCourseModal, (state) => ({
-    ...state,
-    showCancelCourseModal: false,
-  })),
+  on(
+    fromCore.studentCancelCourseSuccess,
+    studentModalActions.closeCancelCourseModal,
+    (state) => ({
+      ...state,
+      showCancelCourseModal: false,
+    })
+  ),
 
   on(studentModalActions.openAddCourseModal, (state) => ({
     ...state,

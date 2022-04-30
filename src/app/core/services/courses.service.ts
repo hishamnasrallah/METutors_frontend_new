@@ -75,9 +75,12 @@ export class CoursesService {
     );
   }
 
-  getCourseClassRefund(courseId: number, params: any): Observable<any> {
+  getCourseClassRefund(courseId: number, classIds: any): Observable<any> {
+    //  const params = new HttpParams().set('academic_classes', classIds);
+    const params = { 'academic_classes[]': classIds };
     return this.http.get<any>(
-      `${this.baseUrl}student/refund/course/${courseId}?${params}`
+      `${this.baseUrl}student/refund/course/${courseId}/classes`,
+      { params }
     );
   }
 
