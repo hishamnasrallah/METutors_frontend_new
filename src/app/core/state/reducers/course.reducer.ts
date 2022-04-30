@@ -102,7 +102,7 @@ export const reducer = createReducer(
         const nonRefundableClasses =
           finalState.courseRefund?.nonRefundableClasses.map((cls: any) => ({
             ...cls,
-            isNonRefundable: true,
+            isNonRefundable: false,
           }));
 
         const refundableClasses =

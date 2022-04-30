@@ -3,7 +3,7 @@
   <ng-template #template>
     <ng-container *ngLet="(view$ | async) as view">
       <form class="row cancel-course-modal" [formGroup]="form" (ngSubmit)="submitted.emit(form)">
-        <div class="col-md-12" *ngIf="courseType !== 1">
+        <div class="col-md-12" *ngIf="courseType !== 1 && !hasSelectedClasses">
           <div class="form-group">
             <mat-radio-group class="d-flex flex-row mt-3" formControlName="courseType">
               <div class="col-md-6">
@@ -16,11 +16,11 @@
           </div>
         </div>
 
-        <ng-container *ngIf="courseType === 1">
+        <ng-container *ngIf="courseType === 1 || hasSelectedClasses">
           <ng-container [ngSwitch]="view.loading">
             <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
             <div class="col-12 mt-4" *ngSwitchCase="false">
-              <div class="form-group">
+              <div class="form-group" *ngIf="courseType === 1">
                 <span class="fw-bold mb-2 d-block">Summary:</span>
                 <div class="row">
                   <div class="col-md-6 mb-2"><span
@@ -36,6 +36,15 @@
                     class="text-secondary">Non Refundable classes: </span> {{ view.refund?.nonRefundableClasses}}</div>
                 </div>
                 <span class="note text-danger">*We will pay back only refundable classes</span>
+                <hr class="text-secondary">
+              </div>
+
+              <div class="form-group" *ngIf="hasSelectedClasses">
+                <span class="fw-bold mb-2 d-block">Summary:</span>
+                <div class="row mb-3">
+                  <div class="col-md-6"><span class="text-secondary">Total classes</span></div>
+                  <div class="col-md-6 text-right">7</div>
+                </div>
                 <hr class="text-secondary">
               </div>
 
@@ -88,7 +97,7 @@
           </ng-container>
         </ng-container>
 
-        <ng-container *ngIf="courseType === 2">
+        <ng-container *ngIf="courseType === 2 && !hasSelectedClasses">
           <ng-container [ngSwitch]="view.loading">
             <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
             <div class="col-12 mt-4" *ngSwitchCase="false">
@@ -112,7 +121,8 @@
                   <td>{{ allClass?.title }}</td>
                   <td>{{ allClass?.startDate }}</td>
                   <td>
-                    <mat-checkbox formControlName="academic_classes" [value]="allClass?.id" [disabled]="allClass?.isNonRefundable"></mat-checkbox>
+                    <mat-checkbox [value]="allClass?.id" [id]="allClass?.id" (change)="onClassSelect($event, allClass?.id)"
+                                  [disabled]="allClass?.isNonRefundable"></mat-checkbox>
                   </td>
                 </tr>
                 </tbody>
@@ -124,7 +134,8 @@
 
               <div class="row mt-2">
                 <div class="col-md-12 overflow-hidden">
-                  <button mat-flat-button color="primary" [disabled]="!view.refund.refundableClasses?.length" type="button" class="float-end py-1 px-5">
+                  <button mat-flat-button color="primary" [disabled]="!selectedClasses.length"
+                          type="button" class="float-end py-1 px-5" (click)="onNextSelectedClassRefund()"> <!--[disabled]="!view.refund.refundableClasses?.length"-->
                     Next
                   </button>
 

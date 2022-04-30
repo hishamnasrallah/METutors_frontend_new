@@ -20,16 +20,35 @@ export class StudentCancelCourseModalComponent implements OnInit {
   form: FormGroup;
   courseType = -1;
   heading = 'Cancel Course';
+  hasSelectedClasses: boolean;
   subHeading = 'Select an option';
+  selectedClasses: number[] = [];
   isCanceling$: Observable<boolean>;
 
   view$: Observable<{ loading: boolean; refund: any }>;
 
   constructor(private _store: Store<any>, private _formBuilder: FormBuilder) {}
 
+  onClassSelect(event: any, id: number): void {
+    if (event?.checked) {
+      this.selectedClasses.push(id);
+    } else {
+      this.selectedClasses.splice(this.selectedClasses.indexOf(id), 1);
+    }
+
+    console.log(this.selectedClasses);
+  }
+
   goBack(): void {
     this.courseType = -1;
+    this.heading = 'Cancel Course';
+    this.hasSelectedClasses = false;
+    this.subHeading = 'Select an option';
     this.form.get('courseType')?.setValue(null);
+  }
+
+  onNextSelectedClassRefund(): void {
+    this.hasSelectedClasses = true;
   }
 
   onCourseClassTypeSelect(courseType: any): void {
@@ -43,6 +62,8 @@ export class StudentCancelCourseModalComponent implements OnInit {
         fromCore.studentRefundCourse({ refundType: 'complete_course' })
       );
     } else {
+      this.heading = 'Cancel Course';
+      this.subHeading = 'Select an option';
       this._store.dispatch(
         fromCore.studentRefundCourse({ refundType: 'selected_classes' })
       );
@@ -60,7 +81,6 @@ export class StudentCancelCourseModalComponent implements OnInit {
     this.form = this._formBuilder.group({
       courseType: [null],
       agree: [null, Validators.required],
-      academic_classes: [null, Validators.required],
       reason: [null, [Validators.required, Validators.minLength(10)]],
     });
 
