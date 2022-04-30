@@ -1,20 +1,140 @@
-<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'large'" [heading]="'Please type your reason to cancel the  course below'"
-                [template]="template">
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'xmedium'" [heading]="heading"
+                [template]="template" [subHeading]="subHeading">
   <ng-template #template>
-    <form class="row leave-feedback-modal" [formGroup]="form" (ngSubmit)="submitted.emit(form)">
-      <div class="col-12">
-        <div class="form-group">
-          <textarea class="form-control custom-input input-bordered" formControlName="reason" id="exampleFormControlTextarea1" rows="10" placeholder="Enter the reason here..."></textarea>
-        </div>
-
-        <div class="row mt-2">
-          <div class="col-md-12 overflow-hidden">
-            <metutors-submit-button [form]="form" [isSubmitting]="isCanceling$ | async" [extraClasses]="'float-end py-1 px-5'">
-              Submit
-            </metutors-submit-button>
+    <ng-container *ngLet="(view$ | async) as view">
+      <form class="row cancel-course-modal" [formGroup]="form" (ngSubmit)="submitted.emit(form)">
+        <div class="col-md-12" *ngIf="courseType !== 1">
+          <div class="form-group">
+            <mat-radio-group class="d-flex flex-row mt-3" formControlName="courseType">
+              <div class="col-md-6">
+                <mat-radio-button value="1" (change)="onCourseClassTypeSelect(1)">Complete Course</mat-radio-button>
+              </div>
+              <div class="col-md-6">
+                <mat-radio-button value="2" (change)="onCourseClassTypeSelect(2)">Selective Classes</mat-radio-button>
+              </div>
+            </mat-radio-group>
           </div>
         </div>
-      </div>
-    </form>
+
+        <ng-container *ngIf="courseType === 1">
+          <ng-container [ngSwitch]="view.loading">
+            <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
+            <div class="col-12 mt-4" *ngSwitchCase="false">
+              <div class="form-group">
+                <span class="fw-bold mb-2 d-block">Summary:</span>
+                <div class="row">
+                  <div class="col-md-6 mb-2"><span
+                    class="text-secondary">Total classes: </span> {{ view.refund?.totalClasses}}</div>
+                  <div class="col-md-6"><span
+                    class="text-secondary">Remaining classes: </span> {{ view.refund?.remainingClasses}}</div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6"><span
+                    class="text-secondary">Refundable classes: </span> {{ view.refund?.totalRefundableClasses}}</div>
+                  <div class="col-md-6"><span
+                    class="text-secondary">Non Refundable classes: </span> {{ view.refund?.nonRefundableClasses}}</div>
+                </div>
+                <span class="note text-danger">*We will pay back only refundable classes</span>
+                <hr class="text-secondary">
+              </div>
+
+              <div class="form-group mt-3">
+                <div class="row mb-3">
+                  <div class="col-md-6"><span class="text-secondary">Per class refunds </span></div>
+                  <div class="col-md-6 text-right"><span class="text-secondary">${{ view.refund?.perClassRefund }}
+                    *  {{ view.refund?.totalRefundableClasses}} = </span> ${{ view.refund?.totalRefunds}}</div>
+                </div>
+
+                <div class="row mb-4">
+                  <div class="col-md-6"><span class="text-secondary">Service fee per class </span></div>
+                  <div class="col-md-6 text-right"><span class="text-secondary">${{view.refund?.serviceFee}}
+                    * {{ view.refund?.totalRefundableClasses}} = </span> - ${{ view.refund?.totalServiceFee}}</div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6">Total Refunds</div>
+                  <div class="col-md-6 text-right">${{ view.refund?.totalRefunds}}</div>
+                </div>
+              </div>
+
+              <div class="form-group mt-2">
+                <label>Why you want to cancel this course?</label>
+                <textarea class="form-control custom-input input-bordered" formControlName="reason"
+                          id="exampleFormControlTextarea1" rows="5" placeholder="Enter the reason here..."></textarea>
+              </div>
+
+              <div class="form-group mt-2">
+                <mat-checkbox formControlName="agree">I agree to METutors <a href="" target="_blank">cancel policy</a>
+                </mat-checkbox>
+              </div>
+
+              <div class="form-group mt-2" *ngIf="!view.refund?.totalRefunds">
+                <div class="alert-warning p-3">No refundable class found</div>
+              </div>
+
+              <div class="row mt-2">
+                <div class="col-md-12 overflow-hidden">
+                  <metutors-submit-button [form]="form" [isSubmitting]="isCanceling$ | async"
+                                          [isDisabled]="view.refund?.totalRefunds"
+                                          [extraClasses]="'float-end py-1 px-5'">
+                    Confirm
+                  </metutors-submit-button>
+
+                  <span class="back-button float-end text-secondary cursor-pointer" (click)="goBack()">Back</span>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+
+        <ng-container *ngIf="courseType === 2">
+          <ng-container [ngSwitch]="view.loading">
+            <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
+            <div class="col-12 mt-4" *ngSwitchCase="false">
+              <ng-container *ngIf="!view.refund.allClasses?.length">
+                <div class="p-5 text-center">No record found</div>
+              </ng-container>
+
+              <table class="table refund-classes"
+                     *ngIf="view.refund.nonRefundableClasses?.length || view.refund.refundableClasses?.length">
+                <thead>
+                <tr>
+                  <th scope="col" class="text-secondary">Class Number</th>
+                  <th scope="col" class="text-secondary">Class Subject</th>
+                  <th scope="col" class="text-secondary">Class Days</th>
+                  <th scope="col" class="text-secondary">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let allClass of view.refund.allClasses; let i = index">
+                  <td>{{ i + 1}}</td>
+                  <td>{{ allClass?.title }}</td>
+                  <td>{{ allClass?.startDate }}</td>
+                  <td>
+                    <mat-checkbox formControlName="academic_classes" [value]="allClass?.id" [disabled]="allClass?.isNonRefundable"></mat-checkbox>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+
+              <div class="form-group mt-2" *ngIf="!view.refund.refundableClasses?.length">
+                <div class="alert-warning p-3">No refundable class found</div>
+              </div>
+
+              <div class="row mt-2">
+                <div class="col-md-12 overflow-hidden">
+                  <button mat-flat-button color="primary" [disabled]="!view.refund.refundableClasses?.length" type="button" class="float-end py-1 px-5">
+                    Next
+                  </button>
+
+                  <span class="back-button float-end text-secondary cursor-pointer" (click)="goBack()">Back</span>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+      </form>
+    </ng-container>
   </ng-template>
 </metutors-modal>

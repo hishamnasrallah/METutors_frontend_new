@@ -17,6 +17,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -122,6 +123,7 @@ import {
     MatTooltipModule,
     BsDropdownModule,
     MatFormFieldModule,
+    MatCheckboxModule,
     ReactiveFormsModule,
     MatDatepickerModule,
     NgxAutoScrollModule,

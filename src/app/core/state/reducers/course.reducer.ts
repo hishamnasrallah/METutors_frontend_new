@@ -91,11 +91,34 @@ export const reducer = createReducer(
   on(
     courseActions.studentRefundCourseSuccess,
     courseActions.studentRefundCourseClassesSuccess,
-    (state, { courseRefund }) => ({
-      ...state,
-      courseRefund,
-      isLoadingRefundCourse: false,
-    })
+    (state, { courseRefund }) => {
+      const finalState = {
+        ...state,
+        courseRefund,
+        isLoadingRefundCourse: false,
+      };
+
+      if (finalState.courseRefund.hasOwnProperty('refundableClasses')) {
+        const nonRefundableClasses =
+          finalState.courseRefund?.nonRefundableClasses.map((cls: any) => ({
+            ...cls,
+            isNonRefundable: true,
+          }));
+
+        const refundableClasses =
+          finalState.courseRefund?.refundableClasses.map((cls: any) => ({
+            ...cls,
+            isNonRefundable: false,
+          }));
+
+        finalState.courseRefund = {
+          ...finalState.courseRefund,
+          allClasses: [...nonRefundableClasses, ...refundableClasses],
+        };
+      }
+
+      return finalState;
+    }
   ),
 
   on(

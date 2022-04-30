@@ -121,7 +121,6 @@ export class AdminEffects {
           ]
         ),
         map((action) => {
-          console.log('action', action);
           if (action?.error) {
             return this._alertNotificationService.error(action.error);
           } else {

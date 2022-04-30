@@ -116,7 +116,6 @@ export const reducer = createReducer(
       ...state,
     };
 
-    console.log(avatar);
     if (finalState.student) {
       finalState.student = {
         ...finalState.student,

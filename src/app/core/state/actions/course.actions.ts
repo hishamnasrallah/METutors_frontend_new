@@ -96,7 +96,7 @@ export const studentRefundCourse = createAction(
 
 export const studentRefundCourseSuccess = createAction(
   '[Student] Student Refund Course Success',
-  props<{ courseRefund: string }>()
+  props<{ courseRefund: any }>()
 );
 
 export const studentRefundCourseFailure = createAction(
@@ -111,7 +111,7 @@ export const studentRefundCourseClasses = createAction(
 
 export const studentRefundCourseClassesSuccess = createAction(
   '[Student] Student Refund Course Classes Success',
-  props<{ courseRefund: string }>()
+  props<{ courseRefund: any }>()
 );
 
 export const studentRefundCourseClassesFailure = createAction(

@@ -123,7 +123,6 @@ export class StudentClassroomsComponent implements OnInit {
   }
 
   private _parseCourse(courses: any): any {
-    console.log(courses);
     return courses?.map((course: any) => {
       const completedClasses = course?.classes.filter(
         (item: any) => item.status === 'completed'
