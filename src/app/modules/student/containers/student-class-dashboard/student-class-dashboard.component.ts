@@ -142,8 +142,8 @@ export class StudentClassDashboardComponent implements OnInit {
   }
 
   onSubmitCancelCourse(form: FormGroup): void {
-    const reason = form.value;
-    this._store.dispatch(fromCore.studentCancelCourse({ reason }));
+    const body = form.value;
+    this._store.dispatch(fromCore.studentCancelCourse({ body }));
   }
 
   ngOnInit(): void {
