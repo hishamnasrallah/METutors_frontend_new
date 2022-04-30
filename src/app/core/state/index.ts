@@ -982,6 +982,16 @@ export const selectCourseById = createSelector(
   fromCourseReducer.selectCourseById
 );
 
+export const selectStudentCourseRefund = createSelector(
+  selectCourseState,
+  fromCourseReducer.selectStudentCourseRefund
+);
+
+export const selectIsLoadingRefundCourse = createSelector(
+  selectCourseState,
+  fromCourseReducer.selectIsLoadingRefundCourse
+);
+
 export const selectExploredCourses = createSelector(
   selectCourseState,
   fromCourseReducer.selectExploredCourses

@@ -7,11 +7,13 @@ import * as courseActions from '../actions/course.actions';
 
 export interface State {
   courses: any;
+  courseRefund: any;
   isLoadingCourses: boolean;
   isRejectingCourse: boolean;
   isAcceptingCourse: boolean;
   isCancelingCourse: boolean;
   loadingCoursesFailure: string;
+  isLoadingRefundCourse: boolean;
 
   // Course by id
   course: any | null;
@@ -25,6 +27,7 @@ export interface State {
 export const initialState: State = {
   course: null,
   courses: null,
+  courseRefund: null,
   exploredCourses: null,
   isLoadingCourse: false,
   isLoadingCourses: false,
@@ -32,6 +35,7 @@ export const initialState: State = {
   isAcceptingCourse: false,
   isCancelingCourse: false,
   loadingCoursesFailure: '',
+  isLoadingRefundCourse: false,
   isLoadingExploreCourses: false,
 };
 
@@ -73,6 +77,22 @@ export const reducer = createReducer(
   on(courseActions.loadCourseByIdFailure, (state) => ({
     ...state,
     isLoadingCourse: false,
+  })),
+
+  on(courseActions.studentRefundCourse, (state) => ({
+    ...state,
+    isLoadingRefundCourse: true,
+  })),
+
+  on(courseActions.studentRefundCourseSuccess, (state, { courseRefund }) => ({
+    ...state,
+    courseRefund,
+    isLoadingRefundCourse: false,
+  })),
+
+  on(courseActions.studentRefundCourseFailure, (state) => ({
+    ...state,
+    isLoadingRefundCourse: false,
   })),
 
   on(courseActions.exploreCourses, (state) => ({
@@ -222,6 +242,12 @@ export const reducer = createReducer(
 export const selectCourses = (state: State): any => state.courses;
 
 export const selectCourseById = (state: State): ICourse | null => state.course;
+
+export const selectStudentCourseRefund = (state: State): ICourse | null =>
+  state.courseRefund;
+
+export const selectIsLoadingRefundCourse = (state: State): any =>
+  state.isLoadingRefundCourse;
 
 export const selectExploredCourses = (state: State): any =>
   state.exploredCourses;

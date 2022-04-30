@@ -4,13 +4,13 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 
-import { selectCourses, selectExploredCourses } from '..';
+import { selectCourses } from '..';
+import { Router } from '@angular/router';
 import camelcaseKeys from 'camelcase-keys';
 import { CoursesService } from '@services';
 import * as fromRouterStore from '@metutor/state';
 import * as courseActions from '../actions/course.actions';
 import { AlertNotificationService } from '@metutor/core/components';
-import { Router } from '@angular/router';
 
 @Injectable()
 export class CourseEffects {
@@ -55,6 +55,29 @@ export class CourseEffects {
           catchError((error) =>
             of(
               courseActions.loadCourseByIdFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  studentCourseRefund$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(courseActions.studentRefundCourse),
+      withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
+      mergeMap(([{ refundType }, { id }]) =>
+        this._courseService.getCourseRefund(id, refundType).pipe(
+          map((courseRefund) =>
+            courseActions.studentRefundCourseSuccess({
+              courseRefund: camelcaseKeys(courseRefund, { deep: true }),
+            })
+          ),
+          catchError((error) =>
+            of(
+              courseActions.studentRefundCourseFailure({
                 error: error?.error?.message || error?.error?.errors,
               })
             )
