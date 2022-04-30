@@ -176,8 +176,8 @@
                 </ng-container>
 
                 <ng-container *ngSwitchCase="false">
-                  <div *ngIf="!timeSlot" class="text-center fw-bold">No time slot found</div>
-                  <div class="row" *ngIf="timeSlot">
+                  <div *ngIf="!availabilities" class="text-center fw-bold">No time slot found</div>
+                  <div class="row" *ngIf="availabilities">
                     <div class="col-4">
                       <label class="text-secondary fw-bold">Starting Date</label>
                       <p class="fw-bold">{{ timeSlot.startDate }}</p>
@@ -190,7 +190,7 @@
 
                     <div class="col-4">
                       <label class="text-secondary fw-bold">Days</label>
-                      <p class="fw-bold">Friday, Saturday, Sunday</p>
+                      <p class="fw-bold">{{ weekDays.toString() }}</p>
                     </div>
                   </div>
 

@@ -1,29 +1,30 @@
 import {
-  Component,
-  EventEmitter,
   Inject,
   Input,
   OnInit,
   Output,
+  Component,
+  EventEmitter,
 } from '@angular/core';
 
 import {
-  trigger,
   state,
   style,
-  transition,
   group,
+  trigger,
   animate,
+  transition,
 } from '@angular/animations';
 
 import {
-  AbstractControl,
-  FormBuilder,
   FormGroup,
   Validators,
+  FormBuilder,
+  AbstractControl,
 } from '@angular/forms';
 
 import {
+  WEEK_DAYS,
   LONG_DAYS_WEEK,
   WEEK_FULL_DAYS,
   SORTED_DAYS_WEEK,
@@ -73,6 +74,12 @@ export class StudentAddCourseModalComponent implements OnInit {
     if (slots) {
       this.timeSlot = slots;
       this.availabilities = groupBy(slots.availabilites, 'day');
+
+      if (slots?.weekdays?.length) {
+        slots.weekdays.forEach((day: any) =>
+          this.weekDays.push(WEEK_DAYS[day])
+        );
+      }
     }
   }
 
@@ -90,6 +97,7 @@ export class StudentAddCourseModalComponent implements OnInit {
   timeSlot: any;
   form: FormGroup;
   availabilities: any;
+  weekDays: any[] = [];
   minDate = new Date();
   classrooms!: IClass[];
   objectKeys = Object.keys;

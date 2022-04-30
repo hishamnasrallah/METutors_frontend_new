@@ -133,7 +133,7 @@ export class StudentClassDashboardComponent implements OnInit {
   }
 
   onTutorAvailability(id: number): void {
-    this._store.dispatch(fromCore.loadTutorAvailability({ id: 1149 }));
+    this._store.dispatch(fromCore.loadTutorAvailability({ id }));
   }
 
   onSubmitFeedback(form: FormGroup): void {
