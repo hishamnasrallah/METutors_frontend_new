@@ -104,9 +104,24 @@ export const studentRefundCourseFailure = createAction(
   props<{ error: any }>()
 );
 
+export const studentRefundCourseClasses = createAction(
+  '[Student] Student Refund Course Classes',
+  props<{ params: any }>()
+);
+
+export const studentRefundCourseClassesSuccess = createAction(
+  '[Student] Student Refund Course Classes Success',
+  props<{ courseRefund: string }>()
+);
+
+export const studentRefundCourseClassesFailure = createAction(
+  '[Student] Student Refund Course Classes Failure',
+  props<{ error: any }>()
+);
+
 export const studentCancelCourse = createAction(
   '[Student] Student Cancel Course',
-  props<{ reason: string }>()
+  props<{ body: any }>()
 );
 
 export const studentCancelCourseSuccess = createAction(

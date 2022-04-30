@@ -79,21 +79,33 @@ export const reducer = createReducer(
     isLoadingCourse: false,
   })),
 
-  on(courseActions.studentRefundCourse, (state) => ({
-    ...state,
-    isLoadingRefundCourse: true,
-  })),
+  on(
+    courseActions.studentRefundCourse,
+    courseActions.studentRefundCourseClasses,
+    (state) => ({
+      ...state,
+      isLoadingRefundCourse: true,
+    })
+  ),
 
-  on(courseActions.studentRefundCourseSuccess, (state, { courseRefund }) => ({
-    ...state,
-    courseRefund,
-    isLoadingRefundCourse: false,
-  })),
+  on(
+    courseActions.studentRefundCourseSuccess,
+    courseActions.studentRefundCourseClassesSuccess,
+    (state, { courseRefund }) => ({
+      ...state,
+      courseRefund,
+      isLoadingRefundCourse: false,
+    })
+  ),
 
-  on(courseActions.studentRefundCourseFailure, (state) => ({
-    ...state,
-    isLoadingRefundCourse: false,
-  })),
+  on(
+    courseActions.studentRefundCourseFailure,
+    courseActions.studentRefundCourseClassesFailure,
+    (state) => ({
+      ...state,
+      isLoadingRefundCourse: false,
+    })
+  ),
 
   on(courseActions.exploreCourses, (state) => ({
     ...state,

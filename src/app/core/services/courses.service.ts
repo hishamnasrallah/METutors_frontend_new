@@ -48,12 +48,6 @@ export class CoursesService {
     );
   }
 
-  getCourseRefund(courseId: number, refundType: string): Observable<any> {
-    return this.http.get<any>(
-      `${this.baseUrl}student/refund/course/${courseId}?${refundType}`
-    );
-  }
-
   acceptCourse(payload: { courseId: number }): Observable<any> {
     return this.http.post<{ dashboard: any }>(
       `${this.baseUrl}course/accept/${payload.courseId}`,
@@ -75,8 +69,20 @@ export class CoursesService {
     );
   }
 
+  getCourseRefund(courseId: number, refundType: string): Observable<any> {
+    return this.http.get<any>(
+      `${this.baseUrl}student/refund/course/${courseId}?${refundType}`
+    );
+  }
+
+  getCourseClassRefund(courseId: number, params: any): Observable<any> {
+    return this.http.get<any>(
+      `${this.baseUrl}student/refund/course/${courseId}?${params}`
+    );
+  }
+
   studentCancelCourse(body: string, courseId: number): Observable<any> {
-    return this.http.post<{ dashboard: any }>(
+    return this.http.post<any>(
       `${this.baseUrl}student/course/${courseId}/cancel`,
       body
     );

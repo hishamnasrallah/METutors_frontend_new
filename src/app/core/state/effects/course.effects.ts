@@ -64,29 +64,6 @@ export class CourseEffects {
     )
   );
 
-  studentCourseRefund$ = createEffect(() =>
-    this._actions$.pipe(
-      ofType(courseActions.studentRefundCourse),
-      withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
-      mergeMap(([{ refundType }, { id }]) =>
-        this._courseService.getCourseRefund(id, refundType).pipe(
-          map((courseRefund) =>
-            courseActions.studentRefundCourseSuccess({
-              courseRefund: camelcaseKeys(courseRefund, { deep: true }),
-            })
-          ),
-          catchError((error) =>
-            of(
-              courseActions.studentRefundCourseFailure({
-                error: error?.error?.message || error?.error?.errors,
-              })
-            )
-          )
-        )
-      )
-    )
-  );
-
   exploreCourses$ = createEffect(() =>
     this._actions$.pipe(
       ofType(courseActions.exploreCourses),
@@ -182,12 +159,59 @@ export class CourseEffects {
     )
   );
 
+  // Cancel course
+  studentCourseRefund$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(courseActions.studentRefundCourse),
+      withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
+      mergeMap(([{ refundType }, { id }]) =>
+        this._courseService.getCourseRefund(id, refundType).pipe(
+          map((courseRefund) =>
+            courseActions.studentRefundCourseSuccess({
+              courseRefund: camelcaseKeys(courseRefund, { deep: true }),
+            })
+          ),
+          catchError((error) =>
+            of(
+              courseActions.studentRefundCourseFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  studentCourseClassRefund$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(courseActions.studentRefundCourseClasses),
+      withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
+      mergeMap(([{ params }, { id }]) =>
+        this._courseService.getCourseClassRefund(id, params).pipe(
+          map((courseRefund) =>
+            courseActions.studentRefundCourseClassesSuccess({
+              courseRefund: camelcaseKeys(courseRefund, { deep: true }),
+            })
+          ),
+          catchError((error) =>
+            of(
+              courseActions.studentRefundCourseClassesFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   studentCancelCourse$ = createEffect(() =>
     this._actions$.pipe(
       ofType(courseActions.studentCancelCourse),
       withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
-      mergeMap(([{ reason }, { id }]) =>
-        this._courseService.studentCancelCourse(reason, id).pipe(
+      mergeMap(([{ body }, { id }]) =>
+        this._courseService.studentCancelCourse(body, id).pipe(
           map(() =>
             courseActions.studentCancelCourseSuccess({
               message: 'Course has been successfully canceled',
