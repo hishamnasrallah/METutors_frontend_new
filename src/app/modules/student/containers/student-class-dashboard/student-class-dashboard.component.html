@@ -272,4 +272,10 @@
                                        (closeModal)="onCloseMakeupClassModal()"
                                        (submitted)="onSubmitMakeupClass($event)">
   </metutors-student-makeup-class-modal>
+
+  <metutors-student-cancel-course-success-modal *ngIf="cancelCourseSuccessModal$ | async"
+                                                [amount]="(refundAmount$ | async)!"
+                                                [showModal]="(cancelCourseSuccessModal$ | async)!"
+                                                (submitted)="onCancelCourseSuccess()">
+  </metutors-student-cancel-course-success-modal>
 </ng-container>

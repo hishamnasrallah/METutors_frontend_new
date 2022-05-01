@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import * as fromCore from '@metutor/core/state';
+import * as fromStudentAction from '../../state/actions';
 
 @Component({
   selector: 'metutors-student-cancel-course-modal',
@@ -72,7 +73,9 @@ export class StudentCancelCourseModalComponent implements OnInit {
     }
   }
 
-  onSubmit(form: FormGroup): void {
+  onSubmit(form: FormGroup, refundAmount: number): void {
+    const params = { refundAmount };
+    this._store.dispatch(fromStudentAction.setStudentStateParams({ params }));
     const { reason, ...rest } = form.value;
 
     let body: any = {

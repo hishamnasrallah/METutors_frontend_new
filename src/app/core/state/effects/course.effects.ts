@@ -212,11 +212,7 @@ export class CourseEffects {
       withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
       mergeMap(([{ body }, { id }]) =>
         this._courseService.studentCancelCourse(body, id).pipe(
-          map(() =>
-            courseActions.studentCancelCourseSuccess({
-              message: 'Course has been successfully canceled',
-            })
-          ),
+          map(() => courseActions.studentCancelCourseSuccess()),
           catchError((error) =>
             of(
               courseActions.studentCancelCourseFailure({
@@ -248,7 +244,6 @@ export class CourseEffects {
             courseActions.tutorAcceptCourseSuccess,
             courseActions.tutorRejectCourseSuccess,
             courseActions.tutorCancelCourseSuccess,
-            courseActions.studentCancelCourseSuccess,
           ]
         ),
         map(({ message }) => this._alertNotificationService.success(message))

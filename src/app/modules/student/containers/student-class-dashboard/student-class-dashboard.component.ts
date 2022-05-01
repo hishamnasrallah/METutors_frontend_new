@@ -1,5 +1,6 @@
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { combineLatest, Observable } from 'rxjs';
@@ -19,6 +20,7 @@ import * as fromStudentAction from '../../state/actions';
 export class StudentClassDashboardComponent implements OnInit {
   classId: number;
   timeSlots$: Observable<any>;
+  refundAmount$: Observable<any>;
   price$: Observable<number | null>;
   isMakeupClass$: Observable<boolean>;
   tutorAvailability$: Observable<any>;
@@ -30,6 +32,7 @@ export class StudentClassDashboardComponent implements OnInit {
   showMakeupClassModal$: Observable<boolean>;
   showCancelCourseModal$: Observable<boolean>;
   showSendFeedbackModal$: Observable<boolean>;
+  cancelCourseSuccessModal$: Observable<boolean>;
   isLoadingTutorAvailability$: Observable<boolean>;
 
   view$: Observable<{
@@ -37,7 +40,11 @@ export class StudentClassDashboardComponent implements OnInit {
     loading: boolean;
   }>;
 
-  constructor(private _store: Store<any>, private _datePipe: DatePipe) {}
+  constructor(
+    private _router: Router,
+    private _store: Store<any>,
+    private _datePipe: DatePipe
+  ) {}
 
   getHours(date: string) {
     const startDate = new Date();
@@ -145,6 +152,11 @@ export class StudentClassDashboardComponent implements OnInit {
     this._store.dispatch(fromCore.studentCancelCourse({ body }));
   }
 
+  onCancelCourseSuccess(): void {
+    this._store.dispatch(fromStudentAction.closeCancelCourseSuccessModal());
+    this._router.navigate(['/student/classrooms']);
+  }
+
   ngOnInit(): void {
     this._store.dispatch(fromCore.loadStudentClassesDashboard());
     this.showAttendanceModal$ = this._store.select(
@@ -189,6 +201,14 @@ export class StudentClassDashboardComponent implements OnInit {
 
     this.isCreatingNewClass$ = this._store.select(
       fromCore.selectIsCreatingNewClass
+    );
+
+    this.cancelCourseSuccessModal$ = this._store.select(
+      fromStudent.selectCancelCourseSuccessModal
+    );
+
+    this.refundAmount$ = this._store.select(
+      fromStudent.selectStudentStateParams
     );
 
     this.price$ = this._store.select(fromCore.selectEstimatedPrice);

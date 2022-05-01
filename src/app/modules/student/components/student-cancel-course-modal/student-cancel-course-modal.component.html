@@ -2,7 +2,7 @@
                 [template]="template" [subHeading]="subHeading">
   <ng-template #template>
     <ng-container *ngLet="(view$ | async) as view">
-      <form class="row cancel-course-modal" [formGroup]="form" (ngSubmit)="onSubmit(form)">
+      <form class="row cancel-course-modal" [formGroup]="form" (ngSubmit)="onSubmit(form, view.refund?.totalRefunds)">
         <div class="col-md-12" *ngIf="courseType !== 1 && !hasSelectedClasses">
           <div class="form-group">
             <mat-radio-group class="d-flex flex-row mt-3" formControlName="courseType">

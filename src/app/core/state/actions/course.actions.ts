@@ -125,8 +125,7 @@ export const studentCancelCourse = createAction(
 );
 
 export const studentCancelCourseSuccess = createAction(
-  '[Student] Student Cancel Course Success',
-  props<{ message: string }>()
+  '[Student] Student Cancel Course Success'
 );
 
 export const studentCancelCourseFailure = createAction(
