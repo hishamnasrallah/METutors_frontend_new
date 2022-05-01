@@ -176,8 +176,8 @@
                 </ng-container>
 
                 <ng-container *ngSwitchCase="false">
-                  <div *ngIf="!availabilities" class="text-center fw-bold">No time slot found</div>
-                  <div class="row" *ngIf="availabilities">
+                  <div *ngIf="!objectKeys(availabilities)?.length" class="text-center fw-bold">No Teacher availabilities found</div>
+                  <div class="row" *ngIf="objectKeys(availabilities)?.length">
                     <div class="col-4">
                       <label class="text-secondary fw-bold">Starting Date</label>
                       <p class="fw-bold">{{ timeSlot.startDate }}</p>
