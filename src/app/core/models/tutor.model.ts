@@ -190,9 +190,7 @@ export function sortSubjects(subjects?: ISubject[]): any[] {
   const output: any[] = [];
 
   subjects?.forEach((item: any) => {
-    const existing = output.filter((v, i) => {
-      return v.fieldId == item.fieldId;
-    });
+    const existing = output.filter((v, i) => v.fieldId == item.fieldId);
 
     if (existing.length) {
       const existingIndex = output.indexOf(existing[0]);

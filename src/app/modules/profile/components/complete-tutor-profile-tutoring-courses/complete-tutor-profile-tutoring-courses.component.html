@@ -78,8 +78,8 @@
             <mat-form-field appearance="outline" class="w-100">
               <mat-select formControlName="subjects" [placeholder]="'Select Subject'" (selectionChange)="onChange(i)"
                 multiple>
-                <ng-container *ngFor="let subject of subjectsList">
-                  <mat-option [value]="subject" *ngIf="
+                <ng-container *ngFor="let subject of subjects">
+                  <mat-optgroup [label]="subject.fieldName" *ngIf="
                     (
                       form.value.programs[i]?.programId?.id !== nationalId && 
                       form.value.programs[i]?.programId?.id === subject.programId && 
@@ -93,8 +93,10 @@
                       form.value.programs[i].grades?.includes(subject.grade)
                     )
                   ">
-                    {{ subject?.name }}
-                  </mat-option>
+                    <mat-option *ngFor="let sub of subject.subjects" [value]="sub">
+                      {{ sub?.name }}
+                    </mat-option>
+                  </mat-optgroup>
                 </ng-container>
               </mat-select>
             </mat-form-field>
@@ -121,8 +123,8 @@
                   <td>{{ subject?.name }}</td>
                   <td *ngIf="form.value.programs[i]?.programId?.id === nationalId">{{ subject?.gradeName }}</td>
                   <td>
-                    <input type="number" min="0" step="1" max="20" placeholder="Enter Price" class="p-0 w-100" [value]="subject.pricePerHour"
-                      (change)="changePrice(i, indexSubjects, indexSubject, $event)">
+                    <input type="number" min="0" step="1" max="20" placeholder="Enter Price" class="p-0 w-100"
+                      [value]="subject.pricePerHour" (change)="changePrice(i, indexSubjects, indexSubject, $event)">
                   </td>
                 </tr>
               </ng-container>

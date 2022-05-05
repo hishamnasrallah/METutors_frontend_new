@@ -88,9 +88,7 @@ export class TutorSettingsProfileComponent implements OnInit {
           this.selectedDays.push(+avail?.day);
         }
 
-        const existing = output.filter((v) => {
-          return +v.day == +avail.day;
-        });
+        const existing = output.filter((v) => +v.day == +avail.day);
 
         if (existing.length) {
           const existingIndex = output.indexOf(existing[0]);

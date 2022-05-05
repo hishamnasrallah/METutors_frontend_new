@@ -15,12 +15,41 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
   @Input() loading: boolean | null;
   @Input() programsList: IProgram[];
   @Input() countries: ICountry[] | null;
-  @Input() subjectsList: ISubject[] | null;
+  @Input() set subjectsList(_subjects: ISubject[]) {
+    if (_subjects && _subjects.length) {
+      const output: any[] = [];
+
+      _subjects?.forEach((item: any) => {
+        const existing = output.filter((v, i) => v.fieldId == item.fieldId);
+
+        if (existing.length) {
+          const existingIndex = output.indexOf(existing[0]);
+
+          output[existingIndex].subjects = [
+            ...output[existingIndex].subjects,
+            { ...item },
+          ];
+        } else {
+          output.push({
+            fieldId: item.fieldId,
+            fieldName: item?.fieldName,
+            programId: item?.programId,
+            countryId: item?.countryId,
+            grade: item?.grade,
+            subjects: [{ ...item }],
+          });
+        }
+      });
+
+      this.subjects = output;
+    }
+  }
 
   @Output() submitForm = new EventEmitter();
 
   grades = GRADES;
   form: FormGroup;
+  subjects: any[];
   nationalId = generalConstants.nationalId;
 
   constructor(private _fb: FormBuilder) {
@@ -89,9 +118,7 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
     const subjects = this.form.value.programs[index].subjects;
 
     subjects.forEach((item: any) => {
-      const existing = output.filter((v, i) => {
-        return v.fieldId == item.fieldId;
-      });
+      const existing = output.filter((v, i) => v.fieldId == item.fieldId);
 
       if (existing.length) {
         const existingIndex = output.indexOf(existing[0]);

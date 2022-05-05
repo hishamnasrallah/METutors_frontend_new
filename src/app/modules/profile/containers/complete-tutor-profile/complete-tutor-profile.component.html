@@ -69,7 +69,7 @@
                                                         [programsList]="(programs$ | async)!"
                                                         [countries]="programCountries$ | async"
                                                         [fields]="(fields$ | async)!"
-                                                        [subjectsList]="subjects$ | async"
+                                                        [subjectsList]="(subjects$ | async)!"
                                                         (submitForm)="sendTeacherAccount($event, 6)">
       </metutors-complete-tutor-profile-tutoring-courses>
     </div>

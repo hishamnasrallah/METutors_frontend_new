@@ -12,6 +12,7 @@ export class ISubject {
   grade?: number;
   status?: number;
   fieldId?: number;
+  fieldName?: string;
   pricePerHour?: number;
 
   constructor(createDefault = false, subject: any = null) {
@@ -27,6 +28,7 @@ export class ISubject {
       this.field = undefined;
       this.grade = 0;
       this.status = 0;
+      this.fieldName = '';
       this.pricePerHour = 0;
     }
 
@@ -38,6 +40,7 @@ export class ISubject {
       this.programId = subject?.program_id || 0;
       this.program = subject?.program;
       this.countryId = subject?.country_id || 0;
+      this.fieldName = subject?.field_name;
       this.field = subject?.field;
       this.country = subject?.country;
       this.grade = subject?.grade || 0;
