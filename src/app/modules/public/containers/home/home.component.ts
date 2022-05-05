@@ -75,7 +75,7 @@ export class HomeComponent implements OnInit {
         reviewsCount: 10,
         country: 'Egypt',
         studentNumber: 100,
-        bio: "Bio: Hello everyone! My name is Charlene and I'm from China.",
+        bio: "Hello everyone! My name is Charlene and I'm from China.",
         subjects: [
           { id: 1, name: 'Geographics' },
           { id: 2, name: 'Math' },
@@ -92,7 +92,7 @@ export class HomeComponent implements OnInit {
         reviewsCount: 10,
         country: 'Egypt',
         studentNumber: 100,
-        bio: "Bio: Hello everyone! My name is Charlene and I'm from China.",
+        bio: "Hello everyone! My name is Charlene and I'm from China.",
         subjects: [
           { id: 1, name: 'Geographics' },
           { id: 2, name: 'Math' },
@@ -109,7 +109,7 @@ export class HomeComponent implements OnInit {
         reviewsCount: 10,
         country: 'Egypt',
         studentNumber: 100,
-        bio: "Bio: Hello everyone! My name is Charlene and I'm from China.",
+        bio: "Hello everyone! My name is Charlene and I'm from China.",
         subjects: [
           { id: 1, name: 'Geographics' },
           { id: 2, name: 'Math' },
@@ -126,7 +126,7 @@ export class HomeComponent implements OnInit {
         reviewsCount: 10,
         country: 'Egypt',
         studentNumber: 100,
-        bio: "Bio: Hello everyone! My name is Charlene and I'm from China.",
+        bio: "Hello everyone! My name is Charlene and I'm from China.",
         subjects: [
           { id: 1, name: 'Geographics' },
           { id: 2, name: 'Math' },

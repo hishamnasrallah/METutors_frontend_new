@@ -7,6 +7,7 @@ import { ContactService } from 'src/app/core/services';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { SharedModule } from '@metutor/shared/shared.module';
 import { PublicRoutingModule } from './public-routing.module';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -136,6 +137,7 @@ import {
     CarouselModule,
     MatButtonModule,
     MatSelectModule,
+    NgxSliderModule,
     GoogleMapsModule,
     MatCheckboxModule,
     MatFormFieldModule,

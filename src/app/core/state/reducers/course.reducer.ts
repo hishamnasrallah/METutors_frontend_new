@@ -352,5 +352,13 @@ const getFilteredExploredCourses = (exploredCourses: any[], props: any) => {
     );
   }
 
+  if (props?.minPricerPerHour && props?.maxPricerPerHour) {
+    exploredCourses = exploredCourses.filter(
+      (course) =>
+        course?.pricePerHour >= props?.minPricerPerHour &&
+        course?.pricePerHour <= props?.maxPricerPerHour
+    );
+  }
+
   return exploredCourses;
 };

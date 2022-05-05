@@ -59,15 +59,21 @@
               Upload Profile Picture
             </button>
           </div>
-          <div class="col-md-9">
-            <button mat-flat-button color="primary" class="float-end mx-2" (click)="submitInterview.emit()"
+          <div class="col-md-9 d-flex justify-content-end align-items-center">
+            <button mat-flat-button color="primary" class="mx-2" (click)="submitInterview.emit()"
               *ngIf="!tutor?.interviewRequest">
               Submit Interview Request
             </button>
-            <button mat-flat-button color="primary" class="float-end mx-2" (click)="joinMeeting.emit(tutor?.interviewRequest?.id)"
-                    *ngIf="tutor?.interviewRequest?.status === interviewStatus.scheduled">
-              Join Meeting
-            </button>
+            <ng-container *ngIf="tutor?.interviewRequest?.status === interviewStatus.scheduled">
+              <div class="interview-details">
+                <span>{{ tutor?.interviewRequest?.interviewDate | date }}</span>
+                <span class="ms-2">{{ tutor?.interviewRequest?.interviewTime }}</span>
+              </div>
+              <button mat-flat-button color="primary" class="mx-2"
+                (click)="joinMeeting.emit(tutor?.interviewRequest?.id)">
+                Join Meeting
+              </button>
+            </ng-container>
           </div>
         </div>
       </div>

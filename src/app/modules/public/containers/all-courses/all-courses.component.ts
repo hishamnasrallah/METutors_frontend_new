@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ICourse } from '@metutor/core/models';
 import * as fromCore from '@metutor/core/state';
 import {
   trigger,
@@ -10,7 +9,8 @@ import {
   animate,
 } from '@angular/animations';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
+import { maxBy, minBy } from 'lodash';
 
 @Component({
   selector: 'metutors-all-courses',
@@ -43,7 +43,12 @@ export class AllCoursesComponent implements OnInit {
   exploredCourses$: Observable<any>;
 
   name?: string;
+  minValue: number;
+  maxValue: number;
+  minPricerPerHour: number;
+  maxPricerPerHour: number;
   openFilter: boolean = true;
+  openPriceFilter: boolean = false;
   selectedFieldOfStudy: number[] = [];
 
   constructor(private _store: Store<any>) {}
@@ -63,19 +68,38 @@ export class AllCoursesComponent implements OnInit {
     }
   }
 
+  onChangeValue(value: any): void {
+    this.minPricerPerHour = value?.value;
+    this.maxPricerPerHour = value?.highValue;
+  }
+
   filterCourses(): void {
     this.exploredCourses$ = this._store.select(
       fromCore.selectFilteredExploredCourses,
       {
         name: this.name,
         fieldIds: this.selectedFieldOfStudy,
+        minPricerPerHour: this.minPricerPerHour,
+        maxPricerPerHour: this.maxPricerPerHour,
       }
     );
   }
 
   private _prepareCourses(): void {
     this._store.dispatch(fromCore.exploreCourses());
-    this.exploredCourses$ = this._store.select(fromCore.selectExploredCourses);
+    this.exploredCourses$ = this._store
+      .select(fromCore.selectExploredCourses)
+      .pipe(
+        tap((courses) => {
+          if (courses && courses?.subjects && courses?.subjects?.length) {
+            const min: any = minBy(courses.subjects, 'pricePerHour');
+            this.minValue = min?.pricePerHour;
+
+            const max: any = maxBy(courses.subjects, 'pricePerHour');
+            this.maxValue = max?.pricePerHour;
+          }
+        })
+      );
     this.isLoading$ = this._store.select(
       fromCore.selectIsLoadingExploredCourses
     );
