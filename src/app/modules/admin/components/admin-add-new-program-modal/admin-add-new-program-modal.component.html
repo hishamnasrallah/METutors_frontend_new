@@ -11,6 +11,14 @@
           </div>
         </div>
 
+        <div class="col-12">
+          <div class="form-group">
+            <label for="description">Program Description</label>
+            <textarea class="form-control custom-input input-bordered" formControlName="description" id="description"
+                   placeholder="Enter Program Description"></textarea>
+          </div>
+        </div>
+
         <div class="col-md-12 mt-2 overflow-hidden">
             <metutors-submit-button [form]="form" [isSubmitting]="isAdding"
                                     [extraClasses]="'float-end py-1 px-5'">

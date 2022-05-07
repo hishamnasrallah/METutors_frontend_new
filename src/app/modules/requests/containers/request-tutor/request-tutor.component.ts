@@ -65,18 +65,28 @@ export class RequestTutorComponent implements OnInit {
   ) {
     this.courseInformationForm = this._fb.group({
       courseProgram: [
-        +this._route.snapshot.queryParams['program'],
+        this._route.snapshot.queryParams['program']
+          ? +this._route.snapshot.queryParams['program']
+          : null,
         Validators.required,
       ],
-      courseCountry: [+this._route.snapshot.queryParams['country']],
+      courseCountry: [
+        this._route.snapshot.queryParams['country']
+          ? +this._route.snapshot.queryParams['country']
+          : null,
+      ],
       courseGrade: [null],
       courseField: [
-        +this._route.snapshot.queryParams['field'],
+        this._route.snapshot.queryParams['field']
+          ? +this._route.snapshot.queryParams['field']
+          : null,
         Validators.required,
       ],
       language: [null, Validators.required],
       subject: [
-        +this._route.snapshot.queryParams['subject'],
+        this._route.snapshot.queryParams['subject']
+          ? +this._route.snapshot.queryParams['subject']
+          : null,
         Validators.required,
       ],
       information: [null, Validators.required],

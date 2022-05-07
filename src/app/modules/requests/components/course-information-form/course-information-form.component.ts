@@ -117,6 +117,14 @@ export class CourseInformationFormComponent implements OnInit {
     return this.form.get('subject');
   }
 
+  get courseCountry(): AbstractControl | null {
+    return this.form.get('courseCountry');
+  }
+
+  get courseGrade(): AbstractControl | null {
+    return this.form.get('courseGrade');
+  }
+
   get information(): AbstractControl | null {
     return this.form.get('information');
   }
@@ -141,6 +149,19 @@ export class CourseInformationFormComponent implements OnInit {
     const programId = this.program?.value;
 
     this.changeCourseProgram.emit(programId);
+
+    if (programId.toString() === generalConstants.nationalId.toString()) {
+      this.courseCountry?.setValidators([Validators.required]);
+      this.courseGrade?.setValidators([Validators.required]);
+    } else {
+      this.courseCountry?.setValidators([]);
+      this.courseGrade?.setValidators([]);
+      this.courseCountry?.setValue(null);
+      this.courseGrade?.setValue(null);
+    }
+
+    this.courseGrade?.updateValueAndValidity();
+    this.courseCountry?.updateValueAndValidity();
   }
 
   onChangeCourseField(): void {

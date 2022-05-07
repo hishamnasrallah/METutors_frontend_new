@@ -14,7 +14,10 @@ export class AdminAddNewProgramModalComponent implements OnInit {
   @Input() set selectedProgram(_program: IProgram) {
     if (_program) {
       this.program = _program;
-      this.form?.patchValue({ name: _program.name });
+      this.form?.patchValue({
+        name: _program.name,
+        description: _program.description,
+      });
     }
   }
 
@@ -27,6 +30,7 @@ export class AdminAddNewProgramModalComponent implements OnInit {
   constructor(private _fb: FormBuilder) {
     this.form = this._fb.group({
       name: [null, Validators.required],
+      description: [null, Validators.required],
     });
   }
 

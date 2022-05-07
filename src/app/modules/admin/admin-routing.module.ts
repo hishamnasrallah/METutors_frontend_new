@@ -87,8 +87,8 @@ const routes: Routes = [
             component: AdminTutorListComponent,
             data: {
               layout: {
-                title: 'All Tutors - Metutors',
-                navbarTitle: 'All Tutors',
+                title: 'All Teachers - Metutors',
+                navbarTitle: 'All Teachers',
                 showHeader: false,
                 showFooter: false,
               },
@@ -99,8 +99,8 @@ const routes: Routes = [
             component: AdminCurrentTutorsComponent,
             data: {
               layout: {
-                title: 'Current Tutors - Metutors',
-                navbarTitle: 'Current Tutors',
+                title: 'Current Teachers - Metutors',
+                navbarTitle: 'Current Teachers',
                 showHeader: false,
                 showFooter: false,
               },
@@ -111,8 +111,8 @@ const routes: Routes = [
             component: AdminPendingTutorsComponent,
             data: {
               layout: {
-                title: 'Pending Tutors - Metutors',
-                navbarTitle: 'Pending Tutors',
+                title: 'Pending Teachers - Metutors',
+                navbarTitle: 'Pending Teachers',
                 showHeader: false,
                 showFooter: false,
               },
@@ -123,8 +123,8 @@ const routes: Routes = [
             component: AdminSuspendedTutorsComponent,
             data: {
               layout: {
-                title: 'Suspended Tutors - Metutors',
-                navbarTitle: 'Suspended Tutors',
+                title: 'Suspended Teachers - Metutors',
+                navbarTitle: 'Suspended Teachers',
                 showHeader: false,
                 showFooter: false,
               },

@@ -29,34 +29,44 @@
               transform="translate(-122.322 0)" fill="#e2e2e2" />
           </g>
         </svg>
-        <span class="text-uppercase hide-sidemenu">Tutor</span>
+        <span class="text-uppercase hide-sidemenu">Teachers</span>
         <img src="assets/svg/chevron-down.svg" class="float-end" [class.rotate-180]="openTutor" draggable="false"
           width="30px" height="30" alt="" />
       </a>
       <ul class="list-unstyled" [@slideInOut] *ngIf="openTutor">
         <li class="d-flex align-items-center">
           <a routerLink="/admin/tutor/all" routerLinkActive="active">
-            <span class="text-uppercase hide-sidemenu">All Tutors</span>
+            <span class="text-uppercase hide-sidemenu">All Teachers</span>
           </a>
         </li>
         <li class="d-flex align-items-center">
           <a routerLink="/admin/tutor/current" routerLinkActive="active">
-            <span class="text-uppercase hide-sidemenu">Current Tutors</span>
+            <span class="text-uppercase hide-sidemenu">Current Teachers</span>
           </a>
         </li>
         <li class="d-flex align-items-center">
           <a routerLink="/admin/tutor/pending" routerLinkActive="active">
-            <span class="text-uppercase hide-sidemenu">Pending Tutors</span>
+            <span class="text-uppercase hide-sidemenu">Pending Teachers</span>
           </a>
         </li>
         <li class="d-flex align-items-center">
           <a routerLink="/admin/tutor/suspended" routerLinkActive="active">
-            <span class="text-uppercase hide-sidemenu">Suspended Tutors</span>
+            <span class="text-uppercase hide-sidemenu">Suspended Teachers</span>
+          </a>
+        </li>
+        <li class="d-flex align-items-center">
+          <a routerLink="/admin/tutor/suspended" routerLinkActive="active">
+            <span class="text-uppercase hide-sidemenu">Workforce Capacity</span>
+          </a>
+        </li>
+        <li class="d-flex align-items-center">
+          <a routerLink="/admin/tutor/suspended" routerLinkActive="active">
+            <span class="text-uppercase hide-sidemenu">Teachers Schedule</span>
           </a>
         </li>
         <li class="d-flex align-items-center">
           <a routerLink="/admin/tutor/interview" routerLinkActive="active">
-            <span class="text-uppercase hide-sidemenu">Tutor Interview</span>
+            <span class="text-uppercase hide-sidemenu">Teacher Interviews</span>
           </a>
         </li>
       </ul>

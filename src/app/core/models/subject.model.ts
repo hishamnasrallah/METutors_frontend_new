@@ -3,6 +3,7 @@ import { ICountry, IField, IProgram } from './lookups.model';
 export class ISubject {
   id!: number;
   name!: string;
+  description?: string;
   subject?: string;
   programId?: number;
   program?: IProgram;
@@ -19,6 +20,7 @@ export class ISubject {
     if (createDefault) {
       this.id = 0;
       this.name = '';
+      this.description = '';
       this.subject = '';
       this.fieldId = 0;
       this.programId = 0;
@@ -35,6 +37,7 @@ export class ISubject {
     if (subject) {
       this.id = subject?.id;
       this.name = subject?.name || subject?.field?.name || '';
+      this.description = subject?.description;
       this.subject = subject?.subject?.name || '';
       this.fieldId = subject?.field_id || 0;
       this.programId = subject?.program_id || 0;

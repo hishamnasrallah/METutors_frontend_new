@@ -81,6 +81,7 @@ export class LookupsService {
             name: item.name,
             status: item.status,
             updatedAt: item.updated_at,
+            description: item.description,
           }));
         })
       )
@@ -102,6 +103,7 @@ export class LookupsService {
               name: response.program.name,
               status: ProgramStatus.active,
               updatedAt: response.program.updated_at,
+              description: response.program.description,
             },
           };
         })
@@ -124,6 +126,7 @@ export class LookupsService {
               name: response.program.name,
               status: response.program.status,
               updatedAt: response.program.updated_at,
+              description: response.program.description,
             },
           };
         })
@@ -230,6 +233,7 @@ export class LookupsService {
         country_id: value.country,
         field_id: value.field,
         price_per_hour: value.price,
+        description: value.description,
       })
       .pipe(
         map((response) => {
@@ -254,6 +258,7 @@ export class LookupsService {
           field_id: value.field,
           price_per_hour: value.price,
           status: value.status,
+          description: value.description,
         }
       )
       .pipe(
@@ -273,7 +278,11 @@ export class LookupsService {
       .pipe(catchError(this.errorHandler));
   }
 
-  getFieldsByProgramId(fieldId: string, countryId?: string, grade?: number): Observable<any> {
+  getFieldsByProgramId(
+    fieldId: string,
+    countryId?: string,
+    grade?: number
+  ): Observable<any> {
     let params = new HttpParams();
 
     if (fieldId) {

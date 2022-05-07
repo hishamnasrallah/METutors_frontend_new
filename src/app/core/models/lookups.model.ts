@@ -14,6 +14,7 @@ export interface IProgram {
   code: string;
   status: number;
   createdAt: string;
+  description: string;
 }
 
 export interface ICountry {

@@ -9,7 +9,7 @@ import {
   animate,
 } from '@angular/animations';
 import { Store } from '@ngrx/store';
-import { Observable, tap } from 'rxjs';
+import { filter, Observable, take, tap } from 'rxjs';
 import { maxBy, minBy } from 'lodash';
 
 @Component({
@@ -71,6 +71,7 @@ export class AllCoursesComponent implements OnInit {
   onChangeValue(value: any): void {
     this.minPricerPerHour = value?.value;
     this.maxPricerPerHour = value?.highValue;
+    this.filterCourses();
   }
 
   filterCourses(): void {
@@ -90,6 +91,8 @@ export class AllCoursesComponent implements OnInit {
     this.exploredCourses$ = this._store
       .select(fromCore.selectExploredCourses)
       .pipe(
+        filter((courses) => !!courses),
+        take(1),
         tap((courses) => {
           if (courses && courses?.subjects && courses?.subjects?.length) {
             const min: any = minBy(courses.subjects, 'pricePerHour');

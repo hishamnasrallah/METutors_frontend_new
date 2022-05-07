@@ -27,6 +27,7 @@ export class AdminAddNewSubjectModalComponent implements OnInit {
         name: _subject.name,
         program: _subject?.programId,
         country: _subject?.countryId,
+        description: _subject.description,
         grade: _subject?.grade,
         field: _subject?.fieldId,
         price: _subject?.pricePerHour,
@@ -45,6 +46,7 @@ export class AdminAddNewSubjectModalComponent implements OnInit {
   constructor(private _fb: FormBuilder) {
     this.form = this._fb.group({
       name: [null, Validators.required],
+      description: [null, Validators.required],
       program: [null, Validators.required],
       country: [null],
       grade: [null],

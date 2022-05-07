@@ -69,6 +69,7 @@ export function calculateDurationTime(start: string, end: string) {
 
   if (minuteDiff < 0) {
     minuteDiff = 60 + minuteDiff;
+    hourDiff = hourDiff - 1;
   }
 
   const minuteAvg = (minuteDiff / 60).toFixed(2);
