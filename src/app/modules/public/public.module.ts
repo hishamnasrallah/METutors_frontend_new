@@ -137,7 +137,7 @@ import {
     CarouselModule,
     MatButtonModule,
     MatSelectModule,
-    // NgxSliderModule,
+    NgxSliderModule,
     GoogleMapsModule,
     MatCheckboxModule,
     MatFormFieldModule,

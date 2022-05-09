@@ -39,11 +39,11 @@ export class ISubject {
       this.name = subject?.name || subject?.field?.name || '';
       this.description = subject?.description;
       this.subject = subject?.subject?.name || '';
-      this.fieldId = subject?.field_id || 0;
+      this.fieldId = subject?.field_id || subject?.field?.id || 0;
       this.programId = subject?.program_id || 0;
       this.program = subject?.program;
       this.countryId = subject?.country_id || 0;
-      this.fieldName = subject?.field_name;
+      this.fieldName = subject?.field_name || subject?.field?.name || '';
       this.field = subject?.field;
       this.country = subject?.country;
       this.grade = subject?.grade || 0;

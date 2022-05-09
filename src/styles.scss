@@ -448,6 +448,32 @@ rating span.bs-rating-star {
   transform: rotate(180deg);
 }
 
+.list-options-rows {
+  .mat-radio-group {
+    border: 1px solid #F0F0F0;
+    border-radius: 5px;
+
+    .mat-radio-label {
+      border-bottom: 1px solid #e2e2e2;
+      padding: 15px 20px;
+      flex-direction: row-reverse;
+      justify-content: space-between;
+
+      &:hover {
+        background-color: #F6F6F6;
+      }
+    }
+
+    .mat-radio-button:last-child .mat-radio-label {
+      border-bottom: none;
+    }
+
+    .mat-radio-label-content {
+      width: 100%;
+    }
+  }
+}
+
 .spinner {
   -webkit-animation: rotating 2s linear infinite;
   -moz-animation: rotating 2s linear infinite;
