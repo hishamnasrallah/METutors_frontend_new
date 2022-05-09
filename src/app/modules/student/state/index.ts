@@ -92,3 +92,8 @@ export const selectCancelCourseSuccessModal = createSelector(
   selectStudentModalState,
   fromStudentModal.selectCancelCourseSuccessModal
 );
+
+export const selectTutorReAssignmentModal = createSelector(
+  selectStudentModalState,
+  fromStudentModal.selectTutorReAssignmentModal
+);

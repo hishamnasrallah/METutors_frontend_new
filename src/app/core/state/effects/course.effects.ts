@@ -11,6 +11,7 @@ import { CoursesService } from '@services';
 import * as fromRouterStore from '@metutor/state';
 import * as courseActions from '../actions/course.actions';
 import { AlertNotificationService } from '@metutor/core/components';
+import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
 
 @Injectable()
 export class CourseEffects {
@@ -225,11 +226,12 @@ export class CourseEffects {
     )
   );
 
+  // this._router.navigate(['/tutor/classrooms'])
   cancelCourseSuccess$ = createEffect(
     () =>
       this._actions$.pipe(
         ofType(courseActions.tutorCancelCourseSuccess),
-        map(() => this._router.navigate(['/tutor/classrooms']))
+        map(() => fromTutorAction.openTutorSendFeedbackModal())
       ),
     {
       dispatch: false,

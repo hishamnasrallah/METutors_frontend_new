@@ -96,3 +96,11 @@ export const openCancelCourseSuccessModal = createAction(
 export const closeCancelCourseSuccessModal = createAction(
   '[Student Modal] Close Cancel Course Success Modal'
 );
+
+export const openTutorReAssignmentModal = createAction(
+  '[Student Modal] Open Tutor Re-Assignment Modal'
+);
+
+export const closeTutorReAssignmentModal = createAction(
+  '[Student Modal] Close Tutor Re-Assignment Modal'
+);

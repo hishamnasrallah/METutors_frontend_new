@@ -68,9 +68,11 @@ import {
   StudentSubmitAssignmentModalComponent,
   StudentSettingsUserPrefrencesComponent,
   StudentAssignmentDetailsModalComponent,
+  StudentTutorReAssignmentModalComponent,
   StudentCancelCourseSuccessModalComponent,
   StudentViewSubmittedAssignmentModalComponent,
 } from './components';
+
 @NgModule({
   declarations: [
     StudentComponent,
@@ -106,6 +108,7 @@ import {
     StudentSubmitAssignmentModalComponent,
     StudentSettingsUserPrefrencesComponent,
     StudentAssignmentDetailsModalComponent,
+    StudentTutorReAssignmentModalComponent,
     StudentCancelCourseSuccessModalComponent,
     StudentViewSubmittedAssignmentModalComponent,
   ],

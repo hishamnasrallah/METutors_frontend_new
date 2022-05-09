@@ -278,4 +278,9 @@
                                                 [showModal]="(cancelCourseSuccessModal$ | async)!"
                                                 (submitted)="onCancelCourseSuccess()">
   </metutors-student-cancel-course-success-modal>
+
+  <metutors-student-tutor-re-assignment-modal *ngIf="tutorReAssignmentModal$ | async"
+                                              [showModal]="(tutorReAssignmentModal$| async)!"
+                                              (closeModal)="onCloseTutorReAssignmentModal()">
+  </metutors-student-tutor-re-assignment-modal>
 </ng-container>

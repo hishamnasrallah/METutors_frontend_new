@@ -32,6 +32,7 @@ export class StudentClassDashboardComponent implements OnInit {
   showMakeupClassModal$: Observable<boolean>;
   showCancelCourseModal$: Observable<boolean>;
   showSendFeedbackModal$: Observable<boolean>;
+  tutorReAssignmentModal$: Observable<boolean>;
   cancelCourseSuccessModal$: Observable<boolean>;
   isLoadingTutorAvailability$: Observable<boolean>;
 
@@ -61,7 +62,9 @@ export class StudentClassDashboardComponent implements OnInit {
   }
 
   onShowCancelCourseModal(): void {
-    this._store.dispatch(fromStudentAction.openCancelCourseModal());
+    //todo revert it
+    // this._store.dispatch(fromStudentAction.openCancelCourseModal());
+    this._store.dispatch(fromStudentAction.openTutorReAssignmentModal());
   }
 
   onCloseCancelCourseModal(): void {
@@ -74,6 +77,10 @@ export class StudentClassDashboardComponent implements OnInit {
 
   onCloseAddCourseModal(): void {
     this._store.dispatch(fromStudentAction.closeAddCourseModal());
+  }
+
+  onCloseTutorReAssignmentModal(): void {
+    this._store.dispatch(fromStudentAction.closeTutorReAssignmentModal());
   }
 
   onAddCourse(id: number, value: any): void {
@@ -209,6 +216,10 @@ export class StudentClassDashboardComponent implements OnInit {
 
     this.refundAmount$ = this._store.select(
       fromStudent.selectStudentStateParams
+    );
+
+    this.tutorReAssignmentModal$ = this._store.select(
+      fromStudent.selectTutorReAssignmentModal
     );
 
     this.price$ = this._store.select(fromCore.selectEstimatedPrice);
