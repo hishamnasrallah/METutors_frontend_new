@@ -71,3 +71,11 @@ export const openAdminScheduleInterviewModal = createAction(
 export const closeAdminScheduleInterviewModal = createAction(
   '[Admin Modal] Close Admin schedule Interview Modal'
 );
+
+export const openAdminCourseBookingListModal = createAction(
+  '[Admin Modal] Open Admin Course Booking List Modal'
+);
+
+export const closeAdminCourseBookingListModal = createAction(
+  '[Admin Modal] Close Admin Course Booking List Modal'
+);

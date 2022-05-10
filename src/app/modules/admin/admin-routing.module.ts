@@ -16,6 +16,7 @@ import {
   AdminTicketDetailsComponent,
   AdminTutorInterviewComponent,
   AdminSuspendedTutorsComponent,
+  AdminWorkforceCapacityComponent,
   AdminTutorInterviewDetailsComponent,
   AdminTutorInterviewDocumentsComponent,
 } from './containers';
@@ -125,6 +126,18 @@ const routes: Routes = [
               layout: {
                 title: 'Suspended Teachers - Metutors',
                 navbarTitle: 'Suspended Teachers',
+                showHeader: false,
+                showFooter: false,
+              },
+            },
+          },
+          {
+            path: 'capacity',
+            component: AdminWorkforceCapacityComponent,
+            data: {
+              layout: {
+                title: 'Workforce Capacity - Metutors',
+                navbarTitle: 'Workforce Capacity',
                 showHeader: false,
                 showFooter: false,
               },

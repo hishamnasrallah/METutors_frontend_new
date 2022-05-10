@@ -1103,3 +1103,28 @@ export const selectIsApprovingAdminDocs = createSelector(
   selectAdminState,
   fromAdminReducer.selectIsApprovingAdminDocs
 );
+
+export const selectIsLoadingWorkforceCapacity = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectIsLoadingWorkforceCapacity
+);
+
+export const selectWorkforceCapacity = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectWorkforceCapacity
+);
+
+export const selectIsLoadingCourseBooking = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectIsLoadingCourseBooking
+);
+
+export const selectCourseBooking = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectCourseBooking
+);
+
+export const selectFilteredWorkforceCapacity = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectFilteredWorkforceCapacity
+);

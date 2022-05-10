@@ -95,6 +95,57 @@ export class AdminEffects {
     )
   );
 
+  loadWorkforceCapacity$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(adminActions.loadWorkforceCapacity),
+      withLatestFrom(this._store.select(fromCore.selectWorkforceCapacity)),
+      mergeMap(([_, _capacity]) => {
+        if (!_capacity || !_capacity.length) {
+          return this._adminService.loadWorkforceCapacity().pipe(
+            map(
+              (workforceCapacity) =>
+                adminActions.loadWorkforceCapacitySuccess({
+                  workforceCapacity,
+                }),
+              catchError((error) =>
+                of(
+                  adminActions.loadWorkforceCapacityFailure({
+                    error: error?.error?.message || error?.error?.errors,
+                  })
+                )
+              )
+            )
+          );
+        } else {
+          return of(adminActions.loadWorkforceCapacityEnded());
+        }
+      })
+    )
+  );
+
+  loadCourseBookingList$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(adminActions.loadCourseBookingList),
+      mergeMap((action) =>
+        this._adminService.loadCourseBookingList(action.id).pipe(
+          map(
+            (courseBooking) =>
+              adminActions.loadCourseBookingListSuccess({
+                courseBooking,
+              }),
+            catchError((error) =>
+              of(
+                adminActions.loadCourseBookingListFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          )
+        )
+      )
+    )
+  );
+
   successMessages$ = createEffect(
     () =>
       this._actions$.pipe(

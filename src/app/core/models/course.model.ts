@@ -5,6 +5,7 @@ import {
   COURSE_TAGS_CONST,
   COURSE_TUITION_TYPES_CONST,
 } from 'src/app/config/general';
+import { ITutor } from './tutor.model';
 
 export class ICourse {
   id!: number;
@@ -31,6 +32,8 @@ export class ICourse {
   weekdays?: string;
   program?: IProgram;
   classes?: IClass[];
+  tutor?: ITutor;
+  createdAt?: string;
 
   constructor(createDefault = false, course: any = null) {
     if (createDefault) {
@@ -58,13 +61,15 @@ export class ICourse {
       this.weekdays = '';
       this.program = undefined;
       this.classes = [];
+      this.tutor = undefined;
+      this.createdAt = '';
     }
 
     if (course) {
       this.id = course.id;
       this.picture = course.cover_pic;
       this.duration = course.duration || '';
-      this.name = course.name || '';
+      this.name = course.course_name || '';
       this.rate = course.rate || 0;
       this.reviewsCount = course.total_reviews_count || 0;
       this.tuitionType = course.tuition_type || 0;
@@ -85,6 +90,8 @@ export class ICourse {
       this.weekdays = course.weekdays;
       this.program = course.program;
       this.classes = course.classes;
+      this.tutor = new ITutor(false, course?.teacher);
+      this.createdAt = course?.created_at;
     }
   }
 }

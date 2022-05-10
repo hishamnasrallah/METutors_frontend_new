@@ -1,0 +1,103 @@
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'large'"
+                [heading]="'Course Booking List'"
+                [template]="template">
+  <ng-template #template>
+      <div class="course-booking" *ngIf="!isLoading">
+        <div class="row filters">
+          <div class="col-md-12">
+            <span class="title">Filters</span>
+            <mat-form-field appearance="outline" class="me-2">
+              <mat-select [placeholder]="'By Week'" [(ngModel)]="week" (selectionChange)="onChangeSelection()">
+                <!-- <mat-option [value]="program?.id" *ngFor="let program of programs$ | async">
+                {{ program?.name }}
+              </mat-option> -->
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="me-2">
+              <mat-select [placeholder]="'By Month'" [(ngModel)]="month" (selectionChange)="onChangeSelection()">
+                <!-- <mat-option [value]="country?.id" *ngFor="let country of countries$ | async">
+                {{ country?.name }}
+              </mat-option> -->
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="me-2">
+              <mat-select [placeholder]="'By Year'" [(ngModel)]="year" (selectionChange)="onChangeSelection()">
+                <!-- <mat-option [value]="i" *ngFor="let grade of grades; let i = index">
+                {{ grade }}
+              </mat-option> -->
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="me-2">
+              <mat-select [placeholder]="'By Teachers'" [(ngModel)]="teachers" (selectionChange)="onChangeSelection()">
+                <!-- <mat-option [value]="field?.id" *ngFor="let field of fields$ | async">
+                {{ field?.name }}
+              </mat-option> -->
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="me-2">
+              <mat-select [placeholder]="'By Date'" [(ngModel)]="date" (selectionChange)="onChangeSelection()">
+                <!-- <mat-option [value]="state.id" *ngFor="let state of statuses">
+                {{ state.name }}
+              </mat-option> -->
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <table class="table my-table default-title mt-4 overflow-visible">
+          <tr>
+            <th>Number</th>
+            <th>BIN</th>
+            <th>Teacher Name</th>
+            <th>TIN</th>
+            <th>Course Name</th>
+            <th>Course ID</th>
+            <th>Booking Date</th>
+            <th>Amount</th>
+            <th>Action</th>
+          </tr>
+          <tr *ngIf="!courseBooking || !courseBooking?.courses || !courseBooking?.courses?.length">
+            <td colspan="9">
+              <div class="text-center">No records found</div>
+            </td>
+          </tr>
+          <ng-container *ngIf="courseBooking && courseBooking?.courses && courseBooking?.courses?.length">
+            <tr *ngFor="let course of courseBooking?.courses; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ 'BIN' + course?.id }}</td>
+                <td>
+                  <div class="d-flex align-items-center">
+                    <img [src]="course?.tutor?.avatar" width="25" height="25" class="rounded-circle p-0 me-2"
+                      draggable="false" meTutorsDefaultAvatar alt="">
+                    <span>
+                      <bdi>{{ course?.tutor?.name }}</bdi>
+                    </span>
+                  </div>
+                </td>
+                <td>{{ course?.tutor?.idNumber }}</td>
+                <td>{{ course?.name }}</td>
+                <td>{{ course?.courseCode }}</td>
+                <td>{{ course?.createdAt | date }}</td>
+                <td>{{ course?.totalPrice | currency }}</td>
+                <td>
+                    <button mat-button class="booking-details">Booking Details</button>
+                </td>
+            </tr>
+          </ng-container>
+        </table>
+      </div>
+
+      <div class="item" *ngIf="isLoading">
+        <div class="ph-row">
+          <div class="ph-col-12 big mt-1"></div>
+          <div class="ph-col-0 big empty"></div>
+          <div class="ph-col-12 big mt-1"></div>
+          <div class="ph-col-0 big empty mt-1"></div>
+          <div class="ph-col-12 big mt-1"></div>
+          <div class="ph-col-0 big empty mt-1"></div>
+          <div class="ph-col-12 big mt-1"></div>
+          <div class="ph-col-0 big empty mt-1"></div>
+        </div>
+      </div>
+  </ng-template>
+</metutors-modal>

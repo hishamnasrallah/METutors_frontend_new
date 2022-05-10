@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 
-import { ITeacherDocument } from '@models';
+import { ICapacity, ISubject, ITeacherDocument } from '@models';
 import * as adminActions from '../actions/admin.actions';
 
 export interface State {
@@ -8,13 +8,25 @@ export interface State {
   isRejectingDoc: boolean;
   isLoadingAdminDocs: boolean;
   documents: ITeacherDocument[];
+
+  // Loading workforce capacity
+  workforceCapacity: ICapacity[];
+  isLoadingWorkforceCapacity: boolean;
+
+  // Loading course booking list
+  courseBooking: ISubject | null;
+  isLoadingCourseBooking: boolean;
 }
 
 export const initialState: State = {
   documents: [],
+  courseBooking: null,
   isApprovingDoc: false,
   isRejectingDoc: false,
+  workforceCapacity: [],
   isLoadingAdminDocs: false,
+  isLoadingCourseBooking: false,
+  isLoadingWorkforceCapacity: false,
 };
 
 export const reducer = createReducer(
@@ -85,6 +97,45 @@ export const reducer = createReducer(
   on(adminActions.adminApproveDocumentFailure, (state) => ({
     ...state,
     isRejectingDoc: false,
+  })),
+
+  on(adminActions.loadWorkforceCapacity, (state) => ({
+    ...state,
+    isLoadingWorkforceCapacity: true,
+  })),
+
+  on(
+    adminActions.loadWorkforceCapacitySuccess,
+    (state, { workforceCapacity }) => ({
+      ...state,
+      workforceCapacity,
+      isLoadingWorkforceCapacity: false,
+    })
+  ),
+
+  on(
+    adminActions.loadWorkforceCapacityEnded,
+    adminActions.loadWorkforceCapacityFailure,
+    (state) => ({
+      ...state,
+      isLoadingWorkforceCapacity: false,
+    })
+  ),
+
+  on(adminActions.loadCourseBookingList, (state) => ({
+    ...state,
+    isLoadingCourseBooking: true,
+  })),
+
+  on(adminActions.loadCourseBookingListSuccess, (state, { courseBooking }) => ({
+    ...state,
+    courseBooking,
+    isLoadingCourseBooking: false,
+  })),
+
+  on(adminActions.loadCourseBookingListFailure, (state) => ({
+    ...state,
+    isLoadingCourseBooking: false,
   }))
 );
 
@@ -99,3 +150,44 @@ export const selectIsRejectingAdminDocs = (state: State): boolean =>
 
 export const selectIsApprovingAdminDocs = (state: State): boolean =>
   state.isApprovingDoc;
+
+export const selectIsLoadingWorkforceCapacity = (state: State): boolean =>
+  state.isLoadingWorkforceCapacity;
+
+export const selectWorkforceCapacity = (state: State): ICapacity[] =>
+  state.workforceCapacity;
+
+export const selectIsLoadingCourseBooking = (state: State): boolean =>
+  state.isLoadingCourseBooking;
+
+export const selectCourseBooking = (state: State): ISubject | null =>
+  state.courseBooking;
+
+export const selectFilteredWorkforceCapacity = (
+  state: State,
+  props?: any
+): ICapacity[] | null => {
+  let workforceCapacity: ICapacity[] = [];
+
+  if (state.workforceCapacity && state.workforceCapacity.length && props) {
+    workforceCapacity = getFilteredWorkforceCapacity(
+      state.workforceCapacity,
+      props
+    );
+  }
+
+  return workforceCapacity;
+};
+
+const getFilteredWorkforceCapacity = (
+  workforceCapacity: ICapacity[],
+  props: any
+) => {
+  if (props?.name) {
+    workforceCapacity = workforceCapacity?.filter((tutor) =>
+      tutor?.subject?.name?.toLowerCase()?.includes(props.name.toLowerCase())
+    );
+  }
+
+  return workforceCapacity;
+};

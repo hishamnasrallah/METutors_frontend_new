@@ -83,3 +83,8 @@ export const selectScheduleInterviewModal = createSelector(
   selectAdminModalState,
   fromAdminModal.selectScheduleInterviewModal
 );
+
+export const selectCourseBookingListModal = createSelector(
+  selectAdminModalState,
+  fromAdminModal.selectCourseBookingListModal
+);

@@ -1,3 +1,4 @@
+import { ICourse } from './course.model';
 import { ICountry, IField, IProgram } from './lookups.model';
 
 export class ISubject {
@@ -15,6 +16,7 @@ export class ISubject {
   fieldId?: number;
   fieldName?: string;
   pricePerHour?: number;
+  courses?: ICourse[];
 
   constructor(createDefault = false, subject: any = null) {
     if (createDefault) {
@@ -32,6 +34,7 @@ export class ISubject {
       this.status = 0;
       this.fieldName = '';
       this.pricePerHour = 0;
+      this.courses = [];
     }
 
     if (subject) {
@@ -49,6 +52,10 @@ export class ISubject {
       this.grade = subject?.grade || 0;
       this.status = subject?.status || 0;
       this.pricePerHour = subject?.price_per_hour || subject?.hourly_price || 0;
+      this.courses =
+        subject.courses && subject.courses.length
+          ? subject.courses.map((course: any) => new ICourse(false, course))
+          : [];
     }
   }
 }
