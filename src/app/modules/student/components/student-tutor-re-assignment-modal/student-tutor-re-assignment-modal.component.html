@@ -1,48 +1,69 @@
 <metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'xmedium'"
-                [heading]="'Tutor Re-Assignment'"
-                [subHeading]="'Due to unforeseen reasons, your tutor can not continue teaching this course, kindly choose a preferred option to continue.'"
+                [heading]="heading" [showHeader]="showHeader"
+                [subHeading]="subHeading"
                 [template]="template">
   <ng-template #template>
     <div class="list-options-rows mt-4">
-      <mat-radio-group class="d-flex flex-column">
-        <mat-radio-button>
-          <div class="row">
-            <div class="relative img-avatar d-flex align-items-center justify-content-center">
-              <img src="assets/png/academy.png" alt="" draggable="false">
+      <ng-container *ngIf="!next">
+        <mat-radio-group class="d-flex flex-column" (change)="onChange($event)">
+          <mat-radio-button [value]="1">
+            <div class="row">
+              <div class="relative img-avatar d-flex align-items-center justify-content-center">
+                <img src="assets/png/academy.png" alt="" draggable="false">
+              </div>
+              <div class="col d-flex justify-content-center flex-column">
+                <h2>Select a new tutor</h2>
+                <h4 class="mb-0">Continue my course and allow me to select a new tutor</h4>
+              </div>
             </div>
-            <div class="col d-flex justify-content-center flex-column">
-              <h2>Select a new tutor</h2>
-              <h3 class="mb-0">Continue my course and allow me to select a new tutor</h3>
+          </mat-radio-button>
+          <mat-radio-button [value]="2">
+            <div class="row">
+              <div class="relative img-avatar d-flex align-items-center justify-content-center">
+                <img src="assets/png/logo.png" alt="" draggable="false">
+              </div>
+              <div class="col d-flex justify-content-center flex-column">
+                <h2>Allow MEtutors to assign a new tutor</h2>
+                <h4 class="mb-0">Continue my course and allow MEtutors to assign a new tutor</h4>
+              </div>
             </div>
-          </div>
-        </mat-radio-button>
-        <mat-radio-button>
-          <div class="row">
-            <div class="relative img-avatar d-flex align-items-center justify-content-center">
-              <img src="assets/png/logo.png" alt="" draggable="false">
+          </mat-radio-button>
+          <mat-radio-button [value]="3">
+            <div class="row">
+              <div class="relative img-avatar d-flex align-items-center justify-content-center">
+                <img src="assets/png/ban.png" alt="" draggable="false">
+              </div>
+              <div class="col d-flex justify-content-center flex-column">
+                <h2>Stop My Course & Receive a Refund</h2>
+                <h4 class="mb-0">Stop my course and issue a refund for the remaining classes</h4>
+              </div>
             </div>
-            <div class="col d-flex justify-content-center flex-column">
-              <h2>Allow MEtutors to assign a new tutor</h2>
-              <h3 class="mb-0">Continue my course and allow MEtutors to assign a new tutor</h3>
-            </div>
-          </div>
-        </mat-radio-button>
-        <mat-radio-button>
-          <div class="row">
-            <div class="relative img-avatar d-flex align-items-center justify-content-center">
-              <img src="assets/png/ban.png" alt="" draggable="false">
-            </div>
-            <div class="col d-flex justify-content-center flex-column">
-              <h2>Stop My Course & Receive a Refund</h2>
-              <h3 class="mb-0">Stop my course and issue a refund for the remaining classes</h3>
-            </div>
-          </div>
-        </mat-radio-button>
-      </mat-radio-group>
+          </mat-radio-button>
+        </mat-radio-group>
 
-      <div class="d-flex justify-content-end mt-3">
-        <button mat-flat-button color="primary" class="py-2 px-5 fw-bold">Continue</button>
-      </div>
+        <div class="d-flex justify-content-end mt-3">
+          <button mat-flat-button color="primary" class="py-2 px-5 fw-bold" [disabled]="!selectedOption"
+                  (click)="onNext()">Continue
+          </button>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="next && selectedOption === 2">
+        <div class="assign-tutor flex-row mt-5 p-3">
+          <div class="text-center">
+            <img src="assets/svg/correct.svg" alt="" width="100">
+
+            <h3 class="mt-4">Congratulations</h3>
+            <p>Request was submitted. METutors will assign a new tutor. You will be contacted soon.</p>
+
+            <div class="mt-5">
+              <button mat-flat-button color="primary" class="w-100 p-1 fw-bold" (click)="goToDashboard()">
+                Go to class Dashboard
+              </button>
+            </div>
+          </div>
+        </div>
+      </ng-container>
     </div>
   </ng-template>
 </metutors-modal>

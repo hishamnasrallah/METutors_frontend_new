@@ -5,7 +5,8 @@
         <ng-container [ngSwitch]="view.loading">
           <ng-container *ngSwitchCase="false">
             <h1 class="title overflow-hidden">{{ view.data?.course?.courseName }}
-              <button mat-button class="float-end fw-bold" (click)="onShowCancelCourseModal()">Cancel Course</button>
+              <button mat-button class="float-end fw-bold cancel" (click)="onShowCancelCourseModal()" *ngIf="view.data?.course?.status !== 'canceled'">Cancel Course</button>
+              <span class="float-end hold cursor-pointer" (click)="onShowOnHoldCourseModal()" *ngIf="view.data?.course?.status === 'canceled'">Course is on Hold</span>
             </h1>
             <div class="row list rounded">
               <div class="col-md-3 d-flex menu align-items-center">

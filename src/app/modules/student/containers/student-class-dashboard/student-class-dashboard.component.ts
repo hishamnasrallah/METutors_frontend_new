@@ -61,10 +61,12 @@ export class StudentClassDashboardComponent implements OnInit {
     this._store.dispatch(fromCore.studentJoinClass({ id }));
   }
 
-  onShowCancelCourseModal(): void {
-    //todo revert it
-    // this._store.dispatch(fromStudentAction.openCancelCourseModal());
+  onShowOnHoldCourseModal(): void {
     this._store.dispatch(fromStudentAction.openTutorReAssignmentModal());
+  }
+
+  onShowCancelCourseModal(): void {
+    this._store.dispatch(fromStudentAction.openCancelCourseModal());
   }
 
   onCloseCancelCourseModal(): void {
