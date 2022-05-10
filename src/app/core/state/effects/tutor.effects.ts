@@ -479,7 +479,7 @@ export class TutorEffects {
     )
   );
 
-  tutorSubmitFeedbackSuccess$ = createEffect(
+  /*  tutorSubmitFeedbackSuccess$ = createEffect(
     () =>
       this._actions$.pipe(
         ofType(tutorActions.tutorSubmitFeedbackSuccess),
@@ -492,7 +492,7 @@ export class TutorEffects {
         })
       ),
     { dispatch: false }
-  );
+  );*/
 
   successMessages$ = createEffect(
     () =>
