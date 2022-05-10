@@ -6,6 +6,7 @@ import {
   COURSE_TUITION_TYPES_CONST,
 } from 'src/app/config/general';
 import { ITutor } from './tutor.model';
+import { IStudent } from './student.model';
 
 export class ICourse {
   id!: number;
@@ -33,6 +34,7 @@ export class ICourse {
   program?: IProgram;
   classes?: IClass[];
   tutor?: ITutor;
+  student?: IStudent;
   createdAt?: string;
 
   constructor(createDefault = false, course: any = null) {
@@ -62,6 +64,7 @@ export class ICourse {
       this.program = undefined;
       this.classes = [];
       this.tutor = undefined;
+      this.student = undefined;
       this.createdAt = '';
     }
 
@@ -91,6 +94,7 @@ export class ICourse {
       this.program = course.program;
       this.classes = course.classes;
       this.tutor = new ITutor(false, course?.teacher);
+      this.student = new IStudent(false, course?.student);
       this.createdAt = course?.created_at;
     }
   }

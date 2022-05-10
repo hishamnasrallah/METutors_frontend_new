@@ -37,6 +37,8 @@ import {
   AdminTutorInterviewComponent,
   AdminSuspendedTutorsComponent,
   AdminWorkforceCapacityComponent,
+  AdminCancelledClassroomsComponent,
+  AdminAllBookingClassroomsComponent,
   AdminTutorInterviewDetailsComponent,
   AdminTutorInterviewDocumentsComponent,
 } from './containers';
@@ -79,7 +81,9 @@ import {
     AdminAddNewProgramModalComponent,
     AdminAddNewCountryModalComponent,
     AdminAddNewSubjectModalComponent,
+    AdminCancelledClassroomsComponent,
     AdminSendMeetingLinkModalComponent,
+    AdminAllBookingClassroomsComponent,
     AdminTutorInterviewDetailsComponent,
     AdminAddNewFieldStudyModalComponent,
     AdminDeclineInterviewModalComponent,

@@ -17,6 +17,8 @@ import {
   AdminTutorInterviewComponent,
   AdminSuspendedTutorsComponent,
   AdminWorkforceCapacityComponent,
+  AdminCancelledClassroomsComponent,
+  AdminAllBookingClassroomsComponent,
   AdminTutorInterviewDetailsComponent,
   AdminTutorInterviewDocumentsComponent,
 } from './containers';
@@ -161,6 +163,40 @@ const routes: Routes = [
             showFooter: false,
           },
         },
+      },
+      {
+        path: 'classrooms',
+        children: [
+          {
+            path: 'all',
+            component: AdminAllBookingClassroomsComponent,
+            data: {
+              layout: {
+                title: 'All Booking - Metutors',
+                navbarTitle: 'All Booking',
+                showHeader: false,
+                showFooter: false,
+              },
+            },
+          },
+          {
+            path: 'cancelled',
+            component: AdminCancelledClassroomsComponent,
+            data: {
+              layout: {
+                title: 'Cancelled - Metutors',
+                navbarTitle: 'Cancelled',
+                showHeader: false,
+                showFooter: false,
+              },
+            },
+          },
+          {
+            path: '',
+            redirectTo: 'all',
+            pathMatch: 'full',
+          },
+        ],
       },
       {
         path: 'program',

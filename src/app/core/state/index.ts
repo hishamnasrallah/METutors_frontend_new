@@ -1138,3 +1138,43 @@ export const selectFilteredWorkforceCapacity = createSelector(
   selectAdminState,
   fromAdminReducer.selectFilteredWorkforceCapacity
 );
+
+export const selectIsLoadingAllBookings = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectIsLoadingAllBookings
+);
+
+export const selectAllBookings = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectAllBookings
+);
+
+export const selectIsLoadingCompletedBookings = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectIsLoadingCompletedBookings
+);
+
+export const selectCompletedBookings = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectCompletedBookings
+);
+
+export const selectIsLoadingCancelledBookings = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectIsLoadingCancelledBookings
+);
+
+export const selectCancelledBookings = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectCancelledBookings
+);
+
+export const selectIsLoadingRunningBookings = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectIsLoadingRunningBookings
+);
+
+export const selectRunningBookings = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectRunningBookings
+);

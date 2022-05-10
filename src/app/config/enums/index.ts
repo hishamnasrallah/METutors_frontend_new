@@ -3,6 +3,7 @@ export * from './tuition-type';
 export * from './tutor-status';
 export * from './field-status';
 export * from './ticket-status';
+export * from './course-status';
 export * from './subject-status';
 export * from './country-status';
 export * from './classroom-type';

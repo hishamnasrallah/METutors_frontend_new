@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { environment } from 'src/environments/environment';
-import { ICapacity, ISubject } from '../models';
+import { ICapacity, ICourse, ISubject } from '../models';
 
 @Injectable({
   providedIn: 'root',
@@ -49,5 +49,45 @@ export class AdminService {
     return this.http
       .get<any>(`${this.baseUrl}admin/subject/${id}/bookings`)
       .pipe(map((response) => new ISubject(false, response?.subject)));
+  }
+
+  loadAllBookings(): Observable<any> {
+    return this.http
+      .get<any>(`${this.baseUrl}admin/bookings`)
+      .pipe(
+        map((response) =>
+          response?.courses.map((course: any) => new ICourse(false, course))
+        )
+      );
+  }
+
+  loadCompletedBookings(): Observable<any> {
+    return this.http
+      .get<any>(`${this.baseUrl}admin/bookings?completed=true`)
+      .pipe(
+        map((response) =>
+          response?.courses.map((course: any) => new ICourse(false, course))
+        )
+      );
+  }
+
+  loadRunningBookings(): Observable<any> {
+    return this.http
+      .get<any>(`${this.baseUrl}admin/bookings?running=true`)
+      .pipe(
+        map((response) =>
+          response?.courses.map((course: any) => new ICourse(false, course))
+        )
+      );
+  }
+
+  loadCancelledBookings(): Observable<any> {
+    return this.http
+      .get<any>(`${this.baseUrl}admin/bookings?cancelled=true`)
+      .pipe(
+        map((response) =>
+          response?.courses.map((course: any) => new ICourse(false, course))
+        )
+      );
   }
 }

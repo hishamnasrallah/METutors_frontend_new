@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 
-import { ICapacity, ISubject, ITeacherDocument } from '@models';
+import { ICapacity, ICourse, ISubject, ITeacherDocument } from '@models';
 import * as adminActions from '../actions/admin.actions';
 
 export interface State {
@@ -16,17 +16,35 @@ export interface State {
   // Loading course booking list
   courseBooking: ISubject | null;
   isLoadingCourseBooking: boolean;
+
+  // Classroom Bookings
+  allBookings: ICourse[];
+  runningBookings: ICourse[];
+  completedBookings: ICourse[];
+  cancelledBookings: ICourse[];
+  isLoadingAllBookings: boolean;
+  isLoadingRunningBookings: boolean;
+  isLoadingCompletedBookings: boolean;
+  isLoadingCancelledBookings: boolean;
 }
 
 export const initialState: State = {
   documents: [],
+  allBookings: [],
+  runningBookings: [],
   courseBooking: null,
+  completedBookings: [],
+  cancelledBookings: [],
   isApprovingDoc: false,
   isRejectingDoc: false,
   workforceCapacity: [],
   isLoadingAdminDocs: false,
+  isLoadingAllBookings: false,
   isLoadingCourseBooking: false,
+  isLoadingRunningBookings: false,
   isLoadingWorkforceCapacity: false,
+  isLoadingCompletedBookings: false,
+  isLoadingCancelledBookings: false,
 };
 
 export const reducer = createReducer(
@@ -136,7 +154,93 @@ export const reducer = createReducer(
   on(adminActions.loadCourseBookingListFailure, (state) => ({
     ...state,
     isLoadingCourseBooking: false,
-  }))
+  })),
+
+  on(adminActions.loadAllBookings, (state) => ({
+    ...state,
+    isLoadingAllBookings: true,
+  })),
+
+  on(adminActions.loadAllBookingsSuccess, (state, { allBookings }) => ({
+    ...state,
+    allBookings,
+    isLoadingAllBookings: false,
+  })),
+
+  on(
+    adminActions.loadAllBookingsEnded,
+    adminActions.loadAllBookingsFailure,
+    (state) => ({
+      ...state,
+      isLoadingAllBookings: false,
+    })
+  ),
+
+  on(adminActions.loadCompletedBookings, (state) => ({
+    ...state,
+    isLoadingCompletedBookings: true,
+  })),
+
+  on(
+    adminActions.loadCompletedBookingsSuccess,
+    (state, { completedBookings }) => ({
+      ...state,
+      completedBookings,
+      isLoadingCompletedBookings: false,
+    })
+  ),
+
+  on(
+    adminActions.loadCompletedBookingsEnded,
+    adminActions.loadCompletedBookingsFailure,
+    (state) => ({
+      ...state,
+      isLoadingCompletedBookings: false,
+    })
+  ),
+
+  on(adminActions.loadRunningBookings, (state) => ({
+    ...state,
+    isLoadingRunningBookings: true,
+  })),
+
+  on(adminActions.loadRunningBookingsSuccess, (state, { runningBookings }) => ({
+    ...state,
+    runningBookings,
+    isLoadingRunningBookings: false,
+  })),
+
+  on(
+    adminActions.loadRunningBookingsEnded,
+    adminActions.loadRunningBookingsFailure,
+    (state) => ({
+      ...state,
+      isLoadingRunningBookings: false,
+    })
+  ),
+
+  on(adminActions.loadCancelledBookings, (state) => ({
+    ...state,
+    isLoadingCancelledBookings: true,
+  })),
+
+  on(
+    adminActions.loadCancelledBookingsSuccess,
+    (state, { cancelledBookings }) => ({
+      ...state,
+      cancelledBookings,
+      isLoadingCancelledBookings: false,
+    })
+  ),
+
+  on(
+    adminActions.loadCancelledBookingsEnded,
+    adminActions.loadCancelledBookingsFailure,
+    (state) => ({
+      ...state,
+      isLoadingCancelledBookings: false,
+    })
+  )
 );
 
 export const selectAdminDocuments = (state: State): ITeacherDocument[] =>
@@ -162,6 +266,29 @@ export const selectIsLoadingCourseBooking = (state: State): boolean =>
 
 export const selectCourseBooking = (state: State): ISubject | null =>
   state.courseBooking;
+
+export const selectIsLoadingAllBookings = (state: State): boolean =>
+  state.isLoadingAllBookings;
+
+export const selectAllBookings = (state: State): ICourse[] => state.allBookings;
+
+export const selectIsLoadingRunningBookings = (state: State): boolean =>
+  state.isLoadingRunningBookings;
+
+export const selectRunningBookings = (state: State): ICourse[] =>
+  state.runningBookings;
+
+export const selectIsLoadingCompletedBookings = (state: State): boolean =>
+  state.isLoadingCompletedBookings;
+
+export const selectCompletedBookings = (state: State): ICourse[] =>
+  state.completedBookings;
+
+export const selectIsLoadingCancelledBookings = (state: State): boolean =>
+  state.isLoadingCancelledBookings;
+
+export const selectCancelledBookings = (state: State): ICourse[] =>
+  state.cancelledBookings;
 
 export const selectFilteredWorkforceCapacity = (
   state: State,

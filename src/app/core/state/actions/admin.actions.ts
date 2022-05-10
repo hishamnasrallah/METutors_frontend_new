@@ -1,4 +1,4 @@
-import { ICapacity, ISubject } from '@metutor/core/models';
+import { ICapacity, ICourse, ISubject } from '@metutor/core/models';
 import { createAction, props } from '@ngrx/store';
 
 // Load Admin Documents
@@ -83,4 +83,78 @@ export const loadCourseBookingListSuccess = createAction(
 export const loadCourseBookingListFailure = createAction(
   '[Admin] Load Course Booking List Failure',
   props<{ error: any }>()
+);
+
+// Load All Bookings
+export const loadAllBookings = createAction('[Admin] Load All Bookings');
+
+export const loadAllBookingsSuccess = createAction(
+  '[Admin] Load All Bookings Success',
+  props<{ allBookings: ICourse[] }>()
+);
+
+export const loadAllBookingsFailure = createAction(
+  '[Admin] Load All Bookings Failure',
+  props<{ error: any }>()
+);
+
+export const loadAllBookingsEnded = createAction(
+  '[Admin] Load All Bookings Ended'
+);
+
+// Load Completed Bookings
+export const loadCompletedBookings = createAction(
+  '[Admin] Load Completed Bookings'
+);
+
+export const loadCompletedBookingsSuccess = createAction(
+  '[Admin] Load Completed Bookings Success',
+  props<{ completedBookings: ICourse[] }>()
+);
+
+export const loadCompletedBookingsFailure = createAction(
+  '[Admin] Load Completed Bookings Failure',
+  props<{ error: any }>()
+);
+
+export const loadCompletedBookingsEnded = createAction(
+  '[Admin] Load Completed Bookings Ended'
+);
+
+// Load Running Bookings
+export const loadRunningBookings = createAction(
+  '[Admin] Load Running Bookings'
+);
+
+export const loadRunningBookingsSuccess = createAction(
+  '[Admin] Load Running Bookings Success',
+  props<{ runningBookings: ICourse[] }>()
+);
+
+export const loadRunningBookingsFailure = createAction(
+  '[Admin] Load Running Bookings Failure',
+  props<{ error: any }>()
+);
+
+export const loadRunningBookingsEnded = createAction(
+  '[Admin] Load Running Bookings Ended'
+);
+
+// Load Cancelled Bookings
+export const loadCancelledBookings = createAction(
+  '[Admin] Load Cancelled Bookings'
+);
+
+export const loadCancelledBookingsSuccess = createAction(
+  '[Admin] Load Cancelled Bookings Success',
+  props<{ cancelledBookings: ICourse[] }>()
+);
+
+export const loadCancelledBookingsFailure = createAction(
+  '[Admin] Load Cancelled Bookings Failure',
+  props<{ error: any }>()
+);
+
+export const loadCancelledBookingsEnded = createAction(
+  '[Admin] Load Cancelled Bookings Ended'
 );
