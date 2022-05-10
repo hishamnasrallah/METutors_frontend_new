@@ -82,12 +82,12 @@
                 <th>Duration</th>
                 <th></th>
               </tr>
-              <tr *ngIf="!view.data.todaysClasses.length">
+              <tr *ngIf="!view.data?.todaysClasses?.length">
                 <td colspan="6">
                   <div class="text-center">No record found</div>
                 </td>
               </tr>
-              <ng-container *ngIf="view.data.todaysClasses.length">
+              <ng-container *ngIf="view.data?.todaysClasses?.length">
                 <tr *ngFor="let todaysClass of view.data.todaysClasses; let i=index">
                   <td>{{ i + 1}}</td>
                   <td>{{ todaysClass.title }}</td>
@@ -138,12 +138,12 @@
                 <th>Duration</th>
                 <th></th>
               </tr>
-              <tr *ngIf="!view.data.upcomingClasses.length">
+              <tr *ngIf="!view.data?.upcomingClasses?.length">
                 <td colspan="8">
                   <div class="text-center">No record found</div>
                 </td>
               </tr>
-              <ng-container *ngIf="view.data.upcomingClasses.length">
+              <ng-container *ngIf="view.data?.upcomingClasses?.length">
                 <tr *ngFor="let upcomingClass of view.data.upcomingClasses; let i=index">
                   <td>{{ i + 1}}</td>
                   <td>{{ upcomingClass.title ? upcomingClass.title : 'N/A' }}</td>
@@ -184,12 +184,12 @@
                 <th>Duration</th>
                 <th></th>
               </tr>
-              <tr *ngIf="!view.data.previousClasses.length">
+              <tr *ngIf="!view.data?.previousClasses?.length">
                 <td colspan="8">
                   <div class="text-center">No record found</div>
                 </td>
               </tr>
-              <ng-container *ngIf="view.data.previousClasses.length">
+              <ng-container *ngIf="view.data?.previousClasses?.length">
                 <tr *ngFor="let previousClass of view.data.previousClasses; let i=index">
                   <td>{{ i + 1}}</td>
                   <td>{{ previousClass.title }}</td>

@@ -230,7 +230,8 @@
                         'pending': interviewStatus.pending === tutor?.adminApproval,
                         'deactive': interviewStatus.rejected === tutor?.adminApproval
                      }">
-                     {{ tutor?.adminApproval === 'approved' ? 'Active' : tutor?.adminApproval }}
+                     {{ tutor?.staus }}
+                     <!-- {{ tutor?.adminApproval === 'approved' ? 'Active' : tutor?.adminApproval }} -->
                     </button>
                     <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
                       <li role="menuitem" class="cursor-pointer text-capitalize" *ngFor="let status of tutorStatuses"
