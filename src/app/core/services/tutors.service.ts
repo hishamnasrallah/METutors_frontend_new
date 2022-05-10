@@ -85,6 +85,18 @@ export class TutorsService {
       );
   }
 
+  getAvailableTutors(id: number): Observable<any> {
+    return this.http
+      .get<{
+        filtered_teacher: ITutor[];
+      }>(`${this.baseUrl}available-teachers?course_id=${id}`)
+      .pipe(
+        map((response) =>
+          response.filtered_teacher.map((tutor) => new ITutor(false, tutor))
+        )
+      );
+  }
+
   getCurrentTutors(): Observable<any> {
     return this.http
       .get<{

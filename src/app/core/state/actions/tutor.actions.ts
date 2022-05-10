@@ -50,6 +50,25 @@ export const changeTutorCoverFailure = createAction(
   props<{ error: any }>()
 );
 
+// Load available tutors
+export const loadAvailableTutors = createAction(
+  '[Tutor] Load Available Tutors'
+);
+
+export const loadAvailableTutorsSuccess = createAction(
+  '[Tutor] Load Available Tutors Success',
+  props<{ availableTutors: ITutor[] }>()
+);
+
+export const loadAvailableTutorsFailure = createAction(
+  '[Tutor] Load Available Tutors Failure',
+  props<{ error: any }>()
+);
+
+export const loadAvailableTutorsEnded = createAction(
+  '[Tutor] Load Available Tutors Ended'
+);
+
 // Load all tutors
 export const loadTutors = createAction('[Tutor] Load Tutors');
 

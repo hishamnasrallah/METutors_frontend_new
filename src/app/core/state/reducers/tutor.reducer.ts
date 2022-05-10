@@ -4,23 +4,24 @@ import { ITutor } from '@models';
 import * as tutorActions from '../actions/tutor.actions';
 import * as uploadActions from '../actions/upload.actions';
 import * as courseActions from '../actions/course.actions';
-import { TutorStatus } from '@metutor/config';
 
 export interface State {
   dashboard: any;
   attendance: any;
+  tutorsCounts: any;
   feedbackOptions: any;
   tutor: ITutor | null;
   tutors: ITutor[] | null;
-  tutorsCounts: any;
   isLoadingTutor: boolean;
   isLoadingTutors: boolean;
   isLaunchingClass: boolean;
   isLoadingDashboard: boolean;
   loadingTutorFailure: string;
   loadingTutorsFailure: string;
-  isSubmittingFeedback: boolean;
   isReschedulingClass: boolean;
+  isSubmittingFeedback: boolean;
+  availableTutors: ITutor[] | null;
+  isLoadingAvailableTutors: boolean;
   isLoadingTutorAttendance: boolean;
   isLoadingTutorFeedbackOptions: boolean;
 
@@ -66,6 +67,7 @@ export const initialState: State = {
   isLoadingTutor: false,
   isLoadingTutors: false,
   isLaunchingClass: false,
+  availableTutors: null,
   loadingTutorFailure: '',
   loadingTutorsFailure: '',
   isLoadingDashboard: false,
@@ -79,6 +81,7 @@ export const initialState: State = {
   isLoadingCurrentTutors: false,
   isLoadingPendingTutors: false,
   isLoadingTutorAttendance: false,
+  isLoadingAvailableTutors: false,
   isLoadingSuspendedTutors: false,
   completeTutorProfileFailure: '',
   isLoadingTutorFeedbackOptions: false,
@@ -101,6 +104,27 @@ export const reducer = createReducer(
     ...state,
     isLoadingTutor: false,
     loadingTutorFailure: error,
+  })),
+
+  on(tutorActions.loadAvailableTutors, (state) => ({
+    ...state,
+    isLoadingAvailableTutors: true,
+  })),
+
+  on(tutorActions.loadAvailableTutorsSuccess, (state, { availableTutors }) => ({
+    ...state,
+    availableTutors,
+    isLoadingAvailableTutors: false,
+  })),
+
+  on(tutorActions.loadAvailableTutorsFailure, (state) => ({
+    ...state,
+    isLoadingAvailableTutors: false,
+  })),
+
+  on(tutorActions.loadAvailableTutorsEnded, (state) => ({
+    ...state,
+    isLoadingAvailableTutors: false,
   })),
 
   on(tutorActions.loadProfileTutor, (state) => ({
@@ -448,6 +472,12 @@ export const selectIsLoadingProfileTutor = (state: State): boolean =>
   state.isLoadingProfileTutor;
 
 export const selectTutors = (state: State): ITutor[] | null => state.tutors;
+
+export const selectAvailableTutors = (state: State): ITutor[] | null =>
+  state.availableTutors;
+
+export const selectIsLoadingAvailableTutors = (state: State): boolean =>
+  state.isLoadingAvailableTutors;
 
 export const selectCurrentTutors = (state: State): ITutor[] | null =>
   state.currentTutors;

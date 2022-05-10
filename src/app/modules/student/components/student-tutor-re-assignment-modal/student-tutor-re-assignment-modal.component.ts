@@ -67,6 +67,7 @@ export class StudentTutorReAssignmentModalComponent implements OnInit {
       this.showHeader = true;
       this.heading = 'Select a Replacement Tutor';
       this.subHeading = 'Please select a new tutor to continue your course';
+      this._store.dispatch(fromCore.loadAvailableTutors());
     } else if (this.selectedOption === 2) {
       this.subHeading = '-';
       this.showHeader = false;
@@ -99,8 +100,10 @@ export class StudentTutorReAssignmentModalComponent implements OnInit {
       this._store.select(fromCore.selectIsLoadingRefundCourse),
     ]).pipe(map(([refund, loading]) => ({ refund, loading })));
 
-    this.tutors$ = this._store.select(fromCore.selectGeneratingTutors);
-    this.loadingTutors$ = this._store.select(fromCore.selectIsGeneratingTutors);
+    this.tutors$ = this._store.select(fromCore.selectAvailableTutors);
+    this.loadingTutors$ = this._store.select(
+      fromCore.selectIsLoadingAvailableTutors
+    );
 
     this.form = this._fb.group({
       agree: [null, Validators.required],

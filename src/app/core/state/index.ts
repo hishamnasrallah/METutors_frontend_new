@@ -206,6 +206,16 @@ export const selectTutors = createSelector(
   fromTutorReducer.selectTutors
 );
 
+export const selectAvailableTutors = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectAvailableTutors
+);
+
+export const selectIsLoadingAvailableTutors = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectIsLoadingAvailableTutors
+);
+
 export const selectCurrentTutors = createSelector(
   selectTutorState,
   fromTutorReducer.selectCurrentTutors

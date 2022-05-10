@@ -22,6 +22,10 @@ import {
   selectTutorDashboard,
   selectSuspendedTutors,
 } from '..';
+import {
+  loadAvailableTutors,
+  loadAvailableTutorsEnded,
+} from '../actions/tutor.actions';
 
 @Injectable()
 export class TutorEffects {
@@ -106,6 +110,37 @@ export class TutorEffects {
           );
         } else {
           return of(tutorActions.loadTutorsEnded());
+        }
+      })
+    )
+  );
+
+  loadAvailableTutors$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorActions.loadAvailableTutors),
+      withLatestFrom(
+        this._store.select(selectTutors),
+        this._store.select(fromRouterStore.selectRouteParams)
+      ),
+      mergeMap(([_, _tutors, { id }]) => {
+        if (!_tutors || !_tutors?.length) {
+          return this._tutorService.getAvailableTutors(id).pipe(
+            map((availableTutors) => {
+              return tutorActions.loadAvailableTutorsSuccess({
+                availableTutors,
+              });
+            }),
+            catchError((error) => {
+              console.log(error);
+              return of(
+                tutorActions.loadAvailableTutorsFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              );
+            })
+          );
+        } else {
+          return of(tutorActions.loadAvailableTutorsEnded());
         }
       })
     )
