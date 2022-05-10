@@ -48,6 +48,60 @@
         </div>
       </ng-container>
 
+      <ng-container *ngIf="next && selectedOption === 1">
+        <div class="assign-tutor flex-row mt-5 p-3">
+          <ng-container [ngSwitch]="loadingTutors$ | async">
+            <ng-container *ngSwitchCase="true">
+              <div class="ph-item mt-4 mx-2" *ngFor="let i of [1, 2, 3, 4, 5]">
+                <div class="ph-col-2">
+                  <div class="ph-avatar"></div>
+                </div>
+
+                <div>
+                  <div class="ph-row mt-2">
+                    <div class="ph-col-10"></div>
+                    <div class="ph-col-2 empty"></div>
+                    <div class="ph-col-6"></div>
+                    <div class="ph-col-6 empty"></div>
+                    <div class="ph-col-2"></div>
+                    <div class="ph-col-10 empty"></div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+            <ng-container *ngSwitchCase="false">
+              <mat-radio-group class="d-flex flex-column" (change)="onTutorSelect($event)">
+                <mat-radio-button *ngFor="let tutor of (tutors$ | async)" [value]="tutor?.id">
+                  <div class="row">
+                    <div class="position-relative img-avatar">
+                      <img [src]="tutor?.avatar" meTutorsDefaultAvatar alt="" width="60px" height="60px">
+                    </div>
+                    <div class="col d-flex justify-content-center flex-column">
+                      <h2>{{ tutor?.name }}</h2>
+                      <h3 class="mb-0" *ngIf="tutor?.bio">{{ tutor?.bio }}</h3>
+                    </div>
+                    <a class="col-md-2 full-profile" [routerLink]="'/tutor-profile/' + tutor?.id" target="_blank">
+                      <img src="assets/svg/share-link.svg" draggable="false" width="16px" height="16px" alt="">
+                      Full profile
+                    </a>
+                  </div>
+                </mat-radio-button>
+              </mat-radio-group>
+
+              <div class="row mt-5">
+                <div class="col-12 overflow-hidden">
+                  <button mat-flat-button color="primary" class="float-end py-2 px-5" type="submit"
+                          [disabled]="!selectedTutor">
+                    Continue
+                  </button>
+                  <span class="back-button float-end text-secondary cursor-pointer" (click)="onBack()">Back</span>
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+      </ng-container>
+
       <ng-container *ngIf="next && selectedOption === 2">
         <div class="assign-tutor flex-row mt-5 p-3">
           <div class="text-center">
@@ -63,6 +117,84 @@
             </div>
           </div>
         </div>
+      </ng-container>
+
+      <ng-container *ngIf="next && selectedOption === 3">
+        <ng-container *ngLet="(view$ | async) as view">
+          <form class="row cancel-course-modal" [formGroup]="form"
+                (ngSubmit)="onSubmitCancelCourse(form, view.refund?.totalRefunds)">
+            <ng-container [ngSwitch]="view.loading">
+              <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
+              <div class="col-12 mt-4" *ngSwitchCase="false">
+                <div class="form-group">
+                  <span class="fw-bold mb-2 d-block">Summary:</span>
+                  <div class="row">
+                    <div class="col-md-6 mb-2"><span
+                      class="text-secondary">Total classes: </span> {{ view.refund?.totalClasses}}</div>
+                    <div class="col-md-6"><span
+                      class="text-secondary">Remaining classes: </span> {{ view.refund?.remainingClasses}}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6"><span
+                      class="text-secondary">Refundable classes: </span> {{ view.refund?.totalRefundableClasses}}</div>
+                    <div class="col-md-6"><span
+                      class="text-secondary">Non Refundable classes: </span> {{ view.refund?.nonRefundableClasses}}
+                    </div>
+                  </div>
+                  <span class="note text-danger">*We will pay back only refundable classes</span>
+                  <hr class="text-secondary">
+                </div>
+
+                <div class="form-group mt-3">
+                  <div class="row mb-3">
+                    <div class="col-md-6"><span class="text-secondary">Per hour price </span></div>
+                    <div class="col-md-6 text-right"><span class="text-secondary">${{ view.refund?.perHourPrice }}
+                      *  {{ view.refund?.totalDuration}} = </span> ${{ view.refund?.subtotalRefunds}}</div>
+                  </div>
+
+                  <div class="row mb-4">
+                    <div class="col-md-6"><span class="text-secondary">Service fee per class </span></div>
+                    <div class="col-md-6 text-right"><span class="text-secondary">${{view.refund?.serviceFee}}
+                      * {{ view.refund?.totalRefundableClasses}} = </span> - ${{ view.refund?.totalServiceFee}}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6">Total Refunds</div>
+                    <div class="col-md-6 text-right">${{ view.refund?.totalRefunds}}</div>
+                  </div>
+                </div>
+
+                <div class="form-group mt-2">
+                  <label>Why you want to cancel this course?</label>
+                  <textarea class="form-control custom-input input-bordered" formControlName="reason"
+                            id="exampleFormControlTextarea1" rows="5" placeholder="Enter the reason here..."></textarea>
+                </div>
+
+                <div class="form-group mt-2">
+                  <mat-checkbox formControlName="agree">I agree to METutors <a href="" target="_blank">cancel policy</a>
+                  </mat-checkbox>
+                </div>
+
+                <div class="form-group mt-2" *ngIf="!view.refund?.totalRefunds">
+                  <div class="alert-warning p-3">No refundable class found</div>
+                </div>
+
+                <div class="row mt-2">
+                  <div class="col-md-12 overflow-hidden">
+                    <metutors-submit-button [form]="form" [isSubmitting]="isCanceling$ | async"
+                                            [isDisabled]="!view.refund?.totalRefunds"
+                                            [extraClasses]="'float-end py-2 px-5'">
+                      Confirm
+                    </metutors-submit-button>
+
+                    <span class="back-button float-end text-secondary cursor-pointer" (click)="onBack()">Back</span>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </form>
+        </ng-container>
       </ng-container>
     </div>
   </ng-template>
