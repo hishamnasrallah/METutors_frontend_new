@@ -1,5 +1,6 @@
 import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import camelcaseKeys from 'camelcase-keys';
 import { IInterview } from '@metutor/core/models';
@@ -11,7 +12,9 @@ import { TutorsService } from '@services';
 import { environment } from '@environment';
 import * as fromRouterStore from '@metutor/state';
 import * as tutorActions from '../actions/tutor.actions';
+import * as fromTutor from '@metutor/modules/tutor/state';
 import { AlertNotificationService } from '@metutor/core/components';
+
 import {
   selectTutors,
   selectProfileTutor,
@@ -436,7 +439,7 @@ export class TutorEffects {
       withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
       mergeMap(([{ body }, { id }]) =>
         this._tutorService.tutorSubmitPlatformFeedback(body, id).pipe(
-          map((attendance) =>
+          map(() =>
             tutorActions.tutorSubmitPlatformFeedbackSuccess({
               message: 'Feedback successfully submitted',
             })
@@ -474,6 +477,21 @@ export class TutorEffects {
         )
       )
     )
+  );
+
+  tutorSubmitFeedbackSuccess$ = createEffect(
+    () =>
+      this._actions$.pipe(
+        ofType(tutorActions.tutorSubmitFeedbackSuccess),
+        withLatestFrom(this._store.select(fromTutor.selectTutorStateParams)),
+        map(([_, { redirect }]) => {
+          console.log(redirect);
+          if (redirect) {
+            this._router.navigate(['/tutor/classrooms']);
+          }
+        })
+      ),
+    { dispatch: false }
   );
 
   successMessages$ = createEffect(
@@ -526,6 +544,7 @@ export class TutorEffects {
   );
 
   constructor(
+    private _router: Router,
     private _store: Store<any>,
     private _actions$: Actions,
     private _tutorService: TutorsService,

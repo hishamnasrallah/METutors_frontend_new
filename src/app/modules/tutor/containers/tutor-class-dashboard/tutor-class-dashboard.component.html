@@ -213,27 +213,28 @@
       </div>
     </div>
   </div>
+
+  <metutors-tutor-attendance-modal *ngIf="(showCourseAttendanceModal$ | async)"
+                                   [showModal]="(showCourseAttendanceModal$ | async)!"
+                                   (closeModal)="onCloseCourseAttendanceModal()">
+  </metutors-tutor-attendance-modal>
+
+  <metutors-tutor-feedback-modal *ngIf="(showSendFeedbackModal$ | async)"
+                                 [showModal]="(showSendFeedbackModal$ | async)!"
+                                 (closeModal)="onCloseSendFeedbackModal()" (submitFeedback)="onSubmitFeedback($event)">
+  </metutors-tutor-feedback-modal>
+
+  <metutors-tutor-cancel-course-modal *ngIf="(showCancelCourseModal$ | async)"
+                                      [showModal]="(showCancelCourseModal$ | async)!"
+                                      (closeModal)="onCloseCancelCourseModal()" (submitted)="onCancelCourse($event,  view.data?.course?.studentId)">
+  </metutors-tutor-cancel-course-modal>
+
+  <metutors-tutor-reschedule-class-modal *ngIf="(showRescheduleModal | async)"
+                                         [classId]="classId"
+                                         [showModal]="(showRescheduleModal | async)!"
+                                         [submitting]="(isReschedulingClass$ | async)!"
+                                         (closeModal)="onCloseRescheduleModal()"
+                                         (submitted)="onSubmitRescheduleClass($event)">
+  </metutors-tutor-reschedule-class-modal>
+
 </div>
-
-<metutors-tutor-attendance-modal *ngIf="(showCourseAttendanceModal$ | async)"
-                                 [showModal]="(showCourseAttendanceModal$ | async)!"
-                                 (closeModal)="onCloseCourseAttendanceModal()">
-</metutors-tutor-attendance-modal>
-
-<metutors-tutor-feedback-modal *ngIf="(showSendFeedbackModal$ | async)"
-                               [showModal]="(showSendFeedbackModal$ | async)!"
-                               (closeModal)="onCloseSendFeedbackModal()" (submitFeedback)="onSubmitFeedback($event)">
-</metutors-tutor-feedback-modal>
-
-<metutors-tutor-cancel-course-modal *ngIf="(showCancelCourseModal$ | async)"
-                                    [showModal]="(showCancelCourseModal$ | async)!"
-                                    (closeModal)="onCloseCancelCourseModal()" (submitted)="onCancelCourse($event)">
-</metutors-tutor-cancel-course-modal>
-
-<metutors-tutor-reschedule-class-modal *ngIf="(showRescheduleModal | async)"
-                                       [classId]="classId"
-                                       [showModal]="(showRescheduleModal | async)!"
-                                       [submitting]="(isReschedulingClass$ | async)!"
-                                       (closeModal)="onCloseRescheduleModal()"
-                                       (submitted)="onSubmitRescheduleClass($event)">
-</metutors-tutor-reschedule-class-modal>

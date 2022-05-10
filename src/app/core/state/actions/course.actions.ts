@@ -75,12 +75,12 @@ export const tutorRejectCourseFailure = createAction(
 
 export const tutorCancelCourse = createAction(
   '[Tutor] Tutor Cancel Course',
-  props<{ reason: string }>()
+  props<{ reason: string; studentId?: number }>()
 );
 
 export const tutorCancelCourseSuccess = createAction(
   '[Tutor] Tutor Cancel Course Success',
-  props<{ message: string }>()
+  props<{ message: string; studentId?: number }>()
 );
 
 export const tutorCancelCourseFailure = createAction(

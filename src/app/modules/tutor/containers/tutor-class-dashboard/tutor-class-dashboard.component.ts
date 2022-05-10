@@ -117,10 +117,10 @@ export class TutorClassDashboardComponent implements OnInit {
     this._store.dispatch(fromCore.tutorSubmitFeedback({ body }));
   }
 
-  onCancelCourse(form: FormGroup): void {
+  onCancelCourse(form: FormGroup, studentId?: number): void {
     const reason = form.value;
 
-    this._store.dispatch(fromCore.tutorCancelCourse({ reason }));
+    this._store.dispatch(fromCore.tutorCancelCourse({ reason, studentId }));
   }
 
   onSubmitRescheduleClass(form: FormGroup): void {

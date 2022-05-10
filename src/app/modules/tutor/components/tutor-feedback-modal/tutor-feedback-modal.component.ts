@@ -11,7 +11,7 @@ import {
   AbstractControl,
 } from '@angular/forms';
 
-import * as fromStudent from '../../state';
+import * as fromTutor from '../../state';
 import * as fromCore from '@metutor/core/state';
 
 @Component({
@@ -76,7 +76,7 @@ export class TutorFeedbackModalComponent implements OnInit {
         })
       ),
       this._store
-        .select(fromStudent.selectTutorStateParams)
+        .select(fromTutor.selectTutorStateParams)
         .pipe(tap((params) => this.receiverId?.setValue(params?.studentId))),
     ]).pipe(
       map(([loading, feedbackOptions]) => ({ loading, feedbackOptions }))

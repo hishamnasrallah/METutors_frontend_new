@@ -6,11 +6,6 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 
 import * as fromTutorAction from '../actions';
 import * as fromCore from '@metutor/core/state';
-import {
-  openTutorCourseAttendanceModal,
-  openTutorSendFeedbackModal,
-  openTutorSendPlatformFeedbackModal,
-} from '../actions';
 
 @Injectable()
 export class TutorModalEffects {
