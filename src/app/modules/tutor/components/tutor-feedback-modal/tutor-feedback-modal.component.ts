@@ -44,12 +44,17 @@ export class TutorFeedbackModalComponent implements OnInit {
     return this.form?.get('receiver_id');
   }
 
+  get redirect(): AbstractControl | null {
+    return this.form?.get('redirect');
+  }
+
   ngOnInit(): void {
     this.submittingFeedback$ = this._store.select(
       fromCore.selectIsSubmittingTutorFeedback
     );
 
     this.form = this._fb.group({
+      redirect: [false],
       receiver_id: [null],
       review: [null, Validators.required],
       feedbacks: this._fb.array([]),
@@ -75,9 +80,12 @@ export class TutorFeedbackModalComponent implements OnInit {
           }
         })
       ),
-      this._store
-        .select(fromTutor.selectTutorStateParams)
-        .pipe(tap((params) => this.receiverId?.setValue(params?.studentId))),
+      this._store.select(fromTutor.selectTutorStateParams).pipe(
+        tap((params) => {
+          this.redirect?.setValue(params?.redirect);
+          this.receiverId?.setValue(params?.studentId);
+        })
+      ),
     ]).pipe(
       map(([loading, feedbackOptions]) => ({ loading, feedbackOptions }))
     );

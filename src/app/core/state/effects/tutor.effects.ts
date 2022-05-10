@@ -12,7 +12,6 @@ import { TutorsService } from '@services';
 import { environment } from '@environment';
 import * as fromRouterStore from '@metutor/state';
 import * as tutorActions from '../actions/tutor.actions';
-import * as fromTutor from '@metutor/modules/tutor/state';
 import { AlertNotificationService } from '@metutor/core/components';
 
 import {
@@ -416,8 +415,9 @@ export class TutorEffects {
       withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
       mergeMap(([{ body }, { id }]) =>
         this._tutorService.tutorSubmitFeedback(body, id).pipe(
-          map((attendance) =>
+          map(() =>
             tutorActions.tutorSubmitFeedbackSuccess({
+              redirect: body?.redirect,
               message: 'Feedback successfully submitted',
             })
           ),
@@ -479,12 +479,11 @@ export class TutorEffects {
     )
   );
 
-  /*  tutorSubmitFeedbackSuccess$ = createEffect(
+  tutorSubmitFeedbackSuccess$ = createEffect(
     () =>
       this._actions$.pipe(
         ofType(tutorActions.tutorSubmitFeedbackSuccess),
-        withLatestFrom(this._store.select(fromTutor.selectTutorStateParams)),
-        map(([_, { redirect }]) => {
+        map(({ redirect }) => {
           console.log(redirect);
           if (redirect) {
             this._router.navigate(['/tutor/classrooms']);
@@ -492,7 +491,7 @@ export class TutorEffects {
         })
       ),
     { dispatch: false }
-  );*/
+  );
 
   successMessages$ = createEffect(
     () =>
