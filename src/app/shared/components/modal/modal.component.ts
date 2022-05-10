@@ -46,12 +46,14 @@ export class ModalComponent implements OnInit, OnDestroy, OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (
       (changes?.['heading'] && changes?.['heading']?.currentValue) ||
-      (changes?.['subHeading'] && changes?.['subHeading']?.currentValue)
+      (changes?.['subHeading'] && changes?.['subHeading']?.currentValue) ||
+      (changes?.['showHeader'] && changes?.['showHeader']?.currentValue)
     ) {
       if (this.dialogRef && this.dialogRef.componentInstance) {
         this.dialogRef.componentInstance.updateModalData({
           heading: this.heading,
           subHeading: this.subHeading,
+          showHeader: this.showHeader,
         });
       }
     }
@@ -112,8 +114,13 @@ export class ModalComponentTemplate implements OnInit {
     this.showHeader = this.data.showHeader;
   }
 
-  updateModalData(data: { heading: string; subHeading: string }) {
+  updateModalData(data: {
+    heading: string;
+    subHeading: string;
+    showHeader: boolean;
+  }) {
     this.heading = data.heading;
     this.subHeading = data.subHeading;
+    this.showHeader = data.showHeader;
   }
 }

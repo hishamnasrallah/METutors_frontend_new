@@ -14,9 +14,17 @@
       color: #000;
       font-size: 30px;
 
-      button {
+      .cancel {
         color: #e72347;
         text-decoration: underline;
+      }
+
+      .hold {
+        color: #e72347;
+        font-size: 16px;
+        padding: 3px 15px;
+        border-radius: 8px;
+        background: rgb(231 35 71 / 17%);
       }
     }
 
