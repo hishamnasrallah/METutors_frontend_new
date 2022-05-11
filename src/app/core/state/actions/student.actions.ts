@@ -260,12 +260,12 @@ export const loadStudentPlatformFeedbackOptionsFailure = createAction(
 
 export const studentSubmitFeedback = createAction(
   '[Student] Student Submit Feedback',
-  props<{ body: any }>()
+  props<{ body: any; cancelCourse: boolean }>()
 );
 
 export const studentSubmitFeedbackSuccess = createAction(
   '[Student] Student Submit Feedback Success',
-  props<{ message: string }>()
+  props<{ message: string; cancelCourse: boolean }>()
 );
 
 export const studentSubmitFeedbackFailure = createAction(

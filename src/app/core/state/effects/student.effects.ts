@@ -8,6 +8,7 @@ import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 import { StudentsService } from '@services';
 import * as fromRouterStore from '@metutor/state';
 import { AlertNotificationService } from '@metutor/core/components';
+import * as fromStudentAction from '@metutor/modules/student/state/actions';
 import * as studentActions from '@metutor/core/state/actions/student.actions';
 
 import {
@@ -496,10 +497,11 @@ export class StudentEffects {
     this._actions$.pipe(
       ofType(studentActions.studentSubmitFeedback),
       withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
-      mergeMap(([{ body }, { id }]) =>
+      mergeMap(([{ body, cancelCourse }, { id }]) =>
         this._studentService.studentSubmitFeedback(body, id).pipe(
           map((attendance) =>
             studentActions.studentSubmitFeedbackSuccess({
+              cancelCourse,
               message: 'Feedback successfully submitted',
             })
           ),
@@ -622,6 +624,19 @@ export class StudentEffects {
         studentActions.studentAddNewClassSuccess
       ),
       map(() => studentActions.loadStudentClassesDashboard())
+    )
+  );
+
+  studentSubmitFeedbackSuccess$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(studentActions.studentSubmitFeedbackSuccess),
+      map(({ cancelCourse }) => {
+        if (cancelCourse) {
+          return fromStudentAction.openCancelCourseModal();
+        } else {
+          return fromStudentAction.closeStudentSendFeedbackModal();
+        }
+      })
     )
   );
 

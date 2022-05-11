@@ -23,8 +23,9 @@ export class StudentFeedbackModalComponent implements OnInit {
   @Input() showModal = false;
   @Input() isPlatform = false;
   @Input() tabLabel = 'Tutor Feedback';
+  @Input() heading = 'Leave a Feedback';
   @Input() messageLabel = 'Write a message to your teacher';
-  @Input() heading = 'Share with us your feedback on your teacher';
+  @Input() subHeading = 'Share with us your feedback on your teacher';
 
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
   @Output() submitFeedback: EventEmitter<any> = new EventEmitter<any>();

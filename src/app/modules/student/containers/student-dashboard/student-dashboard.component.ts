@@ -52,7 +52,7 @@ export class StudentDashboardComponent implements OnInit {
   insightRange = insightRange;
   tabLabel = 'Metutors Feedback';
   showSendFeedbackModal$: Observable<boolean>;
-  heading = 'Share with us your feedback on MeTutors service';
+  subHeading = 'Share with us your feedback on MeTutors service';
   messageLabel =
     'Please share with us your thoughts on how to improve our services';
 

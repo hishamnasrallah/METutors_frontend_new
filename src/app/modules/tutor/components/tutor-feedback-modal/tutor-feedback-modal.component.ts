@@ -83,7 +83,6 @@ export class TutorFeedbackModalComponent implements OnInit {
       ),
       this._store.select(fromTutor.selectTutorStateParams).pipe(
         tap((params) => {
-          console.log(params);
           this.receiverId?.setValue(params?.studentId);
           this.cancelCourse?.setValue(params?.cancelCourse);
         })

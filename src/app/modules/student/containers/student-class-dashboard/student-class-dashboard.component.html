@@ -5,7 +5,7 @@
         <ng-container [ngSwitch]="view.loading">
           <ng-container *ngSwitchCase="false">
             <h1 class="title overflow-hidden">{{ view.data?.course?.courseName }}
-              <button mat-button class="float-end fw-bold cancel" (click)="onShowCancelCourseModal()" *ngIf="view.data?.course?.status !== 'canceled'">Cancel Course</button>
+              <button mat-button class="float-end fw-bold cancel" (click)="onShowSendFeedbackModal(view.data?.course?.teacher?.id, true)" *ngIf="view.data?.course?.status !== 'canceled'">Cancel Course</button>
               <span class="float-end hold cursor-pointer" (click)="onShowOnHoldCourseModal()" *ngIf="view.data?.course?.status === 'canceled'">Course is on Hold</span>
             </h1>
             <div class="row list rounded">
@@ -44,7 +44,7 @@
               </div>
               <div class="col-md-6">
                 <button mat-button class="main-button-transparent float-end ms-2"
-                        (click)="onShowSendFeedbackModal(view.data?.course?.teacher?.id)">
+                        (click)="onShowSendFeedbackModal(view.data?.course?.teacher?.id, false)">
                   Send Feedback
                 </button>
                 <button mat-button class="main-button-transparent float-end"
@@ -244,7 +244,7 @@
                                      (closeModal)="onCloseAttendanceModal()">
   </metutors-student-attendance-modal>
 
-  <metutors-student-feedback-modal *ngIf="showSendFeedbackModal$ | async"
+  <metutors-student-feedback-modal *ngIf="showSendFeedbackModal$ | async" [subHeading]="feedbackSubHeading"
                                    [showModal]="(showSendFeedbackModal$ | async)!"
                                    (closeModal)="onCloseFeedbackModal()" (submitFeedback)="onSubmitFeedback($event)">
   </metutors-student-feedback-modal>

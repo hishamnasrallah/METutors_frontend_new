@@ -186,7 +186,7 @@
   </ng-container>
 </div>
 
-<metutors-student-feedback-modal *ngIf="showSendFeedbackModal$ | async" [heading]="heading" [tabLabel]="tabLabel"
+<metutors-student-feedback-modal *ngIf="showSendFeedbackModal$ | async" [subHeading]="subHeading" [tabLabel]="tabLabel"
                                  [messageLabel]="messageLabel" [isPlatform]="true"
                                  [showModal]="(showSendFeedbackModal$ | async)!"
                                  (closeModal)="onCloseFeedbackModal()" (submitFeedback)="onSubmitFeedback($event)">
