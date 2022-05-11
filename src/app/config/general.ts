@@ -16,6 +16,10 @@ export const generalConstants = {
   defaultCoverPath: 'assets/defaults/cover.png',
   defaultAvatarPath: 'assets/defaults/avatar.png',
   defaultCoursePath: 'assets/defaults/course.jpg',
+  classroomTimeDuration: {
+    min: 0.5,
+    max: 3,
+  },
 };
 
 export const TICKET_STATUSES_CONST: any = [

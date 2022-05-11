@@ -6,6 +6,7 @@ import {
   ValidationErrors,
   ValidatorFn,
 } from '@angular/forms';
+import { generalConstants } from '@metutor/config';
 
 @Injectable({
   providedIn: 'root',
@@ -36,6 +37,43 @@ export class FormValidationUtilsService {
 
       if (password.value !== confirmPassword.value) {
         return { passwordMismatch: true };
+      }
+
+      return null;
+    };
+  }
+
+  classroomTimeDurationValidator(
+    durationControlKey: string,
+    startTimeControlKey: string,
+    endTimeControlKey: string
+  ): any {
+    return (formGroup: FormGroup): { [key: string]: boolean } | null => {
+      if (!formGroup) {
+        return null;
+      }
+
+      const duration = formGroup.get(durationControlKey);
+      const startTime = formGroup.get(startTimeControlKey);
+      const endTime = formGroup.get(endTimeControlKey);
+
+      if (!startTime || !startTime.value || !endTime || !endTime.value) {
+        return null;
+      }
+
+      if (startTime.value === endTime.value) {
+        return { durationError: true };
+      }
+
+      if (!duration || !duration.value) {
+        return null;
+      }
+
+      if (
+        duration.value < generalConstants.classroomTimeDuration.min ||
+        duration.value > generalConstants.classroomTimeDuration.max
+      ) {
+        return { durationError: true };
       }
 
       return null;

@@ -11,6 +11,7 @@ import { AbstractControl, FormGroup } from '@angular/forms';
 import {
   LONG_DAYS_WEEK,
   SORTED_DAYS_WEEK,
+  generalConstants,
   calculateListDays,
   calculateDurationTime,
   CLASSROOM_TYPES_CONST,
@@ -54,6 +55,7 @@ export class ClassroomInfoFormComponent implements OnInit {
   listDays = LONG_DAYS_WEEK;
   daysSorted = SORTED_DAYS_WEEK;
   types = CLASSROOM_TYPES_CONST;
+  classroomTimeDuration = generalConstants.classroomTimeDuration;
 
   constructor() {}
 

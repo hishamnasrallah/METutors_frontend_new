@@ -30,6 +30,7 @@ import {
   SORTED_DAYS_WEEK,
   calculateListDays,
   calculateDurationTime,
+  generalConstants,
 } from '@metutor/config';
 
 import groupBy from 'lodash/groupBy';
@@ -41,6 +42,7 @@ import {
   MatDialogRef,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
+import { FormValidationUtilsService } from '@metutor/core/validators';
 
 @Component({
   selector: 'metutors-student-add-course-modal',
@@ -103,31 +105,42 @@ export class StudentAddCourseModalComponent implements OnInit {
   objectKeys = Object.keys;
   listDays = LONG_DAYS_WEEK;
   heading = 'Add New Classes';
-  daysSorted = SORTED_DAYS_WEEK;
   weekDayName = WEEK_FULL_DAYS;
+  daysSorted = SORTED_DAYS_WEEK;
+  classroomTimeDuration = generalConstants.classroomTimeDuration;
   subHeading = 'Please select classes date to view Tutors availability';
 
   constructor(
     private _fb: FormBuilder,
     private _dialog: MatDialog,
-    private _datePipe: DatePipe
+    private _datePipe: DatePipe,
+    private _fv: FormValidationUtilsService
   ) {}
 
   ngOnInit(): void {
-    this.form = this._fb.group({
-      startDate: [null, Validators.required],
-      endDate: [null, Validators.required],
-      startTime: [null, Validators.required],
-      endTime: [null, Validators.required],
-      days: [null, Validators.required],
-      duration: [{ value: 0, disabled: true }, Validators.required],
-      hours: [{ value: 0, disabled: true }, Validators.required],
-      totalClasses: [{ value: 0, disabled: true }, Validators.required],
-      tempDuration: [0, Validators.required],
-      tempHours: [0, Validators.required],
-      tempTotalClasses: [0, Validators.required],
-      classes: [null],
-    });
+    this.form = this._fb.group(
+      {
+        startDate: [null, Validators.required],
+        endDate: [null, Validators.required],
+        startTime: [null, Validators.required],
+        endTime: [null, Validators.required],
+        days: [null, Validators.required],
+        duration: [{ value: 0, disabled: true }, Validators.required],
+        hours: [{ value: 0, disabled: true }, Validators.required],
+        totalClasses: [{ value: 0, disabled: true }, Validators.required],
+        tempDuration: [0, Validators.required],
+        tempHours: [0, Validators.required],
+        tempTotalClasses: [0, Validators.required],
+        classes: [null],
+      },
+      {
+        validators: this._fv.classroomTimeDurationValidator(
+          'tempDuration',
+          'startTime',
+          'endTime'
+        ),
+      }
+    );
   }
 
   get startTime(): AbstractControl | null {
@@ -450,22 +463,33 @@ export class DialogEditClassroom implements OnInit {
   editForm: FormGroup;
   minDate = new Date();
   listDays = LONG_DAYS_WEEK;
+  classroomTimeDuration = generalConstants.classroomTimeDuration;
 
   constructor(
-    public dialogRef: MatDialogRef<DialogEditClassroom>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
     private _fb: FormBuilder,
-    private _datePipe: DatePipe
+    private _datePipe: DatePipe,
+    private _fv: FormValidationUtilsService,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public dialogRef: MatDialogRef<DialogEditClassroom>,
   ) {
-    this.editForm = this._fb.group({
-      startDate: [null, Validators.required],
-      days: [null, Validators.required],
-      startTime: [null, Validators.required],
-      endTime: [null, Validators.required],
-      duration: [{ value: 0, disabled: true }, Validators.required],
-      tempDuration: [0, Validators.required],
-      number: [0],
-    });
+    this.editForm = this._fb.group(
+      {
+        startDate: [null, Validators.required],
+        days: [null, Validators.required],
+        startTime: [null, Validators.required],
+        endTime: [null, Validators.required],
+        duration: [{ value: 0, disabled: true }, Validators.required],
+        tempDuration: [0, Validators.required],
+        number: [0],
+      },
+      {
+        validators: this._fv.classroomTimeDurationValidator(
+          'tempDuration',
+          'startTime',
+          'endTime'
+        ),
+      }
+    );
 
     if (data) {
       const classroom = data.classroom;

@@ -53,7 +53,7 @@ export function formatBytes(bytes: number, decimals = 2) {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
 }
 
-export function calculateDurationTime(start: string, end: string) {
+export function calculateDurationTime(start: string, end: string): number {
   const timeHourStart = parseTime(start)?.hours;
   const timeHourEnd = parseTime(end)?.hours;
 
