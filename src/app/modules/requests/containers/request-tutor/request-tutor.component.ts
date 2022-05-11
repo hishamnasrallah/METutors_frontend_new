@@ -22,6 +22,7 @@ import {
 } from 'src/app/core/models';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
+import { FormValidationUtilsService } from '@metutor/core/validators';
 
 @Component({
   selector: 'metutors-request-tutor',
@@ -61,7 +62,8 @@ export class RequestTutorComponent implements OnInit {
     private _fb: FormBuilder,
     private _store: Store<any>,
     private _datePipe: DatePipe,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private _fv: FormValidationUtilsService
   ) {
     this.courseInformationForm = this._fb.group({
       courseProgram: [
@@ -96,24 +98,33 @@ export class RequestTutorComponent implements OnInit {
       author: [null],
     });
 
-    this.classroomDetailsForm = this._fb.group({
-      startDate: [null, Validators.required],
-      endDate: [null, Validators.required],
-      startTime: [null, Validators.required],
-      endTime: [null, Validators.required],
-      days: [null, Validators.required],
-      type: [null, Validators.required],
-      seatAttendees: [
-        1,
-        [Validators.required, Validators.max(10), Validators.min(1)],
-      ],
-      duration: [{ value: 0, disabled: true }, Validators.required],
-      hours: [{ value: 0, disabled: true }, Validators.required],
-      totalClasses: [{ value: 0, disabled: true }, Validators.required],
-      tempDuration: [0, Validators.required],
-      tempHours: [0, Validators.required],
-      tempTotalClasses: [0, Validators.required],
-    });
+    this.classroomDetailsForm = this._fb.group(
+      {
+        startDate: [null, Validators.required],
+        endDate: [null, Validators.required],
+        startTime: [null, Validators.required],
+        endTime: [null, Validators.required],
+        days: [null, Validators.required],
+        type: [null, Validators.required],
+        seatAttendees: [
+          1,
+          [Validators.required, Validators.max(10), Validators.min(1)],
+        ],
+        duration: [{ value: 0, disabled: true }, Validators.required],
+        hours: [{ value: 0, disabled: true }, Validators.required],
+        totalClasses: [{ value: 0, disabled: true }, Validators.required],
+        tempDuration: [0, Validators.required],
+        tempHours: [0, Validators.required],
+        tempTotalClasses: [0, Validators.required],
+      },
+      {
+        validators: this._fv.classroomTimeDurationValidator(
+          'tempDuration',
+          'startTime',
+          'endTime'
+        ),
+      }
+    );
 
     this.classroomScheduleForm = this._fb.group({
       classes: [null, Validators.required],

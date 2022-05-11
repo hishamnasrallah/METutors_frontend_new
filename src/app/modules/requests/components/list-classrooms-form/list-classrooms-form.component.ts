@@ -1,33 +1,38 @@
 import { DatePipe } from '@angular/common';
 import {
-  Component,
-  EventEmitter,
-  Inject,
   Input,
+  Inject,
   OnInit,
   Output,
+  Component,
+  EventEmitter,
 } from '@angular/core';
 import {
-  trigger,
   state,
   style,
-  transition,
   group,
+  trigger,
   animate,
+  transition,
 } from '@angular/animations';
 import {
-  AbstractControl,
-  FormBuilder,
   FormGroup,
   Validators,
+  FormBuilder,
+  AbstractControl,
 } from '@angular/forms';
 import {
   MatDialog,
   MatDialogRef,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
-import { calculateDurationTime, LONG_DAYS_WEEK } from 'src/app/config';
+import {
+  LONG_DAYS_WEEK,
+  generalConstants,
+  calculateDurationTime,
+} from 'src/app/config';
 import { IClass } from 'src/app/core/models';
+import { FormValidationUtilsService } from '@metutor/core/validators';
 
 @Component({
   selector: 'metutors-list-classrooms-form',
@@ -182,22 +187,33 @@ export class DialogEditClassroom implements OnInit {
   editForm: FormGroup;
   minDate = new Date();
   listDays = LONG_DAYS_WEEK;
+  classroomTimeDuration = generalConstants.classroomTimeDuration;
 
   constructor(
-    public dialogRef: MatDialogRef<DialogEditClassroom>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
     private _fb: FormBuilder,
-    private _datePipe: DatePipe
+    private _datePipe: DatePipe,
+    private _fv: FormValidationUtilsService,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public dialogRef: MatDialogRef<DialogEditClassroom>
   ) {
-    this.editForm = this._fb.group({
-      startDate: [null, Validators.required],
-      days: [null, Validators.required],
-      startTime: [null, Validators.required],
-      endTime: [null, Validators.required],
-      duration: [{ value: 0, disabled: true }, Validators.required],
-      tempDuration: [0, Validators.required],
-      number: [0],
-    });
+    this.editForm = this._fb.group(
+      {
+        startDate: [null, Validators.required],
+        days: [null, Validators.required],
+        startTime: [null, Validators.required],
+        endTime: [null, Validators.required],
+        duration: [{ value: 0, disabled: true }, Validators.required],
+        tempDuration: [0, Validators.required],
+        number: [0],
+      },
+      {
+        validators: this._fv.classroomTimeDurationValidator(
+          'tempDuration',
+          'startTime',
+          'endTime'
+        ),
+      }
+    );
 
     if (data) {
       const classroom = data.classroom;

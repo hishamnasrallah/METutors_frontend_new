@@ -68,9 +68,9 @@ export class IStudent {
       this.name = student?.first_name + ' ' + student?.last_name;
       this.firstName = student?.first_name || '';
       this.lastName = student?.last_name || '';
-      this.avatar =
-        environment.imageURL + student?.avatar ||
-        generalConstants.defaultAvatarPath;
+      this.avatar = student?.avatar
+        ? environment.imageURL + student?.avatar
+        : generalConstants.defaultAvatarPath;
       this.cover = student?.cover_img || generalConstants.defaultCoverPath;
       this.bio = student?.bio || '';
       this.address = student?.address || '';
