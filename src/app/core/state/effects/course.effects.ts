@@ -1,15 +1,9 @@
 import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-
-import {
-  map,
-  mergeMap,
-  switchMap,
-  catchError,
-  withLatestFrom,
-} from 'rxjs/operators';
+import { map, mergeMap, catchError, withLatestFrom } from 'rxjs/operators';
 
 import { selectCourses } from '..';
 import camelcaseKeys from 'camelcase-keys';
@@ -17,7 +11,6 @@ import { CoursesService } from '@services';
 import * as fromRouterStore from '@metutor/state';
 import * as courseActions from '../actions/course.actions';
 import { AlertNotificationService } from '@metutor/core/components';
-import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
 
 @Injectable()
 export class CourseEffects {
@@ -147,11 +140,10 @@ export class CourseEffects {
     this._actions$.pipe(
       ofType(courseActions.tutorCancelCourse),
       withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
-      mergeMap(([{ reason, studentId }, { id }]) =>
+      mergeMap(([{ reason }, { id }]) =>
         this._courseService.tutorCancelCourse(reason, id).pipe(
           map(() =>
             courseActions.tutorCancelCourseSuccess({
-              studentId,
               message: 'Course has been successfully canceled',
             })
           ),
@@ -233,16 +225,13 @@ export class CourseEffects {
     )
   );
 
-  cancelCourseSuccess$ = createEffect(() =>
-    this._actions$.pipe(
-      ofType(courseActions.tutorCancelCourseSuccess),
-      switchMap(({ studentId }) => [
-        fromTutorAction.setTutorStateParams({
-          params: { studentId, redirect: true },
-        }),
-        fromTutorAction.openTutorSendFeedbackModal(),
-      ])
-    )
+  cancelCourseSuccess$ = createEffect(
+    () =>
+      this._actions$.pipe(
+        ofType(courseActions.tutorCancelCourseSuccess),
+        map(() => this._router.navigate(['/tutor/classrooms']))
+      ),
+    { dispatch: false }
   );
 
   successMessages$ = createEffect(
@@ -281,6 +270,7 @@ export class CourseEffects {
   );
 
   constructor(
+    private _router: Router,
     private _store: Store<any>,
     private _actions$: Actions,
     private _courseService: CoursesService,

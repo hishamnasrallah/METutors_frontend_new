@@ -1,6 +1,6 @@
 <metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'xmedium'"
-                [heading]="'Leave a feedback'"
-                [template]="template" [subHeading]="heading">
+                [heading]="heading"
+                [template]="template" [subHeading]="subHeading">
   <ng-template #template>
     <div class="row leave-feedback-modal" *ngLet="(view$ | async) as view">
       <div class="col-12">

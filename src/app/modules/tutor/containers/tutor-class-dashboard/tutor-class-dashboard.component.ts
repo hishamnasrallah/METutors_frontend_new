@@ -24,6 +24,9 @@ export class TutorClassDashboardComponent implements OnInit {
   showSendFeedbackModal$: Observable<boolean>;
   showCourseAttendanceModal$: Observable<boolean>;
 
+  subHeading =
+    'Share with us a feedback on your student as course cancellation has begun';
+
   view$: Observable<{
     data: any;
     loading: boolean;
@@ -83,12 +86,14 @@ export class TutorClassDashboardComponent implements OnInit {
     );
   }
 
-  onShowCancelCourseModal(): void {
-    this._store.dispatch(fromTutorAction.openTutorCancelCourseModal());
-  }
-
   onCloseCancelCourseModal(): void {
     this._store.dispatch(fromTutorAction.closeTutorCancelCourseModal());
+  }
+
+  onShowSendFeedbackModal(studentId: number): void {
+    const params = { studentId, cancelCourse: true };
+    this._store.dispatch(fromTutorAction.setTutorStateParams({ params }));
+    this._store.dispatch(fromTutorAction.openTutorSendFeedbackModal());
   }
 
   onCloseSendFeedbackModal(): void {
@@ -117,10 +122,10 @@ export class TutorClassDashboardComponent implements OnInit {
     this._store.dispatch(fromCore.tutorSubmitFeedback({ body }));
   }
 
-  onCancelCourse(form: FormGroup, studentId?: number): void {
+  onCancelCourse(form: FormGroup): void {
     const reason = form.value;
 
-    this._store.dispatch(fromCore.tutorCancelCourse({ reason, studentId }));
+    this._store.dispatch(fromCore.tutorCancelCourse({ reason }));
   }
 
   onSubmitRescheduleClass(form: FormGroup): void {

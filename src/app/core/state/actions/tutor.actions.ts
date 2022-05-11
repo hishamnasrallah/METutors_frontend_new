@@ -257,7 +257,7 @@ export const tutorSubmitFeedback = createAction(
 
 export const tutorSubmitFeedbackSuccess = createAction(
   '[Tutor] Tutor Submit Feedback Success',
-  props<{ message: string; redirect?: boolean }>()
+  props<{ message: string; cancelCourse?: boolean }>()
 );
 
 export const tutorSubmitFeedbackFailure = createAction(

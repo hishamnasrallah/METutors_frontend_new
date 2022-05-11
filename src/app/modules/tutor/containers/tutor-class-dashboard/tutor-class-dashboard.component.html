@@ -4,7 +4,7 @@
       <ng-container [ngSwitch]="view.loading">
         <ng-container *ngSwitchCase="false">
           <h1 class="title overflow-hidden">{{ view.data?.course?.courseName }}
-            <button mat-button class="float-end fw-bold" (click)="onShowCancelCourseModal()">Cancel Course</button>
+            <button mat-button class="float-end fw-bold" (click)="onShowSendFeedbackModal(view.data?.course?.studentId)">Cancel Course</button>
           </h1>
           <div class="row list-items">
             <div class="col-md-3 d-flex menu align-items-center">
@@ -220,13 +220,14 @@
   </metutors-tutor-attendance-modal>
 
   <metutors-tutor-feedback-modal *ngIf="(showSendFeedbackModal$ | async)"
+                                 [subHeading]="subHeading"
                                  [showModal]="(showSendFeedbackModal$ | async)!"
                                  (closeModal)="onCloseSendFeedbackModal()" (submitFeedback)="onSubmitFeedback($event)">
   </metutors-tutor-feedback-modal>
 
   <metutors-tutor-cancel-course-modal *ngIf="(showCancelCourseModal$ | async)"
                                       [showModal]="(showCancelCourseModal$ | async)!"
-                                      (closeModal)="onCloseCancelCourseModal()" (submitted)="onCancelCourse($event,  view.data?.course?.studentId)">
+                                      (closeModal)="onCloseCancelCourseModal()" (submitted)="onCancelCourse($event)">
   </metutors-tutor-cancel-course-modal>
 
   <metutors-tutor-reschedule-class-modal *ngIf="(showRescheduleModal | async)"

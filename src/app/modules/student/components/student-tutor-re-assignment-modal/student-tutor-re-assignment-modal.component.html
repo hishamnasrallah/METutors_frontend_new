@@ -70,31 +70,33 @@
               </div>
             </ng-container>
             <ng-container *ngSwitchCase="false">
-              <mat-radio-group class="d-flex flex-column" (change)="onTutorSelect($event)">
-                <mat-radio-button *ngFor="let tutor of (tutors$ | async)" [value]="tutor?.id">
-                  <div class="row">
-                    <div class="position-relative img-avatar">
-                      <img [src]="tutor?.avatar" meTutorsDefaultAvatar alt="" width="60px" height="60px">
+              <div class="list-tutors">
+                <mat-radio-group class="d-flex flex-column" (change)="onTutorSelect($event)">
+                  <mat-radio-button *ngFor="let tutor of (tutors$ | async)" [value]="tutor?.id">
+                    <div class="row">
+                      <div class="position-relative img-avatar">
+                        <img [src]="tutor?.avatar" meTutorsDefaultAvatar alt="" width="60px" height="60px">
+                      </div>
+                      <div class="col d-flex justify-content-center flex-column">
+                        <h2>{{ tutor?.name }}</h2>
+                        <h3 class="mb-0" *ngIf="tutor?.bio">{{ tutor?.bio }}</h3>
+                      </div>
+                      <a class="col-md-2 full-profile" [routerLink]="'/tutor-profile/' + tutor?.id" target="_blank">
+                        <img src="assets/svg/share-link.svg" draggable="false" width="16px" height="16px" alt="">
+                        Full profile
+                      </a>
                     </div>
-                    <div class="col d-flex justify-content-center flex-column">
-                      <h2>{{ tutor?.name }}</h2>
-                      <h3 class="mb-0" *ngIf="tutor?.bio">{{ tutor?.bio }}</h3>
-                    </div>
-                    <a class="col-md-2 full-profile" [routerLink]="'/tutor-profile/' + tutor?.id" target="_blank">
-                      <img src="assets/svg/share-link.svg" draggable="false" width="16px" height="16px" alt="">
-                      Full profile
-                    </a>
-                  </div>
-                </mat-radio-button>
-              </mat-radio-group>
+                  </mat-radio-button>
+                </mat-radio-group>
 
-              <div class="row mt-5">
-                <div class="col-12 overflow-hidden">
-                  <button mat-flat-button color="primary" class="float-end py-2 px-5" type="submit"
-                          [disabled]="!selectedTutor">
-                    Continue
-                  </button>
-                  <span class="back-button float-end text-secondary cursor-pointer" (click)="onBack()">Back</span>
+                <div class="row mt-5">
+                  <div class="col-12 overflow-hidden">
+                    <button mat-flat-button color="primary" class="float-end py-2 px-5" type="submit"
+                            [disabled]="!selectedTutor">
+                      Continue
+                    </button>
+                    <span class="back-button float-end text-secondary cursor-pointer" (click)="onBack()">Back</span>
+                  </div>
                 </div>
               </div>
             </ng-container>
@@ -139,7 +141,7 @@
                     <div class="col-md-6"><span
                       class="text-secondary">Refundable classes: </span> {{ view.refund?.totalRefundableClasses}}</div>
                     <div class="col-md-6"><span
-                      class="text-secondary">Non Refundable classes: </span> {{ view.refund?.nonRefundableClasses}}
+                      class="text-secondary">Non Refundable classes: </span> {{ view.refund?.totalNonRefundableClasses}}
                     </div>
                   </div>
                   <span class="note text-danger">*We will pay back only refundable classes</span>

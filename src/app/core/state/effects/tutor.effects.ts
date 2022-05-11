@@ -1,6 +1,5 @@
 import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import camelcaseKeys from 'camelcase-keys';
 import { IInterview } from '@metutor/core/models';
@@ -13,6 +12,7 @@ import { environment } from '@environment';
 import * as fromRouterStore from '@metutor/state';
 import * as tutorActions from '../actions/tutor.actions';
 import { AlertNotificationService } from '@metutor/core/components';
+import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
 
 import {
   selectTutors,
@@ -22,10 +22,6 @@ import {
   selectTutorDashboard,
   selectSuspendedTutors,
 } from '..';
-import {
-  loadAvailableTutors,
-  loadAvailableTutorsEnded,
-} from '../actions/tutor.actions';
 
 @Injectable()
 export class TutorEffects {
@@ -452,7 +448,7 @@ export class TutorEffects {
         this._tutorService.tutorSubmitFeedback(body, id).pipe(
           map(() =>
             tutorActions.tutorSubmitFeedbackSuccess({
-              redirect: body?.redirect,
+              cancelCourse: body?.cancelCourse,
               message: 'Feedback successfully submitted',
             })
           ),
@@ -514,18 +510,17 @@ export class TutorEffects {
     )
   );
 
-  tutorSubmitFeedbackSuccess$ = createEffect(
-    () =>
-      this._actions$.pipe(
-        ofType(tutorActions.tutorSubmitFeedbackSuccess),
-        map(({ redirect }) => {
-          console.log(redirect);
-          if (redirect) {
-            this._router.navigate(['/tutor/classrooms']);
-          }
-        })
-      ),
-    { dispatch: false }
+  tutorSubmitFeedbackSuccess$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorActions.tutorSubmitFeedbackSuccess),
+      map(({ cancelCourse }) => {
+        if (cancelCourse) {
+          return fromTutorAction.openTutorCancelCourseModal();
+        } else {
+          return fromTutorAction.closeTutorSendFeedbackModal();
+        }
+      })
+    )
   );
 
   successMessages$ = createEffect(
@@ -578,7 +573,6 @@ export class TutorEffects {
   );
 
   constructor(
-    private _router: Router,
     private _store: Store<any>,
     private _actions$: Actions,
     private _tutorService: TutorsService,

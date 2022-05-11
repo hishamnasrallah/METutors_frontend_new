@@ -22,9 +22,10 @@ import * as fromCore from '@metutor/core/state';
 export class TutorFeedbackModalComponent implements OnInit {
   @Input() showModal = false;
   @Input() isPlatform = false;
+  @Input() heading = 'Write a Feedback';
   @Input() tabLabel = 'Student Feedback';
-  @Input() messageLabel = 'Write a feedback';
-  @Input() heading = 'Write your feedback for the student';
+  @Input() messageLabel = 'Write a Feedback';
+  @Input() subHeading = 'Write your feedback for the student';
 
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
   @Output() submitFeedback: EventEmitter<any> = new EventEmitter<any>();
@@ -44,8 +45,8 @@ export class TutorFeedbackModalComponent implements OnInit {
     return this.form?.get('receiver_id');
   }
 
-  get redirect(): AbstractControl | null {
-    return this.form?.get('redirect');
+  get cancelCourse(): AbstractControl | null {
+    return this.form?.get('cancelCourse');
   }
 
   ngOnInit(): void {
@@ -54,8 +55,8 @@ export class TutorFeedbackModalComponent implements OnInit {
     );
 
     this.form = this._fb.group({
-      redirect: [false],
       receiver_id: [null],
+      cancelCourse: [false],
       review: [null, Validators.required],
       feedbacks: this._fb.array([]),
     });
@@ -82,8 +83,9 @@ export class TutorFeedbackModalComponent implements OnInit {
       ),
       this._store.select(fromTutor.selectTutorStateParams).pipe(
         tap((params) => {
-          this.redirect?.setValue(params?.redirect);
+          console.log(params);
           this.receiverId?.setValue(params?.studentId);
+          this.cancelCourse?.setValue(params?.cancelCourse);
         })
       ),
     ]).pipe(
