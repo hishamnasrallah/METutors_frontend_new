@@ -98,7 +98,7 @@
                 <div class="row mt-5">
                   <div class="col-12 overflow-hidden">
                     <button mat-flat-button color="primary" class="float-end py-2 px-5" type="button"
-                            [disabled]="!selectedTutor" (click)="onReassignTutor()">
+                            [disabled]="!selectedTutor || (reassigningTutor$ | async)" (click)="onReassignTutor()">
                       Continue
                     </button>
                     <span class="back-button float-end text-secondary cursor-pointer" (click)="onBack()">Back</span>

@@ -12,6 +12,7 @@ export interface State {
   isRejectingCourse: boolean;
   isAcceptingCourse: boolean;
   isCancelingCourse: boolean;
+  isReassigningTutor: boolean;
   loadingCoursesFailure: string;
   isLoadingRefundCourse: boolean;
 
@@ -34,6 +35,7 @@ export const initialState: State = {
   isRejectingCourse: false,
   isAcceptingCourse: false,
   isCancelingCourse: false,
+  isReassigningTutor: false,
   loadingCoursesFailure: '',
   isLoadingRefundCourse: false,
   isLoadingExploreCourses: false,
@@ -271,7 +273,23 @@ export const reducer = createReducer(
     }
 
     return finalState;
-  })
+  }),
+
+  // general loading
+  on(courseActions.studentReassignTutor, (state) => ({
+    ...state,
+    isReassigningTutor: true,
+  })),
+
+  on(courseActions.studentReassignTutorSuccess, (state) => ({
+    ...state,
+    isReassigningTutor: false,
+  })),
+
+  on(courseActions.studentReassignTutorFailure, (state) => ({
+    ...state,
+    isReassigningTutor: false,
+  }))
 );
 
 export const selectCourses = (state: State): any => state.courses;
@@ -319,6 +337,8 @@ export const selectIsAcceptingCourse = (state: State): any =>
 
 export const selectIsCancelingCourse = (state: State): any =>
   state.isCancelingCourse;
+export const selectIsReassigningTutor = (state: State): any =>
+  state.isReassigningTutor;
 
 export const selectFilteredExploredCourses = (
   state: State,
