@@ -52,15 +52,15 @@
         border-radius: 25px;
 
         &.active {
-          background-color: #50C394;
+          background-color: #FF8300;
         }
 
         &.inprogess {
-          background-color: #50C394;
+          background-color: #FF8300;
         }
 
         &.canceled {
-          background-color: var(--main-color);
+          background-color: #F15A5A;
         }
 
         &.completed {

@@ -5,7 +5,7 @@
   <ng-template #template>
     <div class="list-options-rows mt-4">
       <ng-container *ngIf="!next">
-        <mat-radio-group class="d-flex flex-column" (change)="onChange($event)">
+        <mat-radio-group class="d-flex flex-column options" (change)="onChange($event)">
           <mat-radio-button [value]="1">
             <div class="row">
               <div class="relative img-avatar d-flex align-items-center justify-content-center">
@@ -49,7 +49,7 @@
       </ng-container>
 
       <ng-container *ngIf="next && selectedOption === 1">
-        <div class="assign-tutor flex-row mt-5 p-3">
+        <div class="assign-tutor flex-row">
           <ng-container [ngSwitch]="loadingTutors$ | async">
             <ng-container *ngSwitchCase="true">
               <div class="ph-item mt-4 mx-2" *ngFor="let i of [1, 2, 3, 4, 5]">

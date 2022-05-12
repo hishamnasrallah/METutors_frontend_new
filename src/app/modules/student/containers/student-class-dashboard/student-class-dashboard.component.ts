@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 
 import * as moment from 'moment';
 import * as fromStudent from '../../state';
+import { CourseStatus } from '@metutor/config';
 import * as fromCore from '@metutor/core/state';
 import * as fromStudentAction from '../../state/actions';
 
@@ -39,6 +40,7 @@ export class StudentClassDashboardComponent implements OnInit {
   onHold = false;
   cancelCourse = false;
   feedbackSubHeading: string;
+  courseStatus = CourseStatus;
 
   view$: Observable<{
     data: any;
