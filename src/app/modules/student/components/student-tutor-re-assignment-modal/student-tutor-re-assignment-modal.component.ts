@@ -71,6 +71,7 @@ export class StudentTutorReAssignmentModalComponent implements OnInit {
     } else if (this.selectedOption === 2) {
       this.subHeading = '-';
       this.showHeader = false;
+      this._store.dispatch(fromCore.studentRequestAdminAssignTutor());
     } else if (this.selectedOption === 3) {
       this.showHeader = true;
       this.heading = 'Cancel / Refund Course';

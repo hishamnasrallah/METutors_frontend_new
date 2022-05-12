@@ -225,6 +225,29 @@ export class CourseEffects {
     )
   );
 
+  studentRequestAdminAssignTutor$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(courseActions.studentRequestAdminAssignTutor),
+      withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
+      mergeMap(([_, { id }]) =>
+        this._courseService.studentRequestAdminAssignCourse(id).pipe(
+          map(() =>
+            courseActions.studentRequestAdminAssignTutorSuccess({
+              message: 'Request submitted successfully',
+            })
+          ),
+          catchError((error) =>
+            of(
+              courseActions.studentRequestAdminAssignTutorFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   cancelCourseSuccess$ = createEffect(
     () =>
       this._actions$.pipe(
@@ -242,6 +265,7 @@ export class CourseEffects {
             courseActions.tutorAcceptCourseSuccess,
             courseActions.tutorRejectCourseSuccess,
             courseActions.tutorCancelCourseSuccess,
+            courseActions.studentRequestAdminAssignTutorSuccess,
           ]
         ),
         map(({ message }) => this._alertNotificationService.success(message))
@@ -260,6 +284,7 @@ export class CourseEffects {
             courseActions.tutorRejectCourseFailure,
             courseActions.tutorCancelCourseFailure,
             courseActions.studentCancelCourseFailure,
+            courseActions.studentRequestAdminAssignTutorFailure,
           ]
         ),
         map(({ error }) => this._alertNotificationService.error(error))

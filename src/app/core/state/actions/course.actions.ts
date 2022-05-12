@@ -132,3 +132,17 @@ export const studentCancelCourseFailure = createAction(
   '[Student] Student Cancel Course Failure',
   props<{ error: any }>()
 );
+
+export const studentRequestAdminAssignTutor = createAction(
+  '[Student] Request Admin Assign Tutor'
+);
+
+export const studentRequestAdminAssignTutorSuccess = createAction(
+  '[Student] Request Admin Assign Tutor Success',
+  props<{ message: string }>()
+);
+
+export const studentRequestAdminAssignTutorFailure = createAction(
+  '[Student] Request Admin Assign Tutor Failure',
+  props<{ error: any }>()
+);

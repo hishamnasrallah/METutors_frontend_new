@@ -91,6 +91,13 @@ export class CoursesService {
     );
   }
 
+  studentRequestAdminAssignCourse(courseId: number): Observable<any> {
+    return this.http.post<any>(
+      `${this.baseUrl}student/course/${courseId}/request-admin`,
+      {}
+    );
+  }
+
   getClassroomById(id: string): Observable<any> {
     return this.http.get<ICourse>(`${this.baseUrl}batch/${id}/`).pipe(
       map((response) => {
