@@ -5,8 +5,8 @@ import { combineLatest, Observable, tap } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import * as fromCore from '@metutor/core/state';
 import { ITutor } from '@models';
+import * as fromCore from '@metutor/core/state';
 import * as fromStudentAction from '@metutor/modules/student/state/actions';
 
 @Component({
@@ -89,7 +89,10 @@ export class StudentTutorReAssignmentModalComponent implements OnInit {
 
     let body: any = {
       reason,
+      is_complete: true,
     };
+
+    this._store.dispatch(fromCore.studentCancelCourse({ body }));
   }
 
   ngOnInit(): void {

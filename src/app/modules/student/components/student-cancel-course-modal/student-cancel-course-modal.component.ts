@@ -80,11 +80,13 @@ export class StudentCancelCourseModalComponent implements OnInit {
 
     let body: any = {
       reason,
+      is_complete: true,
     };
 
     if (this.selectedClasses.length) {
       body = {
         ...body,
+        is_complete: false,
         academic_classes: this.selectedClasses,
       };
     }

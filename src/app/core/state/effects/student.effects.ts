@@ -497,10 +497,11 @@ export class StudentEffects {
     this._actions$.pipe(
       ofType(studentActions.studentSubmitFeedback),
       withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
-      mergeMap(([{ body, cancelCourse }, { id }]) =>
+      mergeMap(([{ body, onHold, cancelCourse }, { id }]) =>
         this._studentService.studentSubmitFeedback(body, id).pipe(
           map((attendance) =>
             studentActions.studentSubmitFeedbackSuccess({
+              onHold,
               cancelCourse,
               message: 'Feedback successfully submitted',
             })
@@ -630,8 +631,10 @@ export class StudentEffects {
   studentSubmitFeedbackSuccess$ = createEffect(() =>
     this._actions$.pipe(
       ofType(studentActions.studentSubmitFeedbackSuccess),
-      map(({ cancelCourse }) => {
-        if (cancelCourse) {
+      map(({ onHold, cancelCourse }) => {
+        if (onHold) {
+          return fromStudentAction.openTutorReAssignmentModal();
+        } else if (cancelCourse) {
           return fromStudentAction.openCancelCourseModal();
         } else {
           return fromStudentAction.closeStudentSendFeedbackModal();

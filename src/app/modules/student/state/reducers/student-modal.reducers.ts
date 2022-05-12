@@ -136,6 +136,7 @@ export const reducer = createReducer(
   on(fromCore.studentCancelCourseSuccess, (state) => ({
     ...state,
     showCancelCourseModal: false,
+    showTutorReAssignmentModal: false,
     showCancelCourseSuccessModal: true,
   })),
 

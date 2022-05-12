@@ -36,6 +36,7 @@ export class StudentClassDashboardComponent implements OnInit {
   cancelCourseSuccessModal$: Observable<boolean>;
   isLoadingTutorAvailability$: Observable<boolean>;
 
+  onHold = false;
   cancelCourse = false;
   feedbackSubHeading: string;
 
@@ -63,14 +64,6 @@ export class StudentClassDashboardComponent implements OnInit {
   joinClass(id: number): void {
     this._store.dispatch(fromCore.studentJoinClass({ id }));
   }
-
-  onShowOnHoldCourseModal(): void {
-    this._store.dispatch(fromStudentAction.openTutorReAssignmentModal());
-  }
-
-  /*onShowCancelCourseModal(): void {
-    this._store.dispatch(fromStudentAction.openCancelCourseModal());
-  }*/
 
   onCloseCancelCourseModal(): void {
     this._store.dispatch(fromStudentAction.closeCancelCourseModal());
@@ -108,7 +101,12 @@ export class StudentClassDashboardComponent implements OnInit {
     this._store.dispatch(fromCore.studentAddNewClass({ id, data }));
   }
 
-  onShowSendFeedbackModal(teacherId: number, cancelCourse: boolean): void {
+  onShowSendFeedbackModal(
+    teacherId: number,
+    cancelCourse: boolean,
+    onHold: boolean
+  ): void {
+    this.onHold = onHold;
     this.cancelCourse = cancelCourse;
     this.feedbackSubHeading = cancelCourse
       ? 'Share with us a feedback on your tutor as course cancellation has begun'
@@ -160,10 +158,11 @@ export class StudentClassDashboardComponent implements OnInit {
   }
 
   onSubmitFeedback(form: FormGroup): void {
+    const onHold = this.onHold;
     const cancelCourse = this.cancelCourse;
     const body = form.value;
     this._store.dispatch(
-      fromCore.studentSubmitFeedback({ body, cancelCourse })
+      fromCore.studentSubmitFeedback({ body, cancelCourse, onHold })
     );
   }
 
