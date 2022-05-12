@@ -31,6 +31,7 @@ export class StudentTutorReAssignmentModalComponent implements OnInit {
   isCanceling$: Observable<boolean>;
   loadingTutors$: Observable<boolean>;
   tutors$: Observable<ITutor[] | null>;
+  reassigningTutor$: Observable<boolean>;
   view$: Observable<{ loading: boolean; refund: any }>;
 
   constructor(
@@ -103,6 +104,9 @@ export class StudentTutorReAssignmentModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.isCanceling$ = this._store.select(fromCore.selectIsCancelingCourse);
+    this.reassigningTutor$ = this._store.select(
+      fromCore.selectIsReassigningTutor
+    );
 
     this.view$ = combineLatest([
       this._store.select(fromCore.selectStudentCourseRefund),

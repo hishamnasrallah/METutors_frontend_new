@@ -1067,6 +1067,11 @@ export const selectIsCancelingCourse = createSelector(
   fromCourseReducer.selectIsCancelingCourse
 );
 
+export const selectIsReassigningTutor = createSelector(
+  selectCourseState,
+  fromCourseReducer.selectIsReassigningTutor
+);
+
 // Upload files
 export const selectUploadedFiles = createSelector(
   selectUploadState,
