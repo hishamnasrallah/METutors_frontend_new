@@ -134,15 +134,30 @@ export const studentCancelCourseFailure = createAction(
 );
 
 export const studentRequestAdminAssignTutor = createAction(
-  '[Student] Request Admin Assign Tutor'
+  '[Student] Student Request Admin Assign Tutor'
 );
 
 export const studentRequestAdminAssignTutorSuccess = createAction(
-  '[Student] Request Admin Assign Tutor Success',
+  '[Student] Student Request Admin Assign Tutor Success',
   props<{ message: string }>()
 );
 
 export const studentRequestAdminAssignTutorFailure = createAction(
-  '[Student] Request Admin Assign Tutor Failure',
+  '[Student] Student Request Admin Assign Tutor Failure',
+  props<{ error: any }>()
+);
+
+export const studentReassignTutor = createAction(
+  '[Student] Student Re-Assign Tutor',
+  props<{ body: any }>()
+);
+
+export const studentReassignTutorSuccess = createAction(
+  '[Student] Student Re-Assign Tutor Success',
+  props<{ message: string }>()
+);
+
+export const studentReassignTutorFailure = createAction(
+  '[Student] Student Re-Assign Tutor Failure',
   props<{ error: any }>()
 );

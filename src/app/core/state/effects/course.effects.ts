@@ -248,6 +248,29 @@ export class CourseEffects {
     )
   );
 
+  studentReassignTutor$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(courseActions.studentReassignTutor),
+      withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
+      mergeMap(([{ body }, { id }]) =>
+        this._courseService.studentReassignTutor(body, id).pipe(
+          map(() =>
+            courseActions.studentReassignTutorSuccess({
+              message: 'Tutor assigned successfully',
+            })
+          ),
+          catchError((error) =>
+            of(
+              courseActions.studentReassignTutorFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   cancelCourseSuccess$ = createEffect(
     () =>
       this._actions$.pipe(
@@ -265,6 +288,7 @@ export class CourseEffects {
             courseActions.tutorAcceptCourseSuccess,
             courseActions.tutorRejectCourseSuccess,
             courseActions.tutorCancelCourseSuccess,
+            courseActions.studentReassignTutorSuccess,
             courseActions.studentRequestAdminAssignTutorSuccess,
           ]
         ),
@@ -284,6 +308,7 @@ export class CourseEffects {
             courseActions.tutorRejectCourseFailure,
             courseActions.tutorCancelCourseFailure,
             courseActions.studentCancelCourseFailure,
+            courseActions.studentReassignTutorFailure,
             courseActions.studentRequestAdminAssignTutorFailure,
           ]
         ),

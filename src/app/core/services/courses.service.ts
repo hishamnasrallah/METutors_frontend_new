@@ -98,6 +98,13 @@ export class CoursesService {
     );
   }
 
+  studentReassignTutor(body: any, courseId: number): Observable<any> {
+    return this.http.post<any>(
+      `${this.baseUrl}student/course/${courseId}/select-teacher`,
+      body
+    );
+  }
+
   getClassroomById(id: string): Observable<any> {
     return this.http.get<ICourse>(`${this.baseUrl}batch/${id}/`).pipe(
       map((response) => {

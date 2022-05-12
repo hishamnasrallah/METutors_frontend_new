@@ -52,6 +52,11 @@ export class StudentTutorReAssignmentModalComponent implements OnInit {
     this.selectedOption = event.value;
   }
 
+  onReassignTutor(): void {
+    const body = { teacher_id: this.selectedTutor };
+    this._store.dispatch(fromCore.studentReassignTutor({ body }));
+  }
+
   onBack(): void {
     this.next = false;
     this.selectedOption = 0;
