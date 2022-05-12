@@ -256,7 +256,7 @@ export class CourseEffects {
         this._courseService.studentReassignTutor(body, id).pipe(
           map(() =>
             courseActions.studentReassignTutorSuccess({
-              message: 'Tutor assigned successfully',
+              message: 'Tutor re-assigned successfully',
             })
           ),
           catchError((error) =>
