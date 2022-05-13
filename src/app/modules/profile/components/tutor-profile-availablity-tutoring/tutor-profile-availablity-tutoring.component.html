@@ -1,0 +1,53 @@
+<div class="card availability-tutoring">
+  <div class="card-body">
+    <div class="row top-info">
+      <div class="col-md-6">
+        <h1 class="heading">Teacher Availability</h1>
+
+        <span>Monday</span>
+        <span>Tuesday</span>
+        <span>Wednesday</span>
+      </div>
+      <div class="col-md-6">
+        <h1 class="heading">Type of Tutoring</h1>
+
+        <span>One-on-One</span>
+        <span>Group Study</span>
+      </div>
+    </div>
+    <div class="row bottom-info" *ngIf="tutor?.sortedSubjects && tutor?.sortedSubjects?.length">
+      <div class="col-md-12">
+        <h1 class="heading">Teaching Specifications</h1>
+
+        <div class="row mt-5">
+          <div class="col-md-6 mb-3" *ngFor="let item of tutor?.sortedSubjects; let indexSubjects = index">
+            <table class="table my-table default-title">
+              <tr>
+                <th class="heading" [attr.colspan]="item?.programId === nationalId ? '2' : '1'">
+                  Program: <span>
+                    {{ item?.programName }}<ng-container *ngIf="item?.programId === nationalId">,
+                      {{ item?.countryName }}
+                    </ng-container>
+                  </span>
+                </th>
+                <th class="heading">Study Field <span>{{ item?.fieldName }}</span></th>
+              </tr>
+              <tr>
+                <th>Field</th>
+                <th *ngIf="item?.programId === nationalId">Grade</th>
+                <th>Hourly Price</th>
+              </tr>
+              <tr *ngFor="let subject of item.subjects">
+                <td>{{ subject?.subject }}</td>
+                <td *ngIf="item?.programId === nationalId">{{ subject?.gradeName }}</td>
+                <td>
+                  {{ subject?.pricePerHour }}
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

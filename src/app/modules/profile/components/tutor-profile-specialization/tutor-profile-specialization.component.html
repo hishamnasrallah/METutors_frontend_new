@@ -1,14 +1,33 @@
-<div class="card" *ngIf="tutor?.subjects && tutor?.subjects?.length">
+<div class="card qualification">
   <div class="card-body">
-    <h1 class="title">Specialization</h1>
-    <div class="list">
-      <h2>Fields</h2>
-      <span>{{ tutor?.qualifications?.currentTitle }}</span>
-    </div>
+    <h1 class="title">Qualification Details</h1>
+
+    <ul class="list-unstyled m-0">
+      <li>
+        <img src="assets/svg/map.svg" draggable="false" width="20" height="20" alt="">
+        <span>Degree Level: Master Level</span>
+      </li>
+      <li>
+        <img src="assets/svg/website.svg" draggable="false" width="20" height="20" alt="">
+        <span>Computer Skills Level: Expert</span>
+      </li>
+    </ul>
 
     <div class="list">
-      <h2>Subjects</h2>
-      <span *ngFor="let subject of tutor?.subjects">{{ subject?.name }}</span>
+      <h2>Degree Field/Major</h2>
+
+      <span>Geographics</span>
+      <span>Math</span>
+      <span>Science</span>
+      <span>Math</span>
+      <span>Geographics</span>
+      <span>Math</span>
+      <span>Science</span>
+      <span>Math</span>
+      <span>Geographics</span>
+      <span>Math</span>
+      <span>Science</span>
+      <span>Math</span>
     </div>
   </div>
 </div>

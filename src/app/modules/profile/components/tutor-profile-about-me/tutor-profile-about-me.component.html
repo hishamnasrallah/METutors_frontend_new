@@ -5,29 +5,21 @@
       {{ tutor?.bio }}
     </p>
     <ul class="list-unstyled m-0">
-      <li *ngIf="tutor?.country">
+      <li>
         <img src="assets/svg/map.svg" draggable="false" width="20" height="20" alt="">
-        <span>From: {{ tutor?.country }}</span>
+        <span>Country: Egypt</span>
       </li>
-      <li *ngIf="tutor?.languages && tutor?.languages?.length">
+      <li>
         <img src="assets/svg/website.svg" draggable="false" width="20" height="20" alt="">
-        <span>Speaking:
-          <ng-container *ngFor="let lang of tutor?.languages; let isLast = last">
-            {{ lang?.name }}<ng-container *ngIf="!isLast">, </ng-container>
-          </ng-container>
-        </span>
+        <span>Nationality: Pakistan</span>
       </li>
       <li>
         <img src="assets/svg/date.svg" draggable="false" width="20" height="20" alt="">
-        <span>Joined: {{ tutor?.createdAt | date:'MMMM y' }}</span>
+        <span>Gender: Male</span>
       </li>
-      <li *ngIf="tutor?.teachingExperienceYears">
-        <img src="assets/svg/briefcase.svg" draggable="false" width="20" height="20" alt="">
-        <span>Total experience: +{{ tutor?.teachingExperienceYears }} years</span>
-      </li>
-      <li *ngIf="tutor?.onlineTeachingExperienceYears">
-        <img src="assets/svg/relationship.svg" draggable="false" width="20" height="20" alt="">
-        <span>Online experience: {{ tutor?.onlineTeachingExperienceYears }} years</span>
+      <li>
+        <img src="assets/svg/date.svg" draggable="false" width="20" height="20" alt="">
+        <span>Joined: June 2022</span>
       </li>
     </ul>
   </div>

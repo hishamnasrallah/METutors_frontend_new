@@ -1,0 +1,41 @@
+.availability-tutoring {
+  .heading {
+    color: #000;
+    font-weight: bold;
+    font-size: 17px;
+  }
+
+  .top-info {
+    span {
+      color: #707070;
+      background-color: #F1F1F1;
+      border-radius: 17px;
+      font-size: 13px;
+      margin-right: 10px;
+      padding: 8px 15px;
+      display: inline-block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+  }
+
+  .bottom-info {
+    border-top: 1px solid #F1F1F5;
+    padding-top: 15px;
+    margin-top: 15px;
+  }
+
+  .my-table.default-title tr th {
+    color: #696969;
+    font-size: 13px;
+    background-color: transparent;
+
+    &.heading {
+      background: #F7F7F7;
+    }
+
+    span {
+      color: #2a2a2a;
+    }
+  }
+}
