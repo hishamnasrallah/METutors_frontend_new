@@ -17,6 +17,7 @@ export class ISubject {
   fieldName?: string;
   pricePerHour?: number;
   courses?: ICourse[];
+  availableTutorsCount?: number;
 
   constructor(createDefault = false, subject: any = null) {
     if (createDefault) {
@@ -35,6 +36,7 @@ export class ISubject {
       this.fieldName = '';
       this.pricePerHour = 0;
       this.courses = [];
+      this.availableTutorsCount = 0;
     }
 
     if (subject) {
@@ -51,6 +53,7 @@ export class ISubject {
       this.country = subject?.country;
       this.grade = subject?.grade || 0;
       this.status = subject?.status || 0;
+      this.availableTutorsCount = subject?.available_teachers_count || 0;
       this.pricePerHour = subject?.price_per_hour || subject?.hourly_price || 0;
       this.courses =
         subject.courses && subject.courses.length

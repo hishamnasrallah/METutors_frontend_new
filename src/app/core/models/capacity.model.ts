@@ -7,7 +7,6 @@ export class ICapacity {
   totalRevenue: number;
   hiredTutors: number;
   capacity: number;
-  availableTutors: number;
 
   constructor(createDefault = false, capacity: any = null) {
     if (createDefault) {
@@ -17,7 +16,6 @@ export class ICapacity {
       this.totalRevenue = 0;
       this.hiredTutors = 0;
       this.capacity = 0;
-      this.availableTutors = 0;
     }
 
     if (capacity) {
@@ -26,7 +24,6 @@ export class ICapacity {
       this.totalBookings = capacity?.total_bookings;
       this.totalRevenue = capacity?.total_revenue;
       this.hiredTutors = capacity?.hired_tutors;
-      this.availableTutors = capacity?.available_tutors;
       this.capacity = capacity?.capacity;
     }
   }

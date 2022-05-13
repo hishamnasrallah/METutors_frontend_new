@@ -53,9 +53,9 @@
             <td>{{ cpcty?.subject?.field?.name }}</td>
             <td class="text-capitalize">{{ cpcty?.subject?.id }}</td>
             <td class="text-capitalize">{{ cpcty?.subject?.name }}</td>
-            <td>{{ cpcty?.hiredTutors }}</td>
-            <td>{{ cpcty?.availableTutors }}</td>
-            <td>{{ cpcty?.capacity }}</td>
+            <td><a href="javascript:void(0)" (click)="onShowHiredTutors(cpcty?.hiredTutors)">{{ cpcty?.hiredTutors }}</a></td>
+            <td><a href="javascript:void(0)" (click)="onShowAvailableTutors(cpcty?.subject?.availableTutorsCount)">{{ cpcty?.subject?.availableTutorsCount }}</a></td>
+            <td>{{ cpcty?.capacity.toFixed(2) }}</td>
             <td>
               <span class="cursor-pointer"
                 (click)="loadCourseBookingList(cpcty?.subject?.id); onOpenCourseBookingListModal()">
@@ -87,5 +87,5 @@
                                           (closeModal)="onCloseCourseBookingListModal()"
                                           [courseBooking]="(courseBooking$ | async)!"
                                           [isLoading]="(isLoadingCourseBooking$ | async)!"
-                                          [showModal]="(showCourseBookingListModal$ | async)!">    
+                                          [showModal]="(showCourseBookingListModal$ | async)!">
 </metutors-admin-course-booking-list-modal>

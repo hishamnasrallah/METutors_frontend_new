@@ -63,6 +63,14 @@ export class AdminWorkforceCapacityComponent implements OnInit {
     this._store.dispatch(fromCore.loadCourseBookingList({ id }));
   }
 
+  onShowHiredTutors(tutorsCount: number): void {
+    console.log(tutorsCount);
+  }
+
+  onShowAvailableTutors(tutorsCount: number): void {
+    console.log('clicked', tutorsCount);
+  }
+
   private _prepareCapacity(): void {
     this._store.dispatch(fromCore.loadWorkforceCapacity());
     this.capacity$ = this._store.select(fromCore.selectWorkforceCapacity);
