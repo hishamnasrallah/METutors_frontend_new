@@ -1,11 +1,19 @@
 import { createReducer, on } from '@ngrx/store';
 
-import { ICapacity, ICourse, ISubject, ITeacherDocument } from '@models';
+import {
+  ICapacity,
+  ICourse,
+  ISubject,
+  ITeacherDocument,
+  ITutor,
+} from '@models';
 import * as adminActions from '../actions/admin.actions';
 
 export interface State {
+  tutors: ITutor[];
   isApprovingDoc: boolean;
   isRejectingDoc: boolean;
+  isLoadingTutors: boolean;
   isLoadingAdminDocs: boolean;
   documents: ITeacherDocument[];
 
@@ -29,6 +37,7 @@ export interface State {
 }
 
 export const initialState: State = {
+  tutors: [],
   documents: [],
   allBookings: [],
   runningBookings: [],
@@ -38,6 +47,7 @@ export const initialState: State = {
   isApprovingDoc: false,
   isRejectingDoc: false,
   workforceCapacity: [],
+  isLoadingTutors: false,
   isLoadingAdminDocs: false,
   isLoadingAllBookings: false,
   isLoadingCourseBooking: false,
@@ -63,6 +73,22 @@ export const reducer = createReducer(
   on(adminActions.loadAdminDocumentsFailure, (state) => ({
     ...state,
     isLoadingAdminDocs: false,
+  })),
+
+  on(adminActions.loadAdminTutors, (state) => ({
+    ...state,
+    isLoadingTutors: true,
+  })),
+
+  on(adminActions.loadAdminTutorsSuccess, (state, { tutors }) => ({
+    ...state,
+    tutors,
+    isLoadingTutors: false,
+  })),
+
+  on(adminActions.loadAdminTutorsFailure, (state) => ({
+    ...state,
+    isLoadingTutors: false,
   })),
 
   on(adminActions.adminRejectDocument, (state) => ({
@@ -248,6 +274,11 @@ export const selectAdminDocuments = (state: State): ITeacherDocument[] =>
 
 export const selectIsLoadingAdminDocs = (state: State): boolean =>
   state.isLoadingAdminDocs;
+
+export const selectAdminTutors = (state: State): ITutor[] => state.tutors;
+
+export const selectIsLoadingAdminTutors = (state: State): boolean =>
+  state.isLoadingTutors;
 
 export const selectIsRejectingAdminDocs = (state: State): boolean =>
   state.isRejectingDoc;

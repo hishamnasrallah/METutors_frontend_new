@@ -11,6 +11,7 @@ import * as fromCore from '@metutor/core/state';
 import * as fromRouterStore from '@metutor/state';
 import * as adminActions from '../actions/admin.actions';
 import { AlertNotificationService } from '@metutor/core/components';
+import { loadAdminTutors } from '@metutor/core/state';
 
 @Injectable()
 export class AdminEffects {
@@ -44,6 +45,31 @@ export class AdminEffects {
           return of(adminActions.loadAdminDocumentsEnded());
         }
       })
+    )
+  );
+
+  loadAdminTutors$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(adminActions.loadAdminTutors),
+      mergeMap(({ id, tutorType }) =>
+        this._adminService.loadAdminTutors(tutorType, id).pipe(
+          map(
+            (tutors) =>
+              adminActions.loadAdminTutorsSuccess({
+                tutors: camelcaseKeys(tutors, {
+                  deep: true,
+                }),
+              }),
+            catchError((error) =>
+              of(
+                adminActions.loadAdminTutorsFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          )
+        )
+      )
     )
   );
 

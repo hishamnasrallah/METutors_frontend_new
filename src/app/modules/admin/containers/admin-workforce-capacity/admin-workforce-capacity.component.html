@@ -53,14 +53,13 @@
             <td>{{ cpcty?.subject?.field?.name }}</td>
             <td class="text-capitalize">{{ cpcty?.subject?.id }}</td>
             <td class="text-capitalize">{{ cpcty?.subject?.name }}</td>
-            <td><a href="javascript:void(0)" (click)="onShowHiredTutors(cpcty?.hiredTutors)">{{ cpcty?.hiredTutors }}</a></td>
-            <td><a href="javascript:void(0)" (click)="onShowAvailableTutors(cpcty?.subject?.availableTutorsCount)">{{ cpcty?.subject?.availableTutorsCount }}</a></td>
+            <td><a href="javascript:void(0)" (click)="onShowHiredTutors(cpcty?.hiredTutors, cpcty?.subject?.id)">{{ cpcty?.hiredTutors }}</a></td>
+            <td><a href="javascript:void(0)" (click)="onShowAvailableTutors(cpcty?.subject?.availableTutorsCount, cpcty?.subject?.id)">{{ cpcty?.subject?.availableTutorsCount }}</a></td>
             <td>{{ cpcty?.capacity.toFixed(2) }}</td>
             <td>
-              <span class="cursor-pointer"
-                (click)="loadCourseBookingList(cpcty?.subject?.id); onOpenCourseBookingListModal()">
+              <a href="javascript:void(0)" (click)="onOpenCourseBookingListModal(cpcty?.subject?.id)">
                 {{ cpcty?.totalBookings }}
-              </span>
+              </a>
             </td>
             <td>{{ cpcty?.totalRevenue }}</td>
             <td>
@@ -78,7 +77,7 @@
 
 <mat-menu #menu="matMenu">
   <button mat-menu-item class="h-auto btn-menu"
-    (click)="loadCourseBookingList(selectedCapacity); onOpenCourseBookingListModal()">
+    (click)="onOpenCourseBookingListModal(selectedCapacity)">
     <span>View Bookings</span>
   </button>
 </mat-menu>
@@ -89,3 +88,10 @@
                                           [isLoading]="(isLoadingCourseBooking$ | async)!"
                                           [showModal]="(showCourseBookingListModal$ | async)!">
 </metutors-admin-course-booking-list-modal>
+
+<metutors-admin-tutors-list-modal *ngIf="showAdminTutorsListModal | async"
+                                  [loading]="(isLoadingAdminTutors | async)!" [heading]="modalHeading"
+                                  [showModal]="(showAdminTutorsListModal | async)!"
+                                  [tutors]="(adminTutorsList$ | async)!"
+                                  (closeModal)="onCloseAdminTutorsListModal()">
+</metutors-admin-tutors-list-modal>

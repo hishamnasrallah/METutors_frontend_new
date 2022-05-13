@@ -1,4 +1,4 @@
-import { createAction } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
 
 export const openAdminSendMeetingLinkModal = createAction(
   '[Admin Modal] Open Admin Send Meeting Link Modal'
@@ -78,4 +78,12 @@ export const openAdminCourseBookingListModal = createAction(
 
 export const closeAdminCourseBookingListModal = createAction(
   '[Admin Modal] Close Admin Course Booking List Modal'
+);
+export const openAdminTutorListModal = createAction(
+  '[Admin Modal] Open Admin Tutor List Modal',
+  props<{ tutorType: string; id: number }>()
+);
+
+export const closeAdminTutorListModal = createAction(
+  '[Admin Modal] Close Admin Tutor List Modal'
 );

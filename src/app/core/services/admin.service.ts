@@ -19,6 +19,12 @@ export class AdminService {
     });
   }
 
+  loadAdminTutors(tutorType: string, id: number): Observable<any> {
+    return this.http
+      .get<any>(`${this.baseUrl}admin/subject/${id}/${tutorType}`)
+      .pipe(map((response) => response.teachers));
+  }
+
   adminApproveDocument(id: number): Observable<any> {
     return this.http.post<any>(
       `${this.baseUrl}admin/approve-document/${id}`,

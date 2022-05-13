@@ -1,4 +1,4 @@
-import { ICapacity, ICourse, ISubject } from '@metutor/core/models';
+import { ICapacity, ICourse, ISubject, ITutor } from '@metutor/core/models';
 import { createAction, props } from '@ngrx/store';
 
 // Load Admin Documents
@@ -11,6 +11,20 @@ export const loadAdminDocumentsSuccess = createAction(
 
 export const loadAdminDocumentsFailure = createAction(
   '[Admin] Load Admin Documents Failure',
+  props<{ error: any }>()
+);
+
+export const loadAdminTutors = createAction(
+  '[Admin] Load Admin Tutors',
+  props<{ tutorType: string; id: number }>()
+);
+
+export const loadAdminTutorsSuccess = createAction(
+  '[Admin] Load Admin Tutors Success',
+  props<{ tutors: ITutor[] }>()
+);
+export const loadAdminTutorsFailure = createAction(
+  '[Admin] Load Admin Tutors Failure',
   props<{ error: any }>()
 );
 
