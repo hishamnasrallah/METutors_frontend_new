@@ -1,0 +1,109 @@
+.booking-details {
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.13);
+
+    .card-body {
+      padding: 20px 40px;
+    }
+
+    .title {
+      h1 {
+        color: #000;
+        font-size: 30px;
+
+        span {
+          color: #696969;
+          font-size: 15px;
+        }
+
+        button {
+          background-color: #50C394;
+          color: #FFF;
+          border-radius: 20px;
+        }
+      }
+
+      .links {
+        button {
+          color: #50C394;
+          text-decoration: underline;
+
+          &.prev {
+            color: #A4C8FF;
+          }
+        }
+      }
+    }
+
+    .in-progress {
+      h3 {
+        font-size: 15px;
+        color: #000;
+      }
+
+      strong {
+        color: #000;
+        font-size: 12px;
+        margin-left: 10px;
+      }
+    }
+
+    .list {
+      padding: 0 5px;
+
+      .menu {
+        padding-right: 0;
+
+        img {
+          margin-right: 5px;
+        }
+
+        span {
+          color: #2a2a2a;
+          margin-left: 5px;
+          font-size: 20px;
+        }
+
+        strong {
+          font-size: 17px;
+          color: #696969;
+          font-weight: 500;
+        }
+      }
+    }
+
+    .details {
+      span {
+        color: #696969;
+        font-size: 15px;
+      }
+
+      strong {
+        color: #000;
+      }
+    }
+
+    .current-teacher {
+      h5 {
+        color: #696969;
+        font-size: 15px;
+      }
+
+      img {
+        width: 40px;
+        height: 40px;
+      }
+
+      h3 {
+        color: #2a2a2a;
+        font-size: 17px;
+        font-weight: bold;
+      }
+
+      span {
+        color: #FF8E18;
+        font-size: 15px;
+      }
+    }
+  }
+}

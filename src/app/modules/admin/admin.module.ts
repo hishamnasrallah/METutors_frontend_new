@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
+import { RatingModule } from 'ngx-bootstrap/rating';
 import { NgxAutoScrollModule } from 'ngx-auto-scroll';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -15,6 +16,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 import * as fromAdmin from './state';
@@ -35,6 +37,7 @@ import {
   AdminSupportTicketComponent,
   AdminTicketDetailsComponent,
   AdminTutorInterviewComponent,
+  AdminBookingDetailsComponent,
   AdminSuspendedTutorsComponent,
   AdminWorkforceCapacityComponent,
   AdminCancelledClassroomsComponent,
@@ -76,6 +79,7 @@ import {
     AdminCurrentTutorsComponent,
     AdminPendingTutorsComponent,
     AdminTutorInterviewComponent,
+    AdminBookingDetailsComponent,
     AdminSuspendedTutorsComponent,
     AdminWorkforceCapacityComponent,
     AdminAddNewProgramModalComponent,
@@ -110,6 +114,8 @@ import {
     NgxAutoScrollModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatProgressBarModule,
+    RatingModule.forRoot(),
     NgxMaterialTimepickerModule,
     // EffectsModule.forFeature(Object.values(adminEffects)),
     BsDropdownModule.forRoot(),

@@ -9,6 +9,7 @@ export * from './admin-pending-tutors';
 export * from './admin-field-of-study';
 export * from './admin-support-ticket';
 export * from './admin-ticket-details';
+export * from './admin-booking-details';
 export * from './admin-tutor-interview';
 export * from './admin-suspended-tutors';
 export * from './admin-workforce-capacity';

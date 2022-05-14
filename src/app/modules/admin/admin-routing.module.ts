@@ -14,6 +14,7 @@ import {
   AdminPendingTutorsComponent,
   AdminSupportTicketComponent,
   AdminTicketDetailsComponent,
+  AdminBookingDetailsComponent,
   AdminTutorInterviewComponent,
   AdminSuspendedTutorsComponent,
   AdminWorkforceCapacityComponent,
@@ -186,6 +187,18 @@ const routes: Routes = [
               layout: {
                 title: 'Cancelled - Metutors',
                 navbarTitle: 'Cancelled',
+                showHeader: false,
+                showFooter: false,
+              },
+            },
+          },
+          {
+            path: 'booking-details/:id',
+            component: AdminBookingDetailsComponent,
+            data: {
+              layout: {
+                title: 'Booking Details - Metutors',
+                navbarTitle: 'Booking Details',
                 showHeader: false,
                 showFooter: false,
               },
