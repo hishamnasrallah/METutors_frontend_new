@@ -3,7 +3,7 @@
                 [subHeading]="subHeading"
                 [template]="template">
   <ng-template #template>
-    <div class="tutors-list">
+    <div class="tutors-list" *ngIf="!showAvailability">
       <div class="assign-tutor flex-row">
         <ng-container [ngSwitch]="loading">
           <ng-container *ngSwitchCase="true">
@@ -28,24 +28,13 @@
                 <div class="row mb-3" *ngFor="let tutor of tutors">
                   <div class="position-relative img-avatar col-md-1">
                     <img [src]="tutor?.avatar" meTutorsDefaultAvatar alt="" width="60px" height="60px">
-                    <!-- <svg class="position-absolute status" width="16" height="16" [ngClass]="{
-                          'is-online': tutor?.status === tutorStatus.online, 
-                          'is-busy': tutor?.status === tutorStatus.busy, 
-                          'is-offline': tutor?.status === tutorStatus.offline, 
-                          'is-away': tutor?.status === tutorStatus.away
-                        }" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="8" cy="8" r="7" fill="#949494" stroke="white" stroke-width="2" />
-                  </svg> -->
                   </div>
                   <div class="col d-flex justify-content-center flex-column">
-                    <h2>
-                      {{ tutor?.name }}
-                      <!-- <span class="text-uppercase pro">Pro</span>
-                        <span class="text-uppercase verified">Verified</span> -->
-                    </h2>
+                    <h2>{{ tutor?.name }}</h2>
                     <h3 class="mb-0" *ngIf="tutor?.bio">{{ tutor?.bio }}</h3>
                   </div>
-                  <a class="col-md-2 full-profile availability cursor-pointer" (click)="tutorAvailability.emit(tutor?.id)">
+                  <a class="col-md-2 full-profile availability cursor-pointer"
+                     (click)="tutorAvailability.emit(tutor?.id); showAvailability = true">
                     Tutor Availability
                   </a>
                   <a class="col-md-2 full-profile" [routerLink]="'/profile/tutor/' + tutor?.id" target="_blank">
@@ -62,6 +51,48 @@
           </ng-container>
         </ng-container>
       </div>
+    </div>
+
+    <div class="tutor-availability" *ngIf="showAvailability">
+      <ng-container [ngSwitch]="loading">
+        <ng-container *ngSwitchCase="true">
+          <metutors-grid-placeholder></metutors-grid-placeholder>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="false">
+          <div *ngIf="!objectKeys(availabilities)?.length" class="text-center fw-bold">No Teacher availabilities found
+          </div>
+          <ng-container *ngIf="objectKeys(availabilities)?.length">
+            <div class="row dates">
+              <div class="col-md-3">
+                <span class="d-block">Starting Date</span>
+                <strong class="d-block">{{availabilities?.startDate}}</strong>
+              </div>
+              <div class="col-md-3">
+                <span class="d-block">Ending Date</span>
+                <strong class="d-block">{{availabilities?.endDate}}</strong>
+              </div>
+            </div>
+
+            <div class="mt-5">
+              <ng-container *ngFor="let key of objectKeys(availabilities)">
+                <div class="row days">
+                  <div class="col-md-2">
+                    <strong>{{ weekDayName[key] }}</strong>
+                  </div>
+                  <div class="col-md-10">
+                    <span *ngFor="let slot of availabilities[key]">{{ slot.timeFrom }} to {{ slot.timeTo }}</span>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </ng-container>
+          <div class="mt-4 d-flex justify-content-end">
+            <button mat-flat-button color="primary" class="py-1 px-5 fw-bold" (click)="showAvailability=false">Back
+            </button>
+          </div>
+        </ng-container>
+      </ng-container>
     </div>
   </ng-template>
 </metutors-modal>

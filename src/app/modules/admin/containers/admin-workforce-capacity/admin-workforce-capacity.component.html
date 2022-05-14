@@ -90,10 +90,12 @@
 </metutors-admin-course-booking-list-modal>
 
 <metutors-admin-tutors-list-modal *ngIf="showAdminTutorsListModal | async"
-                                  [loading]="(isLoadingAdminTutors | async)!" [heading]="modalHeading"
+                                  [loading]="(isLoadingAdminTutors | async)! || (isLoadingTutorAvailability$ | async)!"
+                                  [heading]="modalHeading"
                                   [showModal]="(showAdminTutorsListModal | async)!"
+                                  [timeSlots]="(tutorAvailability$ | async)!"
                                   [tutors]="(adminTutorsList$ | async)!"
-                                  (tutorAvailability)="onOpenAdminTutorAvailabilityModal($event)"
+                                  (tutorAvailability)="onTutorAvailability($event)"
                                   (closeModal)="onCloseAdminTutorsListModal()">
 </metutors-admin-tutors-list-modal>
 

@@ -20,6 +20,7 @@ import {
 })
 export class AdminWorkforceCapacityComponent implements OnInit {
   isLoading$: Observable<boolean>;
+  tutorAvailability$: Observable<any>;
   adminTutorsList$: Observable<ITutor[]>;
   capacity$: Observable<ICapacity[] | null>;
   isLoadingAdminTutors: Observable<boolean>;
@@ -27,6 +28,7 @@ export class AdminWorkforceCapacityComponent implements OnInit {
   isLoadingCourseBooking$: Observable<boolean>;
   showAdminTutorsListModal: Observable<boolean>;
   showCourseBookingListModal$: Observable<boolean>;
+  isLoadingTutorAvailability$: Observable<boolean>;
   showAdminTutorAvailabilityModal$: Observable<boolean>;
 
   name: string;
@@ -59,6 +61,14 @@ export class AdminWorkforceCapacityComponent implements OnInit {
     this.courseBooking$ = this._store.select(fromCore.selectCourseBooking);
     this.isLoadingCourseBooking$ = this._store.select(
       fromCore.selectIsLoadingCourseBooking
+    );
+
+    this.tutorAvailability$ = this._store.select(
+      fromCore.selectTutorAvailability
+    );
+
+    this.isLoadingTutorAvailability$ = this._store.select(
+      fromCore.selectIsLoadingTutorAvailability
     );
   }
 
@@ -110,11 +120,15 @@ export class AdminWorkforceCapacityComponent implements OnInit {
     this._store.dispatch(fromAdminAction.closeAdminTutorListModal());
   }
 
-  onOpenAdminTutorAvailabilityModal(id: number): void {
+  onTutorAvailability(id: number): void {
+    this.modalHeading = "Tutor's Availability";
+    this._store.dispatch(fromCore.loadTutorAvailability({ id }));
+  }
+  /*onOpenAdminTutorAvailabilityModal(id: number): void {
     console.log(id);
     this._store.dispatch(fromAdminAction.closeAdminTutorListModal());
     this._store.dispatch(fromAdminAction.openAdminTutorAvailabilityModal());
-  }
+  }*/
 
   onCloseAdminTutorAvailabilityModal(): void {
     this._store.dispatch(fromAdminAction.closeAdminTutorAvailabilityModal());
