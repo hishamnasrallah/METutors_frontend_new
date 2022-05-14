@@ -61,6 +61,10 @@ export class AdminService {
       .pipe(map((response) => new ISubject(false, response?.subject)));
   }
 
+  loadBookingDetails(id: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}admin/course/${id}/detail`);
+  }
+
   loadAllBookings(): Observable<any> {
     return this.http
       .get<any>(`${this.baseUrl}admin/bookings`)
