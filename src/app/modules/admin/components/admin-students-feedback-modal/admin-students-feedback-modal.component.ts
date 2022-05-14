@@ -10,7 +10,7 @@ export class AdminStudentsFeedbackModalComponent implements OnInit {
 
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
 
-  rate = 4.5;
+  rate = 3;
 
   constructor() {}
 

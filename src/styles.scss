@@ -706,6 +706,18 @@ metutors-navbar-mobile {
   }
 }
 
+.mat-dialog-container {
+  overflow: hidden !important;
+}
+
+.feedback .rating-block rating span.bs-rating-star {
+  font-size: 13px;
+
+  &.active {
+    color: var(--main-color);
+  }
+}
+
 ////////////////////////
 // Placeholder
 ////////////////////////
