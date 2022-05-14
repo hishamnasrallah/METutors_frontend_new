@@ -9,6 +9,7 @@ export interface State {
   showAddNewCountryModal: boolean;
   showAdminTutorsListModal: boolean;
   showSendMeetingLinkModal: boolean;
+  showPreviousTeacherModal: boolean;
   showDeclineInterviewModal: boolean;
   showStudentsFeedbackModal: boolean;
   showTutorAvailabilityModal: boolean;
@@ -25,6 +26,7 @@ export const initialState: State = {
   showAddNewCountryModal: false,
   showAdminTutorsListModal: false,
   showSendMeetingLinkModal: false,
+  showPreviousTeacherModal: false,
   showStudentsFeedbackModal: false,
   showDeclineInterviewModal: false,
   showTutorAvailabilityModal: false,
@@ -198,6 +200,16 @@ export const reducer = createReducer(
   on(adminModalActions.closeAdminTutorAvailabilityModal, (state) => ({
     ...state,
     showTutorAvailabilityModal: false,
+  })),
+
+  on(adminModalActions.openAdminPreviousTeacherModal, (state) => ({
+    ...state,
+    showPreviousTeacherModal: true,
+  })),
+
+  on(adminModalActions.closeAdminPreviousTeacherModal, (state) => ({
+    ...state,
+    showPreviousTeacherModal: false,
   }))
 );
 
@@ -210,6 +222,9 @@ export const selectShowAdminTutorsListModal = (state: State): boolean =>
 
 export const selectStudentsFeedbackModal = (state: State): boolean =>
   state.showStudentsFeedbackModal;
+
+export const selectPreviousTeacherModal = (state: State): boolean =>
+  state.showPreviousTeacherModal;
 
 export const selectTutorAvailabilityModal = (state: State): boolean =>
   state.showTutorAvailabilityModal;

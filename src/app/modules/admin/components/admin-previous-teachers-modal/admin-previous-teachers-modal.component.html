@@ -1,0 +1,55 @@
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'medium'" [heading]="'Previous Teachers'"
+                [template]="template" [subHeading]="'List of all the previous teachers who who were assigned this course'">
+  <ng-template #template>
+    <table class="table my-table default-title mb-0">
+      <tr>
+        <th>Number</th>
+        <th>BIN</th>
+        <th>TIN</th>
+        <th>Teacher Name</th>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>BIN123</td>
+        <td>TIN101</td>
+        <td>
+          <div class="d-flex align-items-center">
+            <img [src]="''" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
+              meTutorsDefaultAvatar alt="">
+            <span>
+              <bdi>Ahmed Hassan</bdi>
+            </span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>BIN123</td>
+        <td>TIN101</td>
+        <td>
+          <div class="d-flex align-items-center">
+            <img [src]="''" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
+              meTutorsDefaultAvatar alt="">
+            <span>
+              <bdi>Ahmed Hassan</bdi>
+            </span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>BIN123</td>
+        <td>TIN101</td>
+        <td>
+          <div class="d-flex align-items-center">
+            <img [src]="''" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
+              meTutorsDefaultAvatar alt="">
+            <span>
+              <bdi>Ahmed Hassan</bdi>
+            </span>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </ng-template>
+</metutors-modal>
