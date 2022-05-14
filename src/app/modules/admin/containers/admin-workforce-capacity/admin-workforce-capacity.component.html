@@ -98,8 +98,3 @@
                                   (tutorAvailability)="onTutorAvailability($event)"
                                   (closeModal)="onCloseAdminTutorsListModal()">
 </metutors-admin-tutors-list-modal>
-
-<metutors-admin-tutor-availability-modal *ngIf="showAdminTutorAvailabilityModal$ | async"
-                                         [showModal]="(showAdminTutorAvailabilityModal$ | async)!"
-                                         (closeModal)="onCloseAdminTutorAvailabilityModal()">
-</metutors-admin-tutor-availability-modal>
