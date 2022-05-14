@@ -86,7 +86,7 @@
 
     <div class="row">
       <div class="col-12">
-        <h3 class="overview mb-3">Today's Classes - {{ view.data?.todaysDate}}</h3>
+        <h3 class="overview mb-3">Today's Classes - {{ view.data?.todaysDate }}</h3>
         <ng-container [ngSwitch]="view.loading">
           <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
           <table class="table my-table" *ngSwitchCase="false">
@@ -110,8 +110,8 @@
                 <td>{{ todaysClass?.course?.program?.name }}</td>
                 <td>{{ todaysClass?.course?.courseName }}</td>
                 <td>{{ todaysClass?.title }}</td>
-                <td>{{ todaysClass?.startTime}} - {{ todaysClass?.endTime}}</td>
-                <td>{{ todaysClass?.duration}} hours</td>
+                <td>{{ todaysClass?.startTime }} - {{ todaysClass?.endTime }}</td>
+                <td>{{ todaysClass?.duration }} hours</td>
                 <td class="d-flex justify-content-end">
                   <button mat-button class="main-button-opacity" (click)="launchClass(todaysClass.id)" [disabled]="(isLaunchingClass$ | async)">
                     <img src="assets/svg/play-fill.svg" draggable="false" alt="">
@@ -122,7 +122,6 @@
             </ng-container>
           </table>
         </ng-container>
-
       </div>
     </div>
 

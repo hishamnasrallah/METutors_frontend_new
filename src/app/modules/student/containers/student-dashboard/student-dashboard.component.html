@@ -110,12 +110,12 @@
             <ng-container *ngIf="view.dashboard.todaysClasses.length">
               <tr *ngFor="let todaysClass of view.dashboard.todaysClasses; let i=index">
                 <td>{{ i + 1}}</td>
-                <td>{{ todaysClass?.title}}</td>
+                <td>{{ todaysClass?.title }}</td>
                 <td><img width="35" height="35" [src]="todaysClass?.course?.teacher?.avatar" meTutorsDefaultAvatar
                          alt=""> {{ todaysClass?.course?.teacher?.firstName }} {{ todaysClass?.course?.teacher?.lastName }}
                 </td>
-                <td>{{ todaysClass?.startTime}} - {{ todaysClass?.endTime}}</td>
-                <td>{{ todaysClass?.duration}}</td>
+                <td>{{ todaysClass?.startTime }} - {{ todaysClass?.endTime }}</td>
+                <td>{{ todaysClass?.duration }}</td>
                 <td>
                   <button mat-button class="main-button-opacity">View Class</button>
                 </td>
@@ -154,20 +154,20 @@
                       <!-- <rating [(ngModel)]="rate" max="5" [readonly]="true"></rating> -->
                       <div>
                         <rating [(ngModel)]="completedCourse.totalRating" [max]="5" [readonly]="true"></rating>
-                        <span class="count">{{completedCourse?.totalRating}}</span>
-                        <span class="review">({{ completedCourse?.totalReviews}} review)</span>
+                        <span class="count">{{ completedCourse?.totalRating }}</span>
+                        <span class="review">({{ completedCourse?.totalReviews }} review)</span>
                       </div>
-                      <h3 class="mt-2">{{ completedCourse?.percentCompleted}}% Completed</h3>
+                      <h3 class="mt-2">{{ completedCourse?.percentCompleted }}% Completed</h3>
                       <mat-progress-bar class="example-margin" [color]="'primary'" [value]="completedCourse?.percentCompleted">
                       </mat-progress-bar>
                       <div class="row mt-3">
                         <div class="col-md-4">
                           <h5>Total hours</h5>
-                          <h4 class="m-0">{{ completedCourse?.course?.totalHours}} Hours</h4>
+                          <h4 class="m-0">{{ completedCourse?.course?.totalHours }} Hours</h4>
                         </div>
                         <div class="col-md-4">
                           <h5>Total Classes</h5>
-                          <h4 class="m-0">{{ completedCourse?.course?.totalClasses}}</h4>
+                          <h4 class="m-0">{{ completedCourse?.course?.totalClasses }}</h4>
                         </div>
                         <div class="col-md-4">
                           <h5>Study type:</h5>

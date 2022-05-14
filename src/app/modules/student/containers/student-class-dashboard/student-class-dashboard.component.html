@@ -11,18 +11,18 @@
             <div class="row list rounded">
               <div class="col-md-3 d-flex menu align-items-center">
                 <img src="assets/svg/timer.svg" alt="" width="15" height="15" draggable="false">
-                <strong>Total hour: </strong>
+                <strong>Total Hour: </strong>
                 <span>{{ view.data?.course?.totalHours }}hrs</span>
               </div>
 
               <div class="col-md-3 d-flex menu align-items-center">
                 <img src="assets/svg/play-circle-fill.svg" alt="" width="15" height="15" draggable="false">
-                <strong>Remaining classes: </strong>
+                <strong>Remaining Classes: </strong>
                 <span>{{ view.data?.remainingClasses }}</span>
               </div>
               <div class="col-md-3 d-flex menu align-items-center">
                 <img src="assets/svg/checkbox-circle-fill.svg" alt="" width="15" height="15" draggable="false">
-                <strong>Completed classes: </strong>
+                <strong>Completed Classes: </strong>
                 <span>{{ view.data?.completedClasses }}</span>
               </div>
             </div>
@@ -71,7 +71,7 @@
     <div class="list-tables">
       <div class="row">
         <div class="col-12">
-          <h3 class="overview mb-3">Today's Classes - {{ view?.data?.todaysDate ? view?.data?.todaysDate : 0}}</h3>
+          <h3 class="overview mb-3">Today's Classes - {{ view?.data?.todaysDate ? view?.data?.todaysDate : 0 }}</h3>
           <ng-container [ngSwitch]="view.loading">
             <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
             <table class="table my-table" *ngSwitchCase="false">
@@ -93,7 +93,7 @@
                   <td>{{ i + 1}}</td>
                   <td>{{ todaysClass.title }}</td>
                   <td></td>
-                  <td>{{ todaysClass.startTime}} - {{ todaysClass.endTime}} </td>
+                  <td>{{ todaysClass.startTime }} - {{ todaysClass.endTime }} </td>
                   <td>{{ todaysClass?.duration }} hours</td>
                   <td class="d-flex">
                     <button mat-button class="main-button-opacity flex-grow-1" (click)="joinClass(todaysClass.id)"
@@ -116,7 +116,7 @@
         <div class="col-12 mt-5">
           <div class="row">
             <h3 class="overview mb-3 col-md-10">Upcoming Classes -
-              ({{ view?.data?.totalUpcomingClasses ? view?.data?.totalUpcomingClasses : 0}})</h3>
+              ({{ view?.data?.totalUpcomingClasses ? view?.data?.totalUpcomingClasses : 0 }})</h3>
 
             <div class="col-md-2" *ngIf="!view.loading">
               <button mat-button class="add-class float-end text-primary text-decoration-underline cursor-pointer"
@@ -149,9 +149,9 @@
                   <td>{{ i + 1}}</td>
                   <td>{{ upcomingClass.title ? upcomingClass.title : 'N/A' }}</td>
                   <td></td>
-                  <td>{{ upcomingClass.startDate | date: 'EEEE'}} </td>
-                  <td>{{ upcomingClass.startDate}} </td>
-                  <td>{{ upcomingClass.startTime}} - {{ upcomingClass.endTime}} </td>
+                  <td>{{ upcomingClass.startDate | date: 'EEEE' }} </td>
+                  <td>{{ upcomingClass.startDate }} </td>
+                  <td>{{ upcomingClass.startTime }} - {{ upcomingClass.endTime }} </td>
                   <td>{{ upcomingClass?.duration }} hours</td>
                   <td class="d-flex">
                     <span
