@@ -79,6 +79,7 @@ export const openAdminCourseBookingListModal = createAction(
 export const closeAdminCourseBookingListModal = createAction(
   '[Admin Modal] Close Admin Course Booking List Modal'
 );
+
 export const openAdminTutorListModal = createAction(
   '[Admin Modal] Open Admin Tutor List Modal',
   props<{ tutorType: string; id: number }>()
@@ -86,4 +87,12 @@ export const openAdminTutorListModal = createAction(
 
 export const closeAdminTutorListModal = createAction(
   '[Admin Modal] Close Admin Tutor List Modal'
+);
+
+export const openAdminStudentsFeedbackModal = createAction(
+  '[Admin Modal] Open Admin Students Feedback Modal'
+);
+
+export const closeAdminStudentsFeedbackModal = createAction(
+  '[Admin Modal] Close Admin Students Feedback Modal'
 );

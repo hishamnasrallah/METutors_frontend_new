@@ -1,0 +1,29 @@
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'xmedium'" [heading]="'Student\'s Feedback'"
+                [template]="template" [subHeading]="'Feedback gived to you'">
+  <ng-template #template>
+    <div class="feedback">
+        <div class="d-flex teacher">
+            <img src="" meTutorsDefaultAvatar alt="" class="rounded-circle">
+            <div class="ms-2">
+              <h3 class="m-0">Ahmed Hassan</h3>
+              <div>
+                <rating [(ngModel)]="rate" [max]="5" [readonly]="true"></rating>
+                <span class="ms-1">4.5</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+              <div class="col-md-6">
+
+              </div>
+              <div class="col-md-6">
+                  <h2>Feedback</h2>
+                  <p>
+                      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cumque delectus, praesentium quidem est quaerat, deserunt facilis tenetur ab quia quod cupiditate fuga culpa placeat pariatur fugit. Ratione cumque error nobis.
+                  </p>
+              </div>
+          </div>
+    </div>
+  </ng-template>
+</metutors-modal>

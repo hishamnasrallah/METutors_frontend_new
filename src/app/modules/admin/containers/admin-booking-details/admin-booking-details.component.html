@@ -6,7 +6,7 @@
           <button mat-button class="ms-3">Completed</button>
         </h1>
         <div class="links">
-          <button mat-button class="fw-bold">Students Feedback</button>
+          <button mat-button class="fw-bold" (click)="onOpenStudentsFeedbackModal()">Students Feedback</button>
           <button mat-button class="fw-bold">Re-assign Course</button>
           <button mat-button class="fw-bold prev">Previous Teacher</button>
         </div>
@@ -157,3 +157,8 @@
     </table>
   </div>
 </div>
+
+<metutors-admin-students-feedback-modal *ngIf="showStudentsFeedbackModal$ | async" 
+                                        (closeModal)="onCloseStudentsFeedbackModal()"
+                                        [showModal]="(showStudentsFeedbackModal$ | async)!">  
+</metutors-admin-students-feedback-modal>
