@@ -35,7 +35,7 @@
           <div class="col-md-2 d-flex menu align-items-center">
             <img src="assets/svg/play-circle-fill.svg" alt="" width="15" height="15" draggable="false">
             <strong>Remaining classes: </strong>
-            <span>{{ view.bookingDetail.course?.totalRemainingClassesCount}}</span>
+            <span>{{ view.bookingDetail.course?.remainingClassesCount}}</span>
           </div>
           <div class="col-md-2 d-flex menu align-items-center">
             <img src="assets/svg/checkbox-circle-fill.svg" alt="" width="15" height="15" draggable="false">
@@ -62,7 +62,7 @@
           <div class="col-md-2 current-teacher">
             <h5>Current Teacher</h5>
             <div class="d-flex">
-              <img src="" meTutorsDefaultAvatar alt="" class="rounded-circle">
+              <img [src]="imageURL+view.bookingDetail?.course?.teacher?.avatar" meTutorsDefaultAvatar alt="" class="rounded-circle">
               <div class="ms-2">
                 <h3 class="m-0">{{view.bookingDetail?.course?.teacher?.firstName }} {{view.bookingDetail?.course?.teacher?.lastName }}</h3>
                 <div>
@@ -96,11 +96,11 @@
               </li>
               <li class="list-inline-item d-flex flex-column">
                 <span>Start Date</span>
-                <strong>{{ view.bookingDetail?.course.startDate | date: ''}}</strong>
+                <strong>{{ view.bookingDetail?.course.startDate | date: 'MMM d, y'}}</strong>
               </li>
               <li class="list-inline-item d-flex flex-column">
                 <span>End Date</span>
-                <strong>{{ view.bookingDetail?.course.endDate | date: ''}}</strong>
+                <strong>{{ view.bookingDetail?.course.endDate | date: 'MMM d, y'}}</strong>
               </li>
             </ul>
           </div>

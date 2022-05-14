@@ -2,6 +2,7 @@ import { Store } from '@ngrx/store';
 import { Observable, combineLatest, map } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 
+import { environment } from '@environment';
 import * as fromCore from '@metutor/core/state';
 import * as fromAdmin from '@metutor/modules/admin/state';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
@@ -13,10 +14,9 @@ import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 })
 export class AdminBookingDetailsComponent implements OnInit {
   showStudentsFeedbackModal$: Observable<boolean>;
-
-  rate = 4;
-
   view$: Observable<{ loading: boolean; bookingDetail: any }>;
+
+  imageURL = environment.imageURL;
 
   constructor(private _store: Store<any>) {}
 
