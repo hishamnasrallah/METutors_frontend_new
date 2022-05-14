@@ -94,7 +94,7 @@
                                   [heading]="modalHeading"
                                   [showModal]="(showAdminTutorsListModal | async)!"
                                   [timeSlots]="(tutorAvailability$ | async)!"
-                                  [tutors]="(adminTutorsList$ | async)!"
+                                  [tutors]="(adminTutorsList$ | async)!" (back)="onBack()"
                                   (tutorAvailability)="onTutorAvailability($event)"
                                   (closeModal)="onCloseAdminTutorsListModal()">
 </metutors-admin-tutors-list-modal>

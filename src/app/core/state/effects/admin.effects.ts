@@ -72,6 +72,32 @@ export class AdminEffects {
     )
   );
 
+  loadAdminCoursePreviousTutors$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(adminActions.loadAdminCoursePreviousTutors),
+      withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
+      mergeMap(([_, { id }]) =>
+        this._adminService.loadAdminCoursePreviousTutors(id).pipe(
+          map(
+            (previousTutors) =>
+              adminActions.loadAdminCoursePreviousTutorsSuccess({
+                previousTutors: camelcaseKeys(previousTutors, {
+                  deep: true,
+                }),
+              }),
+            catchError((error) =>
+              of(
+                adminActions.loadAdminCoursePreviousTutorsFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          )
+        )
+      )
+    )
+  );
+
   loadBookingDetail$ = createEffect(() =>
     this._actions$.pipe(
       ofType(adminActions.loadBookingDetail),

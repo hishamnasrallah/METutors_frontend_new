@@ -31,6 +31,7 @@ export class AdminWorkforceCapacityComponent implements OnInit {
   isLoadingTutorAvailability$: Observable<boolean>;
 
   name: string;
+  tutorType: string;
   modalHeading: string;
   selectedCapacity: number;
 
@@ -67,6 +68,11 @@ export class AdminWorkforceCapacityComponent implements OnInit {
     );
   }
 
+  onBack(): void {
+    this.modalHeading =
+      this.tutorType === 'hired' ? 'Hired Tutors' : 'Available Tutors';
+  }
+
   filterCapacity(filters: ICapacityFilters): void {
     this.capacity$ = this._store.select(
       fromCore.selectFilteredWorkforceCapacity,
@@ -93,6 +99,7 @@ export class AdminWorkforceCapacityComponent implements OnInit {
 
   onShowHiredTutors(tutorsCount: number, id: number): void {
     if (tutorsCount > 0) {
+      this.tutorType = 'hired';
       this.modalHeading = 'Hired Tutors';
       const tutorType = 'hired-teachers';
       this._store.dispatch(
@@ -103,6 +110,7 @@ export class AdminWorkforceCapacityComponent implements OnInit {
 
   onShowAvailableTutors(tutorsCount: number, id: number): void {
     if (tutorsCount > 0) {
+      this.tutorType = 'available';
       this.modalHeading = 'Available Tutors';
       const tutorType = 'available-teachers';
       this._store.dispatch(

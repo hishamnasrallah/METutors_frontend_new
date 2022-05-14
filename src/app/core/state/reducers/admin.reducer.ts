@@ -12,12 +12,14 @@ import * as adminActions from '../actions/admin.actions';
 export interface State {
   tutors: ITutor[];
   bookingDetail: [];
+  previousTutors: [];
   isApprovingDoc: boolean;
   isRejectingDoc: boolean;
   isLoadingTutors: boolean;
   isLoadingAdminDocs: boolean;
   documents: ITeacherDocument[];
   isLoadingBookingDetail: boolean;
+  isLoadingPreviousTutors: boolean;
 
   // Loading workforce capacity
   workforceCapacity: ICapacity[];
@@ -43,6 +45,7 @@ export const initialState: State = {
   documents: [],
   allBookings: [],
   bookingDetail: [],
+  previousTutors: [],
   runningBookings: [],
   courseBooking: null,
   completedBookings: [],
@@ -55,6 +58,7 @@ export const initialState: State = {
   isLoadingAllBookings: false,
   isLoadingCourseBooking: false,
   isLoadingBookingDetail: false,
+  isLoadingPreviousTutors: false,
   isLoadingRunningBookings: false,
   isLoadingWorkforceCapacity: false,
   isLoadingCompletedBookings: false,
@@ -286,6 +290,25 @@ export const reducer = createReducer(
   on(adminActions.loadBookingDetailFailure, (state) => ({
     ...state,
     isLoadingBookingDetail: false,
+  })),
+
+  on(adminActions.loadAdminCoursePreviousTutors, (state) => ({
+    ...state,
+    isLoadingPreviousTutors: true,
+  })),
+
+  on(
+    adminActions.loadAdminCoursePreviousTutorsSuccess,
+    (state, { previousTutors }) => ({
+      ...state,
+      previousTutors,
+      isLoadingPreviousTutors: false,
+    })
+  ),
+
+  on(adminActions.loadAdminCoursePreviousTutorsFailure, (state) => ({
+    ...state,
+    isLoadingPreviousTutors: false,
   }))
 );
 
@@ -346,6 +369,12 @@ export const selectAdminBookingDetail = (state: State): ICourse[] =>
 
 export const selectIsLoadingAdminBookingDetail = (state: State): boolean =>
   state.isLoadingBookingDetail;
+
+export const selectAdminCoursePreviousTutors = (state: State): ICourse[] =>
+  state.previousTutors;
+
+export const selectIsLoadingPreviousTutors = (state: State): boolean =>
+  state.isLoadingPreviousTutors;
 
 export const selectFilteredWorkforceCapacity = (
   state: State,

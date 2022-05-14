@@ -185,3 +185,17 @@ export const loadBookingDetailFailure = createAction(
   '[Admin] Load Booking Detail Failure',
   props<{ error: any }>()
 );
+
+export const loadAdminCoursePreviousTutors = createAction(
+  '[Admin] Load Admin Course Previous Tutors'
+);
+
+export const loadAdminCoursePreviousTutorsSuccess = createAction(
+  '[Admin] Load Admin Course Previous Tutors Success',
+  props<{ previousTutors: any }>()
+);
+
+export const loadAdminCoursePreviousTutorsFailure = createAction(
+  '[Admin] Load Admin Course Previous Tutors Failure',
+  props<{ error: any }>()
+);

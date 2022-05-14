@@ -1203,3 +1203,13 @@ export const selectIsLoadingAdminBookingDetail = createSelector(
   selectAdminState,
   fromAdminReducer.selectIsLoadingAdminBookingDetail
 );
+
+export const selectAdminCoursePreviousTutors = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectAdminCoursePreviousTutors
+);
+
+export const selectIsLoadingPreviousTutors = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectIsLoadingPreviousTutors
+);

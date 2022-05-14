@@ -216,5 +216,7 @@
 
 <metutors-admin-previous-teachers-modal *ngIf="showPreviousTeacherModal$ | async"
                                         (closeModal)="onClosePreviousTeacherModal()"
+                                        [loading]="(isLoadingPreviousTutors$ | async)!"
+                                        [previousTutors]="(previousTutors$ |async)!"
                                         [showModal]="(showPreviousTeacherModal$ | async)!">
 </metutors-admin-previous-teachers-modal>

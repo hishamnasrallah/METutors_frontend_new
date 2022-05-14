@@ -13,6 +13,8 @@ import * as fromAdminAction from '@metutor/modules/admin/state/actions';
   styleUrls: ['./admin-booking-details.component.scss'],
 })
 export class AdminBookingDetailsComponent implements OnInit {
+  previousTutors$: Observable<any>;
+  isLoadingPreviousTutors$: Observable<boolean>;
   showPreviousTeacherModal$: Observable<boolean>;
   showStudentsFeedbackModal$: Observable<boolean>;
   view$: Observable<{ loading: boolean; bookingDetail: any }>;
@@ -32,6 +34,14 @@ export class AdminBookingDetailsComponent implements OnInit {
       fromAdmin.selectPreviousTeacherModal
     );
 
+    this.previousTutors$ = this._store.select(
+      fromCore.selectAdminCoursePreviousTutors
+    );
+
+    this.isLoadingPreviousTutors$ = this._store.select(
+      fromCore.selectIsLoadingPreviousTutors
+    );
+
     this.view$ = combineLatest([
       this._store.select(fromCore.selectAdminBookingDetail),
       this._store.select(fromCore.selectIsLoadingAdminBookingDetail),
@@ -47,6 +57,7 @@ export class AdminBookingDetailsComponent implements OnInit {
   }
 
   onOpenPreviousTeacherModal() {
+    this._store.dispatch(fromCore.loadAdminCoursePreviousTutors());
     this._store.dispatch(fromAdminAction.openAdminPreviousTeacherModal());
   }
 
