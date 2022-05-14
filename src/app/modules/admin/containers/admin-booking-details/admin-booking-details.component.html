@@ -16,7 +16,8 @@
     <div class="card" *ngSwitchCase="false">
       <div class="card-body">
         <div class="title overflow-hidden d-flex justify-content-between">
-          <h1 class="mb-0">{{ view.bookingDetail.course?.courseName}} <span>({{ view.bookingDetail.course?.courseCode}})</span>
+          <h1 class="mb-0">{{ view.bookingDetail.course?.courseName}} <span>({{ view.bookingDetail.course?.courseCode}}
+            )</span>
             <button mat-button class="ms-3">Completed</button>
           </h1>
           <div class="links">
@@ -62,9 +63,11 @@
           <div class="col-md-2 current-teacher">
             <h5>Current Teacher</h5>
             <div class="d-flex">
-              <img [src]="imageURL+view.bookingDetail?.course?.teacher?.avatar" meTutorsDefaultAvatar alt="" class="rounded-circle">
+              <img [src]="imageURL+view.bookingDetail?.course?.teacher?.avatar" meTutorsDefaultAvatar alt=""
+                   class="rounded-circle">
               <div class="ms-2">
-                <h3 class="m-0">{{view.bookingDetail?.course?.teacher?.firstName }} {{view.bookingDetail?.course?.teacher?.lastName }}</h3>
+                <h3
+                  class="m-0">{{view.bookingDetail?.course?.teacher?.firstName }} {{view.bookingDetail?.course?.teacher?.lastName }}</h3>
                 <div>
                   <rating [(ngModel)]="view.bookingDetail.teacherRating" [max]="5" [readonly]="true"></rating>
                   <span class="ms-1">{{view.bookingDetail?.teacherRating}}</span>
@@ -73,12 +76,11 @@
             </div>
           </div>
           <div class="col-md-4 in-progress">
-            <!-- <h3>Completed</h3>
-            <h3>Not Started yet</h3> -->
             <h3>In progress</h3>
             <div class="d-flex align-items-center">
               <div class="flex-grow-1">
-                <mat-progress-bar class="example-margin" [color]="'primary'" [value]="view.bookingDetail?.courseProgress">
+                <mat-progress-bar class="example-margin" [color]="'primary'"
+                                  [value]="view.bookingDetail?.courseProgress">
                 </mat-progress-bar>
               </div>
               <strong>{{view.bookingDetail?.courseProgress}}%</strong>
@@ -112,65 +114,98 @@
 
   <div class="booking-content">
     <h3 class="overview mb-3">Completed Classes</h3>
-    <table class="table my-table default-title mb-5">
-      <tr>
-        <th>#</th>
-        <th>Topic</th>
-        <th>Class Attendees</th>
-        <th>Start time - End time</th>
-        <th>Duration</th>
-        <th>Status</th>
-      </tr>
-      <tr>
-        <td>1</td>
-        <td>Calcus with limit</td>
-        <td>
-          <div class="overflow-visible logos">
-            <img src="https://logo.clearbit.com/tarjama.com" alt="" draggable="false"
-                 class="d-inline-block rounded-circle">
-            <img src="https://logo.clearbit.com/amazon.com" alt="" draggable="false"
-                 class="d-inline-block rounded-circle ">
-            <img src="https://logo.clearbit.com/noon.ae" alt="" draggable="false"
-                 class="d-inline-block rounded-circle ">
-            <img src="https://logo.clearbit.com/canon.com" alt="" draggable="false"
-                 class="d-inline-block rounded-circle ">
-            <img src="https://logo.clearbit.com/axa.com" alt="" draggable="false"
-                 class="d-inline-block rounded-circle ">
-            <img src="https://logo.clearbit.com/axis.xyz" alt="" draggable="false"
-                 class="d-inline-block rounded-circle ">
-            <img src="https://logo.clearbit.com/tamatem.co" alt="" draggable="false"
-                 class="d-inline-block rounded-circle ">
-          </div>
-        </td>
-        <td>8:00 AM - 9:00 AM</td>
-        <td>1 Hour</td>
-        <td>
-          <span class="status completed">Completed</span>
-        </td>
-      </tr>
-    </table>
+    <ng-container [ngSwitch]="view.loading">
+      <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
+      <ng-container *ngSwitchCase="false">
 
-    <h3 class="overview mb-3">Remaining Classes</h3>
-    <table class="table my-table default-title">
-      <tr>
-        <th>#</th>
-        <th>Topic</th>
-        <th>Class Attendees</th>
-        <th>Start time - End time</th>
-        <th>Duration</th>
-        <th>Status</th>
-      </tr>
-      <tr>
-        <td>1</td>
-        <td>Calcus with limit</td>
-        <td></td>
-        <td>8:00 AM - 9:00 AM</td>
-        <td>1 Hour</td>
-        <td>
-          <span class="status remaining">Remaining</span>
-        </td>
-      </tr>
-    </table>
+        <ng-container *ngIf="view.bookingDetail?.completedClasses?.length">
+          <table class="table my-table default-title mb-5">
+            <tr>
+              <th>#</th>
+              <th>Topic</th>
+              <th>Class Attendees</th>
+              <th>Start time - End time</th>
+              <th>Duration</th>
+              <th>Status</th>
+            </tr>
+            <tr *ngFor="let completedClass of view.bookingDetail?.completedClasses; let i=index">
+              <td>{{i+1}}</td>
+              <td>{{completedClass?.topic?.name}}</td>
+              <td>
+                <!--<div class="overflow-visible logos">
+                  <img src="https://logo.clearbit.com/tarjama.com" alt="" draggable="false"
+                       class="d-inline-block rounded-circle">
+                  <img src="https://logo.clearbit.com/amazon.com" alt="" draggable="false"
+                       class="d-inline-block rounded-circle ">
+                  <img src="https://logo.clearbit.com/noon.ae" alt="" draggable="false"
+                       class="d-inline-block rounded-circle ">
+                  <img src="https://logo.clearbit.com/canon.com" alt="" draggable="false"
+                       class="d-inline-block rounded-circle ">
+                  <img src="https://logo.clearbit.com/axa.com" alt="" draggable="false"
+                       class="d-inline-block rounded-circle ">
+                  <img src="https://logo.clearbit.com/axis.xyz" alt="" draggable="false"
+                       class="d-inline-block rounded-circle ">
+                  <img src="https://logo.clearbit.com/tamatem.co" alt="" draggable="false"
+                       class="d-inline-block rounded-circle ">
+                </div>-->
+              </td>
+              <td>{{completedClass?.startTime }} - {{ completedClass?.endTime}}</td>
+              <td>{{completedClass?.duration}} Hour</td>
+              <td>
+                <span class="status completed">Completed</span>
+              </td>
+            </tr>
+          </table>
+        </ng-container>
+
+        <div class="col-md-12 mb-3"
+             *ngIf="!view.bookingDetail?.completedClasses?.length">
+          <div class="card no-data">
+            <div class="card-body">
+              <h3 class="text-center m-0">No course found!</h3>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+
+    <h3 class="overview mb-3 mt-5">Remaining Classes</h3>
+    <ng-container [ngSwitch]="view.loading">
+      <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
+      <ng-container *ngSwitchCase="false">
+        <ng-container *ngIf="view.bookingDetail?.remainingClasses?.length">
+        <table class="table my-table default-title">
+          <tr>
+            <th>#</th>
+            <th>Topic</th>
+            <th>Class Attendees</th>
+            <th>Start time - End time</th>
+            <th>Duration</th>
+            <th>Status</th>
+          </tr>
+          <tr *ngFor="let remainingClass of view.bookingDetail?.remainingClasses; let i = index">
+            <td>{{ i+1}}</td>
+            <td>{{ remainingClass.topic?.name}}</td>
+            <td></td>
+            <td>{{ remainingClass.startTime }} - {{ remainingClass.endTime }}</td>
+            <td>{{ remainingClass.duration }} Hour</td>
+            <td>
+              <span class="status remaining">Remaining</span>
+            </td>
+          </tr>
+        </table>
+        </ng-container>
+
+        <div class="col-md-12 mb-3"
+             *ngIf="!view.bookingDetail?.remainingClasses?.length">
+          <div class="card no-data">
+            <div class="card-body">
+              <h3 class="text-center m-0">No course found!</h3>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
   </div>
 </div>
 
