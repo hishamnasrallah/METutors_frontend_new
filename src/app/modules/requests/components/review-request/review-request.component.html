@@ -141,7 +141,7 @@
             </h2>
             <h3 class="mb-0" *ngIf="reviewInfo?.tutor?.bio">{{ reviewInfo?.tutor?.bio }}</h3>
           </div>
-          <a class="col-md-3 full-profile" [routerLink]="'/tutor-profile/' + reviewInfo?.tutor?.id" target="_blank">
+          <a class="col-md-3 full-profile" [routerLink]="'/profile/tutor/' + reviewInfo?.tutor?.id" target="_blank">
             <img src="assets/svg/share-link.svg" draggable="false" width="16px" height="16px" alt="">
             Full Profile
           </a>

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { environment } from 'src/environments/environment';
-import { ICapacity, ICourse, ISubject } from '../models';
+import { ICapacity, ICourse, ISubject, ITutor } from '../models';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +22,11 @@ export class AdminService {
   loadAdminTutors(tutorType: string, id: number): Observable<any> {
     return this.http
       .get<any>(`${this.baseUrl}admin/subject/${id}/${tutorType}`)
-      .pipe(map((response) => response.teachers));
+      .pipe(
+        map((response) =>
+          response.teachers.map((teacher: any) => new ITutor(false, teacher))
+        )
+      );
   }
 
   adminApproveDocument(id: number): Observable<any> {
