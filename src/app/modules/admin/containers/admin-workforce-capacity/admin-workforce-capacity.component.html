@@ -93,5 +93,11 @@
                                   [loading]="(isLoadingAdminTutors | async)!" [heading]="modalHeading"
                                   [showModal]="(showAdminTutorsListModal | async)!"
                                   [tutors]="(adminTutorsList$ | async)!"
+                                  (tutorAvailability)="onOpenAdminTutorAvailabilityModal($event)"
                                   (closeModal)="onCloseAdminTutorsListModal()">
 </metutors-admin-tutors-list-modal>
+
+<metutors-admin-tutor-availability-modal *ngIf="showAdminTutorAvailabilityModal$ | async"
+                                         [showModal]="(showAdminTutorAvailabilityModal$ | async)!"
+                                         (closeModal)="onCloseAdminTutorAvailabilityModal()">
+</metutors-admin-tutor-availability-modal>

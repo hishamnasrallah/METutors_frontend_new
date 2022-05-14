@@ -45,6 +45,9 @@
                     </h2>
                     <h3 class="mb-0" *ngIf="tutor?.bio">{{ tutor?.bio }}</h3>
                   </div>
+                  <a class="col-md-2 full-profile availability cursor-pointer" (click)="tutorAvailability.emit(tutor?.id)">
+                    Tutor Availability
+                  </a>
                   <a class="col-md-2 full-profile" [routerLink]="'/profile/tutor/' + tutor?.id" target="_blank">
                     <img src="assets/svg/share-link.svg" draggable="false" width="16px" height="16px" alt="">
                     Full profile

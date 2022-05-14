@@ -96,3 +96,11 @@ export const openAdminStudentsFeedbackModal = createAction(
 export const closeAdminStudentsFeedbackModal = createAction(
   '[Admin Modal] Close Admin Students Feedback Modal'
 );
+
+export const openAdminTutorAvailabilityModal = createAction(
+  '[Admin Modal] Open Admin Tutor Availability Modal'
+);
+
+export const closeAdminTutorAvailabilityModal = createAction(
+  '[Admin Modal] Close Admin Tutor Availability Modal'
+);

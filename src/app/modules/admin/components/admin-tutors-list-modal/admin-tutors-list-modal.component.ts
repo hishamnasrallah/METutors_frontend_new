@@ -15,6 +15,8 @@ export class AdminTutorsListModalComponent implements OnInit {
   @Input() loading: boolean;
 
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
+  @Output() tutorAvailability: EventEmitter<number> =
+    new EventEmitter<number>();
 
   constructor() {}
 

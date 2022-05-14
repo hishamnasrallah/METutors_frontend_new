@@ -98,3 +98,8 @@ export const selectStudentsFeedbackModal = createSelector(
   selectAdminModalState,
   fromAdminModal.selectStudentsFeedbackModal
 );
+
+export const selectTutorAvailabilityModal = createSelector(
+  selectAdminModalState,
+  fromAdminModal.selectTutorAvailabilityModal
+);

@@ -1,0 +1,57 @@
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'xmedium'"
+                [heading]="'Tutor\'s Availability'" [template]="template">
+  <ng-template #template>
+    <div class="tutor-availability">
+      <div class="row dates">
+        <div class="col-md-3">
+          <span class="d-block">Starting Date</span>
+          <strong class="d-block">1/2/2022</strong>
+        </div>
+        <div class="col-md-3">
+          <span class="d-block">Ending Date</span>
+          <strong class="d-block">1/11/2022</strong>
+        </div>
+      </div>
+
+      <div class="mt-5">
+        <div class="row days">
+          <div class="col-md-2">
+            <strong>Monday</strong>
+          </div>
+          <div class="col-md-10">
+            <span>10am - 12pm</span>
+            <span>10am - 12pm</span>
+            <span>10am - 12pm</span>
+            <span>10am - 12pm</span>
+          </div>
+        </div>
+        <div class="row days">
+          <div class="col-md-2">
+            <strong>Monday</strong>
+          </div>
+          <div class="col-md-10">
+            <span>10am - 12pm</span>
+            <span>10am - 12pm</span>
+            <span>10am - 12pm</span>
+            <span>10am - 12pm</span>
+          </div>
+        </div>
+        <div class="row days">
+          <div class="col-md-2">
+            <strong>Monday</strong>
+          </div>
+          <div class="col-md-10">
+            <span>10am - 12pm</span>
+            <span>10am - 12pm</span>
+            <span>10am - 12pm</span>
+            <span>10am - 12pm</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4 d-flex justify-content-end">
+        <button mat-flat-button color="primary" class="py-1 px-5 fw-bold">Back</button>
+      </div>
+    </div>
+  </ng-template>
+</metutors-modal>

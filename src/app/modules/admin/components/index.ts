@@ -8,6 +8,7 @@ export * from './admin-add-new-country-modal';
 export * from './admin-students-feedback-modal';
 export * from './admin-decline-interview-modal';
 export * from './admin-send-meeting-link-modal';
+export * from './admin-tutor-availability-modal';
 export * from './admin-schedule-interview-modal';
 export * from './admin-course-booking-list-modal';
 export * from './admin-add-new-field-study-modal';

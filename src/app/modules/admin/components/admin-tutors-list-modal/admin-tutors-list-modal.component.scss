@@ -98,6 +98,13 @@
       &:hover {
         color: var(--main-color);
       }
+
+      &.availability {
+        color: #F15A5A;
+        font-size: 12px;
+        margin-top: 5px;
+        text-decoration: underline;
+      }
     }
   }
 }

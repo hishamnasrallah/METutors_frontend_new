@@ -27,6 +27,7 @@ export class AdminWorkforceCapacityComponent implements OnInit {
   isLoadingCourseBooking$: Observable<boolean>;
   showAdminTutorsListModal: Observable<boolean>;
   showCourseBookingListModal$: Observable<boolean>;
+  showAdminTutorAvailabilityModal$: Observable<boolean>;
 
   name: string;
   modalHeading: string;
@@ -47,6 +48,10 @@ export class AdminWorkforceCapacityComponent implements OnInit {
 
     this.showAdminTutorsListModal = this._store.select(
       fromAdmin.selectShowAdminTutorsListModal
+    );
+
+    this.showAdminTutorAvailabilityModal$ = this._store.select(
+      fromAdmin.selectTutorAvailabilityModal
     );
 
     this.adminTutorsList$ = this._store.select(fromCore.selectAdminTutors);
@@ -103,6 +108,16 @@ export class AdminWorkforceCapacityComponent implements OnInit {
 
   onCloseAdminTutorsListModal(): void {
     this._store.dispatch(fromAdminAction.closeAdminTutorListModal());
+  }
+
+  onOpenAdminTutorAvailabilityModal(id: number): void {
+    console.log(id);
+    this._store.dispatch(fromAdminAction.closeAdminTutorListModal());
+    this._store.dispatch(fromAdminAction.openAdminTutorAvailabilityModal());
+  }
+
+  onCloseAdminTutorAvailabilityModal(): void {
+    this._store.dispatch(fromAdminAction.closeAdminTutorAvailabilityModal());
   }
 
   private _prepareCapacity(): void {
