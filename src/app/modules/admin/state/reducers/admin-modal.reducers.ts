@@ -7,6 +7,7 @@ export interface State {
   showAddNewSubjectModal: boolean;
   showAddNewProgramModal: boolean;
   showAddNewCountryModal: boolean;
+  showAdminTutorsListModal: boolean;
   showSendMeetingLinkModal: boolean;
   showDeclineInterviewModal: boolean;
   showScheduleInterviewModal: boolean;
@@ -20,6 +21,7 @@ export const initialState: State = {
   showAddNewSubjectModal: false,
   showAddNewProgramModal: false,
   showAddNewCountryModal: false,
+  showAdminTutorsListModal: false,
   showSendMeetingLinkModal: false,
   showDeclineInterviewModal: false,
   showScheduleInterviewModal: false,
@@ -39,6 +41,16 @@ export const reducer = createReducer(
   on(adminModalActions.closeAdminSendMeetingLinkModal, (state) => ({
     ...state,
     showSendMeetingLinkModal: false,
+  })),
+
+  on(adminModalActions.openAdminTutorListModal, (state) => ({
+    ...state,
+    showAdminTutorsListModal: true,
+  })),
+
+  on(adminModalActions.closeAdminTutorListModal, (state) => ({
+    ...state,
+    showAdminTutorsListModal: false,
   })),
 
   on(adminModalActions.openAdminHourlyRatePerSubjectModal, (state) => ({
@@ -168,6 +180,9 @@ export const reducer = createReducer(
 // Admin modal selectors
 export const selectIsSendMeetingLinkModal = (state: State): boolean =>
   state.showSendMeetingLinkModal;
+
+export const selectShowAdminTutorsListModal = (state: State): boolean =>
+  state.showAdminTutorsListModal;
 
 export const selectIsHourlyRatePerSubjectModal = (state: State): boolean =>
   state.showHourlyRatePerSubjectModal;

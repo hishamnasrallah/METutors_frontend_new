@@ -1,0 +1,58 @@
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'medium'"
+                [heading]="heading"
+                [subHeading]="subHeading"
+                [template]="template">
+  <ng-template #template>
+    <div class="list-options-rows mt-4">
+      <div class="assign-tutor flex-row">
+        <ng-container [ngSwitch]="loading">
+          <ng-container *ngSwitchCase="true">
+            <div class="ph-item mt-4 mx-2" *ngFor="let i of [1, 2, 3, 4, 5]">
+              <div class="ph-col-2">
+                <div class="ph-avatar"></div>
+              </div>
+
+              <div>
+                <div class="ph-row mt-2">
+                  <div class="ph-col-10"></div>
+                  <div class="ph-col-2 empty"></div>
+                  <div class="ph-col-6"></div>
+                  <div class="ph-col-6 empty"></div>
+                  <div class="ph-col-2"></div>
+                  <div class="ph-col-10 empty"></div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+          <ng-container *ngSwitchCase="false">
+            <div class="list-tutors">
+              <ng-container *ngIf="tutors?.length">
+                <mat-radio-group class="d-flex flex-column">
+                  <mat-radio-button *ngFor="let tutor of tutors" [value]="tutor?.id">
+                    <div class="row">
+                      <div class="position-relative img-avatar">
+                        <img [src]="tutor?.avatar" meTutorsDefaultAvatar alt="" width="60px" height="60px">
+                      </div>
+                      <div class="col d-flex justify-content-center flex-column">
+                        <h2>{{ tutor?.name }}</h2>
+                        <h3 class="mb-0" *ngIf="tutor?.bio">{{ tutor?.bio }}</h3>
+                      </div>
+                      <a class="col-md-2 full-profile" [routerLink]="'/tutor-profile/' + tutor?.id" target="_blank">
+                        <img src="assets/svg/share-link.svg" draggable="false" width="16px" height="16px" alt="">
+                        Full profile
+                      </a>
+                    </div>
+                  </mat-radio-button>
+                </mat-radio-group>
+              </ng-container>
+
+              <ng-container *ngIf="!tutors?.length">
+                <div class="text-center fw-bold">No record found!</div>
+              </ng-container>
+            </div>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+  </ng-template>
+</metutors-modal>

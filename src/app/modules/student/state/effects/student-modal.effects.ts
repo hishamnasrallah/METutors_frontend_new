@@ -1,5 +1,5 @@
 import { Store } from '@ngrx/store';
-import { mergeMap, of, withLatestFrom } from 'rxjs';
+import { mergeMap, of } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 

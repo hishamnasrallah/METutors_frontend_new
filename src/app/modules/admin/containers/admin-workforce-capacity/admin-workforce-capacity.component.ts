@@ -1,10 +1,17 @@
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import * as fromCore from '@metutor/core/state';
 import { Component, OnInit } from '@angular/core';
+
+import * as fromCore from '@metutor/core/state';
 import * as fromAdmin from '@metutor/modules/admin/state';
-import { ICapacity, ICapacityFilters, ISubject } from '@metutor/core/models';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
+
+import {
+  ITutor,
+  ISubject,
+  ICapacity,
+  ICapacityFilters,
+} from '@metutor/core/models';
 
 @Component({
   selector: 'metutors-admin-workforce-capacity',
@@ -13,12 +20,16 @@ import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 })
 export class AdminWorkforceCapacityComponent implements OnInit {
   isLoading$: Observable<boolean>;
+  adminTutorsList$: Observable<ITutor[]>;
   capacity$: Observable<ICapacity[] | null>;
-  isLoadingCourseBooking$: Observable<boolean>;
+  isLoadingAdminTutors: Observable<boolean>;
   courseBooking$: Observable<ISubject | null>;
+  isLoadingCourseBooking$: Observable<boolean>;
+  showAdminTutorsListModal: Observable<boolean>;
   showCourseBookingListModal$: Observable<boolean>;
 
   name: string;
+  modalHeading: string;
   selectedCapacity: number;
 
   constructor(private _store: Store<any>) {}
@@ -29,6 +40,16 @@ export class AdminWorkforceCapacityComponent implements OnInit {
     this.showCourseBookingListModal$ = this._store.select(
       fromAdmin.selectCourseBookingListModal
     );
+
+    this.isLoadingAdminTutors = this._store.select(
+      fromCore.selectIsLoadingAdminTutors
+    );
+
+    this.showAdminTutorsListModal = this._store.select(
+      fromAdmin.selectShowAdminTutorsListModal
+    );
+
+    this.adminTutorsList$ = this._store.select(fromCore.selectAdminTutors);
 
     this.courseBooking$ = this._store.select(fromCore.selectCourseBooking);
     this.isLoadingCourseBooking$ = this._store.select(
@@ -51,7 +72,8 @@ export class AdminWorkforceCapacityComponent implements OnInit {
     });
   }
 
-  onOpenCourseBookingListModal() {
+  onOpenCourseBookingListModal(id: number) {
+    this._store.dispatch(fromCore.loadCourseBookingList({ id }));
     this._store.dispatch(fromAdminAction.openAdminCourseBookingListModal());
   }
 
@@ -59,16 +81,28 @@ export class AdminWorkforceCapacityComponent implements OnInit {
     this._store.dispatch(fromAdminAction.closeAdminCourseBookingListModal());
   }
 
-  loadCourseBookingList(id: number): void {
-    this._store.dispatch(fromCore.loadCourseBookingList({ id }));
+  onShowHiredTutors(tutorsCount: number, id: number): void {
+    if (tutorsCount > 0) {
+      this.modalHeading = 'Hired Tutors';
+      const tutorType = 'hired-teachers';
+      this._store.dispatch(
+        fromAdminAction.openAdminTutorListModal({ id, tutorType })
+      );
+    }
   }
 
-  onShowHiredTutors(tutorsCount: number): void {
-    console.log(tutorsCount);
+  onShowAvailableTutors(tutorsCount: number, id: number): void {
+    if (tutorsCount > 0) {
+      this.modalHeading = 'Available Tutors';
+      const tutorType = 'available-teachers';
+      this._store.dispatch(
+        fromAdminAction.openAdminTutorListModal({ id, tutorType })
+      );
+    }
   }
 
-  onShowAvailableTutors(tutorsCount: number): void {
-    console.log('clicked', tutorsCount);
+  onCloseAdminTutorsListModal(): void {
+    this._store.dispatch(fromAdminAction.closeAdminTutorListModal());
   }
 
   private _prepareCapacity(): void {

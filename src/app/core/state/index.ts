@@ -1109,6 +1109,16 @@ export const selectIsLoadingAdminDocuments = createSelector(
   fromAdminReducer.selectIsLoadingAdminDocs
 );
 
+export const selectAdminTutors = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectAdminTutors
+);
+
+export const selectIsLoadingAdminTutors = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectIsLoadingAdminTutors
+);
+
 export const selectIsRejectingAdminDocs = createSelector(
   selectAdminState,
   fromAdminReducer.selectIsRejectingAdminDocs
