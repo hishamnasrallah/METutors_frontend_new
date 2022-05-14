@@ -1193,3 +1193,13 @@ export const selectRunningBookings = createSelector(
   selectAdminState,
   fromAdminReducer.selectRunningBookings
 );
+
+export const selectAdminBookingDetail = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectAdminBookingDetail
+);
+
+export const selectIsLoadingAdminBookingDetail = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectIsLoadingAdminBookingDetail
+);

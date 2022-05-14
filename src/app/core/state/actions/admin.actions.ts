@@ -172,3 +172,16 @@ export const loadCancelledBookingsFailure = createAction(
 export const loadCancelledBookingsEnded = createAction(
   '[Admin] Load Cancelled Bookings Ended'
 );
+
+// Load booking details
+export const loadBookingDetail = createAction('[Admin] Load Booking Detail');
+
+export const loadBookingDetailSuccess = createAction(
+  '[Admin] Load Booking Detail Success',
+  props<{ bookingDetail: any }>()
+);
+
+export const loadBookingDetailFailure = createAction(
+  '[Admin] Load Booking Detail Failure',
+  props<{ error: any }>()
+);

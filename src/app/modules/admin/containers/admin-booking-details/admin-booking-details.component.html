@@ -1,98 +1,114 @@
-<div class="booking-details">
-  <div class="card">
-    <div class="card-body">
-      <div class="title overflow-hidden d-flex justify-content-between">
-        <h1 class="mb-0">Calculus <span>(CID101)</span>
-          <button mat-button class="ms-3">Completed</button>
-        </h1>
-        <div class="links">
-          <button mat-button class="fw-bold" (click)="onOpenStudentsFeedbackModal()">Students Feedback</button>
-          <button mat-button class="fw-bold">Re-assign Course</button>
-          <button mat-button class="fw-bold prev">Previous Teacher</button>
-        </div>
-      </div>
-      <div class="row list rounded">
-        <div class="col-md-2 d-flex menu align-items-center">
-          <img src="assets/svg/timer.svg" alt="" width="15" height="15" draggable="false">
-          <strong>Total hours: </strong>
-          <span>30 hrs</span>
-        </div>
+<div class="booking-details" *ngLet="(view$ | async) as view">
 
-        <div class="col-md-2 d-flex menu align-items-center">
-          <img src="assets/svg/play-circle-fill.svg" alt="" width="15" height="15" draggable="false">
-          <strong>Remaining classes: </strong>
-          <span>13</span>
-        </div>
-        <div class="col-md-2 d-flex menu align-items-center">
-          <img src="assets/svg/checkbox-circle-fill.svg" alt="" width="15" height="15" draggable="false">
-          <strong>Completed classes: </strong>
-          <span>15</span>
-        </div>
-        <div class="col-md-3 d-flex menu align-items-center">
-          <img src="assets/svg/calendar.svg" alt="" width="15" height="15" draggable="false">
-          <strong>Rescheduled classes: </strong>
-          <span>15</span>
-        </div>
-        <div class="col-md-3 details">
-          <div class="text-end">
-            <span class="me-1">Booking Price</span>
-            <strong>$50</strong>
-          </div>
-          <div class="text-end">
-            <span class="me-1">Number of Students</span>
-            <strong>500</strong>
-          </div>
+  <ng-container [ngSwitch]="view.loading">
+    <ng-container *ngSwitchCase="true">
+      <div class="card-body">
+        <div class="ph-row">
+          <div class="ph-col-8 big"></div>
+          <div class="ph-col-4 big empty"></div>
+          <div class="ph-col-10 big mt-3"></div>
+          <div class="ph-col-2 big empty mt-3"></div>
+          <div class="ph-col-6 mt-4"></div>
+          <div class="ph-col-6 mt-4 empty"></div>
         </div>
       </div>
-      <div class="row align-items-end mt-3">
-        <div class="col-md-2 current-teacher">
-          <h5>Current Teacher</h5>
-          <div class="d-flex">
-            <img src="" meTutorsDefaultAvatar alt="" class="rounded-circle">
-            <div class="ms-2">
-              <h3 class="m-0">Ahmed Hassan</h3>
-              <div>
-                <rating [(ngModel)]="rate" [max]="5" [readonly]="true"></rating>
-                <span class="ms-1">4.5</span>
+    </ng-container>
+    <div class="card" *ngSwitchCase="false">
+      <div class="card-body">
+        <div class="title overflow-hidden d-flex justify-content-between">
+          <h1 class="mb-0">{{ view.bookingDetail.course?.courseName}} <span>({{ view.bookingDetail.course?.courseCode}})</span>
+            <button mat-button class="ms-3">Completed</button>
+          </h1>
+          <div class="links">
+            <button mat-button class="fw-bold" (click)="onOpenStudentsFeedbackModal()">Students Feedback</button>
+            <button mat-button class="fw-bold">Re-assign Course</button>
+            <button mat-button class="fw-bold prev">Previous Teacher</button>
+          </div>
+        </div>
+        <div class="row list rounded">
+          <div class="col-md-2 d-flex menu align-items-center">
+            <img src="assets/svg/timer.svg" alt="" width="15" height="15" draggable="false">
+            <strong>Total hours: </strong>
+            <span>{{ view.bookingDetail.course?.totalHours}} hrs</span>
+          </div>
+
+          <div class="col-md-2 d-flex menu align-items-center">
+            <img src="assets/svg/play-circle-fill.svg" alt="" width="15" height="15" draggable="false">
+            <strong>Remaining classes: </strong>
+            <span>{{ view.bookingDetail.course?.totalRemainingClassesCount}}</span>
+          </div>
+          <div class="col-md-2 d-flex menu align-items-center">
+            <img src="assets/svg/checkbox-circle-fill.svg" alt="" width="15" height="15" draggable="false">
+            <strong>Completed classes: </strong>
+            <span>{{ view.bookingDetail.course?.completedClassesCount}}</span>
+          </div>
+          <div class="col-md-3 d-flex menu align-items-center">
+            <img src="assets/svg/calendar.svg" alt="" width="15" height="15" draggable="false">
+            <strong>Rescheduled classes: </strong>
+            <span>15</span>
+          </div>
+          <div class="col-md-3 details">
+            <div class="text-end">
+              <span class="me-1">Booking Price</span>
+              <strong>$50</strong>
+            </div>
+            <div class="text-end">
+              <span class="me-1">Number of Students</span>
+              <strong>500</strong>
+            </div>
+          </div>
+        </div>
+        <div class="row align-items-end mt-3">
+          <div class="col-md-2 current-teacher">
+            <h5>Current Teacher</h5>
+            <div class="d-flex">
+              <img src="" meTutorsDefaultAvatar alt="" class="rounded-circle">
+              <div class="ms-2">
+                <h3 class="m-0">{{view.bookingDetail?.course?.teacher?.firstName }} {{view.bookingDetail?.course?.teacher?.lastName }}</h3>
+                <div>
+                  <rating [(ngModel)]="view.bookingDetail.teacherRating" [max]="5" [readonly]="true"></rating>
+                  <span class="ms-1">{{view.bookingDetail?.teacherRating}}</span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="col-md-4 in-progress">
-          <!-- <h3>Completed</h3>
-          <h3>Not Started yet</h3> -->
-          <h3>In progress</h3>
-          <div class="d-flex align-items-center">
-            <div class="flex-grow-1">
-              <mat-progress-bar class="example-margin" [color]="'primary'" [value]="80">
-              </mat-progress-bar>
+          <div class="col-md-4 in-progress">
+            <!-- <h3>Completed</h3>
+            <h3>Not Started yet</h3> -->
+            <h3>In progress</h3>
+            <div class="d-flex align-items-center">
+              <div class="flex-grow-1">
+                <mat-progress-bar class="example-margin" [color]="'primary'" [value]="view.bookingDetail?.courseProgress">
+                </mat-progress-bar>
+              </div>
+              <strong>{{view.bookingDetail?.courseProgress}}%</strong>
             </div>
-            <strong>80%</strong>
           </div>
-        </div>
-        <div class="col-md-6">
-          <ul class="list-unstyled list-inline manage-details d-flex justify-content-between align-items-center m-0">
-            <li class="list-inline-item d-flex flex-column">
-              <span>Program</span>
-              <strong>AP</strong>
-            </li>
-            <li class="list-inline-item d-flex flex-column">
-              <span>Field of Study</span>
-              <strong>Maths</strong>
-            </li>
-            <li class="list-inline-item d-flex flex-column">
-              <span>Start Date</span>
-              <strong>Apr 10, 2022</strong>
-            </li>
-            <li class="list-inline-item d-flex flex-column">
-              <span>End Date</span>
-              <strong>Apr 12, 2022</strong>
-            </li>
-          </ul>
+          <div class="col-md-6">
+            <ul class="list-unstyled list-inline manage-details d-flex justify-content-between align-items-center m-0">
+              <li class="list-inline-item d-flex flex-column">
+                <span>Program</span>
+                <strong>{{ view.bookingDetail?.course?.program?.code}}</strong>
+              </li>
+              <li class="list-inline-item d-flex flex-column">
+                <span>Field of Study</span>
+                <strong>{{ view.bookingDetail?.course?.field?.name}}</strong>
+              </li>
+              <li class="list-inline-item d-flex flex-column">
+                <span>Start Date</span>
+                <strong>{{ view.bookingDetail?.course.startDate | date: ''}}</strong>
+              </li>
+              <li class="list-inline-item d-flex flex-column">
+                <span>End Date</span>
+                <strong>{{ view.bookingDetail?.course.endDate | date: ''}}</strong>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </ng-container>
+
 
   <div class="booking-content">
     <h3 class="overview mb-3">Completed Classes</h3>
@@ -111,19 +127,19 @@
         <td>
           <div class="overflow-visible logos">
             <img src="https://logo.clearbit.com/tarjama.com" alt="" draggable="false"
-              class="d-inline-block rounded-circle">
+                 class="d-inline-block rounded-circle">
             <img src="https://logo.clearbit.com/amazon.com" alt="" draggable="false"
-              class="d-inline-block rounded-circle ">
+                 class="d-inline-block rounded-circle ">
             <img src="https://logo.clearbit.com/noon.ae" alt="" draggable="false"
-              class="d-inline-block rounded-circle ">
+                 class="d-inline-block rounded-circle ">
             <img src="https://logo.clearbit.com/canon.com" alt="" draggable="false"
-              class="d-inline-block rounded-circle ">
+                 class="d-inline-block rounded-circle ">
             <img src="https://logo.clearbit.com/axa.com" alt="" draggable="false"
-              class="d-inline-block rounded-circle ">
+                 class="d-inline-block rounded-circle ">
             <img src="https://logo.clearbit.com/axis.xyz" alt="" draggable="false"
-              class="d-inline-block rounded-circle ">
+                 class="d-inline-block rounded-circle ">
             <img src="https://logo.clearbit.com/tamatem.co" alt="" draggable="false"
-              class="d-inline-block rounded-circle ">
+                 class="d-inline-block rounded-circle ">
           </div>
         </td>
         <td>8:00 AM - 9:00 AM</td>
@@ -158,7 +174,7 @@
   </div>
 </div>
 
-<metutors-admin-students-feedback-modal *ngIf="showStudentsFeedbackModal$ | async" 
+<metutors-admin-students-feedback-modal *ngIf="showStudentsFeedbackModal$ | async"
                                         (closeModal)="onCloseStudentsFeedbackModal()"
-                                        [showModal]="(showStudentsFeedbackModal$ | async)!">  
+                                        [showModal]="(showStudentsFeedbackModal$ | async)!">
 </metutors-admin-students-feedback-modal>

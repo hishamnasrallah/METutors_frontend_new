@@ -1,21 +1,23 @@
 import { createReducer, on } from '@ngrx/store';
 
 import {
-  ICapacity,
+  ITutor,
   ICourse,
   ISubject,
+  ICapacity,
   ITeacherDocument,
-  ITutor,
 } from '@models';
 import * as adminActions from '../actions/admin.actions';
 
 export interface State {
   tutors: ITutor[];
+  bookingDetail: [];
   isApprovingDoc: boolean;
   isRejectingDoc: boolean;
   isLoadingTutors: boolean;
   isLoadingAdminDocs: boolean;
   documents: ITeacherDocument[];
+  isLoadingBookingDetail: boolean;
 
   // Loading workforce capacity
   workforceCapacity: ICapacity[];
@@ -40,6 +42,7 @@ export const initialState: State = {
   tutors: [],
   documents: [],
   allBookings: [],
+  bookingDetail: [],
   runningBookings: [],
   courseBooking: null,
   completedBookings: [],
@@ -51,6 +54,7 @@ export const initialState: State = {
   isLoadingAdminDocs: false,
   isLoadingAllBookings: false,
   isLoadingCourseBooking: false,
+  isLoadingBookingDetail: false,
   isLoadingRunningBookings: false,
   isLoadingWorkforceCapacity: false,
   isLoadingCompletedBookings: false,
@@ -266,7 +270,23 @@ export const reducer = createReducer(
       ...state,
       isLoadingCancelledBookings: false,
     })
-  )
+  ),
+
+  on(adminActions.loadBookingDetail, (state) => ({
+    ...state,
+    isLoadingBookingDetail: true,
+  })),
+
+  on(adminActions.loadBookingDetailSuccess, (state, { bookingDetail }) => ({
+    ...state,
+    bookingDetail,
+    isLoadingBookingDetail: false,
+  })),
+
+  on(adminActions.loadBookingDetailFailure, (state) => ({
+    ...state,
+    isLoadingBookingDetail: false,
+  }))
 );
 
 export const selectAdminDocuments = (state: State): ITeacherDocument[] =>
@@ -320,6 +340,12 @@ export const selectIsLoadingCancelledBookings = (state: State): boolean =>
 
 export const selectCancelledBookings = (state: State): ICourse[] =>
   state.cancelledBookings;
+
+export const selectAdminBookingDetail = (state: State): ICourse[] =>
+  state.bookingDetail;
+
+export const selectIsLoadingAdminBookingDetail = (state: State): boolean =>
+  state.isLoadingBookingDetail;
 
 export const selectFilteredWorkforceCapacity = (
   state: State,
