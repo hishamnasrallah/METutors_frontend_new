@@ -1,3 +1,4 @@
+import camelcaseKeys from 'camelcase-keys';
 import { generalConstants, GRADES, InterviewStatus } from 'src/app/config';
 import { environment } from 'src/environments/environment';
 import {
@@ -42,19 +43,23 @@ export class ITutor {
   approvedTutor?: boolean;
   adminApproval?: string;
   interviewRequest?: IInterview;
+  totalFeedbacks?: number;
+  averageRating?: number;
+  studentsTeaching?: number;
+  coursesCreated?: number;
+  expertRating?: number;
+  complexityRating?: number;
+  skillfullRating?: number;
+  onTimeRating?: number;
+  feedbacks?: any[];
 
-  rate?: number;
   badges?: any[];
-  courseNumber?: number;
-  reviewsCount?: number;
-  studentNumber?: number;
   teachingExperienceYears?: number;
   onlineTeachingExperienceYears?: number;
   expertInTheSubjectRate?: number;
   presentComplexTopicsClearlyAndEasilyRate?: number;
   skillfulInEngagingStudentsRate?: number;
   alwaysOnTimeRate?: number;
-  reviews?: any[];
 
   constructor(createDefault = false, tutor: any = null) {
     if (createDefault) {
@@ -69,15 +74,12 @@ export class ITutor {
       this.bio = '';
       this.adminApproval = '';
       this.createdAt = '';
-      this.rate = 0;
       this.dateOfBirth = '';
       this.address = '';
       this.address2 = '';
       this.email = '';
       this.mobile = '';
       this.roleName = '';
-      this.reviewsCount = 0;
-      this.studentNumber = 0;
       this.status = '';
       this.verified = 0;
       this.languages = [];
@@ -91,17 +93,24 @@ export class ITutor {
       this.sortedSubjects = [];
       this.badges = [];
       this.country = '';
-      this.courseNumber = 0;
       this.teachingExperienceYears = 0;
       this.onlineTeachingExperienceYears = 0;
       this.expertInTheSubjectRate = 0;
       this.presentComplexTopicsClearlyAndEasilyRate = 0;
       this.skillfulInEngagingStudentsRate = 0;
       this.alwaysOnTimeRate = 0;
-      this.reviews = [];
+      this.feedbacks = [];
       this.postalCode = '';
       this.approvedTutor = false;
       this.interviewRequest = undefined;
+      this.totalFeedbacks = 0;
+      this.averageRating = 0;
+      this.studentsTeaching = 0;
+      this.coursesCreated = 0;
+      this.expertRating = 0;
+      this.complexityRating = 0;
+      this.skillfullRating = 0;
+      this.onTimeRating = 0;
     }
 
     if (tutor) {
@@ -164,12 +173,20 @@ export class ITutor {
       this.interviewRequest = tutor?.teacher_interview_request
         ? new IInterview(false, tutor?.teacher_interview_request)
         : undefined;
+      this.totalFeedbacks = tutor?.total_feedbacks;
+      this.averageRating = tutor?.average_rating;
+      this.studentsTeaching = tutor?.students_teaching;
+      this.coursesCreated = tutor?.courses_created;
+      this.expertRating = tutor?.expert_rating;
+      this.complexityRating = tutor?.complexity_rating;
+      this.skillfullRating = tutor?.skillfull_rating;
+      this.onTimeRating = tutor?.onTime_rating;
+      this.feedbacks =
+        tutor?.feedbacks && tutor?.feedbacks.length
+          ? camelcaseKeys(tutor?.feedbacks, { deep: true })
+          : [];
 
       this.badges = tutor?.badges || [];
-      this.rate = tutor?.rate || 0;
-      this.reviewsCount = tutor?.reviews_count || 0;
-      this.studentNumber = tutor?.student_number || 0;
-      this.courseNumber = tutor?.course_number || 0;
       this.teachingExperienceYears = tutor?.teaching_experience_years || 0;
       this.onlineTeachingExperienceYears =
         tutor?.online_teaching_experience_years || 0;
@@ -177,7 +194,6 @@ export class ITutor {
       this.presentComplexTopicsClearlyAndEasilyRate = 3;
       this.skillfulInEngagingStudentsRate = 2;
       this.alwaysOnTimeRate = 5;
-      this.reviews = [];
     }
   }
 }

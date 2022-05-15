@@ -65,6 +65,7 @@ import {
   AdminCourseBookingListModalComponent,
   AdminHourlyRatePerSubjectModalComponent,
   AdminTutorInterviewAttachmentModalComponent,
+  AdminReassigningTutorSelectionModalComponent,
 } from './components';
 
 @NgModule({
@@ -104,6 +105,7 @@ import {
     AdminTutorInterviewDocumentsComponent,
     AdminHourlyRatePerSubjectModalComponent,
     AdminTutorInterviewAttachmentModalComponent,
+    AdminReassigningTutorSelectionModalComponent,
   ],
   imports: [
     FormsModule,

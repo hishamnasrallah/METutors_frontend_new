@@ -1,5 +1,5 @@
 <div class="profile-header mb-5">
-  <div class="row">
+  <div class="row" *ngIf="!isLoading">
     <div class="col-12">
       <div class="cover" [ngStyle]="{'background-image': 'url(' + tutor?.cover + ')'}"></div>
       <div class="row avatar-name align-items-center">
@@ -27,18 +27,18 @@
               <strong>Rating</strong>
               <div class="d-flex">
                 <img src="assets/svg/star-fill.svg" alt="" width="20" height="20" draggable="false" />
-                <span class="count">{{ tutor?.rate }}</span>
-                <span class="review">({{ tutor?.reviewsCount }} reviews)</span>
+                <span class="count">{{ tutor?.averageRating | number:'.1-1' }}</span>
+                <span class="review">({{ tutor?.totalFeedbacks }} reviews)</span>
               </div>
             </li>
             <li class="list-inline-item">
-              <strong>{{ tutor?.studentNumber }}</strong>
+              <strong>{{ tutor?.studentsTeaching }}</strong>
               <div>
                 <span class="review">Students Teaching</span>
               </div>
             </li>
             <li class="list-inline-item">
-              <strong>{{ tutor?.courseNumber }}</strong>
+              <strong>{{ tutor?.coursesCreated }}</strong>
               <div>
                 <span class="review">Courses created</span>
               </div>
@@ -52,6 +52,29 @@
           <button mat-button class="more">
             <mat-icon>more_vert</mat-icon>
           </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="shadow mb-2 sm:p-4 p-6" *ngIf="isLoading">
+    <div class="h-40 block bg-cover bg-no-repeat -mt-4 -mr-4 -ml-4 rounded-t"></div>
+    <div class="flex items-center h-40 -mt-10 justify-between">
+      <div class="h-40 w-40 rounded-full overflow-hidden bg-white p-1">
+        <div class="ph-col-4">
+          <div class="ph-avatar"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ph-item">
+      <div class="pt-4 pb-2 ltr:pl-2 rtl:pr-2">
+        <div class="ph-col-12">
+          <div class="ph-row">
+            <div class="ph-col-12 big"></div>
+            <div class="ph-col-12 big"></div>
+            <div class="ph-col-12 big"></div>
+          </div>
         </div>
       </div>
     </div>

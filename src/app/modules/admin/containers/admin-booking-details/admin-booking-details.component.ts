@@ -17,6 +17,7 @@ export class AdminBookingDetailsComponent implements OnInit {
   isLoadingPreviousTutors$: Observable<boolean>;
   showPreviousTeacherModal$: Observable<boolean>;
   showStudentsFeedbackModal$: Observable<boolean>;
+  showReassigningTutorSelectionModal$: Observable<boolean>;
   view$: Observable<{ loading: boolean; bookingDetail: any }>;
 
   imageURL = environment.imageURL;
@@ -32,6 +33,10 @@ export class AdminBookingDetailsComponent implements OnInit {
 
     this.showPreviousTeacherModal$ = this._store.select(
       fromAdmin.selectPreviousTeacherModal
+    );
+
+    this.showReassigningTutorSelectionModal$ = this._store.select(
+      fromAdmin.selectReassigningTutorSelectionModal
     );
 
     this.previousTutors$ = this._store.select(
@@ -63,5 +68,21 @@ export class AdminBookingDetailsComponent implements OnInit {
 
   onClosePreviousTeacherModal() {
     this._store.dispatch(fromAdminAction.closeAdminPreviousTeacherModal());
+  }
+
+  onOpenReassigningTutorSelectionModal() {
+    this._store.dispatch(
+      fromAdminAction.openAdminReassigningTutorSelectionModal()
+    );
+  }
+
+  onCloseReassigningTutorSelectionModal() {
+    this._store.dispatch(
+      fromAdminAction.closeAdminReassigningTutorSelectionModal()
+    );
+  }
+
+  onTutorAvailability(id: number): void {
+    this._store.dispatch(fromCore.loadTutorAvailability({ id }));
   }
 }

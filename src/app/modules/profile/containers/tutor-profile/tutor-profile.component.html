@@ -1,5 +1,5 @@
-<div class="container profile">
-  <metutors-tutor-profile-header [tutor]="tutor"></metutors-tutor-profile-header>
+<div class="container profile" *ngLet="(tutor$ | async) as tutor">
+  <metutors-tutor-profile-header [tutor]="tutor" [isLoading]="(loading$ | async)!"></metutors-tutor-profile-header>
 
   <div class="row">
     <div class="col-md-4">

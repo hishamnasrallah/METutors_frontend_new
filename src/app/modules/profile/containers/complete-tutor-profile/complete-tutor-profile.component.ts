@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { Observable, tap } from 'rxjs';
 import * as fromCore from '@metutor/core/state';
+import { Component, OnInit } from '@angular/core';
 import {
   ICity,
   ICountry,

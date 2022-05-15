@@ -1,38 +1,29 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
 import { ITutor } from 'src/app/core/models';
-import { TutorsService } from 'src/app/core/services';
+import * as fromCore from '@metutor/core/state';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'metutors-tutor-profile',
   templateUrl: './tutor-profile.component.html',
   styleUrls: ['./tutor-profile.component.scss'],
 })
-export class TutorProfileComponent implements OnInit, OnDestroy {
-  tutor?: ITutor;
-  getTutorByIdSub?: Subscription;
+export class TutorProfileComponent implements OnInit {
+  loading$: Observable<boolean>;
+  tutor$: Observable<ITutor | null>;
 
-  constructor(
-    private _title: Title,
-    private _route: ActivatedRoute,
-    private _tutorService: TutorsService
-  ) {}
+  constructor(private _store: Store<any>, private _route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this._route.paramMap.subscribe((res: ParamMap) => {
-      const id = res.get('id') || '';
-      this.getTutorByIdSub = this._tutorService
-        .getTutorById(id)
-        .subscribe((response) => {
-          this.tutor = response;
-          this._title.setTitle(this.tutor?.name || '');
-        });
-    });
-  }
+      const id = +(res.get('id') || '');
 
-  ngOnDestroy(): void {
-    this.getTutorByIdSub?.unsubscribe();
+      this._store.dispatch(fromCore.loadTutor({ id }));
+    });
+
+    this.tutor$ = this._store.select(fromCore.selectTutor);
+    this.loading$ = this._store.select(fromCore.selectIsLoadingTutor);
   }
 }

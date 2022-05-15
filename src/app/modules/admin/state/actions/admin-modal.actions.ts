@@ -104,3 +104,11 @@ export const openAdminPreviousTeacherModal = createAction(
 export const closeAdminPreviousTeacherModal = createAction(
   '[Admin Modal] Close Admin Previous Teacher Modal'
 );
+
+export const openAdminReassigningTutorSelectionModal = createAction(
+  '[Admin Modal] Open Admin Reassigning Tutor Selection Modal'
+);
+
+export const closeAdminReassigningTutorSelectionModal = createAction(
+  '[Admin Modal] Close Admin Reassigning Tutor Selection Modal'
+);

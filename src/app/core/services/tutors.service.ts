@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { ITutor, SubmitInterviewInput } from '@models';
+import { isNil, omitBy } from 'lodash';
 
 @Injectable({
   providedIn: 'root',
@@ -41,11 +42,12 @@ export class TutorsService {
 
   getTutorById(id: number | string): Observable<any> {
     return this.http
-      .get<{ user: ITutor }>(`${this.baseUrl}teacher-profile?id=${id}`)
+      .get<{ teacher: ITutor }>(`${this.baseUrl}teacherProfile?id=${id}`)
       .pipe(
-        map((response) => {
-          return new ITutor(false, response.user);
-        })
+        map((response) => ({
+          ...omitBy(new ITutor(false, response), isNil),
+          ...omitBy(new ITutor(false, response.teacher), isNil),
+        }))
       );
   }
 

@@ -16,6 +16,7 @@ export interface State {
   showCourseBookingListModal: boolean;
   showInterviewAttachmentModal: boolean;
   showHourlyRatePerSubjectModal: boolean;
+  showReassigningTutorSelectionModal: boolean;
 }
 
 export const initialState: State = {
@@ -32,6 +33,7 @@ export const initialState: State = {
   showCourseBookingListModal: false,
   showInterviewAttachmentModal: false,
   showHourlyRatePerSubjectModal: false,
+  showReassigningTutorSelectionModal: false,
 };
 
 export const reducer = createReducer(
@@ -198,6 +200,16 @@ export const reducer = createReducer(
   on(adminModalActions.closeAdminPreviousTeacherModal, (state) => ({
     ...state,
     showPreviousTeacherModal: false,
+  })),
+
+  on(adminModalActions.openAdminReassigningTutorSelectionModal, (state) => ({
+    ...state,
+    showReassigningTutorSelectionModal: true,
+  })),
+
+  on(adminModalActions.closeAdminReassigningTutorSelectionModal, (state) => ({
+    ...state,
+    showReassigningTutorSelectionModal: false,
   }))
 );
 
@@ -213,6 +225,9 @@ export const selectStudentsFeedbackModal = (state: State): boolean =>
 
 export const selectPreviousTeacherModal = (state: State): boolean =>
   state.showPreviousTeacherModal;
+
+export const selectReassigningTutorSelectionModal = (state: State): boolean =>
+  state.showReassigningTutorSelectionModal;
 
 export const selectIsHourlyRatePerSubjectModal = (state: State): boolean =>
   state.showHourlyRatePerSubjectModal;

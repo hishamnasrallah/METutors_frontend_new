@@ -9,7 +9,7 @@
       </ng-container>
 
       <ng-container *ngSwitchCase="false">
-        <div *ngIf="!previousTutors?.length" class="fw-bold text-center">No Previous Teacher Found</div>
+        <div *ngIf="!previousTutors?.length" class="fw-bold text-center">No Previous Teachers Found</div>
         <ng-container *ngIf="previousTutors?.length">
           <table class="table my-table default-title mb-0">
             <tr>
@@ -19,16 +19,16 @@
               <th>Teacher Name</th>
             </tr>
             <tr *ngFor="let tutor of previousTutors; let i=index">
-              <td>{{ i+1 }}</td>
-              <td>{{ tutor.idNumber}}</td>
+              <td>{{ i + 1 }}</td>
+              <td>{{ tutor.idNumber }}</td>
               <td>TIN101 - static </td>
               <td>
                 <div class="d-flex align-items-center">
-                  <img [src]="imagePath+tutor?.avatar" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
-                       meTutorsDefaultAvatar alt="">
+                  <img [src]="imagePath+tutor?.avatar" width="25" height="25" class="rounded-circle p-0 me-2"
+                    draggable="false" meTutorsDefaultAvatar alt="">
                   <span>
-              <bdi>{{ tutor.firstName}} {{tutor.lastName}}</bdi>
-            </span>
+                    <bdi>{{ tutor.firstName }} {{ tutor.lastName }}</bdi>
+                  </span>
                 </div>
               </td>
             </tr>

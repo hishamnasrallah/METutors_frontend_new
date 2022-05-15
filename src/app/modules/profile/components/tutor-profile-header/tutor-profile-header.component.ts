@@ -9,6 +9,7 @@ import { ITutor } from 'src/app/core/models';
 })
 export class TutorProfileHeaderComponent implements OnInit {
   @Input() tutor?: ITutor;
+  @Input() isLoading: boolean;
 
   tutorStatus = TutorStatus;
 

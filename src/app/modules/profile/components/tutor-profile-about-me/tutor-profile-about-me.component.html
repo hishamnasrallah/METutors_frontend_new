@@ -1,9 +1,7 @@
 <div class="card about-me">
   <div class="card-body">
     <h1 class="title">About Me</h1>
-    <p>
-      {{ tutor?.bio }}
-    </p>
+    <p *ngIf="tutor?.bio">{{ tutor?.bio }}</p>
     <ul class="list-unstyled m-0">
       <li>
         <img src="assets/svg/map.svg" draggable="false" width="20" height="20" alt="">

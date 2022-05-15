@@ -2,56 +2,56 @@
   <div class="card-body">
     <h1 class="title">
       Feedback & Ratings
-      <span>{{ tutor?.rate }} ({{ tutor?.reviewsCount }} reviews)</span>
+      <span>{{ tutor?.averageRating | number:'.1-1' }} ({{ tutor?.totalFeedbacks }} reviews)</span>
     </h1>
     <div class="rating-block">
       <div class="row">
         <div class="col">
-          <h2>Expert in the subject ({{ tutor?.expertInTheSubjectRate }})</h2>
+          <h2>Expert in the subject ({{ tutor?.expertRating | number:'.1-1' }})</h2>
         </div>
         <div class="col-md-2">
-          <rating [ngModel]="tutor?.expertInTheSubjectRate" [max]="5" [readonly]="true"></rating>
+          <rating [ngModel]="tutor?.expertRating" [max]="5" [readonly]="true"></rating>
         </div>
       </div>
       <div class="row mt-3">
         <div class="col">
-          <h2>Present complex topics clearly and easily ({{ tutor?.presentComplexTopicsClearlyAndEasilyRate }})</h2>
+          <h2>Present complex topics clearly and easily ({{ tutor?.complexityRating | number:'.1-1' }})</h2>
         </div>
         <div class="col-md-2">
-          <rating [ngModel]="tutor?.presentComplexTopicsClearlyAndEasilyRate" [max]="5" [readonly]="true"></rating>
+          <rating [ngModel]="tutor?.complexityRating" [max]="5" [readonly]="true"></rating>
         </div>
       </div>
       <div class="row mt-3">
         <div class="col">
-          <h2>Skillful in engaging students ({{ tutor?.skillfulInEngagingStudentsRate }})</h2>
+          <h2>Skillful in engaging students ({{ tutor?.skillfullRating | number:'.1-1' }})</h2>
         </div>
         <div class="col-md-2">
-          <rating [ngModel]="tutor?.skillfulInEngagingStudentsRate" [max]="5" [readonly]="true"></rating>
+          <rating [ngModel]="tutor?.skillfullRating" [max]="5" [readonly]="true"></rating>
         </div>
       </div>
       <div class="row mt-3">
         <div class="col">
-          <h2>Always on time ({{ tutor?.alwaysOnTimeRate }})</h2>
+          <h2>Always on time ({{ tutor?.onTimeRating | number:'.1-1' }})</h2>
         </div>
         <div class="col-md-2">
-          <rating [ngModel]="tutor?.alwaysOnTimeRate" [max]="5" [readonly]="true"></rating>
+          <rating [ngModel]="tutor?.onTimeRating" [max]="5" [readonly]="true"></rating>
         </div>
       </div>
     </div>
-    <div class="feedback-block" *ngIf="tutor?.reviews && tutor?.reviews?.length">
-      <div class="row review" *ngFor="let review of tutor?.reviews">
+    <div class="feedback-block" *ngIf="tutor?.feedbacks && tutor?.feedbacks?.length">
+      <div class="row review" *ngFor="let feedback of tutor?.feedbacks">
         <div class="col-md-1">
-          <img width="60" height="60" draggable="false" alt="" class="rounded-circle" meTutorsDefaultAvatar
-            [src]="review?.student?.avatar">
+          <!-- <img width="60" height="60" draggable="false" alt="" class="rounded-circle" meTutorsDefaultAvatar
+            [src]="review?.student?.avatar"> -->
         </div>
         <div class="col ms-3">
           <div class="d-flex align-items-center">
-            <h2 class="m-0">{{ review?.student?.name }}</h2>
-            <rating [ngModel]="review?.totalRate" [max]="5" [readonly]="true"></rating>
-            <span>{{ review?.totalRate }}</span>
+            <!-- <h2 class="m-0">{{ review?.student?.name }}</h2> -->
+            <rating [ngModel]="feedback?.rating" [max]="5" [readonly]="true"></rating>
+            <span>{{ feedback?.rating }}</span>
           </div>
-          <h4 class="m-0">{{ review?.createdDate | amTimeAgo }}</h4>
-          <p class="m-0">{{ review?.feedback }}</p>
+          <h4 class="m-0">{{ feedback?.createdAt | amTimeAgo }}</h4>
+          <p class="m-0">{{ feedback?.review }}</p>
         </div>
       </div>
     </div>

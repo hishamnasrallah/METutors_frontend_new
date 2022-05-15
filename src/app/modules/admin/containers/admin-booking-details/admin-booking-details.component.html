@@ -22,30 +22,30 @@
           </h1>
           <div class="links">
             <button mat-button class="fw-bold" (click)="onOpenStudentsFeedbackModal()">Students Feedback</button>
-            <button mat-button class="fw-bold">Re-assign Course</button>
+            <button mat-button class="fw-bold" (click)="onOpenReassigningTutorSelectionModal()">Re-assign Course</button>
             <button mat-button class="fw-bold prev" (click)="onOpenPreviousTeacherModal()">Previous Teacher</button>
           </div>
         </div>
         <div class="row list rounded">
           <div class="col-md-2 d-flex menu align-items-center">
             <img src="assets/svg/timer.svg" alt="" width="15" height="15" draggable="false">
-            <strong>Total hours: </strong>
+            <strong>Total Hours: </strong>
             <span>{{ view.bookingDetail.course?.totalHours }} hrs</span>
           </div>
 
           <div class="col-md-2 d-flex menu align-items-center">
             <img src="assets/svg/play-circle-fill.svg" alt="" width="15" height="15" draggable="false">
-            <strong>Remaining classes: </strong>
+            <strong>Remaining Classes: </strong>
             <span>{{ view.bookingDetail.course?.remainingClassesCount }}</span>
           </div>
           <div class="col-md-2 d-flex menu align-items-center">
             <img src="assets/svg/checkbox-circle-fill.svg" alt="" width="15" height="15" draggable="false">
-            <strong>Completed classes: </strong>
+            <strong>Completed Classes: </strong>
             <span>{{ view.bookingDetail.course?.completedClassesCount }}</span>
           </div>
           <div class="col-md-3 d-flex menu align-items-center">
             <img src="assets/svg/calendar.svg" alt="" width="15" height="15" draggable="false">
-            <strong>Rescheduled classes: </strong>
+            <strong>Rescheduled Classes: </strong>
             <span>15</span>
           </div>
           <div class="col-md-3 details">
@@ -67,7 +67,7 @@
                    class="rounded-circle">
               <div class="ms-2">
                 <h3
-                  class="m-0">{{ view.bookingDetail?.course?.teacher?.firstName }} {{view.bookingDetail?.course?.teacher?.lastName }}</h3>
+                  class="m-0">{{ view.bookingDetail?.course?.teacher?.firstName }} {{ view.bookingDetail?.course?.teacher?.lastName }}</h3>
                 <div>
                   <rating [(ngModel)]="view.bookingDetail.teacherRating" [max]="5" [readonly]="true"></rating>
                   <span class="ms-1">{{ view.bookingDetail?.teacherRating | number }}</span>
@@ -220,3 +220,9 @@
                                         [previousTutors]="(previousTutors$ |async)!"
                                         [showModal]="(showPreviousTeacherModal$ | async)!">
 </metutors-admin-previous-teachers-modal>
+
+<metutors-admin-reassigning-tutor-selection-modal *ngIf="showReassigningTutorSelectionModal$ | async"
+                                                  (closeModal)="onCloseReassigningTutorSelectionModal()"
+                                                  (tutorAvailability)="onTutorAvailability(1)"
+                                                  [showModal]="(showReassigningTutorSelectionModal$ | async)!">
+</metutors-admin-reassigning-tutor-selection-modal>

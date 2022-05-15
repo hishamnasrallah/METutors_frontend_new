@@ -103,3 +103,8 @@ export const selectPreviousTeacherModal = createSelector(
   selectAdminModalState,
   fromAdminModal.selectPreviousTeacherModal
 );
+
+export const selectReassigningTutorSelectionModal = createSelector(
+  selectAdminModalState,
+  fromAdminModal.selectReassigningTutorSelectionModal
+);
