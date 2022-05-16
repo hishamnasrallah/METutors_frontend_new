@@ -512,6 +512,11 @@ export const selectCompletedClassroomCourses = createSelector(
   fromStudentReducer.selectCompletedClassroomCourses
 );
 
+export const selectCancelledClassroomCourses = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectCancelledClassroomCourses
+);
+
 export const selectClassroomCoursePrograms = createSelector(
   selectStudentState,
   fromStudentReducer.selectClassroomCoursePrograms
@@ -1045,6 +1050,11 @@ export const selectCourseFieldOfStudies = createSelector(
 export const selectCompletedCourses = createSelector(
   selectCourseState,
   fromCourseReducer.selectCompletedCourses
+);
+
+export const selectCancelledCourses = createSelector(
+  selectCourseState,
+  fromCourseReducer.selectCancelledCourses
 );
 
 export const selectIsLoadingCourses = createSelector(

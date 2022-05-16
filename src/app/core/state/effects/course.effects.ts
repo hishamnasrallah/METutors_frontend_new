@@ -6,6 +6,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { map, mergeMap, catchError, withLatestFrom } from 'rxjs/operators';
 
 import { selectCourses } from '..';
+import { CourseStatus } from '@config';
 import camelcaseKeys from 'camelcase-keys';
 import { CoursesService } from '@services';
 import * as fromRouterStore from '@metutor/state';
@@ -212,7 +213,11 @@ export class CourseEffects {
       withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
       mergeMap(([{ body }, { id }]) =>
         this._courseService.studentCancelCourse(body, id).pipe(
-          map(() => courseActions.studentCancelCourseSuccess()),
+          map(() =>
+            courseActions.studentCancelCourseSuccess({
+              status: CourseStatus.cancelledByStudent,
+            })
+          ),
           catchError((error) =>
             of(
               courseActions.studentCancelCourseFailure({
@@ -233,6 +238,7 @@ export class CourseEffects {
         this._courseService.studentRequestAdminAssignCourse(id).pipe(
           map(() =>
             courseActions.studentRequestAdminAssignTutorSuccess({
+              status: CourseStatus.requestedToMetutors,
               message: 'Request submitted successfully',
             })
           ),
@@ -256,6 +262,7 @@ export class CourseEffects {
         this._courseService.studentReassignTutor(body, id).pipe(
           map(() =>
             courseActions.studentReassignTutorSuccess({
+              status: CourseStatus.pending,
               message: 'Tutor re-assigned successfully',
             })
           ),

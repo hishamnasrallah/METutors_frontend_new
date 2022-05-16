@@ -4,6 +4,7 @@ import { createReducer, on } from '@ngrx/store';
 import * as moment from 'moment';
 import camelcaseKeys from 'camelcase-keys';
 import * as uploadActions from '../actions/upload.actions';
+import * as courseActions from '../actions/course.actions';
 import * as studentActions from '../actions/student.actions';
 
 export interface State {
@@ -543,7 +544,33 @@ export const reducer = createReducer(
   on(studentActions.loadTutorAvailabilityFailure, (state) => ({
     ...state,
     isLoadingTutorAvailability: false,
-  }))
+  })),
+
+  // update course status on cancel course
+  on(
+    courseActions.studentCancelCourseSuccess,
+    courseActions.studentReassignTutorSuccess,
+    courseActions.studentRequestAdminAssignTutorSuccess,
+    (state, { status }) => {
+      const finalState = {
+        ...state,
+      };
+
+      if (finalState.classesDashboard?.course) {
+        const course = {
+          ...finalState.classesDashboard.course,
+          status,
+        };
+
+        finalState.classesDashboard = {
+          ...finalState.classesDashboard,
+          course,
+        };
+      }
+
+      return finalState;
+    }
+  )
 );
 
 export const selectStudent = (state: State): IStudent | null => state.student;
@@ -574,6 +601,9 @@ export const selectClassroomLastActivityCourse = (state: State): any =>
 
 export const selectCompletedClassroomCourses = (state: State): any =>
   state?.classroom?.completedCourses;
+
+export const selectCancelledClassroomCourses = (state: State): any =>
+  state?.classroom?.cancelledCourses;
 
 export const selectClassroomCoursePrograms = (state: State): any =>
   state?.classroom?.programs;

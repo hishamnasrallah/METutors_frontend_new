@@ -275,7 +275,6 @@ export const reducer = createReducer(
     return finalState;
   }),
 
-  // general loading
   on(courseActions.studentReassignTutor, (state) => ({
     ...state,
     isReassigningTutor: true,
@@ -322,6 +321,9 @@ export const selectActiveCourses = (state: State): any =>
 
 export const selectCompletedCourses = (state: State): any =>
   state?.courses?.completedCourses;
+
+export const selectCancelledCourses = (state: State): any =>
+  state?.courses?.cancelledCourses;
 
 export const selectCoursePrograms = (state: State): any =>
   state?.courses?.programs;

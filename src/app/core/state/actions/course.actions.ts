@@ -125,7 +125,8 @@ export const studentCancelCourse = createAction(
 );
 
 export const studentCancelCourseSuccess = createAction(
-  '[Student] Student Cancel Course Success'
+  '[Student] Student Cancel Course Success',
+  props<{ status: string }>()
 );
 
 export const studentCancelCourseFailure = createAction(
@@ -139,7 +140,7 @@ export const studentRequestAdminAssignTutor = createAction(
 
 export const studentRequestAdminAssignTutorSuccess = createAction(
   '[Student] Student Request Admin Assign Tutor Success',
-  props<{ message: string }>()
+  props<{ message: string; status: string }>()
 );
 
 export const studentRequestAdminAssignTutorFailure = createAction(
@@ -154,7 +155,7 @@ export const studentReassignTutor = createAction(
 
 export const studentReassignTutorSuccess = createAction(
   '[Student] Student Re-Assign Tutor Success',
-  props<{ message: string }>()
+  props<{ message: string; status: string }>()
 );
 
 export const studentReassignTutorFailure = createAction(

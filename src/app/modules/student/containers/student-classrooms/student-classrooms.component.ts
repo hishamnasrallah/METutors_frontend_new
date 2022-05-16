@@ -63,6 +63,7 @@ export class StudentClassroomsComponent implements OnInit {
     activeCourses: any;
     fieldOfStudies: any;
     completedCourses: any;
+    cancelledCourses: any;
     lastActivityCourse: any;
   }>;
 
@@ -98,6 +99,9 @@ export class StudentClassroomsComponent implements OnInit {
       this._store
         .select(fromCore.selectCompletedClassroomCourses)
         .pipe(map((result: any) => this._parseCourse(result))),
+      this._store
+        .select(fromCore.selectCancelledClassroomCourses)
+        .pipe(map((result: any) => this._parseCourse(result))),
       this._store.select(fromCore.selectIsLoadingStudentClassroom),
     ]).pipe(
       map(
@@ -108,6 +112,7 @@ export class StudentClassroomsComponent implements OnInit {
           lastActivityCourse,
           activeCourses,
           completedCourses,
+          cancelledCourses,
           loading,
         ]) => ({
           loading,
@@ -115,6 +120,7 @@ export class StudentClassroomsComponent implements OnInit {
           countries,
           activeCourses,
           fieldOfStudies,
+          cancelledCourses,
           completedCourses,
           lastActivityCourse,
         })

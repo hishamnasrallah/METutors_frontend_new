@@ -8,7 +8,7 @@ import * as fromTutor from '../../state';
 import * as fromCore from '@metutor/core/state';
 import * as fromTutorAction from '../../state/actions';
 import * as moment from 'moment';
-import { WEEK_DAYS_LONG } from '@config';
+import { CourseStatus, WEEK_DAYS_LONG } from '@config';
 
 @Component({
   selector: 'metutors-tutor-class-dashboard',
@@ -26,6 +26,8 @@ export class TutorClassDashboardComponent implements OnInit {
 
   subHeading =
     'Share with us a feedback on your student as course cancellation has begun';
+
+  courseStatus = CourseStatus;
 
   view$: Observable<{
     data: any;

@@ -29,6 +29,22 @@
       }
     }
 
+    .completed {
+      color: rgba(0, 128, 0, 0.78);
+      font-size: 16px;
+      padding: 3px 15px;
+      border-radius: 8px;
+      background: rgba(85, 255, 85, 0.15);
+    }
+
+    .cancelled {
+      color: #e72347;
+      font-size: 16px;
+      padding: 3px 15px;
+      border-radius: 8px;
+      background: rgb(231 35 71 / 17%);
+    }
+
     .logos {
       .fw-bold {
         font-size: 14px;
