@@ -8,6 +8,7 @@ import { ITutor } from 'src/app/core/models';
 })
 export class TutorProfileFeedbackRatingsComponent implements OnInit {
   @Input() tutor?: ITutor;
+  @Input() isLoading: boolean;
 
   constructor() {}
 

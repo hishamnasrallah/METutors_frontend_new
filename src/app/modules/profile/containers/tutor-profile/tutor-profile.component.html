@@ -3,22 +3,29 @@
 
   <div class="row">
     <div class="col-md-4">
-      <metutors-tutor-profile-about-me [tutor]="tutor"></metutors-tutor-profile-about-me>
+      <metutors-tutor-profile-about-me [tutor]="tutor" [isLoading]="(loading$ | async)!">
+      </metutors-tutor-profile-about-me>
 
-      <metutors-tutor-profile-specialization [tutor]="tutor"></metutors-tutor-profile-specialization>
+      <metutors-tutor-profile-specialization [tutor]="tutor" [isLoading]="(loading$ | async)!">
+      </metutors-tutor-profile-specialization>
 
-      <metutors-tutor-profile-languages [tutor]="tutor"></metutors-tutor-profile-languages>
+      <metutors-tutor-profile-languages [tutor]="tutor" [isLoading]="(loading$ | async)!">
+      </metutors-tutor-profile-languages>
 
       <metutors-tutor-profile-share></metutors-tutor-profile-share>
     </div>
     <div class="col-md-8">
-      <metutors-tutor-profile-availablity-tutoring [tutor]="tutor"></metutors-tutor-profile-availablity-tutoring>
+      <metutors-tutor-profile-availablity-tutoring [tutor]="tutor" [isLoading]="(loading$ | async)!">
+      </metutors-tutor-profile-availablity-tutoring>
 
-      <metutors-tutor-profile-video-preview [tutor]="tutor"></metutors-tutor-profile-video-preview>
+      <metutors-tutor-profile-video-preview [tutor]="tutor" [isLoading]="(loading$ | async)!">
+      </metutors-tutor-profile-video-preview>
 
-      <metutors-tutor-profile-feedback-ratings [tutor]="tutor"></metutors-tutor-profile-feedback-ratings>
+      <metutors-tutor-profile-feedback-ratings [tutor]="tutor" [isLoading]="(loading$ | async)!">
+      </metutors-tutor-profile-feedback-ratings>
 
-      <metutors-tutor-profile-tutor-badges [tutor]="tutor"></metutors-tutor-profile-tutor-badges>
+      <metutors-tutor-profile-tutor-badges [tutor]="tutor" [isLoading]="(loading$ | async)!">
+      </metutors-tutor-profile-tutor-badges>
     </div>
   </div>
 </div>

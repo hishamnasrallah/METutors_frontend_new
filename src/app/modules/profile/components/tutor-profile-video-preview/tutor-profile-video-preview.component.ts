@@ -8,6 +8,7 @@ import { ITutor } from '@metutor/core/models';
 })
 export class TutorProfileVideoPreviewComponent implements OnInit {
   @Input() tutor?: ITutor;
+  @Input() isLoading: boolean;
 
   constructor() {}
 

@@ -42,13 +42,8 @@ export class TutorsService {
 
   getTutorById(id: number | string): Observable<any> {
     return this.http
-      .get<{ teacher: ITutor }>(`${this.baseUrl}teacherProfile?id=${id}`)
-      .pipe(
-        map((response) => ({
-          ...omitBy(new ITutor(false, response), isNil),
-          ...omitBy(new ITutor(false, response.teacher), isNil),
-        }))
-      );
+      .get<{ user: ITutor }>(`${this.baseUrl}teacher/${id}/profile`)
+      .pipe(map((response) => new ITutor(false, response.user)));
   }
 
   getProfileTutor(): Observable<any> {

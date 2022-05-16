@@ -175,8 +175,8 @@ export class ITutor {
         : undefined;
       this.totalFeedbacks = tutor?.total_feedbacks;
       this.averageRating = tutor?.average_rating;
-      this.studentsTeaching = tutor?.students_teaching;
-      this.coursesCreated = tutor?.courses_created;
+      this.studentsTeaching = tutor?.teacher_students_count;
+      this.coursesCreated = tutor?.teacher_course_count;
       this.expertRating = tutor?.expert_rating;
       this.complexityRating = tutor?.complexity_rating;
       this.skillfullRating = tutor?.skillfull_rating;

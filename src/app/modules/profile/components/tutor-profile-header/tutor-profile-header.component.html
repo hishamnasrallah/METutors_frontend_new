@@ -15,7 +15,7 @@
         </div>
         <div class="col">
           <h2>{{ tutor?.name }}</h2>
-          <h4>{{ tutor?.roleName }}</h4>
+          <h4 *ngIf="tutor?.qualifications?.nameOfUniversity">{{ tutor?.qualifications?.nameOfUniversity }}</h4>
         </div>
       </div>
       <div class="row details">
@@ -57,23 +57,38 @@
     </div>
   </div>
 
-  <div class="shadow mb-2 sm:p-4 p-6" *ngIf="isLoading">
-    <div class="h-40 block bg-cover bg-no-repeat -mt-4 -mr-4 -ml-4 rounded-t"></div>
-    <div class="flex items-center h-40 -mt-10 justify-between">
-      <div class="h-40 w-40 rounded-full overflow-hidden bg-white p-1">
-        <div class="ph-col-4">
-          <div class="ph-avatar"></div>
+  <div class="loading d-flex flex-column justify-content-end" *ngIf="isLoading">
+    <div class="row">
+      <div class="col-md-2 d-flex align-items-center justify-content-center">
+        <div class="avatar">
+          <div class="ph-col-4">
+            <div class="ph-avatar"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-10 d-flex flex-column-reverse">
+        <div class="ph-item">
+          <div class="pt-4 pb-2 ltr:pl-2 rtl:pr-2">
+            <div class="ph-col-12">
+              <div class="ph-row">
+                <div class="ph-col-8 big"></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="ph-item">
-      <div class="pt-4 pb-2 ltr:pl-2 rtl:pr-2">
-        <div class="ph-col-12">
-          <div class="ph-row">
-            <div class="ph-col-12 big"></div>
-            <div class="ph-col-12 big"></div>
-            <div class="ph-col-12 big"></div>
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-10">
+        <div class="ph-item">
+          <div class="pt-4 pb-2 ltr:pl-2 rtl:pr-2">
+            <div class="ph-col-12">
+              <div class="ph-row">
+                <div class="ph-col-10 big"></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
