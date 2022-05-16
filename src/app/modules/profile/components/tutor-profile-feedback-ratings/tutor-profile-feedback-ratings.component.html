@@ -1,5 +1,5 @@
 <div class="card feedback-rating">
-  <div class="card-body">
+  <div class="card-body" *ngIf="!isLoading">
     <h1 class="title">
       Feedback & Ratings
       <span>{{ tutor?.averageRating | number:'.1-1' }} ({{ tutor?.totalFeedbacks }} reviews)</span>
@@ -53,6 +53,19 @@
           <h4 class="m-0">{{ feedback?.createdAt | amTimeAgo }}</h4>
           <p class="m-0">{{ feedback?.review }}</p>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body" *ngIf="isLoading">
+    <div class="item">
+      <div class="ph-row">
+        <div class="ph-col-12 big mt-1"></div>
+        <div class="ph-col-0 big empty"></div>
+        <div class="ph-col-12 big mt-1"></div>
+        <div class="ph-col-0 big empty mt-1"></div>
+        <div class="ph-col-12 big mt-1"></div>
+        <div class="ph-col-0 big empty mt-1"></div>
       </div>
     </div>
   </div>

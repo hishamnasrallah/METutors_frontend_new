@@ -1,24 +1,38 @@
 <div class="card about-me">
   <div class="card-body">
     <h1 class="title">About Me</h1>
-    <p *ngIf="tutor?.bio">{{ tutor?.bio }}</p>
-    <ul class="list-unstyled m-0">
-      <li>
-        <img src="assets/svg/map.svg" draggable="false" width="20" height="20" alt="">
-        <span>Country: Egypt</span>
-      </li>
-      <li>
-        <img src="assets/svg/website.svg" draggable="false" width="20" height="20" alt="">
-        <span>Nationality: Pakistan</span>
-      </li>
-      <li>
-        <img src="assets/svg/gender.svg" draggable="false" width="20" height="20" alt="">
-        <span>Gender: Male</span>
-      </li>
-      <li>
-        <img src="assets/svg/date.svg" draggable="false" width="20" height="20" alt="">
-        <span>Joined: June 2022</span>
-      </li>
-    </ul>
+    <ng-container *ngIf="!isLoading">
+      <p *ngIf="tutor?.bio">{{ tutor?.bio }}</p>
+      <ul class="list-unstyled m-0">
+        <li>
+          <img src="assets/svg/map.svg" draggable="false" width="20" height="20" alt="" *ngIf="tutor?.country?.name">
+          <span>Country: {{ tutor?.country?.name }}</span>
+        </li>
+        <li>
+          <img src="assets/svg/website.svg" draggable="false" width="20" height="20" alt="" *ngIf="tutor?.nationality">
+          <span>Nationality: {{ tutor?.nationality }}</span>
+        </li>
+        <li>
+          <img src="assets/svg/gender.svg" draggable="false" width="20" height="20" alt="" *ngIf="tutor?.gender">
+          <span>Gender: {{ tutor?.gender }}</span>
+        </li>
+        <li>
+          <img src="assets/svg/date.svg" draggable="false" width="20" height="20" alt=""
+            *ngIf="tutor?.interviewRequest?.updatedAt">
+          <span>Joined: {{ tutor?.interviewRequest?.updatedAt | date: 'MMMM y' }}</span>
+        </li>
+      </ul>
+    </ng-container>
+
+    <div class="item" *ngIf="isLoading">
+      <div class="ph-row">
+        <div class="ph-col-12 big mt-1"></div>
+        <div class="ph-col-0 big empty"></div>
+        <div class="ph-col-12 big mt-1"></div>
+        <div class="ph-col-0 big empty mt-1"></div>
+        <div class="ph-col-12 big mt-1"></div>
+        <div class="ph-col-0 big empty mt-1"></div>
+      </div>
+    </div>
   </div>
 </div>

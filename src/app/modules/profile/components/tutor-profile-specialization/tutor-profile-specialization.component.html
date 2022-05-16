@@ -2,18 +2,20 @@
   <div class="card-body">
     <h1 class="title">Qualification Details</h1>
 
-    <ul class="list-unstyled m-0">
+    <ul class="list-unstyled m-0" *ngIf="!isLoading">
       <li>
-        <img src="assets/svg/qualification.svg" draggable="false" width="20" height="20" alt="">
-        <span>Degree Level: Master Level</span>
+        <img src="assets/svg/qualification.svg" draggable="false" width="20" height="20" alt=""
+          *ngIf="tutor?.qualifications?.degreeLevel">
+        <span>Degree Level: {{ tutor?.qualifications?.degreeLevel }}</span>
       </li>
       <li>
-        <img src="assets/svg/computer.svg" draggable="false" width="20" height="20" alt="">
-        <span>Computer Skills Level: Expert</span>
+        <img src="assets/svg/computer.svg" draggable="false" width="20" height="20" alt=""
+          *ngIf="tutor?.qualifications?.computerSkills">
+        <span>Computer Skills Level: {{ tutor?.qualifications?.computerSkills }}</span>
       </li>
     </ul>
 
-    <div class="list">
+    <!-- <div class="list">
       <h2>Degree Field/Major</h2>
 
       <span>Geographics</span>
@@ -28,6 +30,17 @@
       <span>Math</span>
       <span>Science</span>
       <span>Math</span>
+    </div> -->
+
+    <div class="item" *ngIf="isLoading">
+      <div class="ph-row">
+        <div class="ph-col-12 big mt-1"></div>
+        <div class="ph-col-0 big empty"></div>
+        <div class="ph-col-12 big mt-1"></div>
+        <div class="ph-col-0 big empty mt-1"></div>
+        <div class="ph-col-12 big mt-1"></div>
+        <div class="ph-col-0 big empty mt-1"></div>
+      </div>
     </div>
   </div>
 </div>

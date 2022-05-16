@@ -1,15 +1,23 @@
-<div class="card languages">
+<div class="card languages" *ngIf="isLoading || (tutor?.languages && tutor?.languages?.length)">
   <div class="card-body">
     <h1 class="title">Languages</h1>
-    <ul class="list-unstyled m-0">
-      <li>
-        <h2>English</h2>
-        <h3 class="m-0">Advanced</h3>
-      </li>
-      <li>
-        <h2>Arabic</h2>
-        <h3 class="m-0">Native</h3>
+
+    <ul class="list-unstyled m-0" *ngIf="!isLoading">
+      <li *ngFor="let lang of tutor?.languages">
+        <h2>{{ lang?.name }}</h2>
+        <h3 class="m-0">{{ lang?.level }}</h3>
       </li>
     </ul>
+
+    <div class="item" *ngIf="isLoading">
+      <div class="ph-row">
+        <div class="ph-col-12 big mt-1"></div>
+        <div class="ph-col-0 big empty"></div>
+        <div class="ph-col-12 big mt-1"></div>
+        <div class="ph-col-0 big empty mt-1"></div>
+        <div class="ph-col-12 big mt-1"></div>
+        <div class="ph-col-0 big empty mt-1"></div>
+      </div>
+    </div>
   </div>
 </div>

@@ -14,7 +14,7 @@ export class ILanguage {
 
     if (language) {
       this.id = language?.id;
-      this.name = language?.language || '';
+      this.name = language?.language?.name || language?.language || '';
       this.iso = language?.iso || '';
       this.level = language?.level || '';
     }
