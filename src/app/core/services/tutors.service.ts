@@ -98,11 +98,21 @@ export class TutorsService {
     return this.http
       .get<{
         teachers: ITutor[];
+        total: number;
+        available: number;
+        engaged: number;
+        inactive: number;
       }>(`${this.baseUrl}admin/current-teachers`)
       .pipe(
-        map((response) =>
-          response.teachers.map((tutor) => new ITutor(false, tutor))
-        )
+        map((response) => ({
+          tutors: response.teachers.map((tutor) => new ITutor(false, tutor)),
+          tutorsCounts: {
+            totalCurrent: response?.total,
+            availableCurrent: response?.available,
+            engagedCurrent: response?.engaged,
+            inactiveCurrent: response?.inactive,
+          },
+        }))
       );
   }
 

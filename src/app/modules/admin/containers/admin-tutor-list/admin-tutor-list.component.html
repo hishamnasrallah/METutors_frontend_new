@@ -28,7 +28,7 @@
         <div class="card">
           <div class="card-body d-flex align-items-center justify-content-between">
             <div>
-              <h2>All Teachers</h2>
+              <h2>Total</h2>
               <span>{{ counts?.all }}</span>
             </div>
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20.326 20.487">
@@ -49,7 +49,8 @@
       </div>
       <div class="col">
         <div class="card">
-          <div class="card-body d-flex align-items-center justify-content-between">
+          <a class="card-body d-flex align-items-center justify-content-between"
+            [routerLink]="['/admin', 'tutor', 'current']" [queryParams]="{tab: 1}">
             <div>
               <h2>Active</h2>
               <span>{{ counts?.active }}</span>
@@ -67,12 +68,13 @@
                   transform="translate(-122.322 0)" fill="#e2e2e2" />
               </g>
             </svg>
-          </div>
+          </a>
         </div>
       </div>
       <div class="col">
         <div class="card">
-          <div class="card-body d-flex align-items-center justify-content-between">
+          <a class="card-body d-flex align-items-center justify-content-between"
+            [routerLink]="['/admin', 'tutor', 'current']" [queryParams]="{tab: 2}">
             <div>
               <h2>Inactive</h2>
               <span>{{ counts?.inactive }}</span>
@@ -90,7 +92,7 @@
                   transform="translate(-122.322 0)" fill="#e2e2e2" />
               </g>
             </svg>
-          </div>
+          </a>
         </div>
       </div>
       <div class="col">
@@ -211,7 +213,7 @@
               </div>
             </td>
             <td>
-              <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0">
+              <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0" (click)="selectedTutor = tutor">
                 <mat-icon>more_vert</mat-icon>
               </button>
             </td>
@@ -223,13 +225,14 @@
 </div>
 
 <mat-menu #menu="matMenu">
-  <button mat-menu-item class="h-auto btn-menu">
+  <button mat-menu-item class="h-auto btn-menu"
+    [routerLink]="['/admin', 'tutor', 'interview', 'details', selectedTutor?.interviewRequest?.id]">
     <span>View Profile</span>
   </button>
   <button mat-menu-item class="h-auto btn-menu">
-    <span>Edit Profile</span>
+    <span>View Availability</span>
   </button>
   <button mat-menu-item class="h-auto btn-menu">
-    <span>Change Status</span>
+    <span>Send Message</span>
   </button>
 </mat-menu>

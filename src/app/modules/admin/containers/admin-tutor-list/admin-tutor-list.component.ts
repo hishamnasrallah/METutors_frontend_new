@@ -16,6 +16,7 @@ export class AdminTutorListComponent implements OnInit {
   tutors$: Observable<ITutor[] | null>;
 
   name: string;
+  selectedTutor?: ITutor;
   interviewStatus = InterviewStatus;
   tutorStatuses = TUTOR_STATUSES_CONST;
 

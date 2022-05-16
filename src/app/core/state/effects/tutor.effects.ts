@@ -149,9 +149,10 @@ export class TutorEffects {
       mergeMap(([_, _tutors]) => {
         if (!_tutors || !_tutors?.length) {
           return this._tutorService.getCurrentTutors().pipe(
-            map((currentTutors) =>
+            map((response) =>
               tutorActions.loadCurrentTutorsSuccess({
-                currentTutors,
+                currentTutors: response.tutors,
+                tutorsCounts: response.tutorsCounts
               })
             ),
             catchError((error) =>

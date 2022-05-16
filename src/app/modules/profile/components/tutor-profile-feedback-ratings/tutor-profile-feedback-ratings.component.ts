@@ -13,4 +13,8 @@ export class TutorProfileFeedbackRatingsComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  solveFeedbackNumber(value: any): number {
+    return value as number;
+  }
 }

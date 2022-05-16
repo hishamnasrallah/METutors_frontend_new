@@ -9,6 +9,7 @@ import {
   IQualification,
   ISpecification,
 } from '.';
+import { ITutorFeedback } from './tutor-feedback.model';
 
 export class ITutor {
   id!: number;
@@ -52,14 +53,8 @@ export class ITutor {
   skillfullRating?: number;
   onTimeRating?: number;
   feedbacks?: any[];
-
+  feedbackRating?: any;
   badges?: any[];
-  teachingExperienceYears?: number;
-  onlineTeachingExperienceYears?: number;
-  expertInTheSubjectRate?: number;
-  presentComplexTopicsClearlyAndEasilyRate?: number;
-  skillfulInEngagingStudentsRate?: number;
-  alwaysOnTimeRate?: number;
 
   constructor(createDefault = false, tutor: any = null) {
     if (createDefault) {
@@ -91,14 +86,7 @@ export class ITutor {
       this.specifications = undefined;
       this.subjects = [];
       this.sortedSubjects = [];
-      this.badges = [];
       this.country = '';
-      this.teachingExperienceYears = 0;
-      this.onlineTeachingExperienceYears = 0;
-      this.expertInTheSubjectRate = 0;
-      this.presentComplexTopicsClearlyAndEasilyRate = 0;
-      this.skillfulInEngagingStudentsRate = 0;
-      this.alwaysOnTimeRate = 0;
       this.feedbacks = [];
       this.postalCode = '';
       this.approvedTutor = false;
@@ -111,6 +99,8 @@ export class ITutor {
       this.complexityRating = 0;
       this.skillfullRating = 0;
       this.onTimeRating = 0;
+      this.feedbackRating = undefined;
+      this.badges = [];
     }
 
     if (tutor) {
@@ -173,7 +163,7 @@ export class ITutor {
       this.interviewRequest = tutor?.teacher_interview_request
         ? new IInterview(false, tutor?.teacher_interview_request)
         : undefined;
-      this.totalFeedbacks = tutor?.total_feedbacks;
+      this.totalFeedbacks = tutor?.teacher_feedbacks_count;
       this.averageRating = tutor?.average_rating;
       this.studentsTeaching = tutor?.teacher_students_count;
       this.coursesCreated = tutor?.teacher_course_count;
@@ -181,19 +171,19 @@ export class ITutor {
       this.complexityRating = tutor?.complexity_rating;
       this.skillfullRating = tutor?.skillfull_rating;
       this.onTimeRating = tutor?.onTime_rating;
+      /**
+       * sortTutorFeedbacks(
+              camelcaseKeys(tutor?.teacher_feedbacks, { deep: true })
+            )
+       */
       this.feedbacks =
-        tutor?.feedbacks && tutor?.feedbacks.length
-          ? camelcaseKeys(tutor?.feedbacks, { deep: true })
+        tutor?.teacher_feedbacks && tutor?.teacher_feedbacks.length
+          ? tutor?.teacher_feedbacks.map(
+              (item: any) => new ITutorFeedback(false, item)
+            )
           : [];
-
+      this.feedbackRating = tutor?.feedback_rating;
       this.badges = tutor?.badges || [];
-      this.teachingExperienceYears = tutor?.teaching_experience_years || 0;
-      this.onlineTeachingExperienceYears =
-        tutor?.online_teaching_experience_years || 0;
-      this.expertInTheSubjectRate = 4;
-      this.presentComplexTopicsClearlyAndEasilyRate = 3;
-      this.skillfulInEngagingStudentsRate = 2;
-      this.alwaysOnTimeRate = 5;
     }
   }
 }

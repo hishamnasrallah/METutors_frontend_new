@@ -157,7 +157,10 @@ export const reducer = createReducer(
   on(tutorActions.loadTutorsSuccess, (state, { tutors, tutorsCounts }) => ({
     ...state,
     tutors,
-    tutorsCounts,
+    tutorsCounts: {
+      ...state.tutorsCounts,
+      ...tutorsCounts
+    },
     isLoadingTutors: false,
   })),
 
@@ -177,9 +180,13 @@ export const reducer = createReducer(
     isLoadingCurrentTutors: true,
   })),
 
-  on(tutorActions.loadCurrentTutorsSuccess, (state, { currentTutors }) => ({
+  on(tutorActions.loadCurrentTutorsSuccess, (state, { currentTutors, tutorsCounts }) => ({
     ...state,
     currentTutors,
+    tutorsCounts: {
+      ...state.tutorsCounts,
+      ...tutorsCounts
+    },
     isLoadingCurrentTutors: false,
   })),
 

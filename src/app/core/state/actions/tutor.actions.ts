@@ -89,7 +89,7 @@ export const loadCurrentTutors = createAction('[Tutor] Load Current Tutors');
 
 export const loadCurrentTutorsSuccess = createAction(
   '[Tutor] Load Current Tutors Success',
-  props<{ currentTutors: ITutor[] }>()
+  props<{ currentTutors: ITutor[]; tutorsCounts: any }>()
 );
 
 export const loadCurrentTutorsFailure = createAction(

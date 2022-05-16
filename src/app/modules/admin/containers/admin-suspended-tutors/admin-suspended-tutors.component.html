@@ -70,7 +70,7 @@
               </div>
             </td>
             <td>
-              <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0">
+              <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0" (click)="selectedTutor = tutor">
                 <mat-icon>more_vert</mat-icon>
               </button>
             </td>
@@ -82,13 +82,14 @@
 </div>
 
 <mat-menu #menu="matMenu">
-  <button mat-menu-item class="h-auto btn-menu">
+  <button mat-menu-item class="h-auto btn-menu"
+    [routerLink]="['/admin', 'tutor', 'interview', 'details', selectedTutor?.interviewRequest?.id]">
     <span>View Profile</span>
   </button>
   <button mat-menu-item class="h-auto btn-menu">
-    <span>Edit Profile</span>
+    <span>View Availability</span>
   </button>
   <button mat-menu-item class="h-auto btn-menu">
-    <span>Change Status</span>
+    <span>Send Message</span>
   </button>
 </mat-menu>

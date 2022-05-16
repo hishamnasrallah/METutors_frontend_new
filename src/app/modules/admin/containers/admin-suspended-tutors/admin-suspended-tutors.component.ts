@@ -14,6 +14,7 @@ export class AdminSuspendedTutorsComponent implements OnInit {
   tutors$: Observable<ITutor[] | null>;
 
   name: string;
+  selectedTutor?: ITutor;
 
   constructor(private _store: Store<any>) {}
 

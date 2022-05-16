@@ -22,4 +22,5 @@ export * from './statistics.model';
 export * from './availability.model';
 export * from './qualification.model';
 export * from './specification.model';
+export * from './tutor-feedback.model';
 export * from './ticket-comment.model';

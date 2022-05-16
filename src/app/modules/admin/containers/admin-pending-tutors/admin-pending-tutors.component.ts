@@ -15,6 +15,7 @@ export class AdminPendingTutorsComponent implements OnInit {
   tutors$: Observable<ITutor[] | null>;
 
   name: string;
+  selectedTutor?: ITutor;
   tutorStatuses = TUTOR_STATUSES_CONST;
 
   constructor(private _store: Store<any>) {}
