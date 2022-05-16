@@ -199,3 +199,17 @@ export const loadAdminCoursePreviousTutorsFailure = createAction(
   '[Admin] Load Admin Course Previous Tutors Failure',
   props<{ error: any }>()
 );
+
+export const loadAdminStudentsFeedback = createAction(
+  '[Admin] Load Admin Students Feedback'
+);
+
+export const loadAdminStudentsFeedbackSuccess = createAction(
+  '[Admin] Load Admin Students Feedback Success',
+  props<{ studentsFeedback: any }>()
+);
+
+export const loadAdminStudentsFeedbackFailure = createAction(
+  '[Admin] Load Admin Students Feedback Failure',
+  props<{ error: any }>()
+);

@@ -13,6 +13,7 @@ export interface State {
   tutors: ITutor[];
   bookingDetail: [];
   previousTutors: [];
+  studentsFeedback: [];
   isApprovingDoc: boolean;
   isRejectingDoc: boolean;
   isLoadingTutors: boolean;
@@ -20,6 +21,7 @@ export interface State {
   documents: ITeacherDocument[];
   isLoadingBookingDetail: boolean;
   isLoadingPreviousTutors: boolean;
+  isLoadingStudentsFeedback: boolean;
 
   // Loading workforce capacity
   workforceCapacity: ICapacity[];
@@ -46,6 +48,7 @@ export const initialState: State = {
   allBookings: [],
   bookingDetail: [],
   previousTutors: [],
+  studentsFeedback: [],
   runningBookings: [],
   courseBooking: null,
   completedBookings: [],
@@ -60,6 +63,7 @@ export const initialState: State = {
   isLoadingBookingDetail: false,
   isLoadingPreviousTutors: false,
   isLoadingRunningBookings: false,
+  isLoadingStudentsFeedback: false,
   isLoadingWorkforceCapacity: false,
   isLoadingCompletedBookings: false,
   isLoadingCancelledBookings: false,
@@ -309,6 +313,25 @@ export const reducer = createReducer(
   on(adminActions.loadAdminCoursePreviousTutorsFailure, (state) => ({
     ...state,
     isLoadingPreviousTutors: false,
+  })),
+
+  on(adminActions.loadAdminStudentsFeedback, (state) => ({
+    ...state,
+    isLoadingStudentsFeedback: true,
+  })),
+
+  on(
+    adminActions.loadAdminStudentsFeedbackSuccess,
+    (state, { studentsFeedback }) => ({
+      ...state,
+      studentsFeedback,
+      isLoadingStudentsFeedback: false,
+    })
+  ),
+
+  on(adminActions.loadAdminStudentsFeedbackFailure, (state) => ({
+    ...state,
+    isLoadingStudentsFeedback: false,
   }))
 );
 
@@ -375,6 +398,12 @@ export const selectAdminCoursePreviousTutors = (state: State): ICourse[] =>
 
 export const selectIsLoadingPreviousTutors = (state: State): boolean =>
   state.isLoadingPreviousTutors;
+
+export const selectAdminStudentsFeedback = (state: State): ICourse[] =>
+  state.studentsFeedback;
+
+export const selectIsLoadingAdminStudentsFeedback = (state: State): boolean =>
+  state.isLoadingStudentsFeedback;
 
 export const selectFilteredWorkforceCapacity = (
   state: State,

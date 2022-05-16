@@ -210,6 +210,8 @@
 </div>
 
 <metutors-admin-students-feedback-modal *ngIf="showStudentsFeedbackModal$ | async"
+                                        [feedback]="(feedback$ | async)!"
+                                        [loading]="(isLoadingFeedback$ | async)!"
                                         (closeModal)="onCloseStudentsFeedbackModal()"
                                         [showModal]="(showStudentsFeedbackModal$ | async)!">
 </metutors-admin-students-feedback-modal>

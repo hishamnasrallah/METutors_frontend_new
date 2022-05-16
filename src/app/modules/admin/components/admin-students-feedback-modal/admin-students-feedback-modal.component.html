@@ -1,160 +1,173 @@
-<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'xmedium'" [heading]="'Student\'s Feedback'"
-                [template]="template" [subHeading]="'Feedback gived to you'">
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'xmedium'"
+                [heading]="'Student\'s Feedback'"
+                [template]="template" [subHeading]="'Feedback given to you'">
   <ng-template #template>
-    <div class="feedback">
-      <div class="d-flex justify-content-between">
-        <div>
-          <div class="rating-block d-flex align-items-center mb-2">
-            <h2 class="me-2">4 Reviews</h2>
-            <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
-          </div>
+    <ng-container [ngSwitch]="loading">
+      <ng-container *ngSwitchCase="true">
+        <metutors-grid-placeholder></metutors-grid-placeholder>
+      </ng-container>
 
-          <div class="d-flex align-items-center stars">
-            <h3 class="me-1 mb-0">5 Stars</h3>
-            <mat-progress-bar class="example-progress" [color]="'primary'" [value]="80">
-            </mat-progress-bar>
-            <span>(4)</span>
-          </div>
-          <div class="d-flex align-items-center stars">
-            <h3 class="me-1 mb-0">2 Stars</h3>
-            <mat-progress-bar class="example-progress" [color]="'primary'" [value]="80">
-            </mat-progress-bar>
-            <span>(4)</span>
-          </div>
-          <div class="d-flex align-items-center stars">
-            <h3 class="me-1 mb-0">3 Stars</h3>
-            <mat-progress-bar class="example-progress" [color]="'primary'" [value]="80">
-            </mat-progress-bar>
-            <span>(4)</span>
-          </div>
-          <div class="d-flex align-items-center stars">
-            <h3 class="me-1 mb-0">4 Stars</h3>
-            <mat-progress-bar class="example-progress" [color]="'primary'" [value]="80">
-            </mat-progress-bar>
-            <span>(4)</span>
-          </div>
-          <div class="d-flex align-items-center stars">
-            <h3 class="me-1 mb-0">1 Star</h3>
-            <mat-progress-bar class="example-progress" [color]="'primary'" [value]="0">
-            </mat-progress-bar>
-            <span>(4)</span>
-          </div>
-        </div>
-        <div>
-          <div class="rating-block d-flex align-items-center mb-0">
-            <h2 class="me-2">Fast learner</h2>
-            <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
-          </div>
-          <div class="rating-block d-flex align-items-center mb-0">
-            <h2 class="me-2">Focus in class and paying attention</h2>
-            <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
-          </div>
-          <div class="rating-block d-flex align-items-center mb-0">
-            <h2 class="me-2">Attend class on-time</h2>
-            <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
-          </div>
-          <div class="rating-block d-flex align-items-center mb-0">
-            <h2 class="me-2">Complete homework on time</h2>
-            <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
-          </div>
-          <div class="rating-block d-flex align-items-center mb-0">
-            <h2 class="me-2">Active participation in class</h2>
-            <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
-          </div>
-        </div>
-      </div>
-
-      <div class="mt-4 reviews">
-        <div class="d-flex teacher mb-2">
-          <img src="" meTutorsDefaultAvatar alt="" class="rounded-circle">
-          <div class="ms-2">
-            <h3 class="m-0">Ahmed Hassan</h3>
+      <ng-container *ngSwitchCase="false">
+        <div class="feedback">
+          <div class="d-flex justify-content-between">
             <div>
-              <rating [(ngModel)]="rate" [max]="5" [readonly]="true"></rating>
-              <span class="ms-1">4.5</span>
-            </div>
-          </div>
-        </div>
+              <div class="rating-block d-flex align-items-center mb-2">
+                <h2 class="me-2">4 Reviews</h2>
+                <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
+              </div>
 
-        <div class="row">
-          <div class="col-md-6">
-            <div class="rating-block d-flex align-items-center">
-              <h2 class="me-2">Fast learner</h2>
-              <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
+              <div class="d-flex align-items-center stars">
+                <h3 class="me-1 mb-0">5 Stars</h3>
+                <mat-progress-bar class="example-progress" [color]="'primary'" [value]="80">
+                </mat-progress-bar>
+                <span>(4)</span>
+              </div>
+              <div class="d-flex align-items-center stars">
+                <h3 class="me-1 mb-0">2 Stars</h3>
+                <mat-progress-bar class="example-progress" [color]="'primary'" [value]="80">
+                </mat-progress-bar>
+                <span>(4)</span>
+              </div>
+              <div class="d-flex align-items-center stars">
+                <h3 class="me-1 mb-0">3 Stars</h3>
+                <mat-progress-bar class="example-progress" [color]="'primary'" [value]="80">
+                </mat-progress-bar>
+                <span>(4)</span>
+              </div>
+              <div class="d-flex align-items-center stars">
+                <h3 class="me-1 mb-0">4 Stars</h3>
+                <mat-progress-bar class="example-progress" [color]="'primary'" [value]="80">
+                </mat-progress-bar>
+                <span>(4)</span>
+              </div>
+              <div class="d-flex align-items-center stars">
+                <h3 class="me-1 mb-0">1 Star</h3>
+                <mat-progress-bar class="example-progress" [color]="'primary'" [value]="0">
+                </mat-progress-bar>
+                <span>(4)</span>
+              </div>
             </div>
-            <div class="rating-block d-flex align-items-center">
-              <h2 class="me-2">Focus in class and paying attention</h2>
-              <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
-            </div>
-            <div class="rating-block d-flex align-items-center">
-              <h2 class="me-2">Attend class on-time</h2>
-              <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
-            </div>
-            <div class="rating-block d-flex align-items-center">
-              <h2 class="me-2">Complete homework on time</h2>
-              <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
-            </div>
-            <div class="rating-block d-flex align-items-center">
-              <h2 class="me-2">Active participation in class</h2>
-              <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
-            </div>
-          </div>
-          <div class="col-md-6 user-feedback">
-            <h2>Feedback</h2>
-            <p>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cumque delectus, praesentium quidem est quaerat,
-              deserunt facilis tenetur ab quia quod cupiditate fuga culpa placeat pariatur fugit. Ratione cumque error
-              nobis.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="mt-4 reviews">
-        <div class="d-flex teacher mb-2">
-          <img src="" meTutorsDefaultAvatar alt="" class="rounded-circle">
-          <div class="ms-2">
-            <h3 class="m-0">Ahmed Hassan</h3>
             <div>
-              <rating [(ngModel)]="rate" [max]="5" [readonly]="true"></rating>
-              <span class="ms-1">4.5</span>
+              <div class="rating-block d-flex align-items-center mb-0">
+                <h2 class="me-2">Fast learner</h2>
+                <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
+              </div>
+              <div class="rating-block d-flex align-items-center mb-0">
+                <h2 class="me-2">Focus in class and paying attention</h2>
+                <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
+              </div>
+              <div class="rating-block d-flex align-items-center mb-0">
+                <h2 class="me-2">Attend class on-time</h2>
+                <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
+              </div>
+              <div class="rating-block d-flex align-items-center mb-0">
+                <h2 class="me-2">Complete homework on time</h2>
+                <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
+              </div>
+              <div class="rating-block d-flex align-items-center mb-0">
+                <h2 class="me-2">Active participation in class</h2>
+                <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="row">
-          <div class="col-md-6">
-            <div class="rating-block d-flex align-items-center">
-              <h2 class="me-2">Fast learner</h2>
-              <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
+          <div class="mt-4 reviews">
+            <div class="d-flex teacher mb-2">
+              <img src="" meTutorsDefaultAvatar alt="" class="rounded-circle">
+              <div class="ms-2">
+                <h3 class="m-0">Ahmed Hassan</h3>
+                <div>
+                  <rating [(ngModel)]="rate" [max]="5" [readonly]="true"></rating>
+                  <span class="ms-1">4.5</span>
+                </div>
+              </div>
             </div>
-            <div class="rating-block d-flex align-items-center">
-              <h2 class="me-2">Focus in class and paying attention</h2>
-              <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
-            </div>
-            <div class="rating-block d-flex align-items-center">
-              <h2 class="me-2">Attend class on-time</h2>
-              <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
-            </div>
-            <div class="rating-block d-flex align-items-center">
-              <h2 class="me-2">Complete homework on time</h2>
-              <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
-            </div>
-            <div class="rating-block d-flex align-items-center">
-              <h2 class="me-2">Active participation in class</h2>
-              <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="rating-block d-flex align-items-center">
+                  <h2 class="me-2">Fast learner</h2>
+                  <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
+                </div>
+                <div class="rating-block d-flex align-items-center">
+                  <h2 class="me-2">Focus in class and paying attention</h2>
+                  <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
+                </div>
+                <div class="rating-block d-flex align-items-center">
+                  <h2 class="me-2">Attend class on-time</h2>
+                  <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
+                </div>
+                <div class="rating-block d-flex align-items-center">
+                  <h2 class="me-2">Complete homework on time</h2>
+                  <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
+                </div>
+                <div class="rating-block d-flex align-items-center">
+                  <h2 class="me-2">Active participation in class</h2>
+                  <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
+                </div>
+              </div>
+              <div class="col-md-6 user-feedback">
+                <h2>Feedback</h2>
+                <p>
+                  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cumque delectus, praesentium quidem est
+                  quaerat,
+                  deserunt facilis tenetur ab quia quod cupiditate fuga culpa placeat pariatur fugit. Ratione cumque
+                  error
+                  nobis.
+                </p>
+              </div>
             </div>
           </div>
-          <div class="col-md-6 user-feedback">
-            <h2>Feedback</h2>
-            <p>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cumque delectus, praesentium quidem est quaerat,
-              deserunt facilis tenetur ab quia quod cupiditate fuga culpa placeat pariatur fugit. Ratione cumque error
-              nobis.
-            </p>
+
+          <div class="mt-4 reviews">
+            <div class="d-flex teacher mb-2">
+              <img src="" meTutorsDefaultAvatar alt="" class="rounded-circle">
+              <div class="ms-2">
+                <h3 class="m-0">Ahmed Hassan</h3>
+                <div>
+                  <rating [(ngModel)]="rate" [max]="5" [readonly]="true"></rating>
+                  <span class="ms-1">4.5</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="rating-block d-flex align-items-center">
+                  <h2 class="me-2">Fast learner</h2>
+                  <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
+                </div>
+                <div class="rating-block d-flex align-items-center">
+                  <h2 class="me-2">Focus in class and paying attention</h2>
+                  <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
+                </div>
+                <div class="rating-block d-flex align-items-center">
+                  <h2 class="me-2">Attend class on-time</h2>
+                  <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
+                </div>
+                <div class="rating-block d-flex align-items-center">
+                  <h2 class="me-2">Complete homework on time</h2>
+                  <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
+                </div>
+                <div class="rating-block d-flex align-items-center">
+                  <h2 class="me-2">Active participation in class</h2>
+                  <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
+                </div>
+              </div>
+              <div class="col-md-6 user-feedback">
+                <h2>Feedback</h2>
+                <p>
+                  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cumque delectus, praesentium quidem est
+                  quaerat,
+                  deserunt facilis tenetur ab quia quod cupiditate fuga culpa placeat pariatur fugit. Ratione cumque
+                  error
+                  nobis.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+      </ng-container>
+    </ng-container>
   </ng-template>
 </metutors-modal>

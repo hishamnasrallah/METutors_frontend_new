@@ -98,6 +98,32 @@ export class AdminEffects {
     )
   );
 
+  loadAdminStudentsFeedback$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(adminActions.loadAdminStudentsFeedback),
+      withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
+      mergeMap(([_, { id }]) =>
+        this._adminService.loadAdminStudentsFeedback(id).pipe(
+          map(
+            (studentsFeedback) =>
+              adminActions.loadAdminStudentsFeedbackSuccess({
+                studentsFeedback: camelcaseKeys(studentsFeedback, {
+                  deep: true,
+                }),
+              }),
+            catchError((error) =>
+              of(
+                adminActions.loadAdminStudentsFeedbackFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          )
+        )
+      )
+    )
+  );
+
   loadBookingDetail$ = createEffect(() =>
     this._actions$.pipe(
       ofType(adminActions.loadBookingDetail),

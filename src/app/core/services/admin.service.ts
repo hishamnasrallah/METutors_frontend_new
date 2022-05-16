@@ -71,6 +71,12 @@ export class AdminService {
       .pipe(map((response) => response.previous_teachers));
   }
 
+  loadAdminStudentsFeedback(id: number): Observable<any> {
+    return this.http
+      .get<any>(`${this.baseUrl}admin/course/${id}/previous-teachers`)
+      .pipe(map((response) => response.previous_teachers));
+  }
+
   loadAllBookings(): Observable<any> {
     return this.http
       .get<any>(`${this.baseUrl}admin/bookings`)

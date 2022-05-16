@@ -1213,3 +1213,13 @@ export const selectIsLoadingPreviousTutors = createSelector(
   selectAdminState,
   fromAdminReducer.selectIsLoadingPreviousTutors
 );
+
+export const selectAdminStudentsFeedback = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectAdminStudentsFeedback
+);
+
+export const selectIsLoadingAdminStudentsFeedback = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectIsLoadingAdminStudentsFeedback
+);
