@@ -4,7 +4,17 @@
       <ng-container [ngSwitch]="view.loading">
         <ng-container *ngSwitchCase="false">
           <h1 class="title overflow-hidden">{{ view.data?.course?.courseName }}
-            <button mat-button class="float-end fw-bold" (click)="onShowSendFeedbackModal(view.data?.course?.studentId)">Cancel Course</button>
+            <span class="float-end pending completed"
+                  *ngIf="view?.data?.course?.status === courseStatus.completed">
+              Completed
+            </span>
+
+            <span class="float-end pending cursor-not-allowed cancelled"
+                    *ngIf="view?.data?.course?.status === courseStatus.cancelledByTeacher || view?.data?.course?.status === courseStatus.cancelledByStudent">
+              Cancelled
+            </span>
+            <button mat-button class="float-end fw-bold" (click)="onShowSendFeedbackModal(view.data?.course?.studentId)"
+                    *ngIf="view?.data?.course?.status === courseStatus.active || view?.data?.course?.status === courseStatus.inprogress">Cancel Course</button>
           </h1>
           <div class="row list-items">
             <div class="col-md-3 d-flex menu align-items-center">

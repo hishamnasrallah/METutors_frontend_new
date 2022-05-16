@@ -58,6 +58,7 @@ export class TutorClassroomsComponent implements OnInit {
     fieldOfStudies: any;
     activeCourses: any;
     completedCourses: any;
+    cancelledCourses: any;
   }>;
 
   fieldId = null;
@@ -132,6 +133,9 @@ export class TutorClassroomsComponent implements OnInit {
       this._store
         .select(fromCore.selectCompletedCourses)
         .pipe(map((result: any) => this._parseCourse(result))),
+      this._store
+        .select(fromCore.selectCancelledCourses)
+        .pipe(map((result: any) => this._parseCourse(result))),
       this._store.select(fromCore.selectIsLoadingCourses),
     ]).pipe(
       map(
@@ -142,6 +146,7 @@ export class TutorClassroomsComponent implements OnInit {
           newCourses,
           activeCourses,
           completedCourses,
+          cancelledCourses,
           loading,
         ]) => ({
           loading,
@@ -150,6 +155,7 @@ export class TutorClassroomsComponent implements OnInit {
           newCourses,
           activeCourses,
           fieldOfStudies,
+          cancelledCourses,
           completedCourses,
         })
       )
