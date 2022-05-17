@@ -399,7 +399,7 @@ export const selectAdminCoursePreviousTutors = (state: State): ICourse[] =>
 export const selectIsLoadingPreviousTutors = (state: State): boolean =>
   state.isLoadingPreviousTutors;
 
-export const selectAdminStudentsFeedback = (state: State): ICourse[] =>
+export const selectAdminStudentsFeedback = (state: State): any =>
   state.studentsFeedback;
 
 export const selectIsLoadingAdminStudentsFeedback = (state: State): boolean =>

@@ -14,14 +14,14 @@
           <table class="table my-table default-title mb-0">
             <tr>
               <th>Number</th>
-              <th>BIN</th>
               <th>TIN</th>
+              <th>BIN</th>
               <th>Teacher Name</th>
             </tr>
             <tr *ngFor="let tutor of previousTutors; let i=index">
               <td>{{ i + 1 }}</td>
               <td>{{ tutor.idNumber }}</td>
-              <td>TIN101 - static </td>
+              <td>BIN101 </td>
               <td>
                 <div class="d-flex align-items-center">
                   <img [src]="imagePath+tutor?.avatar" width="25" height="25" class="rounded-circle p-0 me-2"

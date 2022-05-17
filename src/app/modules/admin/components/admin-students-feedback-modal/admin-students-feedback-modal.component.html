@@ -12,160 +12,59 @@
           <div class="d-flex justify-content-between">
             <div>
               <div class="rating-block d-flex align-items-center mb-2">
-                <h2 class="me-2">4 Reviews</h2>
-                <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
+                <h2 class="me-2">{{feedback?.feedbacksCount}} Reviews</h2>
+                <rating [ngModel]="" [max]="5" [readonly]="true"></rating>
               </div>
 
-              <div class="d-flex align-items-center stars">
-                <h3 class="me-1 mb-0">5 Stars</h3>
-                <mat-progress-bar class="example-progress" [color]="'primary'" [value]="80">
-                </mat-progress-bar>
-                <span>(4)</span>
-              </div>
-              <div class="d-flex align-items-center stars">
-                <h3 class="me-1 mb-0">2 Stars</h3>
-                <mat-progress-bar class="example-progress" [color]="'primary'" [value]="80">
-                </mat-progress-bar>
-                <span>(4)</span>
-              </div>
-              <div class="d-flex align-items-center stars">
-                <h3 class="me-1 mb-0">3 Stars</h3>
-                <mat-progress-bar class="example-progress" [color]="'primary'" [value]="80">
-                </mat-progress-bar>
-                <span>(4)</span>
-              </div>
-              <div class="d-flex align-items-center stars">
-                <h3 class="me-1 mb-0">4 Stars</h3>
-                <mat-progress-bar class="example-progress" [color]="'primary'" [value]="80">
-                </mat-progress-bar>
-                <span>(4)</span>
-              </div>
-              <div class="d-flex align-items-center stars">
-                <h3 class="me-1 mb-0">1 Star</h3>
-                <mat-progress-bar class="example-progress" [color]="'primary'" [value]="0">
-                </mat-progress-bar>
-                <span>(4)</span>
-              </div>
+              <ng-container *ngFor="let rating of feedback.overallStars">
+                <div class="d-flex align-items-center stars">
+                  <h3 class="me-1 mb-0">{{rating.title}} Stars</h3>
+                  <mat-progress-bar class="example-progress" [color]="'primary'" [value]="rating.value">
+                  </mat-progress-bar>
+                  <span>({{rating.value}})</span>
+                </div>
+              </ng-container>
             </div>
+
             <div>
-              <div class="rating-block d-flex align-items-center mb-0">
-                <h2 class="me-2">Fast learner</h2>
-                <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
-              </div>
-              <div class="rating-block d-flex align-items-center mb-0">
-                <h2 class="me-2">Focus in class and paying attention</h2>
-                <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
-              </div>
-              <div class="rating-block d-flex align-items-center mb-0">
-                <h2 class="me-2">Attend class on-time</h2>
-                <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
-              </div>
-              <div class="rating-block d-flex align-items-center mb-0">
-                <h2 class="me-2">Complete homework on time</h2>
-                <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
-              </div>
-              <div class="rating-block d-flex align-items-center mb-0">
-                <h2 class="me-2">Active participation in class</h2>
-                <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
-              </div>
+              <ng-container *ngFor="let feedback of feedback.overallFeedback">
+                <div class="rating-block d-flex align-items-center mb-0">
+                  <h2 class="me-2">{{ feedback.title }}</h2>
+                  <rating [ngModel]="feedback.value" [max]="5" [readonly]="true"></rating>
+                </div>
+              </ng-container>
             </div>
           </div>
 
-          <div class="mt-4 reviews">
-            <div class="d-flex teacher mb-2">
-              <img src="" meTutorsDefaultAvatar alt="" class="rounded-circle">
-              <div class="ms-2">
-                <h3 class="m-0">Ahmed Hassan</h3>
-                <div>
-                  <rating [(ngModel)]="rate" [max]="5" [readonly]="true"></rating>
-                  <span class="ms-1">4.5</span>
+          <ng-container *ngFor="let studentFeedback of feedback.studentFeedbacks">
+            <div class="mt-4 reviews">
+              <div class="d-flex teacher mb-2">
+                <img [src]=" studentFeedback?.sender?.avatar" meTutorsDefaultAvatar alt="" class="rounded-circle">
+                <div class="ms-2">
+                  <h3 class="m-0">{{ studentFeedback?.sender?.firstName}} {{ studentFeedback?.sender?.lastName}}</h3>
+                  <div>
+                    <rating [(ngModel)]="studentFeedback.averageRating" [max]="5" [readonly]="true"></rating>
+                    <span class="ms-1">{{ studentFeedback.averageRating}}</span>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div class="row">
-              <div class="col-md-6">
-                <div class="rating-block d-flex align-items-center">
-                  <h2 class="me-2">Fast learner</h2>
-                  <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
+              <div class="row">
+                <div class="col-md-7">
+                  <ng-container *ngFor="let feed of studentFeedback.feedbacks;">
+                    <div class="rating-block d-flex align-items-center">
+                      <h2 class="me-2">{{feed.title}}</h2>
+                      <rating [ngModel]="feed.value" [max]="5" [readonly]="true"></rating>
+                    </div>
+                  </ng-container>
                 </div>
-                <div class="rating-block d-flex align-items-center">
-                  <h2 class="me-2">Focus in class and paying attention</h2>
-                  <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
-                </div>
-                <div class="rating-block d-flex align-items-center">
-                  <h2 class="me-2">Attend class on-time</h2>
-                  <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
-                </div>
-                <div class="rating-block d-flex align-items-center">
-                  <h2 class="me-2">Complete homework on time</h2>
-                  <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
-                </div>
-                <div class="rating-block d-flex align-items-center">
-                  <h2 class="me-2">Active participation in class</h2>
-                  <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
-                </div>
-              </div>
-              <div class="col-md-6 user-feedback">
-                <h2>Feedback</h2>
-                <p>
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cumque delectus, praesentium quidem est
-                  quaerat,
-                  deserunt facilis tenetur ab quia quod cupiditate fuga culpa placeat pariatur fugit. Ratione cumque
-                  error
-                  nobis.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="mt-4 reviews">
-            <div class="d-flex teacher mb-2">
-              <img src="" meTutorsDefaultAvatar alt="" class="rounded-circle">
-              <div class="ms-2">
-                <h3 class="m-0">Ahmed Hassan</h3>
-                <div>
-                  <rating [(ngModel)]="rate" [max]="5" [readonly]="true"></rating>
-                  <span class="ms-1">4.5</span>
+                <div class="col-md-5 user-feedback">
+                  <h2>Feedback</h2>
+                  <p>{{studentFeedback?.review}}</p>
                 </div>
               </div>
             </div>
-
-            <div class="row">
-              <div class="col-md-6">
-                <div class="rating-block d-flex align-items-center">
-                  <h2 class="me-2">Fast learner</h2>
-                  <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
-                </div>
-                <div class="rating-block d-flex align-items-center">
-                  <h2 class="me-2">Focus in class and paying attention</h2>
-                  <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
-                </div>
-                <div class="rating-block d-flex align-items-center">
-                  <h2 class="me-2">Attend class on-time</h2>
-                  <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
-                </div>
-                <div class="rating-block d-flex align-items-center">
-                  <h2 class="me-2">Complete homework on time</h2>
-                  <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
-                </div>
-                <div class="rating-block d-flex align-items-center">
-                  <h2 class="me-2">Active participation in class</h2>
-                  <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
-                </div>
-              </div>
-              <div class="col-md-6 user-feedback">
-                <h2>Feedback</h2>
-                <p>
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cumque delectus, praesentium quidem est
-                  quaerat,
-                  deserunt facilis tenetur ab quia quod cupiditate fuga culpa placeat pariatur fugit. Ratione cumque
-                  error
-                  nobis.
-                </p>
-              </div>
-            </div>
-          </div>
+          </ng-container>
         </div>
       </ng-container>
     </ng-container>
