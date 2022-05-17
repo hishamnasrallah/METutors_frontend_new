@@ -13,7 +13,7 @@
             <div>
               <div class="rating-block d-flex align-items-center mb-2">
                 <h2 class="me-2">{{feedback?.feedbacksCount}} Reviews</h2>
-                <rating [ngModel]="" [max]="5" [readonly]="true"></rating>
+                <rating [ngModel]="feedback?.feedbackRating" [max]="5" [readonly]="true"></rating>
               </div>
 
               <ng-container *ngFor="let rating of feedback.overallStars">

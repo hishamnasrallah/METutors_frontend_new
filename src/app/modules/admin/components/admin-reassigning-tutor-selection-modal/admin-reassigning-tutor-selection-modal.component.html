@@ -1,127 +1,115 @@
 <metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'xmedium'"
-                [heading]="'Re-Assigning Tutor\'s Selection'"
+                [heading]="heading"
                 [template]="template"
-                [subHeading]="'Please select a replacement tutor from the list below'">
+                [subHeading]="subHeading">
   <ng-template #template>
     <div class="list-options-rows">
-      <div class="list-tutors">
-        <mat-radio-group class="d-flex flex-column">
-          <mat-radio-button>
-            <div class="row">
-              <div class="position-relative img-avatar">
-                <img [src]="" meTutorsDefaultAvatar alt="" width="60px" height="60px">
-                <!-- <svg class="position-absolute status" width="16" height="16" [ngClass]="{
-                        'is-online': tutor?.status === tutorStatus.online, 
-                        'is-busy': tutor?.status === tutorStatus.busy, 
-                        'is-offline': tutor?.status === tutorStatus.offline, 
-                        'is-away': tutor?.status === tutorStatus.away
-                      }" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="8" cy="8" r="7" fill="#949494" stroke="white" stroke-width="2" />
-                </svg> -->
-              </div>
-              <div class="col d-flex justify-content-center flex-column">
-                <h2>
-                  Ahmed Hassan
-                  <!-- <span class="text-uppercase pro">Pro</span>
-                      <span class="text-uppercase verified">Verified</span> -->
-                </h2>
-                <h3 class="mb-0">University of Canada</h3>
-              </div>
-              <a class="col-md-2 full-profile availability cursor-pointer" (click)="tutorAvailability.emit()">
-                Tutor Availability
-              </a>
-              <div class="col-md-2 d-flex flex-column">
-                <a class="full-profile" [routerLink]="'/profile/tutor/1'" target="_blank">
-                    <img src="assets/svg/share-link.svg" draggable="false" width="16px" height="16px" alt="">
-                    Full profile
-                </a>
-                <button mat-button class="mt-4 send-message">Send Message</button>
+      <ng-container [ngSwitch]="loading">
+        <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
+        <ng-container *ngSwitchCase="false">
+          <ng-container *ngIf="!showAvailability">
+            <div class="list-tutors">
+              <mat-radio-group class="d-flex flex-column" (change)="onChange($event)">
+                <ng-container *ngFor="let tutor of tutors">
+                  <mat-radio-button [value]="tutor.id">
+                    <div class="row">
+                      <div class="position-relative img-avatar">
+                        <img [src]="tutor.avatar" meTutorsDefaultAvatar alt="" width="60px" height="60px">
+                        <!-- <svg class="position-absolute status" width="16" height="16" [ngClass]="{
+                                'is-online': tutor?.status === tutorStatus.online,
+                                'is-busy': tutor?.status === tutorStatus.busy,
+                                'is-offline': tutor?.status === tutorStatus.offline,
+                                'is-away': tutor?.status === tutorStatus.away
+                              }" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <circle cx="8" cy="8" r="7" fill="#949494" stroke="white" stroke-width="2" />
+                        </svg> -->
+                      </div>
+                      <div class="col d-flex justify-content-center flex-column">
+                        <h2>
+                          {{ tutor.name }}
+                          <!-- <span class="text-uppercase pro">Pro</span>
+                              <span class="text-uppercase verified">Verified</span> -->
+                        </h2>
+                        <h3 class="mb-0">University of Canada</h3>
+                      </div>
+                      <a class="col-md-2 full-profile availability cursor-pointer" (click)="onViewAvailability(tutor.id)">
+                        Tutor Availability
+                      </a>
+                      <div class="col-md-3 d-flex flex-column justify-content-end">
+                        <a class="full-profile text-center" [routerLink]="['/profile', 'tutor', tutor.id]"
+                           target="_blank">
+                          <img src="assets/svg/share-link.svg" draggable="false" width="16px" height="16px" alt="">
+                          Full profile
+                        </a>
+                        <button mat-button class="mt-4 send-message">Send Message</button>
+                      </div>
+                    </div>
+                  </mat-radio-button>
+                </ng-container>
+              </mat-radio-group>
+            </div>
+
+            <div class="row mt-5">
+              <div class="col-12 overflow-hidden info">
+                <button mat-flat-button color="primary" class="float-end" type="submit" [disabled]="!tutorId">
+                  Submit
+                </button>
               </div>
             </div>
-          </mat-radio-button>
+          </ng-container>
 
-          <mat-radio-button>
+          <ng-container *ngIf="showAvailability">
             <div class="row">
-              <div class="position-relative img-avatar">
-                <img [src]="" meTutorsDefaultAvatar alt="" width="60px" height="60px">
-                <!-- <svg class="position-absolute status" width="16" height="16" [ngClass]="{
-                        'is-online': tutor?.status === tutorStatus.online, 
-                        'is-busy': tutor?.status === tutorStatus.busy, 
-                        'is-offline': tutor?.status === tutorStatus.offline, 
-                        'is-away': tutor?.status === tutorStatus.away
-                      }" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="8" cy="8" r="7" fill="#949494" stroke="white" stroke-width="2" />
-                </svg> -->
-              </div>
-              <div class="col d-flex justify-content-center flex-column">
-                <h2>
-                  Ahmed Hassan
-                  <!-- <span class="text-uppercase pro">Pro</span>
-                      <span class="text-uppercase verified">Verified</span> -->
-                </h2>
-                <h3 class="mb-0">University of Canada</h3>
-              </div>
-              <a class="col-md-2 full-profile availability cursor-pointer" (click)="tutorAvailability.emit()">
-                Tutor Availability
-              </a>
-              <div class="col-md-2 d-flex flex-column">
-                <a class="full-profile" [routerLink]="'/profile/tutor/1'" target="_blank">
-                    <img src="assets/svg/share-link.svg" draggable="false" width="16px" height="16px" alt="">
-                    Full profile
-                </a>
-                <button mat-button class="mt-4 send-message">Send Message</button>
+              <div class="col-md-12">
+                <div class="form-group mb-4">
+                  <ng-container [ngSwitch]="isLoadingTimeSlots">
+                    <ng-container *ngSwitchCase="true">
+                      <metutors-grid-placeholder></metutors-grid-placeholder>
+                    </ng-container>
+
+                    <ng-container *ngSwitchCase="false">
+                      <div *ngIf="!objectKeys(availabilities)?.length" class="text-center fw-bold">No Teacher availabilities found</div>
+                      <div class="row" *ngIf="objectKeys(availabilities)?.length">
+                        <div class="col-4">
+                          <label class="text-secondary fw-bold">Starting Date</label>
+                          <p class="fw-bold">{{ timeSlot.startDate }}</p>
+                        </div>
+
+                        <div class="col-4">
+                          <label class="text-secondary fw-bold">Ending Date</label>
+                          <p class="fw-bold">{{ timeSlot.endDate }}</p>
+                        </div>
+
+                        <div class="col-4">
+                          <label class="text-secondary fw-bold">Days</label>
+                          <p class="fw-bold">{{ weekDays.toString() }}</p>
+                        </div>
+                      </div>
+
+                      <div class="row mt-3">
+                        <ng-container *ngFor="let key of objectKeys(availabilities)">
+                          <div class="col-2 fw-bold">{{ weekDayName[key] }}</div>
+
+                          <div class="col-10 time-box">
+                            <div class="slot" *ngFor="let slot of availabilities[key]">{{ slot.timeFrom }}
+                              to {{ slot.timeTo }}</div>
+                          </div>
+                        </ng-container>
+                      </div>
+                    </ng-container>
+                  </ng-container>
+                </div>
               </div>
             </div>
-          </mat-radio-button>
 
-          <mat-radio-button>
-            <div class="row">
-              <div class="position-relative img-avatar">
-                <img [src]="" meTutorsDefaultAvatar alt="" width="60px" height="60px">
-                <!-- <svg class="position-absolute status" width="16" height="16" [ngClass]="{
-                        'is-online': tutor?.status === tutorStatus.online, 
-                        'is-busy': tutor?.status === tutorStatus.busy, 
-                        'is-offline': tutor?.status === tutorStatus.offline, 
-                        'is-away': tutor?.status === tutorStatus.away
-                      }" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="8" cy="8" r="7" fill="#949494" stroke="white" stroke-width="2" />
-                </svg> -->
-              </div>
-              <div class="col d-flex justify-content-center flex-column">
-                <h2>
-                  Ahmed Hassan
-                  <!-- <span class="text-uppercase pro">Pro</span>
-                      <span class="text-uppercase verified">Verified</span> -->
-                </h2>
-                <h3 class="mb-0">University of Canada</h3>
-              </div>
-              <a class="col-md-2 full-profile availability cursor-pointer" (click)="tutorAvailability.emit()">
-                Tutor Availability
-              </a>
-              <div class="col-md-2 d-flex flex-column">
-                <a class="full-profile" [routerLink]="'/profile/tutor/1'" target="_blank">
-                    <img src="assets/svg/share-link.svg" draggable="false" width="16px" height="16px" alt="">
-                    Full profile
-                </a>
-                <button mat-button class="mt-4 send-message">Send Message</button>
+            <div class="row mt-4">
+              <div class="col-12 overflow-hidden">
+                <button mat-flat-button color="primary" class="float-end" type="button" (click)="goBack()">Back</button>
               </div>
             </div>
-          </mat-radio-button>
-        </mat-radio-group>
-      </div>
-
-      <div class="row mt-5">
-        <div class="col-12 overflow-hidden info">
-          <button mat-flat-button color="primary" class="float-end" type="submit">
-            Save & continue
-            <mat-icon>arrow_forward</mat-icon>
-          </button>
-          <button mat-button class="float-end back-btn" type="button">
-            <mat-icon>arrow_back</mat-icon>
-            Back
-          </button>
-        </div>
-      </div>
+          </ng-container>
+        </ng-container>
+      </ng-container>
     </div>
   </ng-template>
 </metutors-modal>
