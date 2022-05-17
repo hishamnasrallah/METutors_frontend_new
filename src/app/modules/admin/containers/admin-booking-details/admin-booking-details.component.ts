@@ -16,10 +16,15 @@ import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 export class AdminBookingDetailsComponent implements OnInit {
   feedback$: Observable<any>;
   previousTutors$: Observable<any>;
+  availableTutors$: Observable<any>;
+  tutorAvailability$: Observable<any>;
+  reassigningTutor$: Observable<boolean>;
   isLoadingFeedback$: Observable<boolean>;
   isLoadingPreviousTutors$: Observable<boolean>;
+  isLoadingAvailableTutors$: Observable<boolean>;
   showPreviousTeacherModal$: Observable<boolean>;
   showStudentsFeedbackModal$: Observable<boolean>;
+  isLoadingTutorAvailability$: Observable<boolean>;
   showReassigningTutorSelectionModal$: Observable<boolean>;
   view$: Observable<{ loading: boolean; bookingDetail: any }>;
 
@@ -52,8 +57,27 @@ export class AdminBookingDetailsComponent implements OnInit {
     );
 
     this.feedback$ = this._store.select(fromCore.selectAdminStudentsFeedback);
+
     this.isLoadingFeedback$ = this._store.select(
       fromCore.selectIsLoadingAdminStudentsFeedback
+    );
+
+    this.availableTutors$ = this._store.select(fromCore.selectAvailableTutors);
+
+    this.isLoadingAvailableTutors$ = this._store.select(
+      fromCore.selectIsLoadingAvailableTutors
+    );
+
+    this.tutorAvailability$ = this._store.select(
+      fromCore.selectTutorAvailability
+    );
+
+    this.isLoadingTutorAvailability$ = this._store.select(
+      fromCore.selectIsLoadingTutorAvailability
+    );
+
+    this.reassigningTutor$ = this._store.select(
+      fromCore.selectIsReassigningTutor
     );
 
     this.view$ = combineLatest([
@@ -81,6 +105,7 @@ export class AdminBookingDetailsComponent implements OnInit {
   }
 
   onOpenReassigningTutorSelectionModal() {
+    this._store.dispatch(fromCore.loadAvailableTutors());
     this._store.dispatch(
       fromAdminAction.openAdminReassigningTutorSelectionModal()
     );
@@ -94,5 +119,10 @@ export class AdminBookingDetailsComponent implements OnInit {
 
   onTutorAvailability(id: number): void {
     this._store.dispatch(fromCore.loadTutorAvailability({ id }));
+  }
+
+  onReassignTutor(teacher_id: any): void {
+    const body = { teacher_id };
+    this._store.dispatch(fromCore.studentReassignTutor({ body }));
   }
 }

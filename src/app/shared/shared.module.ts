@@ -38,6 +38,7 @@ import {
   SupportTicketCardComponent,
   UploadedFilesListComponent,
   FileUploadProgressComponent,
+  TutorAvailableSlotsComponent,
   CourseItemHorizentalComponent,
   ClassroomItemHorizentalComponent,
 } from '@metutor/shared/components';
@@ -63,6 +64,7 @@ import {
     SupportTicketCardComponent,
     UploadedFilesListComponent,
     FileUploadProgressComponent,
+    TutorAvailableSlotsComponent,
     CourseItemHorizentalComponent,
     ClassroomItemHorizentalComponent,
 
@@ -131,6 +133,7 @@ import {
     DefaultAvatarDirective,
     DefaultCourseDirective,
     FileUploadProgressComponent,
+    TutorAvailableSlotsComponent,
   ],
 })
 export class SharedModule {}

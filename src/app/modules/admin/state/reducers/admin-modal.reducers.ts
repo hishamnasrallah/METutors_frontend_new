@@ -209,10 +209,14 @@ export const reducer = createReducer(
     showReassigningTutorSelectionModal: true,
   })),
 
-  on(adminModalActions.closeAdminReassigningTutorSelectionModal, (state) => ({
-    ...state,
-    showReassigningTutorSelectionModal: false,
-  })),
+  on(
+    fromCore.studentReassignTutorSuccess,
+    adminModalActions.closeAdminReassigningTutorSelectionModal,
+    (state) => ({
+      ...state,
+      showReassigningTutorSelectionModal: false,
+    })
+  ),
 
   on(adminModalActions.openAdminChangeStatusModal, (state) => ({
     ...state,
