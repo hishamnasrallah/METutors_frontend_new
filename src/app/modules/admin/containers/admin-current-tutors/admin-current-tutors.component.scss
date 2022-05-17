@@ -76,6 +76,19 @@
       }
     }
 
+    .tutor-subject {
+      padding: 0;
+
+      div {
+        padding: 0;
+        font-size: 14px;
+
+        span {
+          color: #696969;
+        }
+      }
+    }
+
     .change-status {
       .status {
         color: #FFF;
@@ -86,10 +99,6 @@
 
         &.active {
           background-color: #50C394;
-        }
-
-        &.pending {
-          background-color: var(--main-color);
         }
 
         &.deactive {
@@ -107,16 +116,16 @@
           margin: 5px;
           border-radius: 5px;
 
-          &.response {
+          &.deactive {
             background-color: #ff8300;
           }
 
-          &.closed {
+          &.active {
             background-color: #50C394;
           }
 
-          &.issued {
-            background-color: var(--main-color);
+          &.pending {
+            background-color: #EBD016;
           }
         }
       }

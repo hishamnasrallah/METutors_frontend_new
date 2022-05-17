@@ -221,9 +221,24 @@ export const selectCurrentTutors = createSelector(
   fromTutorReducer.selectCurrentTutors
 );
 
+export const selectCurrentActiveTutors = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectCurrentActiveTutors
+);
+
+export const selectCurrentInactiveTutors = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectCurrentInactiveTutors
+);
+
 export const selectPendingTutors = createSelector(
   selectTutorState,
   fromTutorReducer.selectPendingTutors
+);
+
+export const selectRejectedTutors = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectRejectedTutors
 );
 
 export const selectSuspendedTutors = createSelector(
@@ -244,6 +259,11 @@ export const selectFilteredCurrentTutors = createSelector(
 export const selectFilteredPendingTutors = createSelector(
   selectTutorState,
   fromTutorReducer.selectFilteredPendingTutors
+);
+
+export const selectFilteredRejectedTutors = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectFilteredRejectedTutors
 );
 
 export const selectFilteredSuspendedTutors = createSelector(

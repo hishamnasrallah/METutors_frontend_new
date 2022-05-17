@@ -119,12 +119,24 @@ export class TutorsService {
   getPendingTutors(): Observable<any> {
     return this.http
       .get<{
-        teachers: ITutor[];
+        rejected_teachers: ITutor[];
+        pending_teachers: ITutor[];
+        pending_teachers_count: number;
+        rejected_teachers_count: number;
       }>(`${this.baseUrl}admin/pending-teachers`)
       .pipe(
-        map((response) =>
-          response.teachers.map((tutor) => new ITutor(false, tutor))
-        )
+        map((response) => ({
+          pendingTutors: response.pending_teachers.map(
+            (tutor) => new ITutor(false, tutor)
+          ),
+          rejectedTutors: response.rejected_teachers.map(
+            (tutor) => new ITutor(false, tutor)
+          ),
+          tutorsCounts: {
+            pendingCount: response?.pending_teachers_count,
+            rejectedCount: response?.rejected_teachers_count,
+          },
+        }))
       );
   }
 

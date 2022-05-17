@@ -177,9 +177,11 @@ export class TutorEffects {
       mergeMap(([_, _tutors]) => {
         if (!_tutors || !_tutors?.length) {
           return this._tutorService.getPendingTutors().pipe(
-            map((pendingTutors) =>
+            map((response) =>
               tutorActions.loadPendingTutorsSuccess({
-                pendingTutors,
+                pendingTutors: response.pendingTutors,
+                rejectedTutors: response.rejectedTutors,
+                tutorsCounts: response.tutorsCounts,
               })
             ),
             catchError((error) =>
