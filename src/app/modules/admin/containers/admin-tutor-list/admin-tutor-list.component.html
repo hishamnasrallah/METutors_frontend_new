@@ -196,19 +196,21 @@
             <td>
               <div dropdown class="change-status position-relative d-flex">
                 <button dropdownToggle class="status text-capitalize" mat-button [ngClass]="{
-                    'active': interviewStatus.approved === tutor?.adminApproval,
-                    'pending': interviewStatus.pending === tutor?.adminApproval,
-                    'deactive': interviewStatus.rejected === tutor?.adminApproval
+                  'active': tutorStatus.active === tutor?.status,
+                  'deactive': tutorStatus.deactive === tutor?.status,
+                  'rejected': tutorStatus.rejected === tutor?.status,
+                  'pending': tutorStatus.pending === tutor?.status
                  }">
-                  {{ tutor?.adminApproval === 'approved' ? 'Active' : tutor?.adminApproval }}
+                 {{ tutor?.status }}
                 </button>
                 <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
                   <li role="menuitem" class="cursor-pointer text-capitalize" *ngFor="let status of tutorStatuses"
                     [ngClass]="{
-                      'closed': interviewStatus.approved === status,
-                      'issued': interviewStatus.pending === status,
-                      'response': interviewStatus.rejected === status
-                    }">
+                      'active': tutorStatus.active === status,
+                      'deactive': tutorStatus.deactive === status,
+                      'rejected': tutorStatus.rejected === status,
+                      'pending': tutorStatus.pending === status
+                    }" (click)="onOpenChangeStatusModal()">
                     {{ status }}
                   </li>
                 </ul>
@@ -238,3 +240,8 @@
     <span>Send Message</span>
   </button>
 </mat-menu>
+
+<metutors-change-status-modal *ngIf="showChangeStatusModal$ | async" 
+                              (closeModal)="onCloseChangeStatusModal()"
+                              [showModal]="(showChangeStatusModal$ | async)!">
+</metutors-change-status-modal>

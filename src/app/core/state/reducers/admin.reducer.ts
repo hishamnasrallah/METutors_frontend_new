@@ -13,6 +13,7 @@ export interface State {
   tutors: ITutor[];
   bookingDetail: [];
   previousTutors: [];
+  bookingsCounts: any;
   studentsFeedback: [];
   isApprovingDoc: boolean;
   isRejectingDoc: boolean;
@@ -47,10 +48,11 @@ export const initialState: State = {
   documents: [],
   allBookings: [],
   bookingDetail: [],
+  bookingsCounts: {},
   previousTutors: [],
-  studentsFeedback: [],
   runningBookings: [],
   courseBooking: null,
+  studentsFeedback: [],
   completedBookings: [],
   cancelledBookings: [],
   isApprovingDoc: false,
@@ -199,11 +201,18 @@ export const reducer = createReducer(
     isLoadingAllBookings: true,
   })),
 
-  on(adminActions.loadAllBookingsSuccess, (state, { allBookings }) => ({
-    ...state,
-    allBookings,
-    isLoadingAllBookings: false,
-  })),
+  on(
+    adminActions.loadAllBookingsSuccess,
+    (state, { allBookings, bookingsCounts }) => ({
+      ...state,
+      allBookings,
+      bookingsCounts: {
+        ...state.bookingsCounts,
+        ...bookingsCounts,
+      },
+      isLoadingAllBookings: false,
+    })
+  ),
 
   on(
     adminActions.loadAllBookingsEnded,
@@ -264,9 +273,13 @@ export const reducer = createReducer(
 
   on(
     adminActions.loadCancelledBookingsSuccess,
-    (state, { cancelledBookings }) => ({
+    (state, { cancelledBookings, bookingsCounts }) => ({
       ...state,
       cancelledBookings,
+      bookingsCounts: {
+        ...state.bookingsCounts,
+        ...bookingsCounts,
+      },
       isLoadingCancelledBookings: false,
     })
   ),
@@ -386,6 +399,8 @@ export const selectIsLoadingCancelledBookings = (state: State): boolean =>
 
 export const selectCancelledBookings = (state: State): ICourse[] =>
   state.cancelledBookings;
+
+export const selectBookingsCounts = (state: State): any => state.bookingsCounts;
 
 export const selectAdminBookingDetail = (state: State): ICourse[] =>
   state.bookingDetail;

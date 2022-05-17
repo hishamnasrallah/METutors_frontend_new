@@ -2,8 +2,8 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as fromCore from '@metutor/core/state';
 import { Component, OnInit } from '@angular/core';
-import { TUTOR_STATUSES_CONST } from '@metutor/config';
-import { ITutor, ITutorFilters } from '@metutor/core/models';
+import { CourseStatus } from '@metutor/config';
+import { ICourse, ITutorFilters } from '@metutor/core/models';
 
 @Component({
   selector: 'metutors-admin-cancelled-classrooms',
@@ -11,22 +11,23 @@ import { ITutor, ITutorFilters } from '@metutor/core/models';
   styleUrls: ['./admin-cancelled-classrooms.component.scss'],
 })
 export class AdminCancelledClassroomsComponent implements OnInit {
+  bookingsCounts$: Observable<any>;
   isLoading$: Observable<boolean>;
-  tutors$: Observable<ITutor[] | null>;
+  cancelledBookings$: Observable<ICourse[] | null>;
 
   name: string;
-  tutorStatuses = TUTOR_STATUSES_CONST;
+  courseStatus = CourseStatus;
 
   constructor(private _store: Store<any>) {}
 
   ngOnInit(): void {
-    this._prepareTutors();
+    this._prepareBookings();
   }
 
   filterTutors(filters: ITutorFilters): void {
-    this.tutors$ = this._store.select(fromCore.selectFilteredPendingTutors, {
-      ...filters,
-    });
+    // this.tutors$ = this._store.select(fromCore.selectFilteredPendingTutors, {
+    //   ...filters,
+    // });
   }
 
   onFilterTutors(): void {
@@ -35,9 +36,14 @@ export class AdminCancelledClassroomsComponent implements OnInit {
     });
   }
 
-  private _prepareTutors(): void {
-    this._store.dispatch(fromCore.loadPendingTutors());
-    this.tutors$ = this._store.select(fromCore.selectPendingTutors);
-    this.isLoading$ = this._store.select(fromCore.selectIsLoadingPendingTutors);
+  private _prepareBookings(): void {
+    this._store.dispatch(fromCore.loadCancelledBookings());
+    this.bookingsCounts$ = this._store.select(fromCore.selectBookingsCounts);
+    this.cancelledBookings$ = this._store.select(
+      fromCore.selectCancelledBookings
+    );
+    this.isLoading$ = this._store.select(
+      fromCore.selectIsLoadingCancelledBookings
+    );
   }
 }

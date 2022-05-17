@@ -434,18 +434,18 @@
                     <td>
                       <div dropdown class="change-status position-relative d-flex">
                         <button dropdownToggle class="status text-capitalize" mat-button [ngClass]="{
-                        'active': tutorStatus.active === tutor?.status,
-                        'deactive': tutorStatus.deactive === tutor?.status
-                      }">
+                          'active': tutorStatus.active === tutor?.status,
+                          'deactive': tutorStatus.deactive === tutor?.status
+                        }">
                           {{ tutor?.status }}
                         </button>
                         <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
                           <li role="menuitem" class="cursor-pointer text-capitalize"
                             *ngFor="let status of tutorStatuses" [ngClass]="{
-                          'active': tutorStatus.active === status,
-                          'deactive': tutorStatus.deactive === status,
-                          'pending': tutorStatus.pending === status
-                        }">
+                              'active': tutorStatus.active === status,
+                              'deactive': tutorStatus.deactive === status,
+                              'pending': tutorStatus.pending === status
+                            }">
                             {{ status }}
                           </li>
                         </ul>

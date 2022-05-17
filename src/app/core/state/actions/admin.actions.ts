@@ -104,7 +104,7 @@ export const loadAllBookings = createAction('[Admin] Load All Bookings');
 
 export const loadAllBookingsSuccess = createAction(
   '[Admin] Load All Bookings Success',
-  props<{ allBookings: ICourse[] }>()
+  props<{ allBookings: ICourse[]; bookingsCounts: any }>()
 );
 
 export const loadAllBookingsFailure = createAction(
@@ -161,7 +161,7 @@ export const loadCancelledBookings = createAction(
 
 export const loadCancelledBookingsSuccess = createAction(
   '[Admin] Load Cancelled Bookings Success',
-  props<{ cancelledBookings: ICourse[] }>()
+  props<{ cancelledBookings: ICourse[]; bookingsCounts: any }>()
 );
 
 export const loadCancelledBookingsFailure = createAction(

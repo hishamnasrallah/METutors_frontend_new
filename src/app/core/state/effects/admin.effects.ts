@@ -257,9 +257,10 @@ export class AdminEffects {
         if (!_bookings || !_bookings.length) {
           return this._adminService.loadAllBookings().pipe(
             map(
-              (allBookings) =>
+              (response) =>
                 adminActions.loadAllBookingsSuccess({
-                  allBookings,
+                  allBookings: response.courses,
+                  bookingsCounts: response.bookingsCounts,
                 }),
               catchError((error) =>
                 of(
@@ -341,9 +342,10 @@ export class AdminEffects {
         if (!_bookings || !_bookings.length) {
           return this._adminService.loadCancelledBookings().pipe(
             map(
-              (cancelledBookings) =>
+              (response) =>
                 adminActions.loadCancelledBookingsSuccess({
-                  cancelledBookings,
+                  cancelledBookings: response.courses,
+                  bookingsCounts: response.bookingsCounts,
                 }),
               catchError((error) =>
                 of(

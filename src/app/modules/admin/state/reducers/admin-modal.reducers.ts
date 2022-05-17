@@ -4,6 +4,7 @@ import * as adminModalActions from '../actions/admin-modal.actions';
 
 export interface State {
   showAddNewFieldModal: boolean;
+  showChangeStatusModal: boolean;
   showAddNewSubjectModal: boolean;
   showAddNewProgramModal: boolean;
   showAddNewCountryModal: boolean;
@@ -21,6 +22,7 @@ export interface State {
 
 export const initialState: State = {
   showAddNewFieldModal: false,
+  showChangeStatusModal: false,
   showAddNewSubjectModal: false,
   showAddNewProgramModal: false,
   showAddNewCountryModal: false,
@@ -210,6 +212,16 @@ export const reducer = createReducer(
   on(adminModalActions.closeAdminReassigningTutorSelectionModal, (state) => ({
     ...state,
     showReassigningTutorSelectionModal: false,
+  })),
+
+  on(adminModalActions.openAdminChangeStatusModal, (state) => ({
+    ...state,
+    showChangeStatusModal: true,
+  })),
+
+  on(adminModalActions.closeAdminChangeStatusModal, (state) => ({
+    ...state,
+    showChangeStatusModal: false,
   }))
 );
 
@@ -228,6 +240,9 @@ export const selectPreviousTeacherModal = (state: State): boolean =>
 
 export const selectReassigningTutorSelectionModal = (state: State): boolean =>
   state.showReassigningTutorSelectionModal;
+
+export const selectIsChangeStatusModal = (state: State): boolean =>
+  state.showChangeStatusModal;
 
 export const selectIsHourlyRatePerSubjectModal = (state: State): boolean =>
   state.showHourlyRatePerSubjectModal;

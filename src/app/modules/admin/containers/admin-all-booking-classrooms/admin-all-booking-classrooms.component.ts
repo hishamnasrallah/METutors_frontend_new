@@ -11,6 +11,7 @@ import { ICourse, ITutorFilters } from '@metutor/core/models';
   styleUrls: ['./admin-all-booking-classrooms.component.scss'],
 })
 export class AdminAllBookingClassroomsComponent implements OnInit {
+  bookingsCounts$: Observable<any>;
   isLoadingAllBookings$: Observable<boolean>;
   allBookings$: Observable<ICourse[] | null>;
   isLoadingRunningBookings$: Observable<boolean>;
@@ -43,6 +44,8 @@ export class AdminAllBookingClassroomsComponent implements OnInit {
     this._store.dispatch(fromCore.loadAllBookings());
     this._store.dispatch(fromCore.loadRunningBookings());
     this._store.dispatch(fromCore.loadCompletedBookings());
+
+    this.bookingsCounts$ = this._store.select(fromCore.selectBookingsCounts);
 
     this.allBookings$ = this._store.select(fromCore.selectAllBookings);
     this.runningBookings$ = this._store.select(fromCore.selectRunningBookings);

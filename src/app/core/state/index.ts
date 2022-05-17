@@ -1224,6 +1224,11 @@ export const selectRunningBookings = createSelector(
   fromAdminReducer.selectRunningBookings
 );
 
+export const selectBookingsCounts = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectBookingsCounts
+);
+
 export const selectAdminBookingDetail = createSelector(
   selectAdminState,
   fromAdminReducer.selectAdminBookingDetail

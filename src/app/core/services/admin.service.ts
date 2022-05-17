@@ -78,13 +78,19 @@ export class AdminService {
   }
 
   loadAllBookings(): Observable<any> {
-    return this.http
-      .get<any>(`${this.baseUrl}admin/bookings`)
-      .pipe(
-        map((response) =>
-          response?.courses.map((course: any) => new ICourse(false, course))
-        )
-      );
+    return this.http.get<any>(`${this.baseUrl}admin/bookings`).pipe(
+      map((response) => ({
+        courses: response?.courses.map(
+          (course: any) => new ICourse(false, course)
+        ),
+        bookingsCounts: {
+          allCourses: response?.all_courses,
+          runningCourses: response?.running_courses,
+          cancelledCourses: response?.cancelled_courses,
+          completedCourses: response?.completed_courses,
+        },
+      }))
+    );
   }
 
   loadCompletedBookings(): Observable<any> {
@@ -109,11 +115,19 @@ export class AdminService {
 
   loadCancelledBookings(): Observable<any> {
     return this.http
-      .get<any>(`${this.baseUrl}admin/bookings?cancelled=true`)
+      .get<any>(`${this.baseUrl}admin/cancelled-courses`)
       .pipe(
-        map((response) =>
-          response?.courses.map((course: any) => new ICourse(false, course))
-        )
+        map((response) => ({
+          courses: response?.cancelled_courses.map(
+            (course: any) => new ICourse(false, course)
+          ),
+          bookingsCounts: {
+            cancelledCourses: response?.total,
+            cancelledByTeacher: response?.by_teachers,
+            cancelledByStudent: response?.by_students,
+            cancelledByAdmin: response?.by_admins,
+          },
+        }))
       );
   }
 }

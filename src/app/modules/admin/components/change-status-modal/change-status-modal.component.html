@@ -1,0 +1,31 @@
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'medium'"
+                [template]="template">
+  <ng-template #template>
+    <form [formGroup]="form" class="change-status">
+      <h2>Do you want to change the status?</h2>
+      <div>
+        <span>Active</span>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="20" height="20">
+          <path
+            d="M502.6 278.6l-128 128c-12.51 12.51-32.76 12.49-45.25 0c-12.5-12.5-12.5-32.75 0-45.25L402.8 288H32C14.31 288 0 273.7 0 255.1S14.31 224 32 224h370.8l-73.38-73.38c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l128 128C515.1 245.9 515.1 266.1 502.6 278.6z" />
+        </svg>
+        <span>Pending</span>
+      </div>
+
+      <div class="form-group">
+        <label for="reason">Reason</label>
+        <textarea class="form-control custom-input input-bordered" id="reason" formControlName="reason" rows="10"
+          placeholder="Enter the reason here..."></textarea>
+      </div>
+
+      <div class="d-flex">
+        <button mat-button class="main-button-transparent flex-grow-1">Cancel</button>
+        <div class="flex-grow-1">
+          <metutors-submit-button [form]="form" [extraClasses]="'w-100 py-1 px-5'" [isSubmitting]="submitting">
+            Yes
+          </metutors-submit-button>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+</metutors-modal>

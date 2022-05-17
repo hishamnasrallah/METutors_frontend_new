@@ -112,3 +112,11 @@ export const openAdminReassigningTutorSelectionModal = createAction(
 export const closeAdminReassigningTutorSelectionModal = createAction(
   '[Admin Modal] Close Admin Reassigning Tutor Selection Modal'
 );
+
+export const openAdminChangeStatusModal = createAction(
+  '[Admin Modal] Open Admin Change Status Modal'
+);
+
+export const closeAdminChangeStatusModal = createAction(
+  '[Admin Modal] Close Admin Change Status Modal'
+);

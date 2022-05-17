@@ -95,6 +95,10 @@
         &.deactive {
           background-color: #FF385C;
         }
+
+        &.rejected {
+          background-color: #FF8300;
+        }
       }
 
       .statues {
@@ -107,16 +111,20 @@
           margin: 5px;
           border-radius: 5px;
 
-          &.response {
-            background-color: #ff8300;
+          &.deactive {
+            background-color: #FF385C;
           }
 
-          &.closed {
+          &.rejected {
+            background-color: #FF8300;
+          }
+
+          &.active {
             background-color: #50C394;
           }
 
-          &.issued {
-            background-color: var(--main-color);
+          &.pending {
+            background-color: #EBD016;
           }
         }
       }
