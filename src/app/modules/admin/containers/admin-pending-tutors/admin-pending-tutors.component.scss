@@ -51,40 +51,12 @@
         padding: 15px;
         border-radius: 25px;
 
-        &.active {
-          background-color: #50C394;
-        }
-
         &.pending {
-          background-color: var(--main-color);
+          background-color: #EBD016;
         }
 
         &.deactive {
-          background-color: #FF8300;
-        }
-      }
-
-      .statues {
-        border-radius: 5px;
-        overflow: hidden;
-
-        li {
-          padding: 5px 10px;
-          color: #FFF;
-          margin: 5px;
-          border-radius: 5px;
-
-          &.response {
-            background-color: #ff8300;
-          }
-
-          &.closed {
-            background-color: #50C394;
-          }
-
-          &.issued {
-            background-color: var(--main-color);
-          }
+          background-color: #FF0404;
         }
       }
     }

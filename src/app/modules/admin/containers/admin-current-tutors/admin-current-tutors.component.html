@@ -1,4 +1,4 @@
-<div class="tutors-list" *ngLet="(tutors$ | async) as tutors">
+<div class="tutors-list">
   <div class="row filters">
     <div class="col-md-6 d-flex align-items-center">
       <h1>Current Teachers</h1>
@@ -24,7 +24,7 @@
 
   <div class="row mt-2">
     <div class="col-md-12">
-      <mat-tab-group mat-align-tabs="start" [selectedIndex]="selectedIndex">
+      <mat-tab-group mat-align-tabs="start" [selectedIndex]="selectedIndex" (selectedTabChange)="onChangeTab($event)">
         <mat-tab label="All">
           <ng-container [ngSwitch]="isLoading$ | async">
             <div class="mt-4" *ngSwitchCase="true">
@@ -127,21 +127,23 @@
                 </div>
               </div>
 
-              <div class="table-responsive">
+              <div class="table-responsive" *ngLet="(tutors$ | async) as tutors">
                 <table class="table my-table default-title mt-4">
                   <tr>
                     <th>Number</th>
                     <th>TIN</th>
                     <th>Teacher Name</th>
                     <th>Gender</th>
+                    <th>Bookings</th>
+                    <th>Amount</th>
+                    <th>Joining Date</th>
+                    <!-- <th>Course ID / Hourly Rate</th> -->
                     <th>Work Contract</th>
-                    <th>Country</th>
-                    <th>Level of Education</th>
                     <th>Status</th>
                     <th>Action</th>
                   </tr>
                   <tr *ngIf="!tutors || !tutors.length">
-                    <td colspan="9">
+                    <td colspan="10">
                       <div class="text-center">No records found</div>
                     </td>
                   </tr>
@@ -158,6 +160,17 @@
                       </div>
                     </td>
                     <td class="text-capitalize">{{ tutor?.gender }}</td>
+                    <td class="text-capitalize">{{ tutor?.bookings }}</td>
+                    <td class="text-capitalize">{{ tutor?.amount | currency }}</td>
+                    <td class="text-capitalize">{{ tutor?.createdAt | date }}</td>
+                    <!-- <td class="text-capitalize tutor-subject">
+                      <ng-container *ngFor="let subject of tutor?.subjects; let isLast = last; let i = index">
+                        <div *ngIf="i < 3">
+                          {{ 'CID' + subject?.id }} <span>({{ subject?.pricePerHour | currency }})</span>
+                          <ng-container *ngIf="!isLast">, </ng-container>
+                        </div>
+                      </ng-container>
+                    </td> -->
                     <td class="text-capitalize tutor-date">
                       <div>
                         <span>From</span> {{ tutor?.specifications?.availabilityStartDate }}
@@ -166,24 +179,21 @@
                         <span>To</span> {{ tutor?.specifications?.availabilityEndDate }}
                       </div>
                     </td>
-                    <td>{{ tutor?.country?.name }}</td>
-                    <td>{{ tutor?.qualifications?.degreeLevel }}</td>
                     <td>
                       <div dropdown class="change-status position-relative d-flex">
                         <button dropdownToggle class="status text-capitalize" mat-button [ngClass]="{
-                        'active': interviewStatus.approved === tutor?.adminApproval,
-                        'pending': interviewStatus.pending === tutor?.adminApproval,
-                        'deactive': interviewStatus.rejected === tutor?.adminApproval
-                     }">
-                          {{ tutor?.adminApproval === 'approved' ? 'Active' : tutor?.adminApproval }}
+                          'active': tutorStatus.active === tutor?.status,
+                          'deactive': tutorStatus.deactive === tutor?.status
+                        }">
+                          {{ tutor?.status }}
                         </button>
                         <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
                           <li role="menuitem" class="cursor-pointer text-capitalize"
                             *ngFor="let status of tutorStatuses" [ngClass]="{
-                          'closed': interviewStatus.approved === status,
-                          'issued': interviewStatus.pending === status,
-                          'response': interviewStatus.rejected === status
-                        }">
+                            'active': tutorStatus.active === status,
+                            'deactive': tutorStatus.deactive === status,
+                            'pending': tutorStatus.pending === status
+                          }">
                             {{ status }}
                           </li>
                         </ul>
@@ -279,21 +289,23 @@
                 </div>
               </div>
 
-              <div class="table-responsive">
+              <div class="table-responsive" *ngLet="(activeTutors$ | async) as tutors">
                 <table class="table my-table default-title mt-4">
                   <tr>
                     <th>Number</th>
                     <th>TIN</th>
                     <th>Teacher Name</th>
                     <th>Gender</th>
+                    <th>Bookings</th>
+                    <th>Amount</th>
+                    <th>Joining Date</th>
+                    <!-- <th>Course ID / Hourly Rate</th> -->
                     <th>Work Contract</th>
-                    <th>Country</th>
-                    <th>Level of Education</th>
                     <th>Status</th>
                     <th>Action</th>
                   </tr>
                   <tr *ngIf="!tutors || !tutors.length">
-                    <td colspan="9">
+                    <td colspan="10">
                       <div class="text-center">No records found</div>
                     </td>
                   </tr>
@@ -310,6 +322,17 @@
                       </div>
                     </td>
                     <td class="text-capitalize">{{ tutor?.gender }}</td>
+                    <td class="text-capitalize">{{ tutor?.bookings }}</td>
+                    <td class="text-capitalize">{{ tutor?.amount | currency }}</td>
+                    <td class="text-capitalize">{{ tutor?.createdAt | date }}</td>
+                    <!-- <td class="text-capitalize tutor-subject">
+                      <ng-container *ngFor="let subject of tutor?.subjects; let isLast = last; let i = index">
+                        <div *ngIf="i < 3">
+                          {{ 'CID' + subject?.id }} <span>({{ subject?.pricePerHour | currency }})</span>
+                          <ng-container *ngIf="!isLast">, </ng-container>
+                        </div>
+                      </ng-container>
+                    </td> -->
                     <td class="text-capitalize tutor-date">
                       <div>
                         <span>From</span> {{ tutor?.specifications?.availabilityStartDate }}
@@ -318,24 +341,21 @@
                         <span>To</span> {{ tutor?.specifications?.availabilityEndDate }}
                       </div>
                     </td>
-                    <td>{{ tutor?.country?.name }}</td>
-                    <td>{{ tutor?.qualifications?.degreeLevel }}</td>
                     <td>
                       <div dropdown class="change-status position-relative d-flex">
                         <button dropdownToggle class="status text-capitalize" mat-button [ngClass]="{
-                        'active': interviewStatus.approved === tutor?.adminApproval,
-                        'pending': interviewStatus.pending === tutor?.adminApproval,
-                        'deactive': interviewStatus.rejected === tutor?.adminApproval
-                     }">
-                          {{ tutor?.adminApproval === 'approved' ? 'Active' : tutor?.adminApproval }}
+                          'active': tutorStatus.active === tutor?.status,
+                          'deactive': tutorStatus.deactive === tutor?.status
+                        }">
+                          {{ tutor?.status }}
                         </button>
                         <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
                           <li role="menuitem" class="cursor-pointer text-capitalize"
                             *ngFor="let status of tutorStatuses" [ngClass]="{
-                          'closed': interviewStatus.approved === status,
-                          'issued': interviewStatus.pending === status,
-                          'response': interviewStatus.rejected === status
-                        }">
+                            'active': tutorStatus.active === status,
+                            'deactive': tutorStatus.deactive === status,
+                            'pending': tutorStatus.pending === status
+                          }">
                             {{ status }}
                           </li>
                         </ul>
@@ -358,77 +378,88 @@
               <metutors-grid-placeholder></metutors-grid-placeholder>
             </div>
 
-            <div class="table-responsive">
-              <table class="table my-table default-title mt-4" *ngSwitchCase="false">
-                <tr>
-                  <th>Number</th>
-                  <th>TIN</th>
-                  <th>Teacher Name</th>
-                  <th>Gender</th>
-                  <th>Work Contract</th>
-                  <th>Country</th>
-                  <th>Level of Education</th>
-                  <th>Status</th>
-                  <th>Action</th>
-                </tr>
-                <tr *ngIf="!tutors || !tutors.length">
-                  <td colspan="9">
-                    <div class="text-center">No records found</div>
-                  </td>
-                </tr>
-                <tr *ngFor="let tutor of tutors; let i = index">
-                  <td>{{ i + 1 }}</td>
-                  <td>{{ tutor?.idNumber }}</td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <img [src]="tutor?.avatar" width="25" height="25" class="rounded-circle p-0 me-2"
-                        draggable="false" meTutorsDefaultAvatar alt="">
-                      <span>
-                        <bdi>{{ tutor?.name }}</bdi>
-                      </span>
-                    </div>
-                  </td>
-                  <td class="text-capitalize">{{ tutor?.gender }}</td>
-                  <td class="text-capitalize tutor-date">
-                    <div>
-                      <span>From</span> {{ tutor?.specifications?.availabilityStartDate }}
-                    </div>
-                    <div>
-                      <span>To</span> {{ tutor?.specifications?.availabilityEndDate }}
-                    </div>
-                  </td>
-                  <td>{{ tutor?.country?.name }}</td>
-                  <td>{{ tutor?.qualifications?.degreeLevel }}</td>
-                  <td>
-                    <div dropdown class="change-status position-relative d-flex">
-                      <button dropdownToggle class="status text-capitalize" mat-button [ngClass]="{
-                        'active': interviewStatus.approved === tutor?.adminApproval,
-                        'pending': interviewStatus.pending === tutor?.adminApproval,
-                        'deactive': interviewStatus.rejected === tutor?.adminApproval
-                     }">
-                        {{ tutor?.staus }}
-                        <!-- {{ tutor?.adminApproval === 'approved' ? 'Active' : tutor?.adminApproval }} -->
-                      </button>
-                      <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
-                        <li role="menuitem" class="cursor-pointer text-capitalize" *ngFor="let status of tutorStatuses"
-                          [ngClass]="{
-                          'closed': interviewStatus.approved === status,
-                          'issued': interviewStatus.pending === status,
-                          'response': interviewStatus.rejected === status
+            <ng-container *ngSwitchCase="false">
+              <div class="table-responsive" *ngLet="(inActiveTutors$ | async) as tutors">
+                <table class="table my-table default-title mt-4">
+                  <tr>
+                    <th>Number</th>
+                    <th>TIN</th>
+                    <th>Teacher Name</th>
+                    <th>Gender</th>
+                    <th>Bookings</th>
+                    <th>Amount</th>
+                    <th>Joining Date</th>
+                    <!-- <th>Course ID / Hourly Rate</th> -->
+                    <th>Work Contract</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                  <tr *ngIf="!tutors || !tutors.length">
+                    <td colspan="10">
+                      <div class="text-center">No records found</div>
+                    </td>
+                  </tr>
+                  <tr *ngFor="let tutor of tutors; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ tutor?.idNumber }}</td>
+                    <td>
+                      <div class="d-flex align-items-center">
+                        <img [src]="tutor?.avatar" width="25" height="25" class="rounded-circle p-0 me-2"
+                          draggable="false" meTutorsDefaultAvatar alt="">
+                        <span>
+                          <bdi>{{ tutor?.name }}</bdi>
+                        </span>
+                      </div>
+                    </td>
+                    <td class="text-capitalize">{{ tutor?.gender }}</td>
+                    <td class="text-capitalize">{{ tutor?.bookings }}</td>
+                    <td class="text-capitalize">{{ tutor?.amount | currency }}</td>
+                    <td class="text-capitalize">{{ tutor?.createdAt | date }}</td>
+                    <!-- <td class="text-capitalize tutor-subject">
+                    <ng-container *ngFor="let subject of tutor?.subjects; let isLast = last; let i = index">
+                      <div *ngIf="i < 3">
+                        {{ 'CID' + subject?.id }} <span>({{ subject?.pricePerHour | currency }})</span>
+                        <ng-container *ngIf="!isLast">, </ng-container>
+                      </div>
+                    </ng-container>
+                  </td> -->
+                    <td class="text-capitalize tutor-date">
+                      <div>
+                        <span>From</span> {{ tutor?.specifications?.availabilityStartDate }}
+                      </div>
+                      <div>
+                        <span>To</span> {{ tutor?.specifications?.availabilityEndDate }}
+                      </div>
+                    </td>
+                    <td>
+                      <div dropdown class="change-status position-relative d-flex">
+                        <button dropdownToggle class="status text-capitalize" mat-button [ngClass]="{
+                        'active': tutorStatus.active === tutor?.status,
+                        'deactive': tutorStatus.deactive === tutor?.status
+                      }">
+                          {{ tutor?.status }}
+                        </button>
+                        <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
+                          <li role="menuitem" class="cursor-pointer text-capitalize"
+                            *ngFor="let status of tutorStatuses" [ngClass]="{
+                          'active': tutorStatus.active === status,
+                          'deactive': tutorStatus.deactive === status,
+                          'pending': tutorStatus.pending === status
                         }">
-                          {{ status }}
-                        </li>
-                      </ul>
-                    </div>
-                  </td>
-                  <td>
-                    <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0" (click)="selectedTutor = tutor">
-                      <mat-icon>more_vert</mat-icon>
-                    </button>
-                  </td>
-                </tr>
-              </table>
-            </div>
+                            {{ status }}
+                          </li>
+                        </ul>
+                      </div>
+                    </td>
+                    <td>
+                      <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0" (click)="selectedTutor = tutor">
+                        <mat-icon>more_vert</mat-icon>
+                      </button>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </ng-container>
           </ng-container>
         </mat-tab>
       </mat-tab-group>

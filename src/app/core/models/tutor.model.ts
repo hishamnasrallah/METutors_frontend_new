@@ -55,6 +55,8 @@ export class ITutor {
   feedbacks?: any[];
   feedbackRating?: any;
   badges?: any[];
+  bookings?: number;
+  amount?: number;
 
   constructor(createDefault = false, tutor: any = null) {
     if (createDefault) {
@@ -101,6 +103,8 @@ export class ITutor {
       this.onTimeRating = 0;
       this.feedbackRating = undefined;
       this.badges = [];
+      this.bookings = 0;
+      this.amount = 0;
     }
 
     if (tutor) {
@@ -171,11 +175,6 @@ export class ITutor {
       this.complexityRating = tutor?.complexity_rating;
       this.skillfullRating = tutor?.skillfull_rating;
       this.onTimeRating = tutor?.onTime_rating;
-      /**
-       * sortTutorFeedbacks(
-              camelcaseKeys(tutor?.teacher_feedbacks, { deep: true })
-            )
-       */
       this.feedbacks =
         tutor?.teacher_feedbacks && tutor?.teacher_feedbacks.length
           ? tutor?.teacher_feedbacks.map(
@@ -184,12 +183,15 @@ export class ITutor {
           : [];
       this.feedbackRating = tutor?.feedback_rating;
       this.badges = tutor?.badges || [];
+      this.bookings = tutor?.bookings;
+      this.amount = tutor?.amount;
     }
   }
 }
 
 export interface ITutorFilters {
   name: string;
+  status?: string;
 }
 
 export function sortSubjects(subjects?: ISubject[]): any[] {

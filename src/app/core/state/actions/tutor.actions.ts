@@ -106,7 +106,11 @@ export const loadPendingTutors = createAction('[Tutor] Load Pending Tutors');
 
 export const loadPendingTutorsSuccess = createAction(
   '[Tutor] Load Pending Tutors Success',
-  props<{ pendingTutors: ITutor[] }>()
+  props<{
+    pendingTutors: ITutor[];
+    rejectedTutors: ITutor[];
+    tutorsCounts: any;
+  }>()
 );
 
 export const loadPendingTutorsFailure = createAction(

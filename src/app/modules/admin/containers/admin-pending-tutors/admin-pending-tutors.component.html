@@ -1,4 +1,4 @@
-<div class="tutors-list" *ngLet="(tutors$ | async) as tutors">
+<div class="tutors-list">
   <div class="row filters">
     <div class="col-md-6 d-flex align-items-center">
       <h1>Pending Teachers</h1>
@@ -23,130 +23,130 @@
   </div>
 
   <div class="row mt-2">
-    <div class="col-md-12">
-      <mat-tab-group mat-align-tabs="start">
-        <mat-tab label="Pending">
+    <div class="col-md-12" *ngLet="(tutorsCounts$ | async) as counts">
+      <mat-tab-group mat-align-tabs="start" [selectedIndex]="selectedIndex" (selectedTabChange)="onChangeTab($event)">
+        <mat-tab [label]="'Pending (' + counts?.pendingCount + ')'">
           <ng-container [ngSwitch]="isLoading$ | async">
             <div class="mt-4" *ngSwitchCase="true">
               <metutors-grid-placeholder></metutors-grid-placeholder>
             </div>
 
-            <table class="table my-table default-title mt-4" *ngSwitchCase="false">
-              <tr>
-                <th>Number</th>
-                <th>TIN</th>
-                <th>Teacher Name</th>
-                <th>Gender</th>
-                <th>Work Contract</th>
-                <th>Country</th>
-                <th>Level of Education</th>
-                <th>Status</th>
-                <th>Action</th>
-              </tr>
-              <tr *ngIf="!tutors || !tutors.length">
-                <td colspan="9">
-                  <div class="text-center">No records found</div>
-                </td>
-              </tr>
-              <tr *ngFor="let tutor of tutors; let i = index">
-                <td>{{ i + 1 }}</td>
-                <td>{{ tutor?.idNumber }}</td>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <img [src]="tutor?.avatar" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
-                      meTutorsDefaultAvatar alt="">
-                    <span>
-                      <bdi>{{ tutor?.name }}</bdi>
-                    </span>
-                  </div>
-                </td>
-                <td class="text-capitalize">{{ tutor?.gender }}</td>
-                <td class="text-capitalize tutor-date">
-                  <div>
-                    <span>From</span> {{ tutor?.specifications?.availabilityStartDate }}
-                  </div>
-                  <div>
-                    <span>To</span> {{ tutor?.specifications?.availabilityEndDate }}
-                  </div>
-                </td>
-                <td>{{ tutor?.country?.name }}</td>
-                <td>{{ tutor?.qualifications?.degreeLevel }}</td>
-                <td>
-                  <div class="change-status position-relative d-flex">
-                    <button class="status text-capitalize" mat-button>
-                      Pending
+            <ng-container *ngSwitchCase="false">
+              <table class="table my-table default-title mt-4" *ngLet="(pendingTutors$ | async) as tutors">
+                <tr>
+                  <th>Number</th>
+                  <th>TIN</th>
+                  <th>Teacher Name</th>
+                  <th>Gender</th>
+                  <th>Work Contract</th>
+                  <th>Country</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+                <tr *ngIf="!tutors || !tutors.length">
+                  <td colspan="9">
+                    <div class="text-center">No records found</div>
+                  </td>
+                </tr>
+                <tr *ngFor="let tutor of tutors; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ tutor?.idNumber }}</td>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <img [src]="tutor?.avatar" width="25" height="25" class="rounded-circle p-0 me-2"
+                        draggable="false" meTutorsDefaultAvatar alt="">
+                      <span>
+                        <bdi>{{ tutor?.name }}</bdi>
+                      </span>
+                    </div>
+                  </td>
+                  <td class="text-capitalize">{{ tutor?.gender }}</td>
+                  <td class="text-capitalize tutor-date">
+                    <div>
+                      <span>From</span> {{ tutor?.specifications?.availabilityStartDate }}
+                    </div>
+                    <div>
+                      <span>To</span> {{ tutor?.specifications?.availabilityEndDate }}
+                    </div>
+                  </td>
+                  <td>{{ tutor?.country?.name }}</td>
+                  <td>{{ tutor?.createdAt | date }}</td>
+                  <td>
+                    <div class="change-status position-relative d-flex">
+                      <button class="status text-capitalize pending" mat-button>Pending</button>
+                    </div>
+                  </td>
+                  <td>
+                    <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0" (click)="selectedTutor = tutor">
+                      <mat-icon>more_vert</mat-icon>
                     </button>
-                  </div>
-                </td>
-                <td>
-                  <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0" (click)="selectedTutor = tutor">
-                    <mat-icon>more_vert</mat-icon>
-                  </button>
-                </td>
-              </tr>
-            </table>
+                  </td>
+                </tr>
+              </table>
+            </ng-container>
           </ng-container>
         </mat-tab>
-        <mat-tab label="Rejected">
+        <mat-tab [label]="'Rejected (' + counts?.rejectedCount + ')'">
           <ng-container [ngSwitch]="isLoading$ | async">
             <div class="mt-4" *ngSwitchCase="true">
               <metutors-grid-placeholder></metutors-grid-placeholder>
             </div>
 
-            <table class="table my-table default-title mt-4" *ngSwitchCase="false">
-              <tr>
-                <th>Number</th>
-                <th>TIN</th>
-                <th>Teacher Name</th>
-                <th>Gender</th>
-                <th>Work Contract</th>
-                <th>Country</th>
-                <th>Level of Education</th>
-                <th>Status</th>
-                <th>Action</th>
-              </tr>
-              <tr *ngIf="!tutors || !tutors.length">
-                <td colspan="9">
-                  <div class="text-center">No records found</div>
-                </td>
-              </tr>
-              <tr *ngFor="let tutor of tutors; let i = index">
-                <td>{{ i + 1 }}</td>
-                <td>{{ tutor?.idNumber }}</td>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <img [src]="tutor?.avatar" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
-                      meTutorsDefaultAvatar alt="">
-                    <span>
-                      <bdi>{{ tutor?.name }}</bdi>
-                    </span>
-                  </div>
-                </td>
-                <td class="text-capitalize">{{ tutor?.gender }}</td>
-                <td class="text-capitalize tutor-date">
-                  <div>
-                    <span>From</span> {{ tutor?.specifications?.availabilityStartDate }}
-                  </div>
-                  <div>
-                    <span>To</span> {{ tutor?.specifications?.availabilityEndDate }}
-                  </div>
-                </td>
-                <td>{{ tutor?.country?.name }}</td>
-                <td>{{ tutor?.qualifications?.degreeLevel }}</td>
-                <td>
-                  <div class="change-status position-relative d-flex">
-                    <button class="status text-capitalize" mat-button>
-                      Rejected
+            <ng-container *ngSwitchCase="false">
+              <table class="table my-table default-title mt-4" *ngLet="(rejectedTutors$ | async) as tutors">
+                <tr>
+                  <th>Number</th>
+                  <th>TIN</th>
+                  <th>Teacher Name</th>
+                  <th>Gender</th>
+                  <th>Work Contract</th>
+                  <th>Country</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+                <tr *ngIf="!tutors || !tutors.length">
+                  <td colspan="9">
+                    <div class="text-center">No records found</div>
+                  </td>
+                </tr>
+                <tr *ngFor="let tutor of tutors; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ tutor?.idNumber }}</td>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <img [src]="tutor?.avatar" width="25" height="25" class="rounded-circle p-0 me-2"
+                        draggable="false" meTutorsDefaultAvatar alt="">
+                      <span>
+                        <bdi>{{ tutor?.name }}</bdi>
+                      </span>
+                    </div>
+                  </td>
+                  <td class="text-capitalize">{{ tutor?.gender }}</td>
+                  <td class="text-capitalize tutor-date">
+                    <div>
+                      <span>From</span> {{ tutor?.specifications?.availabilityStartDate }}
+                    </div>
+                    <div>
+                      <span>To</span> {{ tutor?.specifications?.availabilityEndDate }}
+                    </div>
+                  </td>
+                  <td>{{ tutor?.country?.name }}</td>
+                  <td>{{ tutor?.createdat | date }}</td>
+                  <td>
+                    <div class="change-status position-relative d-flex">
+                      <button class="status text-capitalize deactive" mat-button>Rejected</button>
+                    </div>
+                  </td>
+                  <td>
+                    <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0" (click)="selectedTutor = tutor">
+                      <mat-icon>more_vert</mat-icon>
                     </button>
-                  </div>
-                </td>
-                <td>
-                  <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0" (click)="selectedTutor = tutor">
-                    <mat-icon>more_vert</mat-icon>
-                  </button>
-                </td>
-              </tr>
-            </table>
+                  </td>
+                </tr>
+              </table>
+            </ng-container>
           </ng-container>
         </mat-tab>
       </mat-tab-group>
