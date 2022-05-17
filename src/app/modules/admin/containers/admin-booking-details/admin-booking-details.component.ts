@@ -18,6 +18,7 @@ export class AdminBookingDetailsComponent implements OnInit {
   previousTutors$: Observable<any>;
   availableTutors$: Observable<any>;
   tutorAvailability$: Observable<any>;
+  reassigningTutor$: Observable<boolean>;
   isLoadingFeedback$: Observable<boolean>;
   isLoadingPreviousTutors$: Observable<boolean>;
   isLoadingAvailableTutors$: Observable<boolean>;
@@ -75,6 +76,10 @@ export class AdminBookingDetailsComponent implements OnInit {
       fromCore.selectIsLoadingTutorAvailability
     );
 
+    this.reassigningTutor$ = this._store.select(
+      fromCore.selectIsReassigningTutor
+    );
+
     this.view$ = combineLatest([
       this._store.select(fromCore.selectAdminBookingDetail),
       this._store.select(fromCore.selectIsLoadingAdminBookingDetail),
@@ -114,5 +119,10 @@ export class AdminBookingDetailsComponent implements OnInit {
 
   onTutorAvailability(id: number): void {
     this._store.dispatch(fromCore.loadTutorAvailability({ id }));
+  }
+
+  onReassignTutor(teacher_id: any): void {
+    const body = { teacher_id };
+    this._store.dispatch(fromCore.studentReassignTutor({ body }));
   }
 }

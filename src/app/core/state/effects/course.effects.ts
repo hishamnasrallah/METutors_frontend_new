@@ -260,10 +260,10 @@ export class CourseEffects {
       withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
       mergeMap(([{ body }, { id }]) =>
         this._courseService.studentReassignTutor(body, id).pipe(
-          map(() =>
+          map(({ message }) =>
             courseActions.studentReassignTutorSuccess({
               status: CourseStatus.pending,
-              message: 'Tutor re-assigned successfully',
+              message,
             })
           ),
           catchError((error) =>

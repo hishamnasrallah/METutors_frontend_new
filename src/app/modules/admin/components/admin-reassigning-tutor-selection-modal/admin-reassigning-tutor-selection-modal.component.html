@@ -32,7 +32,8 @@
                         </h2>
                         <h3 class="mb-0">University of Canada</h3>
                       </div>
-                      <a class="col-md-2 full-profile availability cursor-pointer" (click)="onViewAvailability(tutor.id)">
+                      <a class="col-md-2 full-profile availability cursor-pointer"
+                         (click)="onViewAvailability(tutor.id)">
                         Tutor Availability
                       </a>
                       <div class="col-md-3 d-flex flex-column justify-content-end">
@@ -51,8 +52,9 @@
 
             <div class="row mt-5">
               <div class="col-12 overflow-hidden info">
-                <button mat-flat-button color="primary" class="float-end" type="submit" [disabled]="!tutorId">
-                  Submit
+                <button mat-flat-button color="primary" class="float-end" type="button" [disabled]="!tutorId || isReassigningTutor"
+                        (click)="reassignTutor.emit(tutorId)">
+                  Re-Assign
                 </button>
               </div>
             </div>

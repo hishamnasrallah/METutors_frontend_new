@@ -10,9 +10,11 @@ export class AdminReassigningTutorSelectionModalComponent implements OnInit {
   @Input() timeSlots: any;
   @Input() loading = false;
   @Input() showModal = false;
+  @Input() isReassigningTutor = false;
   @Input() isLoadingTimeSlots: boolean;
 
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
+  @Output() reassignTutor: EventEmitter<any> = new EventEmitter<any>();
   @Output() tutorAvailability: EventEmitter<number> =
     new EventEmitter<number>();
 

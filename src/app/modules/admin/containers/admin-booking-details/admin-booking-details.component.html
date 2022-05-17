@@ -223,6 +223,8 @@
 </metutors-admin-previous-teachers-modal>
 
 <metutors-admin-reassigning-tutor-selection-modal *ngIf="showReassigningTutorSelectionModal$ | async"
+                                                  (reassignTutor)="onReassignTutor($event)"
+                                                  [isReassigningTutor]="(reassigningTutor$ | async)!"
                                                   (closeModal)="onCloseReassigningTutorSelectionModal()"
                                                   (tutorAvailability)="onTutorAvailability($event)"
                                                   [tutors]="(availableTutors$ | async)!"
