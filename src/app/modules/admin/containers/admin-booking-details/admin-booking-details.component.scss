@@ -16,10 +16,28 @@
           font-size: 15px;
         }
 
-        button {
-          background-color: #50C394;
-          color: #FFF;
+        button.status {
           border-radius: 20px;
+
+         &.completed {
+           color: #FFF;
+           background-color: #50C394;
+         }
+
+          &.pending {
+            background-color: #f8e3cc;
+            color: #c98843;
+          }
+
+          &.inprogress,, &.active {
+            color: #5955cd;
+            background-color: #e1e0fe;
+          }
+
+          &.canceled, &.rejected, &.requested, &.cancelled_by_student,&.cancelled_by_teacher, &.requested_to_metutors {
+            color: #d34c65;
+            background-color: #f9d3da;
+          }
         }
       }
 

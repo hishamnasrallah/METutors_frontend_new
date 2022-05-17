@@ -3,6 +3,7 @@ import { Observable, combineLatest, map } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 
 import { environment } from '@environment';
+import { courseStatusLabel } from '@config';
 import * as fromCore from '@metutor/core/state';
 import * as fromAdmin from '@metutor/modules/admin/state';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
@@ -22,6 +23,7 @@ export class AdminBookingDetailsComponent implements OnInit {
   showReassigningTutorSelectionModal$: Observable<boolean>;
   view$: Observable<{ loading: boolean; bookingDetail: any }>;
 
+  statusLabel = courseStatusLabel;
   imageURL = environment.imageURL;
 
   constructor(private _store: Store<any>) {}

@@ -233,3 +233,16 @@ export const WEEK_DAYS_LONG: any = {
   Friday: 6,
   Saturday: 7,
 };
+
+export const courseStatusLabel = {
+  active: 'Active',
+  pending: 'Pending',
+  rejected: 'Rejected',
+  canceled: 'Canceled',
+  requested: 'Requested',
+  completed: 'Completed',
+  inprogress: 'InProgress',
+  cancelledByStudent: 'Cancelled By Student',
+  cancelledByTeacher: 'Cancelled By Teacher',
+  requestedToMetutors: 'Requested To Metutors',
+};
