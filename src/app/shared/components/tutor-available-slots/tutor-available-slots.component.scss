@@ -1,0 +1,17 @@
+.time-box {
+  display: flex;
+  flex-wrap: wrap;
+
+  .slot {
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin: 0 10px 10px 0;
+    border: 1px solid #97979742;
+
+    &.active {
+      color: white;
+      background-color: var(--main-color);
+    }
+  }
+}

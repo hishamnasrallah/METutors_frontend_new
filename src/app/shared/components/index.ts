@@ -8,5 +8,6 @@ export * from './grid-placeholder';
 export * from './uploaded-files-list';
 export * from './support-ticket-card';
 export * from './file-upload-progress';
+export * from './tutor-available-slots';
 export * from './course-item-horizental';
 export * from './classroom-item-horizental';
