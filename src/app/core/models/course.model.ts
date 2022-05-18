@@ -36,6 +36,7 @@ export class ICourse {
   tutor?: ITutor;
   student?: IStudent;
   createdAt?: string;
+  cancelledBy?: string;
 
   constructor(createDefault = false, course: any = null) {
     if (createDefault) {
@@ -66,6 +67,7 @@ export class ICourse {
       this.tutor = undefined;
       this.student = undefined;
       this.createdAt = '';
+      this.cancelledBy = '';
     }
 
     if (course) {
@@ -96,6 +98,7 @@ export class ICourse {
       this.tutor = new ITutor(false, course?.teacher);
       this.student = new IStudent(false, course?.student);
       this.createdAt = course?.created_at;
+      this.cancelledBy = course?.cancelled_by;
     }
   }
 }

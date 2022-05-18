@@ -1214,6 +1214,21 @@ export const selectCancelledBookings = createSelector(
   fromAdminReducer.selectCancelledBookings
 );
 
+export const selectStudentCancelledBookings = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectStudentCancelledBookings
+);
+
+export const selectAdminCancelledBookings = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectAdminCancelledBookings
+);
+
+export const selectTeacherCancelledBookings = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectTeacherCancelledBookings
+);
+
 export const selectIsLoadingRunningBookings = createSelector(
   selectAdminState,
   fromAdminReducer.selectIsLoadingRunningBookings

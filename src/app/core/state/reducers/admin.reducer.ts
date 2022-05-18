@@ -8,6 +8,7 @@ import {
   ITeacherDocument,
 } from '@models';
 import * as adminActions from '../actions/admin.actions';
+import { CourseStatus } from '@metutor/config';
 
 export interface State {
   tutors: ITutor[];
@@ -448,3 +449,18 @@ const getFilteredWorkforceCapacity = (
 
   return workforceCapacity;
 };
+
+export const selectStudentCancelledBookings = (state: State): ICourse[] =>
+  state.cancelledBookings.filter(
+    (booking) => booking.cancelledBy === CourseStatus.studentCancelled
+  );
+
+export const selectAdminCancelledBookings = (state: State): ICourse[] =>
+  state.cancelledBookings.filter(
+    (booking) => booking.cancelledBy === CourseStatus.adminCancelled
+  );
+
+export const selectTeacherCancelledBookings = (state: State): ICourse[] =>
+  state.cancelledBookings.filter(
+    (booking) => booking.cancelledBy === CourseStatus.teacherCancelled
+  );

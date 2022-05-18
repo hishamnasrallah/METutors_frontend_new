@@ -1,4 +1,4 @@
-<div class="tutors-list" *ngLet="(cancelledBookings$ | async) as bookings">
+<div class="tutors-list">
   <div class="row filters">
     <div class="col-md-6 d-flex align-items-center">
       <h1>Cancelled Bookings</h1>
@@ -25,7 +25,7 @@
   <div class="row mt-2">
     <div class="col-md-12">
       <mat-tab-group mat-align-tabs="start">
-        <mat-tab label="All">
+        <mat-tab label="All" *ngLet="(cancelledBookings$ | async) as bookings">
           <ng-container [ngSwitch]="isLoading$ | async">
             <div class="mt-4" *ngSwitchCase="true">
               <metutors-grid-placeholder></metutors-grid-placeholder>
@@ -203,7 +203,7 @@
             </ng-container>
           </ng-container>
         </mat-tab>
-        <mat-tab label="By Teacher">
+        <mat-tab label="By Teacher" *ngLet="(teacherCancelledBookings$ | async) as bookings">
           <ng-container [ngSwitch]="isLoading$ | async">
             <div class="mt-4" *ngSwitchCase="true">
               <metutors-grid-placeholder></metutors-grid-placeholder>
@@ -285,7 +285,7 @@
             </table>
           </ng-container>
         </mat-tab>
-        <mat-tab label="By Student">
+        <mat-tab label="By Student" *ngLet="(studentCancelledBookings$ | async) as bookings">
           <ng-container [ngSwitch]="isLoading$ | async">
             <div class="mt-4" *ngSwitchCase="true">
               <metutors-grid-placeholder></metutors-grid-placeholder>
@@ -367,7 +367,7 @@
             </table>
           </ng-container>
         </mat-tab>
-        <mat-tab label="By Admin">
+        <mat-tab label="By Admin" *ngLet="(adminCancelledBookings$ | async) as bookings">
           <ng-container [ngSwitch]="isLoading$ | async">
             <div class="mt-4" *ngSwitchCase="true">
               <metutors-grid-placeholder></metutors-grid-placeholder>

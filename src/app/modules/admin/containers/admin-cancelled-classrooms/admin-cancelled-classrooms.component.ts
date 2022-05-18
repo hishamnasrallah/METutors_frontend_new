@@ -14,6 +14,9 @@ export class AdminCancelledClassroomsComponent implements OnInit {
   bookingsCounts$: Observable<any>;
   isLoading$: Observable<boolean>;
   cancelledBookings$: Observable<ICourse[] | null>;
+  adminCancelledBookings$: Observable<ICourse[] | null>;
+  teacherCancelledBookings$: Observable<ICourse[] | null>;
+  studentCancelledBookings$: Observable<ICourse[] | null>;
 
   name: string;
   courseStatus = CourseStatus;
@@ -41,6 +44,15 @@ export class AdminCancelledClassroomsComponent implements OnInit {
     this.bookingsCounts$ = this._store.select(fromCore.selectBookingsCounts);
     this.cancelledBookings$ = this._store.select(
       fromCore.selectCancelledBookings
+    );
+    this.adminCancelledBookings$ = this._store.select(
+      fromCore.selectAdminCancelledBookings
+    );
+    this.teacherCancelledBookings$ = this._store.select(
+      fromCore.selectTeacherCancelledBookings
+    );
+    this.studentCancelledBookings$ = this._store.select(
+      fromCore.selectStudentCancelledBookings
     );
     this.isLoading$ = this._store.select(
       fromCore.selectIsLoadingCancelledBookings
