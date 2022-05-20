@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
 import { AdminAuthGuard } from '@metutor/core/guards';
+import { RouterModule, Routes } from '@angular/router';
 
 import {
   AdminComponent,
@@ -158,8 +158,8 @@ const routes: Routes = [
         component: AdminStudentListComponent,
         data: {
           layout: {
-            title: 'Student List - Metutors',
-            navbarTitle: 'Student list',
+            title: 'Students - Metutors',
+            navbarTitle: 'Students',
             showHeader: false,
             showFooter: false,
           },

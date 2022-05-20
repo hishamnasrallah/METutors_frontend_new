@@ -71,8 +71,8 @@
         </li>
       </ul>
     </li>
-    <li class="d-flex align-items-center">
-      <a routerLink="/admin/student" routerLinkActive="active">
+    <li class="d-flex flex-column">
+      <a routerLink="/admin/student" routerLinkActive="active" (click)="openStudent = !openStudent">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="20" viewBox="0 0 18.299 22.189">
           <g id="Student" transform="translate(-207.908 -162.894)">
             <path id="Path_342" data-name="Path 342"
@@ -90,7 +90,16 @@
           </g>
         </svg>
         <span class="text-uppercase hide-sidemenu">Students</span>
+        <img src="assets/svg/chevron-down.svg" class="float-end" [class.rotate-180]="openStudent" draggable="false"
+          width="30px" height="30" alt="" />
       </a>
+      <ul class="list-unstyled" [@slideInOut] *ngIf="openStudent">
+        <li class="d-flex align-items-center">
+          <a routerLink="/admin/student" routerLinkActive="active">
+            <span class="text-uppercase hide-sidemenu">All Students</span>
+          </a>
+        </li>
+      </ul>
     </li>
     <li class="d-flex flex-column">
       <a routerLinkActive="active" routerLink="/admin/classrooms" class="cursor-pointer"
