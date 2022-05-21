@@ -12,6 +12,8 @@ export class AdminStudentTotalBookingModalComponent implements OnInit {
 
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
 
+  rate = 4;
+
   constructor() {}
 
   ngOnInit(): void {}

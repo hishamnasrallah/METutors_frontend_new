@@ -123,6 +123,11 @@ button:hover {
   z-index: 9999 !important;
 }
 
+.total-bookings .heading .progress-spinner svg {
+  width: 50px !important;
+  height: 50px !important;
+}
+
 .mat-chip.mat-standard-chip {
   background: #FFF;
   border: 1px solid #e2e2e2;
