@@ -20,6 +20,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 import * as fromAdmin from './state';
 import { StoreModule } from '@ngrx/store';
@@ -137,8 +138,9 @@ import {
     MatNativeDateModule,
     MatProgressBarModule,
     RatingModule.forRoot(),
-    NgxMaterialTimepickerModule,
+    MatProgressSpinnerModule,
     BsDropdownModule.forRoot(),
+    NgxMaterialTimepickerModule,
     EffectsModule.forFeature(Object.values(adminEffects)),
     StoreModule.forFeature(featureKeys.adminFeatureKey, fromAdmin.reducers),
   ],
