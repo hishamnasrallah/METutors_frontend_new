@@ -1293,3 +1293,13 @@ export const selectAdminStudentTotalBooking = createSelector(
   selectAdminState,
   fromAdminReducer.selectAdminStudentTotalBooking
 );
+
+export const selectAdminStudentAssignmentSummary = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectAdminStudentAssignmentSummary
+);
+
+export const selectIsLoadingStudentAssignmentSummary = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectIsLoadingStudentAssignmentSummary
+);

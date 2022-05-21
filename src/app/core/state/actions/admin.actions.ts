@@ -256,3 +256,17 @@ export const loadAdminStudentBookingDetailFailure = createAction(
   '[Admin] Load Admin Student Booking Detail Failure',
   props<{ error: any }>()
 );
+
+export const loadAdminStudentAssignmentSummary = createAction(
+  '[Admin] Load Admin Student Assignment Summary'
+);
+
+export const loadAdminStudentAssignmentSummarySuccess = createAction(
+  '[Admin] Load Admin Student Assignment Summary Success',
+  props<{ assignmentSummary: any }>()
+);
+
+export const loadAdminStudentAssignmentSummaryFailure = createAction(
+  '[Admin] Load Admin Student Assignment Summary Failure',
+  props<{ error: any }>()
+);

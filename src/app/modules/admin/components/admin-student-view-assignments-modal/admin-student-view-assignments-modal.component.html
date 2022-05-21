@@ -1,143 +1,152 @@
 <metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'large'"
-                [showHeader]="true"[template]="template" [heading]="'Assignment Summary'" [subHeading]="'Assignments assigned to the student'">
+                [showHeader]="true" [template]="template" [heading]="'Assignment Summary'"
+                [subHeading]="'Assignments assigned to the student'">
   <ng-template #template>
-    <div class="view-assignments">
-      <div class="heading row">
-        <div class="col-md percentage d-flex align-items-center">
-          <strong class="me-2">Assignments Accuracy</strong>
-          <div class="position-relative my-progress">
-            <mat-progress-spinner class="progress-spinner" [color]="'primary'" [mode]="'determinate'" [value]="50">
-            </mat-progress-spinner>
-            <span class="position-absolute">50%</span>
-          </div>
-        </div>
-        <div class="col-md percentage d-flex align-items-center">
-          <strong class="me-2">Assignments Completion Rate</strong>
-          <div class="position-relative my-progress">
-            <mat-progress-spinner class="progress-spinner" [color]="'primary'" [mode]="'determinate'" [value]="50">
-            </mat-progress-spinner>
-            <span class="position-absolute">50%</span>
-          </div>
-        </div>
-        <div class="col-md percentage d-flex align-items-center">
-          <strong class="me-2">Assignments By Due Date</strong>
-          <div class="position-relative my-progress">
-            <mat-progress-spinner class="progress-spinner" [color]="'primary'" [mode]="'determinate'" [value]="50">
-            </mat-progress-spinner>
-            <span class="position-absolute">50%</span>
-          </div>
-        </div>
+    <ng-container [ngSwitch]="loading">
+      <ng-container *ngSwitchCase="true">
+        <metutors-grid-placeholder></metutors-grid-placeholder>
+      </ng-container>
 
-        <button class="close-btn" mat-dialog-close="true" mat-icon-button type="button" (click)="closeModal.emit()">
-          <mat-icon>close</mat-icon>
-        </button>
-      </div>
+      <ng-container *ngSwitchCase="false">
+        <div class="view-assignments">
+          <div class="heading row">
+            <div class="col-md percentage d-flex align-items-center">
+              <strong class="me-2">Assignments Accuracy</strong>
+              <div class="position-relative my-progress">
+                <mat-progress-spinner class="progress-spinner" [color]="'primary'" [mode]="'determinate'" [value]="50">
+                </mat-progress-spinner>
+                <span class="position-absolute">50%</span>
+              </div>
+            </div>
+            <div class="col-md percentage d-flex align-items-center">
+              <strong class="me-2">Assignments Completion Rate</strong>
+              <div class="position-relative my-progress">
+                <mat-progress-spinner class="progress-spinner" [color]="'primary'" [mode]="'determinate'" [value]="50">
+                </mat-progress-spinner>
+                <span class="position-absolute">50%</span>
+              </div>
+            </div>
+            <div class="col-md percentage d-flex align-items-center">
+              <strong class="me-2">Assignments By Due Date</strong>
+              <div class="position-relative my-progress">
+                <mat-progress-spinner class="progress-spinner" [color]="'primary'" [mode]="'determinate'" [value]="50">
+                </mat-progress-spinner>
+                <span class="position-absolute">50%</span>
+              </div>
+            </div>
 
-      <div class="table-responsive table-block">
-        <table class="table my-table default-title mb-0">
-          <tr>
-            <th>Number</th>
-            <th>BIN</th>
-            <th>Title</th>
-            <th>Start Date - End Date</th>
-            <th>Teacher Name</th>
-            <th>Due Date</th>
-            <th>Status</th>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>BIN1</td>
-            <td>Numerical Equ.</td>
-            <td>Apr 10, 2022 - Apr 30, 2022</td>
-            <td>
-              <div class="d-flex align-items-center">
-                <a>
-                  <img src="" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
-                    meTutorsDefaultAvatar alt="">
-                  <span>
+            <button class="close-btn" mat-dialog-close="true" mat-icon-button type="button" (click)="closeModal.emit()">
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+
+          <div class="table-responsive table-block">
+            <table class="table my-table default-title mb-0">
+              <tr>
+                <th>Number</th>
+                <th>BIN</th>
+                <th>Title</th>
+                <th>Start Date - End Date</th>
+                <th>Teacher Name</th>
+                <th>Due Date</th>
+                <th>Status</th>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>BIN1</td>
+                <td>Numerical Equ.</td>
+                <td>Apr 10, 2022 - Apr 30, 2022</td>
+                <td>
+                  <div class="d-flex align-items-center">
+                    <a>
+                      <img src="" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
+                           meTutorsDefaultAvatar alt="">
+                      <span>
                     <bdi>Ahmed Hassan</bdi>
                   </span>
-                </a>
-              </div>
-            </td>
-            <td>Apr 30, 2022</td>
-            <td>
-              <button class="status text-capitalize accepted" mat-button>
-                Accepted
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>BIN1</td>
-            <td>Numerical Equ.</td>
-            <td>Apr 10, 2022 - Apr 30, 2022</td>
-            <td>
-              <div class="d-flex align-items-center">
-                <a>
-                  <img src="" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
-                    meTutorsDefaultAvatar alt="">
-                  <span>
+                    </a>
+                  </div>
+                </td>
+                <td>Apr 30, 2022</td>
+                <td>
+                  <button class="status text-capitalize accepted" mat-button>
+                    Accepted
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>BIN1</td>
+                <td>Numerical Equ.</td>
+                <td>Apr 10, 2022 - Apr 30, 2022</td>
+                <td>
+                  <div class="d-flex align-items-center">
+                    <a>
+                      <img src="" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
+                           meTutorsDefaultAvatar alt="">
+                      <span>
                     <bdi>Ahmed Hassan</bdi>
                   </span>
-                </a>
-              </div>
-            </td>
-            <td>Apr 30, 2022</td>
-            <td>
-              <button class="status text-capitalize pending" mat-button>
-                Pending
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>BIN1</td>
-            <td>Numerical Equ.</td>
-            <td>Apr 10, 2022 - Apr 30, 2022</td>
-            <td>
-              <div class="d-flex align-items-center">
-                <a>
-                  <img src="" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
-                    meTutorsDefaultAvatar alt="">
-                  <span>
+                    </a>
+                  </div>
+                </td>
+                <td>Apr 30, 2022</td>
+                <td>
+                  <button class="status text-capitalize pending" mat-button>
+                    Pending
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>BIN1</td>
+                <td>Numerical Equ.</td>
+                <td>Apr 10, 2022 - Apr 30, 2022</td>
+                <td>
+                  <div class="d-flex align-items-center">
+                    <a>
+                      <img src="" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
+                           meTutorsDefaultAvatar alt="">
+                      <span>
                     <bdi>Ahmed Hassan</bdi>
                   </span>
-                </a>
-              </div>
-            </td>
-            <td>Apr 30, 2022</td>
-            <td>
-              <button class="status text-capitalize rejected" mat-button>
-                Rejected
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>BIN1</td>
-            <td>Numerical Equ.</td>
-            <td>Apr 10, 2022 - Apr 30, 2022</td>
-            <td>
-              <div class="d-flex align-items-center">
-                <a>
-                  <img src="" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
-                    meTutorsDefaultAvatar alt="">
-                  <span>
+                    </a>
+                  </div>
+                </td>
+                <td>Apr 30, 2022</td>
+                <td>
+                  <button class="status text-capitalize rejected" mat-button>
+                    Rejected
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>BIN1</td>
+                <td>Numerical Equ.</td>
+                <td>Apr 10, 2022 - Apr 30, 2022</td>
+                <td>
+                  <div class="d-flex align-items-center">
+                    <a>
+                      <img src="" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
+                           meTutorsDefaultAvatar alt="">
+                      <span>
                     <bdi>Ahmed Hassan</bdi>
                   </span>
-                </a>
-              </div>
-            </td>
-            <td>Apr 30, 2022</td>
-            <td>
-              <button class="status text-capitalize overdue" mat-button>
-                Overdue
-              </button>
-            </td>
-          </tr>
-        </table>
-      </div>
-    </div>
+                    </a>
+                  </div>
+                </td>
+                <td>Apr 30, 2022</td>
+                <td>
+                  <button class="status text-capitalize overdue" mat-button>
+                    Overdue
+                  </button>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
   </ng-template>
 </metutors-modal>

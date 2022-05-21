@@ -1,6 +1,6 @@
 import { Store } from '@ngrx/store';
-import { combineLatest, map, Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
+import { combineLatest, map, Observable } from 'rxjs';
 
 import * as fromCore from '@metutor/core/state';
 import * as fromAdmin from '@metutor/modules/admin/state';
@@ -12,15 +12,17 @@ import * as fromAdminAction from '@metutor/modules/admin/state/actions';
   styleUrls: ['./admin-student-booking-detail.component.scss'],
 })
 export class AdminStudentBookingDetailComponent implements OnInit {
+  loadAssignment$: Observable<boolean>;
   showFeedbackModal$: Observable<boolean>;
+  isLoadingAssignment$: Observable<boolean>;
   showAssignmentsModal$: Observable<boolean>;
   view$: Observable<{ course: any; loading: boolean }>;
-
-  rate = 4;
 
   constructor(private _store: Store<any>) {}
 
   onOpenAssignmentsModal(): void {
+    this._store.dispatch(fromCore.loadAdminStudentAssignmentSummary());
+
     this._store.dispatch(
       fromAdminAction.openAdminStudentViewAssignmentsModal()
     );
@@ -47,6 +49,14 @@ export class AdminStudentBookingDetailComponent implements OnInit {
 
     this.showFeedbackModal$ = this._store.select(
       fromAdmin.selectAdminStudentViewFeedbackModal
+    );
+
+    this.loadAssignment$ = this._store.select(
+      fromCore.selectAdminStudentAssignmentSummary
+    );
+
+    this.isLoadingAssignment$ = this._store.select(
+      fromCore.selectIsLoadingStudentAssignmentSummary
     );
 
     this.view$ = combineLatest([

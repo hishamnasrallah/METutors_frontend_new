@@ -10,6 +10,7 @@ import {
 
 import { CourseStatus } from '@metutor/config';
 import * as adminActions from '../actions/admin.actions';
+import { loadAdminStudentAssignmentSummary } from '../actions/admin.actions';
 
 export interface State {
   tutors: ITutor[];
@@ -18,6 +19,7 @@ export interface State {
   previousTutors: [];
   bookingsCounts: any;
   studentsFeedback: [];
+  assignmentSummary: [];
   studentTotalBooking: [];
   isApprovingDoc: boolean;
   isRejectingDoc: boolean;
@@ -29,6 +31,7 @@ export interface State {
   isLoadingStudentProfile: boolean;
   isLoadingPreviousTutors: boolean;
   isLoadingStudentsFeedback: boolean;
+  isLoadingAssignmentSummary: boolean;
 
   // Loading workforce capacity
   workforceCapacity: ICapacity[];
@@ -60,6 +63,7 @@ export const initialState: State = {
   runningBookings: [],
   courseBooking: null,
   studentsFeedback: [],
+  assignmentSummary: [],
   completedBookings: [],
   cancelledBookings: [],
   isApprovingDoc: false,
@@ -79,6 +83,7 @@ export const initialState: State = {
   isLoadingWorkforceCapacity: false,
   isLoadingCompletedBookings: false,
   isLoadingCancelledBookings: false,
+  isLoadingAssignmentSummary: false,
 };
 
 export const reducer = createReducer(
@@ -412,6 +417,25 @@ export const reducer = createReducer(
   on(adminActions.loadAdminStudentTotalBookingFailure, (state) => ({
     ...state,
     isLoadingBookingDetail: false,
+  })),
+
+  on(adminActions.loadAdminStudentAssignmentSummary, (state) => ({
+    ...state,
+    isLoadingAssignmentSummary: true,
+  })),
+
+  on(
+    adminActions.loadAdminStudentAssignmentSummarySuccess,
+    (state, { assignmentSummary }) => ({
+      ...state,
+      assignmentSummary,
+      isLoadingAssignmentSummary: false,
+    })
+  ),
+
+  on(adminActions.loadAdminStudentAssignmentSummaryFailure, (state) => ({
+    ...state,
+    isLoadingAssignmentSummary: false,
   }))
 );
 
@@ -498,6 +522,13 @@ export const selectAdminStudentTotalBooking = (state: State): any =>
 
 export const selectIsLoadingAdminStudentProfile = (state: State): boolean =>
   state.isLoadingStudentProfile;
+
+export const selectAdminStudentAssignmentSummary = (state: State): any =>
+  state.assignmentSummary;
+
+export const selectIsLoadingStudentAssignmentSummary = (
+  state: State
+): boolean => state.isLoadingAssignmentSummary;
 
 export const selectFilteredWorkforceCapacity = (
   state: State,

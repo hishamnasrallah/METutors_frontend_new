@@ -151,6 +151,8 @@
 
 <metutors-admin-student-view-assignments-modal *ngIf="showAssignmentsModal$ | async"
                                                (closeModal)="onCloseModals()"
+                                               [loading]="(isLoadingAssignment$ | async)!"
+                                               [assignments]="(loadAssignment$ | async)!"
                                                [showModal]="(showAssignmentsModal$ | async)!">
 </metutors-admin-student-view-assignments-modal>
 
