@@ -1,9 +1,7 @@
 .total-bookings {
   .heading {
+    padding: 10px 0;
     background: #F8F8F8;
-    margin: -0.5rem -24px 0;
-    padding-top: 10px;
-    padding-bottom: 10px;
     border-bottom: 1px solid #EDEDED;
 
     .student-info {
@@ -70,7 +68,7 @@
   }
 
   .table-block {
-    margin: 0 -24px;
+    margin: 0 -12px;
 
     .my-table {
       overflow: visible;

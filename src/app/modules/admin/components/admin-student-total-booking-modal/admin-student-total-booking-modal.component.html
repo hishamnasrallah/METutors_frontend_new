@@ -1,5 +1,5 @@
 <metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'large'"
-                [showHeader]="false" [template]="template" [extraClasses]="'minus-padding'">
+                [showHeader]="true" [template]="template" [heading]="'Booking Details'">
   <ng-template #template>
     <div class="total-bookings">
       <ng-container [ngSwitch]="loading">
@@ -31,10 +31,6 @@
                 <span class="position-absolute">80%</span>
               </div>
             </div>
-
-            <button class="close-btn" mat-dialog-close="true" mat-icon-button type="button" (click)="closeModal.emit()">
-              <mat-icon>close</mat-icon>
-            </button>
           </div>
 
           <div class="table-responsive table-block">
