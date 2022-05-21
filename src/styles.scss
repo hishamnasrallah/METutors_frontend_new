@@ -123,9 +123,10 @@ button:hover {
   z-index: 9999 !important;
 }
 
-.total-bookings .heading .progress-spinner svg {
-  width: 50px !important;
-  height: 50px !important;
+.total-bookings .heading .progress-spinner svg,
+.view-assignments .heading .progress-spinner svg {
+  width: 40px !important;
+  height: 40px !important;
 }
 
 .mat-chip.mat-standard-chip {

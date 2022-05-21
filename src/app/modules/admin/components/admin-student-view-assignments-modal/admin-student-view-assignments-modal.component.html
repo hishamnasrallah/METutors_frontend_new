@@ -1,7 +1,149 @@
-<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'xmedium'"
-                [heading]="'add heading here'"
-                [template]="template" [subHeading]="'add sub heading here'">
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'large'"
+                [showHeader]="false"[template]="template" [extraClasses]="'minus-padding'">
   <ng-template #template>
-    <p>admin-student-view-assignments-modal works!</p>
+    <div class="view-assignments">
+      <div class="heading row">
+        <div class="col-md-3">
+          <div class="assign-info">
+            <h1 class="mb-0">Assignment Summary</h1>
+            <h3 class="mb-0">Assignments assigned to the student</h3>
+          </div>
+        </div>
+        <div class="col-md percentage d-flex align-items-center">
+          <strong class="me-2">Assignments Accuracy</strong>
+          <div class="position-relative my-progress">
+            <mat-progress-spinner class="progress-spinner" [color]="'primary'" [mode]="'determinate'" [value]="50">
+            </mat-progress-spinner>
+            <span class="position-absolute">50%</span>
+          </div>
+        </div>
+        <div class="col-md percentage d-flex align-items-center">
+          <strong class="me-2">Assignments Completion Rate</strong>
+          <div class="position-relative my-progress">
+            <mat-progress-spinner class="progress-spinner" [color]="'primary'" [mode]="'determinate'" [value]="50">
+            </mat-progress-spinner>
+            <span class="position-absolute">50%</span>
+          </div>
+        </div>
+        <div class="col-md percentage d-flex align-items-center">
+          <strong class="me-2">Assignments By Due Date</strong>
+          <div class="position-relative my-progress">
+            <mat-progress-spinner class="progress-spinner" [color]="'primary'" [mode]="'determinate'" [value]="50">
+            </mat-progress-spinner>
+            <span class="position-absolute">50%</span>
+          </div>
+        </div>
+
+        <button class="close-btn" mat-dialog-close="true" mat-icon-button type="button" (click)="closeModal.emit()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+
+      <div class="table-responsive table-block">
+        <table class="table my-table default-title mb-0">
+          <tr>
+            <th>Number</th>
+            <th>BIN</th>
+            <th>Title</th>
+            <th>Start Date - End Date</th>
+            <th>Teacher Name</th>
+            <th>Due Date</th>
+            <th>Status</th>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>BIN1</td>
+            <td>Numerical Equ.</td>
+            <td>Apr 10, 2022 - Apr 30, 2022</td>
+            <td>
+              <div class="d-flex align-items-center">
+                <a>
+                  <img src="" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
+                    meTutorsDefaultAvatar alt="">
+                  <span>
+                    <bdi>Ahmed Hassan</bdi>
+                  </span>
+                </a>
+              </div>
+            </td>
+            <td>Apr 30, 2022</td>
+            <td>
+              <button class="status text-capitalize accepted" mat-button>
+                Accepted
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>BIN1</td>
+            <td>Numerical Equ.</td>
+            <td>Apr 10, 2022 - Apr 30, 2022</td>
+            <td>
+              <div class="d-flex align-items-center">
+                <a>
+                  <img src="" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
+                    meTutorsDefaultAvatar alt="">
+                  <span>
+                    <bdi>Ahmed Hassan</bdi>
+                  </span>
+                </a>
+              </div>
+            </td>
+            <td>Apr 30, 2022</td>
+            <td>
+              <button class="status text-capitalize pending" mat-button>
+                Pending
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>BIN1</td>
+            <td>Numerical Equ.</td>
+            <td>Apr 10, 2022 - Apr 30, 2022</td>
+            <td>
+              <div class="d-flex align-items-center">
+                <a>
+                  <img src="" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
+                    meTutorsDefaultAvatar alt="">
+                  <span>
+                    <bdi>Ahmed Hassan</bdi>
+                  </span>
+                </a>
+              </div>
+            </td>
+            <td>Apr 30, 2022</td>
+            <td>
+              <button class="status text-capitalize rejected" mat-button>
+                Rejected
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>BIN1</td>
+            <td>Numerical Equ.</td>
+            <td>Apr 10, 2022 - Apr 30, 2022</td>
+            <td>
+              <div class="d-flex align-items-center">
+                <a>
+                  <img src="" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
+                    meTutorsDefaultAvatar alt="">
+                  <span>
+                    <bdi>Ahmed Hassan</bdi>
+                  </span>
+                </a>
+              </div>
+            </td>
+            <td>Apr 30, 2022</td>
+            <td>
+              <button class="status text-capitalize overdue" mat-button>
+                Overdue
+              </button>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
   </ng-template>
 </metutors-modal>

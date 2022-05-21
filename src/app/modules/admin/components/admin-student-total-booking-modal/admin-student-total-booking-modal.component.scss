@@ -47,8 +47,8 @@
       .my-progress,
       .progress-spinner,
       .progress-spinner svg {
-        width: 50px !important;
-        height: 50px !important;
+        width: 40px !important;
+        height: 40px !important;
 
         span {
           top: 0;
@@ -57,7 +57,7 @@
           font-size: 13px;
           right: 0;
           text-align: center;
-          line-height: 50px;
+          line-height: 40px;
         }
       }
     }
