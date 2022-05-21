@@ -85,7 +85,7 @@
           background-color: #50C394;
         }
 
-        &.enrolled {
+        &.pending, &.inactive {
           background-color: #FF8300;
         }
 
