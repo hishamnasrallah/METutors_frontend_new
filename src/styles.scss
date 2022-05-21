@@ -110,6 +110,11 @@ button:hover {
   background-color: var(--main-color) !important;
 }
 
+.mat-progress-spinner circle,
+.mat-spinner circle {
+  stroke: var(--main-color);
+}
+
 .timepicker-button {
   color: var(--main-color) !important;
 }

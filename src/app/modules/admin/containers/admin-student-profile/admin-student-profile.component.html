@@ -1,1 +1,131 @@
-<p>admin-student-profile works!</p>
+<div class="student-profile">
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6">
+          <h1>Student Profile</h1>
+        </div>
+        <div class="col-md-6">
+          <div class="row list-items md-item p-0 d-flex justify-content-end mt-3">
+            <div class="col-md-2">
+              <span>Joining Date:</span>
+            </div>
+            <div class="col-md-3 d-flex menu align-items-center">
+              <img src="assets/svg/calendar.svg" alt="" width="15" height="15" draggable="false">
+              <strong>Feb 10, 2022</strong>
+            </div>
+            <div class="col-md-3 d-flex menu align-items-center">
+              <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
+              <strong>10:00 AM, PKT</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 d-flex justify-content-between my-4">
+          <div class="d-flex align-items-center">
+            <img src="" width="25" height="25" class="rounded-circle p-0 me-3" draggable="false" meTutorsDefaultAvatar
+              alt="">
+            <strong>
+              <bdi>Ahmed Hassan</bdi>
+            </strong>
+            <span class="ms-2">(SIN123)</span>
+          </div>
+
+          <button class="status text-capitalize active" mat-button>Active</button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <table class="basic-table w-100">
+            <tr>
+              <td>Email</td>
+              <td>example@email.com</td>
+            </tr>
+            <tr>
+              <td>Phone</td>
+              <td>+1 234 567 8910</td>
+            </tr>
+            <tr>
+              <td>Attendence Percentage</td>
+              <td>
+                <div class="position-relative my-progress">
+                  <mat-progress-spinner class="progress-spinner" [color]="'primary'" [mode]="'determinate'"
+                    [value]="80">
+                  </mat-progress-spinner>
+                  <span class="position-absolute">80%</span>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="col-md-6">
+          <table class="basic-table w-100">
+            <tr>
+              <td>Total Courses</td>
+              <td class="text-end">10</td>
+            </tr>
+            <tr>
+              <td>Completed Courses</td>
+              <td class="text-end">05</td>
+            </tr>
+            <tr>
+              <td>Total amount spent</td>
+              <td class="text-end">$1000</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <h2>Courses</h2>
+      <table class="table my-table default-title mt-4">
+        <tr>
+          <th>Number</th>
+          <th>BIN</th>
+          <th>SIN</th>
+          <th>Student Name</th>
+          <th>Program Name</th>
+          <th>Field of Study</th>
+          <th>Subject</th>
+          <th>Course ID</th>
+          <th>Amount</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>BIN1</td>
+          <td>SIN1</td>
+          <td>
+            <div class="d-flex align-items-center">
+              <a>
+                <img src="" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
+                  meTutorsDefaultAvatar alt="">
+                <span>
+                  <bdi>Ahmed Hassan</bdi>
+                </span>
+              </a>
+            </div>
+          </td>
+          <td class="text-capitalize">AP</td>
+          <td>Maths</td>
+          <td>Calculs</td>
+          <td>CID 101</td>
+          <td>50$</td>
+          <td>
+            <button class="status text-capitalize enrolled" mat-button>
+              Completed
+            </button>
+          </td>
+          <td>
+            <button mat-button class="view-details main-button-transparent">
+              View Details
+            </button>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
