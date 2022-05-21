@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import * as fromCore from '@metutor/core/state';
 import * as fromAdmin from '@metutor/modules/admin/state';
 import { IStudent, IStudentFilters } from '@metutor/core/models';
-import { TutorStatus, TUTOR_STATUSES_CONST } from '@metutor/config';
+import { TutorStatus, STUDENT_STATUSES_CONST } from '@metutor/config';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 
 @Component({
@@ -21,7 +21,8 @@ export class AdminStudentListComponent implements OnInit {
 
   name: string;
   tutorStatus = TutorStatus;
-  tutorStatuses = TUTOR_STATUSES_CONST;
+  studentId: number | undefined;
+  studentStatuses = STUDENT_STATUSES_CONST;
 
   constructor(private _store: Store<any>) {}
 

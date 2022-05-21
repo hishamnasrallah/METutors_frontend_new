@@ -3,6 +3,7 @@ import {
   CountryStatus,
   FieldStatus,
   ProgramStatus,
+  StudentStatus,
   SubjectStatus,
   TicketStatus,
   TutorStatus,
@@ -32,6 +33,12 @@ export const TUTOR_STATUSES_CONST: any = [
   TutorStatus.active,
   TutorStatus.deactive,
   TutorStatus.pending,
+];
+
+export const STUDENT_STATUSES_CONST: any = [
+  StudentStatus.active,
+  StudentStatus.enrolled,
+  StudentStatus.suspended,
 ];
 
 export const PROGRAM_STATUSES_CONST: any = [
