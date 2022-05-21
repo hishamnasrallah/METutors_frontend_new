@@ -128,3 +128,19 @@ export const openAdminStudentBookingModal = createAction(
 export const closeAdminStudentBookingModal = createAction(
   '[Admin Modal] Close Admin Student Booking Modal'
 );
+
+export const openAdminStudentViewAssignmentsModal = createAction(
+  '[Admin Modal] Open Admin Student View Assignments Modal'
+);
+
+export const closeAdminStudentViewAssignmentsModal = createAction(
+  '[Admin Modal] Close Admin Student View Assignments Modal'
+);
+
+export const openAdminStudentViewFeedbackModal = createAction(
+  '[Admin Modal] Open Admin Student View Feedback Modal'
+);
+
+export const closeAdminStudentViewFeedbackModal = createAction(
+  '[Admin Modal] Close Admin Student View Feedback Modal'
+);

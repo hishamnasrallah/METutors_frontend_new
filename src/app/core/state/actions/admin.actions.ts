@@ -220,10 +220,24 @@ export const loadAdminStudentProfile = createAction(
 
 export const loadAdminStudentProfileSuccess = createAction(
   '[Admin] Load Admin Student Profile Success',
-  props<{ studentsProfile: any }>()
+  props<{ studentProfile: any }>()
 );
 
 export const loadAdminStudentProfileFailure = createAction(
   '[Admin] Load Admin Student Profile Failure',
+  props<{ error: any }>()
+);
+
+export const loadAdminStudentBookingDetail = createAction(
+  '[Admin] Load Admin Student Booking Detail'
+);
+
+export const loadAdminStudentBookingDetailSuccess = createAction(
+  '[Admin] Load Admin Student Booking Detail Success',
+  props<{ studentBookingDetail: any }>()
+);
+
+export const loadAdminStudentBookingDetailFailure = createAction(
+  '[Admin] Load Admin Student Booking Detail Failure',
   props<{ error: any }>()
 );

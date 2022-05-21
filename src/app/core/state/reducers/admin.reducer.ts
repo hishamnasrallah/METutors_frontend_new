@@ -9,6 +9,7 @@ import {
 } from '@models';
 import * as adminActions from '../actions/admin.actions';
 import { CourseStatus } from '@metutor/config';
+import { loadAdminStudentBookingDetail } from '../actions/admin.actions';
 
 export interface State {
   tutors: ITutor[];
@@ -20,6 +21,7 @@ export interface State {
   isApprovingDoc: boolean;
   isRejectingDoc: boolean;
   isLoadingTutors: boolean;
+  studentBookingDetail: [];
   isLoadingAdminDocs: boolean;
   documents: ITeacherDocument[];
   isLoadingBookingDetail: boolean;
@@ -63,6 +65,7 @@ export const initialState: State = {
   isRejectingDoc: false,
   workforceCapacity: [],
   isLoadingTutors: false,
+  studentBookingDetail: [],
   isLoadingAdminDocs: false,
   isLoadingAllBookings: false,
   isLoadingCourseBooking: false,
@@ -359,14 +362,33 @@ export const reducer = createReducer(
 
   on(
     adminActions.loadAdminStudentProfileSuccess,
-    (state, { studentsProfile }) => ({
+    (state, { studentProfile }) => ({
       ...state,
-      studentsProfile,
+      studentProfile,
       isLoadingStudentProfile: false,
     })
   ),
 
   on(adminActions.loadAdminStudentProfileFailure, (state) => ({
+    ...state,
+    isLoadingStudentProfile: false,
+  })),
+
+  on(adminActions.loadAdminStudentBookingDetail, (state) => ({
+    ...state,
+    isLoadingStudentProfile: true,
+  })),
+
+  on(
+    adminActions.loadAdminStudentBookingDetailSuccess,
+    (state, { studentBookingDetail }) => ({
+      ...state,
+      studentBookingDetail,
+      isLoadingStudentProfile: false,
+    })
+  ),
+
+  on(adminActions.loadAdminStudentBookingDetailFailure, (state) => ({
     ...state,
     isLoadingStudentProfile: false,
   }))
@@ -446,6 +468,9 @@ export const selectIsLoadingAdminStudentsFeedback = (state: State): boolean =>
 
 export const selectAdminStudentProfile = (state: State): any =>
   state.studentProfile;
+
+export const selectAdminStudentBookingDetail = (state: State): any =>
+  state.studentBookingDetail;
 
 export const selectIsLoadingAdminStudentProfile = (state: State): boolean =>
   state.isLoadingStudentProfile;

@@ -70,6 +70,8 @@ import {
   AdminCourseBookingListModalComponent,
   AdminStudentTotalBookingModalComponent,
   AdminHourlyRatePerSubjectModalComponent,
+  AdminStudentViewFeedbackModalComponent,
+  AdminStudentViewAssignmentsModalComponent,
   AdminTutorInterviewAttachmentModalComponent,
   AdminReassigningTutorSelectionModalComponent,
 } from './components';
@@ -114,7 +116,9 @@ import {
     AdminCourseBookingListModalComponent,
     AdminTutorInterviewDocumentsComponent,
     AdminStudentTotalBookingModalComponent,
+    AdminStudentViewFeedbackModalComponent,
     AdminHourlyRatePerSubjectModalComponent,
+    AdminStudentViewAssignmentsModalComponent,
     AdminTutorInterviewAttachmentModalComponent,
     AdminReassigningTutorSelectionModalComponent,
   ],

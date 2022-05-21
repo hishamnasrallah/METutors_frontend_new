@@ -1,1 +1,11 @@
 <p>admin-student-booking-detail works!</p>
+
+<metutors-admin-student-view-assignments-modal *ngIf="showAssignmentsModal$ | async"
+                                               (closeModal)="onCloseModals()"
+                                               [showModal]="(showAssignmentsModal$ | async)!">
+</metutors-admin-student-view-assignments-modal>
+
+<metutors-admin-student-view-feedback-modal *ngIf="showFeedbackModal$ | async"
+                                            (closeModal)="onCloseModals()"
+                                            [showModal]="(showFeedbackModal$ | async)!">
+</metutors-admin-student-view-feedback-modal>
