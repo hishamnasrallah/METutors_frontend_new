@@ -35,6 +35,7 @@ export class ModalComponent implements OnInit, OnDestroy, OnChanges {
   @Input() size = 'medium';
   @Input() showHeader = true;
   @Input() showModal: boolean;
+  @Input() extraClasses: string;
   @Input() template: TemplateRef<any>;
 
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
@@ -70,6 +71,7 @@ export class ModalComponent implements OnInit, OnDestroy, OnChanges {
           template: this.template,
           showHeader: this.showHeader,
           subHeading: this.subHeading,
+          extraClasses: this.extraClasses,
         },
       });
 
@@ -96,6 +98,7 @@ export class ModalComponentTemplate implements OnInit {
   heading: string;
   subHeading: string;
   showHeader: boolean;
+  extraClasses: string;
   template: TemplateRef<any>;
 
   @Output() editClicked: EventEmitter<void> = new EventEmitter<void>();
@@ -112,6 +115,7 @@ export class ModalComponentTemplate implements OnInit {
     this.template = this.data.template;
     this.subHeading = this.data.subHeading;
     this.showHeader = this.data.showHeader;
+    this.extraClasses = this.data.extraClasses;
   }
 
   updateModalData(data: {

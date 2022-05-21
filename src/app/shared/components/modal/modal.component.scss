@@ -1,6 +1,10 @@
 :host ::ng-deep .dialog {
   margin: 0 0 10px;
 
+  &.minus-padding {
+    margin-top: -24px;
+  }
+
   .mat-dialog-title {
     margin-bottom: 0;
 

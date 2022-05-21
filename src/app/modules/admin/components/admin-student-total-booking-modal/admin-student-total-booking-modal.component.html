@@ -1,7 +1,148 @@
-<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'xmedium'"
-                [heading]="'add heading here'"
-                [template]="template" [subHeading]="'add sub heading here'">
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'large'"
+                [showHeader]="false" [template]="template" [extraClasses]="'minus-padding'">
   <ng-template #template>
-    <p>admin-student-total-booking-modal works!</p>
+    <div class="total-bookings">
+      <div class="heading row">
+        <div class="col-md-6">
+          <div class="student-info d-flex align-items-center">
+            <img src="" meTutorsDefaultAvatar alt="" class="rounded-circle">
+            <div class="ms-2">
+              <h1 class="mb-0">Ahmed Hassan</h1>
+              <div>
+                <rating [(ngModel)]="rate" [max]="5" [readonly]="true"></rating>
+                <span class="ms-2 count">5</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2 info d-flex align-items-center">
+          <span>Total Records</span>
+          <strong>100</strong>
+        </div>
+        <div class="col-md-4 percentage d-flex align-items-center">
+          <strong class="me-2">Attendence Percentage</strong>
+          <div class="position-relative my-progress">
+            <mat-progress-spinner class="progress-spinner" [color]="'primary'" [mode]="'determinate'" [value]="80">
+            </mat-progress-spinner>
+            <span class="position-absolute">80%</span>
+          </div>
+        </div>
+
+        <button class="close-btn" mat-dialog-close="true" mat-icon-button type="button" (click)="closeModal.emit()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+
+      <div class="table-responsive table-block">
+        <table class="table my-table default-title mb-0">
+          <tr>
+            <th>Number</th>
+            <th>BIN</th>
+            <th>SIN</th>
+            <th>Student Name</th>
+            <th>Program Name</th>
+            <th>Field of Study</th>
+            <th>Subject</th>
+            <th>Course ID</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>BIN1</td>
+            <td>SIN1</td>
+            <td>
+              <div class="d-flex align-items-center">
+                <a>
+                  <img src="" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
+                    meTutorsDefaultAvatar alt="">
+                  <span>
+                    <bdi>Ahmed Hassan</bdi>
+                  </span>
+                </a>
+              </div>
+            </td>
+            <td class="text-capitalize">AP</td>
+            <td>Maths</td>
+            <td>Calculs</td>
+            <td>CID 101</td>
+            <td>50$</td>
+            <td>
+              <button class="status text-capitalize completed" mat-button>
+                Completed
+              </button>
+            </td>
+            <td>
+              <button mat-button class="view-details main-button-transparent">
+                View Details
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>BIN1</td>
+            <td>SIN1</td>
+            <td>
+              <div class="d-flex align-items-center">
+                <a>
+                  <img src="" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
+                    meTutorsDefaultAvatar alt="">
+                  <span>
+                    <bdi>Ahmed Hassan</bdi>
+                  </span>
+                </a>
+              </div>
+            </td>
+            <td class="text-capitalize">AP</td>
+            <td>Maths</td>
+            <td>Calculs</td>
+            <td>CID 101</td>
+            <td>50$</td>
+            <td>
+              <button class="status text-capitalize cancelled" mat-button>
+                Cancelled
+              </button>
+            </td>
+            <td>
+              <button mat-button class="view-details main-button-transparent">
+                View Details
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>BIN1</td>
+            <td>SIN1</td>
+            <td>
+              <div class="d-flex align-items-center">
+                <a>
+                  <img src="" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
+                    meTutorsDefaultAvatar alt="">
+                  <span>
+                    <bdi>Ahmed Hassan</bdi>
+                  </span>
+                </a>
+              </div>
+            </td>
+            <td class="text-capitalize">AP</td>
+            <td>Maths</td>
+            <td>Calculs</td>
+            <td>CID 101</td>
+            <td>50$</td>
+            <td>
+              <button class="status text-capitalize in-progress" mat-button>
+                In-progress
+              </button>
+            </td>
+            <td>
+              <button mat-button class="view-details main-button-transparent">
+                View Details
+              </button>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
   </ng-template>
 </metutors-modal>
