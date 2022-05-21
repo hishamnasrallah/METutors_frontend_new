@@ -23,15 +23,9 @@ export class StudentsService {
   }
 
   getStudents(): Observable<any> {
-    return this.http
-      .get<{ students: IStudent[] }>(`${this.baseUrl}registered-students`)
-      .pipe(
-        map((response) => {
-          return response.students.map(
-            (student) => new IStudent(false, student)
-          );
-        })
-      );
+    return this.http.get<{ students: IStudent[] }>(
+      `${this.baseUrl}admin/students`
+    );
   }
 
   getStudentsPreference(): Observable<any> {

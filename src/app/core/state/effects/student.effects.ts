@@ -52,11 +52,11 @@ export class StudentEffects {
       ofType(studentActions.loadStudents),
       withLatestFrom(this._store.select(selectStudents)),
       mergeMap(([_, _students]) => {
-        if (!_students || !_students?.length) {
+        if (!_students) {
           return this._studentService.getStudents().pipe(
             map((students) =>
               studentActions.loadStudentsSuccess({
-                students,
+                students: camelcaseKeys(students, { deep: true }),
               })
             ),
             catchError((error) =>

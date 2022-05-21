@@ -14,10 +14,9 @@ import * as fromAdminAction from '@metutor/modules/admin/state/actions';
   styleUrls: ['./admin-student-list.component.scss'],
 })
 export class AdminStudentListComponent implements OnInit {
+  students$: Observable<any>;
   isLoading$: Observable<boolean>;
-  studentsCounts$: Observable<any>;
   openBookingModal$: Observable<boolean>;
-  students$: Observable<IStudent[] | null>;
 
   name: string;
   tutorStatus = TutorStatus;
@@ -57,7 +56,6 @@ export class AdminStudentListComponent implements OnInit {
   private _prepareStudents(): void {
     this._store.dispatch(fromCore.loadStudents());
     this.students$ = this._store.select(fromCore.selectStudents);
-    this.studentsCounts$ = this._store.select(fromCore.selectTutorsCounts);
     this.isLoading$ = this._store.select(fromCore.selectIsLoadingStudents);
   }
 }
