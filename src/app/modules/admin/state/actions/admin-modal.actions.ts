@@ -120,3 +120,11 @@ export const openAdminChangeStatusModal = createAction(
 export const closeAdminChangeStatusModal = createAction(
   '[Admin Modal] Close Admin Change Status Modal'
 );
+
+export const openAdminStudentBookingModal = createAction(
+  '[Admin Modal] Open Admin Student Booking Modal'
+);
+
+export const closeAdminStudentBookingModal = createAction(
+  '[Admin Modal] Close Admin Student Booking Modal'
+);

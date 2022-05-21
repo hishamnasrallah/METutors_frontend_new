@@ -1,9 +1,12 @@
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import * as fromCore from '@metutor/core/state';
 import { Component, OnInit } from '@angular/core';
+
+import * as fromCore from '@metutor/core/state';
+import * as fromAdmin from '@metutor/modules/admin/state';
 import { IStudent, IStudentFilters } from '@metutor/core/models';
 import { TutorStatus, TUTOR_STATUSES_CONST } from '@metutor/config';
+import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 
 @Component({
   selector: 'metutors-admin-student-list',
@@ -13,6 +16,7 @@ import { TutorStatus, TUTOR_STATUSES_CONST } from '@metutor/config';
 export class AdminStudentListComponent implements OnInit {
   isLoading$: Observable<boolean>;
   studentsCounts$: Observable<any>;
+  openBookingModal$: Observable<boolean>;
   students$: Observable<IStudent[] | null>;
 
   name: string;
@@ -23,6 +27,10 @@ export class AdminStudentListComponent implements OnInit {
 
   ngOnInit(): void {
     this._prepareStudents();
+
+    this.openBookingModal$ = this._store.select(
+      fromAdmin.selectAdminStudentBookingModal
+    );
   }
 
   filterStudents(filters: IStudentFilters): void {
@@ -35,6 +43,10 @@ export class AdminStudentListComponent implements OnInit {
     this.filterStudents({
       name: this.name,
     });
+  }
+
+  onCloseBookingModal(): void {
+    this._store.dispatch(fromAdminAction.closeAdminStudentBookingModal());
   }
 
   private _prepareStudents(): void {

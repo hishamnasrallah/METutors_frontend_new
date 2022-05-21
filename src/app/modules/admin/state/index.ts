@@ -113,3 +113,8 @@ export const selectIsChangeStatusModal = createSelector(
   selectAdminModalState,
   fromAdminModal.selectIsChangeStatusModal
 );
+
+export const selectAdminStudentBookingModal = createSelector(
+  selectAdminModalState,
+  fromAdminModal.selectAdminStudentBookingModal
+);

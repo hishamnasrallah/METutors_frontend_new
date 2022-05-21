@@ -22,6 +22,8 @@ import {
   AdminAllBookingClassroomsComponent,
   AdminTutorInterviewDetailsComponent,
   AdminTutorInterviewDocumentsComponent,
+  AdminStudentProfileComponent,
+  AdminFinanceOrdersComponent,
 } from './containers';
 
 const routes: Routes = [
@@ -155,15 +157,32 @@ const routes: Routes = [
       },
       {
         path: 'student',
-        component: AdminStudentListComponent,
-        data: {
-          layout: {
-            title: 'Students - Metutors',
-            navbarTitle: 'Students',
-            showHeader: false,
-            showFooter: false,
+        children: [
+          {
+            path: '',
+            component: AdminStudentListComponent,
+            data: {
+              layout: {
+                title: 'Students - Metutors',
+                navbarTitle: 'Students',
+                showHeader: false,
+                showFooter: false,
+              },
+            },
           },
-        },
+          {
+            path: 'profile',
+            component: AdminStudentProfileComponent,
+            data: {
+              layout: {
+                title: 'Student profile - Metutors',
+                navbarTitle: 'Student profile',
+                showHeader: false,
+                showFooter: false,
+              },
+            },
+          },
+        ],
       },
       {
         path: 'classrooms',
@@ -208,6 +227,23 @@ const routes: Routes = [
             path: '',
             redirectTo: 'all',
             pathMatch: 'full',
+          },
+        ],
+      },
+      {
+        path: 'finance',
+        children: [
+          {
+            path: 'orders',
+            component: AdminFinanceOrdersComponent,
+            data: {
+              layout: {
+                title: 'Finance Orders - Metutors',
+                navbarTitle: 'Orders',
+                showHeader: false,
+                showFooter: false,
+              },
+            },
           },
         ],
       },

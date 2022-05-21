@@ -13,6 +13,7 @@ export * from './admin-previous-teachers-modal';
 export * from './admin-schedule-interview-modal';
 export * from './admin-course-booking-list-modal';
 export * from './admin-add-new-field-study-modal';
+export * from './admin-student-total-booking-modal';
 export * from './admin-hourly-rate-per-subject-modal';
 export * from './admin-tutor-interview-attachment-modal';
 export * from './admin-reassigning-tutor-selection-modal';

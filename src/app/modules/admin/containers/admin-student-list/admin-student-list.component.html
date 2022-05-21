@@ -149,16 +149,18 @@
                   <td>SIN1</td>
                   <td>
                     <div class="d-flex align-items-center">
-                      <img [src]="student?.avatar" width="25" height="25" class="rounded-circle p-0 me-2"
-                        draggable="false" meTutorsDefaultAvatar alt="">
-                      <span>
+                      <a [routerLink]="['/admin','student', 'profile']">
+                        <img [src]="student?.avatar" width="25" height="25" class="rounded-circle p-0 me-2"
+                             draggable="false" meTutorsDefaultAvatar alt="">
+                        <span>
                         <bdi>{{ student?.name }}</bdi>
                       </span>
+                      </a>
                     </div>
                   </td>
                   <td class="text-capitalize">{{ student?.gender }}</td>
                   <td>10</td>
-                  <td>100</td>
+                  <td><a [routerLink]="['/admin', 'finance', 'orders']">$100</a> </td>
                   <td>{{ student?.email }}</td>
                   <td>{{ student?.mobile }}</td>
                   <td>
@@ -394,3 +396,7 @@
     <span>Change Status</span>
   </button>
 </mat-menu>
+
+<metutors-admin-student-total-booking-modal [showModal]="(openBookingModal$ | async)!" *ngIf="openBookingModal$|async"
+                                            (closeModal)="onCloseBookingModal()">
+</metutors-admin-student-total-booking-modal>
