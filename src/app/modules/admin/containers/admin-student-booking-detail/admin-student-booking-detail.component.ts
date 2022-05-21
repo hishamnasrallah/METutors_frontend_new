@@ -14,7 +14,7 @@ import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 export class AdminStudentBookingDetailComponent implements OnInit {
   showFeedbackModal$: Observable<boolean>;
   showAssignmentsModal$: Observable<boolean>;
-  view$: Observable<{ detail: any; loading: boolean }>;
+  view$: Observable<{ course: any; loading: boolean }>;
 
   rate = 4;
 
@@ -39,7 +39,7 @@ export class AdminStudentBookingDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this._store.dispatch(fromCore.loadAdminStudentBookingDetail());
+    this._store.dispatch(fromCore.loadAdminStudentBookingDetail());
 
     this.showAssignmentsModal$ = this._store.select(
       fromAdmin.selectAdminStudentViewAssignmentsModal
@@ -52,6 +52,6 @@ export class AdminStudentBookingDetailComponent implements OnInit {
     this.view$ = combineLatest([
       this._store.select(fromCore.selectAdminStudentBookingDetail),
       this._store.select(fromCore.selectIsLoadingAdminBookingDetail),
-    ]).pipe(map(([detail, loading]) => ({ detail, loading })));
+    ]).pipe(map(([course, loading]) => ({ course, loading })));
   }
 }
