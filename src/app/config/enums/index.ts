@@ -10,6 +10,7 @@ export * from './classroom-type';
 export * from './language-level';
 export * from './program-status';
 export * from './ticket-category';
+export * from './student-status';
 export * from './ticket-priority';
 export * from './interview-status';
 export * from './academic-tutoring-textbook';

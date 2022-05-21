@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import * as fromCore from '@metutor/core/state';
 import * as fromAdmin from '@metutor/modules/admin/state';
 import { IStudent, IStudentFilters } from '@metutor/core/models';
-import { TutorStatus, TUTOR_STATUSES_CONST } from '@metutor/config';
+import { TutorStatus, STUDENT_STATUSES_CONST } from '@metutor/config';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 
 @Component({
@@ -14,14 +14,16 @@ import * as fromAdminAction from '@metutor/modules/admin/state/actions';
   styleUrls: ['./admin-student-list.component.scss'],
 })
 export class AdminStudentListComponent implements OnInit {
+  students$: Observable<any>;
+  totalBooking$: Observable<any>;
   isLoading$: Observable<boolean>;
-  studentsCounts$: Observable<any>;
   openBookingModal$: Observable<boolean>;
-  students$: Observable<IStudent[] | null>;
+  loadingTotalBooking: Observable<boolean>;
 
   name: string;
+  studentId: any;
   tutorStatus = TutorStatus;
-  tutorStatuses = TUTOR_STATUSES_CONST;
+  studentStatuses = STUDENT_STATUSES_CONST;
 
   constructor(private _store: Store<any>) {}
 
@@ -30,6 +32,14 @@ export class AdminStudentListComponent implements OnInit {
 
     this.openBookingModal$ = this._store.select(
       fromAdmin.selectAdminStudentBookingModal
+    );
+
+    this.loadingTotalBooking = this._store.select(
+      fromCore.selectIsLoadingAdminBookingDetail
+    );
+
+    this.totalBooking$ = this._store.select(
+      fromCore.selectAdminStudentTotalBooking
     );
   }
 
@@ -45,7 +55,8 @@ export class AdminStudentListComponent implements OnInit {
     });
   }
 
-  onOpenBookingModal(): void {
+  onOpenBookingModal(id: number): void {
+    this._store.dispatch(fromCore.loadAdminStudentTotalBooking({ id }));
     this._store.dispatch(fromAdminAction.openAdminStudentBookingModal());
   }
 
@@ -56,7 +67,6 @@ export class AdminStudentListComponent implements OnInit {
   private _prepareStudents(): void {
     this._store.dispatch(fromCore.loadStudents());
     this.students$ = this._store.select(fromCore.selectStudents);
-    this.studentsCounts$ = this._store.select(fromCore.selectTutorsCounts);
     this.isLoading$ = this._store.select(fromCore.selectIsLoadingStudents);
   }
 }

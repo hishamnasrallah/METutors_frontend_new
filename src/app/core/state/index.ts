@@ -1288,3 +1288,8 @@ export const selectAdminStudentBookingDetail = createSelector(
   selectAdminState,
   fromAdminReducer.selectAdminStudentBookingDetail
 );
+
+export const selectAdminStudentTotalBooking = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectAdminStudentTotalBooking
+);
