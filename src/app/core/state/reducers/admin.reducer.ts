@@ -10,10 +10,10 @@ import {
 
 import { CourseStatus } from '@metutor/config';
 import * as adminActions from '../actions/admin.actions';
-import { loadAdminStudentAssignmentSummary } from '../actions/admin.actions';
 
 export interface State {
   tutors: ITutor[];
+  viewFeedback: [];
   bookingDetail: [];
   studentProfile: [];
   previousTutors: [];
@@ -27,6 +27,7 @@ export interface State {
   studentBookingDetail: [];
   isLoadingAdminDocs: boolean;
   documents: ITeacherDocument[];
+  isLoadingViewFeedback: boolean;
   isLoadingBookingDetail: boolean;
   isLoadingStudentProfile: boolean;
   isLoadingPreviousTutors: boolean;
@@ -56,6 +57,7 @@ export const initialState: State = {
   tutors: [],
   documents: [],
   allBookings: [],
+  viewFeedback: [],
   bookingDetail: [],
   bookingsCounts: {},
   studentProfile: [],
@@ -74,6 +76,7 @@ export const initialState: State = {
   studentBookingDetail: [],
   isLoadingAdminDocs: false,
   isLoadingAllBookings: false,
+  isLoadingViewFeedback: false,
   isLoadingCourseBooking: false,
   isLoadingBookingDetail: false,
   isLoadingPreviousTutors: false,
@@ -436,6 +439,25 @@ export const reducer = createReducer(
   on(adminActions.loadAdminStudentAssignmentSummaryFailure, (state) => ({
     ...state,
     isLoadingAssignmentSummary: false,
+  })),
+
+  on(adminActions.loadAdminStudentViewFeedback, (state) => ({
+    ...state,
+    isLoadingViewFeedback: true,
+  })),
+
+  on(
+    adminActions.loadAdminStudentViewFeedbackSuccess,
+    (state, { viewFeedback }) => ({
+      ...state,
+      viewFeedback,
+      isLoadingViewFeedback: false,
+    })
+  ),
+
+  on(adminActions.loadAdminStudentViewFeedbackFailure, (state) => ({
+    ...state,
+    isLoadingViewFeedback: false,
   }))
 );
 
@@ -529,6 +551,12 @@ export const selectAdminStudentAssignmentSummary = (state: State): any =>
 export const selectIsLoadingStudentAssignmentSummary = (
   state: State
 ): boolean => state.isLoadingAssignmentSummary;
+
+export const selectAdminStudentViewFeedback = (state: State): any =>
+  state.viewFeedback;
+
+export const selectIsLoadingStudentViewFeedback = (state: State): boolean =>
+  state.isLoadingViewFeedback;
 
 export const selectFilteredWorkforceCapacity = (
   state: State,

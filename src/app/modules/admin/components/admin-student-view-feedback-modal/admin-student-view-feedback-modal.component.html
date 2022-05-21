@@ -2,6 +2,12 @@
                 [heading]="'Student\'s Feedback'"
                 [template]="template" [subHeading]="'View Student\'s Feedback'">
   <ng-template #template>
+    <ng-container [ngSwitch]="loading">
+      <ng-container *ngSwitchCase="true">
+        <metutors-grid-placeholder></metutors-grid-placeholder>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="false">
     <div class="view-feedback">
       <h1>Course Feedback</h1>
       <div class="rating-block">
@@ -55,6 +61,8 @@
         Nisl Proin Ultrices Amet, Nisl Tel Lus Lacus Pellentesque Volutpat.
       </p>
     </div>
+      </ng-container>
+    </ng-container>
   </ng-template>
 </metutors-modal>
 

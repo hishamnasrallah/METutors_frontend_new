@@ -97,6 +97,12 @@ export class AdminService {
     );
   }
 
+  viewFeedback(courseId: number, studentId: number): Observable<any> {
+    return this.http.get<any>(
+      `${this.baseUrl}admin/student/${studentId}/course/${courseId}/feedback`
+    );
+  }
+
   loadAdminStudentTotalBooking(id: number): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}admin/student/${id}/bookings`);
   }

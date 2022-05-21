@@ -270,3 +270,17 @@ export const loadAdminStudentAssignmentSummaryFailure = createAction(
   '[Admin] Load Admin Student Assignment Summary Failure',
   props<{ error: any }>()
 );
+
+export const loadAdminStudentViewFeedback = createAction(
+  '[Admin] Load Admin Student View Feedback'
+);
+
+export const loadAdminStudentViewFeedbackSuccess = createAction(
+  '[Admin] Load Admin Student View Feedback Success',
+  props<{ viewFeedback: any }>()
+);
+
+export const loadAdminStudentViewFeedbackFailure = createAction(
+  '[Admin] Load Admin Student View Feedback Failure',
+  props<{ error: any }>()
+);

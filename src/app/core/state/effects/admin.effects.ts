@@ -11,7 +11,10 @@ import * as fromCore from '@metutor/core/state';
 import * as fromRouterStore from '@metutor/state';
 import * as adminActions from '../actions/admin.actions';
 import { AlertNotificationService } from '@metutor/core/components';
-import { loadAdminStudentAssignmentSummary } from '@metutor/core/state';
+import {
+  loadAdminStudentAssignmentSummary,
+  loadAdminStudentViewFeedback,
+} from '@metutor/core/state';
 
 @Injectable()
 export class AdminEffects {
@@ -201,6 +204,32 @@ export class AdminEffects {
               )
             )
           )
+      )
+    )
+  );
+
+  loadAdminStudentViewFeedback$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(adminActions.loadAdminStudentViewFeedback),
+      withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
+      mergeMap(([_, { studentId, courseId }]) =>
+        this._adminService.viewFeedback(courseId, studentId).pipe(
+          map(
+            (viewFeedback) =>
+              adminActions.loadAdminStudentViewFeedbackSuccess({
+                viewFeedback: camelcaseKeys(viewFeedback, {
+                  deep: true,
+                }),
+              }),
+            catchError((error) =>
+              of(
+                adminActions.loadAdminStudentViewFeedbackFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          )
+        )
       )
     )
   );
