@@ -1,14 +1,8 @@
 <metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'large'"
-                [showHeader]="false"[template]="template" [extraClasses]="'minus-padding'">
+                [showHeader]="true"[template]="template" [heading]="'Assignment Summary'" [subHeading]="'Assignments assigned to the student'">
   <ng-template #template>
     <div class="view-assignments">
       <div class="heading row">
-        <div class="col-md-3">
-          <div class="assign-info">
-            <h1 class="mb-0">Assignment Summary</h1>
-            <h3 class="mb-0">Assignments assigned to the student</h3>
-          </div>
-        </div>
         <div class="col-md percentage d-flex align-items-center">
           <strong class="me-2">Assignments Accuracy</strong>
           <div class="position-relative my-progress">
