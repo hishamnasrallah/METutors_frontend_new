@@ -1,1 +1,71 @@
-<p>admin-finance-orders works!</p>
+<div class="finance-orders">
+  <div class="row filters">
+    <div class="col-md-6 d-flex align-items-center">
+      <h1>Orders</h1>
+    </div>
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-7">
+          <div class="position-relative">
+            <mat-icon>search</mat-icon>
+            <input type="text" class="form-control custom-input input-bordered search-request"
+              placeholder="Search orders...">
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="position-relative">
+            <input type="text" class="form-control custom-input input-bordered" placeholder="Apply filters">
+            <mat-icon class="filter">filter_alt</mat-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="table-responsive mt-4">
+    <table class="table my-table default-title">
+      <tr>
+        <th>Number</th>
+        <th>Order ID</th>
+        <th>BIN</th>
+        <th>SIN</th>
+        <th>Student Name</th>
+        <th>Total Classes</th>
+        <th>Transaction ID</th>
+        <th>Transaction Date</th>
+        <th>Amount</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>OID101</td>
+        <td>BIN101</td>
+        <td>SIN101</td>
+        <td>
+          <div class="d-flex align-items-center">
+            <img src="" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false" meTutorsDefaultAvatar
+              alt="">
+            <span>
+              <bdi>Ahmed Hassan</bdi>
+            </span>
+          </div>
+        </td>
+        <td>3</td>
+        <td>T101</td>
+        <td>May 10, 2022</td>
+        <td>$50</td>
+        <td>
+          <button class="status text-capitalize pending" mat-button>
+            Pending
+          </button>
+        </td>
+        <td>
+          <button mat-icon-button class="p-0">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
