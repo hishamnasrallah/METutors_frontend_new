@@ -129,6 +129,15 @@ button:hover {
   height: 40px !important;
 }
 
+.view-feedback .rating-block rating span.bs-rating-star {
+  margin-right: 10px;
+  font-size: 20px;
+
+  &.active {
+    color: var(--main-color);
+  }
+}
+
 .mat-chip.mat-standard-chip {
   background: #FFF;
   border: 1px solid #e2e2e2;

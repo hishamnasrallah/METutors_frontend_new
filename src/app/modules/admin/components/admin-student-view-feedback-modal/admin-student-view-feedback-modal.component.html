@@ -1,9 +1,60 @@
-<p>admin-student-view-feedback-modal works!</p>
 <metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'xmedium'"
-                [heading]="'add heading here'"
-                [template]="template" [subHeading]="'add sub heading here'">
+                [heading]="'Student\'s Feedback'"
+                [template]="template" [subHeading]="'View Student\'s Feedback'">
   <ng-template #template>
-    <p>admin-student-view-feedback-modal works!</p>
+    <div class="view-feedback">
+      <h1>Course Feedback</h1>
+      <div class="rating-block">
+        <div class="row">
+          <div class="col">
+            <h2>Fast learner</h2>
+          </div>
+          <div class="col-md-3">
+            <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h2>Focuses in class and paying attention</h2>
+          </div>
+          <div class="col-md-3">
+            <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h2>Attend class on-time</h2>
+          </div>
+          <div class="col-md-3">
+            <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h2>Complete homework on time</h2>
+          </div>
+          <div class="col-md-3">
+            <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h2>Active participation in class</h2>
+          </div>
+          <div class="col-md-3">
+            <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
+          </div>
+        </div>
+      </div>
+
+      <h2>Feedback</h2>
+      <p>
+        Lorem Ipsum Dolor Sit Amet, Consectetur Adipiscing Elit. Amet, Nisl Tellus Lacusp Ellentesque Volutpat Ultrices
+        Cras Quis. At Sapien Varius Id Urna, Amet Sifri Ngilla Leo Velit. Dictum Mi Ornare Vel Aliquam Nisl Proin
+        Ultrices Amet, Nisl Tellus Lacus Pellentesque Volutpat Proin Ultrices Cras Quis Dictum Mi Ornare Vel Aliqua M
+        Nisl Proin Ultrices Amet, Nisl Tel Lus Lacus Pellentesque Volutpat.
+      </p>
+    </div>
   </ng-template>
 </metutors-modal>
 
