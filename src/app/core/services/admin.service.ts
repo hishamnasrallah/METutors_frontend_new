@@ -83,6 +83,10 @@ export class AdminService {
     return this.http.get<any>(`${this.baseUrl}admin/student/${id}/profile`);
   }
 
+  loadAdminStudentTotalBooking(id: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}admin/student/${id}/bookings`);
+  }
+
   loadAllBookings(): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}admin/bookings`).pipe(
       map((response) => ({

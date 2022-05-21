@@ -6,6 +6,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./admin-student-total-booking-modal.component.scss'],
 })
 export class AdminStudentTotalBookingModalComponent implements OnInit {
+  @Input() bookings: any;
+  @Input() loading = false;
   @Input() showModal = false;
 
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();

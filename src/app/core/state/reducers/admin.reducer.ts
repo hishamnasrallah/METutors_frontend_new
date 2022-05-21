@@ -7,9 +7,9 @@ import {
   ICapacity,
   ITeacherDocument,
 } from '@models';
-import * as adminActions from '../actions/admin.actions';
+
 import { CourseStatus } from '@metutor/config';
-import { loadAdminStudentBookingDetail } from '../actions/admin.actions';
+import * as adminActions from '../actions/admin.actions';
 
 export interface State {
   tutors: ITutor[];
@@ -18,6 +18,7 @@ export interface State {
   previousTutors: [];
   bookingsCounts: any;
   studentsFeedback: [];
+  studentTotalBooking: [];
   isApprovingDoc: boolean;
   isRejectingDoc: boolean;
   isLoadingTutors: boolean;
@@ -65,6 +66,7 @@ export const initialState: State = {
   isRejectingDoc: false,
   workforceCapacity: [],
   isLoadingTutors: false,
+  studentTotalBooking: [],
   studentBookingDetail: [],
   isLoadingAdminDocs: false,
   isLoadingAllBookings: false,
@@ -376,7 +378,7 @@ export const reducer = createReducer(
 
   on(adminActions.loadAdminStudentBookingDetail, (state) => ({
     ...state,
-    isLoadingStudentProfile: true,
+    isLoadingBookingDetail: true,
   })),
 
   on(
@@ -384,13 +386,32 @@ export const reducer = createReducer(
     (state, { studentBookingDetail }) => ({
       ...state,
       studentBookingDetail,
-      isLoadingStudentProfile: false,
+      isLoadingBookingDetail: false,
     })
   ),
 
   on(adminActions.loadAdminStudentBookingDetailFailure, (state) => ({
     ...state,
-    isLoadingStudentProfile: false,
+    isLoadingBookingDetail: false,
+  })),
+
+  on(adminActions.loadAdminStudentTotalBooking, (state) => ({
+    ...state,
+    isLoadingBookingDetail: true,
+  })),
+
+  on(
+    adminActions.loadAdminStudentTotalBookingSuccess,
+    (state, { studentTotalBooking }) => ({
+      ...state,
+      studentTotalBooking,
+      isLoadingBookingDetail: false,
+    })
+  ),
+
+  on(adminActions.loadAdminStudentTotalBookingFailure, (state) => ({
+    ...state,
+    isLoadingBookingDetail: false,
   }))
 );
 
@@ -471,6 +492,9 @@ export const selectAdminStudentProfile = (state: State): any =>
 
 export const selectAdminStudentBookingDetail = (state: State): any =>
   state.studentBookingDetail;
+
+export const selectAdminStudentTotalBooking = (state: State): any =>
+  state.studentTotalBooking;
 
 export const selectIsLoadingAdminStudentProfile = (state: State): boolean =>
   state.isLoadingStudentProfile;

@@ -159,8 +159,8 @@
                     </div>
                   </td>
                   <td class="text-capitalize">{{ student?.gender }}</td>
-                  <td><a href="javascript:void(0)" (click)="onOpenBookingModal()">10</a></td>
-                  <td><a [routerLink]="['/admin', 'finance', 'orders']">$100</a></td>
+                  <td><a href="javascript:void(0)" (click)="onOpenBookingModal(student.id)">{{student?.totalBookings}}</a></td>
+                  <td><a [routerLink]="['/admin', 'finance', 'orders']">${{student?.totalSpendings}}</a></td>
                   <td>{{ student?.email }}</td>
                   <td>{{ student?.mobile }}</td>
                   <td>
@@ -294,8 +294,8 @@
                     </div>
                   </td>
                   <td class="text-capitalize">{{ student?.gender }}</td>
-                  <td><a href="javascript:void(0)" (click)="onOpenBookingModal()">10</a></td>
-                  <td><a [routerLink]="['/admin', 'finance', 'orders']">$100</a></td>
+                  <td><a href="javascript:void(0)" (click)="onOpenBookingModal(student.id)">{{student?.totalBookings}}</a></td>
+                  <td><a [routerLink]="['/admin', 'finance', 'orders']">${{student?.totalSpendings}}</a></td>
                   <td>{{ student?.email }}</td>
                   <td>{{ student?.mobile }}</td>
                   <td>
@@ -358,8 +358,8 @@
                     </div>
                   </td>
                   <td class="text-capitalize">{{ student?.gender }}</td>
-                  <td><a href="javascript:void(0)" (click)="onOpenBookingModal()">10</a></td>
-                  <td><a [routerLink]="['/admin', 'finance', 'orders']">$100</a></td>
+                  <td><a href="javascript:void(0)" (click)="onOpenBookingModal(student.id)">{{student?.totalBookings}}</a></td>
+                  <td><a [routerLink]="['/admin', 'finance', 'orders']">${{student?.totalSpendings}}</a></td>
                   <td>{{ student?.email }}</td>
                   <td>{{ student?.mobile }}</td>
                   <td>
@@ -394,11 +394,13 @@
           [routerLink]="['/admin', 'student', 'profile', studentId]">
     <span>View Profile</span>
   </button>
-  <button mat-menu-item class="h-auto btn-menu" (click)="onOpenBookingModal()">
+  <button mat-menu-item class="h-auto btn-menu" (click)="onOpenBookingModal(studentId)">
     <span>View Schedule</span>
   </button>
 </mat-menu>
 
 <metutors-admin-student-total-booking-modal [showModal]="(openBookingModal$ | async)!" *ngIf="openBookingModal$|async"
-                                            (closeModal)="onCloseBookingModal()">
+                                            (closeModal)="onCloseBookingModal()"
+                                            [loading]="(loadingTotalBooking | async)!"
+                                            [bookings]="(totalBooking$ | async)!">
 </metutors-admin-student-total-booking-modal>

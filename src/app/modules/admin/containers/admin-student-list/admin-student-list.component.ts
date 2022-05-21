@@ -15,12 +15,14 @@ import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 })
 export class AdminStudentListComponent implements OnInit {
   students$: Observable<any>;
+  totalBooking$: Observable<any>;
   isLoading$: Observable<boolean>;
   openBookingModal$: Observable<boolean>;
+  loadingTotalBooking: Observable<boolean>;
 
   name: string;
+  studentId: any;
   tutorStatus = TutorStatus;
-  studentId: number | undefined;
   studentStatuses = STUDENT_STATUSES_CONST;
 
   constructor(private _store: Store<any>) {}
@@ -30,6 +32,14 @@ export class AdminStudentListComponent implements OnInit {
 
     this.openBookingModal$ = this._store.select(
       fromAdmin.selectAdminStudentBookingModal
+    );
+
+    this.loadingTotalBooking = this._store.select(
+      fromCore.selectIsLoadingAdminBookingDetail
+    );
+
+    this.totalBooking$ = this._store.select(
+      fromCore.selectAdminStudentTotalBooking
     );
   }
 
@@ -45,7 +55,8 @@ export class AdminStudentListComponent implements OnInit {
     });
   }
 
-  onOpenBookingModal(): void {
+  onOpenBookingModal(id: number): void {
+    this._store.dispatch(fromCore.loadAdminStudentTotalBooking({ id }));
     this._store.dispatch(fromAdminAction.openAdminStudentBookingModal());
   }
 
