@@ -1,0 +1,154 @@
+:host ::ng-deep .booking-details {
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.13);
+
+    .card-body {
+      padding: 20px 40px;
+
+      .in-progress {
+        h3 {
+          font-size: 16px;
+          color: #000;
+        }
+
+        strong {
+          color: #000;
+          font-size: 12px;
+          margin-left: 10px;
+        }
+      }
+
+      .percentage {
+        strong {
+          color: #2A2A2A;
+          font-weight: normal;
+        }
+
+        .my-progress,
+        .progress-spinner,
+        .progress-spinner svg {
+          width: 50px !important;
+          height: 50px !important;
+
+          span {
+            top: 0;
+            left: 0;
+            bottom: 0;
+            font-size: 13px;
+            right: 0;
+            text-align: center;
+            line-height: 50px;
+          }
+        }
+      }
+
+      .actions button {
+        color: #50C394;
+        font-size: 15px;
+        text-decoration: underline;
+      }
+    }
+
+    .title {
+      color: #000;
+      font-size: 30px;
+
+      >span {
+        color: #696969;
+        font-size: 15px;
+      }
+
+      button {
+        background: #50C394;
+        color: #FFF;
+        border-radius: 35px;
+      }
+    }
+
+    .list {
+      padding: 5px;
+
+      .menu {
+        padding-right: 0;
+        margin-top: 10px;
+
+        img {
+          margin-right: 5px;
+        }
+
+        span {
+          color: #2a2a2a;
+          margin-left: 5px;
+          font-size: 20px;
+        }
+
+        strong {
+          font-size: 17px;
+          color: #696969;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+
+  .student-info {
+    img {
+      width: 50px;
+      height: 50px;
+    }
+
+    h1 {
+      color: #2A2A2A;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  }
+
+  .info {
+    li:not(:last-child) {
+      margin-right: 30px;
+    }
+
+    span {
+      font-size: 14px;
+      color: #696969;
+      font-weight: 500;
+    }
+
+    strong {
+      color: #2a2a2a;
+      margin-left: 5px;
+      font-size: 17px;
+    }
+  }
+
+  .list-tables {
+    padding: 45px 40px;
+
+    .overview {
+      color: #2a2a2a;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    tr th {
+      color: #949494;
+      font-size: 15px;
+      font-weight: normal;
+
+    }
+
+    .attend {
+      line-height: 20px;
+      font-weight: bold;
+
+      &.present {
+        color: #50C394;
+      }
+
+      &.absent {
+        color: #F15A5A;
+      }
+    }
+  }
+}

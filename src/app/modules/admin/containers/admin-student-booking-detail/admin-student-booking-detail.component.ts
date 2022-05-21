@@ -16,6 +16,8 @@ export class AdminStudentBookingDetailComponent implements OnInit {
   showAssignmentsModal$: Observable<boolean>;
   view$: Observable<{ detail: any; loading: boolean }>;
 
+  rate = 4;
+
   constructor(private _store: Store<any>) {}
 
   onOpenAssignmentsModal(): void {

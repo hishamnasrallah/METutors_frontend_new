@@ -1,4 +1,150 @@
-<p>admin-student-booking-detail works!</p>
+<div class="booking-details">
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-5">
+          <h1 class="title overflow-hidden d-flex align-items-center">Calculus
+            <span class="ms-2">(CID101)</span>
+            <button mat-button class="ms-2">Completed</button>
+          </h1>
+        </div>
+        <div class="col-md-3 percentage d-flex align-items-center">
+          <strong class="me-2">Attendence Percentage</strong>
+          <div class="position-relative my-progress">
+            <mat-progress-spinner class="progress-spinner" [color]="'primary'" [mode]="'determinate'" [value]="80">
+            </mat-progress-spinner>
+            <span class="position-absolute">80%</span>
+          </div>
+        </div>
+        <div class="col-md-4 d-flex justify-content-end actions">
+          <button mat-button (click)="onOpenAssignmentsModal()">View Assignments</button>
+          <button mat-button (click)="onOpenFeedbackModal()">View Feedback</button>
+        </div>
+      </div>
+      <div class="row list rounded">
+        <div class="col-md d-flex menu align-items-center">
+          <img src="assets/svg/timer.svg" alt="" width="15" height="15" draggable="false">
+          <strong>Total Hour: </strong>
+          <span>30hrs</span>
+        </div>
+        <div class="col-md d-flex menu align-items-center">
+          <img src="assets/svg/play-circle-fill.svg" alt="" width="15" height="15" draggable="false">
+          <strong>Remaining Classes: </strong>
+          <span>13</span>
+        </div>
+        <div class="col-md d-flex menu align-items-center">
+          <img src="assets/svg/checkbox-circle-fill.svg" alt="" width="15" height="15" draggable="false">
+          <strong>Completed Classes: </strong>
+          <span>15</span>
+        </div>
+        <div class="col-md d-flex menu align-items-center">
+          <img src="assets/svg/play-circle-fill.svg" alt="" width="15" height="15" draggable="false">
+          <strong>Rescheduled Classes: </strong>
+          <span>13</span>
+        </div>
+        <div class="col-md d-flex menu align-items-center">
+          <img src="assets/svg/checkbox-circle-fill.svg" alt="" width="15" height="15" draggable="false">
+          <strong>Added Classes: </strong>
+          <span>15</span>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-md-4">
+          <div class="student-info d-flex align-items-center">
+            <img src="" meTutorsDefaultAvatar alt="" class="rounded-circle">
+            <div class="ms-2">
+              <h1 class="mb-0">Ahmed Hassan</h1>
+              <div>
+                <rating [(ngModel)]="rate" [max]="5" [readonly]="true"></rating>
+                <span class="ms-2">5</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 in-progress">
+          <h3>Assignment Completion Rate</h3>
+          <div class="d-flex align-items-center">
+            <div class="flex-grow-1">
+              <mat-progress-bar class="example-margin" [color]="'primary'" [value]="80">
+              </mat-progress-bar>
+            </div>
+            <strong>80%</strong>
+          </div>
+        </div>
+        <div class="col-md-5 info d-flex justify-content-end">
+          <ul class="list-inline">
+            <li class="list-inline-item">
+              <span class="d-block">Program</span>
+              <strong class="d-block">AP</strong>
+            </li>
+            <li class="list-inline-item">
+              <span class="d-block">Grade</span>
+              <strong class="d-block">G10, G11 ,G12</strong>
+            </li>
+            <li class="list-inline-item">
+              <span class="d-block">Field of Study</span>
+              <strong class="d-block">Mathematics</strong>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="list-tables">
+    <div class="row">
+      <div class="col-12">
+        <h3 class="overview mb-3">Completed Classess</h3>
+        <table class="table my-table default-title">
+          <tr>
+            <th>#</th>
+            <th>Topic</th>
+            <th>Tutor Name</th>
+            <th>Start Time - End Time</th>
+            <th>Duration</th>
+            <th>Attendance</th>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>Calculus without limits</td>
+            <td>
+              <a>
+                <img src="" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
+                  meTutorsDefaultAvatar alt="">
+                <span>
+                  <bdi>Ahmed Hassan</bdi>
+                </span>
+              </a>
+            </td>
+            <td>8:00 AM - 9:00 AM</td>
+            <td>1 Hour</td>
+            <td class="d-flex">
+              <button mat-button class="attend present">Present</button>
+            </td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>Calculus without limits</td>
+            <td>
+              <a>
+                <img src="" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
+                  meTutorsDefaultAvatar alt="">
+                <span>
+                  <bdi>Ahmed Hassan</bdi>
+                </span>
+              </a>
+            </td>
+            <td>8:00 AM - 9:00 AM</td>
+            <td>1 Hour</td>
+            <td class="d-flex">
+              <button mat-button class="attend absent">Absent</button>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
 
 <metutors-admin-student-view-assignments-modal *ngIf="showAssignmentsModal$ | async"
                                                (closeModal)="onCloseModals()"
