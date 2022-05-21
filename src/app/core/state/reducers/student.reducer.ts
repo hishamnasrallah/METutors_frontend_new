@@ -10,6 +10,7 @@ import * as studentActions from '../actions/student.actions';
 export interface State {
   resource: any;
   syllabus: any;
+  students: any;
   dashboard: any;
   classroom: any;
   resources: any;
@@ -28,7 +29,6 @@ export interface State {
   isLoadingStudents: boolean;
   isUpdatingProfile: boolean;
   isCreatingNewClass: boolean;
-  students: IStudent[] | null;
   isLoadingTimeSlots: boolean;
   isSubmittingFeedback: boolean;
   isLoadingPreferences: boolean;
@@ -575,8 +575,7 @@ export const reducer = createReducer(
 
 export const selectStudent = (state: State): IStudent | null => state.student;
 
-export const selectStudents = (state: State): IStudent[] | null =>
-  state.students;
+export const selectStudents = (state: State): any | null => state.students;
 
 export const selectIsLoadingStudents = (state: State): boolean =>
   state.isLoadingStudents;
@@ -701,8 +700,12 @@ export const selectFilteredStudents = (
 ): IStudent[] | null => {
   let students: IStudent[] = [];
 
-  if (state.students && state.students.length && props) {
-    students = getFilteredStudents(state.students, props);
+  if (
+    state.students?.registeredStudents &&
+    state.students?.registeredStudents.length &&
+    props
+  ) {
+    students = getFilteredStudents(state.students.registeredStudents, props);
   }
 
   return students;
@@ -744,6 +747,10 @@ const getFilteredStudents = (students: IStudent[], props: any) => {
     students = students?.filter((student) =>
       student?.name?.toLowerCase()?.includes(props.name.toLowerCase())
     );
+  }
+
+  if (props?.status) {
+    students = students?.filter((student) => student.status === props.status);
   }
 
   return students;

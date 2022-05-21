@@ -22,10 +22,10 @@
     </div>
   </div>
 
-  <div class="row">
+  <div class="row" *ngLet="(registeredStudents$ | async) as registeredStudents">
     <div class="col-md-12">
       <ng-container [ngSwitch]="isLoading$ | async">
-        <mat-tab-group mat-align-tabs="start">
+        <mat-tab-group mat-align-tabs="start" (selectedTabChange)="onChangeTab($event)">
           <mat-tab label="All">
             <div class="mt-4" *ngSwitchCase="true">
               <metutors-grid-placeholder></metutors-grid-placeholder>
@@ -139,12 +139,12 @@
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
-                <tr *ngIf="!students || !students?.registeredStudents?.length">
+                <tr *ngIf="!students || !(registeredStudents$ | async)?.length">
                   <td colspan="10">
                     <div class="text-center">No records found</div>
                   </td>
                 </tr>
-                <tr *ngFor="let student of students?.registeredStudents; let i = index">
+                <tr *ngFor="let student of (registeredStudents$ | async); let i = index">
                   <td>{{ i + 1 }}</td>
                   <td>SIN1</td>
                   <td>
@@ -165,7 +165,7 @@
                   <td>{{ student?.mobile }}</td>
                   <td>
                     <div dropdown class="change-status position-relative d-flex">
-                      <button dropdownToggle class="status text-capitalize enrolled" mat-button>
+                      <button dropdownToggle class="status text-capitalize" mat-button [ngClass]="student?.status">
                         {{ student?.status }}
                       </button>
                       <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
@@ -274,12 +274,12 @@
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
-                <tr *ngIf="!students || !students?.registeredStudents.length">
+                <tr *ngIf="!students || !(registeredStudents$ | async)?.length">
                   <td colspan="10">
                     <div class="text-center">No records found</div>
                   </td>
                 </tr>
-                <tr *ngFor="let student of students?.registeredStudents; let i = index">
+                <tr *ngFor="let student of (registeredStudents$ | async); let i = index">
                   <td>{{ i + 1 }}</td>
                   <td>SIN1</td>
                   <td>
@@ -300,7 +300,7 @@
                   <td>{{ student?.mobile }}</td>
                   <td>
                     <div dropdown class="change-status position-relative d-flex">
-                      <button dropdownToggle class="status text-capitalize active" mat-button>
+                      <button dropdownToggle class="status text-capitalize active" mat-button [ngClass]="student?.status">
                         {{ student?.status }}
                       </button>
                       <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
@@ -338,12 +338,12 @@
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
-                <tr *ngIf="!students || !students?.registeredStudents.length">
+                <tr *ngIf="!students || !(registeredStudents$ | async)?.length">
                   <td colspan="10">
                     <div class="text-center">No records found</div>
                   </td>
                 </tr>
-                <tr *ngFor="let student of students?.registeredStudents; let i = index">
+                <tr *ngFor="let student of (registeredStudents$ | async); let i = index">
                   <td>{{ i + 1 }}</td>
                   <td>SIN1</td>
                   <td>
@@ -364,7 +364,7 @@
                   <td>{{ student?.mobile }}</td>
                   <td>
                     <div dropdown class="change-status position-relative d-flex">
-                      <button dropdownToggle class="status text-capitalize suspended" mat-button>
+                      <button dropdownToggle class="status text-capitalize suspended" mat-button [ngClass]="student?.status">
                         {{ student?.status }}
                       </button>
                       <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">

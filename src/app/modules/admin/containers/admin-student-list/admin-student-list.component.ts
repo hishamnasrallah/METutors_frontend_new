@@ -1,12 +1,17 @@
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Component, OnInit } from '@angular/core';
 
 import * as fromCore from '@metutor/core/state';
+import { IStudentFilters } from '@metutor/core/models';
 import * as fromAdmin from '@metutor/modules/admin/state';
-import { IStudent, IStudentFilters } from '@metutor/core/models';
-import { TutorStatus, STUDENT_STATUSES_CONST } from '@metutor/config';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
+
+import {
+  TutorStatus,
+  StudentStatus,
+  STUDENT_STATUSES_CONST,
+} from '@metutor/config';
 
 @Component({
   selector: 'metutors-admin-student-list',
@@ -17,6 +22,7 @@ export class AdminStudentListComponent implements OnInit {
   students$: Observable<any>;
   totalBooking$: Observable<any>;
   isLoading$: Observable<boolean>;
+  registeredStudents$: Observable<any>;
   openBookingModal$: Observable<boolean>;
   loadingTotalBooking: Observable<boolean>;
 
@@ -43,10 +49,32 @@ export class AdminStudentListComponent implements OnInit {
     );
   }
 
-  filterStudents(filters: IStudentFilters): void {
-    this.students$ = this._store.select(fromCore.selectFilteredStudents, {
-      ...filters,
+  onChangeTab(tab: any): void {
+    let status: any = StudentStatus.active;
+    switch (tab.index) {
+      case 0:
+        status = null;
+        break;
+      case 1:
+        status = StudentStatus.active;
+        break;
+      case 2:
+        status = StudentStatus.suspended;
+        break;
+    }
+
+    this.filterStudents({
+      status,
     });
+  }
+
+  filterStudents(filters: IStudentFilters): void {
+    this.registeredStudents$ = this._store.select(
+      fromCore.selectFilteredStudents,
+      {
+        ...filters,
+      }
+    );
   }
 
   onFilterStudents(): void {
@@ -66,7 +94,10 @@ export class AdminStudentListComponent implements OnInit {
 
   private _prepareStudents(): void {
     this._store.dispatch(fromCore.loadStudents());
-    this.students$ = this._store.select(fromCore.selectStudents);
     this.isLoading$ = this._store.select(fromCore.selectIsLoadingStudents);
+    this.students$ = this._store.select(fromCore.selectStudents);
+    this.registeredStudents$ = this._store
+      .select(fromCore.selectStudents)
+      .pipe(map((students: any) => students?.registeredStudents));
   }
 }

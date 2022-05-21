@@ -99,5 +99,6 @@ export class IStudent {
 }
 
 export interface IStudentFilters {
-  name: string;
+  name?: string;
+  status?: string;
 }
