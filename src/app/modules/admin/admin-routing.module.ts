@@ -16,14 +16,15 @@ import {
   AdminTicketDetailsComponent,
   AdminBookingDetailsComponent,
   AdminTutorInterviewComponent,
+  AdminFinanceOrdersComponent,
+  AdminStudentProfileComponent,
   AdminSuspendedTutorsComponent,
   AdminWorkforceCapacityComponent,
   AdminCancelledClassroomsComponent,
   AdminAllBookingClassroomsComponent,
+  AdminStudentBookingDetailComponent,
   AdminTutorInterviewDetailsComponent,
   AdminTutorInterviewDocumentsComponent,
-  AdminStudentProfileComponent,
-  AdminFinanceOrdersComponent,
 } from './containers';
 
 const routes: Routes = [
@@ -177,6 +178,18 @@ const routes: Routes = [
               layout: {
                 title: 'Student profile - Metutors',
                 navbarTitle: 'Student profile',
+                showHeader: false,
+                showFooter: false,
+              },
+            },
+          },
+          {
+            path: 'booking-detail',
+            component: AdminStudentBookingDetailComponent,
+            data: {
+              layout: {
+                title: 'Student booking detail - Metutors',
+                navbarTitle: 'Booking detail',
                 showHeader: false,
                 showFooter: false,
               },

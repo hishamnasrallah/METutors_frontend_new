@@ -45,6 +45,10 @@ export class AdminStudentListComponent implements OnInit {
     });
   }
 
+  onOpenBookingModal(): void {
+    this._store.dispatch(fromAdminAction.openAdminStudentBookingModal());
+  }
+
   onCloseBookingModal(): void {
     this._store.dispatch(fromAdminAction.closeAdminStudentBookingModal());
   }
