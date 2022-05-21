@@ -744,8 +744,10 @@ const getRemainingDays = (deadline: string) => {
 
 const getFilteredStudents = (students: IStudent[], props: any) => {
   if (props?.name) {
-    students = students?.filter((student) =>
-      student?.name?.toLowerCase()?.includes(props.name.toLowerCase())
+    students = students?.filter(
+      (student) =>
+        student?.firstName?.toLowerCase()?.includes(props.name.toLowerCase()) ||
+        student?.lastName?.toLowerCase()?.includes(props.name.toLowerCase())
     );
   }
 
