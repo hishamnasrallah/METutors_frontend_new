@@ -1273,3 +1273,13 @@ export const selectIsLoadingAdminStudentsFeedback = createSelector(
   selectAdminState,
   fromAdminReducer.selectIsLoadingAdminStudentsFeedback
 );
+
+export const selectAdminStudentProfile = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectAdminStudentProfile
+);
+
+export const selectIsLoadingAdminStudentProfile = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectIsLoadingAdminStudentProfile
+);

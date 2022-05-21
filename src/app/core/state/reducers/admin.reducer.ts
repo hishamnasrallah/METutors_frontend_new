@@ -13,6 +13,7 @@ import { CourseStatus } from '@metutor/config';
 export interface State {
   tutors: ITutor[];
   bookingDetail: [];
+  studentProfile: [];
   previousTutors: [];
   bookingsCounts: any;
   studentsFeedback: [];
@@ -22,6 +23,7 @@ export interface State {
   isLoadingAdminDocs: boolean;
   documents: ITeacherDocument[];
   isLoadingBookingDetail: boolean;
+  isLoadingStudentProfile: boolean;
   isLoadingPreviousTutors: boolean;
   isLoadingStudentsFeedback: boolean;
 
@@ -50,6 +52,7 @@ export const initialState: State = {
   allBookings: [],
   bookingDetail: [],
   bookingsCounts: {},
+  studentProfile: [],
   previousTutors: [],
   runningBookings: [],
   courseBooking: null,
@@ -65,6 +68,7 @@ export const initialState: State = {
   isLoadingCourseBooking: false,
   isLoadingBookingDetail: false,
   isLoadingPreviousTutors: false,
+  isLoadingStudentProfile: false,
   isLoadingRunningBookings: false,
   isLoadingStudentsFeedback: false,
   isLoadingWorkforceCapacity: false,
@@ -346,6 +350,25 @@ export const reducer = createReducer(
   on(adminActions.loadAdminStudentsFeedbackFailure, (state) => ({
     ...state,
     isLoadingStudentsFeedback: false,
+  })),
+
+  on(adminActions.loadAdminStudentProfile, (state) => ({
+    ...state,
+    isLoadingStudentProfile: true,
+  })),
+
+  on(
+    adminActions.loadAdminStudentProfileSuccess,
+    (state, { studentsProfile }) => ({
+      ...state,
+      studentsProfile,
+      isLoadingStudentProfile: false,
+    })
+  ),
+
+  on(adminActions.loadAdminStudentProfileFailure, (state) => ({
+    ...state,
+    isLoadingStudentProfile: false,
   }))
 );
 
@@ -420,6 +443,12 @@ export const selectAdminStudentsFeedback = (state: State): any =>
 
 export const selectIsLoadingAdminStudentsFeedback = (state: State): boolean =>
   state.isLoadingStudentsFeedback;
+
+export const selectAdminStudentProfile = (state: State): any =>
+  state.studentProfile;
+
+export const selectIsLoadingAdminStudentProfile = (state: State): boolean =>
+  state.isLoadingStudentProfile;
 
 export const selectFilteredWorkforceCapacity = (
   state: State,

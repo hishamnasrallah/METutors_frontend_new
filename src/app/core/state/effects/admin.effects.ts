@@ -124,6 +124,32 @@ export class AdminEffects {
     )
   );
 
+  loadAdminStudentProfile$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(adminActions.loadAdminStudentProfile),
+      withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
+      mergeMap(([_, { id }]) =>
+        this._adminService.loadAdminStudentProfile(id).pipe(
+          map(
+            (studentsProfile) =>
+              adminActions.loadAdminStudentProfileSuccess({
+                studentsProfile: camelcaseKeys(studentsProfile, {
+                  deep: true,
+                }),
+              }),
+            catchError((error) =>
+              of(
+                adminActions.loadAdminStudentProfileFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          )
+        )
+      )
+    )
+  );
+
   loadBookingDetail$ = createEffect(() =>
     this._actions$.pipe(
       ofType(adminActions.loadBookingDetail),

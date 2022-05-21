@@ -75,6 +75,10 @@ export class AdminService {
     return this.http.get<any>(`${this.baseUrl}admin/course/${id}/feedbacks`);
   }
 
+  loadAdminStudentProfile(id: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}admin/student/${id}/profile`);
+  }
+
   loadAllBookings(): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}admin/bookings`).pipe(
       map((response) => ({
@@ -112,20 +116,18 @@ export class AdminService {
   }
 
   loadCancelledBookings(): Observable<any> {
-    return this.http
-      .get<any>(`${this.baseUrl}admin/cancelled-courses`)
-      .pipe(
-        map((response) => ({
-          courses: response?.cancelled_courses.map(
-            (course: any) => new ICourse(false, course)
-          ),
-          bookingsCounts: {
-            cancelledCourses: response?.total,
-            cancelledByTeacher: response?.by_teachers,
-            cancelledByStudent: response?.by_students,
-            cancelledByAdmin: response?.by_admins,
-          },
-        }))
-      );
+    return this.http.get<any>(`${this.baseUrl}admin/cancelled-courses`).pipe(
+      map((response) => ({
+        courses: response?.cancelled_courses.map(
+          (course: any) => new ICourse(false, course)
+        ),
+        bookingsCounts: {
+          cancelledCourses: response?.total,
+          cancelledByTeacher: response?.by_teachers,
+          cancelledByStudent: response?.by_students,
+          cancelledByAdmin: response?.by_admins,
+        },
+      }))
+    );
   }
 }

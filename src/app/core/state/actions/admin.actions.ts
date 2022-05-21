@@ -213,3 +213,17 @@ export const loadAdminStudentsFeedbackFailure = createAction(
   '[Admin] Load Admin Students Feedback Failure',
   props<{ error: any }>()
 );
+
+export const loadAdminStudentProfile = createAction(
+  '[Admin] Load Admin Student Profile'
+);
+
+export const loadAdminStudentProfileSuccess = createAction(
+  '[Admin] Load Admin Student Profile Success',
+  props<{ studentsProfile: any }>()
+);
+
+export const loadAdminStudentProfileFailure = createAction(
+  '[Admin] Load Admin Student Profile Failure',
+  props<{ error: any }>()
+);
