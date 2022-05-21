@@ -184,7 +184,7 @@ const routes: Routes = [
             },
           },
           {
-            path: 'booking-detail',
+            path: ':studentId/booking-detail/:courseId',
             component: AdminStudentBookingDetailComponent,
             data: {
               layout: {

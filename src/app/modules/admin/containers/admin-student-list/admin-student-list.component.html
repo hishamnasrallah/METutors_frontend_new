@@ -402,5 +402,5 @@
 <metutors-admin-student-total-booking-modal [showModal]="(openBookingModal$ | async)!" *ngIf="openBookingModal$|async"
                                             (closeModal)="onCloseBookingModal()"
                                             [loading]="(loadingTotalBooking | async)!"
-                                            [bookings]="(totalBooking$ | async)!">
+                                            [detail]="(totalBooking$ | async)!">
 </metutors-admin-student-total-booking-modal>

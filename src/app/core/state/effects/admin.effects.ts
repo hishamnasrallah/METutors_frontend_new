@@ -154,8 +154,8 @@ export class AdminEffects {
     this._actions$.pipe(
       ofType(adminActions.loadAdminStudentBookingDetail),
       withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
-      mergeMap(([_, { id }]) =>
-        this._adminService.loadAdminStudentDetail(9, 1190).pipe(
+      mergeMap(([_, { studentId, courseId }]) =>
+        this._adminService.loadAdminStudentDetail(courseId, studentId).pipe(
           map(
             (studentBookingDetail) =>
               adminActions.loadAdminStudentBookingDetailSuccess({

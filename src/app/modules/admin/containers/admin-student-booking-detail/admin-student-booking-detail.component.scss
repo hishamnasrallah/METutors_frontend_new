@@ -59,9 +59,26 @@
       }
 
       button {
-        background: #50C394;
-        color: #FFF;
         border-radius: 35px;
+        &.completed {
+          color: #FFF;
+          background-color: #50C394;
+        }
+
+        &.pending {
+          background-color: #f8e3cc;
+          color: #c98843;
+        }
+
+        &.inprogress,, &.active {
+        color: #5955cd;
+        background-color: #e1e0fe;
+      }
+
+        &.canceled {
+          color: #d34c65;
+          background-color: #f9d3da;
+        }
       }
     }
 
