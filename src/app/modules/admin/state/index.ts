@@ -118,3 +118,13 @@ export const selectAdminStudentBookingModal = createSelector(
   selectAdminModalState,
   fromAdminModal.selectAdminStudentBookingModal
 );
+
+export const selectAdminStudentViewAssignmentsModal = createSelector(
+  selectAdminModalState,
+  fromAdminModal.selectAdminStudentViewAssignmentsModal
+);
+
+export const selectAdminStudentViewFeedbackModal = createSelector(
+  selectAdminModalState,
+  fromAdminModal.selectAdminStudentViewFeedbackModal
+);
