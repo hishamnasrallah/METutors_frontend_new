@@ -1283,3 +1283,8 @@ export const selectIsLoadingAdminStudentProfile = createSelector(
   selectAdminState,
   fromAdminReducer.selectIsLoadingAdminStudentProfile
 );
+
+export const selectAdminStudentBookingDetail = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectAdminStudentBookingDetail
+);

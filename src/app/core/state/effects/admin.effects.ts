@@ -11,6 +11,7 @@ import * as fromCore from '@metutor/core/state';
 import * as fromRouterStore from '@metutor/state';
 import * as adminActions from '../actions/admin.actions';
 import { AlertNotificationService } from '@metutor/core/components';
+import { loadAdminStudentBookingDetail } from '@metutor/core/state';
 
 @Injectable()
 export class AdminEffects {
@@ -131,15 +132,41 @@ export class AdminEffects {
       mergeMap(([_, { id }]) =>
         this._adminService.loadAdminStudentProfile(id).pipe(
           map(
-            (studentsProfile) =>
+            (studentProfile) =>
               adminActions.loadAdminStudentProfileSuccess({
-                studentsProfile: camelcaseKeys(studentsProfile, {
+                studentProfile: camelcaseKeys(studentProfile, {
                   deep: true,
                 }),
               }),
             catchError((error) =>
               of(
                 adminActions.loadAdminStudentProfileFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          )
+        )
+      )
+    )
+  );
+
+  loadAdminStudentBookingDetail$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(adminActions.loadAdminStudentBookingDetail),
+      withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
+      mergeMap(([_, { id }]) =>
+        this._adminService.loadAdminStudentDetail(id).pipe(
+          map(
+            (studentBookingDetail) =>
+              adminActions.loadAdminStudentBookingDetailSuccess({
+                studentBookingDetail: camelcaseKeys(studentBookingDetail, {
+                  deep: true,
+                }),
+              }),
+            catchError((error) =>
+              of(
+                adminActions.loadAdminStudentBookingDetailFailure({
                   error: error?.error?.message || error?.error?.errors,
                 })
               )
