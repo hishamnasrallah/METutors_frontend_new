@@ -7,7 +7,7 @@
 
         <ng-container *ngSwitchCase="false">
           <div *ngIf="!detail?.bookings?.length" class="text-center p-xxl-5">
-            No record found
+            No records found
           </div>
 
           <ng-container *ngIf="detail?.bookings?.length">
@@ -18,15 +18,15 @@
                   <div class="ms-2">
                     <h1 class="mb-0">Ahmed Hassan</h1>
                     <div>
-                      <rating [(ngModel)]="detail.averageRating" [max]="5" [readonly]="true"></rating>
-                      <span class="ms-2 count">{{detail?.averageRating.toFixed(2)}}</span>
+                      <rating [ngModel]="detail.averageRating" [max]="5" [readonly]="true"></rating>
+                      <span class="ms-2 count">{{ detail?.averageRating.toFixed(2) }}</span>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="col-md-2 info d-flex align-items-center">
                 <span>Total Records</span>
-                <strong>{{ detail?.totalBookings}}</strong>
+                <strong>{{ detail?.totalBookings }}</strong>
               </div>
               <div class="col-md-4 percentage d-flex align-items-center">
                 <strong class="me-2">Attendance Percentage</strong>
@@ -55,7 +55,7 @@
                   <th>Action</th>
                 </tr>
                 <tr *ngFor="let booking of detail?.bookings; let i=index">
-                  <td>{{ i + 1}}</td>
+                  <td>{{ i + 1 }}</td>
                   <td>BIN1</td>
                   <td>SIN1</td>
                   <td>
@@ -65,24 +65,24 @@
                              draggable="false"
                              meTutorsDefaultAvatar alt="">
                         <span>
-                    <bdi>{{ booking?.teacher?.firstName}} {{ booking?.teacher?.lastName}}</bdi>
+                    <bdi>{{ booking?.teacher?.firstName }} {{ booking?.teacher?.lastName }}</bdi>
                   </span>
                       </a>
                     </div>
                   </td>
-                  <td class="text-capitalize">{{ booking?.program?.code}}</td>
-                  <td>{{ booking?.field?.name}}</td>
-                  <td>{{ booking?.subject?.name}}</td>
-                  <td>{{ booking?.courseCode}}</td>
-                  <td>{{booking?.totalPrice}}$</td>
+                  <td class="text-capitalize">{{ booking?.program?.code }}</td>
+                  <td>{{ booking?.field?.name }}</td>
+                  <td>{{ booking?.subject?.name }}</td>
+                  <td>{{ booking?.courseCode }}</td>
+                  <td>{{ booking?.totalPrice }}$</td>
                   <td>
-                    <button class="status text-capitalize" mat-button [ngClass]="booking.status">
-                      {{ booking.status}}
+                    <button class="status text-capitalize" mat-button [ngClass]="booking?.status">
+                      {{ booking?.status }}
                     </button>
                   </td>
                   <td>
                     <button mat-button class="view-details main-button-transparent"
-                            [routerLink]="['/admin', 'student', booking.studentId, 'booking-detail', 9]"
+                            [routerLink]="['/admin', 'student', booking?.studentId, 'booking-detail', 9]"
                             (click)="closeModal.emit()">
                       View Details
                     </button>
