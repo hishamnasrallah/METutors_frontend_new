@@ -1,4 +1,4 @@
-:host ::ng-deep .students-list {
+:host ::ng-deep .bookings-list {
   padding: 30px 40px 20px;
 
   .filters {
@@ -69,8 +69,15 @@
       font-size: 14px;
     }
 
-    td a {
-      color: #2A2A2A;
+    .tutor-date {
+      div {
+        padding: 0;
+        font-size: 14px;
+
+        span {
+          color: #696969;
+        }
+      }
     }
   }
 
@@ -86,8 +93,4 @@
       opacity: 1;
     }
   }
-}
-
-.btn-menu {
-  font-size: 17px;
 }

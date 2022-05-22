@@ -8,59 +8,65 @@
       </ng-container>
 
       <ng-container *ngSwitchCase="false">
-    <div class="view-feedback">
-      <h1>Course Feedback</h1>
-      <div class="rating-block">
-        <div class="row">
-          <div class="col">
-            <h2>Fast learner</h2>
-          </div>
-          <div class="col-md-3">
-            <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
-          </div>
+        <div class="text-center p-xxl-5" *ngIf="!feedbacks?.length">
+          No feedbacks found!
         </div>
-        <div class="row">
-          <div class="col">
-            <h2>Focuses in class and paying attention</h2>
-          </div>
-          <div class="col-md-3">
-            <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <h2>Attend class on-time</h2>
-          </div>
-          <div class="col-md-3">
-            <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <h2>Complete homework on time</h2>
-          </div>
-          <div class="col-md-3">
-            <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <h2>Active participation in class</h2>
-          </div>
-          <div class="col-md-3">
-            <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
-          </div>
-        </div>
-      </div>
 
-      <h2>Feedback</h2>
-      <p>
-        Lorem Ipsum Dolor Sit Amet, Consectetur Adipiscing Elit. Amet, Nisl Tellus Lacusp Ellentesque Volutpat Ultrices
-        Cras Quis. At Sapien Varius Id Urna, Amet Sifri Ngilla Leo Velit. Dictum Mi Ornare Vel Aliquam Nisl Proin
-        Ultrices Amet, Nisl Tellus Lacus Pellentesque Volutpat Proin Ultrices Cras Quis Dictum Mi Ornare Vel Aliqua M
-        Nisl Proin Ultrices Amet, Nisl Tel Lus Lacus Pellentesque Volutpat.
-      </p>
-    </div>
+        <div class="view-feedback" *ngIf="feedbacks?.length">
+          <h1>Course Feedback</h1>
+          <div class="rating-block">
+            <div class="row">
+              <div class="col">
+                <h2>Fast learner</h2>
+              </div>
+              <div class="col-md-3">
+                <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <h2>Focuses in class and paying attention</h2>
+              </div>
+              <div class="col-md-3">
+                <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <h2>Attend class on-time</h2>
+              </div>
+              <div class="col-md-3">
+                <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <h2>Complete homework on time</h2>
+              </div>
+              <div class="col-md-3">
+                <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <h2>Active participation in class</h2>
+              </div>
+              <div class="col-md-3">
+                <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
+              </div>
+            </div>
+          </div>
+
+          <h2>Feedback</h2>
+          <p>
+            Lorem Ipsum Dolor Sit Amet, Consectetur Adipiscing Elit. Amet, Nisl Tellus Lacusp Ellentesque Volutpat
+            Ultrices
+            Cras Quis. At Sapien Varius Id Urna, Amet Sifri Ngilla Leo Velit. Dictum Mi Ornare Vel Aliquam Nisl Proin
+            Ultrices Amet, Nisl Tellus Lacus Pellentesque Volutpat Proin Ultrices Cras Quis Dictum Mi Ornare Vel Aliqua
+            M
+            Nisl Proin Ultrices Amet, Nisl Tel Lus Lacus Pellentesque Volutpat.
+          </p>
+        </div>
       </ng-container>
     </ng-container>
   </ng-template>

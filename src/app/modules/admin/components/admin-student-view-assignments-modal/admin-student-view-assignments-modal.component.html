@@ -8,7 +8,10 @@
       </ng-container>
 
       <ng-container *ngSwitchCase="false">
-        <div class="view-assignments">
+        <div class="text-center p-xxl-5" *ngIf="!summary?.assignments?.length">
+            No assignments found!
+        </div>
+        <div class="view-assignments" *ngIf="summary?.assignments?.length">
           <div class="heading row">
             <div class="col-md percentage d-flex align-items-center">
               <strong class="me-2">Assignments Accuracy</strong>

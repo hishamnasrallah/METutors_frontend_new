@@ -6,7 +6,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./admin-student-view-feedback-modal.component.scss'],
 })
 export class AdminStudentViewFeedbackModalComponent implements OnInit {
-  @Input() feedback: any;
+  @Input() feedbacks: any;
   @Input() loading = false;
   @Input() showModal = false;
 

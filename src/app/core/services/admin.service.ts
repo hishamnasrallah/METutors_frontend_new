@@ -77,7 +77,7 @@ export class AdminService {
   }
 
   loadAdminStudentProfile(id: number): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}admin/student/${id}/profile`);
+    return this.http.get<any>(`${this.baseUrl}admin/student/${id}`);
   }
 
   loadAdminStudentDetail(courseId: number, studentId: number): Observable<any> {

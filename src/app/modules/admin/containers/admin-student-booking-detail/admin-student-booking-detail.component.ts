@@ -12,10 +12,10 @@ import * as fromAdminAction from '@metutor/modules/admin/state/actions';
   styleUrls: ['./admin-student-booking-detail.component.scss'],
 })
 export class AdminStudentBookingDetailComponent implements OnInit {
-  viewFeedback: Observable<any>;
-  loadFeedback$: Observable<boolean>;
-  loadAssignment$: Observable<boolean>;
+  feedbacks$: Observable<any>;
+  loadingFeedback$: Observable<boolean>;
   showFeedbackModal$: Observable<boolean>;
+  assignmentsSummary$: Observable<boolean>;
   isLoadingAssignment$: Observable<boolean>;
   showAssignmentsModal$: Observable<boolean>;
   view$: Observable<{ course: any; loading: boolean }>;
@@ -54,7 +54,7 @@ export class AdminStudentBookingDetailComponent implements OnInit {
       fromAdmin.selectAdminStudentViewFeedbackModal
     );
 
-    this.loadAssignment$ = this._store.select(
+    this.assignmentsSummary$ = this._store.select(
       fromCore.selectAdminStudentAssignmentSummary
     );
 
@@ -62,11 +62,11 @@ export class AdminStudentBookingDetailComponent implements OnInit {
       fromCore.selectIsLoadingStudentAssignmentSummary
     );
 
-    this.viewFeedback = this._store.select(
+    this.feedbacks$ = this._store.select(
       fromCore.selectAdminStudentViewFeedback
     );
 
-    this.loadFeedback$ = this._store.select(
+    this.loadingFeedback$ = this._store.select(
       fromCore.selectIsLoadingStudentViewFeedback
     );
 

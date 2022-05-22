@@ -6,9 +6,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./admin-student-view-assignments-modal.component.scss'],
 })
 export class AdminStudentViewAssignmentsModalComponent implements OnInit {
+  @Input() summary: any;
   @Input() loading = false;
   @Input() showModal = false;
-  @Input() assignments = false;
 
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
 

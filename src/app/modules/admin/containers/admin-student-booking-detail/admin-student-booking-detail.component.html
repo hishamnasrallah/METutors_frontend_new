@@ -9,7 +9,7 @@
               <h1 class="title overflow-hidden d-flex align-items-center">
                 {{ view.course.courseName}}
                 <span class="ms-2">({{view.course.courseCode}})</span>
-                <button mat-button class="ms-2 text-capitalize" [ngClass]="view.course.status">{{ view.course.status }}</button>
+                <button mat-button class="ms-2 text-capitalize status" [ngClass]="view.course.status">{{ view.course.status }}</button>
               </h1>
             </div>
             <div class="col-md-3 percentage d-flex align-items-center">
@@ -126,18 +126,18 @@
             </tr>
             <tr *ngFor="let cls of view.course.classes; let i=index">
               <td>{{i+1}}</td>
-              <td>{{ view.course?.title}} </td>
+              <td>{{ cls?.title}} </td>
               <td>
                 <a>
                   <img src="" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
                        meTutorsDefaultAvatar alt="">
                   <span>
-                  <bdi>Ahmed Hassan</bdi>
+                  <bdi>{{ cls.teacher?.firstName }} {{ cls?.teacher?.lastName }}</bdi>
                 </span>
                 </a>
               </td>
-              <td>{{ view.course?.startTime}} - {{ view.course?.endTime}} </td>
-              <td>{{ view.course?.duration}} Hour</td>
+              <td>{{ cls?.startTime}} - {{ cls?.endTime}} </td>
+              <td>{{ cls?.duration}} Hour</td>
               <td class="d-flex">
                 <button mat-button class="attend present">Present</button>
               </td>
@@ -152,11 +152,12 @@
 <metutors-admin-student-view-assignments-modal *ngIf="showAssignmentsModal$ | async"
                                                (closeModal)="onCloseModals()"
                                                [loading]="(isLoadingAssignment$ | async)!"
-                                               [assignments]="(loadAssignment$ | async)!"
+                                               [summary]="(assignmentsSummary$ | async)!"
                                                [showModal]="(showAssignmentsModal$ | async)!">
 </metutors-admin-student-view-assignments-modal>
 
 <metutors-admin-student-view-feedback-modal *ngIf="showFeedbackModal$ | async"
-                                            (closeModal)="onCloseModals()"
+                                            (closeModal)="onCloseModals()" [loading]="(loadingFeedback$ | async)!"
+                                            [feedbacks]="(feedbacks$ | async)!"
                                             [showModal]="(showFeedbackModal$ | async)!">
 </metutors-admin-student-view-feedback-modal>

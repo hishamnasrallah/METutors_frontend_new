@@ -6,11 +6,11 @@ import { CourseStatus } from '@metutor/config';
 import { ICourse, ITutorFilters } from '@metutor/core/models';
 
 @Component({
-  selector: 'metutors-admin-all-booking-classrooms',
-  templateUrl: './admin-all-booking-classrooms.component.html',
-  styleUrls: ['./admin-all-booking-classrooms.component.scss'],
+  selector: 'metutors-admin-classrooms-list',
+  templateUrl: './admin-classrooms-list.component.html',
+  styleUrls: ['./admin-classrooms-list.component.scss'],
 })
-export class AdminAllBookingClassroomsComponent implements OnInit {
+export class AdminClassroomsListComponent implements OnInit {
   bookingsCounts$: Observable<any>;
   isLoadingAllBookings$: Observable<boolean>;
   allBookings$: Observable<ICourse[] | null>;
