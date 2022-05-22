@@ -84,26 +84,6 @@
         padding: 15px;
         border-radius: 25px !important;
       }
-
-      .status {
-        color: #FFF;
-        line-height: 0;
-        min-width: 0;
-        padding: 15px;
-        border-radius: 25px;
-
-        &.completed {
-          background-color: #50C394;
-        }
-
-        &.canceled {
-          background-color: #F15A5A;
-        }
-
-        &.in-progress {
-          background-color: #FF8300;
-        }
-      }
     }
   }
 }

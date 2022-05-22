@@ -9,7 +9,7 @@
               <h1 class="title overflow-hidden d-flex align-items-center">
                 {{ view.course.courseName}}
                 <span class="ms-2">({{view.course.courseCode}})</span>
-                <button mat-button class="ms-2 text-capitalize" [ngClass]="view.course.status">{{ view.course.status }}</button>
+                <button mat-button class="ms-2 text-capitalize status" [ngClass]="view.course.status">{{ view.course.status }}</button>
               </h1>
             </div>
             <div class="col-md-3 percentage d-flex align-items-center">
@@ -152,11 +152,12 @@
 <metutors-admin-student-view-assignments-modal *ngIf="showAssignmentsModal$ | async"
                                                (closeModal)="onCloseModals()"
                                                [loading]="(isLoadingAssignment$ | async)!"
-                                               [assignments]="(loadAssignment$ | async)!"
+                                               [summary]="(assignmentsSummary$ | async)!"
                                                [showModal]="(showAssignmentsModal$ | async)!">
 </metutors-admin-student-view-assignments-modal>
 
 <metutors-admin-student-view-feedback-modal *ngIf="showFeedbackModal$ | async"
-                                            (closeModal)="onCloseModals()"
+                                            (closeModal)="onCloseModals()" [loading]="(loadingFeedback$ | async)!"
+                                            [feedbacks]="(feedbacks$ | async)!"
                                             [showModal]="(showFeedbackModal$ | async)!">
 </metutors-admin-student-view-feedback-modal>
