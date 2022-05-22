@@ -21,6 +21,7 @@ import {
   AdminSuspendedTutorsComponent,
   AdminWorkforceCapacityComponent,
   AdminCancelledClassroomsComponent,
+  AdminClassroomsPerCourseComponent,
   AdminAllBookingClassroomsComponent,
   AdminStudentBookingDetailComponent,
   AdminTutorInterviewDetailsComponent,
@@ -218,7 +219,7 @@ const routes: Routes = [
             data: {
               layout: {
                 title: 'Cancelled - Metutors',
-                navbarTitle: 'Cancelled',
+                navbarTitle: 'Classrooms',
                 showHeader: false,
                 showFooter: false,
               },
@@ -231,6 +232,18 @@ const routes: Routes = [
               layout: {
                 title: 'Booking Details - Metutors',
                 navbarTitle: 'Booking Details',
+                showHeader: false,
+                showFooter: false,
+              },
+            },
+          },
+          {
+            path: 'per-course',
+            component: AdminClassroomsPerCourseComponent,
+            data: {
+              layout: {
+                title: 'Per Courses - Metutors',
+                navbarTitle: 'Classrooms',
                 showHeader: false,
                 showFooter: false,
               },

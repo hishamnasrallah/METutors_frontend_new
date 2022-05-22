@@ -20,7 +20,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import * as fromAdmin from './state';
 import { StoreModule } from '@ngrx/store';
@@ -46,6 +46,7 @@ import {
   AdminSuspendedTutorsComponent,
   AdminWorkforceCapacityComponent,
   AdminCancelledClassroomsComponent,
+  AdminClassroomsPerCourseComponent,
   AdminStudentBookingDetailComponent,
   AdminAllBookingClassroomsComponent,
   AdminTutorInterviewDetailsComponent,
@@ -104,6 +105,7 @@ import {
     AdminAddNewCountryModalComponent,
     AdminAddNewSubjectModalComponent,
     AdminCancelledClassroomsComponent,
+    AdminClassroomsPerCourseComponent,
     AdminSendMeetingLinkModalComponent,
     AdminAllBookingClassroomsComponent,
     AdminStudentBookingDetailComponent,
