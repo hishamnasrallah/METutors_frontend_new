@@ -15,7 +15,7 @@ export class AdminStudentProfileComponent implements OnInit {
   constructor(private _store: Store<any>) {}
 
   ngOnInit(): void {
-    // this._store.dispatch(fromCore.loadAdminStudentProfile());
+    this._store.dispatch(fromCore.loadAdminStudentProfile());
     this.view$ = combineLatest([
       this._store.select(fromCore.selectAdminStudentProfile),
       this._store.select(fromCore.selectIsLoadingAdminStudentProfile),

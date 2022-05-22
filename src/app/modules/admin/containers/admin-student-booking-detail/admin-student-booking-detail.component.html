@@ -126,18 +126,18 @@
             </tr>
             <tr *ngFor="let cls of view.course.classes; let i=index">
               <td>{{i+1}}</td>
-              <td>{{ view.course?.title}} </td>
+              <td>{{ cls?.title}} </td>
               <td>
                 <a>
                   <img src="" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
                        meTutorsDefaultAvatar alt="">
                   <span>
-                  <bdi>Ahmed Hassan</bdi>
+                  <bdi>{{ cls.teacher?.firstName }} {{ cls?.teacher?.lastName }}</bdi>
                 </span>
                 </a>
               </td>
-              <td>{{ view.course?.startTime}} - {{ view.course?.endTime}} </td>
-              <td>{{ view.course?.duration}} Hour</td>
+              <td>{{ cls?.startTime}} - {{ cls?.endTime}} </td>
+              <td>{{ cls?.duration}} Hour</td>
               <td class="d-flex">
                 <button mat-button class="attend present">Present</button>
               </td>

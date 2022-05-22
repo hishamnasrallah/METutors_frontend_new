@@ -754,7 +754,7 @@ button.status, span.status {
     background-color: #50C394;
   }
 
-  &.pending, &.requested {
+  &.pending, &.requested, &.requested_to_metutors {
     background-color: #f8e3cc;
     color: #c98843;
   }
@@ -764,7 +764,7 @@ button.status, span.status {
     background-color: #e1e0fe;
   }
 
-  &.canceled, &.rejected, &.cancelled_by_student, &.cancelled_by_teacher, &.requested_to_metutors {
+  &.canceled, &.rejected, &.cancelled_by_student, &.cancelled_by_teacher {
     color: #d34c65;
     background-color: #f9d3da;
   }
