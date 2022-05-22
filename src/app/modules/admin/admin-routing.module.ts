@@ -19,10 +19,10 @@ import {
   AdminFinanceOrdersComponent,
   AdminStudentProfileComponent,
   AdminSuspendedTutorsComponent,
+  AdminClassroomsListComponent,
   AdminWorkforceCapacityComponent,
   AdminCancelledClassroomsComponent,
   AdminClassroomsPerCourseComponent,
-  AdminAllBookingClassroomsComponent,
   AdminStudentBookingDetailComponent,
   AdminTutorInterviewDetailsComponent,
   AdminTutorInterviewDocumentsComponent,
@@ -203,11 +203,11 @@ const routes: Routes = [
         children: [
           {
             path: 'all',
-            component: AdminAllBookingClassroomsComponent,
+            component: AdminClassroomsListComponent,
             data: {
               layout: {
                 title: 'All Booking - Metutors',
-                navbarTitle: 'All Booking',
+                navbarTitle: 'Classrooms',
                 showHeader: false,
                 showFooter: false,
               },
