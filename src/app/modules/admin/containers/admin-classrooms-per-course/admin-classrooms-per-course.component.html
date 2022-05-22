@@ -1,1 +1,125 @@
-<p>admin-classrooms-per-course works!</p>
+<div class="bookings-list">
+  <div class="row filters">
+    <div class="col-md-6 d-flex align-items-center">
+      <h1>Booking per Subject</h1>
+    </div>
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-7">
+          <div class="position-relative">
+            <mat-icon>search</mat-icon>
+            <input type="text" class="form-control custom-input input-bordered search-request" [(ngModel)]="name"
+                   (keyup)="onFilterTutors()" placeholder="Search Classrooms">
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="position-relative">
+            <input type="text" class="form-control custom-input input-bordered" placeholder="Apply filters">
+            <mat-icon class="filter">filter_alt</mat-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col-md-12">
+      <mat-tab-group mat-align-tabs="start">
+        <mat-tab label="Running" *ngLet="(allBookings$ | async) as allBookings">
+          <ng-container [ngSwitch]="isLoadingAllBookings$ | async">
+            <metutors-grid-placeholder class="mt-4" *ngSwitchCase="true"></metutors-grid-placeholder>
+
+            <ng-container *ngSwitchCase="false">
+              <table class="table my-table default-title mt-4">
+                <tr>
+                  <th>Number</th>
+                  <th>BIN</th>
+                  <th>Student Name</th>
+                  <th>Teacher Name</th>
+                  <th>Total Classes</th>
+                  <th>Start Date - End Date</th>
+                  <th>Program</th>
+                  <th>Course ID</th>
+                  <th>Course Name</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+                <tr *ngIf="!allBookings || !allBookings.length">
+                  <td colspan="11">
+                    <div class="text-center">No records found</div>
+                  </td>
+                </tr>
+                <tr *ngFor="let bookings of allBookings; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ bookings?.courseCode }}</td>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <img [src]="bookings?.student?.avatar" width="25" height="25" class="rounded-circle p-0 me-2"
+                           draggable="false" meTutorsDefaultAvatar alt="">
+                      <span>
+                        <bdi>{{ bookings?.student?.name }}</bdi>
+                      </span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <img [src]="bookings?.tutor?.avatar" width="25" height="25" class="rounded-circle p-0 me-2"
+                           draggable="false" meTutorsDefaultAvatar alt="">
+                      <span>
+                        <bdi>{{ bookings?.tutor?.name }}</bdi>
+                      </span>
+                    </div>
+                  </td>
+                  <td class="text-capitalize">{{ bookings?.totalClasses }}</td>
+                  <td class="text-capitalize tutor-date">
+                    <div>
+                      <span>From</span> {{ bookings?.startDate }}
+                    </div>
+                    <div>
+                      <span>To</span> {{ bookings?.endDate }}
+                    </div>
+                  </td>
+                  <td>{{ bookings?.program?.name }}</td>
+                  <td>{{ bookings?.courseCode }}</td>
+                  <td>{{ bookings?.courseName }}</td>
+                  <td>
+                    <div class="change-status position-relative d-flex">
+                      <button class="status text-capitalize" mat-button [ngClass]="{
+                        'active': bookings?.status === courseStatus.active,
+                        'inprogress': bookings?.status === courseStatus.inprogress,
+                        'canceled': bookings?.status === courseStatus.canceled,
+                        'completed': bookings?.status === courseStatus.completed
+                      }">
+                        <ng-container *ngIf="bookings?.status === courseStatus.active">Active</ng-container>
+                        <ng-container *ngIf="bookings?.status === courseStatus.inprogress">Running</ng-container>
+                        <ng-container *ngIf="bookings?.status === courseStatus.canceled">Cancelled</ng-container>
+                        <ng-container *ngIf="bookings?.status === courseStatus.completed">Completed</ng-container>
+                      </button>
+                    </div>
+                  </td>
+                  <td>
+                    <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0">
+                      <mat-icon>more_vert</mat-icon>
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </ng-container>
+          </ng-container>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</div>
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item class="h-auto btn-menu">
+    <span>View Profile</span>
+  </button>
+  <button mat-menu-item class="h-auto btn-menu">
+    <span>Edit Profile</span>
+  </button>
+  <button mat-menu-item class="h-auto btn-menu">
+    <span>Change Status</span>
+  </button>
+</mat-menu>

@@ -238,11 +238,11 @@ const routes: Routes = [
             },
           },
           {
-            path: 'per-course',
+            path: 'course',
             component: AdminClassroomsPerCourseComponent,
             data: {
               layout: {
-                title: 'Per Courses - Metutors',
+                title: 'Course - Metutors',
                 navbarTitle: 'Classrooms',
                 showHeader: false,
                 showFooter: false,
