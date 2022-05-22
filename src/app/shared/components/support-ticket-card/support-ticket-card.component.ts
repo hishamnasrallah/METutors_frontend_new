@@ -1,9 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import {
-  TicketPriority,
-  TicketStatus,
-  TICKET_STATUSES_CONST,
-} from '@metutor/config';
+import { TicketStatus, TicketPriority } from '@metutor/config';
 import { ITicket } from '@metutor/core/models';
 
 @Component({
@@ -22,7 +18,6 @@ export class SupportTicketCardComponent implements OnInit {
 
   ticketStatus = TicketStatus;
   ticketPriority = TicketPriority;
-  ticketStatuses = TICKET_STATUSES_CONST;
 
   constructor() {}
 

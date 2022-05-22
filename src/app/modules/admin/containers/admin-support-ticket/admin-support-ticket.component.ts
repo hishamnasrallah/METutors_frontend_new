@@ -61,6 +61,9 @@ export class AdminSupportTicketComponent implements OnInit {
     } else if (event.index === 2) {
       this.status = TicketStatus.closed;
       this.filterTickets({ status: TicketStatus.closed });
+    } else if (event.index === 3) {
+      this.status = TicketStatus.urgent;
+      this.filterTickets({ status: TicketStatus.urgent });
     }
     this.title = '';
     this.category = '';
