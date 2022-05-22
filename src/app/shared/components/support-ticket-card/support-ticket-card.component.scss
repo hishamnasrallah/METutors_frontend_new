@@ -22,7 +22,7 @@
       }
 
       &.critical {
-        color: #e72347;
+        color: #FF385C;
       }
     }
 
@@ -32,30 +32,6 @@
 
       a {
         text-decoration: underline;
-      }
-    }
-
-    .statues {
-      border-radius: 5px;
-      overflow: hidden;
-
-      li {
-        padding: 5px 10px;
-        color: #FFF;
-        margin: 5px;
-        border-radius: 5px;
-
-        &.response {
-          background-color: #ff8300;
-        }
-
-        &.closed {
-          background-color: #50C394;
-        }
-
-        &.issued {
-          background-color: var(--main-color);
-        }
       }
     }
   }
@@ -76,15 +52,19 @@
       font-size: 11px;
       margin-left: 10px;
 
-      &.response {
+      &.inprogress {
         background-color: #ff8300;
+      }
+
+      &.urgent {
+        background-color: #F15A5A;
       }
 
       &.closed {
         background-color: #50C394;
       }
 
-      &.issued {
+      &.open {
         background-color: var(--main-color);
       }
     }
