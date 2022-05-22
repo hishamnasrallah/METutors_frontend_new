@@ -2,6 +2,7 @@ import { map, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Component, OnInit } from '@angular/core';
 
+import { environment } from '@environment';
 import * as fromCore from '@metutor/core/state';
 import { IStudentFilters } from '@metutor/core/models';
 import * as fromAdmin from '@metutor/modules/admin/state';
@@ -29,6 +30,7 @@ export class AdminStudentListComponent implements OnInit {
   name: string;
   studentId: any;
   tutorStatus = TutorStatus;
+  imageUrl = environment.imageURL;
   studentStatuses = STUDENT_STATUSES_CONST;
 
   constructor(private _store: Store<any>) {}

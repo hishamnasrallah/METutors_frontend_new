@@ -38,7 +38,7 @@
           <div class="row">
             <div class="col-md-12 d-flex justify-content-between my-4">
               <div class="d-flex align-items-center">
-                <img [src]="view.profile?.student?.avatar" width="25" height="25" class="rounded-circle p-0 me-3" draggable="false"
+                <img [src]="imageUrl+view.profile?.student?.avatar" width="25" height="25" class="rounded-circle p-0 me-3" draggable="false"
                      meTutorsDefaultAvatar
                      alt="">
                 <strong>
@@ -120,14 +120,14 @@
             <tr *ngFor="let course of view.profile?.courses; let i=index">
               <td>{{ i+1}}</td>
               <td>BIN1</td>
-              <td>SIN1</td>
+              <td>{{view.profile?.student?.idNumber}}</td>
               <td>
                 <div class="d-flex align-items-center">
                   <a>
-                    <img src="" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
+                    <img [src]="imageUrl+view.profile?.student?.avatar" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
                          meTutorsDefaultAvatar alt="">
                     <span>
-                  <bdi>Ahmed Hassan</bdi>
+                  <bdi>{{ view.profile?.student?.firstName }} {{ view.profile?.student?.lastName }}</bdi>
                 </span>
                   </a>
                 </div>
@@ -141,7 +141,7 @@
                 <button class="status text-capitalize completed" mat-button [ngClass]="course?.status">{{ course?.status}}</button>
               </td>
               <td>
-                <button mat-button class="view-details main-button-transparent" [routerLink]="['/admin', 'student']">
+                <button mat-button class="view-details main-button-transparent" [routerLink]="['/admin', 'student', view.profile?.student?.id, 'booking-detail', course?.id]">
                   View Details
                 </button>
               </td>

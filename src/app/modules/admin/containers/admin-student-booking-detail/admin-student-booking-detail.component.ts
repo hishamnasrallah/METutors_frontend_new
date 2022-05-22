@@ -36,7 +36,7 @@ export class AdminStudentBookingDetailComponent implements OnInit {
   }
 
   onCloseModals(): void {
-    this._store.dispatch(fromAdminAction.closeAdminStudentsFeedbackModal());
+    this._store.dispatch(fromAdminAction.closeAdminStudentViewFeedbackModal());
 
     this._store.dispatch(
       fromAdminAction.closeAdminStudentViewAssignmentsModal()

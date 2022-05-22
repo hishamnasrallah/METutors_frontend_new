@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { environment } from '@environment';
 
 @Component({
   selector: 'metutors-admin-student-total-booking-modal',
@@ -11,6 +12,8 @@ export class AdminStudentTotalBookingModalComponent implements OnInit {
   @Input() showModal = false;
 
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
+
+  imageUrl = environment.imageURL;
 
   constructor() {}
 

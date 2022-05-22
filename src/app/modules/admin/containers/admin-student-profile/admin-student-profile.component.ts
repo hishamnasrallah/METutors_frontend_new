@@ -2,6 +2,7 @@ import { Store } from '@ngrx/store';
 import { Observable, combineLatest, map } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 
+import { environment } from '@environment';
 import * as fromCore from '@metutor/core/state';
 
 @Component({
@@ -11,6 +12,8 @@ import * as fromCore from '@metutor/core/state';
 })
 export class AdminStudentProfileComponent implements OnInit {
   view$: Observable<{ profile: any; loading: boolean }>;
+
+  imageUrl = environment.imageURL;
 
   constructor(private _store: Store<any>) {}
 
