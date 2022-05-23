@@ -15,46 +15,16 @@
         <div class="view-feedback" *ngIf="feedbacks?.length">
           <h1>Course Feedback</h1>
           <div class="rating-block">
+            <ng-container *ngFor="let feedback of feedbacks">
             <div class="row">
               <div class="col">
-                <h2>Fast learner</h2>
+                <h2>{{feedback.name}}</h2>
               </div>
               <div class="col-md-3">
-                <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
+                <rating [ngModel]="feedback.rating" [max]="5" [readonly]="true"></rating>
               </div>
             </div>
-            <div class="row">
-              <div class="col">
-                <h2>Focuses in class and paying attention</h2>
-              </div>
-              <div class="col-md-3">
-                <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col">
-                <h2>Attend class on-time</h2>
-              </div>
-              <div class="col-md-3">
-                <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col">
-                <h2>Complete homework on time</h2>
-              </div>
-              <div class="col-md-3">
-                <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col">
-                <h2>Active participation in class</h2>
-              </div>
-              <div class="col-md-3">
-                <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
-              </div>
-            </div>
+            </ng-container>
           </div>
 
           <h2>Feedback</h2>

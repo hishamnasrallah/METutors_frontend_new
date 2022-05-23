@@ -21,7 +21,10 @@
           <img src="assets/svg/user-group.svg" draggable="false" *ngIf="classroom?.type === classroomType.group"
                width="25px" height="25px" alt=""/>
         </h5>
-        <button mat-button class="class-btn text-uppercase main-button-opacity" *ngIf="classroom?.program">{{ classroom?.program?.code }}</button>
+        <div class="d-inline-flex">
+          <button mat-button class="ms-2 text-capitalize status" [ngClass]="classroom.status">{{ classroom.status }}</button>
+          <button mat-button class="class-btn text-uppercase main-button-opacity" *ngIf="classroom?.program">{{ classroom?.program?.code }}</button>
+        </div>
       </div>
 
       <div class="row list-items md-item">

@@ -84,40 +84,15 @@
             </div>
           </ng-container>
           <ng-container *ngSwitchCase="false">
+            <div class="col-md-12" *ngFor="let cancelledCourse of view.cancelledCourses">
+              <metutors-classroom-item [classroom]="cancelledCourse" [url]="'/tutor/classrooms/classes/dashboard/'"></metutors-classroom-item>
+            </div>
+
             <div class="col-md-12" *ngFor="let activeCourse of view.activeCourses">
               <metutors-classroom-item [classroom]="activeCourse" [url]="'/tutor/classrooms/classes/dashboard/'"></metutors-classroom-item>
             </div>
 
             <div class="col-md-12 mb-3" *ngIf="!view.activeCourses || !view.activeCourses.length">
-              <div class="card no-data">
-                <div class="card-body">
-                  <h3 class="text-center m-0">No course found!</h3>
-                </div>
-              </div>
-            </div>
-          </ng-container>
-        </ng-container>
-      </div>
-    </div>
-
-    <div class="col-12">
-      <h2 class="title cursor-pointer d-flex align-items-center" (click)="openCompleted = !openCompleted">
-        <span class="flex-grow-1">Cancelled Courses</span>
-        <img src="assets/svg/arrow-up.svg" [class.rotate-180]="openCompleted" draggable="false" width="30px" height="30"
-          alt="" />
-      </h2>
-      <div class="row" [@slideInOut] *ngIf="openCompleted">
-        <ng-container [ngSwitch]="view.loading">
-          <ng-container *ngSwitchCase="true">
-            <div class="col-md-12" *ngFor="let _ of [1, 2]">
-              <metutors-card-placeholder></metutors-card-placeholder>
-            </div>
-          </ng-container>
-          <ng-container *ngSwitchCase="false">
-            <div class="col-md-12" *ngFor="let cancelledCourse of view.cancelledCourses">
-              <metutors-classroom-item [classroom]="cancelledCourse" [url]="'/tutor/classrooms/classes/dashboard/'"></metutors-classroom-item>
-            </div>
-            <div class="col-md-12 mb-3" *ngIf="!view.cancelledCourses || !view.cancelledCourses.length">
               <div class="card no-data">
                 <div class="card-body">
                   <h3 class="text-center m-0">No course found!</h3>

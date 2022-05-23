@@ -749,7 +749,7 @@ button.status, span.status {
   padding: 15px;
   border-radius: 25px;
 
-  &.completed {
+  &.completed, &.accepted {
     color: #FFF;
     background-color: #50C394;
   }

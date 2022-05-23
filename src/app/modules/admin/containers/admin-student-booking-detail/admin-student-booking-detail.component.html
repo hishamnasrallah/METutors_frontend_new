@@ -69,10 +69,10 @@
               <h3>Assignment Completion Rate</h3>
               <div class="d-flex align-items-center">
                 <div class="flex-grow-1">
-                  <mat-progress-bar class="example-margin" [color]="'primary'" [value]="80">
+                  <mat-progress-bar class="example-margin" [color]="'primary'" [value]="view.course.assignmentCompletionRate">
                   </mat-progress-bar>
                 </div>
-                <strong>80%</strong>
+                <strong>{{view.course?.assignmentCompletionRate}}%</strong>
               </div>
             </div>
             <div class="col-md-5 info d-flex justify-content-end">

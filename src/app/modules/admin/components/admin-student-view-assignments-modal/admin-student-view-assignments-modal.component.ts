@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
+import { environment } from '@environment';
+
 @Component({
   selector: 'metutors-admin-student-view-assignments-modal',
   templateUrl: './admin-student-view-assignments-modal.component.html',
@@ -12,7 +14,7 @@ export class AdminStudentViewAssignmentsModalComponent implements OnInit {
 
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
 
-  rate = 4;
+  imageURL = environment.imageURL;
 
   constructor() {}
 

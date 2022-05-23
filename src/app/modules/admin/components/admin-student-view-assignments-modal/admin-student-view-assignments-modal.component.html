@@ -18,7 +18,7 @@
               <div class="position-relative my-progress">
                 <mat-progress-spinner class="progress-spinner" [color]="'primary'" [mode]="'determinate'" [value]="50">
                 </mat-progress-spinner>
-                <span class="position-absolute">50%</span>
+                <span class="position-absolute">{{summary?.assignmnetsAccuracy.toFixed()}}%</span>
               </div>
             </div>
             <div class="col-md percentage d-flex align-items-center">
@@ -26,7 +26,7 @@
               <div class="position-relative my-progress">
                 <mat-progress-spinner class="progress-spinner" [color]="'primary'" [mode]="'determinate'" [value]="50">
                 </mat-progress-spinner>
-                <span class="position-absolute">50%</span>
+                <span class="position-absolute">{{ summary?.assignmentCompletionRate.toFixed()}}%</span>
               </div>
             </div>
             <div class="col-md percentage d-flex align-items-center">
@@ -34,7 +34,7 @@
               <div class="position-relative my-progress">
                 <mat-progress-spinner class="progress-spinner" [color]="'primary'" [mode]="'determinate'" [value]="50">
                 </mat-progress-spinner>
-                <span class="position-absolute">50%</span>
+                <span class="position-absolute">{{summary?.assignmentsByDueDate}}%</span>
               </div>
             </div>
 
@@ -54,95 +54,26 @@
                 <th>Due Date</th>
                 <th>Status</th>
               </tr>
-              <tr>
-                <td>1</td>
+              <tr *ngFor="let assignment of summary?.assignments; let i=index">
+                <td>{{ i+1}}</td>
                 <td>BIN1</td>
-                <td>Numerical Equ.</td>
-                <td>Apr 10, 2022 - Apr 30, 2022</td>
+                <td>{{assignment?.title}}</td>
+                <td>{{ assignment?.startDate}} - {{assignment?.deadline}}</td>
                 <td>
                   <div class="d-flex align-items-center">
                     <a>
-                      <img src="" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
+                      <img [src]="imageURL+assignment.teacher.avatar" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
                            meTutorsDefaultAvatar alt="">
                       <span>
-                    <bdi>Ahmed Hassan</bdi>
+                    <bdi>{{assignment?.teacher?.firstName}} {{assignment?.teacher?.lastName}}</bdi>
                   </span>
                     </a>
                   </div>
                 </td>
                 <td>Apr 30, 2022</td>
                 <td>
-                  <button class="status text-capitalize accepted" mat-button>
-                    Accepted
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>BIN1</td>
-                <td>Numerical Equ.</td>
-                <td>Apr 10, 2022 - Apr 30, 2022</td>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <a>
-                      <img src="" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
-                           meTutorsDefaultAvatar alt="">
-                      <span>
-                    <bdi>Ahmed Hassan</bdi>
-                  </span>
-                    </a>
-                  </div>
-                </td>
-                <td>Apr 30, 2022</td>
-                <td>
-                  <button class="status text-capitalize pending" mat-button>
-                    Pending
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>BIN1</td>
-                <td>Numerical Equ.</td>
-                <td>Apr 10, 2022 - Apr 30, 2022</td>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <a>
-                      <img src="" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
-                           meTutorsDefaultAvatar alt="">
-                      <span>
-                    <bdi>Ahmed Hassan</bdi>
-                  </span>
-                    </a>
-                  </div>
-                </td>
-                <td>Apr 30, 2022</td>
-                <td>
-                  <button class="status text-capitalize rejected" mat-button>
-                    Rejected
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>BIN1</td>
-                <td>Numerical Equ.</td>
-                <td>Apr 10, 2022 - Apr 30, 2022</td>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <a>
-                      <img src="" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
-                           meTutorsDefaultAvatar alt="">
-                      <span>
-                    <bdi>Ahmed Hassan</bdi>
-                  </span>
-                    </a>
-                  </div>
-                </td>
-                <td>Apr 30, 2022</td>
-                <td>
-                  <button class="status text-capitalize overdue" mat-button>
-                    Overdue
+                  <button class="status text-capitalize" mat-button [ngClass]="assignment.status">
+                    {{assignment.status}}
                   </button>
                 </td>
               </tr>
