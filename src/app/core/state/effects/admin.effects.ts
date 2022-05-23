@@ -494,163 +494,28 @@ export class AdminEffects {
     )
   );
 
-  loadAdminBookingPerCourseRunning$ = createEffect(() =>
+  loadAdminBookingPerCourse$ = createEffect(() =>
     this._actions$.pipe(
-      ofType(adminActions.loadAdminBookingPerCourseRunning),
-      withLatestFrom(
-        this._store.select(fromCore.selectBookingPerCourseRunning)
-      ),
-      mergeMap(([{ status }, _bookings]) => {
-        if (!_bookings?.subjects || !_bookings?.subjects?.length) {
-          return this._adminService.loadAdminBookingPerCourse(status).pipe(
-            map(
-              (course) =>
-                adminActions.loadAdminBookingPerCourseRunningSuccess({
-                  bookingPerCourseRunning: camelcaseKeys(course, {
-                    deep: true,
-                  }),
+      ofType(adminActions.loadAdminBookingPerCourse),
+      mergeMap(({ status }) =>
+        this._adminService.loadAdminBookingPerCourse(status).pipe(
+          map(
+            (course) =>
+              adminActions.loadAdminBookingPerCourseSuccess({
+                bookingPerCourse: camelcaseKeys(course, {
+                  deep: true,
                 }),
-              catchError((error) =>
-                of(
-                  adminActions.loadAdminBookingPerCourseRunningFailure({
-                    error: error?.error?.message || error?.error?.errors,
-                  })
-                )
+              }),
+            catchError((error) =>
+              of(
+                adminActions.loadAdminBookingPerCourseFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
               )
             )
-          );
-        } else {
-          return of(adminActions.loadAdminBookingPerCourseRunningEnded());
-        }
-      })
-    )
-  );
-
-  loadAdminBookingPerCoursePending$ = createEffect(() =>
-    this._actions$.pipe(
-      ofType(adminActions.loadAdminBookingPerCoursePending),
-      withLatestFrom(
-        this._store.select(fromCore.selectBookingPerCoursePending)
-      ),
-      mergeMap(([{ status }, _bookings]) => {
-        if (!_bookings?.subjects || !_bookings?.subjects?.length) {
-          return this._adminService.loadAdminBookingPerCourse(status).pipe(
-            map(
-              (course) =>
-                adminActions.loadAdminBookingPerCoursePendingSuccess({
-                  bookingPerCoursePending: camelcaseKeys(course, {
-                    deep: true,
-                  }),
-                }),
-              catchError((error) =>
-                of(
-                  adminActions.loadAdminBookingPerCoursePendingFailure({
-                    error: error?.error?.message || error?.error?.errors,
-                  })
-                )
-              )
-            )
-          );
-        } else {
-          return of(adminActions.loadAdminBookingPerCoursePendingEnded());
-        }
-      })
-    )
-  );
-
-  loadAdminBookingPerCourseReAssigned$ = createEffect(() =>
-    this._actions$.pipe(
-      ofType(adminActions.loadAdminBookingPerCourseReAssigned),
-      withLatestFrom(
-        this._store.select(fromCore.selectBookingPerCourseReAssigned)
-      ),
-      mergeMap(([{ status }, _bookings]) => {
-        if (!_bookings?.subjects || !_bookings?.subjects?.length) {
-          return this._adminService.loadAdminBookingPerCourse(status).pipe(
-            map(
-              (course) =>
-                adminActions.loadAdminBookingPerCourseReAssignedSuccess({
-                  bookingPerCourseReAssigned: camelcaseKeys(course, {
-                    deep: true,
-                  }),
-                }),
-              catchError((error) =>
-                of(
-                  adminActions.loadAdminBookingPerCourseReAssignedFailure({
-                    error: error?.error?.message || error?.error?.errors,
-                  })
-                )
-              )
-            )
-          );
-        } else {
-          return of(adminActions.loadAdminBookingPerCourseReAssignedEnded());
-        }
-      })
-    )
-  );
-
-  loadAdminBookingPerCourseCancelled$ = createEffect(() =>
-    this._actions$.pipe(
-      ofType(adminActions.loadAdminBookingPerCourseCancelled),
-      withLatestFrom(
-        this._store.select(fromCore.selectBookingPerCourseCancelled)
-      ),
-      mergeMap(([{ status }, _bookings]) => {
-        if (!_bookings?.subjects || !_bookings?.subjects?.length) {
-          return this._adminService.loadAdminBookingPerCourse(status).pipe(
-            map(
-              (course) =>
-                adminActions.loadAdminBookingPerCourseCancelledSuccess({
-                  bookingPerCourseCancelled: camelcaseKeys(course, {
-                    deep: true,
-                  }),
-                }),
-              catchError((error) =>
-                of(
-                  adminActions.loadAdminBookingPerCourseCancelledFailure({
-                    error: error?.error?.message || error?.error?.errors,
-                  })
-                )
-              )
-            )
-          );
-        } else {
-          return of(adminActions.loadAdminBookingPerCourseCancelledEnded());
-        }
-      })
-    )
-  );
-
-  loadAdminBookingPerCourseCompleted$ = createEffect(() =>
-    this._actions$.pipe(
-      ofType(adminActions.loadAdminBookingPerCourseCompleted),
-      withLatestFrom(
-        this._store.select(fromCore.selectBookingPerCourseCompleted)
-      ),
-      mergeMap(([{ status }, _bookings]) => {
-        if (!_bookings?.subjects || !_bookings?.subjects?.length) {
-          return this._adminService.loadAdminBookingPerCourse(status).pipe(
-            map(
-              (course) =>
-                adminActions.loadAdminBookingPerCourseCompletedSuccess({
-                  bookingPerCourseCompleted: camelcaseKeys(course, {
-                    deep: true,
-                  }),
-                }),
-              catchError((error) =>
-                of(
-                  adminActions.loadAdminBookingPerCourseCompletedFailure({
-                    error: error?.error?.message || error?.error?.errors,
-                  })
-                )
-              )
-            )
-          );
-        } else {
-          return of(adminActions.loadAdminBookingPerCourseCompletedEnded());
-        }
-      })
+          )
+        )
+      )
     )
   );
 

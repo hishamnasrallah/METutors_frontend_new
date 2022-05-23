@@ -25,57 +25,57 @@
   <div class="row mt-2">
     <div class="col-md-12" *ngLet="(view$ | async) as view">
       <mat-tab-group mat-align-tabs="start" (selectedTabChange)="onChangeTab($event)">
-        <mat-tab [label]="'Running ('+(view.running?.runningCoursesCount || 0)+')'">
+        <mat-tab [label]="'Running ('+(view.booking?.runningCoursesCount || 0)+')'">
           <ng-container [ngSwitch]="view.loading">
             <metutors-grid-placeholder class="mt-4" *ngSwitchCase="true"></metutors-grid-placeholder>
 
             <ng-container *ngSwitchCase="false">
-              <metutors-per-course-grid [bookings]="view.running?.subjects"
+              <metutors-per-course-grid [bookings]="view.booking?.subjects"
                                         (openBookingModal)="onOpenBookingModal($event)"></metutors-per-course-grid>
             </ng-container>
           </ng-container>
         </mat-tab>
 
-        <mat-tab [label]="'Pending Approval ('+(view.running?.pendingCoursesCount || 0)+')'">
+        <mat-tab [label]="'Pending Approval ('+(view.booking?.pendingCoursesCount || 0)+')'">
           <ng-container [ngSwitch]="view.loading">
             <metutors-grid-placeholder class="mt-4" *ngSwitchCase="true"></metutors-grid-placeholder>
 
             <ng-container *ngSwitchCase="false">
-              <metutors-per-course-grid [bookings]="view.pending?.subjects"
+              <metutors-per-course-grid [bookings]="view.booking?.subjects"
                                         (openBookingModal)="onOpenBookingModal($event)"></metutors-per-course-grid>
             </ng-container>
           </ng-container>
         </mat-tab>
 
-        <mat-tab [label]="'Re-assigned ('+(view.running?.reassignedCoursesCount || 0)+')'">
+        <mat-tab [label]="'Re-assigned ('+(view.booking?.reassignedCoursesCount || 0)+')'">
           <ng-container [ngSwitch]="view.loading">
             <metutors-grid-placeholder class="mt-4" *ngSwitchCase="true"></metutors-grid-placeholder>
 
             <ng-container *ngSwitchCase="false">
-              <metutors-per-course-grid [bookings]="view.reassigned?.subjects"
+              <metutors-per-course-grid [bookings]="view.booking?.subjects"
                                         (openBookingModal)="onOpenBookingModal($event)"></metutors-per-course-grid>
             </ng-container>
           </ng-container>
         </mat-tab>
 
-        <mat-tab [label]="'Cancelled ('+(view.running?.cancelledCoursesCount || 0)+')'">
+        <mat-tab [label]="'Cancelled ('+(view.booking?.cancelledCoursesCount || 0)+')'">
           <ng-container [ngSwitch]="view.loading">
             <metutors-grid-placeholder class="mt-4" *ngSwitchCase="true"></metutors-grid-placeholder>
 
             <ng-container *ngSwitchCase="false">
-              <metutors-per-course-grid [bookings]="view.cancelled?.subjects"
+              <metutors-per-course-grid [bookings]="view.booking?.subjects"
                                         (openBookingModal)="onOpenBookingModal($event)"></metutors-per-course-grid>
             </ng-container>
           </ng-container>
         </mat-tab>
 
 
-        <mat-tab [label]="'Completed ('+(view.running?.completedCoursesCount || 0)+')'">
+        <mat-tab [label]="'Completed ('+(view.booking?.completedCoursesCount || 0)+')'">
           <ng-container [ngSwitch]="view.loading">
             <metutors-grid-placeholder class="mt-4" *ngSwitchCase="true"></metutors-grid-placeholder>
 
             <ng-container *ngSwitchCase="false">
-              <metutors-per-course-grid [bookings]="view.completed?.subjects"
+              <metutors-per-course-grid [bookings]="view.booking?.subjects"
                                         (openBookingModal)="onOpenBookingModal($event)"></metutors-per-course-grid>
             </ng-container>
           </ng-container>

@@ -53,11 +53,7 @@ export interface State {
   isLoadingCancelledBookings: boolean;
 
   // Booking per course
-  bookingPerCourseRunning: any;
-  bookingPerCoursePending: any;
-  bookingPerCourseCancelled: any;
-  bookingPerCourseCompleted: any;
-  bookingPerCourseReAssigned: any;
+  bookingPerCourse: any;
   isLoadingBookingPerCourse: boolean;
 }
 
@@ -72,6 +68,7 @@ export const initialState: State = {
   previousTutors: [],
   runningBookings: [],
   courseBooking: null,
+  bookingPerCourse: [],
   studentsFeedback: [],
   assignmentSummary: [],
   completedBookings: [],
@@ -83,14 +80,9 @@ export const initialState: State = {
   studentTotalBooking: [],
   studentBookingDetail: [],
   isLoadingAdminDocs: false,
-  bookingPerCourseRunning: [],
   isLoadingAllBookings: false,
-  bookingPerCoursePending: [],
   isLoadingViewFeedback: false,
   isLoadingCourseBooking: false,
-  bookingPerCourseCancelled: [],
-  bookingPerCourseCompleted: [],
-  bookingPerCourseReAssigned: [],
   isLoadingBookingDetail: false,
   isLoadingPreviousTutors: false,
   isLoadingStudentProfile: false,
@@ -475,83 +467,21 @@ export const reducer = createReducer(
   })),
 
   // BOOKING PER COURSE
-  on(
-    adminActions.loadAdminBookingPerCourseCompleted,
-    adminActions.loadAdminBookingPerCourseRunning,
-    adminActions.loadAdminBookingPerCourseReAssigned,
-    adminActions.loadAdminBookingPerCoursePending,
-    adminActions.loadAdminBookingPerCourseCancelled,
-    (state) => ({
-      ...state,
-      isLoadingBookingPerCourse: true,
-    })
-  ),
+  on(adminActions.loadAdminBookingPerCourse, (state) => ({
+    ...state,
+    isLoadingBookingPerCourse: true,
+  })),
+
+  on(adminActions.loadAdminBookingPerCourseFailure, (state) => ({
+    ...state,
+    isLoadingBookingPerCourse: false,
+  })),
 
   on(
-    adminActions.loadAdminBookingPerCourseCompletedFailure,
-    adminActions.loadAdminBookingPerCourseRunningFailure,
-    adminActions.loadAdminBookingPerCoursePendingFailure,
-    adminActions.loadAdminBookingPerCourseCancelledFailure,
-    adminActions.loadAdminBookingPerCourseReAssignedFailure,
-    (state) => ({
+    adminActions.loadAdminBookingPerCourseSuccess,
+    (state, { bookingPerCourse }) => ({
       ...state,
-      isLoadingBookingPerCourse: false,
-    })
-  ),
-
-  on(
-    adminActions.loadAdminBookingPerCourseCompletedEnded,
-    adminActions.loadAdminBookingPerCourseRunningEnded,
-    adminActions.loadAdminBookingPerCourseReAssignedEnded,
-    adminActions.loadAdminBookingPerCourseCancelledEnded,
-    adminActions.loadAdminBookingPerCoursePendingEnded,
-    (state) => ({
-      ...state,
-      isLoadingBookingPerCourse: false,
-    })
-  ),
-
-  on(
-    adminActions.loadAdminBookingPerCourseRunningSuccess,
-    (state, { bookingPerCourseRunning }) => ({
-      ...state,
-      bookingPerCourseRunning,
-      isLoadingBookingPerCourse: false,
-    })
-  ),
-
-  on(
-    adminActions.loadAdminBookingPerCoursePendingSuccess,
-    (state, { bookingPerCoursePending }) => ({
-      ...state,
-      bookingPerCoursePending,
-      isLoadingBookingPerCourse: false,
-    })
-  ),
-
-  on(
-    adminActions.loadAdminBookingPerCourseReAssignedSuccess,
-    (state, { bookingPerCourseReAssigned }) => ({
-      ...state,
-      bookingPerCourseReAssigned,
-      isLoadingBookingPerCourse: false,
-    })
-  ),
-
-  on(
-    adminActions.loadAdminBookingPerCourseCancelledSuccess,
-    (state, { bookingPerCourseCancelled }) => ({
-      ...state,
-      bookingPerCourseCancelled,
-      isLoadingBookingPerCourse: false,
-    })
-  ),
-
-  on(
-    adminActions.loadAdminBookingPerCourseCompletedSuccess,
-    (state, { bookingPerCourseCompleted }) => ({
-      ...state,
-      bookingPerCourseCompleted,
+      bookingPerCourse,
       isLoadingBookingPerCourse: false,
     })
   )
@@ -654,20 +584,8 @@ export const selectAdminStudentViewFeedback = (state: State): any =>
 export const selectIsLoadingStudentViewFeedback = (state: State): boolean =>
   state.isLoadingViewFeedback;
 
-export const selectBookingPerCourseRunning = (state: State): any =>
-  state.bookingPerCourseRunning;
-
-export const selectBookingPerCoursePending = (state: State): any =>
-  state.bookingPerCoursePending;
-
-export const selectBookingPerCourseCancelled = (state: State): any =>
-  state.bookingPerCourseCancelled;
-
-export const selectBookingPerCourseCompleted = (state: State): any =>
-  state.bookingPerCourseCompleted;
-
-export const selectBookingPerCourseReAssigned = (state: State): any =>
-  state.bookingPerCourseReAssigned;
+export const selectBookingPerCourse = (state: State): any =>
+  state.bookingPerCourse;
 
 export const selectIsLoadingBookingPerCourse = (state: State): boolean =>
   state.isLoadingBookingPerCourse;

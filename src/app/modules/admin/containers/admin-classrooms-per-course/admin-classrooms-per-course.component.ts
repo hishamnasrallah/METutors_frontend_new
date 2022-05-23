@@ -1,6 +1,6 @@
-import { combineLatest, map, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Component, OnInit } from '@angular/core';
+import { combineLatest, map, Observable } from 'rxjs';
 
 import { CourseStatus } from '@config';
 import { ITutorFilters } from '@models';
@@ -18,11 +18,7 @@ export class AdminClassroomsPerCourseComponent implements OnInit {
   courseStatus = CourseStatus;
 
   view$: Observable<{
-    pending: any;
-    running: any;
-    completed: any;
-    cancelled: any;
-    reassigned: any;
+    booking: any;
     loading: boolean;
   }>;
 
@@ -45,38 +41,31 @@ export class AdminClassroomsPerCourseComponent implements OnInit {
   }
 
   onChangeTab(tab: any): void {
+    let status = 'running';
     switch (tab.index) {
       case 0:
-        this._store.dispatch(
-          fromCore.loadAdminBookingPerCourseRunning({ status: 'running' })
-        );
+        status = 'running';
         break;
       case 1:
-        this._store.dispatch(
-          fromCore.loadAdminBookingPerCoursePending({ status: 'pending' })
-        );
+        status = 'pending';
         break;
       case 2:
-        this._store.dispatch(
-          fromCore.loadAdminBookingPerCourseReAssigned({ status: 'reassigned' })
-        );
+        status = 'reassigned';
         break;
       case 3:
-        this._store.dispatch(
-          fromCore.loadAdminBookingPerCourseCancelled({ status: 'cancelled' })
-        );
+        status = 'cancelled';
         break;
       case 4:
-        this._store.dispatch(
-          fromCore.loadAdminBookingPerCourseCompleted({ status: 'completed' })
-        );
+        status = 'completed';
         break;
     }
+
+    this._store.dispatch(fromCore.loadAdminBookingPerCourse({ status }));
   }
 
   ngOnInit(): void {
     this._store.dispatch(
-      fromCore.loadAdminBookingPerCourseRunning({ status: 'running' })
+      fromCore.loadAdminBookingPerCourse({ status: 'running' })
     );
 
     this.openBookingModal$ = this._store.select(
@@ -92,20 +81,12 @@ export class AdminClassroomsPerCourseComponent implements OnInit {
     );
 
     this.view$ = combineLatest([
-      this._store.select(fromCore.selectBookingPerCourseRunning),
-      this._store.select(fromCore.selectBookingPerCoursePending),
-      this._store.select(fromCore.selectBookingPerCourseCancelled),
-      this._store.select(fromCore.selectBookingPerCourseCompleted),
-      this._store.select(fromCore.selectBookingPerCourseReAssigned),
+      this._store.select(fromCore.selectBookingPerCourse),
       this._store.select(fromCore.selectIsLoadingBookingPerCourse),
     ]).pipe(
-      map(([running, pending, cancelled, completed, reassigned, loading]) => ({
-        running,
-        pending,
+      map(([booking, loading]) => ({
+        booking,
         loading,
-        cancelled,
-        completed,
-        reassigned,
       }))
     );
   }
