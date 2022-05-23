@@ -186,6 +186,111 @@ export const loadBookingDetailFailure = createAction(
   props<{ error: any }>()
 );
 
+// Load booking per subject/course
+// -----RUNNING
+export const loadAdminBookingPerCourseRunning = createAction(
+  '[Admin] Load Admin Booking Per Course Running',
+  props<{ status: string }>()
+);
+
+export const loadAdminBookingPerCourseRunningSuccess = createAction(
+  '[Admin] Load Admin Booking Per Course Running Success',
+  props<{ bookingPerCourseRunning: any }>()
+);
+
+export const loadAdminBookingPerCourseRunningFailure = createAction(
+  '[Admin] Load Admin Booking Per Course Running Failure',
+  props<{ error: any }>()
+);
+
+export const loadAdminBookingPerCourseRunningEnded = createAction(
+  '[Admin] Load Admin Booking Per Course Running Ended'
+);
+
+// -----PENDING
+export const loadAdminBookingPerCoursePending = createAction(
+  '[Admin] Load Admin Booking Per Course Pending',
+  props<{ status: string }>()
+);
+
+export const loadAdminBookingPerCoursePendingSuccess = createAction(
+  '[Admin] Load Admin Booking Per Course Pending Success',
+  props<{ bookingPerCoursePending: any }>()
+);
+
+export const loadAdminBookingPerCoursePendingFailure = createAction(
+  '[Admin] Load Admin Booking Per Course Pending Failure',
+  props<{ error: any }>()
+);
+
+export const loadAdminBookingPerCoursePendingEnded = createAction(
+  '[Admin] Load Admin Booking Per Course Pending Ended'
+);
+
+// -----REASSIGNED
+export const loadAdminBookingPerCourseReAssigned = createAction(
+  '[Admin] Load Admin Booking Per Course ReAssigned',
+  props<{ status: string }>()
+);
+
+export const loadAdminBookingPerCourseReAssignedSuccess = createAction(
+  '[Admin] Load Admin Booking Per Course ReAssigned Success',
+  props<{ bookingPerCourseReAssigned: any }>()
+);
+
+export const loadAdminBookingPerCourseReAssignedFailure = createAction(
+  '[Admin] Load Admin Booking Per Course ReAssigned Failure',
+  props<{ error: any }>()
+);
+
+export const loadAdminBookingPerCourseReAssignedEnded = createAction(
+  '[Admin] Load Admin Booking Per Course ReAssigned Ended'
+);
+
+// -----CANCELLED
+export const loadAdminBookingPerCourseCancelled = createAction(
+  '[Admin] Load Admin Booking Per Course Cancelled',
+  props<{ status: string }>()
+);
+
+export const loadAdminBookingPerCourseCancelledSuccess = createAction(
+  '[Admin] Load Admin Booking Per Course Cancelled Success',
+  props<{ bookingPerCourseCancelled: any }>()
+);
+
+export const loadAdminBookingPerCourseCancelledFailure = createAction(
+  '[Admin] Load Admin Booking Per Course Cancelled Failure',
+  props<{ error: any }>()
+);
+
+export const loadAdminBookingPerCourseCancelledEnded = createAction(
+  '[Admin] Load Admin Booking Per Course Cancelled Ended'
+);
+
+// -----COMPLETED
+export const loadAdminBookingPerCourseCompleted = createAction(
+  '[Admin] Load Admin Booking Per Course Completed',
+  props<{ status: string }>()
+);
+
+export const loadAdminBookingPerCourseCompletedSuccess = createAction(
+  '[Admin] Load Admin Booking Per Course Completed Success',
+  props<{ bookingPerCourseCompleted: any }>()
+);
+
+export const loadAdminBookingPerCourseCompletedFailure = createAction(
+  '[Admin] Load Admin Booking Per Course Completed Failure',
+  props<{ error: any }>()
+);
+
+export const loadAdminBookingPerCourseCompletedEnded = createAction(
+  '[Admin] Load Admin Booking Per Course Completed Ended'
+);
+
+export const loadAdminBookingPerCourseEnded = createAction(
+  '[Admin] Load Admin Booking Per Course Ended'
+);
+
 export const loadAdminCoursePreviousTutors = createAction(
   '[Admin] Load Admin Course Previous Tutors'
 );
@@ -230,7 +335,7 @@ export const loadAdminStudentProfileFailure = createAction(
 
 export const loadAdminStudentTotalBooking = createAction(
   '[Admin] Load Admin Student Total Booking',
-  props<{ id: number }>()
+  props<{ id: number; bookingType?: string }>()
 );
 
 export const loadAdminStudentTotalBookingSuccess = createAction(

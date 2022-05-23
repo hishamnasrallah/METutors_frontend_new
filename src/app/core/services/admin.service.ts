@@ -103,8 +103,19 @@ export class AdminService {
     );
   }
 
-  loadAdminStudentTotalBooking(id: number): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}admin/student/${id}/bookings`);
+  loadAdminStudentTotalBooking(
+    id: number,
+    bookingType = 'student'
+  ): Observable<any> {
+    return this.http.get<any>(
+      `${this.baseUrl}admin/${bookingType}/${id}/bookings`
+    );
+  }
+
+  loadAdminBookingPerCourse(status: string): Observable<any> {
+    return this.http.get<any>(
+      `${this.baseUrl}admin/subject-courses?status=${status}`
+    );
   }
 
   loadAllBookings(): Observable<any> {

@@ -1313,3 +1313,33 @@ export const selectIsLoadingStudentViewFeedback = createSelector(
   selectAdminState,
   fromAdminReducer.selectIsLoadingStudentViewFeedback
 );
+
+export const selectIsLoadingBookingPerCourse = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectIsLoadingBookingPerCourse
+);
+
+export const selectBookingPerCourseReAssigned = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectBookingPerCourseReAssigned
+);
+
+export const selectBookingPerCourseCompleted = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectBookingPerCourseCompleted
+);
+
+export const selectBookingPerCourseCancelled = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectBookingPerCourseCancelled
+);
+
+export const selectBookingPerCoursePending = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectBookingPerCoursePending
+);
+
+export const selectBookingPerCourseRunning = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectBookingPerCourseRunning
+);

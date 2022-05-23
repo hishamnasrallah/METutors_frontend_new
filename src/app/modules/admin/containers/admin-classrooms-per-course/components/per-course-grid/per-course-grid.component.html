@@ -1,0 +1,44 @@
+<table class="table my-table default-title mt-4">
+  <tr>
+    <th>Number</th>
+    <th>Course ID</th>
+    <th>Course Name</th>
+    <th>Program</th>
+    <th>Field of Study</th>
+    <th>Total Bookings</th>
+    <th>Total Amount</th>
+    <th>Status</th>
+    <th>Action</th>
+  </tr>
+  <tr *ngIf="!bookings || !bookings.length">
+    <td colspan="11">
+      <div class="text-center">No records found</div>
+    </td>
+  </tr>
+  <tr *ngFor="let booking of bookings; let i = index">
+    <td>{{ i + 1 }}</td>
+    <td>CID{{ booking?.id }}</td>
+    <td>{{ booking?.name }}</td>
+    <td>{{ booking?.program?.code }}</td>
+    <td>{{ booking?.field?.name }}</td>
+    <td><a href="javascript: void(0)" (click)="openBookingModal.emit(booking.id)">{{ booking?.totalBooking }}</a></td>
+    <td><a [routerLink]="['/admin', 'finance', 'orders']"> ${{ booking?.totalAmount }}</a></td>
+    <td>
+      <div class="change-status position-relative d-flex">
+        <button class="status text-capitalize" mat-button [ngClass]="booking?.status">
+          {{ booking?.status }}
+        </button>
+      </div>
+    </td>
+    <td>
+      <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0" (click)="subjectId = booking.id">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+    </td>
+  </tr>
+</table>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item class="h-auto btn-menu" (click)="openBookingModal.emit(subjectId)">
+    <span>View All Course</span>
+  </button>
+</mat-menu>
