@@ -55,12 +55,12 @@
           <div class="row mt-3">
             <div class="col-md-4">
               <div class="student-info d-flex align-items-center">
-                <img [src]="view.course?.teacher?.avatar" meTutorsDefaultAvatar alt="" class="rounded-circle">
+                <img [src]="imageUrl+view.course?.student?.avatar" meTutorsDefaultAvatar alt="" class="rounded-circle">
                 <div class="ms-2">
-                  <h1 class="mb-0">{{view.course?.teacher?.firstName}} {{view.course?.teacher?.lastName}}</h1>
+                  <h1 class="mb-0">{{view.course?.student?.firstName}} {{view.course?.student?.lastName}}</h1>
                   <div>
-                    <rating [(ngModel)]="view.course.teacher.rating" [max]="5" [readonly]="true"></rating>
-                    <span class="ms-2 count">{{view.course?.teacher?.rating}}</span>
+                    <rating [(ngModel)]="view.course.student.averageRating" [max]="5" [readonly]="true"></rating>
+                    <span class="ms-2 count">{{view.course?.student?.averageRating.toFixed(2)}}</span>
                   </div>
                 </div>
               </div>
@@ -83,7 +83,7 @@
                 </li>
                 <li class="list-inline-item">
                   <span class="d-block">Grade</span>
-                  <strong class="d-block">{{view.course?.field?.grade || '-'}}</strong>
+                  <strong class="d-block">{{view.course?.subject?.grade || '-'}}</strong>
                 </li>
                 <li class="list-inline-item">
                   <span class="d-block">Field of Study</span>
@@ -129,17 +129,17 @@
               <td>{{ cls?.title}} </td>
               <td>
                 <a>
-                  <img src="" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
+                  <img [src]="imageUrl+cls.teacher?.avatar" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
                        meTutorsDefaultAvatar alt="">
                   <span>
-                  <bdi>{{ cls.teacher?.firstName }} {{ cls?.teacher?.lastName }}</bdi>
+                  <bdi>{{ cls?.teacher?.firstName }} {{ cls?.teacher?.lastName }}</bdi>
                 </span>
                 </a>
               </td>
               <td>{{ cls?.startTime}} - {{ cls?.endTime}} </td>
               <td>{{ cls?.duration}} Hour</td>
               <td class="d-flex">
-                <button mat-button class="attend present">Present</button>
+                <button mat-button class="attend text-capitalize" [ngClass]="cls.classAttendence">{{cls?.classAttendence}}</button>
               </td>
             </tr>
           </table>

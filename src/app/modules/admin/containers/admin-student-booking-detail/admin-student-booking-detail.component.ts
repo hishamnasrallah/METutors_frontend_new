@@ -5,6 +5,7 @@ import { combineLatest, map, Observable } from 'rxjs';
 import * as fromCore from '@metutor/core/state';
 import * as fromAdmin from '@metutor/modules/admin/state';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
+import { environment } from '@environment';
 
 @Component({
   selector: 'metutors-admin-student-booking-detail',
@@ -19,6 +20,8 @@ export class AdminStudentBookingDetailComponent implements OnInit {
   isLoadingAssignment$: Observable<boolean>;
   showAssignmentsModal$: Observable<boolean>;
   view$: Observable<{ course: any; loading: boolean }>;
+
+  imageUrl = environment.imageURL;
 
   constructor(private _store: Store<any>) {}
 

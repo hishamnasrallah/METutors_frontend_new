@@ -14,9 +14,9 @@
             <div class="heading row">
               <div class="col-md-6">
                 <div class="student-info d-flex align-items-center">
-                  <img src="" meTutorsDefaultAvatar alt="" class="rounded-circle">
+                  <img [src]="imageUrl+detail?.student?.avatar" meTutorsDefaultAvatar alt="" class="rounded-circle">
                   <div class="ms-2">
-                    <h1 class="mb-0">Ahmed Hassan</h1>
+                    <h1 class="mb-0">{{ detail?.student?.firstName }} {{ detail?.student?.lastName}}</h1>
                     <div>
                       <rating [ngModel]="detail.averageRating" [max]="5" [readonly]="true"></rating>
                       <span class="ms-2 count">{{ detail?.averageRating.toFixed(2) }}</span>
@@ -32,9 +32,9 @@
                 <strong class="me-2">Attendance Percentage</strong>
                 <div class="position-relative my-progress">
                   <mat-progress-spinner class="progress-spinner" [color]="'primary'" [mode]="'determinate'"
-                                        [value]="80">
+                                        [value]="detail.attendenceRate">
                   </mat-progress-spinner>
-                  <span class="position-absolute">80%</span>
+                  <span class="position-absolute">{{detail?.attendenceRate}}%</span>
                 </div>
               </div>
             </div>
@@ -45,7 +45,7 @@
                   <th>Number</th>
                   <th>BIN</th>
                   <th>SIN</th>
-                  <th>Student Name</th>
+                  <th>Teacher Name</th>
                   <th>Program Name</th>
                   <th>Field of Study</th>
                   <th>Subject</th>

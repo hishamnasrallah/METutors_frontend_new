@@ -16,7 +16,7 @@
             <div class="col-md percentage d-flex align-items-center">
               <strong class="me-2">Assignments Accuracy</strong>
               <div class="position-relative my-progress">
-                <mat-progress-spinner class="progress-spinner" [color]="'primary'" [mode]="'determinate'" [value]="50">
+                <mat-progress-spinner class="progress-spinner" [color]="'primary'" [mode]="'determinate'" [value]="summary?.assignmnetsAccuracy.toFixed()">
                 </mat-progress-spinner>
                 <span class="position-absolute">{{summary?.assignmnetsAccuracy.toFixed()}}%</span>
               </div>
@@ -24,7 +24,7 @@
             <div class="col-md percentage d-flex align-items-center">
               <strong class="me-2">Assignments Completion Rate</strong>
               <div class="position-relative my-progress">
-                <mat-progress-spinner class="progress-spinner" [color]="'primary'" [mode]="'determinate'" [value]="50">
+                <mat-progress-spinner class="progress-spinner" [color]="'primary'" [mode]="'determinate'" [value]="summary?.assignmentCompletionRate.toFixed()">
                 </mat-progress-spinner>
                 <span class="position-absolute">{{ summary?.assignmentCompletionRate.toFixed()}}%</span>
               </div>
@@ -32,9 +32,9 @@
             <div class="col-md percentage d-flex align-items-center">
               <strong class="me-2">Assignments By Due Date</strong>
               <div class="position-relative my-progress">
-                <mat-progress-spinner class="progress-spinner" [color]="'primary'" [mode]="'determinate'" [value]="50">
+                <mat-progress-spinner class="progress-spinner" [color]="'primary'" [mode]="'determinate'" [value]="summary?.assignmentsByDueDate.toFixed()">
                 </mat-progress-spinner>
-                <span class="position-absolute">{{summary?.assignmentsByDueDate}}%</span>
+                <span class="position-absolute">{{summary?.assignmentsByDueDate.toFixed()}}%</span>
               </div>
             </div>
 
