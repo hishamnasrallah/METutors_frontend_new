@@ -21,7 +21,7 @@
       </div>
     </div>
   </div>
-
+  {{ selectedTutor | json }}
   <div class="row mt-2">
     <div class="col-md-12">
       <mat-tab-group mat-align-tabs="start" [selectedIndex]="selectedIndex" (selectedTabChange)="onChangeTab($event)">
@@ -160,8 +160,8 @@
                       </div>
                     </td>
                     <td class="text-capitalize">{{ tutor?.gender }}</td>
-                    <td class="text-capitalize">{{ tutor?.bookings }}</td>
-                    <td class="text-capitalize">{{ tutor?.amount | currency }}</td>
+                    <td class="text-capitalize"><a href="javascript:void(0)" (click)="onOpenBookingModal(tutor.id)">{{ tutor?.bookings}}</a> </td>
+                    <td class="text-capitalize"><a [routerLink]="['/admin', 'finance', 'orders']">{{ tutor?.amount | currency }}</a></td>
                     <td class="text-capitalize">{{ tutor?.createdAt | date }}</td>
                     <!-- <td class="text-capitalize tutor-subject">
                       <ng-container *ngFor="let subject of tutor?.subjects; let isLast = last; let i = index">
@@ -322,8 +322,8 @@
                       </div>
                     </td>
                     <td class="text-capitalize">{{ tutor?.gender }}</td>
-                    <td class="text-capitalize">{{ tutor?.bookings }}</td>
-                    <td class="text-capitalize">{{ tutor?.amount | currency }}</td>
+                    <td class="text-capitalize"><a href="javascript:void(0)" (click)="onOpenBookingModal(tutor.id)">{{ tutor?.bookings}}</a> </td>
+                    <td class="text-capitalize"><a [routerLink]="['/admin', 'finance', 'orders']">{{ tutor?.amount | currency }}</a></td>
                     <td class="text-capitalize">{{ tutor?.createdAt | date }}</td>
                     <!-- <td class="text-capitalize tutor-subject">
                       <ng-container *ngFor="let subject of tutor?.subjects; let isLast = last; let i = index">
@@ -412,8 +412,8 @@
                       </div>
                     </td>
                     <td class="text-capitalize">{{ tutor?.gender }}</td>
-                    <td class="text-capitalize">{{ tutor?.bookings }}</td>
-                    <td class="text-capitalize">{{ tutor?.amount | currency }}</td>
+                    <td class="text-capitalize"><a href="javascript:void(0)" (click)="onOpenBookingModal(tutor.id)">{{ tutor?.bookings}}</a> </td>
+                    <td class="text-capitalize"><a [routerLink]="['/admin', 'finance', 'orders']">{{ tutor?.amount | currency }}</a></td>
                     <td class="text-capitalize">{{ tutor?.createdAt | date }}</td>
                     <!-- <td class="text-capitalize tutor-subject">
                     <ng-container *ngFor="let subject of tutor?.subjects; let isLast = last; let i = index">
@@ -479,3 +479,9 @@
     <span>Send Message</span>
   </button>
 </mat-menu>
+
+<metutors-admin-student-total-booking-modal [showModal]="(openBookingModal$ | async)!" *ngIf="openBookingModal$|async"
+                                            (closeModal)="onCloseBookingModal()"
+                                            [loading]="(loadingTotalBooking | async)!"
+                                            [detail]="(totalBooking$ | async)!">
+</metutors-admin-student-total-booking-modal>

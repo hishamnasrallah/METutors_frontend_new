@@ -7,6 +7,7 @@ import { environment } from '@environment';
   styleUrls: ['./admin-student-total-booking-modal.component.scss'],
 })
 export class AdminStudentTotalBookingModalComponent implements OnInit {
+  @Input() type: string;
   @Input() detail: any;
   @Input() loading = false;
   @Input() showModal = false;
