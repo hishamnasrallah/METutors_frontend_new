@@ -4,8 +4,8 @@ import * as fromCore from '@metutor/core/state';
 import { Observable } from 'rxjs';
 import {
   ITicket,
-  ITicketCategory,
   ITicketFilters,
+  ITicketCategory,
   ITicketPriority,
 } from '@metutor/core/models';
 import { TicketStatus } from '@metutor/config';
@@ -63,7 +63,7 @@ export class AdminSupportTicketComponent implements OnInit {
       this.filterTickets({ status: TicketStatus.closed });
     } else if (event.index === 3) {
       this.status = TicketStatus.urgent;
-      this.filterTickets({ status: TicketStatus.urgent });
+      this.filterTickets({ status: TicketStatus.open, priority: '1' });
     }
     this.title = '';
     this.category = '';

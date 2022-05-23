@@ -1,0 +1,38 @@
+.change-status {
+    padding: 0 30px;
+  
+    .close-btn {
+      position: absolute;
+      right: -10px;
+      top: -10px;
+    }
+  
+    h2 {
+      color: #393939;
+    }
+  
+    .status {
+      color: #FFF;
+      line-height: 0;
+      min-width: 0;
+      padding: 5px 15px;
+      border-radius: 25px;
+  
+      &.active {
+        background-color: #50C394;
+      }
+  
+      &.pending {
+        background-color: #EBD016;
+      }
+  
+      &.deactive {
+        background-color: #FF385C;
+      }
+  
+      &.rejected {
+        background-color: #FF8300;
+      }
+    }
+  }
+  

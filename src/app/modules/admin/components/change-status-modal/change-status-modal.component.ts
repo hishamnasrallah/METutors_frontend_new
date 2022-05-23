@@ -8,11 +8,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class ChangeStatusModalComponent implements OnInit {
   @Input() showModal = false;
+  @Input() submitting: boolean;
 
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
 
   form: FormGroup;
-  submitting: boolean;
 
   constructor(private _fb: FormBuilder) {}
 
