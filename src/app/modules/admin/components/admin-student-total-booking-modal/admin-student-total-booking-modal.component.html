@@ -1,40 +1,45 @@
 <metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'large'"
-                [showHeader]="true" [template]="template" [heading]="'Booking Details'">
+                [showHeader]="true" [template]="template" [heading]="heading">
   <ng-template #template>
     <div class="total-bookings">
       <ng-container [ngSwitch]="loading">
         <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
 
         <ng-container *ngSwitchCase="false">
-          <div *ngIf="!detail?.bookings?.length" class="text-center p-xxl-5">
+          <div *ngIf="!data?.bookings?.length" class="text-center p-xxl-5">
             No records found
           </div>
 
-          <ng-container *ngIf="detail?.bookings?.length">
+          <ng-container *ngIf="data?.bookings?.length">
             <div class="heading row">
               <div class="col-md-6">
-                <div class="student-info d-flex align-items-center">
-                  <img [src]="imageUrl+detail?.student?.avatar" meTutorsDefaultAvatar alt="" class="rounded-circle">
+                <div class="student-info d-flex align-items-center" *ngIf="type!=='subject'">
+                  <img [src]="imageUrl+data?.student?.avatar" meTutorsDefaultAvatar alt="" class="rounded-circle">
                   <div class="ms-2">
-                    <h1 class="mb-0">{{ detail?.student?.firstName }} {{ detail?.student?.lastName}}</h1>
+                    <h1 class="mb-0">{{ data?.student?.firstName }} {{ data?.student?.lastName}}</h1>
                     <div>
-                      <rating [ngModel]="detail.averageRating" [max]="5" [readonly]="true"></rating>
-                      <span class="ms-2 count">{{ detail?.averageRating.toFixed(2) }}</span>
+                      <rating [ngModel]="data.averageRating" [max]="5" [readonly]="true"></rating>
+                      <span class="ms-2 count">{{ data?.averageRating.toFixed(2) }}</span>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="col-md-2 info d-flex align-items-center">
+              <div class="col-md-4 info d-flex align-items-center" *ngIf="type !== 'subject'">
                 <span>Total Records</span>
-                <strong>{{ detail?.totalBookings }}</strong>
+                <strong>{{ data?.totalBookings }}</strong>
               </div>
-              <div class="col-md-4 percentage d-flex align-items-center">
+              <div class="col-md-6 info d-flex align-items-end" *ngIf="type === 'subject'">
+                <span>
+                  Total Active <strong>{{ data?.totalBookings }} </strong> Bookings
+                </span>
+              </div>
+              <div class="col-md-4 percentage d-flex align-items-center" *ngIf="type!=='subject'">
                 <strong class="me-2">Attendance Percentage</strong>
                 <div class="position-relative my-progress">
                   <mat-progress-spinner class="progress-spinner" [color]="'primary'" [mode]="'determinate'"
-                                        [value]="detail.attendenceRate">
+                                        [value]="data.attendenceRate">
                   </mat-progress-spinner>
-                  <span class="position-absolute">{{detail?.attendenceRate}}%</span>
+                  <span class="position-absolute">{{data?.attendenceRate}}%</span>
                 </div>
               </div>
             </div>
@@ -54,7 +59,7 @@
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
-                <tr *ngFor="let booking of detail?.bookings; let i=index">
+                <tr *ngFor="let booking of data?.bookings; let i=index">
                   <td>{{ i + 1 }}</td>
                   <td>BIN1</td>
                   <td>SIN1</td>
