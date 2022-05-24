@@ -43,8 +43,7 @@
                   <th>Number</th>
                   <th>BIN</th>
                   <th>SIN</th>
-                  <th *ngIf="type !== 'teacher'">{{ type === 'student' ? 'Teacher Name' : 'Student Name'}}</th>
-                  <th *ngIf="type === 'teacher'">Students</th>
+                  <th>{{ type === 'student' ? 'Teacher Name' : 'Student Name'}}</th>
                   <th>Program Name</th>
                   <th>Field of Study</th>
                   <th>Subject</th>
@@ -64,13 +63,7 @@
                                           *ngIf="type==='student'"></metutors-user-avatar>
                     <metutors-user-avatar [avatar]="imageUrl+booking?.student?.avatar" [type]="'small'"
                                           [name]="booking?.student?.firstName+ ' ' +booking?.student?.lastName"
-                                          *ngIf="type==='subject'"></metutors-user-avatar>
-                    <ng-container *ngIf="type === 'teacher'">
-                      <ng-container *ngFor="let student of booking?.students">
-                        <metutors-user-avatar [avatar]="imageUrl+student?.avatar"
-                                              [type]="'small'"></metutors-user-avatar>
-                      </ng-container>
-                    </ng-container>
+                                          *ngIf="type==='subject' || type === 'teacher'"></metutors-user-avatar>
                   </td>
                   <td class="text-capitalize">{{ booking?.program?.code }}</td>
                   <td>{{ booking?.field?.name }}</td>
