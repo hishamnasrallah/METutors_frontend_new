@@ -1,5 +1,6 @@
 export * from './modal';
 export * from './course-item';
+export * from './user-avatar';
 export * from './video-player';
 export * from './submit-button';
 export * from './classroom-item';

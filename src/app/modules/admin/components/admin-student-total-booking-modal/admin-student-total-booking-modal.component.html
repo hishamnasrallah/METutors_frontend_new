@@ -13,24 +13,17 @@
           <ng-container *ngIf="data?.bookings?.length">
             <div class="heading row">
               <div class="col-md-6">
-                <div class="student-info d-flex align-items-center" *ngIf="type!=='subject'">
-                  <img [src]="imageUrl+data?.student?.avatar" meTutorsDefaultAvatar alt="" class="rounded-circle">
-                  <div class="ms-2">
-                    <h1 class="mb-0">{{ data?.student?.firstName }} {{ data?.student?.lastName}}</h1>
-                    <div>
-                      <rating [ngModel]="data.averageRating" [max]="5" [readonly]="true"></rating>
-                      <span class="ms-2 count">{{ data?.averageRating.toFixed(2) }}</span>
-                    </div>
-                  </div>
-                </div>
+                <metutors-user-avatar [type]="'medium'" [rating]="data.averageRating" *ngIf="type !== 'subject'"
+                                      [avatar]="imageUrl+data?.student?.avatar" [width]="50" [height]="50"
+                                      [name]="data.name"></metutors-user-avatar>
               </div>
               <div class="col-md-2 info d-flex align-items-center" *ngIf="type !== 'subject'">
-                <span>Total Records</span>
-                <strong>{{ data?.totalBookings }}</strong>
+                <span>Total Records </span>
+                <strong> {{ data?.totalBookings }}</strong>
               </div>
-              <div class="col-md-6 info d-flex align-items-end" *ngIf="type === 'subject'">
+              <div class="col-md-6 info d-flex justify-content-end" *ngIf="type === 'subject'">
                 <span>
-                  Total Active <strong>{{ data?.totalBookings }} </strong> Bookings
+                  Total Active <strong>{{ data?.totalBookings }} Bookings</strong>
                 </span>
               </div>
               <div class="col-md-4 percentage d-flex align-items-center" *ngIf="type!=='subject'">
@@ -50,7 +43,8 @@
                   <th>Number</th>
                   <th>BIN</th>
                   <th>SIN</th>
-                  <th>Teacher Name</th>
+                  <th *ngIf="type !== 'teacher'">{{ type === 'student' ? 'Teacher Name' : 'Student Name'}}</th>
+                  <th *ngIf="type === 'teacher'">Students</th>
                   <th>Program Name</th>
                   <th>Field of Study</th>
                   <th>Subject</th>
@@ -64,16 +58,19 @@
                   <td>BIN1</td>
                   <td>SIN1</td>
                   <td>
-                    <div class="d-flex align-items-center">
-                      <a>
-                        <img [src]="imageUrl+booking?.teacher?.avatar" width="25" height="25" class="rounded-circle p-0 me-2"
-                             draggable="false"
-                             meTutorsDefaultAvatar alt="">
-                        <span>
-                    <bdi>{{ booking?.teacher?.firstName }} {{ booking?.teacher?.lastName }}</bdi>
-                  </span>
-                      </a>
-                    </div>
+
+                    <metutors-user-avatar [avatar]="imageUrl+booking?.teacher?.avatar" [type]="'small'"
+                                          [name]="booking?.teacher?.firstName+' ' + booking?.teacher?.lastName"
+                                          *ngIf="type==='student'"></metutors-user-avatar>
+                    <metutors-user-avatar [avatar]="imageUrl+booking?.student?.avatar" [type]="'small'"
+                                          [name]="booking?.student?.firstName+ ' ' +booking?.student?.lastName"
+                                          *ngIf="type==='subject'"></metutors-user-avatar>
+                    <ng-container *ngIf="type === 'teacher'">
+                      <ng-container *ngFor="let student of booking?.students">
+                        <metutors-user-avatar [avatar]="imageUrl+student?.avatar"
+                                              [type]="'small'"></metutors-user-avatar>
+                      </ng-container>
+                    </ng-container>
                   </td>
                   <td class="text-capitalize">{{ booking?.program?.code }}</td>
                   <td>{{ booking?.field?.name }}</td>

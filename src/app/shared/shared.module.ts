@@ -29,6 +29,7 @@ import {
 import {
   ModalComponent,
   CourseItemComponent,
+  UserAvatarComponent,
   VideoPlayerComponent,
   SubmitButtonComponent,
   ModalComponentTemplate,
@@ -56,6 +57,7 @@ import {
 @NgModule({
   declarations: [
     CourseItemComponent,
+    UserAvatarComponent,
     VideoPlayerComponent,
     SubmitButtonComponent,
     ClassroomItemComponent,
@@ -134,6 +136,7 @@ import {
     DefaultCourseDirective,
     FileUploadProgressComponent,
     TutorAvailableSlotsComponent,
+    UserAvatarComponent,
   ],
 })
 export class SharedModule {}

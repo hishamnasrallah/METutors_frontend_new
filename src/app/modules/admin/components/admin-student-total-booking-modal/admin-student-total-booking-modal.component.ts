@@ -18,8 +18,16 @@ export class AdminStudentTotalBookingModalComponent implements OnInit {
         totalBookings: value.subject?.totalBookings,
         bookings: [...value.subject?.courses],
       };
+    } else if (this.type === 'teacher') {
+      this.data = {
+        ...value,
+        name: `${value?.teacher?.firstName} ${value?.teacher?.lastName}`,
+      };
     } else {
-      this.data = value;
+      this.data = {
+        ...value,
+        name: `${value?.student?.firstName} ${value?.student?.lastName}`,
+      };
     }
   }
 

@@ -481,7 +481,7 @@
 </mat-menu>
 
 <metutors-admin-student-total-booking-modal [showModal]="(openBookingModal$ | async)!" *ngIf="openBookingModal$|async"
-                                            (closeModal)="onCloseBookingModal()"
+                                            (closeModal)="onCloseBookingModal()" [type]="'teacher'"
                                             [loading]="(loadingTotalBooking | async)!"
                                             [detail]="(totalBooking$ | async)!">
 </metutors-admin-student-total-booking-modal>
