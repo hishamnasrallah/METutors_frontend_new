@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import { ClassroomType } from 'src/app/config';
+import { ClassroomType, courseStatusLabel } from 'src/app/config';
 
 @Component({
   selector: 'metutors-classroom-item',
@@ -18,6 +18,7 @@ export class ClassroomItemComponent implements OnInit {
   @Output() accept: EventEmitter<void> = new EventEmitter<void>();
 
   classroomType = ClassroomType;
+  statusLabel = courseStatusLabel;
 
   constructor() {}
 

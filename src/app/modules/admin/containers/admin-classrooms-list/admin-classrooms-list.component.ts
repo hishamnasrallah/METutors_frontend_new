@@ -2,7 +2,7 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as fromCore from '@metutor/core/state';
 import { Component, OnInit } from '@angular/core';
-import { CourseStatus } from '@metutor/config';
+import { courseStatusLabel } from '@metutor/config';
 import { ICourse, ITutorFilters } from '@metutor/core/models';
 
 @Component({
@@ -20,7 +20,7 @@ export class AdminClassroomsListComponent implements OnInit {
   completedBookings$: Observable<ICourse[] | null>;
 
   name: string;
-  courseStatus = CourseStatus;
+  statusLabel = courseStatusLabel;
 
   constructor(private _store: Store<any>) {}
 

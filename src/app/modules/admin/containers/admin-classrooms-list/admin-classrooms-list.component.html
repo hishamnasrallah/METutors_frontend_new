@@ -181,7 +181,7 @@
                   <td>
                     <div class="change-status position-relative d-flex">
                       <button class="status text-capitalize" mat-button [ngClass]="bookings?.status">
-                        {{ bookings?.status }}
+                        {{ statusLabel[bookings?.status] }}
                       </button>
                     </div>
                   </td>
@@ -255,16 +255,8 @@
                 <td>{{ bookings?.courseName }}</td>
                 <td>
                   <div class="change-status position-relative d-flex">
-                    <button class="status text-capitalize" mat-button [ngClass]="{
-                        'active': bookings?.status === courseStatus.active,
-                        'inprogress': bookings?.status === courseStatus.inprogress,
-                        'canceled': bookings?.status === courseStatus.canceled,
-                        'completed': bookings?.status === courseStatus.completed
-                      }">
-                      <ng-container *ngIf="bookings?.status === courseStatus.active">Active</ng-container>
-                      <ng-container *ngIf="bookings?.status === courseStatus.inprogress">Running</ng-container>
-                      <ng-container *ngIf="bookings?.status === courseStatus.canceled">Cancelled</ng-container>
-                      <ng-container *ngIf="bookings?.status === courseStatus.completed">Completed</ng-container>
+                    <button class="status" mat-button [ngClass]="bookings?.status">
+                      {{ statusLabel[bookings?.status]}}
                     </button>
                   </div>
                 </td>
@@ -337,16 +329,8 @@
                 <td>{{ bookings?.courseName }}</td>
                 <td>
                   <div class="change-status position-relative d-flex">
-                    <button class="status text-capitalize" mat-button [ngClass]="{
-                        'active': bookings?.status === courseStatus.active,
-                        'inprogress': bookings?.status === courseStatus.inprogress,
-                        'canceled': bookings?.status === courseStatus.canceled,
-                        'completed': bookings?.status === courseStatus.completed
-                      }">
-                      <ng-container *ngIf="bookings?.status === courseStatus.active">Active</ng-container>
-                      <ng-container *ngIf="bookings?.status === courseStatus.inprogress">Running</ng-container>
-                      <ng-container *ngIf="bookings?.status === courseStatus.canceled">Cancelled</ng-container>
-                      <ng-container *ngIf="bookings?.status === courseStatus.completed">Completed</ng-container>
+                    <button class="status" mat-button [ngClass]="bookings?.status">
+                      {{ statusLabel[bookings?.status]}}
                     </button>
                   </div>
                 </td>

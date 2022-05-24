@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { environment } from '@environment';
+import { courseStatusLabel } from '@config';
 
 @Component({
   selector: 'metutors-admin-student-total-booking-modal',
@@ -36,6 +37,7 @@ export class AdminStudentTotalBookingModalComponent implements OnInit {
   data: any;
   heading = 'Booking Details';
   imageUrl = environment.imageURL;
+  statusLabel = courseStatusLabel;
 
   constructor() {}
 

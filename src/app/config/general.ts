@@ -243,13 +243,13 @@ export const WEEK_DAYS_LONG: any = {
 
 export const courseStatusLabel = {
   active: 'Active',
-  pending: 'Pending',
   rejected: 'Rejected',
   canceled: 'Canceled',
+  inprogress: 'Running',
   requested: 'Requested',
   completed: 'Completed',
-  inprogress: 'InProgress',
-  cancelledByStudent: 'Cancelled By Student',
-  cancelledByTeacher: 'Cancelled By Teacher',
-  requestedToMetutors: 'Requested To Metutors',
+  pending: 'Pending Tutor Approval',
+  cancelled_by_teacher: 'On Hold',
+  cancelled_by_student: 'Canceled & Refunded',
+  requested_to_metutors: ' Tutor Re-Assignment by MEtutors',
 };

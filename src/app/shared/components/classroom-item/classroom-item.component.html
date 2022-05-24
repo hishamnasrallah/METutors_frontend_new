@@ -22,7 +22,7 @@
                width="25px" height="25px" alt=""/>
         </h5>
         <div class="d-inline-flex">
-          <button mat-button class="ms-2 text-capitalize status" [ngClass]="classroom.status">{{ classroom.status }}</button>
+          <button mat-button class="ms-2 status" [ngClass]="classroom.status">{{ statusLabel[classroom.status] }}</button>
           <button mat-button class="class-btn text-uppercase main-button-opacity" *ngIf="classroom?.program">{{ classroom?.program?.code }}</button>
         </div>
       </div>

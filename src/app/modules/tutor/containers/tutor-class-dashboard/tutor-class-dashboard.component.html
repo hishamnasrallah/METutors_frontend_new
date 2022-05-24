@@ -4,17 +4,13 @@
       <ng-container [ngSwitch]="view.loading">
         <ng-container *ngSwitchCase="false">
           <h1 class="title overflow-hidden">{{ view.data?.course?.courseName }}
-            <span class="float-end pending completed"
-                  *ngIf="view?.data?.course?.status === courseStatus.completed">
-              Completed
-            </span>
-
-            <span class="float-end pending cursor-not-allowed cancelled"
-                    *ngIf="view?.data?.course?.status === courseStatus.cancelledByTeacher || view?.data?.course?.status === courseStatus.cancelledByStudent">
-              Cancelled
-            </span>
+            <button mat-button class="ms-2 status float-end text-decoration-none"
+                    *ngIf="view?.data?.course?.status !== courseStatus.active || view?.data?.course?.status !== courseStatus.inprogress"
+                    [ngClass]="view?.data?.course?.status">{{ statusLabel[view?.data?.course?.status] }}</button>
             <button mat-button class="float-end fw-bold" (click)="onShowSendFeedbackModal(view.data?.course?.studentId)"
-                    *ngIf="view?.data?.course?.status === courseStatus.active || view?.data?.course?.status === courseStatus.inprogress">Cancel Course</button>
+                    *ngIf="view?.data?.course?.status === courseStatus.active || view?.data?.course?.status === courseStatus.inprogress">
+              Cancel Course
+            </button>
           </h1>
           <div class="row list-items">
             <div class="col-md-3 d-flex menu align-items-center">
@@ -46,18 +42,19 @@
               <h3 *ngIf="view.data?.progress === 100">Completed</h3>
               <h3 *ngIf="view.data?.progress === 0">Not Started yet</h3>
               <h3 *ngIf="view.data?.progress && (view.data?.progress > 0 && view.data?.progress < 100)">In progress</h3>
-               <div class="d-flex align-items-center">
-                 <div class="flex-grow-1">
-                   <mat-progress-bar class="example-margin" [color]="view.data?.progress ? view.data?.progress > 30 ? 'primary' : 'warn' : undefined"
-                                     [value]="view.data?.progress">
-                   </mat-progress-bar>
-                 </div>
-                 <strong>{{ view.data?.progress }}%</strong>
-               </div>
+              <div class="d-flex align-items-center">
+                <div class="flex-grow-1">
+                  <mat-progress-bar class="example-margin"
+                                    [color]="view.data?.progress ? view.data?.progress > 30 ? 'primary' : 'warn' : undefined"
+                                    [value]="view.data?.progress">
+                  </mat-progress-bar>
+                </div>
+                <strong>{{ view.data?.progress }}%</strong>
+              </div>
             </div>
             <div class="col-md-6">
               <button mat-button class="main-button-transparent float-end"
-                     (click)="onShowCourseAttendanceModal()">
+                      (click)="onShowCourseAttendanceModal()">
                 Attendance & Feedback
               </button>
             </div>
@@ -87,7 +84,7 @@
             <tr>
               <th>#</th>
               <th>Class Subject</th>
-              <th>Class  Attendees</th>
+              <th>Class Attendees</th>
               <th>Start time - End time</th>
               <th>Duration</th>
               <th></th>
@@ -110,7 +107,8 @@
                     <img src="assets/svg/play-fill.svg" draggable="false" alt="">
                     Launch Class
                   </button>
-                  <button mat-button class="main-button-opacity flex-grow-1" *ngIf="todaysClass?.status === 'completed'">
+                  <button mat-button class="main-button-opacity flex-grow-1"
+                          *ngIf="todaysClass?.status === 'completed'">
                     <img src="assets/svg/eye-fill.svg" draggable="false" alt="">
                     View Class
                   </button>
@@ -152,7 +150,8 @@
                 <td>{{ upcomingClass.startTime }} - {{ upcomingClass.endTime }} </td>
                 <td>{{ upcomingClass?.duration }} hours</td>
                 <td class="d-flex">
-                  <button mat-button class="main-button-opacity me-2 flex-grow-1" (click)="onOpenRescheduleModal(upcomingClass.id)"
+                  <button mat-button class="main-button-opacity me-2 flex-grow-1"
+                          (click)="onOpenRescheduleModal(upcomingClass.id)"
                           [disabled]="getHours(upcomingClass.startDate) < 48">
                     Reschedule
                   </button>

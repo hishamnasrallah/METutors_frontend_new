@@ -4,11 +4,11 @@ import { FormGroup } from '@angular/forms';
 import { combineLatest, Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 
+import * as moment from 'moment';
 import * as fromTutor from '../../state';
 import * as fromCore from '@metutor/core/state';
 import * as fromTutorAction from '../../state/actions';
-import * as moment from 'moment';
-import { CourseStatus, WEEK_DAYS_LONG } from '@config';
+import { CourseStatus, courseStatusLabel, WEEK_DAYS_LONG } from '@config';
 
 @Component({
   selector: 'metutors-tutor-class-dashboard',
@@ -28,6 +28,7 @@ export class TutorClassDashboardComponent implements OnInit {
     'Share with us a feedback on your student as course cancellation has begun';
 
   courseStatus = CourseStatus;
+  statusLabel = courseStatusLabel;
 
   view$: Observable<{
     data: any;

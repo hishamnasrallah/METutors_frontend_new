@@ -5,29 +5,14 @@
         <ng-container [ngSwitch]="view.loading">
           <ng-container *ngSwitchCase="false">
             <h1 class="title overflow-hidden">{{ view.data?.course?.courseName }}
+              <button mat-button class="ms-2 status float-end text-decoration-none"
+                      *ngIf="view?.data?.course?.status !== courseStatus.active || view?.data?.course?.status !== courseStatus.inprogress"
+                      [ngClass]="view?.data?.course?.status">{{ statusLabel[view?.data?.course?.status] }}</button>
               <button mat-button class="float-end fw-bold cancel"
                       (click)="onShowSendFeedbackModal(view.data?.course?.teacher?.id, true, false)"
                       *ngIf="view.data?.course?.status === courseStatus.active|| view.data?.course?.status === courseStatus.inprogress">
                 Cancel Course
               </button>
-              <span class="float-end hold cursor-pointer"
-                    (click)="onShowSendFeedbackModal(view.data?.course?.teacher?.id, true, true)"
-                    *ngIf="view.data?.course?.status === courseStatus.cancelledByTeacher || view.data?.course?.status === courseStatus.rejected">Course is on Hold</span>
-
-              <span class="float-end hold cursor-not-allowed"
-                    *ngIf="view.data?.course?.status === courseStatus.cancelledByStudent">Cancelled & Refunded</span>
-
-              <span class="float-end pending cursor-not-allowed"
-                    *ngIf="view.data?.course?.status === courseStatus.pending">Waiting for tutor approval</span>
-
-              <span class="float-end pending cursor-not-allowed"
-                    *ngIf="view.data?.course?.status === courseStatus.completed">Completed</span>
-
-              <span class="float-end hold cursor-not-allowed text-center"
-                    *ngIf="view.data?.course?.status === courseStatus.requestedToMetutors">
-                Courses on Hold <br>
-                Pending Tutor Re-Assignment by Admin
-              </span>
             </h1>
             <div class="row list rounded">
               <div class="col-md-3 d-flex menu align-items-center">

@@ -71,8 +71,8 @@
                   <td>{{ booking?.courseCode }}</td>
                   <td>{{ booking?.totalPrice }}$</td>
                   <td>
-                    <button class="status text-capitalize" mat-button [ngClass]="booking?.status">
-                      {{ booking?.status }}
+                    <button class="status" mat-button [ngClass]="booking?.status">
+                      {{ statusLabel[booking?.status] }}
                     </button>
                   </td>
                   <td>
