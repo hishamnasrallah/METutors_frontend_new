@@ -23,6 +23,7 @@ export class TicketEffects {
             map((tickets) =>
               ticketActions.loadTicketsSuccess({
                 tickets,
+                ticketsCounts: {},
               })
             ),
             catchError((error) =>
@@ -47,9 +48,10 @@ export class TicketEffects {
       mergeMap(([_, _tickets]) => {
         if (!_tickets || !_tickets.length) {
           return this._ticketService.loadAdminTickets().pipe(
-            map((tickets) =>
+            map((response) =>
               ticketActions.loadTicketsSuccess({
-                tickets,
+                tickets: response.tickets,
+                ticketsCounts: response.ticketsCounts,
               })
             ),
             catchError((error) =>

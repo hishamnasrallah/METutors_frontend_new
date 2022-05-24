@@ -16,6 +16,7 @@ import { TicketStatus } from '@metutor/config';
   styleUrls: ['./admin-support-ticket.component.scss'],
 })
 export class AdminSupportTicketComponent implements OnInit {
+  ticketsCounts$: Observable<any>;
   isLoading$: Observable<boolean>;
   tickets$: Observable<ITicket[] | null>;
   isChangeTicketStatus$: Observable<boolean>;
@@ -82,6 +83,7 @@ export class AdminSupportTicketComponent implements OnInit {
   private _prepareTickets(): void {
     this._store.dispatch(fromCore.loadAdminTickets());
     this.tickets$ = this._store.select(fromCore.selectTickets);
+    this.ticketsCounts$ = this._store.select(fromCore.selectTicketsCounts);
     this.isLoading$ = this._store.select(fromCore.selectIsLoadingTickets);
   }
 
