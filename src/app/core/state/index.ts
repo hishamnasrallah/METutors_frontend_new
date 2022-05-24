@@ -723,6 +723,12 @@ export const selectTicket = createSelector(
   fromTicketReducer.selectTicket
 );
 
+export const selectTicketsCounts = createSelector(
+  selectTicketState,
+  fromTicketReducer.selectTicketsCounts
+);
+
+
 export const selectIsLoadingTicket = createSelector(
   selectTicketState,
   fromTicketReducer.selectIsLoadingTicket

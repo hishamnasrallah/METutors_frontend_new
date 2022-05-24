@@ -8,7 +8,7 @@ export const loadAdminTickets = createAction('[Ticket] Load Admin Tickets');
 
 export const loadTicketsSuccess = createAction(
   '[Ticket] Load Tickets Success',
-  props<{ tickets: ITicket[] }>()
+  props<{ tickets: ITicket[]; ticketsCounts: any }>()
 );
 
 export const loadTicketsFailure = createAction(

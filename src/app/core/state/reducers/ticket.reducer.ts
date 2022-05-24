@@ -4,6 +4,7 @@ import * as ticketActions from '../actions/ticket.actions';
 
 export interface State {
   // Loading Tickets
+  ticketsCounts: any;
   isLoadingTickets: boolean;
   tickets: ITicket[] | null;
   loadingTicketsFailure: string;
@@ -29,6 +30,7 @@ export interface State {
 export const initialState: State = {
   ticket: null,
   tickets: null,
+  ticketsCounts: {},
   isLoadingTicket: false,
   isLoadingTickets: false,
   isCreatingTicket: false,
@@ -47,9 +49,13 @@ export const reducer = createReducer(
     isLoadingTickets: true,
   })),
 
-  on(ticketActions.loadTicketsSuccess, (state, { tickets }) => ({
+  on(ticketActions.loadTicketsSuccess, (state, { tickets, ticketsCounts }) => ({
     ...state,
     tickets,
+    ticketsCounts: {
+      ...state.ticketsCounts,
+      ...ticketsCounts,
+    },
     isLoadingTickets: false,
   })),
 
@@ -168,6 +174,8 @@ export const selectIsLoadingTickets = (state: State): boolean =>
   state.isLoadingTickets;
 
 export const selectTicket = (state: State): ITicket | null => state.ticket;
+
+export const selectTicketsCounts = (state: State): any => state.ticketsCounts;
 
 export const selectIsLoadingTicket = (state: State): boolean =>
   state.isLoadingTicket;
