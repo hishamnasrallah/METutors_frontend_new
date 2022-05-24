@@ -2,10 +2,11 @@ import { Store } from '@ngrx/store';
 import { Component, OnInit } from '@angular/core';
 import { combineLatest, map, Observable } from 'rxjs';
 
+import { environment } from '@environment';
+import { courseStatusLabel } from '@config';
 import * as fromCore from '@metutor/core/state';
 import * as fromAdmin from '@metutor/modules/admin/state';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
-import { environment } from '@environment';
 
 @Component({
   selector: 'metutors-admin-student-booking-detail',
@@ -21,6 +22,7 @@ export class AdminStudentBookingDetailComponent implements OnInit {
   showAssignmentsModal$: Observable<boolean>;
   view$: Observable<{ course: any; loading: boolean }>;
 
+  statusLabel = courseStatusLabel;
   imageUrl = environment.imageURL;
 
   constructor(private _store: Store<any>) {}

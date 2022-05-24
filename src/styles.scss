@@ -749,7 +749,7 @@ button.status, span.status {
   padding: 15px;
   border-radius: 25px;
 
-  &.completed, &.accepted {
+  &.completed, &.accepted, &.active, {
     color: #FFF;
     background-color: #50C394;
   }
@@ -759,7 +759,7 @@ button.status, span.status {
     color: #c98843;
   }
 
-  &.inprogress, &.active, &.upcoming {
+  &.inprogress, &.upcoming {
     color: #5955cd;
     background-color: #e1e0fe;
   }

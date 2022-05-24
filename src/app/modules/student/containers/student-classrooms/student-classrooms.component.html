@@ -80,11 +80,12 @@
             </div>
           </ng-container>
           <ng-container *ngSwitchCase="false">
-            <div class="col-md-12" *ngFor="let cancelledCourse of view.cancelledCourses">
-              <metutors-classroom-item [classroom]="cancelledCourse" [isStudent]="true" [url]="'/student/classrooms/classes/dashboard/'"></metutors-classroom-item>
-            </div>
             <div class="col-md-12" *ngFor="let activeCourse of view.activeCourses">
               <metutors-classroom-item [classroom]="activeCourse" [isStudent]="true" [url]="'/student/classrooms/classes/dashboard/'"></metutors-classroom-item>
+            </div>
+
+            <div class="col-md-12" *ngFor="let cancelledCourse of view.cancelledCourses">
+              <metutors-classroom-item [classroom]="cancelledCourse" [isStudent]="true" [url]="'/student/classrooms/classes/dashboard/'"></metutors-classroom-item>
             </div>
 
             <div class="col-md-12 mb-3" *ngIf="!view.activeCourses || !view.activeCourses.length">
