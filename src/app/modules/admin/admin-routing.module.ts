@@ -27,6 +27,7 @@ import {
   AdminStudentBookingDetailComponent,
   AdminTutorInterviewDetailsComponent,
   AdminTutorInterviewDocumentsComponent,
+  AdminManagementTutorReAssignmentComponent,
 } from './containers';
 
 const routes: Routes = [
@@ -287,15 +288,27 @@ const routes: Routes = [
         ],
       },
       {
-        path: 'program',
+        path: 'management',
         children: [
           {
-            path: 'list',
+            path: 'program',
             component: AdminProgramListComponent,
             data: {
               layout: {
                 title: 'Program list - Metutors',
-                navbarTitle: 'Program',
+                navbarTitle: 'Management',
+                showHeader: false,
+                showFooter: false,
+              },
+            },
+          },
+          {
+            path: 'tutor-re-assignment',
+            component: AdminManagementTutorReAssignmentComponent,
+            data: {
+              layout: {
+                title: 'Program list - Metutors',
+                navbarTitle: 'Management',
                 showHeader: false,
                 showFooter: false,
               },
@@ -307,7 +320,7 @@ const routes: Routes = [
             data: {
               layout: {
                 title: 'Field of Study - Metutors',
-                navbarTitle: 'Field of Study',
+                navbarTitle: 'Management',
                 showHeader: false,
                 showFooter: false,
               },
@@ -319,7 +332,7 @@ const routes: Routes = [
             data: {
               layout: {
                 title: 'Subject - Metutors',
-                navbarTitle: 'Subject',
+                navbarTitle: 'Management',
                 showHeader: false,
                 showFooter: false,
               },
@@ -331,7 +344,7 @@ const routes: Routes = [
             data: {
               layout: {
                 title: 'Country - Metutors',
-                navbarTitle: 'Country List',
+                navbarTitle: 'Management',
                 showHeader: false,
                 showFooter: false,
               },
@@ -339,7 +352,7 @@ const routes: Routes = [
           },
           {
             path: '',
-            redirectTo: 'list',
+            redirectTo: 'program',
             pathMatch: 'full',
           },
         ],

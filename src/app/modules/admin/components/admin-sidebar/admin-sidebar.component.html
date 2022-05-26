@@ -132,7 +132,7 @@
       </ul>
     </li>
     <li class="d-flex flex-column">
-      <a routerLinkActive="active" routerLink="/admin/program" class="cursor-pointer"
+      <a routerLinkActive="active" routerLink="/admin/management" class="cursor-pointer"
         (click)="openProgram = !openProgram">
         <svg xmlns="http://www.w3.org/2000/svg" width="21.482" height="22.2" viewBox="0 0 21.482 22.2">
           <path id="Path_365" data-name="Path 365"
@@ -145,22 +145,27 @@
       </a>
       <ul class="list-unstyled" [@slideInOut] *ngIf="openProgram">
         <li class="d-flex align-items-center">
-          <a routerLink="/admin/program/list" routerLinkActive="active">
+          <a routerLink="/admin/management/program" routerLinkActive="active">
             <span class="text-uppercase hide-sidemenu">Manage Programs</span>
           </a>
         </li>
         <li class="d-flex align-items-center">
-          <a routerLink="/admin/program/field-of-study" routerLinkActive="active">
+          <a routerLink="/admin/management/tutor-re-assignment" routerLinkActive="active">
+            <span class="text-uppercase hide-sidemenu">Tutor Re-Assignment</span>
+          </a>
+        </li>
+        <li class="d-flex align-items-center">
+          <a routerLink="/admin/management/field-of-study" routerLinkActive="active">
             <span class="text-uppercase hide-sidemenu">Field of study</span>
           </a>
         </li>
         <li class="d-flex align-items-center">
-          <a routerLink="/admin/program/subject" routerLinkActive="active">
+          <a routerLink="/admin/management/subject" routerLinkActive="active">
             <span class="text-uppercase hide-sidemenu">Subject</span>
           </a>
         </li>
         <li class="d-flex align-items-center">
-          <a routerLink="/admin/program/country" routerLinkActive="active">
+          <a routerLink="/admin/management/country" routerLinkActive="active">
             <span class="text-uppercase hide-sidemenu">Country list</span>
           </a>
         </li>

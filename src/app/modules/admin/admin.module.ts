@@ -53,6 +53,7 @@ import {
   AdminStudentBookingDetailComponent,
   AdminTutorInterviewDetailsComponent,
   AdminTutorInterviewDocumentsComponent,
+  AdminManagementTutorReAssignmentComponent,
 } from './containers';
 
 import {
@@ -125,6 +126,7 @@ import {
     AdminStudentViewFeedbackModalComponent,
     AdminHourlyRatePerSubjectModalComponent,
     AdminStudentViewAssignmentsModalComponent,
+    AdminManagementTutorReAssignmentComponent,
     AdminTutorInterviewAttachmentModalComponent,
     AdminReassigningTutorSelectionModalComponent,
   ],

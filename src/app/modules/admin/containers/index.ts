@@ -22,3 +22,4 @@ export * from './admin-classrooms-per-course';
 export * from './admin-student-booking-detail';
 export * from './admin-tutor-interview-details';
 export * from './admin-tutor-interview-documents';
+export * from './admin-management-tutor-re-assignment';

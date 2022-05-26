@@ -242,14 +242,14 @@ export const WEEK_DAYS_LONG: any = {
 };
 
 export const courseStatusLabel = {
-  active: 'Active',
+  active: 'Running',
   rejected: 'Rejected',
   canceled: 'Canceled',
   inprogress: 'Running',
   requested: 'Requested',
   completed: 'Completed',
   pending: 'Pending Tutor Approval',
-  cancelled_by_teacher: 'On Hold',
+  cancelled_by_teacher: 'On Hold (Tutor Re-Assignment by MeTutors)',
   cancelled_by_student: 'Canceled & Refunded',
   requested_to_metutors: ' Tutor Re-Assignment by MEtutors',
 };
