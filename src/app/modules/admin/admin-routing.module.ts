@@ -23,6 +23,7 @@ import {
   AdminWorkforceCapacityComponent,
   AdminCancelledClassroomsComponent,
   AdminClassroomsPerCourseComponent,
+  AdminFinanceRefundOrdersComponent,
   AdminStudentBookingDetailComponent,
   AdminTutorInterviewDetailsComponent,
   AdminTutorInterviewDocumentsComponent,
@@ -265,7 +266,19 @@ const routes: Routes = [
             data: {
               layout: {
                 title: 'Finance Orders - Metutors',
-                navbarTitle: 'Orders',
+                navbarTitle: 'Finance',
+                showHeader: false,
+                showFooter: false,
+              },
+            },
+          },
+          {
+            path: 'refunds',
+            component: AdminFinanceRefundOrdersComponent,
+            data: {
+              layout: {
+                title: 'Finance Refund Orders - Metutors',
+                navbarTitle: 'Finance',
                 showHeader: false,
                 showFooter: false,
               },

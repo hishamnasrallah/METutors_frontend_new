@@ -17,6 +17,7 @@ export * from './admin-classrooms-list';
 export * from './admin-suspended-tutors';
 export * from './admin-workforce-capacity';
 export * from './admin-cancelled-classrooms';
+export * from './admin-finance-refund-orders';
 export * from './admin-classrooms-per-course';
 export * from './admin-student-booking-detail';
 export * from './admin-tutor-interview-details';

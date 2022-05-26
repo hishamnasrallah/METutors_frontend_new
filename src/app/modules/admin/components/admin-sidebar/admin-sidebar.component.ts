@@ -41,6 +41,7 @@ export class AdminSidebarComponent implements OnInit {
   openTutor = false;
   openStudent = false;
   openProgram = false;
+  openFinance = false;
   openClassrooms = false;
 
   constructor() {}
