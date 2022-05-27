@@ -3,17 +3,15 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable, tap } from 'rxjs';
-import {
-  TicketStatus,
-  TicketPriority,
-  TICKET_STATUSES_CONST,
-} from 'src/app/config';
+import { TicketStatus, TicketPriority } from 'src/app/config';
 import { ITicket } from 'src/app/core/models';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { NgxAutoScroll } from 'ngx-auto-scroll';
 import { IUser } from '@metutor/core/models';
 import * as fromCore from '@metutor/core/state';
 import { Store } from '@ngrx/store';
+import * as fromAdmin from '@metutor/modules/admin/state';
+import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 
 @Component({
   selector: 'metutors-admin-ticket-details',
@@ -35,13 +33,13 @@ export class AdminTicketDetailsComponent implements OnInit {
   user$: Observable<IUser | null>;
   ticket$: Observable<ITicket | null>;
   isChangeTicketStatus$: Observable<boolean>;
+  showChangeStatusModal$: Observable<boolean>;
   isSubmitTicketComment$: Observable<boolean>;
 
   ticketId: string;
   messageForm: FormGroup;
   ticketStatus = TicketStatus;
   ticketPriority = TicketPriority;
-  ticketStatuses = TICKET_STATUSES_CONST;
 
   constructor(
     private _title: Title,
@@ -75,6 +73,10 @@ export class AdminTicketDetailsComponent implements OnInit {
     this.isChangeTicketStatus$ = this._store.select(
       fromCore.selectIsChangeTicketStatus
     );
+
+    this.showChangeStatusModal$ = this._store.select(
+      fromAdmin.selectIsChangeStatusModal
+    );
   }
 
   onSubmit({ valid, value }: any): void {
@@ -85,8 +87,17 @@ export class AdminTicketDetailsComponent implements OnInit {
     }
   }
 
-  onChangeTicketStatus({ ticketId, status }: any): void {
+  onOpenChangeStatusModal(ticketId: string) {
     this.ticketId = ticketId;
+
+    this._store.dispatch(fromAdminAction.openAdminChangeStatusModal());
+  }
+
+  onCloseChangeStatusModal() {
+    this._store.dispatch(fromAdminAction.closeAdminChangeStatusModal());
+  }
+
+  onChangeTicketStatus({ ticketId, status }: any): void {
     this._store.dispatch(fromCore.changeTicketStatus({ ticketId, status }));
   }
 

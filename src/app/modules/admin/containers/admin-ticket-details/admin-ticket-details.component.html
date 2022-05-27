@@ -12,21 +12,8 @@
                   'critical': ticketPriority.critical === ticket?.priority?.name
                 }">{{ ticket?.priority?.name }}</span>
 
-              <div dropdown class="change-status float-end position-relative d-flex">
-                <mat-icon class="spinner me-2" *ngIf="(isChangeTicketStatus$ | async) && ticketId === ticket?.ticketId">
-                  autorenew
-                </mat-icon>
-                <a dropdownToggle class="cursor-pointer">Change Status</a>
-                <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
-                  <li role="menuitem" class="mat-menu-item cursor-pointer" *ngFor="let status of ticketStatuses"
-                    [ngClass]="{
-                      'issued': ticketStatus.open === status,
-                      'closed': ticketStatus.closed === status,
-                      'response': ticketStatus.inprogress === status
-                    }" (click)="onChangeTicketStatus({ticketId: ticket?.ticketId, status})">
-                    {{ status }}
-                  </li>
-                </ul>
+              <div class="change-status float-end position-relative d-flex">
+                <a class="cursor-pointer" (click)="onOpenChangeStatusModal(ticket?.ticketId)">Change Status</a>
               </div>
             </div>
             <h2>
@@ -103,3 +90,11 @@
     </div>
   </div>
 </div>
+
+<metutors-change-ticket-status-modal *ngIf="showChangeStatusModal$ | async"
+                                     (closeModal)="onCloseChangeStatusModal()"
+                                     [ticketId]="ticketId"
+                                     [isSubmitting]="(isChangeTicketStatus$ | async)!"
+                                     [showModal]="(showChangeStatusModal$ | async)!"
+                                     (submitted)="onChangeTicketStatus($event)">
+</metutors-change-ticket-status-modal>

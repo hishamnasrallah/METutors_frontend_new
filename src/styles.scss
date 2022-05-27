@@ -105,7 +105,7 @@ button:hover {
 }
 
 .timepicker__header,
-.clock-face__number > span.active,
+.clock-face__number>span.active,
 .clock-face__clock-hand {
   background-color: var(--main-color) !important;
 }
@@ -429,6 +429,10 @@ rating span.bs-rating-star {
   padding-bottom: 5px;
 }
 
+.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+  color: transparent;
+}
+
 .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
   color: var(--main-color);
 }
@@ -643,7 +647,7 @@ rating span.bs-rating-star {
     transition: all 0.25s ease-in-out;
   }
 
-  input:focus ~ button {
+  input:focus~button {
     background-color: var(--main-color) !important;
     color: #fff !important;
     border-color: var(--main-color) !important;
@@ -742,29 +746,39 @@ metutors-navbar-mobile {
   }
 }
 
-button.status, span.status {
+button.status,
+span.status {
   color: #FFF;
   line-height: 0;
   min-width: 0;
   padding: 15px;
   border-radius: 25px;
 
-  &.completed, &.accepted, &.active, {
-    color: #50C394 !important;
+  &.completed,
+  &.accepted,
+  &.active {
+    color: #50C394;
     background: rgba(80, 195, 148, 0.2);
   }
 
-  &.pending, &.requested, &.requested_to_metutors {
+  &.pending,
+  &.requested,
+  &.requested_to_metutors {
     background-color: #f8e3cc;
     color: #c98843;
   }
 
-  &.inprogress, &.upcoming {
+  &.inprogress,
+  &.upcoming {
     color: #5955cd;
     background-color: #e1e0fe;
   }
 
-  &.canceled, &.cancelled, &.rejected, &.cancelled_by_student, &.cancelled_by_teacher {
+  &.canceled,
+  &.cancelled,
+  &.rejected,
+  &.cancelled_by_student,
+  &.cancelled_by_teacher {
     color: #d34c65;
     background-color: #f9d3da;
   }
@@ -813,12 +827,12 @@ $ph-animation-duration: 0.8s !default;
     margin-left: -250%;
     animation: phAnimation $ph-animation-duration linear infinite;
     background: linear-gradient(to right,
-      rgba($ph-bg, 0) 46%,
-      rgba($ph-bg, 0.35) 50%,
-      rgba($ph-bg, 0) 54%) 50% 50%;
+        rgba($ph-bg, 0) 46%,
+        rgba($ph-bg, 0.35) 50%,
+        rgba($ph-bg, 0) 54%) 50% 50%;
   }
 
-  > * {
+  >* {
     flex: 1 1 auto;
     display: flex;
     flex-flow: column;
