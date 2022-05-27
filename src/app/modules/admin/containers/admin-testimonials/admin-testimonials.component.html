@@ -1,0 +1,98 @@
+<div class="bookings-list">
+  <div class="row filters">
+    <div class="col-md-6 d-flex align-items-center">
+      <h1>Feedback & Testimonials</h1>
+    </div>
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-7">
+        </div>
+        <div class="col-md-5">
+          <div class="position-relative">
+            <input type="text" class="form-control custom-input input-bordered" placeholder="Apply filters">
+            <mat-icon class="filter">filter_alt</mat-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col-md-12" *ngLet="(view$ | async) as view">
+      <mat-tab-group mat-align-tabs="start">
+        <mat-tab [label]="'By Teacher'">
+          <ng-container [ngSwitch]="view.loading">
+            <ng-container *ngSwitchCase="true">
+              <metutors-grid-placeholder></metutors-grid-placeholder>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="false">
+              <div class="feedback">
+                <div class="d-flex justify-content-between">
+                  <div>
+                    <div class="rating-block d-flex align-items-center mb-2">
+                      <h2 class="me-2">{{view.feedback?.feedbacksCount}} Reviews</h2>
+                      <rating [ngModel]="view.feedback?.feedbackRating" [max]="5" [readonly]="true"></rating>
+                    </div>
+
+                    <ng-container *ngFor="let rating of view.feedback.overallStars">
+                      <div class="d-flex align-items-center stars">
+                        <h3 class="me-1 mb-0">{{rating.title}} Stars</h3>
+                        <mat-progress-bar class="example-progress" [color]="'primary'" [value]="rating.value">
+                        </mat-progress-bar>
+                        <span>({{rating.value}})</span>
+                      </div>
+                    </ng-container>
+                  </div>
+
+                  <div>
+                    <ng-container *ngFor="let feedback of view.feedback.overallFeedback">
+                      <div class="rating-block d-flex align-items-center mb-0">
+                        <h2 class="me-2">{{ feedback.title }}</h2>
+                        <rating [ngModel]="feedback.value" [max]="5" [readonly]="true"></rating>
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+
+                <ng-container *ngFor="let studentFeedback of view.feedback.studentFeedbacks">
+                  <div class="mt-4 reviews">
+                    <div class="d-flex teacher mb-2">
+                      <img [src]=" studentFeedback?.sender?.avatar" meTutorsDefaultAvatar alt="" class="rounded-circle">
+                      <div class="ms-2">
+                        <h3 class="m-0">{{ studentFeedback?.sender?.firstName}} {{ studentFeedback?.sender?.lastName}}</h3>
+                        <div>
+                          <rating [(ngModel)]="studentFeedback.averageRating" [max]="5" [readonly]="true"></rating>
+                          <span class="ms-1">{{ studentFeedback.averageRating}}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-7">
+                        <ng-container *ngFor="let feed of studentFeedback.feedbacks;">
+                          <div class="rating-block d-flex align-items-center">
+                            <h2 class="me-2">{{feed.title}}</h2>
+                            <rating [ngModel]="feed.value" [max]="5" [readonly]="true"></rating>
+                          </div>
+                        </ng-container>
+                      </div>
+                      <div class="col-md-5 user-feedback">
+                        <h2>Feedback</h2>
+                        <p>{{studentFeedback?.review}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+            </ng-container>
+          </ng-container>
+        </mat-tab>
+
+        <mat-tab [label]="'By Student'">
+
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</div>

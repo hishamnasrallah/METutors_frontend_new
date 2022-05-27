@@ -10,6 +10,7 @@ import {
   AdminStudentListComponent,
   AdminProgramListComponent,
   AdminFieldOfStudyComponent,
+  AdminTestimonialsComponent,
   AdminCurrentTutorsComponent,
   AdminPendingTutorsComponent,
   AdminSupportTicketComponent,
@@ -341,6 +342,18 @@ const routes: Routes = [
           {
             path: 'country',
             component: AdminCountryComponent,
+            data: {
+              layout: {
+                title: 'Country - Metutors',
+                navbarTitle: 'Management',
+                showHeader: false,
+                showFooter: false,
+              },
+            },
+          },
+          {
+            path: 'testimonials',
+            component: AdminTestimonialsComponent,
             data: {
               layout: {
                 title: 'Country - Metutors',

@@ -3,6 +3,7 @@ export * from './admin-country';
 export * from './admin-subject';
 export * from './admin-tutor-list';
 export * from './admin-student-list';
+export * from './admin-testimonials';
 export * from './admin-program-list';
 export * from './admin-current-tutors';
 export * from './admin-pending-tutors';
