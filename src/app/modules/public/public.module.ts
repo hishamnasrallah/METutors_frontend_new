@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { StoreModule } from '@ngrx/store';
 import { CommonModule } from '@angular/common';
 import { RatingModule } from 'ngx-bootstrap/rating';
 import { CarouselModule } from 'ngx-owl-carousel-o';
@@ -13,6 +14,10 @@ import { PublicRoutingModule } from './public-routing.module';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
+
+// import * as publicEffects from './state/effects';
+import * as fromPublic from '@metutor/modules/public/state';
+import * as featureKeys from '@metutor/modules/public/state/feature-keys';
 
 import {
   FaqComponent,
@@ -66,6 +71,7 @@ import {
   HomeServicesFeaturesComponent,
   LanguagesIntroducingComponent,
   LanguagesTestomonialComponent,
+  RequestNewCourseModalComponent,
   HomeStudyMoreReadMoreComponent,
   BenefitsOnlineTutoringComponent,
   BenefitsAcademicTutoringComponent,
@@ -124,6 +130,7 @@ import {
     LanguagesTestomonialComponent,
     HomeServicesFeaturesComponent,
     HomeStudyMoreReadMoreComponent,
+    RequestNewCourseModalComponent,
     BenefitsOnlineTutoringComponent,
     ExceptionalOpportunitiesComponent,
     BenefitsAcademicTutoringComponent,
@@ -144,6 +151,8 @@ import {
     ReactiveFormsModule,
     PublicRoutingModule,
     RatingModule.forRoot(),
+    // EffectsModule.forFeature(Object.values(publicEffects)),
+    StoreModule.forFeature(featureKeys.publicFeatureKey, fromPublic.reducers),
   ],
   providers: [ContactService],
 })

@@ -25,7 +25,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
-import * as tutorEffects from './state/effects';
+import * as studentEffects from './state/effects';
 import { SharedModule } from '@metutor/shared/shared.module';
 import * as fromStudent from '@metutor/modules/student/state';
 import { StudentRoutingModule } from './student-routing.module';
@@ -140,7 +140,7 @@ import {
     NgxIntlTelInputModule,
     RatingModule.forRoot(),
     NgxMaterialTimepickerModule,
-    EffectsModule.forFeature(Object.values(tutorEffects)),
+    EffectsModule.forFeature(Object.values(studentEffects)),
     StoreModule.forFeature(featureKeys.studentFeatureKey, fromStudent.reducers),
   ],
   exports: [StudentMakeupClassModalComponent],

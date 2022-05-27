@@ -5,6 +5,7 @@
       <button mat-icon-button (click)="closeModal.emit()" class="close-btn">
         <mat-icon>close</mat-icon>
       </button>
+      <img src="assets/svg/exchange.svg" width="75px" height="75px" class="d-block m-auto mb-4" draggable="false" alt="">
       <h2 class="text-center">Do you want to change the status?</h2>
       <div class="text-center my-4">
         <span class="status active">Active</span>
@@ -17,7 +18,7 @@
 
       <div class="form-group">
         <label for="reason">Enter Reason</label>
-        <textarea class="form-control custom-input input-bordered" id="reason" formControlName="reason" rows="10"
+        <textarea class="form-control custom-input input-bordered" id="reason" formControlName="reason" rows="5"
           placeholder="Enter the reason here..."></textarea>
       </div>
 
