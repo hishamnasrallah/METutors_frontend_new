@@ -22,7 +22,7 @@
             <h1>All Available Courses</h1>
           </div>
           <div class="col-md-5">
-            <a mat-button class="main-button-transparent float-end">
+            <a mat-button class="main-button-transparent float-end" (click)="onOpenRequestCourseModal()">
               Request New Course
             </a>
           </div>
@@ -78,5 +78,15 @@
     </ng-container>
   </ng-container>
 
-  <metutors-academic-learning-environment></metutors-academic-learning-environment>
+  <metutors-academic-learning-environment (requestCourse)="onOpenRequestCourseModal()">
+  </metutors-academic-learning-environment>
 </ng-container>
+
+<metutors-request-new-course-modal *ngIf="showRequestCourseModal$ | async"
+                                   (closeModal)="onCloseRequestCourseModal()"
+                                   [programs]="(programs$ | async)!"
+                                   [countries]="(countries$ | async)!"
+                                   [subjects]="(subjects$ | async)!"
+                                   [languages]="(languages$ | async)!"
+                                   [showModal]="(showRequestCourseModal$ | async)!">
+</metutors-request-new-course-modal>

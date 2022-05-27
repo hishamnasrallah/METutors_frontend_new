@@ -4,6 +4,16 @@
   border: solid 1px #e2e2ea;
   overflow: hidden;
 
+  .overlay {
+    height: 260px;
+    position: absolute;
+    background: rgb(0 0 0 / 20%);
+    z-index: 2;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+
   .cover {
     height: 260px;
     background-size: cover;
@@ -14,6 +24,7 @@
     margin-top: -130px;
     padding: 0 30px;
     color: #FFF;
+    z-index: 3;
 
     .img-status {
       width: 160px;

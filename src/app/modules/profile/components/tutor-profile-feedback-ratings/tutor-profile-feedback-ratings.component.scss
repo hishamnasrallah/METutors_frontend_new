@@ -17,8 +17,12 @@
       font-size: 14px;
     }
 
-    rating span.bs-rating-star.active {
-      color: var(--main-color);
+    rating span.bs-rating-star {
+      margin-left: 5px;
+
+      &.active {
+        color: var(--main-color);
+      }
     }
   }
 
@@ -38,7 +42,7 @@
 
       span {
         color: #f5a623;
-        margin-right: 5px;
+        font-size: 15px;
       }
 
       h4 {
@@ -51,10 +55,23 @@
         font-size: 14px;
       }
 
-      &:last-child {
+      &:last-of-type {
         border-bottom: none;
         margin-bottom: 0;
         padding-bottom: 0;
+      }
+    }
+
+    .load-more {
+      display: block;
+      margin-top: 15px;
+      border-top: 1px solid #e0e0e0;
+      padding-top: 15px;
+      text-align: center;
+
+      button {
+        color: var(--main-color);
+        font-weight: bold;
       }
     }
   }

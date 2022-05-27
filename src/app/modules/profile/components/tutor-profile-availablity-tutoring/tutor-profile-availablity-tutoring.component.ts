@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { generalConstants, SORTED_DAYS_WEEK } from '@metutor/config';
+import { COURSE_TUITION_TYPES_CONST, generalConstants, SORTED_DAYS_WEEK } from '@metutor/config';
 import { ITutor } from '@metutor/core/models';
 
 @Component({
@@ -23,10 +23,9 @@ export class TutorProfileAvailablityTutoringComponent implements OnInit {
   }
 
   _tutor: ITutor;
-
-  nationalId = generalConstants.nationalId;
-
   availability: string[] = [];
+  types = COURSE_TUITION_TYPES_CONST;
+  nationalId = generalConstants.nationalId;
 
   constructor() {}
 

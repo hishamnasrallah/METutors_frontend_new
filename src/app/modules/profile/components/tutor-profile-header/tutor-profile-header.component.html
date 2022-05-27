@@ -1,8 +1,9 @@
 <div class="profile-header mb-5">
   <div class="row" *ngIf="!isLoading">
-    <div class="col-12">
+    <div class="col-12 position-relative">
+      <div class="overlay"></div>
       <div class="cover" [ngStyle]="{'background-image': 'url(' + tutor?.cover + ')'}"></div>
-      <div class="row avatar-name align-items-center">
+      <div class="row avatar-name align-items-center position-relative">
         <div class="col-md-2">
           <div class="position-relative img-status">
             <img [src]="tutor?.avatar" meTutorsDefaultAvatar alt="" class="rounded-circle" draggable="false">
@@ -28,7 +29,7 @@
               <div class="d-flex">
                 <img src="assets/svg/star-fill.svg" alt="" width="20" height="20" draggable="false" />
                 <span class="count">{{ tutor?.averageRating | number:'.1-1' }}</span>
-                <span class="review">({{ tutor?.totalFeedbacks }} reviews)</span>
+                <span class="review">({{ tutor?.feedbacks?.length }} reviews)</span>
               </div>
             </li>
             <li class="list-inline-item">

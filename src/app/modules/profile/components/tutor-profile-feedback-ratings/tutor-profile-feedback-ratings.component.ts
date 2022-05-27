@@ -10,6 +10,8 @@ export class TutorProfileFeedbackRatingsComponent implements OnInit {
   @Input() tutor?: ITutor;
   @Input() isLoading: boolean;
 
+  maxItems = 5;
+
   constructor() {}
 
   ngOnInit(): void {}

@@ -9,6 +9,8 @@ import {
   ITicketPriority,
 } from '@metutor/core/models';
 import { TicketStatus } from '@metutor/config';
+import * as fromAdmin from '@metutor/modules/admin/state';
+import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 
 @Component({
   selector: 'metutors-admin-support-ticket',
@@ -20,6 +22,7 @@ export class AdminSupportTicketComponent implements OnInit {
   isLoading$: Observable<boolean>;
   tickets$: Observable<ITicket[] | null>;
   isChangeTicketStatus$: Observable<boolean>;
+  showChangeStatusModal$: Observable<boolean>;
   categories$: Observable<ITicketCategory[] | null>;
   priorities$: Observable<ITicketPriority[] | null>;
 
@@ -39,10 +42,23 @@ export class AdminSupportTicketComponent implements OnInit {
     this.isChangeTicketStatus$ = this._store.select(
       fromCore.selectIsChangeTicketStatus
     );
+
+    this.showChangeStatusModal$ = this._store.select(
+      fromAdmin.selectIsChangeStatusModal
+    );
+  }
+
+  onOpenChangeStatusModal(ticketId: string) {
+    this.ticketId = ticketId;
+
+    this._store.dispatch(fromAdminAction.openAdminChangeStatusModal());
+  }
+
+  onCloseChangeStatusModal() {
+    this._store.dispatch(fromAdminAction.closeAdminChangeStatusModal());
   }
 
   onChangeTicketStatus({ ticketId, status }: any): void {
-    this.ticketId = ticketId;
     this._store.dispatch(fromCore.changeTicketStatus({ ticketId, status }));
   }
 

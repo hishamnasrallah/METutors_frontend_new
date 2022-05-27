@@ -229,10 +229,14 @@ export const reducer = createReducer(
     showChangeStatusModal: true,
   })),
 
-  on(adminModalActions.closeAdminChangeStatusModal, (state) => ({
-    ...state,
-    showChangeStatusModal: false,
-  })),
+  on(
+    fromCore.changeTicketStatusSuccess,
+    adminModalActions.closeAdminChangeStatusModal,
+    (state) => ({
+      ...state,
+      showChangeStatusModal: false,
+    })
+  ),
 
   on(adminModalActions.openAdminStudentBookingModal, (state) => ({
     ...state,

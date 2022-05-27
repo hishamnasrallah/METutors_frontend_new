@@ -177,9 +177,7 @@ export class ITutor {
       this.onTimeRating = tutor?.onTime_rating;
       this.feedbacks =
         tutor?.teacher_feedbacks && tutor?.teacher_feedbacks.length
-          ? tutor?.teacher_feedbacks.map(
-              (item: any) => new ITutorFeedback(false, item)
-            )
+          ? filterTeacherFeedbacks(tutor?.teacher_feedbacks)
           : [];
       this.feedbackRating = tutor?.feedback_rating;
       this.badges = tutor?.badges || [];
@@ -243,4 +241,23 @@ export function checkApprovedTutor(request: any): boolean {
   }
 
   return true;
+}
+
+export function filterTeacherFeedbacks(feedbacks: any): ITutorFeedback[] {
+  const list = feedbacks.map((item: any) => new ITutorFeedback(false, item));
+  const output: ITutorFeedback[] = [];
+
+  list.forEach((feedback: any) => {
+    const existing = output.filter(
+      (item: any) =>
+        item.courseId === feedback.courseId &&
+        item.studentId === feedback.studentId
+    );
+
+    if (!existing.length) {
+      output.push(feedback);
+    }
+  });
+
+  return output;
 }

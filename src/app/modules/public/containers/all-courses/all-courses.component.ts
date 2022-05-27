@@ -9,8 +9,11 @@ import {
   animate,
 } from '@angular/animations';
 import { Store } from '@ngrx/store';
-import { filter, Observable, take, tap } from 'rxjs';
 import { maxBy, minBy } from 'lodash';
+import { filter, Observable, take, tap } from 'rxjs';
+import * as fromPublic from '@metutor/modules/public/state';
+import * as fromPublicActions from '@metutor/modules/public/state/actions';
+import { ICountry, ILanguage, IProgram, ISubject } from '@metutor/core/models';
 
 @Component({
   selector: 'metutors-all-courses',
@@ -41,6 +44,11 @@ import { maxBy, minBy } from 'lodash';
 export class AllCoursesComponent implements OnInit {
   isLoading$: Observable<boolean>;
   exploredCourses$: Observable<any>;
+  programs$: Observable<IProgram[] | null>;
+  subjects$: Observable<ISubject[] | null>;
+  countries$: Observable<ICountry[] | null>;
+  languages$: Observable<ILanguage[] | null>;
+  showRequestCourseModal$: Observable<boolean>;
 
   name?: string;
   minValue: number;
@@ -55,6 +63,22 @@ export class AllCoursesComponent implements OnInit {
 
   ngOnInit(): void {
     this._prepareCourses();
+    this._preparePrograms();
+    this._prepareSubjects();
+    this._prepareCountries();
+    this._prepareLanguages();
+
+    this.showRequestCourseModal$ = this._store.select(
+      fromPublic.selectShowRequestCourseModal
+    );
+  }
+
+  onOpenRequestCourseModal(): void {
+    this._store.dispatch(fromPublicActions.openRequestCourseModal());
+  }
+
+  onCloseRequestCourseModal(): void {
+    this._store.dispatch(fromPublicActions.closeRequestCourseModal());
   }
 
   onChangeField(event: any, id: number): void {
@@ -106,5 +130,25 @@ export class AllCoursesComponent implements OnInit {
     this.isLoading$ = this._store.select(
       fromCore.selectIsLoadingExploredCourses
     );
+  }
+
+  private _preparePrograms(): void {
+    this._store.dispatch(fromCore.loadPrograms());
+    this.programs$ = this._store.select(fromCore.selectPrograms);
+  }
+
+  private _prepareCountries(): void {
+    this._store.dispatch(fromCore.loadProgramCountries());
+    this.countries$ = this._store.select(fromCore.selectProgramCountries);
+  }
+
+  private _prepareSubjects(): void {
+    this._store.dispatch(fromCore.loadSubjects());
+    this.subjects$ = this._store.select(fromCore.selectSubjects);
+  }
+
+  private _prepareLanguages(): void {
+    this._store.dispatch(fromCore.loadLanguages());
+    this.languages$ = this._store.select(fromCore.selectLanguages);
   }
 }

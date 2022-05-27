@@ -11,7 +11,6 @@ export class SupportTicketCardComponent implements OnInit {
   @Input() linkUrl: string;
   @Input() ticket: ITicket;
   @Input() ticketId: string;
-  @Input() isChangeStatus: boolean;
   @Input() isAdmin: boolean = false;
 
   @Output() changeStatus: EventEmitter<any> = new EventEmitter<any>();

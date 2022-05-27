@@ -10,7 +10,13 @@
         <div class="col-md-6" *ngIf="_tutor?.specifications?.typeOfTutoring">
           <h1 class="heading">Type of Tutoring</h1>
 
-          <span>{{ _tutor?.specifications?.typeOfTutoring }}</span>
+          <ng-container *ngIf="_tutor?.specifications?.typeOfTutoring === types.both">
+            <span>{{ types.one }}</span>
+            <span>{{ types.group }}</span>
+          </ng-container>
+          <span *ngIf="_tutor?.specifications?.typeOfTutoring !== types.both">
+            {{ _tutor?.specifications?.typeOfTutoring }}
+          </span>
         </div>
       </div>
       <div class="row bottom-info" *ngIf="_tutor?.sortedSubjects && _tutor?.sortedSubjects?.length">
@@ -21,7 +27,7 @@
             <div class="col-md-6 mb-3" *ngFor="let item of _tutor?.sortedSubjects; let indexSubjects = index">
               <table class="table my-table default-title">
                 <tr>
-                  <th class="heading" [attr.colspan]="item?.programId === nationalId ? '2' : '1'">
+                  <th class="heading">
                     Program: <span>
                       {{ item?.programName }}<ng-container *ngIf="item?.programId === nationalId">,
                         {{ item?.countryName }}
@@ -31,16 +37,14 @@
                   <th class="heading">Study Field <span>{{ item?.fieldName }}</span></th>
                 </tr>
                 <tr>
-                  <th>Field</th>
+                  <th [attr.colspan]="item?.programId === nationalId ? '1' : '2'">Subject Name</th>
                   <th *ngIf="item?.programId === nationalId">Grade</th>
-                  <th>Hourly Price</th>
+                  <!-- <th>Hourly Price</th> -->
                 </tr>
                 <tr *ngFor="let subject of item.subjects">
-                  <td>{{ subject?.subject }}</td>
+                  <td [attr.colspan]="item?.programId === nationalId ? '1' : '2'">{{ subject?.subject }}</td>
                   <td *ngIf="item?.programId === nationalId">{{ subject?.gradeName }}</td>
-                  <td>
-                    {{ subject?.pricePerHour }}
-                  </td>
+                  <!-- <td>{{ subject?.pricePerHour }}</td> -->
                 </tr>
               </table>
             </div>
