@@ -15,7 +15,6 @@ import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 })
 export class AdminClassroomsPerCourseComponent implements OnInit {
   name: string;
-  courseStatus = CourseStatus;
 
   view$: Observable<{
     booking: any;

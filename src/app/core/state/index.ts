@@ -728,7 +728,6 @@ export const selectTicketsCounts = createSelector(
   fromTicketReducer.selectTicketsCounts
 );
 
-
 export const selectIsLoadingTicket = createSelector(
   selectTicketState,
   fromTicketReducer.selectIsLoadingTicket
@@ -1328,4 +1327,14 @@ export const selectIsLoadingBookingPerCourse = createSelector(
 export const selectBookingPerCourse = createSelector(
   selectAdminState,
   fromAdminReducer.selectBookingPerCourse
+);
+
+export const selectAdminTutorReAssignment = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectAdminTutorReAssignment
+);
+
+export const selectIsLoadingAdminTutorReAssignment = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectIsLoadingAdminTutorReAssignment
 );

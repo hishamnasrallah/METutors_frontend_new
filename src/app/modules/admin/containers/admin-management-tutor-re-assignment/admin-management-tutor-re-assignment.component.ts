@@ -18,10 +18,11 @@ export class AdminManagementTutorReAssignmentComponent implements OnInit {
   courseStatus = CourseStatus;
 
   view$: Observable<{
-    booking: any;
     loading: boolean;
+    reAssignment: any;
   }>;
 
+  currentSection = 1;
   totalBooking$: Observable<any>;
   openBookingModal$: Observable<boolean>;
   loadingTotalBooking: Observable<boolean>;
@@ -41,31 +42,30 @@ export class AdminManagementTutorReAssignmentComponent implements OnInit {
   }
 
   onChangeTab(tab: any): void {
-    let status = 'running';
-    switch (tab.index) {
-      case 0:
-        status = 'running';
-        break;
+    this.currentSection = tab;
+
+    let status = 'not-available';
+    switch (tab) {
       case 1:
-        status = 'pending';
+        status = 'not-available';
         break;
       case 2:
-        status = 'reassigned';
+        status = 'declined';
         break;
       case 3:
         status = 'cancelled';
         break;
       case 4:
-        status = 'completed';
+        status = 'running';
         break;
     }
 
-    this._store.dispatch(fromCore.loadAdminBookingPerCourse({ status }));
+    this._store.dispatch(fromCore.loadAdminTutorReAssignment({ status }));
   }
 
   ngOnInit(): void {
     this._store.dispatch(
-      fromCore.loadAdminBookingPerCourse({ status: 'running' })
+      fromCore.loadAdminTutorReAssignment({ status: 'not-available' })
     );
 
     this.openBookingModal$ = this._store.select(
@@ -81,11 +81,11 @@ export class AdminManagementTutorReAssignmentComponent implements OnInit {
     );
 
     this.view$ = combineLatest([
-      this._store.select(fromCore.selectBookingPerCourse),
-      this._store.select(fromCore.selectIsLoadingBookingPerCourse),
+      this._store.select(fromCore.selectAdminTutorReAssignment),
+      this._store.select(fromCore.selectIsLoadingAdminTutorReAssignment),
     ]).pipe(
-      map(([booking, loading]) => ({
-        booking,
+      map(([reAssignment, loading]) => ({
+        reAssignment,
         loading,
       }))
     );

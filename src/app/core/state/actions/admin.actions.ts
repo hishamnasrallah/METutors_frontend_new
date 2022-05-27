@@ -300,3 +300,18 @@ export const loadAdminStudentViewFeedbackFailure = createAction(
   '[Admin] Load Admin Student View Feedback Failure',
   props<{ error: any }>()
 );
+
+export const loadAdminTutorReAssignment = createAction(
+  '[Admin] Load Admin Tutor Re-assignment',
+  props<{ status: string }>()
+);
+
+export const loadAdminTutorReAssignmentSuccess = createAction(
+  '[Admin] Load Admin Tutor Re-assignment Success',
+  props<{ tutorReAssignment: any }>()
+);
+
+export const loadAdminTutorReAssignmentFailure = createAction(
+  '[Admin] Load Admin Tutor Re-assignment Failure',
+  props<{ error: any }>()
+);
