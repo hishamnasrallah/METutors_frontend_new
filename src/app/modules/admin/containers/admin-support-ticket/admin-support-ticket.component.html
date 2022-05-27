@@ -127,8 +127,8 @@
               </div>
               <metutors-support-ticket-card *ngFor="let ticket of tickets$ | async" [ticket]="ticket" [isAdmin]="true"
                                             [linkUrl]="'/admin/support-ticket/ticket-details/' + ticket?.ticketId"
-                                            [ticketId]="ticketId" [isChangeStatus]="(isChangeTicketStatus$ | async)!"
-                                            (changeStatus)="onChangeTicketStatus($event)">
+                                            [ticketId]="ticketId"
+                                            (changeStatus)="onOpenChangeStatusModal($event)">
               </metutors-support-ticket-card>
       
               <div class="text-center py-5 no-data" *ngIf="!(tickets$ | async) || !(tickets$ | async)?.length">
@@ -176,8 +176,8 @@
               </div>
               <metutors-support-ticket-card *ngFor="let ticket of tickets$ | async" [ticket]="ticket" [isAdmin]="true"
                                             [linkUrl]="'/admin/support-ticket/ticket-details/' + ticket?.ticketId"
-                                            [ticketId]="ticketId" [isChangeStatus]="(isChangeTicketStatus$ | async)!"
-                                            (changeStatus)="onChangeTicketStatus($event)">
+                                            [ticketId]="ticketId"
+                                            (changeStatus)="onOpenChangeStatusModal($event)">
               </metutors-support-ticket-card>
       
               <div class="text-center py-5 no-data" *ngIf="!(tickets$ | async) || !(tickets$ | async)?.length">
@@ -225,8 +225,8 @@
               </div>
               <metutors-support-ticket-card *ngFor="let ticket of tickets$ | async" [ticket]="ticket" [isAdmin]="true"
                                             [linkUrl]="'/admin/support-ticket/ticket-details/' + ticket?.ticketId"
-                                            [ticketId]="ticketId" [isChangeStatus]="(isChangeTicketStatus$ | async)!"
-                                            (changeStatus)="onChangeTicketStatus($event)">
+                                            [ticketId]="ticketId"
+                                            (changeStatus)="onOpenChangeStatusModal($event)">
               </metutors-support-ticket-card>
       
               <div class="text-center py-5 no-data" *ngIf="!(tickets$ | async) || !(tickets$ | async)?.length">
@@ -274,8 +274,8 @@
               </div>
               <metutors-support-ticket-card *ngFor="let ticket of tickets$ | async" [ticket]="ticket" [isAdmin]="true"
                                             [linkUrl]="'/admin/support-ticket/ticket-details/' + ticket?.ticketId"
-                                            [ticketId]="ticketId" [isChangeStatus]="(isChangeTicketStatus$ | async)!"
-                                            (changeStatus)="onChangeTicketStatus($event)">
+                                            [ticketId]="ticketId"
+                                            (changeStatus)="onOpenChangeStatusModal($event)">
               </metutors-support-ticket-card>
       
               <div class="text-center py-5 no-data" *ngIf="!(tickets$ | async) || !(tickets$ | async)?.length">
@@ -296,3 +296,11 @@
     </div>
   </div>
 </div>
+
+<metutors-change-ticket-status-modal *ngIf="showChangeStatusModal$ | async"
+                                     (closeModal)="onCloseChangeStatusModal()"
+                                     [ticketId]="ticketId"
+                                     [isSubmitting]="(isChangeTicketStatus$ | async)!"
+                                     [showModal]="(showChangeStatusModal$ | async)!"
+                                     (submitted)="onChangeTicketStatus($event)">
+</metutors-change-ticket-status-modal>
