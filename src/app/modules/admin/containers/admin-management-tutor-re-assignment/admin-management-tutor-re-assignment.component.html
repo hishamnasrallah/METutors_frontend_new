@@ -17,19 +17,11 @@
     </div>
   </div>
 
-  <div class="row sections">
-    <div class="col-md-2">
-      <div class="p-2 section" [class.active]="currentSection===1" (click)="onChangeTab(1)">Tutor Not Available</div>
-    </div>
-    <div class="col-md-3">
-      <div class="p-2 section" [class.active]="currentSection===2" (click)="onChangeTab(2)">Declined New Courses</div>
-    </div>
-    <div class="col-md-3">
-      <div class="p-2 section" [class.active]="currentSection===3" (click)="onChangeTab(3)">Cancelled Courses By Tutors</div>
-    </div>
-    <div class="col-md-2">
-      <div class="p-2 section" [class.active]="currentSection===4" (click)="onChangeTab(4)">Running Courses</div>
-    </div>
+  <div class="sections my-4 d-flex">
+    <div class="p-2 section me-3" [class.active]="currentSection === 1" (click)="onChangeTab(1)">Tutor Not Available</div>
+    <div class="p-2 section me-3" [class.active]="currentSection === 2" (click)="onChangeTab(2)">Declined New Courses</div>
+    <div class="p-2 section me-3" [class.active]="currentSection === 3" (click)="onChangeTab(3)">Cancelled Courses By Tutors</div>
+    <div class="p-2 section" [class.active]="currentSection === 4" (click)="onChangeTab(4)">Running Courses</div>
   </div>
 
   <div class="row mt-2">
@@ -52,7 +44,7 @@
 
             <ng-container *ngSwitchCase="false">
               <metutors-re-assignment-grid [reassignments]="view.reAssignment?.completedCourses" [isNew]="false"
-                                        (openBookingModal)="onOpenBookingModal($event)"></metutors-re-assignment-grid>
+                                           (openBookingModal)="onOpenBookingModal($event)"></metutors-re-assignment-grid>
             </ng-container>
           </ng-container>
         </mat-tab>

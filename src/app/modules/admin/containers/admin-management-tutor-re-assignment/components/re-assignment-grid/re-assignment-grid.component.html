@@ -36,7 +36,7 @@
            (click)="openBookingModal.emit(reassignment?.subject?.id)">{{ reassignment?.courseCode }}</a></td>
     <td>{{ reassignment?.courseName }}</td>
     <td><a [routerLink]="['/admin','student', 'profile', reassignment.studentId]">SIN{{ reassignment?.studentId }}</a></td>
-    <td *ngIf="!isNew">{{ reassignment?.startDate | date}}</td>
+    <td *ngIf="!isNew">{{ reassignment?.startDate | date }}</td>
     <td>{{ reassignment?.totalHours }}</td>
     <td *ngIf="isNew">{{ reassignment?.totalPrice | currency }}</td>
     <ng-container *ngIf="!isNew">
@@ -49,7 +49,7 @@
           {{ reassignment?.teacher?.status }}
         </button>
       </td>
-      <td>{{ reassignment?.timer}}</td>
+      <td>{{ reassignment?.timer }}</td>
     </ng-container>
 
     <!--<td><a href="javascript: void(0)" (click)="openBookingModal.emit(reassignment.id)">{{ reassignment?.totalBooking }}</a></td>

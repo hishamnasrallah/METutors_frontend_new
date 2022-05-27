@@ -30,8 +30,8 @@
       border: 2px solid #CCCCCC;
 
       &.active {
-        color: #3BB3C1;
-        border: 2px solid #3BB3C1;
+        color: var(--main-color);
+        border: 2px solid var(--main-color);
       }
     }
   }

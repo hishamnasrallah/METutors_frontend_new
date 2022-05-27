@@ -46,7 +46,7 @@
 
       &.scheduled {
         background-color: rgba(0, 178, 255, 0.15);
-        color: #3bb3c1;
+        color: var(--main-color);
       }
 
       &.accepted {

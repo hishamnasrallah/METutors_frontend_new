@@ -44,7 +44,7 @@
         border-radius: 25px;
 
         &.pending {
-          background-color: #3BB3C1;
+          background-color: var(--main-color);
         }
 
         &.failed {
