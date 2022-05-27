@@ -15,12 +15,13 @@ import {
   AdminPendingTutorsComponent,
   AdminSupportTicketComponent,
   AdminTicketDetailsComponent,
+  AdminFinanceOrdersComponent,
+  AdminCourseRequestsComponent,
   AdminBookingDetailsComponent,
   AdminTutorInterviewComponent,
-  AdminFinanceOrdersComponent,
   AdminStudentProfileComponent,
-  AdminSuspendedTutorsComponent,
   AdminClassroomsListComponent,
+  AdminSuspendedTutorsComponent,
   AdminWorkforceCapacityComponent,
   AdminCancelledClassroomsComponent,
   AdminClassroomsPerCourseComponent,
@@ -308,7 +309,19 @@ const routes: Routes = [
             component: AdminManagementTutorReAssignmentComponent,
             data: {
               layout: {
-                title: 'Program list - Metutors',
+                title: 'Tutor Re-assignment - Metutors',
+                navbarTitle: 'Management',
+                showHeader: false,
+                showFooter: false,
+              },
+            },
+          },
+          {
+            path: 'course-requests',
+            component: AdminCourseRequestsComponent,
+            data: {
+              layout: {
+                title: 'New Course Requests - Metutors',
                 navbarTitle: 'Management',
                 showHeader: false,
                 showFooter: false,
