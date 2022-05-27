@@ -8,6 +8,7 @@ export class ITutorFeedback {
   student?: IStudent;
   tutor?: ITutor;
   courseId: number;
+  studentId: number;
   updatedAt: string;
 
   constructor(createDefault = false, feedback: any = null) {
@@ -18,6 +19,7 @@ export class ITutorFeedback {
       this.student = undefined;
       this.tutor = undefined;
       this.courseId = 0;
+      this.studentId = 0;
       this.updatedAt = '';
     }
 
@@ -28,6 +30,7 @@ export class ITutorFeedback {
       this.courseId = feedback.course_id;
       this.student = new IStudent(false, feedback.sender);
       this.tutor = new ITutor(false, feedback.reciever);
+      this.studentId = feedback.sender_id;
       this.updatedAt = feedback.updated_at;
     }
   }
