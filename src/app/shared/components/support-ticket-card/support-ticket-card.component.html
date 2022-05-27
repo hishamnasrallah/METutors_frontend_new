@@ -29,16 +29,24 @@
         <strong>Agent: {{ ticket?.user?.name }}</strong>
       </div>
       <div class="col-md-3 d-flex menu align-items-center">
-        <img src="assets/svg/calendar.svg" alt="" width="15" height="15" draggable="false">
+        <mat-icon>square</mat-icon>
         <span>Open: {{ ticket?.createdDate | date: 'EEEE, d MMM y' }}</span>
       </div>
-      <div class="col-md-3 d-flex menu align-items-center">
-        <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
+      <div class="col-md-3 d-flex menu align-items-center" *ngIf="ticketStatus.closed !== ticket?.status">
+        <mat-icon>circle</mat-icon>
         <span>Last Reply: {{ ticket?.updatedDate | date: 'EEEE, d MMM y' }}</span>
       </div>
-      <div class="col-md-3 d-flex menu align-items-center">
-        <img src="assets/svg/checkbox-circle-fill.svg" alt="" width="15" height="15" draggable="false">
+      <div class="col-md-3 d-flex menu align-items-center" *ngIf="ticketStatus.closed !== ticket?.status">
+        <mat-icon>circle</mat-icon>
         <span>{{ ticket?.category?.name }}</span>
+      </div>
+      <div class="col-md-3 d-flex menu align-items-center" *ngIf="ticketStatus.closed === ticket?.status">
+        <mat-icon>circle</mat-icon>
+        <span>Duration: {{ ticket?.duration }} Days</span>
+      </div>
+      <div class="col-md-3 d-flex menu align-items-center" *ngIf="ticketStatus.closed === ticket?.status">
+        <mat-icon>circle</mat-icon>
+        <span>Closed: {{ ticket?.updatedDate | date: 'EEEE, d MMM y' }}</span>
       </div>
     </div>
   </div>

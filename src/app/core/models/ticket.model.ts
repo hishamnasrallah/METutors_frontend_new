@@ -14,6 +14,7 @@ export class ITicket {
   ticketId!: string;
   comments!: ITicketComment[];
   user?: IUser;
+  duration?: number;
   createdDate!: string;
   updatedDate!: string;
 
@@ -29,6 +30,7 @@ export class ITicket {
       this.status = '';
       this.comments = [];
       this.user = undefined;
+      this.duration = 0;
       this.createdDate = '';
       this.updatedDate = '';
     }
@@ -49,6 +51,13 @@ export class ITicket {
               (comment: ITicketComment) => new ITicketComment(false, comment)
             )
           : [];
+      this.duration = Math.ceil(
+        Math.abs(
+          new Date(ticket.updated_at).valueOf() -
+            new Date(ticket.created_at).valueOf()
+        ) /
+          (1000 * 60 * 60 * 24)
+      );
       this.createdDate = ticket.created_at;
       this.updatedDate = ticket.updated_at;
     }
