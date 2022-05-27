@@ -1,8 +1,9 @@
 <div class="profile-header mb-5">
   <div class="row" *ngIf="!isLoading">
-    <div class="col-12">
+    <div class="col-12 position-relative">
+      <div class="overlay"></div>
       <div class="cover" [ngStyle]="{'background-image': 'url(' + tutor?.cover + ')'}"></div>
-      <div class="row avatar-name align-items-center">
+      <div class="row avatar-name align-items-center position-relative">
         <div class="col-md-2">
           <div class="position-relative img-status">
             <img [src]="tutor?.avatar" meTutorsDefaultAvatar alt="" class="rounded-circle" draggable="false">
