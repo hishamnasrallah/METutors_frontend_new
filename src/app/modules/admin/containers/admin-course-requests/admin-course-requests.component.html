@@ -1,0 +1,126 @@
+<div class="course-requests">
+  <div class="row filters">
+    <div class="col-md-6 d-flex align-items-center">
+      <h1>New Course Requests</h1>
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col-md-12">
+      <mat-tab-group mat-align-tabs="start">
+        <mat-tab [label]="'New Requests (5)'">
+          <ng-container [ngSwitch]="isLoading$ | async">
+            <div class="mt-4" *ngSwitchCase="true">
+              <metutors-grid-placeholder></metutors-grid-placeholder>
+            </div>
+
+            <ng-container *ngSwitchCase="false">
+              <table class="table my-table default-title mt-4">
+                <tr>
+                  <th>Number</th>
+                  <th>Program Name</th>
+                  <th>Subject</th>
+                  <th>Field of Study</th>
+                  <th>Student Name</th>
+                  <th>Email</th>
+                  <th>Grade</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+                <tr>
+                  <td>1</td>
+                  <td>AP</td>
+                  <td>Calculus</td>
+                  <td>Maths</td>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <img src="" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
+                        meTutorsDefaultAvatar alt="">
+                      <span>
+                        <bdi>Ahmed Hassan</bdi>
+                      </span>
+                    </div>
+                  </td>
+                  <td>ahmedhassan.fci@gmail.com</td>
+                  <td>Grade 12</td>
+                  <td>
+                    <div class="change-status position-relative d-flex">
+                      <button class="status text-capitalize offered" mat-button>Offered</button>
+                    </div>
+                  </td>
+                  <td>
+                    <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0">
+                      <mat-icon>more_vert</mat-icon>
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </ng-container>
+          </ng-container>
+        </mat-tab>
+        <mat-tab [label]="'Completed (12)'">
+          <ng-container [ngSwitch]="isLoading$ | async">
+            <div class="mt-4" *ngSwitchCase="true">
+              <metutors-grid-placeholder></metutors-grid-placeholder>
+            </div>
+
+            <ng-container *ngSwitchCase="false">
+              <table class="table my-table default-title mt-4">
+                <tr>
+                  <th>Number</th>
+                  <th>Program Name</th>
+                  <th>Subject</th>
+                  <th>Field of Study</th>
+                  <th>Student Name</th>
+                  <th>Email</th>
+                  <th>Grade</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+                <tr>
+                  <td>1</td>
+                  <td>AP</td>
+                  <td>Calculus</td>
+                  <td>Maths</td>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <img src="" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
+                        meTutorsDefaultAvatar alt="">
+                      <span>
+                        <bdi>Ahmed Hassan</bdi>
+                      </span>
+                    </div>
+                  </td>
+                  <td>ahmedhassan.fci@gmail.com</td>
+                  <td>Grade 12</td>
+                  <td>
+                    <div class="change-status position-relative d-flex">
+                      <button class="status text-capitalize not-offered" mat-button>Not Offered</button>
+                    </div>
+                  </td>
+                  <td>
+                    <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0">
+                      <mat-icon>more_vert</mat-icon>
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </ng-container>
+          </ng-container>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</div>
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item class="h-auto btn-menu">
+    <span>View Profile</span>
+  </button>
+  <button mat-menu-item class="h-auto btn-menu">
+    <span>View Availability</span>
+  </button>
+  <button mat-menu-item class="h-auto btn-menu">
+    <span>Send Message</span>
+  </button>
+</mat-menu>
