@@ -1,13 +1,15 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+
 import { courseStatusLabel } from '@config';
 
 @Component({
-  selector: 'metutors-per-course-grid',
-  templateUrl: './per-course-grid.component.html',
-  styleUrls: ['./per-course-grid.component.scss'],
+  selector: 'metutors-re-assignment-grid',
+  templateUrl: './re-assignment-grid.component.html',
+  styleUrls: ['./re-assignment-grid.component.scss'],
 })
-export class PerCourseGridComponent implements OnInit {
-  @Input() bookings: any;
+export class ReAssignmentGridComponent implements OnInit {
+  @Input() isNew: boolean;
+  @Input() reassignments: any;
 
   @Output() openBookingModal: EventEmitter<number> = new EventEmitter<number>();
 

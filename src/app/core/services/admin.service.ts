@@ -4,7 +4,10 @@ import { HttpClient } from '@angular/common/http';
 
 import { environment } from 'src/environments/environment';
 import { ICapacity, ICourse, ISubject, ITutor } from '../models';
-import { loadAdminStudentAssignmentSummary } from '@metutor/core/state';
+import {
+  loadAdminStudentAssignmentSummary,
+  loadAdminTutorReAssignment,
+} from '@metutor/core/state';
 
 @Injectable({
   providedIn: 'root',
@@ -115,6 +118,12 @@ export class AdminService {
   loadAdminBookingPerCourse(status: string): Observable<any> {
     return this.http.get<any>(
       `${this.baseUrl}admin/subject-courses?status=${status}`
+    );
+  }
+
+  loadAdminTutorReAssignment(status: string): Observable<any> {
+    return this.http.get<any>(
+      `${this.baseUrl}admin/assign-teacher?status=${status}`
     );
   }
 

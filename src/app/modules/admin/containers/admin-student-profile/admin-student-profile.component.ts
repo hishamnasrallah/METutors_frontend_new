@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { environment } from '@environment';
 import * as fromCore from '@metutor/core/state';
+import { courseStatusLabel } from '@config';
 
 @Component({
   selector: 'metutors-admin-student-profile',
@@ -14,6 +15,7 @@ export class AdminStudentProfileComponent implements OnInit {
   view$: Observable<{ profile: any; loading: boolean }>;
 
   imageUrl = environment.imageURL;
+  statusLabel = courseStatusLabel;
 
   constructor(private _store: Store<any>) {}
 

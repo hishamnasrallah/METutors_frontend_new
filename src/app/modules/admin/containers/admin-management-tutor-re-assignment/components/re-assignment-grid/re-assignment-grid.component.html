@@ -1,0 +1,75 @@
+<table class="table my-table default-title mt-4">
+  <tr>
+    <th>Number</th>
+    <th>BIN</th>
+    <th>Program Name</th>
+    <th *ngIf="isNew">TIN</th>
+    <th>Course ID</th>
+    <th>Course Name</th>
+    <th>SIN</th>
+    <th *ngIf="!isNew">Starting Date</th>
+    <th>Duration</th>
+    <th *ngIf="isNew">Amount($)</th>
+    <ng-container *ngIf="!isNew">
+      <th>Current TIN</th>
+      <th>New TIN</th>
+    </ng-container>
+
+    <ng-container *ngIf="isNew">
+      <th>Tutor Status</th>
+      <th>Remaining Time</th>
+    </ng-container>
+    <th>Status</th>
+    <th>Action</th>
+  </tr>
+  <tr *ngIf="!reassignments || !reassignments.length">
+    <td colspan="11">
+      <div class="text-center">No records found</div>
+    </td>
+  </tr>
+  <tr *ngFor="let reassignment of reassignments; let i = index">
+    <td>{{ i + 1 }}</td>
+    <td><a [routerLink]="['/admin','classrooms','booking-details', 1]">BIN{{ reassignment?.id }}</a></td>
+    <td>{{ reassignment?.program?.code }}</td>
+    <td *ngIf="isNew">TIN</td>
+    <td><a href="javascript: void(0)"
+           (click)="openBookingModal.emit(reassignment?.subject?.id)">{{ reassignment?.courseCode }}</a></td>
+    <td>{{ reassignment?.courseName }}</td>
+    <td><a [routerLink]="['/admin','student', 'profile', reassignment.studentId]">SIN{{ reassignment?.studentId }}</a></td>
+    <td *ngIf="!isNew">{{ reassignment?.startDate | date}}</td>
+    <td>{{ reassignment?.totalHours }}</td>
+    <td *ngIf="isNew">{{ reassignment?.totalPrice | currency }}</td>
+    <ng-container *ngIf="!isNew">
+      <td>SIN123</td>
+      <td>SIN456</td>
+    </ng-container>
+    <ng-container *ngIf="isNew">
+      <td>
+        <button class="status text-capitalize" mat-button [ngClass]="reassignment?.teacher?.status">
+          {{ reassignment?.teacher?.status }}
+        </button>
+      </td>
+      <td>{{ reassignment?.timer}}</td>
+    </ng-container>
+
+    <!--<td><a href="javascript: void(0)" (click)="openBookingModal.emit(reassignment.id)">{{ reassignment?.totalBooking }}</a></td>
+    <td><a [routerLink]="['/admin', 'finance', 'orders']"> ${{ reassignment?.totalAmount }}</a></td>-->
+    <td>
+      <div class="change-status position-relative d-flex">
+        <button class="status text-capitalize" mat-button [ngClass]="reassignment?.status">
+          {{ statusLabel[reassignment?.status] }}
+        </button>
+      </div>
+    </td>
+    <td>
+      <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0" (click)="subjectId = reassignment?.subject?.id">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+    </td>
+  </tr>
+</table>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item class="h-auto btn-menu" (click)="openBookingModal.emit(subjectId)">
+    <span>View All Course</span>
+  </button>
+</mat-menu>

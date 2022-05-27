@@ -8,8 +8,8 @@ import {
   ITeacherDocument,
 } from '@models';
 
-import * as adminActions from '../actions/admin.actions';
 import { CourseStatus } from '@metutor/config';
+import * as adminActions from '../actions/admin.actions';
 
 export interface State {
   tutors: ITutor[];
@@ -19,6 +19,7 @@ export interface State {
   previousTutors: [];
   bookingsCounts: any;
   studentsFeedback: [];
+  tutorReAssignment: [];
   assignmentSummary: [];
   studentTotalBooking: [];
   isApprovingDoc: boolean;
@@ -33,6 +34,7 @@ export interface State {
   isLoadingPreviousTutors: boolean;
   isLoadingStudentsFeedback: boolean;
   isLoadingAssignmentSummary: boolean;
+  isLoadingTutorReAssignment: boolean;
 
   // Loading workforce capacity
   workforceCapacity: ICapacity[];
@@ -70,6 +72,7 @@ export const initialState: State = {
   courseBooking: null,
   bookingPerCourse: [],
   studentsFeedback: [],
+  tutorReAssignment: [],
   assignmentSummary: [],
   completedBookings: [],
   cancelledBookings: [],
@@ -93,6 +96,7 @@ export const initialState: State = {
   isLoadingCompletedBookings: false,
   isLoadingCancelledBookings: false,
   isLoadingAssignmentSummary: false,
+  isLoadingTutorReAssignment: false,
 };
 
 export const reducer = createReducer(
@@ -466,7 +470,6 @@ export const reducer = createReducer(
     isLoadingViewFeedback: false,
   })),
 
-  // BOOKING PER COURSE
   on(adminActions.loadAdminBookingPerCourse, (state) => ({
     ...state,
     isLoadingBookingPerCourse: true,
@@ -484,7 +487,26 @@ export const reducer = createReducer(
       bookingPerCourse,
       isLoadingBookingPerCourse: false,
     })
-  )
+  ),
+
+  on(adminActions.loadAdminTutorReAssignment, (state) => ({
+    ...state,
+    isLoadingTutorReAssignment: true,
+  })),
+
+  on(
+    adminActions.loadAdminTutorReAssignmentSuccess,
+    (state, { tutorReAssignment }) => ({
+      ...state,
+      tutorReAssignment,
+      isLoadingTutorReAssignment: false,
+    })
+  ),
+
+  on(adminActions.loadAdminTutorReAssignmentFailure, (state) => ({
+    ...state,
+    isLoadingBookingPerCourse: false,
+  }))
 );
 
 export const selectAdminDocuments = (state: State): ITeacherDocument[] =>
@@ -589,6 +611,12 @@ export const selectBookingPerCourse = (state: State): any =>
 
 export const selectIsLoadingBookingPerCourse = (state: State): boolean =>
   state.isLoadingBookingPerCourse;
+
+export const selectAdminTutorReAssignment = (state: State): any =>
+  state.tutorReAssignment;
+
+export const selectIsLoadingAdminTutorReAssignment = (state: State): boolean =>
+  state.isLoadingTutorReAssignment;
 
 export const selectFilteredWorkforceCapacity = (
   state: State,

@@ -28,6 +28,11 @@
       font-size: 20px;
       text-align: center;
       border: 2px solid #CCCCCC;
+
+      &.active {
+        color: #3BB3C1;
+        border: 2px solid #3BB3C1;
+      }
     }
   }
 

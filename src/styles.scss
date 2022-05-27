@@ -750,8 +750,8 @@ button.status, span.status {
   border-radius: 25px;
 
   &.completed, &.accepted, &.active, {
-    color: #FFF;
-    background-color: #50C394;
+    color: #50C394 !important;
+    background: rgba(80, 195, 148, 0.2);
   }
 
   &.pending, &.requested, &.requested_to_metutors {
