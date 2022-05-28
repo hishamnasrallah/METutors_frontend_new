@@ -27,6 +27,7 @@ export interface State {
   isRejectingDoc: boolean;
   isLoadingTutors: boolean;
   studentBookingDetail: [];
+  isChangingStatus: boolean;
   isLoadingAdminDocs: boolean;
   documents: ITeacherDocument[];
   isLoadingViewFeedback: boolean;
@@ -86,6 +87,7 @@ export const initialState: State = {
   isRejectingDoc: false,
   workforceCapacity: [],
   isLoadingTutors: false,
+  isChangingStatus: false,
   studentTotalBooking: [],
   studentBookingDetail: [],
   isLoadingAdminDocs: false,
@@ -528,6 +530,21 @@ export const reducer = createReducer(
   on(adminActions.loadAdminTestimonialsFailure, (state) => ({
     ...state,
     isLoadingAdmin: false,
+  })),
+
+  on(adminActions.adminEditTestimonialStatus, (state) => ({
+    ...state,
+    isChangingStatus: true,
+  })),
+
+  on(adminActions.adminEditTestimonialStatusSuccess, (state) => ({
+    ...state,
+    isChangingStatus: false,
+  })),
+
+  on(adminActions.adminEditTestimonialStatusFailure, (state) => ({
+    ...state,
+    isChangingStatus: false,
   }))
 );
 
@@ -645,6 +662,9 @@ export const selectAdminTestimonials = (state: State): any =>
 
 export const selectIsLoadingAdmin = (state: State): boolean =>
   state.isLoadingAdmin;
+
+export const selectIsChangingTestimonialStatus = (state: State): boolean =>
+  state.isChangingStatus;
 
 export const selectFilteredWorkforceCapacity = (
   state: State,

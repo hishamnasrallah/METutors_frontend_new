@@ -134,6 +134,12 @@ export class AdminService {
     );
   }
 
+  adminEditTestimonialStatus(id: number, status: string): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}admin/user-testimonial/${id}`, {
+      status,
+    });
+  }
+
   loadAllBookings(): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}admin/bookings`).pipe(
       map((response) => ({

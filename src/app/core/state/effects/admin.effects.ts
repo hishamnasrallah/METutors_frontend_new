@@ -12,6 +12,7 @@ import * as fromRouterStore from '@metutor/state';
 import * as adminActions from '../actions/admin.actions';
 import { AlertNotificationService } from '@metutor/core/components';
 import {
+  adminEditTestimonialStatus,
   loadAdminTestimonials,
   loadAdminTutorReAssignment,
 } from '@metutor/core/state';
@@ -563,6 +564,26 @@ export class AdminEffects {
             catchError((error) =>
               of(
                 adminActions.loadAdminTestimonialsFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          )
+        )
+      )
+    )
+  );
+
+  adminEditTestimonialStatus$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(adminActions.adminEditTestimonialStatus),
+      mergeMap(({ id, status }) =>
+        this._adminService.adminEditTestimonialStatus(id, status).pipe(
+          map(
+            (result) => adminActions.adminEditTestimonialStatusSuccess({ id }),
+            catchError((error) =>
+              of(
+                adminActions.adminEditTestimonialStatusFailure({
                   error: error?.error?.message || error?.error?.errors,
                 })
               )

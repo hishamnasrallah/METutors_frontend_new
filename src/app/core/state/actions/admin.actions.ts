@@ -330,3 +330,18 @@ export const loadAdminTestimonialsFailure = createAction(
   '[Admin] Load Admin Testimonials Failure',
   props<{ error: any }>()
 );
+
+export const adminEditTestimonialStatus = createAction(
+  '[Admin] Admin Edit Testimonial',
+  props<{ status: string; id: number }>()
+);
+
+export const adminEditTestimonialStatusSuccess = createAction(
+  '[Admin] Admin Edit Testimonial Success',
+  props<{ id: number }>()
+);
+
+export const adminEditTestimonialStatusFailure = createAction(
+  '[Admin] Admin Edit Testimonial Failure',
+  props<{ error: string }>()
+);

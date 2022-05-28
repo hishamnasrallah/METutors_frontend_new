@@ -234,6 +234,7 @@ export const reducer = createReducer(
   on(
     fromCore.changeTutorStatusSuccess,
     fromCore.changeTicketStatusSuccess,
+    fromCore.adminEditTestimonialStatusSuccess,
     adminModalActions.closeAdminChangeStatusModal,
     (state) => ({
       ...state,

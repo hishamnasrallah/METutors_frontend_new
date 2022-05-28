@@ -1353,3 +1353,8 @@ export const selectIsLoadingAdmin = createSelector(
   selectAdminState,
   fromAdminReducer.selectIsLoadingAdmin
 );
+
+export const selectIsChangingTestimonialStatus = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectIsChangingTestimonialStatus
+);

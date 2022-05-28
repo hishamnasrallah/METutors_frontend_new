@@ -23,6 +23,7 @@ export class AdminTestimonialsComponent implements OnInit {
   }>;
 
   status: string;
+  userId: number;
   statusList = testimonialStatus;
   heading = 'Share testimonial with public or keep it private?';
 
@@ -30,9 +31,10 @@ export class AdminTestimonialsComponent implements OnInit {
 
   onButtonClicked(data: any): void {
     if (data.type === 'change') {
+      this.userId = data.id;
       this.status = data.status;
       this.onOpenChangeStatusModal();
-    } else {
+    } else if (data.type === 'edit') {
       this.onOpenEditFeedbackModal();
     }
   }
@@ -56,14 +58,21 @@ export class AdminTestimonialsComponent implements OnInit {
   }
 
   onUpdateStatus(status: string): void {
-    console.log(status);
+    const data = {
+      status,
+      id: this.userId,
+    };
+
+    this._store.dispatch(fromCore.adminEditTestimonialStatus(data));
   }
 
   ngOnInit(): void {
     const feedbackBy = 'teacher';
     this._store.dispatch(fromCore.loadAdminTestimonials({ feedbackBy }));
 
-    this.isChangingStatus$ = this._store.select(fromCore.selectIsLoadingAdmin);
+    this.isChangingStatus$ = this._store.select(
+      fromCore.selectIsChangingTestimonialStatus
+    );
 
     this.showChangeStatusModal$ = this._store.select(
       fromAdmin.selectIsChangeStatusModal

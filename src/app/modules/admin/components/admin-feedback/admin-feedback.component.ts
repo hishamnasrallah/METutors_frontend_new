@@ -16,5 +16,14 @@ export class AdminFeedbackComponent implements OnInit {
 
   constructor() {}
 
+  onButtonClick(feedback: any, type: string): void {
+    const data = {
+      type,
+      id: feedback.sender.id,
+      status: feedback.status,
+    };
+
+    this.buttonClicked.emit(data);
+  }
   ngOnInit(): void {}
 }

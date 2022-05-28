@@ -1,4 +1,8 @@
+import { Store } from '@ngrx/store';
+import { map } from 'rxjs/operators';
+import { combineLatest, Observable, tap } from 'rxjs';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+
 import {
   FormArray,
   FormGroup,
@@ -6,11 +10,9 @@ import {
   FormBuilder,
   AbstractControl,
 } from '@angular/forms';
-import { combineLatest, Observable, tap } from 'rxjs';
-import { Store } from '@ngrx/store';
+
 import * as fromCore from '@metutor/core/state';
 import * as fromTutor from '@metutor/modules/tutor/state';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'metutors-admin-edit-feedback-modal',
@@ -36,10 +38,6 @@ export class AdminEditFeedbackModalComponent implements OnInit {
 
   get receiverId(): AbstractControl | null {
     return this.form?.get('receiver_id');
-  }
-
-  get cancelCourse(): AbstractControl | null {
-    return this.form?.get('cancelCourse');
   }
 
   ngOnInit(): void {
@@ -77,7 +75,6 @@ export class AdminEditFeedbackModalComponent implements OnInit {
       this._store.select(fromTutor.selectTutorStateParams).pipe(
         tap((params) => {
           this.receiverId?.setValue(params?.studentId);
-          this.cancelCourse?.setValue(params?.cancelCourse);
         })
       ),
     ]).pipe(
