@@ -22,6 +22,7 @@ export const modalSize = {
   medium: '500px',
   xmedium: '750px',
   large: '1000px',
+  xlarge: '1200px',
 };
 
 @Component({

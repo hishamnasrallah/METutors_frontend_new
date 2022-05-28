@@ -580,7 +580,11 @@ export class AdminEffects {
       mergeMap(({ id, status }) =>
         this._adminService.adminEditTestimonialStatus(id, status).pipe(
           map(
-            (result) => adminActions.adminEditTestimonialStatusSuccess({ id }),
+            (result) =>
+              adminActions.adminEditTestimonialStatusSuccess({
+                id,
+                message: 'Status changed successfully',
+              }),
             catchError((error) =>
               of(
                 adminActions.adminEditTestimonialStatusFailure({
@@ -601,6 +605,7 @@ export class AdminEffects {
           ...[
             adminActions.adminRejectDocumentSuccess,
             adminActions.adminApproveDocumentSuccess,
+            adminActions.adminEditTestimonialStatusSuccess,
           ]
         ),
         map((action) => this._alertNotificationService.success(action.message))
