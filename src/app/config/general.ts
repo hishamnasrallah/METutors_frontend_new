@@ -253,3 +253,5 @@ export const courseStatusLabel = {
   cancelled_by_student: 'Canceled & Refunded',
   requested_to_metutors: ' Tutor Re-Assignment by MEtutors',
 };
+
+export const testimonialStatus = ['public', 'private'];

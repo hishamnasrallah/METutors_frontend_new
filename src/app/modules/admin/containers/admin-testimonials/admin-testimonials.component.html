@@ -27,7 +27,8 @@
             </ng-container>
 
             <ng-container *ngSwitchCase="false">
-              <metutors-admin-feedback [feedback]="view?.testimonials" [isTestimonial]="true"></metutors-admin-feedback>
+              <metutors-admin-feedback [feedback]="view?.testimonials" [isTestimonial]="true"
+                                       (buttonClicked)="onButtonClicked($event)"></metutors-admin-feedback>
             </ng-container>
           </ng-container>
         </mat-tab>
@@ -39,7 +40,8 @@
             </ng-container>
 
             <ng-container *ngSwitchCase="false">
-              <metutors-admin-feedback [feedback]="view?.testimonials" [isTestimonial]="true"></metutors-admin-feedback>
+              <metutors-admin-feedback [feedback]="view?.testimonials" [isTestimonial]="true"
+                                       (buttonClicked)="onButtonClicked($event)"></metutors-admin-feedback>
             </ng-container>
           </ng-container>
         </mat-tab>
@@ -47,3 +49,10 @@
     </div>
   </div>
 </div>
+
+<metutors-admin-change-status-modal *ngIf="showChangeStatusModal$ | async" [status]="status" [heading]="heading"
+                                    (closeModal)="onCloseChangeStatusModal()" [statusList]="statusList"
+                                    [isSubmitting]="(isChangingStatus$ | async)!"
+                                    [showModal]="(showChangeStatusModal$ | async)!"
+                                    (submitted)="onUpdateStatus($event)">
+</metutors-admin-change-status-modal>

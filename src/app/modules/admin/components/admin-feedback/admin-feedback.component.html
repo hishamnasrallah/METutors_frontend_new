@@ -53,8 +53,8 @@
           <div class="d-flex justify-content-between">
             <h2>Feedback</h2>
             <div *ngIf="isTestimonial">
-              <span class="me-5 text-capitalize cursor-pointer">{{ feedback.status}}</span>
-              <span>Edit</span>
+              <span class="me-5 text-capitalize cursor-pointer" (click)="buttonClicked.emit({status: feedback.status, type: 'change'})">{{ feedback.status}}</span>
+              <span (click)="buttonClicked.emit({status: feedback.id, type: 'edit'})">Edit</span>
             </div>
           </div>
           <p>{{feedback?.review}}</p>

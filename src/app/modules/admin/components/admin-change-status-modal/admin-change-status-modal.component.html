@@ -7,12 +7,12 @@
       </button>
       <img src="assets/svg/exchange.svg" width="75px" height="75px" class="d-block m-auto mb-4" draggable="false"
            alt="">
-      <h2 class="text-center">Do you want to change the status?</h2>
+      <h2 class="text-center">{{heading}}</h2>
 
       <div class="text-center mt-4 mb-5">
         <mat-radio-group aria-label="Select an option" formControlName="status">
-          <mat-radio-button [value]="status" [class.me-3]="!isLast"
-                            *ngFor="let status of ticketStatuses; let isLast = last">
+          <mat-radio-button [value]="status" class="text-capitalize" [class.me-3]="!isLast" [ngClass]="status"
+                            *ngFor="let status of statusList; let isLast = last">
             {{ status }}
           </mat-radio-button>
         </mat-radio-group>

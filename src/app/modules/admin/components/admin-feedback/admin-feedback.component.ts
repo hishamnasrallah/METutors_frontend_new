@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { environment } from '@environment';
 
 @Component({
@@ -9,6 +9,8 @@ import { environment } from '@environment';
 export class AdminFeedbackComponent implements OnInit {
   @Input() feedback: any;
   @Input() isTestimonial = false;
+
+  @Output() buttonClicked: EventEmitter<any> = new EventEmitter<any>();
 
   imagePath = environment.imageURL;
 
