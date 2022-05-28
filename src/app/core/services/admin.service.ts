@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { ICapacity, ICourse, ISubject, ITutor } from '../models';
 import {
   loadAdminStudentAssignmentSummary,
+  loadAdminTestimonials,
   loadAdminTutorReAssignment,
 } from '@metutor/core/state';
 
@@ -124,6 +125,12 @@ export class AdminService {
   loadAdminTutorReAssignment(status: string): Observable<any> {
     return this.http.get<any>(
       `${this.baseUrl}admin/assign-teacher?status=${status}`
+    );
+  }
+
+  loadAdminTestimonials(feebackBy: string): Observable<any> {
+    return this.http.get<any>(
+      `${this.baseUrl}admin/testimonials?feedback_by=${feebackBy}`
     );
   }
 

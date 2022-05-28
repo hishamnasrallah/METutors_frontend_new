@@ -1,6 +1,7 @@
 export * from './admin-navbar';
 export * from './admin-sidebar';
 export * from './interview-card';
+export * from './admin-feedback';
 export * from './change-status-modal';
 export * from './admin-tutors-list-modal';
 export * from './change-ticket-status-modal';

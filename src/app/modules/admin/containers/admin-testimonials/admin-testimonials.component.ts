@@ -1,7 +1,7 @@
+import { Store } from '@ngrx/store';
+import * as fromCore from '@metutor/core/state';
 import { Component, OnInit } from '@angular/core';
 import { combineLatest, map, Observable } from 'rxjs';
-import * as fromCore from '@metutor/core/state';
-import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'metutors-admin-testimonials',
@@ -11,21 +11,27 @@ import { Store } from '@ngrx/store';
 export class AdminTestimonialsComponent implements OnInit {
   view$: Observable<{
     loading: boolean;
-    feedback: any;
+    testimonials: any;
   }>;
 
   constructor(private _store: Store<any>) {}
 
+  onChangeTab(tab: any): void {
+    const feedbackBy = tab.index === 0 ? 'teacher' : 'student';
+    this._store.dispatch(fromCore.loadAdminTestimonials({ feedbackBy }));
+  }
+
   ngOnInit(): void {
-    // this._store.dispatch(fromCore.loadAdminStudentsFeedback());
+    const feedbackBy = 'teacher';
+    this._store.dispatch(fromCore.loadAdminTestimonials({ feedbackBy }));
 
     this.view$ = combineLatest([
-      this._store.select(fromCore.selectAdminStudentsFeedback),
-      this._store.select(fromCore.selectIsLoadingAdminStudentsFeedback),
+      this._store.select(fromCore.selectIsLoadingAdmin),
+      this._store.select(fromCore.selectAdminTestimonials),
     ]).pipe(
-      map(([feedback, loading]) => ({
-        feedback,
+      map(([loading, testimonials]) => ({
         loading,
+        testimonials,
       }))
     );
   }
