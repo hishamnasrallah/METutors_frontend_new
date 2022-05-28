@@ -2,7 +2,7 @@
   <div class="d-flex justify-content-between">
     <div>
       <div class="rating-block d-flex align-items-center mb-2">
-        <h2 class="me-2">{{feedback?.feedbacksCount}} Reviews</h2>
+        <h2 class="me-2">{{feedback?.feedbacksCount || feedback?.reviewsCount}} Reviews</h2>
         <rating [ngModel]="feedback?.feedbackRating" [max]="5" [readonly]="true"></rating>
       </div>
 
@@ -26,22 +26,23 @@
     </div>
   </div>
 
-  <ng-container *ngFor="let studentFeedback of feedback.studentFeedbacks">
+  <ng-container
+    *ngFor="let feedback of (feedback.studentFeedbacks || feedback?.teacherFeedback || feedback?.userTestimonials)">
     <div class="mt-4 reviews">
       <div class="d-flex teacher mb-2">
-        <img [src]=" studentFeedback?.sender?.avatar" meTutorsDefaultAvatar alt="" class="rounded-circle">
+        <img [src]=" feedback?.sender?.avatar" meTutorsDefaultAvatar alt="" class="rounded-circle">
         <div class="ms-2">
-          <h3 class="m-0">{{ studentFeedback?.sender?.firstName}} {{ studentFeedback?.sender?.lastName}}</h3>
+          <h3 class="m-0">{{ feedback?.sender?.firstName}} {{ feedback?.sender?.lastName}}</h3>
           <div>
-            <rating [(ngModel)]="studentFeedback.averageRating" [max]="5" [readonly]="true"></rating>
-            <span class="ms-1">{{ studentFeedback.averageRating}}</span>
+            <rating [(ngModel)]="feedback.averageRating" [max]="5" [readonly]="true"></rating>
+            <span class="ms-1">{{ feedback.averageRating.toFixed(2)}}</span>
           </div>
         </div>
       </div>
 
       <div class="row">
         <div class="col-md-7">
-          <ng-container *ngFor="let feed of studentFeedback.feedbacks;">
+          <ng-container *ngFor="let feed of feedback.feedbacks;">
             <div class="rating-block d-flex align-items-center">
               <h2 class="me-2">{{feed.title}}</h2>
               <rating [ngModel]="feed.value" [max]="5" [readonly]="true"></rating>
@@ -49,8 +50,14 @@
           </ng-container>
         </div>
         <div class="col-md-5 user-feedback">
-          <h2>Feedback</h2>
-          <p>{{studentFeedback?.review}}</p>
+          <div class="d-flex justify-content-between">
+            <h2>Feedback</h2>
+            <div *ngIf="isTestimonial">
+              <span class="me-5">Public</span>
+              <span>Edit</span>
+            </div>
+          </div>
+          <p>{{feedback?.review}}</p>
         </div>
       </div>
     </div>

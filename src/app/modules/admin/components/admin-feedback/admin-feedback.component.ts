@@ -7,6 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class AdminFeedbackComponent implements OnInit {
   @Input() feedback: any;
+  @Input() isTestimonial = false;
 
   constructor() {}
 

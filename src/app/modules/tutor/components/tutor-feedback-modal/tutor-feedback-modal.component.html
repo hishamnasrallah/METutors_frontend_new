@@ -8,37 +8,10 @@
           <mat-tab [label]="tabLabel">
             <ng-container [ngSwitch]="view?.loading">
               <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
-              <form [formGroup]="form" (ngSubmit)="submitFeedback.emit(form)"
-                    class="rating-block" *ngSwitchCase="false">
-                <ng-container formArrayName="feedbacks">
-                  <div class="row mt-1" *ngFor="let option of view?.feedbackOptions?.params; let i =index; " [formGroupName]="i">
-                    <div class="col">
-                      <p>{{ option?.name }}</p>
-                    </div>
-                    <div class="col-md-2">
-                      <rating [max]="5" formControlName="rating"></rating>
-                    </div>
-                  </div>
-                </ng-container>
-
-                <div class="row mt-3">
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <label for="message" class="fw-bold">{{ messageLabel }}*</label>
-                      <textarea rows="5" class="custom-input w-100 input-bordered" id="message"
-                                placeholder="Enter your text here"
-                                formControlName="review"></textarea>
-                    </div>
-                  </div>
-                </div>
-                <div class="row mt-2">
-                  <div class="col-md-12 overflow-hidden">
-                    <metutors-submit-button [form]="form" [isSubmitting]="submittingFeedback$ | async" [extraClasses]="'float-end py-1 px-5'">
-                      Send Feedback
-                    </metutors-submit-button>
-                  </div>
-                </div>
-              </form>
+              <metutors-send-feedback [messageLabel]="messageLabel" [feedbackOptions]="view?.feedbackOptions"
+                                      [isSubmitting]="(submittingFeedback$ | async)!" [form]="form"
+                                      (submitFeedback)="submitFeedback.emit(form)" *ngSwitchCase="false">
+              </metutors-send-feedback>
             </ng-container>
           </mat-tab>
         </mat-tab-group>
