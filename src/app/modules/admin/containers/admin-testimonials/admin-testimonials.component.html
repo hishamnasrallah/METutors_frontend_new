@@ -51,8 +51,12 @@
 </div>
 
 <metutors-admin-change-status-modal *ngIf="showChangeStatusModal$ | async" [status]="status" [heading]="heading"
-                                    (closeModal)="onCloseChangeStatusModal()" [statusList]="statusList"
+                                    (closeModal)="onCloseModals()" [statusList]="statusList"
                                     [isSubmitting]="(isChangingStatus$ | async)!"
                                     [showModal]="(showChangeStatusModal$ | async)!"
                                     (submitted)="onUpdateStatus($event)">
 </metutors-admin-change-status-modal>
+
+<metutors-admin-edit-feedback-modal *ngIf="showEditFeedbackModal$ | async" (closeModal)="onCloseModals()"
+                                    [showModal]="(showEditFeedbackModal$| async)!">
+</metutors-admin-edit-feedback-modal>

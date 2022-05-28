@@ -14,6 +14,7 @@ import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 })
 export class AdminTestimonialsComponent implements OnInit {
   isChangingStatus$: Observable<boolean>;
+  showEditFeedbackModal$: Observable<boolean>;
   showChangeStatusModal$: Observable<boolean>;
 
   view$: Observable<{
@@ -31,6 +32,8 @@ export class AdminTestimonialsComponent implements OnInit {
     if (data.type === 'change') {
       this.status = data.status;
       this.onOpenChangeStatusModal();
+    } else {
+      this.onOpenEditFeedbackModal();
     }
   }
 
@@ -38,8 +41,13 @@ export class AdminTestimonialsComponent implements OnInit {
     this._store.dispatch(fromAdminAction.openAdminChangeStatusModal());
   }
 
-  onCloseChangeStatusModal() {
+  onOpenEditFeedbackModal() {
+    this._store.dispatch(fromAdminAction.openAdminEditFeedbackModal());
+  }
+
+  onCloseModals() {
     this._store.dispatch(fromAdminAction.closeAdminChangeStatusModal());
+    this._store.dispatch(fromAdminAction.closeAdminEditFeedbackModal());
   }
 
   onChangeTab(tab: any): void {
@@ -59,6 +67,10 @@ export class AdminTestimonialsComponent implements OnInit {
 
     this.showChangeStatusModal$ = this._store.select(
       fromAdmin.selectIsChangeStatusModal
+    );
+
+    this.showEditFeedbackModal$ = this._store.select(
+      fromAdmin.selectAdminEditFeedbackModal
     );
 
     this.view$ = combineLatest([

@@ -144,3 +144,11 @@ export const openAdminStudentViewFeedbackModal = createAction(
 export const closeAdminStudentViewFeedbackModal = createAction(
   '[Admin Modal] Close Admin Student View Feedback Modal'
 );
+
+export const openAdminEditFeedbackModal = createAction(
+  '[Admin Modal] Open Admin Edit Feedback Modal'
+);
+
+export const closeAdminEditFeedbackModal = createAction(
+  '[Admin Modal] Close Admin Edit Feedback Modal'
+);

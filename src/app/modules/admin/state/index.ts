@@ -128,3 +128,8 @@ export const selectAdminStudentViewFeedbackModal = createSelector(
   selectAdminModalState,
   fromAdminModal.selectAdminStudentViewFeedbackModal
 );
+
+export const selectAdminEditFeedbackModal = createSelector(
+  selectAdminModalState,
+  fromAdminModal.selectAdminEditFeedbackModal
+);

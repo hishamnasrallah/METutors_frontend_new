@@ -5,6 +5,7 @@ import * as adminModalActions from '../actions/admin-modal.actions';
 export interface State {
   showAddNewFieldModal: boolean;
   showChangeStatusModal: boolean;
+  showEditFeedbackModal: boolean;
   showAddNewSubjectModal: boolean;
   showAddNewProgramModal: boolean;
   showAddNewCountryModal: boolean;
@@ -25,6 +26,7 @@ export interface State {
 
 export const initialState: State = {
   showAddNewFieldModal: false,
+  showEditFeedbackModal: false,
   showChangeStatusModal: false,
   showAddNewSubjectModal: false,
   showAddNewProgramModal: false,
@@ -267,6 +269,16 @@ export const reducer = createReducer(
   on(adminModalActions.closeAdminStudentViewFeedbackModal, (state) => ({
     ...state,
     showAdminStudentFeedbackModal: false,
+  })),
+
+  on(adminModalActions.openAdminEditFeedbackModal, (state) => ({
+    ...state,
+    showEditFeedbackModal: true,
+  })),
+
+  on(adminModalActions.closeAdminEditFeedbackModal, (state) => ({
+    ...state,
+    showEditFeedbackModal: false,
   }))
 );
 
@@ -324,3 +336,6 @@ export const selectAdminStudentViewAssignmentsModal = (state: State): boolean =>
 
 export const selectAdminStudentViewFeedbackModal = (state: State): boolean =>
   state.showAdminStudentFeedbackModal;
+
+export const selectAdminEditFeedbackModal = (state: State): boolean =>
+  state.showEditFeedbackModal;
