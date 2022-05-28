@@ -30,7 +30,7 @@
     *ngFor="let feedback of (feedback.studentFeedbacks || feedback?.teacherFeedback || feedback?.userTestimonials)">
     <div class="mt-4 reviews">
       <div class="d-flex teacher mb-2">
-        <img [src]=" feedback?.sender?.avatar" meTutorsDefaultAvatar alt="" class="rounded-circle">
+        <img [src]="imagePath+feedback?.sender?.avatar" meTutorsDefaultAvatar alt="" class="rounded-circle">
         <div class="ms-2">
           <h3 class="m-0">{{ feedback?.sender?.firstName}} {{ feedback?.sender?.lastName}}</h3>
           <div>
@@ -53,7 +53,7 @@
           <div class="d-flex justify-content-between">
             <h2>Feedback</h2>
             <div *ngIf="isTestimonial">
-              <span class="me-5">Public</span>
+              <span class="me-5 text-capitalize cursor-pointer">{{ feedback.status}}</span>
               <span>Edit</span>
             </div>
           </div>

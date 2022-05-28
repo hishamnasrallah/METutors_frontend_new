@@ -3,11 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TutorStatus } from '@metutor/config';
 
 @Component({
-  selector: 'metutors-change-status-modal',
-  templateUrl: './change-status-modal.component.html',
-  styleUrls: ['./change-status-modal.component.scss'],
+  selector: 'metutors-admin-change-tutor-status-modal',
+  templateUrl: './admin-change-tutor-status-modal.component.html',
+  styleUrls: ['./admin-change-tutor-status-modal.component.scss'],
 })
-export class ChangeStatusModalComponent implements OnInit {
+export class AdminChangeTutorStatusModalComponent implements OnInit {
   @Input() tutorId: number;
   @Input() showModal = false;
   @Input() changeStatus: any;

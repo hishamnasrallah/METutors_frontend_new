@@ -241,11 +241,11 @@
   </button>
 </mat-menu>
 
-<metutors-change-status-modal *ngIf="showChangeStatusModal$ | async"
+<metutors-admin-change-tutor-status-modal *ngIf="showChangeStatusModal$ | async"
                               (closeModal)="onCloseChangeStatusModal()"
                               [changeStatus]="changeStatus"
                               [tutorId]="(selectedTutor?.id)!"
                               [showModal]="(showChangeStatusModal$ | async)!"
                               [isSubmitting]="(isChangeTutorStatus$ | async)!"
                               (submitted)="onChangeTutorStatus($event)">
-</metutors-change-status-modal>
+</metutors-admin-change-tutor-status-modal>
