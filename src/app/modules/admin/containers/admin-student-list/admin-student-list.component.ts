@@ -80,7 +80,6 @@ export class AdminStudentListComponent implements OnInit {
   }
 
   onFilterStudents(): void {
-    console.log(this.name);
     this.filterStudents({
       name: this.name,
     });

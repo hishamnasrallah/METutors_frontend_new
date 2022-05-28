@@ -230,6 +230,7 @@ export const reducer = createReducer(
   })),
 
   on(
+    fromCore.changeTutorStatusSuccess,
     fromCore.changeTicketStatusSuccess,
     adminModalActions.closeAdminChangeStatusModal,
     (state) => ({

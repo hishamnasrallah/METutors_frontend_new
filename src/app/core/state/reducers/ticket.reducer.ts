@@ -37,8 +37,8 @@ export const initialState: State = {
   createTicketFailure: '',
   loadingTicketFailure: '',
   loadingTicketsFailure: '',
-  isSubmitTicketComment: false,
   isChangeTicketStatus: false,
+  isSubmitTicketComment: false,
   submitTicketCommentFailure: '',
 };
 
