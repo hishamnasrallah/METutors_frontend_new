@@ -41,6 +41,9 @@ export interface State {
   // Change Tutor Avatar
   isChangeTutorCover: boolean;
 
+  // Change Tutor Status
+  isChangeTutorStatus: boolean;
+
   // Submit Interview Request
   isSubmittingInterview: boolean;
   SubmitInterviewFailure?: string;
@@ -77,6 +80,7 @@ export const initialState: State = {
   isLoadingDashboard: false,
   currentActiveTutors: null,
   isChangeTutorCover: false,
+  isChangeTutorStatus: false,
   isReschedulingClass: false,
   isSubmittingFeedback: false,
   isUpdateTutorProfile: false,
@@ -361,6 +365,33 @@ export const reducer = createReducer(
     isChangeTutorCover: false,
   })),
 
+  on(tutorActions.changeTutorStatus, (state) => ({
+    ...state,
+    isChangeTutorStatus: true,
+  })),
+
+  on(tutorActions.changeTutorStatusSuccess, (state, { tutorId, status }) => ({
+    ...state,
+    isChangeTutorStatus: false,
+    tutors:
+      state.tutors && state.tutors.length
+        ? state.tutors?.map((tutor) =>
+            tutor.id === tutorId ? { ...tutor, status } : { ...tutor }
+          )
+        : [],
+    tutor: state.tutor
+      ? {
+          ...state.tutor,
+          status,
+        }
+      : null,
+  })),
+
+  on(tutorActions.changeTutorStatusFailure, (state, { error }) => ({
+    ...state,
+    isChangeTutorStatus: false,
+  })),
+
   // On accept/reject course filter out rejected course
   on(
     courseActions.tutorAcceptCourseSuccess,
@@ -556,6 +587,9 @@ export const selectIsUpdateTutorProfile = (state: State): boolean =>
 
 export const selectIsChangeTutorCover = (state: State): boolean =>
   state.isChangeTutorCover;
+
+export const selectIsChangeTutorStatus = (state: State): boolean =>
+  state.isChangeTutorStatus;
 
 export const selectIsSubmittingInterview = (state: State): boolean =>
   state.isSubmittingInterview;

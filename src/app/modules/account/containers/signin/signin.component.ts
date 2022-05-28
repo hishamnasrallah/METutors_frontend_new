@@ -110,9 +110,7 @@ export class SigninComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe((res: any) => {
-      if (res && res.data) {
-        console.log(res);
-      }
+      if (res && res.data) {}
     });
 
     dialogRef.componentInstance.submitForm.subscribe((otp) => {

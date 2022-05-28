@@ -127,7 +127,6 @@ export class TutorEffects {
               });
             }),
             catchError((error) => {
-              console.log(error);
               return of(
                 tutorActions.loadAvailableTutorsFailure({
                   error: error?.error?.message || error?.error?.errors,
@@ -152,7 +151,7 @@ export class TutorEffects {
             map((response) =>
               tutorActions.loadCurrentTutorsSuccess({
                 currentTutors: response.tutors,
-                tutorsCounts: response.tutorsCounts
+                tutorsCounts: response.tutorsCounts,
               })
             ),
             catchError((error) =>
@@ -275,7 +274,7 @@ export class TutorEffects {
     )
   );
 
-  changeTutorCoverr$ = createEffect(() =>
+  changeTutorCover$ = createEffect(() =>
     this._actions$.pipe(
       ofType(tutorActions.changeTutorCover),
       mergeMap(({ file }) =>
@@ -293,6 +292,32 @@ export class TutorEffects {
             )
           )
         )
+      )
+    )
+  );
+
+  changeTutorStatus$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorActions.changeTutorStatus),
+      mergeMap((action) =>
+        this._tutorService
+          .changeTutorStatus(action.tutorId, action.status, action.reason)
+          .pipe(
+            map((response) =>
+              tutorActions.changeTutorStatusSuccess({
+                message: response.message,
+                tutorId: action.tutorId,
+                status: action.status,
+              })
+            ),
+            catchError((error) =>
+              of(
+                tutorActions.changeTutorStatusFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          )
       )
     )
   );
@@ -532,6 +557,7 @@ export class TutorEffects {
         ofType(
           ...[
             tutorActions.submitInterviewSuccess,
+            tutorActions.changeTutorStatusSuccess,
             tutorActions.updateTutorProfileSuccess,
             tutorActions.tutorSubmitFeedbackSuccess,
             tutorActions.tutorRescheduleClassSuccess,
@@ -552,6 +578,7 @@ export class TutorEffects {
           ...[
             tutorActions.submitInterviewFailure,
             tutorActions.tutorLaunchClassFailure,
+            tutorActions.changeTutorStatusFailure,
             tutorActions.updateTutorProfileFailure,
             tutorActions.tutorSubmitFeedbackFailure,
             tutorActions.completeTutorProfileFailure,

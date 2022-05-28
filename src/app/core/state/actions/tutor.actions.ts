@@ -50,6 +50,22 @@ export const changeTutorCoverFailure = createAction(
   props<{ error: any }>()
 );
 
+// Change tutor status
+export const changeTutorStatus = createAction(
+  '[Tutor] Change Tutor Status',
+  props<{ status: string; tutorId: number; reason: string }>()
+);
+
+export const changeTutorStatusSuccess = createAction(
+  '[Tutor] Change Tutor Status Success',
+  props<{ message: string; status: string; tutorId: number }>()
+);
+
+export const changeTutorStatusFailure = createAction(
+  '[Tutor] Change Tutor Status Failure',
+  props<{ error: any }>()
+);
+
 // Load available tutors
 export const loadAvailableTutors = createAction(
   '[Tutor] Load Available Tutors'

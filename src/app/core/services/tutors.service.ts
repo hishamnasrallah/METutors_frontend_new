@@ -30,6 +30,18 @@ export class TutorsService {
     return this.http.post<any>(`${this.baseUrl}change-cover`, formData);
   }
 
+  changeTutorStatus(
+    tutorId: number,
+    status: string,
+    reason: string
+  ): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}admin/teacher-status`, {
+      status: status,
+      reason: reason,
+      teacher_id: tutorId,
+    });
+  }
+
   fetchFeaturedTutors(): Observable<any> {
     return this.http
       .get<{ results: ITutor[] }>(`${this.baseUrl}/featured_tutors`)

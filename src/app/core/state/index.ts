@@ -316,6 +316,11 @@ export const selectIsChangeTutorCover = createSelector(
   fromTutorReducer.selectIsChangeTutorCover
 );
 
+export const selectIsChangeTutorStatus = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectIsChangeTutorStatus
+);
+
 export const selectIsSubmittingInterview = createSelector(
   selectTutorState,
   fromTutorReducer.selectIsSubmittingInterview

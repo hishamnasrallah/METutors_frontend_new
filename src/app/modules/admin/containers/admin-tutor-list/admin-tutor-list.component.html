@@ -210,7 +210,7 @@
                       'deactive': tutorStatus.deactive === status,
                       'rejected': tutorStatus.rejected === status,
                       'pending': tutorStatus.pending === status
-                    }" (click)="onOpenChangeStatusModal()">
+                    }" (click)="onOpenChangeStatusModal({oldStatus: tutor?.status, newStatus: status}, tutor)">
                     {{ status }}
                   </li>
                 </ul>
@@ -243,5 +243,9 @@
 
 <metutors-change-status-modal *ngIf="showChangeStatusModal$ | async"
                               (closeModal)="onCloseChangeStatusModal()"
-                              [showModal]="(showChangeStatusModal$ | async)!">
+                              [changeStatus]="changeStatus"
+                              [tutorId]="(selectedTutor?.id)!"
+                              [showModal]="(showChangeStatusModal$ | async)!"
+                              [isSubmitting]="(isChangeTutorStatus$ | async)!"
+                              (submitted)="onChangeTutorStatus($event)">
 </metutors-change-status-modal>
