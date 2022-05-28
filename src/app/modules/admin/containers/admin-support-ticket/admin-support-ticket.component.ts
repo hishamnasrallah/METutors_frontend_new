@@ -58,8 +58,10 @@ export class AdminSupportTicketComponent implements OnInit {
     this._store.dispatch(fromAdminAction.closeAdminChangeStatusModal());
   }
 
-  onChangeTicketStatus({ ticketId, status }: any): void {
-    this._store.dispatch(fromCore.changeTicketStatus({ ticketId, status }));
+  onChangeTicketStatus({ status }: any): void {
+    this._store.dispatch(
+      fromCore.changeTicketStatus({ ticketId: this.ticketId, status })
+    );
   }
 
   filterTickets(filters: ITicketFilters): void {

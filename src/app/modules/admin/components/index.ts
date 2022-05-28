@@ -3,7 +3,7 @@ export * from './admin-sidebar';
 export * from './interview-card';
 export * from './admin-feedback';
 export * from './admin-tutors-list-modal';
-export * from './change-ticket-status-modal';
+export * from './admin-change-status-modal';
 export * from './admin-add-new-program-modal';
 export * from './admin-add-new-subject-modal';
 export * from './admin-add-new-country-modal';

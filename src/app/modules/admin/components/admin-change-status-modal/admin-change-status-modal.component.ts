@@ -3,12 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TICKET_STATUSES_CONST } from '@metutor/config';
 
 @Component({
-  selector: 'metutors-change-ticket-status-modal',
-  templateUrl: './change-ticket-status-modal.component.html',
-  styleUrls: ['./change-ticket-status-modal.component.scss'],
+  selector: 'metutors-admin-change-status-modal',
+  templateUrl: './admin-change-status-modal.component.html',
+  styleUrls: ['./admin-change-status-modal.component.scss'],
 })
-export class ChangeTicketStatusModalComponent implements OnInit {
-  @Input() ticketId: string;
+export class AdminChangeStatusModalComponent implements OnInit {
   @Input() showModal = false;
   @Input() isSubmitting: boolean;
 
@@ -29,7 +28,6 @@ export class ChangeTicketStatusModalComponent implements OnInit {
   onSubmit(form: FormGroup): void {
     if (form.valid) {
       this.submitted.emit({
-        ticketId: this.ticketId,
         status: form.value.status,
       });
     }

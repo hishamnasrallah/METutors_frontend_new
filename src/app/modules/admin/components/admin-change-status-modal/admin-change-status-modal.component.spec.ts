@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ChangeTicketStatusModalComponent } from './change-ticket-status-modal.component';
+import { AdminChangeStatusModalComponent } from './admin-change-status-modal.component';
 
 describe('ChangeTicketStatusModalComponent', () => {
-  let component: ChangeTicketStatusModalComponent;
-  let fixture: ComponentFixture<ChangeTicketStatusModalComponent>;
+  let component: AdminChangeStatusModalComponent;
+  let fixture: ComponentFixture<AdminChangeStatusModalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ChangeTicketStatusModalComponent],
+      declarations: [AdminChangeStatusModalComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ChangeTicketStatusModalComponent);
+    fixture = TestBed.createComponent(AdminChangeStatusModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

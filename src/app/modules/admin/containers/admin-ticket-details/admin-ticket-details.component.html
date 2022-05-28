@@ -91,10 +91,9 @@
   </div>
 </div>
 
-<metutors-change-ticket-status-modal *ngIf="showChangeStatusModal$ | async"
+<metutors-admin-change-status-modal *ngIf="showChangeStatusModal$ | async"
                                      (closeModal)="onCloseChangeStatusModal()"
-                                     [ticketId]="ticketId"
                                      [isSubmitting]="(isChangeTicketStatus$ | async)!"
                                      [showModal]="(showChangeStatusModal$ | async)!"
                                      (submitted)="onChangeTicketStatus($event)">
-</metutors-change-ticket-status-modal>
+</metutors-admin-change-status-modal>
