@@ -62,6 +62,7 @@ import {
 import {
   AdminNavbarComponent,
   AdminSidebarComponent,
+  AdminFeedbackComponent,
   InterviewCardComponent,
   ChangeStatusModalComponent,
   AdminTutorsListModalComponent,
@@ -93,6 +94,7 @@ import {
     AdminSidebarComponent,
     InterviewCardComponent,
     PerCourseGridComponent,
+    AdminFeedbackComponent,
     AdminTutorListComponent,
     AdminStudentListComponent,
     AdminProgramListComponent,

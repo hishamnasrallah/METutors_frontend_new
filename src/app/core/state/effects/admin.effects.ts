@@ -11,7 +11,10 @@ import * as fromCore from '@metutor/core/state';
 import * as fromRouterStore from '@metutor/state';
 import * as adminActions from '../actions/admin.actions';
 import { AlertNotificationService } from '@metutor/core/components';
-import { loadAdminTutorReAssignment } from '@metutor/core/state';
+import {
+  loadAdminTestimonials,
+  loadAdminTutorReAssignment,
+} from '@metutor/core/state';
 
 @Injectable()
 export class AdminEffects {
@@ -535,6 +538,31 @@ export class AdminEffects {
             catchError((error) =>
               of(
                 adminActions.loadAdminTutorReAssignmentFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          )
+        )
+      )
+    )
+  );
+
+  loadAdminTestimonials$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(adminActions.loadAdminTestimonials),
+      mergeMap(({ feedbackBy }) =>
+        this._adminService.loadAdminTestimonials(feedbackBy).pipe(
+          map(
+            (result) =>
+              adminActions.loadAdminTestimonialsSuccess({
+                testimonials: camelcaseKeys(result, {
+                  deep: true,
+                }),
+              }),
+            catchError((error) =>
+              of(
+                adminActions.loadAdminTestimonialsFailure({
                   error: error?.error?.message || error?.error?.errors,
                 })
               )

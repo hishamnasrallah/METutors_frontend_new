@@ -13,6 +13,7 @@ import * as adminActions from '../actions/admin.actions';
 
 export interface State {
   tutors: ITutor[];
+  testimonials: [];
   viewFeedback: [];
   bookingDetail: [];
   studentProfile: [];
@@ -57,12 +58,16 @@ export interface State {
   // Booking per course
   bookingPerCourse: any;
   isLoadingBookingPerCourse: boolean;
+
+  //common loading
+  isLoadingAdmin: boolean;
 }
 
 export const initialState: State = {
   tutors: [],
   documents: [],
   allBookings: [],
+  testimonials: [],
   viewFeedback: [],
   bookingDetail: [],
   bookingsCounts: {},
@@ -76,6 +81,7 @@ export const initialState: State = {
   assignmentSummary: [],
   completedBookings: [],
   cancelledBookings: [],
+  isLoadingAdmin: false,
   isApprovingDoc: false,
   isRejectingDoc: false,
   workforceCapacity: [],
@@ -506,6 +512,22 @@ export const reducer = createReducer(
   on(adminActions.loadAdminTutorReAssignmentFailure, (state) => ({
     ...state,
     isLoadingBookingPerCourse: false,
+  })),
+
+  on(adminActions.loadAdminTestimonials, (state) => ({
+    ...state,
+    isLoadingAdmin: true,
+  })),
+
+  on(adminActions.loadAdminTestimonialsSuccess, (state, { testimonials }) => ({
+    ...state,
+    testimonials,
+    isLoadingAdmin: false,
+  })),
+
+  on(adminActions.loadAdminTestimonialsFailure, (state) => ({
+    ...state,
+    isLoadingAdmin: false,
   }))
 );
 
@@ -617,6 +639,12 @@ export const selectAdminTutorReAssignment = (state: State): any =>
 
 export const selectIsLoadingAdminTutorReAssignment = (state: State): boolean =>
   state.isLoadingTutorReAssignment;
+
+export const selectAdminTestimonials = (state: State): any =>
+  state.testimonials;
+
+export const selectIsLoadingAdmin = (state: State): boolean =>
+  state.isLoadingAdmin;
 
 export const selectFilteredWorkforceCapacity = (
   state: State,

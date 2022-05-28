@@ -318,5 +318,15 @@ export const loadAdminTutorReAssignmentFailure = createAction(
 
 export const loadAdminTestimonials = createAction(
   '[Admin] Load Admin Testimonials',
-  props<{ status: string }>()
+  props<{ feedbackBy: string }>()
+);
+
+export const loadAdminTestimonialsSuccess = createAction(
+  '[Admin] Load Admin Testimonials Success',
+  props<{ testimonials: any }>()
+);
+
+export const loadAdminTestimonialsFailure = createAction(
+  '[Admin] Load Admin Testimonials Failure',
+  props<{ error: any }>()
 );

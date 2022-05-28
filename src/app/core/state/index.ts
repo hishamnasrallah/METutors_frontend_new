@@ -1343,3 +1343,13 @@ export const selectIsLoadingAdminTutorReAssignment = createSelector(
   selectAdminState,
   fromAdminReducer.selectIsLoadingAdminTutorReAssignment
 );
+
+export const selectAdminTestimonials = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectAdminTestimonials
+);
+
+export const selectIsLoadingAdmin = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectIsLoadingAdmin
+);
