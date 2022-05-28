@@ -1,4 +1,4 @@
-.feedback {
+:host ::ng-deep .feedback {
   border-top: 1px solid #e0e0e0;
   padding-top: 20px;
 
@@ -66,7 +66,28 @@
 
     span {
       color: var(--main-color);
+
+      &.edit {
+        color: #727272;
+      }
     }
   }
 
+  &.container-block {
+    .rating-block {
+      h2 {
+        color: #2A2A2A;
+        font-size: 17px;
+      }
+
+      rating span.bs-rating-star {
+        font-size: 15px;
+      }
+    }
+
+    .stars h3 {
+      font-size: 15px;
+      color: #696969;
+    }
+  }
 }

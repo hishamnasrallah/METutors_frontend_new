@@ -56,9 +56,8 @@
     <td><a [routerLink]="['/admin', 'finance', 'orders']"> ${{ reassignment?.totalAmount }}</a></td>-->
     <td>
       <div class="change-status position-relative d-flex">
-        <button class="status text-capitalize" mat-button [ngClass]="reassignment?.status">
-          {{ statusLabel[reassignment?.status] }}
-        </button>
+        <button class="status text-capitalize" mat-button [ngClass]="reassignment?.status"
+          [innerHTML]="statusLabel[reassignment?.status] | ReassignmentStatus"></button>
       </div>
     </td>
     <td>

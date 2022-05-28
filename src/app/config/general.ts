@@ -250,8 +250,8 @@ export const courseStatusLabel = {
   completed: 'Completed',
   pending: 'Pending Tutor Approval',
   cancelled_by_teacher: 'On Hold (Tutor Re-Assignment by MeTutors)',
-  cancelled_by_student: 'Canceled & Refunded',
-  requested_to_metutors: ' Tutor Re-Assignment by MEtutors',
+  cancelled_by_student: 'Cancelled & Refunded',
+  requested_to_metutors: 'Tutor Re-Assignment by MEtutors',
 };
 
 export const testimonialStatus = ['public', 'private'];

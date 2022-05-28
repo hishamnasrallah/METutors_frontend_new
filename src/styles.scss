@@ -784,6 +784,42 @@ span.status {
   }
 }
 
+// Custom Tooltip
+.custom-tooltip {
+  position: relative;
+
+  .custom-tooltip-text {
+    display: none;
+    min-width: 250px;
+    background-color: var(--main-color);
+    color: #fff;
+    text-align: center;
+    padding: 10px 5px;
+    border-radius: 5px;
+    position: absolute;
+    z-index: 1;
+    right: 0;
+    top: 20px;
+    line-height: 30px;
+    font-size: 14px;
+    font-weight: normal;
+
+    &:after {
+      content: "";
+      position: absolute;
+      top: -10px;
+      right: 10px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: transparent transparent var(--main-color) transparent;
+    }
+  }
+
+  &:hover .custom-tooltip-text {
+    display: block
+  }
+}
+
 ////////////////////////
 // Placeholder
 ////////////////////////

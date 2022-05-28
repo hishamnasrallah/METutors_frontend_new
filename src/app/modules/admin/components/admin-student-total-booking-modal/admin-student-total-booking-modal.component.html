@@ -32,7 +32,7 @@
                   <mat-progress-spinner class="progress-spinner" [color]="'primary'" [mode]="'determinate'"
                                         [value]="data.attendenceRate">
                   </mat-progress-spinner>
-                  <span class="position-absolute">{{data?.attendenceRate}}%</span>
+                  <span class="position-absolute">{{ data?.attendenceRate }}%</span>
                 </div>
               </div>
             </div>
@@ -43,7 +43,7 @@
                   <th>Number</th>
                   <th>BIN</th>
                   <th>SIN</th>
-                  <th>{{ type === 'student' ? 'Teacher Name' : 'Student Name'}}</th>
+                  <th>{{ type === 'student' ? 'Teacher Name' : 'Student Name' }}</th>
                   <th>Program Name</th>
                   <th>Field of Study</th>
                   <th>Subject</th>
@@ -71,8 +71,8 @@
                   <td>{{ booking?.courseCode }}</td>
                   <td>{{ booking?.totalPrice }}$</td>
                   <td>
-                    <button class="status" mat-button [ngClass]="booking?.status">
-                      {{ statusLabel[booking?.status] }}
+                    <button class="status" mat-button [ngClass]="booking?.status"
+                      [innerHTML]="statusLabel[booking?.status] | ReassignmentStatus">
                     </button>
                   </td>
                   <td>

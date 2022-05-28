@@ -8,6 +8,7 @@ import { environment } from '@environment';
 })
 export class AdminFeedbackComponent implements OnInit {
   @Input() feedback: any;
+  @Input() extraClasses = '';
   @Input() isTestimonial = false;
 
   @Output() buttonClicked: EventEmitter<any> = new EventEmitter<any>();

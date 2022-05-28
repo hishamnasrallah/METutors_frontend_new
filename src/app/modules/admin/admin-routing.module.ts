@@ -369,7 +369,7 @@ const routes: Routes = [
             component: AdminTestimonialsComponent,
             data: {
               layout: {
-                title: 'Country - Metutors',
+                title: 'Testimonials - Metutors',
                 navbarTitle: 'Management',
                 showHeader: false,
                 showFooter: false,

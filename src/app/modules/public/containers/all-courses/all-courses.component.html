@@ -51,7 +51,7 @@
             </div>
 
             <div class="d-flex align-items-center cursor-pointer title justify-content-between"
-              [class.open]="openPriceFilter" (click)="openPriceFilter = !openPriceFilter">
+              [class.open]="openPriceFilter" (click)="openPriceFilter = !openPriceFilter" *ngIf="minValue !== maxValue">
               <h3 class="m-0">
                 Select Price Range
               </h3>

@@ -10,11 +10,11 @@ import { WEEK_DAYS, WEEK_FULL_DAYS } from '@config';
   styleUrls: ['./admin-tutors-list-modal.component.scss'],
 })
 export class AdminTutorsListModalComponent implements OnInit {
-  @Input() showModal: boolean = false;
   @Input() heading = '';
   @Input() subHeading = '';
   @Input() tutors: ITutor[];
   @Input() loading: boolean;
+  @Input() showModal: boolean = false;
 
   @Input() set timeSlots(slots: any) {
     if (slots) {
