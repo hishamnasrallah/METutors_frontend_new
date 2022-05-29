@@ -3,12 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { environment } from 'src/environments/environment';
-import { ICapacity, ICourse, ISubject, ITutor } from '../models';
-import {
-  loadAdminStudentAssignmentSummary,
-  loadAdminTestimonials,
-  loadAdminTutorReAssignment,
-} from '@metutor/core/state';
+import { ICapacity, ICourse, ISubject, ITutor } from '@models';
 
 @Injectable({
   providedIn: 'root',
@@ -128,16 +123,29 @@ export class AdminService {
     );
   }
 
-  loadAdminTestimonials(feebackBy: string): Observable<any> {
+  loadAdminTestimonials(feedbackBy: string): Observable<any> {
     return this.http.get<any>(
-      `${this.baseUrl}admin/testimonials?feedback_by=${feebackBy}`
+      `${this.baseUrl}admin/testimonials?feedback_by=${feedbackBy}`
     );
+  }
+
+  loadAdminTestimonialFeedbackOptions(id: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}admin/testimonial/${id}`);
   }
 
   adminEditTestimonialStatus(id: number, status: string): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}admin/user-testimonial/${id}`, {
       status,
     });
+  }
+
+  adminEditTestimonialFeedback(body: any): Observable<any> {
+    const { receiver_id, ..._body } = body;
+
+    return this.http.post<any>(
+      `${this.baseUrl}admin/testimonial/${receiver_id}`,
+      _body
+    );
   }
 
   loadAllBookings(): Observable<any> {

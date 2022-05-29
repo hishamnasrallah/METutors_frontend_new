@@ -332,16 +332,46 @@ export const loadAdminTestimonialsFailure = createAction(
 );
 
 export const adminEditTestimonialStatus = createAction(
-  '[Admin] Admin Edit Testimonial',
+  '[Admin] Admin Edit Testimonial Status',
   props<{ status: string; id: number }>()
 );
 
 export const adminEditTestimonialStatusSuccess = createAction(
-  '[Admin] Admin Edit Testimonial Success',
+  '[Admin] Admin Edit Testimonial Status Success',
   props<{ id: number; message: string }>()
 );
 
 export const adminEditTestimonialStatusFailure = createAction(
-  '[Admin] Admin Edit Testimonial Failure',
+  '[Admin] Admin Edit Testimonial Status Failure',
+  props<{ error: string }>()
+);
+
+export const loadAdminTestimonialFeedbackOptions = createAction(
+  '[Admin] Load Admin Testimonial Feedback Options',
+  props<{ id: number }>()
+);
+
+export const loadAdminTestimonialFeedbackOptionsSuccess = createAction(
+  '[Admin] Load Admin Testimonial Feedback Options Success',
+  props<{ feedbackOptions: any }>()
+);
+
+export const loadAdminTestimonialFeedbackOptionsFailure = createAction(
+  '[Admin] Load Admin Testimonial Feedback Options Failure',
+  props<{ error: any }>()
+);
+
+export const adminEditTestimonialFeedback = createAction(
+  '[Admin] Admin Edit Testimonial Feedback',
+  props<{ body: any }>()
+);
+
+export const adminEditTestimonialFeedbackSuccess = createAction(
+  '[Admin] Admin Edit Testimonial Feedback Success',
+  props<{ message: string }>()
+);
+
+export const adminEditTestimonialFeedbackFailure = createAction(
+  '[Admin] Admin Edit Testimonial Feedback Failure',
   props<{ error: string }>()
 );

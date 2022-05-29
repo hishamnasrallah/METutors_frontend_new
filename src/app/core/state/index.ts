@@ -1354,7 +1354,17 @@ export const selectIsLoadingAdmin = createSelector(
   fromAdminReducer.selectIsLoadingAdmin
 );
 
-export const selectIsChangingTestimonialStatus = createSelector(
+export const selectIsLoadingAdminTestimonials = createSelector(
   selectAdminState,
-  fromAdminReducer.selectIsChangingTestimonialStatus
+  fromAdminReducer.selectIsLoadingAdminTestimonials
+);
+
+export const selectAdminTestimonialFeedbackOptions = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectAdminTestimonialFeedbackOptions
+);
+
+export const selectIsEditingAdminTestimonialFeedback = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectIsEditingAdminTestimonialFeedback
 );

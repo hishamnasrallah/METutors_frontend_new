@@ -18,6 +18,7 @@ export interface State {
   bookingDetail: [];
   studentProfile: [];
   previousTutors: [];
+  feedbackOptions: [];
   bookingsCounts: any;
   studentsFeedback: [];
   tutorReAssignment: [];
@@ -27,7 +28,7 @@ export interface State {
   isRejectingDoc: boolean;
   isLoadingTutors: boolean;
   studentBookingDetail: [];
-  isChangingStatus: boolean;
+  isEditingFeedback: boolean;
   isLoadingAdminDocs: boolean;
   documents: ITeacherDocument[];
   isLoadingViewFeedback: boolean;
@@ -35,6 +36,7 @@ export interface State {
   isLoadingStudentProfile: boolean;
   isLoadingPreviousTutors: boolean;
   isLoadingStudentsFeedback: boolean;
+  isLoadingAdminTestimonials: boolean;
   isLoadingAssignmentSummary: boolean;
   isLoadingTutorReAssignment: boolean;
 
@@ -74,6 +76,7 @@ export const initialState: State = {
   bookingsCounts: {},
   studentProfile: [],
   previousTutors: [],
+  feedbackOptions: [],
   runningBookings: [],
   courseBooking: null,
   bookingPerCourse: [],
@@ -87,9 +90,9 @@ export const initialState: State = {
   isRejectingDoc: false,
   workforceCapacity: [],
   isLoadingTutors: false,
-  isChangingStatus: false,
   studentTotalBooking: [],
   studentBookingDetail: [],
+  isEditingFeedback: false,
   isLoadingAdminDocs: false,
   isLoadingAllBookings: false,
   isLoadingViewFeedback: false,
@@ -100,6 +103,7 @@ export const initialState: State = {
   isLoadingRunningBookings: false,
   isLoadingBookingPerCourse: false,
   isLoadingStudentsFeedback: false,
+  isLoadingAdminTestimonials: false,
   isLoadingWorkforceCapacity: false,
   isLoadingCompletedBookings: false,
   isLoadingCancelledBookings: false,
@@ -518,34 +522,67 @@ export const reducer = createReducer(
 
   on(adminActions.loadAdminTestimonials, (state) => ({
     ...state,
-    isLoadingAdmin: true,
+    isLoadingAdminTestimonials: true,
   })),
 
   on(adminActions.loadAdminTestimonialsSuccess, (state, { testimonials }) => ({
     ...state,
     testimonials,
-    isLoadingAdmin: false,
+    isLoadingAdminTestimonials: false,
   })),
 
   on(adminActions.loadAdminTestimonialsFailure, (state) => ({
     ...state,
-    isLoadingAdmin: false,
-  })),
-
-  on(adminActions.adminEditTestimonialStatus, (state) => ({
-    ...state,
-    isChangingStatus: true,
+    isLoadingAdminTestimonials: false,
   })),
 
   on(adminActions.adminEditTestimonialStatusSuccess, (state) => ({
     ...state,
-    isChangingStatus: false,
+    isLoadingAdmin: false,
   })),
 
-  on(adminActions.adminEditTestimonialStatusFailure, (state) => ({
+  on(adminActions.adminEditTestimonialFeedback, (state) => ({
     ...state,
-    isChangingStatus: false,
-  }))
+    isEditingFeedback: true,
+  })),
+
+  on(adminActions.adminEditTestimonialFeedbackSuccess, (state) => ({
+    ...state,
+    isEditingFeedback: false,
+  })),
+
+  on(adminActions.adminEditTestimonialFeedbackFailure, (state) => ({
+    ...state,
+    isEditingFeedback: false,
+  })),
+
+  on(
+    adminActions.loadAdminTestimonialFeedbackOptionsSuccess,
+    (state, { feedbackOptions }) => ({
+      ...state,
+      feedbackOptions,
+      isLoadingAdmin: false,
+    })
+  ),
+
+  // COMMON LOADING
+  on(
+    adminActions.adminEditTestimonialStatus,
+    adminActions.loadAdminTestimonialFeedbackOptions,
+    (state) => ({
+      ...state,
+      isLoadingAdmin: true,
+    })
+  ),
+
+  on(
+    adminActions.adminEditTestimonialStatusFailure,
+    adminActions.loadAdminTestimonialFeedbackOptionsFailure,
+    (state) => ({
+      ...state,
+      isLoadingAdmin: false,
+    })
+  )
 );
 
 export const selectAdminDocuments = (state: State): ITeacherDocument[] =>
@@ -660,11 +697,18 @@ export const selectIsLoadingAdminTutorReAssignment = (state: State): boolean =>
 export const selectAdminTestimonials = (state: State): any =>
   state.testimonials;
 
+export const selectAdminTestimonialFeedbackOptions = (state: State): any =>
+  state.feedbackOptions;
+
 export const selectIsLoadingAdmin = (state: State): boolean =>
   state.isLoadingAdmin;
 
-export const selectIsChangingTestimonialStatus = (state: State): boolean =>
-  state.isChangingStatus;
+export const selectIsLoadingAdminTestimonials = (state: State): boolean =>
+  state.isLoadingAdminTestimonials;
+
+export const selectIsEditingAdminTestimonialFeedback = (
+  state: State
+): boolean => state.isEditingFeedback;
 
 export const selectFilteredWorkforceCapacity = (
   state: State,

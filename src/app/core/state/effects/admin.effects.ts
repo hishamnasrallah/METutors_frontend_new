@@ -12,7 +12,9 @@ import * as fromRouterStore from '@metutor/state';
 import * as adminActions from '../actions/admin.actions';
 import { AlertNotificationService } from '@metutor/core/components';
 import {
+  adminEditTestimonialFeedback,
   adminEditTestimonialStatus,
+  loadAdminTestimonialFeedbackOptions,
   loadAdminTestimonials,
   loadAdminTutorReAssignment,
 } from '@metutor/core/state';
@@ -574,6 +576,31 @@ export class AdminEffects {
     )
   );
 
+  loadAdminTestimonialFeedbackOptions$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(adminActions.loadAdminTestimonialFeedbackOptions),
+      mergeMap(({ id }) =>
+        this._adminService.loadAdminTestimonialFeedbackOptions(id).pipe(
+          map(
+            (result) =>
+              adminActions.loadAdminTestimonialFeedbackOptionsSuccess({
+                feedbackOptions: camelcaseKeys(result, {
+                  deep: true,
+                }),
+              }),
+            catchError((error) =>
+              of(
+                adminActions.loadAdminTestimonialFeedbackOptionsFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          )
+        )
+      )
+    )
+  );
+
   adminEditTestimonialStatus$ = createEffect(() =>
     this._actions$.pipe(
       ofType(adminActions.adminEditTestimonialStatus),
@@ -598,6 +625,29 @@ export class AdminEffects {
     )
   );
 
+  adminEditTestimonialFeedback$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(adminActions.adminEditTestimonialFeedback),
+      mergeMap(({ body }) =>
+        this._adminService.adminEditTestimonialFeedback(body).pipe(
+          map(
+            (result) =>
+              adminActions.adminEditTestimonialFeedbackSuccess({
+                message: 'Feedback updated successfully',
+              }),
+            catchError((error) =>
+              of(
+                adminActions.adminEditTestimonialFeedbackFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          )
+        )
+      )
+    )
+  );
+
   successMessages$ = createEffect(
     () =>
       this._actions$.pipe(
@@ -606,6 +656,7 @@ export class AdminEffects {
             adminActions.adminRejectDocumentSuccess,
             adminActions.adminApproveDocumentSuccess,
             adminActions.adminEditTestimonialStatusSuccess,
+            adminActions.adminEditTestimonialFeedbackSuccess,
           ]
         ),
         map((action) => this._alertNotificationService.success(action.message))

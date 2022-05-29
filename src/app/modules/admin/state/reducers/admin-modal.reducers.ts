@@ -277,10 +277,14 @@ export const reducer = createReducer(
     showEditFeedbackModal: true,
   })),
 
-  on(adminModalActions.closeAdminEditFeedbackModal, (state) => ({
-    ...state,
-    showEditFeedbackModal: false,
-  }))
+  on(
+    fromCore.adminEditTestimonialFeedbackSuccess,
+    adminModalActions.closeAdminEditFeedbackModal,
+    (state) => ({
+      ...state,
+      showEditFeedbackModal: false,
+    })
+  )
 );
 
 // Admin modal selectors

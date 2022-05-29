@@ -4,11 +4,12 @@
   <ng-template #template>
     <div class="row leave-feedback-modal" *ngLet="(view$ | async) as view">
       <div class="col-12">
+        {{ isSubmitting }}
         <ng-container [ngSwitch]="view?.loading">
           <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
           <metutors-send-feedback [feedbackOptions]="view?.feedbackOptions"
-                                  [isSubmitting]="(submittingFeedback$ | async)!" [form]="form"
-                                  (submitFeedback)="submitFeedback.emit(form)" *ngSwitchCase="false">
+                                  [isSubmitting]="isSubmitting" [form]="form"
+                                  (submitFeedback)="submitFeedback.emit(form.value)" *ngSwitchCase="false">
           </metutors-send-feedback>
         </ng-container>
       </div>

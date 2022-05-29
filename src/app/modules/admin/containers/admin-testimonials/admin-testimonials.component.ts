@@ -13,7 +13,8 @@ import * as fromAdminAction from '@metutor/modules/admin/state/actions';
   styleUrls: ['./admin-testimonials.component.scss'],
 })
 export class AdminTestimonialsComponent implements OnInit {
-  isChangingStatus$: Observable<boolean>;
+  isLoading$: Observable<boolean>;
+  isEditingFeedback$: Observable<boolean>;
   showEditFeedbackModal$: Observable<boolean>;
   showChangeStatusModal$: Observable<boolean>;
 
@@ -30,8 +31,9 @@ export class AdminTestimonialsComponent implements OnInit {
   constructor(private _store: Store<any>) {}
 
   onButtonClicked(data: any): void {
+    this.userId = data.id;
+
     if (data.type === 'change') {
-      this.userId = data.id;
       this.status = data.status;
       this.onOpenChangeStatusModal();
     } else if (data.type === 'edit') {
@@ -44,6 +46,9 @@ export class AdminTestimonialsComponent implements OnInit {
   }
 
   onOpenEditFeedbackModal() {
+    this._store.dispatch(
+      fromCore.loadAdminTestimonialFeedbackOptions({ id: this.userId })
+    );
     this._store.dispatch(fromAdminAction.openAdminEditFeedbackModal());
   }
 
@@ -66,12 +71,18 @@ export class AdminTestimonialsComponent implements OnInit {
     this._store.dispatch(fromCore.adminEditTestimonialStatus(data));
   }
 
+  onSubmitFeedback(body: any): void {
+    this._store.dispatch(fromCore.adminEditTestimonialFeedback({ body }));
+  }
+
   ngOnInit(): void {
     const feedbackBy = 'teacher';
     this._store.dispatch(fromCore.loadAdminTestimonials({ feedbackBy }));
 
-    this.isChangingStatus$ = this._store.select(
-      fromCore.selectIsChangingTestimonialStatus
+    this.isLoading$ = this._store.select(fromCore.selectIsLoadingAdmin);
+
+    this.isEditingFeedback$ = this._store.select(
+      fromCore.selectIsEditingAdminTestimonialFeedback
     );
 
     this.showChangeStatusModal$ = this._store.select(
@@ -83,10 +94,10 @@ export class AdminTestimonialsComponent implements OnInit {
     );
 
     this.view$ = combineLatest([
-      this._store.select(fromCore.selectIsLoadingAdmin),
       this._store.select(fromCore.selectAdminTestimonials),
+      this._store.select(fromCore.selectIsLoadingAdminTestimonials),
     ]).pipe(
-      map(([loading, testimonials]) => ({
+      map(([testimonials, loading]) => ({
         loading,
         testimonials,
       }))
