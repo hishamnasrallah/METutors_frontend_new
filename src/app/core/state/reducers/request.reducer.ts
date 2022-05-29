@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 
-import { IClassroom, IInvoiceDetails, ITutor } from '@models';
+import { IClassroom, ICourseRequest, IInvoiceDetails, ITutor } from '@models';
 import * as userActions from '../actions/user.actions';
 import * as requestActions from '../actions/request.actions';
 
@@ -24,6 +24,12 @@ export interface State {
   isCalculateFinalInvoice: boolean;
   calculateFinalInvoiceFailure: string;
   invoiceDetails: IInvoiceDetails | null;
+
+  // Load Requested Courses
+  requestedCourses: ICourseRequest[];
+  completedRequestedCourses: ICourseRequest[];
+  isLoadingRequestedCourses: boolean;
+  requestedCoursesCounts: any;
 }
 
 export const initialState: State = {
@@ -32,12 +38,19 @@ export const initialState: State = {
   isCreateClass: false,
   invoiceDetails: null,
   estimatedPrice: null,
+  requestedCourses: [],
   createClassFailure: '',
   loadingTutorFailure: '',
   isGeneratingTutors: false,
+  completedRequestedCourses: [],
   isCalculateFinalInvoice: false,
   isLoadingEstimatedPrice: false,
+  isLoadingRequestedCourses: false,
   calculateFinalInvoiceFailure: '',
+  requestedCoursesCounts: {
+    newCount: 0,
+    completedCount: 0,
+  },
 };
 
 export const reducer = createReducer(
@@ -135,7 +148,38 @@ export const reducer = createReducer(
   on(requestActions.calculateFinalInvoiceEnded, (state) => ({
     ...state,
     isCalculateFinalInvoice: false,
-  }))
+  })),
+
+  on(requestActions.loadRequestedCourses, (state) => ({
+    ...state,
+    isLoadingRequestedCourses: true,
+  })),
+
+  on(
+    requestActions.loadRequestedCoursesSuccess,
+    (
+      state,
+      { requestedCourses, completedCourses, requestedCoursesCounts }
+    ) => ({
+      ...state,
+      isLoadingRequestedCourses: false,
+      requestedCourses,
+      completedRequestedCourses: completedCourses,
+      requestedCoursesCounts: {
+        ...state.requestedCoursesCounts,
+        ...requestedCoursesCounts,
+      },
+    })
+  ),
+
+  on(
+    requestActions.loadRequestedCoursesEnded,
+    requestActions.loadRequestedCoursesFailure,
+    (state) => ({
+      ...state,
+      isLoadingRequestedCourses: false,
+    })
+  )
 );
 
 export const selectGeneratingTutors = (state: State): ITutor[] | null =>
@@ -161,3 +205,16 @@ export const selectIsCalculateFinalInvoice = (state: State): boolean =>
 
 export const selectInvoiceDetails = (state: State): IInvoiceDetails | null =>
   state.invoiceDetails;
+
+export const selectIsLoadingRequestedCourses = (state: State): boolean =>
+  state.isLoadingRequestedCourses;
+
+export const selectRequestedCourses = (state: State): ICourseRequest[] | null =>
+  state.requestedCourses;
+
+export const selectCompletedRequestedCourses = (
+  state: State
+): ICourseRequest[] | null => state.completedRequestedCourses;
+
+export const selectRequestedCoursesCount = (state: State): any =>
+  state.requestedCoursesCounts;

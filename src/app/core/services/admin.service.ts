@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { environment } from 'src/environments/environment';
-import { ICapacity, ICourse, ISubject, ITutor } from '@models';
+import { ICapacity, ICourse, ISubject, ITutor, ICourseRequest } from '@models';
 
 @Injectable({
   providedIn: 'root',
@@ -131,6 +131,23 @@ export class AdminService {
 
   loadAdminTestimonialFeedbackOptions(id: number): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}admin/testimonial/${id}`);
+  }
+
+  loadRequestedCourses(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}admin/requested-courses`).pipe(
+      map((response) => ({
+        requestedCourses: response?.requested_courses.map(
+          (request: any) => new ICourseRequest(false, request)
+        ),
+        completedCourses: response?.completed_courses.map(
+          (request: any) => new ICourseRequest(false, request)
+        ),
+        requestedCoursesCounts: {
+          newCount: response?.new_request_count,
+          completedCount: response?.completed_count,
+        },
+      }))
+    );
   }
 
   adminEditTestimonialStatus(id: number, status: string): Observable<any> {

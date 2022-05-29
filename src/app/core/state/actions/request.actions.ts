@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { IClassroom, IInvoiceDetails, ITutor } from '@models';
+import { IClassroom, ICourseRequest, IInvoiceDetails, ITutor } from '@models';
 
 export const generateTutors = createAction(
   '[Request] Generate Tutors',
@@ -83,4 +83,26 @@ export const createPaidClassSuccess = createAction(
 export const createPaidClassFailure = createAction(
   '[Request] Create Paid Class Failure',
   props<{ error: any }>()
+);
+
+export const loadRequestedCourses = createAction(
+  '[Request] Load Requested Courses'
+);
+
+export const loadRequestedCoursesSuccess = createAction(
+  '[Request] Load Requested Courses Success',
+  props<{
+    requestedCourses: ICourseRequest[];
+    completedCourses: ICourseRequest[];
+    requestedCoursesCounts: any;
+  }>()
+);
+
+export const loadRequestedCoursesFailure = createAction(
+  '[Request] Load Requested Courses Failure',
+  props<{ error: any }>()
+);
+
+export const loadRequestedCoursesEnded = createAction(
+  '[Request] Load Requested Courses Ended'
 );

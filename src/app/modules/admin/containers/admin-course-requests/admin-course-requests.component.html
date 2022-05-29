@@ -6,9 +6,9 @@
   </div>
 
   <div class="row mt-2">
-    <div class="col-md-12">
+    <div class="col-md-12" *ngLet="(requestsCounts$ | async) as counts">
       <mat-tab-group mat-align-tabs="start">
-        <mat-tab [label]="'New Requests (5)'">
+        <mat-tab [label]="'New Requests (' + counts?.newCount + ')'">
           <ng-container [ngSwitch]="isLoading$ | async">
             <div class="mt-4" *ngSwitchCase="true">
               <metutors-grid-placeholder></metutors-grid-placeholder>
@@ -19,7 +19,7 @@
                 <tr>
                   <th>Number</th>
                   <th>Program Name</th>
-                  <th>Subject</th>
+                  <th>Country</th>
                   <th>Field of Study</th>
                   <th>Student Name</th>
                   <th>Email</th>
@@ -27,22 +27,22 @@
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
-                <tr>
+                <tr *ngFor="let request of (requestedCourses$ | async)">
                   <td>1</td>
-                  <td>AP</td>
-                  <td>Calculus</td>
-                  <td>Maths</td>
+                  <td>{{ request?.program?.name }}</td>
+                  <td>{{ request?.subject }}</td>
+                  <td>{{ request?.country?.name }}</td>
                   <td>
                     <div class="d-flex align-items-center">
                       <img src="" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
                         meTutorsDefaultAvatar alt="">
                       <span>
-                        <bdi>Ahmed Hassan</bdi>
+                        <bdi>{{ request?.studentName }}</bdi>
                       </span>
                     </div>
                   </td>
-                  <td>ahmedhassan.fci@gmail.com</td>
-                  <td>Grade 12</td>
+                  <td>{{ request?.email }}</td>
+                  <td>Grade {{ request?.grade }}</td>
                   <td>
                     <div class="change-status position-relative d-flex">
                       <button class="status text-capitalize offered" mat-button>Offered</button>
@@ -58,7 +58,7 @@
             </ng-container>
           </ng-container>
         </mat-tab>
-        <mat-tab [label]="'Completed (12)'">
+        <mat-tab [label]="'Completed (' + counts?.completedCount + ')'">
           <ng-container [ngSwitch]="isLoading$ | async">
             <div class="mt-4" *ngSwitchCase="true">
               <metutors-grid-placeholder></metutors-grid-placeholder>
@@ -69,7 +69,7 @@
                 <tr>
                   <th>Number</th>
                   <th>Program Name</th>
-                  <th>Subject</th>
+                  <th>Country</th>
                   <th>Field of Study</th>
                   <th>Student Name</th>
                   <th>Email</th>
@@ -77,22 +77,22 @@
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
-                <tr>
+                <tr *ngFor="let request of (requestedCourses$ | async)">
                   <td>1</td>
-                  <td>AP</td>
-                  <td>Calculus</td>
-                  <td>Maths</td>
+                  <td>{{ request?.program?.name }}</td>
+                  <td>{{ request?.subject }}</td>
+                  <td>{{ request?.country?.name }}</td>
                   <td>
                     <div class="d-flex align-items-center">
                       <img src="" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
                         meTutorsDefaultAvatar alt="">
                       <span>
-                        <bdi>Ahmed Hassan</bdi>
+                        <bdi>{{ request?.studentName }}</bdi>
                       </span>
                     </div>
                   </td>
-                  <td>ahmedhassan.fci@gmail.com</td>
-                  <td>Grade 12</td>
+                  <td>{{ request?.email }}</td>
+                  <td>Grade {{ request?.grade }}</td>
                   <td>
                     <div class="change-status position-relative d-flex">
                       <button class="status text-capitalize not-offered" mat-button>Not Offered</button>

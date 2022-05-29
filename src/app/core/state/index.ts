@@ -840,6 +840,26 @@ export const selectInvoiceDetails = createSelector(
   fromRequestReducer.selectInvoiceDetails
 );
 
+export const selectIsLoadingRequestedCourses = createSelector(
+  selectRequestState,
+  fromRequestReducer.selectIsLoadingRequestedCourses
+);
+
+export const selectRequestedCourses = createSelector(
+  selectRequestState,
+  fromRequestReducer.selectRequestedCourses
+);
+
+export const selectCompletedRequestedCourses = createSelector(
+  selectRequestState,
+  fromRequestReducer.selectCompletedRequestedCourses
+);
+
+export const selectRequestedCoursesCount = createSelector(
+  selectRequestState,
+  fromRequestReducer.selectRequestedCoursesCount
+);
+
 // Lookups
 export const selectIsLoadingLanguages = createSelector(
   selectLookupsState,

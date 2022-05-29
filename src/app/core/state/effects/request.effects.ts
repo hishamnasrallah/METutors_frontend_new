@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
-import { CoursesService, TutorsService } from '@services';
+import { AdminService, CoursesService, TutorsService } from '@services';
 import * as requestActions from '../actions/request.actions';
 import * as fromCore from '@metutor/core/state';
 import { AlertNotificationService } from '@metutor/core/components';
@@ -150,6 +150,41 @@ export class RequestEffects {
     }
   );
 
+  loadRequestedCourses$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(requestActions.loadRequestedCourses),
+      withLatestFrom(
+        this._store.select(fromCore.selectRequestedCourses),
+        this._store.select(fromCore.selectCompletedRequestedCourses)
+      ),
+      mergeMap(([_, _requestedCourses, _completedCourses]) => {
+        if (
+          (!_requestedCourses || !_requestedCourses.length) &&
+          (!_completedCourses || !_completedCourses.length)
+        ) {
+          return this._adminService.loadRequestedCourses().pipe(
+            map((response) =>
+              requestActions.loadRequestedCoursesSuccess({
+                requestedCourses: response.requestedCourses,
+                completedCourses: response.completedCourses,
+                requestedCoursesCounts: response.requestedCoursesCounts,
+              })
+            ),
+            catchError((error) =>
+              of(
+                requestActions.loadRequestedCoursesFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          );
+        } else {
+          return of(requestActions.loadRequestedCoursesEnded());
+        }
+      })
+    )
+  );
+
   successMessages$ = createEffect(
     () =>
       this._actions$.pipe(
@@ -166,8 +201,8 @@ export class RequestEffects {
       this._actions$.pipe(
         ofType(
           ...[
-            requestActions.generateTutorsFailure,
             requestActions.createClassFailure,
+            requestActions.generateTutorsFailure,
           ]
         ),
         map((action) => {
@@ -189,6 +224,7 @@ export class RequestEffects {
     private _router: Router,
     private _store: Store<any>,
     private _actions$: Actions,
+    private _adminService: AdminService,
     private _tutorService: TutorsService,
     private _coursesService: CoursesService,
     private _alertNotificationService: AlertNotificationService
