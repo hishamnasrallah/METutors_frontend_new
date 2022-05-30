@@ -96,6 +96,8 @@
 
         <metutors-select-tutor-form [form]="selectTutorForm" 
                                     [loading]="loadingTutors$ | async"
+                                    [price]="price$ | async" 
+                                    [hours]="reviewInfo?.hours"
                                     [tutors]="tutors$ | async" 
                                     (onBack)="backStep()" 
                                     (submitForm)="nextStep()">
@@ -114,6 +116,7 @@
 
       <metutors-review-request [reviewInfo]="reviewInfo" 
                                [isCreatingCourse]="isCreatingCourse$ | async"
+                               [price]="price$ | async"
                                (submitForm)="onSubmit()" 
                                (onBack)="backStep()">
       </metutors-review-request>

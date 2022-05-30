@@ -2,13 +2,17 @@
   <div class="card-body">
     <div class="row row-block">
       <div class="col-md-4">
-        <h2>Classroom information</h2>
-        <h4>Insert classroom all information </h4>
+        <h2>Classroom Setup</h2>
+        <h4>Choose your classes schedule and make sure <strong>FIRST</strong> class is starting after <strong>24
+            hours</strong></h4>
+
+        <h5 class="mt-4">Course ID: <span>CID123</span></h5>
+        <h5 class="mb-0">Course Name: <span>Calculus</span></h5>
       </div>
       <div class="col-md-8">
         <div class="row">
           <div class="col-md-6">
-            <h3>Starting Date</h3>
+            <h3>Classes Start Date</h3>
             <mat-form-field appearance="outline" class="w-100">
               <input matInput [matDatepicker]="startPicker" [placeholder]="'Choose a Date'" (focus)="startPicker.open()"
                 [min]="minDate" (dateChange)="onChangeDateDay(); onChangeDate()" formControlName="startDate">
@@ -17,7 +21,7 @@
             </mat-form-field>
           </div>
           <div class="col-md-6">
-            <h3>Ending Date</h3>
+            <h3>Classes End Date</h3>
             <mat-form-field appearance="outline" class="w-100">
               <input matInput [matDatepicker]="endPicker" [placeholder]="'Choose a Date'" (focus)="endPicker.open()"
                 [min]="startDate?.value" (dateChange)="onChangeDateDay(); onChangeDate()" formControlName="endDate">
@@ -27,8 +31,8 @@
           </div>
         </div>
         <div class="row mt-4">
-          <div class="col-md-6">
-            <h3>Days</h3>
+          <div class="col-md-12">
+            <h3>Classroom Days</h3>
             <mat-form-field appearance="outline" class="w-100">
               <mat-select formControlName="days" [placeholder]="'Choose Days'" multiple
                 (selectionChange)="onChangeDateDay()">
@@ -52,7 +56,7 @@
         </div>
         <div class="row mt-4">
           <div class="col-md-6">
-            <h3>Starting Time</h3>
+            <h3>Classes Start Time</h3>
             <div class="ngx-timepicker-field-example">
               <input placeholder="Select Starting Time" aria-label="Select starting time" [ngxTimepicker]="startingTime"
                 formControlName="startTime" class="form-control" required>
@@ -62,7 +66,7 @@
             </div>
           </div>
           <div class="col-md-6">
-            <h3>Ending Time</h3>
+            <h3>Classes End Time</h3>
             <div class="ngx-timepicker-field-example">
               <input placeholder="Select Ending Time" aria-label="Select ending time" [ngxTimepicker]="endingTime"
                 formControlName="endTime" class="form-control" required>
@@ -74,7 +78,7 @@
         </div>
         <div class="row mt-4">
           <div class="col-md-6">
-            <h3>Duration</h3>
+            <h3>Classes Duration</h3>
             <input type="text" class="form-control" formControlName="duration">
 
             <div class="text-danger" *ngIf="form?.hasError('durationError')">
@@ -82,28 +86,41 @@
             </div>
           </div>
           <div class="col-md-6">
-            <h3>Total Hours</h3>
+            <h3>Classroom Total Hours</h3>
             <input type="text" class="form-control" formControlName="hours">
           </div>
         </div>
         <div class="row mt-4">
           <div class="col-md-6">
-            <h3>Total Classes</h3>
+            <h3>Total Number of Classes</h3>
             <input type="text" class="form-control" formControlName="totalClasses">
           </div>
-          <div class="col-md-6" *ngIf="showSeatAttendees">
+          <!-- <div class="col-md-6" *ngIf="showSeatAttendees">
             <h3>Seat Attendees</h3>
             <input type="number" max="10" min="1" step="1" class="form-control" formControlName="seatAttendees">
-          </div>
+          </div> -->
         </div>
-        <div class="row mt-4" [@slideInOut] *ngIf="price && hours?.value">
-          <div class="col-md-12">
-            <div class="d-flex est-price">
-              <div class="flex-grow-1">
-                <h5>Estimated Price:</h5>
-                <p>Price change based on total hours, total classes, time</p>
+        <div class="est-price mt-4" [@slideInOut] *ngIf="price && hours?.value">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="d-flex">
+                <div class="flex-grow-1">
+                  <h5 class="d-flex align-items-center">
+                    Estimated Price (USD): <h1 class="mb-0">{{ (price * +hours?.value) | currency: 'USD' }}</h1>
+                  </h5>
+                  <p>Price change based on total hours, total classes, time</p>
+                </div>
               </div>
-              <h1>{{ (price * +hours?.value) | currency: 'USD' }}</h1>
+            </div>
+            <div class="col-md-6">
+              <div class="d-flex">
+                <div class="flex-grow-1">
+                  <h5 class="d-flex align-items-center">
+                    Total Hours: <h1 class="mb-0">{{ hours?.value }} hrs</h1>
+                  </h5>
+                  <p>Hourly Rate: {{ price | currency: 'USD' }}</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
