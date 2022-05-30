@@ -5,20 +5,21 @@ import { MatStepper } from '@angular/material/stepper';
 import { Observable, tap } from 'rxjs';
 import * as fromCore from '@metutor/core/state';
 import {
-  AcademicTutoringTextbook,
-  calculateListDays,
   SORTED_DAYS_WEEK,
-  TEXTBOOK_EDITION_CONST,
   generalConstants,
+  calculateListDays,
+  TEXTBOOK_EDITION_CONST,
+  AcademicTutoringTextbook,
+  COURSE_TUITION_TYPES_CONST,
 } from 'src/app/config';
 import {
   IClass,
   IField,
-  ILanguage,
-  IProgram,
-  ISubject,
   ITutor,
+  IProgram,
   ICountry,
+  ISubject,
+  ILanguage,
 } from 'src/app/core/models';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
@@ -105,7 +106,7 @@ export class RequestTutorComponent implements OnInit {
         startTime: [null, Validators.required],
         endTime: [null, Validators.required],
         days: [null, Validators.required],
-        type: [null, Validators.required],
+        type: [COURSE_TUITION_TYPES_CONST.one, Validators.required],
         seatAttendees: [
           1,
           [Validators.required, Validators.max(10), Validators.min(1)],

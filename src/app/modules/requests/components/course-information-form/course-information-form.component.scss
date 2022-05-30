@@ -20,6 +20,17 @@
     font-size: 18px;
   }
 
+  h5 {
+    color: #2A2A2A;
+    font-size: 15px;
+    font-weight: bold;
+
+    span {
+      color: #696969;
+      font-weight: normal;
+    }
+  }
+
   .row-block {
     border-bottom: 1px solid #e0e0e0;
     padding-bottom: 20px;
