@@ -850,6 +850,11 @@ export const selectRequestedCourses = createSelector(
   fromRequestReducer.selectRequestedCourses
 );
 
+export const selectIsRequestCourse = createSelector(
+  selectRequestState,
+  fromRequestReducer.selectIsRequestCourse
+);
+
 export const selectCompletedRequestedCourses = createSelector(
   selectRequestState,
   fromRequestReducer.selectCompletedRequestedCourses

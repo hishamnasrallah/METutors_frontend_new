@@ -84,9 +84,11 @@
 
 <metutors-request-new-course-modal *ngIf="showRequestCourseModal$ | async"
                                    (closeModal)="onCloseRequestCourseModal()"
+                                   (submitForm)="requestCourse($event)"
                                    [programs]="(programs$ | async)!"
                                    [countries]="(countries$ | async)!"
                                    [subjects]="(subjects$ | async)!"
                                    [languages]="(languages$ | async)!"
+                                   [isSubmitting]="(isRequestCourse$ | async)!"
                                    [showModal]="(showRequestCourseModal$ | async)!">
 </metutors-request-new-course-modal>

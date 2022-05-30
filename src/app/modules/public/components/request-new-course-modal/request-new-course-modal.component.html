@@ -1,19 +1,20 @@
 <metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'xmedium'" [heading]="'Request New Course'"
                 [template]="template">
   <ng-template #template>
-    <form [formGroup]="form" class="request-course">
+    <form [formGroup]="form" class="request-course" (ngSubmit)="onSubmit(form)">
       <div class="row">
         <div class="col-md-6">
           <h3>Program Name</h3>
           <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="program" [placeholder]="'Choose Program'">
+            <mat-select formControlName="program" [placeholder]="'Choose Program'"
+              (selectionChange)="onChangeProgram()">
               <mat-option [value]="program?.id" *ngFor="let program of programs">
                 {{ program?.name }}
               </mat-option>
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6" *ngIf="program?.value === nationalId">
           <h3>Select Country</h3>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="country" [placeholder]="'Choose Country'">
@@ -39,7 +40,17 @@
             <mat-select formControlName="subject" [placeholder]="'Choose Subject'"
               [disabled]="!subjects || !subjects?.length">
               <ng-container *ngFor="let subject of subjects">
-                <mat-option [value]="subject?.id">
+                <mat-option [value]="subject?.name" *ngIf="
+                  (
+                    program?.value?.toString() !== nationalId.toString() && 
+                    program?.value?.toString() === subject?.programId?.toString()
+                  ) ||
+                  (
+                    program?.value?.toString() === nationalId.toString() && 
+                    program?.value?.toString() === subject?.programId?.toString() && 
+                    country?.value?.toString() === subject?.countryId?.toString()
+                  )
+                ">
                   {{ subject?.name }}
                 </mat-option>
               </ng-container>
@@ -68,7 +79,7 @@
         </div>
         <div class="col-md-12">
           <h3>Course Description</h3>
-          <textarea rows="3" formControlName="description" class="form-control"></textarea>
+          <textarea rows="3" formControlName="description" class="form-control" placeholder="Description"></textarea>
         </div>
       </div>
 
@@ -79,6 +90,10 @@
         <div class="col-md-6">
           <h3>Name</h3>
           <input type="text" formControlName="name" class="form-control" placeholder="Enter first / last name">
+
+          <div *ngIf="name?.invalid && name?.touched">
+            <small class="text-danger">Please write your name</small>
+          </div>
         </div>
 
         <div class="col-md-6">
@@ -97,7 +112,7 @@
 
         <metutors-submit-button [form]="form" [isSubmitting]="isSubmitting" [extraClasses]="'w-100'">
           Send Request
-          <mat-icon>arrow_forward</mat-icon>
+          <mat-icon *ngIf="!isSubmitting">arrow_forward</mat-icon>
         </metutors-submit-button>
       </div>
     </form>
