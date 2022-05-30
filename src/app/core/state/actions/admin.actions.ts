@@ -338,7 +338,7 @@ export const adminEditTestimonialStatus = createAction(
 
 export const adminEditTestimonialStatusSuccess = createAction(
   '[Admin] Admin Edit Testimonial Status Success',
-  props<{ id: number; message: string }>()
+  props<{ id: number; status: string; message: string }>()
 );
 
 export const adminEditTestimonialStatusFailure = createAction(
@@ -368,7 +368,7 @@ export const adminEditTestimonialFeedback = createAction(
 
 export const adminEditTestimonialFeedbackSuccess = createAction(
   '[Admin] Admin Edit Testimonial Feedback Success',
-  props<{ message: string }>()
+  props<{ result: any; id: number; message: string }>()
 );
 
 export const adminEditTestimonialFeedbackFailure = createAction(
