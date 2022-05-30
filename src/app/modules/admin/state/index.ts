@@ -133,3 +133,8 @@ export const selectAdminEditFeedbackModal = createSelector(
   selectAdminModalState,
   fromAdminModal.selectAdminEditFeedbackModal
 );
+
+export const selectAdminRequestCourseDetailsModal = createSelector(
+  selectAdminModalState,
+  fromAdminModal.selectAdminRequestCourseDetailsModal
+);

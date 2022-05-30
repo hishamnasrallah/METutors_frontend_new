@@ -11,7 +11,9 @@ export class ICourseRequest {
   status?: string;
   subject?: string;
   language?: ILanguage;
+  gender?: string;
   country?: ICountry;
+  description?: string;
   updatedAt?: string;
 
   constructor(createDefault = false, request: any = null) {
@@ -23,6 +25,8 @@ export class ICourseRequest {
       this.email = '';
       this.status = '';
       this.subject = '';
+      this.gender = '';
+      this.description = '';
       this.language = undefined;
       this.country = undefined;
       this.updatedAt = '';
@@ -38,6 +42,8 @@ export class ICourseRequest {
       this.subject = request?.subject;
       this.language = request?.language;
       this.country = request?.country;
+      this.gender = request?.gender_preference;
+      this.description = request?.course_description;
       this.updatedAt = request?.updated_at;
     }
   }

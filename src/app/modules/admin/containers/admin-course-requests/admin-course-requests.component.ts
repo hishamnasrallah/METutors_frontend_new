@@ -1,8 +1,10 @@
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import * as fromCore from '@metutor/core/state';
 import { Component, OnInit } from '@angular/core';
 import { ICourseRequest } from '@metutor/core/models';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import * as fromCore from '@metutor/core/state';
+import * as fromAdmin from '@metutor/modules/admin/state';
+import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 
 @Component({
   selector: 'metutors-admin-course-requests',
@@ -12,16 +14,31 @@ import * as fromCore from '@metutor/core/state';
 export class AdminCourseRequestsComponent implements OnInit {
   isLoading$: Observable<boolean>;
   requestsCounts$: Observable<any>;
+  openRequestCourseDetailsModal$: Observable<boolean>;
   requestedCourses$: Observable<ICourseRequest[] | null>;
   completedCourses$: Observable<ICourseRequest[] | null>;
+
+  requestDetails: ICourseRequest;
 
   constructor(private _store: Store<any>) {}
 
   ngOnInit(): void {
-    this._prepareTutors();
+    this._prepareRequests();
+
+    this.openRequestCourseDetailsModal$ = this._store.select(
+      fromAdmin.selectAdminRequestCourseDetailsModal
+    );
   }
 
-  private _prepareTutors(): void {
+  onOpenRequestCourseDetailsModal(): void {
+    this._store.dispatch(fromAdminAction.openAdminRequestCourseDetailsModal());
+  }
+
+  onCloseRequestCourseDetailsModal(): void {
+    this._store.dispatch(fromAdminAction.closeAdminRequestCourseDetailsModal());
+  }
+
+  private _prepareRequests(): void {
     this._store.dispatch(fromCore.loadRequestedCourses());
     this.requestedCourses$ = this._store.select(
       fromCore.selectRequestedCourses

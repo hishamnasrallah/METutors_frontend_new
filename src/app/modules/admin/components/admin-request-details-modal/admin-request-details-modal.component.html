@@ -1,0 +1,62 @@
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'xmedium'" [heading]="'New Course Details'"
+                [template]="template">
+  <ng-template #template>
+    <div class="course-details">
+      <div class="row">
+        <div class="col-md-6">
+          <h3>Program Name</h3>
+          <h5>{{ requestDetails?.program?.name }}</h5>
+        </div>
+        <div class="col-md-6" *ngIf="requestDetails?.country?.name">
+          <h3>Country</h3>
+          <h5>{{ requestDetails?.country?.name }}</h5>
+        </div>
+        <div class="col-md-6">
+          <h3>Field of Study</h3>
+          <h5>{{ requestDetails?.subject }}</h5>
+        </div>
+        <div class="col-md-6">
+          <h3>Grade Level</h3>
+          <h5>G{{ requestDetails?.grade }}</h5>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <h3>Tutoring Gender Preference</h3>
+            <h5 class="text-capitalize">{{ requestDetails?.gender }}</h5>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <h3>Tutoring Language Preference</h3>
+          <h5>{{ requestDetails?.language?.name }}</h5>
+        </div>
+        <div class="col-md-12">
+          <h3>Course Description</h3>
+          <h5 class="desc">{{ requestDetails?.description }}</h5>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <h2>Personal Info</h2>
+        </div>
+        <div class="col-md-6">
+          <h3>Name</h3>
+          <h5>{{ requestDetails?.studentName }}</h5>
+        </div>
+
+        <div class="col-md-6">
+          <h3>Email address</h3>
+          <h5>{{ requestDetails?.email }}</h5>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-end mt-4 mb-1">
+        <button (click)="closeModal.emit()" mat-button class="cancel-btn">Cancel</button>
+
+        <button mat-flat-button color="primary">
+          Send Email
+        </button>
+      </div>
+    </div>
+  </ng-template>
+</metutors-modal>

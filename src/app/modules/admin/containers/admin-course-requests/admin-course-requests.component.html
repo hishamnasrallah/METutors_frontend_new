@@ -49,7 +49,7 @@
                     </div>
                   </td>
                   <td>
-                    <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0">
+                    <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0" (click)="requestDetails = request">
                       <mat-icon>more_vert</mat-icon>
                     </button>
                   </td>
@@ -99,7 +99,7 @@
                     </div>
                   </td>
                   <td>
-                    <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0">
+                    <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0" (click)="requestDetails = request">
                       <mat-icon>more_vert</mat-icon>
                     </button>
                   </td>
@@ -114,13 +114,16 @@
 </div>
 
 <mat-menu #menu="matMenu">
-  <button mat-menu-item class="h-auto btn-menu">
-    <span>View Profile</span>
+  <button mat-menu-item class="h-auto btn-menu" (click)="onOpenRequestCourseDetailsModal()">
+    <span>Request Details</span>
   </button>
-  <button mat-menu-item class="h-auto btn-menu">
-    <span>View Availability</span>
-  </button>
-  <button mat-menu-item class="h-auto btn-menu">
-    <span>Send Message</span>
+  <button mat-menu-item class="h-auto btn-menu" (click)="onOpenRequestCourseDetailsModal()">
+    <span>Email Student</span>
   </button>
 </mat-menu>
+
+<metutors-admin-request-details-modal [showModal]="(openRequestCourseDetailsModal$ | async)!" 
+                                      [requestDetails]="requestDetails"
+                                      *ngIf="openRequestCourseDetailsModal$|async"
+                                      (closeModal)="onCloseRequestCourseDetailsModal()">
+</metutors-admin-request-details-modal>

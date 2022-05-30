@@ -18,6 +18,7 @@ export interface State {
   showCourseBookingListModal: boolean;
   showInterviewAttachmentModal: boolean;
   showAdminStudentBookingModal: boolean;
+  showRequestCourseDetailsModal: boolean;
   showHourlyRatePerSubjectModal: boolean;
   showAdminStudentFeedbackModal: boolean;
   showAdminStudentAssignmentModal: boolean;
@@ -41,6 +42,7 @@ export const initialState: State = {
   showAdminStudentBookingModal: false,
   showInterviewAttachmentModal: false,
   showAdminStudentFeedbackModal: false,
+  showRequestCourseDetailsModal: false,
   showHourlyRatePerSubjectModal: false,
   showAdminStudentAssignmentModal: false,
   showReassigningTutorSelectionModal: false,
@@ -284,7 +286,17 @@ export const reducer = createReducer(
       ...state,
       showEditFeedbackModal: false,
     })
-  )
+  ),
+
+  on(adminModalActions.openAdminRequestCourseDetailsModal, (state) => ({
+    ...state,
+    showRequestCourseDetailsModal: true,
+  })),
+
+  on(adminModalActions.closeAdminRequestCourseDetailsModal, (state) => ({
+    ...state,
+    showRequestCourseDetailsModal: false,
+  }))
 );
 
 // Admin modal selectors
@@ -344,3 +356,6 @@ export const selectAdminStudentViewFeedbackModal = (state: State): boolean =>
 
 export const selectAdminEditFeedbackModal = (state: State): boolean =>
   state.showEditFeedbackModal;
+
+export const selectAdminRequestCourseDetailsModal = (state: State): boolean =>
+  state.showRequestCourseDetailsModal;

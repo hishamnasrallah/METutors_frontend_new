@@ -152,3 +152,11 @@ export const openAdminEditFeedbackModal = createAction(
 export const closeAdminEditFeedbackModal = createAction(
   '[Admin Modal] Close Admin Edit Feedback Modal'
 );
+
+export const openAdminRequestCourseDetailsModal = createAction(
+  '[Admin Modal] Open Admin Request Course Details Modal'
+);
+
+export const closeAdminRequestCourseDetailsModal = createAction(
+  '[Admin Modal] Close Admin Request Course Details Modal'
+);
