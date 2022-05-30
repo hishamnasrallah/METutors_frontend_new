@@ -2,8 +2,11 @@
   <div class="card-body">
     <div class="row row-block">
       <div class="col-md-3">
-        <h2>List of Schedule Class</h2>
-        <h4>Insert classroom all information </h4>
+        <h2>Classes Schedule</h2>
+        <h4>Review and make necessary changes</h4>
+
+        <h5 class="mt-4">Course ID: <span>CID123</span></h5>
+        <h5 class="mb-0">Course Name: <span>Calculus</span></h5>
       </div>
       <div class="col-md-9">
         <div class="list-classes">
@@ -34,14 +37,27 @@
           </table>
         </div>
 
-        <div class="row mt-4" [@slideInOut] *ngIf="price && hours">
-          <div class="col-md-12">
-            <div class="d-flex est-price">
-              <div class="flex-grow-1">
-                <h5>Estimated Price:</h5>
-                <p>Price change based on total hours, total classes, time</p>
+        <div class="est-price mt-4" [@slideInOut] *ngIf="price && hours">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="d-flex">
+                <div class="flex-grow-1">
+                  <h5 class="d-flex align-items-center">
+                    Estimated Price (USD): <h1 class="mb-0">{{ (price * +hours) | currency: 'USD' }}</h1>
+                  </h5>
+                  <p>Price change based on total hours, total classes, time</p>
+                </div>
               </div>
-              <h1>{{ (price * +hours) | currency: 'USD' }}</h1>
+            </div>
+            <div class="col-md-6">
+              <div class="d-flex">
+                <div class="flex-grow-1">
+                  <h5 class="d-flex align-items-center">
+                    Total Hours: <h1 class="mb-0">{{ hours }} hrs</h1>
+                  </h5>
+                  <p>Hourly Rate: {{ price | currency: 'USD' }}</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
