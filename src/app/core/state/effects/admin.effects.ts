@@ -628,7 +628,7 @@ export class AdminEffects {
             (result) =>
               adminActions.adminEditTestimonialFeedbackSuccess({
                 result,
-                id: body.id,
+                id: body.receiver_id,
                 message: 'Feedback updated successfully',
               }),
             catchError((error) =>

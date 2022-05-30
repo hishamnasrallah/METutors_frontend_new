@@ -8,6 +8,7 @@ import {
   ITeacherDocument,
 } from '@models';
 
+import camelcaseKeys from 'camelcase-keys';
 import { CourseStatus } from '@metutor/config';
 import * as adminActions from '../actions/admin.actions';
 
@@ -584,7 +585,8 @@ export const reducer = createReducer(
             testimonial.sender.id === id
               ? {
                   ...testimonial,
-                  ...result,
+                  ...camelcaseKeys(result?.feedbacks),
+                  review: result?.feedbacks[0].review,
                 }
               : testimonial
         );
