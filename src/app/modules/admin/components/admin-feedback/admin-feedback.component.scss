@@ -44,13 +44,13 @@
   }
 
   .rating-block {
-    margin-bottom: 5px;
-
     h2 {
-      color: rgba(0, 0, 0, .87);
+      color: #2A2A2A;
+      font-size: 14px;
+    }
+
+    rating span.bs-rating-star {
       font-size: 15px;
-      margin: 0;
-      font-weight: normal;
     }
   }
 
@@ -70,24 +70,6 @@
       &.edit {
         color: #727272;
       }
-    }
-  }
-
-  &.container-block {
-    .rating-block {
-      h2 {
-        color: #2A2A2A;
-        font-size: 17px;
-      }
-
-      rating span.bs-rating-star {
-        font-size: 15px;
-      }
-    }
-
-    .stars h3 {
-      font-size: 15px;
-      color: #696969;
     }
   }
 }

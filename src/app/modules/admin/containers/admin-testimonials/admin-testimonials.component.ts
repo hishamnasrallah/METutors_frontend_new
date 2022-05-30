@@ -62,7 +62,7 @@ export class AdminTestimonialsComponent implements OnInit {
     this._store.dispatch(fromCore.loadAdminTestimonials({ feedbackBy }));
   }
 
-  onUpdateStatus(status: string): void {
+  onUpdateStatus({ status }: any): void {
     const data = {
       status,
       id: this.userId,

@@ -11,13 +11,6 @@ import * as fromCore from '@metutor/core/state';
 import * as fromRouterStore from '@metutor/state';
 import * as adminActions from '../actions/admin.actions';
 import { AlertNotificationService } from '@metutor/core/components';
-import {
-  adminEditTestimonialFeedback,
-  adminEditTestimonialStatus,
-  loadAdminTestimonialFeedbackOptions,
-  loadAdminTestimonials,
-  loadAdminTutorReAssignment,
-} from '@metutor/core/state';
 
 @Injectable()
 export class AdminEffects {
@@ -610,6 +603,7 @@ export class AdminEffects {
             (result) =>
               adminActions.adminEditTestimonialStatusSuccess({
                 id,
+                status,
                 message: 'Status changed successfully',
               }),
             catchError((error) =>
@@ -633,6 +627,8 @@ export class AdminEffects {
           map(
             (result) =>
               adminActions.adminEditTestimonialFeedbackSuccess({
+                result,
+                id: body.id,
                 message: 'Feedback updated successfully',
               }),
             catchError((error) =>

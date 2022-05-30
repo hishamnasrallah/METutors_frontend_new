@@ -13,8 +13,8 @@ import * as adminActions from '../actions/admin.actions';
 
 export interface State {
   tutors: ITutor[];
-  testimonials: [];
   viewFeedback: [];
+  testimonials: any;
   bookingDetail: [];
   studentProfile: [];
   previousTutors: [];
@@ -536,20 +536,68 @@ export const reducer = createReducer(
     isLoadingAdminTestimonials: false,
   })),
 
-  on(adminActions.adminEditTestimonialStatusSuccess, (state) => ({
-    ...state,
-    isLoadingAdmin: false,
-  })),
+  on(
+    adminActions.adminEditTestimonialStatusSuccess,
+    (state, { id, status }) => {
+      const finalState = {
+        ...state,
+        isLoadingAdmin: false,
+      };
+
+      if (finalState.testimonials?.userTestimonials?.length) {
+        const userTestimonials = finalState.testimonials.userTestimonials.map(
+          (testimonial: any) =>
+            testimonial.sender.id === id
+              ? {
+                  ...testimonial,
+                  status,
+                }
+              : testimonial
+        );
+
+        finalState.testimonials = {
+          ...finalState.testimonials,
+          userTestimonials,
+        };
+      }
+
+      return finalState;
+    }
+  ),
 
   on(adminActions.adminEditTestimonialFeedback, (state) => ({
     ...state,
     isEditingFeedback: true,
   })),
 
-  on(adminActions.adminEditTestimonialFeedbackSuccess, (state) => ({
-    ...state,
-    isEditingFeedback: false,
-  })),
+  on(
+    adminActions.adminEditTestimonialFeedbackSuccess,
+    (state, { id, result }) => {
+      const finalState = {
+        ...state,
+        isEditingFeedback: false,
+      };
+
+      if (finalState.testimonials?.userTestimonials?.length) {
+        const userTestimonials = finalState.testimonials.userTestimonials.map(
+          (testimonial: any) =>
+            testimonial.sender.id === id
+              ? {
+                  ...testimonial,
+                  ...result,
+                }
+              : testimonial
+        );
+
+        finalState.testimonials = {
+          ...finalState.testimonials,
+          userTestimonials,
+        };
+      }
+
+      return finalState;
+    }
+  ),
 
   on(adminActions.adminEditTestimonialFeedbackFailure, (state) => ({
     ...state,
