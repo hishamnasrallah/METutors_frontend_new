@@ -106,3 +106,18 @@ export const loadRequestedCoursesFailure = createAction(
 export const loadRequestedCoursesEnded = createAction(
   '[Request] Load Requested Courses Ended'
 );
+
+export const requestCourse = createAction(
+  '[Request] Request Course',
+  props<{ data: any }>()
+);
+
+export const requestCourseSuccess = createAction(
+  '[Request] Request Course Success',
+  props<{ message: string }>()
+);
+
+export const requestCourseFailure = createAction(
+  '[Request] Request Course Failure',
+  props<{ error: any }>()
+);

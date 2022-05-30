@@ -44,6 +44,7 @@ import { ICountry, ILanguage, IProgram, ISubject } from '@metutor/core/models';
 export class AllCoursesComponent implements OnInit {
   isLoading$: Observable<boolean>;
   exploredCourses$: Observable<any>;
+  isRequestCourse$: Observable<boolean>;
   programs$: Observable<IProgram[] | null>;
   subjects$: Observable<ISubject[] | null>;
   countries$: Observable<ICountry[] | null>;
@@ -71,6 +72,8 @@ export class AllCoursesComponent implements OnInit {
     this.showRequestCourseModal$ = this._store.select(
       fromPublic.selectShowRequestCourseModal
     );
+
+    this.isRequestCourse$ = this._store.select(fromCore.selectIsRequestCourse);
   }
 
   onOpenRequestCourseModal(): void {
@@ -108,6 +111,10 @@ export class AllCoursesComponent implements OnInit {
         maxPricerPerHour: this.maxPricerPerHour,
       }
     );
+  }
+
+  requestCourse(data: any): void {
+    this._store.dispatch(fromCore.requestCourse({ data }));
   }
 
   private _prepareCourses(): void {

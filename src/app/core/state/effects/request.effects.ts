@@ -185,10 +185,37 @@ export class RequestEffects {
     )
   );
 
+  requestCourse$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(requestActions.requestCourse),
+      mergeMap((action) =>
+        this._coursesService.requestCourse(action.data).pipe(
+          map((response) =>
+            requestActions.requestCourseSuccess({
+              message: response.message,
+            })
+          ),
+          catchError((error) =>
+            of(
+              requestActions.requestCourseFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   successMessages$ = createEffect(
     () =>
       this._actions$.pipe(
-        ofType(...[requestActions.createPaidClassSuccess]),
+        ofType(
+          ...[
+            requestActions.requestCourseSuccess,
+            requestActions.createPaidClassSuccess,
+          ]
+        ),
         map(({ message }) => this._alertNotificationService.success(message))
       ),
     {
@@ -202,6 +229,7 @@ export class RequestEffects {
         ofType(
           ...[
             requestActions.createClassFailure,
+            requestActions.requestCourseFailure,
             requestActions.generateTutorsFailure,
           ]
         ),

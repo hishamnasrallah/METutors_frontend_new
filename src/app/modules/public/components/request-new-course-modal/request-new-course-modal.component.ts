@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
-  AbstractControl,
-  FormBuilder,
   FormGroup,
   Validators,
+  FormBuilder,
+  AbstractControl,
 } from '@angular/forms';
-import { GENDERS, GRADES } from '@metutor/config';
+import { GENDERS, generalConstants, GRADES } from '@metutor/config';
 import { ICountry, ILanguage, IProgram, ISubject } from '@metutor/core/models';
 
 @Component({
@@ -27,17 +27,19 @@ export class RequestNewCourseModalComponent implements OnInit {
   form: FormGroup;
   grades = GRADES;
   genders = GENDERS;
+  nationalId = generalConstants.nationalId;
 
   constructor(private _fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.form = this._fb.group({
       program: [null, Validators.required],
-      country: [null, Validators.required],
+      country: [null],
       grade: [null, Validators.required],
       subject: [null, Validators.required],
       gender: [null, Validators.required],
       language: [null, Validators.required],
+      description: [null, Validators.required],
       name: [null, Validators.required],
       email: [
         null,
@@ -54,5 +56,36 @@ export class RequestNewCourseModalComponent implements OnInit {
 
   get email(): AbstractControl | null {
     return this.form.get('email');
+  }
+
+  get program(): AbstractControl | null {
+    return this.form.get('program');
+  }
+
+  get country(): AbstractControl | null {
+    return this.form.get('country');
+  }
+
+  get name(): AbstractControl | null {
+    return this.form.get('name');
+  }
+
+  onChangeProgram(): void {
+    const programId = this.program?.value;
+
+    if (programId.toString() === generalConstants.nationalId.toString()) {
+      this.country?.setValidators([Validators.required]);
+    } else {
+      this.country?.setValidators([]);
+      this.country?.setValue(null);
+    }
+
+    this.country?.updateValueAndValidity();
+  }
+
+  onSubmit(form: FormGroup): void {
+    if (form.valid) {
+      this.submitForm.emit(form.value);
+    }
   }
 }

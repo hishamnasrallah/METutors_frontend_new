@@ -30,6 +30,9 @@ export interface State {
   completedRequestedCourses: ICourseRequest[];
   isLoadingRequestedCourses: boolean;
   requestedCoursesCounts: any;
+
+  // Request Course
+  isRequestCourse: boolean;
 }
 
 export const initialState: State = {
@@ -39,6 +42,7 @@ export const initialState: State = {
   invoiceDetails: null,
   estimatedPrice: null,
   requestedCourses: [],
+  isRequestCourse: false,
   createClassFailure: '',
   loadingTutorFailure: '',
   isGeneratingTutors: false,
@@ -179,6 +183,20 @@ export const reducer = createReducer(
       ...state,
       isLoadingRequestedCourses: false,
     })
+  ),
+
+  on(requestActions.requestCourse, (state) => ({
+    ...state,
+    isRequestCourse: true,
+  })),
+
+  on(
+    requestActions.requestCourseSuccess,
+    requestActions.requestCourseFailure,
+    (state) => ({
+      ...state,
+      isRequestCourse: false,
+    })
   )
 );
 
@@ -202,6 +220,9 @@ export const selectCreatedClass = (state: State): IClassroom | null =>
 
 export const selectIsCalculateFinalInvoice = (state: State): boolean =>
   state.isCalculateFinalInvoice;
+
+export const selectIsRequestCourse = (state: State): boolean =>
+  state.isRequestCourse;
 
 export const selectInvoiceDetails = (state: State): IInvoiceDetails | null =>
   state.invoiceDetails;

@@ -1,4 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
+import * as fromCore from '@metutor/core/state';
 import * as publicModalActions from '../actions/public-modal.actions';
 
 export interface State {
@@ -17,10 +18,14 @@ export const reducer = createReducer(
     showRequestCourseModal: true,
   })),
 
-  on(publicModalActions.closeRequestCourseModal, (state) => ({
-    ...state,
-    showRequestCourseModal: false,
-  }))
+  on(
+    fromCore.requestCourseSuccess,
+    publicModalActions.closeRequestCourseModal,
+    (state) => ({
+      ...state,
+      showRequestCourseModal: false,
+    })
+  )
 );
 
 // public modal selectors

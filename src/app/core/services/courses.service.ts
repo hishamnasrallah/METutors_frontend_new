@@ -383,6 +383,20 @@ export class CoursesService {
     );
   }
 
+  requestCourse(value: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}course/request`, {
+      program_id: value?.program,
+      country_id: value?.country,
+      grade: value?.grade,
+      subject: value?.subject,
+      gender_preference: value?.gender,
+      language_preference: value?.language,
+      course_description: value?.description,
+      student_name: value?.name,
+      email: value?.email,
+    });
+  }
+
   _fetchCustomizeExistCoursePrice(courseId: number): Observable<any> {
     return this.http
       .get<any>(
