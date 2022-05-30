@@ -40,7 +40,7 @@
             <mat-select formControlName="subject" [placeholder]="'Choose Subject'"
               [disabled]="!subjects || !subjects?.length">
               <ng-container *ngFor="let subject of subjects">
-                <mat-option [value]="subject?.id" *ngIf="
+                <mat-option [value]="subject?.name" *ngIf="
                   (
                     program?.value?.toString() !== nationalId.toString() && 
                     program?.value?.toString() === subject?.programId?.toString()

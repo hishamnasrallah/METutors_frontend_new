@@ -30,8 +30,8 @@
                 <tr *ngFor="let request of (requestedCourses$ | async)">
                   <td>1</td>
                   <td>{{ request?.program?.name }}</td>
-                  <td>{{ request?.subject }}</td>
                   <td>{{ request?.country?.name }}</td>
+                  <td>{{ request?.subject }}</td>
                   <td>
                     <div class="d-flex align-items-center">
                       <img src="" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
@@ -80,8 +80,8 @@
                 <tr *ngFor="let request of (requestedCourses$ | async)">
                   <td>1</td>
                   <td>{{ request?.program?.name }}</td>
-                  <td>{{ request?.subject }}</td>
                   <td>{{ request?.country?.name }}</td>
+                  <td>{{ request?.subject }}</td>
                   <td>
                     <div class="d-flex align-items-center">
                       <img src="" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
