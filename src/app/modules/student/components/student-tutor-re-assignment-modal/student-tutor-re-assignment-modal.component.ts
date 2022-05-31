@@ -73,7 +73,7 @@ export class StudentTutorReAssignmentModalComponent implements OnInit {
       this.showHeader = true;
       this.heading = 'Select a Replacement Tutor';
       this.subHeading = 'Please select a new tutor to continue your course';
-      this._store.dispatch(fromCore.loadAvailableTutors());
+      this._store.dispatch(fromCore.loadAvailableTutors({}));
     } else if (this.selectedOption === 2) {
       this.subHeading = '-';
       this.showHeader = false;

@@ -18,9 +18,13 @@
   </div>
 
   <div class="sections my-4 d-flex">
-    <div class="p-2 section me-3" [class.active]="currentSection === 1" (click)="onChangeTab(1)">Tutor Not Available</div>
-    <div class="p-2 section me-3" [class.active]="currentSection === 2" (click)="onChangeTab(2)">Declined New Courses</div>
-    <div class="p-2 section me-3" [class.active]="currentSection === 3" (click)="onChangeTab(3)">Cancelled Courses By Tutors</div>
+    <div class="p-2 section me-3" [class.active]="currentSection === 1" (click)="onChangeTab(1)">Tutor Not Available
+    </div>
+    <div class="p-2 section me-3" [class.active]="currentSection === 2" (click)="onChangeTab(2)">Declined New Courses
+    </div>
+    <div class="p-2 section me-3" [class.active]="currentSection === 3" (click)="onChangeTab(3)">Cancelled Courses By
+      Tutors
+    </div>
     <div class="p-2 section" [class.active]="currentSection === 4" (click)="onChangeTab(4)">Running Courses</div>
   </div>
 
@@ -33,7 +37,8 @@
 
             <ng-container *ngSwitchCase="false">
               <metutors-re-assignment-grid [reassignments]="view.reAssignment?.newlyRequestedCourses" [isNew]="true"
-                                        (openBookingModal)="onOpenBookingModal($event)"></metutors-re-assignment-grid>
+                                           (openReassignTutorModal)="onOpenReassigningTutorSelectionModal($event)"
+                                           (openBookingModal)="onOpenBookingModal($event)"></metutors-re-assignment-grid>
             </ng-container>
           </ng-container>
         </mat-tab>
@@ -44,6 +49,7 @@
 
             <ng-container *ngSwitchCase="false">
               <metutors-re-assignment-grid [reassignments]="view.reAssignment?.completedCourses" [isNew]="false"
+                                           (openReassignTutorModal)="onOpenReassigningTutorSelectionModal($event)"
                                            (openBookingModal)="onOpenBookingModal($event)"></metutors-re-assignment-grid>
             </ng-container>
           </ng-container>
@@ -57,3 +63,15 @@
                                             [loading]="(loadingTotalBooking | async)!"
                                             [detail]="(totalBooking$ | async)!">
 </metutors-admin-student-total-booking-modal>
+
+<metutors-admin-reassigning-tutor-selection-modal *ngIf="showReassigningTutorSelectionModal$ | async"
+                                                  (reassignTutor)="onReassignTutor($event)"
+                                                  [isReassigningTutor]="(reassigningTutor$ | async)!"
+                                                  (closeModal)="onCloseReassigningTutorSelectionModal()"
+                                                  (tutorAvailability)="onTutorAvailability($event)"
+                                                  [tutors]="(availableTutors$ | async)!"
+                                                  [timeSlots]="(tutorAvailability$ | async)!"
+                                                  [loading]="(isLoadingAvailableTutors$ | async)!"
+                                                  [isLoadingTimeSlots]="(isLoadingTutorAvailability$ | async)!"
+                                                  [showModal]="(showReassigningTutorSelectionModal$ | async)!">
+</metutors-admin-reassigning-tutor-selection-modal>

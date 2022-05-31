@@ -99,9 +99,12 @@ export class CoursesService {
   }
 
   studentReassignTutor(body: any, courseId: number): Observable<any> {
+    let { id, ..._body } = body;
+    id = id ? id : courseId;
+
     return this.http.post<any>(
-      `${this.baseUrl}student/course/${courseId}/select-teacher`,
-      body
+      `${this.baseUrl}student/course/${id}/select-teacher`,
+      _body
     );
   }
 

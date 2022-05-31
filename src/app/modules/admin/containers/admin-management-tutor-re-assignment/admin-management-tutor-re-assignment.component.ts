@@ -22,10 +22,17 @@ export class AdminManagementTutorReAssignmentComponent implements OnInit {
     reAssignment: any;
   }>;
 
+  courseId: number;
   currentSection = 1;
   totalBooking$: Observable<any>;
+  availableTutors$: Observable<any>;
+  tutorAvailability$: Observable<any>;
   openBookingModal$: Observable<boolean>;
+  reassigningTutor$: Observable<boolean>;
   loadingTotalBooking: Observable<boolean>;
+  isLoadingAvailableTutors$: Observable<boolean>;
+  isLoadingTutorAvailability$: Observable<boolean>;
+  showReassigningTutorSelectionModal$: Observable<boolean>;
 
   constructor(private _store: Store<any>) {}
 
@@ -39,6 +46,29 @@ export class AdminManagementTutorReAssignmentComponent implements OnInit {
 
   onCloseBookingModal(): void {
     this._store.dispatch(fromAdminAction.closeAdminStudentBookingModal());
+  }
+
+  onOpenReassigningTutorSelectionModal(courseId: number) {
+    this.courseId = courseId;
+    this._store.dispatch(fromCore.loadAvailableTutors({ courseId }));
+    this._store.dispatch(
+      fromAdminAction.openAdminReassigningTutorSelectionModal()
+    );
+  }
+
+  onReassignTutor(teacher_id: any): void {
+    const body = { teacher_id, id: this.courseId };
+    this._store.dispatch(fromCore.studentReassignTutor({ body }));
+  }
+
+  onTutorAvailability(id: number): void {
+    this._store.dispatch(fromCore.loadTutorAvailability({ id }));
+  }
+
+  onCloseReassigningTutorSelectionModal() {
+    this._store.dispatch(
+      fromAdminAction.closeAdminReassigningTutorSelectionModal()
+    );
   }
 
   onChangeTab(tab: any): void {
@@ -78,6 +108,28 @@ export class AdminManagementTutorReAssignmentComponent implements OnInit {
 
     this.totalBooking$ = this._store.select(
       fromCore.selectAdminStudentTotalBooking
+    );
+
+    this.reassigningTutor$ = this._store.select(
+      fromCore.selectIsReassigningTutor
+    );
+
+    this.showReassigningTutorSelectionModal$ = this._store.select(
+      fromAdmin.selectReassigningTutorSelectionModal
+    );
+
+    this.availableTutors$ = this._store.select(fromCore.selectAvailableTutors);
+
+    this.isLoadingAvailableTutors$ = this._store.select(
+      fromCore.selectIsLoadingAvailableTutors
+    );
+
+    this.tutorAvailability$ = this._store.select(
+      fromCore.selectTutorAvailability
+    );
+
+    this.isLoadingTutorAvailability$ = this._store.select(
+      fromCore.selectIsLoadingTutorAvailability
     );
 
     this.view$ = combineLatest([

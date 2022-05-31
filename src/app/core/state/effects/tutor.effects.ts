@@ -118,9 +118,10 @@ export class TutorEffects {
         this._store.select(selectTutors),
         this._store.select(fromRouterStore.selectRouteParams)
       ),
-      mergeMap(([_, _tutors, { id }]) => {
+      mergeMap(([{ courseId }, _tutors, { id }]) => {
         if (!_tutors || !_tutors?.length) {
-          return this._tutorService.getAvailableTutors(id).pipe(
+          courseId = courseId ? courseId : 0;
+          return this._tutorService.getAvailableTutors(id | courseId).pipe(
             map((availableTutors) => {
               return tutorActions.loadAvailableTutorsSuccess({
                 availableTutors,

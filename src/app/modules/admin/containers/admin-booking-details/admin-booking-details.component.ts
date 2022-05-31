@@ -105,7 +105,7 @@ export class AdminBookingDetailsComponent implements OnInit {
   }
 
   onOpenReassigningTutorSelectionModal() {
-    this._store.dispatch(fromCore.loadAvailableTutors());
+    this._store.dispatch(fromCore.loadAvailableTutors({}));
     this._store.dispatch(
       fromAdminAction.openAdminReassigningTutorSelectionModal()
     );
