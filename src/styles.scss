@@ -784,6 +784,14 @@ span.status {
   }
 }
 
+.send-feedback .rating-block rating span.bs-rating-star {
+  margin-left: 8px;
+
+  &.active {
+    color: var(--main-color);
+  }
+}
+
 // Custom Tooltip
 .custom-tooltip {
   position: relative;

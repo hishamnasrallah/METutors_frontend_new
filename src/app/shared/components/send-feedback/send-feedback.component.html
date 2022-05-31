@@ -1,12 +1,12 @@
 <div class="send-feedback">
   <form [formGroup]="form" (ngSubmit)="submitFeedback.emit(form)"
-        class="rating-block">
+        class="rating-block mt-3">
     <ng-container formArrayName="feedbacks">
       <div class="row mt-1" *ngFor="let option of feedbackOptions?.params; let i =index; " [formGroupName]="i">
         <div class="col">
           <p>{{ option?.name }}</p>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-3 d-flex justify-content-center">
           <rating [max]="5" formControlName="rating"></rating>
         </div>
       </div>

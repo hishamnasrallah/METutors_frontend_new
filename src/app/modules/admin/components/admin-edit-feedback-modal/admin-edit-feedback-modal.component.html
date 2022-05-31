@@ -4,7 +4,6 @@
   <ng-template #template>
     <div class="row leave-feedback-modal" *ngLet="(view$ | async) as view">
       <div class="col-12">
-        {{ isSubmitting }}
         <ng-container [ngSwitch]="view?.loading">
           <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
           <metutors-send-feedback [feedbackOptions]="view?.feedbackOptions"
