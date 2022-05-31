@@ -30,7 +30,7 @@
 
   <div class="row mt-2">
     <div class="col-md-12" *ngLet="(view$ | async) as view">
-      <mat-tab-group mat-align-tabs="start">
+      <mat-tab-group mat-align-tabs="start" *ngIf="currentSection !== 4">
         <mat-tab [label]="'New Requests ('+(view.reAssignment?.newlyCoursesCount || 0)+')'">
           <ng-container [ngSwitch]="view.loading">
             <metutors-grid-placeholder class="mt-4" *ngSwitchCase="true"></metutors-grid-placeholder>
@@ -55,6 +55,18 @@
           </ng-container>
         </mat-tab>
       </mat-tab-group>
+
+      <ng-container *ngIf="currentSection === 4">
+        <ng-container [ngSwitch]="view.loading">
+          <metutors-grid-placeholder class="mt-4" *ngSwitchCase="true"></metutors-grid-placeholder>
+
+          <ng-container *ngSwitchCase="false">
+            <metutors-re-assignment-grid [reassignments]="view.reAssignment?.courses" [isNew]="false"
+                                         (openReassignTutorModal)="onOpenReassigningTutorSelectionModal($event)"
+                                         (openBookingModal)="onOpenBookingModal($event)"></metutors-re-assignment-grid>
+          </ng-container>
+        </ng-container>
+      </ng-container>
     </div>
   </div>
 </div>

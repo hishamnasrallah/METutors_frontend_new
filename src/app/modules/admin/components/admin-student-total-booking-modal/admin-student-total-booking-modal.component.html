@@ -14,7 +14,7 @@
             <div class="heading row">
               <div class="col-md-6">
                 <metutors-user-avatar [type]="'medium'" [rating]="data.averageRating" *ngIf="type !== 'subject'"
-                                      [avatar]="imageUrl+data?.student?.avatar" [width]="50" [height]="50" style="display: block"
+                                      [avatar]="imageUrl+data?.student?.avatar" [width]="50" [height]="50"
                                       [name]="data.name"></metutors-user-avatar>
               </div>
               <div class="col-md-2 info d-flex align-items-center" *ngIf="type !== 'subject'">
@@ -57,13 +57,12 @@
                   <td>BIN1</td>
                   <td>SIN1</td>
                   <td>
-
                     <metutors-user-avatar [avatar]="imageUrl+booking?.teacher?.avatar" [type]="'small'"
                                           [name]="booking?.teacher?.firstName+' ' + booking?.teacher?.lastName"
-                                          *ngIf="type==='student'"></metutors-user-avatar>
+                                          *ngIf="type==='student'" class="d-block"></metutors-user-avatar>
                     <metutors-user-avatar [avatar]="imageUrl+booking?.student?.avatar" [type]="'small'"
                                           [name]="booking?.student?.firstName+ ' ' +booking?.student?.lastName"
-                                          *ngIf="type==='subject' || type === 'teacher'"></metutors-user-avatar>
+                                          *ngIf="type==='subject' || type === 'teacher'" class="d-block"></metutors-user-avatar>
                   </td>
                   <td class="text-capitalize">{{ booking?.program?.code }}</td>
                   <td>{{ booking?.field?.name }}</td>
