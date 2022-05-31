@@ -61,14 +61,17 @@
       </div>
     </td>
     <td>
-      <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0" (click)="subjectId = reassignment?.subject?.id">
+      <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0" (click)="studentId = reassignment?.student?.id; courseId=reassignment.id">
         <mat-icon>more_vert</mat-icon>
       </button>
     </td>
   </tr>
 </table>
 <mat-menu #menu="matMenu">
-  <button mat-menu-item class="h-auto btn-menu" (click)="openBookingModal.emit(subjectId)">
-    <span>View All Course</span>
+  <button mat-menu-item class="h-auto btn-menu" [routerLink]="['/admin', 'student', studentId, 'booking-detail', courseId]">
+    <span>Booking Details</span>
+  </button>
+  <button mat-menu-item class="h-auto btn-menu">
+    <span>Re-assign Tutor</span>
   </button>
 </mat-menu>

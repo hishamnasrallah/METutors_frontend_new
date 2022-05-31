@@ -14,7 +14,7 @@
             <div class="heading row">
               <div class="col-md-6">
                 <metutors-user-avatar [type]="'medium'" [rating]="data.averageRating" *ngIf="type !== 'subject'"
-                                      [avatar]="imageUrl+data?.student?.avatar" [width]="50" [height]="50"
+                                      [avatar]="imageUrl+data?.student?.avatar" [width]="50" [height]="50" style="display: block"
                                       [name]="data.name"></metutors-user-avatar>
               </div>
               <div class="col-md-2 info d-flex align-items-center" *ngIf="type !== 'subject'">

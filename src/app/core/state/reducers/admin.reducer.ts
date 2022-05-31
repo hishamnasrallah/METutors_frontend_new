@@ -586,7 +586,6 @@ export const reducer = createReducer(
               ? {
                   ...testimonial,
                   ...camelcaseKeys(result?.feedbacks),
-                  review: result?.feedbacks[0].review,
                 }
               : testimonial
         );

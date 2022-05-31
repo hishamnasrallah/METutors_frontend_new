@@ -15,7 +15,8 @@ export class ReAssignmentGridComponent implements OnInit {
 
   constructor() {}
 
-  subjectId: number;
+  courseId: number;
+  studentId: number;
   statusLabel = courseStatusLabel;
 
   ngOnInit(): void {}
