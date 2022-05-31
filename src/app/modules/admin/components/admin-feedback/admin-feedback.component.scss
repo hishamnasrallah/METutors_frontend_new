@@ -47,6 +47,7 @@
     h2 {
       color: #2A2A2A;
       font-size: 14px;
+      font-weight: normal;
     }
 
     rating span.bs-rating-star {
@@ -77,12 +78,17 @@
     .rating-block {
       h2 {
         color: #2A2A2A;
-        font-size: 17px;
+        font-size: 15px;
       }
 
       rating span.bs-rating-star {
         font-size: 15px;
       }
+    }
+
+    .user-feedback p {
+      color: #2A2A2A;
+      font-size: 15px;
     }
 
     .stars h3 {
