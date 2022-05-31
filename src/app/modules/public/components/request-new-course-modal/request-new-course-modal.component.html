@@ -25,35 +25,16 @@
           </mat-form-field>
         </div>
         <div class="col-md-6">
-          <h3>Select Grade</h3>
+          <h3>Subject</h3>
+          <input type="text" class="form-control w-100" placeholder="Subject" formControlName="subject">
+        </div>
+        <div class="col-md-6">
+          <h3>Grade Level</h3>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="grade" [placeholder]="'Choose Grade'">
               <mat-option [value]="i + 1" *ngFor="let grade of grades; let i = index">
                 {{ grade }}
               </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div class="col-md-6">
-          <h3>Subject</h3>
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="subject" [placeholder]="'Choose Subject'"
-              [disabled]="!subjects || !subjects?.length">
-              <ng-container *ngFor="let subject of subjects">
-                <mat-option [value]="subject?.name" *ngIf="
-                  (
-                    program?.value?.toString() !== nationalId.toString() && 
-                    program?.value?.toString() === subject?.programId?.toString()
-                  ) ||
-                  (
-                    program?.value?.toString() === nationalId.toString() && 
-                    program?.value?.toString() === subject?.programId?.toString() && 
-                    country?.value?.toString() === subject?.countryId?.toString()
-                  )
-                ">
-                  {{ subject?.name }}
-                </mat-option>
-              </ng-container>
             </mat-select>
           </mat-form-field>
         </div>
@@ -68,7 +49,7 @@
           </div>
         </div>
         <div class="col-md-6">
-          <h3>Prefered Tutoring Language</h3>
+          <h3>Tutoring Language Preference</h3>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="language" [placeholder]="'Choose Language'">
               <mat-option [value]="lang?.id" *ngFor="let lang of languages">

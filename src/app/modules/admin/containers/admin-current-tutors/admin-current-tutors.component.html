@@ -193,7 +193,7 @@
                             'active': tutorStatus.active === status,
                             'deactive': tutorStatus.deactive === status,
                             'pending': tutorStatus.pending === status
-                          }">
+                          }" (click)="onOpenChangeStatusModal({oldStatus: tutor?.status, newStatus: status}, tutor)">
                             {{ status }}
                           </li>
                         </ul>
@@ -355,7 +355,7 @@
                             'active': tutorStatus.active === status,
                             'deactive': tutorStatus.deactive === status,
                             'pending': tutorStatus.pending === status
-                          }">
+                          }" (click)="onOpenChangeStatusModal({oldStatus: tutor?.status, newStatus: status}, tutor)">
                             {{ status }}
                           </li>
                         </ul>
@@ -445,7 +445,7 @@
                               'active': tutorStatus.active === status,
                               'deactive': tutorStatus.deactive === status,
                               'pending': tutorStatus.pending === status
-                            }">
+                            }" (click)="onOpenChangeStatusModal({oldStatus: tutor?.status, newStatus: status}, tutor)">
                             {{ status }}
                           </li>
                         </ul>
@@ -485,3 +485,13 @@
                                             [loading]="(loadingTotalBooking | async)!"
                                             [detail]="(totalBooking$ | async)!">
 </metutors-admin-student-total-booking-modal>
+
+
+<metutors-admin-change-tutor-status-modal *ngIf="showChangeStatusModal$ | async"
+                                          (closeModal)="onCloseChangeStatusModal()"
+                                          [changeStatus]="changeStatus"
+                                          [tutorId]="(selectedTutor?.id)!"
+                                          [showModal]="(showChangeStatusModal$ | async)!"
+                                          [isSubmitting]="(isChangeTutorStatus$ | async)!"
+                                          (submitted)="onChangeTutorStatus($event)">
+</metutors-admin-change-tutor-status-modal>

@@ -23,7 +23,9 @@ export class AdminCurrentTutorsComponent implements OnInit {
   tutorsCounts$: Observable<any>;
   isLoading$: Observable<boolean>;
   tutors$: Observable<ITutor[] | null>;
+  isChangeTutorStatus$: Observable<boolean>;
   activeTutors$: Observable<ITutor[] | null>;
+  showChangeStatusModal$: Observable<boolean>;
   inActiveTutors$: Observable<ITutor[] | null>;
 
   totalBooking$: Observable<any>;
@@ -31,6 +33,7 @@ export class AdminCurrentTutorsComponent implements OnInit {
   loadingTotalBooking: Observable<boolean>;
 
   name: string;
+  changeStatus: any;
   selectedIndex: number;
   selectedTutor?: ITutor;
   tutorStatus = TutorStatus;
@@ -46,12 +49,20 @@ export class AdminCurrentTutorsComponent implements OnInit {
       fromAdmin.selectAdminStudentBookingModal
     );
 
+    this.showChangeStatusModal$ = this._store.select(
+      fromAdmin.selectIsChangeStatusModal
+    );
+
     this.loadingTotalBooking = this._store.select(
       fromCore.selectIsLoadingAdminBookingDetail
     );
 
     this.totalBooking$ = this._store.select(
       fromCore.selectAdminStudentTotalBooking
+    );
+
+    this.isChangeTutorStatus$ = this._store.select(
+      fromCore.selectIsChangeTutorStatus
     );
 
     this.selectedIndex = this._route.snapshot.queryParams['tab'] || 0;
@@ -67,6 +78,22 @@ export class AdminCurrentTutorsComponent implements OnInit {
 
   onCloseBookingModal(): void {
     this._store.dispatch(fromAdminAction.closeAdminStudentBookingModal());
+  }
+
+  onOpenChangeStatusModal(changeStatus: any, selectedTutor: ITutor) {
+    this.changeStatus = changeStatus;
+    this.selectedTutor = selectedTutor;
+    this._store.dispatch(fromAdminAction.openAdminChangeStatusModal());
+  }
+
+  onCloseChangeStatusModal() {
+    this._store.dispatch(fromAdminAction.closeAdminChangeStatusModal());
+  }
+
+  onChangeTutorStatus({ tutorId, status, reason }: any): void {
+    this._store.dispatch(
+      fromCore.changeTutorStatus({ tutorId, status, reason })
+    );
   }
 
   filterTutors(filters: ITutorFilters): void {

@@ -116,16 +116,20 @@
           margin: 5px;
           border-radius: 5px;
 
-          &.deactive {
-            background-color: #ff8300;
-          }
-
           &.active {
             background-color: #50C394;
           }
-
+  
           &.pending {
             background-color: #EBD016;
+          }
+  
+          &.deactive {
+            background-color: #FF385C;
+          }
+  
+          &.rejected {
+            background-color: #FF8300;
           }
         }
       }

@@ -46,7 +46,6 @@ export class AllCoursesComponent implements OnInit {
   exploredCourses$: Observable<any>;
   isRequestCourse$: Observable<boolean>;
   programs$: Observable<IProgram[] | null>;
-  subjects$: Observable<ISubject[] | null>;
   countries$: Observable<ICountry[] | null>;
   languages$: Observable<ILanguage[] | null>;
   showRequestCourseModal$: Observable<boolean>;
@@ -65,7 +64,6 @@ export class AllCoursesComponent implements OnInit {
   ngOnInit(): void {
     this._prepareCourses();
     this._preparePrograms();
-    this._prepareSubjects();
     this._prepareCountries();
     this._prepareLanguages();
 
@@ -147,11 +145,6 @@ export class AllCoursesComponent implements OnInit {
   private _prepareCountries(): void {
     this._store.dispatch(fromCore.loadProgramCountries());
     this.countries$ = this._store.select(fromCore.selectProgramCountries);
-  }
-
-  private _prepareSubjects(): void {
-    this._store.dispatch(fromCore.loadSubjects());
-    this.subjects$ = this._store.select(fromCore.selectSubjects);
   }
 
   private _prepareLanguages(): void {

@@ -6,7 +6,7 @@ import {
   AbstractControl,
 } from '@angular/forms';
 import { GENDERS, generalConstants, GRADES } from '@metutor/config';
-import { ICountry, ILanguage, IProgram, ISubject } from '@metutor/core/models';
+import { ICountry, ILanguage, IProgram } from '@metutor/core/models';
 
 @Component({
   selector: 'metutors-request-new-course-modal',
@@ -15,7 +15,6 @@ import { ICountry, ILanguage, IProgram, ISubject } from '@metutor/core/models';
 })
 export class RequestNewCourseModalComponent implements OnInit {
   @Input() programs: IProgram[];
-  @Input() subjects: ISubject[];
   @Input() countries: ICountry[];
   @Input() isSubmitting: boolean;
   @Input() languages: ILanguage[];
