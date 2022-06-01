@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'metutors-admin-finance-orders',
+  selector: 'metutors-orders',
   templateUrl: './admin-finance-orders.component.html',
   styleUrls: ['./admin-finance-orders.component.scss'],
 })
