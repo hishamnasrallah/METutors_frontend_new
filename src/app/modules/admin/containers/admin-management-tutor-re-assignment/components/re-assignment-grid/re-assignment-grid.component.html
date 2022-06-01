@@ -45,8 +45,8 @@
     </ng-container>
     <ng-container *ngIf="isNew">
       <td>
-        <button class="status text-capitalize" mat-button [ngClass]="reassignment?.teacher?.status">
-          {{ reassignment?.teacher?.status }}
+        <button class="teacher-status text-capitalize" mat-button [ngClass]="reassignment?.teacherStatus">
+          {{ reassignment?.teacherStatus }}
         </button>
       </td>
       <td>{{ reassignment?.timer }}</td>
@@ -72,7 +72,13 @@
   <button mat-menu-item class="h-auto btn-menu" [routerLink]="['/admin', 'student', studentId, 'booking-detail', courseId]">
     <span>Booking Details</span>
   </button>
+  <button mat-menu-item class="h-auto btn-menu" [routerLink]="['/admin', 'student', studentId, 'booking-detail', courseId]">
+    <span>Change Status</span>
+  </button>
   <button mat-menu-item class="h-auto btn-menu" (click)="openReassignTutorModal.emit(courseId)">
     <span>Re-assign Tutor</span>
+  </button>
+  <button mat-menu-item class="h-auto btn-menu">
+    <span>Email Student</span>
   </button>
 </mat-menu>
