@@ -614,9 +614,18 @@ export const reducer = createReducer(
     })
   ),
 
+  on(
+    adminActions.adminChangeTutorAvailabilityStatusSuccess,
+    (state, { status, id }) => ({
+      ...state,
+      isLoadingAdmin: false,
+    })
+  ),
+
   // COMMON LOADING
   on(
     adminActions.adminEditTestimonialStatus,
+    adminActions.adminChangeTutorAvailabilityStatus,
     adminActions.loadAdminTestimonialFeedbackOptions,
     (state) => ({
       ...state,
@@ -626,6 +635,7 @@ export const reducer = createReducer(
 
   on(
     adminActions.adminEditTestimonialStatusFailure,
+    adminActions.adminChangeTutorAvailabilityStatusFailure,
     adminActions.loadAdminTestimonialFeedbackOptionsFailure,
     (state) => ({
       ...state,

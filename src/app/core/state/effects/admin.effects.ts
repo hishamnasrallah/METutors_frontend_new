@@ -11,6 +11,7 @@ import * as fromCore from '@metutor/core/state';
 import * as fromRouterStore from '@metutor/state';
 import * as adminActions from '../actions/admin.actions';
 import { AlertNotificationService } from '@metutor/core/components';
+import { adminChangeTutorAvailabilityStatus } from '@metutor/core/state';
 
 @Injectable()
 export class AdminEffects {
@@ -634,6 +635,31 @@ export class AdminEffects {
             catchError((error) =>
               of(
                 adminActions.adminEditTestimonialFeedbackFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          )
+        )
+      )
+    )
+  );
+
+  adminChangeTutorAvailabilityStatus$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(adminActions.adminChangeTutorAvailabilityStatus),
+      mergeMap(({ id, status }) =>
+        this._adminService.adminChangeTutorAvailabilityStatus(id, status).pipe(
+          map(
+            (result) =>
+              adminActions.adminChangeTutorAvailabilityStatusSuccess({
+                id,
+                status,
+                message: 'Status updated successfully',
+              }),
+            catchError((error) =>
+              of(
+                adminActions.adminChangeTutorAvailabilityStatusFailure({
                   error: error?.error?.message || error?.error?.errors,
                 })
               )

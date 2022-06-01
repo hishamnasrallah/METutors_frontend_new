@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { environment } from 'src/environments/environment';
 import { ICapacity, ICourse, ISubject, ITutor, ICourseRequest } from '@models';
+import { adminChangeTutorAvailabilityStatus } from '@metutor/core/state';
 
 @Injectable({
   providedIn: 'root',
@@ -162,6 +163,16 @@ export class AdminService {
     return this.http.post<any>(
       `${this.baseUrl}admin/testimonial/${receiver_id}`,
       _body
+    );
+  }
+
+  adminChangeTutorAvailabilityStatus(
+    id: number,
+    status: string
+  ): Observable<any> {
+    return this.http.post<any>(
+      `${this.baseUrl}admin/course/${id}/teacher-status`,
+      { status }
     );
   }
 

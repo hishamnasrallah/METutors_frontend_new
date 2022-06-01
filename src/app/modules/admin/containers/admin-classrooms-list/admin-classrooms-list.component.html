@@ -180,8 +180,8 @@
                   <td>{{ bookings?.courseName }}</td>
                   <td>
                     <div class="change-status position-relative d-flex">
-                      <button class="status text-capitalize" mat-button [ngClass]="bookings?.status">
-                        {{ statusLabel[bookings?.status] }}
+                      <button class="status text-capitalize" mat-button [ngClass]="bookings?.status" meTutorsTooltip [tooltipText]="statusLabel[bookings?.status].long">
+                        {{ statusLabel[bookings?.status].short }}
                       </button>
                     </div>
                   </td>

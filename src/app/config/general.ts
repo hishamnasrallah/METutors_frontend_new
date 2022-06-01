@@ -279,7 +279,7 @@ export const courseStatusLabel = {
     long: 'Cancelled & Refunded',
   },
   requested_to_metutors: {
-    short: 'Reassigned',
+    short: 'Re-Assigned',
     long: 'Tutor Re-Assignment by MEtutors',
   },
 };

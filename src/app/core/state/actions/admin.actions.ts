@@ -375,3 +375,18 @@ export const adminEditTestimonialFeedbackFailure = createAction(
   '[Admin] Admin Edit Testimonial Feedback Failure',
   props<{ error: string }>()
 );
+
+export const adminChangeTutorAvailabilityStatus = createAction(
+  '[Admin] Admin Change Tutor Availability Status',
+  props<{ id: number; status: string }>()
+);
+
+export const adminChangeTutorAvailabilityStatusSuccess = createAction(
+  '[Admin] Admin Change Tutor Availability Status Success',
+  props<{ id: number; status: string; message: string }>()
+);
+
+export const adminChangeTutorAvailabilityStatusFailure = createAction(
+  '[Admin] Admin Change Tutor Availability Status Failure',
+  props<{ error: any }>()
+);
