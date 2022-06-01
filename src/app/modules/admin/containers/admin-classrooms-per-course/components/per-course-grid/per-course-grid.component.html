@@ -25,8 +25,8 @@
     <td><a [routerLink]="['/admin', 'finance', 'orders']"> ${{ booking?.totalAmount }}</a></td>
     <td>
       <div class="change-status position-relative d-flex">
-        <button class="status text-capitalize" mat-button [ngClass]="booking?.status">
-          {{ statusLabel[booking?.status] }}
+        <button class="status text-capitalize" mat-button [ngClass]="booking?.status" meTutorsTooltip [tooltipText]="statusLabel[booking?.status].long">
+          {{ statusLabel[booking?.status].short }}
         </button>
       </div>
     </td>

@@ -138,7 +138,9 @@
               <td>{{ course?.courseCode}}</td>
               <td>{{course?.totalPrice}}$</td>
               <td>
-                <button class="status text-capitalize" mat-button [ngClass]="course?.status">{{ statusLabel[course?.status]}}</button>
+                <button class="status text-capitalize" mat-button [ngClass]="course?.status" meTutorsTooltip
+                        [tooltipText]="statusLabel[course?.status].long">{{ statusLabel[course?.status].short}}
+                </button>
               </td>
               <td>
                 <button mat-button class="view-details main-button-transparent" [routerLink]="['/admin', 'student', view.profile?.student?.id, 'booking-detail', course?.id]">

@@ -16,7 +16,9 @@
       <div class="d-flex justify-content-between">
         <h5 class="card-title m-0 h-100">
           {{ classroom?.name }}
-          <button mat-button class="ms-2 me-2 status" [ngClass]="classroom.status">{{ statusLabel[classroom.status] }}</button>
+          <button mat-button class="ms-2 me-2 status" [ngClass]="classroom.status" meTutorsTooltip
+                  [tooltipText]="statusLabel[classroom.status].long">{{ statusLabel[classroom.status].short }}
+          </button>
           <img src="assets/svg/user-one.svg" draggable="false" *ngIf="classroom?.type === classroomType.one" width="25px"
                height="25px" alt=""/>
           <img src="assets/svg/user-group.svg" draggable="false" *ngIf="classroom?.type === classroomType.group"

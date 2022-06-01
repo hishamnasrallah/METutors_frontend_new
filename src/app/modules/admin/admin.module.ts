@@ -87,8 +87,6 @@ import {
   AdminReassigningTutorSelectionModalComponent,
 } from './components';
 
-import { ReassignmentStatusPipe } from './pipes';
-
 @NgModule({
   declarations: [
     AdminComponent,
@@ -99,7 +97,6 @@ import { ReassignmentStatusPipe } from './pipes';
     InterviewCardComponent,
     PerCourseGridComponent,
     AdminFeedbackComponent,
-    ReassignmentStatusPipe,
     AdminTutorListComponent,
     AdminStudentListComponent,
     AdminProgramListComponent,
