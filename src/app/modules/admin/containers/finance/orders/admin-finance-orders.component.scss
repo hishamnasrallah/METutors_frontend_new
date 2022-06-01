@@ -36,27 +36,9 @@
         font-size: 14px;
       }
 
-      .status {
-        color: #FFF;
-        line-height: 0;
-        min-width: 0;
-        padding: 15px;
-        border-radius: 25px;
-
-        &.pending {
-          background-color: var(--main-color);
-        }
-
-        &.failed {
-          background-color: #C949E9;
-        }
-
-        &.cancelled {
-          background-color: #F15A5A;
-        }
-
-        &.successful {
-          background-color: #50C394;
+      td {
+        .transaction-id {
+          max-width: 100px;
         }
       }
     }

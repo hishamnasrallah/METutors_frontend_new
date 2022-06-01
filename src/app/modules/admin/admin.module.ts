@@ -13,6 +13,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { AdminRoutingModule } from './admin-routing.module';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { SharedModule } from '@metutor/shared/shared.module';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -155,6 +156,7 @@ import {
     MatRadioModule,
     MatButtonModule,
     MatSelectModule,
+    MatTooltipModule,
     MatFormFieldModule,
     AdminRoutingModule,
     NgxDocViewerModule,

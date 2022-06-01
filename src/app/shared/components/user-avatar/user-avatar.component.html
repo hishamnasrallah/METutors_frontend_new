@@ -4,7 +4,8 @@
        draggable="false"
        meTutorsDefaultAvatar alt="">
   <span>
-    <bdi *ngIf="name">{{ name }}</bdi>
+    <a [routerLink]="routerLink" *ngIf="routerLink"><bdi *ngIf="name">{{ name }}</bdi></a>
+    <bdi *ngIf="name && !routerLink">{{ name }}</bdi>
   </span>
 </div>
 

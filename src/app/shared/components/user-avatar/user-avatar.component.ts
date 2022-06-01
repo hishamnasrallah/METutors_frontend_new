@@ -11,7 +11,7 @@ export class UserAvatarComponent implements OnInit {
   @Input() name: string;
   @Input() rating: number;
   @Input() avatar: string;
-  @Input() routerLink = '';
+  @Input() routerLink: any[] | null;
   @Input() type: 'small' | 'medium' | 'large' = 'small';
 
   constructor() {}

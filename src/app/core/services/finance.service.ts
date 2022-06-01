@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -12,6 +12,8 @@ export class FinanceService {
   constructor(private http: HttpClient) {}
 
   loadOrders(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}admin/orders`);
+    return this.http
+      .get<any>(`${this.baseUrl}admin/orders`)
+      .pipe(map((result) => result?.orders));
   }
 }

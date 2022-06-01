@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 
+import camelcaseKeys from 'camelcase-keys';
 import { FinanceService } from '@services';
 import * as financeActions from '../actions/finance.actions';
 import { AlertNotificationService } from '@metutor/core/components';
@@ -17,7 +18,7 @@ export class FinanceEffects {
         this._financeService.loadOrders().pipe(
           map((orders) =>
             financeActions.loadOrdersSuccess({
-              orders,
+              orders: camelcaseKeys(orders, { deep: true }),
             })
           ),
           catchError((error) =>

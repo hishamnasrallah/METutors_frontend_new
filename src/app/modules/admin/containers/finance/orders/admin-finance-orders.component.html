@@ -1,4 +1,4 @@
-<div class="finance-orders">
+<div class="finance-orders" *ngLet="(view$ | async) as view">
   <div class="row filters">
     <div class="col-md-6 d-flex align-items-center">
       <h1>Orders</h1>
@@ -9,7 +9,7 @@
           <div class="position-relative">
             <mat-icon>search</mat-icon>
             <input type="text" class="form-control custom-input input-bordered search-request"
-              placeholder="Search orders...">
+                   placeholder="Search orders...">
           </div>
         </div>
         <div class="col-md-5">
@@ -23,49 +23,65 @@
   </div>
 
   <div class="table-responsive mt-4">
-    <table class="table my-table default-title">
-      <tr>
-        <th>Number</th>
-        <th>Order ID</th>
-        <th>BIN</th>
-        <th>SIN</th>
-        <th>Student Name</th>
-        <th>Total Classes</th>
-        <th>Transaction ID</th>
-        <th>Transaction Date</th>
-        <th>Amount</th>
-        <th>Status</th>
-        <th>Action</th>
-      </tr>
-      <tr>
-        <td>1</td>
-        <td>OID101</td>
-        <td>BIN101</td>
-        <td>SIN101</td>
-        <td>
-          <div class="d-flex align-items-center">
-            <img src="" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false" meTutorsDefaultAvatar
-              alt="">
-            <span>
-              <bdi>Ahmed Hassan</bdi>
-            </span>
-          </div>
-        </td>
-        <td>3</td>
-        <td>T101</td>
-        <td>May 10, 2022</td>
-        <td>$50</td>
-        <td>
-          <button class="status text-capitalize pending" mat-button>
-            Pending
-          </button>
-        </td>
-        <td>
-          <button mat-icon-button class="p-0">
-            <mat-icon>more_vert</mat-icon>
-          </button>
-        </td>
-      </tr>
-    </table>
+    <ng-container [ngSwitch]="view.loading">
+      <div class="mt-4" *ngSwitchCase="true">
+        <metutors-grid-placeholder></metutors-grid-placeholder>
+      </div>
+
+      <table class="table my-table default-title" *ngSwitchCase="false">
+        <tr>
+          <th>Number</th>
+          <th>Order ID</th>
+          <th>BIN</th>
+          <th>SIN</th>
+          <th>Student Name</th>
+          <th>Total Classes</th>
+          <th>Transaction ID</th>
+          <th>Transaction Date</th>
+          <th>Amount</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+        <tr *ngIf="!view.orders || !view.orders?.length">
+          <td colspan="11">
+            <div class="text-center">No records found</div>
+          </td>
+        </tr>
+        <tr *ngFor="let order of view.orders; let i = index">
+          <td>{{ i + 1}}</td>
+          <td>OID{{order?.courseId}}</td>
+          <td><a href="javascript: void(0)" (click)="onOpenBookingModal(order?.courseId)">BIN{{order?.id}}</a></td>
+          <td><a [routerLink]="['/admin', 'student', 'profile', order?.user?.id]">{{ order?.user?.idNumber}}</a></td>
+          <td>
+            <metutors-user-avatar [avatar]="imageUrl+order?.user?.avatar" [type]="'small'"
+                                  [name]="order?.user?.firstName+' ' + order?.user?.lastName"
+                                  [routerLink]="['/admin', 'student', 'profile', order?.user?.id]"
+                                  class="d-block">
+            </metutors-user-avatar>
+          </td>
+          <td>{{ order?.course?.totalClasses}}</td>
+          <td><span class="d-inline-block text-truncate transaction-id"
+                    [matTooltip]="order?.transaction?.id">{{order?.transaction?.id}}</span></td>
+          <td>{{ order?.transaction?.createdAt | date}}</td>
+          <td>{{ order?.transaction?.amount | currency}}</td>
+          <td>
+            <button class="status text-capitalize" mat-button [ngClass]="order?.transaction?.status">
+              {{ order?.transaction?.status }}
+            </button>
+          </td>
+          <td>
+            <button mat-icon-button class="p-0">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </table>
+    </ng-container>
   </div>
 </div>
+
+<metutors-admin-student-total-booking-modal [showModal]="(openBookingModal$ | async)!" *ngIf="openBookingModal$ | async"
+                                            (closeModal)="onCloseBookingModal()" [type]="bookingType"
+                                            [loading]="(loadingTotalBooking$ | async)!"
+                                            [detail]="(totalBooking$ | async)!">
+</metutors-admin-student-total-booking-modal>

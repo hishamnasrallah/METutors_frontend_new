@@ -29,7 +29,7 @@ export class AdminManagementTutorReAssignmentComponent implements OnInit {
   tutorAvailability$: Observable<any>;
   openBookingModal$: Observable<boolean>;
   reassigningTutor$: Observable<boolean>;
-  loadingTotalBooking: Observable<boolean>;
+  loadingTotalBooking$: Observable<boolean>;
   isLoadingAvailableTutors$: Observable<boolean>;
   isLoadingTutorAvailability$: Observable<boolean>;
   showReassigningTutorSelectionModal$: Observable<boolean>;
@@ -102,7 +102,7 @@ export class AdminManagementTutorReAssignmentComponent implements OnInit {
       fromAdmin.selectAdminStudentBookingModal
     );
 
-    this.loadingTotalBooking = this._store.select(
+    this.loadingTotalBooking$ = this._store.select(
       fromCore.selectIsLoadingAdminBookingDetail
     );
 
