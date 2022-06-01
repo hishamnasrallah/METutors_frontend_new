@@ -14,21 +14,29 @@ export const initialState: State = {
 
 export const reducer = createReducer(
   initialState,
-  on(financeActions.loadOrders, (state) => ({
+  on(financeActions.loadOrders, financeActions.loadRefundOrders, (state) => ({
     ...state,
     isLoading: true,
   })),
 
-  on(financeActions.loadOrdersSuccess, (state, { orders }) => ({
-    ...state,
-    orders,
-    isLoading: false,
-  })),
+  on(
+    financeActions.loadOrdersSuccess,
+    financeActions.loadRefundOrdersSuccess,
+    (state, { orders }) => ({
+      ...state,
+      orders,
+      isLoading: false,
+    })
+  ),
 
-  on(financeActions.loadOrdersFailure, (state) => ({
-    ...state,
-    isLoading: false,
-  }))
+  on(
+    financeActions.loadOrdersFailure,
+    financeActions.loadRefundOrdersFailure,
+    (state) => ({
+      ...state,
+      isLoading: false,
+    })
+  )
 );
 
 export const selectFinanceOrders = (state: State): any => state.orders;

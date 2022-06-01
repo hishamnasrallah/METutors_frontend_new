@@ -8,6 +8,7 @@ import camelcaseKeys from 'camelcase-keys';
 import { FinanceService } from '@services';
 import * as financeActions from '../actions/finance.actions';
 import { AlertNotificationService } from '@metutor/core/components';
+import { loadRefundOrders } from '../actions/finance.actions';
 
 @Injectable()
 export class FinanceEffects {
@@ -24,6 +25,28 @@ export class FinanceEffects {
           catchError((error) =>
             of(
               financeActions.loadOrdersFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  loadRefundOrders = createEffect(() =>
+    this._actions$.pipe(
+      ofType(financeActions.loadRefundOrders),
+      mergeMap(() =>
+        this._financeService.loadRefundOrders().pipe(
+          map((orders) =>
+            financeActions.loadRefundOrdersSuccess({
+              orders: camelcaseKeys(orders, { deep: true }),
+            })
+          ),
+          catchError((error) =>
+            of(
+              financeActions.loadRefundOrdersFailure({
                 error: error?.error?.message || error?.error?.errors,
               })
             )

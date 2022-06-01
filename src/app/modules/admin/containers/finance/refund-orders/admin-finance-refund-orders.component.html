@@ -1,4 +1,4 @@
-<div class="finance-orders">
+<div class="finance-orders" *ngLet="(view$ | async) as view">
   <div class="row filters">
     <div class="col-md-6 d-flex align-items-center">
       <h1>Refund Orders</h1>
@@ -23,61 +23,67 @@
   </div>
 
   <div class="table-responsive mt-4">
-    <table class="table my-table default-title">
-      <tr>
-        <th>Number</th>
-        <th>Order ID</th>
-        <th>BIN</th>
-        <th>Student Name</th>
-        <th>Teacher Name</th>
-        <th>Total Amount</th>
-        <th>Cancelled Date</th>
-        <th>Cancelled By</th>
-        <th>Refund Classes</th>
-        <th>Refund Amount</th>
-        <th>Refund Date</th>
-        <th>Status</th>
-        <th>Action</th>
-      </tr>
-      <tr>
-        <td>1</td>
-        <td>OID101</td>
-        <td>BIN101</td>
-        <td>
-          <div class="d-flex align-items-center">
-            <img src="" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false" meTutorsDefaultAvatar
-                 alt="">
-            <span>
-              <bdi>Student Name</bdi>
-            </span>
-          </div>
-        </td>
-        <td>
-          <div class="d-flex align-items-center">
-            <img src="" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false" meTutorsDefaultAvatar
-                 alt="">
-            <span>
-              <bdi>Teacher Name</bdi>
-            </span>
-          </div>
-        </td>
-        <td>3</td>
-        <td>21 Apr, 2022</td>
-        <td>Student</td>
-        <td>5 out of 10</td>
-        <td>$50</td>
-        <td>21 Apr, 2022</td>
-        <td>
-          <button class="status text-capitalize pending" mat-button>
-            Pending
-          </button>
-        </td>
-        <td>
-          <button mat-icon-button class="p-0">
-            <mat-icon>more_vert</mat-icon>
-          </button>
-        </td>
-      </tr>
-    </table>
+    <ng-container [ngSwitch]="view.loading">
+      <div class="mt-4" *ngSwitchCase="true">
+        <metutors-grid-placeholder></metutors-grid-placeholder>
+      </div>
+      <table class="table my-table default-title" *ngSwitchCase="false">
+        <tr>
+          <th>Number</th>
+          <th>Order ID</th>
+          <th>BIN</th>
+          <th>Student Name</th>
+          <th>Teacher Name</th>
+          <th>Total Amount</th>
+          <th>Cancelled Date</th>
+          <th>Cancelled By</th>
+          <th>Refund Classes</th>
+          <th>Refund Amount</th>
+          <th>Refund Date</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+        <tr *ngIf="!view.orders || !view.orders?.length">
+          <td colspan="11">
+            <div class="text-center">No records found</div>
+          </td>
+        </tr>
+        <tr *ngFor="let order of view.orders; let i = index">
+          <td>{{ i + 1}}</td>
+          <td>OID{{order?.courseId}}</td>
+          <td><a href="javascript: void(0)" (click)="onOpenBookingModal(order?.courseId)">BIN{{order?.id}}</a></td>
+          <td>
+            <metutors-user-avatar [avatar]="imageUrl+order?.user?.avatar" [type]="'small'"
+                                  [name]="order?.user?.firstName+' ' + order?.user?.lastName"
+                                  [routerLink]="['/admin', 'student', 'profile', order?.user?.id]"
+                                  class="d-block">
+            </metutors-user-avatar>
+          </td>
+          <td>
+            <metutors-user-avatar [avatar]="imageUrl+order?.user?.avatar" [type]="'small'"
+                                  [name]="order?.user?.firstName+' ' + order?.user?.lastName"
+                                  [routerLink]="['/admin', 'student', 'profile', order?.user?.id]"
+                                  class="d-block">
+            </metutors-user-avatar>
+          </td>
+          <td>3</td>
+          <td>21 Apr, 2022</td>
+          <td>Student</td>
+          <td>5 out of 10</td>
+          <td>$50</td>
+          <td>21 Apr, 2022</td>
+          <td>
+            <button class="status text-capitalize pending" mat-button>
+              Pending
+            </button>
+          </td>
+          <td>
+            <button mat-icon-button class="p-0">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </table>
+    </ng-container>
   </div>
 </div>
