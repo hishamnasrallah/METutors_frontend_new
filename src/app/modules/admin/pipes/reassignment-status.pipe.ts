@@ -6,7 +6,7 @@ export class ReassignmentStatusPipe implements PipeTransform {
   transform(value?: string, ...args: any[]): any {
     if (!value) return value;
 
-    if (value === courseStatusLabel.cancelled_by_teacher) {
+    /* if (value === courseStatusLabel.cancelled_by_teacher) {
       return `<span class="custom-tooltip">On Hold
           <span class="custom-tooltip-text">${courseStatusLabel.cancelled_by_teacher}</span>
        </span>`;
@@ -16,7 +16,7 @@ export class ReassignmentStatusPipe implements PipeTransform {
       return `<span class="custom-tooltip">MEtutors
           <span class="custom-tooltip-text">${courseStatusLabel.requested_to_metutors}</span>
        </span>`;
-    }
+    }*/
 
     return value;
   }

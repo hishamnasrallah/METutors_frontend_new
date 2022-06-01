@@ -70,8 +70,8 @@
                   <td>{{ booking?.courseCode }}</td>
                   <td>{{ booking?.totalPrice }}$</td>
                   <td>
-                    <button class="status" mat-button [ngClass]="booking?.status"
-                      [innerHTML]="statusLabel[booking?.status] | ReassignmentStatus">
+                    <button class="status text-capitalize" mat-button [ngClass]="booking?.status"
+                            meTutorsTooltip [tooltipText]="statusLabel[booking?.status]?.long">{{ statusLabel[booking?.status]?.short}}
                     </button>
                   </td>
                   <td>

@@ -242,16 +242,46 @@ export const WEEK_DAYS_LONG: any = {
 };
 
 export const courseStatusLabel = {
-  active: 'Running',
-  rejected: 'Rejected',
-  canceled: 'Canceled',
-  inprogress: 'Running',
-  requested: 'Requested',
-  completed: 'Completed',
-  pending: 'Pending Tutor Approval',
-  cancelled_by_teacher: 'On Hold (Tutor Re-Assignment by MeTutors)',
-  cancelled_by_student: 'Cancelled & Refunded',
-  requested_to_metutors: 'Tutor Re-Assignment by MEtutors',
+  active: {
+    short: 'Active',
+    long: 'Active',
+  },
+  rejected: {
+    short: 'Rejected',
+    long: 'Rejected',
+  },
+  canceled: {
+    short: 'Canceled',
+    long: 'Canceled',
+  },
+  inprogress: {
+    short: 'Running',
+    long: 'Running',
+  },
+  requested: {
+    short: 'Requested',
+    long: 'Requested',
+  },
+  completed: {
+    short: 'Completed',
+    long: 'Completed',
+  },
+  pending: {
+    short: 'Pending',
+    long: 'Pending Tutor Approval',
+  },
+  cancelled_by_teacher: {
+    short: 'On Hold',
+    long: 'On Hold (Tutor Re-Assignment by MeTutors)',
+  },
+  cancelled_by_student: {
+    short: 'Cancelled',
+    long: 'Cancelled & Refunded',
+  },
+  requested_to_metutors: {
+    short: 'Reassigned',
+    long: 'Tutor Re-Assignment by MEtutors',
+  },
 };
 
 export const testimonialStatus = ['public', 'private'];

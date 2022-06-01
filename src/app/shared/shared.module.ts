@@ -48,6 +48,7 @@ import {
 // Directives
 import {
   LetDirective,
+  TooltipDirective,
   TrimInputDirective,
   OnlyNumberDirective,
   DefaultCoverDirective,
@@ -84,6 +85,7 @@ import {
 
     // Directives
     LetDirective,
+    TooltipDirective,
     TrimInputDirective,
     OnlyNumberDirective,
     DefaultCoverDirective,
@@ -132,6 +134,7 @@ import {
 
     // Directives
     LetDirective,
+    TooltipDirective,
     TrimInputDirective,
     OnlyNumberDirective,
     DefaultCoverDirective,
