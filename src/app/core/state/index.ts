@@ -17,6 +17,7 @@ import * as fromTicketReducer from './reducers/ticket.reducer';
 import * as fromUploadReducer from './reducers/upload.reducer';
 import * as fromRequestReducer from './reducers/request.reducer';
 import * as fromLookupsReducer from './reducers/lookups.reducer';
+import * as fromFinanceReducer from './reducers/finance.reducer';
 import * as fromStudentReducer from './reducers/student.reducer';
 import * as fromInterviewReducer from './reducers/interview.reducer';
 import * as fromTutorSyllabusReducer from './reducers/tutor-syllabus.reducer';
@@ -30,6 +31,7 @@ export interface CoreState {
   [featureKeys.courseFeatureKey]: fromCourseReducer.State;
   [featureKeys.ticketFeatureKey]: fromTicketReducer.State;
   [featureKeys.uploadFeatureKey]: fromUploadReducer.State;
+  [featureKeys.financeFeatureKey]: fromFinanceReducer.State;
   [featureKeys.requestFeatureKey]: fromRequestReducer.State;
   [featureKeys.lookupsFeatureKey]: fromLookupsReducer.State;
   [featureKeys.studentFeatureKey]: fromStudentReducer.State;
@@ -50,6 +52,7 @@ export function reducers(state: CoreState, action: Action) {
     [featureKeys.requestFeatureKey]: fromRequestReducer.reducer,
     [featureKeys.lookupsFeatureKey]: fromLookupsReducer.reducer,
     [featureKeys.studentFeatureKey]: fromStudentReducer.reducer,
+    [featureKeys.financeFeatureKey]: fromFinanceReducer.reducer,
     [featureKeys.interviewFeatureKey]: fromInterviewReducer.reducer,
     [featureKeys.tutorSyllabusFeatureKey]: fromTutorSyllabusReducer.reducer,
     [featureKeys.tutorResourceFeatureKey]: fromTutorResourceReducer.reducer,
@@ -125,6 +128,10 @@ export const selectUploadState = createSelector(
 export const selectAdminState = createSelector(
   selectCoreState,
   (state) => state[featureKeys.adminFeatureKey]
+);
+export const selectFinanceState = createSelector(
+  selectCoreState,
+  (state) => state[featureKeys.financeFeatureKey]
 );
 
 // User
@@ -1393,3 +1400,21 @@ export const selectIsEditingAdminTestimonialFeedback = createSelector(
   selectAdminState,
   fromAdminReducer.selectIsEditingAdminTestimonialFeedback
 );
+
+/**
+ *  FINANCE SELECTORS
+ */
+
+export const selectFinanceOrders = createSelector(
+  selectFinanceState,
+  fromFinanceReducer.selectFinanceOrders
+);
+
+export const selectIsLoadingIFinance = createSelector(
+  selectFinanceState,
+  fromFinanceReducer.selectIsLoadingIFinance
+);
+
+/**
+ *  FINANCE SELECTORS END
+ */

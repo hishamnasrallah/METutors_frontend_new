@@ -7,6 +7,7 @@ export const courseFeatureKey = 'course';
 export const ticketFeatureKey = 'ticket';
 export const requestFeatureKey = 'request';
 export const lookupsFeatureKey = 'lookups';
+export const financeFeatureKey = 'finance';
 export const studentFeatureKey = 'student';
 export const interviewFeatureKey = 'interview';
 export const tutorResourceFeatureKey = 'tutorResource';

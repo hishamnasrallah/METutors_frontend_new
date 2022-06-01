@@ -6,6 +6,7 @@ export * from './ticket.effects';
 export * from './course.effects';
 export * from './lookups.effects';
 export * from './request.effects';
+export * from './finance.effects';
 export * from './student.effects';
 export * from './interview.effects';
 export * from './tutor-syllabus.effects';

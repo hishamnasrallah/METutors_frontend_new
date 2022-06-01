@@ -7,6 +7,7 @@ export * from './upload.actions';
 export * from './request.actions';
 export * from './lookups.actions';
 export * from './student.actions';
+export * from './finance.actions';
 export * from './interview.actions';
 export * from './tutor-resource.actions';
 export * from './tutor-syllabus.actions';
