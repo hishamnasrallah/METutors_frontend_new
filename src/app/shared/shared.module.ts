@@ -48,13 +48,13 @@ import {
 // Directives
 import {
   LetDirective,
-  TooltipDirective,
   TrimInputDirective,
   OnlyNumberDirective,
   DefaultCoverDirective,
   DefaultAvatarDirective,
   DefaultCourseDirective,
 } from '@metutor/shared/directives';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 @NgModule({
   declarations: [
@@ -85,7 +85,6 @@ import {
 
     // Directives
     LetDirective,
-    TooltipDirective,
     TrimInputDirective,
     OnlyNumberDirective,
     DefaultCoverDirective,
@@ -110,6 +109,7 @@ import {
     ReactiveFormsModule,
     MatProgressBarModule,
     BsDropdownModule.forRoot(),
+    TooltipModule,
   ],
   exports: [
     CourseItemComponent,
@@ -134,7 +134,6 @@ import {
 
     // Directives
     LetDirective,
-    TooltipDirective,
     TrimInputDirective,
     OnlyNumberDirective,
     DefaultCoverDirective,

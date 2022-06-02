@@ -71,7 +71,7 @@
                   <td>{{ booking?.totalPrice }}$</td>
                   <td>
                     <button class="status text-capitalize" mat-button [ngClass]="booking?.status"
-                            meTutorsTooltip [tooltipText]="statusLabel[booking?.status]?.long">{{ statusLabel[booking?.status]?.short}}
+                            [tooltip]="statusLabel[booking?.status]?.long">{{ statusLabel[booking?.status]?.short}}
                     </button>
                   </td>
                   <td>

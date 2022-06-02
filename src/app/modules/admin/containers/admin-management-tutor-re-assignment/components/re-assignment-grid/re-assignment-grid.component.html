@@ -57,7 +57,7 @@
     <td>
       <div class="change-status position-relative d-flex">
         <button class="status text-capitalize" mat-button [ngClass]="reassignment?.status"
-                meTutorsTooltip [tooltipText]="statusLabel[reassignment?.status]?.long">{{ statusLabel[reassignment?.status]?.short}}
+                [tooltip]="statusLabel[reassignment?.status]?.long">{{ statusLabel[reassignment?.status]?.short}}
         </button>
       </div>
     </td>

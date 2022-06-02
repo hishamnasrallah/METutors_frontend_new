@@ -3,6 +3,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { CommonModule } from '@angular/common';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { RatingModule } from 'ngx-bootstrap/rating';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { NgxAutoScrollModule } from 'ngx-auto-scroll';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -13,7 +14,6 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { AdminRoutingModule } from './admin-routing.module';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { SharedModule } from '@metutor/shared/shared.module';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -156,7 +156,6 @@ import {
     MatRadioModule,
     MatButtonModule,
     MatSelectModule,
-    MatTooltipModule,
     MatFormFieldModule,
     AdminRoutingModule,
     NgxDocViewerModule,
@@ -166,6 +165,7 @@ import {
     MatNativeDateModule,
     MatProgressBarModule,
     RatingModule.forRoot(),
+    TooltipModule.forRoot(),
     MatProgressSpinnerModule,
     BsDropdownModule.forRoot(),
     NgxMaterialTimepickerModule,

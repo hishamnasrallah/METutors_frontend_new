@@ -61,7 +61,7 @@
           </td>
           <td>{{ order?.course?.totalClasses}}</td>
           <td><span class="d-inline-block text-truncate transaction-id"
-                    [matTooltip]="order?.transaction?.id">{{order?.transaction?.id}}</span></td>
+                    [tooltip]="order?.transaction?.id">{{order?.transaction?.id}}</span></td>
           <td>{{ order?.transaction?.createdAt | date}}</td>
           <td>{{ order?.transaction?.amount | currency}}</td>
           <td>
