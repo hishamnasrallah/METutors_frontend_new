@@ -5,4 +5,3 @@ export * from './finance';
 export * from './support';
 export * from './classrooms';
 export * from './management';
-export * from './admin-booking-details';

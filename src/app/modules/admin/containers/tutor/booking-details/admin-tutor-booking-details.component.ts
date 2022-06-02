@@ -9,11 +9,11 @@ import * as fromAdmin from '@metutor/modules/admin/state';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 
 @Component({
-  selector: 'metutors-admin-booking-details',
-  templateUrl: './admin-booking-details.component.html',
-  styleUrls: ['./admin-booking-details.component.scss'],
+  selector: 'metutors-admin-tutor-booking-details',
+  templateUrl: './admin-tutor-booking-details.component.html',
+  styleUrls: ['./admin-tutor-booking-details.component.scss'],
 })
-export class AdminBookingDetailsComponent implements OnInit {
+export class AdminTutorBookingDetailsComponent implements OnInit {
   feedback$: Observable<any>;
   previousTutors$: Observable<any>;
   availableTutors$: Observable<any>;

@@ -17,12 +17,12 @@ import {
   AdminTicketDetailsComponent,
   AdminFinanceOrdersComponent,
   AdminCourseRequestsComponent,
-  AdminBookingDetailsComponent,
   AdminTutorInterviewComponent,
   AdminStudentProfileComponent,
   AdminClassroomsListComponent,
   AdminSuspendedTutorsComponent,
   AdminWorkforceCapacityComponent,
+  AdminTutorBookingDetailsComponent,
   AdminCancelledClassroomsComponent,
   AdminClassroomsPerCourseComponent,
   AdminFinanceRefundOrdersComponent,
@@ -231,7 +231,7 @@ const routes: Routes = [
           },
           {
             path: 'booking-details/:id',
-            component: AdminBookingDetailsComponent,
+            component: AdminTutorBookingDetailsComponent,
             data: {
               layout: {
                 title: 'Booking Details - Metutors',
