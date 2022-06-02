@@ -9,7 +9,7 @@ import * as fromAdmin from '@metutor/modules/admin/state';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 
 @Component({
-  selector: 'metutors-admin-classrooms-per-course',
+  selector: 'metutors-per-course',
   templateUrl: './admin-classrooms-per-course.component.html',
   styleUrls: ['./admin-classrooms-per-course.component.scss'],
 })

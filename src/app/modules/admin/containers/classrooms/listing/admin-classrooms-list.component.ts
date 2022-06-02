@@ -2,11 +2,11 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as fromCore from '@metutor/core/state';
 import { Component, OnInit } from '@angular/core';
-import { courseStatusLabel } from '@metutor/config';
-import { ICourse, ITutorFilters } from '@metutor/core/models';
+import { courseStatusLabel } from '@config';
+import { ICourse, ITutorFilters } from '@models';
 
 @Component({
-  selector: 'metutors-admin-classrooms-list',
+  selector: 'metutors-listing',
   templateUrl: './admin-classrooms-list.component.html',
   styleUrls: ['./admin-classrooms-list.component.scss'],
 })
