@@ -7,13 +7,13 @@ import {
   ITicketFilters,
   ITicketCategory,
   ITicketPriority,
-} from '@metutor/core/models';
-import { TicketStatus } from '@metutor/config';
+} from '@models';
+import { TicketStatus } from '@config';
 import * as fromAdmin from '@metutor/modules/admin/state';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 
 @Component({
-  selector: 'metutors-admin-support-ticket',
+  selector: 'metutors-ticket',
   templateUrl: './admin-support-ticket.component.html',
   styleUrls: ['./admin-support-ticket.component.scss'],
 })

@@ -3,18 +3,18 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable, tap } from 'rxjs';
-import { TicketStatus, TicketPriority } from 'src/app/config';
-import { ITicket } from 'src/app/core/models';
+import { TicketStatus, TicketPriority } from '@config';
+import { ITicket } from '@models';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { NgxAutoScroll } from 'ngx-auto-scroll';
-import { IUser } from '@metutor/core/models';
+import { IUser } from '@models';
 import * as fromCore from '@metutor/core/state';
 import { Store } from '@ngrx/store';
 import * as fromAdmin from '@metutor/modules/admin/state';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 
 @Component({
-  selector: 'metutors-admin-ticket-details',
+  selector: 'metutors-ticket-details',
   templateUrl: './admin-ticket-details.component.html',
   styleUrls: ['./admin-ticket-details.component.scss'],
   animations: [
