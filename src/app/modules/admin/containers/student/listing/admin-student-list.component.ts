@@ -4,18 +4,14 @@ import { Component, OnInit } from '@angular/core';
 
 import { environment } from '@environment';
 import * as fromCore from '@metutor/core/state';
-import { IStudentFilters } from '@metutor/core/models';
+import { IStudentFilters } from '@models';
 import * as fromAdmin from '@metutor/modules/admin/state';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 
-import {
-  TutorStatus,
-  StudentStatus,
-  STUDENT_STATUSES_CONST,
-} from '@metutor/config';
+import { TutorStatus, StudentStatus, STUDENT_STATUSES_CONST } from '@config';
 
 @Component({
-  selector: 'metutors-admin-student-list',
+  selector: 'metutors-listing',
   templateUrl: './admin-student-list.component.html',
   styleUrls: ['./admin-student-list.component.scss'],
 })

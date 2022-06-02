@@ -7,7 +7,7 @@ import * as fromCore from '@metutor/core/state';
 import { courseStatusLabel } from '@config';
 
 @Component({
-  selector: 'metutors-admin-student-profile',
+  selector: 'metutors-profile',
   templateUrl: './admin-student-profile.component.html',
   styleUrls: ['./admin-student-profile.component.scss'],
 })
