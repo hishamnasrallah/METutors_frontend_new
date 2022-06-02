@@ -2,12 +2,12 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as fromCore from '@metutor/core/state';
 import { Component, OnInit } from '@angular/core';
-import { ICourseRequest } from '@metutor/core/models';
+import { ICourseRequest } from '@models';
 import * as fromAdmin from '@metutor/modules/admin/state';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 
 @Component({
-  selector: 'metutors-admin-course-requests',
+  selector: 'metutors-course-requests',
   templateUrl: './admin-course-requests.component.html',
   styleUrls: ['./admin-course-requests.component.scss'],
 })

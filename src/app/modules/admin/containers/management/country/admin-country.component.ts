@@ -3,12 +3,12 @@ import { Store } from '@ngrx/store';
 import * as fromCore from '@metutor/core/state';
 import { Component, OnInit } from '@angular/core';
 import * as fromAdmin from '@metutor/modules/admin/state';
-import { ICountry, ICountryFilters } from '@metutor/core/models';
-import { CountryStatus, COUNTRY_STATUSES_CONST } from '@metutor/config';
+import { ICountry, ICountryFilters } from '@models';
+import { CountryStatus, COUNTRY_STATUSES_CONST } from '@config';
 import * as fromAdminActions from '@metutor/modules/admin/state/actions';
 
 @Component({
-  selector: 'metutors-admin-country',
+  selector: 'metutors-country',
   templateUrl: './admin-country.component.html',
   styleUrls: ['./admin-country.component.scss'],
 })

@@ -8,7 +8,7 @@ import * as fromAdmin from '@metutor/modules/admin/state';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 
 @Component({
-  selector: 'metutors-admin-testimonials',
+  selector: 'metutors-testimonials',
   templateUrl: './admin-testimonials.component.html',
   styleUrls: ['./admin-testimonials.component.scss'],
 })

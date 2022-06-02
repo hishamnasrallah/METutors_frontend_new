@@ -3,12 +3,12 @@ import { Store } from '@ngrx/store';
 import * as fromCore from '@metutor/core/state';
 import { Component, OnInit } from '@angular/core';
 import * as fromAdmin from '@metutor/modules/admin/state';
-import { IProgram, IProgramFilters } from '@metutor/core/models';
-import { ProgramStatus, PROGRAM_STATUSES_CONST } from '@metutor/config';
+import { IProgram, IProgramFilters } from '@models';
+import { ProgramStatus, PROGRAM_STATUSES_CONST } from '@config';
 import * as fromAdminActions from '@metutor/modules/admin/state/actions';
 
 @Component({
-  selector: 'metutors-admin-program-list',
+  selector: 'metutors-programs',
   templateUrl: './admin-program-list.component.html',
   styleUrls: ['./admin-program-list.component.scss'],
 })

@@ -3,18 +3,12 @@ import { Store } from '@ngrx/store';
 import * as fromCore from '@metutor/core/state';
 import { Component, OnInit } from '@angular/core';
 import * as fromAdmin from '@metutor/modules/admin/state';
-import {
-  ICountry,
-  IField,
-  IProgram,
-  ISubject,
-  ISubjectFilters,
-} from '@metutor/core/models';
+import { ICountry, IField, IProgram, ISubject, ISubjectFilters } from '@models';
 import * as fromAdminActions from '@metutor/modules/admin/state/actions';
-import { GRADES, SubjectStatus, SUBJECT_STATUSES_CONST } from '@metutor/config';
+import { GRADES, SubjectStatus, SUBJECT_STATUSES_CONST } from '@config';
 
 @Component({
-  selector: 'metutors-admin-subject',
+  selector: 'metutors-subject',
   templateUrl: './admin-subject.component.html',
   styleUrls: ['./admin-subject.component.scss'],
 })

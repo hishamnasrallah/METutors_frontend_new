@@ -3,17 +3,12 @@ import { Store } from '@ngrx/store';
 import * as fromCore from '@metutor/core/state';
 import { Component, OnInit } from '@angular/core';
 import * as fromAdmin from '@metutor/modules/admin/state';
-import {
-  ICountry,
-  IField,
-  IFieldFilters,
-  IProgram,
-} from '@metutor/core/models';
+import { ICountry, IField, IFieldFilters, IProgram } from '@models';
 import * as fromAdminActions from '@metutor/modules/admin/state/actions';
-import { FieldStatus, FIELD_STATUSES_CONST, GRADES } from '@metutor/config';
+import { FieldStatus, FIELD_STATUSES_CONST, GRADES } from '@config';
 
 @Component({
-  selector: 'metutors-admin-field-of-study',
+  selector: 'metutors-field-of-study',
   templateUrl: './admin-field-of-study.component.html',
   styleUrls: ['./admin-field-of-study.component.scss'],
 })

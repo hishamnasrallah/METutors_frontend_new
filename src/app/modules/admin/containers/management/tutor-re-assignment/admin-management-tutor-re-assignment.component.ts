@@ -9,7 +9,7 @@ import * as fromAdmin from '@metutor/modules/admin/state';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 
 @Component({
-  selector: 'metutors-admin-management-tutor-re-assignment',
+  selector: 'metutors-tutor-re-assignment',
   templateUrl: './admin-management-tutor-re-assignment.component.html',
   styleUrls: ['./admin-management-tutor-re-assignment.component.scss'],
 })
