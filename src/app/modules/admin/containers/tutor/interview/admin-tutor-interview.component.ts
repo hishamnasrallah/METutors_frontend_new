@@ -3,13 +3,13 @@ import { Store } from '@ngrx/store';
 import * as fromCore from '@metutor/core/state';
 import { Component, OnInit } from '@angular/core';
 
-import { InterviewStatus } from '@metutor/config';
+import { InterviewStatus } from '@config';
 import * as fromAdmin from '@metutor/modules/admin/state';
-import { IInterview, IInterviewFilters } from '@metutor/core/models';
+import { IInterview, IInterviewFilters } from '@models';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 
 @Component({
-  selector: 'metutors-admin-tutor-interview',
+  selector: 'metutors-interview',
   templateUrl: './admin-tutor-interview.component.html',
   styleUrls: ['./admin-tutor-interview.component.scss'],
 })

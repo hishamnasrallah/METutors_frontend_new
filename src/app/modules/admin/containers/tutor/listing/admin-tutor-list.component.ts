@@ -3,12 +3,12 @@ import { Store } from '@ngrx/store';
 import * as fromCore from '@metutor/core/state';
 import { Component, OnInit } from '@angular/core';
 import * as fromAdmin from '@metutor/modules/admin/state';
-import { ITutor, ITutorFilters } from '@metutor/core/models';
-import { TutorStatus, TUTOR_STATUSES_CONST } from '@metutor/config';
+import { ITutor, ITutorFilters } from '@models';
+import { TutorStatus, TUTOR_STATUSES_CONST } from '@config';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 
 @Component({
-  selector: 'metutors-admin-tutor-list',
+  selector: 'metutors-listing',
   templateUrl: './admin-tutor-list.component.html',
   styleUrls: ['./admin-tutor-list.component.scss'],
 })

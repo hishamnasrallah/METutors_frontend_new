@@ -3,11 +3,11 @@ import { Store } from '@ngrx/store';
 import * as fromCore from '@metutor/core/state';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { TUTOR_STATUSES_CONST } from '@metutor/config';
-import { ITutor, ITutorFilters } from '@metutor/core/models';
+import { TUTOR_STATUSES_CONST } from '@config';
+import { ITutor, ITutorFilters } from '@models';
 
 @Component({
-  selector: 'metutors-admin-pending-tutors',
+  selector: 'metutors-pending',
   templateUrl: './admin-pending-tutors.component.html',
   styleUrls: ['./admin-pending-tutors.component.scss'],
 })

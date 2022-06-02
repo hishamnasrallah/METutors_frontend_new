@@ -2,10 +2,10 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as fromCore from '@metutor/core/state';
 import { Component, OnInit } from '@angular/core';
-import { ITutor, ITutorFilters } from '@metutor/core/models';
+import { ITutor, ITutorFilters } from '@models';
 
 @Component({
-  selector: 'metutors-admin-suspended-tutors',
+  selector: 'metutors-suspended',
   templateUrl: './admin-suspended-tutors.component.html',
   styleUrls: ['./admin-suspended-tutors.component.scss'],
 })

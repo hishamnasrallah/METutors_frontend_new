@@ -6,15 +6,10 @@ import * as fromCore from '@metutor/core/state';
 import * as fromAdmin from '@metutor/modules/admin/state';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 
-import {
-  ITutor,
-  ISubject,
-  ICapacity,
-  ICapacityFilters,
-} from '@metutor/core/models';
+import { ITutor, ISubject, ICapacity, ICapacityFilters } from '@models';
 
 @Component({
-  selector: 'metutors-admin-workforce-capacity',
+  selector: 'metutors-workforce',
   templateUrl: './admin-workforce-capacity.component.html',
   styleUrls: ['./admin-workforce-capacity.component.scss'],
 })

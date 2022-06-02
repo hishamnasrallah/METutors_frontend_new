@@ -4,13 +4,13 @@ import { FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 import * as fromCore from '@metutor/core/state';
-import { IInterview } from '@metutor/core/models';
+import { IInterview } from '@models';
 import * as fromAdmin from '@metutor/modules/admin/state';
-import { generalConstants, InterviewStatus } from '@metutor/config';
+import { generalConstants, InterviewStatus } from '@config';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 
 @Component({
-  selector: 'metutors-admin-tutor-interview-details',
+  selector: 'metutors-interview-details',
   templateUrl: './admin-tutor-interview-details.component.html',
   styleUrls: ['./admin-tutor-interview-details.component.scss'],
 })

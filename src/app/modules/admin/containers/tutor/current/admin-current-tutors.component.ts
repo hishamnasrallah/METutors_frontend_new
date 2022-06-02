@@ -5,17 +5,13 @@ import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 import * as fromAdmin from '@metutor/modules/admin/state';
-import { ITutor, ITutorFilters } from '@metutor/core/models';
+import { ITutor, ITutorFilters } from '@models';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 
-import {
-  TutorStatus,
-  InterviewStatus,
-  TUTOR_STATUSES_CONST,
-} from '@metutor/config';
+import { TutorStatus, InterviewStatus, TUTOR_STATUSES_CONST } from '@config';
 
 @Component({
-  selector: 'metutors-admin-current-tutors',
+  selector: 'metutors-current',
   templateUrl: './admin-current-tutors.component.html',
   styleUrls: ['./admin-current-tutors.component.scss'],
 })

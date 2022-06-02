@@ -10,7 +10,7 @@ import * as fromAdmin from '@metutor/modules/admin/state';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 
 @Component({
-  selector: 'metutors-admin-tutor-interview-documents',
+  selector: 'metutors-interview-documents',
   templateUrl: './admin-tutor-interview-documents.component.html',
   styleUrls: ['./admin-tutor-interview-documents.component.scss'],
 })
