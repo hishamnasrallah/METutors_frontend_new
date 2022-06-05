@@ -151,32 +151,6 @@ export class AdminEffects {
     )
   );
 
-  loadAdminStudentBookingDetail$ = createEffect(() =>
-    this._actions$.pipe(
-      ofType(adminActions.loadAdminStudentBookingDetail),
-      withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
-      mergeMap(([_, { studentId, courseId }]) =>
-        this._adminService.loadAdminStudentDetail(courseId, studentId).pipe(
-          map(
-            (studentBookingDetail) =>
-              adminActions.loadAdminStudentBookingDetailSuccess({
-                studentBookingDetail: camelcaseKeys(studentBookingDetail, {
-                  deep: true,
-                }),
-              }),
-            catchError((error) =>
-              of(
-                adminActions.loadAdminStudentBookingDetailFailure({
-                  error: error?.error?.message || error?.error?.errors,
-                })
-              )
-            )
-          )
-        )
-      )
-    )
-  );
-
   loadAdminStudentAssignmentSummary$ = createEffect(() =>
     this._actions$.pipe(
       ofType(adminActions.loadAdminStudentAssignmentSummary),
@@ -272,6 +246,60 @@ export class AdminEffects {
             catchError((error) =>
               of(
                 adminActions.loadBookingDetailFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          )
+        )
+      )
+    )
+  );
+
+  loadAdminStudentBookingDetail$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(adminActions.loadAdminStudentBookingDetail),
+      withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
+      mergeMap(([_, { studentId, courseId }]) =>
+        this._adminService
+          .loadAdminStudentBookingDetail(courseId, studentId)
+          .pipe(
+            map(
+              (bookingDetail) =>
+                adminActions.loadAdminStudentBookingDetailSuccess({
+                  bookingDetail: camelcaseKeys(bookingDetail, {
+                    deep: true,
+                  }),
+                }),
+              catchError((error) =>
+                of(
+                  adminActions.loadAdminStudentBookingDetailFailure({
+                    error: error?.error?.message || error?.error?.errors,
+                  })
+                )
+              )
+            )
+          )
+      )
+    )
+  );
+
+  loadAdminTutorBookingDetail$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(adminActions.loadAdminTutorBookingDetail),
+      withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
+      mergeMap(([_, { tutorId, courseId }]) =>
+        this._adminService.loadAdminTutorBookingDetail(courseId, tutorId).pipe(
+          map(
+            (bookingDetail) =>
+              adminActions.loadAdminTutorBookingDetailSuccess({
+                bookingDetail: camelcaseKeys(bookingDetail, {
+                  deep: true,
+                }),
+              }),
+            catchError((error) =>
+              of(
+                adminActions.loadAdminTutorBookingDetailFailure({
                   error: error?.error?.message || error?.error?.errors,
                 })
               )

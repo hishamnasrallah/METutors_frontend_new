@@ -29,10 +29,10 @@ import * as adminEffects from './state/effects';
 import * as featureKeys from './state/feature-keys';
 
 import {
-  AdminComponent,
   AdminSubjectComponent,
   AdminCountryComponent,
   PerCourseGridComponent,
+  AdminDashboardComponent,
   AdminTutorListComponent,
   AdminStudentListComponent,
   AdminProgramListComponent,
@@ -41,6 +41,7 @@ import {
   AdminTestimonialsComponent,
   AdminFieldOfStudyComponent,
   AdminCurrentTutorsComponent,
+  AdminBookingDetailComponent,
   AdminPendingTutorsComponent,
   AdminSupportTicketComponent,
   AdminTicketDetailsComponent,
@@ -91,7 +92,6 @@ import {
 
 @NgModule({
   declarations: [
-    AdminComponent,
     AdminNavbarComponent,
     AdminSubjectComponent,
     AdminCountryComponent,
@@ -100,6 +100,7 @@ import {
     PerCourseGridComponent,
     AdminFeedbackComponent,
     AdminTutorListComponent,
+    AdminDashboardComponent,
     AdminStudentListComponent,
     AdminProgramListComponent,
     ReAssignmentGridComponent,
@@ -111,6 +112,7 @@ import {
     AdminCurrentTutorsComponent,
     AdminPendingTutorsComponent,
     AdminFinanceOrdersComponent,
+    AdminBookingDetailComponent,
     AdminTutorInterviewComponent,
     AdminStudentProfileComponent,
     AdminClassroomsListComponent,

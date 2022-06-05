@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import * as fromCore from '@metutor/core/state';
 import { Observable } from 'rxjs';
-import { IUser } from '@metutor/core/models';
+import { Store } from '@ngrx/store';
+import { Component, OnInit } from '@angular/core';
+
+import { IUser } from '@models';
 import * as fromRoot from '@metutor/state';
+import * as fromCore from '@metutor/core/state';
 
 @Component({
-  selector: 'metutors-admin',
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.scss'],
+  selector: 'metutors-dashboard',
+  templateUrl: './admin-dashboard.component.html',
+  styleUrls: ['./admin-dashboard.component.scss'],
 })
-export class AdminComponent implements OnInit {
+export class AdminDashboardComponent implements OnInit {
   layout$: any;
   user$: Observable<IUser | null>;
 

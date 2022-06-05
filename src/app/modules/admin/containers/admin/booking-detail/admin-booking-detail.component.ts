@@ -1,6 +1,6 @@
 import { Store } from '@ngrx/store';
-import { Observable, combineLatest, map } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
+import { combineLatest, map, Observable } from 'rxjs';
 
 import { environment } from '@environment';
 import { courseStatusLabel } from '@config';
@@ -9,11 +9,11 @@ import * as fromAdmin from '@metutor/modules/admin/state';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 
 @Component({
-  selector: 'metutors-admin-tutor-booking-details',
-  templateUrl: './admin-tutor-booking-details.component.html',
-  styleUrls: ['./admin-tutor-booking-details.component.scss'],
+  selector: 'metutors-booking-detail',
+  templateUrl: './admin-booking-detail.component.html',
+  styleUrls: ['./admin-booking-detail.component.scss'],
 })
-export class AdminTutorBookingDetailsComponent implements OnInit {
+export class AdminBookingDetailComponent implements OnInit {
   feedback$: Observable<any>;
   previousTutors$: Observable<any>;
   availableTutors$: Observable<any>;
@@ -34,7 +34,7 @@ export class AdminTutorBookingDetailsComponent implements OnInit {
   constructor(private _store: Store<any>) {}
 
   ngOnInit(): void {
-    this._store.dispatch(fromCore.loadAdminTutorBookingDetail());
+    this._store.dispatch(fromCore.loadBookingDetail());
 
     this.showStudentsFeedbackModal$ = this._store.select(
       fromAdmin.selectStudentsFeedbackModal

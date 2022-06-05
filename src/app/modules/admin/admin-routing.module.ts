@@ -3,9 +3,9 @@ import { AdminAuthGuard } from '@metutor/core/guards';
 import { RouterModule, Routes } from '@angular/router';
 
 import {
-  AdminComponent,
   AdminCountryComponent,
   AdminSubjectComponent,
+  AdminDashboardComponent,
   AdminTutorListComponent,
   AdminStudentListComponent,
   AdminProgramListComponent,
@@ -36,7 +36,7 @@ import {
 const routes: Routes = [
   {
     path: '',
-    component: AdminComponent,
+    component: AdminDashboardComponent,
     canActivate: [AdminAuthGuard],
     data: {
       layout: {
@@ -168,6 +168,18 @@ const routes: Routes = [
             },
           },
           {
+            path: ':tutorId/booking-detail/:courseId',
+            component: AdminTutorBookingDetailsComponent,
+            data: {
+              layout: {
+                title: 'Booking Details - Metutors',
+                navbarTitle: 'Booking Details',
+                showHeader: false,
+                showFooter: false,
+              },
+            },
+          },
+          {
             path: '',
             redirectTo: 'all',
             pathMatch: 'full',
@@ -237,18 +249,6 @@ const routes: Routes = [
               layout: {
                 title: 'Cancelled - Metutors',
                 navbarTitle: 'Classrooms',
-                showHeader: false,
-                showFooter: false,
-              },
-            },
-          },
-          {
-            path: 'booking-details/:id',
-            component: AdminTutorBookingDetailsComponent,
-            data: {
-              layout: {
-                title: 'Booking Details - Metutors',
-                navbarTitle: 'Booking Details',
                 showHeader: false,
                 showFooter: false,
               },
