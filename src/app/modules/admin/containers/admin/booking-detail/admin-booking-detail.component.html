@@ -1,1 +1,144 @@
-<p>admin-booking-detail works!</p>
+<div class="booking-details" *ngLet="(view$ | async) as view">
+
+  <ng-container [ngSwitch]="view.loading">
+    <ng-container *ngSwitchCase="true">
+      <div class="card-body">
+        <div class="ph-row">
+          <div class="ph-col-8 big"></div>
+          <div class="ph-col-4 big empty"></div>
+          <div class="ph-col-10 big mt-3"></div>
+          <div class="ph-col-2 big empty mt-3"></div>
+          <div class="ph-col-6 mt-4"></div>
+          <div class="ph-col-6 mt-4 empty"></div>
+        </div>
+      </div>
+    </ng-container>
+
+    <metutors-admin-booking-detail-header-card *ngSwitchCase="false"
+      [course]="view.bookingDetail" (clicked)="onClickedCardAction($event)">
+    </metutors-admin-booking-detail-header-card>
+  </ng-container>
+
+
+  <div class="booking-content">
+    <h3 class="overview mb-3">Completed Classes</h3>
+    <ng-container [ngSwitch]="view.loading">
+      <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
+      <ng-container *ngSwitchCase="false">
+
+        <ng-container *ngIf="view.bookingDetail?.completedClasses?.length">
+          <table class="table my-table default-title mb-5">
+            <tr>
+              <th>#</th>
+              <th>Topic</th>
+              <th>Class Attendees</th>
+              <th>Start time - End time</th>
+              <th>Duration</th>
+              <th>Status</th>
+            </tr>
+            <tr *ngFor="let completedClass of view.bookingDetail?.completedClasses; let i=index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ completedClass?.topic?.name }}</td>
+              <td>
+                <!--<div class="overflow-visible logos">
+                  <img src="https://logo.clearbit.com/tarjama.com" alt="" draggable="false"
+                       class="d-inline-block rounded-circle">
+                  <img src="https://logo.clearbit.com/amazon.com" alt="" draggable="false"
+                       class="d-inline-block rounded-circle ">
+                  <img src="https://logo.clearbit.com/noon.ae" alt="" draggable="false"
+                       class="d-inline-block rounded-circle ">
+                  <img src="https://logo.clearbit.com/canon.com" alt="" draggable="false"
+                       class="d-inline-block rounded-circle ">
+                  <img src="https://logo.clearbit.com/axa.com" alt="" draggable="false"
+                       class="d-inline-block rounded-circle ">
+                  <img src="https://logo.clearbit.com/axis.xyz" alt="" draggable="false"
+                       class="d-inline-block rounded-circle ">
+                  <img src="https://logo.clearbit.com/tamatem.co" alt="" draggable="false"
+                       class="d-inline-block rounded-circle ">
+                </div>-->
+              </td>
+              <td>{{ completedClass?.startTime }} - {{ completedClass?.endTime }}</td>
+              <td>{{ completedClass?.duration }} Hour</td>
+              <td>
+                <span class="status completed">Completed</span>
+              </td>
+            </tr>
+          </table>
+        </ng-container>
+
+        <div class="col-md-12 mb-3"
+             *ngIf="!view.bookingDetail?.completedClasses?.length">
+          <div class="card no-data">
+            <div class="card-body">
+              <h3 class="text-center m-0">No course found!</h3>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+
+    <h3 class="overview mb-3 mt-5">Remaining Classes</h3>
+    <ng-container [ngSwitch]="view.loading">
+      <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
+      <ng-container *ngSwitchCase="false">
+        <ng-container *ngIf="view.bookingDetail?.remainingClasses?.length">
+          <table class="table my-table default-title">
+            <tr>
+              <th>#</th>
+              <th>Topic</th>
+              <th>Class Attendees</th>
+              <th>Start time - End time</th>
+              <th>Duration</th>
+              <th>Status</th>
+            </tr>
+            <tr *ngFor="let remainingClass of view.bookingDetail?.remainingClasses; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ remainingClass.topic?.name }}</td>
+              <td></td>
+              <td>{{ remainingClass.startTime }} - {{ remainingClass.endTime }}</td>
+              <td>{{ remainingClass.duration }} Hour</td>
+              <td>
+                <span class="status remaining">Remaining</span>
+              </td>
+            </tr>
+          </table>
+        </ng-container>
+
+        <div class="col-md-12 mb-3"
+             *ngIf="!view.bookingDetail?.remainingClasses?.length">
+          <div class="card no-data">
+            <div class="card-body">
+              <h3 class="text-center m-0">No course found!</h3>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>
+
+<metutors-admin-students-feedback-modal *ngIf="showStudentsFeedbackModal$ | async"
+                                        [feedback]="(feedback$ | async)!"
+                                        [loading]="(isLoadingFeedback$ | async)!"
+                                        (closeModal)="onCloseStudentsFeedbackModal()"
+                                        [showModal]="(showStudentsFeedbackModal$ | async)!">
+</metutors-admin-students-feedback-modal>
+
+<metutors-admin-previous-teachers-modal *ngIf="showPreviousTeacherModal$ | async"
+                                        (closeModal)="onClosePreviousTeacherModal()"
+                                        [loading]="(isLoadingPreviousTutors$ | async)!"
+                                        [previousTutors]="(previousTutors$ |async)!"
+                                        [showModal]="(showPreviousTeacherModal$ | async)!">
+</metutors-admin-previous-teachers-modal>
+
+<metutors-admin-reassigning-tutor-selection-modal *ngIf="showReassigningTutorSelectionModal$ | async"
+                                                  (reassignTutor)="onReassignTutor($event)"
+                                                  [isReassigningTutor]="(reassigningTutor$ | async)!"
+                                                  (closeModal)="onCloseReassigningTutorSelectionModal()"
+                                                  (tutorAvailability)="onTutorAvailability($event)"
+                                                  [tutors]="(availableTutors$ | async)!"
+                                                  [timeSlots]="(tutorAvailability$ | async)!"
+                                                  [loading]="(isLoadingAvailableTutors$ | async)!"
+                                                  [isLoadingTimeSlots]="(isLoadingTutorAvailability$ | async)!"
+                                                  [showModal]="(showReassigningTutorSelectionModal$ | async)!">
+</metutors-admin-reassigning-tutor-selection-modal>

@@ -17,6 +17,7 @@ export * from './admin-schedule-interview-modal';
 export * from './admin-course-booking-list-modal';
 export * from './admin-change-tutor-status-modal';
 export * from './admin-add-new-field-study-modal';
+export * from './admin-booking-detail-header-card';
 export * from './admin-student-total-booking-modal';
 export * from './admin-student-view-feedback-modal';
 export * from './admin-hourly-rate-per-subject-modal';

@@ -1,6 +1,22 @@
 <div class="booking-details" *ngLet="(view$ | async) as view">
 
-  <div class="card">
+  <ng-container [ngSwitch]="view.loading">
+  <ng-container *ngSwitchCase="true">
+    <div class="ph-row">
+      <div class="ph-col-8 big"></div>
+      <div class="ph-col-4 big empty"></div>
+      <div class="ph-col-10 big mt-3"></div>
+      <div class="ph-col-2 big empty mt-3"></div>
+      <div class="ph-col-6 mt-4"></div>
+      <div class="ph-col-6 mt-4 empty"></div>
+    </div>
+  </ng-container>
+    <ng-container *ngSwitchCase="false">
+      <metutors-admin-booking-detail-header-card [course]="view.course" [type]="'student'">
+      </metutors-admin-booking-detail-header-card>
+    </ng-container>
+    </ng-container>
+  <!--<div class="card">
     <div class="card-body">
       <ng-container [ngSwitch]="view.loading">
         <ng-container *ngSwitchCase="false">
@@ -106,7 +122,7 @@
         </ng-container>
       </ng-container>
     </div>
-  </div>
+  </div>-->
 
 
   <div class="list-tables">
