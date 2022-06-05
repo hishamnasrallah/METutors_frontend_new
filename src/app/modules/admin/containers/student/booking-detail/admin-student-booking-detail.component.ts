@@ -76,7 +76,7 @@ export class AdminStudentBookingDetailComponent implements OnInit {
     );
 
     this.view$ = combineLatest([
-      this._store.select(fromCore.selectAdminStudentBookingDetail),
+      this._store.select(fromCore.selectAdminBookingDetail),
       this._store.select(fromCore.selectIsLoadingAdminBookingDetail),
     ]).pipe(map(([course, loading]) => ({ course, loading })));
   }

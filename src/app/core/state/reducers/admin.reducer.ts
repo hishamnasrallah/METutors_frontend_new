@@ -28,7 +28,6 @@ export interface State {
   isApprovingDoc: boolean;
   isRejectingDoc: boolean;
   isLoadingTutors: boolean;
-  studentBookingDetail: [];
   isEditingFeedback: boolean;
   isLoadingAdminDocs: boolean;
   documents: ITeacherDocument[];
@@ -92,7 +91,6 @@ export const initialState: State = {
   workforceCapacity: [],
   isLoadingTutors: false,
   studentTotalBooking: [],
-  studentBookingDetail: [],
   isEditingFeedback: false,
   isLoadingAdminDocs: false,
   isLoadingAllBookings: false,
@@ -334,21 +332,44 @@ export const reducer = createReducer(
     })
   ),
 
-  on(adminActions.loadBookingDetail, (state) => ({
-    ...state,
-    isLoadingBookingDetail: true,
-  })),
+  on(
+    adminActions.loadBookingDetail,
+    adminActions.loadAdminStudentTotalBooking,
+    adminActions.loadAdminStudentBookingDetail,
+    (state) => ({
+      ...state,
+      isLoadingBookingDetail: true,
+    })
+  ),
 
-  on(adminActions.loadBookingDetailSuccess, (state, { bookingDetail }) => ({
-    ...state,
-    bookingDetail,
-    isLoadingBookingDetail: false,
-  })),
+  on(
+    adminActions.loadBookingDetailSuccess,
+    adminActions.loadAdminStudentBookingDetailSuccess,
+    (state, { bookingDetail }) => ({
+      ...state,
+      bookingDetail,
+      isLoadingBookingDetail: false,
+    })
+  ),
 
-  on(adminActions.loadBookingDetailFailure, (state) => ({
-    ...state,
-    isLoadingBookingDetail: false,
-  })),
+  on(
+    adminActions.loadAdminStudentTotalBookingSuccess,
+    (state, { studentTotalBooking }) => ({
+      ...state,
+      studentTotalBooking,
+      isLoadingBookingDetail: false,
+    })
+  ),
+
+  on(
+    adminActions.loadBookingDetailFailure,
+    adminActions.loadAdminStudentTotalBookingFailure,
+    adminActions.loadAdminStudentBookingDetailFailure,
+    (state) => ({
+      ...state,
+      isLoadingBookingDetail: false,
+    })
+  ),
 
   on(adminActions.loadAdminCoursePreviousTutors, (state) => ({
     ...state,
@@ -405,44 +426,6 @@ export const reducer = createReducer(
   on(adminActions.loadAdminStudentProfileFailure, (state) => ({
     ...state,
     isLoadingStudentProfile: false,
-  })),
-
-  on(adminActions.loadAdminStudentBookingDetail, (state) => ({
-    ...state,
-    isLoadingBookingDetail: true,
-  })),
-
-  on(
-    adminActions.loadAdminStudentBookingDetailSuccess,
-    (state, { studentBookingDetail }) => ({
-      ...state,
-      studentBookingDetail,
-      isLoadingBookingDetail: false,
-    })
-  ),
-
-  on(adminActions.loadAdminStudentBookingDetailFailure, (state) => ({
-    ...state,
-    isLoadingBookingDetail: false,
-  })),
-
-  on(adminActions.loadAdminStudentTotalBooking, (state) => ({
-    ...state,
-    isLoadingBookingDetail: true,
-  })),
-
-  on(
-    adminActions.loadAdminStudentTotalBookingSuccess,
-    (state, { studentTotalBooking }) => ({
-      ...state,
-      studentTotalBooking,
-      isLoadingBookingDetail: false,
-    })
-  ),
-
-  on(adminActions.loadAdminStudentTotalBookingFailure, (state) => ({
-    ...state,
-    isLoadingBookingDetail: false,
   })),
 
   on(adminActions.loadAdminStudentAssignmentSummary, (state) => ({
@@ -718,9 +701,6 @@ export const selectIsLoadingAdminStudentsFeedback = (state: State): boolean =>
 
 export const selectAdminStudentProfile = (state: State): any =>
   state.studentProfile;
-
-export const selectAdminStudentBookingDetail = (state: State): any =>
-  state.studentBookingDetail;
 
 export const selectAdminStudentTotalBooking = (state: State): any =>
   state.studentTotalBooking;

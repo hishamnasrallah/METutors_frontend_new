@@ -186,6 +186,34 @@ export const loadBookingDetailFailure = createAction(
   props<{ error: any }>()
 );
 
+export const loadAdminStudentBookingDetail = createAction(
+  '[Admin] Load Admin Student Booking Detail'
+);
+
+export const loadAdminStudentBookingDetailSuccess = createAction(
+  '[Admin] Load Admin Student Booking Detail Success',
+  props<{ bookingDetail: any }>()
+);
+
+export const loadAdminStudentBookingDetailFailure = createAction(
+  '[Admin] Load Admin Student Booking Detail Failure',
+  props<{ error: any }>()
+);
+
+export const loadAdminTutorBookingDetail = createAction(
+  '[Admin] Load Admin Tutor Booking Detail'
+);
+
+export const loadAdminTutorBookingDetailSuccess = createAction(
+  '[Admin] Load Admin Tutor Booking Detail Success',
+  props<{ bookingDetail: any }>()
+);
+
+export const loadAdminTutorBookingDetailFailure = createAction(
+  '[Admin] Load Admin Tutor Booking Detail Failure',
+  props<{ error: any }>()
+);
+
 // Load booking per subject/course
 export const loadAdminBookingPerCourse = createAction(
   '[Admin] Load Admin Booking Per Course',
@@ -256,20 +284,6 @@ export const loadAdminStudentTotalBookingSuccess = createAction(
 
 export const loadAdminStudentTotalBookingFailure = createAction(
   '[Admin] Load Admin Student Total Booking Failure',
-  props<{ error: any }>()
-);
-
-export const loadAdminStudentBookingDetail = createAction(
-  '[Admin] Load Admin Student Booking Detail'
-);
-
-export const loadAdminStudentBookingDetailSuccess = createAction(
-  '[Admin] Load Admin Student Booking Detail Success',
-  props<{ studentBookingDetail: any }>()
-);
-
-export const loadAdminStudentBookingDetailFailure = createAction(
-  '[Admin] Load Admin Student Booking Detail Failure',
   props<{ error: any }>()
 );
 

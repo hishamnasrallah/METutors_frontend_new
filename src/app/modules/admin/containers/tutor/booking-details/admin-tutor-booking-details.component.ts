@@ -34,7 +34,7 @@ export class AdminTutorBookingDetailsComponent implements OnInit {
   constructor(private _store: Store<any>) {}
 
   ngOnInit(): void {
-    this._store.dispatch(fromCore.loadBookingDetail());
+    this._store.dispatch(fromCore.loadAdminTutorBookingDetail());
 
     this.showStudentsFeedbackModal$ = this._store.select(
       fromAdmin.selectStudentsFeedbackModal

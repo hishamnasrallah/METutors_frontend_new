@@ -80,7 +80,7 @@
                 <td>{{ course?.createdAt | date }}</td>
                 <td>{{ course?.totalPrice | currency }}</td>
                 <td>
-                    <button mat-button class="booking-details" [routerLink]="['/admin','classrooms','booking-details', course.id]" (click)="closeModal.emit()">Booking Details</button>
+                    <button mat-button class="booking-details" [routerLink]="['/admin','tutor', course?.tutor?.id, 'booking-detail', course.id]" (click)="closeModal.emit()">Booking Details</button>
                 </td>
             </tr>
           </ng-container>

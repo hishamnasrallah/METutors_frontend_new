@@ -1326,11 +1326,6 @@ export const selectIsLoadingAdminStudentProfile = createSelector(
   fromAdminReducer.selectIsLoadingAdminStudentProfile
 );
 
-export const selectAdminStudentBookingDetail = createSelector(
-  selectAdminState,
-  fromAdminReducer.selectAdminStudentBookingDetail
-);
-
 export const selectAdminStudentTotalBooking = createSelector(
   selectAdminState,
   fromAdminReducer.selectAdminStudentTotalBooking

@@ -155,6 +155,18 @@ const routes: Routes = [
             },
           },
           {
+            path: ':tutorId/booking-detail/:courseId',
+            component: AdminTutorBookingDetailsComponent,
+            data: {
+              layout: {
+                title: 'Booking Details - Metutors',
+                navbarTitle: 'Booking Details',
+                showHeader: false,
+                showFooter: false,
+              },
+            },
+          },
+          {
             path: '',
             redirectTo: 'all',
             pathMatch: 'full',
@@ -224,18 +236,6 @@ const routes: Routes = [
               layout: {
                 title: 'Cancelled - Metutors',
                 navbarTitle: 'Classrooms',
-                showHeader: false,
-                showFooter: false,
-              },
-            },
-          },
-          {
-            path: 'booking-details/:id',
-            component: AdminTutorBookingDetailsComponent,
-            data: {
-              layout: {
-                title: 'Booking Details - Metutors',
-                navbarTitle: 'Booking Details',
                 showHeader: false,
                 showFooter: false,
               },
