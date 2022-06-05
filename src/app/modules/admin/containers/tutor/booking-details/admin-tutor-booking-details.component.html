@@ -13,10 +13,7 @@
         </div>
       </div>
     </ng-container>
-
-    <metutors-admin-booking-detail-header-card [course]="view.bookingDetail?.course" [type]="'tutor'">
-    </metutors-admin-booking-detail-header-card>
-   <!-- <div class="card" >
+    <div class="card" *ngSwitchCase="false">
       <div class="card-body">
         <div class="title overflow-hidden d-flex justify-content-between">
           <h1 class="mb-0">{{ view.bookingDetail.course?.courseName }} <span>({{ view.bookingDetail.course?.courseCode}})</span>
@@ -110,7 +107,7 @@
           </div>
         </div>
       </div>
-    </div>-->
+    </div>
   </ng-container>
 
 

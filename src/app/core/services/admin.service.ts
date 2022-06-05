@@ -99,7 +99,7 @@ export class AdminService {
   ): Observable<any> {
     return this.http
       .get<any>(
-        `${this.baseUrl}admin/teacher/${tutorId}/course/${courseId}/booking-details`
+        `${this.baseUrl}admin/student/${tutorId}/course/${courseId}/booking-details`
       )
       .pipe(map((response) => response.course));
   }

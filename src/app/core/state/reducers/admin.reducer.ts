@@ -11,6 +11,7 @@ import {
 import camelcaseKeys from 'camelcase-keys';
 import { CourseStatus } from '@metutor/config';
 import * as adminActions from '../actions/admin.actions';
+import { loadAdminTutorBookingDetail } from '../actions/admin.actions';
 
 export interface State {
   tutors: ITutor[];
@@ -334,6 +335,7 @@ export const reducer = createReducer(
 
   on(
     adminActions.loadBookingDetail,
+    adminActions.loadAdminTutorBookingDetail,
     adminActions.loadAdminStudentTotalBooking,
     adminActions.loadAdminStudentBookingDetail,
     (state) => ({
@@ -344,6 +346,7 @@ export const reducer = createReducer(
 
   on(
     adminActions.loadBookingDetailSuccess,
+    adminActions.loadAdminTutorBookingDetailSuccess,
     adminActions.loadAdminStudentBookingDetailSuccess,
     (state, { bookingDetail }) => ({
       ...state,
@@ -363,6 +366,7 @@ export const reducer = createReducer(
 
   on(
     adminActions.loadBookingDetailFailure,
+    adminActions.loadAdminTutorBookingDetailFailure,
     adminActions.loadAdminStudentTotalBookingFailure,
     adminActions.loadAdminStudentBookingDetailFailure,
     (state) => ({

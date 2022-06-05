@@ -86,16 +86,6 @@ export class AdminBookingDetailComponent implements OnInit {
     ]).pipe(map(([bookingDetail, loading]) => ({ loading, bookingDetail })));
   }
 
-  onClickedCardAction(action: string): void {
-    if (action === 'feedback') {
-      this.onOpenStudentsFeedbackModal();
-    } else if (action === 'previous') {
-      this.onOpenPreviousTeacherModal();
-    } else if (action === 'reassigned') {
-      this.onOpenReassigningTutorSelectionModal();
-    }
-  }
-
   onOpenStudentsFeedbackModal() {
     this._store.dispatch(fromCore.loadAdminStudentsFeedback());
     this._store.dispatch(fromAdminAction.openAdminStudentsFeedbackModal());
