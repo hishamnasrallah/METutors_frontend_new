@@ -3,9 +3,9 @@ import { AdminAuthGuard } from '@metutor/core/guards';
 import { RouterModule, Routes } from '@angular/router';
 
 import {
-  AdminComponent,
   AdminCountryComponent,
   AdminSubjectComponent,
+  AdminDashboardComponent,
   AdminTutorListComponent,
   AdminStudentListComponent,
   AdminProgramListComponent,
@@ -35,7 +35,7 @@ import {
 const routes: Routes = [
   {
     path: '',
-    component: AdminComponent,
+    component: AdminDashboardComponent,
     canActivate: [AdminAuthGuard],
     data: {
       layout: {
