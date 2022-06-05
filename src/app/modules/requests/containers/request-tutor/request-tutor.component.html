@@ -98,7 +98,8 @@
                                     [loading]="loadingTutors$ | async"
                                     [price]="price$ | async" 
                                     [hours]="reviewInfo?.hours"
-                                    [tutors]="tutors$ | async" 
+                                    [suggestedTutors]="suggestedTutors$ | async"
+                                    [availableTutors]="availableTutors$ | async"
                                     (onBack)="backStep()" 
                                     (submitForm)="nextStep()">
         </metutors-select-tutor-form>

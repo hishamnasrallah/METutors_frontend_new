@@ -37,16 +37,17 @@ export class RequestTutorComponent implements OnInit {
   price$: Observable<number | null>;
   loadingTutors$: Observable<boolean>;
   fields$: Observable<IField[] | null>;
-  tutors$: Observable<ITutor[] | null>;
   isCreatingCourse$: Observable<boolean>;
   programs$: Observable<IProgram[] | null>;
   subjects$: Observable<ISubject[] | null>;
   countries$: Observable<ICountry[] | null>;
   languages$: Observable<ILanguage[] | null>;
+  suggestedTutors$: Observable<ITutor[] | null>;
+  availableTutors$: Observable<ITutor[] | null>;
 
   price: number;
-  tutors?: ITutor[];
   reviewInfo: any = {};
+  tutors: ITutor[] = [];
   classrooms!: IClass[];
   subjects!: ISubject[];
   courseField?: IField[];
@@ -151,13 +152,25 @@ export class RequestTutorComponent implements OnInit {
       this.calculateEstimatedPrice(this._route.snapshot.queryParams['subject']);
     }
 
-    this.tutors$ = this._store.select(fromCore.selectGeneratingTutors).pipe(
-      tap((tutors) => {
-        if (tutors && tutors.length) {
-          this.tutors = tutors;
-        }
-      })
-    );
+    this.availableTutors$ = this._store
+      .select(fromCore.selectGeneratingAvailableTutors)
+      .pipe(
+        tap((tutors) => {
+          if (tutors && tutors.length) {
+            this.tutors = [...this.tutors, ...tutors];
+          }
+        })
+      );
+
+    this.suggestedTutors$ = this._store
+      .select(fromCore.selectGeneratingSuggestedTutors)
+      .pipe(
+        tap((tutors) => {
+          if (tutors && tutors.length) {
+            this.tutors = [...this.tutors, ...tutors];
+          }
+        })
+      );
     this.loadingTutors$ = this._store.select(fromCore.selectIsGeneratingTutors);
     this.isCreatingCourse$ = this._store.select(fromCore.selectIsCreateClass);
   }

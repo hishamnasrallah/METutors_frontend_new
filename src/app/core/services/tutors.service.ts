@@ -179,14 +179,22 @@ export class TutorsService {
     const params = new HttpParams({ fromObject: object });
 
     return this.http
-      .get<{ filtered_teacher: ITutor[] }>(`${this.baseUrl}filtered-teacher`, {
-        params,
-      })
+      .get<{ available_teachers: ITutor[]; suggested_teachers: ITutor[] }>(
+        `${this.baseUrl}filtered-teacher`,
+        {
+          params,
+        }
+      )
       .pipe(
         map((response) => {
-          return response.filtered_teacher.map(
-            (item) => new ITutor(false, item)
-          );
+          return {
+            suggestedTutors: response.suggested_teachers.map(
+              (item) => new ITutor(false, item)
+            ),
+            availableTutors: response.available_teachers.map(
+              (item) => new ITutor(false, item)
+            ),
+          };
         })
       );
   }

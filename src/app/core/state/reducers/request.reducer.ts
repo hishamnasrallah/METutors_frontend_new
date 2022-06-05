@@ -11,9 +11,10 @@ export interface State {
   loadingEstimatedPriceFailure?: string;
 
   // Generate tutors
-  tutors: ITutor[] | null;
   isGeneratingTutors: boolean;
   loadingTutorFailure: string;
+  availableTutors: ITutor[] | null;
+  suggestedTutors: ITutor[] | null;
 
   // Create Class
   isCreateClass: boolean;
@@ -36,12 +37,13 @@ export interface State {
 }
 
 export const initialState: State = {
-  tutors: null,
   createdClass: null,
   isCreateClass: false,
   invoiceDetails: null,
   estimatedPrice: null,
   requestedCourses: [],
+  suggestedTutors: null,
+  availableTutors: null,
   isRequestCourse: false,
   createClassFailure: '',
   loadingTutorFailure: '',
@@ -84,11 +86,15 @@ export const reducer = createReducer(
     isGeneratingTutors: true,
   })),
 
-  on(requestActions.generateTutorsSuccess, (state, { tutors }) => ({
-    ...state,
-    tutors,
-    isGeneratingTutors: false,
-  })),
+  on(
+    requestActions.generateTutorsSuccess,
+    (state, { availableTutors, suggestedTutors }) => ({
+      ...state,
+      availableTutors,
+      suggestedTutors,
+      isGeneratingTutors: false,
+    })
+  ),
 
   on(requestActions.generateTutorsFailure, (state, { error }) => ({
     ...state,
@@ -200,8 +206,13 @@ export const reducer = createReducer(
   )
 );
 
-export const selectGeneratingTutors = (state: State): ITutor[] | null =>
-  state.tutors;
+export const selectGeneratingAvailableTutors = (
+  state: State
+): ITutor[] | null => state.availableTutors;
+
+export const selectGeneratingSuggestedTutors = (
+  state: State
+): ITutor[] | null => state.suggestedTutors;
 
 export const selectIsGeneratingTutors = (state: State): boolean =>
   state.isGeneratingTutors;
