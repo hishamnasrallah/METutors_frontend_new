@@ -9,11 +9,11 @@ import { generalConstants, InterviewStatus } from '@config';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 
 @Component({
-  selector: 'metutors-interview-details',
-  templateUrl: './admin-tutor-interview-details.component.html',
-  styleUrls: ['./admin-tutor-interview-details.component.scss'],
+  selector: 'metutors-admin-tutor-profile',
+  templateUrl: './admin-tutor-profile.component.html',
+  styleUrls: ['./admin-tutor-profile.component.scss'],
 })
-export class AdminTutorInterviewDetailsComponent implements OnInit {
+export class AdminTutorProfileComponent implements OnInit {
   isLoading$: Observable<boolean>;
   isDeclineRequest$: Observable<boolean>;
   isAcceptingRequest$: Observable<boolean>;

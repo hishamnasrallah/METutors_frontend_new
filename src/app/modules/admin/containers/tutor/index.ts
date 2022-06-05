@@ -4,6 +4,7 @@ export * from './current';
 export * from './interview';
 export * from './suspended';
 export * from './workforce';
+export * from './tutor-profile';
 export * from './booking-details';
 export * from './interview-details';
 export * from './interview-documents';

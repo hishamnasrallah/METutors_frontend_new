@@ -11,6 +11,7 @@ import {
   AdminProgramListComponent,
   AdminFieldOfStudyComponent,
   AdminTestimonialsComponent,
+  AdminTutorProfileComponent,
   AdminCurrentTutorsComponent,
   AdminPendingTutorsComponent,
   AdminSupportTicketComponent,
@@ -149,6 +150,18 @@ const routes: Routes = [
               layout: {
                 title: 'Workforce Capacity - Metutors',
                 navbarTitle: 'Workforce Capacity',
+                showHeader: false,
+                showFooter: false,
+              },
+            },
+          },
+          {
+            path: 'profile/:id',
+            component: AdminTutorProfileComponent,
+            data: {
+              layout: {
+                title: 'Tutor profile - Metutors',
+                navbarTitle: 'Tutor profile',
                 showHeader: false,
                 showFooter: false,
               },
