@@ -27,6 +27,10 @@ export class IClassroom {
   status?: number;
   tutor?: ITutor;
   progress?: number;
+  programName?: string;
+  fieldName?: string;
+  tutoringLanguage?: string;
+  tutoringType?: string;
   completedClasses?: number;
   remainingClasses?: number;
   isComplete?: boolean;

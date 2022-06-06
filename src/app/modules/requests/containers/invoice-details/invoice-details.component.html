@@ -5,7 +5,30 @@
         <h2>Invoice details</h2>
         <div class="card">
           <div class="card-body">
-            <h3 class="title">Invoice details</h3>
+            <div class="row data">
+              <div class="col-md-9">
+                <ul class="list-inline mb-0">
+                  <li class="list-inline-item mb-0 me-4">
+                    <span>Invoice #</span>
+                    <strong>IN37738</strong>
+                  </li>
+                  <li class="list-inline-item mb-0 me-4">
+                    <span>Order #</span>
+                    <strong>IN37738</strong>
+                  </li>
+                  <li class="list-inline-item mb-0 me-4">
+                    <span>Date #</span>
+                    <strong>01 jan 2022, 03:50</strong>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-md-3">
+                <button mat-button class="invoice-email d-block w-100 mb-1">Get Invoice Email</button>
+                <button mat-button class="print d-block w-100 mb-1">Print</button>
+              </div>
+            </div>
+
+            <h3 class="title">Invoice Details</h3>
             <ng-container *ngIf="!(isCalculateInvoiceDetails$ | async)">
               <ul class="list-unstyled">
                 <li class="d-flex justify-content-between">

@@ -1,0 +1,16 @@
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'xmedium'"
+                [heading]="'Tutor Availability'" [template]="template">
+  <ng-template #template>
+    <div class="tutor-availability">
+                  <ng-container [ngSwitch]="isLoadingTimeSlots">
+                    <ng-container *ngSwitchCase="true">
+                      <metutors-grid-placeholder></metutors-grid-placeholder>
+                    </ng-container>
+
+                    <ng-container *ngSwitchCase="false">
+                      <metutors-tutor-available-slots [timeSlots]="timeSlots"></metutors-tutor-available-slots>
+                    </ng-container>
+                  </ng-container>
+    </div>
+  </ng-template>
+</metutors-modal>

@@ -16,9 +16,35 @@
       color: #2a2a2a;
       font-size: 20px;
       font-weight: bold;
-      border-bottom: 1px solid #e2e2e2;
-      padding-bottom: 20px;
       margin-bottom: 20px;
+    }
+
+    .data {
+      span {
+        margin-right: 5px;
+      }
+
+      .invoice-email {
+        border: 1px solid var(--main-color);
+        color: var(--main-color);
+        transition: all 0.25s ease-in-out;
+
+        &:hover {
+          background-color: var(--main-color);
+          color: #FFF;
+        }
+      }
+
+      .print {
+        color: #949494;
+        border: 1px solid #949494;
+        transition: all 0.25s ease-in-out;
+
+        &:hover {
+          background-color: #949494;
+          color: #FFF;
+        }
+      }
     }
 
     ul li {

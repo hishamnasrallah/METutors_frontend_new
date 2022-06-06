@@ -43,3 +43,8 @@ export const selectIsConfirmPaymentModal = createSelector(
   selectRequestsModalState,
   fromRequestsModal.selectIsConfirmPaymentModal
 );
+
+export const selectIsShowTeacherAvailabilityModal = createSelector(
+  selectRequestsModalState,
+  fromRequestsModal.selectIsShowTeacherAvailabilityModal
+);

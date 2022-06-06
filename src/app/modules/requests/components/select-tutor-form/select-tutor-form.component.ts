@@ -44,9 +44,11 @@ export class SelectTutorFormComponent implements OnInit {
   @Input() hours: number | undefined;
   @Input() suggestedTutors: ITutor[] | null;
   @Input() availableTutors: ITutor[] | null;
-  
+
   @Output() onBack = new EventEmitter();
   @Output() submitForm = new EventEmitter();
+  @Output() tutorAvailability: EventEmitter<number> =
+    new EventEmitter<number>();
 
   tutorStatus = TutorStatus;
 
@@ -62,5 +64,9 @@ export class SelectTutorFormComponent implements OnInit {
     if (form.valid) {
       this.submitForm.emit(form.value);
     }
+  }
+
+  onViewAvailability(id: number): void {
+    this.tutorAvailability.emit(id);
   }
 }

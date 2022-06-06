@@ -24,6 +24,8 @@ import {
 import { Store } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
 import { FormValidationUtilsService } from '@metutor/core/validators';
+import * as fromRequests from '@metutor/modules/requests/state';
+import * as fromRequestsActions from '@metutor/modules/requests/state/actions';
 
 @Component({
   selector: 'metutors-request-tutor',
@@ -35,6 +37,7 @@ export class RequestTutorComponent implements OnInit {
   @ViewChild('stepper') private myStepper?: MatStepper;
 
   price$: Observable<number | null>;
+  tutorAvailability$: Observable<any>;
   loadingTutors$: Observable<boolean>;
   fields$: Observable<IField[] | null>;
   isCreatingCourse$: Observable<boolean>;
@@ -44,6 +47,8 @@ export class RequestTutorComponent implements OnInit {
   languages$: Observable<ILanguage[] | null>;
   suggestedTutors$: Observable<ITutor[] | null>;
   availableTutors$: Observable<ITutor[] | null>;
+  isLoadingTutorAvailability$: Observable<boolean>;
+  showTeacherAvailabilityModal$: Observable<boolean>;
 
   price: number;
   reviewInfo: any = {};
@@ -173,6 +178,18 @@ export class RequestTutorComponent implements OnInit {
       );
     this.loadingTutors$ = this._store.select(fromCore.selectIsGeneratingTutors);
     this.isCreatingCourse$ = this._store.select(fromCore.selectIsCreateClass);
+
+    this.tutorAvailability$ = this._store.select(
+      fromCore.selectTutorAvailability
+    );
+
+    this.isLoadingTutorAvailability$ = this._store.select(
+      fromCore.selectIsLoadingTutorAvailability
+    );
+
+    this.showTeacherAvailabilityModal$ = this._store.select(
+      fromRequests.selectIsShowTeacherAvailabilityModal
+    );
   }
 
   nextStep(): void {
@@ -182,6 +199,15 @@ export class RequestTutorComponent implements OnInit {
 
   backStep(): void {
     this.myStepper?.previous();
+  }
+
+  onTutorAvailability(id: number): void {
+    this._store.dispatch(fromRequestsActions.openTeacherAvailabilityModal());
+    this._store.dispatch(fromCore.loadTutorAvailability({ id }));
+  }
+
+  onCloseTeacherAvailabilityModal(): void {
+    this._store.dispatch(fromRequestsActions.closeTeacherAvailabilityModal());
   }
 
   fetchCourseFieldSubject(fieldId: string): void {
@@ -279,6 +305,10 @@ export class RequestTutorComponent implements OnInit {
       ...this.courseInformationForm.value,
       ...this._generateClassroomForm(this.classroomDetailsForm.value),
       ...this.selectTutorForm.value,
+      programName: this.reviewInfo.courseProgram,
+      fieldName: this.reviewInfo.courseField,
+      tutoringLanguage: this.reviewInfo.languages,
+      tutoringType: this.reviewInfo.type,
       tutor: this.reviewInfo.tutor,
       startTime: this.reviewInfo.startTime,
       endTime: this.reviewInfo.endTime,

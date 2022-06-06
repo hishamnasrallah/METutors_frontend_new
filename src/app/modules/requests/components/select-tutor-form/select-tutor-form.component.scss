@@ -139,6 +139,13 @@
       &:hover {
         color: var(--main-color);
       }
+
+      &.availability {
+        color: #007CFF;
+        font-size: 12px;
+        margin-top: 5px;
+        text-decoration: underline;
+      }
     }
   }
 
