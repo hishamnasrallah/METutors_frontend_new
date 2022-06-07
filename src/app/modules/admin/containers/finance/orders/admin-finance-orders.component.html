@@ -50,7 +50,7 @@
         <tr *ngFor="let order of view.orders; let i = index">
           <td>{{ i + 1}}</td>
           <td>OID{{order?.courseId}}</td>
-          <td><a href="javascript: void(0)" (click)="onOpenBookingModal(order?.courseId)">BIN{{order?.id}}</a></td>
+          <td><a >BIN{{order?.id}}</a></td>
           <td><a [routerLink]="['/admin', 'student', 'profile', order?.user?.id]">{{ order?.user?.idNumber}}</a></td>
           <td>
             <metutors-user-avatar [avatar]="imageUrl+order?.user?.avatar" [type]="'small'"
@@ -79,9 +79,3 @@
     </ng-container>
   </div>
 </div>
-
-<metutors-admin-student-total-booking-modal [showModal]="(openBookingModal$ | async)!" *ngIf="openBookingModal$ | async"
-                                            (closeModal)="onCloseBookingModal()" [type]="bookingType"
-                                            [loading]="(loadingTotalBooking$ | async)!"
-                                            [detail]="(totalBooking$ | async)!">
-</metutors-admin-student-total-booking-modal>
