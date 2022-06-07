@@ -160,3 +160,11 @@ export const openAdminRequestCourseDetailsModal = createAction(
 export const closeAdminRequestCourseDetailsModal = createAction(
   '[Admin Modal] Close Admin Request Course Details Modal'
 );
+
+export const openAdminTeacherAvailabilityModal = createAction(
+  '[Admin Modal] Open Admin Teacher Availability Modal'
+);
+
+export const closeAdminTeacherAvailabilityModal = createAction(
+  '[Admin Modal] Close Admin Teacher Availability Modal'
+);

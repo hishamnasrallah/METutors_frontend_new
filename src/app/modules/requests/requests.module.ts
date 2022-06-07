@@ -33,7 +33,6 @@ import {
   ConfirmPaymentModalComponent,
   CourseInformationFormComponent,
   InvoiceClassroomDetailsComponent,
-  TeacherAvailabilityModalComponent,
 } from './components';
 
 @NgModule({
@@ -49,7 +48,6 @@ import {
     ConfirmPaymentModalComponent,
     CourseInformationFormComponent,
     InvoiceClassroomDetailsComponent,
-    TeacherAvailabilityModalComponent,
   ],
   imports: [
     FormsModule,

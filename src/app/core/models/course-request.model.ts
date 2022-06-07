@@ -15,6 +15,7 @@ export class ICourseRequest {
   country?: ICountry;
   description?: string;
   updatedAt?: string;
+  programId?: number;
 
   constructor(createDefault = false, request: any = null) {
     if (createDefault) {
@@ -30,6 +31,7 @@ export class ICourseRequest {
       this.language = undefined;
       this.country = undefined;
       this.updatedAt = '';
+      this.programId = 0;
     }
 
     if (request) {
@@ -45,6 +47,7 @@ export class ICourseRequest {
       this.gender = request?.gender_preference;
       this.description = request?.course_description;
       this.updatedAt = request?.updated_at;
+      this.programId = request?.program_id;
     }
   }
 }

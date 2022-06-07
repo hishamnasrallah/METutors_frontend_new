@@ -138,3 +138,8 @@ export const selectAdminRequestCourseDetailsModal = createSelector(
   selectAdminModalState,
   fromAdminModal.selectAdminRequestCourseDetailsModal
 );
+
+export const selectIsShowTeacherAvailabilityModal = createSelector(
+  selectAdminModalState,
+  fromAdminModal.selectIsShowTeacherAvailabilityModal
+);
