@@ -12,8 +12,12 @@ export class ReAssignmentGridComponent implements OnInit {
   @Input() reassignments: any;
 
   @Output() openBookingModal: EventEmitter<number> = new EventEmitter<number>();
+
   @Output() openReassignTutorModal: EventEmitter<number> =
     new EventEmitter<number>();
+
+  @Output() changeTutorStatus: EventEmitter<{ id: number; status: string }> =
+    new EventEmitter<{ id: number; status: string }>();
 
   constructor() {}
 

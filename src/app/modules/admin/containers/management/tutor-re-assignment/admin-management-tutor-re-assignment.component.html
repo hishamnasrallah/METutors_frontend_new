@@ -38,7 +38,8 @@
             <ng-container *ngSwitchCase="false">
               <metutors-re-assignment-grid [reassignments]="view.reAssignment?.newlyRequestedCourses" [isNew]="true"
                                            (openReassignTutorModal)="onOpenReassigningTutorSelectionModal($event)"
-                                           (openBookingModal)="onOpenBookingModal($event)"></metutors-re-assignment-grid>
+                                           (openBookingModal)="onOpenBookingModal($event)"
+                                           (changeTutorStatus)="onChangeTutorStatus($event)"></metutors-re-assignment-grid>
             </ng-container>
           </ng-container>
         </mat-tab>
@@ -50,7 +51,8 @@
             <ng-container *ngSwitchCase="false">
               <metutors-re-assignment-grid [reassignments]="view.reAssignment?.completedCourses" [isNew]="false"
                                            (openReassignTutorModal)="onOpenReassigningTutorSelectionModal($event)"
-                                           (openBookingModal)="onOpenBookingModal($event)"></metutors-re-assignment-grid>
+                                           (openBookingModal)="onOpenBookingModal($event)"
+                                           (changeTutorStatus)="onChangeTutorStatus($event)"></metutors-re-assignment-grid>
             </ng-container>
           </ng-container>
         </mat-tab>
@@ -63,7 +65,8 @@
           <ng-container *ngSwitchCase="false">
             <metutors-re-assignment-grid [reassignments]="view.reAssignment?.courses" [isNew]="false"
                                          (openReassignTutorModal)="onOpenReassigningTutorSelectionModal($event)"
-                                         (openBookingModal)="onOpenBookingModal($event)"></metutors-re-assignment-grid>
+                                         (openBookingModal)="onOpenBookingModal($event)"
+                                         (changeTutorStatus)="onChangeTutorStatus($event)"></metutors-re-assignment-grid>
           </ng-container>
         </ng-container>
       </ng-container>

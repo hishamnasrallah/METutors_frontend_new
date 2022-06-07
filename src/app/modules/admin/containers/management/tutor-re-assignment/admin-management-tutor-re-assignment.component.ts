@@ -7,6 +7,7 @@ import { combineLatest, map, Observable } from 'rxjs';
 import * as fromCore from '@metutor/core/state';
 import * as fromAdmin from '@metutor/modules/admin/state';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
+import { adminChangeTutorAvailabilityStatus } from '@metutor/core/state';
 
 @Component({
   selector: 'metutors-tutor-re-assignment',
@@ -68,6 +69,12 @@ export class AdminManagementTutorReAssignmentComponent implements OnInit {
   onCloseReassigningTutorSelectionModal() {
     this._store.dispatch(
       fromAdminAction.closeAdminReassigningTutorSelectionModal()
+    );
+  }
+
+  onChangeTutorStatus({ id, status }: { id: number; status: string }): void {
+    this._store.dispatch(
+      fromCore.adminChangeTutorAvailabilityStatus({ id, status })
     );
   }
 

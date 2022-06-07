@@ -11,7 +11,6 @@ import {
 import camelcaseKeys from 'camelcase-keys';
 import { CourseStatus } from '@metutor/config';
 import * as adminActions from '../actions/admin.actions';
-import { loadAdminTutorBookingDetail } from '../actions/admin.actions';
 
 export interface State {
   tutors: ITutor[];
@@ -23,8 +22,8 @@ export interface State {
   feedbackOptions: [];
   bookingsCounts: any;
   studentsFeedback: [];
-  tutorReAssignment: [];
   assignmentSummary: [];
+  tutorReAssignment: any;
   studentTotalBooking: [];
   isApprovingDoc: boolean;
   isRejectingDoc: boolean;
@@ -603,10 +602,39 @@ export const reducer = createReducer(
 
   on(
     adminActions.adminChangeTutorAvailabilityStatusSuccess,
-    (state, { status, id }) => ({
-      ...state,
-      isLoadingAdmin: false,
-    })
+    (state, { status, id }) => {
+      const finalState = {
+        ...state,
+        isLoadingAdmin: false,
+      };
+
+      if (finalState.tutorReAssignment?.completedCourses?.length) {
+        const completedClasses =
+          finalState.tutorReAssignment.completedCourses.map((course: any) =>
+            course.id === id ? { ...course, teacherStatus: status } : course
+          );
+
+        finalState.tutorReAssignment = {
+          ...finalState.tutorReAssignment,
+          completedClasses,
+        };
+      }
+
+      if (finalState.tutorReAssignment?.newlyRequestedCourses?.length) {
+        const newlyRequestedCourses =
+          finalState.tutorReAssignment.newlyRequestedCourses.map(
+            (course: any) =>
+              course.id === id ? { ...course, teacherStatus: status } : course
+          );
+
+        finalState.tutorReAssignment = {
+          ...finalState.tutorReAssignment,
+          newlyRequestedCourses,
+        };
+      }
+
+      return finalState;
+    }
   ),
 
   // COMMON LOADING

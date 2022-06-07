@@ -45,7 +45,8 @@
     </ng-container>
     <ng-container *ngIf="isNew">
       <td>
-        <button class="teacher-status text-capitalize" mat-button [ngClass]="reassignment?.teacherStatus">
+        <button class="teacher-status status text-capitalize" mat-button [ngClass]="reassignment?.teacherStatus"
+                (click)="changeTutorStatus.emit({id: reassignment.id, status: 'not-available'})">
           {{ reassignment?.teacherStatus }}
         </button>
       </td>

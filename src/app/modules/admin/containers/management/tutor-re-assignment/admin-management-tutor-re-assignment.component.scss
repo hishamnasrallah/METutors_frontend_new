@@ -51,6 +51,17 @@
       padding: 14px 27px;
       border-radius: 25px;
       border: 1px solid #979797;
+
+      &.available {
+        border: none;
+        color: #50C394;
+        background: rgba(80, 195, 148, 0.2);
+      }
+      &.not-available {
+        border: none;
+        color: #d34c65;
+        background-color: #f9d3da;
+      }
     }
     .tutor-date {
       div {
