@@ -23,6 +23,7 @@ import {
   CourseDetailsPopupComponent,
   DialogClassroomDetailsPopup,
   ClassroomDetailsPopupComponent,
+  TeacherAvailabilityModalComponent,
 } from '@metutor/shared/popups';
 
 // Components
@@ -82,6 +83,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
     CourseDetailsPopupComponent,
     DialogClassroomDetailsPopup,
     ClassroomDetailsPopupComponent,
+    TeacherAvailabilityModalComponent,
 
     // Directives
     LetDirective,
@@ -100,6 +102,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
     RouterModule,
     MatIconModule,
     MatTabsModule,
+    TooltipModule,
     MatButtonModule,
     MatDialogModule,
     MatTooltipModule,
@@ -109,7 +112,6 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
     ReactiveFormsModule,
     MatProgressBarModule,
     BsDropdownModule.forRoot(),
-    TooltipModule,
   ],
   exports: [
     CourseItemComponent,
@@ -131,6 +133,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
     CourseDetailsPopupComponent,
     DialogClassroomDetailsPopup,
     ClassroomDetailsPopupComponent,
+    TeacherAvailabilityModalComponent,
 
     // Directives
     LetDirective,

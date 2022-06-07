@@ -5,7 +5,7 @@
       <div class="row">
         <div class="col-md-6">
           <h3>Program Name</h3>
-          <h5>{{ requestDetails?.program?.name }}</h5>
+          <h5>{{ requestDetails?.programId !== 0 ? requestDetails?.program?.name : 'Any' }}</h5>
         </div>
         <div class="col-md-6" *ngIf="requestDetails?.country?.name">
           <h3>Country</h3>

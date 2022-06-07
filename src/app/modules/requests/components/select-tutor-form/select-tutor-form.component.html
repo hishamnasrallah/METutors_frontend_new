@@ -13,7 +13,7 @@
           <div class="list-tutors">
             <span class="info mt-3 d-inline-block">Available</span>
             <mat-radio-group class="d-flex flex-column" formControlName="tutor">
-              <mat-radio-button *ngFor="let tutor of suggestedTutors" [value]="tutor?.id">
+              <mat-radio-button *ngFor="let tutor of availableTutors" [value]="tutor?.id">
                 <div class="row">
                   <div class="position-relative img-avatar">
                     <img [src]="tutor?.avatar" meTutorsDefaultAvatar alt="" width="60px" height="60px">
@@ -45,7 +45,7 @@
           <div class="list-tutors">
             <span class="info mt-3 d-inline-block">Available at different schedule</span>
             <mat-radio-group class="d-flex flex-column" disabled>
-              <mat-radio-button *ngFor="let tutor of availableTutors" [value]="tutor?.id">
+              <mat-radio-button *ngFor="let tutor of suggestedTutors" [value]="tutor?.id">
                 <div class="row">
                   <div class="position-relative img-avatar">
                     <img [src]="tutor?.avatar" meTutorsDefaultAvatar alt="" width="60px" height="60px">
