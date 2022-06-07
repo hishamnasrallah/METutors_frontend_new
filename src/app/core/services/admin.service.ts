@@ -240,4 +240,13 @@ export class AdminService {
       }))
     );
   }
+
+  changeCourseStatus(id: number, status: string): Observable<any> {
+    return this.http.post(
+      `${this.baseUrl}admin/requested-course/${id}/status`,
+      {
+        status,
+      }
+    );
+  }
 }

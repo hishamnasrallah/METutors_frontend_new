@@ -14,4 +14,5 @@ export * from './booking-status';
 export * from './student-status';
 export * from './ticket-priority';
 export * from './interview-status';
+export * from './course-request-status';
 export * from './academic-tutoring-textbook';

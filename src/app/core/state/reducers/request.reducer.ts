@@ -5,12 +5,12 @@ import * as userActions from '../actions/user.actions';
 import * as requestActions from '../actions/request.actions';
 
 export interface State {
-  // Estimated price
+  // Estimated Price
   estimatedPrice: number | null;
   isLoadingEstimatedPrice: boolean;
   loadingEstimatedPriceFailure?: string;
 
-  // Generate tutors
+  // Generate Tutors
   isGeneratingTutors: boolean;
   loadingTutorFailure: string;
   availableTutors: ITutor[] | null;
@@ -34,6 +34,7 @@ export interface State {
 
   // Request Course
   isRequestCourse: boolean;
+  isChangeCourseRequest: boolean;
 }
 
 export const initialState: State = {
@@ -48,6 +49,7 @@ export const initialState: State = {
   createClassFailure: '',
   loadingTutorFailure: '',
   isGeneratingTutors: false,
+  isChangeCourseRequest: false,
   completedRequestedCourses: [],
   isCalculateFinalInvoice: false,
   isLoadingEstimatedPrice: false,
@@ -203,7 +205,52 @@ export const reducer = createReducer(
       ...state,
       isRequestCourse: false,
     })
-  )
+  ),
+
+  on(requestActions.changeRequestStatus, (state) => ({
+    ...state,
+    isChangeCourseRequest: true,
+  })),
+
+  on(requestActions.changeRequestStatusSuccess, (state, { status, id }) => {
+    let request: any;
+
+    if (state.requestedCourses && state.requestedCourses.length) {
+      state.requestedCourses.forEach((item) => {
+        if (item.id === id) {
+          request = { ...item, status };
+        }
+      });
+    }
+    console.log(request);
+    return {
+      ...state,
+      isChangeCourseRequest: false,
+      requestedCourses:
+        state.requestedCourses && state.requestedCourses.length
+          ? state.requestedCourses.filter((item) => item.id !== id)
+          : [],
+      completedRequestedCourses:
+        state.completedRequestedCourses &&
+        state.completedRequestedCourses.length
+          ? [{ ...request }, ...state.completedRequestedCourses]
+          : [...request],
+      requestedCoursesCounts: {
+        ...state.requestedCoursesCounts,
+        newCount: state.requestedCoursesCounts?.newCount
+          ? state.requestedCoursesCounts.newCount - 1
+          : 0,
+        completedCount: state.requestedCoursesCounts?.completedCount
+          ? state.requestedCoursesCounts.completedCount + 1
+          : 1,
+      },
+    };
+  }),
+
+  on(requestActions.changeRequestStatusFailure, (state) => ({
+    ...state,
+    isChangeCourseRequest: false,
+  }))
 );
 
 export const selectGeneratingAvailableTutors = (
@@ -231,6 +278,9 @@ export const selectCreatedClass = (state: State): IClassroom | null =>
 
 export const selectIsCalculateFinalInvoice = (state: State): boolean =>
   state.isCalculateFinalInvoice;
+
+export const selectIsChangeCourseRequest = (state: State): boolean =>
+  state.isChangeCourseRequest;
 
 export const selectIsRequestCourse = (state: State): boolean =>
   state.isRequestCourse;

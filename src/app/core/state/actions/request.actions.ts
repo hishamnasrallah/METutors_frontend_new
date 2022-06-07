@@ -121,3 +121,18 @@ export const requestCourseFailure = createAction(
   '[Request] Request Course Failure',
   props<{ error: any }>()
 );
+
+export const changeRequestStatus = createAction(
+  '[Request] Change Request Status',
+  props<{ id: number; status: string }>()
+);
+
+export const changeRequestStatusSuccess = createAction(
+  '[Request] Change Request Status Success',
+  props<{ id: number; status: string; message: string }>()
+);
+
+export const changeRequestStatusFailure = createAction(
+  '[Request] Change Request Status Failure',
+  props<{ error: any }>()
+);

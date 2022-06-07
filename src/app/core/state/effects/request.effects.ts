@@ -208,6 +208,30 @@ export class RequestEffects {
     )
   );
 
+  changeRequestStatus$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(requestActions.changeRequestStatus),
+      mergeMap((action) =>
+        this._adminService.changeCourseStatus(action.id, action.status).pipe(
+          map((response) =>
+            requestActions.changeRequestStatusSuccess({
+              id: action.id,
+              status: action.status,
+              message: response.message,
+            })
+          ),
+          catchError((error) =>
+            of(
+              requestActions.changeRequestStatusFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   successMessages$ = createEffect(
     () =>
       this._actions$.pipe(
@@ -215,6 +239,7 @@ export class RequestEffects {
           ...[
             requestActions.requestCourseSuccess,
             requestActions.createPaidClassSuccess,
+            requestActions.changeRequestStatusSuccess,
           ]
         ),
         map(({ message }) => this._alertNotificationService.success(message))
@@ -232,6 +257,7 @@ export class RequestEffects {
             requestActions.createClassFailure,
             requestActions.requestCourseFailure,
             requestActions.generateTutorsFailure,
+            requestActions.changeRequestStatusFailure,
           ]
         ),
         map((action) => {

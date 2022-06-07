@@ -1,6 +1,7 @@
 import { HttpEventType } from '@angular/common/http';
 import {
   CountryStatus,
+  CourseRequestStatus,
   FieldStatus,
   ProgramStatus,
   StudentStatus,
@@ -33,6 +34,11 @@ export const TUTOR_STATUSES_CONST: any = [
   TutorStatus.active,
   TutorStatus.deactive,
   TutorStatus.pending,
+];
+
+export const COURSE_REQUEST_STATUSES_CONST: any = [
+  CourseRequestStatus.offered,
+  CourseRequestStatus.notOffered,
 ];
 
 export const STUDENT_STATUSES_CONST: any = [

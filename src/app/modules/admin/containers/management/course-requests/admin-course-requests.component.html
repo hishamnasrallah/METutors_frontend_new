@@ -44,8 +44,24 @@
                   <td>{{ request?.email }}</td>
                   <td>Grade {{ request?.grade }}</td>
                   <td>
-                    <div class="change-status position-relative d-flex">
-                      <button class="status text-capitalize pending" mat-button>Pending</button>
+                    <div dropdown class="change-status position-relative d-flex">
+                      <button dropdownToggle class="status text-capitalize" mat-button [ngClass]="{
+                        'offered': requestStatus.offered === request?.status,
+                        'pending': requestStatus.pending === request?.status,
+                        'not-offered': requestStatus.notOffered === request?.status
+                      }">
+                        {{ request?.status }}
+                      </button>
+                      <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
+                        <li role="menuitem" class="cursor-pointer text-capitalize"
+                          *ngFor="let status of requestStatuses" [ngClass]="{
+                            'offered': requestStatus.offered === status,
+                            'pending': requestStatus.pending === status,
+                            'not-offered': requestStatus.notOffered === status
+                          }" (click)="changeRequestStatus(request.id, status)">
+                          {{ status }}
+                        </li>
+                      </ul>
                     </div>
                   </td>
                   <td>
@@ -77,7 +93,7 @@
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
-                <tr *ngFor="let request of (requestedCourses$ | async); let i = index">
+                <tr *ngFor="let request of (completedCourses$ | async); let i = index">
                   <td>{{ i + 1 }}</td>
                   <td>{{ request?.programId !== 0 ? request?.program?.name : 'Any' }}</td>
                   <td>{{ request?.country?.name }}</td>
@@ -95,7 +111,13 @@
                   <td>Grade {{ request?.grade }}</td>
                   <td>
                     <div class="change-status position-relative d-flex">
-                      <button class="status text-capitalize not-offered" mat-button>Not Offered</button>
+                      <button class="status text-capitalize" mat-button [ngClass]="{
+                        'offered': requestStatus.offered === request?.status,
+                        'pending': requestStatus.pending === request?.status,
+                        'not-offered': requestStatus.notOffered === request?.status
+                      }">
+                        {{ request?.status }}
+                      </button>
                     </div>
                   </td>
                   <td>
