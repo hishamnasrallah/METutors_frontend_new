@@ -11,7 +11,6 @@ import * as fromCore from '@metutor/core/state';
 import * as fromRouterStore from '@metutor/state';
 import * as adminActions from '../actions/admin.actions';
 import { AlertNotificationService } from '@metutor/core/components';
-import { adminChangeTutorAvailabilityStatus } from '@metutor/core/state';
 
 @Injectable()
 export class AdminEffects {
@@ -77,8 +76,8 @@ export class AdminEffects {
     this._actions$.pipe(
       ofType(adminActions.loadAdminCoursePreviousTutors),
       withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
-      mergeMap(([_, { id }]) =>
-        this._adminService.loadAdminCoursePreviousTutors(id).pipe(
+      mergeMap(([_, { courseId }]) =>
+        this._adminService.loadAdminCoursePreviousTutors(courseId).pipe(
           map(
             (previousTutors) =>
               adminActions.loadAdminCoursePreviousTutorsSuccess({
@@ -103,8 +102,8 @@ export class AdminEffects {
     this._actions$.pipe(
       ofType(adminActions.loadAdminStudentsFeedback),
       withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
-      mergeMap(([_, { id }]) =>
-        this._adminService.loadAdminStudentsFeedback(id).pipe(
+      mergeMap(([_, { courseId }]) =>
+        this._adminService.loadAdminStudentsFeedback(courseId).pipe(
           map(
             (studentsFeedback) =>
               adminActions.loadAdminStudentsFeedbackSuccess({

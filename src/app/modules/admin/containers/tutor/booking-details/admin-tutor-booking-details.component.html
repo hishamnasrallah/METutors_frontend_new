@@ -16,12 +16,15 @@
     <div class="card" *ngSwitchCase="false">
       <div class="card-body">
         <div class="title overflow-hidden d-flex justify-content-between">
-          <h1 class="mb-0">{{ view.bookingDetail.course?.courseName }} <span>({{ view.bookingDetail.course?.courseCode}})</span>
-            <button mat-button class="ms-3 status" [ngClass]="view.bookingDetail.course?.status">{{ statusLabel[view.bookingDetail.course?.status].long }}</button>
+          <h1 class="mb-0">{{ view.bookingDetail.course?.courseName }} <span>({{ view.bookingDetail.course?.courseCode}}
+            )</span>
+            <button mat-button class="ms-3 status"
+                    [ngClass]="view.bookingDetail.course?.status">{{ statusLabel[view.bookingDetail.course?.status].long }}</button>
           </h1>
           <div class="links">
             <button mat-button class="fw-bold" (click)="onOpenStudentsFeedbackModal()">Students Feedback</button>
-            <button mat-button class="fw-bold" (click)="onOpenReassigningTutorSelectionModal()">Re-assign Course</button>
+            <button mat-button class="fw-bold" (click)="onOpenReassigningTutorSelectionModal()">Re-assign Course
+            </button>
             <button mat-button class="fw-bold prev" (click)="onOpenPreviousTeacherModal()">Previous Teacher</button>
           </div>
         </div>
@@ -131,22 +134,12 @@
               <td>{{ i + 1 }}</td>
               <td>{{ completedClass?.topic?.name }}</td>
               <td>
-                <!--<div class="overflow-visible logos">
-                  <img src="https://logo.clearbit.com/tarjama.com" alt="" draggable="false"
-                       class="d-inline-block rounded-circle">
-                  <img src="https://logo.clearbit.com/amazon.com" alt="" draggable="false"
-                       class="d-inline-block rounded-circle ">
-                  <img src="https://logo.clearbit.com/noon.ae" alt="" draggable="false"
-                       class="d-inline-block rounded-circle ">
-                  <img src="https://logo.clearbit.com/canon.com" alt="" draggable="false"
-                       class="d-inline-block rounded-circle ">
-                  <img src="https://logo.clearbit.com/axa.com" alt="" draggable="false"
-                       class="d-inline-block rounded-circle ">
-                  <img src="https://logo.clearbit.com/axis.xyz" alt="" draggable="false"
-                       class="d-inline-block rounded-circle ">
-                  <img src="https://logo.clearbit.com/tamatem.co" alt="" draggable="false"
-                       class="d-inline-block rounded-circle ">
-                </div>-->
+                <ng-container *ngFor="let attendee of completedClass?.attendees">
+                  <metutors-user-avatar [avatar]="imageURL+attendee?.student?.avatar" [type]="'small'"
+                                        [name]="attendee?.student?.firstName+ ' ' +attendee?.student?.lastName"
+                                        class="d-block">
+                  </metutors-user-avatar>
+                </ng-container>
               </td>
               <td>{{ completedClass?.startTime }} - {{ completedClass?.endTime }}</td>
               <td>{{ completedClass?.duration }} Hour</td>
@@ -173,26 +166,33 @@
       <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
       <ng-container *ngSwitchCase="false">
         <ng-container *ngIf="view.bookingDetail?.remainingClasses?.length">
-        <table class="table my-table default-title">
-          <tr>
-            <th>#</th>
-            <th>Topic</th>
-            <th>Class Attendees</th>
-            <th>Start time - End time</th>
-            <th>Duration</th>
-            <th>Status</th>
-          </tr>
-          <tr *ngFor="let remainingClass of view.bookingDetail?.remainingClasses; let i = index">
-            <td>{{ i + 1 }}</td>
-            <td>{{ remainingClass.topic?.name }}</td>
-            <td></td>
-            <td>{{ remainingClass.startTime }} - {{ remainingClass.endTime }}</td>
-            <td>{{ remainingClass.duration }} Hour</td>
-            <td>
-              <span class="status remaining">Remaining</span>
-            </td>
-          </tr>
-        </table>
+          <table class="table my-table default-title">
+            <tr>
+              <th>#</th>
+              <th>Topic</th>
+              <th>Class Attendees</th>
+              <th>Start time - End time</th>
+              <th>Duration</th>
+              <th>Status</th>
+            </tr>
+            <tr *ngFor="let remainingClass of view.bookingDetail?.remainingClasses; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ remainingClass.topic?.name || remainingClass?.title }}</td>
+              <td>
+                <ng-container *ngFor="let attendee of remainingClass?.attendees">
+                  <metutors-user-avatar [avatar]="imageURL+attendee?.student?.avatar" [type]="'small'"
+                                        [name]="attendee?.student?.firstName+ ' ' +attendee?.student?.lastName"
+                                        class="d-block">
+                  </metutors-user-avatar>
+                </ng-container>
+              </td>
+              <td>{{ remainingClass.startTime }} - {{ remainingClass.endTime }}</td>
+              <td>{{ remainingClass.duration }} Hour</td>
+              <td>
+                <span class="status remaining">Remaining</span>
+              </td>
+            </tr>
+          </table>
         </ng-container>
 
         <div class="col-md-12 mb-3"

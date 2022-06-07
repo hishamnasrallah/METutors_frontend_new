@@ -51,30 +51,32 @@
         <tr *ngFor="let order of view.orders; let i = index">
           <td>{{ i + 1}}</td>
           <td>OID{{order?.courseId}}</td>
-          <td><a href="javascript: void(0)" (click)="onOpenBookingModal(order?.courseId)">BIN{{order?.id}}</a></td>
+          <td><a
+            [routerLink]="['/admin', 'student', order?.studentId, 'booking-detail', order?.courseId]">BIN{{order?.id}}</a>
+          </td>
           <td>
-            <metutors-user-avatar [avatar]="imageUrl+order?.user?.avatar" [type]="'small'"
-                                  [name]="order?.user?.firstName+' ' + order?.user?.lastName"
-                                  [routerLink]="['/admin', 'student', 'profile', order?.user?.id]"
+            <metutors-user-avatar [avatar]="imageUrl+order?.student?.avatar" [type]="'small'"
+                                  [name]="order?.student?.firstName+' ' + order?.student?.lastName"
+                                  [routerLink]="['/admin', 'student', 'profile', order?.student?.id]"
                                   class="d-block">
             </metutors-user-avatar>
           </td>
           <td>
-            <metutors-user-avatar [avatar]="imageUrl+order?.user?.avatar" [type]="'small'"
-                                  [name]="order?.user?.firstName+' ' + order?.user?.lastName"
-                                  [routerLink]="['/admin', 'student', 'profile', order?.user?.id]"
+            <metutors-user-avatar [avatar]="imageUrl+order?.teacher?.avatar" [type]="'small'"
+                                  [name]="order?.teacher?.firstName+' ' + order?.teacher?.lastName"
+                                  [routerLink]="['/admin', 'tutor', 'profile', order?.teacher?.id]"
                                   class="d-block">
             </metutors-user-avatar>
           </td>
-          <td>3</td>
-          <td>21 Apr, 2022</td>
-          <td>Student</td>
+          <td>{{ order?.course?.totalPrice | currency}}</td>
+          <td>{{ order?.canceledCourse?.createdAt | date}}</td>
+          <td>{{ order?.canceledCourse?.cancelledBy}}</td>
           <td>5 out of 10</td>
-          <td>$50</td>
-          <td>21 Apr, 2022</td>
+          <td>{{ order?.totalRefunds | currency }}</td>
+          <td>{{ order?.updatedAt | date }}</td>
           <td>
-            <button class="status text-capitalize pending" mat-button>
-              Pending
+            <button mat-button class="status text-capitalize" [ngClass]="order?.status">
+              {{ order?.status }}
             </button>
           </td>
           <td>

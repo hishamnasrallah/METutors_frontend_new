@@ -69,7 +69,7 @@ export const changeTutorStatusFailure = createAction(
 // Load available tutors
 export const loadAvailableTutors = createAction(
   '[Tutor] Load Available Tutors',
-  props<{ courseId?: number }>()
+  props<{ id?: number }>()
 );
 
 export const loadAvailableTutorsSuccess = createAction(
