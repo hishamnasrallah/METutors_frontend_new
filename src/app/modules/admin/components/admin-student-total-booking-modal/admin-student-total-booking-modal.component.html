@@ -80,7 +80,7 @@
                             (click)="closeModal.emit()">
                       View Details
                     </button>
-                    <button mat-button class="view-details main-button-transparent" *ngIf="type === 'teacher'"
+                    <button mat-button class="view-details main-button-transparent" *ngIf="type === 'teacher' || type === 'subject'"
                             [routerLink]="['/admin', 'tutor', booking?.teacherId, 'booking-detail', booking?.id]"
                             (click)="closeModal.emit()">
                       View Details
