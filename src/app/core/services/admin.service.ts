@@ -96,11 +96,9 @@ export class AdminService {
     courseId: number,
     tutorId: number
   ): Observable<any> {
-    return this.http
-      .get<any>(
-        `${this.baseUrl}admin/student/${tutorId}/course/${courseId}/booking-details`
-      )
-      .pipe(map((response) => response.course));
+    return this.http.get<any>(
+      `${this.baseUrl}admin/teacher/${tutorId}/course/${courseId}/booking-details`
+    );
   }
 
   loadAdminStudentAssignmentSummary(

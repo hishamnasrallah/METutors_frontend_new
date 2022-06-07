@@ -48,9 +48,9 @@ export class AdminManagementTutorReAssignmentComponent implements OnInit {
     this._store.dispatch(fromAdminAction.closeAdminStudentBookingModal());
   }
 
-  onOpenReassigningTutorSelectionModal(courseId: number) {
-    this.courseId = courseId;
-    this._store.dispatch(fromCore.loadAvailableTutors({ courseId }));
+  onOpenReassigningTutorSelectionModal(id: number) {
+    this.courseId = id;
+    this._store.dispatch(fromCore.loadAvailableTutors({ id }));
     this._store.dispatch(
       fromAdminAction.openAdminReassigningTutorSelectionModal()
     );
