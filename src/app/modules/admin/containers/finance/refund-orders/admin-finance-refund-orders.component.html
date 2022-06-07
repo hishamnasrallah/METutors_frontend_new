@@ -71,7 +71,7 @@
           <td>{{ order?.course?.totalPrice | currency}}</td>
           <td>{{ order?.canceledCourse?.createdAt | date}}</td>
           <td>{{ order?.canceledCourse?.cancelledBy}}</td>
-          <td>5 out of 10</td>
+          <td> {{ order?.refundedClassesCount }} out of {{ order?.course?.totalClasses}}</td>
           <td>{{ order?.totalRefunds | currency }}</td>
           <td>{{ order?.updatedAt | date }}</td>
           <td>
