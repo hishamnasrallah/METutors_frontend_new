@@ -51,7 +51,9 @@
         <tr *ngFor="let order of view.orders; let i = index">
           <td>{{ i + 1}}</td>
           <td>OID{{order?.courseId}}</td>
-          <td><a href="javascript: void(0)" (click)="onOpenBookingModal(order?.courseId)">BIN{{order?.id}}</a></td>
+          <td><a
+            [routerLink]="['/admin', 'student', order?.studentId, 'booking-detail', order?.courseId]">BIN{{order?.id}}</a>
+          </td>
           <td>
             <metutors-user-avatar [avatar]="imageUrl+order?.student?.avatar" [type]="'small'"
                                   [name]="order?.student?.firstName+' ' + order?.student?.lastName"
@@ -62,7 +64,7 @@
           <td>
             <metutors-user-avatar [avatar]="imageUrl+order?.teacher?.avatar" [type]="'small'"
                                   [name]="order?.teacher?.firstName+' ' + order?.teacher?.lastName"
-                                  [routerLink]="['/admin', 'student', 'profile', order?.teacher?.id]"
+                                  [routerLink]="['/admin', 'tutor', 'profile', order?.teacher?.id]"
                                   class="d-block">
             </metutors-user-avatar>
           </td>
