@@ -817,9 +817,14 @@ export const selectIsLoadingEstimatedPrice = createSelector(
   fromRequestReducer.selectIsLoadingEstimatedPrice
 );
 
-export const selectGeneratingTutors = createSelector(
+export const selectGeneratingAvailableTutors = createSelector(
   selectRequestState,
-  fromRequestReducer.selectGeneratingTutors
+  fromRequestReducer.selectGeneratingAvailableTutors
+);
+
+export const selectGeneratingSuggestedTutors = createSelector(
+  selectRequestState,
+  fromRequestReducer.selectGeneratingSuggestedTutors
 );
 
 export const selectIsGeneratingTutors = createSelector(

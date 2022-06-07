@@ -4,10 +4,12 @@ import * as requestsModalActions from '../actions/requests-modal.actions';
 
 export interface State {
   showConfirmPaymentModal: boolean;
+  showTeacherAvailabilityModal: boolean;
 }
 
 export const initialState: State = {
   showConfirmPaymentModal: false,
+  showTeacherAvailabilityModal: false,
 };
 
 export const reducer = createReducer(
@@ -25,9 +27,22 @@ export const reducer = createReducer(
       ...state,
       showConfirmPaymentModal: false,
     })
-  )
+  ),
+
+  on(requestsModalActions.openTeacherAvailabilityModal, (state) => ({
+    ...state,
+    showTeacherAvailabilityModal: true,
+  })),
+
+  on(requestsModalActions.closeTeacherAvailabilityModal, (state) => ({
+    ...state,
+    showTeacherAvailabilityModal: false,
+  }))
 );
 
 // Requests modal selectors
 export const selectIsConfirmPaymentModal = (state: State): boolean =>
   state.showConfirmPaymentModal;
+
+export const selectIsShowTeacherAvailabilityModal = (state: State): boolean =>
+  state.showTeacherAvailabilityModal;

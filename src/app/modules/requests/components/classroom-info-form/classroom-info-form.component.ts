@@ -59,7 +59,9 @@ export class ClassroomInfoFormComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.minDate.setHours(this.minDate.getHours() + 24);
+  }
 
   get startTime(): AbstractControl | null {
     return this.form.get('startTime');

@@ -38,9 +38,10 @@ export class RequestEffects {
       ofType(requestActions.generateTutors),
       mergeMap(({ data }) =>
         this._tutorService.generateTutors(data).pipe(
-          map((tutors) =>
+          map((response) =>
             requestActions.generateTutorsSuccess({
-              tutors,
+              suggestedTutors: response.suggestedTutors,
+              availableTutors: response.availableTutors,
             })
           ),
           catchError((error) =>

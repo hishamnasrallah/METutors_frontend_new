@@ -98,8 +98,10 @@
                                     [loading]="loadingTutors$ | async"
                                     [price]="price$ | async" 
                                     [hours]="reviewInfo?.hours"
-                                    [tutors]="tutors$ | async" 
-                                    (onBack)="backStep()" 
+                                    [suggestedTutors]="suggestedTutors$ | async"
+                                    [availableTutors]="availableTutors$ | async"
+                                    (onBack)="backStep()"
+                                    (tutorAvailability)="onTutorAvailability($event)"
                                     (submitForm)="nextStep()">
         </metutors-select-tutor-form>
       </form>
@@ -123,3 +125,10 @@
     </mat-step>
   </mat-horizontal-stepper>
 </div>
+
+<metutors-teacher-availability-modal [timeSlots]="(tutorAvailability$ | async)!"
+                                     [isLoadingTimeSlots]="(isLoadingTutorAvailability$ | async)!"
+                                     [showModal]="(showTeacherAvailabilityModal$ | async)!"
+                                     *ngIf="showTeacherAvailabilityModal$ | async"
+                                     (closeModal)="onCloseTeacherAvailabilityModal()">
+</metutors-teacher-availability-modal>

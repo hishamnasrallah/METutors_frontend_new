@@ -9,7 +9,7 @@ export const generateTutors = createAction(
 
 export const generateTutorsSuccess = createAction(
   '[Request] Generate Tutors Success',
-  props<{ tutors: ITutor[] }>()
+  props<{ availableTutors: ITutor[]; suggestedTutors: ITutor[] }>()
 );
 
 export const generateTutorsFailure = createAction(

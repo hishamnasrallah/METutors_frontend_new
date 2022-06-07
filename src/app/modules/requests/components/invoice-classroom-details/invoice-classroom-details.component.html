@@ -2,6 +2,33 @@
   <h2 class="d-flex align-items-center">Classroom Details</h2>
   <div class="card">
     <div class="card-body">
+      <ul class="list-unstyled row informations b-border">
+        <li class="col-12 d-flex justify-content-between">
+          <span class="m-0">Course ID</span>
+          <strong>CID39492</strong>
+        </li>
+        <li class="col-12">
+          <span class="m-0 d-block">Course Details</span>
+          <strong class="d-block">Calculas 101</strong>
+        </li>
+        <li class="col-12">
+          <span class="m-0 d-block">Program</span>
+          <strong class="d-block">{{ classroom?.programName }}</strong>
+        </li>
+        <li class="col-12">
+          <span class="m-0 d-block">Course Field</span>
+          <strong class="d-block">{{ classroom?.fieldName }}</strong>
+        </li>
+        <li class="col-12">
+          <span class="m-0 d-block">Tutoring Language</span>
+          <strong class="d-block">{{ classroom?.tutoringLanguage }}</strong>
+        </li>
+        <li class="col-12">
+          <span class="m-0 d-block">Tutoring Type</span>
+          <strong class="d-block">{{ classroom?.tutoringType }}</strong>
+        </li>
+      </ul>
+
       <!-- <h3>Course details</h3>
       <div class="row">
         <div class="col-md-4">
@@ -20,30 +47,26 @@
       </div> -->
 
       <h3 class="details">Classroom Details</h3>
-      <ul class="list-unstyled row">
+      <ul class="list-unstyled row b-border">
+        <li class="col-12">
+          <img src="assets/svg/class.svg" draggable="false" width="20" height="20" alt="">
+          <span>Total Classes: {{ classroom?.classes }} Classes</span>
+        </li>
         <li class="col-12">
           <img src="assets/svg/calendar.svg" draggable="false" width="20" height="20" alt="">
-          <span>Starting In: {{ classroom?.startDate | date }}</span>
+          <span>Start Date: {{ classroom?.startDate | date }}</span>
         </li>
         <li class="col-12">
           <img src="assets/svg/briefcase.svg" draggable="false" width="20" height="20" alt="">
-          <span>End In: {{ classroom?.endDate | date }}</span>
-        </li>
-        <li class="col-12">
-          <img src="assets/svg/timer.svg" draggable="false" width="20" height="20" alt="">
-          <span>Total Hours : {{ classroom?.hours }}hours</span>
+          <span>End Date: {{ classroom?.endDate | date }}</span>
         </li>
         <li class="col-12">
           <img src="assets/svg/time.svg" draggable="false" width="20" height="20" alt="">
           <span>Time: {{ classroom?.startTime }} : {{ classroom?.endTime }}</span>
         </li>
         <li class="col-12">
-          <img src="assets/svg/user-formal.svg" draggable="false" width="20" height="20" alt="">
-          <span>Classroom: {{ classroom?.type }}</span>
-        </li>
-        <li class="col-12">
-          <img src="assets/svg/class.svg" draggable="false" width="20" height="20" alt="">
-          <span>Total Class: {{ classroom?.classes }} Classes</span>
+          <img src="assets/svg/timer.svg" draggable="false" width="20" height="20" alt="">
+          <span>Duration : {{ classroom?.hours }} hours</span>
         </li>
       </ul>
 
@@ -53,7 +76,7 @@
           <img [src]="classroom?.tutor?.avatar" meTutorsDefaultAvatar alt="" draggable="false">
         </div>
         <div class="col-md-10 d-flex justify-content-center flex-column">
-          <h2>{{ classroom?.tutor?.name }}</h2>
+          <h2><bdi>{{ classroom?.tutor?.name }}</bdi></h2>
           <h3>{{ classroom?.tutor?.bio }}</h3>
         </div>
       </div>

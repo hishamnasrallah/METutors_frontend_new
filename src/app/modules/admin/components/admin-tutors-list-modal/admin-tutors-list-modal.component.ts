@@ -14,6 +14,7 @@ export class AdminTutorsListModalComponent implements OnInit {
   @Input() subHeading = '';
   @Input() tutors: ITutor[];
   @Input() loading: boolean;
+  @Input() showAvailability = false;
   @Input() showModal: boolean = false;
 
   @Input() set timeSlots(slots: any) {
@@ -38,7 +39,6 @@ export class AdminTutorsListModalComponent implements OnInit {
   availabilities: any;
   weekDays: any[] = [];
   objectKeys = Object.keys;
-  showAvailability = false;
   weekDayName = WEEK_FULL_DAYS;
 
   constructor() {}

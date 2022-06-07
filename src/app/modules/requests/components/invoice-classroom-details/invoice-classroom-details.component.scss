@@ -60,6 +60,22 @@
       }
     }
 
+    .informations {
+      span {
+        color: #696969 !important;
+      }
+
+      strong {
+        color: #2A2A2A;
+        font-size: 14px;
+      }
+    }
+
+    .b-border {
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #e2e2e2;
+    }
+
     .info {
       img {
         width: 40px;
