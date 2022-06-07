@@ -5,3 +5,4 @@ export * from './list-classrooms-form';
 export * from './confirm-payment-modal';
 export * from './course-information-form';
 export * from './invoice-classroom-details';
+export * from './change-course-schedule-modal';

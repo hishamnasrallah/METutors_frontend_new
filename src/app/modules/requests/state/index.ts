@@ -48,3 +48,8 @@ export const selectIsShowTeacherAvailabilityModal = createSelector(
   selectRequestsModalState,
   fromRequestsModal.selectIsShowTeacherAvailabilityModal
 );
+
+export const selectIsShowChangeCourseScheduleModal = createSelector(
+  selectRequestsModalState,
+  fromRequestsModal.selectIsShowChangeCourseScheduleModal
+);

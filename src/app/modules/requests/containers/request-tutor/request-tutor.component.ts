@@ -49,6 +49,7 @@ export class RequestTutorComponent implements OnInit {
   availableTutors$: Observable<ITutor[] | null>;
   isLoadingTutorAvailability$: Observable<boolean>;
   showTeacherAvailabilityModal$: Observable<boolean>;
+  showChangeCourseScheduleModal$: Observable<boolean>;
 
   price: number;
   reviewInfo: any = {};
@@ -190,6 +191,10 @@ export class RequestTutorComponent implements OnInit {
     this.showTeacherAvailabilityModal$ = this._store.select(
       fromRequests.selectIsShowTeacherAvailabilityModal
     );
+
+    this.showChangeCourseScheduleModal$ = this._store.select(
+      fromRequests.selectIsShowChangeCourseScheduleModal
+    );
   }
 
   nextStep(): void {
@@ -208,6 +213,20 @@ export class RequestTutorComponent implements OnInit {
 
   onCloseTeacherAvailabilityModal(): void {
     this._store.dispatch(fromRequestsActions.closeTeacherAvailabilityModal());
+  }
+
+  onOpenChangeCourseScheduleModal(): void {
+    this._store.dispatch(fromRequestsActions.openChangeCourseScheduleModal());
+  }
+
+  onCloseChangeCourseScheduleModal(): void {
+    this._store.dispatch(fromRequestsActions.closeChangeCourseScheduleModal());
+  }
+
+  changeSchedule(): void {
+    if (this.myStepper) {
+      this.myStepper.selectedIndex = 1;
+    }
   }
 
   fetchCourseFieldSubject(fieldId: string): void {

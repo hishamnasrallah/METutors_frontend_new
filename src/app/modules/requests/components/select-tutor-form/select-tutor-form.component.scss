@@ -183,4 +183,23 @@
       color: var(--main-color);
     }
   }
+
+  .no-tutors {
+    color: #2A2A2A;
+
+    strong {
+      font-size: 22px;
+    }
+
+    h5 {
+      font-size: 18px;
+      font-weight: normal;
+    }
+
+    .mat-radio-label {
+      color: #2A2A2A;
+      font-weight: bold;
+      font-size: 15px;
+    }
+  }
 }

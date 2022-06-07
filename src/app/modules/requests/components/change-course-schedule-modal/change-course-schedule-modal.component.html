@@ -1,0 +1,20 @@
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'medium'" [template]="template"
+  [showHeader]="false">
+  <ng-template #template>
+    <div class="change-schedule text-center">
+      <button mat-icon-button (click)="closeModal.emit()" class="close-btn">
+        <mat-icon>close</mat-icon>
+      </button>
+      <img src="assets/svg/sad.svg" draggable="false" alt="">
+      <h2 class="mt-4">Need To Change Course Schedule</h2>
+
+      <p class="mb-5">
+        You may keep your desired schedule but make sure first class starts after 48 hours
+      </p>
+
+      <button mat-flat-button color="primary" class="px-3 py-1 fw-bold" (click)="changeSchedule.emit()">
+        Change Schedule
+      </button>
+    </div>
+  </ng-template>
+</metutors-modal>

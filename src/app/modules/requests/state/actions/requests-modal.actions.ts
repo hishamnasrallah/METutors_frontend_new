@@ -15,3 +15,11 @@ export const openTeacherAvailabilityModal = createAction(
 export const closeTeacherAvailabilityModal = createAction(
   '[Requests Modal] Close Teacher Availability Modal'
 );
+
+export const openChangeCourseScheduleModal = createAction(
+  '[Requests Modal] Open Change Course Schedule Modal'
+);
+
+export const closeChangeCourseScheduleModal = createAction(
+  '[Requests Modal] Close Change Course Schedule Modal'
+);

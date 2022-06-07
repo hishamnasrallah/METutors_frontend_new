@@ -47,7 +47,7 @@
       </div> -->
 
       <h3 class="details">Classroom Details</h3>
-      <ul class="list-unstyled row b-border">
+      <ul class="list-unstyled row" [class.b-border]="classroom?.tutor">
         <li class="col-12">
           <img src="assets/svg/class.svg" draggable="false" width="20" height="20" alt="">
           <span>Total Classes: {{ classroom?.classes }} Classes</span>
@@ -70,16 +70,18 @@
         </li>
       </ul>
 
-      <h3 class="details">Classroom Tutor</h3>
-      <div class="row info">
-        <div class="col-md-2 d-flex align-items-center">
-          <img [src]="classroom?.tutor?.avatar" meTutorsDefaultAvatar alt="" draggable="false">
+      <ng-container *ngIf="classroom?.tutor">
+        <h3 class="details">Classroom Tutor</h3>
+        <div class="row info">
+          <div class="col-md-2 d-flex align-items-center">
+            <img [src]="classroom?.tutor?.avatar" meTutorsDefaultAvatar alt="" draggable="false">
+          </div>
+          <div class="col-md-10 d-flex justify-content-center flex-column">
+            <h2><bdi>{{ classroom?.tutor?.name }}</bdi></h2>
+            <h3>{{ classroom?.tutor?.bio }}</h3>
+          </div>
         </div>
-        <div class="col-md-10 d-flex justify-content-center flex-column">
-          <h2><bdi>{{ classroom?.tutor?.name }}</bdi></h2>
-          <h3>{{ classroom?.tutor?.bio }}</h3>
-        </div>
-      </div>
+      </ng-container>
     </div>
   </div>
 </div>
