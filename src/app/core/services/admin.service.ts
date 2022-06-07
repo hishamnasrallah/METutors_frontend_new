@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 
 import { environment } from 'src/environments/environment';
 import { ICapacity, ICourse, ISubject, ITutor, ICourseRequest } from '@models';
-import { adminChangeTutorAvailabilityStatus } from '@metutor/core/state';
 
 @Injectable({
   providedIn: 'root',

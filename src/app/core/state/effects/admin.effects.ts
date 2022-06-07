@@ -11,7 +11,6 @@ import * as fromCore from '@metutor/core/state';
 import * as fromRouterStore from '@metutor/state';
 import * as adminActions from '../actions/admin.actions';
 import { AlertNotificationService } from '@metutor/core/components';
-import { adminChangeTutorAvailabilityStatus } from '@metutor/core/state';
 
 @Injectable()
 export class AdminEffects {
