@@ -50,7 +50,7 @@
         <tr *ngFor="let order of view.orders; let i = index">
           <td>{{ i + 1}}</td>
           <td>OID{{order?.courseId}}</td>
-          <td><a [routerLink]="['/admin', 'student', order?.user?.id, 'booking-detail', order?.id]">BIN{{order?.id}}</a></td>
+          <td><a [routerLink]="['/admin', 'student', order?.user?.id, 'booking-detail', order?.courseId]">BIN{{order?.id}}</a></td>
           <td><a [routerLink]="['/admin', 'student', 'profile', order?.user?.id]">{{ order?.user?.idNumber}}</a></td>
           <td>
             <metutors-user-avatar [avatar]="imageUrl+order?.user?.avatar" [type]="'small'"

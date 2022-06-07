@@ -300,6 +300,11 @@ const routes: Routes = [
               },
             },
           },
+          {
+            path: '',
+            redirectTo: 'orders',
+            pathMatch: 'full',
+          },
         ],
       },
       {
