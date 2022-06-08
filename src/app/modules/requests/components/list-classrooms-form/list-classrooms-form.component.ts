@@ -68,12 +68,14 @@ export class ListClassroomsFormComponent implements OnInit {
     if (classes) {
       this._classrooms = classes;
       this.classes?.setValue(classes);
+      this.classes?.updateValueAndValidity();
     }
   }
 
   @Output() onBack = new EventEmitter();
   @Output() onNext = new EventEmitter();
   @Output() loadTutors = new EventEmitter<IClass[]>();
+  @Output() updatedClassrooms = new EventEmitter<IClass[]>();
 
   _classrooms!: IClass[];
 
@@ -104,6 +106,8 @@ export class ListClassroomsFormComponent implements OnInit {
           if (classroom?.number === result) {
             this._classrooms.splice(index, 1);
             this.classes?.setValue(this._classrooms);
+            this.classes?.updateValueAndValidity();
+            this.updatedClassrooms.emit(this._classrooms);
           }
         });
       }
@@ -122,6 +126,8 @@ export class ListClassroomsFormComponent implements OnInit {
           if (classroom?.number === result?.number) {
             this._classrooms[index] = result;
             this.classes?.setValue(this._classrooms);
+            this.classes?.updateValueAndValidity();
+            this.updatedClassrooms.emit(this._classrooms);
           }
         });
       }
@@ -134,6 +140,8 @@ export class ListClassroomsFormComponent implements OnInit {
             if (classroom?.number === result?.number) {
               this._classrooms[index] = result;
               this.classes?.setValue(this._classrooms);
+              this.classes?.updateValueAndValidity();
+              this.updatedClassrooms.emit(this._classrooms);
             }
             dialogSubmitSubscription.unsubscribe();
           });

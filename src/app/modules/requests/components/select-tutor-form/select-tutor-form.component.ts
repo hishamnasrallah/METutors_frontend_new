@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormGroup, Validators } from '@angular/forms';
 import { TutorStatus } from 'src/app/config';
-import { ITutor } from 'src/app/core/models';
+import { ITutor, IClass } from 'src/app/core/models';
 import {
   state,
   style,
@@ -44,14 +44,28 @@ export class SelectTutorFormComponent implements OnInit {
   @Input() hours: number | undefined;
   @Input() suggestedTutors: ITutor[] | null;
   @Input() availableTutors: ITutor[] | null;
+  @Input() set classrooms(classes: IClass[] | undefined) {
+    if (classes && classes.length) {
+      this.duration =
+        Math.abs(
+          new Date().getTime() - new Date(classes[0].date || '').getTime()
+        ) / 3600000;
+    }
+  }
+  @Input() set duration(value: number) {
+    if (value) {
+      this._duration = value;
+    }
+  }
 
   @Output() onBack = new EventEmitter();
   @Output() submitForm = new EventEmitter();
-  @Output() changeSchedule: EventEmitter<void> = new EventEmitter<void>();
+  @Output() changeSchedule: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() tutorAvailability: EventEmitter<number> =
     new EventEmitter<number>();
 
   schedule: string;
+  _duration: number;
   tutorStatus = TutorStatus;
 
   constructor() {}
@@ -74,13 +88,18 @@ export class SelectTutorFormComponent implements OnInit {
 
   onChangeSchedule(data: any): void {
     if (data.value === '1') {
-      this.tutor?.setValidators([]);
-      this.tutor?.updateValueAndValidity();
+      this.changeSchedule.emit(false);
     } else {
-      this.tutor?.setValidators([Validators.required]);
-      this.tutor?.updateValueAndValidity();
       this.schedule = '';
-      this.changeSchedule.emit();
+
+      if (this._duration < 48) {
+        this.tutor?.setValidators([Validators.required]);
+        this.tutor?.updateValueAndValidity();
+        this.changeSchedule.emit(true);
+      } else {
+        this.tutor?.setValidators([]);
+        this.tutor?.updateValueAndValidity();
+      }
     }
   }
 }

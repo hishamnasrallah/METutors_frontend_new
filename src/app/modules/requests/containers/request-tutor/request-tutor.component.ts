@@ -1,6 +1,11 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormGroup,
+  Validators,
+  FormBuilder,
+  AbstractControl,
+} from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { Observable, tap } from 'rxjs';
 import * as fromCore from '@metutor/core/state';
@@ -52,6 +57,7 @@ export class RequestTutorComponent implements OnInit {
   showChangeCourseScheduleModal$: Observable<boolean>;
 
   price: number;
+  duration: number;
   reviewInfo: any = {};
   tutors: ITutor[] = [];
   classrooms!: IClass[];
@@ -215,8 +221,14 @@ export class RequestTutorComponent implements OnInit {
     this._store.dispatch(fromRequestsActions.closeTeacherAvailabilityModal());
   }
 
-  onOpenChangeCourseScheduleModal(): void {
-    this._store.dispatch(fromRequestsActions.openChangeCourseScheduleModal());
+  onOpenChangeCourseScheduleModal(schedule: boolean): void {
+    if (schedule)
+      this._store.dispatch(fromRequestsActions.openChangeCourseScheduleModal());
+    else {
+      if (this.myStepper) {
+        this.myStepper.selectedIndex = 1;
+      }
+    }
   }
 
   onCloseChangeCourseScheduleModal(): void {
@@ -317,6 +329,13 @@ export class RequestTutorComponent implements OnInit {
 
       this._store.dispatch(fromCore.generateTutors({ data }));
     }
+  }
+
+  updatedClassrooms(classrooms: IClass[]): void {
+    this.duration =
+      Math.abs(
+        new Date().getTime() - new Date(classrooms[0].date || '').getTime()
+      ) / 3600000;
   }
 
   onSubmit(): void {
