@@ -1,0 +1,25 @@
+.change-status {
+  .statues {
+    border-radius: 5px;
+    overflow: hidden;
+
+    li {
+      padding: 5px 10px;
+      color: #FFF;
+      margin: 5px;
+      border-radius: 5px;
+
+      &.offered {
+        background-color: #50C394;
+      }
+
+      &.pending {
+        background-color: #EBD016;
+      }
+
+      &.not-offered {
+        background-color: #FF8300;
+      }
+    }
+  }
+}

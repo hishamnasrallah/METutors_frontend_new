@@ -56,10 +56,20 @@
     <!--<td><a href="javascript: void(0)" (click)="openBookingModal.emit(reassignment.id)">{{ reassignment?.totalBooking }}</a></td>
     <td><a [routerLink]="['/admin', 'finance', 'orders']"> ${{ reassignment?.totalAmount }}</a></td>-->
     <td>
-      <div class="change-status position-relative d-flex">
-        <button class="status text-capitalize" mat-button [ngClass]="reassignment?.status"
+      <div dropdown class="change-status position-relative d-flex">
+        <button dropdownToggle class="status text-capitalize" mat-button [ngClass]="reassignment?.status"
                 [tooltip]="statusLabel[reassignment?.status]?.long">{{ statusLabel[reassignment?.status]?.short }}
         </button>
+        <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
+          <!-- *ngFor="let status of requestStatuses" [ngClass]="{
+              'offered': requestStatus.offered === status,
+              'pending': requestStatus.pending === status,
+              'not-offered': requestStatus.notOffered === status
+            }" -->
+          <li role="menuitem" class="cursor-pointer text-capitalize offered">
+            Pending
+          </li>
+        </ul>
       </div>
     </td>
     <td>
@@ -73,9 +83,9 @@
   <button mat-menu-item class="h-auto btn-menu" [routerLink]="['/admin', 'student', studentId, 'booking-detail', courseId]">
     <span>Booking Details</span>
   </button>
-  <button mat-menu-item class="h-auto btn-menu" [matMenuTriggerFor]="status">
+  <!-- <button mat-menu-item class="h-auto btn-menu" [matMenuTriggerFor]="status">
     <span>Change Status</span>
-  </button>
+  </button> -->
   <button mat-menu-item class="h-auto btn-menu" (click)="openReassignTutorModal.emit(courseId)">
     <span>Re-assign Tutor</span>
   </button>
@@ -84,11 +94,11 @@
   </button>
 </mat-menu>
 
-<mat-menu #status="matMenu">
+<!-- <mat-menu #status="matMenu">
   <button mat-menu-item class="h-auto btn-menu">
     <span>Pending</span>
   </button>
   <button mat-menu-item class="h-auto btn-menu" >
     <span>Rejected</span>
   </button>
-</mat-menu>
+</mat-menu> -->
