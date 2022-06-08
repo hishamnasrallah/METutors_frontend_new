@@ -57,12 +57,12 @@
                   [tooltip]="statusLabel[reassignment?.status]?.long">{{ statusLabel[reassignment?.status]?.short }}
           </button>-->
           <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
-            <li role="menuitem" class="cursor-pointer text-capitalize offered"
+            <li role="menuitem" class="cursor-pointer text-capitalize offered available"
                 (click)="changeTutorStatus.emit({id: reassignment.id, status: 'available'})"
                 *ngIf="reassignment.teacherStatus === 'N/A' || reassignment.teacherStatus === 'not-available'">
               Available
             </li>
-            <li role="menuitem" class="cursor-pointer text-capitalize offered"
+            <li role="menuitem" class="cursor-pointer text-capitalize offered not-available"
                 (click)="changeTutorStatus.emit({id: reassignment.id, status: 'not-available'})"
                 *ngIf="reassignment.teacherStatus === 'N/A' || reassignment.teacherStatus === 'available'">
               Not Available

@@ -9,16 +9,16 @@
       margin: 5px;
       border-radius: 5px;
 
-      &.offered {
-        background-color: #50C394;
+      &.available {
+        border: none;
+        color: #50C394;
+        background: rgba(80, 195, 148, 0.2);
       }
 
-      &.pending {
-        background-color: #EBD016;
-      }
-
-      &.not-offered {
-        background-color: #FF8300;
+      &.not-available {
+        border: none;
+        color: #d34c65;
+        background-color: #f9d3da;
       }
     }
   }
