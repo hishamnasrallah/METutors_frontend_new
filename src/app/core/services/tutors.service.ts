@@ -58,6 +58,12 @@ export class TutorsService {
       .pipe(map((response) => new ITutor(false, response.user)));
   }
 
+  getAdminTutorById(id: number | string): Observable<any> {
+    return this.http
+      .get<{ teacher_profile: ITutor }>(`${this.baseUrl}admin/teacher/${id}`)
+      .pipe(map((response) => new ITutor(false, response.teacher_profile)));
+  }
+
   getProfileTutor(): Observable<any> {
     return this.http
       .get<{ user: ITutor }>(`${this.baseUrl}teacher/profile`)

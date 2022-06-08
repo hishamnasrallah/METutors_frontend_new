@@ -248,6 +248,28 @@ export class TutorEffects {
     )
   );
 
+  loadAdminTutor$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorActions.loadAdminTutor),
+      mergeMap(({ id }) =>
+        this._tutorService.getAdminTutorById(id).pipe(
+          map((tutor) =>
+            tutorActions.loadAdminTutorSuccess({
+              tutor,
+            })
+          ),
+          catchError((error) =>
+            of(
+              tutorActions.loadAdminTutorFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   loadProfileTutor$ = createEffect(() =>
     this._actions$.pipe(
       ofType(tutorActions.loadProfileTutor),

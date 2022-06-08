@@ -174,6 +174,22 @@ export const loadTutorFailure = createAction(
   props<{ error: any }>()
 );
 
+// Load admin tutor
+export const loadAdminTutor = createAction(
+  '[Tutor] Load Admin Tutor',
+  props<{ id: number }>()
+);
+
+export const loadAdminTutorSuccess = createAction(
+  '[Tutor] Load Admin Tutor Success',
+  props<{ tutor: ITutor }>()
+);
+
+export const loadAdminTutorFailure = createAction(
+  '[Tutor] Load Admin Tutor Failure',
+  props<{ error: any }>()
+);
+
 // Load Profile Tutor
 export const loadProfileTutor = createAction('[Tutor] Load profile Tutor');
 

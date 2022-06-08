@@ -120,6 +120,23 @@ export const reducer = createReducer(
     loadingTutorFailure: error,
   })),
 
+  on(tutorActions.loadAdminTutor, (state) => ({
+    ...state,
+    isLoadingTutor: true,
+  })),
+
+  on(tutorActions.loadAdminTutorSuccess, (state, { tutor }) => ({
+    ...state,
+    tutor,
+    isLoadingTutor: false,
+  })),
+
+  on(tutorActions.loadAdminTutorFailure, (state, { error }) => ({
+    ...state,
+    isLoadingTutor: false,
+    loadingTutorFailure: error,
+  })),
+
   on(tutorActions.loadAvailableTutors, (state) => ({
     ...state,
     isLoadingAvailableTutors: true,

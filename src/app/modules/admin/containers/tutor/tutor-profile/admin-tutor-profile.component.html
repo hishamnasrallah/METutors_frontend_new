@@ -1,26 +1,26 @@
-<ng-container *ngLet="(interview$ | async) as interview">
-  <div class="interview-details">
+<ng-container *ngLet="(tutor$ | async) as tutor">
+  <div class="tutor-details">
     <div class="card">
       <div class="card-body">
         <ng-container *ngIf="!(isLoading$ | async)">
           <div class="row">
             <div class="col-md-6">
               <h1>Teacher Profile
-                <span>(TIN{{ interview?.tutor?.id }})</span>
+                <span>({{ tutor?.idNumber }})</span>
                 <button mat-button class="active">Active</button>
               </h1>
               <div class="row list-items md-item p-0 mt-3">
                 <div class="col-md-2"><span class="details">Details</span></div>
-                <div class="col-md-5 d-flex menu align-items-center" *ngIf="interview?.tutor?.country">
+                <div class="col-md-5 d-flex menu align-items-center" *ngIf="tutor?.country">
                   <img src="assets/svg/map.svg" alt="" width="15" height="15" draggable="false">
-                  <strong>From {{ interview?.tutor?.country?.name }}</strong>
+                  <strong>From {{ tutor?.country?.name }}</strong>
                 </div>
                 <div class="col-md-5 d-flex menu align-items-center"
-                  *ngIf="interview?.tutor?.specifications?.levelOfEducation && interview?.tutor?.specifications?.subject">
+                  *ngIf="tutor?.specifications?.levelOfEducation && tutor?.specifications?.subject">
                   <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
                   <strong>
-                    {{ interview?.tutor?.specifications?.levelOfEducation }}
-                    of {{ interview?.tutor?.specifications?.subject }}
+                    {{ tutor?.specifications?.levelOfEducation }}
+                    of {{ tutor?.specifications?.subject }}
                   </strong>
                 </div>
               </div>
@@ -31,19 +31,19 @@
                   Teacher Bookings
                 </a>
                 <a class="submit-document cursor-pointer"
-                  [routerLink]="['/admin', 'tutor', 'interview', 'details',  interview?.tutor?.id, 'documents']">
+                  [routerLink]="['/admin', 'tutor', 'interview', 'details',  tutor?.id, 'documents']">
                   Documents
                 </a>
               </div>
               <div class="row list-items md-item p-0 d-flex justify-content-end mt-3">
                 <div class="col-md-2"><span class="joining">Joining Date:</span></div>
-                <div class="col-md-3 d-flex menu align-items-center" *ngIf="interview?.interviewDate">
+                <div class="col-md-3 d-flex menu align-items-center" *ngIf="tutor?.interviewRequest?.interviewDate">
                   <img src="assets/svg/calendar.svg" alt="" width="15" height="15" draggable="false">
-                  <strong>{{ interview?.interviewDate }}</strong>
+                  <strong>{{ tutor?.interviewRequest?.interviewDate }}</strong>
                 </div>
-                <div class="col-md-3 d-flex menu align-items-center" *ngIf="interview?.interviewTime">
+                <div class="col-md-3 d-flex menu align-items-center" *ngIf="tutor?.interviewRequest?.interviewTime">
                   <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
-                  <strong>{{ interview?.interviewTime }}</strong>
+                  <strong>{{ tutor?.interviewRequest?.interviewTime }}</strong>
                 </div>
               </div>
             </div>
@@ -52,62 +52,62 @@
           <div class="row mt-3">
             <div class="col-md-5">
               <h3 class="title d-flex align-items-center">
-                <img [src]="interview?.tutor?.avatar" meTutorsDefaultAvatar alt="" class="rounded-circle me-3"
+                <img [src]="tutor?.avatar" meTutorsDefaultAvatar alt="" class="rounded-circle me-3"
                   width="50px" height="50px">
                 Personal Information
               </h3>
               <table class="basic-table">
                 <tr>
                   <td>First Name</td>
-                  <td><bdi>{{ interview?.tutor?.firstName }}</bdi></td>
+                  <td><bdi>{{ tutor?.firstName }}</bdi></td>
                 </tr>
                 <tr>
                   <td>Middle Name</td>
-                  <td><bdi>{{ interview?.tutor?.middleName }}</bdi></td>
+                  <td><bdi>{{ tutor?.middleName }}</bdi></td>
                 </tr>
                 <tr>
                   <td>Last Name</td>
-                  <td><bdi>{{ interview?.tutor?.lastName }}</bdi></td>
+                  <td><bdi>{{ tutor?.lastName }}</bdi></td>
                 </tr>
-                <tr *ngIf="interview?.tutor?.email">
+                <tr *ngIf="tutor?.email">
                   <td>Email</td>
-                  <td>{{ interview?.tutor?.email }}</td>
+                  <td>{{ tutor?.email }}</td>
                 </tr>
-                <tr *ngIf="interview?.tutor?.mobile">
+                <tr *ngIf="tutor?.mobile">
                   <td>Phone</td>
-                  <td>{{ interview?.tutor?.mobile }}</td>
+                  <td>{{ tutor?.mobile }}</td>
                 </tr>
-                <tr *ngIf="interview?.tutor?.gender">
+                <tr *ngIf="tutor?.gender">
                   <td>Gender</td>
-                  <td class="text-capitalize">{{ interview?.tutor?.gender }}</td>
+                  <td class="text-capitalize">{{ tutor?.gender }}</td>
                 </tr>
-                <tr *ngIf="interview?.tutor?.country">
+                <tr *ngIf="tutor?.country">
                   <td>Location</td>
                   <td>
-                    {{ interview?.tutor?.country?.name }}
-                    <ng-container *ngIf="interview?.tutor?.city">, {{ interview?.tutor?.city }}</ng-container>
+                    {{ tutor?.country?.name }}
+                    <ng-container *ngIf="tutor?.city">, {{ tutor?.city }}</ng-container>
                   </td>
                 </tr>
-                <tr *ngIf="interview?.tutor?.nationality">
+                <tr *ngIf="tutor?.nationality">
                   <td>Nationality</td>
-                  <td>{{ interview?.tutor?.nationality }}</td>
+                  <td>{{ tutor?.nationality }}</td>
                 </tr>
-                <tr *ngIf="interview?.tutor?.dateOfBirth">
+                <tr *ngIf="tutor?.dateOfBirth">
                   <td>Date of Birth</td>
-                  <td>{{ interview?.tutor?.dateOfBirth }}</td>
+                  <td>{{ tutor?.dateOfBirth }}</td>
                 </tr>
-                <tr *ngIf="interview?.tutor?.address">
+                <tr *ngIf="tutor?.address">
                   <td>Address</td>
-                  <td>{{ interview?.tutor?.address }}</td>
+                  <td>{{ tutor?.address }}</td>
                 </tr>
-                <tr *ngIf="interview?.tutor?.postalCode">
+                <tr *ngIf="tutor?.postalCode">
                   <td>Postal Code</td>
-                  <td>{{ interview?.tutor?.postalCode }}</td>
+                  <td>{{ tutor?.postalCode }}</td>
                 </tr>
               </table>
             </div>
-            <div class="col-md-7" *ngIf="interview?.tutor?.qualifications?.video">
-              <metutors-video-player [videoSrc]="interview?.tutor?.qualifications?.video">
+            <div class="col-md-7" *ngIf="tutor?.qualifications?.video">
+              <metutors-video-player [videoSrc]="tutor?.qualifications?.video">
               </metutors-video-player>
             </div>
           </div>
@@ -116,53 +116,53 @@
             <h3 class="title">Qualification Details</h3>
             <div class="col-md-6">
               <table class="basic-table w-100">
-                <tr *ngIf="interview?.tutor?.qualifications?.nameOfUniversity">
+                <tr *ngIf="tutor?.qualifications?.nameOfUniversity">
                   <td>University</td>
-                  <td>{{ interview?.tutor?.qualifications?.nameOfUniversity }}</td>
+                  <td>{{ tutor?.qualifications?.nameOfUniversity }}</td>
                 </tr>
-                <tr *ngIf="interview?.tutor?.qualifications?.degreeLevel">
+                <tr *ngIf="tutor?.qualifications?.degreeLevel">
                   <td>Degree Level</td>
-                  <td>{{ interview?.tutor?.qualifications?.degreeLevel }}</td>
+                  <td>{{ tutor?.qualifications?.degreeLevel }}</td>
                 </tr>
-                <tr *ngIf="interview?.tutor?.qualifications?.degreeField">
+                <tr *ngIf="tutor?.qualifications?.degreeField">
                   <td>Major (Field of Study)</td>
-                  <td>{{ interview?.tutor?.qualifications?.degreeField }}</td>
+                  <td>{{ tutor?.qualifications?.degreeField }}</td>
                 </tr>
-                <tr *ngIf="interview?.tutor?.languages && interview?.tutor?.languages?.length">
+                <tr *ngIf="tutor?.languages && tutor?.languages?.length">
                   <td>Spoken Languages</td>
                   <td>
-                    <ng-container *ngFor="let lang of interview?.tutor?.languages; let isLast = last">
-                      {{ lang?.name?.name }}<ng-container *ngIf="!isLast">, </ng-container>
+                    <ng-container *ngFor="let lang of tutor?.languages; let isLast = last">
+                      {{ lang?.name }}<ng-container *ngIf="!isLast">, </ng-container>
                     </ng-container>
                   </td>
                 </tr>
-                <tr *ngIf="interview?.tutor?.qualifications?.currentEmployer">
+                <tr *ngIf="tutor?.qualifications?.currentEmployer">
                   <td>Current Employer</td>
-                  <td>{{ interview?.tutor?.qualifications?.currentEmployer }}</td>
+                  <td>{{ tutor?.qualifications?.currentEmployer }}</td>
                 </tr>
               </table>
             </div>
             <div class="col-md-6">
               <table class="basic-table w-100">
-                <tr *ngIf="interview?.tutor?.qualifications?.computerSkills">
+                <tr *ngIf="tutor?.qualifications?.computerSkills">
                   <td>Computer Skills Level</td>
-                  <td>{{ interview?.tutor?.qualifications?.computerSkills }}</td>
+                  <td>{{ tutor?.qualifications?.computerSkills }}</td>
                 </tr>
-                <tr *ngIf="interview?.tutor?.specifications?.typeOfTutoring">
+                <tr *ngIf="tutor?.specifications?.typeOfTutoring">
                   <td>Type</td>
-                  <td>{{ interview?.tutor?.specifications?.typeOfTutoring }}</td>
+                  <td>{{ tutor?.specifications?.typeOfTutoring }}</td>
                 </tr>
-                <tr *ngIf="interview?.tutor?.qualifications?.teachingExperience">
+                <tr *ngIf="tutor?.qualifications?.teachingExperience">
                   <td>Teaching Experience<span>(In Schools)</span></td>
-                  <td>{{ interview?.tutor?.qualifications?.teachingExperience }}</td>
+                  <td>{{ tutor?.qualifications?.teachingExperience }}</td>
                 </tr>
-                <tr *ngIf="interview?.tutor?.qualifications?.teachingExperienceOnline">
+                <tr *ngIf="tutor?.qualifications?.teachingExperienceOnline">
                   <td>Teaching Experience<span>(Online)</span></td>
-                  <td>{{ interview?.tutor?.qualifications?.teachingExperienceOnline }}</td>
+                  <td>{{ tutor?.qualifications?.teachingExperienceOnline }}</td>
                 </tr>
-                <tr *ngIf="interview?.tutor?.qualifications?.currentTitle">
+                <tr *ngIf="tutor?.qualifications?.currentTitle">
                   <td>Current Title</td>
-                  <td>{{ interview?.tutor?.qualifications?.currentTitle }}</td>
+                  <td>{{ tutor?.qualifications?.currentTitle }}</td>
                 </tr>
               </table>
             </div>
@@ -172,41 +172,41 @@
             <h3 class="title">Teaching Specifications</h3>
             <div class="col-md-6">
               <table class="basic-table w-100">
-                <tr *ngIf="interview?.tutor?.specifications?.levelOfEducation">
+                <tr *ngIf="tutor?.specifications?.levelOfEducation">
                   <td>Level of Education</td>
-                  <td>{{ interview?.tutor?.specifications?.levelOfEducation }}</td>
+                  <td>{{ tutor?.specifications?.levelOfEducation }}</td>
                 </tr>
-                <tr *ngIf="interview?.tutor?.specifications?.typeOfTutoring">
+                <tr *ngIf="tutor?.specifications?.typeOfTutoring">
                   <td>Type of Tutoring</td>
-                  <td>{{ interview?.tutor?.specifications?.typeOfTutoring }}</td>
+                  <td>{{ tutor?.specifications?.typeOfTutoring }}</td>
                 </tr>
-                <tr *ngIf="interview?.tutor?.specifications?.teachingDays">
+                <tr *ngIf="tutor?.specifications?.teachingDays">
                   <td>Days</td>
-                  <td>{{ interview?.tutor?.specifications?.teachingDays }}</td>
+                  <td>{{ tutor?.specifications?.teachingDays }}</td>
                 </tr>
               </table>
-              <button mat-button class="edit-btn" (click)="onTutorAvailability(interview?.tutor?.id)">Day Availability</button>
+              <button mat-button class="edit-btn" (click)="onTutorAvailability(tutor?.id)">Day Availability</button>
             </div>
             <div class="col-md-6">
               <table class="basic-table w-100">
-                <tr *ngIf="interview?.tutor?.specifications?.availabilityStartDate">
+                <tr *ngIf="tutor?.specifications?.availabilityStartDate">
                   <td>Expected Starting Date</td>
-                  <td>{{ interview?.tutor?.specifications?.availabilityStartDate }}</td>
+                  <td>{{ tutor?.specifications?.availabilityStartDate }}</td>
                 </tr>
-                <tr *ngIf="interview?.tutor?.specifications?.availabilityEndDate">
+                <tr *ngIf="tutor?.specifications?.availabilityEndDate">
                   <td>Availability Ending Date</td>
-                  <td>{{ interview?.tutor?.specifications?.availabilityEndDate }}</td>
+                  <td>{{ tutor?.specifications?.availabilityEndDate }}</td>
                 </tr>
               </table>
             </div>
           </div>
 
-          <div class="row mt-3" *ngIf="interview?.tutor?.sortedSubjects && interview?.tutor?.sortedSubjects.length">
+          <div class="row mt-3" *ngIf="tutor?.sortedSubjects && tutor?.sortedSubjects.length">
             <h3 class="title">
               Assigned Courses
               <button mat-button class="float-end edit-btn">Edit</button>
             </h3>
-            <div class="col-md-6 mb-3" *ngFor="let item of interview?.tutor?.sortedSubjects; let indexSubjects = index">
+            <div class="col-md-6 mb-3" *ngFor="let item of tutor?.sortedSubjects; let indexSubjects = index">
               <table class="table my-table default-title">
                 <tr>
                   <th class="heading" [attr.colspan]="item?.programId === nationalId ? '2' : '1'">
@@ -236,13 +236,13 @@
 
           <div class="row mt-3">
             <div class="col-md-12 notes">
-              <ng-container *ngIf="interview?.tutor?.bio">
+              <ng-container *ngIf="tutor?.bio">
                 <h2>
                   Bio:
                   <button mat-button class="float-end edit-btn">Edit</button>
                 </h2>
                 <p>
-                  <bdi>{{ interview?.tutor?.bio }}</bdi>
+                  <bdi>{{ tutor?.bio }}</bdi>
                 </p>
               </ng-container>
             </div>

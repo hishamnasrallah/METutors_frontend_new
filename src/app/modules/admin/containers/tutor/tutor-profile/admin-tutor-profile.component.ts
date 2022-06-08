@@ -1,9 +1,10 @@
+import { ITutor } from '@models';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { IInterview } from '@models';
 import * as fromCore from '@metutor/core/state';
 import { Component, OnInit } from '@angular/core';
 import * as fromAdmin from '@metutor/modules/admin/state';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { generalConstants, InterviewStatus } from '@config';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 
@@ -14,19 +15,21 @@ import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 })
 export class AdminTutorProfileComponent implements OnInit {
   isLoading$: Observable<boolean>;
+  tutor$: Observable<ITutor | null>;
   tutorAvailability$: Observable<any>;
-  interview$: Observable<IInterview | null>;
   isLoadingTutorAvailability$: Observable<boolean>;
   showTeacherAvailabilityModal$: Observable<boolean>;
 
-  interviewStatus = InterviewStatus;
-  data: { date: string; time: string };
   nationalId = generalConstants.nationalId;
 
-  constructor(private _store: Store<any>) {}
+  constructor(private _store: Store<any>, private _route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this._prepareInterview();
+    this._route.paramMap.subscribe((res: ParamMap) => {
+      const id = +(res.get('id') || '');
+
+      this._prepareTutor(id);
+    });
 
     this.tutorAvailability$ = this._store.select(
       fromCore.selectTutorAvailability
@@ -50,9 +53,9 @@ export class AdminTutorProfileComponent implements OnInit {
     this._store.dispatch(fromAdminAction.closeAdminTeacherAvailabilityModal());
   }
 
-  private _prepareInterview(): void {
-    this._store.dispatch(fromCore.loadInterview({}));
-    this.interview$ = this._store.select(fromCore.selectInterview);
-    this.isLoading$ = this._store.select(fromCore.selectIsLoadingInterview);
+  private _prepareTutor(id: number): void {
+    this._store.dispatch(fromCore.loadAdminTutor({ id }));
+    this.tutor$ = this._store.select(fromCore.selectTutor);
+    this.isLoading$ = this._store.select(fromCore.selectIsLoadingTutor);
   }
 }
