@@ -29,13 +29,16 @@
   </tr>
   <tr *ngFor="let reassignment of reassignments; let i = index">
     <td>{{ i + 1 }}</td>
-    <td><a [routerLink]="['/admin','student',reassignment?.student?.id, 'booking-detail', reassignment?.id]">BIN{{ reassignment?.id }}</a></td>
+    <td><a
+      [routerLink]="['/admin','student',reassignment?.student?.id, 'booking-detail', reassignment?.id]">BIN{{ reassignment?.id }}</a>
+    </td>
     <td>{{ reassignment?.program?.code }}</td>
     <td *ngIf="isNew">TIN</td>
     <td><a href="javascript: void(0)"
            (click)="openBookingModal.emit(reassignment?.subject?.id)">{{ reassignment?.courseCode }}</a></td>
     <td>{{ reassignment?.courseName }}</td>
-    <td><a [routerLink]="['/admin','student', 'profile', reassignment.studentId]">SIN{{ reassignment?.studentId }}</a></td>
+    <td><a [routerLink]="['/admin','student', 'profile', reassignment.studentId]">SIN{{ reassignment?.studentId }}</a>
+    </td>
     <td *ngIf="!isNew">{{ reassignment?.startDate | date }}</td>
     <td>{{ reassignment?.totalHours }}</td>
     <td *ngIf="isNew">{{ reassignment?.totalPrice | currency }}</td>
@@ -45,10 +48,28 @@
     </ng-container>
     <ng-container *ngIf="isNew">
       <td>
-        <button class="teacher-status status text-capitalize" mat-button [ngClass]="reassignment?.teacherStatus"
-                (click)="changeTutorStatus.emit({id: reassignment.id, status: 'not-available'})">
-          {{ reassignment?.teacherStatus }}
-        </button>
+        <div dropdown class="change-status position-relative d-flex">
+          <button class="teacher-status status text-capitalize" dropdownToggle mat-button
+                  [ngClass]="reassignment?.teacherStatus">
+            {{ reassignment?.teacherStatus }}
+          </button>
+          <!--<button dropdownToggle class="status text-capitalize" mat-button [ngClass]="reassignment?.status"
+                  [tooltip]="statusLabel[reassignment?.status]?.long">{{ statusLabel[reassignment?.status]?.short }}
+          </button>-->
+          <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
+            <li role="menuitem" class="cursor-pointer text-capitalize offered"
+                (click)="changeTutorStatus.emit({id: reassignment.id, status: 'available'})"
+                *ngIf="reassignment.teacherStatus === 'N/A' || reassignment.teacherStatus === 'not-available'">
+              Available
+            </li>
+            <li role="menuitem" class="cursor-pointer text-capitalize offered"
+                (click)="changeTutorStatus.emit({id: reassignment.id, status: 'not-available'})"
+                *ngIf="reassignment.teacherStatus === 'N/A' || reassignment.teacherStatus === 'available'">
+              Not Available
+            </li>
+          </ul>
+        </div>
+
       </td>
       <td>{{ reassignment?.timer }}</td>
     </ng-container>
@@ -56,31 +77,21 @@
     <!--<td><a href="javascript: void(0)" (click)="openBookingModal.emit(reassignment.id)">{{ reassignment?.totalBooking }}</a></td>
     <td><a [routerLink]="['/admin', 'finance', 'orders']"> ${{ reassignment?.totalAmount }}</a></td>-->
     <td>
-      <div dropdown class="change-status position-relative d-flex">
-        <button dropdownToggle class="status text-capitalize" mat-button [ngClass]="reassignment?.status"
-                [tooltip]="statusLabel[reassignment?.status]?.long">{{ statusLabel[reassignment?.status]?.short }}
-        </button>
-        <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
-          <!-- *ngFor="let status of requestStatuses" [ngClass]="{
-              'offered': requestStatus.offered === status,
-              'pending': requestStatus.pending === status,
-              'not-offered': requestStatus.notOffered === status
-            }" -->
-          <li role="menuitem" class="cursor-pointer text-capitalize offered">
-            Pending
-          </li>
-        </ul>
-      </div>
+      <button class="status text-capitalize" mat-button [ngClass]="reassignment?.status"
+              [tooltip]="statusLabel[reassignment?.status]?.long">{{ statusLabel[reassignment?.status]?.short }}
+      </button>
     </td>
     <td>
-      <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0" (click)="studentId = reassignment?.student?.id; courseId=reassignment.id">
+      <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0"
+              (click)="studentId = reassignment?.student?.id; courseId=reassignment.id">
         <mat-icon>more_vert</mat-icon>
       </button>
     </td>
   </tr>
 </table>
 <mat-menu #menu="matMenu">
-  <button mat-menu-item class="h-auto btn-menu" [routerLink]="['/admin', 'student', studentId, 'booking-detail', courseId]">
+  <button mat-menu-item class="h-auto btn-menu"
+          [routerLink]="['/admin', 'student', studentId, 'booking-detail', courseId]">
     <span>Booking Details</span>
   </button>
   <!-- <button mat-menu-item class="h-auto btn-menu" [matMenuTriggerFor]="status">
