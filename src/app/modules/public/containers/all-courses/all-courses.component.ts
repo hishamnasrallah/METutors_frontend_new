@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import * as fromCore from '@metutor/core/state';
 import {
-  trigger,
   state,
   style,
-  transition,
   group,
+  trigger,
   animate,
+  transition,
 } from '@angular/animations';
 import { Store } from '@ngrx/store';
 import { maxBy, minBy } from 'lodash';
 import { filter, Observable, take, tap } from 'rxjs';
 import * as fromPublic from '@metutor/modules/public/state';
+import { ICountry, ILanguage, IProgram } from '@metutor/core/models';
 import * as fromPublicActions from '@metutor/modules/public/state/actions';
-import { ICountry, ILanguage, IProgram, ISubject } from '@metutor/core/models';
 
 @Component({
   selector: 'metutors-all-courses',

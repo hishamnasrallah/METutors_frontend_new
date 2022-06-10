@@ -1,10 +1,10 @@
 import {
-  Component,
-  EventEmitter,
-  Inject,
   Input,
+  Inject,
   OnInit,
   Output,
+  Component,
+  EventEmitter,
 } from '@angular/core';
 import {
   MatDialog,
@@ -40,11 +40,13 @@ export class LearningEnvironmentComponent implements OnInit {
   }
 
   @Output() changeProgram = new EventEmitter<any>();
+  @Output() viewSubjectDetails = new EventEmitter<any>();
 
   step: number;
   country: number | null;
   programsList: IProgram[];
   selectedProgram: IProgram;
+  iconsImages = generalConstants.subjectsIcons;
 
   constructor(private _dialog: MatDialog) {}
 

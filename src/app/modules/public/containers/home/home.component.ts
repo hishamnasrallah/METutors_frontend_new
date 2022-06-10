@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { Component, OnInit } from '@angular/core';
 import {
-  IStatistics,
   ITutor,
+  IField,
   IProgram,
   ISubject,
-  IField,
   ICountry,
+  IStatistics,
 } from 'src/app/core/models';
 import * as fromCore from '@metutor/core/state';
+import * as fromPublic from '@metutor/modules/public/state';
+import * as fromPublicActions from '@metutor/modules/public/state/actions';
 
 @Component({
   selector: 'metutors-home',
@@ -25,7 +27,9 @@ export class HomeComponent implements OnInit {
   programs$: Observable<IProgram[] | null>;
   subjects$: Observable<ISubject[] | null>;
   countries$: Observable<ICountry[] | null>;
+  showViewSubjectDetailsModal$: Observable<boolean>;
 
+  subjectData: any;
   teachers?: ITutor[];
   testmonials?: any[];
   academicStatistics?: IStatistics[];
@@ -36,6 +40,10 @@ export class HomeComponent implements OnInit {
     this._preparePrograms();
     this._prepareSubjects();
     this._prepareCountries();
+
+    this.showViewSubjectDetailsModal$ = this._store.select(
+      fromPublic.selectShowViewSubjectDetailsModal
+    );
 
     this.academicStatistics = [
       {
@@ -116,23 +124,6 @@ export class HomeComponent implements OnInit {
           { id: 3, name: 'Science' },
         ],
       },
-      {
-        id: 4,
-        avatar: '',
-        status: 'Online',
-        name: 'Anna Mendez',
-        roleName: 'University of canada',
-        averageRating: 4.5,
-        totalFeedbacks: 10,
-        country: 'Egypt',
-        studentsTeaching: 100,
-        bio: "Hello everyone! My name is Charlene and I'm from China.",
-        subjects: [
-          { id: 1, name: 'Geographics' },
-          { id: 2, name: 'Math' },
-          { id: 3, name: 'Science' },
-        ],
-      },
     ];
 
     this.testmonials = [
@@ -173,6 +164,15 @@ export class HomeComponent implements OnInit {
         isVerified: true,
       },
     ];
+  }
+
+  onOpenViewSubjectDetailsModal(date: any): void {
+    this.subjectData = date;
+    this._store.dispatch(fromPublicActions.openViewSubjectDetailsModal());
+  }
+
+  onCloseViewSubjectDetailsModal(): void {
+    this._store.dispatch(fromPublicActions.closeViewSubjectDetailsModal());
   }
 
   fetchFields({ program, country }: any): void {

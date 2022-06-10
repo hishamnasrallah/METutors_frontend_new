@@ -39,4 +39,5 @@ export * from './benefits-online-tutoring';
 export * from './exceptional-opportunities';
 export * from './home-study-more-read-more';
 export * from './benefits-academic-tutoring';
+export * from './view-subject-details-modal';
 export * from './academic-learning-environment';

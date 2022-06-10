@@ -4,10 +4,12 @@ import * as publicModalActions from '../actions/public-modal.actions';
 
 export interface State {
   showRequestCourseModal: boolean;
+  showViewSubjectDetailsModal: boolean;
 }
 
 export const initialState: State = {
   showRequestCourseModal: false,
+  showViewSubjectDetailsModal: false,
 };
 
 export const reducer = createReducer(
@@ -25,9 +27,22 @@ export const reducer = createReducer(
       ...state,
       showRequestCourseModal: false,
     })
-  )
+  ),
+
+  on(publicModalActions.openViewSubjectDetailsModal, (state) => ({
+    ...state,
+    showViewSubjectDetailsModal: true,
+  })),
+
+  on(publicModalActions.closeViewSubjectDetailsModal, (state) => ({
+    ...state,
+    showViewSubjectDetailsModal: false,
+  }))
 );
 
-// public modal selectors
+// Public modal selectors
 export const selectShowRequestCourseModal = (state: State): boolean =>
   state.showRequestCourseModal;
+
+export const selectShowViewSubjectDetailsModal = (state: State): boolean =>
+  state.showViewSubjectDetailsModal;

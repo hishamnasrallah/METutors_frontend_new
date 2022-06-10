@@ -22,6 +22,12 @@ export const generalConstants = {
     min: 0.5,
     max: 3,
   },
+  subjectsIcons: [
+    'assets/svg/engineering.svg',
+    'assets/svg/science.svg',
+    'assets/svg/humanities.svg',
+    'assets/svg/math.svg',
+  ],
 };
 
 export const TICKET_STATUSES_CONST: any = [

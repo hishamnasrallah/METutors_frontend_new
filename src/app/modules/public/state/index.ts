@@ -42,3 +42,8 @@ export const selectShowRequestCourseModal = createSelector(
   selectPublicModalState,
   fromPublicModal.selectShowRequestCourseModal
 );
+
+export const selectShowViewSubjectDetailsModal = createSelector(
+  selectPublicModalState,
+  fromPublicModal.selectShowViewSubjectDetailsModal
+);

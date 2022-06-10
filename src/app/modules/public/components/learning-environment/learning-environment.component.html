@@ -39,13 +39,7 @@
 
             <div class="row mt-4">
               <div class="col-md-6 d-flex mt-4" *ngFor="let field of fields; let i = index">
-                <img src="assets/svg/engineering.svg" *ngIf="i % 4 === 0" width="65px" height="65px" draggable="false"
-                  alt="">
-                <img src="assets/svg/science.svg" *ngIf="i % 4 === 1" width="65px" height="65px" draggable="false"
-                  alt="">
-                <img src="assets/svg/humanities.svg" *ngIf="i % 4 === 2" width="65px" height="65px" draggable="false"
-                  alt="">
-                <img src="assets/svg/math.svg" *ngIf="i % 4 === 3" width="65px" height="65px" draggable="false" alt="">
+                <img [src]="iconsImages[i % 4]" width="65px" height="65px" draggable="false" alt="">
                 <div class="ms-2">
                   <h2>
                     <a routerLink="/requests/request-tutor"
@@ -59,8 +53,8 @@
                     </ng-container>
 
                     <ng-container *ngIf="!loadingSubjects">
-                      <a *ngFor="let subject of subjects; let isLast = last" routerLink="/requests/request-tutor"
-                        [queryParams]="{program: selectedProgram?.id, field: field?.id, subject: subject?.id, country}">
+                      <a *ngFor="let subject of subjects; let isLast = last" class="cursor-pointer"
+                        (click)="viewSubjectDetails.emit({program: selectedProgram, subject, country, index: i})">
                         <ng-container *ngIf="subject?.fieldId === field.id">
                           {{ subject?.name }}<ng-container *ngIf="!isLast">, </ng-container>
                         </ng-container>
