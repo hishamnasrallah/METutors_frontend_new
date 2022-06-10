@@ -157,7 +157,10 @@ export class RequestTutorComponent implements OnInit {
 
     if (this._route.snapshot.queryParams['program']) {
       this.fetchCourseField(this._route.snapshot.queryParams['program']);
-      this.fetchCourseFieldSubject(this._route.snapshot.queryParams['program']);
+    }
+
+    if (this._route.snapshot.queryParams['field']) {
+      this.fetchCourseFieldSubject(this._route.snapshot.queryParams['field']);
     }
 
     if (this._route.snapshot.queryParams['subject']) {
