@@ -29,6 +29,7 @@ import {
   AdminFinanceRefundOrdersComponent,
   AdminStudentBookingDetailComponent,
   AdminTutorInterviewDetailsComponent,
+  AdminTutorApprovalRequestsComponent,
   AdminTutorInterviewDocumentsComponent,
   AdminManagementTutorReAssignmentComponent,
 } from './containers';
@@ -328,6 +329,18 @@ const routes: Routes = [
             data: {
               layout: {
                 title: 'Tutor Re-assignment - Metutors',
+                navbarTitle: 'Management',
+                showHeader: false,
+                showFooter: false,
+              },
+            },
+          },
+          {
+            path: 'approval-requests',
+            component: AdminTutorApprovalRequestsComponent,
+            data: {
+              layout: {
+                title: 'Tutor Approval Requests - Metutors',
                 navbarTitle: 'Management',
                 showHeader: false,
                 showFooter: false,
