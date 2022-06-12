@@ -144,7 +144,12 @@ export const selectIsShowTeacherAvailabilityModal = createSelector(
   fromAdminModal.selectIsShowTeacherAvailabilityModal
 );
 
-export const selectShowCancelCourseModal = createSelector(
+export const selectShowRefundDetailModal = createSelector(
   selectAdminModalState,
-  fromAdminModal.selectShowCancelCourseModal
+  fromAdminModal.selectShowRefundDetailModal
+);
+
+export const selectShowRefundPaymentModal = createSelector(
+  selectAdminModalState,
+  fromAdminModal.selectShowRefundPaymentModal
 );

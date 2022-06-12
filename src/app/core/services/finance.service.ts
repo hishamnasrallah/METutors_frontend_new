@@ -23,4 +23,10 @@ export class FinanceService {
       .get<any>(`${this.baseUrl}admin/courses/refund`)
       .pipe(map((result) => result?.orders));
   }
+
+  loadRefundDetail(courseId: number): Observable<any> {
+    return this.http
+      .get<any>(`${this.baseUrl}admin/course/${courseId}/refund/detail`)
+      .pipe(map((result) => result?.refund_detail));
+  }
 }

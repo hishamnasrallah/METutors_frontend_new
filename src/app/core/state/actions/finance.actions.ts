@@ -23,3 +23,18 @@ export const loadRefundOrdersFailure = createAction(
   '[Finance] Load Orders Failure',
   props<{ error: any }>()
 );
+
+export const loadRefundDetail = createAction(
+  '[Finance] Load Refund Detail',
+  props<{ courseId: number }>()
+);
+
+export const loadRefundDetailSuccess = createAction(
+  '[Finance] Load Refund Detail Success',
+  props<{ refundDetail: any }>()
+);
+
+export const loadRefundDetailFailure = createAction(
+  '[Finance] Load Refund Detail Failure',
+  props<{ error: any }>()
+);

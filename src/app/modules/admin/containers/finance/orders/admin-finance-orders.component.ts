@@ -21,7 +21,7 @@ export class AdminFinanceOrdersComponent implements OnInit {
 
     this.view$ = combineLatest([
       this._store.select(fromCore.selectFinanceOrders),
-      this._store.select(fromCore.selectIsLoadingIFinance),
+      this._store.select(fromCore.selectIsLoadingFinance),
     ]).pipe(map(([orders, loading]) => ({ orders, loading })));
   }
 }

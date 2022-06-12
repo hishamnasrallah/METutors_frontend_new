@@ -8,18 +8,17 @@ import camelcaseKeys from 'camelcase-keys';
 import { FinanceService } from '@services';
 import * as financeActions from '../actions/finance.actions';
 import { AlertNotificationService } from '@metutor/core/components';
-import { loadRefundOrders } from '../actions/finance.actions';
 
 @Injectable()
 export class FinanceEffects {
-  loadOrders = createEffect(() =>
+  loadOrders$ = createEffect(() =>
     this._actions$.pipe(
       ofType(financeActions.loadOrders),
       mergeMap(() =>
         this._financeService.loadOrders().pipe(
-          map((orders) =>
+          map((result) =>
             financeActions.loadOrdersSuccess({
-              orders: camelcaseKeys(orders, { deep: true }),
+              orders: camelcaseKeys(result, { deep: true }),
             })
           ),
           catchError((error) =>
@@ -34,19 +33,41 @@ export class FinanceEffects {
     )
   );
 
-  loadRefundOrders = createEffect(() =>
+  loadRefundOrders$ = createEffect(() =>
     this._actions$.pipe(
       ofType(financeActions.loadRefundOrders),
       mergeMap(() =>
         this._financeService.loadRefundOrders().pipe(
-          map((orders) =>
+          map((result) =>
             financeActions.loadRefundOrdersSuccess({
-              orders: camelcaseKeys(orders, { deep: true }),
+              orders: camelcaseKeys(result, { deep: true }),
             })
           ),
           catchError((error) =>
             of(
               financeActions.loadRefundOrdersFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  loadCancelCourse$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(financeActions.loadRefundDetail),
+      mergeMap(({ courseId }) =>
+        this._financeService.loadRefundDetail(courseId).pipe(
+          map((result) =>
+            financeActions.loadRefundDetailSuccess({
+              refundDetail: camelcaseKeys(result, { deep: true }),
+            })
+          ),
+          catchError((error) =>
+            of(
+              financeActions.loadRefundDetailFailure({
                 error: error?.error?.message || error?.error?.errors,
               })
             )

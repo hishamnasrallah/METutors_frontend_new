@@ -137,6 +137,7 @@ export class CourseEffects {
     )
   );
 
+  // Cancel course
   tutorCancelCourse$ = createEffect(() =>
     this._actions$.pipe(
       ofType(courseActions.tutorCancelCourse),
@@ -160,7 +161,6 @@ export class CourseEffects {
     )
   );
 
-  // Cancel course
   studentCourseRefund$ = createEffect(() =>
     this._actions$.pipe(
       ofType(courseActions.studentRefundCourse),

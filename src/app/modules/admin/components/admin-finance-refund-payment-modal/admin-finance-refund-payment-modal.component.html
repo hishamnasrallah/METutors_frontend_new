@@ -1,0 +1,11 @@
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'medium'"
+                [template]="template">
+  <ng-template #template>
+    <ng-container [ngSwitch]="loading">
+      <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
+      <div class="refund-modal col-12 mt-4" *ngSwitchCase="false">
+       add UI here please
+      </div>
+    </ng-container>
+  </ng-template>
+</metutors-modal>

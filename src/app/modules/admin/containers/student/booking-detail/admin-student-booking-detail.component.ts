@@ -36,7 +36,7 @@ export class AdminStudentBookingDetailComponent implements OnInit {
   }
 
   onOpenFeedbackModal(): void {
-    this._store.dispatch(fromCore.loadAdminViewFeedback());
+    this._store.dispatch(fromCore.loadAdminViewFeedback({}));
     this._store.dispatch(fromAdminAction.openAdminStudentViewFeedbackModal());
   }
 
