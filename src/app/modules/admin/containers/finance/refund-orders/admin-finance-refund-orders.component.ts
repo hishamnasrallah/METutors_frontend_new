@@ -26,10 +26,6 @@ export class AdminFinanceRefundOrdersComponent implements OnInit {
 
   constructor(private _store: Store<any>) {}
 
-  onCloseBookingModal(): void {
-    this._store.dispatch(fromAdminAction.closeAdminStudentBookingModal());
-  }
-
   onOpenRefundPaymentModal(): void {
     this._store.dispatch(fromAdminAction.openRefundPaymentModal());
   }
@@ -39,16 +35,14 @@ export class AdminFinanceRefundOrdersComponent implements OnInit {
     this._store.dispatch(fromAdminAction.openRefundDetailModal());
   }
 
-  onCloseRefundDetailModal(): void {
-    this._store.dispatch(fromAdminAction.closeRefundDetailModal());
-  }
-
   onOpenTeacherFeedbackModal(): void {
     this._store.dispatch(fromCore.loadAdminViewFeedback());
     this._store.dispatch(fromAdminAction.openAdminStudentViewFeedbackModal());
   }
 
-  onCloseTeacherFeedbackModal(): void {
+  onCloseModals(): void {
+    this._store.dispatch(fromAdminAction.closeRefundDetailModal());
+    this._store.dispatch(fromAdminAction.closeRefundPaymentModal());
     this._store.dispatch(fromAdminAction.closeAdminStudentViewFeedbackModal());
   }
 

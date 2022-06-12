@@ -106,18 +106,19 @@
 </mat-menu>
 
 <metutors-admin-view-feedback-modal *ngIf="showFeedbackModal$ | async"
-                                    (closeModal)="onCloseTeacherFeedbackModal()" [loading]="(loadingFeedback$ | async)!"
+                                    (closeModal)="onCloseModals()" [loading]="(loadingFeedback$ | async)!"
                                     [feedbacks]="(feedbacks$ | async)!" [heading]="'Teacher\'s Feedback'"
                                     [subHeading]="'View Teacher\'s Feedback'"
                                     [showModal]="(showFeedbackModal$ | async)!">
 </metutors-admin-view-feedback-modal>
 
 <metutors-admin-finance-refund-payment-modal *ngIf="showRefundPaymentModal | async"
-                                             [showModal]="(showRefundPaymentModal | async)!">
+                                             [showModal]="(showRefundPaymentModal | async)!"
+                                             (closeModal)="onCloseModals()">
 </metutors-admin-finance-refund-payment-modal>
 
 <metutors-admin-finance-refund-detail-modal *ngIf="showRefundDetailModal | async"
-                                            (closeModal)="onCloseRefundDetailModal()"
+                                            (closeModal)="onCloseModals()"
                                             [loading]="(loadingRefund$ | async)!"
                                             [reFundDetail]="(reFundDetail$ | async)!"
                                             [showModal]="(showRefundDetailModal | async)!"
