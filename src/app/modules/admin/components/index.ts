@@ -5,6 +5,7 @@ export * from './admin-feedback';
 export * from './admin-tutors-list-modal';
 export * from './admin-edit-feedback-modal';
 export * from './admin-change-status-modal';
+export * from './admin-cancel-course-modal';
 export * from './admin-view-feedback-modal';
 export * from './admin-add-new-program-modal';
 export * from './admin-add-new-subject-modal';

@@ -6,6 +6,7 @@ import { environment } from '@environment';
 import * as fromCore from '@metutor/core/state';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 import * as fromAdmin from '@metutor/modules/admin/state';
+import { selectShowCancelCourseModal } from '@metutor/modules/admin/state/reducers/admin-modal.reducers';
 
 @Component({
   selector: 'metutors-refund-orders',
@@ -17,6 +18,7 @@ export class AdminFinanceRefundOrdersComponent implements OnInit {
   imageUrl = environment.imageURL;
   loadingFeedback$: Observable<boolean>;
   showFeedbackModal$: Observable<boolean>;
+  showCancelCourseModal$: Observable<boolean>;
   view$: Observable<{ orders: any; loading: boolean }>;
 
   constructor(private _store: Store<any>) {}
@@ -26,7 +28,14 @@ export class AdminFinanceRefundOrdersComponent implements OnInit {
   }
 
   onOpenRefundPaymentModal(): void {}
-  onOpenViewCancelledDetailModal(): void {}
+
+  onOpenCancelCourseModal(): void {
+    this._store.dispatch(fromAdminAction.openAdminCancelCourseModal());
+  }
+
+  onCloseCancelCourseModal(): void {
+    this._store.dispatch(fromAdminAction.closeAdminCancelCourseModal());
+  }
 
   onOpenTeacherFeedbackModal(): void {
     this._store.dispatch(fromCore.loadAdminViewFeedback());
@@ -44,6 +53,10 @@ export class AdminFinanceRefundOrdersComponent implements OnInit {
 
     this.showFeedbackModal$ = this._store.select(
       fromAdmin.selectAdminStudentViewFeedbackModal
+    );
+
+    this.showCancelCourseModal$ = this._store.select(
+      fromAdmin.selectShowCancelCourseModal
     );
 
     this.loadingFeedback$ = this._store.select(
