@@ -1415,9 +1415,19 @@ export const selectFinanceOrders = createSelector(
   fromFinanceReducer.selectFinanceOrders
 );
 
-export const selectIsLoadingIFinance = createSelector(
+export const selectIsLoadingFinance = createSelector(
   selectFinanceState,
-  fromFinanceReducer.selectIsLoadingIFinance
+  fromFinanceReducer.selectIsLoadingFinance
+);
+
+export const selectFinanceRefundDetail = createSelector(
+  selectFinanceState,
+  fromFinanceReducer.selectFinanceRefundDetail
+);
+
+export const selectIsLoadingFinanceRefundDetail = createSelector(
+  selectFinanceState,
+  fromFinanceReducer.selectIsLoadingFinanceRefundDetail
 );
 
 /**

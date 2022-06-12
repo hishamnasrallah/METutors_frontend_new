@@ -80,7 +80,7 @@
             </button>
           </td>
           <td>
-            <button mat-icon-button class="p-0" [matMenuTriggerFor]="menu">
+            <button mat-icon-button class="p-0" [matMenuTriggerFor]="menu" (click)="courseId=order.course.id">
               <mat-icon>more_vert</mat-icon>
             </button>
           </td>
@@ -91,7 +91,7 @@
 </div>
 
 <mat-menu #menu="matMenu">
-  <button mat-menu-item class="h-auto btn-menu" (click)="onOpenCancelCourseModal()">
+  <button mat-menu-item class="h-auto btn-menu" (click)="onOpenRefundDetailModal(courseId)">
     <span>View Cancelled Detail</span>
   </button>
   <button mat-menu-item class="h-auto btn-menu" (click)="onOpenRefundPaymentModal()">
@@ -105,10 +105,13 @@
   </button>
 </mat-menu>
 
-<metutors-admin-cancel-course-modal *ngIf="showCancelCourseModal$ | async" (closeModal)="onCloseCancelCourseModal()"
-                                    [showModal]="(showCancelCourseModal$ | async)!">
-
-</metutors-admin-cancel-course-modal>
+<metutors-admin-finance-refund-detail-modal *ngIf="showRefundDetailModal | async"
+                                            (closeModal)="onCloseRefundDetailModal()"
+                                            [loading]="(loadingRefund$ | async)!"
+                                            [reFundDetail]="(reFundDetail$ | async)!"
+                                            [showModal]="(showRefundDetailModal | async)!"
+                                            (refundClicked)="onOpenRefundModal()">
+</metutors-admin-finance-refund-detail-modal>
 
 <metutors-admin-view-feedback-modal *ngIf="showFeedbackModal$ | async"
                                     (closeModal)="onCloseTeacherFeedbackModal()" [loading]="(loadingFeedback$ | async)!"
