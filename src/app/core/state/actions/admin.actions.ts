@@ -302,7 +302,8 @@ export const loadAdminStudentAssignmentSummaryFailure = createAction(
 );
 
 export const loadAdminViewFeedback = createAction(
-  '[Admin] Load Admin View Feedback'
+  '[Admin] Load Admin View Feedback',
+  props<{ id: number; teacherId: number }>()
 );
 
 export const loadAdminViewFeedbackSuccess = createAction(

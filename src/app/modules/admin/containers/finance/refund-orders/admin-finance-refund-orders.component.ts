@@ -14,6 +14,7 @@ import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 })
 export class AdminFinanceRefundOrdersComponent implements OnInit {
   courseId: number;
+  teacherId: number;
   feedbacks$: Observable<any>;
   reFundDetail$: Observable<any>;
   imageUrl = environment.imageURL;
@@ -35,8 +36,8 @@ export class AdminFinanceRefundOrdersComponent implements OnInit {
     this._store.dispatch(fromAdminAction.openRefundDetailModal());
   }
 
-  onOpenTeacherFeedbackModal(): void {
-    this._store.dispatch(fromCore.loadAdminViewFeedback());
+  onOpenTeacherFeedbackModal(id: number, teacherId: number): void {
+    this._store.dispatch(fromCore.loadAdminViewFeedback({ id, teacherId }));
     this._store.dispatch(fromAdminAction.openAdminStudentViewFeedbackModal());
   }
 
