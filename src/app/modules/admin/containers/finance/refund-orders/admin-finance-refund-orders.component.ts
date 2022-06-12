@@ -21,6 +21,10 @@ export class AdminFinanceRefundOrdersComponent implements OnInit {
     this._store.dispatch(fromAdminAction.closeAdminStudentBookingModal());
   }
 
+  onOpenRefundPaymentModal(): void {}
+  onOpenTeacherFeedbackModal(): void {}
+  onOpenViewCancelledDetailModal(): void {}
+
   ngOnInit(): void {
     this._store.dispatch(fromCore.loadRefundOrders());
 
