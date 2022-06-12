@@ -28,6 +28,7 @@ export interface State {
   isApprovingDoc: boolean;
   isRejectingDoc: boolean;
   isLoadingTutors: boolean;
+  tutorApprovalRequest: any;
   isEditingFeedback: boolean;
   isLoadingAdminDocs: boolean;
   documents: ITeacherDocument[];
@@ -91,6 +92,7 @@ export const initialState: State = {
   workforceCapacity: [],
   isLoadingTutors: false,
   studentTotalBooking: [],
+  tutorApprovalRequest: [],
   isEditingFeedback: false,
   isLoadingAdminDocs: false,
   isLoadingAllBookings: false,
@@ -601,6 +603,15 @@ export const reducer = createReducer(
   ),
 
   on(
+    adminActions.loadAdminTutorApprovalRequestSuccess,
+    (state, { tutorApprovalRequest }) => ({
+      ...state,
+      tutorApprovalRequest,
+      isLoadingAdmin: false,
+    })
+  ),
+
+  on(
     adminActions.adminChangeTutorAvailabilityStatusSuccess,
     (state, { status, id }) => {
       const finalState = {
@@ -640,6 +651,7 @@ export const reducer = createReducer(
   // COMMON LOADING
   on(
     adminActions.adminEditTestimonialStatus,
+    adminActions.loadAdminTutorApprovalRequest,
     adminActions.adminChangeTutorAvailabilityStatus,
     adminActions.loadAdminTestimonialFeedbackOptions,
     (state) => ({
@@ -650,6 +662,7 @@ export const reducer = createReducer(
 
   on(
     adminActions.adminEditTestimonialStatusFailure,
+    adminActions.loadAdminTutorApprovalRequestFailure,
     adminActions.adminChangeTutorAvailabilityStatusFailure,
     adminActions.loadAdminTestimonialFeedbackOptionsFailure,
     (state) => ({
@@ -770,6 +783,9 @@ export const selectAdminTestimonials = (state: State): any =>
 
 export const selectAdminTestimonialFeedbackOptions = (state: State): any =>
   state.feedbackOptions;
+
+export const selectAdminTutorApprovalRequest = (state: State): any =>
+  state.tutorApprovalRequest;
 
 export const selectIsLoadingAdmin = (state: State): boolean =>
   state.isLoadingAdmin;

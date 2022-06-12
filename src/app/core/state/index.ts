@@ -1401,6 +1401,11 @@ export const selectIsEditingAdminTestimonialFeedback = createSelector(
   fromAdminReducer.selectIsEditingAdminTestimonialFeedback
 );
 
+export const selectAdminTutorApprovalRequest = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectAdminTutorApprovalRequest
+);
+
 /**
  *  FINANCE SELECTORS
  */

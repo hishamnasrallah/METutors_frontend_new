@@ -404,3 +404,17 @@ export const adminChangeTutorAvailabilityStatusFailure = createAction(
   '[Admin] Admin Change Tutor Availability Status Failure',
   props<{ error: any }>()
 );
+
+export const loadAdminTutorApprovalRequest = createAction(
+  '[Admin] Load Admin Tutor Approval Request'
+);
+
+export const loadAdminTutorApprovalRequestSuccess = createAction(
+  '[Admin] Load Admin Tutor Approval Request Success',
+  props<{ tutorApprovalRequest: any }>()
+);
+
+export const loadAdminTutorApprovalRequestFailure = createAction(
+  '[Admin] Load Admin Tutor Approval Request Failure',
+  props<{ error: any }>()
+);

@@ -622,6 +622,31 @@ export class AdminEffects {
     )
   );
 
+  loadAdminTutorApprovalRequest$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(adminActions.loadAdminTutorApprovalRequest),
+      mergeMap(() =>
+        this._adminService.loadAdminTutorApprovalRequest().pipe(
+          map(
+            (result) =>
+              adminActions.loadAdminTutorApprovalRequestSuccess({
+                tutorApprovalRequest: camelcaseKeys(result, {
+                  deep: true,
+                }),
+              }),
+            catchError((error) =>
+              of(
+                adminActions.loadAdminTutorApprovalRequestFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          )
+        )
+      )
+    )
+  );
+
   adminEditTestimonialStatus$ = createEffect(() =>
     this._actions$.pipe(
       ofType(adminActions.adminEditTestimonialStatus),

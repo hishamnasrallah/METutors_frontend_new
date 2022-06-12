@@ -22,6 +22,7 @@ import {
   AdminStudentProfileComponent,
   AdminClassroomsListComponent,
   AdminSuspendedTutorsComponent,
+  TutorApprovalRequestComponent,
   AdminWorkforceCapacityComponent,
   AdminTutorBookingDetailsComponent,
   AdminCancelledClassroomsComponent,
@@ -328,6 +329,18 @@ const routes: Routes = [
             data: {
               layout: {
                 title: 'Tutor Re-assignment - Metutors',
+                navbarTitle: 'Management',
+                showHeader: false,
+                showFooter: false,
+              },
+            },
+          },
+          {
+            path: 'tutor-approval-requests',
+            component: TutorApprovalRequestComponent,
+            data: {
+              layout: {
+                title: 'Tutor Approval Request - Metutors',
                 navbarTitle: 'Management',
                 showHeader: false,
                 showFooter: false,

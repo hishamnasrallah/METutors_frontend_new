@@ -147,6 +147,10 @@ export class AdminService {
     return this.http.get<any>(`${this.baseUrl}admin/testimonial/${id}`);
   }
 
+  loadAdminTutorApprovalRequest(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}admin/approval-request`);
+  }
+
   loadRequestedCourses(): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}admin/requested-courses`).pipe(
       map((response) => ({
