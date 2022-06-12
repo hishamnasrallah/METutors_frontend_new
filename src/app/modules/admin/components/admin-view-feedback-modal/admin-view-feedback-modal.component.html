@@ -1,6 +1,6 @@
 <metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'xmedium'"
-                [heading]="'Student\'s Feedback'"
-                [template]="template" [subHeading]="'View Student\'s Feedback'">
+                [heading]="heading"
+                [template]="template" [subHeading]="subHeading">
   <ng-template #template>
     <ng-container [ngSwitch]="loading">
       <ng-container *ngSwitchCase="true">

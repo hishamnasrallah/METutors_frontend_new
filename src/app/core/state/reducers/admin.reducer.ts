@@ -452,21 +452,18 @@ export const reducer = createReducer(
     isLoadingAssignmentSummary: false,
   })),
 
-  on(adminActions.loadAdminStudentViewFeedback, (state) => ({
+  on(adminActions.loadAdminViewFeedback, (state) => ({
     ...state,
     isLoadingViewFeedback: true,
   })),
 
-  on(
-    adminActions.loadAdminStudentViewFeedbackSuccess,
-    (state, { viewFeedback }) => ({
-      ...state,
-      viewFeedback,
-      isLoadingViewFeedback: false,
-    })
-  ),
+  on(adminActions.loadAdminViewFeedbackSuccess, (state, { viewFeedback }) => ({
+    ...state,
+    viewFeedback,
+    isLoadingViewFeedback: false,
+  })),
 
-  on(adminActions.loadAdminStudentViewFeedbackFailure, (state) => ({
+  on(adminActions.loadAdminViewFeedbackFailure, (state) => ({
     ...state,
     isLoadingViewFeedback: false,
   })),
@@ -760,10 +757,10 @@ export const selectIsLoadingStudentAssignmentSummary = (
   state: State
 ): boolean => state.isLoadingAssignmentSummary;
 
-export const selectAdminStudentViewFeedback = (state: State): any =>
+export const selectAdminViewFeedback = (state: State): any =>
   state.viewFeedback;
 
-export const selectIsLoadingStudentViewFeedback = (state: State): boolean =>
+export const selectIsLoadingViewFeedback = (state: State): boolean =>
   state.isLoadingViewFeedback;
 
 export const selectBookingPerCourse = (state: State): any =>

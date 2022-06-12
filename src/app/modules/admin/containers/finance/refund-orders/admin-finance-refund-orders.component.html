@@ -104,3 +104,10 @@
     <span>Send Message</span>
   </button>
 </mat-menu>
+
+<metutors-admin-view-feedback-modal *ngIf="showFeedbackModal$ | async"
+                                    (closeModal)="onCloseTeacherFeedbackModal()" [loading]="(loadingFeedback$ | async)!"
+                                    [feedbacks]="(feedbacks$ | async)!" [heading]="'Teacher\'s Feedback'"
+                                    [subHeading]="'View Teacher\'s Feedback'"
+                                    [showModal]="(showFeedbackModal$ | async)!">
+</metutors-admin-view-feedback-modal>

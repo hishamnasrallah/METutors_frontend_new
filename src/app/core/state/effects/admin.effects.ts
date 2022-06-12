@@ -180,20 +180,20 @@ export class AdminEffects {
 
   loadAdminStudentViewFeedback$ = createEffect(() =>
     this._actions$.pipe(
-      ofType(adminActions.loadAdminStudentViewFeedback),
+      ofType(adminActions.loadAdminViewFeedback),
       withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
       mergeMap(([_, { studentId, courseId }]) =>
         this._adminService.viewFeedback(courseId, studentId).pipe(
           map(
             (viewFeedback) =>
-              adminActions.loadAdminStudentViewFeedbackSuccess({
+              adminActions.loadAdminViewFeedbackSuccess({
                 viewFeedback: camelcaseKeys(viewFeedback, {
                   deep: true,
                 }),
               }),
             catchError((error) =>
               of(
-                adminActions.loadAdminStudentViewFeedbackFailure({
+                adminActions.loadAdminViewFeedbackFailure({
                   error: error?.error?.message || error?.error?.errors,
                 })
               )

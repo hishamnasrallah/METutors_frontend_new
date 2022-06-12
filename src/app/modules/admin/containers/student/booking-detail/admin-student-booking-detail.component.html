@@ -156,8 +156,8 @@
                                                [showModal]="(showAssignmentsModal$ | async)!">
 </metutors-admin-student-view-assignments-modal>
 
-<metutors-admin-student-view-feedback-modal *ngIf="showFeedbackModal$ | async"
-                                            (closeModal)="onCloseModals()" [loading]="(loadingFeedback$ | async)!"
-                                            [feedbacks]="(feedbacks$ | async)!"
-                                            [showModal]="(showFeedbackModal$ | async)!">
-</metutors-admin-student-view-feedback-modal>
+<metutors-admin-view-feedback-modal *ngIf="showFeedbackModal$ | async"
+                                    (closeModal)="onCloseModals()" [loading]="(loadingFeedback$ | async)!"
+                                    [feedbacks]="(feedbacks$ | async)!"
+                                    [showModal]="(showFeedbackModal$ | async)!">
+</metutors-admin-view-feedback-modal>

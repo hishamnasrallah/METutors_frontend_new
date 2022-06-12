@@ -5,6 +5,7 @@ import { combineLatest, map, Observable } from 'rxjs';
 import { environment } from '@environment';
 import * as fromCore from '@metutor/core/state';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
+import * as fromAdmin from '@metutor/modules/admin/state';
 
 @Component({
   selector: 'metutors-refund-orders',
@@ -12,7 +13,10 @@ import * as fromAdminAction from '@metutor/modules/admin/state/actions';
   styleUrls: ['./admin-finance-refund-orders.component.scss'],
 })
 export class AdminFinanceRefundOrdersComponent implements OnInit {
+  feedbacks$: Observable<any>;
   imageUrl = environment.imageURL;
+  loadingFeedback$: Observable<boolean>;
+  showFeedbackModal$: Observable<boolean>;
   view$: Observable<{ orders: any; loading: boolean }>;
 
   constructor(private _store: Store<any>) {}
@@ -22,11 +26,29 @@ export class AdminFinanceRefundOrdersComponent implements OnInit {
   }
 
   onOpenRefundPaymentModal(): void {}
-  onOpenTeacherFeedbackModal(): void {}
   onOpenViewCancelledDetailModal(): void {}
+
+  onOpenTeacherFeedbackModal(): void {
+    this._store.dispatch(fromCore.loadAdminViewFeedback());
+    this._store.dispatch(fromAdminAction.openAdminStudentViewFeedbackModal());
+  }
+
+  onCloseTeacherFeedbackModal(): void {
+    this._store.dispatch(fromAdminAction.closeAdminStudentViewFeedbackModal());
+  }
 
   ngOnInit(): void {
     this._store.dispatch(fromCore.loadRefundOrders());
+
+    this.feedbacks$ = this._store.select(fromCore.selectAdminViewFeedback);
+
+    this.showFeedbackModal$ = this._store.select(
+      fromAdmin.selectAdminStudentViewFeedbackModal
+    );
+
+    this.loadingFeedback$ = this._store.select(
+      fromCore.selectIsLoadingViewFeedback
+    );
 
     this.view$ = combineLatest([
       this._store.select(fromCore.selectFinanceOrders),
