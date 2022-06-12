@@ -1,5 +1,5 @@
 <metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'medium'"
-                [template]="template" [showHeader]="false">
+                [template]="template">
   <ng-template #template>
     <ng-container [ngSwitch]="loading">
       <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
