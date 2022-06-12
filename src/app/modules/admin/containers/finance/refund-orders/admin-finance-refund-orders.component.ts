@@ -21,6 +21,7 @@ export class AdminFinanceRefundOrdersComponent implements OnInit {
   loadingFeedback$: Observable<boolean>;
   showFeedbackModal$: Observable<boolean>;
   showRefundDetailModal: Observable<boolean>;
+  showRefundPaymentModal: Observable<boolean>;
   view$: Observable<{ orders: any; loading: boolean }>;
 
   constructor(private _store: Store<any>) {}
@@ -29,7 +30,9 @@ export class AdminFinanceRefundOrdersComponent implements OnInit {
     this._store.dispatch(fromAdminAction.closeAdminStudentBookingModal());
   }
 
-  onOpenRefundPaymentModal(): void {}
+  onOpenRefundPaymentModal(): void {
+    this._store.dispatch(fromAdminAction.openRefundPaymentModal());
+  }
 
   onOpenRefundDetailModal(courseId: number): void {
     this._store.dispatch(fromCore.loadRefundDetail({ courseId }));
@@ -49,8 +52,6 @@ export class AdminFinanceRefundOrdersComponent implements OnInit {
     this._store.dispatch(fromAdminAction.closeAdminStudentViewFeedbackModal());
   }
 
-  onOpenRefundModal(): void {}
-
   ngOnInit(): void {
     this._store.dispatch(fromCore.loadRefundOrders());
 
@@ -64,6 +65,10 @@ export class AdminFinanceRefundOrdersComponent implements OnInit {
 
     this.showRefundDetailModal = this._store.select(
       fromAdmin.selectShowRefundDetailModal
+    );
+
+    this.showRefundPaymentModal = this._store.select(
+      fromAdmin.selectShowRefundPaymentModal
     );
 
     this.loadingFeedback$ = this._store.select(

@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
-  selector: 'metutors-admin-finance-refund-modal',
-  templateUrl: './admin-finance-refund-modal.component.html',
-  styleUrls: ['./admin-finance-refund-modal.component.scss'],
+  selector: 'metutors-admin-finance-refund-payment-modal',
+  templateUrl: './admin-finance-refund-payment-modal.component.html',
+  styleUrls: ['./admin-finance-refund-payment-modal.component.scss'],
 })
-export class AdminFinanceRefundModalComponent implements OnInit {
+export class AdminFinanceRefundPaymentModalComponent implements OnInit {
   @Input() loading = false;
   @Input() showModal = false;
   @Input() reFundDetail: any;

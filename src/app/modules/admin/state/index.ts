@@ -148,3 +148,8 @@ export const selectShowRefundDetailModal = createSelector(
   selectAdminModalState,
   fromAdminModal.selectShowRefundDetailModal
 );
+
+export const selectShowRefundPaymentModal = createSelector(
+  selectAdminModalState,
+  fromAdminModal.selectShowRefundPaymentModal
+);
