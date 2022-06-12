@@ -22,6 +22,7 @@ import {
   AdminStudentProfileComponent,
   AdminClassroomsListComponent,
   AdminSuspendedTutorsComponent,
+  AdminTeacherScheduleComponent,
   TutorApprovalRequestComponent,
   AdminWorkforceCapacityComponent,
   AdminTutorBookingDetailsComponent,
@@ -151,6 +152,18 @@ const routes: Routes = [
               layout: {
                 title: 'Workforce Capacity - Metutors',
                 navbarTitle: 'Workforce Capacity',
+                showHeader: false,
+                showFooter: false,
+              },
+            },
+          },
+          {
+            path: 'schedule',
+            component: AdminTeacherScheduleComponent,
+            data: {
+              layout: {
+                title: 'Teacher Schedule - Metutors',
+                navbarTitle: 'Teacher Schedule',
                 showHeader: false,
                 showFooter: false,
               },
