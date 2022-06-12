@@ -1,0 +1,65 @@
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'xmedium'" [heading]="'Cancel Course Request'"
+                [template]="template" [subHeading]="'Please confirm this request to receive your fund'">
+  <ng-template #template>
+    <ng-container [ngSwitch]="loading">
+      <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
+      <div class="cancel-course-modal col-12 mt-4" *ngSwitchCase="false">
+        <div class="form-group">
+          <span class="fw-bold mb-2 d-block font-18">Summary:</span>
+          <div class="row">
+            <div class="col-md-6 mb-2"><span
+              class="text-secondary font-18">Total Classes: </span> 10 </div>
+            <div class="col-md-6"><span
+              class="text-secondary font-18">Remaining Classes: </span> 5 </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6"><span
+              class="text-secondary font-18">Refundable Classes: </span> 5</div>
+            <div class="col-md-6"></div>
+          </div>
+          <hr class="text-secondary">
+        </div>
+
+        <div class="form-group mt-3">
+          <div class="row mb-3">
+            <div class="col-md-6"><span class="text-secondary font-18">Refund Amount per Class</span></div>
+            <div class="col-md-6 text-right">$15</div>
+          </div>
+
+          <div class="row mb-4">
+            <div class="col-md-6"><span class="text-secondary font-18">Administrative Service Fee @ 10%</span></div>
+            <div class="col-md-6 text-right font-18">$10 </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 font-18">Total Amount Refund</div>
+            <div class="col-md-6 text-right font-18">$50</div>
+          </div>
+        </div>
+        <hr class="text-secondary">
+        <div class="form-group mt-2">
+          <label>Reason for course cancellation</label>
+         <p class="font-18 text-secondary">The online encyclopedia project, Wikipedia, is the most popular wiki-based website, and is one of the most widely viewed sites in the world, having been ranked </p>
+        </div>
+
+
+       <!-- <div class="form-group mt-2" *ngIf="!view.refund?.totalRefunds">
+          <div class="alert-warning p-3">No refundable class found</div>
+        </div>-->
+
+        <div class="row mt-2">
+          <div class="col-md-12 overflow-hidden">
+            <!--<metutors-submit-button [form]="form" [isSubmitting]="isCanceling$ | async"
+                                    [isDisabled]="!view.refund?.totalRefunds"
+                                    [extraClasses]="'float-end py-1 px-5'">
+              Confirm
+            </metutors-submit-button>-->
+
+            <span class="back-button float-end text-secondary cursor-pointer" (click)="closeModal.emit()">Cancel</span>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </ng-template>
+</metutors-modal>

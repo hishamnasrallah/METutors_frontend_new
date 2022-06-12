@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AdminStudentViewFeedbackModalComponent } from './admin-student-view-feedback-modal.component';
+import { AdminViewFeedbackModalComponent } from './admin-view-feedback-modal.component';
 
 describe('AdminStudentViewFeedbackModalComponent', () => {
-  let component: AdminStudentViewFeedbackModalComponent;
-  let fixture: ComponentFixture<AdminStudentViewFeedbackModalComponent>;
+  let component: AdminViewFeedbackModalComponent;
+  let fixture: ComponentFixture<AdminViewFeedbackModalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AdminStudentViewFeedbackModalComponent],
+      declarations: [AdminViewFeedbackModalComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AdminStudentViewFeedbackModalComponent);
+    fixture = TestBed.createComponent(AdminViewFeedbackModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

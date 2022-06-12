@@ -1346,14 +1346,14 @@ export const selectIsLoadingStudentAssignmentSummary = createSelector(
   fromAdminReducer.selectIsLoadingStudentAssignmentSummary
 );
 
-export const selectAdminStudentViewFeedback = createSelector(
+export const selectAdminViewFeedback = createSelector(
   selectAdminState,
-  fromAdminReducer.selectAdminStudentViewFeedback
+  fromAdminReducer.selectAdminViewFeedback
 );
 
-export const selectIsLoadingStudentViewFeedback = createSelector(
+export const selectIsLoadingViewFeedback = createSelector(
   selectAdminState,
-  fromAdminReducer.selectIsLoadingStudentViewFeedback
+  fromAdminReducer.selectIsLoadingViewFeedback
 );
 
 export const selectIsLoadingBookingPerCourse = createSelector(

@@ -301,17 +301,17 @@ export const loadAdminStudentAssignmentSummaryFailure = createAction(
   props<{ error: any }>()
 );
 
-export const loadAdminStudentViewFeedback = createAction(
-  '[Admin] Load Admin Student View Feedback'
+export const loadAdminViewFeedback = createAction(
+  '[Admin] Load Admin View Feedback'
 );
 
-export const loadAdminStudentViewFeedbackSuccess = createAction(
-  '[Admin] Load Admin Student View Feedback Success',
+export const loadAdminViewFeedbackSuccess = createAction(
+  '[Admin] Load Admin View Feedback Success',
   props<{ viewFeedback: any }>()
 );
 
-export const loadAdminStudentViewFeedbackFailure = createAction(
-  '[Admin] Load Admin Student View Feedback Failure',
+export const loadAdminViewFeedbackFailure = createAction(
+  '[Admin] Load Admin View Feedback Failure',
   props<{ error: any }>()
 );
 

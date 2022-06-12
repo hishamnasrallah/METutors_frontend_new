@@ -36,7 +36,7 @@ export class AdminStudentBookingDetailComponent implements OnInit {
   }
 
   onOpenFeedbackModal(): void {
-    this._store.dispatch(fromCore.loadAdminStudentViewFeedback());
+    this._store.dispatch(fromCore.loadAdminViewFeedback());
     this._store.dispatch(fromAdminAction.openAdminStudentViewFeedbackModal());
   }
 
@@ -67,12 +67,10 @@ export class AdminStudentBookingDetailComponent implements OnInit {
       fromCore.selectIsLoadingStudentAssignmentSummary
     );
 
-    this.feedbacks$ = this._store.select(
-      fromCore.selectAdminStudentViewFeedback
-    );
+    this.feedbacks$ = this._store.select(fromCore.selectAdminViewFeedback);
 
     this.loadingFeedback$ = this._store.select(
-      fromCore.selectIsLoadingStudentViewFeedback
+      fromCore.selectIsLoadingViewFeedback
     );
 
     this.view$ = combineLatest([
