@@ -13,20 +13,22 @@
         <div class="info-details">
           <div class="row">
             <div class="col-md-6 mb-3">
-              <span>Student Name</span>
-              <strong>Catherine James</strong>
+              <span>Student ID</span>
+              <strong>{{ reFundDetail?.course?.student?.firstName }} {{ reFundDetail?.course?.student?.lastName }}</strong>
             </div>
             <div class="col-md-6 mb-3">
-              <span>Account Number</span>
-              <strong>016007264341</strong>
+              <div [tooltip]="reFundDetail?.order?.transactionId" class="text-truncate">
+                <span>Transaction Number</span>
+                <strong>{{ reFundDetail?.order?.transactionId }}</strong>
+              </div>
             </div>
             <div class="col-md-6">
               <span>Type</span>
-              <strong>Credit Account</strong>
+              <strong>-</strong>
             </div>
             <div class="col-md-6">
               <span>Bank Name</span>
-              <strong>Standard Chartered</strong>
+              <strong>-</strong>
             </div>
           </div>
         </div>
@@ -35,7 +37,7 @@
           <button mat-button class="main-button-transparent px-4" (click)="closeModal.emit()">
             Cancel
           </button>
-          <button mat-flat-button color="primary" class="px-5 ms-3" (click)="refundPayment.emit()">
+          <button mat-flat-button color="primary" class="px-5 ms-3" (click)="refundPayment.emit()" [disabled]="isRefunding">
             Yes
           </button>
         </div>
