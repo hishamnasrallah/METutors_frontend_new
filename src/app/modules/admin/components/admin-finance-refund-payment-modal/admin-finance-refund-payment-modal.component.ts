@@ -9,6 +9,7 @@ export class AdminFinanceRefundPaymentModalComponent implements OnInit {
   @Input() loading = false;
   @Input() showModal = false;
   @Input() reFundDetail: any;
+  @Input() isRefunding: boolean;
 
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
   @Output() refundPayment: EventEmitter<void> = new EventEmitter<void>();

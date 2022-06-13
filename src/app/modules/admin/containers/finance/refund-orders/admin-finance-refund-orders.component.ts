@@ -6,6 +6,7 @@ import { environment } from '@environment';
 import * as fromCore from '@metutor/core/state';
 import * as fromAdmin from '@metutor/modules/admin/state';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
+import { selectFinanceIsRefundingCourse } from '@metutor/core/state';
 
 @Component({
   selector: 'metutors-refund-orders',
@@ -18,6 +19,7 @@ export class AdminFinanceRefundOrdersComponent implements OnInit {
   feedbacks$: Observable<any>;
   reFundDetail$: Observable<any>;
   imageUrl = environment.imageURL;
+  isRefunding$: Observable<boolean>;
   loadingRefund$: Observable<boolean>;
   loadingFeedback$: Observable<boolean>;
   showFeedbackModal$: Observable<boolean>;
@@ -52,6 +54,10 @@ export class AdminFinanceRefundOrdersComponent implements OnInit {
     this._store.dispatch(fromAdminAction.closeAdminStudentViewFeedbackModal());
   }
 
+  onRefundPayment(courseId: number): void {
+    this._store.dispatch(fromCore.refundCourse({ courseId }));
+  }
+
   ngOnInit(): void {
     this._store.dispatch(fromCore.loadRefundOrders());
 
@@ -77,6 +83,10 @@ export class AdminFinanceRefundOrdersComponent implements OnInit {
 
     this.loadingRefund$ = this._store.select(
       fromCore.selectIsLoadingFinanceRefundDetail
+    );
+
+    this.isRefunding$ = this._store.select(
+      fromCore.selectFinanceIsRefundingCourse
     );
 
     this.view$ = combineLatest([

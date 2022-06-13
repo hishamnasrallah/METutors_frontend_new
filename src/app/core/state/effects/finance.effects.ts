@@ -76,6 +76,24 @@ export class FinanceEffects {
       )
     )
   );
+
+  refundCourse$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(financeActions.refundCourse),
+      mergeMap(({ courseId }) =>
+        this._financeService.refundCourse(courseId).pipe(
+          map((result) => financeActions.refundCourseSuccess()),
+          catchError((error) =>
+            of(
+              financeActions.refundCourseFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
   /*
   successMessages$ = createEffect(
     () =>
@@ -101,19 +119,12 @@ export class FinanceEffects {
       dispatch: false,
     }
   );
+*/
 
   failureMessages$ = createEffect(
     () =>
       this._actions$.pipe(
-        ofType(
-          ...[
-            interviewActions.joinInterviewFailure,
-            interviewActions.loadInterviewsFailure,
-            interviewActions.acceptInterviewRequestFailure,
-            interviewActions.declineInterviewRequestFailure,
-            interviewActions.scheduleInterviewRequestFailure,
-          ]
-        ),
+        ofType(...[financeActions.refundCourseFailure]),
         map((action) => {
           if (action.error) {
             return this._alertNotificationService.error(action.error);
@@ -127,7 +138,7 @@ export class FinanceEffects {
     {
       dispatch: false,
     }
-  );*/
+  );
 
   constructor(
     private _store: Store<any>,

@@ -114,7 +114,8 @@
 
 <metutors-admin-finance-refund-payment-modal *ngIf="showRefundPaymentModal | async"
                                              [showModal]="(showRefundPaymentModal | async)!"
-                                             (closeModal)="onCloseModals()">
+                                             [isRefunding]="(isRefunding$ | async)!" [loading]="(loadingRefund$ | async)!"
+                                             (closeModal)="onCloseModals()" (refundPayment)="onRefundPayment(courseId)">
 </metutors-admin-finance-refund-payment-modal>
 
 <metutors-admin-finance-refund-detail-modal *ngIf="showRefundDetailModal | async"
