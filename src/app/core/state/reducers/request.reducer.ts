@@ -6,6 +6,8 @@ import * as requestActions from '../actions/request.actions';
 
 export interface State {
   // Estimated Price
+  paymentInfo: any;
+  isCreatingCourse: boolean;
   estimatedPrice: number | null;
   isLoadingEstimatedPrice: boolean;
   loadingEstimatedPriceFailure?: string;
@@ -38,6 +40,7 @@ export interface State {
 }
 
 export const initialState: State = {
+  paymentInfo: null,
   createdClass: null,
   isCreateClass: false,
   invoiceDetails: null,
@@ -48,6 +51,7 @@ export const initialState: State = {
   isRequestCourse: false,
   createClassFailure: '',
   loadingTutorFailure: '',
+  isCreatingCourse: false,
   isGeneratingTutors: false,
   isChangeCourseRequest: false,
   completedRequestedCourses: [],
@@ -121,15 +125,26 @@ export const reducer = createReducer(
     createClassFailure: error,
   })),
 
+  on(requestActions.createCourse, (state) => ({
+    ...state,
+    isCreatingCourse: true,
+  })),
+
+  on(requestActions.createCourseSuccess, (state, { paymentInfo }) => ({
+    ...state,
+    paymentInfo,
+    isCreatingCourse: true,
+  })),
+
+  on(requestActions.createCourseFailure, (state, { error }) => ({
+    ...state,
+    isCreatingCourse: false,
+  })),
+
   on(requestActions.createClassLocalStorage, (state, { classroom }) => ({
     ...state,
     isCreateClass: false,
     createdClass: classroom,
-  })),
-
-  on(requestActions.createPaidClassSuccess, (state) => ({
-    ...state,
-    createdClass: null,
   })),
 
   on(userActions.enterRequestTutor, (state) => ({
@@ -300,3 +315,9 @@ export const selectCompletedRequestedCourses = (
 
 export const selectRequestedCoursesCount = (state: State): any =>
   state.requestedCoursesCounts;
+
+export const selectRequestPaymentInfo = (state: State): any =>
+  state.paymentInfo;
+
+export const selectRequestedIsCreatingCourse = (state: State): any =>
+  state.isCreatingCourse;

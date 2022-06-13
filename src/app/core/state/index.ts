@@ -877,6 +877,16 @@ export const selectRequestedCoursesCount = createSelector(
   fromRequestReducer.selectRequestedCoursesCount
 );
 
+export const selectRequestPaymentInfo = createSelector(
+  selectRequestState,
+  fromRequestReducer.selectRequestPaymentInfo
+);
+
+export const selectRequestedIsCreatingCourse = createSelector(
+  selectRequestState,
+  fromRequestReducer.selectRequestedIsCreatingCourse
+);
+
 // Lookups
 export const selectIsLoadingLanguages = createSelector(
   selectLookupsState,

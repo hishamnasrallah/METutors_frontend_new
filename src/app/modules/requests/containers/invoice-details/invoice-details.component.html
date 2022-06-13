@@ -63,7 +63,7 @@
               </ul>
               <div class="overflow-hidden" *ngLet="(user$ | async) as user">
                 <button mat-flat-button color="primary" class="float-end pay-now"
-                  (click)="openRequestsConfirmPaymentModal(user)">
+                  (click)="saveCourse(user, classroom)" [disabled]="isCreatingCourse | async">
                   Pay Now
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -87,8 +87,8 @@
   </div>
 
   <metutors-confirm-payment-modal *ngIf="showConfirmPaymentModal$ | async"
-                                  (closeModal)="closeRequestsConfirmPaymentModal()" 
+                                  (closeModal)="closeRequestsConfirmPaymentModal()"
                                   [showModal]="(showConfirmPaymentModal$ | async)!"
-                                  (payNow)="payNow(classroom)">
+                                  (payNow)="payNow(classroom)" [paymentInfo]="(paymentInfo$ | async)!">
   </metutors-confirm-payment-modal>
 </ng-container>

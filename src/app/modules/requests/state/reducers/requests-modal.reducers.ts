@@ -17,19 +17,19 @@ export const initialState: State = {
 export const reducer = createReducer(
   initialState,
 
-  on(requestsModalActions.openRequestsConfirmPaymentModal, (state) => ({
-    ...state,
-    showConfirmPaymentModal: true,
-  })),
-
   on(
-    fromCore.createPaidClassSuccess,
-    requestsModalActions.closeRequestsConfirmPaymentModal,
+    fromCore.createCourseSuccess,
+    requestsModalActions.openRequestsConfirmPaymentModal,
     (state) => ({
       ...state,
-      showConfirmPaymentModal: false,
+      showConfirmPaymentModal: true,
     })
   ),
+
+  on(requestsModalActions.closeRequestsConfirmPaymentModal, (state) => ({
+    ...state,
+    showConfirmPaymentModal: false,
+  })),
 
   on(requestsModalActions.openTeacherAvailabilityModal, (state) => ({
     ...state,

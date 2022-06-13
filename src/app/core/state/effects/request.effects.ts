@@ -115,20 +115,19 @@ export class RequestEffects {
     )
   );
 
-  createPaidClass$ = createEffect(() =>
+  createCourse$ = createEffect(() =>
     this._actions$.pipe(
-      ofType(requestActions.createPaidClass),
+      ofType(requestActions.createCourse),
       mergeMap((action) =>
         this._coursesService.createCourse(action.data).pipe(
-          map((response) =>
-            requestActions.createPaidClassSuccess({
-              classroom: response.classroom,
-              message: response.message,
+          map((paymentInfo) =>
+            requestActions.createCourseSuccess({
+              paymentInfo,
             })
           ),
           catchError((error) =>
             of(
-              requestActions.createPaidClassFailure({
+              requestActions.createCourseFailure({
                 error: error?.error?.message || error?.error?.errors,
               })
             )
@@ -138,7 +137,7 @@ export class RequestEffects {
     )
   );
 
-  createPaidClassSuccess$ = createEffect(
+  /*createPaidClassSuccess$ = createEffect(
     () =>
       this._actions$.pipe(
         ofType(requestActions.createPaidClassSuccess),
@@ -149,7 +148,7 @@ export class RequestEffects {
     {
       dispatch: false,
     }
-  );
+  );*/
 
   loadRequestedCourses$ = createEffect(() =>
     this._actions$.pipe(
@@ -238,7 +237,6 @@ export class RequestEffects {
         ofType(
           ...[
             requestActions.requestCourseSuccess,
-            requestActions.createPaidClassSuccess,
             requestActions.changeRequestStatusSuccess,
           ]
         ),
@@ -255,6 +253,7 @@ export class RequestEffects {
         ofType(
           ...[
             requestActions.createClassFailure,
+            requestActions.createCourseFailure,
             requestActions.requestCourseFailure,
             requestActions.generateTutorsFailure,
             requestActions.changeRequestStatusFailure,

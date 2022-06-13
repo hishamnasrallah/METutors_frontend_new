@@ -70,18 +70,18 @@ export const calculateFinalInvoiceEnded = createAction(
   '[Request] Calculate Final Invoice Ended'
 );
 
-export const createPaidClass = createAction(
-  '[Request] Create Paid Class',
+export const createCourse = createAction(
+  '[Request] Create Course',
   props<{ data: any }>()
 );
 
-export const createPaidClassSuccess = createAction(
-  '[Request] Create Paid Class Success',
-  props<{ classroom: IClassroom; message: string }>()
+export const createCourseSuccess = createAction(
+  '[Request] Create Course Success',
+  props<{ paymentInfo: any }>()
 );
 
-export const createPaidClassFailure = createAction(
-  '[Request] Create Paid Class Failure',
+export const createCourseFailure = createAction(
+  '[Request] Create Course Failure',
   props<{ error: any }>()
 );
 

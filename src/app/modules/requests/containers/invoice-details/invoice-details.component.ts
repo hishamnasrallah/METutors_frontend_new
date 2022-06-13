@@ -18,7 +18,9 @@ import * as fromRequestsActions from '@metutor/modules/requests/state/actions';
   styleUrls: ['./invoice-details.component.scss'],
 })
 export class InvoiceDetailsComponent implements OnInit {
+  paymentInfo$: Observable<any>;
   user$: Observable<IUser | null>;
+  isCreatingCourse: Observable<boolean>;
   classroom$: Observable<IClassroom | null>;
   showConfirmPaymentModal$: Observable<boolean>;
   isCalculateInvoiceDetails$: Observable<boolean>;
@@ -40,16 +42,23 @@ export class InvoiceDetailsComponent implements OnInit {
       fromCore.selectIsCalculateFinalInvoice
     );
 
+    this.paymentInfo$ = this._store.select(fromCore.selectRequestPaymentInfo);
+
+    this.isCreatingCourse = this._store.select(
+      fromCore.selectRequestedIsCreatingCourse
+    );
+
     this.showConfirmPaymentModal$ = this._store.select(
       fromRequests.selectIsConfirmPaymentModal
     );
   }
 
-  openRequestsConfirmPaymentModal(user: IUser): void {
+  saveCourse(user: IUser, classroom: IClassroom): void {
     if (user) {
-      this._store.dispatch(
+      this._store.dispatch(fromCore.createCourse({ data: classroom }));
+      /*this._store.dispatch(
         fromRequestsActions.openRequestsConfirmPaymentModal()
-      );
+      );*/
     } else {
       this._router.navigate(['/signin'], {
         queryParams: {
@@ -66,6 +75,6 @@ export class InvoiceDetailsComponent implements OnInit {
   }
 
   payNow(classroom: IClassroom): void {
-    this._store.dispatch(fromCore.createPaidClass({ data: classroom }));
+    // this._store.dispatch(fromCore.createPaidClass({ data: classroom }));
   }
 }
