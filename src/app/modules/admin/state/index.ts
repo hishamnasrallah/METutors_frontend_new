@@ -39,6 +39,11 @@ export const selectAdminModalState = createSelector(
 );
 
 // Admin modal selectors
+export const selectShowModal = createSelector(
+  selectAdminModalState,
+  fromAdminModal.selectShowModal
+);
+
 export const selectIsSendMeetingLinkModal = createSelector(
   selectAdminModalState,
   fromAdminModal.selectIsSendMeetingLinkModal
@@ -152,4 +157,9 @@ export const selectShowRefundDetailModal = createSelector(
 export const selectShowRefundPaymentModal = createSelector(
   selectAdminModalState,
   fromAdminModal.selectShowRefundPaymentModal
+);
+
+export const selectShowSuccessModal = createSelector(
+  selectAdminModalState,
+  fromAdminModal.selectShowSuccessModal
 );

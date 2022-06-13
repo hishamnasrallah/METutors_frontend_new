@@ -3,6 +3,8 @@ import * as fromCore from '@metutor/core/state';
 import * as adminModalActions from '../actions/admin-modal.actions';
 
 export interface State {
+  showModal: boolean;
+  showSuccessModal: boolean;
   showAddNewFieldModal: boolean;
   showChangeStatusModal: boolean;
   showEditFeedbackModal: boolean;
@@ -29,6 +31,8 @@ export interface State {
 }
 
 export const initialState: State = {
+  showModal: false,
+  showSuccessModal: false,
   showAddNewFieldModal: false,
   showEditFeedbackModal: false,
   showChangeStatusModal: false,
@@ -56,6 +60,16 @@ export const initialState: State = {
 
 export const reducer = createReducer(
   initialState,
+
+  /*  on(adminModalActions.openSuccessModal, (state) => ({
+    ...state,
+    showModal: true,
+  })),
+
+  on(adminModalActions.closeSuccessModal, (state) => ({
+    ...state,
+    showModal: false,
+  })),*/
 
   on(adminModalActions.openAdminSendMeetingLinkModal, (state) => ({
     ...state,
@@ -329,13 +343,33 @@ export const reducer = createReducer(
     showAdminRefundPaymentModal: true,
   })),
 
-  on(adminModalActions.closeRefundPaymentModal, (state) => ({
+  on(
+    fromCore.refundCourseSuccess,
+    adminModalActions.closeRefundPaymentModal,
+    (state) => ({
+      ...state,
+      showAdminRefundPaymentModal: false,
+    })
+  ),
+
+  on(
+    fromCore.refundCourseSuccess,
+    adminModalActions.openSuccessModal,
+    (state) => ({
+      ...state,
+      showSuccessModal: true,
+    })
+  ),
+
+  on(adminModalActions.closeSuccessModal, (state) => ({
     ...state,
-    showAdminRefundPaymentModal: false,
+    showSuccessModal: false,
   }))
 );
 
 // Admin modal selectors
+export const selectShowModal = (state: State): boolean => state.showModal;
+
 export const selectIsSendMeetingLinkModal = (state: State): boolean =>
   state.showSendMeetingLinkModal;
 
@@ -404,3 +438,6 @@ export const selectShowRefundDetailModal = (state: State): boolean =>
 
 export const selectShowRefundPaymentModal = (state: State): boolean =>
   state.showAdminRefundPaymentModal;
+
+export const selectShowSuccessModal = (state: State): boolean =>
+  state.showSuccessModal;

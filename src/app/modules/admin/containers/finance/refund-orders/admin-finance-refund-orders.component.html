@@ -105,6 +105,13 @@
   </button>
 </mat-menu>
 
+<metutors-admin-success-modal *ngIf="showSuccessModal$ | async" [routerLink]="['/admin', 'classrooms', 'all']"
+                              [showModal]="(showSuccessModal$ | async)!" [heading]="'Successfully Completed'"
+                              [buttonLabel]="'Go to Dashboard'"
+                              [subHeading]="'Refund request is submitted. Amount will be refunded within 48 hours.'"
+                              (closeModal)="onCloseModals()">
+</metutors-admin-success-modal>
+
 <metutors-admin-view-feedback-modal *ngIf="showFeedbackModal$ | async"
                                     (closeModal)="onCloseModals()" [loading]="(loadingFeedback$ | async)!"
                                     [feedbacks]="(feedbacks$ | async)!" [heading]="'Teacher\'s Feedback'"

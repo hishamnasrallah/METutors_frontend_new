@@ -184,3 +184,10 @@ export const openRefundPaymentModal = createAction(
 export const closeRefundPaymentModal = createAction(
   '[Admin Modal] Close Refund Payment Modal'
 );
+
+export const openSuccessModal = createAction(
+  '[Admin Modal] Open Success Modal'
+);
+export const closeSuccessModal = createAction(
+  '[Admin Modal] Open Success Modal'
+);

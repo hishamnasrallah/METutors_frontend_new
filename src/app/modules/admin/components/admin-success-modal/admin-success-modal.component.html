@@ -1,0 +1,10 @@
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'medium'"
+                [template]="template">
+  <ng-template #template>
+   {{ heading}}
+   {{ subHeading}}
+    <button mat-flat-button color="primary" class="px-5 ms-3" [routerLink]="routerLink" (click)="closeModal.emit()">
+      {{ buttonLabel }}
+    </button>
+  </ng-template>
+</metutors-modal>
