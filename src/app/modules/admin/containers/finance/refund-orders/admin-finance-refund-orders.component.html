@@ -80,7 +80,7 @@
             </button>
           </td>
           <td>
-            <button mat-icon-button class="p-0" [matMenuTriggerFor]="menu" (click)="courseId=order.courseId; teacherId=order.teacherId">
+            <button mat-icon-button class="p-0" [matMenuTriggerFor]="menu" (click)="courseId=order.courseId; studentId=order.studentId">
               <mat-icon>more_vert</mat-icon>
             </button>
           </td>
@@ -94,10 +94,10 @@
   <button mat-menu-item class="h-auto btn-menu" (click)="onOpenRefundDetailModal(courseId)">
     <span>View Cancelled Detail</span>
   </button>
-  <button mat-menu-item class="h-auto btn-menu" (click)="onOpenRefundPaymentModal()">
+  <button mat-menu-item class="h-auto btn-menu" (click)="onOpenRefundPaymentModal(courseId)">
     <span>Process Refund Payment</span>
   </button>
-  <button mat-menu-item class="h-auto btn-menu" (click)="onOpenTeacherFeedbackModal(courseId, teacherId)">
+  <button mat-menu-item class="h-auto btn-menu" (click)="onOpenTeacherFeedbackModal(courseId, studentId)">
     <span>Teacher's Feedback</span>
   </button>
   <button mat-menu-item class="h-auto btn-menu">
@@ -114,7 +114,8 @@
 
 <metutors-admin-finance-refund-payment-modal *ngIf="showRefundPaymentModal | async"
                                              [showModal]="(showRefundPaymentModal | async)!"
-                                             (closeModal)="onCloseModals()">
+                                             [isRefunding]="(isRefunding$ | async)!" [loading]="(loadingRefund$ | async)!"
+                                             (closeModal)="onCloseModals()" (refundPayment)="onRefundPayment(courseId)">
 </metutors-admin-finance-refund-payment-modal>
 
 <metutors-admin-finance-refund-detail-modal *ngIf="showRefundDetailModal | async"
@@ -122,5 +123,5 @@
                                             [loading]="(loadingRefund$ | async)!"
                                             [reFundDetail]="(reFundDetail$ | async)!"
                                             [showModal]="(showRefundDetailModal | async)!"
-                                            (refundClicked)="onOpenRefundPaymentModal()">
+                                            (refundClicked)="onOpenRefundPaymentModal(courseId)">
 </metutors-admin-finance-refund-detail-modal>

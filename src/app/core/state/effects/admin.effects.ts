@@ -182,8 +182,11 @@ export class AdminEffects {
     this._actions$.pipe(
       ofType(adminActions.loadAdminViewFeedback),
       withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
-      mergeMap(([{ id, teacherId }, { studentId, courseId }]) =>
-        this._adminService.viewFeedback(courseId, studentId).pipe(
+      mergeMap(([payload, { studentId, courseId }]) => {
+        const _courseId = payload?.courseId ? payload.courseId : courseId;
+        const _studentId = payload?.studentId ? payload.studentId : studentId;
+
+        return this._adminService.viewFeedback(_courseId, _studentId).pipe(
           map(
             (viewFeedback) =>
               adminActions.loadAdminViewFeedbackSuccess({
@@ -199,8 +202,8 @@ export class AdminEffects {
               )
             )
           )
-        )
-      )
+        );
+      })
     )
   );
 

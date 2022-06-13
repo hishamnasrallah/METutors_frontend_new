@@ -38,3 +38,17 @@ export const loadRefundDetailFailure = createAction(
   '[Finance] Load Refund Detail Failure',
   props<{ error: any }>()
 );
+
+export const refundCourse = createAction(
+  '[Finance] Refund Course',
+  props<{ courseId: number }>()
+);
+
+export const refundCourseSuccess = createAction(
+  '[Finance] Refund Course Success'
+);
+
+export const refundCourseFailure = createAction(
+  '[Finance] Refund Course Failure',
+  props<{ error: any }>()
+);

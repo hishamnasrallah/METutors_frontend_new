@@ -6,6 +6,7 @@ import { environment } from '@environment';
 import * as fromCore from '@metutor/core/state';
 import * as fromAdmin from '@metutor/modules/admin/state';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
+import { selectFinanceIsRefundingCourse } from '@metutor/core/state';
 
 @Component({
   selector: 'metutors-refund-orders',
@@ -14,10 +15,11 @@ import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 })
 export class AdminFinanceRefundOrdersComponent implements OnInit {
   courseId: number;
-  teacherId: number;
+  studentId: number;
   feedbacks$: Observable<any>;
   reFundDetail$: Observable<any>;
   imageUrl = environment.imageURL;
+  isRefunding$: Observable<boolean>;
   loadingRefund$: Observable<boolean>;
   loadingFeedback$: Observable<boolean>;
   showFeedbackModal$: Observable<boolean>;
@@ -27,7 +29,9 @@ export class AdminFinanceRefundOrdersComponent implements OnInit {
 
   constructor(private _store: Store<any>) {}
 
-  onOpenRefundPaymentModal(): void {
+  onOpenRefundPaymentModal(courseId: number): void {
+    this._store.dispatch(fromCore.loadRefundDetail({ courseId }));
+    this._store.dispatch(fromAdminAction.closeRefundDetailModal());
     this._store.dispatch(fromAdminAction.openRefundPaymentModal());
   }
 
@@ -36,8 +40,11 @@ export class AdminFinanceRefundOrdersComponent implements OnInit {
     this._store.dispatch(fromAdminAction.openRefundDetailModal());
   }
 
-  onOpenTeacherFeedbackModal(id: number, teacherId: number): void {
-    this._store.dispatch(fromCore.loadAdminViewFeedback({ id, teacherId }));
+  onOpenTeacherFeedbackModal(courseId: number, studentId: number): void {
+    this._store.dispatch(
+      fromCore.loadAdminViewFeedback({ courseId, studentId })
+    );
+
     this._store.dispatch(fromAdminAction.openAdminStudentViewFeedbackModal());
   }
 
@@ -45,6 +52,10 @@ export class AdminFinanceRefundOrdersComponent implements OnInit {
     this._store.dispatch(fromAdminAction.closeRefundDetailModal());
     this._store.dispatch(fromAdminAction.closeRefundPaymentModal());
     this._store.dispatch(fromAdminAction.closeAdminStudentViewFeedbackModal());
+  }
+
+  onRefundPayment(courseId: number): void {
+    this._store.dispatch(fromCore.refundCourse({ courseId }));
   }
 
   ngOnInit(): void {
@@ -72,6 +83,10 @@ export class AdminFinanceRefundOrdersComponent implements OnInit {
 
     this.loadingRefund$ = this._store.select(
       fromCore.selectIsLoadingFinanceRefundDetail
+    );
+
+    this.isRefunding$ = this._store.select(
+      fromCore.selectFinanceIsRefundingCourse
     );
 
     this.view$ = combineLatest([

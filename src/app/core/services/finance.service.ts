@@ -29,4 +29,11 @@ export class FinanceService {
       .get<any>(`${this.baseUrl}admin/course/${courseId}/refund/detail`)
       .pipe(map((result) => result?.refund_detail));
   }
+
+  refundCourse(courseId: number): Observable<any> {
+    return this.http.post<any>(
+      `${this.baseUrl}admin/course/${courseId}/refund`,
+      {}
+    );
+  }
 }
