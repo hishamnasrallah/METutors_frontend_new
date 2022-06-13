@@ -258,6 +258,10 @@ export const courseStatusLabel = {
     short: 'Active',
     long: 'Active',
   },
+  refunded: {
+    short: 'Refunded',
+    long: 'Refunded',
+  },
   rejected: {
     short: 'Rejected',
     long: 'Rejected',

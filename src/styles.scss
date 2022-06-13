@@ -756,6 +756,7 @@ span.status {
 
   &.completed,
   &.accepted,
+  &.refunded,
   &.active, &.success {
     color: #50C394;
     background: rgba(80, 195, 148, 0.2);
