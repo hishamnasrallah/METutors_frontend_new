@@ -1,11 +1,13 @@
 import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { catchError, map, mergeMap } from 'rxjs/operators';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 
 import camelcaseKeys from 'camelcase-keys';
 import { FinanceService } from '@services';
+import * as fromRouterStore from '@metutor/state';
 import * as financeActions from '../actions/finance.actions';
 import { AlertNotificationService } from '@metutor/core/components';
 
@@ -94,6 +96,28 @@ export class FinanceEffects {
       )
     )
   );
+
+  verifyCoursePayment$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(financeActions.verifyCoursePayment),
+      mergeMap(({ id, courseId, resourcePath }) =>
+        this._financeService
+          .verifyCoursePayment(id, courseId, resourcePath)
+          .pipe(
+            map((paymentInfo) =>
+              financeActions.verifyCoursePaymentSuccess({ paymentInfo })
+            ),
+            catchError((error) =>
+              of(
+                financeActions.verifyCoursePaymentFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          )
+      )
+    )
+  );
   /*
   successMessages$ = createEffect(
     () =>
@@ -141,6 +165,7 @@ export class FinanceEffects {
   );
 
   constructor(
+    private _router: Router,
     private _store: Store<any>,
     private _actions$: Actions,
     private _financeService: FinanceService,

@@ -21,7 +21,11 @@ import { StoreModule } from '@ngrx/store';
 // import * as adminEffects from './state/effects';
 import * as featureKeys from './state/feature-keys';
 
-import { RequestTutorComponent, InvoiceDetailsComponent } from './containers';
+import {
+  RequestTutorComponent,
+  InvoiceDetailsComponent,
+  PaymentProcessingComponent,
+} from './containers';
 
 import {
   DialogEditClassroom,
@@ -45,6 +49,7 @@ import {
     InvoiceDetailsComponent,
     SelectTutorFormComponent,
     ClassroomInfoFormComponent,
+    PaymentProcessingComponent,
     ListClassroomsFormComponent,
     ConfirmPaymentModalComponent,
     CourseInformationFormComponent,

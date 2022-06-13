@@ -52,3 +52,18 @@ export const refundCourseFailure = createAction(
   '[Finance] Refund Course Failure',
   props<{ error: any }>()
 );
+
+export const verifyCoursePayment = createAction(
+  '[Finance] Verify Course Payment',
+  props<{ id: string; courseId: number; resourcePath: string }>()
+);
+
+export const verifyCoursePaymentSuccess = createAction(
+  '[Finance] Verify Course Payment Success',
+  props<{ paymentInfo: any }>()
+);
+
+export const verifyCoursePaymentFailure = createAction(
+  '[Finance] Verify Course Payment Failure',
+  props<{ error: any }>()
+);

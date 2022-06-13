@@ -36,4 +36,14 @@ export class FinanceService {
       {}
     );
   }
+
+  verifyCoursePayment(
+    id: string,
+    course_id: number,
+    resource_path: string
+  ): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}payment/status`, {
+      params: { id, course_id, resource_path },
+    });
+  }
 }

@@ -1445,6 +1445,11 @@ export const selectFinanceIsRefundingCourse = createSelector(
   fromFinanceReducer.selectFinanceIsRefundingCourse
 );
 
+export const selectFinanceCoursePaymentStatus = createSelector(
+  selectFinanceState,
+  fromFinanceReducer.selectFinanceCoursePaymentStatus
+);
+
 /**
  *  FINANCE SELECTORS END
  */

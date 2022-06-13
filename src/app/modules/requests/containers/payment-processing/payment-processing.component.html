@@ -1,0 +1,38 @@
+<ng-container>
+  <div class="container payment-container">
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Payment Status</h2>
+        <div class="card"  *ngLet="(view$ | async) as view">
+          <div class="card-body">
+            <div class="row data">
+              <div class="col-md-12 d-flex">
+                <ng-container [ngSwitch]="view.loading">
+
+                  <ng-container *ngSwitchCase="true">
+                    <mat-icon class="spinner">autorenew</mat-icon> Please bear with us your payment is being processed...
+                  </ng-container>
+
+                  <ng-container *ngSwitchCase="false">
+                   <ng-container [ngSwitch]="view?.paymentInfo?.status">
+                     <ng-container *ngSwitchCase="true">
+                       success
+                     </ng-container>
+
+                     <ng-container *ngSwitchCase="false">
+                       <div class="">{{ view?.paymentInfo?.error }}</div>
+                     </ng-container>
+                   </ng-container>
+
+                  </ng-container>
+                </ng-container>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</ng-container>

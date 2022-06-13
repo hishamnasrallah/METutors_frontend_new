@@ -336,6 +336,7 @@ export class CoursesService {
     if (value.classes) formData.append('total_classes', value.classes);
     if (value.courseCountry) formData.append('country_id', value.courseCountry);
     if (value.type) formData.append('class_type', value.type);
+    if (value.redirect_url) formData.append('redirect_url', value.redirect_url);
 
     if (value.classrooms && value.classrooms.length)
       formData.append('classes', JSON.stringify(value.classrooms));

@@ -1,15 +1,13 @@
-import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
-import { Store } from '@ngrx/store';
-import * as fromCore from '@metutor/core/state';
-import { IClassroom, IInvoiceDetails, IUser } from '@metutor/core/models';
 import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
-import {
-  MatDialog,
-  MatDialogRef,
-  MAT_DIALOG_DATA,
-} from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
+
+import { environment } from '@environment';
+import * as fromCore from '@metutor/core/state';
+import { MatDialog } from '@angular/material/dialog';
 import * as fromRequests from '@metutor/modules/requests/state';
+import { IClassroom, IInvoiceDetails, IUser } from '@metutor/core/models';
 import * as fromRequestsActions from '@metutor/modules/requests/state/actions';
 
 @Component({
@@ -20,6 +18,7 @@ import * as fromRequestsActions from '@metutor/modules/requests/state/actions';
 export class InvoiceDetailsComponent implements OnInit {
   paymentInfo$: Observable<any>;
   user$: Observable<IUser | null>;
+  baseURL = environment.clientUrl;
   isCreatingCourse: Observable<boolean>;
   classroom$: Observable<IClassroom | null>;
   showConfirmPaymentModal$: Observable<boolean>;
@@ -55,10 +54,12 @@ export class InvoiceDetailsComponent implements OnInit {
 
   saveCourse(user: IUser, classroom: IClassroom): void {
     if (user) {
-      this._store.dispatch(fromCore.createCourse({ data: classroom }));
-      /*this._store.dispatch(
-        fromRequestsActions.openRequestsConfirmPaymentModal()
-      );*/
+      const data = {
+        redirect_url: this.baseURL + '/requests/payment-processing',
+        ...classroom,
+      };
+
+      this._store.dispatch(fromCore.createCourse({ data }));
     } else {
       this._router.navigate(['/signin'], {
         queryParams: {

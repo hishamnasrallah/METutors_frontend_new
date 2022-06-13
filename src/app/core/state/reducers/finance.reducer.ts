@@ -6,6 +6,7 @@ export interface State {
   orders: any;
   refundDetail: any;
   isLoading: boolean;
+  coursePaymentStatus: any;
   isLoadingRefund: boolean;
   isRefundingCourse: boolean;
 }
@@ -16,14 +17,20 @@ export const initialState: State = {
   isLoading: false,
   isLoadingRefund: false,
   isRefundingCourse: false,
+  coursePaymentStatus: null,
 };
 
 export const reducer = createReducer(
   initialState,
-  on(financeActions.loadOrders, financeActions.loadRefundOrders, (state) => ({
-    ...state,
-    isLoading: true,
-  })),
+  on(
+    financeActions.loadOrders,
+    financeActions.loadRefundOrders,
+    financeActions.verifyCoursePayment,
+    (state) => ({
+      ...state,
+      isLoading: true,
+    })
+  ),
 
   on(
     financeActions.loadOrdersSuccess,
@@ -38,11 +45,19 @@ export const reducer = createReducer(
   on(
     financeActions.loadOrdersFailure,
     financeActions.loadRefundOrdersFailure,
-    (state) => ({
+    financeActions.verifyCoursePaymentFailure,
+    (state, { error }) => ({
       ...state,
       isLoading: false,
+      coursePaymentStatus: { status: false, error },
     })
   ),
+
+  on(financeActions.verifyCoursePaymentSuccess, (state, { paymentInfo }) => ({
+    ...state,
+    coursePaymentStatus: { status: true, ...paymentInfo },
+    isLoading: false,
+  })),
 
   on(financeActions.loadRefundDetail, (state) => ({
     ...state,
@@ -89,3 +104,6 @@ export const selectIsLoadingFinanceRefundDetail = (state: State): boolean =>
 
 export const selectFinanceIsRefundingCourse = (state: State): boolean =>
   state.isRefundingCourse;
+
+export const selectFinanceCoursePaymentStatus = (state: State): boolean =>
+  state.coursePaymentStatus;
