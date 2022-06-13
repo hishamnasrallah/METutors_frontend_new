@@ -55,7 +55,7 @@ export class FinanceEffects {
     )
   );
 
-  loadCancelCourse$ = createEffect(() =>
+  loadRefundDetail$ = createEffect(() =>
     this._actions$.pipe(
       ofType(financeActions.loadRefundDetail),
       mergeMap(({ courseId }) =>

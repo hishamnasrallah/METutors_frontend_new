@@ -24,7 +24,7 @@
         <div class="form-group mt-3">
           <div class="row mb-3">
             <div class="col-md-6"><span class="text-secondary font-18">Refund Amount per Class</span></div>
-            <div class="col-md-6 text-right">$15</div>
+            <div class="col-md-6 text-right">{{ reFundDetail?.refundAmountPerClass | currency }}</div>
           </div>
 
           <div class="row mb-4">
@@ -45,13 +45,6 @@
 
         <div class="row mt-2">
           <div class="col-md-12 overflow-hidden">
-            <!--<metutors-submit-button [form]="form" [isSubmitting]="isCanceling$ | async"
-                                    [isDisabled]="!view.refund?.totalRefunds"
-                                    [extraClasses]="'float-end py-1 px-5'">
-              Confirm
-            </metutors-submit-button>-->
-
-          <!--  <span class="back-button float-end text-secondary cursor-pointer" (click)="closeModal.emit()">Cancel</span>-->
             <button mat-button class="main-button-transparent float-end py-2" (click)="refundClicked.emit()">
               Process Refund Payment
             </button>
