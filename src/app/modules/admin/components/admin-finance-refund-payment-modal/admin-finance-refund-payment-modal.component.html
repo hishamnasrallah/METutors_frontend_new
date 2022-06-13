@@ -3,16 +3,42 @@
   <ng-template #template>
     <ng-container [ngSwitch]="loading">
       <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
-      <div class="refund-modal col-12 mt-4" *ngSwitchCase="false">
-       add UI here please
 
-        <button mat-button class="main-button-transparent float-end py-2" (click)="refundPayment.emit()">
-          Yes
-        </button>
+      <div class="refund-modal col-12" *ngSwitchCase="false">
+        <img src="assets/svg/refund.svg" draggable="false" alt="" class="d-block mx-auto mb-3">
+        <h3 class="text-center">Do you want to refund?</h3>
+        <h4 class="mt-4 text-center mb-5">Total Refund: <strong>$50</strong></h4>
+        <h5>Refund Account Details</h5>
 
-        <button mat-button class="main-button-transparent float-end py-2 m-lg-1" (click)="closeModal.emit()">
-          Cancel
-        </button>
+        <div class="info-details">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <span>Student Name</span>
+              <strong>Catherine James</strong>
+            </div>
+            <div class="col-md-6 mb-3">
+              <span>Account Number</span>
+              <strong>016007264341</strong>
+            </div>
+            <div class="col-md-6">
+              <span>Type</span>
+              <strong>Credit Account</strong>
+            </div>
+            <div class="col-md-6">
+              <span>Bank Name</span>
+              <strong>Standard Chartered</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-4 d-flex justify-content-center">
+          <button mat-button class="main-button-transparent px-4" (click)="closeModal.emit()">
+            Cancel
+          </button>
+          <button mat-flat-button color="primary" class="px-5 ms-3" (click)="refundPayment.emit()">
+            Yes
+          </button>
+        </div>
       </div>
     </ng-container>
   </ng-template>
