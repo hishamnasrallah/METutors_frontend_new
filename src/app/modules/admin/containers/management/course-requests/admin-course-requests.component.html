@@ -44,7 +44,7 @@
                   <td>{{ request?.email }}</td>
                   <td>Grade {{ request?.grade }}</td>
                   <td>
-                    <div dropdown class="change-status position-relative d-flex">
+                    <div dropdown container="body" class="change-status position-relative d-flex">
                       <button dropdownToggle class="status text-capitalize" mat-button [ngClass]="{
                         'offered': requestStatus.offered === request?.status,
                         'pending': requestStatus.pending === request?.status,
