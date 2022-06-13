@@ -764,6 +764,7 @@ span.status {
 
   &.pending,
   &.requested,
+  &.payment_pending,
   &.requested_to_metutors {
     background-color: #f8e3cc;
     color: #c98843;

@@ -286,6 +286,10 @@ export const courseStatusLabel = {
     short: 'Pending',
     long: 'Pending Tutor Approval',
   },
+  payment_pending: {
+    short: 'Payment Pending',
+    long: 'Payment Pending',
+  },
   cancelled_by_teacher: {
     short: 'On Hold',
     long: 'On Hold (Tutor Re-Assignment by MeTutors)',
