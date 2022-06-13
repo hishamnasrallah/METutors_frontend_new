@@ -10,7 +10,7 @@
             <div class="col-md-6 mb-2"><span
               class="text-secondary font-18">Total Classes: </span>{{ reFundDetail?.course?.totalClasses }}</div>
             <div class="col-md-6"><span
-              class="text-secondary font-18">Remaining Classes: </span> {{ reFundDetail?.remainingClasses}} </div>
+              class="text-secondary font-18">Remaining Classes: </span> {{ reFundDetail?.remainingClasses }} </div>
           </div>
 
           <div class="row">
@@ -43,16 +43,13 @@
           <p class="font-18 text-secondary">{{ reFundDetail?.canceledCourse?.reason }}</p>
         </div>
 
-        <div class="row mt-2">
-          <div class="col-md-12 overflow-hidden">
-            <button mat-button class="main-button-transparent float-end py-2" (click)="refundClicked.emit()">
-              Process Refund Payment
-            </button>
-
-            <button mat-button class="main-button-transparent float-end py-2 m-lg-1" (click)="closeModal.emit()">
-              Cancel
-            </button>
-          </div>
+        <div class="mt-4 d-flex justify-content-center">
+          <button mat-button class="main-button-transparent px-5 py-1" (click)="closeModal.emit()">
+            Cancel
+          </button>
+          <button mat-flat-button color="primary" class="px-5 ms-3 py-1" (click)="refundClicked.emit()">
+            Process Refund Payment
+          </button>
         </div>
       </div>
     </ng-container>
