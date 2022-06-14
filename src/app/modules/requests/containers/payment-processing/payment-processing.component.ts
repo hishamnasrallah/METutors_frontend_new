@@ -16,12 +16,12 @@ export class PaymentProcessingComponent implements OnInit {
   constructor(private _store: Store<any>, private _route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    const { id, course_id, resourcePath } = this._route.snapshot.queryParams;
+    /*const { id, course_id, resourcePath } = this._route.snapshot.queryParams;
 
     this._store.dispatch(
       fromCore.verifyCoursePayment({ id, courseId: course_id, resourcePath })
     );
-
+*/
     this.view$ = combineLatest([
       this._store.select(fromCore.selectIsLoadingFinance),
       this._store.select(fromCore.selectFinanceCoursePaymentStatus),
