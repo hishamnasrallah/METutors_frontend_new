@@ -6,27 +6,32 @@
         <div class="card"  *ngLet="(view$ | async) as view">
           <div class="card-body">
             <div class="row data">
-              <div class="col-md-12 d-flex">
+              <div class="col-md-12">
                 <ng-container [ngSwitch]="view.loading">
 
-                  <ng-container *ngSwitchCase="true">
-                    <mat-icon class="spinner">autorenew</mat-icon> Please bear with us your payment is being processed...
-                  </ng-container>
+                  <div class="d-flex" *ngSwitchCase="true">
+                    <mat-icon class="spinner">autorenew</mat-icon>
+                    <span class="processing">Please bear with us your payment is being processed...</span>
+                  </div>
 
                   <ng-container *ngSwitchCase="false">
                    <ng-container [ngSwitch]="view?.paymentInfo?.status">
-                     <ng-container *ngSwitchCase="true">
-                       success
-                     </ng-container>
+                     <div class="center text-danger" *ngSwitchCase="true">
+                       <span class="success mb-2">Payment has been made Successfully</span>
+
+                       <button mat-flat-button color="primary" class="px-5 ms-3" [routerLink]="['/student', 'classrooms']">
+                         Continue
+                       </button>
+                     </div>
 
                      <ng-container *ngSwitchCase="false">
-                       <div class="">{{ view?.paymentInfo?.error }}</div>
+                       <h4 class="text-danger">Payment failed</h4>
+                       <div class="text-danger">{{ view?.paymentInfo?.error }}</div>
                      </ng-container>
                    </ng-container>
 
                   </ng-container>
                 </ng-container>
-
               </div>
             </div>
           </div>
