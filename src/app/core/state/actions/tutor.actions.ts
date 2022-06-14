@@ -349,3 +349,35 @@ export const tutorRescheduleClassFailure = createAction(
   '[Tutor] Tutor Reschedule Class Failure',
   props<{ error: any }>()
 );
+
+// Load Featured Tutors
+export const loadFeaturedTutors = createAction('[Tutor] Load Featured Tutors');
+
+export const loadFeaturedTutorsSuccess = createAction(
+  '[Tutor] Load Featured Tutors Success',
+  props<{ tutors: ITutor[] }>()
+);
+
+export const loadFeaturedTutorsFailure = createAction(
+  '[Tutor] Load Featured Tutors Failure',
+  props<{ error: any }>()
+);
+
+export const loadFeaturedTutorsEnded = createAction(
+  '[Tutor] Load Featured Tutors Ended'
+);
+
+export const loadSubjectFeaturedTutors = createAction(
+  '[Tutor] Load Subject Featured Tutors',
+  props<{ id: number }>()
+);
+
+export const loadSubjectFeaturedTutorsSuccess = createAction(
+  '[Tutor] Load Subject Featured Tutors Success',
+  props<{ tutors: ITutor[] }>()
+);
+
+export const loadSubjectFeaturedTutorsFailure = createAction(
+  '[Tutor] Load Subject Featured Tutors Failure',
+  props<{ error: any }>()
+);

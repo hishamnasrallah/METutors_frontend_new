@@ -21,6 +21,7 @@ import {
   selectPendingTutors,
   selectTutorDashboard,
   selectSuspendedTutors,
+  selectFeaturedTutors,
 } from '..';
 
 @Injectable()
@@ -552,6 +553,55 @@ export class TutorEffects {
           catchError((error) =>
             of(
               tutorActions.tutorRescheduleClassFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  loadFeaturedTutors$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorActions.loadFeaturedTutors),
+      withLatestFrom(this._store.select(selectFeaturedTutors)),
+      mergeMap(([_, _countries]) => {
+        if (!_countries || !_countries.length) {
+          return this._tutorService.loadFeaturedTutors().pipe(
+            map((tutors) =>
+              tutorActions.loadFeaturedTutorsSuccess({
+                tutors,
+              })
+            ),
+            catchError((error) =>
+              of(
+                tutorActions.loadFeaturedTutorsFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          );
+        } else {
+          return of(tutorActions.loadFeaturedTutorsEnded());
+        }
+      })
+    )
+  );
+
+  loadSubjectFeaturedTutors$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorActions.loadSubjectFeaturedTutors),
+      mergeMap((action) =>
+        this._tutorService.loadSubjectFeaturedTutors(action.id).pipe(
+          map((tutors) =>
+            tutorActions.loadSubjectFeaturedTutorsSuccess({
+              tutors,
+            })
+          ),
+          catchError((error) =>
+            of(
+              tutorActions.loadSubjectFeaturedTutorsFailure({
                 error: error?.error?.message || error?.error?.errors,
               })
             )

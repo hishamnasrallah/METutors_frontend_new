@@ -1,5 +1,5 @@
-<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'large'" [heading]="data?.program?.name"
-                [template]="template" [subHeading]="data?.subject?.fieldName">
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'large'"
+  [heading]="data?.program?.name" [template]="template" [subHeading]="data?.subject?.fieldName">
   <ng-template #template>
     <div class="subject-card my-3">
       <div class="card">
@@ -18,7 +18,8 @@
                 <span>{{ data?.subject?.pricePerHour | currency }}</span>
               </h3>
 
-              <a mat-flat-button color="primary" class="py-1 fw-bold" (click)="closeModal.emit()" routerLink="/requests/request-tutor"
+              <a mat-flat-button color="primary" class="py-1 fw-bold" (click)="closeModal.emit()"
+                routerLink="/requests/request-tutor"
                 [queryParams]="{program: data?.program?.id, field: data?.subject?.fieldId, subject: data?.subject?.id, country: data?.country}">
                 Start learning now
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -37,6 +38,7 @@
         <h1>Featured Tutors</h1>
         <p>Choose from more than 500 professional academic instructors in different subjects and study fields</p>
       </div>
+
       <div class="col-md-4" *ngFor="let teacher of teachers; let i = index">
         <div class="tutor-item">
           <div class="col-4">
@@ -55,7 +57,7 @@
           <div class="col-8">
             <h2>
               {{ teacher?.name }}
-              <span class="text-uppercase pro">Pro</span>
+              <!-- <span class="text-uppercase pro">Pro</span> -->
               <!-- <span class="text-uppercase verified">Verified</span> -->
             </h2>
             <h3 *ngIf="teacher?.roleName">{{ teacher?.roleName }}</h3>
@@ -85,21 +87,16 @@
 
           <div class="col-12" *ngIf="teacher?.bio">
             <p class="bio">
-              Bio: {{ teacher?.bio }}
+              Bio:
+              {{ (teacher.bio && teacher.bio.length > 100) ? ((teacher?.bio | slice:0:100) + '...') : teacher?.bio }}
             </p>
           </div>
 
-          <div class="col-12 specialization" *ngIf="teacher?.subjects && teacher?.subjects?.length">
+          <div class="col-12 specialization" *ngIf="teacher?.programs && teacher?.programs?.length">
             <h2>Specialization:</h2>
             <div class="programs">
-              <button mat-button class="main-button-transparent me-2">
-                AP
-              </button>
-              <button mat-button class="main-button-transparent me-2">
-                AP
-              </button>
-              <button mat-button class="main-button-transparent me-2">
-                AP
+              <button mat-button class="main-button-transparent me-2" *ngFor="let program of teacher?.programs">
+                {{ program?.code }}
               </button>
             </div>
             <span *ngFor="let subject of teacher?.subjects">{{ subject?.name }}</span>
@@ -115,6 +112,23 @@
           </div>
         </div>
       </div>
+
+      <ng-container *ngIf="isLoading">
+        <div class="col-md-4" *ngFor="let _ of [1, 2, 3]">
+          <div class="card">
+            <div class="card-body">
+              <div class="ph-row">
+                <div class="ph-col-8 big"></div>
+                <div class="ph-col-4 big empty"></div>
+                <div class="ph-col-10 big mt-3"></div>
+                <div class="ph-col-2 big empty mt-3"></div>
+                <div class="ph-col-6 mt-4"></div>
+                <div class="ph-col-6 mt-4 empty"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
     </div>
   </ng-template>
 </metutors-modal>

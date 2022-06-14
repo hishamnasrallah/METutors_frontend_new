@@ -9,7 +9,8 @@ import { ITutor } from 'src/app/core/models';
   styleUrls: ['./home-featured-tutors.component.scss'],
 })
 export class HomeFeaturedTutorsComponent implements OnInit {
-  @Input() teachers?: ITutor[];
+  @Input() teachers: ITutor[];
+  @Input() isLoading: boolean;
 
   tutorStatus = TutorStatus;
   customOptions: OwlOptions = {
