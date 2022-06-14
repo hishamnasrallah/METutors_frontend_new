@@ -7,7 +7,7 @@
             <h1 class="title overflow-hidden">{{ view.data?.course?.courseName }}
               <button mat-button class="ms-2 status float-end text-decoration-none"
                       *ngIf="view?.data?.course?.status !== courseStatus.active || view?.data?.course?.status !== courseStatus.inprogress"
-                      [ngClass]="view?.data?.course?.status">{{ statusLabel[view?.data?.course?.status] }}</button>
+                      [ngClass]="view?.data?.course?.status">{{ statusLabel[view?.data?.course?.status].long }}</button>
               <button mat-button class="float-end fw-bold cancel"
                       (click)="onShowSendFeedbackModal(view.data?.course?.teacher?.id, true, false)"
                       *ngIf="view.data?.course?.status === courseStatus.active|| view.data?.course?.status === courseStatus.inprogress">

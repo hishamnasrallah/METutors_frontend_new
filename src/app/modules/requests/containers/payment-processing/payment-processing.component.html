@@ -16,10 +16,12 @@
 
                   <ng-container *ngSwitchCase="false">
                    <ng-container [ngSwitch]="view?.paymentInfo?.status">
-                     <div class="center text-danger" *ngSwitchCase="true">
-                       <span class="success mb-2">Payment has been made Successfully</span>
+                     <div class="center p-4 text-center" *ngSwitchCase="true">
+                       <img src="assets/svg/cheer.svg" alt="" draggable="false" class="mt-4 mb-4"/>
 
-                       <button mat-flat-button color="primary" class="px-5 ms-3" [routerLink]="['/student', 'classrooms']">
+                       <p class="success">Payment has been made Successfully</p>
+
+                       <button mat-flat-button color="primary" class="px-5 ms-3 p-2" [routerLink]="['/student', 'classrooms']">
                          Continue
                        </button>
                      </div>
