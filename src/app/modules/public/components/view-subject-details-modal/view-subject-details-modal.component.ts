@@ -9,6 +9,7 @@ import { ITutor } from '@metutor/core/models';
 })
 export class ViewSubjectDetailsModalComponent implements OnInit {
   @Input() data: any;
+  @Input() isLoading: boolean;
   @Input() teachers?: ITutor[];
   @Input() showModal: boolean = false;
 

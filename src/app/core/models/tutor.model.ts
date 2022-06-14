@@ -1,7 +1,7 @@
-import camelcaseKeys from 'camelcase-keys';
 import { generalConstants, GRADES, InterviewStatus } from 'src/app/config';
 import { environment } from 'src/environments/environment';
 import {
+  IProgram,
   ISubject,
   ILanguage,
   IInterview,
@@ -57,6 +57,7 @@ export class ITutor {
   badges?: any[];
   bookings?: number;
   amount?: number;
+  programs?: IProgram[];
 
   constructor(createDefault = false, tutor: any = null) {
     if (createDefault) {
@@ -105,6 +106,7 @@ export class ITutor {
       this.badges = [];
       this.bookings = 0;
       this.amount = 0;
+      this.programs = [];
     }
 
     if (tutor) {
@@ -183,6 +185,7 @@ export class ITutor {
       this.badges = tutor?.badges || [];
       this.bookings = tutor?.bookings;
       this.amount = tutor?.amount;
+      this.programs = tutor?.programs || [];
     }
   }
 }

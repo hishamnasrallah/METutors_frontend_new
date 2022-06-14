@@ -20,6 +20,7 @@ import * as fromPublicActions from '@metutor/modules/public/state/actions';
 })
 export class HomeComponent implements OnInit {
   loadingFields$: Observable<boolean>;
+  loadingTutors$: Observable<boolean>;
   fields$: Observable<IField[] | null>;
   loadingPrograms$: Observable<boolean>;
   loadingSubjects$: Observable<boolean>;
@@ -27,6 +28,9 @@ export class HomeComponent implements OnInit {
   programs$: Observable<IProgram[] | null>;
   subjects$: Observable<ISubject[] | null>;
   countries$: Observable<ICountry[] | null>;
+  loadingSubjectTutors$: Observable<boolean>;
+  subjectTutors$: Observable<ITutor[] | null>;
+  featuredTutors$: Observable<ITutor[] | null>;
   showViewSubjectDetailsModal$: Observable<boolean>;
 
   subjectData: any;
@@ -37,6 +41,7 @@ export class HomeComponent implements OnInit {
   constructor(private _store: Store<any>) {}
 
   ngOnInit(): void {
+    this._prepareTutors();
     this._preparePrograms();
     this._prepareSubjects();
     this._prepareCountries();
@@ -166,8 +171,9 @@ export class HomeComponent implements OnInit {
     ];
   }
 
-  onOpenViewSubjectDetailsModal(date: any): void {
-    this.subjectData = date;
+  onOpenViewSubjectDetailsModal(data: any): void {
+    this.subjectData = data;
+    this._store.dispatch(fromCore.loadSubjectFeaturedTutors({ id: data?.subject?.id }));
     this._store.dispatch(fromPublicActions.openViewSubjectDetailsModal());
   }
 
@@ -181,6 +187,20 @@ export class HomeComponent implements OnInit {
     );
     this.fields$ = this._store.select(fromCore.selectFields);
     this.loadingFields$ = this._store.select(fromCore.selectIsLoadingFields);
+  }
+
+  private _prepareTutors(): void {
+    this._store.dispatch(fromCore.loadFeaturedTutors());
+    this.featuredTutors$ = this._store.select(fromCore.selectFeaturedTutors);
+    this.subjectTutors$ = this._store.select(
+      fromCore.selectSubjectFeaturedTutors
+    );
+    this.loadingTutors$ = this._store.select(
+      fromCore.selectIsLoadingFeaturedTutors
+    );
+    this.loadingSubjectTutors$ = this._store.select(
+      fromCore.selectIsLoadingSubjectFeaturedTutors
+    );
   }
 
   private _preparePrograms(): void {

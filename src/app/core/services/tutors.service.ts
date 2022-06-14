@@ -384,4 +384,28 @@ export class TutorsService {
   tutorRescheduleClass(body: any): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}teacher/class/reschedule`, body);
   }
+
+  loadFeaturedTutors(): Observable<any> {
+    return this.http
+      .get<{ featured_teachers: ITutor[] }>(
+        `${this.baseUrl}admin/featured-teachers`
+      )
+      .pipe(
+        map((response) =>
+          response.featured_teachers.map((tutor) => new ITutor(false, tutor))
+        )
+      );
+  }
+
+  loadSubjectFeaturedTutors(id: number): Observable<any> {
+    return this.http
+      .get<{ featured_teachers: ITutor[] }>(
+        `${this.baseUrl}admin/subject/${id}/featured-teacher`
+      )
+      .pipe(
+        map((response) =>
+          response.featured_teachers.map((tutor) => new ITutor(false, tutor))
+        )
+      );
+  }
 }

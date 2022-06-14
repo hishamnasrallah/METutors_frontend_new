@@ -363,6 +363,26 @@ export const selectIsReschedulingTutorClass = createSelector(
   fromTutorReducer.selectIsReschedulingTutorClass
 );
 
+export const selectFeaturedTutors = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectFeaturedTutors
+);
+
+export const selectIsLoadingFeaturedTutors = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectIsLoadingFeaturedTutors
+);
+
+export const selectSubjectFeaturedTutors = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectSubjectFeaturedTutors
+);
+
+export const selectIsLoadingSubjectFeaturedTutors = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectIsLoadingSubjectFeaturedTutors
+);
+
 // Tutor syllabus
 export const selectTutorSyllabus = createSelector(
   selectTutorSyllabusState,

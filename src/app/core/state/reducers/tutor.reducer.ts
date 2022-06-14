@@ -58,6 +58,12 @@ export interface State {
   isLoadingSuspendedTutors: boolean;
   currentActiveTutors: ITutor[] | null;
   currentInactiveTutors: ITutor[] | null;
+
+  // Load Featured Tutors
+  featuredTutors: ITutor[] | null;
+  isLoadingFeaturedTutors: boolean;
+  subjectFeaturedTutors: ITutor[] | null;
+  isLoadingSubjectFeaturedTutors: boolean;
 }
 
 export const initialState: State = {
@@ -66,6 +72,7 @@ export const initialState: State = {
   dashboard: null,
   attendance: null,
   profileTutor: null,
+  featuredTutors: [],
   currentTutors: null,
   pendingTutors: null,
   rejectedTutors: null,
@@ -79,6 +86,7 @@ export const initialState: State = {
   loadingTutorsFailure: '',
   isLoadingDashboard: false,
   currentActiveTutors: null,
+  subjectFeaturedTutors: [],
   isChangeTutorCover: false,
   isChangeTutorStatus: false,
   isReschedulingClass: false,
@@ -90,11 +98,13 @@ export const initialState: State = {
   isCompleteTutorProfile: false,
   isLoadingCurrentTutors: false,
   isLoadingPendingTutors: false,
+  isLoadingFeaturedTutors: false,
   isLoadingTutorAttendance: false,
   isLoadingAvailableTutors: false,
   isLoadingSuspendedTutors: false,
   completeTutorProfileFailure: '',
   isLoadingTutorFeedbackOptions: false,
+  isLoadingSubjectFeaturedTutors: false,
   tutorsCounts: {
     pendingCount: 0,
     rejectedCount: 0,
@@ -537,6 +547,43 @@ export const reducer = createReducer(
   on(tutorActions.tutorRescheduleClassFailure, (state) => ({
     ...state,
     isReschedulingClass: false,
+  })),
+
+  // Load Featured Tutors
+  on(tutorActions.loadFeaturedTutors, (state) => ({
+    ...state,
+    isLoadingFeaturedTutors: true,
+  })),
+
+  on(tutorActions.loadFeaturedTutorsSuccess, (state, { tutors }) => ({
+    ...state,
+    featuredTutors: tutors,
+    isLoadingFeaturedTutors: false,
+  })),
+
+  on(
+    tutorActions.loadFeaturedTutorsEnded,
+    tutorActions.loadFeaturedTutorsFailure,
+    (state) => ({
+      ...state,
+      isLoadingFeaturedTutors: false,
+    })
+  ),
+
+  on(tutorActions.loadSubjectFeaturedTutors, (state) => ({
+    ...state,
+    isLoadingSubjectFeaturedTutors: true,
+  })),
+
+  on(tutorActions.loadSubjectFeaturedTutorsSuccess, (state, { tutors }) => ({
+    ...state,
+    subjectFeaturedTutors: tutors,
+    isLoadingSubjectFeaturedTutors: false,
+  })),
+
+  on(tutorActions.loadSubjectFeaturedTutorsFailure, (state) => ({
+    ...state,
+    isLoadingSubjectFeaturedTutors: false,
   }))
 );
 
@@ -630,6 +677,18 @@ export const selectIsSubmittingTutorFeedback = (state: State): boolean =>
 
 export const selectIsReschedulingTutorClass = (state: State): boolean =>
   state.isReschedulingClass;
+
+export const selectFeaturedTutors = (state: State): ITutor[] | null =>
+  state.featuredTutors;
+
+export const selectIsLoadingFeaturedTutors = (state: State): boolean =>
+  state.isLoadingFeaturedTutors;
+
+export const selectSubjectFeaturedTutors = (state: State): ITutor[] | null =>
+  state.subjectFeaturedTutors;
+
+export const selectIsLoadingSubjectFeaturedTutors = (state: State): boolean =>
+  state.isLoadingSubjectFeaturedTutors;
 
 export const selectFilteredTutors = (
   state: State,
