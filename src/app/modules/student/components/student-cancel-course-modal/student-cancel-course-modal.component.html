@@ -107,10 +107,11 @@
                      *ngIf="view.refund.nonRefundableClasses?.length || view.refund.refundableClasses?.length">
                 <thead>
                 <tr>
-                  <th scope="col" class="text-secondary">Class Number</th>
-                  <th scope="col" class="text-secondary">Class Subject</th>
-                  <th scope="col" class="text-secondary">Class Days</th>
-                  <th scope="col" class="text-secondary">Action</th>
+                  <th class="text-secondary">Class Number</th>
+                  <th class="text-secondary">Class Subject</th>
+                  <th class="text-secondary">Class Days</th>
+                  <th class="text-secondary">Class Time</th>
+                  <th class="text-secondary">Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -118,6 +119,7 @@
                   <td>{{ i + 1}}</td>
                   <td>{{ allClass?.title }}</td>
                   <td>{{ allClass?.startDate }}</td>
+                  <td>{{ allClass?.startTime }} to {{ allClass?.endTime }}</td>
                   <td>
                     <mat-checkbox [value]="allClass?.id" [id]="allClass?.id" (change)="onClassSelect($event, allClass?.id)"
                                   [disabled]="allClass?.isNonRefundable"></mat-checkbox>
