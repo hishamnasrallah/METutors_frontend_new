@@ -4,7 +4,9 @@
       <ng-container [ngSwitch]="loading$ | async">
         <ng-container *ngSwitchCase="false">
           <ng-container *ngLet="(assignments$ | async) as assignments">
-            <h1 class="title">{{ assignments?.course?.courseName }}</h1>
+            <h1 class="title">{{ assignments.course?.courseName }} <span>({{ assignments.course?.courseCode}})</span>
+              <button mat-button class="ms-3 status" [ngClass]="assignments.course?.status">{{ statusLabel[assignments.course?.status].long }}</button>
+            </h1>
             <div class="row list-items">
               <div class="col-md-3 d-flex menu align-items-center">
                 <img src="assets/svg/timer.svg" alt="" width="15" height="15" draggable="false">

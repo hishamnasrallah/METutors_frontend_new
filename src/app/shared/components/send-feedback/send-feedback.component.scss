@@ -1,14 +1,14 @@
 .send-feedback {
-  .mat-tab-label-content {
-    font-weight: bold;
-  }
-
   .rating-block {
     p {
       color: #2a2a2a;
-      font-size: 14px;
+      font-size: 16px;
       font-weight: normal;
-      margin-bottom: 0;
+      margin-bottom: 13px;
+    }
+
+    rating span.bs-rating-star {
+      font-size: 15px;
     }
 
     button {

@@ -4,7 +4,7 @@
       <div class="card-body">
         <ng-container [ngSwitch]="view.loading">
           <ng-container *ngSwitchCase="false">
-            <h1 class="title overflow-hidden">{{ view.data?.course?.courseName }}
+            <h1 class="title overflow-hidden">{{ view.data?.course?.courseName }} <span>({{ view.data.course?.courseCode}})</span>
               <button mat-button class="ms-2 status float-end text-decoration-none"
                       *ngIf="view?.data?.course?.status !== courseStatus.active || view?.data?.course?.status !== courseStatus.inprogress"
                       [ngClass]="view?.data?.course?.status">{{ statusLabel[view?.data?.course?.status].long }}</button>
@@ -49,7 +49,7 @@
                 </div>
               </div>
               <div class="col-md-6">
-                <button mat-button class="main-button-transparent float-end ms-2"
+                <button mat-button class="main-button-transparent float-end ms-2" *ngIf="view?.data?.course?.status !== courseStatus.cancelledByTeacher"
                         (click)="onShowSendFeedbackModal(view.data?.course?.teacher?.id, false, false)">
                   Send Feedback
                 </button>

@@ -1,13 +1,12 @@
 import { Store } from '@ngrx/store';
-import { WEEK_DAYS } from '@config';
 import { map } from 'rxjs/operators';
-import { combineLatest, Observable } from 'rxjs';
-
-import { Component, OnInit } from '@angular/core';
 import * as fromCore from '@metutor/core/state';
+import { combineLatest, Observable } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+
+import { courseStatusLabel, WEEK_DAYS } from '@config';
 import * as fromStudent from '@metutor/modules/student/state';
 import * as fromStudentAction from '@metutor/modules/student/state/actions';
-import { selectViewResourceModal } from '@metutor/modules/student/state/reducers/student-modal.reducers';
 
 @Component({
   selector: 'metutors-student-resources',
@@ -17,6 +16,8 @@ import { selectViewResourceModal } from '@metutor/modules/student/state/reducers
 export class StudentResourcesComponent implements OnInit {
   openViewResourceModal$: Observable<boolean>;
   view$: Observable<{ loading: boolean; resources: any }>;
+
+  statusLabel = courseStatusLabel;
 
   constructor(private _store: Store<any>) {}
 

@@ -47,12 +47,14 @@ export class ModalComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (
+      (changes?.['status'] && changes?.['status']?.currentValue) ||
       (changes?.['heading'] && changes?.['heading']?.currentValue) ||
       (changes?.['subHeading'] && changes?.['subHeading']?.currentValue) ||
       (changes?.['showHeader'] && changes?.['showHeader']?.currentValue)
     ) {
       if (this.dialogRef && this.dialogRef.componentInstance) {
         this.dialogRef.componentInstance.updateModalData({
+          status: this.status,
           heading: this.heading,
           subHeading: this.subHeading,
           showHeader: this.showHeader,
@@ -120,10 +122,12 @@ export class ModalComponentTemplate implements OnInit {
   }
 
   updateModalData(data: {
+    status: string;
     heading: string;
     subHeading: string;
     showHeader: boolean;
   }) {
+    this.status = data.status;
     this.heading = data.heading;
     this.subHeading = data.subHeading;
     this.showHeader = data.showHeader;

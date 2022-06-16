@@ -11,7 +11,7 @@ import { map } from 'rxjs/operators';
 import { combineLatest, Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 
-import { WEEK_DAYS } from 'src/app/config';
+import { courseStatusLabel, WEEK_DAYS } from 'src/app/config';
 import * as fromCore from '@metutor/core/state';
 
 @Component({
@@ -43,6 +43,7 @@ import * as fromCore from '@metutor/core/state';
 export class StudentSyllabusComponent implements OnInit {
   selectedCourse = null;
   openCourse: boolean = false;
+  statusLabel = courseStatusLabel;
 
   view$: Observable<{ loading: boolean; syllabus: any }>;
 

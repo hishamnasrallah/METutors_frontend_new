@@ -3,7 +3,9 @@
     <div class="card-body">
       <ng-container [ngSwitch]="view.loading">
         <ng-container *ngSwitchCase="false">
-          <h1 class="title">{{ view.resources?.course?.courseName }}</h1>
+          <h1 class="title">{{ view.resources.course?.courseName }} <span>({{ view.resources.course?.courseCode}})</span>
+            <button mat-button class="ms-3 status" [ngClass]="view.resources.course?.status">{{ statusLabel[view.resources.course?.status].long }}</button>
+          </h1>
           <div class="row list-items">
             <div class="col-md-3 d-flex menu align-items-center">
               <img src="assets/svg/calendar.svg" alt="" width="15" height="15" draggable="false">

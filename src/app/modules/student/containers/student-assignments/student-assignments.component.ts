@@ -10,6 +10,7 @@ import {
 } from '@angular/animations';
 import { Store } from '@ngrx/store';
 
+import { courseStatusLabel } from '@config';
 import * as fromCore from '@metutor/core/state';
 import * as fromStudent from '@metutor/modules/student/state';
 import * as fromStudentActions from '@metutor/modules/student/state/actions';
@@ -51,6 +52,7 @@ export class StudentAssignmentsComponent implements OnInit {
   selectedBlock: null;
   assignmentId: number;
   activeAssignment = true;
+  statusLabel = courseStatusLabel;
 
   constructor(private _store: Store<any>) {}
 

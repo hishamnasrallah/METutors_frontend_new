@@ -1,5 +1,5 @@
 <metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'large'"
-                [heading]="'Assignment Details'"
+                [heading]="'Assignment Details'" [status]="status"
                 [template]="template">
   <ng-template #template>
     <ng-container *ngLet="(view$ | async) as view">

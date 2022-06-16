@@ -20,10 +20,10 @@ export class StudentCancelCourseModalComponent implements OnInit {
 
   form: FormGroup;
   courseType = -1;
-  heading = 'Cancel Course';
   hasSelectedClasses: boolean;
-  subHeading = 'Select an option';
   selectedClasses: number[] = [];
+  subHeading = 'Select an option';
+  heading = 'Cancel Course Request';
   isCanceling$: Observable<boolean>;
 
   view$: Observable<{ loading: boolean; refund: any }>;
@@ -42,7 +42,6 @@ export class StudentCancelCourseModalComponent implements OnInit {
     this.form.reset();
     this.courseType = -1;
     this.selectedClasses = [];
-    this.heading = 'Cancel Course';
     this.hasSelectedClasses = false;
     this.subHeading = 'Select an option';
     this.form.get('courseType')?.setValue(null);
@@ -58,14 +57,12 @@ export class StudentCancelCourseModalComponent implements OnInit {
     this.courseType = courseType;
 
     if (courseType === 1) {
-      this.heading = 'Cancel / Refund Course';
-      this.subHeading = 'Please confirm you want to cancel these classes';
+      this.subHeading = 'Please confirm this request to receive your fund';
 
       this._store.dispatch(
         fromCore.studentRefundCourse({ refundType: 'complete_course' })
       );
     } else {
-      this.heading = 'Cancel Course';
       this.subHeading = 'Select an option';
       this._store.dispatch(
         fromCore.studentRefundCourse({ refundType: 'selected_classes' })

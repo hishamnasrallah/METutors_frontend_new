@@ -8,7 +8,7 @@
       <ng-container *ngIf="step === 1">
         <div class="row">
           <div class="col-md-6">
-            <h3>Classes Starting Date</h3>
+            <h3>Classes Start Date</h3>
             <mat-form-field appearance="outline" class="w-100">
               <input matInput [matDatepicker]="startPicker" [placeholder]="'Choose a Date'" (focus)="startPicker.open()"
                      [min]="minDate" (dateChange)="onChangeDateDay(); onChangeDate()" formControlName="startDate">
@@ -17,7 +17,7 @@
             </mat-form-field>
           </div>
           <div class="col-md-6">
-            <h3>Classes Ending Date</h3>
+            <h3>Classes End Date</h3>
             <mat-form-field appearance="outline" class="w-100">
               <input matInput [matDatepicker]="endPicker" [placeholder]="'Choose a Date'" (focus)="endPicker.open()"
                      [min]="startDate?.value" (dateChange)="onChangeDateDay(); onChangeDate()"
@@ -73,14 +73,15 @@
             </div>
           </div>
           <div class="col-md-6">
-            <h3>Total Hours</h3>
-            <input type="text" class="form-control" formControlName="hours">
-          </div>
-        </div>
-        <div class="row mt-4">
-          <div class="col-md-6">
             <h3>Total Classes</h3>
             <input type="text" class="form-control" formControlName="totalClasses">
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col-md-6">
+            <h3>Total Hours</h3>
+            <input type="text" class="form-control" formControlName="hours">
           </div>
         </div>
 
@@ -148,7 +149,7 @@
                   <h5>Estimated Price:
                     <span>{{ (price * +allHours) | currency: 'USD' }}</span>
                   </h5>
-                  <p class="mb-0">Price change based on total hours, total classes, time</p>
+                  <p class="mb-0">Price change based on total hours</p>
                 </div>
                 <div>
                   <h5>Total Hours: <span>{{ allHours }} hrs</span></h5>
@@ -183,12 +184,12 @@
                   <div *ngIf="!objectKeys(availabilities)?.length" class="text-center fw-bold">No Teacher availabilities found</div>
                   <div class="row" *ngIf="objectKeys(availabilities)?.length">
                     <div class="col-4">
-                      <label class="text-secondary fw-bold">Starting Date</label>
+                      <label class="text-secondary fw-bold">Start Date</label>
                       <p class="fw-bold">{{ timeSlot.startDate }}</p>
                     </div>
 
                     <div class="col-4">
-                      <label class="text-secondary fw-bold">Ending Date</label>
+                      <label class="text-secondary fw-bold">End Date</label>
                       <p class="fw-bold">{{ timeSlot.endDate }}</p>
                     </div>
 

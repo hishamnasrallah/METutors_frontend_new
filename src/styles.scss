@@ -757,6 +757,7 @@ span.status {
   &.completed,
   &.accepted,
   &.refunded,
+  &.inprogress,
   &.active, &.success {
     color: #50C394;
     background: rgba(80, 195, 148, 0.2);
@@ -770,7 +771,6 @@ span.status {
     color: #c98843;
   }
 
-  &.inprogress,
   &.upcoming {
     color: #5955cd;
     background-color: #e1e0fe;
@@ -787,7 +787,8 @@ span.status {
 }
 
 .send-feedback .rating-block rating span.bs-rating-star {
-  margin-left: 8px;
+  font-size: 22px;
+  margin-right: 12px;
 
   &.active {
     color: var(--main-color);
