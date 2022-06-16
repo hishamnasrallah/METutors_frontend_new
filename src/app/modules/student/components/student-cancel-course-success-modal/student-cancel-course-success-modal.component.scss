@@ -1,3 +1,26 @@
 .course-success-modal {
-  font-size:20px;
+  h3 {
+    font-size: 24px;
+  }
+
+  .heading {
+    font-size: 20px;
+    color: #2A2A2A;
+  }
+
+  .para-1{
+    font-size: 17px;
+    color: #696969;
+  }
+
+  .para-2 {
+    font-size: 20px;
+    color: #696969;
+    margin-top: 30px;
+  }
+
+  .amount {
+    font-size: 24px;
+    margin-bottom: 40px;
+  }
 }

@@ -2,16 +2,16 @@
   <ng-template #template>
     <div class="course-success-modal flex-row mt-5 p-3">
       <div class="text-center">
-        <img src="assets/svg/correct.svg" alt="" width="100">
+        <img src="assets/svg/green-tick.svg" alt="" width="100">
 
         <h3 class="mt-4">Congratulations</h3>
-        <p>Your course cancelled successfully.</p>
-        <p>We will send you the refund amount in you bank account in next 72 business hours. Also maybe your bank takes sometime to reflect amount to your account.</p>
-        <p>We will refund</p>
-        <span class="fw-bold">${{amount?.refundAmount}}</span>
+        <p class="heading">Your course cancelled successfully.</p>
+        <p class="para-1">Allow us 72 hours to process your request. You should receive your refund into your bank account soon.</p>
+        <p class="para-2">Your refund in the amount of</p>
+        <span class="fw-bold amount">{{50 | currency}}</span>
 
         <div class="mt-5">
-          <button mat-flat-button color="primary" class="w-100 p-1 fw-bold" (click)="submitted.emit()">Go to class Dashboard</button>
+          <button mat-flat-button color="primary" class="w-100 p-1 fw-bold text-white" (click)="submitted.emit()">Go to class Dashboard</button>
         </div>
       </div>
     </div>
