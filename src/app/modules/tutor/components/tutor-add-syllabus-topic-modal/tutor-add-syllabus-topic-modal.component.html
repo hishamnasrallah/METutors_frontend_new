@@ -4,7 +4,8 @@
   <ng-template #template>
     <form [formGroup]="form" (ngSubmit)="submitted.emit(form)">
       <button class="btn delete" *ngIf="topic" type="button" (click)="deleted.emit(topic.id)"
-              [disabled]="isDeletingTopic">
+              [disabled]="isDeletingTopic" title="Delete Topic">
+        <img src="assets/svg/delete.svg" alt="" draggable="false" />
         Delete
         <mat-icon class="spinner" *ngIf="isDeletingTopic">autorenew</mat-icon>
       </button>
@@ -29,12 +30,13 @@
                     out of {{ totalClasses }})</span>
                 </label>
               </div>
-              <div class="col-auto col-10 align-middle">
+              <div class="col-auto col-9 align-middle">
                 <mat-slider thumbLabel id="select-class" min="0" [max]="totalClasses" class="w-100 -mt-7"
                             [value]="classes?.value ? classes?.value : 0"
                             (change)="onClassSelect($event)"></mat-slider>
               </div>
-              <div class="col-auto col-2">
+              <div class="col-auto col-3">
+                <span class="selected-classes">Selected Classes</span>
                 <input type="text" class="form-control custom-input input-bordered" placeholder="0" [value]="classes?.value ? classes?.value : 0">
               </div>
 

@@ -3,11 +3,10 @@
     <div class="card-body">
       <ng-container [ngSwitch]="view.loading">
         <ng-container *ngSwitchCase="false">
-          <h1 class="title overflow-hidden">{{ view.data?.course?.courseName }}
-            <button mat-button class="ms-2 status float-end text-decoration-none"
-                    *ngIf="view?.data?.course?.status !== courseStatus.active || view?.data?.course?.status !== courseStatus.inprogress"
-                    [ngClass]="view?.data?.course?.status">{{ statusLabel[view?.data?.course?.status] }}</button>
-            <button mat-button class="float-end fw-bold" (click)="onShowSendFeedbackModal(view.data?.course?.studentId)"
+          <h1 class="title overflow-hidden">{{ view.data?.course?.courseName }}  <span>({{ view.data.course?.courseCode}})</span>
+            <button mat-button class="ms-2 status text-decoration-none" [ngClass]="view?.data?.course?.status">{{ statusLabel[view?.data?.course?.status].long }}</button>
+
+            <button mat-button class="float-end cancel-course text-danger text-decoration-underline" (click)="onShowSendFeedbackModal(view.data?.course?.studentId)"
                     *ngIf="view?.data?.course?.status === courseStatus.active || view?.data?.course?.status === courseStatus.inprogress">
               Cancel Course
             </button>
@@ -25,9 +24,9 @@
               <span>{{ view.data?.remainingClasses }}</span>
             </div>
             <div class="col-md-3 d-flex menu align-items-center">
-              <img src="assets/svg/checkbox-circle-fill.svg" alt="" width="15" height="15" draggable="false">
-              <strong>Completed Classes: </strong>
-              <span>{{ view.data?.completedClasses }}</span>
+              <img src="assets/svg/play-circle-fill.svg" alt="" width="15" height="15" draggable="false">
+              <strong>Total Classes: </strong>
+              <span>{{ view.data?.course?.totalClasses }}</span>
             </div>
           </div>
           <div class="row mt-3">

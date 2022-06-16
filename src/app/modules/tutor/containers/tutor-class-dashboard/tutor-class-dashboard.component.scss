@@ -9,6 +9,15 @@
     .title {
       color: #000;
       font-size: 30px;
+
+      span {
+        color: #696969;
+        font-size: 15px;
+      }
+
+      .cancel-course {
+        font-size: 20px;
+      }
     }
 
     .in-progress {

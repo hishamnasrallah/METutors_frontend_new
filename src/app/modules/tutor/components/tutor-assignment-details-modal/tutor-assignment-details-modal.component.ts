@@ -3,6 +3,7 @@ import { map } from 'rxjs/operators';
 import { combineLatest, Observable } from 'rxjs';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
+import { environment } from '@environment';
 import * as fromCore from '@metutor/core/state';
 import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
 
@@ -16,6 +17,7 @@ export class TutorAssignmentDetailsModalComponent implements OnInit {
 
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
 
+  imageUrl = environment.imageURL;
   isDeletingAssignment$: Observable<boolean>;
   view$: Observable<{ loading: boolean; assignment: any }>;
 

@@ -20,9 +20,9 @@ import { Observable, combineLatest } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 
 import * as fromTutor from '../../state';
-import { WEEK_DAYS } from '@metutor/config';
 import * as fromCore from '@metutor/core/state';
 import * as fromTutorAction from '../../state/actions';
+import { courseStatusLabel, WEEK_DAYS } from '@metutor/config';
 
 @Component({
   selector: 'metutors-tutor-syllabus',
@@ -58,6 +58,7 @@ export class TutorSyllabusComponent implements OnInit {
   openCourse: boolean = false;
 
   form: FormGroup;
+  statusLabel = courseStatusLabel;
   isAddingTopic$: Observable<boolean>;
   showAddTopicModal$: Observable<boolean>;
   isSavingSubjectTitle$: Observable<boolean>;
