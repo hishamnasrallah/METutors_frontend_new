@@ -138,16 +138,16 @@
                   <span class="fw-bold mb-2 d-block">Summary:</span>
                   <div class="row">
                     <div class="col-md-6 mb-2"><span
-                      class="text-secondary">Total classes: </span> {{ view.refund?.totalClasses}}</div>
+                      class="text-secondary">Total Classes: </span> {{ view.refund?.totalClasses}}</div>
                     <div class="col-md-6"><span
                       class="text-secondary">Remaining classes: </span> {{ view.refund?.remainingClasses}}</div>
                   </div>
 
                   <div class="row">
                     <div class="col-md-6"><span
-                      class="text-secondary">Refundable classes: </span> {{ view.refund?.totalRefundableClasses}}</div>
-                    <div class="col-md-6"><span
-                      class="text-secondary">Non Refundable classes: </span> {{ view.refund?.totalNonRefundableClasses}}
+                      class="text-secondary">Refundable Classes: </span> {{ view.refund?.totalRefundableClasses}}</div>
+                    <div class="col-md-6">
+                      <!--<span class="text-secondary">Non Refundable classes: </span> {{ view.refund?.totalNonRefundableClasses}}-->
                     </div>
                   </div>
                   <hr class="text-secondary">
@@ -155,31 +155,29 @@
 
                 <div class="form-group mt-3">
                   <div class="row mb-3">
-                    <div class="col-md-6"><span class="text-secondary">Per hour price </span></div>
-                    <div class="col-md-6 text-right"><span class="text-secondary">${{ view.refund?.perHourPrice }}
-                      *  {{ view.refund?.totalDuration}} = </span> ${{ view.refund?.subtotalRefunds}}</div>
+                    <div class="col-md-6"><span class="text-secondary">Refund Amount per Class</span></div>
+                    <div class="col-md-6 text-right">{{ view.refund?.subtotalRefunds | currency }}</div>
                   </div>
 
                   <div class="row mb-4">
-                    <div class="col-md-6"><span class="text-secondary">Service fee per class </span></div>
-                    <div class="col-md-6 text-right"><span class="text-secondary">${{view.refund?.serviceFee}}
-                      * {{ view.refund?.totalRefundableClasses}} = </span> - ${{ view.refund?.totalServiceFee}}</div>
+                    <div class="col-md-6"><span class="text-secondary">Administrative Service Fee @ 10%</span></div>
+                    <div class="col-md-6 text-right">{{ view.refund?.totalServiceFee | currency }}</div>
                   </div>
 
                   <div class="row">
-                    <div class="col-md-6">Total Refunds</div>
-                    <div class="col-md-6 text-right">${{ view.refund?.totalRefunds}}</div>
+                    <div class="col-md-6">Total Amount for Refund</div>
+                    <div class="col-md-6 text-right">{{ view.refund?.totalRefunds | currency }}</div>
                   </div>
                 </div>
 
                 <div class="form-group mt-2">
-                  <label>Why you want to cancel this course?</label>
+                  <label>Reason for course cancelation</label>
                   <textarea class="form-control custom-input input-bordered" formControlName="reason"
                             id="exampleFormControlTextarea1" rows="5" placeholder="Enter the reason here..."></textarea>
                 </div>
 
                 <div class="form-group mt-2">
-                  <mat-checkbox formControlName="agree">I agree to METutors <a href="" target="_blank">cancel policy</a>
+                  <mat-checkbox formControlName="agree">I agree to METutors <a href="" target="_blank" class="text-decoration-underline">cancel policy</a>
                   </mat-checkbox>
                 </div>
 

@@ -779,6 +779,7 @@ span.status {
   &.canceled,
   &.cancelled,
   &.rejected,
+  &.declined_by_teacher,
   &.cancelled_by_student,
   &.cancelled_by_teacher {
     color: #d34c65;

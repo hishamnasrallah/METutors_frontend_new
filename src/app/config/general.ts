@@ -302,6 +302,10 @@ export const courseStatusLabel = {
     short: 'Re-Assigned',
     long: 'Tutor Re-Assignment by MEtutors',
   },
+  declined_by_teacher: {
+    short: 'Declined',
+    long: 'Declined by Tutor',
+  },
 };
 
 export const testimonialStatus = ['public', 'private'];

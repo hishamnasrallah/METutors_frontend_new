@@ -16,6 +16,7 @@
       <div class="d-flex justify-content-between">
         <h5 class="card-title m-0 h-100">
           {{ classroom?.name }}
+          <span>({{classroom?.courseCode}})</span>
           <button mat-button class="ms-2 me-2 status" [ngClass]="classroom.status"
                   [tooltip]="statusLabel[classroom.status]?.long" placement="bottom">{{ statusLabel[classroom.status]?.short }}
           </button>
@@ -116,7 +117,7 @@
           <div class="row">
             <div class="col-md-12">
               <a [routerLink]="url + classroom?.id" mat-button color="primary" *ngIf="!completeCourse"
-                class="h-100 book-classroom float-end main-button-transparent">
+                class="h-100 book-classroom float-end text-white">
                 Continue
                 <mat-icon>arrow_forward</mat-icon>
               </a>

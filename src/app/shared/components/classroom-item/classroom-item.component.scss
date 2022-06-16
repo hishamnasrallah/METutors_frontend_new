@@ -31,6 +31,11 @@
   .card-title {
     color: #2a2a2a;
     font-size: 22px;
+
+    span {
+      color: #696969;
+      font-size: 15px;
+    }
   }
 
   .review {
@@ -99,9 +104,11 @@
   }
 
   .book-classroom {
+    color: white;
     font-weight: bold;
-    transition: all 0.25s ease-in-out;
     padding: 5px 30px;
+    transition: all 0.25s ease-in-out;
+    background-color: var(--main-color);
   }
 
   .class-btn {
