@@ -419,3 +419,18 @@ export const loadAdminTutorApprovalRequestFailure = createAction(
   '[Admin] Load Admin Tutor Approval Request Failure',
   props<{ error: any }>()
 );
+
+// Load Admin Tutor Schedule
+export const loadAdminTutorSchedule = createAction(
+  '[Admin] Load Admin Tutor Schedule'
+);
+
+export const loadAdminTutorScheduleSuccess = createAction(
+  '[Admin] Load Admin Tutor Schedule Success',
+  props<{ schedule: any }>()
+);
+
+export const loadAdminTutorScheduleFailure = createAction(
+  '[Admin] Load Admin Tutor Schedule Failure',
+  props<{ error: any }>()
+);

@@ -253,4 +253,8 @@ export class AdminService {
       }
     );
   }
+
+  loadAdminTutorSchedule(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}admin/teachers/schedule`);
+  }
 }

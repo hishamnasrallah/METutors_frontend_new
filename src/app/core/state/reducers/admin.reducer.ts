@@ -63,8 +63,13 @@ export interface State {
   bookingPerCourse: any;
   isLoadingBookingPerCourse: boolean;
 
-  //common loading
+  // ommon loading
   isLoadingAdmin: boolean;
+
+
+  // Loading course booking list
+  tutorSchedule: any;
+  isLoadingTutorSchedule: boolean;
 }
 
 export const initialState: State = {
@@ -79,6 +84,7 @@ export const initialState: State = {
   previousTutors: [],
   feedbackOptions: [],
   runningBookings: [],
+  tutorSchedule: null,
   courseBooking: null,
   bookingPerCourse: [],
   studentsFeedback: [],
@@ -99,6 +105,7 @@ export const initialState: State = {
   isLoadingViewFeedback: false,
   isLoadingCourseBooking: false,
   isLoadingBookingDetail: false,
+  isLoadingTutorSchedule: false,
   isLoadingPreviousTutors: false,
   isLoadingStudentProfile: false,
   isLoadingRunningBookings: false,
@@ -666,7 +673,23 @@ export const reducer = createReducer(
       ...state,
       isLoadingAdmin: false,
     })
-  )
+  ),
+
+  on(adminActions.loadAdminTutorSchedule, (state) => ({
+    ...state,
+    isLoadingTutorSchedule: true,
+  })),
+
+  on(adminActions.loadAdminTutorScheduleSuccess, (state, { schedule }) => ({
+    ...state,
+    tutorSchedule: schedule,
+    isLoadingTutorSchedule: false,
+  })),
+
+  on(adminActions.loadAdminTutorScheduleFailure, (state) => ({
+    ...state,
+    isLoadingTutorSchedule: false,
+  }))
 );
 
 export const selectAdminDocuments = (state: State): ITeacherDocument[] =>
@@ -793,6 +816,12 @@ export const selectIsLoadingAdminTestimonials = (state: State): boolean =>
 export const selectIsEditingAdminTestimonialFeedback = (
   state: State
 ): boolean => state.isEditingFeedback;
+
+export const selectAdminTutorSchedule = (state: State): any =>
+  state.tutorSchedule;
+
+export const selectIsLoadingTutorSchedule = (state: State): boolean =>
+  state.isLoadingTutorSchedule;
 
 export const selectFilteredWorkforceCapacity = (
   state: State,

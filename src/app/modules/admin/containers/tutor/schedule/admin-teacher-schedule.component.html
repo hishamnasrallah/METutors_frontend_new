@@ -28,13 +28,31 @@
         <tr>
           <th>Number</th>
           <th>Teacher Name</th>
-          <th>TIN</th>
-          <th>Gender</th>
-          <th>Work Contract</th>
-          <th>Country</th>
-          <th>Level of Education</th>
-          <th>Status</th>
-          <th>Action</th>
+          <th *ngFor="let day of days">
+            <div class="d-flex flex-column date-title">
+              <span>{{ day | date: 'EEEE' }}</span>
+              <strong>{{ day | date: 'd/M/yyyy' }}</strong>
+            </div>
+          </th>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>
+            <div class="d-flex align-items-center">
+              <img src="" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false" meTutorsDefaultAvatar
+                alt="">
+              <span>
+                <bdi>Ahmed Hassan</bdi>
+              </span>
+            </div>
+          </td>
+          <td *ngFor="let day of days">
+            <div class="card-block d-flex flex-column">
+              <span>SIN123</span>
+              <span>BIN123</span>
+              <span>CIN123</span>
+            </div>
+          </td>
         </tr>
       </table>
     </div>

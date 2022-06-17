@@ -1,9 +1,9 @@
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as fromCore from '@metutor/core/state';
+import { ITutor, ITutorFilters } from '@models';
 import { Component, OnInit } from '@angular/core';
 import * as fromAdmin from '@metutor/modules/admin/state';
-import { ITutor, ITutorFilters } from '@models';
 import { TutorStatus, TUTOR_STATUSES_CONST } from '@config';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 

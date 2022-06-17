@@ -725,6 +725,31 @@ export class AdminEffects {
     )
   );
 
+  loadAdminTutorSchedule$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(adminActions.loadAdminTutorSchedule),
+      mergeMap((action) =>
+        this._adminService.loadAdminTutorSchedule().pipe(
+          map(
+            (response) =>
+              adminActions.loadAdminTutorScheduleSuccess({
+                schedule: camelcaseKeys(response?.teachers, {
+                  deep: true,
+                }),
+              }),
+            catchError((error) =>
+              of(
+                adminActions.loadAdminTutorScheduleFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          )
+        )
+      )
+    )
+  );
+
   successMessages$ = createEffect(
     () =>
       this._actions$.pipe(

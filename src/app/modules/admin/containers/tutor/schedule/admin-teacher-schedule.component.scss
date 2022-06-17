@@ -30,6 +30,24 @@
     th {
       color: #696969;
       font-size: 14px;
+      background-color: #F8F8F8;
+    }
+
+    .date-title {
+      span {
+        color: #949494;
+      }
+
+      strong {
+        color: #2A2A2A;
+        font-size: 12px;
+      }
+    }
+
+    .card-block {
+      border: 0.5px solid #BDBDBD;
+      border-radius: 4px;
+      color: #3BB3C1;
     }
   }
 }

@@ -1436,6 +1436,16 @@ export const selectAdminTutorApprovalRequest = createSelector(
   fromAdminReducer.selectAdminTutorApprovalRequest
 );
 
+export const selectAdminTutorSchedule = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectAdminTutorSchedule
+);
+
+export const selectIsLoadingTutorSchedule = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectIsLoadingTutorSchedule
+);
+
 /**
  *  FINANCE SELECTORS
  */
