@@ -254,7 +254,21 @@ export class AdminService {
     );
   }
 
-  loadAdminTutorSchedule(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}admin/teachers/schedule`);
+  loadAdminTutorSchedule(startingDate?: string): Observable<any> {
+    const startingData = startingDate ? `?start_date=${startingDate}` : '';
+
+    return this.http
+      .get<any>(`${this.baseUrl}admin/teachers/schedule${startingData}`)
+      .pipe(
+        map((response) => ({
+          tutors: response?.teachers.map(
+            (tutor: any) => new ITutor(false, tutor)
+          ),
+          weekdays: response.weekdays.map((day: any) => ({
+            day: Object.keys(day)[0],
+            date: Object.values(day)[0],
+          })),
+        }))
+      );
   }
 }

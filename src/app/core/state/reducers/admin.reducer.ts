@@ -5,6 +5,7 @@ import {
   ICourse,
   ISubject,
   ICapacity,
+  ISchedule,
   ITeacherDocument,
 } from '@models';
 
@@ -66,9 +67,8 @@ export interface State {
   // ommon loading
   isLoadingAdmin: boolean;
 
-
   // Loading course booking list
-  tutorSchedule: any;
+  tutorSchedule: ISchedule | null;
   isLoadingTutorSchedule: boolean;
 }
 
@@ -817,7 +817,7 @@ export const selectIsEditingAdminTestimonialFeedback = (
   state: State
 ): boolean => state.isEditingFeedback;
 
-export const selectAdminTutorSchedule = (state: State): any =>
+export const selectAdminTutorSchedule = (state: State): ISchedule | null =>
   state.tutorSchedule;
 
 export const selectIsLoadingTutorSchedule = (state: State): boolean =>

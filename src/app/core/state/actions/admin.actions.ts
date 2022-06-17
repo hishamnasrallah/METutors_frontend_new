@@ -422,7 +422,8 @@ export const loadAdminTutorApprovalRequestFailure = createAction(
 
 // Load Admin Tutor Schedule
 export const loadAdminTutorSchedule = createAction(
-  '[Admin] Load Admin Tutor Schedule'
+  '[Admin] Load Admin Tutor Schedule',
+  props<{ startingDate?: string }>()
 );
 
 export const loadAdminTutorScheduleSuccess = createAction(

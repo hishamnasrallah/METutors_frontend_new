@@ -12,6 +12,7 @@ export * from './review.model';
 export * from './student.model';
 export * from './subject.model';
 export * from './lookups.model';
+export * from './schedule.model';
 export * from './syllabus.model';
 export * from './capacity.model';
 export * from './category.model';

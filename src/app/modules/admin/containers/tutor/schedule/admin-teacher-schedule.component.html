@@ -1,7 +1,15 @@
 <div class="tutor-schedule">
   <div class="row filters">
-    <div class="col-md-6 d-flex align-items-center">
+    <div class="col-md-3 d-flex align-items-center">
       <h1>Teachers Schedule</h1>
+    </div>
+    <div class="col-md-3">
+      <mat-form-field appearance="outline" class="w-100">
+        <input matInput [matDatepicker]="datetPicker" [placeholder]="'Starting Date'" (focus)="datetPicker.open()"
+          (dateChange)="onChangeDateDay($event)">
+        <mat-datepicker-toggle matSuffix [for]=" datetPicker"></mat-datepicker-toggle>
+        <mat-datepicker #datetPicker></mat-datepicker>
+      </mat-form-field>
     </div>
     <div class="col-md-6">
       <div class="row">
@@ -22,39 +30,54 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-md-12">
-      <table class="table my-table default-title mt-4">
+  <div class="row" [ngSwitch]="isLoading$ | async">
+    <div class="col-md-12" *ngSwitchCase="false">
+      <table class="table my-table default-title mt-4" *ngLet="(schedule$ | async) as schedule">
         <tr>
           <th>Number</th>
           <th>Teacher Name</th>
-          <th *ngFor="let day of days">
+          <th *ngFor="let weekday of schedule.weekdays" [class.today]="checkIsToday(weekday.date)">
             <div class="d-flex flex-column date-title">
-              <span>{{ day | date: 'EEEE' }}</span>
-              <strong>{{ day | date: 'd/M/yyyy' }}</strong>
+              <span>{{ weekday.day }}</span>
+              <strong>{{ weekday.date }}</strong>
             </div>
           </th>
         </tr>
-        <tr>
-          <td>1</td>
+        <tr *ngFor="let tutor of schedule.tutors; let i = index">
+          <td>{{ i + 1 }}</td>
           <td>
-            <div class="d-flex align-items-center">
-              <img src="" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false" meTutorsDefaultAvatar
-                alt="">
-              <span>
-                <bdi>Ahmed Hassan</bdi>
+            <div class="d-flex align-items-center tutor-info p-0">
+              <img [src]="tutor.avatar" width="30" height="30" class="rounded-circle p-0 me-2" draggable="false"
+                meTutorsDefaultAvatar alt="">
+              <span class="d-flex flex-column">
+                <bdi>{{ tutor?.name }}</bdi>
+                <span>ID: <strong class="cursor-pointer"
+                    [routerLink]="['/admin', 'tutor', 'profile', tutor?.id]">{{ tutor?.idNumber }}</strong></span>
               </span>
             </div>
           </td>
-          <td *ngFor="let day of days">
-            <div class="card-block d-flex flex-column">
-              <span>SIN123</span>
-              <span>BIN123</span>
-              <span>CIN123</span>
+          <td *ngFor="let weekday of schedule.weekdays">
+            <div class="card-block d-flex flex-column" *ngFor="let card of tutor.classes[weekday.day | lowercase]">
+              <span class="sin cursor-pointer" *ngIf="card?.student?.id"
+                [routerLink]="['/admin','student', 'profile', card?.student?.id]">(SIN{{ card?.student?.id }})</span>
+              <span class="bin cursor-pointer" *ngIf="card?.courseId"
+                [routerLink]="['/admin','tutor', card?.teacherId, 'booking-detail', card?.courseId]">(BIN{{ card?.courseId }})</span>
+              <span class="cin cursor-pointer" *ngIf="card?.course?.subjectId"
+                [routerLink]="'/admin/management/subject'">(CIN{{ card?.course?.subjectId }})</span>
+
+              <strong class="mt-2 d-block">{{ card?.startTime }} to {{ card?.endTime }}</strong>
             </div>
           </td>
         </tr>
+        <tr *ngIf="!schedule.tutors || !schedule.tutors.length">
+          <td colspan="9" class="text-center">No records found</td>
+        </tr>
       </table>
+    </div>
+    <div class="col-md-12" *ngSwitchCase="true">
+      <div class="mt-4">
+        <metutors-grid-placeholder></metutors-grid-placeholder>
+      </div>
     </div>
   </div>
 </div>

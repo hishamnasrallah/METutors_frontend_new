@@ -30,7 +30,7 @@
   <tr *ngFor="let reassignment of reassignments; let i = index">
     <td>{{ i + 1 }}</td>
     <td><a
-      [routerLink]="['/admin','student',reassignment?.student?.id, 'booking-detail', reassignment?.id]">BIN{{ reassignment?.id }}</a>
+      [routerLink]="['/admin','student', reassignment?.student?.id, 'booking-detail', reassignment?.id]">BIN{{ reassignment?.id }}</a>
     </td>
     <td>{{ reassignment?.program?.code }}</td>
     <td *ngIf="isNew">TIN</td>

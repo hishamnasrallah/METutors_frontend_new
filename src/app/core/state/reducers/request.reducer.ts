@@ -237,7 +237,7 @@ export const reducer = createReducer(
         }
       });
     }
-    console.log(request);
+
     return {
       ...state,
       isChangeCourseRequest: false,

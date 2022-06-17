@@ -34,7 +34,6 @@ export class HomeComponent implements OnInit {
   showViewSubjectDetailsModal$: Observable<boolean>;
 
   subjectData: any;
-  teachers?: ITutor[];
   testmonials?: any[];
   academicStatistics?: IStatistics[];
 
@@ -74,60 +73,6 @@ export class HomeComponent implements OnInit {
         icon: 'assets/svg/headset.svg',
         value: '300',
         type: 'Tickets issued',
-      },
-    ];
-
-    this.teachers = [
-      {
-        id: 1,
-        avatar: '',
-        status: 'Online',
-        name: 'Anna Mendez',
-        roleName: 'University of canada',
-        averageRating: 4.5,
-        totalFeedbacks: 10,
-        country: 'Egypt',
-        studentsTeaching: 100,
-        bio: "Hello everyone! My name is Charlene and I'm from China.",
-        subjects: [
-          { id: 1, name: 'Geographics' },
-          { id: 2, name: 'Math' },
-          { id: 3, name: 'Science' },
-        ],
-      },
-      {
-        id: 2,
-        avatar: '',
-        status: 'Online',
-        name: 'Anna Mendez',
-        roleName: 'University of canada',
-        averageRating: 4.5,
-        totalFeedbacks: 10,
-        country: 'Egypt',
-        studentsTeaching: 100,
-        bio: "Hello everyone! My name is Charlene and I'm from China.",
-        subjects: [
-          { id: 1, name: 'Geographics' },
-          { id: 2, name: 'Math' },
-          { id: 3, name: 'Science' },
-        ],
-      },
-      {
-        id: 3,
-        avatar: '',
-        status: 'Online',
-        name: 'Anna Mendez',
-        roleName: 'University of canada',
-        averageRating: 4.5,
-        totalFeedbacks: 10,
-        country: 'Egypt',
-        studentsTeaching: 100,
-        bio: "Hello everyone! My name is Charlene and I'm from China.",
-        subjects: [
-          { id: 1, name: 'Geographics' },
-          { id: 2, name: 'Math' },
-          { id: 3, name: 'Science' },
-        ],
       },
     ];
 

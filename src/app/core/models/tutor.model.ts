@@ -1,3 +1,4 @@
+import camelcaseKeys from 'camelcase-keys';
 import { generalConstants, GRADES, InterviewStatus } from 'src/app/config';
 import { environment } from 'src/environments/environment';
 import {
@@ -58,6 +59,7 @@ export class ITutor {
   bookings?: number;
   amount?: number;
   programs?: IProgram[];
+  classes: any;
 
   constructor(createDefault = false, tutor: any = null) {
     if (createDefault) {
@@ -107,6 +109,7 @@ export class ITutor {
       this.bookings = 0;
       this.amount = 0;
       this.programs = [];
+      this.classes = {};
     }
 
     if (tutor) {
@@ -186,6 +189,9 @@ export class ITutor {
       this.bookings = tutor?.bookings;
       this.amount = tutor?.amount;
       this.programs = tutor?.programs || [];
+      this.classes = camelcaseKeys(tutor?.scheduled_classes, {
+        deep: true,
+      });
     }
   }
 }

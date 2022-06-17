@@ -729,13 +729,11 @@ export class AdminEffects {
     this._actions$.pipe(
       ofType(adminActions.loadAdminTutorSchedule),
       mergeMap((action) =>
-        this._adminService.loadAdminTutorSchedule().pipe(
+        this._adminService.loadAdminTutorSchedule(action?.startingDate).pipe(
           map(
             (response) =>
               adminActions.loadAdminTutorScheduleSuccess({
-                schedule: camelcaseKeys(response?.teachers, {
-                  deep: true,
-                }),
+                schedule: response,
               }),
             catchError((error) =>
               of(
