@@ -77,7 +77,7 @@ export class TutorRescheduleClassModalComponent implements OnInit {
       end_time: [null, Validators.required],
       start_time: [null, Validators.required],
       start_date: [null, Validators.required],
-      class_type: [null, Validators.required],
+      class_type: [null],
     });
   }
 }

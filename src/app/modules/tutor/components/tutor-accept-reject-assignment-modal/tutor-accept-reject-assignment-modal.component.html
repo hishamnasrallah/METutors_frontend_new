@@ -12,7 +12,7 @@
                           formControlName="review"></textarea>
               </div>
               <div class="col-auto col-10 align-middle">
-                <label for="rating" class="form-label">Rating</label>
+                <label for="rating" class="form-label fw-bold">Rating</label>
                 <div class="col-md-10 d-flex ">
                   <mat-slider thumbLabel id="rating" min="0" [max]="10" class="w-100 -mt-16"
                               [value]="rating?.value ? rating?.value : 0"
@@ -22,7 +22,7 @@
               </div>
 
               <div class="form-group">
-                <label>File</label>
+                <label class="fw-bold">File</label>
                 <div class="d-flex flex-column">
                   <div>
                     <button mat-button type="button" class="main-button mb-4" (click)="filePicker.click()">

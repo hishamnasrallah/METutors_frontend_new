@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Component, OnInit } from '@angular/core';
 
+import { environment } from '@environment';
 import * as fromCore from '@metutor/core/state';
 import * as fromTutor from '@metutor/modules/tutor/state';
 import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
@@ -52,6 +53,7 @@ export class TutorAssignmentComponent implements OnInit {
   openBlock: boolean;
   selectedBlock: null;
   activeAssignment = true;
+  imageUrl = environment.imageURL;
 
   constructor(private _store: Store<any>) {}
 
@@ -96,10 +98,14 @@ export class TutorAssignmentComponent implements OnInit {
     );
   }
 
-  openViewStudentAssignmentModal(id: number, userId: number): void {
-    this._store.dispatch(
-      fromTutorAction.openTutorViewStudentAssignmentModal({ id, userId })
-    );
+  openViewStudentAssignmentModal(id: number, assignee: any): void {
+    if (assignee.status === 'submitted' || assignee.status === 'completed') {
+      const userId = assignee?.userId;
+
+      this._store.dispatch(
+        fromTutorAction.openTutorViewStudentAssignmentModal({ id, userId })
+      );
+    }
   }
 
   filterAssignments(status: string): void {

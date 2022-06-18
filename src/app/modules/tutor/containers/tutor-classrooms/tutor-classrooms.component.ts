@@ -181,8 +181,6 @@ export class TutorClassroomsComponent implements OnInit {
         ...course,
         type: 1,
         listDays,
-        endTime: '',
-        startTime: '',
         name: course.courseName,
         hours: course.totalHours,
         enrolledStudents: [course.student],

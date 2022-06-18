@@ -8,13 +8,13 @@
           {{ heading }}
           <button mat-button class="btn action-icon p-0 ms-3" tabindex="-1" type="button" *ngIf="resourceId?.value ? true : false"
                   (click)="deleted.emit(resourceId?.value)" [disabled]="(isDeletingResource$ | async)!">
-            <mat-icon class="delete">delete</mat-icon>
+            <img src="assets/svg/delete.svg" alt="" draggable="false" />
             Delete
             <mat-icon class="spinner" *ngIf="(isDeletingResource$ | async)!">autorenew</mat-icon>
           </button>
         </div>
       </h2>
-  
+
       <button class="text-secondary" (click)="closeModal.emit()" mat-icon-button type="button">
         <mat-icon>close</mat-icon>
       </button>
@@ -35,13 +35,13 @@
         <form class="row add-class-modal" [formGroup]="form" (ngSubmit)="onSubmit()" *ngSwitchCase="false">
           <div class="col-12">
             <div class="form-group">
-              <label for="description">Description<span class="text-danger">*</span></label>
+              <label for="description">Description</label>
               <textarea class="form-control custom-input input-bordered" formControlName="description" id="description"
                         rows="4" placeholder="Enter description here..."></textarea>
             </div>
 
             <div class="form-group">
-              <label>URLs<span class="text-danger">*</span></label>
+              <label>URLs</label>
               <ng-container *ngFor="let url of selectedURLs; let i = index">
                 <div class="url-info d-flex flex-column my-2">
                   <span>{{ url.title }}</span>
@@ -65,7 +65,7 @@
             </div>
 
             <div class="form-group">
-              <label>Files<span class="text-danger">*</span></label>
+              <label>Files</label>
               <div class="d-flex flex-column">
                 <div>
                   <button mat-button type="button" class="main-button" (click)="filePicker.click()">
@@ -107,7 +107,7 @@
             <div class="row mt-2">
               <div class="col-md-12 overflow-hidden">
                 <metutors-submit-button [form]="form" [isSubmitting]="submitting"
-                                        [extraClasses]="'float-end py-1 px-5'">
+                                        [extraClasses]="'float-end py-1 px-5 fw-bold'">
                   {{ this.resourceId?.value ? 'Edit' : 'Add' }}
                 </metutors-submit-button>
               </div>

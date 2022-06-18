@@ -3,6 +3,7 @@ import { map } from 'rxjs/operators';
 import { combineLatest, Observable } from 'rxjs';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
+import { environment } from '@environment';
 import * as fromCore from '@metutor/core/state';
 import * as fromTutorActions from '@metutor/modules/tutor/state/actions';
 
@@ -17,6 +18,8 @@ export class TutorViewSubmittedAssignmentModalComponent implements OnInit {
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
 
   view$: Observable<{ loading: boolean; assignment: any }>;
+
+  imageUrl = environment.imageURL;
 
   constructor(private _store: Store<any>) {}
 
@@ -36,7 +39,7 @@ export class TutorViewSubmittedAssignmentModalComponent implements OnInit {
 
     params.heading = isReject
       ? 'Rejection Reason'
-      : 'Feedback On Students Solution';
+      : "Feedback on Student's Solution:";
 
     this._store.dispatch(fromTutorActions.openAcceptRejectAssignmentModal());
     this._store.dispatch(fromTutorActions.setTutorStateParams({ params }));

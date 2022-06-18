@@ -3,8 +3,8 @@ import { map } from 'rxjs/operators';
 import { Observable, combineLatest } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 
-import { WEEK_DAYS } from '@config';
 import * as fromCore from '@metutor/core/state';
+import { courseStatusLabel, WEEK_DAYS } from '@config';
 import * as fromTutor from '@metutor/modules/tutor/state';
 import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
 
@@ -17,6 +17,7 @@ export class TutorResourcesComponent implements OnInit {
   classId: string;
   heading = 'Add Resources';
 
+  statusLabel = courseStatusLabel;
   isSavingResource$: Observable<boolean>;
   showAddClassResourceModal$: Observable<boolean>;
   view$: Observable<{ loading: boolean; resources: any }>;

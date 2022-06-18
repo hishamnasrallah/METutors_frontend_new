@@ -8,7 +8,7 @@
           <ng-container *ngFor="let assignment of view?.assignment?.assignment">
             <label>Submitted By</label>
             <div class="d-flex align-items-center mt-1 mb-4 title-info">
-              <img [src]="assignment?.user?.avatar" meTutorsDefaultAvatar alt="" class="rounded-circle" width="50"
+              <img [src]="imageUrl+assignment?.user?.avatar" meTutorsDefaultAvatar alt="" class="rounded-circle" width="50"
                    height="50">
               <h3 class="ms-2 mb-0">{{ assignment?.user?.firstName }} {{ assignment?.user?.lastName }}</h3>
 

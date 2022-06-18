@@ -55,7 +55,7 @@
             <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
             <strong>Time: </strong>
             <span>
-              {{ classroom?.startTime | date: 'h a' }} : {{ classroom?.endTime | date: 'h a' }}
+              {{ classroom?.startTime }} : {{ classroom?.endTime}}
             </span>
           </ng-container>
         </div>
@@ -85,16 +85,16 @@
           <div class="row" *ngIf="classroom?.enrolledStudents && classroom?.enrolledStudents?.length && !isStudent">
             <div class="overflow-visible logos">
               <div class="fw-bold">Enrolled Students</div>
-              <img *ngFor="let student of classroom?.enrolledStudents" meTutorsDefaultAvatar [src]="student?.avatar"
+              <img *ngFor="let student of classroom?.enrolledStudents" meTutorsDefaultAvatar [src]="imageURL+student?.avatar"
                 alt="" draggable="false" class="d-inline-block rounded-circle">
             </div>
           </div>
 
           <div class="row" *ngIf="classroom?.teacher && isStudent">
             <div class="overflow-visible logos">
-              <img meTutorsDefaultAvatar [src]="classroom?.teacher?.avatar"
+              <img meTutorsDefaultAvatar [src]="imageURL+classroom?.teacher?.avatar"
                    alt="" draggable="false" class="d-inline-block rounded-circle">
-              {{ classroom?.teacher?.firstName }} {{ classroom?.teacher?.lastName }}
+               <span class="m-lg-1"> {{ classroom?.teacher?.firstName }} {{ classroom?.teacher?.lastName }}</span>
             </div>
           </div>
         </div>
