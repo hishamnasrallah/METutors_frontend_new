@@ -113,6 +113,19 @@
 
   h1 {
     font-size: 30px;
+    padding: 20px 0;
+  }
+
+  .country {
+    background-repeat: no-repeat;
+    background-position: center center;
+
+    input {
+      border: 1px solid #E0E0E0;
+      border-radius: 13px;
+      width: 35%;
+      margin: 10px auto 35px;
+    }
   }
 
   h3 {

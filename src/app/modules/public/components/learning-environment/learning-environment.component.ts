@@ -97,6 +97,7 @@ export class LearningEnvironmentComponent implements OnInit {
 export class ChooseCountryDialog {
   isLoading: boolean;
   countries: ICountry[];
+  tempCountries: ICountry[];
 
   constructor(
     public dialogRef: MatDialogRef<ChooseCountryDialog>,
@@ -105,11 +106,19 @@ export class ChooseCountryDialog {
     if (data) {
       this.countries = data.countries;
       this.isLoading = data.isLoading;
+      this.tempCountries = data.countries;
     }
   }
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  onChangeCountry(event: any): void {
+    console.log();
+    this.tempCountries = this.countries.filter((country) =>
+      country.name?.toLowerCase()?.includes(event.target.value)
+    );
   }
 
   onSelectCountry(countryId: number): void {

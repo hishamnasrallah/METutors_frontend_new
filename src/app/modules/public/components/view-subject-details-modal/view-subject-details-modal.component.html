@@ -56,7 +56,7 @@
           </div>
           <div class="col-8">
             <h2>
-              {{ teacher?.name }}
+              <a [routerLink]="'/profile/tutor/' + teacher?.id" (click)="closeModal.emit()">{{ teacher?.name }}</a>
               <!-- <span class="text-uppercase pro">Pro</span> -->
               <!-- <span class="text-uppercase verified">Verified</span> -->
             </h2>
