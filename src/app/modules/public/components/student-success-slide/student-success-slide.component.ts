@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'metutors-student-success-slide',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./student-success-slide.component.scss'],
 })
 export class StudentSuccessSlideComponent implements OnInit {
+  @Input() token: string;
+
   constructor() {}
 
   ngOnInit(): void {}

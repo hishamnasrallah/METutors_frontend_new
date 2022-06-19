@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import * as fromCore from '@metutor/core/state';
-import { IUser } from '@metutor/core/models';
+import { Store } from '@ngrx/store';
 import { UserRole } from '@metutor/config';
+import { IUser } from '@metutor/core/models';
+import * as fromCore from '@metutor/core/state';
+import { Component, OnInit } from '@angular/core';
 import { ViewportScroller } from '@angular/common';
 
 @Component({

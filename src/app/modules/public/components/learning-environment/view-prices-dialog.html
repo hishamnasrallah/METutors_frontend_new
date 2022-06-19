@@ -34,14 +34,14 @@
             <thead>
               <tr>
                 <th scope="col">Subject Name</th>
-                <th scope="col">Price</th>
+                <th scope="col">Price Per Hour</th>
               </tr>
             </thead>
             <tbody>
               <ng-container *ngFor="let subject of subjects">
                 <tr *ngIf="!fieldId || subject.fieldId === +fieldId">
                   <td scope="row">{{ subject?.name }}</td>
-                  <td>$<strong>{{ subject?.pricePerHour }}</strong>/hr</td>
+                  <td><strong>${{ subject?.pricePerHour }}</strong></td>
                 </tr>
               </ng-container>
             </tbody>

@@ -9,7 +9,7 @@
         </h1>
         <p>MEtutors is a newly formed educational organization.
           The founder and all of MEtutors</p>
-        <button mat-flat-button color="primary">Become A Tutor</button>
+        <button mat-flat-button color="primary" routerLink="/signin" *ngIf="!token">Become a Tutor</button>
       </div>
     </div>
   </div>

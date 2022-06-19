@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'metutors-learning-made-easy',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./learning-made-easy.component.scss'],
 })
 export class LearningMadeEasyComponent implements OnInit {
+  @Input() token: string;
+
   constructor() {}
 
   ngOnInit(): void {}
