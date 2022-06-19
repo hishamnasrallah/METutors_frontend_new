@@ -232,9 +232,7 @@ export class AdminService {
   loadCancelledBookings(): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}admin/cancelled-courses`).pipe(
       map((response) => ({
-        courses: response?.cancelled_courses.map(
-          (course: any) => new ICourse(false, course)
-        ),
+        courses: response?.cancelled_courses,
         bookingsCounts: {
           cancelledCourses: response?.total,
           cancelledByTeacher: response?.by_teachers,

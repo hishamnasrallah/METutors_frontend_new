@@ -287,7 +287,7 @@ export const courseStatusLabel = {
     long: 'Pending Tutor Approval',
   },
   payment_pending: {
-    short: 'Payment Pending',
+    short: 'Payment',
     long: 'Payment Pending',
   },
   cancelled_by_teacher: {

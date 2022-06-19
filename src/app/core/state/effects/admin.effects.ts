@@ -506,7 +506,9 @@ export class AdminEffects {
             map(
               (response) =>
                 adminActions.loadCancelledBookingsSuccess({
-                  cancelledBookings: response.courses,
+                  cancelledBookings: camelcaseKeys(response.courses, {
+                    deep: true,
+                  }),
                   bookingsCounts: response.bookingsCounts,
                 }),
               catchError((error) =>

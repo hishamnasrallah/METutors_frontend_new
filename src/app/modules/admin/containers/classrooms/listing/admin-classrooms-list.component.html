@@ -149,41 +149,35 @@
                   <td>{{ i + 1 }}</td>
                   <td>{{ bookings?.courseCode }}</td>
                   <td>
-                    <div class="d-flex align-items-center">
-                      <img [src]="bookings?.student?.avatar" width="25" height="25" class="rounded-circle p-0 me-2"
-                        draggable="false" meTutorsDefaultAvatar alt="">
-                      <span>
-                        <bdi>{{ bookings?.student?.name }}</bdi>
-                      </span>
-                    </div>
+                    <metutors-user-avatar [avatar]="bookings?.student?.avatar" [type]="'small'"
+                                          [name]="bookings?.student?.name"
+                                          [routerLink]="['/admin', 'student', 'profile', bookings?.student?.id]"
+                                          class="d-block">
+                    </metutors-user-avatar>
                   </td>
                   <td>
-                    <div class="d-flex align-items-center">
-                      <img [src]="bookings?.tutor?.avatar" width="25" height="25" class="rounded-circle p-0 me-2"
-                        draggable="false" meTutorsDefaultAvatar alt="">
-                      <span>
-                        <bdi>{{ bookings?.tutor?.name }}</bdi>
-                      </span>
-                    </div>
+                    <metutors-user-avatar [avatar]="bookings?.tutor?.avatar" [type]="'small'"
+                                          [name]=" bookings?.tutor?.name "
+                                          [routerLink]="['/admin', 'tutor', 'profile', bookings?.tutor?.id]"
+                                          class="d-block">
+                    </metutors-user-avatar>
                   </td>
                   <td class="text-capitalize">{{ bookings?.totalClasses }}</td>
                   <td class="text-capitalize tutor-date">
                     <div>
-                      <span>From</span> {{ bookings?.startDate }}
+                      <span>From</span> {{ bookings?.startDate | date }}
                     </div>
                     <div>
-                      <span>To</span> {{ bookings?.endDate }}
+                      <span>To</span> {{ bookings?.endDate | date}}
                     </div>
                   </td>
-                  <td>{{ bookings?.program?.name }}</td>
+                  <td>{{ bookings?.program?.code }}</td>
                   <td>{{ bookings?.courseCode }}</td>
                   <td>{{ bookings?.courseName }}</td>
                   <td>
-                    <div class="change-status position-relative d-flex">
-                      <button class="status text-capitalize" mat-button [ngClass]="bookings?.status" [tooltip]="statusLabel[bookings?.status].long">
-                        {{ statusLabel[bookings?.status].short }}
-                      </button>
-                    </div>
+                    <button class="status text-capitalize" mat-button [ngClass]="bookings?.status" [tooltip]="statusLabel[bookings?.status].long">
+                      {{ statusLabel[bookings?.status].short }}
+                    </button>
                   </td>
                   <td>
                     <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0">
@@ -250,13 +244,13 @@
                     <span>To</span> {{ bookings?.endDate }}
                   </div>
                 </td>
-                <td>{{ bookings?.program?.name }}</td>
+                <td>{{ bookings?.program?.code }}</td>
                 <td>{{ bookings?.courseCode }}</td>
                 <td>{{ bookings?.courseName }}</td>
                 <td>
                   <div class="change-status position-relative d-flex">
-                    <button class="status" mat-button [ngClass]="bookings?.status">
-                      {{ statusLabel[bookings?.status]}}
+                    <button class="status" mat-button [ngClass]="bookings?.status" [tooltip]="statusLabel[bookings?.status].long">
+                      {{ statusLabel[bookings?.status].short}}
                     </button>
                   </div>
                 </td>
@@ -324,13 +318,13 @@
                     <span>To</span> {{ bookings?.endDate }}
                   </div>
                 </td>
-                <td>{{ bookings?.program?.name }}</td>
+                <td>{{ bookings?.program?.code }}</td>
                 <td>{{ bookings?.courseCode }}</td>
                 <td>{{ bookings?.courseName }}</td>
                 <td>
                   <div class="change-status position-relative d-flex">
-                    <button class="status" mat-button [ngClass]="bookings?.status">
-                      {{ statusLabel[bookings?.status]}}
+                    <button class="status" mat-button [ngClass]="bookings?.status" [tooltip]="statusLabel[bookings?.status].long">
+                      {{ statusLabel[bookings?.status].short}}
                     </button>
                   </div>
                 </td>
