@@ -206,7 +206,7 @@
 </metutors-tutor-reject-course-modal>
 
 <metutors-tutor-feedback-modal *ngIf="(showSendFeedbackModal$ | async)" [heading]="heading"
-                               [messageLabel]="messageLabel" [tabLabel]="tabLabel"
-                               [showModal]="(showSendFeedbackModal$ | async)!" [isPlatform]="true"
+                               [messageLabel]="messageLabel" [tabLabel]="tabLabel" [subHeading]="subHeading"
+                               [showModal]="(showSendFeedbackModal$ | async)!" [isPlatform]="true" [buttonLabel]="'Send Feedback'"
                                (closeModal)="onCloseSendFeedbackModal()" (submitFeedback)="onSubmitFeedback($event)">
 </metutors-tutor-feedback-modal>

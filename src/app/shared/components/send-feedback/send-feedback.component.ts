@@ -8,6 +8,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class SendFeedbackComponent implements OnInit {
   @Input() form: FormGroup;
+  @Input() buttonLabel: string;
   @Input() messageLabel: string;
   @Input() feedbackOptions: any;
   @Input() isSubmitting: boolean;

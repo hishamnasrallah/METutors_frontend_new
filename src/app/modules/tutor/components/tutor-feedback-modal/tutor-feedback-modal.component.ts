@@ -22,6 +22,7 @@ import * as fromCore from '@metutor/core/state';
 export class TutorFeedbackModalComponent implements OnInit {
   @Input() showModal = false;
   @Input() isPlatform = false;
+  @Input() buttonLabel = 'Next';
   @Input() heading = 'Write a Feedback';
   @Input() tabLabel = 'Student Feedback';
   @Input() messageLabel = 'Write a Feedback';
