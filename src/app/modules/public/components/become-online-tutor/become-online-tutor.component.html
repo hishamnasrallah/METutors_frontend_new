@@ -9,7 +9,7 @@
             We partner with instructors who believe in the power of education and want to help drive the
             workforce's skills in the jobs of the future.
           </p>
-          <a mat-button routerLink="/signup">Sign up</a>
+          <a mat-button routerLink="/signup" *ngIf="!token">Sign up</a>
         </div>
       </div>
     </div>

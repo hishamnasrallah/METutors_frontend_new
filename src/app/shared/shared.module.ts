@@ -98,7 +98,6 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
     FormsModule,
     CommonModule,
     VgCoreModule,
-    RatingModule,
     RouterModule,
     MatIconModule,
     MatTabsModule,
@@ -111,6 +110,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
     VgOverlayPlayModule,
     ReactiveFormsModule,
     MatProgressBarModule,
+    RatingModule.forRoot(),
     BsDropdownModule.forRoot(),
   ],
   exports: [

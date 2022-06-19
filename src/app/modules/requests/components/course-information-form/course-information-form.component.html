@@ -9,13 +9,24 @@
       </div>
       <div class="col-md-8">
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-6">
             <h3>Program Name</h3>
             <mat-form-field appearance="outline" class="w-100">
               <mat-select formControlName="courseProgram" [placeholder]="'Choose Program'"
                 (selectionChange)="onChangeCourseProgram()">
                 <mat-option [value]="program?.id" *ngFor="let program of programs">
                   {{ program?.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <h3>Field of Study</h3>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-select formControlName="courseField" [placeholder]="'Choose Field of Study'"
+                [disabled]="!fields || !fields?.length" (selectionChange)="onChangeCourseField()">
+                <mat-option [value]="field?.id" *ngFor="let field of fields">
+                  {{ field?.name }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -40,19 +51,6 @@
                 (selectionChange)="onChangeCourseProgram()">
                 <mat-option [value]="i + 1" *ngFor="let grade of grades; let i = index">
                   {{ grade }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="row mt-4">
-          <div class="col-md-12">
-            <h3>Field of Study</h3>
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="courseField" [placeholder]="'Choose Field of Study'"
-                [disabled]="!fields || !fields?.length" (selectionChange)="onChangeCourseField()">
-                <mat-option [value]="field?.id" *ngFor="let field of fields">
-                  {{ field?.name }}
                 </mat-option>
               </mat-select>
             </mat-form-field>

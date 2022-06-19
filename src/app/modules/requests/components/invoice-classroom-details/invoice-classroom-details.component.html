@@ -70,18 +70,15 @@
         </li>
       </ul>
 
-      <ng-container *ngIf="classroom?.tutor">
-        <h3 class="details">Classroom Tutor</h3>
-        <div class="row info">
-          <div class="col-md-2 d-flex align-items-center">
-            <img [src]="classroom?.tutor?.avatar" meTutorsDefaultAvatar alt="" draggable="false">
-          </div>
-          <div class="col-md-10 d-flex justify-content-center flex-column">
-            <h2><bdi>{{ classroom?.tutor?.name }}</bdi></h2>
-            <h3>{{ classroom?.tutor?.bio }}</h3>
-          </div>
+      <div class="row info" *ngIf="classroom?.tutor">
+        <div class="col-md-2 d-flex align-items-center">
+          <img [src]="classroom?.tutor?.avatar" meTutorsDefaultAvatar alt="" draggable="false">
         </div>
-      </ng-container>
+        <div class="col-md-10 d-flex justify-content-center flex-column">
+          <h2><bdi>{{ classroom?.tutor?.name }}</bdi></h2>
+          <h3>{{ classroom?.tutor?.bio }}</h3>
+        </div>
+      </div>
     </div>
   </div>
 </div>
