@@ -1,6 +1,9 @@
-<div class="program-list" *ngLet="(programs$ | async) as programs">
+<div class="program-list">
   <div class="row">
     <div class="col-md-12">
+      <mat-tab-group mat-align-tabs="start">
+        <mat-tab label="Program" *ngLet="(programs$ | async) as programs">
+          <ng-container [ngSwitch]="isLoading$ | async">
       <div class="mt-2">
         <ng-container [ngSwitch]="isLoading$ | async">
           <div class="mt-4" *ngSwitchCase="true">
@@ -8,19 +11,9 @@
           </div>
 
           <ng-container *ngSwitchCase="false">
-            <div class="row mb-3">
-              <div class="col-12">
-                <h2 class="title"> Programs
-                  <button mat-flat-button color="primary" class="float-end"
-                    (click)="onOpenAddNewProgram(); selectedProgram = undefined">
-                    Add New Program
-                  </button>
-                </h2>
-              </div>
-            </div>
             <div class="row filters">
-              <div class="col-md-9">
-                <span class="title">Filters</span>
+              <div class="col-md-6">
+                <span class="title">Filter</span>
                 <mat-form-field appearance="outline" class="me-2">
                   <mat-select [placeholder]="'By Status'" [(ngModel)]="status" (selectionChange)="onChangeSelection()">
                     <mat-option [value]="state.id" *ngFor="let state of statuses">
@@ -29,12 +22,19 @@
                   </mat-select>
                 </mat-form-field>
               </div>
-              <div class="col-md-3">
+              <div class="col-md-6 d-flex justify-content-end">
                 <div class="position-relative search-request">
                   <mat-icon>search</mat-icon>
                   <input type="text" class="form-control custom-input input-bordered" [(ngModel)]="title"
                     placeholder="Search..." (keyup)="onChangeSelection()">
                 </div>
+
+                <h2 class="title">
+                  <button mat-flat-button color="primary" class="float-end fw-bold"
+                          (click)="onOpenAddNewProgram(); selectedProgram = undefined">
+                    Add New Program
+                  </button>
+                </h2>
               </div>
             </div>
 
@@ -93,6 +93,9 @@
           </ng-container>
         </ng-container>
       </div>
+          </ng-container>
+        </mat-tab>
+      </mat-tab-group>
     </div>
   </div>
 </div>
