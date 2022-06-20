@@ -14,6 +14,7 @@ export interface IProgram {
   code: string;
   status: number;
   createdAt: string;
+  updatedAt: string;
   description: string;
 }
 
@@ -21,6 +22,7 @@ export interface ICountry {
   id: number;
   name: string;
   status?: number;
+  updatedAt?: string;
 }
 
 export interface ICity {

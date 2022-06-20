@@ -10,10 +10,11 @@ import {
   IField,
   ICountry,
   IProgram,
+  ISubject,
+  IFieldFilters,
   ICountryFilters,
   IProgramFilters,
-  IFieldFilters,
-  ISubject,
+  ISubjectFilters,
 } from '@models';
 
 import {
@@ -21,10 +22,10 @@ import {
   FieldStatus,
   ProgramStatus,
   CountryStatus,
+  SubjectStatus,
   FIELD_STATUSES_CONST,
   PROGRAM_STATUSES_CONST,
   COUNTRY_STATUSES_CONST,
-  SubjectStatus,
   SUBJECT_STATUSES_CONST,
 } from '@config';
 
@@ -46,51 +47,57 @@ export class AdminProgramListComponent implements OnInit {
   isAddingEditingCountry$: Observable<boolean>;
   showAddNewCountryModal$: Observable<boolean>;
 
-  title?: string;
-  status?: number;
-  deletedProgram?: IProgram;
-  selectedProgram?: IProgram;
-  programStatus = ProgramStatus;
-  statuses = PROGRAM_STATUSES_CONST;
-
-  countryTitle?: string;
-  countryStatus?: number;
-  deletedCountry?: ICountry;
-  selectedCountry?: ICountry;
-  countryStatuses = CountryStatus;
-  countryStatusConst = COUNTRY_STATUSES_CONST;
-
-  grade?: number;
+  title: string;
   grades = GRADES;
+  grade?: number;
+  status?: number;
   program?: number;
   country?: number;
-  fieldTitle?: string;
-  fieldStatus?: number;
+  fieldOfStudy?: number;
+  deletedProgram?: IProgram;
+  fieldStatus = FieldStatus;
+  selectedProgram?: IProgram;
+  programStatus = ProgramStatus;
+  countryStatus = CountryStatus;
+  subjectStatus = SubjectStatus;
+  fieldStatusConst = FIELD_STATUSES_CONST;
+  subjectStatusConst = SUBJECT_STATUSES_CONST;
+  countryStatusConst = COUNTRY_STATUSES_CONST;
+  programStatusConst = PROGRAM_STATUSES_CONST;
+
+  // countryTitle?: string;
+  // countryStatus?: number;
+  deletedCountry?: ICountry;
+  selectedCountry?: ICountry;
+
+  /*grade?: number;
+  grades = GRADES;
+  program?: number;
+  country?: number;*/
+  // fieldTitle?: string;
+  // fieldStatus?: number;
   deletedField?: IField;
   selectedField?: IField;
-  fieldStatuses = FieldStatus;
   isLoadingFields$: Observable<boolean>;
   fields$: Observable<IField[] | null>;
   isDeletingField$: Observable<boolean>;
   isLoadingPrograms$: Observable<boolean>;
-  fieldStatusConst = FIELD_STATUSES_CONST;
+
   isAddingEditingField$: Observable<boolean>;
   showAddNewFieldModal$: Observable<boolean>;
 
-  subjectTitle?: string;
-  subjectGrade?: number;
-  subjectStatus?: number;
-  subjectGrades = GRADES;
-  subjectProgram?: number;
-  subjectCountry?: number;
-  fieldOfStudy?: number;
+  // subjectTitle?: string;
+  // subjectGrade?: number;
+  // subjectStatus?: number;
+  // subjectGrades = GRADES;
+  // subjectProgram?: number;
+  // subjectCountry?: number;
+
   deletedSubject?: ISubject;
   selectedSubject?: ISubject;
-  subjectStatuses = SubjectStatus;
   isLoadingSubject$: Observable<boolean>;
   isDeletingSubject$: Observable<boolean>;
   subjects$: Observable<ISubject[] | null>;
-  subjectStatusConst = SUBJECT_STATUSES_CONST;
   isAddingEditingSubject$: Observable<boolean>;
   showAddNewSubjectModal$: Observable<boolean>;
 
@@ -117,6 +124,7 @@ export class AdminProgramListComponent implements OnInit {
     );
 
     // Country
+    this._prepareCountries();
     this.isDeletingCountry$ = this._store.select(
       fromCore.selectIsDeletingProgramCountries
     );
@@ -144,6 +152,8 @@ export class AdminProgramListComponent implements OnInit {
   }
 
   onChangeTab(tab: any): void {
+    this.resetFilters();
+
     switch (tab.index) {
       case 0:
         this._preparePrograms();
@@ -158,6 +168,15 @@ export class AdminProgramListComponent implements OnInit {
         this._prepareSubjects();
         break;
     }
+  }
+
+  resetFilters(): void {
+    this.title = '';
+    this.grade = undefined;
+    this.status = undefined;
+    this.program = undefined;
+    this.country = undefined;
+    this.fieldOfStudy = undefined;
   }
 
   onOpenAddNewProgram(): void {
@@ -223,6 +242,16 @@ export class AdminProgramListComponent implements OnInit {
     });
   }
 
+  onChangeFieldSelection(): void {
+    this.filterFields({
+      title: this.title,
+      program: this.program,
+      country: this.country,
+      grade: this.grade?.toString(),
+      status: this.status?.toString(),
+    });
+  }
+
   onChangeFieldStatus(field: IField, status: number): void {
     this._store.dispatch(
       fromCore.addEditField({
@@ -261,8 +290,8 @@ export class AdminProgramListComponent implements OnInit {
 
   onChangeCountrySelection(): void {
     this.filterCountries({
-      title: this.countryTitle,
-      status: this.countryStatus?.toString(),
+      title: this.title,
+      status: this.status?.toString(),
     });
   }
 
@@ -305,6 +334,31 @@ export class AdminProgramListComponent implements OnInit {
   // Course
   onCloseAddNewSubject(): void {
     this._store.dispatch(fromAdminActions.closeAdminAddNewSubjectModal());
+  }
+
+  filterSubjects(filters: ISubjectFilters): void {
+    this.subjects$ = this._store.select(fromCore.selectFilteredSubjects, {
+      ...filters,
+    });
+  }
+
+  onChangeSubjectStatus(subject: ISubject, status: number): void {
+    this._store.dispatch(
+      fromCore.addEditSubject({
+        subject: { ...subject, status },
+      })
+    );
+  }
+
+  onChangeSubjectSelection(): void {
+    this.filterSubjects({
+      title: this.title,
+      program: this.program,
+      country: this.country,
+      field: this.fieldOfStudy,
+      grade: this.grade?.toString(),
+      status: this.status?.toString(),
+    });
   }
 
   onAddEditSubject(subject: any): void {
