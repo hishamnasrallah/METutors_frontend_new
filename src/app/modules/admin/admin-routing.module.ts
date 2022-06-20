@@ -3,13 +3,10 @@ import { AdminAuthGuard } from '@metutor/core/guards';
 import { RouterModule, Routes } from '@angular/router';
 
 import {
-  AdminCountryComponent,
-  AdminSubjectComponent,
   AdminDashboardComponent,
   AdminTutorListComponent,
   AdminStudentListComponent,
   AdminProgramListComponent,
-  AdminFieldOfStudyComponent,
   AdminTestimonialsComponent,
   AdminTutorProfileComponent,
   AdminCurrentTutorsComponent,
@@ -366,42 +363,6 @@ const routes: Routes = [
             data: {
               layout: {
                 title: 'New Course Requests - Metutors',
-                navbarTitle: 'Management',
-                showHeader: false,
-                showFooter: false,
-              },
-            },
-          },
-          {
-            path: 'field-of-study',
-            component: AdminFieldOfStudyComponent,
-            data: {
-              layout: {
-                title: 'Field of Study - Metutors',
-                navbarTitle: 'Management',
-                showHeader: false,
-                showFooter: false,
-              },
-            },
-          },
-          {
-            path: 'subject',
-            component: AdminSubjectComponent,
-            data: {
-              layout: {
-                title: 'Subject - Metutors',
-                navbarTitle: 'Management',
-                showHeader: false,
-                showFooter: false,
-              },
-            },
-          },
-          {
-            path: 'country',
-            component: AdminCountryComponent,
-            data: {
-              layout: {
-                title: 'Country - Metutors',
                 navbarTitle: 'Management',
                 showHeader: false,
                 showFooter: false,
