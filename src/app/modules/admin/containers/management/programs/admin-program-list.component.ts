@@ -65,33 +65,16 @@ export class AdminProgramListComponent implements OnInit {
   countryStatusConst = COUNTRY_STATUSES_CONST;
   programStatusConst = PROGRAM_STATUSES_CONST;
 
-  // countryTitle?: string;
-  // countryStatus?: number;
-  deletedCountry?: ICountry;
-  selectedCountry?: ICountry;
-
-  /*grade?: number;
-  grades = GRADES;
-  program?: number;
-  country?: number;*/
-  // fieldTitle?: string;
-  // fieldStatus?: number;
   deletedField?: IField;
   selectedField?: IField;
+  deletedCountry?: ICountry;
+  selectedCountry?: ICountry;
   isLoadingFields$: Observable<boolean>;
   fields$: Observable<IField[] | null>;
   isDeletingField$: Observable<boolean>;
   isLoadingPrograms$: Observable<boolean>;
-
   isAddingEditingField$: Observable<boolean>;
   showAddNewFieldModal$: Observable<boolean>;
-
-  // subjectTitle?: string;
-  // subjectGrade?: number;
-  // subjectStatus?: number;
-  // subjectGrades = GRADES;
-  // subjectProgram?: number;
-  // subjectCountry?: number;
 
   deletedSubject?: ISubject;
   selectedSubject?: ISubject;
