@@ -1,14 +1,14 @@
 <metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'large'"
-                [heading]="field ? 'Edit Field' : 'Add Field'"
+                [heading]="field ? 'Edit Field of Study' : 'Add Field of Study'" [subHeading]="'Enter field of study'"
                 [template]="template">
   <ng-template #template>
-    <form class="add-field-modal" [formGroup]="form" (ngSubmit)="onSubmit(form)">
+    <form class="add-field-modal mt-4" [formGroup]="form" (ngSubmit)="onSubmit(form)">
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
             <label>Select Program</label>
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="program" [placeholder]="'Select Program'"
+              <mat-select formControlName="program" [placeholder]="'Select Program Name'"
                 (selectionChange)="onChangeProgram()">
                 <mat-option [value]="program?.id" *ngFor="let program of programs">
                   {{ program?.name }}
@@ -20,9 +20,9 @@
 
         <div class="col-md-6">
           <div class="form-group">
-            <label for="name">Field Name</label>
+            <label for="name">Enter field of study</label>
             <input class="form-control custom-input input-bordered" formControlName="name" id="name"
-                   placeholder="Enter Field Name">
+                   placeholder="Enter field of study">
           </div>
         </div>
       </div>
@@ -58,8 +58,13 @@
         <div class="col-md-12 mt-2 overflow-hidden">
             <metutors-submit-button [form]="form" [isSubmitting]="isAdding"
                                     [extraClasses]="'float-end py-1 px-5'">
-            {{ field ? 'Edit Field' : 'Add Field' }}
+            {{ field ? 'Edit Field of Study' : 'Add Field of Study' }}
             </metutors-submit-button>
+
+          <button mat-flat-button class="float-end rounded d-block border py-1 px-5"
+                  (click)="closeModal.emit()">
+            Cancel
+          </button>
         </div>
       </div>
     </form>

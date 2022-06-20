@@ -148,6 +148,7 @@ export class AdminProgramListComponent implements OnInit {
         this._prepareCountries();
         break;
       case 3:
+        this._prepareFields();
         this._prepareSubjects();
         break;
     }

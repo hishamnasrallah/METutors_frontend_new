@@ -108,7 +108,7 @@
               <div class="row my-3">
                 <div class="col-12">
                   <h2 class="title"> Field of Study
-                    <button mat-flat-button color="primary" class="float-end"
+                    <button mat-flat-button color="primary" class="float-end fw-bold"
                             (click)="onOpenAddNewField(); selectedField = undefined">
                       Add Field of Study
                     </button>
@@ -320,7 +320,7 @@
               <div class="row my-3">
                 <div class="col-12">
                   <h2 class="title"> Subject List
-                    <button mat-flat-button color="primary" class="float-end"
+                    <button mat-flat-button color="primary" class="float-end fw-bold"
                             (click)="onOpenAddNewSubject(); selectedSubject = undefined">
                       Add Subject
                     </button>
@@ -386,7 +386,7 @@
                   <th>Grade</th>
                   <th>Field of Study</th>
                   <th>Subject</th>
-                  <th>Price(USD/hr)</th>
+                  <th>Price(hr's)</th>
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
@@ -402,7 +402,7 @@
                   <td>{{ grades[subject?.grade] }}</td>
                   <td>{{ subject?.field?.name }}</td>
                   <td>{{ subject?.name }}</td>
-                  <td>{{ subject?.pricePerHour }}</td>
+                  <td>{{ subject?.pricePerHour | currency }}</td>
                   <td>
                     <div dropdown class="change-status position-relative d-flex">
                       <button dropdownToggle class="status text-capitalize" mat-button [ngClass]="{
