@@ -13,6 +13,7 @@ import {
   ICountryFilters,
   IProgramFilters,
   IFieldFilters,
+  ISubject,
 } from '@models';
 
 import {
@@ -23,6 +24,8 @@ import {
   FIELD_STATUSES_CONST,
   PROGRAM_STATUSES_CONST,
   COUNTRY_STATUSES_CONST,
+  SubjectStatus,
+  SUBJECT_STATUSES_CONST,
 } from '@config';
 
 @Component({
@@ -66,13 +69,30 @@ export class AdminProgramListComponent implements OnInit {
   deletedField?: IField;
   selectedField?: IField;
   fieldStatuses = FieldStatus;
-  isLoadingField$: Observable<boolean>;
+  isLoadingFields$: Observable<boolean>;
   fields$: Observable<IField[] | null>;
   isDeletingField$: Observable<boolean>;
   isLoadingPrograms$: Observable<boolean>;
   fieldStatusConst = FIELD_STATUSES_CONST;
   isAddingEditingField$: Observable<boolean>;
   showAddNewFieldModal$: Observable<boolean>;
+
+  subjectTitle?: string;
+  subjectGrade?: number;
+  subjectStatus?: number;
+  subjectGrades = GRADES;
+  subjectProgram?: number;
+  subjectCountry?: number;
+  fieldOfStudy?: number;
+  deletedSubject?: ISubject;
+  selectedSubject?: ISubject;
+  subjectStatuses = SubjectStatus;
+  isLoadingSubject$: Observable<boolean>;
+  isDeletingSubject$: Observable<boolean>;
+  subjects$: Observable<ISubject[] | null>;
+  subjectStatusConst = SUBJECT_STATUSES_CONST;
+  isAddingEditingSubject$: Observable<boolean>;
+  showAddNewSubjectModal$: Observable<boolean>;
 
   constructor(private _store: Store<any>) {}
 
@@ -97,7 +117,6 @@ export class AdminProgramListComponent implements OnInit {
     );
 
     // Country
-    this._prepareCountries();
     this.isDeletingCountry$ = this._store.select(
       fromCore.selectIsDeletingProgramCountries
     );
@@ -109,6 +128,36 @@ export class AdminProgramListComponent implements OnInit {
     this.isAddingEditingCountry$ = this._store.select(
       fromCore.selectIsAddingEditingProgramCountries
     );
+
+    // course
+    this.showAddNewSubjectModal$ = this._store.select(
+      fromAdmin.selectAddNewSubjectModal
+    );
+
+    this.isAddingEditingSubject$ = this._store.select(
+      fromCore.selectIsAddingEditingSubject
+    );
+
+    this.isDeletingSubject$ = this._store.select(
+      fromCore.selectIsDeletingSubject
+    );
+  }
+
+  onChangeTab(tab: any): void {
+    switch (tab.index) {
+      case 0:
+        this._preparePrograms();
+        break;
+      case 1:
+        this._prepareFields();
+        break;
+      case 2:
+        this._prepareCountries();
+        break;
+      case 3:
+        this._prepareSubjects();
+        break;
+    }
   }
 
   onOpenAddNewProgram(): void {
@@ -253,6 +302,34 @@ export class AdminProgramListComponent implements OnInit {
     }
   }
 
+  // Course
+  onCloseAddNewSubject(): void {
+    this._store.dispatch(fromAdminActions.closeAdminAddNewSubjectModal());
+  }
+
+  onAddEditSubject(subject: any): void {
+    if (this.selectedSubject) {
+      this._store.dispatch(
+        fromCore.addEditSubject({
+          subject: { ...subject, id: this.selectedSubject.id },
+        })
+      );
+    } else {
+      this._store.dispatch(fromCore.addEditSubject({ subject }));
+    }
+  }
+
+  onOpenAddNewSubject(): void {
+    this._store.dispatch(fromAdminActions.openAdminAddNewSubjectModal());
+  }
+
+  deleteSubject(subject: ISubject): void {
+    if (confirm(`Are you sure to delete ${subject.name} subject?`)) {
+      this.deletedSubject = subject;
+      this._store.dispatch(fromCore.deleteSubject({ id: subject.id }));
+    }
+  }
+
   private _preparePrograms(): void {
     this._store.dispatch(fromCore.loadPrograms());
     this.programs$ = this._store.select(fromCore.selectPrograms);
@@ -262,7 +339,15 @@ export class AdminProgramListComponent implements OnInit {
   private _prepareFields(): void {
     this._store.dispatch(fromCore.loadAdminFields());
     this.fields$ = this._store.select(fromCore.selectFields);
-    this.isLoadingField$ = this._store.select(fromCore.selectIsLoadingFields);
+    this.isLoadingFields$ = this._store.select(fromCore.selectIsLoadingFields);
+  }
+
+  private _prepareSubjects(): void {
+    this._store.dispatch(fromCore.loadAdminSubjects());
+    this.subjects$ = this._store.select(fromCore.selectSubjects);
+    this.isLoadingSubject$ = this._store.select(
+      fromCore.selectIsLoadingSubjects
+    );
   }
 
   private _prepareCountries(): void {
