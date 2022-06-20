@@ -1,16 +1,29 @@
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import * as fromCore from '@metutor/core/state';
 import { Component, OnInit } from '@angular/core';
+
+import * as fromCore from '@metutor/core/state';
 import * as fromAdmin from '@metutor/modules/admin/state';
-import { ICountry, ICountryFilters, IProgram, IProgramFilters } from '@models';
+import * as fromAdminActions from '@metutor/modules/admin/state/actions';
+
 import {
+  IField,
+  ICountry,
+  IProgram,
+  ICountryFilters,
+  IProgramFilters,
+  IFieldFilters,
+} from '@models';
+
+import {
+  GRADES,
+  FieldStatus,
   ProgramStatus,
-  PROGRAM_STATUSES_CONST,
   CountryStatus,
+  FIELD_STATUSES_CONST,
+  PROGRAM_STATUSES_CONST,
   COUNTRY_STATUSES_CONST,
 } from '@config';
-import * as fromAdminActions from '@metutor/modules/admin/state/actions';
 
 @Component({
   selector: 'metutors-programs',
@@ -44,6 +57,23 @@ export class AdminProgramListComponent implements OnInit {
   countryStatuses = CountryStatus;
   countryStatusConst = COUNTRY_STATUSES_CONST;
 
+  grade?: number;
+  grades = GRADES;
+  program?: number;
+  country?: number;
+  fieldTitle?: string;
+  fieldStatus?: number;
+  deletedField?: IField;
+  selectedField?: IField;
+  fieldStatuses = FieldStatus;
+  isLoadingField$: Observable<boolean>;
+  fields$: Observable<IField[] | null>;
+  isDeletingField$: Observable<boolean>;
+  isLoadingPrograms$: Observable<boolean>;
+  fieldStatusConst = FIELD_STATUSES_CONST;
+  isAddingEditingField$: Observable<boolean>;
+  showAddNewFieldModal$: Observable<boolean>;
+
   constructor(private _store: Store<any>) {}
 
   ngOnInit(): void {
@@ -59,6 +89,11 @@ export class AdminProgramListComponent implements OnInit {
 
     this.isDeletingProgram$ = this._store.select(
       fromCore.selectIsDeletingProgram
+    );
+
+    // Field of study
+    this.showAddNewFieldModal$ = this._store.select(
+      fromAdmin.selectAddNewFieldModal
     );
 
     // Country
@@ -124,6 +159,48 @@ export class AdminProgramListComponent implements OnInit {
     }
   }
 
+  // Field of study
+  onOpenAddNewField(): void {
+    this._store.dispatch(fromAdminActions.openAdminAddNewFieldModal());
+  }
+
+  onCloseAddNewField(): void {
+    this._store.dispatch(fromAdminActions.closeAdminAddNewFieldModal());
+  }
+
+  filterFields(filters: IFieldFilters): void {
+    this.fields$ = this._store.select(fromCore.selectFilteredFields, {
+      ...filters,
+    });
+  }
+
+  onChangeFieldStatus(field: IField, status: number): void {
+    this._store.dispatch(
+      fromCore.addEditField({
+        field: { ...field, status },
+      })
+    );
+  }
+
+  onAddEditField(field: any): void {
+    if (this.selectedField) {
+      this._store.dispatch(
+        fromCore.addEditField({
+          field: { ...field, id: this.selectedField.id },
+        })
+      );
+    } else {
+      this._store.dispatch(fromCore.addEditField({ field }));
+    }
+  }
+
+  deleteField(field: IField): void {
+    if (confirm(`Are you sure to delete ${field.name} field?`)) {
+      this.deletedField = field;
+      this._store.dispatch(fromCore.deleteField({ id: field.id }));
+    }
+  }
+
   // Country
   onOpenAddNewCountry(): void {
     this._store.dispatch(fromAdminActions.openAdminAddNewCountryModal());
@@ -180,6 +257,12 @@ export class AdminProgramListComponent implements OnInit {
     this._store.dispatch(fromCore.loadPrograms());
     this.programs$ = this._store.select(fromCore.selectPrograms);
     this.isLoading$ = this._store.select(fromCore.selectIsLoadingPrograms);
+  }
+
+  private _prepareFields(): void {
+    this._store.dispatch(fromCore.loadAdminFields());
+    this.fields$ = this._store.select(fromCore.selectFields);
+    this.isLoadingField$ = this._store.select(fromCore.selectIsLoadingFields);
   }
 
   private _prepareCountries(): void {
