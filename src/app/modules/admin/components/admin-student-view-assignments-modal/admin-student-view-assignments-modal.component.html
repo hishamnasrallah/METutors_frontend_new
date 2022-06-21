@@ -60,9 +60,9 @@
                 <td>{{assignment?.title}}</td>
                 <td>{{ assignment?.startDate | date }} - {{assignment?.deadline | date }}</td>
                 <td>
-                  <div class="d-flex align-items-center">
+                  <div class="d-flex p-0 align-items-center">
                     <a>
-                      <img [src]="imageURL+assignment.teacher.avatar" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
+                      <img [src]="imageURL+assignment.teacher.avatar" width="25" height="25" class="rounded-circle me-2" draggable="false"
                            meTutorsDefaultAvatar alt="">
                       <span>
                     <bdi>{{assignment?.teacher?.firstName}} {{assignment?.teacher?.lastName}}</bdi>
