@@ -58,7 +58,7 @@
                 <td>{{ i+1}}</td>
                 <td>BIN1</td>
                 <td>{{assignment?.title}}</td>
-                <td>{{ assignment?.startDate}} - {{assignment?.deadline}}</td>
+                <td>{{ assignment?.startDate | date }} - {{assignment?.deadline | date }}</td>
                 <td>
                   <div class="d-flex align-items-center">
                     <a>
@@ -70,10 +70,10 @@
                     </a>
                   </div>
                 </td>
-                <td>Apr 30, 2022</td>
+                <td>{{ assignment?.deadline | date }}</td>
                 <td>
-                  <button class="status text-capitalize" mat-button [ngClass]="assignment.status">
-                    {{assignment.status}}
+                  <button class="status text-capitalize" mat-button [ngClass]="assignment.assignees[0].status">
+                    {{assignment.assignees[0]?.status}}
                   </button>
                 </td>
               </tr>

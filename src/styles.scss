@@ -771,7 +771,7 @@ span.status {
     color: #c98843;
   }
 
-  &.upcoming {
+  &.upcoming, &.submitted, {
     color: #5955cd;
     background-color: #e1e0fe;
   }
