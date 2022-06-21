@@ -8,7 +8,7 @@ export class ICourseRequest {
   studentName?: string;
   grade?: number;
   email?: string;
-  status?: string;
+  status: string;
   subject?: string;
   language?: ILanguage;
   gender?: string;

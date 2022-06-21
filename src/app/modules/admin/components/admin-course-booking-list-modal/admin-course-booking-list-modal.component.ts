@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+
+import { courseStatusLabel } from '@config';
 import { ISubject } from '@metutor/core/models';
 
 @Component({
@@ -18,6 +20,7 @@ export class AdminCourseBookingListModalComponent implements OnInit {
   date: string;
   month: string;
   teachers: string;
+  statusLabel = courseStatusLabel;
 
   constructor() {}
 

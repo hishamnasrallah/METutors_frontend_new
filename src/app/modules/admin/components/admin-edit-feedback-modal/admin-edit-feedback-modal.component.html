@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="admin-edit-feedback-modal.component.scss">
 <metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'xmedium'"
                 [heading]="'Edit Testimonial'"
                 [template]="template" [subHeading]="'You can only authorized to improve the language of the text below:'">
@@ -7,7 +8,7 @@
         <ng-container [ngSwitch]="view?.loading">
           <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
           <metutors-send-feedback [feedbackOptions]="view?.feedbackOptions"
-                                  [isSubmitting]="isSubmitting" [form]="form"
+                                  [isSubmitting]="isSubmitting" [form]="form" [buttonLabel]="'Update'"
                                   (submitFeedback)="submitFeedback.emit(form.value)" *ngSwitchCase="false">
           </metutors-send-feedback>
         </ng-container>

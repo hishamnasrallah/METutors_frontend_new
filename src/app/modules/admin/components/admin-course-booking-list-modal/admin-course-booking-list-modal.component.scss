@@ -28,10 +28,11 @@
     }
 
     .booking-details {
-      background-color: #50C394;
-      color: #FFF;
-      border-radius: 20px;
-      padding: 0 15px;
+      line-height: 0;
+      min-width: 0;
+      padding: 15px;
+      font-weight: normal;
+      border-radius: 25px !important;
     }
   }
 }
