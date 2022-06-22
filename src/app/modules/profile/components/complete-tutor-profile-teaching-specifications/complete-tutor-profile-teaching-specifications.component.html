@@ -5,7 +5,7 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label for="startDate" class="form-label">When you are Available to Start?</label>
+          <label for="startDate" class="form-label">Availability Starting Date</label>
           <mat-form-field appearance="outline" class="w-100">
             <input matInput [matDatepicker]="datetPicker" [placeholder]="'Select Start Date'"
               (focus)="datetPicker.open()" [min]="minDate" formControlName="startDate">
@@ -20,8 +20,8 @@
 
       <div class="col-md-6">
         <div class="form-group">
-          <label class="form-label">Type of Tutoring</label>
-          <mat-radio-group class="d-flex flex-row mt-3" formControlName="typeOfTutoring">
+          <label class="form-label">Tutoring Preferences</label>
+          <mat-radio-group class="d-flex flex-row mt-3 fw-bold" formControlName="typeOfTutoring">
             <mat-radio-button [class.ms-5]="!isFirst" [value]="type.value"
               *ngFor="let type of types | keyvalue: returnZero; let isFirst = first">
               {{ type?.value }}
@@ -52,7 +52,7 @@
 
       <div class="col-md-6">
         <div class="form-group">
-          <label class="form-label">How many days per week are you available? </label>
+          <label class="form-label">Select Desired Teaching Days and Times</label>
           <div class="list-days">
             <button type="button" mat-button [class.active]="selectedDays?.includes(i)"
               *ngFor="let day of days; let i = index" (click)="onChangeDay(i)">{{ day }}</button>
@@ -66,8 +66,8 @@
       <div class="col-md-4">
         <div class="form-group mt-4 mb-2">
           <metutors-submit-button [form]="form" [isSubmitting]="loading"
-            [isDisabled]="!selectedDays || !selectedDays?.length" [extraClasses]="'w-100'">
-            Next
+            [isDisabled]="!selectedDays || !selectedDays?.length" [extraClasses]="'w-100 fw-bold'">
+            Save & Continue
           </metutors-submit-button>
         </div>
       </div>

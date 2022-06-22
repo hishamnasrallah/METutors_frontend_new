@@ -6,7 +6,7 @@
     <div class="col-12">
       <div class="card">
         <div class="card-body">
-          <h3>Create new ticket</h3>
+          <h3>Create New Ticket</h3>
           <form class="row" [formGroup]="supportForm" (ngSubmit)="onSubmit(supportForm)">
             <div class="col-md-6">
               <label for="topic">Topic *</label>
@@ -35,7 +35,7 @@
             </div>
             <div class="col-md-12 mt-4">
               <label for="details">Ticket details *</label>
-              <textarea id="details" class="form-control custom-input input-bordered" rows="10" formControlName="message"></textarea>
+              <textarea id="details" class="form-control custom-input input-bordered" rows="10" formControlName="message" placeholder="Type Your Ticket Details..."></textarea>
             </div>
 
             <div class="col-md-12 mt-4 mb-2">

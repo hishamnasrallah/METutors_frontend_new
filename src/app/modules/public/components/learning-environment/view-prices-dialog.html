@@ -15,7 +15,7 @@
               <p>View very destinations in Markesh</p>
             </div>
             <div class="col-md-5">
-              <label>Select field of study</label>
+              <label>Select Field of Study</label>
               <mat-form-field appearance="outline" class="w-100">
                 <mat-select [placeholder]="'Please select'" (selectionChange)="fieldId = $event.value">
                   <mat-option [value]="field.id" *ngFor="let field of fields">{{ field?.name }}</mat-option>
@@ -34,7 +34,7 @@
             <thead>
               <tr>
                 <th scope="col">Subject Name</th>
-                <th scope="col">Price Per Hour</th>
+                <th scope="col">Price per Hour</th>
               </tr>
             </thead>
             <tbody>

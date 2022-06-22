@@ -7,7 +7,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="program" class="form-label d-flex justify-content-between">
-              Select the program
+              Program Name
               <a class="float-end cursor-pointer" *ngIf="i !== 0" (click)="removeProgram(i)">
                 <mat-icon>delete</mat-icon>
               </a>
@@ -33,14 +33,17 @@
             </div> -->
 
             <ng-container *ngIf="form.value.programs[i]?.programId?.id === nationalId">
+              <label for="program" class="form-label mt-3">
+                Country for {{ form.value.programs[i]?.programId?.name }} Program
+              </label>
               <mat-form-field appearance="outline" class="w-100">
-                <mat-select formControlName="countries" [placeholder]="'Select countries for national'" multiple>
+                <mat-select formControlName="countries" [placeholder]="'Select Countries'" multiple>
                   <mat-option [value]="country?.id" *ngFor="let country of countries">{{ country?.name }}</mat-option>
                 </mat-select>
               </mat-form-field>
 
               <mat-form-field appearance="outline" class="w-100">
-                <mat-select formControlName="grades" [placeholder]="'Select grades for national'" multiple>
+                <mat-select formControlName="grades" [placeholder]="'Select Grades'" multiple>
                   <mat-option [value]="i + 1" *ngFor="let grade of grades; let i = index">{{ grade }}</mat-option>
                 </mat-select>
               </mat-form-field>
@@ -51,7 +54,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <div>
-              <label for="subjects" class="form-label">Field of study</label>
+              <label for="subjects" class="form-label">Fields of Study <span>(you can Select multiple)</span></label>
             </div>
 
             <mat-form-field appearance="outline" class="w-100">
@@ -138,8 +141,8 @@
       <div class="col-md-4"></div>
       <div class="col-md-4">
         <div class="form-group mt-4 mb-2">
-          <metutors-submit-button [form]="form" [isSubmitting]="loading" [extraClasses]="'w-100'">
-            Finish
+          <metutors-submit-button [form]="form" [isSubmitting]="loading" [extraClasses]="'w-100 fw-bold'">
+            Save & Continue
           </metutors-submit-button>
         </div>
       </div>

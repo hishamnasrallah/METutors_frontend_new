@@ -39,7 +39,10 @@ export class CompleteTutorProfilePersonalInformationComponent
       gender: [null, [Validators.required]],
       country: [null, [Validators.required]],
       city: [null, [Validators.required]],
-      bio: [null, [Validators.required]],
+      bio: [
+        null,
+        [Validators.required, Validators.minLength(100), Validators.maxLength(150)],
+      ],
       postalCode: [null, [Validators.required]],
     });
   }

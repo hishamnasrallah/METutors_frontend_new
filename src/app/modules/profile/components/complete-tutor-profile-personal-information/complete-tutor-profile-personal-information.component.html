@@ -74,7 +74,7 @@
 
       <div class="col-md-6">
         <div class="form-group">
-          <label for="address2" class="form-label">Address 2 (Optional)</label>
+          <label for="address2" class="form-label">Address 2 <span>(Optional)</span></label>
           <input type="text" class="custom-input w-100 input-bordered" id="address2" placeholder="Enter street address"
             formControlName="address2">
         </div>
@@ -84,9 +84,10 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label for="bio" class="form-label">Add Bio</label>
+          <label for="bio" class="form-label">Add Biography <span>(Teaching Experience)</span></label>
           <textarea class="custom-input w-100 input-bordered" [placeholder]="'Add Bio here... '" rows="5"
-            formControlName="bio"></textarea>
+            formControlName="bio" minlength="100" maxlength="150"></textarea>
+          <small class="text-danger">(100 to 150 words)</small>
           <div class="text-danger" *ngIf="bio?.touched && bio?.invalid">
             Please write your Bio
           </div>
@@ -134,7 +135,7 @@
       <div class="col-4"></div>
       <div class="col-4">
         <div class="form-group mt-4 mb-2">
-          <metutors-submit-button [form]="form" [isSubmitting]="loading" [extraClasses]="'w-100'">
+          <metutors-submit-button [form]="form" [isSubmitting]="loading" [extraClasses]="'w-100 fw-bold'">
             Save & Continue
           </metutors-submit-button>
         </div>

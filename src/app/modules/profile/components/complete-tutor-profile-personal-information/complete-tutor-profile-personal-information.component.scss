@@ -6,4 +6,9 @@
 .form-label {
   color: #000;
   font-size: 15px;
+  font-weight: bold;
+
+  span {
+    font-weight: normal;
+  }
 }

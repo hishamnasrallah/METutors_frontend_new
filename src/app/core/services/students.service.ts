@@ -3,10 +3,6 @@ import { Injectable } from '@angular/core';
 import { map, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import {
-  loadStudentPreference,
-  studentUpdatePreferences,
-} from '@metutor/core/state';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +15,7 @@ export class StudentsService {
   getStudent(): Observable<any> {
     return this.http
       .get<any>(`${this.baseUrl}student/profile`)
-      .pipe(map((response) => response.profile));
+      .pipe(map((response) => new IStudent(false, response.profile)));
   }
 
   getStudents(): Observable<any> {

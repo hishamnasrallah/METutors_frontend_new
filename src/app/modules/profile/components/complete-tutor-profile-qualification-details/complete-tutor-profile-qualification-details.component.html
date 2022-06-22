@@ -46,7 +46,7 @@
 
       <div class="col-md-6">
         <div class="form-group">
-          <label for="teachingExperience" class="form-label">Teaching Experience (In Schools)</label>
+          <label for="teachingExperience" class="form-label">Teaching Experience <span>(In Schools)</span></label>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="teachingExperience" [placeholder]="'Select Years'">
               <mat-option [value]="experience" *ngFor="let experience of experiences">{{ experience }}</mat-option>
@@ -76,7 +76,7 @@
 
       <div class="col-md-6">
         <div class="form-group">
-          <label for="teachingExperienceOnline" class="form-label">Teaching Experience (Online)</label>
+          <label for="teachingExperienceOnline" class="form-label">Teaching Experience <span>(Online)</span></label>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="teachingExperienceOnline" [placeholder]="'Select Years'">
               <mat-option [value]="experience" *ngFor="let experience of experiences">{{ experience }}</mat-option>
@@ -93,7 +93,7 @@
       <div class="col-md-6">
         <div class="form-group">
           <div>
-            <label for="languages" class="form-label">Spoken languages (For teaching)</label>
+            <label for="languages" class="form-label">Spoken languages <span>(For Teaching)</span></label>
             <a class="float-end cursor-pointer" (click)="addLanguage()">Add new</a>
           </div>
           <mat-chip-list>
@@ -130,17 +130,18 @@
 
       <div class="col-md-6">
         <div class="form-group">
-          <label for="currentEmployer" class="form-label">Current Employer (Optional)</label>
+          <label for="currentEmployer" class="form-label">Current Employer <span>(Optional)</span></label>
           <input type="text" class="custom-input w-100 input-bordered" id="currentEmployer" placeholder="Enter Here"
             formControlName="currentEmployer">
         </div>
         <div class="form-group">
-          <label for="currentTitle" class="form-label">Current Title (Optional)</label>
+          <label for="currentTitle" class="form-label">Current Title <span>(Optional)</span></label>
           <input type="text" class="custom-input w-100 input-bordered" id="currentTitle" placeholder="Enter Here"
             formControlName="currentTitle">
         </div>
 
         <div class="form-group">
+          <label class="form-label">Your Demo of Teaching Online <span>(5 - 10 Minutes)</span></label>
           <input type="file" #filePicker (change)="onChangeVideo($event)" hidden accept="video/*" />
 
           <div class="position-relative">
@@ -165,7 +166,7 @@
       <div class="col-md-4"></div>
       <div class="col-md-4">
         <div class="form-group mt-4 mb-2">
-          <metutors-submit-button [form]="form" [isSubmitting]="loading" [extraClasses]="'w-100'">
+          <metutors-submit-button [form]="form" [isSubmitting]="loading" [extraClasses]="'w-100 fw-bold'">
             Save & Continue
           </metutors-submit-button>
         </div>

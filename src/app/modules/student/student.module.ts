@@ -17,7 +17,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatNativeDateModule } from '@angular/material/core';
+import { SharedModule } from '@metutor/shared/shared.module';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { StudentRoutingModule } from './student-routing.module';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -26,9 +28,7 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 import * as studentEffects from './state/effects';
-import { SharedModule } from '@metutor/shared/shared.module';
 import * as fromStudent from '@metutor/modules/student/state';
-import { StudentRoutingModule } from './student-routing.module';
 import * as featureKeys from '@metutor/modules/student/state/feature-keys';
 
 import {
@@ -70,6 +70,7 @@ import {
   StudentAssignmentDetailsModalComponent,
   StudentTutorReAssignmentModalComponent,
   StudentCancelCourseSuccessModalComponent,
+  StudentSettingsPaymentInformationComponent,
   StudentViewSubmittedAssignmentModalComponent,
 } from './components';
 
@@ -110,6 +111,7 @@ import {
     StudentAssignmentDetailsModalComponent,
     StudentTutorReAssignmentModalComponent,
     StudentCancelCourseSuccessModalComponent,
+    StudentSettingsPaymentInformationComponent,
     StudentViewSubmittedAssignmentModalComponent,
   ],
   imports: [

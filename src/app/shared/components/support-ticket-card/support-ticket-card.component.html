@@ -1,4 +1,4 @@
-<div class="card">
+<a class="card" [routerLink]="linkUrl">
   <div class="card-body">
     <div class="priority">
       Priority
@@ -13,7 +13,7 @@
       </div>
     </div>
     <h2>
-      <a [routerLink]="linkUrl">{{ ticket?.subject }}</a>
+      <a>{{ ticket?.subject }}</a>
       <span class="label" [ngClass]="{
             'open': ticketStatus.open === ticket?.status,
             'closed': ticketStatus.closed === ticket?.status,
@@ -50,4 +50,4 @@
       </div>
     </div>
   </div>
-</div>
+</a>

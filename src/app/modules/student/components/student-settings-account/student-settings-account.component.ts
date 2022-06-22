@@ -1,6 +1,5 @@
 import { Store } from '@ngrx/store';
 import { map, tap } from 'rxjs/operators';
-import { environment } from '@environment';
 import { Observable, combineLatest } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { FormValidationUtilsService } from '@metutor/core/validators';
@@ -25,7 +24,6 @@ import { AlertNotificationService } from '@metutor/core/components';
 export class StudentSettingsAccountComponent implements OnInit {
   form: FormGroup;
   genders = GENDERS;
-  imageUrl = environment.imageURL;
   isChangeAvatar$: Observable<boolean>;
   isSavingProfile: Observable<boolean>;
   countries$: Observable<ICountry[] | null>;

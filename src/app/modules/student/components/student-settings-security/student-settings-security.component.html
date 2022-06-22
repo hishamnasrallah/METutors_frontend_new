@@ -3,8 +3,6 @@
     <div class="col-md-12 align-items-center">
       <form [formGroup]="form" class="w-100" (ngSubmit)="onSubmit(form)">
         <div>
-          <h4 class="mb-5">Change Password</h4>
-
           <div class="form-group">
             <div class="col-md-6">
               <label for="oldPassword">Current Password</label>
@@ -29,7 +27,7 @@
 
           <div class="form-group">
             <div class="col-md-6">
-              <label for="confirmPassword">Confirm Password</label>
+              <label for="confirmPassword">Repeat New Password</label>
               <input type="password" class="custom-input w-100 input-bordered" id="confirmPassword"
                      placeholder="Confirm new password" formControlName="confirmPassword">
               <div class="text-danger" *ngIf="form?.hasError('passwordMismatch')">

@@ -16,4 +16,5 @@ export * from './student-settings-user-prefrences';
 export * from './student-assignment-details-modal';
 export * from './student-tutor-re-assignment-modal';
 export * from './student-cancel-course-success-modal';
+export * from './student-settings-payment-information';
 export * from './student-view-submitted-assignment-modal';

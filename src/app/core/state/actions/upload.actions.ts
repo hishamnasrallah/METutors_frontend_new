@@ -51,16 +51,16 @@ export const deleteUploadedFileFailure = createAction(
 );
 
 export const changeAvatar = createAction(
-  '[Tutor] Change Avatar',
+  '[User] Change Avatar',
   props<{ file: File }>()
 );
 
 export const changeAvatarSuccess = createAction(
-  '[Tutor] Change Avatar Success',
+  '[User] Change Avatar Success',
   props<{ message: string; token: string; avatar: string; user: IUser }>()
 );
 
 export const changeAvatarFailure = createAction(
-  '[Tutor] Change Avatar Failure',
+  '[User] Change Avatar Failure',
   props<{ error: any }>()
 );

@@ -12,7 +12,7 @@
               <div class="col-md-3">
                 <div class="position-relative px-3">
                   <div class="img-status position-relative">
-                    <img [src]="imageUrl+view.student?.avatar" meTutorsDefaultAvatar alt="" class="rounded-circle" draggable="false"
+                    <img [src]="view.student?.avatar" meTutorsDefaultAvatar alt="" class="rounded-circle" draggable="false"
                          [class.uploading]="isChangeAvatar$ | async">
                     <mat-icon class="spinner" *ngIf="isChangeAvatar$ | async">autorenew</mat-icon>
                   </div>
