@@ -17,18 +17,16 @@
   </tr>
   <tr *ngFor="let booking of bookings; let i = index">
     <td>{{ i + 1 }}</td>
-    <td><a href="javascript: void(0)" (click)="openBookingModal.emit(booking.id)">CID{{ booking?.id }}</a></td>
+    <td><a [routerLink]="['/admin', 'tutor', booking?.teacherId, 'booking-detail', booking?.id]">CID{{ booking?.id }}</a> - [missing tutor id]</td>
     <td>{{ booking?.name }}</td>
     <td>{{ booking?.program?.code }}</td>
     <td>{{ booking?.field?.name }}</td>
     <td><a href="javascript: void(0)" (click)="openBookingModal.emit(booking.id)">{{ booking?.totalBooking }}</a></td>
     <td><a [routerLink]="['/admin', 'finance', 'orders']"> ${{ booking?.totalAmount }}</a></td>
     <td>
-      <div class="change-status position-relative d-flex">
-        <button class="status text-capitalize" mat-button [ngClass]="booking?.status">
-          {{ booking?.status }}
-        </button>
-      </div>
+      <button class="status text-capitalize" mat-button [ngClass]="booking?.status">
+        {{ booking?.status }}
+      </button>
     </td>
     <td>
       <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0" (click)="subjectId = booking.id">

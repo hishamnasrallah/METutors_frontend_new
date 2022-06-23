@@ -6,7 +6,7 @@
 
     .info {
       span {
-        font-size: 14px;
+        font-size: 16px;
         color: #696969;
         font-weight: 500;
       }
@@ -17,10 +17,15 @@
         margin-right: 20px;
         font-size: 17px;
       }
+
+      .total-records {
+        margin-left: 10px;
+      }
     }
 
     .percentage {
       strong {
+        font-size: 20px;
         color: #2A2A2A;
         font-weight: normal;
       }
@@ -35,8 +40,8 @@
           top: 0;
           left: 0;
           bottom: 0;
-          font-size: 13px;
           right: 0;
+          font-size: 16px;
           text-align: center;
           line-height: 40px;
         }

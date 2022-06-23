@@ -16,6 +16,11 @@
                                     [extraClasses]="'float-end py-1 px-5'">
             {{ country ? 'Edit Country' : 'Add Country' }}
             </metutors-submit-button>
+
+          <button mat-flat-button class="float-end rounded d-block border py-1 px-5"
+                  (click)="closeModal.emit()">
+            Cancel
+          </button>
         </div>
     </form>
   </ng-template>
