@@ -34,7 +34,7 @@
                 formControlName="title">
             </div>
             <div class="col-md-12 mt-4">
-              <label for="details">Ticket details *</label>
+              <label for="details">Ticket Details *</label>
               <textarea id="details" class="form-control custom-input input-bordered" rows="10" formControlName="message" placeholder="Type Your Ticket Details..."></textarea>
             </div>
 
@@ -65,7 +65,7 @@
             <div class="col-12 mt-5">
               <metutors-submit-button [form]="supportForm" [isSubmitting]="isCreatingTicket$ | async"
                 [extraClasses]="'float-end'">
-                Send message
+                Submit
               </metutors-submit-button>
             </div>
           </form>

@@ -100,7 +100,7 @@ const routes: Routes = [
             data: {
               layout: {
                 title: 'All Teachers - Metutors',
-                navbarTitle: 'All Teachers',
+                navbarTitle: 'Teachers',
                 showHeader: false,
                 showFooter: false,
               },
@@ -112,7 +112,7 @@ const routes: Routes = [
             data: {
               layout: {
                 title: 'Current Teachers - Metutors',
-                navbarTitle: 'Current Teachers',
+                navbarTitle: 'Teachers',
                 showHeader: false,
                 showFooter: false,
               },
@@ -124,7 +124,7 @@ const routes: Routes = [
             data: {
               layout: {
                 title: 'Pending Teachers - Metutors',
-                navbarTitle: 'Pending Teachers',
+                navbarTitle: 'Teachers',
                 showHeader: false,
                 showFooter: false,
               },
@@ -136,7 +136,7 @@ const routes: Routes = [
             data: {
               layout: {
                 title: 'Suspended Teachers - Metutors',
-                navbarTitle: 'Suspended Teachers',
+                navbarTitle: 'Teachers',
                 showHeader: false,
                 showFooter: false,
               },

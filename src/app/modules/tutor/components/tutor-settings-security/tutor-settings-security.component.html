@@ -5,12 +5,12 @@
         <div class="col-md-12 align-items-center">
           <form [formGroup]="form" class="w-100" (ngSubmit)="onSubmit(form)">
             <div>
-              <h4 class="mb-4">Change Password</h4>
+              <h4 class="mb-4">Security Settings</h4>
 
               <div class="form-group">
                 <label for="oldPassword">Current Password</label>
                 <input type="password" class="custom-input w-100 input-bordered" id="oldPassword"
-                  placeholder="ku@pecafhuj.co.uk" formControlName="oldPassword">
+                  placeholder="Type current password" formControlName="oldPassword">
                 <span class="text-danger" *ngIf="oldPassword?.invalid && oldPassword?.touched">
                   Password cannot be less than 8 characters and cannot be more than 100 characters
                 </span>
@@ -19,16 +19,16 @@
               <div class="form-group">
                 <label for="password">New Password</label>
                 <input type="password" class="custom-input w-100 input-bordered" id="password"
-                  placeholder="ku@pecafhuj.co.uk" formControlName="password">
+                  placeholder="Type new password" formControlName="password">
                 <span class="text-danger" *ngIf="password?.invalid && password?.touched">
                   Password cannot be less than 8 characters and cannot be more than 100 characters
                 </span>
               </div>
 
               <div class="form-group">
-                <label for="confirmPassword">Confirm Password</label>
+                <label for="confirmPassword">Confirm New Password</label>
                 <input type="password" class="custom-input w-100 input-bordered" id="confirmPassword"
-                  placeholder="ku@pecafhuj.co.uk" formControlName="confirmPassword">
+                  placeholder="Confirm new password" formControlName="confirmPassword">
                 <div class="text-danger" *ngIf="form?.hasError('passwordMismatch')">
                   Passwords do not match
                 </div>
@@ -37,7 +37,7 @@
               <div class="row btn-list mt-5 pt-3">
                 <div class="col-12 d-flex justify-content-end">
                   <metutors-submit-button [form]="form" [isSubmitting]="isChanging">
-                    Change Password
+                    Update
                   </metutors-submit-button>
                 </div>
               </div>
