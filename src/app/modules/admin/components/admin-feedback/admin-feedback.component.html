@@ -35,7 +35,7 @@
           <h3 class="m-0">{{ feedback?.sender?.firstName }} {{ feedback?.sender?.lastName }}</h3>
           <div>
             <rating [(ngModel)]="feedback.averageRating" [max]="5" [readonly]="true"></rating>
-            <span class="ms-1">{{ feedback.averageRating.toFixed(2) }}</span>
+            <span class="ms-1">{{ feedback.averageRating.toFixed(1) }}</span>
           </div>
         </div>
       </div>
