@@ -1,11 +1,12 @@
 import { ITutor } from '@models';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import * as fromCore from '@metutor/core/state';
 import { Component, OnInit } from '@angular/core';
-import * as fromAdmin from '@metutor/modules/admin/state';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { generalConstants, InterviewStatus } from '@config';
+
+import { generalConstants } from '@config';
+import * as fromCore from '@metutor/core/state';
+import * as fromAdmin from '@metutor/modules/admin/state';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 
 @Component({
@@ -14,9 +15,12 @@ import * as fromAdminAction from '@metutor/modules/admin/state/actions';
   styleUrls: ['./admin-tutor-profile.component.scss'],
 })
 export class AdminTutorProfileComponent implements OnInit {
+  totalBooking$: Observable<any>;
   isLoading$: Observable<boolean>;
   tutor$: Observable<ITutor | null>;
   tutorAvailability$: Observable<any>;
+  openBookingModal$: Observable<boolean>;
+  loadingTotalBooking$: Observable<boolean>;
   isLoadingTutorAvailability$: Observable<boolean>;
   showTeacherAvailabilityModal$: Observable<boolean>;
 
@@ -42,6 +46,18 @@ export class AdminTutorProfileComponent implements OnInit {
     this.showTeacherAvailabilityModal$ = this._store.select(
       fromAdmin.selectIsShowTeacherAvailabilityModal
     );
+
+    this.openBookingModal$ = this._store.select(
+      fromAdmin.selectAdminStudentBookingModal
+    );
+
+    this.totalBooking$ = this._store.select(
+      fromCore.selectAdminStudentTotalBooking
+    );
+
+    this.loadingTotalBooking$ = this._store.select(
+      fromCore.selectIsLoadingAdminBookingDetail
+    );
   }
 
   onTutorAvailability(id: number): void {
@@ -51,6 +67,18 @@ export class AdminTutorProfileComponent implements OnInit {
 
   onCloseTeacherAvailabilityModal(): void {
     this._store.dispatch(fromAdminAction.closeAdminTeacherAvailabilityModal());
+  }
+
+  onOpenBookingModal(id: number): void {
+    const bookingType = 'teacher';
+    this._store.dispatch(
+      fromCore.loadAdminStudentTotalBooking({ id, bookingType })
+    );
+    this._store.dispatch(fromAdminAction.openAdminStudentBookingModal());
+  }
+
+  onCloseBookingModal(): void {
+    this._store.dispatch(fromAdminAction.closeAdminStudentBookingModal());
   }
 
   private _prepareTutor(id: number): void {

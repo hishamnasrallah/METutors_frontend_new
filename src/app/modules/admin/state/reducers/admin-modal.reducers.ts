@@ -355,6 +355,7 @@ export const reducer = createReducer(
   on(
     fromCore.refundCourseSuccess,
     adminModalActions.openSuccessModal,
+    fromCore.studentReassignTutorSuccess,
     (state) => ({
       ...state,
       showSuccessModal: true,

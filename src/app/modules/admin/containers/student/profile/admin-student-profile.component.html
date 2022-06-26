@@ -139,7 +139,7 @@
               <td>{{course?.totalPrice}}$</td>
               <td>
                 <button class="status text-capitalize" mat-button [ngClass]="course?.status"
-                        [tooltip]="statusLabel[course?.status].long">{{ statusLabel[course?.status].short}}
+                        [tooltip]="statusLabel[course?.status]?.long">{{ statusLabel[course?.status]?.short}}
                 </button>
               </td>
               <td>

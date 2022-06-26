@@ -32,19 +32,15 @@
                   <td>{{ request?.programId !== 0 ? request?.program?.name : 'Any' }}</td>
                   <td>{{ request?.subject }}</td>
                   <td>{{ request?.gender }}</td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <img src="" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
-                        meTutorsDefaultAvatar alt="">
-                      <span>
-                        <bdi>{{ request?.studentName }}</bdi>
-                      </span>
-                    </div>
+                  <td class="d-flex ps-0">
+                    <metutors-user-avatar [avatar]="''" [type]="'small'"
+                                          [name]="request.studentName">
+                    </metutors-user-avatar>
                   </td>
                   <td>{{ request?.email }}</td>
                   <td>Grade {{ request?.grade }}</td>
                   <td>
-                    <div dropdown container="body" class="change-status position-relative d-flex">
+                    <div dropdown container="body" class="change-status position-relative d-flex ps-0">
                       <button dropdownToggle class="status text-capitalize" mat-button [ngClass]="request.status">
                         {{ request?.status }}
                       </button>
@@ -90,24 +86,16 @@
                   <td>{{ request?.programId !== 0 ? request?.program?.name : 'Any' }}</td>
                   <td>{{ request?.country?.name }}</td>
                   <td>{{ request?.subject }}</td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <img src="" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
-                        meTutorsDefaultAvatar alt="">
-                      <span>
-                        <bdi>{{ request?.studentName }}</bdi>
-                      </span>
-                    </div>
+                  <td class="d-flex ps-0">
+                    <metutors-user-avatar [avatar]="''" [type]="'small'"
+                                          [name]="request.studentName">
+                    </metutors-user-avatar>
                   </td>
                   <td>{{ request?.email }}</td>
                   <td>Grade {{ request?.grade }}</td>
                   <td>
-                    <div class="change-status position-relative d-flex">
-                      <button class="status text-capitalize" mat-button [ngClass]="{
-                        'offered': requestStatus.offered === request?.status,
-                        'pending': requestStatus.pending === request?.status,
-                        'not-offered': requestStatus.notOffered === request?.status
-                      }">
+                    <div class="change-status position-relative d-flex ps-0">
+                      <button class="status text-capitalize" mat-button [ngClass]="request.status">
                         {{ request?.status }}
                       </button>
                     </div>
@@ -131,7 +119,7 @@
   <button mat-menu-item class="h-auto btn-menu" (click)="onOpenRequestCourseDetailsModal()">
     <span>Request Details</span>
   </button>
-  <button mat-menu-item class="h-auto btn-menu" (click)="onOpenRequestCourseDetailsModal()">
+  <button mat-menu-item class="h-auto btn-menu">
     <span>Email Student</span>
   </button>
 </mat-menu>

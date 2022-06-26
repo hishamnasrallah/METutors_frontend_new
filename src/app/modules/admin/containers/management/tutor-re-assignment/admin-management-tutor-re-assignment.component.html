@@ -73,6 +73,14 @@
     </div>
   </div>
 </div>
+
+<metutors-admin-success-modal *ngIf="showSuccessModal$ | async" [routerLink]="['/admin', 'management', 'tutor-re-assignment']"
+                              [icon]="'green-tick-success.svg'" (closeModal)="onCloseSuccessModal()"
+                              [showModal]="(showSuccessModal$ | async)!" [heading]="'Request Completed'"
+                              [buttonLabel]="'View Assigned Bookings'"
+                              [subHeading]="'Teacher will be assigned within 24 hours'">
+</metutors-admin-success-modal>
+
 <metutors-admin-student-total-booking-modal [showModal]="(openBookingModal$ | async)!" *ngIf="openBookingModal$|async"
                                             (closeModal)="onCloseBookingModal()" [type]="'subject'"
                                             [loading]="(loadingTotalBooking$ | async)!"

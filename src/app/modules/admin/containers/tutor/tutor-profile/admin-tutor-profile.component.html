@@ -27,7 +27,7 @@
             </div>
             <div class="col-md-6">
               <div class="d-flex justify-content-end actions-interview align-items-center">
-                <a class="teacher-bookings me-3">
+                <a class="teacher-bookings me-3 cursor-pointer" (click)="onOpenBookingModal(1)">
                   Teacher Bookings
                 </a>
                 <a class="submit-document cursor-pointer"
@@ -257,6 +257,12 @@
     </div>
   </div>
 </ng-container>
+
+<metutors-admin-student-total-booking-modal [showModal]="(openBookingModal$ | async)!" *ngIf="openBookingModal$|async"
+                                            (closeModal)="onCloseBookingModal()" [type]="'teacher'"
+                                            [loading]="(loadingTotalBooking$ | async)!"
+                                            [detail]="(totalBooking$ | async)!">
+</metutors-admin-student-total-booking-modal>
 
 <metutors-teacher-availability-modal [timeSlots]="(tutorAvailability$ | async)!"
                                      [isLoadingTimeSlots]="(isLoadingTutorAvailability$ | async)!"

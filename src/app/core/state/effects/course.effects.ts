@@ -295,7 +295,6 @@ export class CourseEffects {
             courseActions.tutorAcceptCourseSuccess,
             courseActions.tutorRejectCourseSuccess,
             courseActions.tutorCancelCourseSuccess,
-            courseActions.studentReassignTutorSuccess,
             courseActions.studentRequestAdminAssignTutorSuccess,
           ]
         ),

@@ -7,13 +7,13 @@
           <h3>Program Name</h3>
           <h5>{{ requestDetails?.programId !== 0 ? requestDetails?.program?.name : 'Any' }}</h5>
         </div>
-        <div class="col-md-6" *ngIf="requestDetails?.country?.name">
-          <h3>Country</h3>
-          <h5>{{ requestDetails?.country?.name }}</h5>
-        </div>
         <div class="col-md-6">
           <h3>Subject</h3>
           <h5>{{ requestDetails?.subject }}</h5>
+        </div>
+        <div class="col-md-6" *ngIf="requestDetails?.country?.name">
+          <h3>Country</h3>
+          <h5>{{ requestDetails?.country?.name }}</h5>
         </div>
         <div class="col-md-6">
           <h3>Grade Level</h3>
@@ -37,7 +37,7 @@
 
       <div class="row">
         <div class="col-12">
-          <h2>Personal Info</h2>
+          <h2>Student Personal Info</h2>
         </div>
         <div class="col-md-6">
           <h3>Name</h3>
@@ -45,15 +45,15 @@
         </div>
 
         <div class="col-md-6">
-          <h3>Email address</h3>
+          <h3>Email</h3>
           <h5>{{ requestDetails?.email }}</h5>
         </div>
       </div>
 
       <div class="d-flex justify-content-end mt-4 mb-1">
-        <button (click)="closeModal.emit()" mat-button class="cancel-btn">Cancel</button>
+        <button (click)="closeModal.emit()" mat-button class="cancel-btn py-1 px-3">Cancel</button>
 
-        <button mat-flat-button color="primary">
+        <button mat-flat-button color="primary" class="py-1 px-3">
           Send Email
         </button>
       </div>

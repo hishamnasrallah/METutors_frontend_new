@@ -8,7 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class UserAvatarComponent implements OnInit {
   @Input() width = 25;
   @Input() height = 25;
-  @Input() name: string;
+  @Input() name?: string;
   @Input() rating: number;
   @Input() avatar: string;
   @Input() routerLink: any[] | null;

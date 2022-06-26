@@ -29,6 +29,7 @@ export class AdminManagementTutorReAssignmentComponent implements OnInit {
   availableTutors$: Observable<any>;
   tutorAvailability$: Observable<any>;
   openBookingModal$: Observable<boolean>;
+  showSuccessModal$: Observable<boolean>;
   reassigningTutor$: Observable<boolean>;
   loadingTotalBooking$: Observable<boolean>;
   isLoadingAvailableTutors$: Observable<boolean>;
@@ -78,6 +79,10 @@ export class AdminManagementTutorReAssignmentComponent implements OnInit {
     );
   }
 
+  onCloseSuccessModal(): void {
+    this._store.dispatch(fromAdminAction.closeSuccessModal());
+  }
+
   onChangeTab(tab: any): void {
     this.currentSection = tab;
 
@@ -119,6 +124,10 @@ export class AdminManagementTutorReAssignmentComponent implements OnInit {
 
     this.reassigningTutor$ = this._store.select(
       fromCore.selectIsReassigningTutor
+    );
+
+    this.showSuccessModal$ = this._store.select(
+      fromAdmin.selectShowSuccessModal
     );
 
     this.showReassigningTutorSelectionModal$ = this._store.select(
