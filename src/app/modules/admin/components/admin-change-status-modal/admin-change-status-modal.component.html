@@ -11,7 +11,7 @@
 
       <div class="text-center mt-4 mb-5">
         <mat-radio-group aria-label="Select an option" formControlName="status">
-          <mat-radio-button [value]="status" class="text-capitalize" [class.me-3]="!isLast" [ngClass]="status"
+          <mat-radio-button [value]="status" class="text-capitalize fw-bold" [class.me-3]="!isLast" [ngClass]="status"
                             *ngFor="let status of statusList; let isLast = last">
             {{ status }}
           </mat-radio-button>

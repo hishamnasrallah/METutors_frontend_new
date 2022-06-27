@@ -18,15 +18,18 @@ import { TutorStatus, InterviewStatus, TUTOR_STATUSES_CONST } from '@config';
 export class AdminCurrentTutorsComponent implements OnInit {
   tutorsCounts$: Observable<any>;
   isLoading$: Observable<boolean>;
+  tutorAvailability$: Observable<any>;
   tutors$: Observable<ITutor[] | null>;
   isChangeTutorStatus$: Observable<boolean>;
   activeTutors$: Observable<ITutor[] | null>;
   showChangeStatusModal$: Observable<boolean>;
   inActiveTutors$: Observable<ITutor[] | null>;
+  isLoadingTutorAvailability$: Observable<boolean>;
 
   totalBooking$: Observable<any>;
   openBookingModal$: Observable<boolean>;
   loadingTotalBooking: Observable<boolean>;
+  showTeacherAvailabilityModal$: Observable<boolean>;
 
   name: string;
   changeStatus: any;
@@ -49,6 +52,10 @@ export class AdminCurrentTutorsComponent implements OnInit {
       fromAdmin.selectIsChangeStatusModal
     );
 
+    this.showTeacherAvailabilityModal$ = this._store.select(
+      fromAdmin.selectIsShowTeacherAvailabilityModal
+    );
+
     this.loadingTotalBooking = this._store.select(
       fromCore.selectIsLoadingAdminBookingDetail
     );
@@ -61,7 +68,24 @@ export class AdminCurrentTutorsComponent implements OnInit {
       fromCore.selectIsChangeTutorStatus
     );
 
+    this.tutorAvailability$ = this._store.select(
+      fromCore.selectTutorAvailability
+    );
+
+    this.isLoadingTutorAvailability$ = this._store.select(
+      fromCore.selectIsLoadingTutorAvailability
+    );
+
     this.selectedIndex = this._route.snapshot.queryParams['tab'] || 0;
+  }
+
+  onOpenTeacherAvailabilityModal(id: number): void {
+    this._store.dispatch(fromAdminAction.openAdminTeacherAvailabilityModal());
+    this._store.dispatch(fromCore.loadTutorAvailability({ id }));
+  }
+
+  onCloseTeacherAvailabilityModal(): void {
+    this._store.dispatch(fromAdminAction.closeAdminTeacherAvailabilityModal());
   }
 
   onOpenBookingModal(id: number): void {

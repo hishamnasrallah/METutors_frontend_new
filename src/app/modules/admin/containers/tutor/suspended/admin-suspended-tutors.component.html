@@ -1,7 +1,7 @@
 <div class="tutors-list" *ngLet="(tutors$ | async) as tutors">
   <div class="row filters">
     <div class="col-md-6 d-flex align-items-center">
-      <h1>Suspended Teachers</h1>
+      <h1>Suspended Teachers <span *ngIf="tutors && tutors.length">({{ tutors.length }})</span></h1>
     </div>
     <div class="col-md-6">
       <div class="row">
@@ -63,7 +63,7 @@
             </td>
             <td>{{ tutor?.interviewRequest?.updatedAt | date }}</td>
             <td>
-              <div class="change-status position-relative d-flex">
+              <div class="change-status position-relative d-flex p-0">
                 <button class="status text-capitalize" mat-button>
                   Suspended
                 </button>
@@ -86,10 +86,17 @@
     [routerLink]="['/admin', 'tutor', 'profile', selectedTutor?.id]">
     <span>View Profile</span>
   </button>
-  <button mat-menu-item class="h-auto btn-menu">
+  <button mat-menu-item class="h-auto btn-menu" (click)="onOpenTeacherAvailabilityModal((selectedTutor?.id)!)">
     <span>View Availability</span>
   </button>
   <button mat-menu-item class="h-auto btn-menu">
     <span>Send Message</span>
   </button>
 </mat-menu>
+
+<metutors-teacher-availability-modal [timeSlots]="(tutorAvailability$ | async)!"
+                                     [isLoadingTimeSlots]="(isLoadingTutorAvailability$ | async)!"
+                                     [showModal]="(showTeacherAvailabilityModal$ | async)!"
+                                     *ngIf="showTeacherAvailabilityModal$ | async"
+                                     (closeModal)="onCloseTeacherAvailabilityModal()">
+</metutors-teacher-availability-modal>

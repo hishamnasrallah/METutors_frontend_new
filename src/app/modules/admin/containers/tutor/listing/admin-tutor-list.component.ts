@@ -15,9 +15,12 @@ import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 export class AdminTutorListComponent implements OnInit {
   tutorsCounts$: Observable<any>;
   isLoading$: Observable<boolean>;
+  tutorAvailability$: Observable<any>;
   tutors$: Observable<ITutor[] | null>;
   isChangeTutorStatus$: Observable<boolean>;
   showChangeStatusModal$: Observable<boolean>;
+  isLoadingTutorAvailability$: Observable<boolean>;
+  showTeacherAvailabilityModal$: Observable<boolean>;
 
   name: string;
   changeStatus: any;
@@ -37,6 +40,27 @@ export class AdminTutorListComponent implements OnInit {
     this.isChangeTutorStatus$ = this._store.select(
       fromCore.selectIsChangeTutorStatus
     );
+
+    this.showTeacherAvailabilityModal$ = this._store.select(
+      fromAdmin.selectIsShowTeacherAvailabilityModal
+    );
+
+    this.tutorAvailability$ = this._store.select(
+      fromCore.selectTutorAvailability
+    );
+
+    this.isLoadingTutorAvailability$ = this._store.select(
+      fromCore.selectIsLoadingTutorAvailability
+    );
+  }
+
+  onOpenTeacherAvailabilityModal(id: number): void {
+    this._store.dispatch(fromAdminAction.openAdminTeacherAvailabilityModal());
+    this._store.dispatch(fromCore.loadTutorAvailability({ id }));
+  }
+
+  onCloseTeacherAvailabilityModal(): void {
+    this._store.dispatch(fromAdminAction.closeAdminTeacherAvailabilityModal());
   }
 
   onOpenChangeStatusModal(changeStatus: any, selectedTutor: ITutor) {

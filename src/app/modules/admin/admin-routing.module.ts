@@ -148,7 +148,7 @@ const routes: Routes = [
             data: {
               layout: {
                 title: 'Workforce Capacity - Metutors',
-                navbarTitle: 'Workforce Capacity',
+                navbarTitle: 'Teachers',
                 showHeader: false,
                 showFooter: false,
               },
