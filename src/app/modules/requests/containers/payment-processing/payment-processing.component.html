@@ -1,36 +1,48 @@
 <ng-container>
-  <div class="container payment-container">
+  <div class="wrapper">
+  <div class="container pt-3">
     <div class="row">
       <div class="col-md-12">
-        <h2>Payment Status</h2>
         <div class="card"  *ngLet="(view$ | async) as view">
           <div class="card-body">
             <div class="row data">
-              <div class="col-md-12">
+              <div class="col-md-12 center p-4 text-center payment-container">
                 <ng-container [ngSwitch]="view.loading">
 
-                  <div class="d-flex" *ngSwitchCase="true">
-                    <mat-icon class="spinner">autorenew</mat-icon>
-                    <span class="processing">Please bear with us your payment is being processed...</span>
-                  </div>
+                  <!--Loading-->
+                  <ng-container *ngSwitchCase="true">
+                    <img src="assets/svg/loading.svg" alt="" draggable="false" class="mb-4"/>
+                    <p>Please bear with us your payment is being processed...</p>
+                  </ng-container>
 
                   <ng-container *ngSwitchCase="false">
-                   <ng-container [ngSwitch]="view?.paymentInfo?.status">
-                     <div class="center p-4 text-center" *ngSwitchCase="true">
-                       <img src="assets/svg/cheer.svg" alt="" draggable="false" class="mt-4 mb-4"/>
+                    <ng-container [ngSwitch]="view?.paymentInfo?.status">
+                      <!--Success-->
+                      <ng-container *ngSwitchCase="true">
+                        <img src="assets/svg/cheer.svg" alt="" draggable="false" class=" mb-4"/>
 
-                       <p class="success">Payment has been made Successfully</p>
+                        <p>Payment has been made Successfully</p>
 
-                       <button mat-flat-button color="primary" class="px-5 ms-3 p-2" [routerLink]="['/student', 'classrooms']">
-                         Continue
-                       </button>
-                     </div>
+                        <button mat-flat-button color="primary" class="px-5 ms-3 p-2" [routerLink]="['/student', 'classrooms']">
+                          Continue
+                        </button>
+                      </ng-container>
 
-                     <ng-container *ngSwitchCase="false">
-                       <h4 class="text-danger">Payment failed</h4>
-                       <div class="text-danger">{{ view?.paymentInfo?.error }}</div>
-                     </ng-container>
-                   </ng-container>
+                      <!--Failed-->
+                      <ng-container *ngSwitchCase="false">
+                        <img src="assets/svg/failed.svg" alt="" draggable="false" class=" mb-4"/>
+
+                        <p class="text-danger">{{ view?.paymentInfo?.error || 'Payment failed' }}</p>
+
+                        <button mat-flat-button color="primary" class="px-5 ms-3 p-2" routerLink="/">
+                          Go to Home
+                        </button>
+
+                        <button mat-flat-button color="primary" class="px-5 ms-3 p-2">
+                          Try Again
+                        </button>
+                      </ng-container>
+                    </ng-container>
 
                   </ng-container>
                 </ng-container>
@@ -41,5 +53,5 @@
       </div>
     </div>
   </div>
-
+  </div>
 </ng-container>

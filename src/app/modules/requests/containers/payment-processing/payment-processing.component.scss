@@ -1,20 +1,28 @@
-.payment-container {
-  font-size: 18px;
+.wrapper {
+  background: #F9F9F9 0 0 no-repeat padding-box;
 
   .card {
-    border-radius: 12px;
-    border: solid 1px #e2e2e2;
-    background-color: #ffffff;
     box-shadow: none;
     margin-bottom: 20px;
+    border-radius: 12px;
+    background-color: #ffffff;
   }
 
-  .spinner {
-    margin-right: 10px;
-  }
+  .payment-container {
+    img {
+      margin: 50px 0;
+    }
 
-  .success {
-    font-size: 1.5rem;
-    line-height: 2rem;
+    p {
+      margin: 50px 0;
+      color: #2A2A2A;
+      font-size: 28px;
+      line-height: 2rem;
+    }
+
+    button {
+      font-weight: bold;
+      margin-bottom: 50px;
+    }
   }
 }

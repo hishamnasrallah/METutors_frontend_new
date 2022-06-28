@@ -13,6 +13,7 @@ import * as fromCore from '@metutor/core/state';
 export class PaymentProcessingComponent implements OnInit {
   view$: Observable<{ loading: boolean; paymentInfo: any }>;
 
+  show = true;
   constructor(private _store: Store<any>, private _route: ActivatedRoute) {}
 
   ngOnInit(): void {
