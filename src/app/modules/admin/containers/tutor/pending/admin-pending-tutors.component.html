@@ -159,10 +159,17 @@
     [routerLink]="['/admin', 'tutor', 'profile', selectedTutor?.id]">
     <span>View Profile</span>
   </button>
-  <button mat-menu-item class="h-auto btn-menu">
+  <button mat-menu-item class="h-auto btn-menu" (click)="onOpenTeacherAvailabilityModal((selectedTutor?.id)!)">
     <span>View Availability</span>
   </button>
   <button mat-menu-item class="h-auto btn-menu">
     <span>Send Message</span>
   </button>
 </mat-menu>
+
+<metutors-teacher-availability-modal [timeSlots]="(tutorAvailability$ | async)!"
+                                     [isLoadingTimeSlots]="(isLoadingTutorAvailability$ | async)!"
+                                     [showModal]="(showTeacherAvailabilityModal$ | async)!"
+                                     *ngIf="showTeacherAvailabilityModal$ | async"
+                                     (closeModal)="onCloseTeacherAvailabilityModal()">
+</metutors-teacher-availability-modal>

@@ -49,6 +49,13 @@
         &:last-child {
           color: #2a2a2a;
         }
+
+        .edit-btn {
+          color: var(--main-color);
+          padding: 0;
+          text-decoration: underline;
+          font-weight: bold;
+        }
       }
     }
   }

@@ -15,6 +15,7 @@ import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 })
 export class AdminTutorInterviewDetailsComponent implements OnInit {
   isLoading$: Observable<boolean>;
+  tutorAvailability$: Observable<any>;
   isDeclineRequest$: Observable<boolean>;
   isAcceptingRequest$: Observable<boolean>;
   isJoiningInterview$: Observable<boolean>;
@@ -22,6 +23,8 @@ export class AdminTutorInterviewDetailsComponent implements OnInit {
   interview$: Observable<IInterview | null>;
   showDeclineRequestModal$: Observable<boolean>;
   showScheduleInterviewModal$: Observable<boolean>;
+  isLoadingTutorAvailability$: Observable<boolean>;
+  showTeacherAvailabilityModal$: Observable<boolean>;
   showHourlyRatePerSubjectModal$: Observable<boolean>;
 
   interviewStatus = InterviewStatus;
@@ -59,6 +62,27 @@ export class AdminTutorInterviewDetailsComponent implements OnInit {
     this.isJoiningInterview$ = this._store.select(
       fromCore.selectIsJoiningInterview
     );
+
+    this.tutorAvailability$ = this._store.select(
+      fromCore.selectTutorAvailability
+    );
+
+    this.isLoadingTutorAvailability$ = this._store.select(
+      fromCore.selectIsLoadingTutorAvailability
+    );
+
+    this.showTeacherAvailabilityModal$ = this._store.select(
+      fromAdmin.selectIsShowTeacherAvailabilityModal
+    );
+  }
+
+  onTutorAvailability(id: number): void {
+    this._store.dispatch(fromAdminAction.openAdminTeacherAvailabilityModal());
+    this._store.dispatch(fromCore.loadTutorAvailability({ id }));
+  }
+
+  onCloseTeacherAvailabilityModal(): void {
+    this._store.dispatch(fromAdminAction.closeAdminTeacherAvailabilityModal());
   }
 
   onOpenScheduleInterviewModal(interview: any) {

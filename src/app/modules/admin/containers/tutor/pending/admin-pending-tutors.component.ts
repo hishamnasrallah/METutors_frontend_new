@@ -1,10 +1,12 @@
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { TUTOR_STATUSES_CONST } from '@config';
+import { ITutor, ITutorFilters } from '@models';
 import * as fromCore from '@metutor/core/state';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { TUTOR_STATUSES_CONST } from '@config';
-import { ITutor, ITutorFilters } from '@models';
+import * as fromAdmin from '@metutor/modules/admin/state';
+import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 
 @Component({
   selector: 'metutors-pending',
@@ -14,8 +16,11 @@ import { ITutor, ITutorFilters } from '@models';
 export class AdminPendingTutorsComponent implements OnInit {
   tutorsCounts$: Observable<any>;
   isLoading$: Observable<boolean>;
+  tutorAvailability$: Observable<any>;
   pendingTutors$: Observable<ITutor[] | null>;
   rejectedTutors$: Observable<ITutor[] | null>;
+  isLoadingTutorAvailability$: Observable<boolean>;
+  showTeacherAvailabilityModal$: Observable<boolean>;
 
   name: string;
   selectedIndex: number;
@@ -28,6 +33,27 @@ export class AdminPendingTutorsComponent implements OnInit {
     this._prepareTutors();
 
     this.selectedIndex = this._route.snapshot.queryParams['tab'] || 0;
+
+    this.showTeacherAvailabilityModal$ = this._store.select(
+      fromAdmin.selectIsShowTeacherAvailabilityModal
+    );
+
+    this.tutorAvailability$ = this._store.select(
+      fromCore.selectTutorAvailability
+    );
+
+    this.isLoadingTutorAvailability$ = this._store.select(
+      fromCore.selectIsLoadingTutorAvailability
+    );
+  }
+
+  onOpenTeacherAvailabilityModal(id: number): void {
+    this._store.dispatch(fromAdminAction.openAdminTeacherAvailabilityModal());
+    this._store.dispatch(fromCore.loadTutorAvailability({ id }));
+  }
+
+  onCloseTeacherAvailabilityModal(): void {
+    this._store.dispatch(fromAdminAction.closeAdminTeacherAvailabilityModal());
   }
 
   filterTutors(filters: ITutorFilters): void {

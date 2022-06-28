@@ -165,7 +165,10 @@
                 </tr>
                 <tr *ngIf="interview?.tutor?.specifications?.teachingDays">
                   <td>Days</td>
-                  <td>{{ interview?.tutor?.specifications?.teachingDays }}</td>
+                  <td>
+                    {{ interview?.tutor?.specifications?.teachingDays }}
+                    <button mat-button class="edit-btn" (click)="onTutorAvailability(interview?.tutor?.id)">Day Availability</button>
+                  </td>
                 </tr>
               </table>
             </div>
@@ -261,4 +264,11 @@
                                           (submitted)="declineInterviewRequest($event, interview.id)"
                                           [showModal]="(showDeclineRequestModal$ | async)!">
   </metutors-admin-decline-interview-modal>
+
+  <metutors-teacher-availability-modal [timeSlots]="(tutorAvailability$ | async)!"
+                                       [isLoadingTimeSlots]="(isLoadingTutorAvailability$ | async)!"
+                                       [showModal]="(showTeacherAvailabilityModal$ | async)!"
+                                       *ngIf="showTeacherAvailabilityModal$ | async"
+                                       (closeModal)="onCloseTeacherAvailabilityModal()">
+  </metutors-teacher-availability-modal>
 </ng-container>
