@@ -8,7 +8,6 @@ import * as fromCore from '@metutor/core/state';
 import { MatDialog } from '@angular/material/dialog';
 import * as fromRequests from '@metutor/modules/requests/state';
 import { IClassroom, IInvoiceDetails, IUser } from '@metutor/core/models';
-import * as fromRequestsActions from '@metutor/modules/requests/state/actions';
 
 @Component({
   selector: 'metutors-invoice-details',
@@ -67,15 +66,5 @@ export class InvoiceDetailsComponent implements OnInit {
         },
       });
     }
-  }
-
-  closeRequestsConfirmPaymentModal(): void {
-    this._store.dispatch(
-      fromRequestsActions.closeRequestsConfirmPaymentModal()
-    );
-  }
-
-  payNow(classroom: IClassroom): void {
-    // this._store.dispatch(fromCore.createPaidClass({ data: classroom }));
   }
 }

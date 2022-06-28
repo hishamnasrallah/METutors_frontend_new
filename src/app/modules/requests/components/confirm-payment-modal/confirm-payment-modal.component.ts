@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'metutors-confirm-payment-modal',
@@ -8,8 +8,6 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class ConfirmPaymentModalComponent implements OnInit {
   @Input() paymentInfo: any;
   @Input() showModal: boolean = false;
-
-  @Output() payNow: EventEmitter<void> = new EventEmitter<void>();
 
   loading = true;
   constructor() {}

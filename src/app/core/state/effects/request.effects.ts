@@ -137,19 +137,6 @@ export class RequestEffects {
     )
   );
 
-  /*createPaidClassSuccess$ = createEffect(
-    () =>
-      this._actions$.pipe(
-        ofType(requestActions.createPaidClassSuccess),
-        map((_) => {
-          this._router.navigate(['/student/classrooms']);
-        })
-      ),
-    {
-      dispatch: false,
-    }
-  );*/
-
   loadRequestedCourses$ = createEffect(() =>
     this._actions$.pipe(
       ofType(requestActions.loadRequestedCourses),
