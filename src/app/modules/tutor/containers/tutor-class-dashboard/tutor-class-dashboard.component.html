@@ -187,31 +187,25 @@
                 <td>{{ i + 1}}</td>
                 <td>{{ pastClass.title }}</td>
                 <td>
-                  <!--<div class="overflow-visible logos">
-                    <img src="https://logo.clearbit.com/tarjama.com" alt="" draggable="false"
-                      class="d-inline-block rounded-circle">
-                    <img src="https://logo.clearbit.com/amazon.com" alt="" draggable="false"
-                      class="d-inline-block rounded-circle ">
-                    <img src="https://logo.clearbit.com/noon.ae" alt="" draggable="false"
-                      class="d-inline-block rounded-circle ">
-                    <img src="https://logo.clearbit.com/canon.com" alt="" draggable="false"
-                      class="d-inline-block rounded-circle ">
-                    <img src="https://logo.clearbit.com/axa.com" alt="" draggable="false"
-                      class="d-inline-block rounded-circle ">
-                    <img src="https://logo.clearbit.com/axis.xyz" alt="" draggable="false"
-                      class="d-inline-block rounded-circle ">
-                    <img src="https://logo.clearbit.com/tamatem.co" alt="" draggable="false"
-                      class="d-inline-block rounded-circle ">
-                  </div>-->
+                  <div class="overflow-visible logos" *ngIf="pastClass?.attendence?.length">
+                    <metutors-user-avatar [avatar]="attendee?.avatar" *ngFor="let attendee of pastClass?.attendence"
+                                          class="d-inline-block">
+                    </metutors-user-avatar>
+                  </div>
                 </td>
                 <td>{{ pastClass.startDate | date: 'EEEE'}} </td>
-                <td>{{ pastClass.startDate}} </td>
+                <td>{{ pastClass.startDate | date }} </td>
                 <td>{{ pastClass.startTime}} - {{ pastClass.endTime}} </td>
-                <td>2 hours</td>
+                <td>{{ pastClass?.duration }} hours</td>
                 <td class="d-flex">
-                  <button mat-button class="main-button-opacity flex-grow-1">
+                  <button mat-button class="main-button-opacity flex-grow-1" *ngIf="pastClass?.status === 'completed'"
+                          (click)="onViewClass(pastClass.id)" [disabled]="isLoadingViewClass$ | async">
                     <img src="assets/svg/eye-fill.svg" draggable="false" alt="">
                     View Class
+                  </button>
+
+                  <button mat-button class="secondary-button-opacity flex-grow-1" *ngIf="pastClass?.status === 'absent'">
+                    Student Absent
                   </button>
                 </td>
               </tr>

@@ -18,6 +18,7 @@ import { CourseStatus, courseStatusLabel, WEEK_DAYS_LONG } from '@config';
 export class TutorClassDashboardComponent implements OnInit {
   classId: number;
   isLaunchingClass$: Observable<boolean>;
+  isLoadingViewClass$: Observable<boolean>;
   showRescheduleModal: Observable<boolean>;
   isReschedulingClass$: Observable<boolean>;
   showCancelCourseModal$: Observable<boolean>;
@@ -51,6 +52,10 @@ export class TutorClassDashboardComponent implements OnInit {
     return Math.round(timeDif / 3600);
   }
 
+  onViewClass(id: number): void {
+    this._store.dispatch(fromCore.studentViewClass({ id }));
+  }
+
   ngOnInit(): void {
     this._store.dispatch(fromCore.loadCourseById());
 
@@ -76,6 +81,10 @@ export class TutorClassDashboardComponent implements OnInit {
 
     this.showRescheduleModal = this._store.select(
       fromTutor.selectRescheduleClassModal
+    );
+
+    this.isLoadingViewClass$ = this._store.select(
+      fromCore.selectStudentLoading
     );
 
     this.view$ = combineLatest([

@@ -117,7 +117,16 @@
                 <td>{{ todaysClass?.startTime }} - {{ todaysClass?.endTime }}</td>
                 <td>{{ todaysClass?.duration }}</td>
                 <td>
-                  <button mat-button class="main-button-opacity">View Class</button>
+                  <button mat-button class="main-button-opacity flex-grow-1 w-100" (click)="joinClass(todaysClass.id)"
+                          *ngIf="todaysClass?.status !== 'completed'" [disabled]="(isJoiningClass$ | async)">
+                    <img src="assets/svg/play-fill.svg" draggable="false" alt="">
+                    Join Class
+                  </button>
+                  <button mat-button class="main-button-opacity flex-grow-1 w-100" (click)="viewClass(todaysClass.id)"
+                          *ngIf="todaysClass?.status === 'completed'" [disabled]="isLoadingViewClass$ | async">
+                    <img src="assets/svg/eye-fill.svg" draggable="false" alt="">
+                    View Class
+                  </button>
                 </td>
               </tr>
             </ng-container>

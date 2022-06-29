@@ -21,6 +21,8 @@ import { studentSubmitPlatformFeedback } from '@metutor/core/state';
 export class StudentDashboardComponent implements OnInit {
   layout$: any;
   user$: Observable<IUser | null>;
+  isJoiningClass$: Observable<boolean>;
+  isLoadingViewClass$: Observable<boolean>;
 
   customOptions: OwlOptions = {
     loop: true,
@@ -85,9 +87,21 @@ export class StudentDashboardComponent implements OnInit {
     this._store.dispatch(fromCore.studentSubmitPlatformFeedback({ body }));
   }
 
+  joinClass(id: number): void {
+    this._store.dispatch(fromCore.studentJoinClass({ id }));
+  }
+
+  viewClass(id: number): void {
+    this._store.dispatch(fromCore.studentViewClass({ id }));
+  }
+
   ngOnInit(): void {
     this.user$ = this._store.select(fromCore.selectUser);
     this.layout$ = this._store.select(fromRoot.selectLayout);
+    this.isJoiningClass$ = this._store.select(fromCore.selectIsJoiningClass);
+    this.isLoadingViewClass$ = this._store.select(
+      fromCore.selectStudentLoading
+    );
 
     this.showSendFeedbackModal$ = this._store.select(
       fromStudent.selectSendFeedbackModal
