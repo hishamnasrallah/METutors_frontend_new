@@ -611,6 +611,30 @@ export class StudentEffects {
     )
   );
 
+  studentViewClass$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(studentActions.studentViewClass),
+      mergeMap(({ id }) =>
+        this._studentService.studentViewClass(id).pipe(
+          map((response) => {
+            if (response && response?.url) {
+              window.open(response.url, '_blank');
+            }
+
+            return studentActions.studentViewClassSuccess();
+          }),
+          catchError((error) =>
+            of(
+              studentActions.studentViewClassFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   studentSubmitAssignmentSuccess$ = createEffect(() =>
     this._actions$.pipe(
       ofType(studentActions.studentSubmitAssignmentSuccess),
@@ -668,6 +692,7 @@ export class StudentEffects {
       this._actions$.pipe(
         ofType(
           ...[
+            studentActions.studentViewClassFailure,
             studentActions.studentJoinClassFailure,
             studentActions.studentMakeupClassFailure,
             studentActions.studentAddNewClassFailure,

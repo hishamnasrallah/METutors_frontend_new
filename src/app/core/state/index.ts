@@ -734,6 +734,11 @@ export const selectIsLoadingTutorAvailability = createSelector(
   fromStudentReducer.selectIsLoadingTutorAvailability
 );
 
+export const selectStudentLoading = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectStudentLoading
+);
+
 // Ticket
 export const selectTickets = createSelector(
   selectTicketState,

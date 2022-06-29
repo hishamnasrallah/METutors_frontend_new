@@ -26,6 +26,7 @@ export class StudentClassDashboardComponent implements OnInit {
   isMakeupClass$: Observable<boolean>;
   tutorAvailability$: Observable<any>;
   isJoiningClass$: Observable<boolean>;
+  isLoadingViewClass$: Observable<boolean>;
   isLoadingTimeSlots$: Observable<boolean>;
   isCreatingNewClass$: Observable<boolean>;
   showAddCourseModal$: Observable<boolean>;
@@ -178,6 +179,10 @@ export class StudentClassDashboardComponent implements OnInit {
     this._router.navigate(['/student/classrooms']);
   }
 
+  onViewClass(id: number): void {
+    this._store.dispatch(fromCore.studentViewClass({ id }));
+  }
+
   ngOnInit(): void {
     this._store.dispatch(fromCore.loadStudentClassesDashboard());
     this.showAttendanceModal$ = this._store.select(
@@ -234,6 +239,10 @@ export class StudentClassDashboardComponent implements OnInit {
 
     this.tutorReAssignmentModal$ = this._store.select(
       fromStudent.selectTutorReAssignmentModal
+    );
+
+    this.isLoadingViewClass$ = this._store.select(
+      fromCore.selectStudentLoading
     );
 
     this.price$ = this._store.select(fromCore.selectEstimatedPrice);

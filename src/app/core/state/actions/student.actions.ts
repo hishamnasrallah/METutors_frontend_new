@@ -381,3 +381,17 @@ export const loadTutorAvailabilityFailure = createAction(
   '[Student] Load Tutor Availability Failure',
   props<{ error: any }>()
 );
+
+export const studentViewClass = createAction(
+  '[Student] Student View Class',
+  props<{ id: number }>()
+);
+
+export const studentViewClassSuccess = createAction(
+  '[Student] Student View Class Success'
+);
+
+export const studentViewClassFailure = createAction(
+  '[Student] Student View Class Failure',
+  props<{ error: any }>()
+);

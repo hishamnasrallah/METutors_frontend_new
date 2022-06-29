@@ -19,6 +19,7 @@ export interface State {
   assignment: any;
   assignments: any;
   preferences: any;
+  isLoading: boolean;
   feedbackOptions: any;
   classesDashboard: any;
   tutorAvailability: any;
@@ -56,9 +57,10 @@ export const initialState: State = {
   dashboard: null,
   resources: null,
   classroom: null,
-  preferences: null,
+  isLoading: false,
   assignment: null,
   attendance: null,
+  preferences: null,
   assignments: null,
   isMakeupClass: false,
   feedbackOptions: null,
@@ -570,7 +572,22 @@ export const reducer = createReducer(
 
       return finalState;
     }
-  )
+  ),
+  // Is loading
+  on(studentActions.studentViewClass, (state) => ({
+    ...state,
+    isLoading: true,
+  })),
+
+  on(studentActions.studentViewClassSuccess, (state) => ({
+    ...state,
+    isLoading: false,
+  })),
+
+  on(studentActions.studentViewClassFailure, (state) => ({
+    ...state,
+    isLoading: false,
+  }))
 );
 
 export const selectStudent = (state: State): IStudent | null => state.student;
@@ -691,6 +708,8 @@ export const selectIsLoadingTutorAvailability = (state: State): boolean =>
 
 export const selectTutorAvailability = (state: State): boolean =>
   state.tutorAvailability;
+
+export const selectStudentLoading = (state: State): boolean => state.isLoading;
 
 export const selectStudentTimeSlots = (state: State): any => state.timeSlots;
 

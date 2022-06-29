@@ -110,8 +110,8 @@
                       <img src="assets/svg/play-fill.svg" draggable="false" alt="">
                       Join Class
                     </button>
-                    <button mat-button class="main-button-opacity flex-grow-1"
-                            *ngIf="todaysClass?.status === 'completed'">
+                    <button mat-button class="main-button-opacity flex-grow-1" (click)="onViewClass(todaysClass.id)"
+                            *ngIf="todaysClass?.status === 'completed'" [disabled]="isLoadingViewClass$ | async">
                       <img src="assets/svg/eye-fill.svg" draggable="false" alt="">
                       View Class
                     </button>
@@ -237,8 +237,8 @@
                       <span class="w-100 text-danger text-center"
                             *ngIf="previousClass?.teacherAttendence?.status !== 'absent' && previousClass?.studentAttendence?.status === 'absent'">Student Absent</span>
                     </ng-container>
-                    <button mat-button class="main-button-opacity flex-grow-1"
-                            *ngIf="previousClass?.status === 'completed'">
+                    <button mat-button class="main-button-opacity flex-grow-1" (click)="onViewClass(previousClass.id)"
+                            *ngIf="previousClass?.status === 'completed'" [disabled]="isLoadingViewClass$ | async">
                       <img src="assets/svg/eye-fill.svg" draggable="false" alt="">
                       View Class
                     </button>

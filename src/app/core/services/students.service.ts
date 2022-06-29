@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { map, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { studentViewClass } from '@metutor/core/state';
 
 @Injectable({
   providedIn: 'root',
@@ -78,6 +79,10 @@ export class StudentsService {
       `${this.baseUrl}student/course/${id}/class`,
       data
     );
+  }
+
+  studentViewClass(id: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}view-class/${id}`);
   }
 
   errorHandler(error: HttpErrorResponse) {
