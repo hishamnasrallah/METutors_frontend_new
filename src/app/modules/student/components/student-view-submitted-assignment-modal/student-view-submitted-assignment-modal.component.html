@@ -14,21 +14,10 @@
             </p>
           </div>
 
-          <div class="form-group row">
-            <label>File</label>
-            <ng-container *ngFor="let file of view.assignment?.assignment?.file">
-              <div class="col-md-4 list-files d-flex align-items-center mt-3">
-                <img src="assets/svg/attachment.svg" alt="" draggable="false" width="30" height="30">
-                <div class="ms-2 flex-grow-1">
-                  <h3>{{ file?.originalName }}</h3>
-                  <h5>{{ file?.size }}</h5>
-                </div>
-                <a [href]="file?.url" target="_blank" mat-button class="add-url">
-                  Download
-                </a>
-              </div>
-            </ng-container>
-            <div class="col-md-6"></div>
+          <div class="form-group">
+            <metutors-uploaded-files [files]="view.assignment?.assignment?.file"
+                                     [extraClasses]="'col-md-8'">
+            </metutors-uploaded-files>
           </div>
 
           <ng-container
@@ -44,15 +33,8 @@
               <p>{{ feedback?.review }}</p>
             </div>
 
-            <div class="form-group row" *ngIf="feedback?.file">
-              <div class="col-md-6 list-files d-flex">
-                <mat-icon>attach_file</mat-icon>
-                <div class="ms-2">
-                  <h3>{{ feedback?.file?.url}}</h3>
-                  <!--<h5>100MB</h5>-->
-                </div>
-              </div>
-              <div class="col-md-6"></div>
+            <div class="form-group" *ngIf="feedback?.file">
+              <metutors-uploaded-files [files]="[feedback?.file]" [extraClasses]="'col-md-8'"></metutors-uploaded-files>
             </div>
             </ng-container>
           </ng-container>

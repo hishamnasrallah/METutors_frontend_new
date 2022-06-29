@@ -99,7 +99,11 @@ export class TutorAssignmentComponent implements OnInit {
   }
 
   openViewStudentAssignmentModal(id: number, assignee: any): void {
-    if (assignee.status === 'submitted' || assignee.status === 'completed') {
+    if (
+      assignee.status === 'submitted' ||
+      assignee.status === 'completed' ||
+      assignee.status === 'resubmitted'
+    ) {
       const userId = assignee?.userId;
 
       this._store.dispatch(

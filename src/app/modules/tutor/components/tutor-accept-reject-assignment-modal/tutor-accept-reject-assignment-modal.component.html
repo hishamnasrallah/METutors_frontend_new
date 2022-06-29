@@ -45,18 +45,11 @@
                   </ng-container>
                 </ng-container>
 
-                <div class="form-group row" *ngIf="(uploadedFiles$ | async)?.length">
-                  <div class="col-md-6 list-files d-flex align-items-center position-relative"
-                       *ngFor="let file of (uploadedFiles$ | async); let i = index">
-                    <img src="assets/svg/attachment.svg" alt="" draggable="false" width="30" height="30">
-                    <div class="ms-2 flex-grow-1">
-                      <h3>{{ file?.originalName }}</h3>
-                      <h5>{{ file?.size }}</h5>
-                    </div>
-                    <mat-icon class="cursor-pointer ms-2 delete-icon" (click)="removeFile(file.id)">
-                      cancel
-                    </mat-icon>
-                  </div>
+                <div class="form-group" *ngIf="(uploadedFiles$ | async)?.length">
+                  <metutors-uploaded-files [files]="(uploadedFiles$ | async)" [showDownloadFile]="false"
+                                           [showDeleteFile]="true" [extraClasses]="'col-md-8'"
+                                           (deleteFile)="removeFile($event)">
+                  </metutors-uploaded-files>
                 </div>
               </div>
 

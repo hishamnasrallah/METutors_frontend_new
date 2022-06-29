@@ -24,4 +24,15 @@
     font-weight: bold;
     font-size: 13px;
   }
+
+  .delete-icon {
+    width: 15px;
+    height: 15px;
+    font-size: 14px;
+    color: #696969;
+
+    &.file {
+      right: 0;
+    }
+  }
 }

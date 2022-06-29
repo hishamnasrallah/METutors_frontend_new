@@ -1,11 +1,4 @@
 .accept-reject-modal {
-  .delete-icon {
-    width: 16px;
-    height: 16px;
-    font-size: 16px;
-    color: #696969;
-  }
-
   .-mt-16 {
     margin-top: -16px;
   }
@@ -14,27 +7,5 @@
     margin-top: 4px;
     color: #979797;
     font-size: 12px;
-  }
-
-  .list-files {
-    >div {
-      width: 50%;
-    }
-
-    h3 {
-      font-size: 16px;
-      margin: 0;
-      color: #2a2a2a;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      width: 100%;
-    }
-
-    h5 {
-      font-size: 13px;
-      color: #696969;
-      margin: 0;
-    }
   }
 }

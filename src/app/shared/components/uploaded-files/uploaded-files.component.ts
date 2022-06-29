@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'metutors-uploaded-files',
@@ -7,6 +7,11 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class UploadedFilesComponent implements OnInit {
   @Input() files: any;
+  @Input() extraClasses = 'col-md-4';
+  @Input() showDeleteFile = false;
+  @Input() showDownloadFile = true;
+
+  @Output() deleteFile: EventEmitter<number> = new EventEmitter<number>();
 
   constructor() {}
 

@@ -36,18 +36,9 @@
         </ng-container>
 
         <div class="form-group row" *ngIf="(uploadedFiles$ | async)?.length">
-          <div class="col-md-4 list-files d-flex position-relative"
-               *ngFor="let file of (uploadedFiles$ | async); let i = index">
-            <img src="assets/svg/attachment.svg" alt="" draggable="false" width="30" height="30">
-            <div class="ms-2">
-              <h3>{{ file?.originalName }}</h3>
-              <h5>{{ file?.size }}</h5>
-            </div>
-            <mat-icon class="cursor-pointer ms-2 position-absolute delete-icon file"
-                      (click)="removeFile(file.id)">
-              cancel
-            </mat-icon>
-          </div>
+          <metutors-uploaded-files [files]="uploadedFiles$ | async" [showDownloadFile]="false"
+                                   [showDeleteFile]="true" (deleteFile)="removeFile($event)">
+          </metutors-uploaded-files>
         </div>
       </div>
 
