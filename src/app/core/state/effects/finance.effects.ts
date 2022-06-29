@@ -2,12 +2,11 @@ import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
+import { catchError, map, mergeMap } from 'rxjs/operators';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 
 import camelcaseKeys from 'camelcase-keys';
 import { FinanceService } from '@services';
-import * as fromRouterStore from '@metutor/state';
 import * as financeActions from '../actions/finance.actions';
 import { AlertNotificationService } from '@metutor/core/components';
 
@@ -118,6 +117,26 @@ export class FinanceEffects {
       )
     )
   );
+
+  reTryPayment$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(financeActions.reTryPayment),
+      mergeMap(({ courseId, redirectUrl }) =>
+        this._financeService.reTryPayment(courseId, redirectUrl).pipe(
+          map((paymentInfo) =>
+            financeActions.reTryPaymentSuccess({ paymentInfo })
+          ),
+          catchError((error) =>
+            of(
+              financeActions.reTryPaymentFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
   /*
   successMessages$ = createEffect(
     () =>
@@ -148,7 +167,12 @@ export class FinanceEffects {
   failureMessages$ = createEffect(
     () =>
       this._actions$.pipe(
-        ofType(...[financeActions.refundCourseFailure]),
+        ofType(
+          ...[
+            financeActions.reTryPaymentFailure,
+            financeActions.refundCourseFailure,
+          ]
+        ),
         map((action) => {
           if (action.error) {
             return this._alertNotificationService.error(action.error);

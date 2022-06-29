@@ -1480,6 +1480,16 @@ export const selectFinanceCoursePaymentStatus = createSelector(
   fromFinanceReducer.selectFinanceCoursePaymentStatus
 );
 
+export const selectFinancePaymentInfo = createSelector(
+  selectFinanceState,
+  fromFinanceReducer.selectFinancePaymentInfo
+);
+
+export const selectIsRetryingPayment = createSelector(
+  selectFinanceState,
+  fromFinanceReducer.selectIsRetryingPayment
+);
+
 /**
  *  FINANCE SELECTORS END
  */

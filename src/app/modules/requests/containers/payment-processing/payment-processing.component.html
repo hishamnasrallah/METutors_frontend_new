@@ -34,11 +34,11 @@
 
                         <p class="text-danger">{{ view?.paymentInfo?.error || 'Payment failed' }}</p>
 
-                        <button mat-flat-button color="primary" class="px-5 ms-3 p-2" routerLink="/">
+                        <button mat-flat-button color="primary" class="px-5 ms-3 p-2" routerLink="/" [disabled]="isRetryingPayment$ | async">
                           Go to Home
                         </button>
 
-                        <button mat-flat-button color="primary" class="px-5 ms-3 p-2">
+                        <button mat-flat-button color="primary" class="px-5 ms-3 p-2" (click)="retryPayment()" [disabled]="isRetryingPayment$ | async">
                           Try Again
                         </button>
                       </ng-container>
@@ -55,3 +55,8 @@
   </div>
   </div>
 </ng-container>
+
+<metutors-confirm-payment-modal *ngIf="showConfirmPaymentModal$ | async"
+                                [showModal]="(showConfirmPaymentModal$ | async)!"
+                                [paymentInfo]="(paymentInfo$ | async)!">
+</metutors-confirm-payment-modal>

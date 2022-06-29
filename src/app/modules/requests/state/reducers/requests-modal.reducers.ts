@@ -19,6 +19,7 @@ export const reducer = createReducer(
 
   on(
     fromCore.createCourseSuccess,
+    fromCore.reTryPaymentSuccess,
     requestsModalActions.openRequestsConfirmPaymentModal,
     (state) => ({
       ...state,

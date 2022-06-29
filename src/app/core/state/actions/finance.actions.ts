@@ -67,3 +67,18 @@ export const verifyCoursePaymentFailure = createAction(
   '[Finance] Verify Course Payment Failure',
   props<{ error: any }>()
 );
+
+export const reTryPayment = createAction(
+  '[Finance] Re-Try Payment',
+  props<{ courseId: number; redirectUrl: string }>()
+);
+
+export const reTryPaymentSuccess = createAction(
+  '[Finance] Re-Try Payment Success',
+  props<{ paymentInfo: any }>()
+);
+
+export const reTryPaymentFailure = createAction(
+  '[Finance] Re-Try Payment Failure ',
+  props<{ error: any }>()
+);

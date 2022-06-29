@@ -46,4 +46,11 @@ export class FinanceService {
       params: { id, course_id, resource_path },
     });
   }
+
+  reTryPayment(course_id: number, redirect_url: string): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}course/payment-retry`, {
+      course_id,
+      redirect_url,
+    });
+  }
 }
