@@ -7,7 +7,8 @@
         <h2 class="flex-grow-1 m-0 d-flex flex-column">
           <div class="d-flex align-items-center">
             Assignment Details
-            <button mat-button class="btn action-icon p-0 ms-3" type="button" tabindex="-1" (click)="openEditAssignmentModal(view?.assignment.id)">
+            <button mat-button class="btn action-icon p-0 ms-3" type="button" tabindex="-1"
+                    (click)="openEditAssignmentModal(view?.assignment.id)">
               <img src="assets/svg/edit-green.svg" draggable="false" width="15" height="15" alt=""/>
               Edit
             </button>
@@ -33,7 +34,8 @@
             <h3>{{ view?.assignment?.title }}</h3>
             <div class="overflow-visible logos">
               <ng-container *ngFor="let assignee of view?.assignment?.assignees">
-               <img meTutorsDefaultAvatar [src]="imageUrl+assignee?.user?.avatar" alt="" draggable="false" class="d-inline-block rounded-circle">
+                <img meTutorsDefaultAvatar [src]="imageUrl+assignee?.user?.avatar" alt="" draggable="false"
+                     class="d-inline-block rounded-circle">
               </ng-container>
             </div>
           </div>
@@ -61,28 +63,15 @@
             <label>URLs</label>
             <div class="url-info d-flex flex-column my-2" *ngFor="let urlInfo of view.assignment?.urls">
               <span>{{ urlInfo?.title }}</span>
-              <strong class="d-flex align-items-center">
-                {{ urlInfo?.url }}
-                <a [href]="urlInfo?.url" target="_blank" class="ms-3 d-flex align-items-center">
-                  <mat-icon>link</mat-icon>
-                </a>
-              </strong>
+              <a [href]="urlInfo?.url" target="_blank" class="d-flex align-items-center">
+                <strong class="d-flex align-items-center">
+                  {{ urlInfo?.url }}
+                </strong>
+              </a>
             </div>
           </div>
-          <div class="form-group row">
-            <label>Files</label>
-            <ng-container *ngFor="let file of view.assignment?.files">
-              <div class="col-md-6 list-files d-flex align-items-center mt-3">
-                <mat-icon>attach_file</mat-icon>
-                <div class="ms-2 flex-grow-1">
-                  <h3>{{ file?.url }}</h3>
-                  <!--<h5>100MB</h5>-->
-                </div>
-                <a [href]="file?.url" mat-button class="add-url float-end" target="_blank">
-                  Download
-                </a>
-              </div>
-            </ng-container>
+          <div class="form-group">
+            <metutors-uploaded-files [files]="view.assignment?.files"></metutors-uploaded-files>
           </div>
 
           <div class="form-group">

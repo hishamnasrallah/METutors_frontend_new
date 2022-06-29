@@ -41,10 +41,10 @@
 
             <div class="form-group row" *ngIf="assignment?.file">
               <div class="col-md-6 list-files d-flex align-items-center">
-                <mat-icon>attach_file</mat-icon>
+                <img src="assets/svg/attachment.svg" alt="" draggable="false" width="30" height="30" class="">
                 <div class="ms-2" *ngFor="let file of assignment?.file">
-                  <h3>{{ file.url}}</h3>
-                  <!--<h5>100MB</h5>-->
+                  <h3>{{ file.originalName}}</h3>
+                  <h5>{{ file.size}}</h5>
                 </div>
                 <a [href]="assignment?.file" target="_blank" mat-button class="add-url float-end">
                   Download
@@ -68,10 +68,10 @@
 
                 <div class="form-group row" *ngIf="feedback?.file">
                   <div class="col-md-6 list-files d-flex align-items-center">
-                    <mat-icon>attach_file</mat-icon>
+                    <img src="assets/svg/attachment.svg" alt="" draggable="false" width="50" height="50" class="">
                     <div class="ms-2 flex-grow-1">
-                      <h3>{{ feedback?.file?.url }}</h3>
-                      <!--<h5>100MB</h5>-->
+                      <h3>{{ feedback?.file?.originalName }}</h3>
+                      <h5>{{ feedback?.file?.size }}</h5>
                     </div>
                     <a [href]="feedback?.file?.url" mat-button class="add-url float-end" target="_blank">
                       Download

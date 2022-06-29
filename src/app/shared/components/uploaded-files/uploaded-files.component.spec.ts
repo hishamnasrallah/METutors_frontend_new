@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UploadedFilesListComponent } from '@metutor/shared/components';
+import { UploadedFilesComponent } from '@metutor/shared/components';
 
-describe('UploadedFilesListComponent', () => {
-  let component: UploadedFilesListComponent;
-  let fixture: ComponentFixture<UploadedFilesListComponent>;
+describe('UploadedFilesComponent', () => {
+  let component: UploadedFilesComponent;
+  let fixture: ComponentFixture<UploadedFilesComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [UploadedFilesListComponent],
+      declarations: [UploadedFilesComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UploadedFilesListComponent);
+    fixture = TestBed.createComponent(UploadedFilesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
