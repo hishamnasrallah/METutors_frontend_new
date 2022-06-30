@@ -5,77 +5,23 @@
         <h2>Invoice details</h2>
         <div class="card">
           <div class="card-body">
-            <div class="row data">
-              <div class="col-md-9">
-                <ul class="list-inline mb-0">
-                  <li class="list-inline-item mb-0 me-4">
-                    <span>Invoice #</span>
-                    <strong>IN37738</strong>
-                  </li>
-                  <li class="list-inline-item mb-0 me-4">
-                    <span>Order #</span>
-                    <strong>IN37738</strong>
-                  </li>
-                  <li class="list-inline-item mb-0 me-4">
-                    <span>Date #</span>
-                    <strong>01 jan 2022, 03:50</strong>
-                  </li>
-                </ul>
-              </div>
-              <div class="col-md-3">
-                <button mat-button class="invoice-email d-block w-100 mb-1">Get Invoice Email</button>
-                <button mat-button class="print d-block w-100 mb-1">Print</button>
-              </div>
-            </div>
+            <ng-container [ngSwitch]="isCalculateInvoiceDetails$ | async">
+              <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
+              <ng-container *ngSwitchCase="false">
+                <metutors-payment-invoice-details [invoiceDetails]="invoiceDetails"></metutors-payment-invoice-details>
 
-            <h3 class="title">Invoice Details</h3>
-            <ng-container *ngIf="!(isCalculateInvoiceDetails$ | async)">
-              <ul class="list-unstyled">
-                <li class="d-flex justify-content-between">
-                  <span>Classroom</span>
-                  <strong>{{ invoiceDetails?.pricePerHour | currency }}</strong>
-                </li>
-                <li class="d-flex justify-content-between">
-                  <span>Total Hours </span>
-                  <strong>{{ invoiceDetails?.totalHours }} hours</strong>
-                </li>
-                <li class="d-flex justify-content-between">
-                  <span>Total amount </span>
-                  <strong>{{ invoiceDetails?.totalAmount | currency }} USD</strong>
-                </li>
-                <li class="d-flex justify-content-between promocode">
-                  <span>Promo code 20% off</span>
-                  <strong>0 USD</strong>
-                </li>
-                <li class="d-flex justify-content-between total-payment">
-                  <span>Total payment</span>
-                  <strong>{{ invoiceDetails?.totalAmount | currency }}</strong>
-                </li>
-                <li class="d-flex justify-content-between">
-                  <span>Have a coupon ? </span>
-                  <form>
-                    <div class="d-flex have-coupon">
-                      <input type="text" placeholder="New2020" class="form-control">
-                      <button type="submit" mat-button>Apply</button>
-                    </div>
-                  </form>
-                </li>
-              </ul>
-              <div class="overflow-hidden" *ngLet="(user$ | async) as user">
-                <button mat-flat-button color="primary" class="float-end pay-now"
-                  (click)="saveCourse(user, classroom)" [disabled]="isCreatingCourse | async">
-                  Pay Now
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M16.172 10.9999H4V12.9999H16.172L10.808 18.3639L12.222 19.7779L20 11.9999L12.222 4.22192L10.808 5.63592L16.172 10.9999Z"
-                      fill="#FFF" />
-                  </svg>
-                </button>
-              </div>
-            </ng-container>
-
-            <ng-container *ngIf="(isCalculateInvoiceDetails$ | async)">
-              <metutors-grid-placeholder></metutors-grid-placeholder>
+                <div class="overflow-hidden" *ngLet="(user$ | async) as user">
+                  <button mat-flat-button color="primary" class="float-end pay-now"
+                          (click)="saveCourse(user, classroom)" [disabled]="isCreatingCourse | async">
+                    Pay Now
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M16.172 10.9999H4V12.9999H16.172L10.808 18.3639L12.222 19.7779L20 11.9999L12.222 4.22192L10.808 5.63592L16.172 10.9999Z"
+                        fill="#FFF" />
+                    </svg>
+                  </button>
+                </div>
+              </ng-container>
             </ng-container>
           </div>
         </div>

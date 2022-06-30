@@ -53,7 +53,8 @@ export const calculateEstimatedPriceFailure = createAction(
 );
 
 export const calculateFinalInvoice = createAction(
-  '[Request] Calculate Final Invoice'
+  '[Request] Calculate Final Invoice',
+  props<{ classes?: any }>()
 );
 
 export const calculateFinalInvoiceSuccess = createAction(
@@ -64,10 +65,6 @@ export const calculateFinalInvoiceSuccess = createAction(
 export const calculateFinalInvoiceFailure = createAction(
   '[Request] Calculate Final Invoice Failure',
   props<{ error: any }>()
-);
-
-export const calculateFinalInvoiceEnded = createAction(
-  '[Request] Calculate Final Invoice Ended'
 );
 
 export const createCourse = createAction(

@@ -89,10 +89,10 @@
           <div class="col-md-12">
             <div class="d-flex justify-content-between est-price">
               <div>
-                <h5>Estimated Price:
+                <h5>Estimated Cost (USD):
                   <span>{{ (price * +hours?.value) | currency: 'USD' }}</span>
                 </h5>
-                <p class="mb-0">Price change based on total hours, total classes, time</p>
+                <p class="mb-0">Price change based on total hours</p>
               </div>
               <div>
                 <h5>Total Hours: <span>{{ hours?.value }} hrs</span></h5>
@@ -104,7 +104,7 @@
 
         <div class="row mt-4">
           <div class="col-12 overflow-hidden">
-            <button mat-flat-button color="primary" class="float-end" [disabled]="form.invalid"
+            <button mat-flat-button color="primary" class="float-end px-5" [disabled]="form.invalid"
                     (click)="generateClassrooms(form)" type="submit">
               Next
             </button>
@@ -121,7 +121,8 @@
                 <th>Date</th>
                 <th>Start Time</th>
                 <th>End Time</th>
-                <th>Duration</th>
+                <th>Total hours</th>
+                <th></th>
               </tr>
               <tr *ngFor="let classroom of classrooms">
                 <td>{{ classroom?.date | date: 'EEEE' }}</td>
@@ -129,15 +130,17 @@
                 <td>{{ classroom?.startTime }}</td>
                 <td>{{ classroom?.endTime }}</td>
                 <td>{{ classroom?.duration + 'hrs' }}</td>
-                <div class="actions">
-                  <button mat-button class="delete-btn" *ngIf="classrooms.length > 1"
-                          (click)="deleteClassroom(classroom?.number)">
-                    <mat-icon>delete</mat-icon>
-                  </button>
-                  <button mat-button class="edit-btn" (click)="editClassroom(classroom)">
-                    <mat-icon>edit</mat-icon>
-                  </button>
-                </div>
+                <td>
+                  <div class="actions">
+                    <button mat-button class="delete-btn" *ngIf="classrooms.length > 1"
+                            (click)="deleteClassroom(classroom?.number)">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                    <button mat-button class="edit-btn" (click)="editClassroom(classroom)">
+                      <mat-icon>edit</mat-icon>
+                    </button>
+                  </div>
+                </td>
               </tr>
             </table>
           </div>
@@ -161,10 +164,9 @@
 
           <div class="row mt-4">
             <div class="col-12 overflow-hidden">
-              <button mat-flat-button color="primary" class="float-end" [disabled]="form.invalid || isCreating"
-                      (click)="onSubmit(form)" type="submit">
-                Schedule
-                <mat-icon class="spinner" *ngIf="isCreating">autorenew</mat-icon>
+              <button mat-flat-button color="primary" class="float-end px-5" [disabled]="form.invalid"
+                      (click)="onCheckout(form)" type="button">
+                Checkout
               </button>
             </div>
           </div>
@@ -181,7 +183,9 @@
                 </ng-container>
 
                 <ng-container *ngSwitchCase="false">
-                  <div *ngIf="!objectKeys(availabilities)?.length" class="text-center fw-bold">No Teacher availabilities found</div>
+                  <div *ngIf="!objectKeys(availabilities)?.length" class="text-center fw-bold">No Teacher availabilities
+                    found
+                  </div>
                   <div class="row" *ngIf="objectKeys(availabilities)?.length">
                     <div class="col-4">
                       <label class="text-secondary fw-bold">Start Date</label>
@@ -221,6 +225,27 @@
             <button mat-flat-button color="primary" class="float-end" type="button" (click)="goBack()">Back</button>
           </div>
         </div>
+      </ng-container>
+
+      <ng-container *ngIf="step === 4">
+        <ng-container [ngSwitch]="isLoadingInvoiceDetails">
+          <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
+
+          <ng-container *ngSwitchCase="false">
+            <metutors-payment-invoice-details [invoiceDetails]="invoiceDetails"></metutors-payment-invoice-details>
+            <button mat-flat-button color="primary" class="float-end px-5 my-3" [disabled]="isCreating"
+                    (click)="onSubmit(form)" type="submit">
+              Pay Now
+
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M16.172 10.9999H4V12.9999H16.172L10.808 18.3639L12.222 19.7779L20 11.9999L12.222 4.22192L10.808 5.63592L16.172 10.9999Z"
+                  fill="#FFF"/>
+              </svg>
+              <mat-icon class="spinner" *ngIf="isCreating">autorenew</mat-icon>
+            </button>
+          </ng-container>
+        </ng-container>
       </ng-container>
     </form>
   </ng-template>

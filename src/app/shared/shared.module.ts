@@ -19,6 +19,7 @@ import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
 
 // Popups
 import {
+  PaymentModalComponent,
   DialogCourseDetailsPopup,
   CourseDetailsPopupComponent,
   DialogClassroomDetailsPopup,
@@ -43,6 +44,7 @@ import {
   FileUploadProgressComponent,
   TutorAvailableSlotsComponent,
   CourseItemHorizentalComponent,
+  PaymentInvoiceDetailsComponent,
   ClassroomItemHorizentalComponent,
 } from '@metutor/shared/components';
 
@@ -59,6 +61,8 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 @NgModule({
   declarations: [
+    // Components
+    ModalComponent,
     CourseItemComponent,
     UserAvatarComponent,
     VideoPlayerComponent,
@@ -66,19 +70,18 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
     SubmitButtonComponent,
     UploadedFilesComponent,
     ClassroomItemComponent,
+    ModalComponentTemplate,
     CardPlaceholderComponent,
     GridPlaceholderComponent,
     SupportTicketCardComponent,
     FileUploadProgressComponent,
     TutorAvailableSlotsComponent,
     CourseItemHorizentalComponent,
+    PaymentInvoiceDetailsComponent,
     ClassroomItemHorizentalComponent,
 
-    // Modal
-    ModalComponent,
-    ModalComponentTemplate,
-
-    // Popups
+    // Modals
+    PaymentModalComponent,
     DialogCourseDetailsPopup,
     CourseDetailsPopupComponent,
     DialogClassroomDetailsPopup,
@@ -114,21 +117,22 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
     BsDropdownModule.forRoot(),
   ],
   exports: [
+    // Components
+    ModalComponent,
     CourseItemComponent,
     VideoPlayerComponent,
     SubmitButtonComponent,
+    ModalComponentTemplate,
     ClassroomItemComponent,
     CardPlaceholderComponent,
     GridPlaceholderComponent,
     SupportTicketCardComponent,
     CourseItemHorizentalComponent,
+    PaymentInvoiceDetailsComponent,
     ClassroomItemHorizentalComponent,
 
-    // Modal
-    ModalComponent,
-    ModalComponentTemplate,
-
-    // Popups
+    // Modals
+    PaymentModalComponent,
     DialogCourseDetailsPopup,
     CourseDetailsPopupComponent,
     DialogClassroomDetailsPopup,

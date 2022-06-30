@@ -354,7 +354,7 @@ export const studentMakeupClassFailure = createAction(
 // Add New Class
 export const studentAddNewClass = createAction(
   '[Student] Student Add New Class',
-  props<{ id: number; data: any }>()
+  props<{ data: any }>()
 );
 
 export const studentAddNewClassSuccess = createAction(

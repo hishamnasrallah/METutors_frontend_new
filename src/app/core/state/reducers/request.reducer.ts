@@ -172,11 +172,6 @@ export const reducer = createReducer(
     calculateFinalInvoiceFailure: error,
   })),
 
-  on(requestActions.calculateFinalInvoiceEnded, (state) => ({
-    ...state,
-    isCalculateFinalInvoice: false,
-  })),
-
   on(requestActions.loadRequestedCourses, (state) => ({
     ...state,
     isLoadingRequestedCourses: true,

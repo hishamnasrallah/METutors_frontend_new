@@ -277,20 +277,27 @@ export class CoursesService {
       .pipe(catchError(this.errorHandler));
   }
 
-  calculateFinalInvoice(classroom: any): Observable<any> {
-    const body = {
-      subject_id: classroom?.subject,
-      classes:
-        classroom?.classrooms && classroom?.classrooms.length
-          ? classroom?.classrooms.map((clss: any) => ({
-              date: clss.date,
-              day: clss.day,
-              start_time: clss.start_time,
-              end_time: clss.end_time,
-              duration: clss.duration,
-            }))
-          : [],
-    };
+  calculateFinalInvoice(classes: any, classroom: any): Observable<any> {
+    let body: {};
+
+    console.log('classes', classes);
+    if (classes) {
+      body = classes;
+    } else {
+      body = {
+        subject_id: classroom?.subject,
+        classes:
+          classroom?.classrooms && classroom?.classrooms.length
+            ? classroom?.classrooms.map((clss: any) => ({
+                date: clss.date,
+                day: clss.day,
+                start_time: clss.start_time,
+                end_time: clss.end_time,
+                duration: clss.duration,
+              }))
+            : [],
+      };
+    }
 
     return this.http
       .post(`${this.baseUrl}final-invoice`, body)

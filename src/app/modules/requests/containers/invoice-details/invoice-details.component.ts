@@ -32,7 +32,7 @@ export class InvoiceDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this._store.dispatch(fromCore.enterInvoiceDetails());
-    this._store.dispatch(fromCore.calculateFinalInvoice());
+    this._store.dispatch(fromCore.calculateFinalInvoice({}));
     this.user$ = this._store.select(fromCore.selectUser);
     this.classroom$ = this._store.select(fromCore.selectCreatedClass);
     this.invoiceDetails$ = this._store.select(fromCore.selectInvoiceDetails);

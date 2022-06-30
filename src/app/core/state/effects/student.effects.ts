@@ -592,8 +592,8 @@ export class StudentEffects {
   studentAddNewClass$ = createEffect(() =>
     this._actions$.pipe(
       ofType(studentActions.studentAddNewClass),
-      mergeMap(({ id, data }) =>
-        this._studentService.studentAddNewClass(id, data).pipe(
+      mergeMap(({ data }) =>
+        this._studentService.studentAddNewClass(data).pipe(
           map((response) =>
             studentActions.studentAddNewClassSuccess({
               message: response.message,

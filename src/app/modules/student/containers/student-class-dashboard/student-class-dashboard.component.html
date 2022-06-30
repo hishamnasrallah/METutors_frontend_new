@@ -274,7 +274,10 @@
                                      (submitForm)="onAddCourse(view.data?.course?.id, $event)"
                                      [isCreating]="(isCreatingNewClass$ | async)!"
                                      (tutorAvailability)="onTutorAvailability(view.data?.course?.teacher?.id)"
-                                     (closeModal)="onCloseAddCourseModal()">
+                                     [invoiceDetails]="(invoiceDetails$ | async)!"
+                                     [isLoadingInvoiceDetails]="(isCalculateInvoiceDetails$ | async)!"
+                                     (closeModal)="onCloseAddCourseModal()"
+                                     (calculateInvoice)="onCalculateInvoice(view.data?.course?.subjectId,$event)">
   </metutors-student-add-course-modal>
 
   <metutors-student-makeup-class-modal *ngIf="showMakeupClassModal$ | async"

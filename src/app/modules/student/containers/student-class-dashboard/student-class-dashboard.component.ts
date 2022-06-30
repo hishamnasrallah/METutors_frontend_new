@@ -8,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 
 import * as moment from 'moment';
 import * as fromStudent from '../../state';
+import { environment } from '@environment';
 import * as fromCore from '@metutor/core/state';
 import * as fromStudentAction from '../../state/actions';
 import { CourseStatus, courseStatusLabel } from '@metutor/config';
+import { IInvoiceDetails } from '@models';
 
 @Component({
   selector: 'metutors-student-class-dashboard',
@@ -38,11 +40,15 @@ export class StudentClassDashboardComponent implements OnInit {
   cancelCourseSuccessModal$: Observable<boolean>;
   isLoadingTutorAvailability$: Observable<boolean>;
 
+  isCalculateInvoiceDetails$: Observable<boolean>;
+  invoiceDetails$: Observable<IInvoiceDetails | null>;
+
   onHold = false;
   cancelCourse = false;
   feedbackSubHeading: string;
   courseStatus = CourseStatus;
   statusLabel = courseStatusLabel;
+  baseURL = environment.clientUrl;
 
   view$: Observable<{
     data: any;
@@ -85,24 +91,30 @@ export class StudentClassDashboardComponent implements OnInit {
     this._store.dispatch(fromStudentAction.closeTutorReAssignmentModal());
   }
 
-  onAddCourse(id: number, value: any): void {
+  onCalculateInvoice(subject_id: number, value: any): void {
+    console.log(value);
+    const classes = {
+      subject_id,
+      classes: this._getClasses(value.classes),
+    };
+
+    this._store.dispatch(fromCore.calculateFinalInvoice({ classes }));
+  }
+
+  onAddCourse(course_id: number, value: any): void {
     const data = {
+      course_id,
+      total_price: value.totalPrice,
+      total_classes: value.classes?.length,
+      classes: this._getClasses(value.classes),
+      redirect_url: this.baseURL + '/requests/payment-processing',
       total_hours: value.classes?.reduce(
         (sum: number, hr: any) => sum + +hr?.duration,
         0
       ),
-      total_classes: value.classes?.length,
-      total_price: value.totalPrice,
-      classes: value.classes?.map((clss: any) => ({
-        day: new Date(clss.date)?.getDay() + 1,
-        date: this._datePipe.transform(new Date(clss.date), 'yyyy-MM-dd') || '',
-        start_time: clss.startTime,
-        end_time: clss.endTime,
-        duration: clss.duration,
-      })),
     };
 
-    this._store.dispatch(fromCore.studentAddNewClass({ id, data }));
+    this._store.dispatch(fromCore.studentAddNewClass({ data }));
   }
 
   onShowSendFeedbackModal(
@@ -247,6 +259,11 @@ export class StudentClassDashboardComponent implements OnInit {
 
     this.price$ = this._store.select(fromCore.selectEstimatedPrice);
 
+    this.invoiceDetails$ = this._store.select(fromCore.selectInvoiceDetails);
+    this.isCalculateInvoiceDetails$ = this._store.select(
+      fromCore.selectIsCalculateFinalInvoice
+    );
+
     this.view$ = combineLatest([
       this._store.select(fromCore.selectStudentClassesDashboard),
       this._store.select(fromCore.selectIsLoadingStudentClassesDashboard),
@@ -256,5 +273,15 @@ export class StudentClassDashboardComponent implements OnInit {
         data,
       }))
     );
+  }
+
+  private _getClasses(classes: any): any {
+    return classes?.map((clss: any) => ({
+      day: new Date(clss.date)?.getDay() + 1,
+      date: this._datePipe.transform(new Date(clss.date), 'yyyy-MM-dd') || '',
+      start_time: clss.startTime,
+      end_time: clss.endTime,
+      duration: clss.duration,
+    }));
   }
 }

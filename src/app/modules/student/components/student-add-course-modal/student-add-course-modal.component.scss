@@ -88,40 +88,24 @@
         }
 
         .actions {
-          position: absolute;
-          right: -100%;
-          transition: all 0.25s ease-in-out;
-          margin-top: 10px;
-          display: none;
-
           button {
+            padding: 0;
             width: 25px;
             height: 25px;
-            padding: 0;
-            font-size: 15px;
             min-width: 0;
-            margin-left: 10px;
+            font-size: 15px;
 
             mat-icon {
               font-size: 17px;
             }
 
             &.edit-btn {
-              background-color: rgb(59 179 193 / 10%);
               color: var(--main-color);
             }
 
             &.delete-btn {
-              background-color: rgb(255 85 75 / 10%);
               color: #ff554b;
             }
-          }
-        }
-
-        &:hover {
-          .actions {
-            right: 20px;
-            display: block;
           }
         }
       }

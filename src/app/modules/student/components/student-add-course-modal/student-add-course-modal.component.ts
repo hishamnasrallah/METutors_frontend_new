@@ -35,7 +35,7 @@ import {
 
 import groupBy from 'lodash/groupBy';
 import { DatePipe } from '@angular/common';
-import { IClass } from '@metutor/core/models';
+import { IClass, IInvoiceDetails } from '@metutor/core/models';
 
 import {
   MatDialog,
@@ -89,9 +89,12 @@ export class StudentAddCourseModalComponent implements OnInit {
   @Input() isCreating: boolean;
   @Input() showModal: boolean = false;
   @Input() isLoadingTimeSlots: boolean;
+  @Input() invoiceDetails: IInvoiceDetails;
+  @Input() isLoadingInvoiceDetails: boolean;
 
   @Output() submitForm: EventEmitter<any> = new EventEmitter<any>();
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
+  @Output() calculateInvoice: EventEmitter<any> = new EventEmitter<any>();
   @Output() tutorAvailability: EventEmitter<void> = new EventEmitter<void>();
 
   step = 1;
@@ -108,7 +111,8 @@ export class StudentAddCourseModalComponent implements OnInit {
   weekDayName = WEEK_FULL_DAYS;
   daysSorted = SORTED_DAYS_WEEK;
   classroomTimeDuration = generalConstants.classroomTimeDuration;
-  subHeading = 'Please select classes date to view Tutors availability';
+  subHeading =
+    "Kindly view tutor's availability prior to selecting new date and time";
 
   constructor(
     private _fb: FormBuilder,
@@ -198,6 +202,13 @@ export class StudentAddCourseModalComponent implements OnInit {
     return this.form.get('classes');
   }
 
+  onCheckout(form: FormGroup): void {
+    this.step = 4;
+    this.subHeading = '';
+    this.heading = 'Checkout';
+
+    this.calculateInvoice.emit(form.value);
+  }
   generateClassrooms(form: FormGroup): void {
     if (form.valid) {
       const value: any = this._generateClassroomForm(form.value);
@@ -470,7 +481,7 @@ export class DialogEditClassroom implements OnInit {
     private _datePipe: DatePipe,
     private _fv: FormValidationUtilsService,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<DialogEditClassroom>,
+    public dialogRef: MatDialogRef<DialogEditClassroom>
   ) {
     this.editForm = this._fb.group(
       {

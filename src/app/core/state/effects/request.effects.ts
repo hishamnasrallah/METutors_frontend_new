@@ -92,26 +92,22 @@ export class RequestEffects {
     this._actions$.pipe(
       ofType(requestActions.calculateFinalInvoice),
       withLatestFrom(this._store.select(fromCore.selectCreatedClass)),
-      mergeMap(([_, _createdClass]) => {
-        if (_createdClass) {
-          return this._coursesService.calculateFinalInvoice(_createdClass).pipe(
-            map((invoiceDetails) =>
-              requestActions.calculateFinalInvoiceSuccess({
-                invoiceDetails,
+      mergeMap(([{ classes }, _createdClass]) =>
+        this._coursesService.calculateFinalInvoice(classes, _createdClass).pipe(
+          map((invoiceDetails) =>
+            requestActions.calculateFinalInvoiceSuccess({
+              invoiceDetails,
+            })
+          ),
+          catchError((error) =>
+            of(
+              requestActions.calculateFinalInvoiceFailure({
+                error: error?.error?.message || error?.error?.errors,
               })
-            ),
-            catchError((error) =>
-              of(
-                requestActions.calculateFinalInvoiceFailure({
-                  error: error?.error?.message || error?.error?.errors,
-                })
-              )
             )
-          );
-        } else {
-          return of(requestActions.calculateFinalInvoiceEnded());
-        }
-      })
+          )
+        )
+      )
     )
   );
 
