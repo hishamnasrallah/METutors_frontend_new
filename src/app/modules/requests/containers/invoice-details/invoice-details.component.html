@@ -12,7 +12,7 @@
 
                 <div class="overflow-hidden" *ngLet="(user$ | async) as user">
                   <button mat-flat-button color="primary" class="float-end pay-now"
-                          (click)="saveCourse(user, classroom)" [disabled]="isCreatingCourse | async">
+                          (click)="saveCourse(user, classroom)" [disabled]="isCreatingCourse$ | async">
                     Pay Now
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path
@@ -32,8 +32,8 @@
     </div>
   </div>
 
-  <metutors-confirm-payment-modal *ngIf="showConfirmPaymentModal$ | async"
-                                  [showModal]="(showConfirmPaymentModal$ | async)!"
-                                  [paymentInfo]="(paymentInfo$ | async)!">
-  </metutors-confirm-payment-modal>
+  <metutors-payment-modal *ngIf="showConfirmPaymentModal$ | async"
+                          [showModal]="(showConfirmPaymentModal$ | async)!"
+                          [paymentInfo]="(paymentInfo$ | async)!">
+  </metutors-payment-modal>
 </ng-container>

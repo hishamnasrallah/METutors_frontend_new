@@ -280,7 +280,6 @@ export class CoursesService {
   calculateFinalInvoice(classes: any, classroom: any): Observable<any> {
     let body: {};
 
-    console.log('classes', classes);
     if (classes) {
       body = classes;
     } else {

@@ -1,1 +1,8 @@
-<p>payment-modal works!</p>
+<metutors-modal [showModal]="showModal" [size]="'medium'" [showHeader]="false" [template]="template">
+  <ng-template #template>
+    <ng-container [ngSwitch]="loading">
+      <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
+      <form [action]="paymentInfo?.shopperResultUrl" class="paymentWidgets" data-brands="VISA MASTER AMEX"></form>
+    </ng-container>
+  </ng-template>
+</metutors-modal>

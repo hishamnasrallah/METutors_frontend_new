@@ -5,6 +5,7 @@ import * as studentModalActions from '../actions/student-modal.actions';
 
 export interface State {
   params: any;
+  showPaymentModal: boolean;
   showAddCourseModal: boolean;
   showAttendanceModal: boolean;
   showMakeupClassModal: boolean;
@@ -20,6 +21,7 @@ export interface State {
 
 export const initialState: State = {
   params: null,
+  showPaymentModal: false,
   showAddCourseModal: false,
   showAttendanceModal: false,
   showMakeupClassModal: false,
@@ -186,6 +188,11 @@ export const reducer = createReducer(
   on(studentModalActions.closeTutorReAssignmentModal, (state) => ({
     ...state,
     showTutorReAssignmentModal: false,
+  })),
+
+  on(fromCore.studentAddNewClassSuccess, (state) => ({
+    ...state,
+    showPaymentModal: true,
   }))
 );
 
@@ -222,5 +229,8 @@ export const selectCancelCourseSuccessModal = (state: State): boolean =>
 
 export const selectTutorReAssignmentModal = (state: State): boolean =>
   state.showTutorReAssignmentModal;
+
+export const selectPaymentModal = (state: State): boolean =>
+  state.showPaymentModal;
 
 export const selectStudentStateParams = (state: State): any => state.params;

@@ -11,7 +11,6 @@ import { IUser } from '@metutor/core/models';
 import * as fromCore from '@metutor/core/state';
 import * as fromStudentActions from '../../state/actions';
 import { FormGroup } from '@angular/forms';
-import { studentSubmitPlatformFeedback } from '@metutor/core/state';
 
 @Component({
   selector: 'metutors-student-dashboard',

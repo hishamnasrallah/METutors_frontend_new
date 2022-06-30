@@ -3,6 +3,7 @@ import { createReducer, on } from '@ngrx/store';
 import { IClassroom, ICourseRequest, IInvoiceDetails, ITutor } from '@models';
 import * as userActions from '../actions/user.actions';
 import * as requestActions from '../actions/request.actions';
+import * as studentActions from '../actions/student.actions';
 
 export interface State {
   // Estimated Price
@@ -130,11 +131,15 @@ export const reducer = createReducer(
     isCreatingCourse: true,
   })),
 
-  on(requestActions.createCourseSuccess, (state, { paymentInfo }) => ({
-    ...state,
-    paymentInfo,
-    isCreatingCourse: true,
-  })),
+  on(
+    requestActions.createCourseSuccess,
+    studentActions.studentAddNewClassSuccess,
+    (state, { paymentInfo }) => ({
+      ...state,
+      paymentInfo,
+      isCreatingCourse: true,
+    })
+  ),
 
   on(requestActions.createCourseFailure, (state, { error }) => ({
     ...state,

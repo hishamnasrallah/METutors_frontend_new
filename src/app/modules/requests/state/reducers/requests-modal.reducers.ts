@@ -18,7 +18,6 @@ export const reducer = createReducer(
   initialState,
 
   on(
-    fromCore.studentAddNewClass,
     fromCore.createCourseSuccess,
     fromCore.reTryPaymentSuccess,
     requestsModalActions.openRequestsConfirmPaymentModal,

@@ -7,12 +7,12 @@ import { combineLatest, Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 
 import * as moment from 'moment';
+import { IInvoiceDetails } from '@models';
 import * as fromStudent from '../../state';
 import { environment } from '@environment';
 import * as fromCore from '@metutor/core/state';
 import * as fromStudentAction from '../../state/actions';
 import { CourseStatus, courseStatusLabel } from '@metutor/config';
-import { IInvoiceDetails } from '@models';
 
 @Component({
   selector: 'metutors-student-class-dashboard',
@@ -23,11 +23,13 @@ import { IInvoiceDetails } from '@models';
 export class StudentClassDashboardComponent implements OnInit {
   classId: number;
   timeSlots$: Observable<any>;
+  paymentInfo$: Observable<any>;
   refundAmount$: Observable<any>;
   price$: Observable<number | null>;
   isMakeupClass$: Observable<boolean>;
   tutorAvailability$: Observable<any>;
   isJoiningClass$: Observable<boolean>;
+  showPaymentModal$: Observable<boolean>;
   isLoadingViewClass$: Observable<boolean>;
   isLoadingTimeSlots$: Observable<boolean>;
   isCreatingNewClass$: Observable<boolean>;
@@ -263,6 +265,10 @@ export class StudentClassDashboardComponent implements OnInit {
     this.isCalculateInvoiceDetails$ = this._store.select(
       fromCore.selectIsCalculateFinalInvoice
     );
+
+    this.showPaymentModal$ = this._store.select(fromStudent.selectPaymentModal);
+
+    this.paymentInfo$ = this._store.select(fromCore.selectRequestPaymentInfo);
 
     this.view$ = combineLatest([
       this._store.select(fromCore.selectStudentClassesDashboard),

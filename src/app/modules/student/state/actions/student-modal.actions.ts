@@ -104,3 +104,7 @@ export const openTutorReAssignmentModal = createAction(
 export const closeTutorReAssignmentModal = createAction(
   '[Student Modal] Close Tutor Re-Assignment Modal'
 );
+
+export const openPaymentModal = createAction(
+  '[Student Modal] Open Payment Modal'
+);

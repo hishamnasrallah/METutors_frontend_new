@@ -359,7 +359,7 @@ export const studentAddNewClass = createAction(
 
 export const studentAddNewClassSuccess = createAction(
   '[Student] Student Add New Class Success',
-  props<{ message: string }>()
+  props<{ paymentInfo: any }>()
 );
 
 export const studentAddNewClassFailure = createAction(

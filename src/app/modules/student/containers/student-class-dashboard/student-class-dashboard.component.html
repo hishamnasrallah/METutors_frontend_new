@@ -252,6 +252,11 @@
     </div>
   </div>
 
+  <metutors-payment-modal *ngIf="showPaymentModal$ | async"
+                          [showModal]="(showPaymentModal$ | async)!"
+                          [paymentInfo]="(paymentInfo$ | async)!">
+  </metutors-payment-modal>
+
   <metutors-student-attendance-modal *ngIf="showAttendanceModal$ | async" [showModal]="(showAttendanceModal$ | async)!"
                                      (closeModal)="onCloseAttendanceModal()">
   </metutors-student-attendance-modal>

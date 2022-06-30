@@ -56,7 +56,7 @@
   </div>
 </ng-container>
 
-<metutors-confirm-payment-modal *ngIf="showConfirmPaymentModal$ | async"
-                                [showModal]="(showConfirmPaymentModal$ | async)!"
-                                [paymentInfo]="(paymentInfo$ | async)!">
-</metutors-confirm-payment-modal>
+<metutors-payment-modal *ngIf="showConfirmPaymentModal$ | async"
+                        [showModal]="(showConfirmPaymentModal$ | async)!"
+                        [paymentInfo]="(paymentInfo$ | async)!">
+</metutors-payment-modal>

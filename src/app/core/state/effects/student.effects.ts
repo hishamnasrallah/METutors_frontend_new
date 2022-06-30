@@ -596,7 +596,7 @@ export class StudentEffects {
         this._studentService.studentAddNewClass(data).pipe(
           map((response) =>
             studentActions.studentAddNewClassSuccess({
-              message: response.message,
+              paymentInfo: response,
             })
           ),
           catchError((error) =>
@@ -642,12 +642,9 @@ export class StudentEffects {
     )
   );
 
-  studentAddNewClassSuccess$ = createEffect(() =>
+  studentMakeupClassSuccess$ = createEffect(() =>
     this._actions$.pipe(
-      ofType(
-        studentActions.studentMakeupClassSuccess,
-        studentActions.studentAddNewClassSuccess
-      ),
+      ofType(studentActions.studentMakeupClassSuccess),
       map(() => studentActions.loadStudentClassesDashboard())
     )
   );

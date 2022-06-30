@@ -18,7 +18,7 @@ export class InvoiceDetailsComponent implements OnInit {
   paymentInfo$: Observable<any>;
   user$: Observable<IUser | null>;
   baseURL = environment.clientUrl;
-  isCreatingCourse: Observable<boolean>;
+  isCreatingCourse$: Observable<boolean>;
   classroom$: Observable<IClassroom | null>;
   showConfirmPaymentModal$: Observable<boolean>;
   isCalculateInvoiceDetails$: Observable<boolean>;
@@ -42,7 +42,7 @@ export class InvoiceDetailsComponent implements OnInit {
 
     this.paymentInfo$ = this._store.select(fromCore.selectRequestPaymentInfo);
 
-    this.isCreatingCourse = this._store.select(
+    this.isCreatingCourse$ = this._store.select(
       fromCore.selectRequestedIsCreatingCourse
     );
 

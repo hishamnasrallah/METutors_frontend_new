@@ -97,3 +97,8 @@ export const selectTutorReAssignmentModal = createSelector(
   selectStudentModalState,
   fromStudentModal.selectTutorReAssignmentModal
 );
+
+export const selectPaymentModal = createSelector(
+  selectStudentModalState,
+  fromStudentModal.selectPaymentModal
+);
