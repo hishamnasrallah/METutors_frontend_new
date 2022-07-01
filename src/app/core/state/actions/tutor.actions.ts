@@ -87,7 +87,10 @@ export const loadAvailableTutorsEnded = createAction(
 );
 
 // Load all tutors
-export const loadTutors = createAction('[Tutor] Load Tutors');
+export const loadTutors = createAction(
+  '[Tutor] Load Tutors',
+  props<{ page: number }>()
+);
 
 export const loadTutorsSuccess = createAction(
   '[Tutor] Load Tutors Success',
@@ -98,8 +101,6 @@ export const loadTutorsFailure = createAction(
   '[Tutor] Load Tutors Failure',
   props<{ error: any }>()
 );
-
-export const loadTutorsEnded = createAction('[Tutor] Load Tutors Ended');
 
 // Load current tutors
 export const loadCurrentTutors = createAction('[Tutor] Load Current Tutors');

@@ -87,28 +87,23 @@ export class TutorEffects {
   loadTutors$ = createEffect(() =>
     this._actions$.pipe(
       ofType(tutorActions.loadTutors),
-      withLatestFrom(this._store.select(selectTutors)),
-      mergeMap(([_, _tutors]) => {
-        if (!_tutors || !_tutors?.length) {
-          return this._tutorService.getTutors().pipe(
-            map((response) =>
-              tutorActions.loadTutorsSuccess({
-                tutors: response.tutors,
-                tutorsCounts: response.tutorsCounts,
+      mergeMap(({ page }) =>
+        this._tutorService.getTutors(page).pipe(
+          map((response) =>
+            tutorActions.loadTutorsSuccess({
+              tutors: response.tutors,
+              tutorsCounts: response.tutorsCounts,
+            })
+          ),
+          catchError((error) =>
+            of(
+              tutorActions.loadTutorsFailure({
+                error: error?.error?.message || error?.error?.errors,
               })
-            ),
-            catchError((error) =>
-              of(
-                tutorActions.loadTutorsFailure({
-                  error: error?.error?.message || error?.error?.errors,
-                })
-              )
             )
-          );
-        } else {
-          return of(tutorActions.loadTutorsEnded());
-        }
-      })
+          )
+        )
+      )
     )
   );
 

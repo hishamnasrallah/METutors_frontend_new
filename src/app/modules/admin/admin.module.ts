@@ -13,6 +13,7 @@ import { MatInputModule } from '@angular/material/input';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { AdminRoutingModule } from './admin-routing.module';
 import { SharedModule } from '@metutor/shared/shared.module';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -166,6 +167,7 @@ import {
     MatRadioModule,
     MatButtonModule,
     MatSelectModule,
+    PaginationModule,
     MatFormFieldModule,
     AdminRoutingModule,
     NgxDocViewerModule,

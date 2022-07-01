@@ -23,6 +23,7 @@ export class AdminTutorListComponent implements OnInit {
   showTeacherAvailabilityModal$: Observable<boolean>;
 
   name: string;
+  perPage = 10;
   changeStatus: any;
   selectedTutor?: ITutor;
   tutorStatus = TutorStatus;
@@ -91,8 +92,12 @@ export class AdminTutorListComponent implements OnInit {
     );
   }
 
+  onPageChange({ page }: any): void {
+    this._store.dispatch(fromCore.loadTutors({ page }));
+  }
+
   private _prepareTutors(): void {
-    this._store.dispatch(fromCore.loadTutors());
+    this._store.dispatch(fromCore.loadTutors({ page: 1 }));
     this.tutors$ = this._store.select(fromCore.selectTutors);
     this.isLoading$ = this._store.select(fromCore.selectIsLoadingTutors);
     this.tutorsCounts$ = this._store.select(fromCore.selectTutorsCounts);

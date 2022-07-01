@@ -223,6 +223,12 @@
             </td>
           </tr>
         </table>
+
+        <div class="d-flex mt-2 justify-content-center">
+          <pagination [totalItems]="(tutorsCounts$ | async)?.total" [itemsPerPage]="perPage" [maxSize]="5"
+                      (pageChanged)="onPageChange($event)">
+          </pagination>
+        </div>
       </ng-container>
     </div>
   </div>

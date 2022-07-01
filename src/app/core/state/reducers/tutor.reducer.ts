@@ -211,11 +211,6 @@ export const reducer = createReducer(
     loadingTutorsFailure: error,
   })),
 
-  on(tutorActions.loadTutorsEnded, (state) => ({
-    ...state,
-    isLoadingTutors: false,
-  })),
-
   on(tutorActions.loadCurrentTutors, (state) => ({
     ...state,
     isLoadingCurrentTutors: true,

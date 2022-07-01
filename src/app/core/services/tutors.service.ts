@@ -74,22 +74,26 @@ export class TutorsService {
       );
   }
 
-  getTutors(): Observable<any> {
+  getTutors(page: number): Observable<any> {
     return this.http
       .get<{
-        teachers: ITutor[];
+        total: number;
         all_teachers: number;
         active_teachers: number;
         pending_teachers: number;
         inactive_teachers: number;
         suspended_teachers: number;
-      }>(`${this.baseUrl}admin/teachers`)
+        teachers: { total: number; data: ITutor[] };
+      }>(`${this.baseUrl}admin/teachers?page=${page}`)
       .pipe(
         map((response) => {
           return {
-            tutors: response.teachers.map((tutor) => new ITutor(false, tutor)),
+            tutors: response.teachers.data.map(
+              (tutor) => new ITutor(false, tutor)
+            ),
             tutorsCounts: {
               all: response?.all_teachers,
+              total: response?.teachers?.total,
               active: response?.active_teachers,
               pending: response?.pending_teachers,
               inactive: response?.inactive_teachers,
