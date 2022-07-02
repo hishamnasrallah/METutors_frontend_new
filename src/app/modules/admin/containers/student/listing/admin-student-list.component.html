@@ -363,7 +363,7 @@
                   <td>{{ student?.email }}</td>
                   <td>{{ student?.mobile }}</td>
                   <td>
-                    <div dropdown class="change-status position-relative d-flex">
+                    <div dropdown container="body" class="change-status position-relative d-flex">
                       <button dropdownToggle class="status text-capitalize suspended" mat-button [ngClass]="student?.status">
                         {{ student?.status }}
                       </button>

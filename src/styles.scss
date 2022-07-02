@@ -765,7 +765,8 @@ span.status {
   &.accepted,
   &.refunded,
   &.inprogress,
-  &.active, &.success {
+  &.active,
+  &.success {
     color: #50C394;
     background: rgba(80, 195, 148, 0.2);
   }
@@ -778,7 +779,8 @@ span.status {
     color: #c98843;
   }
 
-  &.upcoming, &.submitted, {
+  &.upcoming,
+  &.submitted {
     color: #5955cd;
     background-color: #e1e0fe;
   }
@@ -791,6 +793,59 @@ span.status {
   &.cancelled_by_teacher {
     color: #d34c65;
     background-color: #f9d3da;
+  }
+
+  &.suspended {
+    background-color: #F15A5A;
+    color: #FFF;
+  }
+}
+
+.statues li {
+  padding: 5px 7px;
+
+  &.completed,
+  &.accepted,
+  &.refunded,
+  &.inprogress,
+  &.active,
+  &.success {
+    color: #50C394;
+    background: rgba(80, 195, 148, 0.2);
+  }
+
+  &.pending,
+  &.requested,
+  &.payment_pending,
+  &.requested_to_metutors {
+    background-color: #f8e3cc;
+    color: #c98843;
+  }
+
+  &.enrolled {
+    color: #FF8300;
+    background-color: #ff83001a;
+  }
+
+  &.upcoming,
+  &.submitted {
+    color: #5955cd;
+    background-color: #e1e0fe;
+  }
+
+  &.canceled,
+  &.cancelled,
+  &.rejected,
+  &.declined_by_teacher,
+  &.cancelled_by_student,
+  &.cancelled_by_teacher {
+    color: #d34c65;
+    background-color: #f9d3da;
+  }
+
+  &.suspended {
+    background-color: #F15A5A;
+    color: #FFF;
   }
 }
 
