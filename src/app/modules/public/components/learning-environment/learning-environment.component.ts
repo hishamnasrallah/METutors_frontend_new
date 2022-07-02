@@ -115,7 +115,6 @@ export class ChooseCountryDialog {
   }
 
   onChangeCountry(event: any): void {
-    console.log();
     this.tempCountries = this.countries.filter((country) =>
       country.name?.toLowerCase()?.includes(event.target.value)
     );

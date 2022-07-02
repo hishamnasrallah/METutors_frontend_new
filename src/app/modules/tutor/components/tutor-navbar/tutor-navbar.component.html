@@ -5,7 +5,19 @@
       <img src="assets/svg/mail-b.svg" draggable="false" width="25" height="25" alt="">
       <img src="assets/svg/notification.svg" draggable="false" width="25" height="25" alt="">
       <img [src]="user?.avatar" meTutorsDefaultAvatar alt="" class="rounded-circle" draggable="false" width="40"
-        height="40">
+        height="40" [matMenuTriggerFor]="menu">
     </div>
   </div>
 </div>
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item class="h-auto btn-menu" routerLink="/tutor/settings">
+    <span>View profile</span>
+  </button>
+  <button mat-menu-item class="h-auto btn-menu" routerLink="/tutor/payment-records">
+    <span>Payment History</span>
+  </button>
+  <button mat-menu-item class="h-auto btn-menu" (click)="logout.emit()">
+    <span>Logout</span>
+  </button>
+</mat-menu>

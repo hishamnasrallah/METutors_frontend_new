@@ -85,6 +85,10 @@ export class TutorDashboardComponent implements OnInit {
     this._store.dispatch(fromCore.tutorSubmitPlatformFeedback({ body }));
   }
 
+  logout(): void {
+    this._store.dispatch(fromCore.logout());
+  }
+
   ngOnInit(): void {
     this.user$ = this._store.select(fromCore.selectUser);
     this.layout$ = this._store.select(fromRoot.selectLayout);

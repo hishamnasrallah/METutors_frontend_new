@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IUser } from '@metutor/core/models';
 
 @Component({
@@ -9,6 +9,8 @@ import { IUser } from '@metutor/core/models';
 export class TutorNavbarComponent implements OnInit {
   @Input() layout: any;
   @Input() user: IUser | null;
+
+  @Output() logout = new EventEmitter();
 
   constructor() {}
 

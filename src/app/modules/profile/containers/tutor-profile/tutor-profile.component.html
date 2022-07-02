@@ -15,7 +15,8 @@
       <metutors-tutor-profile-share></metutors-tutor-profile-share>
     </div>
     <div class="col-md-8">
-      <metutors-tutor-profile-availablity-tutoring [tutor]="tutor" [isLoading]="(loading$ | async)!">
+      <metutors-tutor-profile-availablity-tutoring [tutor]="tutor" [isLoading]="(loading$ | async)!"
+                                                   (tutorAvailability)="onTutorAvailability(tutor.id)">
       </metutors-tutor-profile-availablity-tutoring>
 
       <!-- <metutors-tutor-profile-video-preview [tutor]="tutor" [isLoading]="(loading$ | async)!">
@@ -29,3 +30,10 @@
     </div>
   </div>
 </div>
+
+<metutors-teacher-availability-modal [timeSlots]="(tutorAvailability$ | async)!"
+                                     [isLoadingTimeSlots]="(isLoadingTutorAvailability$ | async)!"
+                                     [showModal]="(showTeacherAvailabilityModal$ | async)!"
+                                     *ngIf="showTeacherAvailabilityModal$ | async"
+                                     (closeModal)="onCloseTeacherAvailabilityModal()">
+</metutors-teacher-availability-modal>

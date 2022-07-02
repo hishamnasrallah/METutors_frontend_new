@@ -5,6 +5,16 @@
     color: #2a2a2a;
   }
 
+  .request-course {
+    border-color: #50C394 !important;
+    color: #50C394 !important;
+
+    &:hover {
+      background-color: #50C394 !important;
+      color: #FFF !important;
+    }
+  }
+
   .filters {
     .title {
       padding: 12px 1rem;

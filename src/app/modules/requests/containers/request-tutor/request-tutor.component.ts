@@ -28,8 +28,8 @@ import {
 } from 'src/app/core/models';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
-import { FormValidationUtilsService } from '@metutor/core/validators';
 import * as fromRequests from '@metutor/modules/requests/state';
+import { FormValidationUtilsService } from '@metutor/core/validators';
 import * as fromRequestsActions from '@metutor/modules/requests/state/actions';
 
 @Component({

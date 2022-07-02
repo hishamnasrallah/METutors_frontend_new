@@ -1,6 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { COURSE_TUITION_TYPES_CONST, generalConstants, SORTED_DAYS_WEEK } from '@metutor/config';
 import { ITutor } from '@metutor/core/models';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  generalConstants,
+  SORTED_DAYS_WEEK,
+  COURSE_TUITION_TYPES_CONST,
+} from '@metutor/config';
 
 @Component({
   selector: 'metutors-tutor-profile-availablity-tutoring',
@@ -21,6 +25,8 @@ export class TutorProfileAvailablityTutoringComponent implements OnInit {
       }
     }
   }
+
+  @Output() tutorAvailability = new EventEmitter();
 
   _tutor: ITutor;
   availability: string[] = [];

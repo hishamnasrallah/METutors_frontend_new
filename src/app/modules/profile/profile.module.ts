@@ -17,6 +17,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 
+import * as fromProfile from './state';
+import { StoreModule } from '@ngrx/store';
+import * as featureKeys from './state/feature-keys';
+
 import {
   TutorProfileComponent,
   CompleteTutorProfileComponent,
@@ -79,6 +83,7 @@ import {
     ReactiveFormsModule,
     MatNativeDateModule,
     ProfileRoutingModule,
+    StoreModule.forFeature(featureKeys.profileFeatureKey, fromProfile.reducers),
   ],
 })
 export class ProfileModule {}

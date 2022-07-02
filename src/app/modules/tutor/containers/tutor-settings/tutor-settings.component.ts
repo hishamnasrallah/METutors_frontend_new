@@ -122,6 +122,10 @@ export class TutorSettingsComponent implements OnInit {
     this._store.dispatch(fromCore.joinInterview({ interviewId }));
   }
 
+  logout(): void {
+    this._store.dispatch(fromCore.logout());
+  }
+
   private _prepareCountries(): void {
     this._store.dispatch(fromCore.loadCountries());
     this.countries$ = this._store.select(fromCore.selectCountries);

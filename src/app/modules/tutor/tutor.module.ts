@@ -4,9 +4,10 @@ import { EffectsModule } from '@ngrx/effects';
 import { CommonModule } from '@angular/common';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { RatingModule } from 'ngx-bootstrap/rating';
+import { NgxAutoScrollModule } from 'ngx-auto-scroll';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
-import { NgxAutoScrollModule } from 'ngx-auto-scroll';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatInputModule } from '@angular/material/input';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -120,6 +121,7 @@ import {
     SharedModule,
     MatTabsModule,
     MatIconModule,
+    MatMenuModule,
     CarouselModule,
     MatRadioModule,
     MatInputModule,

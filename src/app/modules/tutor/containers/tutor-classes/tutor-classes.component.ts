@@ -24,4 +24,8 @@ export class TutorClassesComponent implements OnInit {
     this.user$ = this._store.select(fromCore.selectUser);
     this.routeParams$ = this._store.select(fromRouterStore.selectRouteParams);
   }
+
+  logout(): void {
+    this._store.dispatch(fromCore.logout());
+  }
 }

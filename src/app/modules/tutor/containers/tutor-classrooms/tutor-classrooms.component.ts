@@ -108,6 +108,10 @@ export class TutorClassroomsComponent implements OnInit {
     );
   }
 
+  logout(): void {
+    this._store.dispatch(fromCore.logout());
+  }
+
   ngOnInit(): void {
     this._store.dispatch(fromCore.loadProgramCountries());
     this.layout$ = this._store.select(fromRoot.selectLayout);

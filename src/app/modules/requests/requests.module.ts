@@ -18,7 +18,6 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 import * as fromRequests from './state';
 import { StoreModule } from '@ngrx/store';
-// import * as adminEffects from './state/effects';
 import * as featureKeys from './state/feature-keys';
 
 import {
@@ -72,7 +71,6 @@ import {
     RequestsRoutingModule,
     RatingModule.forRoot(),
     NgxMaterialTimepickerModule,
-    // EffectsModule.forFeature(Object.values(adminEffects)),
     StoreModule.forFeature(
       featureKeys.requestsFeatureKey,
       fromRequests.reducers

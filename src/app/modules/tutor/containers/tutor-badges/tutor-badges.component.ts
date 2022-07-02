@@ -20,4 +20,8 @@ export class TutorBadgesComponent implements OnInit {
     this.layout$ = this._store.select(fromRoot.selectLayout);
     this.user$ = this._store.select(fromCore.selectUser);
   }
+
+  logout(): void {
+    this._store.dispatch(fromCore.logout());
+  }
 }

@@ -5,7 +5,7 @@
         <div class="col-md-6" *ngIf="availability && availability?.length">
           <h1 class="heading">Teacher Availability</h1>
 
-          <span *ngFor="let avail of availability">{{ avail }}</span>
+          <span *ngFor="let avail of availability" (click)="tutorAvailability.emit()" class="cursor-pointer">{{ avail }}</span>
         </div>
         <div class="col-md-6" *ngIf="_tutor?.specifications?.typeOfTutoring">
           <h1 class="heading">Type of Tutoring</h1>
