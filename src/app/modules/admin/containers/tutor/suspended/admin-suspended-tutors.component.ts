@@ -1,8 +1,9 @@
-import { Observable } from 'rxjs';
+import { combineLatest, map, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import * as fromCore from '@metutor/core/state';
-import { ITutor, ITutorFilters } from '@models';
 import { Component, OnInit } from '@angular/core';
+
+import { ITutor } from '@models';
+import * as fromCore from '@metutor/core/state';
 import * as fromAdmin from '@metutor/modules/admin/state';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 
@@ -12,21 +13,23 @@ import * as fromAdminAction from '@metutor/modules/admin/state/actions';
   styleUrls: ['./admin-suspended-tutors.component.scss'],
 })
 export class AdminSuspendedTutorsComponent implements OnInit {
-  tutorsCounts$: Observable<any>;
-  isLoading$: Observable<boolean>;
   tutorAvailability$: Observable<any>;
-  tutors$: Observable<ITutor[] | null>;
   isLoadingTutorAvailability$: Observable<boolean>;
   showTeacherAvailabilityModal$: Observable<boolean>;
 
-  name: string;
+  view$: Observable<{
+    loading: boolean;
+    tutorCounts: any;
+    tutors: ITutor[] | null;
+  }>;
+
   perPage = 10;
   selectedTutor?: ITutor;
 
   constructor(private _store: Store<any>) {}
 
   ngOnInit(): void {
-    this._prepareTutors();
+    this._store.dispatch(fromCore.loadSuspendedTutors({ params: { page: 1 } }));
 
     this.tutorAvailability$ = this._store.select(
       fromCore.selectTutorAvailability
@@ -38,6 +41,18 @@ export class AdminSuspendedTutorsComponent implements OnInit {
 
     this.showTeacherAvailabilityModal$ = this._store.select(
       fromAdmin.selectIsShowTeacherAvailabilityModal
+    );
+
+    this.view$ = combineLatest([
+      this._store.select(fromCore.selectTutorsCounts),
+      this._store.select(fromCore.selectSuspendedTutors),
+      this._store.select(fromCore.selectIsLoadingSuspendedTutors),
+    ]).pipe(
+      map(([tutorCounts, tutors, loading]) => ({
+        tutors,
+        loading,
+        tutorCounts,
+      }))
     );
   }
 
@@ -54,12 +69,11 @@ export class AdminSuspendedTutorsComponent implements OnInit {
     this._store.dispatch(fromCore.loadSuspendedTutors({ params: { page } }));
   }
 
-  private _prepareTutors(): void {
-    this._store.dispatch(fromCore.loadSuspendedTutors({ params: { page: 1 } }));
-    this.tutors$ = this._store.select(fromCore.selectSuspendedTutors);
-    this.tutorsCounts$ = this._store.select(fromCore.selectTutorsCounts);
-    this.isLoading$ = this._store.select(
-      fromCore.selectIsLoadingSuspendedTutors
+  onSearch(search: string): void {
+    this._store.dispatch(
+      fromCore.loadSuspendedTutors({
+        params: { page: 1, search },
+      })
     );
   }
 }

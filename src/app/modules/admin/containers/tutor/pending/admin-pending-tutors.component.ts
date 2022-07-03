@@ -15,11 +15,7 @@ import * as fromAdminAction from '@metutor/modules/admin/state/actions';
   styleUrls: ['./admin-pending-tutors.component.scss'],
 })
 export class AdminPendingTutorsComponent implements OnInit {
-  // tutorsCounts$: Observable<any>;
-  // isLoading$: Observable<boolean>;
   tutorAvailability$: Observable<any>;
-  // pendingTutors$: Observable<ITutor[] | null>;
-  // rejectedTutors$: Observable<ITutor[] | null>;
   isLoadingTutorAvailability$: Observable<boolean>;
   showTeacherAvailabilityModal$: Observable<boolean>;
 
@@ -79,30 +75,6 @@ export class AdminPendingTutorsComponent implements OnInit {
     this._store.dispatch(fromAdminAction.closeAdminTeacherAvailabilityModal());
   }
 
-  /*onPageChange({ page }: any): void {
-    this._store.dispatch(fromCore.loadPendingTutors({ page }));
-  }
-
-  onChangeTab(event: any): void {
-    this.name = '';
-    this.selectedIndex = event.index;
-    this.pendingTutors$ = this._store.select(fromCore.selectPendingTutors);
-    this.rejectedTutors$ = this._store.select(fromCore.selectRejectedTutors);
-  }*/
-
-  /*  onChangeTab(tab: any): void {
-    switch (tab.index) {
-      case 0:
-        this.status = '';
-        this.onPageChange({ page: 1 });
-        break;
-      case 1:
-        this.status = TutorStatus.deactive;
-        this.onPageChange({ page: 1 });
-        break;
-    }
-  }*/
-
   onPageChange({ page }: any): void {
     this._store.dispatch(fromCore.loadPendingTutors({ params: { page } }));
   }
@@ -114,12 +86,4 @@ export class AdminPendingTutorsComponent implements OnInit {
       })
     );
   }
-
-  /* private _prepareTutors(): void {
-    this._store.dispatch(fromCore.loadPendingTutors({ page: 1 }));
-    this.tutorsCounts$ = this._store.select(fromCore.selectTutorsCounts);
-    this.pendingTutors$ = this._store.select(fromCore.selectPendingTutors);
-    this.rejectedTutors$ = this._store.select(fromCore.selectRejectedTutors);
-    this.isLoading$ = this._store.select(fromCore.selectIsLoadingPendingTutors);
-  }*/
 }

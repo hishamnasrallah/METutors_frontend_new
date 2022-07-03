@@ -1,13 +1,12 @@
-import { combineLatest, map, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import * as fromCore from '@metutor/core/state';
 import { Component, OnInit } from '@angular/core';
+import { combineLatest, map, Observable } from 'rxjs';
 
 import { InterviewStatus } from '@config';
+import * as fromCore from '@metutor/core/state';
+import { IInterview, IPagination } from '@models';
 import * as fromAdmin from '@metutor/modules/admin/state';
-import { IInterview, IInterviewFilters, IPagination } from '@models';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
-import { selectInterviews } from '@metutor/core/state/reducers/interview.reducer';
 
 @Component({
   selector: 'metutors-interview',
@@ -16,10 +15,7 @@ import { selectInterviews } from '@metutor/core/state/reducers/interview.reducer
 })
 export class AdminTutorInterviewComponent implements OnInit {
   interviewId: number;
-  isLoading$: Observable<boolean>;
-  pagination$: Observable<any>;
   isSchedulingRequest$: Observable<boolean>;
-  interviews$: Observable<IInterview[] | null>;
   showScheduleInterviewModal$: Observable<boolean>;
 
   view$: Observable<{
@@ -28,9 +24,8 @@ export class AdminTutorInterviewComponent implements OnInit {
     interviews: IInterview[] | null;
   }>;
 
-  perPage = 10;
   status = '';
-  title: string;
+  perPage = 10;
 
   constructor(private _store: Store<any>) {}
 
@@ -60,12 +55,6 @@ export class AdminTutorInterviewComponent implements OnInit {
     );
   }
 
-  filterInterviews(filters: IInterviewFilters): void {
-    /* this.interviews$ = this._store.select(fromCore.selectFilteredInterviews, {
-      ...filters,
-    });*/
-  }
-
   onChangeTab(event: any): void {
     if (event.index === 0) {
       this.status = '';
@@ -77,13 +66,6 @@ export class AdminTutorInterviewComponent implements OnInit {
       this.status = InterviewStatus.rejected;
       this.onPageChange({ page: 1 });
     }
-  }
-
-  onChangeSelection(): void {
-    this.filterInterviews({
-      title: this.title,
-      status: this.status,
-    });
   }
 
   onOpenScheduleInterviewModal(data: any) {
@@ -113,12 +95,11 @@ export class AdminTutorInterviewComponent implements OnInit {
     );
   }
 
-  /*  private _prepareInterviews(): void {
-    this.status = InterviewStatus.pending;
-    this._store.dispatch(fromCore.loadInterviews({ params: { page: 1 } }));
-    this.filterInterviews({ status: InterviewStatus.pending });
-    this.interviews$ = this._store.select(fromCore.selectInterviews);
-    this.isLoading$ = this._store.select(fromCore.selectIsLoadingInterviews);
-    this.pagination$ = this._store.select(fromCore.selectInterviewPagination);
-  }*/
+  onSearch(search: string): void {
+    this._store.dispatch(
+      fromCore.loadInterviews({
+        params: { page: 1, search, status: this.status },
+      })
+    );
+  }
 }
