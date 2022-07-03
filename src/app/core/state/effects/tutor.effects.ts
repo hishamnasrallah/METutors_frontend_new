@@ -138,8 +138,8 @@ export class TutorEffects {
   loadCurrentTutors$ = createEffect(() =>
     this._actions$.pipe(
       ofType(tutorActions.loadCurrentTutors),
-      mergeMap(({ page }) =>
-        this._tutorService.getCurrentTutors(page).pipe(
+      mergeMap(({ params }) =>
+        this._tutorService.getCurrentTutors(params).pipe(
           map(({ tutors, tutorsCounts }) =>
             tutorActions.loadCurrentTutorsSuccess({
               tutorsCounts,
@@ -161,8 +161,8 @@ export class TutorEffects {
   loadPendingTutors$ = createEffect(() =>
     this._actions$.pipe(
       ofType(tutorActions.loadPendingTutors),
-      mergeMap(({ page }) =>
-        this._tutorService.getPendingTutors(page).pipe(
+      mergeMap(({ params }) =>
+        this._tutorService.getPendingTutors(params).pipe(
           map(({ pendingTutors, rejectedTutors, tutorsCounts }) =>
             tutorActions.loadPendingTutorsSuccess({
               tutorsCounts,

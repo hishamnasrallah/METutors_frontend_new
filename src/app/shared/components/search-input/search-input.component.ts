@@ -20,6 +20,13 @@ export class SearchInputComponent implements OnInit {
 
   @ViewChild('searchInput', { static: true }) searchInput: ElementRef;
 
+  @Input() set resetInput(value: boolean) {
+    console.log(value);
+    if (value) {
+      this.name = '';
+    }
+  }
+
   name: string;
 
   constructor() {}

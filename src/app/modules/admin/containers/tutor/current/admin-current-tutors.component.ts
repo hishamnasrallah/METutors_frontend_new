@@ -1,13 +1,12 @@
-import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import * as fromCore from '@metutor/core/state';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { combineLatest, map, Observable } from 'rxjs';
 
+import { ITutor } from '@models';
+import * as fromCore from '@metutor/core/state';
 import * as fromAdmin from '@metutor/modules/admin/state';
-import { ITutor, ITutorFilters } from '@models';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
-
 import { TutorStatus, InterviewStatus, TUTOR_STATUSES_CONST } from '@config';
 
 @Component({
@@ -16,14 +15,9 @@ import { TutorStatus, InterviewStatus, TUTOR_STATUSES_CONST } from '@config';
   styleUrls: ['./admin-current-tutors.component.scss'],
 })
 export class AdminCurrentTutorsComponent implements OnInit {
-  tutorsCounts$: Observable<any>;
-  isLoading$: Observable<boolean>;
   tutorAvailability$: Observable<any>;
-  tutors$: Observable<ITutor[] | null>;
   isChangeTutorStatus$: Observable<boolean>;
-  activeTutors$: Observable<ITutor[] | null>;
   showChangeStatusModal$: Observable<boolean>;
-  inActiveTutors$: Observable<ITutor[] | null>;
   isLoadingTutorAvailability$: Observable<boolean>;
 
   totalBooking$: Observable<any>;
@@ -31,7 +25,7 @@ export class AdminCurrentTutorsComponent implements OnInit {
   loadingTotalBooking: Observable<boolean>;
   showTeacherAvailabilityModal$: Observable<boolean>;
 
-  name: string;
+  status = '';
   perPage = 10;
   changeStatus: any;
   selectedIndex: number;
@@ -40,10 +34,18 @@ export class AdminCurrentTutorsComponent implements OnInit {
   interviewStatus = InterviewStatus;
   tutorStatuses = TUTOR_STATUSES_CONST;
 
+  view$: Observable<{
+    loading: boolean;
+    tutorCounts: any;
+    tutors: ITutor[] | null;
+  }>;
+
   constructor(private _store: Store<any>, private _route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this._prepareTutors();
+    this.selectedIndex = this._route.snapshot.queryParams['tab'] || 0;
+
+    this.onChangeTab({ index: this.selectedIndex });
 
     this.openBookingModal$ = this._store.select(
       fromAdmin.selectAdminStudentBookingModal
@@ -77,7 +79,17 @@ export class AdminCurrentTutorsComponent implements OnInit {
       fromCore.selectIsLoadingTutorAvailability
     );
 
-    this.selectedIndex = this._route.snapshot.queryParams['tab'] || 0;
+    this.view$ = combineLatest([
+      this._store.select(fromCore.selectTutorsCounts),
+      this._store.select(fromCore.selectCurrentTutors),
+      this._store.select(fromCore.selectIsLoadingCurrentTutors),
+    ]).pipe(
+      map(([tutorCounts, tutors, loading]) => ({
+        tutors,
+        loading,
+        tutorCounts,
+      }))
+    );
   }
 
   onOpenTeacherAvailabilityModal(id: number): void {
@@ -117,59 +129,34 @@ export class AdminCurrentTutorsComponent implements OnInit {
     );
   }
 
-  onPageChange({ page }: any): void {
-    this._store.dispatch(fromCore.loadCurrentTutors({ page }));
-  }
-
-  filterTutors(filters: ITutorFilters): void {
-    if (this.selectedIndex === 0) {
-      this.tutors$ = this._store.select(fromCore.selectFilteredCurrentTutors, {
-        ...filters,
-        status: undefined,
-      });
-    } else if (this.selectedIndex === 1) {
-      this.activeTutors$ = this._store.select(
-        fromCore.selectFilteredCurrentTutors,
-        {
-          ...filters,
-          status: TutorStatus.active,
-        }
-      );
-    } else if ((this.selectedIndex = 2)) {
-      this.inActiveTutors$ = this._store.select(
-        fromCore.selectFilteredCurrentTutors,
-        {
-          ...filters,
-          status: TutorStatus.deactive,
-        }
-      );
+  onChangeTab(tab: any): void {
+    switch (tab.index) {
+      case 0:
+        this.status = '';
+        this.onPageChange({ page: 1 });
+        break;
+      case 1:
+        this.status = TutorStatus.active;
+        this.onPageChange({ page: 1 });
+        break;
+      case 2:
+        this.status = TutorStatus.deactive;
+        this.onPageChange({ page: 1 });
+        break;
     }
   }
 
-  onChangeTab(event: any): void {
-    this.name = '';
-    this.selectedIndex = event.index;
-    this.tutors$ = this._store.select(fromCore.selectCurrentTutors);
-    this.activeTutors$ = this._store.select(fromCore.selectCurrentActiveTutors);
-    this.inActiveTutors$ = this._store.select(
-      fromCore.selectCurrentInactiveTutors
+  onPageChange({ page }: any): void {
+    this._store.dispatch(
+      fromCore.loadCurrentTutors({ params: { page, status: this.status } })
     );
   }
 
-  onFilterTutors(): void {
-    this.filterTutors({
-      name: this.name,
-    });
-  }
-
-  private _prepareTutors(): void {
-    this._store.dispatch(fromCore.loadCurrentTutors({ page: 1 }));
-    this.tutors$ = this._store.select(fromCore.selectCurrentTutors);
-    this.activeTutors$ = this._store.select(fromCore.selectCurrentActiveTutors);
-    this.inActiveTutors$ = this._store.select(
-      fromCore.selectCurrentInactiveTutors
+  onSearch(search: string): void {
+    this._store.dispatch(
+      fromCore.loadCurrentTutors({
+        params: { page: 1, search, status: this.status },
+      })
     );
-    this.tutorsCounts$ = this._store.select(fromCore.selectTutorsCounts);
-    this.isLoading$ = this._store.select(fromCore.selectIsLoadingCurrentTutors);
   }
 }

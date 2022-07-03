@@ -1,10 +1,11 @@
-import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { TUTOR_STATUSES_CONST } from '@config';
-import { ITutor, ITutorFilters } from '@models';
-import * as fromCore from '@metutor/core/state';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { combineLatest, map, Observable } from 'rxjs';
+
+import { ITutor } from '@models';
+import { TUTOR_STATUSES_CONST } from '@config';
+import * as fromCore from '@metutor/core/state';
 import * as fromAdmin from '@metutor/modules/admin/state';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 
@@ -14,15 +15,22 @@ import * as fromAdminAction from '@metutor/modules/admin/state/actions';
   styleUrls: ['./admin-pending-tutors.component.scss'],
 })
 export class AdminPendingTutorsComponent implements OnInit {
-  tutorsCounts$: Observable<any>;
-  isLoading$: Observable<boolean>;
+  // tutorsCounts$: Observable<any>;
+  // isLoading$: Observable<boolean>;
   tutorAvailability$: Observable<any>;
-  pendingTutors$: Observable<ITutor[] | null>;
-  rejectedTutors$: Observable<ITutor[] | null>;
+  // pendingTutors$: Observable<ITutor[] | null>;
+  // rejectedTutors$: Observable<ITutor[] | null>;
   isLoadingTutorAvailability$: Observable<boolean>;
   showTeacherAvailabilityModal$: Observable<boolean>;
 
-  name: string;
+  view$: Observable<{
+    loading: boolean;
+    tutorCounts: any;
+    pendingTutors: any;
+    rejectedTutors: any;
+  }>;
+
+  status = '';
   perPage = 10;
   selectedIndex: number;
   selectedTutor?: ITutor;
@@ -31,9 +39,9 @@ export class AdminPendingTutorsComponent implements OnInit {
   constructor(private _store: Store<any>, private _route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this._prepareTutors();
-
     this.selectedIndex = this._route.snapshot.queryParams['tab'] || 0;
+
+    this._store.dispatch(fromCore.loadPendingTutors({ params: { page: 1 } }));
 
     this.showTeacherAvailabilityModal$ = this._store.select(
       fromAdmin.selectIsShowTeacherAvailabilityModal
@@ -46,6 +54,20 @@ export class AdminPendingTutorsComponent implements OnInit {
     this.isLoadingTutorAvailability$ = this._store.select(
       fromCore.selectIsLoadingTutorAvailability
     );
+
+    this.view$ = combineLatest([
+      this._store.select(fromCore.selectTutorsCounts),
+      this._store.select(fromCore.selectPendingTutors),
+      this._store.select(fromCore.selectRejectedTutors),
+      this._store.select(fromCore.selectIsLoadingPendingTutors),
+    ]).pipe(
+      map(([tutorCounts, pendingTutors, rejectedTutors, loading]) => ({
+        loading,
+        tutorCounts,
+        pendingTutors,
+        rejectedTutors,
+      }))
+    );
   }
 
   onOpenTeacherAvailabilityModal(id: number): void {
@@ -57,31 +79,7 @@ export class AdminPendingTutorsComponent implements OnInit {
     this._store.dispatch(fromAdminAction.closeAdminTeacherAvailabilityModal());
   }
 
-  filterTutors(filters: ITutorFilters): void {
-    if (this.selectedIndex === 0) {
-      this.pendingTutors$ = this._store.select(
-        fromCore.selectFilteredPendingTutors,
-        {
-          ...filters,
-        }
-      );
-    } else {
-      this.rejectedTutors$ = this._store.select(
-        fromCore.selectFilteredRejectedTutors,
-        {
-          ...filters,
-        }
-      );
-    }
-  }
-
-  onFilterTutors(): void {
-    this.filterTutors({
-      name: this.name,
-    });
-  }
-
-  onPageChange({ page }: any): void {
+  /*onPageChange({ page }: any): void {
     this._store.dispatch(fromCore.loadPendingTutors({ page }));
   }
 
@@ -90,13 +88,38 @@ export class AdminPendingTutorsComponent implements OnInit {
     this.selectedIndex = event.index;
     this.pendingTutors$ = this._store.select(fromCore.selectPendingTutors);
     this.rejectedTutors$ = this._store.select(fromCore.selectRejectedTutors);
+  }*/
+
+  /*  onChangeTab(tab: any): void {
+    switch (tab.index) {
+      case 0:
+        this.status = '';
+        this.onPageChange({ page: 1 });
+        break;
+      case 1:
+        this.status = TutorStatus.deactive;
+        this.onPageChange({ page: 1 });
+        break;
+    }
+  }*/
+
+  onPageChange({ page }: any): void {
+    this._store.dispatch(fromCore.loadPendingTutors({ params: { page } }));
   }
 
-  private _prepareTutors(): void {
+  onSearch(search: string): void {
+    this._store.dispatch(
+      fromCore.loadPendingTutors({
+        params: { page: 1, search },
+      })
+    );
+  }
+
+  /* private _prepareTutors(): void {
     this._store.dispatch(fromCore.loadPendingTutors({ page: 1 }));
     this.tutorsCounts$ = this._store.select(fromCore.selectTutorsCounts);
     this.pendingTutors$ = this._store.select(fromCore.selectPendingTutors);
     this.rejectedTutors$ = this._store.select(fromCore.selectRejectedTutors);
     this.isLoading$ = this._store.select(fromCore.selectIsLoadingPendingTutors);
-  }
+  }*/
 }

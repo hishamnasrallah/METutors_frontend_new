@@ -56,8 +56,6 @@ export interface State {
   isLoadingPendingTutors: boolean;
   suspendedTutors: ITutor[] | null;
   isLoadingSuspendedTutors: boolean;
-  currentActiveTutors: ITutor[] | null;
-  currentInactiveTutors: ITutor[] | null;
 
   // Load Featured Tutors
   featuredTutors: ITutor[] | null;
@@ -85,14 +83,12 @@ export const initialState: State = {
   loadingTutorFailure: '',
   loadingTutorsFailure: '',
   isLoadingDashboard: false,
-  currentActiveTutors: null,
   subjectFeaturedTutors: [],
   isChangeTutorCover: false,
   isChangeTutorStatus: false,
   isReschedulingClass: false,
   isSubmittingFeedback: false,
   isUpdateTutorProfile: false,
-  currentInactiveTutors: null,
   isSubmittingInterview: false,
   isLoadingProfileTutor: false,
   isCompleteTutorProfile: false,
@@ -595,12 +591,6 @@ export const selectIsLoadingAvailableTutors = (state: State): boolean =>
 export const selectCurrentTutors = (state: State): ITutor[] | null =>
   state.currentTutors;
 
-export const selectCurrentActiveTutors = (state: State): ITutor[] | null =>
-  state.currentActiveTutors;
-
-export const selectCurrentInactiveTutors = (state: State): ITutor[] | null =>
-  state.currentInactiveTutors;
-
 export const selectPendingTutors = (state: State): ITutor[] | null =>
   state.pendingTutors;
 
@@ -673,124 +663,3 @@ export const selectSubjectFeaturedTutors = (state: State): ITutor[] | null =>
 
 export const selectIsLoadingSubjectFeaturedTutors = (state: State): boolean =>
   state.isLoadingSubjectFeaturedTutors;
-
-export const selectFilteredTutors = (
-  state: State,
-  props?: any
-): ITutor[] | null => {
-  let tutors: ITutor[] = [];
-
-  if (state.tutors && state.tutors.length && props) {
-    tutors = getFilteredTutors(state.tutors, props);
-  }
-
-  return tutors;
-};
-
-const getFilteredTutors = (tutors: ITutor[], props: any) => {
-  if (props?.name) {
-    tutors = tutors?.filter((tutor) =>
-      tutor?.name?.toLowerCase()?.includes(props.name.toLowerCase())
-    );
-  }
-
-  return tutors;
-};
-
-export const selectFilteredCurrentTutors = (
-  state: State,
-  props?: any
-): ITutor[] | null => {
-  let currentTutors: ITutor[] = [];
-
-  if (state.currentTutors && state.currentTutors.length && props) {
-    currentTutors = getFilteredCurrentTutors(state.currentTutors, props);
-  }
-
-  return currentTutors;
-};
-
-const getFilteredCurrentTutors = (currentTutors: ITutor[], props: any) => {
-  if (props?.name) {
-    currentTutors = currentTutors?.filter((tutor) =>
-      tutor?.name?.toLowerCase()?.includes(props.name.toLowerCase())
-    );
-  }
-
-  if (props?.status) {
-    currentTutors = currentTutors?.filter(
-      (tutor) => tutor?.status === props?.status
-    );
-  }
-
-  return currentTutors;
-};
-
-export const selectFilteredPendingTutors = (
-  state: State,
-  props?: any
-): ITutor[] | null => {
-  let pendingTutors: ITutor[] = [];
-
-  if (state.pendingTutors && state.pendingTutors.length && props) {
-    pendingTutors = getFilteredPendingTutors(state.pendingTutors, props);
-  }
-
-  return pendingTutors;
-};
-
-const getFilteredPendingTutors = (pendingTutors: ITutor[], props: any) => {
-  if (props?.name) {
-    pendingTutors = pendingTutors?.filter((tutor) =>
-      tutor?.name?.toLowerCase()?.includes(props.name.toLowerCase())
-    );
-  }
-
-  return pendingTutors;
-};
-
-export const selectFilteredRejectedTutors = (
-  state: State,
-  props?: any
-): ITutor[] | null => {
-  let rejectedTutors: ITutor[] = [];
-
-  if (state.rejectedTutors && state.rejectedTutors.length && props) {
-    rejectedTutors = getFilteredRejectedTutors(state.rejectedTutors, props);
-  }
-
-  return rejectedTutors;
-};
-
-const getFilteredRejectedTutors = (rejectedTutors: ITutor[], props: any) => {
-  if (props?.name) {
-    rejectedTutors = rejectedTutors?.filter((tutor) =>
-      tutor?.name?.toLowerCase()?.includes(props.name.toLowerCase())
-    );
-  }
-
-  return rejectedTutors;
-};
-
-export const selectFilteredSuspendedTutors = (
-  state: State,
-  props?: any
-): ITutor[] | null => {
-  let suspendedTutors: ITutor[] = [];
-
-  if (state.suspendedTutors && state.suspendedTutors.length && props) {
-    suspendedTutors = getFilteredSuspendedTutors(state.suspendedTutors, props);
-  }
-
-  return suspendedTutors;
-};
-
-const getFilteredSuspendedTutors = (suspendedTutors: ITutor[], props: any) => {
-  if (props?.name) {
-    suspendedTutors = suspendedTutors?.filter((tutor) =>
-      tutor?.name?.toLowerCase()?.includes(props.name.toLowerCase())
-    );
-  }
-
-  return suspendedTutors;
-};

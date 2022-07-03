@@ -116,7 +116,7 @@ export class TutorsService {
       );
   }
 
-  getCurrentTutors(page: number): Observable<any> {
+  getCurrentTutors(params: any): Observable<any> {
     return this.http
       .get<{
         teachers: { total: number; data: ITutor[] };
@@ -125,7 +125,7 @@ export class TutorsService {
         engaged: number;
         inactive: number;
       }>(`${this.baseUrl}admin/current-teachers`, {
-        params: { page },
+        params,
       })
       .pipe(
         map((response) => ({
@@ -143,7 +143,7 @@ export class TutorsService {
       );
   }
 
-  getPendingTutors(page: number): Observable<any> {
+  getPendingTutors(params: any): Observable<any> {
     return this.http
       .get<{
         rejected_teachers: { total: number; data: ITutor[] };
@@ -151,7 +151,7 @@ export class TutorsService {
         pending_teachers_count: number;
         rejected_teachers_count: number;
       }>(`${this.baseUrl}admin/pending-teachers`, {
-        params: { page },
+        params,
       })
       .pipe(
         map((response) => ({

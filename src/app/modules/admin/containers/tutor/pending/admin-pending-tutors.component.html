@@ -1,38 +1,34 @@
-<div class="tutors-list">
+<div class="tutors-list" *ngLet="view$ | async as view">
   <div class="row filters">
     <div class="col-md-6 d-flex align-items-center">
       <h1>Pending Teachers</h1>
     </div>
     <div class="col-md-6">
-      <div class="row">
-        <div class="col-md-7">
-          <div class="position-relative">
-            <mat-icon>search</mat-icon>
-            <input type="text" class="form-control custom-input input-bordered search-request" [(ngModel)]="name"
-              (keyup)="onFilterTutors()" placeholder="Search teachers...">
-          </div>
-        </div>
+      <div class="row justify-content-end">
         <div class="col-md-5">
+          <metutors-search-input (searchedText)="onSearch($event)"></metutors-search-input>
+        </div>
+        <!--<div class="col-md-5">
           <div class="position-relative">
             <input type="text" class="form-control custom-input input-bordered" placeholder="Apply filters">
             <mat-icon class="filter">filter_alt</mat-icon>
           </div>
-        </div>
+        </div>-->
       </div>
     </div>
   </div>
 
   <div class="row mt-2">
-    <div class="col-md-12" *ngLet="(tutorsCounts$ | async) as counts">
-      <mat-tab-group mat-align-tabs="start" [selectedIndex]="selectedIndex" (selectedTabChange)="onChangeTab($event)">
-        <mat-tab [label]="'Pending (' + counts?.pendingCount + ')'">
-          <ng-container [ngSwitch]="isLoading$ | async">
+    <div class="col-md-12">
+      <mat-tab-group mat-align-tabs="start" [selectedIndex]="selectedIndex">
+        <mat-tab [label]="'Pending (' + view.tutorCounts?.pendingCount + ')'">
+          <ng-container [ngSwitch]="view.loading">
             <div class="mt-4" *ngSwitchCase="true">
               <metutors-grid-placeholder></metutors-grid-placeholder>
             </div>
 
             <ng-container *ngSwitchCase="false">
-              <table class="table my-table default-title mt-4" *ngLet="(pendingTutors$ | async) as tutors">
+              <table class="table my-table default-title mt-4">
                 <tr>
                   <th>Number</th>
                   <th>TIN</th>
@@ -44,12 +40,12 @@
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
-                <tr *ngIf="!tutors || !tutors.length">
+                <tr *ngIf="!view.pendingTutors || !view.pendingTutors?.length">
                   <td colspan="9">
                     <div class="text-center">No records found</div>
                   </td>
                 </tr>
-                <tr *ngFor="let tutor of tutors; let i = index">
+                <tr *ngFor="let tutor of view.pendingTutors; let i = index">
                   <td>{{ i + 1 }}</td>
                   <td>{{ tutor?.idNumber }}</td>
                   <td>
@@ -84,17 +80,25 @@
                   </td>
                 </tr>
               </table>
+
+              <div class="d-flex mt-2 justify-content-center" *ngIf="view.tutorCounts.totalPending > view.pendingTutors?.length">
+                <pagination
+                  [totalItems]="view.tutorCounts?.totalPending"
+                  [itemsPerPage]="perPage" [maxSize]="5"
+                  (pageChanged)="onPageChange($event)">
+                </pagination>
+              </div>
             </ng-container>
           </ng-container>
         </mat-tab>
-        <mat-tab [label]="'Rejected (' + counts?.rejectedCount + ')'">
-          <ng-container [ngSwitch]="isLoading$ | async">
+        <mat-tab [label]="'Rejected (' + view.tutorCounts?.rejectedCount + ')'">
+          <ng-container [ngSwitch]="view.loading">
             <div class="mt-4" *ngSwitchCase="true">
               <metutors-grid-placeholder></metutors-grid-placeholder>
             </div>
 
             <ng-container *ngSwitchCase="false">
-              <table class="table my-table default-title mt-4" *ngLet="(rejectedTutors$ | async) as tutors">
+              <table class="table my-table default-title mt-4">
                 <tr>
                   <th>Number</th>
                   <th>TIN</th>
@@ -106,12 +110,12 @@
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
-                <tr *ngIf="!tutors || !tutors.length">
+                <tr *ngIf="!view.rejectedTutors || !view.rejectedTutors?.length">
                   <td colspan="9">
                     <div class="text-center">No records found</div>
                   </td>
                 </tr>
-                <tr *ngFor="let tutor of tutors; let i = index">
+                <tr *ngFor="let tutor of view.rejectedTutors; let i = index">
                   <td>{{ i + 1 }}</td>
                   <td>{{ tutor?.idNumber }}</td>
                   <td>
@@ -146,18 +150,18 @@
                   </td>
                 </tr>
               </table>
+
+              <div class="d-flex mt-2 justify-content-center" *ngIf="view.tutorCounts.totalRejected > view.rejectedTutors?.length">
+                <pagination
+                  [totalItems]="view.tutorCounts?.totalRejected"
+                  [itemsPerPage]="perPage" [maxSize]="5"
+                  (pageChanged)="onPageChange($event)">
+                </pagination>
+              </div>
             </ng-container>
           </ng-container>
         </mat-tab>
       </mat-tab-group>
-
-      <div class="d-flex mt-2 justify-content-center">
-        <pagination
-          [totalItems]="selectedIndex === 0 ? (tutorsCounts$ | async)?.totalPending : (tutorsCounts$ | async)?.totalRejected"
-          [itemsPerPage]="perPage" [maxSize]="5"
-          (pageChanged)="onPageChange($event)">
-        </pagination>
-      </div>
     </div>
   </div>
 </div>

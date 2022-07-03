@@ -105,7 +105,7 @@ export const loadTutorsFailure = createAction(
 // Load current tutors
 export const loadCurrentTutors = createAction(
   '[Tutor] Load Current Tutors',
-  props<{ page: number }>()
+  props<{ params: { page: number; status: string; search?: string } }>()
 );
 
 export const loadCurrentTutorsSuccess = createAction(
@@ -121,7 +121,7 @@ export const loadCurrentTutorsFailure = createAction(
 // Load pending tutors
 export const loadPendingTutors = createAction(
   '[Tutor] Load Pending Tutors',
-  props<{ page: number }>()
+  props<{ params: { page: number; search?: string } }>()
 );
 
 export const loadPendingTutorsSuccess = createAction(

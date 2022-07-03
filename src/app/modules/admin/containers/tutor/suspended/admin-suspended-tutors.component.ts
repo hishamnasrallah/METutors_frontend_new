@@ -54,18 +54,6 @@ export class AdminSuspendedTutorsComponent implements OnInit {
     this._store.dispatch(fromCore.loadSuspendedTutors({ params: { page } }));
   }
 
-  filterTutors(filters: ITutorFilters): void {
-    this.tutors$ = this._store.select(fromCore.selectFilteredSuspendedTutors, {
-      ...filters,
-    });
-  }
-
-  onFilterTutors(): void {
-    this.filterTutors({
-      name: this.name,
-    });
-  }
-
   private _prepareTutors(): void {
     this._store.dispatch(fromCore.loadSuspendedTutors({ params: { page: 1 } }));
     this.tutors$ = this._store.select(fromCore.selectSuspendedTutors);
