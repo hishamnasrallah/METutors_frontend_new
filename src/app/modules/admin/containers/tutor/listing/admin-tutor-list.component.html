@@ -1,4 +1,4 @@
-<div class="tutors-list" *ngLet="(tutors$ | async) as tutors">
+<div class="tutors-list" *ngLet="(view$ | async) as view">
   <div class="row filters">
     <div class="col-md-6 d-flex align-items-center">
       <h1>All Teachers</h1>
@@ -6,11 +6,7 @@
     <div class="col-md-6">
       <div class="row justify-content-end">
         <div class="col-md-5">
-          <div class="position-relative">
-            <mat-icon>search</mat-icon>
-            <input type="text" class="form-control custom-input input-bordered search-request" [(ngModel)]="name"
-              (keyup)="onFilterTutors()" placeholder="Search teachers...">
-          </div>
+          <metutors-search-input (searchedText)="onSearch($event)"></metutors-search-input>
         </div>
         <!--<div class="col-md-5">
           <div class="position-relative">
@@ -22,14 +18,14 @@
     </div>
   </div>
 
-  <ng-container *ngIf="!(isLoading$ | async)">
-    <div class="row mt-3 cards" *ngLet="(tutorsCounts$ | async) as counts">
+  <ng-container *ngIf="!view.loading">
+    <div class="row mt-3 cards">
       <div class="col">
         <div class="card">
           <div class="card-body d-flex align-items-center justify-content-between">
             <div>
               <h2>Total</h2>
-              <span>{{ counts?.all }}</span>
+              <span>{{ view.tutorCounts?.all }}</span>
             </div>
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20.326 20.487">
               <g id="Teacher" transform="translate(-146.574 -144.762)">
@@ -53,7 +49,7 @@
             [routerLink]="['/admin', 'tutor', 'current']" [queryParams]="{tab: 1}">
             <div>
               <h2>Active</h2>
-              <span>{{ counts?.active }}</span>
+              <span>{{ view?.tutorCounts?.active }}</span>
             </div>
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20.326 20.487">
               <g id="Teacher" transform="translate(-146.574 -144.762)">
@@ -77,7 +73,7 @@
             [routerLink]="['/admin', 'tutor', 'current']" [queryParams]="{tab: 2}">
             <div>
               <h2>Inactive</h2>
-              <span>{{ counts?.inactive }}</span>
+              <span>{{ view?.tutorCounts?.inactive }}</span>
             </div>
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20.326 20.487">
               <g id="Teacher" transform="translate(-146.574 -144.762)">
@@ -101,7 +97,7 @@
             [routerLink]="['/admin', 'tutor', 'pending']" [queryParams]="{tab: 0}">
             <div>
               <h2>Pending</h2>
-              <span>{{ counts?.pending }}</span>
+              <span>{{ view.tutorCounts?.pending }}</span>
             </div>
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20.326 20.487">
               <g id="Teacher" transform="translate(-146.574 -144.762)">
@@ -125,7 +121,7 @@
             [routerLink]="['/admin', 'tutor', 'pending']" [queryParams]="{tab: 1}">
             <div>
               <h2>Suspended</h2>
-              <span>{{ counts?.suspended }}</span>
+              <span>{{ view.tutorCounts?.suspended }}</span>
             </div>
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20.326 20.487">
               <g id="Teacher" transform="translate(-146.574 -144.762)">
@@ -148,7 +144,7 @@
 
   <div class="row">
     <div class="col-md-12">
-      <ng-container [ngSwitch]="isLoading$ | async">
+      <ng-container [ngSwitch]="view.loading">
         <div class="mt-4" *ngSwitchCase="true">
           <metutors-grid-placeholder></metutors-grid-placeholder>
         </div>
@@ -165,12 +161,12 @@
             <th>Status</th>
             <th>Action</th>
           </tr>
-          <tr *ngIf="!tutors || !tutors.length">
+          <tr *ngIf="!view.tutors || !view.tutors?.length">
             <td colspan="9">
               <div class="text-center">No records found</div>
             </td>
           </tr>
-          <tr *ngFor="let tutor of tutors; let i = index">
+          <tr *ngFor="let tutor of view.tutors; let i = index">
             <td>{{ i + 1 }}</td>
             <td>{{ tutor?.idNumber }}</td>
             <td>
@@ -195,22 +191,12 @@
             <td>{{ tutor?.qualifications?.degreeLevel }}</td>
             <td>
               <div dropdown class="change-status position-relative d-flex">
-                <button dropdownToggle class="status text-capitalize" mat-button [ngClass]="{
-                  'active': tutorStatus.active === tutor?.status,
-                  'deactive': tutorStatus.deactive === tutor?.status,
-                  'rejected': tutorStatus.rejected === tutor?.status,
-                  'pending': tutorStatus.pending === tutor?.status
-                 }">
+                <button dropdownToggle class="status text-capitalize" mat-button [ngClass]="tutor?.status">
                  {{ tutor?.status }}
                 </button>
                 <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
                   <li role="menuitem" class="cursor-pointer text-capitalize" *ngFor="let status of tutorStatuses"
-                    [ngClass]="{
-                      'active': tutorStatus.active === status,
-                      'deactive': tutorStatus.deactive === status,
-                      'rejected': tutorStatus.rejected === status,
-                      'pending': tutorStatus.pending === status
-                    }" (click)="onOpenChangeStatusModal({oldStatus: tutor?.status, newStatus: status}, tutor)">
+                    [ngClass]="tutor?.status" (click)="onOpenChangeStatusModal({oldStatus: tutor?.status, newStatus: status}, tutor)">
                     {{ status }}
                   </li>
                 </ul>
@@ -224,8 +210,8 @@
           </tr>
         </table>
 
-        <div class="d-flex mt-2 justify-content-center">
-          <pagination [totalItems]="(tutorsCounts$ | async)?.total" [itemsPerPage]="perPage" [maxSize]="5"
+        <div class="d-flex mt-2 justify-content-center" *ngIf="view.tutorCounts?.total > view.tutors?.length">
+          <pagination [totalItems]="view.tutorCounts?.total" [itemsPerPage]="perPage" [maxSize]="5"
                       (pageChanged)="onPageChange($event)">
           </pagination>
         </div>

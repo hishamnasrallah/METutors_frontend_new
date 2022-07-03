@@ -1,8 +1,9 @@
-import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import * as fromCore from '@metutor/core/state';
-import { ITutor, ITutorFilters } from '@models';
 import { Component, OnInit } from '@angular/core';
+import { combineLatest, map, Observable } from 'rxjs';
+
+import { ITutor } from '@models';
+import * as fromCore from '@metutor/core/state';
 import * as fromAdmin from '@metutor/modules/admin/state';
 import { TutorStatus, TUTOR_STATUSES_CONST } from '@config';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
@@ -13,26 +14,28 @@ import * as fromAdminAction from '@metutor/modules/admin/state/actions';
   styleUrls: ['./admin-tutor-list.component.scss'],
 })
 export class AdminTutorListComponent implements OnInit {
-  tutorsCounts$: Observable<any>;
-  isLoading$: Observable<boolean>;
   tutorAvailability$: Observable<any>;
-  tutors$: Observable<ITutor[] | null>;
   isChangeTutorStatus$: Observable<boolean>;
   showChangeStatusModal$: Observable<boolean>;
   isLoadingTutorAvailability$: Observable<boolean>;
   showTeacherAvailabilityModal$: Observable<boolean>;
 
-  name: string;
   perPage = 10;
   changeStatus: any;
   selectedTutor?: ITutor;
   tutorStatus = TutorStatus;
   tutorStatuses = TUTOR_STATUSES_CONST;
 
+  view$: Observable<{
+    loading: boolean;
+    tutorCounts: any;
+    tutors: ITutor[] | null;
+  }>;
+
   constructor(private _store: Store<any>) {}
 
   ngOnInit(): void {
-    this._prepareTutors();
+    this._store.dispatch(fromCore.loadTutors({ page: 1, search: '' }));
 
     this.showChangeStatusModal$ = this._store.select(
       fromAdmin.selectIsChangeStatusModal
@@ -52,6 +55,18 @@ export class AdminTutorListComponent implements OnInit {
 
     this.isLoadingTutorAvailability$ = this._store.select(
       fromCore.selectIsLoadingTutorAvailability
+    );
+
+    this.view$ = combineLatest([
+      this._store.select(fromCore.selectTutors),
+      this._store.select(fromCore.selectTutorsCounts),
+      this._store.select(fromCore.selectIsLoadingTutors),
+    ]).pipe(
+      map(([tutors, tutorCounts, loading]) => ({
+        tutors,
+        loading,
+        tutorCounts,
+      }))
     );
   }
 
@@ -74,18 +89,6 @@ export class AdminTutorListComponent implements OnInit {
     this._store.dispatch(fromAdminAction.closeAdminChangeStatusModal());
   }
 
-  filterTutors(filters: ITutorFilters): void {
-    this.tutors$ = this._store.select(fromCore.selectFilteredTutors, {
-      ...filters,
-    });
-  }
-
-  onFilterTutors(): void {
-    this.filterTutors({
-      name: this.name,
-    });
-  }
-
   onChangeTutorStatus({ tutorId, status, reason }: any): void {
     this._store.dispatch(
       fromCore.changeTutorStatus({ tutorId, status, reason })
@@ -93,13 +96,10 @@ export class AdminTutorListComponent implements OnInit {
   }
 
   onPageChange({ page }: any): void {
-    this._store.dispatch(fromCore.loadTutors({ page }));
+    this._store.dispatch(fromCore.loadTutors({ page, search: '' }));
   }
 
-  private _prepareTutors(): void {
-    this._store.dispatch(fromCore.loadTutors({ page: 1 }));
-    this.tutors$ = this._store.select(fromCore.selectTutors);
-    this.isLoading$ = this._store.select(fromCore.selectIsLoadingTutors);
-    this.tutorsCounts$ = this._store.select(fromCore.selectTutorsCounts);
+  onSearch(search: string): void {
+    this._store.dispatch(fromCore.loadTutors({ page: 1, search }));
   }
 }

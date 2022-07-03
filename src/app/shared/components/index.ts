@@ -2,6 +2,7 @@ export * from './modal';
 export * from './course-item';
 export * from './user-avatar';
 export * from './video-player';
+export * from './search-input';
 export * from './submit-button';
 export * from './send-feedback';
 export * from './uploaded-files';

@@ -89,7 +89,7 @@ export const loadAvailableTutorsEnded = createAction(
 // Load all tutors
 export const loadTutors = createAction(
   '[Tutor] Load Tutors',
-  props<{ page: number }>()
+  props<{ page: number; search: string }>()
 );
 
 export const loadTutorsSuccess = createAction(

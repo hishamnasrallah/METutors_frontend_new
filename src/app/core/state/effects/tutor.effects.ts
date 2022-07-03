@@ -84,8 +84,8 @@ export class TutorEffects {
   loadTutors$ = createEffect(() =>
     this._actions$.pipe(
       ofType(tutorActions.loadTutors),
-      mergeMap(({ page }) =>
-        this._tutorService.getTutors(page).pipe(
+      mergeMap(({ page, search }) =>
+        this._tutorService.getTutors(page, search).pipe(
           map((response) =>
             tutorActions.loadTutorsSuccess({
               tutors: response.tutors,

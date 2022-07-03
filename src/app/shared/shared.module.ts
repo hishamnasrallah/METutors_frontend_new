@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RatingModule } from 'ngx-bootstrap/rating';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -32,6 +33,7 @@ import {
   ModalComponent,
   CourseItemComponent,
   UserAvatarComponent,
+  SearchInputComponent,
   VideoPlayerComponent,
   SendFeedbackComponent,
   SubmitButtonComponent,
@@ -57,7 +59,6 @@ import {
   DefaultAvatarDirective,
   DefaultCourseDirective,
 } from '@metutor/shared/directives';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
     ModalComponent,
     CourseItemComponent,
     UserAvatarComponent,
+    SearchInputComponent,
     VideoPlayerComponent,
     SendFeedbackComponent,
     SubmitButtonComponent,
@@ -121,6 +123,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
     ModalComponent,
     CourseItemComponent,
     VideoPlayerComponent,
+    SearchInputComponent,
     SubmitButtonComponent,
     ModalComponentTemplate,
     ClassroomItemComponent,
