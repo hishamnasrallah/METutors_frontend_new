@@ -150,6 +150,14 @@
           </ng-container>
         </mat-tab>
       </mat-tab-group>
+
+      <div class="d-flex mt-2 justify-content-center">
+        <pagination
+          [totalItems]="selectedIndex === 0 ? (tutorsCounts$ | async)?.totalPending : (tutorsCounts$ | async)?.totalRejected"
+          [itemsPerPage]="perPage" [maxSize]="5"
+          (pageChanged)="onPageChange($event)">
+        </pagination>
+      </div>
     </div>
   </div>
 </div>

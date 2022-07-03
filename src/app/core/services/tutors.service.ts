@@ -116,61 +116,75 @@ export class TutorsService {
       );
   }
 
-  getCurrentTutors(): Observable<any> {
+  getCurrentTutors(page: number): Observable<any> {
     return this.http
       .get<{
-        teachers: ITutor[];
+        teachers: { total: number; data: ITutor[] };
         total: number;
         available: number;
         engaged: number;
         inactive: number;
-      }>(`${this.baseUrl}admin/current-teachers`)
+      }>(`${this.baseUrl}admin/current-teachers`, {
+        params: { page },
+      })
       .pipe(
         map((response) => ({
-          tutors: response.teachers.map((tutor) => new ITutor(false, tutor)),
+          tutors: response.teachers.data.map(
+            (tutor) => new ITutor(false, tutor)
+          ),
           tutorsCounts: {
             totalCurrent: response?.total,
-            availableCurrent: response?.available,
+            total: response?.teachers?.total,
             engagedCurrent: response?.engaged,
             inactiveCurrent: response?.inactive,
+            availableCurrent: response?.available,
           },
         }))
       );
   }
 
-  getPendingTutors(): Observable<any> {
+  getPendingTutors(page: number): Observable<any> {
     return this.http
       .get<{
-        rejected_teachers: ITutor[];
-        pending_teachers: ITutor[];
+        rejected_teachers: { total: number; data: ITutor[] };
+        pending_teachers: { total: number; data: ITutor[] };
         pending_teachers_count: number;
         rejected_teachers_count: number;
-      }>(`${this.baseUrl}admin/pending-teachers`)
+      }>(`${this.baseUrl}admin/pending-teachers`, {
+        params: { page },
+      })
       .pipe(
         map((response) => ({
-          pendingTutors: response.pending_teachers.map(
+          pendingTutors: response.pending_teachers.data.map(
             (tutor) => new ITutor(false, tutor)
           ),
-          rejectedTutors: response.rejected_teachers.map(
+          rejectedTutors: response.rejected_teachers.data.map(
             (tutor) => new ITutor(false, tutor)
           ),
           tutorsCounts: {
             pendingCount: response?.pending_teachers_count,
+            totalPending: response?.pending_teachers?.total,
+            totalRejected: response?.pending_teachers?.total,
             rejectedCount: response?.rejected_teachers_count,
           },
         }))
       );
   }
 
-  getSuspendedTutors(): Observable<any> {
+  getSuspendedTutors(params: any): Observable<any> {
     return this.http
       .get<{
-        teachers: ITutor[];
-      }>(`${this.baseUrl}admin/rejected-teachers`)
+        teachers: { total: 10; data: ITutor[] };
+      }>(`${this.baseUrl}admin/rejected-teachers`, { params })
       .pipe(
-        map((response) =>
-          response.teachers.map((tutor) => new ITutor(false, tutor))
-        )
+        map((response) => ({
+          tutorsCounts: {
+            total: response.teachers.total,
+          },
+          suspendedTutors: response.teachers.data.map(
+            (tutor) => new ITutor(false, tutor)
+          ),
+        }))
       );
   }
 

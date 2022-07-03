@@ -12,6 +12,7 @@ import * as fromAdminAction from '@metutor/modules/admin/state/actions';
   styleUrls: ['./admin-suspended-tutors.component.scss'],
 })
 export class AdminSuspendedTutorsComponent implements OnInit {
+  tutorsCounts$: Observable<any>;
   isLoading$: Observable<boolean>;
   tutorAvailability$: Observable<any>;
   tutors$: Observable<ITutor[] | null>;
@@ -19,6 +20,7 @@ export class AdminSuspendedTutorsComponent implements OnInit {
   showTeacherAvailabilityModal$: Observable<boolean>;
 
   name: string;
+  perPage = 10;
   selectedTutor?: ITutor;
 
   constructor(private _store: Store<any>) {}
@@ -48,6 +50,10 @@ export class AdminSuspendedTutorsComponent implements OnInit {
     this._store.dispatch(fromAdminAction.closeAdminTeacherAvailabilityModal());
   }
 
+  onPageChange({ page }: any): void {
+    this._store.dispatch(fromCore.loadSuspendedTutors({ params: { page } }));
+  }
+
   filterTutors(filters: ITutorFilters): void {
     this.tutors$ = this._store.select(fromCore.selectFilteredSuspendedTutors, {
       ...filters,
@@ -61,8 +67,9 @@ export class AdminSuspendedTutorsComponent implements OnInit {
   }
 
   private _prepareTutors(): void {
-    this._store.dispatch(fromCore.loadSuspendedTutors());
+    this._store.dispatch(fromCore.loadSuspendedTutors({ params: { page: 1 } }));
     this.tutors$ = this._store.select(fromCore.selectSuspendedTutors);
+    this.tutorsCounts$ = this._store.select(fromCore.selectTutorsCounts);
     this.isLoading$ = this._store.select(
       fromCore.selectIsLoadingSuspendedTutors
     );

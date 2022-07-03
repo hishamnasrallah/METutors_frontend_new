@@ -141,84 +141,70 @@ export class TutorEffects {
   loadCurrentTutors$ = createEffect(() =>
     this._actions$.pipe(
       ofType(tutorActions.loadCurrentTutors),
-      withLatestFrom(this._store.select(selectCurrentTutors)),
-      mergeMap(([_, _tutors]) => {
-        if (!_tutors || !_tutors?.length) {
-          return this._tutorService.getCurrentTutors().pipe(
-            map((response) =>
-              tutorActions.loadCurrentTutorsSuccess({
-                currentTutors: response.tutors,
-                tutorsCounts: response.tutorsCounts,
+      mergeMap(({ page }) =>
+        this._tutorService.getCurrentTutors(page).pipe(
+          map(({ tutors, tutorsCounts }) =>
+            tutorActions.loadCurrentTutorsSuccess({
+              tutorsCounts,
+              currentTutors: tutors,
+            })
+          ),
+          catchError((error) =>
+            of(
+              tutorActions.loadCurrentTutorsFailure({
+                error: error?.error?.message || error?.error?.errors,
               })
-            ),
-            catchError((error) =>
-              of(
-                tutorActions.loadCurrentTutorsFailure({
-                  error: error?.error?.message || error?.error?.errors,
-                })
-              )
             )
-          );
-        } else {
-          return of(tutorActions.loadCurrentTutorsEnded());
-        }
-      })
+          )
+        )
+      )
     )
   );
 
   loadPendingTutors$ = createEffect(() =>
     this._actions$.pipe(
       ofType(tutorActions.loadPendingTutors),
-      withLatestFrom(this._store.select(selectPendingTutors)),
-      mergeMap(([_, _tutors]) => {
-        if (!_tutors || !_tutors?.length) {
-          return this._tutorService.getPendingTutors().pipe(
-            map((response) =>
-              tutorActions.loadPendingTutorsSuccess({
-                pendingTutors: response.pendingTutors,
-                rejectedTutors: response.rejectedTutors,
-                tutorsCounts: response.tutorsCounts,
+      mergeMap(({ page }) =>
+        this._tutorService.getPendingTutors(page).pipe(
+          map(({ pendingTutors, rejectedTutors, tutorsCounts }) =>
+            tutorActions.loadPendingTutorsSuccess({
+              tutorsCounts,
+              pendingTutors,
+              rejectedTutors,
+            })
+          ),
+          catchError((error) =>
+            of(
+              tutorActions.loadPendingTutorsFailure({
+                error: error?.error?.message || error?.error?.errors,
               })
-            ),
-            catchError((error) =>
-              of(
-                tutorActions.loadPendingTutorsFailure({
-                  error: error?.error?.message || error?.error?.errors,
-                })
-              )
             )
-          );
-        } else {
-          return of(tutorActions.loadPendingTutorsEnded());
-        }
-      })
+          )
+        )
+      )
     )
   );
 
   loadSuspendedTutors$ = createEffect(() =>
     this._actions$.pipe(
       ofType(tutorActions.loadSuspendedTutors),
-      withLatestFrom(this._store.select(selectSuspendedTutors)),
-      mergeMap(([_, _tutors]) => {
-        if (!_tutors || !_tutors?.length) {
-          return this._tutorService.getSuspendedTutors().pipe(
-            map((suspendedTutors) =>
-              tutorActions.loadSuspendedTutorsSuccess({
-                suspendedTutors,
+      mergeMap(({ params }) =>
+        this._tutorService.getSuspendedTutors(params).pipe(
+          map(({ tutorsCounts, suspendedTutors }) =>
+            tutorActions.loadSuspendedTutorsSuccess({
+              tutorsCounts,
+              suspendedTutors,
+            })
+          ),
+          catchError((error) =>
+            of(
+              tutorActions.loadSuspendedTutorsFailure({
+                error: error?.error?.message || error?.error?.errors,
               })
-            ),
-            catchError((error) =>
-              of(
-                tutorActions.loadSuspendedTutorsFailure({
-                  error: error?.error?.message || error?.error?.errors,
-                })
-              )
             )
-          );
-        } else {
-          return of(tutorActions.loadSuspendedTutorsEnded());
-        }
-      })
+          )
+        )
+      )
     )
   );
 

@@ -32,6 +32,7 @@ export class AdminCurrentTutorsComponent implements OnInit {
   showTeacherAvailabilityModal$: Observable<boolean>;
 
   name: string;
+  perPage = 10;
   changeStatus: any;
   selectedIndex: number;
   selectedTutor?: ITutor;
@@ -116,6 +117,10 @@ export class AdminCurrentTutorsComponent implements OnInit {
     );
   }
 
+  onPageChange({ page }: any): void {
+    this._store.dispatch(fromCore.loadCurrentTutors({ page }));
+  }
+
   filterTutors(filters: ITutorFilters): void {
     if (this.selectedIndex === 0) {
       this.tutors$ = this._store.select(fromCore.selectFilteredCurrentTutors, {
@@ -158,7 +163,7 @@ export class AdminCurrentTutorsComponent implements OnInit {
   }
 
   private _prepareTutors(): void {
-    this._store.dispatch(fromCore.loadCurrentTutors());
+    this._store.dispatch(fromCore.loadCurrentTutors({ page: 1 }));
     this.tutors$ = this._store.select(fromCore.selectCurrentTutors);
     this.activeTutors$ = this._store.select(fromCore.selectCurrentActiveTutors);
     this.inActiveTutors$ = this._store.select(

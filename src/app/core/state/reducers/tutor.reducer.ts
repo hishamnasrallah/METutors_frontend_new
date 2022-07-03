@@ -240,11 +240,6 @@ export const reducer = createReducer(
     isLoadingCurrentTutors: false,
   })),
 
-  on(tutorActions.loadCurrentTutorsEnded, (state) => ({
-    ...state,
-    isLoadingCurrentTutors: false,
-  })),
-
   on(tutorActions.loadPendingTutors, (state) => ({
     ...state,
     isLoadingPendingTutors: true,
@@ -269,28 +264,22 @@ export const reducer = createReducer(
     isLoadingPendingTutors: false,
   })),
 
-  on(tutorActions.loadPendingTutorsEnded, (state) => ({
-    ...state,
-    isLoadingPendingTutors: false,
-  })),
-
   on(tutorActions.loadSuspendedTutors, (state) => ({
     ...state,
     isLoadingSuspendedTutors: true,
   })),
 
-  on(tutorActions.loadSuspendedTutorsSuccess, (state, { suspendedTutors }) => ({
-    ...state,
-    suspendedTutors,
-    isLoadingSuspendedTutors: false,
-  })),
+  on(
+    tutorActions.loadSuspendedTutorsSuccess,
+    (state, { tutorsCounts, suspendedTutors }) => ({
+      ...state,
+      tutorsCounts,
+      suspendedTutors,
+      isLoadingSuspendedTutors: false,
+    })
+  ),
 
   on(tutorActions.loadSuspendedTutorsFailure, (state) => ({
-    ...state,
-    isLoadingSuspendedTutors: false,
-  })),
-
-  on(tutorActions.loadSuspendedTutorsEnded, (state) => ({
     ...state,
     isLoadingSuspendedTutors: false,
   })),

@@ -103,7 +103,10 @@ export const loadTutorsFailure = createAction(
 );
 
 // Load current tutors
-export const loadCurrentTutors = createAction('[Tutor] Load Current Tutors');
+export const loadCurrentTutors = createAction(
+  '[Tutor] Load Current Tutors',
+  props<{ page: number }>()
+);
 
 export const loadCurrentTutorsSuccess = createAction(
   '[Tutor] Load Current Tutors Success',
@@ -115,12 +118,11 @@ export const loadCurrentTutorsFailure = createAction(
   props<{ error: any }>()
 );
 
-export const loadCurrentTutorsEnded = createAction(
-  '[Tutor] Load Current Tutors Ended'
-);
-
 // Load pending tutors
-export const loadPendingTutors = createAction('[Tutor] Load Pending Tutors');
+export const loadPendingTutors = createAction(
+  '[Tutor] Load Pending Tutors',
+  props<{ page: number }>()
+);
 
 export const loadPendingTutorsSuccess = createAction(
   '[Tutor] Load Pending Tutors Success',
@@ -136,27 +138,20 @@ export const loadPendingTutorsFailure = createAction(
   props<{ error: any }>()
 );
 
-export const loadPendingTutorsEnded = createAction(
-  '[Tutor] Load Pending Tutors Ended'
-);
-
 // Load suspended tutors
 export const loadSuspendedTutors = createAction(
-  '[Tutor] Load Suspended Tutors'
+  '[Tutor] Load Suspended Tutors',
+  props<{ params: { page: number; search?: string } }>()
 );
 
 export const loadSuspendedTutorsSuccess = createAction(
   '[Tutor] Load Suspended Tutors Success',
-  props<{ suspendedTutors: ITutor[] }>()
+  props<{ tutorsCounts: any; suspendedTutors: ITutor[] }>()
 );
 
 export const loadSuspendedTutorsFailure = createAction(
   '[Tutor] Load Suspended Tutors Failure',
   props<{ error: any }>()
-);
-
-export const loadSuspendedTutorsEnded = createAction(
-  '[Tutor] Load Suspended Tutors Ended'
 );
 
 // Load tutor

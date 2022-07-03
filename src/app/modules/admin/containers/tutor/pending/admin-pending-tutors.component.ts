@@ -23,6 +23,7 @@ export class AdminPendingTutorsComponent implements OnInit {
   showTeacherAvailabilityModal$: Observable<boolean>;
 
   name: string;
+  perPage = 10;
   selectedIndex: number;
   selectedTutor?: ITutor;
   tutorStatuses = TUTOR_STATUSES_CONST;
@@ -80,6 +81,10 @@ export class AdminPendingTutorsComponent implements OnInit {
     });
   }
 
+  onPageChange({ page }: any): void {
+    this._store.dispatch(fromCore.loadPendingTutors({ page }));
+  }
+
   onChangeTab(event: any): void {
     this.name = '';
     this.selectedIndex = event.index;
@@ -88,7 +93,7 @@ export class AdminPendingTutorsComponent implements OnInit {
   }
 
   private _prepareTutors(): void {
-    this._store.dispatch(fromCore.loadPendingTutors());
+    this._store.dispatch(fromCore.loadPendingTutors({ page: 1 }));
     this.tutorsCounts$ = this._store.select(fromCore.selectTutorsCounts);
     this.pendingTutors$ = this._store.select(fromCore.selectPendingTutors);
     this.rejectedTutors$ = this._store.select(fromCore.selectRejectedTutors);
