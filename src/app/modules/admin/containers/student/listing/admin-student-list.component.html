@@ -1,30 +1,30 @@
-<div class="students-list" *ngLet="(students$ | async) as students">
+<div class="students-list" *ngLet="(view$ | async) as view">
   <div class="row filters">
     <div class="col-md-6 d-flex align-items-center">
       <h1>All Students</h1>
     </div>
     <div class="col-md-6">
-      <div class="row">
-        <div class="col-md-7">
+      <div class="row justify-content-end">
+        <div class="col-md-5">
           <div class="position-relative">
             <mat-icon>search</mat-icon>
             <input type="text" class="form-control custom-input input-bordered search-request" [(ngModel)]="name"
                    (keyup)="onFilterStudents()" placeholder="Search students...">
           </div>
         </div>
-        <div class="col-md-5">
+       <!-- <div class="col-md-5">
           <div class="position-relative">
             <input type="text" class="form-control custom-input input-bordered" placeholder="Apply filters">
             <mat-icon class="filter">filter_alt</mat-icon>
           </div>
-        </div>
+        </div>-->
       </div>
     </div>
   </div>
 
-  <div class="row" *ngLet="(registeredStudents$ | async) as registeredStudents">
+  <div class="row">
     <div class="col-md-12">
-      <ng-container [ngSwitch]="isLoading$ | async">
+      <ng-container [ngSwitch]="view.loading">
         <mat-tab-group mat-align-tabs="start" (selectedTabChange)="onChangeTab($event)">
           <mat-tab label="All">
             <div class="mt-4" *ngSwitchCase="true">
@@ -38,7 +38,7 @@
                     <div class="card-body d-flex align-items-center justify-content-between">
                       <div>
                         <h2>Total</h2>
-                        <span>{{ students?.total }}</span>
+                        <span>{{ view.students?.total }}</span>
                       </div>
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20.326 20.487">
                         <g id="Teacher" transform="translate(-146.574 -144.762)">
@@ -61,7 +61,7 @@
                     <div class="card-body d-flex align-items-center justify-content-between">
                       <div>
                         <h2>Active</h2>
-                        <span>{{ students?.active }}</span>
+                        <span>{{ view.students?.active }}</span>
                       </div>
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20.326 20.487">
                         <g id="Teacher" transform="translate(-146.574 -144.762)">
@@ -84,7 +84,7 @@
                     <div class="card-body d-flex align-items-center justify-content-between">
                       <div>
                         <h2>Enrolled</h2>
-                        <span>{{ students?.enrolled }}</span>
+                        <span>{{ view.students?.enrolled }}</span>
                       </div>
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20.326 20.487">
                         <g id="Teacher" transform="translate(-146.574 -144.762)">
@@ -107,7 +107,7 @@
                     <div class="card-body d-flex align-items-center justify-content-between">
                       <div>
                         <h2>Suspended</h2>
-                        <span>{{ students?.suspended }}</span>
+                        <span>{{ view.students?.suspended }}</span>
                       </div>
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20.326 20.487">
                         <g id="Teacher" transform="translate(-146.574 -144.762)">
@@ -139,12 +139,12 @@
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
-                <tr *ngIf="!students || !(registeredStudents$ | async)?.length">
+                <tr *ngIf="!view.students || !view.students?.length">
                   <td colspan="10">
                     <div class="text-center">No records found</div>
                   </td>
                 </tr>
-                <tr *ngFor="let student of (registeredStudents$ | async); let i = index">
+                <tr *ngFor="let student of view.students; let i = index">
                   <td>{{ i + 1 }}</td>
                   <td>{{ student?.idNumber }}</td>
                   <td>
@@ -196,7 +196,7 @@
                     <div class="card-body d-flex align-items-center justify-content-between">
                       <div>
                         <h2>Total</h2>
-                        <span>{{ students?.total }}</span>
+                        <span>{{ view.students?.total }}</span>
                       </div>
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20.326 20.487">
                         <g id="Teacher" transform="translate(-146.574 -144.762)">
@@ -219,7 +219,7 @@
                     <div class="card-body d-flex align-items-center justify-content-between">
                       <div>
                         <h2>Enrolled</h2>
-                        <span>{{ students?.enrolled}}</span>
+                        <span>{{ view.students?.enrolled}}</span>
                       </div>
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20.326 20.487">
                         <g id="Teacher" transform="translate(-146.574 -144.762)">
@@ -242,7 +242,7 @@
                     <div class="card-body d-flex align-items-center justify-content-between">
                       <div>
                         <h2>Unenrolled</h2>
-                        <span>{{ students?.suspended }}</span>
+                        <span>{{ view.students?.suspended }}</span>
                       </div>
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20.326 20.487">
                         <g id="Teacher" transform="translate(-146.574 -144.762)">
@@ -274,12 +274,12 @@
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
-                <tr *ngIf="!students || !(registeredStudents$ | async)?.length">
+                <tr *ngIf="!view.students || !view.students?.length">
                   <td colspan="10">
                     <div class="text-center">No records found</div>
                   </td>
                 </tr>
-                <tr *ngFor="let student of (registeredStudents$ | async); let i = index">
+                <tr *ngFor="let student of view.students let i = index">
                   <td>{{ i + 1 }}</td>
                   <td>{{ student?.idNumber }}</td>
                   <td>
@@ -338,12 +338,12 @@
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
-                <tr *ngIf="!students || !(registeredStudents$ | async)?.length">
+                <tr *ngIf="!view.students || !view.students?.length">
                   <td colspan="10">
                     <div class="text-center">No records found</div>
                   </td>
                 </tr>
-                <tr *ngFor="let student of (registeredStudents$ | async); let i = index">
+                <tr *ngFor="let student of view.students; let i = index">
                   <td>{{ i + 1 }}</td>
                   <td>{{ student?.idNumber }}</td>
                   <td>
@@ -385,6 +385,12 @@
           </mat-tab>
         </mat-tab-group>
       </ng-container>
+
+      <!--<div class="d-flex mt-2 justify-content-center" *ngIf="view.students.length < view.pagination?.total">
+        <pagination [totalItems]="view.pagination?.total" [itemsPerPage]="perPage" [maxSize]="5"
+                    (pageChanged)="onPageChange($event)">
+        </pagination>
+      </div>-->
     </div>
   </div>
 </div>

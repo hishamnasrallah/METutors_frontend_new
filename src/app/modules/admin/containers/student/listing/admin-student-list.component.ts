@@ -1,10 +1,10 @@
-import { map, Observable } from 'rxjs';
+import { combineLatest, map, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Component, OnInit } from '@angular/core';
 
+import { IPagination } from '@models';
 import { environment } from '@environment';
 import * as fromCore from '@metutor/core/state';
-import { IStudentFilters } from '@models';
 import * as fromAdmin from '@metutor/modules/admin/state';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 
@@ -16,14 +16,19 @@ import { TutorStatus, StudentStatus, STUDENT_STATUSES_CONST } from '@config';
   styleUrls: ['./admin-student-list.component.scss'],
 })
 export class AdminStudentListComponent implements OnInit {
-  students$: Observable<any>;
   totalBooking$: Observable<any>;
-  isLoading$: Observable<boolean>;
-  registeredStudents$: Observable<any>;
   openBookingModal$: Observable<boolean>;
   loadingTotalBooking: Observable<boolean>;
 
+  view$: Observable<{
+    students: any;
+    loading: boolean;
+    pagination: IPagination;
+  }>;
+
+  status = '';
   name: string;
+  perPage = 10;
   studentId: any;
   tutorStatus = TutorStatus;
   imageUrl = environment.imageURL;
@@ -32,8 +37,6 @@ export class AdminStudentListComponent implements OnInit {
   constructor(private _store: Store<any>) {}
 
   ngOnInit(): void {
-    this._prepareStudents();
-
     this.openBookingModal$ = this._store.select(
       fromAdmin.selectAdminStudentBookingModal
     );
@@ -45,40 +48,56 @@ export class AdminStudentListComponent implements OnInit {
     this.totalBooking$ = this._store.select(
       fromCore.selectAdminStudentTotalBooking
     );
+
+    this._store.dispatch(
+      fromCore.loadStudents({
+        params: { page: 1, status: StudentStatus.suspended },
+      })
+    );
+
+    this.view$ = combineLatest([
+      this._store.select(fromCore.selectStudents),
+      this._store.select(fromCore.selectIsLoadingStudents),
+      this._store.select(fromCore.selectStudentPagination),
+    ]).pipe(
+      map(([students, loading, pagination]) => ({
+        loading,
+        students,
+        pagination,
+      }))
+    );
   }
 
   onChangeTab(tab: any): void {
-    let status: any = StudentStatus.active;
     switch (tab.index) {
       case 0:
-        status = null;
+        this.status = StudentStatus.active;
+        this.onPageChange({ page: 1 });
         break;
       case 1:
-        status = StudentStatus.active;
+        this.status = StudentStatus.active;
+        this.onPageChange({ page: 1 });
         break;
       case 2:
-        status = StudentStatus.suspended;
+        this.status = StudentStatus.suspended;
+        this.onPageChange({ page: 1 });
         break;
     }
-
-    this.filterStudents({
-      status,
-    });
   }
 
-  filterStudents(filters: IStudentFilters): void {
+  /*  filterStudents(filters: IStudentFilters): void {
     this.registeredStudents$ = this._store.select(
       fromCore.selectFilteredStudents,
       {
         ...filters,
       }
     );
-  }
+  }*/
 
   onFilterStudents(): void {
-    this.filterStudents({
+    /*this.filterStudents({
       name: this.name,
-    });
+    });*/
   }
 
   onOpenBookingModal(id: number): void {
@@ -90,12 +109,18 @@ export class AdminStudentListComponent implements OnInit {
     this._store.dispatch(fromAdminAction.closeAdminStudentBookingModal());
   }
 
+  onPageChange({ page }: any): void {
+    this._store.dispatch(
+      fromCore.loadInterviews({ params: { page, status: this.status } })
+    );
+  }
+
   private _prepareStudents(): void {
-    this._store.dispatch(fromCore.loadStudents());
+    /* this._store.dispatch(fromCore.loadStudents());
     this.isLoading$ = this._store.select(fromCore.selectIsLoadingStudents);
     this.students$ = this._store.select(fromCore.selectStudents);
     this.registeredStudents$ = this._store
       .select(fromCore.selectStudents)
-      .pipe(map((students: any) => students?.registeredStudents));
+      .pipe(map((students: any) => students?.registeredStudents));*/
   }
 }

@@ -2,20 +2,19 @@ import { createAction, props } from '@ngrx/store';
 
 import { IInterview } from '@models';
 
-export const loadInterviews = createAction('[Interview] Load Interviews');
+export const loadInterviews = createAction(
+  '[Interview] Load Interviews',
+  props<{ params: { page: number; status?: string; search?: string } }>()
+);
 
 export const loadInterviewsSuccess = createAction(
   '[Interview] Load Interviews Success',
-  props<{ interviews: IInterview[] }>()
+  props<{ total: number; interviews: IInterview[] }>()
 );
 
 export const loadInterviewsFailure = createAction(
   '[Interview] Load Interviews Failure',
   props<{ error: any }>()
-);
-
-export const loadInterviewsEnded = createAction(
-  '[Interview] Load Interviews Ended'
 );
 
 export const loadInterview = createAction(

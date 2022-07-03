@@ -16,19 +16,20 @@ export const loadStudentFailure = createAction(
 
 export const loadStudentEnded = createAction('[Student] Load Student Ended');
 
-export const loadStudents = createAction('[Student] Load Students');
+export const loadStudents = createAction(
+  '[Student] Load Students',
+  props<{ params: { page: number; status: string; search?: string } }>()
+);
 
 export const loadStudentsSuccess = createAction(
   '[Student] Load Students Success',
-  props<{ students: IStudent[] }>()
+  props<{ total: number; students: IStudent[] }>()
 );
 
 export const loadStudentsFailure = createAction(
   '[Student] Load Students Failure',
   props<{ error: any }>()
 );
-
-export const loadStudentsEnded = createAction('[Student] Load Students Ended');
 
 export const loadStudentPreference = createAction(
   '[Student] Load Student Preference'

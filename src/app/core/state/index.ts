@@ -739,6 +739,11 @@ export const selectStudentLoading = createSelector(
   fromStudentReducer.selectStudentLoading
 );
 
+export const selectStudentPagination = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectStudentPagination
+);
+
 // Ticket
 export const selectTickets = createSelector(
   selectTicketState,
@@ -791,11 +796,6 @@ export const selectInterviews = createSelector(
   fromInterviewReducer.selectInterviews
 );
 
-export const selectFilteredInterviews = createSelector(
-  selectInterviewState,
-  fromInterviewReducer.selectFilteredInterviews
-);
-
 export const selectIsLoadingInterviews = createSelector(
   selectInterviewState,
   fromInterviewReducer.selectIsLoadingInterviews
@@ -829,6 +829,11 @@ export const selectIsSchedulingInterview = createSelector(
 export const selectIsJoiningInterview = createSelector(
   selectInterviewState,
   fromInterviewReducer.selectIsJoiningInterview
+);
+
+export const selectInterviewPagination = createSelector(
+  selectInterviewState,
+  fromInterviewReducer.selectInterviewPagination
 );
 
 // Requests

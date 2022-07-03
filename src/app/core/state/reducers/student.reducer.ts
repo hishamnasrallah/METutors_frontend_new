@@ -1,4 +1,4 @@
-import { IStudent } from '@metutor/core/models';
+import { IPagination, IStudent } from '@metutor/core/models';
 import { createReducer, on } from '@ngrx/store';
 
 import * as moment from 'moment';
@@ -46,6 +46,9 @@ export interface State {
   isLoadingStudentFeedbackOptions: boolean;
   isLoadingStudentClassesDashboard: boolean;
   isLoadingStudentSubmittedAssignment: boolean;
+
+  // Pagination
+  pagination: IPagination;
 }
 
 export const initialState: State = {
@@ -87,6 +90,8 @@ export const initialState: State = {
   isLoadingStudentFeedbackOptions: false,
   isLoadingStudentClassesDashboard: false,
   isLoadingStudentSubmittedAssignment: false,
+
+  pagination: { total: 0 },
 };
 
 export const reducer = createReducer(
@@ -134,9 +139,10 @@ export const reducer = createReducer(
     isLoadingStudents: true,
   })),
 
-  on(studentActions.loadStudentsSuccess, (state, { students }) => ({
+  on(studentActions.loadStudentsSuccess, (state, { total, students }) => ({
     ...state,
     students,
+    pagination: { total },
     isLoadingStudents: false,
   })),
 
@@ -144,11 +150,6 @@ export const reducer = createReducer(
     ...state,
     isLoadingStudents: false,
     loadingStudentsFailure: error,
-  })),
-
-  on(studentActions.loadStudentsEnded, (state) => ({
-    ...state,
-    isLoadingStudents: false,
   })),
 
   on(studentActions.loadStudentDashboard, (state) => ({
@@ -712,6 +713,9 @@ export const selectTutorAvailability = (state: State): boolean =>
 export const selectStudentLoading = (state: State): boolean => state.isLoading;
 
 export const selectStudentTimeSlots = (state: State): any => state.timeSlots;
+
+export const selectStudentPagination = (state: State): IPagination =>
+  state.pagination;
 
 export const selectFilteredStudents = (
   state: State,

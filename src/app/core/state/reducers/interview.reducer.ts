@@ -1,7 +1,8 @@
 import { createReducer, on } from '@ngrx/store';
-import { IInterview } from '@models';
-import * as interviewActions from '../actions/interview.actions';
+
 import { InterviewStatus } from '@config';
+import { IInterview, IPagination } from '@models';
+import * as interviewActions from '../actions/interview.actions';
 
 export interface State {
   // Loading Interviews
@@ -24,6 +25,9 @@ export interface State {
 
   isJoiningInterview: boolean;
   isSchedulingInterview: boolean;
+
+  // Pagination
+  pagination: IPagination;
 }
 
 export const initialState: State = {
@@ -37,6 +41,7 @@ export const initialState: State = {
   isSchedulingInterview: false,
   loadingInterviewFailure: '',
   loadingInterviewsFailure: '',
+  pagination: { total: 0 },
 };
 
 export const reducer = createReducer(
@@ -46,21 +51,20 @@ export const reducer = createReducer(
     isLoadingInterviews: true,
   })),
 
-  on(interviewActions.loadInterviewsSuccess, (state, { interviews }) => ({
-    ...state,
-    interviews,
-    isLoadingInterviews: false,
-  })),
+  on(
+    interviewActions.loadInterviewsSuccess,
+    (state, { total, interviews }) => ({
+      ...state,
+      interviews,
+      pagination: { total },
+      isLoadingInterviews: false,
+    })
+  ),
 
   on(interviewActions.loadInterviewsFailure, (state, { error }) => ({
     ...state,
     isLoadingInterviews: false,
     loadingInterviewsFailure: error,
-  })),
-
-  on(interviewActions.loadInterviewsEnded, (state) => ({
-    ...state,
-    isLoadingInterviews: false,
   })),
 
   on(interviewActions.loadInterview, (state) => ({
@@ -191,7 +195,10 @@ export const selectIsSchedulingInterview = (state: State): boolean =>
 export const selectIsJoiningInterview = (state: State): boolean =>
   state.isJoiningInterview;
 
-export const selectFilteredInterviews = (
+export const selectInterviewPagination = (state: State): IPagination =>
+  state.pagination;
+
+/*export const selectFilteredInterviews = (
   state: State,
   props?: any
 ): IInterview[] | null => {
@@ -202,8 +209,9 @@ export const selectFilteredInterviews = (
   }
 
   return interviews;
-};
+};*/
 
+/*
 const getFilteredInterviews = (interviews: IInterview[], props: any) => {
   if (props?.status) {
     interviews = interviews?.filter((interview) =>
@@ -222,3 +230,4 @@ const getFilteredInterviews = (interviews: IInterview[], props: any) => {
 
   return interviews;
 };
+*/

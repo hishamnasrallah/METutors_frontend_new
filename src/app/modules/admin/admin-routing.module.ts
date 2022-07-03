@@ -86,7 +86,7 @@ const routes: Routes = [
                 data: {
                   layout: {
                     title: 'Tutor interview - Metutors',
-                    navbarTitle: 'Interview requests',
+                    navbarTitle: 'Teachers',
                     showHeader: false,
                     showFooter: false,
                   },

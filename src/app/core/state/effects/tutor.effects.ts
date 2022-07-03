@@ -17,10 +17,7 @@ import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
 import {
   selectTutors,
   selectProfileTutor,
-  selectCurrentTutors,
-  selectPendingTutors,
   selectTutorDashboard,
-  selectSuspendedTutors,
   selectFeaturedTutors,
 } from '..';
 

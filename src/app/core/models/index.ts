@@ -20,6 +20,7 @@ export * from './language.model';
 export * from './classroom.model';
 export * from './interview.model';
 export * from './statistics.model';
+export * from './pagination.model';
 export * from './availability.model';
 export * from './qualification.model';
 export * from './specification.model';

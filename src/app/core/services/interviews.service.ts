@@ -12,17 +12,19 @@ export class InterviewsService {
 
   constructor(private http: HttpClient) {}
 
-  loadInterviews(): Observable<any> {
+  loadInterviews(params: any): Observable<any> {
     return this.http
-      .get<{ interview_requests: IInterview[] }>(
-        `${this.baseUrl}admin/interview-request`
+      .get<{ interview_requests: { total: number; data: IInterview[] } }>(
+        `${this.baseUrl}admin/interview-request`,
+        { params }
       )
       .pipe(
-        map((response) =>
-          response.interview_requests.map(
+        map((response) => ({
+          total: response.interview_requests.total,
+          interviews: response.interview_requests.data.map(
             (interview) => new IInterview(false, interview)
-          )
-        )
+          ),
+        }))
       )
       .pipe(catchError(this.errorHandler));
   }

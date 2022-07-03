@@ -15,27 +15,23 @@ export class InterviewEffects {
   loadInterviews$ = createEffect(() =>
     this._actions$.pipe(
       ofType(interviewActions.loadInterviews),
-      withLatestFrom(this._store.select(fromCore.selectInterviews)),
-      mergeMap(([_, _interviews]) => {
-        if (!_interviews || !_interviews.length) {
-          return this._interviewService.loadInterviews().pipe(
-            map((interviews) =>
-              interviewActions.loadInterviewsSuccess({
-                interviews,
+      mergeMap(({ params }) =>
+        this._interviewService.loadInterviews(params).pipe(
+          map(({ total, interviews }) =>
+            interviewActions.loadInterviewsSuccess({
+              total,
+              interviews,
+            })
+          ),
+          catchError((error) =>
+            of(
+              interviewActions.loadInterviewsFailure({
+                error: error?.error?.message || error?.error?.errors,
               })
-            ),
-            catchError((error) =>
-              of(
-                interviewActions.loadInterviewsFailure({
-                  error: error?.error?.message || error?.error?.errors,
-                })
-              )
             )
-          );
-        } else {
-          return of(interviewActions.loadInterviewsEnded());
-        }
-      })
+          )
+        )
+      )
     )
   );
 

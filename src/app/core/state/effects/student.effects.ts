@@ -50,27 +50,23 @@ export class StudentEffects {
   loadStudents$ = createEffect(() =>
     this._actions$.pipe(
       ofType(studentActions.loadStudents),
-      withLatestFrom(this._store.select(selectStudents)),
-      mergeMap(([_, _students]) => {
-        if (!_students) {
-          return this._studentService.getStudents().pipe(
-            map((students) =>
-              studentActions.loadStudentsSuccess({
-                students: camelcaseKeys(students, { deep: true }),
+      mergeMap(({ params }) =>
+        this._studentService.getStudents(params).pipe(
+          map(({ total, data }) =>
+            studentActions.loadStudentsSuccess({
+              total,
+              students: camelcaseKeys(data, { deep: true }),
+            })
+          ),
+          catchError((error) =>
+            of(
+              studentActions.loadStudentsFailure({
+                error: error?.error?.message || error?.error?.errors,
               })
-            ),
-            catchError((error) =>
-              of(
-                studentActions.loadStudentsFailure({
-                  error: error?.error?.message || error?.error?.errors,
-                })
-              )
             )
-          );
-        } else {
-          return of(studentActions.loadStudentsEnded());
-        }
-      })
+          )
+        )
+      )
     )
   );
 
