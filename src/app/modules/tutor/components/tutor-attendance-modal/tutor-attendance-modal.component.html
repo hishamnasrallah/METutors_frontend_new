@@ -63,11 +63,11 @@
 
       <div class="col-12 mt-4">
         <mat-tab-group mat-align-tabs="start">
-          <mat-tab label="Student Attendances">
+          <mat-tab label="Student Attendances" [labelClass]="'fw-bold'">
             <div class="table-responsive mt-2">
               <ng-container [ngSwitch]="view.loading">
                 <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
-                <table class="table default-title mb-0" *ngSwitchCase="false">
+                <table class="table my-table default-title mb-0" *ngSwitchCase="false">
                   <tr>
                     <th scope="col">Number</th>
                     <th scope="col">Classroom Title</th>
@@ -98,7 +98,7 @@
               </ng-container>
             </div>
           </mat-tab>
-          <mat-tab label="My Attendance">
+          <mat-tab label="My Attendance" [labelClass]="'fw-bold'">
             <div class="table-responsive mt-2">
               <table class="table my-table default-title mb-0">
                 <tr>
