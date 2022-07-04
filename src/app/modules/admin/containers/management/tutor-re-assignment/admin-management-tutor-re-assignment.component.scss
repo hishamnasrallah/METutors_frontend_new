@@ -53,14 +53,12 @@
       border: 1px solid #979797;
 
       &.available {
-        border: none;
         color: #50C394;
-        background: rgba(80, 195, 148, 0.2);
+        border: 1px solid #50C394;
       }
       &.not-available {
-        border: none;
         color: #d34c65;
-        background-color: #f9d3da;
+        border: 1px solid #d34c65;
       }
     }
     .tutor-date {

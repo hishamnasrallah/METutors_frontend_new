@@ -49,6 +49,13 @@
     border-top: none;
   }
 
+  .my-table.default-title tr {
+    th {
+      color: #696969;
+      font-size: 13px;
+    }
+  }
+
   table {
     td {
       button {

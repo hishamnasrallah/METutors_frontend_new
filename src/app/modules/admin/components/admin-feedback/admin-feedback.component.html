@@ -54,7 +54,7 @@
             <h2>Feedback</h2>
             <div *ngIf="isTestimonial">
               <span class="me-5 text-capitalize cursor-pointer" (click)="onButtonClick(feedback, 'change')">
-                 <img [src]="'assets/svg/'+ (feedback.status === 'public' ? 'public-nonfill.svg' : 'private-nonfill.svg')" alt="" draggable="false" />
+                 <img [src]="'assets/svg/'+ (feedback.status === 'public' ? 'public-nonfill.svg' : 'lock.svg')" width="15" height="15" alt="" draggable="false" />
                 {{ feedback.status }}
               </span>
               <span class="cursor-pointer edit" (click)="buttonClicked.emit({id: feedback.sender.id, type: 'edit'})">Edit</span>

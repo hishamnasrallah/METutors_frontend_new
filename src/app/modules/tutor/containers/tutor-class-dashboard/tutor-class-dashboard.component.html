@@ -222,7 +222,7 @@
   </metutors-tutor-attendance-modal>
 
   <metutors-tutor-feedback-modal *ngIf="(showSendFeedbackModal$ | async)"
-                                 [subHeading]="subHeading"
+                                 [subHeading]="subHeading" [buttonLabel]="'Send Feedback'"
                                  [showModal]="(showSendFeedbackModal$ | async)!"
                                  (closeModal)="onCloseSendFeedbackModal()" (submitFeedback)="onSubmitFeedback($event)">
   </metutors-tutor-feedback-modal>

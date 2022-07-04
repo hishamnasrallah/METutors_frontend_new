@@ -9,7 +9,9 @@ import { courseStatusLabel } from '@config';
 })
 export class ReAssignmentGridComponent implements OnInit {
   @Input() isNew: boolean;
+  @Input() isRunning: boolean;
   @Input() reassignments: any;
+  @Input() isNotAvailable: boolean;
 
   @Output() openBookingModal: EventEmitter<number> = new EventEmitter<number>();
 
