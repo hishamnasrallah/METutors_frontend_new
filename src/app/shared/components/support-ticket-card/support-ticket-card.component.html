@@ -9,7 +9,7 @@
         }">{{ ticket?.priority?.name }}</span>
 
       <div class="change-status float-end position-relative d-flex" *ngIf="isAdmin">
-        <a class="cursor-pointer" (click)="changeStatus.emit(ticket?.ticketId)">Change Status</a>
+        <a class="cursor-pointer" (click)="$event.stopPropagation(); $event.preventDefault(); changeStatus.emit(ticket?.ticketId)">Change Status</a>
       </div>
     </div>
     <h2>
