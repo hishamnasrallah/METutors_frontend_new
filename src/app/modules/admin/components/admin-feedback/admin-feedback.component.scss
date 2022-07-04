@@ -68,6 +68,10 @@
     span {
       color: var(--main-color);
 
+      img {
+        margin-top: -5px;
+      }
+
       &.edit {
         color: #727272;
       }

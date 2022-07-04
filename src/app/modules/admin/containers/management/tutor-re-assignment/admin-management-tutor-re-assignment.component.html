@@ -49,7 +49,7 @@
             <metutors-grid-placeholder class="mt-4" *ngSwitchCase="true"></metutors-grid-placeholder>
 
             <ng-container *ngSwitchCase="false">
-              <metutors-re-assignment-grid [reassignments]="view.reAssignment?.completedCourses" [isNew]="false"
+              <metutors-re-assignment-grid [reassignments]="view.reAssignment?.completedCourses" [isNew]="false" [isNotAvailable]="true"
                                            (openReassignTutorModal)="onOpenReassigningTutorSelectionModal($event)"
                                            (openBookingModal)="onOpenBookingModal($event)"
                                            (changeTutorStatus)="onChangeTutorStatus($event)"></metutors-re-assignment-grid>
@@ -63,7 +63,7 @@
           <metutors-grid-placeholder class="mt-4" *ngSwitchCase="true"></metutors-grid-placeholder>
 
           <ng-container *ngSwitchCase="false">
-            <metutors-re-assignment-grid [reassignments]="view.reAssignment?.courses" [isNew]="false"
+            <metutors-re-assignment-grid [reassignments]="view.reAssignment?.courses" [isNew]="false" [isRunning]="true"
                                          (openReassignTutorModal)="onOpenReassigningTutorSelectionModal($event)"
                                          (openBookingModal)="onOpenBookingModal($event)"
                                          (changeTutorStatus)="onChangeTutorStatus($event)"></metutors-re-assignment-grid>
