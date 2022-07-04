@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { generalConstants } from '@metutor/config';
 
 @Component({
   selector: 'metutors-admin-decline-interview-modal',
@@ -14,6 +15,7 @@ export class AdminDeclineInterviewModalComponent implements OnInit {
   @Output() submitted: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
 
   form: FormGroup;
+  reasons = generalConstants.rejectionReasons;
 
   constructor(private _fb: FormBuilder) {
     this.form = this._fb.group({

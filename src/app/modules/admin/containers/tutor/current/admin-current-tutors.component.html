@@ -133,7 +133,7 @@
                     <th>Bookings</th>
                     <th>Amount</th>
                     <th>Joining Date</th>
-                    <!-- <th>Course ID / Hourly Rate</th> -->
+                    <th>Course ID / Hourly Rate</th>
                     <th>Work Contract</th>
                     <th>Status</th>
                     <th>Action</th>
@@ -159,14 +159,14 @@
                     <td class="text-capitalize"><a href="javascript:void(0)" (click)="onOpenBookingModal(tutor.id)">{{ tutor?.bookings}}</a> </td>
                     <td class="text-capitalize"><a [routerLink]="['/admin', 'finance', 'orders']">{{ tutor?.amount | currency }}</a></td>
                     <td class="text-capitalize">{{ tutor?.createdAt | date }}</td>
-                    <!-- <td class="text-capitalize tutor-subject">
+                    <td class="text-capitalize tutor-subject">
                       <ng-container *ngFor="let subject of tutor?.subjects; let isLast = last; let i = index">
                         <div *ngIf="i < 3">
                           {{ 'CID' + subject?.id }} <span>({{ subject?.pricePerHour | currency }})</span>
-                          <ng-container *ngIf="!isLast">, </ng-container>
+                          <ng-container *ngIf="!isLast && i < 2">, </ng-container>
                         </div>
                       </ng-container>
-                    </td> -->
+                    </td>
                     <td class="text-capitalize tutor-date">
                       <div>
                         <span>From</span> {{ tutor?.specifications?.availabilityStartDate }}
@@ -182,7 +182,7 @@
                         </button>
                         <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
                           <li role="menuitem" class="cursor-pointer text-capitalize"
-                            *ngFor="let status of tutorStatuses" [ngClass]="tutor.status" (click)="onOpenChangeStatusModal({oldStatus: tutor?.status, newStatus: status}, tutor)">
+                            *ngFor="let status of tutorStatuses" [ngClass]="status" (click)="onOpenChangeStatusModal({oldStatus: tutor?.status, newStatus: status}, tutor)">
                             {{ status }}
                           </li>
                         </ul>
@@ -288,7 +288,7 @@
                     <th>Bookings</th>
                     <th>Amount</th>
                     <th>Joining Date</th>
-                    <!-- <th>Course ID / Hourly Rate</th> -->
+                    <th>Course ID / Hourly Rate</th>
                     <th>Work Contract</th>
                     <th>Status</th>
                     <th>Action</th>
@@ -314,14 +314,14 @@
                     <td class="text-capitalize"><a href="javascript:void(0)" (click)="onOpenBookingModal(tutor.id)">{{ tutor?.bookings}}</a> </td>
                     <td class="text-capitalize"><a [routerLink]="['/admin', 'finance', 'orders']">{{ tutor?.amount | currency }}</a></td>
                     <td class="text-capitalize">{{ tutor?.createdAt | date }}</td>
-                    <!-- <td class="text-capitalize tutor-subject">
+                    <td class="text-capitalize tutor-subject">
                       <ng-container *ngFor="let subject of tutor?.subjects; let isLast = last; let i = index">
                         <div *ngIf="i < 3">
                           {{ 'CID' + subject?.id }} <span>({{ subject?.pricePerHour | currency }})</span>
-                          <ng-container *ngIf="!isLast">, </ng-container>
+                          <ng-container *ngIf="!isLast && i < 2">, </ng-container>
                         </div>
                       </ng-container>
-                    </td> -->
+                    </td>
                     <td class="text-capitalize tutor-date">
                       <div>
                         <span>From</span> {{ tutor?.specifications?.availabilityStartDate }}
@@ -337,7 +337,7 @@
                         </button>
                         <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
                           <li role="menuitem" class="cursor-pointer text-capitalize"
-                            *ngFor="let status of tutorStatuses" [ngClass]="tutor.status" (click)="onOpenChangeStatusModal({oldStatus: tutor?.status, newStatus: status}, tutor)">
+                            *ngFor="let status of tutorStatuses" [ngClass]="status" (click)="onOpenChangeStatusModal({oldStatus: tutor?.status, newStatus: status}, tutor)">
                             {{ status }}
                           </li>
                         </ul>
@@ -371,7 +371,7 @@
                     <th>Bookings</th>
                     <th>Amount</th>
                     <th>Joining Date</th>
-                    <!-- <th>Course ID / Hourly Rate</th> -->
+                    <th>Course ID / Hourly Rate</th>
                     <th>Work Contract</th>
                     <th>Status</th>
                     <th>Action</th>
@@ -385,26 +385,26 @@
                     <td>{{ i + 1 }}</td>
                     <td>{{ tutor?.idNumber }}</td>
                     <td>
-                      <div class="d-flex align-items-center">
+                      <a class="d-flex align-items-center" [routerLink]="['/admin', 'tutor', 'profile', tutor?.id]">
                         <img [src]="tutor?.avatar" width="25" height="25" class="rounded-circle p-0 me-2"
                           draggable="false" meTutorsDefaultAvatar alt="">
                         <span>
                           <bdi>{{ tutor?.name }}</bdi>
                         </span>
-                      </div>
+                      </a>
                     </td>
                     <td class="text-capitalize">{{ tutor?.gender }}</td>
                     <td class="text-capitalize"><a href="javascript:void(0)" (click)="onOpenBookingModal(tutor.id)">{{ tutor?.bookings}}</a> </td>
                     <td class="text-capitalize"><a [routerLink]="['/admin', 'finance', 'orders']">{{ tutor?.amount | currency }}</a></td>
                     <td class="text-capitalize">{{ tutor?.createdAt | date }}</td>
-                    <!-- <td class="text-capitalize tutor-subject">
-                    <ng-container *ngFor="let subject of tutor?.subjects; let isLast = last; let i = index">
-                      <div *ngIf="i < 3">
-                        {{ 'CID' + subject?.id }} <span>({{ subject?.pricePerHour | currency }})</span>
-                        <ng-container *ngIf="!isLast">, </ng-container>
-                      </div>
-                    </ng-container>
-                  </td> -->
+                    <td class="text-capitalize tutor-subject">
+                      <ng-container *ngFor="let subject of tutor?.subjects; let isLast = last; let i = index">
+                        <div *ngIf="i < 3">
+                          {{ 'CID' + subject?.id }} <span>({{ subject?.pricePerHour | currency }})</span>
+                          <ng-container *ngIf="!isLast && i < 2">, </ng-container>
+                        </div>
+                      </ng-container>
+                    </td>
                     <td class="text-capitalize tutor-date">
                       <div>
                         <span>From</span> {{ tutor?.specifications?.availabilityStartDate }}
@@ -420,7 +420,7 @@
                         </button>
                         <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
                           <li role="menuitem" class="cursor-pointer text-capitalize"
-                            *ngFor="let status of tutorStatuses" [ngClass]="tutor.status" (click)="onOpenChangeStatusModal({oldStatus: tutor?.status, newStatus: status}, tutor)">
+                            *ngFor="let status of tutorStatuses" [ngClass]="status" (click)="onOpenChangeStatusModal({oldStatus: tutor?.status, newStatus: status}, tutor)">
                             {{ status }}
                           </li>
                         </ul>

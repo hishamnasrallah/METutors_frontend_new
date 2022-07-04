@@ -28,6 +28,7 @@ export const generalConstants = {
     'assets/svg/humanities.svg',
     'assets/svg/math.svg',
   ],
+  rejectionReasons: ["I'm not interested"],
 };
 
 export const TICKET_STATUSES_CONST: any = [

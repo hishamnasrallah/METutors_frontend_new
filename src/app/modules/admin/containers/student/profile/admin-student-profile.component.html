@@ -25,11 +25,11 @@
                 </div>
                 <div class="col-md-3 d-flex menu align-items-center">
                   <img src="assets/svg/calendar.svg" alt="" width="15" height="15" draggable="false">
-                  <strong>{{ view.profile?.student?.createdAt | date: 'E d, Y'}} </strong>
+                  <strong>{{ view.profile?.student?.createdAt | date: 'E d, Y' }} </strong>
                 </div>
                 <div class="col-md-3 d-flex menu align-items-center">
                   <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
-                  <strong>{{ view.profile?.student?.createdAt | date : 'shortTime'}}, PKT</strong>
+                  <strong>{{ view.profile?.student?.createdAt | date : 'shortTime' }}, PKT</strong>
                 </div>
               </div>
             </div>
@@ -42,12 +42,12 @@
                      meTutorsDefaultAvatar
                      alt="">
                 <strong>
-                  <bdi>{{view.profile?.student?.firstName}} {{ view.profile?.student?.lastName }}</bdi>
+                  <bdi>{{ view.profile?.student?.firstName }} {{ view.profile?.student?.lastName }}</bdi>
                 </strong>
-                <span class="ms-2">({{view.profile?.student?.idNumber}})</span>
+                <span class="ms-2">({{ view.profile?.student?.idNumber }})</span>
               </div>
 
-              <button class="status text-capitalize status" mat-button [ngClass]="view.profile?.student?.status">{{view.profile?.student?.status}}</button>
+              <button class="status text-capitalize status" mat-button [ngClass]="view.profile?.student?.status">{{ view.profile?.student?.status }}</button>
             </div>
           </div>
 
@@ -56,20 +56,20 @@
               <table class="basic-table w-100">
                 <tr>
                   <td>Email</td>
-                  <td>{{view.profile?.student?.email}}</td>
+                  <td>{{ view.profile?.student?.email }}</td>
                 </tr>
                 <tr>
                   <td>Phone</td>
-                  <td>{{view.profile?.student?.mobile}}0</td>
+                  <td>{{ view.profile?.student?.mobile }}</td>
                 </tr>
                 <tr>
                   <td>Attendance Percentage</td>
                   <td>
                     <div class="position-relative my-progress">
                       <mat-progress-spinner class="progress-spinner" [color]="'primary'" [mode]="'determinate'"
-                                            [value]="view.profile?.attendenceRat">
+                                            [value]="view.profile?.attendenceRate">
                       </mat-progress-spinner>
-                      <span class="position-absolute">{{view.profile?.attendenceRate}}%</span>
+                      <span class="position-absolute">{{ view.profile?.attendenceRate }}%</span>
                     </div>
                   </td>
                 </tr>
@@ -79,15 +79,15 @@
               <table class="basic-table w-100">
                 <tr>
                   <td>Total Courses</td>
-                  <td class="text-end">{{view.profile?.totalCourses}}</td>
+                  <td class="text-end">{{ view.profile?.totalCourses }}</td>
                 </tr>
                 <tr>
                   <td>Completed Courses</td>
-                  <td class="text-end">{{view.profile?.completedCourses}}</td>
+                  <td class="text-end">{{ view.profile?.completedCourses }}</td>
                 </tr>
                 <tr>
                   <td>Total amount spent</td>
-                  <td class="text-end">${{view.profile?.totalSpendings}}</td>
+                  <td class="text-end">${{ view.profile?.totalSpendings }}</td>
                 </tr>
               </table>
             </div>
@@ -107,8 +107,8 @@
             <tr>
               <th>Number</th>
               <th>BIN</th>
-              <th>SIN</th>
-              <th>Student Name</th>
+              <th>TIN</th>
+              <th>Teacher Name</th>
               <th>Program Name</th>
               <th>Field of Study</th>
               <th>Subject</th>
@@ -118,28 +118,34 @@
               <th>Action</th>
             </tr>
             <tr *ngFor="let course of view.profile?.courses; let i=index">
-              <td>{{ i+1}}</td>
-              <td>BIN1</td>
-              <td>{{view.profile?.student?.idNumber}}</td>
+              <td>{{ i+1 }}</td>
               <td>
-                <div class="d-flex align-items-center">
-                  <a>
-                    <img [src]="imageUrl+view.profile?.student?.avatar" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
+                <a [routerLink]="['/admin', 'student', view.profile?.student?.id, 'booking-detail', course?.id]">BIN{{ course?.id }}</a>
+              </td>
+              <td>
+                <a [routerLink]="['/admin', 'tutor', 'profile', course?.teacher?.id]">{{ course?.teacher?.idNumber }}</a>
+              </td>
+              <td>
+                <div class="d-flex align-items-center p-0">
+                  <a [routerLink]="['/admin', 'tutor', 'profile', course?.teacher?.id]">
+                    <img [src]="imageUrl + course?.teacher?.avatar" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
                          meTutorsDefaultAvatar alt="">
-                    <span>
-                  <bdi>{{ view.profile?.student?.firstName }} {{ view.profile?.student?.lastName }}</bdi>
-                </span>
+                    <span class="text-capitalize">
+                      <bdi>{{ course?.teacher?.firstName }} {{ course?.teacher?.lastName }}</bdi>
+                    </span>
                   </a>
                 </div>
               </td>
-              <td class="text-capitalize">{{ course?.program?.code}}</td>
+              <td class="text-capitalize">{{ course?.program?.code }}</td>
               <td>{{ course?.field?.name }}</td>
-              <td>{{ course?.subject?.name}}</td>
-              <td>{{ course?.courseCode}}</td>
-              <td>{{course?.totalPrice}}$</td>
+              <td>{{ course?.subject?.name }}</td>
+              <td>
+                <a [routerLink]="['/admin', 'student', view.profile?.student?.id, 'booking-detail', course?.id]">{{ course?.courseCode }}</a>
+              </td>
+              <td>${{ course?.totalPrice }}</td>
               <td>
                 <button class="status text-capitalize" mat-button [ngClass]="course?.status"
-                        [tooltip]="statusLabel[course?.status]?.long">{{ statusLabel[course?.status]?.short}}
+                        [tooltip]="statusLabel[course?.status]?.long">{{ statusLabel[course?.status]?.short }}
                 </button>
               </td>
               <td>

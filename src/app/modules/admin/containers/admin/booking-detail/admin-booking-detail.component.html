@@ -16,7 +16,7 @@
     <div class="card" *ngSwitchCase="false">
       <div class="card-body">
         <div class="title overflow-hidden d-flex justify-content-between">
-          <h1 class="mb-0">{{ view.bookingDetail.course?.courseName }} <span>({{ view.bookingDetail.course?.courseCode}})</span>
+          <h1 class="mb-0">{{ view.bookingDetail.course?.courseName }} <span>({{ view.bookingDetail.course?.courseCode }})</span>
             <button mat-button class="ms-3 status" [ngClass]="view.bookingDetail.course?.status">{{ statusLabel[view.bookingDetail.course?.status].long }}</button>
           </h1>
           <div class="links">
@@ -50,7 +50,7 @@
           <div class="col-md-3 details">
             <div class="text-end">
               <span class="me-1">Booking Price</span>
-              <strong>${{ view.bookingDetail.course?.totalPrice}}</strong>
+              <strong>${{ view.bookingDetail.course?.totalPrice }}</strong>
             </div>
             <div class="text-end">
               <span class="me-1">Number of Students</span>
@@ -66,7 +66,7 @@
                    class="rounded-circle">
               <div class="ms-2">
                 <h3
-                  class="m-0">{{ view.bookingDetail?.course?.teacher?.firstName }} {{ view.bookingDetail?.course?.teacher?.lastName }}</h3>
+                  class="m-0 text-capitalize">{{ view.bookingDetail?.course?.teacher?.firstName }} {{ view.bookingDetail?.course?.teacher?.lastName }}</h3>
                 <div>
                   <rating [(ngModel)]="view.bookingDetail.teacherRating" [max]="5" [readonly]="true"></rating>
                   <span class="ms-1">{{ view.bookingDetail?.teacherRating | number }}</span>
@@ -109,7 +109,6 @@
       </div>
     </div>
   </ng-container>
-
 
   <div class="booking-content">
     <h3 class="overview mb-3">Completed Classes</h3>

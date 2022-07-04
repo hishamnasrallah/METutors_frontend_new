@@ -101,7 +101,7 @@
           background-color: #50C394;
         }
 
-        &.deactive {
+        &.inactive {
           background-color: #FF8300;
         }
       }
@@ -124,12 +124,12 @@
             background-color: #EBD016;
           }
   
-          &.deactive {
-            background-color: #FF385C;
+          &.inactive {
+            background-color: #FF8300;
           }
   
           &.rejected {
-            background-color: #FF8300;
+            background-color: #FF385C;
           }
         }
       }
