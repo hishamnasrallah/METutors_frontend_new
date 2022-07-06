@@ -1231,14 +1231,14 @@ export const selectCourseBooking = createSelector(
   fromAdminReducer.selectCourseBooking
 );
 
-export const selectIsLoadingAllBookings = createSelector(
+export const selectIsLoadingBookings = createSelector(
   selectAdminState,
-  fromAdminReducer.selectIsLoadingAllBookings
+  fromAdminReducer.selectIsLoadingBookings
 );
 
-export const selectAllBookings = createSelector(
+export const selectBookings = createSelector(
   selectAdminState,
-  fromAdminReducer.selectAllBookings
+  fromAdminReducer.selectBookings
 );
 
 export const selectIsLoadingCompletedBookings = createSelector(
@@ -1286,9 +1286,9 @@ export const selectRunningBookings = createSelector(
   fromAdminReducer.selectRunningBookings
 );
 
-export const selectBookingsCounts = createSelector(
+export const selectBookingCounts = createSelector(
   selectAdminState,
-  fromAdminReducer.selectBookingsCounts
+  fromAdminReducer.selectBookingCounts
 );
 
 export const selectAdminBookingDetail = createSelector(

@@ -4,41 +4,37 @@
       <h1>All Bookings</h1>
     </div>
     <div class="col-md-6">
-      <div class="row">
-        <div class="col-md-7">
-          <div class="position-relative">
-            <mat-icon>search</mat-icon>
-            <input type="text" class="form-control custom-input input-bordered search-request" [(ngModel)]="name"
-              (keyup)="onFilterTutors()" placeholder="Search Bookings...">
-          </div>
-        </div>
+      <div class="row justify-content-end">
         <div class="col-md-5">
+          <metutors-search-input (searchedText)="onSearch($event)"></metutors-search-input>
+        </div>
+        <!--<div class="col-md-5">
           <div class="position-relative">
             <input type="text" class="form-control custom-input input-bordered" placeholder="Apply filters">
             <mat-icon class="filter">filter_alt</mat-icon>
           </div>
-        </div>
+        </div>-->
       </div>
     </div>
   </div>
 
-  <div class="row mt-2">
+  <div class="row mt-2" *ngLet="(view$ | async) as view">
     <div class="col-md-12">
-      <mat-tab-group mat-align-tabs="start">
-        <mat-tab label="All Bookings" *ngLet="(allBookings$ | async) as allBookings">
-          <ng-container [ngSwitch]="isLoadingAllBookings$ | async">
+      <mat-tab-group mat-align-tabs="start" (selectedTabChange)="onChangeTab($event)">
+        <mat-tab label="All Bookings">
+          <ng-container [ngSwitch]="view.loading">
             <div class="mt-4" *ngSwitchCase="true">
               <metutors-grid-placeholder></metutors-grid-placeholder>
             </div>
 
             <ng-container *ngSwitchCase="false">
-              <div class="row mt-3 cards" *ngLet="(bookingsCounts$ | async) as counts">
+              <div class="row mt-3 cards">
                 <div class="col">
                   <div class="card">
                     <div class="card-body d-flex align-items-center justify-content-between">
                       <div>
                         <h2>Total</h2>
-                        <span>{{ counts?.allCourses }}</span>
+                        <span>{{ view.bookingCounts?.allCourses }}</span>
                       </div>
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20.326 20.487">
                         <g id="Teacher" transform="translate(-146.574 -144.762)">
@@ -61,7 +57,7 @@
                     <div class="card-body d-flex align-items-center justify-content-between">
                       <div>
                         <h2>Running</h2>
-                        <span>{{ counts?.runningCourses }}</span>
+                        <span>{{ view.bookingCounts?.runningCourses }}</span>
                       </div>
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20.326 20.487">
                         <g id="Teacher" transform="translate(-146.574 -144.762)">
@@ -84,7 +80,7 @@
                     <div class="card-body d-flex align-items-center justify-content-between">
                       <div>
                         <h2>Completed</h2>
-                        <span>{{ counts?.completedCourses }}</span>
+                        <span>{{ view.bookingCounts?.completedCourses }}</span>
                       </div>
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20.326 20.487">
                         <g id="Teacher" transform="translate(-146.574 -144.762)">
@@ -107,7 +103,7 @@
                     <div class="card-body d-flex align-items-center justify-content-between">
                       <div>
                         <h2>Cancelled</h2>
-                        <span>{{ counts?.cancelledCourses }}</span>
+                        <span>{{ view.bookingCounts?.cancelledCourses }}</span>
                       </div>
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20.326 20.487">
                         <g id="Teacher" transform="translate(-146.574 -144.762)">
@@ -126,218 +122,23 @@
                   </div>
                 </div>
               </div>
-              <table class="table my-table default-title mt-4">
-                <tr>
-                  <th>Number</th>
-                  <th>BIN</th>
-                  <th>Student Name</th>
-                  <th>Teacher Name</th>
-                  <th>Total Classes</th>
-                  <th>Start Date - End Date</th>
-                  <th>Program</th>
-                  <th>Course ID</th>
-                  <th>Course Name</th>
-                  <th>Status</th>
-                  <th>Action</th>
-                </tr>
-                <tr *ngIf="!allBookings || !allBookings.length">
-                  <td colspan="11">
-                    <div class="text-center">No records found</div>
-                  </td>
-                </tr>
-                <tr *ngFor="let bookings of allBookings; let i = index">
-                  <td>{{ i + 1 }}</td>
-                  <td>{{ bookings?.courseCode }}</td>
-                  <td>
-                    <metutors-user-avatar [avatar]="bookings?.student?.avatar" [type]="'small'"
-                                          [name]="bookings?.student?.name"
-                                          [routerLink]="['/admin', 'student', 'profile', bookings?.student?.id]"
-                                          class="d-block">
-                    </metutors-user-avatar>
-                  </td>
-                  <td>
-                    <metutors-user-avatar [avatar]="bookings?.tutor?.avatar" [type]="'small'"
-                                          [name]=" bookings?.tutor?.name "
-                                          [routerLink]="['/admin', 'tutor', 'profile', bookings?.tutor?.id]"
-                                          class="d-block">
-                    </metutors-user-avatar>
-                  </td>
-                  <td class="text-capitalize">{{ bookings?.totalClasses }}</td>
-                  <td class="text-capitalize tutor-date">
-                    <div>
-                      <span>From</span> {{ bookings?.startDate | date }}
-                    </div>
-                    <div>
-                      <span>To</span> {{ bookings?.endDate | date}}
-                    </div>
-                  </td>
-                  <td>{{ bookings?.program?.code }}</td>
-                  <td>{{ bookings?.courseCode }}</td>
-                  <td>{{ bookings?.courseName }}</td>
-                  <td>
-                    <button class="status text-capitalize" mat-button [ngClass]="bookings?.status" [tooltip]="statusLabel[bookings?.status].long">
-                      {{ statusLabel[bookings?.status].short }}
-                    </button>
-                  </td>
-                  <td>
-                    <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0">
-                      <mat-icon>more_vert</mat-icon>
-                    </button>
-                  </td>
-                </tr>
-              </table>
+              <metutors-booking-grid [loading]="view.loading" [bookings]="view.bookings"></metutors-booking-grid>
             </ng-container>
           </ng-container>
         </mat-tab>
-        <mat-tab label="Running" *ngLet="(runningBookings$ | async) as runningBookings">
-          <ng-container [ngSwitch]="isLoadingRunningBookings$ | async">
-            <div class="mt-4" *ngSwitchCase="true">
-              <metutors-grid-placeholder></metutors-grid-placeholder>
-            </div>
-
-            <table class="table my-table default-title mt-4" *ngSwitchCase="false">
-              <tr>
-                <th>Number</th>
-                <th>BIN</th>
-                <th>Student Name</th>
-                <th>Teacher Name</th>
-                <th>Total Classes</th>
-                <th>Start Date - End Date</th>
-                <th>Program</th>
-                <th>Course ID</th>
-                <th>Course Name</th>
-                <th>Status</th>
-                <th>Action</th>
-              </tr>
-              <tr *ngIf="!runningBookings || !runningBookings.length">
-                <td colspan="11">
-                  <div class="text-center">No records found</div>
-                </td>
-              </tr>
-              <tr *ngFor="let bookings of runningBookings; let i = index">
-                <td>{{ i + 1 }}</td>
-                <td>{{ bookings?.courseCode }}</td>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <img [src]="bookings?.student?.avatar" width="25" height="25" class="rounded-circle p-0 me-2"
-                      draggable="false" meTutorsDefaultAvatar alt="">
-                    <span>
-                      <bdi>{{ bookings?.student?.name }}</bdi>
-                    </span>
-                  </div>
-                </td>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <img [src]="bookings?.tutor?.avatar" width="25" height="25" class="rounded-circle p-0 me-2"
-                      draggable="false" meTutorsDefaultAvatar alt="">
-                    <span>
-                      <bdi>{{ bookings?.tutor?.name }}</bdi>
-                    </span>
-                  </div>
-                </td>
-                <td class="text-capitalize">{{ bookings?.totalClasses }}</td>
-                <td class="text-capitalize tutor-date">
-                  <div>
-                    <span>From</span> {{ bookings?.startDate }}
-                  </div>
-                  <div>
-                    <span>To</span> {{ bookings?.endDate }}
-                  </div>
-                </td>
-                <td>{{ bookings?.program?.code }}</td>
-                <td>{{ bookings?.courseCode }}</td>
-                <td>{{ bookings?.courseName }}</td>
-                <td>
-                  <div class="change-status position-relative d-flex">
-                    <button class="status" mat-button [ngClass]="bookings?.status" [tooltip]="statusLabel[bookings?.status].long">
-                      {{ statusLabel[bookings?.status].short}}
-                    </button>
-                  </div>
-                </td>
-                <td>
-                  <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0">
-                    <mat-icon>more_vert</mat-icon>
-                  </button>
-                </td>
-              </tr>
-            </table>
-          </ng-container>
+        <mat-tab label="Running">
+          <metutors-booking-grid [loading]="view.loading" [bookings]="view.bookings"></metutors-booking-grid>
         </mat-tab>
-        <mat-tab label="Completed" *ngLet="(completedBookings$ | async) as completedBookings">
-          <ng-container [ngSwitch]="isLoadingCompletedBookings$ | async">
-            <div class="mt-4" *ngSwitchCase="true">
-              <metutors-grid-placeholder></metutors-grid-placeholder>
-            </div>
-
-            <table class="table my-table default-title mt-4" *ngSwitchCase="false">
-              <tr>
-                <th>Number</th>
-                <th>BIN</th>
-                <th>Student Name</th>
-                <th>Teacher Name</th>
-                <th>Total Classes</th>
-                <th>Start Date - End Date</th>
-                <th>Program</th>
-                <th>Course ID</th>
-                <th>Course Name</th>
-                <th>Status</th>
-                <th>Action</th>
-              </tr>
-              <tr *ngIf="!completedBookings || !completedBookings.length">
-                <td colspan="11">
-                  <div class="text-center">No records found</div>
-                </td>
-              </tr>
-              <tr *ngFor="let bookings of completedBookings; let i = index">
-                <td>{{ i + 1 }}</td>
-                <td>{{ bookings?.courseCode }}</td>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <img [src]="bookings?.student?.avatar" width="25" height="25" class="rounded-circle p-0 me-2"
-                      draggable="false" meTutorsDefaultAvatar alt="">
-                    <span>
-                      <bdi>{{ bookings?.student?.name }}</bdi>
-                    </span>
-                  </div>
-                </td>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <img [src]="bookings?.tutor?.avatar" width="25" height="25" class="rounded-circle p-0 me-2"
-                      draggable="false" meTutorsDefaultAvatar alt="">
-                    <span>
-                      <bdi>{{ bookings?.tutor?.name }}</bdi>
-                    </span>
-                  </div>
-                </td>
-                <td class="text-capitalize">{{ bookings?.totalClasses }}</td>
-                <td class="text-capitalize tutor-date">
-                  <div>
-                    <span>From</span> {{ bookings?.startDate }}
-                  </div>
-                  <div>
-                    <span>To</span> {{ bookings?.endDate }}
-                  </div>
-                </td>
-                <td>{{ bookings?.program?.code }}</td>
-                <td>{{ bookings?.courseCode }}</td>
-                <td>{{ bookings?.courseName }}</td>
-                <td>
-                  <div class="change-status position-relative d-flex">
-                    <button class="status" mat-button [ngClass]="bookings?.status" [tooltip]="statusLabel[bookings?.status].long">
-                      {{ statusLabel[bookings?.status].short}}
-                    </button>
-                  </div>
-                </td>
-                <td>
-                  <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0">
-                    <mat-icon>more_vert</mat-icon>
-                  </button>
-                </td>
-              </tr>
-            </table>
-          </ng-container>
+        <mat-tab label="Completed">
+          <metutors-booking-grid [loading]="view.loading" [bookings]="view.bookings"></metutors-booking-grid>
         </mat-tab>
       </mat-tab-group>
+
+      <div class="d-flex mt-2 justify-content-center" *ngIf="view.bookings.length < view.bookingCounts?.total">
+        <pagination [totalItems]="view.bookingCounts?.total" [itemsPerPage]="perPage" [maxSize]="5"
+                    (pageChanged)="onPageChange($event)">
+        </pagination>
+      </div>
     </div>
   </div>
 </div>

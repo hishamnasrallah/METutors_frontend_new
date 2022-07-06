@@ -1,9 +1,10 @@
-import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import * as fromCore from '@metutor/core/state';
 import { Component, OnInit } from '@angular/core';
+import { combineLatest, map, Observable } from 'rxjs';
+
 import { courseStatusLabel } from '@config';
 import { ICourse, ITutorFilters } from '@models';
+import * as fromCore from '@metutor/core/state';
 
 @Component({
   selector: 'metutors-listing',
@@ -11,16 +12,15 @@ import { ICourse, ITutorFilters } from '@models';
   styleUrls: ['./admin-classrooms-list.component.scss'],
 })
 export class AdminClassroomsListComponent implements OnInit {
-  bookingsCounts$: Observable<any>;
-  isLoadingAllBookings$: Observable<boolean>;
-  allBookings$: Observable<ICourse[] | null>;
-  isLoadingRunningBookings$: Observable<boolean>;
-  runningBookings$: Observable<ICourse[] | null>;
-  isLoadingCompletedBookings$: Observable<boolean>;
-  completedBookings$: Observable<ICourse[] | null>;
-
-  name: string;
+  status = '';
+  perPage = 10;
   statusLabel = courseStatusLabel;
+
+  view$: Observable<{
+    loading: boolean;
+    bookingCounts: any;
+    bookings: ICourse[] | null;
+  }>;
 
   constructor(private _store: Store<any>) {}
 
@@ -28,39 +28,60 @@ export class AdminClassroomsListComponent implements OnInit {
     this._prepareBookings();
   }
 
-  filterTutors(filters: ITutorFilters): void {
-    // this.tutors$ = this._store.select(fromCore.selectFilteredPendingTutors, {
-    //   ...filters,
-    // });
+  onSearch(search: string): void {
+    this._store.dispatch(
+      fromCore.loadBookings({
+        params: { page: 1, search, status: this.status },
+      })
+    );
   }
 
-  onFilterTutors(): void {
-    this.filterTutors({
-      name: this.name,
-    });
+  onPageChange({ page }: any): void {
+    this._store.dispatch(
+      fromCore.loadBookings({
+        params: { page, search: '', status: this.status },
+      })
+    );
+  }
+
+  onChangeTab(tab: any): void {
+    this.status = '';
+    switch (tab.index) {
+      case 0:
+        this.status = '';
+        break;
+      case 1:
+        this.status = 'running';
+        break;
+      case 2:
+        this.status = 'completed';
+        break;
+    }
+
+    this._store.dispatch(
+      fromCore.loadBookings({
+        params: { page: 1, search: '', status: this.status },
+      })
+    );
   }
 
   private _prepareBookings(): void {
-    this._store.dispatch(fromCore.loadAllBookings());
-    this._store.dispatch(fromCore.loadRunningBookings());
-    this._store.dispatch(fromCore.loadCompletedBookings());
-
-    this.bookingsCounts$ = this._store.select(fromCore.selectBookingsCounts);
-
-    this.allBookings$ = this._store.select(fromCore.selectAllBookings);
-    this.runningBookings$ = this._store.select(fromCore.selectRunningBookings);
-    this.completedBookings$ = this._store.select(
-      fromCore.selectCompletedBookings
+    this._store.dispatch(
+      fromCore.loadBookings({
+        params: { page: 1, search: '', status: '' },
+      })
     );
 
-    this.isLoadingAllBookings$ = this._store.select(
-      fromCore.selectIsLoadingAllBookings
-    );
-    this.isLoadingRunningBookings$ = this._store.select(
-      fromCore.selectIsLoadingRunningBookings
-    );
-    this.isLoadingCompletedBookings$ = this._store.select(
-      fromCore.selectIsLoadingCompletedBookings
+    this.view$ = combineLatest([
+      this._store.select(fromCore.selectBookings),
+      this._store.select(fromCore.selectBookingCounts),
+      this._store.select(fromCore.selectIsLoadingBookings),
+    ]).pipe(
+      map(([bookings, bookingCounts, loading]) => ({
+        loading,
+        bookings,
+        bookingCounts,
+      }))
     );
   }
 }

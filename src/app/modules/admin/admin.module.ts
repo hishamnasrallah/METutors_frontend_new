@@ -30,6 +30,7 @@ import * as adminEffects from './state/effects';
 import * as featureKeys from './state/feature-keys';
 
 import {
+  BookingGridComponent,
   PerCourseGridComponent,
   AdminDashboardComponent,
   AdminTutorListComponent,
@@ -96,6 +97,7 @@ import {
 
 @NgModule({
   declarations: [
+    BookingGridComponent,
     AdminNavbarComponent,
     AdminSidebarComponent,
     InterviewCardComponent,

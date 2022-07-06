@@ -22,7 +22,7 @@ export interface State {
   studentProfile: [];
   previousTutors: [];
   feedbackOptions: [];
-  bookingsCounts: any;
+  bookingCounts: any;
   studentsFeedback: [];
   assignmentSummary: [];
   tutorReAssignment: any;
@@ -52,11 +52,11 @@ export interface State {
   isLoadingCourseBooking: boolean;
 
   // Classroom Bookings
-  allBookings: ICourse[];
+  bookings: ICourse[];
   runningBookings: ICourse[];
   completedBookings: ICourse[];
   cancelledBookings: ICourse[];
-  isLoadingAllBookings: boolean;
+  isLoadingBookings: boolean;
   isLoadingRunningBookings: boolean;
   isLoadingCompletedBookings: boolean;
   isLoadingCancelledBookings: boolean;
@@ -79,11 +79,11 @@ export interface State {
 export const initialState: State = {
   tutors: [],
   documents: [],
-  allBookings: [],
+  bookings: [],
   testimonials: [],
   viewFeedback: [],
   bookingDetail: [],
-  bookingsCounts: {},
+  bookingCounts: {},
   studentProfile: [],
   previousTutors: [],
   feedbackOptions: [],
@@ -106,7 +106,7 @@ export const initialState: State = {
   isEditingFeedback: false,
   pagination: { total: 0 },
   isLoadingAdminDocs: false,
-  isLoadingAllBookings: false,
+  isLoadingBookings: false,
   isLoadingViewFeedback: false,
   isLoadingCourseBooking: false,
   isLoadingBookingDetail: false,
@@ -246,32 +246,28 @@ export const reducer = createReducer(
     isLoadingCourseBooking: false,
   })),
 
-  on(adminActions.loadAllBookings, (state) => ({
+  on(adminActions.loadBookings, (state) => ({
     ...state,
-    isLoadingAllBookings: true,
+    isLoadingBookings: true,
   })),
 
   on(
-    adminActions.loadAllBookingsSuccess,
-    (state, { allBookings, bookingsCounts }) => ({
+    adminActions.loadBookingsSuccess,
+    (state, { bookings, bookingCounts }) => ({
       ...state,
-      allBookings,
-      bookingsCounts: {
-        ...state.bookingsCounts,
-        ...bookingsCounts,
+      bookings,
+      bookingCounts: {
+        ...state.bookingCounts,
+        ...bookingCounts,
       },
-      isLoadingAllBookings: false,
+      isLoadingBookings: false,
     })
   ),
 
-  on(
-    adminActions.loadAllBookingsEnded,
-    adminActions.loadAllBookingsFailure,
-    (state) => ({
-      ...state,
-      isLoadingAllBookings: false,
-    })
-  ),
+  on(adminActions.loadBookingsFailure, (state) => ({
+    ...state,
+    isLoadingBookings: false,
+  })),
 
   on(adminActions.loadCompletedBookings, (state) => ({
     ...state,
@@ -327,7 +323,7 @@ export const reducer = createReducer(
       ...state,
       cancelledBookings,
       bookingsCounts: {
-        ...state.bookingsCounts,
+        // ...state.bookingsCounts,
         ...bookingsCounts,
       },
       isLoadingCancelledBookings: false,
@@ -723,10 +719,10 @@ export const selectIsLoadingCourseBooking = (state: State): boolean =>
 export const selectCourseBooking = (state: State): ISubject | null =>
   state.courseBooking;
 
-export const selectIsLoadingAllBookings = (state: State): boolean =>
-  state.isLoadingAllBookings;
+export const selectIsLoadingBookings = (state: State): boolean =>
+  state.isLoadingBookings;
 
-export const selectAllBookings = (state: State): ICourse[] => state.allBookings;
+export const selectBookings = (state: State): ICourse[] => state.bookings;
 
 export const selectIsLoadingRunningBookings = (state: State): boolean =>
   state.isLoadingRunningBookings;
@@ -746,7 +742,7 @@ export const selectIsLoadingCancelledBookings = (state: State): boolean =>
 export const selectCancelledBookings = (state: State): ICourse[] =>
   state.cancelledBookings;
 
-export const selectBookingsCounts = (state: State): any => state.bookingsCounts;
+export const selectBookingCounts = (state: State): any => state.bookingCounts;
 
 export const selectAdminBookingDetail = (state: State): ICourse[] =>
   state.bookingDetail;

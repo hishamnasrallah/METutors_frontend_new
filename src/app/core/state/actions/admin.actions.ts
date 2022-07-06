@@ -97,20 +97,19 @@ export const loadCourseBookingListFailure = createAction(
 );
 
 // Load All Bookings
-export const loadAllBookings = createAction('[Admin] Load All Bookings');
-
-export const loadAllBookingsSuccess = createAction(
-  '[Admin] Load All Bookings Success',
-  props<{ allBookings: ICourse[]; bookingsCounts: any }>()
+export const loadBookings = createAction(
+  '[Admin] Load Bookings',
+  props<{ params: { page: number; search: string; status: string } }>()
 );
 
-export const loadAllBookingsFailure = createAction(
-  '[Admin] Load All Bookings Failure',
+export const loadBookingsSuccess = createAction(
+  '[Admin] Load Bookings Success',
+  props<{ bookings: ICourse[]; bookingCounts: any }>()
+);
+
+export const loadBookingsFailure = createAction(
+  '[Admin] Load Bookings Failure',
   props<{ error: any }>()
-);
-
-export const loadAllBookingsEnded = createAction(
-  '[Admin] Load All Bookings Ended'
 );
 
 // Load Completed Bookings

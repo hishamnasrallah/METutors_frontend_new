@@ -45,7 +45,7 @@ export class AdminCancelledClassroomsComponent implements OnInit {
 
   private _prepareBookings(): void {
     this._store.dispatch(fromCore.loadCancelledBookings());
-    this.bookingsCounts$ = this._store.select(fromCore.selectBookingsCounts);
+    this.bookingsCounts$ = this._store.select(fromCore.selectBookingCounts);
     this.cancelledBookings$ = this._store.select(
       fromCore.selectCancelledBookings
     );

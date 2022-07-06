@@ -409,30 +409,25 @@ export class AdminEffects {
 
   loadAllBookings$ = createEffect(() =>
     this._actions$.pipe(
-      ofType(adminActions.loadAllBookings),
-      withLatestFrom(this._store.select(fromCore.selectAllBookings)),
-      mergeMap(([_, _bookings]) => {
-        if (!_bookings || !_bookings.length) {
-          return this._adminService.loadAllBookings().pipe(
-            map(
-              (response) =>
-                adminActions.loadAllBookingsSuccess({
-                  allBookings: response.courses,
-                  bookingsCounts: response.bookingsCounts,
-                }),
-              catchError((error) =>
-                of(
-                  adminActions.loadAllBookingsFailure({
-                    error: error?.error?.message || error?.error?.errors,
-                  })
-                )
+      ofType(adminActions.loadBookings),
+      mergeMap(({ params }) =>
+        this._adminService.loadBookings(params).pipe(
+          map(
+            (response) =>
+              adminActions.loadBookingsSuccess({
+                bookings: response.courses,
+                bookingCounts: response.bookingsCounts,
+              }),
+            catchError((error) =>
+              of(
+                adminActions.loadBookingsFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
               )
             )
-          );
-        } else {
-          return of(adminActions.loadAllBookingsEnded());
-        }
-      })
+          )
+        )
+      )
     )
   );
 

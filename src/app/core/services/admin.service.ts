@@ -194,13 +194,22 @@ export class AdminService {
     );
   }
 
-  loadAllBookings(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}admin/bookings`).pipe(
+  loadBookings(_params: any): Observable<any> {
+    let { status, ...params } = _params;
+    if (status) {
+      params = {
+        ...params,
+        [status]: true,
+      };
+    }
+
+    return this.http.get<any>(`${this.baseUrl}admin/bookings`, { params }).pipe(
       map((response) => ({
-        courses: response?.courses.map(
+        courses: response?.courses?.data.map(
           (course: any) => new ICourse(false, course)
         ),
         bookingsCounts: {
+          total: response?.courses?.total,
           allCourses: response?.all_courses,
           runningCourses: response?.running_courses,
           cancelledCourses: response?.cancelled_courses,
