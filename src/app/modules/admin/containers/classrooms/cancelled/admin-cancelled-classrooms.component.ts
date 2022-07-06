@@ -1,10 +1,9 @@
-import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Component, OnInit } from '@angular/core';
+import { combineLatest, map, Observable } from 'rxjs';
 
 import { environment } from '@environment';
 import * as fromCore from '@metutor/core/state';
-import { ICourse, ITutorFilters } from '@models';
 import { CourseStatus, courseStatusLabel } from '@config';
 
 @Component({
@@ -13,53 +12,59 @@ import { CourseStatus, courseStatusLabel } from '@config';
   styleUrls: ['./admin-cancelled-classrooms.component.scss'],
 })
 export class AdminCancelledClassroomsComponent implements OnInit {
-  bookingsCounts$: Observable<any>;
-  isLoading$: Observable<boolean>;
-  cancelledBookings$: Observable<any | null>;
-  adminCancelledBookings$: Observable<any | null>;
-  teacherCancelledBookings$: Observable<any | null>;
-  studentCancelledBookings$: Observable<any | null>;
+  view$: Observable<{
+    all: any;
+    admin: any;
+    tutor: any;
+    student: any;
+    loading: boolean;
+    bookingCounts: any;
+  }>;
 
-  name: string;
+  perPage = 10;
   courseStatus = CourseStatus;
   imageUrl = environment.imageURL;
   statusLabel = courseStatusLabel;
 
   constructor(private _store: Store<any>) {}
 
+  onSearch(search: string): void {
+    this._store.dispatch(
+      fromCore.loadCancelledBookings({
+        params: { page: 1, search },
+      })
+    );
+  }
+
+  onPageChange({ page }: any): void {
+    this._store.dispatch(
+      fromCore.loadCancelledBookings({
+        params: { page, search: '' },
+      })
+    );
+  }
+
   ngOnInit(): void {
-    this._prepareBookings();
-  }
+    this._store.dispatch(
+      fromCore.loadCancelledBookings({ params: { page: 1, search: '' } })
+    );
 
-  filterTutors(filters: ITutorFilters): void {
-    // this.tutors$ = this._store.select(fromCore.selectFilteredPendingTutors, {
-    //   ...filters,
-    // });
-  }
-
-  onFilterTutors(): void {
-    this.filterTutors({
-      name: this.name,
-    });
-  }
-
-  private _prepareBookings(): void {
-    this._store.dispatch(fromCore.loadCancelledBookings());
-    this.bookingsCounts$ = this._store.select(fromCore.selectBookingCounts);
-    this.cancelledBookings$ = this._store.select(
-      fromCore.selectCancelledBookings
-    );
-    this.adminCancelledBookings$ = this._store.select(
-      fromCore.selectAdminCancelledBookings
-    );
-    this.teacherCancelledBookings$ = this._store.select(
-      fromCore.selectTeacherCancelledBookings
-    );
-    this.studentCancelledBookings$ = this._store.select(
-      fromCore.selectStudentCancelledBookings
-    );
-    this.isLoading$ = this._store.select(
-      fromCore.selectIsLoadingCancelledBookings
+    this.view$ = combineLatest([
+      this._store.select(fromCore.selectBookingCounts),
+      this._store.select(fromCore.selectCancelledBookings),
+      this._store.select(fromCore.selectAdminCancelledBookings),
+      this._store.select(fromCore.selectTeacherCancelledBookings),
+      this._store.select(fromCore.selectStudentCancelledBookings),
+      this._store.select(fromCore.selectIsLoadingCancelledBookings),
+    ]).pipe(
+      map(([bookingCounts, all, admin, tutor, student, loading]) => ({
+        all,
+        admin,
+        tutor,
+        student,
+        loading,
+        bookingCounts,
+      }))
     );
   }
 }

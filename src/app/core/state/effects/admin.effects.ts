@@ -434,31 +434,26 @@ export class AdminEffects {
   loadCancelledBookings$ = createEffect(() =>
     this._actions$.pipe(
       ofType(adminActions.loadCancelledBookings),
-      withLatestFrom(this._store.select(fromCore.selectCancelledBookings)),
-      mergeMap(([_, _bookings]) => {
-        if (!_bookings || !_bookings.length) {
-          return this._adminService.loadCancelledBookings().pipe(
-            map(
-              (response) =>
-                adminActions.loadCancelledBookingsSuccess({
-                  cancelledBookings: camelcaseKeys(response.courses, {
-                    deep: true,
-                  }),
-                  bookingsCounts: response.bookingsCounts,
+      mergeMap(({ params }) =>
+        this._adminService.loadCancelledBookings(params).pipe(
+          map(
+            ({ courses, bookingCounts }) =>
+              adminActions.loadCancelledBookingsSuccess({
+                cancelledBookings: camelcaseKeys(courses, {
+                  deep: true,
                 }),
-              catchError((error) =>
-                of(
-                  adminActions.loadCancelledBookingsFailure({
-                    error: error?.error?.message || error?.error?.errors,
-                  })
-                )
+                bookingCounts,
+              }),
+            catchError((error) =>
+              of(
+                adminActions.loadCancelledBookingsFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
               )
             )
-          );
-        } else {
-          return of(adminActions.loadCancelledBookingsEnded());
-        }
-      })
+          )
+        )
+      )
     )
   );
 

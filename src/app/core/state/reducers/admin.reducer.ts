@@ -268,25 +268,21 @@ export const reducer = createReducer(
 
   on(
     adminActions.loadCancelledBookingsSuccess,
-    (state, { cancelledBookings, bookingsCounts }) => ({
+    (state, { cancelledBookings, bookingCounts }) => ({
       ...state,
       cancelledBookings,
-      bookingsCounts: {
-        // ...state.bookingsCounts,
-        ...bookingsCounts,
+      bookingCounts: {
+        ...state.bookingCounts,
+        ...bookingCounts,
       },
       isLoadingCancelledBookings: false,
     })
   ),
 
-  on(
-    adminActions.loadCancelledBookingsEnded,
-    adminActions.loadCancelledBookingsFailure,
-    (state) => ({
-      ...state,
-      isLoadingCancelledBookings: false,
-    })
-  ),
+  on(adminActions.loadCancelledBookingsFailure, (state) => ({
+    ...state,
+    isLoadingCancelledBookings: false,
+  })),
 
   on(
     adminActions.loadBookingDetail,
@@ -673,12 +669,6 @@ export const selectIsLoadingBookings = (state: State): boolean =>
 
 export const selectBookings = (state: State): ICourse[] => state.bookings;
 
-export const selectIsLoadingCancelledBookings = (state: State): boolean =>
-  state.isLoadingCancelledBookings;
-
-export const selectCancelledBookings = (state: State): ICourse[] =>
-  state.cancelledBookings;
-
 export const selectBookingCounts = (state: State): any => state.bookingCounts;
 
 export const selectAdminBookingDetail = (state: State): ICourse[] =>
@@ -760,6 +750,12 @@ export const selectIsLoadingTutorSchedule = (state: State): boolean =>
 
 export const selectAdminPagination = (state: State): IPagination =>
   state.pagination;
+
+export const selectIsLoadingCancelledBookings = (state: State): boolean =>
+  state.isLoadingCancelledBookings;
+
+export const selectCancelledBookings = (state: State): ICourse[] =>
+  state.cancelledBookings;
 
 export const selectStudentCancelledBookings = (state: State): ICourse[] =>
   state.cancelledBookings.filter(

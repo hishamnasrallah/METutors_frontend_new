@@ -219,38 +219,21 @@ export class AdminService {
     );
   }
 
-  loadCompletedBookings(): Observable<any> {
+  loadCancelledBookings(params: any): Observable<any> {
     return this.http
-      .get<any>(`${this.baseUrl}admin/bookings?completed=true`)
+      .get<any>(`${this.baseUrl}admin/cancelled-courses`, { params })
       .pipe(
-        map((response) =>
-          response?.courses.map((course: any) => new ICourse(false, course))
-        )
+        map((response) => ({
+          courses: response?.cancelled_courses?.data,
+          bookingCounts: {
+            cancelledCourses: response?.total,
+            cancelledByAdmin: response?.by_admins,
+            total: response.cancelled_courses?.total,
+            cancelledByTeacher: response?.by_teachers,
+            cancelledByStudent: response?.by_students,
+          },
+        }))
       );
-  }
-
-  loadRunningBookings(): Observable<any> {
-    return this.http
-      .get<any>(`${this.baseUrl}admin/bookings?running=true`)
-      .pipe(
-        map((response) =>
-          response?.courses.map((course: any) => new ICourse(false, course))
-        )
-      );
-  }
-
-  loadCancelledBookings(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}admin/cancelled-courses`).pipe(
-      map((response) => ({
-        courses: response?.cancelled_courses,
-        bookingsCounts: {
-          cancelledCourses: response?.total,
-          cancelledByTeacher: response?.by_teachers,
-          cancelledByStudent: response?.by_students,
-          cancelledByAdmin: response?.by_admins,
-        },
-      }))
-    );
   }
 
   changeCourseStatus(id: number, status: string): Observable<any> {

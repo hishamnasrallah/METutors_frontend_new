@@ -114,21 +114,18 @@ export const loadBookingsFailure = createAction(
 
 // Load Cancelled Bookings
 export const loadCancelledBookings = createAction(
-  '[Admin] Load Cancelled Bookings'
+  '[Admin] Load Cancelled Bookings',
+  props<{ params: { page: number; search: string } }>()
 );
 
 export const loadCancelledBookingsSuccess = createAction(
   '[Admin] Load Cancelled Bookings Success',
-  props<{ cancelledBookings: ICourse[]; bookingsCounts: any }>()
+  props<{ cancelledBookings: ICourse[]; bookingCounts: any }>()
 );
 
 export const loadCancelledBookingsFailure = createAction(
   '[Admin] Load Cancelled Bookings Failure',
   props<{ error: any }>()
-);
-
-export const loadCancelledBookingsEnded = createAction(
-  '[Admin] Load Cancelled Bookings Ended'
 );
 
 // Load booking details
