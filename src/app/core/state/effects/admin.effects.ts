@@ -460,8 +460,8 @@ export class AdminEffects {
   loadAdminBookingPerCourse$ = createEffect(() =>
     this._actions$.pipe(
       ofType(adminActions.loadAdminBookingPerCourse),
-      mergeMap(({ status }) =>
-        this._adminService.loadAdminBookingPerCourse(status).pipe(
+      mergeMap(({ params }) =>
+        this._adminService.loadAdminBookingPerCourse(params).pipe(
           map(
             (course) =>
               adminActions.loadAdminBookingPerCourseSuccess({

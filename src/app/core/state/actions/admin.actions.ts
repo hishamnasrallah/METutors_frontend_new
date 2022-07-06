@@ -172,7 +172,7 @@ export const loadAdminTutorBookingDetailFailure = createAction(
 // Load booking per subject/course
 export const loadAdminBookingPerCourse = createAction(
   '[Admin] Load Admin Booking Per Course',
-  props<{ status: string }>()
+  props<{ params: { page: number; search: string; status: string } }>()
 );
 
 export const loadAdminBookingPerCourseSuccess = createAction(

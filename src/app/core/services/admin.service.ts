@@ -126,10 +126,10 @@ export class AdminService {
     );
   }
 
-  loadAdminBookingPerCourse(status: string): Observable<any> {
-    return this.http.get<any>(
-      `${this.baseUrl}admin/subject-courses?status=${status}`
-    );
+  loadAdminBookingPerCourse(params: any): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}admin/subject-courses`, {
+      params,
+    });
   }
 
   loadAdminTutorReAssignment(status: string): Observable<any> {

@@ -2,8 +2,6 @@ import { Store } from '@ngrx/store';
 import { Component, OnInit } from '@angular/core';
 import { combineLatest, map, Observable } from 'rxjs';
 
-import { CourseStatus } from '@config';
-import { ITutorFilters } from '@models';
 import * as fromCore from '@metutor/core/state';
 import * as fromAdmin from '@metutor/modules/admin/state';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
@@ -14,16 +12,17 @@ import * as fromAdminAction from '@metutor/modules/admin/state/actions';
   styleUrls: ['./admin-classrooms-per-course.component.scss'],
 })
 export class AdminClassroomsPerCourseComponent implements OnInit {
-  name: string;
+  totalBooking$: Observable<any>;
+  openBookingModal$: Observable<boolean>;
+  loadingTotalBooking$: Observable<boolean>;
+
+  perPage = 10;
+  status = 'running';
 
   view$: Observable<{
     booking: any;
     loading: boolean;
   }>;
-
-  totalBooking$: Observable<any>;
-  openBookingModal$: Observable<boolean>;
-  loadingTotalBooking: Observable<boolean>;
 
   constructor(private _store: Store<any>) {}
 
@@ -40,38 +39,63 @@ export class AdminClassroomsPerCourseComponent implements OnInit {
   }
 
   onChangeTab(tab: any): void {
-    let status = 'running';
     switch (tab.index) {
       case 0:
-        status = 'running';
+        this.status = 'running';
         break;
       case 1:
-        status = 'pending';
+        this.status = 'pending';
         break;
       case 2:
-        status = 'reassigned';
+        this.status = 'reassigned';
         break;
       case 3:
-        status = 'cancelled';
+        this.status = 'cancelled';
         break;
       case 4:
-        status = 'completed';
+        this.status = 'completed';
         break;
     }
 
-    this._store.dispatch(fromCore.loadAdminBookingPerCourse({ status }));
+    this._store.dispatch(
+      fromCore.loadAdminBookingPerCourse({
+        params: { page: 1, search: '', status: this.status },
+      })
+    );
+  }
+
+  onSearch(search: string): void {
+    this._store.dispatch(
+      fromCore.loadAdminBookingPerCourse({
+        params: { page: 1, search, status: this.status },
+      })
+    );
+  }
+
+  onPageChange({ page }: any): void {
+    this._store.dispatch(
+      fromCore.loadAdminBookingPerCourse({
+        params: { page, search: '', status: this.status },
+      })
+    );
   }
 
   ngOnInit(): void {
     this._store.dispatch(
-      fromCore.loadAdminBookingPerCourse({ status: 'running' })
+      fromCore.loadAdminBookingPerCourse({
+        params: {
+          page: 1,
+          search: '',
+          status: 'running',
+        },
+      })
     );
 
     this.openBookingModal$ = this._store.select(
       fromAdmin.selectAdminStudentBookingModal
     );
 
-    this.loadingTotalBooking = this._store.select(
+    this.loadingTotalBooking$ = this._store.select(
       fromCore.selectIsLoadingAdminBookingDetail
     );
 
@@ -88,17 +112,5 @@ export class AdminClassroomsPerCourseComponent implements OnInit {
         loading,
       }))
     );
-  }
-
-  filterTutors(filters: ITutorFilters): void {
-    // this.tutors$ = this._store.select(fromCore.selectFilteredPendingTutors, {
-    //   ...filters,
-    // });
-  }
-
-  onFilterTutors(): void {
-    this.filterTutors({
-      name: this.name,
-    });
   }
 }
