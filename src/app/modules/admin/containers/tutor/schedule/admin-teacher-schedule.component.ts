@@ -1,8 +1,9 @@
-import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { DatePipe } from '@angular/common';
-import * as fromCore from '@metutor/core/state';
 import { Component, OnInit } from '@angular/core';
+import { combineLatest, map, Observable } from 'rxjs';
+
+import * as fromCore from '@metutor/core/state';
 import { ISchedule } from '@metutor/core/models';
 
 @Component({
@@ -12,32 +13,39 @@ import { ISchedule } from '@metutor/core/models';
   providers: [DatePipe],
 })
 export class AdminTeacherScheduleComponent implements OnInit {
-  isLoading$: Observable<boolean>;
-  schedule$: Observable<ISchedule | null>;
+  view$: Observable<{ loading: boolean; schedule: ISchedule | null }>;
+
+  perPage = 10;
 
   constructor(private _store: Store<any>, private _datePipe: DatePipe) {}
 
   ngOnInit(): void {
-    this._prepareSchedule();
+    this._store.dispatch(
+      fromCore.loadAdminTutorSchedule({ params: { page: 1, search: '' } })
+    );
+
+    this.view$ = combineLatest([
+      this._store.select(fromCore.selectAdminTutorSchedule),
+      this._store.select(fromCore.selectIsLoadingTutorSchedule),
+    ]).pipe(map(([schedule, loading]) => ({ loading, schedule })));
   }
 
   onChangeDateDay(event: any): void {
     this._store.dispatch(
       fromCore.loadAdminTutorSchedule({
+        params: { page: 1, search: '' },
         startingDate: this._datePipe.transform(event.value, 'yyyy-MM-dd') || '',
       })
     );
   }
 
   checkIsToday(date: string): boolean {
-    if (new Date().toDateString() == new Date(date).toDateString()) return true;
-
-    return false;
+    return new Date().toDateString() == new Date(date).toDateString();
   }
 
-  private _prepareSchedule(): void {
-    this._store.dispatch(fromCore.loadAdminTutorSchedule({}));
-    this.schedule$ = this._store.select(fromCore.selectAdminTutorSchedule);
-    this.isLoading$ = this._store.select(fromCore.selectIsLoadingTutorSchedule);
+  onPageChange({ page }: any): void {
+    this._store.dispatch(
+      fromCore.loadAdminTutorSchedule({ params: { page, search: '' } })
+    );
   }
 }

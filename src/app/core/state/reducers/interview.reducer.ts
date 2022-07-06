@@ -197,37 +197,3 @@ export const selectIsJoiningInterview = (state: State): boolean =>
 
 export const selectInterviewPagination = (state: State): IPagination =>
   state.pagination;
-
-/*export const selectFilteredInterviews = (
-  state: State,
-  props?: any
-): IInterview[] | null => {
-  let interviews: IInterview[] = [];
-
-  if (state.interviews && state.interviews.length && props) {
-    interviews = getFilteredInterviews(state.interviews, props);
-  }
-
-  return interviews;
-};*/
-
-/*
-const getFilteredInterviews = (interviews: IInterview[], props: any) => {
-  if (props?.status) {
-    interviews = interviews?.filter((interview) =>
-      props.status === InterviewStatus.pending
-        ? interview?.status === props.status ||
-          interview?.status === InterviewStatus.scheduled
-        : interview?.status === props.status
-    );
-  }
-
-  if (props?.title) {
-    interviews = interviews?.filter((interview) =>
-      interview?.tutor?.name?.toLowerCase()?.includes(props.title.toLowerCase())
-    );
-  }
-
-  return interviews;
-};
-*/

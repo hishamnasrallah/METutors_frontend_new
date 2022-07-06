@@ -726,8 +726,8 @@ export class AdminEffects {
   loadAdminTutorSchedule$ = createEffect(() =>
     this._actions$.pipe(
       ofType(adminActions.loadAdminTutorSchedule),
-      mergeMap((action) =>
-        this._adminService.loadAdminTutorSchedule(action?.startingDate).pipe(
+      mergeMap(({ params, startingDate }) =>
+        this._adminService.loadAdminTutorSchedule(params, startingDate).pipe(
           map(
             (response) =>
               adminActions.loadAdminTutorScheduleSuccess({

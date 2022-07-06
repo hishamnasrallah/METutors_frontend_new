@@ -253,14 +253,18 @@ export class AdminService {
     );
   }
 
-  loadAdminTutorSchedule(startingDate?: string): Observable<any> {
-    const startingData = startingDate ? `?start_date=${startingDate}` : '';
+  loadAdminTutorSchedule(_params: any, date?: string): Observable<any> {
+    const params = {
+      ..._params,
+      start_date: date ? date : '',
+    };
 
     return this.http
-      .get<any>(`${this.baseUrl}admin/teachers/schedule${startingData}`)
+      .get<any>(`${this.baseUrl}admin/teachers/schedule`, { params })
       .pipe(
         map((response) => ({
-          tutors: response?.teachers.map(
+          total: response?.teachers?.total,
+          tutors: response?.teachers?.data.map(
             (tutor: any) => new ITutor(false, tutor)
           ),
           weekdays: response.weekdays.map((day: any) => ({
