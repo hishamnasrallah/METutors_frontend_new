@@ -27,7 +27,6 @@ export class AdminStudentListComponent implements OnInit {
   }>;
 
   status = '';
-  name: string;
   perPage = 10;
   studentId: any;
   tutorStatus = TutorStatus;
@@ -51,7 +50,7 @@ export class AdminStudentListComponent implements OnInit {
 
     this._store.dispatch(
       fromCore.loadStudents({
-        params: { page: 1, status: StudentStatus.suspended },
+        params: { page: 1, status: '' },
       })
     );
 
@@ -71,7 +70,7 @@ export class AdminStudentListComponent implements OnInit {
   onChangeTab(tab: any): void {
     switch (tab.index) {
       case 0:
-        this.status = StudentStatus.active;
+        this.status = '';
         this.onPageChange({ page: 1 });
         break;
       case 1:
@@ -83,6 +82,14 @@ export class AdminStudentListComponent implements OnInit {
         this.onPageChange({ page: 1 });
         break;
     }
+  }
+
+  onSearch(search: string): void {
+    this._store.dispatch(
+      fromCore.loadStudents({
+        params: { page: 1, search, status: this.status },
+      })
+    );
   }
 
   /*  filterStudents(filters: IStudentFilters): void {
@@ -111,7 +118,7 @@ export class AdminStudentListComponent implements OnInit {
 
   onPageChange({ page }: any): void {
     this._store.dispatch(
-      fromCore.loadInterviews({ params: { page, status: this.status } })
+      fromCore.loadStudents({ params: { page, status: this.status } })
     );
   }
 

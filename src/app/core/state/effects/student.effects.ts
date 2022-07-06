@@ -20,7 +20,7 @@ import {
 
 @Injectable()
 export class StudentEffects {
-  loadStudentStudent$ = createEffect(() =>
+  loadStudent$ = createEffect(() =>
     this._actions$.pipe(
       ofType(studentActions.loadStudent),
       withLatestFrom(this._store.select(selectStudent)),

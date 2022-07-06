@@ -22,7 +22,7 @@ export class StudentsService {
   getStudents(params: any): Observable<any> {
     return this.http
       .get<{
-        active_students: {
+        students: {
           total: number;
           data: {
             Total: number;
@@ -36,15 +36,15 @@ export class StudentsService {
       .pipe(
         map((response) => ({
           data: {
-            students: response?.active_students,
+            students: response?.students,
             stats: {
-              total: response?.active_students.data.Total,
-              active: response?.active_students.data.active,
-              enrolled: response?.active_students.data.enrolled,
-              suspended: response?.active_students.data.suspended,
+              total: response?.students.data.Total,
+              active: response?.students.data.active,
+              enrolled: response?.students.data.enrolled,
+              suspended: response?.students.data.suspended,
             },
           },
-          total: response?.active_students?.total,
+          total: response?.students?.total,
         }))
       );
   }
