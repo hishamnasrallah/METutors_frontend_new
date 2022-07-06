@@ -66,21 +66,18 @@ export const adminRejectDocumentFailure = createAction(
 
 // Load Workforce Capacity
 export const loadWorkforceCapacity = createAction(
-  '[Admin] Load Workforce Capacity'
+  '[Admin] Load Workforce Capacity',
+  props<{ params: { page: number; search: string } }>()
 );
 
 export const loadWorkforceCapacitySuccess = createAction(
   '[Admin] Load Workforce Capacity Success',
-  props<{ workforceCapacity: ICapacity[] }>()
+  props<{ total: number; workforceCapacity: ICapacity[] }>()
 );
 
 export const loadWorkforceCapacityFailure = createAction(
   '[Admin] Load Workforce Capacity Failure',
   props<{ error: any }>()
-);
-
-export const loadWorkforceCapacityEnded = createAction(
-  '[Admin] Load Workforce Capacity Ended'
 );
 
 // Load Course Booking List

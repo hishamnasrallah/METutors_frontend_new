@@ -43,15 +43,16 @@ export class AdminService {
     );
   }
 
-  loadWorkforceCapacity(): Observable<any> {
+  loadWorkforceCapacity(params: any): Observable<any> {
     return this.http
-      .get<any>(`${this.baseUrl}admin/workforce-capacity`)
+      .get<any>(`${this.baseUrl}admin/workforce-capacity`, { params })
       .pipe(
-        map((response) =>
-          response?.subjects.map(
+        map((response) => ({
+          total: response.subjects.total,
+          workforceCapacity: response?.subjects.data.map(
             (capacity: any) => new ICapacity(false, capacity)
-          )
-        )
+          ),
+        }))
       );
   }
 

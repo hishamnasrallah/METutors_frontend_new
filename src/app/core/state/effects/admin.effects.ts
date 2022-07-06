@@ -363,28 +363,24 @@ export class AdminEffects {
   loadWorkforceCapacity$ = createEffect(() =>
     this._actions$.pipe(
       ofType(adminActions.loadWorkforceCapacity),
-      withLatestFrom(this._store.select(fromCore.selectWorkforceCapacity)),
-      mergeMap(([_, _capacity]) => {
-        if (!_capacity || !_capacity.length) {
-          return this._adminService.loadWorkforceCapacity().pipe(
-            map(
-              (workforceCapacity) =>
-                adminActions.loadWorkforceCapacitySuccess({
-                  workforceCapacity,
-                }),
-              catchError((error) =>
-                of(
-                  adminActions.loadWorkforceCapacityFailure({
-                    error: error?.error?.message || error?.error?.errors,
-                  })
-                )
+      mergeMap(({ params }) =>
+        this._adminService.loadWorkforceCapacity(params).pipe(
+          map(
+            ({ total, workforceCapacity }) =>
+              adminActions.loadWorkforceCapacitySuccess({
+                total,
+                workforceCapacity,
+              }),
+            catchError((error) =>
+              of(
+                adminActions.loadWorkforceCapacityFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
               )
             )
-          );
-        } else {
-          return of(adminActions.loadWorkforceCapacityEnded());
-        }
-      })
+          )
+        )
+      )
     )
   );
 

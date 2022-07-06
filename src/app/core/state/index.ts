@@ -1231,11 +1231,6 @@ export const selectCourseBooking = createSelector(
   fromAdminReducer.selectCourseBooking
 );
 
-export const selectFilteredWorkforceCapacity = createSelector(
-  selectAdminState,
-  fromAdminReducer.selectFilteredWorkforceCapacity
-);
-
 export const selectIsLoadingAllBookings = createSelector(
   selectAdminState,
   fromAdminReducer.selectIsLoadingAllBookings
@@ -1419,6 +1414,11 @@ export const selectAdminTutorSchedule = createSelector(
 export const selectIsLoadingTutorSchedule = createSelector(
   selectAdminState,
   fromAdminReducer.selectIsLoadingTutorSchedule
+);
+
+export const selectAdminPagination = createSelector(
+  selectAdminState,
+  fromAdminReducer.selectAdminPagination
 );
 
 /**

@@ -1,12 +1,11 @@
-import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { combineLatest, map, Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 
 import * as fromCore from '@metutor/core/state';
 import * as fromAdmin from '@metutor/modules/admin/state';
+import { ITutor, ISubject, ICapacity, IPagination } from '@models';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
-
-import { ITutor, ISubject, ICapacity, ICapacityFilters } from '@models';
 
 @Component({
   selector: 'metutors-workforce',
@@ -14,10 +13,8 @@ import { ITutor, ISubject, ICapacity, ICapacityFilters } from '@models';
   styleUrls: ['./admin-workforce-capacity.component.scss'],
 })
 export class AdminWorkforceCapacityComponent implements OnInit {
-  isLoading$: Observable<boolean>;
   tutorAvailability$: Observable<any>;
   adminTutorsList$: Observable<ITutor[]>;
-  capacity$: Observable<ICapacity[] | null>;
   isLoadingAdminTutors: Observable<boolean>;
   courseBooking$: Observable<ISubject | null>;
   isLoadingCourseBooking$: Observable<boolean>;
@@ -25,15 +22,23 @@ export class AdminWorkforceCapacityComponent implements OnInit {
   showCourseBookingListModal$: Observable<boolean>;
   isLoadingTutorAvailability$: Observable<boolean>;
 
-  name: string;
+  perPage = 10;
   tutorType: string;
   modalHeading: string;
   selectedCapacity: number;
 
+  view$: Observable<{
+    loading: boolean;
+    pagination: IPagination;
+    capacity: ICapacity[] | null;
+  }>;
+
   constructor(private _store: Store<any>) {}
 
   ngOnInit(): void {
-    this._prepareCapacity();
+    this._store.dispatch(
+      fromCore.loadWorkforceCapacity({ params: { page: 1, search: '' } })
+    );
 
     this.showCourseBookingListModal$ = this._store.select(
       fromAdmin.selectCourseBookingListModal
@@ -61,6 +66,18 @@ export class AdminWorkforceCapacityComponent implements OnInit {
     this.isLoadingTutorAvailability$ = this._store.select(
       fromCore.selectIsLoadingTutorAvailability
     );
+
+    this.view$ = combineLatest([
+      this._store.select(fromCore.selectAdminPagination),
+      this._store.select(fromCore.selectWorkforceCapacity),
+      this._store.select(fromCore.selectIsLoadingWorkforceCapacity),
+    ]).pipe(
+      map(([pagination, capacity, loading]) => ({
+        loading,
+        capacity,
+        pagination,
+      }))
+    );
   }
 
   onBack(): void {
@@ -68,19 +85,18 @@ export class AdminWorkforceCapacityComponent implements OnInit {
       this.tutorType === 'hired' ? 'Hired Tutors' : 'Available Tutors';
   }
 
-  filterCapacity(filters: ICapacityFilters): void {
-    this.capacity$ = this._store.select(
-      fromCore.selectFilteredWorkforceCapacity,
-      {
-        ...filters,
-      }
+  onSearch(search: string): void {
+    this._store.dispatch(
+      fromCore.loadWorkforceCapacity({
+        params: { page: 1, search },
+      })
     );
   }
 
-  onFilterCapacity(): void {
-    this.filterCapacity({
-      name: this.name,
-    });
+  onPageChange({ page }: any): void {
+    this._store.dispatch(
+      fromCore.loadWorkforceCapacity({ params: { page, search: '' } })
+    );
   }
 
   onOpenCourseBookingListModal(id: number) {
@@ -121,13 +137,5 @@ export class AdminWorkforceCapacityComponent implements OnInit {
   onTutorAvailability(id: number): void {
     this.modalHeading = "Tutor's Availability";
     this._store.dispatch(fromCore.loadTutorAvailability({ id }));
-  }
-
-  private _prepareCapacity(): void {
-    this._store.dispatch(fromCore.loadWorkforceCapacity());
-    this.capacity$ = this._store.select(fromCore.selectWorkforceCapacity);
-    this.isLoading$ = this._store.select(
-      fromCore.selectIsLoadingWorkforceCapacity
-    );
   }
 }

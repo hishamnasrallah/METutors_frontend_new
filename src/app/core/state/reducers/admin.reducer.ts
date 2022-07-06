@@ -6,6 +6,7 @@ import {
   ISubject,
   ICapacity,
   ISchedule,
+  IPagination,
   ITeacherDocument,
 } from '@models';
 
@@ -70,6 +71,9 @@ export interface State {
   // Loading course booking list
   tutorSchedule: ISchedule | null;
   isLoadingTutorSchedule: boolean;
+
+  // Pagination
+  pagination: IPagination;
 }
 
 export const initialState: State = {
@@ -100,6 +104,7 @@ export const initialState: State = {
   studentTotalBooking: [],
   tutorApprovalRequest: [],
   isEditingFeedback: false,
+  pagination: { total: 0 },
   isLoadingAdminDocs: false,
   isLoadingAllBookings: false,
   isLoadingViewFeedback: false,
@@ -212,21 +217,18 @@ export const reducer = createReducer(
 
   on(
     adminActions.loadWorkforceCapacitySuccess,
-    (state, { workforceCapacity }) => ({
+    (state, { total, workforceCapacity }) => ({
       ...state,
       workforceCapacity,
+      pagination: { total },
       isLoadingWorkforceCapacity: false,
     })
   ),
 
-  on(
-    adminActions.loadWorkforceCapacityEnded,
-    adminActions.loadWorkforceCapacityFailure,
-    (state) => ({
-      ...state,
-      isLoadingWorkforceCapacity: false,
-    })
-  ),
+  on(adminActions.loadWorkforceCapacityFailure, (state) => ({
+    ...state,
+    isLoadingWorkforceCapacity: false,
+  })),
 
   on(adminActions.loadCourseBookingList, (state) => ({
     ...state,
@@ -823,34 +825,8 @@ export const selectAdminTutorSchedule = (state: State): ISchedule | null =>
 export const selectIsLoadingTutorSchedule = (state: State): boolean =>
   state.isLoadingTutorSchedule;
 
-export const selectFilteredWorkforceCapacity = (
-  state: State,
-  props?: any
-): ICapacity[] | null => {
-  let workforceCapacity: ICapacity[] = [];
-
-  if (state.workforceCapacity && state.workforceCapacity.length && props) {
-    workforceCapacity = getFilteredWorkforceCapacity(
-      state.workforceCapacity,
-      props
-    );
-  }
-
-  return workforceCapacity;
-};
-
-const getFilteredWorkforceCapacity = (
-  workforceCapacity: ICapacity[],
-  props: any
-) => {
-  if (props?.name) {
-    workforceCapacity = workforceCapacity?.filter((tutor) =>
-      tutor?.subject?.name?.toLowerCase()?.includes(props.name.toLowerCase())
-    );
-  }
-
-  return workforceCapacity;
-};
+export const selectAdminPagination = (state: State): IPagination =>
+  state.pagination;
 
 export const selectStudentCancelledBookings = (state: State): ICourse[] =>
   state.cancelledBookings.filter(
