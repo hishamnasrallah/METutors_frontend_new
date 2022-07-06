@@ -1241,16 +1241,6 @@ export const selectBookings = createSelector(
   fromAdminReducer.selectBookings
 );
 
-export const selectIsLoadingCompletedBookings = createSelector(
-  selectAdminState,
-  fromAdminReducer.selectIsLoadingCompletedBookings
-);
-
-export const selectCompletedBookings = createSelector(
-  selectAdminState,
-  fromAdminReducer.selectCompletedBookings
-);
-
 export const selectIsLoadingCancelledBookings = createSelector(
   selectAdminState,
   fromAdminReducer.selectIsLoadingCancelledBookings
@@ -1274,16 +1264,6 @@ export const selectAdminCancelledBookings = createSelector(
 export const selectTeacherCancelledBookings = createSelector(
   selectAdminState,
   fromAdminReducer.selectTeacherCancelledBookings
-);
-
-export const selectIsLoadingRunningBookings = createSelector(
-  selectAdminState,
-  fromAdminReducer.selectIsLoadingRunningBookings
-);
-
-export const selectRunningBookings = createSelector(
-  selectAdminState,
-  fromAdminReducer.selectRunningBookings
 );
 
 export const selectBookingCounts = createSelector(

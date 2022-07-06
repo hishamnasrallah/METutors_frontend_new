@@ -112,44 +112,6 @@ export const loadBookingsFailure = createAction(
   props<{ error: any }>()
 );
 
-// Load Completed Bookings
-export const loadCompletedBookings = createAction(
-  '[Admin] Load Completed Bookings'
-);
-
-export const loadCompletedBookingsSuccess = createAction(
-  '[Admin] Load Completed Bookings Success',
-  props<{ completedBookings: ICourse[] }>()
-);
-
-export const loadCompletedBookingsFailure = createAction(
-  '[Admin] Load Completed Bookings Failure',
-  props<{ error: any }>()
-);
-
-export const loadCompletedBookingsEnded = createAction(
-  '[Admin] Load Completed Bookings Ended'
-);
-
-// Load Running Bookings
-export const loadRunningBookings = createAction(
-  '[Admin] Load Running Bookings'
-);
-
-export const loadRunningBookingsSuccess = createAction(
-  '[Admin] Load Running Bookings Success',
-  props<{ runningBookings: ICourse[] }>()
-);
-
-export const loadRunningBookingsFailure = createAction(
-  '[Admin] Load Running Bookings Failure',
-  props<{ error: any }>()
-);
-
-export const loadRunningBookingsEnded = createAction(
-  '[Admin] Load Running Bookings Ended'
-);
-
 // Load Cancelled Bookings
 export const loadCancelledBookings = createAction(
   '[Admin] Load Cancelled Bookings'

@@ -431,62 +431,6 @@ export class AdminEffects {
     )
   );
 
-  loadRunningBookings$ = createEffect(() =>
-    this._actions$.pipe(
-      ofType(adminActions.loadRunningBookings),
-      withLatestFrom(this._store.select(fromCore.selectRunningBookings)),
-      mergeMap(([_, _bookings]) => {
-        if (!_bookings || !_bookings.length) {
-          return this._adminService.loadRunningBookings().pipe(
-            map(
-              (runningBookings) =>
-                adminActions.loadRunningBookingsSuccess({
-                  runningBookings,
-                }),
-              catchError((error) =>
-                of(
-                  adminActions.loadRunningBookingsFailure({
-                    error: error?.error?.message || error?.error?.errors,
-                  })
-                )
-              )
-            )
-          );
-        } else {
-          return of(adminActions.loadRunningBookingsEnded());
-        }
-      })
-    )
-  );
-
-  loadCompletedBookings$ = createEffect(() =>
-    this._actions$.pipe(
-      ofType(adminActions.loadCompletedBookings),
-      withLatestFrom(this._store.select(fromCore.selectCompletedBookings)),
-      mergeMap(([_, _bookings]) => {
-        if (!_bookings || !_bookings.length) {
-          return this._adminService.loadCompletedBookings().pipe(
-            map(
-              (completedBookings) =>
-                adminActions.loadCompletedBookingsSuccess({
-                  completedBookings,
-                }),
-              catchError((error) =>
-                of(
-                  adminActions.loadCompletedBookingsFailure({
-                    error: error?.error?.message || error?.error?.errors,
-                  })
-                )
-              )
-            )
-          );
-        } else {
-          return of(adminActions.loadCompletedBookingsEnded());
-        }
-      })
-    )
-  );
-
   loadCancelledBookings$ = createEffect(() =>
     this._actions$.pipe(
       ofType(adminActions.loadCancelledBookings),
