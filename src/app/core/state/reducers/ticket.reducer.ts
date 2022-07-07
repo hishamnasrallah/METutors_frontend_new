@@ -4,7 +4,7 @@ import * as ticketActions from '../actions/ticket.actions';
 
 export interface State {
   // Loading Tickets
-  ticketsCounts: any;
+  ticketCounts: any;
   isLoadingTickets: boolean;
   tickets: ITicket[] | null;
   loadingTicketsFailure: string;
@@ -30,7 +30,7 @@ export interface State {
 export const initialState: State = {
   ticket: null,
   tickets: null,
-  ticketsCounts: {},
+  ticketCounts: {},
   isLoadingTicket: false,
   isLoadingTickets: false,
   isCreatingTicket: false,
@@ -49,21 +49,29 @@ export const reducer = createReducer(
     isLoadingTickets: true,
   })),
 
-  on(ticketActions.loadTicketsSuccess, (state, { tickets, ticketsCounts }) => ({
-    ...state,
-    tickets,
-    ticketsCounts: {
-      ...state.ticketsCounts,
-      ...ticketsCounts,
-    },
-    isLoadingTickets: false,
-  })),
+  on(
+    ticketActions.loadTicketsSuccess,
+    ticketActions.loadAdminTicketsSuccess,
+    (state, { tickets, ticketCounts }) => ({
+      ...state,
+      tickets,
+      ticketCounts: {
+        ...state.ticketCounts,
+        ...ticketCounts,
+      },
+      isLoadingTickets: false,
+    })
+  ),
 
-  on(ticketActions.loadTicketsFailure, (state, { error }) => ({
-    ...state,
-    isLoadingTickets: false,
-    loadingTicketsFailure: error,
-  })),
+  on(
+    ticketActions.loadTicketsFailure,
+    ticketActions.loadAdminTicketsFailure,
+    (state, { error }) => ({
+      ...state,
+      isLoadingTickets: false,
+      loadingTicketsFailure: error,
+    })
+  ),
 
   on(ticketActions.loadTicketsEnded, (state) => ({
     ...state,
@@ -175,7 +183,7 @@ export const selectIsLoadingTickets = (state: State): boolean =>
 
 export const selectTicket = (state: State): ITicket | null => state.ticket;
 
-export const selectTicketsCounts = (state: State): any => state.ticketsCounts;
+export const selectTicketCounts = (state: State): any => state.ticketCounts;
 
 export const selectIsLoadingTicket = (state: State): boolean =>
   state.isLoadingTicket;
@@ -188,42 +196,3 @@ export const selectIsSubmitTicketComment = (state: State): boolean =>
 
 export const selectIsChangeTicketStatus = (state: State): boolean =>
   state.isChangeTicketStatus;
-
-export const selectFilteredTickets = (
-  state: State,
-  props?: any
-): ITicket[] | null => {
-  let tickets: ITicket[] = [];
-
-  if (state.tickets && state.tickets.length && props) {
-    tickets = getFilteredTickets(state.tickets, props);
-  }
-
-  return tickets;
-};
-
-const getFilteredTickets = (tickets: ITicket[], props: any) => {
-  if (props?.status) {
-    tickets = tickets?.filter((ticket) => ticket?.status === props.status);
-  }
-
-  if (props?.title) {
-    tickets = tickets?.filter((ticket) =>
-      ticket?.subject.toLowerCase().includes(props.title.toLowerCase())
-    );
-  }
-
-  if (props?.priority) {
-    tickets = tickets.filter(
-      (ticket) => ticket.priority?.id?.toString() === props.priority.toString()
-    );
-  }
-
-  if (props?.category) {
-    tickets = tickets.filter(
-      (ticket) => ticket.category?.id?.toString() === props.category.toString()
-    );
-  }
-
-  return tickets;
-};

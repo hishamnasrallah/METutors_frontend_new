@@ -23,22 +23,25 @@ export class TicketsService {
       .pipe(catchError(this.errorHandler));
   }
 
-  loadAdminTickets(): Observable<any> {
+  loadAdminTickets(params: any): Observable<any> {
     return this.http
       .get<{
-        tickets: ITicket[];
+        tickets: { total: number; data: ITicket[] };
         urgent_tickets: number;
         total_tickets: number;
         open_tickets: number;
         closed_tickets: number;
-      }>(`${this.baseUrl}admin/tickets`)
+      }>(`${this.baseUrl}admin/tickets`, { params })
       .pipe(
         map((response) => ({
-          tickets: response.tickets.map((ticket) => new ITicket(false, ticket)),
-          ticketsCounts: {
+          tickets: response.tickets.data.map(
+            (ticket) => new ITicket(false, ticket)
+          ),
+          ticketCounts: {
+            total: response.tickets.total,
             totalTickets: response?.total_tickets,
-            closedTickets: response?.closed_tickets,
             openTickets: response?.open_tickets,
+            closedTickets: response?.closed_tickets,
             urgentTickets: response?.urgent_tickets,
           },
         }))

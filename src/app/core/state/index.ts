@@ -715,11 +715,6 @@ export const selectTickets = createSelector(
   fromTicketReducer.selectTickets
 );
 
-export const selectFilteredTickets = createSelector(
-  selectTicketState,
-  fromTicketReducer.selectFilteredTickets
-);
-
 export const selectIsLoadingTickets = createSelector(
   selectTicketState,
   fromTicketReducer.selectIsLoadingTickets
@@ -730,9 +725,9 @@ export const selectTicket = createSelector(
   fromTicketReducer.selectTicket
 );
 
-export const selectTicketsCounts = createSelector(
+export const selectTicketCounts = createSelector(
   selectTicketState,
-  fromTicketReducer.selectTicketsCounts
+  fromTicketReducer.selectTicketCounts
 );
 
 export const selectIsLoadingTicket = createSelector(

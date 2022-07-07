@@ -1,17 +1,17 @@
-<div class="my-tickets">
+<div class="my-tickets" *ngLet="(view$ | async) as view">
   <div class="row">
     <div class="col-md-12">
       <mat-tab-group mat-align-tabs="start" (selectedTabChange)="onChangeTab($event)">
         <mat-tab label="All">
           <div class="mt-2">
-            <ng-container *ngIf="!(isLoading$ | async)">
-              <div class="row mt-3 cards" *ngLet="(ticketsCounts$ | async) as counts">
+            <ng-container *ngIf="!view.loading">
+              <div class="row mt-3 cards">
                 <div class="col">
                   <div class="card">
                     <div class="card-body d-flex align-items-center justify-content-between">
                       <div>
                         <h2>Total</h2>
-                        <span>{{ counts?.totalTickets }}</span>
+                        <span>{{ view.counts?.totalTickets }}</span>
                       </div>
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20.326 20.487">
                         <g id="Teacher" transform="translate(-146.574 -144.762)">
@@ -34,7 +34,7 @@
                     <div class="card-body d-flex align-items-center justify-content-between">
                       <div>
                         <h2>Open</h2>
-                        <span>{{ counts?.openTickets }}</span>
+                        <span>{{ view.counts?.openTickets }}</span>
                       </div>
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20.326 20.487">
                         <g id="Teacher" transform="translate(-146.574 -144.762)">
@@ -57,7 +57,7 @@
                     <div class="card-body d-flex align-items-center justify-content-between">
                       <div>
                         <h2>Closed</h2>
-                        <span>{{ counts?.closedTickets }}</span>
+                        <span>{{ view.counts?.closedTickets }}</span>
                       </div>
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20.326 20.487">
                         <g id="Teacher" transform="translate(-146.574 -144.762)">
@@ -80,7 +80,7 @@
                     <div class="card-body d-flex align-items-center justify-content-between">
                       <div>
                         <h2>Urgent</h2>
-                        <span>{{ counts?.urgentTickets }}</span>
+                        <span>{{ view.counts?.urgentTickets }}</span>
                       </div>
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20.326 20.487">
                         <g id="Teacher" transform="translate(-146.574 -144.762)">
@@ -104,14 +104,14 @@
                   <span class="title">Filters</span>
                   <mat-form-field appearance="outline" class="me-2">
                     <mat-select [placeholder]="'By Priority'" [(ngModel)]="priority" (selectionChange)="onChangeSelection()">
-                      <mat-option [value]="priority?.id" *ngFor="let priority of priorities$ | async">
+                      <mat-option [value]="priority?.id" *ngFor="let priority of view.priorities">
                         {{ priority?.name }}
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
                   <mat-form-field appearance="outline">
                     <mat-select [placeholder]="'By Category'" [(ngModel)]="category" (selectionChange)="onChangeSelection()">
-                      <mat-option [value]="category?.id" *ngFor="let category of categories$ | async">
+                      <mat-option [value]="category?.id" *ngFor="let category of view.categories">
                         {{ category?.name }}
                       </mat-option>
                     </mat-select>
@@ -125,18 +125,18 @@
                   </div>
                 </div>
               </div>
-              <metutors-support-ticket-card *ngFor="let ticket of tickets$ | async" [ticket]="ticket" [isAdmin]="true"
+              <metutors-support-ticket-card *ngFor="let ticket of view.tickets" [ticket]="ticket" [isAdmin]="true"
                                             [linkUrl]="'/admin/support-ticket/ticket-details/' + ticket?.ticketId"
                                             [ticketId]="ticketId"
                                             (changeStatus)="onOpenChangeStatusModal($event)">
               </metutors-support-ticket-card>
 
-              <div class="text-center py-5 no-data" *ngIf="!(tickets$ | async) || !(tickets$ | async)?.length">
+              <div class="text-center py-5 no-data" *ngIf="!view.tickets || !view.tickets?.length">
                 No Tickets found
               </div>
             </ng-container>
 
-            <ng-container *ngIf="isLoading$ | async">
+            <ng-container *ngIf="view.loading">
               <div class="card" *ngFor="let _ of [1, 2, 3]">
                 <div class="card-body">
                   <metutors-grid-placeholder></metutors-grid-placeholder>
@@ -147,20 +147,20 @@
         </mat-tab>
         <mat-tab label="Open">
           <div class="mt-2">
-            <ng-container *ngIf="!(isLoading$ | async)">
+            <ng-container *ngIf="!view.loading">
               <div class="row filters">
                 <div class="col-md-9">
                   <span class="title">Filters</span>
                   <mat-form-field appearance="outline" class="me-2">
                     <mat-select [placeholder]="'By Priority'" [(ngModel)]="priority" (selectionChange)="onChangeSelection()">
-                      <mat-option [value]="priority?.id" *ngFor="let priority of priorities$ | async">
+                      <mat-option [value]="priority?.id" *ngFor="let priority of view.priorities">
                         {{ priority?.name }}
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
                   <mat-form-field appearance="outline">
                     <mat-select [placeholder]="'By Category'" [(ngModel)]="category" (selectionChange)="onChangeSelection()">
-                      <mat-option [value]="category?.id" *ngFor="let category of categories$ | async">
+                      <mat-option [value]="category?.id" *ngFor="let category of view.categories">
                         {{ category?.name }}
                       </mat-option>
                     </mat-select>
@@ -174,18 +174,18 @@
                   </div>
                 </div>
               </div>
-              <metutors-support-ticket-card *ngFor="let ticket of tickets$ | async" [ticket]="ticket" [isAdmin]="true"
+              <metutors-support-ticket-card *ngFor="let ticket of view.tickets" [ticket]="ticket" [isAdmin]="true"
                                             [linkUrl]="'/admin/support-ticket/ticket-details/' + ticket?.ticketId"
                                             [ticketId]="ticketId"
                                             (changeStatus)="onOpenChangeStatusModal($event)">
               </metutors-support-ticket-card>
 
-              <div class="text-center py-5 no-data" *ngIf="!(tickets$ | async) || !(tickets$ | async)?.length">
+              <div class="text-center py-5 no-data" *ngIf="!view.tickets || !view.tickets?.length">
                 No Tickets found
               </div>
             </ng-container>
 
-            <ng-container *ngIf="isLoading$ | async">
+            <ng-container *ngIf="view.loading">
               <div class="card" *ngFor="let _ of [1, 2, 3]">
                 <div class="card-body">
                   <metutors-grid-placeholder></metutors-grid-placeholder>
@@ -196,20 +196,20 @@
         </mat-tab>
         <mat-tab label="Closed">
           <div class="mt-2">
-            <ng-container *ngIf="!(isLoading$ | async)">
+            <ng-container *ngIf="!view.loading">
               <div class="row filters">
                 <div class="col-md-9">
                   <span class="title">Filters</span>
                   <mat-form-field appearance="outline" class="me-2">
                     <mat-select [placeholder]="'By Priority'" [(ngModel)]="priority" (selectionChange)="onChangeSelection()">
-                      <mat-option [value]="priority?.id" *ngFor="let priority of priorities$ | async">
+                      <mat-option [value]="priority?.id" *ngFor="let priority of view.priorities">
                         {{ priority?.name }}
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
                   <mat-form-field appearance="outline">
                     <mat-select [placeholder]="'By Category'" [(ngModel)]="category" (selectionChange)="onChangeSelection()">
-                      <mat-option [value]="category?.id" *ngFor="let category of categories$ | async">
+                      <mat-option [value]="category?.id" *ngFor="let category of view.categories">
                         {{ category?.name }}
                       </mat-option>
                     </mat-select>
@@ -223,18 +223,18 @@
                   </div>
                 </div>
               </div>
-              <metutors-support-ticket-card *ngFor="let ticket of tickets$ | async" [ticket]="ticket" [isAdmin]="true"
+              <metutors-support-ticket-card *ngFor="let ticket of view.tickets" [ticket]="ticket" [isAdmin]="true"
                                             [linkUrl]="'/admin/support-ticket/ticket-details/' + ticket?.ticketId"
                                             [ticketId]="ticketId"
                                             (changeStatus)="onOpenChangeStatusModal($event)">
               </metutors-support-ticket-card>
 
-              <div class="text-center py-5 no-data" *ngIf="!(tickets$ | async) || !(tickets$ | async)?.length">
+              <div class="text-center py-5 no-data" *ngIf="!view.tickets || !view.tickets?.length">
                 No Tickets found
               </div>
             </ng-container>
 
-            <ng-container *ngIf="isLoading$ | async">
+            <ng-container *ngIf="view.loading">
               <div class="card" *ngFor="let _ of [1, 2, 3]">
                 <div class="card-body">
                   <metutors-grid-placeholder></metutors-grid-placeholder>
@@ -245,20 +245,20 @@
         </mat-tab>
         <mat-tab label="Urgent">
           <div class="mt-2">
-            <ng-container *ngIf="!(isLoading$ | async)">
+            <ng-container *ngIf="!view.loading">
               <div class="row filters">
                 <div class="col-md-9">
                   <span class="title">Filters</span>
                   <mat-form-field appearance="outline" class="me-2">
                     <mat-select [placeholder]="'By Priority'" [(ngModel)]="priority" (selectionChange)="onChangeSelection()">
-                      <mat-option [value]="priority?.id" *ngFor="let priority of priorities$ | async">
+                      <mat-option [value]="priority?.id" *ngFor="let priority of view.priorities">
                         {{ priority?.name }}
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
                   <mat-form-field appearance="outline">
                     <mat-select [placeholder]="'By Category'" [(ngModel)]="category" (selectionChange)="onChangeSelection()">
-                      <mat-option [value]="category?.id" *ngFor="let category of categories$ | async">
+                      <mat-option [value]="category?.id" *ngFor="let category of view.categories">
                         {{ category?.name }}
                       </mat-option>
                     </mat-select>
@@ -272,18 +272,18 @@
                   </div>
                 </div>
               </div>
-              <metutors-support-ticket-card *ngFor="let ticket of tickets$ | async" [ticket]="ticket" [isAdmin]="true"
+              <metutors-support-ticket-card *ngFor="let ticket of view.tickets" [ticket]="ticket" [isAdmin]="true"
                                             [linkUrl]="'/admin/support-ticket/ticket-details/' + ticket?.ticketId"
                                             [ticketId]="ticketId"
                                             (changeStatus)="onOpenChangeStatusModal($event)">
               </metutors-support-ticket-card>
 
-              <div class="text-center py-5 no-data" *ngIf="!(tickets$ | async) || !(tickets$ | async)?.length">
+              <div class="text-center py-5 no-data" *ngIf="!view.tickets || !view.tickets?.length">
                 No Tickets found
               </div>
             </ng-container>
 
-            <ng-container *ngIf="isLoading$ | async">
+            <ng-container *ngIf="view.loading">
               <div class="card" *ngFor="let _ of [1, 2, 3]">
                 <div class="card-body">
                   <metutors-grid-placeholder></metutors-grid-placeholder>

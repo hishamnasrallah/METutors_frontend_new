@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import * as fromCore from '@metutor/core/state';
-import { Observable } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { combineLatest, map, Observable } from 'rxjs';
+
 import {
   ITicket,
   ITicketFilters,
   ITicketCategory,
   ITicketPriority,
 } from '@models';
+
 import { TicketStatus } from '@config';
+import * as fromCore from '@metutor/core/state';
 import * as fromAdmin from '@metutor/modules/admin/state';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 
@@ -18,13 +20,13 @@ import * as fromAdminAction from '@metutor/modules/admin/state/actions';
   styleUrls: ['./admin-support-ticket.component.scss'],
 })
 export class AdminSupportTicketComponent implements OnInit {
-  ticketsCounts$: Observable<any>;
-  isLoading$: Observable<boolean>;
-  tickets$: Observable<ITicket[] | null>;
+  // ticketsCounts$: Observable<any>;
+  // isLoading$: Observable<boolean>;
+  // tickets$: Observable<ITicket[] | null>;
   isChangeTicketStatus$: Observable<boolean>;
   showChangeStatusModal$: Observable<boolean>;
-  categories$: Observable<ITicketCategory[] | null>;
-  priorities$: Observable<ITicketPriority[] | null>;
+  // categories$: Observable<ITicketCategory[] | null>;
+  // priorities$: Observable<ITicketPriority[] | null>;
 
   title?: string;
   status?: string;
@@ -33,18 +35,48 @@ export class AdminSupportTicketComponent implements OnInit {
   priority?: string;
   ticketStatus = TicketStatus;
 
+  view$: Observable<{
+    counts: any;
+    loading: boolean;
+    tickets: ITicket[] | null;
+    categories: ITicketCategory[] | null;
+    priorities: ITicketPriority[] | null;
+  }>;
+
   constructor(private _store: Store<any>) {}
 
   ngOnInit(): void {
-    this._prepareTickets();
-    this._prepareTicketPriorities();
-    this._prepareTicketCategories();
     this.isChangeTicketStatus$ = this._store.select(
       fromCore.selectIsChangeTicketStatus
     );
 
     this.showChangeStatusModal$ = this._store.select(
       fromAdmin.selectIsChangeStatusModal
+    );
+
+    this._store.dispatch(fromCore.loadTicketPriorities());
+    this._store.dispatch(fromCore.loadTicketCategories());
+
+    this._store.dispatch(
+      fromCore.loadAdminTickets({
+        params: { page: 1, search: '', priority: '', category: '' },
+      })
+    );
+
+    this.view$ = combineLatest([
+      this._store.select(fromCore.selectTickets),
+      this._store.select(fromCore.selectTicketCounts),
+      this._store.select(fromCore.selectIsLoadingTickets),
+      this._store.select(fromCore.selectTicketPriorities),
+      this._store.select(fromCore.selectTicketCategories),
+    ]).pipe(
+      map(([tickets, counts, loading, priorities, categories]) => ({
+        counts,
+        loading,
+        tickets,
+        priorities,
+        categories,
+      }))
     );
   }
 
@@ -65,9 +97,9 @@ export class AdminSupportTicketComponent implements OnInit {
   }
 
   filterTickets(filters: ITicketFilters): void {
-    this.tickets$ = this._store.select(fromCore.selectFilteredTickets, {
+    /*this.tickets$ = this._store.select(fromCore.selectFilteredTickets, {
       ...filters,
-    });
+    });*/
   }
 
   onChangeTab(event: any): void {
@@ -98,10 +130,15 @@ export class AdminSupportTicketComponent implements OnInit {
     });
   }
 
-  private _prepareTickets(): void {
-    this._store.dispatch(fromCore.loadAdminTickets());
+  /* private _prepareTickets(): void {
+    this._store.dispatch(
+      fromCore.loadAdminTickets({
+        params: { page: 1, search: '', priority: '', category: '' },
+      })
+    );
+
     this.tickets$ = this._store.select(fromCore.selectTickets);
-    this.ticketsCounts$ = this._store.select(fromCore.selectTicketsCounts);
+    this.ticketsCounts$ = this._store.select(fromCore.selectTicketCounts);
     this.isLoading$ = this._store.select(fromCore.selectIsLoadingTickets);
   }
 
@@ -113,5 +150,5 @@ export class AdminSupportTicketComponent implements OnInit {
   private _prepareTicketCategories(): void {
     this._store.dispatch(fromCore.loadTicketCategories());
     this.categories$ = this._store.select(fromCore.selectTicketCategories);
-  }
+  }*/
 }

@@ -2,13 +2,28 @@ import { createAction, props } from '@ngrx/store';
 
 import { ITicket, ITicketComment } from '@models';
 
-export const loadTickets = createAction('[Ticket] Load Tickets');
+export const loadAdminTickets = createAction(
+  '[Ticket] Load Admin Tickets',
+  props<{
+    params: { page: 1; priority: string; category: string; search: string };
+  }>()
+);
 
-export const loadAdminTickets = createAction('[Ticket] Load Admin Tickets');
+export const loadAdminTicketsSuccess = createAction(
+  '[Ticket] Load Admin Tickets Success',
+  props<{ tickets: ITicket[]; ticketCounts: any }>()
+);
+
+export const loadAdminTicketsFailure = createAction(
+  '[Ticket] Load Admin Tickets Failure',
+  props<{ error: any }>()
+);
+
+export const loadTickets = createAction('[Ticket] Load Tickets');
 
 export const loadTicketsSuccess = createAction(
   '[Ticket] Load Tickets Success',
-  props<{ tickets: ITicket[]; ticketsCounts: any }>()
+  props<{ tickets: ITicket[]; ticketCounts: any }>()
 );
 
 export const loadTicketsFailure = createAction(

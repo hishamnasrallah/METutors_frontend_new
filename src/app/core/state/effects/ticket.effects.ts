@@ -23,7 +23,7 @@ export class TicketEffects {
             map((tickets) =>
               ticketActions.loadTicketsSuccess({
                 tickets,
-                ticketsCounts: {},
+                ticketCounts: {},
               })
             ),
             catchError((error) =>
@@ -44,28 +44,23 @@ export class TicketEffects {
   loadAdminTickets$ = createEffect(() =>
     this._actions$.pipe(
       ofType(ticketActions.loadAdminTickets),
-      withLatestFrom(this._store.select(fromCore.selectTickets)),
-      mergeMap(([_, _tickets]) => {
-        if (!_tickets || !_tickets.length) {
-          return this._ticketService.loadAdminTickets().pipe(
-            map((response) =>
-              ticketActions.loadTicketsSuccess({
-                tickets: response.tickets,
-                ticketsCounts: response.ticketsCounts,
+      mergeMap(({ params }) =>
+        this._ticketService.loadAdminTickets(params).pipe(
+          map(({ tickets, ticketCounts }) =>
+            ticketActions.loadAdminTicketsSuccess({
+              tickets,
+              ticketCounts,
+            })
+          ),
+          catchError((error) =>
+            of(
+              ticketActions.loadAdminTicketsFailure({
+                error: error?.error?.message || error?.error?.errors,
               })
-            ),
-            catchError((error) =>
-              of(
-                ticketActions.loadTicketsFailure({
-                  error: error?.error?.message || error?.error?.errors,
-                })
-              )
             )
-          );
-        } else {
-          return of(ticketActions.loadTicketsEnded());
-        }
-      })
+          )
+        )
+      )
     )
   );
 
