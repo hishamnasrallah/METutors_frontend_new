@@ -1058,6 +1058,11 @@ export const selectIsDeletingProgramCountries = createSelector(
   fromLookupsReducer.selectIsDeletingProgramCountries
 );
 
+export const selectLookUpsPagination = createSelector(
+  selectLookupsState,
+  fromLookupsReducer.selectLookUpsPagination
+);
+
 // Course
 export const selectCourses = createSelector(
   selectCourseState,

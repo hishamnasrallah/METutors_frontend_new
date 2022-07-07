@@ -88,6 +88,26 @@ export class LookupsService {
       .pipe(catchError(this.errorHandler));
   }
 
+  getAdminPrograms(params: any): Observable<any> {
+    return this.http
+      .get<any>(`${this.BACKEND_URL}program`, { params })
+      .pipe(
+        map((response) => {
+          return {
+            total: response.programs?.total,
+            programs: response.programs?.data.map((item: any) => ({
+              id: item.id,
+              name: item.name,
+              status: item.status,
+              updatedAt: item.updated_at,
+              description: item.description,
+            })),
+          };
+        })
+      )
+      .pipe(catchError(this.errorHandler));
+  }
+
   addNewProgram(value: any): Observable<any> {
     return this.http
       .post<{ program: any; message: string }>(
@@ -333,12 +353,13 @@ export class LookupsService {
       .pipe(catchError(this.errorHandler));
   }
 
-  getAdminFields(): Observable<any> {
+  getAdminFields(params: any): Observable<any> {
     return this.http
-      .get<{ FieldOfStudy: any }>(`${this.BACKEND_URL}fieldofstudy`)
+      .get<{ FieldOfStudy: any }>(`${this.BACKEND_URL}fieldofstudy`, { params })
       .pipe(
-        map((response) => {
-          return response.FieldOfStudy.map((item: any) => ({
+        map((response) => ({
+          total: response.FieldOfStudy.total,
+          fields: response.FieldOfStudy?.data.map((item: any) => ({
             id: item.id,
             name: item.name,
             programId: item?.program_id,
@@ -348,8 +369,8 @@ export class LookupsService {
             updatedAt: item?.updated_at,
             program: item?.program,
             country: item?.country,
-          }));
-        })
+          })),
+        }))
       )
       .pipe(catchError(this.errorHandler));
   }

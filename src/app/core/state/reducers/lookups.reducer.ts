@@ -2,14 +2,15 @@ import { createReducer, on } from '@ngrx/store';
 
 import {
   ICity,
-  ICountry,
   IFAQ,
-  IFAQTopics,
   IField,
-  ILanguage,
   ILevel,
+  ICountry,
   IProgram,
   ISubject,
+  ILanguage,
+  IFAQTopics,
+  IPagination,
   ITicketCategory,
   ITicketPriority,
 } from '@models';
@@ -107,6 +108,8 @@ export interface State {
   // Delete Program Countries
   isDeletingProgramCountries: boolean;
   deletingProgramCountriesFailure?: string;
+
+  pagination: IPagination;
 }
 
 export const initialState: State = {
@@ -130,6 +133,7 @@ export const initialState: State = {
   isLoadingPrograms: false,
   isLoadingSubjects: false,
   isDeletingProgram: false,
+  pagination: { total: 0 },
   isLoadingCountries: false,
   isAddingEditingField: false,
   isAddingEditingSubject: false,
@@ -243,14 +247,25 @@ export const reducer = createReducer(
     loadingCitiesFailure: error,
   })),
 
-  on(lookupsActions.loadPrograms, (state) => ({
-    ...state,
-    isLoadingPrograms: true,
-  })),
+  on(
+    lookupsActions.loadPrograms,
+    lookupsActions.loadAdminPrograms,
+    (state) => ({
+      ...state,
+      isLoadingPrograms: true,
+    })
+  ),
 
   on(lookupsActions.loadProgramsSuccess, (state, { programs }) => ({
     ...state,
     programs,
+    isLoadingPrograms: false,
+  })),
+
+  on(lookupsActions.loadAdminProgramsSuccess, (state, { total, programs }) => ({
+    ...state,
+    programs,
+    pagination: { total },
     isLoadingPrograms: false,
   })),
 
@@ -317,6 +332,7 @@ export const reducer = createReducer(
 
   on(
     lookupsActions.loadFieldsFailure,
+    lookupsActions.loadAdminFieldsFailure,
     lookupsActions.loadFieldsByProgramIdFailure,
     (state, { error }) => ({
       ...state,
@@ -324,6 +340,13 @@ export const reducer = createReducer(
       loadingFieldsFailure: error,
     })
   ),
+
+  on(lookupsActions.loadAdminFieldsSuccess, (state, { total, fields }) => ({
+    ...state,
+    fields,
+    pagination: { total },
+    isLoadingFields: false,
+  })),
 
   on(lookupsActions.loadTopics, (state) => ({
     ...state,
@@ -691,6 +714,9 @@ export const selectIsAddingEditingProgramCountries = (state: State): boolean =>
 
 export const selectIsDeletingProgramCountries = (state: State): boolean =>
   state.isDeletingProgramCountries;
+
+export const selectLookUpsPagination = (state: State): IPagination =>
+  state.pagination;
 
 export const selectFilteredFAQs = (
   state: State,

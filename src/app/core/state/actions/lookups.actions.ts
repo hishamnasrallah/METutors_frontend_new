@@ -103,6 +103,21 @@ export const loadProgramsFailure = createAction(
   props<{ error: any }>()
 );
 
+export const loadAdminPrograms = createAction(
+  '[Lookups] Load Admin Programs',
+  props<{ params: { page: number; search: string } }>()
+);
+
+export const loadAdminProgramsSuccess = createAction(
+  '[Lookups] Load Admin Programs Success',
+  props<{ total: number; programs: IProgram[] }>()
+);
+
+export const loadAdminProgramsFailure = createAction(
+  '[Lookups] Load Admin Programs Failure',
+  props<{ error: any }>()
+);
+
 export const loadProgramsEnded = createAction('[Lookups] Load Programs Ended');
 
 export const loadSubjects = createAction('[Lookups] Load Subjects');
@@ -151,8 +166,6 @@ export const loadFieldsByProgramIdFailure = createAction(
 
 export const loadFields = createAction('[Lookups] Load Fields');
 
-export const loadAdminFields = createAction('[Lookups] Load Admin Fields');
-
 export const loadFieldsSuccess = createAction(
   '[Lookups] Load Fields Success',
   props<{ fields: IField[] }>()
@@ -160,6 +173,21 @@ export const loadFieldsSuccess = createAction(
 
 export const loadFieldsFailure = createAction(
   '[Lookups] Load Fields Failure',
+  props<{ error: any }>()
+);
+
+export const loadAdminFields = createAction(
+  '[Lookups] Load Admin Fields',
+  props<{ params: { page: number; search: string } }>()
+);
+
+export const loadAdminFieldsSuccess = createAction(
+  '[Lookups] Load Admin Fields Success',
+  props<{ fields: IField[]; total: number }>()
+);
+
+export const loadAdminFieldsFailure = createAction(
+  '[Lookups] Load Admin Fields Failure',
   props<{ error: any }>()
 );
 

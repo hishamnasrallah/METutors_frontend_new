@@ -15,6 +15,7 @@ import * as fromCore from '@metutor/core/state';
 import { LookupsService, SupportService } from '@services';
 import * as lookupsActions from '../actions/lookups.actions';
 import { AlertNotificationService } from '@metutor/core/components';
+import { loadAdminPrograms } from '@metutor/core/state';
 
 @Injectable()
 export class LookupsEffects {
@@ -172,6 +173,29 @@ export class LookupsEffects {
     )
   );
 
+  loadAdminPrograms$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(lookupsActions.loadAdminPrograms),
+      mergeMap(({ params }) =>
+        this._lookupsService.getAdminPrograms(params).pipe(
+          map(({ total, programs }) =>
+            lookupsActions.loadAdminProgramsSuccess({
+              total,
+              programs,
+            })
+          ),
+          catchError((error) =>
+            of(
+              lookupsActions.loadAdminProgramsFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   loadSubjectsByFieldId$ = createEffect(() =>
     this._actions$.pipe(
       ofType(lookupsActions.loadSubjectsByFieldId),
@@ -293,16 +317,17 @@ export class LookupsEffects {
   loadAdminFields$ = createEffect(() =>
     this._actions$.pipe(
       ofType(lookupsActions.loadAdminFields),
-      mergeMap((_) =>
-        this._lookupsService.getAdminFields().pipe(
-          map((fields) =>
-            lookupsActions.loadFieldsSuccess({
+      mergeMap(({ params }) =>
+        this._lookupsService.getAdminFields(params).pipe(
+          map(({ total, fields }) =>
+            lookupsActions.loadAdminFieldsSuccess({
+              total,
               fields,
             })
           ),
           catchError((error) =>
             of(
-              lookupsActions.loadFieldsFailure({
+              lookupsActions.loadAdminFieldsFailure({
                 error: error?.error?.message || error?.error?.errors,
               })
             )

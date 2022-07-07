@@ -11,6 +11,7 @@ import {
   ICountry,
   IProgram,
   ISubject,
+  IPagination,
   IFieldFilters,
   ICountryFilters,
   IProgramFilters,
@@ -41,12 +42,14 @@ export class AdminProgramListComponent implements OnInit {
   isAddingEditingProgram$: Observable<boolean>;
   showAddNewProgramModal$: Observable<boolean>;
 
+  pagination$: Observable<IPagination>;
   isLoadingCountry$: Observable<boolean>;
   isDeletingCountry$: Observable<boolean>;
   countries$: Observable<ICountry[] | null>;
   isAddingEditingCountry$: Observable<boolean>;
   showAddNewCountryModal$: Observable<boolean>;
 
+  perPage = 10;
   title: string;
   grades = GRADES;
   grade?: number;
@@ -132,6 +135,27 @@ export class AdminProgramListComponent implements OnInit {
     this.isDeletingSubject$ = this._store.select(
       fromCore.selectIsDeletingSubject
     );
+
+    this.pagination$ = this._store.select(fromCore.selectLookUpsPagination);
+  }
+
+  onPageChange({ page }: any, type: string, search: string): void {
+    switch (type) {
+      case 'programs':
+        this._store.dispatch(
+          fromCore.loadAdminPrograms({
+            params: { page, search },
+          })
+        );
+        break;
+      case 'fields':
+        this._store.dispatch(
+          fromCore.loadAdminFields({
+            params: { page, search },
+          })
+        );
+        break;
+    }
   }
 
   onChangeTab(tab: any): void {
@@ -369,13 +393,17 @@ export class AdminProgramListComponent implements OnInit {
   }
 
   private _preparePrograms(): void {
-    this._store.dispatch(fromCore.loadPrograms());
+    this._store.dispatch(
+      fromCore.loadAdminPrograms({ params: { page: 1, search: '' } })
+    );
     this.programs$ = this._store.select(fromCore.selectPrograms);
     this.isLoading$ = this._store.select(fromCore.selectIsLoadingPrograms);
   }
 
   private _prepareFields(): void {
-    this._store.dispatch(fromCore.loadAdminFields());
+    this._store.dispatch(
+      fromCore.loadAdminFields({ params: { page: 1, search: '' } })
+    );
     this.fields$ = this._store.select(fromCore.selectFields);
     this.isLoadingFields$ = this._store.select(fromCore.selectIsLoadingFields);
   }
