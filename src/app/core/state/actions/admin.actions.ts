@@ -288,7 +288,7 @@ export const loadAdminTutorReAssignmentFailure = createAction(
 
 export const loadAdminTestimonials = createAction(
   '[Admin] Load Admin Testimonials',
-  props<{ feedbackBy: string }>()
+  props<{ params: { page: 1; feedback_by: string } }>()
 );
 
 export const loadAdminTestimonialsSuccess = createAction(

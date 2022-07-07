@@ -480,8 +480,8 @@ export const reducer = createReducer(
         isLoadingAdmin: false,
       };
 
-      if (finalState.testimonials?.userTestimonials?.length) {
-        const userTestimonials = finalState.testimonials.userTestimonials.map(
+      if (finalState.testimonials?.userTestimonials?.data?.length) {
+        const data = finalState.testimonials.userTestimonials.data.map(
           (testimonial: any) =>
             testimonial.sender.id === id
               ? {
@@ -493,7 +493,10 @@ export const reducer = createReducer(
 
         finalState.testimonials = {
           ...finalState.testimonials,
-          userTestimonials,
+          userTestimonials: {
+            ...finalState.testimonials.userTestimonials,
+            data,
+          },
         };
       }
 
@@ -514,8 +517,8 @@ export const reducer = createReducer(
         isEditingFeedback: false,
       };
 
-      if (finalState.testimonials?.userTestimonials?.length) {
-        const userTestimonials = finalState.testimonials.userTestimonials.map(
+      if (finalState.testimonials?.userTestimonials?.data?.length) {
+        const data = finalState.testimonials.userTestimonials.data.map(
           (testimonial: any) =>
             testimonial.sender.id === id
               ? {
@@ -527,7 +530,10 @@ export const reducer = createReducer(
 
         finalState.testimonials = {
           ...finalState.testimonials,
-          userTestimonials,
+          userTestimonials: {
+            ...finalState.testimonials.userTestimonials,
+            data,
+          },
         };
       }
 

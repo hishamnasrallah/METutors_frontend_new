@@ -27,7 +27,7 @@
   </div>
 
   <ng-container
-    *ngFor="let feedback of (feedback.studentFeedbacks || feedback?.teacherFeedback || feedback?.userTestimonials)">
+    *ngFor="let feedback of (feedback.studentFeedbacks || feedback?.teacherFeedback || feedback?.userTestimonials?.data)">
     <div class="mt-4 reviews">
       <div class="d-flex teacher mb-2">
         <img [src]="imagePath+feedback?.sender?.avatar" meTutorsDefaultAvatar alt="" class="rounded-circle">

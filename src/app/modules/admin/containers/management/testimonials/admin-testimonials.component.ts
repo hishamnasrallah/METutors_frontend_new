@@ -23,8 +23,10 @@ export class AdminTestimonialsComponent implements OnInit {
     testimonials: any;
   }>;
 
+  perPage = 10;
   status: string;
   userId: number;
+  feedbackBy = 'teacher';
   statusList = testimonialStatus;
   heading = 'Share testimonial with public or keep it private?';
 
@@ -58,8 +60,12 @@ export class AdminTestimonialsComponent implements OnInit {
   }
 
   onChangeTab(tab: any): void {
-    const feedbackBy = tab.index === 0 ? 'teacher' : 'student';
-    this._store.dispatch(fromCore.loadAdminTestimonials({ feedbackBy }));
+    this.feedbackBy = tab.index === 0 ? 'teacher' : 'student';
+    this._store.dispatch(
+      fromCore.loadAdminTestimonials({
+        params: { page: 1, feedback_by: this.feedbackBy },
+      })
+    );
   }
 
   onUpdateStatus({ status }: any): void {
@@ -71,13 +77,24 @@ export class AdminTestimonialsComponent implements OnInit {
     this._store.dispatch(fromCore.adminEditTestimonialStatus(data));
   }
 
+  onPageChange({ page }: any): void {
+    this._store.dispatch(
+      fromCore.loadAdminTestimonials({
+        params: { page, feedback_by: this.feedbackBy },
+      })
+    );
+  }
+
   onSubmitFeedback(body: any): void {
     this._store.dispatch(fromCore.adminEditTestimonialFeedback({ body }));
   }
 
   ngOnInit(): void {
-    const feedbackBy = 'teacher';
-    this._store.dispatch(fromCore.loadAdminTestimonials({ feedbackBy }));
+    this._store.dispatch(
+      fromCore.loadAdminTestimonials({
+        params: { page: 1, feedback_by: this.feedbackBy },
+      })
+    );
 
     this.isLoading$ = this._store.select(fromCore.selectIsLoadingAdmin);
 

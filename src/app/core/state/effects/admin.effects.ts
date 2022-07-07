@@ -510,8 +510,8 @@ export class AdminEffects {
   loadAdminTestimonials$ = createEffect(() =>
     this._actions$.pipe(
       ofType(adminActions.loadAdminTestimonials),
-      mergeMap(({ feedbackBy }) =>
-        this._adminService.loadAdminTestimonials(feedbackBy).pipe(
+      mergeMap(({ params }) =>
+        this._adminService.loadAdminTestimonials(params).pipe(
           map(
             (result) =>
               adminActions.loadAdminTestimonialsSuccess({

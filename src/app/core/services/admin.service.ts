@@ -138,10 +138,8 @@ export class AdminService {
     );
   }
 
-  loadAdminTestimonials(feedbackBy: string): Observable<any> {
-    return this.http.get<any>(
-      `${this.baseUrl}admin/testimonials?feedback_by=${feedbackBy}`
-    );
+  loadAdminTestimonials(params: any): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}admin/testimonials`, { params });
   }
 
   loadAdminTestimonialFeedbackOptions(id: number): Observable<any> {
