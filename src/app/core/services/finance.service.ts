@@ -12,10 +12,13 @@ export class FinanceService {
 
   constructor(private http: HttpClient) {}
 
-  loadOrders(): Observable<any> {
-    return this.http
-      .get<any>(`${this.baseUrl}admin/orders`)
-      .pipe(map((result) => result?.orders));
+  loadOrders(params: any): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}admin/orders`, { params }).pipe(
+      map((result) => ({
+        orders: result?.orders?.data,
+        total: result?.orders?.total,
+      }))
+    );
   }
 
   loadRefundOrders(): Observable<any> {

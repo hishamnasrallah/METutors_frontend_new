@@ -1,6 +1,9 @@
 import { createAction, props } from '@ngrx/store';
 
-export const loadOrders = createAction('[Finance] Load Orders');
+export const loadOrders = createAction(
+  '[Finance] Load Orders',
+  props<{ params: { page: number; search: string } }>()
+);
 
 export const loadOrdersSuccess = createAction(
   '[Finance] Load Orders Success',

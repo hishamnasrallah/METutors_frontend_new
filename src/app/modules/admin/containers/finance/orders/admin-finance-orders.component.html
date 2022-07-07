@@ -4,20 +4,16 @@
       <h1>Orders</h1>
     </div>
     <div class="col-md-6">
-      <div class="row">
-        <div class="col-md-7">
-          <div class="position-relative">
-            <mat-icon>search</mat-icon>
-            <input type="text" class="form-control custom-input input-bordered search-request"
-                   placeholder="Search orders...">
-          </div>
-        </div>
+      <div class="row justify-content-end">
         <div class="col-md-5">
+          <metutors-search-input (searchedText)="onSearch($event)"></metutors-search-input>
+        </div>
+        <!--<div class="col-md-5">
           <div class="position-relative">
             <input type="text" class="form-control custom-input input-bordered" placeholder="Apply filters">
             <mat-icon class="filter">filter_alt</mat-icon>
           </div>
-        </div>
+        </div>-->
       </div>
     </div>
   </div>
@@ -42,12 +38,12 @@
           <th>Status</th>
           <th>Action</th>
         </tr>
-        <tr *ngIf="!view.orders || !view.orders?.length">
+        <tr *ngIf="!view.result?.orders || !view.result?.orders?.length">
           <td colspan="11">
             <div class="text-center">No records found</div>
           </td>
         </tr>
-        <tr *ngFor="let order of view.orders; let i = index">
+        <tr *ngFor="let order of view.result?.orders; let i = index">
           <td>{{ i + 1}}</td>
           <td>OID{{order?.courseId}}</td>
           <td><a [routerLink]="['/admin', 'student', order?.user?.id, 'booking-detail', order?.courseId]">BIN{{order?.id}}</a></td>
@@ -76,6 +72,12 @@
           </td>
         </tr>
       </table>
+
+      <div class="d-flex mt-2 justify-content-center" *ngIf="view.result?.orders?.length < view.result?.total">
+        <pagination [totalItems]="view.result?.total" [itemsPerPage]="perPage" [maxSize]="5"
+                    (pageChanged)="onPageChange($event)">
+        </pagination>
+      </div>
     </ng-container>
   </div>
 </div>
