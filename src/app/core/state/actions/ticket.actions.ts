@@ -5,7 +5,13 @@ import { ITicket, ITicketComment } from '@models';
 export const loadAdminTickets = createAction(
   '[Ticket] Load Admin Tickets',
   props<{
-    params: { page: 1; priority: string; category: string; search: string };
+    params: {
+      page: number;
+      status: string;
+      search: string;
+      category: string;
+      priority: string;
+    };
   }>()
 );
 

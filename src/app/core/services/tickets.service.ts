@@ -1,8 +1,9 @@
-import { catchError, map, Observable, throwError } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { ITicket } from '../models';
+import { catchError, map, Observable, throwError } from 'rxjs';
+
+import { ITicket } from '@models';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',

@@ -103,4 +103,18 @@
       }
     }
   }
+
+  .mat-tab-label {
+    font-size: 20px;
+    justify-content: start;
+    padding: 0;
+    font-weight: bold;
+    min-width: 70px;
+    margin-right: 50px;
+
+    &.mat-tab-label-active {
+      color: var(--main-color);
+      opacity: 1;
+    }
+  }
 }

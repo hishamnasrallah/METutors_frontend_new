@@ -2,16 +2,10 @@ import { Store } from '@ngrx/store';
 import { Component, OnInit } from '@angular/core';
 import { combineLatest, map, Observable } from 'rxjs';
 
-import {
-  ITicket,
-  ITicketFilters,
-  ITicketCategory,
-  ITicketPriority,
-} from '@models';
-
 import { TicketStatus } from '@config';
 import * as fromCore from '@metutor/core/state';
 import * as fromAdmin from '@metutor/modules/admin/state';
+import { ITicket, ITicketCategory, ITicketPriority } from '@models';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 
 @Component({
@@ -20,19 +14,14 @@ import * as fromAdminAction from '@metutor/modules/admin/state/actions';
   styleUrls: ['./admin-support-ticket.component.scss'],
 })
 export class AdminSupportTicketComponent implements OnInit {
-  // ticketsCounts$: Observable<any>;
-  // isLoading$: Observable<boolean>;
-  // tickets$: Observable<ITicket[] | null>;
   isChangeTicketStatus$: Observable<boolean>;
   showChangeStatusModal$: Observable<boolean>;
-  // categories$: Observable<ITicketCategory[] | null>;
-  // priorities$: Observable<ITicketPriority[] | null>;
 
-  title?: string;
-  status?: string;
+  status = '';
+  perPage = 10;
+  category = '';
+  priority = '';
   ticketId: string;
-  category?: string;
-  priority?: string;
   ticketStatus = TicketStatus;
 
   view$: Observable<{
@@ -59,7 +48,7 @@ export class AdminSupportTicketComponent implements OnInit {
 
     this._store.dispatch(
       fromCore.loadAdminTickets({
-        params: { page: 1, search: '', priority: '', category: '' },
+        params: { page: 1, priority: '', category: '', status: '', search: '' },
       })
     );
 
@@ -96,59 +85,58 @@ export class AdminSupportTicketComponent implements OnInit {
     );
   }
 
-  filterTickets(filters: ITicketFilters): void {
-    /*this.tickets$ = this._store.select(fromCore.selectFilteredTickets, {
-      ...filters,
-    });*/
-  }
-
   onChangeTab(event: any): void {
-    if (event.index === 0) {
-      this.status = '';
-      this.filterTickets({});
-    } else if (event.index === 1) {
-      this.status = TicketStatus.open;
-      this.filterTickets({ status: TicketStatus.open });
-    } else if (event.index === 2) {
-      this.status = TicketStatus.closed;
-      this.filterTickets({ status: TicketStatus.closed });
-    } else if (event.index === 3) {
-      this.status = TicketStatus.urgent;
-      this.filterTickets({ status: TicketStatus.open, priority: '1' });
+    switch (event.index) {
+      case 0:
+        this.status = '';
+        break;
+      case 1:
+        this.status = TicketStatus.open;
+        break;
+      case 2:
+        this.status = TicketStatus.closed;
+        break;
+      case 3:
+        this.status = TicketStatus.urgent;
+        break;
     }
-    this.title = '';
-    this.category = '';
-    this.priority = '';
-  }
 
-  onChangeSelection(): void {
-    this.filterTickets({
-      priority: this.priority,
-      category: this.category,
-      title: this.title,
-      status: this.status,
-    });
-  }
-
-  /* private _prepareTickets(): void {
     this._store.dispatch(
       fromCore.loadAdminTickets({
-        params: { page: 1, search: '', priority: '', category: '' },
+        params: {
+          page: 1,
+          search: '',
+          priority: '',
+          category: '',
+          status: this.status,
+        },
       })
     );
-
-    this.tickets$ = this._store.select(fromCore.selectTickets);
-    this.ticketsCounts$ = this._store.select(fromCore.selectTicketCounts);
-    this.isLoading$ = this._store.select(fromCore.selectIsLoadingTickets);
   }
 
-  private _prepareTicketPriorities(): void {
-    this._store.dispatch(fromCore.loadTicketPriorities());
-    this.priorities$ = this._store.select(fromCore.selectTicketPriorities);
+  onPageChange({ page }: any): void {
+    this._store.dispatch(
+      fromCore.loadAdminTickets({
+        params: {
+          page,
+          status: '',
+          search: '',
+          priority: '',
+          category: '',
+        },
+      })
+    );
   }
 
-  private _prepareTicketCategories(): void {
-    this._store.dispatch(fromCore.loadTicketCategories());
-    this.categories$ = this._store.select(fromCore.selectTicketCategories);
-  }*/
+  onFilter(filters: any): void {
+    this._store.dispatch(
+      fromCore.loadAdminTickets({
+        params: {
+          page: 1,
+          status: this.status,
+          ...filters,
+        },
+      })
+    );
+  }
 }
