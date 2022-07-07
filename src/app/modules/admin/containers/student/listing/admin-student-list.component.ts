@@ -21,7 +21,7 @@ export class AdminStudentListComponent implements OnInit {
   loadingTotalBooking: Observable<boolean>;
 
   view$: Observable<{
-    students: any;
+    result: any;
     loading: boolean;
     pagination: IPagination;
   }>;
@@ -59,9 +59,9 @@ export class AdminStudentListComponent implements OnInit {
       this._store.select(fromCore.selectIsLoadingStudents),
       this._store.select(fromCore.selectStudentPagination),
     ]).pipe(
-      map(([students, loading, pagination]) => ({
+      map(([result, loading, pagination]) => ({
+        result,
         loading,
-        students,
         pagination,
       }))
     );

@@ -52,10 +52,9 @@ export class StudentEffects {
       ofType(studentActions.loadStudents),
       mergeMap(({ params }) =>
         this._studentService.getStudents(params).pipe(
-          map(({ total, data }) =>
+          map((result) =>
             studentActions.loadStudentsSuccess({
-              total,
-              students: camelcaseKeys(data, { deep: true }),
+              students: camelcaseKeys(result, { deep: true }),
             })
           ),
           catchError((error) =>

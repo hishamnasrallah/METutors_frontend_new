@@ -13,6 +13,7 @@ import * as fromAdminAction from '@metutor/modules/admin/state/actions';
   styleUrls: ['./admin-finance-refund-orders.component.scss'],
 })
 export class AdminFinanceRefundOrdersComponent implements OnInit {
+  perPage = 10;
   courseId: number;
   studentId: number;
   feedbacks$: Observable<any>;
@@ -25,7 +26,7 @@ export class AdminFinanceRefundOrdersComponent implements OnInit {
   showFeedbackModal$: Observable<boolean>;
   showRefundDetailModal: Observable<boolean>;
   showRefundPaymentModal: Observable<boolean>;
-  view$: Observable<{ orders: any; loading: boolean }>;
+  view$: Observable<{ result: any; loading: boolean }>;
 
   constructor(private _store: Store<any>) {}
 
@@ -59,8 +60,28 @@ export class AdminFinanceRefundOrdersComponent implements OnInit {
     this._store.dispatch(fromCore.refundCourse({ courseId }));
   }
 
+  onSearch(search: string): void {
+    this._store.dispatch(
+      fromCore.loadRefundOrders({
+        params: { page: 1, search },
+      })
+    );
+  }
+
+  onPageChange({ page }: any): void {
+    this._store.dispatch(
+      fromCore.loadRefundOrders({
+        params: { page, search: '' },
+      })
+    );
+  }
+
   ngOnInit(): void {
-    this._store.dispatch(fromCore.loadRefundOrders());
+    this._store.dispatch(
+      fromCore.loadRefundOrders({
+        params: { page: 1, search: '' },
+      })
+    );
 
     this.feedbacks$ = this._store.select(fromCore.selectAdminViewFeedback);
 
@@ -97,6 +118,6 @@ export class AdminFinanceRefundOrdersComponent implements OnInit {
     this.view$ = combineLatest([
       this._store.select(fromCore.selectFinanceOrders),
       this._store.select(fromCore.selectIsLoadingFinance),
-    ]).pipe(map(([orders, loading]) => ({ orders, loading })));
+    ]).pipe(map(([result, loading]) => ({ result, loading })));
   }
 }

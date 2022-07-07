@@ -77,7 +77,7 @@
         </mat-tab>
       </mat-tab-group>
 
-      <div class="d-flex mt-2 justify-content-center" *ngIf="view.interviews.length < view.pagination?.total">
+      <div class="d-flex mt-2 justify-content-center" *ngIf="view.interviews?.length < view.pagination?.total">
         <pagination [totalItems]="view.pagination?.total" [itemsPerPage]="perPage" [maxSize]="5"
                     (pageChanged)="onPageChange($event)">
         </pagination>

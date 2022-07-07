@@ -15,7 +15,10 @@ export const loadOrdersFailure = createAction(
   props<{ error: any }>()
 );
 
-export const loadRefundOrders = createAction('[Finance] Load Refund Orders');
+export const loadRefundOrders = createAction(
+  '[Finance] Load Refund Orders',
+  props<{ params: { page: number; search: string } }>()
+);
 
 export const loadRefundOrdersSuccess = createAction(
   '[Finance] Load Refund Orders Success',

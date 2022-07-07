@@ -20,33 +20,19 @@ export class StudentsService {
   }
 
   getStudents(params: any): Observable<any> {
-    return this.http
-      .get<{
-        students: {
-          total: number;
-          data: {
-            Total: number;
-            active: number;
-            enrolled: number;
-            suspended: number;
-            students: IStudent[];
-          };
-        };
-      }>(`${this.baseUrl}admin/students`, { params })
-      .pipe(
-        map((response) => ({
-          data: {
-            students: response?.students,
-            stats: {
-              total: response?.students.data.Total,
-              active: response?.students.data.active,
-              enrolled: response?.students.data.enrolled,
-              suspended: response?.students.data.suspended,
-            },
-          },
+    return this.http.get<any>(`${this.baseUrl}admin/students`, { params }).pipe(
+      map((response) => ({
+        students: response?.students,
+        stats: {
+          active: response?.active,
+          enrolled: response?.enrolled,
+          suspended: response?.suspended,
+          totalStudents: response?.Total,
           total: response?.students?.total,
-        }))
-      );
+          unenrolled: response?.unenrolled,
+        },
+      }))
+    );
   }
 
   getStudentsPreference(): Observable<any> {

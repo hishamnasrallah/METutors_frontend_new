@@ -37,8 +37,8 @@ export class FinanceEffects {
   loadRefundOrders$ = createEffect(() =>
     this._actions$.pipe(
       ofType(financeActions.loadRefundOrders),
-      mergeMap(() =>
-        this._financeService.loadRefundOrders().pipe(
+      mergeMap(({ params }) =>
+        this._financeService.loadRefundOrders(params).pipe(
           map((result) =>
             financeActions.loadRefundOrdersSuccess({
               orders: camelcaseKeys(result, { deep: true }),

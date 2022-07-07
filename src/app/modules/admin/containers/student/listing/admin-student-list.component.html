@@ -34,7 +34,7 @@
                     <div class="card-body d-flex align-items-center justify-content-between">
                       <div>
                         <h2>Total</h2>
-                        <span>{{ view.students?.total }}</span>
+                        <span>{{ view.result?.stats?.totalStudents }}</span>
                       </div>
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20.326 20.487">
                         <g id="Teacher" transform="translate(-146.574 -144.762)">
@@ -57,7 +57,7 @@
                     <div class="card-body d-flex align-items-center justify-content-between">
                       <div>
                         <h2>Active</h2>
-                        <span>{{ view.students?.active }}</span>
+                        <span>{{ view.result?.stats?.active }}</span>
                       </div>
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20.326 20.487">
                         <g id="Teacher" transform="translate(-146.574 -144.762)">
@@ -80,7 +80,7 @@
                     <div class="card-body d-flex align-items-center justify-content-between">
                       <div>
                         <h2>Enrolled</h2>
-                        <span>{{ view.students?.enrolled }}</span>
+                        <span>{{ view.result?.stats?.enrolled }}</span>
                       </div>
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20.326 20.487">
                         <g id="Teacher" transform="translate(-146.574 -144.762)">
@@ -103,7 +103,7 @@
                     <div class="card-body d-flex align-items-center justify-content-between">
                       <div>
                         <h2>Suspended</h2>
-                        <span>{{ view.students?.suspended }}</span>
+                        <span>{{ view.result?.stats?.suspended }}</span>
                       </div>
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20.326 20.487">
                         <g id="Teacher" transform="translate(-146.574 -144.762)">
@@ -135,12 +135,12 @@
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
-                <tr *ngIf="!view.students || !view.students?.length">
+                <tr *ngIf="!view.result?.students?.data || !view.result?.students?.data?.length">
                   <td colspan="10">
                     <div class="text-center">No records found</div>
                   </td>
                 </tr>
-                <tr *ngFor="let student of view.students; let i = index">
+                <tr *ngFor="let student of view.result?.students?.data; let i = index">
                   <td>{{ i + 1 }}</td>
                   <td>{{ student?.idNumber }}</td>
                   <td>
@@ -192,7 +192,7 @@
                     <div class="card-body d-flex align-items-center justify-content-between">
                       <div>
                         <h2>Total</h2>
-                        <span>{{ view.students?.total }}</span>
+                        <span>{{ view.result?.stats?.totalStudents }}</span>
                       </div>
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20.326 20.487">
                         <g id="Teacher" transform="translate(-146.574 -144.762)">
@@ -215,7 +215,7 @@
                     <div class="card-body d-flex align-items-center justify-content-between">
                       <div>
                         <h2>Enrolled</h2>
-                        <span>{{ view.students?.enrolled}}</span>
+                        <span>{{ view.result?.stats?.enrolled}}</span>
                       </div>
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20.326 20.487">
                         <g id="Teacher" transform="translate(-146.574 -144.762)">
@@ -238,7 +238,7 @@
                     <div class="card-body d-flex align-items-center justify-content-between">
                       <div>
                         <h2>Unenrolled</h2>
-                        <span>{{ view.students?.suspended }}</span>
+                        <span>{{ view.result?.stats?.unenrolled }}</span>
                       </div>
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20.326 20.487">
                         <g id="Teacher" transform="translate(-146.574 -144.762)">
@@ -270,12 +270,12 @@
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
-                <tr *ngIf="!view.students || !view.students?.length">
+                <tr *ngIf="!view.result?.students?.data || !view.result?.students?.data?.length">
                   <td colspan="10">
                     <div class="text-center">No records found</div>
                   </td>
                 </tr>
-                <tr *ngFor="let student of view.students let i = index">
+                <tr *ngFor="let student of view.result?.students?.data let i = index">
                   <td>{{ i + 1 }}</td>
                   <td>{{ student?.idNumber }}</td>
                   <td>
@@ -334,12 +334,12 @@
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
-                <tr *ngIf="!view.students || !view.students?.length">
+                <tr *ngIf="!view.result?.students?.data || !view.result?.students?.data?.length">
                   <td colspan="10">
                     <div class="text-center">No records found</div>
                   </td>
                 </tr>
-                <tr *ngFor="let student of view.students; let i = index">
+                <tr *ngFor="let student of view.result?.students?.data; let i = index">
                   <td>{{ i + 1 }}</td>
                   <td>{{ student?.idNumber }}</td>
                   <td>
@@ -382,11 +382,11 @@
         </mat-tab-group>
       </ng-container>
 
-      <!--<div class="d-flex mt-2 justify-content-center" *ngIf="view.students.length < view.pagination?.total">
-        <pagination [totalItems]="view.pagination?.total" [itemsPerPage]="perPage" [maxSize]="5"
+      <div class="d-flex mt-2 justify-content-center" *ngIf="view.result?.students?.data.length < view.result?.stats?.total">
+        <pagination [totalItems]="view.result?.stats?.total" [itemsPerPage]="perPage" [maxSize]="5"
                     (pageChanged)="onPageChange($event)">
         </pagination>
-      </div>-->
+      </div>
     </div>
   </div>
 </div>

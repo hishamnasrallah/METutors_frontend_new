@@ -139,10 +139,9 @@ export const reducer = createReducer(
     isLoadingStudents: true,
   })),
 
-  on(studentActions.loadStudentsSuccess, (state, { total, students }) => ({
+  on(studentActions.loadStudentsSuccess, (state, { students }) => ({
     ...state,
     students,
-    pagination: { total },
     isLoadingStudents: false,
   })),
 

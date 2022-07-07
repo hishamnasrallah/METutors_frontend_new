@@ -23,7 +23,7 @@ export const loadStudents = createAction(
 
 export const loadStudentsSuccess = createAction(
   '[Student] Load Students Success',
-  props<{ total: number; students: IStudent[] }>()
+  props<{ students: any }>()
 );
 
 export const loadStudentsFailure = createAction(
