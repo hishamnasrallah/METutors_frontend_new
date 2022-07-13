@@ -913,11 +913,6 @@ export const selectProgramCountries = createSelector(
   fromLookupsReducer.selectProgramCountries
 );
 
-export const selectFilteredProgramCountries = createSelector(
-  selectLookupsState,
-  fromLookupsReducer.selectFilteredProgramCountries
-);
-
 export const selectCities = createSelector(
   selectLookupsState,
   fromLookupsReducer.selectCities
@@ -948,11 +943,6 @@ export const selectIsLoadingSubjects = createSelector(
   fromLookupsReducer.selectIsLoadingSubjects
 );
 
-export const selectFilteredSubjects = createSelector(
-  selectLookupsState,
-  fromLookupsReducer.selectFilteredSubjects
-);
-
 export const selectFields = createSelector(
   selectLookupsState,
   fromLookupsReducer.selectFields
@@ -961,11 +951,6 @@ export const selectFields = createSelector(
 export const selectIsLoadingFields = createSelector(
   selectLookupsState,
   fromLookupsReducer.selectIsLoadingFields
-);
-
-export const selectFilteredFields = createSelector(
-  selectLookupsState,
-  fromLookupsReducer.selectFilteredFields
 );
 
 export const selectTopics = createSelector(

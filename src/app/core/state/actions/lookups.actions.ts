@@ -105,7 +105,9 @@ export const loadProgramsFailure = createAction(
 
 export const loadAdminPrograms = createAction(
   '[Lookups] Load Admin Programs',
-  props<{ params: { page: number; search: string } }>()
+  props<{
+    params: { page: number; search: string; status?: string | number };
+  }>()
 );
 
 export const loadAdminProgramsSuccess = createAction(
@@ -123,6 +125,16 @@ export const loadProgramsEnded = createAction('[Lookups] Load Programs Ended');
 export const loadSubjects = createAction('[Lookups] Load Subjects');
 
 export const loadAdminSubjects = createAction('[Lookups] Load Admin Subjects');
+
+export const loadAdminSubjectsSuccess = createAction(
+  '[Lookups] Load Admin Subjects Success',
+  props<{ total: number; subjects: ISubject[] }>()
+);
+
+export const loadAdminSubjectsFailure = createAction(
+  '[Lookups] Load Admin Subjects Failure',
+  props<{ error: any }>()
+);
 
 export const loadSubjectsSuccess = createAction(
   '[Lookups] Load Subjects Success',

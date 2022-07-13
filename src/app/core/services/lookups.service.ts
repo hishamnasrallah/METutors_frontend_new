@@ -235,11 +235,14 @@ export class LookupsService {
 
   getAdminSubjects(): Observable<any> {
     return this.http
-      .get<{ subject: any }>(`${this.BACKEND_URL}subject`)
+      .get<{ total: number; subject: ISubject[] }>(`${this.BACKEND_URL}subject`)
       .pipe(
-        map((response) => {
-          return response.subject.map((item: any) => new ISubject(false, item));
-        })
+        map((response: any) => ({
+          total: response.subject.total,
+          subjects: response.subject.data.map(
+            (item: any) => new ISubject(false, item)
+          ),
+        }))
       )
       .pipe(catchError(this.errorHandler));
   }
@@ -359,17 +362,7 @@ export class LookupsService {
       .pipe(
         map((response) => ({
           total: response.FieldOfStudy.total,
-          fields: response.FieldOfStudy?.data.map((item: any) => ({
-            id: item.id,
-            name: item.name,
-            programId: item?.program_id,
-            countryId: item?.country_id,
-            grade: item?.grade,
-            status: item?.status,
-            updatedAt: item?.updated_at,
-            program: item?.program,
-            country: item?.country,
-          })),
+          fields: response.FieldOfStudy?.data,
         }))
       )
       .pipe(catchError(this.errorHandler));

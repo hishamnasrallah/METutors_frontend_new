@@ -15,7 +15,10 @@ import * as fromCore from '@metutor/core/state';
 import { LookupsService, SupportService } from '@services';
 import * as lookupsActions from '../actions/lookups.actions';
 import { AlertNotificationService } from '@metutor/core/components';
-import { loadAdminPrograms } from '@metutor/core/state';
+import {
+  loadAdminSubjectsFailure,
+  loadAdminSubjectsSuccess,
+} from '@metutor/core/state';
 
 @Injectable()
 export class LookupsEffects {
@@ -247,14 +250,15 @@ export class LookupsEffects {
       ofType(lookupsActions.loadAdminSubjects),
       mergeMap((_) =>
         this._lookupsService.getAdminSubjects().pipe(
-          map((subjects) =>
-            lookupsActions.loadSubjectsSuccess({
+          map(({ total, subjects }) =>
+            lookupsActions.loadAdminSubjectsSuccess({
+              total,
               subjects,
             })
           ),
           catchError((error) =>
             of(
-              lookupsActions.loadSubjectsFailure({
+              lookupsActions.loadAdminSubjectsFailure({
                 error: error?.error?.message || error?.error?.errors,
               })
             )
@@ -322,7 +326,7 @@ export class LookupsEffects {
           map(({ total, fields }) =>
             lookupsActions.loadAdminFieldsSuccess({
               total,
-              fields,
+              fields: camelcaseKeys(fields),
             })
           ),
           catchError((error) =>

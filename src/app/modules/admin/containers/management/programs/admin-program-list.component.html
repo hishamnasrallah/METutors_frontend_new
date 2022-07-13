@@ -93,7 +93,7 @@
                     </tr>
                   </table>
 
-                  <div class="d-flex mt-2 justify-content-center" *ngIf="programs.length < pagination?.total">
+                  <div class="d-flex mt-2 justify-content-center" *ngIf="programs.length < pagination?.total && tab === 0">
                     <pagination [totalItems]="pagination?.total" [itemsPerPage]="perPage" [maxSize]="5"
                                 (pageChanged)="onPageChange($event, 'programs', '')">
                     </pagination>
@@ -123,7 +123,8 @@
               </div>
               <div class="row filters">
                 <div class="col-md-9">
-                  <span class="title">Filters</span>
+                  <!--todo: will add filters in MVP2-->
+                  <!--<span class="title">Filters</span>
                   <mat-form-field appearance="outline" class="me-2">
                     <mat-select [placeholder]="'By Program'" [(ngModel)]="program" (selectionChange)="onChangeFieldSelection()">
                       <mat-option [value]="program?.id" *ngFor="let program of programs$ | async">
@@ -151,7 +152,7 @@
                         {{ state.name }}
                       </mat-option>
                     </mat-select>
-                  </mat-form-field>
+                  </mat-form-field>-->
                 </div>
                 <div class="col-md-3">
                   <div class="position-relative search-request">
@@ -341,7 +342,7 @@
               </div>
               <div class="row filters">
                 <div class="col-md-9">
-                  <span class="title">Filters</span>
+                  <!--<span class="title">Filters</span>
                   <mat-form-field appearance="outline" class="me-2">
                     <mat-select [placeholder]="'By Program'" [(ngModel)]="program"
                                 (selectionChange)="onChangeSubjectSelection()">
@@ -379,13 +380,13 @@
                         {{ state.name }}
                       </mat-option>
                     </mat-select>
-                  </mat-form-field>
+                  </mat-form-field>-->
                 </div>
                 <div class="col-md-3">
                   <div class="position-relative search-request">
                     <mat-icon>search</mat-icon>
                     <input type="text" class="form-control custom-input input-bordered" [(ngModel)]="title"
-                           placeholder="Search..." (keyup)="onChangeSubjectSelection()">
+                           placeholder="Search...">
                   </div>
                 </div>
               </div>

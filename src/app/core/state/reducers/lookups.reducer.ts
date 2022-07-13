@@ -301,7 +301,19 @@ export const reducer = createReducer(
   ),
 
   on(
+    lookupsActions.loadAdminSubjectsSuccess,
+
+    (state, { total, subjects }) => ({
+      ...state,
+      subjects,
+      pagination: { total },
+      isLoadingSubjects: false,
+    })
+  ),
+
+  on(
     lookupsActions.loadSubjectsFailure,
+    lookupsActions.loadAdminSubjectsFailure,
     lookupsActions.loadSubjectsByFieldIdFailure,
     (state, { error }) => ({
       ...state,
@@ -770,125 +782,4 @@ const getFilteredPrograms = (programs: IProgram[], props: any) => {
   }
 
   return programs;
-};
-
-export const selectFilteredFields = (
-  state: State,
-  props?: any
-): IField[] | null => {
-  let fields: IField[] = [];
-
-  if (state.fields && state.fields.length && props) {
-    fields = getFilteredFields(state.fields, props);
-  }
-
-  return fields;
-};
-
-const getFilteredFields = (fields: IField[], props: any) => {
-  if (props?.title) {
-    fields = fields?.filter((field) =>
-      field?.name.toLowerCase().includes(props.title.toLowerCase())
-    );
-  }
-
-  if (props?.status) {
-    fields = fields.filter((field) => field.status === +props.status);
-  }
-
-  if (props?.grade) {
-    fields = fields.filter((field) => field.grade === +props.grade);
-  }
-
-  if (props?.program) {
-    fields = fields.filter((field) => field.programId === +props.program);
-  }
-
-  if (props?.country) {
-    fields = fields.filter((field) => field.countryId === +props.country);
-  }
-
-  return fields;
-};
-
-export const selectFilteredSubjects = (
-  state: State,
-  props?: any
-): ISubject[] | null => {
-  let subjects: ISubject[] = [];
-
-  if (state.subjects && state.subjects.length && props) {
-    subjects = getFilteredSubjects(state.subjects, props);
-  }
-
-  return subjects;
-};
-
-const getFilteredSubjects = (subjects: ISubject[], props: any) => {
-  if (props?.title) {
-    subjects = subjects?.filter((subject) =>
-      subject?.name.toLowerCase().includes(props.title.toLowerCase())
-    );
-  }
-
-  if (props?.status) {
-    subjects = subjects.filter((subject) => subject.status === +props.status);
-  }
-
-  if (props?.field) {
-    subjects = subjects.filter((subject) => subject.fieldId === +props.field);
-  }
-
-  if (props?.grade) {
-    subjects = subjects.filter((subject) => subject.grade === +props.grade);
-  }
-
-  if (props?.program) {
-    subjects = subjects.filter(
-      (subject) => subject.programId === +props.program
-    );
-  }
-
-  if (props?.country) {
-    subjects = subjects.filter(
-      (subject) => subject.countryId === +props.country
-    );
-  }
-
-  return subjects;
-};
-
-export const selectFilteredProgramCountries = (
-  state: State,
-  props?: any
-): ICountry[] | null => {
-  let programCountries: ICountry[] = [];
-
-  if (state.programCountries && state.programCountries.length && props) {
-    programCountries = getFilteredProgramCountries(
-      state.programCountries,
-      props
-    );
-  }
-
-  return programCountries;
-};
-
-const getFilteredProgramCountries = (
-  programCountries: ICountry[],
-  props: any
-) => {
-  if (props?.title) {
-    programCountries = programCountries?.filter((country) =>
-      country?.name.toLowerCase().includes(props.title.toLowerCase())
-    );
-  }
-
-  if (props?.status) {
-    programCountries = programCountries.filter(
-      (country) => country.status === +props.status
-    );
-  }
-
-  return programCountries;
 };

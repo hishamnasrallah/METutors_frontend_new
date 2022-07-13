@@ -49,6 +49,7 @@ export class AdminProgramListComponent implements OnInit {
   isAddingEditingCountry$: Observable<boolean>;
   showAddNewCountryModal$: Observable<boolean>;
 
+  tab = 0;
   perPage = 10;
   title: string;
   grades = GRADES;
@@ -159,8 +160,7 @@ export class AdminProgramListComponent implements OnInit {
   }
 
   onChangeTab(tab: any): void {
-    this.resetFilters();
-
+    this.tab = tab.index;
     switch (tab.index) {
       case 0:
         this._preparePrograms();
@@ -178,15 +178,6 @@ export class AdminProgramListComponent implements OnInit {
     }
   }
 
-  resetFilters(): void {
-    this.title = '';
-    this.grade = undefined;
-    this.status = undefined;
-    this.program = undefined;
-    this.country = undefined;
-    this.fieldOfStudy = undefined;
-  }
-
   onOpenAddNewProgram(): void {
     this._store.dispatch(fromAdminActions.openAdminAddNewProgramModal());
   }
@@ -196,16 +187,17 @@ export class AdminProgramListComponent implements OnInit {
   }
 
   filterPrograms(filters: IProgramFilters): void {
-    this.programs$ = this._store.select(fromCore.selectFilteredPrograms, {
+    /*this.programs$ = this._store.select(fromCore.selectFilteredPrograms, {
       ...filters,
-    });
+    });*/
   }
 
   onChangeSelection(): void {
-    this.filterPrograms({
-      title: this.title,
-      status: this.status?.toString(),
-    });
+    this._store.dispatch(
+      fromCore.loadAdminPrograms({
+        params: { page: 1, search: '', status: this.status },
+      })
+    );
   }
 
   onAddEditProgram(program: any): void {
@@ -245,19 +237,19 @@ export class AdminProgramListComponent implements OnInit {
   }
 
   filterFields(filters: IFieldFilters): void {
-    this.fields$ = this._store.select(fromCore.selectFilteredFields, {
+    /* this.fields$ = this._store.select(fromCore.selectFilteredFields, {
       ...filters,
-    });
+    });*/
   }
 
   onChangeFieldSelection(): void {
-    this.filterFields({
+    /*  this.filterFields({
       title: this.title,
       program: this.program,
       country: this.country,
       grade: this.grade?.toString(),
       status: this.status?.toString(),
-    });
+    });*/
   }
 
   onChangeFieldStatus(field: IField, status: number): void {
@@ -304,12 +296,12 @@ export class AdminProgramListComponent implements OnInit {
   }
 
   filterCountries(filters: ICountryFilters): void {
-    this.countries$ = this._store.select(
+    /* this.countries$ = this._store.select(
       fromCore.selectFilteredProgramCountries,
       {
         ...filters,
       }
-    );
+    );*/
   }
 
   onChangeCountryStatus(country: ICountry, status: number): void {
@@ -345,9 +337,9 @@ export class AdminProgramListComponent implements OnInit {
   }
 
   filterSubjects(filters: ISubjectFilters): void {
-    this.subjects$ = this._store.select(fromCore.selectFilteredSubjects, {
+    /*this.subjects$ = this._store.select(fromCore.selectFilteredSubjects, {
       ...filters,
-    });
+    });*/
   }
 
   onChangeSubjectStatus(subject: ISubject, status: number): void {
@@ -356,17 +348,6 @@ export class AdminProgramListComponent implements OnInit {
         subject: { ...subject, status },
       })
     );
-  }
-
-  onChangeSubjectSelection(): void {
-    this.filterSubjects({
-      title: this.title,
-      program: this.program,
-      country: this.country,
-      field: this.fieldOfStudy,
-      grade: this.grade?.toString(),
-      status: this.status?.toString(),
-    });
   }
 
   onAddEditSubject(subject: any): void {
