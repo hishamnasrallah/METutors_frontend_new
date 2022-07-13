@@ -6,7 +6,7 @@ import {
   AdminDashboardComponent,
   AdminTutorListComponent,
   AdminStudentListComponent,
-  AdminProgramListComponent,
+  AdminProgramHomeComponent,
   AdminTestimonialsComponent,
   AdminTutorProfileComponent,
   AdminCurrentTutorsComponent,
@@ -323,7 +323,7 @@ const routes: Routes = [
         children: [
           {
             path: 'program',
-            component: AdminProgramListComponent,
+            component: AdminProgramHomeComponent,
             data: {
               layout: {
                 title: 'Program list - Metutors',

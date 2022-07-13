@@ -4,11 +4,11 @@ import { Component, OnInit } from '@angular/core';
 import * as fromCore from '@metutor/core/state';
 
 @Component({
-  selector: 'metutors-programs',
-  templateUrl: './admin-program-list.component.html',
-  styleUrls: ['./admin-program-list.component.scss'],
+  selector: 'metutors-programs-home',
+  templateUrl: './admin-program-home.component.html',
+  styleUrls: ['./admin-program-home.component.scss'],
 })
-export class AdminProgramListComponent implements OnInit {
+export class AdminProgramHomeComponent implements OnInit {
   tab = 0;
 
   constructor(private _store: Store<any>) {}
