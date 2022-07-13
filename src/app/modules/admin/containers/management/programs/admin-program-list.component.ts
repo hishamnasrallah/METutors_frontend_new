@@ -4,30 +4,17 @@ import { Component, OnInit } from '@angular/core';
 
 import * as fromCore from '@metutor/core/state';
 import * as fromAdmin from '@metutor/modules/admin/state';
+import { IField, ICountry, ISubject, IPagination, IProgram } from '@models';
 import * as fromAdminActions from '@metutor/modules/admin/state/actions';
 
 import {
-  IField,
-  ICountry,
-  IProgram,
-  ISubject,
-  IPagination,
-  IFieldFilters,
-  ICountryFilters,
-  IProgramFilters,
-  ISubjectFilters,
-} from '@models';
-
-import {
   GRADES,
-  FieldStatus,
-  ProgramStatus,
   CountryStatus,
   SubjectStatus,
   FIELD_STATUSES_CONST,
-  PROGRAM_STATUSES_CONST,
   COUNTRY_STATUSES_CONST,
   SUBJECT_STATUSES_CONST,
+  FieldStatus,
 } from '@config';
 
 @Component({
@@ -36,12 +23,6 @@ import {
   styleUrls: ['./admin-program-list.component.scss'],
 })
 export class AdminProgramListComponent implements OnInit {
-  isLoading$: Observable<boolean>;
-  isDeletingProgram$: Observable<boolean>;
-  programs$: Observable<IProgram[] | null>;
-  isAddingEditingProgram$: Observable<boolean>;
-  showAddNewProgramModal$: Observable<boolean>;
-
   pagination$: Observable<IPagination>;
   isLoadingCountry$: Observable<boolean>;
   isDeletingCountry$: Observable<boolean>;
@@ -49,25 +30,24 @@ export class AdminProgramListComponent implements OnInit {
   isAddingEditingCountry$: Observable<boolean>;
   showAddNewCountryModal$: Observable<boolean>;
 
+  programs$: Observable<IProgram[] | null>;
+
   tab = 0;
   perPage = 10;
   title: string;
   grades = GRADES;
   grade?: number;
   status?: number;
-  program?: number;
+
   country?: number;
   fieldOfStudy?: number;
-  deletedProgram?: IProgram;
+
   fieldStatus = FieldStatus;
-  selectedProgram?: IProgram;
-  programStatus = ProgramStatus;
   countryStatus = CountryStatus;
   subjectStatus = SubjectStatus;
   fieldStatusConst = FIELD_STATUSES_CONST;
   subjectStatusConst = SUBJECT_STATUSES_CONST;
   countryStatusConst = COUNTRY_STATUSES_CONST;
-  programStatusConst = PROGRAM_STATUSES_CONST;
 
   deletedField?: IField;
   selectedField?: IField;
@@ -76,7 +56,7 @@ export class AdminProgramListComponent implements OnInit {
   isLoadingFields$: Observable<boolean>;
   fields$: Observable<IField[] | null>;
   isDeletingField$: Observable<boolean>;
-  isLoadingPrograms$: Observable<boolean>;
+
   isAddingEditingField$: Observable<boolean>;
   showAddNewFieldModal$: Observable<boolean>;
 
@@ -91,19 +71,7 @@ export class AdminProgramListComponent implements OnInit {
   constructor(private _store: Store<any>) {}
 
   ngOnInit(): void {
-    this._preparePrograms();
-
-    this.showAddNewProgramModal$ = this._store.select(
-      fromAdmin.selectAddNewProgramModal
-    );
-
-    this.isAddingEditingProgram$ = this._store.select(
-      fromCore.selectIsAddingEditingProgram
-    );
-
-    this.isDeletingProgram$ = this._store.select(
-      fromCore.selectIsDeletingProgram
-    );
+    this.programs$ = this._store.select(fromCore.selectPrograms);
 
     // Field of study
     this.showAddNewFieldModal$ = this._store.select(
@@ -147,30 +115,10 @@ export class AdminProgramListComponent implements OnInit {
     }
   }
 
-  onPageChange({ page }: any, type: string, search: string): void {
-    switch (type) {
-      case 'programs':
-        this._store.dispatch(
-          fromCore.loadAdminPrograms({
-            params: { page, search },
-          })
-        );
-        break;
-      case 'fields':
-        this._store.dispatch(
-          fromCore.loadAdminFields({
-            params: { page, search },
-          })
-        );
-        break;
-    }
-  }
-
   onChangeTab(tab: any): void {
     this.tab = tab.index;
     switch (tab.index) {
       case 0:
-        this._preparePrograms();
         break;
       case 1:
         this._prepareFields();
@@ -182,49 +130,6 @@ export class AdminProgramListComponent implements OnInit {
         this._prepareFields();
         this._prepareSubjects();
         break;
-    }
-  }
-
-  onOpenAddNewProgram(): void {
-    this._store.dispatch(fromAdminActions.openAdminAddNewProgramModal());
-  }
-
-  onCloseAddNewProgram(): void {
-    this._store.dispatch(fromAdminActions.closeAdminAddNewProgramModal());
-  }
-
-  onChangeSelection(): void {
-    this._store.dispatch(
-      fromCore.loadAdminPrograms({
-        params: { page: 1, search: '', status: this.status },
-      })
-    );
-  }
-
-  onAddEditProgram(program: any): void {
-    if (this.selectedProgram) {
-      this._store.dispatch(
-        fromCore.addEditProgram({
-          program: { ...program, id: this.selectedProgram.id },
-        })
-      );
-    } else {
-      this._store.dispatch(fromCore.addEditProgram({ program }));
-    }
-  }
-
-  onChangeStatus(program: IProgram, status: number): void {
-    this._store.dispatch(
-      fromCore.addEditProgram({
-        program: { ...program, status },
-      })
-    );
-  }
-
-  deleteProgram(program: IProgram): void {
-    if (confirm(`Are you sure to delete ${program.name} program?`)) {
-      this.deletedProgram = program;
-      this._store.dispatch(fromCore.deleteProgram({ id: program.id }));
     }
   }
 
@@ -336,14 +241,6 @@ export class AdminProgramListComponent implements OnInit {
       this.deletedSubject = subject;
       this._store.dispatch(fromCore.deleteSubject({ id: subject.id }));
     }
-  }
-
-  private _preparePrograms(): void {
-    this._store.dispatch(
-      fromCore.loadAdminPrograms({ params: { page: 1, search: '' } })
-    );
-    this.programs$ = this._store.select(fromCore.selectPrograms);
-    this.isLoading$ = this._store.select(fromCore.selectIsLoadingPrograms);
   }
 
   private _prepareFields(): void {
