@@ -70,6 +70,10 @@ export class OtpVerifyComponent implements OnInit {
       this.form.get('otp')?.setValue(value);
       this.form.updateValueAndValidity();
       this.form.markAsDirty();
+    } else {
+      this.form.get('otp')?.setValue(null);
+      this.form.updateValueAndValidity();
+      this.form.markAsDirty();
     }
   }
 

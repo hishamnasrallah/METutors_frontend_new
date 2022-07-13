@@ -51,6 +51,10 @@ export class SignupEmailVerificationComponent implements OnInit {
       this.form.get('code')?.setValue(value);
       this.form.updateValueAndValidity();
       this.form.markAsDirty();
+    } else {
+      this.form.get('code')?.setValue(null);
+      this.form.updateValueAndValidity();
+      this.form.markAsDirty();
     }
   }
 
