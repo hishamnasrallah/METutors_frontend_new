@@ -233,9 +233,12 @@ export class LookupsService {
       .pipe(catchError(this.errorHandler));
   }
 
-  getAdminSubjects(): Observable<any> {
+  getAdminSubjects(params: any): Observable<any> {
     return this.http
-      .get<{ total: number; subject: ISubject[] }>(`${this.BACKEND_URL}subject`)
+      .get<{ total: number; subject: ISubject[] }>(
+        `${this.BACKEND_URL}subject`,
+        { params }
+      )
       .pipe(
         map((response: any) => ({
           total: response.subject.total,

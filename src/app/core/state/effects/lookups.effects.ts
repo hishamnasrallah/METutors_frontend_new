@@ -248,8 +248,8 @@ export class LookupsEffects {
   loadAdminSubjects$ = createEffect(() =>
     this._actions$.pipe(
       ofType(lookupsActions.loadAdminSubjects),
-      mergeMap((_) =>
-        this._lookupsService.getAdminSubjects().pipe(
+      mergeMap(({ params }) =>
+        this._lookupsService.getAdminSubjects(params).pipe(
           map(({ total, subjects }) =>
             lookupsActions.loadAdminSubjectsSuccess({
               total,

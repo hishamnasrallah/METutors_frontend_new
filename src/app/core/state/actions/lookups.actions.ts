@@ -127,7 +127,10 @@ export const loadProgramsEnded = createAction('[Lookups] Load Programs Ended');
 
 export const loadSubjects = createAction('[Lookups] Load Subjects');
 
-export const loadAdminSubjects = createAction('[Lookups] Load Admin Subjects');
+export const loadAdminSubjects = createAction(
+  '[Lookups] Load Admin Subjects',
+  props<{ params: { page: number; search: string } }>()
+);
 
 export const loadAdminSubjectsSuccess = createAction(
   '[Lookups] Load Admin Subjects Success',
