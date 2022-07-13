@@ -1,1 +1,129 @@
-<p>program-field-of-study works!</p>
+<ng-container *ngLet="(view$ | async) as view">
+  <div class="row my-3">
+    <div class="col-12">
+      <h2 class="title"> Field of Study
+        <button mat-flat-button color="primary" class="float-end fw-bold"
+                (click)="onOpenAddNewField(); selectedField = undefined">
+          Add Field of Study
+        </button>
+      </h2>
+    </div>
+  </div>
+  <div class="row filters">
+    <div class="col-md-9">
+      <!--todo: will add filters in MVP2-->
+      <!--<span class="title">Filters</span>
+      <mat-form-field appearance="outline" class="me-2">
+        <mat-select [placeholder]="'By Program'" [(ngModel)]="program" (selectionChange)="onChangeFieldSelection()">
+          <mat-option [value]="program?.id" *ngFor="let program of programs$ | async">
+            {{ program?.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="me-2">
+        <mat-select [placeholder]="'By Country'" [(ngModel)]="country" (selectionChange)="onChangeFieldSelection()">
+          <mat-option [value]="country?.id" *ngFor="let country of countries$ | async">
+            {{ country?.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="me-2">
+        <mat-select [placeholder]="'By Grade'" [(ngModel)]="grade" (selectionChange)="onChangeFieldSelection()">
+          <mat-option [value]="i" *ngFor="let grade of grades; let i = index">
+            {{ grade }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="me-2">
+        <mat-select [placeholder]="'By Status'" [(ngModel)]="status" (selectionChange)="onChangeFieldSelection()">
+          <mat-option [value]="state.id" *ngFor="let state of fieldStatusConst">
+            {{ state.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>-->
+    </div>
+    <div class="col-md-3">
+      <metutors-search-input (searchedText)="onSearchText($event)"></metutors-search-input>
+    </div>
+  </div>
+  <ng-container [ngSwitch]="view.loading">
+    <div class="mt-4" *ngSwitchCase="true">
+      <metutors-grid-placeholder></metutors-grid-placeholder>
+    </div>
+    <ng-container *ngSwitchCase="false">
+      <table class="table my-table default-title mt-4 overflow-visible">
+        <tr>
+          <th>Number</th>
+          <th>Program</th>
+          <th>Country</th>
+          <th>Grade</th>
+          <th>Field of Study</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+        <tr *ngIf="!view.fields || !view.fields?.length">
+          <td colspan="7">
+            <div class="text-center">No records found</div>
+          </td>
+        </tr>
+        <tr *ngFor="let field of view.fields; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ field?.program?.name }}</td>
+          <td>{{ field?.country?.name }}</td>
+          <td>{{ grades[field?.grade] }}</td>
+          <td>{{ field?.name }}</td>
+          <td>
+            <div dropdown class="change-status position-relative d-flex">
+              <button dropdownToggle class="status text-capitalize" mat-button [ngClass]="{
+                        'active': fieldStatus.active === field?.status,
+                        'inactive': fieldStatus.inActive === field?.status
+                     }">
+                <ng-container *ngIf="fieldStatus.active === field?.status">Active</ng-container>
+                <ng-container *ngIf="fieldStatus.inActive === field?.status">Inactive</ng-container>
+              </button>
+              <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
+                <li role="menuitem" class="cursor-pointer text-capitalize"
+                    *ngFor="let status of fieldStatusConst"
+                    [ngClass]="{
+                          'active': fieldStatus.active === status.id,
+                          'inactive': fieldStatus.inActive === status.id
+                        }" (click)="onChangeFieldStatus(field, status.id)">
+                  {{ status.name }}
+                </li>
+              </ul>
+            </div>
+          </td>
+          <td>
+            <button mat-icon-button class="p-0 action me-2" disabled
+                    *ngIf="(isDeletingField$ | async) && deletedField?.id === field.id">
+              <mat-icon class="spinner">autorenew</mat-icon>
+            </button>
+            <button mat-icon-button class="p-0 action me-2" (click)="deleteField(field)"
+                    *ngIf="deletedField?.id !== field.id">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <button mat-icon-button class="p-0 action" (click)="onOpenAddNewField(); selectedField = field">
+              <img src="assets/svg/edit-green.svg" width="17" height="17" alt="">
+            </button>
+          </td>
+        </tr>
+      </table>
+    </ng-container>
+  </ng-container>
+
+  <div class="d-flex mt-2 justify-content-center" *ngIf="view.fields?.length < view.pagination?.total">
+    <pagination [totalItems]="view.pagination?.total" [itemsPerPage]="perPage" [maxSize]="5"
+                (pageChanged)="onPageChange($event)">
+    </pagination>
+  </div>
+</ng-container>
+
+<metutors-admin-add-new-field-study-modal *ngIf="showAddNewFieldModal$ | async"
+                                          (closeModal)="onCloseAddNewField()"
+                                          [programs]="(programs$ | async)!"
+                                          [countries]="(countries$ | async)!"
+                                          [selectedField]="selectedField!"
+                                          [isAdding]="(isAddingEditingField$ | async)!"
+                                          [showModal]="(showAddNewFieldModal$ | async)!"
+                                          (submitForm)="onAddEditField($event)">
+</metutors-admin-add-new-field-study-modal>

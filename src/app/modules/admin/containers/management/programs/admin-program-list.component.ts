@@ -4,18 +4,10 @@ import { Component, OnInit } from '@angular/core';
 
 import * as fromCore from '@metutor/core/state';
 import * as fromAdmin from '@metutor/modules/admin/state';
-import { IField, ICountry, ISubject, IPagination, IProgram } from '@models';
+import { ISubject, IPagination, IProgram } from '@models';
 import * as fromAdminActions from '@metutor/modules/admin/state/actions';
 
-import {
-  GRADES,
-  CountryStatus,
-  SubjectStatus,
-  FIELD_STATUSES_CONST,
-  COUNTRY_STATUSES_CONST,
-  SUBJECT_STATUSES_CONST,
-  FieldStatus,
-} from '@config';
+import { GRADES, SubjectStatus, SUBJECT_STATUSES_CONST } from '@config';
 
 @Component({
   selector: 'metutors-programs',
@@ -24,11 +16,6 @@ import {
 })
 export class AdminProgramListComponent implements OnInit {
   pagination$: Observable<IPagination>;
-  isLoadingCountry$: Observable<boolean>;
-  isDeletingCountry$: Observable<boolean>;
-  countries$: Observable<ICountry[] | null>;
-  isAddingEditingCountry$: Observable<boolean>;
-  showAddNewCountryModal$: Observable<boolean>;
 
   programs$: Observable<IProgram[] | null>;
 
@@ -39,26 +26,9 @@ export class AdminProgramListComponent implements OnInit {
   grade?: number;
   status?: number;
 
-  country?: number;
-  fieldOfStudy?: number;
-
-  fieldStatus = FieldStatus;
-  countryStatus = CountryStatus;
   subjectStatus = SubjectStatus;
-  fieldStatusConst = FIELD_STATUSES_CONST;
+
   subjectStatusConst = SUBJECT_STATUSES_CONST;
-  countryStatusConst = COUNTRY_STATUSES_CONST;
-
-  deletedField?: IField;
-  selectedField?: IField;
-  deletedCountry?: ICountry;
-  selectedCountry?: ICountry;
-  isLoadingFields$: Observable<boolean>;
-  fields$: Observable<IField[] | null>;
-  isDeletingField$: Observable<boolean>;
-
-  isAddingEditingField$: Observable<boolean>;
-  showAddNewFieldModal$: Observable<boolean>;
 
   deletedSubject?: ISubject;
   selectedSubject?: ISubject;
@@ -73,24 +43,8 @@ export class AdminProgramListComponent implements OnInit {
   ngOnInit(): void {
     this.programs$ = this._store.select(fromCore.selectPrograms);
 
-    // Field of study
-    this.showAddNewFieldModal$ = this._store.select(
-      fromAdmin.selectAddNewFieldModal
-    );
-
     // Country
-    this._prepareCountries();
-    this.isDeletingCountry$ = this._store.select(
-      fromCore.selectIsDeletingProgramCountries
-    );
-
-    this.showAddNewCountryModal$ = this._store.select(
-      fromAdmin.selectAddNewCountryModal
-    );
-
-    this.isAddingEditingCountry$ = this._store.select(
-      fromCore.selectIsAddingEditingProgramCountries
-    );
+    // this._prepareCountries();
 
     // course
     this.showAddNewSubjectModal$ = this._store.select(
@@ -117,95 +71,23 @@ export class AdminProgramListComponent implements OnInit {
 
   onChangeTab(tab: any): void {
     this.tab = tab.index;
+    this._store.dispatch(fromCore.resetLookUpsPagination());
     switch (tab.index) {
       case 0:
         break;
       case 1:
-        this._prepareFields();
         break;
       case 2:
-        this._prepareCountries();
         break;
       case 3:
-        this._prepareFields();
         this._prepareSubjects();
         break;
     }
   }
 
-  // Field of study
-  onOpenAddNewField(): void {
-    this._store.dispatch(fromAdminActions.openAdminAddNewFieldModal());
-  }
-
-  onCloseAddNewField(): void {
-    this._store.dispatch(fromAdminActions.closeAdminAddNewFieldModal());
-  }
-
-  onChangeFieldStatus(field: IField, status: number): void {
-    this._store.dispatch(
-      fromCore.addEditField({
-        field: { ...field, status },
-      })
-    );
-  }
-
-  onAddEditField(field: any): void {
-    if (this.selectedField) {
-      this._store.dispatch(
-        fromCore.addEditField({
-          field: { ...field, id: this.selectedField.id },
-        })
-      );
-    } else {
-      this._store.dispatch(fromCore.addEditField({ field }));
-    }
-  }
-
-  deleteField(field: IField): void {
-    if (confirm(`Are you sure to delete ${field.name} field?`)) {
-      this.deletedField = field;
-      this._store.dispatch(fromCore.deleteField({ id: field.id }));
-    }
-  }
-
   // Country
-  onOpenAddNewCountry(): void {
-    this._store.dispatch(fromAdminActions.openAdminAddNewCountryModal());
-  }
-
-  onCloseAddNewCountry(): void {
-    this._store.dispatch(fromAdminActions.closeAdminAddNewCountryModal());
-  }
 
   onChangeCountrySelection(): void {}
-
-  onChangeCountryStatus(country: ICountry, status: number): void {
-    this._store.dispatch(
-      fromCore.addEditProgramCountries({
-        country: { ...country, status },
-      })
-    );
-  }
-
-  onAddEditCountry(country: any): void {
-    if (this.selectedCountry) {
-      this._store.dispatch(
-        fromCore.addEditProgramCountries({
-          country: { ...country, id: this.selectedCountry.id },
-        })
-      );
-    } else {
-      this._store.dispatch(fromCore.addEditProgramCountries({ country }));
-    }
-  }
-
-  deleteCountry(country: ICountry): void {
-    if (confirm(`Are you sure to delete ${country.name} country?`)) {
-      this.deletedCountry = country;
-      this._store.dispatch(fromCore.deleteProgramCountries({ id: country.id }));
-    }
-  }
 
   // Course
   onCloseAddNewSubject(): void {
@@ -243,27 +125,11 @@ export class AdminProgramListComponent implements OnInit {
     }
   }
 
-  private _prepareFields(): void {
-    this._store.dispatch(
-      fromCore.loadAdminFields({ params: { page: 1, search: '' } })
-    );
-    this.fields$ = this._store.select(fromCore.selectFields);
-    this.isLoadingFields$ = this._store.select(fromCore.selectIsLoadingFields);
-  }
-
   private _prepareSubjects(): void {
     this._store.dispatch(fromCore.loadAdminSubjects());
     this.subjects$ = this._store.select(fromCore.selectSubjects);
     this.isLoadingSubject$ = this._store.select(
       fromCore.selectIsLoadingSubjects
-    );
-  }
-
-  private _prepareCountries(): void {
-    this._store.dispatch(fromCore.loadProgramCountries());
-    this.countries$ = this._store.select(fromCore.selectProgramCountries);
-    this.isLoadingCountry$ = this._store.select(
-      fromCore.selectIsLoadingProgramCountries
     );
   }
 }

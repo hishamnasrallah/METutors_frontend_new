@@ -5,8 +5,8 @@ import { combineLatest, map, Observable } from 'rxjs';
 import { IPagination, IProgram } from '@models';
 import * as fromCore from '@metutor/core/state';
 import * as fromAdmin from '@metutor/modules/admin/state';
+import { PROGRAM_STATUSES_CONST, ProgramStatus } from '@config';
 import * as fromAdminActions from '@metutor/modules/admin/state/actions';
-import { FieldStatus, PROGRAM_STATUSES_CONST, ProgramStatus } from '@config';
 
 @Component({
   selector: 'metutors-program',
@@ -20,7 +20,6 @@ export class ProgramComponent implements OnInit {
   showAddNewProgramModal$: Observable<boolean>;
 
   perPage = 10;
-  program?: number;
   deletedProgram?: IProgram;
   selectedProgram?: IProgram;
   programStatus = ProgramStatus;

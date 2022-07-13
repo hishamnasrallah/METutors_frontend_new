@@ -631,6 +631,11 @@ export const reducer = createReducer(
     ...state,
     isDeletingProgramCountries: false,
     deletingProgramCountriesFailure: error,
+  })),
+
+  on(lookupsActions.resetLookUpsPagination, (state) => ({
+    ...state,
+    pagination: { total: 0 },
   }))
 );
 

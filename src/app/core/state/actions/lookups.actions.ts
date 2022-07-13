@@ -14,6 +14,9 @@ import {
   ITicketPriority,
 } from '@models';
 
+export const resetLookUpsPagination = createAction(
+  '[Lookups] Reset Pagination'
+);
 export const loadLanguages = createAction('[Lookups] Load Languages');
 
 export const loadLanguagesSuccess = createAction(

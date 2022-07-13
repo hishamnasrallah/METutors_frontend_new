@@ -1,1 +1,100 @@
-<p>program-country works!</p>
+<ng-container *ngLet="(countries$ | async) as countries">
+  <div class="row my-3">
+    <div class="col-12">
+      <h2 class="title"> Country List
+        <button mat-flat-button color="primary" class="float-end fw-bold"
+                (click)="onOpenAddNewCountry(); selectedCountry = undefined">
+          Add New Country
+        </button>
+      </h2>
+    </div>
+  </div>
+  <div class="row filters">
+    <div class="col-md-9">
+      <!-- <span class="title">Filters</span>
+       <mat-form-field appearance="outline" class="me-2">
+         <mat-select [placeholder]="'By Status'" [(ngModel)]="status"
+                     (selectionChange)="onChangeCountrySelection()">
+           <mat-option [value]="state.id" *ngFor="let state of countryStatusConst">
+             {{ state.name }}
+           </mat-option>
+         </mat-select>
+       </mat-form-field>-->
+    </div>
+    <div class="col-md-3">
+      <metutors-search-input></metutors-search-input>
+    </div>
+  </div>
+
+  <ng-container [ngSwitch]="isLoadingCountry$ | async">
+    <div class="mt-4" *ngSwitchCase="true">
+      <metutors-grid-placeholder></metutors-grid-placeholder>
+    </div>
+
+    <ng-container *ngSwitchCase="false">
+      <table class="table my-table default-title mt-4 overflow-visible">
+        <tr>
+          <th>Number</th>
+          <th>Country</th>
+          <th>Last Updated</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+        <tr *ngIf="!countries || !countries.length">
+          <td colspan="5">
+            <div class="text-center">No records found</div>
+          </td>
+        </tr>
+        <tr *ngFor="let country of countries; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ country?.name }}</td>
+          <td>{{ country?.updatedAt | date: 'EEEE, d MMM y' }}</td>
+          <td>
+            <div dropdown class="change-status position-relative d-flex">
+              <button dropdownToggle class="status text-capitalize" mat-button [ngClass]="{
+                          'active': countryStatus.active === country?.status,
+                          'inactive': countryStatus.inActive === country?.status
+                       }">
+                <ng-container *ngIf="countryStatus.active === country?.status">Active</ng-container>
+                <ng-container *ngIf="countryStatus.inActive === country?.status">Inactive</ng-container>
+              </button>
+              <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
+                <li role="menuitem" class="cursor-pointer text-capitalize"
+                    *ngFor="let status of countryStatusConst"
+                    [ngClass]="{
+                            'active': countryStatus.active === status.id,
+                            'inactive': countryStatus.inActive === status.id
+                          }" (click)="onChangeCountryStatus(country, status.id)">
+                  {{ status.name }}
+                </li>
+              </ul>
+            </div>
+          </td>
+          <td>
+            <button mat-icon-button class="p-0 action me-2" disabled
+                    *ngIf="(isDeletingCountry$ | async) && deletedCountry?.id === country.id">
+              <mat-icon class="spinner">autorenew</mat-icon>
+            </button>
+            <button mat-icon-button class="p-0 action me-2" (click)="deleteCountry(country)"
+                    *ngIf="deletedCountry?.id !== country.id">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <button mat-icon-button class="p-0 action"
+                    (click)="onOpenAddNewCountry(); selectedCountry = country">
+              <img src="assets/svg/edit-green.svg" width="17" height="17" alt="">
+            </button>
+          </td>
+        </tr>
+      </table>
+    </ng-container>
+  </ng-container>
+
+</ng-container>
+
+<metutors-admin-add-new-country-modal *ngIf="showAddNewCountryModal$ | async"
+                                      (closeModal)="onCloseAddNewCountry()"
+                                      [selectedCountry]="selectedCountry!"
+                                      [isAdding]="(isAddingEditingCountry$ | async)!"
+                                      [showModal]="(showAddNewCountryModal$ | async)!"
+                                      (submitForm)="onAddEditCountry($event)">
+</metutors-admin-add-new-country-modal>
