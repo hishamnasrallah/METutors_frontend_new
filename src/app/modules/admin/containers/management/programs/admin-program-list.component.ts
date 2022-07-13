@@ -140,6 +140,13 @@ export class AdminProgramListComponent implements OnInit {
     this.pagination$ = this._store.select(fromCore.selectLookUpsPagination);
   }
 
+  onSearchText(search: string, type: string): void {
+    switch (type) {
+      case 'fields':
+        break;
+    }
+  }
+
   onPageChange({ page }: any, type: string, search: string): void {
     switch (type) {
       case 'programs':
@@ -186,12 +193,6 @@ export class AdminProgramListComponent implements OnInit {
     this._store.dispatch(fromAdminActions.closeAdminAddNewProgramModal());
   }
 
-  filterPrograms(filters: IProgramFilters): void {
-    /*this.programs$ = this._store.select(fromCore.selectFilteredPrograms, {
-      ...filters,
-    });*/
-  }
-
   onChangeSelection(): void {
     this._store.dispatch(
       fromCore.loadAdminPrograms({
@@ -236,22 +237,6 @@ export class AdminProgramListComponent implements OnInit {
     this._store.dispatch(fromAdminActions.closeAdminAddNewFieldModal());
   }
 
-  filterFields(filters: IFieldFilters): void {
-    /* this.fields$ = this._store.select(fromCore.selectFilteredFields, {
-      ...filters,
-    });*/
-  }
-
-  onChangeFieldSelection(): void {
-    /*  this.filterFields({
-      title: this.title,
-      program: this.program,
-      country: this.country,
-      grade: this.grade?.toString(),
-      status: this.status?.toString(),
-    });*/
-  }
-
   onChangeFieldStatus(field: IField, status: number): void {
     this._store.dispatch(
       fromCore.addEditField({
@@ -288,21 +273,7 @@ export class AdminProgramListComponent implements OnInit {
     this._store.dispatch(fromAdminActions.closeAdminAddNewCountryModal());
   }
 
-  onChangeCountrySelection(): void {
-    this.filterCountries({
-      title: this.title,
-      status: this.status?.toString(),
-    });
-  }
-
-  filterCountries(filters: ICountryFilters): void {
-    /* this.countries$ = this._store.select(
-      fromCore.selectFilteredProgramCountries,
-      {
-        ...filters,
-      }
-    );*/
-  }
+  onChangeCountrySelection(): void {}
 
   onChangeCountryStatus(country: ICountry, status: number): void {
     this._store.dispatch(
@@ -334,12 +305,6 @@ export class AdminProgramListComponent implements OnInit {
   // Course
   onCloseAddNewSubject(): void {
     this._store.dispatch(fromAdminActions.closeAdminAddNewSubjectModal());
-  }
-
-  filterSubjects(filters: ISubjectFilters): void {
-    /*this.subjects$ = this._store.select(fromCore.selectFilteredSubjects, {
-      ...filters,
-    });*/
   }
 
   onChangeSubjectStatus(subject: ISubject, status: number): void {

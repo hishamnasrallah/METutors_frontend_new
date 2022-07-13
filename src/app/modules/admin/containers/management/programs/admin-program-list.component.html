@@ -3,166 +3,156 @@
     <div class="col-md-12">
       <mat-tab-group mat-align-tabs="start" (selectedTabChange)="onChangeTab($event)">
         <mat-tab label="Program" *ngLet="(programs$ | async) as programs">
-          <ng-container [ngSwitch]="isLoading$ | async">
-            <div class="mt-3">
-              <ng-container [ngSwitch]="isLoading$ | async">
-                <div class="mt-4" *ngSwitchCase="true">
-                  <metutors-grid-placeholder></metutors-grid-placeholder>
-                </div>
+          <div class="mt-3">
+            <div class="row filters">
+              <div class="col-md-6">
+                <!--<span class="title">Filter</span>
+                <mat-form-field appearance="outline" class="me-2">
+                  <mat-select [placeholder]="'By Status'" [(ngModel)]="status"
+                              (selectionChange)="onChangeSelection()">
+                    <mat-option [value]="state.id" *ngFor="let state of programStatusConst">
+                      {{ state.name }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>-->
+              </div>
+              <div class="col-md-6 d-flex justify-content-end">
+                <metutors-search-input (searchedText)="onSearchText($event, 'programs')"
+                                       class="me-2"></metutors-search-input>
 
-                <ng-container *ngSwitchCase="false">
-                  <div class="row filters">
-                    <div class="col-md-6">
-                      <span class="title">Filter</span>
-                      <mat-form-field appearance="outline" class="me-2">
-                        <mat-select [placeholder]="'By Status'" [(ngModel)]="status"
-                                    (selectionChange)="onChangeSelection()">
-                          <mat-option [value]="state.id" *ngFor="let state of programStatusConst">
-                            {{ state.name }}
-                          </mat-option>
-                        </mat-select>
-                      </mat-form-field>
-                    </div>
-                    <div class="col-md-6 d-flex justify-content-end">
-                      <div class="position-relative search-request">
-                        <mat-icon>search</mat-icon>
-                        <input type="text" class="form-control custom-input input-bordered" [(ngModel)]="title"
-                               placeholder="Search..." (keyup)="onChangeSelection()">
-                      </div>
+                <h2 class="title">
+                  <button mat-flat-button color="primary" class="float-end fw-bold py-1"
+                          (click)="onOpenAddNewProgram(); selectedProgram = undefined">
+                    Add New Program
+                  </button>
+                </h2>
+              </div>
+            </div>
+            <ng-container [ngSwitch]="isLoading$ | async">
+              <div class="mt-4" *ngSwitchCase="true">
+                <metutors-grid-placeholder></metutors-grid-placeholder>
+              </div>
 
-                      <h2 class="title">
-                        <button mat-flat-button color="primary" class="float-end fw-bold py-1"
-                                (click)="onOpenAddNewProgram(); selectedProgram = undefined">
-                          Add New Program
-                        </button>
-                      </h2>
-                    </div>
-                  </div>
-
-                  <table class="table my-table default-title mt-4 overflow-visible">
-                    <tr>
-                      <th>Number</th>
-                      <th>Program</th>
-                      <th>Last Updated</th>
-                      <th>Status</th>
-                      <th>Action</th>
-                    </tr>
-                    <tr *ngIf="!programs || !programs.length">
-                      <td colspan="5">
-                        <div class="text-center">No records found</div>
-                      </td>
-                    </tr>
-                    <tr *ngFor="let program of programs; let i = index">
-                      <td>{{ i + 1 }}</td>
-                      <td>{{ program?.name }}</td>
-                      <td>{{ program?.updatedAt | date: 'EEEE, d MMM y' }}</td>
-                      <td>
-                        <div dropdown class="change-status position-relative d-flex">
-                          <button dropdownToggle class="status text-capitalize" mat-button [ngClass]="{
+              <ng-container *ngSwitchCase="false">
+                <table class="table my-table default-title mt-4 overflow-visible">
+                  <tr>
+                    <th>Number</th>
+                    <th>Program</th>
+                    <th>Last Updated</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                  <tr *ngIf="!programs || !programs.length">
+                    <td colspan="5">
+                      <div class="text-center">No records found</div>
+                    </td>
+                  </tr>
+                  <tr *ngFor="let program of programs; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ program?.name }}</td>
+                    <td>{{ program?.updatedAt | date: 'EEEE, d MMM y' }}</td>
+                    <td>
+                      <div dropdown class="change-status position-relative d-flex">
+                        <button dropdownToggle class="status text-capitalize" mat-button [ngClass]="{
                         'active': programStatus.active === program?.status,
                         'inactive': programStatus.inActive === program?.status
                      }">
-                            <ng-container *ngIf="programStatus.active === program?.status">Active</ng-container>
-                            <ng-container *ngIf="programStatus.inActive === program?.status">Inactive</ng-container>
-                          </button>
-                          <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
-                            <li role="menuitem" class="cursor-pointer text-capitalize" *ngFor="let status of programStatusConst"
-                                [ngClass]="{
+                          <ng-container *ngIf="programStatus.active === program?.status">Active</ng-container>
+                          <ng-container *ngIf="programStatus.inActive === program?.status">Inactive</ng-container>
+                        </button>
+                        <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
+                          <li role="menuitem" class="cursor-pointer text-capitalize"
+                              *ngFor="let status of programStatusConst"
+                              [ngClass]="{
                           'active': programStatus.active === status.id,
                           'inactive': programStatus.inActive === status.id
                         }" (click)="onChangeStatus(program, status.id)">
-                              {{ status.name }}
-                            </li>
-                          </ul>
-                        </div>
-                      </td>
-                      <td>
-                        <button mat-icon-button class="p-0 action me-2" disabled
-                                *ngIf="(isDeletingProgram$ | async) && deletedProgram?.id === program.id">
-                          <mat-icon class="spinner">autorenew</mat-icon>
-                        </button>
-                        <button mat-icon-button class="p-0 action me-2" (click)="deleteProgram(program)"
-                                *ngIf="deletedProgram?.id !== program.id">
-                          <mat-icon>delete</mat-icon>
-                        </button>
-                        <button mat-icon-button class="p-0 action"
-                                (click)="onOpenAddNewProgram(); selectedProgram = program">
-                          <img src="assets/svg/edit-green.svg" width="17" height="17" alt="">
-                        </button>
-                      </td>
-                    </tr>
-                  </table>
+                            {{ status.name }}
+                          </li>
+                        </ul>
+                      </div>
+                    </td>
+                    <td>
+                      <button mat-icon-button class="p-0 action me-2" disabled
+                              *ngIf="(isDeletingProgram$ | async) && deletedProgram?.id === program.id">
+                        <mat-icon class="spinner">autorenew</mat-icon>
+                      </button>
+                      <button mat-icon-button class="p-0 action me-2" (click)="deleteProgram(program)"
+                              *ngIf="deletedProgram?.id !== program.id">
+                        <mat-icon>delete</mat-icon>
+                      </button>
+                      <button mat-icon-button class="p-0 action"
+                              (click)="onOpenAddNewProgram(); selectedProgram = program">
+                        <img src="assets/svg/edit-green.svg" width="17" height="17" alt="">
+                      </button>
+                    </td>
+                  </tr>
+                </table>
 
-                  <div class="d-flex mt-2 justify-content-center" *ngIf="programs.length < pagination?.total && tab === 0">
-                    <pagination [totalItems]="pagination?.total" [itemsPerPage]="perPage" [maxSize]="5"
-                                (pageChanged)="onPageChange($event, 'programs', '')">
-                    </pagination>
-                  </div>
-                </ng-container>
+                <div class="d-flex mt-2 justify-content-center"
+                     *ngIf="programs.length < pagination?.total && tab === 0">
+                  <pagination [totalItems]="pagination?.total" [itemsPerPage]="perPage" [maxSize]="5"
+                              (pageChanged)="onPageChange($event, 'programs', '')">
+                  </pagination>
+                </div>
               </ng-container>
-            </div>
-          </ng-container>
+            </ng-container>
+          </div>
         </mat-tab>
 
         <mat-tab label="Field of Studies" *ngLet="(fields$ | async) as fields">
+          <div class="row my-3">
+            <div class="col-12">
+              <h2 class="title"> Field of Study
+                <button mat-flat-button color="primary" class="float-end fw-bold"
+                        (click)="onOpenAddNewField(); selectedField = undefined">
+                  Add Field of Study
+                </button>
+              </h2>
+            </div>
+          </div>
+          <div class="row filters">
+            <div class="col-md-9">
+              <!--todo: will add filters in MVP2-->
+              <!--<span class="title">Filters</span>
+              <mat-form-field appearance="outline" class="me-2">
+                <mat-select [placeholder]="'By Program'" [(ngModel)]="program" (selectionChange)="onChangeFieldSelection()">
+                  <mat-option [value]="program?.id" *ngFor="let program of programs$ | async">
+                    {{ program?.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="me-2">
+                <mat-select [placeholder]="'By Country'" [(ngModel)]="country" (selectionChange)="onChangeFieldSelection()">
+                  <mat-option [value]="country?.id" *ngFor="let country of countries$ | async">
+                    {{ country?.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="me-2">
+                <mat-select [placeholder]="'By Grade'" [(ngModel)]="grade" (selectionChange)="onChangeFieldSelection()">
+                  <mat-option [value]="i" *ngFor="let grade of grades; let i = index">
+                    {{ grade }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="me-2">
+                <mat-select [placeholder]="'By Status'" [(ngModel)]="status" (selectionChange)="onChangeFieldSelection()">
+                  <mat-option [value]="state.id" *ngFor="let state of fieldStatusConst">
+                    {{ state.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>-->
+            </div>
+            <div class="col-md-3">
+              <metutors-search-input (searchedText)="onSearchText($event, 'fields')"></metutors-search-input>
+            </div>
+          </div>
           <ng-container [ngSwitch]="isLoadingFields$ | async">
             <div class="mt-4" *ngSwitchCase="true">
               <metutors-grid-placeholder></metutors-grid-placeholder>
             </div>
-
             <ng-container *ngSwitchCase="false">
-              <div class="row my-3">
-                <div class="col-12">
-                  <h2 class="title"> Field of Study
-                    <button mat-flat-button color="primary" class="float-end fw-bold"
-                            (click)="onOpenAddNewField(); selectedField = undefined">
-                      Add Field of Study
-                    </button>
-                  </h2>
-                </div>
-              </div>
-              <div class="row filters">
-                <div class="col-md-9">
-                  <!--todo: will add filters in MVP2-->
-                  <!--<span class="title">Filters</span>
-                  <mat-form-field appearance="outline" class="me-2">
-                    <mat-select [placeholder]="'By Program'" [(ngModel)]="program" (selectionChange)="onChangeFieldSelection()">
-                      <mat-option [value]="program?.id" *ngFor="let program of programs$ | async">
-                        {{ program?.name }}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                  <mat-form-field appearance="outline" class="me-2">
-                    <mat-select [placeholder]="'By Country'" [(ngModel)]="country" (selectionChange)="onChangeFieldSelection()">
-                      <mat-option [value]="country?.id" *ngFor="let country of countries$ | async">
-                        {{ country?.name }}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                  <mat-form-field appearance="outline" class="me-2">
-                    <mat-select [placeholder]="'By Grade'" [(ngModel)]="grade" (selectionChange)="onChangeFieldSelection()">
-                      <mat-option [value]="i" *ngFor="let grade of grades; let i = index">
-                        {{ grade }}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                  <mat-form-field appearance="outline" class="me-2">
-                    <mat-select [placeholder]="'By Status'" [(ngModel)]="status" (selectionChange)="onChangeFieldSelection()">
-                      <mat-option [value]="state.id" *ngFor="let state of fieldStatusConst">
-                        {{ state.name }}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>-->
-                </div>
-                <div class="col-md-3">
-                  <div class="position-relative search-request">
-                    <mat-icon>search</mat-icon>
-                    <input type="text" class="form-control custom-input input-bordered" [(ngModel)]="title"
-                           placeholder="Search..." (keyup)="onChangeFieldSelection()">
-                  </div>
-                </div>
-              </div>
-
               <table class="table my-table default-title mt-4 overflow-visible">
                 <tr>
                   <th>Number</th>
@@ -194,7 +184,8 @@
                         <ng-container *ngIf="fieldStatus.inActive === field?.status">Inactive</ng-container>
                       </button>
                       <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
-                        <li role="menuitem" class="cursor-pointer text-capitalize" *ngFor="let status of fieldStatusConst"
+                        <li role="menuitem" class="cursor-pointer text-capitalize"
+                            *ngFor="let status of fieldStatusConst"
                             [ngClass]="{
                           'active': fieldStatus.active === status.id,
                           'inactive': fieldStatus.inActive === status.id
@@ -230,42 +221,39 @@
         </mat-tab>
 
         <mat-tab label="Country" *ngLet="(countries$ | async) as countries">
+          <div class="row my-3">
+            <div class="col-12">
+              <h2 class="title"> Country List
+                <button mat-flat-button color="primary" class="float-end fw-bold"
+                        (click)="onOpenAddNewCountry(); selectedCountry = undefined">
+                  Add New Country
+                </button>
+              </h2>
+            </div>
+          </div>
+          <div class="row filters">
+            <div class="col-md-9">
+              <!-- <span class="title">Filters</span>
+               <mat-form-field appearance="outline" class="me-2">
+                 <mat-select [placeholder]="'By Status'" [(ngModel)]="status"
+                             (selectionChange)="onChangeCountrySelection()">
+                   <mat-option [value]="state.id" *ngFor="let state of countryStatusConst">
+                     {{ state.name }}
+                   </mat-option>
+                 </mat-select>
+               </mat-form-field>-->
+            </div>
+            <div class="col-md-3">
+              <metutors-search-input (searchedText)="onSearchText($event, 'country')"></metutors-search-input>
+            </div>
+          </div>
+
           <ng-container [ngSwitch]="isLoadingCountry$ | async">
             <div class="mt-4" *ngSwitchCase="true">
               <metutors-grid-placeholder></metutors-grid-placeholder>
             </div>
 
             <ng-container *ngSwitchCase="false">
-              <div class="row my-3">
-                <div class="col-12">
-                  <h2 class="title"> Country List
-                    <button mat-flat-button color="primary" class="float-end fw-bold"
-                            (click)="onOpenAddNewCountry(); selectedCountry = undefined">
-                      Add New Country
-                    </button>
-                  </h2>
-                </div>
-              </div>
-              <div class="row filters">
-                <div class="col-md-9">
-                  <span class="title">Filters</span>
-                  <mat-form-field appearance="outline" class="me-2">
-                    <mat-select [placeholder]="'By Status'" [(ngModel)]="status" (selectionChange)="onChangeCountrySelection()">
-                      <mat-option [value]="state.id" *ngFor="let state of countryStatusConst">
-                        {{ state.name }}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-                <div class="col-md-3">
-                  <div class="position-relative search-request">
-                    <mat-icon>search</mat-icon>
-                    <input type="text" class="form-control custom-input input-bordered" [(ngModel)]="title"
-                           placeholder="Search..." (keyup)="onChangeCountrySelection()">
-                  </div>
-                </div>
-              </div>
-
               <table class="table my-table default-title mt-4 overflow-visible">
                 <tr>
                   <th>Number</th>
@@ -293,7 +281,8 @@
                         <ng-container *ngIf="countryStatus.inActive === country?.status">Inactive</ng-container>
                       </button>
                       <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
-                        <li role="menuitem" class="cursor-pointer text-capitalize" *ngFor="let status of countryStatusConst"
+                        <li role="menuitem" class="cursor-pointer text-capitalize"
+                            *ngFor="let status of countryStatusConst"
                             [ngClass]="{
                             'active': countryStatus.active === status.id,
                             'inactive': countryStatus.inActive === status.id
@@ -324,73 +313,69 @@
         </mat-tab>
 
         <mat-tab label="Course" *ngLet="(subjects$ | async) as subjects">
+          <div class="row my-3">
+            <div class="col-12">
+              <h2 class="title"> Subject List
+                <button mat-flat-button color="primary" class="float-end fw-bold"
+                        (click)="onOpenAddNewSubject(); selectedSubject = undefined">
+                  Add Subject
+                </button>
+              </h2>
+            </div>
+          </div>
+          <div class="row filters">
+            <div class="col-md-9">
+              <!--<span class="title">Filters</span>
+              <mat-form-field appearance="outline" class="me-2">
+                <mat-select [placeholder]="'By Program'" [(ngModel)]="program"
+                            (selectionChange)="onChangeSubjectSelection()">
+                  <mat-option [value]="program?.id" *ngFor="let program of programs$ | async">
+                    {{ program?.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="me-2">
+                <mat-select [placeholder]="'By Country'" [(ngModel)]="country"
+                            (selectionChange)="onChangeSubjectSelection()">
+                  <mat-option [value]="country?.id" *ngFor="let country of countries$ | async">
+                    {{ country?.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="me-2">
+                <mat-select [placeholder]="'By Grade'" [(ngModel)]="grade" (selectionChange)="onChangeSubjectSelection()">
+                  <mat-option [value]="i" *ngFor="let grade of grades; let i = index">
+                    {{ grade }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="me-2">
+                <mat-select [placeholder]="'Field of Study'" [(ngModel)]="fieldOfStudy"
+                            (selectionChange)="onChangeSubjectSelection()">
+                  <mat-option [value]="field?.id" *ngFor="let field of fields$ | async">
+                    {{ field?.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="me-2">
+                <mat-select [placeholder]="'By Status'" [(ngModel)]="status" (selectionChange)="onChangeSubjectSelection()">
+                  <mat-option [value]="state.id" *ngFor="let state of subjectStatusConst">
+                    {{ state.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>-->
+            </div>
+            <div class="col-md-3">
+              <metutors-search-input (searchedText)="onSearchText($event, 'subject')"></metutors-search-input>
+            </div>
+          </div>
+
           <ng-container [ngSwitch]="isLoadingSubject$ | async">
             <div class="mt-4" *ngSwitchCase="true">
               <metutors-grid-placeholder></metutors-grid-placeholder>
             </div>
 
             <ng-container *ngSwitchCase="false">
-              <div class="row my-3">
-                <div class="col-12">
-                  <h2 class="title"> Subject List
-                    <button mat-flat-button color="primary" class="float-end fw-bold"
-                            (click)="onOpenAddNewSubject(); selectedSubject = undefined">
-                      Add Subject
-                    </button>
-                  </h2>
-                </div>
-              </div>
-              <div class="row filters">
-                <div class="col-md-9">
-                  <!--<span class="title">Filters</span>
-                  <mat-form-field appearance="outline" class="me-2">
-                    <mat-select [placeholder]="'By Program'" [(ngModel)]="program"
-                                (selectionChange)="onChangeSubjectSelection()">
-                      <mat-option [value]="program?.id" *ngFor="let program of programs$ | async">
-                        {{ program?.name }}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                  <mat-form-field appearance="outline" class="me-2">
-                    <mat-select [placeholder]="'By Country'" [(ngModel)]="country"
-                                (selectionChange)="onChangeSubjectSelection()">
-                      <mat-option [value]="country?.id" *ngFor="let country of countries$ | async">
-                        {{ country?.name }}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                  <mat-form-field appearance="outline" class="me-2">
-                    <mat-select [placeholder]="'By Grade'" [(ngModel)]="grade" (selectionChange)="onChangeSubjectSelection()">
-                      <mat-option [value]="i" *ngFor="let grade of grades; let i = index">
-                        {{ grade }}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                  <mat-form-field appearance="outline" class="me-2">
-                    <mat-select [placeholder]="'Field of Study'" [(ngModel)]="fieldOfStudy"
-                                (selectionChange)="onChangeSubjectSelection()">
-                      <mat-option [value]="field?.id" *ngFor="let field of fields$ | async">
-                        {{ field?.name }}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                  <mat-form-field appearance="outline" class="me-2">
-                    <mat-select [placeholder]="'By Status'" [(ngModel)]="status" (selectionChange)="onChangeSubjectSelection()">
-                      <mat-option [value]="state.id" *ngFor="let state of subjectStatusConst">
-                        {{ state.name }}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>-->
-                </div>
-                <div class="col-md-3">
-                  <div class="position-relative search-request">
-                    <mat-icon>search</mat-icon>
-                    <input type="text" class="form-control custom-input input-bordered" [(ngModel)]="title"
-                           placeholder="Search...">
-                  </div>
-                </div>
-              </div>
-
               <table class="table my-table default-title mt-4 overflow-visible">
                 <tr>
                   <th>Number</th>
@@ -426,7 +411,8 @@
                         <ng-container *ngIf="subjectStatus.inActive === subject?.status">Inactive</ng-container>
                       </button>
                       <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
-                        <li role="menuitem" class="cursor-pointer text-capitalize" *ngFor="let status of subjectStatusConst"
+                        <li role="menuitem" class="cursor-pointer text-capitalize"
+                            *ngFor="let status of subjectStatusConst"
                             [ngClass]="{
                         'active': subjectStatus.active === status.id,
                         'inactive': subjectStatus.inActive === status.id
@@ -445,7 +431,8 @@
                             *ngIf="deletedSubject?.id !== subject.id">
                       <mat-icon>delete</mat-icon>
                     </button>
-                    <button mat-icon-button class="p-0 action" (click)="onOpenAddNewSubject(); selectedSubject = subject">
+                    <button mat-icon-button class="p-0 action"
+                            (click)="onOpenAddNewSubject(); selectedSubject = subject">
                       <img src="assets/svg/edit-green.svg" width="17" height="17" alt="">
                     </button>
                   </td>
