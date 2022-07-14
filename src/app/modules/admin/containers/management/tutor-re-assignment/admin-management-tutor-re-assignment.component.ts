@@ -116,6 +116,14 @@ export class AdminManagementTutorReAssignmentComponent implements OnInit {
     );
   }
 
+  onSearch(search: string): void {
+    this._store.dispatch(
+      fromCore.loadAdminTutorReAssignment({
+        params: { page: 1, search, status: this.status },
+      })
+    );
+  }
+
   ngOnInit(): void {
     this._store.dispatch(
       fromCore.loadAdminTutorReAssignment({
