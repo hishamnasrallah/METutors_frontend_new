@@ -485,8 +485,8 @@ export class AdminEffects {
   loadAdminTutorReAssignment$ = createEffect(() =>
     this._actions$.pipe(
       ofType(adminActions.loadAdminTutorReAssignment),
-      mergeMap(({ status }) =>
-        this._adminService.loadAdminTutorReAssignment(status).pipe(
+      mergeMap(({ params }) =>
+        this._adminService.loadAdminTutorReAssignment(params).pipe(
           map(
             (result) =>
               adminActions.loadAdminTutorReAssignmentSuccess({

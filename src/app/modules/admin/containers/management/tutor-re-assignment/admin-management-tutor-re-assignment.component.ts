@@ -1,13 +1,11 @@
 import { Store } from '@ngrx/store';
 import { CourseStatus } from '@config';
-import { ITutorFilters } from '@models';
 import { Component, OnInit } from '@angular/core';
 import { combineLatest, map, Observable } from 'rxjs';
 
 import * as fromCore from '@metutor/core/state';
 import * as fromAdmin from '@metutor/modules/admin/state';
 import * as fromAdminAction from '@metutor/modules/admin/state/actions';
-import { adminChangeTutorAvailabilityStatus } from '@metutor/core/state';
 
 @Component({
   selector: 'metutors-tutor-re-assignment',
@@ -23,8 +21,10 @@ export class AdminManagementTutorReAssignmentComponent implements OnInit {
     reAssignment: any;
   }>;
 
+  perPage = 10;
   courseId: number;
   currentSection = 1;
+  status = 'not-available';
   totalBooking$: Observable<any>;
   availableTutors$: Observable<any>;
   tutorAvailability$: Observable<any>;
@@ -86,28 +86,41 @@ export class AdminManagementTutorReAssignmentComponent implements OnInit {
   onChangeTab(tab: any): void {
     this.currentSection = tab;
 
-    let status = 'not-available';
     switch (tab) {
       case 1:
-        status = 'not-available';
+        this.status = 'not-available';
         break;
       case 2:
-        status = 'declined';
+        this.status = 'declined';
         break;
       case 3:
-        status = 'cancelled';
+        this.status = 'cancelled';
         break;
       case 4:
-        status = 'running';
+        this.status = 'running';
         break;
     }
 
-    this._store.dispatch(fromCore.loadAdminTutorReAssignment({ status }));
+    this._store.dispatch(
+      fromCore.loadAdminTutorReAssignment({
+        params: { page: 1, search: '', status: this.status },
+      })
+    );
+  }
+
+  onPageChange({ page }: any): void {
+    this._store.dispatch(
+      fromCore.loadAdminTutorReAssignment({
+        params: { page, search: '', status: this.status },
+      })
+    );
   }
 
   ngOnInit(): void {
     this._store.dispatch(
-      fromCore.loadAdminTutorReAssignment({ status: 'not-available' })
+      fromCore.loadAdminTutorReAssignment({
+        params: { page: 1, search: '', status: this.status },
+      })
     );
 
     this.openBookingModal$ = this._store.select(
@@ -157,17 +170,5 @@ export class AdminManagementTutorReAssignmentComponent implements OnInit {
         loading,
       }))
     );
-  }
-
-  filterTutors(filters: ITutorFilters): void {
-    // this.tutors$ = this._store.select(fromCore.selectFilteredPendingTutors, {
-    //   ...filters,
-    // });
-  }
-
-  onFilterTutors(): void {
-    this.filterTutors({
-      name: this.name,
-    });
   }
 }

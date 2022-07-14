@@ -273,7 +273,7 @@ export const loadAdminViewFeedbackFailure = createAction(
 
 export const loadAdminTutorReAssignment = createAction(
   '[Admin] Load Admin Tutor Re-assignment',
-  props<{ status: string }>()
+  props<{ params: { page: number; status: string; search: string } }>()
 );
 
 export const loadAdminTutorReAssignmentSuccess = createAction(

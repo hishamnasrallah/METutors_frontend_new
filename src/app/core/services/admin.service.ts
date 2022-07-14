@@ -132,10 +132,10 @@ export class AdminService {
     });
   }
 
-  loadAdminTutorReAssignment(status: string): Observable<any> {
-    return this.http.get<any>(
-      `${this.baseUrl}admin/assign-teacher?status=${status}`
-    );
+  loadAdminTutorReAssignment(params: any): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}admin/assign-teacher`, {
+      params,
+    });
   }
 
   loadAdminTestimonials(params: any): Observable<any> {
