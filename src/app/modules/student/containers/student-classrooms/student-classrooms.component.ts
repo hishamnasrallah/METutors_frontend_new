@@ -138,9 +138,9 @@ export class StudentClassroomsComponent implements OnInit {
       );
 
       const listDays: any = [];
-      const splitDays = course.weekdays.split(',');
+      const splitDays = course?.weekdays?.split(',');
 
-      if (splitDays.length) {
+      if (splitDays?.length) {
         splitDays.forEach((day: any) => listDays.push(WEEK_DAYS[day]));
       }
       return {
@@ -149,13 +149,15 @@ export class StudentClassroomsComponent implements OnInit {
         listDays,
         endTime: '',
         startTime: '',
-        name: course.courseName,
-        teacher: course.teacher,
-        hours: course.totalHours,
-        enrolledStudents: [course.student],
+        name: course?.courseName,
+        teacher: course?.teacher,
+        hours: course?.totalHours,
+        enrolledStudents: course?.student ? [course.student] : [],
         completedClasses: completedClasses?.length,
         remainingClasses: remainingClasses?.length,
-        progress: (completedClasses.length / course.classes.length) * 100,
+        progress: completedClasses
+          ? (completedClasses.length / course.classes.length) * 100
+          : 0,
       };
     });
   }

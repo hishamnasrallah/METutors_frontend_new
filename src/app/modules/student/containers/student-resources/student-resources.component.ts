@@ -23,12 +23,17 @@ export class StudentResourcesComponent implements OnInit {
 
   getDays(weekdays: string) {
     const listDays: any = [];
-    const splitDays = weekdays.split(',');
-    if (splitDays.length) {
+    const splitDays = weekdays?.split(',');
+
+    if (splitDays?.length) {
       splitDays.forEach((day: any) => listDays.push(WEEK_DAYS[day]));
     }
 
-    return listDays;
+    if (listDays.length) {
+      return listDays.join(',');
+    }
+
+    return '';
   }
 
   openViewResourceModal(id: number): void {
