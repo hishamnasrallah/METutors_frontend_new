@@ -79,9 +79,17 @@ export class TutorAddClassResourceModalComponent implements OnInit {
       fromCore.selectIsDeletingResource
     );
 
-    this.fileUploadProgress$ = this._store.select(
-      fromCore.selectFileUploadingProgress
-    );
+    this.fileUploadProgress$ = this._store
+      .select(fromCore.selectFileUploadingProgress)
+      .pipe(
+        tap((progress) => {
+          progress?.map((response: any) => {
+            if (response.responseType === this.uploadComplete) {
+              this.files?.markAsDirty();
+            }
+          });
+        })
+      );
 
     this.uploadedFiles$ = this._store
       .select(fromCore.selectUploadedFiles)

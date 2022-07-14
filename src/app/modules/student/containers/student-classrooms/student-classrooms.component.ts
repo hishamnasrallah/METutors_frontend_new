@@ -147,8 +147,6 @@ export class StudentClassroomsComponent implements OnInit {
         ...course,
         type: 1,
         listDays,
-        endTime: '',
-        startTime: '',
         name: course?.courseName,
         teacher: course?.teacher,
         hours: course?.totalHours,

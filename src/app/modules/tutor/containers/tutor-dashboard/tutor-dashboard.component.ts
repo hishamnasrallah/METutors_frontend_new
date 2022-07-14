@@ -149,8 +149,6 @@ export class TutorDashboardComponent implements OnInit {
         ...course,
         type: 1,
         listDays,
-        endTime: '',
-        startTime: '',
         hours: course.totalHours,
         name: course.courseName,
         expectedEndDate: course.endDate,

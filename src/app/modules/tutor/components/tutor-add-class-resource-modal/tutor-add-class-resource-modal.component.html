@@ -45,11 +45,15 @@
               <ng-container *ngFor="let url of selectedURLs; let i = index">
                 <div class="url-info d-flex flex-column my-2">
                   <span>{{ url.title }}</span>
-                  <strong class="d-flex align-items-center">
-                    {{ url.url }}
+                  <div class="d-flex align-items-center">
+                    <strong class="text-truncate mw-100">{{ url.url }}</strong>
+                    <a [href]="url.url" target="_blank" class="d-flex ms-2">
+                      <mat-icon>link</mat-icon>
+                    </a>
                     <mat-icon class="cursor-pointer ms-2 delete-icon" (click)="removeURL(i)">cancel</mat-icon>
-                  </strong>
+                  </div>
                 </div>
+
               </ng-container>
               <div class="overflow-hidden">
                 <ng-container formGroupName="urls">
@@ -90,17 +94,9 @@
               </ng-container>
 
               <div class="form-group row" *ngIf="(uploadedFiles$ | async)?.length">
-                <div class="col-md-6 list-files d-flex align-items-center position-relative"
-                     *ngFor="let file of (uploadedFiles$ | async); let i = index">
-                  <mat-icon>attach_file</mat-icon>
-                  <div class="ms-2 flex-grow-1">
-                    <h3>{{ file?.url }}</h3>
-                    <!--<h5>{{ filePreview?.size }}</h5>-->
-                  </div>
-                  <mat-icon class="cursor-pointer ms-2 delete-icon" (click)="removeFile(file.id)">
-                    cancel
-                  </mat-icon>
-                </div>
+                <metutors-uploaded-files [files]="uploadedFiles$ | async" [showDownloadFile]="false"
+                                         [showDeleteFile]="true" (deleteFile)="removeFile($event)">
+                </metutors-uploaded-files>
               </div>
             </div>
 

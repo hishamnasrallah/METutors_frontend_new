@@ -4,12 +4,16 @@
       <div class="card-body">
         <ng-container [ngSwitch]="view.loading">
           <ng-container *ngSwitchCase="false">
-            <h1 class="title overflow-hidden">{{ view.data?.course?.courseName }} <span>({{ view.data.course?.courseCode}})</span>
-              <button mat-button class="ms-2 status text-decoration-none" *ngIf="view?.data?.course?.status !== courseStatus.cancelledByTeacher"
+            <h1 class="title overflow-hidden">{{ view.data?.course?.courseName }}
+              <span>({{ view.data.course?.courseCode}})</span>
+              <button mat-button class="ms-2 status text-decoration-none"
+                      *ngIf="view?.data?.course?.status !== courseStatus.cancelledByTeacher"
                       [ngClass]="view?.data?.course?.status">{{ statusLabel[view?.data?.course?.status].long }}</button>
 
-              <button mat-button class="ms-2 status text-decoration-none" *ngIf="view?.data?.course?.status === courseStatus.cancelledByTeacher"
-                      [ngClass]="view?.data?.course?.status" (click)="onShowSendFeedbackModal(view.data?.course?.teacher?.id, false, true)">{{ statusLabel[view?.data?.course?.status].long }}</button>
+              <button mat-button class="ms-2 status text-decoration-none"
+                      *ngIf="view?.data?.course?.status === courseStatus.cancelledByTeacher"
+                      [ngClass]="view?.data?.course?.status"
+                      (click)="onShowSendFeedbackModal(view.data?.course?.teacher?.id, false, true)">{{ statusLabel[view?.data?.course?.status].long }}</button>
 
               <button mat-button class="float-end cancel-course text-decoration-underline text-danger"
                       (click)="onShowSendFeedbackModal(view.data?.course?.teacher?.id, true, false)"
@@ -52,7 +56,8 @@
                 </div>
               </div>
               <div class="col-md-6">
-                <button mat-button class="main-button-transparent float-end ms-2" *ngIf="view?.data?.course?.status !== courseStatus.cancelledByTeacher"
+                <button mat-button class="main-button-transparent float-end ms-2"
+                        [disabled]="view?.data?.course?.status === courseStatus.cancelledByTeacher || view?.data?.course?.status === courseStatus.pending || view?.data?.course?.status === courseStatus.paymentPending"
                         (click)="onShowSendFeedbackModal(view.data?.course?.teacher?.id, false, false)">
                   Send Feedback
                 </button>

@@ -9,6 +9,7 @@ export enum CourseStatus {
   adminCancelled = 'metutors',
   teacherCancelled = 'teacher',
   studentCancelled = 'student',
+  paymentPending = 'payment_pending',
   cancelledByStudent = 'cancelled_by_student',
   cancelledByTeacher = 'cancelled_by_teacher',
   requestedToMetutors = 'requested_to_metutors',
