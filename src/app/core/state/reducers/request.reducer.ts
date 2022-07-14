@@ -199,14 +199,10 @@ export const reducer = createReducer(
     })
   ),
 
-  on(
-    requestActions.loadRequestedCoursesEnded,
-    requestActions.loadRequestedCoursesFailure,
-    (state) => ({
-      ...state,
-      isLoadingRequestedCourses: false,
-    })
-  ),
+  on(requestActions.loadRequestedCoursesFailure, (state) => ({
+    ...state,
+    isLoadingRequestedCourses: false,
+  })),
 
   on(requestActions.requestCourse, (state) => ({
     ...state,

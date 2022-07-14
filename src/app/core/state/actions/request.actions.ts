@@ -83,7 +83,8 @@ export const createCourseFailure = createAction(
 );
 
 export const loadRequestedCourses = createAction(
-  '[Request] Load Requested Courses'
+  '[Request] Load Requested Courses',
+  props<{ params: { page: number; search: string } }>()
 );
 
 export const loadRequestedCoursesSuccess = createAction(
@@ -98,10 +99,6 @@ export const loadRequestedCoursesSuccess = createAction(
 export const loadRequestedCoursesFailure = createAction(
   '[Request] Load Requested Courses Failure',
   props<{ error: any }>()
-);
-
-export const loadRequestedCoursesEnded = createAction(
-  '[Request] Load Requested Courses Ended'
 );
 
 export const requestCourse = createAction(

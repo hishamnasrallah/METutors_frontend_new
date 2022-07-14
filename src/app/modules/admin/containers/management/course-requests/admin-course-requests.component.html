@@ -1,15 +1,24 @@
-<div class="course-requests">
+<div class="course-requests" *ngLet="(view$ | async) as view">
   <div class="row filters">
     <div class="col-md-6 d-flex align-items-center">
       <h1>New Course Requests</h1>
     </div>
+    <div class="col-md-6">
+      <div class="row justify-content-end">
+        <div class="col-md-5">
+        </div>
+        <div class="col-md-5">
+          <metutors-search-input (searchedText)="onSearch($event)"></metutors-search-input>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="row mt-2">
-    <div class="col-md-12" *ngLet="(requestsCounts$ | async) as counts">
+    <div class="col-md-12">
       <mat-tab-group mat-align-tabs="start">
-        <mat-tab [label]="'New Requests (' + counts?.newCount + ')'">
-          <ng-container [ngSwitch]="isLoading$ | async">
+        <mat-tab [label]="'New Requests (' + view.stats?.newCount + ')'">
+          <ng-container [ngSwitch]="view.loading">
             <div class="mt-4" *ngSwitchCase="true">
               <metutors-grid-placeholder></metutors-grid-placeholder>
             </div>
@@ -27,7 +36,7 @@
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
-                <tr *ngFor="let request of (requestedCourses$ | async); let i = index">
+                <tr *ngFor="let request of view.newCourses; let i = index">
                   <td>{{ i + 1 }}</td>
                   <td>{{ request?.programId !== 0 ? request?.program?.name : 'Any' }}</td>
                   <td>{{ request?.subject }}</td>
@@ -61,9 +70,15 @@
               </table>
             </ng-container>
           </ng-container>
+
+          <div class="d-flex mt-2 justify-content-center" *ngIf="view.newCourses?.length < view.stats.totalNew">
+            <pagination [totalItems]="view.stats.totalNew" [itemsPerPage]="perPage" [maxSize]="5"
+                        (pageChanged)="onPageChange($event)">
+            </pagination>
+          </div>
         </mat-tab>
-        <mat-tab [label]="'Completed (' + counts?.completedCount + ')'">
-          <ng-container [ngSwitch]="isLoading$ | async">
+        <mat-tab [label]="'Completed (' + view.stats?.completedCount + ')'">
+          <ng-container [ngSwitch]="view.loading">
             <div class="mt-4" *ngSwitchCase="true">
               <metutors-grid-placeholder></metutors-grid-placeholder>
             </div>
@@ -81,7 +96,7 @@
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
-                <tr *ngFor="let request of (completedCourses$ | async); let i = index">
+                <tr *ngFor="let request of view.completed; let i = index">
                   <td>{{ i + 1 }}</td>
                   <td>{{ request?.programId !== 0 ? request?.program?.name : 'Any' }}</td>
                   <td>{{ request?.country?.name }}</td>
@@ -109,6 +124,12 @@
               </table>
             </ng-container>
           </ng-container>
+
+          <div class="d-flex mt-2 justify-content-center" *ngIf="view.completed?.length < view.stats.totalCompleted">
+            <pagination [totalItems]="view.stats.totalCompleted" [itemsPerPage]="perPage" [maxSize]="5"
+                        (pageChanged)="onPageChange($event)">
+            </pagination>
+          </div>
         </mat-tab>
       </mat-tab-group>
     </div>

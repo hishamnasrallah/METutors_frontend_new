@@ -17,6 +17,7 @@ export class TutorApprovalRequestComponent implements OnInit {
     approvalRequest: any;
   }>;
 
+  perPage = 10;
   totalBooking$: Observable<any>;
   openBookingModal$: Observable<boolean>;
   loadingTotalBooking$: Observable<boolean>;
@@ -35,8 +36,28 @@ export class TutorApprovalRequestComponent implements OnInit {
     this._store.dispatch(fromAdminAction.openAdminStudentBookingModal());
   }
 
+  onSearch(search: string): void {
+    this._store.dispatch(
+      fromCore.loadAdminTutorApprovalRequest({
+        params: { page: 1, search },
+      })
+    );
+  }
+
+  onPageChange({ page }: any): void {
+    this._store.dispatch(
+      fromCore.loadAdminTutorApprovalRequest({
+        params: { page, search: '' },
+      })
+    );
+  }
+
   ngOnInit(): void {
-    this._store.dispatch(fromCore.loadAdminTutorApprovalRequest());
+    this._store.dispatch(
+      fromCore.loadAdminTutorApprovalRequest({
+        params: { page: 1, search: '' },
+      })
+    );
 
     this.totalBooking$ = this._store.select(
       fromCore.selectAdminStudentTotalBooking

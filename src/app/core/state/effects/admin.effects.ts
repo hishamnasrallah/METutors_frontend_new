@@ -560,8 +560,8 @@ export class AdminEffects {
   loadAdminTutorApprovalRequest$ = createEffect(() =>
     this._actions$.pipe(
       ofType(adminActions.loadAdminTutorApprovalRequest),
-      mergeMap(() =>
-        this._adminService.loadAdminTutorApprovalRequest().pipe(
+      mergeMap(({ params }) =>
+        this._adminService.loadAdminTutorApprovalRequest(params).pipe(
           map(
             (result) =>
               adminActions.loadAdminTutorApprovalRequestSuccess({

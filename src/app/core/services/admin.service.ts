@@ -146,25 +146,31 @@ export class AdminService {
     return this.http.get<any>(`${this.baseUrl}admin/testimonial/${id}`);
   }
 
-  loadAdminTutorApprovalRequest(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}admin/approval-request`);
+  loadAdminTutorApprovalRequest(params: any): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}admin/approval-request`, {
+      params,
+    });
   }
 
-  loadRequestedCourses(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}admin/requested-courses`).pipe(
-      map((response) => ({
-        requestedCourses: response?.requested_courses.map(
-          (request: any) => new ICourseRequest(false, request)
-        ),
-        completedCourses: response?.completed_courses.map(
-          (request: any) => new ICourseRequest(false, request)
-        ),
-        requestedCoursesCounts: {
-          newCount: response?.new_request_count,
-          completedCount: response?.completed_count,
-        },
-      }))
-    );
+  loadRequestedCourses(params: any): Observable<any> {
+    return this.http
+      .get<any>(`${this.baseUrl}admin/requested-courses`, { params })
+      .pipe(
+        map((response) => ({
+          requestedCourses: response?.requested_courses?.data.map(
+            (request: any) => new ICourseRequest(false, request)
+          ),
+          completedCourses: response?.completed_courses.data?.map(
+            (request: any) => new ICourseRequest(false, request)
+          ),
+          requestedCoursesCounts: {
+            newCount: response?.new_request_count,
+            completedCount: response?.completed_count,
+            totalNew: response?.requested_courses?.total,
+            totalCompleted: response?.completed_courses?.total,
+          },
+        }))
+      );
   }
 
   adminEditTestimonialStatus(id: number, status: string): Observable<any> {

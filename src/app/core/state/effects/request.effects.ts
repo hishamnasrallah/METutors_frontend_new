@@ -1,13 +1,14 @@
 import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
-import { AdminService, CoursesService, TutorsService } from '@services';
-import * as requestActions from '../actions/request.actions';
+
 import * as fromCore from '@metutor/core/state';
+import * as requestActions from '../actions/request.actions';
 import { AlertNotificationService } from '@metutor/core/components';
-import { Router } from '@angular/router';
+import { AdminService, CoursesService, TutorsService } from '@services';
 
 @Injectable()
 export class RequestEffects {
@@ -136,35 +137,24 @@ export class RequestEffects {
   loadRequestedCourses$ = createEffect(() =>
     this._actions$.pipe(
       ofType(requestActions.loadRequestedCourses),
-      withLatestFrom(
-        this._store.select(fromCore.selectRequestedCourses),
-        this._store.select(fromCore.selectCompletedRequestedCourses)
-      ),
-      mergeMap(([_, _requestedCourses, _completedCourses]) => {
-        if (
-          (!_requestedCourses || !_requestedCourses.length) &&
-          (!_completedCourses || !_completedCourses.length)
-        ) {
-          return this._adminService.loadRequestedCourses().pipe(
-            map((response) =>
-              requestActions.loadRequestedCoursesSuccess({
-                requestedCourses: response.requestedCourses,
-                completedCourses: response.completedCourses,
-                requestedCoursesCounts: response.requestedCoursesCounts,
+      mergeMap(({ params }) =>
+        this._adminService.loadRequestedCourses(params).pipe(
+          map((response) =>
+            requestActions.loadRequestedCoursesSuccess({
+              requestedCourses: response.requestedCourses,
+              completedCourses: response.completedCourses,
+              requestedCoursesCounts: response.requestedCoursesCounts,
+            })
+          ),
+          catchError((error) =>
+            of(
+              requestActions.loadRequestedCoursesFailure({
+                error: error?.error?.message || error?.error?.errors,
               })
-            ),
-            catchError((error) =>
-              of(
-                requestActions.loadRequestedCoursesFailure({
-                  error: error?.error?.message || error?.error?.errors,
-                })
-              )
             )
-          );
-        } else {
-          return of(requestActions.loadRequestedCoursesEnded());
-        }
-      })
+          )
+        )
+      )
     )
   );
 

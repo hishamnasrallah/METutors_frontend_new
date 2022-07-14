@@ -362,7 +362,8 @@ export const adminChangeTutorAvailabilityStatusFailure = createAction(
 );
 
 export const loadAdminTutorApprovalRequest = createAction(
-  '[Admin] Load Admin Tutor Approval Request'
+  '[Admin] Load Admin Tutor Approval Request',
+  props<{ params: { page: number; search: string } }>()
 );
 
 export const loadAdminTutorApprovalRequestSuccess = createAction(
