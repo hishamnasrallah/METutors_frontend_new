@@ -51,6 +51,7 @@ export class StudentClassDashboardComponent implements OnInit {
   courseStatus = CourseStatus;
   statusLabel = courseStatusLabel;
   baseURL = environment.clientUrl;
+  imageURL = environment.imageURL;
 
   view$: Observable<{
     data: any;

@@ -185,7 +185,7 @@
 
         <div class="col-12 mt-5">
           <h3 class="overview mb-3">Previous Classes -
-            ({{ view?.data?.totalpreviousClasses ? view?.data?.totalpreviousClasses : 0 }})</h3>
+            ({{ view?.data?.totalPreviousClasses ? view?.data?.totalPreviousClasses : 0 }})</h3>
           <ng-container [ngSwitch]="view.loading">
             <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
             <table class="table my-table purple-title" *ngSwitchCase="false">
@@ -207,29 +207,16 @@
               <ng-container *ngIf="view.data?.previousClasses?.length">
                 <tr *ngFor="let previousClass of view.data.previousClasses; let i=index">
                   <td>{{ i + 1}}</td>
-                  <td>{{ previousClass.title }}</td>
+                  <td>{{ previousClass.course?.courseName }}</td>
                   <td>
-                    <!--<div class="overflow-visible logos">
-                      <img src="https://logo.clearbit.com/tarjama.com" alt="" draggable="false"
-                        class="d-inline-block rounded-circle">
-                      <img src="https://logo.clearbit.com/amazon.com" alt="" draggable="false"
-                        class="d-inline-block rounded-circle ">
-                      <img src="https://logo.clearbit.com/noon.ae" alt="" draggable="false"
-                        class="d-inline-block rounded-circle ">
-                      <img src="https://logo.clearbit.com/canon.com" alt="" draggable="false"
-                        class="d-inline-block rounded-circle ">
-                      <img src="https://logo.clearbit.com/axa.com" alt="" draggable="false"
-                        class="d-inline-block rounded-circle ">
-                      <img src="https://logo.clearbit.com/axis.xyz" alt="" draggable="false"
-                        class="d-inline-block rounded-circle ">
-                      <img src="https://logo.clearbit.com/tamatem.co" alt="" draggable="false"
-                        class="d-inline-block rounded-circle ">
-                    </div>-->
+                    <metutors-user-avatar [avatar]="imageURL+previousClass?.teacher?.avatar" [type]="'small'"
+                                          [name]="previousClass?.teacher?.firstName+ ' ' +previousClass?.teacher?.lastName"
+                                          class="d-block"></metutors-user-avatar>
                   </td>
                   <td>{{ previousClass.startDate | date: 'EEEE'}} </td>
                   <td>{{ previousClass.startDate}} </td>
                   <td>{{ previousClass.startTime}} - {{ previousClass.endTime}} </td>
-                  <td>2 hours</td>
+                  <td>{{ previousClass?.duration}}hrs</td>
                   <td class="d-flex">
                     <ng-container *ngIf="previousClass?.status !== 'completed'">
                       <button mat-button class="main-button-opacity flex-grow-1"
