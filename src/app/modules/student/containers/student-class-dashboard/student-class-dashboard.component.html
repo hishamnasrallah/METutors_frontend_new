@@ -227,7 +227,7 @@
                       </button>
 
                       <span class="w-100 text-danger text-center"
-                            *ngIf="previousClass?.teacherAttendence?.status !== 'absent' && previousClass?.studentAttendence?.status === 'absent'">Student Absent</span>
+                            *ngIf="(!previousClass?.teacherAttendence && !previousClass?.studentAttendence) || previousClass?.teacherAttendence?.status !== 'absent' && previousClass?.studentAttendence?.status === 'absent'">Student Absent</span>
                     </ng-container>
                     <button mat-button class="main-button-opacity flex-grow-1" (click)="onViewClass(previousClass.id)"
                             *ngIf="previousClass?.status === 'completed'" [disabled]="isLoadingViewClass$ | async">

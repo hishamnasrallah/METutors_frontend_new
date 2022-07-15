@@ -106,7 +106,7 @@
                     <img src="assets/svg/play-fill.svg" draggable="false" alt="">
                     Launch Class
                   </button>
-                  <button mat-button class="main-button-opacity flex-grow-1"
+                  <button mat-button class="main-button-opacity flex-grow-1" (click)="onViewClass(todaysClass.id)"
                           *ngIf="todaysClass?.status === 'completed'">
                     <img src="assets/svg/eye-fill.svg" draggable="false" alt="">
                     View Class
