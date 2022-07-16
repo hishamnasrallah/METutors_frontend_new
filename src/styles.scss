@@ -110,6 +110,10 @@ button:hover {
   background-color: var(--main-color) !important;
 }
 
+.timepicker-backdrop-overlay {
+  z-index: 9999 !important;
+}
+
 .mat-progress-spinner circle,
 .mat-spinner circle {
   stroke: var(--main-color);

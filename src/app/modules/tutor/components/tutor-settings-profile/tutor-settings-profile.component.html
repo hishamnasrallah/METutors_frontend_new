@@ -188,7 +188,7 @@
           <div class="form-group">
             <label for="postalCode" class="form-label">Postal Code</label>
             <input type="text" class="custom-input w-100 input-bordered" id="postalCode" placeholder="Postal Code"
-              formControlName="postalCode">
+              formControlName="postalCode" meTutorsOnlyNumber [onlyNumber]="true">
             <div class="text-danger" *ngIf="postalCode?.touched && postalCode?.invalid">
               Please write your Postal Code
             </div>

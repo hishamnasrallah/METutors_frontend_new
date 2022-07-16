@@ -54,7 +54,7 @@
         <div class="form-group">
           <label class="form-label">Select Desired Teaching Days and Times</label>
           <div class="list-days">
-            <button type="button" mat-button [class.active]="selectedDays?.includes(i)"
+            <button type="button" mat-button [class.active]="selectedDays?.includes(i)" [disabled]="checkDisabledDays(day)"
               *ngFor="let day of days; let i = index" (click)="onChangeDay(i)">{{ day }}</button>
           </div>
         </div>

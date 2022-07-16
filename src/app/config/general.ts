@@ -155,6 +155,142 @@ export const AVAILABILITY_HOURS_CONST = [
     startTime: '06:30 pm',
     endTime: '07:00 pm',
   },
+  {
+    startTime: '07:00 pm',
+    endTime: '07:30 pm',
+  },
+  {
+    startTime: '07:30 pm',
+    endTime: '08:00 pm',
+  },
+  {
+    startTime: '08:00 pm',
+    endTime: '08:30 pm',
+  },
+  {
+    startTime: '08:30 pm',
+    endTime: '09:00 pm',
+  },
+  {
+    startTime: '09:00 pm',
+    endTime: '09:30 pm',
+  },
+  {
+    startTime: '09:30 pm',
+    endTime: '10:00 pm',
+  },
+  {
+    startTime: '10:00 pm',
+    endTime: '10:30 pm',
+  },
+  {
+    startTime: '10:30 pm',
+    endTime: '11:00 pm',
+  },
+  {
+    startTime: '11:00 pm',
+    endTime: '11:30 pm',
+  },
+  {
+    startTime: '11:30 pm',
+    endTime: '00:00 am',
+  },
+  {
+    startTime: '00:00 am',
+    endTime: '00:30 am',
+  },
+  {
+    startTime: '00:30 am',
+    endTime: '01:00 am',
+  },
+  {
+    startTime: '01:00 am',
+    endTime: '01:30 am',
+  },
+  {
+    startTime: '01:30 am',
+    endTime: '02:00 am',
+  },
+  {
+    startTime: '02:00 am',
+    endTime: '02:30 am',
+  },
+  {
+    startTime: '02:30 am',
+    endTime: '03:00 am',
+  },
+  {
+    startTime: '03:00 am',
+    endTime: '03:30 am',
+  },
+  {
+    startTime: '03:30 am',
+    endTime: '04:00 am',
+  },
+  {
+    startTime: '04:00 am',
+    endTime: '04:30 am',
+  },
+  {
+    startTime: '04:30 am',
+    endTime: '05:00 am',
+  },
+  {
+    startTime: '05:00 am',
+    endTime: '05:30 am',
+  },
+  {
+    startTime: '05:30 am',
+    endTime: '06:00 am',
+  },
+  {
+    startTime: '06:00 am',
+    endTime: '06:30 am',
+  },
+  {
+    startTime: '06:30 am',
+    endTime: '07:00 am',
+  },
+  {
+    startTime: '07:00 am',
+    endTime: '07:30 am',
+  },
+  {
+    startTime: '07:30 am',
+    endTime: '08:00 am',
+  },
+  {
+    startTime: '08:00 am',
+    endTime: '08:30 am',
+  },
+  {
+    startTime: '08:30 am',
+    endTime: '09:00 am',
+  },
+  {
+    startTime: '09:00 am',
+    endTime: '09:30 am',
+  },
+  {
+    startTime: '09:30 am',
+    endTime: '10:00 am',
+  },
+  {
+    startTime: '10:00 am',
+    endTime: '10:30 am',
+  },
+  {
+    startTime: '10:30 am',
+    endTime: '11:00 am',
+  },
+  {
+    startTime: '11:00 am',
+    endTime: '11:30 am',
+  },
+  {
+    startTime: '11:30 am',
+    endTime: '12:00 pm',
+  },
 ];
 
 export const LANGUAGES_LEVELS_CONST = {

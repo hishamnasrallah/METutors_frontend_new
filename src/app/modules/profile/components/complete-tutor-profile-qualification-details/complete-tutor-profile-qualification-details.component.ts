@@ -1,12 +1,13 @@
+import { ILanguage } from 'src/app/core/models';
+import { AlertNotificationService } from '@metutor/core/components';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
-  AbstractControl,
   FormArray,
-  FormBuilder,
   FormGroup,
   Validators,
+  FormBuilder,
+  AbstractControl,
 } from '@angular/forms';
-import { AlertNotificationService } from '@metutor/core/components';
 import {
   DEGREE_LEVELS,
   DEGREE_FIELDS,
@@ -14,7 +15,6 @@ import {
   TEACHING_EXPERIENCE,
   LANGUAGES_LEVELS_CONST,
 } from 'src/app/config';
-import { ILanguage } from 'src/app/core/models';
 
 @Component({
   selector: 'metutors-complete-tutor-profile-qualification-details',
@@ -97,6 +97,16 @@ export class CompleteTutorProfileQualificationDetailsComponent
 
   get languages(): FormArray {
     return this.form?.get('languages') as FormArray;
+  }
+
+  get filteredLanguages(): ILanguage[] {
+    const selectedLangs = this.languages.value.map((item: any) =>
+      item?.level && item?.language ? item?.language?.id : undefined
+    );
+
+    return this.languagesList && this.languagesList.length
+      ? this.languagesList.filter((el) => !selectedLangs.includes(el?.id))
+      : [];
   }
 
   removeLanguage(i: number): void {

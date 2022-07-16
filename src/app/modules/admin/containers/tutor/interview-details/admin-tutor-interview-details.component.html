@@ -115,7 +115,7 @@
                   <td>Spoken Languages</td>
                   <td>
                     <ng-container *ngFor="let lang of interview?.tutor?.languages; let isLast = last">
-                      {{ lang?.name?.name }}<ng-container *ngIf="!isLast">, </ng-container>
+                      {{ lang?.name }}<ng-container *ngIf="!isLast">, </ng-container>
                     </ng-container>
                   </td>
                 </tr>

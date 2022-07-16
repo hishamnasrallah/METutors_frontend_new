@@ -23,6 +23,7 @@ import {
   SORTED_DAYS_WEEK,
   AVAILABILITY_HOURS_CONST,
   COURSE_TUITION_TYPES_CONST,
+  calculateListDays,
 } from 'src/app/config';
 import { ILevel } from 'src/app/core/models';
 
@@ -127,6 +128,28 @@ export class CompleteTutorProfileTeachingSpecificationsComponent
         this.availability.at(index).patchValue({ day: null, timeSlots: [] });
       }
     });
+  }
+
+  checkDisabledDays(day: string): boolean {
+    let isDisabled = true;
+
+    if (this.startDate?.value && this.endDate?.value) {
+      const daysCalculated = calculateListDays(
+        this.startDate?.value,
+        this.endDate?.value
+      );
+
+      daysCalculated.forEach((dayCalculated) => {
+        if (
+          SORTED_DAYS_WEEK[new Date(dayCalculated).getDay()].toLowerCase() ===
+          day.toLowerCase()
+        ) {
+          isDisabled = false;
+        }
+      });
+    }
+
+    return isDisabled;
   }
 
   submitFormData() {

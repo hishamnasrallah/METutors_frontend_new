@@ -69,6 +69,7 @@ import {
     SearchInputComponent,
     VideoPlayerComponent,
     SendFeedbackComponent,
+    SendFeedbackComponent,
     SubmitButtonComponent,
     UploadedFilesComponent,
     ClassroomItemComponent,
@@ -97,7 +98,6 @@ import {
     DefaultCoverDirective,
     DefaultAvatarDirective,
     DefaultCourseDirective,
-    SendFeedbackComponent,
   ],
   imports: [
     FormsModule,
@@ -121,10 +121,13 @@ import {
   exports: [
     // Components
     ModalComponent,
+    UserAvatarComponent,
     CourseItemComponent,
     VideoPlayerComponent,
     SearchInputComponent,
+    SendFeedbackComponent,
     SubmitButtonComponent,
+    UploadedFilesComponent,
     ModalComponentTemplate,
     ClassroomItemComponent,
     CardPlaceholderComponent,
@@ -151,9 +154,6 @@ import {
     DefaultCourseDirective,
     FileUploadProgressComponent,
     TutorAvailableSlotsComponent,
-    UserAvatarComponent,
-    SendFeedbackComponent,
-    UploadedFilesComponent,
   ],
 })
 export class SharedModule {}
