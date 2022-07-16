@@ -25,7 +25,11 @@
         color: #000;
 
         img {
-          margin-right: 5px;
+          margin-right: 20px;
+
+          &.facebook {
+            width: 10px;
+          }
         }
 
         &.google {
