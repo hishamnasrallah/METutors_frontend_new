@@ -170,7 +170,13 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
             fieldName: subject.fieldName,
             subjects: subject.subjects.map((sub: any, indexSub: number) =>
               indexSub === indexSubject
-                ? { ...sub, pricePerHour: event.target.value }
+                ? {
+                    ...sub,
+                    pricePerHour:
+                      +event.target.value > 0 && +event.target.value <= 20
+                        ? event.target.value
+                        : null,
+                  }
                 : { ...sub }
             ),
           };

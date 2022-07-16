@@ -42,7 +42,13 @@ export class AdminHourlyRatePerSubjectModalComponent implements OnInit {
   changePrice(id: number, event: any): void {
     this.submittedSubjects = this.submittedSubjects.map((item: any) =>
       item.id === id
-        ? { ...item, pricePerHour: event.target.value }
+        ? {
+            ...item,
+            pricePerHour:
+              +event.target.value > 0 && +event.target.value <= 20
+                ? event.target.value
+                : null,
+          }
         : { ...item }
     );
 

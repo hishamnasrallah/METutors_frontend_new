@@ -235,7 +235,7 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/student/classrooms',
+        redirectTo: '/student/dashboard',
         pathMatch: 'full',
       },
     ],

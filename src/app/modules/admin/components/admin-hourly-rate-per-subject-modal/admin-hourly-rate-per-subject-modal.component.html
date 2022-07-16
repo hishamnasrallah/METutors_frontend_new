@@ -23,7 +23,7 @@
             <td>{{ subject?.subject }}</td>
             <td *ngIf="item?.programId === nationalId">{{ subject?.gradeName }}</td>
             <td>
-              <input type="number" min="0" step="1" max="20" placeholder="Enter Price" class="p-0 w-100"
+              <input type="number" min="1" step="1" max="20" placeholder="Enter Price" class="p-0 w-100"
                 [value]="subject.pricePerHour" (change)="changePrice(subject?.id, $event)">
             </td>
           </tr>
