@@ -18,15 +18,16 @@ import { VgControlsModule } from '@videogular/ngx-videogular/controls';
 import { VgBufferingModule } from '@videogular/ngx-videogular/buffering';
 import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
 
-// Popups
+// Modals
 import {
   PaymentModalComponent,
+  ConfirmModalComponent,
   DialogCourseDetailsPopup,
   CourseDetailsPopupComponent,
   DialogClassroomDetailsPopup,
   ClassroomDetailsPopupComponent,
   TeacherAvailabilityModalComponent,
-} from '@metutor/shared/popups';
+} from '@metutor/shared/modals';
 
 // Components
 import {
@@ -84,6 +85,7 @@ import {
     ClassroomItemHorizentalComponent,
 
     // Modals
+    ConfirmModalComponent,
     PaymentModalComponent,
     DialogCourseDetailsPopup,
     CourseDetailsPopupComponent,
@@ -138,6 +140,7 @@ import {
     ClassroomItemHorizentalComponent,
 
     // Modals
+    ConfirmModalComponent,
     PaymentModalComponent,
     DialogCourseDetailsPopup,
     CourseDetailsPopupComponent,

@@ -55,5 +55,6 @@ import {
     NgxIntlTelInputModule,
   ],
   providers: [],
+  exports: [ConfirmEmailComponent],
 })
 export class AccountModule {}
