@@ -1,6 +1,23 @@
 import { IUser } from '@metutor/core/models';
 import { createAction, props } from '@ngrx/store';
 
+export const register = createAction('[User] Register', props<{ user: any }>());
+
+export const registerSuccess = createAction(
+  '[User] Register Success',
+  props<{ email: string }>()
+);
+
+export const registerFailure = createAction(
+  '[User] Register Failure',
+  props<{ error: any }>()
+);
+
+export const registerStep = createAction(
+  '[User] Register Step',
+  props<{ step: number; email: string }>()
+);
+
 export const signIn = createAction('[User] Sign In', props<{ user: any }>());
 
 export const signInSuccess = createAction(

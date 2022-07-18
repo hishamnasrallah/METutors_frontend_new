@@ -5,6 +5,11 @@ import * as tutorActions from '../actions/tutor.actions';
 import * as uploadActions from '../actions/upload.actions';
 
 export interface State {
+  // Sign up
+  isSignUp: boolean;
+  registerStep: number;
+  registerEmail: string;
+
   // Sign in
   token?: string;
   isSignIn: boolean;
@@ -26,7 +31,10 @@ export interface State {
 export const initialState: State = {
   user: null,
   profileStep: 1,
+  registerStep: 2,
   isSignIn: false,
+  isSignUp: false,
+  registerEmail: '',
   isChangePassword: false,
   isSubmitOTPAdmin: false,
   isResendOTPAdmin: false,
@@ -35,6 +43,29 @@ export const initialState: State = {
 
 export const reducer = createReducer(
   initialState,
+
+  on(userActions.register, (state) => ({
+    ...state,
+    isSignUp: true,
+  })),
+
+  on(userActions.registerSuccess, (state, { email }) => ({
+    ...state,
+    isSignUp: false,
+    registerStep: 2,
+    registerEmail: email,
+  })),
+
+  on(userActions.registerFailure, (state) => ({
+    ...state,
+    isSignUp: false,
+  })),
+
+  on(userActions.registerStep, (state, { step, email }) => ({
+    ...state,
+    registerStep: step,
+    registerEmail: email,
+  })),
 
   on(userActions.signIn, (state) => ({
     ...state,
@@ -130,6 +161,13 @@ export const selectToken = (state: State): string | undefined => state.token;
 
 export const selectTempToken = (state: State): string | undefined =>
   state.tempToken;
+
+export const selectIsSignUp = (state: State): boolean => state.isSignUp;
+
+export const selectRegisterStep = (state: State): number => state.registerStep;
+
+export const selectRegisterEmail = (state: State): string =>
+  state.registerEmail;
 
 export const selectIsSignIn = (state: State): boolean => state.isSignIn;
 

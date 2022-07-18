@@ -135,6 +135,21 @@ export const selectFinanceState = createSelector(
 );
 
 // User
+export const selectIsSignUp = createSelector(
+  selectUserState,
+  fromUserReducer.selectIsSignUp
+);
+
+export const selectRegisterStep = createSelector(
+  selectUserState,
+  fromUserReducer.selectRegisterStep
+);
+
+export const selectRegisterEmail = createSelector(
+  selectUserState,
+  fromUserReducer.selectRegisterEmail
+);
+
 export const selectIsSignIn = createSelector(
   selectUserState,
   fromUserReducer.selectIsSignIn

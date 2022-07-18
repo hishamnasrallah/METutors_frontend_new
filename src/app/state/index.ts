@@ -44,7 +44,7 @@ export const {
 
 export const selectLayout = createSelector(
   selectRouteData,
-  state => state['layout']
+  (state) => state['layout']
 );
 
 export function localStorageSyncReducer(
@@ -55,7 +55,7 @@ export function localStorageSyncReducer(
       {
         core: [
           {
-            user: ['token'],
+            user: ['token', 'registerStep', 'registerEmail'],
             request: ['createdClass'],
           },
         ],

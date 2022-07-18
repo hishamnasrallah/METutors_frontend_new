@@ -51,6 +51,30 @@ export class UserEffects {
     )
   );
 
+  register$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(userActions.register),
+      withLatestFrom(
+        this._store.select(fromRoot.selectQueryParam('returnUrl'))
+      ),
+      mergeMap(([{ user }, returnUrl]) =>
+        this._authService.register(user).pipe(
+          map((response) => {
+            console.log(response);
+            return userActions.registerSuccess({ email: user.email });
+          }),
+          catchError((error) =>
+            of(
+              userActions.registerFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   signIn$ = createEffect(() =>
     this._actions$.pipe(
       ofType(userActions.signIn),
@@ -375,6 +399,7 @@ export class UserEffects {
         ofType(
           ...[
             userActions.signInFailure,
+            userActions.registerFailure,
             userActions.changePasswordFailure,
             userActions.resendOTPAdminFailure,
           ]

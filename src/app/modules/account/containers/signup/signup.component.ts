@@ -1,21 +1,23 @@
+import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
+import { IRole } from 'src/app/core/models';
+import { Observable, Subscription } from 'rxjs';
+import { CountryISO } from 'ngx-intl-tel-input';
+import * as fromCore from '@metutor/core/state';
+import { MatDialog } from '@angular/material/dialog';
+import { RolesSelectComponent } from '../../components';
+import { addMisc, getMisc, UserRole } from 'src/app/config';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AuthService, UsersService } from 'src/app/core/services';
+import { AlertNotificationService } from 'src/app/core/components';
+import { FormValidationUtilsService } from 'src/app/core/validators';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import {
-  AbstractControl,
-  FormBuilder,
   FormGroup,
   Validators,
+  FormBuilder,
+  AbstractControl,
 } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
-import { CountryISO } from 'ngx-intl-tel-input';
-import { Subscription } from 'rxjs';
-import { addMisc, getMisc, UserRole } from 'src/app/config';
-import { AlertNotificationService } from 'src/app/core/components';
-import { IRole } from 'src/app/core/models';
-import { AuthService, UsersService } from 'src/app/core/services';
-import { FormValidationUtilsService } from 'src/app/core/validators';
-import { RolesSelectComponent } from '../../components';
 
 @Component({
   selector: 'metutors-signup',
@@ -31,8 +33,11 @@ import { RolesSelectComponent } from '../../components';
   ],
 })
 export class SignupComponent implements OnInit, OnDestroy {
+  step$: Observable<number>;
+  email$: Observable<string>;
+  isLoading$: Observable<boolean>;
+
   roles!: IRole[];
-  step: number = 1;
   userRole = UserRole;
   signupForm: FormGroup;
   signupSub?: Subscription;
@@ -52,8 +57,8 @@ export class SignupComponent implements OnInit, OnDestroy {
   constructor(
     private _router: Router,
     private _fb: FormBuilder,
+    private _store: Store<any>,
     private _dialog: MatDialog,
-    private _route: ActivatedRoute,
     private _authService: AuthService,
     private _userService: UsersService,
     private _fv: FormValidationUtilsService,
@@ -117,9 +122,13 @@ export class SignupComponent implements OnInit, OnDestroy {
       }
     });
 
-    // this.step = this._route.snapshot.queryParams['step'] ? +this._route.snapshot.queryParams['step'] : 1;
-
     this._prepareRoles();
+
+    this.isLoading$ = this._store.select(fromCore.selectIsSignUp);
+
+    this.step$ = this._store.select(fromCore.selectRegisterStep);
+
+    this.email$ = this._store.select(fromCore.selectRegisterEmail);
   }
 
   get firstName(): AbstractControl | null {
@@ -151,7 +160,6 @@ export class SignupComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.loading = true;
     const countryCodeLength =
       this.phoneNumber?.value.internationalNumber.length - 11;
     const phoneNumber = {
@@ -165,7 +173,7 @@ export class SignupComponent implements OnInit, OnDestroy {
       ),
     };
 
-    const data: any = {
+    const user: any = {
       first_name: this.firstName?.value,
       last_name: this.lastName?.value,
       mobile: phoneNumber.mobile.replace(' ', ''),
@@ -176,29 +184,13 @@ export class SignupComponent implements OnInit, OnDestroy {
       role: this.userType,
     };
 
-    this.signupSub = this._authService.register(data).subscribe(
-      (response) => {
-        if (response.status === true) {
-          this.step = 2;
-        } else {
-          this._alertNotificationService.error(response.errors[0]);
-        }
-        this.loading = false;
-      },
-      (error) => {
-        this.loading = false;
-        this._alertNotificationService.error(
-          error?.error?.message ||
-            'Something went wrong while creating an account'
-        );
-      }
-    );
+    this._store.dispatch(fromCore.register({ user }));
   }
 
-  onSubmitVerifyEmail(code: string) {
+  onSubmitVerifyEmail(code: string, email: string) {
     this.loading = true;
     const data = {
-      username: this.email?.value,
+      username: this.email?.value ? this.email?.value : email,
       code,
     };
 
@@ -210,8 +202,14 @@ export class SignupComponent implements OnInit, OnDestroy {
 
           if (this.userType == UserRole.student) {
             this._router.navigate(['/signin']);
+            this._store.dispatch(fromCore.registerStep({ step: 1, email: '' }));
           } else {
-            this.step = 3;
+            this._store.dispatch(
+              fromCore.registerStep({
+                step: 3,
+                email: this.email?.value ? this.email?.value : email,
+              })
+            );
           }
         } else {
           this.loading = false;
@@ -228,10 +226,12 @@ export class SignupComponent implements OnInit, OnDestroy {
     );
   }
 
-  resendEmailConfirm(): void {
+  resendEmailConfirm(email: string): void {
     this.resendLoading = true;
     this.signupSub = this._authService
-      .resendEmailConfirm({ email: this.email?.value })
+      .resendEmailConfirm({
+        email: this.email?.value ? this.email?.value : email,
+      })
       .subscribe(
         (response) => {
           if (response.status === true) {
@@ -252,7 +252,7 @@ export class SignupComponent implements OnInit, OnDestroy {
       );
   }
 
-  submitDocuments(files: File[]) {
+  submitDocuments(files: File[], email: string) {
     this.loading = true;
     const formData = new FormData();
     const sendFiles: any = [...files];
@@ -260,11 +260,12 @@ export class SignupComponent implements OnInit, OnDestroy {
     sendFiles.forEach((file: any, index: number) => {
       formData.append(`documents[${index}]`, file);
     });
-    formData.append(`email`, this.email?.value);
+    formData.append(`email`, this.email?.value ? this.email?.value : email);
 
     this.signupSub = this._authService.uploadDocuments(formData).subscribe(
       (res) => {
         if (res.status === 'true') {
+          this._store.dispatch(fromCore.registerStep({ step: 1, email: '' }));
           this._alertNotificationService.success(res.message);
           this._router.navigate(['/signin']);
         } else {

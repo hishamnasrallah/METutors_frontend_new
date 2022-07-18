@@ -1,4 +1,4 @@
-<div class="container py-5 signup-block">
+<div class="container py-5 signup-block" *ngLet="(step$ | async) as step">
   <div class="row">
     <div class="col-md-5 d-flex flex-column" *ngIf="step === 1">
       <a class="pb-5" routerLink="/">
@@ -89,7 +89,7 @@
           </div>
 
           <div class="form-group mt-4 mb-2">
-            <metutors-submit-button [form]="signupForm" [isSubmitting]="loading" [extraClasses]="'w-100'">
+            <metutors-submit-button [form]="signupForm" [isSubmitting]="(isLoading$ | async)!" [extraClasses]="'w-100'">
               Create my account
             </metutors-submit-button>
           </div>
@@ -126,9 +126,9 @@
         <img alt="logo" src="assets/logo/logo-dark.png" width="200px" draggable="false">
       </a>
 
-      <div>
+      <div *ngLet="(email$ | async) as myEmail">
         <metutors-signup-email-verification [loading]="loading" [resendLoading]="resendLoading"
-          (submitForm)="onSubmitVerifyEmail($event)" (resendEmail)="resendEmailConfirm()">
+          (submitForm)="onSubmitVerifyEmail($event, myEmail)" (resendEmail)="resendEmailConfirm(myEmail)">
         </metutors-signup-email-verification>
       </div>
     </div>
@@ -138,8 +138,8 @@
         <img alt="logo" src="assets/logo/logo-dark.png" width="200px" draggable="false">
       </a>
 
-      <div>
-        <metutors-signup-upload-documents [loading]="loading" (submitForm)="submitDocuments($event)">
+      <div *ngLet="(email$ | async) as myEmail">
+        <metutors-signup-upload-documents [loading]="loading" (submitForm)="submitDocuments($event, myEmail)">
         </metutors-signup-upload-documents>
       </div>
     </div>
