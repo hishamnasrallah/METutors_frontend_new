@@ -41,13 +41,19 @@ export class CompleteTutorProfilePersonalInformationComponent
       city: [null, [Validators.required]],
       bio: [
         null,
-        [Validators.required, Validators.minLength(100), Validators.maxLength(150)],
+        [
+          Validators.required,
+          Validators.minLength(100),
+          Validators.maxLength(150),
+        ],
       ],
       postalCode: [null, [Validators.required]],
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.maxDate.setFullYear(new Date().getFullYear() - 18);
+  }
 
   get middleName(): AbstractControl | null {
     return this.form.get('middleName');

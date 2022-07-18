@@ -198,7 +198,9 @@ export class TutorSettingsProfileComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.maxDate.setFullYear(new Date().getFullYear() - 18);
+  }
 
   returnZero(): number {
     return 0;
