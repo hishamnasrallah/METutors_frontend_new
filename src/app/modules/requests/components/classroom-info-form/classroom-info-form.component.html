@@ -59,7 +59,7 @@
             <h3>Classes Start Time</h3>
             <div class="ngx-timepicker-field-example">
               <input placeholder="Select Starting Time" aria-label="Select starting time" [ngxTimepicker]="startingTime"
-                formControlName="startTime" class="form-control" required>
+                formControlName="startTime" class="form-control" required (blur)="onChangeTimePicker()">
               <ngx-material-timepicker #startingTime [appendToInput]="true" [minutesGap]="30"
                 (closed)="onChangeTimePicker()">
               </ngx-material-timepicker>
@@ -69,7 +69,7 @@
             <h3>Classes End Time</h3>
             <div class="ngx-timepicker-field-example">
               <input placeholder="Select Ending Time" aria-label="Select ending time" [ngxTimepicker]="endingTime"
-                formControlName="endTime" class="form-control" required>
+                formControlName="endTime" class="form-control" required (blur)="onChangeTimePicker()">
               <ngx-material-timepicker #endingTime [appendToInput]="true" [minutesGap]="30"
                 (closed)="onChangeTimePicker()">
               </ngx-material-timepicker>

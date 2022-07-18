@@ -34,7 +34,7 @@
         <h3>Starting Time</h3>
         <div class="ngx-timepicker-field-example">
           <input placeholder="Select starting time" aria-label="Select starting time" [ngxTimepicker]="startingTime"
-            formControlName="startTime" class="form-control">
+            formControlName="startTime" class="form-control" (blur)="onChangeTimePicker()">
           <ngx-material-timepicker #startingTime [appendToInput]="true" [minutesGap]="30"
             (closed)="onChangeTimePicker()">
           </ngx-material-timepicker>
@@ -44,7 +44,7 @@
         <h3>Ending Time</h3>
         <div class="ngx-timepicker-field-example">
           <input placeholder="Select ending time" aria-label="Select ending time" [ngxTimepicker]="endingTime"
-            formControlName="endTime" class="form-control">
+            formControlName="endTime" class="form-control" (blur)="onChangeTimePicker()">
           <ngx-material-timepicker #endingTime [appendToInput]="true" [minutesGap]="30" (closed)="onChangeTimePicker()">
           </ngx-material-timepicker>
         </div>
