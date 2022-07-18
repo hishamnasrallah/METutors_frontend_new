@@ -23,7 +23,13 @@
               <div class="col-md-3 d-flex menu align-items-center" *ngIf="ticket?.user">
                 <img [src]="ticket?.user?.avatar" meTutorsDefaultAvatar class="rounded-circle" alt="" width="25"
                   height="25" draggable="false">
-                <strong>Agent: {{ ticket?.user?.name }}</strong>
+                <strong>
+                  <ng-container *ngIf="ticket?.user?.roleName === 'teacher'">Teacher:</ng-container>
+                  <ng-container *ngIf="ticket?.user?.roleName === 'student'">Teacher:</ng-container>
+                  <ng-container *ngIf="ticket?.user?.roleName !== 'teacher' && ticket?.user?.roleName !== 'student'">
+                    Agent:</ng-container>
+                  {{ ticket?.user?.name }}
+                </strong>
               </div>
               <div class="col-md-3 d-flex menu align-items-center">
                 <img src="assets/svg/calendar.svg" alt="" width="15" height="15" draggable="false">
@@ -61,7 +67,8 @@
               </div>
             </div>
 
-            <form class="write-comment" [formGroup]="messageForm" (ngSubmit)="onSubmit(messageForm)" *ngIf="ticketStatus.closed !== ticket?.status">
+            <form class="write-comment" [formGroup]="messageForm" (ngSubmit)="onSubmit(messageForm)"
+              *ngIf="ticketStatus.closed !== ticket?.status">
               <div class="position-relative">
                 <img [src]="(user$ | async)?.avatar" meTutorsDefaultAvatar class="rounded-circle" alt="" width="40"
                   height="40" draggable="false">
