@@ -131,11 +131,11 @@ export const reducer = createReducer(
     token,
   })),
 
-  // on(userActions.identifyUserSuccess, (state, { profileStep, user }) => ({
-  //   ...state,
-  //   profileStep,
-  //   user,
-  // })),
+  on(userActions.identifyUserSuccess, (state, { profileStep, user }) => ({
+    ...state,
+    profileStep,
+    user,
+  })),
 
   on(userActions.changePassword, (state) => ({
     ...state,
