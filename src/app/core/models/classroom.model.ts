@@ -9,6 +9,7 @@ export class IClassroom {
   slug?: string;
   number?: number;
   classes?: number;
+  classrooms?: any;
   hours?: number;
   type?: number;
   oneOneTuitionPriceInHour?: number;

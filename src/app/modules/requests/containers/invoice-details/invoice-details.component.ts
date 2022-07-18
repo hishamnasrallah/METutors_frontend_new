@@ -5,7 +5,6 @@ import { Component, OnInit } from '@angular/core';
 
 import { environment } from '@environment';
 import * as fromCore from '@metutor/core/state';
-import { MatDialog } from '@angular/material/dialog';
 import * as fromRequests from '@metutor/modules/requests/state';
 import { IClassroom, IInvoiceDetails, IUser } from '@metutor/core/models';
 
@@ -24,11 +23,7 @@ export class InvoiceDetailsComponent implements OnInit {
   isCalculateInvoiceDetails$: Observable<boolean>;
   invoiceDetails$: Observable<IInvoiceDetails | null>;
 
-  constructor(
-    private _router: Router,
-    private _store: Store<any>,
-    private _dialog: MatDialog
-  ) {}
+  constructor(private _router: Router, private _store: Store<any>) {}
 
   ngOnInit(): void {
     this._store.dispatch(fromCore.enterInvoiceDetails());
@@ -56,6 +51,10 @@ export class InvoiceDetailsComponent implements OnInit {
       const data = {
         redirect_url: this.baseURL + '/requests/payment-processing',
         ...classroom,
+        classrooms: classroom.classrooms.map((classroom: any) => ({
+          ...classroom,
+          day: +classroom.day + 1,
+        })),
       };
 
       this._store.dispatch(fromCore.createCourse({ data }));
