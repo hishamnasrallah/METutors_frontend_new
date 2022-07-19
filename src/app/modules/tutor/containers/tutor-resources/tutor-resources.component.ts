@@ -15,10 +15,13 @@ import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
 })
 export class TutorResourcesComponent implements OnInit {
   classId: string;
+  resourceId: number;
   heading = 'Add Resources';
 
   statusLabel = courseStatusLabel;
   isSavingResource$: Observable<boolean>;
+  showConfirmModal$: Observable<boolean>;
+  isDeletingResource$: Observable<boolean>;
   showAddClassResourceModal$: Observable<boolean>;
   view$: Observable<{ loading: boolean; resources: any }>;
 
@@ -48,7 +51,18 @@ export class TutorResourcesComponent implements OnInit {
   }
 
   onCloseAddClassResource() {
+    console.log('rsoucr');
     this._store.dispatch(fromTutorAction.closeTutorAddClassResourceModal());
+  }
+
+  onOpenConfirmModal(resourceId: number) {
+    this.resourceId = resourceId;
+    this._store.dispatch(fromTutorAction.openTutorConfirmModal());
+  }
+
+  onCloseConfirmModal() {
+    console.log('confirm');
+    this._store.dispatch(fromTutorAction.closeTutorConfirmModal());
   }
 
   onDeleteResource(id: number): void {
@@ -79,8 +93,16 @@ export class TutorResourcesComponent implements OnInit {
       fromTutor.selectAddClassResourceModal
     );
 
+    this.showConfirmModal$ = this._store.select(
+      fromTutor.selectTutorConfirmModal
+    );
+
     this.isSavingResource$ = this._store.select(
       fromCore.selectIsAddingTutorResources
+    );
+
+    this.isDeletingResource$ = this._store.select(
+      fromCore.selectIsDeletingResource
     );
 
     this.view$ = combineLatest([

@@ -128,3 +128,11 @@ export const openTutorRescheduleClassModal = createAction(
 export const closeTutorRescheduleClassModal = createAction(
   '[Tutor Modal] Close Tutor Reschedule Class Modal'
 );
+
+export const openTutorConfirmModal = createAction(
+  '[Tutor Modal] Open Tutor Confirm Modal'
+);
+
+export const closeTutorConfirmModal = createAction(
+  '[Tutor Modal] Close Tutor Confirm Modal'
+);

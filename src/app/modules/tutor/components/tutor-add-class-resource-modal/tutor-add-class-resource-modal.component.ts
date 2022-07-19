@@ -32,7 +32,6 @@ export class TutorAddClassResourceModalComponent implements OnInit {
 
   uploadedFiles$: Observable<any>;
   fileUploadProgress$: Observable<any>;
-  isDeletingResource$: Observable<boolean>;
   uploadComplete = generalConstants.uploadComplete;
   view$: Observable<{ loading: boolean; resource: any }>;
 
@@ -74,10 +73,6 @@ export class TutorAddClassResourceModalComponent implements OnInit {
       ),
       this._store.select(fromCore.selectIsLoadingTutorResource),
     ]).pipe(map(([resource, loading]) => ({ loading, resource })));
-
-    this.isDeletingResource$ = this._store.select(
-      fromCore.selectIsDeletingResource
-    );
 
     this.fileUploadProgress$ = this._store
       .select(fromCore.selectFileUploadingProgress)

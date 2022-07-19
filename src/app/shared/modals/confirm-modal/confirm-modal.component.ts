@@ -8,12 +8,12 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class ConfirmModalComponent implements OnInit {
   @Input() icon: string;
   @Input() heading: string;
+  @Input() loading: boolean;
   @Input() showModal = false;
   @Input() subHeading: string;
-  @Input() cancelLabel = 'No';
-  @Input() confirmLabel = 'Yes';
+  @Input() cancelLabel = 'Cancel';
+  @Input() confirmLabel = 'Delete';
 
-  @Output() cancel: EventEmitter<void> = new EventEmitter<void>();
   @Output() confirm: EventEmitter<void> = new EventEmitter<void>();
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
 

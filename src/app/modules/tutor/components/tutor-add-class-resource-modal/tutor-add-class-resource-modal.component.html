@@ -7,10 +7,9 @@
         <div class="d-flex align-items-center">
           {{ heading }}
           <button mat-button class="btn action-icon p-0 ms-3" tabindex="-1" type="button" *ngIf="!!resourceId?.value"
-                  (click)="deleted.emit(resourceId?.value)" [disabled]="(isDeletingResource$ | async)!">
+                  (click)="deleted.emit(resourceId?.value)">
             <img src="assets/svg/delete.svg" alt="" draggable="false" />
             Delete
-            <mat-icon class="spinner" *ngIf="(isDeletingResource$ | async)!">autorenew</mat-icon>
           </button>
         </div>
       </h2>

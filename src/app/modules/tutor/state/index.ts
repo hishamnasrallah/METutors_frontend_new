@@ -103,3 +103,8 @@ export const selectRescheduleClassModal = createSelector(
   selectTutorModalState,
   fromTutorModal.selectRescheduleClassModal
 );
+
+export const selectTutorConfirmModal = createSelector(
+  selectTutorModalState,
+  fromTutorModal.selectTutorConfirmModal
+);

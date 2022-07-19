@@ -90,7 +90,7 @@
 
     <div class="row">
       <div class="col-12">
-        <h3 class="overview mb-3">Today's Classes - 21 March 2020 [SUNDAY]</h3>
+        <h3 class="overview mb-3">Today's Classes - {{view.dashboard?.todaysDate}}</h3>
         <ng-container [ngSwitch]="view.loading">
           <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
           <table class="table my-table" *ngSwitchCase="false">

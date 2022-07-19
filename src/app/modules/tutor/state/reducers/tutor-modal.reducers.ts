@@ -5,6 +5,7 @@ import * as tutorModalActions from '../actions/tutor-modal.actions';
 
 export interface State {
   params: any;
+  showConfirmModal: boolean;
   showAddTopicModal: boolean;
   showRejectCourseModal: boolean;
   showCancelCourseModal: boolean;
@@ -22,6 +23,7 @@ export interface State {
 
 export const initialState: State = {
   params: null,
+  showConfirmModal: false,
   showAddTopicModal: false,
   acceptRejectModalHeading: '',
   showRejectCourseModal: false,
@@ -39,6 +41,20 @@ export const initialState: State = {
 
 export const reducer = createReducer(
   initialState,
+
+  on(tutorModalActions.openTutorConfirmModal, (state) => ({
+    ...state,
+    showConfirmModal: true,
+  })),
+
+  on(
+    fromCore.deleteTutorResourceSuccess,
+    tutorModalActions.closeTutorConfirmModal,
+    (state) => ({
+      ...state,
+      showConfirmModal: false,
+    })
+  ),
 
   on(tutorModalActions.openTutorRejectCourseModal, (state) => ({
     ...state,
@@ -230,6 +246,9 @@ export const reducer = createReducer(
 );
 
 // tutor modal selectors
+export const selectTutorConfirmModal = (state: State): boolean =>
+  state.showConfirmModal;
+
 export const selectAddTopicModal = (state: State): boolean =>
   state.showAddTopicModal;
 
