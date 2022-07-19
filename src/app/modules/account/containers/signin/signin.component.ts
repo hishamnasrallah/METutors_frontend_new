@@ -1,21 +1,19 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable, Subscription, tap } from 'rxjs';
-import { addMisc, getMisc } from 'src/app/config';
-import { AlertNotificationService } from 'src/app/core/components';
 import { IRole } from 'src/app/core/models';
+import * as fromCore from '@metutor/core/state';
+import { Observable, Subscription } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { addMisc, getMisc, SocialProvider } from 'src/app/config';
 import { AuthService, UsersService } from 'src/app/core/services';
 import { FormValidationUtilsService } from 'src/app/core/validators';
-import * as fromCore from '@metutor/core/state';
 import { OtpVerifyComponent, RolesSelectComponent } from '../../components';
+import {
+  FormGroup,
+  Validators,
+  FormBuilder,
+  AbstractControl,
+} from '@angular/forms';
 
 @Component({
   selector: 'metutors-signin',
@@ -24,24 +22,20 @@ import { OtpVerifyComponent, RolesSelectComponent } from '../../components';
 })
 export class SigninComponent implements OnInit, OnDestroy {
   isLoading$: Observable<boolean>;
+  authLoading$: Observable<boolean>;
 
   userRole: any;
   roles!: IRole[];
-  authLoading = false;
   signinForm: FormGroup;
-  signinSub?: Subscription;
   getRolesSub?: Subscription;
-  authSignInSub?: Subscription;
 
   constructor(
-    private _router: Router,
     private _fb: FormBuilder,
     private _store: Store<any>,
     private _dialog: MatDialog,
     private _authService: AuthService,
     private _userService: UsersService,
-    private _fv: FormValidationUtilsService,
-    private _alertNotificationService: AlertNotificationService
+    private _fv: FormValidationUtilsService
   ) {
     this.signinForm = this._fb.group({
       username: [
@@ -63,6 +57,7 @@ export class SigninComponent implements OnInit, OnDestroy {
     this._prepareRoles();
 
     this.isLoading$ = this._store.select(fromCore.selectIsSignIn);
+    this.authLoading$ = this._store.select(fromCore.selectIsSocialSignIn);
     this._store.select(fromCore.selectTempToken).subscribe((token) => {
       if (token) {
         this.openOtpDialog();
@@ -126,74 +121,30 @@ export class SigninComponent implements OnInit, OnDestroy {
 
   signInWithGoogle() {
     this._authService.signInWithGoogle().then((response: any) => {
-      this.authLoading = true;
-
       const data = {
         ...response,
         role: this.userRole,
+        provider: SocialProvider.google,
       };
 
-      this.authSignInSub = this._authService.googleSignIn(data).subscribe(
-        (res) => {
-          this.authLoading = false;
-
-          if (res) {
-            localStorage.setItem('token', res);
-
-            // if (this._authService.getIsStudentAuth()) {
-            //   this._router.navigate(['/student']);
-            // } else if (this._authService.getIsTutorAuth()) {
-            //   this._router.navigate(['/tutor']);
-            // } else {
-            this._router.navigate(['/']);
-            // }
-          }
-        },
-        (error) => {
-          this.authLoading = false;
-          this._alertNotificationService.error(error?.error?.message);
-        }
-      );
+      this._store.dispatch(fromCore.socialSignIn({ user: data }));
     });
   }
 
   signInWithFacebook() {
     this._authService.signInWithFacebook().then((response) => {
-      this.authLoading = true;
-
       const data = {
         ...response,
         role: this.userRole,
+        provider: SocialProvider.facebook,
       };
 
-      this.authSignInSub = this._authService.facebookSignIn(data).subscribe(
-        (res) => {
-          this.authLoading = false;
-
-          if (res) {
-            localStorage.setItem('token', res);
-
-            // if (this._authService.getIsStudentAuth()) {
-            //   this._router.navigate(['/student']);
-            // } else if (this._authService.getIsTutorAuth()) {
-            //   this._router.navigate(['/tutor']);
-            // } else {
-            this._router.navigate(['/']);
-            // }
-          }
-        },
-        (error) => {
-          this.authLoading = false;
-          this._alertNotificationService.error(error?.error?.message);
-        }
-      );
+      this._store.dispatch(fromCore.socialSignIn({ user: data }));
     });
   }
 
   ngOnDestroy(): void {
-    this.signinSub?.unsubscribe();
     this.getRolesSub?.unsubscribe();
-    this.authSignInSub?.unsubscribe();
   }
 
   private _prepareRoles(): void {

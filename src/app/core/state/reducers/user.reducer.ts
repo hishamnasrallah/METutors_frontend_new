@@ -9,6 +9,7 @@ export interface State {
   isSignUp: boolean;
   registerStep: number;
   registerEmail: string;
+  isSocialSignIn: boolean;
 
   // Sign in
   token?: string;
@@ -35,6 +36,7 @@ export const initialState: State = {
   isSignIn: false,
   isSignUp: false,
   registerEmail: '',
+  isSocialSignIn: false,
   isChangePassword: false,
   isSubmitOTPAdmin: false,
   isResendOTPAdmin: false,
@@ -72,9 +74,15 @@ export const reducer = createReducer(
     isSignIn: true,
   })),
 
+  on(userActions.socialSignIn, (state) => ({
+    ...state,
+    isSocialSignIn: true,
+  })),
+
   on(userActions.signInSuccess, (state, { token, profileStep, user }) => ({
     ...state,
     isSignIn: false,
+    isSocialSignIn: false,
     token,
     profileStep,
     user,
@@ -85,6 +93,7 @@ export const reducer = createReducer(
   on(userActions.signInAdminSuccess, (state, { tempToken, user }) => ({
     ...state,
     isSignIn: false,
+    isSocialSignIn: false,
     tempToken,
     user,
   })),
@@ -92,6 +101,7 @@ export const reducer = createReducer(
   on(userActions.signInFailure, (state, { error }) => ({
     ...state,
     isSignIn: false,
+    isSocialSignIn: false,
     signInFailure: error,
     isSubmitOTPAdmin: false,
   })),
@@ -170,6 +180,9 @@ export const selectRegisterEmail = (state: State): string =>
   state.registerEmail;
 
 export const selectIsSignIn = (state: State): boolean => state.isSignIn;
+
+export const selectIsSocialSignIn = (state: State): boolean =>
+  state.isSocialSignIn;
 
 export const selectIsSubmitOTPAdmin = (state: State): boolean =>
   state.isSubmitOTPAdmin;

@@ -10,7 +10,7 @@ import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 
 import { AuthService } from '@services';
 import * as fromRoot from '@metutor/state';
-import { UserRole } from '@metutor/config';
+import { SocialProvider, UserRole } from '@metutor/config';
 import * as fromCore from '@metutor/core/state';
 import * as userActions from '../actions/user.actions';
 import * as tutorActions from '../actions/tutor.actions';
@@ -125,6 +125,110 @@ export class UserEffects {
           )
         )
       )
+    )
+  );
+
+  socialSignIn$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(userActions.socialSignIn),
+      withLatestFrom(
+        this._store.select(fromRoot.selectQueryParam('returnUrl'))
+      ),
+      mergeMap(([{ user }, returnUrl]) => {
+        if (user.provider === SocialProvider.google) {
+          return this._authService.googleSignIn(user).pipe(
+            map((response) => {
+              const jwtHelper = new JwtHelperService();
+              const decodeToken = camelcaseKeys(
+                jwtHelper.decodeToken(response),
+                {
+                  deep: true,
+                }
+              );
+              const user: any = decodeToken?.user;
+
+              if (user?.roleId?.toString() === UserRole.admin.toString()) {
+                return userActions.signInAdminSuccess({
+                  tempToken: response,
+                  user: {
+                    ...user,
+                    avatar: environment.imageURL + user?.avatar,
+                  },
+                  returnUrl,
+                });
+              } else {
+                return userActions.signInSuccess({
+                  token: response,
+                  user: {
+                    ...user,
+                    avatar: environment.imageURL + user?.avatar,
+                  },
+                  profileStep:
+                    user &&
+                    user.profileCompletedStep &&
+                    !isNaN(user.profileCompletedStep)
+                      ? +user.profileCompletedStep + 1
+                      : 1,
+                  returnUrl,
+                });
+              }
+            }),
+            catchError((error) =>
+              of(
+                userActions.signInFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          );
+        } else {
+          return this._authService.facebookSignIn(user).pipe(
+            map((response) => {
+              const jwtHelper = new JwtHelperService();
+              const decodeToken = camelcaseKeys(
+                jwtHelper.decodeToken(response),
+                {
+                  deep: true,
+                }
+              );
+              const user: any = decodeToken?.user;
+
+              if (user?.roleId?.toString() === UserRole.admin.toString()) {
+                return userActions.signInAdminSuccess({
+                  tempToken: response,
+                  user: {
+                    ...user,
+                    avatar: environment.imageURL + user?.avatar,
+                  },
+                  returnUrl,
+                });
+              } else {
+                return userActions.signInSuccess({
+                  token: response,
+                  user: {
+                    ...user,
+                    avatar: environment.imageURL + user?.avatar,
+                  },
+                  profileStep:
+                    user &&
+                    user.profileCompletedStep &&
+                    !isNaN(user.profileCompletedStep)
+                      ? +user.profileCompletedStep + 1
+                      : 1,
+                  returnUrl,
+                });
+              }
+            }),
+            catchError((error) =>
+              of(
+                userActions.signInFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          );
+        }
+      })
     )
   );
 

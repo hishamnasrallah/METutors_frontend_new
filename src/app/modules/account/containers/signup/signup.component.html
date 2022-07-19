@@ -97,14 +97,14 @@
           <div class="row mt-4 social">
             <div class="col-md-6">
               <button (click)="openRolesDialog('google')" mat-button type="button" class="w-100 google"
-                [disabled]="authLoading">
+                [disabled]="authLoading$ | async">
                 <img src="assets/svg/google.svg" alt="">
                 Sign up with Google
               </button>
             </div>
             <div class="col-md-6">
               <button (click)="openRolesDialog('facebook')" mat-button type="button" class="w-100"
-                [disabled]="authLoading">
+                [disabled]="authLoading$ | async">
                 <img src="assets/svg/facebook-light.svg" class="facebook" alt="">
                 Sign up with Facebook
               </button>

@@ -6,12 +6,12 @@ import { CountryISO } from 'ngx-intl-tel-input';
 import * as fromCore from '@metutor/core/state';
 import { MatDialog } from '@angular/material/dialog';
 import { RolesSelectComponent } from '../../components';
-import { addMisc, getMisc, UserRole } from 'src/app/config';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService, UsersService } from 'src/app/core/services';
 import { AlertNotificationService } from 'src/app/core/components';
 import { FormValidationUtilsService } from 'src/app/core/validators';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { addMisc, getMisc, SocialProvider, UserRole } from 'src/app/config';
 import {
   FormGroup,
   Validators,
@@ -36,6 +36,7 @@ export class SignupComponent implements OnInit, OnDestroy {
   step$: Observable<number>;
   email$: Observable<string>;
   isLoading$: Observable<boolean>;
+  authLoading$: Observable<boolean>;
 
   roles!: IRole[];
   userRole = UserRole;
@@ -43,7 +44,6 @@ export class SignupComponent implements OnInit, OnDestroy {
   signupSub?: Subscription;
   loading: boolean = false;
   getRolesSub?: Subscription;
-  authLoading: boolean = false;
   selectedCountry!: CountryISO;
   authSignInSub?: Subscription;
   resendLoading: boolean = false;
@@ -125,7 +125,7 @@ export class SignupComponent implements OnInit, OnDestroy {
     this._prepareRoles();
 
     this.isLoading$ = this._store.select(fromCore.selectIsSignUp);
-
+    this.authLoading$ = this._store.select(fromCore.selectIsSocialSignIn);
     this.step$ = this._store.select(fromCore.selectRegisterStep);
 
     this.email$ = this._store.select(fromCore.selectRegisterEmail);
@@ -302,74 +302,33 @@ export class SignupComponent implements OnInit, OnDestroy {
 
   signInWithGoogle() {
     this._authService.signInWithGoogle().then((response: any) => {
-      this.authLoading = true;
-
       const data = {
         ...response,
-        role: this.userType,
+        role: this.userRole,
+        provider: SocialProvider.google,
       };
 
-      this.authSignInSub = this._authService.googleSignIn(data).subscribe(
-        (res) => {
-          this.authLoading = false;
-
-          if (res) {
-            localStorage.setItem('token', res);
-
-            // if (this._authService.getIsStudentAuth()) {
-            //   this._router.navigate(['/student']);
-            // } else if (this._authService.getIsTutorAuth()) {
-            //   this._router.navigate(['/tutor']);
-            // } else {
-            this._router.navigate(['/']);
-            // }
-          }
-        },
-        (error) => {
-          this.authLoading = false;
-          this._alertNotificationService.error(error?.error?.message);
-        }
-      );
+      this._store.dispatch(fromCore.socialSignIn({ user: data }));
     });
   }
 
   signInWithFacebook() {
     this._authService.signInWithFacebook().then((response) => {
-      this.authLoading = true;
+      this._authService.signInWithFacebook().then((response) => {
+        const data = {
+          ...response,
+          role: this.userRole,
+          provider: SocialProvider.facebook,
+        };
 
-      const data = {
-        ...response,
-        role: this.userType,
-      };
-
-      this.authSignInSub = this._authService.facebookSignIn(data).subscribe(
-        (res) => {
-          this.authLoading = false;
-
-          if (res) {
-            localStorage.setItem('token', res);
-
-            // if (this._authService.getIsStudentAuth()) {
-            //   this._router.navigate(['/student']);
-            // } else if (this._authService.getIsTutorAuth()) {
-            //   this._router.navigate(['/tutor']);
-            // } else {
-            this._router.navigate(['/']);
-            // }
-          }
-        },
-        (error) => {
-          this.authLoading = false;
-          this._alertNotificationService.error(error?.error?.message);
-        }
-      );
+        this._store.dispatch(fromCore.socialSignIn({ user: data }));
+      });
     });
   }
 
   ngOnDestroy(): void {
     this.signupSub?.unsubscribe();
     this.getRolesSub?.unsubscribe();
-    this.authSignInSub?.unsubscribe();
   }
 
   private _prepareRoles(): void {

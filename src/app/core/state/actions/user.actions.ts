@@ -20,6 +20,8 @@ export const registerStep = createAction(
 
 export const signIn = createAction('[User] Sign In', props<{ user: any }>());
 
+export const socialSignIn = createAction('[User] Social Sign In', props<{ user: any }>());
+
 export const signInSuccess = createAction(
   '[User] Sign In Success',
   props<{

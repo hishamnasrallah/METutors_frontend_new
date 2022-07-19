@@ -155,6 +155,11 @@ export const selectIsSignIn = createSelector(
   fromUserReducer.selectIsSignIn
 );
 
+export const selectIsSocialSignIn = createSelector(
+  selectUserState,
+  fromUserReducer.selectIsSocialSignIn
+);
+
 export const selectToken = createSelector(
   selectUserState,
   fromUserReducer.selectToken
