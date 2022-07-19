@@ -86,10 +86,13 @@
                       <p class="col">{{ assignment?.description }}</p>
                     </div>
                     <div class="col-md-5 d-flex align-items-start justify-content-end date-data">
-                      <span class="cursor-pointer text-decoration-underline extend-date" *ngIf="assignment.status === 'active'" (click)="onOpenEditAssignmentModal(assignment.id)">Extend Due Date</span>
+                      <span class="cursor-pointer text-decoration-underline extend-date"
+                            *ngIf="assignment.status === 'active'" (click)="onOpenEditAssignmentModal(assignment.id)">Extend Due Date</span>
                       <div class="d-flex flex-column mx-3">
                         <span>Remaining Time</span>
-                        <strong class="alert-msg" *ngIf="assignment?.remainingDays <= 1">{{ assignment?.remainingDays ? assignment?.remainingDays : 0 }} Days</strong>
+                        <strong class="alert-msg"
+                                *ngIf="assignment?.remainingDays <= 1">{{ assignment?.remainingDays ? assignment?.remainingDays : 0 }}
+                          Days</strong>
                         <strong *ngIf="assignment?.remainingDays > 1">{{ assignment?.remainingDays }} Days</strong>
                       </div>
                       <button mat-button class="main-button-transparent"
@@ -117,11 +120,13 @@
                       <span>{{ assignment?.answerReceived?.length }} out of {{ assignment?.assignees?.length }}</span>
                     </div>
                     <div class="col-1">
-                      <button mat-button class="expand" *ngIf="selectedBlock !== assignment.id">
-                        <mat-icon (click)="openBlock = true; selectedBlock = assignment.id">expand_more</mat-icon>
+                      <button mat-button class="expand" *ngIf="selectedBlock !== assignment.id"
+                              (click)="openBlock = true; selectedBlock = assignment.id">
+                        <mat-icon>expand_more</mat-icon>
                       </button>
-                      <button mat-button class="expand" *ngIf="openBlock && selectedBlock === assignment.id">
-                        <mat-icon (click)="openBlock = false; selectedBlock = null">expand_less</mat-icon>
+                      <button mat-button class="expand" *ngIf="openBlock && selectedBlock === assignment.id"
+                              (click)="openBlock = false; selectedBlock = null">
+                        <mat-icon>expand_less</mat-icon>
                       </button>
                     </div>
                   </div>
@@ -142,7 +147,8 @@
                           (click)="openViewStudentAssignmentModal(assignment.id, assignee)">
                         <td scope="row">{{ num + 1 }}</td>
                         <td>
-                          <img [src]="imageUrl+assignee?.user?.avatar" meTutorsDefaultAvatar draggable="false" width="25"
+                          <img [src]="imageUrl+assignee?.user?.avatar" meTutorsDefaultAvatar draggable="false"
+                               width="25"
                                height="25"
                                class="rounded-circle"
                                alt="">
@@ -153,7 +159,8 @@
                         <td>
                           <span class="status-icon text-capitalize"
                                 [ngClass]="assignee?.status">{{ assignee?.status }}</span>
-                          <span class="late ms-2" *ngIf="!assignment?.remainingDays && (assignee.status !== 'submitted' || assignee.status !== 'completed')">Late</span>
+                          <span class="late ms-2"
+                                *ngIf="!assignment?.remainingDays && (assignee.status !== 'submitted' || assignee.status !== 'completed')">Late</span>
                         </td>
                       </tr>
                     </table>
@@ -162,6 +169,12 @@
               </div>
             </div>
           </ng-container>
+
+          <metutors-confirm-modal *ngIf="showConfirmModal$ | async" [showModal]="(showConfirmModal$ | async)!"
+                                  [loading]="(isDeletingAssignment$ | async)!"
+                                  (confirm)="onDeleteAssignment(assignmentId)" (closeModal)="onCloseConfirmModal()">
+          </metutors-confirm-modal>
+
           <metutors-tutor-add-assignment-modal *ngIf="showAddAssignmentModal$ | async"
                                                (closeModal)="onCloseAddAssignment()"
                                                [courseId]="assignments?.course?.id"
@@ -170,12 +183,13 @@
 
           <metutors-tutor-assignment-details-modal *ngIf="showAssignmentDetailsModal$ | async"
                                                    (closeModal)="onCloseAssignmentDetails()"
+                                                   (deleteAssignment)="onOpenConfirmModal($event)"
                                                    [showModal]="(showAssignmentDetailsModal$ | async)!">
           </metutors-tutor-assignment-details-modal>
 
           <metutors-tutor-view-submitted-assignment-modal *ngIf="showViewStudentAssignmentModal$ | async"
-                                                   (closeModal)="onCloseTutorViewStudentAssignmentModal()"
-                                                   [showModal]="(showViewStudentAssignmentModal$ | async)!">
+                                                          (closeModal)="onCloseTutorViewStudentAssignmentModal()"
+                                                          [showModal]="(showViewStudentAssignmentModal$ | async)!">
           </metutors-tutor-view-submitted-assignment-modal>
 
           <metutors-tutor-accept-reject-assignment-modal *ngIf="showAcceptRejectAssignmentModal$ | async"

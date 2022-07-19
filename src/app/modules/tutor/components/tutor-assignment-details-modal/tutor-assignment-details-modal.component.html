@@ -14,10 +14,9 @@
             </button>
 
             <button mat-button class="btn action-icon p-0 ms-3" tabindex="-1" type="button"
-                    (click)="deleteAssignment(view?.assignment.id)" [disabled]="(isDeletingAssignment$ | async)!">
+                    (click)="deleteAssignment.emit(view?.assignment.id)">
               <img src="assets/svg/delete.svg" draggable="false" width="15" height="15" alt=""/>
               Delete
-              <mat-icon class="spinner" *ngIf="(isDeletingAssignment$ | async)!">autorenew</mat-icon>
             </button>
           </div>
         </h2>

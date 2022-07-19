@@ -63,9 +63,17 @@ export class TutorAddAssignmentModalComponent implements OnInit {
       ),
     });
 
-    this.fileUploadProgress$ = this._store.select(
-      fromCore.selectFileUploadingProgress
-    );
+    this.fileUploadProgress$ = this._store
+      .select(fromCore.selectFileUploadingProgress)
+      .pipe(
+        tap((progress) => {
+          progress?.map((response: any) => {
+            if (response.responseType === this.uploadComplete) {
+              this.files?.markAsDirty();
+            }
+          });
+        })
+      );
 
     this.isAddingAssignment$ = this._store.select(
       fromCore.selectIsAddingAssignment
@@ -98,6 +106,7 @@ export class TutorAddAssignmentModalComponent implements OnInit {
               (assi: any) => assi.userId
             );
 
+            console.log(assignees);
             this.assignee?.setValue(assignees);
             this.id?.setValue(data?.assignment?.id);
             this.title?.setValue(data?.assignment?.title);

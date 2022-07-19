@@ -16,16 +16,12 @@ export class TutorAssignmentDetailsModalComponent implements OnInit {
   @Input() showModal: boolean = false;
 
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
+  @Output() deleteAssignment: EventEmitter<number> = new EventEmitter<number>();
 
   imageUrl = environment.imageURL;
-  isDeletingAssignment$: Observable<boolean>;
   view$: Observable<{ loading: boolean; assignment: any }>;
 
   constructor(private _store: Store<any>) {}
-
-  deleteAssignment(id: number): void {
-    this._store.dispatch(fromCore.deleteTutorAssignment({ id }));
-  }
 
   openEditAssignmentModal(id: number): void {
     const params = {
@@ -37,10 +33,6 @@ export class TutorAssignmentDetailsModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isDeletingAssignment$ = this._store.select(
-      fromCore.selectIsDeletingTutorAssignment
-    );
-
     this.view$ = combineLatest([
       this._store.select(fromCore.selectTutorAssignment).pipe(
         map((assignment: any) => {

@@ -49,9 +49,12 @@ export class TutorAssignmentComponent implements OnInit {
 
   loading$: Observable<boolean>;
   assignments$: Observable<any>;
+  showConfirmModal$: Observable<boolean>;
+  isDeletingAssignment$: Observable<boolean>;
 
   openBlock: boolean;
   selectedBlock: null;
+  assignmentId: number;
   activeAssignment = true;
   imageUrl = environment.imageURL;
 
@@ -96,6 +99,19 @@ export class TutorAssignmentComponent implements OnInit {
     this._store.dispatch(
       fromTutorAction.closeTutorViewStudentAssignmentModal()
     );
+  }
+
+  onOpenConfirmModal(assignmentId: number) {
+    this.assignmentId = assignmentId;
+    this._store.dispatch(fromTutorAction.openTutorConfirmModal());
+  }
+
+  onCloseConfirmModal() {
+    this._store.dispatch(fromTutorAction.closeTutorConfirmModal());
+  }
+
+  onDeleteAssignment(id: number): void {
+    this._store.dispatch(fromCore.deleteTutorAssignment({ id }));
   }
 
   openViewStudentAssignmentModal(id: number, assignee: any): void {
@@ -144,6 +160,14 @@ export class TutorAssignmentComponent implements OnInit {
 
     this.showAcceptRejectAssignmentModal$ = this._store.select(
       fromTutor.selectAcceptRejectAssignmentModal
+    );
+
+    this.showConfirmModal$ = this._store.select(
+      fromTutor.selectTutorConfirmModal
+    );
+
+    this.isDeletingAssignment$ = this._store.select(
+      fromCore.selectIsDeletingTutorAssignment
     );
 
     this.assignments$ = this._store.select(

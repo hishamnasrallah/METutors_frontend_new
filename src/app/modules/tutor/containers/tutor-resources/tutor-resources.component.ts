@@ -51,7 +51,6 @@ export class TutorResourcesComponent implements OnInit {
   }
 
   onCloseAddClassResource() {
-    console.log('rsoucr');
     this._store.dispatch(fromTutorAction.closeTutorAddClassResourceModal());
   }
 
@@ -61,7 +60,6 @@ export class TutorResourcesComponent implements OnInit {
   }
 
   onCloseConfirmModal() {
-    console.log('confirm');
     this._store.dispatch(fromTutorAction.closeTutorConfirmModal());
   }
 
