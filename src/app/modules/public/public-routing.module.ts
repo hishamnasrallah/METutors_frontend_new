@@ -12,6 +12,7 @@ import {
   BecomeTutorComponent,
   StudentSuccessComponent,
   LanguagesCoursesComponent,
+  TermsConditionsComponent,
 } from './containers';
 
 const routes: Routes = [
@@ -64,6 +65,11 @@ const routes: Routes = [
     path: 'all-courses/:programId',
     component: AllCoursesComponent,
     data: { layout: { title: 'Courses - Metutors' } },
+  },
+  {
+    path: 'terms-conditions',
+    component: TermsConditionsComponent,
+    data: { layout: { title: 'Terms and Conditions - Metutors' } },
   },
 ];
 

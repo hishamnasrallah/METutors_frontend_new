@@ -29,6 +29,7 @@ import {
   AllCoursesComponent,
   BecomeTutorComponent,
   StudentSuccessComponent,
+  TermsConditionsComponent,
   LanguagesCoursesComponent,
 } from './containers';
 
@@ -110,6 +111,7 @@ import {
     GetYourClassesComponent,
     ExploreCoursesComponent,
     LanguageCoursesComponent,
+    TermsConditionsComponent,
     FactsStatisticsComponent,
     StartLearningNowComponent,
     LanguagesCoursesComponent,

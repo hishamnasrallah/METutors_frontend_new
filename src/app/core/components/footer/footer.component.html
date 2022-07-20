@@ -108,7 +108,7 @@
       <div class="col-md-7">
         <form>
           <div class="form-block position-relative">
-            <input type="email" placeholder="insert your email " class="w-100">
+            <input type="email" placeholder="insert your email " class="w-100" />
             <button mat-flat-button color="primary">Sign up for free</button>
           </div>
         </form>
@@ -136,18 +136,18 @@
       <div class="col-md-8">
         <ul class="list-inline m-0">
           <li class="list-inline-item">
-            <a href="">Terms of Services</a>
+            <a routerLink="/terms-conditions">Terms of Services</a>
           </li>
           <li class="list-inline-item">
-            <a href="">Privacy Policy</a>
+            <a routerLink="/privacy-policy">Privacy Policy</a>
           </li>
           <li class="list-inline-item">
-            <a href="">Cookies Police</a>
+            <a routerLink="/cookies-policy">Cookies Police</a>
           </li>
         </ul>
       </div>
       <div class="col-md-4 text-end">
-        © {{ myDate | date:'y' }} MEtutors. All Rights Reserved
+        © {{ myDate | date: "y" }} MEtutors. All Rights Reserved
       </div>
     </div>
   </div>

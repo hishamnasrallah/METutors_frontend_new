@@ -7,4 +7,5 @@ export * from './faq-ticket';
 export * from './all-courses';
 export * from './become-tutor';
 export * from './student-success';
+export * from './terms-conditions';
 export * from './languages-courses';
