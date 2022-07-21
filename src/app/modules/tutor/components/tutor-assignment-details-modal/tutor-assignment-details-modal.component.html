@@ -33,7 +33,7 @@
             <h3>{{ view?.assignment?.title }}</h3>
             <div class="overflow-visible logos">
               <ng-container *ngFor="let assignee of view?.assignment?.assignees">
-                <img meTutorsDefaultAvatar [src]="imageUrl+assignee?.user?.avatar" alt="" draggable="false"
+                <img meTutorsDefaultAvatar [src]="imageUrl+assignee?.avatar" alt="" draggable="false"
                      class="d-inline-block rounded-circle">
               </ng-container>
             </div>
