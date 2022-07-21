@@ -106,13 +106,14 @@ export class TutorAddAssignmentModalComponent implements OnInit {
               (assi: any) => assi.userId
             );
 
-            console.log(assignees);
             this.assignee?.setValue(assignees);
             this.id?.setValue(data?.assignment?.id);
             this.title?.setValue(data?.assignment?.title);
             this.endDate?.setValue(data?.assignment?.deadline);
             this.startDate?.setValue(data?.assignment?.startDate);
             this.description?.setValue(data?.assignment?.description);
+
+            this.form.valueChanges.subscribe(() => console.log(this.form));
           }
         })
       ),

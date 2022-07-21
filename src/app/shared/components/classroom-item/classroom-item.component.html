@@ -26,7 +26,8 @@
                width="25px" height="25px" alt=""/>
         </h5>
         <div class="d-inline-flex">
-          <button mat-button class="class-btn text-uppercase main-button-opacity" *ngIf="classroom?.program">{{ classroom?.program?.code }}</button>
+          <button mat-button class="class-btn text-uppercase main-button-opacity"
+                  *ngIf="classroom?.program">{{ classroom?.program?.code === 'NA' ? classroom?.program?.name : classroom?.program?.code   }}</button>
         </div>
       </div>
 
