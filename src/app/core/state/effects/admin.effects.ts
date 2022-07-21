@@ -7,7 +7,6 @@ import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 
 import { AdminService } from '@services';
 import camelcaseKeys from 'camelcase-keys';
-import * as fromCore from '@metutor/core/state';
 import * as fromRouterStore from '@metutor/state';
 import * as adminActions from '../actions/admin.actions';
 import { AlertNotificationService } from '@metutor/core/components';
@@ -17,33 +16,26 @@ export class AdminEffects {
   loadAdminDocuments$ = createEffect(() =>
     this._actions$.pipe(
       ofType(adminActions.loadAdminDocuments),
-      withLatestFrom(
-        this._store.select(fromCore.selectAdminDocuments),
-        this._store.select(fromRouterStore.selectRouteParams)
-      ),
-      mergeMap(([_, _documents, { id }]) => {
-        if (!_documents || !_documents.length) {
-          return this._adminService.loadAdminDocuments(id).pipe(
-            map(
-              (documents) =>
-                adminActions.loadAdminDocumentsSuccess({
-                  documents: camelcaseKeys(documents?.user_documents, {
-                    deep: true,
-                  }),
+      withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
+      mergeMap(([_, { id }]) =>
+        this._adminService.loadAdminDocuments(id).pipe(
+          map(
+            (documents) =>
+              adminActions.loadAdminDocumentsSuccess({
+                documents: camelcaseKeys(documents?.user_documents, {
+                  deep: true,
                 }),
-              catchError((error) =>
-                of(
-                  adminActions.loadAdminDocumentsFailure({
-                    error: error?.error?.message || error?.error?.errors,
-                  })
-                )
+              }),
+            catchError((error) =>
+              of(
+                adminActions.loadAdminDocumentsFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
               )
             )
-          );
-        } else {
-          return of(adminActions.loadAdminDocumentsEnded());
-        }
-      })
+          )
+        )
+      )
     )
   );
 

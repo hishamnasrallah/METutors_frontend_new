@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
 
 import * as moment from 'moment';
 import * as fromTutor from '../../state';
+import { environment } from '@environment';
 import * as fromCore from '@metutor/core/state';
 import * as fromTutorAction from '../../state/actions';
 import { CourseStatus, courseStatusLabel, WEEK_DAYS_LONG } from '@config';
@@ -17,6 +18,7 @@ import { CourseStatus, courseStatusLabel, WEEK_DAYS_LONG } from '@config';
 })
 export class TutorClassDashboardComponent implements OnInit {
   classId: number;
+  imageURL = environment.imageURL;
   isLaunchingClass$: Observable<boolean>;
   isLoadingViewClass$: Observable<boolean>;
   showRescheduleModal: Observable<boolean>;

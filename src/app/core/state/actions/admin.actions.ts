@@ -28,10 +28,6 @@ export const loadAdminTutorsFailure = createAction(
   props<{ error: any }>()
 );
 
-export const loadAdminDocumentsEnded = createAction(
-  '[Admin] Load Admin Documents Ended'
-);
-
 // Admin Approve Document
 export const adminApproveDocument = createAction(
   '[Admin] Admin ApproveDocument',

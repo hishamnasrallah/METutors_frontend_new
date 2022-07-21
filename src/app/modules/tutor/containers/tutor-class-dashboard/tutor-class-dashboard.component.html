@@ -97,9 +97,15 @@
               <tr *ngFor="let todaysClass of view.data.todaysClasses; let i=index">
                 <td>{{ i + 1 }}</td>
                 <td>{{ todaysClass.title }}</td>
-                <td></td>
+                <td>
+                  <metutors-user-avatar [avatar]="imageURL+attendee?.user?.avatar"
+                                        *ngFor="let attendee of todaysClass?.attendees" [type]="'small'"
+                                        [name]="attendee?.user?.firstName+' '+attendee?.user?.lastName"
+                                        class="d-inline-block">
+                  </metutors-user-avatar>
+                </td>
                 <td>{{ todaysClass.startTime }} - {{ todaysClass.endTime }} </td>
-                <td>2 hours</td>
+                <td>{{ todaysClass?.duration }} hours</td>
                 <td class="d-flex">
                   <button mat-button class="main-button-opacity flex-grow-1" (click)="launchClass(todaysClass.id)"
                           *ngIf="todaysClass?.status !== 'completed'" [disabled]="(isLaunchingClass$ | async)">
@@ -143,7 +149,13 @@
               <tr *ngFor="let upcomingClass of view.data.upcomingClasses; let i=index">
                 <td>{{ i + 1}}</td>
                 <td>{{ upcomingClass.title ? upcomingClass.title : 'N/A' }}</td>
-                <td></td>
+                <td>
+                  <metutors-user-avatar [avatar]="imageURL+attendee?.user?.avatar"
+                                        *ngFor="let attendee of upcomingClass?.attendees" [type]="'small'"
+                                        [name]="attendee?.user?.firstName+' '+attendee?.user?.lastName"
+                                        class="d-inline-block">
+                  </metutors-user-avatar>
+                </td>
                 <td>{{ upcomingClass.startDate | date: 'EEEE' }} </td>
                 <td>{{ upcomingClass.startDate }} </td>
                 <td>{{ upcomingClass.startTime }} - {{ upcomingClass.endTime }} </td>
@@ -187,11 +199,11 @@
                 <td>{{ i + 1}}</td>
                 <td>{{ pastClass.title }}</td>
                 <td>
-                  <div class="overflow-visible logos" *ngIf="pastClass?.attendence?.length">
-                    <metutors-user-avatar [avatar]="attendee?.avatar" *ngFor="let attendee of pastClass?.attendence"
-                                          class="d-inline-block">
-                    </metutors-user-avatar>
-                  </div>
+                  <metutors-user-avatar [avatar]="imageURL+attendee?.user?.avatar"
+                                        *ngFor="let attendee of pastClass?.attendees" [type]="'small'"
+                                        [name]="attendee?.user?.firstName+' '+attendee?.user?.lastName"
+                                        class="d-inline-block">
+                  </metutors-user-avatar>
                 </td>
                 <td>{{ pastClass.startDate | date: 'EEEE'}} </td>
                 <td>{{ pastClass.startDate | date }} </td>
@@ -204,9 +216,9 @@
                     View Class
                   </button>
 
-                  <button mat-button class="secondary-button-opacity flex-grow-1" *ngIf="pastClass?.status === 'absent'">
+                  <span class="w-100 text-danger text-center" *ngIf="pastClass?.status === 'absent'">
                     Student Absent
-                  </button>
+                  </span>
                 </td>
               </tr>
             </ng-container>
