@@ -11,6 +11,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AccountRoutingModule } from './account-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import * as fromAccount from './state';
+import { StoreModule } from '@ngrx/store';
+import * as featureKeys from './state/feature-keys';
+
 import {
   SigninComponent,
   SignupComponent,
@@ -25,6 +29,7 @@ import {
   AuthOpinionsComponent,
   SignupUploadDocumentsComponent,
   SignupEmailVerificationComponent,
+  SigninEmailVerificationModalComponent,
 } from './components';
 
 @NgModule({
@@ -39,6 +44,7 @@ import {
     ForgetPasswordComponent,
     SignupUploadDocumentsComponent,
     SignupEmailVerificationComponent,
+    SigninEmailVerificationModalComponent,
   ],
   imports: [
     FormsModule,
@@ -53,6 +59,7 @@ import {
     ReactiveFormsModule,
     AccountRoutingModule,
     NgxIntlTelInputModule,
+    StoreModule.forFeature(featureKeys.accountFeatureKey, fromAccount.reducers),
   ],
   providers: [],
   exports: [ConfirmEmailComponent],

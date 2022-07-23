@@ -1,5 +1,5 @@
 <div class="container py-5 signup-block" *ngLet="(step$ | async) as step">
-  <div class="row">
+  <div class="row" *ngLet="(userType$ | async) as accountType">
     <div class="col-md-5 d-flex flex-column" *ngIf="step === 1">
       <a class="pb-5" routerLink="/">
         <img alt="logo" src="assets/logo/logo-dark.png" width="200px" draggable="false">
@@ -15,7 +15,7 @@
             <label>Choose account type</label>
             <div class="row">
               <div class="col-md-6" *ngFor="let role of roles">
-                <button mat-button (click)="userType = role?.id" class="w-100 text-start"
+                <button mat-button (click)="changeStep(1, '', role?.id!)" class="w-100 text-start"
                   [ngClass]="userType == role?.id ? 'active' : ''" type="button">
                   <mat-icon>local_library</mat-icon>
                   I'm a {{ role?.name }}
@@ -127,8 +127,10 @@
       </a>
 
       <div *ngLet="(email$ | async) as myEmail">
-        <metutors-signup-email-verification [loading]="loading" [resendLoading]="resendLoading"
-          (submitForm)="onSubmitVerifyEmail($event, myEmail)" (resendEmail)="resendEmailConfirm(myEmail)">
+        <metutors-signup-email-verification [loading]="(isVerifyEmail$ | async)!"
+          [resendLoading]="(isResendEmailconfirm$ | async)!" [email]="myEmail"
+          (submitForm)="onSubmitVerifyEmail($event, myEmail)" (resendEmail)="resendEmailConfirm(myEmail)"
+          (changeStep)="changeStep(1, '', accountType)">
         </metutors-signup-email-verification>
       </div>
     </div>
@@ -148,7 +150,7 @@
       <div class="steps" [@userTypeAnimate]>
         <h2>How to create your account</h2>
         <p>
-          In {{ userType === 1 ? 2 : 3 }} steps you can create your account and starting taking
+          In {{ accountType === 1 ? 2 : 3 }} steps you can create your account and starting taking
           your courses with MEtutors
         </p>
         <ul class="list-unstyled">
@@ -164,7 +166,7 @@
               Verify Your Email
             </h4>
           </li>
-          <li [ngClass]="{'active': step === 3}" *ngIf="userType === userRole.tutor">
+          <li [ngClass]="{'active': step === 3}" *ngIf="accountType === userRole.tutor">
             <span>Step three</span>
             <h4>
               Upload Documents

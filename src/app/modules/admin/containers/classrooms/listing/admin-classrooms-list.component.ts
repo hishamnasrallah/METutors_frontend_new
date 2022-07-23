@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { combineLatest, map, Observable } from 'rxjs';
 
 import { courseStatusLabel } from '@config';
-import { ICourse, ITutorFilters } from '@models';
+import { ICourse } from '@models';
 import * as fromCore from '@metutor/core/state';
 
 @Component({

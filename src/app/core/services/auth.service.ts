@@ -65,8 +65,8 @@ export class AuthService {
     return this.http.post<any>(BACKEND_URL + 'verification', sendData);
   }
 
-  resendEmailConfirm(value: any): Observable<any> {
-    return this.http.post<any>(BACKEND_URL + 'verification/resend', value);
+  resendEmailConfirm(email: string): Observable<any> {
+    return this.http.post<any>(BACKEND_URL + 'verification/resend', { email });
   }
 
   uploadDocuments(data: any): Observable<any> {

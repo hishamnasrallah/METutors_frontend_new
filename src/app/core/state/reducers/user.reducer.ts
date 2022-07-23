@@ -3,13 +3,17 @@ import { createReducer, on } from '@ngrx/store';
 import * as userActions from '../actions/user.actions';
 import * as tutorActions from '../actions/tutor.actions';
 import * as uploadActions from '../actions/upload.actions';
+import { UserRole } from '@metutor/config';
 
 export interface State {
   // Sign up
   isSignUp: boolean;
   registerStep: number;
   registerEmail: string;
+  isVerifyEmail: boolean;
   isSocialSignIn: boolean;
+  registerUserType: number;
+  isResendEmailConfirm: boolean;
 
   // Sign in
   token?: string;
@@ -36,11 +40,14 @@ export const initialState: State = {
   isSignIn: false,
   isSignUp: false,
   registerEmail: '',
+  isVerifyEmail: false,
   isSocialSignIn: false,
   isChangePassword: false,
   isSubmitOTPAdmin: false,
   isResendOTPAdmin: false,
+  isResendEmailConfirm: false,
   changePasswordSuccess: false,
+  registerUserType: UserRole.student,
 };
 
 export const reducer = createReducer(
@@ -51,11 +58,12 @@ export const reducer = createReducer(
     isSignUp: true,
   })),
 
-  on(userActions.registerSuccess, (state, { email }) => ({
+  on(userActions.registerSuccess, (state, { email, userType }) => ({
     ...state,
     isSignUp: false,
     registerStep: 2,
     registerEmail: email,
+    registerUserType: userType,
   })),
 
   on(userActions.registerFailure, (state) => ({
@@ -63,10 +71,11 @@ export const reducer = createReducer(
     isSignUp: false,
   })),
 
-  on(userActions.registerStep, (state, { step, email }) => ({
+  on(userActions.registerStep, (state, { step, email, userType }) => ({
     ...state,
     registerStep: step,
     registerEmail: email,
+    registerUserType: userType,
   })),
 
   on(userActions.signIn, (state) => ({
@@ -164,6 +173,36 @@ export const reducer = createReducer(
     isChangePassword: false,
     changePasswordSuccess: false,
     changePasswordFailure: error,
+  })),
+
+  on(userActions.verifyEmail, (state) => ({
+    ...state,
+    isVerifyEmail: true,
+  })),
+
+  on(userActions.verifyEmailSuccess, (state) => ({
+    ...state,
+    isVerifyEmail: false,
+  })),
+
+  on(userActions.verifyEmailFailure, (state, { error }) => ({
+    ...state,
+    isVerifyEmail: false,
+  })),
+
+  on(userActions.resendEmailConfirm, (state) => ({
+    ...state,
+    isResendEmailConfirm: true,
+  })),
+
+  on(userActions.resendEmailConfirmSuccess, (state) => ({
+    ...state,
+    isResendEmailConfirm: false,
+  })),
+
+  on(userActions.resendEmailConfirmFailure, (state, { error }) => ({
+    ...state,
+    isResendEmailConfirm: false,
   }))
 );
 
@@ -178,6 +217,9 @@ export const selectRegisterStep = (state: State): number => state.registerStep;
 
 export const selectRegisterEmail = (state: State): string =>
   state.registerEmail;
+
+export const selectRegisterUserType = (state: State): number =>
+  state.registerUserType;
 
 export const selectIsSignIn = (state: State): boolean => state.isSignIn;
 
@@ -199,3 +241,9 @@ export const selectIsChangingPassword = (state: State): boolean =>
 
 export const selectChangePasswordSuccess = (state: State): boolean =>
   state.changePasswordSuccess;
+
+export const selectIsVerifyEmail = (state: State): boolean =>
+  state.isVerifyEmail;
+
+export const selectIsResendEmailConfirm = (state: State): boolean =>
+  state.isResendEmailConfirm;

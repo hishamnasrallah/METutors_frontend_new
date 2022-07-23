@@ -61,7 +61,7 @@
           <div class="form-group mt-4">
             <p>
               haven’t an account?
-              <a routerLink="/signup">Sign up now</a>
+              <a routerLink="/signup"  [queryParams]="{returnUrl}">Sign up now</a>
             </p>
           </div>
         </div>
@@ -72,3 +72,15 @@
     </div>
   </div>
 </div>
+
+<ng-container *ngLet="(userRole$ | async) as userRole">
+  <metutors-signin-email-verification-modal *ngIf="showAccountEmailVerificationModal$ | async"
+                                            (closeModal)="onCloseAccountEmailVerificationModal()"
+                                            [email]="username?.value"
+                                            [loading]="(isVerifyEmail$ | async)!"
+                                            [resendLoading]="(isResendEmailconfirm$ | async)!"
+                                            (submitForm)="onSubmitVerifyEmail($event, userRole)"
+                                            (resendEmail)="resendEmailConfirm()"
+                                            [showModal]="(showAccountEmailVerificationModal$ | async)!">
+  </metutors-signin-email-verification-modal>
+</ng-container>

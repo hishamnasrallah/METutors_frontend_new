@@ -35,8 +35,11 @@ import {
 export class SignupComponent implements OnInit, OnDestroy {
   step$: Observable<number>;
   email$: Observable<string>;
+  userType$: Observable<number>;
   isLoading$: Observable<boolean>;
   authLoading$: Observable<boolean>;
+  isVerifyEmail$: Observable<boolean>;
+  isResendEmailconfirm$: Observable<boolean>;
 
   roles!: IRole[];
   userRole = UserRole;
@@ -46,7 +49,6 @@ export class SignupComponent implements OnInit, OnDestroy {
   getRolesSub?: Subscription;
   selectedCountry!: CountryISO;
   authSignInSub?: Subscription;
-  resendLoading: boolean = false;
   userType?: number = UserRole.student;
 
   preferredCountries: CountryISO[] = [
@@ -127,8 +129,12 @@ export class SignupComponent implements OnInit, OnDestroy {
     this.isLoading$ = this._store.select(fromCore.selectIsSignUp);
     this.authLoading$ = this._store.select(fromCore.selectIsSocialSignIn);
     this.step$ = this._store.select(fromCore.selectRegisterStep);
-
     this.email$ = this._store.select(fromCore.selectRegisterEmail);
+    this.userType$ = this._store.select(fromCore.selectRegisterUserType);
+    this.isVerifyEmail$ = this._store.select(fromCore.selectIsVerifyEmail);
+    this.isResendEmailconfirm$ = this._store.select(
+      fromCore.selectIsResendEmailConfirm
+    );
   }
 
   get firstName(): AbstractControl | null {
@@ -188,68 +194,20 @@ export class SignupComponent implements OnInit, OnDestroy {
   }
 
   onSubmitVerifyEmail(code: string, email: string) {
-    this.loading = true;
-    const data = {
+    const value = {
       username: this.email?.value ? this.email?.value : email,
       code,
     };
 
-    this.signupSub = this._authService.verifyEmail(data).subscribe(
-      (response) => {
-        if (response.status === true) {
-          this.loading = false;
-          this._alertNotificationService.success(response.message);
-
-          if (this.userType == UserRole.student) {
-            this._router.navigate(['/signin']);
-            this._store.dispatch(fromCore.registerStep({ step: 1, email: '' }));
-          } else {
-            this._store.dispatch(
-              fromCore.registerStep({
-                step: 3,
-                email: this.email?.value ? this.email?.value : email,
-              })
-            );
-          }
-        } else {
-          this.loading = false;
-          this._alertNotificationService.error(response.errors[0]);
-        }
-      },
-      (error) => {
-        this.loading = false;
-        this._alertNotificationService.error(
-          error?.error?.message ||
-            'Something went wrong while verifing your email'
-        );
-      }
-    );
+    this._store.dispatch(fromCore.verifyEmail({ value }));
   }
 
   resendEmailConfirm(email: string): void {
-    this.resendLoading = true;
-    this.signupSub = this._authService
-      .resendEmailConfirm({
+    this._store.dispatch(
+      fromCore.resendEmailConfirm({
         email: this.email?.value ? this.email?.value : email,
       })
-      .subscribe(
-        (response) => {
-          if (response.status === true) {
-            this.resendLoading = false;
-            this._alertNotificationService.success(response.message);
-          } else {
-            this.resendLoading = false;
-            this._alertNotificationService.error(response.errors[0]);
-          }
-        },
-        (error) => {
-          this.resendLoading = false;
-          this._alertNotificationService.error(
-            error?.error?.message ||
-              'Something went wrong while verifing your email'
-          );
-        }
-      );
+    );
   }
 
   submitDocuments(files: File[], email: string) {
@@ -265,7 +223,13 @@ export class SignupComponent implements OnInit, OnDestroy {
     this.signupSub = this._authService.uploadDocuments(formData).subscribe(
       (res) => {
         if (res.status === 'true') {
-          this._store.dispatch(fromCore.registerStep({ step: 1, email: '' }));
+          this._store.dispatch(
+            fromCore.registerStep({
+              step: 1,
+              email: '',
+              userType: this.userType || 0,
+            })
+          );
           this._alertNotificationService.success(res.message);
           this._router.navigate(['/signin']);
         } else {
@@ -280,6 +244,17 @@ export class SignupComponent implements OnInit, OnDestroy {
             'Something went wrong while uploading the documents'
         );
       }
+    );
+  }
+
+  changeStep(step: number, email: string, userType: number): void {
+    this.userType = userType;
+    this._store.dispatch(
+      fromCore.registerStep({
+        step,
+        email,
+        userType,
+      })
     );
   }
 
@@ -304,7 +279,7 @@ export class SignupComponent implements OnInit, OnDestroy {
     this._authService.signInWithGoogle().then((response: any) => {
       const data = {
         ...response,
-        role: this.userRole,
+        role: this.userType,
         provider: SocialProvider.google,
       };
 
@@ -317,7 +292,7 @@ export class SignupComponent implements OnInit, OnDestroy {
       this._authService.signInWithFacebook().then((response) => {
         const data = {
           ...response,
-          role: this.userRole,
+          role: this.userType,
           provider: SocialProvider.facebook,
         };
 

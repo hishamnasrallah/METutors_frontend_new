@@ -1,0 +1,15 @@
+form h3 {
+  font-size: 17px;
+
+  span {
+    color: var(--main-color);
+    font-style: italic;
+  }
+
+  button {
+    color: var(--main-color);
+    font-weight: bold;
+    padding: 0;
+    margin-top: 5px;
+  }
+}

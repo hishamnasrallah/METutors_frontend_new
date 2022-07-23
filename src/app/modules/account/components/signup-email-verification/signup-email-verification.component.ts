@@ -16,10 +16,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class SignupEmailVerificationComponent implements OnInit {
   @ViewChild('ngOtpInput', { static: false }) ngOtpInput: any;
 
+  @Input() email: string;
+  @Input() showHint = true;
   @Input() loading?: boolean;
   @Input() resendLoading?: boolean;
 
   @Output() submitForm = new EventEmitter();
+  @Output() changeStep = new EventEmitter();
   @Output() resendEmail = new EventEmitter();
 
   form: FormGroup;

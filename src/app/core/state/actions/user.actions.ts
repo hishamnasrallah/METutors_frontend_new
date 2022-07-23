@@ -5,7 +5,7 @@ export const register = createAction('[User] Register', props<{ user: any }>());
 
 export const registerSuccess = createAction(
   '[User] Register Success',
-  props<{ email: string }>()
+  props<{ email: string; userType: number }>()
 );
 
 export const registerFailure = createAction(
@@ -15,12 +15,15 @@ export const registerFailure = createAction(
 
 export const registerStep = createAction(
   '[User] Register Step',
-  props<{ step: number; email: string }>()
+  props<{ step: number; email: string; userType: number }>()
 );
 
 export const signIn = createAction('[User] Sign In', props<{ user: any }>());
 
-export const socialSignIn = createAction('[User] Social Sign In', props<{ user: any }>());
+export const socialSignIn = createAction(
+  '[User] Social Sign In',
+  props<{ user: any }>()
+);
 
 export const signInSuccess = createAction(
   '[User] Sign In Success',
@@ -43,7 +46,7 @@ export const signInAdminSuccess = createAction(
 
 export const signInFailure = createAction(
   '[User] Sign In Failure',
-  props<{ error: any }>()
+  props<{ error: any; errorInfo: any }>()
 );
 
 export const signInRequired = createAction(
@@ -101,5 +104,35 @@ export const changePasswordSuccess = createAction(
 
 export const changePasswordFailure = createAction(
   '[User] Change Password Failure',
+  props<{ error: any }>()
+);
+
+export const verifyEmail = createAction(
+  '[User] Verify Email',
+  props<{ value: any }>()
+);
+
+export const verifyEmailSuccess = createAction(
+  '[User] Verify Email Success',
+  props<{ message: string; userType: number }>()
+);
+
+export const verifyEmailFailure = createAction(
+  '[User] Verify Email Failure',
+  props<{ error: any }>()
+);
+
+export const resendEmailConfirm = createAction(
+  '[User] Resend Email Confirm',
+  props<{ email: string }>()
+);
+
+export const resendEmailConfirmSuccess = createAction(
+  '[User] Resend Email Confirm Success',
+  props<{ message: string }>()
+);
+
+export const resendEmailConfirmFailure = createAction(
+  '[User] Resend Email Confirm Failure',
   props<{ error: any }>()
 );

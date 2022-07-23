@@ -150,6 +150,11 @@ export const selectRegisterEmail = createSelector(
   fromUserReducer.selectRegisterEmail
 );
 
+export const selectRegisterUserType = createSelector(
+  selectUserState,
+  fromUserReducer.selectRegisterUserType
+);
+
 export const selectIsSignIn = createSelector(
   selectUserState,
   fromUserReducer.selectIsSignIn
@@ -198,6 +203,16 @@ export const selectIsChangingPassword = createSelector(
 export const selectChangePasswordSuccess = createSelector(
   selectUserState,
   fromUserReducer.selectChangePasswordSuccess
+);
+
+export const selectIsVerifyEmail = createSelector(
+  selectUserState,
+  fromUserReducer.selectIsVerifyEmail
+);
+
+export const selectIsResendEmailConfirm = createSelector(
+  selectUserState,
+  fromUserReducer.selectIsResendEmailConfirm
 );
 
 /**

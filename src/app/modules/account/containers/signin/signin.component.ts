@@ -2,12 +2,15 @@ import { Store } from '@ngrx/store';
 import { IRole } from 'src/app/core/models';
 import * as fromCore from '@metutor/core/state';
 import { Observable, Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import * as fromAccount from '@metutor/modules/account/state';
 import { addMisc, getMisc, SocialProvider } from 'src/app/config';
 import { AuthService, UsersService } from 'src/app/core/services';
 import { FormValidationUtilsService } from 'src/app/core/validators';
 import { OtpVerifyComponent, RolesSelectComponent } from '../../components';
+import * as fromAccountAction from '@metutor/modules/account/state/actions';
 import {
   FormGroup,
   Validators,
@@ -21,11 +24,16 @@ import {
   styleUrls: ['./signin.component.scss'],
 })
 export class SigninComponent implements OnInit, OnDestroy {
+  userRole$: Observable<number>;
   isLoading$: Observable<boolean>;
   authLoading$: Observable<boolean>;
+  isVerifyEmail$: Observable<boolean>;
+  isResendEmailconfirm$: Observable<boolean>;
+  showAccountEmailVerificationModal$: Observable<boolean>;
 
   userRole: any;
   roles!: IRole[];
+  returnUrl: string;
   signinForm: FormGroup;
   getRolesSub?: Subscription;
 
@@ -33,6 +41,7 @@ export class SigninComponent implements OnInit, OnDestroy {
     private _fb: FormBuilder,
     private _store: Store<any>,
     private _dialog: MatDialog,
+    private _route: ActivatedRoute,
     private _authService: AuthService,
     private _userService: UsersService,
     private _fv: FormValidationUtilsService
@@ -63,6 +72,17 @@ export class SigninComponent implements OnInit, OnDestroy {
         this.openOtpDialog();
       }
     });
+
+    this.returnUrl = this._route.snapshot.queryParams['returnUrl'];
+
+    this.showAccountEmailVerificationModal$ = this._store.select(
+      fromAccount.selectShowEmailVerificationModal
+    );
+    this.userRole$ = this._store.select(fromAccount.selectLoginUserRole);
+    this.isVerifyEmail$ = this._store.select(fromCore.selectIsVerifyEmail);
+    this.isResendEmailconfirm$ = this._store.select(
+      fromCore.selectIsResendEmailConfirm
+    );
   }
 
   get username(): AbstractControl | null {
@@ -71,6 +91,34 @@ export class SigninComponent implements OnInit, OnDestroy {
 
   get password(): AbstractControl | null {
     return this.signinForm.get('password');
+  }
+
+  onOpenAccountEmailVerificationModal(): void {
+    this._store.dispatch(fromAccountAction.openAccountEmailVerificationModal());
+  }
+
+  onCloseAccountEmailVerificationModal(): void {
+    this._store.dispatch(
+      fromAccountAction.closeAccountEmailVerificationModal()
+    );
+  }
+
+  onSubmitVerifyEmail(code: string, userType: number) {
+    const value = {
+      username: this.username?.value,
+      code,
+      userType,
+    };
+
+    this._store.dispatch(fromCore.verifyEmail({ value }));
+  }
+
+  resendEmailConfirm(): void {
+    this._store.dispatch(
+      fromCore.resendEmailConfirm({
+        email: this.username?.value,
+      })
+    );
   }
 
   onSubmit(form: FormGroup): void {
@@ -105,7 +153,8 @@ export class SigninComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe((res: any) => {
-      if (res && res.data) {}
+      if (res && res.data) {
+      }
     });
 
     dialogRef.componentInstance.submitForm.subscribe((otp) => {

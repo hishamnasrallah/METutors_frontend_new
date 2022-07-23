@@ -1,0 +1,12 @@
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'medium'"
+                [template]="template"
+                [heading]="'Email Verification'">
+  <ng-template #template>
+    <metutors-signup-email-verification [showHint]="false" [email]="email!"
+                                        (resendEmail)="resendEmail.emit()"
+                                        [loading]="loading"
+                                        [resendLoading]="resendLoading"
+                                        (submitForm)="submitForm.emit($event)">
+    </metutors-signup-email-verification>
+  </ng-template>
+</metutors-modal>

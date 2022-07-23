@@ -10,10 +10,10 @@ import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 
 import { AuthService } from '@services';
 import * as fromRoot from '@metutor/state';
-import { SocialProvider, UserRole } from '@metutor/config';
 import * as fromCore from '@metutor/core/state';
 import * as userActions from '../actions/user.actions';
 import * as tutorActions from '../actions/tutor.actions';
+import { SocialProvider, UserRole } from '@metutor/config';
 import { AlertNotificationService } from '@metutor/core/components';
 
 @Injectable()
@@ -58,11 +58,13 @@ export class UserEffects {
         this._store.select(fromRoot.selectQueryParam('returnUrl'))
       ),
       mergeMap(([{ user }, returnUrl]) =>
-        this._authService.register(user).pipe(
-          map((response) => {
-            console.log(response);
-            return userActions.registerSuccess({ email: user.email });
-          }),
+        this._authService.register({ ...user, return_url: returnUrl }).pipe(
+          map((response) =>
+            userActions.registerSuccess({
+              email: user.email,
+              userType: user.role,
+            })
+          ),
           catchError((error) =>
             of(
               userActions.registerFailure({
@@ -120,6 +122,7 @@ export class UserEffects {
             of(
               userActions.signInFailure({
                 error: error?.error?.message || error?.error?.errors,
+                errorInfo: error?.error,
               })
             )
           )
@@ -177,6 +180,7 @@ export class UserEffects {
               of(
                 userActions.signInFailure({
                   error: error?.error?.message || error?.error?.errors,
+                  errorInfo: error?.error,
                 })
               )
             )
@@ -223,6 +227,7 @@ export class UserEffects {
               of(
                 userActions.signInFailure({
                   error: error?.error?.message || error?.error?.errors,
+                  errorInfo: error?.error,
                 })
               )
             )
@@ -313,6 +318,7 @@ export class UserEffects {
             of(
               userActions.signInFailure({
                 error: error?.error?.message || error?.error?.errors,
+                errorInfo: error?.error,
               })
             )
           )
@@ -389,6 +395,91 @@ export class UserEffects {
                   error?.error?.message ||
                   error?.error?.error?.new_password ||
                   error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  verifyEmail$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(userActions.verifyEmail),
+      mergeMap((action) =>
+        this._authService.verifyEmail(action.value).pipe(
+          map((response) =>
+            userActions.verifyEmailSuccess({
+              message: response.message,
+              userType: action.value?.userType,
+            })
+          ),
+          catchError((error) =>
+            of(
+              userActions.verifyEmailFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  verifyEmailSuccess$ = createEffect(
+    () =>
+      this._actions$.pipe(
+        ofType(userActions.verifyEmailSuccess),
+        withLatestFrom(
+          this._store.select(fromCore.selectRegisterEmail),
+          this._store.select(fromCore.selectRegisterUserType)
+        ),
+        map(([action, email, userType]) => {
+          if (
+            userType == UserRole.student ||
+            action.userType === UserRole.student
+          ) {
+            this._router.navigate(['/signin']);
+
+            return this._store.dispatch(
+              fromCore.registerStep({
+                step: 1,
+                email: '',
+                userType,
+              })
+            );
+          } else {
+            this._router.navigate(['/signup']);
+
+            return this._store.dispatch(
+              fromCore.registerStep({
+                step: 3,
+                email,
+                userType,
+              })
+            );
+          }
+        })
+      ),
+    {
+      dispatch: false,
+    }
+  );
+
+  resendEmailConfirm$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(userActions.resendEmailConfirm),
+      mergeMap((action) =>
+        this._authService.resendEmailConfirm(action.email).pipe(
+          map((response) =>
+            userActions.resendEmailConfirmSuccess({
+              message: response.message,
+            })
+          ),
+          catchError((error) =>
+            of(
+              userActions.resendEmailConfirmFailure({
+                error: error?.error?.message || error?.error?.errors,
               })
             )
           )
@@ -478,8 +569,10 @@ export class UserEffects {
       this._actions$.pipe(
         ofType(
           ...[
+            userActions.verifyEmailSuccess,
             userActions.changePasswordSuccess,
             userActions.resendOTPAdminSuccess,
+            userActions.resendEmailConfirmSuccess,
           ]
         ),
         map((action) => {
@@ -504,8 +597,10 @@ export class UserEffects {
           ...[
             userActions.signInFailure,
             userActions.registerFailure,
+            userActions.verifyEmailFailure,
             userActions.changePasswordFailure,
             userActions.resendOTPAdminFailure,
+            userActions.resendEmailConfirmFailure,
           ]
         ),
         map((action) => {
