@@ -87,14 +87,17 @@ export class UserEffects {
         this._authService.login(user).pipe(
           map((response) => {
             const jwtHelper = new JwtHelperService();
-            const decodeToken = camelcaseKeys(jwtHelper.decodeToken(response), {
-              deep: true,
-            });
+            const decodeToken = camelcaseKeys(
+              jwtHelper.decodeToken(response.token),
+              {
+                deep: true,
+              }
+            );
             const user: any = decodeToken?.user;
 
             if (user?.roleId?.toString() === UserRole.admin.toString()) {
               return userActions.signInAdminSuccess({
-                tempToken: response,
+                tempToken: response.token,
                 user: {
                   ...user,
                   avatar: environment.imageURL + user?.avatar,
@@ -103,7 +106,7 @@ export class UserEffects {
               });
             } else {
               return userActions.signInSuccess({
-                token: response,
+                token: response.token,
                 user: {
                   ...user,
                   avatar: environment.imageURL + user?.avatar,
@@ -114,7 +117,7 @@ export class UserEffects {
                   !isNaN(user.profileCompletedStep)
                     ? +user.profileCompletedStep + 1
                     : 1,
-                returnUrl,
+                returnUrl: response?.returnUrl || returnUrl,
               });
             }
           }),

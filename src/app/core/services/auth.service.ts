@@ -22,9 +22,15 @@ export class AuthService {
       .post<{
         message: string;
         token: string;
+        return_url: string;
         user: any;
       }>(BACKEND_URL + 'login', value)
-      .pipe(map((response) => response?.token));
+      .pipe(
+        map((response) => ({
+          token: response?.token,
+          returnUrl: response?.return_url,
+        }))
+      );
   }
 
   logout(): Observable<any> {
