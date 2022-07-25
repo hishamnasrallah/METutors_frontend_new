@@ -39,7 +39,7 @@
       </div>
       <div class="col-md-3 d-flex menu align-items-center" *ngIf="ticketStatus.closed !== ticket?.status">
         <mat-icon>circle</mat-icon>
-        <span>Last Reply: {{ ticket?.updatedDate | date: 'h:mm a' }}</span>
+        <span>Last Reply: {{ ticket?.updatedDate | amTimeAgo }}</span>
       </div>
       <div class="col-md-3 d-flex menu align-items-center" *ngIf="ticketStatus.closed !== ticket?.status">
         <mat-icon>circle</mat-icon>

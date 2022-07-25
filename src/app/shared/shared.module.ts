@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { MomentModule } from 'ngx-moment';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -104,6 +105,7 @@ import {
   imports: [
     FormsModule,
     CommonModule,
+    MomentModule,
     VgCoreModule,
     RouterModule,
     MatIconModule,
@@ -122,6 +124,7 @@ import {
   ],
   exports: [
     // Components
+    MomentModule,
     ModalComponent,
     UserAvatarComponent,
     CourseItemComponent,
