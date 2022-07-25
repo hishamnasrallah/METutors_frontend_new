@@ -28,8 +28,8 @@
           draggable="false">
         <strong>
           <ng-container *ngIf="ticket?.user?.roleName === 'teacher'">Teacher:</ng-container>
-          <ng-container *ngIf="ticket?.user?.roleName === 'student'">Teacher:</ng-container>
-          <ng-container *ngIf="ticket?.user?.roleName !== 'teacher' && ticket?.user?.roleName !== 'student'">Agent:</ng-container>
+          <ng-container *ngIf="ticket?.user?.roleName === 'student'">Student:</ng-container>
+          <ng-container *ngIf="ticket?.user?.roleName !== 'teacher' && ticket?.user?.roleName !== 'student'">Admin:</ng-container>
           {{ ticket?.user?.name }}
         </strong>
       </div>

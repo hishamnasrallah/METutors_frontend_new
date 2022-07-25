@@ -1,8 +1,6 @@
 <div class="resources" *ngLet="(view$ | async) as view">
   <div class="card">
     <div class="card-body">
-      {{ showConfirmModal$ | async }}
-      {{ showAddClassResourceModal$ | async }}
       <ng-container [ngSwitch]="view.loading">
         <ng-container *ngSwitchCase="false">
           <h1 class="title">{{ view.resources?.course?.courseName }} <span>({{ view.resources?.course?.courseCode}})</span>
@@ -92,6 +90,7 @@
 
 <metutors-confirm-modal *ngIf="showConfirmModal$ | async" [showModal]="(showConfirmModal$ | async)!"
                         [loading]="(isDeletingResource$ | async)!"
+                        [heading]="'Delete an Resource'"
                         (confirm)="onDeleteResource(resourceId)" (closeModal)="onCloseConfirmModal()">
 </metutors-confirm-modal>
 

@@ -6,13 +6,13 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./confirm-modal.component.scss'],
 })
 export class ConfirmModalComponent implements OnInit {
-  @Input() icon: string;
   @Input() heading: string;
   @Input() loading: boolean;
   @Input() showModal = false;
-  @Input() subHeading: string;
+  @Input() icon = 'trash.svg';
   @Input() cancelLabel = 'Cancel';
   @Input() confirmLabel = 'Delete';
+  @Input() subHeading = 'Do you really want to delete?';
 
   @Output() confirm: EventEmitter<void> = new EventEmitter<void>();
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();

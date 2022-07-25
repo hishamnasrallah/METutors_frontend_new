@@ -1,27 +1,27 @@
+import { AlertNotificationService } from 'src/app/core/components';
+import { AbstractControl, FormGroup, Validators } from '@angular/forms';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
-  trigger,
   state,
   style,
-  transition,
   group,
   animate,
+  trigger,
+  transition,
 } from '@angular/animations';
-import { AbstractControl, FormGroup, Validators } from '@angular/forms';
 import {
   GRADES,
-  AcademicTutoringTextbook,
   formatBytes,
-  TEXTBOOK_EDITION_CONST,
   generalConstants,
+  TEXTBOOK_EDITION_CONST,
+  AcademicTutoringTextbook,
 } from 'src/app/config';
-import { AlertNotificationService } from 'src/app/core/components';
 import {
   IField,
-  ILanguage,
   IProgram,
   ISubject,
   ICountry,
+  ILanguage,
 } from 'src/app/core/models';
 
 @Component({
@@ -164,7 +164,17 @@ export class CourseInformationFormComponent implements OnInit {
     this.courseCountry?.updateValueAndValidity();
   }
 
+  resetValues(): void {
+    this.field?.setValue(null);
+    this.subject?.setValue(null);
+    this.field?.updateValueAndValidity();
+    this.subject?.updateValueAndValidity();
+  }
+
   onChangeCourseField(): void {
+    this.subject?.setValue(null);
+    this.subject?.updateValueAndValidity();
+
     const fieldId = this.field?.value;
 
     this.changeCourseField.emit(fieldId);
