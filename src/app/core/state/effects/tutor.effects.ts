@@ -107,30 +107,23 @@ export class TutorEffects {
   loadAvailableTutors$ = createEffect(() =>
     this._actions$.pipe(
       ofType(tutorActions.loadAvailableTutors),
-      withLatestFrom(
-        this._store.select(selectTutors),
-        this._store.select(fromRouterStore.selectRouteParams)
-      ),
-      mergeMap(([{ id }, _tutors, { courseId }]) => {
-        if (!_tutors || !_tutors?.length) {
-          id = id ? id : 0;
-          return this._tutorService.getAvailableTutors(id | courseId).pipe(
-            map((availableTutors) => {
-              return tutorActions.loadAvailableTutorsSuccess({
-                availableTutors,
-              });
-            }),
-            catchError((error) => {
-              return of(
-                tutorActions.loadAvailableTutorsFailure({
-                  error: error?.error?.message || error?.error?.errors,
-                })
-              );
-            })
-          );
-        } else {
-          return of(tutorActions.loadAvailableTutorsEnded());
-        }
+      withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
+      mergeMap(([{ id }, { courseId }]) => {
+        id = id ? id : 0;
+        return this._tutorService.getAvailableTutors(id | courseId).pipe(
+          map((availableTutors) => {
+            return tutorActions.loadAvailableTutorsSuccess({
+              availableTutors,
+            });
+          }),
+          catchError((error) => {
+            return of(
+              tutorActions.loadAvailableTutorsFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            );
+          })
+        );
       })
     )
   );

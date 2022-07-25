@@ -82,10 +82,6 @@ export const loadAvailableTutorsFailure = createAction(
   props<{ error: any }>()
 );
 
-export const loadAvailableTutorsEnded = createAction(
-  '[Tutor] Load Available Tutors Ended'
-);
-
 // Load all tutors
 export const loadTutors = createAction(
   '[Tutor] Load Tutors',

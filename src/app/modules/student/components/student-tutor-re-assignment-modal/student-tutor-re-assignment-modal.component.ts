@@ -15,6 +15,7 @@ import * as fromStudentAction from '@metutor/modules/student/state/actions';
   styleUrls: ['./student-tutor-re-assignment-modal.component.scss'],
 })
 export class StudentTutorReAssignmentModalComponent implements OnInit {
+  @Input() courseId: number;
   @Input() showModal: boolean = false;
 
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
@@ -73,7 +74,7 @@ export class StudentTutorReAssignmentModalComponent implements OnInit {
       this.showHeader = true;
       this.heading = 'Select a Replacement Tutor';
       this.subHeading = 'Please select a new tutor to continue your course';
-      this._store.dispatch(fromCore.loadAvailableTutors({}));
+      this._store.dispatch(fromCore.loadAvailableTutors({ id: this.courseId }));
     } else if (this.selectedOption === 2) {
       this.subHeading = '-';
       this.showHeader = false;

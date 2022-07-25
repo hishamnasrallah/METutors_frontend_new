@@ -7,11 +7,11 @@
             <h1 class="title overflow-hidden">{{ view.data?.course?.courseName }}
               <span>({{ view.data.course?.courseCode}})</span>
               <button mat-button class="ms-2 status text-decoration-none"
-                      *ngIf="view?.data?.course?.status !== courseStatus.cancelledByTeacher"
+                      *ngIf="view?.data?.course?.status !== courseStatus.cancelledByTeacher && view?.data?.course?.status !== courseStatus.declinedByTeacher"
                       [ngClass]="view?.data?.course?.status">{{ statusLabel[view?.data?.course?.status].long }}</button>
 
               <button mat-button class="ms-2 status text-decoration-none"
-                      *ngIf="view?.data?.course?.status === courseStatus.cancelledByTeacher"
+                      *ngIf="view?.data?.course?.status === courseStatus.cancelledByTeacher || view?.data?.course?.status === courseStatus.declinedByTeacher"
                       [ngClass]="view?.data?.course?.status"
                       (click)="onShowSendFeedbackModal(view.data?.course?.teacher?.id, false, true)">{{ statusLabel[view?.data?.course?.status].long }}</button>
 
@@ -292,7 +292,7 @@
                                                 (submitted)="onCancelCourseSuccess()">
   </metutors-student-cancel-course-success-modal>
 
-  <metutors-student-tutor-re-assignment-modal *ngIf="tutorReAssignmentModal$ | async"
+  <metutors-student-tutor-re-assignment-modal *ngIf="tutorReAssignmentModal$ | async" [courseId]="view.data?.course?.id"
                                               [showModal]="(tutorReAssignmentModal$| async)!"
                                               (closeModal)="onCloseTutorReAssignmentModal()">
   </metutors-student-tutor-re-assignment-modal>

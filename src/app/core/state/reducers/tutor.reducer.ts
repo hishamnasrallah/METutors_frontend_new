@@ -159,11 +159,6 @@ export const reducer = createReducer(
     isLoadingAvailableTutors: false,
   })),
 
-  on(tutorActions.loadAvailableTutorsEnded, (state) => ({
-    ...state,
-    isLoadingAvailableTutors: false,
-  })),
-
   on(tutorActions.loadProfileTutor, (state) => ({
     ...state,
     isLoadingProfileTutor: true,

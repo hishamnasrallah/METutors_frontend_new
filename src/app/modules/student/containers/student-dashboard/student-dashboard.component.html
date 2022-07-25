@@ -41,7 +41,7 @@
                 {{ view.dashboard.totalProgress}}%
                 <span [ngClass]="{'danger': view.dashboard?.totalProgressGrowth < 0}">{{ view.dashboard?.totalProgressGrowth >= 0 ? '+'+view.dashboard?.totalProgressGrowth : view.dashboard?.totalProgressGrowth}}%</span>
               </h1>
-              <p>Compared to (77% last {{ insightRange[range]}})</p>
+              <p>Compared to ({{ view.dashboard?.totalProgressLastCount}}% last {{ insightRange[range]}})</p>
               <mat-progress-bar class="example-margin" [color]="'primary'" [value]="view.dashboard.totalProgress">
               </mat-progress-bar>
             </div>
@@ -55,7 +55,7 @@
                 {{ view.dashboard.totalCompletedCourses}}
                 <span [ngClass]="{'danger': view.dashboard?.completedCoursesGrowth < 0}">{{ view.dashboard?.completedCoursesGrowth >= 0 ? '+'+view.dashboard?.completedCoursesGrowth : view.dashboard?.completedCoursesGrowth}}%</span>
               </h1>
-              <p>Compared to 9 courses last {{ insightRange[range]}}</p>
+              <p>Compared to {{ view.dashboard?.completedCoursesLastCount }} courses last {{ insightRange[range]}}</p>
             </div>
           </div>
         </div>
@@ -67,7 +67,7 @@
                 {{ view?.dashboard?.attendenceRate}}%
                 <span [ngClass]="{'danger': view.dashboard?.attendenceGrowth < 0}">{{ view.dashboard?.attendenceGrowth >= 0 ? '+'+view.dashboard?.attendenceGrowth : view.dashboard?.attendenceGrowth}}%</span>
               </h1>
-              <p>Compared to (%65 last {{ insightRange[range]}})</p>
+              <p>Compared to ({{ view.dashboard?.attendenceRateLastCount}}% last {{ insightRange[range]}})</p>
             </div>
           </div>
         </div>
@@ -79,7 +79,7 @@
                 {{ view?.dashboard?.totalPayment | currency }}
                 <span [ngClass]="{'danger': view.dashboard?.paymentGrowth < 0}">{{ view.dashboard?.paymentGrowth >= 0 ? '+'+view.dashboard?.paymentGrowth : view.dashboard?.paymentGrowth}}%</span>
               </h1>
-              <p>Compared to ($105 last {{ insightRange[range]}})</p>
+              <p>Compared to ({{view.dashboard?.paymentLastCount | currency}} last {{ insightRange[range]}})</p>
             </div>
           </div>
         </div>

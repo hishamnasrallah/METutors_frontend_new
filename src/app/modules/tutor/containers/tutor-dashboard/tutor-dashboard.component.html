@@ -41,7 +41,7 @@
                 {{ view.data.totalCourses}}
                 <span [ngClass]="{'danger': view.data?.coursesGrowth < 0}">{{ view.data?.coursesGrowth >= 0 ? '+'+view.data?.coursesGrowth : view.data?.coursesGrowth}}%</span>
               </h1>
-              <p>Compared to (last {{insightRange[range]}})</p>
+              <p>Compared to {{ view.data?.coursesLastCount}} (last {{insightRange[range]}})</p>
             </div>
           </div>
         </div>
@@ -53,7 +53,7 @@
                 {{ view.data.totalCompletedCourses}}
                 <span [ngClass]="{'danger': view.data?.completedCoursesGrowth < 0}">{{ view.data?.completedCoursesGrowth >= 0 ? '+'+view.data?.completedCoursesGrowth : view.data?.completedCoursesGrowth}}%</span>
               </h1>
-              <p>Compared to (last {{insightRange[range]}})</p>
+              <p>Compared to {{view.data?.completedCoursesLastCount}} (last {{insightRange[range]}})</p>
             </div>
           </div>
         </div>
@@ -65,7 +65,7 @@
                 {{ view.data.kudosPoints}}
                 <span [ngClass]="{'danger': view.data?.kudosPointsGrowth < 0}">{{ view.data?.kudosPointsGrowth >= 0 ? '+'+view.data?.kudosPointsGrowth : view.data?.kudosPointsGrowth}}%</span>
               </h1>
-              <p>Compared to (last {{insightRange[range]}})</p>
+              <p>Compared to {{ view.data?.kudosPointsLastCount}} (last {{insightRange[range]}})</p>
             </div>
           </div>
         </div>
@@ -77,7 +77,7 @@
                 {{ view.data.totalNewlyCourses}}
                 <span [ngClass]="{'danger': view.data?.newlyCoursesGrowth < 0}">{{ view.data?.newlyCoursesGrowth >= 0 ? '+'+view.data?.newlyCoursesGrowth : view.data?.newlyCoursesGrowth}}%</span>
               </h1>
-              <p>Compared to (last {{insightRange[range]}})</p>
+              <p>Compared to {{ view.data?.newlyCoursesLastCount}} (last {{insightRange[range]}})</p>
             </div>
           </div>
         </div>
