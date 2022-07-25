@@ -15,8 +15,7 @@
         </button>
 
         <mat-button-toggle-group class="float-end">
-          <mat-button-toggle value="" checked (change)="loadDashboard('')">All</mat-button-toggle>
-          <mat-button-toggle value="7days" (change)="loadDashboard($event.value)">7 Days</mat-button-toggle>
+          <mat-button-toggle value="7days" (change)="loadDashboard($event.value)" checked>7 Days</mat-button-toggle>
           <mat-button-toggle value="1month" (change)="loadDashboard($event.value)">1 Month</mat-button-toggle>
           <mat-button-toggle value="3months" (change)="loadDashboard($event.value)">3 Months</mat-button-toggle>
           <mat-button-toggle value="1year" (change)="loadDashboard($event.value)">Yearly</mat-button-toggle>
@@ -40,9 +39,9 @@
               <h3>Overall Progress</h3>
               <h1 class="flex-grow-1">
                 {{ view.dashboard.totalProgress}}%
-                <span>+2.5%</span>
+                <span [ngClass]="{'danger': view.dashboard?.totalProgressGrowth < 0}">{{ view.dashboard?.totalProgressGrowth >= 0 ? '+'+view.dashboard?.totalProgressGrowth : view.dashboard?.totalProgressGrowth}}%</span>
               </h1>
-              <p>Compared to (77% last Month)</p>
+              <p>Compared to (77% last {{ insightRange[range]}})</p>
               <mat-progress-bar class="example-margin" [color]="'primary'" [value]="view.dashboard.totalProgress">
               </mat-progress-bar>
             </div>
@@ -54,9 +53,9 @@
               <h3>Total Completed Courses</h3>
               <h1 class="flex-grow-1">
                 {{ view.dashboard.totalCompletedCourses}}
-                <span>+0.5%</span>
+                <span [ngClass]="{'danger': view.dashboard?.completedCoursesGrowth < 0}">{{ view.dashboard?.completedCoursesGrowth >= 0 ? '+'+view.dashboard?.completedCoursesGrowth : view.dashboard?.completedCoursesGrowth}}%</span>
               </h1>
-              <p>Compared to 9 courses Last Month</p>
+              <p>Compared to 9 courses last {{ insightRange[range]}}</p>
             </div>
           </div>
         </div>
@@ -66,9 +65,9 @@
               <h3>Attendance rate</h3>
               <h1 class="flex-grow-1">
                 {{ view?.dashboard?.attendenceRate}}%
-                <span class="danger">-1.5%</span>
+                <span [ngClass]="{'danger': view.dashboard?.attendenceGrowth < 0}">{{ view.dashboard?.attendenceGrowth >= 0 ? '+'+view.dashboard?.attendenceGrowth : view.dashboard?.attendenceGrowth}}%</span>
               </h1>
-              <p>Compared to (%65 last month)</p>
+              <p>Compared to (%65 last {{ insightRange[range]}})</p>
             </div>
           </div>
         </div>
@@ -77,10 +76,10 @@
             <div class="card-body d-flex flex-column">
               <h3>Total payment</h3>
               <h1 class="flex-grow-1">
-                ${{ view?.dashboard?.totalPayment}}
-                <span>+2.5%</span>
+                {{ view?.dashboard?.totalPayment | currency }}
+                <span [ngClass]="{'danger': view.dashboard?.paymentGrowth < 0}">{{ view.dashboard?.paymentGrowth >= 0 ? '+'+view.dashboard?.paymentGrowth : view.dashboard?.paymentGrowth}}%</span>
               </h1>
-              <p>Compared to ($105 last month)</p>
+              <p>Compared to ($105 last {{ insightRange[range]}})</p>
             </div>
           </div>
         </div>
@@ -111,8 +110,11 @@
               <tr *ngFor="let todaysClass of view.dashboard.todaysClasses; let i=index">
                 <td>{{ i + 1}}</td>
                 <td>{{ todaysClass?.title }}</td>
-                <td><img width="35" height="35" [src]="todaysClass?.course?.teacher?.avatar" meTutorsDefaultAvatar
-                         alt=""> {{ todaysClass?.course?.teacher?.firstName }} {{ todaysClass?.course?.teacher?.lastName }}
+                <td>
+                  <metutors-user-avatar [avatar]="imageUrl+todaysClass?.course?.teacher?.avatar" [type]="'small'"
+                                        [name]="todaysClass?.course?.teacher?.firstName+' '+todaysClass?.course?.teacher?.lastName"
+                                        class="d-inline-block">
+                  </metutors-user-avatar>
                 </td>
                 <td>{{ todaysClass?.startTime }} - {{ todaysClass?.endTime }}</td>
                 <td>{{ todaysClass?.duration }}</td>

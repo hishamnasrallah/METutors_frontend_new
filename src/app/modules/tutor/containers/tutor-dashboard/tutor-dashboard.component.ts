@@ -27,7 +27,7 @@ export class TutorDashboardComponent implements OnInit {
   showRejectCourseModal$: Observable<boolean>;
   view$: Observable<{ loading: boolean; data: any }>;
 
-  range = '';
+  range = '7days';
   insightRange = insightRange;
   tabLabel = 'Metutors Feedback';
   heading = 'Leave a Feedback';

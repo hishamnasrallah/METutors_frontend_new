@@ -11,6 +11,7 @@ import { IUser } from '@metutor/core/models';
 import * as fromCore from '@metutor/core/state';
 import * as fromStudentActions from '../../state/actions';
 import { FormGroup } from '@angular/forms';
+import { environment } from '@environment';
 
 @Component({
   selector: 'metutors-student-dashboard',
@@ -49,9 +50,10 @@ export class StudentDashboardComponent implements OnInit {
     nav: false,
   };
 
-  range = '';
+  range = '7days';
   insightRange = insightRange;
   tabLabel = 'Metutors Feedback';
+  imageUrl = environment.imageURL;
   showSendFeedbackModal$: Observable<boolean>;
   subHeading = 'Share with us your feedback on MeTutors service';
   messageLabel =
