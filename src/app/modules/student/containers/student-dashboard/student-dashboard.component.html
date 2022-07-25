@@ -111,8 +111,11 @@
               <tr *ngFor="let todaysClass of view.dashboard.todaysClasses; let i=index">
                 <td>{{ i + 1}}</td>
                 <td>{{ todaysClass?.title }}</td>
-                <td><img width="35" height="35" [src]="todaysClass?.course?.teacher?.avatar" meTutorsDefaultAvatar
-                         alt=""> {{ todaysClass?.course?.teacher?.firstName }} {{ todaysClass?.course?.teacher?.lastName }}
+                <td>
+                  <metutors-user-avatar [avatar]="imageUrl+todaysClass?.course?.teacher?.avatar" [type]="'small'"
+                                        [name]="todaysClass?.course?.teacher?.firstName+' '+todaysClass?.course?.teacher?.lastName"
+                                        class="d-inline-block">
+                  </metutors-user-avatar>
                 </td>
                 <td>{{ todaysClass?.startTime }} - {{ todaysClass?.endTime }}</td>
                 <td>{{ todaysClass?.duration }}</td>
