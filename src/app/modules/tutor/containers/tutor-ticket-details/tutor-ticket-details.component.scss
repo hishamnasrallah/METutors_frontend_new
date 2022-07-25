@@ -45,6 +45,43 @@
       margin-top: 10px;
     }
 
+    .block-file {
+      width: 100%;
+
+      >div {
+        width: calc(50% - (24px + 0.5rem));
+      }
+
+      mat-icon {
+        width: 20px;
+        height: 20px;
+        font-size: 20px;
+      }
+
+      h3 {
+        font-size: 16px;
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 100%;
+
+        a {
+          color: #232323;
+          font-weight: normal;
+        }
+      }
+
+      a {
+        font-weight: bold;
+
+        span {
+          color: var(--main-color);
+          font-size: 12px;
+        }
+      }
+    }
+
     .list-messages {
       margin-top: 40px;
       height: 400px;
