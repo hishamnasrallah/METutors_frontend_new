@@ -111,7 +111,7 @@
                 [value]="classroom?.progress">
               </mat-progress-bar>
             </div>
-            <strong>{{ classroom?.progress }}%</strong>
+            <strong>{{ classroom?.progress?.toFixed(1) }}%</strong>
           </div>
         </div>
         <div class="col flex-grow-1">
