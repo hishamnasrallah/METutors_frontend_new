@@ -25,9 +25,9 @@
                   height="25" draggable="false">
                 <strong>
                   <ng-container *ngIf="ticket?.user?.roleName === 'teacher'">Teacher:</ng-container>
-                  <ng-container *ngIf="ticket?.user?.roleName === 'student'">Teacher:</ng-container>
+                  <ng-container *ngIf="ticket?.user?.roleName === 'student'">Student:</ng-container>
                   <ng-container *ngIf="ticket?.user?.roleName !== 'teacher' && ticket?.user?.roleName !== 'student'">
-                    Agent:</ng-container>
+                    Admin:</ng-container>
                   {{ ticket?.user?.name }}
                 </strong>
               </div>
@@ -60,7 +60,7 @@
                     <h3>
                       <ng-container *ngIf="(user$ | async)?.id === message?.user?.id">You</ng-container>
                       <ng-container *ngIf="(user$ | async)?.id !== message?.user?.id">
-                        Agent: {{ message?.user?.firstName }}
+                        Admin: {{ message?.user?.firstName }}
                       </ng-container>
                     </h3>
                     <h4>{{ message?.createdDate | date: 'd MMM y' }}</h4>

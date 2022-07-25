@@ -33,9 +33,10 @@
                   height="25" draggable="false">
                 <strong>
                   <ng-container *ngIf="ticket?.user?.roleName === 'teacher'">Teacher:</ng-container>
-                  <ng-container *ngIf="ticket?.user?.roleName === 'student'">Teacher:</ng-container>
+                  <ng-container *ngIf="ticket?.user?.roleName === 'student'">Student:</ng-container>
                   <ng-container *ngIf="ticket?.user?.roleName !== 'teacher' && ticket?.user?.roleName !== 'student'">
-                    Agent:</ng-container>
+                    Admin:
+                  </ng-container>
                   {{ ticket?.user?.name }}
                 </strong>
               </div>
@@ -51,7 +52,9 @@
                 <div class="block-file d-flex align-items-center" *ngIf="ticket?.file">
                   <img src="assets/svg/attachment.svg" alt="" draggable="false" width="20" height="20">
                   <div class="ms-2 flex-grow-1">
-                    <h3><a [href]="ticket?.file" [download]="ticket?.subject" target="_blank">{{ ticket?.subject }}</a></h3>
+                    <h3>
+                      <a [href]="ticket?.file" [download]="ticket?.subject" target="_blank">{{ ticket?.subject }}</a>
+                    </h3>
                   </div>
                   <a mat-button [href]="ticket?.file" [download]="ticket?.subject" target="_blank">Download</a>
                 </div>
@@ -68,7 +71,9 @@
                     <h3>
                       <ng-container *ngIf="(user$ | async)?.id === message?.user?.id">You</ng-container>
                       <ng-container *ngIf="(user$ | async)?.id !== message?.user?.id">
-                        Agent: {{ message?.user?.firstName }}
+                        <ng-container *ngIf="ticket?.user?.roleName === 'teacher'">Teacher:</ng-container>
+                        <ng-container *ngIf="ticket?.user?.roleName === 'student'">Student:</ng-container>
+                        {{ message?.user?.firstName }}
                       </ng-container>
                     </h3>
                     <h4>{{ message?.createdDate | date: 'd MMM y' }}</h4>
