@@ -13,7 +13,7 @@
             <h3>Program Name</h3>
             <mat-form-field appearance="outline" class="w-100">
               <mat-select formControlName="courseProgram" [placeholder]="'Choose Program'"
-                (selectionChange)="onChangeCourseProgram()">
+                (selectionChange)="onChangeCourseProgram(); resetValues()">
                 <mat-option [value]="program?.id" *ngFor="let program of programs">
                   {{ program?.name }}
                 </mat-option>
