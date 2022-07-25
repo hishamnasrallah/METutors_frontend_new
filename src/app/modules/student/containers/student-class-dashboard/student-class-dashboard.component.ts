@@ -95,7 +95,6 @@ export class StudentClassDashboardComponent implements OnInit {
   }
 
   onCalculateInvoice(subject_id: number, value: any): void {
-    console.log(value);
     const classes = {
       subject_id,
       classes: this._getClasses(value.classes),

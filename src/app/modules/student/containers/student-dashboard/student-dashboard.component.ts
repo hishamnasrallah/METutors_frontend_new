@@ -50,7 +50,7 @@ export class StudentDashboardComponent implements OnInit {
     nav: false,
   };
 
-  range = '';
+  range = '7days';
   insightRange = insightRange;
   tabLabel = 'Metutors Feedback';
   imageUrl = environment.imageURL;

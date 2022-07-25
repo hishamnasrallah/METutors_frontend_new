@@ -15,7 +15,7 @@
         </button>
 
         <mat-button-toggle-group class="float-end">
-          <mat-button-toggle value="7days" (change)="loadDashboard($event.value)">7 Days</mat-button-toggle>
+          <mat-button-toggle value="7days" (change)="loadDashboard($event.value)" checked>7 Days</mat-button-toggle>
           <mat-button-toggle value="1month" (change)="loadDashboard($event.value)">1 Month</mat-button-toggle>
           <mat-button-toggle value="3months" (change)="loadDashboard($event.value)">3 Months</mat-button-toggle>
           <mat-button-toggle value="1year" (change)="loadDashboard($event.value)">Yearly</mat-button-toggle>
@@ -39,7 +39,7 @@
               <h3>Total Courses</h3>
               <h1 class="flex-grow-1">
                 {{ view.data.totalCourses}}
-                <span>+2.5%</span>
+                <span [ngClass]="{'danger': view.data?.coursesGrowth < 0}">{{ view.data?.coursesGrowth >= 0 ? '+'+view.data?.coursesGrowth : view.data?.coursesGrowth}}%</span>
               </h1>
               <p>Compared to (last {{insightRange[range]}})</p>
             </div>
@@ -51,7 +51,7 @@
               <h3>Total Completed Courses</h3>
               <h1 class="flex-grow-1">
                 {{ view.data.totalCompletedCourses}}
-                <span>+0.5%</span>
+                <span [ngClass]="{'danger': view.data?.completedCoursesGrowth < 0}">{{ view.data?.completedCoursesGrowth >= 0 ? '+'+view.data?.completedCoursesGrowth : view.data?.completedCoursesGrowth}}%</span>
               </h1>
               <p>Compared to (last {{insightRange[range]}})</p>
             </div>
@@ -63,7 +63,7 @@
               <h3>Kudos Points</h3>
               <h1 class="flex-grow-1">
                 {{ view.data.kudosPoints}}
-                <span class="danger">-1.5%</span>
+                <span [ngClass]="{'danger': view.data?.kudosPointsGrowth < 0}">{{ view.data?.kudosPointsGrowth >= 0 ? '+'+view.data?.kudosPointsGrowth : view.data?.kudosPointsGrowth}}%</span>
               </h1>
               <p>Compared to (last {{insightRange[range]}})</p>
             </div>
@@ -75,7 +75,7 @@
               <h3>Newly Assigned courses</h3>
               <h1 class="flex-grow-1">
                 {{ view.data.totalNewlyCourses}}
-                <span>+2.5%</span>
+                <span [ngClass]="{'danger': view.data?.newlyCoursesGrowth < 0}">{{ view.data?.newlyCoursesGrowth >= 0 ? '+'+view.data?.newlyCoursesGrowth : view.data?.newlyCoursesGrowth}}%</span>
               </h1>
               <p>Compared to (last {{insightRange[range]}})</p>
             </div>
