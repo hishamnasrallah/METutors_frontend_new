@@ -90,6 +90,7 @@
 
 <metutors-confirm-modal *ngIf="showConfirmModal$ | async" [showModal]="(showConfirmModal$ | async)!"
                         [loading]="(isDeletingResource$ | async)!"
+                        [heading]="'Delete an Resource'"
                         (confirm)="onDeleteResource(resourceId)" (closeModal)="onCloseConfirmModal()">
 </metutors-confirm-modal>
 
