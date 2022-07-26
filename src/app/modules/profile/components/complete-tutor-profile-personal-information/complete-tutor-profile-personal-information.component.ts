@@ -90,8 +90,14 @@ export class CompleteTutorProfilePersonalInformationComponent
   get bio(): AbstractControl | null {
     return this.form.get('bio');
   }
+
   get postalCode(): AbstractControl | null {
     return this.form.get('postalCode');
+  }
+
+  resetCity(): void {
+    this.city?.setValue(null);
+    this.city?.updateValueAndValidity();
   }
 
   submitFormData(): void {

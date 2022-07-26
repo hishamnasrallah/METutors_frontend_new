@@ -108,7 +108,7 @@
           <label for="country" class="form-label">Country</label>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="country" [placeholder]="'Select Country'"
-              (selectionChange)="loadCities.emit(country?.value)">
+              (selectionChange)="loadCities.emit(country?.value); resetCity()">
               <mat-option *ngFor="let country of countries" [value]="country.id">{{ country.name }}</mat-option>
             </mat-select>
           </mat-form-field>
