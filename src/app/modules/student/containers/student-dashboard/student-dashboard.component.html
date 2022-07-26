@@ -152,7 +152,8 @@
                   </div>
                 </div>
               </div>
-              <owl-carousel-o [options]="customOptions" *ngSwitchCase="false">
+              <ng-container *ngSwitchCase="false">
+              <owl-carousel-o [options]="customOptions" >
                 <ng-template carouselSlide *ngFor="let completedCourse of view.dashboard.completedCourses;">
                   <div class="row card-item">
                     <div class="col-md-4">
@@ -188,7 +189,13 @@
                     </div>
                   </div>
                 </ng-template>
+                <div></div>
               </owl-carousel-o>
+
+              <ng-container *ngIf="!view.dashboard.completedCourses?.length">
+                <div class="text-center fw-bold p-xxl-5">No record found!</div>
+              </ng-container>
+              </ng-container>
             </ng-container>
           </div>
         </div>

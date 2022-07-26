@@ -31,11 +31,10 @@
         <div class="assignment-details-modal" *ngSwitchCase="false">
           <div class="d-flex justify-content-between">
             <h3>{{ view?.assignment?.title }}</h3>
-            <div class="overflow-visible logos">
-              <ng-container *ngFor="let assignee of view?.assignment?.assignees">
-                <img meTutorsDefaultAvatar [src]="imageUrl+assignee?.avatar" alt="" draggable="false"
-                     class="d-inline-block rounded-circle">
-              </ng-container>
+            <div class="overflow-visible">
+              <metutors-user-avatar [avatar]="imageUrl+assignee?.avatar" [type]="'small'"
+                                    *ngFor="let assignee of view?.assignment?.assignees"
+                                    class="d-block"></metutors-user-avatar>
             </div>
           </div>
           <div class="row list-items md-item">
