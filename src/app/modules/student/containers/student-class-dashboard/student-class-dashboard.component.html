@@ -106,7 +106,12 @@
                 <tr *ngFor="let todaysClass of view.data.todaysClasses; let i=index">
                   <td>{{ i + 1}}</td>
                   <td>{{ todaysClass.title }}</td>
-                  <td></td>
+                  <td>
+                    <metutors-user-avatar [avatar]="imageURL+todaysClass?.teacher?.avatar"
+                                          [name]="todaysClass?.teacher?.firstName+' '+todaysClass?.teacher?.lastName"
+                                          [type]="'small'"
+                                          class="d-block"></metutors-user-avatar>
+                  </td>
                   <td>{{ todaysClass.startTime }} - {{ todaysClass.endTime }} </td>
                   <td>{{ todaysClass?.duration }} hours</td>
                   <td class="d-flex">
@@ -162,7 +167,12 @@
                 <tr *ngFor="let upcomingClass of view.data.upcomingClasses; let i=index">
                   <td>{{ i + 1}}</td>
                   <td>{{ upcomingClass.title ? upcomingClass.title : 'N/A' }}</td>
-                  <td></td>
+                  <td>
+                    <metutors-user-avatar [avatar]="imageURL+upcomingClass?.teacher?.avatar"
+                                          [name]="upcomingClass?.teacher?.firstName+' '+upcomingClass?.teacher?.lastName"
+                                          [type]="'small'"
+                                          class="d-block"></metutors-user-avatar>
+                  </td>
                   <td>{{ upcomingClass.startDate | date: 'EEEE' }} </td>
                   <td>{{ upcomingClass.startDate }} </td>
                   <td>{{ upcomingClass.startTime }} - {{ upcomingClass.endTime }} </td>
@@ -207,7 +217,7 @@
               <ng-container *ngIf="view.data?.previousClasses?.length">
                 <tr *ngFor="let previousClass of view.data.previousClasses; let i=index">
                   <td>{{ i + 1}}</td>
-                  <td>{{ previousClass.course?.courseName }}</td>
+                  <td>{{ previousClass.title }}</td>
                   <td>
                     <metutors-user-avatar [avatar]="imageURL+previousClass?.teacher?.avatar" [type]="'small'"
                                           [name]="previousClass?.teacher?.firstName+ ' ' +previousClass?.teacher?.lastName"

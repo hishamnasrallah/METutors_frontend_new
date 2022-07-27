@@ -23,11 +23,10 @@
               </div>
             </div>
             <div class="row mt-3">
-              <div class="col-md-5 overflow-visible logos">
+              <div class="col-md-5 overflow-visible">
                 <div class="fw-bold">Enrolled Students</div>
                 <ng-container *ngFor="let participant of assignments?.course.participants">
-                  <img meTutorsDefaultAvatar [src]="participant?.user?.avatar" alt="" draggable="false"
-                       class="d-inline-block rounded-circle">
+                  <metutors-user-avatar [avatar]="imageUrl+participant?.user?.avatar" class="d-block"></metutors-user-avatar>
                 </ng-container>
               </div>
               <div class="col-md-7">

@@ -92,6 +92,7 @@ export class TutorClassroomsComponent implements OnInit {
   }
 
   onAcceptCourse(courseId: number): void {
+    this.courseId = courseId;
     this._store.dispatch(
       fromCore.tutorAcceptCourse({
         courseId,
