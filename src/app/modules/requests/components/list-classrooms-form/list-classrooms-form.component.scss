@@ -35,8 +35,9 @@
   .list-classes {
     border-radius: 6px;
     border: solid 1px #ededed;
-    overflow: hidden;
     margin-bottom: 20px;
+    max-height: 70vh;
+    overflow: auto;
 
     table {
       tr {
