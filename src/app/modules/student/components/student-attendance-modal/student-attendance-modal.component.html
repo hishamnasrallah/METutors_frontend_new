@@ -64,15 +64,15 @@
 
       <div class="col-12 mt-4">
         <mat-tab-group mat-align-tabs="start">
-          <mat-tab label="Tutor Attendance">
+          <mat-tab label="Tutor Attendance" [labelClass]="'fw-bold'">
             <div class="table-responsive mt-2">
               <ng-container [ngSwitch]="view.loading">
                 <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
                 <table class="table my-table default-title mb-0" *ngSwitchCase="false">
                   <tr>
                     <th scope="col">Number</th>
-                    <th scope="col">Classroom Title</th>
-                    <th scope="col">Attendance Status</th>
+                    <th scope="col">Class Title</th>
+                    <th scope="col">Attendance</th>
                     <th scope="col">Date</th>
                   </tr>
 
@@ -94,13 +94,13 @@
               </ng-container>
             </div>
           </mat-tab>
-          <mat-tab label="My Attendance">
+          <mat-tab label="My Attendance" [labelClass]="'fw-bold'">
             <div class="table-responsive mt-2">
               <table class="table my-table default-title mb-0">
                 <tr>
                   <th scope="col">Number</th>
-                  <th scope="col">Classroom Title</th>
-                  <th scope="col">Attendance Status</th>
+                  <th scope="col">Class Title</th>
+                  <th scope="col">Attendance</th>
                   <th scope="col">Date</th>
                 </tr>
                 <tr *ngIf="!view.attendance?.myAttendence || !view.attendance?.myAttendence?.length">

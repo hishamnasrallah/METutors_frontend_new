@@ -57,6 +57,9 @@
   }
 
   table {
+    th {
+      font-weight: normal;
+    }
     td {
       button {
         text-transform: capitalize;
@@ -79,6 +82,14 @@
 
         &.ml-2 {
           margin-left: 8px;
+        }
+
+        &.feedback {
+          img {
+            margin-top: -4px;
+          }
+          padding: 11px 15px;
+          border-radius: 4px;
         }
       }
     }
