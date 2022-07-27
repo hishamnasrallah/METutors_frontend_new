@@ -105,6 +105,7 @@
                                     [availableTutors]="availableTutors$ | async"
                                     (onBack)="backStep()"
                                     (tutorAvailability)="onTutorAvailability($event)"
+                                    (filterTutors)="filterTutors($event)"
                                     (changeSchedule)="onOpenChangeCourseScheduleModal($event)"
                                     (submitForm)="nextStep()">
         </metutors-select-tutor-form>

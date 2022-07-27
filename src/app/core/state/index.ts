@@ -852,6 +852,16 @@ export const selectGeneratingSuggestedTutors = createSelector(
   fromRequestReducer.selectGeneratingSuggestedTutors
 );
 
+export const selectFilteredGeneratingAvailableTutors = createSelector(
+  selectRequestState,
+  fromRequestReducer.selectFilteredGeneratingAvailableTutors
+);
+
+export const selectFilteredGeneratingSuggestedTutors = createSelector(
+  selectRequestState,
+  fromRequestReducer.selectFilteredGeneratingSuggestedTutors
+);
+
 export const selectIsGeneratingTutors = createSelector(
   selectRequestState,
   fromRequestReducer.selectIsGeneratingTutors

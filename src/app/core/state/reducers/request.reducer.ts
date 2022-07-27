@@ -317,3 +317,37 @@ export const selectRequestPaymentInfo = (state: State): any =>
 
 export const selectRequestedIsCreatingCourse = (state: State): any =>
   state.isCreatingCourse;
+
+export const selectFilteredGeneratingAvailableTutors = (
+  state: State,
+  props?: any
+): ITutor[] | null => {
+  let tutors: ITutor[] = state.availableTutors || [];
+
+  if (state.availableTutors && state.availableTutors.length && props) {
+    tutors = props?.name
+      ? state.availableTutors.filter((tutor) =>
+          tutor?.name?.toLowerCase().includes(props.name.toLowerCase())
+        )
+      : state.availableTutors;
+  }
+
+  return tutors;
+};
+
+export const selectFilteredGeneratingSuggestedTutors = (
+  state: State,
+  props?: any
+): ITutor[] | null => {
+  let tutors: ITutor[] = state.suggestedTutors || [];
+
+  if (state.suggestedTutors && state.suggestedTutors.length && props) {
+    tutors = props?.name
+      ? state.suggestedTutors.filter((tutor) =>
+          tutor?.name?.toLowerCase().includes(props.name.toLowerCase())
+        )
+      : state.suggestedTutors;
+  }
+
+  return tutors;
+};

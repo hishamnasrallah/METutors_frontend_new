@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { AbstractControl, FormGroup, Validators } from '@angular/forms';
 import { TutorStatus } from 'src/app/config';
 import { ITutor, IClass } from 'src/app/core/models';
+import { AbstractControl, FormGroup, Validators } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   state,
   style,
@@ -60,6 +60,7 @@ export class SelectTutorFormComponent implements OnInit {
 
   @Output() onBack = new EventEmitter();
   @Output() submitForm = new EventEmitter();
+  @Output() filterTutors: EventEmitter<string> = new EventEmitter<string>();
   @Output() changeSchedule: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() tutorAvailability: EventEmitter<number> =
     new EventEmitter<number>();
@@ -80,6 +81,10 @@ export class SelectTutorFormComponent implements OnInit {
     if (form.valid) {
       this.submitForm.emit(form.value);
     }
+  }
+
+  onSearch(text: string): void {
+    this.filterTutors.emit(text);
   }
 
   onViewAvailability(id: number): void {

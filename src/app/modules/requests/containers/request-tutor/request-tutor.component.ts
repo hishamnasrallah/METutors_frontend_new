@@ -331,7 +331,30 @@ export class RequestTutorComponent implements OnInit {
       };
 
       this._store.dispatch(fromCore.generateTutors({ data }));
+      this.filterTutors('');
     }
+  }
+
+  filterTutors(name: string): void {
+    this.availableTutors$ = this._store
+      .select(fromCore.selectFilteredGeneratingAvailableTutors, { name })
+      .pipe(
+        tap((tutors) => {
+          if (tutors && tutors.length) {
+            this.tutors = [...this.tutors, ...tutors];
+          }
+        })
+      );
+
+    this.suggestedTutors$ = this._store
+      .select(fromCore.selectFilteredGeneratingSuggestedTutors, { name })
+      .pipe(
+        tap((tutors) => {
+          if (tutors && tutors.length) {
+            this.tutors = [...this.tutors, ...tutors];
+          }
+        })
+      );
   }
 
   updatedClassrooms(classrooms: IClass[]): void {
