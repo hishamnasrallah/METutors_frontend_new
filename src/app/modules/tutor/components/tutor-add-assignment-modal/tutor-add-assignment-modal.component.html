@@ -67,12 +67,16 @@
               <ng-container *ngFor="let url of selectedURLs; let i = index">
                 <div class="url-info d-flex flex-column my-2">
                   <span>{{ url.title }}</span>
-                  <strong class="d-flex align-items-center">
-                    {{ url.url }}
+                  <div class="d-flex align-items-center">
+                    <strong class="text-truncate mw-100">{{ url.url }}</strong>
+                    <a [href]="url.url" target="_blank" class="d-flex ms-2">
+                      <mat-icon>link</mat-icon>
+                    </a>
                     <mat-icon class="cursor-pointer ms-2 delete-icon" (click)="removeURL(i)">cancel</mat-icon>
-                  </strong>
+                  </div>
                 </div>
               </ng-container>
+
               <div class="overflow-hidden">
                 <ng-container formGroupName="urls">
                   <input type="text" class="form-control custom-input input-bordered" formControlName="title"

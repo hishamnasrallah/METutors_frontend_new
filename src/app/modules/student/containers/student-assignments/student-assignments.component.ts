@@ -57,6 +57,8 @@ export class StudentAssignmentsComponent implements OnInit {
   constructor(private _store: Store<any>) {}
 
   filterAssignments(status: string): void {
+    this.activeAssignment = status === 'active';
+
     this.assignments$ = this._store.select(
       fromCore.selectStudentFilteredAssignments,
       {

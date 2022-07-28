@@ -1,4 +1,11 @@
 .add-assignment-modal {
+  .delete-icon {
+    width: 16px;
+    height: 16px;
+    font-size: 16px;
+    color: #696969;
+  }
+
   label {
     font-weight: bold;
     font-size: 15px;
@@ -13,13 +20,6 @@
       font-size: 18px;
       color: #2a2a2a;
       font-weight: 500;
-
-      mat-icon {
-        width: 15px;
-        height: 15px;
-        font-size: 14px;
-        color: #696969;
-      }
     }
   }
 

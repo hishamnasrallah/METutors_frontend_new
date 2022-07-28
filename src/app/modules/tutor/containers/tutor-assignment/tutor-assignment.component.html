@@ -90,9 +90,9 @@
                       <div class="d-flex flex-column mx-3">
                         <span>Remaining Time</span>
                         <strong class="alert-msg"
-                                *ngIf="assignment?.remainingDays <= 1">{{ assignment?.remainingDays ? assignment?.remainingDays : 0 }}
-                          Days</strong>
-                        <strong *ngIf="assignment?.remainingDays > 1">{{ assignment?.remainingDays }} Days</strong>
+                                *ngIf="assignment?.remainingDays < 1">{{ assignment?.remainingDays === 0 ? 'Today' : '0 Day' }}
+                          </strong>
+                        <strong *ngIf="assignment?.remainingDays >= 1">{{ assignment?.remainingDays }} Days</strong>
                       </div>
                       <button mat-button class="main-button-transparent"
                               (click)="onOpenAssignmentDetails(assignment.id)">

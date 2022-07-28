@@ -129,7 +129,7 @@
             <div class="item position-relative" *ngFor="let syllabus of view.syllabus?.topics; let i = index">
               <span class="number">{{ i + 1 }}</span>
               <div class="row set-padding">
-                <div class="col-md-9">
+                <div class="col-md-10">
                   <h2>{{ syllabus?.topic?.name }}</h2>
                   <div class="row list-items sm-item p-0">
                     <div class="col-md-2 d-flex menu align-items-center">
@@ -144,19 +144,8 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-md-3">
-                  <div class="row">
-                    <div class="col">
-                      <h3 *ngIf="syllabus?.topicProgress === 100">Completed</h3>
-                      <h3 *ngIf="syllabus?.topicProgress === 0">Not Started yet</h3>
-                      <h3
-                        *ngIf="syllabus?.topicProgress && (syllabus?.topicProgress > 0 && syllabus?.topicProgress < 100)">
-                        In progress</h3>
-                      <mat-progress-bar class="example-margin"
-                                        [color]="syllabus.topicProgress ? syllabus.topicProgress > 30 ? 'primary' : 'warn' : undefined"
-                                        [value]="syllabus?.topicProgress">
-                      </mat-progress-bar>
-                    </div>
+                <div class="col-md-2">
+                  <div class="row justify-content-end">
                     <div class="col-md-2 d-flex align-items-center">
                       <button class="edit-data" mat-button (click)="onEditTopic(syllabus?.topic, view.syllabus?.unclassifiedClasses?.length)">
                         <img src="assets/svg/edit.svg" width="20" height="20" />
