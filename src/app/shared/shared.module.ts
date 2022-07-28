@@ -33,6 +33,7 @@ import {
 // Components
 import {
   ModalComponent,
+  ReviewRateComponent,
   CourseItemComponent,
   UserAvatarComponent,
   SearchInputComponent,
@@ -66,6 +67,7 @@ import {
   declarations: [
     // Components
     ModalComponent,
+    ReviewRateComponent,
     CourseItemComponent,
     UserAvatarComponent,
     SearchInputComponent,
@@ -128,6 +130,7 @@ import {
     ModalComponent,
     UserAvatarComponent,
     CourseItemComponent,
+    ReviewRateComponent,
     VideoPlayerComponent,
     SearchInputComponent,
     SendFeedbackComponent,

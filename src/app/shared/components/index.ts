@@ -1,5 +1,6 @@
 export * from './modal';
 export * from './course-item';
+export * from './review-rate';
 export * from './user-avatar';
 export * from './video-player';
 export * from './search-input';

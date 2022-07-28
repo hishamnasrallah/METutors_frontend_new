@@ -2,12 +2,12 @@
   <form [formGroup]="form" (ngSubmit)="submitFeedback.emit(form)"
         class="rating-block mt-3">
     <ng-container formArrayName="feedbacks">
-      <div class="row mt-1" *ngFor="let option of feedbackOptions?.params; let i =index; " [formGroupName]="i">
+      <div class="row mt-1" *ngFor="let option of feedbackOptions?.params; let i = index" [formGroupName]="i">
         <div class="col">
           <p>{{ option?.name }}</p>
         </div>
         <div class="col-md-3 d-flex justify-content-center">
-          <rating [max]="5" formControlName="rating"></rating>
+          <metutors-review-rate [id]="i" formControlName="rating"></metutors-review-rate>
         </div>
       </div>
     </ng-container>
