@@ -1,4 +1,4 @@
-<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'medium'" [template]="template">
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'medium'" [template]="template" [heading]="'Submitted Assignments'">
   <ng-template #template>
     <ng-container *ngLet="(view$ | async) as view">
       <ng-container [ngSwitch]="view?.loading">

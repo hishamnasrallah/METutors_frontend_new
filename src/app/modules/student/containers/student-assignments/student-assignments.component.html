@@ -87,7 +87,7 @@
                       <!--<span class="cursor-pointer text-decoration-underline extend-date" *ngIf="assignment.status === 'active'" (click)="onOpenEditAssignmentModal(assignment.id)">Extend Due Date</span>-->
                       <div class="d-flex flex-column mx-3">
                         <span>Remaining Time</span>
-                        <strong class="alert-msg" *ngIf="assignment?.remainingDays <= 1">{{ assignment?.remainingDays ? assignment?.remainingDays : 0 }} Days</strong>
+                        <strong class="alert-msg" *ngIf="assignment?.remainingDays <= 1">{{ assignment?.remainingDays === 1 ? assignment?.remainingDays : 0 }} Days</strong>
                         <strong *ngIf="assignment?.remainingDays > 1">{{ assignment?.remainingDays }} Days</strong>
                       </div>
 

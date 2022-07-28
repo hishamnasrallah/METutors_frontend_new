@@ -741,10 +741,18 @@ export const selectStudentFilteredAssignments = (
     (assignment: any) => assignment.status === props?.status
   );
 
-  assignments = assignments.map((assignment: any) => ({
-    ...assignment,
-    remainingDays: getRemainingDays(assignment.deadline),
-  }));
+  assignments = assignments.map((assignment: any) => {
+    const assignees = assignment.assignees.map((assignee: any) => ({
+      ...assignee,
+      isLate: true,
+    }));
+
+    return {
+      ...assignment,
+      assignees,
+      remainingDays: getRemainingDays(assignment.deadline),
+    };
+  });
 
   const course = {
     ...state.assignments.course,

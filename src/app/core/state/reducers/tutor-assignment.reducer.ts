@@ -340,14 +340,22 @@ export const selectTutorFilteredAssignments = (
     (assignment: any) => assignment.status === props?.status
   );
 
-  assignments = assignments.map((assignment: any) => ({
-    ...assignment,
-    answerReceived: assignment.assignees.filter(
-      (assignee: any) =>
-        assignee?.status === 'submitted' || assignee?.status === 'completed'
-    ),
-    remainingDays: getRemainingDays(assignment.deadline),
-  }));
+  assignments = assignments.map((assignment: any) => {
+    const assignees = assignment.assignees.map((assignee: any) => ({
+      ...assignee,
+      isLate: getIsLate(assignment.deadline, assignee.createdAt),
+    }));
+
+    return {
+      ...assignment,
+      assignees,
+      answerReceived: assignment.assignees.filter(
+        (assignee: any) =>
+          assignee?.status === 'submitted' || assignee?.status === 'completed'
+      ),
+      remainingDays: getRemainingDays(assignment.deadline),
+    };
+  });
 
   const course = {
     ...state.assignments.course,
@@ -363,6 +371,14 @@ export const selectTutorFilteredAssignments = (
 const getRemainingDays = (deadline: string) => {
   const endDate = moment(deadline, 'YYYY-MM-DD');
   const currentDate = moment().startOf('day');
+
+  return moment.duration(endDate.diff(currentDate)).asDays();
+};
+
+const getIsLate = (deadline: string, submitted: string) => {
+  const endDate = moment(deadline, 'YYYY-MM-DD');
+  const submittedDate = moment(submitted, 'YYYY-MM-DD');
+  const currentDate = submittedDate.startOf('day');
 
   return moment.duration(endDate.diff(currentDate)).asDays();
 };

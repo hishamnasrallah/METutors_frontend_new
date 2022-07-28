@@ -49,7 +49,7 @@
         <div class="col-md-4 d-flex menu align-items-center">
           <img src="assets/svg/timer.svg" alt="" width="15" height="15" draggable="false">
           <strong>Total hour: </strong>
-          <span>{{ classroom?.hours }}hrs</span>
+          <span>{{ classroom?.hours > 1 ? classroom?.hours + 'hrs' : classroom?.hours+'hr' }}</span>
         </div>
         <div class="col-md-4 d-flex menu align-items-center">
           <ng-container *ngIf="classroom?.startTime && classroom?.endTime">
@@ -118,7 +118,7 @@
           <div class="row">
             <div class="col-md-12">
               <a [routerLink]="url + classroom?.id" mat-button color="primary" *ngIf="!completeCourse"
-                class="h-100 book-classroom float-end text-white">
+                class="h-100 book-classroom main-button-transparent float-end">
                 Continue
                 <mat-icon>arrow_forward</mat-icon>
               </a>
