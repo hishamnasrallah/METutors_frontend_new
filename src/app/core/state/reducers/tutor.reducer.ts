@@ -9,6 +9,7 @@ import { TutorStatus } from '@metutor/config';
 export interface State {
   dashboard: any;
   attendance: any;
+  kudosPoints: any;
   tutorsCounts: any;
   feedbackOptions: any;
   tutor: ITutor | null;
@@ -21,6 +22,7 @@ export interface State {
   loadingTutorsFailure: string;
   isReschedulingClass: boolean;
   isSubmittingFeedback: boolean;
+  isLoadingKudosPoints: boolean;
   availableTutors: ITutor[] | null;
   isLoadingAvailableTutors: boolean;
   isLoadingTutorAttendance: boolean;
@@ -69,6 +71,7 @@ export const initialState: State = {
   tutors: null,
   dashboard: null,
   attendance: null,
+  kudosPoints: null,
   profileTutor: null,
   featuredTutors: [],
   currentTutors: null,
@@ -87,6 +90,7 @@ export const initialState: State = {
   isChangeTutorCover: false,
   isChangeTutorStatus: false,
   isReschedulingClass: false,
+  isLoadingKudosPoints: false,
   isSubmittingFeedback: false,
   isUpdateTutorProfile: false,
   isSubmittingInterview: false,
@@ -559,6 +563,22 @@ export const reducer = createReducer(
   on(tutorActions.loadSubjectFeaturedTutorsFailure, (state) => ({
     ...state,
     isLoadingSubjectFeaturedTutors: false,
+  })),
+
+  on(tutorActions.loadTutorKudosPoints, (state) => ({
+    ...state,
+    isLoadingKudosPoints: true,
+  })),
+
+  on(tutorActions.loadTutorKudosPointsSuccess, (state, { kudosPoints }) => ({
+    ...state,
+    kudosPoints,
+    isLoadingKudosPoints: false,
+  })),
+
+  on(tutorActions.loadTutorKudosPointsFailure, (state) => ({
+    ...state,
+    isLoadingKudosPoints: false,
   }))
 );
 
@@ -658,3 +678,9 @@ export const selectSubjectFeaturedTutors = (state: State): ITutor[] | null =>
 
 export const selectIsLoadingSubjectFeaturedTutors = (state: State): boolean =>
   state.isLoadingSubjectFeaturedTutors;
+
+export const selectTutorKudosPoints = (state: State): ITutor[] | null =>
+  state.kudosPoints;
+
+export const selectIsLoadingTutorKudosPoints = (state: State): boolean =>
+  state.isLoadingKudosPoints;

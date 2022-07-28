@@ -582,6 +582,28 @@ export class TutorEffects {
     )
   );
 
+  loadTutorKudosPoints$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorActions.loadTutorKudosPoints),
+      mergeMap(() =>
+        this._tutorService.loadKudosPoints().pipe(
+          map((kudosPoints) =>
+            tutorActions.loadTutorKudosPointsSuccess({
+              kudosPoints: camelcaseKeys(kudosPoints, { deep: true }),
+            })
+          ),
+          catchError((error) =>
+            of(
+              tutorActions.loadTutorKudosPointsFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   tutorSubmitFeedbackSuccess$ = createEffect(() =>
     this._actions$.pipe(
       ofType(tutorActions.tutorSubmitFeedbackSuccess),

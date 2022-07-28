@@ -862,6 +862,10 @@ span.status {
   }
 }
 
+.text-main, rating span.bs-rating-star.active {
+  color: var(--main-color);
+}
+
 ////////////////////////
 // Placeholder
 ////////////////////////

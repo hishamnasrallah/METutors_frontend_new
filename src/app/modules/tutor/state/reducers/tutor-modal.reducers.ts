@@ -7,6 +7,7 @@ export interface State {
   params: any;
   showConfirmModal: boolean;
   showAddTopicModal: boolean;
+  showKudosPointsModal: boolean;
   showRejectCourseModal: boolean;
   showCancelCourseModal: boolean;
   showSendFeedbackModal: boolean;
@@ -25,6 +26,7 @@ export const initialState: State = {
   params: null,
   showConfirmModal: false,
   showAddTopicModal: false,
+  showKudosPointsModal: false,
   acceptRejectModalHeading: '',
   showRejectCourseModal: false,
   showCancelCourseModal: false,
@@ -242,7 +244,17 @@ export const reducer = createReducer(
       ...state,
       showRescheduleClassModal: false,
     })
-  )
+  ),
+
+  on(tutorModalActions.openKudosPointsModal, (state) => ({
+    ...state,
+    showKudosPointsModal: true,
+  })),
+
+  on(tutorModalActions.closeKudosPointsModal, (state) => ({
+    ...state,
+    showKudosPointsModal: false,
+  }))
 );
 
 // tutor modal selectors
@@ -286,3 +298,6 @@ export const selectSubmitInterviewModal = (state: State): boolean =>
 
 export const selectRescheduleClassModal = (state: State): boolean =>
   state.showRescheduleClassModal;
+
+export const selectKudosPointsModal = (state: State): boolean =>
+  state.showKudosPointsModal;

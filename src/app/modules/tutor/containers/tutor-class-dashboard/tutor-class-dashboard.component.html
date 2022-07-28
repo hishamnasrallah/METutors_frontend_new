@@ -216,9 +216,15 @@
                     View Class
                   </button>
 
-                  <span class="w-100 text-danger text-center" *ngIf="pastClass?.status === 'absent'">
-                    Student Absent
+                  <ng-container *ngIf="pastClass?.status !== 'completed'">
+                    <span class="w-100 text-danger text-center" *ngIf="pastClass?.teacherAttendence?.status === 'absent'">
+                    Teacher Absent
                   </span>
+
+                    <span class="w-100 text-danger text-center" *ngIf="pastClass?.teacherAttendence?.status !== 'absent' && pastClass?.studentAttendence?.status === 'absent'">
+                    Teacher Absent
+                  </span>
+                  </ng-container>
                 </td>
               </tr>
             </ng-container>

@@ -11,6 +11,7 @@ export * from './tutor-cancel-course-modal';
 export * from './tutor-reject-course-modal';
 export * from './tutor-add-assignment-modal';
 export * from './tutor-reschedule-class-modal';
+export * from './tutor-view-kudos-points-detail';
 export * from './tutor-add-class-resource-modal';
 export * from './tutor-add-syllabus-topic-modal';
 export * from './tutor-assignment-details-modal';

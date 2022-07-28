@@ -383,6 +383,16 @@ export const selectIsLoadingSubjectFeaturedTutors = createSelector(
   fromTutorReducer.selectIsLoadingSubjectFeaturedTutors
 );
 
+export const selectTutorKudosPoints = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectTutorKudosPoints
+);
+
+export const selectIsLoadingTutorKudosPoints = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectIsLoadingTutorKudosPoints
+);
+
 // Tutor syllabus
 export const selectTutorSyllabus = createSelector(
   selectTutorSyllabusState,

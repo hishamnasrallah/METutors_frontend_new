@@ -426,4 +426,10 @@ export class TutorsService {
         )
       );
   }
+
+  loadKudosPoints(): Observable<any> {
+    return this.http
+      .get<any>(`${this.baseUrl}teacher/kudos-points`)
+      .pipe(map((result) => result.points_detail));
+  }
 }

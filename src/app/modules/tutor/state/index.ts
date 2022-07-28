@@ -108,3 +108,8 @@ export const selectTutorConfirmModal = createSelector(
   selectTutorModalState,
   fromTutorModal.selectTutorConfirmModal
 );
+
+export const selectKudosPointsModal = createSelector(
+  selectTutorModalState,
+  fromTutorModal.selectKudosPointsModal
+);

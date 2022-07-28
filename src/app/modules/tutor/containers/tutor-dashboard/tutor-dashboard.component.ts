@@ -10,6 +10,7 @@ import { IUser } from '@metutor/core/models';
 import * as fromCore from '@metutor/core/state';
 import * as fromTutorAction from '../../state/actions';
 import { insightRange, WEEK_DAYS } from '@metutor/config';
+import { environment } from '@environment';
 
 @Component({
   selector: 'metutors-tutor-dashboard',
@@ -19,10 +20,13 @@ import { insightRange, WEEK_DAYS } from '@metutor/config';
 export class TutorDashboardComponent implements OnInit {
   layout$: any;
   courseId: number;
+  kudosPoints$: Observable<any>;
   user$: Observable<IUser | null>;
   isRejecting$: Observable<boolean>;
   isAccepting$: Observable<boolean>;
   isLaunchingClass$: Observable<boolean>;
+  isLoadingKudosPoints$: Observable<boolean>;
+  showKudosPointsModal$: Observable<boolean>;
   showSendFeedbackModal$: Observable<boolean>;
   showRejectCourseModal$: Observable<boolean>;
   view$: Observable<{ loading: boolean; data: any }>;
@@ -31,6 +35,7 @@ export class TutorDashboardComponent implements OnInit {
   insightRange = insightRange;
   tabLabel = 'Metutors Feedback';
   heading = 'Leave a Feedback';
+  imageUrl = environment.imageURL;
   subHeading = 'Share with us your feedback onMEtutors service';
   messageLabel =
     'Please share with us your thoughts on how to improve our services';
@@ -85,6 +90,14 @@ export class TutorDashboardComponent implements OnInit {
     this._store.dispatch(fromCore.tutorSubmitPlatformFeedback({ body }));
   }
 
+  onOpenKudosPointsModal(): void {
+    this._store.dispatch(fromTutorAction.openKudosPointsModal());
+  }
+
+  onCloseKudosPointsModal(): void {
+    this._store.dispatch(fromTutorAction.closeKudosPointsModal());
+  }
+
   logout(): void {
     this._store.dispatch(fromCore.logout());
   }
@@ -104,6 +117,16 @@ export class TutorDashboardComponent implements OnInit {
 
     this.showSendFeedbackModal$ = this._store.select(
       fromTutor.selectSendFeedbackModal
+    );
+
+    this.kudosPoints$ = this._store.select(fromCore.selectTutorKudosPoints);
+
+    this.isLoadingKudosPoints$ = this._store.select(
+      fromCore.selectIsLoadingTutorKudosPoints
+    );
+
+    this.showKudosPointsModal$ = this._store.select(
+      fromTutor.selectKudosPointsModal
     );
 
     this._store.dispatch(

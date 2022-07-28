@@ -136,3 +136,11 @@ export const openTutorConfirmModal = createAction(
 export const closeTutorConfirmModal = createAction(
   '[Tutor Modal] Close Tutor Confirm Modal'
 );
+
+export const openKudosPointsModal = createAction(
+  '[Tutor Modal] Open Kudos Points Modal'
+);
+
+export const closeKudosPointsModal = createAction(
+  '[Tutor Modal] Close Kudos Points Modal'
+);

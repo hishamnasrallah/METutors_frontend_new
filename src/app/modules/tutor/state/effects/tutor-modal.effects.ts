@@ -70,5 +70,12 @@ export class TutorModalEffects {
     )
   );
 
+  openTutorKudosPointsModal$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(fromTutorAction.openKudosPointsModal),
+      mergeMap(() => of(fromCore.loadTutorKudosPoints()))
+    )
+  );
+
   constructor(private _actions$: Actions, private _store: Store) {}
 }

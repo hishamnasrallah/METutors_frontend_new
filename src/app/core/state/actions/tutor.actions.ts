@@ -373,3 +373,17 @@ export const loadSubjectFeaturedTutorsFailure = createAction(
   '[Tutor] Load Subject Featured Tutors Failure',
   props<{ error: any }>()
 );
+
+export const loadTutorKudosPoints = createAction(
+  '[Tutor] Load Tutor Kudos Points'
+);
+
+export const loadTutorKudosPointsSuccess = createAction(
+  '[Tutor] Load Tutor Kudos Points Success',
+  props<{ kudosPoints: any }>()
+);
+
+export const loadTutorKudosPointsFailure = createAction(
+  '[Tutor] Load Tutor Kudos Points Failure',
+  props<{ error: any }>()
+);
