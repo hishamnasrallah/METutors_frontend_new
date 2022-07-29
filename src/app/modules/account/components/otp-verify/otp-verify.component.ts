@@ -91,5 +91,9 @@ export class OtpVerifyComponent implements OnInit {
 
   resendOTPConfirm(): void {
     this.resendOTP.emit();
+    this.ngOtpInput.setValue(null);
+    this.form.get('otp')?.setValue(null);
+    this.form.updateValueAndValidity();
+    this.form.markAsDirty();
   }
 }

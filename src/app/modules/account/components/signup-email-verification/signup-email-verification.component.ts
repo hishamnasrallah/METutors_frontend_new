@@ -69,5 +69,9 @@ export class SignupEmailVerificationComponent implements OnInit {
 
   resendEmailConfirm(): void {
     this.resendEmail.emit();
+    this.ngOtpInput.setValue(null);
+    this.form.get('code')?.setValue(null);
+    this.form.updateValueAndValidity();
+    this.form.markAsDirty();
   }
 }
