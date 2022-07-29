@@ -61,7 +61,7 @@
                   <td>First Name</td>
                   <td><bdi>{{ tutor?.firstName }}</bdi></td>
                 </tr>
-                <tr>
+                <tr *ngIf="tutor?.middleName">
                   <td>Middle Name</td>
                   <td><bdi>{{ tutor?.middleName }}</bdi></td>
                 </tr>
