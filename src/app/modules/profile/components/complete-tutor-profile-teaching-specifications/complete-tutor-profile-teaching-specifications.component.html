@@ -8,7 +8,7 @@
           <label for="startDate" class="form-label">Availability Starting Date</label>
           <mat-form-field appearance="outline" class="w-100">
             <input matInput [matDatepicker]="datetPicker" [placeholder]="'Select Start Date'"
-              (focus)="datetPicker.open()" [min]="minDate" formControlName="startDate">
+              (focus)="datetPicker.open()" (dateChange)="onChangeStartDate()" [min]="minDate" formControlName="startDate">
             <mat-datepicker-toggle matSuffix [for]="datetPicker"></mat-datepicker-toggle>
             <mat-datepicker #datetPicker></mat-datepicker>
           </mat-form-field>

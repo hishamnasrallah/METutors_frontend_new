@@ -111,6 +111,11 @@ export class CompleteTutorProfileTeachingSpecificationsComponent
     }
   }
 
+  onChangeStartDate(): void {
+    this.endDate?.setValue(null);
+    this.endDate?.updateValueAndValidity();
+  }
+
   openDialog(index: number) {
     const dialogRef = this._dialog.open(DialogSelectAvailabilityDialog, {
       width: '500px',
