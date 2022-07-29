@@ -189,6 +189,13 @@ export class CourseInformationFormComponent implements OnInit {
   onFileUpload(event: any): void {
     if (event.target && event.target.files && event.target.files.length) {
       const file = event.target.files[0];
+
+      if (file.type !== 'application/pdf') {
+        this._alertNotificationService.error('Only PDF file is allowed');
+
+        return;
+      }
+
       if (file.size > 5 * 1024 * 1024) {
         this._alertNotificationService.error('Allowed file size is 5MB');
 
