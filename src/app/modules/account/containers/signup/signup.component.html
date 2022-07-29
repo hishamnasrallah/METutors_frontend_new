@@ -26,7 +26,7 @@
           <div class="row">
             <div class="col-6">
               <div class="form-group">
-                <label for="firstName">What's your first name?</label>
+                <label for="firstName">What's your First Name?</label>
                 <input type="text" class="custom-input w-100 input-bordered" id="firstName" placeholder="First name"
                   formControlName="firstName">
                 <div class="text-danger" *ngIf="firstName?.touched && firstName?.invalid">
@@ -36,7 +36,7 @@
             </div>
             <div class="col-6">
               <div class="form-group">
-                <label for="lastName">What's your last name?</label>
+                <label for="lastName">What's your Last Name?</label>
                 <input type="text" class="custom-input w-100 input-bordered" id="lastName" placeholder="Last name"
                   formControlName="lastName">
                 <div class="text-danger" *ngIf="lastName?.touched && lastName?.invalid">
@@ -47,7 +47,7 @@
           </div>
 
           <div class="form-group">
-            <label for="email">Email address</label>
+            <label for="email">Email Address</label>
             <input type="email" class="custom-input w-100 input-bordered" id="email" placeholder="ku@pecafhuj.co.uk"
               formControlName="email" email>
             <span class="text-danger" *ngIf="email?.invalid && email?.touched">
@@ -56,13 +56,19 @@
           </div>
 
           <div class="form-group">
-            <label for="phone">Phone number</label>
+            <label for="phone">Phone Number</label>
             <div class="w-100">
               <ngx-intl-tel-input [cssClass]="'custom-input w-100 input-bordered'"
-                [selectedCountryISO]="selectedCountry" [preferredCountries]="preferredCountries"
-                [ngClass]="{'has-error': phoneNumber?.invalid && phoneNumber?.touched}" [enableAutoCountrySelect]="true"
-                [enablePlaceholder]="true" [searchCountryFlag]="true" [selectFirstCountry]="true"
-                [phoneValidation]="true" [separateDialCode]="true" formControlName="mobileNumber">
+                                  [selectedCountryISO]="selectedCountry"
+                                  [preferredCountries]="preferredCountries"
+                                  [ngClass]="{'has-error': phoneNumber?.invalid && phoneNumber?.touched}"
+                                  [enableAutoCountrySelect]="true"
+                                  [enablePlaceholder]="true"
+                                  [searchCountryFlag]="true"
+                                  [selectFirstCountry]="true"
+                                  [phoneValidation]="true"
+                                  [separateDialCode]="true"
+                                  formControlName="mobileNumber">
               </ngx-intl-tel-input>
               <span class="text-danger" *ngIf="phoneNumber?.invalid && phoneNumber?.touched">
                 Please write a correct phone number
@@ -128,9 +134,11 @@
 
       <div *ngLet="(email$ | async) as myEmail">
         <metutors-signup-email-verification [loading]="(isVerifyEmail$ | async)!"
-          [resendLoading]="(isResendEmailconfirm$ | async)!" [email]="myEmail"
-          (submitForm)="onSubmitVerifyEmail($event, myEmail)" (resendEmail)="resendEmailConfirm(myEmail)"
-          (changeStep)="changeStep(1, '', accountType)">
+                                            [resendLoading]="(isResendEmailconfirm$ | async)!"
+                                            [email]="myEmail"
+                                            (submitForm)="onSubmitVerifyEmail($event, myEmail)"
+                                            (resendEmail)="resendEmailConfirm(myEmail)"
+                                            (changeStep)="changeStep(1, '', accountType)">
         </metutors-signup-email-verification>
       </div>
     </div>
