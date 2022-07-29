@@ -36,6 +36,10 @@
     border-radius: 5px;
 
     .list-tutors {
+      max-height: 50vh;
+      overflow-y: auto;
+      overflow-x: hidden;
+
       .info {
         color: #2A2A2A;
         font-size: 13px;
