@@ -1,18 +1,16 @@
-import {
-  Component,
-  EventEmitter,
-  Inject,
-  Input,
-  OnInit,
-  Output,
-  ViewChild,
-} from '@angular/core';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import * as fromCore from '@metutor/core/state';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import * as fromCore from '@metutor/core/state';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-
+import {
+  Inject,
+  OnInit,
+  Output,
+  Component,
+  ViewChild,
+  EventEmitter,
+} from '@angular/core';
 @Component({
   selector: 'metutors-otp-verify',
   templateUrl: './otp-verify.component.html',
@@ -52,6 +50,14 @@ export class OtpVerifyComponent implements OnInit {
     this._store.select(fromCore.selectToken).subscribe((token) => {
       if (token) {
         this.dialogRef.close();
+      }
+    });
+    this._store.select(fromCore.selectSignInFailure).subscribe((error) => {
+      if (error) {
+        this.ngOtpInput.setValue(null);
+        this.form.get('otp')?.setValue(null);
+        this.form.updateValueAndValidity();
+        this.form.markAsDirty();
       }
     });
   }

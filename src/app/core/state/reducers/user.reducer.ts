@@ -211,6 +211,9 @@ export const selectToken = (state: State): string | undefined => state.token;
 export const selectTempToken = (state: State): string | undefined =>
   state.tempToken;
 
+export const selectSignInFailure = (state: State): string | undefined =>
+  state.signInFailure;
+
 export const selectIsSignUp = (state: State): boolean => state.isSignUp;
 
 export const selectRegisterStep = (state: State): number => state.registerStep;

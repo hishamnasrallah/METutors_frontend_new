@@ -175,6 +175,11 @@ export const selectTempToken = createSelector(
   fromUserReducer.selectTempToken
 );
 
+export const selectSignInFailure = createSelector(
+  selectUserState,
+  fromUserReducer.selectSignInFailure
+);
+
 export const selectIsSubmitOTPAdmin = createSelector(
   selectUserState,
   fromUserReducer.selectIsSubmitOTPAdmin
