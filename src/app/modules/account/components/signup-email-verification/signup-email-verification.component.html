@@ -17,13 +17,13 @@
 
     <div class="form-group mt-4 mb-2">
       <metutors-submit-button [form]="form" [isSubmitting]="loading" [extraClasses]="'w-100'">
-        Submit code
+        Submit Code
       </metutors-submit-button>
     </div>
     <div class="form-group mt-4 mb-2">
       <button mat-button class="py-1 d-block w-100 main-button-transparent" (click)="resendEmailConfirm()"
         [disabled]="resendLoading">
-        Re-send email verification
+        Resend Email Verification
         <mat-icon class="spinner" *ngIf="resendLoading">autorenew</mat-icon>
       </button>
     </div>
