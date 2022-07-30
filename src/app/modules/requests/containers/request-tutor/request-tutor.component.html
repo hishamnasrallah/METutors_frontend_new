@@ -2,7 +2,7 @@
   <h1>Academic Course Booking Request</h1>
   
   <mat-horizontal-stepper labelPosition="bottom" linear #stepper>
-    <mat-step [stepControl]="courseInformationForm" class="step1">
+    <mat-step [stepControl]="courseInformationForm">
       <form [formGroup]="courseInformationForm">
         <ng-template matStepLabel>
           <div class="title-info" [class.done]="courseInformationForm.valid">
