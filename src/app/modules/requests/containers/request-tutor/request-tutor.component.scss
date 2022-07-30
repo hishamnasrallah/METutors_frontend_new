@@ -98,6 +98,46 @@
     width: calc(50% - 40px);
   }
 
+  .mat-step-label.mat-step-label-active:not(.mat-step-label-selected):after,
+  .mat-step-label.mat-step-label-active:not(.mat-step-label-selected):before {
+    content: "";
+    top: 50px;
+    border-color: var(--main-color);
+    border-width: 8px;
+    border-top-style: dotted;
+    right: 5px;
+    width: calc(50% - 40px);
+    display: inline-block;
+    height: 0;
+    position: absolute;
+    z-index: 2;
+  }
+
+  .mat-step-label.mat-step-label-active:not(.mat-step-label-selected):before {
+    left: 0;
+    right: auto;
+  }
+
+  .mat-step-label.mat-step-label-active.mat-step-label-selected:before {
+    content: "";
+    top: 50px;
+    border-color: var(--main-color);
+    border-width: 8px;
+    border-top-style: dotted;
+    right: 5px;
+    width: calc(50% - 40px);
+    display: inline-block;
+    height: 0;
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    right: auto;
+  }
+
+  .mat-horizontal-stepper-header-container mat-step-header:first-child .mat-step-label.mat-step-label-active:before {
+    display: none;
+  }
+
   .mat-stepper-label-position-bottom .mat-horizontal-stepper-header {
     flex-grow: 1;
     pointer-events: none !important;

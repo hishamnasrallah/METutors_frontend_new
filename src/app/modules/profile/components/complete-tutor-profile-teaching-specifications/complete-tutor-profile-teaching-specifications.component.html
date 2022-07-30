@@ -5,7 +5,7 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label for="startDate" class="form-label">Availability Starting Date</label>
+          <label class="form-label">Availability Starting Date</label>
           <mat-form-field appearance="outline" class="w-100">
             <input matInput [matDatepicker]="datetPicker" [placeholder]="'Select Start Date'"
               (focus)="datetPicker.open()" (dateChange)="onChangeStartDate()" [min]="minDate" formControlName="startDate">
