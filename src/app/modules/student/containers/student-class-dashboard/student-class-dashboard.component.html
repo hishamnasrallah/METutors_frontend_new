@@ -114,7 +114,7 @@
                   </td>
                   <td>{{ todaysClass.startTime }} - {{ todaysClass.endTime }} </td>
                   <td>{{ todaysClass?.duration }} hours</td>
-                  <td class="d-flex">
+                  <td>
                     <button mat-button class="main-button-opacity flex-grow-1" (click)="joinClass(todaysClass.id)"
                             *ngIf="todaysClass?.status !== 'completed'" [disabled]="(isJoiningClass$ | async)">
                       <img src="assets/svg/play-fill.svg" draggable="false" alt="">
@@ -177,7 +177,7 @@
                   <td>{{ upcomingClass.startDate }} </td>
                   <td>{{ upcomingClass.startTime }} - {{ upcomingClass.endTime }} </td>
                   <td>{{ upcomingClass?.duration }} hours</td>
-                  <td class="d-flex">
+                  <td>
                     <span
                       [tooltip]="getHours(upcomingClass.startDate) < 48 ? 'Class start time must be more than two days to reschedule' : ''"
                       class="w-100">
@@ -227,7 +227,7 @@
                   <td>{{ previousClass.startDate}} </td>
                   <td>{{ previousClass.startTime}} - {{ previousClass.endTime}} </td>
                   <td>{{ previousClass?.duration}}hrs</td>
-                  <td class="d-flex">
+                  <td>
                     <ng-container *ngIf="previousClass?.status !== 'completed'">
                       <button mat-button class="main-button-opacity flex-grow-1"
                               (click)="onOpenMakeupClassModal(previousClass)"

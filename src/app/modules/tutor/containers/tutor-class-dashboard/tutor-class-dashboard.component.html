@@ -107,7 +107,7 @@
                 </td>
                 <td>{{ todaysClass.startTime }} - {{ todaysClass.endTime }} </td>
                 <td>{{ todaysClass?.duration }} hours</td>
-                <td class="d-flex">
+                <td>
                   <button mat-button class="main-button-opacity flex-grow-1" (click)="launchClass(todaysClass.id)"
                           *ngIf="todaysClass?.status !== 'completed'" [disabled]="(isLaunchingClass$ | async)">
                     <img src="assets/svg/play-fill.svg" draggable="false" alt="">
@@ -161,7 +161,7 @@
                 <td>{{ upcomingClass.startDate }} </td>
                 <td>{{ upcomingClass.startTime }} - {{ upcomingClass.endTime }} </td>
                 <td>{{ upcomingClass?.duration }} hours</td>
-                <td class="d-flex">
+                <td>
                   <button mat-button class="main-button-opacity me-2 flex-grow-1"
                           (click)="onOpenRescheduleModal(upcomingClass.id)"
                           [disabled]="getHours(upcomingClass.startDate) < 48">
@@ -210,7 +210,7 @@
                 <td>{{ pastClass.startDate | date }} </td>
                 <td>{{ pastClass.startTime}} - {{ pastClass.endTime}} </td>
                 <td>{{ pastClass?.duration }} hours</td>
-                <td class="d-flex">
+                <td>
                   <button mat-button class="main-button-opacity flex-grow-1" *ngIf="pastClass?.status === 'completed'"
                           (click)="onViewClass(pastClass.id)" [disabled]="isLoadingViewClass$ | async">
                     <img src="assets/svg/eye-fill.svg" draggable="false" alt="">
