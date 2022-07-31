@@ -56,8 +56,8 @@ export class TutorAddAssignmentModalComponent implements OnInit {
       description: [null, [Validators.required, Validators.minLength(10)]],
       urls: this._fb.group(
         {
-          url: [null],
           title: [null],
+          url: [null, [Validators.pattern(generalConstants.regex.url)]],
         },
         { validators: this._urlValidation.bind(this) }
       ),
@@ -131,6 +131,10 @@ export class TutorAddAssignmentModalComponent implements OnInit {
 
   get urls(): FormGroup {
     return this.form?.get('urls') as FormGroup;
+  }
+
+  get invalidUrl(): any {
+    return this.urls?.controls['url'].errors;
   }
 
   get startDate(): AbstractControl | null {

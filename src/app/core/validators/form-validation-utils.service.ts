@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import {
-  AbstractControl,
-  FormControl,
   FormGroup,
-  ValidationErrors,
+  FormControl,
   ValidatorFn,
+  AbstractControl,
+  ValidationErrors,
 } from '@angular/forms';
 import { generalConstants } from '@metutor/config';
 

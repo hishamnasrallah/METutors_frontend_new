@@ -44,8 +44,8 @@ export class TutorAddClassResourceModalComponent implements OnInit {
       description: [null, [Validators.required, Validators.minLength(10)]],
       urls: this._fb.group(
         {
-          url: [null],
           title: [null],
+          url: [null, [Validators.pattern(generalConstants.regex.url)]],
         },
         { validators: this._urlValidation.bind(this) }
       ),
@@ -105,6 +105,10 @@ export class TutorAddClassResourceModalComponent implements OnInit {
 
   get files(): AbstractControl | null {
     return this.form?.get('files');
+  }
+
+  get invalidUrl(): any {
+    return this.urls?.controls['url'].errors;
   }
 
   removeFile(id: number): void {

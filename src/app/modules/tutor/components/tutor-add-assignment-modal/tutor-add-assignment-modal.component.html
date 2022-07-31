@@ -83,8 +83,10 @@
                          placeholder="Enter title here...">
                   <input type="url" class="form-control custom-input input-bordered mt-2" formControlName="url"
                          placeholder="Enter URL here...">
+
+                  <p class="text-danger" *ngIf="invalidUrl">Invalid URL</p>
                   <button mat-button type="button" class="add-url main-button-transparent float-end mt-2"
-                          [disabled]="!form.value.urls.title || !form.value.urls.url" (click)="addURL()">
+                          [disabled]="!form.value.urls.title || !form.value.urls.url || invalidUrl" (click)="addURL()">
                     Add
                   </button>
                 </ng-container>

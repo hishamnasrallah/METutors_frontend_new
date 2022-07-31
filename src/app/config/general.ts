@@ -29,6 +29,9 @@ export const generalConstants = {
     'assets/svg/math.svg',
   ],
   rejectionReasons: ["I'm not interested"],
+  regex: {
+    url: '^(http:\\/\\/www\\.|https:\\/\\/www\\.|http:\\/\\/|https:\\/\\/)?[a-z0-9]+([\\-\\.]{1}[a-z0-9]+)*\\.[a-z]{2,5}(:[0-9]{1,5})?(\\/.*)?$',
+  },
 };
 
 export const TICKET_STATUSES_CONST: any = [
