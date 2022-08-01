@@ -31,7 +31,7 @@ export class CompleteTutorProfilePersonalInformationComponent
 
   constructor(private _fb: FormBuilder, private _datePipe: DatePipe) {
     this.form = this._fb.group({
-      middleName: [null],
+      middleName: [null, [Validators.minLength(3), Validators.maxLength(15)]],
       nationality: [null, [Validators.required]],
       dateOfBirth: [null, [Validators.required]],
       address: [null, [Validators.required]],

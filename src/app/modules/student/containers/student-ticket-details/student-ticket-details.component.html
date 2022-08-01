@@ -37,7 +37,7 @@
               </div>
               <div class="col-md-3 d-flex menu align-items-center">
                 <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
-                <span>Last Reply: {{ ticket?.updatedDate | amTimeAgo }}</span>
+                <span>Last Reply: {{ ticket?.lastReply }}</span>
               </div>
               <div class="col-md-3 d-flex menu align-items-center ps-0">
                 <div class="block-file d-flex align-items-center" *ngIf="ticket?.file">

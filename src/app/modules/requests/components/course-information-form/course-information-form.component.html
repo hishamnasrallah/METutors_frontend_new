@@ -48,7 +48,7 @@
             <h3>Select Grade Level</h3>
             <mat-form-field appearance="outline" class="w-100">
               <mat-select formControlName="courseGrade" [placeholder]="'Choose Grade'"
-                (selectionChange)="onChangeCourseProgram()">
+                (selectionChange)="onChangeCourseProgram(); resetValues()">
                 <mat-option [value]="i + 1" *ngFor="let grade of grades; let i = index">
                   {{ grade }}
                 </mat-option>

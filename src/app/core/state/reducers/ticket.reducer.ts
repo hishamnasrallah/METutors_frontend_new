@@ -131,6 +131,7 @@ export const reducer = createReducer(
     ticket: state.ticket
       ? {
           ...state.ticket,
+          lastReply: 'Now',
           comments: [...state.ticket.comments, comment],
         }
       : null,

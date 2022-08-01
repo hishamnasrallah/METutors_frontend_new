@@ -15,6 +15,7 @@ export class ITicket {
   comments!: ITicketComment[];
   user?: IUser;
   duration?: number;
+  lastReply?: string;
   createdDate!: string;
   updatedDate!: string;
 
@@ -33,6 +34,7 @@ export class ITicket {
       this.duration = 0;
       this.createdDate = '';
       this.updatedDate = '';
+      this.lastReply = '';
     }
 
     if (ticket) {
@@ -60,6 +62,7 @@ export class ITicket {
       );
       this.createdDate = ticket.created_at;
       this.updatedDate = ticket.updated_at;
+      this.lastReply = ticket?.last_reply;
     }
   }
 }

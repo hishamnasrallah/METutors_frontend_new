@@ -99,6 +99,9 @@
             <label for="middleName" class="form-label">Middle Name <span>(Optional)</span></label>
             <input type="text" class="custom-input w-100 input-bordered" id="middleName" placeholder="Enter Middle Name"
               formControlName="middleName">
+            <div class="text-danger" *ngIf="middleName?.touched && middleName?.invalid">
+              Please write a valid name
+            </div>
           </div>
         </div>
 
@@ -408,7 +411,7 @@
 
   <div class="card complete-form">
     <div class="card-body">
-      <h1 class="title">Subjects</h1>
+      <h1 class="title">Teaching Courses & Rates <span>(To edit this information, please contact admin)</span></h1>
 
       <div class="row mt-4" *ngIf="tutor?.sortedSubjects && tutor?.sortedSubjects?.length">
         <div class="col-md-12" *ngFor="let item of tutor?.sortedSubjects; let indexSubjects = index; let isLast = last"
@@ -422,12 +425,12 @@
                   </ng-container>
                 </span>
               </th>
-              <th class="heading">Field Name <span>{{ item?.fieldName }}</span></th>
+              <th class="heading text-end">Study Field <span>{{ item?.fieldName }}</span></th>
             </tr>
             <tr>
-              <th>Field</th>
+              <th>Subject Name</th>
               <th *ngIf="item?.programId === nationalId">Grade</th>
-              <th>Hourly Price</th>
+              <th>Hourly Rate(USD)</th>
             </tr>
             <tr *ngFor="let subject of item.subjects">
               <td>{{ subject?.subject }}</td>

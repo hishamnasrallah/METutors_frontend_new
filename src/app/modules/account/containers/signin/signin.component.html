@@ -1,9 +1,11 @@
 <div class="container-fluid signin-block full-height">
   <div class="row full-height">
     <div class="col-md-4 offset-md-2 d-flex flex-column">
-      <a class="pt-5 pb-3" routerLink="/">
-        <img alt="logo" src="assets/logo/logo-dark.png" width="200px" draggable="false">
-      </a>
+      <div class="my-5">
+        <a routerLink="/">
+          <img alt="logo" src="assets/logo/logo-dark.png" width="200px" draggable="false">
+        </a>
+      </div>
 
       <form [formGroup]="signinForm" (ngSubmit)="onSubmit(signinForm)"
         class="w-100 flex-grow-1 d-flex align-items-center">
