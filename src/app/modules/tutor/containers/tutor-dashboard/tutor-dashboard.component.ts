@@ -36,7 +36,7 @@ export class TutorDashboardComponent implements OnInit {
   tabLabel = 'Metutors Feedback';
   heading = 'Leave a Feedback';
   imageUrl = environment.imageURL;
-  subHeading = 'Share with us your feedback onMEtutors service';
+  subHeading = 'Share with us your feedback on MEtutors service';
   messageLabel =
     'Please share with us your thoughts on how to improve our services';
 

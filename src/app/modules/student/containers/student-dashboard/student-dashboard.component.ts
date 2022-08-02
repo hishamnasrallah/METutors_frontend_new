@@ -55,7 +55,7 @@ export class StudentDashboardComponent implements OnInit {
   tabLabel = 'Metutors Feedback';
   imageUrl = environment.imageURL;
   showSendFeedbackModal$: Observable<boolean>;
-  subHeading = 'Share with us your feedback on MeTutors service';
+  subHeading = 'Share with us your feedback on MEtutors service';
   messageLabel =
     'Please share with us your thoughts on how to improve our services';
 
