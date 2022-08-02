@@ -1,6 +1,6 @@
 .add-topic-modal {
-  .-mt-7 {
-    margin-top: -7px;
+  .slider {
+    margin-top: 10px;
   }
 
   .remaining-class {
@@ -16,6 +16,9 @@
 
   .form-label {
     font-size: 18px;
+  }
+  .class-input-box {
+    height: 30px;
   }
 }
 
