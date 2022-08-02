@@ -1,6 +1,6 @@
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { combineLatest, Observable } from 'rxjs';
+import { combineLatest, Observable, tap } from 'rxjs';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import * as fromCore from '@metutor/core/state';
@@ -16,6 +16,7 @@ export class StudentViewSubmittedAssignmentModalComponent implements OnInit {
 
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
 
+  status: string;
   view$: Observable<{ loading: boolean; assignment: any }>;
 
   constructor(private _store: Store<any>) {}
@@ -31,8 +32,10 @@ export class StudentViewSubmittedAssignmentModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.view$ = combineLatest([
-      this._store.select(fromCore.selectStudentSubmittedAssignment),
       this._store.select(fromCore.selectIsLoadingStudentSubmittedAssignment),
-    ]).pipe(map(([assignment, loading]) => ({ loading, assignment })));
+      this._store
+        .select(fromCore.selectStudentSubmittedAssignment)
+        .pipe(tap((data: any) => (this.status = data?.assignment?.status))),
+    ]).pipe(map(([loading, assignment]) => ({ loading, assignment })));
   }
 }
