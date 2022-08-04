@@ -47,8 +47,10 @@ export class SignupComponent implements OnInit, OnDestroy {
   signupSub?: Subscription;
   loading: boolean = false;
   getRolesSub?: Subscription;
+  passwordVisibility = false;
   selectedCountry!: CountryISO;
   authSignInSub?: Subscription;
+  confirmPasswordVisibility = false;
   userType?: number = UserRole.student;
 
   preferredCountries: CountryISO[] = [

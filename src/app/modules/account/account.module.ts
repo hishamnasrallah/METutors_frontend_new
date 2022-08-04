@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NgOtpInputModule } from 'ng-otp-input';
 import { RatingModule } from 'ngx-bootstrap/rating';
 import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
@@ -53,6 +54,7 @@ import {
     SharedModule,
     MatIconModule,
     MatButtonModule,
+    MatInputModule,
     MatDialogModule,
     NgOtpInputModule,
     MatCheckboxModule,

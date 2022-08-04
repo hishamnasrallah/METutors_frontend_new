@@ -35,6 +35,7 @@ export class SigninComponent implements OnInit, OnDestroy {
   roles!: IRole[];
   returnUrl: string;
   signinForm: FormGroup;
+  passwordVisibility = false;
   getRolesSub?: Subscription;
 
   constructor(

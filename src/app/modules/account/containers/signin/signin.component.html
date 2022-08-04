@@ -24,12 +24,13 @@
           <div class="form-group">
             <label for="pass">Choose Password</label>
             <div class="position-relative">
-              <input type="password" class="custom-input w-100 input-bordered" id="pass" placeholder="**********"
+              <input [type]="!passwordVisibility ? 'password' : 'text'" class="custom-input w-100 input-bordered" id="pass" placeholder="**********"
                 formControlName="password">
+              <mat-icon matSuffix class="actions eye" (click)="passwordVisibility = !passwordVisibility">{{ !passwordVisibility ? 'visibility_off' : 'visibility'}}</mat-icon>
+              <a routerLink="/forget-password" class="actions forget-link">Forget!</a>
               <div *ngIf="password?.invalid && password?.touched">
                 <small class="text-danger">Please write your password</small>
               </div>
-              <a routerLink="/forget-password" class="forget-link">Forget!</a>
             </div>
           </div>
 

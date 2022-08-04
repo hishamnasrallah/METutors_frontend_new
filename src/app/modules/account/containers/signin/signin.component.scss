@@ -6,11 +6,17 @@
       color: #2a2a2a;
     }
 
-    .forget-link {
-      position: absolute;
-      right: 10px;
+    .actions {
       top: 10px;
-      color: var(--main-color);
+      position: absolute;
+
+      &.eye {
+        right: 65px;
+      }
+      &.forget-link {
+        right: 10px;
+        color: var(--main-color);
+      }
     }
 
     button {
