@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+
 import { formatBytes } from '@metutor/config';
 
 @Component({
@@ -13,6 +14,7 @@ export class SignupUploadDocumentsComponent implements OnInit {
   @Output() submitForm = new EventEmitter();
 
   form: FormGroup;
+  files: any[] = [];
   filesPreview: any[] = [];
 
   constructor(private _fb: FormBuilder) {
@@ -23,18 +25,28 @@ export class SignupUploadDocumentsComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  removeFile(index: number): void {
+    this.files.splice(index, 1);
+    this.filesPreview.splice(index, 1);
+
+    this.form.patchValue({ files: this.files });
+    this.form.get('files')?.updateValueAndValidity();
+    this.form?.markAsDirty();
+  }
+
   onFileChange(event: any): void {
     if (event.target && event.target.files && event.target.files.length) {
-      this.form.patchValue({ files: event.target.files });
-      this.form.get('files')?.updateValueAndValidity();
-      this.form?.markAsDirty();
-
       Array.from(event.target.files).forEach((file: any) => {
+        this.files.push(file);
         this.filesPreview.push({
           name: file.name,
           size: formatBytes(file.size),
         });
       });
+
+      this.form.patchValue({ files: this.files });
+      this.form.get('files')?.updateValueAndValidity();
+      this.form?.markAsDirty();
     }
   }
 
