@@ -973,6 +973,11 @@ export const selectProgramCountries = createSelector(
   fromLookupsReducer.selectProgramCountries
 );
 
+export const selectFlagCountries = createSelector(
+  selectLookupsState,
+  fromLookupsReducer.selectFlagCountries
+);
+
 export const selectCities = createSelector(
   selectLookupsState,
   fromLookupsReducer.selectCities

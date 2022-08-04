@@ -19,6 +19,7 @@ export class ProgramCountryComponent implements OnInit {
   countries$: Observable<ICountry[] | null>;
   isAddingEditingCountry$: Observable<boolean>;
   showAddNewCountryModal$: Observable<boolean>;
+  flagCountries$: Observable<ICountry[] | null>;
 
   country?: number;
   deletedCountry?: ICountry;
@@ -77,8 +78,10 @@ export class ProgramCountryComponent implements OnInit {
     );
 
     this._store.dispatch(fromCore.loadProgramCountries());
+    this._store.dispatch(fromCore.loadFlagCountries());
 
     this.countries$ = this._store.select(fromCore.selectProgramCountries);
+    this.flagCountries$ = this._store.select(fromCore.selectFlagCountries);
     this.isLoadingCountry$ = this._store.select(
       fromCore.selectIsLoadingProgramCountries
     );

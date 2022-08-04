@@ -120,7 +120,7 @@
                 <tr>
                   <th>Subject Name</th>
                   <th *ngIf="form.value.programs[i]?.programId?.id === nationalId">Grade</th>
-                  <th>Hourly Price</th>
+                  <th>Hourly Price (USD)</th>
                 </tr>
                 <tr *ngFor="let subject of item.subjects; let indexSubject = index">
                   <td>{{ subject?.name }}</td>

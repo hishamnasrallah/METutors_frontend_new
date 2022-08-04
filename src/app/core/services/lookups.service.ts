@@ -50,7 +50,22 @@ export class LookupsService {
             id: item.id,
             name: item.name,
             updatedAt: item.updated_at,
+            flag: item?.flag,
             status: item.status,
+          }));
+        })
+      )
+      .pipe(catchError(this.errorHandler));
+  }
+
+  getFlagCountries(): Observable<any> {
+    return this.http
+      .get<{ countries: ICountry[] }>(`${this.BACKEND_URL}all-countries`)
+      .pipe(
+        map((response) => {
+          return response.countries.map((item) => ({
+            name: item.name,
+            flag: item.flag,
           }));
         })
       )
