@@ -94,7 +94,7 @@
         <div class="form-group">
           <div>
             <label for="languages" class="form-label">Spoken languages <span>(For Teaching)</span></label>
-            <a class="float-end cursor-pointer" (click)="addLanguage()">Add new</a>
+            <a class="float-end cursor-pointer" (click)="addLanguage()" [ngClass]="{'text-secondary cursor-not-allowed': languages.status === invalid}">Add new</a>
           </div>
           <mat-chip-list>
             <ng-container *ngFor="let lang of form.value.languages; let i = index">

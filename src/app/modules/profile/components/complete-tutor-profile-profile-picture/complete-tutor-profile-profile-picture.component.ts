@@ -52,8 +52,8 @@ export class CompleteTutorProfileProfilePictureComponent implements OnInit {
         return;
       }
 
-      if (file.size > 1 * 1024 * 1024) {
-        this._alertNotificationService.error('Allowed file size is 1MB');
+      if (file.size > 2 * 1024 * 1024) {
+        this._alertNotificationService.error('Allowed file size is 2MB');
 
         return;
       }
@@ -81,8 +81,8 @@ export class CompleteTutorProfileProfilePictureComponent implements OnInit {
         return;
       }
 
-      if (file.size > 1 * 1024 * 1024) {
-        this._alertNotificationService.error('Allowed file size is 1MB');
+      if (file.size > 2 * 1024 * 1024) {
+        this._alertNotificationService.error('Allowed file size is 2MB');
 
         return;
       }
