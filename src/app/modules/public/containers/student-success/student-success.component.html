@@ -10,6 +10,13 @@
 
 <metutors-benefits-online-tutoring [token]="(token$ | async)!"></metutors-benefits-online-tutoring>
 
-<metutors-success-stories [testmonials]="testmonials"></metutors-success-stories>
+<metutors-success-stories [testmonials]="testmonials"
+                          [title]="'Our students have greater flexibility and freedom in when, where and how they want to learn!'"
+                          [desc]="'We helped 1000s of students succeed in learning through quality online education.'">
+</metutors-success-stories>
 
-<!-- <metutors-start-learning-now></metutors-start-learning-now> -->
+<metutors-start-learning-now [token]="(token$ | async)!"
+                             [title]="'Excel in Every Exam With MEtutors'"
+                             [desc]="'Browse the collection of LIVE online tutoring courses and start building your knowledge today!'"
+                             [btnText]="'Enroll Now!'">
+</metutors-start-learning-now>
