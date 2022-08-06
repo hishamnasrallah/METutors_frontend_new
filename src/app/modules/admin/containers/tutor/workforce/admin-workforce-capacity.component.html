@@ -57,7 +57,7 @@
                 {{ cpcty?.totalBookings }}
               </a>
             </td>
-            <td>${{ cpcty?.totalRevenue }}</td>
+            <td>{{ cpcty?.totalRevenue | metutorsMoney | async }}</td>
             <td>
               <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0"
                 (click)="selectedCapacity = cpcty?.subject?.id">

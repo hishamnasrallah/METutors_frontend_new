@@ -155,8 +155,8 @@
                     </div>
                   </td>
                   <td class="text-capitalize">{{ student?.gender }}</td>
-                  <td><a href="javascript:void(0)" (click)="onOpenBookingModal(student.id)">{{student?.totalBookings}}</a></td>
-                  <td><a [routerLink]="['/admin', 'finance', 'orders']">${{student?.totalSpendings}}</a></td>
+                  <td><a href="javascript:void(0)" (click)="onOpenBookingModal(student.id)">{{ student?.totalBookings }}</a></td>
+                  <td><a [routerLink]="['/admin', 'finance', 'orders']">{{ student?.totalSpendings | metutorsMoney | async }}</a></td>
                   <td>{{ student?.email }}</td>
                   <td>{{ student?.mobile }}</td>
                   <td>
@@ -290,8 +290,8 @@
                     </div>
                   </td>
                   <td class="text-capitalize">{{ student?.gender }}</td>
-                  <td><a href="javascript:void(0)" (click)="onOpenBookingModal(student.id)">{{student?.totalBookings}}</a></td>
-                  <td><a [routerLink]="['/admin', 'finance', 'orders']">${{student?.totalSpendings}}</a></td>
+                  <td><a href="javascript:void(0)" (click)="onOpenBookingModal(student.id)">{{ student?.totalBookings }}</a></td>
+                  <td><a [routerLink]="['/admin', 'finance', 'orders']">{{ student?.totalSpendings | metutorsMoney | async }}</a></td>
                   <td>{{ student?.email }}</td>
                   <td>{{ student?.mobile }}</td>
                   <td>
@@ -354,8 +354,8 @@
                     </div>
                   </td>
                   <td class="text-capitalize">{{ student?.gender }}</td>
-                  <td><a href="javascript:void(0)" (click)="onOpenBookingModal(student.id)">{{student?.totalBookings}}</a></td>
-                  <td><a [routerLink]="['/admin', 'finance', 'orders']">${{student?.totalSpendings}}</a></td>
+                  <td><a href="javascript:void(0)" (click)="onOpenBookingModal(student.id)">{{ student?.totalBookings }}</a></td>
+                  <td><a [routerLink]="['/admin', 'finance', 'orders']">{{ student?.totalSpendings | metutorsMoney | async }}</a></td>
                   <td>{{ student?.email }}</td>
                   <td>{{ student?.mobile }}</td>
                   <td>

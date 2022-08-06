@@ -57,9 +57,9 @@
           </td>
           <td>{{ order?.course?.totalClasses}}</td>
           <td><span class="d-inline-block text-truncate transaction-id"
-                    [tooltip]="order?.transaction?.id">{{order?.transaction?.id}}</span></td>
-          <td>{{ order?.transaction?.createdAt | date}}</td>
-          <td>{{ order?.transaction?.amount | currency}}</td>
+                    [tooltip]="order?.transaction?.id">{{ order?.transaction?.id }}</span></td>
+          <td>{{ order?.transaction?.createdAt | date }}</td>
+          <td>{{ order?.transaction?.amount | metutorsMoney | async }}</td>
           <td>
             <button class="status text-capitalize" mat-button [ngClass]="order?.transaction?.status">
               {{ order?.transaction?.status }}

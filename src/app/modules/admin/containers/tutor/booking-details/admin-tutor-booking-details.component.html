@@ -53,7 +53,7 @@
           <div class="col-md-3 details">
             <div class="text-end">
               <span class="me-1">Booking Price</span>
-              <strong>${{ view.bookingDetail.course?.totalPrice}}</strong>
+              <strong>{{ view.bookingDetail.course?.totalPrice | metutorsMoney | async }}</strong>
             </div>
             <div class="text-end">
               <span class="me-1">Number of Students</span>

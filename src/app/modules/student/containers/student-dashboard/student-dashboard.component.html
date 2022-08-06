@@ -76,10 +76,10 @@
             <div class="card-body d-flex flex-column">
               <h3>Total payment</h3>
               <h1 class="flex-grow-1">
-                {{ view?.dashboard?.totalPayment | currency }}
+                {{ view?.dashboard?.totalPayment | metutorsMoney | async }}
                 <span [ngClass]="{'danger': view.dashboard?.paymentGrowth < 0}">{{ view.dashboard?.paymentGrowth >= 0 ? '+'+view.dashboard?.paymentGrowth : view.dashboard?.paymentGrowth}}%</span>
               </h1>
-              <p>Compared to ({{view.dashboard?.paymentLastCount | currency}} last {{ insightRange[range]}})</p>
+              <p>Compared to ({{view.dashboard?.paymentLastCount | metutorsMoney | async }} last {{ insightRange[range]}})</p>
             </div>
           </div>
         </div>

@@ -29,19 +29,19 @@
     </li>
     <li class="d-flex justify-content-between">
       <span>Hourly Rate</span>
-      <strong>{{ invoiceDetails?.pricePerHour | currency }} USD</strong>
+      <strong>{{ invoiceDetails?.pricePerHour | metutorsMoney | async }}</strong>
     </li>
     <li class="d-flex justify-content-between">
       <span>Total Amount Due</span>
-      <strong>{{ invoiceDetails?.totalAmount | currency }} USD</strong>
+      <strong>{{ invoiceDetails?.totalAmount | metutorsMoney | async }}</strong>
     </li>
     <li class="d-flex justify-content-between promocode">
       <span>Promo code 0% off</span>
-      <strong>0 USD</strong>
+      <strong>{{ 0 | metutorsMoney | async }}</strong>
     </li>
     <li class="d-flex justify-content-between total-payment">
       <span>Total payment</span>
-      <strong>{{ invoiceDetails?.totalAmount | currency }}</strong>
+      <strong>{{ invoiceDetails?.totalAmount | metutorsMoney | async }}</strong>
     </li>
     <li class="d-flex justify-content-between coupon">
       <span>Have a coupon ? </span>

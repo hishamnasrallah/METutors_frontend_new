@@ -41,7 +41,7 @@
     <td>{{ reassignment?.courseName }}</td>
     <td *ngIf="!isNew && !isRunning && !isNotAvailable">{{ reassignment?.startDate | date }}</td>
     <td>{{ reassignment?.totalHours }}hours</td>
-    <td *ngIf="isNew || isRunning || isNotAvailable">{{ reassignment?.totalPrice | currency }}</td>
+    <td *ngIf="isNew || isRunning || isNotAvailable">{{ reassignment?.totalPrice | metutorsMoney | async }}</td>
     <ng-container *ngIf="!isNew">
       <td>SIN123</td>
       <td>SIN456</td>
@@ -75,7 +75,7 @@
     </ng-container>
 
     <!--<td><a href="javascript: void(0)" (click)="openBookingModal.emit(reassignment.id)">{{ reassignment?.totalBooking }}</a></td>
-    <td><a [routerLink]="['/admin', 'finance', 'orders']"> ${{ reassignment?.totalAmount }}</a></td>-->
+    <td><a [routerLink]="['/admin', 'finance', 'orders']">{{ reassignment?.totalAmount | metutorsMoney | async }}</a></td>-->
     <td>
       <button class="status text-capitalize" mat-button [ngClass]="reassignment?.status"
               [tooltip]="statusLabel[reassignment?.status]?.long">{{ statusLabel[reassignment?.status]?.short }}

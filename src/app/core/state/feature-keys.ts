@@ -1,5 +1,6 @@
 export const coreFeatureKey = 'core';
 export const userFeatureKey = 'user';
+export const moneyFeatureKey = 'money';
 export const adminFeatureKey = 'admin';
 export const tutorFeatureKey = 'tutor';
 export const uploadFeatureKey = 'upload';

@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatButtonModule } from '@angular/material/button';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { MatButtonModule } from '@angular/material/button';
 
 import { FooterComponent } from './footer';
 import { NavbarComponent } from './navbar';
@@ -14,6 +15,7 @@ import { NavbarComponent } from './navbar';
     CommonModule,
     RouterModule,
     MatIconModule,
+    MatMenuModule,
     MatButtonModule,
     BsDropdownModule.forRoot(),
   ],

@@ -44,6 +44,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this._store.dispatch(fromCore.identifyUser());
+    this._store.dispatch(fromCore.loadCurrencyRates());
+    this._store.dispatch(fromCore.loadCurrenciesNames());
     this._router.events
       .pipe(
         filter((events) => events instanceof NavigationEnd),

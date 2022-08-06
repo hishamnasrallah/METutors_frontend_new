@@ -63,9 +63,12 @@ import {
   DefaultCourseDirective,
 } from '@metutor/shared/directives';
 
+import { MoneyPipe } from './pipes/money.pipe';
+
 @NgModule({
   declarations: [
     // Components
+    MoneyPipe,
     ModalComponent,
     ReviewRateComponent,
     CourseItemComponent,
@@ -126,6 +129,7 @@ import {
   ],
   exports: [
     // Components
+    MoneyPipe,
     MomentModule,
     ModalComponent,
     UserAvatarComponent,
