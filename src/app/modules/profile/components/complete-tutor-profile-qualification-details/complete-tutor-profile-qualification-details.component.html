@@ -5,25 +5,25 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label for="nameOfUniversity" class="form-label">University Name</label>
+          <label for="nameOfUniversity" class="form-label">Name of University</label>
           <input type="text" class="custom-input w-100 input-bordered" id="nameOfUniversity" placeholder="Enter Name"
             formControlName="nameOfUniversity">
           <div class="text-danger" *ngIf="nameOfUniversity?.touched && nameOfUniversity?.invalid">
-            Please Write Your University Name
+            Please write your University name
           </div>
         </div>
       </div>
 
       <div class="col-md-6">
         <div class="form-group">
-          <label for="computerSkills" class="form-label">Computer Skills Level</label>
+          <label for="teachingExperience" class="form-label">Teaching Experience</label>
           <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="computerSkills" [placeholder]="'Above Average'">
-              <mat-option [value]="skill" *ngFor="let skill of skills">{{ skill }}</mat-option>
+            <mat-select formControlName="teachingExperience" [placeholder]="'Select Years'">
+              <mat-option [value]="experience" *ngFor="let experience of experiences">{{ experience }}</mat-option>
             </mat-select>
           </mat-form-field>
-          <div class="text-danger" *ngIf="computerSkills?.touched && computerSkills?.invalid">
-            Please Choose Your Computer Skills Level
+          <div class="text-danger" *ngIf="teachingExperience?.touched && teachingExperience?.invalid">
+            Please choose your years of teaching experience in schools
           </div>
         </div>
       </div>
@@ -39,21 +39,21 @@
             </mat-select>
           </mat-form-field>
           <div class="text-danger" *ngIf="degreeLevel?.touched && degreeLevel?.invalid">
-            Please Choose Your Degree Level
+            Please choose your degree level
           </div>
         </div>
       </div>
 
       <div class="col-md-6">
         <div class="form-group">
-          <label for="teachingExperience" class="form-label">Teaching Experience <span>(In Schools)</span></label>
+          <label for="teachingExperienceOnline" class="form-label">Teaching Experience Online</label>
           <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="teachingExperience" [placeholder]="'Select Years'">
+            <mat-select formControlName="teachingExperienceOnline" [placeholder]="'Select Years'">
               <mat-option [value]="experience" *ngFor="let experience of experiences">{{ experience }}</mat-option>
             </mat-select>
           </mat-form-field>
-          <div class="text-danger" *ngIf="teachingExperience?.touched && teachingExperience?.invalid">
-            Please Choose Your Years of Teacher Experience
+          <div class="text-danger" *ngIf="teachingExperienceOnline?.touched && teachingExperienceOnline?.invalid">
+            Please choose your years of teaching experience online
           </div>
         </div>
       </div>
@@ -62,29 +62,47 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label for="degreeField" class="form-label">Degree Field/Major</label>
+          <label for="degreeField" class="form-label">Degree Field</label>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="degreeField" [placeholder]="'Computer Science'">
               <mat-option [value]="field" *ngFor="let field of degreeFields">{{ field }}</mat-option>
             </mat-select>
           </mat-form-field>
           <div class="text-danger" *ngIf="degreeField?.touched && degreeField?.invalid">
-            Please Choose Your Degree Field
+            Please choose your degree field
           </div>
         </div>
       </div>
 
       <div class="col-md-6">
         <div class="form-group">
-          <label for="teachingExperienceOnline" class="form-label">Teaching Experience <span>(Online)</span></label>
+          <label for="currentEmployer" class="form-label">Current Employer <span>(Optional)</span></label>
+          <input type="text" class="custom-input w-100 input-bordered" id="currentEmployer" placeholder="Enter Here"
+                 formControlName="currentEmployer">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="computerSkills" class="form-label">Computer Skills</label>
           <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="teachingExperienceOnline" [placeholder]="'Select Years'">
-              <mat-option [value]="experience" *ngFor="let experience of experiences">{{ experience }}</mat-option>
+            <mat-select formControlName="computerSkills" [placeholder]="'Above Average'">
+              <mat-option [value]="skill" *ngFor="let skill of skills">{{ skill }}</mat-option>
             </mat-select>
           </mat-form-field>
-          <div class="text-danger" *ngIf="teachingExperienceOnline?.touched && teachingExperienceOnline?.invalid">
-            Please Choose Your Years of Teacher Experience Online
+          <div class="text-danger" *ngIf="computerSkills?.touched && computerSkills?.invalid">
+            Please choose your computer skill level
           </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="currentTitle" class="form-label">Current Title <span>(Optional)</span></label>
+          <input type="text" class="custom-input w-100 input-bordered" id="currentTitle" placeholder="Enter Here"
+                 formControlName="currentTitle">
         </div>
       </div>
     </div>
@@ -94,7 +112,7 @@
         <div class="form-group">
           <div>
             <label for="languages" class="form-label">Spoken languages <span>(For Teaching)</span></label>
-            <a class="float-end cursor-pointer" (click)="addLanguage()" [ngClass]="{'text-secondary cursor-not-allowed': languages.status === invalid}">Add new</a>
+            <a class="float-end cursor-pointer" (click)="addLanguage()" [ngClass]="{'text-secondary cursor-not-allowed': languages.status === invalid}">Add New</a>
           </div>
           <mat-chip-list>
             <ng-container *ngFor="let lang of form.value.languages; let i = index">
@@ -130,17 +148,6 @@
 
       <div class="col-md-6">
         <div class="form-group">
-          <label for="currentEmployer" class="form-label">Current Employer <span>(Optional)</span></label>
-          <input type="text" class="custom-input w-100 input-bordered" id="currentEmployer" placeholder="Enter Here"
-            formControlName="currentEmployer">
-        </div>
-        <div class="form-group">
-          <label for="currentTitle" class="form-label">Current Title <span>(Optional)</span></label>
-          <input type="text" class="custom-input w-100 input-bordered" id="currentTitle" placeholder="Enter Here"
-            formControlName="currentTitle">
-        </div>
-
-        <div class="form-group">
           <label class="form-label">Your Demo of Teaching Online <span>(5 - 10 Minutes)</span></label>
           <input type="file" #filePicker (change)="onChangeVideo($event)" hidden accept="video/*" />
 
@@ -152,7 +159,7 @@
             </button>
           </div>
           <div class="video-preview d-flex align-items-center justify-content-center flex-column" *ngIf="!videoDemo">
-            <div class="guide1">Upload video demo</div>
+            <div class="guide1">Upload Video Demo</div>
 
             <button mat-flat-button color="primary" class="px-4 mt-2" cdkFocusInitial type="button"
               (click)="filePicker.click()"> Upload
