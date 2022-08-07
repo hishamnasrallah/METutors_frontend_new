@@ -32,6 +32,7 @@ export class CompleteTutorProfileQualificationDetailsComponent
   videoDemo: any;
   form: FormGroup;
   skills = COMPUTER_SKILLS;
+  invalid = 'INVALID';
   degreeLevels = DEGREE_LEVELS;
   degreeFields = DEGREE_FIELDS;
   levels = LANGUAGES_LEVELS_CONST;
@@ -125,7 +126,9 @@ export class CompleteTutorProfileQualificationDetailsComponent
   }
 
   addLanguage(): void {
-    this.languages.push(this.newLanguage());
+    if (this.languages.status !== this.invalid) {
+      this.languages.push(this.newLanguage());
+    }
   }
 
   onChangeVideo(event: any): void {
@@ -139,8 +142,8 @@ export class CompleteTutorProfileQualificationDetailsComponent
         return;
       }
 
-      if (file.size > 10 * 1024 * 1024) {
-        this._alertNotificationService.error('Allowed file size is 10MB');
+      if (file.size > 20 * 1024 * 1024) {
+        this._alertNotificationService.error('Allowed file size is 20MB');
 
         return;
       }

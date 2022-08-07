@@ -34,8 +34,15 @@ export class CompleteTutorProfilePersonalInformationComponent
       middleName: [null, [Validators.minLength(3), Validators.maxLength(15)]],
       nationality: [null, [Validators.required]],
       dateOfBirth: [null, [Validators.required]],
-      address: [null, [Validators.required]],
-      address2: [null],
+      address: [
+        null,
+        [
+          Validators.required,
+          Validators.minLength(1),
+          Validators.maxLength(40),
+        ],
+      ],
+      address2: [null, [Validators.minLength(1), Validators.maxLength(40)]],
       gender: [null, [Validators.required]],
       country: [null, [Validators.required]],
       city: [null, [Validators.required]],
@@ -47,7 +54,10 @@ export class CompleteTutorProfilePersonalInformationComponent
           Validators.maxLength(150),
         ],
       ],
-      postalCode: [null, [Validators.required]],
+      postalCode: [
+        null,
+        [Validators.required, Validators.minLength(3), Validators.maxLength(5)],
+      ],
     });
   }
 
