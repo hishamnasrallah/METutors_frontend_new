@@ -46,8 +46,8 @@
     </div>
     <div class="col d-flex flex-column">
       <h3 class="price flex-grow-1">Price:
-        <strong>{{ course?.priceRange?.min | currency:'USD' }}</strong> to
-        <strong>{{ course?.priceRange?.max | currency:'USD' }}</strong>
+        <strong>{{ course?.priceRange?.min | metutorsMoney | async }}</strong> to
+        <strong>{{ course?.priceRange?.max | metutorsMoney | async }}</strong>
       </h3>
       <button mat-flat-button color="primary" class="main-button-transparent mb-2"
         (click)="openCourseDetailsPopop = true">

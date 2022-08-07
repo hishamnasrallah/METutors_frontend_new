@@ -37,6 +37,11 @@ export interface State {
   isLoadingProgramCountries: boolean;
   loadingProgramCountriesFailure?: string;
 
+  // Flag contries
+  flagCountries: ICountry[] | null;
+  isLoadingFlagCountries: boolean;
+  loadingFlagCountriesFailure?: string;
+
   // Cities
   cities: ICity[] | null;
   isLoadingCities?: boolean;
@@ -122,6 +127,7 @@ export const initialState: State = {
   programs: null,
   languages: null,
   countries: null,
+  flagCountries: null,
   isLoadingFAQs: false,
   programCountries: null,
   ticketCategories: null,
@@ -137,6 +143,7 @@ export const initialState: State = {
   isLoadingCountries: false,
   isAddingEditingField: false,
   isAddingEditingSubject: false,
+  isLoadingFlagCountries: false,
   isAddingEditingProgram: false,
   isLoadingTicketCategories: false,
   isLoadingTicketPriorities: false,
@@ -228,6 +235,28 @@ export const reducer = createReducer(
   on(lookupsActions.loadProgramCountriesEnded, (state) => ({
     ...state,
     isLoadingProgramCountries: false,
+  })),
+
+  on(lookupsActions.loadFlagCountries, (state) => ({
+    ...state,
+    isLoadingFlagCountries: true,
+  })),
+
+  on(lookupsActions.loadFlagCountriesSuccess, (state, { countries }) => ({
+    ...state,
+    flagCountries: countries,
+    isLoadingFlagCountries: false,
+  })),
+
+  on(lookupsActions.loadFlagCountriesFailure, (state, { error }) => ({
+    ...state,
+    isLoadingFlagCountries: false,
+    loadingFlagCountriesFailure: error,
+  })),
+
+  on(lookupsActions.loadFlagCountriesEnded, (state) => ({
+    ...state,
+    isLoadingFlagCountries: false,
   })),
 
   on(lookupsActions.loadCities, (state) => ({
@@ -655,6 +684,9 @@ export const selectCountries = (state: State): ICountry[] | null =>
 
 export const selectProgramCountries = (state: State): ICountry[] | null =>
   state.programCountries;
+
+  export const selectFlagCountries = (state: State): ICountry[] | null =>
+  state.flagCountries;
 
 export const selectIsLoadingCountries = (state: State): boolean =>
   state.isLoadingCountries;

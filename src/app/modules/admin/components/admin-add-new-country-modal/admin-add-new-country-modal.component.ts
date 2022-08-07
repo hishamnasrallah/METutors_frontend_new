@@ -9,6 +9,7 @@ import { ICountry } from '@metutor/core/models';
 })
 export class AdminAddNewCountryModalComponent implements OnInit {
   @Input() isAdding: boolean;
+  @Input() countries: ICountry[];
   @Input() showModal: boolean = false;
 
   @Input() set selectedCountry(_country: ICountry) {

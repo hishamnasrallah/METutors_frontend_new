@@ -40,6 +40,12 @@
             My Classroom
           </a>
         </li>
+        <li class="nav-item d-flex align-items-center justify-content-center">
+          <a class="nav-link nav-item-link currency" [matMenuTriggerFor]="currency">
+            <span class="lang">{{ (selectedCurrency$ | async)?.id }}</span>
+            <img src="assets/svg/b-chevron.svg" alt="" draggable="false">
+          </a>
+        </li>
         <li class="nav-item">
           <a class="nav-link nav-item-link" routerLinkActive="active">
             <img src="assets/svg/language.svg" alt="" draggable="false">
@@ -110,3 +116,13 @@
     </ul>
   </div>
 </nav>
+
+<mat-menu #currency="matMenu">
+  <ng-container *ngFor="let item of (currencyRates$ | async)">
+    <button mat-menu-item [ngClass]="{
+      'active' : item.id === (selectedCurrency$ | async)?.id
+      }" class="h-auto currency-item" (click)="onCurrencySelect(item)">
+      {{ item?.name }}
+    </button>
+  </ng-container>
+</mat-menu>

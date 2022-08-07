@@ -24,6 +24,7 @@ export class HomeComponent implements OnInit {
   fields$: Observable<IField[] | null>;
   loadingPrograms$: Observable<boolean>;
   loadingSubjects$: Observable<boolean>;
+  token$: Observable<string | undefined>;
   loadingCountries$: Observable<boolean>;
   programs$: Observable<IProgram[] | null>;
   subjects$: Observable<ISubject[] | null>;
@@ -45,6 +46,8 @@ export class HomeComponent implements OnInit {
     this._prepareSubjects();
     this._prepareCountries();
 
+    this.token$ = this._store.select(fromCore.selectToken);
+
     this.showViewSubjectDetailsModal$ = this._store.select(
       fromPublic.selectShowViewSubjectDetailsModal
     );
@@ -54,25 +57,25 @@ export class HomeComponent implements OnInit {
         id: 1,
         icon: 'assets/svg/marketing.svg',
         value: '340',
-        type: 'Courses created',
+        type: 'Courses Created',
       },
       {
         id: 1,
         icon: 'assets/svg/create-new.svg',
         value: '30k',
-        type: 'Courses enrolled',
+        type: 'Student Enrolled',
       },
       {
         id: 1,
         icon: 'assets/svg/pen.svg',
         value: '40k',
-        type: 'Classrooms watched',
+        type: 'Classrooms Attended',
       },
       {
         id: 1,
         icon: 'assets/svg/headset.svg',
         value: '300',
-        type: 'Tickets issued',
+        type: 'Teacher Profiles',
       },
     ];
 
@@ -81,7 +84,7 @@ export class HomeComponent implements OnInit {
         id: 1,
         rate: 5,
         content:
-          'I received great customer service from the specialists who helped me. I would recommend to anyone who wants quality.',
+          "I appreciate how top educators focus on conceptual and practical methods to help us apply what we've learned so far. I would 100% recommend it to my friends for sure!",
         picture: '',
         postedBy: 'Viola Manisa',
         isVerified: true,
@@ -90,7 +93,7 @@ export class HomeComponent implements OnInit {
         id: 1,
         rate: 5,
         content:
-          "Very responsive and competent! I've never dealt with annsurance company this customer-friendly in my entire life.",
+          'Thank you for offering this course - there is much to learn and I love that I can do it at my own pace from the comfort of my own home ',
         picture: '',
         postedBy: 'Bryan Arnoldy',
         isVerified: true,
@@ -99,7 +102,7 @@ export class HomeComponent implements OnInit {
         id: 1,
         rate: 5,
         content:
-          'My experience with this platform so far has been great. Everything is easy, from signing the contract to making an appointment.',
+          'As a student, I enjoyed the opportunity to explore, learn, and apply a variety of technology-based software, platforms, and tools that helped me enhance my learning experience.',
         picture: '',
         postedBy: 'Joshua William',
         isVerified: true,
@@ -108,7 +111,7 @@ export class HomeComponent implements OnInit {
         id: 1,
         rate: 5,
         content:
-          "It's the best online insurance you can find. Easy, without hidden costs and you can be very sure. our data is completely save.",
+          'It is incredible to find such a variety of courses at a really affordable price. The fact that I can take the course anytime, anywhere is a bonus!',
         picture: '',
         postedBy: 'George Scott',
         isVerified: true,
@@ -118,7 +121,9 @@ export class HomeComponent implements OnInit {
 
   onOpenViewSubjectDetailsModal(data: any): void {
     this.subjectData = data;
-    this._store.dispatch(fromCore.loadSubjectFeaturedTutors({ id: data?.subject?.id }));
+    this._store.dispatch(
+      fromCore.loadSubjectFeaturedTutors({ id: data?.subject?.id })
+    );
     this._store.dispatch(fromPublicActions.openViewSubjectDetailsModal());
   }
 

@@ -1,10 +1,13 @@
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { ICourse } from 'src/app/core/models';
+import * as fromCore from '@metutor/core/state';
 import { Component, OnInit } from '@angular/core';
 import {
+  TuitionType,
   COURSE_TAGS_CONST,
   COURSE_TUITION_TYPES_CONST,
-  TuitionType,
 } from 'src/app/config';
-import { ICourse } from 'src/app/core/models';
 
 @Component({
   selector: 'metutors-languages-courses',
@@ -12,12 +15,16 @@ import { ICourse } from 'src/app/core/models';
   styleUrls: ['./languages-courses.component.scss'],
 })
 export class LanguagesCoursesComponent implements OnInit {
+  token$: Observable<string | undefined>;
+
   testmonials: any;
   courses!: ICourse[];
 
-  constructor() {}
+  constructor(private _store: Store<any>) {}
 
   ngOnInit(): void {
+    this.token$ = this._store.select(fromCore.selectToken);
+
     this.courses = [
       {
         id: 1,

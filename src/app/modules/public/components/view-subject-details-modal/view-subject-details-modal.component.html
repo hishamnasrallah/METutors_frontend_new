@@ -15,7 +15,7 @@
             <div class="col-md-3 d-flex flex-column justify-content-between">
               <h3>
                 Hourly Price
-                <span>{{ data?.subject?.pricePerHour | currency }}</span>
+                <span>{{ data?.subject?.pricePerHour | metutorsMoney | async }}</span>
               </h3>
 
               <a mat-flat-button color="primary" class="py-1 fw-bold" (click)="closeModal.emit()"

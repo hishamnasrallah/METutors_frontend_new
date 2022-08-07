@@ -79,7 +79,7 @@
             <td>{{ course?.name }}</td>
             <td>{{ course?.courseCode }}</td>
             <td>{{ course?.createdAt | date }}</td>
-            <td>{{ course?.totalPrice | currency }}</td>
+            <td>{{ course?.totalPrice | metutorsMoney | async }}</td>
             <td>
               <button mat-button class="ms-3 status" [ngClass]="course.status" *ngIf="course.status"
                       [tooltip]="statusLabel[course.status].long">{{ statusLabel[course.status].short}}</button>

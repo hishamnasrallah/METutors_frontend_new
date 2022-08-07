@@ -12,4 +12,8 @@
   <metutors-founder-team [founders]="founders"></metutors-founder-team>
 </div>
 
-<metutors-start-learning-now></metutors-start-learning-now>
+<metutors-start-learning-now [token]="(token$ | async)!"
+                             [title]="'Virtual Learning is Changing Education'"
+                             [desc]="'Join now | Be a part of the change | View courses and attend online classes | Save time and money'"
+                             [btnText]="'Start Learning Now'">
+</metutors-start-learning-now>

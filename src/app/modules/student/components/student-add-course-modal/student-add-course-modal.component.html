@@ -89,14 +89,14 @@
           <div class="col-md-12">
             <div class="d-flex justify-content-between est-price">
               <div>
-                <h5>Estimated Cost (USD):
-                  <span>{{ (price * +hours?.value) | currency: 'USD' }}</span>
+                <h5>Estimated Cost:
+                  <span>{{ (price * +hours?.value) | metutorsMoney | async }}</span>
                 </h5>
                 <p class="mb-0">Price change based on total hours</p>
               </div>
               <div>
                 <h5>Total Hours: <span>{{ hours?.value }} hrs</span></h5>
-                <p class="mb-0">Hourly Rate: {{ price | currency: 'USD' }}</p>
+                <p class="mb-0">Hourly Rate: {{ price | metutorsMoney | async }}</p>
               </div>
             </div>
           </div>
@@ -150,13 +150,13 @@
               <div class="d-flex justify-content-between est-price">
                 <div>
                   <h5>Estimated Price:
-                    <span>{{ (price * +allHours) | currency: 'USD' }}</span>
+                    <span>{{ (price * +allHours) | metutorsMoney | async }}</span>
                   </h5>
                   <p class="mb-0">Price change based on total hours</p>
                 </div>
                 <div>
                   <h5>Total Hours: <span>{{ allHours }} hrs</span></h5>
-                  <p class="mb-0">Hourly Rate: {{ price | currency: 'USD' }}</p>
+                  <p class="mb-0">Hourly Rate: {{ price | metutorsMoney | async }}</p>
                 </div>
               </div>
             </div>

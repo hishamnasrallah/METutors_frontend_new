@@ -51,6 +51,13 @@
     font-size: 19px;
     opacity: 0.7;
 
+    &.currency {
+      background: #ECECEC;
+      height: 35px;
+      color: #2A2A2A;
+      font-size: 15px;
+      border-radius: 5px;
+    }
 
     &.active {
       border-radius: 0;
@@ -141,5 +148,14 @@
     .login {
       color: #FFF;
     }
+  }
+}
+
+.currency-item {
+  color: #2a2a2a;
+
+  &.active {
+    color: var(--main-color);
+    background-color: rgb(59 179 193 / 10%);
   }
 }

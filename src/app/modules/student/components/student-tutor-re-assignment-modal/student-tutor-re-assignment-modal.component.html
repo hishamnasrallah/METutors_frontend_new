@@ -156,17 +156,17 @@
                 <div class="form-group mt-3">
                   <div class="row mb-3">
                     <div class="col-md-6"><span class="text-secondary">Refund Amount per Class</span></div>
-                    <div class="col-md-6 text-right">{{ view.refund?.subtotalRefunds | currency }}</div>
+                    <div class="col-md-6 text-right">{{ view.refund?.subtotalRefunds | metutorsMoney | async }}</div>
                   </div>
 
                   <div class="row mb-4">
                     <div class="col-md-6"><span class="text-secondary">Administrative Service Fee @ 10%</span></div>
-                    <div class="col-md-6 text-right">{{ view.refund?.totalServiceFee | currency }}</div>
+                    <div class="col-md-6 text-right">{{ view.refund?.totalServiceFee | metutorsMoney | async }}</div>
                   </div>
 
                   <div class="row">
                     <div class="col-md-6">Total Amount for Refund</div>
-                    <div class="col-md-6 text-right">{{ view.refund?.totalRefunds | currency }}</div>
+                    <div class="col-md-6 text-right">{{ view.refund?.totalRefunds | metutorsMoney | async }}</div>
                   </div>
                 </div>
 

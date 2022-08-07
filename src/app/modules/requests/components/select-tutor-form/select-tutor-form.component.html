@@ -124,7 +124,7 @@
               <div class="d-flex">
                 <div class="flex-grow-1">
                   <h5 class="d-flex align-items-center">
-                    Estimated Price (USD): <h1 class="mb-0">{{ (price * +hours) | currency: 'USD' }}</h1>
+                    Estimated Price: <h1 class="mb-0">{{ (price * +hours) | metutorsMoney | async }}</h1>
                   </h5>
                   <p>Price change based on total hours, total classes, time</p>
                 </div>
@@ -136,7 +136,7 @@
                   <h5 class="d-flex align-items-center">
                     Total Hours: <h1 class="mb-0">{{ hours }} hrs</h1>
                   </h5>
-                  <p>Hourly Rate: {{ price | currency: 'USD' }}</p>
+                  <p>Hourly Rate: {{ price | metutorsMoney | async }}</p>
                 </div>
               </div>
             </div>

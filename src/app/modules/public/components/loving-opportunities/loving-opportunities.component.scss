@@ -42,6 +42,10 @@
 
   .owl-carousel .owl-stage {
     padding: 50px 0;
+
+    .owl-item {
+      min-height: 250px
+    }
   }
 
   .card-item {
@@ -50,6 +54,8 @@
     padding: 20px 0;
     margin-right: 30px;
     margin-left: 10px;
+    height: 100%;
+    position: absolute;
     box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.22);
 
     img.img-avatar {

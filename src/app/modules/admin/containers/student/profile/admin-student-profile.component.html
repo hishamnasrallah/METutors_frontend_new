@@ -87,7 +87,7 @@
                 </tr>
                 <tr>
                   <td>Total amount spent</td>
-                  <td class="text-end">${{ view.profile?.totalSpendings }}</td>
+                  <td class="text-end">{{ view.profile?.totalSpendings | metutorsMoney | async }}</td>
                 </tr>
               </table>
             </div>
@@ -142,7 +142,7 @@
               <td>
                 <a [routerLink]="['/admin', 'student', view.profile?.student?.id, 'booking-detail', course?.id]">{{ course?.courseCode }}</a>
               </td>
-              <td>${{ course?.totalPrice }}</td>
+              <td>{{ course?.totalPrice | metutorsMoney | async }}</td>
               <td>
                 <button class="status text-capitalize" mat-button [ngClass]="course?.status"
                         [tooltip]="statusLabel[course?.status]?.long">{{ statusLabel[course?.status]?.short }}

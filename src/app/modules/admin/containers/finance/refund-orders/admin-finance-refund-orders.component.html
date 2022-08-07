@@ -64,11 +64,11 @@
                                   class="d-block">
             </metutors-user-avatar>
           </td>
-          <td>{{ order?.course?.totalPrice | currency}}</td>
-          <td>{{ order?.canceledCourse?.createdAt | date}}</td>
-          <td>{{ order?.canceledCourse?.cancelledBy}}</td>
-          <td> {{ order?.refundedClassesCount }} out of {{ order?.course?.totalClasses}}</td>
-          <td>{{ order?.totalRefunds | currency }}</td>
+          <td>{{ order?.course?.totalPrice | metutorsMoney | async }}</td>
+          <td>{{ order?.canceledCourse?.createdAt | date }}</td>
+          <td>{{ order?.canceledCourse?.cancelledBy }}</td>
+          <td> {{ order?.refundedClassesCount }} out of {{ order?.course?.totalClasses }}</td>
+          <td>{{ order?.totalRefunds | metutorsMoney | async }}</td>
           <td>{{ order?.updatedAt | date }}</td>
           <td>
             <button mat-button class="status text-capitalize" [ngClass]="order?.status">

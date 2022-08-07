@@ -1,4 +1,4 @@
-<metutors-home-slide></metutors-home-slide>
+<metutors-home-slide [token]="(token$ | async)!"></metutors-home-slide>
 
 <metutors-home-services-features></metutors-home-services-features>
 
@@ -24,7 +24,10 @@
                                [isLoading]="(loadingTutors$ | async)!">
 </metutors-home-featured-tutors>
 
-<metutors-success-stories [testmonials]="testmonials"></metutors-success-stories>
+<metutors-success-stories [testmonials]="testmonials"
+                          [title]="'Trusted By 1000s Of School & College Students'"
+                          [desc]="'Our LIVE classes are tailored to your skill level to help you unlock a new level of achievement.'">
+</metutors-success-stories>
 
 <metutors-view-subject-details-modal *ngIf="showViewSubjectDetailsModal$ | async"
                                      (closeModal)="onCloseViewSubjectDetailsModal()"

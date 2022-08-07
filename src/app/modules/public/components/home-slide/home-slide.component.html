@@ -1,17 +1,16 @@
 <div class="slide position-relative" style="background-image: url('assets/homepage/cover.png')">
-  <div class="position-absolute overlay"></div>
   <div class="container">
     <div class="row">
       <div class="col-md-7 z-2">
         <h1>
-          The Power of
+          A Complete Personalized 
           <br>
-          Online Learning
+          Learning Experience
         </h1>
-        <h2>Anyone, Anywhere, Anytime</h2>
-        <p>Everything is figureoutable with Textbook Solutions,
-          Expert Q&A, Video Explanations and Practice Problems</p>
-        <button mat-button (click)="scrollToAnchor()">Explore our services</button>
+        <h2>Redefining Online Tutoring</h2>
+        <p>Use artificial intelligence built technology to find top tutors from around the world and instantly unlock the power of achieving your learning goals with our intuitive learning platform.</p>
+        <a mat-button routerLink="/signup" *ngIf="!token">Sign Up Now!</a>
+        <button mat-button (click)="scrollToAnchor()" *ngIf="token">Explore our services</button>
       </div>
     </div>
   </div>

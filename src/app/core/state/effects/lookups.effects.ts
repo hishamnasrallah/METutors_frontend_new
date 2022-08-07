@@ -15,10 +15,6 @@ import * as fromCore from '@metutor/core/state';
 import { LookupsService, SupportService } from '@services';
 import * as lookupsActions from '../actions/lookups.actions';
 import { AlertNotificationService } from '@metutor/core/components';
-import {
-  loadAdminSubjectsFailure,
-  loadAdminSubjectsSuccess,
-} from '@metutor/core/state';
 
 @Injectable()
 export class LookupsEffects {
@@ -122,6 +118,33 @@ export class LookupsEffects {
           );
         } else {
           return of(lookupsActions.loadProgramCountriesEnded());
+        }
+      })
+    )
+  );
+
+   loadFlagCountries$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(lookupsActions.loadFlagCountries),
+      withLatestFrom(this._store.select(fromCore.selectFlagCountries)),
+      mergeMap(([_, _countries]) => {
+        if (!_countries || !_countries.length) {
+          return this._lookupsService.getFlagCountries().pipe(
+            map((countries) =>
+              lookupsActions.loadFlagCountriesSuccess({
+                countries,
+              })
+            ),
+            catchError((error) =>
+              of(
+                lookupsActions.loadFlagCountriesFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          );
+        } else {
+          return of(lookupsActions.loadFlagCountriesEnded());
         }
       })
     )

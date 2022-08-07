@@ -10,6 +10,7 @@ import * as fromRoot from '@metutor/state';
 import * as featureKeys from './feature-keys';
 
 import * as fromUserReducer from './reducers/user.reducer';
+import * as fromMoneyReducer from './reducers/money.reducer';
 import * as fromAdminReducer from './reducers/admin.reducer';
 import * as fromTutorReducer from './reducers/tutor.reducer';
 import * as fromCourseReducer from './reducers/course.reducer';
@@ -26,6 +27,7 @@ import * as fromTutorAssignmentReducer from './reducers/tutor-assignment.reducer
 
 export interface CoreState {
   [featureKeys.userFeatureKey]: fromUserReducer.State;
+  [featureKeys.moneyFeatureKey]: fromMoneyReducer.State;
   [featureKeys.tutorFeatureKey]: fromTutorReducer.State;
   [featureKeys.adminFeatureKey]: fromAdminReducer.State;
   [featureKeys.courseFeatureKey]: fromCourseReducer.State;
@@ -44,6 +46,7 @@ export interface CoreState {
 export function reducers(state: CoreState, action: Action) {
   return combineReducers({
     [featureKeys.userFeatureKey]: fromUserReducer.reducer,
+    [featureKeys.moneyFeatureKey]: fromMoneyReducer.reducer,
     [featureKeys.tutorFeatureKey]: fromTutorReducer.reducer,
     [featureKeys.adminFeatureKey]: fromAdminReducer.reducer,
     [featureKeys.courseFeatureKey]: fromCourseReducer.reducer,
@@ -132,6 +135,11 @@ export const selectAdminState = createSelector(
 export const selectFinanceState = createSelector(
   selectCoreState,
   (state) => state[featureKeys.financeFeatureKey]
+);
+
+export const selectMoneyState = createSelector(
+  selectCoreState,
+  state => state[featureKeys.moneyFeatureKey]
 );
 
 // User
@@ -973,6 +981,11 @@ export const selectProgramCountries = createSelector(
   fromLookupsReducer.selectProgramCountries
 );
 
+export const selectFlagCountries = createSelector(
+  selectLookupsState,
+  fromLookupsReducer.selectFlagCountries
+);
+
 export const selectCities = createSelector(
   selectLookupsState,
   fromLookupsReducer.selectCities
@@ -1490,6 +1503,44 @@ export const selectIsRetryingPayment = createSelector(
   fromFinanceReducer.selectIsRetryingPayment
 );
 
-/**
- *  FINANCE SELECTORS END
- */
+// Money Selectors
+
+export const selectIsLoadingCurrencyRates = createSelector(
+  selectMoneyState,
+  fromMoneyReducer.selectIsLoadingCurrencyRates
+);
+
+export const selectCurrencyRates = createSelector(
+  selectMoneyState,
+  fromMoneyReducer.selectCurrencyRates
+);
+
+export const selectBaseCurrency = createSelector(
+  selectMoneyState,
+  fromMoneyReducer.selectBaseCurrency
+);
+
+export const selectCurrentCurrency = createSelector(
+  selectMoneyState,
+  fromMoneyReducer.selectCurrentCurrency
+);
+
+export const selectLoadingRatesErrorMessage = createSelector(
+  selectMoneyState,
+  fromMoneyReducer.selectLoadingRatesErrorMessage
+);
+
+export const selectCurrenciesNames = createSelector(
+  selectMoneyState,
+  fromMoneyReducer.selectCurrencies
+);
+
+export const selectIsLoadingCurrenciesNames = createSelector(
+  selectMoneyState,
+  fromMoneyReducer.selectIsLoadingCurrencies
+);
+
+export const selectLoadingCurrenciesNamesError = createSelector(
+  selectMoneyState,
+  fromMoneyReducer.selectLoadingCurrenciesErrorMessage
+);

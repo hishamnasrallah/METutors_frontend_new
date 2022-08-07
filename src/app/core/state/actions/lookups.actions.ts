@@ -79,6 +79,24 @@ export const loadProgramCountriesEnded = createAction(
   '[Lookups] Load Program Countries Ended'
 );
 
+export const loadFlagCountries = createAction(
+  '[Lookups] Load Flag Countries'
+);
+
+export const loadFlagCountriesSuccess = createAction(
+  '[Lookups] Load Flag Countries Success',
+  props<{ countries: ICountry[] }>()
+);
+
+export const loadFlagCountriesFailure = createAction(
+  '[Lookups] Load Flag Countries Failure',
+  props<{ error: any }>()
+);
+
+export const loadFlagCountriesEnded = createAction(
+  '[Lookups] Load Flag Countries Ended'
+);
+
 export const loadCities = createAction(
   '[Lookups] Load Cities',
   props<{ countryId: string }>()

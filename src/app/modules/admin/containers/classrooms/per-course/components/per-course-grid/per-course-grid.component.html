@@ -22,7 +22,7 @@
     <td>{{ booking?.program?.code }}</td>
     <td>{{ booking?.field?.name }}</td>
     <td><a href="javascript: void(0)" (click)="openBookingModal.emit(booking.id)">{{ booking?.totalBooking }}</a></td>
-    <td><a [routerLink]="['/admin', 'finance', 'orders']"> ${{ booking?.totalAmount }}</a></td>
+    <td><a [routerLink]="['/admin', 'finance', 'orders']"> {{ booking?.totalAmount | metutorsMoney | async }}</a></td>
     <td>
       <button class="status text-capitalize" mat-button [ngClass]="booking?.status">
         {{ booking?.status }}

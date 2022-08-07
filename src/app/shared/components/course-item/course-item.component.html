@@ -73,7 +73,7 @@
     </div>
     <div class="row">
       <div class="col-12 d-flex align-items-center mt-4 actions">
-        <h3 class="m-0" *ngIf="classroom?.price">Price: <strong>{{ classroom?.price | currency:'USD' }}</strong></h3>
+        <h3 class="m-0" *ngIf="classroom?.price">Price: <strong>{{ classroom?.price | metutorsMoney | async }}</strong></h3>
         <button mat-flat-button color="primary" class="flex-grow-1 start-btn">
           Book a Class
         </button>

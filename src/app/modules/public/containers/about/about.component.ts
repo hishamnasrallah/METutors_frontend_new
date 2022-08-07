@@ -1,5 +1,7 @@
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import * as fromCore from '@metutor/core/state';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MiscService } from 'src/app/core/services';
 
 @Component({
   selector: 'metutors-about',
@@ -7,6 +9,8 @@ import { MiscService } from 'src/app/core/services';
   styleUrls: ['./about.component.scss'],
 })
 export class AboutComponent implements OnInit, OnDestroy {
+  token$: Observable<string | undefined>;
+
   founders: any[] = [
     {
       image: '',
@@ -33,41 +37,43 @@ export class AboutComponent implements OnInit, OnDestroy {
   whyMeTutorsList = [
     {
       id: 1,
-      value: 'Very competitive prices',
+      value: 'Flexible Scheduling on the GO!',
     },
     {
       id: 2,
-      value: 'Personalized course design',
+      value: 'Round the clock customer support',
     },
     {
       id: 3,
-      value: 'Powerful online tools and technology',
+      value: 'Personalized courses',
     },
     {
       id: 4,
-      value: 'Highly trained and dynamic instructors',
+      value: 'Expert tutors',
     },
     {
       id: 5,
-      value: 'Flexible scheduling for people on the go',
+      value: 'Affordable prices',
     },
     {
       id: 6,
-      value: 'Attentive and responsive customer support',
+      value: 'The best technology and tools',
     },
     {
       id: 7,
-      value: 'Provide a relax yet professional learning environment',
+      value: 'Relaxed yet professional learning environment',
     },
     {
       id: 8,
-      value: 'Innovative, stimulating and efficacious lessons',
+      value: 'Innovative and dynamic classes',
     },
   ];
 
-  constructor(private _miscService: MiscService) {}
+  constructor(private _store: Store<any>) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.token$ = this._store.select(fromCore.selectToken);
+  }
 
   ngOnDestroy(): void {}
 }

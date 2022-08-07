@@ -17,7 +17,7 @@
           <img src="assets/svg/user-group.svg" draggable="false" *ngIf="classroom?.type === classroomType.group"
             width="25px" height="25px" />
         </div>
-        <h3 class="price m-0"><strong>Price: {{ classroom?.price | currency:'USD' }}</strong></h3>
+        <h3 class="price m-0"><strong>Price: {{ classroom?.price | metutorsMoney | async }}</strong></h3>
       </h5>
       <div>
         <rating [ngModel]="classroom?.course?.rate" [max]="5" [readonly]="true"></rating>

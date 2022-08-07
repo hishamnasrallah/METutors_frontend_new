@@ -43,7 +43,7 @@
                 <tr *ngIf="!fieldId || subject.fieldId === +fieldId">
                   <td scope="row">{{ subject?.name }}</td>
                   <td scope="row">CID{{ subject?.id }}</td>
-                  <td><strong>${{ subject?.pricePerHour }}</strong></td>
+                  <td><strong>{{ subject?.pricePerHour | metutorsMoney | async }}</strong></td>
                 </tr>
               </ng-container>
             </tbody>
