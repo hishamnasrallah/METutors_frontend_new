@@ -1,5 +1,3 @@
-import { Component, OnInit } from '@angular/core';
-import * as fromCore from '@metutor/core/state';
 import {
   state,
   style,
@@ -10,8 +8,11 @@ import {
 } from '@angular/animations';
 import { Store } from '@ngrx/store';
 import { maxBy, minBy } from 'lodash';
+import * as fromCore from '@metutor/core/state';
+import { Component, OnInit } from '@angular/core';
 import { filter, Observable, take, tap } from 'rxjs';
 import * as fromPublic from '@metutor/modules/public/state';
+import { MoneyService } from '@metutor/core/services/money.service';
 import { ICountry, ILanguage, IProgram } from '@metutor/core/models';
 import * as fromPublicActions from '@metutor/modules/public/state/actions';
 
@@ -59,7 +60,7 @@ export class AllCoursesComponent implements OnInit {
   openPriceFilter: boolean = false;
   selectedFieldOfStudy: number[] = [];
 
-  constructor(private _store: Store<any>) {}
+  constructor(private _store: Store<any>, private _money: MoneyService) {}
 
   ngOnInit(): void {
     this._prepareCourses();
@@ -129,6 +130,27 @@ export class AllCoursesComponent implements OnInit {
 
             const max: any = maxBy(courses.subjects, 'pricePerHour');
             this.maxValue = max?.pricePerHour;
+            // this._store
+            //   .select(fromCore.selectCurrentCurrency)
+            //   .subscribe((toCurrency) => {
+            //     this._money
+            //       .convert(
+            //         parseFloat(min?.pricePerHour.toString()),
+            //         toCurrency,
+            //         false,
+            //         true
+            //       )
+            //       .subscribe((res) => (this.minValue = res.toFixed(2)));
+
+            //     this._money
+            //       .convert(
+            //         parseFloat(max?.pricePerHour.toString()),
+            //         toCurrency,
+            //         false,
+            //         true
+            //       )
+            //       .subscribe((res) => (this.maxValue = res.toFixed(2)));
+            //   });
           }
         })
       );

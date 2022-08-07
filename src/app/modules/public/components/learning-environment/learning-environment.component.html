@@ -11,7 +11,7 @@
     </ng-container>
 
     <ng-container *ngIf="!isLoading">
-      <div class="tabs d-flex">
+      <div class="tabs d-flex d-block-sm">
         <div *ngFor="let program of programsList; let i = index">
           <button mat-button class="w-100 text-start" [class.active]="step === program?.id"
             (click)="onChangeStep(program)">
