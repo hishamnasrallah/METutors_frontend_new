@@ -1009,8 +1009,17 @@ $ph-animation-duration: 0.8s !default;
 
 /////////////////////
 
+@media (min-width: 768px) and (max-width: 992px) {
+  .mb-20-md {
+    margin-bottom: 15px !important;
+  }
+}
 
 @media (max-width: 767px) {
+  .d-block-sm {
+    display: block !important;
+  }
+
   .w-100-sm {
     width: 100% !important;
   }

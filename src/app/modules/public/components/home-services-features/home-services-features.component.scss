@@ -48,3 +48,19 @@
     }
   }
 }
+
+@media (max-width:767px) {
+  .services-features {
+    .card .card-body {
+      padding: 30px 20px;
+
+      h1 {
+        font-size: 25px;
+      }
+
+      p {
+        font-size: 15px;
+      }
+    }
+  }
+}

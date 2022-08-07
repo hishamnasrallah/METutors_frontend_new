@@ -18,7 +18,12 @@ export class MoneyService {
     private _currencyPipe: CurrencyPipe
   ) {}
 
-  convert(amount: any, toCurreny: string, format = true): Observable<any> {
+  convert(
+    amount: any,
+    toCurreny: string,
+    format = true,
+    onlyNumbers = false
+  ): Observable<any> {
     return this._store.pipe(
       select(fromCore.selectCurrencyRates),
       withLatestFrom(this._store.select(fromCore.selectBaseCurrency)),
@@ -36,6 +41,10 @@ export class MoneyService {
         }
       }),
       map((convertedAmount: any) => {
+        if (onlyNumbers) {
+          return convertedAmount;
+        }
+
         if (format) {
           return this._currencyPipe.transform(convertedAmount, toCurreny);
         }
