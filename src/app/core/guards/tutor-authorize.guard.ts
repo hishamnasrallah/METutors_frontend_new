@@ -33,9 +33,9 @@ export class TutorAuthorizeGuard implements CanActivate {
           tutor?.interviewRequest?.status === InterviewStatus.scheduled ||
           tutor?.interviewRequest?.status === InterviewStatus.rejected
         ) {
-          this._alertNotificationService.error(
+          /*this._alertNotificationService.error(
             "You don't have a permission to access this route"
-          );
+          );*/
           this._router.navigateByUrl('/tutor/settings');
 
           return of(false);

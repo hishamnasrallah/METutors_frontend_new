@@ -15,9 +15,9 @@
             <li [class.active]="tab === 'USER_PREFERENCES'" (click)="tab = 'USER_PREFERENCES'">
               User Preferences
             </li>
-            <li [class.active]="tab === 'PAYMENT_INFORMATION'" (click)="tab = 'PAYMENT_INFORMATION'">
+            <!--<li [class.active]="tab === 'PAYMENT_INFORMATION'" (click)="tab = 'PAYMENT_INFORMATION'">
               Payment Information
-            </li>
+            </li>-->
           </ul>
         </div>
       </div>
@@ -34,8 +34,8 @@
                                        [isUpdateProfile]="(isUpdateTutorProfile$ | async)!"
                                        (loadCities)="loadCities($event)"
                                        (submitForm)="sendTeacherAccount(tutor, $event)"
-                                       (changeAvatar)="changetutorAvatar($event)"
-                                       (changeCover)="changetutorCover($event)"
+                                       (changeAvatar)="onChangeTutorAvatar($event)"
+                                       (changeCover)="onChangeTutorCover($event)"
                                        (submitInterview)="onOpenSubmitInterview()"
                                        (joinMeeting)="onJoinMeeting($event)">
       </metutors-tutor-settings-profile>

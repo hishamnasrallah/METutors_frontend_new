@@ -42,7 +42,7 @@ export const changeTutorCover = createAction(
 
 export const changeTutorCoverSuccess = createAction(
   '[Tutor] Change Tutor Cover Success',
-  props<{ cover: string }>()
+  props<{ cover: string; message: string }>()
 );
 
 export const changeTutorCoverFailure = createAction(

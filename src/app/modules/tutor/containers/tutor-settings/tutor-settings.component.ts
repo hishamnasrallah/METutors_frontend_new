@@ -110,11 +110,11 @@ export class TutorSettingsComponent implements OnInit {
     this._store.dispatch(fromCore.updateTutorProfile({ data }));
   }
 
-  changetutorAvatar(file: File): void {
+  onChangeTutorAvatar(file: File): void {
     this._store.dispatch(fromCore.changeAvatar({ file }));
   }
 
-  changetutorCover(file: File): void {
+  onChangeTutorCover(file: File): void {
     this._store.dispatch(fromCore.changeTutorCover({ file }));
   }
 
