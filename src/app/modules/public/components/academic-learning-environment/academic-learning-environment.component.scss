@@ -17,3 +17,18 @@
     font-weight: 300;
   }
 }
+
+@media(max-width:992px) {
+  .academic-learning {
+    padding: 20px 0;
+    background: none !important;
+
+    h1 {
+      font-size: 20px;
+    }
+
+    p {
+      font-size: 17px;
+    }
+  }
+}

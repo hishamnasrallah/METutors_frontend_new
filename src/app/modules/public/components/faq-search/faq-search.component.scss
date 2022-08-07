@@ -47,7 +47,19 @@
 }
 
 @media (max-width:767px) {
-  .about-students h1 {
-    font-size: 25px;
+  .about-students {
+    padding: 20px 0;
+
+    h1 {
+      font-size: 25px;
+    }
+
+    h2 {
+      font-size: 13px;
+    }
+
+    p {
+      font-size: 15px;
+    }
   }
 }

@@ -45,7 +45,17 @@
 }
 
 @media (max-width:767px) {
-  .still-questions h1 {
-    font-size: 25px;
+  .still-questions {
+    padding: 0;
+
+    h1 {
+      font-size: 25px;
+    }
+
+    p {
+      font-size: 17px;
+      margin: 0 0 15px;
+      width: 100%;
+    }
   }
 }

@@ -30,3 +30,17 @@
     }
   }
 }
+
+@media (max-width:767px) {
+  .become-online-tutor .block {
+    padding: 20px;
+
+    h1 {
+      font: 25px;
+    }
+
+    p {
+      font-size: 17px;
+    }
+  }
+}

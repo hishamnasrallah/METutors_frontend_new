@@ -862,7 +862,8 @@ span.status {
   }
 }
 
-.text-main, rating span.bs-rating-star.active {
+.text-main,
+rating span.bs-rating-star.active {
   color: var(--main-color);
 }
 
@@ -1012,6 +1013,14 @@ $ph-animation-duration: 0.8s !default;
 @media (min-width: 768px) and (max-width: 992px) {
   .mb-20-md {
     margin-bottom: 15px !important;
+  }
+
+  .mt-15-md {
+    margin-top: 15px !important;
+  }
+
+  .w-100-md {
+    width: 100% !important;
   }
 }
 

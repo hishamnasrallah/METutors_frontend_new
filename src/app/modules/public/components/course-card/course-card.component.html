@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-3">
       <div class="position-relative">
-        <img [src]="course?.picture" meTutorsDefaultCourse draggable="false" class="card-img-top rounded" alt
+        <img [src]="course?.picture" meTutorsDefaultCourse draggable="false" class="card-img-top rounded w-100-sm" alt
           width="230" height="230">
         <!-- <label class="badge-item" [ngClass]="{
             'popular': course?.tag === courseTags['pop'],
@@ -17,12 +17,12 @@
       </h5>
       <p class="desc flex-grow-1" [innerHTML]="course?.description"></p>
       <div class="row list rounded">
-        <div class="col-md-4 d-flex menu align-items-center">
+        <div class="col-lg-4 col-md d-flex menu align-items-center">
           <strong>Price per Hour : </strong>
           <span>{{ course?.pricePerHour | metutorsMoney | async }}</span>
         </div>
         <div class="col">
-          <a mat-button class="main-button-transparent float-end" routerLink="/requests/request-tutor"
+          <a mat-button class="main-button-transparent float-end w-100-sm" routerLink="/requests/request-tutor"
             [queryParams]="{program: course?.programId, field: course?.fieldId, subject: course?.id, country: course?.countryId}">
             Start Learning Now
           </a>

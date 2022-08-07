@@ -59,9 +59,17 @@
   }
 }
 
-@media (max-width:767px) {
-  .study-metutors h1,
-  .creativity h1 {
-    font-size: 25px;
+@media (max-width:992px) {
+  .help-to-here {
+    padding: 20px 15px;
+    margin-bottom: 0;
+
+    h1 {
+      font-size: 25px;
+    }
+
+    .item {
+      padding: 0;
+    }
   }
 }

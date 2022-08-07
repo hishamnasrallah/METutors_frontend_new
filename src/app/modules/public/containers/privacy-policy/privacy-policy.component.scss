@@ -45,3 +45,25 @@
     margin-left: 50px;
   }
 }
+
+@media (max-width:767px) {
+  .privacy-policy {
+    .heading {
+      padding: 50px 0;
+
+      h1 {
+        font-size: 20px;
+      }
+    }
+
+    .card {
+      h2 {
+        font: 17px;
+      }
+
+      p {
+        font-size: 15px;
+      }
+    }
+  }
+}

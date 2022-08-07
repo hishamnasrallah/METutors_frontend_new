@@ -36,7 +36,22 @@
 }
 
 @media (max-width:767px) {
-  .list-questions h1 {
-    font-size: 25px;
+  .list-questions {
+    padding: 20px 15px;
+
+    h1 {
+      font-size: 25px;
+    }
+
+    .question {
+      h1 {
+        font-size: 17px;
+      }
+
+      p {
+        font-size: 15px;
+        width: 100%;
+      }
+    }
   }
 }

@@ -4,7 +4,9 @@
 <div class="container">
   <metutors-select-faq-topic [topics]="topics$ | async" [isLoading]="loadingTopics$ | async">
   </metutors-select-faq-topic>
+
   <metutors-faq-list-questions [listFAQs]="FAQs$ | async" [isLoading]="loadingFAQs$ | async">
   </metutors-faq-list-questions>
+
   <metutors-still-have-questions></metutors-still-have-questions>
 </div>
