@@ -36,7 +36,13 @@
 }
 
 @media (max-width:767px) {
-  .list-questions h1 {
-    font-size: 25px;
+  .list-questions {
+    padding: 20px 15px;
+
+    .question {
+      p {
+        width: 100%;
+      }
+    }
   }
 }

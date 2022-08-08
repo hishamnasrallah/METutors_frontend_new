@@ -1,8 +1,8 @@
 <div class="course-details-popup">
   <div class="d-flex" mat-dialog-title>
-    <h2 class="flex-grow-1 m-0 d-flex flex-column">
+    <h2 class="flex-grow-1 m-0 d-flex flex-column f-size-17-md-sm">
       Course details
-      <span class="d-block mt-2">View classroom details</span>
+      <span class="d-block mt-2 f-size-15-md-sm">View classroom details</span>
     </h2>
 
     <button class="text-secondary" mat-dialog-close="true" mat-icon-button type="button">
@@ -13,7 +13,7 @@
   <mat-dialog-content class="pt-2">
     <div class="row list-videos">
       <div class="col-12">
-        <h5 class="card-title">
+        <h5 class="card-title f-size-15-md-sm">
           {{ course?.name }}
           <img src="assets/svg/user-one.svg" draggable="false" *ngIf="course?.tuitionType === tuitionType.one"
             width="25px" height="25px" />
@@ -22,7 +22,7 @@
           <img src="assets/svg/user-both.svg" matTooltip="One-o-One" matTooltipPosition="above" draggable="false"
             *ngIf="course?.tuitionType === tuitionType.both" height="25px" />
         </h5>
-        <p class="desc flex-grow-1" [innerHTML]="course?.description"></p>
+        <p class="desc flex-grow-1 f-size-15-md-sm" [innerHTML]="course?.description"></p>
       </div>
       <div class="col-12">
         <div class="row list-items sm-item">

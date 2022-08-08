@@ -53,22 +53,19 @@
 
 @media(max-width:767px) {
   .slide {
-    h1 {
-      font-size: 25px;
-    }
-
-    h3,
-    p {
-      font-size: 20px;
-    }
+    padding-top: 20px;
 
     img {
       width: 100%;
     }
 
-    .info .border-right {
-      border-right: none !important;
-      margin-bottom: 20px;
+    .info {
+      padding: 20px 15px;
+
+      .border-right {
+        border-right: none !important;
+        margin-bottom: 20px;
+      }
     }
   }
 }

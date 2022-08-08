@@ -1,7 +1,7 @@
 <div class="row founder-team">
   <div class="col-md-12 text-center">
-    <h1>Meet The Team in our Education Sphere</h1>
-    <p>
+    <h1 class="f-size-25-md-sm">Meet The Team in our Education Sphere</h1>
+    <p class="f-size-17-md-sm">
       At MEtutors our students come first! We pride ourselves on having the most friendly and approachable educators who
       are experts in their subject-matter.
     </p>
@@ -9,7 +9,7 @@
 
   <div class="col-md-3" *ngFor="let founder of founders">
     <img [src]="founder?.image" meTutorsDefaultAvatar alt="">
-    <h2>{{ founder?.name }}</h2>
-    <h3>{{ founder?.position }}</h3>
+    <h2 class="f-size-20-md-sm">{{ founder?.name }}</h2>
+    <h3 class="f-size-15-md-sm">{{ founder?.position }}</h3>
   </div>
 </div>

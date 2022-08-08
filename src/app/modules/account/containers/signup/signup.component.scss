@@ -2,6 +2,7 @@
   .logo {
     width: 200px;
   }
+
   form {
     label {
       color: #373737;
@@ -143,18 +144,24 @@
 @media(max-width:767px) {
   .signup-block {
     form {
-      h3 {
-        font-size: 25px;
-      }
-
       h4 {
-        font-size: 20px;
         margin-bottom: 20px !important;
       }
 
       .types button {
         margin-bottom: 15px;
       }
+    }
+
+    .img-cover {
+      display: none !important;
+    }
+  }
+
+  .reset-block {
+    form h4 {
+      text-align: center;
+      margin-top: 20px;
     }
 
     .img-cover {
@@ -186,20 +193,6 @@
 
     button {
       font-weight: bold;
-    }
-  }
-}
-
-@media(max-width:767px) {
-  .reset-block {
-    form h4 {
-      text-align: center;
-      margin-top: 20px;
-      font-size: 25px;
-    }
-
-    .img-cover {
-      display: none !important;
     }
   }
 }

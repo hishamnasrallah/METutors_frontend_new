@@ -83,7 +83,17 @@
 }
 
 @media (max-width:767px) {
-  .loving-opportunities h1 {
-    font-size: 25px;
+  :host ::ng-deep {
+    .loving-opportunities {
+      padding: 15px;
+
+      .owl-carousel .owl-stage .owl-item {
+        min-height: 300px;
+      }
+
+      .card-item {
+        overflow: auto;
+      }
+    }
   }
 }

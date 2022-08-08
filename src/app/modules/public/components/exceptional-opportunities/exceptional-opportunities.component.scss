@@ -28,7 +28,16 @@
 }
 
 @media (max-width:767px) {
-  .exceptional-opportunities h1 {
-    font-size: 25px;
+  .exceptional-opportunities {
+    padding: 20px 0;
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    .border-right {
+      border: none;
+      margin-bottom: 15px;
+    }
   }
 }
