@@ -25,3 +25,10 @@
 
   }
 }
+
+@media (max-width: 767px) {
+  :host ::ng-deep .otp-input {
+    width: 50px !important;
+    height: 50px !important;
+  }
+}

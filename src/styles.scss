@@ -1033,6 +1033,10 @@ $ph-animation-duration: 0.8s !default;
     width: 100% !important;
   }
 
+  .w-auto-sm {
+    width: auto !important;
+  }
+
   .d-none-sm {
     display: none !important;
   }
@@ -1072,6 +1076,10 @@ $ph-animation-duration: 0.8s !default;
   .p-0-sm {
     padding: 0 !important;
   }
+
+  .p-10-sm {
+    padding: 10px !important;
+  }
 }
 
 @media(max-width: 992px) {
@@ -1101,5 +1109,9 @@ $ph-animation-duration: 0.8s !default;
 
   .padding-0-md-sm {
     padding: 0 !important;
+  }
+
+  .w-100-md-sm {
+    width: 100% !important;
   }
 }

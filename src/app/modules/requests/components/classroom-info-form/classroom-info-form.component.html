@@ -2,14 +2,14 @@
   <div class="card-body">
     <div class="row row-block">
       <div class="col-md-4">
-        <h2>Classroom Setup</h2>
-        <h4>Choose your classes schedule and make sure <strong>FIRST</strong> class is starting after <strong>24
+        <h2 class="f-size-17-md-sm">Classroom Setup</h2>
+        <h4 class="f-size-15-md-sm">Choose your classes schedule and make sure <strong>FIRST</strong> class is starting after <strong>24
             hours</strong></h4>
 
         <h5 class="mt-4">Course ID: <span>CID123</span></h5>
         <h5 class="mb-0">Course Name: <span>Calculus</span></h5>
       </div>
-      <div class="col-md-8">
+      <div class="col-md-8 mt-15-sm">
         <div class="row">
           <div class="col-md-6">
             <h3>Classes Start Date</h3>
@@ -65,7 +65,7 @@
               </ngx-material-timepicker>
             </div>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-6 mt-15-sm">
             <h3>Classes End Time</h3>
             <div class="ngx-timepicker-field-example">
               <input placeholder="Select Ending Time" aria-label="Select ending time" [ngxTimepicker]="endingTime"
@@ -85,7 +85,7 @@
               Time duration must be between {{ classroomTimeDuration.min }} & {{ classroomTimeDuration.max }} hours
             </div>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-6 mt-15-sm">
             <h3>Classroom Total Hours</h3>
             <input type="text" class="form-control" formControlName="hours">
           </div>
@@ -100,13 +100,13 @@
             <input type="number" max="10" min="1" step="1" class="form-control" formControlName="seatAttendees">
           </div> -->
         </div>
-        <div class="est-price mt-4" [@slideInOut] *ngIf="price && hours?.value">
+        <div class="est-price mt-4 p-10-sm" [@slideInOut] *ngIf="price && hours?.value">
           <div class="row">
             <div class="col-md-6">
               <div class="d-flex">
                 <div class="flex-grow-1">
                   <h5 class="d-flex align-items-center">
-                    Estimated Price: <h1 class="mb-0">{{ (price * +hours?.value) | metutorsMoney | async }}</h1>
+                    Estimated Price: <h1 class="mb-0 f-size-20-md-sm">{{ (price * +hours?.value) | metutorsMoney | async }}</h1>
                   </h5>
                   <p>Price change based on total hours, total classes, time</p>
                 </div>
@@ -116,7 +116,7 @@
               <div class="d-flex">
                 <div class="flex-grow-1">
                   <h5 class="d-flex align-items-center">
-                    Total Hours: <h1 class="mb-0">{{ hours?.value }} hrs</h1>
+                    Total Hours: <h1 class="mb-0 f-size-20-md-sm">{{ hours?.value }} hrs</h1>
                   </h5>
                   <p>Hourly Rate: {{ price | metutorsMoney | async }}</p>
                 </div>
