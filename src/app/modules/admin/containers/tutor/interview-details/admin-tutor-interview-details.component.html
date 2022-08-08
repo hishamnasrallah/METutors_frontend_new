@@ -5,18 +5,21 @@
         <ng-container *ngIf="!(isLoading$ | async)">
           <div class="row">
             <div class="col-md-6">
-              <h1>Tutor Data Sheet</h1>
+              <h1>Teacher Data Sheet</h1>
               <div class="row list-items md-item p-0 mt-3">
-                <div class="col-md-5 d-flex menu align-items-center" *ngIf="interview?.tutor?.country">
-                  <img src="assets/svg/map.svg" alt="" width="15" height="15" draggable="false">
+                <div class="col-md-5 menu align-items-center">
+                  <label>Details:</label>
+                  <span *ngIf="interview?.tutor?.country">
+                  <img src="assets/svg/map.svg" alt="" width="15" height="15" draggable="false" class="icon">
                   <strong>From {{ interview?.tutor?.country?.name }}</strong>
+                    </span>
                 </div>
-                <div class="col-md-5 d-flex menu align-items-center"
-                  *ngIf="interview?.tutor?.specifications?.levelOfEducation && interview?.tutor?.specifications?.subject">
+
+                <div class="col-md-5 d-flex menu align-items-center degree"
+                  *ngIf="interview?.tutor?.qualifications?.degreeField">
                   <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
                   <strong>
-                    {{ interview?.tutor?.specifications?.levelOfEducation }}
-                    of {{ interview?.tutor?.specifications?.subject }}
+                    {{ interview?.tutor?.qualifications?.degreeLevel }} in {{ interview?.tutor?.qualifications?.degreeField }}
                   </strong>
                 </div>
               </div>
@@ -24,6 +27,7 @@
             <div class="col-md-6">
               <div class="d-flex justify-content-end actions-interview">
                 <a class="submit-document" [routerLink]="['/admin', 'tutor', 'interview', 'details',  interview?.tutor?.id, 'documents']">
+                  <img src="assets/svg/file-filled.svg" alt="" width="17" height="17" draggable="false" class="icon">
                   Submitted Documents
                 </a>
                 <a class="send-link cursor-pointer" *ngIf="interview.status === 'pending'" (click)="onOpenScheduleInterviewModal(interview)">Schedule Interview</a>
@@ -36,9 +40,12 @@
 
               </div>
               <div class="row list-items md-item p-0 d-flex justify-content-end mt-3">
-                <div class="col-md-3 d-flex menu align-items-center" *ngIf="interview?.interviewDate">
-                  <img src="assets/svg/calendar.svg" alt="" width="15" height="15" draggable="false">
-                  <strong>{{ interview?.interviewDate }}</strong>
+                <div class="col-md-6 d-flex menu align-items-center">
+                  <span class="requested-interview">Requested Interview:</span>
+                  <span *ngIf="interview?.interviewDate">
+                    <img src="assets/svg/calendar.svg" alt="" width="15" height="15" draggable="false">
+                    <strong>{{ interview?.interviewDate | date }}</strong>
+                  </span>
                 </div>
                 <div class="col-md-3 d-flex menu align-items-center" *ngIf="interview?.interviewTime">
                   <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
@@ -57,8 +64,16 @@
               </h3>
               <table class="basic-table">
                 <tr>
-                  <td>Full Name</td>
-                  <td><bdi>{{ interview?.tutor?.name }}</bdi></td>
+                  <td>First Name</td>
+                  <td><bdi>{{ interview?.tutor?.firstName }}</bdi></td>
+                </tr>
+                <tr>
+                  <td>Middle Name</td>
+                  <td><bdi>{{ interview?.tutor?.middleName || 'N/A' }}</bdi></td>
+                </tr>
+                <tr>
+                  <td>Last Name</td>
+                  <td><bdi>{{ interview?.tutor?.lastName }}</bdi></td>
                 </tr>
                 <tr *ngIf="interview?.tutor?.email">
                   <td>Email</td>
@@ -79,13 +94,21 @@
                     <ng-container *ngIf="interview?.tutor?.city">, {{ interview?.tutor?.city }}</ng-container>
                   </td>
                 </tr>
-                <tr *ngIf="interview?.tutor?.nationality">
+                <tr>
                   <td>Nationality</td>
                   <td>{{ interview?.tutor?.nationality }}</td>
                 </tr>
-                <tr *ngIf="interview?.tutor?.dateOfBirth">
+                <tr>
                   <td>Date of birth</td>
                   <td>{{ interview?.tutor?.dateOfBirth }}</td>
+                </tr>
+                <tr>
+                  <td>Address</td>
+                  <td>{{ interview?.tutor?.address }}</td>
+                </tr>
+                <tr>
+                  <td>Postal Code</td>
+                  <td>{{ interview?.tutor?.postalCode }}</td>
                 </tr>
               </table>
             </div>
@@ -131,10 +154,6 @@
                   <td>Computer Skills Level</td>
                   <td>{{ interview?.tutor?.qualifications?.computerSkills }}</td>
                 </tr>
-                <tr *ngIf="interview?.tutor?.specifications?.typeOfTutoring">
-                  <td>Type</td>
-                  <td>{{ interview?.tutor?.specifications?.typeOfTutoring }}</td>
-                </tr>
                 <tr *ngIf="interview?.tutor?.qualifications?.teachingExperience">
                   <td>Teaching Experience<span>(In Schools)</span></td>
                   <td>{{ interview?.tutor?.qualifications?.teachingExperience }}</td>
@@ -175,7 +194,7 @@
             <div class="col-md-6">
               <table class="basic-table w-100">
                 <tr *ngIf="interview?.tutor?.specifications?.availabilityStartDate">
-                  <td>Expected Starting Date</td>
+                  <td>Starting Date</td>
                   <td>{{ interview?.tutor?.specifications?.availabilityStartDate }}</td>
                 </tr>
                 <tr *ngIf="interview?.tutor?.specifications?.availabilityEndDate">
@@ -187,6 +206,7 @@
           </div>
 
           <div class="row mt-5" *ngIf="interview?.tutor?.sortedSubjects && interview?.tutor?.sortedSubjects.length">
+            <h3 class="title">Assigned Courses</h3>
             <div class="col-md-6 mb-3" *ngFor="let item of interview?.tutor?.sortedSubjects; let indexSubjects = index">
               <table class="table my-table default-title">
                 <tr>
@@ -217,6 +237,13 @@
 
           <div class="row mt-4">
             <div class="col-md-12 notes">
+              <ng-container *ngIf="interview?.tutor?.bio">
+                <h2>Bio:</h2>
+                <p>
+                  <bdi>{{ interview?.tutor?.bio }}</bdi>
+                </p>
+              </ng-container>
+
               <ng-container *ngIf="interview?.additionalComments">
                 <h2>Notes:</h2>
                 <p>
@@ -224,7 +251,7 @@
                 </p>
               </ng-container>
 
-              <div class="actions d-flex justify-content-end">
+              <div class="actions d-flex justify-content-end" *ngIf="interview.status === 'pending'">
                 <button mat-button class="fw-bold me-3 decline"  (click)="onOpenDeclineInterviewModal()">Decline</button>
                 <button mat-flat-button color="primary" class="fw-bold" (click)="onOpenHourlyRatePerSubjectModal()">
                   Accept Request
