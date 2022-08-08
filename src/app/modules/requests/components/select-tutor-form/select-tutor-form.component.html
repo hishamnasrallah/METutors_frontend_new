@@ -38,8 +38,14 @@
                         <span class="text-uppercase verified">Verified</span> -->
                         </h2>
                         <h3 class="mb-0" *ngIf="tutor?.bio">{{ tutor?.bio }}</h3>
+                        <a class="col-md-2 full-profile d-block d-xl-none mt-1"
+                          [routerLink]="'/profile/tutor/' + tutor?.id" target="_blank">
+                          <img src="assets/svg/share-link.svg" draggable="false" width="16px" height="16px" alt="">
+                          Full profile
+                        </a>
                       </div>
-                      <a class="col-md-2 full-profile w-auto-sm" [routerLink]="'/profile/tutor/' + tutor?.id" target="_blank">
+                      <a class="col-md-2 full-profile d-none d-xl-block" [routerLink]="'/profile/tutor/' + tutor?.id"
+                        target="_blank">
                         <img src="assets/svg/share-link.svg" draggable="false" width="16px" height="16px" alt="">
                         Full profile
                       </a>
@@ -57,7 +63,8 @@
                 <mat-radio-group (change)="onChangeSchedule($event)" [(ngModel)]="schedule"
                   [ngModelOptions]="{standalone: true}">
                   <mat-radio-button class="w-100-md-sm" value="1">Yes</mat-radio-button>
-                  <mat-radio-button class="w-100-md-sm" value="2">Proceed with my schedule and assign my instructor</mat-radio-button>
+                  <mat-radio-button class="w-100-md-sm" value="2">Proceed with my schedule and assign my instructor
+                  </mat-radio-button>
                 </mat-radio-group>
               </div>
             </div>
@@ -84,11 +91,23 @@
                         <span class="text-uppercase verified">Verified</span> -->
                       </h2>
                       <h3 class="mb-0" *ngIf="tutor?.bio">{{ tutor?.bio }}</h3>
+                      <div class="d-block d-xl-none mt-1">
+                        <a class="col-md-2 full-profile availability cursor-pointer"
+                          (click)="onViewAvailability(tutor.id)">
+                          Teacher Availability
+                        </a>
+                        <a class="col-md-2 full-profile w-auto-sm ms-2" [routerLink]="'/profile/tutor/' + tutor?.id"
+                          target="_blank">
+                          <img src="assets/svg/share-link.svg" draggable="false" width="16px" height="16px" alt="">
+                          Full profile
+                        </a>
+                      </div>
                     </div>
-                    <a class="col-md-2 full-profile availability cursor-pointer" (click)="onViewAvailability(tutor.id)">
+                    <a class="col-md-2 full-profile availability cursor-pointer d-none d-xl-block" (click)="onViewAvailability(tutor.id)">
                       Teacher Availability
                     </a>
-                    <a class="col-md-2 full-profile w-auto-sm" [routerLink]="'/profile/tutor/' + tutor?.id" target="_blank">
+                    <a class="col-md-2 full-profile d-none d-xl-block" [routerLink]="'/profile/tutor/' + tutor?.id"
+                      target="_blank">
                       <img src="assets/svg/share-link.svg" draggable="false" width="16px" height="16px" alt="">
                       Full profile
                     </a>
@@ -124,7 +143,8 @@
               <div class="d-flex">
                 <div class="flex-grow-1">
                   <h5 class="d-flex align-items-center">
-                    Estimated Price: <h1 class="mb-0 f-size-20-md-sm">{{ (price * +hours) | metutorsMoney | async }}</h1>
+                    Estimated Price: <h1 class="mb-0 f-size-20-md-sm">{{ (price * +hours) | metutorsMoney | async }}
+                    </h1>
                   </h5>
                   <p>Price change based on total hours, total classes, time</p>
                 </div>

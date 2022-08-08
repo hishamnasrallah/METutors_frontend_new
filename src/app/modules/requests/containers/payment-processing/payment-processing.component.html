@@ -11,8 +11,8 @@
 
                   <!--Loading-->
                   <ng-container *ngSwitchCase="true">
-                    <img src="assets/svg/loading.svg" alt="" draggable="false" class="mb-4"/>
-                    <p>Please bear with us your payment is being processed...</p>
+                    <img src="assets/svg/loading.svg" alt="" draggable="false" class="mb-4 spinner" width="100px" height="100px" />
+                    <p class="mt-15-sm f-size-20-md-sm mb-15-sm">Please bear with us your payment is being processed...</p>
                   </ng-container>
 
                   <ng-container *ngSwitchCase="false">
@@ -21,29 +21,28 @@
                       <ng-container *ngSwitchCase="true">
                         <img src="assets/svg/cheer.svg" alt="" draggable="false" class=" mb-4"/>
 
-                        <p>Payment has been made Successfully</p>
+                        <p class="mt-15-sm f-size-20-md-sm mb-15-sm">Payment has been made Successfully</p>
 
-                        <button mat-flat-button color="primary" class="px-5 ms-3 p-2" [routerLink]="['/student', 'classrooms']">
+                        <button mat-flat-button color="primary" class="px-5 ms-3 p-2 mb-15-sm w-100-sm" [routerLink]="['/student', 'classrooms']">
                           Continue
                         </button>
                       </ng-container>
 
                       <!--Failed-->
                       <ng-container *ngSwitchCase="false">
-                        <img src="assets/svg/failed.svg" alt="" draggable="false" class=" mb-4"/>
+                        <img src="assets/svg/failed.svg" alt="" draggable="false" class="w-100-sm mb-4"/>
 
-                        <p class="text-danger">{{ view?.paymentInfo?.error || 'Payment failed' }}</p>
+                        <p class="text-danger mt-15-sm f-size-20-md-sm">{{ view?.paymentInfo?.error || 'Payment failed' }}</p>
 
-                        <button mat-flat-button color="primary" class="px-5 ms-3 p-2" routerLink="/" [disabled]="isRetryingPayment$ | async">
+                        <button mat-flat-button color="primary" class="px-5 ms-3 p-2 mb-15-sm w-100-sm" routerLink="/" [disabled]="isRetryingPayment$ | async">
                           Go to Home
                         </button>
 
-                        <button mat-flat-button color="primary" class="px-5 ms-3 p-2" (click)="retryPayment()" [disabled]="isRetryingPayment$ | async">
+                        <button mat-flat-button color="primary" class="px-5 ms-3 p-2 mb-15-sm w-100-sm" (click)="retryPayment()" [disabled]="isRetryingPayment$ | async">
                           Try Again
                         </button>
                       </ng-container>
                     </ng-container>
-
                   </ng-container>
                 </ng-container>
               </div>

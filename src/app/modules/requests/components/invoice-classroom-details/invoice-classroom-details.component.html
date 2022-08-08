@@ -1,5 +1,5 @@
 <div class="class-details">
-  <h2 class="d-flex align-items-center">Classroom Details</h2>
+  <h2 class="d-flex align-items-center f-size-17-md-sm h-auto-sm">Classroom Details</h2>
   <div class="card">
     <div class="card-body">
       <ul class="list-unstyled row informations b-border">
@@ -72,10 +72,10 @@
 
       <div class="row info" *ngIf="classroom?.tutor">
         <h6 class="details col-12">Classroom tutor</h6>
-        <div class="col-md-2 d-flex align-items-center">
+        <div class="col-2">
           <img [src]="classroom?.tutor?.avatar" meTutorsDefaultAvatar alt="" draggable="false">
         </div>
-        <div class="col-md-10 d-flex justify-content-center flex-column">
+        <div class="col-10 d-flex justify-content-center flex-column">
           <h2><bdi>{{ classroom?.tutor?.name }}</bdi></h2>
           <h3>{{ classroom?.tutor?.bio }}</h3>
         </div>

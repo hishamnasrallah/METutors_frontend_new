@@ -1,8 +1,8 @@
 <ng-container *ngLet="(classroom$ | async) as classroom">
-  <div class="container invoice-details" *ngLet="(invoiceDetails$ | async) as invoiceDetails">
-    <div class="row">
+  <div class="container invoice-details mt-15-sm" *ngLet="(invoiceDetails$ | async) as invoiceDetails">
+    <div class="row flex-column-reverse-sm">
       <div class="col-md-8">
-        <h2>Invoice details</h2>
+        <h2 class="f-size-30-md-sm h-auto-sm">Invoice details</h2>
         <div class="card">
           <div class="card-body">
             <ng-container [ngSwitch]="isCalculateInvoiceDetails$ | async">
@@ -11,7 +11,7 @@
                 <metutors-payment-invoice-details [invoiceDetails]="invoiceDetails"></metutors-payment-invoice-details>
 
                 <div class="overflow-hidden" *ngLet="(user$ | async) as user">
-                  <button mat-flat-button color="primary" class="float-end pay-now"
+                  <button mat-flat-button color="primary" class="float-end pay-now mt-15-sm"
                           (click)="saveCourse(user, classroom)" [disabled]="isCreatingCourse$ | async">
                     Pay Now
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

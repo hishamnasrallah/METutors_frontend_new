@@ -150,8 +150,12 @@
                     <span class="text-uppercase verified">Verified</span> -->
             </h2>
             <h3 class="mb-0" *ngIf="reviewInfo?.tutor?.bio">{{ reviewInfo?.tutor?.bio }}</h3>
+            <a class="col-md-3 full-profile d-block d-xl-none mt-1" [routerLink]="'/profile/tutor/' + reviewInfo?.tutor?.id" target="_blank">
+              <img src="assets/svg/share-link.svg" draggable="false" width="16px" height="16px" alt="">
+              Full Profile
+            </a>
           </div>
-          <a class="col-md-3 full-profile w-auto-sm" [routerLink]="'/profile/tutor/' + reviewInfo?.tutor?.id" target="_blank">
+          <a class="col-md-3 full-profile d-none d-xl-block" [routerLink]="'/profile/tutor/' + reviewInfo?.tutor?.id" target="_blank">
             <img src="assets/svg/share-link.svg" draggable="false" width="16px" height="16px" alt="">
             Full Profile
           </a>

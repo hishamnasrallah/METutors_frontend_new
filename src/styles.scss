@@ -1058,7 +1058,7 @@ $ph-animation-duration: 0.8s !default;
   }
 
   .h-auto-sm {
-    height: auto;
+    height: auto !important;
   }
 
   .mt-15-sm {
