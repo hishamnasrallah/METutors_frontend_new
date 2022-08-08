@@ -1,6 +1,6 @@
 <div class="container py-5 signup-block" *ngLet="(step$ | async) as step">
   <div class="row" *ngLet="(userType$ | async) as accountType">
-    <div class="col-md-5 d-flex flex-column" *ngIf="step === 1">
+    <div class="col-lg-5 d-flex flex-column" *ngIf="step === 1">
       <div class="mb-5">
         <a routerLink="/" class="logo">
           <img alt="logo" src="assets/logo/logo-dark.png" width="200px" draggable="false">
@@ -119,14 +119,14 @@
           </div>
 
           <div class="row mt-4 social">
-            <div class="col-md-6">
+            <div class="col-xl-6 mt-1">
               <button (click)="openRolesDialog('google')" mat-button type="button" class="w-100 google"
                 [disabled]="authLoading$ | async">
                 <img src="assets/svg/google.svg" alt="">
                 Sign up with Google
               </button>
             </div>
-            <div class="col-md-6">
+            <div class="col-xl-6 mt-1">
               <button (click)="openRolesDialog('facebook')" mat-button type="button" class="w-100"
                 [disabled]="authLoading$ | async">
                 <img src="assets/svg/facebook-light.svg" class="facebook" alt="">
@@ -145,7 +145,7 @@
       </form>
     </div>
 
-    <div class="col-md-5 d-flex flex-column" *ngIf="step === 2">
+    <div class="col-lg-5 d-flex flex-column" *ngIf="step === 2">
       <a class="pb-5 logo" routerLink="/">
         <img alt="logo" src="assets/logo/logo-dark.png" width="200px" draggable="false">
       </a>
@@ -161,7 +161,7 @@
       </div>
     </div>
 
-    <div class="col-md-5 d-flex flex-column" *ngIf="step === 3">
+    <div class="col-lg-5 d-flex flex-column" *ngIf="step === 3">
       <a class="pb-5 logo" routerLink="/">
         <img alt="logo" src="assets/logo/logo-dark.png" width="200px" draggable="false">
       </a>
@@ -172,7 +172,7 @@
       </div>
     </div>
 
-    <div class="col-md-7 align-items-center img-cover">
+    <div class="col-lg-7 align-items-center img-cover">
       <div class="steps" [@userTypeAnimate]>
         <h2>How to create your account</h2>
         <p>

@@ -2,42 +2,42 @@
   <div class="card-body">
     <div class="row row-block">
       <div class="col-md-4">
-        <h2>Course Details</h2>
+        <h2 class="f-size-17-md-sm">Course Details</h2>
 
-        <h5 class="mt-4 mb-0">Course ID: <span>CID123</span></h5>
+        <h5 class="mt-4 mb-0 f-size-15-md-sm">Course ID: <span>CID123</span></h5>
       </div>
-      <div class="col-md-8">
+      <div class="col-md-8 mt-15-sm">
         <div class="row">
-          <div class="col-md-3">
+          <div class="col-md-3 col-sm-6">
             <h3>Program Name</h3>
             <h4>{{ reviewInfo?.courseProgram }}</h4>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-3 col-sm-6">
             <h3>Field of Study</h3>
             <h4>{{ reviewInfo?.courseField }}</h4>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-3 col-sm-6">
             <h3>Subject</h3>
             <h4>{{ reviewInfo?.subject }}</h4>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-3 col-sm-6">
             <h3>Tutoring Language Preference</h3>
             <h4>{{ reviewInfo?.languages }}</h4>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-3 col-sm-6">
             <h3>Book Type</h3>
             <h4>{{ reviewInfo?.information }}</h4>
           </div>
           <ng-container *ngIf="reviewInfo?.info === academicTutoringTextbook.info">
-            <div class="col-md-3">
+            <div class="col-md-3 col-sm-6">
               <h3>Textbook Name</h3>
               <h4>{{ reviewInfo?.name }}</h4>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 col-sm-6">
               <h3>Textbook Edition</h3>
               <h4>{{ reviewInfo?.edition }} edition</h4>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 col-sm-6">
               <h3>Textbook Author</h3>
               <h4>{{ reviewInfo?.author }}</h4>
             </div>
@@ -47,39 +47,39 @@
     </div>
     <div class="row row-block">
       <div class="col-md-4">
-        <h2>Classroom Setup</h2>
+        <h2 class="f-size-17-md-sm">Classroom Setup</h2>
       </div>
-      <div class="col-md-8">
+      <div class="col-md-8 mt-15-sm">
         <div class="row">
-          <div class="col-md-3">
+          <div class="col-md-3 col-sm-6">
             <h3>Classes Start Date</h3>
             <h4>{{ reviewInfo?.startDate | date }}</h4>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-3 col-sm-6">
             <h3>Classes End Date</h3>
             <h4>{{ reviewInfo?.endDate | date }}</h4>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-3 col-sm-6">
             <h3>Total Hours</h3>
             <h4>{{ reviewInfo?.hours }} {{ +reviewInfo?.hours === 1 ? 'hour' : 'hours' }}</h4>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-3 col-sm-6">
             <h3>Type</h3>
             <h4>{{ reviewInfo?.type }}</h4>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-3 col-sm-6">
             <h3>Classes Start Time</h3>
             <h4>{{ reviewInfo?.startTime }}</h4>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-3 col-sm-6">
             <h3>Classes End Time</h3>
             <h4>{{ reviewInfo?.endTime }}</h4>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-3 col-sm-6">
             <h3>Classes Duration</h3>
             <h4>{{ reviewInfo?.duration }}</h4>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-3 col-sm-6">
             <h3>Total Number of Classes</h3>
             <h4>{{ reviewInfo?.classes }} {{ +reviewInfo?.classes === 1 ? 'Class' : 'Classes' }}</h4>
           </div>
@@ -92,7 +92,7 @@
               </ng-container>
             </h4>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-3 col-sm-6">
             <h3>Total Price</h3>
             <h4>{{ reviewInfo?.price | metutorsMoney | async }}</h4>
           </div>
@@ -101,9 +101,9 @@
     </div>
     <div class="row row-block" *ngIf="reviewInfo?.appointments && reviewInfo?.appointments.length">
       <div class="col-md-4">
-        <h2>Classes Schedule</h2>
+        <h2 class="f-size-17-md-sm">Classes Schedule</h2>
       </div>
-      <div class="col-md-8">
+      <div class="col-md-8 mt-15-sm">
         <h6>Classroom List Schedule</h6>
         <div class="list-classes">
           <table class="table table-striped table-hover">
@@ -151,7 +151,7 @@
             </h2>
             <h3 class="mb-0" *ngIf="reviewInfo?.tutor?.bio">{{ reviewInfo?.tutor?.bio }}</h3>
           </div>
-          <a class="col-md-3 full-profile" [routerLink]="'/profile/tutor/' + reviewInfo?.tutor?.id" target="_blank">
+          <a class="col-md-3 full-profile w-auto-sm" [routerLink]="'/profile/tutor/' + reviewInfo?.tutor?.id" target="_blank">
             <img src="assets/svg/share-link.svg" draggable="false" width="16px" height="16px" alt="">
             Full Profile
           </a>
@@ -161,13 +161,13 @@
     <div class="row">
       <div class="col-md-4"></div>
       <div class="col-md-8">
-        <div class="est-price mt-2" *ngIf="price && reviewInfo?.hours">
+        <div class="est-price mt-2 p-10-sm" *ngIf="price && reviewInfo?.hours">
           <div class="row">
             <div class="col-md-6">
               <div class="d-flex">
                 <div class="flex-grow-1">
                   <h5 class="d-flex align-items-center">
-                    Estimated Price: <h1 class="mb-0">{{ (price * +reviewInfo?.hours) | metutorsMoney | async }}</h1>
+                    Estimated Price: <h1 class="mb-0 f-size-20-md-sm">{{ (price * +reviewInfo?.hours) | metutorsMoney | async }}</h1>
                   </h5>
                   <p>Price change based on total hours, total classes, time</p>
                 </div>
@@ -177,7 +177,7 @@
               <div class="d-flex">
                 <div class="flex-grow-1">
                   <h5 class="d-flex align-items-center">
-                    Total Hours: <h1 class="mb-0">{{ reviewInfo?.hours }} hrs</h1>
+                    Total Hours: <h1 class="mb-0 f-size-20-md-sm">{{ reviewInfo?.hours }} hrs</h1>
                   </h5>
                   <p>Hourly Rate: {{ price | metutorsMoney | async }}</p>
                 </div>

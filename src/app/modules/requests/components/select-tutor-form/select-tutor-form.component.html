@@ -2,13 +2,13 @@
   <div class="card-body">
     <div class="row row-block">
       <div class="col-md-4">
-        <h2>Tutor Information</h2>
-        <h4>Select a tutor for this course</h4>
+        <h2 class="f-size-17-md-sm">Tutor Information</h2>
+        <h4 class="f-size-15-md-sm">Select a tutor for this course</h4>
 
         <h5 class="mt-4">Course ID: <span>CID123</span></h5>
         <h5 class="mb-0">Course Name: <span>Calculus</span></h5>
       </div>
-      <div class="col-md-8">
+      <div class="col-md-8 mt-15-sm">
         <ng-container *ngIf="!loading">
           <div class="custom-list">
             <metutors-search-input (searchedText)="onSearch($event)" [placeholder]="'Search tutors (eg, John Doe)'">
@@ -39,7 +39,7 @@
                         </h2>
                         <h3 class="mb-0" *ngIf="tutor?.bio">{{ tutor?.bio }}</h3>
                       </div>
-                      <a class="col-md-2 full-profile" [routerLink]="'/profile/tutor/' + tutor?.id" target="_blank">
+                      <a class="col-md-2 full-profile w-auto-sm" [routerLink]="'/profile/tutor/' + tutor?.id" target="_blank">
                         <img src="assets/svg/share-link.svg" draggable="false" width="16px" height="16px" alt="">
                         Full profile
                       </a>
@@ -49,15 +49,15 @@
               </ng-container>
 
               <div class="no-tutors mt-3" *ngIf="!availableTutors || !availableTutors.length">
-                <strong class="mb-4 d-block">
+                <strong class="mb-4 d-block f-size-18-md-sm">
                   All Tutors are engaged with other students at your desired schedule. Other tutors are available at
                   different schedules.
                 </strong>
-                <h5>Would you like to change your classroom schedule?</h5>
+                <h5 class="f-size-15-md-sm">Would you like to change your classroom schedule?</h5>
                 <mat-radio-group (change)="onChangeSchedule($event)" [(ngModel)]="schedule"
                   [ngModelOptions]="{standalone: true}">
-                  <mat-radio-button value="1">Yes</mat-radio-button>
-                  <mat-radio-button value="2">Proceed with my schedule and assign my instructor</mat-radio-button>
+                  <mat-radio-button class="w-100-md-sm" value="1">Yes</mat-radio-button>
+                  <mat-radio-button class="w-100-md-sm" value="2">Proceed with my schedule and assign my instructor</mat-radio-button>
                 </mat-radio-group>
               </div>
             </div>
@@ -88,7 +88,7 @@
                     <a class="col-md-2 full-profile availability cursor-pointer" (click)="onViewAvailability(tutor.id)">
                       Teacher Availability
                     </a>
-                    <a class="col-md-2 full-profile" [routerLink]="'/profile/tutor/' + tutor?.id" target="_blank">
+                    <a class="col-md-2 full-profile w-auto-sm" [routerLink]="'/profile/tutor/' + tutor?.id" target="_blank">
                       <img src="assets/svg/share-link.svg" draggable="false" width="16px" height="16px" alt="">
                       Full profile
                     </a>
@@ -118,13 +118,13 @@
           </div>
         </ng-container>
 
-        <div class="est-price mt-4" [@slideInOut] *ngIf="price && hours">
+        <div class="est-price mt-4 p-10-sm" [@slideInOut] *ngIf="price && hours">
           <div class="row">
             <div class="col-md-6">
               <div class="d-flex">
                 <div class="flex-grow-1">
                   <h5 class="d-flex align-items-center">
-                    Estimated Price: <h1 class="mb-0">{{ (price * +hours) | metutorsMoney | async }}</h1>
+                    Estimated Price: <h1 class="mb-0 f-size-20-md-sm">{{ (price * +hours) | metutorsMoney | async }}</h1>
                   </h5>
                   <p>Price change based on total hours, total classes, time</p>
                 </div>
@@ -134,7 +134,7 @@
               <div class="d-flex">
                 <div class="flex-grow-1">
                   <h5 class="d-flex align-items-center">
-                    Total Hours: <h1 class="mb-0">{{ hours }} hrs</h1>
+                    Total Hours: <h1 class="mb-0 f-size-20-md-sm">{{ hours }} hrs</h1>
                   </h5>
                   <p>Hourly Rate: {{ price | metutorsMoney | async }}</p>
                 </div>

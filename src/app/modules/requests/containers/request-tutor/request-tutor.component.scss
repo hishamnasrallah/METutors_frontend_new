@@ -98,7 +98,7 @@
     right: 5px;
     width: calc(50% - 40px);
   }
-  
+
   /*
   .mat-step-label.mat-step-label-active:not(.mat-step-label-selected):after,
   .mat-step-label.mat-step-label-active:not(.mat-step-label-selected):before {
@@ -148,5 +148,26 @@
   .mat-horizontal-content-container {
     padding: 0;
     margin: 15px 0;
+  }
+}
+
+@media (max-width: 767px) {
+  :host ::ng-deep .request-tutor {
+    .mat-stepper-label-position-bottom {
+      .mat-horizontal-stepper-header-container {
+        padding: 0;
+        overflow: auto;
+      }
+
+      .mat-horizontal-stepper-header {
+        padding: 10px 0;
+        min-width: 150px;
+
+        &:after,
+        &:before {
+          display: none;
+        }
+      }
+    }
   }
 }
