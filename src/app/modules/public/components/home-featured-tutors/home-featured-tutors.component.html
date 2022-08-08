@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-7">
-        <h1>
+        <h1 class="f-size-25-md-sm">
           Expert Tutors At Your Fingertips
         </h1>
       </div>
@@ -18,7 +18,7 @@
       </div>
 
       <div class="col-12">
-        <p>
+        <p class="f-size-18-md-sm">
           Our top-rated tutors have been carefully selected to ensure our students work with educators who are passionate and highly knowledgeable in their subject area. Our tutors follow a step-by-step approach to teach concepts easily and quickly. We use AI based algorithms to perfectly match each tutor with each student’s needs.
         </p>
       </div>
@@ -72,7 +72,7 @@
               </div>
 
               <div class="col-12" *ngIf="teacher?.bio">
-                <p class="bio">
+                <p class="bio f-size-18-md-sm">
                   Bio:
                   {{ (teacher.bio && teacher.bio.length > 100) ? ((teacher?.bio | slice:0:100) + '...') : teacher?.bio }}
                 </p>

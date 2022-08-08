@@ -10,8 +10,8 @@
       <form [formGroup]="signupForm" (ngSubmit)="onSubmit(signupForm)"
         class="w-100 flex-grow-1 d-flex align-items-center">
         <div class="w-100">
-          <h3 class="m-0">Welcome!</h3>
-          <h4 class="mb-5">Let's get you set up</h4>
+          <h3 class="m-0 f-size-25-md-sm">Welcome!</h3>
+          <h4 class="mb-5 f-size-20-md-sm">Let's get you set up</h4>
 
           <div class="form-group types">
             <label>Choose account type</label>
@@ -182,19 +182,19 @@
         <ul class="list-unstyled">
           <li [ngClass]="{'active': step === 1}">
             <span>Step one</span>
-            <h4>
+            <h4 class="f-size-25-md-sm">
               Create an account
             </h4>
           </li>
           <li [ngClass]="{'active': step === 2}">
             <span>Step two</span>
-            <h4>
+            <h4 class="f-size-25-md-sm">
               Verify your Email
             </h4>
           </li>
           <li [ngClass]="{'active': step === 3}" *ngIf="accountType === userRole.tutor">
             <span>Step three</span>
-            <h4>
+            <h4 class="f-size-25-md-sm">
               Upload your documents
             </h4>
           </li>
