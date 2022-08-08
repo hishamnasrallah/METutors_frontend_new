@@ -35,7 +35,6 @@ export class CompleteTutorProfileQualificationDetailsComponent
   invalid = 'INVALID';
   degreeLevels = DEGREE_LEVELS;
   degreeFields = DEGREE_FIELDS;
-  levels = LANGUAGES_LEVELS_CONST;
   experiences = TEACHING_EXPERIENCE;
 
   constructor(
@@ -98,16 +97,6 @@ export class CompleteTutorProfileQualificationDetailsComponent
 
   get languages(): FormArray {
     return this.form?.get('languages') as FormArray;
-  }
-
-  get filteredLanguages(): ILanguage[] {
-    const selectedLangs = this.languages.value.map((item: any) =>
-      item?.level && item?.language ? item?.language?.id : undefined
-    );
-
-    return this.languagesList && this.languagesList.length
-      ? this.languagesList.filter((el) => !selectedLangs.includes(el?.id))
-      : [];
   }
 
   removeLanguage(i: number): void {

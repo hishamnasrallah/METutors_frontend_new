@@ -7,6 +7,7 @@ import * as fromTutor from '@metutor/modules/tutor/state';
 import {
   ICity,
   ICountry,
+  ILanguage,
   ITutor,
   IUser,
   SubmitInterviewInput,
@@ -29,6 +30,7 @@ export class TutorSettingsComponent implements OnInit {
   isChangeTutorCover$: Observable<boolean>;
   countries$: Observable<ICountry[] | null>;
   isChangeTutorAvatar$: Observable<boolean>;
+  languages$: Observable<ILanguage[] | null>;
   isUpdateTutorProfile$: Observable<boolean>;
   changePasswordSuccess$: Observable<boolean>;
   isSubmittingInterview$: Observable<boolean>;
@@ -40,6 +42,7 @@ export class TutorSettingsComponent implements OnInit {
 
   ngOnInit(): void {
     this._prepareCountries();
+    this._prepareLanguages();
 
     this.layout$ = this._store.select(fromRoot.selectLayout);
     this.user$ = this._store.select(fromCore.selectUser);
@@ -122,6 +125,10 @@ export class TutorSettingsComponent implements OnInit {
     this._store.dispatch(fromCore.joinInterview({ interviewId }));
   }
 
+  onUpdatePreferences(preference: any): void {
+    console.log(preference);
+  }
+
   logout(): void {
     this._store.dispatch(fromCore.logout());
   }
@@ -134,5 +141,10 @@ export class TutorSettingsComponent implements OnInit {
   private _prepareCitiesByCountryId(countryId: string): void {
     this._store.dispatch(fromCore.loadCities({ countryId }));
     this.cities$ = this._store.select(fromCore.selectCities);
+  }
+
+  private _prepareLanguages(): void {
+    this._store.dispatch(fromCore.loadLanguages());
+    this.languages$ = this._store.select(fromCore.selectLanguages);
   }
 }
