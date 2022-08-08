@@ -221,6 +221,7 @@ export function sortSubjects(subjects?: ISubject[]): any[] {
         programName: item?.program?.name,
         programId: item?.program?.id,
         countryName: item?.country?.name,
+        programCode: item?.program?.code,
         subjects: [
           {
             ...item,
