@@ -8,8 +8,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatChipsModule } from '@angular/material/chips';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -43,6 +45,7 @@ import {
   UploadedFilesComponent,
   ModalComponentTemplate,
   ClassroomItemComponent,
+  SpokenLanguagesComponent,
   CardPlaceholderComponent,
   GridPlaceholderComponent,
   SupportTicketCardComponent,
@@ -81,6 +84,7 @@ import { MoneyPipe } from './pipes/money.pipe';
     UploadedFilesComponent,
     ClassroomItemComponent,
     ModalComponentTemplate,
+    SpokenLanguagesComponent,
     CardPlaceholderComponent,
     GridPlaceholderComponent,
     SupportTicketCardComponent,
@@ -116,8 +120,10 @@ import { MoneyPipe } from './pipes/money.pipe';
     MatIconModule,
     MatTabsModule,
     TooltipModule,
+    MatChipsModule,
     MatButtonModule,
     MatDialogModule,
+    MatSelectModule,
     MatTooltipModule,
     VgControlsModule,
     VgBufferingModule,
@@ -143,6 +149,7 @@ import { MoneyPipe } from './pipes/money.pipe';
     ModalComponentTemplate,
     ClassroomItemComponent,
     CardPlaceholderComponent,
+    SpokenLanguagesComponent,
     GridPlaceholderComponent,
     SupportTicketCardComponent,
     CourseItemHorizentalComponent,

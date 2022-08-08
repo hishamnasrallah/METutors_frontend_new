@@ -419,18 +419,18 @@
           <table class="table my-table default-title mb-0">
             <tr>
               <th class="heading" [attr.colspan]="item?.programId === nationalId ? '2' : '1'">
-                Program <span>
-                  {{ item?.programName }}<ng-container *ngIf="item?.programId === nationalId">,
+                <label>Program: </label> <span>
+                  {{ item?.programName }}<ng-container *ngIf="item?.programId === nationalId">
                     {{ item?.countryName }}
                   </ng-container>
                 </span>
               </th>
-              <th class="heading text-end">Study Field <span>{{ item?.fieldName }}</span></th>
+              <th class="heading text-end"><label>Study Field: </label> <span>{{ item?.fieldName }}</span></th>
             </tr>
             <tr>
-              <th>Subject Name</th>
-              <th *ngIf="item?.programId === nationalId">Grade</th>
-              <th>Hourly Rate(USD)</th>
+              <th class="sub-heading" [ngClass]="{'w-80': item?.programId !== nationalId, 'w-60': item?.programId === nationalId}">Subject Name</th>
+              <th class="sub-heading w-20" *ngIf="item?.programId === nationalId">Grade</th>
+              <th class="sub-heading">Hourly Rate</th>
             </tr>
             <tr *ngFor="let subject of item.subjects">
               <td>{{ subject?.subject }}</td>

@@ -1,58 +1,39 @@
 <div class="card">
   <div class="card-body">
-    <form class="user-prefrences">
+    <form class="user-prefrences" [formGroup]="form" (ngSubmit)="onSubmit(form)">
       <div class="row mb-3">
+        <h4 class="mb-4">User Preferences</h4>
         <div class="col-md-6">
-          <h3>What’s languages you prefer ?</h3>
+          <h3>Select Gender to Teach</h3>
           <mat-form-field appearance="outline" class="w-100">
-            <mat-select [placeholder]="'Choose language'">
-              <mat-option value="male">
+            <mat-select [placeholder]="'Choose gender'" formControlName="gender">
+              <mat-option [value]="'male'">
                 Male
               </mat-option>
-              <mat-option value="female">
+              <mat-option [value]="'female'">
                 Female
               </mat-option>
             </mat-select>
           </mat-form-field>
         </div>
       </div>
-      <div class="row mb-3">
+
+      <div class="row mb-3 mt-2">
         <div class="col-md-6">
-          <h3>What’s tutor gender you prefer ? </h3>
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-select [placeholder]="'Choose gender'">
-              <mat-option value="male">
-                Male
-              </mat-option>
-              <mat-option value="female">
-                Female
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+          <h3 class="mb-2">Spoken Languages <span>(For teaching)</span></h3>
+          <a class="float-end cursor-pointer" (click)="addLanguage()" [ngClass]="{'text-secondary cursor-not-allowed': languages.status === invalid}">Add New</a>
+
+          <metutors-spoken-languages [form]="form" [languagesList]="languagesList"
+                                     (removeLanguage)="removeLanguage($event)">
+          </metutors-spoken-languages>
         </div>
-      </div>
-      <div class="row mb-3">
-        <div class="col-md-6">
-          <h3 class="mb-2">What’s a Tutor native language ?</h3>
-          <mat-radio-group aria-label="Select an option" (change)="onChange($event)">
-            <mat-radio-button class="w-50" value="0">Any language</mat-radio-button>
-            <mat-radio-button class="w-50" value="-1">Select a language</mat-radio-button>
-          </mat-radio-group>
-          <mat-form-field appearance="outline" class="w-100" [@slideInOut] *ngIf="showLanguages">
-            <mat-select [placeholder]="'Choose language'">
-              <mat-option value="male">
-                Male
-              </mat-option>
-              <mat-option value="female">
-                Female
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
+
       </div>
       <div class="row btn-list mt-5 pt-3">
         <div class="col-12 d-flex justify-content-end">
-          <button mat-flat-button color="primary" type="submit">Update </button>
+          <metutors-submit-button [form]="form" [isSubmitting]="isSubmitting">
+            Update
+          </metutors-submit-button>
         </div>
       </div>
     </form>

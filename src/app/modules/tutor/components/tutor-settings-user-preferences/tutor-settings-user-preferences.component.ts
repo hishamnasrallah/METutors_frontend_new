@@ -1,12 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import {
-  trigger,
   state,
   style,
-  transition,
   group,
   animate,
+  trigger,
+  transition,
 } from '@angular/animations';
+
+import { ILanguage } from '@models';
 
 @Component({
   selector: 'metutors-tutor-settings-user-preferences',
@@ -35,17 +39,51 @@ import {
   ],
 })
 export class TutorSettingsUserPreferencesComponent implements OnInit {
-  showLanguages = false;
+  @Input() isSubmitting: boolean;
+  @Input() languagesList: ILanguage[] | null;
 
-  constructor() {}
+  @Output() submitForm = new EventEmitter();
 
-  ngOnInit(): void {}
+  form: FormGroup;
+  invalid = 'INVALID';
 
-  onChange(event: any): void {
-    if (event.value === '-1') {
-      this.showLanguages = true;
-    } else {
-      this.showLanguages = false;
+  constructor(private _fb: FormBuilder) {}
+
+  get languages(): FormArray {
+    return this.form?.get('languages') as FormArray;
+  }
+
+  removeLanguage(i: number): void {
+    (this.form?.get('languages') as FormArray).removeAt(i);
+
+    if (this.form.value.languages.length === 0) {
+      this.addLanguage();
     }
+  }
+
+  newLanguage(): FormGroup {
+    return this._fb.group({
+      language: [null, Validators.required],
+      level: [null, Validators.required],
+    });
+  }
+
+  addLanguage(): void {
+    if (this.languages.status !== this.invalid) {
+      this.languages.push(this.newLanguage());
+    }
+  }
+
+  onSubmit(form: FormGroup) {
+    if (form.valid) {
+      this.submitForm.emit(form.value);
+    }
+  }
+
+  ngOnInit(): void {
+    this.form = this._fb.group({
+      gender: [null, Validators.required],
+      languages: this._fb.array([]),
+    });
   }
 }

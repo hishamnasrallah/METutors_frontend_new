@@ -46,7 +46,9 @@
                                         (submitForm)="onChangePassword($event)">
       </metutors-tutor-settings-security>
 
-      <metutors-tutor-settings-user-preferences *ngIf="tab === 'USER_PREFERENCES'">
+      <metutors-tutor-settings-user-preferences *ngIf="tab === 'USER_PREFERENCES'"
+                                                [languagesList]="(languages$ | async)!"
+                                                (submitForm)="onUpdatePreferences($event)">
       </metutors-tutor-settings-user-preferences>
 
       <metutors-tutor-settings-payment-information *ngIf="tab === 'PAYMENT_INFORMATION'">
