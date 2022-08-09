@@ -39,6 +39,7 @@ export class AdminSidebarComponent implements OnInit {
   @Output() logout = new EventEmitter();
 
   openTutor = false;
+  openSidebar = false;
   openStudent = false;
   openProgram = false;
   openFinance = false;

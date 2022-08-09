@@ -1,21 +1,32 @@
-<div class="sidebar h-100 d-flex flex-column" [class.has-sidemenu]="layout?.hideSidebar">
+<button mat-button class="sidebar-btn d-inline-block d-lg-none" (click)="openSidebar = true" *ngIf="!openSidebar">
+  <mat-icon>menu</mat-icon>
+</button>
+
+<div class="sidebar h-100 d-flex flex-column" [ngClass]="{
+    'open-sidebar': openSidebar,
+    'has-sidemenu': layout?.hideSidebar
+  }">
+  <button mat-button (click)="openSidebar = false" class="close-btn d-inline-block d-lg-none">
+    <mat-icon>close</mat-icon>
+  </button>
   <a class="sidebar-logo" routerLink="/">
     <img alt="logo" src="assets/logo/logo-light.png" width="200px" draggable="false" *ngIf="!layout?.hideSidebar">
     <img alt="logo" src="assets/logo/logo-icon.png" width="100%" draggable="false" *ngIf="layout?.hideSidebar">
   </a>
   <ul class="list-unstyled">
     <li class="d-flex align-items-center">
-      <a routerLink="/admin" routerLinkActive="active">
+      <a routerLink="/admin" class="p-15-md-sm" routerLinkActive="active" (click)="openSidebar = false">
         <svg id="slideshow-3-fill" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
           <path id="Path" d="M0,0H24V24H0Z" fill="none" />
           <path id="Shape" d="M5,19V17H9V15H1a1,1,0,0,1-1-1V1A1,1,0,0,1,1,0H19a1,1,0,0,1,1,1V14a1,1,0,0,1-1,1H11v2h4v2Z"
             transform="translate(2 3)" fill="#e2e2e2" />
         </svg>
-        <span class="text-uppercase hide-sidemenu">Dashboard</span>
+        <span class="text-uppercase hide-sidemenu f-size-15-md-sm">Dashboard</span>
       </a>
     </li>
     <li class="d-flex flex-column">
-      <a routerLinkActive="active" routerLink="/admin/tutor" class="cursor-pointer" (click)="openTutor = !openTutor">
+      <a routerLinkActive="active" routerLink="/admin/tutor" class="cursor-pointer p-15-md-sm"
+        (click)="openTutor = !openTutor">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20.326 20.487">
           <g id="Teacher" transform="translate(-146.574 -144.762)">
             <path id="Path_339" data-name="Path 339"
@@ -29,50 +40,50 @@
               transform="translate(-122.322 0)" fill="#e2e2e2" />
           </g>
         </svg>
-        <span class="text-uppercase hide-sidemenu">Teachers</span>
+        <span class="text-uppercase hide-sidemenu f-size-15-md-sm">Teachers</span>
         <img src="assets/svg/chevron-down.svg" class="float-end" [class.rotate-180]="openTutor" draggable="false"
           width="30px" height="30" alt="" />
       </a>
       <ul class="list-unstyled" [@slideInOut] *ngIf="openTutor">
         <li class="d-flex align-items-center">
-          <a routerLink="/admin/tutor/all" routerLinkActive="active">
-            <span class="text-uppercase hide-sidemenu">All Teachers</span>
+          <a routerLink="/admin/tutor/all" routerLinkActive="active" (click)="openSidebar = false">
+            <span class="text-uppercase hide-sidemenu f-size-15-md-sm">All Teachers</span>
           </a>
         </li>
         <li class="d-flex align-items-center">
-          <a routerLink="/admin/tutor/current" routerLinkActive="active">
-            <span class="text-uppercase hide-sidemenu">Current Teachers</span>
+          <a routerLink="/admin/tutor/current" routerLinkActive="active" (click)="openSidebar = false">
+            <span class="text-uppercase hide-sidemenu f-size-15-md-sm">Current Teachers</span>
           </a>
         </li>
         <li class="d-flex align-items-center">
-          <a routerLink="/admin/tutor/pending" routerLinkActive="active">
-            <span class="text-uppercase hide-sidemenu">Pending Teachers</span>
+          <a routerLink="/admin/tutor/pending" routerLinkActive="active" (click)="openSidebar = false">
+            <span class="text-uppercase hide-sidemenu f-size-15-md-sm">Pending Teachers</span>
           </a>
         </li>
         <li class="d-flex align-items-center">
-          <a routerLink="/admin/tutor/suspended" routerLinkActive="active">
-            <span class="text-uppercase hide-sidemenu">Suspended Teachers</span>
+          <a routerLink="/admin/tutor/suspended" routerLinkActive="active" (click)="openSidebar = false">
+            <span class="text-uppercase hide-sidemenu f-size-15-md-sm">Suspended Teachers</span>
           </a>
         </li>
         <li class="d-flex align-items-center">
-          <a routerLink="/admin/tutor/capacity" routerLinkActive="active">
-            <span class="text-uppercase hide-sidemenu">Workforce Capacity</span>
+          <a routerLink="/admin/tutor/capacity" routerLinkActive="active" (click)="openSidebar = false">
+            <span class="text-uppercase hide-sidemenu f-size-15-md-sm">Workforce Capacity</span>
           </a>
         </li>
         <li class="d-flex align-items-center">
-          <a routerLink="/admin/tutor/schedule" routerLinkActive="active">
-            <span class="text-uppercase hide-sidemenu">Teachers Schedule</span>
+          <a routerLink="/admin/tutor/schedule" routerLinkActive="active" (click)="openSidebar = false">
+            <span class="text-uppercase hide-sidemenu f-size-15-md-sm">Teachers Schedule</span>
           </a>
         </li>
         <li class="d-flex align-items-center">
-          <a routerLink="/admin/tutor/interview" routerLinkActive="active">
-            <span class="text-uppercase hide-sidemenu">Teacher Interviews</span>
+          <a routerLink="/admin/tutor/interview" routerLinkActive="active" (click)="openSidebar = false">
+            <span class="text-uppercase hide-sidemenu f-size-15-md-sm">Teacher Interviews</span>
           </a>
         </li>
       </ul>
     </li>
     <li class="d-flex flex-column">
-      <a routerLink="/admin/student" routerLinkActive="active" (click)="openStudent = !openStudent">
+      <a routerLink="/admin/student" class="p-15-md-sm" routerLinkActive="active" (click)="openStudent = !openStudent">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="20" viewBox="0 0 18.299 22.189">
           <g id="Student" transform="translate(-207.908 -162.894)">
             <path id="Path_342" data-name="Path 342"
@@ -89,90 +100,94 @@
               transform="translate(0)" fill="#e2e2e2" />
           </g>
         </svg>
-        <span class="text-uppercase hide-sidemenu">Students</span>
+        <span class="text-uppercase hide-sidemenu f-size-15-md-sm">Students</span>
         <img src="assets/svg/chevron-down.svg" class="float-end" [class.rotate-180]="openStudent" draggable="false"
           width="30px" height="30" alt="" />
       </a>
       <ul class="list-unstyled" [@slideInOut] *ngIf="openStudent">
         <li class="d-flex align-items-center">
-          <a routerLink="/admin/student" routerLinkActive="active">
-            <span class="text-uppercase hide-sidemenu">All Students</span>
+          <a routerLink="/admin/student" routerLinkActive="active" (click)="openSidebar = false">
+            <span class="text-uppercase hide-sidemenu f-size-15-md-sm">All Students</span>
           </a>
         </li>
       </ul>
     </li>
     <li class="d-flex flex-column">
-      <a routerLinkActive="active" routerLink="/admin/classrooms" class="cursor-pointer"
+      <a routerLink="/admin/classrooms" class="cursor-pointer" class="p-15-md-sm" routerLinkActive="active"
         (click)="openClassrooms = !openClassrooms">
         <svg xmlns="http://www.w3.org/2000/svg" width="21.482" height="22.2" viewBox="0 0 21.482 22.2">
           <path id="Path_365" data-name="Path 365"
             d="M292.356,168.81h-1.8a11.35,11.35,0,0,0-7.406,2.845,11.182,11.182,0,0,0-7.412-2.845h-1.8a1.628,1.628,0,0,0-1.534,1.708v15.369a1.628,1.628,0,0,0,1.535,1.708h1.8a8.457,8.457,0,0,1,6.324,2.915,1.426,1.426,0,0,0,2.17,0,8.567,8.567,0,0,1,6.323-2.915h1.8a1.627,1.627,0,0,0,1.535-1.708V170.518a1.627,1.627,0,0,0-1.535-1.708Zm-10.965,15.119a.713.713,0,0,1-1.085,0,4.226,4.226,0,0,0-3.162-1.458h-.9a.859.859,0,0,1,0-1.707h.9a5.675,5.675,0,0,1,4.247,1.958.922.922,0,0,1,0,1.207Zm0-6.831a.713.713,0,0,1-1.085,0,4.226,4.226,0,0,0-3.162-1.458h-.9a.859.859,0,0,1,0-1.708h.9a5.675,5.675,0,0,1,4.247,1.958A.922.922,0,0,1,281.391,177.1Zm8.664,5.373h-.9a4.226,4.226,0,0,0-3.162,1.458.713.713,0,0,1-1.085,0,.923.923,0,0,1,0-1.207,5.677,5.677,0,0,1,4.247-1.957h.9a.859.859,0,0,1,0,1.707Zm0-6.83h-.9a4.226,4.226,0,0,0-3.162,1.458.713.713,0,0,1-1.085,0,.923.923,0,0,1,0-1.208,5.677,5.677,0,0,1,4.247-1.958h.9a.859.859,0,0,1,0,1.708Z"
             transform="translate(-272.408 -168.81)" fill="#fff" />
         </svg>
-        <span class="text-uppercase hide-sidemenu">Classrooms</span>
+        <span class="text-uppercase hide-sidemenu f-size-15-md-sm">Classrooms</span>
         <img src="assets/svg/chevron-down.svg" class="float-end" [class.rotate-180]="openClassrooms" draggable="false"
           width="30px" height="30" alt="" />
       </a>
       <ul class="list-unstyled" [@slideInOut] *ngIf="openClassrooms">
         <li class="d-flex align-items-center">
-          <a routerLink="/admin/classrooms/all" routerLinkActive="active">
-            <span class="text-uppercase hide-sidemenu">All Bookings</span>
+          <a routerLink="/admin/classrooms/all" routerLinkActive="active" (click)="openSidebar = false">
+            <span class="text-uppercase hide-sidemenu f-size-15-md-sm">All Bookings</span>
           </a>
         </li>
         <li class="d-flex align-items-center">
-          <a routerLink="/admin/classrooms/cancelled" routerLinkActive="active">
-            <span class="text-uppercase hide-sidemenu">Cancelled</span>
+          <a routerLink="/admin/classrooms/cancelled" routerLinkActive="active" (click)="openSidebar = false">
+            <span class="text-uppercase hide-sidemenu f-size-15-md-sm">Cancelled</span>
           </a>
         </li>
         <li class="d-flex align-items-center">
-          <a routerLink="/admin/classrooms/course" routerLinkActive="active">
-            <span class="text-uppercase hide-sidemenu">Per Courses</span>
+          <a routerLink="/admin/classrooms/course" routerLinkActive="active" (click)="openSidebar = false">
+            <span class="text-uppercase hide-sidemenu f-size-15-md-sm">Per Courses</span>
           </a>
         </li>
       </ul>
     </li>
     <li class="d-flex flex-column">
-      <a routerLinkActive="active" routerLink="/admin/management" class="cursor-pointer"
+      <a routerLink="/admin/management" class="cursor-pointer" class="p-15-md-sm" routerLinkActive="active"
         (click)="openProgram = !openProgram">
         <svg xmlns="http://www.w3.org/2000/svg" width="21.482" height="22.2" viewBox="0 0 21.482 22.2">
           <path id="Path_365" data-name="Path 365"
             d="M292.356,168.81h-1.8a11.35,11.35,0,0,0-7.406,2.845,11.182,11.182,0,0,0-7.412-2.845h-1.8a1.628,1.628,0,0,0-1.534,1.708v15.369a1.628,1.628,0,0,0,1.535,1.708h1.8a8.457,8.457,0,0,1,6.324,2.915,1.426,1.426,0,0,0,2.17,0,8.567,8.567,0,0,1,6.323-2.915h1.8a1.627,1.627,0,0,0,1.535-1.708V170.518a1.627,1.627,0,0,0-1.535-1.708Zm-10.965,15.119a.713.713,0,0,1-1.085,0,4.226,4.226,0,0,0-3.162-1.458h-.9a.859.859,0,0,1,0-1.707h.9a5.675,5.675,0,0,1,4.247,1.958.922.922,0,0,1,0,1.207Zm0-6.831a.713.713,0,0,1-1.085,0,4.226,4.226,0,0,0-3.162-1.458h-.9a.859.859,0,0,1,0-1.708h.9a5.675,5.675,0,0,1,4.247,1.958A.922.922,0,0,1,281.391,177.1Zm8.664,5.373h-.9a4.226,4.226,0,0,0-3.162,1.458.713.713,0,0,1-1.085,0,.923.923,0,0,1,0-1.207,5.677,5.677,0,0,1,4.247-1.957h.9a.859.859,0,0,1,0,1.707Zm0-6.83h-.9a4.226,4.226,0,0,0-3.162,1.458.713.713,0,0,1-1.085,0,.923.923,0,0,1,0-1.208,5.677,5.677,0,0,1,4.247-1.958h.9a.859.859,0,0,1,0,1.708Z"
             transform="translate(-272.408 -168.81)" fill="#fff" />
         </svg>
-        <span class="text-uppercase hide-sidemenu">Management</span>
+        <span class="text-uppercase hide-sidemenu f-size-15-md-sm">Management</span>
         <img src="assets/svg/chevron-down.svg" class="float-end" [class.rotate-180]="openProgram" draggable="false"
           width="30px" height="30" alt="" />
       </a>
       <ul class="list-unstyled" [@slideInOut] *ngIf="openProgram">
         <li class="d-flex align-items-center">
           <a routerLink="/admin/management/program" routerLinkActive="active">
-            <span class="text-uppercase hide-sidemenu">Manage Programs</span>
+            <span class="text-uppercase hide-sidemenu f-size-15-md-sm" (click)="openSidebar = false">Manage
+              Programs</span>
           </a>
         </li>
         <li class="d-flex align-items-center">
           <a routerLink="/admin/management/tutor-re-assignment" routerLinkActive="active">
-            <span class="text-uppercase hide-sidemenu">Tutor Re-Assignment</span>
+            <span class="text-uppercase hide-sidemenu f-size-15-md-sm" (click)="openSidebar = false">Tutor
+              Re-Assignment</span>
           </a>
         </li>
         <li class="d-flex align-items-center">
           <a routerLink="/admin/management/tutor-approval-requests" routerLinkActive="active">
-            <span class="text-uppercase hide-sidemenu">Tutor Approval Request</span>
+            <span class="text-uppercase hide-sidemenu f-size-15-md-sm" (click)="openSidebar = false">Tutor Approval
+              Request</span>
           </a>
         </li>
         <li class="d-flex align-items-center">
           <a routerLink="/admin/management/course-requests" routerLinkActive="active">
-            <span class="text-uppercase hide-sidemenu">New Course Requests</span>
+            <span class="text-uppercase hide-sidemenu f-size-15-md-sm" (click)="openSidebar = false">New Course
+              Requests</span>
           </a>
         </li>
         <li class="d-flex align-items-center">
           <a routerLink="/admin/management/testimonials" routerLinkActive="active">
-            <span class="text-uppercase hide-sidemenu">Testimonials</span>
+            <span class="text-uppercase hide-sidemenu f-size-15-md-sm" (click)="openSidebar = false">Testimonials</span>
           </a>
         </li>
       </ul>
     </li>
     <li class="d-flex flex-column">
-      <a routerLinkActive="active" routerLink="/admin/finance" class="cursor-pointer"
+      <a routerLink="/admin/finance" class="cursor-pointer" class="p-15-md-sm" routerLinkActive="active"
         (click)="openFinance = !openFinance">
         <svg id="_001-certificate" data-name="001-certificate" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
           viewBox="0 0 24 24">
@@ -185,30 +200,30 @@
             d="M0,.054V4.617A.7.7,0,0,0,1.092,5.2L2.824,4.055,4.557,5.2a.7.7,0,0,0,1.092-.586V0A3.743,3.743,0,0,1,0,.054Z"
             transform="translate(9.223 18.679)" fill="#fff" />
         </svg>
-        <span class="text-uppercase hide-sidemenu">Finance</span>
+        <span class="text-uppercase hide-sidemenu f-size-15-md-sm">Finance</span>
         <img src="assets/svg/chevron-down.svg" class="float-end" [class.rotate-180]="openFinance" draggable="false"
           width="30px" height="30" alt="" />
       </a>
       <ul class="list-unstyled" [@slideInOut] *ngIf="openFinance">
         <li class="d-flex align-items-center">
-          <a routerLink="/admin/finance/orders" routerLinkActive="active">
-            <span class="text-uppercase hide-sidemenu">Dispute Requests</span>
+          <a routerLink="/admin/finance/orders" routerLinkActive="active" (click)="openSidebar = false">
+            <span class="text-uppercase hide-sidemenu f-size-15-md-sm">Dispute Requests</span>
           </a>
         </li>
         <li class="d-flex align-items-center">
-          <a routerLink="/admin/finance/orders" routerLinkActive="active">
-            <span class="text-uppercase hide-sidemenu">Orders</span>
+          <a routerLink="/admin/finance/orders" routerLinkActive="active" (click)="openSidebar = false">
+            <span class="text-uppercase hide-sidemenu f-size-15-md-sm">Orders</span>
           </a>
         </li>
         <li class="d-flex align-items-center">
-          <a routerLink="/admin/finance/refunds" routerLinkActive="active">
-            <span class="text-uppercase hide-sidemenu">Refund Orders</span>
+          <a routerLink="/admin/finance/refunds" routerLinkActive="active" (click)="openSidebar = false">
+            <span class="text-uppercase hide-sidemenu f-size-15-md-sm">Refund Orders</span>
           </a>
         </li>
       </ul>
     </li>
     <li class="d-flex align-items-center">
-      <a routerLink="/admin/support-ticket" routerLinkActive="active">
+      <a routerLink="/admin/support-ticket" class="p-15-md-sm" routerLinkActive="active" (click)="openSidebar = false">
         <svg id="_001-certificate" data-name="001-certificate" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
           viewBox="0 0 24 24">
           <ellipse id="Oval" cx="2.344" cy="2.344" rx="2.344" ry="2.344" transform="translate(9.68 13.899)"
@@ -220,24 +235,24 @@
             d="M0,.054V4.617A.7.7,0,0,0,1.092,5.2L2.824,4.055,4.557,5.2a.7.7,0,0,0,1.092-.586V0A3.743,3.743,0,0,1,0,.054Z"
             transform="translate(9.223 18.679)" fill="#fff" />
         </svg>
-        <span class="text-uppercase hide-sidemenu">Support Tickets</span>
+        <span class="text-uppercase hide-sidemenu f-size-15-md-sm">Support Tickets</span>
       </a>
     </li>
   </ul>
   <ul class="list-unstyled flex-grow-1 help-settings">
     <li class="d-flex align-items-center">
-      <a routerLink="/admin/settings" routerLinkActive="active">
+      <a routerLink="/admin/settings" class="p-15-md-sm" routerLinkActive="active" (click)="openSidebar = false">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd"
             d="M2.89039 6.13005C2.72155 5.87116 2.75714 5.5294 2.97569 5.31085L5.31082 2.97572C5.52937 2.75717 5.87113 2.72158 6.13002 2.89042L7.93701 4.06889C8.36351 3.84999 8.80744 3.66578 9.26492 3.51836L9.70924 1.40786C9.77291 1.10542 10.0397 0.888916 10.3488 0.888916H13.6512C13.9603 0.888916 14.2271 1.10542 14.2908 1.40786L14.7351 3.51836C15.1926 3.66578 15.6365 3.84999 16.063 4.06889L17.87 2.89042C18.1289 2.72158 18.4706 2.75717 18.6892 2.97572L21.0243 5.31085C21.2429 5.5294 21.2784 5.87116 21.1096 6.13005L19.9311 7.93704C20.15 8.36355 20.3342 8.80747 20.4817 9.26495L22.5922 9.70927C22.8946 9.77294 23.1111 10.0398 23.1111 10.3488V13.6512C23.1111 13.9603 22.8946 14.2271 22.5922 14.2908L20.4817 14.7351C20.3342 15.1926 20.15 15.6365 19.9311 16.063L21.1096 17.87C21.2784 18.1289 21.2429 18.4707 21.0243 18.6892L18.6892 21.0243C18.4706 21.2429 18.1289 21.2785 17.87 21.1096L16.063 19.9312C15.6365 20.1501 15.1926 20.3343 14.7351 20.4817L14.2908 22.5922C14.2271 22.8946 13.9603 23.1111 13.6512 23.1111H10.3488C10.0397 23.1111 9.77291 22.8946 9.70924 22.5922L9.26492 20.4817C8.80744 20.3343 8.36351 20.1501 7.93701 19.9312L6.13002 21.1096C5.87113 21.2785 5.52937 21.2429 5.31082 21.0243L2.97569 18.6892C2.75714 18.4707 2.72155 18.1289 2.89039 17.87L4.06886 16.063C3.84996 15.6365 3.66575 15.1926 3.51833 14.7351L1.40783 14.2908C1.10539 14.2271 0.888885 13.9603 0.888885 13.6512V10.3488C0.888885 10.0398 1.10539 9.77294 1.40783 9.70927L3.51833 9.26495C3.66575 8.80747 3.84996 8.36355 4.06886 7.93704L2.89039 6.13005ZM12 16.5752C9.4732 16.5752 7.42483 14.5268 7.42483 12C7.42483 9.47323 9.4732 7.42486 12 7.42486C14.5268 7.42486 16.5752 9.47323 16.5752 12C16.5752 14.5268 14.5268 16.5752 12 16.5752ZM15.268 12C15.268 13.8049 13.8048 15.268 12 15.268C10.1951 15.268 8.73202 13.8049 8.73202 12C8.73202 10.1952 10.1951 8.73205 12 8.73205C13.8048 8.73205 15.268 10.1952 15.268 12Z"
             fill="#CDCED1" />
         </svg>
-        <span class="text-uppercase hide-sidemenu">Settings</span>
+        <span class="text-uppercase hide-sidemenu f-size-15-md-sm">Settings</span>
       </a>
     </li>
   </ul>
   <button class="logout text-uppercase" mat-button (click)="logout.emit()">
     <mat-icon class="me-2">logout</mat-icon>
-    <span class="hide-sidemenu">Logout</span>
+    <span class="hide-sidemenu f-size-15-md-sm">Logout</span>
   </button>
 </div>

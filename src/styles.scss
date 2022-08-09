@@ -1029,6 +1029,10 @@ $ph-animation-duration: 0.8s !default;
     display: block !important;
   }
 
+  .d-flex-sm {
+    display: flex !important;
+  }
+
   .w-100-sm {
     width: 100% !important;
   }
@@ -1115,8 +1119,16 @@ $ph-animation-duration: 0.8s !default;
     font-size: 30px !important;
   }
 
-  .padding-0-md-sm {
+  .p-0-md-sm {
     padding: 0 !important;
+  }
+
+  .p-15-md-sm {
+    padding: 15px !important;
+  }
+
+  .mb-15-md-sm {
+    margin-bottom: 15px !important;
   }
 
   .w-100-md-sm {

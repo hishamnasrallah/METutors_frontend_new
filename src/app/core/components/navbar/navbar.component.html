@@ -91,6 +91,12 @@
           [routerLink]="(user$ | async)?.roleId === userRole.tutor ? '/tutor' : '/student'">My Classroom</a>
       </li>
       <li role="menuitem">
+        <a class="dropdown-item" [matMenuTriggerFor]="currency">
+          <span class="mx-2">{{ (selectedCurrency$ | async)?.id }}</span>
+          <img src="assets/svg/b-chevron.svg" alt="" draggable="false">
+        </a>
+      </li>
+      <li role="menuitem">
         <a class="dropdown-item" routerLinkActive="active">
           <img src="assets/svg/language.svg" alt="" draggable="false">
           <span class="mx-2">En</span>

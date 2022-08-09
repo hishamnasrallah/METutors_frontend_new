@@ -12,6 +12,8 @@ export class TutorSidebarComponent implements OnInit {
 
   @Output() logout = new EventEmitter();
 
+  openSidebar = false;
+
   constructor() {}
 
   ngOnInit(): void {}

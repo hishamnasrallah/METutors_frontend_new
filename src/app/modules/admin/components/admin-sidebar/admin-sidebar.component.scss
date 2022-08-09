@@ -1,3 +1,24 @@
+.sidebar-btn {
+  padding: 1px 3px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0.25rem;
+  transition: box-shadow 0.15s ease-in-out;
+  color: rgba(0, 0, 0, 0.55);
+  min-width: 0;
+  margin: 25px 0 0 5px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  line-height: 25px;
+}
+
+.close-btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  color: #FFF;
+}
+
 .sidebar {
   background-color: #131b33;
   width: 340px;
@@ -75,5 +96,40 @@
     font-size: 18px;
     color: #FFF;
     opacity: 0.8;
+  }
+}
+
+@media(max-width: 992px) {
+  .sidebar {
+    position: absolute;
+    left: -340px;
+    top: 0;
+    z-index: 999;
+    transition: all 0.25s ease-in-out;
+
+    &.open-sidebar {
+      left: 0;
+    }
+
+    ul li {
+      a {
+        svg {
+          width: 18px;
+          height: 18px;
+        }
+      }
+
+      ul {
+        padding-left: 30px;
+      }
+    }
+
+    .logout {
+      mat-icon {
+        width: 18px;
+        height: 18px;
+        font-size: 18px;
+      }
+    }
   }
 }

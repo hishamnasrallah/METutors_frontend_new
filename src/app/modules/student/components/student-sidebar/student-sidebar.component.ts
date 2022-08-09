@@ -10,6 +10,8 @@ export class StudentSidebarComponent implements OnInit {
 
   @Output() logout = new EventEmitter();
 
+  openSidebar = false;
+
   constructor() {}
 
   ngOnInit(): void {}
