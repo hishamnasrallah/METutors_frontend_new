@@ -63,3 +63,10 @@
     }
   }
 }
+
+@media (max-width: 767px) {
+  .header {
+    padding: 20px 15px;
+    border-bottom-width: 3px;
+  }
+}

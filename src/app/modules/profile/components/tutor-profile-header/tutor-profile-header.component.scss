@@ -126,3 +126,31 @@
     }
   }
 }
+
+@media(max-width:767px) {
+  .profile-header .avatar-name {
+    h2 {
+      color: #000;
+    }
+
+    h4 {
+      color: #1a1919;
+    }
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1200px) {
+  .profile-header .avatar-name {
+    margin-top: -85px;
+
+    .img-status {
+      width: 100px;
+      height: 100px;
+
+      img {
+        width: 100px;
+        height: 100px;
+      }
+    }
+  }
+}

@@ -1,21 +1,21 @@
-<form [formGroup]="form" (ngSubmit)="submitFormData()" class="w-100">
+<form [formGroup]="form" (ngSubmit)="submitFormData()" class="w-100 p-10-sm">
   <div>
-    <h4 class="mb-4 heading text-center">Add Profile Picture</h4>
+    <h4 class="mb-4 heading text-center f-size-18-md-sm mb-15-sm">Add Profile Picture</h4>
 
     <div class="row">
-      <div class="col-md-4"></div>
-      <div class="col-md-4">
+      <div class="col-lg-4"></div>
+      <div class="col-lg-4">
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-lg-6">
             <img [src]="profilePic" class="preview-box" *ngIf="profilePic" width="100%" />
             <div class="preview-box d-flex align-items-center justify-content-center" *ngIf="!profilePic">Preview</div>
           </div>
 
-          <div class="col-md-5">
-            <div class="guide1">Your image should be 300 x 300 px at least</div>
-            <div class="guide2">Size 2MB max</div>
+          <div class="col-lg-5">
+            <div class="guide1 f-size-15-md-sm">Your image should be 300 x 300 px at least</div>
+            <div class="guide2 f-size-15-md-sm">Size 2MB max</div>
             <input type="file" #filePicker1 (change)="onChangeAvatar($event)" hidden accept="image/*" />
-            <div class="form-group mt-4 mb-2">
+            <div class="form-group mt-4 mb-2 mt-15-sm">
               <button mat-flat-button color="primary" class="d-block py-1 px-5" cdkFocusInitial type="button"
                 (click)="filePicker1.click()"> Upload
               </button>
@@ -23,14 +23,14 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4"></div>
+      <div class="col-lg-4"></div>
     </div>
 
-    <h4 class="mb-4 mt-5 heading text-center">Add Cover Image</h4>
+    <h4 class="mb-4 mt-5 heading text-center f-size-18-md-sm mb-15-sm mt-15-sm">Add Cover Image</h4>
 
     <div class="row">
-      <div class="col-md-3"></div>
-      <div class="col-md-6">
+      <div class="col-lg-3"></div>
+      <div class="col-lg-6">
         <div class="row">
           <div class="col-md-12">
             <input type="file" #filePicker2 (change)="onChangeCover($event)" hidden accept="image/*" />
@@ -49,12 +49,12 @@
               </button>
             </div>
           </div>
-          <div class="col-md-4"></div>
-          <div class="col-md-4"></div>
-          <div class="col-md-4"></div>
+          <div class="col-lg-4"></div>
+          <div class="col-lg-4"></div>
+          <div class="col-lg-4"></div>
         </div>
       </div>
-      <div class="col-md-3"></div>
+      <div class="col-lg-3"></div>
     </div>
 
     <div class="row">

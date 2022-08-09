@@ -1,9 +1,9 @@
-<div class="profile-header mb-5">
+<div class="profile-header mb-5 mb-15-sm">
   <div class="row" *ngIf="!isLoading">
     <div class="col-12 position-relative">
       <div class="overlay"></div>
       <div class="cover" [ngStyle]="{'background-image': 'url(' + tutor?.cover + ')'}"></div>
-      <div class="row avatar-name align-items-center position-relative">
+      <div class="row avatar-name align-items-center position-relative p-10-sm">
         <div class="col-md-2">
           <div class="position-relative img-status">
             <img [src]="tutor?.avatar" meTutorsDefaultAvatar alt="" class="rounded-circle" draggable="false">
@@ -14,18 +14,17 @@
             </svg>
           </div>
         </div>
-        <div class="col">
+        <div class="col mt-15-sm">
           <h2 class="text-capitalize">{{ tutor?.name }}</h2>
           <h4 *ngIf="tutor?.qualifications?.nameOfUniversity">{{ tutor?.qualifications?.nameOfUniversity }}</h4>
         </div>
       </div>
-      <div class="row details">
-        <div class="col-md-2">
-        </div>
+      <div class="row details p-10-sm">
+        <div class="col-lg-2"></div>
         <div class="col">
-          <ul class="list-unstyled list-inline m-0 d-flex">
+          <ul class="list-unstyled list-inline m-0 d-flex flex-column-sm">
             <li class="list-inline-item">
-              <strong>Rating</strong>
+              <strong class="f-size-15-md-sm">Rating</strong>
               <div class="d-flex">
                 <img src="assets/svg/star-fill.svg" alt="" width="20" height="20" draggable="false" />
                 <span class="count">{{ tutor?.averageRating | number:'.1-1' }}</span>
@@ -33,20 +32,20 @@
               </div>
             </li>
             <li class="list-inline-item">
-              <strong>{{ tutor?.studentsTeaching }}</strong>
+              <strong class="f-size-15-md-sm">{{ tutor?.studentsTeaching }}</strong>
               <div>
                 <span class="review">Students Teaching</span>
               </div>
             </li>
             <li class="list-inline-item">
-              <strong>{{ tutor?.coursesCreated }}</strong>
+              <strong class="f-size-15-md-sm">{{ tutor?.coursesCreated }}</strong>
               <div>
                 <span class="review">Courses created</span>
               </div>
             </li>
           </ul>
         </div>
-        <div class="col-md-3 d-flex actions">
+        <div class="col-lg-3 col-md-4 d-flex actions mt-15-sm">
           <button mat-flat-button color="primary" class="flex-grow-1 start-btn">
             Book a Class
           </button>

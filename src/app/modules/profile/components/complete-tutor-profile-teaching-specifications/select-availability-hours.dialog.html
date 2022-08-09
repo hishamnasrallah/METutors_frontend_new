@@ -1,7 +1,7 @@
 <h2 mat-dialog-title class="dialog-title">Select availability hours</h2>
 <mat-dialog-content class="mat-typography">
   <div class="row">
-    <div class="col-6" *ngFor="let hour of hours; let i = index">
+    <div class="col-md-6" *ngFor="let hour of hours; let i = index">
       <button class="time-button w-100" (click)="onSelectHour(hour, i)" mat-button
         [class.active]="selectedHours?.includes(i)">
         {{ hour?.startTime + ' - ' + hour?.endTime  }}

@@ -1045,6 +1045,10 @@ $ph-animation-duration: 0.8s !default;
     flex-direction: column-reverse !important;
   }
 
+  .flex-column-sm {
+    flex-direction: column !important;
+  }
+
   .flex-row-reverse-sm {
     flex-direction: row-reverse !important;
   }
@@ -1061,14 +1065,6 @@ $ph-animation-duration: 0.8s !default;
     height: auto !important;
   }
 
-  .mt-15-sm {
-    margin-top: 15px !important;
-  }
-
-  .mb-15-sm {
-    margin-bottom: 15px !important;
-  }
-
   .f-size-15-sm {
     font-size: 15px !important;
   }
@@ -1077,8 +1073,20 @@ $ph-animation-duration: 0.8s !default;
     padding: 0 !important;
   }
 
+  .m-0-sm {
+    margin: 0 !important;
+  }
+
   .p-10-sm {
     padding: 10px !important;
+  }
+
+  .mt-15-sm {
+    margin-top: 15px !important;
+  }
+
+  .mb-15-sm {
+    margin-bottom: 15px !important;
   }
 }
 
@@ -1113,5 +1121,9 @@ $ph-animation-duration: 0.8s !default;
 
   .w-100-md-sm {
     width: 100% !important;
+  }
+
+  .mt-15-md-sm {
+    margin-top: 15px !important;
   }
 }

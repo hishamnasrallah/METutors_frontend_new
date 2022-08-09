@@ -1,6 +1,6 @@
-<form [formGroup]="form" (ngSubmit)="submitFormData()" class="w-100">
+<form [formGroup]="form" (ngSubmit)="submitFormData()" class="w-100 p-10-sm">
   <div>
-    <h4 class="mb-5 heading text-center">PROVIDE YOUR TEACHING SPECIFICATIONS</h4>
+    <h4 class="mb-5 heading text-center f-size-20-md-sm">PROVIDE YOUR TEACHING SPECIFICATIONS</h4>
 
     <div class="row">
       <div class="col-md-6">
@@ -21,8 +21,8 @@
       <div class="col-md-6">
         <div class="form-group">
           <label class="form-label">Tutoring Preferences</label>
-          <mat-radio-group class="d-flex flex-row mt-3 fw-bold" formControlName="typeOfTutoring">
-            <mat-radio-button [class.ms-5]="!isFirst" [value]="type.value"
+          <mat-radio-group class="d-flex flex-row mt-3 fw-bold flex-column-sm mt-15-sm" formControlName="typeOfTutoring">
+            <mat-radio-button [ngClass]="{'mt-15-sm ms-5': !isFirst}" class="m-0-sm" [value]="type.value"
               *ngFor="let type of types | keyvalue: returnZero; let isFirst = first">
               {{ type?.value }}
             </mat-radio-button>
@@ -55,7 +55,7 @@
           <label class="form-label">Select Desired Teaching Days and Times</label>
           <div class="list-days">
             <button type="button" mat-button [class.active]="selectedDays?.includes(i)" [disabled]="checkDisabledDays(day)"
-              *ngFor="let day of days; let i = index" (click)="onChangeDay(i)">{{ day }}</button>
+              *ngFor="let day of days; let i = index" (click)="onChangeDay(i)" class="w-100-sm">{{ day }}</button>
           </div>
         </div>
       </div>

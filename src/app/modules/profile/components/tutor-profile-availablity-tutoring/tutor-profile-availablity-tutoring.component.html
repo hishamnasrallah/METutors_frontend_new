@@ -3,12 +3,12 @@
     <ng-container *ngIf="!isLoading">
       <div class="row top-info">
         <div class="col-md-6" *ngIf="availability && availability?.length">
-          <h1 class="heading">Teacher Availability</h1>
+          <h1 class="heading f-size-15-md-sm">Teacher Availability</h1>
 
           <span *ngFor="let avail of availability" (click)="tutorAvailability.emit()" class="cursor-pointer">{{ avail }}</span>
         </div>
-        <div class="col-md-6" *ngIf="_tutor?.specifications?.typeOfTutoring">
-          <h1 class="heading">Type of Tutoring</h1>
+        <div class="col-md-6 mt-15-sm" *ngIf="_tutor?.specifications?.typeOfTutoring">
+          <h1 class="heading f-size-15-md-sm">Type of Tutoring</h1>
 
           <ng-container *ngIf="_tutor?.specifications?.typeOfTutoring === types.both">
             <span>{{ types.one }}</span>
@@ -21,9 +21,9 @@
       </div>
       <div class="row bottom-info" *ngIf="_tutor?.sortedSubjects && _tutor?.sortedSubjects?.length">
         <div class="col-md-12">
-          <h1 class="heading">Teaching Specifications</h1>
+          <h1 class="heading f-size-15-md-sm">Teaching Specifications</h1>
 
-          <div class="row mt-5">
+          <div class="row mt-5 mt-15-sm">
             <div class="col-md-6 mb-3" *ngFor="let item of _tutor?.sortedSubjects; let indexSubjects = index">
               <table class="table my-table default-title">
                 <tr>
