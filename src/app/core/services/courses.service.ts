@@ -317,7 +317,7 @@ export class CoursesService {
       value.days && value.days.length
         ? value.days.map((day: string) => SORTED_DAYS_WEEK.indexOf(day))
         : [];
-
+console.log(value)
     if (value.courseProgram) formData.append('program_id', value.courseProgram);
     if (value.courseLevel) formData.append('course_level', value.courseLevel);
     if (value.courseField) formData.append('field_of_study', value.courseField);
@@ -332,10 +332,22 @@ export class CoursesService {
       if (value.author) formData.append('book_author', value.author);
     }
 
-    if (value.startDate) formData.append('start_date', value.startDate);
-    if (value.endDate) formData.append('end_date', value.endDate);
-    if (value.startTime) formData.append('start_time', value.startTime);
-    if (value.endTime) formData.append('end_time', value.endTime);
+    if (value.startDate)
+      formData.append('start_date', new Date(value.startDate)?.toISOString());
+    if (value.endDate)
+      formData.append('end_date', new Date(value.endDate)?.toISOString());
+    if (value.startTime)
+      formData.append(
+        'start_time',
+        new Date(
+          Date.parse(value.startDate + ' ' + value.startTime)
+        )?.toISOString()
+      );
+    if (value.endTime)
+      formData.append(
+        'end_time',
+        new Date(Date.parse(value.endDate + ' ' + value.endTime))?.toISOString()
+      );
     if (weekdays) formData.append('weekdays', weekdays);
     if (value.hours) formData.append('total_hours', value.hours);
     if (value.totalPrice) formData.append('total_price', value.totalPrice);
@@ -343,9 +355,23 @@ export class CoursesService {
     if (value.courseCountry) formData.append('country_id', value.courseCountry);
     if (value.type) formData.append('class_type', value.type);
     if (value.redirect_url) formData.append('redirect_url', value.redirect_url);
-
+console.log(value.classrooms)
     if (value.classrooms && value.classrooms.length)
-      formData.append('classes', JSON.stringify(value.classrooms));
+      formData.append(
+        'classes',
+        JSON.stringify(
+          value.classrooms.map((classroom: any) => ({
+            ...classroom,
+            date: new Date(classroom?.date)?.toISOString(),
+            start_time: new Date(
+              Date.parse(classroom?.date + ' ' + classroom?.start_time)
+            )?.toISOString(),
+            end_time: new Date(
+              Date.parse(classroom?.date + ' ' + classroom?.end_time)
+            )?.toISOString(),
+          }))
+        )
+      );
 
     if (value.tutor) formData.append('teacher_id', value.tutor?.id);
 

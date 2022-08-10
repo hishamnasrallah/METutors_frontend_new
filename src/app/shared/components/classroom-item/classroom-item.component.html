@@ -56,7 +56,7 @@
             <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
             <strong>Time: </strong>
             <span>
-              {{ classroom?.startTime }} : {{ classroom?.endTime}}
+              {{ classroom?.startTime | date:'h:mm a' }} : {{ classroom?.endTime | date:'h:mm a' }}
             </span>
           </ng-container>
         </div>
