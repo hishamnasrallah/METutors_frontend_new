@@ -65,7 +65,7 @@
               <span class="cin cursor-pointer" *ngIf="card?.course?.subjectId"
                 [routerLink]="'/admin/management/subject'">(CIN{{ card?.course?.subjectId }})</span>
 
-              <strong class="mt-2 d-block">{{ card?.startTime }} to {{ card?.endTime }}</strong>
+              <strong class="mt-2 d-block">{{ card?.startTime | date:'h:mm a' }} to {{ card?.endTime | date:'h:mm a' }}</strong>
             </div>
           </td>
         </tr>

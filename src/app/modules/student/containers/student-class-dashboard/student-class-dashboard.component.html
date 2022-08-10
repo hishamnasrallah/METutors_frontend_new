@@ -112,7 +112,7 @@
                                           [type]="'small'"
                                           class="d-block"></metutors-user-avatar>
                   </td>
-                  <td>{{ todaysClass.startTime }} - {{ todaysClass.endTime }} </td>
+                  <td>{{ todaysClass.startTime | date:'h:mm a' }} - {{ todaysClass.endTime | date:'h:mm a' }} </td>
                   <td>{{ todaysClass?.duration }} hours</td>
                   <td>
                     <button mat-button class="main-button-opacity flex-grow-1" (click)="joinClass(todaysClass.id)"
@@ -174,8 +174,8 @@
                                           class="d-block"></metutors-user-avatar>
                   </td>
                   <td>{{ upcomingClass.startDate | date: 'EEEE' }} </td>
-                  <td>{{ upcomingClass.startDate }} </td>
-                  <td>{{ upcomingClass.startTime }} - {{ upcomingClass.endTime }} </td>
+                  <td>{{ upcomingClass.startDate | date: 'YYYY-MM-d' }} </td>
+                  <td>{{ upcomingClass.startTime | date:'h:mm a' }} - {{ upcomingClass.endTime | date:'h:mm a' }} </td>
                   <td>{{ upcomingClass?.duration }} hours</td>
                   <td>
                     <span
@@ -223,9 +223,9 @@
                                           [name]="previousClass?.teacher?.firstName+ ' ' +previousClass?.teacher?.lastName"
                                           class="d-block"></metutors-user-avatar>
                   </td>
-                  <td>{{ previousClass.startDate | date: 'EEEE'}} </td>
-                  <td>{{ previousClass.startDate}} </td>
-                  <td>{{ previousClass.startTime}} - {{ previousClass.endTime}} </td>
+                  <td>{{ previousClass.startDate | date: 'EEEE' }} </td>
+                  <td>{{ previousClass.startDate | date: 'YYYY-MM-d' }} </td>
+                  <td>{{ previousClass.startTime | date:'h:mm a' }} - {{ previousClass.endTime | date:'h:mm a' }} </td>
                   <td>{{ previousClass?.duration}}hrs</td>
                   <td>
                     <ng-container *ngIf="previousClass?.status !== 'completed'">

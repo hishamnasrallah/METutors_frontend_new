@@ -19,7 +19,7 @@
               <div class="col-md-3 d-flex menu align-items-center">
                 <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
                 <strong>Time: </strong>
-                <span>{{ view.syllabus?.course?.startTime }} - {{ view.syllabus?.course?.endTime }}</span>
+                <span>{{ view.syllabus?.course?.startTime | date:'h:mm a' }} - {{ view.syllabus?.course?.endTime | date:'h:mm a' }}</span>
               </div>
               <div class="col-md-2 d-flex menu align-items-center">
                 <img src="assets/svg/play-circle-fill.svg" alt="" width="15" height="15" draggable="false">
@@ -91,9 +91,9 @@
               <tr *ngFor="let unclassifiedClass of view.syllabus.unclassifiedClasses; let i=index">
                 <td>{{ i + 1}}</td>
                 <td>{{ unclassifiedClass?.title }}</td>
-                <td>{{ unclassifiedClass?.startDate | date: 'EEEE, dd MMM Y'}}</td>
-                <td>{{ unclassifiedClass?.startTime }} - {{ unclassifiedClass?.endTime}}</td>
-                <td>{{ unclassifiedClass?.duration}}hrs</td>
+                <td>{{ unclassifiedClass?.startDate | date: 'EEEE, dd MMM Y' }}</td>
+                <td>{{ unclassifiedClass?.startTime | date:'h:mm a' }} - {{ unclassifiedClass?.endTime | date:'h:mm a' }}</td>
+                <td>{{ unclassifiedClass?.duration }}hrs</td>
               </tr>
             </ng-container>
           </table>
@@ -165,8 +165,8 @@
                     <tr *ngFor="let syllabusClass of syllabus?.topic?.classes; let i = index">
                       <td scope="row">{{ i + 1 }}</td>
                       <td>{{ syllabusClass?.title }}</td>
-                      <td>{{ syllabusClass?.startDate | date : 'EEEE, dd MMM Y'}}</td>
-                      <td>{{ syllabusClass?.startTime + '-' + syllabusClass?.endTime }}</td>
+                      <td>{{ syllabusClass?.startDate | date : 'EEEE, dd MMM Y' }}</td>
+                      <td>{{ syllabusClass?.startTime | date:'h:mm a' + '-' + syllabusClass?.endTime | date:'h:mm a' }}</td>
                       <td>{{ syllabusClass?.duration + 'hrs' }}</td>
                     </tr>
                   </table>

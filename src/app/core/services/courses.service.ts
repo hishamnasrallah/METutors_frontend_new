@@ -317,7 +317,7 @@ export class CoursesService {
       value.days && value.days.length
         ? value.days.map((day: string) => SORTED_DAYS_WEEK.indexOf(day))
         : [];
-console.log(value)
+
     if (value.courseProgram) formData.append('program_id', value.courseProgram);
     if (value.courseLevel) formData.append('course_level', value.courseLevel);
     if (value.courseField) formData.append('field_of_study', value.courseField);
@@ -355,7 +355,7 @@ console.log(value)
     if (value.courseCountry) formData.append('country_id', value.courseCountry);
     if (value.type) formData.append('class_type', value.type);
     if (value.redirect_url) formData.append('redirect_url', value.redirect_url);
-console.log(value.classrooms)
+
     if (value.classrooms && value.classrooms.length)
       formData.append(
         'classes',

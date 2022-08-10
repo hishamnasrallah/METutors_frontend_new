@@ -209,6 +209,7 @@ export class StudentAddCourseModalComponent implements OnInit {
 
     this.calculateInvoice.emit(form.value);
   }
+
   generateClassrooms(form: FormGroup): void {
     if (form.valid) {
       const value: any = this._generateClassroomForm(form.value);

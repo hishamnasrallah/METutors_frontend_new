@@ -89,7 +89,7 @@
 
     <div class="row">
       <div class="col-12">
-        <h3 class="overview mb-3">Today's Classes - {{view.dashboard?.todaysDate}}</h3>
+        <h3 class="overview mb-3">Today's Classes - {{ view.dashboard?.todaysDate }}</h3>
         <ng-container [ngSwitch]="view.loading">
           <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
           <table class="table my-table" *ngSwitchCase="false">
@@ -97,7 +97,7 @@
               <th>#</th>
               <th>Class Subject</th>
               <th>Class Tutor</th>
-              <th>Start time - End time</th>
+              <th>Start Time - End Time</th>
               <th>Duration</th>
               <th></th>
             </tr>
@@ -108,7 +108,7 @@
             </tr>
             <ng-container *ngIf="view.dashboard.todaysClasses.length">
               <tr *ngFor="let todaysClass of view.dashboard.todaysClasses; let i=index">
-                <td>{{ i + 1}}</td>
+                <td>{{ i + 1 }}</td>
                 <td>{{ todaysClass?.title }}</td>
                 <td>
                   <metutors-user-avatar [avatar]="imageUrl+todaysClass?.course?.teacher?.avatar" [type]="'small'"
@@ -116,7 +116,7 @@
                                         class="d-inline-block">
                   </metutors-user-avatar>
                 </td>
-                <td>{{ todaysClass?.startTime }} - {{ todaysClass?.endTime }}</td>
+                <td>{{ todaysClass?.startTime | date:'h:mm a' }} - {{ todaysClass?.endTime | date:'h:mm a' }}</td>
                 <td>{{ todaysClass?.duration }}</td>
                 <td>
                   <button mat-button class="main-button-opacity flex-grow-1 w-100" (click)="joinClass(todaysClass.id)"

@@ -17,7 +17,7 @@
             <div class="col-md-3 d-flex menu align-items-center">
               <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
               <strong>Time: </strong>
-              <span>{{ view.resources?.course?.startTime }} - {{ view.resources?.course?.endTime }}</span>
+              <span>{{ view.resources?.course?.startTime | date:'h:mm a' }} - {{ view.resources?.course?.endTime | date:'h:mm a' }}</span>
             </div>
             <div class="col-md-3 d-flex menu align-items-center">
               <img src="assets/svg/timer.svg" alt="" width="15" height="15" draggable="false">
