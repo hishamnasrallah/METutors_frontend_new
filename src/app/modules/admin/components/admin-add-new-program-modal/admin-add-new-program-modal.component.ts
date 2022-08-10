@@ -36,8 +36,8 @@ export class AdminAddNewProgramModalComponent implements OnInit {
   constructor(private _fb: FormBuilder) {
     this.form = this._fb.group({
       name: [null, Validators.required],
-      image: [null, Validators.required],
       description: [null, Validators.required],
+      image: [null, this.program ? Validators.required : null],
     });
   }
 

@@ -46,7 +46,8 @@
           <td>{{ i + 1 }}</td>
           <td>
             <span class="d-flex">
-              <img [src]="imageURL+program?.image" width="20" height="20" alt=""/> {{ program?.name }}
+              <img [src]="imageURL+program?.image" width="20" height="20" alt=""/>
+              <span class="program-name">{{ program?.name }}</span>
             </span>
           </td>
           <td>{{ program?.updatedAt | date: 'EEEE, d MMM y' }}</td>
