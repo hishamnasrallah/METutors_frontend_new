@@ -15,7 +15,7 @@
                     <mat-icon>delete</mat-icon>
                 </a>
 
-                <a class="float-end cursor-pointer" *ngIf="i === 0 && programs.controls.length < programsList.length"
+                <a class="float-end cursor-pointer" *ngIf="i === 0 && programs.controls.length < (programsList?.length || 0)"
                    (click)="addProgram()">
                     Add new
                 </a>

@@ -17,7 +17,7 @@
 
                 <div class="col-md-5 d-flex menu align-items-center degree"
                   *ngIf="interview?.tutor?.qualifications?.degreeField">
-                  <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
+                  <img src="assets/svg/degree.svg" alt="" width="15" height="15" draggable="false">
                   <strong>
                     {{ interview?.tutor?.qualifications?.degreeLevel }} in {{ interview?.tutor?.qualifications?.degreeField }}
                   </strong>
@@ -27,7 +27,7 @@
             <div class="col-md-6">
               <div class="d-flex justify-content-end actions-interview">
                 <a class="submit-document" [routerLink]="['/admin', 'tutor', 'interview', 'details',  interview?.tutor?.id, 'documents']">
-                  <img src="assets/svg/file-filled.svg" alt="" width="17" height="17" draggable="false" class="icon">
+                  <img src="assets/svg/document.svg" alt="" width="17" height="17" draggable="false" class="icon">
                   Submitted Documents
                 </a>
                 <a class="send-link cursor-pointer" *ngIf="interview.status === 'pending'" (click)="onOpenScheduleInterviewModal(interview)">Schedule Interview</a>
@@ -182,11 +182,14 @@
                   <td>Type of Tutoring</td>
                   <td>{{ interview?.tutor?.specifications?.typeOfTutoring }}</td>
                 </tr>
-                <tr *ngIf="interview?.tutor?.specifications?.teachingDays">
+                <tr>
                   <td>Days</td>
+                  <td><span *ngIf="interview?.availabilityDays?.length">{{ interview?.availabilityDays | metutorsDays }}</span></td>
+                </tr>
+                <tr>
+                  <td></td>
                   <td>
-                    {{ interview?.tutor?.specifications?.teachingDays }}
-                    <button mat-button class="edit-btn" (click)="onTutorAvailability(interview?.tutor?.id)">Day Availability</button>
+                    <button mat-button class="edit-btn ju" (click)="onTutorAvailability(interview?.tutor?.id)" *ngIf="interview?.availabilityDays?.length">Day Availability</button>
                   </td>
                 </tr>
               </table>

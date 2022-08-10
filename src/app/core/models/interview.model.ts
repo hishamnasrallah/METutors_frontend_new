@@ -9,6 +9,7 @@ export class IInterview {
   status: string;
   interviewTime: string;
   updatedAt: string;
+  availabilityDays: any;
   tutor?: ITutor;
 
   constructor(createDefault = false, interview: any = null) {
@@ -21,6 +22,7 @@ export class IInterview {
       this.status = '';
       this.interviewTime = '';
       this.updatedAt = '';
+      this.availabilityDays = [];
       this.tutor = undefined;
     }
 
@@ -32,6 +34,7 @@ export class IInterview {
       this.interviewDate = interview.date_for_interview;
       this.status = interview.status;
       this.interviewTime = interview.time_for_interview;
+      this.availabilityDays = interview.availability_days;
       this.updatedAt = interview.updated_at;
       this.tutor = new ITutor(false, interview.user);
     }

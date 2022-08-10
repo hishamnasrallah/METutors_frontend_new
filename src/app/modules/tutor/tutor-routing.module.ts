@@ -230,7 +230,7 @@ const routes: Routes = [
         component: TutorSettingsComponent,
         data: {
           layout: {
-            icon: 'settings',
+            icon: 'settings-black',
             title: 'Settings - Metutors',
             navbarTitle: 'Settings',
             showHeader: false,

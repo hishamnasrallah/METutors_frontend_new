@@ -7,7 +7,6 @@ export class ISpecification {
   typeOfTutoring?: string;
   fieldOfStudy?: string;
   subject?: string;
-  teachingDays?: string;
   teachingHours?: string;
 
   constructor(createDefault = false, specification: any = null) {
@@ -20,7 +19,6 @@ export class ISpecification {
       this.typeOfTutoring = '';
       this.fieldOfStudy = '';
       this.subject = '';
-      this.teachingDays = '';
       this.teachingHours = '';
     }
 
@@ -34,7 +32,6 @@ export class ISpecification {
       this.fieldOfStudy = specification?.field_of_study || '';
       this.typeOfTutoring = specification?.type_of_tutoring || '';
       this.subject = specification?.subject || '';
-      this.teachingDays = specification?.teaching_days || '';
       this.teachingHours = specification?.teaching_hours || '';
     }
   }
