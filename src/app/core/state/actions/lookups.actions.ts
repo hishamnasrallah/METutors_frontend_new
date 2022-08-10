@@ -79,9 +79,7 @@ export const loadProgramCountriesEnded = createAction(
   '[Lookups] Load Program Countries Ended'
 );
 
-export const loadFlagCountries = createAction(
-  '[Lookups] Load Flag Countries'
-);
+export const loadFlagCountries = createAction('[Lookups] Load Flag Countries');
 
 export const loadFlagCountriesSuccess = createAction(
   '[Lookups] Load Flag Countries Success',
@@ -293,7 +291,7 @@ export const loadTicketPrioritiesEnded = createAction(
 
 export const addEditProgram = createAction(
   '[Lookups] Add Edit Program',
-  props<{ program: IProgram }>()
+  props<{ program: IProgram; id?: number }>()
 );
 
 export const addEditProgramSuccess = createAction(

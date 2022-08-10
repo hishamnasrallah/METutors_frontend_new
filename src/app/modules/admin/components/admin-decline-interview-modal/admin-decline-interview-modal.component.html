@@ -4,18 +4,13 @@
     <form class="decline-interview" [formGroup]="form" (ngSubmit)="submitted.emit(form)">
       <h2 class="note">Send Decline Message to Tutor</h2>
       <div class="form-group">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="message" [placeholder]="'Select Reason'">
-              <mat-option [value]="reason" *ngFor="let reason of reasons">
-                {{ reason }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+        <textarea class="form-control custom-input input-bordered" formControlName="message" rows="6"></textarea>
+        <span class="text-secondary">Min 10 characters</span>
       </div>
 
       <div class="mt-4">
         <metutors-submit-button [form]="form" [extraClasses]="'float-end py-1 px-5'"
-          [isSubmitting]="isDeclineRequest">
+                                [isSubmitting]="isDeclineRequest">
           Decline Request
         </metutors-submit-button>
       </div>

@@ -113,6 +113,7 @@ export class LookupsService {
             programs: response.programs?.data.map((item: any) => ({
               id: item.id,
               name: item.name,
+              image: item.image,
               status: item.status,
               updatedAt: item.updated_at,
               description: item.description,
@@ -137,6 +138,7 @@ export class LookupsService {
               id: response.program.id,
               name: response.program.name,
               status: ProgramStatus.active,
+              image: response.program.image,
               updatedAt: response.program.updated_at,
               description: response.program.description,
             },
@@ -146,10 +148,10 @@ export class LookupsService {
       .pipe(catchError(this.errorHandler));
   }
 
-  editProgram(value: any): Observable<any> {
+  editProgram(value: any, id: number): Observable<any> {
     return this.http
-      .patch<{ program: any; message: string }>(
-        `${this.BACKEND_URL}program/${value.id}`,
+      .post<{ program: any; message: string }>(
+        `${this.BACKEND_URL}program/${id}`,
         value
       )
       .pipe(
@@ -159,6 +161,7 @@ export class LookupsService {
             program: {
               id: response.program.id,
               name: response.program.name,
+              image: response.program.image,
               status: response.program.status,
               updatedAt: response.program.updated_at,
               description: response.program.description,

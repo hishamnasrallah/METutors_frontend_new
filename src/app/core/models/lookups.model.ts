@@ -10,6 +10,7 @@ export interface ILookups {
 
 export interface IProgram {
   id: number;
+  image: string;
   name: string;
   code: string;
   status: number;
