@@ -6,16 +6,20 @@
       <ng-container *ngFor="let _ of programs.controls; let i = index" [formGroupName]="i">
         <div class="col-md-6">
           <div class="form-group">
-            <label for="program" class="form-label d-flex justify-content-between">
+            <label class="form-label d-flex justify-content-between">
               Program Name
-              <a class="float-end cursor-pointer" *ngIf="i !== 0" (click)="removeProgram(i)">
-                <mat-icon>delete</mat-icon>
-              </a>
 
-              <a class="float-end cursor-pointer" *ngIf="i === 0 && programs.controls.length < programsList.length"
-                (click)="addProgram()">
-                Add new
-              </a>
+              <span class="d-flex">
+                <a class="delete float-end cursor-pointer" *ngIf="programs.controls.length > 1"
+                   (click)="removeProgram(i)">
+                    <mat-icon>delete</mat-icon>
+                </a>
+
+                <a class="float-end cursor-pointer" *ngIf="i === 0 && programs.controls.length < programsList.length"
+                   (click)="addProgram()">
+                    Add new
+                </a>
+              </span>
             </label>
 
             <mat-form-field appearance="outline" class="w-100">
@@ -37,7 +41,7 @@
                 Country for {{ form.value.programs[i]?.programId?.name }} Program
               </label>
               <mat-form-field appearance="outline" class="w-100">
-                <mat-select formControlName="countries" [placeholder]="'Select Countries'" multiple>
+                <mat-select id="program" formControlName="countries" [placeholder]="'Select Countries'" multiple>
                   <mat-option [value]="country?.id" *ngFor="let country of countries">{{ country?.name }}</mat-option>
                 </mat-select>
               </mat-form-field>
@@ -62,11 +66,11 @@
                 <ng-container *ngFor="let field of fields">
                   <mat-option [value]="field?.id" *ngIf="
                     (
-                      form.value.programs[i]?.programId?.id !== nationalId && 
+                      form.value.programs[i]?.programId?.id !== nationalId &&
                       form.value.programs[i]?.programId?.id === field?.programId
-                    ) || 
+                    ) ||
                     (
-                      form.value.programs[i]?.programId?.id === nationalId && 
+                      form.value.programs[i]?.programId?.id === nationalId &&
                       form.value.programs[i]?.programId?.id === field?.programId &&
                       form.value.programs[i].countries?.includes(field.countryId) &&
                       form.value.programs[i].grades?.includes(field.grade)
@@ -84,13 +88,13 @@
                 <ng-container *ngFor="let subject of subjects">
                   <mat-optgroup [label]="subject.fieldName" *ngIf="
                     (
-                      form.value.programs[i]?.programId?.id !== nationalId && 
-                      form.value.programs[i]?.programId?.id === subject.programId && 
+                      form.value.programs[i]?.programId?.id !== nationalId &&
+                      form.value.programs[i]?.programId?.id === subject.programId &&
                       form.value.programs[i].fields?.includes(subject.fieldId)
                     ) ||
                     (
-                      form.value.programs[i]?.programId?.id === nationalId && 
-                      form.value.programs[i]?.programId?.id === subject.programId && 
+                      form.value.programs[i]?.programId?.id === nationalId &&
+                      form.value.programs[i]?.programId?.id === subject.programId &&
                       form.value.programs[i].fields?.includes(subject.fieldId) &&
                       form.value.programs[i].countries?.includes(subject.countryId) &&
                       form.value.programs[i].grades?.includes(subject.grade)
@@ -109,18 +113,18 @@
               <ng-container *ngFor="let item of form.value.programs[i].sortedSubjects; let indexSubjects = index">
                 <tr>
                   <th class="heading" [attr.colspan]="form.value.programs[i]?.programId?.id === nationalId ? '2' : '1'">
-                    Program <span>
+                    <label>Program: </label> <span>
                       {{ form.value.programs[i]?.programId?.name }}<ng-container
                         *ngIf="form.value.programs[i]?.programId?.id === nationalId">, {{ item?.countryName }}
                       </ng-container>
                     </span>
                   </th>
-                  <th class="heading text-end">Field Name <span>{{ item?.fieldName }}</span></th>
+                  <th class="heading text-end"><label>Field Name</label> <span>{{ item?.fieldName }}</span></th>
                 </tr>
                 <tr>
-                  <th>Subject Name</th>
-                  <th *ngIf="form.value.programs[i]?.programId?.id === nationalId">Grade</th>
-                  <th>Hourly Price (USD)</th>
+                  <th class="sub-heading" [ngClass]="{'w-55': item?.programId !== nationalId, 'w-54': item?.programId === nationalId}">Subject Name</th>
+                  <th class="sub-heading w-20" *ngIf="form.value.programs[i]?.programId?.id === nationalId">Grade</th>
+                  <th class="sub-heading">Enter Expected Hourly Rate</th>
                 </tr>
                 <tr *ngFor="let subject of item.subjects; let indexSubject = index">
                   <td>{{ subject?.name }}</td>
