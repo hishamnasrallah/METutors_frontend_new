@@ -189,11 +189,16 @@
             </div>
           </div>
         </div>
+        <div class="mt-3">
+          <mat-checkbox class="terms-conditions" [(ngModel)]="conditions">
+            I agree to the <a routerLink="/student-terms-conditions" target="_blank">terms and conditions.</a>
+          </mat-checkbox>
+        </div>
       </div>
     </div>
     <div class="row mt-5">
       <div class="col-12 overflow-hidden">
-        <button mat-flat-button color="primary" class="float-end" type="button" [disabled]="isCreatingCourse"
+        <button mat-flat-button color="primary" class="float-end" type="button" [disabled]="isCreatingCourse || !conditions"
           (click)="submitForm.emit()">
           Check out
           <mat-icon *ngIf="!isCreatingCourse">arrow_forward</mat-icon>

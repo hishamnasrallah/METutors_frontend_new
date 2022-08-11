@@ -13,6 +13,7 @@
       &.eye {
         right: 65px;
       }
+
       &.forget-link {
         right: 10px;
         color: var(--main-color);
@@ -54,6 +55,10 @@
         margin-left: 15px;
       }
     }
+  }
+
+  .img-cover img {
+    object-fit: cover;
   }
 }
 

@@ -38,7 +38,6 @@ const routes: Routes = [
     data: {
       layout: {
         title: 'Forget password - MEtutors',
-        showHeader: false,
         showFooter: false,
       },
     },
@@ -49,7 +48,6 @@ const routes: Routes = [
     data: {
       layout: {
         title: 'Reset password - MEtutors',
-        showHeader: false,
         showFooter: false,
       },
     },

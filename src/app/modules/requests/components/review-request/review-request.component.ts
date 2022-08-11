@@ -14,6 +14,7 @@ export class ReviewRequestComponent implements OnInit {
   @Output() onBack = new EventEmitter();
   @Output() submitForm = new EventEmitter();
 
+  conditions = false;
   tutorStatus = TutorStatus;
   academicTutoringTextbook = AcademicTutoringTextbook;
 
