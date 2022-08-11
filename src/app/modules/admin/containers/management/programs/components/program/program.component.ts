@@ -2,6 +2,7 @@ import { Store } from '@ngrx/store';
 import { Component, OnInit } from '@angular/core';
 import { combineLatest, map, Observable } from 'rxjs';
 
+import { environment } from '@environment';
 import { IPagination, IProgram } from '@models';
 import * as fromCore from '@metutor/core/state';
 import * as fromAdmin from '@metutor/modules/admin/state';
@@ -23,6 +24,7 @@ export class ProgramComponent implements OnInit {
   deletedProgram?: IProgram;
   selectedProgram?: IProgram;
   programStatus = ProgramStatus;
+  imageURL = environment.programImage;
   programStatusConst = PROGRAM_STATUSES_CONST;
 
   view$: Observable<{
@@ -45,7 +47,8 @@ export class ProgramComponent implements OnInit {
     if (this.selectedProgram) {
       this._store.dispatch(
         fromCore.addEditProgram({
-          program: { ...program, id: this.selectedProgram.id },
+          program,
+          id: this.selectedProgram.id,
         })
       );
     } else {

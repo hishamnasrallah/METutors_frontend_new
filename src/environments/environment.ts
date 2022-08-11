@@ -4,6 +4,7 @@ export const environment = {
   // API_URL: 'http://160.153.255.132:8000/', // https://demo-metutors.herokuapp.com/
   clientUrl: 'http://localhost:4200',
   imageURL: 'https://testing.zaptatech.com/public/uploads/images/',
+  programImage: 'https://testing.zaptatech.com/public/uploads/program_images/',
   videoURL: 'https://testing.zaptatech.com/public/uploads/teacher_videos/',
   teacherDocs:
     'https://testing.zaptatech.com/public/uploads/teacher_documents/',

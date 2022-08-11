@@ -123,7 +123,7 @@ export class LookupsEffects {
     )
   );
 
-   loadFlagCountries$ = createEffect(() =>
+  loadFlagCountries$ = createEffect(() =>
     this._actions$.pipe(
       ofType(lookupsActions.loadFlagCountries),
       withLatestFrom(this._store.select(fromCore.selectFlagCountries)),
@@ -476,23 +476,25 @@ export class LookupsEffects {
     this._actions$.pipe(
       ofType(lookupsActions.addEditProgram),
       mergeMap((action) => {
-        if (action.program.id) {
-          return this._lookupsService.editProgram(action.program).pipe(
-            map((response) =>
-              lookupsActions.addEditProgramSuccess({
-                program: response.program,
-                message: response.message,
-                isEdit: true,
-              })
-            ),
-            catchError((error) =>
-              of(
-                lookupsActions.addEditProgramFailure({
-                  error: error?.error?.message || error?.error?.errors,
+        if (action?.id) {
+          return this._lookupsService
+            .editProgram(action.program, action.id)
+            .pipe(
+              map((response) =>
+                lookupsActions.addEditProgramSuccess({
+                  program: response.program,
+                  message: response.message,
+                  isEdit: true,
                 })
+              ),
+              catchError((error) =>
+                of(
+                  lookupsActions.addEditProgramFailure({
+                    error: error?.error?.message || error?.error?.errors,
+                  })
+                )
               )
-            )
-          );
+            );
         } else {
           return this._lookupsService.addNewProgram(action.program).pipe(
             map((response) =>

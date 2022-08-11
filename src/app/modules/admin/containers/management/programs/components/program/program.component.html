@@ -32,6 +32,7 @@
       <table class="table my-table default-title mt-4 overflow-visible">
         <tr>
           <th>Number</th>
+          <th>Image</th>
           <th>Program</th>
           <th>Last Updated</th>
           <th>Status</th>
@@ -44,6 +45,7 @@
         </tr>
         <tr *ngFor="let program of view.programs; let i = index">
           <td>{{ i + 1 }}</td>
+          <td><img [src]="imageURL+program?.image" width="100" height="100" alt=""/></td>
           <td>{{ program?.name }}</td>
           <td>{{ program?.updatedAt | date: 'EEEE, d MMM y' }}</td>
           <td>

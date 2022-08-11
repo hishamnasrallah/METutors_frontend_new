@@ -168,6 +168,7 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
           subject_ = {
             fieldId: subject.fieldId,
             fieldName: subject.fieldName,
+            countryName: subject.countryName,
             subjects: subject.subjects.map((sub: any, indexSub: number) =>
               indexSub === indexSubject
                 ? {

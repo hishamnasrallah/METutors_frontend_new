@@ -35,6 +35,7 @@ export class ITutor {
   availability?: IAvailability[];
   qualifications?: IQualification;
   specifications?: ISpecification;
+  teacherAvailability?: any[];
   subjects?: ISubject[];
   sortedSubjects?: any[];
   country?: any;
@@ -89,6 +90,7 @@ export class ITutor {
       this.nationality = '';
       this.qualifications = undefined;
       this.specifications = undefined;
+      this.teacherAvailability = [];
       this.subjects = [];
       this.sortedSubjects = [];
       this.country = '';
@@ -165,6 +167,7 @@ export class ITutor {
           : [];
       this.sortedSubjects = sortSubjects(this.subjects);
       this.country = tutor?.country || '';
+      this.teacherAvailability = tutor?.teacher_availability || [];
       this.city = tutor?.city || '';
       this.gender = tutor?.gender || '';
       this.nationality = tutor?.nationality || '';

@@ -2,8 +2,8 @@
   <div>
     <h4 class="mb-5 heading text-center f-size-20-md-sm">PROVIDE YOUR TEACHING SPECIFICATIONS</h4>
 
-    <div class="row">
-      <div class="col-md-6">
+    <div class="row justify-content-center">
+      <div class="col-md-3">
         <div class="form-group">
           <label class="form-label">Availability Starting Date</label>
           <mat-form-field appearance="outline" class="w-100">
@@ -18,7 +18,7 @@
         </div>
       </div>
 
-      <div class="col-md-6">
+      <div class="col-md-5">
         <div class="form-group">
           <label class="form-label">Tutoring Preferences</label>
           <mat-radio-group class="d-flex flex-row mt-3 fw-bold flex-column-sm mt-15-sm" formControlName="typeOfTutoring">
@@ -34,12 +34,12 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-md-6">
+    <div class="row justify-content-center">
+      <div class="col-md-3">
         <div class="form-group">
           <label for="endDate" class="form-label">Availability End Date</label>
           <mat-form-field appearance="outline" class="w-100">
-            <input matInput [matDatepicker]="datetPicker2" [placeholder]="'Select Availability End Date'"
+            <input matInput id="endDate" [matDatepicker]="datetPicker2" [placeholder]="'Select Availability End Date'"
               (focus)="datetPicker2.open()" [min]="startDate?.value" formControlName="endDate">
             <mat-datepicker-toggle matSuffix [for]="datetPicker2"></mat-datepicker-toggle>
             <mat-datepicker #datetPicker2></mat-datepicker>
@@ -50,7 +50,7 @@
         </div>
       </div>
 
-      <div class="col-md-6">
+      <div class="col-md-5">
         <div class="form-group">
           <label class="form-label">Select Desired Teaching Days and Times</label>
           <div class="list-days">

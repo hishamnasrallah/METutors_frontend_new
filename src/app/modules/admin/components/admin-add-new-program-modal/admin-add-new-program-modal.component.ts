@@ -1,5 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormGroup,
+  Validators,
+  FormBuilder,
+  AbstractControl,
+} from '@angular/forms';
+
 import { IProgram } from '@metutor/core/models';
 
 @Component({
@@ -18,6 +24,8 @@ export class AdminAddNewProgramModalComponent implements OnInit {
         name: _program.name,
         description: _program.description,
       });
+
+      this.image?.setValidators(null);
     }
   }
 
@@ -30,15 +38,43 @@ export class AdminAddNewProgramModalComponent implements OnInit {
   constructor(private _fb: FormBuilder) {
     this.form = this._fb.group({
       name: [null, Validators.required],
+      image: [null, Validators.required],
       description: [null, Validators.required],
     });
   }
 
-  ngOnInit(): void {}
+  get name(): AbstractControl | null {
+    return this.form.get('name');
+  }
+
+  get image(): AbstractControl | null {
+    return this.form.get('image');
+  }
+
+  get description(): AbstractControl | null {
+    return this.form.get('description');
+  }
 
   onSubmit(form: FormGroup): void {
     if (form.valid) {
-      this.submitForm.emit(form.value);
+      const formData = new FormData();
+      formData.set('image', this.image?.value);
+      formData.set('name', this.name?.value);
+      formData.set('description', this.description?.value);
+
+      this.submitForm.emit(formData);
     }
   }
+
+  onUploadImage(event: any): void {
+    if (event.target && event.target.files && event.target.files.length) {
+      const file = event.target.files[0];
+
+      this.image?.setValue(file);
+      this.image?.updateValueAndValidity();
+      this.form?.markAsDirty();
+    }
+  }
+
+  ngOnInit(): void {}
 }

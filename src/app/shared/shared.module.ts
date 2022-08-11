@@ -66,12 +66,15 @@ import {
   DefaultCourseDirective,
 } from '@metutor/shared/directives';
 
-import { MoneyPipe } from './pipes/money.pipe';
+import { MoneyPipe, DaysPipe } from './pipes';
 
 @NgModule({
   declarations: [
-    // Components
+    // Pipes
+    DaysPipe,
     MoneyPipe,
+
+    // Components
     ModalComponent,
     ReviewRateComponent,
     CourseItemComponent,
@@ -134,8 +137,11 @@ import { MoneyPipe } from './pipes/money.pipe';
     BsDropdownModule.forRoot(),
   ],
   exports: [
-    // Components
+    // Pipes
+    DaysPipe,
     MoneyPipe,
+
+    // Components
     MomentModule,
     ModalComponent,
     UserAvatarComponent,
