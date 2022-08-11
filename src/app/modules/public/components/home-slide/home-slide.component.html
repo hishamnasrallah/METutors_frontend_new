@@ -1,16 +1,31 @@
-<div class="slide position-relative" style="background-image: url('assets/homepage/cover.png')">
+<div class="slide position-relative">
+  <div class="sliding">
+    <div class="slider">
+      <div class="slide1" style="background-image: url('assets/homepage/covers/01.png');">
+      </div>
+      <div class="slide2" style="background-image: url('assets/homepage/covers/02.png');">
+      </div>
+      <div class="slide3" style="background-image: url('assets/homepage/covers/03.png');">
+      </div>
+      <div class="slide4"></div>
+      <div class="slide5"></div>
+      <div class="slide6"></div>
+    </div>
+  </div>
   <div class="container">
     <div class="row">
       <div class="col-md-7 z-2">
         <h1 class="f-size-25-md-sm">
-          A Complete Personalized 
+          A Complete Personalized
           <br>
           Learning Experience
         </h1>
         <h2 class="f-size-20-md-sm">Redefining Online Tutoring</h2>
-        <p class="f-size-18-md-sm">Use artificial intelligence built technology to find top tutors from around the world and instantly unlock the power of achieving your learning goals with our intuitive learning platform.</p>
+        <p class="f-size-18-md-sm">Use artificial intelligence built technology to find top tutors from around the world
+          and instantly unlock the power of achieving your learning goals with our intuitive learning platform.</p>
         <a mat-button routerLink="/signup" *ngIf="!token" class="f-size-17-md-sm">Sign Up Now!</a>
-        <button mat-button (click)="scrollToAnchor()" *ngIf="token" class="f-size-17-md-sm">Explore our services</button>
+        <button mat-button (click)="scrollToAnchor()" *ngIf="token" class="f-size-17-md-sm">Explore our
+          services</button>
       </div>
     </div>
   </div>

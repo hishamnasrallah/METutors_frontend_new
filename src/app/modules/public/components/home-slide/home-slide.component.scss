@@ -1,10 +1,7 @@
 .slide {
-  background-size: cover;
-  background-repeat: no-repeat;
   padding: 90px 0;
   color: #FFF;
   margin: 0;
-  background-position: right;
 
   .z-2 {
     z-index: 2;
@@ -31,7 +28,8 @@
     line-height: 1.42;
   }
 
-  button, a {
+  button,
+  a {
     font-size: 20px;
     font-weight: bold;
     margin-top: 20px;
@@ -43,6 +41,108 @@
     &:hover {
       background-color: var(--main-color);
       border-color: var(--main-color);
+    }
+  }
+
+  .sliding {
+    position: absolute;
+    right: 0;
+    width: 100%;
+    display: block;
+    top: 0;
+    bottom: 0;
+    overflow: hidden;
+  }
+
+  .slider {
+    height: 100%;
+    position: relative;
+  }
+
+  .slide1,
+  .slide2,
+  .slide3,
+  .slide4,
+  .slide5,
+  .slide6 {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+
+  .slide1 {
+    background: no-repeat right;
+    background-size: cover;
+    animation: fade 25s infinite;
+    -webkit-animation: fade 25s infinite;
+
+  }
+
+  .slide2 {
+    background: no-repeat right;
+    background-size: cover;
+    animation: fade2 25s infinite;
+    -webkit-animation: fade2 25s infinite;
+  }
+
+  .slide3 {
+    background: no-repeat right;
+    background-size: cover;
+    animation: fade3 25s infinite;
+    -webkit-animation: fade3 25s infinite;
+  }
+
+  @keyframes fade {
+    0% {
+      opacity: 1
+    }
+
+    33.333% {
+      opacity: 0
+    }
+
+    66.666% {
+      opacity: 0
+    }
+
+    100% {
+      opacity: 1
+    }
+  }
+
+  @keyframes fade2 {
+    0% {
+      opacity: 0
+    }
+
+    33.333% {
+      opacity: 1
+    }
+
+    66.666% {
+      opacity: 0
+    }
+
+    100% {
+      opacity: 0
+    }
+  }
+
+  @keyframes fade3 {
+    0% {
+      opacity: 0
+    }
+
+    33.333% {
+      opacity: 0
+    }
+
+    66.666% {
+      opacity: 1
+    }
+
+    100% {
+      opacity: 0
     }
   }
 }
