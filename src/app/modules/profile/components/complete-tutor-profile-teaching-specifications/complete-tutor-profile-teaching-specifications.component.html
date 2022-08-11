@@ -5,9 +5,9 @@
     <div class="row justify-content-center">
       <div class="col-md-3">
         <div class="form-group">
-          <label class="form-label">Availability Starting Date</label>
+          <label class="form-label">Available Starting Date</label>
           <mat-form-field appearance="outline" class="w-100">
-            <input matInput [matDatepicker]="datetPicker" [placeholder]="'Select Start Date'"
+            <input matInput [matDatepicker]="datetPicker" [placeholder]="'Select Available Starting Date'"
               (focus)="datetPicker.open()" (dateChange)="onChangeStartDate()" [min]="minDate" formControlName="startDate">
             <mat-datepicker-toggle matSuffix [for]="datetPicker"></mat-datepicker-toggle>
             <mat-datepicker #datetPicker></mat-datepicker>
@@ -37,9 +37,9 @@
     <div class="row justify-content-center">
       <div class="col-md-3">
         <div class="form-group">
-          <label for="endDate" class="form-label">Availability End Date</label>
+          <label for="endDate" class="form-label">Available End Date</label>
           <mat-form-field appearance="outline" class="w-100">
-            <input matInput id="endDate" [matDatepicker]="datetPicker2" [placeholder]="'Select Availability End Date'"
+            <input matInput id="endDate" [matDatepicker]="datetPicker2" [placeholder]="'Select Available End Date'"
               (focus)="datetPicker2.open()" [min]="startDate?.value" formControlName="endDate">
             <mat-datepicker-toggle matSuffix [for]="datetPicker2"></mat-datepicker-toggle>
             <mat-datepicker #datetPicker2></mat-datepicker>
