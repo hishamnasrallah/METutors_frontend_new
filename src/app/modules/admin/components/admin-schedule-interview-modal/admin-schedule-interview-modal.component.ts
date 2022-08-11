@@ -7,11 +7,13 @@ import {
   FormBuilder,
   AbstractControl,
 } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'metutors-admin-schedule-interview-modal',
   templateUrl: './admin-schedule-interview-modal.component.html',
   styleUrls: ['./admin-schedule-interview-modal.component.scss'],
+  providers: [DatePipe],
 })
 export class AdminScheduleInterviewModalComponent implements OnInit {
   @Input() showModal = false;
@@ -24,16 +26,38 @@ export class AdminScheduleInterviewModalComponent implements OnInit {
   form: FormGroup;
   minDate = new Date();
 
-  constructor(private _fb: FormBuilder) {}
+  constructor(private _fb: FormBuilder, private _datePipe: DatePipe) {}
 
   get date(): AbstractControl | null {
     return this.form.get('date');
   }
 
+  get startTime(): AbstractControl | null {
+    return this.form.get('startTime');
+  }
+
+  get endTime(): AbstractControl | null {
+    return this.form.get('endTime');
+  }
+
   onSubmit(): void {
     const body = {
       ...this.form.value,
-      date: moment(this.date?.value).format('Y-MM-DD'),
+      start_time: new Date(
+        Date.parse(
+          this._datePipe.transform(new Date(this.date?.value), 'yyyy-MM-dd') +
+            ' ' +
+            this.startTime?.value
+        )
+      )?.toISOString(),
+      end_time: new Date(
+        Date.parse(
+          this._datePipe.transform(new Date(this.date?.value), 'yyyy-MM-dd') +
+            ' ' +
+            this.endTime?.value
+        )
+      )?.toISOString(),
+      date: new Date(this.date?.value)?.toISOString(),
     };
 
     this.submitted.emit(body);
@@ -41,9 +65,9 @@ export class AdminScheduleInterviewModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this._fb.group({
-      end_time: [null, [Validators.required]],
+      endTime: [null, [Validators.required]],
       date: [this.data?.date, [Validators.required]],
-      start_time: [this.data?.time, [Validators.required]],
+      startTime: [this.data?.time, [Validators.required]],
     });
   }
 }
