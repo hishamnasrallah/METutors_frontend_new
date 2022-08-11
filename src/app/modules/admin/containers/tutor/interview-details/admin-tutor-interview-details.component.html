@@ -44,12 +44,12 @@
                   <span class="requested-interview">Requested Interview:</span>
                   <span *ngIf="interview?.interviewDate">
                     <img src="assets/svg/calendar.svg" alt="" class="icon" width="15" height="15" draggable="false">
-                    <strong>{{ interview?.interviewDate | date }}</strong>
+                    <strong>{{ interview?.interviewDate | date: 'YYYY-MM-d' }}</strong>
                   </span>
                 </div>
                 <div class="col-md-3 d-flex menu align-items-center" *ngIf="interview?.interviewTime">
                   <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
-                  <strong>{{ interview?.interviewTime }}</strong>
+                  <strong>{{ interview?.interviewTime | date: 'h:mm a' }}</strong>
                 </div>
               </div>
             </div>
@@ -198,11 +198,11 @@
               <table class="basic-table w-100">
                 <tr *ngIf="interview?.tutor?.specifications?.availabilityStartDate">
                   <td>Starting Date</td>
-                  <td>{{ interview?.tutor?.specifications?.availabilityStartDate }}</td>
+                  <td>{{ interview?.tutor?.specifications?.availabilityStartDate | date: 'YYYY-MM-d' }}</td>
                 </tr>
                 <tr *ngIf="interview?.tutor?.specifications?.availabilityEndDate">
                   <td>Availability Ending Date</td>
-                  <td>{{ interview?.tutor?.specifications?.availabilityEndDate }}</td>
+                  <td>{{ interview?.tutor?.specifications?.availabilityEndDate | date: 'YYYY-MM-d' }}</td>
                 </tr>
               </table>
             </div>

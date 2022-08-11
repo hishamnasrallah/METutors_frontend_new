@@ -34,10 +34,17 @@ export class TutorSubmitInterviewRequestModalComponent implements OnInit {
     if (form.valid) {
       this.submitted.emit({
         ...form.value,
-        interviewDate: this._datePipe.transform(
-          new Date(form?.value.interviewDate),
-          'yyyy-MM-dd'
-        ),
+        interviewTime: new Date(
+          Date.parse(
+            this._datePipe.transform(
+              new Date(form?.value.interviewDate),
+              'yyyy-MM-dd'
+            ) +
+              ' ' +
+              form?.value.interviewTime
+          )
+        )?.toISOString(),
+        interviewDate: new Date(form?.value.interviewDate)?.toISOString(),
       });
     }
   }

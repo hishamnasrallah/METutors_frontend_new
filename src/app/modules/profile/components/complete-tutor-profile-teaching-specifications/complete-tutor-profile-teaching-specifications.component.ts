@@ -161,21 +161,15 @@ export class CompleteTutorProfileTeachingSpecificationsComponent
     const data = {
       step: '4',
       type_of_tutoring: this.typeOfTutoring?.value,
-      availability_start_date: this._datePipe.transform(
-        this.startDate?.value,
-        'yyyy-MM-dd'
-      ),
-      availability_end_date: this._datePipe.transform(
-        this.endDate?.value,
-        'yyyy-MM-dd'
-      ),
+      availability_start_date: new Date(this.startDate?.value).toISOString(),
+      availability_end_date: new Date(this.endDate?.value).toISOString(),
       availability: this.availability?.value
         ?.filter((itm: any) => itm?.day != null)
         ?.map((item: any) => ({
           day: item?.day,
           time_slots: item?.timeSlots?.map((slot: any) => ({
-            start_time: slot?.startTime,
-            end_time: slot?.endTime,
+            start_time: new Date(`1970-01-01 ${slot?.startTime}`).toISOString(),
+            end_time: new Date(`1970-01-01 ${slot?.endTime}`).toISOString(),
           })),
         })),
     };
