@@ -529,6 +529,29 @@ export class UserEffects {
     }
   );
 
+  enterTutorSettings$ = createEffect(
+    () =>
+      this._actions$.pipe(
+        ofType(userActions.enterTutorSettings),
+        withLatestFrom(
+          this._store.select(fromCore.selectProfileStep),
+          this._store.select(fromCore.selectUser)
+        ),
+        map(([_, step, user]) => {
+          if (
+            user &&
+            user?.roleId?.toString() === UserRole.tutor.toString() &&
+            step <= 5
+          ) {
+            this._router.navigate(['/profile', 'complete-profile']);
+          }
+        })
+      ),
+    {
+      dispatch: false,
+    }
+  );
+
   enterRequestTutor$ = createEffect(
     () =>
       this._actions$.pipe(

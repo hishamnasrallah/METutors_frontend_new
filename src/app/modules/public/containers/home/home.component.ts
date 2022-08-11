@@ -10,6 +10,8 @@ import {
   IStatistics,
 } from 'src/app/core/models';
 import * as fromCore from '@metutor/core/state';
+import { ActivatedRoute } from '@angular/router';
+import { ViewportScroller } from '@angular/common';
 import * as fromPublic from '@metutor/modules/public/state';
 import * as fromPublicActions from '@metutor/modules/public/state/actions';
 
@@ -38,7 +40,11 @@ export class HomeComponent implements OnInit {
   testmonials?: any[];
   academicStatistics?: IStatistics[];
 
-  constructor(private _store: Store<any>) {}
+  constructor(
+    private _store: Store<any>,
+    private _route: ActivatedRoute,
+    private _viewportScroller: ViewportScroller
+  ) {}
 
   ngOnInit(): void {
     this._prepareTutors();
@@ -51,6 +57,12 @@ export class HomeComponent implements OnInit {
     this.showViewSubjectDetailsModal$ = this._store.select(
       fromPublic.selectShowViewSubjectDetailsModal
     );
+
+    this._route.fragment.subscribe((f) => {
+      const element = document.querySelector('#' + f);
+
+      if (element) this._viewportScroller.scrollToAnchor(f!);
+    });
 
     this.academicStatistics = [
       {

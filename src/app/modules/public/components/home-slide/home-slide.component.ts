@@ -14,6 +14,6 @@ export class HomeSlideComponent implements OnInit {
   ngOnInit(): void {}
 
   scrollToAnchor(): void {
-    this._viewportScroller.scrollToAnchor('exploreServices');
+    this._viewportScroller.scrollToAnchor('explore-services');
   }
 }

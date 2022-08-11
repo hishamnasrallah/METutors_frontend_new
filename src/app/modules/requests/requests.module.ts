@@ -10,6 +10,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatNativeDateModule } from '@angular/material/core';
 import { SharedModule } from '@metutor/shared/shared.module';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { RequestsRoutingModule } from './requests-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -64,6 +65,7 @@ import {
     MatSelectModule,
     MatDialogModule,
     MatStepperModule,
+    MatCheckboxModule,
     MatFormFieldModule,
     ReactiveFormsModule,
     MatDatepickerModule,
