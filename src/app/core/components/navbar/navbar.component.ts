@@ -60,10 +60,6 @@ export class NavbarComponent implements OnInit {
     this._store.dispatch(fromCore.selectCurrency({ currency: currency.id }));
   }
 
-  scrollToAnchor(): void {
-    this._viewportScroller.scrollToAnchor('exploreServices');
-  }
-
   logout(): void {
     this._store.dispatch(fromCore.logout());
   }

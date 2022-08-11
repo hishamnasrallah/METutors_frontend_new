@@ -37,7 +37,7 @@
         <li class="nav-item" *ngIf="token$ | async">
           <a class="nav-link nav-item-link" routerLinkActive="active"
             [routerLink]="(user$ | async)?.roleId === userRole.tutor ? '/tutor' : (user$ | async)?.roleId === userRole.student ? '/student' : '/admin'">
-            My Classroom
+            My Classrooms
           </a>
         </li>
         <li class="nav-item d-flex align-items-center justify-content-center">
@@ -46,15 +46,15 @@
             <img src="assets/svg/b-chevron.svg" alt="" draggable="false">
           </a>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a class="nav-link nav-item-link" routerLinkActive="active">
             <img src="assets/svg/language.svg" alt="" draggable="false">
             <span class="lang">En</span>
             <img src="assets/svg/b-chevron.svg" alt="" draggable="false">
           </a>
-        </li>
+        </li> -->
         <li class="nav-item btn-nav d-flex align-items-center justify-content-center">
-          <a class="link-btn login px-4 py-1 fw-bold" mat-flat-button color="primary" (click)="scrollToAnchor()">
+          <a class="link-btn login px-4 py-1 fw-bold" mat-flat-button color="primary" routerLink="/" [fragment]="'explore-services'">
             Get Started
           </a>
         </li>
@@ -88,7 +88,7 @@
       </li>
       <li role="menuitem" *ngIf="token$ | async">
         <a class="dropdown-item" routerLinkActive="active"
-          [routerLink]="(user$ | async)?.roleId === userRole.tutor ? '/tutor' : '/student'">My Classroom</a>
+          [routerLink]="(user$ | async)?.roleId === userRole.tutor ? '/tutor' : '/student'">My Classrooms</a>
       </li>
       <li role="menuitem">
         <a class="dropdown-item" [matMenuTriggerFor]="currency">
@@ -96,16 +96,17 @@
           <img src="assets/svg/b-chevron.svg" alt="" draggable="false">
         </a>
       </li>
-      <li role="menuitem">
+      <!-- <li role="menuitem">
         <a class="dropdown-item" routerLinkActive="active">
           <img src="assets/svg/language.svg" alt="" draggable="false">
           <span class="mx-2">En</span>
           <img src="assets/svg/b-chevron.svg" alt="" draggable="false">
         </a>
-      </li>
+      </li> -->
       <li role="menuitem" class="book-class">
-        <a class="dropdown-item link-btn login" mat-flat-button color="primary" (click)="scrollToAnchor()"
-          routerLinkActive="active">Get Started</a>
+        <a class="dropdown-item link-btn login" mat-flat-button color="primary" routerLink="/" [fragment]="'explore-services'">
+          Get Started
+        </a>
       </li>
 
       <li class="divider dropdown-divider"></li>

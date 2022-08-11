@@ -5,13 +5,13 @@
         <h1>About Us</h1>
         <ul class="list-unstyled m-0 d-flex flex-column justify-content-center h-100">
           <li>
-            <a>Our Founders Team</a>
+            <a routerLink="/about">Our Founders Team</a>
           </li>
           <li>
-            <a>Featured Tutors</a>
+            <a routerLink="/" [fragment]="'featured-tutors'">Featured Tutors</a>
           </li>
           <li>
-            <a>Success Stories</a>
+            <a routerLink="/" [fragment]="'success-stories'">Success Stories</a>
           </li>
         </ul>
       </div>
@@ -30,13 +30,13 @@
         <h1>Learn</h1>
         <ul class="list-unstyled m-0 d-flex flex-column justify-content-center h-100">
           <li>
-            <a>Explore Courses</a>
+            <a routerLink="/all-courses/1">Explore Courses</a>
           </li>
           <li>
-            <a>Customized Courses</a>
+            <a [routerLink]="['/requests', 'request-tutor']">Customized Courses</a>
           </li>
           <li>
-            <a>Pricing</a>
+            <a routerLink="/" [fragment]="'explore-services'">Pricing</a>
           </li>
         </ul>
       </div>
@@ -44,10 +44,10 @@
         <h1>Join Platform</h1>
         <ul class="list-unstyled m-0 d-flex flex-column justify-content-center h-100">
           <li>
-            <a>Start Learning</a>
+            <a routerLink="/student-success">Start Learning</a>
           </li>
           <li>
-            <a>Start Teaching</a>
+            <a routerLink="/become-tutor">Start Teaching</a>
           </li>
         </ul>
       </div>
