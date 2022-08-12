@@ -51,7 +51,7 @@
           <input type="text" class="custom-input w-100 input-bordered" id="address" placeholder="Enter Street Address"
             formControlName="address">
           <div class="text-danger" *ngIf="address?.touched && address?.invalid">
-            Please write your Address
+            Please write your Address with a max of 120 characters
           </div>
         </div>
       </div>
@@ -77,6 +77,9 @@
           <label for="address2" class="form-label">Address 2 <span>(Optional)</span></label>
           <input type="text" class="custom-input w-100 input-bordered" id="address2" placeholder="Enter street address"
             formControlName="address2">
+          <div class="text-danger" *ngIf="address2?.touched && address2?.invalid">
+            Please write your Address with a max of 120 characters
+          </div>
         </div>
       </div>
     </div>
@@ -84,7 +87,8 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label for="bio" class="form-label">Add Biography <span>(write about your teaching experience to let students know why you are the best tutor for them)</span></label>
+          <label for="bio" class="form-label">Add Biography <span>(write about your teaching experience to let students
+              know why you are the best tutor for them)</span></label>
           <textarea class="custom-input w-100 input-bordered" [placeholder]="'Add Bio here... '" rows="5"
             formControlName="bio" minlength="100" maxlength="150"></textarea>
           <small class="text-danger">(100 to 150 words)</small>
@@ -100,7 +104,7 @@
           <input type="text" class="custom-input w-100 input-bordered" id="postalCode" placeholder="Postal Code"
             formControlName="postalCode" meTutorsOnlyNumber [onlyNumber]="true">
           <div class="text-danger" *ngIf="postalCode?.touched && postalCode?.invalid">
-            Please write your Postal Code
+            Please write a valid Postal Code
           </div>
         </div>
 

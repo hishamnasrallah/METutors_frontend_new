@@ -142,7 +142,7 @@
             <input type="text" class="custom-input w-100 input-bordered" id="address" placeholder="Enter Street Address"
               formControlName="address">
             <div class="text-danger" *ngIf="address?.touched && address?.invalid">
-              Please write your Address
+              Please write your Address with a max of 120 characters
             </div>
           </div>
         </div>
@@ -168,6 +168,9 @@
             <label for="address2" class="form-label">Address 2 (Optional)</label>
             <input type="text" class="custom-input w-100 input-bordered" id="address2"
               placeholder="Enter street address" formControlName="address2">
+            <div class="text-danger" *ngIf="address2?.touched && address2?.invalid">
+              Please write your Address with a max of 120 characters
+            </div>
           </div>
         </div>
       </div>
@@ -190,7 +193,7 @@
             <input type="text" class="custom-input w-100 input-bordered" id="postalCode" placeholder="Postal Code"
               formControlName="postalCode" meTutorsOnlyNumber [onlyNumber]="true">
             <div class="text-danger" *ngIf="postalCode?.touched && postalCode?.invalid">
-              Please write your Postal Code
+              Please write a valid Postal Code
             </div>
           </div>
 
@@ -428,7 +431,9 @@
               <th class="heading text-end"><label>Study Field: </label> <span>{{ item?.fieldName }}</span></th>
             </tr>
             <tr>
-              <th class="sub-heading" [ngClass]="{'w-80': item?.programId !== nationalId, 'w-60': item?.programId === nationalId}">Subject Name</th>
+              <th class="sub-heading"
+                [ngClass]="{'w-80': item?.programId !== nationalId, 'w-60': item?.programId === nationalId}">Subject
+                Name</th>
               <th class="sub-heading w-20" *ngIf="item?.programId === nationalId">Grade</th>
               <th class="sub-heading">Hourly Rate</th>
             </tr>

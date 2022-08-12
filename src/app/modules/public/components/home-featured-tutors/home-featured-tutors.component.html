@@ -59,7 +59,7 @@
                   <div class="col-6 d-flex" *ngIf="teacher?.country">
                     <img src="assets/svg/map.svg" class="icon" draggable="false" width="16" height="16" alt="">
                     <span>
-                      From {{ teacher?.country }}
+                      From {{ teacher?.country?.name }}
                     </span>
                   </div>
                   <div class="col-6 d-flex" *ngIf="teacher?.studentsTeaching">
