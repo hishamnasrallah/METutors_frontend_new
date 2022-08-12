@@ -26,6 +26,11 @@
     color: #696969;
   }
 
+  img {
+    width: 100%;
+    object-fit: contain;
+  }
+
   .info {
     padding: 80px 15px;
     background-color: rgb(17 26 55 / 90%);
@@ -53,11 +58,7 @@
 
 @media(max-width:767px) {
   .slide {
-    padding-top: 20px;
-
-    img {
-      width: 100%;
-    }
+    padding: 20px 0;
 
     .info {
       padding: 20px 15px;

@@ -1,23 +1,41 @@
-<div class="explore-courses" style="background-image: url('assets/courses/learn-english.png');">
+<div class="explore-courses">
   <div class="container">
-    <div class="row">
-      <div class="col-md-7">
-        <h1 class="f-size-25-md-sm">Explore Courses</h1>
-        <p class="f-size-17-md-sm">
-          Very few destinations in Marrakech are blessed with beautiful natural scenery,
-          a unique culture, and unmatched experiences.
-        </p>
+    <div class="row" [ngSwitch]="loading">
+      <div class="col-md-7" *ngSwitchCase="true">
+        <metutors-grid-placeholder></metutors-grid-placeholder>
       </div>
-      <div class="col-md-9 mt-4">
-        <div class="form-block position-relative rounded">
-          <input type="text" placeholder="Search by course name" class="w-100 rounded" #search
-            (keyup)="filterCourses.emit(search.value)">
-          <button mat-flat-button color="primary">
-            <img src="assets/svg/search.svg" alt="" draggable="false" width="16" height="16" />
-            Find Courses
-          </button>
+
+      <ng-container *ngSwitchCase="false">
+        <div class="col-md-7">
+          <div class="row">
+            <div class="col-md-10">
+              <h1 class="f-size-25-md-sm">Advanced Placement (AP)</h1>
+              <h2 class="f-size-15-md-sm">Explore courses and earn college credits</h2>
+              <p class="f-size-17-md-sm">
+                Studying Advanced Placement allows you to earn college credits and placement whilst at high school.
+                Learn
+                exam technique and a vast range of subjects with the guidance of our tutors. Jump right into a
+                higher-level
+                course!
+              </p>
+            </div>
+            <div class="col-md-12">
+              <div class="form-block position-relative rounded mt-4">
+                <input type="text" placeholder="Search by course name" class="w-100 rounded" #search
+                  (keyup)="filterCourses.emit(search.value)">
+                <button mat-flat-button color="primary">
+                  <img src="assets/svg/search.svg" alt="" draggable="false" width="16" height="16" />
+                  Find Courses
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+        <div class="col-md-5 d-flex justify-content-end">
+          <img src="https://testing.zaptatech.com/public/uploads/program_images/1660296148.png"
+            class="contact-img w-auto d-none d-md-block" alt="" draggable="false">
+        </div>
+      </ng-container>
     </div>
   </div>
 </div>
