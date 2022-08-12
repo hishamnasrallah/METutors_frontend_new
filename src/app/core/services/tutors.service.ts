@@ -417,12 +417,15 @@ export class TutorsService {
 
   loadSubjectFeaturedTutors(id: number): Observable<any> {
     return this.http
-      .get<{ featured_teachers: ITutor[] }>(
+      .get<{ featured_teachers: any[] }>(
         `${this.baseUrl}admin/subject/${id}/featured-teacher`
       )
       .pipe(
         map((response) =>
-          response.featured_teachers.map((tutor) => new ITutor(false, tutor))
+          response.featured_teachers.map((tutor) => ({
+            ...omitBy(new ITutor(false, tutor), isNil),
+            ...omitBy(new ITutor(false, tutor?.teacher), isNil),
+          }))
         )
       );
   }
