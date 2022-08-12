@@ -19,7 +19,10 @@
 
       <div class="col-12">
         <p class="f-size-18-md-sm">
-          Our top-rated tutors have been carefully selected to ensure our students work with educators who are passionate and highly knowledgeable in their subject area. Our tutors follow a step-by-step approach to teach concepts easily and quickly. We use AI based algorithms to perfectly match each tutor with each student’s needs.
+          Our top-rated tutors have been carefully selected to ensure our students work with educators who are
+          passionate and highly knowledgeable in their subject area. Our tutors follow a step-by-step approach to teach
+          concepts easily and quickly. We use AI based algorithms to perfectly match each tutor with each student’s
+          needs.
         </p>
       </div>
 
@@ -49,7 +52,7 @@
                 <h3 *ngIf="teacher?.roleName">{{ teacher?.roleName }}</h3>
                 <div>
                   <rating [ngModel]="teacher?.averageRating" [max]="5" [readonly]="true"></rating>
-                  <span class="count">{{ teacher?.averageRating }}</span>
+                  <span class="count">{{ teacher?.averageRating | number:'.1-1' }}</span>
                   <span class="review" *ngIf="teacher?.totalFeedbacks">({{ teacher?.totalFeedbacks }} reviews)</span>
                 </div>
               </div>
@@ -71,10 +74,12 @@
                 </div>
               </div>
 
-              <div class="col-12" *ngIf="teacher?.bio">
+              <div class="col-12">
                 <p class="bio f-size-18-md-sm">
-                  Bio:
-                  {{ (teacher.bio && teacher.bio.length > 100) ? ((teacher?.bio | slice:0:100) + '...') : teacher?.bio }}
+                  <ng-container *ngIf="teacher?.bio">
+                    Bio:
+                    {{ (teacher.bio && teacher.bio.length > 100) ? ((teacher?.bio | slice:0:100) + '...') : teacher?.bio }}
+                  </ng-container>
                 </p>
               </div>
 

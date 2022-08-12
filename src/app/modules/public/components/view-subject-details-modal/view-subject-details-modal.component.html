@@ -63,7 +63,7 @@
             <h3 *ngIf="teacher?.roleName">{{ teacher?.roleName }}</h3>
             <div>
               <rating [ngModel]="teacher?.averageRating" [max]="5" [readonly]="true"></rating>
-              <span class="count">{{ teacher?.averageRating }}</span>
+              <span class="count">{{ teacher?.averageRating | number:'.1-1' }}</span>
               <span class="review" *ngIf="teacher?.totalFeedbacks">({{ teacher?.totalFeedbacks }} reviews)</span>
             </div>
           </div>

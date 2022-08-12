@@ -72,7 +72,7 @@
                   class="m-0">{{ view.bookingDetail?.course?.teacher?.firstName }} {{ view.bookingDetail?.course?.teacher?.lastName }}</h3>
                 <div>
                   <rating [(ngModel)]="view.bookingDetail.teacherRating" [max]="5" [readonly]="true"></rating>
-                  <span class="ms-1">{{ view.bookingDetail?.teacherRating | number }}</span>
+                  <span class="ms-1">{{ view.bookingDetail?.teacherRating | number:'.1-1' }}</span>
                 </div>
               </div>
             </div>
