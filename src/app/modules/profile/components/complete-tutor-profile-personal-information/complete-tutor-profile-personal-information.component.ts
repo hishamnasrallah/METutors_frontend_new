@@ -39,10 +39,10 @@ export class CompleteTutorProfilePersonalInformationComponent
         [
           Validators.required,
           Validators.minLength(1),
-          Validators.maxLength(40),
+          Validators.maxLength(120),
         ],
       ],
-      address2: [null, [Validators.minLength(1), Validators.maxLength(40)]],
+      address2: [null, [Validators.minLength(1), Validators.maxLength(120)]],
       gender: [null, [Validators.required]],
       country: [null, [Validators.required]],
       city: [null, [Validators.required]],

@@ -53,6 +53,12 @@ export const initialState: State = {
 export const reducer = createReducer(
   initialState,
 
+  on(userActions.identifyUserSuccess, (state, { profileStep, user }) => ({
+    ...state,
+    profileStep,
+    user,
+  })),
+
   on(userActions.register, (state) => ({
     ...state,
     isSignUp: true,
@@ -148,12 +154,6 @@ export const reducer = createReducer(
     ...state,
     user,
     token,
-  })),
-
-  on(userActions.identifyUserSuccess, (state, { profileStep, user }) => ({
-    ...state,
-    profileStep,
-    user,
   })),
 
   on(userActions.changePassword, (state) => ({

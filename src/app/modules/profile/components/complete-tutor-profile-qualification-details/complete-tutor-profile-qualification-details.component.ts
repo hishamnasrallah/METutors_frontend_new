@@ -13,7 +13,6 @@ import {
   DEGREE_FIELDS,
   COMPUTER_SKILLS,
   TEACHING_EXPERIENCE,
-  LANGUAGES_LEVELS_CONST,
 } from 'src/app/config';
 
 @Component({

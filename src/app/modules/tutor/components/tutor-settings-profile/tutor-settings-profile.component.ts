@@ -163,16 +163,33 @@ export class TutorSettingsProfileComponent implements OnInit {
     private _alertNotificationService: AlertNotificationService
   ) {
     this.personalInfoForm = this._fb.group({
-      middleName: [null],
+      middleName: [null, [Validators.minLength(3), Validators.maxLength(15)]],
       nationality: [null, [Validators.required]],
       dateOfBirth: [null, [Validators.required]],
-      address: [null, [Validators.required]],
-      address2: [null],
+      address: [
+        null,
+        [
+          Validators.required,
+          Validators.minLength(1),
+          Validators.maxLength(120),
+        ],
+      ],
+      address2: [null, [Validators.minLength(1), Validators.maxLength(120)]],
       gender: [null, [Validators.required]],
       country: [null, [Validators.required]],
       city: [null, [Validators.required]],
-      bio: [null, [Validators.required]],
-      postalCode: [null, [Validators.required]],
+      bio: [
+        null,
+        [
+          Validators.required,
+          Validators.minLength(100),
+          Validators.maxLength(150),
+        ],
+      ],
+      postalCode: [
+        null,
+        [Validators.required, Validators.minLength(3), Validators.maxLength(5)],
+      ],
     });
 
     this.qualificationForm = this._fb.group({
@@ -355,8 +372,8 @@ export class TutorSettingsProfileComponent implements OnInit {
         return;
       }
 
-      if (file.size > 1024 * 1024) {
-        this._alertNotificationService.error('Allowed file size is 1MB');
+      if (file.size > 2 * 1024 * 1024) {
+        this._alertNotificationService.error('Allowed file size is 2MB');
 
         return;
       }
@@ -376,8 +393,8 @@ export class TutorSettingsProfileComponent implements OnInit {
         return;
       }
 
-      if (file.size > 1 * 1024 * 1024) {
-        this._alertNotificationService.error('Allowed file size is 1MB');
+      if (file.size > 2 * 1024 * 1024) {
+        this._alertNotificationService.error('Allowed file size is 2MB');
 
         return;
       }
