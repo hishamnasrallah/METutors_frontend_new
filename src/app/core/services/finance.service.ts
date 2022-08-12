@@ -21,6 +21,17 @@ export class FinanceService {
     );
   }
 
+  loadAdminCourses(params: any): Observable<any> {
+    return this.http
+      .get<any>(`${this.baseUrl}admin/all-courses`, { params })
+      .pipe(
+        map((result) => ({
+          courses: result?.courses?.data,
+          total: result?.courses?.total,
+        }))
+      );
+  }
+
   loadRefundOrders(params: any): Observable<any> {
     return this.http
       .get<any>(`${this.baseUrl}admin/courses/refund`, { params })

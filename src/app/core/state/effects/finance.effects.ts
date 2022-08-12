@@ -34,6 +34,28 @@ export class FinanceEffects {
     )
   );
 
+  loadAdminCourses$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(financeActions.loadAdminCourses),
+      mergeMap(({ params }) =>
+        this._financeService.loadAdminCourses(params).pipe(
+          map((result) =>
+            financeActions.loadAdminCoursesSuccess({
+              courses: camelcaseKeys(result, { deep: true }),
+            })
+          ),
+          catchError((error) =>
+            of(
+              financeActions.loadAdminCoursesFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   loadRefundOrders$ = createEffect(() =>
     this._actions$.pipe(
       ofType(financeActions.loadRefundOrders),
