@@ -139,7 +139,7 @@ export const selectFinanceState = createSelector(
 
 export const selectMoneyState = createSelector(
   selectCoreState,
-  state => state[featureKeys.moneyFeatureKey]
+  (state) => state[featureKeys.moneyFeatureKey]
 );
 
 // User
@@ -1466,6 +1466,11 @@ export const selectAdminPagination = createSelector(
 export const selectFinanceOrders = createSelector(
   selectFinanceState,
   fromFinanceReducer.selectFinanceOrders
+);
+
+export const selectFinanceCourses = createSelector(
+  selectFinanceState,
+  fromFinanceReducer.selectFinanceCourses
 );
 
 export const selectIsLoadingFinance = createSelector(

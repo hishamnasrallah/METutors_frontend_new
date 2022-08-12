@@ -30,6 +30,7 @@ import {
   AdminTutorInterviewDetailsComponent,
   AdminTutorInterviewDocumentsComponent,
   AdminManagementTutorReAssignmentComponent,
+  AdminFinanceCoursesComponent,
 } from './containers';
 
 const routes: Routes = [
@@ -287,6 +288,18 @@ const routes: Routes = [
       {
         path: 'finance',
         children: [
+          {
+            path: 'courses',
+            component: AdminFinanceCoursesComponent,
+            data: {
+              layout: {
+                title: 'All Courses - Metutors',
+                navbarTitle: 'Finance',
+                showHeader: false,
+                showFooter: false,
+              },
+            },
+          },
           {
             path: 'orders',
             component: AdminFinanceOrdersComponent,
