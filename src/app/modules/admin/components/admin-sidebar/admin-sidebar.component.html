@@ -206,7 +206,12 @@
       </a>
       <ul class="list-unstyled" [@slideInOut] *ngIf="openFinance">
         <li class="d-flex align-items-center">
-          <a routerLink="/admin/finance/orders" routerLinkActive="active" (click)="openSidebar = false">
+          <a routerLink="/admin/finance/courses" routerLinkActive="active" (click)="openSidebar = false">
+            <span class="text-uppercase hide-sidemenu f-size-15-md-sm">All Courses</span>
+          </a>
+        </li>
+        <li class="d-flex align-items-center">
+          <a routerLink="#" routerLinkActive="active" (click)="openSidebar = false">
             <span class="text-uppercase hide-sidemenu f-size-15-md-sm">Dispute Requests</span>
           </a>
         </li>

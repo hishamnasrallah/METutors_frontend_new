@@ -4,6 +4,7 @@ import * as financeActions from '../actions/finance.actions';
 
 export interface State {
   orders: any;
+  courses: any;
   paymentInfo: any;
   refundDetail: any;
   isLoading: boolean;
@@ -15,6 +16,7 @@ export interface State {
 
 export const initialState: State = {
   orders: null,
+  courses: null,
   isLoading: false,
   paymentInfo: null,
   refundDetail: null,
@@ -28,11 +30,24 @@ export const reducer = createReducer(
   initialState,
   on(
     financeActions.loadOrders,
+    financeActions.loadAdminCourses,
     financeActions.loadRefundOrders,
     financeActions.verifyCoursePayment,
     (state) => ({
       ...state,
       isLoading: true,
+    })
+  ),
+
+  on(
+    financeActions.loadOrdersFailure,
+    financeActions.loadAdminCoursesFailure,
+    financeActions.loadRefundOrdersFailure,
+    financeActions.verifyCoursePaymentFailure,
+    (state, { error }) => ({
+      ...state,
+      isLoading: false,
+      coursePaymentStatus: { status: false, error },
     })
   ),
 
@@ -46,16 +61,11 @@ export const reducer = createReducer(
     })
   ),
 
-  on(
-    financeActions.loadOrdersFailure,
-    financeActions.loadRefundOrdersFailure,
-    financeActions.verifyCoursePaymentFailure,
-    (state, { error }) => ({
-      ...state,
-      isLoading: false,
-      coursePaymentStatus: { status: false, error },
-    })
-  ),
+  on(financeActions.loadAdminCoursesSuccess, (state, { courses }) => ({
+    ...state,
+    courses,
+    isLoading: false,
+  })),
 
   on(financeActions.verifyCoursePaymentSuccess, (state, { paymentInfo }) => ({
     ...state,
@@ -112,6 +122,7 @@ export const reducer = createReducer(
 );
 
 export const selectFinanceOrders = (state: State): any => state.orders;
+export const selectFinanceCourses = (state: State): any => state.courses;
 
 export const selectFinanceRefundDetail = (state: State): any =>
   state.refundDetail;

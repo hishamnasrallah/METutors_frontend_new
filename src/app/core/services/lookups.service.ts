@@ -1,20 +1,20 @@
 import {
+  HttpParams,
   HttpClient,
   HttpErrorResponse,
-  HttpParams,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { FieldStatus, ProgramStatus } from '@metutor/config';
-import { Observable, throwError, map } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { ProgramStatus } from '@metutor/config';
+import { Observable, throwError, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import {
-  ICountry,
-  ISubject,
+  ICity,
   IField,
   ILevel,
+  ICountry,
+  ISubject,
   ILanguage,
-  ICity,
   ITicketCategory,
   ITicketPriority,
 } from '../models';
@@ -96,6 +96,7 @@ export class LookupsService {
             name: item.name,
             status: item.status,
             updatedAt: item.updated_at,
+            image: environment.programImage + item.image,
             description: item.description,
           }));
         })

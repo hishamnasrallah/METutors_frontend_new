@@ -12,6 +12,7 @@
     <div class="row">
       <div class="col-md-3" *ngFor="let country of tempCountries">
         <h3 class="cursor-pointer" (click)="onSelectCountry(country.id)">
+          <span [innerHTML]="country?.flag" class="me-2"></span>
           {{ country?.name }}
         </h3>
       </div>

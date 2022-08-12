@@ -1,6 +1,6 @@
 <div class="innovative-approach">
   <div class="container">
-    <div class="row">
+    <div class="row flex-column-reverse-sm">
       <div class="col-md-7">
         <h1 class="f-size-25-md-sm">Virtual Learning is Changing Education</h1>
         <p class="f-size-15-md-sm">
@@ -15,7 +15,9 @@
         <p class="mt-5 f-size-15-md-sm">
           Whatever you choose to study, you can be confident that you will find the perfect tutor with MEtutors.
         </p>
-        <button mat-flat-button color="primary" class="px-5 mt-4">Check our courses</button>
+        <button mat-flat-button color="primary" class="px-5 mt-4" routerLink="/" [fragment]="'improve-grades'">
+          Check our courses
+        </button>
       </div>
       <div class="col-md-5">
         <img src="assets/about/meeting-r.png" class="w-100" draggable="false" alt="">

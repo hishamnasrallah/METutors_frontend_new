@@ -15,6 +15,11 @@
     margin: 20px 0;
   }
 
+  img {
+    object-fit: contain;
+    height: 600px;
+  }
+
   button {
     font-weight: bold;
     padding: 10px 20px;
@@ -27,6 +32,9 @@
 
 @media (max-width:767px) {
   .innovative-approach {
+    margin-top: 0;
+    padding-top: 0;
+
     button {
       font-size: 16px;
     }
