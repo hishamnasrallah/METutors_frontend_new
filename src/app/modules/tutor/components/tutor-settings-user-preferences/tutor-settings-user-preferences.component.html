@@ -6,7 +6,7 @@
         <div class="col-md-6">
           <h3>Select Gender to Teach</h3>
           <mat-form-field appearance="outline" class="w-100">
-            <mat-select [placeholder]="'Choose gender'" formControlName="gender">
+            <mat-select [placeholder]="'Choose gender'" formControlName="preferred_gender">
               <mat-option [value]="'male'">
                 Male
               </mat-option>
@@ -23,9 +23,35 @@
           <h3 class="mb-2">Spoken Languages <span>(For teaching)</span></h3>
           <a class="float-end cursor-pointer" (click)="addLanguage()" [ngClass]="{'text-secondary cursor-not-allowed': languages.status === invalid}">Add New</a>
 
-          <metutors-spoken-languages [form]="form" [languagesList]="languagesList"
-                                     (removeLanguage)="removeLanguage($event)">
-          </metutors-spoken-languages>
+          <mat-chip-list>
+            <ng-container *ngFor="let lang of form.value.spoken_languages; let i = index">
+              <mat-chip *ngIf="lang.language && lang.efficiency">
+                <div class="lang-info d-flex align-items-center justify-content-center">
+                  {{ lang.language?.name }} - <span>{{ lang.efficiency }}</span>
+                  <mat-icon (click)="removeLanguage(i)">cancel</mat-icon>
+                </div>
+              </mat-chip>
+            </ng-container>
+          </mat-chip-list>
+          <ng-container formArrayName="spoken_languages">
+            <ng-container *ngFor="let _ of languages.controls; let i = index" [formGroupName]="i">
+              <ng-container *ngIf="!form.value.spoken_languages[i].language || !form.value.spoken_languages[i].efficiency">
+                <mat-form-field appearance="outline" class="w-100 mt-3">
+                  <mat-select formControlName="language" [placeholder]="'Select language'">
+                    <mat-option [value]="lang" *ngFor="let lang of filteredLanguages">{{ lang?.name }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-select formControlName="efficiency" [placeholder]="'Select level'">
+                    <mat-option [value]="level?.value" *ngFor="let level of levels | keyvalue">
+                      {{ level?.value }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </ng-container>
+            </ng-container>
+          </ng-container>
         </div>
 
       </div>

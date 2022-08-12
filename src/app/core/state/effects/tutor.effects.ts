@@ -15,7 +15,6 @@ import { AlertNotificationService } from '@metutor/core/components';
 import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
 
 import {
-  selectTutors,
   selectProfileTutor,
   selectTutorDashboard,
   selectFeaturedTutors,
@@ -72,6 +71,28 @@ export class TutorEffects {
           catchError((error) =>
             of(
               tutorActions.updateTutorProfileFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  updateTutorPreferences$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorActions.updateTutorPreferences),
+      mergeMap(({ data }) =>
+        this._tutorService.updateTeacherPreferences(data).pipe(
+          map((response) =>
+            tutorActions.updateTutorPreferencesSuccess({
+              message: response?.message,
+            })
+          ),
+          catchError((error) =>
+            of(
+              tutorActions.updateTutorPreferencesFailure({
                 error: error?.error?.message || error?.error?.errors,
               })
             )
@@ -629,6 +650,7 @@ export class TutorEffects {
             tutorActions.updateTutorProfileSuccess,
             tutorActions.tutorSubmitFeedbackSuccess,
             tutorActions.tutorRescheduleClassSuccess,
+            tutorActions.updateTutorPreferencesSuccess,
             tutorActions.tutorSubmitPlatformFeedbackSuccess,
           ]
         ),
@@ -652,6 +674,7 @@ export class TutorEffects {
             tutorActions.completeTutorProfileFailure,
             tutorActions.completeTutorProfileFailure,
             tutorActions.tutorRescheduleClassFailure,
+            tutorActions.updateTutorPreferencesFailure,
             tutorActions.tutorSubmitPlatformFeedbackFailure,
           ]
         ),
