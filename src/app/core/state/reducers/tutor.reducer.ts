@@ -343,14 +343,18 @@ export const reducer = createReducer(
     })
   ),
 
-  on(
-    tutorActions.updateTutorProfileSuccess,
-    tutorActions.updateTutorPreferencesSuccess,
-    (state) => ({
-      ...state,
-      isUpdateTutorProfile: false,
-    })
-  ),
+  on(tutorActions.updateTutorProfileSuccess, (state) => ({
+    ...state,
+    isUpdateTutorProfile: false,
+  })),
+
+  on(tutorActions.updateTutorPreferencesSuccess, (state, { preferences }) => ({
+    ...state,
+    isUpdateTutorProfile: false,
+    profileTutor: state.profileTutor
+      ? { ...state.profileTutor, preferences }
+      : null,
+  })),
 
   on(
     tutorActions.updateTutorProfileFailure,

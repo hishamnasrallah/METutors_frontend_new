@@ -40,6 +40,7 @@ import { LANGUAGES_LEVELS_CONST } from '@config';
   ],
 })
 export class TutorSettingsUserPreferencesComponent implements OnInit {
+  @Input() preferences: any;
   @Input() isSubmitting: boolean;
   @Input() languagesList: ILanguage[] | null;
 
@@ -51,22 +52,22 @@ export class TutorSettingsUserPreferencesComponent implements OnInit {
 
   constructor(private _fb: FormBuilder) {}
 
+  get gender(): FormArray {
+    return this.form?.get('preferred_gender') as FormArray;
+  }
+
   get languages(): FormArray {
     return this.form?.get('spoken_languages') as FormArray;
   }
 
   removeLanguage(i: number): void {
     (this.form?.get('spoken_languages') as FormArray).removeAt(i);
-
-    if (this.form.value.languages.length === 0) {
-      this.addLanguage();
-    }
   }
 
-  newLanguage(): FormGroup {
+  newLanguage(language?: any): FormGroup {
     return this._fb.group({
-      language: [null, Validators.required],
-      efficiency: [null, Validators.required],
+      language: [language?.language, Validators.required],
+      efficiency: [language?.efficiency, Validators.required],
     });
   }
 
@@ -104,5 +105,19 @@ export class TutorSettingsUserPreferencesComponent implements OnInit {
       preferred_gender: [null, Validators.required],
       spoken_languages: this._fb.array([]),
     });
+
+    console.log(this.preferences);
+    this.gender.setValue(this.preferences?.preferred_gender);
+
+    const languages = this.preferences?.spoken_language?.map((lang: any) => ({
+      efficiency: lang.efficiency,
+      language: { id: lang.id, name: lang.name },
+    }));
+
+    if (languages?.length) {
+      languages.forEach((language: any) => {
+        this.languages.push(this.newLanguage(language));
+      });
+    }
   }
 }

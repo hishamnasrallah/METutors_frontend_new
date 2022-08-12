@@ -57,7 +57,7 @@
       </div>
       <div class="row btn-list mt-5 pt-3">
         <div class="col-12 d-flex justify-content-end">
-          <metutors-submit-button [form]="form" [isSubmitting]="isSubmitting">
+          <metutors-submit-button [form]="form" [isSubmitting]="isSubmitting" [isDisabled]="!languages?.value?.length">
             Update
           </metutors-submit-button>
         </div>

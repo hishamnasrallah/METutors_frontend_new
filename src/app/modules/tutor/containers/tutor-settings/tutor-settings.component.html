@@ -49,6 +49,7 @@
       <metutors-tutor-settings-user-preferences *ngIf="tab === 'USER_PREFERENCES'"
                                                 [isSubmitting]="(isUpdateTutorProfile$ | async)!"
                                                 [languagesList]="(languages$ | async)!"
+                                                [preferences]="(tutor$ | async)?.preferences!"
                                                 (submitForm)="onUpdatePreferences($event)">
       </metutors-tutor-settings-user-preferences>
 

@@ -41,7 +41,7 @@ export const updateTutorPreferences = createAction(
 
 export const updateTutorPreferencesSuccess = createAction(
   '[Tutor] Update Tutor Preferences Success',
-  props<{ message: string }>()
+  props<{ message: string; preferences: any }>()
 );
 
 export const updateTutorPreferencesFailure = createAction(

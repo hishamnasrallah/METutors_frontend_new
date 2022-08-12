@@ -85,9 +85,10 @@ export class TutorEffects {
       ofType(tutorActions.updateTutorPreferences),
       mergeMap(({ data }) =>
         this._tutorService.updateTeacherPreferences(data).pipe(
-          map((response) =>
+          map(({ message, preferences }) =>
             tutorActions.updateTutorPreferencesSuccess({
-              message: response?.message,
+              message,
+              preferences,
             })
           ),
           catchError((error) =>
