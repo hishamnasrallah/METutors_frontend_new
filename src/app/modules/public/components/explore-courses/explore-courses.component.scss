@@ -1,19 +1,30 @@
 .explore-courses {
   background-color: var(--main-color);
-  padding: 100px 0;
+  padding: 40px 0;
   color: #FFF;
-  background-position: right;
-  background-repeat: no-repeat;
-  background-size: contain;
 
   h1 {
     font-size: 40px;
     line-height: normal;
     color: #FFF;
+    font-weight: bold;
+  }
+
+  h2 {
+    color: #FFFFFF;
+    font-size: 20px;
+    opacity: 0.9;
+    margin-bottom: 20px;
   }
 
   p {
     font-size: 20px;
+    opacity: 0.84;
+  }
+
+  .contact-img {
+    height: 300px;
+    object-fit: contain;
   }
 
   .form-block {

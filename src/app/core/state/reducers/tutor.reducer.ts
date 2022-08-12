@@ -334,21 +334,37 @@ export const reducer = createReducer(
     completeTutorProfileFailure: error,
   })),
 
-  on(tutorActions.updateTutorProfile, (state) => ({
-    ...state,
-    isUpdateTutorProfile: true,
-  })),
+  on(
+    tutorActions.updateTutorProfile,
+    tutorActions.updateTutorPreferences,
+    (state) => ({
+      ...state,
+      isUpdateTutorProfile: true,
+    })
+  ),
 
   on(tutorActions.updateTutorProfileSuccess, (state) => ({
     ...state,
     isUpdateTutorProfile: false,
   })),
 
-  on(tutorActions.updateTutorProfileFailure, (state, { error }) => ({
+  on(tutorActions.updateTutorPreferencesSuccess, (state, { preferences }) => ({
     ...state,
     isUpdateTutorProfile: false,
-    updateTutorProfileFailure: error,
+    profileTutor: state.profileTutor
+      ? { ...state.profileTutor, preferences }
+      : null,
   })),
+
+  on(
+    tutorActions.updateTutorProfileFailure,
+    tutorActions.updateTutorPreferencesFailure,
+    (state, { error }) => ({
+      ...state,
+      isUpdateTutorProfile: false,
+      updateTutorProfileFailure: error,
+    })
+  ),
 
   on(uploadActions.changeAvatarSuccess, (state, { avatar }) => ({
     ...state,

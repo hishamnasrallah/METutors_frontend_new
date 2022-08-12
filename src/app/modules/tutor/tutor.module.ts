@@ -8,6 +8,7 @@ import { NgxAutoScrollModule } from 'ngx-auto-scroll';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatChipsModule } from '@angular/material/chips';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatInputModule } from '@angular/material/input';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -127,6 +128,7 @@ import {
     CarouselModule,
     MatRadioModule,
     MatInputModule,
+    MatChipsModule,
     MatDialogModule,
     MatSliderModule,
     MatSelectModule,

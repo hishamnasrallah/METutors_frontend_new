@@ -61,6 +61,7 @@ export class ITutor {
   amount?: number;
   programs?: IProgram[];
   classes: any;
+  preferences: any;
 
   constructor(createDefault = false, tutor: any = null) {
     if (createDefault) {
@@ -112,6 +113,7 @@ export class ITutor {
       this.amount = 0;
       this.programs = [];
       this.classes = {};
+      this.preferences = {};
     }
 
     if (tutor) {
@@ -139,6 +141,7 @@ export class ITutor {
       this.status = tutor?.status || '';
       this.verified = tutor?.verified || 0;
       this.postalCode = tutor?.postal_code || '';
+      this.preferences = tutor?.preferences || {};
       this.languages =
         tutor?.spoken_languages && tutor?.spoken_languages?.length
           ? tutor?.spoken_languages.map(

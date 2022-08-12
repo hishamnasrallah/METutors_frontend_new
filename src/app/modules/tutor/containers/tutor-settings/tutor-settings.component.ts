@@ -126,8 +126,8 @@ export class TutorSettingsComponent implements OnInit {
     this._store.dispatch(fromCore.joinInterview({ interviewId }));
   }
 
-  onUpdatePreferences(preference: any): void {
-    console.log(preference);
+  onUpdatePreferences(data: any): void {
+    this._store.dispatch(fromCore.updateTutorPreferences({ data }));
   }
 
   logout(): void {

@@ -23,6 +23,10 @@ export class TutorsService {
     return this.http.post<any>(`${this.baseUrl}teacher/profile`, data);
   }
 
+  updateTeacherPreferences(data: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}teacher/preferences`, data);
+  }
+
   changeCover(file: File): Observable<any> {
     const formData = new FormData();
     formData.append('cover_img', file);

@@ -34,6 +34,21 @@ export const updateTutorProfileFailure = createAction(
   props<{ error: any }>()
 );
 
+export const updateTutorPreferences = createAction(
+  '[Tutor] Update Tutor Preferences',
+  props<{ data: any }>()
+);
+
+export const updateTutorPreferencesSuccess = createAction(
+  '[Tutor] Update Tutor Preferences Success',
+  props<{ message: string; preferences: any }>()
+);
+
+export const updateTutorPreferencesFailure = createAction(
+  '[Tutor] Update Tutor Preferences Failure',
+  props<{ error: any }>()
+);
+
 // Change tutor cover
 export const changeTutorCover = createAction(
   '[Tutor] Change Tutor Cover',
