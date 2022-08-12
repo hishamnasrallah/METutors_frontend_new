@@ -1,5 +1,7 @@
 <ng-container *ngLet="(exploredCourses$ | async) as exploredCourses">
-  <metutors-explore-courses (filterCourses)="name = $event; filterCourses()"></metutors-explore-courses>
+  <metutors-explore-courses [loading]="(isLoading$ | async)!"
+                            (filterCourses)="name = $event; filterCourses()">
+  </metutors-explore-courses>
 
   <ng-container [ngSwitch]="isLoading$ | async">
     <div class="container mt-5" *ngSwitchCase="true">
