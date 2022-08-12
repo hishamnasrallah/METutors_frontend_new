@@ -106,16 +106,10 @@ export class TutorSettingsUserPreferencesComponent implements OnInit {
       spoken_languages: this._fb.array([]),
     });
 
-    console.log(this.preferences);
     this.gender.setValue(this.preferences?.preferred_gender);
 
-    const languages = this.preferences?.spoken_language?.map((lang: any) => ({
-      efficiency: lang.efficiency,
-      language: { id: lang.id, name: lang.name },
-    }));
-
-    if (languages?.length) {
-      languages.forEach((language: any) => {
+    if (this.preferences?.spoken_languages?.length) {
+      this.preferences.spoken_languages.forEach((language: any) => {
         this.languages.push(this.newLanguage(language));
       });
     }
