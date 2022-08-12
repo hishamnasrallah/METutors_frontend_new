@@ -1,4 +1,5 @@
 import { Store } from '@ngrx/store';
+import { upperFirst } from 'lodash';
 import { Router } from '@angular/router';
 import { IRole } from 'src/app/core/models';
 import { Observable, Subscription } from 'rxjs';
@@ -182,8 +183,8 @@ export class SignupComponent implements OnInit, OnDestroy {
     };
 
     const user: any = {
-      first_name: this.firstName?.value,
-      last_name: this.lastName?.value,
+      first_name: upperFirst(this.firstName?.value),
+      last_name: upperFirst(this.lastName?.value),
       mobile: phoneNumber.mobile.replace(' ', ''),
       email: this.email?.value,
       password: this.password?.value,
