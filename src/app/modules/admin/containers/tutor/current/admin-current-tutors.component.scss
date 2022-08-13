@@ -133,7 +133,7 @@
             background-color: #FF8300;
           }
 
-          &.rejected {
+          &.rejected, &.suspend {
             background-color: #FF385C;
           }
         }

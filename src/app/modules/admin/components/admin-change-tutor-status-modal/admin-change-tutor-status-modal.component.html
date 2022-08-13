@@ -9,22 +9,12 @@
         alt="">
       <h2 class="text-center">Do you want to change the status?</h2>
       <div class="text-center my-4">
-        <span class="status text-capitalize" [ngClass]="{
-          'active': tutorStatus.active === changeStatus?.oldStatus,
-          'deactive': tutorStatus.deactive === changeStatus?.oldStatus,
-          'rejected': tutorStatus.rejected === changeStatus?.oldStatus,
-          'pending': tutorStatus.pending === changeStatus?.oldStatus
-        }">{{ changeStatus?.oldStatus }}</span>
+        <span class="status text-capitalize" [ngClass]="changeStatus?.oldStatus">{{ changeStatus?.oldStatus }}</span>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100" height="20">
           <path fill="#949494"
             d="M502.6 278.6l-128 128c-12.51 12.51-32.76 12.49-45.25 0c-12.5-12.5-12.5-32.75 0-45.25L402.8 288H32C14.31 288 0 273.7 0 255.1S14.31 224 32 224h370.8l-73.38-73.38c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l128 128C515.1 245.9 515.1 266.1 502.6 278.6z" />
         </svg>
-        <span class="status text-capitalize" [ngClass]="{
-          'active': tutorStatus.active === changeStatus?.newStatus,
-          'deactive': tutorStatus.deactive === changeStatus?.newStatus,
-          'rejected': tutorStatus.rejected === changeStatus?.newStatus,
-          'pending': tutorStatus.pending === changeStatus?.newStatus
-        }">{{ changeStatus?.newStatus }}</span>
+        <span class="status text-capitalize" [ngClass]="changeStatus?.newStatus">{{ changeStatus?.newStatus }}</span>
       </div>
 
       <div class="form-group">

@@ -124,6 +124,8 @@ export class AdminCurrentTutorsComponent implements OnInit {
   }
 
   onChangeTutorStatus({ tutorId, status, reason }: any): void {
+    status = status === 'suspend' ? 'suspended' : status;
+
     this._store.dispatch(
       fromCore.changeTutorStatus({ tutorId, status, reason })
     );

@@ -26,7 +26,7 @@
       background-color: #EBD016;
     }
 
-    &.inactive {
+    &.inactive, &.suspend {
       background-color: #FF385C;
     }
 
