@@ -181,10 +181,13 @@
                           {{ tutor?.status }}
                         </button>
                         <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
-                          <li role="menuitem" class="cursor-pointer text-capitalize"
-                            *ngFor="let status of tutorStatuses" [ngClass]="status" (click)="onOpenChangeStatusModal({oldStatus: tutor?.status, newStatus: status}, tutor)">
-                            {{ status }}
-                          </li>
+                          <ng-container *ngFor="let status of tutorStatuses">
+                            <li role="menuitem" class="cursor-pointer text-capitalize" *ngIf="status !== tutor?.status"
+                                [ngClass]="status"
+                                (click)="onOpenChangeStatusModal({oldStatus: tutor?.status, newStatus: status}, tutor)">
+                              {{ status }}
+                            </li>
+                          </ng-container>
                         </ul>
                       </div>
                     </td>

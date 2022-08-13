@@ -26,12 +26,18 @@
       background-color: #EBD016;
     }
 
-    &.deactive {
+    &.inactive {
       background-color: #FF385C;
     }
 
-    &.rejected {
+    &.rejected, &.deactive {
       background-color: #FF8300;
+    }
+  }
+
+  .actions {
+    .cancel {
+      margin-right: 40px;
     }
   }
 }

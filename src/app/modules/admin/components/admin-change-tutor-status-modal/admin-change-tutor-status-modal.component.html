@@ -33,13 +33,11 @@
           placeholder="Enter the reason here..."></textarea>
       </div>
 
-      <div class="d-flex">
-        <button mat-button class="main-button-transparent flex-grow-1 me-1" (click)="closeModal.emit()">Cancel</button>
-        <div class="flex-grow-1 ms-1">
-          <metutors-submit-button [form]="form" [extraClasses]="'w-100 py-1 px-5'" [isSubmitting]="isSubmitting">
-            Yes
-          </metutors-submit-button>
-        </div>
+      <div class="actions d-flex justify-content-between">
+        <button mat-button class="main-button-transparent w-50 cancel" (click)="closeModal.emit()">Cancel</button>
+        <metutors-submit-button [form]="form" [extraClasses]="'w-100 py-1 px-5'" [isSubmitting]="isSubmitting" class="w-50">
+          Yes
+        </metutors-submit-button>
       </div>
     </form>
   </ng-template>
