@@ -109,6 +109,7 @@ export class SignupComponent implements OnInit, OnDestroy {
           ],
         ],
         confirmPassword: [null, Validators.required],
+        conditions: [false, Validators.requiredTrue],
       },
       {
         validators: this._fv.passwordsMatchValidator(

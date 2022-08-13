@@ -74,19 +74,19 @@ export class HomeComponent implements OnInit {
       {
         id: 1,
         icon: 'assets/svg/create-new.svg',
-        value: '30k',
+        value: '30K',
         type: 'Student Enrolled',
       },
       {
         id: 1,
         icon: 'assets/svg/pen.svg',
-        value: '40k',
+        value: '10K',
         type: 'Classrooms Attended',
       },
       {
         id: 1,
         icon: 'assets/svg/headset.svg',
-        value: '300',
+        value: '300+',
         type: 'Teacher Profiles',
       },
     ];

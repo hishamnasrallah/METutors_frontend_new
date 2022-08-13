@@ -18,16 +18,14 @@
 
     .count {
       color: var(--main-color);
-      font-weight: bold;
-      font-size: 30px;
-      background: rgb(59 179 193 / 8%);
+      font-size: 25px;
+      background: rgba(59, 179, 193, 0.08);
       width: 50px;
       height: 50px;
       margin: 0 auto 40px;
 
       span {
-        left: -15px;
-        bottom: -10px;
+        top: 9px;
       }
     }
 
