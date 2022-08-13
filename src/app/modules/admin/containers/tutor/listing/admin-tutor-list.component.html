@@ -168,14 +168,13 @@
           </tr>
           <tr *ngFor="let tutor of view.tutors; let i = index">
             <td>{{ i + 1 }}</td>
-            <td>{{ tutor?.idNumber }}</td>
+            <td><a [routerLink]="['/admin', 'tutor', 'profile', tutor?.id]">{{ tutor?.idNumber }}</a></td>
             <td>
-              <div class="d-flex align-items-center">
-                <img [src]="tutor?.avatar" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
-                  meTutorsDefaultAvatar alt="">
-                <span>
-                  <bdi>{{ tutor?.name }}</bdi>
-                </span>
+              <div>
+                <metutors-user-avatar [avatar]="tutor?.avatar" [type]="'small'"
+                                      [name]="tutor?.name" [routerLink]="['/admin', 'tutor', 'profile', tutor?.id]"
+                                      class="d-inline-block ps-0">
+                </metutors-user-avatar>
               </div>
             </td>
             <td class="text-capitalize">{{ tutor?.gender }}</td>
@@ -195,10 +194,12 @@
                  {{ tutor?.status }}
                 </button>
                 <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
-                  <li role="menuitem" class="cursor-pointer text-capitalize" *ngFor="let status of tutorStatuses"
-                    [ngClass]="tutor?.status" (click)="onOpenChangeStatusModal({oldStatus: tutor?.status, newStatus: status}, tutor)">
+                  <ng-container *ngFor="let status of tutorStatuses">
+                  <li role="menuitem" class="cursor-pointer text-capitalize"
+                    [ngClass]="status" *ngIf="status !== tutor?.status || (status === 'suspended' && tutor?.status === 'active')" (click)="onOpenChangeStatusModal({oldStatus: tutor?.status, newStatus: status}, tutor)">
                     {{ status }}
                   </li>
+                  </ng-container>
                 </ul>
               </div>
             </td>

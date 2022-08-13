@@ -81,11 +81,11 @@
           background-color: #EBD016;
         }
 
-        &.deactive, &.inactive {
+        &.deactive, &.rejected  {
           background-color: #FF385C;
         }
 
-        &.rejected {
+        &.inactive {
           background-color: #FF8300;
         }
       }
@@ -100,11 +100,11 @@
           margin: 5px;
           border-radius: 5px;
 
-          &.deactive {
+          &.deactive, &.suspended {
             background-color: #FF385C;
           }
 
-          &.rejected {
+          &.rejected, &.inactive {
             background-color: #FF8300;
           }
 

@@ -10,6 +10,7 @@ export class UserAvatarComponent implements OnInit {
   @Input() height = 25;
   @Input() name?: string;
   @Input() rating: number;
+  @Input() count: number;
   @Input() avatar: string;
   @Input() routerLink: any[] | null;
   @Input() type: 'small' | 'medium' | 'large' = 'small';

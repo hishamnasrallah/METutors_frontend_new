@@ -47,7 +47,7 @@
                 </tr>
                 <tr *ngFor="let tutor of view.pendingTutors; let i = index">
                   <td>{{ i + 1 }}</td>
-                  <td>{{ tutor?.idNumber }}</td>
+                  <td><a [routerLink]="['/admin', 'tutor', 'profile', tutor?.id]">{{ tutor?.idNumber }}</a></td>
                   <td>
                     <div class="d-flex align-items-center">
                       <img [src]="tutor?.avatar" width="25" height="25" class="rounded-circle p-0 me-2"
@@ -171,17 +171,7 @@
     [routerLink]="['/admin', 'tutor', 'profile', selectedTutor?.id]">
     <span>View Profile</span>
   </button>
-  <button mat-menu-item class="h-auto btn-menu" (click)="onOpenTeacherAvailabilityModal((selectedTutor?.id)!)">
-    <span>View Availability</span>
-  </button>
   <button mat-menu-item class="h-auto btn-menu">
     <span>Send Message</span>
   </button>
 </mat-menu>
-
-<metutors-teacher-availability-modal [timeSlots]="(tutorAvailability$ | async)!"
-                                     [isLoadingTimeSlots]="(isLoadingTutorAvailability$ | async)!"
-                                     [showModal]="(showTeacherAvailabilityModal$ | async)!"
-                                     *ngIf="showTeacherAvailabilityModal$ | async"
-                                     (closeModal)="onCloseTeacherAvailabilityModal()">
-</metutors-teacher-availability-modal>
