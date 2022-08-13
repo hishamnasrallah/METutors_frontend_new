@@ -4,10 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { combineLatest, map, Observable } from 'rxjs';
 
 import { ITutor } from '@models';
-import { TUTOR_STATUSES_CONST } from '@config';
 import * as fromCore from '@metutor/core/state';
-import * as fromAdmin from '@metutor/modules/admin/state';
-import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 
 @Component({
   selector: 'metutors-pending',
@@ -30,7 +27,6 @@ export class AdminPendingTutorsComponent implements OnInit {
   perPage = 10;
   selectedIndex: number;
   selectedTutor?: ITutor;
-  tutorStatuses = TUTOR_STATUSES_CONST;
 
   constructor(private _store: Store<any>, private _route: ActivatedRoute) {}
 
@@ -38,18 +34,6 @@ export class AdminPendingTutorsComponent implements OnInit {
     this.selectedIndex = this._route.snapshot.queryParams['tab'] || 0;
 
     this._store.dispatch(fromCore.loadPendingTutors({ params: { page: 1 } }));
-
-    this.showTeacherAvailabilityModal$ = this._store.select(
-      fromAdmin.selectIsShowTeacherAvailabilityModal
-    );
-
-    this.tutorAvailability$ = this._store.select(
-      fromCore.selectTutorAvailability
-    );
-
-    this.isLoadingTutorAvailability$ = this._store.select(
-      fromCore.selectIsLoadingTutorAvailability
-    );
 
     this.view$ = combineLatest([
       this._store.select(fromCore.selectTutorsCounts),
@@ -64,15 +48,6 @@ export class AdminPendingTutorsComponent implements OnInit {
         rejectedTutors,
       }))
     );
-  }
-
-  onOpenTeacherAvailabilityModal(id: number): void {
-    this._store.dispatch(fromAdminAction.openAdminTeacherAvailabilityModal());
-    this._store.dispatch(fromCore.loadTutorAvailability({ id }));
-  }
-
-  onCloseTeacherAvailabilityModal(): void {
-    this._store.dispatch(fromAdminAction.closeAdminTeacherAvailabilityModal());
   }
 
   onPageChange({ page }: any): void {

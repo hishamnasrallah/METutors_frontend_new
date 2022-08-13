@@ -45,7 +45,7 @@ export class AdminCurrentTutorsComponent implements OnInit {
   ngOnInit(): void {
     this.selectedIndex = this._route.snapshot.queryParams['tab'] || 0;
 
-    this.onChangeTab({ index: this.selectedIndex });
+    this.onChangeTab({ index: +this.selectedIndex });
 
     this.openBookingModal$ = this._store.select(
       fromAdmin.selectAdminStudentBookingModal
@@ -130,6 +130,7 @@ export class AdminCurrentTutorsComponent implements OnInit {
   }
 
   onChangeTab(tab: any): void {
+    console.log(tab);
     switch (tab.index) {
       case 0:
         this.status = '';
