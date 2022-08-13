@@ -9,7 +9,7 @@
         <div class="col-md-7">
           <div class="row">
             <div class="col-md-10">
-              <h1 class="f-size-25-md-sm">Advanced Placement (AP)</h1>
+              <h1 class="f-size-25-md-sm">{{ program?.name }}</h1>
               <h2 class="f-size-15-md-sm">Explore courses and earn college credits</h2>
               <p class="f-size-17-md-sm">
                 Studying Advanced Placement allows you to earn college credits and placement whilst at high school.
@@ -31,9 +31,9 @@
             </div>
           </div>
         </div>
-        <div class="col-md-5 d-flex justify-content-end">
-          <img src="https://testing.zaptatech.com/public/uploads/program_images/1660296148.png"
-            class="contact-img w-auto d-none d-md-block" alt="" draggable="false">
+        <div class="col-md-5 d-flex justify-content-end" *ngIf="program?.image">
+          <img [src]="programImage + program?.image" class="contact-img w-auto d-none d-md-block" alt=""
+            draggable="false">
         </div>
       </ng-container>
     </div>

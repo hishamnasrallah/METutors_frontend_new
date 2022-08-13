@@ -9,7 +9,7 @@ import { catchError, map } from 'rxjs/operators';
 
 import camelcaseKeys from 'camelcase-keys';
 import { environment } from 'src/environments/environment';
-import { IClassroom, ICourse, ICategory, ISyllabus } from '@models';
+import { IClassroom, ICourse, ICategory, ISyllabus, IProgram } from '@models';
 import { AcademicTutoringTextbook, SORTED_DAYS_WEEK } from 'src/app/config';
 
 @Injectable({
@@ -29,7 +29,7 @@ export class CoursesService {
   loadExploredCourses(programId: string, countryId?: string): Observable<any> {
     const query = countryId ? `?country_id=${countryId}` : '';
 
-    return this.http.get<{ field_of_studies: any[]; subjects: any[] }>(
+    return this.http.get<{ field_of_studies: any[]; subjects: any[]; program: IProgram }>(
       `${this.baseUrl}courses/${programId}${query}`
     );
   }

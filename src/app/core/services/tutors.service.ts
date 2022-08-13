@@ -179,7 +179,7 @@ export class TutorsService {
     return this.http
       .get<{
         teachers: { total: 10; data: ITutor[] };
-      }>(`${this.baseUrl}admin/rejected-teachers`, { params })
+      }>(`${this.baseUrl}admin/suspended-teachers`, { params })
       .pipe(
         map((response) => ({
           tutorsCounts: {

@@ -1,5 +1,6 @@
 <ng-container *ngLet="(exploredCourses$ | async) as exploredCourses">
   <metutors-explore-courses [loading]="(isLoading$ | async)!"
+                            [program]="exploredCourses?.program"
                             (filterCourses)="name = $event; filterCourses()">
   </metutors-explore-courses>
 

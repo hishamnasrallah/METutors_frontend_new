@@ -1,3 +1,5 @@
+import { environment } from '@environment';
+import { IProgram } from '@metutor/core/models';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
@@ -7,8 +9,11 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class ExploreCoursesComponent implements OnInit {
   @Input() loading: boolean;
+  @Input() program: IProgram;
 
   @Output() filterCourses = new EventEmitter();
+
+  programImage = environment.programImage;
 
   constructor() {}
 
