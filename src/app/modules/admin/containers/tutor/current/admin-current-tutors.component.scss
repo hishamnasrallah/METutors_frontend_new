@@ -109,26 +109,31 @@
       .statues {
         border-radius: 5px;
         overflow: hidden;
+        min-width: 140px;
 
         li {
           padding: 5px 10px;
           color: #FFF;
-          margin: 5px;
-          border-radius: 5px;
+          margin-top: 5px;
+          margin-bottom: 5px;
+          border-radius: 30px;
+          width: 100px;
+          margin-left: 15px;
+          text-align: center;
 
           &.active {
             background-color: #50C394;
           }
-  
+
           &.pending {
             background-color: #EBD016;
           }
-  
+
           &.inactive {
             background-color: #FF8300;
           }
-  
-          &.rejected {
+
+          &.rejected, &.suspend {
             background-color: #FF385C;
           }
         }

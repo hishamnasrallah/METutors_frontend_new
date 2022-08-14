@@ -6,4 +6,5 @@ export enum TutorStatus {
   suspended = 'suspended',
   active = 'active',
   deactive = 'inactive',
+  suspend = 'suspend',
 }

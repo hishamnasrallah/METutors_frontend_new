@@ -14,7 +14,7 @@
             <div class="heading row">
               <div class="col-md-6">
                 <metutors-user-avatar [type]="'medium'" [rating]="data.averageRating" *ngIf="type !== 'subject'"
-                                      [avatar]="imageUrl+data?.student?.avatar" [width]="50" [height]="50"
+                                      [avatar]="imageUrl+data?.student?.avatar" [width]="50" [height]="50" [count]="data?.ratingCount"
                                       [name]="data.name"></metutors-user-avatar>
               </div>
 
@@ -35,7 +35,7 @@
                       <mat-progress-spinner class="progress-spinner" [color]="'primary'" [mode]="'determinate'"
                                             [value]="data.attendenceRate">
                       </mat-progress-spinner>
-                      <span class="position-absolute">{{ data?.attendenceRate }}%</span>
+                      <span class="position-absolute">{{ data?.attendenceRate.toFixed(0) }}%</span>
                     </div>
                   </div>
                 </ng-container>

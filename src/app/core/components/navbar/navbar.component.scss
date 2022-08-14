@@ -50,6 +50,7 @@
     color: #000;
     font-size: 19px;
     opacity: 0.7;
+    transition: all 0.25s ease-in-out;
 
     &.currency {
       background: #ECECEC;
@@ -60,8 +61,9 @@
     }
 
     &.active {
-      border-radius: 0;
-      border-top: 1px solid #000;
+      color: var(--main-color);
+      font-weight: bold;
+      opacity: 1;
     }
 
     &.username {
