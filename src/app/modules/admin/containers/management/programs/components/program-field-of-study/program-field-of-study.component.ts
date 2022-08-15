@@ -2,6 +2,7 @@ import { Store } from '@ngrx/store';
 import { Component, OnInit } from '@angular/core';
 import { combineLatest, map, Observable } from 'rxjs';
 
+import { environment } from '@environment';
 import * as fromCore from '@metutor/core/state';
 import * as fromAdmin from '@metutor/modules/admin/state';
 import { ICountry, IField, IPagination, IProgram } from '@models';
@@ -20,6 +21,7 @@ export class ProgramFieldOfStudyComponent implements OnInit {
   deletedField?: IField;
   selectedField?: IField;
   fieldStatus = FieldStatus;
+  imageURL = environment.imageURL;
   fieldStatusConst = FIELD_STATUSES_CONST;
 
   isDeletingField$: Observable<boolean>;
@@ -56,7 +58,8 @@ export class ProgramFieldOfStudyComponent implements OnInit {
     if (this.selectedField) {
       this._store.dispatch(
         fromCore.addEditField({
-          field: { ...field, id: this.selectedField.id },
+          field,
+          id: this.selectedField.id,
         })
       );
     } else {
@@ -100,6 +103,9 @@ export class ProgramFieldOfStudyComponent implements OnInit {
 
     this.programs$ = this._store.select(fromCore.selectPrograms);
     this.countries$ = this._store.select(fromCore.selectProgramCountries);
+    this.isAddingEditingField$ = this._store.select(
+      fromCore.selectIsAddingEditingField
+    );
 
     this.view$ = combineLatest([
       this._store.select(fromCore.selectFields),

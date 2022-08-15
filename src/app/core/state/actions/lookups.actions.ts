@@ -321,7 +321,7 @@ export const deleteProgramFailure = createAction(
 
 export const addEditField = createAction(
   '[Lookups] Add Edit Field',
-  props<{ field: IField }>()
+  props<{ field: IField; id?: number }>()
 );
 
 export const addEditFieldSuccess = createAction(

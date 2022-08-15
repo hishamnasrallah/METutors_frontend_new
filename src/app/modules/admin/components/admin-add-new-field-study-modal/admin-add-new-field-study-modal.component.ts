@@ -1,10 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+
 import {
-  AbstractControl,
-  FormBuilder,
   FormGroup,
   Validators,
+  FormBuilder,
+  AbstractControl,
 } from '@angular/forms';
+
 import { generalConstants, GRADES } from '@metutor/config';
 import { ICountry, IField, IProgram } from '@metutor/core/models';
 
@@ -24,10 +26,11 @@ export class AdminAddNewFieldStudyModalComponent implements OnInit {
       this.field = _field;
       this.form?.patchValue({
         name: _field.name,
-        program: _field?.programId,
+        program_id: _field?.programId,
         country: _field?.countryId,
-        grade: _field?.grade,
       });
+
+      this.image?.setValidators(null);
     }
   }
 
@@ -41,17 +44,25 @@ export class AdminAddNewFieldStudyModalComponent implements OnInit {
 
   constructor(private _fb: FormBuilder) {
     this.form = this._fb.group({
-      name: [null, Validators.required],
-      program: [null, Validators.required],
       country: [null],
-      grade: [null],
+      name: [null, Validators.required],
+      image: [null, Validators.required],
+      program_id: [null, Validators.required],
     });
   }
 
   ngOnInit(): void {}
 
+  get name(): AbstractControl | null {
+    return this.form.get('name');
+  }
+
+  get image(): AbstractControl | null {
+    return this.form.get('image');
+  }
+
   get program(): AbstractControl | null {
-    return this.form.get('program');
+    return this.form.get('program_id');
   }
 
   get country(): AbstractControl | null {
@@ -76,9 +87,25 @@ export class AdminAddNewFieldStudyModalComponent implements OnInit {
     }
   }
 
+  onUploadImage(event: any): void {
+    if (event.target && event.target.files && event.target.files.length) {
+      const file = event.target.files[0];
+
+      this.image?.setValue(file);
+      this.image?.updateValueAndValidity();
+      this.form?.markAsDirty();
+    }
+  }
+
   onSubmit(form: FormGroup): void {
     if (form.valid) {
-      this.submitForm.emit(form.value);
+      const formData = new FormData();
+      formData.set('name', this.name?.value);
+      formData.set('image', this.image?.value);
+      formData.set('country', this.country?.value);
+      formData.set('program_id', this.program?.value);
+
+      this.submitForm.emit(formData);
     }
   }
 }

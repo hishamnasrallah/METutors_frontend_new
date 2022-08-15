@@ -55,9 +55,9 @@
         <tr>
           <th>Number</th>
           <th>Program</th>
-          <th>Country</th>
-          <th>Grade</th>
+          <th>Image</th>
           <th>Field of Study</th>
+          <th>Country</th>
           <th>Status</th>
           <th>Action</th>
         </tr>
@@ -69,9 +69,9 @@
         <tr *ngFor="let field of view.fields; let i = index">
           <td>{{ i + 1 }}</td>
           <td>{{ field?.program?.name }}</td>
-          <td>{{ field?.country?.name }}</td>
-          <td>{{ grades[field?.grade] }}</td>
+          <td><img [src]="imageURL+field?.image" width="20" height="20" alt=""/></td>
           <td>{{ field?.name }}</td>
+          <td>{{ field?.country?.name }}</td>
           <td>
             <div dropdown class="change-status position-relative d-flex">
               <button dropdownToggle class="status text-capitalize" mat-button [ngClass]="{

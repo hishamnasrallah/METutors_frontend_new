@@ -8,7 +8,7 @@
           <div class="form-group">
             <label>Select Program</label>
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="program" [placeholder]="'Select Program Name'"
+              <mat-select formControlName="program_id" [placeholder]="'Select Program Name'"
                 (selectionChange)="onChangeProgram()">
                 <mat-option [value]="program?.id" *ngFor="let program of programs">
                   {{ program?.name }}
@@ -27,6 +27,13 @@
         </div>
       </div>
 
+      <div class="col-12">
+        <div class="form-group">
+          <label for="file">Field Of Study Image:</label>
+          <input id="file" type="file" (change)="onUploadImage($event)" accept="image/*" class="m-lg-1"/>
+        </div>
+      </div>
+
       <div class="row" *ngIf="nationalId.toString() === program?.value?.toString()">
         <div class="col-md-6">
           <div class="form-group">
@@ -40,7 +47,7 @@
             </mat-form-field>
           </div>
         </div>
-        <div class="col-md-6">
+        <!--<div class="col-md-6">
           <div class="form-group">
             <label>Select Grade</label>
             <mat-form-field appearance="outline" class="w-100">
@@ -51,7 +58,7 @@
               </mat-select>
             </mat-form-field>
           </div>
-        </div>
+        </div>-->
       </div>
 
       <div class="row">
