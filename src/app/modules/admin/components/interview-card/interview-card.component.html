@@ -26,37 +26,29 @@
           (click)="scheduleInterview.emit({id: interview?.id, joinInterview: true})">
           Join Interview
         </a>
-        <span class="status-icon text-capitalize" [ngClass]="{
-            'pending': interview.status === interviewStatus.pending,
-            'accepted': interview.status === interviewStatus.approved,
-            'rejected': interview.status === interviewStatus.rejected,
-            'scheduled': interview.status === interviewStatus.scheduled
-        }">{{ interview.status }}</span>
+        <span class="status-icon text-capitalize" [ngClass]="interview.status">{{ interview.status }}</span>
       </div>
     </div>
     <div class="row">
       <div class="col-md-10">
         <div class="row list-items md-item">
-          <div class="col-md-4 d-flex menu align-items-center mt-3"
-            *ngIf="interview?.tutor?.specifications?.levelOfEducation && interview?.tutor?.specifications?.subject">
-            <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
-            <strong>
-              {{ interview?.tutor?.specifications?.levelOfEducation }}
-              of {{ interview?.tutor?.specifications?.subject }}
-            </strong>
-          </div>
-          <div class="col-md-4 d-flex menu align-items-center mt-3"
-            *ngIf="interview?.tutor?.specifications?.typeOfTutoring">
-            <img src="assets/svg/students.svg" alt="" width="15" height="15" draggable="false">
-            <strong>{{ interview?.tutor?.specifications?.typeOfTutoring }}</strong>
-          </div>
-        </div>
-        <div class="row list-items md-item">
-          <div class="col-md-4 d-flex menu align-items-center" *ngIf="interview?.tutor?.country">
+          <div class="col-md-2 mt-3 ">Details:</div>
+          <div class="col-md-2 d-flex menu align-items-center mt-3" *ngIf="interview?.tutor?.country">
             <img src="assets/svg/map.svg" alt="" width="15" height="15" draggable="false">
             <strong>From {{ interview?.tutor?.country?.name }}</strong>
           </div>
-          <div class="col-md-4 d-flex menu align-items-center" *ngIf="interview?.interviewDate">
+          <div class="col-md-4 d-flex menu align-items-center mt-3"
+            *ngIf="interview?.tutor?.qualifications?.degreeLevel && interview?.tutor?.qualifications?.degreeField">
+            <img src="assets/svg/degree.svg" alt="" width="15" height="15" draggable="false">
+            <strong>
+              {{ interview?.tutor?.qualifications?.degreeLevel }}
+              in {{ interview?.tutor?.qualifications?.degreeField }}
+            </strong>
+          </div>
+        </div>
+        <div class="row list-items md-item">
+          <div class="col-md-2 text-main">Requested Interview:</div>
+          <div class="col-md-2 d-flex menu align-items-center" *ngIf="interview?.interviewDate">
             <img src="assets/svg/calendar.svg" alt="" width="15" height="15" draggable="false">
             <strong>{{ interview?.interviewDate }}</strong>
           </div>
