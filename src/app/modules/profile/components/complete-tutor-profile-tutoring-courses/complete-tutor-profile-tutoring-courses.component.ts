@@ -91,11 +91,7 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
     );
     const filteredPrograms = listPrograms?.map((item: any) => item?.id);
 
-    if (filteredPrograms.includes(id)) {
-      return false;
-    }
-
-    return true;
+    return !filteredPrograms.includes(id);
   }
 
   onChangeProgram({ value }: any, i: number): void {
