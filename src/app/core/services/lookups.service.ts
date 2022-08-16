@@ -351,6 +351,7 @@ export class LookupsService {
           return response.field_of_study.map((item) => ({
             id: item.id,
             name: item.name,
+            image: item.image,
           }));
         })
       )
@@ -368,6 +369,7 @@ export class LookupsService {
             programId: item?.program_id,
             countryId: item?.country_id,
             grade: item?.grade,
+            image: item?.image,
             status: item?.status,
             updatedAt: item?.updated_at,
             program: item?.program,
@@ -406,16 +408,11 @@ export class LookupsService {
       .pipe(catchError(this.errorHandler));
   }
 
-  addNewField(value: any): Observable<any> {
+  addNewField(body: any): Observable<any> {
     return this.http
       .post<{ FieldOfStudy: any; message: string }>(
         `${this.BACKEND_URL}fieldofstudy`,
-        {
-          name: value.name,
-          grade: value.grade,
-          program_id: value.program,
-          country_id: value.country,
-        }
+        body
       )
       .pipe(
         map((response) => {
@@ -438,17 +435,11 @@ export class LookupsService {
       .pipe(catchError(this.errorHandler));
   }
 
-  editField(value: any): Observable<any> {
+  editField(body: any, id: number): Observable<any> {
     return this.http
-      .patch<{ FieldOfStudy: any; message: string }>(
-        `${this.BACKEND_URL}fieldofstudy/${value.id}`,
-        {
-          name: value.name,
-          grade: value.grade,
-          program_id: value.program,
-          country_id: value.country,
-          status: value.status,
-        }
+      .post<{ FieldOfStudy: any; message: string }>(
+        `${this.BACKEND_URL}fieldofstudy/${id}`,
+        body
       )
       .pipe(
         map((response) => {
@@ -457,6 +448,7 @@ export class LookupsService {
             field: {
               id: response.FieldOfStudy.id,
               name: response.FieldOfStudy.name,
+              image: response.FieldOfStudy.image,
               programId: response.FieldOfStudy?.program_id,
               countryId: response.FieldOfStudy?.country_id,
               grade: response.FieldOfStudy?.grade,

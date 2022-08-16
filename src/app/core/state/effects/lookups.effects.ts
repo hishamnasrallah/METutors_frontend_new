@@ -544,8 +544,8 @@ export class LookupsEffects {
     this._actions$.pipe(
       ofType(lookupsActions.addEditField),
       mergeMap((action) => {
-        if (action.field.id) {
-          return this._lookupsService.editField(action.field).pipe(
+        if (action.id) {
+          return this._lookupsService.editField(action.field, action.id).pipe(
             map((response) =>
               lookupsActions.addEditFieldSuccess({
                 field: response.field,

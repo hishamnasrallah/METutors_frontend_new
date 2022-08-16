@@ -90,10 +90,6 @@ export class ProgramSubjectComponent implements OnInit {
     );
 
     this._store.dispatch(
-      fromCore.loadAdminFields({ params: { page: 1, search: '' } })
-    );
-
-    this._store.dispatch(
       fromCore.loadAdminPrograms({ params: { page: 1, search: '' } })
     );
 
@@ -125,6 +121,16 @@ export class ProgramSubjectComponent implements OnInit {
         countries,
         pagination,
       }))
+    );
+  }
+
+  fetchFields({ programId, countryId, grade }: any): void {
+    this._store.dispatch(
+      fromCore.loadFieldsByProgramId({
+        programId,
+        countryId,
+        grade,
+      })
     );
   }
 }

@@ -178,8 +178,10 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
-            <label for="bio" class="form-label">Add Bio <small class="text-danger">(100 to 150 words)</small></label>
-            <textarea class="custom-input w-100 input-bordered" [placeholder]="'Add Bio here... '" rows="10"
+            <label for="bio" class="form-label w-100">Add Bio <small class="text-danger fw-normal">(200 to 400 words)</small>
+            <metutors-char-counter [limit]="400" [controlName]="bio"></metutors-char-counter>
+            </label>
+            <textarea id="bio" class="custom-input w-100 input-bordered" [placeholder]="'Add Bio here... '" rows="10"
               formControlName="bio"></textarea>
             <div class="text-danger" *ngIf="bio?.touched && bio?.invalid">
               Please write valid Bio
@@ -435,7 +437,7 @@
                 [ngClass]="{'w-80': item?.programId !== nationalId, 'w-60': item?.programId === nationalId}">Subject
                 Name</th>
               <th class="sub-heading w-20" *ngIf="item?.programId === nationalId">Grade</th>
-              <th class="sub-heading">Hourly Rate</th>
+              <th class="sub-heading">Hourly Rate (USD)</th>
             </tr>
             <tr *ngFor="let subject of item.subjects">
               <td>{{ subject?.subject }}</td>

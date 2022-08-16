@@ -17,6 +17,7 @@
             (click)="onChangeStep(program)">
             <span class="d-block">Program {{ i + 1 }}</span>
             <strong>{{ program?.name }}</strong>
+            <span *ngIf="country && program?.id === nationalId" [innerHTML]="country?.flag" class="ms-2"></span>
           </button>
         </div>
       </div>
@@ -34,17 +35,19 @@
             <h1 class="f-size-25-md-sm">Explore courses and earn college credits</h1>
 
             <p class="f-size-15-md-sm">
-              Studying Advanced Placement allows you to earn college credits and placement whilst at high school. Learn exam technique and a vast range of subjects with the guidance of our tutors. Jump right into a higher-level course!
+              Studying Advanced Placement allows you to earn college credits and placement whilst at high school. Learn
+              exam technique and a vast range of subjects with the guidance of our tutors. Jump right into a
+              higher-level course!
             </p>
           </div>
           <div class="col-md-7">
             <div class="row mt-4 m-0-sm">
               <div class="col-md-6 d-flex mt-4 mt-15-sm" *ngFor="let field of fields; let i = index">
-                <img [src]="iconsImages[i % 4]" width="65px" height="65px" draggable="false" alt="">
+                <img [src]="imageURL+field.image" width="65px" height="65px" draggable="false" alt="">
                 <div class="ms-2">
                   <h2>
                     <a routerLink="/requests/request-tutor"
-                      [queryParams]="{program: selectedProgram?.id, field: field?.id, country}">
+                      [queryParams]="{program: selectedProgram?.id, field: field?.id, country: country?.id}">
                       {{ field?.name }}
                     </a>
                   </h2>
@@ -54,11 +57,9 @@
                     </ng-container>
 
                     <ng-container *ngIf="!loadingSubjects">
-                      <a *ngFor="let subject of subjects; let isLast = last" class="cursor-pointer"
-                        (click)="viewSubjectDetails.emit({program: selectedProgram, subject, country, index: i})">
-                        <ng-container *ngIf="subject?.fieldId === field.id">
-                          {{ subject?.name }}<ng-container *ngIf="!isLast">, </ng-container>
-                        </ng-container>
+                      <a class="cursor-pointer" *ngFor="let subject of filteredSubjects(field.id); let isLast = last"
+                        (click)="viewSubjectDetails.emit({program: selectedProgram, subject, country: country?.id, index: i})">
+                        {{ subject?.name }}<ng-container *ngIf="!isLast">, </ng-container>
                       </a>
                     </ng-container>
                   </p>
@@ -67,7 +68,7 @@
             </div>
 
             <a mat-flat-button color="primary" routerLink="/requests/request-tutor"
-              [queryParams]="{program: selectedProgram?.id, country}">
+              [queryParams]="{program: selectedProgram?.id, country: country?.id}">
               Start Learning Today!
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -77,7 +78,7 @@
             </a>
 
             <a mat-button class="explore-all ms-3" [routerLink]="['/all-courses', selectedProgram?.id]"
-              [queryParams]="{country}">
+              [queryParams]="{country: country?.id}">
               Explore Subjects
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -89,8 +90,7 @@
             <a class="pricing cursor-pointer ms-3" (click)="onViewPrices()">Prices</a>
           </div>
           <div class="col-md-5 d-flex align-items-center justify-content-center">
-            <img [src]="selectedProgram?.image" class="contact-img w-100 d-none d-md-block" draggable="false"
-              alt="">
+            <img [src]="selectedProgram?.image" class="contact-img w-100 d-none d-md-block" draggable="false" alt="">
           </div>
         </div>
       </div>

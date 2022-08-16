@@ -9,6 +9,12 @@
     <div class="flex-grow-1 collapse navbar-collapse">
       <ul class="navbar-nav ms-auto flex-nowrap float-end">
         <li class="nav-item">
+          <a class="nav-link nav-item-link" routerLink="/about" routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact: true}">
+            About Us
+          </a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link nav-item-link" routerLink="/student-success" routerLinkActive="active">
             Student Success
           </a>
@@ -16,12 +22,6 @@
         <li class="nav-item">
           <a class="nav-link nav-item-link" routerLink="/become-tutor" routerLinkActive="active">
             Become A Tutor
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link nav-item-link" routerLink="/about" routerLinkActive="active"
-            [routerLinkActiveOptions]="{exact: true}">
-            About Us
           </a>
         </li>
         <li class="nav-item" *ngIf="!(token$ | async)">
@@ -77,14 +77,14 @@
     <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu dropdown-menu-left w-100-sm" role="menu"
       aria-labelledby="button-basic">
       <li role="menuitem">
+        <a class="dropdown-item" routerLink="/about" routerLinkActive="active"
+          [routerLinkActiveOptions]="{exact: true}">About Us</a>
+      </li>
+      <li role="menuitem">
         <a class="dropdown-item" routerLink="/student-success" routerLinkActive="active">Student Success</a>
       </li>
       <li role="menuitem">
         <a class="dropdown-item" routerLink="/become-tutor" routerLinkActive="active">Become A Tutor</a>
-      </li>
-      <li role="menuitem">
-        <a class="dropdown-item" routerLink="/about" routerLinkActive="active"
-          [routerLinkActiveOptions]="{exact: true}">About Us</a>
       </li>
       <li role="menuitem" *ngIf="token$ | async">
         <a class="dropdown-item" routerLinkActive="active"

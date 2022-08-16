@@ -182,8 +182,8 @@ export class TutorSettingsProfileComponent implements OnInit {
         null,
         [
           Validators.required,
-          Validators.minLength(100),
-          Validators.maxLength(150),
+          Validators.minLength(200),
+          Validators.maxLength(400),
         ],
       ],
       postalCode: [

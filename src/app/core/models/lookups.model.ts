@@ -42,6 +42,7 @@ export interface IField {
   code: string;
   icon: string;
   grade: number;
+  image: string;
   countryId: number;
   programId: number;
   status: number;

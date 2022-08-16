@@ -124,7 +124,7 @@
                 <tr>
                   <th class="sub-heading" [ngClass]="{'w-55': item?.programId !== nationalId, 'w-54': item?.programId === nationalId}">Subject Name</th>
                   <th class="sub-heading w-20" *ngIf="form.value.programs[i]?.programId?.id === nationalId">Grade</th>
-                  <th class="sub-heading">Enter Expected Hourly Rate</th>
+                  <th class="sub-heading">Enter Expected Hourly Rate (USD)</th>
                 </tr>
                 <tr *ngFor="let subject of item.subjects; let indexSubject = index">
                   <td>{{ subject?.name }}</td>

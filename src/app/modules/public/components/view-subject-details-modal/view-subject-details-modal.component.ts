@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { generalConstants } from '@metutor/config';
+
+import { environment } from '@environment';
 import { ITutor } from '@metutor/core/models';
 
 @Component({
@@ -15,7 +16,7 @@ export class ViewSubjectDetailsModalComponent implements OnInit {
 
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
 
-  iconsImages = generalConstants.subjectsIcons;
+  imageURL = environment.fieldOfStudiesImage;
 
   constructor() {}
 

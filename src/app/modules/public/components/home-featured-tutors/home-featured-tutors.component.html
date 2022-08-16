@@ -29,14 +29,14 @@
       <div class="col-12 mt-4" *ngIf="!isLoading">
         <owl-carousel-o [options]="customOptions">
           <ng-template carouselSlide *ngFor="let teacher of teachers; let i = index">
-            <div class="row card-item">
+            <div class="row col-md-4 card-item">
               <div class="col-4">
                 <div class="position-relative img-avatar">
                   <img [src]="teacher?.avatar" meTutorsDefaultAvatar alt="" width="90px" height="90px">
                   <!-- <svg class="position-absolute status" width="16" height="16" [ngClass]="{
-                    'is-online': teacher?.status === tutorStatus.online, 
-                    'is-busy': teacher?.status === tutorStatus.busy, 
-                    'is-offline': teacher?.status === tutorStatus.offline, 
+                    'is-online': teacher?.status === tutorStatus.online,
+                    'is-busy': teacher?.status === tutorStatus.busy,
+                    'is-offline': teacher?.status === tutorStatus.offline,
                     'is-away': teacher?.status === tutorStatus.away
                   }" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="8" cy="8" r="7" fill="#949494" stroke="white" stroke-width="2" />

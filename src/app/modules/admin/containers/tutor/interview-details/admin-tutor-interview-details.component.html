@@ -225,7 +225,7 @@
                 <tr>
                   <th class="sub-heading" [ngClass]="{'w-74': item?.programId !== nationalId, 'w-54': item?.programId === nationalId}">Subject Name</th>
                   <th class="sub-heading w-20" *ngIf="item?.programId === nationalId">Grade</th>
-                  <th class="sub-heading">Expected Hour Rate</th>
+                  <th class="sub-heading">Expected Hourly Rate (USD)</th>
                 </tr>
                 <tr *ngFor="let subject of item.subjects">
                   <td>{{ subject?.subject }}</td>

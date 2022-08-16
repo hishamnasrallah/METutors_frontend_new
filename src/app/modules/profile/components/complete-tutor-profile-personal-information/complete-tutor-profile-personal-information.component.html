@@ -88,10 +88,12 @@
       <div class="col-md-6">
         <div class="form-group">
           <label for="bio" class="form-label">Add Biography <span>(write about your teaching experience to let students
-              know why you are the best tutor for them)</span></label>
+              know why you are the best tutor for them)</span>
+          <metutors-char-counter [limit]="400" [controlName]="bio"></metutors-char-counter>
+          </label>
           <textarea class="custom-input w-100 input-bordered" [placeholder]="'Add Bio here... '" rows="5"
-            formControlName="bio" minlength="100" maxlength="150"></textarea>
-          <small class="text-danger">(100 to 150 words)</small>
+            formControlName="bio" minlength="200" maxlength="400"></textarea>
+          <small class="text-danger">(200 to 400 characters)</small>
           <div class="text-danger" *ngIf="bio?.touched && bio?.invalid">
             Please write your Bio
           </div>

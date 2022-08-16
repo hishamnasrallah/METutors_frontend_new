@@ -4,6 +4,7 @@ export * from './review-rate';
 export * from './user-avatar';
 export * from './video-player';
 export * from './search-input';
+export * from './char-counter';
 export * from './submit-button';
 export * from './send-feedback';
 export * from './uploaded-files';
