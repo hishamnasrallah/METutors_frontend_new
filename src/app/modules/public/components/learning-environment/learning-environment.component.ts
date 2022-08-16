@@ -46,17 +46,24 @@ export class LearningEnvironmentComponent implements OnInit {
   @Output() viewSubjectDetails = new EventEmitter<any>();
 
   step: number;
-  country: number | null;
+  country?: ICountry;
   programsList: IProgram[];
   selectedProgram: IProgram;
+  nationalId = generalConstants.nationalId;
   imageURL = environment.fieldOfStudiesImage;
 
   constructor(private _dialog: MatDialog) {}
 
   ngOnInit(): void {}
 
+  filteredSubjects(id: number): ISubject[] {
+    return this.subjects && this.subjects.length
+      ? this.subjects?.filter((subject: any) => +subject?.fieldId === +id)
+      : [];
+  }
+
   onChangeStep(program: IProgram): void {
-    if (program.id === generalConstants.nationalId) {
+    if (program.id === this.nationalId) {
       const dialogRef = this._dialog.open(ChooseCountryDialog, {
         width: '1000px',
         data: { countries: this.countries, isLoading: this.isLoading },
@@ -70,13 +77,14 @@ export class LearningEnvironmentComponent implements OnInit {
           this.selectedProgram = program;
           this.changeProgram.emit({
             program: program?.id?.toString(),
-            country: this.country,
+            country: this.country?.id,
           });
         }
       });
     } else {
       this.step = program.id;
       this.selectedProgram = program;
+      this.country = undefined;
       this.changeProgram.emit({ program: program?.id?.toString() });
     }
   }
@@ -123,8 +131,8 @@ export class ChooseCountryDialog {
     );
   }
 
-  onSelectCountry(countryId: number): void {
-    this.dialogRef.close(countryId);
+  onSelectCountry(country: ICountry): void {
+    this.dialogRef.close(country);
   }
 }
 

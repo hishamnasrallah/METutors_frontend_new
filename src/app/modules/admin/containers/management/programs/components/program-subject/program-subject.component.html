@@ -141,6 +141,7 @@
                                         [selectedSubject]="selectedSubject!"
                                         [isAdding]="(isAddingEditingSubject$ | async)!"
                                         [showModal]="(showAddNewSubjectModal$ | async)!"
-                                        (submitForm)="onAddEditSubject($event)">
+                                        (submitForm)="onAddEditSubject($event)"
+                                        (changeProgram)="fetchFields($event)">
   </metutors-admin-add-new-subject-modal>
 </ng-container>

@@ -1,12 +1,12 @@
 import { Store } from '@ngrx/store';
 import { upperFirst } from 'lodash';
-import { Router } from '@angular/router';
 import { IRole } from 'src/app/core/models';
 import { Observable, Subscription } from 'rxjs';
 import { CountryISO } from 'ngx-intl-tel-input';
 import * as fromCore from '@metutor/core/state';
 import { MatDialog } from '@angular/material/dialog';
 import { RolesSelectComponent } from '../../components';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService, UsersService } from 'src/app/core/services';
 import { AlertNotificationService } from 'src/app/core/components';
@@ -64,6 +64,7 @@ export class SignupComponent implements OnInit, OnDestroy {
     private _fb: FormBuilder,
     private _store: Store<any>,
     private _dialog: MatDialog,
+    private _route: ActivatedRoute,
     private _authService: AuthService,
     private _userService: UsersService,
     private _fv: FormValidationUtilsService,
@@ -129,6 +130,11 @@ export class SignupComponent implements OnInit, OnDestroy {
     });
 
     this._prepareRoles();
+
+    if (this._route.snapshot.queryParams['role']) {
+      this.userType = this._route.snapshot.queryParams['role'];
+      this.changeStep(1, '', +this.userType!);
+    }
 
     this.isLoading$ = this._store.select(fromCore.selectIsSignUp);
     this.authLoading$ = this._store.select(fromCore.selectIsSocialSignIn);

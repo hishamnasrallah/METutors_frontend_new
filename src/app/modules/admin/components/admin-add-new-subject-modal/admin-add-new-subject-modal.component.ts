@@ -37,6 +37,7 @@ export class AdminAddNewSubjectModalComponent implements OnInit {
 
   @Output() submitForm: EventEmitter<any> = new EventEmitter<any>();
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
+  @Output() changeProgram: EventEmitter<any> = new EventEmitter<any>();
 
   form: FormGroup;
   grades = GRADES;
@@ -70,17 +71,22 @@ export class AdminAddNewSubjectModalComponent implements OnInit {
   }
 
   onChangeProgram(): void {
-    if (this.program?.value.toString() === this.nationalId.toString()) {
+    const programId = this.program?.value;
+
+    this.changeProgram.emit(programId);
+
+    if (programId.toString() === this.nationalId.toString()) {
       this.country?.setValidators([Validators.required]);
-      this.country?.updateValueAndValidity();
       this.grade?.setValidators([Validators.required]);
-      this.grade?.updateValueAndValidity();
     } else {
-      this.country?.clearValidators();
-      this.country?.updateValueAndValidity();
-      this.grade?.clearValidators();
-      this.grade?.updateValueAndValidity();
+      this.country?.setValidators([]);
+      this.grade?.setValidators([]);
+      this.country?.setValue(null);
+      this.grade?.setValue(null);
     }
+
+    this.grade?.updateValueAndValidity();
+    this.country?.updateValueAndValidity();
   }
 
   onSubmit(form: FormGroup): void {
