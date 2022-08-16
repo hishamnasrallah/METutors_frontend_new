@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 
 import * as fromCore from '@metutor/core/state';
 import * as fromAdmin from '@metutor/modules/admin/state';
-import { GRADES, SUBJECT_STATUSES_CONST, SubjectStatus, generalConstants } from '@config';
+import { GRADES, SUBJECT_STATUSES_CONST, SubjectStatus } from '@config';
 import * as fromAdminActions from '@metutor/modules/admin/state/actions';
 import { ICountry, IField, IPagination, IProgram, ISubject } from '@models';
 
@@ -90,10 +90,6 @@ export class ProgramSubjectComponent implements OnInit {
     );
 
     this._store.dispatch(
-      fromCore.loadAdminFields({ params: { page: 1, search: '' } })
-    );
-
-    this._store.dispatch(
       fromCore.loadAdminPrograms({ params: { page: 1, search: '' } })
     );
 
@@ -128,22 +124,13 @@ export class ProgramSubjectComponent implements OnInit {
     );
   }
 
-
-  fetchFields(programId: string): void {
-    // if (
-    //   programId.toString() === generalConstants.nationalId.toString() &&
-    //   (!this.courseInformationForm.value?.courseCountry ||
-    //     !this.courseInformationForm.value?.courseGrade)
-    // ) {
-    //   return;
-    // } else {
-    //   this._store.dispatch(
-    //     fromCore.loadFieldsByProgramId({
-    //       programId,
-    //       countryId: this.courseInformationForm.value?.courseCountry,
-    //       grade: this.courseInformationForm.value?.courseGrade,
-    //     })
-    //   );
-    // }
+  fetchFields({ programId, countryId, grade }: any): void {
+    this._store.dispatch(
+      fromCore.loadFieldsByProgramId({
+        programId,
+        countryId,
+        grade,
+      })
+    );
   }
 }

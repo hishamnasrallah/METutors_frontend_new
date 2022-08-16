@@ -70,14 +70,23 @@ export class AdminAddNewSubjectModalComponent implements OnInit {
     return this.form.get('grade');
   }
 
+  get field(): AbstractControl | null {
+    return this.form.get('field');
+  }
+
   onChangeProgram(): void {
     const programId = this.program?.value;
 
-    this.changeProgram.emit(programId);
+    this.field?.setValue(null);
+    this.field?.updateValueAndValidity();
 
     if (programId.toString() === this.nationalId.toString()) {
       this.country?.setValidators([Validators.required]);
       this.grade?.setValidators([Validators.required]);
+
+      if (!this.country?.value || !this.grade?.value) {
+        return;
+      }
     } else {
       this.country?.setValidators([]);
       this.grade?.setValidators([]);
@@ -87,6 +96,12 @@ export class AdminAddNewSubjectModalComponent implements OnInit {
 
     this.grade?.updateValueAndValidity();
     this.country?.updateValueAndValidity();
+
+    this.changeProgram.emit({
+      programId,
+      countryId: this.country?.value,
+      grade: this.grade?.value,
+    });
   }
 
   onSubmit(form: FormGroup): void {

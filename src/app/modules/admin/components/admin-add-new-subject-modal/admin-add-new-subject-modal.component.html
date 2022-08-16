@@ -32,7 +32,7 @@
           <div class="form-group">
             <label>Select Country</label>
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="country" [placeholder]="'Choose Country'">
+              <mat-select formControlName="country" [placeholder]="'Choose Country'" (selectionChange)="onChangeProgram()">
                 <mat-option [value]="country?.id" *ngFor="let country of countries">
                   {{ country?.name }}
                 </mat-option>
@@ -44,8 +44,8 @@
           <div class="form-group">
             <label>Select Grade</label>
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="grade" [placeholder]="'Choose Grade'">
-                <mat-option [value]="i" *ngFor="let grade of grades; let i = index">
+              <mat-select formControlName="grade" [placeholder]="'Choose Grade'" (selectionChange)="onChangeProgram()">
+                <mat-option [value]="i + 1" *ngFor="let grade of grades; let i = index">
                   {{ grade }}
                 </mat-option>
               </mat-select>
@@ -59,7 +59,7 @@
           <div class="form-group">
             <label>Select Field of Study</label>
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="field" [placeholder]="'Choose Field of Study'">
+              <mat-select formControlName="field" [placeholder]="'Choose Field of Study'" [disabled]="!fields || !fields?.length">
                 <mat-option [value]="field?.id" *ngFor="let field of fields">
                   {{ field?.name }}
                 </mat-option>
