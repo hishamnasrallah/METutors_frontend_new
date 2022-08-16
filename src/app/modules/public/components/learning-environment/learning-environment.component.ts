@@ -50,7 +50,6 @@ export class LearningEnvironmentComponent implements OnInit {
   programsList: IProgram[];
   selectedProgram: IProgram;
   imageURL = environment.fieldOfStudiesImage;
-  iconsImages = generalConstants.subjectsIcons;
 
   constructor(private _dialog: MatDialog) {}
 

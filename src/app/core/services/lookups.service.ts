@@ -351,6 +351,7 @@ export class LookupsService {
           return response.field_of_study.map((item) => ({
             id: item.id,
             name: item.name,
+            image: item.image,
           }));
         })
       )
@@ -368,6 +369,7 @@ export class LookupsService {
             programId: item?.program_id,
             countryId: item?.country_id,
             grade: item?.grade,
+            image: item?.image,
             status: item?.status,
             updatedAt: item?.updated_at,
             program: item?.program,

@@ -22,12 +22,6 @@ export const generalConstants = {
     min: 0.5,
     max: 3,
   },
-  subjectsIcons: [
-    'assets/svg/engineering.svg',
-    'assets/svg/science.svg',
-    'assets/svg/humanities.svg',
-    'assets/svg/math.svg',
-  ],
   regex: {
     url: '^(http:\\/\\/www\\.|https:\\/\\/www\\.|http:\\/\\/|https:\\/\\/)?[a-z0-9]+([\\-\\.]{1}[a-z0-9]+)*\\.[a-z]{2,5}(:[0-9]{1,5})?(\\/.*)?$',
   },
