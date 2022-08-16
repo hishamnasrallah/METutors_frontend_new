@@ -6,11 +6,14 @@ import {
   Component,
   EventEmitter,
 } from '@angular/core';
+
 import {
   MatDialog,
   MatDialogRef,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
+
+import { environment } from '@environment';
 import { generalConstants } from '@metutor/config';
 import { ICountry, IField, IProgram, ISubject } from '@metutor/core/models';
 
@@ -46,6 +49,7 @@ export class LearningEnvironmentComponent implements OnInit {
   country: number | null;
   programsList: IProgram[];
   selectedProgram: IProgram;
+  imageURL = environment.fieldOfStudiesImage;
   iconsImages = generalConstants.subjectsIcons;
 
   constructor(private _dialog: MatDialog) {}

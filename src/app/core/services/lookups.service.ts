@@ -435,7 +435,7 @@ export class LookupsService {
 
   editField(body: any, id: number): Observable<any> {
     return this.http
-      .patch<{ FieldOfStudy: any; message: string }>(
+      .post<{ FieldOfStudy: any; message: string }>(
         `${this.BACKEND_URL}fieldofstudy/${id}`,
         body
       )

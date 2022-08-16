@@ -21,8 +21,8 @@ export class ProgramFieldOfStudyComponent implements OnInit {
   deletedField?: IField;
   selectedField?: IField;
   fieldStatus = FieldStatus;
-  imageURL = environment.imageURL;
   fieldStatusConst = FIELD_STATUSES_CONST;
+  imageURL = environment.fieldOfStudiesImage;
 
   isDeletingField$: Observable<boolean>;
   programs$: Observable<IProgram[] | null>;

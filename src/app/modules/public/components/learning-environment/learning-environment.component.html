@@ -40,7 +40,7 @@
           <div class="col-md-7">
             <div class="row mt-4 m-0-sm">
               <div class="col-md-6 d-flex mt-4 mt-15-sm" *ngFor="let field of fields; let i = index">
-                <img [src]="iconsImages[i % 4]" width="65px" height="65px" draggable="false" alt="">
+                <img [src]="imageURL+field.image" width="65px" height="65px" draggable="false" alt="">
                 <div class="ms-2">
                   <h2>
                     <a routerLink="/requests/request-tutor"
