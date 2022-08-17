@@ -39,7 +39,7 @@
           <div class="form-group">
             <label>Select Country</label>
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="country" [placeholder]="'Choose Country'">
+              <mat-select formControlName="country_id" [placeholder]="'Choose Country'">
                 <mat-option [value]="country?.id" *ngFor="let country of countries">
                   {{ country?.name }}
                 </mat-option>
