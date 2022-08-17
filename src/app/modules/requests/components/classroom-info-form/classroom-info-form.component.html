@@ -3,8 +3,8 @@
     <div class="row row-block">
       <div class="col-md-4">
         <h2 class="f-size-17-md-sm">Classroom Setup</h2>
-        <h4 class="f-size-15-md-sm">Choose your classes schedule and make sure <strong>FIRST</strong> class is starting after <strong>24
-            hours</strong></h4>
+        <h4 class="f-size-15-md-sm">Choose your classes schedule and make sure <strong>FIRST</strong> class is starting after <strong>
+          {{ classStartingAfter }} hours</strong></h4>
 
         <h5 class="mt-4">Course ID: <span>CID123</span></h5>
         <h5 class="mb-0">Course Name: <span>Calculus</span></h5>
@@ -63,6 +63,10 @@
               <ngx-material-timepicker #startingTime [appendToInput]="true" [minutesGap]="30"
                 (closed)="onChangeTimePicker()">
               </ngx-material-timepicker>
+            </div>
+
+            <div class="text-danger" *ngIf="form?.hasError('classStartingAfter')">
+              First class must be started after {{ classStartingAfter }} hours
             </div>
           </div>
           <div class="col-md-6 mt-15-sm">

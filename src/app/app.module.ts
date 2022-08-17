@@ -18,7 +18,7 @@ import {
 import { AppComponent } from './app.component';
 
 import { environment } from '@environment';
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, DatePipe } from '@angular/common';
 import { metaReducers, reducers } from './state';
 import * as coreEffects from './core/state/effects';
 import { AuthInterceptor } from './core/intercepters';
@@ -92,6 +92,7 @@ import { ComponentsModule, AlertNotificationsModule } from './core/components';
       : [],
   ],
   providers: [
+    DatePipe,
     CurrencyPipe,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     {
