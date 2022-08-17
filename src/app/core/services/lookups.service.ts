@@ -94,6 +94,7 @@ export class LookupsService {
           return response.programs.map((item) => ({
             id: item.id,
             name: item.name,
+            title: item.title,
             status: item.status,
             updatedAt: item.updated_at,
             image: environment.programImage + item.image,
