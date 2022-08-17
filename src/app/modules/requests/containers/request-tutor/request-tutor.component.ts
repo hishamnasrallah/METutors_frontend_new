@@ -127,11 +127,14 @@ export class RequestTutorComponent implements OnInit {
         tempTotalClasses: [0, Validators.required],
       },
       {
-        validators: this._fv.classroomTimeDurationValidator(
-          'tempDuration',
-          'startTime',
-          'endTime'
-        ),
+        validators: [
+          this._fv.classroomTimeDurationValidator(
+            'tempDuration',
+            'startTime',
+            'endTime'
+          ),
+          this._fv.classroomTimeAfter24Validator('startDate', 'startTime'),
+        ],
       }
     );
 

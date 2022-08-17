@@ -18,6 +18,7 @@ export const generalConstants = {
   defaultCoverPath: 'assets/defaults/cover.png',
   defaultAvatarPath: 'assets/defaults/avatar.png',
   defaultCoursePath: 'assets/defaults/course.jpg',
+  classStartingAfter: 24,
   classroomTimeDuration: {
     min: 0.5,
     max: 3,
