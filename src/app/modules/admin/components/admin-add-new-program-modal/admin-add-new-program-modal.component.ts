@@ -22,6 +22,7 @@ export class AdminAddNewProgramModalComponent implements OnInit {
       this.program = _program;
       this.form?.patchValue({
         name: _program.name,
+        title: _program.title,
         description: _program.description,
       });
 
@@ -38,6 +39,7 @@ export class AdminAddNewProgramModalComponent implements OnInit {
   constructor(private _fb: FormBuilder) {
     this.form = this._fb.group({
       name: [null, Validators.required],
+      title: [null, Validators.required],
       image: [null, Validators.required],
       description: [null, Validators.required],
     });
@@ -45,6 +47,10 @@ export class AdminAddNewProgramModalComponent implements OnInit {
 
   get name(): AbstractControl | null {
     return this.form.get('name');
+  }
+
+  get title(): AbstractControl | null {
+    return this.form.get('title');
   }
 
   get image(): AbstractControl | null {
@@ -58,8 +64,9 @@ export class AdminAddNewProgramModalComponent implements OnInit {
   onSubmit(form: FormGroup): void {
     if (form.valid) {
       const formData = new FormData();
-      formData.set('image', this.image?.value);
       formData.set('name', this.name?.value);
+      formData.set('image', this.image?.value);
+      formData.set('title', this.title?.value);
       formData.set('description', this.description?.value);
 
       this.submitForm.emit(formData);

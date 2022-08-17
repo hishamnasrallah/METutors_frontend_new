@@ -31,7 +31,7 @@
         </ng-container>
 
         <div class="row" *ngIf="!loadingFields">
-          <div class="col-12">
+          <div class="col-9">
             <h1 class="f-size-25-md-sm">Explore courses and earn college credits</h1>
 
             <p class="f-size-15-md-sm">
@@ -43,7 +43,7 @@
           <div class="col-md-7">
             <div class="row mt-4 m-0-sm">
               <div class="col-md-6 d-flex mt-4 mt-15-sm" *ngFor="let field of fields; let i = index">
-                <img [src]="imageURL+field.image" width="55" height="55" draggable="false" alt="">
+                <img [src]="imageURL+field.image" width="48" height="48" draggable="false" alt="">
                 <div class="ms-2">
                   <h2>
                     <a routerLink="/requests/request-tutor"
@@ -57,7 +57,7 @@
                     </ng-container>
 
                     <ng-container *ngIf="!loadingSubjects">
-                      <a class="cursor-pointer" *ngFor="let subject of filteredSubjects(field.id); let isLast = last"
+                      <a class="cursor-pointer subject" *ngFor="let subject of filteredSubjects(field.id); let isLast = last"
                         (click)="viewSubjectDetails.emit({program: selectedProgram, subject, country: country?.id, index: i})">
                         {{ subject?.name }}<ng-container *ngIf="!isLast">, </ng-container>
                       </a>

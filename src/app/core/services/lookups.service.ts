@@ -115,6 +115,7 @@ export class LookupsService {
               id: item.id,
               name: item.name,
               image: item.image,
+              title: item.title,
               status: item.status,
               updatedAt: item.updated_at,
               description: item.description,
@@ -139,6 +140,7 @@ export class LookupsService {
               id: response.program.id,
               name: response.program.name,
               status: ProgramStatus.active,
+              title: response.program.title,
               image: response.program.image,
               updatedAt: response.program.updated_at,
               description: response.program.description,
@@ -162,6 +164,7 @@ export class LookupsService {
             program: {
               id: response.program.id,
               name: response.program.name,
+              title: response.program.title,
               image: response.program.image,
               status: response.program.status,
               updatedAt: response.program.updated_at,
