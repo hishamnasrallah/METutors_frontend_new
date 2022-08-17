@@ -154,10 +154,11 @@ export class ITutor {
               (item: any) => new IAvailability(false, item)
             )
           : [];
-      this.qualifications = new IQualification(
-        false,
-        tutor?.teacher_qualifications
-      );
+      this.qualifications = tutor?.teacher_qualifications
+        ? new IQualification(false, tutor?.teacher_qualifications)
+        : tutor?.teacher_qualification
+        ? new IQualification(false, tutor?.teacher_qualification)
+        : undefined;
       this.specifications = new ISpecification(
         false,
         tutor?.teacher_specifications
@@ -167,6 +168,8 @@ export class ITutor {
           ? tutor?.teacher_subjects.map(
               (item: any) => new ISubject(false, item)
             )
+          : tutor?.subjects && tutor?.subjects?.length
+          ? tutor?.subjects.map((item: any) => new ISubject(false, item))
           : [];
       this.sortedSubjects = sortSubjects(this.subjects);
       this.country = tutor?.country || '';
@@ -178,9 +181,11 @@ export class ITutor {
       this.interviewRequest = tutor?.teacher_interview_request
         ? new IInterview(false, tutor?.teacher_interview_request)
         : undefined;
-      this.totalFeedbacks = tutor?.teacher_feedbacks_count;
+      this.totalFeedbacks =
+        tutor?.teacher_feedbacks_count || tutor?.reviews_count;
       this.averageRating = tutor?.average_rating;
-      this.studentsTeaching = tutor?.teacher_students_count;
+      this.studentsTeaching =
+        tutor?.teacher_students_count || tutor?.classes_taught;
       this.coursesCreated = tutor?.teacher_course_count;
       this.expertRating = tutor?.expert_rating;
       this.complexityRating = tutor?.complexity_rating;

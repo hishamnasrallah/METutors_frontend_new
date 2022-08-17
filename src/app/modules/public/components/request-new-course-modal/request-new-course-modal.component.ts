@@ -34,7 +34,7 @@ export class RequestNewCourseModalComponent implements OnInit {
     this.form = this._fb.group({
       program: [null, Validators.required],
       country: [null],
-      grade: [null, Validators.required],
+      grade: [null],
       subject: [null, Validators.required],
       gender: [null, Validators.required],
       language: [null, Validators.required],
@@ -65,6 +65,10 @@ export class RequestNewCourseModalComponent implements OnInit {
     return this.form.get('country');
   }
 
+  get grade(): AbstractControl | null {
+    return this.form.get('grade');
+  }
+
   get name(): AbstractControl | null {
     return this.form.get('name');
   }
@@ -74,12 +78,16 @@ export class RequestNewCourseModalComponent implements OnInit {
 
     if (programId.toString() === generalConstants.nationalId.toString()) {
       this.country?.setValidators([Validators.required]);
+      this.grade?.setValidators([Validators.required]);
     } else {
       this.country?.setValidators([]);
       this.country?.setValue(null);
+      this.grade?.setValidators([]);
+      this.grade?.setValue(null);
     }
 
     this.country?.updateValueAndValidity();
+    this.grade?.updateValueAndValidity();
   }
 
   onSubmit(form: FormGroup): void {

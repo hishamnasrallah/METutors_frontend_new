@@ -29,7 +29,7 @@
           <h3>Subject</h3>
           <input type="text" class="form-control w-100" placeholder="Subject" formControlName="subject">
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6" *ngIf="program?.value === nationalId">
           <h3>Grade Level</h3>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="grade" [placeholder]="'Choose Grade'">

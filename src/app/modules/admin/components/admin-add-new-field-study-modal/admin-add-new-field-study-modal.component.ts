@@ -27,7 +27,7 @@ export class AdminAddNewFieldStudyModalComponent implements OnInit {
       this.form?.patchValue({
         name: _field.name,
         program_id: _field?.programId,
-        country: _field?.countryId,
+        country_id: _field?.countryId,
       });
 
       this.image?.setValidators(null);
@@ -44,7 +44,7 @@ export class AdminAddNewFieldStudyModalComponent implements OnInit {
 
   constructor(private _fb: FormBuilder) {
     this.form = this._fb.group({
-      country: [null],
+      country_id: [null],
       name: [null, Validators.required],
       image: [null, Validators.required],
       program_id: [null, Validators.required],
@@ -66,7 +66,7 @@ export class AdminAddNewFieldStudyModalComponent implements OnInit {
   }
 
   get country(): AbstractControl | null {
-    return this.form.get('country');
+    return this.form.get('country_id');
   }
 
   get grade(): AbstractControl | null {
@@ -102,7 +102,7 @@ export class AdminAddNewFieldStudyModalComponent implements OnInit {
       const formData = new FormData();
       formData.set('name', this.name?.value);
       formData.set('image', this.image?.value);
-      formData.set('country', this.country?.value);
+      formData.set('country_id', this.country?.value);
       formData.set('program_id', this.program?.value);
 
       this.submitForm.emit(formData);

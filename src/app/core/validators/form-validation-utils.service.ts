@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { generalConstants } from '@metutor/config';
 import {
   FormGroup,
   FormControl,
@@ -6,13 +8,12 @@ import {
   AbstractControl,
   ValidationErrors,
 } from '@angular/forms';
-import { generalConstants } from '@metutor/config';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FormValidationUtilsService {
-  constructor() {}
+  constructor(private _datePipe: DatePipe) {}
 
   passwordsMatchValidator(
     passwordControlKey: string,
@@ -74,6 +75,45 @@ export class FormValidationUtilsService {
         duration.value > generalConstants.classroomTimeDuration.max
       ) {
         return { durationError: true };
+      }
+
+      return null;
+    };
+  }
+
+  classroomTimeAfter24Validator(
+    startDateControlKey: string,
+    startTimeControlKey: string
+  ): any {
+    return (formGroup: FormGroup): { [key: string]: boolean } | null => {
+      if (!formGroup) {
+        return null;
+      }
+
+      const startDate = formGroup.get(startDateControlKey);
+      const startTime = formGroup.get(startTimeControlKey);
+
+      if (!startTime || !startTime.value || !startDate || !startDate.value) {
+        return null;
+      }
+
+      if (
+        Math.abs(
+          new Date(
+            Date.parse(
+              this._datePipe.transform(
+                new Date(startDate.value),
+                'yyyy-MM-dd'
+              ) +
+                ' ' +
+                startTime.value
+            )
+          ).getTime() - new Date().getTime()
+        ) /
+          36e5 <
+        generalConstants.classStartingAfter
+      ) {
+        return { classStartingAfter: true };
       }
 
       return null;

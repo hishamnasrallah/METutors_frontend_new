@@ -49,7 +49,7 @@
                   <!-- <span class="text-uppercase pro">Pro</span> -->
                   <!-- <span class="text-uppercase verified">Verified</span> -->
                 </h2>
-                <h3 *ngIf="teacher?.roleName">{{ teacher?.roleName }}</h3>
+                <h3 *ngIf="teacher?.qualifications?.nameOfUniversity">{{ teacher?.qualifications?.nameOfUniversity }}</h3>
                 <div>
                   <rating [ngModel]="teacher?.averageRating" [max]="5" [readonly]="true"></rating>
                   <span class="count">{{ teacher?.averageRating | number:'.1-1' }}</span>

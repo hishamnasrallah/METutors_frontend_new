@@ -55,6 +55,7 @@ export class ClassroomInfoFormComponent implements OnInit {
   listDays = LONG_DAYS_WEEK;
   daysSorted = SORTED_DAYS_WEEK;
   types = CLASSROOM_TYPES_CONST;
+  classStartingAfter = generalConstants.classStartingAfter;
   classroomTimeDuration = generalConstants.classroomTimeDuration;
 
   constructor() {}
