@@ -118,42 +118,41 @@ export class AllCoursesComponent implements OnInit {
 
   private _prepareCourses(): void {
     this._store.dispatch(fromCore.exploreCourses());
-    this.exploredCourses$ = this._store
-      .select(fromCore.selectExploredCourses)
-      .pipe(
-        filter((courses) => !!courses),
-        take(1),
-        tap((courses) => {
-          if (courses && courses?.subjects && courses?.subjects?.length) {
-            const min: any = minBy(courses.subjects, 'pricePerHour');
-            this.minValue = min?.pricePerHour;
+    this.exploredCourses$ = this._store.select(fromCore.selectExploredCourses);
+    this.exploredCourses$.pipe(
+      filter((courses) => !!courses),
+      take(1),
+      tap((courses) => {
+        if (courses && courses?.subjects && courses?.subjects?.length) {
+          const min: any = minBy(courses.subjects, 'pricePerHour');
+          this.minValue = min?.pricePerHour;
 
-            const max: any = maxBy(courses.subjects, 'pricePerHour');
-            this.maxValue = max?.pricePerHour;
-            // this._store
-            //   .select(fromCore.selectCurrentCurrency)
-            //   .subscribe((toCurrency) => {
-            //     this._money
-            //       .convert(
-            //         parseFloat(min?.pricePerHour.toString()),
-            //         toCurrency,
-            //         false,
-            //         true
-            //       )
-            //       .subscribe((res) => (this.minValue = res.toFixed(2)));
+          const max: any = maxBy(courses.subjects, 'pricePerHour');
+          this.maxValue = max?.pricePerHour;
+          // this._store
+          //   .select(fromCore.selectCurrentCurrency)
+          //   .subscribe((toCurrency) => {
+          //     this._money
+          //       .convert(
+          //         parseFloat(min?.pricePerHour.toString()),
+          //         toCurrency,
+          //         false,
+          //         true
+          //       )
+          //       .subscribe((res) => (this.minValue = res.toFixed(2)));
 
-            //     this._money
-            //       .convert(
-            //         parseFloat(max?.pricePerHour.toString()),
-            //         toCurrency,
-            //         false,
-            //         true
-            //       )
-            //       .subscribe((res) => (this.maxValue = res.toFixed(2)));
-            //   });
-          }
-        })
-      );
+          //     this._money
+          //       .convert(
+          //         parseFloat(max?.pricePerHour.toString()),
+          //         toCurrency,
+          //         false,
+          //         true
+          //       )
+          //       .subscribe((res) => (this.maxValue = res.toFixed(2)));
+          //   });
+        }
+      })
+    );
     this.isLoading$ = this._store.select(
       fromCore.selectIsLoadingExploredCourses
     );
