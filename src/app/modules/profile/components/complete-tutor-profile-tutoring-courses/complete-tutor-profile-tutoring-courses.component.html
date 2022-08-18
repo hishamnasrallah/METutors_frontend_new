@@ -72,10 +72,11 @@
                     (
                       form.value.programs[i]?.programId?.id === nationalId &&
                       form.value.programs[i]?.programId?.id === field?.programId &&
-                      form.value.programs[i].countries?.includes(field.countryId) &&
-                      form.value.programs[i].grades?.includes(field.grade)
+                      form.value.programs[i].countries?.includes(field.countryId)
                     )
                   ">
+                  <!--  &&
+                      form.value.programs[i].grades?.includes(field.grade) -->
                     {{ field?.name }}
                   </mat-option>
                 </ng-container>
@@ -96,10 +97,11 @@
                       form.value.programs[i]?.programId?.id === nationalId &&
                       form.value.programs[i]?.programId?.id === subject.programId &&
                       form.value.programs[i].fields?.includes(subject.fieldId) &&
-                      form.value.programs[i].countries?.includes(subject.countryId) &&
-                      form.value.programs[i].grades?.includes(subject.grade)
+                      form.value.programs[i].countries?.includes(subject.countryId)
                     )
                   ">
+                  <!--  &&
+                      form.value.programs[i].grades?.includes(subject.grade) -->
                     <mat-option *ngFor="let sub of subject.subjects" [value]="sub">
                       {{ sub?.name }}
                     </mat-option>
@@ -130,7 +132,7 @@
                   <td>{{ subject?.name }}</td>
                   <td *ngIf="form.value.programs[i]?.programId?.id === nationalId">{{ subject?.gradeName }}</td>
                   <td>
-                    <input type="number" min="1" step="1" max="100" placeholder="Enter Hourly Rate (Max $100)" class="p-0 w-100"
+                    <input type="number" min="1" step="1" placeholder="Enter Hourly Rate " class="p-0 w-100"
                       [value]="subject.pricePerHour" (change)="changePrice(i, indexSubjects, indexSubject, $event)">
                   </td>
                 </tr>

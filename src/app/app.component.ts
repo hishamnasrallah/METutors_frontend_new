@@ -75,7 +75,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   private _navigationInterceptor(event: RouterEvent): void {
     if (event instanceof NavigationStart) {
-      window.scrollTo(0, 0);
       this.progressRef.start();
     }
 
@@ -83,6 +82,7 @@ export class AppComponent implements OnInit, OnDestroy {
       this.progressRef.complete();
 
       if (typeof window !== 'undefined') {
+        window.scrollTo(0, 0);
         this._document.documentElement.scrollTop = 0;
         this._document.body.scrollTop = 0;
       }

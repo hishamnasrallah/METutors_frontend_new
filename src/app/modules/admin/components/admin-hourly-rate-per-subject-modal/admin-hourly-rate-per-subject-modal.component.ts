@@ -44,10 +44,7 @@ export class AdminHourlyRatePerSubjectModalComponent implements OnInit {
       item.id === id
         ? {
             ...item,
-            pricePerHour:
-              +event.target.value > 0 && +event.target.value <= 20
-                ? event.target.value
-                : null,
+            pricePerHour: +event.target.value > 0 ? event.target.value : null,
           }
         : { ...item }
     );

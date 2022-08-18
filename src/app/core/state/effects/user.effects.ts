@@ -558,7 +558,10 @@ export class UserEffects {
         ofType(userActions.enterRequestTutor),
         withLatestFrom(this._store.select(fromCore.selectUser)),
         map(([_, user]) => {
-          if (user && user?.roleId?.toString() === UserRole.tutor.toString()) {
+          if (
+            user &&
+            user?.roleId?.toString() !== UserRole.student.toString()
+          ) {
             this._alertNotificationService.error(
               'You dont have a permission to access this page from tutor account'
             );
