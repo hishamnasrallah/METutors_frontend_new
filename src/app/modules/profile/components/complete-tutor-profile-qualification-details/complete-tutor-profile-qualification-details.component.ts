@@ -130,8 +130,8 @@ export class CompleteTutorProfileQualificationDetailsComponent
         return;
       }
 
-      if (file.size > 20 * 1024 * 1024) {
-        this._alertNotificationService.error('Allowed file size is 20MB');
+      if (file.size > 50 * 1024 * 1024) {
+        this._alertNotificationService.error('Allowed file size is 50MB');
 
         return;
       }
