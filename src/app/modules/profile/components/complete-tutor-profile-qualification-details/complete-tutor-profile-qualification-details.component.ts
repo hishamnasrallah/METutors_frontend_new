@@ -30,8 +30,8 @@ export class CompleteTutorProfileQualificationDetailsComponent
 
   videoDemo: any;
   form: FormGroup;
-  skills = COMPUTER_SKILLS;
   invalid = 'INVALID';
+  skills = COMPUTER_SKILLS;
   degreeLevels = DEGREE_LEVELS;
   degreeFields = DEGREE_FIELDS;
   experiences = TEACHING_EXPERIENCE;
