@@ -6,6 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./file-upload-progress.component.scss'],
 })
 export class FileUploadProgressComponent implements OnInit {
+  @Input() fileType = 'file';
   @Input() fileName: string;
   @Input() uploadedPercentage = 0;
 
