@@ -97,6 +97,9 @@
     &:focus {
       border-bottom: 1px solid #9d9fa3;
     }
+    &::placeholder {
+      color: rgba(152, 152, 152, 0.63);
+    }
   }
 }
 
