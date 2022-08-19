@@ -96,6 +96,29 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
+            <label for="firstName" class="form-label">First Name</label>
+            <input type="text" class="custom-input w-100 input-bordered" id="firstName" placeholder="Enter First Name"
+                   formControlName="firstName">
+            <div class="text-danger" *ngIf="firstName?.touched && firstName?.invalid">
+              Please write a valid name
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input type="text" class="custom-input w-100 input-bordered" id="lastName" placeholder="Enter Last Name"
+                   formControlName="lastName">
+            <div class="text-danger" *ngIf="lastName?.touched && lastName?.invalid">
+              Please write a valid name
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
             <label for="middleName" class="form-label">Middle Name <span>(Optional)</span></label>
             <input type="text" class="custom-input w-100 input-bordered" id="middleName" placeholder="Enter Middle Name"
               formControlName="middleName">

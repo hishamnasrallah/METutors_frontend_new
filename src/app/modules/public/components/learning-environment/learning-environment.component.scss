@@ -14,6 +14,7 @@
       padding: 10px 20px;
       border-radius: 4px 4px 0 0;
       min-width: 250px;
+      font-size: 16px;
 
       span {
         color: #707070;
@@ -33,6 +34,7 @@
 
         span {
           font-weight: bold;
+          color: #2A2A2A;
         }
 
         &::after {
@@ -84,6 +86,9 @@
         color: #5a7184;
         padding: 0;
         margin: 0;
+        &:hover {
+          color: var(--main-color);
+        }
       }
     }
 

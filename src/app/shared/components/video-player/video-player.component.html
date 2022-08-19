@@ -1,4 +1,4 @@
-<vg-player class="rounded">
+<vg-player class="rounded" *ngIf="videoSrc">
   <vg-overlay-play></vg-overlay-play>
   <vg-buffering></vg-buffering>
 
@@ -25,7 +25,7 @@
     <vg-fullscreen></vg-fullscreen>
   </vg-controls>
 
-  <video [vgMedia]="$any(media)" #media id="singleVideo" preload="auto" crossorigin>
+  <video [vgMedia]="$any(media)" [src]="videoSrc" #media id="singleVideo" preload="auto" crossorigin>
     <source [src]="videoSrc" type="video/mp4">
 
     <!-- <track kind="subtitles" label="English" src="http://static.videogular.com/assets/subs/pale-blue-dot.vtt"

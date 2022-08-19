@@ -170,9 +170,7 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
                 ? {
                     ...sub,
                     pricePerHour:
-                      +event.target.value > 0 && +event.target.value <= 20
-                        ? event.target.value
-                        : null,
+                      +event.target.value > 0 ? event.target.value : null,
                   }
                 : { ...sub }
             ),

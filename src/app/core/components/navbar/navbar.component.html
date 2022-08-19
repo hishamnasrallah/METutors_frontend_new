@@ -37,7 +37,7 @@
         <li class="nav-item" *ngIf="token$ | async">
           <a class="nav-link nav-item-link" routerLinkActive="active"
             [routerLink]="(user$ | async)?.roleId === userRole.tutor ? '/tutor' : (user$ | async)?.roleId === userRole.student ? '/student' : '/admin'">
-            My Classrooms
+            My Classroom
           </a>
         </li>
         <li class="nav-item d-flex align-items-center justify-content-center">

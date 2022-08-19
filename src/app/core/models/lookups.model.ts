@@ -12,6 +12,7 @@ export interface IProgram {
   id: number;
   image: string;
   name: string;
+  title: string;
   code: string;
   status: number;
   createdAt: string;

@@ -47,6 +47,8 @@ export class TutorSettingsProfileComponent implements OnInit {
       this.tutor = _tutor;
 
       this.personalInfoForm?.patchValue({
+        firstName: _tutor?.firstName,
+        lastName: _tutor?.lastName,
         middleName: _tutor?.middleName,
         nationality: _tutor?.nationality,
         dateOfBirth: new Date(_tutor.dateOfBirth || ''),
@@ -163,6 +165,8 @@ export class TutorSettingsProfileComponent implements OnInit {
     private _alertNotificationService: AlertNotificationService
   ) {
     this.personalInfoForm = this._fb.group({
+      firstName: [null, [Validators.minLength(3), Validators.maxLength(15)]],
+      lastName: [null, [Validators.minLength(3), Validators.maxLength(15)]],
       middleName: [null, [Validators.minLength(3), Validators.maxLength(15)]],
       nationality: [null, [Validators.required]],
       dateOfBirth: [null, [Validators.required]],
@@ -221,6 +225,14 @@ export class TutorSettingsProfileComponent implements OnInit {
 
   returnZero(): number {
     return 0;
+  }
+
+  get firstName(): AbstractControl | null {
+    return this.personalInfoForm.get('firstName');
+  }
+
+  get lastName(): AbstractControl | null {
+    return this.personalInfoForm.get('lastName');
   }
 
   get middleName(): AbstractControl | null {
@@ -409,6 +421,8 @@ export class TutorSettingsProfileComponent implements OnInit {
 
       const data = {
         step: '1',
+        first_name: this.firstName?.value,
+        last_name: this.lastName?.value,
         middle_name: this.middleName?.value,
         gender: this.gender?.value,
         nationality: this.nationality?.value,
