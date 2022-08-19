@@ -229,7 +229,7 @@ export class StudentAddCourseModalComponent implements OnInit {
 
       this.step = 2;
       this.lastStep = 2;
-      this.subHeading = 'Please review new classes schedule';
+      this.subHeading = 'Please review new class schedule';
       this.classes?.setValidators([Validators.required]);
       this.classes?.setValue(this.classrooms);
       this.classes?.updateValueAndValidity();
@@ -254,7 +254,7 @@ export class StudentAddCourseModalComponent implements OnInit {
     this.subHeading =
       this.step === 1
         ? 'Please select classes date to view Tutors availability'
-        : 'Please review new classes schedule';
+        : 'Please review new class schedule';
   }
 
   onChangeDateDay(): void {

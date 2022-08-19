@@ -2,7 +2,7 @@
   <div class="card-body">
     <div class="row row-block">
       <div class="col-md-3">
-        <h2 class="f-size-17-md-sm">Classes Schedule</h2>
+        <h2 class="f-size-17-md-sm">Class Schedule</h2>
         <h4 class="f-size-15-md-sm">Review and make necessary changes</h4>
 
         <h5 class="mt-4">Course ID: <span>CID123</span></h5>
@@ -23,7 +23,7 @@
               <td>{{ classroom?.date | date: 'd MMM y' }}</td>
               <td>{{ classroom?.startTime }}</td>
               <td>{{ classroom?.endTime }}</td>
-              <td>{{ classroom?.duration + 'hrs' }}</td>
+              <td>{{ classroom?.duration + (+(classroom.duration)! > 1 ? 'hrs' : 'hr') }}</td>
               <div class="actions">
                 <button mat-button class="delete-btn" *ngIf="_classrooms.length > 1"
                   (click)="deleteClassroom(classroom?.number)">
@@ -45,7 +45,7 @@
                   <h5 class="d-flex align-items-center">
                     Estimated Price: <h1 class="mb-0 f-size-20-md-sm">{{ (price * +hours) | metutorsMoney | async }}</h1>
                   </h5>
-                  <p>Price change based on total hours, total classes, time</p>
+                  <p>Final price based on total number of class hours</p>
                 </div>
               </div>
             </div>

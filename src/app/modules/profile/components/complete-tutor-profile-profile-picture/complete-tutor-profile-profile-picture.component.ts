@@ -27,7 +27,7 @@ export class CompleteTutorProfileProfilePictureComponent implements OnInit {
   ) {
     this.form = this._fb.group({
       avatar: [null, Validators.required],
-      cover: [null, Validators.required],
+      cover: [null],
     });
   }
 

@@ -92,7 +92,7 @@
                 <h5>Estimated Cost:
                   <span>{{ (price * +hours?.value) | metutorsMoney | async }}</span>
                 </h5>
-                <p class="mb-0">Price change based on total hours</p>
+                <p class="mb-0">Final price based on total number of class hours</p>
               </div>
               <div>
                 <h5>Total Hours: <span>{{ hours?.value }} hrs</span></h5>
@@ -152,7 +152,7 @@
                   <h5>Estimated Price:
                     <span>{{ (price * +allHours) | metutorsMoney | async }}</span>
                   </h5>
-                  <p class="mb-0">Price change based on total hours</p>
+                  <p class="mb-0">Final price based on total number of class hours</p>
                 </div>
                 <div>
                   <h5>Total Hours: <span>{{ allHours }} hrs</span></h5>

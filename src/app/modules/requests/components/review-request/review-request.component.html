@@ -101,7 +101,7 @@
     </div>
     <div class="row row-block" *ngIf="reviewInfo?.appointments && reviewInfo?.appointments.length">
       <div class="col-md-4">
-        <h2 class="f-size-17-md-sm">Classes Schedule</h2>
+        <h2 class="f-size-17-md-sm">Class Schedule</h2>
       </div>
       <div class="col-md-8 mt-15-sm">
         <h6>Classroom List Schedule</h6>
@@ -173,7 +173,7 @@
                   <h5 class="d-flex align-items-center">
                     Estimated Price: <h1 class="mb-0 f-size-20-md-sm">{{ (price * +reviewInfo?.hours) | metutorsMoney | async }}</h1>
                   </h5>
-                  <p>Price change based on total hours, total classes, time</p>
+                  <p>Final price based on total number of class hours</p>
                 </div>
               </div>
             </div>
