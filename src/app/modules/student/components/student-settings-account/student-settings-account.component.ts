@@ -1,7 +1,7 @@
 import { Store } from '@ngrx/store';
 import { map, tap } from 'rxjs/operators';
 import { Observable, combineLatest } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormValidationUtilsService } from '@metutor/core/validators';
 
 import {
@@ -22,11 +22,13 @@ import { AlertNotificationService } from '@metutor/core/components';
   styleUrls: ['./student-settings-account.component.scss'],
 })
 export class StudentSettingsAccountComponent implements OnInit {
+  @Input() countries: ICountry[] | null;
+
   form: FormGroup;
   genders = GENDERS;
+  filterCountry: string;
   isChangeAvatar$: Observable<boolean>;
   isSavingProfile: Observable<boolean>;
-  countries$: Observable<ICountry[] | null>;
   view$: Observable<{ student: IStudent | null; loading: boolean }>;
 
   constructor(
@@ -38,8 +40,7 @@ export class StudentSettingsAccountComponent implements OnInit {
 
   ngOnInit(): void {
     this._store.dispatch(fromCore.loadStudent());
-    this._store.dispatch(fromCore.loadProgramCountries());
-    this.countries$ = this._store.select(fromCore.selectProgramCountries);
+
     this.isChangeAvatar$ = this._store.select(fromCore.selectIsUploadingAvatar);
     this.isSavingProfile = this._store.select(
       fromCore.selectIsUpdatingStudentProfile
@@ -68,6 +69,18 @@ export class StudentSettingsAccountComponent implements OnInit {
 
   get lastName(): AbstractControl | null {
     return this.form.get('last_name');
+  }
+
+  get filteredCountries(): ICountry[] {
+    if (this.filterCountry) {
+      return (
+        this.countries?.filter((country) =>
+          country?.name.toLowerCase().includes(this.filterCountry.toLowerCase())
+        ) || []
+      );
+    } else {
+      return this.countries || [];
+    }
   }
 
   uploadProfilePic(event: any): void {
