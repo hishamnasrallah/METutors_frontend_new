@@ -59,7 +59,7 @@ export class CompleteTutorProfilePersonalInformationComponent
       ],
       postalCode: [
         null,
-        [Validators.required, Validators.minLength(3), Validators.maxLength(5)],
+        [Validators.required, Validators.minLength(3), Validators.maxLength(6)],
       ],
     });
   }
@@ -112,7 +112,9 @@ export class CompleteTutorProfilePersonalInformationComponent
     if (this.filterNationality) {
       return (
         this.countries?.filter((country) =>
-          country?.name.toLowerCase().includes(this.filterNationality.toLowerCase())
+          country?.name
+            .toLowerCase()
+            .includes(this.filterNationality.toLowerCase())
         ) || []
       );
     } else {
