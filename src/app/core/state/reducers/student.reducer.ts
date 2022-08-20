@@ -738,7 +738,13 @@ export const selectStudentFilteredAssignments = (
   props?: any
 ): any => {
   let assignments = state.assignments.course.assignments.filter(
-    (assignment: any) => assignment.status === props?.status
+    (assignment: any) => {
+      if (props?.status === 'completed') {
+        return props?.status === assignment.status;
+      } else {
+        return assignment.status !== 'completed';
+      }
+    }
   );
 
   assignments = assignments.map((assignment: any) => {
