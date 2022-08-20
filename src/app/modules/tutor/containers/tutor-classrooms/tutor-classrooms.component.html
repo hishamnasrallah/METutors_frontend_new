@@ -119,7 +119,7 @@
             </div>
 
             <div class="col-md-12" *ngFor="let cancelledCourse of view.cancelledCourses">
-              <metutors-classroom-item [classroom]="cancelledCourse" [url]="'/tutor/classrooms/classes/dashboard/'"></metutors-classroom-item>
+              <metutors-classroom-item [isTeacher]="true" [classroom]="cancelledCourse" [url]="'/tutor/classrooms/classes/dashboard/'"></metutors-classroom-item>
             </div>
 
             <div class="col-md-12 mb-3" *ngIf="!view.completedCourses || !view.completedCourses.length">

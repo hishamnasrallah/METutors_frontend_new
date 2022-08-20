@@ -427,7 +427,7 @@ export const courseStatusLabel = {
   },
   cancelled_by_teacher: {
     short: 'On Hold',
-    long: 'On Hold (Tutor Re-Assignment by MeTutors)',
+    long: 'On Hold (Action Required By Student)',
   },
   cancelled_by_student: {
     short: 'Cancelled',

@@ -11,6 +11,7 @@ import { ClassroomType, courseStatusLabel } from 'src/app/config';
 export class ClassroomItemComponent implements OnInit {
   @Input() classroom!: any;
   @Input() isStudent!: boolean;
+  @Input() isTeacher!: boolean;
   @Input() selectedId!: number;
   @Input() completeCourse: boolean;
   @Input() isAcceptingCourse: boolean;

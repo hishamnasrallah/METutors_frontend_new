@@ -4,7 +4,7 @@
       <ng-container [ngSwitch]="view.loading">
         <ng-container *ngSwitchCase="false">
           <h1 class="title overflow-hidden">{{ view.data?.course?.courseName }}  <span>({{ view.data.course?.courseCode}})</span>
-            <button mat-button class="ms-2 status text-decoration-none" [ngClass]="view?.data?.course?.status">{{ statusLabel[view?.data?.course?.status].long }}</button>
+            <button mat-button class="ms-2 status text-decoration-none" [ngClass]="view?.data?.course?.status">{{ view?.data?.course?.status === 'cancelled_by_teacher' ? 'Cancelled' :  statusLabel[view?.data?.course?.status].long }}</button>
 
             <button mat-button class="float-end cancel-course text-danger text-decoration-underline" (click)="onShowSendFeedbackModal(view.data?.course?.studentId)"
                     *ngIf="view?.data?.course?.status === courseStatus.active || view?.data?.course?.status === courseStatus.inprogress">

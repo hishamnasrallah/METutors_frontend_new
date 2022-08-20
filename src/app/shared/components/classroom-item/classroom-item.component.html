@@ -18,7 +18,7 @@
           {{ classroom?.name }}
           <span>({{classroom?.courseCode}})</span>
           <button mat-button class="ms-2 me-2 status" [ngClass]="classroom.status"
-                  [tooltip]="statusLabel[classroom.status]?.long" placement="bottom">{{ statusLabel[classroom.status]?.short }}
+                  [tooltip]="isTeacher && classroom.status === 'cancelled_by_teacher' ? 'Cancelled' : statusLabel[classroom.status]?.long" placement="bottom">{{ isTeacher && classroom.status === 'cancelled_by_teacher' ? 'Cancelled' :  statusLabel[classroom.status]?.short }}
           </button>
           <img src="assets/svg/user-one.svg" draggable="false" *ngIf="classroom?.type === classroomType.one" width="25px"
                height="25px" alt=""/>
