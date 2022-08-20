@@ -211,21 +211,23 @@
                 <td>{{ pastClass.startTime}} - {{ pastClass.endTime}} </td>
                 <td>{{ pastClass?.duration }} hours</td>
                 <td>
-                  <button mat-button class="main-button-opacity flex-grow-1" *ngIf="pastClass?.status === 'completed'"
-                          (click)="onViewClass(pastClass.id)" [disabled]="isLoadingViewClass$ | async">
-                    <img src="assets/svg/eye-fill.svg" draggable="false" alt="">
-                    View Class
-                  </button>
-
-                  <ng-container *ngIf="pastClass?.status !== 'completed'">
-                    <span class="w-100 text-danger text-center" *ngIf="pastClass?.teacherAttendence?.status === 'absent'">
-                    Teacher Absent
-                  </span>
-
-                    <span class="w-100 text-danger text-center" *ngIf="pastClass?.teacherAttendence?.status !== 'absent' && pastClass?.studentAttendence?.status === 'absent'">
-                    Teacher Absent
-                  </span>
+                  <ng-container *ngIf="pastClass?.studentAttendence?.status === 'absent'; else second">
+                    <span class="w-100 text-danger text-center">Student Absent</span>
                   </ng-container>
+
+                  <ng-template #second>
+                    <ng-container  *ngIf="pastClass?.studentAttendence?.status === 'present' && pastClass?.teacherAttendence?.status === 'absent'; else third">
+                      <span class="w-100 text-danger text-center">Teacher Absent</span>
+                    </ng-container>
+                  </ng-template>
+
+                  <ng-template #third>
+                    <button mat-button class="main-button-opacity flex-grow-1"
+                            (click)="onViewClass(pastClass.id)" [disabled]="isLoadingViewClass$ | async">
+                      <img src="assets/svg/eye-fill.svg" draggable="false" alt="">
+                      View Class
+                    </button>
+                  </ng-template>
                 </td>
               </tr>
             </ng-container>
