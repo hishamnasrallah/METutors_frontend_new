@@ -42,7 +42,7 @@
                 <div class="d-flex align-items-center">
                   <div class="flex-grow-1">
                     <mat-progress-bar class="example-margin"
-                                      [color]="view.syllabus?.courseProgress ? view.syllabus?.courseProgress > 30 ? 'primary' : 'warn' : undefined"
+                                      [color]="'primary'"
                                       [value]="view.syllabus?.courseProgress">
                     </mat-progress-bar>
                   </div>
@@ -131,7 +131,7 @@
                         *ngIf="syllabus?.topicProgress && (syllabus?.topicProgress > 0 && syllabus?.topicProgress < 100)">
                         In progress</h3>
                       <mat-progress-bar class="example-margin"
-                                        [color]="syllabus.topicProgress ? syllabus.topicProgress > 30 ? 'primary' : 'warn' : undefined"
+                                        [color]="'primary'"
                                         [value]="syllabus?.topicProgress">
                       </mat-progress-bar>
                     </div>
