@@ -31,9 +31,9 @@ export class CompleteTutorProfileQualificationDetailsComponent
   videoDemo: any;
   form: FormGroup;
   invalid = 'INVALID';
+  filterDegree: string;
   skills = COMPUTER_SKILLS;
   degreeLevels = DEGREE_LEVELS;
-  degreeFields = DEGREE_FIELDS;
   experiences = TEACHING_EXPERIENCE;
 
   constructor(
@@ -116,6 +116,18 @@ export class CompleteTutorProfileQualificationDetailsComponent
   addLanguage(): void {
     if (this.languages.status !== this.invalid) {
       this.languages.push(this.newLanguage());
+    }
+  }
+
+  get filteredDegreeFields(): string[] {
+    if (this.filterDegree) {
+      return (
+        DEGREE_FIELDS?.filter((degree) =>
+          degree?.toLowerCase().includes(this.filterDegree.toLowerCase())
+        ) || []
+      );
+    } else {
+      return DEGREE_FIELDS;
     }
   }
 

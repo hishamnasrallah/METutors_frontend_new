@@ -92,7 +92,11 @@ export class LearningEnvironmentComponent implements OnInit {
   onViewPrices(): void {
     const dialogRef = this._dialog.open(ViewPricesDialog, {
       width: '800px',
-      data: { fields: this.fields, subjects: this.subjects },
+      data: {
+        fields: this.fields,
+        subjects: this.subjects,
+        programId: this.selectedProgram?.id,
+      },
       panelClass: 'overflow-height',
     });
 
@@ -152,7 +156,12 @@ export class ViewPricesDialog {
   ) {
     if (data) {
       this.fields = data.fields;
-      this.subjects = data.subjects;
+      this.subjects =
+        data.subjects && data.subjects.length
+          ? data.subjects.filter(
+              (item: ISubject) => item.programId === data.programId
+            )
+          : [];
     }
   }
 

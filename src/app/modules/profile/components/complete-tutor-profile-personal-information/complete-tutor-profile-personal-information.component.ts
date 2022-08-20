@@ -27,7 +27,10 @@ export class CompleteTutorProfilePersonalInformationComponent
 
   form: FormGroup;
   genders = GENDERS;
+  filterCity: string;
   maxDate = new Date();
+  filterCountry: string;
+  filterNationality: string;
 
   constructor(private _fb: FormBuilder, private _datePipe: DatePipe) {
     this.form = this._fb.group({
@@ -103,6 +106,42 @@ export class CompleteTutorProfilePersonalInformationComponent
 
   get postalCode(): AbstractControl | null {
     return this.form.get('postalCode');
+  }
+
+  get filteredNationalities(): ICountry[] {
+    if (this.filterNationality) {
+      return (
+        this.countries?.filter((country) =>
+          country?.name.toLowerCase().includes(this.filterNationality.toLowerCase())
+        ) || []
+      );
+    } else {
+      return this.countries || [];
+    }
+  }
+
+  get filteredCountries(): ICountry[] {
+    if (this.filterCountry) {
+      return (
+        this.countries?.filter((country) =>
+          country?.name.toLowerCase().includes(this.filterCountry.toLowerCase())
+        ) || []
+      );
+    } else {
+      return this.countries || [];
+    }
+  }
+
+  get filteredCities(): ICity[] {
+    if (this.filterCity) {
+      return (
+        this.cities?.filter((city) =>
+          city?.name.toLowerCase().includes(this.filterCity.toLowerCase())
+        ) || []
+      );
+    } else {
+      return this.cities || [];
+    }
   }
 
   resetCity(): void {

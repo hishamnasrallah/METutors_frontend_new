@@ -14,6 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import { VgCoreModule } from '@videogular/ngx-videogular/core';
@@ -136,6 +137,7 @@ import { MoneyPipe, DaysPipe } from './pipes';
     ReactiveFormsModule,
     MatProgressBarModule,
     RatingModule.forRoot(),
+    NgxMatSelectSearchModule,
     BsDropdownModule.forRoot(),
   ],
   exports: [
@@ -183,6 +185,9 @@ import { MoneyPipe, DaysPipe } from './pipes';
     DefaultCourseDirective,
     FileUploadProgressComponent,
     TutorAvailableSlotsComponent,
+
+    // Modules
+    NgxMatSelectSearchModule,
   ],
 })
 export class SharedModule {}
