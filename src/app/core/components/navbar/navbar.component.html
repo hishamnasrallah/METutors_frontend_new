@@ -34,12 +34,6 @@
             Logout
           </a>
         </li>
-        <li class="nav-item" *ngIf="token$ | async">
-          <a class="nav-link nav-item-link" routerLinkActive="active"
-            [routerLink]="(user$ | async)?.roleId === userRole.tutor ? '/tutor' : (user$ | async)?.roleId === userRole.student ? '/student' : '/admin'">
-            My Classroom
-          </a>
-        </li>
         <li class="nav-item d-flex align-items-center justify-content-center">
           <a class="nav-link nav-item-link currency" [matMenuTriggerFor]="currency">
             <span class="lang">{{ (selectedCurrency$ | async)?.id }}</span>
@@ -54,8 +48,13 @@
           </a>
         </li> -->
         <li class="nav-item btn-nav d-flex align-items-center justify-content-center">
-          <a class="link-btn login px-4 py-1 fw-bold" mat-flat-button color="primary" routerLink="/" [fragment]="'explore-services'">
+          <a *ngIf="!(token$ | async)" class="link-btn login px-4 py-1 fw-bold" mat-flat-button color="primary"
+            routerLink="/" [fragment]="'explore-services'">
             Get Started
+          </a>
+          <a *ngIf="token$ | async" class="link-btn login px-4 py-1 fw-bold" mat-flat-button color="primary"
+            [routerLink]="(user$ | async)?.roleId === userRole.tutor ? '/tutor' : (user$ | async)?.roleId === userRole.student ? '/student' : '/admin'">
+            My Classroom
           </a>
         </li>
       </ul>
@@ -86,10 +85,6 @@
       <li role="menuitem">
         <a class="dropdown-item" routerLink="/become-tutor" routerLinkActive="active">Become A Tutor</a>
       </li>
-      <li role="menuitem" *ngIf="token$ | async">
-        <a class="dropdown-item" routerLinkActive="active"
-          [routerLink]="(user$ | async)?.roleId === userRole.tutor ? '/tutor' : '/student'">My Classrooms</a>
-      </li>
       <li role="menuitem">
         <a class="dropdown-item" [matMenuTriggerFor]="currency">
           <span class="mx-2">{{ (selectedCurrency$ | async)?.id }}</span>
@@ -104,8 +99,13 @@
         </a>
       </li> -->
       <li role="menuitem" class="book-class">
-        <a class="dropdown-item link-btn login" mat-flat-button color="primary" routerLink="/" [fragment]="'explore-services'">
+        <a *ngIf="!(token$ | async)" class="dropdown-item link-btn login" mat-flat-button color="primary" routerLink="/"
+          [fragment]="'explore-services'">
           Get Started
+        </a>
+        <a *ngIf="token$ | async" class="dropdown-item link-btn login" mat-flat-button color="primary"
+          [routerLink]="(user$ | async)?.roleId === userRole.tutor ? '/tutor' : (user$ | async)?.roleId === userRole.student ? '/student' : '/admin'">
+          My Classroom
         </a>
       </li>
 

@@ -207,8 +207,7 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
-            <label for="bio" class="form-label w-100">Add Bio <small class="text-danger fw-normal">(200 to 400
-                words)</small>
+            <label for="bio" class="form-label w-100">Add Bio <small class="text-danger fw-normal">(200 to 400 characters)</small>
               <metutors-char-counter [limit]="400" [controlName]="bio"></metutors-char-counter>
             </label>
             <textarea id="bio" class="custom-input w-100 input-bordered" [placeholder]="'Add Bio here... '" rows="10"
@@ -223,7 +222,7 @@
           <div class="form-group">
             <label for="postalCode" class="form-label">Postal Code</label>
             <input type="text" class="custom-input w-100 input-bordered" id="postalCode" placeholder="Postal Code"
-              formControlName="postalCode" meTutorsOnlyNumber [onlyNumber]="true">
+              formControlName="postalCode">
             <div class="text-danger" *ngIf="postalCode?.touched && postalCode?.invalid">
               Please write a valid Postal Code
             </div>
