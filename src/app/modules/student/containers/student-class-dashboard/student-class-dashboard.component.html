@@ -52,7 +52,7 @@
                                       [value]="view.data?.progress">
                     </mat-progress-bar>
                   </div>
-                  <strong>{{ view.data?.progress }}%</strong>
+                  <strong>{{ view.data?.progress.toFixed(0) }}%</strong>
                 </div>
               </div>
               <div class="col-md-6">
@@ -229,7 +229,7 @@
                   <td>{{ previousClass?.duration}}hrs</td>
                   <td>
                     <ng-container *ngIf="previousClass?.studentAttendence?.status === 'absent'; else second">
-                      <span class="w-100 text-danger text-center">Student Absent</span>
+                      <span class="w-100 text-main text-center">Student Absent</span>
                     </ng-container>
 
                     <ng-template #second>
