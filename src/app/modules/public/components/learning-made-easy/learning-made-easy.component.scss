@@ -56,17 +56,16 @@
       width: calc(100% - 50px);
     }
 
-    &:first-child:before {
-      right: calc(50% + 50px);
-      width: 40%;
-      opacity: 0.5;
-    }
-
-    &:last-child:after {
-      left: calc(50% + 40px);
-      width: 40%;
-      opacity: 0.5;
-    }
+    // &:first-child:before {
+    //   right: calc(50% + 50px);
+    //   width: 40%;
+    //   opacity: 0.5;
+    // }
+    // &:last-child:after {
+    //   left: calc(50% + 40px);
+    //   width: 40%;
+    //   opacity: 0.5;
+    // }
   }
 
   a {
