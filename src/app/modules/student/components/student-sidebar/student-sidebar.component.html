@@ -3,7 +3,7 @@
 </button>
 
 <div class="sidebar h-100 d-flex flex-column" [ngClass]="{
-    'open-sidebar': openSidebar, 
+    'open-sidebar': openSidebar,
     'has-sidemenu': layout?.hideSidebar
   }">
   <button mat-button (click)="openSidebar = false" class="close-btn d-inline-block d-lg-none">
@@ -13,7 +13,7 @@
     <img alt="logo" src="assets/logo/logo-light.png" width="200px" draggable="false" *ngIf="!layout?.hideSidebar">
     <img alt="logo" src="assets/logo/logo-icon.png" width="100%" draggable="false" *ngIf="layout?.hideSidebar">
   </a>
-  <button mat-flat-button color="primary" class="d-block add-course mb-15-md-sm">
+  <button mat-flat-button color="primary" class="d-block add-course mb-15-md-sm" [routerLink]="['/requests']">
     <mat-icon>add</mat-icon>
     <span class="hide-sidemenu">Add New Course</span>
   </button>
