@@ -4,7 +4,7 @@
       <ng-container [ngSwitch]="view.loading">
         <ng-container *ngSwitchCase="false">
           <h1 class="title overflow-hidden">{{ view.data?.course?.courseName }}  <span>({{ view.data.course?.courseCode}})</span>
-            <button mat-button class="ms-2 status text-decoration-none" [ngClass]="view?.data?.course?.status">{{ statusLabel[view?.data?.course?.status].long }}</button>
+            <button mat-button class="ms-2 status text-decoration-none" [ngClass]="view?.data?.course?.status">{{ view?.data?.course?.status === 'cancelled_by_teacher' ? 'Cancelled' :  statusLabel[view?.data?.course?.status].long }}</button>
 
             <button mat-button class="float-end cancel-course text-danger text-decoration-underline" (click)="onShowSendFeedbackModal(view.data?.course?.studentId)"
                     *ngIf="view?.data?.course?.status === courseStatus.active || view?.data?.course?.status === courseStatus.inprogress">
@@ -222,7 +222,7 @@
                   </ng-template>
 
                   <ng-template #third>
-                    <button mat-button class="main-button-opacity flex-grow-1"
+                    <button mat-button class="main-button-opacity flex-grow-1 w-100"
                             (click)="onViewClass(pastClass.id)" [disabled]="isLoadingViewClass$ | async">
                       <img src="assets/svg/eye-fill.svg" draggable="false" alt="">
                       View Class
