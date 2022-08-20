@@ -184,8 +184,7 @@
       <div class="steps" [@userTypeAnimate]>
         <h2>How to create your account</h2>
         <p>
-          In {{ accountType === 1 ? 2 : 3 }} steps you can create your account and start taking
-          your courses with MEtutors
+          In {{ accountType === 1 ? 2 : 3 }} steps you can create your account and start teaching with MEtutors
         </p>
         <ul class="list-unstyled">
           <li [ngClass]="{'active': step === 1}">
@@ -197,7 +196,7 @@
           <li [ngClass]="{'active': step === 2}">
             <span>Step two</span>
             <h4 class="f-size-25-md-sm">
-              Verify your Email
+              Verify your email
             </h4>
           </li>
           <li [ngClass]="{'active': step === 3}" *ngIf="accountType === userRole.tutor">
