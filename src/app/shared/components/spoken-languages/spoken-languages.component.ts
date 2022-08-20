@@ -19,6 +19,10 @@ export class SpokenLanguagesComponent implements OnInit {
 
   constructor() {}
 
+  returnZero(): number {
+    return 0;
+  }
+
   get languages(): FormArray {
     return this.form?.get('languages') as FormArray;
   }
