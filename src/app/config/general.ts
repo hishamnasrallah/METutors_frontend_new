@@ -298,6 +298,7 @@ export const LANGUAGES_LEVELS_CONST = {
   upperIntermediate: 'Upper Intermediate',
   advanced: 'Advanced',
   proficient: 'Proficient',
+  native: 'Native',
 };
 
 export const COURSE_TAGS_CONST: any = {

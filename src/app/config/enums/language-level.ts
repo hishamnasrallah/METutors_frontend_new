@@ -5,4 +5,5 @@ export enum LanguageLevel {
   upperIntermediate = 4,
   advanced = 5,
   proficient = 6,
+  native = 7,
 }
