@@ -236,7 +236,7 @@
 
                     <ng-template #second>
                       <ng-container  *ngIf="previousClass?.studentAttendence?.status === 'present' && previousClass?.teacherAttendence?.status === 'absent'; else third">
-                        <button mat-button class="main-button-opacity flex-grow-1"
+                        <button mat-button class="main-button-opacity flex-grow-1 w-100"
                                 (click)="onOpenMakeupClassModal(previousClass)">
                           <img src="assets/svg/eye-fill.svg" draggable="false" alt="">
                           Makeup Class
