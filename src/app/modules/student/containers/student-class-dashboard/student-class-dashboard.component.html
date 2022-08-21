@@ -229,7 +229,9 @@
                   <td>{{ previousClass?.duration}}hrs</td>
                   <td>
                     <ng-container *ngIf="previousClass?.studentAttendence?.status === 'absent'; else second">
-                      <span class="w-100 text-main text-center">Student Absent</span>
+                      <button mat-button class="secondary-button-opacity flex-grow-1 w-100">
+                        Student Absent
+                      </button>
                     </ng-container>
 
                     <ng-template #second>
