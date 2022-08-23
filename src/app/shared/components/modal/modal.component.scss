@@ -87,6 +87,11 @@
       font-size: 18px;
     }
   }
+
+  .mat-tab-body-content {
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
 }
 
 :host ::ng-deep .hourly-rate {

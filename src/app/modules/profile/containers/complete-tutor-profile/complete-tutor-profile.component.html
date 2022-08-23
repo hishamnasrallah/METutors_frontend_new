@@ -41,6 +41,7 @@
 
       <metutors-complete-tutor-profile-personal-information *ngIf="step === 1" 
                                                             [loading]="loading$ | async"
+                                                            [tutor]="(tutor$ | async)!"
                                                             [countries]="countries$ | async" 
                                                             [cities]="cities$ | async" 
                                                             (loadCities)="loadCities($event)"
@@ -49,17 +50,21 @@
 
       <metutors-complete-tutor-profile-profile-picture *ngIf="step === 2"
                                                        [loading]="loading$ | async"
+                                                       [tutor]="(tutor$ | async)!"
+                                                       (backBtn)="backBtn($event)"
                                                        (submitForm)="sendTeacherAccount($event, 3)">
       </metutors-complete-tutor-profile-profile-picture>
 
       <metutors-complete-tutor-profile-qualification-details *ngIf="step === 3"
                                                              [loading]="loading$ | async"
+                                                             [tutor]="(tutor$ | async)!"
                                                              [languagesList]="languages$ | async"
                                                              (submitForm)="sendTeacherAccount($event, 4)">
       </metutors-complete-tutor-profile-qualification-details>
 
       <metutors-complete-tutor-profile-teaching-specifications *ngIf="step === 4"
                                                                [loading]="loading$ | async"
+                                                               [tutor]="(tutor$ | async)!"
                                                                [levels]="levels$ | async"
                                                                (submitForm)="sendTeacherAccount($event, 5)">
       </metutors-complete-tutor-profile-teaching-specifications>

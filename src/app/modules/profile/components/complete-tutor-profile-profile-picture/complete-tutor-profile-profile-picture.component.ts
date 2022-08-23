@@ -1,11 +1,12 @@
+import { ITutor } from '@metutor/core/models';
+import { AlertNotificationService } from 'src/app/core/components';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
-  AbstractControl,
-  FormBuilder,
   FormGroup,
   Validators,
+  FormBuilder,
+  AbstractControl,
 } from '@angular/forms';
-import { AlertNotificationService } from 'src/app/core/components';
 
 @Component({
   selector: 'metutors-complete-tutor-profile-profile-picture',
@@ -14,7 +15,21 @@ import { AlertNotificationService } from 'src/app/core/components';
 })
 export class CompleteTutorProfileProfilePictureComponent implements OnInit {
   @Input() loading: boolean | null;
+  @Input() set tutor(_tutor: ITutor) {
+    if (_tutor) {
+      this.form.setValue({
+        avatar: _tutor?.avatar,
+        cover: _tutor?.cover,
+      });
 
+      this.coverPic = _tutor?.cover;
+      this.profilePic = _tutor?.avatar;
+
+      this.form?.updateValueAndValidity();
+    }
+  }
+
+  @Output() backBtn = new EventEmitter();
   @Output() submitForm = new EventEmitter();
 
   coverPic: any;

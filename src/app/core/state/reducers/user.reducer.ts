@@ -1,9 +1,9 @@
+import { UserRole } from '@metutor/config';
 import { IUser } from '@metutor/core/models';
 import { createReducer, on } from '@ngrx/store';
 import * as userActions from '../actions/user.actions';
 import * as tutorActions from '../actions/tutor.actions';
 import * as uploadActions from '../actions/upload.actions';
-import { UserRole } from '@metutor/config';
 
 export interface State {
   // Sign up
@@ -149,6 +149,11 @@ export const reducer = createReducer(
       token,
     })
   ),
+
+  on(tutorActions.changeTutorProfileStep, (state, { prevStep }) => ({
+    ...state,
+    profileStep: prevStep,
+  })),
 
   on(uploadActions.changeAvatarSuccess, (state, { user, token }) => ({
     ...state,
