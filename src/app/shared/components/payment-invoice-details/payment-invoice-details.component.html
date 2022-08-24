@@ -25,7 +25,7 @@
   <ul class="list-unstyled">
     <li class="d-flex justify-content-between">
       <span class="f-size-15-md-sm">Total Hours </span>
-      <strong class="f-size-15-md-sm">{{ invoiceDetails?.totalHours }} hours</strong>
+      <strong class="f-size-15-md-sm">{{ invoiceDetails?.totalHours }} hour{{ +(invoiceDetails?.totalHours)! > 1 ? 's' : '' }}</strong>
     </li>
     <li class="d-flex justify-content-between">
       <span class="f-size-15-md-sm">Hourly Rate</span>

@@ -154,7 +154,7 @@
               <div class="d-flex">
                 <div class="flex-grow-1">
                   <h5 class="d-flex align-items-center">
-                    Total Hours: <h1 class="mb-0 f-size-20-md-sm">{{ hours }} hrs</h1>
+                    Total Hours: <h1 class="mb-0 f-size-20-md-sm">{{ hours }} hr{{ +(hours)! > 1 ? 's' : '' }}</h1>
                   </h5>
                   <p>Hourly Rate: {{ price | metutorsMoney | async }}</p>
                 </div>

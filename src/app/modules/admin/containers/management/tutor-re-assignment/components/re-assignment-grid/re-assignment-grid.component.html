@@ -40,7 +40,7 @@
            (click)="openBookingModal.emit(reassignment?.subject?.id)">{{ reassignment?.courseCode }}</a></td>
     <td>{{ reassignment?.courseName }}</td>
     <td *ngIf="!isNew && !isRunning && !isNotAvailable">{{ reassignment?.startDate | date }}</td>
-    <td>{{ reassignment?.totalHours }}hours</td>
+    <td>{{ reassignment?.totalHours }}hour{{ +(reassignment?.totalHours)! > 1 ? 's' : '' }}</td>
     <td *ngIf="isNew || isRunning || isNotAvailable">{{ reassignment?.totalPrice | metutorsMoney | async }}</td>
     <ng-container *ngIf="!isNew">
       <td>SIN123</td>

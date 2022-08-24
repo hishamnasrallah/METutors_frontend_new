@@ -25,7 +25,7 @@
               <div class="col-md-2 d-flex menu align-items-center">
                 <img src="assets/svg/play-circle-fill.svg" alt="" width="15" height="15" draggable="false">
                 <strong>Total hour: </strong>
-                <span>{{ view.syllabus?.course?.totalHours }}hrs</span>
+                <span>{{ view.syllabus?.course?.totalHours }}hr{{ +(view.syllabus?.course?.totalHours)! > 1 ? 's' : '' }}</span>
               </div>
               <div class="col-md-2 d-flex menu align-items-center">
                 <img src="assets/svg/checkbox-circle-fill.svg" alt="" width="15" height="15" draggable="false">
@@ -101,9 +101,9 @@
                 <td *ngIf="subjectId === unclassifiedClass.id">
                   <input type="text" class="form-control custom-input input-bordered" formControlName="subjectTitle" placeholder="Add topic here..." autofocus>
                 </td>
-                <td>{{ unclassifiedClass?.startDate | date: 'EEEE, dd MMM Y'}}</td>
-                <td>{{ unclassifiedClass?.startTime }} - {{ unclassifiedClass?.endTime}}</td>
-                <td>{{ unclassifiedClass?.duration}}hrs</td>
+                <td>{{ unclassifiedClass?.startDate | date: 'EEEE, dd MMM Y' }}</td>
+                <td>{{ unclassifiedClass?.startTime }} - {{ unclassifiedClass?.endTime }}</td>
+                <td>{{ unclassifiedClass?.duration }}hr{{ +(unclassifiedClass?.duration)! > 1 ? 's' : '' }}</td>
                 <td>
                   <button class="edit-btn" mat-button *ngIf="subjectId !== unclassifiedClass.id"
                           (click)="subjectId = unclassifiedClass.id; setSubjectTitle(unclassifiedClass.title)">
@@ -140,7 +140,7 @@
                     <div class="col-md-2 d-flex menu align-items-center">
                       <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
                       <strong>Total hour: </strong>
-                      <span>{{ syllabus?.totalTopicHours }}hrs</span>
+                      <span>{{ syllabus?.totalTopicHours }}hr{{ +(syllabus?.totalTopicHours)! > 1 ? 's' : '' }}</span>
                     </div>
                   </div>
                 </div>
@@ -184,9 +184,9 @@
                       <td *ngIf="subjectId === syllabusClass.id">
                         <input type="text" class="form-control custom-input input-bordered" formControlName="subjectTitle" placeholder="Add topic here..." autofocus>
                       </td>
-                      <td>{{ syllabusClass?.startDate | date : 'EEEE, dd MMM Y'}}</td>
+                      <td>{{ syllabusClass?.startDate | date : 'EEEE, dd MMM Y' }}</td>
                       <td>{{ syllabusClass?.startTime + '-' + syllabusClass?.endTime }}</td>
-                      <td>{{ syllabusClass?.duration + 'hrs' }}</td>
+                      <td>{{ syllabusClass?.duration }}hr{{ +(syllabusClass?.duration)! > 1 ? 's' : '' }}</td>
                       <td>
                         <button class="edit-btn" mat-button *ngIf="subjectId !== syllabusClass.id"
                                 (click)="subjectId = syllabusClass.id; setSubjectTitle(syllabusClass.title)">

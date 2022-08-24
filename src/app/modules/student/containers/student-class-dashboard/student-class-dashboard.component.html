@@ -25,7 +25,7 @@
               <div class="col-md-3 d-flex menu align-items-center">
                 <img src="assets/svg/timer.svg" alt="" width="15" height="15" draggable="false">
                 <strong>Total Hour: </strong>
-                <span>{{ view.data?.course?.totalHours }}hrs</span>
+                <span>{{ view.data?.course?.totalHours }}hr{{ +(view.data?.course?.totalHours)! > 1 ? 's' : '' }}</span>
               </div>
 
               <div class="col-md-3 d-flex menu align-items-center">
@@ -113,7 +113,7 @@
                                           class="d-block"></metutors-user-avatar>
                   </td>
                   <td>{{ todaysClass.startTime }} - {{ todaysClass.endTime }} </td>
-                  <td>{{ todaysClass?.duration }} hours</td>
+                  <td>{{ todaysClass?.duration }} hour{{ +(todaysClass?.duration)! > 1 ? 's' : '' }}</td>
                   <td>
                     <button mat-button class="main-button-opacity flex-grow-1 w-100" (click)="joinClass(todaysClass.id)"
                             *ngIf="todaysClass?.status !== 'completed'" [disabled]="(isJoiningClass$ | async)">
@@ -176,7 +176,7 @@
                   <td>{{ upcomingClass.startDate | date: 'EEEE' }} </td>
                   <td>{{ upcomingClass.startDate }} </td>
                   <td>{{ upcomingClass.startTime }} - {{ upcomingClass.endTime }} </td>
-                  <td>{{ upcomingClass?.duration }} hours</td>
+                  <td>{{ upcomingClass?.duration }} hour{{ +(upcomingClass?.duration)! > 1 ? 's' : '' }}</td>
                   <td>
                     <span
                       [tooltip]="getHours(upcomingClass.startDate) < 48 ? 'Class start time must be more than two days to reschedule' : ''"
@@ -223,10 +223,10 @@
                                           [name]="previousClass?.teacher?.firstName+ ' ' +previousClass?.teacher?.lastName"
                                           class="d-block"></metutors-user-avatar>
                   </td>
-                  <td>{{ previousClass.startDate | date: 'EEEE'}} </td>
-                  <td>{{ previousClass.startDate}} </td>
-                  <td>{{ previousClass.startTime}} - {{ previousClass.endTime}} </td>
-                  <td>{{ previousClass?.duration}}hrs</td>
+                  <td>{{ previousClass.startDate | date: 'EEEE' }} </td>
+                  <td>{{ previousClass.startDate }} </td>
+                  <td>{{ previousClass.startTime }} - {{ previousClass.endTime }} </td>
+                  <td>{{ previousClass?.duration }}hr{{ +(previousClass?.duration)! > 1 ? 's' : '' }}</td>
                   <td>
                     <ng-container *ngIf="previousClass?.studentAttendence?.status === 'absent'; else second">
                       <button mat-button class="secondary-button-opacity flex-grow-1 w-100">
