@@ -76,15 +76,19 @@
                 </div>
                 <div class="col-8">
                   <h2>
-                    <a [routerLink]="'/profile/tutor/' + teacher?.id" (click)="closeModal.emit()">{{ teacher?.name }}</a>
+                    <a [routerLink]="'/profile/tutor/' + teacher?.id"
+                      (click)="closeModal.emit()">{{ teacher?.name }}</a>
                     <!-- <span class="text-uppercase pro">Pro</span> -->
                     <!-- <span class="text-uppercase verified">Verified</span> -->
                   </h2>
-                  <h3 *ngIf="teacher?.qualifications?.nameOfUniversity">{{ teacher?.qualifications?.nameOfUniversity }}</h3>
+                  <h3 *ngIf="teacher?.qualifications?.nameOfUniversity">
+                    {{ teacher?.qualifications?.nameOfUniversity }}
+                  </h3>
                   <div>
                     <rating [ngModel]="teacher?.averageRating" [max]="5" [readonly]="true"></rating>
                     <span class="count">{{ teacher?.averageRating | number:'.1-1' }}</span>
-                    <span class="review" *ngIf="teacher?.totalFeedbacks">({{ teacher?.totalFeedbacks }} review{{ +(teacher?.totalFeedbacks)! > 1 ? 's' : '' }})</span>
+                    <span class="review" *ngIf="teacher?.totalFeedbacks">
+                      ({{ teacher?.totalFeedbacks }} review{{ +(teacher?.totalFeedbacks)! > 1 ? 's' : '' }})</span>
                   </div>
                 </div>
               </div>
@@ -94,19 +98,20 @@
                   <div class="col-6 d-flex">
                     <img src="assets/svg/map.svg" class="icon" draggable="false" width="16" height="16" alt="">
                     <span>
-                  From {{ teacher?.country?.name || '-'}}
-                </span>
+                      From {{ teacher?.country?.name || '-'}}
+                    </span>
                   </div>
                   <div class="col-6 d-flex" *ngIf="teacher?.studentsTeaching">
                     <img src="assets/svg/classes.svg" class="icon" draggable="false" width="16" height="16" alt="">
                     <span>
-                  Taught {{ teacher?.studentsTeaching || 0 }} student{{ +(teacher?.studentsTeaching)! > 1 ? 's' : '' }}
-                </span>
+                      Taught {{ teacher?.studentsTeaching || 0 }}
+                      student{{ +(teacher?.studentsTeaching)! > 1 ? 's' : '' }}
+                    </span>
                   </div>
                 </div>
               </div>
 
-              <div class="col-12">
+              <div class="col-12 flex-grow-1">
                 <p class="bio">
                   Bio:
                   {{ (teacher.bio && teacher.bio.length > 130) ? ((teacher?.bio | slice:0:130) + '...') : (teacher?.bio || '-' )}}

@@ -1,4 +1,4 @@
-.featured-tutors {
+:host ::ng-deep .featured-tutors {
   padding: 70px 0 50px;
   background-origin: padding-box;
   background-size: cover;
@@ -16,14 +16,18 @@
     line-height: 1.4;
   }
 
+  .owl-carousel .owl-stage {
+    display: flex;
+  }
+
   .card-item {
     border-radius: 4px;
     background-color: #FFF;
     border: 1px solid rgba(0, 0, 0, 0.1);
     padding: 20px 0;
-    margin-right: 30px;
     position: relative;
-    margin-left: 0px;
+    height: 100%;
+    margin-left: 20px;
 
     .img-avatar {
       width: 90px;
@@ -123,6 +127,7 @@
       height: 60px;
       overflow: hidden;
       margin-bottom: 10px;
+      flex-grow: 1;
     }
 
     .specialization {
@@ -134,7 +139,7 @@
         font-weight: normal;
       }
 
-      span {
+      > span {
         background-color: rgb(17 26 55 / 10%);
         color: #000;
         margin-right: 5px;
