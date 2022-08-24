@@ -16,7 +16,7 @@
     <div *ngIf="rating">
       <rating [ngModel]="rating" [max]="5" [readonly]="true"></rating>
       <span class="ms-2 rating">{{ rating.toFixed(2) }}</span>
-      <span class="ms-2 count">({{ count || 0 }} reviews)</span>
+      <span class="ms-2 count">({{ count || 0 }} review{{ +(count)! > 1 ? 's' : '' }})</span>
     </div>
   </div>
 </div>
