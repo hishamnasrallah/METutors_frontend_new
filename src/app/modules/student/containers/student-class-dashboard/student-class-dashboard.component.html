@@ -48,11 +48,11 @@
                 <div class="d-flex align-items-center">
                   <div class="flex-grow-1">
                     <mat-progress-bar class="example-margin"
-                                      [color]="view.data?.progress ? view.data?.progress > 30 ? 'primary' : 'warn' : undefined"
+                                      [color]="'primary'"
                                       [value]="view.data?.progress">
                     </mat-progress-bar>
                   </div>
-                  <strong>{{ view.data?.progress }}%</strong>
+                  <strong>{{ view.data?.progress.toFixed(0) }}%</strong>
                 </div>
               </div>
               <div class="col-md-6">
@@ -115,12 +115,12 @@
                   <td>{{ todaysClass.startTime | date:'h:mm a' }} - {{ todaysClass.endTime | date:'h:mm a' }} </td>
                   <td>{{ todaysClass?.duration }} hours</td>
                   <td>
-                    <button mat-button class="main-button-opacity flex-grow-1" (click)="joinClass(todaysClass.id)"
+                    <button mat-button class="main-button-opacity flex-grow-1 w-100" (click)="joinClass(todaysClass.id)"
                             *ngIf="todaysClass?.status !== 'completed'" [disabled]="(isJoiningClass$ | async)">
                       <img src="assets/svg/play-fill.svg" draggable="false" alt="">
                       Join Class
                     </button>
-                    <button mat-button class="main-button-opacity flex-grow-1" (click)="onViewClass(todaysClass.id)"
+                    <button mat-button class="main-button-opacity flex-grow-1 w-100" (click)="onViewClass(todaysClass.id)"
                             *ngIf="todaysClass?.status === 'completed'" [disabled]="isLoadingViewClass$ | async">
                       <img src="assets/svg/eye-fill.svg" draggable="false" alt="">
                       View Class
@@ -228,22 +228,28 @@
                   <td>{{ previousClass.startTime | date:'h:mm a' }} - {{ previousClass.endTime | date:'h:mm a' }} </td>
                   <td>{{ previousClass?.duration}}hrs</td>
                   <td>
-                    <ng-container *ngIf="previousClass?.status !== 'completed'">
-                      <button mat-button class="main-button-opacity flex-grow-1"
-                              (click)="onOpenMakeupClassModal(previousClass)"
-                              *ngIf="previousClass?.teacherAttendence?.status === 'absent'">
-                        <img src="assets/svg/eye-fill.svg" draggable="false" alt="">
-                        Makeup Class
+                    <ng-container *ngIf="previousClass?.studentAttendence?.status === 'absent'; else second">
+                      <button mat-button class="secondary-button-opacity flex-grow-1 w-100">
+                        Student Absent
                       </button>
-
-                      <span class="w-100 text-danger text-center"
-                            *ngIf="(!previousClass?.teacherAttendence && !previousClass?.studentAttendence) || previousClass?.teacherAttendence?.status !== 'absent' && previousClass?.studentAttendence?.status === 'absent'">Student Absent</span>
                     </ng-container>
-                    <button mat-button class="main-button-opacity flex-grow-1" (click)="onViewClass(previousClass.id)"
-                            *ngIf="previousClass?.status === 'completed'" [disabled]="isLoadingViewClass$ | async">
-                      <img src="assets/svg/eye-fill.svg" draggable="false" alt="">
-                      View Class
-                    </button>
+
+                    <ng-template #second>
+                      <ng-container  *ngIf="previousClass?.studentAttendence?.status === 'present' && previousClass?.teacherAttendence?.status === 'absent'; else third">
+                        <button mat-button class="main-button-opacity flex-grow-1 w-100"
+                                (click)="onOpenMakeupClassModal(previousClass)">
+                          <img src="assets/svg/eye-fill.svg" draggable="false" alt="">
+                          Makeup Class
+                        </button>
+                      </ng-container>
+                    </ng-template>
+
+                    <ng-template #third>
+                      <button mat-button class="main-button-opacity flex-grow-1 w-100" (click)="onViewClass(previousClass.id)" [disabled]="isLoadingViewClass$ | async">
+                        <img src="assets/svg/eye-fill.svg" draggable="false" alt="">
+                        View Class
+                      </button>
+                    </ng-template>
                   </td>
                 </tr>
               </ng-container>

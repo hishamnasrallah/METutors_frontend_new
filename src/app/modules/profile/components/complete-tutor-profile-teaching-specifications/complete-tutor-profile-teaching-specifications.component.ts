@@ -1,18 +1,19 @@
 import { DatePipe } from '@angular/common';
+import { ILevel, ITutor } from 'src/app/core/models';
 import {
-  Component,
-  EventEmitter,
-  Inject,
   Input,
+  Inject,
   OnInit,
   Output,
+  Component,
+  EventEmitter,
 } from '@angular/core';
 import {
-  AbstractControl,
   FormArray,
-  FormBuilder,
   FormGroup,
   Validators,
+  FormBuilder,
+  AbstractControl,
 } from '@angular/forms';
 import {
   MatDialog,
@@ -21,11 +22,10 @@ import {
 } from '@angular/material/dialog';
 import {
   SORTED_DAYS_WEEK,
+  calculateListDays,
   AVAILABILITY_HOURS_CONST,
   COURSE_TUITION_TYPES_CONST,
-  calculateListDays,
 } from 'src/app/config';
-import { ILevel } from 'src/app/core/models';
 
 @Component({
   selector: 'metutors-complete-tutor-profile-teaching-specifications',
@@ -41,6 +41,56 @@ export class CompleteTutorProfileTeachingSpecificationsComponent
 {
   @Input() loading: boolean | null;
   @Input() levels: ILevel[] | null;
+  @Input() set tutor(_tutor: ITutor) {
+    if (_tutor) {
+      this.form.patchValue({
+        startDate: _tutor?.specifications?.availabilityStartDate,
+        endDate: _tutor?.specifications?.availabilityEndDate,
+        typeOfTutoring: _tutor?.specifications?.typeOfTutoring,
+      });
+
+      const output: any[] = [];
+      _tutor?.availability?.forEach((avail: any) => {
+        if (!this.selectedDays.includes(+avail?.day)) {
+          this.selectedDays.push(+avail?.day);
+        }
+
+        const existing = output.filter((v) => +v.day == +avail.day);
+
+        if (existing.length) {
+          const existingIndex = output.indexOf(existing[0]);
+
+          output[existingIndex].timeSlots = [
+            ...output[existingIndex].timeSlots,
+            {
+              id: avail?.id,
+              startTime: avail?.timeFrom,
+              endTime: avail?.timeTo,
+            },
+          ];
+        } else {
+          output.push({
+            day: +avail.day,
+            timeSlots: [
+              {
+                id: avail?.id,
+                startTime: avail?.timeFrom,
+                endTime: avail?.timeTo,
+              },
+            ],
+          });
+        }
+      });
+
+      output.forEach((item) => {
+        this.availability
+          .at(item.day)
+          .patchValue({ day: item.day, timeSlots: item.timeSlots });
+      });
+
+      this.form?.updateValueAndValidity();
+    }
+  }
 
   @Output() submitForm = new EventEmitter();
 

@@ -19,7 +19,13 @@
           <label for="nationality" class="form-label">Nationality</label>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="nationality" [placeholder]="'Select your nationality'">
-              <mat-option *ngFor="let country of countries" [value]="country.name">{{ country.name }}</mat-option>
+              <mat-option>
+                <ngx-mat-select-search [(ngModel)]="filterNationality" [ngModelOptions]="{standalone: true}"
+                  placeholderLabel="Search..." noEntriesFoundLabel="No matching country found">
+                </ngx-mat-select-search>
+              </mat-option>
+              <mat-option *ngFor="let country of filteredNationalities" [value]="country.name">{{ country.name }}
+              </mat-option>
             </mat-select>
           </mat-form-field>
           <div class="text-danger" *ngIf="nationality?.touched && nationality?.invalid">
@@ -89,7 +95,7 @@
         <div class="form-group">
           <label for="bio" class="form-label">Add Biography <span>(write about your teaching experience to let students
               know why you are the best tutor for them)</span>
-          <metutors-char-counter [limit]="400" [controlName]="bio"></metutors-char-counter>
+            <metutors-char-counter [limit]="400" [controlName]="bio"></metutors-char-counter>
           </label>
           <textarea class="custom-input w-100 input-bordered" [placeholder]="'Add Bio here... '" rows="5"
             formControlName="bio" minlength="200" maxlength="400"></textarea>
@@ -104,7 +110,7 @@
         <div class="form-group">
           <label for="postalCode" class="form-label">Postal Code</label>
           <input type="text" class="custom-input w-100 input-bordered" id="postalCode" placeholder="Postal Code"
-            formControlName="postalCode" meTutorsOnlyNumber [onlyNumber]="true">
+            formControlName="postalCode">
           <div class="text-danger" *ngIf="postalCode?.touched && postalCode?.invalid">
             Please write a valid Postal Code
           </div>
@@ -115,7 +121,12 @@
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="country" [placeholder]="'Select Country'"
               (selectionChange)="loadCities.emit(country?.value); resetCity()">
-              <mat-option *ngFor="let country of countries" [value]="country.id">{{ country.name }}</mat-option>
+              <mat-option>
+                <ngx-mat-select-search [(ngModel)]="filterCountry" [ngModelOptions]="{standalone: true}"
+                  placeholderLabel="Search..." noEntriesFoundLabel="No matching country found">
+                </ngx-mat-select-search>
+              </mat-option>
+              <mat-option *ngFor="let country of filteredCountries" [value]="country.id">{{ country.name }}</mat-option>
             </mat-select>
           </mat-form-field>
           <div class="text-danger" *ngIf="country?.touched && country?.invalid">
@@ -127,7 +138,12 @@
           <label for="city" class="form-label">City</label>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="city" [placeholder]="'Select city'" [disabled]="!cities || !cities.length">
-              <mat-option *ngFor="let city of cities" [value]="city.name">{{ city.name }}</mat-option>
+              <mat-option>
+                <ngx-mat-select-search [(ngModel)]="filterCity" [ngModelOptions]="{standalone: true}"
+                  placeholderLabel="Search..." noEntriesFoundLabel="No matching city found">
+                </ngx-mat-select-search>
+              </mat-option>
+              <mat-option *ngFor="let city of filteredCities" [value]="city.name">{{ city.name }}</mat-option>
             </mat-select>
           </mat-form-field>
           <div class="text-danger" *ngIf="city?.touched && city?.invalid">

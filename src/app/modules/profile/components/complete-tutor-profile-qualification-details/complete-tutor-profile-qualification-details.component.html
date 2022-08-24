@@ -65,7 +65,12 @@
           <label for="degreeField" class="form-label">Degree Field</label>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="degreeField" [placeholder]="'Computer Science'">
-              <mat-option [value]="field" *ngFor="let field of degreeFields">{{ field }}</mat-option>
+              <mat-option>
+                <ngx-mat-select-search [(ngModel)]="filterDegree" [ngModelOptions]="{standalone: true}"
+                  placeholderLabel="Search..." noEntriesFoundLabel="No matching degree field found">
+                </ngx-mat-select-search>
+              </mat-option>
+              <mat-option [value]="field" *ngFor="let field of filteredDegreeFields">{{ field }}</mat-option>
             </mat-select>
           </mat-form-field>
           <div class="text-danger" *ngIf="degreeField?.touched && degreeField?.invalid">

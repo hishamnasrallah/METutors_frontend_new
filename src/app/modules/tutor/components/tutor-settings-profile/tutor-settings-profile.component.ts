@@ -1,18 +1,20 @@
 import { DatePipe } from '@angular/common';
+import { ICity, ICountry, ITutor } from '@metutor/core/models';
+import { AlertNotificationService } from '@metutor/core/components';
 import {
-  Component,
-  EventEmitter,
-  Inject,
   Input,
   OnInit,
+  Inject,
   Output,
+  Component,
+  EventEmitter,
 } from '@angular/core';
 import {
-  AbstractControl,
-  FormBuilder,
   FormGroup,
-  Validators,
   FormArray,
+  Validators,
+  FormBuilder,
+  AbstractControl,
 } from '@angular/forms';
 import {
   MatDialog,
@@ -20,20 +22,18 @@ import {
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
 import {
-  AVAILABILITY_HOURS_CONST,
-  COMPUTER_SKILLS,
-  COURSE_TUITION_TYPES_CONST,
-  DEGREE_FIELDS,
-  DEGREE_LEVELS,
   GENDERS,
-  generalConstants,
+  DEGREE_LEVELS,
+  DEGREE_FIELDS,
   InterviewStatus,
-  LANGUAGES_LEVELS_CONST,
+  COMPUTER_SKILLS,
   SORTED_DAYS_WEEK,
+  generalConstants,
   TEACHING_EXPERIENCE,
+  LANGUAGES_LEVELS_CONST,
+  AVAILABILITY_HOURS_CONST,
+  COURSE_TUITION_TYPES_CONST,
 } from '@metutor/config';
-import { AlertNotificationService } from '@metutor/core/components';
-import { ICity, ICountry, ITutor } from '@metutor/core/models';
 
 @Component({
   selector: 'metutors-tutor-settings-profile',
@@ -141,17 +141,20 @@ export class TutorSettingsProfileComponent implements OnInit {
 
   tutor: ITutor;
   genders = GENDERS;
+  filterCity: string;
   maxDate = new Date();
   minDate = new Date();
   selectedForm: number;
+  filterDegree: string;
+  filterCountry: string;
   teachingForm: FormGroup;
   days = SORTED_DAYS_WEEK;
   skills = COMPUTER_SKILLS;
+  filterNationality: string;
   personalInfoForm: FormGroup;
   selectedDays: number[] = [];
   qualificationForm: FormGroup;
   degreeLevels = DEGREE_LEVELS;
-  degreeFields = DEGREE_FIELDS;
   levels = LANGUAGES_LEVELS_CONST;
   experiences = TEACHING_EXPERIENCE;
   interviewStatus = InterviewStatus;
@@ -192,7 +195,7 @@ export class TutorSettingsProfileComponent implements OnInit {
       ],
       postalCode: [
         null,
-        [Validators.required, Validators.minLength(3), Validators.maxLength(5)],
+        [Validators.required, Validators.minLength(3), Validators.maxLength(6)],
       ],
     });
 
@@ -328,6 +331,56 @@ export class TutorSettingsProfileComponent implements OnInit {
 
   get availability(): FormArray {
     return this.teachingForm?.get('availability') as FormArray;
+  }
+
+  get filteredNationalities(): ICountry[] {
+    if (this.filterNationality) {
+      return (
+        this.countries?.filter((country) =>
+          country?.name
+            .toLowerCase()
+            .includes(this.filterNationality.toLowerCase())
+        ) || []
+      );
+    } else {
+      return this.countries || [];
+    }
+  }
+
+  get filteredCountries(): ICountry[] {
+    if (this.filterCountry) {
+      return (
+        this.countries?.filter((country) =>
+          country?.name.toLowerCase().includes(this.filterCountry.toLowerCase())
+        ) || []
+      );
+    } else {
+      return this.countries || [];
+    }
+  }
+
+  get filteredCities(): ICity[] {
+    if (this.filterCity) {
+      return (
+        this.cities?.filter((city) =>
+          city?.name.toLowerCase().includes(this.filterCity.toLowerCase())
+        ) || []
+      );
+    } else {
+      return this.cities || [];
+    }
+  }
+
+  get filteredDegreeFields(): string[] {
+    if (this.filterDegree) {
+      return (
+        DEGREE_FIELDS?.filter((degree) =>
+          degree?.toLowerCase().includes(this.filterDegree.toLowerCase())
+        ) || []
+      );
+    } else {
+      return DEGREE_FIELDS;
+    }
   }
 
   newAvailability(): FormGroup {

@@ -98,7 +98,7 @@
           <div class="form-group">
             <label for="firstName" class="form-label">First Name</label>
             <input type="text" class="custom-input w-100 input-bordered" id="firstName" placeholder="Enter First Name"
-                   formControlName="firstName">
+              formControlName="firstName">
             <div class="text-danger" *ngIf="firstName?.touched && firstName?.invalid">
               Please write a valid name
             </div>
@@ -109,7 +109,7 @@
           <div class="form-group">
             <label for="lastName" class="form-label">Last Name</label>
             <input type="text" class="custom-input w-100 input-bordered" id="lastName" placeholder="Enter Last Name"
-                   formControlName="lastName">
+              formControlName="lastName">
             <div class="text-danger" *ngIf="lastName?.touched && lastName?.invalid">
               Please write a valid name
             </div>
@@ -133,7 +133,13 @@
             <label for="nationality" class="form-label">Nationality</label>
             <mat-form-field appearance="outline" class="w-100">
               <mat-select formControlName="nationality" [placeholder]="'Select your nationality'">
-                <mat-option *ngFor="let country of countries" [value]="country.name">{{ country.name }}</mat-option>
+                <mat-option>
+                  <ngx-mat-select-search [(ngModel)]="filterNationality" [ngModelOptions]="{standalone: true}"
+                    placeholderLabel="Search..." noEntriesFoundLabel="No matching country found">
+                  </ngx-mat-select-search>
+                </mat-option>
+                <mat-option *ngFor="let country of filteredNationalities" [value]="country.name">{{ country.name }}
+                </mat-option>
               </mat-select>
             </mat-form-field>
             <div class="text-danger" *ngIf="nationality?.touched && nationality?.invalid">
@@ -201,8 +207,8 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
-            <label for="bio" class="form-label w-100">Add Bio <small class="text-danger fw-normal">(200 to 400 words)</small>
-            <metutors-char-counter [limit]="400" [controlName]="bio"></metutors-char-counter>
+            <label for="bio" class="form-label w-100">Add Bio <small class="text-danger fw-normal">(200 to 400 characters)</small>
+              <metutors-char-counter [limit]="400" [controlName]="bio"></metutors-char-counter>
             </label>
             <textarea id="bio" class="custom-input w-100 input-bordered" [placeholder]="'Add Bio here... '" rows="10"
               formControlName="bio"></textarea>
@@ -216,7 +222,7 @@
           <div class="form-group">
             <label for="postalCode" class="form-label">Postal Code</label>
             <input type="text" class="custom-input w-100 input-bordered" id="postalCode" placeholder="Postal Code"
-              formControlName="postalCode" meTutorsOnlyNumber [onlyNumber]="true">
+              formControlName="postalCode">
             <div class="text-danger" *ngIf="postalCode?.touched && postalCode?.invalid">
               Please write a valid Postal Code
             </div>
@@ -227,7 +233,13 @@
             <mat-form-field appearance="outline" class="w-100">
               <mat-select formControlName="country" [placeholder]="'Select Country'"
                 (selectionChange)="loadCities.emit(country?.value)">
-                <mat-option *ngFor="let country of countries" [value]="country.id">{{ country.name }}</mat-option>
+                <mat-option>
+                  <ngx-mat-select-search [(ngModel)]="filterCountry" [ngModelOptions]="{standalone: true}"
+                    placeholderLabel="Search..." noEntriesFoundLabel="No matching country found">
+                  </ngx-mat-select-search>
+                </mat-option>
+                <mat-option *ngFor="let country of filteredCountries" [value]="country.id">{{ country.name }}
+                </mat-option>
               </mat-select>
             </mat-form-field>
             <div class="text-danger" *ngIf="country?.touched && country?.invalid">
@@ -239,7 +251,12 @@
             <label for="city" class="form-label">City</label>
             <mat-form-field appearance="outline" class="w-100">
               <mat-select formControlName="city" [placeholder]="'Select city'" [disabled]="!cities || !cities.length">
-                <mat-option *ngFor="let city of cities" [value]="city.name">{{ city.name }}</mat-option>
+                <mat-option>
+                  <ngx-mat-select-search [(ngModel)]="filterCity" [ngModelOptions]="{standalone: true}"
+                    placeholderLabel="Search..." noEntriesFoundLabel="No matching city found">
+                  </ngx-mat-select-search>
+                </mat-option>
+                <mat-option *ngFor="let city of filteredCities" [value]="city.name">{{ city.name }}</mat-option>
               </mat-select>
             </mat-form-field>
             <div class="text-danger" *ngIf="city?.touched && city?.invalid">
@@ -323,7 +340,12 @@
             <label for="degreeField" class="form-label">Degree Field/Major</label>
             <mat-form-field appearance="outline" class="w-100">
               <mat-select formControlName="degreeField" [placeholder]="'Computer Science'">
-                <mat-option [value]="field" *ngFor="let field of degreeFields">{{ field }}</mat-option>
+                <mat-option>
+                  <ngx-mat-select-search [(ngModel)]="filterDegree" [ngModelOptions]="{standalone: true}"
+                    placeholderLabel="Search..." noEntriesFoundLabel="No matching degree field found">
+                  </ngx-mat-select-search>
+                </mat-option>
+                <mat-option [value]="field" *ngFor="let field of filteredDegreeFields">{{ field }}</mat-option>
               </mat-select>
             </mat-form-field>
             <div class="text-danger" *ngIf="degreeField?.touched && degreeField?.invalid">
@@ -396,10 +418,10 @@
 
         <div class="col-md-6">
           <div class="form-group">
-            <label class="form-label">Type of Tutoring</label>
+            <label class="form-label">Tutoring Preferences</label>
             <mat-radio-group class="d-flex flex-row mt-3" formControlName="typeOfTutoring">
               <mat-radio-button [class.ms-3]="!isFirst" [value]="type.value"
-                *ngFor="let type of types | keyvalue: returnZero; let isFirst = first">
+                *ngFor="let type of types | keyvalue: returnZero; let isFirst = first" [disabled]="type.key !== 'one'">
                 {{ type?.value }}
               </mat-radio-button>
             </mat-radio-group>

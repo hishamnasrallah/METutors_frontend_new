@@ -6,6 +6,7 @@ import {
   ICity,
   IField,
   ILevel,
+  ITutor,
   ICountry,
   ISubject,
   IProgram,
@@ -20,6 +21,7 @@ import {
 export class CompleteTutorProfileComponent implements OnInit {
   step$: Observable<number>;
   loading$: Observable<boolean>;
+  tutor$: Observable<ITutor | null>;
   cities$: Observable<ICity[] | null>;
   levels$: Observable<ILevel[] | null>;
   fields$: Observable<IField[] | null>;
@@ -40,13 +42,19 @@ export class CompleteTutorProfileComponent implements OnInit {
     this._prepareCourseProgram();
     this._prepareProgramCountries();
 
+    this._store.dispatch(fromCore.loadProfileTutor());
     this._store.dispatch(fromCore.enterCompleteProfile());
     this.step$ = this._store.select(fromCore.selectProfileStep);
+    this.tutor$ = this._store.select(fromCore.selectProfileTutor);
     this.loading$ = this._store.select(fromCore.selectIsCompleteTutorProfile);
   }
 
   sendTeacherAccount(data: any, nextStep: number): void {
     this._store.dispatch(fromCore.completeTutorProfile({ data, nextStep }));
+  }
+
+  backBtn(prevStep: number): void {
+    this._store.dispatch(fromCore.changeTutorProfileStep({ prevStep }));
   }
 
   loadCities(countryId: string): void {

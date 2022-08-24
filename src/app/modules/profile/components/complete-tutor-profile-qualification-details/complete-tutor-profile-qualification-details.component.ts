@@ -1,4 +1,4 @@
-import { ILanguage } from 'src/app/core/models';
+import { ILanguage, ITutor } from 'src/app/core/models';
 import { AlertNotificationService } from '@metutor/core/components';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
@@ -25,15 +25,48 @@ export class CompleteTutorProfileQualificationDetailsComponent
 {
   @Input() loading: boolean | null;
   @Input() languagesList: ILanguage[] | null;
+  @Input() set tutor(_tutor: ITutor) {
+    if (_tutor) {
+      this.form.patchValue({
+        nameOfUniversity: _tutor?.qualifications?.nameOfUniversity,
+        computerSkills: _tutor?.qualifications?.computerSkills,
+        degreeLevel: _tutor?.qualifications?.degreeLevel,
+        teachingExperience: _tutor?.qualifications?.teachingExperience,
+        degreeField: _tutor?.qualifications?.degreeField,
+        teachingExperienceOnline:
+          _tutor?.qualifications?.teachingExperienceOnline,
+        currentEmployer: _tutor?.qualifications?.currentEmployer,
+        currentTitle: _tutor?.qualifications?.currentTitle,
+        video: _tutor?.qualifications?.video,
+      });
+
+      this.videoDemo = _tutor?.qualifications?.video;
+
+      if (_tutor.languages && _tutor.languages.length) {
+        _tutor.languages.forEach((language, index) => {
+          this.languages.push(this.newLanguage());
+
+          this.languages.at(index).patchValue({
+            language: language,
+            level: language.level,
+          });
+        });
+
+        this.removeLanguage(_tutor.languages.length);
+      }
+
+      this.form?.updateValueAndValidity();
+    }
+  }
 
   @Output() submitForm = new EventEmitter();
 
   videoDemo: any;
   form: FormGroup;
   invalid = 'INVALID';
+  filterDegree: string;
   skills = COMPUTER_SKILLS;
   degreeLevels = DEGREE_LEVELS;
-  degreeFields = DEGREE_FIELDS;
   experiences = TEACHING_EXPERIENCE;
 
   constructor(
@@ -116,6 +149,18 @@ export class CompleteTutorProfileQualificationDetailsComponent
   addLanguage(): void {
     if (this.languages.status !== this.invalid) {
       this.languages.push(this.newLanguage());
+    }
+  }
+
+  get filteredDegreeFields(): string[] {
+    if (this.filterDegree) {
+      return (
+        DEGREE_FIELDS?.filter((degree) =>
+          degree?.toLowerCase().includes(this.filterDegree.toLowerCase())
+        ) || []
+      );
+    } else {
+      return DEGREE_FIELDS;
     }
   }
 

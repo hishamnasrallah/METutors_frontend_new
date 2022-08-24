@@ -18,6 +18,11 @@ export const completeTutorProfileFailure = createAction(
   props<{ error: any }>()
 );
 
+export const changeTutorProfileStep = createAction(
+  '[Tutor] Change Tutor Profile Step',
+  props<{ prevStep: number }>()
+);
+
 // Update tutor profile
 export const updateTutorProfile = createAction(
   '[Tutor] Update Tutor Profile',

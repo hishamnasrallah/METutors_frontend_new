@@ -8,7 +8,7 @@
       <ng-container *ngIf="step === 1">
         <div class="row">
           <div class="col-md-6">
-            <h3>Classes Start Date</h3>
+            <h3>Course Start Date</h3>
             <mat-form-field appearance="outline" class="w-100">
               <input matInput [matDatepicker]="startPicker" [placeholder]="'Choose a Date'" (focus)="startPicker.open()"
                      [min]="minDate" (dateChange)="onChangeDateDay(); onChangeDate()" formControlName="startDate">
@@ -17,7 +17,7 @@
             </mat-form-field>
           </div>
           <div class="col-md-6">
-            <h3>Classes End Date</h3>
+            <h3>Course End Date</h3>
             <mat-form-field appearance="outline" class="w-100">
               <input matInput [matDatepicker]="endPicker" [placeholder]="'Choose a Date'" (focus)="endPicker.open()"
                      [min]="startDate?.value" (dateChange)="onChangeDateDay(); onChangeDate()"
@@ -29,7 +29,7 @@
         </div>
         <div class="row mt-4">
           <div class="col-md-12">
-            <h3>Classroom Days</h3>
+            <h3>Class Days</h3>
             <mat-form-field appearance="outline" class="w-100">
               <mat-select formControlName="days" [placeholder]="'Choose Days'" multiple
                           (selectionChange)="onChangeDateDay()">
@@ -92,7 +92,7 @@
                 <h5>Estimated Cost:
                   <span>{{ (price * +hours?.value) | metutorsMoney | async }}</span>
                 </h5>
-                <p class="mb-0">Price change based on total hours</p>
+                <p class="mb-0">Final price based on total number of class hours</p>
               </div>
               <div>
                 <h5>Total Hours: <span>{{ hours?.value }} hrs</span></h5>
@@ -152,7 +152,7 @@
                   <h5>Estimated Price:
                     <span>{{ (price * +allHours) | metutorsMoney | async }}</span>
                   </h5>
-                  <p class="mb-0">Price change based on total hours</p>
+                  <p class="mb-0">Final price based on total number of class hours</p>
                 </div>
                 <div>
                   <h5>Total Hours: <span>{{ allHours }} hrs</span></h5>

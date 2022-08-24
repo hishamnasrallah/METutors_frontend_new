@@ -298,6 +298,7 @@ export const LANGUAGES_LEVELS_CONST = {
   upperIntermediate: 'Upper Intermediate',
   advanced: 'Advanced',
   proficient: 'Proficient',
+  native: 'Native',
 };
 
 export const COURSE_TAGS_CONST: any = {
@@ -427,7 +428,7 @@ export const courseStatusLabel = {
   },
   cancelled_by_teacher: {
     short: 'On Hold',
-    long: 'On Hold (Tutor Re-Assignment by MeTutors)',
+    long: 'On Hold (Action Required By Student)',
   },
   cancelled_by_student: {
     short: 'Cancelled',

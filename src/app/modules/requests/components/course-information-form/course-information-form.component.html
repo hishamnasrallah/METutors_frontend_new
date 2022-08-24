@@ -5,7 +5,7 @@
         <h2 class="f-size-17-md-sm">Course Details</h2>
         <h4 class="f-size-15-md-sm">Add course information:</h4>
 
-        <h5 class="mt-4 mb-0">Course ID: <span>CID123</span></h5>
+        <h5 class="mt-4 mb-0" *ngIf="subjectId">Course ID: <span>CID{{subjectId}}</span></h5>
       </div>
       <div class="col-md-8 mt-15-sm">
         <div class="row">
@@ -96,15 +96,15 @@
           </mat-radio-button>
 
           <mat-radio-button class="w-100 mb-2" [value]="academicTutoringTextbook.pdf">
-            Textbook uploaded in PDF
+            Upload textbook in PDF
           </mat-radio-button>
 
           <mat-radio-button class="w-100 mb-2" [value]="academicTutoringTextbook.info">
-            My textbook details listed below
+            List my textbook below
           </mat-radio-button>
 
           <mat-radio-button class="w-100" [value]="academicTutoringTextbook.none">
-            More info will be provided later
+            I will provide more info later
           </mat-radio-button>
         </mat-radio-group>
 

@@ -11,7 +11,7 @@
     </ng-container>
 
     <ng-container *ngIf="!isLoading">
-      <div class="tabs d-flex d-block-sm">
+      <div class="tabs d-flex d-block-sm overflow-auto">
         <div *ngFor="let program of programsList; let i = index">
           <button mat-button class="w-100 text-start" [class.active]="step === program?.id"
             (click)="onChangeStep(program)">
@@ -53,7 +53,8 @@
                     </ng-container>
 
                     <ng-container *ngIf="!loadingSubjects">
-                      <a class="cursor-pointer subject" *ngFor="let subject of filteredSubjects(field.id); let isLast = last"
+                      <a class="cursor-pointer subject"
+                        *ngFor="let subject of filteredSubjects(field.id); let isLast = last"
                         (click)="viewSubjectDetails.emit({program: selectedProgram, subject, country: country?.id, index: i})">
                         {{ subject?.name }}<ng-container *ngIf="!isLast">, </ng-container>
                       </a>

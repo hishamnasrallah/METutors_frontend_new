@@ -1,19 +1,19 @@
+import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '@metutor/state';
-import { filter, Observable, tap } from 'rxjs';
 import * as fromCore from '@metutor/core/state';
 import { Component, OnInit } from '@angular/core';
+import { InterviewStatus } from '@metutor/config';
 import * as fromTutor from '@metutor/modules/tutor/state';
+import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
 import {
   ICity,
+  IUser,
+  ITutor,
   ICountry,
   ILanguage,
-  ITutor,
-  IUser,
   SubmitInterviewInput,
 } from '@metutor/core/models';
-import { InterviewStatus } from '@metutor/config';
-import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
 
 @Component({
   selector: 'metutors-tutor-settings',

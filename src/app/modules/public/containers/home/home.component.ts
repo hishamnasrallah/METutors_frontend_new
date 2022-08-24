@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import {
   ITutor,
   IField,
@@ -20,7 +20,7 @@ import * as fromPublicActions from '@metutor/modules/public/state/actions';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit {
   loadingFields$: Observable<boolean>;
   loadingTutors$: Observable<boolean>;
   fields$: Observable<IField[] | null>;
@@ -36,6 +36,7 @@ export class HomeComponent implements OnInit {
   featuredTutors$: Observable<ITutor[] | null>;
   showViewSubjectDetailsModal$: Observable<boolean>;
 
+  fragment: any;
   subjectData: any;
   testmonials?: any[];
   academicStatistics?: IStatistics[];
@@ -59,6 +60,7 @@ export class HomeComponent implements OnInit {
     );
 
     this._route.fragment.subscribe((f) => {
+      this.fragment = f;
       const element = document.querySelector('#' + f);
 
       if (element) this._viewportScroller.scrollToAnchor(f!);
@@ -129,6 +131,16 @@ export class HomeComponent implements OnInit {
         isVerified: true,
       },
     ];
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      try {
+        const element = document.querySelector('#' + this.fragment);
+
+        if (element) this._viewportScroller.scrollToAnchor(this.fragment!);
+      } catch (e) {}
+    });
   }
 
   onOpenViewSubjectDetailsModal(data: any): void {

@@ -97,8 +97,12 @@
           <h3>Country of Residence</h3>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="country" [placeholder]="'Choose Country'">
-              <mat-option [value]="country?.name" *ngFor="let country of (countries$ | async)">
-                {{ country?.name }}
+              <mat-option>
+                <ngx-mat-select-search [(ngModel)]="filterCountry" [ngModelOptions]="{standalone: true}"
+                                       placeholderLabel="Search..." noEntriesFoundLabel="No matching country found">
+                </ngx-mat-select-search>
+              </mat-option>
+              <mat-option *ngFor="let country of filteredCountries" [value]="country.id">{{ country.name }}
               </mat-option>
             </mat-select>
           </mat-form-field>

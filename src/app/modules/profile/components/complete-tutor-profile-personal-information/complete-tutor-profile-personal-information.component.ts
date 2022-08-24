@@ -1,13 +1,13 @@
+import { GENDERS } from '@metutor/config';
 import { DatePipe } from '@angular/common';
+import { ICity, ICountry, ITutor } from 'src/app/core/models';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
-  AbstractControl,
-  FormBuilder,
   FormGroup,
   Validators,
+  FormBuilder,
+  AbstractControl,
 } from '@angular/forms';
-import { GENDERS } from '@metutor/config';
-import { ICity, ICountry } from 'src/app/core/models';
 
 @Component({
   selector: 'metutors-complete-tutor-profile-personal-information',
@@ -18,6 +18,28 @@ import { ICity, ICountry } from 'src/app/core/models';
 export class CompleteTutorProfilePersonalInformationComponent
   implements OnInit
 {
+  @Input() set tutor(_tutor: ITutor) {
+    if (_tutor) {
+      this.form.setValue({
+        middleName: _tutor?.middleName,
+        nationality: _tutor?.nationality,
+        dateOfBirth: _tutor?.dateOfBirth,
+        address: _tutor?.address,
+        address2: _tutor?.address2,
+        gender: _tutor?.gender,
+        country: _tutor?.country?.id,
+        city: _tutor?.city,
+        bio: _tutor?.bio,
+        postalCode: _tutor?.postalCode,
+      });
+
+      this.form?.updateValueAndValidity();
+
+      if (_tutor.country) {
+        this.loadCities.emit(_tutor?.country?.id);
+      }
+    }
+  }
   @Input() cities: ICity[] | null;
   @Input() loading: boolean | null;
   @Input() countries: ICountry[] | null;
@@ -27,7 +49,10 @@ export class CompleteTutorProfilePersonalInformationComponent
 
   form: FormGroup;
   genders = GENDERS;
+  filterCity: string;
   maxDate = new Date();
+  filterCountry: string;
+  filterNationality: string;
 
   constructor(private _fb: FormBuilder, private _datePipe: DatePipe) {
     this.form = this._fb.group({
@@ -56,7 +81,7 @@ export class CompleteTutorProfilePersonalInformationComponent
       ],
       postalCode: [
         null,
-        [Validators.required, Validators.minLength(3), Validators.maxLength(5)],
+        [Validators.required, Validators.minLength(3), Validators.maxLength(6)],
       ],
     });
   }
@@ -103,6 +128,44 @@ export class CompleteTutorProfilePersonalInformationComponent
 
   get postalCode(): AbstractControl | null {
     return this.form.get('postalCode');
+  }
+
+  get filteredNationalities(): ICountry[] {
+    if (this.filterNationality) {
+      return (
+        this.countries?.filter((country) =>
+          country?.name
+            .toLowerCase()
+            .includes(this.filterNationality.toLowerCase())
+        ) || []
+      );
+    } else {
+      return this.countries || [];
+    }
+  }
+
+  get filteredCountries(): ICountry[] {
+    if (this.filterCountry) {
+      return (
+        this.countries?.filter((country) =>
+          country?.name.toLowerCase().includes(this.filterCountry.toLowerCase())
+        ) || []
+      );
+    } else {
+      return this.countries || [];
+    }
+  }
+
+  get filteredCities(): ICity[] {
+    if (this.filterCity) {
+      return (
+        this.cities?.filter((city) =>
+          city?.name.toLowerCase().includes(this.filterCity.toLowerCase())
+        ) || []
+      );
+    } else {
+      return this.cities || [];
+    }
   }
 
   resetCity(): void {

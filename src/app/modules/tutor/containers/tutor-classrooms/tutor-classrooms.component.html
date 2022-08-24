@@ -88,10 +88,6 @@
               <metutors-classroom-item [classroom]="activeCourse" [url]="'/tutor/classrooms/classes/dashboard/'"></metutors-classroom-item>
             </div>
 
-            <div class="col-md-12" *ngFor="let cancelledCourse of view.cancelledCourses">
-              <metutors-classroom-item [classroom]="cancelledCourse" [url]="'/tutor/classrooms/classes/dashboard/'"></metutors-classroom-item>
-            </div>
-
             <div class="col-md-12 mb-3" *ngIf="!view.activeCourses || !view.activeCourses.length">
               <div class="card no-data">
                 <div class="card-body">
@@ -121,6 +117,11 @@
             <div class="col-md-12" *ngFor="let completedCourse of view.completedCourses">
               <metutors-classroom-item [classroom]="completedCourse" [url]="'/tutor/classrooms/classes/dashboard/'"></metutors-classroom-item>
             </div>
+
+            <div class="col-md-12" *ngFor="let cancelledCourse of view.cancelledCourses">
+              <metutors-classroom-item [isTeacher]="true" [classroom]="cancelledCourse" [url]="'/tutor/classrooms/classes/dashboard/'"></metutors-classroom-item>
+            </div>
+
             <div class="col-md-12 mb-3" *ngIf="!view.completedCourses || !view.completedCourses.length">
               <div class="card no-data">
                 <div class="card-body">

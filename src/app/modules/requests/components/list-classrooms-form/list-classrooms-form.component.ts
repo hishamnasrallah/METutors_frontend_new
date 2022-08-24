@@ -77,7 +77,7 @@ export class ListClassroomsFormComponent implements OnInit {
   @Output() loadTutors = new EventEmitter<IClass[]>();
   @Output() updatedClassrooms = new EventEmitter<IClass[]>();
 
-  _classrooms!: IClass[];
+  _classrooms: IClass[];
 
   constructor(private _dialog: MatDialog) {}
 

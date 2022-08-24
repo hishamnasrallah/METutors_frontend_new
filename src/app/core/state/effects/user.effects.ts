@@ -249,6 +249,9 @@ export class UserEffects {
           this._store.select(fromCore.selectUser)
         ),
         map(([action, step, user]) => {
+          localStorage.removeItem('loggedOut');
+          localStorage.removeItem('loggedOutTabs');
+
           if (action.returnUrl) {
             this._router.navigateByUrl(action.returnUrl);
           } else {
@@ -374,6 +377,15 @@ export class UserEffects {
         ofType(userActions.logoutSuccess),
         map(() => {
           this._router.navigateByUrl('/login');
+
+          const loggedOutTabs = localStorage.getItem('loggedOutTabs');
+
+          if (loggedOutTabs === 'true') {
+            localStorage.removeItem('loggedOut');
+            localStorage.removeItem('loggedOutTabs');
+          } else {
+            localStorage.setItem('loggedOut', 'true');
+          }
         })
       ),
     {
@@ -653,5 +665,15 @@ export class UserEffects {
     private _actions$: Actions,
     private _authService: AuthService,
     private _alertNotificationService: AlertNotificationService
-  ) {}
+  ) {
+    window.onstorage = () => {
+      const loggedOut = localStorage.getItem('loggedOut');
+
+      if (loggedOut === 'true') {
+        this._store.dispatch(fromCore.logout());
+        localStorage.setItem('loggedOutTabs', 'true');
+        localStorage.removeItem('loggedOut');
+      }
+    };
+  }
 }
