@@ -81,7 +81,7 @@
           </div>
           <div class="col-md-3 col-sm-6">
             <h3>Number of classes in the course</h3>
-            <h4>{{ reviewInfo?.classes }} {{ +reviewInfo?.classes === 1 ? 'Class' : 'Classes' }}</h4>
+            <h4>{{ reviewInfo?.classes }} Class{{ +(reviewInfo?.classes)! > 1 ? 'es' : '' }}</h4>
           </div>
           <div class="col-md-6">
             <h3>Class Days</h3>
@@ -119,7 +119,7 @@
               <td>{{ appointment?.date | date: 'd MMM y' }}</td>
               <td>{{ appointment?.startTime }}</td>
               <td>{{ appointment?.endTime }}</td>
-              <td>{{ appointment?.duration + 'hrs' }}</td>
+              <td>{{ appointment?.duration }}hr{{ +(appointment?.duration)! > 1 ? 's' : '' }}</td>
             </tr>
           </table>
         </div>
@@ -181,7 +181,7 @@
               <div class="d-flex">
                 <div class="flex-grow-1">
                   <h5 class="d-flex align-items-center">
-                    Total Hours: <h1 class="mb-0 f-size-20-md-sm">{{ reviewInfo?.hours }} hrs</h1>
+                    Total Hours: <h1 class="mb-0 f-size-20-md-sm">{{ reviewInfo?.hours }} hr{{ +(reviewInfo?.hours)! > 1 ? 's' : '' }}</h1>
                   </h5>
                   <p>Hourly Rate: {{ price | metutorsMoney | async }}</p>
                 </div>

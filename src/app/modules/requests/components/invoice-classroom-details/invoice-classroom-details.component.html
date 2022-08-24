@@ -50,7 +50,7 @@
       <ul class="list-unstyled row" [class.b-border]="classroom?.tutor">
         <li class="col-12">
           <img src="assets/svg/class.svg" draggable="false" width="20" height="20" alt="">
-          <span>Total Classes: {{ classroom?.classes }} Classes</span>
+          <span>Total Classes: {{ classroom?.classes }} Class{{ +(classroom?.classes)! > 1 ? 'es' : '' }}</span>
         </li>
         <li class="col-12">
           <img src="assets/svg/calendar.svg" draggable="false" width="20" height="20" alt="">
@@ -66,7 +66,7 @@
         </li>
         <li class="col-12">
           <img src="assets/svg/timer.svg" draggable="false" width="20" height="20" alt="">
-          <span>Duration : {{ classroom?.hours }} hours</span>
+          <span>Duration : {{ classroom?.hours }} hour{{ +(classroom?.hours)! > 1 ? 's' : '' }}</span>
         </li>
       </ul>
 

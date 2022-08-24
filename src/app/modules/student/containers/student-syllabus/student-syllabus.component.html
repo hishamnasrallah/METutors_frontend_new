@@ -24,7 +24,7 @@
               <div class="col-md-2 d-flex menu align-items-center">
                 <img src="assets/svg/play-circle-fill.svg" alt="" width="15" height="15" draggable="false">
                 <strong>Total hour: </strong>
-                <span>{{ view.syllabus?.course?.totalHours }}hrs</span>
+                <span>{{ view.syllabus?.course?.totalHours }}hr{{ +(view.syllabus?.course?.totalHours)! > 1 ? 's' : '' }}</span>
               </div>
               <div class="col-md-2 d-flex menu align-items-center">
                 <img src="assets/svg/checkbox-circle-fill.svg" alt="" width="15" height="15" draggable="false">
@@ -93,7 +93,7 @@
                 <td>{{ unclassifiedClass?.title }}</td>
                 <td>{{ unclassifiedClass?.startDate | date: 'EEEE, dd MMM Y' }}</td>
                 <td>{{ unclassifiedClass?.startTime | date:'h:mm a' }} - {{ unclassifiedClass?.endTime | date:'h:mm a' }}</td>
-                <td>{{ unclassifiedClass?.duration }}hrs</td>
+                <td>{{ unclassifiedClass?.duration }}hr{{ +(unclassifiedClass?.duration)! > 1 ? 's' : '' }}</td>
               </tr>
             </ng-container>
           </table>
@@ -118,7 +118,7 @@
                     <div class="col-md-2 d-flex menu align-items-center">
                       <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
                       <strong>Total hour: </strong>
-                      <span>{{ syllabus?.totalTopicHours }}hrs</span>
+                      <span>{{ syllabus?.totalTopicHours }}hr{{ +(syllabus?.totalTopicHours)! > 1 ? 's' : '' }}</span>
                     </div>
                   </div>
                 </div>
@@ -167,7 +167,7 @@
                       <td>{{ syllabusClass?.title }}</td>
                       <td>{{ syllabusClass?.startDate | date : 'EEEE, dd MMM Y' }}</td>
                       <td>{{ syllabusClass?.startTime | date:'h:mm a' + '-' + syllabusClass?.endTime | date:'h:mm a' }}</td>
-                      <td>{{ syllabusClass?.duration + 'hrs' }}</td>
+                      <td>{{ syllabusClass?.duration }}hr{{ +(syllabusClass?.duration)! > 1 ? 's' : '' }}</td>
                     </tr>
                   </table>
                 </div>

@@ -372,15 +372,42 @@ export class TutorSettingsProfileComponent implements OnInit {
   }
 
   get filteredDegreeFields(): string[] {
-    if (this.filterDegree) {
-      return (
-        DEGREE_FIELDS?.filter((degree) =>
-          degree?.toLowerCase().includes(this.filterDegree.toLowerCase())
-        ) || []
-      );
+    if (this.degreeLevel?.value) {
+      if (this.filterDegree) {
+        return DEGREE_FIELDS.filter((degree) =>
+          degree
+            ?.toLowerCase()
+            .includes(
+              this.degreeLevel?.value
+                ?.toLowerCase()
+                ?.split(' ')
+                ?.shift()
+                ?.slice(0, 6)
+            )
+        )?.filter((deg) =>
+          deg?.toLowerCase().includes(this.filterDegree.toLowerCase())
+        );
+      } else {
+        return DEGREE_FIELDS.filter((degree) =>
+          degree
+            ?.toLowerCase()
+            .includes(
+              this.degreeLevel?.value
+                ?.toLowerCase()
+                ?.split(' ')
+                ?.shift()
+                ?.slice(0, 6)
+            )
+        );
+      }
     } else {
       return DEGREE_FIELDS;
     }
+  }
+
+  resetDegreeField(): void {
+    this.degreeField?.setValue(null);
+    this.degreeField?.updateValueAndValidity();
   }
 
   newAvailability(): FormGroup {

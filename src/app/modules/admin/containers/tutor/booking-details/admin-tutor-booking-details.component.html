@@ -32,7 +32,7 @@
           <div class="col-md-2 d-flex menu align-items-center">
             <img src="assets/svg/timer.svg" alt="" width="15" height="15" draggable="false">
             <strong>Total Hours: </strong>
-            <span>{{ view.bookingDetail.course?.totalHours }} hrs</span>
+            <span>{{ view.bookingDetail.course?.totalHours }} hr{{ +(view.bookingDetail.course?.totalHours)! > 1 ? 's' : '' }}</span>
           </div>
 
           <div class="col-md-2 d-flex menu align-items-center">

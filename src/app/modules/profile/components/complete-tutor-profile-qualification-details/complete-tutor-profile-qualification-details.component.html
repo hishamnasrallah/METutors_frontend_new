@@ -34,7 +34,8 @@
         <div class="form-group">
           <label for="degreeLevel" class="form-label">Degree Level</label>
           <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="degreeLevel" [placeholder]="'Select Degree Level'">
+            <mat-select formControlName="degreeLevel" [placeholder]="'Select Degree Level'"
+              (selectionChange)="resetDegreeField()">
               <mat-option [value]="level" *ngFor="let level of degreeLevels">{{ level }}</mat-option>
             </mat-select>
           </mat-form-field>
@@ -117,7 +118,8 @@
         <div class="form-group">
           <div>
             <label for="languages" class="form-label">Spoken languages <span>(For Teaching)</span></label>
-            <a class="float-end cursor-pointer" (click)="addLanguage()" [ngClass]="{'text-secondary cursor-not-allowed': languages.status === invalid}">Add New</a>
+            <a class="float-end cursor-pointer" (click)="addLanguage()"
+              [ngClass]="{'text-secondary cursor-not-allowed': languages.status === invalid}">Add New</a>
           </div>
           <metutors-spoken-languages [form]="form" [languagesList]="languagesList"
                                      (removeLanguage)="removeLanguage($event)">

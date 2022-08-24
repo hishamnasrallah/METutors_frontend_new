@@ -15,7 +15,7 @@
             <div class="col-md-3 d-flex menu align-items-center">
               <img src="assets/svg/timer.svg" alt="" width="15" height="15" draggable="false">
               <strong>Total Hour: </strong>
-              <span>{{ view.data?.course?.totalHours }}hrs</span>
+              <span>{{ view.data?.course?.totalHours }}hr{{ +(view.data?.course?.totalHours)! > 1 ? 's' : '' }}</span>
             </div>
 
             <div class="col-md-3 d-flex menu align-items-center">
@@ -77,7 +77,7 @@
   <div class="list-tables">
     <div class="row">
       <div class="col-12">
-        <h3 class="overview mb-3">Today's Classes - {{ view?.data?.todaysDate ? view?.data?.todaysDate : 0}}</h3>
+        <h3 class="overview mb-3">Today's Classes - {{ view?.data?.todaysDate ? view?.data?.todaysDate : 0 }}</h3>
         <ng-container [ngSwitch]="view.loading">
           <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
           <table class="table my-table" *ngSwitchCase="false">
@@ -106,7 +106,7 @@
                   </metutors-user-avatar>
                 </td>
                 <td>{{ todaysClass.startTime | date:'h:mm a' }} - {{ todaysClass.endTime | date:'h:mm a' }} </td>
-                <td>{{ todaysClass?.duration }} hours</td>
+                <td>{{ todaysClass?.duration }} hour{{ +(todaysClass?.duration)! > 1 ? 's' : '' }}</td>
                 <td>
                   <button mat-button class="main-button-opacity flex-grow-1 w-100" (click)="launchClass(todaysClass.id)"
                           *ngIf="todaysClass?.status !== 'completed'" [disabled]="(isLaunchingClass$ | async)">
@@ -160,7 +160,7 @@
                 <td>{{ upcomingClass.startDate | date: 'EEEE' }} </td>
                 <td>{{ upcomingClass.startDate | date: 'YYYY-MM-d' }} </td>
                 <td>{{ upcomingClass.startTime | date: 'h:mm a' }} - {{ upcomingClass.endTime | date: 'h:mm a' }} </td>
-                <td>{{ upcomingClass?.duration }} hours</td>
+                <td>{{ upcomingClass?.duration }} hour{{ +(upcomingClass?.duration)! > 1 ? 's' : '' }}</td>
                 <td>
                   <button mat-button class="main-button-opacity me-2 flex-grow-1 w-100"
                           (click)="onOpenRescheduleModal(upcomingClass.id)"
@@ -209,7 +209,7 @@
                 <td>{{ pastClass.startDate | date: 'EEEE' }} </td>
                 <td>{{ pastClass.startDate | date }} </td>
                 <td>{{ pastClass.startTime | date:'h:mm a' }} - {{ pastClass.endTime | date:'h:mm a' }} </td>
-                <td>{{ pastClass?.duration }} hours</td>
+                <td>{{ pastClass?.duration }} hour{{ +(pastClass?.duration)! > 1 ? 's' : '' }}</td>
                 <td>
                   <ng-container *ngIf="pastClass?.studentAttendence?.status === 'absent'; else second">
                     <button mat-button class="secondary-button-opacity flex-grow-1 w-100">
