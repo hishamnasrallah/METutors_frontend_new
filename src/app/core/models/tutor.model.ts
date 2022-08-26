@@ -124,10 +124,10 @@ export class ITutor {
       this.middleName = tutor?.middle_name || '';
       this.lastName = tutor?.last_name || '';
       this.avatar = tutor?.avatar
-        ? environment.imageURL + tutor?.avatar
+        ? tutor?.avatar
         : generalConstants.defaultAvatarPath;
       this.cover = tutor?.cover_img
-        ? environment.imageURL + tutor?.cover_img
+        ? tutor?.cover_img
         : generalConstants.defaultCoverPath;
       this.bio = tutor?.bio || '';
       this.adminApproval = tutor?.admin_approval;

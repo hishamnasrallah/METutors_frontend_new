@@ -32,10 +32,7 @@ export class UserEffects {
         if (user && token) {
           return of(
             userActions.identifyUserSuccess({
-              user: {
-                ...user,
-                avatar: environment.imageURL + user?.avatar,
-              },
+              user,
               profileStep:
                 user &&
                 user.profileCompletedStep &&
@@ -98,19 +95,13 @@ export class UserEffects {
             if (user?.roleId?.toString() === UserRole.admin.toString()) {
               return userActions.signInAdminSuccess({
                 tempToken: response.token,
-                user: {
-                  ...user,
-                  avatar: environment.imageURL + user?.avatar,
-                },
+                user,
                 returnUrl,
               });
             } else {
               return userActions.signInSuccess({
                 token: response.token,
-                user: {
-                  ...user,
-                  avatar: environment.imageURL + user?.avatar,
-                },
+                user,
                 profileStep:
                   user &&
                   user.profileCompletedStep &&
@@ -156,19 +147,13 @@ export class UserEffects {
               if (user?.roleId?.toString() === UserRole.admin.toString()) {
                 return userActions.signInAdminSuccess({
                   tempToken: response,
-                  user: {
-                    ...user,
-                    avatar: environment.imageURL + user?.avatar,
-                  },
+                  user,
                   returnUrl,
                 });
               } else {
                 return userActions.signInSuccess({
                   token: response,
-                  user: {
-                    ...user,
-                    avatar: environment.imageURL + user?.avatar,
-                  },
+                  user,
                   profileStep:
                     user &&
                     user.profileCompletedStep &&
@@ -203,19 +188,13 @@ export class UserEffects {
               if (user?.roleId?.toString() === UserRole.admin.toString()) {
                 return userActions.signInAdminSuccess({
                   tempToken: response,
-                  user: {
-                    ...user,
-                    avatar: environment.imageURL + user?.avatar,
-                  },
+                  user,
                   returnUrl,
                 });
               } else {
                 return userActions.signInSuccess({
                   token: response,
-                  user: {
-                    ...user,
-                    avatar: environment.imageURL + user?.avatar,
-                  },
+                  user,
                   profileStep:
                     user &&
                     user.profileCompletedStep &&
@@ -307,10 +286,7 @@ export class UserEffects {
 
             return userActions.signInSuccess({
               token: token || '',
-              user: {
-                ...user,
-                avatar: environment.imageURL + user?.avatar,
-              },
+              user,
               profileStep:
                 user &&
                 user.profileCompletedStep &&

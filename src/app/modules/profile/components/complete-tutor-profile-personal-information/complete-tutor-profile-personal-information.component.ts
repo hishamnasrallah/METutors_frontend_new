@@ -35,7 +35,7 @@ export class CompleteTutorProfilePersonalInformationComponent
 
       this.form?.updateValueAndValidity();
 
-      if (_tutor.country) {
+      if (_tutor?.country) {
         this.loadCities.emit(_tutor?.country?.id);
       }
     }

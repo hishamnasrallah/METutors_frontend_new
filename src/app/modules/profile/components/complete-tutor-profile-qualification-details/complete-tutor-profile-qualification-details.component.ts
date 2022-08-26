@@ -1,6 +1,10 @@
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { tap } from 'rxjs/operators';
 import { ILanguage, ITutor } from 'src/app/core/models';
 import { AlertNotificationService } from '@metutor/core/components';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+
 import {
   FormArray,
   FormGroup,
@@ -8,12 +12,16 @@ import {
   FormBuilder,
   AbstractControl,
 } from '@angular/forms';
+
 import {
   DEGREE_LEVELS,
   DEGREE_FIELDS,
   COMPUTER_SKILLS,
+  generalConstants,
   TEACHING_EXPERIENCE,
 } from 'src/app/config';
+
+import * as fromCore from '@metutor/core/state';
 
 @Component({
   selector: 'metutors-complete-tutor-profile-qualification-details',
@@ -40,8 +48,6 @@ export class CompleteTutorProfileQualificationDetailsComponent
         video: _tutor?.qualifications?.video,
       });
 
-      this.videoDemo = _tutor?.qualifications?.video;
-
       if (_tutor.languages && _tutor.languages.length) {
         _tutor.languages.forEach((language, index) => {
           this.languages.push(this.newLanguage());
@@ -61,16 +67,19 @@ export class CompleteTutorProfileQualificationDetailsComponent
 
   @Output() submitForm = new EventEmitter();
 
-  videoDemo: any;
   form: FormGroup;
   invalid = 'INVALID';
   filterDegree: string;
+  uploadingVideo: boolean;
   skills = COMPUTER_SKILLS;
   degreeLevels = DEGREE_LEVELS;
   experiences = TEACHING_EXPERIENCE;
+  fileUploadProgress$: Observable<any>;
+  uploadComplete = generalConstants.uploadComplete;
 
   constructor(
     private _fb: FormBuilder,
+    private _store: Store<any>,
     private _alertNotificationService: AlertNotificationService
   ) {
     this.form = this._fb.group({
@@ -89,7 +98,21 @@ export class CompleteTutorProfileQualificationDetailsComponent
     this.addLanguage();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.fileUploadProgress$ = this._store
+      .select(fromCore.selectFileUploadingProgress)
+      .pipe(
+        tap((progress) => {
+          progress?.map((response: any) => {
+            if (response.responseType === this.uploadComplete) {
+              this.uploadingVideo = false;
+              this.video?.setValue(response?.url);
+              this.video?.markAsDirty();
+            }
+          });
+        })
+      );
+  }
 
   get nameOfUniversity(): AbstractControl | null {
     return this.form.get('nameOfUniversity');
@@ -208,40 +231,33 @@ export class CompleteTutorProfileQualificationDetailsComponent
         return;
       }
 
-      this.form.patchValue({ video: file });
-      this.form.get('video')?.updateValueAndValidity();
-      this.form?.markAsDirty();
-
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.videoDemo = reader.result;
-      };
-      reader.readAsDataURL(file);
+      this.uploadingVideo = true;
+      this._store.dispatch(
+        fromCore.uploadFile({ file: [...event.target.files] })
+      );
     }
   }
 
   submitFormData() {
-    const formData = new FormData();
     const spokenLanguages = this.form.value.languages.map((lang: any) => ({
       language_id: lang?.language?.id,
       level: lang?.level,
     }));
 
-    formData.append('step', '3');
-    formData.append('name_of_university', this.nameOfUniversity?.value);
-    formData.append('computer_skills', this.computerSkills?.value);
-    formData.append('degree_level', this.degreeLevel?.value);
-    formData.append('teaching_experience', this.teachingExperience?.value);
-    formData.append(
-      'teaching_experience_online',
-      this.teachingExperienceOnline?.value
-    );
-    formData.append('degree_field', this.degreeField?.value);
-    formData.append('current_employer', this.currentEmployer?.value);
-    formData.append('current_title', this.currentTitle?.value);
-    formData.append('video', this.video?.value);
-    formData.append('spoken_languages', JSON.stringify(spokenLanguages));
+    const body = {
+      step: 3,
+      video: this.video?.value,
+      degree_field: this.degreeField?.value,
+      degree_level: this.degreeLevel?.value,
+      current_title: this.currentTitle?.value,
+      computer_skills: this.computerSkills?.value,
+      current_employer: this.currentEmployer?.value,
+      name_of_university: this.nameOfUniversity?.value,
+      spoken_languages: JSON.stringify(spokenLanguages),
+      teaching_experience: this.teachingExperience?.value,
+      teaching_experience_online: this.teachingExperienceOnline?.value,
+    };
 
-    this.submitForm.emit(formData);
+    this.submitForm.emit(body);
   }
 }

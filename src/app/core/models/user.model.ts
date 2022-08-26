@@ -1,4 +1,3 @@
-import { environment } from '@environment';
 import { generalConstants } from '@metutor/config';
 
 export class IUser {
@@ -39,9 +38,7 @@ export class IUser {
       this.mobile = user.mobile;
       this.email = user.email;
       this.verified = user.verified;
-      this.avatar =
-        environment.imageURL + user?.avatar ||
-        generalConstants.defaultAvatarPath;
+      this.avatar = user?.avatar || generalConstants.defaultAvatarPath;
       this.profileCompletedStep = user.profile_completed_step;
     }
   }

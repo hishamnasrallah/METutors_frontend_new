@@ -29,9 +29,6 @@ export class CompleteTutorProfileProfilePictureComponent implements OnInit {
         cover: _tutor?.cover,
       });
 
-      this.coverPic = _tutor?.cover;
-      this.profilePic = _tutor?.avatar;
-
       this.form?.updateValueAndValidity();
     }
   }
@@ -39,8 +36,6 @@ export class CompleteTutorProfileProfilePictureComponent implements OnInit {
   @Output() backBtn = new EventEmitter();
   @Output() submitForm = new EventEmitter();
 
-  coverPic: any;
-  profilePic: any;
   form: FormGroup;
   picType: string;
   uploadingFile: boolean;

@@ -180,11 +180,6 @@ export const reducer = createReducer(
     loadingProfileTutorFailure: error,
   })),
 
-  on(tutorActions.loadProfileTutorEnded, (state) => ({
-    ...state,
-    isLoadingProfileTutor: false,
-  })),
-
   on(tutorActions.loadTutors, (state) => ({
     ...state,
     isLoadingTutors: true,

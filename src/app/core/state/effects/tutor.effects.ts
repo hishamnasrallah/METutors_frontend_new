@@ -11,14 +11,9 @@ import { TutorsService } from '@services';
 import { environment } from '@environment';
 import * as fromRouterStore from '@metutor/state';
 import * as tutorActions from '../actions/tutor.actions';
+import { selectTutorDashboard, selectFeaturedTutors } from '..';
 import { AlertNotificationService } from '@metutor/core/components';
 import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
-
-import {
-  selectProfileTutor,
-  selectTutorDashboard,
-  selectFeaturedTutors,
-} from '..';
 
 @Injectable()
 export class TutorEffects {
@@ -38,12 +33,9 @@ export class TutorEffects {
             const user: any = decodeToken?.user;
 
             return tutorActions.completeTutorProfileSuccess({
+              user,
               nextStep,
               token: response?.token,
-              user: {
-                ...user,
-                avatar: environment.imageURL + user?.avatar,
-              },
             });
           }),
           catchError((error) =>
@@ -267,27 +259,22 @@ export class TutorEffects {
   loadProfileTutor$ = createEffect(() =>
     this._actions$.pipe(
       ofType(tutorActions.loadProfileTutor),
-      withLatestFrom(this._store.select(selectProfileTutor)),
-      mergeMap(([_, _profile]) => {
-        if (!_profile) {
-          return this._tutorService.getProfileTutor().pipe(
-            map((tutor) =>
-              tutorActions.loadProfileTutorSuccess({
-                tutor,
+      mergeMap(() =>
+        this._tutorService.getProfileTutor().pipe(
+          map((tutor) =>
+            tutorActions.loadProfileTutorSuccess({
+              tutor,
+            })
+          ),
+          catchError((error) =>
+            of(
+              tutorActions.loadProfileTutorFailure({
+                error: error?.error?.message || error?.error?.errors,
               })
-            ),
-            catchError((error) =>
-              of(
-                tutorActions.loadProfileTutorFailure({
-                  error: error?.error?.message || error?.error?.errors,
-                })
-              )
             )
-          );
-        } else {
-          return of(tutorActions.loadProfileTutorEnded());
-        }
-      })
+          )
+        )
+      )
     )
   );
 

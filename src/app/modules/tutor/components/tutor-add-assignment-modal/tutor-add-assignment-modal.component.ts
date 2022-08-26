@@ -113,8 +113,6 @@ export class TutorAddAssignmentModalComponent implements OnInit {
             this.endDate?.setValue(data?.assignment?.deadline);
             this.startDate?.setValue(data?.assignment?.startDate);
             this.description?.setValue(data?.assignment?.description);
-
-            this.form.valueChanges.subscribe(() => console.log(this.form));
           }
         })
       ),
