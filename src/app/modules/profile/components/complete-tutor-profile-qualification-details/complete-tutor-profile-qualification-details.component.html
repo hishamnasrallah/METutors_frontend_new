@@ -150,7 +150,7 @@
             <ng-container *ngIf="fileUploadProgress?.length">
               <ng-container *ngFor="let uploadProgress of fileUploadProgress">
                 <ng-container *ngIf="uploadProgress.responseType !== uploadComplete">
-                  <metutors-file-upload-progress [fileName]="uploadProgress.fileName"
+                  <metutors-file-upload-progress [fileName]="uploadProgress.fileName" [fileType]="'video'"
                                                  [uploadedPercentage]="uploadProgress.progress">
                   </metutors-file-upload-progress>
                 </ng-container>

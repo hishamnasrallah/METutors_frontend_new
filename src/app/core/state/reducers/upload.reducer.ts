@@ -3,6 +3,7 @@ import { createReducer, on } from '@ngrx/store';
 import * as tutorResourceActions from '../actions/tutor-resource.actions';
 import * as uploadActions from '../actions/upload.actions';
 import * as tutorModalActions from '@metutor/modules/tutor/state/actions';
+import { resetUploadFileProgress } from '../actions/upload.actions';
 
 export interface State {
   files: any[];
@@ -60,6 +61,11 @@ export const reducer = createReducer(
   on(uploadActions.loadUploadFileProgress, (state, { uploadProgress }) => ({
     ...state,
     uploadProgress,
+  })),
+
+  on(uploadActions.resetUploadFileProgress, (state) => ({
+    ...state,
+    uploadProgress: null,
   })),
 
   // Delete file

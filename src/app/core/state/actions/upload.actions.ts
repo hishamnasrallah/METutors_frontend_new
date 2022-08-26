@@ -31,6 +31,10 @@ export const loadUploadFileProgress = createAction(
   props<{ uploadProgress: any }>()
 );
 
+export const resetUploadFileProgress = createAction(
+  '[Upload Service] Reset Upload File Progress'
+);
+
 export const resetUploadedFiles = createAction(
   '[Upload Service] Reset Uploaded Files'
 );
