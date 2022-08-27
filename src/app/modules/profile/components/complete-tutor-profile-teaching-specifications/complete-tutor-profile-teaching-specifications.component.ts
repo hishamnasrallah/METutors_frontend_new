@@ -154,10 +154,12 @@ export class CompleteTutorProfileTeachingSpecificationsComponent
     if (this.selectedDays.includes(index)) {
       this.selectedDays.splice(this.selectedDays.indexOf(index), 1);
       this.availability.at(index).patchValue({ day: null, timeSlots: [] });
+      // this.openDialog(index, this.availability.value[index]);
+      // console.log(this.availability.value);
     } else {
       this.selectedDays.push(index);
       this.availability.at(index).patchValue({ day: index });
-      this.openDialog(index);
+      this.openDialog(index, null);
     }
   }
 
@@ -166,10 +168,10 @@ export class CompleteTutorProfileTeachingSpecificationsComponent
     this.endDate?.updateValueAndValidity();
   }
 
-  openDialog(index: number) {
+  openDialog(index: number, data: any) {
     const dialogRef = this._dialog.open(DialogSelectAvailabilityDialog, {
       width: '500px',
-      data: index,
+      data: { index, data },
       disableClose: true,
     });
 
@@ -252,7 +254,10 @@ export class DialogSelectAvailabilityDialog {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     if (data) {
-      this.id = data;
+      this.id = data.id;
+      console.log(data.data)
+      this.selectedHours = data.data.timeSlots.map((item: any) => item.id);
+      this.selectedHoursList = data.data.timeSlots;
     }
   }
 
