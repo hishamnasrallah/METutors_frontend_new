@@ -13,8 +13,6 @@ export class TutorViewKudosPointsDetailComponent implements OnInit {
 
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
 
-  imageUrl = environment.imageURL;
-
   constructor() {}
 
   ngOnInit(): void {}

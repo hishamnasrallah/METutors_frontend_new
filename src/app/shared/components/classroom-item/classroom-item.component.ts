@@ -22,7 +22,6 @@ export class ClassroomItemComponent implements OnInit {
 
   classroomType = ClassroomType;
   statusLabel = courseStatusLabel;
-  imageURL = environment.imageURL;
 
   constructor() {}
 

@@ -19,8 +19,6 @@ export class TutorViewSubmittedAssignmentModalComponent implements OnInit {
 
   view$: Observable<{ loading: boolean; assignment: any }>;
 
-  imageUrl = environment.imageURL;
-
   constructor(private _store: Store<any>) {}
 
   onBack(): void {

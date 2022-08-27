@@ -35,6 +35,9 @@
   }
 
   .title-info {
+    img {
+      object-fit: cover;
+    }
     h3 {
       color: #2A2A2A;
       font-weight: bold;

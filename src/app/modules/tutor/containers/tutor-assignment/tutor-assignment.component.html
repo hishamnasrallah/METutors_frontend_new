@@ -26,7 +26,7 @@
               <div class="col-md-5 overflow-visible">
                 <div class="fw-bold">Enrolled Students</div>
                 <ng-container *ngFor="let participant of assignments?.course.participants">
-                  <metutors-user-avatar [avatar]="imageUrl+participant?.user?.avatar" class="d-block"></metutors-user-avatar>
+                  <metutors-user-avatar [avatar]="participant?.user?.avatar" class="d-block"></metutors-user-avatar>
                 </ng-container>
               </div>
               <div class="col-md-7">
@@ -146,7 +146,7 @@
                           (click)="openViewStudentAssignmentModal(assignment.id, assignee)">
                         <td scope="row">{{ num + 1 }}</td>
                         <td>
-                          <img [src]="imageUrl+assignee?.user?.avatar" meTutorsDefaultAvatar draggable="false"
+                          <img [src]="assignee?.user?.avatar" meTutorsDefaultAvatar draggable="false"
                                width="25"
                                height="25"
                                class="rounded-circle"

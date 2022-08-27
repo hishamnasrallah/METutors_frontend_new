@@ -8,7 +8,7 @@
       <div class="avatar-block">
         <div class="row mb-3">
           <div class="col-md-12 d-flex">
-            <div class="row avatar-name align-items-center">
+            <div class="row avatar-name align-items-center" *ngLet="(fileUploadProgress$ | async) as progress">
               <div class="col-md-3">
                 <div class="position-relative px-3">
                   <div class="img-status position-relative">

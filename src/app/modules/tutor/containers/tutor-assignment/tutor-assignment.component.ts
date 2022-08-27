@@ -56,7 +56,6 @@ export class TutorAssignmentComponent implements OnInit {
   selectedBlock: null;
   assignmentId: number;
   activeAssignment = true;
-  imageUrl = environment.imageURL;
 
   constructor(private _store: Store<any>) {}
 

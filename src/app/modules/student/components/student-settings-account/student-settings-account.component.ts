@@ -11,7 +11,7 @@ import {
   AbstractControl,
 } from '@angular/forms';
 
-import { GENDERS } from '@config';
+import { GENDERS, generalConstants } from '@config';
 import { ICountry, IStudent } from '@models';
 import * as fromCore from '@metutor/core/state';
 import { AlertNotificationService } from '@metutor/core/components';
@@ -27,8 +27,10 @@ export class StudentSettingsAccountComponent implements OnInit {
   form: FormGroup;
   genders = GENDERS;
   filterCountry: string;
+  fileUploadProgress$: Observable<any>;
   isChangeAvatar$: Observable<boolean>;
   isSavingProfile: Observable<boolean>;
+  uploadComplete = generalConstants.uploadComplete;
   view$: Observable<{ student: IStudent | null; loading: boolean }>;
 
   constructor(
@@ -45,6 +47,20 @@ export class StudentSettingsAccountComponent implements OnInit {
     this.isSavingProfile = this._store.select(
       fromCore.selectIsUpdatingStudentProfile
     );
+
+    this.fileUploadProgress$ = this._store
+      .select(fromCore.selectFileUploadingProgress)
+      .pipe(
+        tap((progress) => {
+          progress?.map((response: any) => {
+            if (response.responseType === this.uploadComplete) {
+              this._store.dispatch(
+                fromCore.changeAvatar({ file: response.url })
+              );
+            }
+          });
+        })
+      );
 
     this.view$ = combineLatest([
       this._store.select(fromCore.selectStudent).pipe(
@@ -85,7 +101,7 @@ export class StudentSettingsAccountComponent implements OnInit {
 
   uploadProfilePic(event: any): void {
     if (event.target && event.target.files && event.target.files.length) {
-      const file = event.target?.files[0];
+      const file = event.target?.files;
       const mimeType = event.target.files[0].type;
 
       if (mimeType.match(/image\/*/) == null) {
@@ -94,13 +110,13 @@ export class StudentSettingsAccountComponent implements OnInit {
         return;
       }
 
-      if (file.size > 1024 * 1024) {
+      if (file[0].size > 1024 * 1024) {
         this._alertNotificationService.error('Allowed file size is 1MB');
 
         return;
       }
 
-      this._store.dispatch(fromCore.changeAvatar({ file }));
+      this._store.dispatch(fromCore.uploadFile({ file: [...file] }));
     }
   }
 
