@@ -249,9 +249,9 @@ export class DialogSelectAvailabilityDialog {
   ) {
     if (data) {
       this.id = data.id;
-      console.log(data.data)
-      this.selectedHours = data.data.timeSlots.map((item: any) => item.id);
-      this.selectedHoursList = data.data.timeSlots;
+      // console.log(data.data)
+      // this.selectedHours = data.data.timeSlots.map((item: any) => item.id);
+      // this.selectedHoursList = data.data.timeSlots;
     }
   }
 
