@@ -4,6 +4,11 @@
   border: solid 1px #e5eaf4;
   margin-top: 20px;
 
+  .list-items {
+    img {
+      object-fit: cover;
+    }
+  }
   .priority {
     color: #696969;
     font-size: 15px;
