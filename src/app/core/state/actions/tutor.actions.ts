@@ -215,10 +215,6 @@ export const loadProfileTutorFailure = createAction(
   props<{ error: any }>()
 );
 
-export const loadProfileTutorEnded = createAction(
-  '[Tutor] Load profile Tutor Ended'
-);
-
 // Tutor dashboard
 export const loadTutorDashboard = createAction(
   '[Tutor] Load Tutor Dashboard',

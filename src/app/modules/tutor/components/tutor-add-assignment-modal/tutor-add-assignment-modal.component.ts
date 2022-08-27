@@ -26,7 +26,7 @@ export class TutorAddAssignmentModalComponent implements OnInit {
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
 
   form: FormGroup;
-  minDate = new Date();
+  minDate: any = new Date();
   selectedURLs: any[] = [];
   filesPreview: any[] = [];
 
@@ -91,6 +91,7 @@ export class TutorAddAssignmentModalComponent implements OnInit {
       this._store.select(fromCore.selectTutorAssignment).pipe(
         tap((data: any) => {
           if (data) {
+            this.minDate = null;
             if (data?.assignment?.urls?.length) {
               this.selectedURLs = [...data.assignment?.urls];
             }
@@ -112,8 +113,6 @@ export class TutorAddAssignmentModalComponent implements OnInit {
             this.endDate?.setValue(data?.assignment?.deadline);
             this.startDate?.setValue(data?.assignment?.startDate);
             this.description?.setValue(data?.assignment?.description);
-
-            this.form.valueChanges.subscribe(() => console.log(this.form));
           }
         })
       ),

@@ -93,7 +93,7 @@
 
           <div class="row" *ngIf="classroom?.teacher && isStudent">
             <div class="overflow-visible logos">
-              <img meTutorsDefaultAvatar [src]="imageURL+classroom?.teacher?.avatar"
+              <img meTutorsDefaultAvatar [src]="classroom?.teacher?.avatar"
                    alt="" draggable="false" class="d-inline-block rounded-circle">
                <span class="m-lg-1"> {{ classroom?.teacher?.firstName }} {{ classroom?.teacher?.lastName }}</span>
             </div>

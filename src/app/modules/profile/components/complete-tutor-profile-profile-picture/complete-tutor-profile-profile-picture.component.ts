@@ -1,12 +1,19 @@
+import { Store } from '@ngrx/store';
+import { tap } from 'rxjs/operators';
 import { ITutor } from '@metutor/core/models';
 import { AlertNotificationService } from 'src/app/core/components';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+
 import {
   FormGroup,
   Validators,
   FormBuilder,
   AbstractControl,
 } from '@angular/forms';
+
+import { Observable } from 'rxjs';
+import { generalConstants } from '@config';
+import * as fromCore from '@metutor/core/state';
 
 @Component({
   selector: 'metutors-complete-tutor-profile-profile-picture',
@@ -22,9 +29,6 @@ export class CompleteTutorProfileProfilePictureComponent implements OnInit {
         cover: _tutor?.cover,
       });
 
-      this.coverPic = _tutor?.cover;
-      this.profilePic = _tutor?.avatar;
-
       this.form?.updateValueAndValidity();
     }
   }
@@ -32,21 +36,44 @@ export class CompleteTutorProfileProfilePictureComponent implements OnInit {
   @Output() backBtn = new EventEmitter();
   @Output() submitForm = new EventEmitter();
 
-  coverPic: any;
-  profilePic: any;
   form: FormGroup;
+  picType: string;
+  uploadingFile: boolean;
+
+  fileUploadProgress$: Observable<any>;
+  uploadComplete = generalConstants.uploadComplete;
 
   constructor(
     private _fb: FormBuilder,
+    private _store: Store<any>,
     private _alertNotificationService: AlertNotificationService
   ) {
     this.form = this._fb.group({
-      avatar: [null, Validators.required],
       cover: [null],
+      avatar: [null, Validators.required],
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.fileUploadProgress$ = this._store
+      .select(fromCore.selectFileUploadingProgress)
+      .pipe(
+        tap((progress) => {
+          progress?.map((response: any) => {
+            if (response.responseType === this.uploadComplete) {
+              this.uploadingFile = false;
+              if (this.picType === 'avatar') {
+                this.avatar?.setValue(response?.url);
+                this.avatar?.markAsDirty();
+              } else if (this.picType === 'cover') {
+                this.cover?.setValue(response?.url);
+                this.cover?.markAsDirty();
+              }
+            }
+          });
+        })
+      );
+  }
 
   get avatar(): AbstractControl | null {
     return this.form.get('avatar');
@@ -73,15 +100,11 @@ export class CompleteTutorProfileProfilePictureComponent implements OnInit {
         return;
       }
 
-      this.form.patchValue({ avatar: file });
-      this.form.get('avatar')?.updateValueAndValidity();
-      this.form?.markAsDirty();
-
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.profilePic = reader.result;
-      };
-      reader.readAsDataURL(file);
+      this.picType = 'avatar';
+      this.uploadingFile = true;
+      this._store.dispatch(
+        fromCore.uploadFile({ file: [...event.target.files] })
+      );
     }
   }
 
@@ -102,15 +125,11 @@ export class CompleteTutorProfileProfilePictureComponent implements OnInit {
         return;
       }
 
-      this.form.patchValue({ cover: file });
-      this.form.get('cover')?.updateValueAndValidity();
-      this.form?.markAsDirty();
-
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.coverPic = reader.result;
-      };
-      reader.readAsDataURL(file);
+      this.picType = 'cover';
+      this.uploadingFile = true;
+      this._store.dispatch(
+        fromCore.uploadFile({ file: [...event.target.files] })
+      );
     }
   }
 

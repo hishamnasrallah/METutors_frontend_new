@@ -97,11 +97,10 @@
                       form.value.programs[i]?.programId?.id === nationalId &&
                       form.value.programs[i]?.programId?.id === subject.programId &&
                       form.value.programs[i].fields?.includes(subject.fieldId) &&
-                      form.value.programs[i].countries?.includes(subject.countryId)
+                      form.value.programs[i].countries?.includes(subject.countryId) &&
+                      form.value.programs[i].grades?.includes(subject.grade)
                     )
                   ">
-                  <!--  &&
-                      form.value.programs[i].grades?.includes(subject.grade) -->
                     <mat-option *ngFor="let sub of subject.subjects" [value]="sub">
                       {{ sub?.name }}
                     </mat-option>

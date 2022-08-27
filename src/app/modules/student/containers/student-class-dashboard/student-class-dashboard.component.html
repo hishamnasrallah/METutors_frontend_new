@@ -107,7 +107,7 @@
                   <td>{{ i + 1}}</td>
                   <td>{{ todaysClass.title }}</td>
                   <td>
-                    <metutors-user-avatar [avatar]="imageURL+todaysClass?.teacher?.avatar"
+                    <metutors-user-avatar [avatar]="todaysClass?.teacher?.avatar"
                                           [name]="todaysClass?.teacher?.firstName+' '+todaysClass?.teacher?.lastName"
                                           [type]="'small'"
                                           class="d-block"></metutors-user-avatar>
@@ -168,7 +168,7 @@
                   <td>{{ i + 1}}</td>
                   <td>{{ upcomingClass.title ? upcomingClass.title : 'N/A' }}</td>
                   <td>
-                    <metutors-user-avatar [avatar]="imageURL+upcomingClass?.teacher?.avatar"
+                    <metutors-user-avatar [avatar]="upcomingClass?.teacher?.avatar"
                                           [name]="upcomingClass?.teacher?.firstName+' '+upcomingClass?.teacher?.lastName"
                                           [type]="'small'"
                                           class="d-block"></metutors-user-avatar>
@@ -219,7 +219,7 @@
                   <td>{{ i + 1}}</td>
                   <td>{{ previousClass.title }}</td>
                   <td>
-                    <metutors-user-avatar [avatar]="imageURL+previousClass?.teacher?.avatar" [type]="'small'"
+                    <metutors-user-avatar [avatar]="previousClass?.teacher?.avatar" [type]="'small'"
                                           [name]="previousClass?.teacher?.firstName+ ' ' +previousClass?.teacher?.lastName"
                                           class="d-block"></metutors-user-avatar>
                   </td>
