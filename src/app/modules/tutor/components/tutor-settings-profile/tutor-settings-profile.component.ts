@@ -130,6 +130,7 @@ export class TutorSettingsProfileComponent implements OnInit {
   @Input() isLoadingTutor: boolean;
   @Input() isChangeAvatar: boolean;
   @Input() isUpdateProfile: boolean;
+  @Input() fileUploadProgress: any;
   @Input() countries: ICountry[] | null;
 
   @Output() submitForm = new EventEmitter();
@@ -140,6 +141,7 @@ export class TutorSettingsProfileComponent implements OnInit {
   @Output() changeAvatar = new EventEmitter<File>();
 
   tutor: ITutor;
+  isAvatar: boolean;
   genders = GENDERS;
   filterCity: string;
   maxDate = new Date();
@@ -455,7 +457,7 @@ export class TutorSettingsProfileComponent implements OnInit {
 
   onChangeAvatar(event: any): void {
     if (event.target && event.target.files && event.target.files.length) {
-      const file = event.target?.files[0];
+      const file = event.target?.files;
       const mimeType = event.target.files[0].type;
 
       if (mimeType.match(/image\/*/) == null) {
@@ -464,19 +466,20 @@ export class TutorSettingsProfileComponent implements OnInit {
         return;
       }
 
-      if (file.size > 2 * 1024 * 1024) {
+      if (file[0].size > 2 * 1024 * 1024) {
         this._alertNotificationService.error('Allowed file size is 2MB');
 
         return;
       }
 
+      this.isAvatar = true;
       this.changeAvatar.emit(file);
     }
   }
 
   onChangeCover(event: any): void {
     if (event.target && event.target.files && event.target.files.length) {
-      const file = event.target?.files[0];
+      const file = event.target?.files;
       const mimeType = event.target.files[0].type;
 
       if (mimeType.match(/image\/*/) == null) {
@@ -485,12 +488,13 @@ export class TutorSettingsProfileComponent implements OnInit {
         return;
       }
 
-      if (file.size > 2 * 1024 * 1024) {
+      if (file[0].size > 2 * 1024 * 1024) {
         this._alertNotificationService.error('Allowed file size is 2MB');
 
         return;
       }
 
+      this.isAvatar = false;
       this.changeCover.emit(file);
     }
   }

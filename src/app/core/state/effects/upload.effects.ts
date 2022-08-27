@@ -38,13 +38,10 @@ export class UploadEffects {
             const user: any = decodeToken?.user;
 
             return uploadActions.changeAvatarSuccess({
-              message: 'Profile picture updated successfully',
+              user,
               token: response?.token,
-              user: {
-                ...user,
-                avatar: environment.imageURL + user?.avatar,
-              },
-              avatar: environment.imageURL + response?.avatar,
+              avatar: response?.avatar,
+              message: 'Profile picture updated successfully',
             });
           }),
           catchError((error) =>

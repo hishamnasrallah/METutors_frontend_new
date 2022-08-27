@@ -1,11 +1,10 @@
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { tap } from 'rxjs/operators';
 import * as fromRoot from '@metutor/state';
 import * as fromCore from '@metutor/core/state';
 import { Component, OnInit } from '@angular/core';
-import { InterviewStatus } from '@metutor/config';
-import * as fromTutor from '@metutor/modules/tutor/state';
-import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
+
 import {
   ICity,
   IUser,
@@ -15,6 +14,10 @@ import {
   SubmitInterviewInput,
 } from '@metutor/core/models';
 
+import * as fromTutor from '@metutor/modules/tutor/state';
+import { generalConstants, InterviewStatus } from '@metutor/config';
+import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
+
 @Component({
   selector: 'metutors-tutor-settings',
   templateUrl: './tutor-settings.component.html',
@@ -22,9 +25,11 @@ import {
 })
 export class TutorSettingsComponent implements OnInit {
   layout$: any;
+  isAvatar: boolean;
   user$: Observable<IUser | null>;
   tutor$: Observable<ITutor | null>;
   cities$: Observable<ICity[] | null>;
+  fileUploadProgress$: Observable<any>;
   isLoadingTutor$: Observable<boolean>;
   isChangingPassword$: Observable<boolean>;
   isChangeTutorCover$: Observable<boolean>;
@@ -37,6 +42,7 @@ export class TutorSettingsComponent implements OnInit {
   showSubmitInterviewModal$: Observable<boolean>;
 
   tab = 'MY_PROFILE';
+  uploadComplete = generalConstants.uploadComplete;
 
   constructor(private _store: Store<any>) {}
 
@@ -52,6 +58,26 @@ export class TutorSettingsComponent implements OnInit {
     this.isLoadingTutor$ = this._store.select(
       fromCore.selectIsLoadingProfileTutor
     );
+
+    this.fileUploadProgress$ = this._store
+      .select(fromCore.selectFileUploadingProgress)
+      .pipe(
+        tap((progress) => {
+          progress?.map((response: any) => {
+            if (response.responseType === this.uploadComplete) {
+              if (this.isAvatar) {
+                this._store.dispatch(
+                  fromCore.changeAvatar({ file: response.url })
+                );
+              } else {
+                this._store.dispatch(
+                  fromCore.changeTutorCover({ file: response.url })
+                );
+              }
+            }
+          });
+        })
+      );
 
     this.isUpdateTutorProfile$ = this._store.select(
       fromCore.selectIsUpdateTutorProfile
@@ -114,12 +140,14 @@ export class TutorSettingsComponent implements OnInit {
     this._store.dispatch(fromCore.updateTutorProfile({ data }));
   }
 
-  onChangeTutorAvatar(file: File): void {
-    this._store.dispatch(fromCore.changeAvatar({ file }));
+  onChangeTutorAvatar(file: any): void {
+    this.isAvatar = true;
+    this._store.dispatch(fromCore.uploadFile({ file: [...file] }));
   }
 
-  onChangeTutorCover(file: File): void {
-    this._store.dispatch(fromCore.changeTutorCover({ file }));
+  onChangeTutorCover(file: any): void {
+    this.isAvatar = false;
+    this._store.dispatch(fromCore.uploadFile({ file: [...file] }));
   }
 
   onJoinMeeting(interviewId: number): void {
