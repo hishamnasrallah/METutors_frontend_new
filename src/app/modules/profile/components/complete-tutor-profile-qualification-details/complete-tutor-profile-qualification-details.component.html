@@ -18,7 +18,7 @@
         <div class="form-group">
           <label for="teachingExperience" class="form-label">Teaching Experience</label>
           <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="teachingExperience" [placeholder]="'Select Years'">
+            <mat-select formControlName="teachingExperience" [placeholder]="'Select Years'" id="teachingExperience">
               <mat-option [value]="experience" *ngFor="let experience of experiences">{{ experience }}</mat-option>
             </mat-select>
           </mat-form-field>
@@ -34,7 +34,7 @@
         <div class="form-group">
           <label for="degreeLevel" class="form-label">Degree Level</label>
           <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="degreeLevel" [placeholder]="'Select Degree Level'"
+            <mat-select formControlName="degreeLevel" [placeholder]="'Select Degree Level'" id="degreeLevel"
               (selectionChange)="resetDegreeField()">
               <mat-option [value]="level" *ngFor="let level of degreeLevels">{{ level }}</mat-option>
             </mat-select>
@@ -49,7 +49,7 @@
         <div class="form-group">
           <label for="teachingExperienceOnline" class="form-label">Teaching Experience Online</label>
           <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="teachingExperienceOnline" [placeholder]="'Select Years'">
+            <mat-select formControlName="teachingExperienceOnline" [placeholder]="'Select Years'" id="teachingExperienceOnline">
               <mat-option [value]="experience" *ngFor="let experience of experiences">{{ experience }}</mat-option>
             </mat-select>
           </mat-form-field>
@@ -65,7 +65,7 @@
         <div class="form-group">
           <label for="degreeField" class="form-label">Degree Field</label>
           <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="degreeField" [placeholder]="'Computer Science'">
+            <mat-select formControlName="degreeField" [placeholder]="'Computer Science'" id="degreeField">
               <mat-option>
                 <ngx-mat-select-search [(ngModel)]="filterDegree" [ngModelOptions]="{standalone: true}"
                   placeholderLabel="Search..." noEntriesFoundLabel="No matching degree field found">
@@ -94,7 +94,7 @@
         <div class="form-group">
           <label for="computerSkills" class="form-label">Computer Skills</label>
           <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="computerSkills" [placeholder]="'Above Average'">
+            <mat-select formControlName="computerSkills" [placeholder]="'Above Average'" id="computerSkills">
               <mat-option [value]="skill" *ngFor="let skill of skills">{{ skill }}</mat-option>
             </mat-select>
           </mat-form-field>
@@ -121,7 +121,7 @@
             <a class="float-end cursor-pointer" (click)="addLanguage()"
               [ngClass]="{'text-secondary cursor-not-allowed': languages.status === invalid}">Add New</a>
           </div>
-          <metutors-spoken-languages [form]="form" [languagesList]="languagesList"
+          <metutors-spoken-languages [form]="form" [languagesList]="languagesList" id="languages"
                                      (removeLanguage)="removeLanguage($event)">
           </metutors-spoken-languages>
         </div>
@@ -133,19 +133,30 @@
           <input type="file" #filePicker (change)="onChangeVideo($event)" hidden accept="video/*" />
 
           <div class="position-relative">
-            <metutors-video-player [videoSrc]="videoDemo" *ngIf="videoDemo">
+            <metutors-video-player [videoSrc]="video?.value" *ngIf="video?.value">
             </metutors-video-player>
-            <button mat-flat-button color="primary" class="px-4 edit-video" cdkFocusInitial type="button"
-              *ngIf="videoDemo" (click)="filePicker.click()"> Change
+            <button mat-flat-button color="primary" class="px-4 edit-video" type="button"
+              *ngIf="video?.value" (click)="filePicker.click()" [disabled]="uploadingVideo"> Change
             </button>
           </div>
-          <div class="video-preview d-flex align-items-center justify-content-center flex-column" *ngIf="!videoDemo">
+          <div class="video-preview d-flex align-items-center justify-content-center flex-column" *ngIf="!video?.value">
             <div class="guide1">Upload Video Demo</div>
 
-            <button mat-flat-button color="primary" class="px-4 mt-2" cdkFocusInitial type="button"
+            <button mat-flat-button color="primary" class="px-4 mt-2" type="button" [disabled]="uploadingVideo"
               (click)="filePicker.click()"> Upload
             </button>
           </div>
+          <ng-container *ngLet="fileUploadProgress$ | async as fileUploadProgress">
+            <ng-container *ngIf="fileUploadProgress?.length">
+              <ng-container *ngFor="let uploadProgress of fileUploadProgress">
+                <ng-container *ngIf="uploadProgress.responseType !== uploadComplete">
+                  <metutors-file-upload-progress [fileName]="uploadProgress.fileName" [fileType]="'video'"
+                                                 [uploadedPercentage]="uploadProgress.progress">
+                  </metutors-file-upload-progress>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </ng-container>
         </div>
       </div>
     </div>
@@ -154,7 +165,7 @@
       <div class="col-md-4"></div>
       <div class="col-md-4">
         <div class="form-group mt-4 mb-2">
-          <metutors-submit-button [form]="form" [isSubmitting]="loading" [extraClasses]="'w-100 fw-bold'">
+          <metutors-submit-button [form]="form" [isSubmitting]="loading" [isDisabled]="uploadingVideo" [extraClasses]="'w-100 fw-bold'">
             Save & Continue
           </metutors-submit-button>
         </div>

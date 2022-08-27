@@ -20,6 +20,7 @@ export class UploadService {
   uploadFile(files: any): void {
     files.forEach((file: any, index: number) => {
       this.fileUploadProgress[index] = {
+        url: '',
         progress: 0,
         responseType: 0,
         fileName: file.name,
@@ -36,10 +37,12 @@ export class UploadService {
             progress: Math.round((100 * event.loaded) / event.total),
           };
         } else if (event.type === HttpEventType.Response) {
-          this.uploadedFiles = event?.body?.file;
+          const file = event?.body?.file;
+          this.uploadedFiles = file;
           this.fileUploadProgress[index] = {
             ...this.fileUploadProgress[index],
             responseType: event.type,
+            url: file?.length ? file[0]?.url : '',
           };
 
           this._store.dispatch(
