@@ -50,6 +50,8 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
   grades = GRADES;
   form: FormGroup;
   subjects: any[];
+  subjectLength = 0;
+  prices: any[] = [];
   nationalId = generalConstants.nationalId;
 
   constructor(private _fb: FormBuilder) {
@@ -146,6 +148,18 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
     this.programs.at(index).patchValue({
       sortedSubjects: output,
     });
+
+    this.subjectLength = [
+      ...this.programs.value?.map((program: any) => {
+        const sortedSubjects = [
+          ...program.sortedSubjects.map((subject: any) => [
+            ...subject.subjects,
+          ]),
+        ];
+
+        return sortedSubjects;
+      }),
+    ]?.flat(Infinity)?.length;
   }
 
   changePrice(
@@ -175,6 +189,10 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
                 : { ...sub }
             ),
           };
+
+          event.target.value > 0
+            ? this.prices.push(1)
+            : this.prices.splice(0, 1);
         }
 
         return subject_;
