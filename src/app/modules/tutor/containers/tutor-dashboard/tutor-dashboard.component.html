@@ -186,7 +186,7 @@
               <tr *ngFor="let kudo of view.data.feedbacks.data; let i=index">
                 <td>{{ i + 1}}</td>
                 <td>
-                  <metutors-user-avatar [avatar]="imageUrl+kudo?.avatar" [type]="'small'"
+                  <metutors-user-avatar [avatar]="kudo?.avatar" [type]="'small'"
                                         [name]="kudo?.studentName"
                                         class="d-inline-block ps-0">
                   </metutors-user-avatar>

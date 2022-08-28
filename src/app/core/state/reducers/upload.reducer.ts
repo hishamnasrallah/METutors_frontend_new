@@ -110,7 +110,7 @@ export const reducer = createReducer(
   })),
 
   // upload avatar
-  on(uploadActions.changeAvatar, (state) => ({
+  on(uploadActions.changeAvatar, uploadActions.uploadFile, (state) => ({
     ...state,
     isUploadingAvatar: true,
   })),

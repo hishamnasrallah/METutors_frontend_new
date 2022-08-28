@@ -18,7 +18,6 @@ import { CourseStatus, courseStatusLabel, WEEK_DAYS_LONG } from '@config';
 })
 export class TutorClassDashboardComponent implements OnInit {
   classId: number;
-  imageUrl = environment.imageURL;
   isLaunchingClass$: Observable<boolean>;
   isLoadingViewClass$: Observable<boolean>;
   showRescheduleModal: Observable<boolean>;

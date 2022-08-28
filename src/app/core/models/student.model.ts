@@ -69,7 +69,7 @@ export class IStudent {
       this.firstName = student?.first_name || '';
       this.lastName = student?.last_name || '';
       this.avatar = student?.avatar
-        ? environment.imageURL + student?.avatar
+        ? student?.avatar
         : generalConstants.defaultAvatarPath;
       this.cover = student?.cover_img || generalConstants.defaultCoverPath;
       this.bio = student?.bio || '';

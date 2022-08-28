@@ -8,7 +8,6 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 
 import { TutorsService } from '@services';
-import { environment } from '@environment';
 import * as fromRouterStore from '@metutor/state';
 import * as tutorActions from '../actions/tutor.actions';
 import { selectTutorDashboard, selectFeaturedTutors } from '..';
@@ -285,7 +284,7 @@ export class TutorEffects {
         this._tutorService.changeCover(file).pipe(
           map((response) =>
             tutorActions.changeTutorCoverSuccess({
-              cover: environment.imageURL + response?.cover_img,
+              cover: response?.cover_img,
               message: 'Cover picture updated successfully',
             })
           ),

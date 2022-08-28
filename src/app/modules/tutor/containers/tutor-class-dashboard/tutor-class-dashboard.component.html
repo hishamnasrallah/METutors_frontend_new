@@ -34,7 +34,7 @@
               <div class="overflow-visible logos">
                 <div class="fw-bold">Enrolled Students</div>
                 <ng-container *ngFor="let participant of view.data?.course?.participants">
-                  <metutors-user-avatar [avatar]="imageUrl+participant?.user?.avatar" class="d-block"></metutors-user-avatar>
+                  <metutors-user-avatar [avatar]="participant?.user?.avatar" class="d-block"></metutors-user-avatar>
                 </ng-container>
               </div>
             </div>
@@ -99,7 +99,7 @@
                 <td>{{ i + 1 }}</td>
                 <td>{{ todaysClass.title }}</td>
                 <td>
-                  <metutors-user-avatar [avatar]="imageUrl+attendee?.user?.avatar"
+                  <metutors-user-avatar [avatar]="attendee?.user?.avatar"
                                         *ngFor="let attendee of todaysClass?.attendees" [type]="'small'"
                                         [name]="attendee?.user?.firstName+' '+attendee?.user?.lastName"
                                         class="d-inline-block">
@@ -151,7 +151,7 @@
                 <td>{{ i + 1}}</td>
                 <td>{{ upcomingClass.title ? upcomingClass.title : 'N/A' }}</td>
                 <td>
-                  <metutors-user-avatar [avatar]="imageUrl+attendee?.user?.avatar"
+                  <metutors-user-avatar [avatar]="attendee?.user?.avatar"
                                         *ngFor="let attendee of upcomingClass?.attendees" [type]="'small'"
                                         [name]="attendee?.user?.firstName+' '+attendee?.user?.lastName"
                                         class="d-inline-block">
@@ -200,7 +200,7 @@
                 <td>{{ i + 1 }}</td>
                 <td>{{ pastClass.title }}</td>
                 <td>
-                  <metutors-user-avatar [avatar]="imageUrl+attendee?.user?.avatar"
+                  <metutors-user-avatar [avatar]="attendee?.user?.avatar"
                                         *ngFor="let attendee of pastClass?.attendees" [type]="'small'"
                                         [name]="attendee?.user?.firstName+' '+attendee?.user?.lastName"
                                         class="d-inline-block">

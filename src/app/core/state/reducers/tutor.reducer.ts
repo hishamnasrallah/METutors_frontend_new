@@ -366,7 +366,7 @@ export const reducer = createReducer(
     profileTutor: state.profileTutor ? { ...state.profileTutor, avatar } : null,
   })),
 
-  on(tutorActions.changeTutorCover, (state) => ({
+  on(tutorActions.changeTutorCover, uploadActions.uploadFile, (state) => ({
     ...state,
     isChangeTutorCover: true,
   })),
