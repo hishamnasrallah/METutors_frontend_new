@@ -99,8 +99,8 @@ export class TutorSettingsProfileComponent implements OnInit {
             ...output[existingIndex].timeSlots,
             {
               id: avail?.id,
-              startTime: this._datePipe.transform(avail?.timeFrom, 'h:mm a'),
-              endTime: this._datePipe.transform(avail?.timeTo, 'h:mm a'),
+              startTime: avail?.timeFrom,
+              endTime: avail?.timeTo,
             },
           ];
         } else {
@@ -109,8 +109,8 @@ export class TutorSettingsProfileComponent implements OnInit {
             timeSlots: [
               {
                 id: avail?.id,
-                startTime: this._datePipe.transform(avail?.timeFrom, 'h:mm a'),
-                endTime: this._datePipe.transform(avail?.timeTo, 'h:mm a'),
+                startTime: avail?.timeFrom,
+                endTime: avail?.timeTo,
               },
             ],
           });
@@ -425,27 +425,34 @@ export class TutorSettingsProfileComponent implements OnInit {
 
   onChangeDay(index: number): void {
     if (this.selectedDays.includes(index)) {
-      this.selectedDays.splice(this.selectedDays.indexOf(index), 1);
-      this.availability.at(index).patchValue({ day: null, timeSlots: [] });
+      // this.selectedDays.splice(this.selectedDays.indexOf(index), 1);
+      // this.availability.at(index).patchValue({ day: null, timeSlots: [] });
+      this.openDialog(index, this.availability.value[index]);
     } else {
       this.selectedDays.push(index);
       this.availability.at(index).patchValue({ day: index });
-      this.openDialog(index);
+      this.openDialog(index, null);
     }
   }
 
-  openDialog(index: number) {
+  openDialog(index: number, data: any) {
     const dialogRef = this._dialog.open(DialogSelectAvailabilityDialog, {
       width: '500px',
-      data: index,
+      data: { index, data },
       disableClose: true,
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result && result.length) {
-        this.availability
-          .at(index)
-          .patchValue({ day: index, timeSlots: result });
+        this.availability.at(index).patchValue({
+          day: index,
+          timeSlots: result?.map((slot: any) => ({
+            startTime: new Date(`1970-01-01 ${slot?.startTime}`).toISOString(),
+            endTime: new Date(`1970-01-01 ${slot?.endTime}`).toISOString(),
+          })),
+        });
+        this.teachingForm?.markAsDirty();
+        this.teachingForm?.markAsTouched();
       } else {
         this.selectedDays.splice(this.selectedDays.indexOf(index), 1);
         this.availability.at(index).patchValue({ day: null, timeSlots: [] });
@@ -560,8 +567,8 @@ export class TutorSettingsProfileComponent implements OnInit {
           ?.map((item: any) => ({
             day: item?.day,
             time_slots: item?.timeSlots?.map((slot: any) => ({
-              start_time: new Date(`1970-01-01 ${slot?.startTime}`).toISOString(),
-              end_time: new Date(`1970-01-01 ${slot?.endTime}`).toISOString(),
+              start_time: slot?.startTime,
+              end_time: slot?.endTime,
             })),
           })),
       };
@@ -583,11 +590,32 @@ export class DialogSelectAvailabilityDialog {
   hours = AVAILABILITY_HOURS_CONST;
 
   constructor(
+    private _datePipe: DatePipe,
     public dialogRef: MatDialogRef<DialogSelectAvailabilityDialog>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     if (data) {
-      this.id = data;
+      this.id = data.id;
+
+      if (data?.data?.timeSlots && data?.data?.timeSlots?.length) {
+        data.data.timeSlots.forEach((item: any) => {
+          AVAILABILITY_HOURS_CONST.forEach((hour, index) => {
+            if (
+              hour.startTime ===
+              this._datePipe
+                .transform(new Date(item?.startTime), 'hh:mm a')
+                ?.toLowerCase()
+            ) {
+              this.selectedHours.push(index);
+              this.selectedHoursList.push({
+                id: index,
+                startTime: hour?.startTime,
+                endTime: hour?.endTime,
+              });
+            }
+          });
+        });
+      }
     }
   }
 
@@ -609,5 +637,23 @@ export class DialogSelectAvailabilityDialog {
         endTime: hour?.endTime,
       });
     }
+  }
+
+  selectAll(): void {
+    this.selectedHours = [];
+    this.selectedHoursList = [];
+    AVAILABILITY_HOURS_CONST.forEach((hour, index) => {
+      this.selectedHours.push(index);
+      this.selectedHoursList.push({
+        id: index,
+        startTime: hour?.startTime,
+        endTime: hour?.endTime,
+      });
+    });
+  }
+
+  unSelectAll(): void {
+    this.selectedHours = [];
+    this.selectedHoursList = [];
   }
 }

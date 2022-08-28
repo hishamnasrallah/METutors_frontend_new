@@ -58,6 +58,7 @@
       <metutors-complete-tutor-profile-qualification-details *ngIf="step === 3"
                                                              [loading]="loading$ | async"
                                                              [tutor]="(tutor$ | async)!"
+                                                             (backBtn)="backBtn($event)"
                                                              [languagesList]="languages$ | async"
                                                              (submitForm)="sendTeacherAccount($event, 4)">
       </metutors-complete-tutor-profile-qualification-details>
@@ -66,6 +67,7 @@
                                                                [loading]="loading$ | async"
                                                                [tutor]="(tutor$ | async)!"
                                                                [levels]="levels$ | async"
+                                                               (backBtn)="backBtn($event)"
                                                                (submitForm)="sendTeacherAccount($event, 5)">
       </metutors-complete-tutor-profile-teaching-specifications>
 
@@ -75,6 +77,7 @@
                                                         [countries]="programCountries$ | async"
                                                         [fields]="(fields$ | async)!"
                                                         [subjectsList]="(subjects$ | async)!"
+                                                        (backBtn)="backBtn($event)"
                                                         (submitForm)="sendTeacherAccount($event, 6)">
       </metutors-complete-tutor-profile-tutoring-courses>
     </div>

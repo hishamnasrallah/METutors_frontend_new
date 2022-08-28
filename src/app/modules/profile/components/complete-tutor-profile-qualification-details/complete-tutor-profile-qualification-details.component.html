@@ -168,6 +168,7 @@
           <metutors-submit-button [form]="form" [isSubmitting]="loading" [isDisabled]="uploadingVideo" [extraClasses]="'w-100 fw-bold'">
             Save & Continue
           </metutors-submit-button>
+          <button class="back-btn" (click)="backBtn.emit(2)">Back</button>
         </div>
       </div>
       <div class="col-md-4"></div>

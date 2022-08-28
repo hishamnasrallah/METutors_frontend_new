@@ -65,6 +65,7 @@ export class CompleteTutorProfileQualificationDetailsComponent
     }
   }
 
+  @Output() backBtn = new EventEmitter();
   @Output() submitForm = new EventEmitter();
 
   form: FormGroup;

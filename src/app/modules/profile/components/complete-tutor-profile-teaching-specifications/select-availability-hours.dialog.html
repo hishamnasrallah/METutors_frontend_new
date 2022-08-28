@@ -1,4 +1,10 @@
-<h2 mat-dialog-title class="dialog-title">Select availability hours</h2>
+<h2 mat-dialog-title class="dialog-title">
+  Select availability hours
+  <button mat-button class="float-end" (click)="selectAll()"
+    *ngIf="selectedHoursList && selectedHoursList.length < hours.length">
+    Select all
+  </button>
+</h2>
 <mat-dialog-content class="mat-typography">
   <div class="row">
     <div class="col-md-6" *ngFor="let hour of hours; let i = index">
@@ -9,7 +15,13 @@
     </div>
   </div>
 </mat-dialog-content>
-<mat-dialog-actions align="end" class="buttons">
-  <button mat-button mat-dialog-close class="btn-cancel">Cancel</button>
-  <button mat-flat-button color="primary" [mat-dialog-close]="selectedHoursList" cdkFocusInitial>Confirm</button>
+<mat-dialog-actions class="buttons">
+  <button mat-button class="p-0" (click)="unSelectAll()" *ngIf="selectedHoursList && selectedHoursList.length">
+    Unselect all
+  </button>
+  <div class="d-flex justify-content-end flex-grow-1">
+    <button mat-button mat-dialog-close class="btn-cancel">Cancel</button>
+    <button mat-flat-button color="primary" [mat-dialog-close]="selectedHoursList" cdkFocusInitial
+      [disabled]="!selectedHoursList || !selectedHoursList.length">Confirm</button>
+  </div>
 </mat-dialog-actions>

@@ -35,7 +35,7 @@ export interface State {
 
 export const initialState: State = {
   user: null,
-  profileStep: 1,
+  profileStep: 4,
   registerStep: 1,
   isSignIn: false,
   isSignUp: false,
@@ -53,11 +53,11 @@ export const initialState: State = {
 export const reducer = createReducer(
   initialState,
 
-  on(userActions.identifyUserSuccess, (state, { profileStep, user }) => ({
-    ...state,
-    profileStep,
-    user,
-  })),
+  // on(userActions.identifyUserSuccess, (state, { profileStep, user }) => ({
+  //   ...state,
+  //   profileStep,
+  //   user,
+  // })),
 
   on(userActions.register, (state) => ({
     ...state,

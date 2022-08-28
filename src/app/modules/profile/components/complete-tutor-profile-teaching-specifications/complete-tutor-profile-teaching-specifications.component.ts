@@ -92,6 +92,7 @@ export class CompleteTutorProfileTeachingSpecificationsComponent
     }
   }
 
+  @Output() backBtn = new EventEmitter();
   @Output() submitForm = new EventEmitter();
 
   form: FormGroup;
@@ -100,11 +101,7 @@ export class CompleteTutorProfileTeachingSpecificationsComponent
   selectedDays: number[] = [];
   types = COURSE_TUITION_TYPES_CONST;
 
-  constructor(
-    private _fb: FormBuilder,
-    private _dialog: MatDialog,
-    private _datePipe: DatePipe
-  ) {
+  constructor(private _fb: FormBuilder, private _dialog: MatDialog) {
     this.form = this._fb.group({
       startDate: [null, [Validators.required]],
       endDate: [null, [Validators.required]],
@@ -152,10 +149,9 @@ export class CompleteTutorProfileTeachingSpecificationsComponent
 
   onChangeDay(index: number): void {
     if (this.selectedDays.includes(index)) {
-      this.selectedDays.splice(this.selectedDays.indexOf(index), 1);
-      this.availability.at(index).patchValue({ day: null, timeSlots: [] });
-      // this.openDialog(index, this.availability.value[index]);
-      // console.log(this.availability.value);
+      // this.selectedDays.splice(this.selectedDays.indexOf(index), 1);
+      // this.availability.at(index).patchValue({ day: null, timeSlots: [] });
+      this.openDialog(index, this.availability.value[index]);
     } else {
       this.selectedDays.push(index);
       this.availability.at(index).patchValue({ day: index });
@@ -177,9 +173,15 @@ export class CompleteTutorProfileTeachingSpecificationsComponent
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result && result.length) {
-        this.availability
-          .at(index)
-          .patchValue({ day: index, timeSlots: result });
+        this.availability.at(index).patchValue({
+          day: index,
+          timeSlots: result?.map((slot: any) => ({
+            startTime: new Date(`1970-01-01 ${slot?.startTime}`).toISOString(),
+            endTime: new Date(`1970-01-01 ${slot?.endTime}`).toISOString(),
+          })),
+        });
+        this.form?.markAsDirty();
+        this.form?.markAsTouched();
       } else {
         this.selectedDays.splice(this.selectedDays.indexOf(index), 1);
         this.availability.at(index).patchValue({ day: null, timeSlots: [] });
@@ -220,8 +222,8 @@ export class CompleteTutorProfileTeachingSpecificationsComponent
         ?.map((item: any) => ({
           day: item?.day,
           time_slots: item?.timeSlots?.map((slot: any) => ({
-            start_time: new Date(`1970-01-01 ${slot?.startTime}`).toISOString(),
-            end_time: new Date(`1970-01-01 ${slot?.endTime}`).toISOString(),
+            start_time: slot?.startTime,
+            end_time: slot?.endTime,
           })),
         })),
     };
@@ -244,14 +246,32 @@ export class DialogSelectAvailabilityDialog {
   hours = AVAILABILITY_HOURS_CONST;
 
   constructor(
+    private _datePipe: DatePipe,
     public dialogRef: MatDialogRef<DialogSelectAvailabilityDialog>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     if (data) {
       this.id = data.id;
-      // console.log(data.data)
-      // this.selectedHours = data.data.timeSlots.map((item: any) => item.id);
-      // this.selectedHoursList = data.data.timeSlots;
+
+      if (data?.data?.timeSlots && data?.data?.timeSlots?.length) {
+        data.data.timeSlots.forEach((item: any) => {
+          AVAILABILITY_HOURS_CONST.forEach((hour, index) => {
+            if (
+              hour.startTime ===
+              this._datePipe
+                .transform(new Date(item?.startTime), 'hh:mm a')
+                ?.toLowerCase()
+            ) {
+              this.selectedHours.push(index);
+              this.selectedHoursList.push({
+                id: index,
+                startTime: hour?.startTime,
+                endTime: hour?.endTime,
+              });
+            }
+          });
+        });
+      }
     }
   }
 
@@ -273,5 +293,23 @@ export class DialogSelectAvailabilityDialog {
         endTime: hour?.endTime,
       });
     }
+  }
+
+  selectAll(): void {
+    this.selectedHours = [];
+    this.selectedHoursList = [];
+    AVAILABILITY_HOURS_CONST.forEach((hour, index) => {
+      this.selectedHours.push(index);
+      this.selectedHoursList.push({
+        id: index,
+        startTime: hour?.startTime,
+        endTime: hour?.endTime,
+      });
+    });
+  }
+
+  unSelectAll(): void {
+    this.selectedHours = [];
+    this.selectedHoursList = [];
   }
 }
