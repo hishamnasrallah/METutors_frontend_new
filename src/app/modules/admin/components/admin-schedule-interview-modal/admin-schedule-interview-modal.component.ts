@@ -67,7 +67,10 @@ export class AdminScheduleInterviewModalComponent implements OnInit {
     this.form = this._fb.group({
       endTime: [null, [Validators.required]],
       date: [this.data?.date, [Validators.required]],
-      startTime: [this.data?.time, [Validators.required]],
+      startTime: [
+        this._datePipe.transform(this.data?.time, 'h:mm a'),
+        [Validators.required],
+      ],
     });
   }
 }

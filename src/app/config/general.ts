@@ -360,33 +360,33 @@ export const COURSE_FILTER_TYPE_CONST = {
 };
 
 export const WEEK_DAYS: any = {
-  1: 'Sun',
-  2: 'Mon',
-  3: 'Tues',
-  4: 'Wed',
-  5: 'Thu',
-  6: 'Fri',
-  7: 'Sat',
+  0: 'Sun',
+  1: 'Mon',
+  2: 'Tues',
+  3: 'Wed',
+  4: 'Thu',
+  5: 'Fri',
+  6: 'Sat',
 };
 
 export const WEEK_FULL_DAYS: any = {
-  1: 'Sunday',
-  2: 'Monday',
-  3: 'Tuesday',
-  4: 'Wednesday',
-  5: 'Thursday',
-  6: 'Friday',
-  7: 'Saturday',
+  0: 'Sunday',
+  1: 'Monday',
+  2: 'Tuesday',
+  3: 'Wednesday',
+  4: 'Thursday',
+  5: 'Friday',
+  6: 'Saturday',
 };
 
 export const WEEK_DAYS_LONG: any = {
-  Sunday: 1,
-  Monday: 2,
-  Tuesday: 3,
-  Wednesday: 4,
-  Thursday: 5,
-  Friday: 6,
-  Saturday: 7,
+  Sunday: 0,
+  Monday: 1,
+  Tuesday: 2,
+  Wednesday: 3,
+  Thursday: 4,
+  Friday: 5,
+  Saturday: 6,
 };
 
 export const courseStatusLabel = {
