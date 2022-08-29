@@ -28,9 +28,9 @@ import {
   LONG_DAYS_WEEK,
   WEEK_FULL_DAYS,
   SORTED_DAYS_WEEK,
+  generalConstants,
   calculateListDays,
   calculateDurationTime,
-  generalConstants,
 } from '@metutor/config';
 
 import groupBy from 'lodash/groupBy';
