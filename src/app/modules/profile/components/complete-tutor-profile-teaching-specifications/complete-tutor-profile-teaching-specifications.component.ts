@@ -23,6 +23,7 @@ import {
 import {
   SORTED_DAYS_WEEK,
   calculateListDays,
+  convertTimeToDateISO,
   AVAILABILITY_HOURS_CONST,
   COURSE_TUITION_TYPES_CONST,
 } from 'src/app/config';
@@ -176,16 +177,17 @@ export class CompleteTutorProfileTeachingSpecificationsComponent
         this.availability.at(index).patchValue({
           day: index,
           timeSlots: result?.map((slot: any) => ({
-            startTime: new Date(`1970-01-01 ${slot?.startTime}`).toISOString(),
-            endTime: new Date(`1970-01-01 ${slot?.endTime}`).toISOString(),
+            startTime: convertTimeToDateISO(slot?.startTime),
+            endTime: convertTimeToDateISO(slot?.endTime),
           })),
         });
-        this.form?.markAsDirty();
-        this.form?.markAsTouched();
       } else {
         this.selectedDays.splice(this.selectedDays.indexOf(index), 1);
         this.availability.at(index).patchValue({ day: null, timeSlots: [] });
       }
+
+      this.form?.markAsDirty();
+      this.form?.markAsTouched();
     });
   }
 

@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { tap } from 'rxjs/operators';
+import * as fromCore from '@metutor/core/state';
 import { ILanguage, ITutor } from 'src/app/core/models';
 import { AlertNotificationService } from '@metutor/core/components';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
@@ -21,7 +22,6 @@ import {
   TEACHING_EXPERIENCE,
 } from 'src/app/config';
 
-import * as fromCore from '@metutor/core/state';
 
 @Component({
   selector: 'metutors-complete-tutor-profile-qualification-details',

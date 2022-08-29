@@ -3,7 +3,6 @@ import { UserRole } from '@metutor/config';
 import { IUser } from '@metutor/core/models';
 import * as fromCore from '@metutor/core/state';
 import { Component, OnInit } from '@angular/core';
-import { ViewportScroller } from '@angular/common';
 import { map, Observable, withLatestFrom } from 'rxjs';
 
 @Component({
@@ -20,10 +19,7 @@ export class NavbarComponent implements OnInit {
 
   userRole = UserRole;
 
-  constructor(
-    private _store: Store<any>,
-    private _viewportScroller: ViewportScroller
-  ) {}
+  constructor(private _store: Store<any>) {}
 
   ngOnInit(): void {
     this.token$ = this._store.select(fromCore.selectToken);

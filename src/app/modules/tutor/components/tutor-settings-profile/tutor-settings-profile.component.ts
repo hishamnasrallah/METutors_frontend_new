@@ -30,6 +30,7 @@ import {
   SORTED_DAYS_WEEK,
   generalConstants,
   TEACHING_EXPERIENCE,
+  convertTimeToDateISO,
   LANGUAGES_LEVELS_CONST,
   AVAILABILITY_HOURS_CONST,
   COURSE_TUITION_TYPES_CONST,
@@ -447,8 +448,8 @@ export class TutorSettingsProfileComponent implements OnInit {
         this.availability.at(index).patchValue({
           day: index,
           timeSlots: result?.map((slot: any) => ({
-            startTime: new Date(`1970-01-01 ${slot?.startTime}`).toISOString(),
-            endTime: new Date(`1970-01-01 ${slot?.endTime}`).toISOString(),
+            startTime: convertTimeToDateISO(slot?.startTime),
+            endTime: convertTimeToDateISO(slot?.endTime),
           })),
         });
         this.teachingForm?.markAsDirty();

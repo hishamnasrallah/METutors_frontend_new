@@ -19,6 +19,10 @@ export function simpleNumber(value: number): string | number {
     : valueNum.toFixed(2);
 }
 
+export function convertTimeToDateISO(time: string): string {
+  return new Date(`1970-01-01 ${time}`).toISOString();
+}
+
 export function addMisc(title: string, details: any) {
   const miscLocal = JSON.parse(localStorage.getItem('misc') || '{}');
   let misc: any = miscLocal ? miscLocal : {};

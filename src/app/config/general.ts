@@ -191,14 +191,14 @@ export const AVAILABILITY_HOURS_CONST = [
   },
   {
     startTime: '11:30 pm',
-    endTime: '00:00 am',
+    endTime: '12:00 am',
   },
   {
-    startTime: '00:00 am',
-    endTime: '00:30 am',
+    startTime: '12:00 am',
+    endTime: '12:30 am',
   },
   {
-    startTime: '00:30 am',
+    startTime: '12:30 am',
     endTime: '01:00 am',
   },
   {
