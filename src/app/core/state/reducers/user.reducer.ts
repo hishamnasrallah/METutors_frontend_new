@@ -150,9 +150,9 @@ export const reducer = createReducer(
     })
   ),
 
-  on(tutorActions.changeTutorProfileStep, (state, { prevStep }) => ({
+  on(tutorActions.changeTutorProfileStep, (state, { step }) => ({
     ...state,
-    profileStep: prevStep,
+    profileStep: step,
   })),
 
   on(uploadActions.changeAvatarSuccess, (state, { user, token }) => ({

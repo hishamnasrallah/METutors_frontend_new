@@ -53,8 +53,8 @@ export class CompleteTutorProfileComponent implements OnInit {
     this._store.dispatch(fromCore.completeTutorProfile({ data, nextStep }));
   }
 
-  backBtn(prevStep: number): void {
-    this._store.dispatch(fromCore.changeTutorProfileStep({ prevStep }));
+  changeStep(step: number): void {
+    this._store.dispatch(fromCore.changeTutorProfileStep({ step }));
   }
 
   loadCities(countryId: string): void {

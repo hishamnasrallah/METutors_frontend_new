@@ -22,7 +22,6 @@ import {
   TEACHING_EXPERIENCE,
 } from 'src/app/config';
 
-
 @Component({
   selector: 'metutors-complete-tutor-profile-qualification-details',
   templateUrl: './complete-tutor-profile-qualification-details.component.html',
@@ -61,11 +60,12 @@ export class CompleteTutorProfileQualificationDetailsComponent
         this.removeLanguage(_tutor.languages.length);
       }
 
+      this.form?.markAsDirty();
       this.form?.updateValueAndValidity();
     }
   }
 
-  @Output() backBtn = new EventEmitter();
+  @Output() changeStep = new EventEmitter();
   @Output() submitForm = new EventEmitter();
 
   form: FormGroup;
@@ -241,25 +241,29 @@ export class CompleteTutorProfileQualificationDetailsComponent
   }
 
   submitFormData() {
-    const spokenLanguages = this.form.value.languages.map((lang: any) => ({
-      language_id: lang?.language?.id,
-      level: lang?.level,
-    }));
+    if (this.form.touched) {
+      const spokenLanguages = this.form.value.languages.map((lang: any) => ({
+        language_id: lang?.language?.id,
+        level: lang?.level,
+      }));
 
-    const body = {
-      step: 3,
-      video: this.video?.value,
-      degree_field: this.degreeField?.value,
-      degree_level: this.degreeLevel?.value,
-      current_title: this.currentTitle?.value,
-      computer_skills: this.computerSkills?.value,
-      current_employer: this.currentEmployer?.value,
-      name_of_university: this.nameOfUniversity?.value,
-      spoken_languages: JSON.stringify(spokenLanguages),
-      teaching_experience: this.teachingExperience?.value,
-      teaching_experience_online: this.teachingExperienceOnline?.value,
-    };
+      const body = {
+        step: 3,
+        video: this.video?.value,
+        degree_field: this.degreeField?.value,
+        degree_level: this.degreeLevel?.value,
+        current_title: this.currentTitle?.value,
+        computer_skills: this.computerSkills?.value,
+        current_employer: this.currentEmployer?.value,
+        name_of_university: this.nameOfUniversity?.value,
+        spoken_languages: JSON.stringify(spokenLanguages),
+        teaching_experience: this.teachingExperience?.value,
+        teaching_experience_online: this.teachingExperienceOnline?.value,
+      };
 
-    this.submitForm.emit(body);
+      this.submitForm.emit(body);
+    } else {
+      this.changeStep.emit(4);
+    }
   }
 }

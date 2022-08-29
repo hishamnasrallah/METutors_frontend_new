@@ -41,7 +41,7 @@
                   <div *ngIf="timeSlots?.availabilities?.length">
                     <div class="time-box">
                       <div *ngFor="let slot of timeSlots.availabilities; let i = index" [ngClass]="{'active': i == slotId}" class="slot" (click)="onTimeSlotSelect(slot, i)">
-                       {{ slot.timeFrom}} to {{ slot.timeTo}}
+                       {{ slot.timeFrom }} to {{ slot.timeTo }}
                       </div>
                     </div>
                   </div>

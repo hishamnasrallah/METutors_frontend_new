@@ -45,7 +45,7 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
     }
   }
 
-  @Output() backBtn = new EventEmitter();
+  @Output() changeStep = new EventEmitter();
   @Output() submitForm = new EventEmitter();
 
   grades = GRADES;

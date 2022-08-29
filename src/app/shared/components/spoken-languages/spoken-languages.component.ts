@@ -15,6 +15,7 @@ export class SpokenLanguagesComponent implements OnInit {
 
   @Output() removeLanguage: EventEmitter<number> = new EventEmitter<number>();
 
+  filterLanguage: string;
   levels = LANGUAGES_LEVELS_CONST;
 
   constructor() {}
@@ -32,9 +33,19 @@ export class SpokenLanguagesComponent implements OnInit {
       item?.level && item?.language ? item?.language?.id : undefined
     );
 
-    return this.languagesList && this.languagesList.length
-      ? this.languagesList.filter((el) => !selectedLanguage.includes(el?.id))
-      : [];
+    if (this.filterLanguage) {
+      return this.languagesList && this.languagesList.length
+        ? this.languagesList.filter(
+            (el) =>
+              !selectedLanguage.includes(el?.id) &&
+              el?.name.toLowerCase().includes(this.filterLanguage.toLowerCase())
+          )
+        : [];
+    } else {
+      return this.languagesList && this.languagesList.length
+        ? this.languagesList.filter((el) => !selectedLanguage.includes(el?.id))
+        : [];
+    }
   }
 
   ngOnInit(): void {}

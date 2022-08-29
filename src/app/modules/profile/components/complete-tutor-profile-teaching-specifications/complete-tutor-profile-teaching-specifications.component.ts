@@ -90,10 +90,11 @@ export class CompleteTutorProfileTeachingSpecificationsComponent
       });
 
       this.form?.updateValueAndValidity();
+      this.form?.markAsDirty();
     }
   }
 
-  @Output() backBtn = new EventEmitter();
+  @Output() changeStep = new EventEmitter();
   @Output() submitForm = new EventEmitter();
 
   form: FormGroup;
@@ -214,23 +215,27 @@ export class CompleteTutorProfileTeachingSpecificationsComponent
   }
 
   submitFormData() {
-    const data = {
-      step: '4',
-      type_of_tutoring: this.typeOfTutoring?.value,
-      availability_start_date: new Date(this.startDate?.value).toISOString(),
-      availability_end_date: new Date(this.endDate?.value).toISOString(),
-      availability: this.availability?.value
-        ?.filter((itm: any) => itm?.day != null)
-        ?.map((item: any) => ({
-          day: item?.day,
-          time_slots: item?.timeSlots?.map((slot: any) => ({
-            start_time: slot?.startTime,
-            end_time: slot?.endTime,
+    if (this.form.touched) {
+      const data = {
+        step: '4',
+        type_of_tutoring: this.typeOfTutoring?.value,
+        availability_start_date: new Date(this.startDate?.value).toISOString(),
+        availability_end_date: new Date(this.endDate?.value).toISOString(),
+        availability: this.availability?.value
+          ?.filter((itm: any) => itm?.day != null)
+          ?.map((item: any) => ({
+            day: item?.day,
+            time_slots: item?.timeSlots?.map((slot: any) => ({
+              start_time: slot?.startTime,
+              end_time: slot?.endTime,
+            })),
           })),
-        })),
-    };
+      };
 
-    this.submitForm.emit(data);
+      this.submitForm.emit(data);
+    } else {
+      this.changeStep.emit(5);
+    }
   }
 }
 

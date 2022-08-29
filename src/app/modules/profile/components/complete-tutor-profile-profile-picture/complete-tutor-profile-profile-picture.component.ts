@@ -25,15 +25,22 @@ export class CompleteTutorProfileProfilePictureComponent implements OnInit {
   @Input() set tutor(_tutor: ITutor) {
     if (_tutor) {
       this.form.setValue({
-        avatar: _tutor?.avatar,
-        cover: _tutor?.cover,
+        avatar:
+          _tutor?.avatar === generalConstants.defaultAvatarPath
+            ? null
+            : _tutor?.avatar,
+        cover:
+          _tutor?.cover === generalConstants.defaultCoverPath
+            ? null
+            : _tutor?.cover,
       });
 
+      this.form?.markAsDirty();
       this.form?.updateValueAndValidity();
     }
   }
 
-  @Output() backBtn = new EventEmitter();
+  @Output() changeStep = new EventEmitter();
   @Output() submitForm = new EventEmitter();
 
   form: FormGroup;
@@ -62,6 +69,7 @@ export class CompleteTutorProfileProfilePictureComponent implements OnInit {
           progress?.map((response: any) => {
             if (response.responseType === this.uploadComplete) {
               this.uploadingFile = false;
+
               if (this.picType === 'avatar') {
                 this.avatar?.setValue(response?.url);
                 this.avatar?.markAsDirty();
@@ -69,6 +77,9 @@ export class CompleteTutorProfileProfilePictureComponent implements OnInit {
                 this.cover?.setValue(response?.url);
                 this.cover?.markAsDirty();
               }
+
+              this.form.markAsDirty();
+              this.form.markAsTouched();
             }
           });
         })
@@ -134,12 +145,17 @@ export class CompleteTutorProfileProfilePictureComponent implements OnInit {
   }
 
   submitFormData(): void {
-    const formData = new FormData();
+    if (this.form.touched) {
+      const formData = new FormData();
 
-    formData.append('step', '2');
-    formData.append('avatar', this.avatar?.value);
-    formData.append('cover_img', this.cover?.value);
+      formData.append('step', '2');
+      formData.append('avatar', this.avatar?.value);
 
-    this.submitForm.emit(formData);
+      if (this.cover?.value) formData.append('cover_img', this.cover?.value);
+
+      this.submitForm.emit(formData);
+    } else {
+      this.changeStep.emit(3);
+    }
   }
 }

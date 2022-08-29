@@ -23,7 +23,7 @@ export class CompleteTutorProfilePersonalInformationComponent
       this.form.setValue({
         middleName: _tutor?.middleName,
         nationality: _tutor?.nationality,
-        dateOfBirth: _tutor?.dateOfBirth,
+        dateOfBirth: new Date(_tutor?.dateOfBirth || ''),
         address: _tutor?.address,
         address2: _tutor?.address2,
         gender: _tutor?.gender,
@@ -33,6 +33,7 @@ export class CompleteTutorProfilePersonalInformationComponent
         postalCode: _tutor?.postalCode,
       });
 
+      this.form?.markAsDirty();
       this.form?.updateValueAndValidity();
 
       if (_tutor?.country) {
@@ -45,6 +46,7 @@ export class CompleteTutorProfilePersonalInformationComponent
   @Input() countries: ICountry[] | null;
 
   @Output() submitForm = new EventEmitter();
+  @Output() changeStep = new EventEmitter();
   @Output() loadCities = new EventEmitter<string>();
 
   form: FormGroup;
@@ -174,23 +176,27 @@ export class CompleteTutorProfilePersonalInformationComponent
   }
 
   submitFormData(): void {
-    const data = {
-      step: '1',
-      middle_name: this.middleName?.value,
-      gender: this.gender?.value,
-      nationality: this.nationality?.value,
-      date_of_birth: this._datePipe.transform(
-        this.dateOfBirth?.value,
-        'dd/MM/yyyy'
-      ),
-      address: this.address?.value,
-      address2: this.address2?.value || '',
-      bio: this.bio?.value,
-      country: this.country?.value,
-      city: this.city?.value,
-      postal_code: this.postalCode?.value,
-    };
+    if (this.form.touched) {
+      const data = {
+        step: '1',
+        middle_name: this.middleName?.value,
+        gender: this.gender?.value,
+        nationality: this.nationality?.value,
+        date_of_birth: this._datePipe.transform(
+          this.dateOfBirth?.value,
+          'dd/MM/yyyy'
+        ),
+        address: this.address?.value,
+        address2: this.address2?.value || '',
+        bio: this.bio?.value,
+        country: this.country?.value,
+        city: this.city?.value,
+        postal_code: this.postalCode?.value,
+      };
 
-    this.submitForm.emit(data);
+      this.submitForm.emit(data);
+    } else {
+      this.changeStep.emit(2);
+    }
   }
 }

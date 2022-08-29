@@ -20,7 +20,7 @@ export const completeTutorProfileFailure = createAction(
 
 export const changeTutorProfileStep = createAction(
   '[Tutor] Change Tutor Profile Step',
-  props<{ prevStep: number }>()
+  props<{ step: number }>()
 );
 
 // Update tutor profile
