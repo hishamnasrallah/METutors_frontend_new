@@ -131,7 +131,7 @@ export const reducer = createReducer(
     ticket: state.ticket
       ? {
           ...state.ticket,
-          lastReply: 'Now',
+          lastReply: new Date().toISOString(),
           comments: [...state.ticket.comments, comment],
         }
       : null,

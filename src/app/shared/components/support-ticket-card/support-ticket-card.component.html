@@ -29,7 +29,7 @@
         <strong>
           <ng-container *ngIf="ticket?.user?.roleName === 'teacher'">Teacher:</ng-container>
           <ng-container *ngIf="ticket?.user?.roleName === 'student'">Student:</ng-container>
-          <ng-container *ngIf="ticket?.user?.roleName !== 'teacher' && ticket?.user?.roleName !== 'student'">Admin:</ng-container>
+          <ng-container *ngIf="ticket?.user?.roleName !== 'teacher' && ticket?.user?.roleName !== 'student'">Agent:</ng-container>
           {{ ticket?.user?.name }}
         </strong>
       </div>
@@ -37,9 +37,9 @@
         <mat-icon>square</mat-icon>
         <span>Open: {{ ticket?.createdDate | date: 'EEEE, d MMM y' }}</span>
       </div>
-      <div class="col-md-3 d-flex menu align-items-center" *ngIf="ticketStatus.closed !== ticket?.status">
+      <div class="col-md-3 d-flex menu align-items-center" *ngIf="ticketStatus.closed !== ticket?.status && ticket?.lastReply">
         <mat-icon>circle</mat-icon>
-        <span>Last Reply: {{ ticket?.lastReply }}</span>
+        <span>Last Reply: {{ ticket?.lastReply | amTimeAgo }}</span>
       </div>
       <div class="col-md-3 d-flex menu align-items-center" *ngIf="ticketStatus.closed !== ticket?.status">
         <mat-icon>circle</mat-icon>

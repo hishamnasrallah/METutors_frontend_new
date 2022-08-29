@@ -158,7 +158,7 @@
                   </metutors-user-avatar>
                 </td>
                 <td>{{ upcomingClass.startDate | date: 'EEEE' }} </td>
-                <td>{{ upcomingClass.startDate | date: 'YYYY-MM-d' }} </td>
+                <td>{{ upcomingClass.startDate | date: 'YYYY-MM-dd' }} </td>
                 <td>{{ upcomingClass.startTime | date: 'h:mm a' }} - {{ upcomingClass.endTime | date: 'h:mm a' }} </td>
                 <td>{{ upcomingClass?.duration }} hour{{ +(upcomingClass?.duration)! > 1 ? 's' : '' }}</td>
                 <td>
