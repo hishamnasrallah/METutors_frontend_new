@@ -2,8 +2,8 @@ import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
 import camelcaseKeys from 'camelcase-keys';
-import { IInterview } from '@metutor/core/models';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { IInterview, ITutor } from '@metutor/core/models';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 
@@ -35,6 +35,7 @@ export class TutorEffects {
               user,
               nextStep,
               token: response?.token,
+              profileTutor: new ITutor(false, response?.user),
             });
           }),
           catchError((error) =>
@@ -658,7 +659,6 @@ export class TutorEffects {
             tutorActions.changeTutorStatusFailure,
             tutorActions.updateTutorProfileFailure,
             tutorActions.tutorSubmitFeedbackFailure,
-            tutorActions.completeTutorProfileFailure,
             tutorActions.completeTutorProfileFailure,
             tutorActions.tutorRescheduleClassFailure,
             tutorActions.updateTutorPreferencesFailure,

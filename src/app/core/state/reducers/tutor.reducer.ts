@@ -318,9 +318,10 @@ export const reducer = createReducer(
     isCompleteTutorProfile: true,
   })),
 
-  on(tutorActions.completeTutorProfileSuccess, (state) => ({
+  on(tutorActions.completeTutorProfileSuccess, (state, { profileTutor }) => ({
     ...state,
     isCompleteTutorProfile: false,
+    profileTutor,
   })),
 
   on(tutorActions.completeTutorProfileFailure, (state, { error }) => ({

@@ -12,6 +12,7 @@ import {
 } from '@angular/forms';
 
 import { Observable } from 'rxjs';
+import { isNil, omitBy } from 'lodash';
 import { generalConstants } from '@config';
 import * as fromCore from '@metutor/core/state';
 
@@ -146,14 +147,13 @@ export class CompleteTutorProfileProfilePictureComponent implements OnInit {
 
   submitFormData(): void {
     if (this.form.touched) {
-      const formData = new FormData();
+      const data = {
+        step: '2',
+        avatar: this.avatar?.value,
+        cover_img: this.cover?.value ? this.cover?.value : null,
+      };
 
-      formData.append('step', '2');
-      formData.append('avatar', this.avatar?.value);
-
-      if (this.cover?.value) formData.append('cover_img', this.cover?.value);
-
-      this.submitForm.emit(formData);
+      this.submitForm.emit(omitBy(data, isNil));
     } else {
       this.changeStep.emit(3);
     }

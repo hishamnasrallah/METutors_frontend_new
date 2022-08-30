@@ -10,7 +10,12 @@ export const completeTutorProfile = createAction(
 
 export const completeTutorProfileSuccess = createAction(
   '[Tutor] Complete Tutor Profile Success',
-  props<{ nextStep: number; token: string; user: IUser }>()
+  props<{
+    nextStep: number;
+    token: string;
+    user: IUser;
+    profileTutor: ITutor;
+  }>()
 );
 
 export const completeTutorProfileFailure = createAction(
