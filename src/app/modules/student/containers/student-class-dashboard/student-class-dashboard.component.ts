@@ -284,9 +284,13 @@ export class StudentClassDashboardComponent implements OnInit {
   private _getClasses(classes: any): any {
     return classes?.map((clss: any) => ({
       day: new Date(clss.date)?.getDay() + 1,
-      date: this._datePipe.transform(new Date(clss.date), 'yyyy-MM-dd') || '',
-      start_time: clss.startTime,
-      end_time: clss.endTime,
+      date: new Date(clss.date)?.toISOString(),
+      start_time: new Date(
+        Date.parse(clss.date + ' ' + clss.startTime)
+      )?.toISOString(),
+      end_time: new Date(
+        Date.parse(clss.date + ' ' + clss.endTime)
+      )?.toISOString(),
       duration: clss.duration,
     }));
   }

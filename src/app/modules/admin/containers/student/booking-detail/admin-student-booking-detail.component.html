@@ -140,7 +140,7 @@
               </td>
               <td>{{ cls?.updatedAt | date: 'EEEE' }}</td>
               <td>{{ cls?.updatedAt | date: 'd MMMM y' }}</td>
-              <td>{{ cls?.startTime }} - {{ cls?.endTime }} </td>
+              <td>{{ cls?.startTime | date:'h:mm a' }} - {{ cls?.endTime | date:'h:mm a' }}</td>
               <td>{{ cls?.duration }} Hour</td>
               <td class="d-flex">
                 <button mat-button class="attend text-capitalize" [ngClass]="cls.classAttendence">{{ cls?.classAttendence }}</button>

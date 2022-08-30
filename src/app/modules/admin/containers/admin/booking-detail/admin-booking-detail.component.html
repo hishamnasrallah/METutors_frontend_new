@@ -147,7 +147,7 @@
                        class="d-inline-block rounded-circle ">
                 </div>-->
               </td>
-              <td>{{ completedClass?.startTime }} - {{ completedClass?.endTime }}</td>
+              <td>{{ completedClass?.startTime | date:'h:mm a' }} - {{ completedClass?.endTime | date:'h:mm a' }}</td>
               <td>{{ completedClass?.duration }} Hour</td>
               <td>
                 <span class="status completed">Completed</span>
@@ -185,7 +185,7 @@
               <td>{{ i + 1 }}</td>
               <td>{{ remainingClass.topic?.name }}</td>
               <td></td>
-              <td>{{ remainingClass.startTime }} - {{ remainingClass.endTime }}</td>
+              <td>{{ remainingClass.startTime | date:'h:mm a' }} - {{ remainingClass.endTime | date:'h:mm a' }}</td>
               <td>{{ remainingClass.duration }} Hour</td>
               <td>
                 <span class="status remaining">Remaining</span>
