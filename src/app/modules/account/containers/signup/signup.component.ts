@@ -122,12 +122,12 @@ export class SignupComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this._userService.getUserLocation().then((res: any) => {
-      if (res && res.countryName) {
-        const countryName: keyof CountryISO = res.countryName;
-        this.selectedCountry = CountryISO[countryName];
-      }
-    });
+    // this._userService.getUserLocation().then((res: any) => {
+    //   if (res && res.countryName) {
+    //     const countryName: keyof CountryISO = res.countryName;
+    //     this.selectedCountry = CountryISO[countryName];
+    //   }
+    // });
 
     this._prepareRoles();
 

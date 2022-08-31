@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { DatePipe } from '@angular/common';
 import { ICity, ICountry, ITutor } from '@metutor/core/models';
 import { AlertNotificationService } from '@metutor/core/components';
@@ -52,7 +53,7 @@ export class TutorSettingsProfileComponent implements OnInit {
         lastName: _tutor?.lastName,
         middleName: _tutor?.middleName,
         nationality: _tutor?.nationality,
-        dateOfBirth: new Date(_tutor.dateOfBirth || ''),
+        dateOfBirth: moment(_tutor?.dateOfBirth, "DD/MM/YYYY").toDate(),
         address: _tutor?.address,
         address2: _tutor?.address2,
         gender: _tutor?.gender,

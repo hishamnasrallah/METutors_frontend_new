@@ -1,4 +1,4 @@
-import * as moment from 'moment';
+import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import {
@@ -7,7 +7,6 @@ import {
   FormBuilder,
   AbstractControl,
 } from '@angular/forms';
-import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'metutors-admin-schedule-interview-modal',
@@ -58,6 +57,7 @@ export class AdminScheduleInterviewModalComponent implements OnInit {
         )
       )?.toISOString(),
       date: new Date(this.date?.value)?.toISOString(),
+      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     };
 
     this.submitted.emit(body);

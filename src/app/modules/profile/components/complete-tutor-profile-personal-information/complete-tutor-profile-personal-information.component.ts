@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { GENDERS } from '@metutor/config';
 import { DatePipe } from '@angular/common';
 import { ICity, ICountry, ITutor } from 'src/app/core/models';
@@ -23,7 +24,7 @@ export class CompleteTutorProfilePersonalInformationComponent
       this.form.setValue({
         middleName: _tutor?.middleName,
         nationality: _tutor?.nationality,
-        dateOfBirth: new Date(_tutor?.dateOfBirth || ''),
+        dateOfBirth: moment(_tutor?.dateOfBirth, "DD/MM/YYYY").toDate(),
         address: _tutor?.address,
         address2: _tutor?.address2,
         gender: _tutor?.gender,
