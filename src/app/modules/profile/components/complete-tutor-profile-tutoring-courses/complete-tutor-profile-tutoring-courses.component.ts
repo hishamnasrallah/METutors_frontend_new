@@ -51,8 +51,8 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
   grades = GRADES;
   form: FormGroup;
   subjects: any[];
+  pricesLength = 0;
   subjectLength = 0;
-  prices: any[] = [];
   nationalId = generalConstants.nationalId;
 
   constructor(private _fb: FormBuilder) {
@@ -71,10 +71,14 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
 
   addProgram(): void {
     this.programs.push(this.newProgram());
+
+    this._updateLengthes();
   }
 
   removeProgram(i: number): void {
     (this.form?.get('programs') as FormArray).removeAt(i);
+
+    this._updateLengthes();
   }
 
   newProgram(): FormGroup {
@@ -108,8 +112,20 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
       this.programs.at(i)?.get('countries')?.clearValidators();
       this.programs.at(i)?.get('grades')?.clearValidators();
     }
-    this.programs.at(i)?.get('countries')?.updateValueAndValidity();
+
+    this.programs.at(i).patchValue({
+      grades: [],
+      fields: [],
+      subjects: [],
+      countries: [],
+      sortedSubjects: [],
+    });
+
     this.programs.at(i)?.get('grades')?.updateValueAndValidity();
+    this.programs.at(i)?.get('countries')?.updateValueAndValidity();
+    this.programs.at(i)?.get('sortedSubjects')?.updateValueAndValidity();
+
+    this._updateLengthes();
   }
 
   onChange(index: number): void {
@@ -150,17 +166,7 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
       sortedSubjects: output,
     });
 
-    this.subjectLength = [
-      ...this.programs.value?.map((program: any) => {
-        const sortedSubjects = [
-          ...program.sortedSubjects.map((subject: any) => [
-            ...subject.subjects,
-          ]),
-        ];
-
-        return sortedSubjects;
-      }),
-    ]?.flat(Infinity)?.length;
+    this._updateLengthes();
   }
 
   changePrice(
@@ -190,15 +196,13 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
                 : { ...sub }
             ),
           };
-
-          event.target.value > 0
-            ? this.prices.push(1)
-            : this.prices.splice(0, 1);
         }
 
         return subject_;
       }),
     });
+
+    this._updateLengthes();
   }
 
   submitFormData() {
@@ -230,5 +234,31 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
     };
 
     this.submitForm.emit(data);
+  }
+
+  private _updateLengthes(): void {
+    this.subjectLength = [
+      ...this.programs.value?.map((program: any) => {
+        const sortedSubjects = [
+          ...program.sortedSubjects.map((subject: any) => [
+            ...subject.subjects,
+          ]),
+        ];
+
+        return sortedSubjects;
+      }),
+    ]?.flat(Infinity)?.length;
+
+    this.pricesLength = [
+      ...this.programs.value?.map((program: any) => {
+        const sortedSubjects = [
+          ...program.sortedSubjects.map((subject: any) => [
+            ...subject.subjects.filter((sub: any) => sub.pricePerHour),
+          ]),
+        ];
+
+        return sortedSubjects;
+      }),
+    ]?.flat(Infinity)?.length;
   }
 }
