@@ -44,7 +44,16 @@ export class TutorSubmitInterviewRequestModalComponent implements OnInit {
               form?.value.interviewTime
           )
         )?.toISOString(),
-        interviewDate: new Date(form?.value.interviewDate)?.toISOString(),
+        interviewDate: new Date(
+          Date.parse(
+            this._datePipe.transform(
+              new Date(form?.value.interviewDate),
+              'yyyy-MM-dd'
+            ) +
+              ' ' +
+              form?.value.interviewTime
+          )
+        )?.toISOString(),
       });
     }
   }
