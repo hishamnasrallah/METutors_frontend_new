@@ -40,7 +40,7 @@
           <label for="endDate" class="form-label">Available End Date</label>
           <mat-form-field appearance="outline" class="w-100">
             <input matInput id="endDate" [matDatepicker]="datetPicker2" [placeholder]="'Select Available End Date'"
-              (focus)="datetPicker2.open()" [min]="startDate?.value" formControlName="endDate">
+              (focus)="datetPicker2.open()" [min]="startDate?.value" [max]="maxDate" formControlName="endDate">
             <mat-datepicker-toggle matSuffix [for]="datetPicker2"></mat-datepicker-toggle>
             <mat-datepicker #datetPicker2></mat-datepicker>
           </mat-form-field>

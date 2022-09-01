@@ -98,7 +98,7 @@
           <div class="form-group">
             <label for="firstName" class="form-label">First Name</label>
             <input type="text" class="custom-input w-100 input-bordered" id="firstName" placeholder="Enter First Name"
-              formControlName="firstName">
+              formControlName="firstName" meTutorsLettersOnly>
             <div class="text-danger" *ngIf="firstName?.touched && firstName?.invalid">
               Please write a valid name
             </div>
@@ -109,7 +109,7 @@
           <div class="form-group">
             <label for="lastName" class="form-label">Last Name</label>
             <input type="text" class="custom-input w-100 input-bordered" id="lastName" placeholder="Enter Last Name"
-              formControlName="lastName">
+              formControlName="lastName" meTutorsLettersOnly>
             <div class="text-danger" *ngIf="lastName?.touched && lastName?.invalid">
               Please write a valid name
             </div>
@@ -121,7 +121,7 @@
           <div class="form-group">
             <label for="middleName" class="form-label">Middle Name <span>(Optional)</span></label>
             <input type="text" class="custom-input w-100 input-bordered" id="middleName" placeholder="Enter Middle Name"
-              formControlName="middleName">
+              formControlName="middleName" meTutorsLettersOnly>
             <div class="text-danger" *ngIf="middleName?.touched && middleName?.invalid">
               Please write a valid name
             </div>
@@ -288,7 +288,7 @@
           <div class="form-group">
             <label for="nameOfUniversity" class="form-label">University Name</label>
             <input type="text" class="custom-input w-100 input-bordered" id="nameOfUniversity" placeholder="Enter Name"
-              formControlName="nameOfUniversity">
+              formControlName="nameOfUniversity" meTutorsLettersOnly>
             <div class="text-danger" *ngIf="nameOfUniversity?.touched && nameOfUniversity?.invalid">
               Please Write Your University Name
             </div>
@@ -383,7 +383,7 @@
           <div class="form-group">
             <label for="currentTitle" class="form-label">Current Title (Optional)</label>
             <input type="text" class="custom-input w-100 input-bordered" id="currentTitle" placeholder="Enter Here"
-              formControlName="currentTitle">
+              formControlName="currentTitle" meTutorsLettersOnly>
           </div>
         </div>
       </div>

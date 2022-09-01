@@ -44,7 +44,7 @@
               <div class="form-group">
                 <label for="firstName">What's your First Name?</label>
                 <input type="text" class="custom-input w-100 input-bordered" id="firstName" placeholder="First name"
-                  formControlName="firstName">
+                  formControlName="firstName" meTutorsLettersOnly>
                 <div class="text-danger" *ngIf="firstName?.touched && firstName?.invalid">
                   Please write a valid first name
                 </div>
@@ -54,7 +54,7 @@
               <div class="form-group">
                 <label for="lastName">What's your Last Name?</label>
                 <input type="text" class="custom-input w-100 input-bordered" id="lastName" placeholder="Last name"
-                  formControlName="lastName">
+                  formControlName="lastName" meTutorsLettersOnly>
                 <div class="text-danger" *ngIf="lastName?.touched && lastName?.invalid">
                   Please write a valid last name
                 </div>

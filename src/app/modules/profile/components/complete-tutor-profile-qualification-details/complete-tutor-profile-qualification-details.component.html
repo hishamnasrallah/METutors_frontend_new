@@ -7,7 +7,7 @@
         <div class="form-group">
           <label for="nameOfUniversity" class="form-label">Name of University</label>
           <input type="text" class="custom-input w-100 input-bordered" id="nameOfUniversity" placeholder="Enter Name"
-            formControlName="nameOfUniversity">
+            formControlName="nameOfUniversity" meTutorsLettersOnly>
           <div class="text-danger" *ngIf="nameOfUniversity?.touched && nameOfUniversity?.invalid">
             Please write your University name
           </div>
@@ -108,7 +108,7 @@
         <div class="form-group">
           <label for="currentTitle" class="form-label">Current Title <span>(Optional)</span></label>
           <input type="text" class="custom-input w-100 input-bordered" id="currentTitle" placeholder="Enter Here"
-                 formControlName="currentTitle">
+                 formControlName="currentTitle" meTutorsLettersOnly>
         </div>
       </div>
     </div>

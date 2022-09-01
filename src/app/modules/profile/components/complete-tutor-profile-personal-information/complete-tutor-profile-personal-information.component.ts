@@ -84,7 +84,7 @@ export class CompleteTutorProfilePersonalInformationComponent
       ],
       postalCode: [
         null,
-        [Validators.required, Validators.minLength(3), Validators.maxLength(6)],
+        [Validators.required, Validators.minLength(3), Validators.maxLength(15)],
       ],
     });
   }

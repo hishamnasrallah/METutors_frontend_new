@@ -99,6 +99,7 @@ export class CompleteTutorProfileTeachingSpecificationsComponent
 
   form: FormGroup;
   minDate = new Date();
+  maxDate = new Date();
   days = SORTED_DAYS_WEEK;
   selectedDays: number[] = [];
   types = COURSE_TUITION_TYPES_CONST;
@@ -116,7 +117,9 @@ export class CompleteTutorProfileTeachingSpecificationsComponent
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.maxDate.setFullYear(this.maxDate.getFullYear() + 80);
+  }
 
   returnZero(): number {
     return 0;

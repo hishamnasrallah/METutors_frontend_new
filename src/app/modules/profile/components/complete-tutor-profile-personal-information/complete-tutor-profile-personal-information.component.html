@@ -7,7 +7,7 @@
         <div class="form-group">
           <label for="middleName" class="form-label">Middle Name <span>(Optional)</span></label>
           <input type="text" class="custom-input w-100 input-bordered" id="middleName" placeholder="Enter Middle Name"
-            formControlName="middleName">
+            formControlName="middleName" meTutorsLettersOnly>
           <div class="text-danger" *ngIf="middleName?.touched && middleName?.invalid">
             Please write a valid name
           </div>

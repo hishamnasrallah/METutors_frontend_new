@@ -76,18 +76,16 @@ export class SignupComponent implements OnInit, OnDestroy {
           null,
           [
             Validators.required,
-            Validators.pattern("^[a-zA-Z -']+"),
-            this._fv.minCharacterValidator,
-            this._fv.maxCharacterValidator,
+            Validators.minLength(3),
+            Validators.maxLength(15),
           ],
         ],
         lastName: [
           null,
           [
             Validators.required,
-            Validators.pattern("^[a-zA-Z -']+"),
-            this._fv.minCharacterValidator,
-            this._fv.maxCharacterValidator,
+            Validators.minLength(3),
+            Validators.maxLength(15),
           ],
         ],
         email: [

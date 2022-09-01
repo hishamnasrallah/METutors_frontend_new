@@ -53,7 +53,7 @@ export class TutorSettingsProfileComponent implements OnInit {
         lastName: _tutor?.lastName,
         middleName: _tutor?.middleName,
         nationality: _tutor?.nationality,
-        dateOfBirth: moment(_tutor?.dateOfBirth, "DD/MM/YYYY").toDate(),
+        dateOfBirth: moment(_tutor?.dateOfBirth, 'DD/MM/YYYY').toDate(),
         address: _tutor?.address,
         address2: _tutor?.address2,
         gender: _tutor?.gender,
@@ -199,19 +199,26 @@ export class TutorSettingsProfileComponent implements OnInit {
       ],
       postalCode: [
         null,
-        [Validators.required, Validators.minLength(3), Validators.maxLength(6)],
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(15),
+        ],
       ],
     });
 
     this.qualificationForm = this._fb.group({
-      nameOfUniversity: [null, [Validators.required]],
+      nameOfUniversity: [
+        null,
+        [Validators.required, Validators.maxLength(120)],
+      ],
       computerSkills: [null, [Validators.required]],
       degreeLevel: [null, [Validators.required]],
       teachingExperience: [null, [Validators.required]],
       degreeField: [null, [Validators.required]],
       teachingExperienceOnline: [null, [Validators.required]],
-      currentEmployer: [null],
-      currentTitle: [null],
+      currentEmployer: [null, Validators.maxLength(80)],
+      currentTitle: [null, Validators.maxLength(80)],
     });
 
     this.teachingForm = this._fb.group({

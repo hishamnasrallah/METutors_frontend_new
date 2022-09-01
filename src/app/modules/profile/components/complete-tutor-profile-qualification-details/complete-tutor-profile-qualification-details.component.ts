@@ -84,15 +84,18 @@ export class CompleteTutorProfileQualificationDetailsComponent
     private _alertNotificationService: AlertNotificationService
   ) {
     this.form = this._fb.group({
-      nameOfUniversity: [null, [Validators.required]],
+      nameOfUniversity: [
+        null,
+        [Validators.required, Validators.maxLength(120)],
+      ],
       computerSkills: [null, [Validators.required]],
       degreeLevel: [null, [Validators.required]],
       teachingExperience: [null, [Validators.required]],
       degreeField: [null, [Validators.required]],
       languages: this._fb.array([]),
       teachingExperienceOnline: [null, [Validators.required]],
-      currentEmployer: [null],
-      currentTitle: [null],
+      currentEmployer: [null, Validators.maxLength(80)],
+      currentTitle: [null, Validators.maxLength(80)],
       video: [null, Validators.required],
     });
 
