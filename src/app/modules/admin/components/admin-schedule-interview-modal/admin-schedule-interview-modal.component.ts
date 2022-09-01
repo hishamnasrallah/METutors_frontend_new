@@ -56,7 +56,13 @@ export class AdminScheduleInterviewModalComponent implements OnInit {
             this.endTime?.value
         )
       )?.toISOString(),
-      date: new Date(this.date?.value)?.toISOString(),
+      date: new Date(
+        Date.parse(
+          this._datePipe.transform(new Date(this.date?.value), 'yyyy-MM-dd') +
+            ' ' +
+            this.startTime?.value
+        )
+      )?.toISOString(),
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     };
 
