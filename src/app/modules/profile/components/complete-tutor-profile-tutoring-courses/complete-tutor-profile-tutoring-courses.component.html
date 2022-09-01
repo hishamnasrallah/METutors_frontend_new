@@ -143,7 +143,7 @@
     </div>
 
     <div class="d-flex align-items-center justify-content-between mt-4 mb-2">
-      <button class="main-button-transparent px-4" mat-button (click)="changeStep.emit(4)">Back</button>
+      <button class="main-button-transparent px-4" mat-button type="button" (click)="changeStep.emit(4)">Back</button>
 
       <metutors-submit-button [form]="form" [isDisabled]="!pricesLength || !subjectLength || pricesLength < subjectLength"
         [isSubmitting]="loading" [extraClasses]="'w-100 fw-bold px-5'">
