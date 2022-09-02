@@ -134,11 +134,11 @@ export class SignupComponent implements OnInit, OnDestroy {
       this.changeStep(1, '', +this.userType!);
     }
 
-    this.isLoading$ = this._store.select(fromCore.selectIsSignUp);
-    this.authLoading$ = this._store.select(fromCore.selectIsSocialSignIn);
     this.step$ = this._store.select(fromCore.selectRegisterStep);
+    this.isLoading$ = this._store.select(fromCore.selectIsSignUp);
     this.email$ = this._store.select(fromCore.selectRegisterEmail);
     this.userType$ = this._store.select(fromCore.selectRegisterUserType);
+    this.authLoading$ = this._store.select(fromCore.selectIsSocialSignIn);
     this.isVerifyEmail$ = this._store.select(fromCore.selectIsVerifyEmail);
     this.isResendEmailconfirm$ = this._store.select(
       fromCore.selectIsResendEmailConfirm
@@ -235,7 +235,7 @@ export class SignupComponent implements OnInit, OnDestroy {
             fromCore.registerStep({
               step: 1,
               email: '',
-              userType: this.userType || 0,
+              userType: this.userType || UserRole.student,
             })
           );
           this._alertNotificationService.success(res.message);
@@ -256,6 +256,7 @@ export class SignupComponent implements OnInit, OnDestroy {
   }
 
   changeStep(step: number, email: string, userType: number): void {
+    // console.log(userType)
     this.userType = userType;
     this._store.dispatch(
       fromCore.registerStep({

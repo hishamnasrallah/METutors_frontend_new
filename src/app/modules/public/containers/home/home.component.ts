@@ -77,7 +77,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
         id: 1,
         icon: 'assets/svg/create-new.svg',
         value: '30K',
-        type: 'Student Enrolled',
+        type: 'Students Enrolled',
       },
       {
         id: 1,
