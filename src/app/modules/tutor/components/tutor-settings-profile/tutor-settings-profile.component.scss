@@ -163,6 +163,12 @@
   }
 }
 
+.reset-btn {
+  color: var(--main-color);
+  font-weight: bold;
+  text-decoration: underline;
+}
+
 .my-table.default-title tr th {
   color: #696969;
   font-size: 13px;
@@ -197,6 +203,7 @@
     padding-right: 0;
     font-weight: normal;
   }
+
   span {
     color: #2a2a2a;
     padding-left: 0;

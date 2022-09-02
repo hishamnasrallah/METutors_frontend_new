@@ -7,12 +7,12 @@ import * as fromCore from '@metutor/core/state';
 import { MatDialog } from '@angular/material/dialog';
 import { RolesSelectComponent } from '../../components';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SocialProvider, UserRole } from 'src/app/config';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService, UsersService } from 'src/app/core/services';
 import { AlertNotificationService } from 'src/app/core/components';
 import { FormValidationUtilsService } from 'src/app/core/validators';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { addMisc, getMisc, SocialProvider, UserRole } from 'src/app/config';
 import {
   FormGroup,
   Validators,
@@ -36,13 +36,13 @@ import {
 export class SignupComponent implements OnInit, OnDestroy {
   step$: Observable<number>;
   email$: Observable<string>;
+  roles$: Observable<IRole[]>;
   userType$: Observable<number>;
   isLoading$: Observable<boolean>;
   authLoading$: Observable<boolean>;
   isVerifyEmail$: Observable<boolean>;
   isResendEmailconfirm$: Observable<boolean>;
 
-  roles!: IRole[];
   userRole = UserRole;
   signupForm: FormGroup;
   signupSub?: Subscription;
@@ -52,7 +52,6 @@ export class SignupComponent implements OnInit, OnDestroy {
   selectedCountry!: CountryISO;
   authSignInSub?: Subscription;
   confirmPasswordVisibility = false;
-  userType?: number = UserRole.student;
 
   preferredCountries: CountryISO[] = [
     CountryISO.UnitedStates,
@@ -130,8 +129,8 @@ export class SignupComponent implements OnInit, OnDestroy {
     this._prepareRoles();
 
     if (this._route.snapshot.queryParams['role']) {
-      this.userType = this._route.snapshot.queryParams['role'];
-      this.changeStep(1, '', +this.userType!);
+      const userType = this._route.snapshot.queryParams['role'];
+      this.changeStep(1, '', +userType!);
     }
 
     this.step$ = this._store.select(fromCore.selectRegisterStep);
@@ -169,7 +168,7 @@ export class SignupComponent implements OnInit, OnDestroy {
     return this.signupForm.get('mobileNumber');
   }
 
-  onSubmit(form: FormGroup) {
+  onSubmit(form: FormGroup, userType: number) {
     if (form.invalid) {
       return;
     }
@@ -195,7 +194,7 @@ export class SignupComponent implements OnInit, OnDestroy {
       password: this.password?.value,
       confirm_password: this.confirmPassword?.value,
       country_code: phoneNumber.code.replace(' ', ''),
-      role: this.userType,
+      role: userType,
     };
 
     this._store.dispatch(fromCore.register({ user }));
@@ -218,7 +217,7 @@ export class SignupComponent implements OnInit, OnDestroy {
     );
   }
 
-  submitDocuments(files: File[], email: string) {
+  submitDocuments(files: File[], email: string, userType: number) {
     this.loading = true;
     const formData = new FormData();
     const sendFiles: any = [...files];
@@ -235,7 +234,7 @@ export class SignupComponent implements OnInit, OnDestroy {
             fromCore.registerStep({
               step: 1,
               email: '',
-              userType: this.userType || UserRole.student,
+              userType,
             })
           );
           this._alertNotificationService.success(res.message);
@@ -256,8 +255,7 @@ export class SignupComponent implements OnInit, OnDestroy {
   }
 
   changeStep(step: number, email: string, userType: number): void {
-    // console.log(userType)
-    this.userType = userType;
+    console.log(userType);
     this._store.dispatch(
       fromCore.registerStep({
         step,
@@ -267,28 +265,30 @@ export class SignupComponent implements OnInit, OnDestroy {
     );
   }
 
-  openRolesDialog(domain: any): void {
+  openRolesDialog(domain: any, roles: IRole[]): void {
     const _dialogRef = this._dialog.open(RolesSelectComponent, {
       width: '500px',
       disableClose: true,
-      data: this.roles,
+      data: roles,
     });
 
     _dialogRef.afterClosed().subscribe((res) => {
       if (res && res.data) {
-        this.userType = res.data.toString();
+        const userType = res.data.toString();
+
+        this.changeStep(1, '', +userType!);
         domain === 'google'
-          ? this.signInWithGoogle()
-          : this.signInWithFacebook();
+          ? this.signInWithGoogle(userType)
+          : this.signInWithFacebook(userType);
       }
     });
   }
 
-  signInWithGoogle() {
+  signInWithGoogle(userType: number) {
     this._authService.signInWithGoogle().then((response: any) => {
       const data = {
         ...response,
-        role: this.userType,
+        role: userType,
         provider: SocialProvider.google,
       };
 
@@ -296,12 +296,12 @@ export class SignupComponent implements OnInit, OnDestroy {
     });
   }
 
-  signInWithFacebook() {
+  signInWithFacebook(userType: number) {
     this._authService.signInWithFacebook().then((response) => {
       this._authService.signInWithFacebook().then((response) => {
         const data = {
           ...response,
-          role: this.userType,
+          role: userType,
           provider: SocialProvider.facebook,
         };
 
@@ -316,11 +316,7 @@ export class SignupComponent implements OnInit, OnDestroy {
   }
 
   private _prepareRoles(): void {
-    this.getRolesSub = this._userService.getRoles().subscribe((response) => {
-      this.roles = response;
-      addMisc('roles', this.roles);
-    });
-
-    this.roles = getMisc().roles;
+    this._store.dispatch(fromCore.loadUserTypes());
+    this.roles$ = this._store.select(fromCore.selectUserTypes);
   }
 }

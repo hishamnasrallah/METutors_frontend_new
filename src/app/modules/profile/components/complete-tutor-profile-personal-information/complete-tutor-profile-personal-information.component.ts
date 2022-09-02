@@ -21,7 +21,7 @@ export class CompleteTutorProfilePersonalInformationComponent
 {
   @Input() set tutor(_tutor: ITutor) {
     if (_tutor) {
-      this.form.setValue({
+      this.form.patchValue({
         middleName: _tutor?.middleName,
         nationality: _tutor?.nationality,
         dateOfBirth: moment(_tutor?.dateOfBirth, "DD/MM/YYYY").toDate(),

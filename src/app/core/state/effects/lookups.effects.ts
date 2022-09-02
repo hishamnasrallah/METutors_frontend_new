@@ -12,12 +12,39 @@ import {
 } from 'rxjs/operators';
 
 import * as fromCore from '@metutor/core/state';
-import { LookupsService, SupportService } from '@services';
+import { LookupsService, SupportService, UsersService } from '@services';
 import * as lookupsActions from '../actions/lookups.actions';
 import { AlertNotificationService } from '@metutor/core/components';
 
 @Injectable()
 export class LookupsEffects {
+  loadUserTypes$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(lookupsActions.loadUserTypes),
+      withLatestFrom(this._store.select(fromCore.selectUserTypes)),
+      mergeMap(([_, _userTypes]) => {
+        if (!_userTypes || !_userTypes?.length) {
+          return this._userService.getRoles().pipe(
+            map((userTypes) =>
+              lookupsActions.loadUserTypesSuccess({
+                userTypes,
+              })
+            ),
+            catchError((error) =>
+              of(
+                lookupsActions.loadUserTypesFailure({
+                  error: error?.error?.message || error?.error?.errors,
+                })
+              )
+            )
+          );
+        } else {
+          return of(lookupsActions.loadUserTypesEnded());
+        }
+      })
+    )
+  );
+
   loadLanguages$ = createEffect(() =>
     this._actions$.pipe(
       ofType(lookupsActions.loadLanguages),
@@ -803,6 +830,7 @@ export class LookupsEffects {
   constructor(
     private _store: Store<any>,
     private _actions$: Actions,
+    private _userService: UsersService,
     private _lookupsService: LookupsService,
     private _supportService: SupportService,
     private _alertNotificationService: AlertNotificationService

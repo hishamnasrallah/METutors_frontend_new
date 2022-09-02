@@ -251,6 +251,7 @@ export class CompleteTutorProfileTeachingSpecificationsComponent
 })
 export class DialogSelectAvailabilityDialog {
   id!: number;
+  tempHours: any = [];
   selectedHoursList: any = [];
   selectedHours: number[] = [];
   hours = AVAILABILITY_HOURS_CONST;
@@ -282,6 +283,8 @@ export class DialogSelectAvailabilityDialog {
           });
         });
       }
+
+      this.tempHours = this.selectedHoursList;
     }
   }
 

@@ -24,7 +24,8 @@
                   placeholderLabel="Search..." noEntriesFoundLabel="No matching country found">
                 </ngx-mat-select-search>
               </mat-option>
-              <mat-option *ngFor="let country of filteredNationalities" [value]="country.name">{{ country.name }}
+              <mat-option *ngFor="let country of filteredNationalities" [value]="country.name">
+                {{ country.name }}
               </mat-option>
             </mat-select>
           </mat-form-field>

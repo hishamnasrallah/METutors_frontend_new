@@ -3,6 +3,7 @@ import { createReducer, on } from '@ngrx/store';
 import {
   ICity,
   IFAQ,
+  IRole,
   IField,
   ILevel,
   ICountry,
@@ -17,6 +18,11 @@ import {
 import * as lookupsActions from '../actions/lookups.actions';
 
 export interface State {
+  // User types
+  userTypes: IRole[];
+  isLoadingUserTypes?: boolean;
+  loadingUserTypesFailure?: string;
+
   // Languages
   languages: ILanguage[] | null;
   isLoadingLanguages?: boolean;
@@ -123,6 +129,7 @@ export const initialState: State = {
   levels: null,
   cities: null,
   topics: null,
+  userTypes: [],
   subjects: null,
   programs: null,
   languages: null,
@@ -154,6 +161,29 @@ export const initialState: State = {
 
 export const reducer = createReducer(
   initialState,
+
+  on(lookupsActions.loadUserTypes, (state) => ({
+    ...state,
+    isLoadingUserTypes: true,
+  })),
+
+  on(lookupsActions.loadUserTypesSuccess, (state, { userTypes }) => ({
+    ...state,
+    userTypes,
+    isLoadingUserTypes: false,
+  })),
+
+  on(lookupsActions.loadUserTypesFailure, (state, { error }) => ({
+    ...state,
+    isLoadingUserTypes: false,
+    loadingUserTypesFailure: error,
+  })),
+
+  on(lookupsActions.loadUserTypesEnded, (state) => ({
+    ...state,
+    isLoadingUserTypes: false,
+  })),
+
   on(lookupsActions.loadLanguages, (state) => ({
     ...state,
     isLoadingLanguages: true,
@@ -668,6 +698,12 @@ export const reducer = createReducer(
   }))
 );
 
+export const selectUserTypes = (state: State): IRole[] =>
+  state.userTypes;
+
+export const selectIsLoadingUserTypes = (state: State): boolean | undefined =>
+  state.isLoadingUserTypes;
+
 export const selectLanguages = (state: State): ILanguage[] | null =>
   state.languages;
 
@@ -685,7 +721,7 @@ export const selectCountries = (state: State): ICountry[] | null =>
 export const selectProgramCountries = (state: State): ICountry[] | null =>
   state.programCountries;
 
-  export const selectFlagCountries = (state: State): ICountry[] | null =>
+export const selectFlagCountries = (state: State): ICountry[] | null =>
   state.flagCountries;
 
 export const selectIsLoadingCountries = (state: State): boolean =>

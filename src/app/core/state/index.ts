@@ -946,6 +946,16 @@ export const selectRequestedIsCreatingCourse = createSelector(
 );
 
 // Lookups
+export const selectIsLoadingUserTypes = createSelector(
+  selectLookupsState,
+  fromLookupsReducer.selectIsLoadingUserTypes
+);
+
+export const selectUserTypes = createSelector(
+  selectLookupsState,
+  fromLookupsReducer.selectUserTypes
+);
+
 export const selectIsLoadingLanguages = createSelector(
   selectLookupsState,
   fromLookupsReducer.selectIsLoadingLanguages

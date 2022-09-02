@@ -56,6 +56,7 @@ export function localStorageSyncReducer(
         core: [
           {
             user: ['token', 'registerStep', 'registerUserType', 'registerEmail'],
+            lookups: ['userTypes'],
             request: ['createdClass'],
             money: ['selectedCurrency'],
           },

@@ -1,18 +1,35 @@
 import { createAction, props } from '@ngrx/store';
 
 import {
-  ICity,
-  ICountry,
   IFAQ,
-  IFAQTopics,
+  ICity,
+  IRole,
   IField,
-  ILanguage,
   ILevel,
+  ICountry,
   IProgram,
   ISubject,
+  ILanguage,
+  IFAQTopics,
   ITicketCategory,
   ITicketPriority,
 } from '@models';
+
+export const loadUserTypes = createAction('[Lookups] Load User Types');
+
+export const loadUserTypesSuccess = createAction(
+  '[Lookups] Load User Types Success',
+  props<{ userTypes: IRole[] }>()
+);
+
+export const loadUserTypesFailure = createAction(
+  '[Lookups] Load User Types Failure',
+  props<{ error: any }>()
+);
+
+export const loadUserTypesEnded = createAction(
+  '[Lookups] Load User Types Ended'
+);
 
 export const resetLookUpsPagination = createAction(
   '[Lookups] Reset Pagination'

@@ -20,6 +20,7 @@ import { TutorRoutingModule } from './tutor-routing.module';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatNativeDateModule } from '@angular/material/core';
 import { SharedModule } from '@metutor/shared/shared.module';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -135,6 +136,7 @@ import {
     MatButtonModule,
     BsDropdownModule,
     MatTooltipModule,
+    MatCheckboxModule,
     MatFormFieldModule,
     TutorRoutingModule,
     NgxAutoScrollModule,

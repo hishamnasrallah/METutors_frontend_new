@@ -12,6 +12,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatNativeDateModule } from '@angular/material/core';
 import { SharedModule } from '@metutor/shared/shared.module';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ProfileRoutingModule } from './profile-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -77,6 +78,7 @@ import {
     MatButtonModule,
     MatSelectModule,
     MatDialogModule,
+    MatCheckboxModule,
     ShareButtonsModule,
     MatFormFieldModule,
     MatDatepickerModule,
