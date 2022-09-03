@@ -284,7 +284,7 @@ export class DialogSelectAvailabilityDialog {
         });
       }
 
-      this.tempHours = this.selectedHoursList;
+      this.tempHours = [...this.selectedHoursList];
     }
   }
 
