@@ -81,6 +81,7 @@ export class CompleteTutorProfileProfilePictureComponent implements OnInit {
 
               this.form.markAsDirty();
               this.form.markAsTouched();
+              this._store.dispatch(fromCore.resetUploadFileProgress());
             }
           });
         })
