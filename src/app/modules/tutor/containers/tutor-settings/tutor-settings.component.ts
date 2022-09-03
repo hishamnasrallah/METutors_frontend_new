@@ -75,6 +75,8 @@ export class TutorSettingsComponent implements OnInit {
                 );
               }
             }
+
+            this._store.dispatch(fromCore.resetUploadFileProgress());
           });
         })
       );
@@ -141,6 +143,7 @@ export class TutorSettingsComponent implements OnInit {
   }
 
   onChangeTutorAvatar(file: any): void {
+    console.log('change avaar');
     this.isAvatar = true;
     this._store.dispatch(fromCore.uploadFile({ file: [...file] }));
   }

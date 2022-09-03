@@ -1,9 +1,8 @@
 import { createReducer, on } from '@ngrx/store';
 
-import * as tutorResourceActions from '../actions/tutor-resource.actions';
 import * as uploadActions from '../actions/upload.actions';
+import * as tutorResourceActions from '../actions/tutor-resource.actions';
 import * as tutorModalActions from '@metutor/modules/tutor/state/actions';
-import { resetUploadFileProgress } from '../actions/upload.actions';
 
 export interface State {
   files: any[];
