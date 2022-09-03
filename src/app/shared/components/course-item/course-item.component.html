@@ -24,12 +24,12 @@
       <div class="col-md-6 d-flex menu align-items-center" *ngIf="classroom?.startDate">
         <img src="assets/svg/timer.svg" alt="" width="15" height="15" draggable="false">
         <strong>Start date:</strong>
-        <span>{{ classroom?.startDate | date:'d/MM/yy' }}</span>
+        <span>{{ classroom?.startDate | date:'dd/MM/yy' }}</span>
       </div>
       <div class="col-md-6 d-flex menu align-items-center" *ngIf="classroom?.endDate">
         <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
         <strong>End date:</strong>
-        <span>{{ classroom?.endDate | date:'d/MM/yy' }}</span>
+        <span>{{ classroom?.endDate | date:'dd/MM/yy' }}</span>
       </div>
       <div class="col-md-6 d-flex menu align-items-center" *ngIf="classroom?.hours">
         <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">

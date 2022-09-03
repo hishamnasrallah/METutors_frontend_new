@@ -185,7 +185,11 @@
                 </tr>
                 <tr>
                   <td>Days</td>
-                  <td><span *ngIf="interview?.availabilityDays?.length">{{ interview?.availabilityDays | metutorsDays }}</span></td>
+                  <td>
+                    <span *ngIf="interview?.availabilityDays?.length">
+                      {{ interview?.availabilityDays | metutorsDays: 'long': ' - ' }}
+                    </span>
+                  </td>
                 </tr>
                 <tr>
                   <td></td>
