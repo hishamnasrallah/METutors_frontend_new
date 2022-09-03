@@ -9,6 +9,7 @@ export interface State {
   uploadProgress: any;
   isDeletingFile: boolean;
   isUploadingFile: boolean;
+  isUploadingCover: boolean;
   isUploadingAvatar: boolean;
 }
 
@@ -17,15 +18,29 @@ export const initialState: State = {
   uploadProgress: null,
   isDeletingFile: false,
   isUploadingFile: false,
+  isUploadingCover: false,
   isUploadingAvatar: false,
 };
 
 export const reducer = createReducer(
   initialState,
-  on(uploadActions.uploadFile, (state) => ({
-    ...state,
-    isUploadingFile: true,
-  })),
+  on(uploadActions.uploadFile, (state, { uploadType }) => {
+    const finalState = {
+      ...state,
+      isUploadingFile: true,
+    };
+
+    switch (uploadType) {
+      case 'avatar':
+        finalState.isUploadingAvatar = true;
+        break;
+      case 'cover':
+        finalState.isUploadingCover = true;
+        break;
+    }
+
+    return finalState;
+  }),
 
   on(uploadActions.uploadFileSuccess, (state, { files }) => ({
     ...state,
@@ -109,7 +124,7 @@ export const reducer = createReducer(
   })),
 
   // upload avatar
-  on(uploadActions.changeAvatar, uploadActions.uploadFile, (state) => ({
+  on(uploadActions.changeAvatar, (state) => ({
     ...state,
     isUploadingAvatar: true,
   })),
@@ -122,6 +137,22 @@ export const reducer = createReducer(
   on(uploadActions.changeAvatarFailure, (state) => ({
     ...state,
     isUploadingAvatar: false,
+  })),
+
+  // upload cover
+  on(uploadActions.changeCover, (state) => ({
+    ...state,
+    isUploadingCover: true,
+  })),
+
+  on(uploadActions.changeCoverSuccess, (state) => ({
+    ...state,
+    isUploadingCover: false,
+  })),
+
+  on(uploadActions.changeCoverFailure, (state) => ({
+    ...state,
+    isUploadingCover: false,
   }))
 );
 
@@ -136,3 +167,6 @@ export const selectFileUploadingProgress = (state: State): any =>
 export const selectIsDeletingFile = (state: State): any => state.isDeletingFile;
 export const selectIsUploadingAvatar = (state: State): any =>
   state.isUploadingAvatar;
+
+export const selectIsUploadingCover = (state: State): boolean =>
+  state.isUploadingCover;

@@ -278,29 +278,6 @@ export class TutorEffects {
     )
   );
 
-  changeTutorCover$ = createEffect(() =>
-    this._actions$.pipe(
-      ofType(tutorActions.changeTutorCover),
-      mergeMap(({ file }) =>
-        this._tutorService.changeCover(file).pipe(
-          map((response) =>
-            tutorActions.changeTutorCoverSuccess({
-              cover: response?.cover_img,
-              message: 'Cover photo updated successfully',
-            })
-          ),
-          catchError((error) =>
-            of(
-              tutorActions.changeTutorCoverFailure({
-                error: error?.error?.message || error?.error?.errors,
-              })
-            )
-          )
-        )
-      )
-    )
-  );
-
   changeTutorStatus$ = createEffect(() =>
     this._actions$.pipe(
       ofType(tutorActions.changeTutorStatus),
@@ -633,7 +610,6 @@ export class TutorEffects {
         ofType(
           ...[
             tutorActions.submitInterviewSuccess,
-            tutorActions.changeTutorCoverSuccess,
             tutorActions.changeTutorStatusSuccess,
             tutorActions.updateTutorProfileSuccess,
             tutorActions.tutorSubmitFeedbackSuccess,

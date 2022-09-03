@@ -81,5 +81,12 @@ export class UploadService {
     return this._http.post<any>(`${this.baseUrl}change-avatar`, formData);
   }
 
+  changeCover(file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('cover_img', file);
+
+    return this._http.post<any>(`${this.baseUrl}change-cover`, formData);
+  }
+
   constructor(private _http: HttpClient, private _store: Store<any>) {}
 }

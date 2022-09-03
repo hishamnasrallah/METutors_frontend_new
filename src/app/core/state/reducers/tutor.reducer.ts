@@ -40,9 +40,6 @@ export interface State {
   isUpdateTutorProfile: boolean;
   updateTutorProfileFailure?: string;
 
-  // Change Tutor Avatar
-  isChangeTutorCover: boolean;
-
   // Change Tutor Status
   isChangeTutorStatus: boolean;
 
@@ -87,7 +84,6 @@ export const initialState: State = {
   loadingTutorsFailure: '',
   isLoadingDashboard: false,
   subjectFeaturedTutors: [],
-  isChangeTutorCover: false,
   isChangeTutorStatus: false,
   isReschedulingClass: false,
   isLoadingKudosPoints: false,
@@ -367,20 +363,9 @@ export const reducer = createReducer(
     profileTutor: state.profileTutor ? { ...state.profileTutor, avatar } : null,
   })),
 
-  on(tutorActions.changeTutorCover, uploadActions.uploadFile, (state) => ({
+  on(uploadActions.changeCoverSuccess, (state, { cover }) => ({
     ...state,
-    isChangeTutorCover: true,
-  })),
-
-  on(tutorActions.changeTutorCoverSuccess, (state, { cover }) => ({
-    ...state,
-    isChangeTutorCover: false,
     profileTutor: state.profileTutor ? { ...state.profileTutor, cover } : null,
-  })),
-
-  on(tutorActions.changeTutorCoverFailure, (state, { error }) => ({
-    ...state,
-    isChangeTutorCover: false,
   })),
 
   on(tutorActions.changeTutorStatus, (state) => ({
@@ -649,9 +634,6 @@ export const selectIsCompleteTutorProfile = (state: State): boolean =>
 
 export const selectIsUpdateTutorProfile = (state: State): boolean =>
   state.isUpdateTutorProfile;
-
-export const selectIsChangeTutorCover = (state: State): boolean =>
-  state.isChangeTutorCover;
 
 export const selectIsChangeTutorStatus = (state: State): boolean =>
   state.isChangeTutorStatus;
