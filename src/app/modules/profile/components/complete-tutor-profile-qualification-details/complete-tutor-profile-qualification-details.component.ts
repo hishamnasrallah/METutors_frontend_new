@@ -103,7 +103,6 @@ export class CompleteTutorProfileQualificationDetailsComponent
   }
 
   ngOnInit(): void {
-    this._store.dispatch(fromCore.resetUploadFileProgress());
     this.fileUploadProgress$ = this._store
       .select(fromCore.selectFileUploadingProgress)
       .pipe(
@@ -113,6 +112,8 @@ export class CompleteTutorProfileQualificationDetailsComponent
               this.uploadingVideo = false;
               this.video?.setValue(response?.url);
               this.video?.markAsDirty();
+
+              this._store.dispatch(fromCore.resetUploadFileProgress());
             }
           });
         })

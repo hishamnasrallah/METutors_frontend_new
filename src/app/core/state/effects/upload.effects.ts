@@ -41,7 +41,7 @@ export class UploadEffects {
               user,
               token: response?.token,
               avatar: response?.avatar,
-              message: 'Profile picture updated successfully',
+              message: 'Profile photo updated successfully',
             });
           }),
           catchError((error) =>
