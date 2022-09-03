@@ -1,9 +1,14 @@
-import { DatePipe } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { MatStepper } from '@angular/material/stepper';
+import { Store } from '@ngrx/store';
 import { Observable, tap } from 'rxjs';
+import { DatePipe } from '@angular/common';
 import * as fromCore from '@metutor/core/state';
+import { ActivatedRoute } from '@angular/router';
+import { MatStepper } from '@angular/material/stepper';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import * as fromRequests from '@metutor/modules/requests/state';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { FormValidationUtilsService } from '@metutor/core/validators';
+import * as fromRequestsActions from '@metutor/modules/requests/state/actions';
 import {
   SORTED_DAYS_WEEK,
   generalConstants,
@@ -21,11 +26,6 @@ import {
   ISubject,
   ILanguage,
 } from 'src/app/core/models';
-import { Store } from '@ngrx/store';
-import { ActivatedRoute } from '@angular/router';
-import * as fromRequests from '@metutor/modules/requests/state';
-import { FormValidationUtilsService } from '@metutor/core/validators';
-import * as fromRequestsActions from '@metutor/modules/requests/state/actions';
 
 @Component({
   selector: 'metutors-request-tutor',
@@ -133,7 +133,7 @@ export class RequestTutorComponent implements OnInit {
             'startTime',
             'endTime'
           ),
-          this._fv.classroomTimeAfter24Validator('startDate', 'startTime'),
+          this._fv.timeAfter24Validator('startDate', 'startTime'),
         ],
       }
     );

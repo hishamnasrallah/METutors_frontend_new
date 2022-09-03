@@ -1,7 +1,9 @@
 import { DatePipe } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { generalConstants } from '@metutor/config';
 import { SubmitInterviewInput } from '@metutor/core/models';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormValidationUtilsService } from '@metutor/core/validators';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'metutors-tutor-submit-interview-request-modal',
@@ -19,15 +21,29 @@ export class TutorSubmitInterviewRequestModalComponent implements OnInit {
 
   form: FormGroup;
   minDate = new Date();
+  startingHoursLimit = generalConstants.startingHoursLimit;
 
-  constructor(private _formBuilder: FormBuilder, private _datePipe: DatePipe) {}
+  constructor(
+    private _datePipe: DatePipe,
+    private _formBuilder: FormBuilder,
+    private _fv: FormValidationUtilsService
+  ) {}
 
   ngOnInit(): void {
-    this.form = this._formBuilder.group({
-      interviewDate: [null, [Validators.required]],
-      interviewTime: [null, Validators.required],
-      notes: [null, [Validators.minLength(10)]],
-    });
+    this.minDate.setHours(this.minDate.getHours() + 24);
+
+    this.form = this._formBuilder.group(
+      {
+        interviewDate: [null, [Validators.required]],
+        interviewTime: [null, Validators.required],
+        notes: [null, [Validators.minLength(10)]],
+      },
+      {
+        validators: [
+          this._fv.timeAfter24Validator('interviewDate', 'interviewTime'),
+        ],
+      }
+    );
   }
 
   onSubmit(form: FormGroup): void {

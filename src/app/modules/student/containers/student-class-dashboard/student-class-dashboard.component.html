@@ -224,7 +224,7 @@
                                           class="d-block"></metutors-user-avatar>
                   </td>
                   <td>{{ previousClass.startDate | date: 'EEEE' }} </td>
-                  <td>{{ previousClass.startDate | date: 'YYYY-MM-d' }} </td>
+                  <td>{{ previousClass.startDate | date: 'YYYY-MM-dd' }} </td>
                   <td>{{ previousClass.startTime | date:'h:mm a' }} - {{ previousClass.endTime | date:'h:mm a' }} </td>
                   <td>{{ previousClass?.duration }}hr{{ +(previousClass?.duration)! > 1 ? 's' : '' }}</td>
                   <td>

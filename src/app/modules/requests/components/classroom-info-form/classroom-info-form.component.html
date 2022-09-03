@@ -5,7 +5,7 @@
         <h2 class="f-size-17-md-sm">Classroom Setup</h2>
         <h4 class="f-size-15-md-sm">
           Choose your class schedule and select your <strong>FIRST</strong> class to start after <strong>
-            {{ classStartingAfter }} hours.</strong></h4>
+            {{ startingHoursLimit }} hours.</strong></h4>
 
         <h5 class="mt-4">Course ID: <span>CID123</span></h5>
         <h5 class="mb-0">Course Name: <span>Calculus</span></h5>
@@ -66,8 +66,8 @@
               </ngx-material-timepicker>
             </div>
 
-            <div class="text-danger" *ngIf="form?.hasError('classStartingAfter')">
-              First class must be started after {{ classStartingAfter }} hours
+            <div class="text-danger" *ngIf="form?.hasError('startingHoursLimit')">
+              First class must be started after {{ startingHoursLimit }} hours
             </div>
           </div>
           <div class="col-md-6 mt-15-sm">

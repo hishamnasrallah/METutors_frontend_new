@@ -118,7 +118,7 @@
                 <tr *ngFor="let allClass of view.refund.allClasses; let i = index">
                   <td>{{ i + 1}}</td>
                   <td>{{ allClass?.title }}</td>
-                  <td>{{ allClass?.startDate | date: 'YYYY-MM-d' }}</td>
+                  <td>{{ allClass?.startDate | date: 'YYYY-MM-dd' }}</td>
                   <td>{{ allClass?.startTime | date:'h:mm a' }} to {{ allClass?.endTime | date:'h:mm a' }}</td>
                   <td>
                     <mat-checkbox [value]="allClass?.id" [id]="allClass?.id" (change)="onClassSelect($event, allClass?.id)"

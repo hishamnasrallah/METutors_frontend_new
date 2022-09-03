@@ -126,6 +126,10 @@ export class InterviewEffects {
             map(() =>
               interviewActions.scheduleInterviewRequestSuccess({
                 id: id || interviewId,
+                interview: {
+                  interviewDate: body?.date,
+                  interviewTime: body?.start_time,
+                },
                 message: 'Interview request successfully sent',
               })
             ),

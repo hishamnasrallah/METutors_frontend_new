@@ -25,6 +25,9 @@
             <ngx-material-timepicker #interviewTime [appendToInput]="true">
             </ngx-material-timepicker>
           </div>
+          <div class="text-danger" *ngIf="form?.hasError('startingHoursLimit')">
+            You can schedule your interview after {{ startingHoursLimit }} hours from now.
+          </div>
         </div>
 
         <div class="form-group">

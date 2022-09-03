@@ -14,18 +14,24 @@
 
         <div class="form-group">
           <label>Select Start Time</label>
-          <input type="url" class="form-control custom-input input-bordered" formControlName="startTime"
+          <input type="text" class="form-control custom-input input-bordered" formControlName="startTime"
                  placeholder="12:00 PM" [ngxTimepicker]="startTime">
           <ngx-material-timepicker #startTime [appendToInput]="true">
           </ngx-material-timepicker>
+          <div class="text-danger" *ngIf="form?.hasError('invalidTime')">
+            This time is invalid
+          </div>
         </div>
 
         <div class="form-group">
           <label>Select End Time</label>
-          <input type="url" class="form-control custom-input input-bordered" formControlName="endTime"
+          <input type="text" class="form-control custom-input input-bordered" formControlName="endTime"
                  placeholder="01:00 PM" [ngxTimepicker]="endTime">
           <ngx-material-timepicker #endTime [appendToInput]="true">
           </ngx-material-timepicker>
+          <div class="text-danger" *ngIf="form?.hasError('compareError')">
+            End time must be greater than start time
+          </div>
         </div>
 
         <div class="mt-4">

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { generalConstants } from '@metutor/config';
+import { convertTimeToDateISO, generalConstants } from '@metutor/config';
 import {
   FormGroup,
   FormControl,
@@ -81,19 +81,16 @@ export class FormValidationUtilsService {
     };
   }
 
-  classroomTimeAfter24Validator(
-    startDateControlKey: string,
-    startTimeControlKey: string
-  ): any {
+  timeAfter24Validator(dateControlKey: string, timeControlKey: string): any {
     return (formGroup: FormGroup): { [key: string]: boolean } | null => {
       if (!formGroup) {
         return null;
       }
 
-      const startDate = formGroup.get(startDateControlKey);
-      const startTime = formGroup.get(startTimeControlKey);
+      const date = formGroup.get(dateControlKey);
+      const time = formGroup.get(timeControlKey);
 
-      if (!startTime || !startTime.value || !startDate || !startDate.value) {
+      if (!time || !time.value || !date || !date.value) {
         return null;
       }
 
@@ -101,19 +98,79 @@ export class FormValidationUtilsService {
         Math.abs(
           new Date(
             Date.parse(
-              this._datePipe.transform(
-                new Date(startDate.value),
-                'yyyy-MM-dd'
-              ) +
+              this._datePipe.transform(new Date(date.value), 'yyyy-MM-dd') +
                 ' ' +
-                startTime.value
+                time.value
             )
           ).getTime() - new Date().getTime()
         ) /
           36e5 <
-        generalConstants.classStartingAfter
+        generalConstants.startingHoursLimit
       ) {
-        return { classStartingAfter: true };
+        return { startingHoursLimit: true };
+      }
+
+      return null;
+    };
+  }
+
+  timeAfterNowValidator(dateControlKey: string, timeControlKey: string): any {
+    return (formGroup: FormGroup): { [key: string]: boolean } | null => {
+      if (!formGroup) {
+        return null;
+      }
+
+      const date = formGroup.get(dateControlKey);
+      const time = formGroup.get(timeControlKey);
+
+      if (!time || !time.value || !date || !date.value) {
+        return null;
+      }
+
+      if (
+        new Date(
+          Date.parse(
+            this._datePipe.transform(new Date(date.value), 'yyyy-MM-dd') +
+              ' ' +
+              time.value
+          )
+        ).getTime() -
+          new Date().getTime() <
+        0
+      ) {
+        return { invalidTime: true };
+      }
+
+      return null;
+    };
+  }
+
+  compareTimeValidator(
+    startTimeControlKey: string,
+    endTimeControlKey: string
+  ): any {
+    return (formGroup: FormGroup): { [key: string]: boolean } | null => {
+      if (!formGroup) {
+        return null;
+      }
+
+      const startTime = formGroup.get(startTimeControlKey);
+      const endTime = formGroup.get(endTimeControlKey);
+
+      if (!startTime || !startTime.value || !endTime || !endTime.value) {
+        return null;
+      }
+
+      if (startTime.value === endTime.value) {
+        return { compareError: true };
+      }
+
+      if (
+        new Date(convertTimeToDateISO(endTime.value)).getTime() -
+          new Date(convertTimeToDateISO(startTime.value)).getTime() <
+        0
+      ) {
+        return { compareError: true };
       }
 
       return null;

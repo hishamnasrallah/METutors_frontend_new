@@ -50,7 +50,7 @@
           <div class="col-md-2 text-main">Requested Interview:</div>
           <div class="col-md-2 d-flex menu align-items-center" *ngIf="interview?.interviewDate">
             <img src="assets/svg/calendar.svg" alt="" width="15" height="15" draggable="false">
-            <strong>{{ interview?.interviewDate | date: 'YYYY-MM-d' }}</strong>
+            <strong>{{ interview?.interviewDate | date: 'YYYY-MM-dd' }}</strong>
           </div>
           <div class="col-md-4 d-flex menu align-items-center" *ngIf="interview?.interviewTime">
             <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">

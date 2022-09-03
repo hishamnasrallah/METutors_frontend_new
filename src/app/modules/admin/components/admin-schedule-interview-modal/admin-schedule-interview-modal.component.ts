@@ -1,4 +1,5 @@
 import { DatePipe } from '@angular/common';
+import { FormValidationUtilsService } from '@metutor/core/validators';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import {
@@ -25,7 +26,30 @@ export class AdminScheduleInterviewModalComponent implements OnInit {
   form: FormGroup;
   minDate = new Date();
 
-  constructor(private _fb: FormBuilder, private _datePipe: DatePipe) {}
+  constructor(
+    private _fb: FormBuilder,
+    private _datePipe: DatePipe,
+    private _fv: FormValidationUtilsService
+  ) {}
+
+  ngOnInit(): void {
+    this.form = this._fb.group(
+      {
+        endTime: [null, [Validators.required]],
+        date: [this.data?.date, [Validators.required]],
+        startTime: [
+          this._datePipe.transform(this.data?.time, 'h:mm a'),
+          [Validators.required],
+        ],
+      },
+      {
+        validators: [
+          this._fv.timeAfterNowValidator('date', 'startTime'),
+          this._fv.compareTimeValidator('startTime', 'endTime'),
+        ],
+      }
+    );
+  }
 
   get date(): AbstractControl | null {
     return this.form.get('date');
@@ -67,16 +91,5 @@ export class AdminScheduleInterviewModalComponent implements OnInit {
     };
 
     this.submitted.emit(body);
-  }
-
-  ngOnInit(): void {
-    this.form = this._fb.group({
-      endTime: [null, [Validators.required]],
-      date: [this.data?.date, [Validators.required]],
-      startTime: [
-        this._datePipe.transform(this.data?.time, 'h:mm a'),
-        [Validators.required],
-      ],
-    });
   }
 }

@@ -73,7 +73,7 @@ export const scheduleInterviewRequest = createAction(
 
 export const scheduleInterviewRequestSuccess = createAction(
   '[Interview] Schedule Interview Request Success',
-  props<{ id: number; message: string }>()
+  props<{ id: number; message: string, interview: any }>()
 );
 
 export const scheduleInterviewRequestFailure = createAction(

@@ -126,29 +126,34 @@ export const reducer = createReducer(
     isSchedulingInterview: true,
   })),
 
-  on(interviewActions.scheduleInterviewRequestSuccess, (state, { id }) => {
-    const finalState = {
-      ...state,
-      isSchedulingInterview: false,
-    };
-
-    if (finalState.interview) {
-      finalState.interview = {
-        ...finalState.interview,
-        status: InterviewStatus.scheduled,
+  on(
+    interviewActions.scheduleInterviewRequestSuccess,
+    (state, { id, interview }) => {
+      const finalState = {
+        ...state,
+        isSchedulingInterview: false,
       };
-    }
 
-    if (finalState.interviews && finalState.interviews?.length) {
-      finalState.interviews = finalState.interviews.map((interview) =>
-        interview.id === id
-          ? { ...interview, status: InterviewStatus.scheduled }
-          : { ...interview }
-      );
-    }
+      if (finalState.interview) {
+        finalState.interview = {
+          ...finalState.interview,
+          status: InterviewStatus.scheduled,
+          interviewDate: interview?.interviewDate,
+          interviewTime: interview?.interviewTime,
+        };
+      }
 
-    return finalState;
-  }),
+      if (finalState.interviews && finalState.interviews?.length) {
+        finalState.interviews = finalState.interviews.map((interview) =>
+          interview.id === id
+            ? { ...interview, status: InterviewStatus.scheduled }
+            : { ...interview }
+        );
+      }
+
+      return finalState;
+    }
+  ),
 
   on(interviewActions.scheduleInterviewRequestFailure, (state) => ({
     ...state,

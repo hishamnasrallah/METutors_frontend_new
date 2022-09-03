@@ -39,7 +39,7 @@
                 <div class="col-md-2"><span class="joining">Joining Date:</span></div>
                 <div class="col-md-3 d-flex menu align-items-center" *ngIf="tutor?.interviewRequest?.interviewDate">
                   <img src="assets/svg/calendar.svg" alt="" width="15" height="15" draggable="false">
-                  <strong>{{ tutor?.interviewRequest?.interviewDate | date: 'YYYY-MM-d' }}</strong>
+                  <strong>{{ tutor?.interviewRequest?.interviewDate | date: 'YYYY-MM-dd' }}</strong>
                 </div>
                 <div class="col-md-3 d-flex menu align-items-center" *ngIf="tutor?.interviewRequest?.interviewTime">
                   <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
@@ -191,11 +191,11 @@
               <table class="basic-table w-100">
                 <tr *ngIf="tutor?.specifications?.availabilityStartDate">
                   <td>Expected Starting Date</td>
-                  <td>{{ tutor?.specifications?.availabilityStartDate | date: 'YYYY-MM-d' }}</td>
+                  <td>{{ tutor?.specifications?.availabilityStartDate | date: 'YYYY-MM-dd' }}</td>
                 </tr>
                 <tr *ngIf="tutor?.specifications?.availabilityEndDate">
                   <td>Availability Ending Date</td>
-                  <td>{{ tutor?.specifications?.availabilityEndDate | date: 'YYYY-MM-d' }}</td>
+                  <td>{{ tutor?.specifications?.availabilityEndDate | date: 'YYYY-MM-dd' }}</td>
                 </tr>
               </table>
             </div>
