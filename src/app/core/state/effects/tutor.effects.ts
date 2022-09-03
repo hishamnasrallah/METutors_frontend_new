@@ -286,7 +286,7 @@ export class TutorEffects {
           map((response) =>
             tutorActions.changeTutorCoverSuccess({
               cover: response?.cover_img,
-              message: 'Cover picture updated successfully',
+              message: 'Cover photo updated successfully',
             })
           ),
           catchError((error) =>
