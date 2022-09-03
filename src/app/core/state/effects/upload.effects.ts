@@ -1,7 +1,6 @@
 import { of, tap } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
-import { environment } from '@environment';
 import camelcaseKeys from 'camelcase-keys';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { catchError, map, mergeMap } from 'rxjs/operators';
@@ -56,6 +55,29 @@ export class UploadEffects {
     )
   );
 
+  changeCover$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(uploadActions.changeCover),
+      mergeMap(({ file }) =>
+        this._uploadService.changeCover(file).pipe(
+          map((response) =>
+            uploadActions.changeCoverSuccess({
+              cover: response?.cover_img,
+              message: 'Cover photo updated successfully',
+            })
+          ),
+          catchError((error) =>
+            of(
+              uploadActions.changeCoverFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   deleteUploadedFile$ = createEffect(() =>
     this._actions$.pipe(
       ofType(uploadActions.deleteUploadedFile),
@@ -84,6 +106,7 @@ export class UploadEffects {
       this._actions$.pipe(
         ofType(
           ...[
+            uploadActions.changeCoverSuccess,
             uploadActions.changeAvatarSuccess,
             uploadActions.deleteUploadedFileSuccess,
           ]
@@ -100,6 +123,7 @@ export class UploadEffects {
       this._actions$.pipe(
         ofType(
           ...[
+            uploadActions.changeCoverFailure,
             uploadActions.changeAvatarFailure,
             uploadActions.deleteUploadedFileFailure,
           ]

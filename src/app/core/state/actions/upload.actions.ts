@@ -8,7 +8,7 @@ export const setFiles = createAction(
 
 export const uploadFile = createAction(
   '[Upload Service] Upload File',
-  props<{ file: any }>()
+  props<{ file: any; uploadType?: string }>()
 );
 
 export const uploadFileSuccess = createAction(
@@ -66,5 +66,20 @@ export const changeAvatarSuccess = createAction(
 
 export const changeAvatarFailure = createAction(
   '[User] Change Avatar Failure',
+  props<{ error: any }>()
+);
+
+export const changeCover = createAction(
+  '[User] Change Cover',
+  props<{ file: File }>()
+);
+
+export const changeCoverSuccess = createAction(
+  '[User] Change Cover Success',
+  props<{ message: string; cover: string }>()
+);
+
+export const changeCoverFailure = createAction(
+  '[User] Change Cover Failure',
   props<{ error: any }>()
 );

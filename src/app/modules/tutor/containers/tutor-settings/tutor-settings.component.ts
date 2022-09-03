@@ -71,7 +71,7 @@ export class TutorSettingsComponent implements OnInit {
                 );
               } else {
                 this._store.dispatch(
-                  fromCore.changeTutorCover({ file: response.url })
+                  fromCore.changeCover({ file: response.url })
                 );
               }
             }
@@ -90,7 +90,7 @@ export class TutorSettingsComponent implements OnInit {
     );
 
     this.isChangeTutorCover$ = this._store.select(
-      fromCore.selectIsChangeTutorCover
+      fromCore.selectIsUploadingCover
     );
 
     this.isSubmittingInterview$ = this._store.select(
@@ -143,14 +143,17 @@ export class TutorSettingsComponent implements OnInit {
   }
 
   onChangeTutorAvatar(file: any): void {
-    console.log('change avaar');
     this.isAvatar = true;
-    this._store.dispatch(fromCore.uploadFile({ file: [...file] }));
+    this._store.dispatch(
+      fromCore.uploadFile({ file: [...file], uploadType: 'avatar' })
+    );
   }
 
   onChangeTutorCover(file: any): void {
     this.isAvatar = false;
-    this._store.dispatch(fromCore.uploadFile({ file: [...file] }));
+    this._store.dispatch(
+      fromCore.uploadFile({ file: [...file], uploadType: 'cover' })
+    );
   }
 
   onJoinMeeting(interviewId: number): void {
