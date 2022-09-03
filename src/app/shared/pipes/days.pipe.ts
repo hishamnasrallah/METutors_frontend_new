@@ -8,7 +8,11 @@ import { WEEK_DAYS, WEEK_FULL_DAYS } from '@config';
 export class DaysPipe implements PipeTransform {
   constructor() {}
 
-  transform(days: any, type: 'short' | 'long' = 'short'): string {
+  transform(
+    days: any,
+    type: 'short' | 'long' = 'short',
+    separator = ', '
+  ): string {
     let list: any = [];
     const _days = days && !Array.isArray(days) ? days.split(',') : days;
 
@@ -19,6 +23,6 @@ export class DaysPipe implements PipeTransform {
       });
     }
 
-    return list.join(',');
+    return list.join(separator);
   }
 }
