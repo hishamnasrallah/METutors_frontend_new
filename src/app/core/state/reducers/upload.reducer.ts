@@ -53,6 +53,12 @@ export const reducer = createReducer(
     isUploadingFile: false,
   })),
 
+  // Cancel upload file stream
+  on(uploadActions.cancelUploadSuccess, (state) => ({
+    ...state,
+    uploadProgress: null,
+  })),
+
   // Load uploaded files
   on(uploadActions.loadUploadedFiles, (state, { files }) => {
     let finalState = {
@@ -165,6 +171,7 @@ export const selectFileUploadingProgress = (state: State): any =>
   state.uploadProgress;
 
 export const selectIsDeletingFile = (state: State): any => state.isDeletingFile;
+
 export const selectIsUploadingAvatar = (state: State): any =>
   state.isUploadingAvatar;
 

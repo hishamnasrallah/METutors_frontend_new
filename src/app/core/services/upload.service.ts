@@ -1,8 +1,8 @@
-import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import camelcaseKeys from 'camelcase-keys';
+import { Observable, of, Subscription } from 'rxjs';
 import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
 
 import * as fromCore from '@metutor/core/state';
@@ -14,6 +14,7 @@ import { environment } from 'src/environments/environment';
 export class UploadService {
   uploadedFiles: any[] = [];
   fileUploadProgress: any[] = [];
+  fileUploadStream$: Subscription;
 
   baseUrl = environment.API_URL;
 
@@ -30,34 +31,36 @@ export class UploadService {
 
       formData.append('file', file);
 
-      this.onUploadFile(formData).subscribe((event) => {
-        if (event.type === HttpEventType.UploadProgress) {
-          this.fileUploadProgress[index] = {
-            ...this.fileUploadProgress[index],
-            progress: Math.round((100 * event.loaded) / event.total),
-          };
-        } else if (event.type === HttpEventType.Response) {
-          const file = event?.body?.file;
-          this.uploadedFiles = file;
-          this.fileUploadProgress[index] = {
-            ...this.fileUploadProgress[index],
-            responseType: event.type,
-            url: file?.length ? file[0]?.url : '',
-          };
+      this.fileUploadStream$ = this.onUploadFile(formData).subscribe(
+        (event) => {
+          if (event.type === HttpEventType.UploadProgress) {
+            this.fileUploadProgress[index] = {
+              ...this.fileUploadProgress[index],
+              progress: Math.round((100 * event.loaded) / event.total),
+            };
+          } else if (event.type === HttpEventType.Response) {
+            const file = event?.body?.file;
+            this.uploadedFiles = file;
+            this.fileUploadProgress[index] = {
+              ...this.fileUploadProgress[index],
+              responseType: event.type,
+              url: file?.length ? file[0]?.url : '',
+            };
+
+            this._store.dispatch(
+              fromCore.loadUploadedFiles({
+                files: this.uploadedFiles,
+              })
+            );
+          }
 
           this._store.dispatch(
-            fromCore.loadUploadedFiles({
-              files: this.uploadedFiles,
+            fromCore.loadUploadFileProgress({
+              uploadProgress: [...this.fileUploadProgress],
             })
           );
         }
-
-        this._store.dispatch(
-          fromCore.loadUploadFileProgress({
-            uploadProgress: [...this.fileUploadProgress],
-          })
-        );
-      });
+      );
     });
   }
 
@@ -86,6 +89,12 @@ export class UploadService {
     formData.append('cover_img', file);
 
     return this._http.post<any>(`${this.baseUrl}change-cover`, formData);
+  }
+
+  cancelUploadStream(): Observable<any> {
+    this.fileUploadStream$.unsubscribe();
+
+    return of({});
   }
 
   constructor(private _http: HttpClient, private _store: Store<any>) {}

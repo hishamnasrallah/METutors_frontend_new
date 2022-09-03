@@ -21,6 +21,17 @@ export class UploadEffects {
     { dispatch: false }
   );
 
+  cancelUpload$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(uploadActions.cancelUpload),
+      mergeMap(() =>
+        this._uploadService
+          .cancelUploadStream()
+          .pipe(map(() => uploadActions.cancelUploadSuccess()))
+      )
+    )
+  );
+
   changeAvatar$ = createEffect(() =>
     this._actions$.pipe(
       ofType(uploadActions.changeAvatar),

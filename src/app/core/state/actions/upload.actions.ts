@@ -54,32 +54,38 @@ export const deleteUploadedFileFailure = createAction(
   props<{ error?: string }>()
 );
 
+export const cancelUpload = createAction('[Upload Service] Cancel Upload');
+
+export const cancelUploadSuccess = createAction(
+  '[Upload Service] Cancel Upload Success'
+);
+
 export const changeAvatar = createAction(
-  '[User] Change Avatar',
+  '[Upload Service] Change Avatar',
   props<{ file: File }>()
 );
 
 export const changeAvatarSuccess = createAction(
-  '[User] Change Avatar Success',
+  '[Upload Service] Change Avatar Success',
   props<{ message: string; token: string; avatar: string; user: IUser }>()
 );
 
 export const changeAvatarFailure = createAction(
-  '[User] Change Avatar Failure',
+  '[Upload Service] Change Avatar Failure',
   props<{ error: any }>()
 );
 
 export const changeCover = createAction(
-  '[User] Change Cover',
+  '[Upload Service] Change Cover',
   props<{ file: File }>()
 );
 
 export const changeCoverSuccess = createAction(
-  '[User] Change Cover Success',
+  '[Upload Service] Change Cover Success',
   props<{ message: string; cover: string }>()
 );
 
 export const changeCoverFailure = createAction(
-  '[User] Change Cover Failure',
+  '[Upload Service] Change Cover Failure',
   props<{ error: any }>()
 );

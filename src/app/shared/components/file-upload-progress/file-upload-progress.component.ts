@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'metutors-file-upload-progress',
@@ -8,7 +8,10 @@ import { Component, Input, OnInit } from '@angular/core';
 export class FileUploadProgressComponent implements OnInit {
   @Input() fileType = 'file';
   @Input() fileName: string;
+  @Input() cancelUpload: boolean;
   @Input() uploadedPercentage = 0;
+
+  @Output() onCancelUpload: EventEmitter<void> = new EventEmitter<void>();
 
   constructor() {}
 

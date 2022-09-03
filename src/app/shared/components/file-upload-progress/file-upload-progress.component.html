@@ -1,5 +1,11 @@
 <div class="progress-wrapper">
-  <div class="file-name">{{ fileName }}</div>
+  <div class="info d-flex justify-content-between">
+    <span class="name">{{ fileName }}</span>
+    <span class="cancel d-flex text-danger cursor-pointer" (click)="onCancelUpload.emit()" *ngIf="cancelUpload" [tooltip]="'Cancel uploading'">
+      <span>Cancel</span>
+      <mat-icon class="icon text-danger" title="Cancel uploading">close</mat-icon>
+    </span>
+  </div>
   <div
     class="percentage">{{ uploadedPercentage === 100 ? 'Processing uploaded '+fileType+'...' : uploadedPercentage + '%' }}</div>
   <mat-progress-bar [value]="uploadedPercentage"></mat-progress-bar>

@@ -244,6 +244,11 @@ export class CompleteTutorProfileQualificationDetailsComponent
     }
   }
 
+  onCancelUpload() {
+    this.uploadingVideo = false;
+    this._store.dispatch(fromCore.cancelUpload());
+  }
+
   submitFormData() {
     if (this.form.touched) {
       const spokenLanguages = this.form.value.languages.map((lang: any) => ({
