@@ -12,7 +12,7 @@
         'scheduled': tutor?.interviewRequest?.status === interviewStatus.scheduled
       }"
       [matTooltip]="tutor.interviewRequest && tutor.interviewRequest.adminComments ? tutor.interviewRequest.adminComments : ''"
-      [matTooltipPosition]="'above'" matTooltipHideDelay="100000"
+      [matTooltipPosition]="'above'"
       [matTooltipDisabled]="!tutor?.interviewRequest?.adminComments">
       <ng-container *ngIf="tutor?.interviewRequest?.status === interviewStatus.pending">
         Account Under Review
