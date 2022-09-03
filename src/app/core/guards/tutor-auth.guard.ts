@@ -52,8 +52,7 @@ export class TutorAuthGuard implements CanActivate {
       });
       const userRole = user?.user?.roleId;
 
-      if (userRole?.toString() === UserRole.tutor.toString()) return true;
-      else return false;
+      return userRole?.toString() === UserRole.tutor.toString();
     } else return false;
   }
 }
