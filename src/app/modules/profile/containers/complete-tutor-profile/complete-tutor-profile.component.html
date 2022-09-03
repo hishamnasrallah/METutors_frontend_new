@@ -31,7 +31,7 @@
             <span>Qualification Details</span>
           </li>
           <li class="list-inline-item w-100-sm" [ngClass]="{ 'active': step === 4 }">
-            <span>Teaching Specifications</span>
+            <span>Teaching Preferences</span>
           </li>
           <li class="list-inline-item w-100-sm" [ngClass]="{ 'active': step === 5 }">
             <span>Tutoring Courses</span>
@@ -39,11 +39,11 @@
         </ul>
       </div>
 
-      <metutors-complete-tutor-profile-personal-information *ngIf="step === 1" 
+      <metutors-complete-tutor-profile-personal-information *ngIf="step === 1"
                                                             [loading]="loading$ | async"
                                                             [tutor]="(tutor$ | async)!"
-                                                            [countries]="countries$ | async" 
-                                                            [cities]="cities$ | async" 
+                                                            [countries]="countries$ | async"
+                                                            [cities]="cities$ | async"
                                                             (changeStep)="changeStep($event)"
                                                             (loadCities)="loadCities($event)"
                                                             (submitForm)="sendTeacherAccount($event, 2)">
