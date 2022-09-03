@@ -51,6 +51,7 @@ export class RequestTutorComponent implements OnInit {
   showTeacherAvailabilityModal$: Observable<boolean>;
   showChangeCourseScheduleModal$: Observable<boolean>;
 
+  step = 0;
   price: number;
   duration: number;
   reviewInfo: any = {};
@@ -205,11 +206,13 @@ export class RequestTutorComponent implements OnInit {
   }
 
   nextStep(): void {
+    this.step += 1;
     this.myStepper?.next();
     this._prepareReviewInfo();
   }
 
   backStep(): void {
+    this.step -= 1;
     this.myStepper?.previous();
   }
 
@@ -227,6 +230,7 @@ export class RequestTutorComponent implements OnInit {
       this._store.dispatch(fromRequestsActions.openChangeCourseScheduleModal());
     else {
       if (this.myStepper) {
+        this.step = 1;
         this.myStepper.selectedIndex = 1;
       }
     }
@@ -238,6 +242,7 @@ export class RequestTutorComponent implements OnInit {
 
   changeSchedule(): void {
     if (this.myStepper) {
+      this.step = 1;
       this.myStepper.selectedIndex = 1;
     }
   }
