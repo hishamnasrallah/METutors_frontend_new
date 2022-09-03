@@ -75,7 +75,7 @@ export class SignupComponent implements OnInit, OnDestroy {
           null,
           [
             Validators.required,
-            Validators.minLength(3),
+            Validators.minLength(1),
             Validators.maxLength(15),
           ],
         ],

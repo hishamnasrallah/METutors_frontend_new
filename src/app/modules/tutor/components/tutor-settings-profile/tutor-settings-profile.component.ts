@@ -172,7 +172,7 @@ export class TutorSettingsProfileComponent implements OnInit {
     private _alertNotificationService: AlertNotificationService
   ) {
     this.personalInfoForm = this._fb.group({
-      firstName: [null, [Validators.minLength(3), Validators.maxLength(15)]],
+      firstName: [null, [Validators.minLength(1), Validators.maxLength(15)]],
       lastName: [null, [Validators.minLength(3), Validators.maxLength(15)]],
       middleName: [null, [Validators.minLength(3), Validators.maxLength(15)]],
       nationality: [null, [Validators.required]],

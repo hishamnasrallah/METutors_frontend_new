@@ -82,7 +82,6 @@
                 </ng-container>
               </mat-select>
             </mat-form-field>
-
             <mat-form-field appearance="outline" class="w-100">
               <mat-select formControlName="subjects" [placeholder]="'Select Subject'" (selectionChange)="onChange(i)"
                 multiple>
@@ -102,7 +101,7 @@
                     )
                   ">
                     <mat-option *ngFor="let sub of subject.subjects" [value]="sub">
-                      {{ sub?.name }}
+                      {{ sub?.name }} ({{ grades[sub?.grade - 1] }})
                     </mat-option>
                   </mat-optgroup>
                 </ng-container>
