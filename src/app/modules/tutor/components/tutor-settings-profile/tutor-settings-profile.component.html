@@ -393,7 +393,7 @@
   <div class="card complete-form mb-3">
     <form class="card-body" [formGroup]="teachingForm" (ngSubmit)="submitTeachingSpecification(teachingForm)">
       <div class="d-flex justify-content-between align-items-center w-100 mb-4">
-        <h1 class="title">Teaching Specifications</h1>
+        <h1 class="title">Teaching Preferences</h1>
 
         <div>
           <metutors-submit-button [form]="teachingForm" [isSubmitting]="isUpdateProfile && selectedForm === 3"
@@ -406,7 +406,7 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
-            <label for="startDate" class="form-label">When you are Available to Start?</label>
+            <label for="startDate" class="form-label">Available Start Date</label>
             <mat-form-field appearance="outline" class="w-100">
               <input matInput [matDatepicker]="startDatePicker" [placeholder]="'Select Start Date'"
                 (focus)="startDatePicker.open()" [min]="minDate" formControlName="startDate">
@@ -414,7 +414,7 @@
               <mat-datepicker #startDatePicker></mat-datepicker>
             </mat-form-field>
             <div class="text-danger" *ngIf="startDate?.touched && startDate?.invalid">
-              Please select your Availability to Start
+              Please select your availability to start
             </div>
           </div>
         </div>
@@ -436,7 +436,7 @@
 
         <div class="col-md-6">
           <div class="form-group">
-            <label for="endDate" class="form-label">Availability End Date</label>
+            <label for="endDate" class="form-label">Available End Date</label>
             <mat-form-field appearance="outline" class="w-100">
               <input matInput [matDatepicker]="endDatePicker" [placeholder]="'Select Availability End Date'"
                 (focus)="endDatePicker.open()" [min]="startDate?.value" formControlName="endDate">
@@ -444,7 +444,7 @@
               <mat-datepicker #endDatePicker></mat-datepicker>
             </mat-form-field>
             <div class="text-danger" *ngIf="endDate?.touched && endDate?.invalid">
-              Please select your Availability End Date
+              Please select your availability end Date
             </div>
           </div>
         </div>
@@ -464,7 +464,7 @@
 
   <div class="card complete-form">
     <div class="card-body">
-      <h1 class="title">Teaching Courses & Rates <span>(To edit this information, please contact admin)</span></h1>
+      <h1 class="title">Teaching Courses <span>(To edit this information, please contact admin)</span></h1>
 
       <div class="row mt-4" *ngIf="tutor?.sortedSubjects && tutor?.sortedSubjects?.length">
         <div class="col-md-12" *ngFor="let item of tutor?.sortedSubjects; let indexSubjects = index; let isLast = last"
