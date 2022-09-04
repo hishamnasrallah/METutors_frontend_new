@@ -197,7 +197,7 @@
                   <ng-container *ngFor="let status of tutorStatuses">
                   <li role="menuitem" class="cursor-pointer text-capitalize"
                     [ngClass]="status" *ngIf="status !== tutor?.status" (click)="onOpenChangeStatusModal({oldStatus: tutor?.status, newStatus: status}, tutor)">
-                    {{ status }}
+                    {{ status === 'suspended' ? 'suspend' : status }}
                   </li>
                   </ng-container>
                 </ul>

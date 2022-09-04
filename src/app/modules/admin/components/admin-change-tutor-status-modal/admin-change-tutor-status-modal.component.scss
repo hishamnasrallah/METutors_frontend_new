@@ -26,11 +26,11 @@
       background-color: #EBD016;
     }
 
-    &.inactive, &.suspend {
+    &.suspend {
       background-color: #FF385C;
     }
 
-    &.rejected, &.deactive {
+    &.rejected, &.deactive, &.inactive {
       background-color: #FF8300;
     }
   }

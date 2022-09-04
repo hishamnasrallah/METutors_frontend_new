@@ -38,7 +38,7 @@ export const TUTOR_STATUSES_CONST: any = [
   TutorStatus.active,
   TutorStatus.deactive,
   TutorStatus.pending,
-  TutorStatus.suspend,
+  TutorStatus.suspended,
 ];
 
 export const COURSE_REQUEST_STATUSES_CONST: any = [
