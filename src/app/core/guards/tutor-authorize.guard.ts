@@ -9,15 +9,10 @@ import { Injectable } from '@angular/core';
 import { Observable, of, filter } from 'rxjs';
 import * as fromCore from '@metutor/core/state';
 import { InterviewStatus } from '@metutor/config';
-import { AlertNotificationService } from '../components';
 
 @Injectable()
 export class TutorAuthorizeGuard implements CanActivate {
-  constructor(
-    private _store: Store<any>,
-    private _router: Router,
-    private _alertNotificationService: AlertNotificationService
-  ) {}
+  constructor(private _router: Router, private _store: Store<any>) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -27,15 +22,19 @@ export class TutorAuthorizeGuard implements CanActivate {
       .select(fromCore.selectProfileTutor)
       .pipe(filter((profileTutor) => !!profileTutor))
       .subscribe((tutor) => {
+        if (+tutor?.completedStep! <= 5) {
+          this._router.navigate(['/profile/complete-profile']);
+
+          return false;
+        }
+
         if (
           !tutor?.interviewRequest ||
           tutor?.interviewRequest?.status === InterviewStatus.pending ||
           tutor?.interviewRequest?.status === InterviewStatus.scheduled ||
           tutor?.interviewRequest?.status === InterviewStatus.rejected
         ) {
-          /*this._alertNotificationService.error(
-            "You don't have a permission to access this route"
-          );*/
+          // this._alertNotificationService.error("You don't have a permission to access this route");
           this._router.navigateByUrl('/tutor/settings');
 
           return of(false);

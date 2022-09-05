@@ -62,6 +62,7 @@ export class ITutor {
   programs?: IProgram[];
   classes: any;
   preferences: any;
+  completedStep: number;
 
   constructor(createDefault = false, tutor: any = null) {
     if (createDefault) {
@@ -114,6 +115,7 @@ export class ITutor {
       this.programs = [];
       this.classes = {};
       this.preferences = {};
+      this.completedStep = 0;
     }
 
     if (tutor) {
@@ -203,6 +205,7 @@ export class ITutor {
       this.classes = camelcaseKeys(tutor?.scheduled_classes, {
         deep: true,
       });
+      this.completedStep = tutor?.profile_completed_step || 0;
     }
   }
 }
