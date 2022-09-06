@@ -112,6 +112,7 @@ export class CompleteTutorProfileQualificationDetailsComponent
               this.uploadingVideo = false;
               this.video?.setValue(response?.url);
               this.video?.markAsDirty();
+              this.form?.updateValueAndValidity();
 
               this._store.dispatch(fromCore.resetUploadFileProgress());
             }
@@ -237,6 +238,7 @@ export class CompleteTutorProfileQualificationDetailsComponent
         return;
       }
 
+      this.video?.markAsTouched();
       this.uploadingVideo = true;
       this._store.dispatch(
         fromCore.uploadFile({ file: [...event.target.files] })
