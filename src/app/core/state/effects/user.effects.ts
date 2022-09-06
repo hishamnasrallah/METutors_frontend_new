@@ -520,7 +520,10 @@ export class UserEffects {
   enterTutorSettings$ = createEffect(
     () =>
       this._actions$.pipe(
-        ofType(userActions.enterTutorSettings),
+        ofType(
+          userActions.enterTutorSettings,
+          tutorActions.loadProfileTutorSuccess
+        ),
         withLatestFrom(
           this._store.select(fromCore.selectProfileStep),
           this._store.select(fromCore.selectUser)

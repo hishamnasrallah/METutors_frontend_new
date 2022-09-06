@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
 import { TutorAuthGuard } from 'src/app/core/guards';
+import { RouterModule, Routes } from '@angular/router';
 
 import {
   TutorProfileComponent,
@@ -10,7 +10,7 @@ import {
 const routes: Routes = [
   {
     path: 'complete-profile',
-    canActivate: [TutorAuthGuard],
+    // canActivate: [TutorAuthGuard],
     component: CompleteTutorProfileComponent,
     data: {
       layout: {
@@ -24,6 +24,11 @@ const routes: Routes = [
     path: 'tutor/:id',
     component: TutorProfileComponent,
     data: { layout: { title: 'Tutor profile' } },
+  },
+  {
+    path: '',
+    redirectTo: '/profile/complete-profile',
+    pathMatch: 'full',
   },
 ];
 

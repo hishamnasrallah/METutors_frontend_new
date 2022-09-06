@@ -22,11 +22,19 @@ export class TutorAuthorizeGuard implements CanActivate {
       .select(fromCore.selectProfileTutor)
       .pipe(filter((profileTutor) => !!profileTutor))
       .subscribe((tutor) => {
-        if (+tutor?.completedStep! <= 5) {
-          this._router.navigate(['/profile/complete-profile']);
-
-          return false;
-        }
+        // console.log(this._router.url);
+        // if (this._router.url === '/profile/complete-profile') {
+        //   return of(false);
+        // }
+        // if (+tutor?.completedStep! <= 5) {
+        //   console.log(tutor?.completedStep);
+        //   //   // this._store.dispatch(fromCore.enterTutorSettings());
+        //   //   // this._router.navigateByUrl(`/profile/tutor/${tutor?.id.toString()}`);
+        //   // this._router.navigateByUrl('/profile/complete-profile');
+        //   //   // this._router.navigateByUrl('/tutor/settings');
+        //   // this._router.navigateByUrl('/signin');
+        //   return of(false);
+        // }
 
         if (
           !tutor?.interviewRequest ||
@@ -43,6 +51,6 @@ export class TutorAuthorizeGuard implements CanActivate {
         return of(true);
       });
 
-    return true;
+    return of(true);
   }
 }
