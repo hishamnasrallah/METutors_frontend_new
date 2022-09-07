@@ -496,53 +496,6 @@ export class UserEffects {
       dispatch: false,
     }
   );
-  /*
-
-  enterCompleteProfile$ = createEffect(
-    () =>
-      this._actions$.pipe(
-        ofType(userActions.enterCompleteProfile),
-        withLatestFrom(
-          this._store.select(fromCore.selectProfileStep),
-          this._store.select(fromCore.selectUser)
-        ),
-        map(([_, step, user]) => {
-          if (step > 5 && user && user.id) {
-            this._router.navigateByUrl(`/profile/tutor/${user.id.toString()}`);
-          }
-        })
-      ),
-    {
-      dispatch: false,
-    }
-  );
-
-  enterTutorSettings$ = createEffect(
-    () =>
-      this._actions$.pipe(
-        ofType(
-          userActions.enterTutorSettings,
-          tutorActions.loadProfileTutorSuccess
-        ),
-        withLatestFrom(
-          this._store.select(fromCore.selectProfileStep),
-          this._store.select(fromCore.selectUser)
-        ),
-        map(([_, step, user]) => {
-          if (
-            user &&
-            user?.roleId?.toString() === UserRole.tutor.toString() &&
-            step <= 5
-          ) {
-            this._router.navigate(['/profile', 'complete-profile']);
-          }
-        })
-      ),
-    {
-      dispatch: false,
-    }
-  );
-*/
 
   enterRequestTutor$ = createEffect(
     () =>
