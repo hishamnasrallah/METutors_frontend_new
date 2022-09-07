@@ -29,3 +29,27 @@
 .cancel-upload {
   margin-top: 36px;
 }
+
+.video-notes {
+  margin: 20px 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    color: #4A4A4A;
+    margin-bottom: 7px;
+    display: flex;
+    align-items: start;
+
+    &:before {
+      content: "";
+      background-image: url("/assets/svg/tick.svg");
+      width: 20px;
+      height: 20px;
+      display: inline-block;
+      background-repeat: no-repeat;
+      background-position: center;
+      margin-right: 10px;
+    }
+  }
+}
