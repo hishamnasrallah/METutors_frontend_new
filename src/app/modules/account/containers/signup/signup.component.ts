@@ -255,7 +255,6 @@ export class SignupComponent implements OnInit, OnDestroy {
   }
 
   changeStep(step: number, email: string, userType: number): void {
-    console.log(userType);
     this._store.dispatch(
       fromCore.registerStep({
         step,

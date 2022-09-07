@@ -214,6 +214,18 @@ export class CompleteTutorProfileTeachingSpecificationsComponent
       });
     }
 
+    if (isDisabled) {
+      const index = SORTED_DAYS_WEEK.indexOf(day);
+
+      if (this.selectedDays.indexOf(index) !== -1) {
+        this.selectedDays.splice(this.selectedDays.indexOf(index), 1);
+        this.availability.at(index).patchValue({ day: null, timeSlots: [] });
+      }
+
+      this.form?.markAsDirty();
+      this.form?.markAsTouched();
+    }
+
     return isDisabled;
   }
 
