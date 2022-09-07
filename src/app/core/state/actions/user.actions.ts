@@ -75,12 +75,6 @@ export const logout = createAction('[User] Logout');
 
 export const logoutSuccess = createAction('[User] Logout Success');
 
-export const enterCompleteProfile = createAction(
-  '[User] Enter Complete Profile'
-);
-
-export const enterTutorSettings = createAction('[User] Enter Tutor Settings');
-
 export const enterRequestTutor = createAction('[User] Enter Request Tutor');
 
 export const enterInvoiceDetails = createAction('[User] Enter Invoice Details');

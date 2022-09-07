@@ -3,9 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 import {
   AuthGuard,
   NotAuthGuard,
+  ProfileGuard,
   AdminAuthGuard,
   TutorAuthGuard,
   StudentAuthGuard,
+  TutorSettingsGuard,
   TutorAuthorizeGuard,
 } from '@guards';
 
@@ -69,10 +71,12 @@ const routes: Routes = [
   exports: [RouterModule],
   providers: [
     AuthGuard,
+    ProfileGuard,
     NotAuthGuard,
     TutorAuthGuard,
     AdminAuthGuard,
     StudentAuthGuard,
+    TutorSettingsGuard,
     TutorAuthorizeGuard,
   ],
 })

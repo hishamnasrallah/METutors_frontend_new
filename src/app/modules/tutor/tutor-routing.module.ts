@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TutorAuthorizeGuard } from '@metutor/core/guards';
+import { TutorAuthorizeGuard, TutorSettingsGuard } from '@metutor/core/guards';
 import {
   TutorComponent,
   TutorFaqComponent,
@@ -227,6 +227,7 @@ const routes: Routes = [
       },
       {
         path: 'settings',
+        canActivate: [TutorSettingsGuard],
         component: TutorSettingsComponent,
         data: {
           layout: {

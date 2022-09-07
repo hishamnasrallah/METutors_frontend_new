@@ -42,8 +42,7 @@ export class CompleteTutorProfileComponent implements OnInit {
     this._prepareCourseProgram();
     this._prepareProgramCountries();
 
-    this._store.dispatch(fromCore.loadProfileTutor());
-    this._store.dispatch(fromCore.enterCompleteProfile());
+    // this._store.dispatch(fromCore.loadProfileTutor());
     this.step$ = this._store.select(fromCore.selectProfileStep);
     this.tutor$ = this._store.select(fromCore.selectProfileTutor);
     this.loading$ = this._store.select(fromCore.selectIsCompleteTutorProfile);

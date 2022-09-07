@@ -49,7 +49,6 @@ export class TutorSettingsComponent implements OnInit {
   ngOnInit(): void {
     this._prepareCountries();
     this._prepareLanguages();
-    this._store.dispatch(fromCore.enterTutorSettings());
 
     this.layout$ = this._store.select(fromRoot.selectLayout);
     this.user$ = this._store.select(fromCore.selectUser);

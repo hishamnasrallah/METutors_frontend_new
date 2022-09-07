@@ -3,7 +3,6 @@ import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import camelcaseKeys from 'camelcase-keys';
 import { Injectable } from '@angular/core';
-import { environment } from '@environment';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
@@ -497,6 +496,7 @@ export class UserEffects {
       dispatch: false,
     }
   );
+  /*
 
   enterCompleteProfile$ = createEffect(
     () =>
@@ -542,6 +542,7 @@ export class UserEffects {
       dispatch: false,
     }
   );
+*/
 
   enterRequestTutor$ = createEffect(
     () =>

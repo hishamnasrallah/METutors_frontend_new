@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
-import { TutorAuthGuard } from 'src/app/core/guards';
 import { RouterModule, Routes } from '@angular/router';
+
+import { ProfileGuard, TutorAuthGuard } from 'src/app/core/guards';
 
 import {
   TutorProfileComponent,
@@ -10,7 +11,7 @@ import {
 const routes: Routes = [
   {
     path: 'complete-profile',
-    // canActivate: [TutorAuthGuard],
+    canActivate: [TutorAuthGuard, ProfileGuard],
     component: CompleteTutorProfileComponent,
     data: {
       layout: {

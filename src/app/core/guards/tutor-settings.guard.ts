@@ -8,10 +8,9 @@ import { select, Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
 import { Observable, of, filter, map } from 'rxjs';
 import * as fromCore from '@metutor/core/state';
-import { InterviewStatus } from '@metutor/config';
 
 @Injectable()
-export class TutorAuthorizeGuard implements CanActivate {
+export class TutorSettingsGuard implements CanActivate {
   constructor(private _router: Router, private _store: Store<any>) {}
 
   canActivate(
@@ -26,15 +25,6 @@ export class TutorAuthorizeGuard implements CanActivate {
       map((tutor) => {
         if (+tutor?.completedStep! < 5) {
           this._router.navigateByUrl('/profile/complete-profile');
-
-          return false;
-        } else if (
-          !tutor?.interviewRequest ||
-          tutor?.interviewRequest?.status === InterviewStatus.pending ||
-          tutor?.interviewRequest?.status === InterviewStatus.scheduled ||
-          tutor?.interviewRequest?.status === InterviewStatus.rejected
-        ) {
-          this._router.navigateByUrl('/tutor/settings');
 
           return false;
         }
