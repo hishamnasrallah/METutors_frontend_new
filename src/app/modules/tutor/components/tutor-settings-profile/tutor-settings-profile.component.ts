@@ -30,6 +30,7 @@ import {
   COMPUTER_SKILLS,
   SORTED_DAYS_WEEK,
   generalConstants,
+  calculateListDays,
   TEACHING_EXPERIENCE,
   convertTimeToDateISO,
   LANGUAGES_LEVELS_CONST,
@@ -483,6 +484,45 @@ export class TutorSettingsProfileComponent implements OnInit {
 
       this.teachingForm?.markAsDirty();
     });
+  }
+
+  onChangeStartDate(): void {
+    this.endDate?.setValue(null);
+    this.endDate?.updateValueAndValidity();
+  }
+
+  checkDisabledDays(day: string): boolean {
+    let isDisabled = true;
+
+    if (this.startDate?.value && this.endDate?.value) {
+      const daysCalculated = calculateListDays(
+        this.startDate?.value,
+        this.endDate?.value
+      );
+
+      daysCalculated.forEach((dayCalculated) => {
+        if (
+          SORTED_DAYS_WEEK[new Date(dayCalculated).getDay()].toLowerCase() ===
+          day.toLowerCase()
+        ) {
+          isDisabled = false;
+        }
+      });
+    }
+
+    if (isDisabled) {
+      const index = SORTED_DAYS_WEEK.indexOf(day);
+
+      if (this.selectedDays.indexOf(index) !== -1) {
+        this.selectedDays.splice(this.selectedDays.indexOf(index), 1);
+        this.availability.at(index).patchValue({ day: null, timeSlots: [] });
+      }
+
+      this.teachingForm?.markAsDirty();
+      this.teachingForm?.markAsTouched();
+    }
+
+    return isDisabled;
   }
 
   onChangeAvatar(event: any): void {

@@ -132,7 +132,6 @@ export class AdminCurrentTutorsComponent implements OnInit {
   }
 
   onChangeTab(tab: any): void {
-    console.log(tab);
     switch (tab.index) {
       case 0:
         this.status = '';

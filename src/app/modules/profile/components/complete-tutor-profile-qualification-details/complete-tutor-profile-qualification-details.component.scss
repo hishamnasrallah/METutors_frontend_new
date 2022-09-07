@@ -16,7 +16,8 @@
 .video-preview {
   height: 200px;
   background: #FAFAFA;
-  border: 1px solid rgba(0, 0, 0, 0.6);
+  border: 1px solid #BDBDBD99;
+  border-radius: 10px;
 }
 
 .edit-video {
@@ -28,4 +29,28 @@
 
 .cancel-upload {
   margin-top: 36px;
+}
+
+.video-notes {
+  margin: 20px 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    color: #4A4A4A;
+    margin-bottom: 7px;
+    display: flex;
+    align-items: start;
+
+    &:before {
+      content: "";
+      background-image: url("/assets/svg/tick.svg");
+      width: 20px;
+      height: 20px;
+      display: inline-block;
+      background-repeat: no-repeat;
+      background-position: center;
+      margin-right: 10px;
+    }
+  }
 }
