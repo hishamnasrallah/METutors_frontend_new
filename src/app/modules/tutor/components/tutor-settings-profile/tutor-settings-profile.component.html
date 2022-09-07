@@ -451,7 +451,7 @@
 
         <div class="col-md-6">
           <div class="form-group">
-            <label class="form-label">How many days per week are you available? </label>
+            <label class="form-label">Available teaching days</label>
             <div class="list-days">
               <button type="button" mat-button [class.active]="selectedDays?.includes(i)"
                 *ngFor="let day of days; let i = index" (click)="onChangeDay(i)">{{ day }}</button>
