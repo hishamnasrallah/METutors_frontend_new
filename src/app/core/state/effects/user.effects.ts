@@ -351,7 +351,7 @@ export class UserEffects {
       this._actions$.pipe(
         ofType(userActions.logoutSuccess),
         map(() => {
-          this._router.navigateByUrl('/login');
+          this._router.navigateByUrl('/signin');
 
           const loggedOutTabs = localStorage.getItem('loggedOutTabs');
 
