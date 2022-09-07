@@ -101,7 +101,7 @@
                     )
                   ">
                     <mat-option *ngFor="let sub of subject.subjects" [value]="sub">
-                      {{ sub?.name }} ({{ grades[sub?.grade - 1] }})
+                      {{ sub?.name }} <ng-container *ngIf="form.value.programs[i]?.programId?.id === nationalId && sub?.grade">({{ grades[sub?.grade - 1] }})</ng-container>
                     </mat-option>
                   </mat-optgroup>
                 </ng-container>
