@@ -17,7 +17,7 @@
           <tr>
             <th [ngClass]="{'w-74': item?.programId !== nationalId, 'w-54': item?.programId === nationalId}">Subject</th>
             <th class="w-20" *ngIf="item?.programId === nationalId">Grade</th>
-            <th>Hourly Price</th>
+            <th>Hourly Price (USD)</th>
           </tr>
           <tr *ngFor="let subject of item.subjects; let indexSubject = index">
             <td>{{ subject?.subject }}</td>
