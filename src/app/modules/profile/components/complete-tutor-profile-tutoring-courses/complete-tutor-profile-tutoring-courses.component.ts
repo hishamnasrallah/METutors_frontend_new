@@ -239,7 +239,30 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
     return isEmpty;
   }
 
-  checkIfNoDataExists(index: number): boolean {
+  checkIfNoFieldsExists(index: number): boolean {
+    let isNoData = false;
+    const selectedProgram = this.form.value.programs[index];
+
+    if (selectedProgram?.programId?.id === this.nationalId) {
+      const list = this.fields.filter(
+        (field) =>
+          selectedProgram?.programId?.id === field.programId &&
+          selectedProgram.countries?.includes(field.countryId)
+      );
+
+      if (list.length === 0) isNoData = true;
+    } else {
+      const list = this.fields.filter(
+        (field) => selectedProgram?.programId?.id === field.programId
+      );
+
+      if (list.length === 0) isNoData = true;
+    }
+
+    return isNoData;
+  }
+
+  checkIfNoSubjectsExists(index: number): boolean {
     let isNoData = false;
     const selectedProgram = this.form.value.programs[index];
 

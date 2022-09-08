@@ -48,9 +48,12 @@
             <h3>Field of Study</h3>
             <mat-form-field appearance="outline" class="w-100">
               <mat-select formControlName="courseField" [placeholder]="'Choose Field of Study'"
-                [disabled]="!fields || !fields?.length" (selectionChange)="onChangeCourseField()">
+                (selectionChange)="onChangeCourseField()">
                 <mat-option [value]="field?.id" *ngFor="let field of fields">
                   {{ field?.name }}
+                </mat-option>
+                <mat-option value="" *ngIf="!fields || !fields?.length" disabled>
+                  No data found
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -61,12 +64,13 @@
             <h3>Subject</h3>
             <mat-form-field appearance="outline" class="w-100">
               <mat-select formControlName="subject" [placeholder]="'Choose Subject'"
-                [disabled]="!subjects || !subjects?.length" (selectionChange)="onChangeCourseSubject()">
-                <ng-container *ngFor="let subject of subjects">
-                  <mat-option [value]="subject?.id">
-                    {{ subject?.name }}
-                  </mat-option>
-                </ng-container>
+                (selectionChange)="onChangeCourseSubject()">
+                <mat-option [value]="subject?.id" *ngFor="let subject of subjects">
+                  {{ subject?.name }}
+                </mat-option>
+                <mat-option value="" *ngIf="!subjects || !subjects?.length" disabled>
+                  No data found
+                </mat-option>
               </mat-select>
             </mat-form-field>
           </div>
