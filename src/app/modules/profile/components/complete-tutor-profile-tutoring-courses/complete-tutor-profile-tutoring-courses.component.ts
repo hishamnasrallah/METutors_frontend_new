@@ -205,6 +205,25 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
     this._updateLengthes();
   }
 
+  checkEmptySubjects(index: number, indexSubjects: number): boolean {
+    let isEmpty = true;
+
+    const subjectsLength = [
+      ...[...this.programs.value[index].sortedSubjects[indexSubjects].subjects],
+    ]?.flat(Infinity)?.length;
+    const filledSubjectsLength = [
+      ...[
+        ...this.programs.value[index].sortedSubjects[
+          indexSubjects
+        ].subjects.filter((sub: any) => sub.pricePerHour),
+      ],
+    ]?.flat(Infinity)?.length;
+
+    if (filledSubjectsLength === subjectsLength) isEmpty = false;
+
+    return isEmpty;
+  }
+
   submitFormData() {
     const allSubjects = [
       ...this.programs.value.map((program: any) => {
