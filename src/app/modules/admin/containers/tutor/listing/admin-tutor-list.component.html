@@ -167,15 +167,14 @@
             </td>
           </tr>
           <tr *ngFor="let tutor of view.tutors; let i = index">
-            <td>{{ view.tutorCounts?.to + (i + 1) }}</td>
+            <!--todo: put a proper fix-->
+            <td>{{ currentPage > 1 ? ((currentPage - 1) * perPage) + (i + 1) : (i+1) }}</td>
             <td><a [routerLink]="['/admin', 'tutor', 'profile', tutor?.id]">{{ tutor?.idNumber }}</a></td>
             <td>
-              <div>
-                <metutors-user-avatar [avatar]="tutor?.avatar" [type]="'small'"
-                                      [name]="tutor?.name" [routerLink]="['/admin', 'tutor', 'profile', tutor?.id]"
-                                      class="d-inline-block ps-0">
-                </metutors-user-avatar>
-              </div>
+              <metutors-user-avatar [avatar]="tutor?.avatar" [type]="'small'"
+                                    [name]="tutor?.name" [routerLink]="['/admin', 'tutor', 'profile', tutor?.id]"
+                                    class="d-inline-block ps-0">
+              </metutors-user-avatar>
             </td>
             <td class="text-capitalize">{{ tutor?.gender }}</td>
             <td class="text-capitalize tutor-date">

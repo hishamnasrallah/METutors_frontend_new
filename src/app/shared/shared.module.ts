@@ -67,6 +67,7 @@ import {
   DefaultCoverDirective,
   DefaultAvatarDirective,
   DefaultCourseDirective,
+  GridSerialNumberDirective,
 } from '@metutor/shared/directives';
 
 import { MoneyPipe, DaysPipe } from './pipes';
@@ -118,6 +119,7 @@ import { MoneyPipe, DaysPipe } from './pipes';
     DefaultCoverDirective,
     DefaultAvatarDirective,
     DefaultCourseDirective,
+    GridSerialNumberDirective,
   ],
   imports: [
     FormsModule,
@@ -186,6 +188,7 @@ import { MoneyPipe, DaysPipe } from './pipes';
     DefaultCoverDirective,
     DefaultAvatarDirective,
     DefaultCourseDirective,
+    GridSerialNumberDirective,
     FileUploadProgressComponent,
     TutorAvailableSlotsComponent,
 

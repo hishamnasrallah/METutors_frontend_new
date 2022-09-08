@@ -213,7 +213,7 @@
               <metutors-char-counter [limit]="400" [controlName]="bio"></metutors-char-counter>
             </label>
             <textarea id="bio" class="custom-input w-100 input-bordered" [placeholder]="'Add Bio here... '" rows="10"
-              formControlName="bio"></textarea>
+              formControlName="bio" minlength="200" maxlength="400"></textarea>
             <div class="text-danger" *ngIf="bio?.touched && bio?.invalid">
               Please write valid Bio
             </div>
