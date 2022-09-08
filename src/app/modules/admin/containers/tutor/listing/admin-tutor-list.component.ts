@@ -21,6 +21,7 @@ export class AdminTutorListComponent implements OnInit {
   showTeacherAvailabilityModal$: Observable<boolean>;
 
   perPage = 10;
+  currentPage = 1;
   changeStatus: any;
   selectedTutor?: ITutor;
   tutorStatus = TutorStatus;
@@ -96,6 +97,7 @@ export class AdminTutorListComponent implements OnInit {
   }
 
   onPageChange({ page }: any): void {
+    this.currentPage = page;
     this._store.dispatch(fromCore.loadTutors({ page, search: '' }));
   }
 
