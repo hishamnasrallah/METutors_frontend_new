@@ -36,7 +36,7 @@ export const updateTutorProfile = createAction(
 
 export const updateTutorProfileSuccess = createAction(
   '[Tutor] Update Tutor Profile Success',
-  props<{ message: string }>()
+  props<{ message: string; profileTutor: ITutor }>()
 );
 
 export const updateTutorProfileFailure = createAction(

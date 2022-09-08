@@ -58,6 +58,7 @@ export class TutorEffects {
           map((response) =>
             tutorActions.updateTutorProfileSuccess({
               message: response?.message,
+              profileTutor: new ITutor(false, response?.user),
             })
           ),
           catchError((error) =>
