@@ -17,9 +17,10 @@ export class LettersOnlyDirective {
     }
 
     if (
-      key.toUpperCase().match('[A-ZÀ-ÚÄ-Üs]+') !== null ||
-      key.match('^[\u0621-\u064Asp{N}]+$') !== null ||
-      keyCode === 32 // Space
+      key &&
+      (key.toUpperCase().match('[A-ZÀ-ÚÄ-Üs]+') !== null ||
+        key.match('^[\u0621-\u064Asp{N}]+$') !== null ||
+        keyCode === 32) // Space
     ) {
       return;
     } else {
