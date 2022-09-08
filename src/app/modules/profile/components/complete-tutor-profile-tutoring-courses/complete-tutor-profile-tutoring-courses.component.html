@@ -130,7 +130,7 @@
                   <td>{{ subject?.name }}</td>
                   <td *ngIf="form.value.programs[i]?.programId?.id === nationalId">{{ subject?.gradeName }}</td>
                   <td>
-                    <input type="number" min="1" step="1" placeholder="Enter Hourly Rate " class="p-0 w-100"
+                    <input type="text" meTutorsOnlyNumber [onlyNumber]="true" min="1" step="1" placeholder="Enter Hourly Rate " class="p-0 w-100"
                       [value]="subject.pricePerHour" (change)="changePrice(i, indexSubjects, indexSubject, $event)">
                   </td>
                 </tr>
