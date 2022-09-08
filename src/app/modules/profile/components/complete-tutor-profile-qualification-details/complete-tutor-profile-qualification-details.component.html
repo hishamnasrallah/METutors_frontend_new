@@ -149,6 +149,7 @@
             </button>
             <div class="guide1 mt-2">Upload Video Demo (Max 100 MB)</div>
           </div>
+          <div class="position-relative preview-style">
           <ng-container *ngLet="fileUploadProgress$ | async as fileUploadProgress">
             <ng-container *ngIf="fileUploadProgress?.length">
               <ng-container *ngFor="let uploadProgress of fileUploadProgress">
@@ -161,6 +162,7 @@
               </ng-container>
             </ng-container>
           </ng-container>
+          </div>
           <ul class="video-notes row">
             <li class="col-md-6">You must be in your video</li>
             <li class="col-md-6">Your video must be between 2-3 minutes</li>
