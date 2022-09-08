@@ -48,6 +48,7 @@ export class CompleteTutorProfileQualificationDetailsComponent
       });
 
       if (_tutor.languages && _tutor.languages.length) {
+        this.languages.clear();
         _tutor.languages.forEach((language, index) => {
           this.languages.push(this.newLanguage());
 
