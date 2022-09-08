@@ -74,13 +74,14 @@ export class TutorsService {
   getTutors(page: number, search: string): Observable<any> {
     return this.http
       .get<{
+        to: number;
         total: number;
         all_teachers: number;
         active_teachers: number;
         pending_teachers: number;
         inactive_teachers: number;
         suspended_teachers: number;
-        teachers: { total: number; data: ITutor[] };
+        teachers: { to: number; total: number; data: ITutor[] };
       }>(`${this.baseUrl}admin/teachers`, { params: { page, search } })
       .pipe(
         map((response) => {
@@ -90,6 +91,7 @@ export class TutorsService {
             ),
             tutorsCounts: {
               all: response?.all_teachers,
+              to: response?.teachers?.to || 0,
               total: response?.teachers?.total,
               active: response?.active_teachers,
               pending: response?.pending_teachers,

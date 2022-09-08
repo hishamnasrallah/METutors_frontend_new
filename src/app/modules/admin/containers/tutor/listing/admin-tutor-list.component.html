@@ -167,7 +167,7 @@
             </td>
           </tr>
           <tr *ngFor="let tutor of view.tutors; let i = index">
-            <td>{{ i + 1 }}</td>
+            <td>{{ view.tutorCounts?.to + (i + 1) }}</td>
             <td><a [routerLink]="['/admin', 'tutor', 'profile', tutor?.id]">{{ tutor?.idNumber }}</a></td>
             <td>
               <div>
