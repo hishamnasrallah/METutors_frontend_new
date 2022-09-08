@@ -37,17 +37,19 @@
             </div> -->
 
             <ng-container *ngIf="form.value.programs[i]?.programId?.id === nationalId">
-              <label for="program" class="form-label mt-3">
+              <label for="country" class="form-label mt-3">
                 Country for {{ form.value.programs[i]?.programId?.name }} Program
               </label>
               <mat-form-field appearance="outline" class="w-100">
-                <mat-select id="program" formControlName="countries" [placeholder]="'Select Countries'" multiple>
+                <mat-select id="country" formControlName="countries" [placeholder]="'Select Countries'" multiple
+                  (selectionChange)="resetSubjects(i)">
                   <mat-option [value]="country?.id" *ngFor="let country of countries">{{ country?.name }}</mat-option>
                 </mat-select>
               </mat-form-field>
 
               <mat-form-field appearance="outline" class="w-100">
-                <mat-select formControlName="grades" [placeholder]="'Select Grades'" multiple>
+                <mat-select formControlName="grades" [placeholder]="'Select Grades'" multiple
+                  (selectionChange)="resetSubjects(i)">
                   <mat-option [value]="i + 1" *ngFor="let grade of grades; let i = index">{{ grade }}</mat-option>
                 </mat-select>
               </mat-form-field>
@@ -84,7 +86,7 @@
             </mat-form-field>
             <mat-form-field appearance="outline" class="w-100">
               <mat-select formControlName="subjects" [placeholder]="'Select Subject'" (selectionChange)="onChange(i)"
-                multiple>
+                          multiple *ngIf="!checkIfNoDataExists(i)">
                 <ng-container *ngFor="let subject of subjects">
                   <mat-optgroup [label]="subject.fieldName" *ngIf="
                     (
@@ -105,6 +107,10 @@
                     </mat-option>
                   </mat-optgroup>
                 </ng-container>
+              </mat-select>
+
+              <mat-select [placeholder]="'Select Subject'" *ngIf="checkIfNoDataExists(i)">
+                <mat-option value="" disabled>No data found</mat-option>
               </mat-select>
             </mat-form-field>
 
@@ -145,7 +151,7 @@
       <button class="main-button-transparent px-4" mat-button type="button" (click)="changeStep.emit(4)">Back</button>
 
       <metutors-submit-button [form]="form" [isDisabled]="!pricesLength || !subjectLength || pricesLength < subjectLength"
-        [isSubmitting]="loading" [extraClasses]="'w-100 fw-bold px-5'">
+                              [isSubmitting]="loading" [extraClasses]="'w-100 fw-bold px-5'">
         Save & Continue
       </metutors-submit-button>
     </div>

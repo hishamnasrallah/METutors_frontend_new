@@ -101,19 +101,22 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
     return !filteredPrograms.includes(id);
   }
 
-  onChangeProgram({ value }: any, i: number): void {
+  onChangeProgram({ value }: any, index: number): void {
     if (value.id === this.nationalId) {
       this.programs
-        .at(i)
+        .at(index)
         ?.get('countries')
         ?.setValidators([Validators.required]);
-      this.programs.at(i)?.get('grades')?.setValidators([Validators.required]);
+      this.programs
+        .at(index)
+        ?.get('grades')
+        ?.setValidators([Validators.required]);
     } else {
-      this.programs.at(i)?.get('countries')?.clearValidators();
-      this.programs.at(i)?.get('grades')?.clearValidators();
+      this.programs.at(index)?.get('countries')?.clearValidators();
+      this.programs.at(index)?.get('grades')?.clearValidators();
     }
 
-    this.programs.at(i).patchValue({
+    this.programs.at(index).patchValue({
       grades: [],
       fields: [],
       subjects: [],
@@ -121,9 +124,21 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
       sortedSubjects: [],
     });
 
-    this.programs.at(i)?.get('grades')?.updateValueAndValidity();
-    this.programs.at(i)?.get('countries')?.updateValueAndValidity();
-    this.programs.at(i)?.get('sortedSubjects')?.updateValueAndValidity();
+    this.programs.at(index)?.get('grades')?.updateValueAndValidity();
+    this.programs.at(index)?.get('countries')?.updateValueAndValidity();
+    this.programs.at(index)?.get('sortedSubjects')?.updateValueAndValidity();
+
+    this._updateLengthes();
+  }
+
+  resetSubjects(index: number): void {
+    this.programs.at(index).patchValue({
+      fields: [],
+      subjects: [],
+      sortedSubjects: [],
+    });
+
+    this.programs.at(index)?.get('sortedSubjects')?.updateValueAndValidity();
 
     this._updateLengthes();
   }
@@ -224,7 +239,34 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
     return isEmpty;
   }
 
-  submitFormData() {
+  checkIfNoDataExists(index: number): boolean {
+    let isNoData = false;
+    const selectedProgram = this.form.value.programs[index];
+
+    if (selectedProgram?.programId?.id === this.nationalId) {
+      const list = this.subjects.filter(
+        (subject) =>
+          selectedProgram?.programId?.id === subject.programId &&
+          selectedProgram.fields?.includes(subject.fieldId) &&
+          selectedProgram.countries?.includes(subject.countryId) &&
+          selectedProgram.grades?.includes(subject.grade)
+      );
+
+      if (list.length === 0) isNoData = true;
+    } else {
+      const list = this.subjects.filter(
+        (subject) =>
+          selectedProgram?.programId?.id === subject.programId &&
+          selectedProgram.fields?.includes(subject.fieldId)
+      );
+
+      if (list.length === 0) isNoData = true;
+    }
+
+    return isNoData;
+  }
+
+  submitFormData(): void {
     const allSubjects = [
       ...this.programs.value.map((program: any) => {
         const sortedSubjects = [
