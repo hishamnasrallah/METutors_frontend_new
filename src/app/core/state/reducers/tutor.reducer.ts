@@ -335,9 +335,10 @@ export const reducer = createReducer(
     })
   ),
 
-  on(tutorActions.updateTutorProfileSuccess, (state) => ({
+  on(tutorActions.updateTutorProfileSuccess, (state, { profileTutor }) => ({
     ...state,
     isUpdateTutorProfile: false,
+    profileTutor,
   })),
 
   on(tutorActions.updateTutorPreferencesSuccess, (state, { preferences }) => ({

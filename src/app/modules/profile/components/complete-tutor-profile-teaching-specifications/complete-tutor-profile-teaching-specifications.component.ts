@@ -263,6 +263,7 @@ export class CompleteTutorProfileTeachingSpecificationsComponent
 })
 export class DialogSelectAvailabilityDialog {
   id!: number;
+  isDisabled = true;
   tempHours: any = [];
   selectedHoursList: any = [];
   selectedHours: number[] = [];
@@ -294,6 +295,8 @@ export class DialogSelectAvailabilityDialog {
             }
           });
         });
+
+        this.isDisabled = false;
       }
 
       this.tempHours = [...this.selectedHoursList];
@@ -318,9 +321,11 @@ export class DialogSelectAvailabilityDialog {
         endTime: hour?.endTime,
       });
     }
+    this.isDisabled = false;
   }
 
   selectAll(): void {
+    this.isDisabled = false;
     this.selectedHours = [];
     this.selectedHoursList = [];
     AVAILABILITY_HOURS_CONST.forEach((hour, index) => {
@@ -334,6 +339,7 @@ export class DialogSelectAvailabilityDialog {
   }
 
   unSelectAll(): void {
+    this.isDisabled = false;
     this.selectedHours = [];
     this.selectedHoursList = [];
   }
