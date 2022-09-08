@@ -31,8 +31,13 @@
   margin-top: 36px;
 }
 
+.preview-style {
+  width: 70%;
+  margin: auto;
+}
+
 .video-notes {
-  margin: 20px 0;
+  margin: 30px 0 20px;
   padding: 0;
   list-style: none;
 
@@ -41,6 +46,7 @@
     margin-bottom: 7px;
     display: flex;
     align-items: start;
+    padding: 0;
 
     &:before {
       content: "";

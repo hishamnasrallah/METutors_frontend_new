@@ -131,24 +131,23 @@
     </div>
 
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-8 offset-md-2">
         <div class="form-group">
-          <label class="form-label">Please upload a video to show your teaching style <br /> with the following guidelines:</label>
+          <label class="form-label">Please upload a video to show your teaching style with the following guidelines:</label>
           <input type="file" #filePicker (change)="onChangeVideo($event)" hidden accept="video/*"/>
 
-          <div class="position-relative">
+          <div class="position-relative preview-style">
             <metutors-video-player [videoSrc]="video?.value" *ngIf="video?.value">
             </metutors-video-player>
             <button mat-flat-button color="primary" class="px-4 edit-video" type="button"
                     *ngIf="video?.value" (click)="filePicker.click()" [disabled]="uploadingVideo"> Change
             </button>
           </div>
-          <div class="video-preview d-flex align-items-center justify-content-center flex-column" *ngIf="!video?.value">
-            <div class="guide1">Upload Video Demo</div>
-
-            <button mat-flat-button color="primary" class="px-4 mt-2" type="button" [disabled]="uploadingVideo"
+          <div class="preview-style video-preview d-flex align-items-center justify-content-center flex-column" *ngIf="!video?.value">
+            <button mat-flat-button color="primary" class="px-4" type="button" [disabled]="uploadingVideo"
                     (click)="filePicker.click()"> Upload
             </button>
+            <div class="guide1 mt-2">Upload Video Demo (Max 100 MB)</div>
           </div>
           <ng-container *ngLet="fileUploadProgress$ | async as fileUploadProgress">
             <ng-container *ngIf="fileUploadProgress?.length">
@@ -162,12 +161,12 @@
               </ng-container>
             </ng-container>
           </ng-container>
-          <ul class="video-notes">
-            <li>You must be in your video</li>
-            <li>Your video must be between 2-3 minutes</li>
-            <li>You must teach a concept from a subject you want to teach on MEtutors.</li>
-            <li>Your video should be filmed horizontally with good lighting, in a quiet environment and with a tidy background.</li>
-            <li>All video formats are accepted</li>
+          <ul class="video-notes row">
+            <li class="col-md-6">You must be in your video</li>
+            <li class="col-md-6">Your video must be between 2-3 minutes</li>
+            <li class="col-md-6">You must teach a concept from a subject you want to teach on MEtutors.</li>
+            <li class="col-md-6">All video formats are accepted</li>
+            <li class="col-md-12">Your video should be filmed horizontally with good lighting, in a quiet environment and with a tidy background.</li>
           </ul>
         </div>
       </div>
