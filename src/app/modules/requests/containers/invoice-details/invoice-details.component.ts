@@ -23,6 +23,7 @@ export class InvoiceDetailsComponent implements OnInit {
   isCalculateInvoiceDetails$: Observable<boolean>;
   invoiceDetails$: Observable<IInvoiceDetails | null>;
 
+  showModal = false;
   constructor(private _router: Router, private _store: Store<any>) {}
 
   ngOnInit(): void {
@@ -47,6 +48,10 @@ export class InvoiceDetailsComponent implements OnInit {
   }
 
   saveCourse(user: IUser, classroom: IClassroom): void {
+    console.log('its here');
+    this.showModal = true;
+    return;
+
     if (user) {
       const data = {
         redirect_url: this.baseURL + '/requests/payment-processing',

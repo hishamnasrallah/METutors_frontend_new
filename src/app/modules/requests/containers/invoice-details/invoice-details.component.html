@@ -36,4 +36,8 @@
                           [showModal]="(showConfirmPaymentModal$ | async)!"
                           [paymentInfo]="(paymentInfo$ | async)!">
   </metutors-payment-modal>
+
+  <metutors-payment-coming-soon-modal [showModal]="showModal" *ngIf="showModal"
+                                      (closeModal)="showModal = false">
+  </metutors-payment-coming-soon-modal>
 </ng-container>

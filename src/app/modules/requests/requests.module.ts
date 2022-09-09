@@ -35,6 +35,7 @@ import {
   ClassroomInfoFormComponent,
   ListClassroomsFormComponent,
   CourseInformationFormComponent,
+  PaymentComingSoonModalComponent,
   InvoiceClassroomDetailsComponent,
   ChangeCourseScheduleModalComponent,
 } from './components';
@@ -51,6 +52,7 @@ import {
     PaymentProcessingComponent,
     ListClassroomsFormComponent,
     CourseInformationFormComponent,
+    PaymentComingSoonModalComponent,
     InvoiceClassroomDetailsComponent,
     ChangeCourseScheduleModalComponent,
   ],

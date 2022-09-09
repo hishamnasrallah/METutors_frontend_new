@@ -3,5 +3,6 @@ export * from './select-tutor-form';
 export * from './classroom-info-form';
 export * from './list-classrooms-form';
 export * from './course-information-form';
+export * from './payment-coming-soon-modal';
 export * from './invoice-classroom-details';
 export * from './change-course-schedule-modal';
