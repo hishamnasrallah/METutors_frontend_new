@@ -57,17 +57,17 @@ export class TutorSettingsUserPreferencesComponent implements OnInit {
   }
 
   get languages(): FormArray {
-    return this.form?.get('spoken_languages') as FormArray;
+    return this.form?.get('languages') as FormArray;
   }
 
   removeLanguage(i: number): void {
-    (this.form?.get('spoken_languages') as FormArray).removeAt(i);
+    (this.form?.get('languages') as FormArray).removeAt(i);
   }
 
   newLanguage(language?: any): FormGroup {
     return this._fb.group({
       language: [language?.language, Validators.required],
-      efficiency: [language?.efficiency, Validators.required],
+      level: [language?.efficiency, Validators.required],
     });
   }
 
@@ -81,8 +81,9 @@ export class TutorSettingsUserPreferencesComponent implements OnInit {
     if (form.valid) {
       const formData = {
         ...form.value,
-        spoken_languages: form.value.spoken_languages.map((language: any) => ({
+        spoken_languages: form.value.languages.map((language: any) => ({
           ...language,
+          efficiency: language.level,
           language: language.language.id,
         })),
       };
@@ -90,20 +91,10 @@ export class TutorSettingsUserPreferencesComponent implements OnInit {
     }
   }
 
-  get filteredLanguages(): ILanguage[] {
-    const selectedLanguage = this.languages.value.map((item: any) =>
-      item?.level && item?.language ? item?.language?.id : undefined
-    );
-
-    return this.languagesList && this.languagesList.length
-      ? this.languagesList.filter((el) => !selectedLanguage.includes(el?.id))
-      : [];
-  }
-
   ngOnInit(): void {
     this.form = this._fb.group({
       preferred_gender: [null, Validators.required],
-      spoken_languages: this._fb.array([]),
+      languages: this._fb.array([]),
     });
 
     this.gender.setValue(this.preferences?.preferred_gender || 'both');
