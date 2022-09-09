@@ -23,7 +23,7 @@
 
       <div class="col-10 time-box">
         <div class="slot" *ngFor="let slot of availabilities[key]">
-          {{ slot.timeFrom | date: 'h:mm a' }} to {{ slot.timeTo | date: 'h:mm a' }}
+          {{ slot.timeFrom | date: 'h:mm' }} to {{ slot.timeTo | date: 'h:mm a' }}
         </div>
       </div>
     </ng-container>
