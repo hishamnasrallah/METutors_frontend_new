@@ -162,7 +162,7 @@
                     <td class="text-capitalize tutor-subject">
                       <ng-container *ngFor="let subject of tutor?.subjects; let isLast = last; let i = index">
                         <div *ngIf="i < 3">
-                          {{ 'CID' + subject?.id }} <span>({{ subject?.pricePerHour | metutorsMoney | async }})</span>
+                          {{ 'CID' + subject?.id }} <span>({{ +subject?.pricePerHour | metutorsMoney | async }})</span>
                           <ng-container *ngIf="!isLast && i < 2">, </ng-container>
                         </div>
                       </ng-container>
@@ -320,7 +320,7 @@
                     <td class="text-capitalize tutor-subject">
                       <ng-container *ngFor="let subject of tutor?.subjects; let isLast = last; let i = index">
                         <div *ngIf="i < 3">
-                          {{ 'CID' + subject?.id }} <span>({{ subject?.pricePerHour | metutorsMoney | async }})</span>
+                          {{ 'CID' + subject?.id }} <span>({{ +subject?.pricePerHour | metutorsMoney | async }})</span>
                           <ng-container *ngIf="!isLast && i < 2">, </ng-container>
                         </div>
                       </ng-container>
@@ -406,7 +406,7 @@
                     <td class="text-capitalize tutor-subject">
                       <ng-container *ngFor="let subject of tutor?.subjects; let isLast = last; let i = index">
                         <div *ngIf="i < 3">
-                          {{ 'CID' + subject?.id }} <span>({{ subject?.pricePerHour | metutorsMoney | async }})</span>
+                          {{ 'CID' + subject?.id }} <span>({{ +subject?.pricePerHour | metutorsMoney | async }})</span>
                           <ng-container *ngIf="!isLast && i < 2">, </ng-container>
                         </div>
                       </ng-container>
