@@ -1,8 +1,8 @@
 <metutors-tutor-navbar [layout]="(layout$ | async)" [user]="user$ | async" (logout)="logout()"></metutors-tutor-navbar>
 
-<div class="settings mt-4">
+<div class="settings mt-4 m-0-md-sm">
   <div class="row">
-    <div class="col-md-4">
+    <div class="col-lg-4">
       <div class="card overflow-hidden">
         <div class="card-body p-0">
           <ul class="list-unstyled m-0 h-100">
@@ -23,7 +23,7 @@
       </div>
     </div>
 
-    <div class="col-md-8" *ngLet="(tutor$ | async) as tutor">
+    <div class="col-lg-8 mt-15-md-sm" *ngLet="(tutor$ | async) as tutor">
       <metutors-tutor-settings-profile *ngIf="tab === 'MY_PROFILE'"
                                        [user]="(tutor$ | async)!"
                                        [isLoadingTutor]="(isLoadingTutor$ | async)!"

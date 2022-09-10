@@ -2,7 +2,7 @@
   Select available teaching hours
 
   <button mat-button (click)="unSelectAll()" type="button" *ngIf="selectedHoursList && selectedHoursList.length"
-    class="float-end reset-btn">Reset</button>
+    class="float-end reset-btn d-none d-sm-inline-block">Reset</button>
 </h2>
 <mat-dialog-content class="mat-typography">
   <div class="row">
@@ -16,10 +16,14 @@
 </mat-dialog-content>
 <mat-dialog-actions class="buttons">
   <ng-container *ngIf="selectedHoursList">
-    <mat-checkbox [checked]="selectedHoursList.length === hours.length"
-      (change)="selectedHoursList.length === hours.length ? unSelectAll() : selectAll()">
-      Select all
-    </mat-checkbox>
+    <div class="d-flex justify-content-between align-items-center mb-2 w-100-sm">
+      <mat-checkbox [checked]="selectedHoursList.length === hours.length"
+        (change)="selectedHoursList.length === hours.length ? unSelectAll() : selectAll()">
+        Select all
+      </mat-checkbox>
+      <button mat-button (click)="unSelectAll()" type="button" *ngIf="selectedHoursList && selectedHoursList.length"
+              class="float-end reset-btn d-inline-block d-sm-none">Reset</button>
+    </div>
   </ng-container>
 
   <div class="d-flex justify-content-end flex-grow-1">

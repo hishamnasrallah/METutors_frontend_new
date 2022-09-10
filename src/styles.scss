@@ -1119,6 +1119,10 @@ $ph-animation-duration: 0.8s !default;
     font-size: 30px !important;
   }
 
+  .m-0-md-sm {
+    margin: 0 !important;
+  }
+
   .p-0-md-sm {
     padding: 0 !important;
   }
@@ -1137,5 +1141,9 @@ $ph-animation-duration: 0.8s !default;
 
   .mt-15-md-sm {
     margin-top: 15px !important;
+  }
+
+  .flex-column-md-sm {
+    flex-direction: column !important;
   }
 }

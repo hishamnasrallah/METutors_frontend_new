@@ -83,7 +83,7 @@
   <div class="card complete-form mb-3">
     <form class="card-body" [formGroup]="personalInfoForm" (ngSubmit)="submitPersonalInfo(personalInfoForm)">
       <div class="d-flex justify-content-between align-items-center w-100 mb-4">
-        <h1 class="title">Personal Information</h1>
+        <h1 class="title f-size-18-md-sm">Personal Information</h1>
 
         <div>
           <metutors-submit-button [form]="personalInfoForm" [isSubmitting]="isUpdateProfile && selectedForm === 1"
@@ -273,7 +273,7 @@
   <div class="card complete-form mb-3">
     <form class="card-body" [formGroup]="qualificationForm" (ngSubmit)="submitQualificationDetails(qualificationForm)">
       <div class="d-flex justify-content-between align-items-center w-100 mb-4">
-        <h1 class="title">Qualification Details</h1>
+        <h1 class="title f-size-18-md-sm">Qualification Details</h1>
 
         <div>
           <metutors-submit-button [form]="qualificationForm" [isSubmitting]="isUpdateProfile && selectedForm === 2"
@@ -393,7 +393,7 @@
   <div class="card complete-form mb-3">
     <form class="card-body" [formGroup]="teachingForm" (ngSubmit)="submitTeachingSpecification(teachingForm)">
       <div class="d-flex justify-content-between align-items-center w-100 mb-4">
-        <h1 class="title">Teaching Preferences</h1>
+        <h1 class="title f-size-18-md-sm">Teaching Preferences</h1>
 
         <div>
           <metutors-submit-button [form]="teachingForm" [isSubmitting]="isUpdateProfile && selectedForm === 3"
@@ -422,8 +422,8 @@
         <div class="col-md-6">
           <div class="form-group">
             <label class="form-label">Tutoring Preferences</label>
-            <mat-radio-group class="d-flex flex-row mt-3" formControlName="typeOfTutoring">
-              <mat-radio-button [class.ms-3]="!isFirst" [value]="type.value"
+            <mat-radio-group class="d-flex flex-row mt-3 fw-bold flex-column-md-sm mt-15-sm" formControlName="typeOfTutoring">
+              <mat-radio-button [ngClass]="{'mt-15-md-sm ms-3': !isFirst}" class="m-0-md-sm" [value]="type.value"
                 *ngFor="let type of types | keyvalue: returnZero; let isFirst = first" [disabled]="type.key !== 'one'">
                 {{ type?.value }}
               </mat-radio-button>
@@ -454,7 +454,7 @@
             <label class="form-label">Available teaching days</label>
             <div class="list-days">
               <button type="button" mat-button [class.active]="selectedDays?.includes(i)" [disabled]="checkDisabledDays(day)"
-                *ngFor="let day of days; let i = index" (click)="onChangeDay(i)">{{ day }}</button>
+                *ngFor="let day of days; let i = index" (click)="onChangeDay(i)" class="w-100-md-sm">{{ day }}</button>
             </div>
           </div>
         </div>
@@ -464,7 +464,7 @@
 
   <div class="card complete-form">
     <div class="card-body">
-      <h1 class="title">Teaching Courses <br> <span>Contact this email <a href="mailto:support@metutors.com" target="_blank">support@metutors.com</a>, if you want to edit this information.</span></h1>
+      <h1 class="title f-size-18-md-sm">Teaching Courses <br> <span>Contact this email <a href="mailto:support@metutors.com" target="_blank">support@metutors.com</a>, if you want to edit this information.</span></h1>
 
       <div class="row mt-4" *ngIf="tutor?.sortedSubjects && tutor?.sortedSubjects?.length">
         <div class="col-md-12" *ngFor="let item of tutor?.sortedSubjects; let indexSubjects = index; let isLast = last"

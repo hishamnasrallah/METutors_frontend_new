@@ -209,3 +209,14 @@
     padding-left: 0;
   }
 }
+
+@media (min-width: 992px) and (max-width: 1450px) {
+  mat-radio-group {
+    flex-direction: column !important;
+
+    mat-radio-button {
+      margin: 0 !important;
+      margin-top: 15px !important;
+    }
+  }
+}
