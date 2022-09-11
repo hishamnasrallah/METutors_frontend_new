@@ -4,7 +4,7 @@
       <div class="row h-100">
         <div class="col-md-12 align-items-center">
           <form [formGroup]="form" class="w-100" (ngSubmit)="onSubmit(form)">
-            <div class="col-md-6">
+            <div class="col-xl-6">
               <h4 class="mb-4">Security Settings</h4>
 
               <div class="form-group">
@@ -33,13 +33,13 @@
                   Passwords do not match
                 </div>
               </div>
+            </div>
 
-              <div class="row btn-list mt-5 pt-3">
-                <div class="col-12 d-flex justify-content-end">
-                  <metutors-submit-button [form]="form" [isSubmitting]="isChanging">
-                    Update
-                  </metutors-submit-button>
-                </div>
+            <div class="row btn-list mt-5 pt-3">
+              <div class="col-12 d-flex justify-content-end">
+                <metutors-submit-button [form]="form" [isSubmitting]="isChanging">
+                  Update
+                </metutors-submit-button>
               </div>
             </div>
           </form>

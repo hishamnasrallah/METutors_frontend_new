@@ -4,7 +4,7 @@
       <metutors-grid-placeholder></metutors-grid-placeholder>
     </div>
 
-    <form #f="ngForm" class="account-settings" [formGroup]="form" (ngSubmit)="onSubmit(form)" *ngSwitchCase="false">
+    <form #f="ngForm" class="account-settings p-15-sm mt-15-sm" [formGroup]="form" (ngSubmit)="onSubmit(form)" *ngSwitchCase="false">
       <div class="avatar-block">
         <div class="row mb-3">
           <div class="col-md-12 d-flex">
@@ -35,7 +35,7 @@
         </div>
       </div>
       <div class="row mb-3 form-group">
-        <div class="col-md-6">
+        <div class="col-xl-6">
           <h3>First Name</h3>
           <input type="text" class="form-control custom-input input-bordered" placeholder="Kamran"
                  formControlName="first_name">
@@ -56,7 +56,7 @@
         </div>
       </div>
       <div class="row mb-3 form-group">
-        <div class="col-md-6">
+        <div class="col-xl-6">
           <h3>Last Name</h3>
           <input type="text" class="form-control custom-input input-bordered" placeholder="Khatti"
                  formControlName="last_name">
@@ -77,7 +77,7 @@
         </div>
       </div>
       <div class="row mb-3 form-group">
-        <div class="col-md-6">
+        <div class="col-xl-6">
           <h3>Email Address</h3>
           <input type="email" class="form-control custom-input input-bordered" placeholder="hello@gmail.com"
                  formControlName="email" readonly>
@@ -85,7 +85,7 @@
       </div>
 
       <div class="row mb-3 form-group">
-        <div class="col-md-6">
+        <div class="col-xl-6">
           <h3>Headline</h3>
           <input type="text" class="form-control custom-input input-bordered"
                  placeholder="Add a professional headline like, 'Student at harvard' " formControlName="headline">
@@ -93,7 +93,7 @@
       </div>
 
       <div class="row mb-3 form-group">
-        <div class="col-md-6">
+        <div class="col-xl-6">
           <h3>Country of Residence</h3>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="country" [placeholder]="'Choose Country'">
@@ -110,7 +110,7 @@
       </div>
 
       <div class="row mb-3 form-group">
-        <div class="col-md-6">
+        <div class="col-xl-6">
           <h3>Gender</h3>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="gender" [placeholder]="'Select your gender'">

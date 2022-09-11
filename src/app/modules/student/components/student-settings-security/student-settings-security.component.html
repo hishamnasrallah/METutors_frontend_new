@@ -1,10 +1,10 @@
-<div class="py-5 security-settings">
+<div class="py-5 security-settings p-15-sm mt-15-sm">
   <div class="row h-100">
     <div class="col-md-12 align-items-center">
       <form [formGroup]="form" class="w-100" (ngSubmit)="onSubmit(form)">
         <div>
           <div class="form-group">
-            <div class="col-md-6">
+            <div class="col-xl-6">
               <label for="oldPassword">Current Password</label>
               <input type="password" class="custom-input w-100 input-bordered" id="oldPassword"
                      placeholder="Type current password" formControlName="oldPassword">
@@ -15,7 +15,7 @@
           </div>
 
           <div class="form-group">
-            <div class="col-md-6">
+            <div class="col-xl-6">
               <label for="password">New Password</label>
               <input type="password" class="custom-input w-100 input-bordered" id="password"
                      placeholder="Type new password" formControlName="password">
@@ -26,7 +26,7 @@
           </div>
 
           <div class="form-group">
-            <div class="col-md-6">
+            <div class="col-xl-6">
               <label for="confirmPassword">Repeat New Password</label>
               <input type="password" class="custom-input w-100 input-bordered" id="confirmPassword"
                      placeholder="Confirm new password" formControlName="confirmPassword">
