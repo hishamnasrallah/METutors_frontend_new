@@ -212,7 +212,7 @@
                   <th class="heading" [attr.colspan]="item?.programId === nationalId ? '2' : '1'">
                     Program <span>
                       {{ item?.programName }}<ng-container *ngIf="item?.programId === nationalId">,
-                        {{ item?.countryName }}
+                        {{ item?.countryName }} <span *ngIf="item?.countryFlag" [innerHTML]="item?.countryFlag" class="ms-2"></span>
                       </ng-container>
                     </span>
                   </th>

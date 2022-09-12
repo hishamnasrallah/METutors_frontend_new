@@ -166,6 +166,9 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
           countryName: this.countries?.filter(
             (country: any) => country.id === item.countryId
           )[0]?.name,
+          countryFlag: this.countries?.filter(
+            (country: any) => country.id === item.countryId
+          )[0]?.flag,
           subjects: [
             {
               ...item,
@@ -201,6 +204,7 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
             fieldId: subject.fieldId,
             fieldName: subject.fieldName,
             countryName: subject.countryName,
+            countryFlag: subject.countryFlag,
             subjects: subject.subjects.map((sub: any, indexSub: number) =>
               indexSub === indexSubject
                 ? {
@@ -230,7 +234,7 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
       ...[
         ...this.programs.value[index].sortedSubjects[
           indexSubjects
-        ].subjects.filter((sub: any) => sub.pricePerHour),
+        ].subjects?.filter((sub: any) => sub.pricePerHour),
       ],
     ]?.flat(Infinity)?.length;
 
@@ -244,17 +248,23 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
     const selectedProgram = this.form.value.programs[index];
 
     if (selectedProgram?.programId?.id === this.nationalId) {
-      const list = this.fields.filter(
-        (field) =>
-          selectedProgram?.programId?.id === field.programId &&
-          selectedProgram.countries?.includes(field.countryId)
-      );
+      const list =
+        this.fields && this.fields?.length
+          ? this.fields.filter(
+              (field) =>
+                selectedProgram?.programId?.id === field.programId &&
+                selectedProgram.countries?.includes(field.countryId)
+            )
+          : [];
 
       if (list.length === 0) isNoData = true;
     } else {
-      const list = this.fields.filter(
-        (field) => selectedProgram?.programId?.id === field.programId
-      );
+      const list =
+        this.fields && this.fields?.length
+          ? this.fields.filter(
+              (field) => selectedProgram?.programId?.id === field.programId
+            )
+          : [];
 
       if (list.length === 0) isNoData = true;
     }
@@ -267,21 +277,27 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
     const selectedProgram = this.form.value.programs[index];
 
     if (selectedProgram?.programId?.id === this.nationalId) {
-      const list = this.subjects.filter(
-        (subject) =>
-          selectedProgram?.programId?.id === subject.programId &&
-          selectedProgram.fields?.includes(subject.fieldId) &&
-          selectedProgram.countries?.includes(subject.countryId) &&
-          selectedProgram.grades?.includes(subject.grade)
-      );
+      const list =
+        this.subjects && this.subjects?.length
+          ? this.subjects.filter(
+              (subject) =>
+                selectedProgram?.programId?.id === subject.programId &&
+                selectedProgram.fields?.includes(subject.fieldId) &&
+                selectedProgram.countries?.includes(subject.countryId) &&
+                selectedProgram.grades?.includes(subject.grade)
+            )
+          : [];
 
       if (list.length === 0) isNoData = true;
     } else {
-      const list = this.subjects.filter(
-        (subject) =>
-          selectedProgram?.programId?.id === subject.programId &&
-          selectedProgram.fields?.includes(subject.fieldId)
-      );
+      const list =
+        this.subjects && this.subjects?.length
+          ? this.subjects.filter(
+              (subject) =>
+                selectedProgram?.programId?.id === subject.programId &&
+                selectedProgram.fields?.includes(subject.fieldId)
+            )
+          : [];
 
       if (list.length === 0) isNoData = true;
     }

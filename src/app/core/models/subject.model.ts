@@ -50,7 +50,7 @@ export class ISubject {
       this.countryId = subject?.country_id || 0;
       this.fieldName = subject?.field_name || subject?.field?.name || '';
       this.field = subject?.field;
-      this.country = subject?.country;
+      this.country = subject?.subject?.country || subject?.country;
       this.grade = subject?.grade || 0;
       this.status = subject?.status || 0;
       this.availableTutorsCount = subject?.available_teachers_count || 0;

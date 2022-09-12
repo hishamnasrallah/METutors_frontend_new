@@ -126,6 +126,7 @@
                     <label>Program: </label> <span>
                       {{ form.value.programs[i]?.programId?.name }}<ng-container
                         *ngIf="form.value.programs[i]?.programId?.id === nationalId">, {{ item?.countryName }}
+                        <span *ngIf="item?.countryFlag" [innerHTML]="item?.countryFlag" class="ms-2"></span>
                       </ng-container>
                     </span>
                   </th>
