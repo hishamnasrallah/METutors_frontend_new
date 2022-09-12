@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
+import { NotAuthGuard } from '@metutor/core/guards';
 import { RouterModule, Routes } from '@angular/router';
 
 import {
   SigninComponent,
   SignupComponent,
+  AccessDeniedComponent,
   ConfirmEmailComponent,
   ResetPasswordComponent,
   ForgetPasswordComponent,
@@ -13,6 +15,7 @@ const routes: Routes = [
   {
     path: 'signin',
     component: SigninComponent,
+    canActivate: [NotAuthGuard],
     data: {
       layout: {
         title: 'Sign in - MEtutors',
@@ -24,6 +27,7 @@ const routes: Routes = [
   {
     path: 'signup',
     component: SignupComponent,
+    canActivate: [NotAuthGuard],
     data: {
       layout: {
         title: 'Sign up - MEtutors',
@@ -69,6 +73,17 @@ const routes: Routes = [
     data: {
       layout: {
         title: 'Confirm email - MEtutors',
+        showFooter: false,
+      },
+    },
+  },
+  {
+    path: 'access-denied',
+    component: AccessDeniedComponent,
+    data: {
+      layout: {
+        title: 'Access Denied - MEtutors',
+        showHeader: false,
         showFooter: false,
       },
     },
