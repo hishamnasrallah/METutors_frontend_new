@@ -4,7 +4,7 @@
       <div class="col-md-4">
         <h2 class="f-size-17-md-sm">Course Details</h2>
 
-        <h5 class="mt-4 mb-0 f-size-15-md-sm">Course ID: <span>CID123</span></h5>
+        <h5 class="mt-4 mb-0 f-size-15-md-sm">Course ID: <span>CID{{selectedCourse?.id}}</span></h5>
       </div>
       <div class="col-md-8 mt-15-sm">
         <div class="row">
@@ -135,9 +135,9 @@
           <div class="position-relative img-avatar">
             <img [src]="reviewInfo?.tutor?.avatar" meTutorsDefaultAvatar alt="" width="60px" height="60px">
             <!-- <svg class="position-absolute status" width="16" height="16" [ngClass]="{
-                      'is-online': reviewInfo?.tutor?.status === tutorStatus.online, 
-                      'is-busy': reviewInfo?.tutor?.status === tutorStatus.busy, 
-                      'is-offline': reviewInfo?.tutor?.status === tutorStatus.offline, 
+                      'is-online': reviewInfo?.tutor?.status === tutorStatus.online,
+                      'is-busy': reviewInfo?.tutor?.status === tutorStatus.busy,
+                      'is-offline': reviewInfo?.tutor?.status === tutorStatus.offline,
                       'is-away': reviewInfo?.tutor?.status === tutorStatus.away
                     }" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <circle cx="8" cy="8" r="7" fill="#949494" stroke="white" stroke-width="2" />

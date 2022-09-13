@@ -45,6 +45,7 @@ import {
 })
 export class ClassroomInfoFormComponent implements OnInit {
   @Input() form!: FormGroup;
+  @Input() selectedCourse!: any;
   @Input() price: number | null;
 
   @Output() onBack = new EventEmitter();

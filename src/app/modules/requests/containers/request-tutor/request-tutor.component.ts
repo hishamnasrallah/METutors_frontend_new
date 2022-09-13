@@ -54,6 +54,7 @@ export class RequestTutorComponent implements OnInit {
   step = 0;
   price: number;
   duration: number;
+  selectedCourse: any;
   reviewInfo: any = {};
   tutors: ITutor[] = [];
   classrooms!: IClass[];
@@ -287,8 +288,11 @@ export class RequestTutorComponent implements OnInit {
     );
   }
 
-  calculateEstimatedPrice(subjectId: string): void {
-    this._store.dispatch(fromCore.calculateEstimatedPrice({ subjectId }));
+  calculateEstimatedPrice(course: any): void {
+    this.selectedCourse = course;
+    this._store.dispatch(
+      fromCore.calculateEstimatedPrice({ subjectId: course.id })
+    );
     this.price$ = this._store.select(fromCore.selectEstimatedPrice).pipe(
       tap((price) => {
         if (price) {
@@ -328,7 +332,7 @@ export class RequestTutorComponent implements OnInit {
       const data = {
         program_id: this.courseInformationForm.value.courseProgram,
         field_of_study_id: this.courseInformationForm.value.courseField,
-        subject_id: this.courseInformationForm.value.subject,
+        subject_id: this.courseInformationForm.value.subject.id,
         language_id: this.courseInformationForm.value.language,
         class_rooms: appointments,
       };
@@ -372,6 +376,7 @@ export class RequestTutorComponent implements OnInit {
       ...this.courseInformationForm.value,
       ...this._generateClassroomForm(this.classroomDetailsForm.value),
       ...this.selectTutorForm.value,
+      subject: this.courseInformationForm.value.subject.id,
       programName: this.reviewInfo.courseProgram,
       fieldName: this.reviewInfo.courseField,
       tutoringLanguage: this.reviewInfo.languages,
@@ -433,7 +438,8 @@ export class RequestTutorComponent implements OnInit {
         this.reviewInfo.subject =
           this.subjects && this.subjects.length
             ? this.subjects.filter(
-                (sub) => sub?.id === +this.courseInformationForm.value.subject
+                (sub) =>
+                  sub?.id === +this.courseInformationForm.value.subject.id
               )[0]?.name
             : '';
 

@@ -39,6 +39,7 @@ import {
 })
 export class SelectTutorFormComponent implements OnInit {
   @Input() form!: FormGroup;
+  @Input() selectedCourse!: any;
   @Input() price: number | null;
   @Input() loading: boolean | null;
   @Input() hours: number | undefined;

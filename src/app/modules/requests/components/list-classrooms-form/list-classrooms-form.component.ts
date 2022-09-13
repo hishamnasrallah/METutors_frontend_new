@@ -62,6 +62,7 @@ import { FormValidationUtilsService } from '@metutor/core/validators';
 })
 export class ListClassroomsFormComponent implements OnInit {
   @Input() form!: FormGroup;
+  @Input() selectedCourse!: any;
   @Input() price: number | null;
 
   @Input() set classrooms(classes: IClass[] | undefined) {

@@ -7,8 +7,8 @@
           Choose your class schedule and select your <strong>FIRST</strong> class to start after <strong>
             {{ startingHoursLimit }} hours.</strong></h4>
 
-        <h5 class="mt-4">Course ID: <span>CID123</span></h5>
-        <h5 class="mb-0">Course Name: <span>Calculus</span></h5>
+        <h5 class="mt-4">Course ID: <span>CID{{ selectedCourse?.id }}</span></h5>
+        <h5 class="mb-0">Course Name: <span>{{ selectedCourse?.name }}</span></h5>
       </div>
       <div class="col-md-8 mt-15-sm">
         <div class="row">

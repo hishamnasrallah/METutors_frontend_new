@@ -1,6 +1,6 @@
 <div class="container request-tutor">
   <h1 class="f-size-20-md-sm">Course Booking</h1>
-  
+
   <mat-horizontal-stepper labelPosition="bottom" linear #stepper class="step{{ step + 1 }}">
     <mat-step [stepControl]="courseInformationForm">
       <form [formGroup]="courseInformationForm">
@@ -18,11 +18,11 @@
         </ng-template>
 
         <metutors-course-information-form [form]="courseInformationForm"
-                                          [fields]="fields$ | async" 
-                                          [programs]="programs$ | async" 
+                                          [fields]="fields$ | async"
+                                          [programs]="programs$ | async"
                                           [languages]="languages$ | async"
-                                          [subjects]="subjects$ | async" 
-                                          [countries]="countries$ | async" 
+                                          [subjects]="subjects$ | async"
+                                          [countries]="countries$ | async"
                                           (submitForm)="nextStep()"
                                           (changeCourseProgram)="fetchCourseField($event)"
                                           (changeCourseField)="fetchCourseFieldSubject($event)"
@@ -46,9 +46,10 @@
           </div>
         </ng-template>
 
-        <metutors-classroom-info-form [form]="classroomDetailsForm" 
-                                      [price]="price$ | async" 
+        <metutors-classroom-info-form [form]="classroomDetailsForm"
+                                      [price]="price$ | async"
                                       (onBack)="backStep()"
+                                      [selectedCourse]="selectedCourse"
                                       (submitForm)="nextStep(); generateClassRooms()">
         </metutors-classroom-info-form>
       </form>
@@ -69,11 +70,12 @@
           </div>
         </ng-template>
 
-        <metutors-list-classrooms-form [form]="classroomScheduleForm" 
-                                       [price]="price$ | async" 
+        <metutors-list-classrooms-form [form]="classroomScheduleForm"
+                                       [price]="price$ | async"
                                        [classrooms]="classrooms"
-                                       (onBack)="backStep()" 
-                                       (onNext)="nextStep()" 
+                                       (onBack)="backStep()"
+                                       (onNext)="nextStep()"
+                                       [selectedCourse]="selectedCourse"
                                        (updatedClassrooms)="updatedClassrooms($event)"
                                        (loadTutors)="loadTutors($event)">
         </metutors-list-classrooms-form>
@@ -95,15 +97,16 @@
           </div>
         </ng-template>
 
-        <metutors-select-tutor-form [form]="selectTutorForm" 
+        <metutors-select-tutor-form [form]="selectTutorForm"
                                     [classrooms]="classrooms"
                                     [duration]="duration"
                                     [loading]="loadingTutors$ | async"
-                                    [price]="price$ | async" 
+                                    [price]="price$ | async"
                                     [hours]="reviewInfo?.hours"
                                     [suggestedTutors]="suggestedTutors$ | async"
                                     [availableTutors]="availableTutors$ | async"
                                     (onBack)="backStep()"
+                                    [selectedCourse]="selectedCourse"
                                     (tutorAvailability)="onTutorAvailability($event)"
                                     (filterTutors)="filterTutors($event)"
                                     (changeSchedule)="onOpenChangeCourseScheduleModal($event)"
@@ -121,10 +124,11 @@
         </div>
       </ng-template>
 
-      <metutors-review-request [reviewInfo]="reviewInfo" 
+      <metutors-review-request [reviewInfo]="reviewInfo"
                                [isCreatingCourse]="isCreatingCourse$ | async"
                                [price]="price$ | async"
-                               (submitForm)="onSubmit()" 
+                               [selectedCourse]="selectedCourse"
+                               (submitForm)="onSubmit()"
                                (onBack)="backStep()">
       </metutors-review-request>
     </mat-step>

@@ -65,7 +65,7 @@ export class CourseInformationFormComponent implements OnInit {
 
   grades = GRADES;
   filePreview: any;
-  subjectId: string;
+  selectedCourse: any;
   nationalId = generalConstants.nationalId;
   textbookEditions = TEXTBOOK_EDITION_CONST;
   academicTutoringTextbook = AcademicTutoringTextbook;
@@ -147,7 +147,7 @@ export class CourseInformationFormComponent implements OnInit {
   }
 
   onChangeCourseProgram(): void {
-    this.subjectId = '';
+    this.selectedCourse = null;
     const programId = this.program?.value;
 
     this.changeCourseProgram.emit(programId);
@@ -174,7 +174,7 @@ export class CourseInformationFormComponent implements OnInit {
   }
 
   onChangeCourseField(): void {
-    this.subjectId = '';
+    this.selectedCourse = null;
     this.subject?.setValue(null);
     this.subject?.updateValueAndValidity();
 
@@ -184,9 +184,9 @@ export class CourseInformationFormComponent implements OnInit {
   }
 
   onChangeCourseSubject(): void {
-    this.subjectId = this.subject?.value;
+    this.selectedCourse = this.subject?.value;
 
-    this.changeCourseSubject.emit(this.subjectId);
+    this.changeCourseSubject.emit(this.selectedCourse);
   }
 
   onFileUpload(event: any): void {

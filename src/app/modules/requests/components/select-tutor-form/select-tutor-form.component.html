@@ -5,8 +5,8 @@
         <h2 class="f-size-17-md-sm">Tutor Information</h2>
         <h4 class="f-size-15-md-sm">select your tutor for this course</h4>
 
-        <h5 class="mt-4">Course ID: <span>CID123</span></h5>
-        <h5 class="mb-0">Course Name: <span>Calculus</span></h5>
+        <h5 class="mt-4">Course ID: <span>CID{{selectedCourse?.id}}</span></h5>
+        <h5 class="mb-0">Course Name: <span>{{selectedCourse?.name}}</span></h5>
       </div>
       <div class="col-md-8 mt-15-sm">
         <ng-container *ngIf="!loading">
@@ -23,9 +23,9 @@
                       <div class="position-relative img-avatar">
                         <img [src]="tutor?.avatar" meTutorsDefaultAvatar alt="" width="60px" height="60px">
                         <!-- <svg class="position-absolute status" width="16" height="16" [ngClass]="{
-                          'is-online': tutor?.status === tutorStatus.online, 
-                          'is-busy': tutor?.status === tutorStatus.busy, 
-                          'is-offline': tutor?.status === tutorStatus.offline, 
+                          'is-online': tutor?.status === tutorStatus.online,
+                          'is-busy': tutor?.status === tutorStatus.busy,
+                          'is-offline': tutor?.status === tutorStatus.offline,
                           'is-away': tutor?.status === tutorStatus.away
                         }" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="8" cy="8" r="7" fill="#949494" stroke="white" stroke-width="2" />
@@ -76,9 +76,9 @@
                     <div class="position-relative img-avatar">
                       <img [src]="tutor?.avatar" meTutorsDefaultAvatar alt="" width="60px" height="60px">
                       <!-- <svg class="position-absolute status" width="16" height="16" [ngClass]="{
-                          'is-online': tutor?.status === tutorStatus.online, 
-                          'is-busy': tutor?.status === tutorStatus.busy, 
-                          'is-offline': tutor?.status === tutorStatus.offline, 
+                          'is-online': tutor?.status === tutorStatus.online,
+                          'is-busy': tutor?.status === tutorStatus.busy,
+                          'is-offline': tutor?.status === tutorStatus.offline,
                           'is-away': tutor?.status === tutorStatus.away
                         }" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="8" cy="8" r="7" fill="#949494" stroke="white" stroke-width="2" />
