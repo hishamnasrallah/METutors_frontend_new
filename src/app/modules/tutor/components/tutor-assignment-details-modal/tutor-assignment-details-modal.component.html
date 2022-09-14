@@ -32,7 +32,7 @@
           <div class="d-flex justify-content-between">
             <h3>{{ view?.assignment?.title }}</h3>
             <div class="overflow-visible">
-              <metutors-user-avatar [avatar]="imageUrl+assignee?.avatar" [type]="'small'"
+              <metutors-user-avatar [avatar]="assignee?.avatar" [type]="'small'"
                                     *ngFor="let assignee of view?.assignment?.assignees"
                                     class="d-block"></metutors-user-avatar>
             </div>
@@ -41,12 +41,12 @@
             <div class="col-md-3 d-flex menu align-items-center">
               <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
               <strong>Start: </strong>
-              <span>{{ view?.assignment?.startDate | date: 'MMMM d y' }}</span>
+              <span>{{ view?.assignment?.startDate | date}}</span>
             </div>
             <div class="col-md-3 d-flex menu align-items-center">
               <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
               <strong>Deadline: </strong>
-              <span>{{ view?.assignment?.deadline | date: 'MMMM d y' }}</span>
+              <span>{{ view?.assignment?.deadline | date }}</span>
             </div>
             <div class="col-md-4 d-flex menu align-items-center">
               <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">

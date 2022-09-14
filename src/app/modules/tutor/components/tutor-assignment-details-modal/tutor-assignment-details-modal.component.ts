@@ -18,7 +18,6 @@ export class TutorAssignmentDetailsModalComponent implements OnInit {
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
   @Output() deleteAssignment: EventEmitter<number> = new EventEmitter<number>();
 
-  imageUrl = environment.imageURL;
   view$: Observable<{ loading: boolean; assignment: any }>;
 
   constructor(private _store: Store<any>) {}

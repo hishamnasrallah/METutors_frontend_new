@@ -24,6 +24,9 @@ export class TutorSettingsSecurityComponent implements OnInit {
   @Output() submitForm = new EventEmitter();
 
   form: FormGroup;
+  newPasswordVisibility = false;
+  repeatPasswordVisibility = false;
+  currentPasswordVisibility = false;
 
   constructor(
     private _fb: FormBuilder,
