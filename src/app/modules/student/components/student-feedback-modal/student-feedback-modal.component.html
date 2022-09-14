@@ -10,7 +10,7 @@
               <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
 
               <metutors-send-feedback [messageLabel]="messageLabel" [feedbackOptions]="view?.feedbackOptions"
-                                      [isSubmitting]="(submittingFeedback$ | async)!" [form]="form"
+                                      [isSubmitting]="(submittingFeedback$ | async)!" [form]="form" [buttonLabel]="buttonLabel"
                                       (submitFeedback)="submitFeedback.emit(form)" *ngSwitchCase="false">
               </metutors-send-feedback>
             </ng-container>
