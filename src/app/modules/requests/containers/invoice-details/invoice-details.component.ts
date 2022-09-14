@@ -48,9 +48,8 @@ export class InvoiceDetailsComponent implements OnInit {
   }
 
   saveCourse(user: IUser, classroom: IClassroom): void {
-    console.log('its here');
-    this.showModal = true;
-    return;
+    // this.showModal = true;
+    // return;
 
     if (user) {
       const data = {
