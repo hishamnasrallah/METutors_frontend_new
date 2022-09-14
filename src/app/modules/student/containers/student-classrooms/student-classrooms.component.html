@@ -1,14 +1,14 @@
 <metutors-student-navbar [layout]="(layout$ | async)" [user]="user$ | async"></metutors-student-navbar>
 
-<div class="classroom">
+<div class="classroom p-15-md-sm">
   <div class="row" *ngLet="(view$ | async) as view">
     <div class="col-12">
       <div class="flex mb-3 codes" *ngIf="view?.programs && view?.programs.length">
-        <span class="fw-bold cursor-pointer position-relative"
+        <span class="fw-bold cursor-pointer position-relative f-size-15-md-sm"
               [class.active]="programId === null"
               (click)=" programId = null; countryId = null; fieldId = null; loadClassroom({});">All</span>
         <ng-container *ngFor="let program of view?.programs">
-          <span class="fw-bold cursor-pointer position-relative"
+          <span class="fw-bold cursor-pointer position-relative f-size-15-md-sm"
                 [class.active]="programId === program?.id" *ngIf="+program.id !== nationalId"
                 (click)=" countryId = null; programId = program?.id; fieldId = null; loadClassroom({program: program?.id});">{{ program?.code }}</span>
 
@@ -27,15 +27,15 @@
       </div>
 
       <ng-container *ngIf="view?.fieldOfStudies && view?.fieldOfStudies.length">
-        <button mat-button class="class-btn main-button-transparent text-uppercase mb-1" [class.active]="!fieldId"
+        <button mat-button class="class-btn main-button-transparent text-uppercase mb-1 f-size-15-md-sm" [class.active]="!fieldId"
                 (click)="loadClassroom({program: programId}); fieldId = null">All</button>
-        <button mat-button class="class-btn main-button-transparent text-uppercase mb-1"
+        <button mat-button class="class-btn main-button-transparent text-uppercase mb-1 f-size-15-md-sm"
                 *ngFor="let field of view?.fieldOfStudies" [class.active]="fieldId === field?.id"
                 (click)="loadClassroom({program: programId, field_of_study: field?.id}); fieldId = field?.id">{{ field?.name }}</button>
       </ng-container>
     </div>
     <div class="col-12">
-      <h2 class="title cursor-pointer d-flex align-items-center" (click)="openNewlyAssigned = !openNewlyAssigned">
+      <h2 class="title cursor-pointer d-flex align-items-center f-size-18-md-sm mt-15-md-sm" (click)="openNewlyAssigned = !openNewlyAssigned">
         <span class="flex-grow-1">Last Activity</span>
         <img src="assets/svg/arrow-up.svg" [class.rotate-180]="openNewlyAssigned" draggable="false" width="30px"
              height="30" alt="" />
@@ -57,7 +57,7 @@
             <div class="col-md-12 mb-3" *ngIf="!view.lastActivityCourse">
               <div class="card no-data">
                 <div class="card-body">
-                  <h3 class="text-center m-0">No course found!</h3>
+                  <h3 class="text-center m-0 f-size-17-md-sm">No course found!</h3>
                 </div>
               </div>
             </div>
@@ -67,7 +67,7 @@
     </div>
 
     <div class="col-12">
-      <h2 class="title cursor-pointer d-flex align-items-center" (click)="openActive = !openActive">
+      <h2 class="title cursor-pointer d-flex align-items-center f-size-18-md-sm mt-15-md-sm" (click)="openActive = !openActive">
         <span class="flex-grow-1">Active Courses</span>
         <img src="assets/svg/arrow-up.svg" [class.rotate-180]="openActive" draggable="false" width="30px" height="30"
              alt="" />
@@ -91,7 +91,7 @@
             <div class="col-md-12 mb-3" *ngIf="!view.activeCourses || !view.activeCourses.length">
               <div class="card no-data">
                 <div class="card-body">
-                  <h3 class="text-center m-0">No course found!</h3>
+                  <h3 class="text-center m-0 f-size-17-md-sm">No course found!</h3>
                 </div>
               </div>
             </div>
@@ -101,7 +101,7 @@
     </div>
 
     <div class="col-12">
-      <h2 class="title cursor-pointer d-flex align-items-center" (click)="openCompleted = !openCompleted">
+      <h2 class="title cursor-pointer d-flex align-items-center f-size-18-md-sm mt-15-md-sm" (click)="openCompleted = !openCompleted">
         <span class="flex-grow-1">Completed Courses</span>
         <img src="assets/svg/arrow-up.svg" [class.rotate-180]="openCompleted" draggable="false" width="30px" height="30"
              alt="" />
@@ -121,7 +121,7 @@
             <div class="col-md-12 mb-3" *ngIf="!view.completedCourses || !view.completedCourses.length">
               <div class="card no-data">
                 <div class="card-body">
-                  <h3 class="text-center m-0">No course found!</h3>
+                  <h3 class="text-center m-0 f-size-17-md-sm">No course found!</h3>
                 </div>
               </div>
             </div>

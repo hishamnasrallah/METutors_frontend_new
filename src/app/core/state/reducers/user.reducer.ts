@@ -87,11 +87,13 @@ export const reducer = createReducer(
   on(userActions.signIn, (state) => ({
     ...state,
     isSignIn: true,
+    signInFailure: '',
   })),
 
   on(userActions.socialSignIn, (state) => ({
     ...state,
     isSocialSignIn: true,
+    signInFailure: '',
   })),
 
   on(userActions.signInSuccess, (state, { token, profileStep, user }) => ({
@@ -103,6 +105,7 @@ export const reducer = createReducer(
     user,
     tempToken: undefined,
     isSubmitOTPAdmin: false,
+    signInFailure: '',
   })),
 
   on(userActions.signInAdminSuccess, (state, { tempToken, user }) => ({
@@ -111,6 +114,7 @@ export const reducer = createReducer(
     isSocialSignIn: false,
     tempToken,
     user,
+    signInFailure: '',
   })),
 
   on(userActions.signInFailure, (state, { error }) => ({
@@ -124,11 +128,13 @@ export const reducer = createReducer(
   on(userActions.submitOTPAdmin, (state) => ({
     ...state,
     isSubmitOTPAdmin: true,
+    signInFailure: '',
   })),
 
   on(userActions.resendOTPAdmin, (state) => ({
     ...state,
     isResendOTPAdmin: true,
+    signInFailure: '',
   })),
 
   on(
@@ -137,6 +143,7 @@ export const reducer = createReducer(
     (state) => ({
       ...state,
       isResendOTPAdmin: false,
+      signInFailure: '',
     })
   ),
 

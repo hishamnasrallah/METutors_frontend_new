@@ -59,6 +59,21 @@ export const updateTutorPreferencesFailure = createAction(
   props<{ error: any }>()
 );
 
+export const updateTutorProfileRates = createAction(
+  '[Tutor] Update Tutor Profile Rates',
+  props<{ data: any }>()
+);
+
+export const updateTutorProfileRatesSuccess = createAction(
+  '[Tutor] Update Tutor Profile Rates Success',
+  props<{ message: string; profileTutor: ITutor }>()
+);
+
+export const updateTutorProfileRatesFailure = createAction(
+  '[Tutor] Update Tutor Profile Rates Failure',
+  props<{ error: any }>()
+);
+
 // Change tutor status
 export const changeTutorStatus = createAction(
   '[Tutor] Change Tutor Status',

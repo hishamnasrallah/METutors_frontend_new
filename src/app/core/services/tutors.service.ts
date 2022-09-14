@@ -27,6 +27,10 @@ export class TutorsService {
     return this.http.post<any>(`${this.baseUrl}teacher/preferences`, data);
   }
 
+  updateTeacherProfileRates(data: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}teacher/update-rates`, data);
+  }
+
   changeTutorStatus(
     tutorId: number,
     status: string,

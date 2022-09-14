@@ -29,7 +29,6 @@ import {
   InterviewStatus,
   COMPUTER_SKILLS,
   SORTED_DAYS_WEEK,
-  generalConstants,
   calculateListDays,
   TEACHING_EXPERIENCE,
   convertTimeToDateISO,
@@ -138,10 +137,11 @@ export class TutorSettingsProfileComponent implements OnInit {
 
   @Output() submitForm = new EventEmitter();
   @Output() submitInterview = new EventEmitter();
+  @Output() updateRatesForm = new EventEmitter();
   @Output() changeCover = new EventEmitter<File>();
-  @Output() joinMeeting = new EventEmitter<number>();
   @Output() loadCities = new EventEmitter<string>();
   @Output() changeAvatar = new EventEmitter<File>();
+  @Output() joinMeeting = new EventEmitter<number>();
 
   tutor: ITutor;
   isAvatar: boolean;
@@ -164,7 +164,6 @@ export class TutorSettingsProfileComponent implements OnInit {
   experiences = TEACHING_EXPERIENCE;
   interviewStatus = InterviewStatus;
   types = COURSE_TUITION_TYPES_CONST;
-  nationalId = generalConstants.nationalId;
 
   constructor(
     private _fb: FormBuilder,
@@ -637,6 +636,19 @@ export class TutorSettingsProfileComponent implements OnInit {
       };
 
       this.submitForm.emit(data);
+    }
+  }
+
+  submitTeachingCourses(form: FormGroup): void {
+    if (form.valid) {
+      this.selectedForm = 4;
+
+      const data = form.value.subjects?.map((subject: any) => ({
+        id: subject?.id,
+        hourly_rate: +subject?.pricePerHour,
+      }));
+
+      this.updateRatesForm.emit(data);
     }
   }
 }

@@ -5,7 +5,7 @@ import camelcaseKeys from 'camelcase-keys';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
+import { catchError, map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
 
 import { AuthService } from '@services';
 import * as fromRoot from '@metutor/state';
@@ -366,6 +366,16 @@ export class UserEffects {
     {
       dispatch: false,
     }
+  );
+
+  loadCurrencyRates$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(userActions.logoutSuccess),
+      switchMap((_) => [
+        fromCore.loadCurrencyRates(),
+        fromCore.loadCurrenciesNames(),
+      ])
+    )
   );
 
   changePassword$ = createEffect(() =>

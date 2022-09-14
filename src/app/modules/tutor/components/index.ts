@@ -20,3 +20,4 @@ export * from './tutor-settings-payment-information';
 export * from './tutor-submit-interview-request-modal';
 export * from './tutor-accept-reject-assignment-modal';
 export * from './tutor-view-submitted-assignment-modal';
+export * from './tutor-settings-profile-teaching-courses';

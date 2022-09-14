@@ -96,6 +96,29 @@ export class TutorEffects {
     )
   );
 
+  updateTutorProfileRates$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorActions.updateTutorProfileRates),
+      mergeMap(({ data }) =>
+        this._tutorService.updateTeacherProfileRates(data).pipe(
+          map((response) =>
+            tutorActions.updateTutorProfileRatesSuccess({
+              message: response?.message,
+              profileTutor: new ITutor(false, response?.user),
+            })
+          ),
+          catchError((error) =>
+            of(
+              tutorActions.updateTutorProfileRatesFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   loadTutors$ = createEffect(() =>
     this._actions$.pipe(
       ofType(tutorActions.loadTutors),
@@ -616,6 +639,7 @@ export class TutorEffects {
             tutorActions.tutorSubmitFeedbackSuccess,
             tutorActions.tutorRescheduleClassSuccess,
             tutorActions.updateTutorPreferencesSuccess,
+            tutorActions.updateTutorProfileRatesSuccess,
             tutorActions.tutorSubmitPlatformFeedbackSuccess,
           ]
         ),
@@ -639,6 +663,7 @@ export class TutorEffects {
             tutorActions.completeTutorProfileFailure,
             tutorActions.tutorRescheduleClassFailure,
             tutorActions.updateTutorPreferencesFailure,
+            tutorActions.updateTutorProfileRatesFailure,
             tutorActions.tutorSubmitPlatformFeedbackFailure,
           ]
         ),

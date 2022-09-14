@@ -1,10 +1,9 @@
-import { createReducer, on } from '@ngrx/store';
-
 import { ITutor } from '@models';
+import { TutorStatus } from '@metutor/config';
+import { createReducer, on } from '@ngrx/store';
 import * as tutorActions from '../actions/tutor.actions';
 import * as uploadActions from '../actions/upload.actions';
 import * as courseActions from '../actions/course.actions';
-import { TutorStatus } from '@metutor/config';
 
 export interface State {
   dashboard: any;
@@ -329,17 +328,22 @@ export const reducer = createReducer(
   on(
     tutorActions.updateTutorProfile,
     tutorActions.updateTutorPreferences,
+    tutorActions.updateTutorProfileRates,
     (state) => ({
       ...state,
       isUpdateTutorProfile: true,
     })
   ),
 
-  on(tutorActions.updateTutorProfileSuccess, (state, { profileTutor }) => ({
-    ...state,
-    isUpdateTutorProfile: false,
-    profileTutor,
-  })),
+  on(
+    tutorActions.updateTutorProfileSuccess,
+    tutorActions.updateTutorProfileRatesSuccess,
+    (state, { profileTutor }) => ({
+      ...state,
+      isUpdateTutorProfile: false,
+      profileTutor,
+    })
+  ),
 
   on(tutorActions.updateTutorPreferencesSuccess, (state, { preferences }) => ({
     ...state,
@@ -352,6 +356,7 @@ export const reducer = createReducer(
   on(
     tutorActions.updateTutorProfileFailure,
     tutorActions.updateTutorPreferencesFailure,
+    tutorActions.updateTutorProfileRatesFailure,
     (state, { error }) => ({
       ...state,
       isUpdateTutorProfile: false,

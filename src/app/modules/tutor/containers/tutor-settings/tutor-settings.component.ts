@@ -141,6 +141,14 @@ export class TutorSettingsComponent implements OnInit {
     this._store.dispatch(fromCore.updateTutorProfile({ data }));
   }
 
+  onUpdateRatesForm(tutor: ITutor, data: any): void {
+    if (tutor?.interviewRequest?.status) {
+      return;
+    }
+
+    this._store.dispatch(fromCore.updateTutorProfileRates({ data }));
+  }
+
   onChangeTutorAvatar(file: any): void {
     this.isAvatar = true;
     this._store.dispatch(

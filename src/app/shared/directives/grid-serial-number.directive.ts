@@ -11,7 +11,6 @@ export class GridSerialNumberDirective {
   };
 
   constructor(private _el: ElementRef) {
-    console.log(this.params);
     this._el.nativeElement.innerHTML = 5;
   }
 }

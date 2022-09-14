@@ -1,12 +1,12 @@
 <metutors-tutor-navbar [layout]="(layout$ | async)" [user]="user$ | async" (logout)="logout()"></metutors-tutor-navbar>
 
-<div class="dashboard">
+<div class="dashboard p-15-md-sm">
   <ng-container *ngLet="(view$ | async) as view">
     <div class="row">
       <div class="col-md-6">
-        <h2 class="overview">Overview</h2>
+        <h2 class="overview f-size-18-md-sm">Overview</h2>
         <p class="desc">
-          See insights on how your Progress has changed from last <strong>{{insightRange[range]}}</strong>
+          See insights on how your Progress has changed from last <strong>{{ insightRange[range] }}</strong>
         </p>
       </div>
       <div class="col-md-6">
@@ -127,7 +127,7 @@
 
     <div class="row">
       <div class="col-12">
-        <h2 class="overview mt-5">Newly Assigned Courses</h2>
+        <h2 class="overview mt-5 f-size-18-md-sm mt-15-md-sm">Newly Assigned Courses</h2>
       </div>
       <div class="col-12">
         <ng-container [ngSwitch]="view.loading">
@@ -151,7 +151,7 @@
 
     <div class="row">
       <div class="col-12">
-        <h2 class="overview mt-5 mb-3">
+        <h2 class="overview mt-5 mb-3 f-size-18-md-sm mt-15-md-sm">
           Kudos Points Details
 
           <span class="float-end view-all text-main cursor-pointer" (click)="onOpenKudosPointsModal()">

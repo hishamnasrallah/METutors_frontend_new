@@ -38,7 +38,8 @@
                                        (changeAvatar)="onChangeTutorAvatar($event)"
                                        (changeCover)="onChangeTutorCover($event)"
                                        (submitInterview)="onOpenSubmitInterview()"
-                                       (joinMeeting)="onJoinMeeting($event)">
+                                       (joinMeeting)="onJoinMeeting($event)"
+                                       (updateRatesForm)="onUpdateRatesForm(tutor, $event)">
       </metutors-tutor-settings-profile>
 
       <metutors-tutor-settings-security *ngIf="tab === 'SECURITY_SETTINGS'"

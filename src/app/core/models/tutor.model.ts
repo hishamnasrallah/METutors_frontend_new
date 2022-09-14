@@ -226,7 +226,7 @@ export function sortSubjects(subjects?: ISubject[]): any[] {
 
       output[existingIndex].subjects = [
         ...output[existingIndex].subjects,
-        { ...item },
+        { ...item, gradeName: GRADES[item.grade - 1] },
       ];
     } else {
       output.push({

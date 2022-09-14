@@ -75,6 +75,7 @@ import {
   TutorAcceptRejectAssignmentModalComponent,
   TutorSubmitInterviewRequestModalComponent,
   TutorViewSubmittedAssignmentModalComponent,
+  TutorSettingsProfileTeachingCoursesComponent,
 } from './components';
 
 @NgModule({
@@ -118,6 +119,7 @@ import {
     TutorAcceptRejectAssignmentModalComponent,
     TutorSubmitInterviewRequestModalComponent,
     TutorViewSubmittedAssignmentModalComponent,
+    TutorSettingsProfileTeachingCoursesComponent,
   ],
   imports: [
     FormsModule,

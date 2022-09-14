@@ -1,10 +1,10 @@
 <metutors-student-navbar [layout]="(layout$ | async)" [user]="user$ | async"></metutors-student-navbar>
 
-<div class="dashboard">
+<div class="dashboard p-15-md-sm">
   <ng-container *ngLet="(view$ | async) as view">
     <div class="row">
       <div class="col-md-6">
-        <h2 class="overview">Overview</h2>
+        <h2 class="overview f-size-18-md-sm">Overview</h2>
         <p class="desc">
           See insights on how your Progress has changed from <strong>{{ insightRange[range] }}</strong>
         </p>
@@ -39,9 +39,9 @@
               <h3>Overall Progress</h3>
               <h1 class="flex-grow-1">
                 {{ view.dashboard.totalProgress}}%
-                <span [ngClass]="{'danger': view.dashboard?.totalProgressGrowth < 0}">{{ view.dashboard?.totalProgressGrowth >= 0 ? '+'+view.dashboard?.totalProgressGrowth : view.dashboard?.totalProgressGrowth}}%</span>
+                <span [ngClass]="{'danger': view.dashboard?.totalProgressGrowth < 0}">{{ view.dashboard?.totalProgressGrowth >= 0 ? '+'+view.dashboard?.totalProgressGrowth : view.dashboard?.totalProgressGrowth }}%</span>
               </h1>
-              <p>Compared to ({{ view.dashboard?.totalProgressLastCount}}% last {{ insightRange[range]}})</p>
+              <p>Compared to ({{ view.dashboard?.totalProgressLastCount }}% last {{ insightRange[range] }})</p>
               <mat-progress-bar class="example-margin" [color]="'primary'" [value]="view.dashboard.totalProgress">
               </mat-progress-bar>
             </div>
@@ -52,10 +52,10 @@
             <div class="card-body d-flex flex-column">
               <h3>Total Completed Courses</h3>
               <h1 class="flex-grow-1">
-                {{ view.dashboard.totalCompletedCourses}}
-                <span [ngClass]="{'danger': view.dashboard?.completedCoursesGrowth < 0}">{{ view.dashboard?.completedCoursesGrowth >= 0 ? '+'+view.dashboard?.completedCoursesGrowth : view.dashboard?.completedCoursesGrowth}}%</span>
+                {{ view.dashboard.totalCompletedCourses }}
+                <span [ngClass]="{'danger': view.dashboard?.completedCoursesGrowth < 0}">{{ view.dashboard?.completedCoursesGrowth >= 0 ? '+'+view.dashboard?.completedCoursesGrowth : view.dashboard?.completedCoursesGrowth }}%</span>
               </h1>
-              <p>Compared to {{ view.dashboard?.completedCoursesLastCount }} courses last {{ insightRange[range]}}</p>
+              <p>Compared to {{ view.dashboard?.completedCoursesLastCount }} courses last {{ insightRange[range] }}</p>
             </div>
           </div>
         </div>
@@ -64,10 +64,10 @@
             <div class="card-body d-flex flex-column">
               <h3>Attendance rate</h3>
               <h1 class="flex-grow-1">
-                {{ view?.dashboard?.attendenceRate}}%
-                <span [ngClass]="{'danger': view.dashboard?.attendenceGrowth < 0}">{{ view.dashboard?.attendenceGrowth >= 0 ? '+'+view.dashboard?.attendenceGrowth : view.dashboard?.attendenceGrowth}}%</span>
+                {{ view?.dashboard?.attendenceRate }}%
+                <span [ngClass]="{'danger': view.dashboard?.attendenceGrowth < 0}">{{ view.dashboard?.attendenceGrowth >= 0 ? '+'+view.dashboard?.attendenceGrowth : view.dashboard?.attendenceGrowth }}%</span>
               </h1>
-              <p>Compared to ({{ view.dashboard?.attendenceRateLastCount}}% last {{ insightRange[range]}})</p>
+              <p>Compared to ({{ view.dashboard?.attendenceRateLastCount }}% last {{ insightRange[range] }})</p>
             </div>
           </div>
         </div>
@@ -79,7 +79,7 @@
                 {{ view?.dashboard?.totalPayment | metutorsMoney | async }}
                 <span [ngClass]="{'danger': view.dashboard?.paymentGrowth < 0}">{{ view.dashboard?.paymentGrowth >= 0 ? '+'+view.dashboard?.paymentGrowth : view.dashboard?.paymentGrowth}}%</span>
               </h1>
-              <p>Compared to ({{view.dashboard?.paymentLastCount | metutorsMoney | async }} last {{ insightRange[range]}})</p>
+              <p>Compared to ({{ view.dashboard?.paymentLastCount | metutorsMoney | async }} last {{ insightRange[range] }})</p>
             </div>
           </div>
         </div>
@@ -89,7 +89,7 @@
 
     <div class="row">
       <div class="col-12">
-        <h3 class="overview mb-3">Today's Classes - {{ view.dashboard?.todaysDate }}</h3>
+        <h3 class="overview mb-3 f-size-18-md-sm mt-15-md-sm">Today's Classes - {{ view.dashboard?.todaysDate }}</h3>
         <ng-container [ngSwitch]="view.loading">
           <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
           <table class="table my-table" *ngSwitchCase="false">
@@ -138,8 +138,8 @@
     </div>
     <div class="row">
       <div class="col-12">
-        <h2 class="overview mt-5">Completed courses</h2>
-        <p class="desc">Quickly see Completed courses from <strong>{{ insightRange[range]}}</strong></p>
+        <h2 class="overview mt-5 f-size-18-md-sm mt-15-md-sm">Completed courses</h2>
+        <p class="desc">Quickly see Completed courses from <strong>{{ insightRange[range] }}</strong></p>
       </div>
       <div class="col-12">
         <div class="card">
