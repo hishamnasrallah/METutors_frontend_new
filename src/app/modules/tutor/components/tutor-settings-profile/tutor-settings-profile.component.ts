@@ -643,10 +643,12 @@ export class TutorSettingsProfileComponent implements OnInit {
     if (form.valid) {
       this.selectedForm = 4;
 
-      const data = form.value.subjects?.map((subject: any) => ({
-        id: subject?.id,
-        hourly_rate: +subject?.pricePerHour,
-      }));
+      const data = {
+        subjects: form.value.subjects?.map((subject: any) => ({
+          id: subject?.id,
+          hourly_rate: +subject?.pricePerHour,
+        })),
+      };
 
       this.updateRatesForm.emit(data);
     }
