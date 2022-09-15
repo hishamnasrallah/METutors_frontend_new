@@ -35,6 +35,7 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
             fieldName: item?.fieldName,
             programId: item?.programId,
             countryId: item?.countryId,
+            countryFlag: item?.country?.flag,
             grade: item?.grade,
             subjects: [{ ...item }],
           });

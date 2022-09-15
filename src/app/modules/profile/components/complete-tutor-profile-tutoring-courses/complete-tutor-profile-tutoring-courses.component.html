@@ -80,6 +80,7 @@
                   <!--  &&
                       form.value.programs[i].grades?.includes(field.grade) -->
                     {{ field?.name }}
+                    <!-- <span *ngIf="form.value.programs[i]?.programId?.id === nationalId && sub?.countryFlag" [innerHTML]="sub?.countryFlag" class="ms-2"></span> -->
                   </mat-option>
                 </ng-container>
               </mat-select>
@@ -92,6 +93,7 @@
               <mat-select formControlName="subjects" [placeholder]="'Select Subject'" (selectionChange)="onChange(i)"
                           multiple *ngIf="!checkIfNoSubjectsExists(i)">
                 <ng-container *ngFor="let subject of subjects">
+                  <!-- + subject?.countryFlag -->
                   <mat-optgroup [label]="subject.fieldName" *ngIf="
                     (
                       form.value.programs[i]?.programId?.id !== nationalId &&
@@ -107,7 +109,10 @@
                     )
                   ">
                     <mat-option *ngFor="let sub of subject.subjects" [value]="sub">
-                      {{ sub?.name }} <ng-container *ngIf="form.value.programs[i]?.programId?.id === nationalId && sub?.grade">({{ grades[sub?.grade - 1] }})</ng-container>
+                      {{ sub?.name }}
+                      <ng-container *ngIf="form.value.programs[i]?.programId?.id === nationalId && sub?.grade">
+                        ({{ grades[sub?.grade - 1] }})
+                      </ng-container>
                     </mat-option>
                   </mat-optgroup>
                 </ng-container>
