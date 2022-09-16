@@ -92,11 +92,16 @@
           </div>
 
           <div class="row" *ngIf="classroom?.teacher && isStudent">
-            <div class="overflow-visible logos">
+            <metutors-user-avatar [avatar]="classroom?.teacher?.avatar" [type]="'small'" [showRating]="true"
+                                  [rating]="classroom?.teacher?.averageRating" [tagLine]=" classroom?.teacher?.tagLine"
+                                  [name]="classroom?.teacher?.firstName+' ' + classroom?.teacher?.lastName"
+                                  class="d-block"></metutors-user-avatar>
+            <!--<div class="overflow-visible logos">
               <img meTutorsDefaultAvatar [src]="classroom?.teacher?.avatar"
                    alt="" draggable="false" class="d-inline-block rounded-circle">
-               <span class="m-lg-1"> {{ classroom?.teacher?.firstName }} {{ classroom?.teacher?.lastName }}</span>
-            </div>
+               <p class="m-lg-1"> {{ classroom?.teacher?.firstName }} {{ classroom?.teacher?.lastName }}</p>
+               <span class="m-lg-1 text-truncate"> {{ classroom?.teacher?.tagLine }}</span>
+            </div>-->
           </div>
         </div>
         <div class="col-md-4 in-progress" *ngIf="classroom && classroom.hasOwnProperty('progress')">
