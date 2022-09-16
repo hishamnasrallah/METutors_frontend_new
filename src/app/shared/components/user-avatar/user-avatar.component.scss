@@ -16,7 +16,7 @@
 
   .rating {
     color: #FF8300;
-    font-size: 14px;
+    font-size: 13px;
   }
   .count {
     font-size: 12px;
@@ -24,5 +24,10 @@
   }
   img {
     object-fit: cover;
+  }
+}
+:host ::ng-deep {
+  rating span.bs-rating-star.active {
+    color: #FF8300;
   }
 }
