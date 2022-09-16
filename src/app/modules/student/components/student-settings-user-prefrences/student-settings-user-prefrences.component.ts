@@ -23,7 +23,7 @@ export class StudentSettingsUserPrefrencesComponent implements OnInit {
   form: FormGroup;
   genders = GENDERS;
   showLanguages = false;
-  isSavingPreferences: Observable<boolean>;
+  isSavingPreferences$: Observable<boolean>;
 
   view$: Observable<{
     preferences: any;
@@ -35,6 +35,14 @@ export class StudentSettingsUserPrefrencesComponent implements OnInit {
 
   get teacherLanguage(): AbstractControl | null {
     return this.form.get('teacher_language');
+  }
+
+  get preferredGender(): AbstractControl | null {
+    return this.form.get('preferred_gender');
+  }
+
+  get preferredLanguage(): AbstractControl | null {
+    return this.form.get('preferred_language');
   }
 
   onSubmit(form: FormGroup): void {
@@ -52,12 +60,21 @@ export class StudentSettingsUserPrefrencesComponent implements OnInit {
     this._store.dispatch(fromCore.loadLanguages());
     this._store.dispatch(fromCore.loadStudentPreference());
 
+    this.form = this._fb.group({
+      teacher_language: [null],
+      preferred_gender: [null, Validators.required],
+      preferred_language: [null, Validators.required],
+    });
+
     this.view$ = combineLatest([
       this._store.select(fromCore.selectLanguages),
       this._store.select(fromCore.selectStudentPreferences).pipe(
         tap((preferences) => {
           if (preferences) {
-            this._form(preferences);
+            this.showLanguages = !!preferences?.teacherLanguage;
+            this.teacherLanguage?.setValue(preferences?.teacherLanguage);
+            this.preferredGender?.setValue(preferences?.preferredGender);
+            this.preferredLanguage?.setValue(preferences?.preferredLanguage);
           }
         })
       ),
@@ -70,7 +87,7 @@ export class StudentSettingsUserPrefrencesComponent implements OnInit {
       }))
     );
 
-    this.isSavingPreferences = this._store.select(
+    this.isSavingPreferences$ = this._store.select(
       fromCore.selectIsUpdatingStudentProfile
     );
   }
@@ -85,20 +102,5 @@ export class StudentSettingsUserPrefrencesComponent implements OnInit {
     }
 
     this.teacherLanguage?.updateValueAndValidity();
-  }
-
-  private _form(preference: any): void {
-    this.showLanguages = !!preference?.teacherLanguage;
-    this.form = this._fb.group({
-      teacher_language: [preference?.teacherLanguage || null],
-      preferred_gender: [
-        preference?.preferredGender || null,
-        Validators.required,
-      ],
-      preferred_language: [
-        preference?.preferredLanguage || null,
-        Validators.required,
-      ],
-    });
   }
 }
