@@ -219,9 +219,7 @@
 
                   <ng-template #second>
                     <ng-container  *ngIf="pastClass?.studentAttendence?.status === 'present' && pastClass?.teacherAttendence?.status === 'absent'; else third">
-                      <button mat-button class="secondary-button-opacity flex-grow-1 w-100">
-                        Teacher Absent
-                      </button>
+                      <span class="w-100 text-center text-main">Teacher Absent</span>
                     </ng-container>
                   </ng-template>
 

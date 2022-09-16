@@ -13,3 +13,9 @@
     margin-left: 10px;
   }
 }
+:host::ng-deep {
+  .mat-chip-list-wrapper {
+    display: block;
+    margin: 0;
+  }
+}
