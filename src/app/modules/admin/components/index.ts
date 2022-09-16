@@ -19,6 +19,7 @@ export * from './admin-schedule-interview-modal';
 export * from './admin-course-booking-list-modal';
 export * from './admin-change-tutor-status-modal';
 export * from './admin-add-new-field-study-modal';
+export * from './admin-view-rejection-reason-modal';
 export * from './admin-finance-refund-detail-modal';
 export * from './admin-student-total-booking-modal';
 export * from './admin-finance-refund-payment-modal';

@@ -1,0 +1,12 @@
+<metutors-modal [showModal]="showModal" [size]="'medium'" [heading]="'Rejection Reason'" [template]="template" (closeModal)="closeModal.emit()">
+  <ng-template #template>
+
+    <div class="text-center">
+      <p>{{selectedTutor?.interviewRequest?.adminComments}}</p>
+
+      <button mat-flat-button color="primary" class="fw-bold mt-50 w-25" (click)="closeModal.emit()">
+        Close
+      </button>
+    </div>
+  </ng-template>
+</metutors-modal>

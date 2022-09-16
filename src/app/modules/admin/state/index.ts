@@ -163,3 +163,8 @@ export const selectShowSuccessModal = createSelector(
   selectAdminModalState,
   fromAdminModal.selectShowSuccessModal
 );
+
+export const selectShowViewRejectionReasonModal = createSelector(
+  selectAdminModalState,
+  fromAdminModal.selectShowViewRejectionReasonModal
+);
