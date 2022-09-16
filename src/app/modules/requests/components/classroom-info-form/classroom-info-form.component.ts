@@ -9,11 +9,12 @@ import {
 } from '@angular/animations';
 import { AbstractControl, FormGroup } from '@angular/forms';
 import {
-  calculateDurationTime,
-  calculateListDays,
-  CLASSROOM_TYPES_CONST,
   LONG_DAYS_WEEK,
   SORTED_DAYS_WEEK,
+  generalConstants,
+  calculateListDays,
+  calculateDurationTime,
+  CLASSROOM_TYPES_CONST,
 } from 'src/app/config';
 
 @Component({
@@ -43,22 +44,26 @@ import {
   ],
 })
 export class ClassroomInfoFormComponent implements OnInit {
-  @Input() prices: any;
   @Input() form!: FormGroup;
+  @Input() selectedCourse!: any;
+  @Input() price: number | null;
 
   @Output() onBack = new EventEmitter();
   @Output() submitForm = new EventEmitter<FormGroup>();
 
-  price = 0;
   minDate = new Date();
   showSeatAttendees = false;
   listDays = LONG_DAYS_WEEK;
   daysSorted = SORTED_DAYS_WEEK;
   types = CLASSROOM_TYPES_CONST;
+  startingHoursLimit = generalConstants.startingHoursLimit;
+  classroomTimeDuration = generalConstants.classroomTimeDuration;
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.minDate.setHours(this.minDate.getHours() + 24);
+  }
 
   get startTime(): AbstractControl | null {
     return this.form.get('startTime');
@@ -177,11 +182,9 @@ export class ClassroomInfoFormComponent implements OnInit {
         this.type.value.toString() ===
         Object.keys(CLASSROOM_TYPES_CONST)[0].toString()
       ) {
-        this.price = +this.prices?.oneOnOne * +this.hours?.value;
         this.showSeatAttendees = false;
         this.seatAttendees?.setValue(1);
       } else {
-        this.price = +this.prices?.groupStudy * +this.hours?.value;
         this.showSeatAttendees = true;
       }
     }

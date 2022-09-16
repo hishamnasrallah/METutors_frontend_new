@@ -3,7 +3,7 @@
   background-color: rgb(59 179 193 / 0.04);
 
   .favorite {
-    color: #3bb3c1;
+    color: var(--main-color);
     font-size: 40px;
     width: 85px;
     height: 85px;
@@ -30,7 +30,7 @@
     mat-icon {
       font-size: 50px;
       font-weight: normal;
-      color: #3bb3c1;
+      color: var(--main-color);
       width: 50px;
       height: 50px;
 
@@ -42,6 +42,10 @@
 
   .owl-carousel .owl-stage {
     padding: 50px 0;
+
+    .owl-item {
+      min-height: 250px
+    }
   }
 
   .card-item {
@@ -50,6 +54,8 @@
     padding: 20px 0;
     margin-right: 30px;
     margin-left: 10px;
+    height: 100%;
+    position: absolute;
     box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.22);
 
     img.img-avatar {
@@ -68,7 +74,7 @@
     }
 
     h3 {
-      color: #3bb3c1;
+      color: var(--main-color);
       font-weight: bold;
       font-size: 18px;
       font-family: 'Proxima Nova';
@@ -77,7 +83,17 @@
 }
 
 @media (max-width:767px) {
-  .loving-opportunities h1 {
-    font-size: 25px;
+  :host ::ng-deep {
+    .loving-opportunities {
+      padding: 15px;
+
+      .owl-carousel .owl-stage .owl-item {
+        min-height: 300px;
+      }
+
+      .card-item {
+        overflow: auto;
+      }
+    }
   }
 }

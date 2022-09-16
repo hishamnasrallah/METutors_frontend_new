@@ -1,0 +1,84 @@
+<ng-container *ngLet="(view$ | async) as view">
+  <metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'large'"
+                  [showHeader]="false"
+                  [template]="template">
+    <ng-template #template>
+      <div class="d-flex align-items-center modal-title" mat-dialog-title>
+        <h2 class="flex-grow-1 m-0 d-flex flex-column">
+          <div class="d-flex align-items-center">
+            Assignment Details
+            <button mat-button class="btn action-icon p-0 ms-3" type="button" tabindex="-1"
+                    (click)="openEditAssignmentModal(view?.assignment.id)">
+              <img src="assets/svg/edit-green.svg" draggable="false" width="15" height="15" alt=""/>
+              Edit
+            </button>
+
+            <button mat-button class="btn action-icon p-0 ms-3" tabindex="-1" type="button"
+                    (click)="deleteAssignment.emit(view?.assignment.id)">
+              <img src="assets/svg/delete.svg" draggable="false" width="15" height="15" alt=""/>
+              Delete
+            </button>
+          </div>
+        </h2>
+
+        <button class="text-secondary" (click)="closeModal.emit()" mat-icon-button type="button">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <ng-container [ngSwitch]="view?.loading">
+        <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
+
+        <div class="assignment-details-modal" *ngSwitchCase="false">
+          <div class="d-flex justify-content-between">
+            <h3>{{ view?.assignment?.title }}</h3>
+            <div class="overflow-visible">
+              <metutors-user-avatar [avatar]="assignee?.avatar" [type]="'small'"
+                                    *ngFor="let assignee of view?.assignment?.assignees"
+                                    class="d-block"></metutors-user-avatar>
+            </div>
+          </div>
+          <div class="row list-items md-item">
+            <div class="col-md-3 d-flex menu align-items-center">
+              <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
+              <strong>Start: </strong>
+              <span>{{ view?.assignment?.startDate | date}}</span>
+            </div>
+            <div class="col-md-3 d-flex menu align-items-center">
+              <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
+              <strong>Deadline: </strong>
+              <span>{{ view?.assignment?.deadline | date }}</span>
+            </div>
+            <div class="col-md-4 d-flex menu align-items-center">
+              <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
+              <strong>Answer Received: </strong>
+              <span>{{ view?.assignment?.answerReceived?.length}} out of {{ view?.assignment?.assignees?.length}}</span>
+            </div>
+          </div>
+          <p class="mt-2">
+            {{ view?.assignment?.description }}
+          </p>
+          <div class="form-group">
+            <label>URLs</label>
+            <div class="url-info d-flex flex-column my-2" *ngFor="let urlInfo of view.assignment?.urls">
+              <span>{{ urlInfo?.title }}</span>
+              <a [href]="urlInfo?.url" target="_blank" class="d-flex align-items-center">
+                <strong class="d-flex align-items-center">
+                  {{ urlInfo?.url }}
+                </strong>
+              </a>
+            </div>
+          </div>
+          <div class="form-group">
+            <metutors-uploaded-files [files]="view.assignment?.files"></metutors-uploaded-files>
+          </div>
+
+          <div class="form-group">
+            <button mat-flat-button color="primary" class="fw-bold float-end px-5 py-2"
+                    (click)="closeModal.emit()">Back
+            </button>
+          </div>
+        </div>
+      </ng-container>
+    </ng-template>
+  </metutors-modal>
+</ng-container>

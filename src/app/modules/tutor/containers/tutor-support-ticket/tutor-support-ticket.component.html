@@ -1,0 +1,27 @@
+<div class="my-tickets">
+  <div class="row">
+    <div class="col-12 d-flex justify-content-between">
+      <h2 class="title">My Tickets</h2>
+      <a mat-flat-button color="primary" routerLink="/tutor/help/support-ticket/create-ticket">Create New Ticket</a>
+    </div>
+    <div class="col-12">
+      <ng-container *ngIf="!(isLoading$ | async)">
+        <metutors-support-ticket-card *ngFor="let ticket of tickets$ | async" [ticket]="ticket"
+                                      [linkUrl]="'/tutor/help/support-ticket/ticket-details/' + ticket?.ticketId">
+        </metutors-support-ticket-card>
+
+        <div class="text-center py-5 no-data" *ngIf="!(tickets$ | async) || !(tickets$ | async)?.length">
+          No Tickets found
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="isLoading$ | async">
+        <div class="card" *ngFor="let _ of [1, 2, 3]">
+          <div class="card-body">
+            <metutors-grid-placeholder></metutors-grid-placeholder>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,104 @@
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'xlarge'"
+                [showHeader]="true" [template]="template" [heading]="heading">
+  <ng-template #template>
+    <div class="total-bookings">
+      <ng-container [ngSwitch]="loading">
+        <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
+
+        <ng-container *ngSwitchCase="false">
+          <div *ngIf="!data?.bookings?.length" class="text-center p-xxl-5">
+            No records found
+          </div>
+
+          <ng-container *ngIf="data?.bookings?.length">
+            <div class="heading row">
+              <div class="col-md-6">
+                <metutors-user-avatar [type]="'medium'" [rating]="data.averageRating" *ngIf="type !== 'subject'"
+                                      [avatar]="imageUrl+data?.student?.avatar" [width]="50" [height]="50" [count]="data?.ratingCount"
+                                      [name]="data.name"></metutors-user-avatar>
+              </div>
+
+              <div class="col-md-6 info d-flex justify-content-end">
+                <span *ngIf="type === 'subject'">
+                  Total Active <strong>{{ data?.totalBookings }} Bookings</strong>
+                </span>
+
+                <ng-container *ngIf="type !== 'subject'">
+                  <div class="col-md-4 info d-flex align-items-center">
+                    <span>Total Records </span>
+                    <strong class="total-records"> {{ data?.totalBookings }}</strong>
+                  </div>
+
+                  <div class="col-md-6 percentage d-flex align-items-center">
+                    <strong class="me-2 percentage">Attendance Percentage</strong>
+                    <div class="position-relative my-progress">
+                      <mat-progress-spinner class="progress-spinner" [color]="'primary'" [mode]="'determinate'"
+                                            [value]="data.attendenceRate">
+                      </mat-progress-spinner>
+                      <span class="position-absolute">{{ data?.attendenceRate.toFixed(0) }}%</span>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+
+            <div class="table-responsive table-block">
+              <table class="table my-table default-title mb-0">
+                <tr>
+                  <th>Number</th>
+                  <th>BIN</th>
+                  <th>{{ type === 'student' ? 'TIN' : 'SIN' }}</th>
+                  <th>{{ type === 'student' ? 'Teacher Name' : 'Student Name' }}</th>
+                  <th>Program Name</th>
+                  <th>Field of Study</th>
+                  <th>Subject</th>
+                  <th>Course ID</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+                <tr *ngFor="let booking of data?.bookings; let i=index">
+                  <td>{{ i + 1 }}</td>
+                  <td>BIN{{booking?.id}}</td>
+                  <td>{{ type === 'student' ? booking?.teacher?.idNumber : 'SIN' + booking?.student?.id}}</td>
+                  <td>
+                    <metutors-user-avatar [avatar]="imageUrl+booking?.teacher?.avatar" [type]="'small'"
+                                          [name]="booking?.teacher?.firstName+' ' + booking?.teacher?.lastName"
+                                          *ngIf="type==='student'" class="d-block"></metutors-user-avatar>
+                    <metutors-user-avatar [avatar]="imageUrl+booking?.student?.avatar" [type]="'small'"
+                                          [name]="booking?.student?.firstName+ ' ' +booking?.student?.lastName"
+                                          *ngIf="type==='subject' || type === 'teacher'"
+                                          class="d-block"></metutors-user-avatar>
+                  </td>
+                  <td class="text-capitalize">{{ booking?.program?.code }}</td>
+                  <td>{{ booking?.field?.name }}</td>
+                  <td>{{ booking?.subject?.name }}</td>
+                  <td>{{ booking?.courseCode }}</td>
+                  <td>{{ booking?.totalPrice }}$</td>
+                  <td>
+                    <button class="status text-capitalize" mat-button [ngClass]="booking?.status"
+                            [tooltip]="statusLabel[booking?.status]?.long">{{ statusLabel[booking?.status]?.short}}
+                    </button>
+                  </td>
+                  <td>
+                    <button mat-button class="view-details main-button-transparent" *ngIf="type === 'student'"
+                            [routerLink]="['/admin', 'student', booking?.studentId, 'booking-detail', booking?.id]"
+                            (click)="closeModal.emit()">
+                      View Details
+                    </button>
+                    <button mat-button class="view-details main-button-transparent"
+                            *ngIf="type === 'teacher' || type === 'subject'"
+                            [routerLink]="['/admin', 'tutor', booking?.teacherId, 'booking-detail', booking?.id]"
+                            (click)="closeModal.emit()">
+                      View Details
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+    </div>
+  </ng-template>
+</metutors-modal>

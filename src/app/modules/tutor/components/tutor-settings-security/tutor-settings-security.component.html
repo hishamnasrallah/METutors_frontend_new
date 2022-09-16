@@ -1,25 +1,59 @@
-<form class="security-settings">
-  <div class="row mb-3">
-    <div class="col-md-6">
-      <h3>Current password</h3>
-      <input type="password" class="form-control" placeholder="Type new password">
+<div class="card">
+  <div class="card-body">
+    <div class="security-settings">
+      <div class="row h-100">
+        <div class="col-md-12 align-items-center">
+          <form [formGroup]="form" class="w-100" (ngSubmit)="onSubmit(form)">
+            <div class="col-xl-6">
+              <h4 class="mb-4">Security Settings</h4>
+
+              <div class="form-group position-relative">
+                <label for="oldPassword">Current Password</label>
+                <input [type]="!currentPasswordVisibility ? 'password' : 'text'"
+                       class="custom-input w-100 input-bordered" id="oldPassword"
+                       placeholder="Type current password" formControlName="oldPassword">
+                <mat-icon matSuffix class="position-absolute password-visibility"
+                          (click)="currentPasswordVisibility = !currentPasswordVisibility">{{ !currentPasswordVisibility ? 'visibility_off' : 'visibility'}}</mat-icon>
+                <span class="text-danger" *ngIf="oldPassword?.invalid && oldPassword?.touched">
+                  Password cannot be less than 8 characters and cannot be more than 100 characters
+                </span>
+              </div>
+
+              <div class="form-group position-relative">
+                <label for="password">New Password</label>
+                <input [type]="!newPasswordVisibility ? 'password' : 'text'" class="custom-input w-100 input-bordered"
+                       id="password"
+                       placeholder="Type new password" formControlName="password">
+                <mat-icon matSuffix class="position-absolute password-visibility"
+                          (click)="newPasswordVisibility = !newPasswordVisibility">{{ !newPasswordVisibility ? 'visibility_off' : 'visibility'}}</mat-icon>
+                <span class="text-danger" *ngIf="password?.invalid && password?.touched">
+                  Password cannot be less than 8 characters and cannot be more than 100 characters
+                </span>
+              </div>
+
+              <div class="form-group position-relative">
+                <label for="confirmPassword">Confirm New Password</label>
+                <input [type]="!repeatPasswordVisibility ? 'password' : 'text'"
+                       class="custom-input w-100 input-bordered" id="confirmPassword"
+                       placeholder="Confirm new password" formControlName="confirmPassword">
+                <mat-icon matSuffix class="position-absolute password-visibility"
+                          (click)="repeatPasswordVisibility = !repeatPasswordVisibility">{{ !repeatPasswordVisibility ? 'visibility_off' : 'visibility'}}</mat-icon>
+                <div class="text-danger" *ngIf="form?.hasError('passwordMismatch')">
+                  Passwords do not match
+                </div>
+              </div>
+            </div>
+
+            <div class="row btn-list mt-5 pt-3">
+              <div class="col-12 d-flex justify-content-end">
+                <metutors-submit-button [form]="form" [isSubmitting]="isChanging">
+                  Update
+                </metutors-submit-button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="row mb-3">
-    <div class="col-md-6">
-      <h3>New password</h3>
-      <input type="password" class="form-control" placeholder="Type new password">
-    </div>
-  </div>
-  <div class="row mb-3">
-    <div class="col-md-6">
-      <h3>Repeat new password</h3>
-      <input type="password" class="form-control" placeholder="Type new password">
-    </div>
-  </div>
-  <div class="row btn-list mt-5">
-    <div class="col-12 d-flex justify-content-end">
-      <button mat-flat-button color="primary" type="submit">Update </button>
-    </div>
-  </div>
-</form>
+</div>

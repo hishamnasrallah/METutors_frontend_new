@@ -16,49 +16,7 @@
       color: #2a2a2a;
       font-size: 20px;
       font-weight: bold;
-      border-bottom: 1px solid #e2e2e2;
-      padding-bottom: 20px;
       margin-bottom: 20px;
-    }
-
-    ul li {
-      margin-bottom: 15px;
-
-      span {
-        color: #696969;
-        font-size: 15px;
-      }
-
-      strong {
-        color: #000;
-        font-size: 15px;
-      }
-
-      &.promocode {
-
-        span,
-        strong {
-          color: #ff554b;
-        }
-      }
-
-      &.total-payment {
-        border-top: 1px solid #e2e2e2;
-        border-bottom: 1px solid #e2e2e2;
-        padding: 15px 0;
-      }
-    }
-
-    .have-coupon {
-      input {
-        border-radius: 4px 0 0 4px;
-      }
-
-      button {
-        border-radius: 0 4px 4px 0;
-        background-color: #2a2a2a;
-        color: #FFF;
-      }
     }
 
     .pay-now {

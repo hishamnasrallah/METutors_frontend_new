@@ -1,0 +1,231 @@
+.classroom-info {
+  margin-top: 30px;
+  h3 {
+    font-size: 14px;
+    font-weight: bold;
+    color: #2a2a2a;
+  }
+
+  h4 {
+    color: #696969;
+    font-size: 18px;
+  }
+
+  .est-price {
+    border-radius: 8px;
+    background-color: #f8f8f8;
+    padding: 15px 20px;
+
+    h5 {
+      color: #2a2a2a;
+      font-size: 18px;
+
+      span {
+        font-size: 18px;
+        font-weight: bold;
+        color: #2a2a2a;
+      }
+    }
+
+    p {
+      color: #949494;
+      font-size: 14px;
+    }
+  }
+
+  p-calendar {
+    width: 100%;
+    display: block;
+
+    .p-calendar-timeonly,
+    .p-calendar-timeonly input {
+      width: 100%;
+    }
+
+    .p-calendar-timeonly input {
+      border: 1px solid #ced4da;
+
+      &:hover {
+        border-color: #ced4da;
+      }
+    }
+  }
+
+  button {
+    font-weight: bold;
+    font-size: 17px;
+    padding: 5px 20px;
+  }
+}
+
+.list-classroom {
+  .list-classes {
+    border-radius: 6px;
+    border: solid 1px #ededed;
+    margin-bottom: 20px;
+    max-height: 70vh;
+    overflow: auto;
+
+    table {
+      tr {
+        position: relative;
+        border: none;
+
+        th {
+          color: #949494;
+          font-size: 13px;
+          border-top: none;
+          padding: 10px;
+          background-color: #fafafa;
+        }
+
+        td {
+          padding: 10px;
+          border-top: 1px solid #ededed;
+        }
+
+        &:first-child {
+          background-color: #fafafa;
+        }
+
+        .actions {
+          button {
+            padding: 0;
+            width: 25px;
+            height: 25px;
+            min-width: 0;
+            font-size: 15px;
+
+            mat-icon {
+              font-size: 17px;
+            }
+
+            &.edit-btn {
+              color: var(--main-color);
+            }
+
+            &.delete-btn {
+              color: #ff554b;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .est-price {
+    border-radius: 8px;
+    background-color: #f8f8f8;
+    padding: 15px 20px;
+
+    h5 {
+      color: #2a2a2a;
+      font-size: 22px;
+    }
+
+    h1 {
+      font-size: 22px;
+      font-weight: bold;
+      color: #2a2a2a;
+    }
+
+    p {
+      color: #2a2a2a;
+      font-size: 15px;
+    }
+  }
+
+  button {
+    font-weight: bold;
+    font-size: 17px;
+    padding: 5px 20px;
+
+    &.back-btn {
+      margin-right: 10px;
+      border: solid 1px var(--main-color);
+      color: var(--main-color);
+    }
+  }
+}
+
+:host ::ng-deep .edit-classroom {
+  h2 {
+    font-size: 20px;
+    font-weight: bold;
+
+    span {
+      color: #696969;
+      font-size: 15px;
+      font-weight: normal;
+    }
+  }
+
+  .mat-dialog-content {
+    overflow: visible;
+  }
+
+  h3 {
+    font-size: 14px;
+    font-weight: bold;
+    color: #2a2a2a;
+    margin: 15px 0 5px;
+  }
+
+  p-calendar {
+    width: 100%;
+    display: block;
+
+    .p-calendar-timeonly,
+    .p-calendar-timeonly input {
+      width: 100%;
+    }
+
+    .p-calendar-timeonly input {
+      border: 1px solid #ced4da;
+
+      &:hover {
+        border-color: #ced4da;
+      }
+    }
+  }
+
+  p {
+    color: #696969;
+    font-size: 18px;
+  }
+
+  .btn-save {
+    background-color: var(--main-color);
+    color: #fff;
+    font-weight: bold;
+    padding: 3px 20px;
+    float: right;
+    margin-top: 10px;
+    font-size: 15px;
+  }
+}
+
+.availability {
+  top: 0;
+  right: 60px;
+  color: var(--main-color);
+}
+
+.time-box {
+  display: flex;
+  flex-wrap: wrap;
+
+  .slot {
+    color: #7d7d7d;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin: 0 10px 10px 0;
+    border: 1px solid #97979742;
+
+    &.active {
+      color: white;
+      background-color: var(--main-color);
+    }
+  }
+}

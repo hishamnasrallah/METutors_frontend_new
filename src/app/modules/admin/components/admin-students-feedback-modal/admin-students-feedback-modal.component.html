@@ -1,0 +1,15 @@
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'xmedium'"
+                [heading]="'Student\'s Feedback'"
+                [template]="template" [subHeading]="'Feedback given to you'">
+  <ng-template #template>
+    <ng-container [ngSwitch]="loading">
+      <ng-container *ngSwitchCase="true">
+        <metutors-grid-placeholder></metutors-grid-placeholder>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="false">
+       <metutors-admin-feedback [feedback]="feedback"></metutors-admin-feedback>
+      </ng-container>
+    </ng-container>
+  </ng-template>
+</metutors-modal>

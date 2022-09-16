@@ -1,11 +1,26 @@
 <div class="tutor-navbar">
   <div class="d-flex justify-content-between align-items-center">
-    <h3 class="text-uppercase m-0">{{ getTitle() }}</h3>
+    <h3 class="d-flex text-uppercase m-0">
+      <img [src]="'assets/svg/'+layout?.icon+'.svg'" alt="" draggable="false" *ngIf="layout?.icon"/>
+      <span class="title">{{ layout?.navbarTitle }}</span>
+    </h3>
     <div class="icons">
       <img src="assets/svg/mail-b.svg" draggable="false" width="25" height="25" alt="">
       <img src="assets/svg/notification.svg" draggable="false" width="25" height="25" alt="">
-      <img [src]="authService.decodeToken()?.avatar" meTutorsDefaultAvatar alt="" class="rounded-circle"
-        draggable="false" width="40" height="40">
+      <img [src]="user?.avatar" meTutorsDefaultAvatar alt="" class="rounded-circle" draggable="false" width="40"
+        height="40" [matMenuTriggerFor]="menu">
     </div>
   </div>
 </div>
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item class="h-auto btn-menu" routerLink="/tutor/settings">
+    <span>View profile</span>
+  </button>
+  <button mat-menu-item class="h-auto btn-menu" routerLink="/tutor/payment-records">
+    <span>Payment History</span>
+  </button>
+  <button mat-menu-item class="h-auto btn-menu" (click)="logout.emit()">
+    <span>Logout</span>
+  </button>
+</mat-menu>

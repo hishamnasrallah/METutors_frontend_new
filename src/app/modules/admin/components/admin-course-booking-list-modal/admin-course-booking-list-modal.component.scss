@@ -1,0 +1,38 @@
+.course-booking {
+  .filters {
+    .title {
+      color: #696969;
+      font-weight: bold;
+      font-size: 14px;
+      margin-right: 15px;
+    }
+
+    .mat-form-field {
+      width: 130px;
+      font-size: 13px;
+    }
+
+    .mat-form-field-appearance-outline .mat-form-field-infix {
+      padding: 8px;
+    }
+
+    .mat-form-field-appearance-outline .mat-form-field-flex {
+      padding: 0;
+    }
+  }
+
+  .my-table {
+    th {
+      color: #696969;
+      font-size: 14px;
+    }
+
+    .booking-details {
+      line-height: 0;
+      min-width: 0;
+      padding: 15px;
+      font-weight: normal;
+      border-radius: 25px !important;
+    }
+  }
+}

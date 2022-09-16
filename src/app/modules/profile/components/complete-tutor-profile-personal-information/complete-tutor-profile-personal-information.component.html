@@ -1,15 +1,15 @@
-<form [formGroup]="form" (ngSubmit)="submitFormData()" class="w-100">
+<form [formGroup]="form" (ngSubmit)="submitFormData()" class="w-100 p-10-sm">
   <div>
-    <h4 class="mb-5 heading text-center">PROVIDE YOUR PERSONAL INFORMATION</h4>
+    <h4 class="mb-5 heading text-center f-size-17-md-sm mb-15-sm">PROVIDE YOUR PERSONAL INFORMATION</h4>
 
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label for="middleName" class="form-label">Middle Name</label>
+          <label for="middleName" class="form-label">Middle Name <span>(Optional)</span></label>
           <input type="text" class="custom-input w-100 input-bordered" id="middleName" placeholder="Enter Middle Name"
-            formControlName="middleName">
+            formControlName="middleName" meTutorsLettersOnly>
           <div class="text-danger" *ngIf="middleName?.touched && middleName?.invalid">
-            Please write your middle name
+            Please write a valid name
           </div>
         </div>
       </div>
@@ -18,8 +18,15 @@
         <div class="form-group">
           <label for="nationality" class="form-label">Nationality</label>
           <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="nationality" [placeholder]="'Pakistani'">
-              <mat-option *ngFor="let country of countries" [value]="country.name">{{ country.name }}</mat-option>
+            <mat-select formControlName="nationality" [placeholder]="'Select your nationality'">
+              <mat-option>
+                <ngx-mat-select-search [(ngModel)]="filterNationality" [ngModelOptions]="{standalone: true}"
+                  placeholderLabel="Search..." noEntriesFoundLabel="No matching country found">
+                </ngx-mat-select-search>
+              </mat-option>
+              <mat-option *ngFor="let country of filteredNationalities" [value]="country.name">
+                {{ country.name }}
+              </mat-option>
             </mat-select>
           </mat-form-field>
           <div class="text-danger" *ngIf="nationality?.touched && nationality?.invalid">
@@ -34,8 +41,8 @@
         <div class="form-group">
           <label for="dateOfBirth" class="form-label">Date of Birth</label>
           <mat-form-field appearance="outline" class="w-100">
-            <input matInput [matDatepicker]="datetPicker" [placeholder]="'04/02/2022'" (focus)="datetPicker.open()"
-              formControlName="dateOfBirth">
+            <input matInput [matDatepicker]="datetPicker" [placeholder]="'Select Your Date of Birth'"
+              (focus)="datetPicker.open()" formControlName="dateOfBirth" [max]="maxDate" readonly>
             <mat-datepicker-toggle matSuffix [for]="datetPicker"></mat-datepicker-toggle>
             <mat-datepicker #datetPicker></mat-datepicker>
           </mat-form-field>
@@ -48,10 +55,10 @@
       <div class="col-md-6">
         <div class="form-group">
           <label for="address" class="form-label">Address 1</label>
-          <input type="text" class="custom-input w-100 input-bordered" id="address" placeholder="Enter street address"
+          <input type="text" class="custom-input w-100 input-bordered" id="address" placeholder="Enter Street Address"
             formControlName="address">
           <div class="text-danger" *ngIf="address?.touched && address?.invalid">
-            Please write your Address
+            Please write your Address with a max of 120 characters
           </div>
         </div>
       </div>
@@ -62,9 +69,8 @@
         <div class="form-group">
           <label for="gender" class="form-label">Select Gender</label>
           <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="gender" [placeholder]="'Male'">
-              <mat-option value="male">Male</mat-option>
-              <mat-option value="female">Female</mat-option>
+            <mat-select formControlName="gender" [placeholder]="'Select your gender'">
+              <mat-option [value]="gender" *ngFor="let gender of genders">{{ gender }}</mat-option>
             </mat-select>
           </mat-form-field>
           <div class="text-danger" *ngIf="gender?.touched && gender?.invalid">
@@ -75,9 +81,12 @@
 
       <div class="col-md-6">
         <div class="form-group">
-          <label for="address2" class="form-label">Address 2 (Optional)</label>
+          <label for="address2" class="form-label">Address 2 <span>(Optional)</span></label>
           <input type="text" class="custom-input w-100 input-bordered" id="address2" placeholder="Enter street address"
             formControlName="address2">
+          <div class="text-danger" *ngIf="address2?.touched && address2?.invalid">
+            Please write your Address with a max of 120 characters
+          </div>
         </div>
       </div>
     </div>
@@ -85,9 +94,13 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label for="bio" class="form-label">Add Bio</label>
+          <label for="bio" class="form-label">Add Biography <span>(write about your teaching experience to let students
+              know why you are the best tutor for them)</span>
+            <metutors-char-counter [limit]="400" [controlName]="bio"></metutors-char-counter>
+          </label>
           <textarea class="custom-input w-100 input-bordered" [placeholder]="'Add Bio here... '" rows="5"
-            formControlName="bio"></textarea>
+            formControlName="bio" minlength="200" maxlength="400"></textarea>
+          <small class="text-danger">(200 to 400 characters)</small>
           <div class="text-danger" *ngIf="bio?.touched && bio?.invalid">
             Please write your Bio
           </div>
@@ -100,7 +113,7 @@
           <input type="text" class="custom-input w-100 input-bordered" id="postalCode" placeholder="Postal Code"
             formControlName="postalCode">
           <div class="text-danger" *ngIf="postalCode?.touched && postalCode?.invalid">
-            Please write your Postal Code
+            Please write a valid Postal Code
           </div>
         </div>
 
@@ -108,8 +121,13 @@
           <label for="country" class="form-label">Country</label>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="country" [placeholder]="'Select Country'"
-              (selectionChange)="loadCities.emit(country?.value)">
-              <mat-option *ngFor="let country of countries" [value]="country.name">{{ country.name }}</mat-option>
+              (selectionChange)="loadCities.emit(country?.value); resetCity()">
+              <mat-option>
+                <ngx-mat-select-search [(ngModel)]="filterCountry" [ngModelOptions]="{standalone: true}"
+                  placeholderLabel="Search..." noEntriesFoundLabel="No matching country found">
+                </ngx-mat-select-search>
+              </mat-option>
+              <mat-option *ngFor="let country of filteredCountries" [value]="country.id">{{ country.name }}</mat-option>
             </mat-select>
           </mat-form-field>
           <div class="text-danger" *ngIf="country?.touched && country?.invalid">
@@ -120,8 +138,13 @@
         <div class="form-group">
           <label for="city" class="form-label">City</label>
           <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="city" [placeholder]="'Select city'">
-              <mat-option *ngFor="let city of cities" [value]="city.name">{{ city.name }}</mat-option>
+            <mat-select formControlName="city" [placeholder]="'Select city'" [disabled]="!cities || !cities.length">
+              <mat-option>
+                <ngx-mat-select-search [(ngModel)]="filterCity" [ngModelOptions]="{standalone: true}"
+                  placeholderLabel="Search..." noEntriesFoundLabel="No matching city found">
+                </ngx-mat-select-search>
+              </mat-option>
+              <mat-option *ngFor="let city of filteredCities" [value]="city.name">{{ city.name }}</mat-option>
             </mat-select>
           </mat-form-field>
           <div class="text-danger" *ngIf="city?.touched && city?.invalid">
@@ -131,16 +154,12 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-4"></div>
-      <div class="col-4">
-        <div class="form-group mt-4 mb-2">
-          <metutors-submit-button [form]="form" [isSubmitting]="loading" [extraClasses]="'w-100'">
-            Save & Continue
-          </metutors-submit-button>
-        </div>
-      </div>
-      <div class="col-4"></div>
+    <div class="d-flex align-items-center justify-content-between mt-4 mb-2">
+      <div></div>
+
+      <metutors-submit-button [form]="form" [isSubmitting]="loading" [extraClasses]="'w-100 fw-bold px-5'">
+        Save & Continue
+      </metutors-submit-button>
     </div>
   </div>
 </form>

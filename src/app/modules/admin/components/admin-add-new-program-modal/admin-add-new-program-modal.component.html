@@ -1,0 +1,51 @@
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'medium'"
+                [heading]="program ? 'Edit Program' : 'Add Program'"
+                [subHeading]="program ? '' : 'Add new program'"
+                [template]="template">
+  <ng-template #template>
+    <form class="row add-program-modal mt-4" [formGroup]="form" (ngSubmit)="onSubmit(form)">
+      <div class="col-12">
+        <div class="form-group">
+          <label for="name">Program Name</label>
+          <input class="form-control custom-input input-bordered" formControlName="name" id="name"
+                 placeholder="Enter Program Name">
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="form-group">
+          <label for="title">Program Title</label>
+          <input class="form-control custom-input input-bordered" formControlName="title" id="title"
+                 placeholder="Enter Program Title">
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="form-group">
+          <label for="description">Program Description</label>
+          <textarea class="form-control custom-input input-bordered" formControlName="description" id="description"
+                    placeholder="Enter Program Description"></textarea>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="form-group">
+          <label for="description">Program Image:</label>
+          <input type="file" (change)="onUploadImage($event)" accept="image/*" class="m-lg-1"/>
+        </div>
+      </div>
+
+      <div class="col-md-12 mt-2 overflow-hidden">
+        <metutors-submit-button [form]="form" [isSubmitting]="isAdding"
+                                [extraClasses]="'float-end py-1 px-5'">
+          {{ program ? 'Edit Program' : 'Add Program' }}
+        </metutors-submit-button>
+
+        <button mat-flat-button class="float-end rounded d-block border py-1 px-5"
+                (click)="closeModal.emit()">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </ng-template>
+</metutors-modal>

@@ -1,3 +1,6 @@
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import * as fromCore from '@metutor/core/state';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,47 +9,47 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./become-tutor.component.scss'],
 })
 export class BecomeTutorComponent implements OnInit {
+  token$: Observable<string | undefined>;
+
   step?: string;
   selectedCourse: any;
   opportunities?: any[];
   whyTeachingUsList?: any[];
   requestCoursesList?: any[];
 
-  constructor() {}
+  constructor(private _store: Store<any>) {}
 
   ngOnInit(): void {
+    this.token$ = this._store.select(fromCore.selectToken);
+
     this.whyTeachingUsList = [
       {
         id: 1,
-        value: 'Very competitive prices',
+        value: 'Simple & quick registration',
       },
       {
         id: 2,
-        value: 'Personalized course design',
+        value: 'Teach your own courses',
       },
       {
         id: 3,
-        value: 'Powerful online tools and technology',
+        value: 'Flexible pay-out options',
       },
       {
         id: 4,
-        value: 'Highly trained and dynamic instructors',
+        value: 'Useful teaching tools',
       },
       {
         id: 5,
-        value: 'Flexible scheduling for people on the go',
+        value: 'Choose your own schedule',
       },
       {
         id: 6,
-        value: 'Attentive and responsive customer support',
+        value: '24*7 Tutor Support',
       },
       {
         id: 7,
-        value: 'Provide a relax yet professional learning environment',
-      },
-      {
-        id: 8,
-        value: 'Innovative, stimulating and efficacious lessons',
+        value: 'Reach more students',
       },
     ];
 
@@ -92,21 +95,21 @@ export class BecomeTutorComponent implements OnInit {
         id: 1,
         picture: '',
         content:
-          'I owe these guys my life. Already used their landing page templates for my latest two projects.',
+          'MEtutors is the best place to apply for flexible, convenient part-time work as an online tutor.',
         postedBy: '@thepatwalls',
       },
       {
         id: 2,
         picture: '',
         content:
-          "Time is the most precious thing you have when bootstrapping. You can't take time to ponder on design",
+          'I love how MEtutors finds clients for me. I make money tutoring online from the comfort of my home or office and all I need is my high-speed internet connection.',
         postedBy: '@thepatwalls',
       },
       {
         id: 3,
         picture: '',
         content:
-          'I owe these guys my life. Already used their landing page templates for my latest two projects.',
+          'I enjoy tutoring with MEtutors because I simply sign in to see I’ve been matched with an ideal student',
         postedBy: '@thepatwalls',
       },
       {

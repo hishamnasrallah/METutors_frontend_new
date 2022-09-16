@@ -1,0 +1,23 @@
+.change-status {
+  padding: 0 30px;
+
+  .close-btn {
+    position: absolute;
+    right: -10px;
+    top: -10px;
+  }
+
+  h2 {
+    color: #393939;
+  }
+
+  .public {
+    color: #3bb3c1;
+    text-decoration: underline;
+  }
+
+  .private {
+    color: #FF8300;
+    text-decoration: underline;
+  }
+}

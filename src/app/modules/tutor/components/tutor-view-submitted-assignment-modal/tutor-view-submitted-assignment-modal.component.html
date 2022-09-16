@@ -1,0 +1,91 @@
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'medium'" [template]="template" [heading]="'Submitted Assignments'">
+  <ng-template #template>
+    <ng-container *ngLet="(view$ | async) as view">
+      <ng-container [ngSwitch]="view?.loading">
+        <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
+
+        <div class="assignment-details-modal" *ngSwitchCase="false">
+          <ng-container *ngFor="let assignment of view?.assignment?.assignment">
+            <label>Submitted By</label>
+            <div class="d-flex align-items-center mt-1 mb-4 title-info">
+              <img [src]="assignment?.user?.avatar" meTutorsDefaultAvatar alt="" class="rounded-circle" width="50"
+                   height="50">
+              <h3 class="ms-2 mb-0">{{ assignment?.user?.firstName }} {{ assignment?.user?.lastName }}</h3>
+
+              <span class="status-icon text-capitalize"
+                    [ngClass]="assignment?.status">{{ assignment?.status }}</span>
+            </div>
+
+            <div class="d-flex align-items-center mt-1 mb-4 title-info">
+              <div class="col-md-7">
+                <label>Time received by student</label>
+                <p class="mt-1 mb-0">
+                  {{ assignment?.createdAt | date: 'EEEE, d MMM y, h:mm a' }}
+                </p>
+              </div>
+
+              <div class="col-md-5">
+                <label>Submitted At</label>
+                <p class="mt-1 mb-0">
+                  {{ assignment?.updatedAt | date: 'MMM d, y, h:mm a' }}
+                </p>
+              </div>
+
+
+            </div>
+
+            <label class="mt-3">Details</label>
+            <p class="mt-1">
+              {{ assignment?.description }}
+            </p>
+
+            <div class="form-group" *ngIf="assignment?.file">
+              <metutors-uploaded-files [files]="assignment?.file" [extraClasses]="'col-md-8'"></metutors-uploaded-files>
+            </div>
+
+            <ng-container
+              *ngIf="assignment?.feedback && assignment?.feedback?.length">
+              <ng-container *ngFor="let feedback of assignment?.feedback">
+                <div class="form-group row mt-3">
+                  <strong>Assignment Feedback</strong>
+                  <p class="mb-1">
+                    {{ feedback?.review }}
+                  </p>
+                  <p class="mt-2">
+                    <span class="grade">Grade Rating: </span>
+                    <span> {{ feedback?.rating }} on a scale of 10 </span>
+                  </p>
+                </div>
+
+                <div class="form-group" *ngIf="feedback?.file">
+                  <metutors-uploaded-files [files]="feedback?.file" [extraClasses]="'col-md-8'"></metutors-uploaded-files>
+                </div>
+              </ng-container>
+            </ng-container>
+
+          </ng-container>
+
+          <div class="row mt-2">
+            <div class="col-md-12 overflow-hidden" *ngIf="view?.assignment?.assignment[view?.assignment?.assignment?.length -1]?.status !== 'completed'">
+              <button mat-flat-button color="primary" class="float-end px-4 py-1"
+                      (click)="onOpenAcceptRejectAssignmentModal(view?.assignment?.assignment)">
+                Accept
+              </button>
+              <button mat-button class="secondary-button-transparent reject-btn float-end me-2 px-4 py-1"
+                      (click)="onOpenAcceptRejectAssignmentModal(view?.assignment?.assignment,true)">
+                Reject
+              </button>
+            </div>
+
+            <div class="col-md-12 overflow-hidden" *ngIf="view?.assignment?.assignment[view?.assignment?.assignment?.length -1]?.status === 'completed'">
+              <button mat-flat-button color="primary" class="float-end px-4 py-1"
+                      (click)="onBack()">
+                Back
+              </button>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </ng-template>
+</metutors-modal>

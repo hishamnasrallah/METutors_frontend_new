@@ -6,8 +6,8 @@
 
     <div class="col-12" *ngIf="!isConfirmEmail">
       <img src="assets/authentication/404.svg" class="err-img" alt="" draggable="false" width="400" />
-      <h1 class="mt-4">Sorry! Your email not activated yet</h1>
-      <p>Please try to re-send new confirmation link via your email</p>
+      <h1 class="mt-4 f-size-17-md-sm">Sorry! Your email not activated yet</h1>
+      <p class="f-size-15-md-sm">Please try to re-send new confirmation link via your email</p>
       <button mat-flat-button color="primary" class="mt-5 mb-3" (click)="resendEmailConfirm()" [disabled]="isResend">
         Re-send email verification
         <mat-icon class="spinner" *ngIf="isResend">autorenew</mat-icon>

@@ -1,0 +1,139 @@
+:host ::ng-deep .tutors-list {
+  padding: 30px 40px 20px;
+
+  .filters {
+    h1 {
+      font-size: 25px;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    mat-icon {
+      position: absolute;
+      left: 15px;
+      top: 11px;
+
+      &.filter {
+        left: auto;
+        right: 15px;
+      }
+    }
+
+    .search-request {
+      padding-left: 45px;
+    }
+  }
+
+  .cards {
+    .card {
+      border-radius: 8px;
+      box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.03);
+      border: solid 1px #e5eaf4;
+
+      h2 {
+        color: #B8B8B8;
+        font-size: 15px;
+        font-weight: bold;
+      }
+
+      span {
+        color: #2a2a2a;
+        font-weight: bold;
+        font-size: 20px;
+      }
+
+      svg {
+        width: 50px;
+        height: 50px;
+        padding: 10px;
+        background: rgb(59 179 193 / 20%);
+        margin-left: 10px;
+        border-radius: 50%;
+
+        path {
+          fill: var(--main-color);
+        }
+      }
+    }
+  }
+
+  .my-table {
+    overflow: visible;
+
+    th {
+      color: #696969;
+      font-size: 14px;
+    }
+
+    .tutor-date {
+      div {
+        padding: 0;
+        font-size: 14px;
+
+        span {
+          color: #696969;
+        }
+      }
+    }
+
+    .change-status {
+      .status {
+        color: #FFF;
+        line-height: 0;
+        min-width: 0;
+        padding: 15px;
+        border-radius: 25px;
+
+        &.active {
+          background-color: #50C394;
+        }
+
+        &.pending {
+          background-color: var(--main-color);
+        }
+
+        &.deactive {
+          background-color: #FF8300;
+        }
+      }
+
+      .statues {
+        border-radius: 5px;
+        overflow: hidden;
+
+        li {
+          padding: 5px 10px;
+          color: #FFF;
+          margin: 5px;
+          border-radius: 5px;
+
+          &.response {
+            background-color: #ff8300;
+          }
+
+          &.closed {
+            background-color: #50C394;
+          }
+
+          &.issued {
+            background-color: var(--main-color);
+          }
+        }
+      }
+    }
+  }
+
+  .mat-tab-label {
+    font-size: 20px;
+    justify-content: start;
+    padding: 0;
+    font-weight: bold;
+    min-width: 70px;
+    margin-right: 50px;
+
+    &.mat-tab-label-active {
+      color: var(--main-color);
+      opacity: 1;
+    }
+  }
+}

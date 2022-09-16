@@ -1,0 +1,67 @@
+<div class="card availability-tutoring">
+  <div class="card-body">
+    <ng-container *ngIf="!isLoading">
+      <div class="row top-info">
+        <div class="col-md-6" *ngIf="availability && availability?.length">
+          <h1 class="heading f-size-15-md-sm">Teacher Availability</h1>
+
+          <span *ngFor="let avail of availability" (click)="tutorAvailability.emit()" class="cursor-pointer">{{ avail }}</span>
+        </div>
+        <div class="col-md-6 mt-15-sm" *ngIf="_tutor?.specifications?.typeOfTutoring">
+          <h1 class="heading f-size-15-md-sm">Type of Tutoring</h1>
+
+          <ng-container *ngIf="_tutor?.specifications?.typeOfTutoring === types.both">
+            <span>{{ types.one }}</span>
+            <span>{{ types.group }}</span>
+          </ng-container>
+          <span *ngIf="_tutor?.specifications?.typeOfTutoring !== types.both">
+            {{ _tutor?.specifications?.typeOfTutoring }}
+          </span>
+        </div>
+      </div>
+      <div class="row bottom-info" *ngIf="_tutor?.sortedSubjects && _tutor?.sortedSubjects?.length">
+        <div class="col-md-12">
+          <h1 class="heading f-size-15-md-sm">Teaching Preferences</h1>
+
+          <div class="row mt-5 mt-15-sm">
+            <div class="col-md-6 mb-3" *ngFor="let item of _tutor?.sortedSubjects; let indexSubjects = index">
+              <table class="table my-table default-title">
+                <tr>
+                  <th class="heading">
+                    Program: <span>
+                      {{ item?.programName }}<ng-container *ngIf="item?.programId === nationalId">,
+                        {{ item?.countryName }} <span *ngIf="item?.countryFlag" [innerHTML]="item?.countryFlag" class="ms-2"></span>
+                      </ng-container>
+                    </span>
+                  </th>
+                  <th class="heading text-end">Study Field <span>{{ item?.fieldName }}</span></th>
+                </tr>
+                <tr>
+                  <th [attr.colspan]="item?.programId === nationalId ? '1' : '2'">Subject Name</th>
+                  <th *ngIf="item?.programId === nationalId">Grade</th>
+                  <!-- <th>Hourly Price</th> -->
+                </tr>
+                <tr *ngFor="let subject of item.subjects">
+                  <td [attr.colspan]="item?.programId === nationalId ? '1' : '2'">{{ subject?.subject }}</td>
+                  <td *ngIf="item?.programId === nationalId">{{ subject?.gradeName }}</td>
+                  <!-- <td>{{ subject?.pricePerHour }}</td> -->
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <div class="item" *ngIf="isLoading">
+      <div class="ph-row">
+        <div class="ph-col-12 big mt-1"></div>
+        <div class="ph-col-0 big empty"></div>
+        <div class="ph-col-12 big mt-1"></div>
+        <div class="ph-col-0 big empty mt-1"></div>
+        <div class="ph-col-12 big mt-1"></div>
+        <div class="ph-col-0 big empty mt-1"></div>
+      </div>
+    </div>
+  </div>
+</div>

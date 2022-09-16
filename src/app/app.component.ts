@@ -9,10 +9,12 @@ import {
   NavigationError,
   ActivatedRoute,
 } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { DOCUMENT } from '@angular/common';
-import { NgProgressRef, NgProgress } from '@ngx-progressbar/core';
+import * as fromCore from '@metutor/core/state';
 import { Title } from '@angular/platform-browser';
 import { filter, map, mergeMap, Subscription } from 'rxjs';
+import { NgProgressRef, NgProgress } from '@ngx-progressbar/core';
 
 @Component({
   selector: 'metutors-root',
@@ -27,6 +29,7 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     private _title: Title,
     private _router: Router,
+    private _store: Store<any>,
     private _progress: NgProgress,
     private _route: ActivatedRoute,
     @Inject(DOCUMENT) private _document: Document
@@ -40,6 +43,9 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this._store.dispatch(fromCore.identifyUser());
+    this._store.dispatch(fromCore.loadCurrencyRates());
+    this._store.dispatch(fromCore.loadCurrenciesNames());
     this._router.events
       .pipe(
         filter((events) => events instanceof NavigationEnd),
@@ -69,7 +75,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   private _navigationInterceptor(event: RouterEvent): void {
     if (event instanceof NavigationStart) {
-      window.scrollTo(0, 0);
       this.progressRef.start();
     }
 
@@ -77,6 +82,7 @@ export class AppComponent implements OnInit, OnDestroy {
       this.progressRef.complete();
 
       if (typeof window !== 'undefined') {
+        window.scrollTo(0, 0);
         this._document.documentElement.scrollTop = 0;
         this._document.body.scrollTop = 0;
       }

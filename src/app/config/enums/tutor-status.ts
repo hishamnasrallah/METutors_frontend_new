@@ -1,7 +1,10 @@
 export enum TutorStatus {
   online = 'online',
-  busy = 'busy',
   offline = 'offline',
+  rejected = 'rejected',
   pending = 'pending',
-  away = 'away',
+  suspended = 'suspended',
+  active = 'active',
+  deactive = 'inactive',
+  suspend = 'suspend',
 }

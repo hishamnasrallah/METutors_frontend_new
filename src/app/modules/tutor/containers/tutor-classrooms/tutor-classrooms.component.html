@@ -1,0 +1,144 @@
+<metutors-tutor-navbar [layout]="(layout$ | async)" [user]="user$ | async" (logout)="logout()"></metutors-tutor-navbar>
+
+<div class="classroom p-15-md-sm">
+  <div class="row" *ngLet="(view$ | async) as view">
+    <div class="col-12">
+      <div class="flex mb-3 codes" *ngIf="view?.programs && view?.programs.length">
+        <span class="fw-bold cursor-pointer position-relative f-size-15-md-sm"
+              [class.active]="programId === null"
+              (click)=" programId = null; countryId = null; fieldId = null; loadCourse({});">All</span>
+        <ng-container *ngFor="let program of view?.programs">
+          <span class="fw-bold cursor-pointer position-relative f-size-15-md-sm"
+            [class.active]="programId === program?.id" *ngIf="+program.id !== nationalId"
+            (click)=" countryId = null; programId = program?.id; fieldId = null; loadCourse({program: program?.id});">{{ program?.code }}</span>
+
+          <div class="btn-group" dropdown>
+            <span class="fw-bold cursor-pointer position-relative dropdown-toggle dropdown-toggle-split" dropdownToggle
+                  [class.active]="programId === program?.id" *ngIf="+program.id === nationalId"
+                  (click)="programId = program?.id; fieldId = null;">{{ program?.name }}</span>
+
+              <ul id="dropdown-split" *dropdownMenu class="dropdown-menu"
+                  role="menu" aria-labelledby="button-split">
+                <li role="menuitem" class="mat-menu-item" *ngFor="let country of view?.countries"
+                    (click)="countryId = country?.id; loadCourse({program: programId, country: country?.id});">{{ country?.name }}</li>
+              </ul>
+          </div>
+        </ng-container>
+      </div>
+
+      <ng-container *ngIf="view?.fieldOfStudies && view?.fieldOfStudies.length">
+        <button mat-button class="class-btn main-button-transparent text-uppercase mb-1 f-size-15-md-sm" [class.active]="!fieldId"
+          (click)="loadCourse({program: programId}); fieldId = null">All</button>
+        <button mat-button class="class-btn main-button-transparent text-uppercase mb-1 f-size-15-md-sm"
+          *ngFor="let field of view?.fieldOfStudies" [class.active]="fieldId === field?.id"
+          (click)="loadCourse({program: programId, field_of_study: field?.id}); fieldId = field?.id">{{ field?.name }}</button>
+      </ng-container>
+    </div>
+    <div class="col-12">
+      <h2 class="title cursor-pointer d-flex align-items-center f-size-18-md-sm mt-15-md-sm" (click)="openNewlyAssigned = !openNewlyAssigned">
+        <span class="flex-grow-1">Newly Assigned Courses</span>
+        <img src="assets/svg/arrow-up.svg" [class.rotate-180]="openNewlyAssigned" draggable="false" width="30px"
+          height="30" alt="" />
+      </h2>
+      <div class="row" [@slideInOut] *ngIf="openNewlyAssigned">
+        <ng-container [ngSwitch]="view.loading">
+          <ng-container *ngSwitchCase="true">
+            <div class="col-md-12" *ngFor="let _ of [1, 2]">
+              <metutors-card-placeholder></metutors-card-placeholder>
+            </div>
+          </ng-container>
+
+          <ng-container *ngSwitchCase="false">
+            <div class="col-md-12" *ngFor="let newCourse of view.newCourses">
+              <metutors-classroom-item [classroom]="newCourse" [selectedId]="courseId"
+                                       [completeCourse]="true" [isAcceptingCourse]="(isAccepting$ | async)!"
+                                       (accept)="onAcceptCourse(newCourse.id)"
+                                       (reject)="onOpenRejectCourse(newCourse.id)"
+                                       [url]="'/tutor/classrooms/classes/dashboard/'">
+              </metutors-classroom-item>
+            </div>
+
+            <div class="col-md-12 mb-3" *ngIf="!view.newCourses || !view.newCourses.length">
+              <div class="card no-data">
+                <div class="card-body">
+                  <h3 class="text-center m-0 f-size-17-md-sm">No course found!</h3>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="col-12">
+      <h2 class="title cursor-pointer d-flex align-items-center f-size-18-md-sm mt-15-md-sm" (click)="openActive = !openActive">
+        <span class="flex-grow-1">Active Courses</span>
+        <img src="assets/svg/arrow-up.svg" [class.rotate-180]="openActive" draggable="false" width="30px" height="30"
+          alt="" />
+      </h2>
+      <div class="row" [@slideInOut] *ngIf="openActive">
+        <ng-container [ngSwitch]="view.loading">
+          <ng-container *ngSwitchCase="true">
+            <div class="col-md-12" *ngFor="let _ of [1, 2]">
+              <metutors-card-placeholder></metutors-card-placeholder>
+            </div>
+          </ng-container>
+          <ng-container *ngSwitchCase="false">
+            <div class="col-md-12" *ngFor="let activeCourse of view.activeCourses">
+              <metutors-classroom-item [classroom]="activeCourse" [url]="'/tutor/classrooms/classes/dashboard/'"></metutors-classroom-item>
+            </div>
+
+            <div class="col-md-12 mb-3" *ngIf="!view.activeCourses || !view.activeCourses.length">
+              <div class="card no-data">
+                <div class="card-body">
+                  <h3 class="text-center m-0 f-size-17-md-sm">No course found!</h3>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="col-12">
+      <h2 class="title cursor-pointer d-flex align-items-center f-size-18-md-sm mt-15-md-sm" (click)="openCompleted = !openCompleted">
+        <span class="flex-grow-1">Completed Courses</span>
+        <img src="assets/svg/arrow-up.svg" [class.rotate-180]="openCompleted" draggable="false" width="30px" height="30"
+          alt="" />
+      </h2>
+      <div class="row" [@slideInOut] *ngIf="openCompleted">
+        <ng-container [ngSwitch]="view.loading">
+          <ng-container *ngSwitchCase="true">
+            <div class="col-md-12" *ngFor="let _ of [1, 2]">
+              <metutors-card-placeholder></metutors-card-placeholder>
+            </div>
+          </ng-container>
+          <ng-container *ngSwitchCase="false">
+            <div class="col-md-12" *ngFor="let completedCourse of view.completedCourses">
+              <metutors-classroom-item [classroom]="completedCourse" [url]="'/tutor/classrooms/classes/dashboard/'"></metutors-classroom-item>
+            </div>
+
+            <div class="col-md-12" *ngFor="let cancelledCourse of view.cancelledCourses">
+              <metutors-classroom-item [isTeacher]="true" [classroom]="cancelledCourse" [url]="'/tutor/classrooms/classes/dashboard/'"></metutors-classroom-item>
+            </div>
+
+            <div class="col-md-12 mb-3" *ngIf="!view.completedCourses || !view.completedCourses.length">
+              <div class="card no-data">
+                <div class="card-body">
+                  <h3 class="text-center m-0 f-size-17-md-sm">No course found!</h3>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+
+<metutors-tutor-reject-course-modal *ngIf="showRejectCourseModal$ | async"
+                                    (submitted)="onRejectCourse($event)"
+                                    (closeModal)="onCloseRejectCourse()"
+                                    [submitting]="(isRejecting$ | async)!"
+                                    [showModal]="(showRejectCourseModal$ | async)!">
+</metutors-tutor-reject-course-modal>

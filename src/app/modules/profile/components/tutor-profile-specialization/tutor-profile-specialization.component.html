@@ -1,14 +1,46 @@
-<div class="card" *ngIf="tutor?.subject && tutor?.subject?.length">
+<div class="card qualification">
   <div class="card-body">
-    <h1 class="title">Specialization</h1>
-    <div class="list">
-      <h2>Fields</h2>
-      <span *ngFor="let qualification of tutor?.qualifications">{{ qualification?.title }}</span>
-    </div>
+    <h1 class="title">Qualification Details</h1>
 
-    <div class="list">
-      <h2>Subjects</h2>
-      <span *ngFor="let subject of tutor?.subject">{{ subject?.name }}</span>
+    <ul class="list-unstyled m-0" *ngIf="!isLoading">
+      <li>
+        <img src="assets/svg/qualification.svg" draggable="false" width="20" height="20" alt=""
+          *ngIf="tutor?.qualifications?.degreeLevel">
+        <span>Degree Level: {{ tutor?.qualifications?.degreeLevel }}</span>
+      </li>
+      <li>
+        <img src="assets/svg/computer.svg" draggable="false" width="20" height="20" alt=""
+          *ngIf="tutor?.qualifications?.computerSkills">
+        <span>Computer Skills Level: {{ tutor?.qualifications?.computerSkills }}</span>
+      </li>
+    </ul>
+
+    <!-- <div class="list">
+      <h2>Degree Field/Major</h2>
+
+      <span>Geographics</span>
+      <span>Math</span>
+      <span>Science</span>
+      <span>Math</span>
+      <span>Geographics</span>
+      <span>Math</span>
+      <span>Science</span>
+      <span>Math</span>
+      <span>Geographics</span>
+      <span>Math</span>
+      <span>Science</span>
+      <span>Math</span>
+    </div> -->
+
+    <div class="item" *ngIf="isLoading">
+      <div class="ph-row">
+        <div class="ph-col-12 big mt-1"></div>
+        <div class="ph-col-0 big empty"></div>
+        <div class="ph-col-12 big mt-1"></div>
+        <div class="ph-col-0 big empty mt-1"></div>
+        <div class="ph-col-12 big mt-1"></div>
+        <div class="ph-col-0 big empty mt-1"></div>
+      </div>
     </div>
   </div>
 </div>

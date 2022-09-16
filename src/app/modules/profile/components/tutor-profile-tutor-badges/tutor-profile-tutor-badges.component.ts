@@ -8,6 +8,7 @@ import { ITutor } from 'src/app/core/models';
 })
 export class TutorProfileTutorBadgesComponent implements OnInit {
   @Input() tutor?: ITutor;
+  @Input() isLoading: boolean;
 
   constructor() {}
 

@@ -8,25 +8,10 @@ import { IFAQ } from 'src/app/core/models';
 })
 export class FaqSearchComponent implements OnInit {
   @Input() title!: string;
-  @Input() listFAQs?: IFAQ[];
-  @Input() tempListFAQs!: IFAQ[];
 
-  @Output() submitFAQ = new EventEmitter<IFAQ[]>();
+  @Output() submitFAQ = new EventEmitter<string>();
 
   constructor() {}
 
   ngOnInit(): void {}
-
-  filterFAQ(key: string) {
-    this.listFAQs = [];
-    for (var i = 0; i < this.tempListFAQs.length; i++) {
-      if (
-        this.tempListFAQs[i].title.toLowerCase().includes(key.toLowerCase())
-      ) {
-        this.listFAQs.push(this.tempListFAQs[i]);
-      }
-    }
-
-    this.submitFAQ.emit(this.listFAQs);
-  }
 }

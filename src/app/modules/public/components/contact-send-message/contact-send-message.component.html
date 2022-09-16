@@ -6,12 +6,12 @@
 
         <form [formGroup]="contactForm" (ngSubmit)="onSubmit(contactForm)" class="w-100">
           <div>
-            <h4 class="mb-4">Send a message</h4>
+            <h4 class="mb-4 f-size-20-md-sm">Send a message</h4>
 
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group mb-4">
-                  <label for="name">Your name*</label>
+                  <label class="f-size-15-md-sm" for="name">Your Name*</label>
                   <input type="text" class="custom-input w-100 input-bordered" id="name" placeholder="Type name here"
                     formControlName="name">
                   <span class="text-danger" *ngIf="name?.invalid && name?.touched">
@@ -21,7 +21,7 @@
               </div>
               <div class="col-md-6">
                 <div class="form-group mb-4">
-                  <label for="email">Contact email *</label>
+                  <label class="f-size-15-md-sm" for="email">Contact Email *</label>
                   <input type="email" email class="custom-input w-100 input-bordered" id="email"
                     placeholder="you@example.com" formControlName="email">
                   <span class="text-danger" *ngIf="email?.invalid && email?.touched">
@@ -34,14 +34,14 @@
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group mb-4">
-                  <label for="companyName">Company name (Optional)</label>
+                  <label class="f-size-15-md-sm" for="companyName">School Name (Optional)</label>
                   <input type="text" class="custom-input w-100 input-bordered" id="companyName"
                     placeholder="Type company name here" formControlName="companyName">
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group mb-4">
-                  <label for="subject">Message Subject *</label>
+                  <label class="f-size-15-md-sm" for="subject">Message Subject *</label>
                   <input type="text" class="custom-input w-100 input-bordered" id="subject"
                     placeholder="Type subject here" formControlName="subject">
                   <span class="text-danger" *ngIf="subject?.invalid && subject?.touched">
@@ -54,7 +54,7 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group mb-4">
-                  <label for="message">Your message*</label>
+                  <label class="f-size-15-md-sm" for="message">Your Message*</label>
                   <textarea rows="5" class="custom-input w-100 input-bordered" id="message"
                     placeholder="Type your message…." formControlName="message"></textarea>
                   <span class="text-danger" *ngIf="message?.invalid && message?.touched">

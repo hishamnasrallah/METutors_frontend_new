@@ -8,11 +8,14 @@ import { AcademicTutoringTextbook, TutorStatus } from 'src/app/config';
 })
 export class ReviewRequestComponent implements OnInit {
   @Input() reviewInfo: any;
-  @Input() isCreatingCourse?: boolean;
+  @Input() selectedCourse!: any;
+  @Input() price: number | null;
+  @Input() isCreatingCourse: boolean | null;
 
   @Output() onBack = new EventEmitter();
   @Output() submitForm = new EventEmitter();
 
+  conditions = false;
   tutorStatus = TutorStatus;
   academicTutoringTextbook = AcademicTutoringTextbook;
 

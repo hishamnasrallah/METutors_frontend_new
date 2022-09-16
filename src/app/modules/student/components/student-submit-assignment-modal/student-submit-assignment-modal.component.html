@@ -1,0 +1,55 @@
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'medium'"
+                [heading]="'Submit Assignment'"
+                [template]="template">
+  <ng-template #template>
+    <form class="row add-assignment-modal" [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="col-12">
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea class="form-control custom-input input-bordered" formControlName="description" id="description"
+                    rows="4" placeholder="Enter description here..."></textarea>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>File<span class="text-danger">*</span></label>
+        <div class="d-flex flex-column">
+          <div>
+            <button mat-button type="button" class="main-button mb-4" (click)="filePicker.click()">
+              <img src="assets/svg/upload-solid.svg" width="15" height="15" alt=""/>
+              Upload
+            </button>
+          </div>
+          <input type="file" hidden #filePicker (change)="onFileChange($event)">
+        </div>
+
+        <ng-container *ngLet="fileUploadProgress$ | async as fileUploadProgress">
+          <ng-container *ngIf="fileUploadProgress?.length">
+            <ng-container *ngFor="let uploadProgress of fileUploadProgress">
+              <ng-container *ngIf="uploadProgress.responseType !== uploadComplete">
+                <metutors-file-upload-progress [fileName]="uploadProgress.fileName"
+                                               [uploadedPercentage]="uploadProgress.progress">
+                </metutors-file-upload-progress>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+
+        <div class="form-group row" *ngIf="(uploadedFiles$ | async)?.length">
+          <metutors-uploaded-files [files]="uploadedFiles$ | async" [showDownloadFile]="false"
+                                   [showDeleteFile]="true" (deleteFile)="removeFile($event)">
+          </metutors-uploaded-files>
+        </div>
+      </div>
+
+      <div class="row mt-2">
+        <div class="col-md-12 overflow-hidden">
+          <metutors-submit-button [form]="form" [isSubmitting]="(isSubmittingAssignment$ | async)!"
+                                  [extraClasses]="'float-end py-1 px-5'">
+            Submit
+          </metutors-submit-button>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+</metutors-modal>

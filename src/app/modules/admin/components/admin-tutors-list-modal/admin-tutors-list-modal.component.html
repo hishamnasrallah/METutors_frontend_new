@@ -1,0 +1,100 @@
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'xmedium'"
+                [heading]="heading"
+                [subHeading]="subHeading"
+                [template]="template">
+  <ng-template #template>
+    <div class="tutors-list" *ngIf="!showAvailability">
+      <div class="assign-tutor flex-row">
+        <ng-container [ngSwitch]="loading">
+          <ng-container *ngSwitchCase="true">
+            <div class="ph-item mx-2" *ngFor="let i of [1, 2, 3, 4, 5]">
+              <div class="ph-col-2">
+                <div class="ph-avatar ph-image"></div>
+              </div>
+
+              <div>
+                <div class="ph-row mt-2">
+                  <div class="ph-col-10"></div>
+                  <div class="ph-col-2 empty"></div>
+                  <div class="ph-col-6"></div>
+                  <div class="ph-col-6 empty"></div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+          <ng-container *ngSwitchCase="false">
+            <div class="list-tutors">
+              <ng-container *ngIf="tutors?.length">
+                <div class="row mb-3" *ngFor="let tutor of tutors">
+                  <div class="position-relative img-avatar col-md-1">
+                    <img [src]="tutor?.avatar" meTutorsDefaultAvatar alt="" width="60px" height="60px">
+                  </div>
+                  <div class="col d-flex justify-content-center flex-column">
+                    <h2>{{ tutor?.name }}</h2>
+                    <h3 class="mb-0" *ngIf="tutor?.bio">{{ tutor?.bio }}</h3>
+                  </div>
+                  <a class="col-md-2 full-profile availability cursor-pointer"
+                     (click)="tutorAvailability.emit(tutor?.id); showAvailability = true">
+                    Tutor Availability
+                  </a>
+                  <a class="col-md-2 full-profile" [routerLink]="'/profile/tutor/' + tutor?.id" target="_blank">
+                    <img src="assets/svg/share-link.svg" draggable="false" width="16px" height="16px" alt="">
+                    Full profile
+                  </a>
+                </div>
+              </ng-container>
+
+              <ng-container *ngIf="!tutors?.length">
+                <div class="text-center fw-bold">No record found!</div>
+              </ng-container>
+            </div>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="tutor-availability" *ngIf="showAvailability">
+      <ng-container [ngSwitch]="loading">
+        <ng-container *ngSwitchCase="true">
+          <metutors-grid-placeholder></metutors-grid-placeholder>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="false">
+          <div *ngIf="!objectKeys(availabilities)?.length" class="text-center fw-bold">No Teacher availabilities found
+          </div>
+          <ng-container *ngIf="objectKeys(availabilities)?.length">
+            <div class="row dates">
+              <div class="col-md-3">
+                <span class="d-block">Starting Date</span>
+                <strong class="d-block">{{availabilities?.startDate}}</strong>
+              </div>
+              <div class="col-md-3">
+                <span class="d-block">Ending Date</span>
+                <strong class="d-block">{{availabilities?.endDate}}</strong>
+              </div>
+            </div>
+
+            <div class="mt-5">
+              <ng-container *ngFor="let key of objectKeys(availabilities)">
+                <div class="row days">
+                  <div class="col-md-2">
+                    <strong>{{ weekDayName[key] }}</strong>
+                  </div>
+                  <div class="col-md-10">
+                    <span *ngFor="let slot of availabilities[key]">
+                      {{ slot.timeFrom | date: 'h:mm a' }} to {{ slot.timeTo | date: 'h:mm a' }}
+                    </span>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </ng-container>
+          <div class="mt-4 d-flex justify-content-end">
+            <button mat-flat-button color="primary" class="py-1 px-5 fw-bold" (click)="showAvailability = false; back.emit()">Back
+            </button>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+  </ng-template>
+</metutors-modal>

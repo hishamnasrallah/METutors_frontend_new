@@ -1,0 +1,22 @@
+<metutors-modal [showModal]="showModal" [size]="'medium'" [template]="template" (closeModal)="closeModal.emit()">
+  <ng-template #template>
+    <div class="confirm-modal">
+      <img [src]="'assets/svg/' + icon" draggable="false" class="d-block mx-auto mb-4" alt="" width="90px"
+        height="90px" *ngIf="icon">
+      <h1 class="text-center heading">{{ heading }}</h1>
+      <p class="text-center px-5 subheading">{{ subHeading }}</p>
+
+      <div class="d-flex px-3">
+        <button mat-button class="py-1 flex-grow-1 fw-bold main-button-transparent me-2" (click)="closeModal.emit()"
+          [disabled]="loading">
+          {{ cancelLabel }}
+        </button>
+        <button mat-flat-button color="primary" class="py-1 flex-grow-1 fw-bold ms-2" (click)="confirm.emit()"
+          [disabled]="loading">
+          {{ confirmLabel }}
+          <mat-icon class="spinner" *ngIf="loading">autorenew</mat-icon>
+        </button>
+      </div>
+    </div>
+  </ng-template>
+</metutors-modal>

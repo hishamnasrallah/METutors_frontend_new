@@ -1,6 +1,12 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()" class="w-100">
   <div>
-    <h4 class="mb-5">Email Verification</h4>
+    <ng-container *ngIf="showHint">
+      <h4 class="mb-3">Email Verification</h4>
+
+      <h3 class="mb-5">You registered with email <span>{{ email }}</span>
+        <button (click)="changeStep.emit()" mat-button type="button">I have no access to this email</button>
+      </h3>
+    </ng-container>
 
     <div class="form-group">
       <label for="code">Enter Code</label>
@@ -11,13 +17,13 @@
 
     <div class="form-group mt-4 mb-2">
       <metutors-submit-button [form]="form" [isSubmitting]="loading" [extraClasses]="'w-100'">
-        Submit code
+        Submit Code
       </metutors-submit-button>
     </div>
     <div class="form-group mt-4 mb-2">
-      <button mat-flat-button color="primary" class="py-2 d-block w-100" (click)="resendEmailConfirm()"
+      <button mat-button class="py-1 d-block w-100 main-button-transparent" (click)="resendEmailConfirm()"
         [disabled]="resendLoading">
-        Re-send email verification
+        Resend Email Verification
         <mat-icon class="spinner" *ngIf="resendLoading">autorenew</mat-icon>
       </button>
     </div>

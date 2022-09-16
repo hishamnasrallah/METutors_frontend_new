@@ -1,7 +1,9 @@
+import { Store } from '@ngrx/store';
+import { UserRole } from '@metutor/config';
+import { IUser } from '@metutor/core/models';
+import * as fromCore from '@metutor/core/state';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { SocialAuthService } from 'angularx-social-login';
-import { AuthService } from '../../services';
+import { map, Observable, withLatestFrom } from 'rxjs';
 
 @Component({
   selector: 'metutors-navbar',
@@ -9,72 +11,52 @@ import { AuthService } from '../../services';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-  admin = false;
-  isRefereshed = true;
-  isRememberedUser = false;
+  user$: Observable<IUser | null>;
+  currencyRates$: Observable<any[]>;
+  selectedCurrency$: Observable<any>;
+  token$: Observable<string | undefined>;
+  isCurrencyRatesLoading$: Observable<boolean>;
 
-  constructor(
-    private _router: Router,
-    public authService: AuthService,
-    private _socialAuthService: SocialAuthService
-  ) {}
+  userRole = UserRole;
+
+  constructor(private _store: Store<any>) {}
 
   ngOnInit(): void {
-    this.checkReload();
-    this.checkRememberUser();
-    this.isAdmin();
-    if (!this.isRefereshed && !this.isRememberedUser)
-      localStorage.removeItem('token');
+    this.token$ = this._store.select(fromCore.selectToken);
+    this.user$ = this._store.select(fromCore.selectUser);
+
+    this.currencyRates$ = this._store.select(fromCore.selectCurrencyRates).pipe(
+      withLatestFrom(this._store.select(fromCore.selectCurrenciesNames)),
+      map(([rates, currencies]) =>
+        rates
+          ? Object.keys(rates).map((key) => ({
+              id: key,
+              name: `${currencies[key]} (${key})`,
+            }))
+          : []
+      )
+    );
+
+    this.isCurrencyRatesLoading$ = this._store.select(
+      fromCore.selectIsLoadingCurrencyRates
+    );
+
+    this.selectedCurrency$ = this._store
+      .select(fromCore.selectCurrentCurrency)
+      .pipe(
+        withLatestFrom(this._store.select(fromCore.selectCurrenciesNames)),
+        map(([currencySymbol, currencies]) => ({
+          id: currencySymbol,
+          name: `${currencies[currencySymbol]} (${currencySymbol})`,
+        }))
+      );
   }
 
-  ngOnChanges() {
-    this.checkReload();
-    this.isAdmin();
+  onCurrencySelect(currency: any): void {
+    this._store.dispatch(fromCore.selectCurrency({ currency: currency.id }));
   }
-
-  isAdmin() {
-    let session = localStorage.getItem('role');
-    if (session === 'admin-temporary') {
-      localStorage.removeItem('token');
-      localStorage.removeItem('role');
-    } else {
-      this.admin = true;
-    }
-  }
-
-  checkRememberUser() {
-    let session = localStorage.getItem('active');
-    if (session) {
-      this.isRememberedUser = true;
-    } else {
-      this.isRememberedUser = false;
-    }
-  }
-
-  checkReload() {
-    let session = sessionStorage.getItem('active');
-    if (session) {
-      this.isRefereshed = true;
-    } else {
-      this.isRefereshed = false;
-    }
-  }
-
-  // getCookie(name: string) {
-  //   let cookie = {};
-  //   document.cookie.split(';').forEach(function (el) {
-  //     let [k, v] = el.split('=');
-  //     cookie[k.trim()] = v;
-  //   });
-  //   return cookie[name];
-  // }
 
   logout(): void {
-    this.authService.logout();
-    localStorage.removeItem('token');
-    localStorage.removeItem('refresh-token');
-    localStorage.removeItem('active');
-    this._socialAuthService.signOut();
-    this._router.navigate(['/']);
+    this._store.dispatch(fromCore.logout());
   }
 }

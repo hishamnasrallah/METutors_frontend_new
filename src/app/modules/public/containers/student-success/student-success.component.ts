@@ -1,3 +1,6 @@
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import * as fromCore from '@metutor/core/state';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,11 +9,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./student-success.component.scss'],
 })
 export class StudentSuccessComponent implements OnInit {
+  token$: Observable<string | undefined>;
+
   testmonials?: any[];
 
-  constructor() {}
+  constructor(private _store: Store<any>) {}
 
   ngOnInit(): void {
+    this.token$ = this._store.select(fromCore.selectToken);
+
     this.testmonials = [
       {
         id: 1,

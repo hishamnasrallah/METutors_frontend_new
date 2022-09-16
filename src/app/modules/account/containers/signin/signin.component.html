@@ -1,8 +1,15 @@
 <div class="container-fluid signin-block full-height">
   <div class="row full-height">
-    <div class="col-md-4 offset-md-2 d-flex align-items-center">
-      <form [formGroup]="signinForm" (ngSubmit)="onSubmit(signinForm)" class="w-100">
-        <div>
+    <div class="col-lg-4 offset-lg-2 col-md-6 d-flex flex-column">
+      <div class="my-5">
+        <a routerLink="/">
+          <img alt="logo" src="assets/logo/logo-dark.png" width="200px" draggable="false">
+        </a>
+      </div>
+
+      <form [formGroup]="signinForm" (ngSubmit)="onSubmit(signinForm)"
+        class="w-100 flex-grow-1 d-flex align-items-center">
+        <div class="w-100">
           <h4 class="mb-5">Login</h4>
 
           <div class="form-group">
@@ -17,12 +24,13 @@
           <div class="form-group">
             <label for="pass">Choose Password</label>
             <div class="position-relative">
-              <input type="password" class="custom-input w-100 input-bordered" id="pass" placeholder="**********"
+              <input [type]="!passwordVisibility ? 'password' : 'text'" class="custom-input w-100 input-bordered" id="pass" placeholder="**********"
                 formControlName="password">
+              <mat-icon matSuffix class="actions eye" (click)="passwordVisibility = !passwordVisibility">{{ !passwordVisibility ? 'visibility_off' : 'visibility'}}</mat-icon>
+              <a routerLink="/forget-password" class="actions forget-link">Forget!</a>
               <div *ngIf="password?.invalid && password?.touched">
-                <small class="text-danger">Please write youe password</small>
+                <small class="text-danger">Please write your password</small>
               </div>
-              <a routerLink="/forget-password" class="forget-link">Forget!</a>
             </div>
           </div>
 
@@ -31,41 +39,51 @@
           </div>
 
           <div class="form-group mt-4 mb-2">
-            <metutors-submit-button [form]="signinForm" [isSubmitting]="loading" [extraClasses]="'w-100'">
+            <metutors-submit-button [form]="signinForm" [isSubmitting]="isLoading$ | async" [extraClasses]="'w-100'">
               Login
             </metutors-submit-button>
           </div>
 
           <div class="row mt-4 social">
-            <div class="col-md-6">
-              <!-- <button (click)="openRolesDialog('google')" mat-button type="button" class="w-100 google"
-                [disabled]="gloading">
+            <div class="col-xl-6 mt-1">
+              <button (click)="openRolesDialog('google')" mat-button type="button" class="w-100 google"
+                [disabled]="authLoading$ | async">
                 <img src="assets/svg/google.svg" alt="">
-                Sign up with Google
-                <mat-icon class="spinner" *ngIf="gloading">autorenew</mat-icon>
-              </button> -->
+                Login with Google
+              </button>
             </div>
-            <div class="col-md-6">
-              <!-- <button (click)="openRolesDialog('facebook')" mat-button type="button" class="w-100"
-                [disabled]="floading">
-                <img src="assets/svg/facebook.svg" alt="">
-                Sign up with Facebook
-                <mat-icon class="spinner" *ngIf="floading">autorenew</mat-icon>
-              </button> -->
+            <div class="col-xl-6 mt-1">
+              <button (click)="openRolesDialog('facebook')" mat-button type="button" class="w-100"
+                [disabled]="authLoading$ | async">
+                <img src="assets/svg/facebook-light.svg" class="facebook" alt="">
+                Login with Facebook
+              </button>
             </div>
           </div>
 
           <div class="form-group mt-4">
             <p>
-              haven’t an account?
-              <a routerLink="/signup">Sign up now</a>
+              Don’t have an account?
+              <a routerLink="/signup"  [queryParams]="{returnUrl}">Sign up now</a>
             </p>
           </div>
         </div>
       </form>
     </div>
-    <div class="col-md-6 d-flex align-items-center img-cover">
-      <img src="assets/authentication/login.png" class="w-100 full-height" alt="" draggable="false">
+    <div class="col-lg-6 col-md-6 d-flex align-items-center img-cover">
+      <img src="assets/authentication/login.jpg" class="w-100 h-100" alt="" draggable="false">
     </div>
   </div>
 </div>
+
+<ng-container *ngLet="(userRole$ | async) as userRole">
+  <metutors-signin-email-verification-modal *ngIf="showAccountEmailVerificationModal$ | async"
+                                            (closeModal)="onCloseAccountEmailVerificationModal()"
+                                            [email]="username?.value"
+                                            [loading]="(isVerifyEmail$ | async)!"
+                                            [resendLoading]="(isResendEmailconfirm$ | async)!"
+                                            (submitForm)="onSubmitVerifyEmail($event, userRole)"
+                                            (resendEmail)="resendEmailConfirm()"
+                                            [showModal]="(showAccountEmailVerificationModal$ | async)!">
+  </metutors-signin-email-verification-modal>
+</ng-container>

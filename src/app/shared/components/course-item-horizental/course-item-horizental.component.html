@@ -25,12 +25,12 @@
         <span class="count">{{ course?.rate }}</span>
         <span class="review">({{ course?.reviewsCount }} review)</span>
       </div>
-      <p class="desc flex-grow-1" [innerHTML]="course?.description"></p>
+      <p class="desc flex-grow-1 f-size-15-md-sm" [innerHTML]="course?.description"></p>
       <div class="row list rounded">
         <div class="col-md-4 d-flex menu align-items-center">
           <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
           <strong>Total hours:</strong>
-          <span>{{ course?.duration }} hours</span>
+          <span>{{ course?.duration }} hour{{ +(course?.duration)! > 1 ? 's' : '' }}</span>
         </div>
         <div class="col-md-4 d-flex menu align-items-center">
           <img src="assets/svg/class.svg" alt="" width="15" height="15" draggable="false">
@@ -46,8 +46,8 @@
     </div>
     <div class="col d-flex flex-column">
       <h3 class="price flex-grow-1">Price:
-        <strong>{{ course?.priceRange?.min | currency:'USD' }}</strong> to
-        <strong>{{ course?.priceRange?.max | currency:'USD' }}</strong>
+        <strong>{{ course?.priceRange?.min | metutorsMoney | async }}</strong> to
+        <strong>{{ course?.priceRange?.max | metutorsMoney | async }}</strong>
       </h3>
       <button mat-flat-button color="primary" class="main-button-transparent mb-2"
         (click)="openCourseDetailsPopop = true">

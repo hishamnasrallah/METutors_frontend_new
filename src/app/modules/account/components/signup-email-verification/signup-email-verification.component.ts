@@ -16,10 +16,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class SignupEmailVerificationComponent implements OnInit {
   @ViewChild('ngOtpInput', { static: false }) ngOtpInput: any;
 
+  @Input() email: string;
+  @Input() showHint = true;
   @Input() loading?: boolean;
   @Input() resendLoading?: boolean;
 
   @Output() submitForm = new EventEmitter();
+  @Output() changeStep = new EventEmitter();
   @Output() resendEmail = new EventEmitter();
 
   form: FormGroup;
@@ -47,9 +50,15 @@ export class SignupEmailVerificationComponent implements OnInit {
   ngOnInit(): void {}
 
   onOtpChange(value: string): void {
-    this.form.get('code')?.setValue(value);
-    this.form.updateValueAndValidity();
-    this.form.markAsDirty();
+    if (value && value.length === 5) {
+      this.form.get('code')?.setValue(value);
+      this.form.updateValueAndValidity();
+      this.form.markAsDirty();
+    } else {
+      this.form.get('code')?.setValue(null);
+      this.form.updateValueAndValidity();
+      this.form.markAsDirty();
+    }
   }
 
   onSubmit(): void {
@@ -60,5 +69,9 @@ export class SignupEmailVerificationComponent implements OnInit {
 
   resendEmailConfirm(): void {
     this.resendEmail.emit();
+    this.ngOtpInput.setValue(null);
+    this.form.get('code')?.setValue(null);
+    this.form.updateValueAndValidity();
+    this.form.markAsDirty();
   }
 }

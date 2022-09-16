@@ -36,7 +36,8 @@ import { IFAQ } from 'src/app/core/models';
   ],
 })
 export class FaqListQuestionsComponent implements OnInit {
-  @Input() listFAQs?: IFAQ[];
+  @Input() listFAQs: IFAQ[] | null;
+  @Input() isLoading: boolean | null;
 
   selectedQuestion?: number;
   openQuestion: boolean = false;
@@ -45,7 +46,7 @@ export class FaqListQuestionsComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  changeOpenSelection(id: number) {
+  changeOpenSelection(id: number): void {
     if (this.selectedQuestion === id) {
       this.openQuestion = false;
       this.selectedQuestion = undefined;

@@ -1,0 +1,89 @@
+:host ::ng-deep .bookings-list {
+  padding: 30px 40px 20px;
+
+  .filters {
+    h1 {
+      font-size: 25px;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    mat-icon {
+      position: absolute;
+      left: 15px;
+      top: 11px;
+
+      &.filter {
+        left: auto;
+        right: 15px;
+      }
+    }
+  }
+
+  .sections {
+    .section {
+      cursor: pointer;
+      border-radius: 8px;
+      font-size: 17px;
+      text-align: center;
+      border: 2px solid #949494;
+      color: #949494;
+
+      &.active {
+        color: var(--main-color);
+        border-color: 2px solid var(--main-color);
+      }
+    }
+  }
+
+  .my-table {
+    overflow: visible;
+
+    th {
+      color: #696969;
+      font-size: 14px;
+    }
+
+    .teacher-status {
+      line-height: 0;
+      min-width: 0;
+      color: #949494;
+      padding: 14px 27px;
+      border-radius: 25px;
+      border: 1px solid #979797;
+
+      &.available {
+        color: #50C394;
+        border: 1px solid #50C394;
+      }
+      &.not-available {
+        color: #d34c65;
+        border: 1px solid #d34c65;
+      }
+    }
+    .tutor-date {
+      div {
+        padding: 0;
+        font-size: 14px;
+
+        span {
+          color: #696969;
+        }
+      }
+    }
+  }
+
+  .mat-tab-label {
+    font-size: 20px;
+    justify-content: start;
+    padding: 0;
+    font-weight: bold;
+    min-width: 70px;
+    margin-right: 50px;
+
+    &.mat-tab-label-active {
+      color: var(--main-color);
+      opacity: 1;
+    }
+  }
+}

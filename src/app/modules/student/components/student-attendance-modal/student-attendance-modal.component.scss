@@ -1,0 +1,77 @@
+.attendance-modal {
+  .classroom-item {
+    overflow: hidden;
+    padding: 8px;
+    border-radius: 10px;
+    border: solid 1px #e4e4e4;
+    box-shadow: none;
+
+    .date {
+      background-color: rgba(59, 179, 193, 0.04);
+
+      h2 {
+        color: #696969;
+        font-size: 16px;
+      }
+
+      h3 {
+        font-weight: bold;
+        font-size: 20px;
+        color: #2a2a2a;
+      }
+
+      h4 {
+        font-size: 15px;
+        color: #696969;
+      }
+    }
+
+    .card-title {
+      color: #2a2a2a;
+      font-size: 22px;
+
+      span {
+        color: #696969;
+        font-size: 15px;
+      }
+    }
+
+    p {
+      color: #696969;
+      font-size: 16px;
+    }
+  }
+
+  .table-responsive {
+    border-radius: 6px;
+    border: 1px solid #ededed;
+    border-top: none;
+  }
+
+  table {
+    th {
+      font-weight: normal;
+    }
+    td {
+      button {
+        text-transform: capitalize;
+        font-weight: bold;
+        font-size: 11px;
+        border-radius: 10px;
+        min-width: 0;
+        padding: 11px;
+        line-height: 0;
+
+        &.absent {
+          color: var(--bs-danger);
+          background-color: rgba(193, 59, 59, 0.12);
+        }
+
+        &:not(.absent) {
+          color: var(--main-color);
+          background-color: rgb(59 179 193 / 12%);
+        }
+      }
+    }
+  }
+}

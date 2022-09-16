@@ -1,22 +1,24 @@
+import { Store } from '@ngrx/store';
+import { upperFirst } from 'lodash';
+import { IRole } from 'src/app/core/models';
+import { Observable, Subscription } from 'rxjs';
+import { CountryISO } from 'ngx-intl-tel-input';
+import * as fromCore from '@metutor/core/state';
+import { MatDialog } from '@angular/material/dialog';
+import { RolesSelectComponent } from '../../components';
+import { ActivatedRoute, Router } from '@angular/router';
+import { SocialProvider, UserRole } from 'src/app/config';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AuthService, UsersService } from 'src/app/core/services';
+import { AlertNotificationService } from 'src/app/core/components';
+import { FormValidationUtilsService } from 'src/app/core/validators';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import {
-  AbstractControl,
-  FormBuilder,
   FormGroup,
   Validators,
+  FormBuilder,
+  AbstractControl,
 } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
-import { Router } from '@angular/router';
-import { CountryISO } from 'ngx-intl-tel-input';
-import { Subscription } from 'rxjs';
-import { addMisc, getMisc, UserRole } from 'src/app/config';
-import { AlertNotificationService } from 'src/app/core/components';
-import { IRole } from 'src/app/core/models';
-import { AuthService, UsersService } from 'src/app/core/services';
-import { FormValidationUtilsService } from 'src/app/core/validators';
-import { RolesSelectComponent } from '../../components';
 
 @Component({
   selector: 'metutors-signup',
@@ -32,19 +34,24 @@ import { RolesSelectComponent } from '../../components';
   ],
 })
 export class SignupComponent implements OnInit, OnDestroy {
-  roles!: IRole[];
-  step: number = 1;
+  step$: Observable<number>;
+  email$: Observable<string>;
+  roles$: Observable<IRole[]>;
+  userType$: Observable<number>;
+  isLoading$: Observable<boolean>;
+  authLoading$: Observable<boolean>;
+  isVerifyEmail$: Observable<boolean>;
+  isResendEmailconfirm$: Observable<boolean>;
+
   userRole = UserRole;
   signupForm: FormGroup;
   signupSub?: Subscription;
   loading: boolean = false;
   getRolesSub?: Subscription;
+  passwordVisibility = false;
   selectedCountry!: CountryISO;
-  resendLoading: boolean = false;
-  userType?: number = UserRole.student;
-
-  gloading = false;
-  floading = false;
+  authSignInSub?: Subscription;
+  confirmPasswordVisibility = false;
 
   preferredCountries: CountryISO[] = [
     CountryISO.UnitedStates,
@@ -54,6 +61,7 @@ export class SignupComponent implements OnInit, OnDestroy {
   constructor(
     private _router: Router,
     private _fb: FormBuilder,
+    private _store: Store<any>,
     private _dialog: MatDialog,
     private _route: ActivatedRoute,
     private _authService: AuthService,
@@ -67,18 +75,16 @@ export class SignupComponent implements OnInit, OnDestroy {
           null,
           [
             Validators.required,
-            Validators.pattern("^[a-zA-Z -']+"),
-            this._fv.minCharacterValidator,
-            this._fv.maxCharacterValidator,
+            Validators.minLength(1),
+            Validators.maxLength(15),
           ],
         ],
         lastName: [
           null,
           [
             Validators.required,
-            Validators.pattern("^[a-zA-Z -']+"),
-            this._fv.minCharacterValidator,
-            this._fv.maxCharacterValidator,
+            Validators.minLength(3),
+            Validators.maxLength(15),
           ],
         ],
         email: [
@@ -91,7 +97,7 @@ export class SignupComponent implements OnInit, OnDestroy {
             ),
           ],
         ],
-        mobileNumber: [null, []],
+        mobileNumber: [null, [Validators.required]],
         password: [
           null,
           [
@@ -101,6 +107,7 @@ export class SignupComponent implements OnInit, OnDestroy {
           ],
         ],
         confirmPassword: [null, Validators.required],
+        conditions: [false, Validators.requiredTrue],
       },
       {
         validators: this._fv.passwordsMatchValidator(
@@ -112,14 +119,29 @@ export class SignupComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this._userService.getUserLocation().then((res: any) => {
-      if (res && res.countryName) {
-        const countryName: keyof CountryISO = res.countryName;
-        this.selectedCountry = CountryISO[countryName];
-      }
-    });
+    // this._userService.getUserLocation().then((res: any) => {
+    //   if (res && res.countryName) {
+    //     const countryName: keyof CountryISO = res.countryName;
+    //     this.selectedCountry = CountryISO[countryName];
+    //   }
+    // });
 
     this._prepareRoles();
+
+    if (this._route.snapshot.queryParams['role']) {
+      const userType = this._route.snapshot.queryParams['role'];
+      this.changeStep(1, '', +userType!);
+    }
+
+    this.step$ = this._store.select(fromCore.selectRegisterStep);
+    this.isLoading$ = this._store.select(fromCore.selectIsSignUp);
+    this.email$ = this._store.select(fromCore.selectRegisterEmail);
+    this.userType$ = this._store.select(fromCore.selectRegisterUserType);
+    this.authLoading$ = this._store.select(fromCore.selectIsSocialSignIn);
+    this.isVerifyEmail$ = this._store.select(fromCore.selectIsVerifyEmail);
+    this.isResendEmailconfirm$ = this._store.select(
+      fromCore.selectIsResendEmailConfirm
+    );
   }
 
   get firstName(): AbstractControl | null {
@@ -146,12 +168,11 @@ export class SignupComponent implements OnInit, OnDestroy {
     return this.signupForm.get('mobileNumber');
   }
 
-  onSubmit(form: FormGroup) {
+  onSubmit(form: FormGroup, userType: number) {
     if (form.invalid) {
       return;
     }
 
-    this.loading = true;
     const countryCodeLength =
       this.phoneNumber?.value.internationalNumber.length - 11;
     const phoneNumber = {
@@ -165,103 +186,57 @@ export class SignupComponent implements OnInit, OnDestroy {
       ),
     };
 
-    const data: any = {
-      first_name: this.firstName?.value,
-      last_name: this.lastName?.value,
+    const user: any = {
+      first_name: upperFirst(this.firstName?.value),
+      last_name: upperFirst(this.lastName?.value),
       mobile: phoneNumber.mobile.replace(' ', ''),
       email: this.email?.value,
       password: this.password?.value,
       confirm_password: this.confirmPassword?.value,
       country_code: phoneNumber.code.replace(' ', ''),
-      role: this.userType,
+      role: userType,
     };
 
-    this.signupSub = this._authService.register(data).subscribe(
-      (response) => {
-        if (response.status === true) {
-          this.step = 2;
-        } else {
-          this._alertNotificationService.error(response.errors[0]);
-        }
-        this.loading = false;
-      },
-      (error) => {
-        this._alertNotificationService.error(
-          error.error.message ||
-            'Something went wrong while creating an account'
-        );
-      }
-    );
+    this._store.dispatch(fromCore.register({ user }));
   }
 
-  onSubmitVerifyEmail(code: string) {
-    this.loading = true;
-    const data = {
-      username: this.email?.value,
+  onSubmitVerifyEmail(code: string, email: string) {
+    const value = {
+      username: this.email?.value ? this.email?.value : email,
       code,
     };
 
-    this.signupSub = this._authService.verifyEmail(data).subscribe(
-      (response) => {
-        if (response.status === true) {
-          this.loading = false;
-          this._alertNotificationService.success(response.message);
+    this._store.dispatch(fromCore.verifyEmail({ value }));
+  }
 
-          if (this.userType == UserRole.student) {
-            this._router.navigate(['/signin']);
-          } else {
-            this.step = 3;
-          }
-        } else {
-          this.loading = false;
-          this._alertNotificationService.error(response.errors[0]);
-        }
-      },
-      (error) => {
-        this._alertNotificationService.error(
-          error.error.message ||
-            'Something went wrong while verifing your email'
-        );
-      }
+  resendEmailConfirm(email: string): void {
+    this._store.dispatch(
+      fromCore.resendEmailConfirm({
+        email: this.email?.value ? this.email?.value : email,
+      })
     );
   }
 
-  resendEmailConfirm(): void {
-    this.resendLoading = true;
-    this.signupSub = this._authService
-      .resendEmailConfirm({ email: this.email?.value })
-      .subscribe(
-        (response) => {
-          if (response.status === true) {
-            this.resendLoading = false;
-            this._alertNotificationService.success(response.message);
-          } else {
-            this.resendLoading = false;
-            this._alertNotificationService.error(response.errors[0]);
-          }
-        },
-        (error) => {
-          this._alertNotificationService.error(
-            error.error.message ||
-              'Something went wrong while verifing your email'
-          );
-        }
-      );
-  }
-
-  submitDocuments(files: File[]) {
+  submitDocuments(files: File[], email: string, userType: number) {
     this.loading = true;
     const formData = new FormData();
+    const sendFiles: any = [...files];
 
-    for (let i = 0; i < files.length; i++) {
-      formData.append(`documents`, files[i]);
-    }
-
-    formData.append(`email`, this.email?.value);
+    sendFiles.forEach((file: any, index: number) => {
+      formData.append(`documents[${index}]`, file);
+    });
+    formData.append(`email`, this.email?.value ? this.email?.value : email);
 
     this.signupSub = this._authService.uploadDocuments(formData).subscribe(
       (res) => {
         if (res.status === 'true') {
+          this._store.dispatch(
+            fromCore.registerStep({
+              step: 1,
+              email: '',
+              userType,
+            })
+          );
           this._alertNotificationService.success(res.message);
           this._router.navigate(['/signin']);
         } else {
@@ -270,103 +245,67 @@ export class SignupComponent implements OnInit, OnDestroy {
         this.loading = false;
       },
       (error) => {
+        this.loading = false;
         this._alertNotificationService.error(
-          error.error.message ||
+          error?.error?.message ||
             'Something went wrong while uploading the documents'
         );
       }
     );
   }
 
-  openRolesDialog(domain: any): void {
+  changeStep(step: number, email: string, userType: number): void {
+    this._store.dispatch(
+      fromCore.registerStep({
+        step,
+        email,
+        userType,
+      })
+    );
+  }
+
+  openRolesDialog(domain: any, roles: IRole[]): void {
     const _dialogRef = this._dialog.open(RolesSelectComponent, {
       width: '500px',
       disableClose: true,
+      data: roles,
     });
 
     _dialogRef.afterClosed().subscribe((res) => {
-      this.userType = res.data.toString();
-      domain === 'google' ? this.signInWithGoogle() : this.signInWithFacebook();
-    });
-  }
+      if (res && res.data) {
+        const userType = res.data.toString();
 
-  signInWithGoogle() {
-    this._authService.signInWithGoogle().then((data: any) => {
-      localStorage.setItem('token', data.idToken);
-      if (
-        this._route.snapshot.queryParams['returnUrl'] &&
-        decodeURIComponent(this._route.snapshot.queryParams['returnUrl'])
-      ) {
-        let returnUrl = decodeURIComponent(
-          this._route.snapshot.queryParams['returnUrl']
-        );
-        this._router.navigate([returnUrl]);
-      } else {
-        this.gloading = true;
-
-        data['role'] = this.userType;
-
-        this._authService.googleSignIn(data).subscribe((res) => {
-          this.gloading = false;
-
-          if (res.status === true) {
-            this._alertNotificationService.success(res.message);
-            if (Number(this.userType) === UserRole.student) {
-              this._router.navigate(['/student-dashboard'], {
-                queryParams: { name: res.user.first_name },
-              });
-            } else if (Number(this.userType) === UserRole.tutor) {
-              this._router.navigate(['/teacher-dashboard'], {
-                queryParams: { name: res.user.first_name },
-              });
-            } else {
-              this._router.navigate(['/']);
-            }
-          } else {
-            this._alertNotificationService.error(res.message);
-          }
-        });
+        this.changeStep(1, '', +userType!);
+        domain === 'google'
+          ? this.signInWithGoogle(userType)
+          : this.signInWithFacebook(userType);
       }
     });
   }
 
-  signInWithFacebook() {
-    this._authService.signInWithFacebook().then((data) => {
-      localStorage.setItem('token', data.authToken);
-      if (
-        this._route.snapshot.queryParams['returnUrl'] &&
-        decodeURIComponent(this._route.snapshot.queryParams['returnUrl'])
-      ) {
-        let returnUrl = decodeURIComponent(
-          this._route.snapshot.queryParams['returnUrl']
-        );
-        this._router.navigate([returnUrl]);
-      } else {
-        // data.role = this.userType;
+  signInWithGoogle(userType: number) {
+    this._authService.signInWithGoogle().then((response: any) => {
+      const data = {
+        ...response,
+        role: userType,
+        provider: SocialProvider.google,
+      };
 
-        this.floading = true;
+      this._store.dispatch(fromCore.socialSignIn({ user: data }));
+    });
+  }
 
-        this._authService.facebookSignIn(data).subscribe((res) => {
-          this.floading = false;
+  signInWithFacebook(userType: number) {
+    this._authService.signInWithFacebook().then((response) => {
+      this._authService.signInWithFacebook().then((response) => {
+        const data = {
+          ...response,
+          role: userType,
+          provider: SocialProvider.facebook,
+        };
 
-          if (res.status === true) {
-            this._alertNotificationService.success(res.message);
-            if (Number(this.userType) === UserRole.student) {
-              this._router.navigate(['/student-dashboard'], {
-                queryParams: { name: res.user.first_name },
-              });
-            } else if (Number(this.userType) === UserRole.tutor) {
-              this._router.navigate(['/teacher-dashboard'], {
-                queryParams: { name: res.user.first_name },
-              });
-            } else {
-              this._router.navigate(['/']);
-            }
-          } else {
-            this._alertNotificationService.error(res.message);
-          }
-        });
-      }
+        this._store.dispatch(fromCore.socialSignIn({ user: data }));
+      });
     });
   }
 
@@ -376,11 +315,7 @@ export class SignupComponent implements OnInit, OnDestroy {
   }
 
   private _prepareRoles(): void {
-    this.getRolesSub = this._userService.getRoles().subscribe((response) => {
-      this.roles = response;
-      addMisc('roles', this.roles);
-    });
-
-    this.roles = getMisc().roles;
+    this._store.dispatch(fromCore.loadUserTypes());
+    this.roles$ = this._store.select(fromCore.selectUserTypes);
   }
 }

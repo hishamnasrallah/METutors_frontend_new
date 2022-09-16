@@ -1,0 +1,27 @@
+.cancel-course-modal {
+  .note {
+    font-size: 12px;
+  }
+
+  .text-right {
+    text-align: right;
+  }
+
+  .back-button {
+    font-size: 20px;
+    margin:  7px 20px 0 0;
+  }
+
+  .table {
+    th {
+      font-size: 14px;
+      font-weight: normal;
+      border-top: 1px solid #dee2e6;
+      border-bottom: 1px solid #dee2e6;
+    }
+
+    tbody {
+      border-top: 0;
+    }
+  }
+}

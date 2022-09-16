@@ -1,5 +1,12 @@
-.security-settings {
-  padding: 30px 0;
+:host ::ng-deep .security-settings {
+  h4 {
+    color: #000;
+  }
+
+  label {
+    color: #2A2A2A;
+    font-weight: 600;
+  }
 
   h3 {
     color: #2a2a2a;
@@ -17,13 +24,16 @@
 
   .btn-list {
     border-top: solid 1px #e2e2e2;
-    padding: 20px 20px 0;
-    margin-left: -30px;
 
     button {
       font-weight: bold;
       padding: 10px 30px;
       font-size: 18px;
     }
+  }
+
+  .password-visibility {
+    top: 35px;
+    right: 10px;
   }
 }

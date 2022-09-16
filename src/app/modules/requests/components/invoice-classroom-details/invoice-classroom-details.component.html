@@ -1,8 +1,35 @@
 <div class="class-details">
-  <h2 class="d-flex align-items-center">Classroom Details</h2>
+  <h2 class="d-flex align-items-center f-size-17-md-sm h-auto-sm">Classroom Details</h2>
   <div class="card">
     <div class="card-body">
-      <h3>Course details</h3>
+      <ul class="list-unstyled row informations b-border">
+        <li class="col-12 d-flex justify-content-between">
+          <span class="m-0">Course ID</span>
+          <strong>CID39492</strong>
+        </li>
+        <li class="col-12">
+          <span class="m-0 d-block">Course Details</span>
+          <strong class="d-block">Calculas 101</strong>
+        </li>
+        <li class="col-12">
+          <span class="m-0 d-block">Program</span>
+          <strong class="d-block">{{ classroom?.programName }}</strong>
+        </li>
+        <li class="col-12">
+          <span class="m-0 d-block">Course Field</span>
+          <strong class="d-block">{{ classroom?.fieldName }}</strong>
+        </li>
+        <li class="col-12">
+          <span class="m-0 d-block">Tutoring Language</span>
+          <strong class="d-block">{{ classroom?.tutoringLanguage }}</strong>
+        </li>
+        <li class="col-12">
+          <span class="m-0 d-block">Tutoring Type</span>
+          <strong class="d-block">{{ classroom?.tutoringType }}</strong>
+        </li>
+      </ul>
+
+      <!-- <h3>Course details</h3>
       <div class="row">
         <div class="col-md-4">
           <img src="https://cdn.zeplin.io/6028de32189e8faf9f3e3c68/assets/CA4AA2D3-01C6-49D5-94E9-E9A33BFEC898.png"
@@ -17,44 +44,40 @@
           </div>
           <h5>23 Feb 20 - 34 Hours - 12 Patches</h5>
         </div>
-      </div>
+      </div> -->
 
-      <h3 class="details">Classroom details</h3>
-      <ul class="list-unstyled row">
+      <h3 class="details">Classroom Details</h3>
+      <ul class="list-unstyled row" [class.b-border]="classroom?.tutor">
+        <li class="col-12">
+          <img src="assets/svg/class.svg" draggable="false" width="20" height="20" alt="">
+          <span>Total Classes: {{ classroom?.classes }} Class{{ +(classroom?.classes)! > 1 ? 'es' : '' }}</span>
+        </li>
         <li class="col-12">
           <img src="assets/svg/calendar.svg" draggable="false" width="20" height="20" alt="">
-          <span>Starting in: 23 Feb 20</span>
+          <span>Start Date: {{ classroom?.startDate | date }}</span>
         </li>
         <li class="col-12">
           <img src="assets/svg/briefcase.svg" draggable="false" width="20" height="20" alt="">
-          <span>End in: 30 Mar 20</span>
-        </li>
-        <li class="col-12">
-          <img src="assets/svg/timer.svg" draggable="false" width="20" height="20" alt="">
-          <span>Total hours : 20hours</span>
+          <span>End Date: {{ classroom?.endDate | date }}</span>
         </li>
         <li class="col-12">
           <img src="assets/svg/time.svg" draggable="false" width="20" height="20" alt="">
-          <span>Time: 8pm : 10pm</span>
+          <span>Time: {{ classroom?.startTime }} : {{ classroom?.endTime }}</span>
         </li>
         <li class="col-12">
-          <img src="assets/svg/user-formal.svg" draggable="false" width="20" height="20" alt="">
-          <span>Patch type: Group</span>
-        </li>
-        <li class="col-12">
-          <img src="assets/svg/class.svg" draggable="false" width="20" height="20" alt="">
-          <span>Total class: 30 Classes</span>
+          <img src="assets/svg/timer.svg" draggable="false" width="20" height="20" alt="">
+          <span>Duration : {{ classroom?.hours }} hour{{ +(classroom?.hours)! > 1 ? 's' : '' }}</span>
         </li>
       </ul>
 
-      <h3 class="details">Classroom tutor</h3>
-      <div class="row info">
-        <div class="col-md-2 d-flex align-items-center">
-          <img src="assets/homepage/courses/person.png" alt="">
+      <div class="row info" *ngIf="classroom?.tutor">
+        <h6 class="details col-12">Classroom tutor</h6>
+        <div class="col-2">
+          <img [src]="classroom?.tutor?.avatar" meTutorsDefaultAvatar alt="" draggable="false">
         </div>
-        <div class="col-md-10 d-flex justify-content-center flex-column">
-          <h2>David Stevenson</h2>
-          <h3>Expert & engineering tutor</h3>
+        <div class="col-10 d-flex justify-content-center flex-column">
+          <h2><bdi>{{ classroom?.tutor?.name }}</bdi></h2>
+          <h3>{{ classroom?.tutor?.bio }}</h3>
         </div>
       </div>
     </div>

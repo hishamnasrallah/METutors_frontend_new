@@ -1,0 +1,22 @@
+<div class="avatar d-flex align-items-center" *ngIf="type === 'small'">
+  <img [src]="avatar" [width]="width" [height]="height"
+       class="rounded-circle p-0 me-2"
+       draggable="false"
+       meTutorsDefaultAvatar alt="">
+  <span>
+    <a [routerLink]="routerLink" *ngIf="routerLink"><bdi *ngIf="name">{{ name }}</bdi></a>
+    <bdi *ngIf="name && !routerLink">{{ name }}</bdi>
+  </span>
+</div>
+
+<div class="avatar d-flex align-items-center" *ngIf="type==='medium'">
+  <img [src]="avatar" [width]="width" [height]="height" meTutorsDefaultAvatar alt="" class="rounded-circle">
+  <div class="ms-2">
+    <h1 class="mb-0">{{ name }}</h1>
+    <div *ngIf="rating">
+      <rating [ngModel]="rating" [max]="5" [readonly]="true"></rating>
+      <span class="ms-2 rating">{{ rating.toFixed(2) }}</span>
+      <span class="ms-2 count">({{ count || 0 }} review{{ +(count)! > 1 ? 's' : '' }})</span>
+    </div>
+  </div>
+</div>

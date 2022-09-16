@@ -1,0 +1,25 @@
+.change-status {
+  .statues {
+    border-radius: 5px;
+    overflow: hidden;
+
+    li {
+      padding: 5px 10px;
+      color: #FFF;
+      margin: 5px;
+      border-radius: 5px;
+
+      &.available {
+        border: none;
+        color: #50C394;
+        background: rgba(80, 195, 148, 0.2);
+      }
+
+      &.not-available {
+        border: none;
+        color: #d34c65;
+        background-color: #f9d3da;
+      }
+    }
+  }
+}

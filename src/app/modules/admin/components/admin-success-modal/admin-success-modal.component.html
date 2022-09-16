@@ -1,0 +1,14 @@
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'medium'"
+                [template]="template">
+  <ng-template #template>
+    <div class="success-modal">
+      <img [src]="'assets/svg/'+ icon" draggable="false" class="d-block mx-auto mb-4" alt="" width="130px"
+        height="130px">
+      <h1 class="text-center heading">{{ heading }}</h1>
+      <p class="text-center px-5 mt-3 mb-5 subheading">{{ subHeading }}</p>
+      <button mat-flat-button color="primary" class="py-1 w-100" [routerLink]="routerLink" (click)="closeModal.emit()">
+        {{ buttonLabel }}
+      </button>
+    </div>
+  </ng-template>
+</metutors-modal>

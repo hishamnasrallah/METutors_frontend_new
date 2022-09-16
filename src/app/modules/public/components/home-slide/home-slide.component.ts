@@ -1,5 +1,5 @@
 import { ViewportScroller } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'metutors-home-slide',
@@ -7,11 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home-slide.component.scss'],
 })
 export class HomeSlideComponent implements OnInit {
-  constructor(private viewportScroller: ViewportScroller) {}
+  @Input() token: string;
+  
+  constructor(private _viewportScroller: ViewportScroller) {}
 
   ngOnInit(): void {}
 
   scrollToAnchor(): void {
-    this.viewportScroller.scrollToAnchor('exploreServices');
+    this._viewportScroller.scrollToAnchor('explore-services');
   }
 }

@@ -1,0 +1,23 @@
+<div class="program-list">
+  <div class="row">
+    <div class="col-md-12">
+      <mat-tab-group mat-align-tabs="start" (selectedTabChange)="onChangeTab($event)">
+        <mat-tab label="Program">
+          <metutors-program></metutors-program>
+        </mat-tab>
+
+        <mat-tab label="Field of Studies">
+          <metutors-program-field-of-study *ngIf="tab===1"></metutors-program-field-of-study>
+        </mat-tab>
+
+        <mat-tab label="Country">
+          <metutors-program-country *ngIf="tab===2"></metutors-program-country>
+        </mat-tab>
+
+        <mat-tab label="Course">
+          <metutors-program-subject *ngIf="tab===3"></metutors-program-subject>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</div>

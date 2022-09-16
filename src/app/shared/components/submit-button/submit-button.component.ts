@@ -9,8 +9,8 @@ import { FormGroup } from '@angular/forms';
 export class SubmitButtonComponent implements OnInit {
   @Input() form?: FormGroup;
   @Input() extraClasses?: string;
-  @Input() isSubmitting?: boolean;
   @Input() isDisabled: boolean | undefined;
+  @Input() isSubmitting: boolean | null | undefined;
 
   constructor() {}
 

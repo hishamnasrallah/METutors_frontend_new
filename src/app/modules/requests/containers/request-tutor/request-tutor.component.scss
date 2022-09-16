@@ -24,11 +24,15 @@
 
   .mat-step-label-selected .title-info {
     h3 {
-      border-color: #3bb3c1;
+      border-color: var(--main-color);
     }
 
     h4 {
-      color: #3bb3c1;
+      color: var(--main-color);
+    }
+
+    h2 {
+      font-weight: bold;
     }
   }
 
@@ -62,27 +66,77 @@
 
     h2 {
       font-size: 18px;
-      font-weight: bold;
+      font-weight: normal;
       color: #2a2a2a;
       text-transform: capitalize;
+      margin-bottom: 0;
     }
 
     &.done {
       h3 {
-        background-color: #3bb3c1;
+        background-color: var(--main-color);
         color: #FFF;
+      }
+
+      h4 {
+        color: var(--main-color);
+      }
+
+      h2 {
+        font-weight: bold;
       }
     }
   }
+
 
   .mat-stepper-label-position-bottom .mat-horizontal-stepper-header::after,
   .mat-stepper-label-position-bottom .mat-horizontal-stepper-header::before {
     top: 50px;
     border-color: #d8d8d8;
-    border-width: 5px;
+    border-width: 8px;
     border-top-style: dotted;
     right: 5px;
     width: calc(50% - 40px);
+  }
+
+  .mat-step-label.mat-step-label-active:not(.mat-step-label-selected):after,
+  .mat-step-label.mat-step-label-active:not(.mat-step-label-selected):before {
+    content: "";
+    top: 50px;
+    border-color: var(--main-color);
+    border-width: 8px;
+    border-top-style: dotted;
+    right: 5px;
+    width: calc(50% - 40px);
+    display: inline-block;
+    height: 0;
+    position: absolute;
+    z-index: 2;
+  }
+
+  .mat-step-label.mat-step-label-active:not(.mat-step-label-selected):before {
+    left: 0;
+    right: auto;
+  }
+
+  .mat-step-label.mat-step-label-active.mat-step-label-selected:before {
+    content: "";
+    top: 50px;
+    border-color: var(--main-color);
+    border-width: 8px;
+    border-top-style: dotted;
+    right: 5px;
+    width: calc(50% - 40px);
+    display: inline-block;
+    height: 0;
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    right: auto;
+  }
+
+  .mat-horizontal-stepper-header-container mat-step-header:first-child .mat-step-label.mat-step-label-active:before {
+    display: none;
   }
 
   .mat-stepper-label-position-bottom .mat-horizontal-stepper-header {
@@ -93,5 +147,68 @@
   .mat-horizontal-content-container {
     padding: 0;
     margin: 15px 0;
+  }
+
+  .step1 {
+    mat-step-header:nth-of-type(2),
+    mat-step-header:nth-of-type(3),
+    mat-step-header:nth-of-type(4),
+    mat-step-header:nth-of-type(5) {
+      .mat-step-label.mat-step-label-active:not(.mat-step-label-selected):after,
+      .mat-step-label.mat-step-label-active:not(.mat-step-label-selected):before {
+        display: none;
+      }
+    }
+  }
+
+  .step2 {
+    mat-step-header:nth-of-type(3),
+    mat-step-header:nth-of-type(4),
+    mat-step-header:nth-of-type(5) {
+      .mat-step-label.mat-step-label-active:not(.mat-step-label-selected):after,
+      .mat-step-label.mat-step-label-active:not(.mat-step-label-selected):before {
+        display: none;
+      }
+    }
+  }
+
+  .step3 {
+    mat-step-header:nth-of-type(4),
+    mat-step-header:nth-of-type(5) {
+      .mat-step-label.mat-step-label-active:not(.mat-step-label-selected):after,
+      .mat-step-label.mat-step-label-active:not(.mat-step-label-selected):before {
+        display: none;
+      }
+    }
+  }
+
+  .step4 {
+    mat-step-header:nth-of-type(5) {
+      .mat-step-label.mat-step-label-active:not(.mat-step-label-selected):after,
+      .mat-step-label.mat-step-label-active:not(.mat-step-label-selected):before {
+        display: none;
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  :host ::ng-deep .request-tutor {
+    .mat-stepper-label-position-bottom {
+      .mat-horizontal-stepper-header-container {
+        padding: 0;
+        overflow: auto;
+      }
+
+      .mat-horizontal-stepper-header {
+        padding: 10px 0;
+        min-width: 150px;
+
+        &:after,
+        &:before {
+          display: none;
+        }
+      }
+    }
   }
 }

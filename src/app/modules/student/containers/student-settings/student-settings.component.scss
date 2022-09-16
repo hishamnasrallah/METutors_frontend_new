@@ -1,4 +1,4 @@
-.settings {
+:host ::ng-deep .settings {
   padding: 20px 40px;
 
   .card {
@@ -21,7 +21,7 @@
         &.active {
           color: #2a2a2a;
           font-weight: bold;
-          border-left: 5px solid #3bb3c1;
+          border-left: 5px solid var(--main-color);
         }
       }
     }

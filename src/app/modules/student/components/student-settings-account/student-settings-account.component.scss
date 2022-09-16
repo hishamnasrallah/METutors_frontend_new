@@ -1,5 +1,34 @@
 .account-settings {
-  padding: 30px 0;
+  padding: 30px 15px;
+
+  .avatar-name {
+    color: #FFF;
+
+    .img-status {
+      width: 60px;
+      height: 60px;
+
+      img {
+        width: 100%;
+        height: 100%;
+        background-color: #F8F8F8;
+
+        &.uploading {
+          opacity: 0.5;
+        }
+      }
+
+      mat-icon {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        font-size: 30px;
+        right: calc(50% - 15px);
+        top: calc(50% - 15px);
+        color: var(--main-color);
+      }
+    }
+  }
 
   .avatar-block {
     border-bottom: 1px solid #e0e0e0;
@@ -20,12 +49,14 @@
 
     img {
       width: 68px;
-      height: 61px;
+      height: 68px;
       font-size: 45px;
       display: flex;
+      object-fit: cover;
       align-items: center;
       justify-content: center;
       border-radius: 50%;
+      margin-right: 10px;
       border: 1px solid rgb(34 34 34 / 8%);
     }
 
@@ -60,17 +91,16 @@
   }
 
   input {
-    color: #7d7d7d;
+    height: 45px;
     font-size: 13px;
     border: solid 1px #e0e0e0;
     background-color: #ffffff;
-    height: 45px;
   }
 
   .btn-list {
     border-top: solid 1px #e2e2e2;
     padding: 20px 20px 0;
-    margin-left: -30px;
+    margin-left: -25px;
 
     button {
       font-weight: bold;

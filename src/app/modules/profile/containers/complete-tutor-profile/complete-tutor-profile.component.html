@@ -5,53 +5,82 @@
     </a>
 
     <span class="step">
-      Step {{ step }} of 4
+      Step {{ step$ | async }} of 5
     </span>
   </div>
 
   <a routerLink="/" class="exit">
-    Exit
+    Save & Exit
   </a>
 </header>
 
-<div class="container py-5">
+<div class="container py-5 p-10-sm" *ngLet="(step$ | async) as step">
   <div class="row h-100">
     <div class="col-md-12 align-items-center">
-      <h1 class="heading text-center mb-4">Complete Account Information </h1>
+      <h1 class="heading text-center mb-4 f-size-20-md-sm mb-15-sm">Complete Account Information </h1>
 
-      <div class="steps mb-5">
+      <div class="steps mb-5 mb-15-sm">
         <ul class="list-unstyled list-inline text-center">
-          <li class="list-inline-item" [ngClass]="{ 'active':  step === 1 }">
+          <li class="list-inline-item w-100-sm" [ngClass]="{ 'active': step === 1 }">
             <span>Personal Information</span>
           </li>
-          <li class="list-inline-item" [ngClass]="{ 'active': step === 2 }">
+          <li class="list-inline-item w-100-sm" [ngClass]="{ 'active': step === 2 }">
             <span>Profile Picture</span>
           </li>
-          <li class="list-inline-item" [ngClass]="{ 'active': step === 3 }">
+          <li class="list-inline-item w-100-sm" [ngClass]="{ 'active': step === 3 }">
             <span>Qualification Details</span>
           </li>
-          <li class="list-inline-item" [ngClass]="{ 'active': step === 4 }">
-            <span>Teaching Specifications</span>
+          <li class="list-inline-item w-100-sm" [ngClass]="{ 'active': step === 4 }">
+            <span>Teaching Preferences</span>
+          </li>
+          <li class="list-inline-item w-100-sm" [ngClass]="{ 'active': step === 5 }">
+            <span>Tutoring Courses</span>
           </li>
         </ul>
       </div>
 
-      <metutors-complete-tutor-profile-personal-information *ngIf="step === 1" [loading]="loading"
-        [countries]="countries" [cities]="cities" (loadCities)="loadCities($event)"
-        (submitForm)="sendTeacherAccount($event, 2)">
+      <metutors-complete-tutor-profile-personal-information *ngIf="step === 1"
+                                                            [loading]="loading$ | async"
+                                                            [tutor]="(tutor$ | async)!"
+                                                            [countries]="countries$ | async"
+                                                            [cities]="cities$ | async"
+                                                            (changeStep)="changeStep($event)"
+                                                            (loadCities)="loadCities($event)"
+                                                            (submitForm)="sendTeacherAccount($event, 2)">
       </metutors-complete-tutor-profile-personal-information>
 
-      <metutors-complete-tutor-profile-profile-picture *ngIf="step === 2" [loading]="loading"
-        (submitForm)="sendTeacherAccount($event, 3)">
+      <metutors-complete-tutor-profile-profile-picture *ngIf="step === 2"
+                                                       [loading]="loading$ | async"
+                                                       [tutor]="(tutor$ | async)!"
+                                                       (changeStep)="changeStep($event)"
+                                                       (submitForm)="sendTeacherAccount($event, 3)">
       </metutors-complete-tutor-profile-profile-picture>
 
-      <metutors-complete-tutor-profile-qualification-details *ngIf="step === 3" [loading]="loading"
-        (submitForm)="sendTeacherAccount($event, 4)">
+      <metutors-complete-tutor-profile-qualification-details *ngIf="step === 3"
+                                                             [loading]="loading$ | async"
+                                                             [tutor]="(tutor$ | async)!"
+                                                             (changeStep)="changeStep($event)"
+                                                             [languagesList]="languages$ | async"
+                                                             (submitForm)="sendTeacherAccount($event, 4)">
       </metutors-complete-tutor-profile-qualification-details>
 
-      <metutors-complete-tutor-profile-teaching-specifications *ngIf="step === 4" [loading]="loading"
-        (submitForm)="sendTeacherAccount($event, 5)">
+      <metutors-complete-tutor-profile-teaching-specifications *ngIf="step === 4"
+                                                               [loading]="loading$ | async"
+                                                               [tutor]="(tutor$ | async)!"
+                                                               [levels]="levels$ | async"
+                                                               (changeStep)="changeStep($event)"
+                                                               (submitForm)="sendTeacherAccount($event, 5)">
       </metutors-complete-tutor-profile-teaching-specifications>
+
+      <metutors-complete-tutor-profile-tutoring-courses *ngIf="step === 5"
+                                                        [loading]="loading$ | async"
+                                                        [programsList]="(programs$ | async)!"
+                                                        [countries]="programCountries$ | async"
+                                                        [fields]="(fields$ | async)!"
+                                                        [subjectsList]="(subjects$ | async)!"
+                                                        (changeStep)="changeStep($event)"
+                                                        (submitForm)="sendTeacherAccount($event, 6)">
+      </metutors-complete-tutor-profile-tutoring-courses>
     </div>
   </div>
 </div>

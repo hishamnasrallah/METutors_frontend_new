@@ -1,0 +1,25 @@
+.progress-wrapper {
+  margin-top: 4px;
+  margin-bottom: 10px;
+
+  .info {
+    .name {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+    .cancel {
+      span {
+        font-size: 14px;
+      }
+      .icon {
+        font-size: 20px;
+      }
+    }
+  }
+
+  .percentage {
+    color: #979797;
+    font-size: 12px;
+  }
+}

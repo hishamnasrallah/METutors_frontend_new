@@ -24,27 +24,27 @@
       <div class="col-md-6 d-flex menu align-items-center" *ngIf="classroom?.startDate">
         <img src="assets/svg/timer.svg" alt="" width="15" height="15" draggable="false">
         <strong>Start date:</strong>
-        <span>{{ classroom?.startDate | date:'d/MM/yy' }}</span>
+        <span>{{ classroom?.startDate | date:'dd/MM/yy' }}</span>
       </div>
-      <div class="col-md-6 d-flex menu align-items-center" *ngIf="classroom?.expectedEndDate">
+      <div class="col-md-6 d-flex menu align-items-center" *ngIf="classroom?.endDate">
         <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
         <strong>End date:</strong>
-        <span>{{ classroom?.expectedEndDate | date:'d/MM/yy' }}</span>
+        <span>{{ classroom?.endDate | date:'dd/MM/yy' }}</span>
       </div>
-      <div class="col-md-6 d-flex menu align-items-center" *ngIf="classroom?.totalHours">
+      <div class="col-md-6 d-flex menu align-items-center" *ngIf="classroom?.hours">
         <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
         <strong>Total hour:</strong>
-        <span>{{ classroom?.totalHours }}hrs</span>
+        <span>{{ classroom?.hours }}hr{{ +(classroom?.hours)! > 1 ? 's' : '' }}</span>
       </div>
       <div class="col-md-6 d-flex menu align-items-center" *ngIf="classroom?.maxStudentsGroup">
         <img src="assets/svg/students.svg" alt="" width="15" height="15" draggable="false">
         <strong>Max students:</strong>
         <span>{{ classroom?.maxStudentsGroup }}</span>
       </div>
-      <div class="col-md-6 d-flex menu align-items-center" *ngIf="classroom?.totalClasses">
+      <div class="col-md-6 d-flex menu align-items-center" *ngIf="classroom?.classes">
         <img src="assets/svg/class.svg" alt="" width="15" height="15" draggable="false">
         <strong>Classes:</strong>
-        <span>{{ classroom?.totalClasses }}</span>
+        <span>{{ classroom?.classes }}</span>
       </div>
       <div class="col-md-6 d-flex menu align-items-center" *ngIf="classroom?.listDays && classroom?.listDays?.length">
         <img src="assets/svg/calendar.svg" alt="" width="15" height="15" draggable="false">
@@ -59,7 +59,7 @@
       <div class="col d-flex menu align-items-center" *ngIf="classroom?.startTime">
         <img src="assets/svg/timer.svg" alt="" width="15" height="15" draggable="false">
         <strong>Time:</strong>
-        <span>{{ classroom?.startTime }}</span>
+        <span>{{ classroom?.startTime | date:'h:mm a' }}</span>
       </div>
     </div>
     <div class="row info mt-3" *ngIf="classroom?.tutor">
@@ -73,7 +73,7 @@
     </div>
     <div class="row">
       <div class="col-12 d-flex align-items-center mt-4 actions">
-        <h3 class="m-0" *ngIf="classroom?.price">Price: <strong>{{ classroom?.price | currency:'USD' }}</strong></h3>
+        <h3 class="m-0" *ngIf="classroom?.price">Price: <strong>{{ classroom?.price | metutorsMoney | async }}</strong></h3>
         <button mat-flat-button color="primary" class="flex-grow-1 start-btn">
           Book a Class
         </button>

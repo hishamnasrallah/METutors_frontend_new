@@ -5,6 +5,9 @@ export class ISpecification {
   expectedSalaryPerHour?: string;
   levelOfEducation?: string;
   typeOfTutoring?: string;
+  fieldOfStudy?: string;
+  subject?: string;
+  teachingHours?: string;
 
   constructor(createDefault = false, specification: any = null) {
     if (createDefault) {
@@ -14,6 +17,9 @@ export class ISpecification {
       this.expectedSalaryPerHour = '';
       this.levelOfEducation = '';
       this.typeOfTutoring = '';
+      this.fieldOfStudy = '';
+      this.subject = '';
+      this.teachingHours = '';
     }
 
     if (specification) {
@@ -23,7 +29,10 @@ export class ISpecification {
       this.expectedSalaryPerHour =
         specification?.expected_salary_per_hour || '';
       this.levelOfEducation = specification?.level_of_education || '';
+      this.fieldOfStudy = specification?.field_of_study || '';
       this.typeOfTutoring = specification?.type_of_tutoring || '';
+      this.subject = specification?.subject || '';
+      this.teachingHours = specification?.teaching_hours || '';
     }
   }
 }

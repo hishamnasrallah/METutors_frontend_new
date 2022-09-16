@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { JwtHelperService } from '@auth0/angular-jwt';
-import { Router } from '@angular/router';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import {
   GoogleLoginProvider,
   SocialAuthService,
@@ -9,69 +7,45 @@ import {
 } from 'angularx-social-login';
 import { environment } from 'src/environments/environment';
 import { map, Observable } from 'rxjs';
-import { UserRole } from 'src/app/config';
 
-// const BACKEND_URL = environment.API_URL + 'auth/';
 const BACKEND_URL = environment.API_URL;
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   constructor(
     private http: HttpClient,
-    private router: Router,
-    private socialAuthService: SocialAuthService
+    private _socialAuthService: SocialAuthService
   ) {}
-
-  getIsAuth(): boolean {
-    const token = localStorage.getItem('token');
-    if (!token) return false;
-    return true;
-  }
-
-  getIsStudentAuth(): boolean {
-    if (this.getIsAuth()) {
-      const token = localStorage.getItem('token');
-      let jwtHelper = new JwtHelperService();
-      const userRole = jwtHelper.decodeToken(token || '')?.role;
-
-      if (userRole === UserRole.student) return true;
-      else return false;
-    } else return false;
-  }
-
-  getIsTutorAuth(): boolean {
-    if (this.getIsAuth()) {
-      const token = localStorage.getItem('token');
-      let jwtHelper = new JwtHelperService();
-      const userRole = jwtHelper.decodeToken(token || '')?.role;
-
-      if (userRole === UserRole.tutor) return true;
-      else return false;
-    } else return false;
-  }
-
-  decodeToken(): any {
-    if (this.getIsAuth()) {
-      const token = localStorage.getItem('token');
-      let jwtHelper = new JwtHelperService();
-      return jwtHelper.decodeToken(token || '');
-    } else {
-      return {};
-    }
-  }
 
   login(value: any): Observable<any> {
     return this.http
       .post<{
         message: string;
         token: string;
+        return_url: string;
         user: any;
       }>(BACKEND_URL + 'login', value)
-      .pipe(map((response) => response?.token));
+      .pipe(
+        map((response) => ({
+          token: response?.token,
+          returnUrl: response?.return_url,
+        }))
+      );
   }
 
   logout(): Observable<any> {
+    this._socialAuthService.signOut();
     return this.http.post<any>(BACKEND_URL + 'logout', {});
+  }
+
+  submitOTPAdmin(otp: string): Observable<any> {
+    return this.http
+      .post(BACKEND_URL + 'verifyOtp', { otp })
+      .pipe(map((response) => response));
+  }
+
+  resendOTPAdmin() {
+    return this.http.get<any>(BACKEND_URL + 'resendOtp');
   }
 
   register(value: any): Observable<any> {
@@ -97,33 +71,12 @@ export class AuthService {
     return this.http.post<any>(BACKEND_URL + 'verification', sendData);
   }
 
-  // work needs to be done
-  verifyOTP(value: any): Observable<any> {
-    const sendData = value;
-    return this.http.post<any>(BACKEND_URL + 'verifyOtp', sendData);
-  }
-
-  // work needs to be done
-  resendOTP() {
-    return this.http.get<any>(BACKEND_URL + 'resendOtp');
-  }
-
-  resendEmailConfirm(value: any): Observable<any> {
-    return this.http.post<any>(BACKEND_URL + 'verification/resend', value);
+  resendEmailConfirm(email: string): Observable<any> {
+    return this.http.post<any>(BACKEND_URL + 'verification/resend', { email });
   }
 
   uploadDocuments(data: any): Observable<any> {
-    const params = new HttpParams();
-
-    const options = {
-      params,
-      reportProgress: true,
-    };
-    return this.http.post<any>(
-      BACKEND_URL + 'teacher/upload-documents',
-      data,
-      options
-    );
+    return this.http.post<any>(BACKEND_URL + 'teacher/upload-documents', data);
   }
 
   uploadSingleDocuments(data: any): Observable<any> {
@@ -140,19 +93,23 @@ export class AuthService {
   }
 
   signInWithGoogle(): any {
-    return this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    return this._socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
 
   googleSignIn(data: any): Observable<any> {
-    return this.http.post<any>(BACKEND_URL + 'google-signup', data);
+    return this.http
+      .post<any>(BACKEND_URL + 'google-signup', data)
+      .pipe(map((response) => response?.token));
   }
 
   facebookSignIn(data: any): Observable<any> {
-    return this.http.post<any>(BACKEND_URL + 'facebook-signup', data);
+    return this.http
+      .post<any>(BACKEND_URL + 'facebook-signup', data)
+      .pipe(map((response) => response?.token));
   }
 
   signInWithFacebook() {
-    return this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
+    return this._socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
   }
 
   validatePassword(data: any): Observable<any> {
@@ -164,7 +121,13 @@ export class AuthService {
   }
 
   changePassword(data: any): Observable<any> {
-    return this.http.post<any>(BACKEND_URL + 'change-password', data);
+    const value = {
+      current_password: data.oldPassword,
+      new_password: data.password,
+      confirm_password: data.confirmPassword,
+    };
+
+    return this.http.post<any>(BACKEND_URL + 'change-password', value);
   }
 
   changeEmail(data: any): Observable<any> {
@@ -199,10 +162,6 @@ export class AuthService {
 
   getTeacherDetails(id: string): Observable<any> {
     return this.http.get<any>(BACKEND_URL + `teacher/${id}/profile`);
-  }
-
-  updateStudentProfile(data: any): Observable<any> {
-    return this.http.post<any>(BACKEND_URL + 'student/setting', data);
   }
 
   inviteFriends(data: any): Observable<any> {

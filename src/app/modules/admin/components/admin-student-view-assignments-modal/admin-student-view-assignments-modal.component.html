@@ -1,0 +1,86 @@
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'large'"
+                [showHeader]="true" [template]="template" [heading]="'Assignment Summary'"
+                [subHeading]="'Assignments assigned to the student'">
+  <ng-template #template>
+    <ng-container [ngSwitch]="loading">
+      <ng-container *ngSwitchCase="true">
+        <metutors-grid-placeholder></metutors-grid-placeholder>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="false">
+        <div class="text-center p-xxl-5" *ngIf="!summary?.assignments?.length">
+            No assignments found!
+        </div>
+        <div class="view-assignments" *ngIf="summary?.assignments?.length">
+          <div class="heading row">
+            <div class="col-md percentage d-flex align-items-center">
+              <strong class="me-2">Assignments Accuracy</strong>
+              <div class="position-relative my-progress">
+                <mat-progress-spinner class="progress-spinner" [color]="'primary'" [mode]="'determinate'" [value]="summary?.assignmnetsAccuracy.toFixed()">
+                </mat-progress-spinner>
+                <span class="position-absolute">{{summary?.assignmnetsAccuracy.toFixed()}}%</span>
+              </div>
+            </div>
+            <div class="col-md percentage d-flex align-items-center">
+              <strong class="me-2">Assignments Completion Rate</strong>
+              <div class="position-relative my-progress">
+                <mat-progress-spinner class="progress-spinner" [color]="'primary'" [mode]="'determinate'" [value]="summary?.assignmentCompletionRate.toFixed()">
+                </mat-progress-spinner>
+                <span class="position-absolute">{{ summary?.assignmentCompletionRate.toFixed()}}%</span>
+              </div>
+            </div>
+            <div class="col-md percentage d-flex align-items-center">
+              <strong class="me-2">Assignments By Due Date</strong>
+              <div class="position-relative my-progress">
+                <mat-progress-spinner class="progress-spinner" [color]="'primary'" [mode]="'determinate'" [value]="summary?.assignmentsByDueDate.toFixed()">
+                </mat-progress-spinner>
+                <span class="position-absolute">{{summary?.assignmentsByDueDate.toFixed()}}%</span>
+              </div>
+            </div>
+
+            <button class="close-btn" mat-dialog-close="true" mat-icon-button type="button" (click)="closeModal.emit()">
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+
+          <div class="table-responsive table-block">
+            <table class="table my-table default-title mb-0">
+              <tr>
+                <th>Number</th>
+                <th>BIN</th>
+                <th>Title</th>
+                <th>Start Date - End Date</th>
+                <th>Teacher Name</th>
+                <th>Due Date</th>
+                <th>Status</th>
+              </tr>
+              <tr *ngFor="let assignment of summary?.assignments; let i=index">
+                <td>{{ i+1}}</td>
+                <td>BIN1</td>
+                <td>{{assignment?.title}}</td>
+                <td>{{ assignment?.startDate | date }} - {{assignment?.deadline | date }}</td>
+                <td>
+                  <div class="d-flex p-0 align-items-center">
+                    <a>
+                      <img [src]="imageURL+assignment.teacher.avatar" width="25" height="25" class="rounded-circle me-2" draggable="false"
+                           meTutorsDefaultAvatar alt="">
+                      <span>
+                    <bdi>{{assignment?.teacher?.firstName}} {{assignment?.teacher?.lastName}}</bdi>
+                  </span>
+                    </a>
+                  </div>
+                </td>
+                <td>{{ assignment?.deadline | date }}</td>
+                <td>
+                  <button class="status text-capitalize" mat-button [ngClass]="assignment.assignees[0].status">
+                    {{assignment.assignees[0]?.status}}
+                  </button>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </ng-template>
+</metutors-modal>

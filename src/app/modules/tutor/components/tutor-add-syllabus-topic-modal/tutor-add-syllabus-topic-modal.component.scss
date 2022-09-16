@@ -1,0 +1,38 @@
+.add-topic-modal {
+  .slider {
+    margin-top: 10px;
+  }
+
+  .remaining-class {
+    color: #979797;
+    font-size: 12px;
+    margin-left: 10px;
+  }
+
+  .selected-classes {
+    color: #979797;
+    font-size: 11px;
+  }
+
+  .form-label {
+    font-size: 18px;
+  }
+  .class-input-box {
+    height: 30px;
+  }
+}
+
+.spinner {
+  margin: 3px 0 0 3px;
+}
+.delete {
+  top: -2px;
+  left: 35%;
+  display: flex;
+  color: #979797;
+  position: absolute;
+
+  img {
+    margin: 5px;
+  }
+}

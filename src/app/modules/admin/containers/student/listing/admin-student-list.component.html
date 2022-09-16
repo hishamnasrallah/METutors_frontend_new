@@ -1,0 +1,408 @@
+<div class="students-list" *ngLet="(view$ | async) as view">
+  <div class="row filters">
+    <div class="col-md-6 d-flex align-items-center">
+      <h1>All Students</h1>
+    </div>
+    <div class="col-md-6">
+      <div class="row justify-content-end">
+        <div class="col-md-5">
+          <metutors-search-input (searchedText)="onSearch($event)"></metutors-search-input>
+        </div>
+       <!-- <div class="col-md-5">
+          <div class="position-relative">
+            <input type="text" class="form-control custom-input input-bordered" placeholder="Apply filters">
+            <mat-icon class="filter">filter_alt</mat-icon>
+          </div>
+        </div>-->
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <ng-container [ngSwitch]="view.loading">
+        <mat-tab-group mat-align-tabs="start" (selectedTabChange)="onChangeTab($event)">
+          <mat-tab label="All">
+            <div class="mt-4" *ngSwitchCase="true">
+              <metutors-grid-placeholder></metutors-grid-placeholder>
+            </div>
+
+            <ng-container *ngSwitchCase="false">
+              <div class="row mt-3 cards">
+                <div class="col">
+                  <div class="card">
+                    <div class="card-body d-flex align-items-center justify-content-between">
+                      <div>
+                        <h2>Total</h2>
+                        <span>{{ view.result?.stats?.totalStudents }}</span>
+                      </div>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20.326 20.487">
+                        <g id="Teacher" transform="translate(-146.574 -144.762)">
+                          <path id="Path_339" data-name="Path 339"
+                                d="M164.933,425.369s-4.786-1.623-4.934-1.639c-.016.066-.033.131-.049.18-.229.869-.459,1.737-.721,2.59-.311,1.016-.672,2.016-1.016,3.016,0,.016,0,.016-.016.033a2.875,2.875,0,0,1-.147.328c-.066-.459-.147-1.065-.229-1.655-.082-.656-.164-1.295-.213-1.721a.092.092,0,0,0-.1-.082h-1.557a.1.1,0,0,0-.1.082c-.049.426-.131,1.065-.213,1.721-.082.59-.164,1.2-.229,1.655a2.872,2.872,0,0,1-.147-.328c0-.016-.016-.016-.016-.033-.344-1-.7-2-1.016-3.016-.262-.852-.492-1.721-.721-2.59-.016-.066-.033-.115-.049-.18-.131.016-4.934,1.639-4.934,1.639-2.065.688-1.951,2.081-1.951,2.081V430.2c.2,1.688,1.491,1.655,1.491,1.655h17.34s1.295.033,1.491-1.655v-2.754s.115-1.393-1.967-2.082Z"
+                                transform="translate(0 -266.61)" fill="#e2e2e2"/>
+                          <path id="Path_340" data-name="Path 340"
+                                d="M348.162,436.869l-.213-.41a.277.277,0,0,0-.229-.147h-1.77a.247.247,0,0,0-.229.147l-.213.41a.281.281,0,0,0,0,.229l.41.852c0,.016.033.033.049.033h1.754c.016,0,.033-.016.049-.033l.41-.852a.231.231,0,0,0-.016-.23Z"
+                                transform="translate(-190.097 -278.635)" fill="#e2e2e2"/>
+                          <path id="Path_341" data-name="Path 341"
+                                d="M283.584,150.678v-.016a.928.928,0,0,0-.59-.934v-.033c0-.049.016-.1.016-.147.016-.131.033-.262.049-.377a5.4,5.4,0,0,0,.164-1.115,2.768,2.768,0,0,0-1.688-2.77c-.115-.049-.246-.1-.361-.147a6.019,6.019,0,0,0-2.1-.377,4.279,4.279,0,0,0-.459.016,4.378,4.378,0,0,0-1.557.311c-.049.033-.115.066-.164.1a1.671,1.671,0,0,0-.508.508.346.346,0,0,0-.066.1,1.033,1.033,0,0,1-.147.2,2.167,2.167,0,0,1-.328.213,1,1,0,0,0-.508.459,2.339,2.339,0,0,0-.262,1.082,9.1,9.1,0,0,0,.033,1.2c.016.164.049.311.066.459v.033a2.2,2.2,0,0,1,.049.3h-.033a.891.891,0,0,0-.623.951v.328c.016.147.033.279.049.41.016.066.016.131.033.2a1.677,1.677,0,0,0,.852,1.344c.016.016.016.016.016.049a4.153,4.153,0,0,0,1.7,2.54c.115.066.229.147.344.213h.016a4.379,4.379,0,0,0,.557.229c.016,0,.016,0,.033.016a2.792,2.792,0,0,0,.492.147,2.169,2.169,0,0,0,.459.033h.049a3.765,3.765,0,0,0,.426-.033,2.649,2.649,0,0,0,.475-.147l.033-.016a3.763,3.763,0,0,0,.574-.246h.016a3.951,3.951,0,0,0,.344-.213,3.756,3.756,0,0,0,1.131-1.2,5.154,5.154,0,0,0,.361-.737c.049-.115.066-.213.1-.311a.908.908,0,0,1,.1-.279,2.914,2.914,0,0,1,.229-.213c.049-.049.1-.082.147-.131a1.652,1.652,0,0,0,.492-1.065c.016-.066.016-.131.033-.2a3.11,3.11,0,0,0,.049-.41c-.1-.082-.082-.2-.1-.312Z"
+                                transform="translate(-122.322 0)" fill="#e2e2e2"/>
+                        </g>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card">
+                    <div class="card-body d-flex align-items-center justify-content-between">
+                      <div>
+                        <h2>Active</h2>
+                        <span>{{ view.result?.stats?.active }}</span>
+                      </div>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20.326 20.487">
+                        <g id="Teacher" transform="translate(-146.574 -144.762)">
+                          <path id="Path_339" data-name="Path 339"
+                                d="M164.933,425.369s-4.786-1.623-4.934-1.639c-.016.066-.033.131-.049.18-.229.869-.459,1.737-.721,2.59-.311,1.016-.672,2.016-1.016,3.016,0,.016,0,.016-.016.033a2.875,2.875,0,0,1-.147.328c-.066-.459-.147-1.065-.229-1.655-.082-.656-.164-1.295-.213-1.721a.092.092,0,0,0-.1-.082h-1.557a.1.1,0,0,0-.1.082c-.049.426-.131,1.065-.213,1.721-.082.59-.164,1.2-.229,1.655a2.872,2.872,0,0,1-.147-.328c0-.016-.016-.016-.016-.033-.344-1-.7-2-1.016-3.016-.262-.852-.492-1.721-.721-2.59-.016-.066-.033-.115-.049-.18-.131.016-4.934,1.639-4.934,1.639-2.065.688-1.951,2.081-1.951,2.081V430.2c.2,1.688,1.491,1.655,1.491,1.655h17.34s1.295.033,1.491-1.655v-2.754s.115-1.393-1.967-2.082Z"
+                                transform="translate(0 -266.61)" fill="#e2e2e2"/>
+                          <path id="Path_340" data-name="Path 340"
+                                d="M348.162,436.869l-.213-.41a.277.277,0,0,0-.229-.147h-1.77a.247.247,0,0,0-.229.147l-.213.41a.281.281,0,0,0,0,.229l.41.852c0,.016.033.033.049.033h1.754c.016,0,.033-.016.049-.033l.41-.852a.231.231,0,0,0-.016-.23Z"
+                                transform="translate(-190.097 -278.635)" fill="#e2e2e2"/>
+                          <path id="Path_341" data-name="Path 341"
+                                d="M283.584,150.678v-.016a.928.928,0,0,0-.59-.934v-.033c0-.049.016-.1.016-.147.016-.131.033-.262.049-.377a5.4,5.4,0,0,0,.164-1.115,2.768,2.768,0,0,0-1.688-2.77c-.115-.049-.246-.1-.361-.147a6.019,6.019,0,0,0-2.1-.377,4.279,4.279,0,0,0-.459.016,4.378,4.378,0,0,0-1.557.311c-.049.033-.115.066-.164.1a1.671,1.671,0,0,0-.508.508.346.346,0,0,0-.066.1,1.033,1.033,0,0,1-.147.2,2.167,2.167,0,0,1-.328.213,1,1,0,0,0-.508.459,2.339,2.339,0,0,0-.262,1.082,9.1,9.1,0,0,0,.033,1.2c.016.164.049.311.066.459v.033a2.2,2.2,0,0,1,.049.3h-.033a.891.891,0,0,0-.623.951v.328c.016.147.033.279.049.41.016.066.016.131.033.2a1.677,1.677,0,0,0,.852,1.344c.016.016.016.016.016.049a4.153,4.153,0,0,0,1.7,2.54c.115.066.229.147.344.213h.016a4.379,4.379,0,0,0,.557.229c.016,0,.016,0,.033.016a2.792,2.792,0,0,0,.492.147,2.169,2.169,0,0,0,.459.033h.049a3.765,3.765,0,0,0,.426-.033,2.649,2.649,0,0,0,.475-.147l.033-.016a3.763,3.763,0,0,0,.574-.246h.016a3.951,3.951,0,0,0,.344-.213,3.756,3.756,0,0,0,1.131-1.2,5.154,5.154,0,0,0,.361-.737c.049-.115.066-.213.1-.311a.908.908,0,0,1,.1-.279,2.914,2.914,0,0,1,.229-.213c.049-.049.1-.082.147-.131a1.652,1.652,0,0,0,.492-1.065c.016-.066.016-.131.033-.2a3.11,3.11,0,0,0,.049-.41c-.1-.082-.082-.2-.1-.312Z"
+                                transform="translate(-122.322 0)" fill="#e2e2e2"/>
+                        </g>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card">
+                    <div class="card-body d-flex align-items-center justify-content-between">
+                      <div>
+                        <h2>Enrolled</h2>
+                        <span>{{ view.result?.stats?.enrolled }}</span>
+                      </div>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20.326 20.487">
+                        <g id="Teacher" transform="translate(-146.574 -144.762)">
+                          <path id="Path_339" data-name="Path 339"
+                                d="M164.933,425.369s-4.786-1.623-4.934-1.639c-.016.066-.033.131-.049.18-.229.869-.459,1.737-.721,2.59-.311,1.016-.672,2.016-1.016,3.016,0,.016,0,.016-.016.033a2.875,2.875,0,0,1-.147.328c-.066-.459-.147-1.065-.229-1.655-.082-.656-.164-1.295-.213-1.721a.092.092,0,0,0-.1-.082h-1.557a.1.1,0,0,0-.1.082c-.049.426-.131,1.065-.213,1.721-.082.59-.164,1.2-.229,1.655a2.872,2.872,0,0,1-.147-.328c0-.016-.016-.016-.016-.033-.344-1-.7-2-1.016-3.016-.262-.852-.492-1.721-.721-2.59-.016-.066-.033-.115-.049-.18-.131.016-4.934,1.639-4.934,1.639-2.065.688-1.951,2.081-1.951,2.081V430.2c.2,1.688,1.491,1.655,1.491,1.655h17.34s1.295.033,1.491-1.655v-2.754s.115-1.393-1.967-2.082Z"
+                                transform="translate(0 -266.61)" fill="#e2e2e2"/>
+                          <path id="Path_340" data-name="Path 340"
+                                d="M348.162,436.869l-.213-.41a.277.277,0,0,0-.229-.147h-1.77a.247.247,0,0,0-.229.147l-.213.41a.281.281,0,0,0,0,.229l.41.852c0,.016.033.033.049.033h1.754c.016,0,.033-.016.049-.033l.41-.852a.231.231,0,0,0-.016-.23Z"
+                                transform="translate(-190.097 -278.635)" fill="#e2e2e2"/>
+                          <path id="Path_341" data-name="Path 341"
+                                d="M283.584,150.678v-.016a.928.928,0,0,0-.59-.934v-.033c0-.049.016-.1.016-.147.016-.131.033-.262.049-.377a5.4,5.4,0,0,0,.164-1.115,2.768,2.768,0,0,0-1.688-2.77c-.115-.049-.246-.1-.361-.147a6.019,6.019,0,0,0-2.1-.377,4.279,4.279,0,0,0-.459.016,4.378,4.378,0,0,0-1.557.311c-.049.033-.115.066-.164.1a1.671,1.671,0,0,0-.508.508.346.346,0,0,0-.066.1,1.033,1.033,0,0,1-.147.2,2.167,2.167,0,0,1-.328.213,1,1,0,0,0-.508.459,2.339,2.339,0,0,0-.262,1.082,9.1,9.1,0,0,0,.033,1.2c.016.164.049.311.066.459v.033a2.2,2.2,0,0,1,.049.3h-.033a.891.891,0,0,0-.623.951v.328c.016.147.033.279.049.41.016.066.016.131.033.2a1.677,1.677,0,0,0,.852,1.344c.016.016.016.016.016.049a4.153,4.153,0,0,0,1.7,2.54c.115.066.229.147.344.213h.016a4.379,4.379,0,0,0,.557.229c.016,0,.016,0,.033.016a2.792,2.792,0,0,0,.492.147,2.169,2.169,0,0,0,.459.033h.049a3.765,3.765,0,0,0,.426-.033,2.649,2.649,0,0,0,.475-.147l.033-.016a3.763,3.763,0,0,0,.574-.246h.016a3.951,3.951,0,0,0,.344-.213,3.756,3.756,0,0,0,1.131-1.2,5.154,5.154,0,0,0,.361-.737c.049-.115.066-.213.1-.311a.908.908,0,0,1,.1-.279,2.914,2.914,0,0,1,.229-.213c.049-.049.1-.082.147-.131a1.652,1.652,0,0,0,.492-1.065c.016-.066.016-.131.033-.2a3.11,3.11,0,0,0,.049-.41c-.1-.082-.082-.2-.1-.312Z"
+                                transform="translate(-122.322 0)" fill="#e2e2e2"/>
+                        </g>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card">
+                    <div class="card-body d-flex align-items-center justify-content-between">
+                      <div>
+                        <h2>Suspended</h2>
+                        <span>{{ view.result?.stats?.suspended }}</span>
+                      </div>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20.326 20.487">
+                        <g id="Teacher" transform="translate(-146.574 -144.762)">
+                          <path id="Path_339" data-name="Path 339"
+                                d="M164.933,425.369s-4.786-1.623-4.934-1.639c-.016.066-.033.131-.049.18-.229.869-.459,1.737-.721,2.59-.311,1.016-.672,2.016-1.016,3.016,0,.016,0,.016-.016.033a2.875,2.875,0,0,1-.147.328c-.066-.459-.147-1.065-.229-1.655-.082-.656-.164-1.295-.213-1.721a.092.092,0,0,0-.1-.082h-1.557a.1.1,0,0,0-.1.082c-.049.426-.131,1.065-.213,1.721-.082.59-.164,1.2-.229,1.655a2.872,2.872,0,0,1-.147-.328c0-.016-.016-.016-.016-.033-.344-1-.7-2-1.016-3.016-.262-.852-.492-1.721-.721-2.59-.016-.066-.033-.115-.049-.18-.131.016-4.934,1.639-4.934,1.639-2.065.688-1.951,2.081-1.951,2.081V430.2c.2,1.688,1.491,1.655,1.491,1.655h17.34s1.295.033,1.491-1.655v-2.754s.115-1.393-1.967-2.082Z"
+                                transform="translate(0 -266.61)" fill="#e2e2e2"/>
+                          <path id="Path_340" data-name="Path 340"
+                                d="M348.162,436.869l-.213-.41a.277.277,0,0,0-.229-.147h-1.77a.247.247,0,0,0-.229.147l-.213.41a.281.281,0,0,0,0,.229l.41.852c0,.016.033.033.049.033h1.754c.016,0,.033-.016.049-.033l.41-.852a.231.231,0,0,0-.016-.23Z"
+                                transform="translate(-190.097 -278.635)" fill="#e2e2e2"/>
+                          <path id="Path_341" data-name="Path 341"
+                                d="M283.584,150.678v-.016a.928.928,0,0,0-.59-.934v-.033c0-.049.016-.1.016-.147.016-.131.033-.262.049-.377a5.4,5.4,0,0,0,.164-1.115,2.768,2.768,0,0,0-1.688-2.77c-.115-.049-.246-.1-.361-.147a6.019,6.019,0,0,0-2.1-.377,4.279,4.279,0,0,0-.459.016,4.378,4.378,0,0,0-1.557.311c-.049.033-.115.066-.164.1a1.671,1.671,0,0,0-.508.508.346.346,0,0,0-.066.1,1.033,1.033,0,0,1-.147.2,2.167,2.167,0,0,1-.328.213,1,1,0,0,0-.508.459,2.339,2.339,0,0,0-.262,1.082,9.1,9.1,0,0,0,.033,1.2c.016.164.049.311.066.459v.033a2.2,2.2,0,0,1,.049.3h-.033a.891.891,0,0,0-.623.951v.328c.016.147.033.279.049.41.016.066.016.131.033.2a1.677,1.677,0,0,0,.852,1.344c.016.016.016.016.016.049a4.153,4.153,0,0,0,1.7,2.54c.115.066.229.147.344.213h.016a4.379,4.379,0,0,0,.557.229c.016,0,.016,0,.033.016a2.792,2.792,0,0,0,.492.147,2.169,2.169,0,0,0,.459.033h.049a3.765,3.765,0,0,0,.426-.033,2.649,2.649,0,0,0,.475-.147l.033-.016a3.763,3.763,0,0,0,.574-.246h.016a3.951,3.951,0,0,0,.344-.213,3.756,3.756,0,0,0,1.131-1.2,5.154,5.154,0,0,0,.361-.737c.049-.115.066-.213.1-.311a.908.908,0,0,1,.1-.279,2.914,2.914,0,0,1,.229-.213c.049-.049.1-.082.147-.131a1.652,1.652,0,0,0,.492-1.065c.016-.066.016-.131.033-.2a3.11,3.11,0,0,0,.049-.41c-.1-.082-.082-.2-.1-.312Z"
+                                transform="translate(-122.322 0)" fill="#e2e2e2"/>
+                        </g>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <table class="table my-table default-title mt-4">
+                <tr>
+                  <th>Number</th>
+                  <th>SIN</th>
+                  <th>Student Name</th>
+                  <th>G</th>
+                  <th>Total Bookings</th>
+                  <th>Total Spendings</th>
+                  <th>Email</th>
+                  <th>Phone Number</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+                <tr *ngIf="!view.result?.students?.data || !view.result?.students?.data?.length">
+                  <td colspan="10">
+                    <div class="text-center">No records found</div>
+                  </td>
+                </tr>
+                <tr *ngFor="let student of view.result?.students?.data; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ student?.idNumber }}</td>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <a [routerLink]="['/admin','student', 'profile', student.id]">
+                        <img [src]="imageUrl+student?.avatar" width="25" height="25" class="rounded-circle p-0 me-2"
+                             draggable="false" meTutorsDefaultAvatar alt="">
+                        <span>
+                        <bdi>{{ student?.firstName }} {{ student?.lastName }}</bdi>
+                      </span>
+                      </a>
+                    </div>
+                  </td>
+                  <td class="text-capitalize">{{ student?.gender }}</td>
+                  <td><a href="javascript:void(0)" (click)="onOpenBookingModal(student.id)">{{ student?.totalBookings }}</a></td>
+                  <td><a [routerLink]="['/admin', 'finance', 'orders']">{{ student?.totalSpendings | metutorsMoney | async }}</a></td>
+                  <td>{{ student?.email }}</td>
+                  <td>{{ student?.mobile }}</td>
+                  <td>
+                    <div dropdown class="change-status position-relative d-flex">
+                      <button dropdownToggle class="status text-capitalize" mat-button [ngClass]="student?.status">
+                        {{ student?.status }}
+                      </button>
+                      <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
+                        <li role="menuitem" class="cursor-pointer text-capitalize" [ngClass]="status" *ngFor="let status of studentStatuses">
+                          {{ status }}
+                        </li>
+                      </ul>
+                    </div>
+                  </td>
+                  <td>
+                    <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0" (click)="studentId=student?.id">
+                      <mat-icon>more_vert</mat-icon>
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </ng-container>
+          </mat-tab>
+          <mat-tab label="Active">
+            <div class="mt-4" *ngSwitchCase="true">
+              <metutors-grid-placeholder></metutors-grid-placeholder>
+            </div>
+
+            <ng-container *ngSwitchCase="false">
+              <div class="row mt-3 cards">
+                <div class="col">
+                  <div class="card">
+                    <div class="card-body d-flex align-items-center justify-content-between">
+                      <div>
+                        <h2>Total</h2>
+                        <span>{{ view.result?.stats?.totalStudents }}</span>
+                      </div>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20.326 20.487">
+                        <g id="Teacher" transform="translate(-146.574 -144.762)">
+                          <path id="Path_339" data-name="Path 339"
+                                d="M164.933,425.369s-4.786-1.623-4.934-1.639c-.016.066-.033.131-.049.18-.229.869-.459,1.737-.721,2.59-.311,1.016-.672,2.016-1.016,3.016,0,.016,0,.016-.016.033a2.875,2.875,0,0,1-.147.328c-.066-.459-.147-1.065-.229-1.655-.082-.656-.164-1.295-.213-1.721a.092.092,0,0,0-.1-.082h-1.557a.1.1,0,0,0-.1.082c-.049.426-.131,1.065-.213,1.721-.082.59-.164,1.2-.229,1.655a2.872,2.872,0,0,1-.147-.328c0-.016-.016-.016-.016-.033-.344-1-.7-2-1.016-3.016-.262-.852-.492-1.721-.721-2.59-.016-.066-.033-.115-.049-.18-.131.016-4.934,1.639-4.934,1.639-2.065.688-1.951,2.081-1.951,2.081V430.2c.2,1.688,1.491,1.655,1.491,1.655h17.34s1.295.033,1.491-1.655v-2.754s.115-1.393-1.967-2.082Z"
+                                transform="translate(0 -266.61)" fill="#e2e2e2"/>
+                          <path id="Path_340" data-name="Path 340"
+                                d="M348.162,436.869l-.213-.41a.277.277,0,0,0-.229-.147h-1.77a.247.247,0,0,0-.229.147l-.213.41a.281.281,0,0,0,0,.229l.41.852c0,.016.033.033.049.033h1.754c.016,0,.033-.016.049-.033l.41-.852a.231.231,0,0,0-.016-.23Z"
+                                transform="translate(-190.097 -278.635)" fill="#e2e2e2"/>
+                          <path id="Path_341" data-name="Path 341"
+                                d="M283.584,150.678v-.016a.928.928,0,0,0-.59-.934v-.033c0-.049.016-.1.016-.147.016-.131.033-.262.049-.377a5.4,5.4,0,0,0,.164-1.115,2.768,2.768,0,0,0-1.688-2.77c-.115-.049-.246-.1-.361-.147a6.019,6.019,0,0,0-2.1-.377,4.279,4.279,0,0,0-.459.016,4.378,4.378,0,0,0-1.557.311c-.049.033-.115.066-.164.1a1.671,1.671,0,0,0-.508.508.346.346,0,0,0-.066.1,1.033,1.033,0,0,1-.147.2,2.167,2.167,0,0,1-.328.213,1,1,0,0,0-.508.459,2.339,2.339,0,0,0-.262,1.082,9.1,9.1,0,0,0,.033,1.2c.016.164.049.311.066.459v.033a2.2,2.2,0,0,1,.049.3h-.033a.891.891,0,0,0-.623.951v.328c.016.147.033.279.049.41.016.066.016.131.033.2a1.677,1.677,0,0,0,.852,1.344c.016.016.016.016.016.049a4.153,4.153,0,0,0,1.7,2.54c.115.066.229.147.344.213h.016a4.379,4.379,0,0,0,.557.229c.016,0,.016,0,.033.016a2.792,2.792,0,0,0,.492.147,2.169,2.169,0,0,0,.459.033h.049a3.765,3.765,0,0,0,.426-.033,2.649,2.649,0,0,0,.475-.147l.033-.016a3.763,3.763,0,0,0,.574-.246h.016a3.951,3.951,0,0,0,.344-.213,3.756,3.756,0,0,0,1.131-1.2,5.154,5.154,0,0,0,.361-.737c.049-.115.066-.213.1-.311a.908.908,0,0,1,.1-.279,2.914,2.914,0,0,1,.229-.213c.049-.049.1-.082.147-.131a1.652,1.652,0,0,0,.492-1.065c.016-.066.016-.131.033-.2a3.11,3.11,0,0,0,.049-.41c-.1-.082-.082-.2-.1-.312Z"
+                                transform="translate(-122.322 0)" fill="#e2e2e2"/>
+                        </g>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card">
+                    <div class="card-body d-flex align-items-center justify-content-between">
+                      <div>
+                        <h2>Enrolled</h2>
+                        <span>{{ view.result?.stats?.enrolled}}</span>
+                      </div>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20.326 20.487">
+                        <g id="Teacher" transform="translate(-146.574 -144.762)">
+                          <path id="Path_339" data-name="Path 339"
+                                d="M164.933,425.369s-4.786-1.623-4.934-1.639c-.016.066-.033.131-.049.18-.229.869-.459,1.737-.721,2.59-.311,1.016-.672,2.016-1.016,3.016,0,.016,0,.016-.016.033a2.875,2.875,0,0,1-.147.328c-.066-.459-.147-1.065-.229-1.655-.082-.656-.164-1.295-.213-1.721a.092.092,0,0,0-.1-.082h-1.557a.1.1,0,0,0-.1.082c-.049.426-.131,1.065-.213,1.721-.082.59-.164,1.2-.229,1.655a2.872,2.872,0,0,1-.147-.328c0-.016-.016-.016-.016-.033-.344-1-.7-2-1.016-3.016-.262-.852-.492-1.721-.721-2.59-.016-.066-.033-.115-.049-.18-.131.016-4.934,1.639-4.934,1.639-2.065.688-1.951,2.081-1.951,2.081V430.2c.2,1.688,1.491,1.655,1.491,1.655h17.34s1.295.033,1.491-1.655v-2.754s.115-1.393-1.967-2.082Z"
+                                transform="translate(0 -266.61)" fill="#e2e2e2"/>
+                          <path id="Path_340" data-name="Path 340"
+                                d="M348.162,436.869l-.213-.41a.277.277,0,0,0-.229-.147h-1.77a.247.247,0,0,0-.229.147l-.213.41a.281.281,0,0,0,0,.229l.41.852c0,.016.033.033.049.033h1.754c.016,0,.033-.016.049-.033l.41-.852a.231.231,0,0,0-.016-.23Z"
+                                transform="translate(-190.097 -278.635)" fill="#e2e2e2"/>
+                          <path id="Path_341" data-name="Path 341"
+                                d="M283.584,150.678v-.016a.928.928,0,0,0-.59-.934v-.033c0-.049.016-.1.016-.147.016-.131.033-.262.049-.377a5.4,5.4,0,0,0,.164-1.115,2.768,2.768,0,0,0-1.688-2.77c-.115-.049-.246-.1-.361-.147a6.019,6.019,0,0,0-2.1-.377,4.279,4.279,0,0,0-.459.016,4.378,4.378,0,0,0-1.557.311c-.049.033-.115.066-.164.1a1.671,1.671,0,0,0-.508.508.346.346,0,0,0-.066.1,1.033,1.033,0,0,1-.147.2,2.167,2.167,0,0,1-.328.213,1,1,0,0,0-.508.459,2.339,2.339,0,0,0-.262,1.082,9.1,9.1,0,0,0,.033,1.2c.016.164.049.311.066.459v.033a2.2,2.2,0,0,1,.049.3h-.033a.891.891,0,0,0-.623.951v.328c.016.147.033.279.049.41.016.066.016.131.033.2a1.677,1.677,0,0,0,.852,1.344c.016.016.016.016.016.049a4.153,4.153,0,0,0,1.7,2.54c.115.066.229.147.344.213h.016a4.379,4.379,0,0,0,.557.229c.016,0,.016,0,.033.016a2.792,2.792,0,0,0,.492.147,2.169,2.169,0,0,0,.459.033h.049a3.765,3.765,0,0,0,.426-.033,2.649,2.649,0,0,0,.475-.147l.033-.016a3.763,3.763,0,0,0,.574-.246h.016a3.951,3.951,0,0,0,.344-.213,3.756,3.756,0,0,0,1.131-1.2,5.154,5.154,0,0,0,.361-.737c.049-.115.066-.213.1-.311a.908.908,0,0,1,.1-.279,2.914,2.914,0,0,1,.229-.213c.049-.049.1-.082.147-.131a1.652,1.652,0,0,0,.492-1.065c.016-.066.016-.131.033-.2a3.11,3.11,0,0,0,.049-.41c-.1-.082-.082-.2-.1-.312Z"
+                                transform="translate(-122.322 0)" fill="#e2e2e2"/>
+                        </g>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card">
+                    <div class="card-body d-flex align-items-center justify-content-between">
+                      <div>
+                        <h2>Unenrolled</h2>
+                        <span>{{ view.result?.stats?.unenrolled }}</span>
+                      </div>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20.326 20.487">
+                        <g id="Teacher" transform="translate(-146.574 -144.762)">
+                          <path id="Path_339" data-name="Path 339"
+                                d="M164.933,425.369s-4.786-1.623-4.934-1.639c-.016.066-.033.131-.049.18-.229.869-.459,1.737-.721,2.59-.311,1.016-.672,2.016-1.016,3.016,0,.016,0,.016-.016.033a2.875,2.875,0,0,1-.147.328c-.066-.459-.147-1.065-.229-1.655-.082-.656-.164-1.295-.213-1.721a.092.092,0,0,0-.1-.082h-1.557a.1.1,0,0,0-.1.082c-.049.426-.131,1.065-.213,1.721-.082.59-.164,1.2-.229,1.655a2.872,2.872,0,0,1-.147-.328c0-.016-.016-.016-.016-.033-.344-1-.7-2-1.016-3.016-.262-.852-.492-1.721-.721-2.59-.016-.066-.033-.115-.049-.18-.131.016-4.934,1.639-4.934,1.639-2.065.688-1.951,2.081-1.951,2.081V430.2c.2,1.688,1.491,1.655,1.491,1.655h17.34s1.295.033,1.491-1.655v-2.754s.115-1.393-1.967-2.082Z"
+                                transform="translate(0 -266.61)" fill="#e2e2e2"/>
+                          <path id="Path_340" data-name="Path 340"
+                                d="M348.162,436.869l-.213-.41a.277.277,0,0,0-.229-.147h-1.77a.247.247,0,0,0-.229.147l-.213.41a.281.281,0,0,0,0,.229l.41.852c0,.016.033.033.049.033h1.754c.016,0,.033-.016.049-.033l.41-.852a.231.231,0,0,0-.016-.23Z"
+                                transform="translate(-190.097 -278.635)" fill="#e2e2e2"/>
+                          <path id="Path_341" data-name="Path 341"
+                                d="M283.584,150.678v-.016a.928.928,0,0,0-.59-.934v-.033c0-.049.016-.1.016-.147.016-.131.033-.262.049-.377a5.4,5.4,0,0,0,.164-1.115,2.768,2.768,0,0,0-1.688-2.77c-.115-.049-.246-.1-.361-.147a6.019,6.019,0,0,0-2.1-.377,4.279,4.279,0,0,0-.459.016,4.378,4.378,0,0,0-1.557.311c-.049.033-.115.066-.164.1a1.671,1.671,0,0,0-.508.508.346.346,0,0,0-.066.1,1.033,1.033,0,0,1-.147.2,2.167,2.167,0,0,1-.328.213,1,1,0,0,0-.508.459,2.339,2.339,0,0,0-.262,1.082,9.1,9.1,0,0,0,.033,1.2c.016.164.049.311.066.459v.033a2.2,2.2,0,0,1,.049.3h-.033a.891.891,0,0,0-.623.951v.328c.016.147.033.279.049.41.016.066.016.131.033.2a1.677,1.677,0,0,0,.852,1.344c.016.016.016.016.016.049a4.153,4.153,0,0,0,1.7,2.54c.115.066.229.147.344.213h.016a4.379,4.379,0,0,0,.557.229c.016,0,.016,0,.033.016a2.792,2.792,0,0,0,.492.147,2.169,2.169,0,0,0,.459.033h.049a3.765,3.765,0,0,0,.426-.033,2.649,2.649,0,0,0,.475-.147l.033-.016a3.763,3.763,0,0,0,.574-.246h.016a3.951,3.951,0,0,0,.344-.213,3.756,3.756,0,0,0,1.131-1.2,5.154,5.154,0,0,0,.361-.737c.049-.115.066-.213.1-.311a.908.908,0,0,1,.1-.279,2.914,2.914,0,0,1,.229-.213c.049-.049.1-.082.147-.131a1.652,1.652,0,0,0,.492-1.065c.016-.066.016-.131.033-.2a3.11,3.11,0,0,0,.049-.41c-.1-.082-.082-.2-.1-.312Z"
+                                transform="translate(-122.322 0)" fill="#e2e2e2"/>
+                        </g>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <table class="table my-table default-title mt-4">
+                <tr>
+                  <th>Number</th>
+                  <th>SIN</th>
+                  <th>Student Name</th>
+                  <th>G</th>
+                  <th>Total Bookings</th>
+                  <th>Total Spendings</th>
+                  <th>Email</th>
+                  <th>Phone Number</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+                <tr *ngIf="!view.result?.students?.data || !view.result?.students?.data?.length">
+                  <td colspan="10">
+                    <div class="text-center">No records found</div>
+                  </td>
+                </tr>
+                <tr *ngFor="let student of view.result?.students?.data let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ student?.idNumber }}</td>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <a [routerLink]="['/admin','student', 'profile', student.id]">
+                        <img [src]="imageUrl+student?.avatar" width="25" height="25" class="rounded-circle p-0 me-2"
+                             draggable="false" meTutorsDefaultAvatar alt="">
+                        <span>
+                        <bdi>{{ student?.firstName }} {{ student?.lastName }}</bdi>
+                      </span>
+                      </a>
+                    </div>
+                  </td>
+                  <td class="text-capitalize">{{ student?.gender }}</td>
+                  <td><a href="javascript:void(0)" (click)="onOpenBookingModal(student.id)">{{ student?.totalBookings }}</a></td>
+                  <td><a [routerLink]="['/admin', 'finance', 'orders']">{{ student?.totalSpendings | metutorsMoney | async }}</a></td>
+                  <td>{{ student?.email }}</td>
+                  <td>{{ student?.mobile }}</td>
+                  <td>
+                    <div dropdown class="change-status position-relative d-flex">
+                      <button dropdownToggle class="status text-capitalize active" mat-button [ngClass]="student?.status">
+                        {{ student?.status }}
+                      </button>
+                      <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
+                        <li role="menuitem" class="cursor-pointer text-capitalize" [ngClass]="status" *ngFor="let status of studentStatuses">
+                          {{ status }}
+                        </li>
+                      </ul>
+                    </div>
+                  </td>
+                  <td>
+                    <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0" (click)="studentId=student?.id">
+                      <mat-icon>more_vert</mat-icon>
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </ng-container>
+          </mat-tab>
+          <mat-tab label="Suspended">
+            <div class="mt-4" *ngSwitchCase="true">
+              <metutors-grid-placeholder></metutors-grid-placeholder>
+            </div>
+
+            <ng-container *ngSwitchCase="false">
+              <table class="table my-table default-title mt-4">
+                <tr>
+                  <th>Number</th>
+                  <th>SIN</th>
+                  <th>Student Name</th>
+                  <th>G</th>
+                  <th>Total Bookings</th>
+                  <th>Total Spendings</th>
+                  <th>Email</th>
+                  <th>Phone Number</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+                <tr *ngIf="!view.result?.students?.data || !view.result?.students?.data?.length">
+                  <td colspan="10">
+                    <div class="text-center">No records found</div>
+                  </td>
+                </tr>
+                <tr *ngFor="let student of view.result?.students?.data; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ student?.idNumber }}</td>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <a [routerLink]="['/admin','student', 'profile', student.id]">
+                        <img [src]="imageUrl+student?.avatar" width="25" height="25" class="rounded-circle p-0 me-2"
+                             draggable="false" meTutorsDefaultAvatar alt="">
+                        <span>
+                        <bdi>{{ student?.firstName }} {{ student?.lastName }}</bdi>
+                      </span>
+                      </a>
+                    </div>
+                  </td>
+                  <td class="text-capitalize">{{ student?.gender }}</td>
+                  <td><a href="javascript:void(0)" (click)="onOpenBookingModal(student.id)">{{ student?.totalBookings }}</a></td>
+                  <td><a [routerLink]="['/admin', 'finance', 'orders']">{{ student?.totalSpendings | metutorsMoney | async }}</a></td>
+                  <td>{{ student?.email }}</td>
+                  <td>{{ student?.mobile }}</td>
+                  <td>
+                    <div dropdown container="body" class="change-status position-relative d-flex">
+                      <button dropdownToggle class="status text-capitalize suspended" mat-button [ngClass]="student?.status">
+                        {{ student?.status }}
+                      </button>
+                      <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
+                        <li role="menuitem" class="cursor-pointer text-capitalize" [ngClass]="status" *ngFor="let status of studentStatuses">
+                          {{ status }}
+                        </li>
+                      </ul>
+                    </div>
+                  </td>
+                  <td>
+                    <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0" (click)="studentId=student?.id">
+                      <mat-icon>more_vert</mat-icon>
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </ng-container>
+          </mat-tab>
+        </mat-tab-group>
+      </ng-container>
+
+      <div class="d-flex mt-2 justify-content-center" *ngIf="view.result?.students?.data.length < view.result?.stats?.total">
+        <pagination [totalItems]="view.result?.stats?.total" [itemsPerPage]="perPage" [maxSize]="5"
+                    (pageChanged)="onPageChange($event)">
+        </pagination>
+      </div>
+    </div>
+  </div>
+</div>
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item class="h-auto btn-menu"
+          [routerLink]="['/admin', 'student', 'profile', studentId]">
+    <span>View Profile</span>
+  </button>
+  <button mat-menu-item class="h-auto btn-menu" (click)="onOpenBookingModal(studentId)">
+    <span>View Schedule</span>
+  </button>
+</mat-menu>
+
+<metutors-admin-student-total-booking-modal [showModal]="(openBookingModal$ | async)!" *ngIf="openBookingModal$|async"
+                                            (closeModal)="onCloseBookingModal()" [type]="'student'"
+                                            [loading]="(loadingTotalBooking | async)!"
+                                            [detail]="(totalBooking$ | async)!">
+</metutors-admin-student-total-booking-modal>

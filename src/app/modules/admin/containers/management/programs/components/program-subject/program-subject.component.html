@@ -1,0 +1,147 @@
+<ng-container *ngLet="(view$ | async) as view">
+  <div class="row my-3">
+    <div class="col-12">
+      <h2 class="title"> Subject List
+        <button mat-flat-button color="primary" class="float-end fw-bold"
+                (click)="onOpenAddNewSubject(); selectedSubject = undefined">
+          Add Subject
+        </button>
+      </h2>
+    </div>
+  </div>
+  <div class="row filters">
+    <div class="col-md-9">
+      <!--<span class="title">Filters</span>
+      <mat-form-field appearance="outline" class="me-2">
+        <mat-select [placeholder]="'By Program'" [(ngModel)]="program"
+                    (selectionChange)="onChangeSubjectSelection()">
+          <mat-option [value]="program?.id" *ngFor="let program of programs$ | async">
+            {{ program?.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="me-2">
+        <mat-select [placeholder]="'By Country'" [(ngModel)]="country"
+                    (selectionChange)="onChangeSubjectSelection()">
+          <mat-option [value]="country?.id" *ngFor="let country of countries$ | async">
+            {{ country?.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="me-2">
+        <mat-select [placeholder]="'By Grade'" [(ngModel)]="grade" (selectionChange)="onChangeSubjectSelection()">
+          <mat-option [value]="i" *ngFor="let grade of grades; let i = index">
+            {{ grade }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="me-2">
+        <mat-select [placeholder]="'Field of Study'" [(ngModel)]="fieldOfStudy"
+                    (selectionChange)="onChangeSubjectSelection()">
+          <mat-option [value]="field?.id" *ngFor="let field of fields$ | async">
+            {{ field?.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="me-2">
+        <mat-select [placeholder]="'By Status'" [(ngModel)]="status" (selectionChange)="onChangeSubjectSelection()">
+          <mat-option [value]="state.id" *ngFor="let state of subjectStatusConst">
+            {{ state.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>-->
+    </div>
+    <div class="col-md-3">
+      <metutors-search-input (searchedText)="onSearchText($event)"></metutors-search-input>
+    </div>
+  </div>
+
+  <ng-container [ngSwitch]="view.loading">
+    <div class="mt-4" *ngSwitchCase="true">
+      <metutors-grid-placeholder></metutors-grid-placeholder>
+    </div>
+
+    <ng-container *ngSwitchCase="false">
+      <table class="table my-table default-title mt-4 overflow-visible">
+        <tr>
+          <th>Number</th>
+          <th>Program</th>
+          <th>Country</th>
+          <th>Grade</th>
+          <th>Field of Study</th>
+          <th>Subject</th>
+          <th>Price(hr's)</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+        <tr *ngIf="!view.subjects || !view.subjects?.length">
+          <td colspan="9">
+            <div class="text-center">No records found</div>
+          </td>
+        </tr>
+        <tr *ngFor="let subject of view.subjects; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ subject?.program?.name }}</td>
+          <td>{{ subject?.country?.name }}</td>
+          <td>{{ grades[subject?.grade] }}</td>
+          <td>{{ subject?.field?.name }}</td>
+          <td>{{ subject?.name }}</td>
+          <td>{{ subject?.pricePerHour | metutorsMoney | async }}</td>
+          <td>
+            <div dropdown class="change-status position-relative d-flex">
+              <button dropdownToggle class="status text-capitalize" mat-button [ngClass]="{
+                        'active': subjectStatus.active === subject?.status,
+                        'inactive': subjectStatus.inActive === subject?.status
+                      }">
+                <ng-container *ngIf="subjectStatus.active === subject?.status">Active</ng-container>
+                <ng-container *ngIf="subjectStatus.inActive === subject?.status">Inactive</ng-container>
+              </button>
+              <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
+                <li role="menuitem" class="cursor-pointer text-capitalize"
+                    *ngFor="let status of subjectStatusConst"
+                    [ngClass]="{
+                        'active': subjectStatus.active === status.id,
+                        'inactive': subjectStatus.inActive === status.id
+                        }" (click)="onChangeSubjectStatus(subject, status.id)">
+                  {{ status.name }}
+                </li>
+              </ul>
+            </div>
+          </td>
+          <td>
+            <button mat-icon-button class="p-0 action me-2" disabled
+                    *ngIf="(isDeletingSubject$ | async) && deletedSubject?.id === subject.id">
+              <mat-icon class="spinner">autorenew</mat-icon>
+            </button>
+            <button mat-icon-button class="p-0 action me-2" (click)="deleteSubject(subject)"
+                    *ngIf="deletedSubject?.id !== subject.id">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <button mat-icon-button class="p-0 action"
+                    (click)="onOpenAddNewSubject(); selectedSubject = subject">
+              <img src="assets/svg/edit-green.svg" width="17" height="17" alt="">
+            </button>
+          </td>
+        </tr>
+      </table>
+    </ng-container>
+  </ng-container>
+
+  <div class="d-flex mt-2 justify-content-center" *ngIf="view.subjects?.length < view.pagination?.total">
+    <pagination [totalItems]="view.pagination?.total" [itemsPerPage]="perPage" [maxSize]="5"
+                (pageChanged)="onPageChange($event)">
+    </pagination>
+  </div>
+
+  <metutors-admin-add-new-subject-modal *ngIf="showAddNewSubjectModal$ | async"
+                                        (closeModal)="onCloseAddNewSubject()"
+                                        [programs]="view.programs!"
+                                        [countries]="view.countries!"
+                                        [fields]="view.fields!"
+                                        [selectedSubject]="selectedSubject!"
+                                        [isAdding]="(isAddingEditingSubject$ | async)!"
+                                        [showModal]="(showAddNewSubjectModal$ | async)!"
+                                        (submitForm)="onAddEditSubject($event)"
+                                        (changeProgram)="fetchFields($event)">
+  </metutors-admin-add-new-subject-modal>
+</ng-container>

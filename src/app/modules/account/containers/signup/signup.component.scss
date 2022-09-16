@@ -1,4 +1,8 @@
 .signup-block {
+  .logo {
+    width: 200px;
+  }
+
   form {
     label {
       color: #373737;
@@ -17,28 +21,41 @@
       color: #2a2a2a;
     }
 
+    .password-visibility {
+      top: 34px;
+      right: 10px;
+    }
+
     .types {
       button {
         background-color: #fff;
         border: 1px solid #e2e2e2;
         height: 70px;
         box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.08);
+        color: #2A2A2A;
 
-        mat-icon {
+        svg {
           margin-right: 10px;
           background: rgb(226 226 226 / 0.5);
           width: 50px;
           height: 50px;
-          color: #000;
-          line-height: 50px;
-          text-align: center;
+          padding: 13px;
+
+          path,
+          circle {
+            fill: #000;
+          }
         }
 
         &.active {
-          border: 1px solid #3bb3c1;
+          border: 1px solid var(--main-color);
 
-          mat-icon {
-            color: #3bb3c1;
+          svg {
+
+            path,
+            circle {
+              fill: var(--main-color);
+            }
           }
         }
       }
@@ -55,7 +72,11 @@
         font-weight: 500;
 
         img {
-          margin-right: 5px;
+          margin-right: 20px;
+
+          &.facebook {
+            width: 10px;
+          }
         }
 
         &.google {
@@ -69,13 +90,15 @@
       color: #696969;
 
       a {
-        color: #3bb3c1;
+        color: var(--main-color);
         margin-left: 15px;
       }
     }
   }
 
   .steps {
+    padding-top: 90px;
+
     h2 {
       color: #2a2a2a;
       font-weight: normal;
@@ -98,7 +121,7 @@
         border-left: 5px solid #e2e2e2;
 
         span {
-          color: #3bb3c1;
+          color: var(--main-color);
         }
 
         h4 {
@@ -108,7 +131,7 @@
         }
 
         &.active {
-          border-left: 5px solid #3bb3c1;
+          border-left: 5px solid var(--main-color);
         }
 
         &:last-child {
@@ -119,21 +142,27 @@
   }
 }
 
-@media(max-width:767px) {
+@media(max-width:992px) {
   .signup-block {
     form {
-      h3 {
-        font-size: 25px;
-      }
-
       h4 {
-        font-size: 20px;
         margin-bottom: 20px !important;
       }
 
       .types button {
         margin-bottom: 15px;
       }
+    }
+
+    .img-cover {
+      display: none !important;
+    }
+  }
+
+  .reset-block {
+    form h4 {
+      text-align: center;
+      margin-top: 20px;
     }
 
     .img-cover {
@@ -160,25 +189,11 @@
       position: absolute;
       right: 10px;
       top: 10px;
-      color: #3bb3c1;
+      color: var(--main-color);
     }
 
     button {
       font-weight: bold;
-    }
-  }
-}
-
-@media(max-width:767px) {
-  .reset-block {
-    form h4 {
-      text-align: center;
-      margin-top: 20px;
-      font-size: 25px;
-    }
-
-    .img-cover {
-      display: none !important;
     }
   }
 }

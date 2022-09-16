@@ -2,63 +2,121 @@
   <div class="card-body">
     <div class="row row-block">
       <div class="col-md-4">
-        <h2>Choose expert tutor</h2>
-        <h4>choose from +1000 expert tutors with excellent experience</h4>
+        <h2 class="f-size-17-md-sm">Tutor Information</h2>
+        <h4 class="f-size-15-md-sm">select your tutor for this course</h4>
+
+        <h5 class="mt-4">Course ID: <span>CID{{ selectedCourse?.id }}</span></h5>
+        <h5 class="mb-0">Course Name: <span>{{ selectedCourse?.name }}</span></h5>
       </div>
-      <div class="col-md-8">
-        <div class="list-tutors" *ngIf="!loading">
-          <mat-radio-group class="d-flex flex-column" formControlName="tutor">
-            <mat-radio-button *ngFor="let tutor of tutors" [value]="tutor?.id">
-              <div class="row">
-                <div class="position-relative img-avatar">
-                  <img [src]="tutor?.avatar" meTutorsDefaultAvatar alt="" width="60px" height="60px">
-                  <svg class="position-absolute status" width="16" height="16" [ngClass]="{
-                          'is-online': tutor?.status === tutorStatus.online, 
-                          'is-busy': tutor?.status === tutorStatus.busy, 
-                          'is-offline': tutor?.status === tutorStatus.offline, 
+      <div class="col-md-8 mt-15-sm">
+        <ng-container *ngIf="!loading">
+          <div class="custom-list">
+            <metutors-search-input (searchedText)="onSearch($event)" [placeholder]="'Search tutors (eg, John Doe)'">
+            </metutors-search-input>
+
+            <div class="list-tutors">
+              <ng-container *ngIf="availableTutors && availableTutors.length">
+                <span class="info mt-3 d-inline-block">Available</span>
+                <mat-radio-group class="d-flex flex-column" formControlName="tutor">
+                  <mat-radio-button *ngFor="let tutor of availableTutors" [value]="tutor?.id">
+                    <div class="row">
+                      <div class="position-relative img-avatar">
+                        <img [src]="tutor?.avatar" meTutorsDefaultAvatar alt="" width="60px" height="60px">
+                        <!-- <svg class="position-absolute status" width="16" height="16" [ngClass]="{
+                          'is-online': tutor?.status === tutorStatus.online,
+                          'is-busy': tutor?.status === tutorStatus.busy,
+                          'is-offline': tutor?.status === tutorStatus.offline,
                           'is-away': tutor?.status === tutorStatus.away
                         }" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="8" cy="8" r="7" fill="#949494" stroke="white" stroke-width="2" />
-                  </svg>
-                </div>
-                <div class="col">
-                  <h2>
-                    {{ tutor?.name }}
-                    <!-- <span class="text-uppercase pro">Pro</span>
+                  </svg> -->
+                      </div>
+                      <div class="col d-flex justify-content-center flex-column">
+                        <h2>
+                          {{ tutor?.name }}
+                          <!-- <span class="text-uppercase pro">Pro</span>
                         <span class="text-uppercase verified">Verified</span> -->
-                  </h2>
-                  <h3 *ngIf="tutor?.bio">{{ tutor?.bio }}</h3>
+                        </h2>
+                        <h3 class="mb-0" *ngIf="tutor?.bio">{{ tutor?.bio }}</h3>
+                        <a class="col-md-2 full-profile d-block d-xl-none mt-1"
+                          [routerLink]="'/profile/tutor/' + tutor?.id" target="_blank">
+                          <img src="assets/svg/share-link.svg" draggable="false" width="16px" height="16px" alt="">
+                          Full profile
+                        </a>
+                      </div>
+                      <a class="col-md-2 full-profile d-none d-xl-block" [routerLink]="'/profile/tutor/' + tutor?.id"
+                        target="_blank">
+                        <img src="assets/svg/share-link.svg" draggable="false" width="16px" height="16px" alt="">
+                        Full profile
+                      </a>
+                    </div>
+                  </mat-radio-button>
+                </mat-radio-group>
+              </ng-container>
+
+              <div class="no-tutors mt-3" *ngIf="!availableTutors || !availableTutors.length">
+                <strong class="mb-4 d-block f-size-18-md-sm">
+                  All Tutors are engaged with other students at your desired schedule. Other tutors are available at
+                  different schedules.
+                </strong>
+                <h5 class="f-size-15-md-sm">Would you like to change your classroom schedule?</h5>
+                <mat-radio-group (change)="onChangeSchedule($event)" [(ngModel)]="schedule"
+                  [ngModelOptions]="{standalone: true}">
+                  <mat-radio-button class="w-100-md-sm" value="1">Yes</mat-radio-button>
+                  <mat-radio-button class="w-100-md-sm" value="2">Proceed with my schedule and assign my instructor
+                  </mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
+            <div class="list-tutors" *ngIf="suggestedTutors && suggestedTutors.length">
+              <span class="info mt-3 d-inline-block">Available at different schedule</span>
+              <mat-radio-group class="d-flex flex-column" disabled>
+                <mat-radio-button *ngFor="let tutor of suggestedTutors" [value]="tutor?.id">
                   <div class="row">
-                    <div class="col-12 d-flex align-items-center">
-                      <div>
-                        <rating [ngModel]="tutor?.rate" [ngModelOptions]="{standalone: true}" [max]="5" [readonly]="true">
-                        </rating>
-                        <span class="count">{{ tutor?.rate }}</span>
-                        <span class="review" *ngIf="tutor?.reviewsCount">({{ tutor?.reviewsCount }} reviews)</span>
-                      </div>
-                      <div class="d-flex ms-3" *ngIf="tutor?.country">
-                        <img src="assets/svg/map.svg" class="icon" draggable="false" width="16" height="16" alt="">
-                        <span class="review">
-                          From {{ tutor?.country }}
-                        </span>
-                      </div>
-                      <div class="d-flex ms-3" *ngIf="tutor?.studentNumber">
-                        <img src="assets/svg/students.svg" class="icon" draggable="false" width="16" height="16" alt="">
-                        <span class="review">
-                          Help {{ tutor?.studentNumber }} student
-                        </span>
+                    <div class="position-relative img-avatar">
+                      <img [src]="tutor?.avatar" meTutorsDefaultAvatar alt="" width="60px" height="60px">
+                      <!-- <svg class="position-absolute status" width="16" height="16" [ngClass]="{
+                          'is-online': tutor?.status === tutorStatus.online,
+                          'is-busy': tutor?.status === tutorStatus.busy,
+                          'is-offline': tutor?.status === tutorStatus.offline,
+                          'is-away': tutor?.status === tutorStatus.away
+                        }" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="8" cy="8" r="7" fill="#949494" stroke="white" stroke-width="2" />
+                  </svg> -->
+                    </div>
+                    <div class="col d-flex justify-content-center flex-column">
+                      <h2>
+                        {{ tutor?.name }}
+                        <!-- <span class="text-uppercase pro">Pro</span>
+                        <span class="text-uppercase verified">Verified</span> -->
+                      </h2>
+                      <h3 class="mb-0" *ngIf="tutor?.bio">{{ tutor?.bio }}</h3>
+                      <div class="d-block d-xl-none mt-1">
+                        <a class="col-md-2 full-profile availability cursor-pointer"
+                          (click)="onViewAvailability(tutor.id)">
+                          Teacher Availability
+                        </a>
+                        <a class="col-md-2 full-profile w-auto-sm ms-2" [routerLink]="'/profile/tutor/' + tutor?.id"
+                          target="_blank">
+                          <img src="assets/svg/share-link.svg" draggable="false" width="16px" height="16px" alt="">
+                          Full profile
+                        </a>
                       </div>
                     </div>
+                    <a class="col-md-2 full-profile availability cursor-pointer d-none d-xl-block" (click)="onViewAvailability(tutor.id)">
+                      Teacher Availability
+                    </a>
+                    <a class="col-md-2 full-profile d-none d-xl-block" [routerLink]="'/profile/tutor/' + tutor?.id"
+                      target="_blank">
+                      <img src="assets/svg/share-link.svg" draggable="false" width="16px" height="16px" alt="">
+                      Full profile
+                    </a>
                   </div>
-                </div>
-                <a class="col-md-2 full-profile" [routerLink]="'/tutor-profile/' + tutor?.id" target="_blank">
-                  <img src="assets/svg/share-link.svg" draggable="false" width="16px" height="16px" alt="">
-                  Full profile
-                </a>
-              </div>
-            </mat-radio-button>
-          </mat-radio-group>
-        </div>
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+        </ng-container>
 
         <ng-container *ngIf="loading">
           <div class="ph-item mt-4 mx-2" *ngFor="let i of [1, 2, 3, 4, 5]">
@@ -78,6 +136,32 @@
             </div>
           </div>
         </ng-container>
+
+        <div class="est-price mt-4 p-10-sm" [@slideInOut] *ngIf="price && hours">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="d-flex">
+                <div class="flex-grow-1">
+                  <h5 class="d-flex align-items-center">
+                    Estimated Price: <h1 class="mb-0 f-size-20-md-sm">{{ (price * +hours) | metutorsMoney | async }}
+                    </h1>
+                  </h5>
+                  <p>Final price based on total number of class hours</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="d-flex">
+                <div class="flex-grow-1">
+                  <h5 class="d-flex align-items-center">
+                    Total Hours: <h1 class="mb-0 f-size-20-md-sm">{{ hours }} hr{{ +(hours)! > 1 ? 's' : '' }}</h1>
+                  </h5>
+                  <p>Hourly Rate: {{ price | metutorsMoney | async }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 

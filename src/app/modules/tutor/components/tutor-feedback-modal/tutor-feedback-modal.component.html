@@ -1,0 +1,21 @@
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'xmedium'"
+                [heading]="heading"
+                [template]="template" [subHeading]="subHeading">
+  <ng-template #template>
+    <div class="row leave-feedback-modal" *ngLet="(view$ | async) as view">
+      <div class="col-12">
+        <mat-tab-group mat-align-tabs="start">
+          <mat-tab [label]="tabLabel" [labelClass]="'fw-bold'">
+            <ng-container [ngSwitch]="view?.loading">
+              <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
+              <metutors-send-feedback [messageLabel]="messageLabel" [feedbackOptions]="view?.feedbackOptions"
+                                      [isSubmitting]="(submittingFeedback$ | async)!" [form]="form" [buttonLabel]="buttonLabel"
+                                      (submitFeedback)="submitFeedback.emit(form)" *ngSwitchCase="false">
+              </metutors-send-feedback>
+            </ng-container>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+    </div>
+  </ng-template>
+</metutors-modal>

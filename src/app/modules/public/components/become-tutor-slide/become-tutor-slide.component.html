@@ -1,15 +1,17 @@
-<div class="slide" style="background-image: url('assets/homepage/teacher-cover.jpg')">
+<div class="slide" style="background-image: url('assets/homepage/teacher-cover.png')">
   <div class="container">
     <div class="row">
       <div class="col-md-7">
-        <h1>
+        <h1 class="f-size-25-md-sm">
           Educate Globally
           <br>
-          with Metutors
+          with MEtutors
         </h1>
-        <p>MEtutors is a newly formed educational organization.
-          The founder and all of MEtutors</p>
-        <button mat-flat-button color="primary">Become A Tutor</button>
+        <p class="f-size-17-md-sm">
+          Teach online with the world's top AI-based teaching platform and make an impact on education. Share your
+          skills and knowledge to help your students reach their goals.
+        </p>
+        <a mat-flat-button color="primary" class="f-size-17-md-sm" routerLink="/signup" *ngIf="!token">Join MEtutors</a>
       </div>
     </div>
   </div>

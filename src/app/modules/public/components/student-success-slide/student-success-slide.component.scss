@@ -3,7 +3,7 @@
   background-repeat: no-repeat;
   padding: 90px 0;
   margin: 0;
-  background-position: center center;
+  background-position: right;
 
   h1 {
     color: #2a2a2a;
@@ -28,8 +28,18 @@
   }
 }
 
-@media(max-width:767px) {
-  .slide h1 {
-    font-size: 25px;
+@media(max-width:992px) {
+  .slide {
+    h1 {
+      color: #FFF;
+
+      br {
+        display: none;
+      }
+    }
+
+    p {
+      color: #f2f2f2;
+    }
   }
 }

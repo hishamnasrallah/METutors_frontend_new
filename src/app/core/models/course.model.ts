@@ -1,9 +1,12 @@
+import { IClass, IField, IProgram } from '.';
 import { TuitionType } from 'src/app/config';
+import { IPriceRange } from './price-range';
 import {
   COURSE_TAGS_CONST,
   COURSE_TUITION_TYPES_CONST,
 } from 'src/app/config/general';
-import { IPriceRange } from './price-range';
+import { ITutor } from './tutor.model';
+import { IStudent } from './student.model';
 
 export class ICourse {
   id!: number;
@@ -18,7 +21,22 @@ export class ICourse {
   tag?: string;
   priceRange?: IPriceRange;
   description?: string;
-  courseField?: ICourseField;
+  courseField?: IField;
+  status?: string;
+  courseCode?: string;
+  courseName?: string;
+  startDate?: string;
+  endDate?: string;
+  totalPrice?: string;
+  totalHours?: string;
+  totalClasses?: string;
+  weekdays?: string;
+  program?: IProgram;
+  classes?: IClass[];
+  tutor?: ITutor;
+  student?: IStudent;
+  createdAt?: string;
+  cancelledBy?: string;
 
   constructor(createDefault = false, course: any = null) {
     if (createDefault) {
@@ -35,13 +53,28 @@ export class ICourse {
       this.priceRange = undefined;
       this.description = '';
       this.courseField = undefined;
+      this.status = '';
+      this.courseCode = '';
+      this.courseName = '';
+      this.startDate = '';
+      this.endDate = '';
+      this.totalPrice = '';
+      this.totalHours = '';
+      this.totalClasses = '';
+      this.weekdays = '';
+      this.program = undefined;
+      this.classes = [];
+      this.tutor = undefined;
+      this.student = undefined;
+      this.createdAt = '';
+      this.cancelledBy = '';
     }
 
     if (course) {
       this.id = course.id;
       this.picture = course.cover_pic;
       this.duration = course.duration || '';
-      this.name = course.name || '';
+      this.name = course.course_name || '';
       this.rate = course.rate || 0;
       this.reviewsCount = course.total_reviews_count || 0;
       this.tuitionType = course.tuition_type || 0;
@@ -51,20 +84,23 @@ export class ICourse {
       this.priceRange = course.price_range || {};
       this.description = course.course_description || '';
       this.courseField = course.course_field;
+      this.status = course.status;
+      this.courseCode = course.course_code;
+      this.courseName = course.course_name;
+      this.startDate = course.start_date;
+      this.endDate = course.end_date;
+      this.totalPrice = course.total_price;
+      this.totalHours = course.total_hours;
+      this.totalClasses = course.total_classes;
+      this.weekdays = course.weekdays;
+      this.program = course.program;
+      this.classes = course.classes;
+      this.tutor = new ITutor(false, course?.teacher);
+      this.student = new IStudent(false, course?.student);
+      this.createdAt = course?.created_at;
+      this.cancelledBy = course?.cancelled_by;
     }
   }
-}
-
-export interface ICourseLevel {
-  id: number;
-  name: string;
-}
-
-export interface ICourseField {
-  id: number;
-  name: string;
-  code: string;
-  icon: string;
 }
 
 export function getTuitionValue(type: number): string {

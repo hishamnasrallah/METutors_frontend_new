@@ -29,14 +29,20 @@
     }
 
     .main-color {
-      color: #3bb3c1;
+      color: var(--main-color);
       font-weight: bold;
     }
   }
 }
 
 @media (max-width:767px) {
-  .list-questions h1 {
-    font-size: 25px;
+  .list-questions {
+    padding: 20px 15px;
+
+    .question {
+      p {
+        width: 100%;
+      }
+    }
   }
 }

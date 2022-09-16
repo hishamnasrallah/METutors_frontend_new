@@ -1,9 +1,10 @@
-<metutors-faq-about-students [listFAQs]="listFAQs" [tempListFAQs]="tempListFAQs" (submitFAQ)="listFAQs = $event">
+<metutors-faq-about-students (submitFAQ)="filterFAQs($event)">
 </metutors-faq-about-students>
 
 <div class="faq">
   <div class="row">
-    <metutors-faq-list-questions [listFAQs]="listFAQs"></metutors-faq-list-questions>
-    <metutors-faq-still-have-questions [info]="systemInfoDetails"></metutors-faq-still-have-questions>
+    <metutors-faq-list-questions [listFAQs]="FAQs$ | async" [isLoading]="loadingFAQs$ | async">
+    </metutors-faq-list-questions>
+    <metutors-faq-still-have-questions></metutors-faq-still-have-questions>
   </div>
 </div>

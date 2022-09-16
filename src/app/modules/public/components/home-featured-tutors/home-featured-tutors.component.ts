@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { OwlOptions } from 'ngx-owl-carousel-o';
 import { TutorStatus } from 'src/app/config';
 import { ITutor } from 'src/app/core/models';
+import { OwlOptions } from 'ngx-owl-carousel-o';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'metutors-home-featured-tutors',
@@ -9,7 +9,8 @@ import { ITutor } from 'src/app/core/models';
   styleUrls: ['./home-featured-tutors.component.scss'],
 })
 export class HomeFeaturedTutorsComponent implements OnInit {
-  @Input() teachers?: ITutor[];
+  @Input() teachers: ITutor[];
+  @Input() isLoading: boolean;
 
   tutorStatus = TutorStatus;
   customOptions: OwlOptions = {

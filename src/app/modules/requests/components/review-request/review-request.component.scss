@@ -9,8 +9,19 @@
     font-size: 20px;
   }
 
+  h5 {
+    color: #2A2A2A;
+    font-size: 15px;
+    font-weight: bold;
+
+    span {
+      color: #696969;
+      font-weight: normal;
+    }
+  }
+
   .row-block {
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid #E2E2E2;
     padding-bottom: 20px;
     margin-bottom: 20px;
 
@@ -30,8 +41,9 @@
     .list-classes {
       border-radius: 6px;
       border: solid 1px #ededed;
-      overflow: hidden;
       margin-bottom: 20px;
+      max-height: 70vh;
+      overflow: auto;
 
       table {
         tr {
@@ -70,8 +82,8 @@
         }
 
         .status {
-          right: 5px;
-          top: 5px;
+          right: -5px;
+          top: -5px;
 
           &.is-online circle {
             fill: #00ab1e;
@@ -117,6 +129,7 @@
       h3 {
         color: #7d7d7d;
         font-size: 13px;
+        white-space: normal;
       }
 
       .count {
@@ -147,12 +160,35 @@
       }
 
       .full-profile {
-        color: #3bb3c1;
+        color: var(--main-color);
 
         &:hover {
-          color: #3bb3c1;
+          color: var(--main-color);
         }
       }
+    }
+  }
+
+  .est-price {
+    border-radius: 8px;
+    background-color: #f8f8f8;
+    padding: 15px 20px;
+
+    h5 {
+      color: #2a2a2a;
+      font-size: 14px;
+    }
+
+    h1 {
+      font-size: 22px;
+      font-weight: bold;
+      color: #2a2a2a;
+      margin-left: 10px;
+    }
+
+    p {
+      color: #949494;
+      font-size: 15px;
     }
   }
 
@@ -163,8 +199,8 @@
 
     &.back-btn {
       margin-right: 10px;
-      border: solid 1px #3bb3c1;
-      color: #3bb3c1;
+      border: solid 1px var(--main-color);
+      color: var(--main-color);
     }
   }
 }

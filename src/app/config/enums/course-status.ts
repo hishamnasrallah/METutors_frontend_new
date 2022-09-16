@@ -1,0 +1,17 @@
+export enum CourseStatus {
+  active = 'active',
+  pending = 'pending',
+  rejected = 'rejected',
+  canceled = 'canceled',
+  requested = 'requested',
+  completed = 'completed',
+  inprogress = 'inprogress',
+  adminCancelled = 'metutors',
+  teacherCancelled = 'teacher',
+  studentCancelled = 'student',
+  paymentPending = 'payment_pending',
+  declinedByTeacher = 'declined_by_teacher',
+  cancelledByStudent = 'cancelled_by_student',
+  cancelledByTeacher = 'cancelled_by_teacher',
+  requestedToMetutors = 'requested_to_metutors',
+}

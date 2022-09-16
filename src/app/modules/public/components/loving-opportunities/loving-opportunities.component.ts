@@ -10,7 +10,7 @@ export class LovingOpportunitiesComponent implements OnInit {
   @Input() opportunities?: any[];
 
   customOptions: OwlOptions = {
-    loop: false,
+    loop: true,
     mouseDrag: true,
     touchDrag: true,
     pullDrag: true,

@@ -1,27 +1,52 @@
 import {
-  HttpInterceptor,
   HttpRequest,
   HttpHandler,
+  HttpInterceptor,
 } from '@angular/common/http';
+import { Store } from '@ngrx/store';
+import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
+import { first, mergeMap, Observable } from 'rxjs';
+
+import * as fromCore from '@metutor/core/state';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor() {}
+  constructor(private _store: Store<any>) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler) {
-    const token: string | null = localStorage.getItem('token');
+    return this._addToken(request).pipe(
+      first(),
+      mergeMap((requestWithToken: HttpRequest<any>) =>
+        next.handle(requestWithToken)
+      )
+    );
+  }
 
-    if (token) {
-      request = request.clone({
-        headers: request.headers.set('Authorization', 'Bearer ' + token),
-      });
-    }
+  private _addToken(request: HttpRequest<any>): Observable<HttpRequest<any>> {
+    return this._store.select(fromCore.selectUserState).pipe(
+      first(),
+      map((user: any) => {
+        if (user && user.token) {
+          request = request.clone({
+            headers: request.headers.set(
+              'Authorization',
+              `Bearer ${user.token}`
+            ),
+          });
+        }
 
-    request = request.clone({
-      headers: request.headers.set('Accept', 'application/json'),
-    });
+        if (user && user.tempToken) {
+          request = request.clone({
+            headers: request.headers.set(
+              'Authorization',
+              `Bearer ${user.tempToken}`
+            ),
+          });
+        }
 
-    return next.handle(request);
+        return request;
+      })
+    );
   }
 }

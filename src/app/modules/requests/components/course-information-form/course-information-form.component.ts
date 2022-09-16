@@ -1,25 +1,27 @@
+import { AlertNotificationService } from 'src/app/core/components';
+import { AbstractControl, FormGroup, Validators } from '@angular/forms';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
-  trigger,
   state,
   style,
-  transition,
   group,
   animate,
+  trigger,
+  transition,
 } from '@angular/animations';
-import { AbstractControl, FormGroup, Validators } from '@angular/forms';
 import {
-  AcademicTutoringTextbook,
+  GRADES,
   formatBytes,
+  generalConstants,
   TEXTBOOK_EDITION_CONST,
+  AcademicTutoringTextbook,
 } from 'src/app/config';
-import { AlertNotificationService } from 'src/app/core/components';
 import {
-  ICourseField,
-  ICourseLevel,
-  ILanguage,
+  IField,
   IProgram,
   ISubject,
+  ICountry,
+  ILanguage,
 } from 'src/app/core/models';
 
 @Component({
@@ -50,16 +52,21 @@ import {
 })
 export class CourseInformationFormComponent implements OnInit {
   @Input() form!: FormGroup;
-  @Input() subjects?: ISubject[];
-  @Input() languages?: ILanguage[];
-  @Input() coursePrograms?: IProgram[];
-  @Input() courseLevel?: ICourseLevel[];
-  @Input() courseField?: ICourseField[];
+  @Input() fields: IField[] | null;
+  @Input() subjects: ISubject[] | null;
+  @Input() programs: IProgram[] | null;
+  @Input() countries: ICountry[] | null;
+  @Input() languages: ILanguage[] | null;
 
   @Output() submitForm = new EventEmitter<FormGroup>();
+  @Output() changeCourseField = new EventEmitter<string>();
   @Output() changeCourseProgram = new EventEmitter<string>();
+  @Output() changeCourseSubject = new EventEmitter<string>();
 
+  grades = GRADES;
   filePreview: any;
+  selectedCourse: any;
+  nationalId = generalConstants.nationalId;
   textbookEditions = TEXTBOOK_EDITION_CONST;
   academicTutoringTextbook = AcademicTutoringTextbook;
 
@@ -107,6 +114,18 @@ export class CourseInformationFormComponent implements OnInit {
     return this.form.get('courseProgram');
   }
 
+  get subject(): AbstractControl | null {
+    return this.form.get('subject');
+  }
+
+  get courseCountry(): AbstractControl | null {
+    return this.form.get('courseCountry');
+  }
+
+  get courseGrade(): AbstractControl | null {
+    return this.form.get('courseGrade');
+  }
+
   get information(): AbstractControl | null {
     return this.form.get('information');
   }
@@ -128,14 +147,58 @@ export class CourseInformationFormComponent implements OnInit {
   }
 
   onChangeCourseProgram(): void {
+    this.selectedCourse = null;
     const programId = this.program?.value;
 
     this.changeCourseProgram.emit(programId);
+
+    if (programId.toString() === generalConstants.nationalId.toString()) {
+      this.courseCountry?.setValidators([Validators.required]);
+      this.courseGrade?.setValidators([Validators.required]);
+    } else {
+      this.courseCountry?.setValidators([]);
+      this.courseGrade?.setValidators([]);
+      this.courseCountry?.setValue(null);
+      this.courseGrade?.setValue(null);
+    }
+
+    this.courseGrade?.updateValueAndValidity();
+    this.courseCountry?.updateValueAndValidity();
+  }
+
+  resetValues(): void {
+    this.field?.setValue(null);
+    this.subject?.setValue(null);
+    this.field?.updateValueAndValidity();
+    this.subject?.updateValueAndValidity();
+  }
+
+  onChangeCourseField(): void {
+    this.selectedCourse = null;
+    this.subject?.setValue(null);
+    this.subject?.updateValueAndValidity();
+
+    const fieldId = this.field?.value;
+
+    this.changeCourseField.emit(fieldId);
+  }
+
+  onChangeCourseSubject(): void {
+    this.selectedCourse = this.subject?.value;
+
+    this.changeCourseSubject.emit(this.selectedCourse);
   }
 
   onFileUpload(event: any): void {
     if (event.target && event.target.files && event.target.files.length) {
       const file = event.target.files[0];
+
+      if (file.type !== 'application/pdf') {
+        this._alertNotificationService.error('Only PDF file is allowed');
+
+        return;
+      }
+
       if (file.size > 5 * 1024 * 1024) {
         this._alertNotificationService.error('Allowed file size is 5MB');
 

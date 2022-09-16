@@ -1,0 +1,156 @@
+.booking-details {
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.13);
+
+    .card-body {
+      padding: 20px 40px;
+    }
+
+    .title {
+      h1 {
+        color: #000;
+        font-size: 30px;
+
+        span {
+          color: #696969;
+          font-size: 15px;
+        }
+      }
+
+      .links {
+        button {
+          color: #50C394;
+          text-decoration: underline;
+
+          &.prev {
+            color: #61A0FF;
+          }
+        }
+      }
+    }
+
+    .in-progress {
+      h3 {
+        font-size: 15px;
+        color: #000;
+      }
+
+      strong {
+        color: #000;
+        font-size: 12px;
+        margin-left: 10px;
+      }
+    }
+
+    .list {
+      padding: 0 5px;
+
+      .menu {
+        padding-right: 0;
+
+        img {
+          margin-right: 5px;
+        }
+
+        span {
+          color: #2a2a2a;
+          margin-left: 5px;
+          font-size: 20px;
+        }
+
+        strong {
+          font-size: 17px;
+          color: #696969;
+          font-weight: 500;
+        }
+      }
+    }
+
+    .details {
+      span {
+        color: #696969;
+        font-size: 15px;
+      }
+
+      strong {
+        color: #000;
+      }
+    }
+
+    .current-teacher {
+      h5 {
+        color: #696969;
+        font-size: 15px;
+      }
+
+      img {
+        width: 40px;
+        height: 40px;
+      }
+
+      h3 {
+        color: #2a2a2a;
+        font-size: 17px;
+        font-weight: bold;
+      }
+
+      span {
+        color: #FF8E18;
+        font-size: 15px;
+      }
+    }
+
+    .manage-details {
+      li {
+        span {
+          font-size: 15px;
+          color: #696969;
+        }
+
+        strong {
+          color: #2a2a2a;
+          font-size: 15px;
+        }
+      }
+    }
+  }
+
+  .booking-content {
+    padding: 20px 40px;
+
+    .overview {
+      color: #2a2a2a;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .my-table.default-title tr {
+      th {
+        color: #696969;
+        font-size: 13px;
+      }
+
+      .status {
+        font-size: 15px;
+
+        &.remaining {
+          color: #F15A5A;
+        }
+
+        &.completed {
+          color: #50C394;
+        }
+      }
+    }
+  }
+
+  .no-data {
+    padding: 30px 0;
+    border-radius: 12px;
+    box-shadow: 0 2px 20px 0 rgb(0 0 0 / 12%);
+
+    h3 {
+      font-size: 20px;
+    }
+  }
+}

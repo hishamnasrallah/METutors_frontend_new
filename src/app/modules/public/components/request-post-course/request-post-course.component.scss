@@ -20,7 +20,7 @@
       border-radius: 4px 4px 0 0;
 
       span {
-        color: #3bb3c1;
+        color: var(--main-color);
       }
 
       strong {
@@ -34,7 +34,7 @@
           content: "";
           position: absolute;
           height: 4px;
-          background: #3bb3c1;
+          background: var(--main-color);
           bottom: 0;
           width: 50%;
           left: 0;
@@ -53,7 +53,7 @@
       border-radius: 0 0 8px 8px;
 
       h3 {
-        color: #3bb3c1;
+        color: var(--main-color);
         margin-bottom: 5px;
       }
 
@@ -79,12 +79,5 @@
         }
       }
     }
-  }
-}
-
-@media (max-width:767px) {
-  .request-post-course h1,
-  .creativity h1 {
-    font-size: 25px;
   }
 }

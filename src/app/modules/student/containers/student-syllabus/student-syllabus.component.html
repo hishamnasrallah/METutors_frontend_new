@@ -1,152 +1,180 @@
-<div class="syllabus">
-  <div class="card">
-    <div class="card-body">
-      <ng-container *ngIf="!loadingClassroom">
-        <h1 class="title">{{ classroom?.name }}</h1>
-        <div class="row list rounded">
-          <div class="col-md-2 d-flex menu align-items-center">
-            <img src="assets/svg/calendar.svg" alt="" width="15" height="15" draggable="false">
-            <strong>Days: </strong>
-            <span>
-              <ng-container *ngFor="let day of classroom?.listDays; let isLast = last">
-                {{ day }}
-                <ng-container *ngIf="!isLast">, </ng-container>
-              </ng-container>
-            </span>
-          </div>
-          <div class="col-md-2 d-flex menu align-items-center">
-            <img src="assets/svg/checkbox-circle-fill.svg" alt="" width="15" height="15" draggable="false">
-            <strong>Completed classes: </strong>
-            <span>{{ classroom?.completedClasses }}</span>
-          </div>
-          <div class="col-md-2 d-flex menu align-items-center">
-            <img src="assets/svg/timer.svg" alt="" width="15" height="15" draggable="false">
-            <strong>Total hour: </strong>
-            <span>{{ classroom?.totalHours }}hrs</span>
-          </div>
-          <div class="col-md-2 d-flex menu align-items-center">
-            <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
-            <strong>Time: </strong>
-            <span>
-              {{ classroom?.startETime | date: 'h a' }} : {{ classroom?.endETime | date: 'h a' }}
-              <!-- ({{ calculateDurationTime(classroom?.startETime, classroom?.endETime) }} hours) -->
-            </span>
-          </div>
-          <div class="col-md-2 d-flex menu align-items-center">
-            <img src="assets/svg/play-circle-fill.svg" alt="" width="15" height="15" draggable="false">
-            <strong>Remining classes: </strong>
-            <span>{{ classroom?.remainingClasses }}</span>
-          </div>
-        </div>
-        <div class="row mt-3" *ngIf="classroom && classroom?.progress">
-          <div class="col-md-4 in-progress">
-            <h3>In progress</h3>
-            <div class="d-flex align-items-center">
-              <div class="flex-grow-1">
-                <mat-progress-bar class="example-margin" [color]="classroom.progress > 30 ? 'primary' : 'warn'"
-                  [value]="classroom?.progress">
-                </mat-progress-bar>
+<div class="syllabus" *ngLet="(view$ | async) as view">
+    <div class="card">
+      <div class="card-body">
+        <ng-container [ngSwitch]="view.loading">
+          <ng-container *ngSwitchCase="false">
+            <h1 class="title">{{ view.syllabus.course?.courseName }} <span>({{ view.syllabus.course?.courseCode}})</span>
+              <button mat-button class="ms-3 status" [ngClass]="view.syllabus.course?.status">{{ statusLabel[view.syllabus.course?.status].long }}</button>
+            </h1>
+            <div class="row list-items">
+              <div class="col-md-3 d-flex menu align-items-center">
+                <img src="assets/svg/calendar.svg" alt="" width="15" height="15" draggable="false">
+                <strong>Days: </strong>
+                <span>
+                  <ng-container *ngFor="let day of getDays(view.syllabus?.course?.weekdays); let isLast = last">
+                    {{ day }}<ng-container *ngIf="!isLast">, </ng-container>
+                  </ng-container>
+                </span>
               </div>
-              <strong>{{ classroom?.progress }}%</strong>
-            </div>
-          </div>
-        </div>
-      </ng-container>
-
-      <ng-container *ngIf="loadingClassroom">
-        <div class="ph-row">
-          <div class="ph-col-8 big"></div>
-          <div class="ph-col-4 big empty"></div>
-          <div class="ph-col-10 big mt-3"></div>
-          <div class="ph-col-2 big empty mt-3"></div>
-          <div class="ph-col-6 mt-4"></div>
-          <div class="ph-col-6 mt-4 empty"></div>
-        </div>
-      </ng-container>
-    </div>
-  </div>
-
-  <div class="items">
-    <ng-container *ngIf="!loadingSyllabus">
-      <div class="item position-relative" *ngFor="let syllabus of syllabuses; let i = index">
-        <span class="number">{{ i + 1 }}</span>
-        <div class="row set-padding">
-          <div class="col">
-            <h2>{{ syllabus?.title }}</h2>
-            <div class="row list p-0">
+              <div class="col-md-3 d-flex menu align-items-center">
+                <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
+                <strong>Time: </strong>
+                <span>{{ view.syllabus?.course?.startTime | date:'h:mm a' }} - {{ view.syllabus?.course?.endTime | date:'h:mm a' }}</span>
+              </div>
               <div class="col-md-2 d-flex menu align-items-center">
                 <img src="assets/svg/play-circle-fill.svg" alt="" width="15" height="15" draggable="false">
-                <strong>Total classes: </strong>
-                <span>{{ syllabus?.classes?.length }}</span>
+                <strong>Total hour: </strong>
+                <span>{{ view.syllabus?.course?.totalHours }}hr{{ +(view.syllabus?.course?.totalHours)! > 1 ? 's' : '' }}</span>
               </div>
               <div class="col-md-2 d-flex menu align-items-center">
-                <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
-                <strong>Total hour: </strong>
-                <span>{{ syllabus?.totalHours }}hrs</span>
+                <img src="assets/svg/checkbox-circle-fill.svg" alt="" width="15" height="15" draggable="false">
+                <strong>Total classes: </strong>
+                <span>{{ view.syllabus?.course?.totalClasses }}</span>
               </div>
             </div>
-          </div>
-          <div>
-            <h3 *ngIf="syllabus.progress > 0">{{ syllabus?.progress }}% Completed</h3>
-            <h3 *ngIf="syllabus.progress === 0">Not started yet</h3>
-            <mat-progress-bar class="example-margin" [color]="syllabus.progress > 30 ? 'primary' : 'warn'"
-              [value]="syllabus?.progress">
-            </mat-progress-bar>
-          </div>
-        </div>
-        <div class="row set-padding">
-          <p class="col">{{ syllabus?.description }}</p>
-          <ng-container *ngIf="syllabus?.classes && syllabus?.classes?.length">
-            <button mat-button class="expand" *ngIf="selectedCourse !== syllabus.id"
-              (click)="changeOpenSelection(syllabus.id)">
-              <mat-icon>add</mat-icon>
-            </button>
-            <button mat-button class="expand" *ngIf="openCourse && selectedCourse === syllabus.id"
-              (click)="changeOpenSelection(syllabus.id)">
-              <mat-icon>remove</mat-icon>
-            </button>
+            <div class="row mt-3">
+              <div class="col-md-5 in-progress">
+                <h3 *ngIf="view.syllabus?.courseProgress === 100">Completed</h3>
+                <h3 *ngIf="view.syllabus?.courseProgress === 0">Not Started yet</h3>
+                <h3
+                  *ngIf="view.syllabus?.courseProgress&& (view.syllabus?.courseProgress > 0 && view.syllabus?.courseProgress < 100)">
+                  In progress</h3>
+                <div class="d-flex align-items-center">
+                  <div class="flex-grow-1">
+                    <mat-progress-bar class="example-margin"
+                                      [color]="'primary'"
+                                      [value]="view.syllabus?.courseProgress">
+                    </mat-progress-bar>
+                  </div>
+                  <strong>{{ view.syllabus?.courseProgress }}%</strong>
+                </div>
+              </div>
+              <div class="col-md-7">
+              </div>
+            </div>
           </ng-container>
-        </div>
-        <ng-container *ngIf="syllabus?.classes && syllabus?.classes?.length">
-          <div class="table-responsive" *ngIf="openCourse && selectedCourse === syllabus.id" [@slideInOut]>
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">Number</th>
-                  <th scope="col">Day</th>
-                  <th scope="col">Classroom subject</th>
-                  <th scope="col">Start time</th>
-                  <th scope="col">End Time</th>
-                  <th scope="col">Duration</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let class of syllabus?.classes">
-                  <td scope="row">{{ class?.number }}</td>
-                  <td>{{ class?.date | date: 'EEEE' }}</td>
-                  <!-- <td>{{ class?.subject }}</td> -->
-                  <td>{{ class?.startTime }}</td>
-                  <td>{{ class?.endTime }}</td>
-                  <td>{{ class?.duration + 'hrs' }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+
+          <ng-container *ngSwitchCase="true">
+            <div class="ph-row">
+              <div class="ph-col-8 big"></div>
+              <div class="ph-col-4 big empty"></div>
+              <div class="ph-col-10 big mt-3"></div>
+              <div class="ph-col-2 big empty mt-3"></div>
+              <div class="ph-col-6 mt-4"></div>
+              <div class="ph-col-6 mt-4 empty"></div>
+            </div>
+          </ng-container>
         </ng-container>
       </div>
-    </ng-container>
+    </div>
 
-    <ng-container *ngIf="loadingSyllabus">
-      <div class="item p-4" *ngFor="let _ of [1, 2, 3]">
-        <div class="ph-row">
-          <div class="ph-col-6 big"></div>
-          <div class="ph-col-6 big empty"></div>
-          <div class="ph-col-8 big"></div>
-          <div class="ph-col-4 big empty"></div>
-          <div class="ph-col-10 mt-3"></div>
-          <div class="ph-col-2 empty mt-3"></div>
+    <div class="items">
+      <ng-container [ngSwitch]="view.loading">
+        <h1 class="title">Unclassified Classes</h1>
+        <div class="col-12 unclassified-table">
+          <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
+          <table class="table my-table default-title" *ngSwitchCase="false">
+            <tr>
+              <th scope="col">Class Number</th>
+              <th scope="col">Class Subject</th>
+              <th scope="col">Class Days</th>
+              <th scope="col">Start time - End time</th>
+              <th scope="col">Duration</th>
+            </tr>
+
+            <tr *ngIf="!view.syllabus.unclassifiedClasses.length">
+              <td colspan="6">
+                <div class="text-center">No record found</div>
+              </td>
+            </tr>
+            <ng-container *ngIf="view.syllabus.unclassifiedClasses.length">
+              <tr *ngFor="let unclassifiedClass of view.syllabus.unclassifiedClasses; let i=index">
+                <td>{{ i + 1}}</td>
+                <td>{{ unclassifiedClass?.title }}</td>
+                <td>{{ unclassifiedClass?.startDate | date: 'EEEE, dd MMM Y' }}</td>
+                <td>{{ unclassifiedClass?.startTime | date:'h:mm a' }} - {{ unclassifiedClass?.endTime | date:'h:mm a' }}</td>
+                <td>{{ unclassifiedClass?.duration }}hr{{ +(unclassifiedClass?.duration)! > 1 ? 's' : '' }}</td>
+              </tr>
+            </ng-container>
+          </table>
         </div>
-      </div>
-    </ng-container>
-  </div>
+
+        <h1 class="title pt-5">Classified Topics</h1>
+        <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
+        <ng-container *ngSwitchCase="false">
+          <div class="text-center p-3" *ngIf="!view.syllabus?.topics.length">No record found</div>
+          <ng-container *ngIf="view.syllabus?.topics.length">
+            <div class="item position-relative" *ngFor="let syllabus of view.syllabus?.topics; let i = index">
+              <span class="number">{{ i + 1 }}</span>
+              <div class="row set-padding">
+                <div class="col-md-9">
+                  <h2>{{ syllabus?.topic?.name }}</h2>
+                  <div class="row list-items p-0">
+                    <div class="col-md-2 d-flex menu align-items-center">
+                      <img src="assets/svg/play-circle-fill.svg" alt="" width="15" height="15" draggable="false">
+                      <strong>Total classes: </strong>
+                      <span>{{ syllabus?.totalClasses }}</span>
+                    </div>
+                    <div class="col-md-2 d-flex menu align-items-center">
+                      <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
+                      <strong>Total hour: </strong>
+                      <span>{{ syllabus?.totalTopicHours }}hr{{ +(syllabus?.totalTopicHours)! > 1 ? 's' : '' }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                 <!-- <div class="row">
+                    <div class="col">
+                      <h3 *ngIf="syllabus?.topicProgress === 100">Completed</h3>
+                      <h3 *ngIf="syllabus?.topicProgress === 0">Not Started yet</h3>
+                      <h3
+                        *ngIf="syllabus?.topicProgress && (syllabus?.topicProgress > 0 && syllabus?.topicProgress < 100)">
+                        In progress</h3>
+                      <mat-progress-bar class="example-margin"
+                                        [color]="'primary'"
+                                        [value]="syllabus?.topicProgress">
+                      </mat-progress-bar>
+                    </div>
+                    <div class="col-md-2 d-flex align-items-center"></div>
+                  </div>-->
+                </div>
+              </div>
+              <div class="row set-padding desc">
+                <p class="col">{{ syllabus?.topic?.description }}</p>
+                <ng-container *ngIf="view.syllabus?.topics && view.syllabus?.topics?.length">
+                  <button mat-button class="expand" *ngIf="selectedCourse !== syllabus?.topic?.id">
+                    <mat-icon (click)="openCourse = true; selectedCourse = syllabus?.topic?.id">expand_more</mat-icon>
+                  </button>
+                  <button mat-button class="expand" *ngIf="openCourse && selectedCourse === syllabus?.topic?.id">
+                    <mat-icon (click)="openCourse = false; selectedCourse = null">expand_less</mat-icon>
+                  </button>
+                </ng-container>
+              </div>
+              <ng-container *ngIf="view.syllabus?.topics && view.syllabus?.topics?.length">
+                <div class="table-responsive" *ngIf="openCourse && selectedCourse === syllabus?.topic?.id"
+                     [@slideInOut]>
+                  <table class="table my-table default-title">
+                    <tr>
+                      <th scope="col">Class Number</th>
+                      <th scope="col">Class Subject</th>
+                      <th scope="col">Class Days</th>
+                      <th scope="col">Start time - End time</th>
+                      <th scope="col">Duration</th>
+                    </tr>
+
+                    <tr *ngFor="let syllabusClass of syllabus?.topic?.classes; let i = index">
+                      <td scope="row">{{ i + 1 }}</td>
+                      <td>{{ syllabusClass?.title }}</td>
+                      <td>{{ syllabusClass?.startDate | date : 'EEEE, dd MMM Y' }}</td>
+                      <td>{{ syllabusClass?.startTime | date:'h:mm a' + '-' + syllabusClass?.endTime | date:'h:mm a' }}</td>
+                      <td>{{ syllabusClass?.duration }}hr{{ +(syllabusClass?.duration)! > 1 ? 's' : '' }}</td>
+                    </tr>
+                  </table>
+                </div>
+              </ng-container>
+            </div>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+    </div>
 </div>

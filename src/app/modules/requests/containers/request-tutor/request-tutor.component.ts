@@ -1,34 +1,31 @@
+import { Store } from '@ngrx/store';
+import { Observable, tap } from 'rxjs';
 import { DatePipe } from '@angular/common';
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AlertNotificationService } from 'src/app/core/components';
+import * as fromCore from '@metutor/core/state';
+import { ActivatedRoute } from '@angular/router';
 import { MatStepper } from '@angular/material/stepper';
-import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import * as fromRequests from '@metutor/modules/requests/state';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { FormValidationUtilsService } from '@metutor/core/validators';
+import * as fromRequestsActions from '@metutor/modules/requests/state/actions';
 import {
-  AcademicTutoringTextbook,
-  addLookups,
-  calculateListDays,
-  CLASSROOM_TYPES_CONST,
-  getLookups,
-  LONG_DAYS_WEEK,
   SORTED_DAYS_WEEK,
+  generalConstants,
+  calculateListDays,
   TEXTBOOK_EDITION_CONST,
+  AcademicTutoringTextbook,
+  COURSE_TUITION_TYPES_CONST,
 } from 'src/app/config';
 import {
   IClass,
-  ICourseField,
-  ICourseLevel,
-  ILanguage,
-  IProgram,
-  ISubject,
+  IField,
   ITutor,
+  IProgram,
+  ICountry,
+  ISubject,
+  ILanguage,
 } from 'src/app/core/models';
-import {
-  CoursesService,
-  LookupsService,
-  TutorsService,
-} from 'src/app/core/services';
 
 @Component({
   selector: 'metutors-request-tutor',
@@ -36,46 +33,75 @@ import {
   styleUrls: ['./request-tutor.component.scss'],
   providers: [DatePipe],
 })
-export class RequestTutorComponent implements OnInit, OnDestroy {
+export class RequestTutorComponent implements OnInit {
   @ViewChild('stepper') private myStepper?: MatStepper;
 
-  prices: any;
-  tutors?: ITutor[];
+  price$: Observable<number | null>;
+  tutorAvailability$: Observable<any>;
+  loadingTutors$: Observable<boolean>;
+  fields$: Observable<IField[] | null>;
+  isCreatingCourse$: Observable<boolean>;
+  programs$: Observable<IProgram[] | null>;
+  subjects$: Observable<ISubject[] | null>;
+  countries$: Observable<ICountry[] | null>;
+  languages$: Observable<ILanguage[] | null>;
+  suggestedTutors$: Observable<ITutor[] | null>;
+  availableTutors$: Observable<ITutor[] | null>;
+  isLoadingTutorAvailability$: Observable<boolean>;
+  showTeacherAvailabilityModal$: Observable<boolean>;
+  showChangeCourseScheduleModal$: Observable<boolean>;
+
+  step = 0;
+  price: number;
+  duration: number;
+  selectedCourse: any;
   reviewInfo: any = {};
+  tutors: ITutor[] = [];
   classrooms!: IClass[];
   subjects!: ISubject[];
+  courseField?: IField[];
   languages?: ILanguage[];
-  loadingTutors?: boolean;
   selectTutorForm: FormGroup;
   coursePrograms?: IProgram[];
-  courseLevel?: ICourseLevel[];
-  courseField?: ICourseField[];
+  courseCountries!: ICountry[];
   selectedClassrooms!: IClass[];
   classroomDetailsForm: FormGroup;
   courseInformationForm: FormGroup;
   classroomScheduleForm: FormGroup;
-  getCourseLevelSub?: Subscription;
-  getCourseFieldSub?: Subscription;
-  isCreatingCourse: boolean = false;
-  getCourseProgramsSub?: Subscription;
-  getCourseLanguagesSub?: Subscription;
-  getCourseFieldSubjectSub?: Subscription;
 
   constructor(
-    private _router: Router,
     private _fb: FormBuilder,
+    private _store: Store<any>,
     private _datePipe: DatePipe,
-    private _tutorsService: TutorsService,
-    private _lookupsService: LookupsService,
-    private _coursesService: CoursesService,
-    private _alertNotificationService: AlertNotificationService
+    private _route: ActivatedRoute,
+    private _fv: FormValidationUtilsService
   ) {
     this.courseInformationForm = this._fb.group({
-      courseProgram: [null, Validators.required],
-      courseLevel: [null, Validators.required],
-      courseField: [null, Validators.required],
+      courseProgram: [
+        this._route.snapshot.queryParams['program']
+          ? +this._route.snapshot.queryParams['program']
+          : null,
+        Validators.required,
+      ],
+      courseCountry: [
+        this._route.snapshot.queryParams['country']
+          ? +this._route.snapshot.queryParams['country']
+          : null,
+      ],
+      courseGrade: [null],
+      courseField: [
+        this._route.snapshot.queryParams['field']
+          ? +this._route.snapshot.queryParams['field']
+          : null,
+        Validators.required,
+      ],
       language: [null, Validators.required],
-      subject: [null, Validators.required],
+      subject: [
+        this._route.snapshot.queryParams['subject']
+          ? +this._route.snapshot.queryParams['subject']
+          : null,
+        Validators.required,
+      ],
       information: [null, Validators.required],
       file: [null],
       name: [null],
@@ -83,24 +109,36 @@ export class RequestTutorComponent implements OnInit, OnDestroy {
       author: [null],
     });
 
-    this.classroomDetailsForm = this._fb.group({
-      startDate: [null, Validators.required],
-      endDate: [null, Validators.required],
-      startTime: [null, Validators.required],
-      endTime: [null, Validators.required],
-      days: [null, Validators.required],
-      type: [null, Validators.required],
-      seatAttendees: [
-        1,
-        [Validators.required, Validators.max(10), Validators.min(1)],
-      ],
-      duration: [{ value: 0, disabled: true }, Validators.required],
-      hours: [{ value: 0, disabled: true }, Validators.required],
-      totalClasses: [{ value: 0, disabled: true }, Validators.required],
-      tempDuration: [0, Validators.required],
-      tempHours: [0, Validators.required],
-      tempTotalClasses: [0, Validators.required],
-    });
+    this.classroomDetailsForm = this._fb.group(
+      {
+        startDate: [null, Validators.required],
+        endDate: [null, Validators.required],
+        startTime: [null, Validators.required],
+        endTime: [null, Validators.required],
+        days: [null, Validators.required],
+        type: [COURSE_TUITION_TYPES_CONST.one, Validators.required],
+        seatAttendees: [
+          1,
+          [Validators.required, Validators.max(10), Validators.min(1)],
+        ],
+        duration: [{ value: 0, disabled: true }, Validators.required],
+        hours: [{ value: 0, disabled: true }, Validators.required],
+        totalClasses: [{ value: 0, disabled: true }, Validators.required],
+        tempDuration: [0, Validators.required],
+        tempHours: [0, Validators.required],
+        tempTotalClasses: [0, Validators.required],
+      },
+      {
+        validators: [
+          this._fv.classroomTimeDurationValidator(
+            'tempDuration',
+            'startTime',
+            'endTime'
+          ),
+          this._fv.timeAfter24Validator('startDate', 'startTime'),
+        ],
+      }
+    );
 
     this.classroomScheduleForm = this._fb.group({
       classes: [null, Validators.required],
@@ -112,47 +150,156 @@ export class RequestTutorComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this._store.dispatch(fromCore.enterRequestTutor());
     this._prepareLanguages();
-    this._prepareCourseLevel();
     this._prepareCourseProgram();
-    // this._fetchAcademicTutoringPrice();
+    this._prepareCourseCountries();
+
+    if (this._route.snapshot.queryParams['program']) {
+      this.fetchCourseField(this._route.snapshot.queryParams['program']);
+    }
+
+    if (this._route.snapshot.queryParams['field']) {
+      this.fetchCourseFieldSubject(this._route.snapshot.queryParams['field']);
+    }
+
+    if (this._route.snapshot.queryParams['subject']) {
+      this.calculateEstimatedPrice(this._route.snapshot.queryParams['subject']);
+    }
+
+    this.availableTutors$ = this._store
+      .select(fromCore.selectGeneratingAvailableTutors)
+      .pipe(
+        tap((tutors) => {
+          if (tutors && tutors.length) {
+            this.tutors = [...this.tutors, ...tutors];
+          }
+        })
+      );
+
+    this.suggestedTutors$ = this._store
+      .select(fromCore.selectGeneratingSuggestedTutors)
+      .pipe(
+        tap((tutors) => {
+          if (tutors && tutors.length) {
+            this.tutors = [...this.tutors, ...tutors];
+          }
+        })
+      );
+    this.loadingTutors$ = this._store.select(fromCore.selectIsGeneratingTutors);
+    this.isCreatingCourse$ = this._store.select(fromCore.selectIsCreateClass);
+
+    this.tutorAvailability$ = this._store.select(
+      fromCore.selectTutorAvailability
+    );
+
+    this.isLoadingTutorAvailability$ = this._store.select(
+      fromCore.selectIsLoadingTutorAvailability
+    );
+
+    this.showTeacherAvailabilityModal$ = this._store.select(
+      fromRequests.selectIsShowTeacherAvailabilityModal
+    );
+
+    this.showChangeCourseScheduleModal$ = this._store.select(
+      fromRequests.selectIsShowChangeCourseScheduleModal
+    );
   }
 
   nextStep(): void {
+    this.step += 1;
     this.myStepper?.next();
     this._prepareReviewInfo();
   }
 
   backStep(): void {
+    this.step -= 1;
     this.myStepper?.previous();
   }
 
-  fetchCourseFieldSubject(fieldId: string): void {
-    this.getCourseFieldSubjectSub = this._lookupsService
-      .getCourseFieldSubject(fieldId)
-      .subscribe(
-        (fetchedValues) => {
-          this.subjects = fetchedValues;
-          addLookups('courseSubjects', this.subjects);
-        },
-        () => {}
-      );
-
-    this.subjects = getLookups().courseSubjects;
+  onTutorAvailability(id: number): void {
+    this._store.dispatch(fromRequestsActions.openTeacherAvailabilityModal());
+    this._store.dispatch(fromCore.loadTutorAvailability({ id }));
   }
 
-  fetchCourseField(fieldId: string): void {
-    this.getCourseFieldSub = this._lookupsService
-      .getCourseField(fieldId)
-      .subscribe(
-        (fetchedValues) => {
-          this.courseField = fetchedValues;
-          addLookups('courseField', this.courseField);
-        },
-        () => {}
-      );
+  onCloseTeacherAvailabilityModal(): void {
+    this._store.dispatch(fromRequestsActions.closeTeacherAvailabilityModal());
+  }
 
-    this.courseField = getLookups().courseField;
+  onOpenChangeCourseScheduleModal(schedule: boolean): void {
+    if (schedule)
+      this._store.dispatch(fromRequestsActions.openChangeCourseScheduleModal());
+    else {
+      if (this.myStepper) {
+        this.step = 1;
+        this.myStepper.selectedIndex = 1;
+      }
+    }
+  }
+
+  onCloseChangeCourseScheduleModal(): void {
+    this._store.dispatch(fromRequestsActions.closeChangeCourseScheduleModal());
+  }
+
+  changeSchedule(): void {
+    if (this.myStepper) {
+      this.step = 1;
+      this.myStepper.selectedIndex = 1;
+    }
+  }
+
+  fetchCourseFieldSubject(fieldId: string): void {
+    this._store.dispatch(
+      fromCore.loadSubjectsByFieldId({
+        fieldId,
+      })
+    );
+    this.subjects$ = this._store.select(fromCore.selectSubjects).pipe(
+      tap((subjects) => {
+        if (subjects && subjects.length) {
+          this.subjects = subjects;
+        }
+      })
+    );
+  }
+
+  fetchCourseField(programId: string): void {
+    if (
+      programId.toString() === generalConstants.nationalId.toString() &&
+      (!this.courseInformationForm.value?.courseCountry ||
+        !this.courseInformationForm.value?.courseGrade)
+    ) {
+      return;
+    } else {
+      this._store.dispatch(
+        fromCore.loadFieldsByProgramId({
+          programId,
+          countryId: this.courseInformationForm.value?.courseCountry,
+          grade: this.courseInformationForm.value?.courseGrade,
+        })
+      );
+    }
+    this.fields$ = this._store.select(fromCore.selectFields).pipe(
+      tap((fields) => {
+        if (fields && fields.length) {
+          this.courseField = fields;
+        }
+      })
+    );
+  }
+
+  calculateEstimatedPrice(course: any): void {
+    this.selectedCourse = course;
+    this._store.dispatch(
+      fromCore.calculateEstimatedPrice({ subjectId: course.id })
+    );
+    this.price$ = this._store.select(fromCore.selectEstimatedPrice).pipe(
+      tap((price) => {
+        if (price) {
+          this.price = price;
+        }
+      })
+    );
   }
 
   generateClassRooms(): void {
@@ -182,87 +329,81 @@ export class RequestTutorComponent implements OnInit, OnDestroy {
       this.selectedClassrooms = classrooms;
       const appointments = this._generateAppointments(classrooms);
 
-      const value = {
-        course_field: this.courseInformationForm.value.courseField,
-        subject: this.courseInformationForm.value.subject,
-        start_date: this._datePipe.transform(
-          new Date(this.classroomDetailsForm.value?.startDate),
-          'yyyy-MM-dd'
-        ),
-        end_date: this._datePipe.transform(
-          new Date(this.classroomDetailsForm.value?.endDate),
-          'yyyy-MM-dd'
-        ),
-        appointments,
+      const data = {
+        program_id: this.courseInformationForm.value.courseProgram,
+        field_of_study_id: this.courseInformationForm.value.courseField,
+        subject_id: this.courseInformationForm.value.subject.id,
+        language_id: this.courseInformationForm.value.language,
+        class_rooms: appointments,
       };
 
-      this.loadingTutors = true;
-      this._tutorsService.generateTutors(value).subscribe(
-        (result) => {
-          this.loadingTutors = false;
-          this.tutors = result;
-        },
-        (error) => {
-          this.loadingTutors = false;
-          this._alertNotificationService.error(
-            'Error in generating the tutors'
-          );
-        }
-      );
+      this._store.dispatch(fromCore.generateTutors({ data }));
+      this.filterTutors('');
     }
   }
 
+  filterTutors(name: string): void {
+    this.availableTutors$ = this._store
+      .select(fromCore.selectFilteredGeneratingAvailableTutors, { name })
+      .pipe(
+        tap((tutors) => {
+          if (tutors && tutors.length) {
+            this.tutors = [...this.tutors, ...tutors];
+          }
+        })
+      );
+
+    this.suggestedTutors$ = this._store
+      .select(fromCore.selectFilteredGeneratingSuggestedTutors, { name })
+      .pipe(
+        tap((tutors) => {
+          if (tutors && tutors.length) {
+            this.tutors = [...this.tutors, ...tutors];
+          }
+        })
+      );
+  }
+
+  updatedClassrooms(classrooms: IClass[]): void {
+    this.duration =
+      Math.abs(
+        new Date().getTime() - new Date(classrooms[0].date || '').getTime()
+      ) / 3600000;
+  }
+
   onSubmit(): void {
-    const value = {
+    const data = {
       ...this.courseInformationForm.value,
       ...this._generateClassroomForm(this.classroomDetailsForm.value),
       ...this.selectTutorForm.value,
-      classrooms: this.selectedClassrooms.map((item: any) => {
-        const classroom: any = {
-          number: item.number,
-          title: item.title,
-          seat_attendees: item.attendees,
-          _status_id: item.id,
-          _date: item.date,
-          _class_start_time: item.startTime,
-          _class_end_time: item.endTime,
-        };
-
-        return classroom;
-      }),
+      subject: this.courseInformationForm.value.subject.id,
+      programName: this.reviewInfo.courseProgram,
+      fieldName: this.reviewInfo.courseField,
+      tutoringLanguage: this.reviewInfo.languages,
+      tutoringType: this.reviewInfo.type,
+      tutor: this.reviewInfo.tutor,
+      startTime: this.reviewInfo.startTime,
+      endTime: this.reviewInfo.endTime,
+      totalPrice: this.reviewInfo.price,
+      startDate: this._datePipe.transform(
+        new Date(this.reviewInfo.startDate),
+        'yyyy-MM-dd'
+      ),
+      endDate: this._datePipe.transform(
+        new Date(this.reviewInfo.endDate),
+        'yyyy-MM-dd'
+      ),
+      classes: this.reviewInfo.classes,
+      classrooms: this.selectedClassrooms.map((classroom: any) => ({
+        date: this._datePipe.transform(new Date(classroom?.date), 'yyyy-MM-dd'),
+        day: new Date(classroom.date).getDay(),
+        start_time: classroom?.startTime,
+        end_time: classroom?.endTime,
+        duration: classroom?.duration,
+      })),
     };
 
-    this.isCreatingCourse = true;
-    this._coursesService.createCourse(value).subscribe(
-      (response) => {
-        this.isCreatingCourse = false;
-        this.classroomDetailsForm.reset();
-        this.classroomScheduleForm.reset();
-        this.courseInformationForm.reset();
-        this.selectTutorForm.reset();
-        this._alertNotificationService.success(
-          'Congrats! Your request has been created successfully!'
-        );
-        this._router.navigate([
-          '/payment/invoice-details',
-          response?.result?.id,
-        ]);
-      },
-      (error) => {
-        this.isCreatingCourse = false;
-        this._alertNotificationService.error(
-          'An error occured while creating the course '
-        );
-      }
-    );
-  }
-
-  ngOnDestroy(): void {
-    this.getCourseLevelSub?.unsubscribe();
-    this.getCourseFieldSub?.unsubscribe();
-    this.getCourseProgramsSub?.unsubscribe();
-    this.getCourseLanguagesSub?.unsubscribe();
-    this.getCourseFieldSubjectSub?.unsubscribe();
+    this._store.dispatch(fromCore.createClass({ data }));
   }
 
   private _prepareReviewInfo(): void {
@@ -273,15 +414,6 @@ export class RequestTutorComponent implements OnInit, OnDestroy {
             ? this.coursePrograms.filter(
                 (sub) =>
                   sub?.id === this.courseInformationForm.value.courseProgram
-              )[0]?.name
-            : '';
-
-      if (this.courseInformationForm.value.courseLevel)
-        this.reviewInfo.courseLevel =
-          this.courseLevel && this.courseLevel.length
-            ? this.courseLevel.filter(
-                (sub) =>
-                  sub?.id === this.courseInformationForm.value.courseLevel
               )[0]?.name
             : '';
 
@@ -306,7 +438,8 @@ export class RequestTutorComponent implements OnInit, OnDestroy {
         this.reviewInfo.subject =
           this.subjects && this.subjects.length
             ? this.subjects.filter(
-                (sub) => sub?.id === +this.courseInformationForm.value.subject
+                (sub) =>
+                  sub?.id === +this.courseInformationForm.value.subject.id
               )[0]?.name
             : '';
 
@@ -369,13 +502,9 @@ export class RequestTutorComponent implements OnInit, OnDestroy {
       if (classroomValue.endTime)
         this.reviewInfo.endTime = this.classroomDetailsForm.value?.endTime;
 
-      if (classroomValue.days)
-        this.reviewInfo.days = classroomValue.days.map(
-          (day: number) => LONG_DAYS_WEEK[day - 1]
-        );
+      if (classroomValue.days) this.reviewInfo.days = classroomValue.days;
 
-      if (classroomValue.type)
-        this.reviewInfo.type = CLASSROOM_TYPES_CONST[classroomValue.type];
+      if (classroomValue.type) this.reviewInfo.type = classroomValue.type;
 
       if (classroomValue.seatAttendees)
         this.reviewInfo.seatAttendees = classroomValue.seatAttendees;
@@ -409,20 +538,22 @@ export class RequestTutorComponent implements OnInit, OnDestroy {
           : [];
 
       if (this.selectedClassrooms && this.selectedClassrooms.length) {
-        const hours = this.selectedClassrooms?.reduce(
+        this.reviewInfo.startDate = this.selectedClassrooms[0].date;
+        this.reviewInfo.startTime = this.selectedClassrooms[0].startTime;
+
+        this.reviewInfo.endDate =
+          this.selectedClassrooms[this.selectedClassrooms.length - 1].date;
+        this.reviewInfo.endTime =
+          this.selectedClassrooms[this.selectedClassrooms.length - 1].endTime;
+
+        this.reviewInfo.hours = this.selectedClassrooms?.reduce(
           (sum: number, hr: any) => sum + +hr?.duration,
           0
         );
 
-        this.reviewInfo.price = 100;
-        // if (
-        //   this.classroomDetailsForm.value?.type.toString() ===
-        //   Object.keys(CLASSROOM_TYPES_CONST)[0].toString()
-        // ) {
-        //   this.reviewInfo.price = +this.prices?.oneOnOne * +hours;
-        // } else {
-        //   this.reviewInfo.price = +this.prices?.groupStudy * +hours;
-        // }
+        this.reviewInfo.classes = this.selectedClassrooms.length;
+
+        this.reviewInfo.price = +this.reviewInfo.hours * +this.price;
       }
     }
 
@@ -461,8 +592,10 @@ export class RequestTutorComponent implements OnInit, OnDestroy {
       appointments = value.map((item: any) => {
         const appoint: any = {
           date: this._datePipe.transform(new Date(item?.date), 'yyyy-MM-dd'),
-          from_time: item?.startTime,
-          to_time: item?.endTime,
+          day: SORTED_DAYS_WEEK[new Date(item?.date).getDay()],
+          startTime: item?.startTime,
+          endTime: item?.endTime,
+          duration: item?.duration,
         };
 
         return appoint;
@@ -473,53 +606,36 @@ export class RequestTutorComponent implements OnInit, OnDestroy {
     return [];
   }
 
-  private _prepareCourseLevel(): void {
-    this.getCourseLevelSub = this._lookupsService.getCourseLevel().subscribe(
-      (fetchedValues) => {
-        this.courseLevel = fetchedValues;
-        addLookups('courseLevel', this.courseLevel);
-      },
-      () => {}
+  private _prepareCourseProgram(): void {
+    this._store.dispatch(fromCore.loadPrograms());
+    this.programs$ = this._store.select(fromCore.selectPrograms).pipe(
+      tap((coursePrograms) => {
+        if (coursePrograms && coursePrograms.length) {
+          this.coursePrograms = coursePrograms;
+        }
+      })
     );
-
-    this.courseLevel = getLookups().courseLevel;
   }
 
-  private _prepareCourseProgram(): void {
-    this.getCourseProgramsSub = this._lookupsService.getPrograms().subscribe(
-      (fetchedValues) => {
-        this.coursePrograms = fetchedValues;
-        addLookups('coursePrograms', this.coursePrograms);
-      },
-      () => {}
+  private _prepareCourseCountries(): void {
+    this._store.dispatch(fromCore.loadProgramCountries());
+    this.countries$ = this._store.select(fromCore.selectProgramCountries).pipe(
+      tap((courseCountries) => {
+        if (courseCountries && courseCountries.length) {
+          this.courseCountries = courseCountries;
+        }
+      })
     );
-
-    this.coursePrograms = getLookups().coursePrograms;
   }
 
   private _prepareLanguages(): void {
-    this.getCourseLanguagesSub = this._lookupsService.getLanguages().subscribe(
-      (fetchedValues) => {
-        this.languages = fetchedValues;
-        addLookups('languages', this.languages);
-      },
-      () => {}
+    this._store.dispatch(fromCore.loadLanguages());
+    this.languages$ = this._store.select(fromCore.selectLanguages).pipe(
+      tap((languages) => {
+        if (languages && languages.length) {
+          this.languages = languages;
+        }
+      })
     );
-
-    this.languages = getLookups().languages;
   }
-
-  // private _fetchAcademicTutoringPrice(): void {
-  //   this.getCourseFieldSub = this._miscService
-  //     ._fetchAcademicTutoringPrice()
-  //     .subscribe(
-  //       (fetchedValues) => {
-  //         this.prices = fetchedValues;
-  //         addMisc('prices', this.prices);
-  //       },
-  //       () => {}
-  //     );
-
-  //   this.prices = getMisc().prices;
-  // }
 }

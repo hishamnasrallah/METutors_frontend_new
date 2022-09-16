@@ -1,0 +1,26 @@
+.leave-feedback-modal {
+  .mat-tab-label-content {
+    font-weight: bold;
+  }
+
+  .rating-block {
+    padding: 15px 1.25rem;
+
+    p {
+      color: #2a2a2a;
+      font-size: 14px;
+      font-weight: normal;
+      margin-bottom: 0;
+    }
+
+    rating span.bs-rating-star.active {
+      color: var(--main-color);
+    }
+
+    button {
+      font-size: 18px;
+      line-height: 45px;
+      padding: 0 20px;
+    }
+  }
+}

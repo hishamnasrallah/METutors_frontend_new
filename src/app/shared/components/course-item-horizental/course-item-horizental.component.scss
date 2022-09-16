@@ -19,7 +19,7 @@
     user-select: none;
 
     &.popular {
-      background-color: #3bb3c1;
+      background-color: var(--main-color);
     }
 
     &.new {
@@ -43,7 +43,7 @@
   }
 
   .start-btn {
-    color: #3bb3c1;
+    color: var(--main-color);
     padding: 2px;
     font-weight: bold;
     letter-spacing: 1px;
@@ -52,7 +52,7 @@
     transition: all 0.25s ease-in-out;
 
     &:hover {
-      background-color: #3bb3c1;
+      background-color: var(--main-color);
       color: #FFF;
     }
   }
@@ -131,12 +131,7 @@
 
 @media(max-width:767px) {
   .course-item {
-    h1 {
-      font-size: 25px;
-    }
-
     .desc {
-      font-size: 15px;
       margin-bottom: 0;
     }
 

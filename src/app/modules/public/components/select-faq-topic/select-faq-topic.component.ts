@@ -7,7 +7,8 @@ import { IFAQTopics } from 'src/app/core/models';
   styleUrls: ['./select-faq-topic.component.scss'],
 })
 export class SelectFaqTopicComponent implements OnInit {
-  @Input() topics!: IFAQTopics[];
+  @Input() isLoading: boolean | null;
+  @Input() topics: IFAQTopics[] | null;
 
   constructor() {}
 

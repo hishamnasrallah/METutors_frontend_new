@@ -1,0 +1,35 @@
+<div class="explore-courses">
+  <div class="container">
+    <div class="row" [ngSwitch]="loading">
+      <div class="col-md-7" *ngSwitchCase="true">
+        <metutors-grid-placeholder></metutors-grid-placeholder>
+      </div>
+
+      <ng-container *ngSwitchCase="false">
+        <div class="col-md-7">
+          <div class="row">
+            <div class="col-md-10">
+              <h1 class="f-size-25-md-sm">{{ program?.name }}</h1>
+              <h2 class="f-size-15-md-sm">{{ program?.title }}</h2>
+              <p class="f-size-17-md-sm">{{ program?.description }}</p>
+            </div>
+            <div class="col-md-12">
+              <div class="form-block position-relative rounded mt-4">
+                <input type="text" placeholder="Search by course name" class="w-100 rounded" #search
+                  (keyup)="filterCourses.emit(search.value)">
+                <button mat-flat-button color="primary">
+                  <img src="assets/svg/search.svg" alt="" draggable="false" width="16" height="16" />
+                  Find Courses
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-5 d-flex justify-content-end" *ngIf="program?.image">
+          <img [src]="programImage + program?.image" class="contact-img w-auto d-none d-md-block" alt=""
+            draggable="false">
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

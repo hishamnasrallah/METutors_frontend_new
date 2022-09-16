@@ -1,0 +1,54 @@
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'medium'"
+                [heading]="'View Submitted Assignment'"
+                [template]="template" [status]="status">
+  <ng-template #template>
+    <ng-container *ngLet="(view$ | async) as view">
+      <ng-container [ngSwitch]="view?.loading">
+        <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
+
+        <div class="assignment-details-modal" *ngSwitchCase="false">
+          <div class="form-group row">
+            <label>Description</label>
+            <p class="mt-2" *ngIf="view?.assignment?.assignment?.description">
+              {{ view?.assignment?.assignment?.description }}
+            </p>
+          </div>
+
+          <label>File</label>
+          <div class="form-group" *ngIf="view.assignment?.assignment?.file?.length">
+            <metutors-uploaded-files [files]="view.assignment?.assignment?.file"
+                                     [extraClasses]="'col-md-8'">
+            </metutors-uploaded-files>
+          </div>
+
+          <ng-container
+            *ngIf="view?.assignment?.assignment?.feedback && view?.assignment?.assignment?.feedback?.length">
+            <ng-container *ngFor="let feedback of view?.assignment?.assignment?.feedback">
+            <div class="form-group row mt-5">
+              <label>Assignment Feedback</label>
+              <p class="mt-2">
+                <span>Grade Rating: </span>
+                <span class="rating"> {{ feedback?.rating}} on a scale of 10 </span>
+              </p>
+
+              <p>{{ feedback?.review }}</p>
+            </div>
+
+            <div class="form-group" *ngIf="feedback?.file">
+              <metutors-uploaded-files [files]="[feedback?.file]" [extraClasses]="'col-md-8'"></metutors-uploaded-files>
+            </div>
+            </ng-container>
+          </ng-container>
+
+          <div class="form-group row">
+            <div class="">
+              <button mat-flat-button color="primary" class="fw-bold float-end px-4 py-1"
+                      (click)="onBack(view?.assignment?.assignment.assignmentId)">Back
+              </button>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </ng-template>
+</metutors-modal>

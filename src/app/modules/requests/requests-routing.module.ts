@@ -1,6 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { InvoiceDetailsComponent, RequestTutorComponent } from './containers';
+
+import {
+  RequestTutorComponent,
+  InvoiceDetailsComponent,
+  PaymentProcessingComponent,
+} from './containers';
 
 const routes: Routes = [
   {
@@ -18,6 +23,24 @@ const routes: Routes = [
     data: {
       layout: {
         title: 'Invoice details - MEtutors',
+      },
+    },
+  },
+  {
+    path: 'invoice-details/:id',
+    component: InvoiceDetailsComponent,
+    data: {
+      layout: {
+        title: 'Invoice details - MEtutors',
+      },
+    },
+  },
+  {
+    path: 'payment-processing',
+    component: PaymentProcessingComponent,
+    data: {
+      layout: {
+        title: 'Payment Processing - MEtutors',
       },
     },
   },

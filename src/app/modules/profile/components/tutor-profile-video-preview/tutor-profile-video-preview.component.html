@@ -1,0 +1,21 @@
+<div class="video-preview" *ngIf="!isLoading && tutor?.qualifications?.video">
+  <ng-container *ngIf="!isLoading">
+    <metutors-video-player [videoSrc]="tutor?.qualifications?.video">
+    </metutors-video-player>
+  </ng-container>
+</div>
+
+<div class="card" *ngIf="isLoading">
+  <div class="card-body">
+    <div class="item">
+      <div class="ph-row">
+        <div class="ph-col-12 big mt-1"></div>
+        <div class="ph-col-0 big empty"></div>
+        <div class="ph-col-12 big mt-1"></div>
+        <div class="ph-col-0 big empty mt-1"></div>
+        <div class="ph-col-12 big mt-1"></div>
+        <div class="ph-col-0 big empty mt-1"></div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-<metutors-become-tutor-slide></metutors-become-tutor-slide>
+<metutors-become-tutor-slide [token]="(token$ | async)!"></metutors-become-tutor-slide>
 
 <div class="container">
   <metutors-become-tutors-us></metutors-become-tutors-us>
@@ -6,11 +6,11 @@
 
 <metutors-why-teaching-us [whyTeachingUsList]="whyTeachingUsList"></metutors-why-teaching-us>
 
-<metutors-request-post-course [requestCoursesList]="requestCoursesList" [selectedCourse]="selectedCourse" [step]="step">
-</metutors-request-post-course>
+<!-- <metutors-request-post-course [requestCoursesList]="requestCoursesList" [selectedCourse]="selectedCourse" [step]="step">
+</metutors-request-post-course> -->
 
 <metutors-exceptional-opportunities></metutors-exceptional-opportunities>
 
 <metutors-loving-opportunities [opportunities]="opportunities"></metutors-loving-opportunities>
 
-<metutors-become-online-tutor></metutors-become-online-tutor>
+<metutors-become-online-tutor [token]="(token$ | async)!"></metutors-become-online-tutor>

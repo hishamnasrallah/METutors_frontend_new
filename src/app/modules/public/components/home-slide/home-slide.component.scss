@@ -1,18 +1,7 @@
 .slide {
-  background-size: cover;
-  background-repeat: no-repeat;
   padding: 90px 0;
   color: #FFF;
   margin: 0;
-  background-position: center center;
-
-  .overlay {
-    top: 0%;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    background-image: linear-gradient(270deg, rgba(17, 26, 55, 0.159446) -15.54%, #111A37 100%);
-  }
 
   .z-2 {
     z-index: 2;
@@ -28,9 +17,10 @@
 
   h2 {
     font-size: 30px;
-    font-weight: normal;
+    font-weight: bold;
     color: #FFF;
     margin-top: 25px;
+    opacity: 0.9;
   }
 
   p {
@@ -39,30 +29,268 @@
     line-height: 1.42;
   }
 
-  button {
+  button,
+  a {
     font-size: 20px;
     font-weight: bold;
     margin-top: 20px;
     padding: 8px 30px;
+    border: 1px solid #FFF;
+    color: #FFF;
+    transition: all 0.25s ease-in-out;
+
+    &:hover {
+      background-color: var(--main-color);
+      border-color: var(--main-color);
+    }
   }
-}
 
-@media(max-width:767px) {
-  .slide {
-    h1 {
-      font-size: 25px;
+  .sliding {
+    position: absolute;
+    right: 0;
+    width: 100%;
+    display: block;
+    top: 0;
+    bottom: 0;
+    overflow: hidden;
+  }
+
+  .slider {
+    height: 100%;
+    position: relative;
+  }
+
+  .slide1,
+  .slide2,
+  .slide3,
+  .slide4,
+  .slide5,
+  .slide6 {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+
+  .slide1 {
+    background: no-repeat right;
+    background-size: cover;
+    animation: fade 40s infinite;
+    -webkit-animation: fade 40s infinite;
+
+  }
+
+  .slide2 {
+    background: no-repeat right;
+    background-size: cover;
+    animation: fade2 40s infinite;
+    -webkit-animation: fade2 40s infinite;
+  }
+
+  .slide3 {
+    background: no-repeat right;
+    background-size: cover;
+    animation: fade3 40s infinite;
+    -webkit-animation: fade3 40s infinite;
+  }
+
+  .slide4 {
+    background: no-repeat right;
+    background-size: cover;
+    animation: fade4 40s infinite;
+    -webkit-animation: fade4 40s infinite;
+  }
+
+  .slide5 {
+    background: no-repeat right;
+    background-size: cover;
+    animation: fade5 40s infinite;
+    -webkit-animation: fade5 40s infinite;
+  }
+
+  .slide6 {
+    background: no-repeat right;
+    background-size: cover;
+    animation: fade6 40s infinite;
+    -webkit-animation: fade6 40s infinite;
+  }
+
+  @keyframes fade {
+    0% {
+      opacity: 1
     }
 
-    h2 {
-      font-size: 20px;
+    16.67% {
+      opacity: 0
     }
 
-    p {
-      font-size: 18px;
+    33.32% {
+      opacity: 0
     }
 
-    button {
-      font-size: 17px;
+    49.98% {
+      opacity: 0
+    }
+
+    66.64% {
+      opacity: 0
+    }
+
+    83.3% {
+      opacity: 0
+    }
+
+    100% {
+      opacity: 1
+    }
+  }
+
+  @keyframes fade2 {
+    0% {
+      opacity: 0
+    }
+
+    16.67% {
+      opacity: 1
+    }
+
+    33.32% {
+      opacity: 0
+    }
+
+    49.98% {
+      opacity: 0
+    }
+
+    66.64% {
+      opacity: 0
+    }
+
+    83.3% {
+      opacity: 0
+    }
+
+    100% {
+      opacity: 0
+    }
+  }
+
+  @keyframes fade3 {
+    0% {
+      opacity: 0
+    }
+
+    16.67% {
+      opacity: 0
+    }
+
+    33.32% {
+      opacity: 1
+    }
+
+    49.98% {
+      opacity: 0
+    }
+
+    66.64% {
+      opacity: 0
+    }
+
+    83.3% {
+      opacity: 0
+    }
+
+    100% {
+      opacity: 0
+    }
+  }
+
+  @keyframes fade4 {
+    0% {
+      opacity: 0
+    }
+
+    16.67% {
+      opacity: 0
+    }
+
+    33.32% {
+      opacity: 0
+    }
+
+    49.98% {
+      opacity: 1
+    }
+
+    66.64% {
+      opacity: 0
+    }
+
+    83.3% {
+      opacity: 0
+    }
+
+    100% {
+      opacity: 0
+    }
+  }
+
+  @keyframes fade5 {
+    0% {
+      opacity: 0
+    }
+
+    16.67% {
+      opacity: 0
+    }
+
+    33.32% {
+      opacity: 0
+    }
+
+    49.98% {
+      opacity: 0
+    }
+
+    66.64% {
+      opacity: 1
+    }
+
+    83.3% {
+      opacity: 0
+    }
+
+    100% {
+      opacity: 0
+    }
+  }
+
+  @keyframes fade6 {
+    0% {
+      opacity: 0
+    }
+
+    16.67% {
+      opacity: 0
+    }
+
+    33.32% {
+      opacity: 0
+    }
+
+    49.98% {
+      opacity: 0
+    }
+
+    66.64% {
+      opacity: 0
+    }
+
+    83.3% {
+      opacity: 1
+    }
+
+    100% {
+      opacity: 0
     }
   }
 }

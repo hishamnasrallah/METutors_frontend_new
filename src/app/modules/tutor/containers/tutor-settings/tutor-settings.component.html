@@ -1,32 +1,69 @@
-<div class="settings">
-  <div class="card overflow-hidden">
-    <div class="card-body p-0">
-      <div class="d-flex row">
-        <div class="col-md-4">
+<metutors-tutor-navbar [layout]="(layout$ | async)" [user]="user$ | async" (logout)="logout()"></metutors-tutor-navbar>
+
+<div class="settings mt-4 m-0-md-sm">
+  <div class="row">
+    <div class="col-lg-4">
+      <div class="card overflow-hidden">
+        <div class="card-body p-0">
           <ul class="list-unstyled m-0 h-100">
-            <li [class.active]="tab === 'ACCOUNT_SETTINGS'" (click)="tab = 'ACCOUNT_SETTINGS'">
-              Account settings
+            <li [class.active]="tab === 'MY_PROFILE'" (click)="tab = 'MY_PROFILE'">
+              My Profile
             </li>
             <li [class.active]="tab === 'SECURITY_SETTINGS'" (click)="tab = 'SECURITY_SETTINGS'">
-              Security settings
+              Security Settings
             </li>
             <li [class.active]="tab === 'USER_PREFERENCES'" (click)="tab = 'USER_PREFERENCES'">
-              User preferences
+              User Preferences
             </li>
-            <li [class.active]="tab === 'PAYMENT_INFORMATION'" (click)="tab = 'PAYMENT_INFORMATION'">
-              Payment information
-            </li>
+            <!--<li [class.active]="tab === 'PAYMENT_INFORMATION'" (click)="tab = 'PAYMENT_INFORMATION'">
+              Payment Information
+            </li>-->
           </ul>
-        </div>
-        <div class="col-md-8">
-          <metutors-tutor-settings-account *ngIf="tab === 'ACCOUNT_SETTINGS'"></metutors-tutor-settings-account>
-          <metutors-tutor-settings-security *ngIf="tab === 'SECURITY_SETTINGS'"></metutors-tutor-settings-security>
-          <metutors-tutor-settings-user-preferences *ngIf="tab === 'USER_PREFERENCES'">
-          </metutors-tutor-settings-user-preferences>
-          <metutors-tutor-settings-payment-information *ngIf="tab === 'PAYMENT_INFORMATION'">
-          </metutors-tutor-settings-payment-information>
         </div>
       </div>
     </div>
+
+    <div class="col-lg-8 mt-15-md-sm" *ngLet="(tutor$ | async) as tutor">
+      <metutors-tutor-settings-profile *ngIf="tab === 'MY_PROFILE'"
+                                       [user]="(tutor$ | async)!"
+                                       [isLoadingTutor]="(isLoadingTutor$ | async)!"
+                                       [countries]="countries$ | async"
+                                       [cities]="cities$ | async"
+                                       [fileUploadProgress]="(fileUploadProgress$ | async)!"
+                                       [isChangeAvatar]="(isChangeTutorAvatar$ | async)!"
+                                       [isChangeCover]="(isChangeTutorCover$ | async)!"
+                                       [isUpdateProfile]="(isUpdateTutorProfile$ | async)!"
+                                       (loadCities)="loadCities($event)"
+                                       (submitForm)="sendTeacherAccount(tutor, $event)"
+                                       (changeAvatar)="onChangeTutorAvatar($event)"
+                                       (changeCover)="onChangeTutorCover($event)"
+                                       (submitInterview)="onOpenSubmitInterview()"
+                                       (joinMeeting)="onJoinMeeting($event)"
+                                       (updateRatesForm)="onUpdateRatesForm(tutor, $event)">
+      </metutors-tutor-settings-profile>
+
+      <metutors-tutor-settings-security *ngIf="tab === 'SECURITY_SETTINGS'"
+                                        [isChanging]="isChangingPassword$ | async"
+                                        [resetForm]="changePasswordSuccess$ | async"
+                                        (submitForm)="onChangePassword($event)">
+      </metutors-tutor-settings-security>
+
+      <metutors-tutor-settings-user-preferences *ngIf="tab === 'USER_PREFERENCES'"
+                                                [isSubmitting]="(isUpdateTutorProfile$ | async)!"
+                                                [languagesList]="(languages$ | async)!"
+                                                [preferences]="(tutor$ | async)?.preferences!"
+                                                (submitForm)="onUpdatePreferences($event)">
+      </metutors-tutor-settings-user-preferences>
+
+      <metutors-tutor-settings-payment-information *ngIf="tab === 'PAYMENT_INFORMATION'">
+      </metutors-tutor-settings-payment-information>
+    </div>
   </div>
 </div>
+
+<metutors-tutor-submit-interview-request-modal *ngIf="showSubmitInterviewModal$ | async"
+                                               (closeModal)="onCloseSubmitInterview()"
+                                               [submitting]="(isSubmittingInterview$ | async)!"
+                                               (submitted)="onSubmitInterview($event)"
+                                               [showModal]="(showSubmitInterviewModal$ | async)!">
+</metutors-tutor-submit-interview-request-modal>

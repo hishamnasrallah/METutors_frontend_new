@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { calculateDurationTime, ClassroomType } from 'src/app/config';
-import { IClassroom } from 'src/app/core/models';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+
+import { environment } from '@environment';
+import { ClassroomType, courseStatusLabel } from 'src/app/config';
 
 @Component({
   selector: 'metutors-classroom-item',
@@ -8,10 +9,19 @@ import { IClassroom } from 'src/app/core/models';
   styleUrls: ['./classroom-item.component.scss'],
 })
 export class ClassroomItemComponent implements OnInit {
-  @Input() classroom!: IClassroom;
+  @Input() classroom!: any;
+  @Input() isStudent!: boolean;
+  @Input() isTeacher!: boolean;
+  @Input() selectedId!: number;
+  @Input() completeCourse: boolean;
+  @Input() isAcceptingCourse: boolean;
+  @Input() url = '/student/classroom/syllabus/';
+
+  @Output() reject: EventEmitter<void> = new EventEmitter<void>();
+  @Output() accept: EventEmitter<void> = new EventEmitter<void>();
 
   classroomType = ClassroomType;
-  openClassroomDetailsPopop = false;
+  statusLabel = courseStatusLabel;
 
   constructor() {}
 

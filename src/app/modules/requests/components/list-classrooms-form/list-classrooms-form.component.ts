@@ -1,46 +1,84 @@
 import { DatePipe } from '@angular/common';
 import {
-  Component,
-  EventEmitter,
-  Inject,
   Input,
+  Inject,
   OnInit,
   Output,
+  Component,
+  EventEmitter,
 } from '@angular/core';
 import {
-  AbstractControl,
-  FormBuilder,
+  state,
+  style,
+  group,
+  trigger,
+  animate,
+  transition,
+} from '@angular/animations';
+import {
   FormGroup,
   Validators,
+  FormBuilder,
+  AbstractControl,
 } from '@angular/forms';
 import {
   MatDialog,
   MatDialogRef,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
-import { calculateDurationTime, LONG_DAYS_WEEK } from 'src/app/config';
+import {
+  LONG_DAYS_WEEK,
+  generalConstants,
+  calculateDurationTime,
+} from 'src/app/config';
 import { IClass } from 'src/app/core/models';
+import { FormValidationUtilsService } from '@metutor/core/validators';
 
 @Component({
   selector: 'metutors-list-classrooms-form',
   templateUrl: './list-classrooms-form.component.html',
   styleUrls: ['./list-classrooms-form.component.scss'],
+  animations: [
+    trigger('slideInOut', [
+      state('in', style({ height: '*', opacity: 0 })),
+      transition(':leave', [
+        style({ height: '*', opacity: 1 }),
+
+        group([
+          animate(300, style({ height: 0 })),
+          animate('200ms ease-in-out', style({ opacity: '0' })),
+        ]),
+      ]),
+      transition(':enter', [
+        style({ height: '0', opacity: 0 }),
+
+        group([
+          animate(300, style({ height: '*' })),
+          animate('400ms ease-in-out', style({ opacity: '1' })),
+        ]),
+      ]),
+    ]),
+  ],
 })
 export class ListClassroomsFormComponent implements OnInit {
   @Input() form!: FormGroup;
+  @Input() selectedCourse!: any;
+  @Input() price: number | null;
 
   @Input() set classrooms(classes: IClass[] | undefined) {
     if (classes) {
       this._classrooms = classes;
       this.classes?.setValue(classes);
+      this.classes?.updateValueAndValidity();
     }
   }
 
   @Output() onBack = new EventEmitter();
   @Output() onNext = new EventEmitter();
   @Output() loadTutors = new EventEmitter<IClass[]>();
+  @Output() updatedClassrooms = new EventEmitter<IClass[]>();
 
-  _classrooms!: IClass[];
+  _classrooms: IClass[];
 
   constructor(private _dialog: MatDialog) {}
 
@@ -48,6 +86,13 @@ export class ListClassroomsFormComponent implements OnInit {
 
   get classes(): AbstractControl | null {
     return this.form.get('classes');
+  }
+
+  get hours(): number {
+    return this._classrooms?.reduce(
+      (sum: number, hr: any) => sum + +hr?.duration,
+      0
+    );
   }
 
   deleteClassroom(id: number | undefined): void {
@@ -62,6 +107,8 @@ export class ListClassroomsFormComponent implements OnInit {
           if (classroom?.number === result) {
             this._classrooms.splice(index, 1);
             this.classes?.setValue(this._classrooms);
+            this.classes?.updateValueAndValidity();
+            this.updatedClassrooms.emit(this._classrooms);
           }
         });
       }
@@ -80,6 +127,8 @@ export class ListClassroomsFormComponent implements OnInit {
           if (classroom?.number === result?.number) {
             this._classrooms[index] = result;
             this.classes?.setValue(this._classrooms);
+            this.classes?.updateValueAndValidity();
+            this.updatedClassrooms.emit(this._classrooms);
           }
         });
       }
@@ -92,6 +141,8 @@ export class ListClassroomsFormComponent implements OnInit {
             if (classroom?.number === result?.number) {
               this._classrooms[index] = result;
               this.classes?.setValue(this._classrooms);
+              this.classes?.updateValueAndValidity();
+              this.updatedClassrooms.emit(this._classrooms);
             }
             dialogSubmitSubscription.unsubscribe();
           });
@@ -145,22 +196,33 @@ export class DialogEditClassroom implements OnInit {
   editForm: FormGroup;
   minDate = new Date();
   listDays = LONG_DAYS_WEEK;
+  classroomTimeDuration = generalConstants.classroomTimeDuration;
 
   constructor(
-    public dialogRef: MatDialogRef<DialogEditClassroom>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
     private _fb: FormBuilder,
-    private _datePipe: DatePipe
+    private _datePipe: DatePipe,
+    private _fv: FormValidationUtilsService,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public dialogRef: MatDialogRef<DialogEditClassroom>
   ) {
-    this.editForm = this._fb.group({
-      startDate: [null, Validators.required],
-      days: [null, Validators.required],
-      startTime: [null, Validators.required],
-      endTime: [null, Validators.required],
-      duration: [{ value: 0, disabled: true }, Validators.required],
-      tempDuration: [0, Validators.required],
-      number: [0],
-    });
+    this.editForm = this._fb.group(
+      {
+        startDate: [null, Validators.required],
+        days: [null, Validators.required],
+        startTime: [null, Validators.required],
+        endTime: [null, Validators.required],
+        duration: [{ value: 0, disabled: true }, Validators.required],
+        tempDuration: [0, Validators.required],
+        number: [0],
+      },
+      {
+        validators: this._fv.classroomTimeDurationValidator(
+          'tempDuration',
+          'startTime',
+          'endTime'
+        ),
+      }
+    );
 
     if (data) {
       const classroom = data.classroom;
@@ -234,10 +296,11 @@ export class DialogEditClassroom implements OnInit {
     if (form.valid) {
       const value: IClass = {
         number: form.value.number,
-        date: this._datePipe.transform(
-          new Date(form.value.startDate),
-          'yyyy-MM-dd'
-        ) || '',
+        date:
+          this._datePipe.transform(
+            new Date(form.value.startDate),
+            'yyyy-MM-dd'
+          ) || '',
         startTime: form.value.startTime,
         endTime: form.value.endTime,
         duration: form.value.tempDuration,

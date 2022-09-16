@@ -1,22 +1,31 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RatingModule } from 'ngx-bootstrap/rating';
 import { MatIconModule } from '@angular/material/icon';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatNativeDateModule } from '@angular/material/core';
+import { SharedModule } from '@metutor/shared/shared.module';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { RequestsRoutingModule } from './requests-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatStepperModule } from '@angular/material/stepper';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatRadioModule } from '@angular/material/radio';
-import { DirectiveModule } from 'src/app/shared/directives';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { RatingModule } from 'ngx-bootstrap/rating';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatNativeDateModule } from '@angular/material/core';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
-import { RequestTutorComponent, InvoiceDetailsComponent } from './containers';
+import * as fromRequests from './state';
+import { StoreModule } from '@ngrx/store';
+import * as featureKeys from './state/feature-keys';
+
+import {
+  RequestTutorComponent,
+  InvoiceDetailsComponent,
+  PaymentProcessingComponent,
+} from './containers';
 
 import {
   DialogEditClassroom,
@@ -26,7 +35,9 @@ import {
   ClassroomInfoFormComponent,
   ListClassroomsFormComponent,
   CourseInformationFormComponent,
+  PaymentComingSoonModalComponent,
   InvoiceClassroomDetailsComponent,
+  ChangeCourseScheduleModalComponent,
 } from './components';
 
 @NgModule({
@@ -38,21 +49,25 @@ import {
     InvoiceDetailsComponent,
     SelectTutorFormComponent,
     ClassroomInfoFormComponent,
+    PaymentProcessingComponent,
     ListClassroomsFormComponent,
     CourseInformationFormComponent,
+    PaymentComingSoonModalComponent,
     InvoiceClassroomDetailsComponent,
+    ChangeCourseScheduleModalComponent,
   ],
   imports: [
     FormsModule,
+    SharedModule,
     CommonModule,
     MatIconModule,
     MatInputModule,
     MatRadioModule,
     MatButtonModule,
-    DirectiveModule,
     MatSelectModule,
     MatDialogModule,
     MatStepperModule,
+    MatCheckboxModule,
     MatFormFieldModule,
     ReactiveFormsModule,
     MatDatepickerModule,
@@ -60,6 +75,10 @@ import {
     RequestsRoutingModule,
     RatingModule.forRoot(),
     NgxMaterialTimepickerModule,
+    StoreModule.forFeature(
+      featureKeys.requestsFeatureKey,
+      fromRequests.reducers
+    ),
   ],
 })
 export class RequestsModule {}

@@ -15,6 +15,7 @@ import { AuthService } from 'src/app/core/services';
 })
 export class ForgetPasswordComponent implements OnInit {
   form: FormGroup;
+  successMsg: string;
   loading: boolean = false;
 
   constructor(
@@ -45,19 +46,23 @@ export class ForgetPasswordComponent implements OnInit {
   onSubmit(form: FormGroup) {
     if (form.valid) {
       this.loading = true;
-      this._authService
-        .forgetPassword(form.value.email)
-        .subscribe((response) => {
+      this._authService.forgetPassword(form.value.email).subscribe(
+        (response) => {
           if (response.status === 'true') {
             this.loading = false;
-            this._alertNotificationService.success(response.message);
-            this.form.reset();
+            this.successMsg = response.message;
           } else {
             this._alertNotificationService.error(response.errors[0]);
+            this.loading = false;
           }
 
           this.loading = false;
-        });
+        },
+        (error) => {
+          this._alertNotificationService.error(error.error.errors[0]);
+          this.loading = false;
+        }
+      );
     }
   }
 }

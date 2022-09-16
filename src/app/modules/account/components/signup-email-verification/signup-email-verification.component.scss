@@ -1,0 +1,34 @@
+:host ::ng-deep form {
+  h3 {
+    font-size: 17px;
+
+    span {
+      color: var(--main-color);
+      font-style: italic;
+    }
+  }
+
+  .ng-otp-input-wrapper {
+    display: flex;
+
+    .otp-input {
+      flex-grow: 1;
+      color: #7c7878;
+    }
+  }
+
+  button {
+    color: var(--main-color);
+    font-weight: bold;
+    padding: 0;
+    margin-top: 5px;
+
+  }
+}
+
+@media (max-width: 767px) {
+  :host ::ng-deep .otp-input {
+    width: 50px !important;
+    height: 50px !important;
+  }
+}

@@ -8,9 +8,13 @@ import {
   ContactComponent,
   WelcomeComponent,
   FaqTicketComponent,
+  AllCoursesComponent,
   BecomeTutorComponent,
+  PrivacyPolicyComponent,
   StudentSuccessComponent,
   LanguagesCoursesComponent,
+  TutorTermsConditionsComponent,
+  StudentTermsConditionsComponent,
 } from './containers';
 
 const routes: Routes = [
@@ -58,6 +62,26 @@ const routes: Routes = [
     path: 'languages-courses',
     component: LanguagesCoursesComponent,
     data: { layout: { title: 'Languages - Metutors' } },
+  },
+  {
+    path: 'all-courses/:programId',
+    component: AllCoursesComponent,
+    data: { layout: { title: 'Courses - Metutors' } },
+  },
+  {
+    path: 'student-terms-conditions',
+    component: StudentTermsConditionsComponent,
+    data: { layout: { title: 'Terms and Conditions - Metutors' } },
+  },
+  {
+    path: 'tutor-terms-conditions',
+    component: TutorTermsConditionsComponent,
+    data: { layout: { title: 'Terms and Conditions - Metutors' } },
+  },
+  {
+    path: 'privacy-policy',
+    component: PrivacyPolicyComponent,
+    data: { layout: { title: 'Privacy Policy - Metutors' } },
   },
 ];
 

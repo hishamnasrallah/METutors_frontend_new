@@ -1,12 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import {
-  trigger,
   state,
   style,
-  transition,
   group,
   animate,
+  trigger,
+  transition,
 } from '@angular/animations';
+
+import { ILanguage } from '@models';
+import { LANGUAGES_LEVELS_CONST } from '@config';
 
 @Component({
   selector: 'metutors-tutor-settings-user-preferences',
@@ -35,17 +40,69 @@ import {
   ],
 })
 export class TutorSettingsUserPreferencesComponent implements OnInit {
-  showLanguages = false;
+  @Input() preferences: any;
+  @Input() isSubmitting: boolean;
+  @Input() languagesList: ILanguage[] | null;
 
-  constructor() {}
+  @Output() submitForm = new EventEmitter();
 
-  ngOnInit(): void {}
+  form: FormGroup;
+  invalid = 'INVALID';
+  levels = LANGUAGES_LEVELS_CONST;
 
-  onChange(event: any): void {
-    if (event.value === '-1') {
-      this.showLanguages = true;
-    } else {
-      this.showLanguages = false;
+  constructor(private _fb: FormBuilder) {}
+
+  get gender(): FormArray {
+    return this.form?.get('preferred_gender') as FormArray;
+  }
+
+  get languages(): FormArray {
+    return this.form?.get('languages') as FormArray;
+  }
+
+  removeLanguage(i: number): void {
+    (this.form?.get('languages') as FormArray).removeAt(i);
+  }
+
+  newLanguage(language?: any): FormGroup {
+    return this._fb.group({
+      language: [language?.language, Validators.required],
+      level: [language?.efficiency, Validators.required],
+    });
+  }
+
+  addLanguage(): void {
+    if (this.languages.status !== this.invalid) {
+      this.languages.push(this.newLanguage());
+    }
+  }
+
+  onSubmit(form: FormGroup) {
+    if (form.valid) {
+      const formData = {
+        ...form.value,
+        spoken_languages: form.value.languages.map((language: any) => ({
+          ...language,
+          efficiency: language.level,
+          language: language.language.id,
+        })),
+      };
+      this.submitForm.emit(formData);
+    }
+  }
+
+  ngOnInit(): void {
+    this.form = this._fb.group({
+      preferred_gender: [null, Validators.required],
+      languages: this._fb.array([]),
+    });
+
+    this.gender.setValue(this.preferences?.preferred_gender || 'both');
+
+    if (this.preferences?.spoken_languages?.length) {
+      this.preferences.spoken_languages.forEach((language: any) => {
+        this.languages.push(this.newLanguage(language));
+      });
     }
   }
 }

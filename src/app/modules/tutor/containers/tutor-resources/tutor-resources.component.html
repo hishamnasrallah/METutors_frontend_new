@@ -1,0 +1,101 @@
+<div class="resources" *ngLet="(view$ | async) as view">
+  <div class="card">
+    <div class="card-body">
+      <ng-container [ngSwitch]="view.loading">
+        <ng-container *ngSwitchCase="false">
+          <h1 class="title">{{ view.resources?.course?.courseName }} <span>({{ view.resources?.course?.courseCode}})</span>
+            <button mat-button class="ms-3 status" [ngClass]="view.resources?.course?.status">{{ statusLabel[view.resources?.course?.status].long }}</button>
+          </h1>
+          <div class="row list-items">
+            <div class="col-md-3 d-flex menu align-items-center">
+              <img src="assets/svg/calendar.svg" alt="" width="15" height="15" draggable="false">
+              <strong>Days: </strong>
+              <span *ngFor="let day of getDays(view.resources?.course?.weekdays); let isLast = last">
+                {{ day }}<ng-container *ngIf="!isLast">,</ng-container>
+              </span>
+            </div>
+            <div class="col-md-3 d-flex menu align-items-center">
+              <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
+              <strong>Time: </strong>
+              <span>{{ view.resources?.course?.startTime | date:'h:mm a' }} - {{ view.resources?.course?.endTime | date:'h:mm a' }}</span>
+            </div>
+            <div class="col-md-3 d-flex menu align-items-center">
+              <img src="assets/svg/timer.svg" alt="" width="15" height="15" draggable="false">
+              <strong>Total Hours: </strong>
+              <span>{{ view.resources?.course?.totalHours }}hr{{ +(view.resources?.course?.totalHours)! > 1 ? 's' : '' }}</span>
+            </div>
+            <div class="col-md-3 d-flex menu align-items-center">
+              <img src="assets/svg/play-circle-fill.svg" alt="" width="15" height="15" draggable="false">
+              <strong>Total Classes: </strong>
+              <span>{{ view.resources?.course?.totalClasses }}</span>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngSwitchCase="true">
+          <div class="ph-row">
+            <div class="ph-col-8 big"></div>
+            <div class="ph-col-4 big empty"></div>
+            <div class="ph-col-10 big mt-3"></div>
+            <div class="ph-col-2 big empty mt-3"></div>
+            <div class="ph-col-6 mt-4"></div>
+            <div class="ph-col-6 mt-4 empty"></div>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+
+  <div class="details">
+    <h3>Classes</h3>
+    <ng-container [ngSwitch]="view.loading">
+      <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
+      <ng-container *ngSwitchCase="false">
+        <div class="table-responsive">
+          <table class="table my-table default-title">
+            <tr>
+              <th scope="col">Class Number</th>
+              <th scope="col">Class Subject</th>
+              <th scope="col">Class Days</th>
+              <th scope="col">Action</th>
+            </tr>
+            <tr *ngIf="!view.resources?.course?.classes?.length">
+              <td colspan="5">
+                <div class="text-center">No record found</div>
+              </td>
+            </tr>
+            <ng-container *ngIf="view.resources?.course?.classes?.length">
+              <tr *ngFor="let resourceClass of view?.resources?.course?.classes; let i=index">
+                <td scope="row">{{ i + 1}}</td>
+                <td>{{ resourceClass?.title }}</td>
+                <td>{{ resourceClass?.startDate | date: 'EEEE, dd MMM Y'}}</td>
+                <td>
+                  <div *ngIf="resourceClass?.resourceId">
+                    <button mat-button class="secondary-button-transparent" (click)="onOpenEditClassResource(resourceClass.resourceId)">Edit
+                      Resource
+                    </button>
+                  </div>
+                  <div *ngIf="!resourceClass?.resourceId">
+                    <button mat-button class="main-button-transparent" (click)="onOpenAddClassResource(resourceClass.id)">Add Resource
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </ng-container>
+          </table>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>
+
+<metutors-confirm-modal *ngIf="showConfirmModal$ | async" [showModal]="(showConfirmModal$ | async)!"
+                        [loading]="(isDeletingResource$ | async)!"
+                        [heading]="'Delete an Resource'"
+                        (confirm)="onDeleteResource(resourceId)" (closeModal)="onCloseConfirmModal()">
+</metutors-confirm-modal>
+
+<metutors-tutor-add-class-resource-modal *ngIf="showAddClassResourceModal$ | async" [heading]="heading"
+                                         [submitting]="(isSavingResource$ | async)!" (deleted)="onOpenConfirmModal($event)"
+                                         (closeModal)="onCloseAddClassResource()" (submitted)="onSaveResource($event)"
+                                         [showModal]="(showAddClassResourceModal$ | async)!">
+</metutors-tutor-add-class-resource-modal>

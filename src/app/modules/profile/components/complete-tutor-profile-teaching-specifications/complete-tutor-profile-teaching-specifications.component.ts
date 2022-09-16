@@ -1,13 +1,32 @@
 import { DatePipe } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ILevel, ITutor } from 'src/app/core/models';
 import {
-  AbstractControl,
-  FormBuilder,
+  Input,
+  Inject,
+  OnInit,
+  Output,
+  Component,
+  EventEmitter,
+} from '@angular/core';
+import {
+  FormArray,
   FormGroup,
   Validators,
+  FormBuilder,
+  AbstractControl,
 } from '@angular/forms';
-import { LONG_DAYS_WEEK } from 'src/app/config';
-import { FormValidationUtilsService } from 'src/app/core/validators';
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
+import {
+  SORTED_DAYS_WEEK,
+  calculateListDays,
+  convertTimeToDateISO,
+  AVAILABILITY_HOURS_CONST,
+  COURSE_TUITION_TYPES_CONST,
+} from 'src/app/config';
 
 @Component({
   selector: 'metutors-complete-tutor-profile-teaching-specifications',
@@ -21,60 +40,93 @@ import { FormValidationUtilsService } from 'src/app/core/validators';
 export class CompleteTutorProfileTeachingSpecificationsComponent
   implements OnInit
 {
-  @Input() loading?: boolean;
+  @Input() loading: boolean | null;
+  @Input() levels: ILevel[] | null;
+  @Input() set tutor(_tutor: ITutor) {
+    if (_tutor) {
+      this.form.patchValue({
+        startDate: _tutor?.specifications?.availabilityStartDate,
+        endDate: _tutor?.specifications?.availabilityEndDate,
+        typeOfTutoring: _tutor?.specifications?.typeOfTutoring,
+      });
 
+      const output: any[] = [];
+      _tutor?.availability?.forEach((avail: any) => {
+        if (!this.selectedDays.includes(+avail?.day)) {
+          this.selectedDays.push(+avail?.day);
+        }
+
+        const existing = output.filter((v) => +v.day == +avail.day);
+
+        if (existing.length) {
+          const existingIndex = output.indexOf(existing[0]);
+
+          output[existingIndex].timeSlots = [
+            ...output[existingIndex].timeSlots,
+            {
+              id: avail?.id,
+              startTime: avail?.timeFrom,
+              endTime: avail?.timeTo,
+            },
+          ];
+        } else {
+          output.push({
+            day: +avail.day,
+            timeSlots: [
+              {
+                id: avail?.id,
+                startTime: avail?.timeFrom,
+                endTime: avail?.timeTo,
+              },
+            ],
+          });
+        }
+      });
+
+      output.forEach((item) => {
+        this.availability
+          .at(item.day)
+          .patchValue({ day: item.day, timeSlots: item.timeSlots });
+      });
+
+      this.form?.updateValueAndValidity();
+      this.form?.markAsDirty();
+    }
+  }
+
+  @Output() changeStep = new EventEmitter();
   @Output() submitForm = new EventEmitter();
 
   form: FormGroup;
   minDate = new Date();
-  days = LONG_DAYS_WEEK;
+  maxDate = new Date();
+  days = SORTED_DAYS_WEEK;
+  selectedDays: number[] = [];
+  types = COURSE_TUITION_TYPES_CONST;
 
-  constructor(
-    private _fb: FormBuilder,
-    private _datePipe: DatePipe,
-    private _fv: FormValidationUtilsService
-  ) {
+  constructor(private _fb: FormBuilder, private _dialog: MatDialog) {
     this.form = this._fb.group({
-      levelOfEducation: [null, [Validators.required]],
-      salaryPerHour: [
-        null,
-        [
-          Validators.required,
-          Validators.min(5),
-          Validators.max(999),
-          this._fv.numbersOnlyValidation,
-        ],
-      ],
-      fieldOfStudy: [null, [Validators.required]],
       startDate: [null, [Validators.required]],
-      subject: [null, [Validators.required]],
       endDate: [null, [Validators.required]],
+      availability: this._fb.array([]),
       typeOfTutoring: [null, [Validators.required]],
-      teachingDays: [null, [Validators.required]],
-      teachingHours: [null, [Validators.required]],
+    });
+
+    SORTED_DAYS_WEEK.forEach(() => {
+      this.addAvailability();
     });
   }
 
-  ngOnInit(): void {}
-
-  get levelOfEducation(): AbstractControl | null {
-    return this.form.get('levelOfEducation');
+  ngOnInit(): void {
+    this.maxDate.setFullYear(this.maxDate.getFullYear() + 80);
   }
 
-  get salaryPerHour(): AbstractControl | null {
-    return this.form.get('salaryPerHour');
-  }
-
-  get fieldOfStudy(): AbstractControl | null {
-    return this.form.get('fieldOfStudy');
+  returnZero(): number {
+    return 0;
   }
 
   get startDate(): AbstractControl | null {
     return this.form.get('startDate');
-  }
-
-  get subject(): AbstractControl | null {
-    return this.form.get('subject');
   }
 
   get endDate(): AbstractControl | null {
@@ -85,34 +137,210 @@ export class CompleteTutorProfileTeachingSpecificationsComponent
     return this.form.get('typeOfTutoring');
   }
 
-  get teachingDays(): AbstractControl | null {
-    return this.form.get('teachingDays');
+  get availability(): FormArray {
+    return this.form?.get('availability') as FormArray;
   }
 
-  get teachingHours(): AbstractControl | null {
-    return this.form.get('teachingHours');
+  newAvailability(): FormGroup {
+    return this._fb.group({
+      day: [null],
+      timeSlots: [[]],
+    });
+  }
+
+  addAvailability(): void {
+    this.availability.push(this.newAvailability());
+  }
+
+  onChangeDay(index: number): void {
+    if (this.selectedDays.includes(index)) {
+      // this.selectedDays.splice(this.selectedDays.indexOf(index), 1);
+      // this.availability.at(index).patchValue({ day: null, timeSlots: [] });
+      this.openDialog(index, this.availability.value[index]);
+    } else {
+      this.selectedDays.push(index);
+      this.availability.at(index).patchValue({ day: index });
+      this.openDialog(index, null);
+    }
+  }
+
+  onChangeStartDate(): void {
+    this.endDate?.setValue(null);
+    this.endDate?.updateValueAndValidity();
+  }
+
+  openDialog(index: number, data: any) {
+    const dialogRef = this._dialog.open(DialogSelectAvailabilityDialog, {
+      width: '500px',
+      data: { index, data },
+      disableClose: true,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result && result.length) {
+        this.availability.at(index).patchValue({
+          day: index,
+          timeSlots: result?.map((slot: any) => ({
+            startTime: convertTimeToDateISO(slot?.startTime),
+            endTime: convertTimeToDateISO(slot?.endTime),
+          })),
+        });
+      } else {
+        this.selectedDays.splice(this.selectedDays.indexOf(index), 1);
+        this.availability.at(index).patchValue({ day: null, timeSlots: [] });
+      }
+
+      this.form?.markAsDirty();
+      this.form?.markAsTouched();
+    });
+  }
+
+  checkDisabledDays(day: string): boolean {
+    let isDisabled = true;
+
+    if (this.startDate?.value && this.endDate?.value) {
+      const daysCalculated = calculateListDays(
+        this.startDate?.value,
+        this.endDate?.value
+      );
+
+      daysCalculated.forEach((dayCalculated) => {
+        if (
+          SORTED_DAYS_WEEK[new Date(dayCalculated).getDay()].toLowerCase() ===
+          day.toLowerCase()
+        ) {
+          isDisabled = false;
+        }
+      });
+    }
+
+    if (isDisabled) {
+      const index = SORTED_DAYS_WEEK.indexOf(day);
+
+      if (this.selectedDays.indexOf(index) !== -1) {
+        this.selectedDays.splice(this.selectedDays.indexOf(index), 1);
+        this.availability.at(index).patchValue({ day: null, timeSlots: [] });
+      }
+
+      this.form?.markAsDirty();
+      this.form?.markAsTouched();
+    }
+
+    return isDisabled;
   }
 
   submitFormData() {
-    const data = {
-      step: '4',
-      level_of_education: this.levelOfEducation?.value,
-      expected_salary_per_hour: this.salaryPerHour?.value,
-      field_of_study: this.fieldOfStudy?.value,
-      availability_start_date: this._datePipe.transform(
-        this.startDate?.value,
-        'dd/MM/yyyy'
-      ),
-      subject: this.subject?.value,
-      availability_end_date: this._datePipe.transform(
-        this.endDate?.value,
-        'dd/MM/yyyy'
-      ),
-      type_of_tutoring: this.typeOfTutoring?.value,
-      teaching_days: this.teachingDays?.value,
-      teaching_hours: this.teachingHours?.value,
-    };
+    if (this.form.touched) {
+      const data = {
+        step: '4',
+        type_of_tutoring: this.typeOfTutoring?.value,
+        availability_start_date: new Date(this.startDate?.value).toISOString(),
+        availability_end_date: new Date(this.endDate?.value).toISOString(),
+        availability: this.availability?.value
+          ?.filter((itm: any) => itm?.day != null)
+          ?.map((item: any) => ({
+            day: item?.day,
+            time_slots: item?.timeSlots?.map((slot: any) => ({
+              start_time: slot?.startTime,
+              end_time: slot?.endTime,
+            })),
+          })),
+      };
 
-    this.submitForm.emit(data);
+      this.submitForm.emit(data);
+    } else {
+      this.changeStep.emit(5);
+    }
+  }
+}
+
+@Component({
+  selector: 'dialog-content-example-dialog',
+  templateUrl: 'select-availability-hours.dialog.html',
+  styleUrls: [
+    './complete-tutor-profile-teaching-specifications.component.scss',
+  ],
+})
+export class DialogSelectAvailabilityDialog {
+  id!: number;
+  isDisabled = true;
+  tempHours: any = [];
+  selectedHoursList: any = [];
+  selectedHours: number[] = [];
+  hours = AVAILABILITY_HOURS_CONST;
+
+  constructor(
+    private _datePipe: DatePipe,
+    public dialogRef: MatDialogRef<DialogSelectAvailabilityDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {
+    if (data) {
+      this.id = data.id;
+
+      if (data?.data?.timeSlots && data?.data?.timeSlots?.length) {
+        data.data.timeSlots.forEach((item: any) => {
+          AVAILABILITY_HOURS_CONST.forEach((hour, index) => {
+            if (
+              hour.startTime ===
+              this._datePipe
+                .transform(new Date(item?.startTime), 'hh:mm a')
+                ?.toLowerCase()
+            ) {
+              this.selectedHours.push(index);
+              this.selectedHoursList.push({
+                id: index,
+                startTime: hour?.startTime,
+                endTime: hour?.endTime,
+              });
+            }
+          });
+        });
+
+        this.isDisabled = false;
+      }
+
+      this.tempHours = [...this.selectedHoursList];
+    }
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  onSelectHour(hour: any, index: number): void {
+    if (this.selectedHours.includes(index)) {
+      this.selectedHours.splice(this.selectedHours.indexOf(index), 1);
+      this.selectedHoursList.forEach((item: any, i: number) => {
+        if (item.id === index) this.selectedHoursList.splice(i, 1);
+      });
+    } else {
+      this.selectedHours.push(index);
+      this.selectedHoursList.push({
+        id: index,
+        startTime: hour?.startTime,
+        endTime: hour?.endTime,
+      });
+    }
+    this.isDisabled = false;
+  }
+
+  selectAll(): void {
+    this.isDisabled = false;
+    this.selectedHours = [];
+    this.selectedHoursList = [];
+    AVAILABILITY_HOURS_CONST.forEach((hour, index) => {
+      this.selectedHours.push(index);
+      this.selectedHoursList.push({
+        id: index,
+        startTime: hour?.startTime,
+        endTime: hour?.endTime,
+      });
+    });
+  }
+
+  unSelectAll(): void {
+    this.isDisabled = false;
+    this.selectedHours = [];
+    this.selectedHoursList = [];
   }
 }

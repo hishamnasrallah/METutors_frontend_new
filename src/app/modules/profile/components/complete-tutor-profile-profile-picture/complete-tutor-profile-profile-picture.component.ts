@@ -1,11 +1,20 @@
+import { Store } from '@ngrx/store';
+import { tap } from 'rxjs/operators';
+import { ITutor } from '@metutor/core/models';
+import { AlertNotificationService } from 'src/app/core/components';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+
 import {
-  AbstractControl,
-  FormBuilder,
   FormGroup,
   Validators,
+  FormBuilder,
+  AbstractControl,
 } from '@angular/forms';
-import { AlertNotificationService } from 'src/app/core/components';
+
+import { Observable } from 'rxjs';
+import { isNil, omitBy } from 'lodash';
+import { generalConstants } from '@config';
+import * as fromCore from '@metutor/core/state';
 
 @Component({
   selector: 'metutors-complete-tutor-profile-profile-picture',
@@ -13,25 +22,71 @@ import { AlertNotificationService } from 'src/app/core/components';
   styleUrls: ['./complete-tutor-profile-profile-picture.component.scss'],
 })
 export class CompleteTutorProfileProfilePictureComponent implements OnInit {
-  @Input() loading?: boolean;
+  @Input() loading: boolean | null;
+  @Input() set tutor(_tutor: ITutor) {
+    if (_tutor) {
+      this.form.setValue({
+        avatar:
+          _tutor?.avatar === generalConstants.defaultAvatarPath
+            ? null
+            : _tutor?.avatar,
+        cover:
+          _tutor?.cover === generalConstants.defaultCoverPath
+            ? null
+            : _tutor?.cover,
+      });
 
+      this.form?.markAsDirty();
+      this.form?.updateValueAndValidity();
+    }
+  }
+
+  @Output() changeStep = new EventEmitter();
   @Output() submitForm = new EventEmitter();
 
-  coverPic: any;
-  profilePic: any;
   form: FormGroup;
+  picType: string;
+  uploadingFile: boolean;
+
+  fileUploadProgress$: Observable<any>;
+  uploadComplete = generalConstants.uploadComplete;
 
   constructor(
     private _fb: FormBuilder,
+    private _store: Store<any>,
     private _alertNotificationService: AlertNotificationService
   ) {
     this.form = this._fb.group({
+      cover: [null],
       avatar: [null, Validators.required],
-      cover: [null, Validators.required],
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.fileUploadProgress$ = this._store
+      .select(fromCore.selectFileUploadingProgress)
+      .pipe(
+        tap((progress) => {
+          progress?.map((response: any) => {
+            if (response.responseType === this.uploadComplete) {
+              this.uploadingFile = false;
+
+              if (this.picType === 'avatar') {
+                this.avatar?.setValue(response?.url);
+                this.avatar?.markAsDirty();
+              } else if (this.picType === 'cover') {
+                this.cover?.setValue(response?.url);
+                this.cover?.markAsDirty();
+              }
+
+              this.form.markAsDirty();
+              this.form.markAsTouched();
+              this._store.dispatch(fromCore.resetUploadFileProgress());
+            }
+          });
+        })
+      );
+  }
 
   get avatar(): AbstractControl | null {
     return this.form.get('avatar');
@@ -48,17 +103,21 @@ export class CompleteTutorProfileProfilePictureComponent implements OnInit {
 
       if (mimeType.match(/image\/*/) == null) {
         this._alertNotificationService.error('Only images are allowed');
+
+        return;
       }
 
-      this.form.patchValue({ avatar: file });
-      this.form.get('avatar')?.updateValueAndValidity();
-      this.form?.markAsDirty();
+      if (file.size > 2 * 1024 * 1024) {
+        this._alertNotificationService.error('Allowed file size is 2MB');
 
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.profilePic = reader.result;
-      };
-      reader.readAsDataURL(file);
+        return;
+      }
+
+      this.picType = 'avatar';
+      this.uploadingFile = true;
+      this._store.dispatch(
+        fromCore.uploadFile({ file: [...event.target.files] })
+      );
     }
   }
 
@@ -69,27 +128,35 @@ export class CompleteTutorProfileProfilePictureComponent implements OnInit {
 
       if (mimeType.match(/image\/*/) == null) {
         this._alertNotificationService.error('Only images are allowed');
+
+        return;
       }
 
-      this.form.patchValue({ cover: file });
-      this.form.get('cover')?.updateValueAndValidity();
-      this.form?.markAsDirty();
+      if (file.size > 2 * 1024 * 1024) {
+        this._alertNotificationService.error('Allowed file size is 2MB');
 
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.coverPic = reader.result;
-      };
-      reader.readAsDataURL(file);
+        return;
+      }
+
+      this.picType = 'cover';
+      this.uploadingFile = true;
+      this._store.dispatch(
+        fromCore.uploadFile({ file: [...event.target.files] })
+      );
     }
   }
 
-  submitFormData() {
-    const formData = new FormData();
+  submitFormData(): void {
+    if (this.form.touched) {
+      const data = {
+        step: '2',
+        avatar: this.avatar?.value,
+        cover_img: this.cover?.value ? this.cover?.value : null,
+      };
 
-    formData.append('step', '2');
-    formData.append('avatar', this.avatar?.value);
-    formData.append('cover_img', this.cover?.value);
-
-    this.submitForm.emit(formData);
+      this.submitForm.emit(omitBy(data, isNil));
+    } else {
+      this.changeStep.emit(3);
+    }
   }
 }

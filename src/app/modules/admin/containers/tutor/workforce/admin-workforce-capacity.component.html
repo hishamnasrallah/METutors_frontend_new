@@ -1,0 +1,102 @@
+<div class="capacity-list" *ngLet="(view$ | async) as view">
+  <div class="row filters">
+    <div class="col-md-6 d-flex align-items-center">
+      <h1>Workforce Capacity <span *ngIf="view.capacity && view.capacity.length">({{ view.capacity.length }})</span></h1>
+    </div>
+    <div class="col-md-6">
+      <div class="row justify-content-end">
+        <div class="col-md-5">
+          <metutors-search-input (searchedText)="onSearch($event)"></metutors-search-input>
+        </div>
+        <!--<div class="col-md-5">
+          <div class="position-relative">
+            <mat-icon class="filter">filter_alt</mat-icon>
+          </div>
+        </div>-->
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <ng-container [ngSwitch]="view.loading">
+        <div class="mt-4" *ngSwitchCase="true">
+          <metutors-grid-placeholder></metutors-grid-placeholder>
+        </div>
+
+        <table class="table my-table default-title mt-4" *ngSwitchCase="false">
+          <tr>
+            <th>Number</th>
+            <th>Program Name</th>
+            <th>Field of Study</th>
+            <th>Course ID</th>
+            <th>Course Name</th>
+            <th>Hired Tutors</th>
+            <th>Available Tutors</th>
+            <th>Capacity %</th>
+            <th>Total Booking</th>
+            <th>Total Revenue</th>
+            <th>Action</th>
+          </tr>
+          <tr *ngIf="!view.capacity || !view.capacity.length">
+            <td colspan="11">
+              <div class="text-center">No records found</div>
+            </td>
+          </tr>
+          <tr *ngFor="let cpcty of view.capacity; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ cpcty?.subject?.program?.name }}</td>
+            <td>{{ cpcty?.subject?.field?.name }}</td>
+            <td class="text-capitalize">{{ cpcty?.subject?.id }}</td>
+            <td class="text-capitalize">{{ cpcty?.subject?.name }}</td>
+            <td><a href="javascript:void(0)" (click)="onShowHiredTutors(cpcty?.hiredTutors, cpcty?.subject?.id)">{{ cpcty?.hiredTutors }}</a></td>
+            <td><a href="javascript:void(0)" (click)="onShowAvailableTutors(cpcty?.subject?.availableTutorsCount, cpcty?.subject?.id)">{{ cpcty?.subject?.availableTutorsCount }}</a></td>
+            <td>{{ cpcty?.capacity.toFixed(2) }}</td>
+            <td>
+              <a href="javascript:void(0)" (click)="onOpenCourseBookingListModal(cpcty?.subject?.id)">
+                {{ cpcty?.totalBookings }}
+              </a>
+            </td>
+            <td>{{ cpcty?.totalRevenue | metutorsMoney | async }}</td>
+            <td>
+              <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0"
+                (click)="selectedCapacity = cpcty?.subject?.id">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+            </td>
+          </tr>
+        </table>
+
+        <div class="d-flex mt-2 justify-content-center" *ngIf="view.pagination?.total > view.capacity?.length">
+          <pagination [totalItems]="view.pagination?.total" [itemsPerPage]="perPage" [maxSize]="5"
+                      (pageChanged)="onPageChange($event)">
+          </pagination>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item class="h-auto btn-menu"
+    (click)="onOpenCourseBookingListModal(selectedCapacity)">
+    <span>View Bookings</span>
+  </button>
+</mat-menu>
+
+<metutors-admin-course-booking-list-modal *ngIf="showCourseBookingListModal$ | async"
+                                          (closeModal)="onCloseCourseBookingListModal()"
+                                          [courseBooking]="(courseBooking$ | async)!"
+                                          [isLoading]="(isLoadingCourseBooking$ | async)!"
+                                          [showModal]="(showCourseBookingListModal$ | async)!">
+</metutors-admin-course-booking-list-modal>
+
+<metutors-admin-tutors-list-modal *ngIf="showAdminTutorsListModal | async"
+                                  [loading]="(isLoadingAdminTutors | async)! || (isLoadingTutorAvailability$ | async)!"
+                                  [heading]="modalHeading"
+                                  [showModal]="(showAdminTutorsListModal | async)!"
+                                  [timeSlots]="(tutorAvailability$ | async)!"
+                                  [tutors]="(adminTutorsList$ | async)!" (back)="onBack()"
+                                  (tutorAvailability)="onTutorAvailability($event)"
+                                  (closeModal)="onCloseAdminTutorsListModal()">
+</metutors-admin-tutors-list-modal>

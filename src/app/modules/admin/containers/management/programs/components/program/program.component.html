@@ -1,0 +1,105 @@
+<div class="mt-3" *ngLet="(view$ | async) as view">
+  <div class="row filters">
+    <div class="col-md-6">
+      <!--<span class="title">Filter</span>
+      <mat-form-field appearance="outline" class="me-2">
+        <mat-select [placeholder]="'By Status'" [(ngModel)]="status"
+                    (selectionChange)="onChangeSelection()">
+          <mat-option [value]="state.id" *ngFor="let state of programStatusConst">
+            {{ state.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>-->
+    </div>
+    <div class="col-md-6 d-flex justify-content-end">
+      <metutors-search-input (searchedText)="onSearchText($event)"
+                             class="me-2"></metutors-search-input>
+
+      <h2 class="title">
+        <button mat-flat-button color="primary" class="float-end fw-bold py-1"
+                (click)="onOpenAddNewProgram(); selectedProgram = undefined">
+          Add New Program
+        </button>
+      </h2>
+    </div>
+  </div>
+  <ng-container [ngSwitch]="view.loading">
+    <div class="mt-4" *ngSwitchCase="true">
+      <metutors-grid-placeholder></metutors-grid-placeholder>
+    </div>
+
+    <ng-container *ngSwitchCase="false">
+      <table class="table my-table default-title mt-4 overflow-visible">
+        <tr>
+          <th>Number</th>
+          <th>Image</th>
+          <th>Program</th>
+          <th>Last Updated</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+        <tr *ngIf="!view.programs || !view.programs?.length">
+          <td colspan="5">
+            <div class="text-center">No records found</div>
+          </td>
+        </tr>
+        <tr *ngFor="let program of view.programs; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td><img [src]="imageURL+program?.image" width="100" height="100" alt=""/></td>
+          <td>{{ program?.name }}</td>
+          <td>{{ program?.updatedAt | date: 'EEEE, d MMM y' }}</td>
+          <td>
+            <div dropdown class="change-status position-relative d-flex">
+              <button dropdownToggle class="status text-capitalize" mat-button [ngClass]="{
+                        'active': programStatus.active === program?.status,
+                        'inactive': programStatus.inActive === program?.status
+                     }">
+                <ng-container *ngIf="programStatus.active === program?.status">Active</ng-container>
+                <ng-container *ngIf="programStatus.inActive === program?.status">Inactive</ng-container>
+              </button>
+              <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
+                <li role="menuitem" class="cursor-pointer text-capitalize"
+                    *ngFor="let status of programStatusConst"
+                    [ngClass]="{
+                          'active': programStatus.active === status.id,
+                          'inactive': programStatus.inActive === status.id
+                        }" (click)="onChangeStatus(program, status.id)">
+                  {{ status.name }}
+                </li>
+              </ul>
+            </div>
+          </td>
+          <td>
+            <button mat-icon-button class="p-0 action me-2" disabled
+                    *ngIf="(isDeletingProgram$ | async) && deletedProgram?.id === program.id">
+              <mat-icon class="spinner">autorenew</mat-icon>
+            </button>
+            <button mat-icon-button class="p-0 action me-2" (click)="deleteProgram(program)"
+                    *ngIf="deletedProgram?.id !== program.id">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <button mat-icon-button class="p-0 action"
+                    (click)="onOpenAddNewProgram(); selectedProgram = program">
+              <img src="assets/svg/edit-green.svg" width="17" height="17" alt="">
+            </button>
+          </td>
+        </tr>
+      </table>
+    </ng-container>
+  </ng-container>
+
+  <div class="d-flex mt-2 justify-content-center"
+       *ngIf="view.programs?.length < view.pagination?.total">
+    <pagination [totalItems]="view.pagination?.total" [itemsPerPage]="perPage" [maxSize]="5"
+                (pageChanged)="onPageChange($event)">
+    </pagination>
+  </div>
+</div>
+
+<metutors-admin-add-new-program-modal *ngIf="showAddNewProgramModal$ | async"
+                                      (closeModal)="onCloseAddNewProgram()"
+                                      [selectedProgram]="selectedProgram!"
+                                      [isAdding]="(isAddingEditingProgram$ | async)!"
+                                      [showModal]="(showAddNewProgramModal$ | async)!"
+                                      (submitForm)="onAddEditProgram($event)">
+</metutors-admin-add-new-program-modal>

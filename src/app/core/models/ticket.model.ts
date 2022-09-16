@@ -1,76 +1,75 @@
-import { getLookups, TICKET_STATUSES_CONST } from 'src/app/config';
-import { ITicketReply } from '.';
+import { environment } from '@environment';
+import { ITicketCategory, ITicketPriority } from './lookups.model';
+import { ITicketComment } from './ticket-comment.model';
+import { IUser } from './user.model';
 
 export class ITicket {
   id!: number;
-  category!: string;
-  type!: number;
-  typeValue!: string;
-  title!: string;
-  ticketNumber!: string;
-  description!: string;
+  category?: ITicketCategory;
+  file!: string;
+  message!: string;
+  priority?: ITicketPriority;
   status!: string;
-  statusValue!: string;
-  assignedEmployee!: any;
-  attachedFile!: string;
-  createdByUser!: number;
-  createdByUserType!: any;
+  subject!: string;
+  ticketId!: string;
+  comments!: ITicketComment[];
+  user?: IUser;
+  duration?: number;
+  lastReply?: string;
   createdDate!: string;
-  replies!: ITicketReply[];
+  updatedDate!: string;
 
   constructor(createDefault = false, ticket: any = null) {
     if (createDefault) {
       this.id = 0;
-      this.category = '';
-      this.type = 0;
-      this.typeValue = '';
-      this.title = '';
-      this.ticketNumber = '';
-      this.description = '';
+      this.category = undefined;
+      this.file = '';
+      this.message = '';
+      this.priority = undefined;
+      this.ticketId = '';
+      this.subject = '';
       this.status = '';
-      this.statusValue = '';
-      this.assignedEmployee = null;
-      this.attachedFile = '';
-      this.createdByUser = 0;
-      this.createdByUserType = null;
+      this.comments = [];
+      this.user = undefined;
+      this.duration = 0;
       this.createdDate = '';
-      this.replies = [];
+      this.updatedDate = '';
+      this.lastReply = '';
     }
 
     if (ticket) {
       this.id = ticket.id;
       this.category = ticket.category;
-      this.type = ticket.type;
-      this.typeValue = ticketListType(ticket.type);
-      this.title = ticket.title;
-      this.ticketNumber = ticket.ticket_number;
-      this.description = ticket.description;
+      this.message = ticket.message;
+      this.file = ticket.file ? environment.imageURL + ticket.file : '';
+      this.priority = ticket.priority;
+      this.ticketId = ticket.ticket_id;
+      this.subject = ticket.subject;
       this.status = ticket.status;
-      this.statusValue = TICKET_STATUSES_CONST[ticket.status];
-      this.assignedEmployee = ticket.assigned_employee;
-      this.attachedFile = ticket.attached_file;
-      this.createdByUser = ticket.created_by_user;
-      this.createdByUserType = ticket.created_by_user_type;
-      this.createdDate = ticket.created_date;
-      this.replies =
-        ticket.replies && ticket.replies.length
-          ? ticket.replies.map((item: any) => new ITicketReply(false, item))
+      this.user = new IUser(false, ticket.user);
+      this.comments =
+        ticket.comments && ticket.comments.length
+          ? ticket.comments.map(
+              (comment: ITicketComment) => new ITicketComment(false, comment)
+            )
           : [];
+      this.duration = Math.ceil(
+        Math.abs(
+          new Date(ticket.updated_at).valueOf() -
+            new Date(ticket.created_at).valueOf()
+        ) /
+          (1000 * 60 * 60 * 24)
+      );
+      this.createdDate = ticket.created_at;
+      this.updatedDate = ticket.updated_at;
+      this.lastReply = ticket?.last_reply;
     }
   }
 }
 
-export function ticketListType(value: number): string {
-  const ticketsList = getLookups().ticketTypes;
-  let tValue = '';
-
-  if (Array.isArray(ticketsList) && ticketsList && ticketsList.length) {
-    ticketsList.forEach((ticket) => {
-      if (ticket?.id === value) {
-        tValue = ticket?.name;
-      }
-    });
-  }
-
-  return tValue;
+export interface ITicketFilters {
+  status?: string;
+  title?: string;
+  priority?: string;
+  category?: string;
 }

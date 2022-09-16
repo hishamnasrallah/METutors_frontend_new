@@ -12,7 +12,7 @@
     margin-bottom: 10px;
 
     .card {
-      border-top: 3px solid #3bb3c1;
+      border-top: 3px solid var(--main-color);
     }
 
     &:nth-child(2) .card {
@@ -36,7 +36,11 @@
 }
 
 @media (max-width:767px) {
-  .faq-topics h1 {
-    font-size: 25px;
+  .faq-topics {
+    padding: 20px 15px;
+
+    h1 {
+      font-size: 25px;
+    }
   }
 }

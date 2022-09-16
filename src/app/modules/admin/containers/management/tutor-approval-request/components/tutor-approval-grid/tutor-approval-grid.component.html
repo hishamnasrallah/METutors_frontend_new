@@ -1,0 +1,59 @@
+<table class="table my-table default-title mt-4">
+  <tr>
+    <th>Number</th>
+    <th>BIN</th>
+    <th>Program Name</th>
+    <th>Course ID</th>
+    <th>Course Name</th>
+    <th>SIN</th>
+    <th>Duration</th>
+    <th>Amount($)</th>
+    <th>Request Duration</th>
+    <th>Status</th>
+    <th>Action</th>
+  </tr>
+  <tr *ngIf="!courses || !courses.length">
+    <td colspan="11">
+      <div class="text-center">No records found</div>
+    </td>
+  </tr>
+  <tr *ngFor="let course of courses; let i = index">
+    <td>{{ i + 1 }}</td>
+    <td><a
+      [routerLink]="['/admin','student',course?.student?.id, 'booking-detail', course?.id]">BIN{{ course?.id }}</a>
+    </td>
+    <td>{{ course?.program?.code }}</td>
+    <td>
+      <a href="javascript: void(0)"
+         (click)="openBookingModal.emit(course?.subject?.id)">{{ course?.courseCode }}</a>
+    </td>
+    <td>{{ course?.courseName }}</td>
+    <td>
+      <a
+        [routerLink]="['/admin','student', 'profile', course.studentId]">SIN{{ course?.studentId }}</a>
+    </td>
+    <td>{{ course?.totalHours }}</td>
+    <td>50$</td>
+    <td>02H, 10min</td>
+    <td>
+      <button class="status text-capitalize" mat-button [ngClass]="course?.status"
+              [tooltip]="statusLabel[course?.status]?.long">{{ statusLabel[course?.status]?.short }}
+      </button>
+    </td>
+    <td>
+      <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0"
+              (click)="studentId = course?.student?.id; courseId=course.id">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+    </td>
+  </tr>
+</table>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item class="h-auto btn-menu"
+          [routerLink]="['/admin', 'student', studentId, 'booking-detail', courseId]">
+    <span>Booking Details</span>
+  </button>
+  <button mat-menu-item class="h-auto btn-menu">
+    <span>Email Student</span>
+  </button>
+</mat-menu>

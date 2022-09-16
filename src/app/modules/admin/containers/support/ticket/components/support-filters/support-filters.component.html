@@ -1,0 +1,24 @@
+<div class="row filters">
+  <div class="col-md-9">
+    <span class="title">Filters</span>
+    <mat-form-field appearance="outline" class="me-2">
+      <mat-select [placeholder]="'By Priority'" [(ngModel)]="priority"
+                  (selectionChange)="doFilter('')">
+        <mat-option [value]="priority?.id" *ngFor="let priority of view.priorities">
+          {{ priority?.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-select [placeholder]="'By Category'" [(ngModel)]="category"
+                  (selectionChange)="doFilter('')">
+        <mat-option [value]="category?.id" *ngFor="let category of view.categories">
+          {{ category?.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="col-md-3">
+    <metutors-search-input (searchedText)="doFilter($event)"></metutors-search-input>
+  </div>
+</div>

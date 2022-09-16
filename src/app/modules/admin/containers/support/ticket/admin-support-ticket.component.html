@@ -1,0 +1,121 @@
+<div class="my-tickets" *ngLet="(view$ | async) as view">
+  <div class="row">
+    <div class="col-md-12">
+      <mat-tab-group mat-align-tabs="start" (selectedTabChange)="onChangeTab($event)">
+        <mat-tab label="All">
+          <metutors-support-stats-card [counts]="view.counts"></metutors-support-stats-card>
+          <metutors-support-filters [view]="view" (onFilter)="onFilter($event)"></metutors-support-filters>
+
+          <ng-container [ngSwitch]="view.loading">
+            <ng-container *ngSwitchCase="true">
+              <div class="card" *ngFor="let _ of [1, 2, 3]">
+                <div class="card-body">
+                  <metutors-grid-placeholder></metutors-grid-placeholder>
+                </div>
+              </div>
+            </ng-container>
+            <ng-container *ngSwitchCase="false">
+              <metutors-support-ticket-card *ngFor="let ticket of view.tickets" [ticket]="ticket" [isAdmin]="true"
+                                            [linkUrl]="'/admin/support-ticket/ticket-details/' + ticket?.ticketId"
+                                            [ticketId]="ticketId"
+                                            (changeStatus)="onOpenChangeStatusModal($event)">
+              </metutors-support-ticket-card>
+
+              <div class="text-center py-5 no-data" *ngIf="!view.tickets || !view.tickets?.length">
+                No Tickets found
+              </div>
+            </ng-container>
+          </ng-container>
+        </mat-tab>
+        <mat-tab label="Open">
+          <div class="mt-3">
+            <metutors-support-filters [view]="view" (onFilter)="onFilter($event)"></metutors-support-filters>
+          </div>
+          <ng-container [ngSwitch]="view.loading">
+            <ng-container *ngSwitchCase="true">
+              <div class="card" *ngFor="let _ of [1, 2, 3]">
+                <div class="card-body">
+                  <metutors-grid-placeholder></metutors-grid-placeholder>
+                </div>
+              </div>
+            </ng-container>
+            <ng-container *ngSwitchCase="false">
+              <metutors-support-ticket-card *ngFor="let ticket of view.tickets" [ticket]="ticket" [isAdmin]="true"
+                                            [linkUrl]="'/admin/support-ticket/ticket-details/' + ticket?.ticketId"
+                                            [ticketId]="ticketId"
+                                            (changeStatus)="onOpenChangeStatusModal($event)">
+              </metutors-support-ticket-card>
+
+              <div class="text-center py-5 no-data" *ngIf="!view.tickets || !view.tickets?.length">
+                No Tickets found
+              </div>
+            </ng-container>
+          </ng-container>
+        </mat-tab>
+        <mat-tab label="Closed">
+          <div class="mt-3">
+            <metutors-support-filters [view]="view" (onFilter)="onFilter($event)"></metutors-support-filters>
+          </div>
+          <ng-container [ngSwitch]="view.loading">
+            <ng-container *ngSwitchCase="true">
+              <div class="card" *ngFor="let _ of [1, 2, 3]">
+                <div class="card-body">
+                  <metutors-grid-placeholder></metutors-grid-placeholder>
+                </div>
+              </div>
+            </ng-container>
+            <ng-container *ngSwitchCase="false">
+              <metutors-support-ticket-card *ngFor="let ticket of view.tickets" [ticket]="ticket" [isAdmin]="true"
+                                            [linkUrl]="'/admin/support-ticket/ticket-details/' + ticket?.ticketId"
+                                            [ticketId]="ticketId"
+                                            (changeStatus)="onOpenChangeStatusModal($event)">
+              </metutors-support-ticket-card>
+
+              <div class="text-center py-5 no-data" *ngIf="!view.tickets || !view.tickets?.length">
+                No Tickets found
+              </div>
+            </ng-container>
+          </ng-container>
+        </mat-tab>
+        <mat-tab label="Urgent">
+          <div class="mt-3">
+            <metutors-support-filters [view]="view" (onFilter)="onFilter($event)"></metutors-support-filters>
+          </div>
+          <ng-container [ngSwitch]="view.loading">
+            <ng-container *ngSwitchCase="true">
+              <div class="card" *ngFor="let _ of [1, 2, 3]">
+                <div class="card-body">
+                  <metutors-grid-placeholder></metutors-grid-placeholder>
+                </div>
+              </div>
+            </ng-container>
+            <ng-container *ngSwitchCase="false">
+              <metutors-support-ticket-card *ngFor="let ticket of view.tickets" [ticket]="ticket" [isAdmin]="true"
+                                            [linkUrl]="'/admin/support-ticket/ticket-details/' + ticket?.ticketId"
+                                            [ticketId]="ticketId"
+                                            (changeStatus)="onOpenChangeStatusModal($event)">
+              </metutors-support-ticket-card>
+
+              <div class="text-center py-5 no-data" *ngIf="!view.tickets || !view.tickets?.length">
+                No Tickets found
+              </div>
+            </ng-container>
+          </ng-container>
+        </mat-tab>
+      </mat-tab-group>
+
+      <div class="d-flex mt-2 justify-content-center" *ngIf="view.tickets?.length < view.counts?.total">
+        <pagination [totalItems]="view.counts?.total" [itemsPerPage]="perPage" [maxSize]="5"
+                    (pageChanged)="onPageChange($event)">
+        </pagination>
+      </div>
+    </div>
+  </div>
+</div>
+
+<metutors-admin-change-status-modal *ngIf="showChangeStatusModal$ | async"
+                                    (closeModal)="onCloseChangeStatusModal()"
+                                    [isSubmitting]="(isChangeTicketStatus$ | async)!"
+                                    [showModal]="(showChangeStatusModal$ | async)!"
+                                    (submitted)="onChangeTicketStatus($event)">
+</metutors-admin-change-status-modal>

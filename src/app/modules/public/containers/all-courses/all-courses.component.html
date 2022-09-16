@@ -1,0 +1,96 @@
+<ng-container *ngLet="(exploredCourses$ | async) as exploredCourses">
+  <metutors-explore-courses [loading]="(isLoading$ | async)!"
+                            [program]="exploredCourses?.program"
+                            (filterCourses)="name = $event; filterCourses()">
+  </metutors-explore-courses>
+
+  <ng-container [ngSwitch]="isLoading$ | async">
+    <div class="container mt-5" *ngSwitchCase="true">
+      <div class="row">
+        <div class="col-md-3">
+          <metutors-grid-placeholder></metutors-grid-placeholder>
+        </div>
+        <div class="col-md-9">
+          <metutors-card-placeholder></metutors-card-placeholder>
+          <metutors-card-placeholder></metutors-card-placeholder>
+          <metutors-card-placeholder></metutors-card-placeholder>
+        </div>
+      </div>
+    </div>
+
+    <ng-container *ngSwitchCase="false">
+      <div class="container all-courses mt-5">
+        <div class="row">
+          <div class="col-md-7">
+            <h1>All Available Courses</h1>
+          </div>
+          <div class="col-md-5">
+            <a mat-button class="main-button-transparent float-end request-course" (click)="onOpenRequestCourseModal()">
+              Request New Course
+            </a>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-md-3 filters">
+            <div class="d-flex align-items-center cursor-pointer title justify-content-between"
+              [class.open]="openFilter" (click)="openFilter = !openFilter">
+              <h3 class="m-0">
+                Choose field of study
+              </h3>
+              <button mat-button *ngIf="!openFilter">
+                <mat-icon>expand_more</mat-icon>
+              </button>
+              <button mat-button *ngIf="openFilter">
+                <mat-icon>expand_less</mat-icon>
+              </button>
+            </div>
+            <div class="content" *ngIf="openFilter" [@slideInOut]>
+              <div class="d-block mb-2" *ngFor="let fieldOfStudy of exploredCourses?.fieldOfStudies">
+                <mat-checkbox (change)="onChangeField($event, fieldOfStudy?.id); filterCourses()"
+                  [value]="fieldOfStudy?.id">
+                  {{ fieldOfStudy?.name }}
+                </mat-checkbox>
+              </div>
+            </div>
+
+            <div class="d-flex align-items-center cursor-pointer title justify-content-between"
+              [class.open]="openPriceFilter" (click)="openPriceFilter = !openPriceFilter" *ngIf="minValue !== maxValue">
+              <h3 class="m-0">
+                Select Price Range
+              </h3>
+              <button mat-button *ngIf="!openPriceFilter">
+                <mat-icon>expand_more</mat-icon>
+              </button>
+              <button mat-button *ngIf="openPriceFilter">
+                <mat-icon>expand_less</mat-icon>
+              </button>
+            </div>
+            <div class="content" *ngIf="openPriceFilter" [@slideInOut]>
+              <div class="d-block">
+                <ngx-slider [value]="minValue" [highValue]="maxValue" [options]="{floor: minValue, ceil: maxValue}"
+                  (userChangeStart)="onChangeValue($event)" (userChangeEnd)="onChangeValue($event)"></ngx-slider>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-9">
+            <metutors-course-card *ngFor="let course of exploredCourses?.subjects" [course]="course">
+            </metutors-course-card>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
+
+  <metutors-academic-learning-environment (requestCourse)="onOpenRequestCourseModal()">
+  </metutors-academic-learning-environment>
+</ng-container>
+
+<metutors-request-new-course-modal *ngIf="showRequestCourseModal$ | async"
+                                   (closeModal)="onCloseRequestCourseModal()"
+                                   (submitForm)="requestCourse($event)"
+                                   [programs]="(programs$ | async)!"
+                                   [countries]="(countries$ | async)!"
+                                   [languages]="(languages$ | async)!"
+                                   [isSubmitting]="(isRequestCourse$ | async)!"
+                                   [showModal]="(showRequestCourseModal$ | async)!">
+</metutors-request-new-course-modal>

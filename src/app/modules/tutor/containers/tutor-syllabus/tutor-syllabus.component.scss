@@ -1,0 +1,154 @@
+.syllabus {
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.13);
+
+    .card-body {
+      padding: 20px 40px;
+    }
+
+    .title {
+      color: #000;
+      font-size: 30px;
+
+      span {
+        color: #696969;
+        font-size: 15px;
+      }
+    }
+
+    .in-progress {
+      h3 {
+        font-size: 16px;
+        color: #000;
+      }
+
+      strong {
+        color: #000;
+        font-size: 12px;
+        margin-left: 10px;
+      }
+    }
+  }
+
+  .edit-data {
+    padding: 0;
+    min-width: 0;
+    line-height: 0;
+  }
+
+  .items {
+    padding: 40px;
+
+    .title {
+      color: #000;
+      font-size: 28px;
+    }
+
+    .item {
+      border-radius: 8px;
+      box-shadow: 0 8px 20px 0 rgb(0 0 0 / 4%);
+      background-color: #ffffff;
+      margin-bottom: 25px;
+      margin-left: 3px;
+
+      &:nth-child(4n+1) {
+        border-top: 2px solid var(--main-color);
+      }
+
+      &:nth-child(4n+2) {
+        border-top: 2px solid #be63f9;
+      }
+
+      &:nth-child(4n+3) {
+        border-top: 2px solid #ff554b;
+      }
+
+      &:nth-child(4n+4) {
+        border-top: 2px solid #ff8300;
+      }
+
+      .set-padding {
+        padding: 15px 40px 0 60px;
+
+        &.desc {
+          padding: 0 40px 15px 60px;
+        }
+      }
+
+      .number {
+        position: absolute;
+        box-shadow: 0 6px 20px 0 rgb(0 0 0 / 10%);
+        background-color: #ffffff;
+        width: 65px;
+        height: 65px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #2a2a2a;
+        font-size: 22px;
+        font-weight: bold;
+        left: -32.5px;
+        top: 30px;
+      }
+
+      h2 {
+        font-size: 28px;
+        color: #2a2a2a;
+        font-weight: normal;
+        margin: 0;
+      }
+
+      h3 {
+        font-size: 18px;
+        color: #2a2a2a;
+      }
+
+      .menu {
+        margin-top: 0;
+      }
+
+      p {
+        color: #696969;
+        font-size: 16px;
+        margin: 10px 0 0;
+      }
+
+      .expand {
+        min-width: 0;
+        padding: 0;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        background: rgb(234, 234, 234);
+        color: #000;
+      }
+    }
+  }
+
+  .save-topic-btn {
+    padding: 3px 25px;
+    color: #FFF;
+    font-size: 15px;
+    background: var(--main-color);
+    min-width: 0;
+    box-shadow: none;
+
+    &.disabled {
+      background: #c7c7c7 !important;
+    }
+  }
+
+  table {
+    td {
+      padding: 10px;
+
+      .edit-btn {
+        padding: 0;
+        color: #c7c7c7;
+        line-height: 0;
+        min-width: 0;
+      }
+    }
+  }
+}

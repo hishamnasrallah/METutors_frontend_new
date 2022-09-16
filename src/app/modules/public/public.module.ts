@@ -1,24 +1,23 @@
 import { NgModule } from '@angular/core';
+import { StoreModule } from '@ngrx/store';
 import { CommonModule } from '@angular/common';
 import { RatingModule } from 'ngx-bootstrap/rating';
-import { MatButtonModule } from '@angular/material/button';
-import { PublicRoutingModule } from './public-routing.module';
-import { MatIconModule } from '@angular/material/icon';
 import { CarouselModule } from 'ngx-owl-carousel-o';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { VgCoreModule } from '@videogular/ngx-videogular/core';
-import { VgControlsModule } from '@videogular/ngx-videogular/controls';
-import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
-import { VgBufferingModule } from '@videogular/ngx-videogular/buffering';
-import { ContactService, SupportService } from 'src/app/core/services';
+import { MatIconModule } from '@angular/material/icon';
+import { ContactService } from 'src/app/core/services';
 import { GoogleMapsModule } from '@angular/google-maps';
-import {
-  CourseItemModule,
-  CourseItemHorizentalModule,
-  SubmitButtonModule,
-} from 'src/app/shared/components';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
+import { SharedModule } from '@metutor/shared/shared.module';
+import { PublicRoutingModule } from './public-routing.module';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
-import { DirectiveModule } from 'src/app/shared/directives';
+// import * as publicEffects from './state/effects';
+import * as fromPublic from '@metutor/modules/public/state';
+import * as featureKeys from '@metutor/modules/public/state/feature-keys';
 
 import {
   FaqComponent,
@@ -27,23 +26,30 @@ import {
   ContactComponent,
   WelcomeComponent,
   FaqTicketComponent,
+  AllCoursesComponent,
   BecomeTutorComponent,
+  PrivacyPolicyComponent,
   StudentSuccessComponent,
   LanguagesCoursesComponent,
+  TutorTermsConditionsComponent,
+  StudentTermsConditionsComponent,
 } from './containers';
 
 import {
+  ViewPricesDialog,
   HomeSlideComponent,
   FaqSearchComponent,
+  CourseCardComponent,
   AboutSlideComponent,
   WhyWeTeachComponent,
+  ChooseCountryDialog,
   FounderTeamComponent,
   AboutValuesComponent,
   WhyMetutorsComponent,
   HomeCoursesComponent,
-  VideoPlayerComponent,
   WhyTeachingUsComponent,
   GetYourClassesComponent,
+  ExploreCoursesComponent,
   LanguagesSlideComponent,
   SelectFaqTopicComponent,
   SuccessStoriesComponent,
@@ -65,11 +71,16 @@ import {
   StudentSuccessSlideComponent,
   LearningEnvironmentComponent,
   LovingOpportunitiesComponent,
+  HomeServicesFeaturesComponent,
   LanguagesIntroducingComponent,
   LanguagesTestomonialComponent,
+  RequestNewCourseModalComponent,
+  HomeStudyMoreReadMoreComponent,
   BenefitsOnlineTutoringComponent,
+  ViewSubjectDetailsModalComponent,
   BenefitsAcademicTutoringComponent,
   ExceptionalOpportunitiesComponent,
+  AcademicLearningEnvironmentComponent,
 } from './components';
 
 @NgModule({
@@ -79,24 +90,29 @@ import {
     AboutComponent,
     WelcomeComponent,
     ContactComponent,
+    ViewPricesDialog,
     FaqSearchComponent,
     HomeSlideComponent,
     FaqTicketComponent,
     AboutSlideComponent,
     WhyWeTeachComponent,
+    ChooseCountryDialog,
+    AllCoursesComponent,
+    CourseCardComponent,
     AboutValuesComponent,
     FounderTeamComponent,
     WhyMetutorsComponent,
     HomeCoursesComponent,
-    VideoPlayerComponent,
     BecomeTutorComponent,
     WhyTeachingUsComponent,
+    PrivacyPolicyComponent,
     SelectFaqTopicComponent,
     BecomeTutorsUsComponent,
     StudentSuccessComponent,
     LanguagesSlideComponent,
     SuccessStoriesComponent,
     GetYourClassesComponent,
+    ExploreCoursesComponent,
     LanguageCoursesComponent,
     FactsStatisticsComponent,
     StartLearningNowComponent,
@@ -117,29 +133,35 @@ import {
     LovingOpportunitiesComponent,
     LanguagesIntroducingComponent,
     LanguagesTestomonialComponent,
+    HomeServicesFeaturesComponent,
+    TutorTermsConditionsComponent,
+    HomeStudyMoreReadMoreComponent,
+    RequestNewCourseModalComponent,
+    StudentTermsConditionsComponent,
     BenefitsOnlineTutoringComponent,
+    ViewSubjectDetailsModalComponent,
     ExceptionalOpportunitiesComponent,
     BenefitsAcademicTutoringComponent,
+    AcademicLearningEnvironmentComponent,
   ],
   imports: [
     FormsModule,
-    VgCoreModule,
     CommonModule,
+    SharedModule,
     MatIconModule,
     CarouselModule,
     MatButtonModule,
-    DirectiveModule,
+    MatSelectModule,
+    NgxSliderModule,
     GoogleMapsModule,
-    CourseItemModule,
-    VgControlsModule,
-    VgBufferingModule,
-    SubmitButtonModule,
+    MatCheckboxModule,
+    MatFormFieldModule,
     ReactiveFormsModule,
     PublicRoutingModule,
-    VgOverlayPlayModule,
     RatingModule.forRoot(),
-    CourseItemHorizentalModule,
+    // EffectsModule.forFeature(Object.values(publicEffects)),
+    StoreModule.forFeature(featureKeys.publicFeatureKey, fromPublic.reducers),
   ],
-  providers: [ContactService, SupportService],
+  providers: [ContactService],
 })
 export class PublicModule {}

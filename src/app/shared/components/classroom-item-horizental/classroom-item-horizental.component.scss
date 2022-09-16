@@ -37,30 +37,6 @@
     font-weight: bold;
   }
 
-  .list {
-    padding: 5px;
-
-    .menu {
-      padding-right: 0;
-
-      img {
-        margin-right: 5px;
-      }
-
-      span {
-        color: #2a2a2a;
-        margin-left: 5px;
-        font-size: 14px;
-      }
-
-      strong {
-        font-size: 16px;
-        color: #696969;
-        font-weight: 500;
-      }
-    }
-  }
-
   .count {
     color: #FF8E18;
     font-weight: bold;
@@ -95,7 +71,7 @@
   }
 
   .details-btn {
-    color: #3bb3c1;
+    color: var(--main-color);
     padding: 2px 15px;
     font-weight: bold;
     letter-spacing: 1px;
@@ -105,7 +81,7 @@
     margin-right: 10px;
 
     &:hover {
-      background-color: #3bb3c1;
+      background-color: var(--main-color);
       color: #FFF;
     }
   }

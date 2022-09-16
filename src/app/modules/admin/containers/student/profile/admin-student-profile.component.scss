@@ -1,0 +1,82 @@
+:host ::ng-deep .student-profile {
+  padding: 30px 40px 20px;
+
+  .card {
+    box-shadow: 0px 5px 9px #00000040;
+  }
+
+  .card-body {
+    padding: 30px;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--main-color);
+  }
+
+  .list-items span {
+    color: var(--main-color);
+    font-size: 13px;
+    font-weight: bold;
+  }
+
+  .my-progress,
+  .progress-spinner,
+  .progress-spinner svg {
+    width: 50px !important;
+    height: 50px !important;
+
+    span {
+      top: 0;
+      left: 0;
+      bottom: 0;
+      font-size: 13px;
+      right: 0;
+      text-align: center;
+      line-height: 50px;
+    }
+  }
+
+  h2 {
+    color: #2A2A2A;
+    border-top: 1px solid #BDBDBD;
+    margin-top: 20px;
+    padding-top: 20px;
+  }
+
+  .basic-table {
+    tr {
+      td {
+        width: 50%;
+        padding-bottom: 7px;
+        font-weight: bold;
+
+        &:first-child {
+          color: #666;
+        }
+
+        &:last-child {
+          color: #000;
+        }
+      }
+    }
+  }
+
+  .my-table {
+    overflow: visible;
+
+    th {
+      color: #696969;
+      font-size: 14px;
+    }
+
+    .view-details {
+      line-height: 0;
+      min-width: 0;
+      padding: 15px;
+      border-radius: 25px !important;
+    }
+  }
+}

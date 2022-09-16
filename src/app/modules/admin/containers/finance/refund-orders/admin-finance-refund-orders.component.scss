@@ -1,0 +1,64 @@
+.finance-orders {
+  padding: 30px 40px 20px;
+
+  .filters {
+    h1 {
+      font-size: 25px;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    mat-icon {
+      position: absolute;
+      left: 15px;
+      top: 11px;
+
+      &.filter {
+        left: auto;
+        right: 15px;
+      }
+    }
+
+    .search-request {
+      padding-left: 45px;
+    }
+  }
+
+  .table-responsive {
+    border-top: 4px solid #E2E2E2;
+    padding-top: 25px;
+
+    .my-table {
+      overflow: visible;
+
+      th {
+        color: #696969;
+        font-size: 14px;
+      }
+
+      .status {
+        color: #FFF;
+        line-height: 0;
+        min-width: 0;
+        padding: 15px;
+        border-radius: 25px;
+
+        &.pending {
+          background-color: var(--main-color);
+        }
+
+        &.failed {
+          background-color: #C949E9;
+        }
+
+        &.cancelled {
+          background-color: #F15A5A;
+        }
+
+        &.successful {
+          background-color: #50C394;
+        }
+      }
+    }
+  }
+}

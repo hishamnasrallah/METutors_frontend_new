@@ -1,159 +1,221 @@
-<div class="dashboard">
-  <div class="row">
-    <div class="col-md-6">
-      <h2 class="overview">Overview</h2>
-      <p class="desc">
-        See insights on how your Progress has changed from <strong>March 26 - April 26</strong>
-      </p>
-    </div>
-    <div class="col-md-6">
+<metutors-tutor-navbar [layout]="(layout$ | async)" [user]="user$ | async" (logout)="logout()"></metutors-tutor-navbar>
 
-    </div>
-  </div>
-  <div class="row list-cards">
-    <div class="col-md-3">
-      <div class="card">
-        <div class="card-body d-flex flex-column">
-          <h3>Overall Progress</h3>
-          <h1 class="flex-grow-1">
-            54%
-            <span>+2.5%</span>
-          </h1>
-          <p>Compared to (77% last Month)</p>
-          <mat-progress-bar class="example-margin" [color]="'primary'" [value]="'80'">
-          </mat-progress-bar>
-        </div>
+<div class="dashboard p-15-md-sm">
+  <ng-container *ngLet="(view$ | async) as view">
+    <div class="row">
+      <div class="col-md-6">
+        <h2 class="overview f-size-18-md-sm">Overview</h2>
+        <p class="desc">
+          See insights on how your Progress has changed from last <strong>{{ insightRange[range] }}</strong>
+        </p>
+      </div>
+      <div class="col-md-6">
+        <button mat-flat-button color="primary" class="float-end ms-2" (click)="onShowSendFeedbackModal()">
+          Send Feedback
+        </button>
+
+        <mat-button-toggle-group class="float-end">
+          <mat-button-toggle value="7days" (change)="loadDashboard($event.value)" checked>7 Days</mat-button-toggle>
+          <mat-button-toggle value="1month" (change)="loadDashboard($event.value)">1 Month</mat-button-toggle>
+          <mat-button-toggle value="3months" (change)="loadDashboard($event.value)">3 Months</mat-button-toggle>
+          <mat-button-toggle value="1year" (change)="loadDashboard($event.value)">Yearly</mat-button-toggle>
+        </mat-button-toggle-group>
       </div>
     </div>
-    <div class="col-md-3">
-      <div class="card orange-bo">
-        <div class="card-body d-flex flex-column">
-          <h3>Total Completed Courses</h3>
-          <h1 class="flex-grow-1">
-            20
-            <span>+0.5%</span>
-          </h1>
-          <p>Compared to 9 courses Last Month</p>
+
+    <ng-container [ngSwitch]="view.loading">
+      <div class="row list-cards" *ngSwitchCase="true">
+        <div class="col-md-3" *ngFor="let _ of [1,2,3,4]">
+          <div class="ph-col-3">
+            <div class="ph-avatar rounded"></div>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col-md-3">
-      <div class="card red-bo">
-        <div class="card-body d-flex flex-column">
-          <h3>Attendence rate</h3>
-          <h1 class="flex-grow-1">
-            %50
-            <span class="danger">-1.5%</span>
-          </h1>
-          <p>Compared to (%65 last month)</p>
+
+      <div class="row list-cards" *ngSwitchCase="false">
+        <div class="col-md-3">
+          <div class="card">
+            <div class="card-body d-flex flex-column">
+              <h3>Total Courses</h3>
+              <h1 class="flex-grow-1">
+                {{ view.data.totalCourses}}
+                <span [ngClass]="{'danger': view.data?.coursesGrowth < 0}">{{ view.data?.coursesGrowth >= 0 ? '+'+view.data?.coursesGrowth : view.data?.coursesGrowth}}%</span>
+              </h1>
+              <p>Compared to {{ view.data?.coursesLastCount}} (last {{insightRange[range]}})</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card red-bo">
+            <div class="card-body d-flex flex-column">
+              <h3>Total Completed Courses</h3>
+              <h1 class="flex-grow-1">
+                {{ view.data.totalCompletedCourses}}
+                <span [ngClass]="{'danger': view.data?.completedCoursesGrowth < 0}">{{ view.data?.completedCoursesGrowth >= 0 ? '+'+view.data?.completedCoursesGrowth : view.data?.completedCoursesGrowth}}%</span>
+              </h1>
+              <p>Compared to {{view.data?.completedCoursesLastCount}} (last {{insightRange[range]}})</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card orange-bo">
+            <div class="card-body d-flex flex-column">
+              <h3>Kudos Points</h3>
+              <h1 class="flex-grow-1">
+                {{ view.data.kudosPoints}}
+                <span [ngClass]="{'danger': view.data?.kudosPointsGrowth < 0}">{{ view.data?.kudosPointsGrowth >= 0 ? '+'+view.data?.kudosPointsGrowth : view.data?.kudosPointsGrowth}}%</span>
+              </h1>
+              <p>Compared to {{ view.data?.kudosPointsLastCount}} (last {{insightRange[range]}})</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card purple-bo">
+            <div class="card-body d-flex flex-column">
+              <h3>Newly Assigned courses</h3>
+              <h1 class="flex-grow-1">
+                {{ view.data.totalNewlyCourses}}
+                <span [ngClass]="{'danger': view.data?.newlyCoursesGrowth < 0}">{{ view.data?.newlyCoursesGrowth >= 0 ? '+'+view.data?.newlyCoursesGrowth : view.data?.newlyCoursesGrowth}}%</span>
+              </h1>
+              <p>Compared to {{ view.data?.newlyCoursesLastCount}} (last {{insightRange[range]}})</p>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col-md-3">
-      <div class="card purple-bo">
-        <div class="card-body d-flex flex-column">
-          <h3>Total payment</h3>
-          <h1 class="flex-grow-1">
-            $126
-            <span>+2.5%</span>
-          </h1>
-          <p>Compared to ($105 last month)</p>
-        </div>
+    </ng-container>
+
+    <div class="row">
+      <div class="col-12">
+        <h3 class="overview mb-3">Today's Classes - {{ view.data?.todaysDate }}</h3>
+        <ng-container [ngSwitch]="view.loading">
+          <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
+          <table class="table my-table" *ngSwitchCase="false">
+            <tr>
+              <th>#</th>
+              <th>Program Name</th>
+              <th>Course Name</th>
+              <th>Class Subject</th>
+              <th>Start time - End time</th>
+              <th>Duration</th>
+              <th></th>
+            </tr>
+            <tr *ngIf="!view.data?.todaysClasses?.length">
+              <td colspan="6">
+                <div class="text-center">No record found</div>
+              </td>
+            </tr>
+            <ng-container *ngIf="view.data?.todaysClasses?.length">
+              <tr *ngFor="let todaysClass of view.data.todaysClasses; let i=index">
+                <td>{{ i+1}}</td>
+                <td>{{ todaysClass?.course?.program?.name }}</td>
+                <td>{{ todaysClass?.course?.courseName }}</td>
+                <td>{{ todaysClass?.title }}</td>
+                <td>{{ todaysClass?.startTime | date:'h:mm a' }} - {{ todaysClass?.endTime | date:'h:mm a' }}</td>
+                <td>{{ todaysClass?.duration }} hour{{ +(todaysClass?.duration)! > 1 ? 's' : '' }}</td>
+                <td class="d-flex justify-content-end">
+                  <button mat-button class="main-button-opacity" (click)="launchClass(todaysClass.id)" [disabled]="(isLaunchingClass$ | async)">
+                    <img src="assets/svg/play-fill.svg" draggable="false" alt="">
+                    Launch Class
+                  </button>
+                </td>
+              </tr>
+            </ng-container>
+          </table>
+        </ng-container>
       </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-12">
-      <h3 class="overview mb-3">Today's Classes - 21 March 2020 [SUNDAY]</h3>
-      <table class="table my-table">
-        <tr>
-          <th>#</th>
-          <th>Classroom Subject</th>
-          <th>Classroom tutor</th>
-          <th>Start time - End time</th>
-          <th>Duration</th>
-          <th></th>
-        </tr>
-        <tr>
-          <td>01</td>
-          <td>Design homepage for …</td>
-          <td>Mark Walters</td>
-          <td>07:10 PM - 09:40 PM </td>
-          <td>2 hours</td>
-          <td>
-            <button mat-button>View Class</button>
-          </td>
-        </tr>
-        <tr>
-          <td>02</td>
-          <td>Design homepage for …</td>
-          <td>Mark Walters</td>
-          <td>07:10 PM - 09:40 PM </td>
-          <td>2 hours</td>
-          <td>
-            <button mat-button>View Class</button>
-          </td>
-        </tr>
-        <tr>
-          <td>03</td>
-          <td>Design homepage for …</td>
-          <td>Mark Walters</td>
-          <td>07:10 PM - 09:40 PM </td>
-          <td>2 hours</td>
-          <td>
-            <button mat-button>View Class</button>
-          </td>
-        </tr>
-      </table>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-12">
-      <h2 class="overview mt-5">Completed courses</h2>
-      <p class="desc">Quickly see Completed courses from <strong>March 26 - April 26</strong></p>
-    </div>
-    <div class="col-12">
-      <div class="card">
-        <div class="card-body">
-          <owl-carousel-o [options]="customOptions">
-            <ng-template carouselSlide *ngFor="let _ of [1,2,3,4,5]">
-              <div class="row card-item">
-                <div class="col-md-4">
-                  <img
-                    src="https://s3-alpha-sig.figma.com/img/269d/54ad/36977821643702b5b2e97df0893659c0?Expires=1614556800&Signature=Fka2HrkrZ~dxc1kcr7YGC9QKkpRJIWxZHnMtdltQHcItVDsVdKJahnUEWMcYJcD~DWUzw6Vec8m0eUJVuRpQuvm~iaiB0PeZB1DvjxXYh5fCDe8tPP4~l1xPgFVvJv7KqKOygXneIm07TEWldKiCjRgj2v1Py~EuywmuXTYGvpwpGflKuwNvedALJqf75TaQzJh6QsKSM9ZqpyUJ~w4hMwctYsfUcZM2uTeQ3Uzr92~DR5Ii5-V4mi54eVILLFboMcPFXgthOo7B47-jjTjp5-Zj4fENN0PEXYe5yDIjzA3XqFfRYTfLSpNoR4tfaqMJBeNvKHlu5C6qSnWiWfmL9g__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"
-                    alt="" class="rounded" width="100%">
-                </div>
-                <div class="col-md-8">
-                  <h1>Python for Data Science and technology Python for Data Science and technology</h1>
-                  <!-- <rating [(ngModel)]="rate" max="5" [readonly]="true"></rating> -->
-                  <div>
-                    <rating [(ngModel)]="rate" [max]="5" [readonly]="true"></rating>
-                    <span class="count">4.5</span>
-                    <span class="review">(30 review)</span>
-                  </div>
-                  <h3 class="mt-2">100% Completed</h3>
-                  <mat-progress-bar class="example-margin" [color]="'primary'" [value]="'100'">
-                  </mat-progress-bar>
-                  <div class="row mt-3">
-                    <div class="col-md-4">
-                      <h5>Total hours</h5>
-                      <h4 class="m-0">30 Hours</h4>
-                    </div>
-                    <div class="col-md-4">
-                      <h5>Total Classes</h5>
-                      <h4 class="m-0">30</h4>
-                    </div>
-                    <div class="col-md-4">
-                      <h5>Study type:</h5>
-                      <h4 class="m-0">Groups</h4>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </ng-template>
-          </owl-carousel-o>
-        </div>
+
+    <div class="row">
+      <div class="col-12">
+        <h2 class="overview mt-5 f-size-18-md-sm mt-15-md-sm">Newly Assigned Courses</h2>
+      </div>
+      <div class="col-12">
+        <ng-container [ngSwitch]="view.loading">
+          <metutors-card-placeholder *ngSwitchCase="true"></metutors-card-placeholder>
+          <ng-container *ngSwitchCase="false">
+            <ng-container *ngIf="view.data.courses?.length">
+              <metutors-classroom-item [classroom]="course" *ngFor="let course of view.data.courses"
+                                       [completeCourse]="true" (reject)="onOpenRejectCourse(course.id)"
+                                       [isAcceptingCourse]="(isAccepting$ | async)!"
+                                       (accept)="onAcceptCourse(course.id)"
+                                       [url]="'/tutor/classrooms/classes/dashboard/'">
+              </metutors-classroom-item>
+            </ng-container>
+            <ng-container *ngIf="!view.data.courses?.length">
+              <div class="p-5 text-center">No record found</div>
+            </ng-container>
+          </ng-container>
+        </ng-container>
       </div>
     </div>
-  </div>
+
+    <div class="row">
+      <div class="col-12">
+        <h2 class="overview mt-5 mb-3 f-size-18-md-sm mt-15-md-sm">
+          Kudos Points Details
+
+          <span class="float-end view-all text-main cursor-pointer" (click)="onOpenKudosPointsModal()">
+            View all reviews
+            <img src="assets/svg/arrow-left-line-colored.svg" alt="" class="ms-2" draggable="false">
+          </span>
+        </h2>
+      </div>
+      <div class="col-12">
+        <ng-container [ngSwitch]="view.loading">
+          <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
+          <table class="table my-table default-title" *ngSwitchCase="false">
+            <tr>
+              <th colspan="4">Kudos Points details</th>
+              <th class="sm">
+                <span class="float-end me-2">Total Points: {{view.data?.kudosPoints ? view.data?.kudosPoints : 0}}</span>
+              </th>
+            </tr>
+            <tr>
+              <td>Number</td>
+              <td>Student Name</td>
+              <td>Course Name</td>
+              <td>Course Date</td>
+              <td>Points</td>
+            </tr>
+            <tr *ngIf="!view.data.feedbacks?.data?.length">
+              <td colspan="5">
+                <div class="text-center">No record found</div>
+              </td>
+            </tr>
+            <ng-container *ngIf="view.data.feedbacks?.data?.length">
+              <tr *ngFor="let kudo of view.data.feedbacks.data; let i=index">
+                <td>{{ i + 1}}</td>
+                <td>
+                  <metutors-user-avatar [avatar]="kudo?.avatar" [type]="'small'"
+                                        [name]="kudo?.studentName"
+                                        class="d-inline-block ps-0">
+                  </metutors-user-avatar>
+                </td>
+                <td>{{ kudo?.courseName }}</td>
+                <td>{{ kudo?.courseDate}}</td>
+                <td>{{ kudo.kudosPoints}} Points</td>
+              </tr>
+            </ng-container>
+          </table>
+        </ng-container>
+      </div>
+    </div>
+  </ng-container>
 </div>
+
+<metutors-tutor-view-kudos-points-detail *ngIf="showKudosPointsModal$ | async" [kudosPoints]="(kudosPoints$ | async)!"
+                                         [loading]="(isLoadingKudosPoints$ | async)!"
+                                         [showModal]="(showKudosPointsModal$ | async)!"
+                                         (closeModal)="onCloseKudosPointsModal()">
+</metutors-tutor-view-kudos-points-detail>
+
+<metutors-tutor-reject-course-modal *ngIf="(showRejectCourseModal$ | async)"
+                                    [showModal]="(showRejectCourseModal$ | async)!" (submitted)="onRejectCourse($event)"
+                                    (closeModal)="onCloseRejectCourse()" [submitting]="(isRejecting$ | async)!">
+</metutors-tutor-reject-course-modal>
+
+<metutors-tutor-feedback-modal *ngIf="(showSendFeedbackModal$ | async)" [heading]="heading"
+                               [messageLabel]="messageLabel" [tabLabel]="tabLabel" [subHeading]="subHeading"
+                               [showModal]="(showSendFeedbackModal$ | async)!" [isPlatform]="true" [buttonLabel]="'Send Feedback'"
+                               (closeModal)="onCloseSendFeedbackModal()" (submitFeedback)="onSubmitFeedback($event)">
+</metutors-tutor-feedback-modal>

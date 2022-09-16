@@ -1,0 +1,103 @@
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'xmedium'" [heading]="'Request New Course'"
+                [template]="template">
+  <ng-template #template>
+    <form [formGroup]="form" class="request-course" (ngSubmit)="onSubmit(form)">
+      <div class="row">
+        <div class="col-md-6">
+          <h3>Program Name</h3>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select formControlName="program" [placeholder]="'Choose Program'"
+              (selectionChange)="onChangeProgram()">
+              <mat-option [value]="program?.id" *ngFor="let program of programs">
+                {{ program?.name }}
+              </mat-option>
+              <mat-option value="0">Others</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6" *ngIf="program?.value === nationalId">
+          <h3>Select Country</h3>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select formControlName="country" [placeholder]="'Choose Country'">
+              <mat-option [value]="country?.id" *ngFor="let country of countries">
+                {{ country?.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <h3>Subject</h3>
+          <input type="text" class="form-control w-100" placeholder="Subject" formControlName="subject">
+        </div>
+        <div class="col-md-6" *ngIf="program?.value === nationalId">
+          <h3>Grade Level</h3>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select formControlName="grade" [placeholder]="'Choose Grade'">
+              <mat-option [value]="i + 1" *ngFor="let grade of grades; let i = index">
+                {{ grade }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <h3>Tutoring Gender Preference</h3>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-select formControlName="gender" [placeholder]="'Select Gender'">
+                <mat-option [value]="gender" *ngFor="let gender of genders">{{ gender }}</mat-option>
+                <mat-option value="any">Any</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <h3>Tutoring Language Preference</h3>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select formControlName="language" [placeholder]="'Choose Language'">
+              <mat-option [value]="lang?.id" *ngFor="let lang of languages">
+                {{ lang?.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-12">
+          <h3>Course Description</h3>
+          <textarea rows="3" formControlName="description" class="form-control" placeholder="Description"></textarea>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <h2>Personal Info</h2>
+        </div>
+        <div class="col-md-6">
+          <h3>Name</h3>
+          <input type="text" formControlName="name" class="form-control" placeholder="Enter first / last name">
+
+          <div *ngIf="name?.invalid && name?.touched">
+            <small class="text-danger">Please write your name</small>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <h3>Email address</h3>
+          <input type="email" class="custom-input w-100 input-bordered" id="email" placeholder="ku@pecafhuj.co.uk"
+            formControlName="email" email>
+
+          <div *ngIf="email?.invalid && email?.touched">
+            <small class="text-danger">Please write a valid email</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-end mt-4 mb-1">
+        <button (click)="closeModal.emit()" mat-button class="cancel-btn">Cancel</button>
+
+        <metutors-submit-button [form]="form" [isSubmitting]="isSubmitting" [extraClasses]="'w-100'">
+          Send Request
+          <mat-icon *ngIf="!isSubmitting">arrow_forward</mat-icon>
+        </metutors-submit-button>
+      </div>
+    </form>
+  </ng-template>
+</metutors-modal>

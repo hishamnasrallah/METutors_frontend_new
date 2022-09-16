@@ -58,7 +58,7 @@ export class ConfirmEmailComponent implements OnInit, OnDestroy {
     const email = this._route.snapshot.queryParams['email'];
 
     this.resendEmailConfirmSub = this._authService
-      .resendEmailConfirm({ email })
+      .resendEmailConfirm(email)
       .subscribe(
         (response) => {
           if (response.status_code === 200) {

@@ -2,18 +2,19 @@
   <div class="container">
     <div class="row">
       <div class="col-12">
-        <h2>Our Facts & Statistics</h2>
-        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin
-          literature</p>
+        <h2 class="f-size-25-md-sm">Whatever your goals are we’ve got a tutor for you</h2>
+        <p class="f-size-15-md-sm">
+          Our tutors will help you develop your skills and build confidence in any subject area.
+        </p>
       </div>
     </div>
     <div class="row mt-4">
-      <div class="col-md-3" *ngFor="let stat of statistics; let i = index">
+      <div class="col-lg-3 col-md-6" *ngFor="let stat of statistics; let i = index">
         <div class="card">
           <div class="card-body">
             <img [src]="stat?.icon" draggable="false" alt="" height="65" width="65">
-            <h3>{{ stat?.value }}</h3>
-            <h4>{{ stat?.type }}</h4>
+            <h3 class="f-size-20-md-sm">{{ stat?.value }}</h3>
+            <h4 class="f-size-15-md-sm">{{ stat?.type }}</h4>
           </div>
         </div>
       </div>

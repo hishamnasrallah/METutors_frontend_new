@@ -1,86 +1,57 @@
-<div class="container py-5 reset-block full-height">
+<div class="py-5 security-settings p-15-sm mt-15-sm">
   <div class="row h-100">
     <div class="col-md-12 align-items-center">
-      <form [formGroup]="form" class="w-100">
+      <form [formGroup]="form" class="w-100" (ngSubmit)="onSubmit(form)">
         <div>
-          <h4 class="mb-5">Change Password</h4>
-
-          <ng-container *ngIf="!passwordValidated">
-
-            <div class="form-group">
-              <label for="currPassword">Current Password</label>
-              <input type="password" class="custom-input w-100 input-bordered" id="currPassword"
-                placeholder="ku@pecafhuj.co.uk" formControlName="currPassword">
-              <!-- <div class="text-danger" *ngIf="currPassword.touched && currPassword.errors?.required">
-                Please write your Current Password
-              </div>
-              <div class="text-danger"
-                *ngIf="currPassword.touched && !currPassword.errors?.required && currPassword.errors?.maxlength">
-                Password cannot be more than 100 characters
-              </div>
-              <div class="text-danger"
-                *ngIf="currPassword.touched && !currPassword.errors?.required && currPassword.errors?.minlength">
-                Password cannot be less than 8 characters
-              </div> -->
+          <div class="form-group">
+            <div class="col-xl-6 position-relative">
+              <label for="oldPassword">Current Password</label>
+              <input [type]="!currentPasswordVisibility ? 'password' : 'text'" class="custom-input w-100 input-bordered"
+                     id="oldPassword"
+                     placeholder="Type current password" formControlName="oldPassword">
+              <mat-icon matSuffix class="position-absolute password-visibility"
+                        (click)="currentPasswordVisibility = !currentPasswordVisibility">{{ !currentPasswordVisibility ? 'visibility_off' : 'visibility'}}</mat-icon>
+              <span class="text-danger" *ngIf="oldPassword?.invalid && oldPassword?.touched">
+              Password cannot be less than 8 characters and cannot be more than 100 characters
+            </span>
             </div>
+          </div>
 
-            <div class="form-group mt-4 mb-2">
-              <button mat-flat-button color="primary" class="py-2 d-block w-100" cdkFocusInitial type="submit"
-                (click)="onSubmitCurrentPassword()">
-                Submit
-                <mat-icon class="spinner" *ngIf="loading">autorenew</mat-icon>
-              </button>
+          <div class="form-group">
+            <div class="col-xl-6 position-relative">
+              <label for="password">New Password</label>
+              <input [type]="!newPasswordVisibility ? 'password' : 'text'" class="custom-input w-100 input-bordered"
+                     id="password"
+                     placeholder="Type new password" formControlName="password">
+              <mat-icon matSuffix class="position-absolute password-visibility"
+                        (click)="newPasswordVisibility = !newPasswordVisibility">{{ !newPasswordVisibility ? 'visibility_off' : 'visibility'}}</mat-icon>
+              <span class="text-danger" *ngIf="password?.invalid && password?.touched">
+              Password cannot be less than 8 characters and cannot be more than 100 characters
+            </span>
             </div>
+          </div>
 
-          </ng-container>
-
-          <ng-container *ngIf="passwordValidated">
-
-            <div class="form-group">
-              <label for="newPassword">New Password</label>
-              <input type="password" class="custom-input w-100 input-bordered" id="newPassword"
-                placeholder="ku@pecafhuj.co.uk" formControlName="newPassword">
-              <!-- <div class="text-danger" *ngIf="newPassword.touched && newPassword.errors?.required">
-                Please write your New Password
-              </div>
-              <div class="text-danger"
-                *ngIf="newPassword.touched && !newPassword.errors?.required && newPassword.errors?.maxlength">
-                Password cannot be more than 100 characters
-              </div>
-              <div class="text-danger"
-                *ngIf="newPassword.touched && !newPassword.errors?.required && newPassword.errors?.minlength">
-                Password cannot be less than 8 characters
-              </div> -->
-            </div>
-
-            <div class="form-group">
-              <label for="confirmPassword">Confirm Password</label>
-              <input type="password" class="custom-input w-100 input-bordered" id="currPassword"
-                placeholder="ku@pecafhuj.co.uk" formControlName="confirmPassword" (input)="checkSamePasswords()">
-              <!-- <div class="text-danger" *ngIf="confirmPassword.touched && confirmPassword.errors?.required">
-                Please Re Write Your Password
-              </div>
-              <div class="text-danger"
-                *ngIf="confirmPassword.touched && !confirmPassword.errors?.required && confirmPassword.errors?.maxlength">
-                Password cannot be more than 100 characters
-              </div>
-              <div class="text-danger"
-                *ngIf="confirmPassword.touched && !confirmPassword.errors?.required && confirmPassword.errors?.minlength">
-                Password cannot be less than 8 characters
-              </div>
-              <div class="text-danger"
-                *ngIf="confirmPassword.touched && !confirmPassword.errors?.required && !confirmPassword.errors?.minlength && !confirmPassword.errors?.maxlength && !passwordSame">
+          <div class="form-group">
+            <div class="col-xl-6 position-relative">
+              <label for="confirmPassword">Repeat New Password</label>
+              <input [type]="!repeatPasswordVisibility ? 'password' : 'text'" class="custom-input w-100 input-bordered"
+                     id="confirmPassword"
+                     placeholder="Confirm new password" formControlName="confirmPassword">
+              <mat-icon matSuffix class="position-absolute password-visibility"
+                        (click)="repeatPasswordVisibility = !repeatPasswordVisibility">{{ !repeatPasswordVisibility ? 'visibility_off' : 'visibility'}}</mat-icon>
+              <div class="text-danger" *ngIf="form?.hasError('passwordMismatch')">
                 Passwords do not match
-              </div> -->
+              </div>
             </div>
-            <div class="form-group mt-4 mb-2">
-              <button mat-flat-button color="primary" class="py-2 d-block w-100" cdkFocusInitial type="submit"
-                (click)="changePassword()">
+          </div>
+
+          <div class="row btn-list mt-5">
+            <div class="col-12 d-flex justify-content-end">
+              <metutors-submit-button [form]="form" [isSubmitting]="isChanging">
                 Change Password
-                <mat-icon class="spinner" *ngIf="subLoading">autorenew</mat-icon>
-              </button>
+              </metutors-submit-button>
             </div>
-          </ng-container>
+          </div>
         </div>
       </form>
     </div>

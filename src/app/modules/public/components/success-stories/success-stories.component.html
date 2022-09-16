@@ -1,11 +1,10 @@
-<div class="success-stories" style="background-image: url(assets/homepage/stars_bg.png);">
+<div class="success-stories" id="success-stories" style="background-image: url(assets/homepage/stars_bg.png);">
   <div class="container">
     <div class="row">
-      <div class="col-md-12 text-center">
-        <h1>Read our success stories</h1>
-        <p>
-          Our tutors have helped thousands of students around the world
-        </p>
+      <div class="col-md-1"></div>
+      <div class="col-md-10 text-center">
+        <h1 class="f-size-25-md-sm">{{ title }}</h1>
+        <p class="f-size-18-md-sm">{{ desc }}</p>
       </div>
 
       <div class="col-12">
@@ -14,7 +13,7 @@
             <div class="px-3 h-100 d-flex flex-column">
               <rating [ngModel]="testmonial?.rate" [max]="5" [readonly]="true"></rating>
               <p class="desc flex-grow-1">
-                {{ testmonial?.content }}
+                <q>{{ testmonial?.content }}</q>
               </p>
               <div class="row info">
                 <div class="col-md-2 d-flex align-items-center">

@@ -1,6 +1,7 @@
 <div class="container request-tutor">
-  <h1>Request Academic Tutoring</h1>
-  <mat-horizontal-stepper labelPosition="bottom" linear #stepper>
+  <h1 class="f-size-20-md-sm">Course Booking</h1>
+
+  <mat-horizontal-stepper labelPosition="bottom" linear #stepper class="step{{ step + 1 }}">
     <mat-step [stepControl]="courseInformationForm">
       <form [formGroup]="courseInformationForm">
         <ng-template matStepLabel>
@@ -11,14 +12,21 @@
                 <mat-icon>check</mat-icon>
               </ng-container>
             </h3>
-            <h4>Step one</h4>
-            <h2>Course information</h2>
+            <h4 class="text-uppercase f-size-15-md-sm">Step one</h4>
+            <h2 class="f-size-15-md-sm">Course Details</h2>
           </div>
         </ng-template>
 
-        <metutors-course-information-form [form]="courseInformationForm" [courseLevel]="courseLevel"
-          [courseField]="courseField" [coursePrograms]="coursePrograms" [languages]="languages" [subjects]="subjects"
-          (submitForm)="nextStep()" (changeCourseProgram)="fetchCourseFieldSubject($event); fetchCourseField($event)">
+        <metutors-course-information-form [form]="courseInformationForm"
+                                          [fields]="fields$ | async"
+                                          [programs]="programs$ | async"
+                                          [languages]="languages$ | async"
+                                          [subjects]="subjects$ | async"
+                                          [countries]="countries$ | async"
+                                          (submitForm)="nextStep()"
+                                          (changeCourseProgram)="fetchCourseField($event)"
+                                          (changeCourseField)="fetchCourseFieldSubject($event)"
+                                          (changeCourseSubject)="calculateEstimatedPrice($event)">
         </metutors-course-information-form>
       </form>
     </mat-step>
@@ -33,13 +41,16 @@
                 <mat-icon>check</mat-icon>
               </ng-container>
             </h3>
-            <h4>Step two</h4>
-            <h2>Classroom details</h2>
+            <h4 class="text-uppercase f-size-15-md-sm">Step two</h4>
+            <h2 class="f-size-15-md-sm">Classroom Setup</h2>
           </div>
         </ng-template>
 
-        <metutors-classroom-info-form [form]="classroomDetailsForm" [prices]="prices" (onBack)="backStep()"
-          (submitForm)="nextStep(); generateClassRooms()">
+        <metutors-classroom-info-form [form]="classroomDetailsForm"
+                                      [price]="price$ | async"
+                                      (onBack)="backStep()"
+                                      [selectedCourse]="selectedCourse"
+                                      (submitForm)="nextStep(); generateClassRooms()">
         </metutors-classroom-info-form>
       </form>
     </mat-step>
@@ -54,13 +65,19 @@
                 <mat-icon>check</mat-icon>
               </ng-container>
             </h3>
-            <h4>Step three</h4>
-            <h2>Classroom Schedule</h2>
+            <h4 class="text-uppercase f-size-15-md-sm">Step three</h4>
+            <h2 class="f-size-15-md-sm">Class Schedule</h2>
           </div>
         </ng-template>
 
-        <metutors-list-classrooms-form [form]="classroomScheduleForm" [classrooms]="classrooms" (onBack)="backStep()"
-          (onNext)="nextStep()" (loadTutors)="loadTutors($event)">
+        <metutors-list-classrooms-form [form]="classroomScheduleForm"
+                                       [price]="price$ | async"
+                                       [classrooms]="classrooms"
+                                       (onBack)="backStep()"
+                                       (onNext)="nextStep()"
+                                       [selectedCourse]="selectedCourse"
+                                       (updatedClassrooms)="updatedClassrooms($event)"
+                                       (loadTutors)="loadTutors($event)">
         </metutors-list-classrooms-form>
       </form>
     </mat-step>
@@ -75,13 +92,25 @@
                 <mat-icon>check</mat-icon>
               </ng-container>
             </h3>
-            <h4>Step four</h4>
-            <h2>Select a tutor</h2>
+            <h4 class="text-uppercase f-size-15-md-sm">Step four</h4>
+            <h2 class="f-size-15-md-sm">Tutor Information</h2>
           </div>
         </ng-template>
 
-        <metutors-select-tutor-form [form]="selectTutorForm" [loading]="loadingTutors" [tutors]="tutors"
-          (onBack)="backStep()" (submitForm)="nextStep()">
+        <metutors-select-tutor-form [form]="selectTutorForm"
+                                    [classrooms]="classrooms"
+                                    [duration]="duration"
+                                    [loading]="loadingTutors$ | async"
+                                    [price]="price$ | async"
+                                    [hours]="reviewInfo?.hours"
+                                    [suggestedTutors]="suggestedTutors$ | async"
+                                    [availableTutors]="availableTutors$ | async"
+                                    (onBack)="backStep()"
+                                    [selectedCourse]="selectedCourse"
+                                    (tutorAvailability)="onTutorAvailability($event)"
+                                    (filterTutors)="filterTutors($event)"
+                                    (changeSchedule)="onOpenChangeCourseScheduleModal($event)"
+                                    (submitForm)="nextStep()">
         </metutors-select-tutor-form>
       </form>
     </mat-step>
@@ -90,14 +119,31 @@
       <ng-template matStepLabel>
         <div class="title-info">
           <h3>05</h3>
-          <h4>Step five</h4>
-          <h2>Review your request</h2>
+          <h4 class="text-uppercase f-size-15-md-sm">Step five</h4>
+          <h2 class="f-size-15-md-sm">Order Summary</h2>
         </div>
       </ng-template>
 
-      <metutors-review-request [reviewInfo]="reviewInfo" [isCreatingCourse]="isCreatingCourse" (submitForm)="onSubmit()"
-        (onBack)="backStep()">
+      <metutors-review-request [reviewInfo]="reviewInfo"
+                               [isCreatingCourse]="isCreatingCourse$ | async"
+                               [price]="price$ | async"
+                               [selectedCourse]="selectedCourse"
+                               (submitForm)="onSubmit()"
+                               (onBack)="backStep()">
       </metutors-review-request>
     </mat-step>
   </mat-horizontal-stepper>
 </div>
+
+<metutors-teacher-availability-modal [timeSlots]="(tutorAvailability$ | async)!"
+                                     [isLoadingTimeSlots]="(isLoadingTutorAvailability$ | async)!"
+                                     [showModal]="(showTeacherAvailabilityModal$ | async)!"
+                                     *ngIf="showTeacherAvailabilityModal$ | async"
+                                     (closeModal)="onCloseTeacherAvailabilityModal()">
+</metutors-teacher-availability-modal>
+
+<metutors-change-course-schedule-modal [showModal]="(showChangeCourseScheduleModal$ | async)!"
+                                       *ngIf="showChangeCourseScheduleModal$ | async"
+                                       (closeModal)="onCloseChangeCourseScheduleModal()"
+                                       (changeSchedule)="onCloseChangeCourseScheduleModal(); changeSchedule()">
+</metutors-change-course-schedule-modal>

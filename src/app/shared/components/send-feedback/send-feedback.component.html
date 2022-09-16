@@ -1,0 +1,33 @@
+<div class="send-feedback">
+  <form [formGroup]="form" (ngSubmit)="submitFeedback.emit(form)"
+        class="rating-block mt-3">
+    <ng-container formArrayName="feedbacks">
+      <div class="row mt-1" *ngFor="let option of feedbackOptions?.params; let i = index" [formGroupName]="i">
+        <div class="col">
+          <p>{{ option?.name }}</p>
+        </div>
+        <div class="col-md-3 d-flex justify-content-center">
+          <metutors-review-rate [id]="i" formControlName="rating"></metutors-review-rate>
+        </div>
+      </div>
+    </ng-container>
+
+    <div class="row mt-3">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="message" class="fw-bold" *ngIf="messageLabel">{{ messageLabel }}*</label>
+          <textarea rows="5" class="custom-input w-100 input-bordered" id="message"
+                    placeholder="Enter your text here"
+                    formControlName="review"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-md-12 overflow-hidden">
+        <metutors-submit-button [form]="form" [isSubmitting]="isSubmitting" [extraClasses]="'float-end py-1 px-5 fw-bold'">
+          {{ buttonLabel }}
+        </metutors-submit-button>
+      </div>
+    </div>
+  </form>
+</div>

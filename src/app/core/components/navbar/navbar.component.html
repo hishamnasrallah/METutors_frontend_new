@@ -9,9 +9,9 @@
     <div class="flex-grow-1 collapse navbar-collapse">
       <ul class="navbar-nav ms-auto flex-nowrap float-end">
         <li class="nav-item">
-          <a class="nav-link nav-item-link" routerLink="/" routerLinkActive="active"
+          <a class="nav-link nav-item-link" routerLink="/about" routerLinkActive="active"
             [routerLinkActiveOptions]="{exact: true}">
-            Services
+            About Us
           </a>
         </li>
         <li class="nav-item">
@@ -24,31 +24,38 @@
             Become A Tutor
           </a>
         </li>
-        <li class="nav-item" *ngIf="!authService.getIsAuth()">
+        <li class="nav-item" *ngIf="!(token$ | async)">
           <a class="nav-link nav-item-link" routerLink="/signin" routerLinkActive="active">
             Sign in
           </a>
         </li>
-        <li class="nav-item" *ngIf="authService.getIsAuth()">
+        <li class="nav-item" *ngIf="token$ | async">
           <a class="nav-link nav-item-link" (click)="logout()">
             Logout
           </a>
         </li>
-        <li class="nav-item" *ngIf="authService.getIsAuth()">
-          <a class="nav-link nav-item-link" [routerLink]="'/' + authService.getIsStudentAuth() ? 'student' : 'tutor'"
-            routerLinkActive="active">
-            My Classroom
+        <li class="nav-item d-flex align-items-center justify-content-center">
+          <a class="nav-link nav-item-link currency" [matMenuTriggerFor]="currency">
+            <span class="lang">{{ (selectedCurrency$ | async)?.id }}</span>
+            <img src="assets/svg/b-chevron.svg" alt="" draggable="false">
           </a>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a class="nav-link nav-item-link" routerLinkActive="active">
             <img src="assets/svg/language.svg" alt="" draggable="false">
             <span class="lang">En</span>
             <img src="assets/svg/b-chevron.svg" alt="" draggable="false">
           </a>
-        </li>
+        </li> -->
         <li class="nav-item btn-nav d-flex align-items-center justify-content-center">
-          <a class="link-btn login" mat-flat-button color="primary">Book a Class</a>
+          <a *ngIf="!(token$ | async)" class="link-btn login px-4 py-1 fw-bold" mat-flat-button color="primary"
+            routerLink="/signup">
+            Get Started
+          </a>
+          <a *ngIf="token$ | async" class="link-btn login px-4 py-1 fw-bold" mat-flat-button color="primary"
+            [routerLink]="(user$ | async)?.roleId === userRole.tutor ? '/tutor' : (user$ | async)?.roleId === userRole.student ? '/student' : '/admin'">
+            My Classroom
+          </a>
         </li>
       </ul>
     </div>
@@ -69,8 +76,8 @@
     <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu dropdown-menu-left w-100-sm" role="menu"
       aria-labelledby="button-basic">
       <li role="menuitem">
-        <a class="dropdown-item" routerLink="/" routerLinkActive="active"
-          [routerLinkActiveOptions]="{exact: true}">Services</a>
+        <a class="dropdown-item" routerLink="/about" routerLinkActive="active"
+          [routerLinkActiveOptions]="{exact: true}">About Us</a>
       </li>
       <li role="menuitem">
         <a class="dropdown-item" routerLink="/student-success" routerLinkActive="active">Student Success</a>
@@ -78,32 +85,50 @@
       <li role="menuitem">
         <a class="dropdown-item" routerLink="/become-tutor" routerLinkActive="active">Become A Tutor</a>
       </li>
-      <li role="menuitem" *ngIf="authService.getIsAuth()">
-        <a class="dropdown-item" [routerLink]="'/' + authService.getIsStudentAuth() ? 'student' : 'tutor'"
-          routerLinkActive="active">My Classroom</a>
-      </li>
       <li role="menuitem">
+        <a class="dropdown-item text-center" [matMenuTriggerFor]="currency">
+          <span class="mx-2">{{ (selectedCurrency$ | async)?.id }}</span>
+          <img src="assets/svg/b-chevron.svg" alt="" draggable="false">
+        </a>
+      </li>
+      <!-- <li role="menuitem">
         <a class="dropdown-item" routerLinkActive="active">
           <img src="assets/svg/language.svg" alt="" draggable="false">
           <span class="mx-2">En</span>
           <img src="assets/svg/b-chevron.svg" alt="" draggable="false">
         </a>
-      </li>
+      </li> -->
       <li role="menuitem" class="book-class">
-        <a class="dropdown-item link-btn login" mat-flat-button color="primary" routerLink="/become-tutor"
-          routerLinkActive="active">Book a Class</a>
+        <a *ngIf="!(token$ | async)" class="dropdown-item link-btn login" mat-flat-button color="primary" routerLink="/signup">
+          Get Started
+        </a>
+        <a *ngIf="token$ | async" class="dropdown-item link-btn login" mat-flat-button color="primary"
+          [routerLink]="(user$ | async)?.roleId === userRole.tutor ? '/tutor' : (user$ | async)?.roleId === userRole.student ? '/student' : '/admin'">
+          My Classroom
+        </a>
       </li>
 
       <li class="divider dropdown-divider"></li>
 
-      <li role="menuitem" *ngIf="!authService.getIsAuth()">
-        <a class="main-btn rounded-pill order-0 w-100 button-auth text-center" type="button" routerLink="/signin" routerLinkActive="active">
+      <li role="menuitem" *ngIf="!(token$ | async)">
+        <a class="main-btn rounded-pill order-0 w-100 button-auth text-center" type="button" routerLink="/signin"
+          routerLinkActive="active">
           Sign in
         </a>
       </li>
-      <li role="menuitem" *ngIf="authService.getIsAuth()">
+      <li role="menuitem" *ngIf="token$ | async">
         <a class="secondary-btn mt-2 w-100 button-auth text-center" type="button" (click)="logout()">Logout</a>
       </li>
     </ul>
   </div>
 </nav>
+
+<mat-menu #currency="matMenu">
+  <ng-container *ngFor="let item of (currencyRates$ | async)">
+    <button mat-menu-item [ngClass]="{
+      'active' : item.id === (selectedCurrency$ | async)?.id
+      }" class="h-auto currency-item" (click)="onCurrencySelect(item)">
+      {{ item?.name }}
+    </button>
+  </ng-container>
+</mat-menu>

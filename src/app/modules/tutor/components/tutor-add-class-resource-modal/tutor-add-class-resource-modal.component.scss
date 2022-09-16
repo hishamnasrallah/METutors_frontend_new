@@ -1,0 +1,61 @@
+.add-class-modal {
+  .delete-icon {
+    width: 16px;
+    height: 16px;
+    font-size: 16px;
+    color: #696969;
+  }
+
+  label {
+    font-weight: bold;
+    font-size: 15px;
+  }
+
+  .url-info {
+    span {
+      color: #696969;
+    }
+
+    strong {
+      font-size: 18px;
+      color: #2a2a2a;
+      font-weight: 500;
+    }
+  }
+
+  .extensions {
+    color: var(--main-color);
+    font-size: 15px;
+    margin: 5px 0 10px;
+  }
+
+  .list-files {
+    >div {
+      width: 50%;
+    }
+
+    h3 {
+      font-size: 16px;
+      margin: 0;
+      color: #2a2a2a;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+    }
+
+    h5 {
+      font-size: 13px;
+      color: #696969;
+      margin: 0;
+    }
+  }
+
+  .add-url {
+    line-height: 25px;
+  }
+
+  .text-danger {
+    font-size: 14px;
+  }
+}

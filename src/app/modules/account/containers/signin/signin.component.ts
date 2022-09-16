@@ -1,16 +1,22 @@
+import { Store } from '@ngrx/store';
+import { IRole } from 'src/app/core/models';
+import * as fromCore from '@metutor/core/state';
+import { Observable, Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import * as fromAccount from '@metutor/modules/account/state';
+import { addMisc, getMisc, SocialProvider } from 'src/app/config';
+import { AuthService, UsersService } from 'src/app/core/services';
+import { FormValidationUtilsService } from 'src/app/core/validators';
+import { OtpVerifyComponent, RolesSelectComponent } from '../../components';
+import * as fromAccountAction from '@metutor/modules/account/state/actions';
 import {
-  AbstractControl,
-  FormBuilder,
   FormGroup,
   Validators,
+  FormBuilder,
+  AbstractControl,
 } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { UserRole } from 'src/app/config';
-import { AlertNotificationService } from 'src/app/core/components';
-import { AuthService } from 'src/app/core/services';
-import { FormValidationUtilsService } from 'src/app/core/validators';
 
 @Component({
   selector: 'metutors-signin',
@@ -18,21 +24,28 @@ import { FormValidationUtilsService } from 'src/app/core/validators';
   styleUrls: ['./signin.component.scss'],
 })
 export class SigninComponent implements OnInit, OnDestroy {
+  userRole$: Observable<number>;
+  isLoading$: Observable<boolean>;
+  authLoading$: Observable<boolean>;
+  isVerifyEmail$: Observable<boolean>;
+  isResendEmailconfirm$: Observable<boolean>;
+  showAccountEmailVerificationModal$: Observable<boolean>;
+
   userRole: any;
-  gloading = false;
-  floading = false;
+  roles!: IRole[];
+  returnUrl: string;
   signinForm: FormGroup;
-  loading: boolean = false;
-  signinSub?: Subscription;
+  passwordVisibility = false;
+  getRolesSub?: Subscription;
 
   constructor(
-    private _router: Router,
-    // public dialog: MatDialog,
     private _fb: FormBuilder,
+    private _store: Store<any>,
+    private _dialog: MatDialog,
     private _route: ActivatedRoute,
     private _authService: AuthService,
-    private _fv: FormValidationUtilsService,
-    private _alertNotificationService: AlertNotificationService
+    private _userService: UsersService,
+    private _fv: FormValidationUtilsService
   ) {
     this.signinForm = this._fb.group({
       username: [
@@ -46,11 +59,32 @@ export class SigninComponent implements OnInit, OnDestroy {
         ],
       ],
       password: [null, [Validators.required, this._fv.minPasswordValidation]],
-      rememberMe: [null],
+      rememberMe: [false],
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this._prepareRoles();
+
+    this.isLoading$ = this._store.select(fromCore.selectIsSignIn);
+    this.authLoading$ = this._store.select(fromCore.selectIsSocialSignIn);
+    this._store.select(fromCore.selectTempToken).subscribe((token) => {
+      if (token) {
+        this.openOtpDialog();
+      }
+    });
+
+    this.returnUrl = this._route.snapshot.queryParams['returnUrl'];
+
+    this.showAccountEmailVerificationModal$ = this._store.select(
+      fromAccount.selectShowEmailVerificationModal
+    );
+    this.userRole$ = this._store.select(fromAccount.selectLoginUserRole);
+    this.isVerifyEmail$ = this._store.select(fromCore.selectIsVerifyEmail);
+    this.isResendEmailconfirm$ = this._store.select(
+      fromCore.selectIsResendEmailConfirm
+    );
+  }
 
   get username(): AbstractControl | null {
     return this.signinForm.get('username');
@@ -60,169 +94,115 @@ export class SigninComponent implements OnInit, OnDestroy {
     return this.signinForm.get('password');
   }
 
-  onSubmit(form: FormGroup) {
+  onOpenAccountEmailVerificationModal(): void {
+    this._store.dispatch(fromAccountAction.openAccountEmailVerificationModal());
+  }
+
+  onCloseAccountEmailVerificationModal(): void {
+    this._store.dispatch(
+      fromAccountAction.closeAccountEmailVerificationModal()
+    );
+  }
+
+  onSubmitVerifyEmail(code: string, userType: number) {
+    const value = {
+      username: this.username?.value,
+      code,
+      userType,
+    };
+
+    this._store.dispatch(fromCore.verifyEmail({ value }));
+  }
+
+  resendEmailConfirm(): void {
+    this._store.dispatch(
+      fromCore.resendEmailConfirm({
+        email: this.username?.value,
+      })
+    );
+  }
+
+  onSubmit(form: FormGroup): void {
     if (form.invalid) {
       return;
     }
-    this.loading = true;
-    this.signinSub = this._authService
-      .login(form.value)
-      .subscribe((response: any) => {
-        if (response) {
-          if (response.status === true) {
-            this.signinForm.reset();
-            this.loading = false;
 
-            if (response.token) {
-              localStorage.setItem('token', response.token);
-            }
-
-            if (
-              this._route.snapshot.queryParams['returnUrl'] &&
-              decodeURIComponent(this._route.snapshot.queryParams['returnUrl'])
-            ) {
-              let returnUrl = decodeURIComponent(
-                this._route.snapshot.queryParams['returnUrl']
-              );
-              this._router.navigate([returnUrl]);
-            } else {
-              // if (response.user.role_name === UserRole.student) {
-              //   this._router.navigate(['/student-dashboard'], {
-              //     queryParams: {
-              //       id: response.user.id,
-              //       name: response.user.first_name,
-              //     },
-              //   });
-              // } else if (response.user.role_name === UserRole.tutor) {
-              //   this._router.navigate(['/teacher-dashboard'], {
-              //     queryParams: {
-              //       id: response.user.id,
-              //       name: response.user.first_name,
-              //     },
-              //   });
-              // } else if (response.user.role_name === UserRole.admin) {
-              //   localStorage.setItem('role', 'admin-temporary');
-              //   // this.openDialog(response);
-              // } else {
-              this._router.navigate(['/']);
-              // }
-            }
-          } else {
-            this._alertNotificationService.error(response.message);
-          }
-        }
-        this.loading = false;
-      });
+    this._store.dispatch(fromCore.signIn({ user: form.value }));
   }
 
-  // openDialog(data: any): void {
-  //   const dialogRef = this.dialog.open(OtpVerifyComponent, {
-  //     width: '500px',
-  //     data,
-  //     disableClose: true,
-  //   });
+  openRolesDialog(domain: any): void {
+    const dialogRef = this._dialog.open(RolesSelectComponent, {
+      width: '500px',
+      disableClose: true,
+      data: this.roles,
+    });
 
-  //   dialogRef.afterClosed().subscribe(() => {
-  //     this._router.navigate(['/admin-dashboard'], {
-  //       queryParams: { id: data.user.id, name: data.user.first_name },
-  //     });
-  //   });
-  // }
+    dialogRef.afterClosed().subscribe((res: any) => {
+      if (res && res.data) {
+        this.userRole = res.data.toString();
+        domain === 'google'
+          ? this.signInWithGoogle()
+          : this.signInWithFacebook();
+      }
+    });
+  }
 
-  // openRolesDialog(domain: any): void {
-  //   const dialogRef = this.dialog.open(RolesSelectComponent, {
-  //     width: '500px',
-  //     disableClose: true,
-  //   });
+  openOtpDialog(): void {
+    const dialogRef = this._dialog.open(OtpVerifyComponent, {
+      width: '500px',
+      disableClose: true,
+    });
 
-  //   dialogRef.afterClosed().subscribe((res: any) => {
-  //     this.userRole = res.data.toString();
-  //     domain === 'google' ? this.signInWithGoogle() : this.signInWithFacebook();
-  //   });
-  // }
+    dialogRef.afterClosed().subscribe((res: any) => {
+      if (res && res.data) {
+      }
+    });
+
+    dialogRef.componentInstance.submitForm.subscribe((otp) => {
+      if (otp) {
+        this._store.dispatch(fromCore.submitOTPAdmin({ otp }));
+      }
+    });
+
+    dialogRef.componentInstance.resendOTP.subscribe(() => {
+      this._store.dispatch(fromCore.resendOTPAdmin());
+    });
+  }
 
   signInWithGoogle() {
-    this.gloading = true;
+    this._authService.signInWithGoogle().then((response: any) => {
+      const data = {
+        ...response,
+        role: this.userRole,
+        provider: SocialProvider.google,
+      };
 
-    this._authService.signInWithGoogle().then((data: any) => {
-      localStorage.setItem('token', data.authToken);
-      if (
-        this._route.snapshot.queryParams['returnUrl'] &&
-        decodeURIComponent(this._route.snapshot.queryParams['returnUrl'])
-      ) {
-        let returnUrl = decodeURIComponent(
-          this._route.snapshot.queryParams['returnUrl']
-        );
-        this._router.navigate([returnUrl]);
-      } else {
-        data['role'] = this.userRole;
-
-        this._authService.googleSignIn(data).subscribe((res: any) => {
-          this.gloading = false;
-
-          if (res.status === true) {
-            this._alertNotificationService.success(res.message);
-
-            if (this.userRole === '1') {
-              this._router.navigate(['/student-dashboard'], {
-                queryParams: { name: res.user.first_name },
-              });
-            } else if (this.userRole === '3') {
-              this._router.navigate(['/teacher-dashboard'], {
-                queryParams: { name: res.user.first_name },
-              });
-            } else {
-              this._router.navigate(['/']);
-            }
-          } else {
-            this._alertNotificationService.error(res.message);
-          }
-        });
-      }
+      this._store.dispatch(fromCore.socialSignIn({ user: data }));
     });
   }
 
   signInWithFacebook() {
-    this._authService.signInWithFacebook().then((data: any) => {
-      this.floading = true;
-      localStorage.setItem('token', data.authToken);
-      if (
-        this._route.snapshot.queryParams['returnUrl'] &&
-        decodeURIComponent(this._route.snapshot.queryParams['returnUrl'])
-      ) {
-        let returnUrl = decodeURIComponent(
-          this._route.snapshot.queryParams['returnUrl']
-        );
-        this._router.navigate([returnUrl]);
-      } else {
-        data['role'] = this.userRole;
+    this._authService.signInWithFacebook().then((response) => {
+      const data = {
+        ...response,
+        role: this.userRole,
+        provider: SocialProvider.facebook,
+      };
 
-        this._authService.facebookSignIn(data).subscribe((res: any) => {
-          this.floading = false;
-
-          if (res.status === true) {
-            this._alertNotificationService.success(res.message);
-
-            if (this.userRole === '1') {
-              this._router.navigate(['/student-dashboard'], {
-                queryParams: { name: res.user.first_name },
-              });
-            } else if (this.userRole === '3') {
-              this._router.navigate(['/teacher-dashboard'], {
-                queryParams: { name: res.user.first_name },
-              });
-            } else {
-              this._router.navigate(['/']);
-            }
-          } else {
-            this._alertNotificationService.error(res.message);
-          }
-        });
-      }
+      this._store.dispatch(fromCore.socialSignIn({ user: data }));
     });
   }
 
   ngOnDestroy(): void {
-    this.signinSub?.unsubscribe();
+    this.getRolesSub?.unsubscribe();
+  }
+
+  private _prepareRoles(): void {
+    this.getRolesSub = this._userService.getRoles().subscribe((response) => {
+      this.roles = response;
+      addMisc('roles', this.roles);
+    });
+
+    this.roles = getMisc().roles;
   }
 }

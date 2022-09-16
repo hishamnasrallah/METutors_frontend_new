@@ -1,0 +1,68 @@
+<div class="feedback {{ extraClasses }}">
+  <div class="d-flex justify-content-between">
+    <div class="col-md-5">
+      <div class="rating-block d-flex align-items-center mb-2">
+        <h2 class="me-2">{{ feedback?.feedbacksCount || feedback?.reviewsCount }} Reviews</h2>
+        <rating [ngModel]="feedback?.feedbackRating" [max]="5" [readonly]="true"></rating>
+      </div>
+
+      <ng-container *ngFor="let rating of feedback.overallStars">
+        <div class="d-flex align-items-center stars col-md-6">
+          <h3 class="me-1 mb-0">{{ rating.title }} Stars</h3>
+          <mat-progress-bar class="example-progress" [color]="'primary'" [value]="rating.value">
+          </mat-progress-bar>
+          <span>({{ rating.value }})</span>
+        </div>
+      </ng-container>
+    </div>
+
+    <div class="col-md-7">
+      <ng-container *ngFor="let feedback of feedback.overallFeedback">
+        <div class="rating-block d-flex align-items-center mb-0">
+          <h2 class="me-2">{{ feedback.title }}</h2>
+          <rating [ngModel]="feedback.value" [max]="5" [readonly]="true"></rating>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+  <ng-container
+    *ngFor="let feedback of (feedback.studentFeedbacks || feedback?.teacherFeedback || feedback?.userTestimonials?.data)">
+    <div class="mt-4 reviews">
+      <div class="d-flex teacher mb-2">
+        <img [src]="imagePath+feedback?.sender?.avatar" meTutorsDefaultAvatar alt="" class="rounded-circle">
+        <div class="ms-2">
+          <h3 class="m-0">{{ feedback?.sender?.firstName }} {{ feedback?.sender?.lastName }}</h3>
+          <div>
+            <rating [(ngModel)]="feedback.averageRating" [max]="5" [readonly]="true"></rating>
+            <span class="ms-1">{{ feedback.averageRating.toFixed(1) }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="row m-0">
+        <div class="col-md-5 p-0">
+          <ng-container *ngFor="let feed of feedback.feedbacks;">
+            <div class="rating-block d-flex align-items-center ">
+              <h2 class="me-2">{{ feed.title }}</h2>
+              <rating [ngModel]="feed.value" [max]="5" [readonly]="true"></rating>
+            </div>
+          </ng-container>
+        </div>
+        <div class="col-md-7 p-0 user-feedback">
+          <div class="d-flex justify-content-between">
+            <h2>Feedback</h2>
+            <div *ngIf="isTestimonial">
+              <span class="me-5 text-capitalize cursor-pointer" (click)="onButtonClick(feedback, 'change')">
+                 <img [src]="'assets/svg/'+ (feedback.status === 'public' ? 'public-nonfill.svg' : 'lock.svg')" width="15" height="15" alt="" draggable="false" />
+                {{ feedback.status }}
+              </span>
+              <span class="cursor-pointer edit" (click)="buttonClicked.emit({id: feedback.sender.id, type: 'edit'})">Edit</span>
+            </div>
+          </div>
+          <p>{{ feedback?.review }}</p>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

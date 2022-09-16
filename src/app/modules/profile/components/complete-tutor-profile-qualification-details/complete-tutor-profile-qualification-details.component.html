@@ -1,30 +1,29 @@
-<form [formGroup]="form" (ngSubmit)="submitFormData()" class="w-100">
+<form [formGroup]="form" (ngSubmit)="submitFormData()" class="w-100 p-10-sm">
   <div>
-    <h4 class="mb-5 heading text-center">PROVIDE YOUR QUALIFICATION DETAILS</h4>
+    <h4 class="mb-5 heading text-center f-size-18-md-sm mb-15-sm">PROVIDE YOUR QUALIFICATION DETAILS</h4>
 
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
           <label for="nameOfUniversity" class="form-label">Name of University</label>
           <input type="text" class="custom-input w-100 input-bordered" id="nameOfUniversity" placeholder="Enter Name"
-            formControlName="nameOfUniversity">
+                 formControlName="nameOfUniversity" meTutorsLettersOnly>
           <div class="text-danger" *ngIf="nameOfUniversity?.touched && nameOfUniversity?.invalid">
-            Please write your University Name
+            Please write your University name
           </div>
         </div>
       </div>
 
       <div class="col-md-6">
         <div class="form-group">
-          <label for="computerSkills" class="form-label">Computer Skills</label>
+          <label for="teachingExperience" class="form-label">Teaching Experience</label>
           <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="computerSkills" [placeholder]="'Above Average'">
-              <mat-option value="Average">Average</mat-option>
-              <mat-option value="Above Average">Above Average</mat-option>
+            <mat-select formControlName="teachingExperience" [placeholder]="'Select Years'" id="teachingExperience">
+              <mat-option [value]="experience" *ngFor="let experience of experiences">{{ experience }}</mat-option>
             </mat-select>
           </mat-form-field>
-          <div class="text-danger" *ngIf="computerSkills?.touched && computerSkills?.invalid">
-            Please choose your Computer Skills Level
+          <div class="text-danger" *ngIf="teachingExperience?.touched && teachingExperience?.invalid">
+            Please choose your years of teaching experience in schools
           </div>
         </div>
       </div>
@@ -35,28 +34,28 @@
         <div class="form-group">
           <label for="degreeLevel" class="form-label">Degree Level</label>
           <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="degreeLevel" [placeholder]="'Select Degree Level'">
-              <mat-option value="Masters">Masters</mat-option>
-              <mat-option value="Bachlors">Bachlors</mat-option>
+            <mat-select formControlName="degreeLevel" [placeholder]="'Select Degree Level'" id="degreeLevel"
+                        (selectionChange)="resetDegreeField()">
+              <mat-option [value]="level" *ngFor="let level of degreeLevels">{{ level }}</mat-option>
             </mat-select>
           </mat-form-field>
           <div class="text-danger" *ngIf="degreeLevel?.touched && degreeLevel?.invalid">
-            Please choose your Degree Level
+            Please choose your degree level
           </div>
         </div>
       </div>
 
       <div class="col-md-6">
         <div class="form-group">
-          <label for="teachingExperience" class="form-label">Teaching Experience</label>
+          <label for="teachingExperienceOnline" class="form-label">Teaching Experience Online</label>
           <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="teachingExperience" [placeholder]="'Select Years'">
-              <mat-option value="1 Year">1 Year</mat-option>
-              <mat-option value="2 Years">2 Years</mat-option>
+            <mat-select formControlName="teachingExperienceOnline" [placeholder]="'Select Years'"
+                        id="teachingExperienceOnline">
+              <mat-option [value]="experience" *ngFor="let experience of experiences">{{ experience }}</mat-option>
             </mat-select>
           </mat-form-field>
-          <div class="text-danger" *ngIf="teachingExperience?.touched && teachingExperience?.invalid">
-            Please choose your Years of Teacher Experience
+          <div class="text-danger" *ngIf="teachingExperienceOnline?.touched && teachingExperienceOnline?.invalid">
+            Please choose your years of teaching experience online
           </div>
         </div>
       </div>
@@ -67,103 +66,123 @@
         <div class="form-group">
           <label for="degreeField" class="form-label">Degree Field</label>
           <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="degreeField" [placeholder]="'Computer Science'">
-              <mat-option value="Computer Science">Computer Science</mat-option>
-              <mat-option value="Mathematics">Mathematics</mat-option>
+            <mat-select formControlName="degreeField" [placeholder]="'Computer Science'" id="degreeField">
+              <mat-option>
+                <ngx-mat-select-search [(ngModel)]="filterDegree" [ngModelOptions]="{standalone: true}"
+                                       placeholderLabel="Search..."
+                                       noEntriesFoundLabel="No matching degree field found">
+                </ngx-mat-select-search>
+              </mat-option>
+              <mat-option [value]="field" *ngFor="let field of filteredDegreeFields">{{ field }}</mat-option>
             </mat-select>
           </mat-form-field>
           <div class="text-danger" *ngIf="degreeField?.touched && degreeField?.invalid">
-            Please choose your Degree Field
+            Please choose your degree field
           </div>
         </div>
       </div>
 
       <div class="col-md-6">
         <div class="form-group">
-          <label for="teachingExperienceOnline" class="form-label">Teaching Experience Online</label>
+          <label for="currentEmployer" class="form-label">Current Employer <span>(Optional)</span></label>
+          <input type="text" class="custom-input w-100 input-bordered" id="currentEmployer" placeholder="Enter Here"
+                 formControlName="currentEmployer">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="computerSkills" class="form-label">Computer Skills</label>
           <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="teachingExperienceOnline" [placeholder]="'Select Years'">
-              <mat-option value="1 Year">1 Year</mat-option>
-              <mat-option value="2 Years">2 Years</mat-option>
+            <mat-select formControlName="computerSkills" [placeholder]="'Select Computer Skills'" id="computerSkills">
+              <mat-option [value]="skill" *ngFor="let skill of skills">{{ skill }}</mat-option>
             </mat-select>
           </mat-form-field>
-          <div class="text-danger" *ngIf="teachingExperienceOnline?.touched && teachingExperienceOnline?.invalid">
-            Please choose your Years of Teacher Experience Online
+          <div class="text-danger" *ngIf="computerSkills?.touched && computerSkills?.invalid">
+            Please choose your computer skill level
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-6">
-        <!-- <form [formGroup]="language" class="w-100">
-          <div class="form-group">
-
-            <label for="spoken_language" class="form-label">Spoken Languages</label>
-            <span class="add" (click)="addLanguage()">Add</span>
-
-            <ng-container *ngIf="spokenLanguages">
-              <mat-chip-list aria-label="Fish selection">
-                <mat-chip *ngFor="let lang of spokenLanguages">
-                  <span>{{lang.language}}</span> - <span class="level">{{lang.level}}</span>
-                  <mat-icon matChipRemove (click)="removeLanguage(lang)">cancel</mat-icon>
-                </mat-chip>
-              </mat-chip-list>
-            </ng-container>
-
-
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="spoken_language" [placeholder]="'Select Language'">
-                <mat-option value="English">English</mat-option>
-                <mat-option value="Arabic">Arabic</mat-option>
-              </mat-select>
-            </mat-form-field>
-            <div class="text-danger" *ngIf="spoken_language.touched && spoken_language.errors?.required">
-                Please enter your Spoken Language
-              </div>
-          </div>
-          <div class="form-group">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="spoken_language_level" [placeholder]="'Select Level'">
-                <mat-option value="Basic">Basic</mat-option>
-                <mat-option value="Conventional">Conventional</mat-option>
-                <mat-option value="Fluent">Fluent</mat-option>
-                <mat-option value="Native">Native</mat-option>
-              </mat-select>
-            </mat-form-field>
-            <div class="text-danger"
-                *ngIf="spoken_language_level.touched && spoken_language_level.errors?.required">
-                Please choose level of your Spoken Language
-              </div>
-          </div>
-        </form> -->
-      </div>
-
 
       <div class="col-md-6">
         <div class="form-group">
-          <label for="currentEmployer" class="form-label">Current Employer (Optional)</label>
-          <input type="text" class="custom-input w-100 input-bordered" id="currentEmployer" placeholder="Enter Here"
-            formControlName="currentEmployer">
-        </div>
-        <div class="form-group">
-          <label for="currentTitle" class="form-label">Current Title (Optional)</label>
+          <label for="currentTitle" class="form-label">Current Title <span>(Optional)</span></label>
           <input type="text" class="custom-input w-100 input-bordered" id="currentTitle" placeholder="Enter Here"
-            formControlName="currentTitle">
+                 formControlName="currentTitle" meTutorsLettersOnly>
         </div>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-md-4"></div>
-      <div class="col-md-4">
-        <div class="form-group mt-4 mb-2">
-          <metutors-submit-button [form]="form" [isSubmitting]="loading" [extraClasses]="'w-100'">
-            Save & Continue
-          </metutors-submit-button>
+      <div class="col-md-6">
+        <div class="form-group">
+          <div>
+            <label for="languages" class="form-label">Spoken languages <span>(For Teaching)</span></label>
+            <a class="float-end cursor-pointer" (click)="addLanguage()"
+               [ngClass]="{'text-secondary cursor-not-allowed': languages.status === invalid}">Add New</a>
+          </div>
+          <metutors-spoken-languages [form]="form" [languagesList]="languagesList" id="languages"
+                                     (removeLanguage)="removeLanguage($event)">
+          </metutors-spoken-languages>
         </div>
       </div>
-      <div class="col-md-4"></div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <div class="form-group">
+          <input type="file" #filePicker (change)="onChangeVideo($event)" hidden accept="video/*"/>
+
+          <div class="preview-style">
+            <label class="form-label">Please upload a video to show your teaching style with the following guidelines:</label>
+            <div class="position-relative">
+              <metutors-video-player [videoSrc]="video?.value" *ngIf="video?.value">
+              </metutors-video-player>
+              <button mat-flat-button color="primary" class="px-4 edit-video" type="button"
+                      *ngIf="video?.value" (click)="filePicker.click()" [disabled]="uploadingVideo"> Change
+              </button>
+            </div>
+          </div>
+          <div class="preview-style video-preview d-flex align-items-center justify-content-center flex-column" *ngIf="!video?.value">
+            <button mat-flat-button color="primary" class="px-4" type="button" [disabled]="uploadingVideo"
+                    (click)="filePicker.click()"> Upload
+            </button>
+            <div class="guide1 mt-2">Upload Video Demo (Max 120 MB)</div>
+          </div>
+          <div class="position-relative preview-style">
+          <ng-container *ngLet="fileUploadProgress$ | async as fileUploadProgress">
+            <ng-container *ngIf="fileUploadProgress?.length">
+              <ng-container *ngFor="let uploadProgress of fileUploadProgress">
+                <ng-container *ngIf="uploadProgress.responseType !== uploadComplete">
+                  <metutors-file-upload-progress [fileName]="uploadProgress.fileName" [fileType]="'video'"
+                                                 (onCancelUpload)="onCancelUpload()"
+                                                 [uploadedPercentage]="uploadProgress.progress" [cancelUpload]="true">
+                  </metutors-file-upload-progress>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+          </div>
+          <ul class="video-notes row">
+            <li class="col-md-6">You must be in your video.</li>
+            <li class="col-md-6">Your video must be between 2-3 minutes.</li>
+            <li class="col-md-6">You must teach a concept from a subject you want to teach on MEtutors.</li>
+            <li class="col-md-6">All video formats are accepted.</li>
+            <li class="col-md-12">Your video should be filmed horizontally with good lighting, in a quiet environment and with a tidy background.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex align-items-center justify-content-between mt-4 mb-2">
+      <button class="main-button-transparent px-4" mat-button type="button" (click)="changeStep.emit(2)">Back</button>
+
+      <metutors-submit-button [form]="form" [isSubmitting]="loading" [isDisabled]="uploadingVideo"
+                              [extraClasses]="'w-100 fw-bold px-5'">
+        Save & Continue
+      </metutors-submit-button>
     </div>
   </div>
 </form>

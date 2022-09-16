@@ -1,110 +1,30 @@
-<form [formGroup]="form" (ngSubmit)="submitFormData()" class="w-100">
+<form [formGroup]="form" (ngSubmit)="submitFormData()" class="w-100 p-10-sm">
   <div>
-    <h4 class="mb-5 heading text-center">PROVIDE YOUR TEACHING SPECIFICATIONS</h4>
+    <h4 class="mb-5 heading text-center f-size-20-md-sm text-uppercase">Add your teaching preferences</h4>
 
-    <div class="row">
-      <div class="col-md-6">
+    <div class="row justify-content-center">
+      <div class="col-md-3">
         <div class="form-group">
-          <label for="levelOfEducation" class="form-label">Level</label>
+          <label class="form-label">Available Start Date</label>
           <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="levelOfEducation" [placeholder]="'Select Level'">
-              <mat-option value="Matric">Matric</mat-option>
-              <mat-option value="Intermediate">Intermediate</mat-option>
-              <mat-option value="Bachelors">Bachelors</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <div class="text-danger" *ngIf="levelOfEducation?.touched && levelOfEducation?.invalid">
-            Please choose your Level
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="salaryPerHour" class="form-label">Hourly Expected Salary (USD)</label>
-          <input type="text" class="custom-input w-100 input-bordered" id="salaryPerHour" placeholder="0"
-            formControlName="salaryPerHour" crossRoadsOnlyNumber>
-          <div class="text-danger" *ngIf="salaryPerHour?.touched && salaryPerHour?.invalid">
-            Please write your Expected Salary (minimum is 5 & maximum is 999)
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="fieldOfStudy" class="form-label">Field of Study</label>
-          <input type="text" class="custom-input w-100 input-bordered" id="fieldOfStudy"
-            placeholder="e.g. Business Management" formControlName="fieldOfStudy">
-          <div class="text-danger" *ngIf="fieldOfStudy?.touched && fieldOfStudy?.invalid">
-            Please write your Field of Study
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="startDate" class="form-label">When you are Available to Start?</label>
-          <mat-form-field appearance="outline" class="w-100">
-            <input matInput [matDatepicker]="datetPicker2" [placeholder]="'04/02/2022'" (focus)="datetPicker2.open()"
-              [min]="minDate" formControlName="startDate">
-            <mat-datepicker-toggle matSuffix [for]="datetPicker2"></mat-datepicker-toggle>
-            <mat-datepicker #datetPicker2></mat-datepicker>
+            <input matInput [matDatepicker]="datetPicker" [placeholder]="'Select Available Starting Date'"
+              (focus)="datetPicker.open()" (dateChange)="onChangeStartDate()" [min]="minDate" formControlName="startDate">
+            <mat-datepicker-toggle matSuffix [for]="datetPicker"></mat-datepicker-toggle>
+            <mat-datepicker #datetPicker></mat-datepicker>
           </mat-form-field>
           <div class="text-danger" *ngIf="startDate?.touched && startDate?.invalid">
-            Please select your Availability to Start
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="subject" class="form-label">Select Subject</label>
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="subject" [placeholder]="'Math'">
-              <mat-option value="Math">Math</mat-option>
-              <mat-option value="Physics">Physics</mat-option>
-              <mat-option value="Chemistry">Chemistry</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <div class="text-danger" *ngIf="subject?.touched && subject?.invalid">
-            Please choose your Subject
+            Please select your availability to start
           </div>
         </div>
       </div>
 
-      <div class="col-md-6">
+      <div class="col-md-5">
         <div class="form-group">
-          <label for="endDate" class="form-label">Availability End Date</label>
-          <mat-form-field appearance="outline" class="w-100">
-            <input matInput [matDatepicker]="datetPicker3" [placeholder]="'04/02/2022'" (focus)="datetPicker3.open()"
-              [min]="startDate?.value" formControlName="endDate">
-            <mat-datepicker-toggle matSuffix [for]="datetPicker3"></mat-datepicker-toggle>
-            <mat-datepicker #datetPicker3></mat-datepicker>
-          </mat-form-field>
-          <div class="text-danger" *ngIf="endDate?.touched && endDate?.invalid">
-            Please select your Availability End Date
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="subject" class="form-label">Type of Tutoring</label>
-          <mat-radio-group class="d-flex flex-column mt-3" formControlName="typeOfTutoring">
-            <mat-radio-button class="mb-2" [value]="'One-on-one'">
-              One-on-one
-            </mat-radio-button>
-            <mat-radio-button class="mb-2" [value]="'Group'">
-              Group
-            </mat-radio-button>
-            <mat-radio-button class="mb-2" [value]="'Both'">
-              Both
+          <label class="form-label">Tutoring Preferences</label>
+          <mat-radio-group class="d-flex flex-row mt-3 fw-bold flex-column-sm mt-15-sm" formControlName="typeOfTutoring">
+            <mat-radio-button [ngClass]="{'mt-15-sm ms-5': !isFirst}" class="m-0-sm" [value]="type.value"
+              *ngFor="let type of types | keyvalue: returnZero; let isFirst = first" [disabled]="type.key !== 'one'">
+              {{ type?.value }}
             </mat-radio-button>
           </mat-radio-group>
           <div class="text-danger" *ngIf="typeOfTutoring?.touched && typeOfTutoring?.invalid">
@@ -112,53 +32,42 @@
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="col-md-6">
+    <div class="row justify-content-center">
+      <div class="col-md-3">
         <div class="form-group">
-          <label for="teachingDays" class="form-label">How many days per week are you available? </label>
+          <label for="endDate" class="form-label">Available End Date</label>
           <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="teachingDays" [placeholder]="'Select Days'" multiple>
-              <mat-option [value]="day" *ngFor="let day of days">{{ day }}</mat-option>
-            </mat-select>
+            <input matInput id="endDate" [matDatepicker]="datetPicker2" [placeholder]="'Select Available End Date'"
+              (focus)="datetPicker2.open()" [min]="startDate?.value" [max]="maxDate" formControlName="endDate">
+            <mat-datepicker-toggle matSuffix [for]="datetPicker2"></mat-datepicker-toggle>
+            <mat-datepicker #datetPicker2></mat-datepicker>
           </mat-form-field>
-          <div class="text-danger" *ngIf="teachingDays?.touched && teachingDays?.invalid">
-            Please choose your Teaching Days
+          <div class="text-danger" *ngIf="endDate?.touched && endDate?.invalid">
+            Please select your availability end Date
           </div>
         </div>
       </div>
 
-    </div>
-
-    <div class="row">
-      <div class="col-md-6"></div>
-
-      <div class="col-md-6">
+      <div class="col-md-5">
         <div class="form-group">
-          <label for="teachingHours" class="form-label">Availability Per Day </label>
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="teachingHours" [placeholder]="'Select Hours'">
-              <mat-option value="5 Hours">5 Hours</mat-option>
-              <mat-option value="6 Hours">6 Hours</mat-option>
-              <mat-option value="7 Hours">7 Hours</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <div class="text-danger" *ngIf="teachingHours?.touched && teachingHours?.invalid">
-            Please choose your Teaching Hours
+          <label class="form-label">Select your availability</label>
+          <div class="list-days">
+            <button type="button" mat-button [class.active]="selectedDays?.includes(i)" [disabled]="checkDisabledDays(day)"
+              *ngFor="let day of days; let i = index" (click)="onChangeDay(i)" class="w-100-sm">{{ day }}</button>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-md-4"></div>
-      <div class="col-md-4">
-        <div class="form-group mt-4 mb-2">
-          <metutors-submit-button [form]="form" [isSubmitting]="loading" [extraClasses]="'w-100'">
-            Save & Continue
-          </metutors-submit-button>
-        </div>
-      </div>
-      <div class="col-md-4"></div>
+    <div class="d-flex align-items-center justify-content-between mt-4 mb-2">
+      <button class="main-button-transparent px-4" mat-button type="button" (click)="changeStep.emit(3)">Back</button>
+
+      <metutors-submit-button [form]="form" [isSubmitting]="loading"
+        [isDisabled]="!selectedDays || !selectedDays?.length" [extraClasses]="'w-100 fw-bold px-5'">
+        Save & Continue
+      </metutors-submit-button>
     </div>
   </div>
 </form>

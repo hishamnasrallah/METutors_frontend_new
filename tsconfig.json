@@ -4,6 +4,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
+    "strictPropertyInitialization": false,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitOverride": true,
@@ -20,7 +21,16 @@
     "importHelpers": true,
     "target": "es2017",
     "module": "es2020",
-    "lib": ["es2020", "dom"]
+    "lib": ["es2020", "dom"],
+    "paths": {
+      "@metutor/*": ["src/app/*"],
+      "@environment": ["src/environments/environment.ts"],
+      "@config": ["src/app/config"],
+      "@services": ["src/app/core/services"],
+      "@models": ["src/app/core/models"],
+      "@interceptors": ["src/app/core/interceptors"],
+      "@guards": ["src/app/core/guards"],
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

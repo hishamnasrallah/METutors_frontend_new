@@ -5,7 +5,7 @@
         <mat-icon class="favorite">favorite</mat-icon>
       </div>
       <div class="col-md-6">
-        <h1>1,000+ Tutors are loving our Opportunities.</h1>
+        <h1 class="f-size-25-md-sm">What Our Tutors Say About Us</h1>
       </div>
       <div class="col-md-6">
         <button mat-button (click)="owlCar.next()">
@@ -25,9 +25,9 @@
                   class="img-avatar">
               </div>
 
-              <div class="col-12">
-                <p class="bio">
-                  {{ opportunity?.content }}
+              <div class="col-12 d-flex flex-column">
+                <p class="bio flex-grow-1">
+                  <q>{{ opportunity?.content }}</q>
                 </p>
 
                 <h3>- {{ opportunity?.postedBy }}</h3>

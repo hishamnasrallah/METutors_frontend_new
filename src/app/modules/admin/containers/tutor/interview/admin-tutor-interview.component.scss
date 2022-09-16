@@ -1,0 +1,40 @@
+:host ::ng-deep .interview-list {
+  padding: 30px 40px 20px;
+
+  .filters {
+    h1 {
+      font-size: 25px;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    mat-icon {
+      position: absolute;
+      left: 15px;
+      top: 11px;
+
+      &.filter {
+        left: auto;
+        right: 15px;
+      }
+    }
+
+    .search-request {
+      padding-left: 45px;
+    }
+  }
+
+  .mat-tab-label {
+    font-size: 20px;
+    justify-content: start;
+    padding: 0;
+    font-weight: bold;
+    min-width: 70px;
+    margin-right: 50px;
+
+    &.mat-tab-label-active {
+      color: var(--main-color);
+      opacity: 1;
+    }
+  }
+}

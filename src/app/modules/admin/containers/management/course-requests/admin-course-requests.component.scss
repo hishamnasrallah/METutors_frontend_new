@@ -1,0 +1,80 @@
+:host ::ng-deep .course-requests {
+  padding: 30px 40px 20px;
+
+  .filters {
+    h1 {
+      font-size: 25px;
+      font-weight: bold;
+      margin: 0;
+    }
+  }
+
+  .my-table {
+    overflow: visible;
+
+    th {
+      color: #696969;
+      font-size: 14px;
+    }
+
+    .change-status {
+      .status {
+        color: #FFF;
+        line-height: 0;
+        min-width: 0;
+        padding: 15px;
+        border-radius: 25px;
+
+        &.offered {
+          background-color: #50C394;
+        }
+
+        &.pending {
+          background-color: #EBD016;
+        }
+
+        &.non-offered {
+          background-color: #FF8300;
+        }
+      }
+
+      .statues {
+        border-radius: 5px;
+        overflow: hidden;
+
+        li {
+          padding: 5px 10px;
+          color: #FFF;
+          margin: 5px;
+          border-radius: 5px;
+
+          &.offered {
+            background-color: #50C394;
+          }
+
+          &.pending {
+            background-color: #EBD016;
+          }
+
+          &.non-offered {
+            background-color: #FF8300;
+          }
+        }
+      }
+    }
+  }
+
+  .mat-tab-label {
+    font-size: 20px;
+    justify-content: start;
+    padding: 0;
+    font-weight: bold;
+    min-width: 70px;
+    margin-right: 50px;
+
+    &.mat-tab-label-active {
+      color: var(--main-color);
+      opacity: 1;
+    }
+  }
+}

@@ -21,6 +21,8 @@ export class ResetPasswordComponent implements OnInit {
   email?: string;
   reform: FormGroup;
   loading: boolean = false;
+  passwordVisibility = false;
+  confirmPasswordVisibility = false;
 
   constructor(
     private _router: Router,

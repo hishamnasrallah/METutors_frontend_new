@@ -8,11 +8,14 @@ import {
   StudentSyllabusComponent,
   StudentSettingsComponent,
   StudentDashboardComponent,
+  StudentResourcesComponent,
   StudentClassroomsComponent,
+  StudentAssignmentsComponent,
   StudentCreateTicketComponent,
   StudentCertificatesComponent,
   StudentSupportTicketComponent,
   StudentTicketDetailsComponent,
+  StudentClassDashboardComponent,
 } from './containers';
 
 const routes: Routes = [
@@ -35,33 +38,85 @@ const routes: Routes = [
             component: StudentClassroomsComponent,
             data: {
               layout: {
-                title: 'Student Classrooms - Metutors',
+                title: 'Student Classroom - Metutors',
+                navbarTitle: 'Classroom',
                 showHeader: false,
                 showFooter: false,
               },
             },
           },
           {
-            path: 'syllabus/:id',
-            component: StudentSyllabusComponent,
-            data: {
-              layout: {
-                title: 'Student Syllabus - Metutors',
-                showHeader: false,
-                showFooter: false,
-              },
-            },
-          },
-          {
-            path: 'classes/:id',
+            path: 'classes',
             component: StudentClassesComponent,
             data: {
               layout: {
                 title: 'Student Classes - Metutors',
+                navbarTitle: 'Classes Dashboard',
                 showHeader: false,
                 showFooter: false,
+                hideSidebar: true,
               },
             },
+            children: [
+              {
+                path: 'syllabus/:id',
+                component: StudentSyllabusComponent,
+                data: {
+                  layout: {
+                    title: 'Student Syllabus - Metutors',
+                    navbarTitle: 'Syllabus',
+                    showHeader: false,
+                    showFooter: false,
+                    hideSidebar: true,
+                  },
+                },
+              },
+              {
+                path: 'resources/:id',
+                component: StudentResourcesComponent,
+                data: {
+                  layout: {
+                    title: 'Student Resources - Metutors',
+                    navbarTitle: 'Resources',
+                    showHeader: false,
+                    showFooter: false,
+                    hideSidebar: true,
+                  },
+                },
+              },
+
+              {
+                path: 'assignments/:id',
+                component: StudentAssignmentsComponent,
+                data: {
+                  layout: {
+                    title: 'Student Assignments - Metutors',
+                    navbarTitle: 'Assignments Dashboard',
+                    showHeader: false,
+                    showFooter: false,
+                    hideSidebar: true,
+                  },
+                },
+              },
+              {
+                path: 'dashboard/:id',
+                component: StudentClassDashboardComponent,
+                data: {
+                  layout: {
+                    title: 'Student Classes - Metutors',
+                    navbarTitle: 'Classes Dashboard',
+                    showHeader: false,
+                    showFooter: false,
+                    hideSidebar: true,
+                  },
+                },
+              },
+              {
+                path: '',
+                redirectTo: 'dashboard/:id',
+                pathMatch: 'full',
+              },
+            ],
           },
         ],
       },
@@ -71,6 +126,7 @@ const routes: Routes = [
         data: {
           layout: {
             title: 'Help - Metutors',
+            navbarTitle: 'Help',
             showHeader: false,
             showFooter: false,
             hideSidebar: true,
@@ -83,6 +139,7 @@ const routes: Routes = [
             data: {
               layout: {
                 title: 'FAQ - Metutors',
+                navbarTitle: 'FAQ',
                 showHeader: false,
                 showFooter: false,
                 hideSidebar: true,
@@ -98,6 +155,7 @@ const routes: Routes = [
                 data: {
                   layout: {
                     title: 'My tickets - Metutors',
+                    navbarTitle: 'Support ticket',
                     showHeader: false,
                     showFooter: false,
                     hideSidebar: true,
@@ -110,6 +168,7 @@ const routes: Routes = [
                 data: {
                   layout: {
                     title: 'Create ticket - Metutors',
+                    navbarTitle: 'Create ticket',
                     showHeader: false,
                     showFooter: false,
                     hideSidebar: true,
@@ -122,6 +181,7 @@ const routes: Routes = [
                 data: {
                   layout: {
                     title: 'Ticket details - Metutors',
+                    navbarTitle: 'Ticket details',
                     showHeader: false,
                     showFooter: false,
                     hideSidebar: true,
@@ -143,6 +203,7 @@ const routes: Routes = [
         data: {
           layout: {
             title: 'Dashboard - Metutors',
+            navbarTitle: "Student's Dashboard",
             showHeader: false,
             showFooter: false,
           },
@@ -154,6 +215,7 @@ const routes: Routes = [
         data: {
           layout: {
             title: 'Certificates - Metutors',
+            navbarTitle: 'Earned certificates',
             showHeader: false,
             showFooter: false,
           },
@@ -165,6 +227,7 @@ const routes: Routes = [
         data: {
           layout: {
             title: 'Settings - Metutors',
+            navbarTitle: 'Settings',
             showHeader: false,
             showFooter: false,
           },
@@ -172,7 +235,7 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/student/classrooms',
+        redirectTo: '/student/dashboard',
         pathMatch: 'full',
       },
     ],

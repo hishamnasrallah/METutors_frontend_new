@@ -2,7 +2,8 @@ export class IQualification {
   id!: number;
   computerSkills?: string;
   currentEmployer?: string;
-  title?: string;
+  currentTitle?: string;
+  video?: string;
   degreeField?: string;
   degreeLevel?: string;
   nameOfUniversity?: string;
@@ -14,7 +15,8 @@ export class IQualification {
       this.id = 0;
       this.computerSkills = '';
       this.currentEmployer = '';
-      this.title = '';
+      this.currentTitle = '';
+      this.video = '';
       this.degreeField = '';
       this.degreeLevel = '';
       this.nameOfUniversity = '';
@@ -26,7 +28,8 @@ export class IQualification {
       this.id = qualification?.id;
       this.computerSkills = qualification?.computer_skills || '';
       this.currentEmployer = qualification?.current_employer || '';
-      this.title = qualification?.current_title || '';
+      this.currentTitle = qualification?.current_title || '';
+      this.video = qualification?.video || '';
       this.degreeField = qualification?.degree_field || '';
       this.degreeLevel = qualification?.degree_level || '';
       this.nameOfUniversity = qualification?.name_of_university || '';

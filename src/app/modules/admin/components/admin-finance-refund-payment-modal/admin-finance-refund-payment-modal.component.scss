@@ -1,0 +1,44 @@
+.refund-modal {
+  h3 {
+    color: #393939;
+    font-weight: bold;
+    font-size: 18px;
+  }
+
+  h4 {
+    color: #727272;
+    font-size: 18px;
+
+    strong {
+      color: #393939;
+      font-size: 20px;
+    }
+  }
+
+  h5 {
+    color: #393939;
+    font-size: 15px;
+    font-weight: bold;
+  }
+
+  .info-details {
+    background-color: #F6F5F5;
+    border-radius: 9px;
+    padding: 10px 15px;
+
+    span {
+      color: #727272;
+      font-size: 15px;
+      display: block;
+    }
+
+    strong {
+      color: #393939;
+      font-size: 16px;
+    }
+  }
+
+  button {
+    width: 150px;
+  }
+}

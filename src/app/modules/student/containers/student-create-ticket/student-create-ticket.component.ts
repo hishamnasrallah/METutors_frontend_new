@@ -1,52 +1,46 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
-import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { addLookups, formatBytes, getLookups } from 'src/app/config';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { formatBytes } from 'src/app/config';
+import * as fromCore from '@metutor/core/state';
 import { AlertNotificationService } from 'src/app/core/components';
-import { LookupsService, SupportService } from 'src/app/core/services';
+import { ITicketCategory, ITicketPriority } from '@metutor/core/models';
 
 @Component({
   selector: 'metutors-student-create-ticket',
   templateUrl: './student-create-ticket.component.html',
   styleUrls: ['./student-create-ticket.component.scss'],
 })
-export class StudentCreateTicketComponent implements OnInit, OnDestroy {
-  loading = false;
+export class StudentCreateTicketComponent implements OnInit {
+  isCreatingTicket$: Observable<boolean>;
+  categories$: Observable<ITicketCategory[] | null>;
+  priorities$: Observable<ITicketPriority[] | null>;
+
   filePreview: any;
   supportForm: FormGroup;
-  ticketsList: any[] = [];
-  getTicketTypesSub?: Subscription;
 
   constructor(
     private _fb: FormBuilder,
-    private _lookupsService: LookupsService,
-    private _alertNotificationService: AlertNotificationService,
-    private _supportService: SupportService,
-    private _router: Router
+    private _store: Store<any>,
+    private _alertNotificationService: AlertNotificationService
   ) {
     this.supportForm = this._fb.group({
-      type: [null, Validators.required],
+      category: [null, Validators.required],
+      priority: [null, Validators.required],
       title: [null, Validators.required],
-      description: [null, Validators.required],
+      message: [null, Validators.required],
       file: [null],
     });
   }
 
   ngOnInit(): void {
-    this.getTicketTypesSub = this._lookupsService.getTicketTypes().subscribe(
-      (fetchedValues) => {
-        this.ticketsList = fetchedValues.results;
-        addLookups('ticketTypes', this.ticketsList);
-      },
-      () => {}
+    this.isCreatingTicket$ = this._store.select(
+      fromCore.selectIsCreatingTicket
     );
-    this.ticketsList = getLookups().ticketTypes;
+    this._store.dispatch(fromCore.loadTickets());
+    this._prepareTicketCategories();
+    this._prepareTicketPriorities();
   }
 
   onFileUpload(event: any): void {
@@ -70,28 +64,19 @@ export class StudentCreateTicketComponent implements OnInit, OnDestroy {
 
   onSubmit(supportForm: FormGroup) {
     if (supportForm.valid) {
-      this.loading = true;
-      this._supportService.createTicket(supportForm.value).subscribe(
-        (response) => {
-          this.loading = false;
-          this._alertNotificationService.success(
-            'Your ticket has been sent successfully'
-          );
-          this.supportForm.reset();
-          this.filePreview = null;
-          this._router.navigate(['/student/help/support-ticket']);
-        },
-        (error) => {
-          this.loading = false;
-          this._alertNotificationService.error(
-            error.error.message || 'Error in sending your ticket'
-          );
-        }
-      );
+      const ticket = supportForm.value;
+
+      this._store.dispatch(fromCore.createTicket({ ticket }));
     }
   }
 
-  ngOnDestroy(): void {
-    this.getTicketTypesSub?.unsubscribe();
+  private _prepareTicketCategories(): void {
+    this._store.dispatch(fromCore.loadTicketCategories());
+    this.categories$ = this._store.select(fromCore.selectTicketCategories);
+  }
+
+  private _prepareTicketPriorities(): void {
+    this._store.dispatch(fromCore.loadTicketPriorities());
+    this.priorities$ = this._store.select(fromCore.selectTicketPriorities);
   }
 }

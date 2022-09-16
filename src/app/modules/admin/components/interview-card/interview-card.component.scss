@@ -1,0 +1,74 @@
+.interview {
+  padding: 15px 20px;
+
+  &.card {
+    margin-bottom: 15px;
+    box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.12);
+
+    .info {
+      img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+      }
+
+      h2 {
+        font-size: 17px;
+        margin: 0;
+        font-weight: bold;
+        color: var(--main-color);
+      }
+
+      h3 {
+        color: #696969;
+        font-size: 15px;
+        margin: 10px 0 0;
+      }
+    }
+
+    .send-link {
+      font-weight: bold;
+      text-decoration: underline;
+      font-size: 15px;
+    }
+
+    .status-icon {
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 15px;
+      margin-left: 10px;
+
+      &.pending {
+        background-color: rgb(255 131 0 / 15%);
+        color: #FF8300;
+      }
+
+      &.scheduled {
+        background-color: rgba(0, 178, 255, 0.15);
+        color: var(--main-color);
+      }
+
+      &.accepted {
+        background-color: rgb(80 195 148 / 15%);
+        color: #50C394;
+      }
+
+      &.rejected {
+        background-color: rgb(255 56 92 / 15%);
+        color: #FF385C;
+      }
+    }
+
+    h1 {
+      color: #2a2a2a;
+      font-size: 22px;
+    }
+
+    p {
+      font-size: 14px;
+      color: #696969;
+      margin: 0;
+    }
+  }
+}

@@ -1,0 +1,10 @@
+.rating {
+  .checked {
+    fill: var(--main-color);
+  }
+
+  label {
+    color: rgba(39, 39, 42, 1);
+    width: 1.25rem;
+  }
+}

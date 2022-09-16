@@ -1,29 +1,43 @@
-<div class="card classroom-item">
-  <div class="row">
+<div class="card classroom-item mb-3">
+  <div *ngIf="!classroom" class="text-center p-xxl-5">
+    No record found
+  </div>
+
+  <div class="row p-2" *ngIf="classroom">
     <div class="col">
       <div class="position-relative rounded date d-flex flex-column align-items-center justify-content-center h-100">
         <img src="assets/svg/calendar-fill.svg" alt="" width="30" height="30" />
         <h2 class="mt-2">Starting date</h2>
         <h3>{{ classroom?.startDate | date }}</h3>
-        <h4 class="m-0">Ending date: {{ classroom?.expectedEndDate | date }}</h4>
+        <h4 class="m-0">Ending date: {{ classroom?.endDate | date }}</h4>
       </div>
     </div>
     <div class="col-md-9 d-flex flex-column">
-      <h5 class="card-title d-flex align-items-center m-0 h-100">
-        {{ classroom?.name }}
-        <img src="assets/svg/user-one.svg" draggable="false" *ngIf="classroom?.type === classroomType.one" width="25px"
-          height="25px" />
-        <img src="assets/svg/user-group.svg" draggable="false" *ngIf="classroom?.type === classroomType.group"
-          width="25px" height="25px" />
-      </h5>
-      <div class="row list rounded">
+      <div class="d-flex justify-content-between">
+        <h5 class="card-title m-0 h-100">
+          {{ classroom?.name }}
+          <span>({{classroom?.courseCode}})</span>
+          <button mat-button class="ms-2 me-2 status" [ngClass]="classroom.status"
+                  [tooltip]="isTeacher && classroom.status === 'cancelled_by_teacher' ? 'Cancelled' : statusLabel[classroom.status]?.long" placement="bottom">{{ isTeacher && classroom.status === 'cancelled_by_teacher' ? 'Cancelled' :  statusLabel[classroom.status]?.short }}
+          </button>
+          <img src="assets/svg/user-one.svg" draggable="false" *ngIf="classroom?.type === classroomType.one" width="25px"
+               height="25px" alt=""/>
+          <img src="assets/svg/user-group.svg" draggable="false" *ngIf="classroom?.type === classroomType.group"
+               width="25px" height="25px" alt=""/>
+        </h5>
+        <div class="d-inline-flex">
+          <button mat-button class="class-btn text-uppercase main-button-opacity"
+                  *ngIf="classroom?.program">{{ classroom?.program?.code === 'NA' ? classroom?.program?.name : classroom?.program?.code   }}</button>
+        </div>
+      </div>
+
+      <div class="row list-items md-item">
         <div class="col-md-4 d-flex menu align-items-center">
           <img src="assets/svg/calendar.svg" alt="" width="15" height="15" draggable="false">
           <strong>Days: </strong>
           <span>
             <ng-container *ngFor="let day of classroom?.listDays; let isLast = last">
-              {{ day }}
-              <ng-container *ngIf="!isLast"> - </ng-container>
+              {{ day }}<ng-container *ngIf="!isLast">, </ng-container>
             </ng-container>
           </span>
         </div>
@@ -35,25 +49,26 @@
         <div class="col-md-4 d-flex menu align-items-center">
           <img src="assets/svg/timer.svg" alt="" width="15" height="15" draggable="false">
           <strong>Total hour: </strong>
-          <span>{{ classroom?.totalHours }}hrs</span>
+          <span>{{ classroom?.hours }}hr{{ +(classroom?.hours)! > 1 ? 's' : '' }}</span>
         </div>
         <div class="col-md-4 d-flex menu align-items-center">
-          <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
-          <strong>Time: </strong>
-          <span>
-            {{ classroom?.startETime | date: 'h a' }} : {{ classroom?.endETime | date: 'h a' }}
-            <!-- ({{ calculateDurationTime(classroom?.startETime, classroom?.endETime) }} hours) -->
-          </span>
+          <ng-container *ngIf="classroom?.startTime && classroom?.endTime">
+            <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
+            <strong>Time: </strong>
+            <span>
+              {{ classroom?.startTime | date: 'h:mm a' }} : {{ classroom?.endTime | date: 'h:mm a' }}
+            </span>
+          </ng-container>
         </div>
         <div class="col-md-4 d-flex menu align-items-center">
           <img src="assets/svg/play-circle-fill.svg" alt="" width="15" height="15" draggable="false">
-          <strong>Remining classes: </strong>
+          <strong>Remaining classes: </strong>
           <span>{{ classroom?.remainingClasses }}</span>
         </div>
       </div>
       <div class="row mt-4">
         <div class="col-md-4 d-flex align-items-center info">
-          <div class="row">
+          <div class="row" *ngIf="classroom?.tutor">
             <div class="col-md-3 d-flex align-items-center">
               <img [src]="classroom?.tutor?.avatar" meTutorsDefaultAvatar alt="">
             </div>
@@ -62,32 +77,58 @@
                 {{ classroom?.tutor?.name }}
                 <div class="d-flex">
                   <img src="assets/svg/star-fill.svg" alt="" width="20" height="20" draggable="false" />
-                  <span class="count">{{ classroom?.tutor?.rate }}</span>
+                  <span class="count">{{ classroom?.tutor?.averageRating | number:'.1-1' }}</span>
                 </div>
               </h2>
               <h3>{{ classroom?.tutor?.bio }}</h3>
             </div>
           </div>
+          <div class="row" *ngIf="classroom?.enrolledStudents && classroom?.enrolledStudents?.length && !isStudent">
+            <div class="overflow-visible logos">
+              <div class="fw-bold">Enrolled Students</div>
+              <img *ngFor="let student of classroom?.enrolledStudents" meTutorsDefaultAvatar [src]="student?.avatar"
+                alt="" draggable="false" class="d-inline-block rounded-circle">
+            </div>
+          </div>
+
+          <div class="row" *ngIf="classroom?.teacher && isStudent">
+            <div class="overflow-visible logos">
+              <img meTutorsDefaultAvatar [src]="classroom?.teacher?.avatar"
+                   alt="" draggable="false" class="d-inline-block rounded-circle">
+               <span class="m-lg-1"> {{ classroom?.teacher?.firstName }} {{ classroom?.teacher?.lastName }}</span>
+            </div>
+          </div>
         </div>
-        <div class="col-md-4 in-progress" *ngIf="classroom && classroom?.progress">
-          <h3>In progress</h3>
+        <div class="col-md-4 in-progress" *ngIf="classroom && classroom.hasOwnProperty('progress')">
+          <h3 *ngIf="classroom.progress === 100">Completed</h3>
+          <h3 *ngIf="classroom.progress === 0">Not Started yet</h3>
+          <h3 *ngIf="classroom.progress && (classroom.progress > 0 && classroom.progress < 100)">In progress</h3>
+
           <div class="d-flex align-items-center">
             <div class="flex-grow-1">
-              <mat-progress-bar class="example-margin" [color]="classroom.progress > 30 ? 'primary' : 'warn'"
+              <mat-progress-bar class="example-margin"
+                [color]="'primary'"
                 [value]="classroom?.progress">
               </mat-progress-bar>
             </div>
-            <strong>{{ classroom?.progress }}%</strong>
+            <strong>{{ classroom?.progress?.toFixed(0) }}%</strong>
           </div>
         </div>
         <div class="col flex-grow-1">
           <div class="row">
             <div class="col-md-12">
-              <a [routerLink]="'/student/classroom/syllabus/' + classroom?.id" mat-flat-button color="primary"
-                class="h-100 book-classroom float-end">
+              <a [routerLink]="url + classroom?.id" mat-button color="primary" *ngIf="!completeCourse"
+                class="h-100 book-classroom main-button-transparent float-end">
                 Continue
                 <mat-icon>arrow_forward</mat-icon>
               </a>
+               <div class="d-flex" *ngIf="completeCourse">
+                <button mat-button class="secondary-btn flex-grow-1" (click)="reject.emit()">Reject</button>
+                <button mat-flat-button color="primary" class="flex-grow-1" (click)="accept.emit()" [disabled]="selectedId === classroom.id && isAcceptingCourse">
+                  Accept
+                  <mat-icon class="spinner" *ngIf="selectedId === classroom.id && isAcceptingCourse">autorenew</mat-icon>
+                </button>
+              </div>
             </div>
           </div>
         </div>

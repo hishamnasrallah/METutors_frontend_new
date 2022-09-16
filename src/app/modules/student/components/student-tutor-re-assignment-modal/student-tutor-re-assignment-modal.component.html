@@ -1,0 +1,206 @@
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'xmedium'"
+                [heading]="heading" [showHeader]="showHeader"
+                [subHeading]="subHeading"
+                [template]="template">
+  <ng-template #template>
+    <div class="list-options-rows mt-4">
+      <ng-container *ngIf="!next">
+        <mat-radio-group class="d-flex flex-column options" (change)="onChange($event)">
+          <mat-radio-button [value]="1">
+            <div class="row">
+              <div class="relative img-avatar d-flex align-items-center justify-content-center">
+                <img src="assets/png/academy.png" alt="" draggable="false">
+              </div>
+              <div class="col d-flex justify-content-center flex-column">
+                <h2>Select a new tutor</h2>
+                <h4 class="mb-0">Continue my course and allow me to select a new tutor</h4>
+              </div>
+            </div>
+          </mat-radio-button>
+          <mat-radio-button [value]="2">
+            <div class="row">
+              <div class="relative img-avatar d-flex align-items-center justify-content-center">
+                <img src="assets/png/logo.png" alt="" draggable="false">
+              </div>
+              <div class="col d-flex justify-content-center flex-column">
+                <h2>Allow MEtutors to assign a new tutor</h2>
+                <h4 class="mb-0">Continue my course and allow MEtutors to assign a new tutor</h4>
+              </div>
+            </div>
+          </mat-radio-button>
+          <mat-radio-button [value]="3">
+            <div class="row">
+              <div class="relative img-avatar d-flex align-items-center justify-content-center">
+                <img src="assets/png/ban.png" alt="" draggable="false">
+              </div>
+              <div class="col d-flex justify-content-center flex-column">
+                <h2>Stop My Course & Receive a Refund</h2>
+                <h4 class="mb-0">Stop my course and issue a refund for the remaining classes</h4>
+              </div>
+            </div>
+          </mat-radio-button>
+        </mat-radio-group>
+
+        <div class="d-flex justify-content-end mt-3">
+          <button mat-flat-button color="primary" class="py-2 px-5 fw-bold" [disabled]="!selectedOption"
+                  (click)="onNext()">Continue
+          </button>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="next && selectedOption === 1">
+        <div class="assign-tutor flex-row">
+          <ng-container [ngSwitch]="loadingTutors$ | async">
+            <ng-container *ngSwitchCase="true">
+              <div class="ph-item mt-4 mx-2" *ngFor="let i of [1, 2, 3, 4, 5]">
+                <div class="ph-col-2">
+                  <div class="ph-avatar"></div>
+                </div>
+
+                <div>
+                  <div class="ph-row mt-2">
+                    <div class="ph-col-10"></div>
+                    <div class="ph-col-2 empty"></div>
+                    <div class="ph-col-6"></div>
+                    <div class="ph-col-6 empty"></div>
+                    <div class="ph-col-2"></div>
+                    <div class="ph-col-10 empty"></div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+            <ng-container *ngSwitchCase="false">
+              <div class="list-tutors">
+                <ng-container *ngIf="(tutors$ | async)?.length">
+                  <mat-radio-group class="d-flex flex-column" (change)="onTutorSelect($event)">
+                    <mat-radio-button *ngFor="let tutor of (tutors$ | async)" [value]="tutor?.id">
+                      <div class="row">
+                        <div class="position-relative img-avatar">
+                          <img [src]="tutor?.avatar" meTutorsDefaultAvatar alt="" width="60px" height="60px">
+                        </div>
+                        <div class="col d-flex justify-content-center flex-column">
+                          <h2>{{ tutor?.name }}</h2>
+                          <h3 class="mb-0" *ngIf="tutor?.bio">{{ tutor?.bio }}</h3>
+                        </div>
+                        <a class="col-md-2 full-profile" [routerLink]="'/profile/tutor/' + tutor?.id" target="_blank">
+                          <img src="assets/svg/share-link.svg" draggable="false" width="16px" height="16px" alt="">
+                          Full profile
+                        </a>
+                      </div>
+                    </mat-radio-button>
+                  </mat-radio-group>
+                </ng-container>
+
+                <ng-container *ngIf="!(tutors$ | async)?.length">
+                  <div class="text-center fw-bold">No record found!</div>
+                </ng-container>
+
+                <div class="row mt-5">
+                  <div class="col-12 overflow-hidden">
+                    <button mat-flat-button color="primary" class="float-end py-2 px-5" type="button"
+                            [disabled]="!selectedTutor || (reassigningTutor$ | async)" (click)="onReassignTutor()">
+                      Continue
+                    </button>
+                    <span class="back-button float-end text-secondary cursor-pointer" type="button" (click)="onBack()">Back</span>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="next && selectedOption === 2">
+        <div class="assign-tutor flex-row mt-5 p-3">
+          <div class="text-center">
+            <img src="assets/svg/correct.svg" alt="" width="100">
+
+            <h3 class="mt-4">Congratulations</h3>
+            <p>Request was submitted. METutors will assign a new tutor. You will be contacted soon.</p>
+
+            <div class="mt-5">
+              <button mat-flat-button color="primary" class="w-100 p-1 fw-bold" (click)="goToDashboard()">
+                Go to class Dashboard
+              </button>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="next && selectedOption === 3">
+        <ng-container *ngLet="(view$ | async) as view">
+          <form class="row cancel-course-modal" [formGroup]="form"
+                (ngSubmit)="onSubmitCancelCourse(form, view.refund?.totalRefunds)">
+            <ng-container [ngSwitch]="view.loading">
+              <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
+              <div class="col-12 mt-4" *ngSwitchCase="false">
+                <div class="form-group">
+                  <span class="fw-bold mb-2 d-block">Summary:</span>
+                  <div class="row">
+                    <div class="col-md-6 mb-2"><span
+                      class="text-secondary">Total Classes: </span> {{ view.refund?.totalClasses}}</div>
+                    <div class="col-md-6"><span
+                      class="text-secondary">Remaining classes: </span> {{ view.refund?.remainingClasses}}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6"><span
+                      class="text-secondary">Refundable Classes: </span> {{ view.refund?.totalRefundableClasses}}</div>
+                    <div class="col-md-6">
+                      <!--<span class="text-secondary">Non Refundable classes: </span> {{ view.refund?.totalNonRefundableClasses}}-->
+                    </div>
+                  </div>
+                  <hr class="text-secondary">
+                </div>
+
+                <div class="form-group mt-3">
+                  <div class="row mb-3">
+                    <div class="col-md-6"><span class="text-secondary">Refund Amount per Class</span></div>
+                    <div class="col-md-6 text-right">{{ view.refund?.subtotalRefunds | metutorsMoney | async }}</div>
+                  </div>
+
+                  <div class="row mb-4">
+                    <div class="col-md-6"><span class="text-secondary">Administrative Service Fee @ 10%</span></div>
+                    <div class="col-md-6 text-right">{{ view.refund?.totalServiceFee | metutorsMoney | async }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6">Total Amount for Refund</div>
+                    <div class="col-md-6 text-right">{{ view.refund?.totalRefunds | metutorsMoney | async }}</div>
+                  </div>
+                </div>
+
+                <div class="form-group mt-2">
+                  <label>Reason for course cancelation</label>
+                  <textarea class="form-control custom-input input-bordered" formControlName="reason"
+                            id="exampleFormControlTextarea1" rows="5" placeholder="Enter the reason here..."></textarea>
+                </div>
+
+                <div class="form-group mt-2">
+                  <mat-checkbox formControlName="agree">I agree to METutors <a href="" target="_blank" class="text-decoration-underline">cancel policy</a>
+                  </mat-checkbox>
+                </div>
+
+                <div class="form-group mt-2" *ngIf="!view.refund?.totalRefunds">
+                  <div class="alert-warning p-3">No refundable class found</div>
+                </div>
+
+                <div class="row mt-2">
+                  <div class="col-md-12 overflow-hidden">
+                    <metutors-submit-button [form]="form" [isSubmitting]="isCanceling$ | async"
+                                            [isDisabled]="!view.refund?.totalRefunds"
+                                            [extraClasses]="'float-end py-2 px-5'">
+                      Confirm
+                    </metutors-submit-button>
+
+                    <span class="back-button float-end text-secondary cursor-pointer" type="button" (click)="onBack()">Back</span>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </form>
+        </ng-container>
+      </ng-container>
+    </div>
+  </ng-template>
+</metutors-modal>

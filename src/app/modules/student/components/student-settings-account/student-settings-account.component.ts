@@ -1,14 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { map, tap } from 'rxjs/operators';
+import { Observable, combineLatest } from 'rxjs';
+import { Component, OnInit, Input } from '@angular/core';
+import { FormValidationUtilsService } from '@metutor/core/validators';
+
 import {
-  AbstractControl,
-  FormBuilder,
-  FormControl,
   FormGroup,
   Validators,
+  FormBuilder,
+  AbstractControl,
 } from '@angular/forms';
-import { CountryISO } from 'ngx-intl-tel-input';
-import { AlertNotificationService } from 'src/app/core/components';
-import { AuthService, UsersService } from 'src/app/core/services';
+
+import { GENDERS, generalConstants } from '@config';
+import { ICountry, IStudent } from '@models';
+import * as fromCore from '@metutor/core/state';
+import { AlertNotificationService } from '@metutor/core/components';
 
 @Component({
   selector: 'metutors-student-settings-account',
@@ -16,175 +22,133 @@ import { AuthService, UsersService } from 'src/app/core/services';
   styleUrls: ['./student-settings-account.component.scss'],
 })
 export class StudentSettingsAccountComponent implements OnInit {
-  loading = false;
+  @Input() countries: ICountry[] | null;
+
   form: FormGroup;
-  profilePic: any;
-  subloading = false;
-  minPhone?: boolean;
-  maxPhone?: boolean;
-  numberOnly?: boolean;
-  selectedCountry!: string;
-  preferredCountries: CountryISO[] = [
-    CountryISO.UnitedStates,
-    CountryISO.UnitedKingdom,
-  ];
+  genders = GENDERS;
+  filterCountry: string;
+  fileUploadProgress$: Observable<any>;
+  isChangeAvatar$: Observable<boolean>;
+  isSavingProfile: Observable<boolean>;
+  uploadComplete = generalConstants.uploadComplete;
+  view$: Observable<{ student: IStudent | null; loading: boolean }>;
 
   constructor(
     private _fb: FormBuilder,
-    private _authService: AuthService,
-    private _userService: UsersService,
+    private _store: Store<any>,
+    private _fv: FormValidationUtilsService,
     private _alertNotificationService: AlertNotificationService
-  ) {
-    this.form = this._fb.group({
-      firstName: [
-        null,
-        [
-          Validators.required,
-          Validators.pattern("^[a-zA-Z -']+"),
-          this.minCharacterValidator,
-          this.maxCharacterValidator,
-        ],
-      ],
-      lastName: [
-        null,
-        [
-          Validators.required,
-          Validators.pattern("^[a-zA-Z -']+"),
-          this.minCharacterValidator,
-          this.maxCharacterValidator,
-        ],
-      ],
-      email: [
-        null,
-        [Validators.required, Validators.email, this.maxCharacterValidator],
-      ],
-      mobileNumber: [null, []],
-    });
-  }
+  ) {}
 
   ngOnInit(): void {
-    this._userService.getUserLocation().then((res: any) => {
-      if (res && res.countryCode) {
-        this.selectedCountry = res.countryCode.toLowerCase();
-      }
-    });
-  }
+    this._store.dispatch(fromCore.loadStudent());
 
-  minCharacterValidator(control: FormControl) {
-    let value = (control.value || '').trim().length;
-    let less = value < 3;
-    return less ? { minlength: true } : null;
-  }
+    this.isChangeAvatar$ = this._store.select(fromCore.selectIsUploadingAvatar);
+    this.isSavingProfile = this._store.select(
+      fromCore.selectIsUpdatingStudentProfile
+    );
 
-  minPasswordValidation(control: FormControl) {
-    let value = (control.value || '').trim().length;
-    let less = value < 8;
-    return less ? { minlength: true } : null;
-  }
+    this.fileUploadProgress$ = this._store
+      .select(fromCore.selectFileUploadingProgress)
+      .pipe(
+        tap((progress) => {
+          progress?.map((response: any) => {
+            if (response.responseType === this.uploadComplete) {
+              this._store.dispatch(
+                fromCore.changeAvatar({ file: response.url })
+              );
+            }
+          });
+        })
+      );
 
-  maxCharacterValidator(control: FormControl) {
-    let value = (control.value || '').trim().length;
-    let greater = value > 100;
-    return greater ? { maxlength: true } : null;
-  }
-
-  verifyPhoneNumber(event: any) {
-    this.numberOnly = this.numberOnlyValidation(event.target.value);
-    if (this.numberOnly) {
-      let value = event.target.value.length;
-      if (value < 5) {
-        this.minPhone = false;
-      } else {
-        this.minPhone = true;
-      }
-
-      if (value > 15) {
-        this.maxPhone = false;
-      } else {
-        this.maxPhone = true;
-      }
-    }
-  }
-
-  numberOnlyValidation(value: any) {
-    if (typeof Number(value) === 'number') {
-      if (value.includes('+') || value.includes('-')) {
-        return false;
-      }
-      return true;
-    } else {
-      return false;
-    }
+    this.view$ = combineLatest([
+      this._store.select(fromCore.selectStudent).pipe(
+        tap((student) => {
+          if (student) {
+            this._form(student);
+          }
+        })
+      ),
+      this._store.select(fromCore.selectIsLoadingStudents),
+    ]).pipe(
+      map(([student, loading]) => ({
+        loading,
+        student,
+      }))
+    );
   }
 
   get firstName(): AbstractControl | null {
-    return this.form.get('firstName');
+    return this.form.get('first_name');
   }
 
   get lastName(): AbstractControl | null {
-    return this.form.get('lastName');
+    return this.form.get('last_name');
   }
 
-  get email(): AbstractControl | null {
-    return this.form.get('email');
+  get filteredCountries(): ICountry[] {
+    if (this.filterCountry) {
+      return (
+        this.countries?.filter((country) =>
+          country?.name.toLowerCase().includes(this.filterCountry.toLowerCase())
+        ) || []
+      );
+    } else {
+      return this.countries || [];
+    }
   }
 
-  get phoneNumber(): AbstractControl | null {
-    return this.form.get('mobileNumber');
-  }
+  uploadProfilePic(event: any): void {
+    if (event.target && event.target.files && event.target.files.length) {
+      const file = event.target?.files;
+      const mimeType = event.target.files[0].type;
 
-  upload() {
-    this.subloading = true;
+      if (mimeType.match(/image\/*/) == null) {
+        this._alertNotificationService.error('Only images are allowed');
 
-    // document.getElementById('fileInput').click();
-  }
+        return;
+      }
 
-  uploadProfilePic(event: any) {
-    this.profilePic = event.target.files[0];
-    this.subloading = false;
+      if (file[0].size > 1024 * 1024) {
+        this._alertNotificationService.error('Allowed file size is 1MB');
 
-    if (event.target.files.length > 0) {
-      // var output = document.getElementById('output');
-      // output['src'] = URL.createObjectURL(event.target.files[0]);
-      // output.onload = function () {
-      //   URL.revokeObjectURL(output['src']);
-      // };
+        return;
+      }
+
+      this._store.dispatch(fromCore.uploadFile({ file: [...file] }));
     }
   }
 
   onSubmit(form: FormGroup) {
-    this.loading = true;
-    const countryCodeLength =
-      this.phoneNumber?.value.internationalNumber.length - 11;
-    let phoneNumber = {
-      code: this.phoneNumber?.value.internationalNumber.substr(
-        0,
-        countryCodeLength
-      ),
-      mobile: this.phoneNumber?.value.internationalNumber.substr(
-        countryCodeLength,
-        this.phoneNumber.value.internationalNumber.length
-      ),
-    };
+    const body = form.value;
+    this._store.dispatch(fromCore.studentUpdateProfile({ body }));
+  }
 
-    const formData = new FormData();
-
-    formData.append(`first_name`, this.firstName?.value);
-    formData.append(`last_name`, this.lastName?.value);
-    formData.append(`country_code`, phoneNumber.code.replace(' ', ''));
-    formData.append(`mobile`, phoneNumber.mobile.replace(' ', ''));
-    formData.append(`email`, this.email?.value);
-    formData.append(`avatar`, this.profilePic);
-
-    this._authService.updateStudentProfile(formData).subscribe((response) => {
-      if (response.status === true) {
-        this.form.reset();
-        this.loading = false;
-        this._alertNotificationService.success(response.message);
-      } else {
-        this._alertNotificationService.error(response.errors[0]);
-      }
-      this.loading = false;
+  private _form(student: IStudent): void {
+    this.form = this._fb.group({
+      first_name: [
+        student.firstName || null,
+        [
+          Validators.required,
+          Validators.pattern("^[a-zA-Z -']+"),
+          this._fv.minCharacterValidator,
+          this._fv.maxCharacterValidator,
+        ],
+      ],
+      last_name: [
+        student.lastName || null,
+        [
+          Validators.required,
+          this._fv.minCharacterValidator,
+          this._fv.maxCharacterValidator,
+          Validators.pattern("^[a-zA-Z -']+"),
+        ],
+      ],
+      email: [student.email || null],
+      gender: [student.gender || null],
+      country: [student.country || null],
+      headline: [student.headline || null],
     });
   }
 }

@@ -1,17 +1,28 @@
-<div class="slide position-relative" style="background-image: url('assets/homepage/cover.png')">
-  <div class="position-absolute overlay"></div>
+<div class="slide position-relative">
+  <div class="sliding">
+    <div class="slider">
+      <div class="slide1" style="background-image: url('assets/homepage/covers/01.png');"></div>
+      <div class="slide2" style="background-image: url('assets/homepage/covers/02.png');"></div>
+      <div class="slide3" style="background-image: url('assets/homepage/covers/03.png');"></div>
+      <div class="slide4" style="background-image: url('assets/homepage/covers/04.png');"></div>
+      <div class="slide5" style="background-image: url('assets/homepage/covers/05.png');"></div>
+      <div class="slide6" style="background-image: url('assets/homepage/covers/06.png');"></div>
+    </div>
+  </div>
   <div class="container">
     <div class="row">
       <div class="col-md-7 z-2">
-        <h1>
-          The Power of
+        <h1 class="f-size-25-md-sm">
+          A Complete Personalized
           <br>
-          Online Learning
+          Learning Experience
         </h1>
-        <h2>Anyone, Anywhere, Anytime</h2>
-        <p>Everything is figureoutable with Textbook Solutions,
-          Expert Q&A, Video Explanations and Practice Problems</p>
-        <button mat-flat-button color="primary" (click)="scrollToAnchor()">Explore our services</button>
+        <h2 class="f-size-20-md-sm">Redefining Online Tutoring</h2>
+        <p class="f-size-18-md-sm">Use artificial intelligence built technology to find top tutors from around the world
+          and instantly unlock the power of achieving your learning goals with our intuitive learning platform.</p>
+        <a mat-button routerLink="/signup" *ngIf="!token" class="f-size-17-md-sm">Sign Up Now!</a>
+        <button mat-button (click)="scrollToAnchor()" *ngIf="token" class="f-size-17-md-sm">Explore our
+          services</button>
       </div>
     </div>
   </div>

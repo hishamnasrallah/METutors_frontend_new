@@ -1,0 +1,21 @@
+<div class="d-flex min-h-100">
+  <div class="sidemenu">
+    <ul class="list-unstyled m-0">
+      <li>
+        <a routerLink="/tutor/help/faq" routerLinkActive="active">
+          <span class="text-uppercase">FAQs</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/tutor/help/support-ticket" routerLinkActive="active">
+          <span class="text-uppercase">Support ticket</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="flex-grow-1 overflow-auto">
+    <metutors-tutor-navbar [layout]="(layout$ | async)" [user]="user$ | async" (logout)="logout()"></metutors-tutor-navbar>
+    
+    <router-outlet></router-outlet>
+  </div>
+</div>

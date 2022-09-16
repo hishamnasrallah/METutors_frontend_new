@@ -1,21 +1,39 @@
 .user-prefrences {
-  padding: 30px 0;
-
   h3 {
     color: #2a2a2a;
-    font-size: 14px;
-    font-weight: bold;
+    font-size: 16px;
+    font-weight: 600;
+
+    span {
+      font-size: 14px;
+      color: #949494;
+      font-weight: normal;
+    }
   }
 
   .btn-list {
     border-top: solid 1px #e2e2e2;
-    padding: 20px 20px 0;
-    margin-left: -30px;
 
     button {
       font-weight: bold;
       padding: 10px 30px;
       font-size: 18px;
+    }
+  }
+
+  .lang-info {
+    font-size: 15px;
+    color: #000;
+
+    span {
+      font-size: 11px;
+      margin-left: 5px;
+    }
+
+    mat-icon {
+      color: #C4C4C4;
+      cursor: pointer;
+      margin-left: 10px;
     }
   }
 }

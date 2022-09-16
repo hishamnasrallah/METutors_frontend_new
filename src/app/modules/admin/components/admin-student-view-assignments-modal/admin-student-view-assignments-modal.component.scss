@@ -1,0 +1,73 @@
+.view-assignments {
+  .heading {
+    margin-top: 10px;
+    background: #F8F8F8;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #EDEDED;
+
+    .assign-info {
+      h1 {
+        color: #2A2A2A;
+        font-size: 17px;
+        font-weight: bold;
+      }
+
+      h3 {
+        color: #727272;
+        font-size: 13px;
+      }
+    }
+
+    .percentage {
+      strong {
+        color: #2A2A2A;
+        font-size: 18px;
+        font-weight: normal;
+      }
+
+      .my-progress,
+      .progress-spinner,
+      .progress-spinner svg {
+        width: 40px !important;
+        height: 40px !important;
+
+        span {
+          top: 0;
+          left: 0;
+          bottom: 0;
+          font-size: 13px;
+          right: 0;
+          text-align: center;
+          line-height: 40px;
+        }
+      }
+    }
+
+    .close-btn {
+      position: absolute;
+      right: 0;
+      top: 5px;
+    }
+  }
+
+  .table-block {
+    margin: 0 -12px;
+
+    .my-table {
+      overflow: visible;
+
+      th {
+        color: #949494;
+        font-size: 12px;
+      }
+
+      .view-details {
+        line-height: 0;
+        min-width: 0;
+        padding: 15px;
+        border-radius: 25px !important;
+      }
+    }
+  }
+}

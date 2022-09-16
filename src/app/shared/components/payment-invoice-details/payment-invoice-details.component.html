@@ -1,0 +1,56 @@
+<div class="row invoice-header">
+  <div class="col-md-9">
+    <ul class="list-inline mb-0">
+      <li class="list-inline-item mb-0 me-4">
+        <span class="f-size-15-md-sm">Invoice #</span>
+        <strong class="f-size-15-md-sm">IN37738</strong>
+      </li>
+      <li class="list-inline-item mb-0 me-4">
+        <span class="f-size-15-md-sm">Order #</span>
+        <strong class="f-size-15-md-sm">IN37738</strong>
+      </li>
+      <li class="list-inline-item mb-0 me-4">
+        <span class="f-size-15-md-sm">Date #</span>
+        <strong class="f-size-15-md-sm">{{ dateNow | date }}</strong>
+      </li>
+    </ul>
+  </div>
+  <div class="col-md-3 mt-15-sm">
+    <button mat-button class="invoice-email d-block w-100 mb-1">Get Invoice Email</button>
+    <button mat-button class="print d-block w-100 mb-1">Print</button>
+  </div>
+</div>
+
+<h3 class="title f-size-20-md-sm mt-15-sm">Invoice Details</h3>
+  <ul class="list-unstyled">
+    <li class="d-flex justify-content-between">
+      <span class="f-size-15-md-sm">Total Hours </span>
+      <strong class="f-size-15-md-sm">{{ invoiceDetails?.totalHours }} hour{{ +(invoiceDetails?.totalHours)! > 1 ? 's' : '' }}</strong>
+    </li>
+    <li class="d-flex justify-content-between">
+      <span class="f-size-15-md-sm">Hourly Rate</span>
+      <strong class="f-size-15-md-sm">{{ invoiceDetails?.pricePerHour | metutorsMoney | async }}</strong>
+    </li>
+    <li class="d-flex justify-content-between">
+      <span class="f-size-15-md-sm">Total Amount Due</span>
+      <strong class="f-size-15-md-sm">{{ invoiceDetails?.totalAmount | metutorsMoney | async }}</strong>
+    </li>
+    <li class="d-flex justify-content-between promocode">
+      <span class="f-size-15-md-sm">Promo code 0% off</span>
+      <strong class="f-size-15-md-sm">{{ 0 | metutorsMoney | async }}</strong>
+    </li>
+    <li class="d-flex justify-content-between total-payment">
+      <span class="f-size-15-md-sm">Total payment</span>
+      <strong class="f-size-15-md-sm">{{ invoiceDetails?.totalAmount | metutorsMoney | async }}</strong>
+    </li>
+    <li class="d-flex justify-content-between coupon d-block-sm">
+      <span class="f-size-17-md-sm">Promo code </span>
+      <form>
+        <div class="d-flex have-coupon">
+          <input type="text" placeholder="New2020" class="form-control">
+          <button type="button" mat-button (click)="applyCoupon.emit()">Apply</button>
+        </div>
+      </form>
+    </li>
+  </ul>
+

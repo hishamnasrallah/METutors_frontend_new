@@ -1,0 +1,78 @@
+:host ::ng-deep .tutors-list {
+  padding: 30px 40px 20px;
+
+  .filters {
+    h1 {
+      font-size: 25px;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    mat-icon {
+      position: absolute;
+      left: 15px;
+      top: 11px;
+
+      &.filter {
+        left: auto;
+        right: 15px;
+      }
+    }
+
+    .search-request {
+      padding-left: 45px;
+    }
+  }
+
+  .my-table {
+    overflow: visible;
+
+    th {
+      color: #696969;
+      font-size: 14px;
+    }
+
+    .tutor-date {
+      div {
+        padding: 0;
+        font-size: 14px;
+
+        span {
+          color: #696969;
+        }
+      }
+    }
+
+    .change-status {
+      .status {
+        color: #FFF;
+        line-height: 0;
+        min-width: 0;
+        padding: 15px;
+        border-radius: 25px;
+
+        &.pending {
+          background-color: #EBD016;
+        }
+
+        &.deactive {
+          background-color: #FF0404;
+        }
+      }
+    }
+  }
+
+  .mat-tab-label {
+    font-size: 20px;
+    justify-content: start;
+    padding: 0;
+    font-weight: bold;
+    min-width: 70px;
+    margin-right: 50px;
+
+    &.mat-tab-label-active {
+      color: var(--main-color);
+      opacity: 1;
+    }
+  }
+}

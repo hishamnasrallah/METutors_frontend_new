@@ -8,7 +8,7 @@ import { FormControlDirective, FormControlName } from '@angular/forms';
   selector: '[formControl], [formControlName]',
 })
 export class TrimInputDirective {
-  @Input() type?: string;
+  /*@Input() type?: string;
 
   constructor(
     @Optional() private _formControlDir: FormControlDirective,
@@ -34,5 +34,5 @@ export class TrimInputDirective {
     if (typeof control.value === 'string' && this.type !== 'password') {
       control.setValue(control.value.trim());
     }
-  }
+  }*/
 }

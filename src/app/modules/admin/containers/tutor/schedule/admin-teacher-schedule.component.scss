@@ -1,0 +1,105 @@
+.tutor-schedule {
+  padding: 30px 40px 20px;
+
+  .filters {
+    h1 {
+      font-size: 25px;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    mat-icon {
+      position: absolute;
+      left: 15px;
+      top: 11px;
+
+      &.filter {
+        left: auto;
+        right: 15px;
+      }
+    }
+
+    .search-request {
+      padding-left: 45px;
+    }
+  }
+
+  .my-table {
+    overflow: visible;
+
+    th {
+      color: #696969;
+      font-size: 14px;
+      background-color: #F8F8F8;
+
+      &.today {
+        background-color: rgb(59 179 193 / 20%);
+
+        .date-title span {
+          color: var(--main-color);
+        }
+      }
+    }
+
+    td {
+      vertical-align: top;
+    }
+
+    .date-title {
+      span {
+        color: #949494;
+      }
+
+      strong {
+        color: #2A2A2A;
+        font-size: 12px;
+      }
+    }
+
+    .tutor-info {
+      span {
+        color: #2A2A2A;
+        font-size: 14px;
+        font-weight: bold;
+
+        strong {
+          font-size: 16px;
+          color: #949494;
+          font-weight: normal;
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .card-block {
+      border: 0.5px solid #BDBDBD;
+      border-radius: 4px;
+
+      &:not(:last-child) {
+        margin-bottom: 5px;
+      }
+
+      span {
+        font-size: 15px;
+
+        &.sin {
+          color: var(--main-color);
+        }
+
+        &.cin {
+          color: #727272;
+        }
+
+        &.bin {
+          color: #61A0FF;
+        }
+      }
+
+      strong {
+        color: #BDBDBD;
+        font-weight: normal;
+        font-size: 15px;
+      }
+    }
+  }
+}

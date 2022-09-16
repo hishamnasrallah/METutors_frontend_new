@@ -8,8 +8,15 @@ import { ITutor } from 'src/app/core/models';
 })
 export class TutorProfileFeedbackRatingsComponent implements OnInit {
   @Input() tutor?: ITutor;
+  @Input() isLoading: boolean;
+
+  maxItems = 5;
 
   constructor() {}
 
   ngOnInit(): void {}
+
+  solveFeedbackNumber(value: any): number {
+    return value as number;
+  }
 }

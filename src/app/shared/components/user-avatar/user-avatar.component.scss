@@ -1,0 +1,19 @@
+.avatar {
+  h1 {
+    color: #2A2A2A;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .rating {
+    color: #FF8300;
+    font-size: 14px;
+  }
+  .count {
+    font-size: 12px;
+    color: #979797;
+  }
+  img {
+    object-fit: cover;
+  }
+}

@@ -1,74 +1,99 @@
-<form [formGroup]="form" (ngSubmit)="submitFormData()" class="w-100">
+<form [formGroup]="form" (ngSubmit)="submitFormData()" class="w-100 p-10-sm">
   <div>
-    <h4 class="mb-4 heading text-center">Add Profile Picture</h4>
+    <h4 class="mb-4 heading text-center f-size-18-md-sm mb-15-sm">Add Profile Picture</h4>
 
     <div class="row">
-      <div class="col-md-4"></div>
-      <div class="col-md-4">
+      <div class="col-lg-4"></div>
+      <div class="col-lg-4">
         <div class="row">
-          <div class="col-md-6">
-            <img [src]="profilePic" class="preview-box" *ngIf="profilePic" width="100%" />
-            <div class="preview-box d-flex align-items-center justify-content-center" *ngIf="!profilePic">Preview</div>
+          <div class="col-lg-6">
+            <img [src]="avatar?.value" class="preview-box" *ngIf="avatar?.value" width="100%" alt="" />
+            <div class="preview-box d-flex align-items-center justify-content-center" *ngIf="!avatar?.value">Preview
+            </div>
           </div>
 
-          <div class="col-md-6">
-            <div class="guide1">Your image should be at least 300 x 300 px</div>
+          <div class="col-lg-5">
+            <div class="guide1 f-size-15-md-sm">Image should be at least 300 x 300 px</div>
+            <div class="guide2 f-size-15-md-sm">Size 2MB max</div>
             <input type="file" #filePicker1 (change)="onChangeAvatar($event)" hidden accept="image/*" />
-            <div class="form-group mt-4 mb-2">
-              <button mat-flat-button color="primary" class="py-2 d-block w-100" cdkFocusInitial type="button"
+            <div class="form-group mt-4 mb-2 mt-15-sm">
+              <button mat-flat-button color="primary" class="d-block py-1 px-5" type="button" [disabled]="uploadingFile"
                 (click)="filePicker1.click()"> Upload
               </button>
             </div>
           </div>
+
+          <ng-container *ngIf="picType === 'avatar'">
+            <ng-container *ngLet="fileUploadProgress$ | async as fileUploadProgress">
+              <ng-container *ngIf="fileUploadProgress?.length">
+                <ng-container *ngFor="let uploadProgress of fileUploadProgress">
+                  <ng-container *ngIf="uploadProgress.responseType !== uploadComplete">
+                    <metutors-file-upload-progress [fileName]="uploadProgress.fileName"
+                      [uploadedPercentage]="uploadProgress.progress">
+                    </metutors-file-upload-progress>
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </ng-container>
         </div>
       </div>
-      <div class="col-md-4"></div>
+      <div class="col-lg-4"></div>
     </div>
 
-    <h4 class="mb-4 mt-5 heading text-center">Add Cover Image</h4>
+    <h4 class="mb-4 mt-5 heading text-center f-size-18-md-sm mb-15-sm mt-15-sm">Add Cover Image</h4>
 
     <div class="row">
-      <div class="col-md-3"></div>
-      <div class="col-md-6">
+      <div class="col-lg-3"></div>
+      <div class="col-lg-6">
         <div class="row">
           <div class="col-md-12">
             <input type="file" #filePicker2 (change)="onChangeCover($event)" hidden accept="image/*" />
 
             <div class="position-relative">
-              <img [src]="coverPic" class="cover-preview" width="100%" *ngIf="coverPic" />
-              <button mat-flat-button color="primary" class="px-4 edit-cover" cdkFocusInitial type="button" *ngIf="coverPic"
-                (click)="filePicker2.click()"> change
+              <img [src]="cover?.value" class="cover-preview" width="100%" *ngIf="cover?.value" alt="" />
+              <button mat-flat-button color="primary" class="px-4 edit-cover" type="button" *ngIf="cover?.value"
+                (click)="filePicker2.click()" [disabled]="uploadingFile"> Change
               </button>
             </div>
-            <div class="cover-preview d-flex align-items-center justify-content-center flex-column" *ngIf="!coverPic">
-              <div class="guide1">(Image should be jpeg, jpg, png max:10MB)</div>
+            <div class="cover-preview d-flex align-items-center justify-content-center flex-column"
+              *ngIf="!cover?.value">
+              <div class="guide1">Your image should be at least 700 x 300 px</div>
 
-              <button mat-flat-button color="primary" class="px-4 mt-2" cdkFocusInitial type="button"
+              <button mat-flat-button color="primary" class="px-4 mt-2" type="button" [disabled]="uploadingFile"
                 (click)="filePicker2.click()"> Upload
               </button>
             </div>
-          </div>
-          <div class="col-md-4"></div>
 
-          <div class="col-md-4">
-
+            <ng-container *ngIf="picType === 'cover'">
+              <ng-container *ngLet="fileUploadProgress$ | async as fileUploadProgress">
+                <ng-container *ngIf="fileUploadProgress?.length">
+                  <ng-container *ngFor="let uploadProgress of fileUploadProgress">
+                    <ng-container *ngIf="uploadProgress.responseType !== uploadComplete">
+                      <metutors-file-upload-progress [fileName]="uploadProgress.fileName"
+                        [uploadedPercentage]="uploadProgress.progress">
+                      </metutors-file-upload-progress>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+            </ng-container>
           </div>
-          <div class="col-md-4"></div>
+          <div class="col-lg-4"></div>
+          <div class="col-lg-4"></div>
+          <div class="col-lg-4"></div>
         </div>
       </div>
-      <div class="col-md-3"></div>
+      <div class="col-lg-3"></div>
     </div>
 
-    <div class="row">
-      <div class="col-md-4"></div>
-      <div class="col-md-4">
-        <div class="form-group mt-4 mb-2">
-          <metutors-submit-button [form]="form" [isSubmitting]="loading" [extraClasses]="'w-100'">
-            Save & Continue
-          </metutors-submit-button>
-        </div>
-      </div>
-      <div class="col-md-4"></div>
+    <div class="d-flex align-items-center justify-content-between mt-4 mb-2">
+      <button class="main-button-transparent px-4" mat-button type="button" (click)="changeStep.emit(1)">Back</button>
+
+      <metutors-submit-button [form]="form" [isSubmitting]="loading" [isDisabled]="uploadingFile"
+        [extraClasses]="'w-100 fw-bold px-5'">
+        Save & Continue
+      </metutors-submit-button>
     </div>
   </div>
 </form>

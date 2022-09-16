@@ -2,14 +2,20 @@
 
 <div class="container">
   <metutors-about-values></metutors-about-values>
+
   <metutors-why-metutors [whyMeTutorsList]="whyMeTutorsList"></metutors-why-metutors>
+
   <metutors-why-we-teach></metutors-why-we-teach>
 </div>
 
 <metutors-innovative-approach></metutors-innovative-approach>
 
-<div class="container mb-5">
+<!-- <div class="container mb-5">
   <metutors-founder-team [founders]="founders"></metutors-founder-team>
-</div>
+</div> -->
 
-<metutors-start-learning-now></metutors-start-learning-now>
+<metutors-start-learning-now [token]="(token$ | async)!"
+                             [title]="'Virtual Learning is Changing Education'"
+                             [desc]="'Join now | Be a part of the change | View courses and attend online classes | Save time and money'"
+                             [btnText]="'Start Learning Now'">
+</metutors-start-learning-now>

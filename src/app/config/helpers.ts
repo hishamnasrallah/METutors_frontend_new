@@ -1,4 +1,4 @@
-import { ILookups, IMisc } from '../core/models';
+import { ILookups, IMisc } from '@models';
 
 export function simpleNumber(value: number): string | number {
   const valueNum = Math.abs(Number(value));
@@ -17,6 +17,10 @@ export function simpleNumber(value: number): string | number {
     : valueNum % 1 === 0
     ? valueNum
     : valueNum.toFixed(2);
+}
+
+export function convertTimeToDateISO(time: string): string {
+  return new Date(`1970-01-01 ${time}`).toISOString();
 }
 
 export function addMisc(title: string, details: any) {
@@ -53,12 +57,12 @@ export function formatBytes(bytes: number, decimals = 2) {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
 }
 
-export function calculateDurationTime(start: string, end: string) {
+export function calculateDurationTime(start: string, end: string): number {
   const timeHourStart = parseTime(start)?.hours;
   const timeHourEnd = parseTime(end)?.hours;
 
   const timeMinuteStart = parseTime(start)?.minutes;
-  const timeMinuteEnd = parseTime(start)?.minutes;
+  const timeMinuteEnd = parseTime(end)?.minutes;
 
   let hourDiff = timeHourEnd - timeHourStart;
   let minuteDiff = timeMinuteEnd - timeMinuteStart;
@@ -69,6 +73,7 @@ export function calculateDurationTime(start: string, end: string) {
 
   if (minuteDiff < 0) {
     minuteDiff = 60 + minuteDiff;
+    hourDiff = hourDiff - 1;
   }
 
   const minuteAvg = (minuteDiff / 60).toFixed(2);
@@ -108,4 +113,10 @@ export function calculateListDays(startDate: string, endDate: string) {
   }
 
   return dateArray;
+}
+
+export function urlRegEx(): any {
+  return new RegExp(
+    '[-a-zA-Z0-9@:%_+.~#?&/=]{2,256}(.[a-z]{2,4})?\b(/[-a-zA-Z0-9@:%_+.~#?&/=]*)?'
+  );
 }

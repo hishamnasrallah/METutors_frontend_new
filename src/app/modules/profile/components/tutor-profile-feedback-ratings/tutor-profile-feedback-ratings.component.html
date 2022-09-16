@@ -1,58 +1,58 @@
 <div class="card feedback-rating">
-  <div class="card-body">
+  <div class="card-body" *ngIf="!isLoading">
     <h1 class="title">
       Feedback & Ratings
-      <span>{{ tutor?.rate }} ({{ tutor?.reviewsCount }} reviews)</span>
+      <span>{{ tutor?.averageRating | number:'.1-1' }} ({{ tutor?.feedbacks?.length }} review{{ +(tutor?.feedbacks?.length)! > 1 ? 's' : '' }})</span>
     </h1>
     <div class="rating-block">
-      <div class="row">
+      <div class="row" [class.mt-3]="!isFirst"
+        *ngFor="let feedback of tutor?.feedbackRating | keyvalue; let isFirst = first">
         <div class="col">
-          <h2>Expert in the subject ({{ tutor?.expertInTheSubjectRate }})</h2>
+          <h2>{{ feedback?.key }} ({{ solveFeedbackNumber(feedback.value) | number:'.1-1' }})</h2>
         </div>
-        <div class="col-md-2">
-          <rating [ngModel]="tutor?.expertInTheSubjectRate" [max]="5" [readonly]="true"></rating>
-        </div>
-      </div>
-      <div class="row mt-3">
-        <div class="col">
-          <h2>Present complex topics clearly and easily ({{ tutor?.presentComplexTopicsClearlyAndEasilyRate }})</h2>
-        </div>
-        <div class="col-md-2">
-          <rating [ngModel]="tutor?.presentComplexTopicsClearlyAndEasilyRate" [max]="5" [readonly]="true"></rating>
-        </div>
-      </div>
-      <div class="row mt-3">
-        <div class="col">
-          <h2>Skillful in engaging students ({{ tutor?.skillfulInEngagingStudentsRate }})</h2>
-        </div>
-        <div class="col-md-2">
-          <rating [ngModel]="tutor?.skillfulInEngagingStudentsRate" [max]="5" [readonly]="true"></rating>
-        </div>
-      </div>
-      <div class="row mt-3">
-        <div class="col">
-          <h2>Always on time ({{ tutor?.alwaysOnTimeRate }})</h2>
-        </div>
-        <div class="col-md-2">
-          <rating [ngModel]="tutor?.alwaysOnTimeRate" [max]="5" [readonly]="true"></rating>
+        <div class="col-sm-3 col-5">
+          <rating [ngModel]="feedback?.value" [max]="5" [readonly]="true"></rating>
         </div>
       </div>
     </div>
-    <div class="feedback-block" *ngIf="tutor?.reviews && tutor?.reviews?.length">
-      <div class="row review" *ngFor="let review of tutor?.reviews">
-        <div class="col-md-1">
-          <img width="60" height="60" draggable="false" alt="" class="rounded-circle" meTutorsDefaultAvatar
-            [src]="review?.student?.avatar">
-        </div>
-        <div class="col ms-3">
-          <div class="d-flex align-items-center">
-            <h2 class="m-0">{{ review?.student?.name }}</h2>
-            <rating [ngModel]="review?.totalRate" [max]="5" [readonly]="true"></rating>
-            <span>{{ review?.totalRate }}</span>
+    <ng-container *ngIf="tutor?.feedbacks && tutor?.feedbacks?.length">
+      <div class="feedback-block" *ngLet="(tutor?.feedbacks?.length) as feedbackLength">
+        <ng-container *ngFor="let feedback of tutor?.feedbacks; let i = index">
+          <div class="row review" *ngIf="i < maxItems">
+            <div class="col-md-1 col-2">
+              <img width="60" height="60" draggable="false" alt="" class="rounded-circle" meTutorsDefaultAvatar
+                [src]="feedback?.student?.avatar">
+            </div>
+            <div class="col ms-3">
+              <div class="d-flex align-items-center">
+                <h2 class="m-0 me-2">{{ feedback?.student?.name }}</h2>
+                <rating [ngModel]="feedback?.rating" [max]="5" [readonly]="true"></rating>
+                <span class="ms-1">{{ feedback?.rating }}</span>
+              </div>
+              <h4 class="m-0">{{ feedback?.updatedAt | amTimeAgo }}</h4>
+              <p class="m-0">{{ feedback?.review }}</p>
+            </div>
           </div>
-          <h4 class="m-0">{{ review?.createdDate | amTimeAgo }}</h4>
-          <p class="m-0">{{ review?.feedback }}</p>
-        </div>
+        </ng-container>
+
+        <span class="load-more" *ngIf="feedbackLength > maxItems">
+          <button mat-button (click)="maxItems = feedbackLength">
+            Load More
+          </button>
+        </span>
+      </div>
+    </ng-container>
+  </div>
+
+  <div class="card-body" *ngIf="isLoading">
+    <div class="item">
+      <div class="ph-row">
+        <div class="ph-col-12 big mt-1"></div>
+        <div class="ph-col-0 big empty"></div>
+        <div class="ph-col-12 big mt-1"></div>
+        <div class="ph-col-0 big empty mt-1"></div>
+        <div class="ph-col-12 big mt-1"></div>
+        <div class="ph-col-0 big empty mt-1"></div>
       </div>
     </div>
   </div>

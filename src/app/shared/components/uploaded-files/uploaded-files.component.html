@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="list-files d-flex align-items-center mt-3" [ngClass]="extraClasses" *ngFor="let file of files">
+    <img src="assets/svg/attachment.svg" alt="" draggable="false" width="30" height="30">
+    <div class="ms-1 flex-grow-1">
+      <h3>{{ file?.originalName }}</h3>
+      <h5>{{ file?.size }}</h5>
+    </div>
+    <a [href]="file?.url" target="_blank" mat-button class="add-url" *ngIf="showDownloadFile">
+      Download
+    </a>
+
+    <mat-icon class="cursor-pointer ms-2 delete-icon file" *ngIf="showDeleteFile"
+              (click)="deleteFile.emit(file.id)" title="Delete file">
+      cancel
+    </mat-icon>
+  </div>
+</div>
+

@@ -1,0 +1,47 @@
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'medium'"
+                [template]="template">
+  <ng-template #template>
+    <ng-container [ngSwitch]="loading">
+      <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
+
+      <div class="refund-modal col-12" *ngSwitchCase="false">
+        <img src="assets/svg/refund.svg" draggable="false" alt="" class="d-block mx-auto mb-3">
+        <h3 class="text-center">Do you want to refund?</h3>
+        <h4 class="mt-4 text-center mb-5">Total Refund: <strong>{{ reFundDetail?.totalRefunds | metutorsMoney | async }}</strong></h4>
+        <h5>Refund Account Details</h5>
+
+        <div class="info-details">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <span>Student ID</span>
+              <strong>{{ reFundDetail?.course?.student?.firstName }} {{ reFundDetail?.course?.student?.lastName }}</strong>
+            </div>
+            <div class="col-md-6 mb-3">
+              <div [tooltip]="reFundDetail?.order?.transactionId" class="text-truncate">
+                <span>Transaction Number</span>
+                <strong>{{ reFundDetail?.order?.transactionId }}</strong>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <span>Type</span>
+              <strong>-</strong>
+            </div>
+            <div class="col-md-6">
+              <span>Bank Name</span>
+              <strong>-</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-4 d-flex justify-content-center">
+          <button mat-button class="main-button-transparent px-4" (click)="closeModal.emit()">
+            Cancel
+          </button>
+          <button mat-flat-button color="primary" class="px-5 ms-3" (click)="refundPayment.emit()" [disabled]="isRefunding">
+            Yes
+          </button>
+        </div>
+      </div>
+    </ng-container>
+  </ng-template>
+</metutors-modal>

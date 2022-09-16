@@ -1,0 +1,118 @@
+.heading {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 25px;
+}
+
+.form-label {
+  color: #000;
+  font-size: 15px;
+  font-weight: bold;
+
+  &.delete {
+    a {
+      height: 20px;
+    }
+  }
+
+  span {
+    font-weight: normal;
+  }
+
+  mat-icon {
+    color: #FF385C;
+    font-size: 20px;
+  }
+}
+
+.subj-info {
+  font-size: 15px;
+  color: #FFF;
+  background: var(--main-color);
+  border-radius: 30px;
+  height: auto;
+
+  .field {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .subject {
+    font-size: 12px;
+  }
+
+  mat-icon {
+    color: #C4C4C4;
+    cursor: pointer;
+    font-size: 30px;
+    margin: 0 5px;
+  }
+}
+
+.my-table.default-title tr {
+  th {
+    color: #696969;
+    font-size: 13px;
+    background-color: transparent;
+
+    &.heading {
+      background: #F7F7F7;
+    }
+
+    &.sub-heading {
+      font-size: 10px;
+      color: #989898;
+      font-weight: normal;
+    }
+
+    span {
+      color: #2a2a2a;
+    }
+
+    &.w-20 {
+      width: 20%;
+    }
+
+    &.w-54 {
+      width: 54%;
+    }
+
+    &.w-55 {
+      width: 55%;
+    }
+
+    label {
+      font-size: 12px;
+      color: #989898;
+      padding-left: 0;
+      padding-right: 0;
+      margin-right: 4px;
+      font-weight: normal;
+    }
+  }
+
+  input {
+    border: none;
+    border-bottom: 1px solid #DCDFE5;
+
+    &:focus {
+      border-bottom: 1px solid #9d9fa3;
+    }
+    &::placeholder {
+      color: rgba(152, 152, 152, 0.63);
+    }
+  }
+}
+
+:host ::ng-deep {
+  /* Chrome, Safari, Edge, Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
+}

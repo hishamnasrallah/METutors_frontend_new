@@ -1,15 +1,38 @@
-<metutors-home-slide></metutors-home-slide>
+<metutors-home-slide [token]="(token$ | async)!"></metutors-home-slide>
 
-<div class="container">
-  <metutors-benefits-academic-tutoring></metutors-benefits-academic-tutoring>
-</div>
+<metutors-home-services-features></metutors-home-services-features>
 
 <metutors-facts-statistics [statistics]="academicStatistics"></metutors-facts-statistics>
 
-<metutors-learning-environment></metutors-learning-environment>
+<metutors-learning-environment [isLoading]="loadingPrograms$ | async" 
+                               [programs]="programs$ | async"
+                               [subjects]="subjects$ | async" 
+                               [loadingSubjects]="loadingSubjects$ | async" 
+                               [fields]="fields$ | async"
+                               [loadingFields]="loadingFields$ | async" 
+                               [countries]="countries$ | async"
+                               [loadingCountries]="loadingCountries$ | async" 
+                               (changeProgram)="fetchFields($event)"
+                               (viewSubjectDetails)="onOpenViewSubjectDetailsModal($event)">
+</metutors-learning-environment>
 
-<div class="container">
-  <metutors-home-featured-tutors [teachers]="teachers"></metutors-home-featured-tutors>
-</div>
+<metutors-home-study-more-read-more></metutors-home-study-more-read-more>
 
-<metutors-success-stories [testmonials]="testmonials"></metutors-success-stories>
+<metutors-benefits-academic-tutoring></metutors-benefits-academic-tutoring>
+
+<metutors-home-featured-tutors [teachers]="(featuredTutors$ | async)!"
+                               [isLoading]="(loadingTutors$ | async)!">
+</metutors-home-featured-tutors>
+
+<metutors-success-stories [testmonials]="testmonials"
+                          [title]="'Trusted By 1000s Of School & College Students'"
+                          [desc]="'Our LIVE classes are tailored to your skill level to help you unlock a new level of achievement.'">
+</metutors-success-stories>
+
+<metutors-view-subject-details-modal *ngIf="showViewSubjectDetailsModal$ | async"
+                                     (closeModal)="onCloseViewSubjectDetailsModal()"
+                                     [data]="subjectData"
+                                     [teachers]="(subjectTutors$ | async)!"
+                                     [isLoading]="(loadingSubjectTutors$ | async)!"
+                                     [showModal]="(showViewSubjectDetailsModal$ | async)!">
+</metutors-view-subject-details-modal>

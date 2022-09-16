@@ -2,24 +2,29 @@
   <div class="card-body">
     <div class="row row-block">
       <div class="col-md-4">
-        <h2>Classroom information</h2>
-        <h4>Insert classroom all information </h4>
+        <h2 class="f-size-17-md-sm">Classroom Setup</h2>
+        <h4 class="f-size-15-md-sm">
+          Choose your class schedule and select your <strong>FIRST</strong> class to start after <strong>
+            {{ startingHoursLimit }} hours.</strong></h4>
+
+        <h5 class="mt-4">Course ID: <span>CID{{ selectedCourse?.id }}</span></h5>
+        <h5 class="mb-0">Course Name: <span>{{ selectedCourse?.name }}</span></h5>
       </div>
-      <div class="col-md-8">
+      <div class="col-md-8 mt-15-sm">
         <div class="row">
           <div class="col-md-6">
-            <h3>Starting date</h3>
+            <h3>Course Start Date</h3>
             <mat-form-field appearance="outline" class="w-100">
-              <input matInput [matDatepicker]="startPicker" [placeholder]="'Choose a date'" (focus)="startPicker.open()"
+              <input matInput [matDatepicker]="startPicker" [placeholder]="'Choose a Date'" (focus)="startPicker.open()"
                 [min]="minDate" (dateChange)="onChangeDateDay(); onChangeDate()" formControlName="startDate">
               <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
               <mat-datepicker #startPicker></mat-datepicker>
             </mat-form-field>
           </div>
           <div class="col-md-6">
-            <h3>Ending date</h3>
+            <h3>Course End Date</h3>
             <mat-form-field appearance="outline" class="w-100">
-              <input matInput [matDatepicker]="endPicker" [placeholder]="'Choose a date'" (focus)="endPicker.open()"
+              <input matInput [matDatepicker]="endPicker" [placeholder]="'Choose a Date'" (focus)="endPicker.open()"
                 [min]="startDate?.value" (dateChange)="onChangeDateDay(); onChangeDate()" formControlName="endDate">
               <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
               <mat-datepicker #endPicker></mat-datepicker>
@@ -27,10 +32,10 @@
           </div>
         </div>
         <div class="row mt-4">
-          <div class="col-md-6">
-            <h3>Days</h3>
+          <div class="col-md-12">
+            <h3>Class Days</h3>
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="days" [placeholder]="'Choose days'" multiple
+              <mat-select formControlName="days" [placeholder]="'Choose Days'" multiple
                 (selectionChange)="onChangeDateDay()">
                 <mat-option [value]="day" [disabled]="checkDisabledDays(day)"
                   *ngFor="let day of listDays; let i = index">
@@ -39,67 +44,89 @@
               </mat-select>
             </mat-form-field>
           </div>
-          <div class="col-md-6">
-            <h3>Type of classroom</h3>
+          <!-- <div class="col-md-6">
+            <h3>Type of Classroom</h3>
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="type" (selectionChange)="onChangeType()" [placeholder]="'Choose type'">
-                <mat-option [value]="type.key" *ngFor="let type of types | keyvalue: returnZero">
+              <mat-select formControlName="type" (selectionChange)="onChangeType()" [placeholder]="'Choose Type'">
+                <mat-option [value]="type.value" *ngFor="let type of types | keyvalue: returnZero">
                   {{ type.value }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
+          </div> -->
+        </div>
+        <div class="row mt-4">
+          <div class="col-md-6">
+            <h3>Class Start Time</h3>
+            <div class="ngx-timepicker-field-example">
+              <input placeholder="Select Starting Time" aria-label="Select starting time" [ngxTimepicker]="startingTime"
+                formControlName="startTime" class="form-control" required (blur)="onChangeTimePicker()">
+              <ngx-material-timepicker #startingTime [appendToInput]="true" [minutesGap]="30"
+                (closed)="onChangeTimePicker()">
+              </ngx-material-timepicker>
+            </div>
+
+            <div class="text-danger" *ngIf="form?.hasError('startingHoursLimit')">
+              First class must be started after {{ startingHoursLimit }} hours
+            </div>
+          </div>
+          <div class="col-md-6 mt-15-sm">
+            <h3>Class End Time</h3>
+            <div class="ngx-timepicker-field-example">
+              <input placeholder="Select Ending Time" aria-label="Select ending time" [ngxTimepicker]="endingTime"
+                formControlName="endTime" class="form-control" required (blur)="onChangeTimePicker()">
+              <ngx-material-timepicker #endingTime [appendToInput]="true" [minutesGap]="30"
+                (closed)="onChangeTimePicker()">
+              </ngx-material-timepicker>
+            </div>
           </div>
         </div>
         <div class="row mt-4">
           <div class="col-md-6">
-            <h3>Starting time</h3>
-            <div class="ngx-timepicker-field-example">
-              <input placeholder="Select starting time" aria-label="Select starting time" [ngxTimepicker]="startingTime"
-                formControlName="startTime" class="form-control">
-              <ngx-material-timepicker #startingTime [appendToInput]="true" (closed)="onChangeTimePicker()">
-              </ngx-material-timepicker>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <h3>Ending time</h3>
-            <div class="ngx-timepicker-field-example">
-              <input placeholder="Select ending time" aria-label="Select ending time" [ngxTimepicker]="endingTime"
-                formControlName="endTime" class="form-control">
-              <ngx-material-timepicker #endingTime [appendToInput]="true" (closed)="onChangeTimePicker()">
-              </ngx-material-timepicker>
-            </div>
-          </div>
-        </div>
-        <div class="row mt-4">
-          <div class="col-md-6">
-            <h3>Duration</h3>
+            <h3>Course Duration</h3>
             <input type="text" class="form-control" formControlName="duration">
+
+            <div class="text-danger" *ngIf="form?.hasError('durationError')">
+              Time duration must be between {{ classroomTimeDuration.min }} & {{ classroomTimeDuration.max }} hours
+            </div>
           </div>
-          <div class="col-md-6">
-            <h3>Total hours</h3>
+          <div class="col-md-6 mt-15-sm">
+            <h3>Total classroom hours</h3>
             <input type="text" class="form-control" formControlName="hours">
           </div>
         </div>
         <div class="row mt-4">
           <div class="col-md-6">
-            <h3>Total classes</h3>
+            <h3>Number of classes in the course</h3>
             <input type="text" class="form-control" formControlName="totalClasses">
           </div>
-          <div class="col-md-6" *ngIf="showSeatAttendees">
-            <h3>Seat attendees</h3>
+          <!-- <div class="col-md-6" *ngIf="showSeatAttendees">
+            <h3>Seat Attendees</h3>
             <input type="number" max="10" min="1" step="1" class="form-control" formControlName="seatAttendees">
-          </div>
+          </div> -->
         </div>
-        <!-- *ngIf="price" -->
-        <div class="row mt-4" [@slideInOut]>
-          <div class="col-md-12">
-            <div class="d-flex est-price">
-              <div class="flex-grow-1">
-                <h5>Estimated price:</h5>
-                <p>Price change based on total hours, total classess, time</p>
+        <div class="est-price mt-4 p-10-sm" [@slideInOut] *ngIf="price && hours?.value">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="d-flex">
+                <div class="flex-grow-1">
+                  <h5 class="d-flex align-items-center">
+                    Estimated Price: <h1 class="mb-0 f-size-20-md-sm">
+                      {{ (price * +hours?.value) | metutorsMoney | async }}</h1>
+                  </h5>
+                  <p>Final price based on total number of class hours</p>
+                </div>
               </div>
-              <!-- {{ price | currency: 'USD' }} -->
-              <h1>100$</h1>
+            </div>
+            <div class="col-md-6">
+              <div class="d-flex">
+                <div class="flex-grow-1">
+                  <h5 class="d-flex align-items-center">
+                    Total Hours: <h1 class="mb-0 f-size-20-md-sm">{{ hours?.value }} hr{{ +hours?.value > 1 ? 's' : '' }}</h1>
+                  </h5>
+                  <p>Hourly Rate: {{ price | metutorsMoney | async }}</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -109,7 +136,7 @@
     <div class="row mt-4">
       <div class="col-12 overflow-hidden">
         <button mat-flat-button color="primary" class="float-end" [disabled]="form.invalid" type="submit">
-          Save & continue
+          Save & Continue
           <mat-icon>arrow_forward</mat-icon>
         </button>
         <button mat-button class="float-end back-btn" type="button" (click)="onBack.emit()">
