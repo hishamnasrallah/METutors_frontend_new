@@ -168,6 +168,10 @@ export class CompleteTutorProfileQualificationDetailsComponent
     if (this.form.value.languages.length === 0) {
       this.addLanguage();
     }
+
+    this.form?.markAsTouched();
+    this.form?.updateValueAndValidity();
+    this.languages?.updateValueAndValidity();
   }
 
   newLanguage(): FormGroup {

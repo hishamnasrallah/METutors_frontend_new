@@ -6,7 +6,20 @@
   <div mat-dialog-content>
     <div class="text-center country" style="background-image: url('./assets/png/world-map.png')">
       <h1 class="f-size-20-md-sm">Choose your country</h1>
-      <input type="text" class="form-control" placeholder="Find country" (keyup)="onChangeCountry($event)">
+      <div class="find-country d-flex align-items-center justify-content-between flex-column-sm">
+        <input type="text" class="form-control w-100-sm" placeholder="Find country" (keyup)="onChangeCountry($event)">
+
+        <div>
+          <mat-form-field appearance="outline" class="w-100-sm">
+            <mat-select [placeholder]="'Select Grade'" (selectionChange)="onSelectGradeCountry($event)">
+              <mat-option [value]="i" *ngFor="let grade of grades; let i = index">
+                {{ grade }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div class="text-danger text-start choose-grade" *ngIf="showError">Please choose a grade</div>
+        </div>
+      </div>
     </div>
 
     <div class="row">

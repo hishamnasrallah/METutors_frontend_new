@@ -1,6 +1,11 @@
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
+import * as fromCore from '@metutor/core/state';
+import { ActivatedRoute } from '@angular/router';
+import { ViewportScroller } from '@angular/common';
+import * as fromPublic from '@metutor/modules/public/state';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
+import * as fromPublicActions from '@metutor/modules/public/state/actions';
 import {
   ITutor,
   IField,
@@ -9,11 +14,6 @@ import {
   ICountry,
   IStatistics,
 } from 'src/app/core/models';
-import * as fromCore from '@metutor/core/state';
-import { ActivatedRoute } from '@angular/router';
-import { ViewportScroller } from '@angular/common';
-import * as fromPublic from '@metutor/modules/public/state';
-import * as fromPublicActions from '@metutor/modules/public/state/actions';
 
 @Component({
   selector: 'metutors-home',
@@ -155,9 +155,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this._store.dispatch(fromPublicActions.closeViewSubjectDetailsModal());
   }
 
-  fetchFields({ program, country }: any): void {
+  fetchFields({ program, country, grade }: any): void {
     this._store.dispatch(
-      fromCore.loadFieldsByProgramId({ programId: program, countryId: country })
+      fromCore.loadFieldsByProgramId({
+        programId: program,
+        countryId: country,
+        grade,
+      })
     );
     this.fields$ = this._store.select(fromCore.selectFields);
     this.loadingFields$ = this._store.select(fromCore.selectIsLoadingFields);
