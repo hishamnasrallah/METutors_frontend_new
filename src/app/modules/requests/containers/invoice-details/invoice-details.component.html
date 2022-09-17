@@ -1,5 +1,5 @@
 <ng-container *ngLet="(classroom$ | async) as classroom">
-  <div class="container invoice-details mt-15-sm" *ngLet="(invoiceDetails$ | async) as invoiceDetails">
+  <div class="container invoice-details mt-15-sm" id="printSectionId" *ngLet="(invoiceDetails$ | async) as invoiceDetails">
     <div class="row flex-column-reverse-sm">
       <div class="col-md-8">
         <h2 class="f-size-30-md-sm h-auto-sm">Invoice details</h2>
@@ -7,8 +7,9 @@
           <div class="card-body">
             <ng-container [ngSwitch]="isCalculateInvoiceDetails$ | async">
               <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
+
               <ng-container *ngSwitchCase="false">
-                <metutors-payment-invoice-details [invoiceDetails]="invoiceDetails"></metutors-payment-invoice-details>
+                <metutors-payment-invoice-details [invoiceDetails]="invoiceDetails" (print)="printToCart('printSectionId')"></metutors-payment-invoice-details>
 
                 <div class="overflow-hidden" *ngLet="(user$ | async) as user">
                   <button mat-flat-button color="primary" class="float-end pay-now mt-15-sm"
