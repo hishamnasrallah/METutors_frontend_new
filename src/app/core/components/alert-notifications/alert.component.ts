@@ -1,10 +1,10 @@
 import {
-  Component,
-  EventEmitter,
   Input,
-  OnDestroy,
   OnInit,
   Output,
+  Component,
+  OnDestroy,
+  EventEmitter,
   ViewEncapsulation,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
