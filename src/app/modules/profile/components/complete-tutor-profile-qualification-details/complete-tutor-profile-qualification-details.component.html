@@ -131,7 +131,39 @@
     </div>
 
     <div class="row">
-      <div class="col-md-8 offset-md-2">
+      <div class="col-md-6 upload-documents">
+        <div class="form-group">
+          <label for="languages" class="form-label">Upload Documents</label>
+          <div class="block-file text-center">
+            <img src="assets/svg/upload.svg" draggable="false" width="60" height="40" />
+            <h2 class="mb-3">
+              Upload the Following Documents:
+              <ol class="list-unstyled mt-2">
+                <li>Your updated CV/Resume </li>
+                <li>Recent degree certificate</li>
+              </ol>
+            </h2>
+
+            <button mat-flat-button color="primary" type="button" (click)="filePicker.click()">Browse Files</button>
+          </div>
+          <input #filePicker type="file" hidden multiple class="form-control"
+                 accept="image/*,.pdf,.doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                 (change)="onFileChange($event)">
+        </div>
+
+        <div class="form-group position-relative" *ngIf="filesPreview && filesPreview.length">
+          <div class="list-files d-flex align-items-center mb-2" *ngFor="let filePreview of filesPreview; let i=index">
+            <mat-icon>attach_file</mat-icon>
+            <div class="ms-2">
+              <h3>{{ filePreview?.name }}</h3>
+              <h5>{{ filePreview?.size }}</h5>
+            </div>
+            <mat-icon class="position-absolute remove-file cursor-pointer text-danger" title="Delete file" (click)="removeFile(i)">close</mat-icon>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
         <div class="form-group">
           <input type="file" #filePicker (change)="onChangeVideo($event)" hidden accept="video/*"/>
 

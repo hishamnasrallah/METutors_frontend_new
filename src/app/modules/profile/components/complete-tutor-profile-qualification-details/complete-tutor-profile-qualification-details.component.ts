@@ -20,6 +20,7 @@ import {
   COMPUTER_SKILLS,
   generalConstants,
   TEACHING_EXPERIENCE,
+  formatBytes,
 } from 'src/app/config';
 
 @Component({
@@ -74,6 +75,7 @@ export class CompleteTutorProfileQualificationDetailsComponent
   filterDegree: string;
   uploadingVideo: boolean;
   skills = COMPUTER_SKILLS;
+  filesPreview: any[] = [];
   degreeLevels = DEGREE_LEVELS;
   experiences = TEACHING_EXPERIENCE;
   fileUploadProgress$: Observable<any>;
@@ -250,6 +252,31 @@ export class CompleteTutorProfileQualificationDetailsComponent
   onCancelUpload() {
     this.uploadingVideo = false;
     this._store.dispatch(fromCore.cancelUpload());
+  }
+
+  onFileChange(event: any): void {
+    if (event.target && event.target.files && event.target.files.length) {
+      Array.from(event.target.files).forEach((file: any) => {
+        // this.files.push(file);
+        this.filesPreview.push({
+          name: file.name,
+          size: formatBytes(file.size),
+        });
+      });
+
+      /* this.form.patchValue({ files: this.files });
+      this.form.get('files')?.updateValueAndValidity();
+      this.form?.markAsDirty();*/
+    }
+  }
+
+  removeFile(index: number): void {
+    // this.files.splice(index, 1);
+    this.filesPreview.splice(index, 1);
+
+    /*this.form.patchValue({ files: this.files });
+    this.form.get('files')?.updateValueAndValidity();
+    this.form?.markAsDirty();*/
   }
 
   submitFormData() {
