@@ -29,6 +29,15 @@ export class OnlyNumberDirective {
       ) {
         e.preventDefault();
       }
+
+      const value = (event.target as HTMLInputElement).value;
+      const sp = (value + '').split('.');
+
+      if (sp[1] !== undefined) {
+        if (sp[1].length > 1) {
+          e.preventDefault();
+        }
+      }
     }
   }
 }

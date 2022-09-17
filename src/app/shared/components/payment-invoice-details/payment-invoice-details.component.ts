@@ -10,6 +10,7 @@ import { IInvoiceDetails } from '@models';
 export class PaymentInvoiceDetailsComponent implements OnInit {
   @Input() invoiceDetails: IInvoiceDetails;
 
+  @Output() print: EventEmitter<void> = new EventEmitter<void>();
   @Output() applyCoupon: EventEmitter<any> = new EventEmitter<any>();
 
   dateNow = new Date();
