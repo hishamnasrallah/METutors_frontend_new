@@ -165,7 +165,7 @@
 
       <div class="col-md-6">
         <div class="form-group">
-          <input type="file" #filePicker (change)="onChangeVideo($event)" hidden accept="video/*"/>
+          <input type="file" #videoPicker (change)="onChangeVideo($event)" hidden accept="video/*"/>
 
           <div class="preview-style">
             <label class="form-label">Please upload a video to show your teaching style with the following guidelines:</label>
@@ -173,13 +173,13 @@
               <metutors-video-player [videoSrc]="video?.value" *ngIf="video?.value">
               </metutors-video-player>
               <button mat-flat-button color="primary" class="px-4 edit-video" type="button"
-                      *ngIf="video?.value" (click)="filePicker.click()" [disabled]="uploadingVideo"> Change
+                      *ngIf="video?.value" (click)="videoPicker.click()" [disabled]="uploadingVideo"> Change
               </button>
             </div>
           </div>
           <div class="preview-style video-preview d-flex align-items-center justify-content-center flex-column" *ngIf="!video?.value">
             <button mat-flat-button color="primary" class="px-4" type="button" [disabled]="uploadingVideo"
-                    (click)="filePicker.click()"> Upload
+                    (click)="videoPicker.click()"> Upload
             </button>
             <div class="guide1 mt-2">Upload Video Demo (Max 120 MB)</div>
           </div>
