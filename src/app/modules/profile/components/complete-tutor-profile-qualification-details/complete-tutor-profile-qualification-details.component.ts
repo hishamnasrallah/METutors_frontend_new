@@ -20,7 +20,6 @@ import {
   COMPUTER_SKILLS,
   generalConstants,
   TEACHING_EXPERIENCE,
-  formatBytes,
 } from 'src/app/config';
 
 @Component({
@@ -71,12 +70,14 @@ export class CompleteTutorProfileQualificationDetailsComponent
   @Output() submitForm = new EventEmitter();
 
   form: FormGroup;
+  fileId: number;
+  uploadType: string;
   invalid = 'INVALID';
   filterDegree: string;
   uploadingVideo: boolean;
   skills = COMPUTER_SKILLS;
-  filesPreview: any[] = [];
   degreeLevels = DEGREE_LEVELS;
+  uploadedFiles$: Observable<any>;
   experiences = TEACHING_EXPERIENCE;
   fileUploadProgress$: Observable<any>;
   uploadComplete = generalConstants.uploadComplete;
@@ -100,24 +101,33 @@ export class CompleteTutorProfileQualificationDetailsComponent
       currentEmployer: [null, Validators.maxLength(80)],
       currentTitle: [null, Validators.maxLength(80)],
       video: [null, Validators.required],
+      documents: [null, Validators.required],
     });
 
     this.addLanguage();
   }
 
   ngOnInit(): void {
+    this._store.dispatch(fromCore.resetUploadedFiles());
+    this.uploadedFiles$ = this._store
+      .select(fromCore.selectUploadedFiles)
+      .pipe(tap((files) => this.documents?.setValue(files)));
+
     this.fileUploadProgress$ = this._store
       .select(fromCore.selectFileUploadingProgress)
       .pipe(
         tap((progress) => {
           progress?.map((response: any) => {
             if (response.responseType === this.uploadComplete) {
-              this.uploadingVideo = false;
-              this.video?.setValue(response?.url);
-              this.video?.markAsDirty();
-              this.form?.updateValueAndValidity();
+              if (this.uploadType === 'video') {
+                this.uploadingVideo = false;
+                this.video?.setValue(response?.url);
+                this.video?.markAsDirty();
+              }
 
-              this._store.dispatch(fromCore.resetUploadFileProgress());
+              this.form.markAsDirty();
+              this.form.markAsTouched();
+              // this._store.dispatch(fromCore.resetUploadFileProgress());
             }
           });
         })
@@ -162,6 +172,10 @@ export class CompleteTutorProfileQualificationDetailsComponent
 
   get languages(): FormArray {
     return this.form?.get('languages') as FormArray;
+  }
+
+  get documents(): AbstractControl | null {
+    return this.form.get('documents');
   }
 
   removeLanguage(i: number): void {
@@ -226,6 +240,7 @@ export class CompleteTutorProfileQualificationDetailsComponent
 
   onChangeVideo(event: any): void {
     if (event.target && event.target.files && event.target.files.length) {
+      this.uploadType = 'video';
       const file = event.target?.files[0];
       const mimeType = event.target.files[0].type;
 
@@ -241,11 +256,14 @@ export class CompleteTutorProfileQualificationDetailsComponent
         return;
       }
 
-      this.video?.markAsTouched();
+      const files: any = [];
+      Array.from(event.target.files).forEach((file: any) => {
+        file.skip = true;
+        files.push(file);
+      });
+
       this.uploadingVideo = true;
-      this._store.dispatch(
-        fromCore.uploadFile({ file: [...event.target.files] })
-      );
+      this._store.dispatch(fromCore.uploadFile({ file: [...files] }));
     }
   }
 
@@ -256,27 +274,24 @@ export class CompleteTutorProfileQualificationDetailsComponent
 
   onFileChange(event: any): void {
     if (event.target && event.target.files && event.target.files.length) {
-      Array.from(event.target.files).forEach((file: any) => {
-        // this.files.push(file);
-        this.filesPreview.push({
-          name: file.name,
-          size: formatBytes(file.size),
-        });
-      });
+      const file = event.target?.files[0];
+      if (file.size > 5 * 1024 * 1024) {
+        this._alertNotificationService.error('Allowed file size is 5MB');
 
-      /* this.form.patchValue({ files: this.files });
-      this.form.get('files')?.updateValueAndValidity();
-      this.form?.markAsDirty();*/
+        return;
+      }
+
+      this.uploadType = 'docs';
+
+      this._store.dispatch(
+        fromCore.uploadFile({ file: [...event.target.files] })
+      );
     }
   }
 
-  removeFile(index: number): void {
-    // this.files.splice(index, 1);
-    this.filesPreview.splice(index, 1);
-
-    /*this.form.patchValue({ files: this.files });
-    this.form.get('files')?.updateValueAndValidity();
-    this.form?.markAsDirty();*/
+  removeFile(index: number, id: number): void {
+    this.fileId = id;
+    this._store.dispatch(fromCore.deleteUploadedFile({ id }));
   }
 
   submitFormData() {
@@ -297,6 +312,7 @@ export class CompleteTutorProfileQualificationDetailsComponent
         name_of_university: this.nameOfUniversity?.value,
         spoken_languages: JSON.stringify(spokenLanguages),
         teaching_experience: this.teachingExperience?.value,
+        documents: this.documents?.value?.map((item: any) => item.url),
         teaching_experience_online: this.teachingExperienceOnline?.value,
       };
 

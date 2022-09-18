@@ -19,11 +19,15 @@ export class UploadService {
   baseUrl = environment.API_URL;
 
   uploadFile(files: any): void {
+    console.log('files', files);
     files.forEach((file: any, index: number) => {
       this.fileUploadProgress[index] = {
         url: '',
+        id: null,
         progress: 0,
+        skip: file?.skip,
         responseType: 0,
+        fileSize: file.size,
         fileName: file.name,
       };
 
@@ -44,14 +48,17 @@ export class UploadService {
             this.fileUploadProgress[index] = {
               ...this.fileUploadProgress[index],
               responseType: event.type,
+              id: file?.length ? file[0]?.id : null,
               url: file?.length ? file[0]?.url : '',
             };
 
-            this._store.dispatch(
-              fromCore.loadUploadedFiles({
-                files: this.uploadedFiles,
-              })
-            );
+            if (!this.fileUploadProgress[index]?.skip) {
+              this._store.dispatch(
+                fromCore.loadUploadedFiles({
+                  files: this.uploadedFiles,
+                })
+              );
+            }
           }
 
           this._store.dispatch(
