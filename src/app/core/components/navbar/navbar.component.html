@@ -53,7 +53,7 @@
             Get Started
           </a>
           <a *ngIf="token$ | async" class="link-btn login px-4 py-1 fw-bold" mat-flat-button color="primary"
-            [routerLink]="(user$ | async)?.roleId === userRole.tutor ? '/tutor' : (user$ | async)?.roleId === userRole.student ? '/student' : '/admin'">
+            [routerLink]="+((user$ | async)?.roleId)! === userRole.tutor ? '/tutor' : +((user$ | async)?.roleId)! === userRole.student ? '/student' : '/admin'">
             My Classroom
           </a>
         </li>
@@ -103,7 +103,7 @@
           Get Started
         </a>
         <a *ngIf="token$ | async" class="dropdown-item link-btn login" mat-flat-button color="primary"
-          [routerLink]="(user$ | async)?.roleId === userRole.tutor ? '/tutor' : (user$ | async)?.roleId === userRole.student ? '/student' : '/admin'">
+          [routerLink]="+((user$ | async)?.roleId)! === userRole.tutor ? '/tutor' : +((user$ | async)?.roleId)! === userRole.student ? '/student' : '/admin'">
           My Classroom
         </a>
       </li>

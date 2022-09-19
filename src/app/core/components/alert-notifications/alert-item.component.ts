@@ -1,21 +1,21 @@
 import {
-  animate,
   state,
   style,
-  transition,
+  animate,
   trigger,
+  transition,
 } from '@angular/animations';
 import {
-  Component,
   Input,
   NgZone,
-  OnDestroy,
   OnInit,
+  Component,
+  OnDestroy,
   ViewEncapsulation,
 } from '@angular/core';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { INotification } from './alert.model';
 import { AlertNotificationService } from './alert.service';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'alert-item',
@@ -97,9 +97,9 @@ export class AlertItemComponent implements OnInit, OnDestroy {
   private _timer: any = 5000000;
 
   constructor(
-    private _notificationService: AlertNotificationService,
+    private _zone: NgZone,
     private _domSanitizer: DomSanitizer,
-    private _zone: NgZone
+    private _notificationService: AlertNotificationService
   ) {}
 
   ngOnInit(): void {

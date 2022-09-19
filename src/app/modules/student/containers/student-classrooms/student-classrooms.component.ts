@@ -9,13 +9,12 @@ import {
 
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { combineLatest, Observable } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
-
-import { generalConstants, WEEK_DAYS } from '@config';
 import * as fromRoot from '@metutor/state';
 import { IUser } from '@metutor/core/models';
 import * as fromCore from '@metutor/core/state';
+import { combineLatest, Observable } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { generalConstants, WEEK_DAYS } from '@config';
 
 @Component({
   selector: 'metutors-student-classrooms',

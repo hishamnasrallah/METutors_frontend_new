@@ -1,10 +1,10 @@
-import { EventEmitter, Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { EventEmitter, Injectable } from '@angular/core';
 import {
-  defaultIcons,
   IIcons,
-  INotificationEvent,
+  defaultIcons,
   INotification,
+  INotificationEvent,
 } from './alert.model';
 
 @Injectable({ providedIn: 'root' })
@@ -20,6 +20,7 @@ export class AlertNotificationService {
         : Math.random().toString(36).substring(3);
     notification.click = new EventEmitter<{}>();
     this.emitter.next({ command: 'set', notification: notification, add: to });
+
     return notification;
   }
 
@@ -30,11 +31,11 @@ export class AlertNotificationService {
   success(title: string, content?: string, override?: any) {
     return this.set(
       {
-        title: title,
+        title,
         content: content || '',
         type: 'success',
         icon: this.icons.success,
-        override: override,
+        override,
       },
       true
     );
@@ -43,11 +44,11 @@ export class AlertNotificationService {
   error(title: string, content?: string, override?: any) {
     return this.set(
       {
-        title: title,
+        title,
         content: content || '',
         type: 'error',
         icon: this.icons.error,
-        override: override,
+        override,
       },
       true
     );
@@ -56,11 +57,11 @@ export class AlertNotificationService {
   alert(title: string, content?: string, override?: any) {
     return this.set(
       {
-        title: title,
+        title,
         content: content || '',
         type: 'alert',
         icon: this.icons.alert,
-        override: override,
+        override,
       },
       true
     );
@@ -69,11 +70,11 @@ export class AlertNotificationService {
   info(title: string, content?: string, override?: any) {
     return this.set(
       {
-        title: title,
+        title,
         content: content || '',
         type: 'info',
         icon: this.icons.info,
-        override: override,
+        override,
       },
       true
     );
@@ -82,11 +83,11 @@ export class AlertNotificationService {
   bare(title: string, content?: string, override?: any) {
     return this.set(
       {
-        title: title,
+        title,
         content: content || '',
         type: 'bare',
         icon: 'bare',
-        override: override,
+        override,
       },
       true
     );
@@ -95,21 +96,18 @@ export class AlertNotificationService {
   create(title: string, content: string, type: string, override?: any) {
     return this.set(
       {
-        title: title,
+        title,
         content: content,
-        type: type,
+        type,
         icon: 'bare',
-        override: override,
+        override,
       },
       true
     );
   }
 
   html(html: any, type: string, override?: any) {
-    return this.set(
-      { html: html, type: type, icon: 'bare', override: override },
-      true
-    );
+    return this.set({ html, type, icon: 'bare', override }, true);
   }
 
   remove(id?: string) {

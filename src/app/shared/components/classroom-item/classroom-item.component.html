@@ -16,7 +16,7 @@
       <div class="d-flex justify-content-between">
         <h5 class="card-title m-0 h-100">
           {{ classroom?.name }}
-          <span>({{classroom?.courseCode}})</span>
+          <span>({{ classroom?.courseCode }})</span>
           <button mat-button class="ms-2 me-2 status" [ngClass]="classroom.status"
                   [tooltip]="isTeacher && classroom.status === 'cancelled_by_teacher' ? 'Cancelled' : statusLabel[classroom.status]?.long" placement="bottom">{{ isTeacher && classroom.status === 'cancelled_by_teacher' ? 'Cancelled' :  statusLabel[classroom.status]?.short }}
           </button>
@@ -26,8 +26,10 @@
                width="25px" height="25px" alt=""/>
         </h5>
         <div class="d-inline-flex">
-          <button mat-button class="class-btn text-uppercase main-button-opacity"
-                  *ngIf="classroom?.program">{{ classroom?.program?.code === 'NA' ? classroom?.program?.name : classroom?.program?.code   }}</button>
+          <button mat-button class="class-btn text-uppercase main-button-opacity" *ngIf="classroom?.program">
+            <span *ngIf="classroom?.subject?.country?.flag" [innerHTML]="classroom?.subject?.country?.flag" class="me-2"></span>
+            {{ classroom?.program?.code === 'NA' ? classroom?.program?.name : classroom?.program?.code }}
+          </button>
         </div>
       </div>
 

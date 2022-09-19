@@ -418,7 +418,7 @@
             <label for="startDate" class="form-label">Available Start Date</label>
             <mat-form-field appearance="outline" class="w-100">
               <input matInput [matDatepicker]="startDatePicker" [placeholder]="'Select Start Date'"
-                (focus)="startDatePicker.open()" (dateChange)="onChangeStartDate()" [min]="minDate" formControlName="startDate">
+                (focus)="startDatePicker.open()" (dateChange)="onChangeStartDate()" formControlName="startDate">
               <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
               <mat-datepicker #startDatePicker></mat-datepicker>
             </mat-form-field>

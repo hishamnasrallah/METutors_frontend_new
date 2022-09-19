@@ -5,7 +5,7 @@
         <ng-container [ngSwitch]="view.loading">
           <ng-container *ngSwitchCase="false">
             <h1 class="title overflow-hidden">{{ view.data?.course?.courseName }}
-              <span>({{ view.data.course?.courseCode}})</span>
+              <span>({{ view.data.course?.courseCode }})</span>
               <button mat-button class="ms-2 status text-decoration-none"
                       *ngIf="view?.data?.course?.status !== courseStatus.cancelledByTeacher && view?.data?.course?.status !== courseStatus.declinedByTeacher"
                       [ngClass]="view?.data?.course?.status">{{ statusLabel[view?.data?.course?.status].long }}</button>
@@ -165,7 +165,7 @@
               </tr>
               <ng-container *ngIf="view.data?.upcomingClasses?.length">
                 <tr *ngFor="let upcomingClass of view.data.upcomingClasses; let i=index">
-                  <td>{{ i + 1}}</td>
+                  <td>{{ i + 1 }}</td>
                   <td>{{ upcomingClass.title ? upcomingClass.title : 'N/A' }}</td>
                   <td>
                     <metutors-user-avatar [avatar]="upcomingClass?.teacher?.avatar"
@@ -280,6 +280,7 @@
 
   <metutors-student-add-course-modal *ngIf="showAddCourseModal$ | async"
                                      [showModal]="(showAddCourseModal$ | async)!"
+                                     [course]="view.data?.course"
                                      [isLoadingTimeSlots]="(isLoadingTutorAvailability$ | async)!"
                                      [price]="(price$ | async)!" [timeSlots]="(tutorAvailability$ | async)!"
                                      (submitForm)="onAddCourse(view.data?.course?.id, $event)"
