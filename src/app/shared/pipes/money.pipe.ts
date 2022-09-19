@@ -13,7 +13,9 @@ export class MoneyPipe implements PipeTransform {
   constructor(private _money: MoneyService, private _store: Store<any>) {}
 
   transform(amount: any, format = true): Observable<string | null> {
-    if (isNumber(amount)) {
+    const value = amount ? +amount : undefined;
+
+    if (isNumber(value)) {
       return this._store
         .select(fromCore.selectCurrentCurrency)
         .pipe(

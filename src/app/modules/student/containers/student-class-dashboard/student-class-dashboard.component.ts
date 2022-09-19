@@ -2,7 +2,6 @@ import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
-import { DatePipe } from '@angular/common';
 import { combineLatest, Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 
@@ -18,7 +17,6 @@ import { CourseStatus, courseStatusLabel } from '@metutor/config';
   selector: 'metutors-student-class-dashboard',
   templateUrl: './student-class-dashboard.component.html',
   styleUrls: ['./student-class-dashboard.component.scss'],
-  providers: [DatePipe],
 })
 export class StudentClassDashboardComponent implements OnInit {
   classId: number;
@@ -58,11 +56,7 @@ export class StudentClassDashboardComponent implements OnInit {
     loading: boolean;
   }>;
 
-  constructor(
-    private _router: Router,
-    private _store: Store<any>,
-    private _datePipe: DatePipe
-  ) {}
+  constructor(private _router: Router, private _store: Store<any>) {}
 
   getHours(date: string) {
     const startDate = new Date();
