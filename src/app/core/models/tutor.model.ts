@@ -63,6 +63,7 @@ export class ITutor {
   classes: any;
   preferences: any;
   completedStep: number;
+  userDocuments: [];
 
   constructor(createDefault = false, tutor: any = null) {
     if (createDefault) {
@@ -116,6 +117,7 @@ export class ITutor {
       this.classes = {};
       this.preferences = {};
       this.completedStep = 0;
+      this.userDocuments = [];
     }
 
     if (tutor) {
@@ -206,6 +208,7 @@ export class ITutor {
         deep: true,
       });
       this.completedStep = tutor?.profile_completed_step || 0;
+      this.userDocuments = tutor?.user_documents;
     }
   }
 }
@@ -255,17 +258,13 @@ export function checkApprovedTutor(request: any): boolean {
     return false;
   }
 
-  if (
+  return !(
     request &&
     request.status &&
     (request.status === InterviewStatus.rejected ||
       request.status === InterviewStatus.pending ||
       request.status === InterviewStatus.scheduled)
-  ) {
-    return false;
-  }
-
-  return true;
+  );
 }
 
 export function filterTeacherFeedbacks(feedbacks: any): ITutorFeedback[] {

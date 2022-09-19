@@ -5,6 +5,7 @@ import camelcaseKeys from 'camelcase-keys';
 import { Observable, of, Subscription } from 'rxjs';
 import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
 
+import { formatBytes } from '@config';
 import * as fromCore from '@metutor/core/state';
 import { environment } from 'src/environments/environment';
 
@@ -19,17 +20,22 @@ export class UploadService {
   baseUrl = environment.API_URL;
 
   uploadFile(files: any): void {
+    console.log('files', files);
     files.forEach((file: any, index: number) => {
       this.fileUploadProgress[index] = {
         url: '',
+        id: null,
         progress: 0,
+        skip: file?.skip,
         responseType: 0,
+        fileSize: file.size,
         fileName: file.name,
       };
 
       const formData = new FormData();
 
       formData.append('file', file);
+      formData.append('size', formatBytes(file.size));
 
       this.fileUploadStream$ = this.onUploadFile(formData).subscribe(
         (event) => {
@@ -44,14 +50,17 @@ export class UploadService {
             this.fileUploadProgress[index] = {
               ...this.fileUploadProgress[index],
               responseType: event.type,
+              id: file?.length ? file[0]?.id : null,
               url: file?.length ? file[0]?.url : '',
             };
 
-            this._store.dispatch(
-              fromCore.loadUploadedFiles({
-                files: this.uploadedFiles,
-              })
-            );
+            if (!this.fileUploadProgress[index]?.skip) {
+              this._store.dispatch(
+                fromCore.loadUploadedFiles({
+                  files: this.uploadedFiles,
+                })
+              );
+            }
           }
 
           this._store.dispatch(

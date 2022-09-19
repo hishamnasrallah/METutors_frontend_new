@@ -66,6 +66,6 @@ import {
     StoreModule.forFeature(featureKeys.accountFeatureKey, fromAccount.reducers),
   ],
   providers: [],
-  exports: [ConfirmEmailComponent],
+  exports: [ConfirmEmailComponent, SignupUploadDocumentsComponent],
 })
 export class AccountModule {}

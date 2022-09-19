@@ -205,7 +205,7 @@ const routes: Routes = [
         component: TutorDashboardComponent,
         data: {
           layout: {
-            icon: 'icon-slide-show',
+            icon: 'slide-show-black',
             title: 'Dashboard - Metutors',
             navbarTitle: 'Tutor Dashboard',
             showHeader: false,

@@ -42,10 +42,10 @@
   </div>
 </div>
 
-<metutors-admin-tutor-interview-attachment-modal *ngIf="showInterviewAttachmentModal$ | async" [document]="document"
-                                                 (closeModal)="onCloseInterviewAttachmentModal()"
-                                                 [isApproving]="(isApproving$ | async)!"
-                                                 [isRejecting]="(isRejecting$ | async)!"
-                                                 (rejectDoc)="onRejectDoc()" (approveDoc)="onApproveDoc()"
-                                                 [showModal]="(showInterviewAttachmentModal$ | async)!">
-</metutors-admin-tutor-interview-attachment-modal>
+<metutors-doc-viewer-modal *ngIf="showInterviewAttachmentModal$ | async" [document]="document"
+                           (closeModal)="onCloseInterviewAttachmentModal()"
+                           [isApproving]="(isApproving$ | async)!"
+                           [isRejecting]="(isRejecting$ | async)!" [showActions]="true"
+                           (rejectDoc)="onRejectDoc()" (approveDoc)="onApproveDoc()"
+                           [showModal]="(showInterviewAttachmentModal$ | async)!">
+</metutors-doc-viewer-modal>

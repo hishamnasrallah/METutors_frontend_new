@@ -15,8 +15,8 @@
 
 .video-preview {
   height: 200px;
-  background: #FAFAFA;
-  border: 1px solid #BDBDBD99;
+  background: #F4F5FA;
+  border: 1px dashed rgba(0, 0, 0, 0.6);
   border-radius: 10px;
 }
 
@@ -32,7 +32,6 @@
 }
 
 .preview-style {
-  width: 70%;
   margin: auto;
 }
 
@@ -47,10 +46,11 @@
     display: flex;
     align-items: start;
     padding: 0;
+    font-size: 15px;
 
     &:before {
       content: "";
-      background-image: url("/assets/svg/tick.svg");
+      background-image: url('/assets/svg/tick.svg');
       width: 20px;
       height: 20px;
       display: inline-block;
@@ -59,4 +59,50 @@
       margin-right: 10px;
     }
   }
+}
+
+.upload-documents {
+  .block-file {
+    background: #F4F5FA;
+    border-radius: 10px;
+    border: 1px dashed rgba(0, 0, 0, 0.6);
+    padding: 20px;
+
+    h2 {
+      color: rgba(0, 0, 0, 0.6);
+      font-size: 17px;
+    }
+  }
+
+  .list-files {
+    border: 2px dashed;
+    border-radius: 4px;
+    background: rgb(204 204 204 / 10%);
+    padding: 5px 10px;
+
+    >div {
+      width: calc(100% - (24px + 0.5rem));
+    }
+
+    h3 {
+      font-size: 16px;
+      margin: 0;
+      color: #232323;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+    }
+
+    h5 {
+      font-size: 13px;
+      color: #696969;
+      margin: 0;
+    }
+
+    .remove-file {
+      right: 10px;
+    }
+  }
+
 }
