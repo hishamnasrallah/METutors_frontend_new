@@ -45,7 +45,7 @@ export class CompleteTutorProfileQualificationDetailsComponent
         currentEmployer: _tutor?.qualifications?.currentEmployer,
         currentTitle: _tutor?.qualifications?.currentTitle,
         video: _tutor?.qualifications?.video,
-        // documents: _tutor?.documents?.video,
+        documents: _tutor?.userDocuments,
       });
 
       if (_tutor.languages && _tutor.languages.length) {
