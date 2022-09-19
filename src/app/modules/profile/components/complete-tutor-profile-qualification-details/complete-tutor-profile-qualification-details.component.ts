@@ -45,6 +45,7 @@ export class CompleteTutorProfileQualificationDetailsComponent
         currentEmployer: _tutor?.qualifications?.currentEmployer,
         currentTitle: _tutor?.qualifications?.currentTitle,
         video: _tutor?.qualifications?.video,
+        // documents: _tutor?.documents?.video,
       });
 
       if (_tutor.languages && _tutor.languages.length) {
@@ -304,6 +305,7 @@ export class CompleteTutorProfileQualificationDetailsComponent
       const body = {
         step: 3,
         video: this.video?.value,
+        documents: this.documents?.value,
         degree_field: this.degreeField?.value,
         degree_level: this.degreeLevel?.value,
         current_title: this.currentTitle?.value,
@@ -312,7 +314,6 @@ export class CompleteTutorProfileQualificationDetailsComponent
         name_of_university: this.nameOfUniversity?.value,
         spoken_languages: JSON.stringify(spokenLanguages),
         teaching_experience: this.teachingExperience?.value,
-        documents: this.documents?.value?.map((item: any) => item.url),
         teaching_experience_online: this.teachingExperienceOnline?.value,
       };
 

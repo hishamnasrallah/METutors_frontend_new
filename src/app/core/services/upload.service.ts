@@ -5,6 +5,7 @@ import camelcaseKeys from 'camelcase-keys';
 import { Observable, of, Subscription } from 'rxjs';
 import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
 
+import { formatBytes } from '@config';
 import * as fromCore from '@metutor/core/state';
 import { environment } from 'src/environments/environment';
 
@@ -34,6 +35,7 @@ export class UploadService {
       const formData = new FormData();
 
       formData.append('file', file);
+      formData.append('size', formatBytes(file.size));
 
       this.fileUploadStream$ = this.onUploadFile(formData).subscribe(
         (event) => {
