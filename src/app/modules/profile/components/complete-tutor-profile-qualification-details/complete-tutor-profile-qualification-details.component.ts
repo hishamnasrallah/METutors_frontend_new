@@ -45,8 +45,14 @@ export class CompleteTutorProfileQualificationDetailsComponent
         currentEmployer: _tutor?.qualifications?.currentEmployer,
         currentTitle: _tutor?.qualifications?.currentTitle,
         video: _tutor?.qualifications?.video,
-        documents: _tutor?.userDocuments,
       });
+
+      if (_tutor?.userDocuments && _tutor?.userDocuments?.length) {
+        this._store.dispatch(fromCore.resetUploadedFiles());
+        this._store.dispatch(
+          fromCore.setFiles({ files: _tutor.userDocuments })
+        );
+      }
 
       if (_tutor.languages && _tutor.languages.length) {
         this.languages.clear();
@@ -109,7 +115,6 @@ export class CompleteTutorProfileQualificationDetailsComponent
   }
 
   ngOnInit(): void {
-    this._store.dispatch(fromCore.resetUploadedFiles());
     this.uploadedFiles$ = this._store
       .select(fromCore.selectUploadedFiles)
       .pipe(tap((files) => this.documents?.setValue(files)));
