@@ -29,7 +29,6 @@ import {
   OtpVerifyComponent,
   RolesSelectComponent,
   AuthOpinionsComponent,
-  SignupUploadDocumentsComponent,
   SignupEmailVerificationComponent,
   SigninEmailVerificationModalComponent,
 } from './components';
@@ -45,7 +44,6 @@ import {
     AccessDeniedComponent,
     ResetPasswordComponent,
     ForgetPasswordComponent,
-    SignupUploadDocumentsComponent,
     SignupEmailVerificationComponent,
     SigninEmailVerificationModalComponent,
   ],
@@ -66,6 +64,6 @@ import {
     StoreModule.forFeature(featureKeys.accountFeatureKey, fromAccount.reducers),
   ],
   providers: [],
-  exports: [ConfirmEmailComponent, SignupUploadDocumentsComponent],
+  exports: [ConfirmEmailComponent],
 })
 export class AccountModule {}

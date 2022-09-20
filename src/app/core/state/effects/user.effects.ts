@@ -5,7 +5,14 @@ import camelcaseKeys from 'camelcase-keys';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
+
+import {
+  map,
+  mergeMap,
+  switchMap,
+  catchError,
+  withLatestFrom,
+} from 'rxjs/operators';
 
 import { AuthService } from '@services';
 import * as fromRoot from '@metutor/state';
@@ -435,30 +442,15 @@ export class UserEffects {
           this._store.select(fromCore.selectRegisterUserType)
         ),
         map(([action, email, userType]) => {
-          if (
-            userType == UserRole.student ||
-            action.userType === UserRole.student
-          ) {
-            this._router.navigate(['/signin']);
+          this._router.navigate(['/signin']);
 
-            return this._store.dispatch(
-              fromCore.registerStep({
-                step: 1,
-                email: '',
-                userType,
-              })
-            );
-          } else {
-            this._router.navigate(['/signup']);
-
-            return this._store.dispatch(
-              fromCore.registerStep({
-                step: 3,
-                email,
-                userType,
-              })
-            );
-          }
+          return this._store.dispatch(
+            fromCore.registerStep({
+              step: 1,
+              email: '',
+              userType,
+            })
+          );
         })
       ),
     {
