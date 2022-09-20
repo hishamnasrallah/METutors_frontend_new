@@ -25,5 +25,4 @@ export * from './admin-student-total-booking-modal';
 export * from './admin-finance-refund-payment-modal';
 export * from './admin-hourly-rate-per-subject-modal';
 export * from './admin-student-view-assignments-modal';
-export * from './admin-tutor-interview-attachment-modal';
 export * from './admin-reassigning-tutor-selection-modal';
