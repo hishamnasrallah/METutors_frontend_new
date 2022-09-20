@@ -1,6 +1,6 @@
 import camelcaseKeys from 'camelcase-keys';
 import { generalConstants, GRADES, InterviewStatus } from 'src/app/config';
-import { environment } from 'src/environments/environment';
+
 import {
   IProgram,
   ISubject,
@@ -10,6 +10,7 @@ import {
   IQualification,
   ISpecification,
 } from '.';
+
 import { ITutorFeedback } from './tutor-feedback.model';
 
 export class ITutor {
@@ -208,7 +209,12 @@ export class ITutor {
         deep: true,
       });
       this.completedStep = tutor?.profile_completed_step || 0;
-      this.userDocuments = tutor?.user_documents;
+      this.userDocuments = tutor?.user_documents?.map((item: any) => ({
+        id: item.id,
+        originalName: item.original_name,
+        status: item.status,
+        userId: item.user_id,
+      }));
     }
   }
 }
