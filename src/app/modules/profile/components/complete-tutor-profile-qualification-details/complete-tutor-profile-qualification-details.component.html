@@ -151,14 +151,13 @@
                  (change)="onFileChange($event)">
         </div>
 
-        <div class="position-relative preview-style" *ngIf="uploadType === 'docs'">
+        <div class="position-relative preview-style">
           <ng-container *ngLet="fileUploadProgress$ | async as fileUploadProgress">
             <ng-container *ngIf="fileUploadProgress?.length">
               <ng-container *ngFor="let uploadProgress of fileUploadProgress">
                 <ng-container *ngIf="uploadProgress.responseType !== uploadComplete">
                   <metutors-file-upload-progress [fileName]="uploadProgress.fileName"
-                                                 (onCancelUpload)="onCancelUpload()"
-                                                 [uploadedPercentage]="uploadProgress.progress" [cancelUpload]="true">
+                                                 [uploadedPercentage]="uploadProgress.progress">
                   </metutors-file-upload-progress>
                 </ng-container>
               </ng-container>
@@ -201,13 +200,13 @@
             </button>
             <div class="guide1 mt-2">Upload Video Demo (Max 120 MB)</div>
           </div>
-          <div class="position-relative preview-style" *ngIf="uploadType === 'video'">
-          <ng-container *ngLet="fileUploadProgress$ | async as fileUploadProgress">
-            <ng-container *ngIf="fileUploadProgress?.length">
-              <ng-container *ngFor="let uploadProgress of fileUploadProgress">
+          <div class="position-relative preview-style">
+          <ng-container *ngLet="videoUploadProgress$ | async as videoUploadProgress">
+            <ng-container *ngIf="videoUploadProgress?.length">
+              <ng-container *ngFor="let uploadProgress of videoUploadProgress">
                 <ng-container *ngIf="uploadProgress.responseType !== uploadComplete">
                   <metutors-file-upload-progress [fileName]="uploadProgress.fileName" [fileType]="'video'"
-                                                 (onCancelUpload)="onCancelUpload()"
+                                                 (onCancelUpload)="onCancelVideoUpload()"
                                                  [uploadedPercentage]="uploadProgress.progress" [cancelUpload]="true">
                   </metutors-file-upload-progress>
                 </ng-container>

@@ -15,7 +15,9 @@ import { environment } from 'src/environments/environment';
 export class UploadService {
   uploadedFiles: any[] = [];
   fileUploadProgress: any[] = [];
+  videoUploadProgress: any[] = [];
   fileUploadStream$: Subscription;
+  videoUploadStream$: Subscription;
 
   baseUrl = environment.API_URL;
 
@@ -25,7 +27,6 @@ export class UploadService {
         url: '',
         id: null,
         progress: 0,
-        skip: file?.skip,
         responseType: 0,
         fileSize: file.size,
         fileName: file.name,
@@ -53,18 +54,59 @@ export class UploadService {
               url: file?.length ? file[0]?.url : '',
             };
 
-            if (!this.fileUploadProgress[index]?.skip) {
-              this._store.dispatch(
-                fromCore.loadUploadedFiles({
-                  files: this.uploadedFiles,
-                })
-              );
-            }
+            this._store.dispatch(
+              fromCore.loadUploadedFiles({
+                files: this.uploadedFiles,
+              })
+            );
           }
 
           this._store.dispatch(
             fromCore.loadUploadFileProgress({
               uploadProgress: [...this.fileUploadProgress],
+            })
+          );
+        }
+      );
+    });
+  }
+
+  uploadVideo(videos: any): void {
+    videos.forEach((video: any, index: number) => {
+      this.videoUploadProgress[index] = {
+        url: '',
+        id: null,
+        progress: 0,
+        responseType: 0,
+        fileSize: video.size,
+        fileName: video.name,
+      };
+
+      const formData = new FormData();
+
+      formData.append('file', video);
+      formData.append('size', formatBytes(video.size));
+
+      this.videoUploadStream$ = this.onUploadFile(formData).subscribe(
+        (event) => {
+          if (event.type === HttpEventType.UploadProgress) {
+            this.videoUploadProgress[index] = {
+              ...this.videoUploadProgress[index],
+              progress: Math.round((100 * event.loaded) / event.total),
+            };
+          } else if (event.type === HttpEventType.Response) {
+            const file = event?.body?.file;
+            this.videoUploadProgress[index] = {
+              ...this.videoUploadProgress[index],
+              responseType: event.type,
+              id: file?.length ? file[0]?.id : null,
+              url: file?.length ? file[0]?.url : '',
+            };
+          }
+
+          this._store.dispatch(
+            fromCore.loadUploadVideoProgress({
+              uploadVideoProgress: [...this.videoUploadProgress],
             })
           );
         }
@@ -99,8 +141,14 @@ export class UploadService {
     return this._http.post<any>(`${this.baseUrl}change-cover`, formData);
   }
 
-  cancelUploadStream(): Observable<any> {
+  cancelFileUploadStream(): Observable<any> {
     this.fileUploadStream$.unsubscribe();
+
+    return of({});
+  }
+
+  cancelVideoUploadStream(): Observable<any> {
+    this.videoUploadStream$.unsubscribe();
 
     return of({});
   }

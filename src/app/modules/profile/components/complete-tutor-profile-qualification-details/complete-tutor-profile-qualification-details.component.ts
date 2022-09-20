@@ -81,7 +81,6 @@ export class CompleteTutorProfileQualificationDetailsComponent
 
   form: FormGroup;
   fileId: number;
-  uploadType: string;
   invalid = 'INVALID';
   filterDegree: string;
   uploadingVideo: boolean;
@@ -91,6 +90,7 @@ export class CompleteTutorProfileQualificationDetailsComponent
   uploadedFiles$: Observable<any>;
   experiences = TEACHING_EXPERIENCE;
   fileUploadProgress$: Observable<any>;
+  videoUploadProgress$: Observable<any>;
   showViewDocumentModal$: Observable<any>;
   uploadComplete = generalConstants.uploadComplete;
 
@@ -128,24 +128,23 @@ export class CompleteTutorProfileQualificationDetailsComponent
       .select(fromCore.selectUploadedFiles)
       .pipe(tap((files) => this.documents?.setValue(files)));
 
-    this.fileUploadProgress$ = this._store
-      .select(fromCore.selectFileUploadingProgress)
+    this.videoUploadProgress$ = this._store
+      .select(fromCore.selectVideoUploadingProgress)
       .pipe(
         tap((progress) => {
           progress?.map((response: any) => {
             if (response.responseType === this.uploadComplete) {
-              if (this.uploadType === 'video') {
-                this.uploadingVideo = false;
-                this.video?.setValue(response?.url);
-                this.video?.markAsDirty();
-              }
-
-              this.form.markAsDirty();
-              this.form.markAsTouched();
+              this.uploadingVideo = false;
+              this.video?.setValue(response?.url);
+              this.video?.markAsDirty();
             }
           });
         })
       );
+
+    this.fileUploadProgress$ = this._store.select(
+      fromCore.selectFileUploadingProgress
+    );
   }
 
   onOpenViewDocumentModal(document: ITeacherDocument): void {
@@ -267,7 +266,6 @@ export class CompleteTutorProfileQualificationDetailsComponent
 
   onChangeVideo(event: any): void {
     if (event.target && event.target.files && event.target.files.length) {
-      this.uploadType = 'video';
       const file = event.target?.files[0];
       const mimeType = event.target.files[0].type;
 
@@ -285,18 +283,17 @@ export class CompleteTutorProfileQualificationDetailsComponent
 
       const files: any = [];
       Array.from(event.target.files).forEach((file: any) => {
-        file.skip = true;
         files.push(file);
       });
 
       this.uploadingVideo = true;
-      this._store.dispatch(fromCore.uploadFile({ file: [...files] }));
+      this._store.dispatch(fromCore.uploadVideo({ video: [...files] }));
     }
   }
 
-  onCancelUpload() {
+  onCancelVideoUpload() {
     this.uploadingVideo = false;
-    this._store.dispatch(fromCore.cancelUpload());
+    this._store.dispatch(fromCore.cancelVideoUpload());
   }
 
   onFileChange(event: any): void {
@@ -307,8 +304,6 @@ export class CompleteTutorProfileQualificationDetailsComponent
 
         return;
       }
-
-      this.uploadType = 'docs';
 
       this._store.dispatch(
         fromCore.uploadFile({ file: [...event.target.files] })
@@ -349,5 +344,6 @@ export class CompleteTutorProfileQualificationDetailsComponent
     }
 
     this._store.dispatch(fromCore.resetUploadFileProgress());
+    this._store.dispatch(fromCore.resetUploadVideoProgress());
   }
 }

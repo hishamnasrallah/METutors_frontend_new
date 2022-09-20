@@ -21,12 +21,32 @@ export class UploadEffects {
     { dispatch: false }
   );
 
-  cancelUpload$ = createEffect(() =>
+  uploadVideo$ = createEffect(
+    () =>
+      this._actions$.pipe(
+        ofType(uploadActions.uploadVideo),
+        tap(({ video }) => this._uploadService.uploadVideo(video))
+      ),
+    { dispatch: false }
+  );
+
+  cancelFileUpload$ = createEffect(() =>
     this._actions$.pipe(
-      ofType(uploadActions.cancelUpload),
+      ofType(uploadActions.cancelFileUpload),
       mergeMap(() =>
         this._uploadService
-          .cancelUploadStream()
+          .cancelFileUploadStream()
+          .pipe(map(() => uploadActions.cancelUploadSuccess()))
+      )
+    )
+  );
+
+  cancelVideoUpload$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(uploadActions.cancelVideoUpload),
+      mergeMap(() =>
+        this._uploadService
+          .cancelVideoUploadStream()
           .pipe(map(() => uploadActions.cancelUploadSuccess()))
       )
     )
