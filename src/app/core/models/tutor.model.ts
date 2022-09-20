@@ -211,9 +211,11 @@ export class ITutor {
       this.completedStep = tutor?.profile_completed_step || 0;
       this.userDocuments = tutor?.user_documents?.map((item: any) => ({
         id: item.id,
-        originalName: item.original_name,
+        url: item.url,
+        size: item.size,
         status: item.status,
         userId: item.user_id,
+        originalName: item.original_name,
       }));
     }
   }

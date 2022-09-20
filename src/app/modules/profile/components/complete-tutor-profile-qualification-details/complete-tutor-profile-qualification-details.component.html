@@ -173,6 +173,8 @@
               <h3>{{ filePreview?.originalName }}</h3>
               <h5>{{ filePreview?.size }}</h5>
             </div>
+
+            <mat-icon class="position-absolute view-file cursor-pointer text-main" title="View file" (click)="onOpenViewDocumentModal(filePreview)">visibility</mat-icon>
             <mat-icon class="position-absolute remove-file cursor-pointer text-danger" title="Delete file" (click)="removeFile(i, filePreview.id)" *ngIf="filePreview.id !== fileId">close</mat-icon>
             <mat-icon class="position-absolute remove-file spinner" title="Deleting file" *ngIf="filePreview.id === fileId">autorenew</mat-icon>
           </div>
@@ -234,3 +236,8 @@
     </div>
   </div>
 </form>
+
+<metutors-doc-viewer-modal *ngIf="showViewDocumentModal$ | async" [document]="document"
+                           (closeModal)="onCloseViewDocumentModal()"
+                           [showModal]="(showViewDocumentModal$ | async)!">
+</metutors-doc-viewer-modal>

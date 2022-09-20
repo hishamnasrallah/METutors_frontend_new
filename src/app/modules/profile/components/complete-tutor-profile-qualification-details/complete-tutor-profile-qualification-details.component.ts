@@ -2,7 +2,7 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { tap } from 'rxjs/operators';
 import * as fromCore from '@metutor/core/state';
-import { ILanguage, ITutor } from 'src/app/core/models';
+import { ILanguage, ITeacherDocument, ITutor } from 'src/app/core/models';
 import { AlertNotificationService } from '@metutor/core/components';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
@@ -22,6 +22,9 @@ import {
   TEACHING_EXPERIENCE,
 } from 'src/app/config';
 
+import * as fromProfile from '@metutor/modules/profile/state';
+import * as fromProfileActions from '@metutor/modules/profile/state/actions';
+
 @Component({
   selector: 'metutors-complete-tutor-profile-qualification-details',
   templateUrl: './complete-tutor-profile-qualification-details.component.html',
@@ -33,6 +36,7 @@ export class CompleteTutorProfileQualificationDetailsComponent
   @Input() loading: boolean | null;
   @Input() languagesList: ILanguage[] | null;
   @Input() set tutor(_tutor: ITutor) {
+    this._store.dispatch(fromCore.resetUploadedFiles());
     if (_tutor) {
       this.form.patchValue({
         nameOfUniversity: _tutor?.qualifications?.nameOfUniversity,
@@ -48,7 +52,6 @@ export class CompleteTutorProfileQualificationDetailsComponent
       });
 
       if (_tutor?.userDocuments && _tutor?.userDocuments?.length) {
-        this._store.dispatch(fromCore.resetUploadedFiles());
         this._store.dispatch(
           fromCore.setFiles({ files: _tutor.userDocuments })
         );
@@ -83,10 +86,12 @@ export class CompleteTutorProfileQualificationDetailsComponent
   filterDegree: string;
   uploadingVideo: boolean;
   skills = COMPUTER_SKILLS;
+  document: ITeacherDocument;
   degreeLevels = DEGREE_LEVELS;
   uploadedFiles$: Observable<any>;
   experiences = TEACHING_EXPERIENCE;
   fileUploadProgress$: Observable<any>;
+  showViewDocumentModal$: Observable<any>;
   uploadComplete = generalConstants.uploadComplete;
 
   constructor(
@@ -115,6 +120,10 @@ export class CompleteTutorProfileQualificationDetailsComponent
   }
 
   ngOnInit(): void {
+    this.showViewDocumentModal$ = this._store.select(
+      fromProfile.selectShowViewDocumentModal
+    );
+
     this.uploadedFiles$ = this._store
       .select(fromCore.selectUploadedFiles)
       .pipe(tap((files) => this.documents?.setValue(files)));
@@ -133,11 +142,19 @@ export class CompleteTutorProfileQualificationDetailsComponent
 
               this.form.markAsDirty();
               this.form.markAsTouched();
-              // this._store.dispatch(fromCore.resetUploadFileProgress());
             }
           });
         })
       );
+  }
+
+  onOpenViewDocumentModal(document: ITeacherDocument): void {
+    this.document = document;
+    this._store.dispatch(fromProfileActions.openViewDocumentModal());
+  }
+
+  onCloseViewDocumentModal(): void {
+    this._store.dispatch(fromProfileActions.closeViewDocumentModal());
   }
 
   get nameOfUniversity(): AbstractControl | null {
@@ -330,5 +347,7 @@ export class CompleteTutorProfileQualificationDetailsComponent
     } else {
       this.changeStep.emit(4);
     }
+
+    this._store.dispatch(fromCore.resetUploadFileProgress());
   }
 }

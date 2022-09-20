@@ -7,3 +7,11 @@ export const openTeacherAvailabilityModal = createAction(
 export const closeTeacherAvailabilityModal = createAction(
   '[Profile Modal] Close Teacher Availability Modal'
 );
+
+export const openViewDocumentModal = createAction(
+  '[Profile Modal] Open View Document Modal'
+);
+
+export const closeViewDocumentModal = createAction(
+  '[Profile Modal] Close View Document Modal'
+);

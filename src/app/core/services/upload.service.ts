@@ -20,7 +20,6 @@ export class UploadService {
   baseUrl = environment.API_URL;
 
   uploadFile(files: any): void {
-    console.log('files', files);
     files.forEach((file: any, index: number) => {
       this.fileUploadProgress[index] = {
         url: '',
