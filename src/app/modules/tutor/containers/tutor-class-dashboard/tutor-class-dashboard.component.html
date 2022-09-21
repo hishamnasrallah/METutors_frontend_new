@@ -141,13 +141,13 @@
               <th>Duration</th>
               <th></th>
             </tr>
-            <tr *ngIf="!view.data?.upcomingClasses?.length">
+            <tr *ngIf="!view.data?.upcomingClasses?.data?.length">
               <td colspan="8">
                 <div class="text-center">No record found</div>
               </td>
             </tr>
-            <ng-container *ngIf="view.data?.upcomingClasses?.length">
-              <tr *ngFor="let upcomingClass of view.data.upcomingClasses; let i=index">
+            <ng-container *ngIf="view.data?.upcomingClasses?.data?.length">
+              <tr *ngFor="let upcomingClass of view.data.upcomingClasses.data; let i=index">
                 <td>{{ i + 1}}</td>
                 <td>{{ upcomingClass.title ? upcomingClass.title : 'N/A' }}</td>
                 <td>
@@ -190,13 +190,13 @@
               <th>Duration</th>
               <th></th>
             </tr>
-            <tr *ngIf="!view.data.pastClasses.length">
+            <tr *ngIf="!view.data.pastClasses?.data?.length">
               <td colspan="8">
                 <div class="text-center">No record found</div>
               </td>
             </tr>
-            <ng-container *ngIf="view.data.pastClasses.length">
-              <tr *ngFor="let pastClass of view.data.pastClasses; let i=index">
+            <ng-container *ngIf="view.data.pastClasses?.data?.length">
+              <tr *ngFor="let pastClass of view.data.pastClasses.data; let i=index">
                 <td>{{ i + 1 }}</td>
                 <td>{{ pastClass.title }}</td>
                 <td>
