@@ -52,6 +52,7 @@ import {
 })
 export class CourseInformationFormComponent implements OnInit {
   @Input() form!: FormGroup;
+  @Input() selectedCourse: any;
   @Input() fields: IField[] | null;
   @Input() subjects: ISubject[] | null;
   @Input() programs: IProgram[] | null;
@@ -65,7 +66,6 @@ export class CourseInformationFormComponent implements OnInit {
 
   grades = GRADES;
   filePreview: any;
-  selectedCourse: any;
   nationalId = generalConstants.nationalId;
   textbookEditions = TEXTBOOK_EDITION_CONST;
   academicTutoringTextbook = AcademicTutoringTextbook;
@@ -184,9 +184,7 @@ export class CourseInformationFormComponent implements OnInit {
   }
 
   onChangeCourseSubject(): void {
-    this.selectedCourse = this.subject?.value;
-
-    this.changeCourseSubject.emit(this.selectedCourse);
+    this.changeCourseSubject.emit(this.subject?.value);
   }
 
   onFileUpload(event: any): void {

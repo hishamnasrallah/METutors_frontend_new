@@ -5,7 +5,7 @@
         <h2 class="f-size-17-md-sm">Course Details</h2>
         <h4 class="f-size-15-md-sm">Add course information:</h4>
 
-        <h5 class="mt-4 mb-0" *ngIf="selectedCourse">Course ID: <span>CID{{selectedCourse.id}}</span></h5>
+        <h5 class="mt-4 mb-0" *ngIf="selectedCourse">Course ID: <span>CID{{ selectedCourse.id }}</span></h5>
       </div>
       <div class="col-md-8 mt-15-sm">
         <div class="row">
@@ -65,7 +65,7 @@
             <mat-form-field appearance="outline" class="w-100">
               <mat-select formControlName="subject" [placeholder]="'Choose Subject'"
                 (selectionChange)="onChangeCourseSubject()">
-                <mat-option [value]="subject" *ngFor="let subject of subjects">
+                <mat-option [value]="subject?.id" *ngFor="let subject of subjects">
                   {{ subject?.name }}
                 </mat-option>
                 <mat-option value="" *ngIf="!subjects || !subjects?.length" disabled>

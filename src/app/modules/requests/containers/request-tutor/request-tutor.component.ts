@@ -211,6 +211,13 @@ export class RequestTutorComponent implements OnInit {
     this.step += 1;
     this.myStepper?.next();
     this._prepareReviewInfo();
+
+    this.selectedCourse = {
+      id: this.courseInformationForm.value.subject,
+      name: this.subjects?.filter(
+        (sub) => sub.id === +this.courseInformationForm.value.subject
+      )[0]?.name,
+    };
   }
 
   backStep(): void {
@@ -289,11 +296,12 @@ export class RequestTutorComponent implements OnInit {
     );
   }
 
-  calculateEstimatedPrice(course: any): void {
-    this.selectedCourse = course;
-    this._store.dispatch(
-      fromCore.calculateEstimatedPrice({ subjectId: course.id })
-    );
+  calculateEstimatedPrice(subjectId: string): void {
+    this.selectedCourse = {
+      id: subjectId,
+      name: this.subjects?.filter((sub) => sub.id === +subjectId)[0]?.name,
+    };
+    this._store.dispatch(fromCore.calculateEstimatedPrice({ subjectId }));
     this.price$ = this._store.select(fromCore.selectEstimatedPrice).pipe(
       tap((price) => {
         if (price) {
@@ -335,7 +343,7 @@ export class RequestTutorComponent implements OnInit {
         field_of_study_id: this.courseInformationForm.value.courseField,
         grade: this.courseInformationForm.value.courseGrade,
         country_id: this.courseInformationForm.value.courseCountry,
-        subject_id: this.courseInformationForm.value.subject.id,
+        subject_id: this.courseInformationForm.value.subject,
         language_id: this.courseInformationForm.value.language,
         start_date: new Date(
           this.classroomDetailsForm.value.startDate
@@ -387,7 +395,7 @@ export class RequestTutorComponent implements OnInit {
       ...this.courseInformationForm.value,
       ...this._generateClassroomForm(this.classroomDetailsForm.value),
       ...this.selectTutorForm.value,
-      subject: this.courseInformationForm.value.subject.id,
+      subject: this.courseInformationForm.value.subject,
       programName: this.reviewInfo.courseProgram,
       fieldName: this.reviewInfo.courseField,
       tutoringLanguage: this.reviewInfo.languages,
@@ -449,8 +457,7 @@ export class RequestTutorComponent implements OnInit {
         this.reviewInfo.subject =
           this.subjects && this.subjects.length
             ? this.subjects.filter(
-                (sub) =>
-                  sub?.id === +this.courseInformationForm.value.subject.id
+                (sub) => sub?.id === +this.courseInformationForm.value.subject
               )[0]?.name
             : '';
 

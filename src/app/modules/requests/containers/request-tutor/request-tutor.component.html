@@ -23,6 +23,7 @@
                                           [languages]="languages$ | async"
                                           [subjects]="subjects$ | async"
                                           [countries]="countries$ | async"
+                                          [selectedCourse]="selectedCourse"
                                           (submitForm)="nextStep()"
                                           (changeCourseProgram)="fetchCourseField($event)"
                                           (changeCourseField)="fetchCourseFieldSubject($event)"
