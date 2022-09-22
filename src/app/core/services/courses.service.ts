@@ -29,9 +29,11 @@ export class CoursesService {
   loadExploredCourses(programId: string, countryId?: string): Observable<any> {
     const query = countryId ? `?country_id=${countryId}` : '';
 
-    return this.http.get<{ field_of_studies: any[]; subjects: any[]; program: IProgram }>(
-      `${this.baseUrl}courses/${programId}${query}`
-    );
+    return this.http.get<{
+      field_of_studies: any[];
+      subjects: any[];
+      program: IProgram;
+    }>(`${this.baseUrl}courses/${programId}${query}`);
   }
 
   fetchMainServices(): Observable<any> {
@@ -289,7 +291,7 @@ export class CoursesService {
           classroom?.classrooms && classroom?.classrooms.length
             ? classroom?.classrooms.map((clss: any) => ({
                 date: clss.date,
-                day: clss.day,
+                day: clss.day + 1,
                 start_time: clss.start_time,
                 end_time: clss.end_time,
                 duration: clss.duration,
@@ -315,7 +317,7 @@ export class CoursesService {
 
     const weekdays =
       value.days && value.days.length
-        ? value.days.map((day: string) => SORTED_DAYS_WEEK.indexOf(day))
+        ? value.days.map((day: string) => SORTED_DAYS_WEEK.indexOf(day) + 1)
         : [];
 
     if (value.courseProgram) formData.append('program_id', value.courseProgram);
