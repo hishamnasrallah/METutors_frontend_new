@@ -334,7 +334,7 @@ export class RequestTutorComponent implements OnInit {
         field_of_study_id: this.courseInformationForm.value.courseField,
         subject_id: this.courseInformationForm.value.subject.id,
         language_id: this.courseInformationForm.value.language,
-        class_rooms: JSON.stringify(appointments).replace(/\[|\]/g,''),
+        class_rooms: JSON.stringify(appointments),
       };
 
       this._store.dispatch(fromCore.generateTutors({ data }));
