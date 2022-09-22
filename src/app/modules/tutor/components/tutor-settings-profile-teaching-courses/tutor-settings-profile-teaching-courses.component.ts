@@ -1,5 +1,5 @@
-import { generalConstants } from '@metutor/config';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { generalConstants, InterviewStatus } from '@metutor/config';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
@@ -28,6 +28,7 @@ export class TutorSettingsProfileTeachingCoursesComponent implements OnInit {
   form: FormGroup;
   pricesLength = 0;
   submittedSubjects: any[] = [];
+  interviewStatus = InterviewStatus;
   nationalId = generalConstants.nationalId;
 
   constructor(private _fb: FormBuilder) {

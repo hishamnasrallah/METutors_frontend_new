@@ -2,7 +2,7 @@
   <form class="card-body" [formGroup]="form" (ngSubmit)="onSubmit(form)">
     <div class="d-flex justify-content-between align-items-center w-100 mb-4">
       <h1 class="title f-size-18-md-sm">Teaching Courses <br>
-        <span>Contact this email
+        <span *ngIf="status === interviewStatus.approved">Contact this email
           <a href="mailto:support@metutors.com" target="_blank">support@metutors.com</a>, if you want to edit this
           information.
         </span>

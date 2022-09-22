@@ -1,5 +1,6 @@
 import { Store } from '@ngrx/store';
 import { Observable, tap } from 'rxjs';
+import { isNil, omitBy } from 'lodash';
 import { DatePipe } from '@angular/common';
 import * as fromCore from '@metutor/core/state';
 import { ActivatedRoute } from '@angular/router';
@@ -210,6 +211,13 @@ export class RequestTutorComponent implements OnInit {
     this.step += 1;
     this.myStepper?.next();
     this._prepareReviewInfo();
+
+    this.selectedCourse = {
+      id: this.courseInformationForm.value.subject,
+      name: this.subjects?.filter(
+        (sub) => sub.id === +this.courseInformationForm.value.subject
+      )[0]?.name,
+    };
   }
 
   backStep(): void {
@@ -288,11 +296,12 @@ export class RequestTutorComponent implements OnInit {
     );
   }
 
-  calculateEstimatedPrice(course: any): void {
-    this.selectedCourse = course;
-    this._store.dispatch(
-      fromCore.calculateEstimatedPrice({ subjectId: course.id })
-    );
+  calculateEstimatedPrice(subjectId: string): void {
+    this.selectedCourse = {
+      id: subjectId,
+      name: this.subjects?.filter((sub) => sub.id === +subjectId)[0]?.name,
+    };
+    this._store.dispatch(fromCore.calculateEstimatedPrice({ subjectId }));
     this.price$ = this._store.select(fromCore.selectEstimatedPrice).pipe(
       tap((price) => {
         if (price) {
@@ -332,12 +341,22 @@ export class RequestTutorComponent implements OnInit {
       const data = {
         program_id: this.courseInformationForm.value.courseProgram,
         field_of_study_id: this.courseInformationForm.value.courseField,
-        subject_id: this.courseInformationForm.value.subject.id,
+        grade: this.courseInformationForm.value.courseGrade,
+        country_id: this.courseInformationForm.value.courseCountry,
+        subject_id: this.courseInformationForm.value.subject,
         language_id: this.courseInformationForm.value.language,
-        class_rooms: appointments,
+        start_date: new Date(
+          this.classroomDetailsForm.value.startDate
+        ).toISOString(),
+        end_date: new Date(
+          this.classroomDetailsForm.value.endDate
+        ).toISOString(),
+        class_rooms: JSON.stringify(appointments),
       };
 
-      this._store.dispatch(fromCore.generateTutors({ data }));
+      this._store.dispatch(
+        fromCore.generateTutors({ data: omitBy(data, isNil) })
+      );
       this.filterTutors('');
     }
   }
@@ -376,7 +395,7 @@ export class RequestTutorComponent implements OnInit {
       ...this.courseInformationForm.value,
       ...this._generateClassroomForm(this.classroomDetailsForm.value),
       ...this.selectTutorForm.value,
-      subject: this.courseInformationForm.value.subject.id,
+      subject: this.courseInformationForm.value.subject,
       programName: this.reviewInfo.courseProgram,
       fieldName: this.reviewInfo.courseField,
       tutoringLanguage: this.reviewInfo.languages,
@@ -438,8 +457,7 @@ export class RequestTutorComponent implements OnInit {
         this.reviewInfo.subject =
           this.subjects && this.subjects.length
             ? this.subjects.filter(
-                (sub) =>
-                  sub?.id === +this.courseInformationForm.value.subject.id
+                (sub) => sub?.id === +this.courseInformationForm.value.subject
               )[0]?.name
             : '';
 
@@ -591,11 +609,22 @@ export class RequestTutorComponent implements OnInit {
     if (value && value.length) {
       appointments = value.map((item: any) => {
         const appoint: any = {
-          date: this._datePipe.transform(new Date(item?.date), 'yyyy-MM-dd'),
           day: SORTED_DAYS_WEEK[new Date(item?.date).getDay()],
-          startTime: item?.startTime,
-          endTime: item?.endTime,
           duration: item?.duration,
+          start: new Date(
+            Date.parse(
+              this._datePipe.transform(new Date(item?.date), 'yyyy-MM-dd') +
+                ' ' +
+                item?.startTime
+            )
+          )?.toISOString(),
+          end: new Date(
+            Date.parse(
+              this._datePipe.transform(new Date(item?.date), 'yyyy-MM-dd') +
+                ' ' +
+                item?.endTime
+            )
+          )?.toISOString(),
         };
 
         return appoint;
