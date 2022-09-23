@@ -27,6 +27,7 @@
                 <mat-select formControlName="courseCountry" [placeholder]="'Choose Country'"
                   (selectionChange)="onChangeCourseProgram(); resetValues()">
                   <mat-option [value]="country?.id" *ngFor="let country of countries">
+                    <span [innerHTML]="country?.flag" class="me-2"></span>
                     {{ country?.name }}
                   </mat-option>
                 </mat-select>

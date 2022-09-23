@@ -47,7 +47,7 @@ export class ICourseRequest {
       this.gender = request?.gender_preference;
       this.description = request?.course_description;
       this.updatedAt = request?.updated_at;
-      this.programId = request?.program_id;
+      this.programId = +request?.program_id || 0;
     }
   }
 }

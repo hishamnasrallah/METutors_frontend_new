@@ -12,6 +12,17 @@
             <h3>Program Name</h3>
             <h4>{{ reviewInfo?.courseProgram }}</h4>
           </div>
+          <div class="col-md-3 col-sm-6" *ngIf="reviewInfo?.courseCountry">
+            <h3>Program Country</h3>
+            <h4>
+              <span [innerHTML]="reviewInfo?.courseCountry?.flag" class="me-2"></span>
+              {{ reviewInfo?.courseCountry?.name }}
+            </h4>
+          </div>
+          <div class="col-md-3 col-sm-6" *ngIf="reviewInfo?.courseGrade">
+            <h3>Program Grade Level</h3>
+            <h4>{{ reviewInfo?.courseGrade }}</h4>
+          </div>
           <div class="col-md-3 col-sm-6">
             <h3>Field of Study</h3>
             <h4>{{ reviewInfo?.courseField }}</h4>

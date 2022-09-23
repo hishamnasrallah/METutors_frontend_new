@@ -84,6 +84,8 @@ export class TutorSettingsProfileComponent implements OnInit {
       });
       this.teachingForm.updateValueAndValidity();
 
+      this.minDate = new Date(_tutor?.specifications?.availabilityStartDate || '');
+
       this.loadCities.emit(_tutor?.country?.id);
 
       const output: any[] = [];

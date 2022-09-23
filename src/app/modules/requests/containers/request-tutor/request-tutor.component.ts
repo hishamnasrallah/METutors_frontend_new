@@ -11,6 +11,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { FormValidationUtilsService } from '@metutor/core/validators';
 import * as fromRequestsActions from '@metutor/modules/requests/state/actions';
 import {
+  GRADES,
   SORTED_DAYS_WEEK,
   generalConstants,
   calculateListDays,
@@ -427,7 +428,7 @@ export class RequestTutorComponent implements OnInit {
 
   private _prepareReviewInfo(): void {
     if (this.courseInformationForm.valid) {
-      if (this.courseInformationForm.value.courseProgram)
+      if (this.courseInformationForm.value.courseProgram) {
         this.reviewInfo.courseProgram =
           this.coursePrograms && this.coursePrograms.length
             ? this.coursePrograms.filter(
@@ -435,6 +436,24 @@ export class RequestTutorComponent implements OnInit {
                   sub?.id === this.courseInformationForm.value.courseProgram
               )[0]?.name
             : '';
+
+        if (
+          +this.courseInformationForm.value.courseProgram ===
+          generalConstants.nationalId
+        ) {
+          this.reviewInfo.courseGrade =
+            GRADES[this.courseInformationForm.value.courseGrade];
+
+          this.reviewInfo.courseCountry =
+            this.courseCountries && this.courseCountries.length
+              ? this.courseCountries.filter(
+                  (country) =>
+                    country?.id ===
+                    this.courseInformationForm.value.courseCountry
+                )[0]
+              : '';
+        }
+      }
 
       if (this.courseInformationForm.value.courseField)
         this.reviewInfo.courseField =
