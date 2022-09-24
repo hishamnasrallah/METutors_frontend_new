@@ -90,7 +90,11 @@ export class RequestTutorComponent implements OnInit {
           ? +this._route.snapshot.queryParams['country']
           : null,
       ],
-      courseGrade: [null],
+      courseGrade: [
+        this._route.snapshot.queryParams['grade']
+          ? +this._route.snapshot.queryParams['grade']
+          : null,
+      ],
       courseField: [
         this._route.snapshot.queryParams['field']
           ? +this._route.snapshot.queryParams['field']
