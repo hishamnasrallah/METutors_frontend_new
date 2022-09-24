@@ -1,5 +1,6 @@
 import { Store } from '@ngrx/store';
 import { tap } from 'rxjs/operators';
+import { HttpEventType } from '@angular/common/http';
 import { Observable, Subscription } from 'rxjs';
 
 import {
@@ -13,7 +14,6 @@ import {
 
 import { UploadService } from '@services';
 import * as fromCore from '@metutor/core/state';
-import { HttpEventType } from '@angular/common/http';
 import { ILanguage, ITutor } from 'src/app/core/models';
 import { AlertNotificationService } from '@metutor/core/components';
 
