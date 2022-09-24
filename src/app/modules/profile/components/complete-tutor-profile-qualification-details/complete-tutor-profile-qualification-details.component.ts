@@ -117,19 +117,18 @@ export class CompleteTutorProfileQualificationDetailsComponent
         null,
         [Validators.required, Validators.maxLength(120)],
       ],
-      computerSkills: [null, [Validators.required]],
-      degreeLevel: [null, [Validators.required]],
-      teachingExperience: [null, [Validators.required]],
-      degreeField: [null, [Validators.required]],
-      languages: this._fb.array([]),
-      teachingExperienceOnline: [null, [Validators.required]],
-      currentEmployer: [null, Validators.maxLength(80)],
-      currentTitle: [null, Validators.maxLength(80)],
       video: [null, Validators.required],
       resume: [null, Validators.required],
+      languages: this._fb.array([]),
+      degreeLevel: [null, [Validators.required]],
+      degreeField: [null, [Validators.required]],
+      computerSkills: [null, [Validators.required]],
+      teachingExperience: [null, [Validators.required]],
+      teachingExperienceOnline: [null, [Validators.required]],
+      currentTitle: [null, Validators.maxLength(80)],
+      currentEmployer: [null, Validators.maxLength(80)],
       degrees: this._fb.array([], [Validators.required]),
       certificates: this._fb.array([], [Validators.required]),
-      // documents: [null, Validators.required],
     });
 
     this.addLanguage();
@@ -217,10 +216,6 @@ export class CompleteTutorProfileQualificationDetailsComponent
   get certificates(): FormArray {
     return this.form?.get('certificates') as FormArray;
   }
-
-  /*  get documents(): AbstractControl | null {
-    return this.form.get('documents');
-  }*/
 
   removeLanguage(i: number): void {
     (this.form?.get('languages') as FormArray).removeAt(i);
@@ -482,9 +477,11 @@ export class CompleteTutorProfileQualificationDetailsComponent
       const body = {
         step: 3,
         video: this.video?.value,
-        // documents: this.documents?.value,
+        resume: this.resume?.value,
+        degrees: this.degrees?.value,
         degree_field: this.degreeField?.value,
         degree_level: this.degreeLevel?.value,
+        certificates: this.certificates?.value,
         current_title: this.currentTitle?.value,
         computer_skills: this.computerSkills?.value,
         current_employer: this.currentEmployer?.value,
