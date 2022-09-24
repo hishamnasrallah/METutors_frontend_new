@@ -267,55 +267,6 @@
     </div>
 
     <div class="row">
-     <!-- <div class="col-md-6 upload-documents">
-        <div class="form-group">
-          <label for="languages" class="form-label">Upload Documents</label>
-          <div class="block-file text-center">
-            <img src="assets/svg/upload.svg" draggable="false" width="60" height="40" />
-            <h2 class="mb-3">
-              Upload the Following Documents:
-              <ol class="list-unstyled mt-2">
-                <li>Your updated CV/Resume </li>
-                <li>Recent degree certificate</li>
-              </ol>
-            </h2>
-
-            <button mat-flat-button color="primary" type="button" (click)="filePicker.click()">Browse Files</button>
-          </div>
-          <input #filePicker type="file" hidden multiple class="form-control"
-                 accept="image/*,.pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                 (change)="onFileChange($event)">
-        </div>
-
-        <div class="position-relative preview-style">
-          <ng-container *ngLet="fileUploadProgress$ | async as fileUploadProgress">
-            <ng-container *ngIf="fileUploadProgress?.length">
-              <ng-container *ngFor="let uploadProgress of fileUploadProgress">
-                <ng-container *ngIf="uploadProgress.responseType !== uploadComplete">
-                  <metutors-file-upload-progress [fileName]="uploadProgress.fileName"
-                                                 [uploadedPercentage]="uploadProgress.progress">
-                  </metutors-file-upload-progress>
-                </ng-container>
-              </ng-container>
-            </ng-container>
-          </ng-container>
-        </div>
-
-        <div class="form-group position-relative" *ngIf="(uploadedFiles$ | async)?.length">
-          <div class="list-files d-flex align-items-center mb-2" *ngFor="let filePreview of (uploadedFiles$ | async); let i=index">
-            <mat-icon>attach_file</mat-icon>
-            <div class="ms-2">
-              <h3>{{ filePreview?.originalName }}</h3>
-              <h5>{{ filePreview?.size }}</h5>
-            </div>
-
-            <mat-icon class="position-absolute view-file cursor-pointer text-main" title="View file" (click)="onOpenViewDocumentModal(filePreview)">visibility</mat-icon>
-            <mat-icon class="position-absolute remove-file cursor-pointer text-danger" title="Delete file" (click)="removeFile(i, filePreview.id)" *ngIf="filePreview.id !== fileId">close</mat-icon>
-            <mat-icon class="position-absolute remove-file spinner" title="Deleting file" *ngIf="filePreview.id === fileId">autorenew</mat-icon>
-          </div>
-        </div>
-      </div>-->
-
       <div class="col-md-6">
         <div class="form-group">
           <input type="file" #videoPicker (change)="onChangeVideo($event)" hidden accept="video/*"/>
@@ -371,10 +322,3 @@
     </div>
   </div>
 </form>
-
-<!--
-<metutors-doc-viewer-modal *ngIf="showViewDocumentModal$ | async" [document]="document"
-                           (closeModal)="onCloseViewDocumentModal()"
-                           [showModal]="(showViewDocumentModal$ | async)!">
-</metutors-doc-viewer-modal>
--->

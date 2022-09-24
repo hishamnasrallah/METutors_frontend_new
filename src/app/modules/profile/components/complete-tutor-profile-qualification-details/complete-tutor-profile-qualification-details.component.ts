@@ -13,6 +13,7 @@ import {
 
 import { UploadService } from '@services';
 import * as fromCore from '@metutor/core/state';
+import { HttpEventType } from '@angular/common/http';
 import { ILanguage, ITutor } from 'src/app/core/models';
 import { AlertNotificationService } from '@metutor/core/components';
 
@@ -32,10 +33,6 @@ import {
   TEACHING_EXPERIENCE,
   formatBytes,
 } from 'src/app/config';
-import { HttpEventType } from '@angular/common/http';
-
-// import * as fromProfile from '@metutor/modules/profile/state';
-// import * as fromProfileActions from '@metutor/modules/profile/state/actions';
 
 @Component({
   selector: 'metutors-complete-tutor-profile-qualification-details',
@@ -97,12 +94,9 @@ export class CompleteTutorProfileQualificationDetailsComponent
   filterDegree: string;
   uploadingVideo: boolean;
   skills = COMPUTER_SKILLS;
-  // document: ITeacherDocument;
   degreeLevels = DEGREE_LEVELS;
-  // uploadedFiles$: Observable<any>;
   experiences = TEACHING_EXPERIENCE;
   fileUploadProgress$: Observable<any>;
-  // videoUploadProgress$: Observable<any>;
   // showViewDocumentModal$: Observable<any>;
   uploadComplete = generalConstants.uploadComplete;
 
@@ -152,10 +146,6 @@ export class CompleteTutorProfileQualificationDetailsComponent
       fromProfile.selectShowViewDocumentModal
     );*/
 
-    /* this.uploadedFiles$ = this._store
-      .select(fromCore.selectUploadedFiles)
-      .pipe(tap((files) => this.documents?.setValue(files)));*/
-
     this.fileUploadProgress$ = this._store
       .select(fromCore.selectFileUploadingProgress)
       .pipe(
@@ -171,10 +161,6 @@ export class CompleteTutorProfileQualificationDetailsComponent
           });
         })
       );
-
-    /*this.fileUploadProgress$ = this._store.select(
-      fromCore.selectFileUploadingProgress
-    );*/
   }
 
   /*  onOpenViewDocumentModal(document: ITeacherDocument): void {
@@ -337,28 +323,6 @@ export class CompleteTutorProfileQualificationDetailsComponent
     this.uploadingVideo = false;
     this._store.dispatch(fromCore.cancelFileUpload());
   }
-
-  /*  onFileChange(event: any): void {
-    if (event.target && event.target.files && event.target.files.length) {
-      const file = event.target?.files[0];
-      if (file.size > 5 * 1024 * 1024) {
-        this._alertNotificationService.error('Allowed file size is 5MB');
-
-        return;
-      }
-
-      this._store.dispatch(
-        fromCore.uploadFile({ file: [...event.target.files] })
-      );
-    }
-  }*/
-
-  /*
-  removeFile(index: number, id: number): void {
-    this.fileId = id;
-    this._store.dispatch(fromCore.deleteUploadedFile({ id }));
-  }
-*/
 
   onUploadResume(event: any): void {
     let files = [];

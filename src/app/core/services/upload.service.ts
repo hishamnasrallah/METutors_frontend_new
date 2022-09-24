@@ -15,9 +15,7 @@ import { environment } from 'src/environments/environment';
 export class UploadService {
   uploadedFiles: any[] = [];
   fileUploadProgress: any[] = [];
-  // videoUploadProgress: any[] = [];
   fileUploadStream$: Subscription;
-  // videoUploadStream$: Subscription;
 
   baseUrl = environment.API_URL;
 
@@ -71,49 +69,6 @@ export class UploadService {
     });
   }
 
-  /*uploadVideo(videos: any): void {
-    videos.forEach((video: any, index: number) => {
-      this.videoUploadProgress[index] = {
-        url: '',
-        id: null,
-        progress: 0,
-        responseType: 0,
-        fileSize: video.size,
-        fileName: video.name,
-      };
-
-      const formData = new FormData();
-
-      formData.append('file', video);
-      formData.append('size', formatBytes(video.size));
-
-      this.videoUploadStream$ = this.onUploadFile(formData).subscribe(
-        (event) => {
-          if (event.type === HttpEventType.UploadProgress) {
-            this.videoUploadProgress[index] = {
-              ...this.videoUploadProgress[index],
-              progress: Math.round((100 * event.loaded) / event.total),
-            };
-          } else if (event.type === HttpEventType.Response) {
-            const file = event?.body?.file;
-            this.videoUploadProgress[index] = {
-              ...this.videoUploadProgress[index],
-              responseType: event.type,
-              id: file?.length ? file[0]?.id : null,
-              url: file?.length ? file[0]?.url : '',
-            };
-          }
-
-          this._store.dispatch(
-            fromCore.loadUploadVideoProgress({
-              uploadVideoProgress: [...this.videoUploadProgress],
-            })
-          );
-        }
-      );
-    });
-  }*/
-
   onUploadFile(file: any): Observable<any> {
     return this._http
       .post<HttpResponse<any>>(`${this.baseUrl}upload`, file, {
@@ -146,12 +101,6 @@ export class UploadService {
 
     return of({});
   }
-
-  /*  cancelVideoUploadStream(): Observable<any> {
-    this.videoUploadStream$.unsubscribe();
-
-    return of({});
-  }*/
 
   constructor(private _http: HttpClient, private _store: Store<any>) {}
 }
