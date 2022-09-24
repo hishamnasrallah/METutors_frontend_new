@@ -11,6 +11,11 @@
   span {
     font-weight: normal;
   }
+
+  .size {
+    color: #707070;
+    font-size: 13px;
+  }
 }
 
 .video-preview {
@@ -57,6 +62,36 @@
       background-repeat: no-repeat;
       background-position: center;
       margin-right: 10px;
+    }
+  }
+}
+
+.list-files {
+  box-shadow: none;
+
+  tr {
+    th {
+      color: #949494;
+      font-size: 13px;
+    }
+
+    td {
+      color: #2A2A2A;
+      font-size: 15px;
+      border-bottom: 1px solid #EDEDED;
+
+      img {
+        padding: 0;
+        width: 20px;
+        height: 20px;
+        padding: 0;
+      }
+
+      .download-btn,
+      .view-sign-btn {
+        padding: 0 10px;
+        font-size: 12px;
+      }
     }
   }
 }

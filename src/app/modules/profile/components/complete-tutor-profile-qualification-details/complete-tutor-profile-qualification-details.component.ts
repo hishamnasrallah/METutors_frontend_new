@@ -1,7 +1,7 @@
 import { Store } from '@ngrx/store';
 import { tap } from 'rxjs/operators';
-import { HttpEventType } from '@angular/common/http';
 import { Observable, Subscription } from 'rxjs';
+import { HttpEventType } from '@angular/common/http';
 
 import {
   Input,
