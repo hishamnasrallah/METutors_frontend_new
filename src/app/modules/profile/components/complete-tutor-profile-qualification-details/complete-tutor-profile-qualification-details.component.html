@@ -130,6 +130,142 @@
       </div>
     </div>
 
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <div class="d-flex justify-content-between">
+          <label for="currentTitle" class="form-label">Curriculum Vitae / Resumé <span>(Max 5 MB)</span></label>
+          <span class="text-main text-decoration-underline cursor-pointer" (click)="resumePicker.click()">Upload Document</span>
+
+          <input #resumePicker type="file" hidden class="form-control"
+                 accept="image/*,.pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                 (change)="onUploadResume($event)">
+        </div>
+        <div>
+          <ng-container *ngIf="resumeUploadProgress?.length">
+            <ng-container *ngFor="let uploadProgress of resumeUploadProgress">
+              <ng-container *ngIf="uploadProgress.responseType !== uploadComplete">
+                <metutors-file-upload-progress [fileName]="uploadProgress.fileName"
+                                               [uploadedPercentage]="uploadProgress.progress">
+                </metutors-file-upload-progress>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </div>
+
+        <table class="table my-table default-title mb-0" *ngIf="resume?.value">
+          <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Action</th>
+          </tr>
+
+          <tr>
+            <td>{{ resume?.value?.originalName  }}</td>
+            <td><img src="assets/svg/delete.svg" alt="" draggable="false" class="cursor-pointer" (click)="onDeleteResume()"/></td>
+          </tr>
+
+        </table>
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <div class="d-flex justify-content-between">
+          <label for="currentTitle" class="form-label">Degree Certificate <span>(Max 5 MB)</span></label>
+          <span class="text-main text-decoration-underline cursor-pointer" (click)="degree.click()">Upload Document</span>
+
+          <input #degree type="file" hidden multiple class="form-control"
+                 accept="image/*,.pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                 (change)="onUploadDegree($event)">
+        </div>
+
+        <div>
+          <ng-container *ngIf="degreeUploadProgress?.length">
+            <ng-container *ngFor="let uploadProgress of degreeUploadProgress">
+              <ng-container *ngIf="uploadProgress.responseType !== uploadComplete">
+                <metutors-file-upload-progress [fileName]="uploadProgress.fileName"
+                                               [uploadedPercentage]="uploadProgress.progress">
+                </metutors-file-upload-progress>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </div>
+
+        <table class="table my-table default-title mb-0" *ngIf="degrees?.value?.length">
+          <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Action</th>
+          </tr>
+
+          <tr *ngFor="let degree of degrees.controls; let i = index">
+            <td>{{degree.value.originalName}}</td>
+            <td><img src="assets/svg/delete.svg" alt="" draggable="false" class="cursor-pointer" (click)="onDeleteDegree(i)"/></td>
+          </tr>
+
+        </table>
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <div class="d-flex justify-content-between">
+          <label for="currentTitle" class="form-label">Other Certifications <span>(Max 5 MB)</span></label>
+          <span class="text-main text-decoration-underline cursor-pointer" (click)="certificate.click()">Upload Document</span>
+
+          <input #certificate type="file" hidden multiple class="form-control"
+                 accept="image/*,.pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                 (change)="onUploadCertificate($event)">
+        </div>
+
+        <div>
+          <ng-container *ngIf="certificateUploadProgress?.length">
+            <ng-container *ngFor="let uploadProgress of certificateUploadProgress">
+              <ng-container *ngIf="uploadProgress.responseType !== uploadComplete">
+                <metutors-file-upload-progress [fileName]="uploadProgress.fileName"
+                                               [uploadedPercentage]="uploadProgress.progress">
+                </metutors-file-upload-progress>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </div>
+
+        <table class="table my-table default-title mb-0" *ngIf="certificates?.value?.length">
+          <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Action</th>
+          </tr>
+
+          <tr *ngFor="let certificate of certificates.controls; let i = index">
+            <td>{{ certificate?.value?.originalName }}</td>
+            <td><img src="assets/svg/delete.svg" alt="" draggable="false" class="cursor-pointer" (click)="onDeleteCertificate(i)"/></td>
+          </tr>
+
+        </table>
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <label for="currentTitle" class="form-label">Onboarding Document</label>
+        <p>Please sign the onboarding document to agree that you have read and understood all sections.</p>
+
+        <table class="table my-table default-title mb-0">
+          <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Action</th>
+          </tr>
+
+          <tr>
+            <td>Code of Conduct Document.docx</td>
+            <td>
+              <button class="main-button-transparent px-4" mat-button type="button">View & Sign</button>
+              <button mat-flat-button color="primary" class="px-4" type="button">Download</button>
+            </td>
+          </tr>
+
+        </table>
+      </div>
+    </div>
+
     <div class="row">
      <!-- <div class="col-md-6 upload-documents">
         <div class="form-group">

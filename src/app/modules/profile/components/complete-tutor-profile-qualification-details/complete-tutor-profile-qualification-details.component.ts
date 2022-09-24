@@ -1,10 +1,20 @@
-import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { tap } from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
+
+import {
+  Input,
+  OnInit,
+  Output,
+  Component,
+  OnDestroy,
+  EventEmitter,
+} from '@angular/core';
+
+import { UploadService } from '@services';
 import * as fromCore from '@metutor/core/state';
-import { ILanguage, ITeacherDocument, ITutor } from 'src/app/core/models';
+import { ILanguage, ITutor } from 'src/app/core/models';
 import { AlertNotificationService } from '@metutor/core/components';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import {
   FormArray,
@@ -20,7 +30,9 @@ import {
   COMPUTER_SKILLS,
   generalConstants,
   TEACHING_EXPERIENCE,
+  formatBytes,
 } from 'src/app/config';
+import { HttpEventType } from '@angular/common/http';
 
 // import * as fromProfile from '@metutor/modules/profile/state';
 // import * as fromProfileActions from '@metutor/modules/profile/state/actions';
@@ -31,7 +43,7 @@ import {
   styleUrls: ['./complete-tutor-profile-qualification-details.component.scss'],
 })
 export class CompleteTutorProfileQualificationDetailsComponent
-  implements OnInit
+  implements OnInit, OnDestroy
 {
   @Input() loading: boolean | null;
   @Input() languagesList: ILanguage[] | null;
@@ -94,9 +106,22 @@ export class CompleteTutorProfileQualificationDetailsComponent
   // showViewDocumentModal$: Observable<any>;
   uploadComplete = generalConstants.uploadComplete;
 
+  //Resume
+  resumeUploadProgress: any[] = [];
+  uploadResumeStream$: Subscription;
+
+  // Degrees
+  degreeUploadProgress: any[] = [];
+  uploadDegreeStream$: Subscription;
+
+  // Other certificates
+  certificateUploadProgress: any[] = [];
+  uploadCertificateStream$: Subscription;
+
   constructor(
     private _fb: FormBuilder,
     private _store: Store<any>,
+    private _uploadService: UploadService,
     private _alertNotificationService: AlertNotificationService
   ) {
     this.form = this._fb.group({
@@ -113,6 +138,9 @@ export class CompleteTutorProfileQualificationDetailsComponent
       currentEmployer: [null, Validators.maxLength(80)],
       currentTitle: [null, Validators.maxLength(80)],
       video: [null, Validators.required],
+      resume: [null, Validators.required],
+      degrees: this._fb.array([], [Validators.required]),
+      certificates: this._fb.array([], [Validators.required]),
       // documents: [null, Validators.required],
     });
 
@@ -137,6 +165,8 @@ export class CompleteTutorProfileQualificationDetailsComponent
               this.uploadingVideo = false;
               this.video?.setValue(response?.url);
               this.video?.markAsDirty();
+
+              this._store.dispatch(fromCore.resetUploadFileProgress());
             }
           });
         })
@@ -194,6 +224,18 @@ export class CompleteTutorProfileQualificationDetailsComponent
 
   get languages(): FormArray {
     return this.form?.get('languages') as FormArray;
+  }
+
+  get resume(): AbstractControl | null {
+    return this.form.get('resume');
+  }
+
+  get degrees(): FormArray {
+    return this.form?.get('degrees') as FormArray;
+  }
+
+  get certificates(): FormArray {
+    return this.form?.get('certificates') as FormArray;
   }
 
   /*  get documents(): AbstractControl | null {
@@ -318,6 +360,160 @@ export class CompleteTutorProfileQualificationDetailsComponent
   }
 */
 
+  onUploadResume(event: any): void {
+    let files = [];
+    if (event.target && event.target.files && event.target.files.length) {
+      files = [...event.target.files];
+      files.forEach((file: any, index: number) => {
+        if (file.size > 5 * 1024 * 1024) {
+          this._alertNotificationService.error('Allowed file size is 5MB');
+
+          return;
+        }
+
+        this.resumeUploadProgress[index] = {
+          url: '',
+          id: null,
+          progress: 0,
+          responseType: 0,
+          fileSize: file.size,
+          fileName: file.name,
+        };
+
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('size', formatBytes(file.size));
+
+        this.uploadResumeStream$ = this._uploadService
+          .onUploadFile(formData)
+          .subscribe((event) => {
+            if (event.type === HttpEventType.UploadProgress) {
+              this.resumeUploadProgress[index] = {
+                ...this.resumeUploadProgress[index],
+                progress: Math.round((100 * event.loaded) / event.total),
+              };
+            } else if (event.type === HttpEventType.Response) {
+              const file = event?.body?.file;
+              this.resume?.setValue(file[0]);
+              this.resumeUploadProgress[index] = {
+                ...this.resumeUploadProgress[index],
+                responseType: event.type,
+                id: file?.length ? file[0]?.id : null,
+                url: file?.length ? file[0]?.url : '',
+              };
+            }
+          });
+      });
+    }
+  }
+
+  onDeleteResume(): void {
+    this.resume?.setValue(null);
+  }
+
+  onUploadDegree(event: any): void {
+    let files = [];
+    if (event.target && event.target.files && event.target.files.length) {
+      files = [...event.target.files];
+      files.forEach((file: any, index: number) => {
+        if (file.size > 5 * 1024 * 1024) {
+          this._alertNotificationService.error('Allowed file size is 5MB');
+
+          return;
+        }
+
+        this.degreeUploadProgress[index] = {
+          url: '',
+          id: null,
+          progress: 0,
+          responseType: 0,
+          fileSize: file.size,
+          fileName: file.name,
+        };
+
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('size', formatBytes(file.size));
+
+        this.uploadDegreeStream$ = this._uploadService
+          .onUploadFile(formData)
+          .subscribe((event) => {
+            if (event.type === HttpEventType.UploadProgress) {
+              this.degreeUploadProgress[index] = {
+                ...this.degreeUploadProgress[index],
+                progress: Math.round((100 * event.loaded) / event.total),
+              };
+            } else if (event.type === HttpEventType.Response) {
+              const file = event?.body?.file;
+              this.degrees?.push(this._fb.group(file[0]));
+              this.degreeUploadProgress[index] = {
+                ...this.degreeUploadProgress[index],
+                responseType: event.type,
+                id: file?.length ? file[0]?.id : null,
+                url: file?.length ? file[0]?.url : '',
+              };
+            }
+          });
+      });
+    }
+  }
+
+  onDeleteDegree(index: number): void {
+    this.degrees.removeAt(index);
+  }
+
+  onUploadCertificate(event: any): void {
+    let files = [];
+    if (event.target && event.target.files && event.target.files.length) {
+      files = [...event.target.files];
+      files.forEach((file: any, index: number) => {
+        if (file.size > 5 * 1024 * 1024) {
+          this._alertNotificationService.error('Allowed file size is 5MB');
+
+          return;
+        }
+
+        this.certificateUploadProgress[index] = {
+          url: '',
+          id: null,
+          progress: 0,
+          responseType: 0,
+          fileSize: file.size,
+          fileName: file.name,
+        };
+
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('size', formatBytes(file.size));
+
+        this.uploadCertificateStream$ = this._uploadService
+          .onUploadFile(formData)
+          .subscribe((event) => {
+            if (event.type === HttpEventType.UploadProgress) {
+              this.certificateUploadProgress[index] = {
+                ...this.certificateUploadProgress[index],
+                progress: Math.round((100 * event.loaded) / event.total),
+              };
+            } else if (event.type === HttpEventType.Response) {
+              const file = event?.body?.file;
+              this.certificates?.push(this._fb.group(file[0]));
+
+              this.certificateUploadProgress[index] = {
+                ...this.certificateUploadProgress[index],
+                responseType: event.type,
+                id: file?.length ? file[0]?.id : null,
+                url: file?.length ? file[0]?.url : '',
+              };
+            }
+          });
+      });
+    }
+  }
+
+  onDeleteCertificate(index: number): void {
+    this.certificates.removeAt(index);
+  }
+
   submitFormData() {
     if (this.form.touched) {
       const spokenLanguages = this.form.value.languages.map((lang: any) => ({
@@ -344,8 +540,11 @@ export class CompleteTutorProfileQualificationDetailsComponent
     } else {
       this.changeStep.emit(4);
     }
+  }
 
-    this._store.dispatch(fromCore.resetUploadFileProgress());
-    // this._store.dispatch(fromCore.resetUploadVideoProgress());
+  ngOnDestroy() {
+    this.uploadDegreeStream$?.unsubscribe();
+    this.uploadResumeStream$?.unsubscribe();
+    this.uploadCertificateStream$?.unsubscribe();
   }
 }
