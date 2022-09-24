@@ -131,7 +131,7 @@
     </div>
 
     <div class="row">
-      <div class="col-md-6 upload-documents">
+     <!-- <div class="col-md-6 upload-documents">
         <div class="form-group">
           <label for="languages" class="form-label">Upload Documents</label>
           <div class="block-file text-center">
@@ -178,7 +178,7 @@
             <mat-icon class="position-absolute remove-file spinner" title="Deleting file" *ngIf="filePreview.id === fileId">autorenew</mat-icon>
           </div>
         </div>
-      </div>
+      </div>-->
 
       <div class="col-md-6">
         <div class="form-group">
@@ -201,9 +201,9 @@
             <div class="guide1 mt-2">Upload Video Demo (Max 120 MB)</div>
           </div>
           <div class="position-relative preview-style">
-          <ng-container *ngLet="videoUploadProgress$ | async as videoUploadProgress">
-            <ng-container *ngIf="videoUploadProgress?.length">
-              <ng-container *ngFor="let uploadProgress of videoUploadProgress">
+          <ng-container *ngLet="fileUploadProgress$ | async as fileUploadProgress">
+            <ng-container *ngIf="fileUploadProgress?.length">
+              <ng-container *ngFor="let uploadProgress of fileUploadProgress">
                 <ng-container *ngIf="uploadProgress.responseType !== uploadComplete">
                   <metutors-file-upload-progress [fileName]="uploadProgress.fileName" [fileType]="'video'"
                                                  (onCancelUpload)="onCancelVideoUpload()"
@@ -236,7 +236,9 @@
   </div>
 </form>
 
+<!--
 <metutors-doc-viewer-modal *ngIf="showViewDocumentModal$ | async" [document]="document"
                            (closeModal)="onCloseViewDocumentModal()"
                            [showModal]="(showViewDocumentModal$ | async)!">
 </metutors-doc-viewer-modal>
+-->

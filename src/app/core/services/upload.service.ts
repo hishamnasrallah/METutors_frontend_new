@@ -15,9 +15,9 @@ import { environment } from 'src/environments/environment';
 export class UploadService {
   uploadedFiles: any[] = [];
   fileUploadProgress: any[] = [];
-  videoUploadProgress: any[] = [];
+  // videoUploadProgress: any[] = [];
   fileUploadStream$: Subscription;
-  videoUploadStream$: Subscription;
+  // videoUploadStream$: Subscription;
 
   baseUrl = environment.API_URL;
 
@@ -71,7 +71,7 @@ export class UploadService {
     });
   }
 
-  uploadVideo(videos: any): void {
+  /*uploadVideo(videos: any): void {
     videos.forEach((video: any, index: number) => {
       this.videoUploadProgress[index] = {
         url: '',
@@ -112,7 +112,7 @@ export class UploadService {
         }
       );
     });
-  }
+  }*/
 
   onUploadFile(file: any): Observable<any> {
     return this._http
@@ -147,11 +147,11 @@ export class UploadService {
     return of({});
   }
 
-  cancelVideoUploadStream(): Observable<any> {
+  /*  cancelVideoUploadStream(): Observable<any> {
     this.videoUploadStream$.unsubscribe();
 
     return of({});
-  }
+  }*/
 
   constructor(private _http: HttpClient, private _store: Store<any>) {}
 }

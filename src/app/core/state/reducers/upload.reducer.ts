@@ -9,7 +9,7 @@ export interface State {
   uploadProgress: any;
   isDeletingFile: boolean;
   isUploadingFile: boolean;
-  uploadVideoProgress: any;
+  // uploadVideoProgress: any;
   isUploadingCover: boolean;
   isUploadingAvatar: boolean;
 }
@@ -21,7 +21,7 @@ export const initialState: State = {
   isUploadingFile: false,
   isUploadingCover: false,
   isUploadingAvatar: false,
-  uploadVideoProgress: null,
+  // uploadVideoProgress: null,
 };
 
 export const reducer = createReducer(
@@ -80,7 +80,7 @@ export const reducer = createReducer(
   })),
 
   // Load upload video progress
-  on(
+  /*  on(
     uploadActions.loadUploadVideoProgress,
     (state, { uploadVideoProgress }) => ({
       ...state,
@@ -91,7 +91,7 @@ export const reducer = createReducer(
   on(uploadActions.resetUploadVideoProgress, (state) => ({
     ...state,
     uploadVideoProgress: null,
-  })),
+  })),*/
 
   // Delete file
   on(uploadActions.deleteUploadedFile, (state) => ({
@@ -175,8 +175,8 @@ export const selectIsUploadingFile = (state: State): boolean =>
 export const selectFileUploadingProgress = (state: State): any =>
   state.uploadProgress;
 
-export const selectVideoUploadingProgress = (state: State): any =>
-  state.uploadVideoProgress;
+/*export const selectVideoUploadingProgress = (state: State): any =>
+  state.uploadVideoProgress;*/
 
 export const selectIsDeletingFile = (state: State): any => state.isDeletingFile;
 

@@ -22,8 +22,8 @@ import {
   TEACHING_EXPERIENCE,
 } from 'src/app/config';
 
-import * as fromProfile from '@metutor/modules/profile/state';
-import * as fromProfileActions from '@metutor/modules/profile/state/actions';
+// import * as fromProfile from '@metutor/modules/profile/state';
+// import * as fromProfileActions from '@metutor/modules/profile/state/actions';
 
 @Component({
   selector: 'metutors-complete-tutor-profile-qualification-details',
@@ -85,13 +85,13 @@ export class CompleteTutorProfileQualificationDetailsComponent
   filterDegree: string;
   uploadingVideo: boolean;
   skills = COMPUTER_SKILLS;
-  document: ITeacherDocument;
+  // document: ITeacherDocument;
   degreeLevels = DEGREE_LEVELS;
-  uploadedFiles$: Observable<any>;
+  // uploadedFiles$: Observable<any>;
   experiences = TEACHING_EXPERIENCE;
   fileUploadProgress$: Observable<any>;
-  videoUploadProgress$: Observable<any>;
-  showViewDocumentModal$: Observable<any>;
+  // videoUploadProgress$: Observable<any>;
+  // showViewDocumentModal$: Observable<any>;
   uploadComplete = generalConstants.uploadComplete;
 
   constructor(
@@ -113,23 +113,23 @@ export class CompleteTutorProfileQualificationDetailsComponent
       currentEmployer: [null, Validators.maxLength(80)],
       currentTitle: [null, Validators.maxLength(80)],
       video: [null, Validators.required],
-      documents: [null, Validators.required],
+      // documents: [null, Validators.required],
     });
 
     this.addLanguage();
   }
 
   ngOnInit(): void {
-    this.showViewDocumentModal$ = this._store.select(
+    /*    this.showViewDocumentModal$ = this._store.select(
       fromProfile.selectShowViewDocumentModal
-    );
+    );*/
 
-    this.uploadedFiles$ = this._store
+    /* this.uploadedFiles$ = this._store
       .select(fromCore.selectUploadedFiles)
-      .pipe(tap((files) => this.documents?.setValue(files)));
+      .pipe(tap((files) => this.documents?.setValue(files)));*/
 
-    this.videoUploadProgress$ = this._store
-      .select(fromCore.selectVideoUploadingProgress)
+    this.fileUploadProgress$ = this._store
+      .select(fromCore.selectFileUploadingProgress)
       .pipe(
         tap((progress) => {
           progress?.map((response: any) => {
@@ -142,19 +142,19 @@ export class CompleteTutorProfileQualificationDetailsComponent
         })
       );
 
-    this.fileUploadProgress$ = this._store.select(
+    /*this.fileUploadProgress$ = this._store.select(
       fromCore.selectFileUploadingProgress
-    );
+    );*/
   }
 
-  onOpenViewDocumentModal(document: ITeacherDocument): void {
+  /*  onOpenViewDocumentModal(document: ITeacherDocument): void {
     this.document = document;
     this._store.dispatch(fromProfileActions.openViewDocumentModal());
   }
 
   onCloseViewDocumentModal(): void {
     this._store.dispatch(fromProfileActions.closeViewDocumentModal());
-  }
+  }*/
 
   get nameOfUniversity(): AbstractControl | null {
     return this.form.get('nameOfUniversity');
@@ -196,9 +196,9 @@ export class CompleteTutorProfileQualificationDetailsComponent
     return this.form?.get('languages') as FormArray;
   }
 
-  get documents(): AbstractControl | null {
+  /*  get documents(): AbstractControl | null {
     return this.form.get('documents');
-  }
+  }*/
 
   removeLanguage(i: number): void {
     (this.form?.get('languages') as FormArray).removeAt(i);
@@ -287,16 +287,16 @@ export class CompleteTutorProfileQualificationDetailsComponent
       });
 
       this.uploadingVideo = true;
-      this._store.dispatch(fromCore.uploadVideo({ video: [...files] }));
+      this._store.dispatch(fromCore.uploadFile({ file: [...files] }));
     }
   }
 
   onCancelVideoUpload() {
     this.uploadingVideo = false;
-    this._store.dispatch(fromCore.cancelVideoUpload());
+    this._store.dispatch(fromCore.cancelFileUpload());
   }
 
-  onFileChange(event: any): void {
+  /*  onFileChange(event: any): void {
     if (event.target && event.target.files && event.target.files.length) {
       const file = event.target?.files[0];
       if (file.size > 5 * 1024 * 1024) {
@@ -309,12 +309,14 @@ export class CompleteTutorProfileQualificationDetailsComponent
         fromCore.uploadFile({ file: [...event.target.files] })
       );
     }
-  }
+  }*/
 
+  /*
   removeFile(index: number, id: number): void {
     this.fileId = id;
     this._store.dispatch(fromCore.deleteUploadedFile({ id }));
   }
+*/
 
   submitFormData() {
     if (this.form.touched) {
@@ -326,7 +328,7 @@ export class CompleteTutorProfileQualificationDetailsComponent
       const body = {
         step: 3,
         video: this.video?.value,
-        documents: this.documents?.value,
+        // documents: this.documents?.value,
         degree_field: this.degreeField?.value,
         degree_level: this.degreeLevel?.value,
         current_title: this.currentTitle?.value,
@@ -344,6 +346,6 @@ export class CompleteTutorProfileQualificationDetailsComponent
     }
 
     this._store.dispatch(fromCore.resetUploadFileProgress());
-    this._store.dispatch(fromCore.resetUploadVideoProgress());
+    // this._store.dispatch(fromCore.resetUploadVideoProgress());
   }
 }

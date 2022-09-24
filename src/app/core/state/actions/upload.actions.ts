@@ -11,10 +11,10 @@ export const uploadFile = createAction(
   props<{ file: any; uploadType?: string }>()
 );
 
-export const uploadVideo = createAction(
+/*export const uploadVideo = createAction(
   '[Upload Service] Upload Video',
   props<{ video: any }>()
-);
+);*/
 
 export const loadUploadedFiles = createAction(
   '[Upload Service] Load Files',
@@ -30,14 +30,14 @@ export const resetUploadFileProgress = createAction(
   '[Upload Service] Reset Upload File Progress'
 );
 
-export const loadUploadVideoProgress = createAction(
+/*export const loadUploadVideoProgress = createAction(
   '[Upload Service] Load Upload Video Progress',
   props<{ uploadVideoProgress: any }>()
 );
 
 export const resetUploadVideoProgress = createAction(
   '[Upload Service] Reset Upload Video Progress'
-);
+);*/
 
 export const resetUploadedFiles = createAction(
   '[Upload Service] Reset Uploaded Files'
@@ -62,9 +62,9 @@ export const cancelFileUpload = createAction(
   '[Upload Service] Cancel File Upload'
 );
 
-export const cancelVideoUpload = createAction(
+/*export const cancelVideoUpload = createAction(
   '[Upload Service] Cancel Video Upload'
-);
+);*/
 
 export const cancelUploadSuccess = createAction(
   '[Upload Service] Cancel Upload Success'

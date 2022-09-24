@@ -21,14 +21,14 @@ export class UploadEffects {
     { dispatch: false }
   );
 
-  uploadVideo$ = createEffect(
+  /*  uploadVideo$ = createEffect(
     () =>
       this._actions$.pipe(
         ofType(uploadActions.uploadVideo),
         tap(({ video }) => this._uploadService.uploadVideo(video))
       ),
     { dispatch: false }
-  );
+  );*/
 
   cancelFileUpload$ = createEffect(() =>
     this._actions$.pipe(
@@ -41,7 +41,7 @@ export class UploadEffects {
     )
   );
 
-  cancelVideoUpload$ = createEffect(() =>
+  /*  cancelVideoUpload$ = createEffect(() =>
     this._actions$.pipe(
       ofType(uploadActions.cancelVideoUpload),
       mergeMap(() =>
@@ -50,7 +50,7 @@ export class UploadEffects {
           .pipe(map(() => uploadActions.cancelUploadSuccess()))
       )
     )
-  );
+  );*/
 
   changeAvatar$ = createEffect(() =>
     this._actions$.pipe(
