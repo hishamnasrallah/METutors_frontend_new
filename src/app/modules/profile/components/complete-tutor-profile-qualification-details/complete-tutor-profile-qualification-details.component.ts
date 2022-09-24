@@ -60,12 +60,6 @@ export class CompleteTutorProfileQualificationDetailsComponent
         video: _tutor?.qualifications?.video,
       });
 
-      if (_tutor?.userDocuments && _tutor?.userDocuments?.length) {
-        this._store.dispatch(
-          fromCore.setFiles({ files: _tutor.userDocuments })
-        );
-      }
-
       if (_tutor.languages && _tutor.languages.length) {
         this.languages.clear();
         _tutor.languages.forEach((language, index) => {
