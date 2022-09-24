@@ -43,7 +43,7 @@
                 <div class="ms-2">
                   <h2>
                     <a routerLink="/requests/request-tutor"
-                      [queryParams]="{program: selectedProgram?.id, field: field?.id, country: country?.id}">
+                      [queryParams]="{program: selectedProgram?.id, field: field?.id, country: country?.id, grade}">
                       {{ field?.name }}
                     </a>
                   </h2>
@@ -55,7 +55,7 @@
                     <ng-container *ngIf="!loadingSubjects">
                       <a class="cursor-pointer subject"
                         *ngFor="let subject of filteredSubjects(field.id); let isLast = last"
-                        (click)="viewSubjectDetails.emit({program: selectedProgram, subject, country: country?.id, index: i})">
+                        (click)="viewSubjectDetails.emit({program: selectedProgram, subject, country: country?.id, grade, index: i})">
                         {{ subject?.name }}<ng-container *ngIf="!isLast">, </ng-container>
                       </a>
                     </ng-container>
@@ -65,7 +65,7 @@
             </div>
 
             <a mat-flat-button color="primary" routerLink="/requests/request-tutor"
-              [queryParams]="{program: selectedProgram?.id, country: country?.id}">
+              [queryParams]="{program: selectedProgram?.id, country: country?.id, grade}">
               Start Learning Today!
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path

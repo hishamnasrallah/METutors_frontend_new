@@ -46,6 +46,7 @@ export class LearningEnvironmentComponent implements OnInit {
   @Output() viewSubjectDetails = new EventEmitter<any>();
 
   step: number;
+  grade: number;
   country?: ICountry;
   programsList: IProgram[];
   selectedProgram: IProgram;
@@ -57,9 +58,18 @@ export class LearningEnvironmentComponent implements OnInit {
   ngOnInit(): void {}
 
   filteredSubjects(id: number): ISubject[] {
-    return this.subjects && this.subjects.length
-      ? this.subjects?.filter((subject: any) => +subject?.fieldId === +id)
-      : [];
+    if (this.selectedProgram?.id === this.nationalId) {
+      return this.subjects && this.subjects.length
+        ? this.subjects?.filter(
+            (subject: any) =>
+              +subject?.fieldId === +id && +subject?.grade! === +this.grade
+          )
+        : [];
+    } else {
+      return this.subjects && this.subjects.length
+        ? this.subjects?.filter((subject: any) => +subject?.fieldId === +id)
+        : [];
+    }
   }
 
   onChangeStep(program: IProgram): void {
@@ -73,6 +83,7 @@ export class LearningEnvironmentComponent implements OnInit {
       dialogRef.afterClosed().subscribe((result) => {
         if (result) {
           this.country = result?.country;
+          this.grade = result?.grade;
           this.step = program.id;
           this.selectedProgram = program;
           this.changeProgram.emit({

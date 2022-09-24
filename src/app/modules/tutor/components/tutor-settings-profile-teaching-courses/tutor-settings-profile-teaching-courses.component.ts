@@ -52,10 +52,8 @@ export class TutorSettingsProfileTeachingCoursesComponent implements OnInit {
         : { ...item }
     );
 
-    this.sortedSubjects = this.sortedSubjects?.map((subject: any) => {
-      let subject_ = { ...subject };
-
-      subject_ = {
+    this.sortedSubjects = this.sortedSubjects?.map((subject: any) => ({
+        ...subject,
         fieldId: subject.fieldId,
         fieldName: subject.fieldName,
         countryName: subject.countryName,
@@ -71,10 +69,7 @@ export class TutorSettingsProfileTeachingCoursesComponent implements OnInit {
               }
             : { ...sub }
         ),
-      };
-
-      return subject_;
-    });
+      }));
 
     this.form.get('subjects')?.setValue(this.submittedSubjects);
     this.form.get('subjects')?.updateValueAndValidity();

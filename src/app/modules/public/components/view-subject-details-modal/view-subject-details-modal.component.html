@@ -20,7 +20,7 @@
 
               <a mat-flat-button color="primary" class="py-1 fw-bold" (click)="closeModal.emit()"
                 routerLink="/requests/request-tutor"
-                [queryParams]="{program: data?.program?.id, field: data?.subject?.fieldId, subject: data?.subject?.id, country: data?.country}">
+                [queryParams]="{program: data?.program?.id, field: data?.subject?.fieldId, subject: data?.subject?.id, country: data?.country, grade: data?.grade}">
                 Start learning now
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
