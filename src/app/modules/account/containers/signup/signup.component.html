@@ -76,7 +76,6 @@
               <label for="phone">Phone Number</label>
               <div class="w-100">
                 <ngx-intl-tel-input [cssClass]="'custom-input w-100 input-bordered'"
-                                    [selectedCountryISO]="selectedCountry"
                                     [preferredCountries]="preferredCountries"
                                     [ngClass]="{'has-error': phoneNumber?.invalid && phoneNumber?.touched}"
                                     [enableAutoCountrySelect]="true"
@@ -85,6 +84,8 @@
                                     [selectFirstCountry]="true"
                                     [phoneValidation]="true"
                                     [separateDialCode]="true"
+                                    [maxLength]="15"
+                                    [numberFormat]="PhoneNumberFormat.National"
                                     formControlName="mobileNumber">
                 </ngx-intl-tel-input>
                 <span class="text-danger" *ngIf="phoneNumber?.invalid && phoneNumber?.touched">

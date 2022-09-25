@@ -274,6 +274,14 @@ export class UserEffects {
     }
   );
 
+  signInRequiredLogout$ = createEffect(
+    () =>
+      this._actions$.pipe(
+        ofType(userActions.signInRequired),
+        map(() => fromCore.logout())
+      ),
+  );
+
   submitOTPAdmin$ = createEffect(() =>
     this._actions$.pipe(
       ofType(userActions.submitOTPAdmin),
