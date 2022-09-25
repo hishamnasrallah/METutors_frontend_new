@@ -25,17 +25,25 @@
     margin-top: 15px;
   }
 
-  .my-table.default-title tr th {
-    color: #696969;
-    font-size: 13px;
-    background-color: transparent;
+  .my-table.default-title tr {
+    th {
+      color: #989898;
+      font-size: 12px;
+      font-weight: normal;
+      background-color: transparent;
 
-    &.heading {
-      background: #F7F7F7;
+      &.heading {
+        background: #F7F7F7;
+      }
+
+      span {
+        color: #2a2a2a;
+        font-size: 14px;
+      }
     }
 
-    span {
-      color: #2a2a2a;
+    td {
+      font-size: 14px;
     }
   }
 }

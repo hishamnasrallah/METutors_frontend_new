@@ -5,7 +5,9 @@
         <div class="col-md-6" *ngIf="availability && availability?.length">
           <h1 class="heading f-size-15-md-sm">Teacher Availability</h1>
 
-          <span *ngFor="let avail of availability" (click)="tutorAvailability.emit()" class="cursor-pointer">{{ avail }}</span>
+          <span *ngFor="let avail of availability" (click)="tutorAvailability.emit()" class="cursor-pointer">
+            {{ avail }}
+          </span>
         </div>
         <div class="col-md-6 mt-15-sm" *ngIf="_tutor?.specifications?.typeOfTutoring">
           <h1 class="heading f-size-15-md-sm">Type of Tutoring</h1>
@@ -21,7 +23,7 @@
       </div>
       <div class="row bottom-info" *ngIf="_tutor?.sortedSubjects && _tutor?.sortedSubjects?.length">
         <div class="col-md-12">
-          <h1 class="heading f-size-15-md-sm">Teaching Preferences</h1>
+          <h1 class="heading f-size-15-md-sm">Tutoring Courses</h1>
 
           <div class="row mt-5 mt-15-sm">
             <div class="col-md-6 mb-3" *ngFor="let item of _tutor?.sortedSubjects; let indexSubjects = index">

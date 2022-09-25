@@ -26,12 +26,12 @@ import {
 } from '@angular/forms';
 
 import {
+  formatBytes,
   DEGREE_LEVELS,
   DEGREE_FIELDS,
   COMPUTER_SKILLS,
   generalConstants,
   TEACHING_EXPERIENCE,
-  formatBytes,
 } from 'src/app/config';
 
 @Component({
