@@ -15,6 +15,7 @@ import { CourseStatus } from '@metutor/config';
 import * as adminActions from '../actions/admin.actions';
 
 export interface State {
+  documents: any;
   tutors: ITutor[];
   viewFeedback: [];
   testimonials: any;
@@ -33,7 +34,6 @@ export interface State {
   tutorApprovalRequest: any;
   isEditingFeedback: boolean;
   isLoadingAdminDocs: boolean;
-  documents: ITeacherDocument[];
   isLoadingViewFeedback: boolean;
   isLoadingBookingDetail: boolean;
   isLoadingStudentProfile: boolean;
@@ -155,17 +155,57 @@ export const reducer = createReducer(
     isRejectingDoc: true,
   })),
 
-  on(adminActions.adminRejectDocumentSuccess, (state, { id }) => {
+  on(adminActions.adminRejectDocumentSuccess, (state, { document }) => {
     const finalState = {
       ...state,
       isRejectingDoc: false,
     };
 
-    if (finalState.documents.length) {
-      finalState.documents = finalState.documents.map(
+    if (
+      document.document === 'resume' &&
+      finalState.documents?.resume?.length
+    ) {
+      const resume = finalState.documents.resume.map(
         (document: ITeacherDocument) =>
-          document.id === id ? { ...document, status: 'rejected' } : document
+          document.id === document.id
+            ? { ...document, status: 'rejected' }
+            : document
       );
+
+      finalState.documents = {
+        ...finalState.documents,
+        resume,
+      };
+    } else if (
+      document.document === 'degrees' &&
+      finalState.documents?.degrees?.length
+    ) {
+      const degrees = finalState.documents.degrees.map(
+        (document: ITeacherDocument) =>
+          document.id === document.id
+            ? { ...document, status: 'rejected' }
+            : document
+      );
+
+      finalState.documents = {
+        ...finalState.documents,
+        degrees,
+      };
+    } else if (
+      document.document === 'certificates' &&
+      finalState.documents?.certificates?.length
+    ) {
+      const certificates = finalState.documents.certificates.map(
+        (document: ITeacherDocument) =>
+          document.id === document.id
+            ? { ...document, status: 'rejected' }
+            : document
+      );
+
+      finalState.documents = {
+        ...finalState.documents,
+        certificates,
+      };
     }
 
     return finalState;
@@ -181,17 +221,57 @@ export const reducer = createReducer(
     isRejectingDoc: true,
   })),
 
-  on(adminActions.adminApproveDocumentSuccess, (state, { id }) => {
+  on(adminActions.adminApproveDocumentSuccess, (state, { document }) => {
     const finalState = {
       ...state,
       isRejectingDoc: false,
     };
 
-    if (finalState.documents.length) {
-      finalState.documents = finalState.documents.map(
+    if (
+      document.document === 'resume' &&
+      finalState.documents?.resume?.length
+    ) {
+      const resume = finalState.documents.resume.map(
         (document: ITeacherDocument) =>
-          document.id === id ? { ...document, status: 'approved' } : document
+          document.id === document.id
+            ? { ...document, status: 'approved' }
+            : document
       );
+
+      finalState.documents = {
+        ...finalState.documents,
+        resume,
+      };
+    } else if (
+      document.document === 'degrees' &&
+      finalState.documents?.degrees?.length
+    ) {
+      const degrees = finalState.documents.degrees.map(
+        (document: ITeacherDocument) =>
+          document.id === document.id
+            ? { ...document, status: 'approved' }
+            : document
+      );
+
+      finalState.documents = {
+        ...finalState.documents,
+        degrees,
+      };
+    } else if (
+      document.document === 'certificates' &&
+      finalState.documents?.certificates?.length
+    ) {
+      const certificates = finalState.documents.certificates.map(
+        (document: ITeacherDocument) =>
+          document.id === document.id
+            ? { ...document, status: 'approved' }
+            : document
+      );
+
+      finalState.documents = {
+        ...finalState.documents,
+        certificates,
+      };
     }
 
     return finalState;

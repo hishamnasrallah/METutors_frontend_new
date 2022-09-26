@@ -22,7 +22,7 @@ export class AdminEffects {
           map(
             (documents) =>
               adminActions.loadAdminDocumentsSuccess({
-                documents: camelcaseKeys(documents?.user_documents, {
+                documents: camelcaseKeys(documents, {
                   deep: true,
                 }),
               }),
@@ -307,12 +307,12 @@ export class AdminEffects {
   adminApproveDocument$ = createEffect(() =>
     this._actions$.pipe(
       ofType(adminActions.adminApproveDocument),
-      mergeMap(({ id }) =>
-        this._adminService.adminApproveDocument(id).pipe(
+      mergeMap(({ document }) =>
+        this._adminService.adminApproveDocument(document.id).pipe(
           map(
             (documents) =>
               adminActions.adminApproveDocumentSuccess({
-                id,
+                document,
                 message: 'Document Approved successfully',
               }),
             catchError((error) =>
@@ -331,12 +331,12 @@ export class AdminEffects {
   adminRejectDocument$ = createEffect(() =>
     this._actions$.pipe(
       ofType(adminActions.adminRejectDocument),
-      mergeMap(({ id }) =>
-        this._adminService.adminRejectDocument(id).pipe(
+      mergeMap(({ document }) =>
+        this._adminService.adminRejectDocument(document.id).pipe(
           map(
             (documents) =>
               adminActions.adminRejectDocumentSuccess({
-                id,
+                document,
                 message: 'Document rejected successfully',
               }),
             catchError((error) =>

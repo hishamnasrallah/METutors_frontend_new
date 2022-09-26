@@ -5,4 +5,5 @@ export class ITeacherDocument {
   value: string;
   status: string;
   userId: number;
+  document: string;
 }
