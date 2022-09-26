@@ -58,7 +58,20 @@ export class CompleteTutorProfileQualificationDetailsComponent
         currentEmployer: _tutor?.qualifications?.currentEmployer,
         currentTitle: _tutor?.qualifications?.currentTitle,
         video: _tutor?.qualifications?.video,
+        resume: _tutor?.userResume,
       });
+
+      if (_tutor.userDegrees && _tutor.userDegrees.length) {
+        _tutor.userDegrees.forEach((degree) => {
+          this.degrees.push(this._fb.group(degree));
+        });
+      }
+
+      if (_tutor.userCertificates && _tutor.userCertificates.length) {
+        _tutor.userCertificates.forEach((certificate) => {
+          this.certificates.push(this._fb.group(certificate));
+        });
+      }
 
       if (_tutor.languages && _tutor.languages.length) {
         this.languages.clear();
@@ -117,18 +130,18 @@ export class CompleteTutorProfileQualificationDetailsComponent
         null,
         [Validators.required, Validators.maxLength(120)],
       ],
+      resume: [[], Validators.required],
       video: [null, Validators.required],
-      resume: [null, Validators.required],
       languages: this._fb.array([]),
       degreeLevel: [null, [Validators.required]],
       degreeField: [null, [Validators.required]],
+      certificates: this._fb.array([]),
       computerSkills: [null, [Validators.required]],
       teachingExperience: [null, [Validators.required]],
       teachingExperienceOnline: [null, [Validators.required]],
       currentTitle: [null, Validators.maxLength(80)],
       currentEmployer: [null, Validators.maxLength(80)],
       degrees: this._fb.array([], [Validators.required]),
-      certificates: this._fb.array([], [Validators.required]),
     });
 
     this.addLanguage();
@@ -317,6 +330,13 @@ export class CompleteTutorProfileQualificationDetailsComponent
     let files = [];
     if (event.target && event.target.files && event.target.files.length) {
       files = [...event.target.files];
+
+      if (this.resume?.value?.length + files.length > 1) {
+        this._alertNotificationService.error('You can only upload one resume');
+
+        return;
+      }
+
       files.forEach((file: any, index: number) => {
         if (file.size > 5 * 1024 * 1024) {
           this._alertNotificationService.error('Allowed file size is 5MB');
@@ -347,7 +367,8 @@ export class CompleteTutorProfileQualificationDetailsComponent
               };
             } else if (event.type === HttpEventType.Response) {
               const file = event?.body?.file;
-              this.resume?.setValue(file[0]);
+              file[0].document = 'resume';
+              this.resume?.setValue([file[0]]);
               this.resumeUploadProgress[index] = {
                 ...this.resumeUploadProgress[index],
                 responseType: event.type,
@@ -368,6 +389,13 @@ export class CompleteTutorProfileQualificationDetailsComponent
     let files = [];
     if (event.target && event.target.files && event.target.files.length) {
       files = [...event.target.files];
+
+      if (this.degrees?.value?.length + files.length > 10) {
+        this._alertNotificationService.error('Maximum allowed files are 10');
+
+        return;
+      }
+
       files.forEach((file: any, index: number) => {
         if (file.size > 5 * 1024 * 1024) {
           this._alertNotificationService.error('Allowed file size is 5MB');
@@ -398,6 +426,7 @@ export class CompleteTutorProfileQualificationDetailsComponent
               };
             } else if (event.type === HttpEventType.Response) {
               const file = event?.body?.file;
+              file[0].document = 'degree';
               this.degrees?.push(this._fb.group(file[0]));
               this.degreeUploadProgress[index] = {
                 ...this.degreeUploadProgress[index],
@@ -419,6 +448,13 @@ export class CompleteTutorProfileQualificationDetailsComponent
     let files = [];
     if (event.target && event.target.files && event.target.files.length) {
       files = [...event.target.files];
+
+      if (this.certificates?.value?.length + files.length > 10) {
+        this._alertNotificationService.error('Maximum allowed files are 10');
+
+        return;
+      }
+
       files.forEach((file: any, index: number) => {
         if (file.size > 5 * 1024 * 1024) {
           this._alertNotificationService.error('Allowed file size is 5MB');
@@ -449,6 +485,7 @@ export class CompleteTutorProfileQualificationDetailsComponent
               };
             } else if (event.type === HttpEventType.Response) {
               const file = event?.body?.file;
+              file[0].document = 'certificate';
               this.certificates?.push(this._fb.group(file[0]));
 
               this.certificateUploadProgress[index] = {

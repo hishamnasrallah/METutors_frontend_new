@@ -4,6 +4,7 @@ import { generalConstants, GRADES, InterviewStatus } from 'src/app/config';
 import {
   IProgram,
   ISubject,
+  IDocument,
   ILanguage,
   IInterview,
   IAvailability,
@@ -64,7 +65,9 @@ export class ITutor {
   classes: any;
   preferences: any;
   completedStep: number;
-  userDocuments: [];
+  userResume: IDocument[];
+  userDegrees: IDocument[];
+  userCertificates: IDocument[];
 
   constructor(createDefault = false, tutor: any = null) {
     if (createDefault) {
@@ -118,7 +121,9 @@ export class ITutor {
       this.classes = {};
       this.preferences = {};
       this.completedStep = 0;
-      this.userDocuments = [];
+      this.userResume = [];
+      this.userDegrees = [];
+      this.userCertificates = [];
     }
 
     if (tutor) {
@@ -209,14 +214,15 @@ export class ITutor {
         deep: true,
       });
       this.completedStep = tutor?.profile_completed_step || 0;
-      this.userDocuments = tutor?.user_documents?.map((item: any) => ({
-        id: item.id,
-        url: item.url,
-        size: item.size,
-        status: item.status,
-        userId: item.user_id,
-        originalName: item.original_name,
-      }));
+      this.userResume = camelcaseKeys(tutor?.user_resume, {
+        deep: true,
+      });
+      this.userDegrees = camelcaseKeys(tutor?.user_degrees, {
+        deep: true,
+      });
+      this.userCertificates = camelcaseKeys(tutor?.user_certificates, {
+        deep: true,
+      });
     }
   }
 }

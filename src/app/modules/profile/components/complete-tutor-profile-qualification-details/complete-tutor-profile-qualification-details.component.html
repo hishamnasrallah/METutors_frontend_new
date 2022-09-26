@@ -133,8 +133,10 @@
     <div class="row mb-4 mt-3">
       <div class="col-md-12">
         <div class="d-flex justify-content-between">
-          <label for="currentTitle" class="form-label">Curriculum Vitae / Resumé <span class="size">(Max 5 MB)</span></label>
-          <span class="text-main text-decoration-underline cursor-pointer" (click)="resumePicker.click()">Upload Document</span>
+          <label for="currentTitle" class="form-label">Curriculum Vitae / Resumé <span
+            class="size">(Max 5 MB)</span></label>
+          <span class="text-decoration-underline" (click)="resumePicker.click()"
+                [ngClass]="{'text-main cursor-pointer' : !resume?.value?.length, 'text-secondary pointer-events-none' : resume?.value?.length}">Upload Document</span>
 
           <input #resumePicker type="file" hidden class="form-control"
                  accept="image/*,.pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
@@ -152,15 +154,16 @@
           </ng-container>
         </div>
 
-        <table class="table my-table default-title mb-0 list-files" *ngIf="resume?.value">
+        <table class="table my-table default-title mb-0 list-files" *ngIf="resume?.value?.length">
           <tr>
             <th scope="col">Title</th>
             <th scope="col">Action</th>
           </tr>
 
           <tr>
-            <td>{{ resume?.value?.originalName }}</td>
-            <td><img src="assets/svg/delete.svg" alt="" draggable="false" class="cursor-pointer" (click)="onDeleteResume()"/></td>
+            <td>{{ resume?.value[0]?.originalName }}</td>
+            <td><img src="assets/svg/delete.svg" alt="" draggable="false" class="cursor-pointer"
+                     (click)="onDeleteResume()"/></td>
           </tr>
 
         </table>
@@ -171,7 +174,8 @@
       <div class="col-md-12">
         <div class="d-flex justify-content-between">
           <label for="currentTitle" class="form-label">Degree Certificate <span class="size">(Max 5 MB)</span></label>
-          <span class="text-main text-decoration-underline cursor-pointer" (click)="degree.click()">Upload Document</span>
+          <span class="text-decoration-underline" (click)="degree.click()"
+                [ngClass]="{'text-main cursor-pointer' : !degrees?.value?.length || degrees?.value?.length < 10, 'text-secondary pointer-events-none' : degrees?.value?.length >= 10}">Upload Document</span>
 
           <input #degree type="file" hidden multiple class="form-control"
                  accept="image/*,.pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
@@ -198,7 +202,8 @@
 
           <tr *ngFor="let degree of degrees.controls; let i = index">
             <td>{{degree.value.originalName}}</td>
-            <td><img src="assets/svg/delete.svg" alt="" draggable="false" class="cursor-pointer" (click)="onDeleteDegree(i)"/></td>
+            <td><img src="assets/svg/delete.svg" alt="" draggable="false" class="cursor-pointer"
+                     (click)="onDeleteDegree(i)"/></td>
           </tr>
 
         </table>
@@ -209,7 +214,9 @@
       <div class="col-md-12">
         <div class="d-flex justify-content-between">
           <label for="currentTitle" class="form-label">Other Certifications <span class="size">(Max 5 MB)</span></label>
-          <span class="text-main text-decoration-underline cursor-pointer" (click)="certificate.click()">Upload Document</span>
+          <span class="text-decoration-underline"
+                (click)="certificate.click()"
+                [ngClass]="{'text-main cursor-pointer' : !certificates?.value?.length || certificates?.value?.length < 10, 'text-secondary pointer-events-none' : certificates?.value?.length >= 10}">Upload Document</span>
 
           <input #certificate type="file" hidden multiple class="form-control"
                  accept="image/*,.pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
@@ -236,7 +243,8 @@
 
           <tr *ngFor="let certificate of certificates.controls; let i = index">
             <td>{{ certificate?.value?.originalName }}</td>
-            <td><img src="assets/svg/delete.svg" alt="" draggable="false" class="cursor-pointer" (click)="onDeleteCertificate(i)"/></td>
+            <td><img src="assets/svg/delete.svg" alt="" draggable="false" class="cursor-pointer"
+                     (click)="onDeleteCertificate(i)"/></td>
           </tr>
 
         </table>
@@ -272,7 +280,8 @@
           <input type="file" #videoPicker (change)="onChangeVideo($event)" hidden accept="video/*"/>
 
           <div class="preview-style">
-            <label class="form-label">Please upload a video to show your teaching style with the following guidelines:</label>
+            <label class="form-label">Please upload a video to show your teaching style with the following
+              guidelines:</label>
             <div class="position-relative">
               <metutors-video-player [videoSrc]="video?.value" *ngIf="video?.value">
               </metutors-video-player>
@@ -281,32 +290,35 @@
               </button>
             </div>
           </div>
-          <div class="preview-style video-preview d-flex align-items-center justify-content-center flex-column" *ngIf="!video?.value">
+          <div class="preview-style video-preview d-flex align-items-center justify-content-center flex-column"
+               *ngIf="!video?.value">
             <button mat-flat-button color="primary" class="px-4" type="button" [disabled]="uploadingVideo"
                     (click)="videoPicker.click()"> Upload
             </button>
             <div class="guide1 mt-2">Upload Video Demo (Max 120 MB)</div>
           </div>
           <div class="position-relative preview-style">
-          <ng-container *ngLet="fileUploadProgress$ | async as fileUploadProgress">
-            <ng-container *ngIf="fileUploadProgress?.length">
-              <ng-container *ngFor="let uploadProgress of fileUploadProgress">
-                <ng-container *ngIf="uploadProgress.responseType !== uploadComplete">
-                  <metutors-file-upload-progress [fileName]="uploadProgress.fileName" [fileType]="'video'"
-                                                 (onCancelUpload)="onCancelVideoUpload()"
-                                                 [uploadedPercentage]="uploadProgress.progress" [cancelUpload]="true">
-                  </metutors-file-upload-progress>
+            <ng-container *ngLet="fileUploadProgress$ | async as fileUploadProgress">
+              <ng-container *ngIf="fileUploadProgress?.length">
+                <ng-container *ngFor="let uploadProgress of fileUploadProgress">
+                  <ng-container *ngIf="uploadProgress.responseType !== uploadComplete">
+                    <metutors-file-upload-progress [fileName]="uploadProgress.fileName" [fileType]="'video'"
+                                                   (onCancelUpload)="onCancelVideoUpload()"
+                                                   [uploadedPercentage]="uploadProgress.progress" [cancelUpload]="true">
+                    </metutors-file-upload-progress>
+                  </ng-container>
                 </ng-container>
               </ng-container>
             </ng-container>
-          </ng-container>
           </div>
           <ul class="video-notes row">
             <li class="col-md-6">You must be in your video.</li>
             <li class="col-md-6">Your video must be between 2-3 minutes.</li>
             <li class="col-md-6">You must teach a concept from a subject you want to teach on MEtutors.</li>
             <li class="col-md-6">All video formats are accepted.</li>
-            <li class="col-md-12">Your video should be filmed horizontally with good lighting, in a quiet environment and with a tidy background.</li>
+            <li class="col-md-12">Your video should be filmed horizontally with good lighting, in a quiet environment
+              and with a tidy background.
+            </li>
           </ul>
         </div>
       </div>

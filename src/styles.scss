@@ -312,6 +312,10 @@ rating span.bs-rating-star {
   cursor: not-allowed;
 }
 
+.pointer-events-none {
+  pointer-events: none;
+}
+
 .custom-input {
   min-height: 46px;
   padding: 10px 19px;
