@@ -92,6 +92,10 @@
       font-size: 13px;
     }
 
+    rating span.bs-rating-star.active {
+      color: #FF8E18;
+    }
+
     .count {
       color: #FF8E18;
       font-weight: bold;
@@ -124,7 +128,6 @@
       font-size: 15px;
       line-height: 1.4;
       margin: 0;
-      height: 60px;
       overflow: hidden;
       margin-bottom: 10px;
       flex-grow: 1;
@@ -139,7 +142,7 @@
         font-weight: normal;
       }
 
-      > span {
+      >span {
         background-color: rgb(17 26 55 / 10%);
         color: #000;
         margin-right: 5px;

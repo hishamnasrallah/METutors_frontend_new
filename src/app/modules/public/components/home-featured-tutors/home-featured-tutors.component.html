@@ -48,7 +48,8 @@
                 <h2>
                   <a [routerLink]="'/profile/tutor/' + teacher?.id">{{ teacher?.name }}</a>
                   <!-- <span class="text-uppercase pro">Pro</span> -->
-                  <!-- <span class="text-uppercase verified">Verified</span> -->
+                  <span class="text-uppercase verified">Verified</span>
+                  <!-- <span class="text-uppercase verified">Featured</span> -->
                 </h2>
                 <h3 *ngIf="teacher?.qualifications?.nameOfUniversity">
                   {{ teacher?.qualifications?.nameOfUniversity }}
