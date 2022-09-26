@@ -52,11 +52,11 @@ export class CompleteTutorProfileTeachingSpecificationsComponent
 
       const output: any[] = [];
       _tutor?.availability?.forEach((avail: any) => {
-        if (!this.selectedDays.includes(+avail?.day)) {
-          this.selectedDays.push(+avail?.day);
+        if (!this.selectedDays.includes(+avail?.day - 1)) {
+          this.selectedDays.push(+avail?.day - 1);
         }
 
-        const existing = output.filter((v) => +v.day == +avail.day);
+        const existing = output.filter((v) => +v.day == +avail.day - 1);
 
         if (existing.length) {
           const existingIndex = output.indexOf(existing[0]);
@@ -71,7 +71,7 @@ export class CompleteTutorProfileTeachingSpecificationsComponent
           ];
         } else {
           output.push({
-            day: +avail.day,
+            day: +avail.day - 1,
             timeSlots: [
               {
                 id: avail?.id,
@@ -239,7 +239,7 @@ export class CompleteTutorProfileTeachingSpecificationsComponent
         availability: this.availability?.value
           ?.filter((itm: any) => itm?.day != null)
           ?.map((item: any) => ({
-            day: item?.day,
+            day: item?.day + 1,
             time_slots: item?.timeSlots?.map((slot: any) => ({
               start_time: slot?.startTime,
               end_time: slot?.endTime,
