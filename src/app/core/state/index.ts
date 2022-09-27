@@ -940,6 +940,11 @@ export const selectRequestedIsCreatingCourse = createSelector(
   fromRequestReducer.selectRequestedIsCreatingCourse
 );
 
+export const selectIsGetInvoiceEmail = createSelector(
+  selectRequestState,
+  fromRequestReducer.selectIsGetInvoiceEmail
+);
+
 // Lookups
 export const selectIsLoadingUserTypes = createSelector(
   selectLookupsState,

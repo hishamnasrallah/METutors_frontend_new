@@ -231,7 +231,10 @@
           <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
 
           <ng-container *ngSwitchCase="false">
-            <metutors-payment-invoice-details [invoiceDetails]="invoiceDetails" (print)="printToCart(invoiceDetails)">
+            <metutors-payment-invoice-details [invoiceDetails]="invoiceDetails"
+                                              [isGetInvoiceEmail]="isGetInvoiceEmail"
+                                              (print)="printToCart(invoiceDetails)"
+                                              (getInvoiceEmail)="getInvoicingEmail(invoiceDetails)">
             </metutors-payment-invoice-details>
             <button mat-flat-button color="primary" class="float-end px-5 my-3" [disabled]="isCreating"
                     (click)="onSubmit(form)" type="submit">

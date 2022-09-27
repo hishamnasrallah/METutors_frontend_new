@@ -12,10 +12,12 @@ import { FormValidationUtilsService } from '@metutor/core/validators';
 import * as fromRequestsActions from '@metutor/modules/requests/state/actions';
 import {
   GRADES,
+  formatBytes,
   SORTED_DAYS_WEEK,
   generalConstants,
   calculateListDays,
   TEXTBOOK_EDITION_CONST,
+  CLASSROOM_TOPICS_SCALE,
   AcademicTutoringTextbook,
   COURSE_TUITION_TYPES_CONST,
 } from 'src/app/config';
@@ -108,6 +110,7 @@ export class RequestTutorComponent implements OnInit {
           : null,
         Validators.required,
       ],
+      topics: this._fb.array([]),
       information: [null, Validators.required],
       file: [null],
       name: [null],
@@ -484,6 +487,17 @@ export class RequestTutorComponent implements OnInit {
               )[0]?.name
             : '';
 
+      if (
+        this.courseInformationForm.value.topics &&
+        this.courseInformationForm.value.topics.length
+      )
+        this.reviewInfo.topics = this.courseInformationForm.value.topics.map(
+          (topic: any) => ({
+            name: topic.name,
+            scale: CLASSROOM_TOPICS_SCALE[topic.scale],
+          })
+        );
+
       if (this.courseInformationForm.value.information) {
         this.reviewInfo.info = this.courseInformationForm.value.information;
 
@@ -503,17 +517,22 @@ export class RequestTutorComponent implements OnInit {
           this.courseInformationForm.value.information ===
           AcademicTutoringTextbook.none
         )
-          this.reviewInfo.information = 'Textbooks not required';
+          this.reviewInfo.information = 'Textbook not required';
 
         if (
           this.courseInformationForm.value.information ===
           AcademicTutoringTextbook.later
         )
-          this.reviewInfo.information = 'No textbook';
+          this.reviewInfo.information = 'More info will be provided later';
       }
 
-      if (this.courseInformationForm.value.file)
+      if (this.courseInformationForm.value.file) {
         this.reviewInfo.file = this.courseInformationForm.value.file;
+        this.reviewInfo.filePreview = {
+          name: this.courseInformationForm.value.file.name,
+          size: formatBytes(this.courseInformationForm.value.file.size),
+        };
+      }
 
       if (this.courseInformationForm.value.name)
         this.reviewInfo.name = this.courseInformationForm.value.name;

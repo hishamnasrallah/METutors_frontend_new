@@ -6,7 +6,7 @@
         <div class="card-body">
           <div class="row">
             <div class="col-md-1">
-              <img [src]="imageURL+data?.subject?.field?.image" width="65px" height="65px" draggable="false" alt="">
+              <img [src]="imageURL + data?.subject?.field?.image" width="65px" height="65px" draggable="false" alt="">
             </div>
             <div class="col-md-8">
               <h1>{{ data?.subject?.name }}</h1>
@@ -114,7 +114,8 @@
               <div class="col-12 flex-grow-1">
                 <p class="bio">
                   Bio:
-                  {{ (teacher.bio && teacher.bio.length > 130) ? ((teacher?.bio | slice:0:130) + '...') : (teacher?.bio || '-' )}}
+                  {{ (teacher.bio && teacher.bio.length > 80) ? ((teacher?.bio | slice:0:80) + '...') : (teacher?.bio || '-' ) }}
+                  <a [routerLink]="'/profile/tutor/' + teacher?.id" *ngIf="teacher.bio && teacher.bio.length > 80">Read more</a>
                 </p>
               </div>
 

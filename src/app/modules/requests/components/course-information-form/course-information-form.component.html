@@ -89,18 +89,70 @@
       </div>
     </div>
 
-    <!-- <div class="row row-block">
+    <div class="row row-block">
       <div class="col-md-4">
         <h2 class="f-size-17-md-sm">Highlighted Topics</h2>
         <h4 class="f-size-15-md-sm">Add the topics you need a tutor for</h4>
       </div>
-      <div class="col-md-8 mt-15-sm">
+      <div class="col-md-8 mt-15-sm topics">
         <div class="row">
-          <mat-slider class="example-margin" [max]="3" [min]="1" value="2" [step]="1" aria-labelledby="example-name-label">
-          </mat-slider>
+          <div class="col-md-12">
+            <ng-container formArrayName="topics">
+              <ng-container *ngFor="let _ of topics.controls; let i = index" [formGroupName]="i">
+                <ng-container
+                  *ngIf="!form.value.topics[i].name || !form.value.topics[i].scale || !form.value.topics[i]?.checked">
+                  <div class="add-new-topic mb-4">
+                    <h1>Add Topic Name</h1>
+                    <div class="d-flex">
+                      <input type="text" formControlName="name" placeholder="Enter name"
+                        class="flex-grow-1 form-control">
+                      <button mat-flat-button color="primary" type="button" class="add-btn"
+                        (click)="addNewTopic(i)">Add</button>
+                    </div>
+                    <div class="row">
+                      <div class="col-12">
+                        <h1 class="mt-4">Knowledge Confidence Scale</h1>
+
+                        <mat-slider class="w-100 p-0" [max]="3" [min]="1" formControlName="scale" [step]="1"
+                          aria-labelledby="example-name-label">
+                        </mat-slider>
+                      </div>
+                      <div class="col-12 d-flex justify-content-between titles">
+                        <span *ngFor="let scale of topicsScale | keyvalue">{{ scale.value }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+
+            <button mat-flat-button type="button" *ngIf="showAddTopic" color="primary" class="float-end mb-4"
+              (click)="addTopic()">
+              <mat-icon>add</mat-icon> Add new topic
+            </button>
+
+            <table class="table my-table default-title mb-0" *ngIf="checkTableView">
+              <tr>
+                <th>Topic Name</th>
+                <th>Knowledge Confidence Scale</th>
+                <th width="10%">Action</th>
+              </tr>
+              <ng-container *ngFor="let lang of form.value.topics; let i = index">
+                <tr *ngIf="lang.name && lang.scale && lang.checked">
+                  <td>{{ lang.name }}</td>
+                  <td>{{ topicsScale[lang.scale] }}</td>
+                  <td>
+                    <button mat-button (click)="removeTopic(i)" class="p-0">
+                      <img src="assets/svg/delete.svg" width="17px" draggable="false" alt="">
+                    </button>
+                  </td>
+                </tr>
+              </ng-container>
+            </table>
+          </div>
         </div>
       </div>
-    </div> -->
+    </div>
 
     <div class="row row-block">
       <div class="col-md-4">
@@ -109,7 +161,7 @@
       </div>
       <div class="col-md-8">
         <mat-radio-group aria-label="Select an option" (change)="onChange($event)" formControlName="information">
-          <mat-radio-button class="w-100 mb-2" [value]="academicTutoringTextbook.later">
+          <mat-radio-button class="w-100 mb-2" [value]="academicTutoringTextbook.none">
             Textbook not required
           </mat-radio-button>
 
@@ -121,7 +173,7 @@
             List my textbook below
           </mat-radio-button>
 
-          <mat-radio-button class="w-100" [value]="academicTutoringTextbook.none">
+          <mat-radio-button class="w-100" [value]="academicTutoringTextbook.later">
             I will provide more info later
           </mat-radio-button>
         </mat-radio-group>

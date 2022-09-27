@@ -339,6 +339,12 @@ export const AVAILABILITY_HOURS_CONST = [
   },
 ];
 
+export const CLASSROOM_TOPICS_SCALE = {
+  1: 'Unconfident',
+  2: 'Confident',
+  3: 'Very Confident',
+};
+
 export const LANGUAGES_LEVELS_CONST = {
   beginner: 'Beginner',
   elementary: 'Elementary',

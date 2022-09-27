@@ -1,6 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-
 import { IInvoiceDetails } from '@models';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'metutors-payment-invoice-details',
@@ -8,10 +7,12 @@ import { IInvoiceDetails } from '@models';
   styleUrls: ['./payment-invoice-details.component.scss'],
 })
 export class PaymentInvoiceDetailsComponent implements OnInit {
+  @Input() isGetInvoiceEmail: boolean;
   @Input() invoiceDetails: IInvoiceDetails;
 
   @Output() print: EventEmitter<void> = new EventEmitter<void>();
   @Output() applyCoupon: EventEmitter<any> = new EventEmitter<any>();
+  @Output() getInvoiceEmail: EventEmitter<void> = new EventEmitter<void>();
 
   dateNow = new Date();
 

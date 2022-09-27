@@ -18,6 +18,7 @@ export class InvoiceDetailsComponent implements OnInit {
   user$: Observable<IUser | null>;
   baseURL = environment.clientUrl;
   isCreatingCourse$: Observable<boolean>;
+  isGetInvoiceEmail$: Observable<boolean>;
   classroom$: Observable<IClassroom | null>;
   showConfirmPaymentModal$: Observable<boolean>;
   isCalculateInvoiceDetails$: Observable<boolean>;
@@ -40,6 +41,10 @@ export class InvoiceDetailsComponent implements OnInit {
 
     this.isCreatingCourse$ = this._store.select(
       fromCore.selectRequestedIsCreatingCourse
+    );
+
+    this.isGetInvoiceEmail$ = this._store.select(
+      fromCore.selectIsGetInvoiceEmail
     );
 
     this.showConfirmPaymentModal$ = this._store.select(
@@ -70,6 +75,21 @@ export class InvoiceDetailsComponent implements OnInit {
         },
       });
     }
+  }
+
+  getInvoiceEmail(invoiceDetails: IInvoiceDetails): void {
+    this._store.dispatch(
+      fromCore.getInvoiceEmail({
+        info: {
+          noOfClasses: invoiceDetails.noOfClasses,
+          pricePerHour: invoiceDetails.pricePerHour,
+          totalHours: invoiceDetails.totalHours,
+          totalAmount: invoiceDetails.totalAmount,
+          invoiceNumber: '#IN37738',
+          date: new Date(),
+        },
+      })
+    );
   }
 
   printToCart(printSectionId: string): void {

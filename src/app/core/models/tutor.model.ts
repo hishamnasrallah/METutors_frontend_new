@@ -195,7 +195,7 @@ export class ITutor {
         tutor?.teacher_feedbacks_count || tutor?.reviews_count;
       this.averageRating = tutor?.average_rating;
       this.studentsTeaching =
-        tutor?.teacher_students_count || tutor?.classes_taught;
+        tutor?.teacher_students_count || tutor?.classes_taught || tutor?.students_taught;
       this.coursesCreated = tutor?.teacher_course_count;
       this.expertRating = tutor?.expert_rating;
       this.complexityRating = tutor?.complexity_rating;

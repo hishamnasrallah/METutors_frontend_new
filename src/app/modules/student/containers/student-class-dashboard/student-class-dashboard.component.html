@@ -288,7 +288,9 @@
                                      (tutorAvailability)="onTutorAvailability(view.data?.course?.teacher?.id)"
                                      [invoiceDetails]="(invoiceDetails$ | async)!"
                                      [isLoadingInvoiceDetails]="(isCalculateInvoiceDetails$ | async)!"
+                                     [isGetInvoiceEmail]="(isGetInvoiceEmail$ | async)!"
                                      (closeModal)="onCloseAddCourseModal()"
+                                     (getInvoiceEmail)="getInvoiceEmail($event)"
                                      (calculateInvoice)="onCalculateInvoice(view.data?.course?.subjectId,$event)">
   </metutors-student-add-course-modal>
 

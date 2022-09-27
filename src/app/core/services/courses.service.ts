@@ -1,16 +1,19 @@
+import { Injectable } from '@angular/core';
+import camelcaseKeys from 'camelcase-keys';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
+import { IClassroom, ICourse, ICategory, ISyllabus, IProgram } from '@models';
 import {
   HttpClient,
   HttpParams,
   HttpErrorResponse,
 } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
-
-import camelcaseKeys from 'camelcase-keys';
-import { environment } from 'src/environments/environment';
-import { IClassroom, ICourse, ICategory, ISyllabus, IProgram } from '@models';
-import { AcademicTutoringTextbook, SORTED_DAYS_WEEK } from 'src/app/config';
+import {
+  SORTED_DAYS_WEEK,
+  CLASSROOM_TOPICS_SCALE,
+  AcademicTutoringTextbook,
+} from 'src/app/config';
 
 @Injectable({
   providedIn: 'root',
@@ -357,6 +360,16 @@ export class CoursesService {
     if (value.courseCountry) formData.append('country_id', value.courseCountry);
     if (value.type) formData.append('class_type', value.type);
     if (value.redirect_url) formData.append('redirect_url', value.redirect_url);
+    if (value.topics && value.topics.length)
+      formData.append(
+        'highlighted_topics',
+        JSON.stringify(
+          value.topics.map((topic: any) => ({
+            topic_name: topic.name,
+            knowledge_scale: CLASSROOM_TOPICS_SCALE[topic.scale],
+          }))
+        )
+      );
 
     if (value.classrooms && value.classrooms.length)
       formData.append(
@@ -432,6 +445,17 @@ export class CoursesService {
       course_description: value?.description,
       student_name: value?.name,
       email: value?.email,
+    });
+  }
+
+  getInvoiceEmail(value: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}invoice-mail`, {
+      no_of_classes: value.noOfClasses,
+      price_per_hour: value.pricePerHour,
+      total_hours: value.totalHours,
+      total_amount: value.totalAmount,
+      date: value.date,
+      invoice_number: value.invoiceNumber,
     });
   }
 

@@ -88,6 +88,7 @@ export class StudentAddCourseModalComponent implements OnInit {
   @Input() course: any;
   @Input() price: number;
   @Input() isCreating: boolean;
+  @Input() isGetInvoiceEmail: boolean;
   @Input() showModal: boolean = false;
   @Input() isLoadingTimeSlots: boolean;
   @Input() invoiceDetails: IInvoiceDetails;
@@ -95,6 +96,7 @@ export class StudentAddCourseModalComponent implements OnInit {
 
   @Output() submitForm: EventEmitter<any> = new EventEmitter<any>();
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
+  @Output() getInvoiceEmail: EventEmitter<any> = new EventEmitter<any>();
   @Output() calculateInvoice: EventEmitter<any> = new EventEmitter<any>();
   @Output() tutorAvailability: EventEmitter<void> = new EventEmitter<void>();
 
@@ -401,6 +403,17 @@ export class StudentAddCourseModalComponent implements OnInit {
           });
         }
       });
+  }
+
+  getInvoicingEmail(invoiceDetails: IInvoiceDetails): void {
+    this.getInvoiceEmail.emit({
+      noOfClasses: invoiceDetails.noOfClasses,
+      pricePerHour: invoiceDetails.pricePerHour,
+      totalHours: invoiceDetails.totalHours,
+      totalAmount: invoiceDetails.totalAmount,
+      invoiceNumber: '#IN37738',
+      date: new Date(),
+    });
   }
 
   onSubmit(form: FormGroup): void {

@@ -9,7 +9,11 @@
               <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
 
               <ng-container *ngSwitchCase="false">
-                <metutors-payment-invoice-details [invoiceDetails]="invoiceDetails" (print)="printToCart('printSectionId')"></metutors-payment-invoice-details>
+                <metutors-payment-invoice-details [invoiceDetails]="invoiceDetails"
+                                                  [isGetInvoiceEmail]="(isGetInvoiceEmail$ | async)!"
+                                                  (print)="printToCart('printSectionId')"
+                                                  (getInvoiceEmail)="getInvoiceEmail(invoiceDetails)">
+                </metutors-payment-invoice-details>
 
                 <div class="overflow-hidden" *ngLet="(user$ | async) as user">
                   <button mat-flat-button color="primary" class="float-end pay-now mt-15-sm"

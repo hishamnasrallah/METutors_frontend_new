@@ -107,3 +107,7 @@
     -moz-appearance: textfield;
   }
 }
+
+:host ::ng-deep .tutors .tutor-item rating span.bs-rating-star.active {
+  color: #FF8E18;
+}

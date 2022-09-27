@@ -130,3 +130,18 @@ export const changeRequestStatusFailure = createAction(
   '[Request] Change Request Status Failure',
   props<{ error: any }>()
 );
+
+export const getInvoiceEmail = createAction(
+  '[Request] Get Invoice Email',
+  props<{ info: any }>()
+);
+
+export const getInvoiceEmailSuccess = createAction(
+  '[Request] Get Invoice Email Success',
+  props<{ message: string }>()
+);
+
+export const getInvoiceEmailFailure = createAction(
+  '[Request] Get Invoice Email Failure',
+  props<{ error: any }>()
+);

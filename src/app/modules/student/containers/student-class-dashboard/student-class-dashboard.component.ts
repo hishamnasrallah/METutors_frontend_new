@@ -28,6 +28,7 @@ export class StudentClassDashboardComponent implements OnInit {
   tutorAvailability$: Observable<any>;
   isJoiningClass$: Observable<boolean>;
   showPaymentModal$: Observable<boolean>;
+  isGetInvoiceEmail$: Observable<boolean>;
   isLoadingViewClass$: Observable<boolean>;
   isLoadingTimeSlots$: Observable<boolean>;
   isCreatingNewClass$: Observable<boolean>;
@@ -128,6 +129,14 @@ export class StudentClassDashboardComponent implements OnInit {
     this._store.dispatch(fromStudentAction.setStudentStateParams({ params }));
   }
 
+  getInvoiceEmail(info: IInvoiceDetails): void {
+    this._store.dispatch(
+      fromCore.getInvoiceEmail({
+        info,
+      })
+    );
+  }
+
   onCloseFeedbackModal(): void {
     this._store.dispatch(fromStudentAction.closeStudentSendFeedbackModal());
   }
@@ -211,6 +220,10 @@ export class StudentClassDashboardComponent implements OnInit {
 
     this.showMakeupClassModal$ = this._store.select(
       fromStudent.selectMakeupClassModal
+    );
+
+    this.isGetInvoiceEmail$ = this._store.select(
+      fromCore.selectIsGetInvoiceEmail
     );
 
     this.isJoiningClass$ = this._store.select(fromCore.selectIsJoiningClass);

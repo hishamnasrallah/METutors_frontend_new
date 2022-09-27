@@ -85,7 +85,7 @@
                   <ng-container *ngIf="teacher?.bio">
                     Bio:
                     {{ (teacher.bio && teacher.bio.length > 80) ? ((teacher?.bio | slice:0:80) + '...') : teacher?.bio }}
-                    <a  [routerLink]="'/profile/tutor/' + teacher?.id" *ngIf="teacher.bio && teacher.bio.length > 80">Read more</a>
+                    <a [routerLink]="'/profile/tutor/' + teacher?.id" *ngIf="teacher.bio && teacher.bio.length > 80">Read more</a>
                   </ng-container>
                 </p>
               </div>

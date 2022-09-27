@@ -204,12 +204,35 @@ export class RequestEffects {
     )
   );
 
+  getInvoiceEmail$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(requestActions.getInvoiceEmail),
+      mergeMap((action) =>
+        this._coursesService.getInvoiceEmail(action.info).pipe(
+          map((response) =>
+            requestActions.getInvoiceEmailSuccess({
+              message: response.message,
+            })
+          ),
+          catchError((error) =>
+            of(
+              requestActions.getInvoiceEmailFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   successMessages$ = createEffect(
     () =>
       this._actions$.pipe(
         ofType(
           ...[
             requestActions.requestCourseSuccess,
+            requestActions.getInvoiceEmailSuccess,
             requestActions.changeRequestStatusSuccess,
           ]
         ),
@@ -229,6 +252,7 @@ export class RequestEffects {
             requestActions.createCourseFailure,
             requestActions.requestCourseFailure,
             requestActions.generateTutorsFailure,
+            requestActions.getInvoiceEmailFailure,
             requestActions.changeRequestStatusFailure,
           ]
         ),

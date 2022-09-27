@@ -38,6 +38,9 @@ export interface State {
   // Request Course
   isRequestCourse: boolean;
   isChangeCourseRequest: boolean;
+
+  // Get Invoice Email
+  isGetInvoiceEmail: boolean;
 }
 
 export const initialState: State = {
@@ -53,6 +56,7 @@ export const initialState: State = {
   createClassFailure: '',
   loadingTutorFailure: '',
   isCreatingCourse: false,
+  isGetInvoiceEmail: false,
   isGeneratingTutors: false,
   isChangeCourseRequest: false,
   completedRequestedCourses: [],
@@ -261,7 +265,21 @@ export const reducer = createReducer(
   on(requestActions.changeRequestStatusFailure, (state) => ({
     ...state,
     isChangeCourseRequest: false,
-  }))
+  })),
+
+  on(requestActions.getInvoiceEmail, (state) => ({
+    ...state,
+    isGetInvoiceEmail: true,
+  })),
+
+  on(
+    requestActions.getInvoiceEmailSuccess,
+    requestActions.getInvoiceEmailFailure,
+    (state) => ({
+      ...state,
+      isGetInvoiceEmail: false,
+    })
+  )
 );
 
 export const selectGeneratingAvailableTutors = (
@@ -317,6 +335,9 @@ export const selectRequestPaymentInfo = (state: State): any =>
 
 export const selectRequestedIsCreatingCourse = (state: State): any =>
   state.isCreatingCourse;
+
+export const selectIsGetInvoiceEmail = (state: State): boolean =>
+  state.isGetInvoiceEmail;
 
 export const selectFilteredGeneratingAvailableTutors = (
   state: State,

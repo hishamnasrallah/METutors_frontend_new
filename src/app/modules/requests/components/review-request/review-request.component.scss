@@ -70,6 +70,75 @@
       }
     }
 
+    .topics {
+      .default-title {
+        box-shadow: none;
+
+        th {
+          color: #949494;
+          font-size: 14px;
+          font-weight: normal;
+        }
+
+        td {
+          color: #2A2A2A;
+
+          mat-icon {
+            color: #FF554B
+          }
+        }
+      }
+    }
+
+    .later>div {
+      border: 1px solid #EDEDED;
+      padding: 30px;
+      border-radius: 4px;
+      color: var(--main-color);
+      font-weight: bold;
+      font-size: 15px;
+    }
+
+    .pdf {
+      h1 {
+        border: 1px solid #EDEDED;
+        font-size: 14px;
+        color: #949494;
+        background-color: #FAFAFA;
+        padding: 10px;
+        border-radius: 6px 6px 0px 0px;
+        margin-bottom: 0;
+      }
+
+      .block-file {
+        border: 1px solid #EDEDED;
+        border-radius: 0 0 6px 6px;
+        background: #FFF;
+        padding: 10px;
+
+        >div {
+          width: calc(100% - (24px + 0.5rem));
+        }
+
+        h3 {
+          font-size: 13px;
+          color: #696969;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          width: 100%;
+          margin-bottom: 5px;
+        }
+
+        h5 {
+          font-size: 12px;
+          color: #696969;
+          margin: 0;
+          font-weight: normal;
+        }
+      }
+    }
+
     .list-tutors {
       .img-avatar {
         width: 60px;
@@ -132,17 +201,38 @@
         white-space: normal;
       }
 
+      rating span.bs-rating-star {
+        width: 14px;
+        height: 14px;
+
+        &.active {
+          color: #FF8E18;
+        }
+      }
+
       .count {
         color: #FF8E18;
-        font-weight: bold;
-        font-size: 15px;
-        margin-left: 10px;
+        font-size: 14px;
+        margin-left: 5px;
       }
 
       .review {
         color: #949494;
-        font-size: 14px;
-        margin-left: 10px;
+        font-size: 13px;
+        margin-left: 5px;
+      }
+
+      .li-item {
+        img {
+          margin-right: 5px;
+          width: auto;
+          height: auto;
+        }
+
+        span {
+          color: #949494;
+          font-size: 13px;
+        }
       }
 
       .list {
