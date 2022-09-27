@@ -157,12 +157,12 @@
         <table class="table my-table default-title mb-0 list-files" *ngIf="resume?.value?.length">
           <tr>
             <th scope="col">Title</th>
-            <th scope="col">Action</th>
+            <th scope="col" class="w-7 text-center">Action</th>
           </tr>
 
           <tr>
             <td>{{ resume?.value[0]?.originalName }}</td>
-            <td><img src="assets/svg/delete.svg" alt="" draggable="false" class="cursor-pointer"
+            <td class="text-center"><img src="assets/svg/delete.svg" alt="" draggable="false" class="cursor-pointer"
                      (click)="onDeleteResume()"/></td>
           </tr>
 
@@ -197,12 +197,12 @@
         <table class="table my-table default-title mb-0 list-files" *ngIf="degrees?.value?.length">
           <tr>
             <th scope="col">Title</th>
-            <th scope="col">Action</th>
+            <th scope="col" class="w-7 text-center">Action</th>
           </tr>
 
           <tr *ngFor="let degree of degrees.controls; let i = index">
             <td>{{degree.value.originalName}}</td>
-            <td><img src="assets/svg/delete.svg" alt="" draggable="false" class="cursor-pointer"
+            <td class="text-center"><img src="assets/svg/delete.svg" alt="" draggable="false" class="cursor-pointer"
                      (click)="onDeleteDegree(i)"/></td>
           </tr>
 
@@ -238,12 +238,12 @@
         <table class="table my-table default-title mb-0 list-files" *ngIf="certificates?.value?.length">
           <tr>
             <th scope="col">Title</th>
-            <th scope="col">Action</th>
+            <th scope="col" class="w-7 text-center">Action</th>
           </tr>
 
           <tr *ngFor="let certificate of certificates.controls; let i = index">
             <td>{{ certificate?.value?.originalName }}</td>
-            <td><img src="assets/svg/delete.svg" alt="" draggable="false" class="cursor-pointer"
+            <td class="text-center"><img src="assets/svg/delete.svg" alt="" draggable="false" class="cursor-pointer"
                      (click)="onDeleteCertificate(i)"/></td>
           </tr>
 
@@ -258,8 +258,8 @@
 
         <table class="table my-table default-title mb-0 list-files">
           <tr>
-            <th scope="col" width="80%">Title</th>
-            <th scope="col">Action</th>
+            <th scope="col">Title</th>
+            <th scope="col" class="w-15 text-center">Action</th>
           </tr>
 
           <tr>
