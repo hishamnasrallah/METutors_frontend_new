@@ -20,7 +20,7 @@
       </ng-container>
 
       <button mat-flat-button color="primary" class="fw-bold px-5 float-end mb-5" (click)="showSignatureCanvas=true">
-        {{ addedSignature ? 'Edit' : 'Add'}} Signature
+        {{ addedSignature?.url ? 'Edit' : 'Add'}} Signature
       </button>
 
       <div class="w-auto text-center" *ngIf="addedSignature?.url">
