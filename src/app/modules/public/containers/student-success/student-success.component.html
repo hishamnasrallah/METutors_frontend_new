@@ -4,19 +4,23 @@
 
 <metutors-get-your-classes></metutors-get-your-classes>
 
+<metutors-facts-statistics [statistics]="academicStatistics"></metutors-facts-statistics>
+
 <div class="container">
   <metutors-learning-made-easy [token]="(token$ | async)!"></metutors-learning-made-easy>
 </div>
 
 <metutors-benefits-online-tutoring [token]="(token$ | async)!"></metutors-benefits-online-tutoring>
 
+<metutors-home-study-more-read-more></metutors-home-study-more-read-more>
+
 <metutors-success-stories [testmonials]="testmonials"
-                          [title]="'Our students have greater flexibility and freedom in when, where and how they want to learn!'"
-                          [desc]="'We helped 1000s of students succeed in learning through quality online education.'">
+                          [title]="'Flexibility and freedom in how you learn'"
+                          [desc]="'We have already helped thousands of students progress in their academic studies'">
 </metutors-success-stories>
 
 <metutors-start-learning-now [token]="(token$ | async)!"
-                             [title]="'Excel in Every Exam With MEtutors'"
-                             [desc]="'Browse the collection of LIVE online tutoring courses and start building your knowledge today!'"
-                             [btnText]="'Enroll Now!'">
+                             [title]="'Excel in every exam with MEtutors'"
+                             [desc]="'Browse our courses and programs and start learning today'"
+                             [btnText]="'Explore courses'">
 </metutors-start-learning-now>

@@ -278,21 +278,23 @@
                                         (submitted)="onSubmitCancelCourse($event)">
   </metutors-student-cancel-course-modal>
 
-  <metutors-student-add-course-modal *ngIf="showAddCourseModal$ | async"
-                                     [showModal]="(showAddCourseModal$ | async)!"
-                                     [course]="view.data?.course"
-                                     [isLoadingTimeSlots]="(isLoadingTutorAvailability$ | async)!"
-                                     [price]="(price$ | async)!" [timeSlots]="(tutorAvailability$ | async)!"
-                                     (submitForm)="onAddCourse(view.data?.course?.id, $event)"
-                                     [isCreating]="(isCreatingNewClass$ | async)!"
-                                     (tutorAvailability)="onTutorAvailability(view.data?.course?.teacher?.id)"
-                                     [invoiceDetails]="(invoiceDetails$ | async)!"
-                                     [isLoadingInvoiceDetails]="(isCalculateInvoiceDetails$ | async)!"
-                                     [isGetInvoiceEmail]="(isGetInvoiceEmail$ | async)!"
-                                     (closeModal)="onCloseAddCourseModal()"
-                                     (getInvoiceEmail)="getInvoiceEmail($event)"
-                                     (calculateInvoice)="onCalculateInvoice(view.data?.course?.subjectId,$event)">
-  </metutors-student-add-course-modal>
+  <ng-container *ngLet="(user$ | async) as user">
+    <metutors-student-add-course-modal *ngIf="showAddCourseModal$ | async"
+                                       [showModal]="(showAddCourseModal$ | async)!"
+                                       [course]="view.data?.course"
+                                       [isLoadingTimeSlots]="(isLoadingTutorAvailability$ | async)!"
+                                       [price]="(price$ | async)!" [timeSlots]="(tutorAvailability$ | async)!"
+                                       (submitForm)="onAddCourse(view.data?.course?.id, $event)"
+                                       [isCreating]="(isCreatingNewClass$ | async)!"
+                                       (tutorAvailability)="onTutorAvailability(view.data?.course?.teacher?.id)"
+                                       [invoiceDetails]="(invoiceDetails$ | async)!"
+                                       [isLoadingInvoiceDetails]="(isCalculateInvoiceDetails$ | async)!"
+                                       [isGetInvoiceEmail]="(isGetInvoiceEmail$ | async)!"
+                                       (closeModal)="onCloseAddCourseModal()"
+                                       (getInvoiceEmail)="getInvoiceEmail(user, $event)"
+                                       (calculateInvoice)="onCalculateInvoice(view.data?.course?.subjectId,$event)">
+    </metutors-student-add-course-modal>
+  </ng-container>
 
   <metutors-student-makeup-class-modal *ngIf="showMakeupClassModal$ | async"
                                        [isLoadingTimeSlots]="(isLoadingTimeSlots$ | async)!"

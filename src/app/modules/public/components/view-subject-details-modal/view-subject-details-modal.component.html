@@ -115,7 +115,9 @@
                 <p class="bio">
                   Bio:
                   {{ (teacher.bio && teacher.bio.length > 80) ? ((teacher?.bio | slice:0:80) + '...') : (teacher?.bio || '-' ) }}
-                  <a [routerLink]="'/profile/tutor/' + teacher?.id" *ngIf="teacher.bio && teacher.bio.length > 80">Read more</a>
+                  <a [routerLink]="'/profile/tutor/' + teacher?.id" *ngIf="teacher.bio && teacher.bio.length > 80">
+                    Read more
+                  </a>
                 </p>
               </div>
 
@@ -130,12 +132,13 @@
               </div>
 
               <div class="col-12 d-flex actions">
-                <button mat-flat-button color="primary" class="flex-grow-1 book">
-                  Book a Class
-                </button>
-                <button mat-button class="more">
+                <a mat-flat-button color="primary" class="flex-grow-1 book"
+                  [routerLink]="'/profile/tutor/' + teacher?.id">
+                  View Full Profile
+                </a>
+                <!-- <button mat-button class="more">
                   <mat-icon>more_vert</mat-icon>
-                </button>
+                </button> -->
               </div>
             </div>
           </div>

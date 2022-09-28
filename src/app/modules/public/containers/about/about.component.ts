@@ -37,35 +37,35 @@ export class AboutComponent implements OnInit, OnDestroy {
   whyMeTutorsList = [
     {
       id: 1,
-      value: 'Flexible Scheduling on the GO!',
+      value: 'Next generation adaptive learning',
     },
     {
       id: 2,
-      value: 'Round the clock customer support',
+      value: 'Flexible scheduling',
     },
     {
       id: 3,
-      value: 'Personalized courses',
-    },
-    {
-      id: 4,
-      value: 'Expert tutors',
-    },
-    {
-      id: 5,
       value: 'Affordable prices',
     },
     {
+      id: 4,
+      value: 'State-of-the-art technology',
+    },
+    {
+      id: 5,
+      value: 'Round-the-clock customer care',
+    },
+    {
       id: 6,
-      value: 'The best technology and tools',
+      value: 'Trusted tutors',
     },
     {
       id: 7,
-      value: 'Relaxed yet professional learning environment',
+      value: 'Personalized classes',
     },
     {
       id: 8,
-      value: 'Innovative and dynamic classes',
+      value: 'Subject matter experts',
     },
   ];
 

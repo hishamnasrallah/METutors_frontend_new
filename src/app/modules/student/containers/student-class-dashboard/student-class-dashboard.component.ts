@@ -6,10 +6,10 @@ import { combineLatest, Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 
 import * as moment from 'moment';
-import { IInvoiceDetails } from '@models';
 import * as fromStudent from '../../state';
 import { environment } from '@environment';
 import * as fromCore from '@metutor/core/state';
+import { IInvoiceDetails, IUser } from '@models';
 import * as fromStudentAction from '../../state/actions';
 import { CourseStatus, courseStatusLabel } from '@metutor/config';
 
@@ -23,6 +23,7 @@ export class StudentClassDashboardComponent implements OnInit {
   timeSlots$: Observable<any>;
   paymentInfo$: Observable<any>;
   refundAmount$: Observable<any>;
+  user$: Observable<IUser | null>;
   price$: Observable<number | null>;
   isMakeupClass$: Observable<boolean>;
   tutorAvailability$: Observable<any>;
@@ -39,9 +40,8 @@ export class StudentClassDashboardComponent implements OnInit {
   showSendFeedbackModal$: Observable<boolean>;
   tutorReAssignmentModal$: Observable<boolean>;
   cancelCourseSuccessModal$: Observable<boolean>;
-  isLoadingTutorAvailability$: Observable<boolean>;
-
   isCalculateInvoiceDetails$: Observable<boolean>;
+  isLoadingTutorAvailability$: Observable<boolean>;
   invoiceDetails$: Observable<IInvoiceDetails | null>;
 
   onHold = false;
@@ -129,10 +129,13 @@ export class StudentClassDashboardComponent implements OnInit {
     this._store.dispatch(fromStudentAction.setStudentStateParams({ params }));
   }
 
-  getInvoiceEmail(info: IInvoiceDetails): void {
+  getInvoiceEmail(user: IUser, info: IInvoiceDetails): void {
     this._store.dispatch(
       fromCore.getInvoiceEmail({
-        info,
+        info: {
+          ...info,
+          email: user.email,
+        },
       })
     );
   }
@@ -225,6 +228,8 @@ export class StudentClassDashboardComponent implements OnInit {
     this.isGetInvoiceEmail$ = this._store.select(
       fromCore.selectIsGetInvoiceEmail
     );
+
+    this.user$ = this._store.select(fromCore.selectUser);
 
     this.isJoiningClass$ = this._store.select(fromCore.selectIsJoiningClass);
 

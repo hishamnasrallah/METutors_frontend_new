@@ -14,6 +14,7 @@ import { PublicRoutingModule } from './public-routing.module';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { CarouselModule as NGXCarouselModule } from 'ngx-bootstrap/carousel';
 
 // import * as publicEffects from './state/effects';
 import * as fromPublic from '@metutor/modules/public/state';
@@ -159,6 +160,7 @@ import {
     ReactiveFormsModule,
     PublicRoutingModule,
     RatingModule.forRoot(),
+    NGXCarouselModule.forRoot(),
     // EffectsModule.forFeature(Object.values(publicEffects)),
     StoreModule.forFeature(featureKeys.publicFeatureKey, fromPublic.reducers),
   ],

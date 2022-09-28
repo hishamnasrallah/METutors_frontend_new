@@ -12,7 +12,6 @@ import {
   IProgram,
   ISubject,
   ICountry,
-  IStatistics,
 } from 'src/app/core/models';
 
 @Component({
@@ -39,7 +38,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
   fragment: any;
   subjectData: any;
   testmonials?: any[];
-  academicStatistics?: IStatistics[];
 
   constructor(
     private _store: Store<any>,
@@ -65,33 +63,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
       if (element) this._viewportScroller.scrollToAnchor(f!);
     });
-
-    this.academicStatistics = [
-      {
-        id: 1,
-        icon: 'assets/svg/marketing.svg',
-        value: '340',
-        type: 'Courses Created',
-      },
-      {
-        id: 1,
-        icon: 'assets/svg/create-new.svg',
-        value: '30K',
-        type: 'Students Enrolled',
-      },
-      {
-        id: 1,
-        icon: 'assets/svg/pen.svg',
-        value: '10K',
-        type: 'Classrooms Attended',
-      },
-      {
-        id: 1,
-        icon: 'assets/svg/headset.svg',
-        value: '300+',
-        type: 'Teacher Profiles',
-      },
-    ];
 
     this.testmonials = [
       {

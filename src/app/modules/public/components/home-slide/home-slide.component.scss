@@ -1,296 +1,67 @@
+:host ::ng-deep {
+
+  .carousel-control-next-icon,
+  .carousel-control-prev-icon {
+    display: none;
+  }
+
+  .carousel-indicators {
+    margin-bottom: 30px;
+
+    button {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 1px solid #FFFFFF;
+      opacity: 0.6;
+      background: transparent;
+
+      &.active {
+        background-color: #FFF;
+        opacity: 1;
+      }
+    }
+  }
+}
+
 .slide {
-  padding: 90px 0;
-  color: #FFF;
-  margin: 0;
-
-  .z-2 {
-    z-index: 2;
-  }
-
-  h1 {
-    font-size: 70px;
-    font-weight: bold;
-    line-height: 1;
-    letter-spacing: normal;
-    color: #FFF;
-  }
-
-  h2 {
-    font-size: 30px;
-    font-weight: bold;
-    color: #FFF;
-    margin-top: 25px;
-    opacity: 0.9;
-  }
-
-  p {
-    font-size: 24px;
-    margin-top: 30px;
-    line-height: 1.42;
-  }
-
-  button,
-  a {
-    font-size: 20px;
-    font-weight: bold;
-    margin-top: 20px;
-    padding: 8px 30px;
-    border: 1px solid #FFF;
-    color: #FFF;
-    transition: all 0.25s ease-in-out;
-
-    &:hover {
-      background-color: var(--main-color);
-      border-color: var(--main-color);
-    }
-  }
-
-  .sliding {
+  .content {
     position: absolute;
-    right: 0;
-    width: 100%;
-    display: block;
     top: 0;
+    left: 0;
+    right: 0;
     bottom: 0;
-    overflow: hidden;
-  }
+    padding: 100px 0;
 
-  .slider {
-    height: 100%;
-    position: relative;
-  }
-
-  .slide1,
-  .slide2,
-  .slide3,
-  .slide4,
-  .slide5,
-  .slide6 {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-  }
-
-  .slide1 {
-    background: no-repeat right;
-    background-size: cover;
-    animation: fade 40s infinite;
-    -webkit-animation: fade 40s infinite;
-
-  }
-
-  .slide2 {
-    background: no-repeat right;
-    background-size: cover;
-    animation: fade2 40s infinite;
-    -webkit-animation: fade2 40s infinite;
-  }
-
-  .slide3 {
-    background: no-repeat right;
-    background-size: cover;
-    animation: fade3 40s infinite;
-    -webkit-animation: fade3 40s infinite;
-  }
-
-  .slide4 {
-    background: no-repeat right;
-    background-size: cover;
-    animation: fade4 40s infinite;
-    -webkit-animation: fade4 40s infinite;
-  }
-
-  .slide5 {
-    background: no-repeat right;
-    background-size: cover;
-    animation: fade5 40s infinite;
-    -webkit-animation: fade5 40s infinite;
-  }
-
-  .slide6 {
-    background: no-repeat right;
-    background-size: cover;
-    animation: fade6 40s infinite;
-    -webkit-animation: fade6 40s infinite;
-  }
-
-  @keyframes fade {
-    0% {
-      opacity: 1
+    h1 {
+      font-size: 70px;
+      font-weight: bold;
+      line-height: 1;
+      letter-spacing: normal;
+      color: #FFF;
     }
 
-    16.67% {
-      opacity: 0
+    p {
+      font-size: 21px;
+      margin-top: 30px;
+      line-height: 1.42;
+      color: #FFF;
     }
 
-    33.32% {
-      opacity: 0
-    }
+    button,
+    a {
+      font-size: 20px;
+      font-weight: bold;
+      margin-top: 50px;
+      padding: 8px 30px;
+      border: 1px solid #FFF;
+      color: #FFF;
+      transition: all 0.25s ease-in-out;
 
-    49.98% {
-      opacity: 0
-    }
-
-    66.64% {
-      opacity: 0
-    }
-
-    83.3% {
-      opacity: 0
-    }
-
-    100% {
-      opacity: 1
-    }
-  }
-
-  @keyframes fade2 {
-    0% {
-      opacity: 0
-    }
-
-    16.67% {
-      opacity: 1
-    }
-
-    33.32% {
-      opacity: 0
-    }
-
-    49.98% {
-      opacity: 0
-    }
-
-    66.64% {
-      opacity: 0
-    }
-
-    83.3% {
-      opacity: 0
-    }
-
-    100% {
-      opacity: 0
-    }
-  }
-
-  @keyframes fade3 {
-    0% {
-      opacity: 0
-    }
-
-    16.67% {
-      opacity: 0
-    }
-
-    33.32% {
-      opacity: 1
-    }
-
-    49.98% {
-      opacity: 0
-    }
-
-    66.64% {
-      opacity: 0
-    }
-
-    83.3% {
-      opacity: 0
-    }
-
-    100% {
-      opacity: 0
-    }
-  }
-
-  @keyframes fade4 {
-    0% {
-      opacity: 0
-    }
-
-    16.67% {
-      opacity: 0
-    }
-
-    33.32% {
-      opacity: 0
-    }
-
-    49.98% {
-      opacity: 1
-    }
-
-    66.64% {
-      opacity: 0
-    }
-
-    83.3% {
-      opacity: 0
-    }
-
-    100% {
-      opacity: 0
-    }
-  }
-
-  @keyframes fade5 {
-    0% {
-      opacity: 0
-    }
-
-    16.67% {
-      opacity: 0
-    }
-
-    33.32% {
-      opacity: 0
-    }
-
-    49.98% {
-      opacity: 0
-    }
-
-    66.64% {
-      opacity: 1
-    }
-
-    83.3% {
-      opacity: 0
-    }
-
-    100% {
-      opacity: 0
-    }
-  }
-
-  @keyframes fade6 {
-    0% {
-      opacity: 0
-    }
-
-    16.67% {
-      opacity: 0
-    }
-
-    33.32% {
-      opacity: 0
-    }
-
-    49.98% {
-      opacity: 0
-    }
-
-    66.64% {
-      opacity: 0
-    }
-
-    83.3% {
-      opacity: 1
-    }
-
-    100% {
-      opacity: 0
+      &:hover {
+        background-color: var(--main-color);
+        border-color: var(--main-color);
+      }
     }
   }
 }
