@@ -1,316 +1,327 @@
-<div class="card review-request" id="printSectionId">
-  <div class="card-body">
-    <div class="row row-block">
-      <div class="col-md-4">
-        <h2 class="f-size-17-md-sm">Course Details</h2>
+<div id="printSectionId">
+  <div class="card review-request">
+    <div class="card-body">
+      <div class="row row-block">
+        <div class="col-md-4">
+          <h2 class="f-size-17-md-sm">Course Details</h2>
 
-        <h5 class="mt-4 mb-0 f-size-15-md-sm">Course ID: <span>CID{{selectedCourse?.id}}</span></h5>
-      </div>
-      <div class="col-md-8 mt-15-sm">
-        <div class="row">
-          <div class="col-md-3 col-sm-6">
-            <h3>Program Name</h3>
-            <h4>{{ reviewInfo?.courseProgram }}</h4>
-          </div>
-          <div class="col-md-3 col-sm-6" *ngIf="reviewInfo?.courseCountry">
-            <h3>Program Country</h3>
-            <h4>
-              <span [innerHTML]="reviewInfo?.courseCountry?.flag" class="me-2"></span>
-              {{ reviewInfo?.courseCountry?.name }}
-            </h4>
-          </div>
-          <div class="col-md-3 col-sm-6" *ngIf="reviewInfo?.courseGrade">
-            <h3>Program Grade Level</h3>
-            <h4>{{ reviewInfo?.courseGrade }}</h4>
-          </div>
-          <div class="col-md-3 col-sm-6">
-            <h3>Field of Study</h3>
-            <h4>{{ reviewInfo?.courseField }}</h4>
-          </div>
-          <div class="col-md-3 col-sm-6">
-            <h3>Subject</h3>
-            <h4>{{ reviewInfo?.subject }}</h4>
-          </div>
-          <div class="col-md-3 col-sm-6">
-            <h3>Tutoring Language Preference</h3>
-            <h4>{{ reviewInfo?.languages }}</h4>
-          </div>
-          <!-- <div class="col-md-3 col-sm-6">
-            <h3>Book Type</h3>
-            <h4>{{ reviewInfo?.information }}</h4>
-          </div> -->
-          <!-- <ng-container *ngIf="reviewInfo?.info === academicTutoringTextbook.info">
-            <div class="col-md-3 col-sm-6">
-              <h3>Textbook Name</h3>
-              <h4>{{ reviewInfo?.name }}</h4>
-            </div>
-            <div class="col-md-3 col-sm-6">
-              <h3>Textbook Edition</h3>
-              <h4>{{ reviewInfo?.edition }} edition</h4>
-            </div>
-            <div class="col-md-3 col-sm-6">
-              <h3>Textbook Author</h3>
-              <h4>{{ reviewInfo?.author }}</h4>
-            </div>
-          </ng-container> -->
+          <h5 class="mt-4 mb-0 f-size-15-md-sm">Course ID: <span>CID{{selectedCourse?.id}}</span></h5>
         </div>
-      </div>
-    </div>
-    <div class="row row-block">
-      <div class="col-md-4">
-        <h2 class="f-size-17-md-sm">Classroom Setup</h2>
-      </div>
-      <div class="col-md-8 mt-15-sm">
-        <div class="row">
-          <div class="col-md-3 col-sm-6">
-            <h3>Course Start Date</h3>
-            <h4>{{ reviewInfo?.startDate | date }}</h4>
-          </div>
-          <div class="col-md-3 col-sm-6">
-            <h3>Course End Date</h3>
-            <h4>{{ reviewInfo?.endDate | date }}</h4>
-          </div>
-          <div class="col-md-3 col-sm-6">
-            <h3>Total Hours</h3>
-            <h4>{{ reviewInfo?.hours }} {{ +reviewInfo?.hours === 1 ? 'hour' : 'hours' }}</h4>
-          </div>
-          <div class="col-md-3 col-sm-6">
-            <h3>Type</h3>
-            <h4>{{ reviewInfo?.type }}</h4>
-          </div>
-          <div class="col-md-3 col-sm-6">
-            <h3>Classes Start Time</h3>
-            <h4>{{ reviewInfo?.startTime }}</h4>
-          </div>
-          <div class="col-md-3 col-sm-6">
-            <h3>Classes End Time</h3>
-            <h4>{{ reviewInfo?.endTime }}</h4>
-          </div>
-          <div class="col-md-3 col-sm-6">
-            <h3>Course Duration</h3>
-            <h4>{{ reviewInfo?.duration }} hour{{ +(reviewInfo?.duration)! > 1 ? 's' : '' }}</h4>
-          </div>
-          <div class="col-md-3 col-sm-6">
-            <h3>Number of classes in the course</h3>
-            <h4>{{ reviewInfo?.classes }} Class{{ +(reviewInfo?.classes)! > 1 ? 'es' : '' }}</h4>
-          </div>
-          <div class="col-md-6">
-            <h3>Class Days</h3>
-            <h4>
-              <ng-container *ngFor="let day of reviewInfo?.days; let isLast = last">
-                {{ day }}
-                <ng-container *ngIf="!isLast"> - </ng-container>
-              </ng-container>
-            </h4>
-          </div>
-          <div class="col-md-3 col-sm-6">
-            <h3>Total Price</h3>
-            <h4>{{ reviewInfo?.price | metutorsMoney | async }}</h4>
+        <div class="col-md-8 mt-15-sm">
+          <div class="row">
+            <div class="col-md-3 col-sm-6">
+              <h3>Program Name</h3>
+              <h4>{{ reviewInfo?.courseProgram }}</h4>
+            </div>
+            <div class="col-md-3 col-sm-6" *ngIf="reviewInfo?.courseCountry">
+              <h3>Program Country</h3>
+              <h4>
+                <span [innerHTML]="reviewInfo?.courseCountry?.flag" class="me-2"></span>
+                {{ reviewInfo?.courseCountry?.name }}
+              </h4>
+            </div>
+            <div class="col-md-3 col-sm-6" *ngIf="reviewInfo?.courseGrade">
+              <h3>Program Grade Level</h3>
+              <h4>{{ reviewInfo?.courseGrade }}</h4>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <h3>Field of Study</h3>
+              <h4>{{ reviewInfo?.courseField }}</h4>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <h3>Subject</h3>
+              <h4>{{ reviewInfo?.subject }}</h4>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <h3>Tutoring Language Preference</h3>
+              <h4>{{ reviewInfo?.languages }}</h4>
+            </div>
+            <!-- <div class="col-md-3 col-sm-6">
+              <h3>Book Type</h3>
+              <h4>{{ reviewInfo?.information }}</h4>
+            </div> -->
+            <!-- <ng-container *ngIf="reviewInfo?.info === academicTutoringTextbook.info">
+              <div class="col-md-3 col-sm-6">
+                <h3>Textbook Name</h3>
+                <h4>{{ reviewInfo?.name }}</h4>
+              </div>
+              <div class="col-md-3 col-sm-6">
+                <h3>Textbook Edition</h3>
+                <h4>{{ reviewInfo?.edition }} edition</h4>
+              </div>
+              <div class="col-md-3 col-sm-6">
+                <h3>Textbook Author</h3>
+                <h4>{{ reviewInfo?.author }}</h4>
+              </div>
+            </ng-container> -->
           </div>
         </div>
       </div>
-    </div>
-    <div class="row row-block" *ngIf="reviewInfo?.appointments && reviewInfo?.appointments?.length">
-      <div class="col-md-4">
-        <h2 class="f-size-17-md-sm">Class Schedule</h2>
-      </div>
-      <div class="col-md-8 mt-15-sm">
-        <!-- <h6>Classroom List Schedule</h6> -->
-        <div class="list-classes">
-          <table class="table table-striped table-hover">
-            <tr>
-              <th>Day</th>
-              <th>Date</th>
-              <th>Start Time</th>
-              <th>End Time</th>
-              <th>Total Hours</th>
-            </tr>
-            <tr *ngFor="let appointment of reviewInfo?.appointments">
-              <td>{{ appointment?.date | date: 'EEEE' }}</td>
-              <td>{{ appointment?.date | date: 'd MMM y' }}</td>
-              <td>{{ appointment?.startTime }}</td>
-              <td>{{ appointment?.endTime }}</td>
-              <td>{{ appointment?.duration }}hr{{ +(appointment?.duration)! > 1 ? 's' : '' }}</td>
-            </tr>
-          </table>
+      <div class="row row-block">
+        <div class="col-md-4">
+          <h2 class="f-size-17-md-sm">Classroom Setup</h2>
+        </div>
+        <div class="col-md-8 mt-15-sm">
+          <div class="row">
+            <div class="col-md-3 col-sm-6">
+              <h3>Course Start Date</h3>
+              <h4>{{ reviewInfo?.startDate | date }}</h4>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <h3>Course End Date</h3>
+              <h4>{{ reviewInfo?.endDate | date }}</h4>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <h3>Total Hours</h3>
+              <h4>{{ reviewInfo?.hours }} {{ +reviewInfo?.hours === 1 ? 'hour' : 'hours' }}</h4>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <h3>Type</h3>
+              <h4>{{ reviewInfo?.type }}</h4>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <h3>Classes Start Time</h3>
+              <h4>{{ reviewInfo?.startTime }}</h4>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <h3>Classes End Time</h3>
+              <h4>{{ reviewInfo?.endTime }}</h4>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <h3>Course Duration</h3>
+              <h4>{{ reviewInfo?.duration }} hour{{ +(reviewInfo?.duration)! > 1 ? 's' : '' }}</h4>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <h3>Number of classes in the course</h3>
+              <h4>{{ reviewInfo?.classes }} Class{{ +(reviewInfo?.classes)! > 1 ? 'es' : '' }}</h4>
+            </div>
+            <div class="col-md-6">
+              <h3>Class Days</h3>
+              <h4>
+                <ng-container *ngFor="let day of reviewInfo?.days; let isLast = last">
+                  {{ day }}
+                  <ng-container *ngIf="!isLast"> - </ng-container>
+                </ng-container>
+              </h4>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <h3>Total Price</h3>
+              <h4>{{ reviewInfo?.price | metutorsMoney | async }}</h4>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="row row-block" *ngIf="reviewInfo?.topics && reviewInfo?.topics?.length">
-      <div class="col-md-4">
-        <h2 class="f-size-17-md-sm">Highlighted Topics</h2>
-      </div>
-      <div class="col-md-8 mt-15-sm topics">
-        <div class="row">
-          <div class="col-md-12">
-            <table class="table my-table default-title mb-0">
+      <div class="row row-block" *ngIf="reviewInfo?.appointments && reviewInfo?.appointments?.length">
+        <div class="col-md-4">
+          <h2 class="f-size-17-md-sm">Class Schedule</h2>
+        </div>
+        <div class="col-md-8 mt-15-sm">
+          <!-- <h6>Classroom List Schedule</h6> -->
+          <div class="list-classes">
+            <table class="table table-striped table-hover">
               <tr>
-                <th>Topic Name</th>
-                <th width="40%">Knowledge Confidence Scale</th>
+                <th>Day</th>
+                <th>Date</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Total Hours</th>
               </tr>
-              <tr *ngFor="let lang of reviewInfo?.topics">
-                <td>{{ lang.name }}</td>
-                <td>{{ lang.scale }}</td>
+              <tr *ngFor="let appointment of reviewInfo?.appointments">
+                <td>{{ appointment?.date | date: 'EEEE' }}</td>
+                <td>{{ appointment?.date | date: 'd MMM y' }}</td>
+                <td>{{ appointment?.startTime }}</td>
+                <td>{{ appointment?.endTime }}</td>
+                <td>{{ appointment?.duration }}hr{{ +(appointment?.duration)! > 1 ? 's' : '' }}</td>
               </tr>
             </table>
           </div>
         </div>
       </div>
-    </div>
-    <div class="row row-block">
-      <div class="col-md-4">
-        <h2 class="f-size-17-md-sm">Textbook Details</h2>
-      </div>
-      <div class="col-md-8 mt-15-sm later"
-        *ngIf="reviewInfo?.info === academicTutoringTextbook.later || reviewInfo?.info === academicTutoringTextbook.none">
-        <h4>Selection made by student</h4>
-        <div class="d-flex flex-column align-items-center">
-          <img
-            [src]="reviewInfo?.info === academicTutoringTextbook.later ? 'assets/svg/textbook.svg' : 'assets/svg/textbook-slash.svg'"
-            class="mb-3" [width]="reviewInfo?.info === academicTutoringTextbook.later ? '35px' : '60px'" draggable="false" alt="">
-          {{ reviewInfo?.information }}
+      <div class="row row-block" *ngIf="reviewInfo?.topics && reviewInfo?.topics?.length">
+        <div class="col-md-4">
+          <h2 class="f-size-17-md-sm">Highlighted Topics</h2>
         </div>
-      </div>
-      <div class="col-md-8 mt-15-sm topics" *ngIf="reviewInfo?.info === academicTutoringTextbook.info">
-        <div class="row">
-          <div class="col-md-12">
-            <table class="table my-table default-title mb-0">
-              <tr>
-                <th>Textbook Name</th>
-                <th>Textbook Edition</th>
-                <th>Textbook Author</th>
-              </tr>
-              <tr>
-                <td>{{ reviewInfo?.name }}</td>
-                <td>{{ reviewInfo?.edition }}</td>
-                <td>{{ reviewInfo?.author }}</td>
-              </tr>
-            </table>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-8 mt-15-sm pdf" *ngIf="reviewInfo?.info === academicTutoringTextbook.pdf">
-        <h4>PDF document uploaded by student</h4>
-        <div>
-          <h1>Attachments</h1>
-          <div class="block-file d-flex align-items-center">
-            <mat-icon>attach_file</mat-icon>
-            <div class="ms-2">
-              <h3>{{ reviewInfo?.filePreview?.name }}</h3>
-              <h5>{{ reviewInfo?.filePreview?.size }}</h5>
+        <div class="col-md-8 mt-15-sm topics">
+          <div class="row">
+            <div class="col-md-12">
+              <table class="table my-table default-title mb-0">
+                <tr>
+                  <th>Topic Name</th>
+                  <th width="40%">Knowledge Confidence Scale</th>
+                </tr>
+                <tr *ngFor="let lang of reviewInfo?.topics">
+                  <td>{{ lang.name }}</td>
+                  <td>{{ lang.scale }}</td>
+                </tr>
+              </table>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="row row-block mb-0" *ngIf="reviewInfo?.tutor">
-      <div class="col-md-4">
-        <h2>Tutor Information</h2>
-      </div>
-      <div class="col-md-8">
-        <h6>Classroom Tutor</h6>
-        <div class="row list-tutors">
-          <div class="position-relative img-avatar">
-            <img [src]="reviewInfo?.tutor?.avatar" meTutorsDefaultAvatar alt="" width="60px" height="60px">
-            <!-- <svg class="position-absolute status" width="16" height="16" [ngClass]="{
-                      'is-online': reviewInfo?.tutor?.status === tutorStatus.online,
-                      'is-busy': reviewInfo?.tutor?.status === tutorStatus.busy,
-                      'is-offline': reviewInfo?.tutor?.status === tutorStatus.offline,
-                      'is-away': reviewInfo?.tutor?.status === tutorStatus.away
-                    }" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="8" cy="8" r="7" fill="#949494" stroke="white" stroke-width="2" />
-            </svg> -->
+      <div class="row row-block">
+        <div class="col-md-4">
+          <h2 class="f-size-17-md-sm">Textbook Details</h2>
+        </div>
+        <div class="col-md-8 mt-15-sm later"
+          *ngIf="reviewInfo?.info === academicTutoringTextbook.later || reviewInfo?.info === academicTutoringTextbook.none">
+          <h4>Selection made by student</h4>
+          <div class="d-flex flex-column align-items-center">
+            <img
+              [src]="baseUrl + (reviewInfo?.info === academicTutoringTextbook.later ? '/assets/svg/textbook.svg' : '/assets/svg/textbook-slash.svg')"
+              class="mb-3" [attr.width]="reviewInfo?.info === academicTutoringTextbook.later ? '35px' : '60px'"
+              draggable="false" alt="">
+            {{ reviewInfo?.information }}
           </div>
-          <div class="col">
-            <h2>
-              {{ reviewInfo?.tutor?.name }}
-              <!-- <span class="text-uppercase pro">Pro</span>
-                    <span class="text-uppercase verified">Verified</span> -->
-            </h2>
-            <h3 class="mb-0" *ngIf="reviewInfo?.tutor?.qualifications?.nameOfUniversity">{{ reviewInfo?.tutor?.qualifications?.nameOfUniversity }}</h3>
-            <div class="d-flex align-items-center mt-1">
-              <rating [ngModel]="reviewInfo?.tutor?.averageRating" [ngModelOptions]="{standalone: true}" [max]="5" [readonly]="true"></rating>
-              <span class="count">{{ reviewInfo?.tutor?.averageRating | number:'.1-1' }}</span>
-              <span class="review" *ngIf="reviewInfo?.tutor?.totalFeedbacks">
-                ({{ reviewInfo?.tutor?.totalFeedbacks }} review{{ +(reviewInfo?.tutor?.totalFeedbacks)! > 1 ? 's' : '' }})
-              </span>
-              <div class="d-flex ms-3 li-item" *ngIf="reviewInfo?.tutor?.country">
-                <img src="assets/svg/map.svg" class="icon" draggable="false" width="16" height="16" alt="">
-                <span>
-                  From {{ reviewInfo?.tutor?.country?.name }}
-                </span>
-              </div>
-              <div class="d-flex ms-3 li-item" *ngIf="reviewInfo?.tutor?.studentsTeaching">
-                <img src="assets/svg/classes.svg" class="icon" draggable="false" width="16" height="16" alt="">
-                <span>
-                  Help {{ reviewInfo?.tutor?.studentsTeaching }} student{{ +(reviewInfo?.tutor?.studentsTeaching)! > 1 ? 's' : '' }}
-                </span>
+        </div>
+        <div class="col-md-8 mt-15-sm topics" *ngIf="reviewInfo?.info === academicTutoringTextbook.info">
+          <div class="row">
+            <div class="col-md-12">
+              <table class="table my-table default-title mb-0">
+                <tr>
+                  <th>Textbook Name</th>
+                  <th>Textbook Edition</th>
+                  <th>Textbook Author</th>
+                </tr>
+                <tr>
+                  <td>{{ reviewInfo?.name }}</td>
+                  <td>{{ reviewInfo?.edition }}</td>
+                  <td>{{ reviewInfo?.author }}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8 mt-15-sm pdf" *ngIf="reviewInfo?.info === academicTutoringTextbook.pdf">
+          <h4>PDF document uploaded by student</h4>
+          <div>
+            <h1>Attachments</h1>
+            <div class="block-file d-flex align-items-center">
+              <mat-icon>attach_file</mat-icon>
+              <div class="ms-2">
+                <h3>{{ reviewInfo?.filePreview?.name }}</h3>
+                <h5>{{ reviewInfo?.filePreview?.size }}</h5>
               </div>
             </div>
-            <a class="col-md-3 full-profile d-block d-xl-none mt-1" [routerLink]="'/profile/tutor/' + reviewInfo?.tutor?.id" target="_blank">
+          </div>
+        </div>
+      </div>
+      <div class="row row-block mb-0" *ngIf="reviewInfo?.tutor">
+        <div class="col-md-4">
+          <h2>Tutor Information</h2>
+        </div>
+        <div class="col-md-8">
+          <h6>Classroom Tutor</h6>
+          <div class="row list-tutors">
+            <div class="position-relative img-avatar">
+              <img [src]="reviewInfo?.tutor?.avatar" meTutorsDefaultAvatar alt="" width="60px" height="60px">
+              <!-- <svg class="position-absolute status" width="16" height="16" [ngClass]="{
+                        'is-online': reviewInfo?.tutor?.status === tutorStatus.online,
+                        'is-busy': reviewInfo?.tutor?.status === tutorStatus.busy,
+                        'is-offline': reviewInfo?.tutor?.status === tutorStatus.offline,
+                        'is-away': reviewInfo?.tutor?.status === tutorStatus.away
+                      }" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="8" cy="8" r="7" fill="#949494" stroke="white" stroke-width="2" />
+              </svg> -->
+            </div>
+            <div class="col">
+              <h2>
+                {{ reviewInfo?.tutor?.name }}
+                <!-- <span class="text-uppercase pro">Pro</span>
+                      <span class="text-uppercase verified">Verified</span> -->
+              </h2>
+              <h3 class="mb-0" *ngIf="reviewInfo?.tutor?.qualifications?.nameOfUniversity">
+                {{ reviewInfo?.tutor?.qualifications?.nameOfUniversity }}</h3>
+              <div class="d-flex align-items-center mt-1">
+                <rating [ngModel]="reviewInfo?.tutor?.averageRating" [ngModelOptions]="{standalone: true}" [max]="5"
+                  [readonly]="true"></rating>
+                <span class="count">{{ reviewInfo?.tutor?.averageRating | number:'.1-1' }}</span>
+                <span class="review" *ngIf="reviewInfo?.tutor?.totalFeedbacks">
+                  ({{ reviewInfo?.tutor?.totalFeedbacks }}
+                  review{{ +(reviewInfo?.tutor?.totalFeedbacks)! > 1 ? 's' : '' }})
+                </span>
+                <div class="d-flex ms-3 li-item" *ngIf="reviewInfo?.tutor?.country">
+                  <img src="assets/svg/map.svg" class="icon" draggable="false" width="16" height="16" alt="">
+                  <span>
+                    From {{ reviewInfo?.tutor?.country?.name }}
+                  </span>
+                </div>
+                <div class="d-flex ms-3 li-item" *ngIf="reviewInfo?.tutor?.studentsTeaching">
+                  <img src="assets/svg/classes.svg" class="icon" draggable="false" width="16" height="16" alt="">
+                  <span>
+                    Help {{ reviewInfo?.tutor?.studentsTeaching }}
+                    student{{ +(reviewInfo?.tutor?.studentsTeaching)! > 1 ? 's' : '' }}
+                  </span>
+                </div>
+              </div>
+              <a class="col-md-3 full-profile d-block d-xl-none mt-1"
+                [routerLink]="'/profile/tutor/' + reviewInfo?.tutor?.id" target="_blank">
+                <img src="assets/svg/share-link.svg" draggable="false" width="16px" height="16px" alt="">
+                Full Profile
+              </a>
+            </div>
+            <a class="col-md-3 full-profile d-none d-xl-block" [routerLink]="'/profile/tutor/' + reviewInfo?.tutor?.id"
+              target="_blank">
               <img src="assets/svg/share-link.svg" draggable="false" width="16px" height="16px" alt="">
               Full Profile
             </a>
           </div>
-          <a class="col-md-3 full-profile d-none d-xl-block" [routerLink]="'/profile/tutor/' + reviewInfo?.tutor?.id" target="_blank">
-            <img src="assets/svg/share-link.svg" draggable="false" width="16px" height="16px" alt="">
-            Full Profile
-          </a>
         </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-md-4"></div>
-      <div class="col-md-8">
-        <div class="est-price mt-2 p-10-sm" *ngIf="price && reviewInfo?.hours">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="d-flex">
-                <div class="flex-grow-1">
-                  <h5 class="d-flex align-items-center">
-                    Estimated Price: <h1 class="mb-0 f-size-20-md-sm">{{ (price * +reviewInfo?.hours) | metutorsMoney | async }}</h1>
-                  </h5>
-                  <p>Final price based on total number of class hours</p>
+      <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-8">
+          <div class="est-price mt-2 p-10-sm" *ngIf="price && reviewInfo?.hours">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="d-flex">
+                  <div class="flex-grow-1">
+                    <h5 class="d-flex align-items-center">
+                      Estimated Price: <h1 class="mb-0 f-size-20-md-sm">
+                        {{ (price * +reviewInfo?.hours) | metutorsMoney | async }}</h1>
+                    </h5>
+                    <p>Final price based on total number of class hours</p>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="col-md-6">
-              <div class="d-flex">
-                <div class="flex-grow-1">
-                  <h5 class="d-flex align-items-center">
-                    Total Hours: <h1 class="mb-0 f-size-20-md-sm">{{ reviewInfo?.hours }} hr{{ +(reviewInfo?.hours)! > 1 ? 's' : '' }}</h1>
-                  </h5>
-                  <p>Hourly Rate: {{ price | metutorsMoney | async }}</p>
+              <div class="col-md-6">
+                <div class="d-flex">
+                  <div class="flex-grow-1">
+                    <h5 class="d-flex align-items-center">
+                      Total Hours: <h1 class="mb-0 f-size-20-md-sm">{{ reviewInfo?.hours }}
+                        hr{{ +(reviewInfo?.hours)! > 1 ? 's' : '' }}</h1>
+                    </h5>
+                    <p>Hourly Rate: {{ price | metutorsMoney | async }}</p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="mt-3">
-          <mat-checkbox [(ngModel)]="conditions">
-            I agree to the <a routerLink="/student-terms-conditions" target="_blank">terms and conditions.</a>
-          </mat-checkbox>
+          <div class="mt-3 hide-print">
+            <mat-checkbox [(ngModel)]="conditions">
+              I agree to the <a routerLink="/student-terms-conditions" target="_blank">terms and conditions.</a>
+            </mat-checkbox>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="row mt-5">
-      <div class="col-md-4"></div>
-      <div class="col-md-8 d-flex overflow-hidden justify-content-between">
-        <button mat-button class="back-btn m-0" type="button" (click)="printToCart('printSectionId')">
-          <img src="assets/svg/print.svg" class="me-2" draggable="false" width="25" height="25" alt="">
-          Print
-        </button>
-        <div>
-          <button mat-button class="back-btn" type="button" (click)="onBack.emit()">
-            <mat-icon>arrow_back</mat-icon>
-            Back
+      <div class="row mt-5">
+        <div class="col-md-4"></div>
+        <div class="col-md-8 d-flex overflow-hidden justify-content-between">
+          <button mat-button class="back-btn m-0" type="button" (click)="printToCart('printSectionId')">
+            <img src="assets/svg/print.svg" class="me-2" draggable="false" width="25" height="25" alt="">
+            Print
           </button>
-          <button mat-flat-button color="primary" type="button" [disabled]="isCreatingCourse || !conditions"
-            (click)="submitForm.emit()">
-            Check out
-            <mat-icon *ngIf="!isCreatingCourse">arrow_forward</mat-icon>
-            <mat-icon class="spinner" *ngIf="isCreatingCourse">autorenew</mat-icon>
-          </button>
+          <div>
+            <button mat-button class="back-btn" type="button" (click)="onBack.emit()">
+              <mat-icon>arrow_back</mat-icon>
+              Back
+            </button>
+            <button mat-flat-button color="primary" type="button" [disabled]="isCreatingCourse || !conditions"
+              (click)="submitForm.emit()">
+              Check out
+              <mat-icon *ngIf="!isCreatingCourse">arrow_forward</mat-icon>
+              <mat-icon class="spinner" *ngIf="isCreatingCourse">autorenew</mat-icon>
+            </button>
+          </div>
         </div>
       </div>
     </div>
