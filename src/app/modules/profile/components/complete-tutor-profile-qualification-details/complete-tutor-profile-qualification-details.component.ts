@@ -110,6 +110,16 @@ export class CompleteTutorProfileQualificationDetailsComponent
   showViewDocumentModal$: Observable<any>;
   uploadComplete = generalConstants.uploadComplete;
 
+  //Signature
+  uploadSignatureStream$: Subscription;
+  signatureUploadInfo: {
+    url: string;
+    progress: number;
+    fileName: string;
+    uploading: boolean;
+    responseType: number;
+  };
+
   //Resume
   resumeUploadProgress: any[] = [];
   uploadResumeStream$: Subscription;
@@ -135,6 +145,7 @@ export class CompleteTutorProfileQualificationDetailsComponent
       ],
       resume: [[], Validators.required],
       video: [null, Validators.required],
+      signature: [null, Validators.required],
       languages: this._fb.array([]),
       degreeLevel: [null, [Validators.required]],
       degreeField: [null, [Validators.required]],
@@ -223,6 +234,10 @@ export class CompleteTutorProfileQualificationDetailsComponent
 
   get resume(): AbstractControl | null {
     return this.form.get('resume');
+  }
+
+  get signature(): AbstractControl | null {
+    return this.form.get('signature');
   }
 
   get degrees(): FormArray {
@@ -384,6 +399,36 @@ export class CompleteTutorProfileQualificationDetailsComponent
     }
   }
 
+  onUploadSignature(file: any): void {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    this.signatureUploadInfo = {
+      ...this.signatureUploadInfo,
+      uploading: true,
+    };
+
+    this.uploadSignatureStream$ = this._uploadService
+      .onUploadFile(formData)
+      .subscribe((event) => {
+        if (event.type === HttpEventType.UploadProgress) {
+          this.signatureUploadInfo = {
+            ...this.signatureUploadInfo,
+            progress: Math.round((100 * event.loaded) / event.total),
+          };
+        } else if (event.type === HttpEventType.Response) {
+          const file = event?.body?.file;
+
+          this.signatureUploadInfo = {
+            ...this.signatureUploadInfo,
+            url: file[0]?.url,
+            uploading: false,
+            fileName: file[0].originalName,
+          };
+        }
+      });
+  }
+
   onDeleteResume(): void {
     this.resume?.setValue(null);
   }
@@ -540,6 +585,7 @@ export class CompleteTutorProfileQualificationDetailsComponent
   ngOnDestroy() {
     this.uploadDegreeStream$?.unsubscribe();
     this.uploadResumeStream$?.unsubscribe();
+    this.uploadSignatureStream$?.unsubscribe();
     this.uploadCertificateStream$?.unsubscribe();
   }
 }
