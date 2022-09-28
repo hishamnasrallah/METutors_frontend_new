@@ -11,17 +11,17 @@
         <li class="nav-item">
           <a class="nav-link nav-item-link" routerLink="/about" routerLinkActive="active"
             [routerLinkActiveOptions]="{exact: true}">
-            About Us
+            About us
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link nav-item-link" routerLink="/student-success" routerLinkActive="active">
-            Student Success
+            Study
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link nav-item-link" routerLink="/become-tutor" routerLinkActive="active">
-            Become A Tutor
+            Become a Tutor
           </a>
         </li>
         <li class="nav-item" *ngIf="!(token$ | async)">
@@ -77,13 +77,13 @@
       aria-labelledby="button-basic">
       <li role="menuitem">
         <a class="dropdown-item" routerLink="/about" routerLinkActive="active"
-          [routerLinkActiveOptions]="{exact: true}">About Us</a>
+          [routerLinkActiveOptions]="{exact: true}">About us</a>
       </li>
       <li role="menuitem">
-        <a class="dropdown-item" routerLink="/student-success" routerLinkActive="active">Student Success</a>
+        <a class="dropdown-item" routerLink="/student-success" routerLinkActive="active">Study</a>
       </li>
       <li role="menuitem">
-        <a class="dropdown-item" routerLink="/become-tutor" routerLinkActive="active">Become A Tutor</a>
+        <a class="dropdown-item" routerLink="/become-tutor" routerLinkActive="active">Become a Tutor</a>
       </li>
       <li role="menuitem">
         <a class="dropdown-item text-center" [matMenuTriggerFor]="currency">

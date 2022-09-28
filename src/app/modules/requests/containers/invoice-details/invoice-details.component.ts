@@ -16,15 +16,16 @@ import { IClassroom, IInvoiceDetails, IUser } from '@metutor/core/models';
 export class InvoiceDetailsComponent implements OnInit {
   paymentInfo$: Observable<any>;
   user$: Observable<IUser | null>;
-  baseURL = environment.clientUrl;
   isCreatingCourse$: Observable<boolean>;
   isGetInvoiceEmail$: Observable<boolean>;
   classroom$: Observable<IClassroom | null>;
   showConfirmPaymentModal$: Observable<boolean>;
   isCalculateInvoiceDetails$: Observable<boolean>;
   invoiceDetails$: Observable<IInvoiceDetails | null>;
-
+  
   showModal = false;
+  baseURL = environment.clientUrl;
+
   constructor(private _router: Router, private _store: Store<any>) {}
 
   ngOnInit(): void {
@@ -77,19 +78,28 @@ export class InvoiceDetailsComponent implements OnInit {
     }
   }
 
-  getInvoiceEmail(invoiceDetails: IInvoiceDetails): void {
-    this._store.dispatch(
-      fromCore.getInvoiceEmail({
-        info: {
-          noOfClasses: invoiceDetails.noOfClasses,
-          pricePerHour: invoiceDetails.pricePerHour,
-          totalHours: invoiceDetails.totalHours,
-          totalAmount: invoiceDetails.totalAmount,
-          invoiceNumber: '#IN37738',
-          date: new Date(),
+  getInvoiceEmail(user: IUser, invoiceDetails: IInvoiceDetails): void {
+    if (user) {
+      this._store.dispatch(
+        fromCore.getInvoiceEmail({
+          info: {
+            email: user.email,
+            noOfClasses: invoiceDetails.noOfClasses,
+            pricePerHour: invoiceDetails.pricePerHour,
+            totalHours: invoiceDetails.totalHours,
+            totalAmount: invoiceDetails.totalAmount,
+            invoiceNumber: '#IN37738',
+            date: new Date(),
+          },
+        })
+      );
+    } else {
+      this._router.navigate(['/signin'], {
+        queryParams: {
+          returnUrl: this._router.url,
         },
-      })
-    );
+      });
+    }
   }
 
   printToCart(printSectionId: string): void {

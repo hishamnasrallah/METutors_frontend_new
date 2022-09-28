@@ -1,29 +1,104 @@
-<div class="slide position-relative">
-  <div class="sliding">
-    <div class="slider">
-      <div class="slide1" style="background-image: url('assets/homepage/covers/01.png');"></div>
-      <div class="slide2" style="background-image: url('assets/homepage/covers/02.png');"></div>
-      <div class="slide3" style="background-image: url('assets/homepage/covers/03.png');"></div>
-      <div class="slide4" style="background-image: url('assets/homepage/covers/04.png');"></div>
-      <div class="slide5" style="background-image: url('assets/homepage/covers/05.png');"></div>
-      <div class="slide6" style="background-image: url('assets/homepage/covers/06.png');"></div>
-    </div>
-  </div>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-7 z-2">
-        <h1 class="f-size-25-md-sm">
-          A Complete Personalized
-          <br>
-          Learning Experience
-        </h1>
-        <h2 class="f-size-20-md-sm">Redefining Online Tutoring</h2>
-        <p class="f-size-18-md-sm">Use artificial intelligence built technology to find top tutors from around the world
-          and instantly unlock the power of achieving your learning goals with our intuitive learning platform.</p>
-        <a mat-button routerLink="/signup" *ngIf="!token" class="f-size-17-md-sm">Sign Up Now!</a>
-        <button mat-button (click)="scrollToAnchor()" *ngIf="token" class="f-size-17-md-sm">Explore our
-          services</button>
+<carousel [isAnimated]="true" [noPause]="true" [noWrap]="false" [showIndicators]="true" [interval]="5000">
+  <slide class="slide">
+    <img src="assets/homepage/covers/01.webp" alt="first slide" style="display: block; width: 100%;">
+    <div class="content">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 z-2">
+            <h1 class="f-size-25-md-sm">Study with MEtutors</h1>
+            <p class="f-size-18-md-sm">Find an expert tutor to support you with your academic studies, help with
+              homework or prepare for an exam.</p>
+            <a mat-button routerLink="/signup" *ngIf="!token" class="f-size-17-md-sm">Sign Up Now!</a>
+            <button mat-button (click)="scrollToAnchor()" *ngIf="token" class="f-size-17-md-sm">Explore our
+              services</button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
+  </slide>
+  <slide class="slide">
+    <img src="assets/homepage/covers/02.webp" alt="first slide" style="display: block; width: 100%;">
+    <div class="content">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 z-2">
+            <h1 class="f-size-25-md-sm">Study with MEtutors</h1>
+            <p class="f-size-18-md-sm">Find an expert tutor to support you with your academic studies, help with
+              homework or prepare for an exam.</p>
+            <a mat-button routerLink="/signup" *ngIf="!token" class="f-size-17-md-sm">Sign Up Now!</a>
+            <button mat-button (click)="scrollToAnchor()" *ngIf="token" class="f-size-17-md-sm">Explore our
+              services</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </slide>
+  <slide class="slide">
+    <img src="assets/homepage/covers/03.webp" alt="first slide" style="display: block; width: 100%;">
+    <div class="content">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 z-2">
+            <h1 class="f-size-25-md-sm">Study with MEtutors</h1>
+            <p class="f-size-18-md-sm">Find an expert tutor to support you with your academic studies, help with
+              homework or prepare for an exam.</p>
+            <a mat-button routerLink="/signup" *ngIf="!token" class="f-size-17-md-sm">Sign Up Now!</a>
+            <button mat-button (click)="scrollToAnchor()" *ngIf="token" class="f-size-17-md-sm">Explore our
+              services</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </slide>
+  <slide class="slide">
+    <img src="assets/homepage/covers/04.webp" alt="first slide" style="display: block; width: 100%;">
+    <div class="content">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 z-2">
+            <h1 class="f-size-25-md-sm">Study with MEtutors</h1>
+            <p class="f-size-18-md-sm">Find an expert tutor to support you with your academic studies, help with
+              homework or prepare for an exam.</p>
+            <a mat-button routerLink="/signup" *ngIf="!token" class="f-size-17-md-sm">Sign Up Now!</a>
+            <button mat-button (click)="scrollToAnchor()" *ngIf="token" class="f-size-17-md-sm">Explore our
+              services</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </slide>
+  <slide class="slide">
+    <img src="assets/homepage/covers/05.webp" alt="first slide" style="display: block; width: 100%;">
+    <div class="content">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 z-2">
+            <h1 class="f-size-25-md-sm">Study with MEtutors</h1>
+            <p class="f-size-18-md-sm">Find an expert tutor to support you with your academic studies, help with
+              homework or prepare for an exam.</p>
+            <a mat-button routerLink="/signup" *ngIf="!token" class="f-size-17-md-sm">Sign Up Now!</a>
+            <button mat-button (click)="scrollToAnchor()" *ngIf="token" class="f-size-17-md-sm">Explore our
+              services</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </slide>
+  <slide class="slide">
+    <img src="assets/homepage/covers/06.webp" alt="first slide" style="display: block; width: 100%;">
+    <div class="content">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 z-2">
+            <h1 class="f-size-25-md-sm">Study with MEtutors</h1>
+            <p class="f-size-18-md-sm">Find an expert tutor to support you with your academic studies, help with
+              homework or prepare for an exam.</p>
+            <a mat-button routerLink="/signup" *ngIf="!token" class="f-size-17-md-sm">Sign Up Now!</a>
+            <button mat-button (click)="scrollToAnchor()" *ngIf="token" class="f-size-17-md-sm">Explore our
+              services</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </slide>
+</carousel>

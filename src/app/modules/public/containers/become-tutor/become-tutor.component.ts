@@ -25,31 +25,35 @@ export class BecomeTutorComponent implements OnInit {
     this.whyTeachingUsList = [
       {
         id: 1,
-        value: 'Simple & quick registration',
+        value: 'Simple registration and onboarding process',
       },
       {
         id: 2,
-        value: 'Teach your own courses',
+        value: 'Flexible payout options',
       },
       {
         id: 3,
-        value: 'Flexible pay-out options',
+        value: 'We find you students',
       },
       {
         id: 4,
-        value: 'Useful teaching tools',
+        value: 'Choose the hours you work',
       },
       {
         id: 5,
-        value: 'Choose your own schedule',
+        value: 'Modern teaching tools in the classroom',
       },
       {
         id: 6,
-        value: '24*7 Tutor Support',
+        value: '24*7 tutor support',
       },
       {
         id: 7,
-        value: 'Reach more students',
+        value: 'Teach from anywhere',
+      },
+      {
+        id: 8,
+        value: 'Easy to use platform with everything in one place',
       },
     ];
 

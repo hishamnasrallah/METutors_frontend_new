@@ -365,7 +365,7 @@ export class CoursesService {
         'highlighted_topics',
         JSON.stringify(
           value.topics.map((topic: any) => ({
-            topic_name: topic.name,
+            name: topic.name,
             knowledge_scale: CLASSROOM_TOPICS_SCALE[topic.scale],
           }))
         )
@@ -450,12 +450,15 @@ export class CoursesService {
 
   getInvoiceEmail(value: any): Observable<any> {
     return this.http.post(`${this.baseUrl}invoice-mail`, {
-      no_of_classes: value.noOfClasses,
-      price_per_hour: value.pricePerHour,
-      total_hours: value.totalHours,
-      total_amount: value.totalAmount,
-      date: value.date,
-      invoice_number: value.invoiceNumber,
+      email: value.email,
+      invoiceData: {
+        no_of_classes: +value.noOfClasses,
+        price_per_hour: +value.pricePerHour,
+        total_hours: +value.totalHours,
+        total_amount: +value.totalAmount,
+        date: value.date,
+        invoice_number: value.invoiceNumber,
+      },
     });
   }
 

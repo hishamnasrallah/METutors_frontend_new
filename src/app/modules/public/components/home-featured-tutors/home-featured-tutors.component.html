@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-7">
         <h1 class="f-size-25-md-sm">
-          Expert Tutors At Your Fingertips
+          Expert tutors at the click of a button
         </h1>
       </div>
       <div class="col-md-5">
@@ -19,10 +19,8 @@
 
       <div class="col-12">
         <p class="f-size-18-md-sm">
-          Our top-rated tutors have been carefully selected to ensure our students work with educators who are
-          passionate and highly knowledgeable in their subject area. Our tutors follow a step-by-step approach to teach
-          concepts easily and quickly. We use AI based algorithms to perfectly match each tutor with each student’s
-          needs.
+          All of our tutors go through a rigorous interview process to ensure they are experts in their subject matter.
+          We believe that with the right support students can unlock their full potential.
         </p>
       </div>
 
@@ -85,7 +83,8 @@
                   <ng-container *ngIf="teacher?.bio">
                     Bio:
                     {{ (teacher.bio && teacher.bio.length > 80) ? ((teacher?.bio | slice:0:80) + '...') : teacher?.bio }}
-                    <a [routerLink]="'/profile/tutor/' + teacher?.id" *ngIf="teacher.bio && teacher.bio.length > 80">Read more</a>
+                    <a [routerLink]="'/profile/tutor/' + teacher?.id"
+                      *ngIf="teacher.bio && teacher.bio.length > 80">Read more</a>
                   </ng-container>
                 </p>
               </div>
@@ -101,12 +100,13 @@
               </div>
 
               <div class="col-12 d-flex actions">
-                <button mat-flat-button color="primary" class="flex-grow-1 book">
-                  Contact Tutor
-                </button>
-                <button mat-button class="more">
+                <a mat-flat-button color="primary" class="flex-grow-1 book"
+                  [routerLink]="'/profile/tutor/' + teacher?.id">
+                  View Full Profile
+                </a>
+                <!-- <button mat-button class="more">
                   <mat-icon>more_vert</mat-icon>
-                </button>
+                </button> -->
               </div>
             </div>
           </ng-template>
