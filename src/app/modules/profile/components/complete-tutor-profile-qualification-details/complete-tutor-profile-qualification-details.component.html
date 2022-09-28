@@ -338,6 +338,7 @@
 </form>
 
 <metutors-doc-viewer-modal *ngIf="showViewDocumentModal$ | async" [document]="document"
+                           [heading]="'Onboarding Document'"
                            (addSignature)="onUploadSignature($event)" [signatureInfo]="signatureUploadInfo"
                            (closeModal)="onCloseViewDocumentModal()" [showSignature]="true"
                            [showModal]="(showViewDocumentModal$ | async)!">

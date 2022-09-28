@@ -10,6 +10,7 @@ import { ITeacherDocument } from '@models';
   styleUrls: ['./doc-viewer-modal.component.scss'],
 })
 export class DocViewerModalComponent implements OnInit {
+  @Input() heading = '';
   @Input() showModal = false;
   @Input() showActions = false;
   @Input() isRejecting = false;

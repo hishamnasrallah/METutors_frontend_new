@@ -145,7 +145,7 @@ export class CompleteTutorProfileQualificationDetailsComponent
       ],
       resume: [[], Validators.required],
       video: [null, Validators.required],
-      signature: [null, Validators.required],
+      signature: [null],
       languages: this._fb.array([]),
       degreeLevel: [null, [Validators.required]],
       degreeField: [null, [Validators.required]],
