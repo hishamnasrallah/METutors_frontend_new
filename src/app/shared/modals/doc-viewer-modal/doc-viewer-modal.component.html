@@ -10,5 +10,23 @@
         Approve
       </button>
     </div>
+
+    <div class="signature" *ngIf="showSignature">
+      <button mat-flat-button color="primary" class="fw-bold px-5 float-end mb-5" (click)="addSignature.emit()">
+        Add Signature
+      </button>
+
+      <div class="d-flex w-100 mb-2 justify-content-between">
+        <p class="d-flex privacy">
+          <mat-checkbox [checked]="checked" (change)="checked = !checked">
+            By signing, I understand this is legally binding contract
+          </mat-checkbox>
+        </p>
+
+        <button mat-flat-button color="primary" class="fw-bold px-5" (click)="addSignature.emit()" [disabled]="!checked">
+          Submit
+        </button>
+      </div>
+    </div>
   </ng-template>
 </metutors-modal>

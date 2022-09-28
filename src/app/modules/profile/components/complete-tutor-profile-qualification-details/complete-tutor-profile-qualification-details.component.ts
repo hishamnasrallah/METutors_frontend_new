@@ -14,8 +14,10 @@ import {
 
 import { UploadService } from '@services';
 import * as fromCore from '@metutor/core/state';
-import { ILanguage, ITutor } from 'src/app/core/models';
+import * as fromProfile from '@metutor/modules/profile/state';
 import { AlertNotificationService } from '@metutor/core/components';
+import { ILanguage, ITeacherDocument, ITutor } from 'src/app/core/models';
+import * as fromProfileActions from '@metutor/modules/profile/state/actions';
 
 import {
   FormArray,
@@ -101,10 +103,11 @@ export class CompleteTutorProfileQualificationDetailsComponent
   filterDegree: string;
   uploadingVideo: boolean;
   skills = COMPUTER_SKILLS;
+  document: ITeacherDocument;
   degreeLevels = DEGREE_LEVELS;
   experiences = TEACHING_EXPERIENCE;
   fileUploadProgress$: Observable<any>;
-  // showViewDocumentModal$: Observable<any>;
+  showViewDocumentModal$: Observable<any>;
   uploadComplete = generalConstants.uploadComplete;
 
   //Resume
@@ -148,9 +151,9 @@ export class CompleteTutorProfileQualificationDetailsComponent
   }
 
   ngOnInit(): void {
-    /*    this.showViewDocumentModal$ = this._store.select(
+    this.showViewDocumentModal$ = this._store.select(
       fromProfile.selectShowViewDocumentModal
-    );*/
+    );
 
     this.fileUploadProgress$ = this._store
       .select(fromCore.selectFileUploadingProgress)
@@ -169,14 +172,14 @@ export class CompleteTutorProfileQualificationDetailsComponent
       );
   }
 
-  /*  onOpenViewDocumentModal(document: ITeacherDocument): void {
+  onOpenViewDocumentModal(document: any): void {
     this.document = document;
     this._store.dispatch(fromProfileActions.openViewDocumentModal());
   }
 
   onCloseViewDocumentModal(): void {
     this._store.dispatch(fromProfileActions.closeViewDocumentModal());
-  }*/
+  }
 
   get nameOfUniversity(): AbstractControl | null {
     return this.form.get('nameOfUniversity');

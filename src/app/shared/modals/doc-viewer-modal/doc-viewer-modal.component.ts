@@ -13,12 +13,15 @@ export class DocViewerModalComponent implements OnInit {
   @Input() showActions = false;
   @Input() isRejecting = false;
   @Input() isApproving = false;
+  @Input() showSignature = false;
   @Input() document: ITeacherDocument;
 
   @Output() rejectDoc: EventEmitter<void> = new EventEmitter<void>();
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
   @Output() approveDoc: EventEmitter<void> = new EventEmitter<void>();
+  @Output() addSignature: EventEmitter<void> = new EventEmitter<void>();
 
+  checked = true;
   constructor() {}
 
   getViewer(filename: string): ViewerType {

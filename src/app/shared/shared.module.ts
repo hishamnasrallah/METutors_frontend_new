@@ -73,6 +73,7 @@ import {
 } from '@metutor/shared/directives';
 
 import { MoneyPipe, DaysPipe } from './pipes';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -147,6 +148,7 @@ import { MoneyPipe, DaysPipe } from './pipes';
     RatingModule.forRoot(),
     NgxMatSelectSearchModule,
     BsDropdownModule.forRoot(),
+    MatCheckboxModule,
   ],
   exports: [
     // Pipes
