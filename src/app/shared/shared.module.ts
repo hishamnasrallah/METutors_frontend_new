@@ -11,10 +11,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatChipsModule } from '@angular/material/chips';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { SignaturePadModule } from 'angular2-signaturepad';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
@@ -31,7 +33,9 @@ import {
   DialogCourseDetailsPopup,
   CourseDetailsPopupComponent,
   DialogClassroomDetailsPopup,
+  SignatureCanvasModalComponent,
   ClassroomDetailsPopupComponent,
+  SignatureCanvasTemplateComponent,
   TeacherAvailabilityModalComponent,
 } from '@metutor/shared/modals';
 
@@ -111,7 +115,9 @@ import { MoneyPipe, DaysPipe } from './pipes';
     DialogCourseDetailsPopup,
     CourseDetailsPopupComponent,
     DialogClassroomDetailsPopup,
+    SignatureCanvasModalComponent,
     ClassroomDetailsPopupComponent,
+    SignatureCanvasTemplateComponent,
     TeacherAvailabilityModalComponent,
 
     // Directives
@@ -140,7 +146,9 @@ import { MoneyPipe, DaysPipe } from './pipes';
     MatTooltipModule,
     VgControlsModule,
     VgBufferingModule,
+    MatCheckboxModule,
     NgxDocViewerModule,
+    SignaturePadModule,
     VgOverlayPlayModule,
     ReactiveFormsModule,
     MatProgressBarModule,

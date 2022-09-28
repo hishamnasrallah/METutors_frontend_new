@@ -259,14 +259,16 @@
         <table class="table my-table default-title mb-0 list-files">
           <tr>
             <th scope="col">Title</th>
-            <th scope="col" class="w-15 text-center">Action</th>
+            <th scope="col" class="w-16 text-center">Action</th>
           </tr>
 
           <tr>
             <td>Code of Conduct Document.docx</td>
-            <td>
-              <button class="main-button-transparent view-sign-btn me-2" mat-button type="button">View & Sign</button>
-              <button mat-flat-button color="primary" class="download-btn" type="button">Download</button>
+            <td class="text-center">
+              <button class="main-button-transparent view-sign-btn me-2" mat-button type="button" (click)="onOpenViewDocumentModal({url: 'https://testing.zaptatech.com/public/uploads/2022092722145358.pdf'})">View & Sign</button>
+              <a [href]="'https://testing.zaptatech.com/public/uploads/2022092722145358.pdf'" target="_blank" class="text-white">
+                <button mat-flat-button color="primary" class="download-btn" type="button">Download</button>
+              </a>
             </td>
           </tr>
 
@@ -334,3 +336,9 @@
     </div>
   </div>
 </form>
+
+<metutors-doc-viewer-modal *ngIf="showViewDocumentModal$ | async" [document]="document"
+                           (addSignature)="onUploadSignature($event)" [signatureInfo]="signatureUploadInfo"
+                           (closeModal)="onCloseViewDocumentModal()" [showSignature]="true"
+                           [showModal]="(showViewDocumentModal$ | async)!">
+</metutors-doc-viewer-modal>

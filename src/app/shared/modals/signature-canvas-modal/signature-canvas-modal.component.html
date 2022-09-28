@@ -1,0 +1,25 @@
+<div class="dialog position-relative">
+  <div class="d-flex align-items-center" mat-dialog-title>
+    <h2 class="flex-grow-1 m-0 d-flex flex-column">
+      <div class="d-flex align-items-center">
+        Draw Signature
+      </div>
+      <span class="d-block mt-2">Draw your signature in the middle of canvas</span>
+    </h2>
+
+    <button class="text-secondary" mat-dialog-close="true" mat-icon-button type="button">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <mat-dialog-content class="pt-2">
+    <signature-pad [options]="signaturePadOptions"></signature-pad>
+
+    <div class="text-center">
+      <button mat-flat-button color="primary" class="fw-bold px-5 my-3" (click)="onInsertSignature()"
+              [disabled]="signaturePad?.isEmpty()">
+        Insert Signature
+      </button>
+    </div>
+  </mat-dialog-content>
+</div>
