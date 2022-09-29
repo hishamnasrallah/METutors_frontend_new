@@ -13,9 +13,9 @@
   </div>
 
   <mat-dialog-content class="pt-2">
-    <signature-pad [options]="signaturePadOptions"></signature-pad>
+    <div class="text-center mt-3">
+      <signature-pad [options]="signaturePadOptions"></signature-pad>
 
-    <div class="text-center">
       <button mat-flat-button color="primary" class="fw-bold px-5 my-3" (click)="onInsertSignature()"
               [disabled]="signaturePad?.isEmpty()">
         Insert Signature

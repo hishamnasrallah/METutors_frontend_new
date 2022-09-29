@@ -14,9 +14,10 @@ import {
 
 import { UploadService } from '@services';
 import * as fromCore from '@metutor/core/state';
+import { ILanguage, ITutor } from 'src/app/core/models';
+import { environment } from 'src/environments/environment';
 import * as fromProfile from '@metutor/modules/profile/state';
 import { AlertNotificationService } from '@metutor/core/components';
-import { ILanguage, ITeacherDocument, ITutor } from 'src/app/core/models';
 import * as fromProfileActions from '@metutor/modules/profile/state/actions';
 
 import {
@@ -75,6 +76,17 @@ export class CompleteTutorProfileQualificationDetailsComponent
         });
       }
 
+      if (_tutor.userSignature && _tutor.userSignature.length) {
+        const signature = _tutor.userSignature.find(
+          (signature) => signature.document === 'onboarding'
+        );
+
+        this.signatureUploadInfo = {
+          ...this.signatureUploadInfo,
+          ...signature,
+        };
+      }
+
       if (_tutor.languages && _tutor.languages.length) {
         this.languages.clear();
         _tutor.languages.forEach((language, index) => {
@@ -103,12 +115,14 @@ export class CompleteTutorProfileQualificationDetailsComponent
   filterDegree: string;
   uploadingVideo: boolean;
   skills = COMPUTER_SKILLS;
-  document: ITeacherDocument;
   degreeLevels = DEGREE_LEVELS;
+  addingSignature$: Observable<any>;
   experiences = TEACHING_EXPERIENCE;
   fileUploadProgress$: Observable<any>;
   showViewDocumentModal$: Observable<any>;
   uploadComplete = generalConstants.uploadComplete;
+
+  document = { url: `${environment.uploadsPath}onboarding/onboarding.pdf` };
 
   //Signature
   uploadSignatureStream$: Subscription;
@@ -166,6 +180,8 @@ export class CompleteTutorProfileQualificationDetailsComponent
       fromProfile.selectShowViewDocumentModal
     );
 
+    this.addingSignature$ = this._store.select(fromCore.selectTutorLoading);
+
     this.fileUploadProgress$ = this._store
       .select(fromCore.selectFileUploadingProgress)
       .pipe(
@@ -183,8 +199,7 @@ export class CompleteTutorProfileQualificationDetailsComponent
       );
   }
 
-  onOpenViewDocumentModal(document: any): void {
-    this.document = document;
+  onOpenViewDocumentModal(): void {
     this._store.dispatch(fromProfileActions.openViewDocumentModal());
   }
 
@@ -550,6 +565,15 @@ export class CompleteTutorProfileQualificationDetailsComponent
 
   onDeleteCertificate(index: number): void {
     this.certificates.removeAt(index);
+  }
+
+  onAddSignature(url: string): void {
+    const payload = {
+      url,
+      document: 'onboarding',
+    };
+
+    this._store.dispatch(fromCore.tutorAddSignature({ payload }));
   }
 
   submitFormData() {

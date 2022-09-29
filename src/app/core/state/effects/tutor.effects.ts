@@ -13,6 +13,7 @@ import * as tutorActions from '../actions/tutor.actions';
 import { selectTutorDashboard, selectFeaturedTutors } from '..';
 import { AlertNotificationService } from '@metutor/core/components';
 import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
+import { tutorAddSignature } from '../actions/tutor.actions';
 
 @Injectable()
 export class TutorEffects {
@@ -615,6 +616,28 @@ export class TutorEffects {
     )
   );
 
+  tutorAddSignature$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorActions.tutorAddSignature),
+      mergeMap(({ payload }) =>
+        this._tutorService.tutorAddSignature(payload).pipe(
+          map((attendance) =>
+            tutorActions.tutorAddSignatureSuccess({
+              message: 'Signature successfully added',
+            })
+          ),
+          catchError((error) =>
+            of(
+              tutorActions.tutorAddSignatureFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   tutorSubmitFeedbackSuccess$ = createEffect(() =>
     this._actions$.pipe(
       ofType(tutorActions.tutorSubmitFeedbackSuccess),
@@ -634,6 +657,7 @@ export class TutorEffects {
         ofType(
           ...[
             tutorActions.submitInterviewSuccess,
+            tutorActions.tutorAddSignatureSuccess,
             tutorActions.changeTutorStatusSuccess,
             tutorActions.updateTutorProfileSuccess,
             tutorActions.tutorSubmitFeedbackSuccess,
@@ -657,6 +681,7 @@ export class TutorEffects {
           ...[
             tutorActions.submitInterviewFailure,
             tutorActions.tutorLaunchClassFailure,
+            tutorActions.tutorAddSignatureFailure,
             tutorActions.changeTutorStatusFailure,
             tutorActions.updateTutorProfileFailure,
             tutorActions.tutorSubmitFeedbackFailure,

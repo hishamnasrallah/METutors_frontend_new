@@ -35,7 +35,7 @@
         </p>
 
         <button mat-flat-button color="primary" class="fw-bold px-5" (click)="submit.emit(addedSignature?.url)"
-                [disabled]="!checked || !addedSignature?.url">
+                [disabled]="!checked || !addedSignature?.url || addingSignature">
           Submit
         </button>
       </div>

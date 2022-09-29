@@ -66,6 +66,7 @@ export interface IDocument {
   url: string;
   size: string;
   status: string;
+  document: string;
   originalName: string;
 }
 

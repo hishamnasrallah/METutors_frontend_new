@@ -67,6 +67,7 @@ export class ITutor {
   completedStep: number;
   userResume: IDocument[];
   userDegrees: IDocument[];
+  userSignature: IDocument[];
   userCertificates: IDocument[];
 
   constructor(createDefault = false, tutor: any = null) {
@@ -123,6 +124,7 @@ export class ITutor {
       this.completedStep = 0;
       this.userResume = [];
       this.userDegrees = [];
+      this.userSignature = [];
       this.userCertificates = [];
     }
 
@@ -195,7 +197,9 @@ export class ITutor {
         tutor?.teacher_feedbacks_count || tutor?.reviews_count;
       this.averageRating = tutor?.average_rating;
       this.studentsTeaching =
-        tutor?.teacher_students_count || tutor?.classes_taught || tutor?.students_taught;
+        tutor?.teacher_students_count ||
+        tutor?.classes_taught ||
+        tutor?.students_taught;
       this.coursesCreated = tutor?.teacher_course_count;
       this.expertRating = tutor?.expert_rating;
       this.complexityRating = tutor?.complexity_rating;
@@ -221,6 +225,9 @@ export class ITutor {
         deep: true,
       });
       this.userCertificates = camelcaseKeys(tutor?.user_certificates, {
+        deep: true,
+      });
+      this.userSignature = camelcaseKeys(tutor?.user_signature, {
         deep: true,
       });
     }

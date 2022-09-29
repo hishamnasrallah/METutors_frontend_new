@@ -1,6 +1,11 @@
 :host ::ng-deep .dialog {
   margin: 0 0 10px;
 
+  canvas {
+    border-radius: 10px;
+    border: 1px solid #EDEDED;
+  }
+
   .mat-dialog-title {
     margin-bottom: 0;
 

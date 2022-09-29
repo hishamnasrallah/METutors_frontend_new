@@ -1,4 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
+
+import * as fromCore from '@metutor/core/state';
 import * as profileModalActions from '../actions/profile-modal.actions';
 
 export interface State {
@@ -29,10 +31,14 @@ export const reducer = createReducer(
     showViewDocumentModal: true,
   })),
 
-  on(profileModalActions.closeViewDocumentModal, (state) => ({
-    ...state,
-    showViewDocumentModal: false,
-  }))
+  on(
+    fromCore.tutorAddSignatureSuccess,
+    profileModalActions.closeViewDocumentModal,
+    (state) => ({
+      ...state,
+      showViewDocumentModal: false,
+    })
+  )
 );
 
 // Profile modal selectors

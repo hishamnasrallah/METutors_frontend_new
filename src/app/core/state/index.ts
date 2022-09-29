@@ -401,6 +401,11 @@ export const selectIsLoadingTutorKudosPoints = createSelector(
   fromTutorReducer.selectIsLoadingTutorKudosPoints
 );
 
+export const selectTutorLoading = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectTutorLoading
+);
+
 // Tutor syllabus
 export const selectTutorSyllabus = createSelector(
   selectTutorSyllabusState,
