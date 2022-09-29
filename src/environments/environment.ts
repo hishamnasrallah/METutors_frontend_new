@@ -10,4 +10,5 @@ export const environment = {
   videoURL: 'https://testing.zaptatech.com/public/uploads/teacher_videos/',
   teacherDocs:
     'https://testing.zaptatech.com/public/uploads/teacher_documents/',
+  uploadsPath: 'https://testing.zaptatech.com/public/uploads/',
 };

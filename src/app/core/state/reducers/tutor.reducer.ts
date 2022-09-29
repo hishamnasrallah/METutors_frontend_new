@@ -60,11 +60,15 @@ export interface State {
   isLoadingFeaturedTutors: boolean;
   subjectFeaturedTutors: ITutor[] | null;
   isLoadingSubjectFeaturedTutors: boolean;
+
+  // loading
+  loading: boolean;
 }
 
 export const initialState: State = {
   tutor: null,
   tutors: null,
+  loading: false,
   dashboard: null,
   attendance: null,
   kudosPoints: null,
@@ -582,6 +586,21 @@ export const reducer = createReducer(
   on(tutorActions.loadTutorKudosPointsFailure, (state) => ({
     ...state,
     isLoadingKudosPoints: false,
+  })),
+
+  on(tutorActions.tutorAddSignature, (state) => ({
+    ...state,
+    loading: true,
+  })),
+
+  on(tutorActions.tutorAddSignatureSuccess, (state) => ({
+    ...state,
+    loading: false,
+  })),
+
+  on(tutorActions.tutorAddSignatureFailure, (state) => ({
+    ...state,
+    loading: false,
   }))
 );
 
@@ -589,6 +608,8 @@ export const selectTutor = (state: State): ITutor | null => state.tutor;
 
 export const selectProfileTutor = (state: State): ITutor | null =>
   state.profileTutor;
+
+export const selectTutorLoading = (state: State): boolean => state.loading;
 
 export const selectTutorDashboard = (state: State): boolean => state.dashboard;
 

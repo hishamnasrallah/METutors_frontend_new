@@ -6,10 +6,12 @@
       <ng-container *ngFor="let _ of programs.controls; let i = index" [formGroupName]="i">
         <div class="col-md-6">
           <div class="form-group">
-            <label class="form-label d-flex justify-content-between">
-              Program Name
-
-              <span class="d-flex">
+            <div class="d-flex justify-content-between">
+            <label class="form-label">
+              Program Name <span>(you can select multiple)</span>
+            </label>
+            <span class="actions">
+               <span class="d-flex">
                 <a class="delete float-end cursor-pointer" *ngIf="programs.controls.length > 1"
                    (click)="removeProgram(i)">
                     <mat-icon>delete</mat-icon>
@@ -20,7 +22,8 @@
                     Add new
                 </a>
               </span>
-            </label>
+            </span>
+            </div>
 
             <mat-form-field appearance="outline" class="w-100">
               <mat-select formControlName="programId" [placeholder]="'Select Program'"
@@ -128,7 +131,7 @@
               <ng-container *ngFor="let item of form.value.programs[i].sortedSubjects; let indexSubjects = index">
                 <tr>
                   <th class="heading" [attr.colspan]="form.value.programs[i]?.programId?.id === nationalId ? '2' : '1'">
-                    <label>Program: </label> <span>
+                    <label>Program Name: </label> <span>
                       {{ form.value.programs[i]?.programId?.name }}<ng-container
                         *ngIf="form.value.programs[i]?.programId?.id === nationalId">, {{ item?.countryName }}
                         <span *ngIf="item?.countryFlag" [innerHTML]="item?.countryFlag" class="ms-2"></span>

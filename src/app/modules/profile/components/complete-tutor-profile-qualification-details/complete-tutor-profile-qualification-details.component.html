@@ -265,8 +265,8 @@
           <tr>
             <td>Code of Conduct Document.docx</td>
             <td class="text-center">
-              <button class="main-button-transparent view-sign-btn me-2" mat-button type="button" (click)="onOpenViewDocumentModal({url: 'https://testing.zaptatech.com/public/uploads/2022092722145358.pdf'})">View & Sign</button>
-              <a [href]="'https://testing.zaptatech.com/public/uploads/2022092722145358.pdf'" target="_blank" class="text-white">
+              <button class="main-button-transparent view-sign-btn me-2" mat-button type="button" (click)="onOpenViewDocumentModal()">View & Sign</button>
+              <a [href]="document.url" target="_blank" class="text-white">
                 <button mat-flat-button color="primary" class="download-btn" type="button">Download</button>
               </a>
             </td>
@@ -338,7 +338,9 @@
 </form>
 
 <metutors-doc-viewer-modal *ngIf="showViewDocumentModal$ | async" [document]="document"
+                           [heading]="'Onboarding Document'" (submit)="onAddSignature($event)"
                            (addSignature)="onUploadSignature($event)" [signatureInfo]="signatureUploadInfo"
                            (closeModal)="onCloseViewDocumentModal()" [showSignature]="true"
+                           [addingSignature]="(addingSignature$ | async)!"
                            [showModal]="(showViewDocumentModal$ | async)!">
 </metutors-doc-viewer-modal>

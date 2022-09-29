@@ -407,3 +407,18 @@ export const loadTutorKudosPointsFailure = createAction(
   '[Tutor] Load Tutor Kudos Points Failure',
   props<{ error: any }>()
 );
+
+export const tutorAddSignature = createAction(
+  '[Tutor] Tutor Add Signature',
+  props<{ payload: { url: string; document: string } }>()
+);
+
+export const tutorAddSignatureSuccess = createAction(
+  '[Tutor] Tutor Add Signature Success',
+  props<{ message: string }>()
+);
+
+export const tutorAddSignatureFailure = createAction(
+  '[Tutor] Tutor Add Signature Failure',
+  props<{ error: any }>()
+);

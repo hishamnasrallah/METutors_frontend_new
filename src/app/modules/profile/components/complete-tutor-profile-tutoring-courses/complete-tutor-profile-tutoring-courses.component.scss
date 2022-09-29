@@ -8,14 +8,18 @@
   font-size: 15px;
   font-weight: bold;
 
+  span {
+    font-weight: normal;
+    color: #00000099;
+  }
+
+}
+
+.actions {
   &.delete {
     a {
       height: 20px;
     }
-  }
-
-  span {
-    font-weight: normal;
   }
 
   mat-icon {

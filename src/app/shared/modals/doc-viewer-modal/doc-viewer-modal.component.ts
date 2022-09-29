@@ -10,12 +10,14 @@ import { ITeacherDocument } from '@models';
   styleUrls: ['./doc-viewer-modal.component.scss'],
 })
 export class DocViewerModalComponent implements OnInit {
+  @Input() heading = '';
   @Input() showModal = false;
   @Input() showActions = false;
   @Input() isRejecting = false;
   @Input() isApproving = false;
   @Input() showSignature = false;
-  @Input() document: ITeacherDocument;
+  @Input() addingSignature = false;
+  @Input() document: ITeacherDocument | any;
 
   @Input() set signatureInfo(signature: any) {
     this.addedSignature = signature;
