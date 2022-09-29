@@ -427,8 +427,6 @@ export class StudentAddCourseModalComponent implements OnInit {
 
   printToCart(invoiceDetails: IInvoiceDetails): void {
     console.log(this.course);
-    console.log(invoiceDetails);
-    console.log(this.form.value);
     const values = this.form.value;
     const popupWinindow = window.open(
       '',
@@ -447,11 +445,11 @@ export class StudentAddCourseModalComponent implements OnInit {
           <style>
           *{font-family: "Proxima Nova", sans-serif;} body{padding:20px}
           .invoice-header {margin-bottom: 35px;} .invoice-header span { margin-right: 5px; } .invoice-header .invoice-email, .invoice-header .print, ul li.coupon, .pay-now { display:none !important } ul li { margin-bottom: 15px; } ul li span { color: #696969; font-size: 16px; } ul li strong { color: #000; font-size: 16px; } ul li.promocode span, ul li.promocode strong { color: #ff554b; } ul li.total-payment { padding: 15px 0; border-top: 1px solid #e2e2e2; } ul li.coupon span, ul li.total-payment span, ul li.coupon strong, ul li.total-payment strong { font-size: 18px; } .have-coupon input { border-radius: 4px 0 0 4px; } .have-coupon button { border-radius: 0 4px 4px 0; background-color: #2a2a2a; color: #fff; }
-          .class-details h2 { color: #2a2a2a; font-size: 20px; height: 50px; } .class-details .card { border-radius: 12px; border: solid 1px #e2e2e2; background-color: #fff; box-shadow: none; margin-bottom: 20px; } .class-details .card h3 { color: #696969; font-size: 16px; } .class-details .card h4 { white-space: nowrap; width: 100%; overflow: hidden; text-overflow: ellipsis; color: #2a2a2a; font-size: 16px; font-weight: bold; } .class-details .card h5 { color: #2a2a2a; font-size: 13px; margin: 10px 0 0; } .class-details .card .count { color: #ff8300; font-weight: bold; margin-right: 5px; } .class-details .card .review { color: #7d7d7d; font-size: 14px; } .class-details .card ul li { margin: 5px 0; } .class-details .card ul li span { margin-left: 15px; color: #2a2a2a; font-size: 15px; } .class-details .card .informations span { color: #696969 !important; } .class-details .card .informations strong { color: #2a2a2a; font-size: 14px; } .class-details .card .b-border { padding-bottom: 1rem; border-bottom: 1px solid #e2e2e2; } .class-details .card .info img { width: 40px; height: 40px; border-radius: 50%; } .class-details .card .info h2 { color: #2a2a2a; font-size: 14px; height: auto; font-weight: bold; } .class-details .card .info h3 { color: #696969; font-size: 12px; margin: 0; } .class-details .card .info h6 { color: #696969; font-size: 16px; margin-bottom: 15px; }
+          .class-details h2 { color: #2a2a2a; font-size: 20px; height: 50px; } .class-details .card { border-radius: 12px; border: solid 1px #e2e2e2; background-color: #fff; box-shadow: none; margin-bottom: 20px; } .class-details .card h3 { color: #696969; font-size: 16px; } .class-details .card h4 { white-space: nowrap; width: 100%; overflow: hidden; text-overflow: ellipsis; color: #2a2a2a; font-size: 16px; font-weight: bold; } .class-details .card h5 { color: #2a2a2a; font-size: 13px; margin: 10px 0 0; } .class-details .card .count { color: #ff8300; font-weight: bold; margin-right: 5px; } .class-details .card .review { color: #7d7d7d; font-size: 14px; } .class-details .card ul li { margin: 5px 0; } .class-details .card ul li span { margin-left: 10px; color: #2a2a2a; font-size: 15px; } .class-details .card .informations span { color: #696969 !important; } .class-details .card .informations strong { color: #2a2a2a; font-size: 14px; } .class-details .card .b-border { padding-bottom: 1rem; border-bottom: 1px solid #e2e2e2; } .class-details .card .info img { width: 40px; height: 40px; border-radius: 50%; } .class-details .card .info h2 { color: #2a2a2a; font-size: 14px; height: auto; font-weight: bold; } .class-details .card .info h3 { color: #696969; font-size: 12px; margin: 0; } .class-details .card .info h6 { color: #696969; font-size: 16px; margin-bottom: 15px; }
           </style>
         </head>
         <body onload="window.print()">
-          <div class="container invoice-details mt-15-sm">
+          <div class="container invoice-details mt-15-sm p-0">
             <div class="row flex-column-reverse-sm">
               <div class="col-md-8">
                 <h2 class="f-size-30-md-sm h-auto-sm">Invoice details</h2>
@@ -538,7 +536,9 @@ export class StudentAddCourseModalComponent implements OnInit {
                         </li>
                         <li class="col-12">
                           <span class="m-0 d-block">Course Field</span>
-                          <strong class="d-block">{{ classroom?.fieldName }}</strong>
+                          <strong class="d-block">${
+                            this.course?.field?.name
+                          }</strong>
                         </li>
                         <li class="col-12">
                           <span class="m-0 d-block">Tutoring Language</span>
@@ -548,7 +548,7 @@ export class StudentAddCourseModalComponent implements OnInit {
                         </li>
                         <li class="col-12">
                           <span class="m-0 d-block">Tutoring Type</span>
-                          <strong class="d-block">{{ classroom?.tutoringType }}</strong>
+                          <strong class="d-block">${this.course?.classroomType}</strong>
                         </li>
                       </ul>
                 
@@ -674,12 +674,12 @@ export class StudentAddCourseModalComponent implements OnInit {
                 
                       <div class="row info">
                         <h6 class="details col-12">Classroom tutor</h6>
-                        <div class="col-2">
+                        <div class="col-lg-2 col-3">
                           <img src="${
                             this.course?.teacher?.avatar
                           }" alt="" draggable="false">
                         </div>
-                        <div class="col-10 d-flex justify-content-center flex-column">
+                        <div class="col-lg-10 col-9 d-flex justify-content-center flex-column">
                           <h2><bdi>${this.course?.teacher?.firstName} ${
         this.course?.teacher?.lastName
       }</bdi></h2>

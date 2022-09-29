@@ -65,6 +65,7 @@ export class ITutor {
   classes: any;
   preferences: any;
   completedStep: number;
+  availabilityDays: any;
   userResume: IDocument[];
   userDegrees: IDocument[];
   userCertificates: IDocument[];
@@ -124,6 +125,7 @@ export class ITutor {
       this.userResume = [];
       this.userDegrees = [];
       this.userCertificates = [];
+      this.availabilityDays = [];
     }
 
     if (tutor) {
@@ -210,6 +212,7 @@ export class ITutor {
       this.bookings = tutor?.bookings;
       this.amount = tutor?.amount;
       this.programs = tutor?.programs || [];
+      this.availabilityDays = tutor?.availability_days || [];
       this.classes = camelcaseKeys(tutor?.scheduled_classes, {
         deep: true,
       });

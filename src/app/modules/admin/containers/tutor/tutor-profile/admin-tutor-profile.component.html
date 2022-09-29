@@ -180,9 +180,9 @@
                   <td>Type of Tutoring</td>
                   <td>{{ tutor?.specifications?.typeOfTutoring }}</td>
                 </tr>
-                <tr *ngIf="tutor?.specifications?.teachingDays">
+                <tr *ngIf="tutor?.availabilityDays && tutor?.availabilityDays?.length">
                   <td>Days</td>
-                  <td>{{ tutor?.specifications?.teachingDays }}</td>
+                  <td>{{ tutor?.availabilityDays | metutorsDays: 'long': ' - ' }}</td>
                 </tr>
               </table>
               <button mat-button class="edit-btn" (click)="onTutorAvailability(tutor?.id)">Day Availability</button>
