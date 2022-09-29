@@ -67,7 +67,7 @@
             </div>
 
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="fields" [placeholder]="'Select Field'" multiple *ngIf="!checkIfNoFieldsExists(i)">
+              <mat-select formControlName="fields" [placeholder]="'Select Field of Study'" multiple *ngIf="!checkIfNoFieldsExists(i)">
                 <ng-container *ngFor="let field of fields">
                   <mat-option [value]="field?.id" *ngIf="
                     (
@@ -88,7 +88,7 @@
                 </ng-container>
               </mat-select>
 
-              <mat-select [placeholder]="'Select Field'" *ngIf="checkIfNoFieldsExists(i)">
+              <mat-select [placeholder]="'Select Field of Study'" *ngIf="checkIfNoFieldsExists(i)">
                 <mat-option value="" disabled>No data found</mat-option>
               </mat-select>
             </mat-form-field>
@@ -165,7 +165,7 @@
 
       <metutors-submit-button [form]="form" [isDisabled]="!pricesLength || !subjectLength || pricesLength < subjectLength"
                               [isSubmitting]="loading" [extraClasses]="'w-100 fw-bold px-5'">
-        Save & Continue
+        Finish
       </metutors-submit-button>
     </div>
   </div>

@@ -9,7 +9,7 @@
           <input type="text" class="custom-input w-100 input-bordered" id="nameOfUniversity" placeholder="Enter University Name"
                  formControlName="nameOfUniversity" meTutorsLettersOnly>
           <div class="text-danger" *ngIf="nameOfUniversity?.touched && nameOfUniversity?.invalid">
-            Please write your University name
+            Please enter a valid university name
           </div>
         </div>
       </div>
@@ -66,7 +66,7 @@
         <div class="form-group">
           <label for="degreeField" class="form-label">Degree Field</label>
           <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="degreeField" [placeholder]="'Computer Science'" id="degreeField">
+            <mat-select formControlName="degreeField" [placeholder]="'Select Degree Field'" id="degreeField">
               <mat-option>
                 <ngx-mat-select-search [(ngModel)]="filterDegree" [ngModelOptions]="{standalone: true}"
                                        placeholderLabel="Search..."
