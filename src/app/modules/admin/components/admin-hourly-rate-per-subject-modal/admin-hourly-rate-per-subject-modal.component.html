@@ -6,8 +6,8 @@
         <table class="table my-table default-title" *ngFor="let item of sortedSubjects; let indexSubjects = index">
           <tr>
             <th class="heading" [attr.colspan]="item?.programId === nationalId ? '2' : '1'">
-              Program <span>
-                {{ item?.programName }}<ng-container *ngIf="item?.programId === nationalId">
+              Program Name <span>
+                {{ item?.programName }}<ng-container *ngIf="item?.programId === nationalId">,
                   {{ item?.countryName }} <span *ngIf="item?.countryFlag" [innerHTML]="item?.countryFlag" class="ms-2"></span>
                 </ng-container>
               </span>
