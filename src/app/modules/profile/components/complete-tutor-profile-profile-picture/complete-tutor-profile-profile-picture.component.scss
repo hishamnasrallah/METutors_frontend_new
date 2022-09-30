@@ -4,7 +4,8 @@
 }
 
 .preview-box {
-  height: 140px;
+  width: 170px;
+  height: 170px;
   background: #FAFAFA;
   border: 1px solid rgba(0, 0, 0, 0.6);
   color: rgba(0, 0, 0, 0.6);
@@ -28,4 +29,12 @@
   position: absolute;
   right: 10px;
   top: 10px;
+}
+
+.delete-cover {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  background-color: rgba(255, 56, 92, 0.15);
+  color: #FF385C;
 }

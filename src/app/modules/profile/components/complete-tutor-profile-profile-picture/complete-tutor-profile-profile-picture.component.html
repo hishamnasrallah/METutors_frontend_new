@@ -6,14 +6,14 @@
       <div class="col-lg-4"></div>
       <div class="col-lg-4">
         <div class="row">
-          <div class="col-lg-6">
+          <div class="col-lg-6 text-center">
             <img [src]="avatar?.value" class="preview-box" *ngIf="avatar?.value" width="100%" alt="" />
             <div class="preview-box d-flex align-items-center justify-content-center" *ngIf="!avatar?.value">Preview
             </div>
           </div>
 
           <div class="col-lg-5">
-            <div class="guide1 f-size-15-md-sm">Image should be at least 300 x 300 px</div>
+            <div class="guide1 f-size-15-md-sm mt-3">Image should be at least 300 x 300 px</div>
             <div class="guide2 f-size-15-md-sm">Size 2MB max</div>
             <input type="file" #filePicker1 (change)="onChangeAvatar($event)" hidden accept="image/*" />
             <div class="form-group mt-4 mb-2 mt-15-sm">
@@ -50,9 +50,11 @@
           <div class="col-md-12">
             <input type="file" #filePicker2 (change)="onChangeCover($event)" hidden accept="image/*" />
 
-            <div class="position-relative">
-              <img [src]="cover?.value" class="cover-preview" width="100%" *ngIf="cover?.value" alt="" />
-              <button mat-flat-button color="primary" class="px-4 edit-cover" type="button" *ngIf="cover?.value"
+            <div class="position-relative" *ngIf="cover?.value">
+              <button mat-button class="delete-cover" type="button" [disabled]="uploadingFile"
+                (click)="deleteCover()">Remove</button>
+              <img [src]="cover?.value" class="cover-preview" width="100%" alt="" />
+              <button mat-flat-button color="primary" class="px-4 edit-cover" type="button"
                 (click)="filePicker2.click()" [disabled]="uploadingFile"> Change
               </button>
             </div>

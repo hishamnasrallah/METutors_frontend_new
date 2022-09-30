@@ -162,8 +162,10 @@
 
           <tr>
             <td>{{ resume?.value[0]?.originalName }}</td>
-            <td class="text-center"><img src="assets/svg/delete.svg" alt="" draggable="false" class="cursor-pointer"
-                     (click)="onDeleteResume()"/></td>
+            <td class="text-center">
+              <img src="assets/svg/delete.svg" alt="" draggable="false" class="cursor-pointer"
+                     (click)="onDeleteResume()"/>
+            </td>
           </tr>
 
         </table>
@@ -202,8 +204,10 @@
 
           <tr *ngFor="let degree of degrees.controls; let i = index">
             <td>{{degree.value.originalName}}</td>
-            <td class="text-center"><img src="assets/svg/delete.svg" alt="" draggable="false" class="cursor-pointer"
-                     (click)="onDeleteDegree(i)"/></td>
+            <td class="text-center">
+              <img src="assets/svg/delete.svg" alt="" draggable="false" class="cursor-pointer"
+                     (click)="onDeleteDegree(i)"/>
+            </td>
           </tr>
 
         </table>
@@ -243,8 +247,10 @@
 
           <tr *ngFor="let certificate of certificates.controls; let i = index">
             <td>{{ certificate?.value?.originalName }}</td>
-            <td class="text-center"><img src="assets/svg/delete.svg" alt="" draggable="false" class="cursor-pointer"
-                     (click)="onDeleteCertificate(i)"/></td>
+            <td class="text-center">
+              <img src="assets/svg/delete.svg" alt="" draggable="false" class="cursor-pointer"
+                     (click)="onDeleteCertificate(i)"/>
+            </td>
           </tr>
 
         </table>
