@@ -87,6 +87,9 @@
           <label for="currentEmployer" class="form-label">Current Employer <span>(Optional)</span></label>
           <input type="text" class="custom-input w-100 input-bordered" id="currentEmployer" placeholder="Enter Here"
                  formControlName="currentEmployer">
+          <div class="text-danger" *ngIf="currentEmployer?.touched && currentEmployer?.invalid">
+            Please write a valid employer name with a max of 80 characters
+          </div>
         </div>
       </div>
     </div>
@@ -111,6 +114,9 @@
           <label for="currentTitle" class="form-label">Current Title <span>(Optional)</span></label>
           <input type="text" class="custom-input w-100 input-bordered" id="currentTitle" placeholder="Enter Here"
                  formControlName="currentTitle" meTutorsLettersOnly>
+          <div class="text-danger" *ngIf="currentTitle?.touched && currentTitle?.invalid">
+            Please write a valid job title with a max of 80 characters
+          </div>
         </div>
       </div>
     </div>
@@ -175,7 +181,7 @@
     <div class="row mb-4">
       <div class="col-md-12">
         <div class="d-flex justify-content-between">
-          <label for="currentTitle" class="form-label">Degree Certificate <span class="size">(Max 5 MB)</span></label>
+          <label for="currentTitle" class="form-label">Degree Certificates <span class="size">(Max 5 MB)</span></label>
           <span class="text-decoration-underline" (click)="degree.click()"
                 [ngClass]="{'text-main cursor-pointer' : !degrees?.value?.length || degrees?.value?.length < 10, 'text-secondary pointer-events-none' : degrees?.value?.length >= 10}">Upload Document</span>
 
@@ -265,7 +271,7 @@
         <table class="table my-table default-title mb-0 list-files">
           <tr>
             <th scope="col">Title</th>
-            <th scope="col" class="w-16 text-center">Action</th>
+            <th scope="col" class="w-24 text-center">Action</th>
           </tr>
 
           <tr>

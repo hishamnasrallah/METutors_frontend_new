@@ -5,6 +5,7 @@
   span {
     font-size: 11px;
     margin-left: 5px;
+    color: #00000099;
   }
 
   mat-icon {
@@ -17,5 +18,9 @@
   .mat-chip-list-wrapper {
     display: block;
     margin: 0;
+  }
+
+  .mat-chip.mat-standard-chip {
+    border: 1px solid #000000;
   }
 }
