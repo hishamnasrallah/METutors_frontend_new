@@ -1,6 +1,6 @@
 <div class="progress-wrapper">
   <div class="info d-flex justify-content-between">
-    <span class="name">{{ fileName }}</span>
+    <span class="name break-all">{{ fileName }}</span>
     <span class="cancel d-flex text-danger cursor-pointer d-block" (click)="onCancelUpload.emit()" *ngIf="cancelUpload" [tooltip]="'Cancel uploading'">
       <mat-icon class="icon text-danger" title="Cancel uploading">close</mat-icon>
     </span>

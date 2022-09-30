@@ -121,6 +121,7 @@ export class CompleteTutorProfileQualificationDetailsComponent
   fileUploadProgress$: Observable<any>;
   showViewDocumentModal$: Observable<any>;
   uploadComplete = generalConstants.uploadComplete;
+  allowedFiles = ['doc', 'docx', 'xlsx', 'xls', 'pdf'];
 
   document = { url: `${environment.uploadsPath}onboarding/onboarding.pdf` };
 
@@ -363,6 +364,16 @@ export class CompleteTutorProfileQualificationDetailsComponent
     let files = [];
     if (event.target && event.target.files && event.target.files.length) {
       files = [...event.target.files];
+      const mimeType = files[0].type;
+      const ext = files[0].name.split('.').pop().toLowerCase();
+      console.log(ext);
+
+      if (this.fileFormatError(ext, mimeType)) {
+        this._alertNotificationService.error(
+          'Only excel, doc, pdf and image are allowed'
+        );
+        return;
+      }
 
       if (this.resume?.value?.length + files.length > 1) {
         this._alertNotificationService.error('You can only upload one resume');
@@ -450,8 +461,26 @@ export class CompleteTutorProfileQualificationDetailsComponent
 
   onUploadDegree(event: any): void {
     let files = [];
+    let fileFormatError = false;
     if (event.target && event.target.files && event.target.files.length) {
       files = [...event.target.files];
+
+      files.forEach((file) => {
+        const mimeType = file.type;
+        const ext = file.name.split('.').pop().toLowerCase();
+
+        if (this.fileFormatError(ext, mimeType)) {
+          fileFormatError = true;
+        }
+      });
+
+      if (fileFormatError) {
+        this._alertNotificationService.error(
+          'Only excel, doc, pdf and image are allowed'
+        );
+
+        return;
+      }
 
       if (this.degrees?.value?.length + files.length > 10) {
         this._alertNotificationService.error('Maximum allowed files are 10');
@@ -509,8 +538,26 @@ export class CompleteTutorProfileQualificationDetailsComponent
 
   onUploadCertificate(event: any): void {
     let files = [];
+    let fileFormatError = false;
     if (event.target && event.target.files && event.target.files.length) {
       files = [...event.target.files];
+
+      files.forEach((file) => {
+        const mimeType = file.type;
+        const ext = file.name.split('.').pop().toLowerCase();
+
+        if (this.fileFormatError(ext, mimeType)) {
+          fileFormatError = true;
+        }
+      });
+
+      if (fileFormatError) {
+        this._alertNotificationService.error(
+          'Only excel, doc, pdf and image are allowed'
+        );
+
+        return;
+      }
 
       if (this.certificates?.value?.length + files.length > 10) {
         this._alertNotificationService.error('Maximum allowed files are 10');
@@ -574,6 +621,12 @@ export class CompleteTutorProfileQualificationDetailsComponent
     };
 
     this._store.dispatch(fromCore.tutorAddSignature({ payload }));
+  }
+
+  fileFormatError(ext: string, mimeType: string): boolean {
+    return (
+      !this.allowedFiles.includes(ext) && mimeType.match(/image\/*/) === null
+    );
   }
 
   submitFormData() {

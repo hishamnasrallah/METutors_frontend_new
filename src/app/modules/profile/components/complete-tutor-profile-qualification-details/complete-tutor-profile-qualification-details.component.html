@@ -133,13 +133,13 @@
     <div class="row mb-4 mt-3">
       <div class="col-md-12">
         <div class="d-flex justify-content-between">
-          <label for="currentTitle" class="form-label">Curriculum Vitae / Resumé <span
+          <label for="currentTitle" class="form-label">Curriculum Vitae / Resume <span
             class="size">(Max 5 MB)</span></label>
           <span class="text-decoration-underline" (click)="resumePicker.click()"
                 [ngClass]="{'text-main cursor-pointer' : !resume?.value?.length, 'text-secondary pointer-events-none' : resume?.value?.length}">Upload Document</span>
 
           <input #resumePicker type="file" hidden class="form-control"
-                 accept="image/*,.pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                 accept=".xlsx,.xls,image/*,.doc,.docx,.pdf"
                  (change)="onUploadResume($event)">
         </div>
         <div>
@@ -161,7 +161,7 @@
           </tr>
 
           <tr>
-            <td>{{ resume?.value[0]?.originalName }}</td>
+            <td class="break-all">{{ resume?.value[0]?.originalName }}</td>
             <td class="text-center">
               <img src="assets/svg/delete.svg" alt="" draggable="false" class="cursor-pointer"
                      (click)="onDeleteResume()"/>
@@ -180,7 +180,7 @@
                 [ngClass]="{'text-main cursor-pointer' : !degrees?.value?.length || degrees?.value?.length < 10, 'text-secondary pointer-events-none' : degrees?.value?.length >= 10}">Upload Document</span>
 
           <input #degree type="file" hidden multiple class="form-control"
-                 accept="image/*,.pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                 accept=".xlsx,.xls,image/*,.doc,.docx,.pdf"
                  (change)="onUploadDegree($event)">
         </div>
 
@@ -203,7 +203,7 @@
           </tr>
 
           <tr *ngFor="let degree of degrees.controls; let i = index">
-            <td>{{degree.value.originalName}}</td>
+            <td class="break-all">{{degree.value.originalName}}</td>
             <td class="text-center">
               <img src="assets/svg/delete.svg" alt="" draggable="false" class="cursor-pointer"
                      (click)="onDeleteDegree(i)"/>
@@ -223,7 +223,7 @@
                 [ngClass]="{'text-main cursor-pointer' : !certificates?.value?.length || certificates?.value?.length < 10, 'text-secondary pointer-events-none' : certificates?.value?.length >= 10}">Upload Document</span>
 
           <input #certificate type="file" hidden multiple class="form-control"
-                 accept="image/*,.pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                 accept=".xlsx,.xls,image/*,.doc,.docx,.pdf"
                  (change)="onUploadCertificate($event)">
         </div>
 
@@ -246,7 +246,7 @@
           </tr>
 
           <tr *ngFor="let certificate of certificates.controls; let i = index">
-            <td>{{ certificate?.value?.originalName }}</td>
+            <td class="break-all">{{ certificate?.value?.originalName }}</td>
             <td class="text-center">
               <img src="assets/svg/delete.svg" alt="" draggable="false" class="cursor-pointer"
                      (click)="onDeleteCertificate(i)"/>

@@ -316,6 +316,10 @@ rating span.bs-rating-star {
   pointer-events: none;
 }
 
+.break-all {
+  word-break: break-all;
+}
+
 .custom-input {
   min-height: 46px;
   padding: 10px 19px;
