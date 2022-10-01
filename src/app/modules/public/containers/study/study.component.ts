@@ -5,11 +5,11 @@ import { Component, OnInit } from '@angular/core';
 import { IStatistics } from '@metutor/core/models';
 
 @Component({
-  selector: 'metutors-student-success',
-  templateUrl: './student-success.component.html',
-  styleUrls: ['./student-success.component.scss'],
+  selector: 'metutors-study',
+  templateUrl: './study.component.html',
+  styleUrls: ['./study.component.scss'],
 })
-export class StudentSuccessComponent implements OnInit {
+export class StudyComponent implements OnInit {
   token$: Observable<string | undefined>;
 
   testmonials?: any[];

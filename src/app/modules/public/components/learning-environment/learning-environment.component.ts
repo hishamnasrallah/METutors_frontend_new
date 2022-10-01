@@ -48,6 +48,8 @@ export class LearningEnvironmentComponent implements OnInit {
   step: number;
   grade: number;
   country?: ICountry;
+  isShowMore = false;
+  selectedField: number;
   programsList: IProgram[];
   selectedProgram: IProgram;
   nationalId = generalConstants.nationalId;
