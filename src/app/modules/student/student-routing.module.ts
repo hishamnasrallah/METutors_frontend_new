@@ -215,7 +215,7 @@ const routes: Routes = [
         data: {
           layout: {
             title: 'Certificates - Metutors',
-            navbarTitle: 'Earned certificates',
+            navbarTitle: 'Certificates',
             showHeader: false,
             showFooter: false,
           },
