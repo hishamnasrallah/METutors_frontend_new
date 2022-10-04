@@ -44,16 +44,16 @@
             </metutors-submit-button>
           </div>
 
-          <div class="row mt-4 social">
+          <div class="row mt-4 social" *ngLet="(roles$ | async) as roles">
             <div class="col-xl-6 mt-1">
-              <button (click)="openRolesDialog('google')" mat-button type="button" class="w-100 google"
+              <button (click)="openRolesDialog('google', roles)" mat-button type="button" class="w-100 google"
                 [disabled]="authLoading$ | async">
                 <img src="assets/svg/google.svg" alt="">
                 Login with Google
               </button>
             </div>
             <div class="col-xl-6 mt-1">
-              <button (click)="openRolesDialog('facebook')" mat-button type="button" class="w-100"
+              <button (click)="openRolesDialog('facebook', roles)" mat-button type="button" class="w-100"
                 [disabled]="authLoading$ | async">
                 <img src="assets/svg/facebook-light.svg" class="facebook" alt="">
                 Login with Facebook
