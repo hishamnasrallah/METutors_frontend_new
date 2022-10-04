@@ -4,9 +4,13 @@ import { EffectsModule } from '@ngrx/effects';
 import { NgProgressModule } from 'ngx-progressbar';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterState, StoreRouterConnectingModule } from '@ngrx/router-store';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  HttpClient,
+  HttpClientModule,
+  HTTP_INTERCEPTORS,
+} from '@angular/common/http';
 
 import {
   SocialLoginModule,
@@ -18,12 +22,18 @@ import {
 import { AppComponent } from './app.component';
 
 import { environment } from '@environment';
-import { CurrencyPipe, DatePipe } from '@angular/common';
 import { metaReducers, reducers } from './state';
 import * as coreEffects from './core/state/effects';
 import { AuthInterceptor } from './core/intercepters';
 import { AppRoutingModule } from './app-routing.module';
+import { CurrencyPipe, DatePipe } from '@angular/common';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { ComponentsModule, AlertNotificationsModule } from './core/components';
+
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 @NgModule({
   declarations: [AppComponent],
@@ -35,6 +45,13 @@ import { ComponentsModule, AlertNotificationsModule } from './core/components';
     SocialLoginModule,
     BrowserAnimationsModule,
     AlertNotificationsModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: createTranslateLoader,
+        deps: [HttpClient],
+      },
+    }),
     NgProgressModule.withConfig({
       spinnerPosition: 'right',
       color: '#3bb3c1',

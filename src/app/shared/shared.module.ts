@@ -7,6 +7,7 @@ import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { RatingModule } from 'ngx-bootstrap/rating';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { TranslateModule } from '@ngx-translate/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatChipsModule } from '@angular/material/chips';
@@ -143,6 +144,7 @@ import { MoneyPipe, DaysPipe } from './pipes';
     MatButtonModule,
     MatDialogModule,
     MatSelectModule,
+    TranslateModule,
     MatTooltipModule,
     VgControlsModule,
     VgBufferingModule,
@@ -206,6 +208,7 @@ import { MoneyPipe, DaysPipe } from './pipes';
     TutorAvailableSlotsComponent,
 
     // Modules
+    TranslateModule,
     NgxMatSelectSearchModule,
   ],
 })

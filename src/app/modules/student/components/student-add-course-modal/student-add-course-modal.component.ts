@@ -684,7 +684,7 @@ export class StudentAddCourseModalComponent implements OnInit {
         this.course?.teacher?.lastName
       }</bdi></h2>
                           <h3>${
-                            this.course?.teacher?.qualifications
+                            this.course?.teacher?.userQualification
                               ?.nameOfUniversity
                           } </h3>
                         </div>

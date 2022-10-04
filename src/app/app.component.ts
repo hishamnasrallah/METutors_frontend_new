@@ -1,20 +1,21 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import * as moment from 'moment';
 import {
-  RouterEvent,
   Router,
-  NavigationStart,
+  RouterEvent,
   NavigationEnd,
-  NavigationCancel,
-  NavigationError,
   ActivatedRoute,
+  NavigationStart,
+  NavigationError,
+  NavigationCancel,
 } from '@angular/router';
+import * as moment from 'moment';
 import { Store } from '@ngrx/store';
 import { DOCUMENT } from '@angular/common';
 import * as fromCore from '@metutor/core/state';
 import { Title } from '@angular/platform-browser';
+import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 import { filter, map, mergeMap, Subscription } from 'rxjs';
 import { NgProgressRef, NgProgress } from '@ngx-progressbar/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 
 @Component({
   selector: 'metutors-root',
@@ -32,9 +33,30 @@ export class AppComponent implements OnInit, OnDestroy {
     private _store: Store<any>,
     private _progress: NgProgress,
     private _route: ActivatedRoute,
+    public translate: TranslateService,
     @Inject(DOCUMENT) private _document: Document
   ) {
-    moment.locale('en');
+    if (typeof window !== 'undefined') {
+      translate.addLangs(['en', 'ar']);
+      translate.setDefaultLang('en');
+
+      const browserLang = translate.getBrowserLang();
+      const defaultLanguage = localStorage.getItem('DEFAULT_LANGUAGE');
+      console.log(browserLang);
+      translate.use(
+        defaultLanguage?.match(/en|ar/)
+          ? defaultLanguage
+          : browserLang?.match(/en|ar/)
+          ? browserLang
+          : translate.currentLang || 'en'
+      );
+      this._checkLangauge();
+
+      translate.onLangChange.subscribe((event: LangChangeEvent) => {
+        this._checkLangauge();
+      });
+    }
+
     this.progressRef = this._progress.ref('myProgress');
 
     this.routerSubscription$ = this._router.events.subscribe((event: any) => {
@@ -95,6 +117,19 @@ export class AppComponent implements OnInit, OnDestroy {
     if (event instanceof NavigationError) {
       this.progressRef.setConfig({ color: 'red' });
       this.progressRef.complete();
+    }
+  }
+
+  private _checkLangauge(): void {
+    const body = document.getElementsByTagName('body')[0];
+
+    if (this.translate.currentLang === 'ar') {
+      moment.locale('ar');
+      body.setAttribute('dir', 'rtl');
+      body.classList.add('i18n-ar');
+    } else {
+      moment.locale('en');
+      body.setAttribute('dir', 'ltr');
     }
   }
 }
