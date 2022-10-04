@@ -45,7 +45,13 @@ export class DocViewerModalComponent implements OnInit {
 
     if (ext === 'pdf') {
       return 'pdf';
-    } else if (ext === 'xlsx' || ext === 'ppt' || ext === 'docx') {
+    } else if (
+      ext === 'xlsx' ||
+      ext === 'xls' ||
+      ext === 'ppt' ||
+      ext === 'pptx' ||
+      ext === 'docx'
+    ) {
       return 'office';
     }
 
