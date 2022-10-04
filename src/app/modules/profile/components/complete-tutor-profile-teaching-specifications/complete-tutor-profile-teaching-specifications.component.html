@@ -7,7 +7,7 @@
         <div class="form-group">
           <label class="form-label">Available Start Date</label>
           <mat-form-field appearance="outline" class="w-100">
-            <input matInput [matDatepicker]="datetPicker" [placeholder]="'Select Available Starting Date'"
+            <input matInput [matDatepicker]="datetPicker" [placeholder]="'Select Available Start Date'"
               (focus)="datetPicker.open()" (dateChange)="onChangeStartDate()" [min]="minDate" formControlName="startDate">
             <mat-datepicker-toggle matSuffix [for]="datetPicker"></mat-datepicker-toggle>
             <mat-datepicker #datetPicker></mat-datepicker>

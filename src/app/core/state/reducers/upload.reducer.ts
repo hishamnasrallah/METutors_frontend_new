@@ -42,17 +42,6 @@ export const reducer = createReducer(
     return finalState;
   }),
 
-  on(uploadActions.uploadFileSuccess, (state, { files }) => ({
-    ...state,
-    files,
-    isUploadingFile: false,
-  })),
-
-  on(uploadActions.uploadFileFailure, (state) => ({
-    ...state,
-    isUploadingFile: false,
-  })),
-
   // Cancel upload file stream
   on(uploadActions.cancelUploadSuccess, (state) => ({
     ...state,

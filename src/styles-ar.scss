@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css?family=Cairo&display=swap');
+
+[dir='rtl'] {
+  *:not(.material-icons) {
+    font-family: 'Cairo', sans-serif;
+  }
+
+  .featured-tutors .card-item .list .icon {
+    margin-right: 0 !important;
+    margin-left: 5px;
+  }
+
+  .why-metutors .card .item h2 {
+    margin-left: 0 !important;
+    margin-right: 10px;
+  }
+
+  .ms-1 {
+    margin-right: 0.25rem !important;
+    margin-left: 0 !important;
+  }
+
+  .ms-2 {
+    margin-right: 0.5rem !important;
+    margin-left: 0 !important;
+  }
+
+  .ms-3 {
+    margin-right: 1rem !important;
+    margin-left: 0 !important;
+  }
+
+  .ms-4 {
+    margin-right: 1.5rem !important;
+    margin-left: 0 !important;
+  }
+
+  .ms-5 {
+    margin-right: 3rem !important;
+    margin-left: 0 !important;
+  }
+
+  .ms-auto {
+    margin-right: auto !important;
+    margin-left: 0 !important;
+  }
+
+  .me-1 {
+    margin-left: 0.25rem !important;
+    margin-right: 0 !important;
+  }
+
+  .me-2 {
+    margin-left: 0.5rem !important;
+    margin-right: 0 !important;
+  }
+
+  .me-3 {
+    margin-left: 1rem !important;
+    margin-right: 0 !important;
+  }
+
+  .me-4 {
+    margin-left: 1.5rem !important;
+    margin-right: 0 !important;
+  }
+
+  .me-5 {
+    margin-left: 3rem !important;
+    margin-right: 0 !important;
+  }
+
+  .me-auto {
+    margin-left: auto !important;
+    margin-right: 0 !important;
+  }
+
+  .slide .item img {
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+  }
+
+  .rotate-180-ar {
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
+}

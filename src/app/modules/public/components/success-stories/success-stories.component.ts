@@ -1,8 +1,5 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, Input, OnInit } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
-import { MiscService } from 'src/app/core/services';
-import { addMisc, getMisc } from 'src/app/config';
 
 @Component({
   selector: 'metutors-success-stories',

@@ -11,16 +11,6 @@ export const uploadFile = createAction(
   props<{ file: any; uploadType?: string }>()
 );
 
-export const uploadFileSuccess = createAction(
-  '[Upload Service] Upload File Success',
-  props<{ files: any; message?: any }>()
-);
-
-export const uploadFileFailure = createAction(
-  '[Upload Service] Upload File Failure',
-  props<{ error?: string }>()
-);
-
 export const loadUploadedFiles = createAction(
   '[Upload Service] Load Files',
   props<{ files: any }>()
@@ -54,7 +44,9 @@ export const deleteUploadedFileFailure = createAction(
   props<{ error?: string }>()
 );
 
-export const cancelUpload = createAction('[Upload Service] Cancel Upload');
+export const cancelFileUpload = createAction(
+  '[Upload Service] Cancel File Upload'
+);
 
 export const cancelUploadSuccess = createAction(
   '[Upload Service] Cancel Upload Success'

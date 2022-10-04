@@ -61,6 +61,15 @@ export interface ITicketPriority {
   name: string;
 }
 
+export interface IDocument {
+  id: number;
+  url: string;
+  size: string;
+  status: string;
+  document: string;
+  originalName: string;
+}
+
 export interface IProgramFilters {
   title?: string;
   status?: string;

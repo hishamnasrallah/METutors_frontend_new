@@ -11,12 +11,17 @@
   span {
     font-weight: normal;
   }
+
+  .size {
+    color: #707070;
+    font-size: 13px;
+  }
 }
 
 .video-preview {
   height: 200px;
-  background: #FAFAFA;
-  border: 1px solid #BDBDBD99;
+  background: #F4F5FA;
+  border: 1px dashed rgba(0, 0, 0, 0.6);
   border-radius: 10px;
 }
 
@@ -32,7 +37,6 @@
 }
 
 .preview-style {
-  width: 70%;
   margin: auto;
 }
 
@@ -47,16 +51,55 @@
     display: flex;
     align-items: start;
     padding: 0;
+    font-size: 15px;
 
     &:before {
       content: "";
-      background-image: url("/assets/svg/tick.svg");
+      background-image: url('/assets/svg/tick.svg');
       width: 20px;
       height: 20px;
       display: inline-block;
       background-repeat: no-repeat;
       background-position: center;
       margin-right: 10px;
+    }
+  }
+}
+
+.list-files {
+  box-shadow: none;
+
+  tr {
+    th {
+      color: #949494;
+      font-size: 13px;
+    }
+
+    th.w-7 {
+      width: 7%;
+    }
+
+    th.w-24 {
+      width: 24%;
+    }
+
+    td {
+      color: #2A2A2A;
+      font-size: 15px;
+      border-bottom: 1px solid #EDEDED;
+
+      img {
+        padding: 0;
+        width: 20px;
+        height: 20px;
+      }
+
+      .download-btn,
+      .view-sign-btn {
+        padding: 0;
+        width: 130px;
+        font-size: 12px;
+      }
     }
   }
 }

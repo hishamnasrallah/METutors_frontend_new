@@ -14,7 +14,7 @@ export class HomeFeaturedTutorsComponent implements OnInit {
 
   tutorStatus = TutorStatus;
   customOptions: OwlOptions = {
-    loop: true,
+    loop: false,
     mouseDrag: true,
     touchDrag: true,
     pullDrag: true,
@@ -30,11 +30,14 @@ export class HomeFeaturedTutorsComponent implements OnInit {
         items: 1,
       },
       400: {
-        items: 2,
+        items: 1,
       },
       740: {
-        items: 3,
+        items: 2,
       },
+      992: {
+        items: 3,
+      }
     },
     nav: false,
   };

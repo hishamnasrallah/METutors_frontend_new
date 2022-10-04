@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSliderModule } from '@angular/material/slider';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatNativeDateModule } from '@angular/material/core';
 import { SharedModule } from '@metutor/shared/shared.module';
@@ -66,6 +67,7 @@ import {
     MatButtonModule,
     MatSelectModule,
     MatDialogModule,
+    MatSliderModule,
     MatStepperModule,
     MatCheckboxModule,
     MatFormFieldModule,

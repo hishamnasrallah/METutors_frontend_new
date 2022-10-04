@@ -12,14 +12,14 @@
 
     <ng-container *ngIf="!isLoading">
       <div class="tabs d-flex d-block-sm overflow-auto">
-        <div *ngFor="let program of programsList; let i = index">
-          <button mat-button class="w-100 text-start" [class.active]="step === program?.id"
-            (click)="onChangeStep(program)">
-            <span class="d-block">Program {{ i + 1 }}</span>
-            <strong>{{ program?.name }}</strong>
-            <span *ngIf="country && program?.id === nationalId" [innerHTML]="country?.flag" class="ms-2"></span>
-          </button>
-        </div>
+        <button *ngFor="let program of programsList; let i = index" mat-button class="w-100 text-start d-flex"
+          [class.active]="step === program?.id" (click)="onChangeStep(program)">
+          <span class="d-block">Program {{ i + 1 }}</span>
+          <strong>
+            {{ program?.name }}
+            <span *ngIf="country && program?.id === nationalId" [innerHTML]="country?.flag"></span>
+          </strong>
+        </button>
       </div>
       <div class="content">
         <ng-container *ngIf="loadingFields">
@@ -43,7 +43,7 @@
                 <div class="ms-2">
                   <h2>
                     <a routerLink="/requests/request-tutor"
-                      [queryParams]="{program: selectedProgram?.id, field: field?.id, country: country?.id}">
+                      [queryParams]="{program: selectedProgram?.id, field: field?.id, country: country?.id, grade}">
                       {{ field?.name }}
                     </a>
                   </h2>
@@ -53,10 +53,16 @@
                     </ng-container>
 
                     <ng-container *ngIf="!loadingSubjects">
-                      <a class="cursor-pointer subject"
-                        *ngFor="let subject of filteredSubjects(field.id); let isLast = last"
-                        (click)="viewSubjectDetails.emit({program: selectedProgram, subject, country: country?.id, index: i})">
-                        {{ subject?.name }}<ng-container *ngIf="!isLast">, </ng-container>
+                      <ng-container
+                        *ngFor="let subject of filteredSubjects(field.id); let isLast = last; let i = index">
+                        <a class="cursor-pointer subject" *ngIf="i < 3 || (isShowMore && selectedField === field?.id)"
+                          (click)="viewSubjectDetails.emit({program: selectedProgram, subject, country: country?.id, grade, index: i})">
+                          {{ subject?.name }}<ng-container *ngIf="!isLast">, </ng-container>
+                        </a>
+                      </ng-container>
+                      <a *ngIf="filteredSubjects(field.id).length >= 3 && (!isShowMore || selectedField !== field?.id)"
+                        class="see-more cursor-pointer" (click)="isShowMore = true; selectedField = field?.id!">
+                        See more
                       </a>
                     </ng-container>
                   </p>
@@ -65,9 +71,9 @@
             </div>
 
             <a mat-flat-button color="primary" routerLink="/requests/request-tutor"
-              [queryParams]="{program: selectedProgram?.id, country: country?.id}">
+              [queryParams]="{program: selectedProgram?.id, country: country?.id, grade}">
               Start Learning Today!
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="rotate-180-ar">
                 <path
                   d="M16.172 10.9999H4V12.9999H16.172L10.808 18.3639L12.222 19.7779L20 11.9999L12.222 4.22192L10.808 5.63592L16.172 10.9999Z"
                   fill="#FFF" />
@@ -77,7 +83,7 @@
             <a mat-button class="explore-all ms-3" [routerLink]="['/all-courses', selectedProgram?.id]"
               [queryParams]="{country: country?.id}">
               Explore Subjects
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="rotate-180-ar">
                 <path
                   d="M16.172 10.9999H4V12.9999H16.172L10.808 18.3639L12.222 19.7779L20 11.9999L12.222 4.22192L10.808 5.63592L16.172 10.9999Z"
                   fill="#707070" />

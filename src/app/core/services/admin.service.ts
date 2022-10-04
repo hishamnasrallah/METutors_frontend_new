@@ -14,9 +14,17 @@ export class AdminService {
   constructor(private http: HttpClient) {}
 
   loadAdminDocuments(user_id: number): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}teacher/documents`, {
-      params: { user_id },
-    });
+    return this.http
+      .get<any>(`${this.baseUrl}teacher/documents`, {
+        params: { user_id },
+      })
+      .pipe(
+        map((response) => ({
+          resume: response?.user?.user_resume,
+          degrees: response?.user?.user_degrees,
+          certificates: response?.user?.user_certificates,
+        }))
+      );
   }
 
   loadAdminTutors(tutorType: string, id: number): Observable<any> {

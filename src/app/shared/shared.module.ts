@@ -3,17 +3,21 @@ import { MomentModule } from 'ngx-moment';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { RatingModule } from 'ngx-bootstrap/rating';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { TranslateModule } from '@ngx-translate/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatChipsModule } from '@angular/material/chips';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { SignaturePadModule } from 'angular2-signaturepad';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
@@ -26,10 +30,13 @@ import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
 import {
   PaymentModalComponent,
   ConfirmModalComponent,
+  DocViewerModalComponent,
   DialogCourseDetailsPopup,
   CourseDetailsPopupComponent,
   DialogClassroomDetailsPopup,
+  SignatureCanvasModalComponent,
   ClassroomDetailsPopupComponent,
+  SignatureCanvasTemplateComponent,
   TeacherAvailabilityModalComponent,
 } from '@metutor/shared/modals';
 
@@ -105,10 +112,13 @@ import { MoneyPipe, DaysPipe } from './pipes';
     // Modals
     ConfirmModalComponent,
     PaymentModalComponent,
+    DocViewerModalComponent,
     DialogCourseDetailsPopup,
     CourseDetailsPopupComponent,
     DialogClassroomDetailsPopup,
+    SignatureCanvasModalComponent,
     ClassroomDetailsPopupComponent,
+    SignatureCanvasTemplateComponent,
     TeacherAvailabilityModalComponent,
 
     // Directives
@@ -134,9 +144,13 @@ import { MoneyPipe, DaysPipe } from './pipes';
     MatButtonModule,
     MatDialogModule,
     MatSelectModule,
+    TranslateModule,
     MatTooltipModule,
     VgControlsModule,
     VgBufferingModule,
+    MatCheckboxModule,
+    NgxDocViewerModule,
+    SignaturePadModule,
     VgOverlayPlayModule,
     ReactiveFormsModule,
     MatProgressBarModule,
@@ -174,6 +188,7 @@ import { MoneyPipe, DaysPipe } from './pipes';
     // Modals
     ConfirmModalComponent,
     PaymentModalComponent,
+    DocViewerModalComponent,
     DialogCourseDetailsPopup,
     CourseDetailsPopupComponent,
     DialogClassroomDetailsPopup,
@@ -193,6 +208,7 @@ import { MoneyPipe, DaysPipe } from './pipes';
     TutorAvailableSlotsComponent,
 
     // Modules
+    TranslateModule,
     NgxMatSelectSearchModule,
   ],
 })

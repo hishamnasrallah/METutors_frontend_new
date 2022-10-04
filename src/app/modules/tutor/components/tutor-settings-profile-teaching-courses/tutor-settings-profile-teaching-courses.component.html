@@ -1,11 +1,14 @@
 <div class="card complete-form">
   <form class="card-body" [formGroup]="form" (ngSubmit)="onSubmit(form)">
     <div class="d-flex justify-content-between align-items-center w-100 mb-4">
-      <h1 class="title f-size-18-md-sm">Teaching Courses <br> <span>Contact this email <a
-            href="mailto:support@metutors.com" target="_blank">support@metutors.com</a>, if you want to edit this
-          information.</span></h1>
-
-      <metutors-submit-button [form]="form" [isSubmitting]="isSubmitting" *ngIf="!status">
+      <h1 class="title f-size-18-md-sm">Teaching Courses <br>
+        <span *ngIf="status === interviewStatus.approved">Contact this email
+          <a href="mailto:support@metutors.com" target="_blank">support@metutors.com</a>, if you want to edit this
+          information.
+        </span>
+      </h1>
+      <metutors-submit-button [form]="form" [isSubmitting]="isSubmitting" *ngIf="!status"
+        [isDisabled]="!sortedSubjects || !pricesLength || pricesLength < +(sortedSubjects?.length)!">
         Update
       </metutors-submit-button>
     </div>
@@ -17,7 +20,7 @@
           <tr>
             <th class="heading" [attr.colspan]="item?.programId === nationalId ? '2' : '1'">
               <label>Program: </label> <span>
-                {{ item?.programName }}<ng-container *ngIf="item?.programId === nationalId">
+                {{ item?.programName }}<ng-container *ngIf="item?.programId === nationalId">,
                   {{ item?.countryName }} <span *ngIf="item?.countryFlag" [innerHTML]="item?.countryFlag"
                     class="ms-2"></span>
                 </ng-container>
@@ -37,7 +40,8 @@
             <td *ngIf="item?.programId === nationalId">{{ subject?.gradeName }}</td>
             <td>
               <ng-container *ngIf="status">{{ subject?.pricePerHour }}</ng-container>
-              <input type="text" *ngIf="!status" meTutorsOnlyNumber [onlyNumber]="true" min="1" step="1"
+
+              <input type="text" meTutorsOnlyNumber [onlyNumber]="true" *ngIf="!status" min="1" step="1" max="100"
                 placeholder="Enter Price" class="p-0 w-100" [value]="subject?.pricePerHour"
                 (change)="changePrice(subject?.id, $event)">
             </td>

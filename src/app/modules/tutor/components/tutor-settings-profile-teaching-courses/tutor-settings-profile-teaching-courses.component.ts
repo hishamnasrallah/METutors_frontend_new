@@ -1,5 +1,5 @@
-import { generalConstants } from '@metutor/config';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { generalConstants, InterviewStatus } from '@metutor/config';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
@@ -26,7 +26,9 @@ export class TutorSettingsProfileTeachingCoursesComponent implements OnInit {
   @Output() submitForm = new EventEmitter();
 
   form: FormGroup;
+  pricesLength = 0;
   submittedSubjects: any[] = [];
+  interviewStatus = InterviewStatus;
   nationalId = generalConstants.nationalId;
 
   constructor(private _fb: FormBuilder) {
@@ -42,19 +44,50 @@ export class TutorSettingsProfileTeachingCoursesComponent implements OnInit {
       item.id === id
         ? {
             ...item,
-            pricePerHour: +event.target.value > 0 ? event.target.value : null,
+            pricePerHour:
+              +event.target.value > 0 && +event.target.value <= 100
+                ? event.target.value
+                : null,
           }
         : { ...item }
     );
 
+    this.sortedSubjects = this.sortedSubjects?.map((subject: any) => ({
+        ...subject,
+        fieldId: subject.fieldId,
+        fieldName: subject.fieldName,
+        countryName: subject.countryName,
+        countryFlag: subject.countryFlag,
+        subjects: subject.subjects.map((sub: any) =>
+          sub?.id === id
+            ? {
+                ...sub,
+                pricePerHour:
+                  +event.target.value > 0 && +event.target.value <= 100
+                    ? event.target.value
+                    : null,
+              }
+            : { ...sub }
+        ),
+      }));
+
     this.form.get('subjects')?.setValue(this.submittedSubjects);
     this.form.get('subjects')?.updateValueAndValidity();
     this.form?.markAsDirty();
+    this._updateLengthes();
   }
 
   onSubmit(form: FormGroup): void {
     if (form.valid) {
       this.submitForm.emit(form);
     }
+  }
+
+  private _updateLengthes(): void {
+    this.pricesLength = [
+      ...this.sortedSubjects?.map((subject: any) => [
+        ...subject.subjects?.filter((sub: any) => sub.pricePerHour),
+      ]),
+    ]?.flat(Infinity)?.length;
   }
 }

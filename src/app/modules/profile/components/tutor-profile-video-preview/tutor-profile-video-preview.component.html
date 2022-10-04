@@ -1,8 +1,14 @@
 <div class="video-preview" *ngIf="!isLoading && tutor?.qualifications?.video">
-  <ng-container *ngIf="!isLoading">
-    <metutors-video-player [videoSrc]="tutor?.qualifications?.video">
-    </metutors-video-player>
-  </ng-container>
+  <div class="card" *ngIf="!isLoading">
+    <div class="card-body">
+      <h1 class="heading f-size-15-md-sm mb-3">My Teaching Style</h1>
+
+      <div>
+        <metutors-video-player [videoSrc]="tutor?.qualifications?.video" [maxHeight]="'315px'">
+        </metutors-video-player>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="card" *ngIf="isLoading">

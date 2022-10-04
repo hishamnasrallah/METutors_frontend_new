@@ -4,6 +4,7 @@ import { IUser } from '@metutor/core/models';
 import * as fromCore from '@metutor/core/state';
 import { Component, OnInit } from '@angular/core';
 import { map, Observable, withLatestFrom } from 'rxjs';
+import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'metutors-navbar',
@@ -18,10 +19,16 @@ export class NavbarComponent implements OnInit {
   isCurrencyRatesLoading$: Observable<boolean>;
 
   userRole = UserRole;
+  selectedLanguage: string;
 
-  constructor(private _store: Store<any>) {}
+  constructor(
+    private _store: Store<any>,
+    private _translate: TranslateService
+  ) {}
 
   ngOnInit(): void {
+    this.selectedLanguage = this._translate.currentLang;
+
     this.token$ = this._store.select(fromCore.selectToken);
     this.user$ = this._store.select(fromCore.selectUser);
 
@@ -50,10 +57,19 @@ export class NavbarComponent implements OnInit {
           name: `${currencies[currencySymbol]} (${currencySymbol})`,
         }))
       );
+
+    this._translate.onLangChange.subscribe((event: LangChangeEvent) => {
+      this.selectedLanguage = event.lang;
+    });
   }
 
   onCurrencySelect(currency: any): void {
     this._store.dispatch(fromCore.selectCurrency({ currency: currency.id }));
+  }
+
+  onLanguageSelect(language: string): void {
+    localStorage.setItem('DEFAULT_LANGUAGE', language);
+    this._translate.use(language);
   }
 
   logout(): void {

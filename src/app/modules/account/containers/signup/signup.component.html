@@ -76,7 +76,6 @@
               <label for="phone">Phone Number</label>
               <div class="w-100">
                 <ngx-intl-tel-input [cssClass]="'custom-input w-100 input-bordered'"
-                                    [selectedCountryISO]="selectedCountry"
                                     [preferredCountries]="preferredCountries"
                                     [ngClass]="{'has-error': phoneNumber?.invalid && phoneNumber?.touched}"
                                     [enableAutoCountrySelect]="true"
@@ -85,6 +84,8 @@
                                     [selectFirstCountry]="true"
                                     [phoneValidation]="true"
                                     [separateDialCode]="true"
+                                    [maxLength]="15"
+                                    [numberFormat]="PhoneNumberFormat.National"
                                     formControlName="mobileNumber">
                 </ngx-intl-tel-input>
                 <span class="text-danger" *ngIf="phoneNumber?.invalid && phoneNumber?.touched">
@@ -170,22 +171,11 @@
         </div>
       </div>
 
-      <div class="col-lg-5 d-flex flex-column" *ngIf="step === 3">
-        <a class="pb-5 logo" routerLink="/">
-          <img alt="logo" src="assets/logo/logo-dark.png" width="200px" draggable="false">
-        </a>
-
-        <div *ngLet="(email$ | async) as myEmail">
-          <metutors-signup-upload-documents [loading]="loading" (submitForm)="submitDocuments($event, myEmail, accountType)">
-          </metutors-signup-upload-documents>
-        </div>
-      </div>
-
       <div class="col-lg-7 align-items-center img-cover">
         <div class="steps" [@userTypeAnimate]>
           <h2>How to create your account</h2>
           <p>
-            In {{ accountType === 1 ? 2 : 3 }} steps you can create your account and 
+            In 2 steps you can create your account and
             {{ accountType === 1 ? 'start taking your courses with MEtutors' : 'start teaching with MEtutors' }}
           </p>
           <ul class="list-unstyled">
@@ -199,12 +189,6 @@
               <span>Step two</span>
               <h4 class="f-size-25-md-sm">
                 Verify your email
-              </h4>
-            </li>
-            <li [ngClass]="{'active': step === 3}" *ngIf="accountType === userRole.tutor">
-              <span>Step three</span>
-              <h4 class="f-size-25-md-sm">
-                Upload your documents
               </h4>
             </li>
           </ul>

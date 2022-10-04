@@ -33,9 +33,9 @@ export class TutorDashboardComponent implements OnInit {
 
   range = '7days';
   insightRange = insightRange;
-  tabLabel = 'Metutors Feedback';
+  tabLabel = 'MEtutors Feedback';
   heading = 'Leave a Feedback';
-  subHeading = 'Share with us your feedback on MEtutors service';
+  subHeading = 'Share with us your feedback on MEtutors service:';
   messageLabel =
     'Please share with us your thoughts on how to improve our services';
 

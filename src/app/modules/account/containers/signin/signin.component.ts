@@ -2,11 +2,11 @@ import { Store } from '@ngrx/store';
 import { IRole } from 'src/app/core/models';
 import * as fromCore from '@metutor/core/state';
 import { Observable, Subscription } from 'rxjs';
+import { SocialProvider } from 'src/app/config';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import * as fromAccount from '@metutor/modules/account/state';
-import { addMisc, getMisc, SocialProvider } from 'src/app/config';
 import { AuthService, UsersService } from 'src/app/core/services';
 import { FormValidationUtilsService } from 'src/app/core/validators';
 import { OtpVerifyComponent, RolesSelectComponent } from '../../components';
@@ -24,6 +24,7 @@ import {
   styleUrls: ['./signin.component.scss'],
 })
 export class SigninComponent implements OnInit, OnDestroy {
+  roles$: Observable<IRole[]>;
   userRole$: Observable<number>;
   isLoading$: Observable<boolean>;
   authLoading$: Observable<boolean>;
@@ -32,7 +33,6 @@ export class SigninComponent implements OnInit, OnDestroy {
   showAccountEmailVerificationModal$: Observable<boolean>;
 
   userRole: any;
-  roles!: IRole[];
   returnUrl: string;
   signinForm: FormGroup;
   passwordVisibility = false;
@@ -130,11 +130,11 @@ export class SigninComponent implements OnInit, OnDestroy {
     this._store.dispatch(fromCore.signIn({ user: form.value }));
   }
 
-  openRolesDialog(domain: any): void {
+  openRolesDialog(domain: any, roles: IRole[]): void {
     const dialogRef = this._dialog.open(RolesSelectComponent, {
       width: '500px',
       disableClose: true,
-      data: this.roles,
+      data: roles,
     });
 
     dialogRef.afterClosed().subscribe((res: any) => {
@@ -198,11 +198,7 @@ export class SigninComponent implements OnInit, OnDestroy {
   }
 
   private _prepareRoles(): void {
-    this.getRolesSub = this._userService.getRoles().subscribe((response) => {
-      this.roles = response;
-      addMisc('roles', this.roles);
-    });
-
-    this.roles = getMisc().roles;
+    this._store.dispatch(fromCore.loadUserTypes());
+    this.roles$ = this._store.select(fromCore.selectUserTypes);
   }
 }

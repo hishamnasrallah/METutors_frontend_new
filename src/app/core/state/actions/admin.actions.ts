@@ -1,4 +1,10 @@
-import { ICapacity, ICourse, ISubject, ITutor } from '@metutor/core/models';
+import {
+  ICapacity,
+  ICourse,
+  ISubject,
+  ITeacherDocument,
+  ITutor,
+} from '@metutor/core/models';
 import { createAction, props } from '@ngrx/store';
 
 // Load Admin Documents
@@ -31,12 +37,12 @@ export const loadAdminTutorsFailure = createAction(
 // Admin Approve Document
 export const adminApproveDocument = createAction(
   '[Admin] Admin ApproveDocument',
-  props<{ id: number }>()
+  props<{ document: ITeacherDocument }>()
 );
 
 export const adminApproveDocumentSuccess = createAction(
   '[Admin] Admin Approve Document Success',
-  props<{ id: number; message: string }>()
+  props<{ document: ITeacherDocument; message: string }>()
 );
 
 export const adminApproveDocumentFailure = createAction(
@@ -47,12 +53,12 @@ export const adminApproveDocumentFailure = createAction(
 // Admin Reject Document
 export const adminRejectDocument = createAction(
   '[Admin] Admin Reject Document',
-  props<{ id: number }>()
+  props<{ document: ITeacherDocument }>()
 );
 
 export const adminRejectDocumentSuccess = createAction(
   '[Admin] Admin Reject Document Success',
-  props<{ id: number; message: string }>()
+  props<{ document: ITeacherDocument; message: string }>()
 );
 
 export const adminRejectDocumentFailure = createAction(

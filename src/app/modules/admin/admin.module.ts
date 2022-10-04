@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { CommonModule } from '@angular/common';
-import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { RatingModule } from 'ngx-bootstrap/rating';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { NgxAutoScrollModule } from 'ngx-auto-scroll';
@@ -95,10 +94,10 @@ import {
   AdminCourseBookingListModalComponent,
   AdminStudentTotalBookingModalComponent,
   AdminFinanceRefundDetailModalComponent,
+  AdminViewRejectionReasonModalComponent,
   AdminFinanceRefundPaymentModalComponent,
   AdminHourlyRatePerSubjectModalComponent,
   AdminStudentViewAssignmentsModalComponent,
-  AdminTutorInterviewAttachmentModalComponent,
   AdminReassigningTutorSelectionModalComponent,
 } from './components';
 
@@ -165,11 +164,11 @@ import {
     AdminTutorInterviewDocumentsComponent,
     AdminStudentTotalBookingModalComponent,
     AdminFinanceRefundDetailModalComponent,
+    AdminViewRejectionReasonModalComponent,
     AdminHourlyRatePerSubjectModalComponent,
     AdminFinanceRefundPaymentModalComponent,
     AdminStudentViewAssignmentsModalComponent,
     AdminManagementTutorReAssignmentComponent,
-    AdminTutorInterviewAttachmentModalComponent,
     AdminReassigningTutorSelectionModalComponent,
   ],
   imports: [
@@ -186,7 +185,6 @@ import {
     PaginationModule,
     MatFormFieldModule,
     AdminRoutingModule,
-    NgxDocViewerModule,
     ReactiveFormsModule,
     NgxAutoScrollModule,
     MatDatepickerModule,

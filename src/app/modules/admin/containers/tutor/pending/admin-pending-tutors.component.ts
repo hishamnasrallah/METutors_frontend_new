@@ -5,6 +5,8 @@ import { combineLatest, map, Observable } from 'rxjs';
 
 import { ITutor } from '@models';
 import * as fromCore from '@metutor/core/state';
+import * as fromAdmin from '@metutor/modules/admin/state';
+import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 
 @Component({
   selector: 'metutors-pending',
@@ -12,9 +14,7 @@ import * as fromCore from '@metutor/core/state';
   styleUrls: ['./admin-pending-tutors.component.scss'],
 })
 export class AdminPendingTutorsComponent implements OnInit {
-  tutorAvailability$: Observable<any>;
-  isLoadingTutorAvailability$: Observable<boolean>;
-  showTeacherAvailabilityModal$: Observable<boolean>;
+  showViewRejectionReasonModal$: Observable<boolean>;
 
   view$: Observable<{
     loading: boolean;
@@ -26,7 +26,8 @@ export class AdminPendingTutorsComponent implements OnInit {
   status = '';
   perPage = 10;
   selectedIndex: number;
-  selectedTutor?: ITutor;
+  rejectionReason: string;
+  selectedTutor?: ITutor | undefined;
 
   constructor(private _store: Store<any>, private _route: ActivatedRoute) {}
 
@@ -34,6 +35,10 @@ export class AdminPendingTutorsComponent implements OnInit {
     this.selectedIndex = this._route.snapshot.queryParams['tab'] || 0;
 
     this._store.dispatch(fromCore.loadPendingTutors({ params: { page: 1 } }));
+
+    this.showViewRejectionReasonModal$ = this._store.select(
+      fromAdmin.selectShowViewRejectionReasonModal
+    );
 
     this.view$ = combineLatest([
       this._store.select(fromCore.selectTutorsCounts),
@@ -50,8 +55,20 @@ export class AdminPendingTutorsComponent implements OnInit {
     );
   }
 
+  onChangeTab(tab: any): void {
+    this.selectedIndex = tab.index;
+  }
+
   onPageChange({ page }: any): void {
     this._store.dispatch(fromCore.loadPendingTutors({ params: { page } }));
+  }
+
+  onOpenViewReasonModal(): void {
+    this._store.dispatch(fromAdminAction.openViewRejectionReasonModal());
+  }
+
+  onCloseViewReasonModal(): void {
+    this._store.dispatch(fromAdminAction.closeViewRejectionReasonModal());
   }
 
   onSearch(search: string): void {

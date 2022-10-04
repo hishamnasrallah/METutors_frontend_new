@@ -1,8 +1,8 @@
 import { ITutor } from '@metutor/core/models';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
+  WEEK_DAYS,
   generalConstants,
-  SORTED_DAYS_WEEK,
   COURSE_TUITION_TYPES_CONST,
 } from '@metutor/config';
 
@@ -19,8 +19,8 @@ export class TutorProfileAvailablityTutoringComponent implements OnInit {
 
       if (_tutor?.availability && _tutor?.availability.length) {
         _tutor.availability.forEach((avail) => {
-          if (!this.availability.includes(SORTED_DAYS_WEEK[avail?.day]))
-            this.availability.push(SORTED_DAYS_WEEK[avail?.day]);
+          if (!this.availability.includes(WEEK_DAYS[avail?.day]))
+            this.availability.push(WEEK_DAYS[avail?.day]);
         });
       }
     }

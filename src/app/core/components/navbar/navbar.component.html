@@ -11,17 +11,17 @@
         <li class="nav-item">
           <a class="nav-link nav-item-link" routerLink="/about" routerLinkActive="active"
             [routerLinkActiveOptions]="{exact: true}">
-            About Us
+            About us
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link nav-item-link" routerLink="/student-success" routerLinkActive="active">
-            Student Success
+          <a class="nav-link nav-item-link" routerLink="/study" routerLinkActive="active">
+            Study
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link nav-item-link" routerLink="/become-tutor" routerLinkActive="active">
-            Become A Tutor
+            Become a Tutor
           </a>
         </li>
         <li class="nav-item" *ngIf="!(token$ | async)">
@@ -40,10 +40,10 @@
             <img src="assets/svg/b-chevron.svg" alt="" draggable="false">
           </a>
         </li>
-        <!-- <li class="nav-item">
-          <a class="nav-link nav-item-link" routerLinkActive="active">
+<!--         <li class="nav-item">
+          <a class="nav-link nav-item-link" [matMenuTriggerFor]="languages">
             <img src="assets/svg/language.svg" alt="" draggable="false">
-            <span class="lang">En</span>
+            <span class="lang text-capitalize">{{ selectedLanguage }}</span>
             <img src="assets/svg/b-chevron.svg" alt="" draggable="false">
           </a>
         </li> -->
@@ -53,7 +53,7 @@
             Get Started
           </a>
           <a *ngIf="token$ | async" class="link-btn login px-4 py-1 fw-bold" mat-flat-button color="primary"
-            [routerLink]="(user$ | async)?.roleId === userRole.tutor ? '/tutor' : (user$ | async)?.roleId === userRole.student ? '/student' : '/admin'">
+            [routerLink]="+((user$ | async)?.roleId)! === userRole.tutor ? '/tutor' : +((user$ | async)?.roleId)! === userRole.student ? '/student' : '/admin'">
             My Classroom
           </a>
         </li>
@@ -77,13 +77,13 @@
       aria-labelledby="button-basic">
       <li role="menuitem">
         <a class="dropdown-item" routerLink="/about" routerLinkActive="active"
-          [routerLinkActiveOptions]="{exact: true}">About Us</a>
+          [routerLinkActiveOptions]="{exact: true}">About us</a>
       </li>
       <li role="menuitem">
-        <a class="dropdown-item" routerLink="/student-success" routerLinkActive="active">Student Success</a>
+        <a class="dropdown-item" routerLink="/study" routerLinkActive="active">Study</a>
       </li>
       <li role="menuitem">
-        <a class="dropdown-item" routerLink="/become-tutor" routerLinkActive="active">Become A Tutor</a>
+        <a class="dropdown-item" routerLink="/become-tutor" routerLinkActive="active">Become a Tutor</a>
       </li>
       <li role="menuitem">
         <a class="dropdown-item text-center" [matMenuTriggerFor]="currency">
@@ -91,19 +91,20 @@
           <img src="assets/svg/b-chevron.svg" alt="" draggable="false">
         </a>
       </li>
-      <!-- <li role="menuitem">
-        <a class="dropdown-item" routerLinkActive="active">
+<!--       <li role="menuitem">
+        <a class="dropdown-item" [matMenuTriggerFor]="languages">
           <img src="assets/svg/language.svg" alt="" draggable="false">
-          <span class="mx-2">En</span>
+          <span class="mx-2 text-capitalize">{{ selectedLanguage }}</span>
           <img src="assets/svg/b-chevron.svg" alt="" draggable="false">
         </a>
       </li> -->
       <li role="menuitem" class="book-class">
-        <a *ngIf="!(token$ | async)" class="dropdown-item link-btn login" mat-flat-button color="primary" routerLink="/signup">
+        <a *ngIf="!(token$ | async)" class="dropdown-item link-btn login" mat-flat-button color="primary"
+          routerLink="/signup">
           Get Started
         </a>
         <a *ngIf="token$ | async" class="dropdown-item link-btn login" mat-flat-button color="primary"
-          [routerLink]="(user$ | async)?.roleId === userRole.tutor ? '/tutor' : (user$ | async)?.roleId === userRole.student ? '/student' : '/admin'">
+          [routerLink]="+((user$ | async)?.roleId)! === userRole.tutor ? '/tutor' : +((user$ | async)?.roleId)! === userRole.student ? '/student' : '/admin'">
           My Classroom
         </a>
       </li>
@@ -131,4 +132,9 @@
       {{ item?.name }}
     </button>
   </ng-container>
+</mat-menu>
+
+<mat-menu #languages="matMenu">
+  <a mat-menu-item class="h-auto currency-item" (click)="onLanguageSelect('ar')">العربية</a>
+  <a mat-menu-item class="h-auto currency-item" (click)="onLanguageSelect('en')">English</a>
 </mat-menu>

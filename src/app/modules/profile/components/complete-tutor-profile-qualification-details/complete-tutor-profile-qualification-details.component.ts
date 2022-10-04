@@ -1,10 +1,24 @@
-import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { tap } from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
+import { HttpEventType } from '@angular/common/http';
+
+import {
+  Input,
+  OnInit,
+  Output,
+  Component,
+  OnDestroy,
+  EventEmitter,
+} from '@angular/core';
+
+import { UploadService } from '@services';
 import * as fromCore from '@metutor/core/state';
 import { ILanguage, ITutor } from 'src/app/core/models';
+import { environment } from 'src/environments/environment';
+import * as fromProfile from '@metutor/modules/profile/state';
 import { AlertNotificationService } from '@metutor/core/components';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import * as fromProfileActions from '@metutor/modules/profile/state/actions';
 
 import {
   FormArray,
@@ -15,6 +29,7 @@ import {
 } from '@angular/forms';
 
 import {
+  formatBytes,
   DEGREE_LEVELS,
   DEGREE_FIELDS,
   COMPUTER_SKILLS,
@@ -28,11 +43,12 @@ import {
   styleUrls: ['./complete-tutor-profile-qualification-details.component.scss'],
 })
 export class CompleteTutorProfileQualificationDetailsComponent
-  implements OnInit
+  implements OnInit, OnDestroy
 {
   @Input() loading: boolean | null;
   @Input() languagesList: ILanguage[] | null;
   @Input() set tutor(_tutor: ITutor) {
+    this._store.dispatch(fromCore.resetUploadedFiles());
     if (_tutor) {
       this.form.patchValue({
         nameOfUniversity: _tutor?.qualifications?.nameOfUniversity,
@@ -45,7 +61,31 @@ export class CompleteTutorProfileQualificationDetailsComponent
         currentEmployer: _tutor?.qualifications?.currentEmployer,
         currentTitle: _tutor?.qualifications?.currentTitle,
         video: _tutor?.qualifications?.video,
+        resume: _tutor?.userResume,
       });
+
+      if (_tutor.userDegrees && _tutor.userDegrees.length) {
+        _tutor.userDegrees.forEach((degree) => {
+          this.degrees.push(this._fb.group(degree));
+        });
+      }
+
+      if (_tutor.userCertificates && _tutor.userCertificates.length) {
+        _tutor.userCertificates.forEach((certificate) => {
+          this.certificates.push(this._fb.group(certificate));
+        });
+      }
+
+      if (_tutor.userSignature && _tutor.userSignature.length) {
+        const signature = _tutor.userSignature.find(
+          (signature) => signature.document === 'onboarding'
+        );
+
+        this.signatureUploadInfo = {
+          ...this.signatureUploadInfo,
+          ...signature,
+        };
+      }
 
       if (_tutor.languages && _tutor.languages.length) {
         this.languages.clear();
@@ -70,18 +110,47 @@ export class CompleteTutorProfileQualificationDetailsComponent
   @Output() submitForm = new EventEmitter();
 
   form: FormGroup;
+  fileId: number;
   invalid = 'INVALID';
   filterDegree: string;
   uploadingVideo: boolean;
   skills = COMPUTER_SKILLS;
   degreeLevels = DEGREE_LEVELS;
+  addingSignature$: Observable<any>;
   experiences = TEACHING_EXPERIENCE;
   fileUploadProgress$: Observable<any>;
+  showViewDocumentModal$: Observable<any>;
   uploadComplete = generalConstants.uploadComplete;
+  allowedFiles = ['doc', 'docx', 'xlsx', 'xls', 'pdf'];
+
+  document = { url: `${environment.uploadsPath}onboarding/onboarding.pdf` };
+
+  //Signature
+  uploadSignatureStream$: Subscription;
+  signatureUploadInfo: {
+    url: string;
+    progress: number;
+    fileName: string;
+    uploading: boolean;
+    responseType: number;
+  };
+
+  //Resume
+  resumeUploadProgress: any[] = [];
+  uploadResumeStream$: Subscription;
+
+  // Degrees
+  degreeUploadProgress: any[] = [];
+  uploadDegreeStream$: Subscription;
+
+  // Other certificates
+  certificateUploadProgress: any[] = [];
+  uploadCertificateStream$: Subscription;
 
   constructor(
     private _fb: FormBuilder,
     private _store: Store<any>,
+    private _uploadService: UploadService,
     private _alertNotificationService: AlertNotificationService
   ) {
     this.form = this._fb.group({
@@ -89,21 +158,31 @@ export class CompleteTutorProfileQualificationDetailsComponent
         null,
         [Validators.required, Validators.maxLength(120)],
       ],
-      computerSkills: [null, [Validators.required]],
-      degreeLevel: [null, [Validators.required]],
-      teachingExperience: [null, [Validators.required]],
-      degreeField: [null, [Validators.required]],
-      languages: this._fb.array([]),
-      teachingExperienceOnline: [null, [Validators.required]],
-      currentEmployer: [null, Validators.maxLength(80)],
-      currentTitle: [null, Validators.maxLength(80)],
+      resume: [[], Validators.required],
       video: [null, Validators.required],
+      signature: [null],
+      languages: this._fb.array([]),
+      degreeLevel: [null, [Validators.required]],
+      degreeField: [null, [Validators.required]],
+      certificates: this._fb.array([]),
+      computerSkills: [null, [Validators.required]],
+      teachingExperience: [null, [Validators.required]],
+      teachingExperienceOnline: [null, [Validators.required]],
+      currentTitle: [null, Validators.maxLength(80)],
+      currentEmployer: [null, Validators.maxLength(80)],
+      degrees: this._fb.array([], [Validators.required]),
     });
 
     this.addLanguage();
   }
 
   ngOnInit(): void {
+    this.showViewDocumentModal$ = this._store.select(
+      fromProfile.selectShowViewDocumentModal
+    );
+
+    this.addingSignature$ = this._store.select(fromCore.selectTutorLoading);
+
     this.fileUploadProgress$ = this._store
       .select(fromCore.selectFileUploadingProgress)
       .pipe(
@@ -113,13 +192,20 @@ export class CompleteTutorProfileQualificationDetailsComponent
               this.uploadingVideo = false;
               this.video?.setValue(response?.url);
               this.video?.markAsDirty();
-              this.form?.updateValueAndValidity();
 
               this._store.dispatch(fromCore.resetUploadFileProgress());
             }
           });
         })
       );
+  }
+
+  onOpenViewDocumentModal(): void {
+    this._store.dispatch(fromProfileActions.openViewDocumentModal());
+  }
+
+  onCloseViewDocumentModal(): void {
+    this._store.dispatch(fromProfileActions.closeViewDocumentModal());
   }
 
   get nameOfUniversity(): AbstractControl | null {
@@ -162,12 +248,32 @@ export class CompleteTutorProfileQualificationDetailsComponent
     return this.form?.get('languages') as FormArray;
   }
 
+  get resume(): AbstractControl | null {
+    return this.form.get('resume');
+  }
+
+  get signature(): AbstractControl | null {
+    return this.form.get('signature');
+  }
+
+  get degrees(): FormArray {
+    return this.form?.get('degrees') as FormArray;
+  }
+
+  get certificates(): FormArray {
+    return this.form?.get('certificates') as FormArray;
+  }
+
   removeLanguage(i: number): void {
     (this.form?.get('languages') as FormArray).removeAt(i);
 
     if (this.form.value.languages.length === 0) {
       this.addLanguage();
     }
+
+    this.form?.markAsTouched();
+    this.form?.updateValueAndValidity();
+    this.languages?.updateValueAndValidity();
   }
 
   newLanguage(): FormGroup {
@@ -239,17 +345,288 @@ export class CompleteTutorProfileQualificationDetailsComponent
         return;
       }
 
-      this.video?.markAsTouched();
+      const files: any = [];
+      Array.from(event.target.files).forEach((file: any) => {
+        files.push(file);
+      });
+
       this.uploadingVideo = true;
-      this._store.dispatch(
-        fromCore.uploadFile({ file: [...event.target.files] })
-      );
+      this._store.dispatch(fromCore.uploadFile({ file: [...files] }));
     }
   }
 
-  onCancelUpload() {
+  onCancelVideoUpload() {
     this.uploadingVideo = false;
-    this._store.dispatch(fromCore.cancelUpload());
+    this._store.dispatch(fromCore.cancelFileUpload());
+  }
+
+  onUploadResume(event: any): void {
+    let files = [];
+    if (event.target && event.target.files && event.target.files.length) {
+      files = [...event.target.files];
+      const mimeType = files[0].type;
+      const ext = files[0].name.split('.').pop().toLowerCase();
+      console.log(ext);
+
+      if (this.fileFormatError(ext, mimeType)) {
+        this._alertNotificationService.error(
+          'Only excel, doc, pdf and image are allowed'
+        );
+        return;
+      }
+
+      if (this.resume?.value?.length + files.length > 1) {
+        this._alertNotificationService.error('You can only upload one resume');
+
+        return;
+      }
+
+      files.forEach((file: any, index: number) => {
+        if (file.size > 5 * 1024 * 1024) {
+          this._alertNotificationService.error('Allowed file size is 5MB');
+
+          return;
+        }
+
+        this.resumeUploadProgress[index] = {
+          url: '',
+          id: null,
+          progress: 0,
+          responseType: 0,
+          fileSize: file.size,
+          fileName: file.name,
+        };
+
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('size', formatBytes(file.size));
+
+        this.uploadResumeStream$ = this._uploadService
+          .onUploadFile(formData)
+          .subscribe((event) => {
+            if (event.type === HttpEventType.UploadProgress) {
+              this.resumeUploadProgress[index] = {
+                ...this.resumeUploadProgress[index],
+                progress: Math.round((100 * event.loaded) / event.total),
+              };
+            } else if (event.type === HttpEventType.Response) {
+              const file = event?.body?.file;
+              file[0].document = 'resume';
+              this.resume?.setValue([file[0]]);
+              this.resumeUploadProgress[index] = {
+                ...this.resumeUploadProgress[index],
+                responseType: event.type,
+                id: file?.length ? file[0]?.id : null,
+                url: file?.length ? file[0]?.url : '',
+              };
+            }
+          });
+      });
+    }
+  }
+
+  onUploadSignature(file: any): void {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    this.signatureUploadInfo = {
+      ...this.signatureUploadInfo,
+      uploading: true,
+    };
+
+    this.uploadSignatureStream$ = this._uploadService
+      .onUploadFile(formData)
+      .subscribe((event) => {
+        if (event.type === HttpEventType.UploadProgress) {
+          this.signatureUploadInfo = {
+            ...this.signatureUploadInfo,
+            progress: Math.round((100 * event.loaded) / event.total),
+          };
+        } else if (event.type === HttpEventType.Response) {
+          const file = event?.body?.file;
+
+          this.signatureUploadInfo = {
+            ...this.signatureUploadInfo,
+            url: file[0]?.url,
+            uploading: false,
+            fileName: file[0].originalName,
+          };
+        }
+      });
+  }
+
+  onDeleteResume(): void {
+    this.resume?.setValue(null);
+  }
+
+  onUploadDegree(event: any): void {
+    let files = [];
+    let fileFormatError = false;
+    if (event.target && event.target.files && event.target.files.length) {
+      files = [...event.target.files];
+
+      files.forEach((file) => {
+        const mimeType = file.type;
+        const ext = file.name.split('.').pop().toLowerCase();
+
+        if (this.fileFormatError(ext, mimeType)) {
+          fileFormatError = true;
+        }
+      });
+
+      if (fileFormatError) {
+        this._alertNotificationService.error(
+          'Only excel, doc, pdf and image are allowed'
+        );
+
+        return;
+      }
+
+      if (this.degrees?.value?.length + files.length > 10) {
+        this._alertNotificationService.error('Maximum allowed files are 10');
+
+        return;
+      }
+
+      files.forEach((file: any, index: number) => {
+        if (file.size > 5 * 1024 * 1024) {
+          this._alertNotificationService.error('Allowed file size is 5MB');
+
+          return;
+        }
+
+        this.degreeUploadProgress[index] = {
+          url: '',
+          id: null,
+          progress: 0,
+          responseType: 0,
+          fileSize: file.size,
+          fileName: file.name,
+        };
+
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('size', formatBytes(file.size));
+
+        this.uploadDegreeStream$ = this._uploadService
+          .onUploadFile(formData)
+          .subscribe((event) => {
+            if (event.type === HttpEventType.UploadProgress) {
+              this.degreeUploadProgress[index] = {
+                ...this.degreeUploadProgress[index],
+                progress: Math.round((100 * event.loaded) / event.total),
+              };
+            } else if (event.type === HttpEventType.Response) {
+              const file = event?.body?.file;
+              file[0].document = 'degree';
+              this.degrees?.push(this._fb.group(file[0]));
+              this.degreeUploadProgress[index] = {
+                ...this.degreeUploadProgress[index],
+                responseType: event.type,
+                id: file?.length ? file[0]?.id : null,
+                url: file?.length ? file[0]?.url : '',
+              };
+            }
+          });
+      });
+    }
+  }
+
+  onDeleteDegree(index: number): void {
+    this.degrees.removeAt(index);
+  }
+
+  onUploadCertificate(event: any): void {
+    let files = [];
+    let fileFormatError = false;
+    if (event.target && event.target.files && event.target.files.length) {
+      files = [...event.target.files];
+
+      files.forEach((file) => {
+        const mimeType = file.type;
+        const ext = file.name.split('.').pop().toLowerCase();
+
+        if (this.fileFormatError(ext, mimeType)) {
+          fileFormatError = true;
+        }
+      });
+
+      if (fileFormatError) {
+        this._alertNotificationService.error(
+          'Only excel, doc, pdf and image are allowed'
+        );
+
+        return;
+      }
+
+      if (this.certificates?.value?.length + files.length > 10) {
+        this._alertNotificationService.error('Maximum allowed files are 10');
+
+        return;
+      }
+
+      files.forEach((file: any, index: number) => {
+        if (file.size > 5 * 1024 * 1024) {
+          this._alertNotificationService.error('Allowed file size is 5MB');
+
+          return;
+        }
+
+        this.certificateUploadProgress[index] = {
+          url: '',
+          id: null,
+          progress: 0,
+          responseType: 0,
+          fileSize: file.size,
+          fileName: file.name,
+        };
+
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('size', formatBytes(file.size));
+
+        this.uploadCertificateStream$ = this._uploadService
+          .onUploadFile(formData)
+          .subscribe((event) => {
+            if (event.type === HttpEventType.UploadProgress) {
+              this.certificateUploadProgress[index] = {
+                ...this.certificateUploadProgress[index],
+                progress: Math.round((100 * event.loaded) / event.total),
+              };
+            } else if (event.type === HttpEventType.Response) {
+              const file = event?.body?.file;
+              file[0].document = 'certificate';
+              this.certificates?.push(this._fb.group(file[0]));
+
+              this.certificateUploadProgress[index] = {
+                ...this.certificateUploadProgress[index],
+                responseType: event.type,
+                id: file?.length ? file[0]?.id : null,
+                url: file?.length ? file[0]?.url : '',
+              };
+            }
+          });
+      });
+    }
+  }
+
+  onDeleteCertificate(index: number): void {
+    this.certificates.removeAt(index);
+  }
+
+  onAddSignature(url: string): void {
+    const payload = {
+      url,
+      document: 'onboarding',
+    };
+
+    this._store.dispatch(fromCore.tutorAddSignature({ payload }));
+  }
+
+  fileFormatError(ext: string, mimeType: string): boolean {
+    return (
+      !this.allowedFiles.includes(ext) && mimeType.match(/image\/*/) === null
+    );
   }
 
   submitFormData() {
@@ -262,8 +639,11 @@ export class CompleteTutorProfileQualificationDetailsComponent
       const body = {
         step: 3,
         video: this.video?.value,
+        resume: this.resume?.value,
+        degrees: this.degrees?.value,
         degree_field: this.degreeField?.value,
         degree_level: this.degreeLevel?.value,
+        certificates: this.certificates?.value,
         current_title: this.currentTitle?.value,
         computer_skills: this.computerSkills?.value,
         current_employer: this.currentEmployer?.value,
@@ -277,5 +657,12 @@ export class CompleteTutorProfileQualificationDetailsComponent
     } else {
       this.changeStep.emit(4);
     }
+  }
+
+  ngOnDestroy() {
+    this.uploadDegreeStream$?.unsubscribe();
+    this.uploadResumeStream$?.unsubscribe();
+    this.uploadSignatureStream$?.unsubscribe();
+    this.uploadCertificateStream$?.unsubscribe();
   }
 }

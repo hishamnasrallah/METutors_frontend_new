@@ -1,0 +1,45 @@
+.slide {
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 90px 0;
+  margin: 0;
+  background-position: right;
+
+  h1 {
+    color: #292929;
+    font-size: 70px;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: 1px;
+  }
+
+  p {
+    font-size: 24px;
+    color: #696969;
+    margin-top: 30px;
+    line-height: 1.42;
+  }
+
+  button {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+    padding: 8px 30px;
+  }
+}
+
+@media(max-width:992px) {
+  .slide {
+    h1 {
+      color: #FFF;
+
+      br {
+        display: none;
+      }
+    }
+
+    p {
+      color: #f2f2f2;
+    }
+  }
+}

@@ -115,17 +115,38 @@
         width: 100%;
       }
 
+      rating span.bs-rating-star {
+        width: 14px;
+        height: 14px;
+
+        &.active {
+          color: #FF8E18;
+        }
+      }
+
       .count {
         color: #FF8E18;
-        font-weight: bold;
-        font-size: 15px;
-        margin-left: 10px;
+        font-size: 14px;
+        margin-left: 5px;
       }
 
       .review {
         color: #949494;
-        font-size: 14px;
-        margin-left: 10px;
+        font-size: 13px;
+        margin-left: 5px;
+      }
+
+      .li-item {
+        img {
+          margin-right: 5px;
+          width: auto;
+          height: auto;
+        }
+
+        span {
+          color: #949494;
+          font-size: 13px;
+        }
       }
 
       .list {

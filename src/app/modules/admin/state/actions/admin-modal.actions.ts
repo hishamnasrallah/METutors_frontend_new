@@ -191,3 +191,11 @@ export const openSuccessModal = createAction(
 export const closeSuccessModal = createAction(
   '[Admin Modal] Open Success Modal'
 );
+
+export const openViewRejectionReasonModal = createAction(
+  '[Admin Modal] Open View Rejection Modal'
+);
+
+export const closeViewRejectionReasonModal = createAction(
+  '[Admin Modal] Close View Rejection Modal'
+);

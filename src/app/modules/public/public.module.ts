@@ -14,6 +14,7 @@ import { PublicRoutingModule } from './public-routing.module';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { CarouselModule as NGXCarouselModule } from 'ngx-bootstrap/carousel';
 
 // import * as publicEffects from './state/effects';
 import * as fromPublic from '@metutor/modules/public/state';
@@ -23,13 +24,13 @@ import {
   FaqComponent,
   HomeComponent,
   AboutComponent,
+  StudyComponent,
   ContactComponent,
   WelcomeComponent,
   FaqTicketComponent,
   AllCoursesComponent,
   BecomeTutorComponent,
   PrivacyPolicyComponent,
-  StudentSuccessComponent,
   LanguagesCoursesComponent,
   TutorTermsConditionsComponent,
   StudentTermsConditionsComponent,
@@ -43,6 +44,7 @@ import {
   AboutSlideComponent,
   WhyWeTeachComponent,
   ChooseCountryDialog,
+  StudySlideComponent,
   FounderTeamComponent,
   AboutValuesComponent,
   WhyMetutorsComponent,
@@ -68,7 +70,6 @@ import {
   ContactSendMessageComponent,
   HomeFeaturedTutorsComponent,
   TrustHappyStudentsComponent,
-  StudentSuccessSlideComponent,
   LearningEnvironmentComponent,
   LovingOpportunitiesComponent,
   HomeServicesFeaturesComponent,
@@ -87,6 +88,7 @@ import {
   declarations: [
     FaqComponent,
     HomeComponent,
+    StudyComponent,
     AboutComponent,
     WelcomeComponent,
     ContactComponent,
@@ -99,6 +101,7 @@ import {
     ChooseCountryDialog,
     AllCoursesComponent,
     CourseCardComponent,
+    StudySlideComponent,
     AboutValuesComponent,
     FounderTeamComponent,
     WhyMetutorsComponent,
@@ -108,7 +111,6 @@ import {
     PrivacyPolicyComponent,
     SelectFaqTopicComponent,
     BecomeTutorsUsComponent,
-    StudentSuccessComponent,
     LanguagesSlideComponent,
     SuccessStoriesComponent,
     GetYourClassesComponent,
@@ -128,7 +130,6 @@ import {
     StillHaveQuestionsComponent,
     HomeFeaturedTutorsComponent,
     TrustHappyStudentsComponent,
-    StudentSuccessSlideComponent,
     LearningEnvironmentComponent,
     LovingOpportunitiesComponent,
     LanguagesIntroducingComponent,
@@ -159,6 +160,7 @@ import {
     ReactiveFormsModule,
     PublicRoutingModule,
     RatingModule.forRoot(),
+    NGXCarouselModule.forRoot(),
     // EffectsModule.forFeature(Object.values(publicEffects)),
     StoreModule.forFeature(featureKeys.publicFeatureKey, fromPublic.reducers),
   ],

@@ -22,12 +22,16 @@
     }
   }
 
-  .bordered-top {
+  .divider {
     border-top: 1px solid #d7d7d7;
+
+    &.mt-30 {
+      margin-top: 30px;
+    }
   }
 
   .subscribe {
-    padding: 30px 15px 40px;
+    padding-bottom: 40px;
     margin-top: 50px;
 
     h1 {
@@ -52,9 +56,13 @@
     }
 
     .social {
-      button {
+      a {
         min-width: 0;
         padding: 2px 15px;
+
+        &:last-child {
+          padding-right: 0;
+        }
       }
     }
   }

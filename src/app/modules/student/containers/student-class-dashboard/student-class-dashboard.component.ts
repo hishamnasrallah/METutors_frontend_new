@@ -2,15 +2,14 @@ import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
-import { DatePipe } from '@angular/common';
 import { combineLatest, Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 
 import * as moment from 'moment';
-import { IInvoiceDetails } from '@models';
 import * as fromStudent from '../../state';
 import { environment } from '@environment';
 import * as fromCore from '@metutor/core/state';
+import { IInvoiceDetails, IUser } from '@models';
 import * as fromStudentAction from '../../state/actions';
 import { CourseStatus, courseStatusLabel } from '@metutor/config';
 
@@ -18,18 +17,19 @@ import { CourseStatus, courseStatusLabel } from '@metutor/config';
   selector: 'metutors-student-class-dashboard',
   templateUrl: './student-class-dashboard.component.html',
   styleUrls: ['./student-class-dashboard.component.scss'],
-  providers: [DatePipe],
 })
 export class StudentClassDashboardComponent implements OnInit {
   classId: number;
   timeSlots$: Observable<any>;
   paymentInfo$: Observable<any>;
   refundAmount$: Observable<any>;
+  user$: Observable<IUser | null>;
   price$: Observable<number | null>;
   isMakeupClass$: Observable<boolean>;
   tutorAvailability$: Observable<any>;
   isJoiningClass$: Observable<boolean>;
   showPaymentModal$: Observable<boolean>;
+  isGetInvoiceEmail$: Observable<boolean>;
   isLoadingViewClass$: Observable<boolean>;
   isLoadingTimeSlots$: Observable<boolean>;
   isCreatingNewClass$: Observable<boolean>;
@@ -40,9 +40,8 @@ export class StudentClassDashboardComponent implements OnInit {
   showSendFeedbackModal$: Observable<boolean>;
   tutorReAssignmentModal$: Observable<boolean>;
   cancelCourseSuccessModal$: Observable<boolean>;
-  isLoadingTutorAvailability$: Observable<boolean>;
-
   isCalculateInvoiceDetails$: Observable<boolean>;
+  isLoadingTutorAvailability$: Observable<boolean>;
   invoiceDetails$: Observable<IInvoiceDetails | null>;
 
   onHold = false;
@@ -58,11 +57,7 @@ export class StudentClassDashboardComponent implements OnInit {
     loading: boolean;
   }>;
 
-  constructor(
-    private _router: Router,
-    private _store: Store<any>,
-    private _datePipe: DatePipe
-  ) {}
+  constructor(private _router: Router, private _store: Store<any>) {}
 
   getHours(date: string) {
     const startDate = new Date();
@@ -132,6 +127,17 @@ export class StudentClassDashboardComponent implements OnInit {
     const params = { teacherId };
     this._store.dispatch(fromStudentAction.openStudentSendFeedbackModal());
     this._store.dispatch(fromStudentAction.setStudentStateParams({ params }));
+  }
+
+  getInvoiceEmail(user: IUser, info: IInvoiceDetails): void {
+    this._store.dispatch(
+      fromCore.getInvoiceEmail({
+        info: {
+          ...info,
+          email: user.email,
+        },
+      })
+    );
   }
 
   onCloseFeedbackModal(): void {
@@ -218,6 +224,12 @@ export class StudentClassDashboardComponent implements OnInit {
     this.showMakeupClassModal$ = this._store.select(
       fromStudent.selectMakeupClassModal
     );
+
+    this.isGetInvoiceEmail$ = this._store.select(
+      fromCore.selectIsGetInvoiceEmail
+    );
+
+    this.user$ = this._store.select(fromCore.selectUser);
 
     this.isJoiningClass$ = this._store.select(fromCore.selectIsJoiningClass);
 

@@ -2,14 +2,14 @@ import { Store } from '@ngrx/store';
 import { upperFirst } from 'lodash';
 import { IRole } from 'src/app/core/models';
 import { Observable, Subscription } from 'rxjs';
-import { CountryISO } from 'ngx-intl-tel-input';
 import * as fromCore from '@metutor/core/state';
+import { AuthService } from 'src/app/core/services';
 import { MatDialog } from '@angular/material/dialog';
 import { RolesSelectComponent } from '../../components';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SocialProvider, UserRole } from 'src/app/config';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AuthService, UsersService } from 'src/app/core/services';
+import { CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
 import { AlertNotificationService } from 'src/app/core/components';
 import { FormValidationUtilsService } from 'src/app/core/validators';
 import { animate, style, transition, trigger } from '@angular/animations';
@@ -49,9 +49,9 @@ export class SignupComponent implements OnInit, OnDestroy {
   loading: boolean = false;
   getRolesSub?: Subscription;
   passwordVisibility = false;
-  selectedCountry!: CountryISO;
   authSignInSub?: Subscription;
   confirmPasswordVisibility = false;
+  PhoneNumberFormat = PhoneNumberFormat;
 
   preferredCountries: CountryISO[] = [
     CountryISO.UnitedStates,
@@ -65,7 +65,6 @@ export class SignupComponent implements OnInit, OnDestroy {
     private _dialog: MatDialog,
     private _route: ActivatedRoute,
     private _authService: AuthService,
-    private _userService: UsersService,
     private _fv: FormValidationUtilsService,
     private _alertNotificationService: AlertNotificationService
   ) {
@@ -119,13 +118,6 @@ export class SignupComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // this._userService.getUserLocation().then((res: any) => {
-    //   if (res && res.countryName) {
-    //     const countryName: keyof CountryISO = res.countryName;
-    //     this.selectedCountry = CountryISO[countryName];
-    //   }
-    // });
-
     this._prepareRoles();
 
     if (this._route.snapshot.queryParams['role']) {

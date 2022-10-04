@@ -27,10 +27,10 @@ export class ITutorFeedback {
       this.id = feedback.id;
       this.review = feedback.review;
       this.rating = feedback.rating;
-      this.courseId = feedback.course_id;
+      this.courseId = +feedback?.course_id || 0;
       this.student = new IStudent(false, feedback.sender);
       this.tutor = new ITutor(false, feedback.reciever);
-      this.studentId = feedback.sender_id;
+      this.studentId = +feedback.sender_id || 0;
       this.updatedAt = feedback.updated_at;
     }
   }

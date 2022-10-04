@@ -44,6 +44,7 @@ import {
   CompleteTutorProfileQualificationDetailsComponent,
   CompleteTutorProfileTeachingSpecificationsComponent,
 } from './components';
+import { AccountModule } from '@metutor/modules/account/account.module';
 
 @NgModule({
   declarations: [
@@ -86,6 +87,7 @@ import {
     MatNativeDateModule,
     ProfileRoutingModule,
     StoreModule.forFeature(featureKeys.profileFeatureKey, fromProfile.reducers),
+    AccountModule,
   ],
 })
 export class ProfileModule {}

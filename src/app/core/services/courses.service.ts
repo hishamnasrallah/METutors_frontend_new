@@ -1,16 +1,19 @@
+import { Injectable } from '@angular/core';
+import camelcaseKeys from 'camelcase-keys';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
+import { IClassroom, ICourse, ICategory, ISyllabus, IProgram } from '@models';
 import {
   HttpClient,
   HttpParams,
   HttpErrorResponse,
 } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
-
-import camelcaseKeys from 'camelcase-keys';
-import { environment } from 'src/environments/environment';
-import { IClassroom, ICourse, ICategory, ISyllabus, IProgram } from '@models';
-import { AcademicTutoringTextbook, SORTED_DAYS_WEEK } from 'src/app/config';
+import {
+  SORTED_DAYS_WEEK,
+  CLASSROOM_TOPICS_SCALE,
+  AcademicTutoringTextbook,
+} from 'src/app/config';
 
 @Injectable({
   providedIn: 'root',
@@ -29,9 +32,11 @@ export class CoursesService {
   loadExploredCourses(programId: string, countryId?: string): Observable<any> {
     const query = countryId ? `?country_id=${countryId}` : '';
 
-    return this.http.get<{ field_of_studies: any[]; subjects: any[]; program: IProgram }>(
-      `${this.baseUrl}courses/${programId}${query}`
-    );
+    return this.http.get<{
+      field_of_studies: any[];
+      subjects: any[];
+      program: IProgram;
+    }>(`${this.baseUrl}courses/${programId}${query}`);
   }
 
   fetchMainServices(): Observable<any> {
@@ -289,7 +294,7 @@ export class CoursesService {
           classroom?.classrooms && classroom?.classrooms.length
             ? classroom?.classrooms.map((clss: any) => ({
                 date: clss.date,
-                day: clss.day,
+                day: clss.day + 1,
                 start_time: clss.start_time,
                 end_time: clss.end_time,
                 duration: clss.duration,
@@ -315,7 +320,7 @@ export class CoursesService {
 
     const weekdays =
       value.days && value.days.length
-        ? value.days.map((day: string) => SORTED_DAYS_WEEK.indexOf(day))
+        ? value.days.map((day: string) => SORTED_DAYS_WEEK.indexOf(day) + 1)
         : [];
 
     if (value.courseProgram) formData.append('program_id', value.courseProgram);
@@ -355,6 +360,16 @@ export class CoursesService {
     if (value.courseCountry) formData.append('country_id', value.courseCountry);
     if (value.type) formData.append('class_type', value.type);
     if (value.redirect_url) formData.append('redirect_url', value.redirect_url);
+    if (value.topics && value.topics.length)
+      formData.append(
+        'highlighted_topics',
+        JSON.stringify(
+          value.topics.map((topic: any) => ({
+            name: topic.name,
+            knowledge_scale: CLASSROOM_TOPICS_SCALE[topic.scale],
+          }))
+        )
+      );
 
     if (value.classrooms && value.classrooms.length)
       formData.append(
@@ -430,6 +445,20 @@ export class CoursesService {
       course_description: value?.description,
       student_name: value?.name,
       email: value?.email,
+    });
+  }
+
+  getInvoiceEmail(value: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}invoice-mail`, {
+      email: value.email,
+      invoiceData: {
+        no_of_classes: +value.noOfClasses,
+        price_per_hour: +value.pricePerHour,
+        total_hours: +value.totalHours,
+        total_amount: +value.totalAmount,
+        date: value.date,
+        invoice_number: value.invoiceNumber,
+      },
     });
   }
 

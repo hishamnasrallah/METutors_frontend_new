@@ -19,7 +19,7 @@ export class AdminTutorInterviewDocumentsComponent implements OnInit {
 
   isRejecting$: Observable<boolean>;
   isApproving$: Observable<boolean>;
-  view$: Observable<{ documents: ITeacherDocument[]; loading: boolean }>;
+  view$: Observable<{ documents: any; loading: boolean }>;
 
   document: ITeacherDocument;
 
@@ -41,13 +41,15 @@ export class AdminTutorInterviewDocumentsComponent implements OnInit {
   }
 
   onRejectDoc(): void {
-    const id = this.document.id;
-    this._store.dispatch(fromCore.adminRejectDocument({ id }));
+    this._store.dispatch(
+      fromCore.adminRejectDocument({ document: this.document })
+    );
   }
 
   onApproveDoc(): void {
-    const id = this.document.id;
-    this._store.dispatch(fromCore.adminApproveDocument({ id }));
+    this._store.dispatch(
+      fromCore.adminApproveDocument({ document: this.document })
+    );
   }
 
   onOpenInterviewAttachmentModal(document: ITeacherDocument) {

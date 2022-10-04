@@ -44,8 +44,8 @@
       <div class="row btn-list mt-5">
         <div class="col-12 d-flex justify-content-end">
           <button mat-flat-button color="primary" type="submit"
-                  [disabled]="form.invalid || (isSavingPreferences | async)">Update
-            <mat-icon class="spinner" *ngIf="(isSavingPreferences | async)">autorenew</mat-icon>
+                  [disabled]="form.invalid || (isSavingPreferences$ | async)">Update
+            <mat-icon class="spinner" *ngIf="(isSavingPreferences$ | async)">autorenew</mat-icon>
           </button>
         </div>
       </div>

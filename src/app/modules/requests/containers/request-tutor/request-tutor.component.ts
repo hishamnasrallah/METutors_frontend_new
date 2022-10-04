@@ -1,5 +1,6 @@
 import { Store } from '@ngrx/store';
 import { Observable, tap } from 'rxjs';
+import { isNil, omitBy } from 'lodash';
 import { DatePipe } from '@angular/common';
 import * as fromCore from '@metutor/core/state';
 import { ActivatedRoute } from '@angular/router';
@@ -10,10 +11,13 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { FormValidationUtilsService } from '@metutor/core/validators';
 import * as fromRequestsActions from '@metutor/modules/requests/state/actions';
 import {
+  GRADES,
+  formatBytes,
   SORTED_DAYS_WEEK,
   generalConstants,
   calculateListDays,
   TEXTBOOK_EDITION_CONST,
+  CLASSROOM_TOPICS_SCALE,
   AcademicTutoringTextbook,
   COURSE_TUITION_TYPES_CONST,
 } from 'src/app/config';
@@ -88,7 +92,11 @@ export class RequestTutorComponent implements OnInit {
           ? +this._route.snapshot.queryParams['country']
           : null,
       ],
-      courseGrade: [null],
+      courseGrade: [
+        this._route.snapshot.queryParams['grade']
+          ? +this._route.snapshot.queryParams['grade']
+          : null,
+      ],
       courseField: [
         this._route.snapshot.queryParams['field']
           ? +this._route.snapshot.queryParams['field']
@@ -102,6 +110,7 @@ export class RequestTutorComponent implements OnInit {
           : null,
         Validators.required,
       ],
+      topics: this._fb.array([]),
       information: [null, Validators.required],
       file: [null],
       name: [null],
@@ -210,6 +219,13 @@ export class RequestTutorComponent implements OnInit {
     this.step += 1;
     this.myStepper?.next();
     this._prepareReviewInfo();
+
+    this.selectedCourse = {
+      id: this.courseInformationForm.value.subject,
+      name: this.subjects?.filter(
+        (sub) => sub.id === +this.courseInformationForm.value.subject
+      )[0]?.name,
+    };
   }
 
   backStep(): void {
@@ -288,11 +304,12 @@ export class RequestTutorComponent implements OnInit {
     );
   }
 
-  calculateEstimatedPrice(course: any): void {
-    this.selectedCourse = course;
-    this._store.dispatch(
-      fromCore.calculateEstimatedPrice({ subjectId: course.id })
-    );
+  calculateEstimatedPrice(subjectId: string): void {
+    this.selectedCourse = {
+      id: subjectId,
+      name: this.subjects?.filter((sub) => sub.id === +subjectId)[0]?.name,
+    };
+    this._store.dispatch(fromCore.calculateEstimatedPrice({ subjectId }));
     this.price$ = this._store.select(fromCore.selectEstimatedPrice).pipe(
       tap((price) => {
         if (price) {
@@ -332,12 +349,22 @@ export class RequestTutorComponent implements OnInit {
       const data = {
         program_id: this.courseInformationForm.value.courseProgram,
         field_of_study_id: this.courseInformationForm.value.courseField,
-        subject_id: this.courseInformationForm.value.subject.id,
+        grade: this.courseInformationForm.value.courseGrade,
+        country_id: this.courseInformationForm.value.courseCountry,
+        subject_id: this.courseInformationForm.value.subject,
         language_id: this.courseInformationForm.value.language,
-        class_rooms: appointments,
+        start_date: new Date(
+          this.classroomDetailsForm.value.startDate
+        ).toISOString(),
+        end_date: new Date(
+          this.classroomDetailsForm.value.endDate
+        ).toISOString(),
+        class_rooms: JSON.stringify(appointments),
       };
 
-      this._store.dispatch(fromCore.generateTutors({ data }));
+      this._store.dispatch(
+        fromCore.generateTutors({ data: omitBy(data, isNil) })
+      );
       this.filterTutors('');
     }
   }
@@ -376,7 +403,7 @@ export class RequestTutorComponent implements OnInit {
       ...this.courseInformationForm.value,
       ...this._generateClassroomForm(this.classroomDetailsForm.value),
       ...this.selectTutorForm.value,
-      subject: this.courseInformationForm.value.subject.id,
+      subject: this.courseInformationForm.value.subject,
       programName: this.reviewInfo.courseProgram,
       fieldName: this.reviewInfo.courseField,
       tutoringLanguage: this.reviewInfo.languages,
@@ -408,7 +435,7 @@ export class RequestTutorComponent implements OnInit {
 
   private _prepareReviewInfo(): void {
     if (this.courseInformationForm.valid) {
-      if (this.courseInformationForm.value.courseProgram)
+      if (this.courseInformationForm.value.courseProgram) {
         this.reviewInfo.courseProgram =
           this.coursePrograms && this.coursePrograms.length
             ? this.coursePrograms.filter(
@@ -416,6 +443,24 @@ export class RequestTutorComponent implements OnInit {
                   sub?.id === this.courseInformationForm.value.courseProgram
               )[0]?.name
             : '';
+
+        if (
+          +this.courseInformationForm.value.courseProgram ===
+          generalConstants.nationalId
+        ) {
+          this.reviewInfo.courseGrade =
+            GRADES[this.courseInformationForm.value.courseGrade];
+
+          this.reviewInfo.courseCountry =
+            this.courseCountries && this.courseCountries.length
+              ? this.courseCountries.filter(
+                  (country) =>
+                    country?.id ===
+                    this.courseInformationForm.value.courseCountry
+                )[0]
+              : '';
+        }
+      }
 
       if (this.courseInformationForm.value.courseField)
         this.reviewInfo.courseField =
@@ -438,10 +483,20 @@ export class RequestTutorComponent implements OnInit {
         this.reviewInfo.subject =
           this.subjects && this.subjects.length
             ? this.subjects.filter(
-                (sub) =>
-                  sub?.id === +this.courseInformationForm.value.subject.id
+                (sub) => sub?.id === +this.courseInformationForm.value.subject
               )[0]?.name
             : '';
+
+      if (
+        this.courseInformationForm.value.topics &&
+        this.courseInformationForm.value.topics.length
+      )
+        this.reviewInfo.topics = this.courseInformationForm.value.topics.map(
+          (topic: any) => ({
+            name: topic.name,
+            scale: CLASSROOM_TOPICS_SCALE[topic.scale],
+          })
+        );
 
       if (this.courseInformationForm.value.information) {
         this.reviewInfo.info = this.courseInformationForm.value.information;
@@ -462,17 +517,22 @@ export class RequestTutorComponent implements OnInit {
           this.courseInformationForm.value.information ===
           AcademicTutoringTextbook.none
         )
-          this.reviewInfo.information = 'Textbooks not required';
+          this.reviewInfo.information = 'Textbook not required';
 
         if (
           this.courseInformationForm.value.information ===
           AcademicTutoringTextbook.later
         )
-          this.reviewInfo.information = 'No textbook';
+          this.reviewInfo.information = 'More info will be provided later';
       }
 
-      if (this.courseInformationForm.value.file)
+      if (this.courseInformationForm.value.file) {
         this.reviewInfo.file = this.courseInformationForm.value.file;
+        this.reviewInfo.filePreview = {
+          name: this.courseInformationForm.value.file.name,
+          size: formatBytes(this.courseInformationForm.value.file.size),
+        };
+      }
 
       if (this.courseInformationForm.value.name)
         this.reviewInfo.name = this.courseInformationForm.value.name;
@@ -591,11 +651,22 @@ export class RequestTutorComponent implements OnInit {
     if (value && value.length) {
       appointments = value.map((item: any) => {
         const appoint: any = {
-          date: this._datePipe.transform(new Date(item?.date), 'yyyy-MM-dd'),
           day: SORTED_DAYS_WEEK[new Date(item?.date).getDay()],
-          startTime: item?.startTime,
-          endTime: item?.endTime,
           duration: item?.duration,
+          start: new Date(
+            Date.parse(
+              this._datePipe.transform(new Date(item?.date), 'yyyy-MM-dd') +
+                ' ' +
+                item?.startTime
+            )
+          )?.toISOString(),
+          end: new Date(
+            Date.parse(
+              this._datePipe.transform(new Date(item?.date), 'yyyy-MM-dd') +
+                ' ' +
+                item?.endTime
+            )
+          )?.toISOString(),
         };
 
         return appoint;

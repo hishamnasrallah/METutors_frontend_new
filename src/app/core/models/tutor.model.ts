@@ -1,15 +1,17 @@
 import camelcaseKeys from 'camelcase-keys';
 import { generalConstants, GRADES, InterviewStatus } from 'src/app/config';
-import { environment } from 'src/environments/environment';
+
 import {
   IProgram,
   ISubject,
+  IDocument,
   ILanguage,
   IInterview,
   IAvailability,
   IQualification,
   ISpecification,
 } from '.';
+
 import { ITutorFeedback } from './tutor-feedback.model';
 
 export class ITutor {
@@ -63,6 +65,11 @@ export class ITutor {
   classes: any;
   preferences: any;
   completedStep: number;
+  availabilityDays: any;
+  userResume: IDocument[];
+  userDegrees: IDocument[];
+  userSignature: IDocument[];
+  userCertificates: IDocument[];
 
   constructor(createDefault = false, tutor: any = null) {
     if (createDefault) {
@@ -116,6 +123,11 @@ export class ITutor {
       this.classes = {};
       this.preferences = {};
       this.completedStep = 0;
+      this.userResume = [];
+      this.userDegrees = [];
+      this.userSignature = [];
+      this.userCertificates = [];
+      this.availabilityDays = [];
     }
 
     if (tutor) {
@@ -187,7 +199,9 @@ export class ITutor {
         tutor?.teacher_feedbacks_count || tutor?.reviews_count;
       this.averageRating = tutor?.average_rating;
       this.studentsTeaching =
-        tutor?.teacher_students_count || tutor?.classes_taught;
+        tutor?.teacher_students_count ||
+        tutor?.classes_taught ||
+        tutor?.students_taught;
       this.coursesCreated = tutor?.teacher_course_count;
       this.expertRating = tutor?.expert_rating;
       this.complexityRating = tutor?.complexity_rating;
@@ -202,10 +216,23 @@ export class ITutor {
       this.bookings = tutor?.bookings;
       this.amount = tutor?.amount;
       this.programs = tutor?.programs || [];
+      this.availabilityDays = tutor?.availability_days || [];
       this.classes = camelcaseKeys(tutor?.scheduled_classes, {
         deep: true,
       });
       this.completedStep = tutor?.profile_completed_step || 0;
+      this.userResume = camelcaseKeys(tutor?.user_resume, {
+        deep: true,
+      });
+      this.userDegrees = camelcaseKeys(tutor?.user_degrees, {
+        deep: true,
+      });
+      this.userCertificates = camelcaseKeys(tutor?.user_certificates, {
+        deep: true,
+      });
+      this.userSignature = camelcaseKeys(tutor?.user_signature, {
+        deep: true,
+      });
     }
   }
 }
@@ -255,17 +282,13 @@ export function checkApprovedTutor(request: any): boolean {
     return false;
   }
 
-  if (
+  return !(
     request &&
     request.status &&
     (request.status === InterviewStatus.rejected ||
       request.status === InterviewStatus.pending ||
       request.status === InterviewStatus.scheduled)
-  ) {
-    return false;
-  }
-
-  return true;
+  );
 }
 
 export function filterTeacherFeedbacks(feedbacks: any): ITutorFeedback[] {

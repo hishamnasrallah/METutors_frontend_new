@@ -1,11 +1,13 @@
 <div class="avatar d-flex align-items-center" *ngIf="type === 'small'">
   <img [src]="avatar" [width]="width" [height]="height"
-       class="rounded-circle p-0 me-2"
+       class="rounded-circle p-0 me-2" [ngClass]="{'-mt-22': tagLine}"
        draggable="false"
        meTutorsDefaultAvatar alt="">
   <span>
-    <a [routerLink]="routerLink" *ngIf="routerLink"><bdi *ngIf="name">{{ name }}</bdi></a>
-    <bdi *ngIf="name && !routerLink">{{ name }}</bdi>
+    <a [routerLink]="routerLink" *ngIf="routerLink" class="fw-bold"><bdi *ngIf="name">{{ name }}</bdi></a>
+    <bdi *ngIf="name && !routerLink" class="title" [ngClass]="{'fw-bold': tagLine}">{{ name }}</bdi>
+    <span *ngIf="showRating" class="rating"><rating [ngModel]="rating" [max]="1" [readonly]="true" class="ms-1"></rating> {{rating}}/5</span>
+    <p *ngIf="tagLine" class="text-truncate w-50">{{tagLine}}</p>
   </span>
 </div>
 

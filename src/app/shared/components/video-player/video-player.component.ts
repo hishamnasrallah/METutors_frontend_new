@@ -7,6 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class VideoPlayerComponent implements OnInit {
   @Input() videoSrc?: string;
+  @Input() maxHeight = '350px';
 
   constructor() {}
 

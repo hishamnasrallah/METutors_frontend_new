@@ -6,10 +6,12 @@
       <ng-container *ngFor="let _ of programs.controls; let i = index" [formGroupName]="i">
         <div class="col-md-6">
           <div class="form-group">
-            <label class="form-label d-flex justify-content-between">
-              Program Name
-
-              <span class="d-flex">
+            <div class="d-flex justify-content-between">
+            <label class="form-label">
+              Program Name <span>(you can select multiple)</span>
+            </label>
+            <span class="actions">
+               <span class="d-flex">
                 <a class="delete float-end cursor-pointer" *ngIf="programs.controls.length > 1"
                    (click)="removeProgram(i)">
                     <mat-icon>delete</mat-icon>
@@ -20,7 +22,8 @@
                     Add new
                 </a>
               </span>
-            </label>
+            </span>
+            </div>
 
             <mat-form-field appearance="outline" class="w-100">
               <mat-select formControlName="programId" [placeholder]="'Select Program'"
@@ -64,17 +67,17 @@
             </div>
 
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="fields" [placeholder]="'Select Field'" multiple *ngIf="!checkIfNoFieldsExists(i)">
+              <mat-select formControlName="fields" [placeholder]="'Select Field of Study'" multiple *ngIf="!checkIfNoFieldsExists(i)">
                 <ng-container *ngFor="let field of fields">
                   <mat-option [value]="field?.id" *ngIf="
                     (
                       form.value.programs[i]?.programId?.id !== nationalId &&
-                      form.value.programs[i]?.programId?.id === field?.programId
+                      form.value.programs[i]?.programId?.id === +(field?.programId)!
                     ) ||
                     (
                       form.value.programs[i]?.programId?.id === nationalId &&
-                      form.value.programs[i]?.programId?.id === field?.programId &&
-                      form.value.programs[i].countries?.includes(field.countryId)
+                      form.value.programs[i]?.programId?.id === +(field?.programId)! &&
+                      form.value.programs[i].countries?.includes(+field.countryId)
                     )
                   ">
                   <!--  &&
@@ -85,7 +88,7 @@
                 </ng-container>
               </mat-select>
 
-              <mat-select [placeholder]="'Select Field'" *ngIf="checkIfNoFieldsExists(i)">
+              <mat-select [placeholder]="'Select Field of Study'" *ngIf="checkIfNoFieldsExists(i)">
                 <mat-option value="" disabled>No data found</mat-option>
               </mat-select>
             </mat-form-field>
@@ -97,15 +100,15 @@
                   <mat-optgroup [label]="subject.fieldName" *ngIf="
                     (
                       form.value.programs[i]?.programId?.id !== nationalId &&
-                      form.value.programs[i]?.programId?.id === subject.programId &&
-                      form.value.programs[i].fields?.includes(subject.fieldId)
+                      form.value.programs[i]?.programId?.id === +subject.programId &&
+                      form.value.programs[i].fields?.includes(+subject.fieldId)
                     ) ||
                     (
                       form.value.programs[i]?.programId?.id === nationalId &&
-                      form.value.programs[i]?.programId?.id === subject.programId &&
-                      form.value.programs[i].fields?.includes(subject.fieldId) &&
-                      form.value.programs[i].countries?.includes(subject.countryId) &&
-                      form.value.programs[i].grades?.includes(subject.grade)
+                      form.value.programs[i]?.programId?.id === +subject.programId &&
+                      form.value.programs[i].fields?.includes(+subject.fieldId) &&
+                      form.value.programs[i].countries?.includes(+subject.countryId) &&
+                      form.value.programs[i].grades?.includes(+subject.grade)
                     )
                   ">
                     <mat-option *ngFor="let sub of subject.subjects" [value]="sub">
@@ -128,7 +131,7 @@
               <ng-container *ngFor="let item of form.value.programs[i].sortedSubjects; let indexSubjects = index">
                 <tr>
                   <th class="heading" [attr.colspan]="form.value.programs[i]?.programId?.id === nationalId ? '2' : '1'">
-                    <label>Program: </label> <span>
+                    <label>Program Name: </label> <span>
                       {{ form.value.programs[i]?.programId?.name }}<ng-container
                         *ngIf="form.value.programs[i]?.programId?.id === nationalId">, {{ item?.countryName }}
                         <span *ngIf="item?.countryFlag" [innerHTML]="item?.countryFlag" class="ms-2"></span>
@@ -146,7 +149,7 @@
                   <td>{{ subject?.name }}</td>
                   <td *ngIf="form.value.programs[i]?.programId?.id === nationalId">{{ subject?.gradeName }}</td>
                   <td>
-                    <input type="text" meTutorsOnlyNumber [onlyNumber]="true" min="1" step="1" placeholder="Enter Hourly Rate " class="p-0 w-100"
+                    <input type="text" meTutorsOnlyNumber [onlyNumber]="true" min="1" step="1" max="100" placeholder="Enter Hourly Rate " class="p-0 w-100"
                       [value]="subject.pricePerHour" (change)="changePrice(i, indexSubjects, indexSubject, $event)">
                   </td>
                 </tr>
@@ -162,7 +165,7 @@
 
       <metutors-submit-button [form]="form" [isDisabled]="!pricesLength || !subjectLength || pricesLength < subjectLength"
                               [isSubmitting]="loading" [extraClasses]="'w-100 fw-bold px-5'">
-        Save & Continue
+        Finish
       </metutors-submit-button>
     </div>
   </div>

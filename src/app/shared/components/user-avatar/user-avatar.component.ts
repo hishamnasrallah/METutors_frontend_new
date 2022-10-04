@@ -12,6 +12,8 @@ export class UserAvatarComponent implements OnInit {
   @Input() rating: number;
   @Input() count: number;
   @Input() avatar: string;
+  @Input() tagLine: string;
+  @Input() showRating = false;
   @Input() routerLink: any[] | null;
   @Input() type: 'small' | 'medium' | 'large' = 'small';
 

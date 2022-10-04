@@ -6,7 +6,7 @@
         <div class="card-body">
           <div class="row">
             <div class="col-md-1">
-              <img [src]="imageURL+data?.subject?.field?.image" width="65px" height="65px" draggable="false" alt="">
+              <img [src]="imageURL + data?.subject?.field?.image" width="65px" height="65px" draggable="false" alt="">
             </div>
             <div class="col-md-8">
               <h1>{{ data?.subject?.name }}</h1>
@@ -20,9 +20,9 @@
 
               <a mat-flat-button color="primary" class="py-1 fw-bold" (click)="closeModal.emit()"
                 routerLink="/requests/request-tutor"
-                [queryParams]="{program: data?.program?.id, field: data?.subject?.fieldId, subject: data?.subject?.id, country: data?.country}">
+                [queryParams]="{program: data?.program?.id, field: data?.subject?.fieldId, subject: data?.subject?.id, country: data?.country, grade: data?.grade}">
                 Start learning now
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="rotate-180-ar">
                   <path
                     d="M16.172 10.9999H4V12.9999H16.172L10.808 18.3639L12.222 19.7779L20 11.9999L12.222 4.22192L10.808 5.63592L16.172 10.9999Z"
                     fill="#FFF" />
@@ -114,7 +114,10 @@
               <div class="col-12 flex-grow-1">
                 <p class="bio">
                   Bio:
-                  {{ (teacher.bio && teacher.bio.length > 130) ? ((teacher?.bio | slice:0:130) + '...') : (teacher?.bio || '-' )}}
+                  {{ (teacher.bio && teacher.bio.length > 80) ? ((teacher?.bio | slice:0:80) + '...') : (teacher?.bio || '-' ) }}
+                  <a [routerLink]="'/profile/tutor/' + teacher?.id" *ngIf="teacher.bio && teacher.bio.length > 80">
+                    Read more
+                  </a>
                 </p>
               </div>
 
@@ -129,12 +132,13 @@
               </div>
 
               <div class="col-12 d-flex actions">
-                <button mat-flat-button color="primary" class="flex-grow-1 book">
-                  Book a Class
-                </button>
-                <button mat-button class="more">
+                <a mat-flat-button color="primary" class="flex-grow-1 book"
+                  [routerLink]="'/profile/tutor/' + teacher?.id">
+                  View Full Profile
+                </a>
+                <!-- <button mat-button class="more">
                   <mat-icon>more_vert</mat-icon>
-                </button>
+                </button> -->
               </div>
             </div>
           </div>

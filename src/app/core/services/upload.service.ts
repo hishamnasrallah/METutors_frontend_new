@@ -5,6 +5,7 @@ import camelcaseKeys from 'camelcase-keys';
 import { Observable, of, Subscription } from 'rxjs';
 import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
 
+import { formatBytes } from '@config';
 import * as fromCore from '@metutor/core/state';
 import { environment } from 'src/environments/environment';
 
@@ -22,14 +23,17 @@ export class UploadService {
     files.forEach((file: any, index: number) => {
       this.fileUploadProgress[index] = {
         url: '',
+        id: null,
         progress: 0,
         responseType: 0,
+        fileSize: file.size,
         fileName: file.name,
       };
 
       const formData = new FormData();
 
       formData.append('file', file);
+      formData.append('size', formatBytes(file.size));
 
       this.fileUploadStream$ = this.onUploadFile(formData).subscribe(
         (event) => {
@@ -44,6 +48,7 @@ export class UploadService {
             this.fileUploadProgress[index] = {
               ...this.fileUploadProgress[index],
               responseType: event.type,
+              id: file?.length ? file[0]?.id : null,
               url: file?.length ? file[0]?.url : '',
             };
 
@@ -91,7 +96,7 @@ export class UploadService {
     return this._http.post<any>(`${this.baseUrl}change-cover`, formData);
   }
 
-  cancelUploadStream(): Observable<any> {
+  cancelFileUploadStream(): Observable<any> {
     this.fileUploadStream$.unsubscribe();
 
     return of({});

@@ -44,3 +44,8 @@ export const selectIsShowTeacherAvailabilityModal = createSelector(
   selectProfileModalState,
   fromProfileModal.selectIsShowTeacherAvailabilityModal
 );
+
+export const selectShowViewDocumentModal = createSelector(
+  selectProfileModalState,
+  fromProfileModal.selectShowViewDocumentModal
+);

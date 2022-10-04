@@ -29,7 +29,6 @@ import {
   OtpVerifyComponent,
   RolesSelectComponent,
   AuthOpinionsComponent,
-  SignupUploadDocumentsComponent,
   SignupEmailVerificationComponent,
   SigninEmailVerificationModalComponent,
 } from './components';
@@ -45,7 +44,6 @@ import {
     AccessDeniedComponent,
     ResetPasswordComponent,
     ForgetPasswordComponent,
-    SignupUploadDocumentsComponent,
     SignupEmailVerificationComponent,
     SigninEmailVerificationModalComponent,
   ],

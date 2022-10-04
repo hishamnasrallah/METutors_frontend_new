@@ -20,7 +20,7 @@
 
   <div class="row mt-2">
     <div class="col-md-12">
-      <mat-tab-group mat-align-tabs="start" [selectedIndex]="selectedIndex">
+      <mat-tab-group mat-align-tabs="start" [selectedIndex]="selectedIndex" (selectedTabChange)="onChangeTab($event)">
         <mat-tab [label]="'Pending (' + view.tutorCounts?.pendingCount + ')'">
           <ng-container [ngSwitch]="view.loading">
             <div class="mt-4" *ngSwitchCase="true">
@@ -171,7 +171,15 @@
     [routerLink]="['/admin', 'tutor', 'profile', selectedTutor?.id]">
     <span>View Profile</span>
   </button>
+  <button mat-menu-item class="h-auto btn-menu" *ngIf="selectedIndex === 1" (click)="onOpenViewReasonModal()">
+    <span>View Reason</span>
+  </button>
   <button mat-menu-item class="h-auto btn-menu">
     <span>Send Message</span>
   </button>
 </mat-menu>
+
+<metutors-admin-view-rejection-reason-modal *ngIf="showViewRejectionReasonModal$ | async"
+                                            [selectedTutor]="selectedTutor" (closeModal)="onCloseViewReasonModal()"
+                                            [showModal]="(showViewRejectionReasonModal$ | async)!">
+</metutors-admin-view-rejection-reason-modal>

@@ -231,12 +231,16 @@
           <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
 
           <ng-container *ngSwitchCase="false">
-            <metutors-payment-invoice-details [invoiceDetails]="invoiceDetails"></metutors-payment-invoice-details>
+            <metutors-payment-invoice-details [invoiceDetails]="invoiceDetails"
+                                              [isGetInvoiceEmail]="isGetInvoiceEmail"
+                                              (print)="printToCart(invoiceDetails)"
+                                              (getInvoiceEmail)="getInvoicingEmail(invoiceDetails)">
+            </metutors-payment-invoice-details>
             <button mat-flat-button color="primary" class="float-end px-5 my-3" [disabled]="isCreating"
                     (click)="onSubmit(form)" type="submit">
               Pay Now
 
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="rotate-180-ar">
                 <path
                   d="M16.172 10.9999H4V12.9999H16.172L10.808 18.3639L12.222 19.7779L20 11.9999L12.222 4.22192L10.808 5.63592L16.172 10.9999Z"
                   fill="#FFF"/>

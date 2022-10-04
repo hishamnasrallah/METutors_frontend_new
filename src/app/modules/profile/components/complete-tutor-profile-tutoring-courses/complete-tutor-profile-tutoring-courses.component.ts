@@ -156,7 +156,11 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
 
         output[existingIndex].subjects = [
           ...output[existingIndex].subjects,
-          { ...item, pricePerHour: null },
+          {
+            ...item,
+            pricePerHour: null,
+            gradeName: this.grades[item.grade - 1],
+          },
         ];
       } else {
         output.push({
@@ -211,7 +215,9 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
                 ? {
                     ...sub,
                     pricePerHour:
-                      +event.target.value > 0 ? event.target.value : null,
+                      +event.target.value > 0 && +event.target.value <= 100
+                        ? event.target.value
+                        : null,
                   }
                 : { ...sub }
             ),
@@ -253,8 +259,8 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
         this.fields && this.fields?.length
           ? this.fields.filter(
               (field) =>
-                selectedProgram?.programId?.id === field.programId &&
-                selectedProgram.countries?.includes(field.countryId)
+                +selectedProgram?.programId?.id === +field.programId &&
+                selectedProgram.countries?.includes(+field.countryId)
             )
           : [];
 
@@ -263,7 +269,7 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
       const list =
         this.fields && this.fields?.length
           ? this.fields.filter(
-              (field) => selectedProgram?.programId?.id === field.programId
+              (field) => +selectedProgram?.programId?.id === +field.programId
             )
           : [];
 
@@ -282,10 +288,10 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
         this.subjects && this.subjects?.length
           ? this.subjects.filter(
               (subject) =>
-                selectedProgram?.programId?.id === subject.programId &&
-                selectedProgram.fields?.includes(subject.fieldId) &&
-                selectedProgram.countries?.includes(subject.countryId) &&
-                selectedProgram.grades?.includes(subject.grade)
+                +selectedProgram?.programId?.id === +subject.programId &&
+                selectedProgram.fields?.includes(+subject.fieldId) &&
+                selectedProgram.countries?.includes(+subject.countryId) &&
+                selectedProgram.grades?.includes(+subject.grade)
             )
           : [];
 
@@ -295,8 +301,8 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
         this.subjects && this.subjects?.length
           ? this.subjects.filter(
               (subject) =>
-                selectedProgram?.programId?.id === subject.programId &&
-                selectedProgram.fields?.includes(subject.fieldId)
+                +selectedProgram?.programId?.id === +subject.programId &&
+                selectedProgram.fields?.includes(+subject.fieldId)
             )
           : [];
 

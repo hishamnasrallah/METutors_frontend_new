@@ -146,6 +146,14 @@ export class CompleteTutorProfileProfilePictureComponent implements OnInit {
     }
   }
 
+  deleteCover():void {
+    this.cover?.setValue(null);
+    this.cover?.markAsDirty();
+    this.form.markAsDirty();
+    this.form.markAsTouched();
+    this._store.dispatch(fromCore.resetUploadFileProgress());
+  }
+
   submitFormData(): void {
     if (this.form.touched) {
       const data = {

@@ -23,6 +23,7 @@ export interface State {
   showInterviewAttachmentModal: boolean;
   showTeacherAvailabilityModal: boolean;
   showAdminStudentBookingModal: boolean;
+  showViewRejectionReasonModal: boolean;
   showRequestCourseDetailsModal: boolean;
   showHourlyRatePerSubjectModal: boolean;
   showAdminStudentFeedbackModal: boolean;
@@ -49,6 +50,7 @@ export const initialState: State = {
   showCourseBookingListModal: false,
   showAdminRefundPaymentModal: false,
   showTeacherAvailabilityModal: false,
+  showViewRejectionReasonModal: false,
   showAdminStudentBookingModal: false,
   showInterviewAttachmentModal: false,
   showAdminStudentFeedbackModal: false,
@@ -342,6 +344,15 @@ export const reducer = createReducer(
     ...state,
     showAdminRefundPaymentModal: true,
   })),
+  on(adminModalActions.openViewRejectionReasonModal, (state) => ({
+    ...state,
+    showViewRejectionReasonModal: true,
+  })),
+
+  on(adminModalActions.closeViewRejectionReasonModal, (state) => ({
+    ...state,
+    showViewRejectionReasonModal: false,
+  })),
 
   on(
     fromCore.refundCourseSuccess,
@@ -442,3 +453,6 @@ export const selectShowRefundPaymentModal = (state: State): boolean =>
 
 export const selectShowSuccessModal = (state: State): boolean =>
   state.showSuccessModal;
+
+export const selectShowViewRejectionReasonModal = (state: State): boolean =>
+  state.showViewRejectionReasonModal;

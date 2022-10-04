@@ -1,19 +1,18 @@
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
+import * as fromCore from '@metutor/core/state';
+import { ActivatedRoute } from '@angular/router';
+import { ViewportScroller } from '@angular/common';
+import * as fromPublic from '@metutor/modules/public/state';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
+import * as fromPublicActions from '@metutor/modules/public/state/actions';
 import {
   ITutor,
   IField,
   IProgram,
   ISubject,
   ICountry,
-  IStatistics,
 } from 'src/app/core/models';
-import * as fromCore from '@metutor/core/state';
-import { ActivatedRoute } from '@angular/router';
-import { ViewportScroller } from '@angular/common';
-import * as fromPublic from '@metutor/modules/public/state';
-import * as fromPublicActions from '@metutor/modules/public/state/actions';
 
 @Component({
   selector: 'metutors-home',
@@ -39,7 +38,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
   fragment: any;
   subjectData: any;
   testmonials?: any[];
-  academicStatistics?: IStatistics[];
 
   constructor(
     private _store: Store<any>,
@@ -65,33 +63,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
       if (element) this._viewportScroller.scrollToAnchor(f!);
     });
-
-    this.academicStatistics = [
-      {
-        id: 1,
-        icon: 'assets/svg/marketing.svg',
-        value: '340',
-        type: 'Courses Created',
-      },
-      {
-        id: 1,
-        icon: 'assets/svg/create-new.svg',
-        value: '30K',
-        type: 'Students Enrolled',
-      },
-      {
-        id: 1,
-        icon: 'assets/svg/pen.svg',
-        value: '10K',
-        type: 'Classrooms Attended',
-      },
-      {
-        id: 1,
-        icon: 'assets/svg/headset.svg',
-        value: '300+',
-        type: 'Teacher Profiles',
-      },
-    ];
 
     this.testmonials = [
       {
@@ -155,9 +126,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this._store.dispatch(fromPublicActions.closeViewSubjectDetailsModal());
   }
 
-  fetchFields({ program, country }: any): void {
+  fetchFields({ program, country, grade }: any): void {
     this._store.dispatch(
-      fromCore.loadFieldsByProgramId({ programId: program, countryId: country })
+      fromCore.loadFieldsByProgramId({
+        programId: program,
+        countryId: country,
+        grade,
+      })
     );
     this.fields$ = this._store.select(fromCore.selectFields);
     this.loadingFields$ = this._store.select(fromCore.selectIsLoadingFields);

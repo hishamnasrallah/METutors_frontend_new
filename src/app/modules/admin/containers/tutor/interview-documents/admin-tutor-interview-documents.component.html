@@ -3,8 +3,7 @@
     <div class="card-body" *ngLet="(view$ | async) as view">
       <h2>Submitted Documents</h2>
 
-      <h3>Educational</h3>
-
+      <h3>Resume</h3>
       <div class="items d-flex flex-wrap">
         <ng-container [ngSwitch]="view.loading">
           <ng-container *ngSwitchCase="true">
@@ -16,13 +15,85 @@
           </ng-container>
 
           <ng-container *ngSwitchCase="false">
-            <ng-container *ngIf="!view.documents?.length">
-              <div class="col-md-12 text-center p-3">No Record Found!</div>
+            <ng-container *ngIf="!view.documents?.resume?.length">
+              <div class="col-md-12 text-center p-3">No Resume Found!</div>
             </ng-container>
 
-            <ng-container *ngIf="view.documents && view.documents?.length">
-              <div class="item text-center" *ngFor="let document of view.documents; let i = index">
-                <h4>Document {{ i+ 1}}</h4>
+            <ng-container *ngIf="view.documents?.resume && view.documents?.resume?.length">
+              <div class="item text-center" *ngFor="let document of view.documents.resume; let i = index">
+                <h4>Resume {{ i+ 1}}</h4>
+                <div class="content position-relative rounded overflow-hidden">
+                  <button (click)="onOpenInterviewAttachmentModal(document)"
+                          class="d-flex align-items-center justify-content-center fw-bold">
+                    <mat-icon>zoom_in</mat-icon>
+                    Preview
+                  </button>
+                </div>
+                <h5 class="approved" *ngIf="document.status === 'approved'">Approved</h5>
+                <h5 class="rejected" *ngIf="document.status === 'rejected'">Rejected</h5>
+                <h5 class="pending" *ngIf="document.status === 'pending'">Pending Approval</h5>
+              </div>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </div>
+
+
+      <h3>Degrees</h3>
+      <div class="items d-flex flex-wrap">
+        <ng-container [ngSwitch]="view.loading">
+          <ng-container *ngSwitchCase="true">
+            <div class="col-md-3 bcx" *ngFor="let _ of [1,2,3,4]">
+              <div class="ph-col-3">
+                <div class="ph-avatar rounded"></div>
+              </div>
+            </div>
+          </ng-container>
+
+          <ng-container *ngSwitchCase="false">
+            <ng-container *ngIf="!view.documents?.degrees?.length">
+              <div class="col-md-12 text-center p-3">No Degree Found!</div>
+            </ng-container>
+
+            <ng-container *ngIf="view.documents?.degrees && view.documents?.degrees?.length">
+              <div class="item text-center" *ngFor="let document of view.documents.degrees; let i = index">
+                <h4>Degree {{ i+ 1}}</h4>
+                <div class="content position-relative rounded overflow-hidden">
+                  <button (click)="onOpenInterviewAttachmentModal(document)"
+                          class="d-flex align-items-center justify-content-center fw-bold">
+                    <mat-icon>zoom_in</mat-icon>
+                    Preview
+                  </button>
+                </div>
+                <h5 class="approved" *ngIf="document.status === 'approved'">Approved</h5>
+                <h5 class="rejected" *ngIf="document.status === 'rejected'">Rejected</h5>
+                <h5 class="pending" *ngIf="document.status === 'pending'">Pending Approval</h5>
+              </div>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </div>
+
+
+      <h3>Other Certificates</h3>
+      <div class="items d-flex flex-wrap">
+        <ng-container [ngSwitch]="view.loading">
+          <ng-container *ngSwitchCase="true">
+            <div class="col-md-3 bcx" *ngFor="let _ of [1,2,3,4]">
+              <div class="ph-col-3">
+                <div class="ph-avatar rounded"></div>
+              </div>
+            </div>
+          </ng-container>
+
+          <ng-container *ngSwitchCase="false">
+            <ng-container *ngIf="!view.documents?.certificates?.length">
+              <div class="col-md-12 text-center p-3">No Certificate Found!</div>
+            </ng-container>
+
+            <ng-container *ngIf="view.documents?.certificates && view.documents?.certificates?.length">
+              <div class="item text-center" *ngFor="let document of view.documents.certificates; let i = index">
+                <h4>Certifcate {{ i+ 1}}</h4>
                 <div class="content position-relative rounded overflow-hidden">
                   <button (click)="onOpenInterviewAttachmentModal(document)"
                           class="d-flex align-items-center justify-content-center fw-bold">
@@ -42,10 +113,10 @@
   </div>
 </div>
 
-<metutors-admin-tutor-interview-attachment-modal *ngIf="showInterviewAttachmentModal$ | async" [document]="document"
-                                                 (closeModal)="onCloseInterviewAttachmentModal()"
-                                                 [isApproving]="(isApproving$ | async)!"
-                                                 [isRejecting]="(isRejecting$ | async)!"
-                                                 (rejectDoc)="onRejectDoc()" (approveDoc)="onApproveDoc()"
-                                                 [showModal]="(showInterviewAttachmentModal$ | async)!">
-</metutors-admin-tutor-interview-attachment-modal>
+<metutors-doc-viewer-modal *ngIf="showInterviewAttachmentModal$ | async" [document]="document"
+                           (closeModal)="onCloseInterviewAttachmentModal()"
+                           [isApproving]="(isApproving$ | async)!"
+                           [isRejecting]="(isRejecting$ | async)!" [showActions]="true"
+                           (rejectDoc)="onRejectDoc()" (approveDoc)="onApproveDoc()"
+                           [showModal]="(showInterviewAttachmentModal$ | async)!">
+</metutors-doc-viewer-modal>

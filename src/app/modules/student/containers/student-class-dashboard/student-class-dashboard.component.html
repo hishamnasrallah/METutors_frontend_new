@@ -5,7 +5,7 @@
         <ng-container [ngSwitch]="view.loading">
           <ng-container *ngSwitchCase="false">
             <h1 class="title overflow-hidden">{{ view.data?.course?.courseName }}
-              <span>({{ view.data.course?.courseCode}})</span>
+              <span>({{ view.data.course?.courseCode }})</span>
               <button mat-button class="ms-2 status text-decoration-none"
                       *ngIf="view?.data?.course?.status !== courseStatus.cancelledByTeacher && view?.data?.course?.status !== courseStatus.declinedByTeacher"
                       [ngClass]="view?.data?.course?.status">{{ statusLabel[view?.data?.course?.status].long }}</button>
@@ -158,14 +158,14 @@
                 <th>Duration</th>
                 <th></th>
               </tr>
-              <tr *ngIf="!view.data?.upcomingClasses?.length">
+              <tr *ngIf="!view.data?.upcomingClasses?.data?.length">
                 <td colspan="8">
                   <div class="text-center">No record found</div>
                 </td>
               </tr>
-              <ng-container *ngIf="view.data?.upcomingClasses?.length">
-                <tr *ngFor="let upcomingClass of view.data.upcomingClasses; let i=index">
-                  <td>{{ i + 1}}</td>
+              <ng-container *ngIf="view.data?.upcomingClasses?.data?.length">
+                <tr *ngFor="let upcomingClass of view.data.upcomingClasses.data; let i=index">
+                  <td>{{ i + 1 }}</td>
                   <td>{{ upcomingClass.title ? upcomingClass.title : 'N/A' }}</td>
                   <td>
                     <metutors-user-avatar [avatar]="upcomingClass?.teacher?.avatar"
@@ -209,13 +209,13 @@
                 <th>Duration</th>
                 <th></th>
               </tr>
-              <tr *ngIf="!view.data?.previousClasses?.length">
+              <tr *ngIf="!view.data?.previousClasses?.data?.length">
                 <td colspan="8">
                   <div class="text-center">No record found</div>
                 </td>
               </tr>
-              <ng-container *ngIf="view.data?.previousClasses?.length">
-                <tr *ngFor="let previousClass of view.data.previousClasses; let i=index">
+              <ng-container *ngIf="view.data?.previousClasses?.data?.length">
+                <tr *ngFor="let previousClass of view.data.previousClasses.data; let i=index">
                   <td>{{ i + 1}}</td>
                   <td>{{ previousClass.title }}</td>
                   <td>
@@ -229,9 +229,7 @@
                   <td>{{ previousClass?.duration }}hr{{ +(previousClass?.duration)! > 1 ? 's' : '' }}</td>
                   <td>
                     <ng-container *ngIf="previousClass?.studentAttendence?.status === 'absent'; else second">
-                      <button mat-button class="secondary-button-opacity flex-grow-1 w-100">
-                        Student Absent
-                      </button>
+                      <span class="w-100 text-center text-main">Student Absent</span>
                     </ng-container>
 
                     <ng-template #second>
@@ -270,7 +268,7 @@
   </metutors-student-attendance-modal>
 
   <metutors-student-feedback-modal *ngIf="showSendFeedbackModal$ | async" [subHeading]="feedbackSubHeading"
-                                   [showModal]="(showSendFeedbackModal$ | async)!"
+                                   [showModal]="(showSendFeedbackModal$ | async)!" [buttonLabel]="'Submit Feedback'"
                                    (closeModal)="onCloseFeedbackModal()" (submitFeedback)="onSubmitFeedback($event)">
   </metutors-student-feedback-modal>
 
@@ -280,18 +278,23 @@
                                         (submitted)="onSubmitCancelCourse($event)">
   </metutors-student-cancel-course-modal>
 
-  <metutors-student-add-course-modal *ngIf="showAddCourseModal$ | async"
-                                     [showModal]="(showAddCourseModal$ | async)!"
-                                     [isLoadingTimeSlots]="(isLoadingTutorAvailability$ | async)!"
-                                     [price]="(price$ | async)!" [timeSlots]="(tutorAvailability$ | async)!"
-                                     (submitForm)="onAddCourse(view.data?.course?.id, $event)"
-                                     [isCreating]="(isCreatingNewClass$ | async)!"
-                                     (tutorAvailability)="onTutorAvailability(view.data?.course?.teacher?.id)"
-                                     [invoiceDetails]="(invoiceDetails$ | async)!"
-                                     [isLoadingInvoiceDetails]="(isCalculateInvoiceDetails$ | async)!"
-                                     (closeModal)="onCloseAddCourseModal()"
-                                     (calculateInvoice)="onCalculateInvoice(view.data?.course?.subjectId,$event)">
-  </metutors-student-add-course-modal>
+  <ng-container *ngLet="(user$ | async) as user">
+    <metutors-student-add-course-modal *ngIf="showAddCourseModal$ | async"
+                                       [showModal]="(showAddCourseModal$ | async)!"
+                                       [course]="view.data?.course"
+                                       [isLoadingTimeSlots]="(isLoadingTutorAvailability$ | async)!"
+                                       [price]="(price$ | async)!" [timeSlots]="(tutorAvailability$ | async)!"
+                                       (submitForm)="onAddCourse(view.data?.course?.id, $event)"
+                                       [isCreating]="(isCreatingNewClass$ | async)!"
+                                       (tutorAvailability)="onTutorAvailability(view.data?.course?.teacher?.id)"
+                                       [invoiceDetails]="(invoiceDetails$ | async)!"
+                                       [isLoadingInvoiceDetails]="(isCalculateInvoiceDetails$ | async)!"
+                                       [isGetInvoiceEmail]="(isGetInvoiceEmail$ | async)!"
+                                       (closeModal)="onCloseAddCourseModal()"
+                                       (getInvoiceEmail)="getInvoiceEmail(user, $event)"
+                                       (calculateInvoice)="onCalculateInvoice(view.data?.course?.subjectId,$event)">
+    </metutors-student-add-course-modal>
+  </ng-container>
 
   <metutors-student-makeup-class-modal *ngIf="showMakeupClassModal$ | async"
                                        [isLoadingTimeSlots]="(isLoadingTimeSlots$ | async)!"

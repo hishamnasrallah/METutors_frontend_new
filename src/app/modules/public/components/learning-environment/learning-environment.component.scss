@@ -13,28 +13,36 @@
     button {
       padding: 10px 20px;
       border-radius: 4px 4px 0 0;
-      min-width: 250px;
+      min-width: 200px;
       font-size: 16px;
+      background-color: #fff;
+      margin-right: 10px;
+      max-width: 230px;
+
+      &:last-child {
+        margin-right: 0;
+      }
 
       span {
         color: #707070;
         line-height: 20px;
+        font-size: 14px;
       }
 
       strong {
         color: #2A2A2A;
+        font-weight: normal;
+        font-size: 18px;
+        white-space: normal;
+        line-height: 23px;
+        display: block;
+        margin-top: 5px;
       }
 
       &.active {
-        background-color: #FFF;
-
         strong {
           color: var(--main-color);
-        }
-
-        span {
-          font-weight: bold;
-          color: #2A2A2A;
+          font-weight: 500;
         }
 
         &::after {
@@ -86,8 +94,15 @@
         color: #5a7184;
         padding: 0;
         margin: 0;
+
         &:hover {
           color: var(--main-color);
+        }
+
+        &.see-more {
+          display: block;
+          color: var(--main-color);
+          margin-top: 2px;
         }
       }
     }
@@ -138,11 +153,18 @@
     background-repeat: no-repeat;
     background-position: center center;
 
-    input {
-      border: 1px solid #E0E0E0;
-      border-radius: 13px;
-      width: 35%;
+    .find-country {
       margin: 10px auto 35px;
+
+      input {
+        border: 1px solid #E0E0E0;
+        border-radius: 13px;
+        width: 35%;
+      }
+
+      .choose-grade {
+        font-size: 13px;
+      }
     }
   }
 
@@ -209,6 +231,11 @@
 
     p {
       margin-bottom: 20px;
+    }
+
+    .tabs button {
+      max-width: 100%;
+      margin-right: 0;
     }
 
     .content {

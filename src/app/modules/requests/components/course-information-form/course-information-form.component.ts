@@ -1,6 +1,12 @@
 import { AlertNotificationService } from 'src/app/core/components';
-import { AbstractControl, FormGroup, Validators } from '@angular/forms';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  FormArray,
+  FormGroup,
+  Validators,
+  FormBuilder,
+  AbstractControl,
+} from '@angular/forms';
 import {
   state,
   style,
@@ -14,6 +20,7 @@ import {
   formatBytes,
   generalConstants,
   TEXTBOOK_EDITION_CONST,
+  CLASSROOM_TOPICS_SCALE,
   AcademicTutoringTextbook,
 } from 'src/app/config';
 import {
@@ -52,6 +59,7 @@ import {
 })
 export class CourseInformationFormComponent implements OnInit {
   @Input() form!: FormGroup;
+  @Input() selectedCourse: any;
   @Input() fields: IField[] | null;
   @Input() subjects: ISubject[] | null;
   @Input() programs: IProgram[] | null;
@@ -65,14 +73,20 @@ export class CourseInformationFormComponent implements OnInit {
 
   grades = GRADES;
   filePreview: any;
-  selectedCourse: any;
+  showAddTopic = false;
+  topicsScale = CLASSROOM_TOPICS_SCALE;
   nationalId = generalConstants.nationalId;
   textbookEditions = TEXTBOOK_EDITION_CONST;
   academicTutoringTextbook = AcademicTutoringTextbook;
 
-  constructor(private _alertNotificationService: AlertNotificationService) {}
+  constructor(
+    private _fb: FormBuilder,
+    private _alertNotificationService: AlertNotificationService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.addTopic();
+  }
 
   onChange(event: any): void {
     const value = event.value;
@@ -146,6 +160,16 @@ export class CourseInformationFormComponent implements OnInit {
     return this.form.get('file');
   }
 
+  get topics(): FormArray {
+    return this.form?.get('topics') as FormArray;
+  }
+
+  get checkTableView(): boolean {
+    return this.form.value.topics.length > 1
+      ? true
+      : this.form.value.topics[0].checked === true;
+  }
+
   onChangeCourseProgram(): void {
     this.selectedCourse = null;
     const programId = this.program?.value;
@@ -184,9 +208,44 @@ export class CourseInformationFormComponent implements OnInit {
   }
 
   onChangeCourseSubject(): void {
-    this.selectedCourse = this.subject?.value;
+    this.changeCourseSubject.emit(this.subject?.value);
+  }
 
-    this.changeCourseSubject.emit(this.selectedCourse);
+  addNewTopic(index: number): void {
+    if (this.form.value.topics[index]?.name.trim()) {
+      this.topics.patchValue(
+        this.topics.value.map((topic: any, i: number) =>
+          i === index ? { ...topic, checked: true } : topic
+        )
+      );
+
+      this.showAddTopic = true;
+    }
+  }
+
+  addTopic(): void {
+    this.topics.push(this.newTopic());
+    this.showAddTopic = false;
+  }
+
+  removeTopic(i: number): void {
+    (this.form?.get('topics') as FormArray).removeAt(i);
+
+    if (this.form.value.topics.length === 0) {
+      this.addTopic();
+    }
+
+    this.form?.markAsTouched();
+    this.form?.updateValueAndValidity();
+    this.topics?.updateValueAndValidity();
+  }
+
+  newTopic(): FormGroup {
+    return this._fb.group({
+      name: [null, Validators.required],
+      scale: [2, Validators.required],
+      checked: [false, Validators.requiredTrue],
+    });
   }
 
   onFileUpload(event: any): void {

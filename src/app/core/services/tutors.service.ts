@@ -406,6 +406,10 @@ export class TutorsService {
     return this.http.post<any>(`${this.baseUrl}teacher/class/reschedule`, body);
   }
 
+  tutorAddSignature(payload: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}teacher/signature`, payload);
+  }
+
   loadFeaturedTutors(): Observable<any> {
     return this.http
       .get<{ featured_teachers: ITutor[] }>(

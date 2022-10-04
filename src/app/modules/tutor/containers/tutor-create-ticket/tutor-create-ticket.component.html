@@ -46,10 +46,11 @@
                 </p>
                 <div class="block-file d-flex me-3 align-items-center" *ngIf="filePreview">
                   <mat-icon>attach_file</mat-icon>
-                  <div class="ms-2">
+                  <div class="">
                     <h3>{{ filePreview?.name }}</h3>
                     <h5>{{ filePreview?.size }}</h5>
                   </div>
+                  <img src="assets/svg/delete.svg" alt="" draggable="false" class="cursor-pointer" (click)="onDeleteFile()"/>
                 </div>
                 <div class="file-upload d-flex align-items-center col-md-3" (click)="filePicker.click()">
                   <img src="assets/svg/upload.svg" alt="" draggable="false" width="25" height="25">

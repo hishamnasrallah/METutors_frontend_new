@@ -21,12 +21,12 @@ export class UploadEffects {
     { dispatch: false }
   );
 
-  cancelUpload$ = createEffect(() =>
+  cancelFileUpload$ = createEffect(() =>
     this._actions$.pipe(
-      ofType(uploadActions.cancelUpload),
+      ofType(uploadActions.cancelFileUpload),
       mergeMap(() =>
         this._uploadService
-          .cancelUploadStream()
+          .cancelFileUploadStream()
           .pipe(map(() => uploadActions.cancelUploadSuccess()))
       )
     )

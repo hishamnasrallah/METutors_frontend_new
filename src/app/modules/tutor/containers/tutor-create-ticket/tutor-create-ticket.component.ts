@@ -43,6 +43,11 @@ export class TutorCreateTicketComponent implements OnInit {
     this._prepareTicketPriorities();
   }
 
+  onDeleteFile(): void {
+    this.filePreview = null;
+    this.supportForm.get('file')?.setValue(null);
+  }
+
   onFileUpload(event: any): void {
     if (event.target && event.target.files && event.target.files.length) {
       const file = event.target?.files[0];

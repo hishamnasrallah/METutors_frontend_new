@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CompleteTutorProfileQualificationDetailsComponent } from './complete-tutor-profile-qualification-details.component';
+import { CompleteTutorProfileQualificationDetailsComponent } from '@metutor/modules/profile/components';
 
 describe('CompleteTutorProfileQualificationDetailsComponent', () => {
   let component: CompleteTutorProfileQualificationDetailsComponent;
