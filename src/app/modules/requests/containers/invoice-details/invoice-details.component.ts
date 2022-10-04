@@ -22,7 +22,7 @@ export class InvoiceDetailsComponent implements OnInit {
   showConfirmPaymentModal$: Observable<boolean>;
   isCalculateInvoiceDetails$: Observable<boolean>;
   invoiceDetails$: Observable<IInvoiceDetails | null>;
-  
+
   showModal = false;
   baseURL = environment.clientUrl;
 
@@ -54,9 +54,8 @@ export class InvoiceDetailsComponent implements OnInit {
   }
 
   saveCourse(user: IUser, classroom: IClassroom): void {
-//      this.showModal = true;
-
-//      return;
+    //      this.showModal = true;
+    //      return;
 
     if (user) {
       const data = {
