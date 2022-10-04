@@ -88,15 +88,14 @@
     }
   }
 
-
   .mat-stepper-label-position-bottom .mat-horizontal-stepper-header::after,
   .mat-stepper-label-position-bottom .mat-horizontal-stepper-header::before {
     top: 50px;
     border-color: #d8d8d8;
-    border-width: 8px;
-    border-top-style: dotted;
+    border-width: 8px !important;
+    border-top-style: dotted !important;
     right: 5px;
-    width: calc(50% - 40px);
+    width: calc(50% - 40px) !important;
   }
 
   .mat-step-label.mat-step-label-active:not(.mat-step-label-selected):after,
@@ -125,7 +124,6 @@
     border-color: var(--main-color);
     border-width: 8px;
     border-top-style: dotted;
-    right: 5px;
     width: calc(50% - 40px);
     display: inline-block;
     height: 0;

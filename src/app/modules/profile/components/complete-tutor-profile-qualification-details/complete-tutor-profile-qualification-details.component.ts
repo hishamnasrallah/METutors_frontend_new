@@ -366,7 +366,6 @@ export class CompleteTutorProfileQualificationDetailsComponent
       files = [...event.target.files];
       const mimeType = files[0].type;
       const ext = files[0].name.split('.').pop().toLowerCase();
-      console.log(ext);
 
       if (this.fileFormatError(ext, mimeType)) {
         this._alertNotificationService.error(

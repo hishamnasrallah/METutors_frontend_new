@@ -127,7 +127,7 @@
               <a [routerLink]="url + classroom?.id" mat-button color="primary" *ngIf="!completeCourse"
                 class="h-100 book-classroom main-button-transparent float-end">
                 Continue
-                <mat-icon>arrow_forward</mat-icon>
+                <mat-icon class="rotate-180-ar">arrow_forward</mat-icon>
               </a>
                <div class="d-flex" *ngIf="completeCourse">
                 <button mat-button class="secondary-btn flex-grow-1" (click)="reject.emit()">Reject</button>

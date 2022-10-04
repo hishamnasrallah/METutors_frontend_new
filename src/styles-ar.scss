@@ -5,14 +5,23 @@
     font-family: 'Cairo', sans-serif;
   }
 
-  .featured-tutors .card-item .list .icon {
-    margin-right: 0 !important;
-    margin-left: 5px;
+  .list-unstyled,
+  .list-inline {
+    padding-right: 0;
+    padding-left: 1em !important;
   }
 
-  .why-metutors .card .item h2 {
-    margin-left: 0 !important;
-    margin-right: 10px;
+  owl-carousel-o,
+  ngx-material-timepicker-container,
+  .iti__country,
+  ng-otp-input,
+  vg-player {
+    direction: ltr;
+  }
+
+  .featured-tutors .card-item,
+  .loving-opportunities .card-item {
+    direction: rtl;
   }
 
   .ms-1 {
@@ -75,6 +84,238 @@
     margin-right: 0 !important;
   }
 
+  .ps-3 {
+    padding-right: 1rem !important;
+    padding-left: 0 !important;
+  }
+
+  .ps-2 {
+    padding-right: 0.5rem !important;
+    padding-left: 0 !important;
+  }
+
+  .pe-5 {
+    padding-left: 3rem !important;
+    padding-right: 0 !important;
+  }
+
+  .text-start {
+    text-align: right !important;
+  }
+
+  .text-end {
+    text-align: left !important;
+  }
+
+  .float-start {
+    float: right !important;
+  }
+
+  .float-end,
+  .loving-opportunities button {
+    float: left !important;
+  }
+
+  /********** MARGIN LEFT **************/
+
+  .featured-tutors .card-item .list .icon,
+  .profile-header .details ul li .count,
+  .tutors .tutor-item .list .icon,
+  .tutors .tutor-item .specialization span,
+  .review-request .row-block .list-tutors .li-item img,
+  .review-request .row-block .list-tutors .count,
+  .select-tutor .custom-list .list-tutors .li-item img,
+  .classes-dashboard .card .list .menu img,
+  .classroom-item .secondary-btn,
+  .course-item .menu img,
+  .invoice-header span,
+  .list-items .menu img,
+  .featured-tutors .card-item .specialization>span {
+    margin-right: 0 !important;
+    margin-left: 5px;
+  }
+
+  #home-header .nav-item {
+    margin-left: 20px;
+    margin-right: 0 !important;
+  }
+
+  #home-header .nav-item:last-child {
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  #home-header .btn-nav,
+  .signup-block form .types button svg,
+  .about-me ul li img,
+  .qualification ul li img,
+  .availability-tutoring .top-info span,
+  .feedback-rating .feedback-block .review h2,
+  .qualification ul li img,
+  .benefits-online-tutoring ul li img,
+  .learning-environment .tabs button,
+  .why-teaching-us ul li img,
+  .classroom-info button.back-btn,
+  .list-classroom button.back-btn,
+  .select-tutor button.back-btn,
+  .review-request button.back-btn,
+  .account-settings .avatar-block img,
+  .assignments .assign-tabs .class-btn,
+  .classroom .class-btn,
+  .classroom-item .details-btn,
+  .course-item .actions h3,
+  .video-notes li:before {
+    margin-right: 0 !important;
+    margin-left: 10px;
+  }
+
+  .opinion rating span.bs-rating-star.active,
+  .my-table.default-title tr th label,
+  .success-stories rating span.bs-rating-star.active {
+    margin-right: 0 !important;
+    margin-left: 4px;
+  }
+
+  .signin-block form .social button img,
+  .signup-block form .social button img {
+    margin-right: 0 !important;
+    margin-left: 20px;
+  }
+
+  .list-days button,
+  .featured-tutors .card-item,
+  .classroom-details-popup .list-videos .video h3,
+  .course-details-popup .list-videos .video h3,
+  .request-course .cancel-btn {
+    margin-right: 0 !important;
+    margin-left: 15px;
+  }
+
+  .profile-header .details ul li {
+    margin-right: 0 !important;
+    margin-left: 30px;
+  }
+
+  .classroom .codes span {
+    margin-right: 0 !important;
+    margin-left: 35px;
+  }
+
+  .share .icon img {
+    margin-right: 0 !important;
+    margin-left: 8px;
+  }
+
+  .classroom-item button.status {
+    margin-right: 10px !important;
+    margin-left: 10px !important;
+  }
+
+  .loving-opportunities .card-item {
+    margin-left: 30px;
+    margin-right: 10px;
+  }
+
+  /************* MARGIN RIGHT ************************/
+
+  .class-details .card ul li span,
+  .signin-block form p a,
+  .signup-block form p a {
+    margin-left: 0 !important;
+    margin-right: 15px;
+  }
+
+  .review-request .est-price h1,
+  .feedback-rating,
+  .why-metutors .card .item h2,
+  .featured-tutors .card-item .count,
+  .featured-tutors .card-item .review,
+  .tutors .tutor-item .count,
+  .tutors .tutor-item .review,
+  .send-message form .file-upload>div,
+  .course-info .topics .add-new-topic .add-btn,
+  .classroom-info .est-price h1,
+  .list-classroom .est-price h1,
+  .list-classroom .list-classes table tr .actions button,
+  .certificates .card .rating .count,
+  .classes-dashboard .card .in-progress strong,
+  .support-ticket .card form .file-upload>div,
+  .sidebar ul li span,
+  .dashboard .card-item .count,
+  .dashboard .card-item .review,
+  .syllabus .card .in-progress strong,
+  .add-topic-modal .remaining-class,
+  .lang-info mat-icon,
+  .assignment-details-modal .status-icon,
+  metutors-support-ticket-card .card h2 .label,
+  .classroom-item .in-progress strong,
+  .select-tutor .est-price h1 {
+    margin-left: 0 !important;
+    margin-right: 10px;
+  }
+
+  .feedback-rating .rating-block rating span.bs-rating-star,
+  .course-card .list .menu span,
+  .featured-tutors .card-item .actions .more,
+  .profile-header .actions .more,
+  .tutors .tutor-item .actions .more,
+  .select-tutor .custom-list .list-tutors .count,
+  .select-tutor .custom-list .list-tutors .review,
+  .review-request .row-block .list-tutors .count,
+  .list-items .menu span,
+  .certificates .card .rating .review,
+  .certificates .card .info h2 img,
+  .certificates .card .info h2 .count,
+  .classes-dashboard .card .list .menu span,
+  .tutor-navbar span.title,
+  .lang-info span,
+  .review-request .row-block .list-tutors .review {
+    margin-left: 0 !important;
+    margin-right: 5px;
+  }
+
+  .terms-condition .margin-50,
+  .privacy-policy .margin-50 {
+    margin-right: 50px;
+    margin-left: 0 !important;
+  }
+
+  .terms-condition .card p .margin-20,
+  .privacy-policy .card p .margin-20 {
+    margin-right: 20px;
+    margin-left: 0 !important;
+  }
+
+  metutors-payment-invoice-details ul li span {
+    margin-right: 0 !important;
+    margin-left: 5px !important;
+  }
+
+  .assignments .items .item,
+  .dashboard .items .item {
+    margin-right: 3px;
+    margin-left: 0 !important;
+  }
+
+  .ticket-details .card .list-messages .add-margin,
+  .tutor-navbar .icons img {
+    margin-right: 30px;
+    margin-left: 0 !important;
+  }
+
+  .attendance-modal table td button.ml-2 {
+    margin-right: 8px;
+    margin-left: 0 !important;
+  }
+
+  .account-settings .btn-list,
+  .user-prefrences .btn-list {
+    margin-right: -25px;
+    margin-left: calc(-.5 * 1.5rem) !important;
+  }
+
+  /*************** PADDING MARGIN 4 **********************/
+
   .slide .item img {
     -webkit-transform: scaleX(-1);
     transform: scaleX(-1);
@@ -83,5 +324,304 @@
   .rotate-180-ar {
     -webkit-transform: rotate(180deg);
     transform: rotate(180deg);
+  }
+
+  .footer .subscribe .form-block input {
+    padding: 10px 10px 10px 170px !important;
+  }
+
+  .ticket-details .card .write-comment input {
+    padding: 0 60px 0 130px !important;
+  }
+
+  .about-students .form-block input {
+    padding: 20px 45px 20px 80px !important;
+  }
+
+  .sidebar-btn {
+    margin: 25px 5px 0 0 !important;
+  }
+
+  .explore-courses .form-block input {
+    padding: 20px 20px 20px 80px !important;
+  }
+
+  /****************** POSITIONS ********************/
+
+  .alert-item .icon,
+  .about-students .form-block button,
+  .request-tutor .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:before,
+  .request-tutor .mat-step-label.mat-step-label-active:not(.mat-step-label-selected):after {
+    left: 5px !important;
+    right: auto !important;
+  }
+
+  .alert-item:before,
+  .sn-progress-loader,
+  .sidebar-btn,
+  .request-tutor .mat-step-label.mat-step-label-active:not(.mat-step-label-selected):before,
+  .request-tutor .mat-step-label.mat-step-label-active.mat-step-label-selected:before,
+  .request-tutor .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child):before,
+  .ticket-details .card .write-comment img,
+  .iti--allow-dropdown .iti__flag-container,
+  .iti--separate-dial-code .iti__flag-container,
+  .dropdown-menu.show.country-dropdown {
+    left: auto !important;
+    right: 0 !important;
+  }
+
+  .signin-block form .actions.forget-link,
+  .signup-block form .password-visibility,
+  .edit-cover,
+  .delete-cover,
+  .edit-video,
+  .explore-courses .form-block button,
+  .featured-tutors .card-item h2 span,
+  .tutors .tutor-item h2 span,
+  .security-settings .password-visibility {
+    left: 10px;
+    right: auto !important;
+  }
+
+  .services-features .card .card-body img,
+  .payment-information .list-cards .visa-card .checked,
+  .profile-header .status-interview {
+    right: 10px;
+    left: auto !important;
+  }
+
+  .signin-block form .actions.eye {
+    left: 65px;
+    right: auto !important;
+  }
+
+  .footer .subscribe .form-block button {
+    left: 2px;
+    right: auto !important;
+  }
+
+  .course-item .badge-item,
+  .course-card .badge-item {
+    right: 7px;
+    left: auto !important;
+  }
+
+  .about-students .form-block mat-icon,
+  metutors-search-input mat-icon {
+    right: 15px;
+    left: auto !important;
+  }
+
+  .country button,
+  .close-btn,
+  .ticket-details .card .write-comment .reply-button,
+  .request-tutor .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child):after {
+    left: 0 !important;
+    right: auto !important;
+  }
+
+  .learning-made-easy .item:not(:last-child):after {
+    right: calc(50% - 30px);
+    left: auto !important;
+
+    @extend .rotate-180-ar;
+  }
+
+  .change-schedule .close-btn {
+    left: -10px;
+    right: auto !important;
+  }
+
+  .list-classroom .list-classes table tr .actions {
+    left: -100%;
+    right: auto !important;
+  }
+
+  .list-classroom .list-classes table tr:hover .actions {
+    left: 20px;
+    right: auto !important;
+  }
+
+  .account-settings .avatar-name .img-status mat-icon,
+  .profile-header .avatar-name .img-status mat-icon {
+    left: calc(50% - 15px);
+    right: auto !important;
+  }
+
+  .assignments .items .item .number,
+  .syllabus .items .item .number {
+    right: -32.5px;
+    left: auto !important;
+  }
+
+  .delete-topic {
+    right: 35px;
+    left: auto !important;
+  }
+
+  .profile-header .cover .upload-cover {
+    left: 15px;
+    right: auto !important;
+  }
+
+  .share .share-img {
+    left: 8px;
+    right: auto !important;
+  }
+
+  /**************** PADDING ***********************/
+
+  metutors-search-input .search-request {
+    padding-right: 45px;
+    padding-left: 0.75rem !important;
+  }
+
+  .iti.separate-dial-code input,
+  .iti.separate-dial-code.iti--allow-dropdown.iti-sdc-2 input,
+  .iti.separate-dial-code.iti--allow-dropdown.iti-sdc-3 input,
+  .iti.separate-dial-code.iti--allow-dropdown.iti-sdc-4 input {
+    padding-right: 98px;
+    padding-left: 6px;
+  }
+
+  metutors-otp-verify .align {
+    padding-right: 39px;
+    padding-left: 0 !important;
+  }
+
+  .card-item .card-item {
+    padding-right: 15px;
+    padding-left: 0 !important;
+  }
+
+  .my-table.default-title tr th span {
+    padding-left: .5rem !important;
+    padding-right: 0;
+  }
+
+  .footer .subscribe .social a:last-child {
+    padding-left: 0 !important;
+    padding-right: 15px !important;
+  }
+
+  .share input {
+    text-align: left;
+    padding-left: 30px;
+    padding-right: .75rem !important;
+  }
+
+  .sidemenu ul,
+  .sidebar ul {
+    padding: 0 !important;
+  }
+
+  /************** BORDERS ***********************/
+
+  metutors-about-slide .slide .info .border-right {
+    border-left: 1px solid rgba(226, 226, 226, 0.4);
+    border-right: none !important;
+  }
+
+  .exceptional-opportunities .border-right {
+    border-left: 1px solid #e2e2e2;
+    border-right: none !important;
+  }
+
+  .payment-information .list-cards .visa-card {
+    border-left: 1px solid #e0e0e0;
+    border-right: none !important;
+  }
+
+  .sidebar ul li a.active {
+    border-right: 7px solid var(--main-color);
+    border-left: none !important;
+  }
+
+  .settings .card ul li.active {
+    border-right: 5px solid var(--main-color);
+    border-left: none !important;
+  }
+
+  .sidemenu ul li a.active {
+    border-left: 6px solid var(--main-color);
+    border-right: none !important;
+  }
+
+  .signup-block .steps ul li {
+    border-right: 5px solid #e2e2e2;
+    border-left: none !important;
+  }
+
+  /********************** BORDER RADIUS *****************************/
+
+  .alert-item:before {
+    border-radius: 3px 0 0 3px !important;
+  }
+
+  .ticket-details .card .list-messages p {
+    border-radius: 15px 0 15px 15px !important;
+  }
+
+  .have-coupon button {
+    border-radius: 4px 0 0 4px !important;
+  }
+
+  .have-coupon input {
+    border-radius: 0 4px 4px 0 !important;
+  }
+
+  /**************** MEDIA QUERY ***********************/
+
+  @media(max-width: 767px) {
+    .benefits-tutoring img {
+      margin-left: 10px;
+      margin-right: 0 !important;
+    }
+
+    .course-details-popup .list-videos .video h3 {
+      margin-left: 5px;
+      margin-right: 0 !important;
+    }
+  }
+
+  @media(max-width: 992px) {
+    .sidebar {
+      right: -340px;
+      left: auto !important;
+
+      &.open-sidebar {
+        left: auto !important;
+        right: 0;
+      }
+    }
+  }
+
+  @media (min-width: 768px) {
+    .offset-md-1 {
+      margin-right: 8.33333333%;
+      margin-left: 0;
+    }
+
+    .offset-md-3 {
+      margin-right: 25%;
+      margin-left: 0;
+    }
+
+    .offset-md-2 {
+      margin-right: 16.66666667%;
+      margin-left: 0;
+    }
+  }
+
+  @media (min-width: 992px) {
+    .offset-lg-4 {
+      margin-right: 33.33333333%;
+      margin-left: 0;
+    }
+
+    .offset-lg-2 {
+      margin-right: 16.66666667%;
+      margin-left: 0;
+    }
   }
 }

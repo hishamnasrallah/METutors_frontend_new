@@ -15,30 +15,4 @@
       margin-bottom: 0;
     }
   }
-
-  .list {
-    margin-top: 20px;
-
-    h2 {
-      color: #44444F;
-      opacity: 0.7;
-      font-size: 14px;
-      margin-bottom: 15px;
-    }
-
-    span {
-      background-color: rgba(17, 26, 55, 0.1);
-      color: #000;
-      border-radius: 17px;
-      font-size: 14px;
-      margin-right: 10px;
-      padding: 8px 15px;
-      display: inline-block;
-      margin-bottom: 5px;
-
-      &:last-child {
-        margin-right: 0;
-      }
-    }
-  }
 }

@@ -131,7 +131,7 @@
         }
 
         &.active {
-          border-left: 5px solid var(--main-color);
+          border-color: var(--main-color);
         }
 
         &:last-child {
@@ -183,13 +183,6 @@
       font-weight: bold;
       font-size: 15px;
       color: #000;
-    }
-
-    .forget-link {
-      position: absolute;
-      right: 10px;
-      top: 10px;
-      color: var(--main-color);
     }
 
     button {

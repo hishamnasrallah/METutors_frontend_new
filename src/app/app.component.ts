@@ -42,7 +42,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
       const browserLang = translate.getBrowserLang();
       const defaultLanguage = localStorage.getItem('DEFAULT_LANGUAGE');
-      console.log(browserLang);
+
       translate.use(
         defaultLanguage?.match(/en|ar/)
           ? defaultLanguage
@@ -126,7 +126,6 @@ export class AppComponent implements OnInit, OnDestroy {
     if (this.translate.currentLang === 'ar') {
       moment.locale('ar');
       body.setAttribute('dir', 'rtl');
-      body.classList.add('i18n-ar');
     } else {
       moment.locale('en');
       body.setAttribute('dir', 'ltr');

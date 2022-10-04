@@ -3,7 +3,7 @@
                 [template]="template">
   <ng-template #template>
     <form [formGroup]="form" (ngSubmit)="submitted.emit(form)">
-      <button class="btn delete" *ngIf="topic" type="button" (click)="deleted.emit(topic.id)"
+      <button class="btn delete-topic" *ngIf="topic" type="button" (click)="deleted.emit(topic.id)"
               [disabled]="isDeletingTopic" title="Delete Topic">
         <img src="assets/svg/delete.svg" alt="" draggable="false" />
         Delete

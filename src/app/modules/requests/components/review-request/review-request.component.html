@@ -312,13 +312,13 @@
           </button>
           <div>
             <button mat-button class="back-btn" type="button" (click)="onBack.emit()">
-              <mat-icon>arrow_back</mat-icon>
+              <mat-icon class="rotate-180-ar">arrow_back</mat-icon>
               Back
             </button>
             <button mat-flat-button color="primary" type="button" [disabled]="isCreatingCourse || !conditions"
               (click)="submitForm.emit()">
               Check out
-              <mat-icon *ngIf="!isCreatingCourse">arrow_forward</mat-icon>
+              <mat-icon *ngIf="!isCreatingCourse" class="rotate-180-ar">arrow_forward</mat-icon>
               <mat-icon class="spinner" *ngIf="isCreatingCourse">autorenew</mat-icon>
             </button>
           </div>
