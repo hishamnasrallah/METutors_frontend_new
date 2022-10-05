@@ -44,10 +44,10 @@
         <h1>Join Platform</h1>
         <ul class="list-unstyled m-0 d-flex flex-column justify-content-center h-100">
           <li>
-            <a routerLink="/student-success">Start Learning</a>
+            <a routerLink="/signup" [queryParams]="{role: 1}">Start Learning</a>
           </li>
           <li>
-            <a routerLink="/become-tutor">Start Teaching</a>
+            <a routerLink="/signup" [queryParams]="{role: 3}">Start Teaching</a>
           </li>
         </ul>
       </div>
