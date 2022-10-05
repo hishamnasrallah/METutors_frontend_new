@@ -12,9 +12,11 @@ export class AdminHourlyRatePerSubjectModalComponent implements OnInit {
   @Input() showModal = false;
   @Input() sortedSubjects: any[];
   @Input() isAcceptingRequest: boolean;
-  @Input() set subjects(_subjects: any) {
-    if (_subjects && _subjects.length) {
-      this.submittedSubjects = _subjects.map((item: any) => ({
+  @Input() set tutor(_tutor: any) {
+    this.tutorName = _tutor.name;
+
+    if (_tutor?.subjects && _tutor?.subjects.length) {
+      this.submittedSubjects = _tutor.subjects.map((item: any) => ({
         id: item.id,
         pricePerHour: item.pricePerHour,
       }));
@@ -28,6 +30,7 @@ export class AdminHourlyRatePerSubjectModalComponent implements OnInit {
   @Output() submitted: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
 
   form: FormGroup;
+  tutorName: string;
   submittedSubjects: any[] = [];
   nationalId = generalConstants.nationalId;
 
@@ -38,7 +41,11 @@ export class AdminHourlyRatePerSubjectModalComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const message = `Hi ${this.tutorName}, \nCongrats! You have been accepted to teach on MEtutors and will receive a confirmation email shortly. Welcome to the team! \n\n\nTalent Acquisition Team \nMEtutors`;
+
+    this.form.get('message')?.setValue(message);
+  }
 
   changePrice(id: number, event: any): void {
     this.submittedSubjects = this.submittedSubjects.map((item: any) =>

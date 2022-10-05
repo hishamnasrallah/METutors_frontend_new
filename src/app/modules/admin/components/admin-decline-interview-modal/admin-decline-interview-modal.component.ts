@@ -7,6 +7,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./admin-decline-interview-modal.component.scss'],
 })
 export class AdminDeclineInterviewModalComponent implements OnInit {
+  @Input() tutor: any;
   @Input() showModal = false;
   @Input() isDeclineRequest: boolean;
 
@@ -15,11 +16,13 @@ export class AdminDeclineInterviewModalComponent implements OnInit {
 
   form: FormGroup;
 
-  constructor(private _fb: FormBuilder) {
+  constructor(private _fb: FormBuilder) {}
+
+  ngOnInit(): void {
+    const message = `Hi ${this.tutor?.name}, \nUnfortunately, at this time you have not been accepted to teach on MEtutors. This could be for many reasons. We encourage you to try again in the future. \n\n\nTalent Acquisition Team \nMEtutors`;
+
     this.form = this._fb.group({
-      message: [null, [Validators.required, Validators.minLength(10)]],
+      message: [message, [Validators.required, Validators.minLength(10)]],
     });
   }
-
-  ngOnInit(): void {}
 }
