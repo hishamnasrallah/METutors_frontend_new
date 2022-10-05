@@ -102,7 +102,9 @@
                                        placeholderLabel="Search..." noEntriesFoundLabel="No matching country found">
                 </ngx-mat-select-search>
               </mat-option>
-              <mat-option *ngFor="let country of filteredCountries" [value]="country.id">{{ country.name }}
+              <mat-option *ngFor="let country of filteredCountries" [value]="country.id">
+                <img [src]="country?.flag" *ngIf="country?.flag" width="22px" class="me-2" alt="">
+                {{ country.name }}
               </mat-option>
             </mat-select>
           </mat-form-field>

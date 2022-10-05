@@ -76,12 +76,12 @@
                                 From {{ teacher?.country?.name }}
                               </span>
                             </div>
-                            <div class="col-6 d-flex" *ngIf="teacher?.studentsTeaching">
+                            <div class="col-6 d-flex" *ngIf="teacher?.classesTaught">
                               <img src="assets/svg/classes.svg" class="icon" draggable="false" width="16" height="16"
                                 alt="">
                               <span>
-                                Taught {{ teacher?.studentsTeaching }}
-                                student{{ +(teacher?.studentsTeaching)! > 1 ? 's' : '' }}
+                                Taught {{ teacher?.classesTaught }}
+                                class{{ +(teacher?.classesTaught)! > 1 ? 'es' : '' }}
                               </span>
                             </div>
                           </div>

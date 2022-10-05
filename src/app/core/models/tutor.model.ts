@@ -51,6 +51,7 @@ export class ITutor {
   totalFeedbacks?: number;
   averageRating?: number;
   studentsTeaching?: number;
+  classesTaught?: number;
   coursesCreated?: number;
   expertRating?: number;
   complexityRating?: number;
@@ -110,6 +111,7 @@ export class ITutor {
       this.totalFeedbacks = 0;
       this.averageRating = 0;
       this.studentsTeaching = 0;
+      this.classesTaught = 0;
       this.coursesCreated = 0;
       this.expertRating = 0;
       this.complexityRating = 0;
@@ -199,9 +201,8 @@ export class ITutor {
         tutor?.teacher_feedbacks_count || tutor?.reviews_count;
       this.averageRating = tutor?.average_rating;
       this.studentsTeaching =
-        tutor?.teacher_students_count ||
-        tutor?.classes_taught ||
-        tutor?.students_taught;
+        tutor?.teacher_students_count || tutor?.students_taught;
+      this.classesTaught = tutor?.classes_taught;
       this.coursesCreated = tutor?.teacher_course_count;
       this.expertRating = tutor?.expert_rating;
       this.complexityRating = tutor?.complexity_rating;

@@ -16,21 +16,23 @@
 
       <div class="col-md-6">
         <div class="form-group">
-          <label for="nationality" class="form-label">Nationality</label>
+          <label for="country" class="form-label">Country</label>
           <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="nationality" [placeholder]="'Select your nationality'">
+            <mat-select formControlName="country" [placeholder]="'Select Country'"
+              (selectionChange)="loadCities.emit(country?.value); resetCity()">
               <mat-option>
-                <ngx-mat-select-search [(ngModel)]="filterNationality" [ngModelOptions]="{standalone: true}"
+                <ngx-mat-select-search [(ngModel)]="filterCountry" [ngModelOptions]="{standalone: true}"
                   placeholderLabel="Search..." noEntriesFoundLabel="No matching country found">
                 </ngx-mat-select-search>
               </mat-option>
-              <mat-option *ngFor="let country of filteredNationalities" [value]="country.name">
+              <mat-option *ngFor="let country of filteredCountries" [value]="country.id">
+                <img [src]="country?.flag" *ngIf="country?.flag" width="22px" class="me-2" alt="">
                 {{ country.name }}
               </mat-option>
             </mat-select>
           </mat-form-field>
-          <div class="text-danger" *ngIf="nationality?.touched && nationality?.invalid">
-            Please choose your Nationality
+          <div class="text-danger" *ngIf="country?.touched && country?.invalid">
+            Please choose your Country
           </div>
         </div>
       </div>
@@ -54,11 +56,19 @@
 
       <div class="col-md-6">
         <div class="form-group">
-          <label for="address" class="form-label">Address 1</label>
-          <input type="text" class="custom-input w-100 input-bordered" id="address" placeholder="Enter Street Address"
-            formControlName="address">
-          <div class="text-danger" *ngIf="address?.touched && address?.invalid">
-            Please write your Address with a max of 120 characters
+          <label for="city" class="form-label">City</label>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select formControlName="city" [placeholder]="'Select city'" [disabled]="!cities || !cities.length">
+              <mat-option>
+                <ngx-mat-select-search [(ngModel)]="filterCity" [ngModelOptions]="{standalone: true}"
+                  placeholderLabel="Search..." noEntriesFoundLabel="No matching city found">
+                </ngx-mat-select-search>
+              </mat-option>
+              <mat-option *ngFor="let city of filteredCities" [value]="city.name">{{ city.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div class="text-danger" *ngIf="city?.touched && city?.invalid">
+            Please choose your City
           </div>
         </div>
       </div>
@@ -81,11 +91,21 @@
 
       <div class="col-md-6">
         <div class="form-group">
-          <label for="address2" class="form-label">Address 2 <span>(Optional)</span></label>
-          <input type="text" class="custom-input w-100 input-bordered" id="address2" placeholder="Enter street address"
-            formControlName="address2">
-          <div class="text-danger" *ngIf="address2?.touched && address2?.invalid">
-            Please write your Address with a max of 120 characters
+          <label for="nationality" class="form-label">Nationality</label>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select formControlName="nationality" [placeholder]="'Select your nationality'">
+              <mat-option>
+                <ngx-mat-select-search [(ngModel)]="filterNationality" [ngModelOptions]="{standalone: true}"
+                  placeholderLabel="Search..." noEntriesFoundLabel="No matching country found">
+                </ngx-mat-select-search>
+              </mat-option>
+              <mat-option *ngFor="let country of filteredNationalities" [value]="country.name">
+                {{ country.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div class="text-danger" *ngIf="nationality?.touched && nationality?.invalid">
+            Please choose your Nationality
           </div>
         </div>
       </div>
@@ -109,46 +129,29 @@
 
       <div class="col-md-6">
         <div class="form-group">
+          <label for="address" class="form-label">Address 1</label>
+          <input type="text" class="custom-input w-100 input-bordered" id="address" placeholder="Enter Street Address"
+            formControlName="address">
+          <div class="text-danger" *ngIf="address?.touched && address?.invalid">
+            Please write your Address with a max of 120 characters
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="address2" class="form-label">Address 2 <span>(Optional)</span></label>
+          <input type="text" class="custom-input w-100 input-bordered" id="address2" placeholder="Enter street address"
+            formControlName="address2">
+          <div class="text-danger" *ngIf="address2?.touched && address2?.invalid">
+            Please write your Address with a max of 120 characters
+          </div>
+        </div>
+
+        <div class="form-group">
           <label for="postalCode" class="form-label">Postal Code</label>
           <input type="text" class="custom-input w-100 input-bordered" id="postalCode" placeholder="Postal Code"
             formControlName="postalCode">
           <div class="text-danger" *ngIf="postalCode?.touched && postalCode?.invalid">
             Please write a valid Postal Code
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="country" class="form-label">Country</label>
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="country" [placeholder]="'Select Country'"
-              (selectionChange)="loadCities.emit(country?.value); resetCity()">
-              <mat-option>
-                <ngx-mat-select-search [(ngModel)]="filterCountry" [ngModelOptions]="{standalone: true}"
-                  placeholderLabel="Search..." noEntriesFoundLabel="No matching country found">
-                </ngx-mat-select-search>
-              </mat-option>
-              <mat-option *ngFor="let country of filteredCountries" [value]="country.id">{{ country.name }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <div class="text-danger" *ngIf="country?.touched && country?.invalid">
-            Please choose your Country
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="city" class="form-label">City</label>
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="city" [placeholder]="'Select city'" [disabled]="!cities || !cities.length">
-              <mat-option>
-                <ngx-mat-select-search [(ngModel)]="filterCity" [ngModelOptions]="{standalone: true}"
-                  placeholderLabel="Search..." noEntriesFoundLabel="No matching city found">
-                </ngx-mat-select-search>
-              </mat-option>
-              <mat-option *ngFor="let city of filteredCities" [value]="city.name">{{ city.name }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <div class="text-danger" *ngIf="city?.touched && city?.invalid">
-            Please choose your City
           </div>
         </div>
       </div>

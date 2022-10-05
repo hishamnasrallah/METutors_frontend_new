@@ -20,6 +20,7 @@
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="country" [placeholder]="'Choose Country'">
               <mat-option [value]="country?.id" *ngFor="let country of countries">
+                <span [innerHTML]="country?.flag" class="me-1"></span>
                 {{ country?.name }}
               </mat-option>
             </mat-select>

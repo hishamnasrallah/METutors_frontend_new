@@ -22,11 +22,13 @@
         </div>
         <div class="col-md-8">
           <metutors-student-settings-account *ngIf="tab === 'ACCOUNT_SETTINGS'"
-                                             [countries]="(countries$ | async)!"></metutors-student-settings-account>
+                                             [countries]="(countries$ | async)!">
+          </metutors-student-settings-account>
 
           <metutors-student-settings-security *ngIf="tab === 'SECURITY_SETTINGS'"
-            [isChanging]="isChangingPassword$ | async" [resetForm]="changePasswordSuccess$ | async"
-            (submitForm)="onChangePassword($event)">
+                                              [isChanging]="isChangingPassword$ | async"
+                                              [resetForm]="changePasswordSuccess$ | async"
+                                              (submitForm)="onChangePassword($event)">
           </metutors-student-settings-security>
 
           <metutors-student-settings-user-prefrences *ngIf="tab === 'USER_PREFERENCES'">

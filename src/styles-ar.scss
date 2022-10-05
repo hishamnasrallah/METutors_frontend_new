@@ -368,6 +368,13 @@
     padding: 20px 20px 20px 80px !important;
   }
 
+  .header .brand {
+    padding: 20px 0 20px 15px !important;
+    margin: -20px 0 -20px 20px !important;
+    border-left: 3px solid #C4C4C4;
+    border-right: none !important;
+  }
+
   /****************** POSITIONS ********************/
 
   .alert-item .icon,
@@ -488,6 +495,11 @@
 
   .share .share-img {
     left: 8px;
+    right: auto !important;
+  }
+
+  .availability {
+    left: 60px;
     right: auto !important;
   }
 

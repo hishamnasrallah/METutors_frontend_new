@@ -35,6 +35,7 @@ export class LookupsService {
           return response.countries.map((item) => ({
             id: item.id,
             name: item.name,
+            flag: `https://countryflagsapi.com/png/${item?.iso2}`
           }));
         })
       )
