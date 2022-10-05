@@ -1,7 +1,9 @@
 :host ::ng-deep {
 
   .carousel-control-next-icon,
-  .carousel-control-prev-icon {
+  .carousel-control-prev-icon,
+  .carousel-control-next,
+  .carousel-control-prev {
     display: none;
   }
 

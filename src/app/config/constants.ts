@@ -255,7 +255,7 @@ export const TEACHING_EXPERIENCE = [
   '8 Years',
   '9 Years',
   '10 Years',
-  '+10 Years',
+  '10+ Years',
 ];
 
 export const GRADES = [

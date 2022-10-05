@@ -14,13 +14,15 @@
   owl-carousel-o,
   ngx-material-timepicker-container,
   .iti__country,
+  .iti__flag-container,
   ng-otp-input,
   vg-player {
     direction: ltr;
   }
 
   .featured-tutors .card-item,
-  .loving-opportunities .card-item {
+  .loving-opportunities .card-item,
+  .success-stories .card-item {
     direction: rtl;
   }
 
@@ -103,23 +105,33 @@
     text-align: right !important;
   }
 
-  .text-end {
+  .text-end,
+  .loving-opportunities .buttons-list {
     text-align: left !important;
   }
 
-  .float-start {
+  .float-start,
+  .success-stories rating span.bs-rating-star.active {
     float: right !important;
   }
 
-  .float-end,
-  .loving-opportunities button {
+  .float-end {
     float: left !important;
+  }
+
+  .loving-opportunities button {
+    float: unset !important;
   }
 
   metutors-study-slide .slide,
   metutors-study-slide .slide .container,
   metutors-become-tutor-slide .slide,
-  metutors-become-tutor-slide .slide .container {
+  metutors-become-tutor-slide .slide .container,
+  .why-we-teach img,
+  .innovative-approach img,
+  metutors-about-slide .slide img,
+  metutors-academic-learning-environment .academic-learning,
+  metutors-academic-learning-environment .academic-learning .container {
     -webkit-transform: scaleX(-1);
     transform: scaleX(-1);
     filter: FlipH;

@@ -10,7 +10,7 @@
       <div class="col-12">
         <owl-carousel-o [options]="customOptions">
           <ng-template carouselSlide *ngFor="let testmonial of testmonials">
-            <div class="px-3 h-100 d-flex flex-column">
+            <div class="px-3 h-100 d-flex flex-column card-item">
               <rating [ngModel]="testmonial?.rate" [max]="5" [readonly]="true"></rating>
               <p class="desc flex-grow-1">
                 <q>{{ testmonial?.content }}</q>
