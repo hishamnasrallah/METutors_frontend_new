@@ -15,7 +15,7 @@
                     </span>
                 </div>
 
-                <div class="col-md-5 d-flex menu align-items-center degree"
+                <div class="col-md-7 d-flex menu align-items-center degree"
                   *ngIf="interview?.tutor?.qualifications?.degreeField">
                   <img src="assets/svg/degree.svg" alt="" width="15" height="15" draggable="false">
                   <strong>
@@ -285,7 +285,7 @@
   </metutors-admin-schedule-interview-modal>
 
   <metutors-admin-hourly-rate-per-subject-modal *ngIf="showHourlyRatePerSubjectModal$ | async"
-                                                [subjects]="interview?.tutor?.subjects"
+                                                [tutor]="interview?.tutor"
                                                 [sortedSubjects]="interview.tutor?.sortedSubjects"
                                                 [isAcceptingRequest]="(isAcceptingRequest$ | async)!"
                                                 (closeModal)="onCloseHourlyRatePerSubjectModal()"
@@ -294,6 +294,7 @@
   </metutors-admin-hourly-rate-per-subject-modal>
 
   <metutors-admin-decline-interview-modal *ngIf="showDeclineRequestModal$ | async"
+                                          [tutor]="interview?.tutor"
                                           [isDeclineRequest]="(isDeclineRequest$ | async)!"
                                           (closeModal)="onCloseDeclineRequestModal()"
                                           (submitted)="declineInterviewRequest($event, interview.id)"
