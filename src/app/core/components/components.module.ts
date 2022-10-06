@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -17,6 +18,7 @@ import { NavbarComponent } from './navbar';
     MatIconModule,
     MatMenuModule,
     MatButtonModule,
+    TranslateModule,
     BsDropdownModule.forRoot(),
   ],
   exports: [FooterComponent, NavbarComponent],

@@ -3,14 +3,14 @@
 <div class="dashboard p-15-md-sm">
   <ng-container *ngLet="(view$ | async) as view">
     <div class="row">
-      <div class="col-md-6">
-        <h2 class="overview f-size-18-md-sm">Overview</h2>
+      <div class="col-lg-6">
+        <h2 class="overview f-size-17-md-sm">Overview</h2>
         <p class="desc">
           See insights on how your Progress has changed from last <strong>{{ insightRange[range] }}</strong>
         </p>
       </div>
-      <div class="col-md-6">
-        <button mat-flat-button color="primary" class="float-end ms-2" (click)="onShowSendFeedbackModal()">
+      <div class="col-lg-6">
+        <button mat-flat-button color="primary" class="float-end ms-2 mb-15-sm" (click)="onShowSendFeedbackModal()">
           Send Feedback
         </button>
 
@@ -25,7 +25,7 @@
 
     <ng-container [ngSwitch]="view.loading">
       <div class="row list-cards" *ngSwitchCase="true">
-        <div class="col-md-3" *ngFor="let _ of [1,2,3,4]">
+        <div class="col-md-3 col-sm-6 mb-15-sm" *ngFor="let _ of [1,2,3,4]">
           <div class="ph-col-3">
             <div class="ph-avatar rounded"></div>
           </div>
@@ -33,7 +33,7 @@
       </div>
 
       <div class="row list-cards" *ngSwitchCase="false">
-        <div class="col-md-3">
+        <div class="col-md-3 col-sm-6 mb-15-sm">
           <div class="card">
             <div class="card-body d-flex flex-column">
               <h3>Total Courses</h3>
@@ -45,7 +45,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3 col-sm-6 mb-15-sm">
           <div class="card red-bo">
             <div class="card-body d-flex flex-column">
               <h3>Total Completed Courses</h3>
@@ -57,7 +57,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3 col-sm-6 mb-15-sm">
           <div class="card orange-bo">
             <div class="card-body d-flex flex-column">
               <h3>Kudos Points</h3>
@@ -69,7 +69,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3 col-sm-6 mb-15-sm">
           <div class="card purple-bo">
             <div class="card-body d-flex flex-column">
               <h3>Newly Assigned courses</h3>
@@ -86,7 +86,7 @@
 
     <div class="row">
       <div class="col-12">
-        <h3 class="overview mb-3">Today's Classes - {{ view.data?.todaysDate }}</h3>
+        <h3 class="overview mb-3 f-size-17-md-sm">Today's Classes - {{ view.data?.todaysDate }}</h3>
         <ng-container [ngSwitch]="view.loading">
           <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
           <table class="table my-table" *ngSwitchCase="false">
@@ -127,7 +127,7 @@
 
     <div class="row">
       <div class="col-12">
-        <h2 class="overview mt-5 f-size-18-md-sm mt-15-md-sm">Newly Assigned Courses</h2>
+        <h2 class="overview mt-5 f-size-17-md-sm mt-15-md-sm">Newly Assigned Courses</h2>
       </div>
       <div class="col-12">
         <ng-container [ngSwitch]="view.loading">
@@ -151,7 +151,7 @@
 
     <div class="row">
       <div class="col-12">
-        <h2 class="overview mt-5 mb-3 f-size-18-md-sm mt-15-md-sm">
+        <h2 class="overview mt-5 mb-3 f-size-17-md-sm mt-15-md-sm">
           Kudos Points Details
 
           <span class="float-end view-all text-main cursor-pointer" (click)="onOpenKudosPointsModal()">
@@ -184,7 +184,7 @@
             </tr>
             <ng-container *ngIf="view.data.feedbacks?.data?.length">
               <tr *ngFor="let kudo of view.data.feedbacks.data; let i=index">
-                <td>{{ i + 1}}</td>
+                <td>{{ i + 1 }}</td>
                 <td>
                   <metutors-user-avatar [avatar]="kudo?.avatar" [type]="'small'"
                                         [name]="kudo?.studentName"

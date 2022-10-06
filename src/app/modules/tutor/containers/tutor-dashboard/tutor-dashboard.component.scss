@@ -138,3 +138,12 @@
     }
   }
 }
+
+@media (max-width: 767px) {
+  :host ::ng-deep .dashboard {
+    .mat-button-toggle-standalone .mat-button-toggle-label-content,
+    .mat-button-toggle-group .mat-button-toggle-label-content {
+      padding: 0 12px;
+    }
+  }
+}
