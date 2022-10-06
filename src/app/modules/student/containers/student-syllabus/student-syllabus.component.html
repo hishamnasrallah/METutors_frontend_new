@@ -70,7 +70,32 @@
 
     <div class="items">
       <ng-container [ngSwitch]="view.loading">
-        <h1 class="title">Unclassified Classes</h1>
+        <h1 class="title">Highlighted Topics</h1>
+        <div class="col-12 unclassified-table">
+          <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
+          <table class="table my-table default-title" *ngSwitchCase="false">
+            <tr>
+              <th scope="col">Topic</th>
+              <th scope="col">Topic Name</th>
+              <th scope="col">Knowledge Confidence Scale</th>
+            </tr>
+
+            <tr *ngIf="!view.syllabus.highlightedTopics.length">
+              <td colspan="6">
+                <div class="text-center">No record found</div>
+              </td>
+            </tr>
+            <ng-container *ngIf="view.syllabus.highlightedTopics.length">
+              <tr *ngFor="let topic of view.syllabus.highlightedTopics; let i=index">
+                <td>{{ i + 1}}</td>
+                <td>{{ topic?.name }}</td>
+                <td>{{ topic?.confidenceScale }}</td>
+              </tr>
+            </ng-container>
+          </table>
+        </div>
+
+        <h1 class="title pt-5">Unclassified Classes</h1>
         <div class="col-12 unclassified-table">
           <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
           <table class="table my-table default-title" *ngSwitchCase="false">
