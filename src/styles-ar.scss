@@ -503,6 +503,11 @@
     right: auto !important;
   }
 
+  .sidemenu-btn {
+    right: 5px;
+    left: auto !important;
+  }
+
   /**************** PADDING ***********************/
 
   metutors-search-input .search-request {
@@ -624,6 +629,16 @@
       left: auto !important;
 
       &.open-sidebar {
+        left: auto !important;
+        right: 0;
+      }
+    }
+
+    .sidemenu {
+      right: -260px;
+      left: auto !important;
+
+      &.open-sidemenu {
         left: auto !important;
         right: 0;
       }
