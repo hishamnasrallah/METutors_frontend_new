@@ -21,7 +21,7 @@
         </li>
         <li class="nav-item">
           <a class="nav-link nav-item-link" routerLink="/become-tutor" routerLinkActive="active">
-            Become a Tutor
+            Become a tutor
           </a>
         </li>
         <li class="nav-item" *ngIf="!(token$ | async)">
@@ -49,12 +49,12 @@
         </li>
         <li class="nav-item btn-nav d-flex align-items-center justify-content-center">
           <a *ngIf="!(token$ | async)" class="link-btn login px-4 py-1 fw-bold" mat-flat-button color="primary"
-            routerLink="/signup">
-            Get Started
+            routerLink="/" fragment="explore-services">
+            Get started
           </a>
           <a *ngIf="token$ | async" class="link-btn login px-4 py-1 fw-bold" mat-flat-button color="primary"
             [routerLink]="+((user$ | async)?.roleId)! === userRole.tutor ? '/tutor' : +((user$ | async)?.roleId)! === userRole.student ? '/student' : '/admin'">
-            My Classroom
+            My classroom
           </a>
         </li>
       </ul>
