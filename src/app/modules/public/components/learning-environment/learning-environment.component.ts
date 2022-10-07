@@ -14,7 +14,7 @@ import {
 } from '@angular/material/dialog';
 
 import { environment } from '@environment';
-import { generalConstants } from '@metutor/config';
+import { generalConstants, GRADES } from '@metutor/config';
 import { ICountry, IField, IProgram, ISubject } from '@metutor/core/models';
 
 @Component({
@@ -46,6 +46,7 @@ export class LearningEnvironmentComponent implements OnInit {
   @Output() viewSubjectDetails = new EventEmitter<any>();
 
   step: number;
+  grade: number;
   country?: ICountry;
   isShowMore = false;
   selectedField: number;
@@ -61,7 +62,10 @@ export class LearningEnvironmentComponent implements OnInit {
   filteredSubjects(id: number): ISubject[] {
     if (this.selectedProgram?.id === this.nationalId) {
       return this.subjects && this.subjects.length
-        ? this.subjects?.filter((subject: any) => +subject?.fieldId === +id)
+        ? this.subjects?.filter(
+            (subject: any) =>
+              +subject?.fieldId === +id && +subject?.grade! === +this.grade
+          )
         : [];
     } else {
       return this.subjects && this.subjects.length
@@ -81,11 +85,13 @@ export class LearningEnvironmentComponent implements OnInit {
       dialogRef.afterClosed().subscribe((result) => {
         if (result) {
           this.country = result?.country;
+          this.grade = result?.grade;
           this.step = program.id;
           this.selectedProgram = program;
           this.changeProgram.emit({
             program: program?.id?.toString(),
             country: this.country?.id,
+            grade: result?.grade,
           });
         }
       });
@@ -118,6 +124,8 @@ export class LearningEnvironmentComponent implements OnInit {
   styleUrls: ['./learning-environment.component.scss'],
 })
 export class ChooseCountryDialog {
+  grade: number;
+  grades = GRADES;
   country: ICountry;
   showError = false;
   isLoading: boolean;
@@ -148,7 +156,21 @@ export class ChooseCountryDialog {
   onSelectCountry(country: ICountry): void {
     this.country = country;
 
-    this.dialogRef.close({ country });
+    if (!this.grade) {
+      this.showError = true;
+
+      return;
+    }
+
+    this.dialogRef.close({ country, grade: this.grade });
+  }
+
+  onSelectGradeCountry(event: any): void {
+    this.grade = +event.value + 1;
+
+    if (!this.country) return;
+
+    this.dialogRef.close({ country: this.country, grade: this.grade });
   }
 }
 
