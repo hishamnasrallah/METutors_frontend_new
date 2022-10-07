@@ -111,6 +111,25 @@ export const loadStudentSyllabusFailure = createAction(
   props<{ error: any }>()
 );
 
+export const studentSyllabusAddTopic = createAction(
+  '[Student] Student Syllabus Add Topic',
+  props<{
+    payload: { course_id: number; name: string; confidence_scale: number };
+  }>()
+);
+
+export const studentSyllabusAddTopicSuccess = createAction(
+  '[Student] Student Syllabus Add Topic Success',
+  props<{
+    topic: { course_id: number; name: string; confidence_scale: number };
+  }>()
+);
+
+export const studentSyllabusAddTopicFailure = createAction(
+  '[Student] Student Syllabus Add Topic Failure',
+  props<{ error: any }>()
+);
+
 // Resources
 export const loadStudentResources = createAction(
   '[Student] Load Student Resources'

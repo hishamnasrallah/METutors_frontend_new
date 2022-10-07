@@ -102,3 +102,8 @@ export const selectPaymentModal = createSelector(
   selectStudentModalState,
   fromStudentModal.selectPaymentModal
 );
+
+export const selectHighlightedModal = createSelector(
+  selectStudentModalState,
+  fromStudentModal.selectHighlightedModal
+);
