@@ -3,7 +3,10 @@ import { Injectable } from '@angular/core';
 import { map, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { studentViewClass } from '@metutor/core/state';
+import {
+  studentSyllabusAddEditTopic,
+  studentViewClass,
+} from '@metutor/core/state';
 
 @Injectable({
   providedIn: 'root',
@@ -69,6 +72,16 @@ export class StudentsService {
   getStudentSyllabus(id: any): Observable<any> {
     return this.http.get<{ dashboard: any }>(
       `${this.baseUrl}student/syllabus/${id}`
+    );
+  }
+
+  studentSyllabusAddEditTopic(payload: any): Observable<any> {
+    const { id, ...data } = payload;
+    const topicId = id ? `/${id}` : '';
+
+    return this.http.post<any>(
+      `${this.baseUrl}highlighted-topic${topicId}`,
+      data
     );
   }
 

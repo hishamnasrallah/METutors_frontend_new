@@ -7,7 +7,10 @@ import {
   AbstractControl,
 } from '@angular/forms';
 
-import { CLASSROOM_TOPICS_SCALE } from '@config';
+import {
+  CLASSROOM_TOPICS_SCALE_NUM,
+  CLASSROOM_TOPICS_SCALE_STRING,
+} from '@config';
 
 @Component({
   selector: 'metutors-student-add-highlighted-topic-modal',
@@ -23,7 +26,7 @@ export class StudentAddHighlightedTopicModalComponent implements OnInit {
   @Output() submitted: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
 
   form: FormGroup;
-  topicsScale = CLASSROOM_TOPICS_SCALE;
+  topicsScale = CLASSROOM_TOPICS_SCALE_NUM;
 
   constructor(private _formBuilder: FormBuilder) {}
 
@@ -33,8 +36,11 @@ export class StudentAddHighlightedTopicModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this._formBuilder.group({
+      id: [this.topic?.id],
       confidence_scale: [
-        this.topic ? this.topic?.confidenceScale : 2,
+        this.topic
+          ? CLASSROOM_TOPICS_SCALE_STRING[this.topic?.confidenceScale]
+          : 2,
         [Validators.required],
       ],
       name: [

@@ -11,7 +11,7 @@ import {
 } from '@angular/common/http';
 import {
   SORTED_DAYS_WEEK,
-  CLASSROOM_TOPICS_SCALE,
+  CLASSROOM_TOPICS_SCALE_NUM,
   AcademicTutoringTextbook,
 } from 'src/app/config';
 
@@ -366,7 +366,7 @@ export class CoursesService {
         JSON.stringify(
           value.topics.map((topic: any) => ({
             name: topic.name,
-            knowledge_scale: CLASSROOM_TOPICS_SCALE[topic.scale],
+            knowledge_scale: CLASSROOM_TOPICS_SCALE_NUM[topic.scale],
           }))
         )
       );

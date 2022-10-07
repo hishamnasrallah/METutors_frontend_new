@@ -17,8 +17,8 @@ import {
   generalConstants,
   calculateListDays,
   TEXTBOOK_EDITION_CONST,
-  CLASSROOM_TOPICS_SCALE,
   AcademicTutoringTextbook,
+  CLASSROOM_TOPICS_SCALE_NUM,
   COURSE_TUITION_TYPES_CONST,
 } from 'src/app/config';
 import {
@@ -494,7 +494,7 @@ export class RequestTutorComponent implements OnInit {
         this.reviewInfo.topics = this.courseInformationForm.value.topics.map(
           (topic: any) => ({
             name: topic.name,
-            scale: CLASSROOM_TOPICS_SCALE[topic.scale],
+            scale: CLASSROOM_TOPICS_SCALE_NUM[topic.scale],
           })
         );
 

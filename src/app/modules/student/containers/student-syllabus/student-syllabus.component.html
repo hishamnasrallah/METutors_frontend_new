@@ -94,7 +94,7 @@
                 <td>{{ i + 1}}</td>
                 <td>{{ topic?.name }}</td>
                 <td>{{ topic?.confidenceScale }}</td>
-                <td><img src="assets/svg/edit.svg" width="35" height="35" class="cursor-pointer"/></td>
+                <td><img src="assets/svg/edit.svg" width="35" height="35" class="cursor-pointer" (click)="OnOpenHighlightedTopicModal(topic)"/></td>
               </tr>
             </ng-container>
           </table>
@@ -208,7 +208,10 @@
       </ng-container>
     </div>
 
-  <metutors-student-add-highlighted-topic-modal *ngIf="showHighlightedModal$ | async" (closeModal)="onCloseHighlightedTopicModal()"
-                                                [showModal]="(showHighlightedModal$ | async)!" (submitted)="onSaveTopic($event, view.syllabus.course.id)">
+  <metutors-student-add-highlighted-topic-modal *ngIf="showHighlightedModal$ | async"
+                                                [isSubmitting]="(addingTopic$|async)!"
+                                                (closeModal)="onCloseHighlightedTopicModal()" [topic]="topic"
+                                                [showModal]="(showHighlightedModal$ | async)!"
+                                                (submitted)="onSaveTopic($event, view.syllabus.course.id)">
   </metutors-student-add-highlighted-topic-modal>
 </div>

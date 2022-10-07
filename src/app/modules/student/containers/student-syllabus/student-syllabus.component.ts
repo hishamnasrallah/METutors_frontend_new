@@ -8,14 +8,19 @@ import {
 } from '@angular/animations';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
+import { FormGroup } from '@angular/forms';
 import { combineLatest, Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 
 import * as fromCore from '@metutor/core/state';
 import * as fromStudentAction from '../../state/actions';
 import * as fromStudent from '@metutor/modules/student/state';
-import { courseStatusLabel, WEEK_DAYS } from 'src/app/config';
-import { FormGroup } from '@angular/forms';
+
+import {
+  WEEK_DAYS,
+  courseStatusLabel,
+  CLASSROOM_TOPICS_SCALE_NUM,
+} from 'src/app/config';
 
 @Component({
   selector: 'metutors-student-syllabus',
@@ -44,9 +49,11 @@ import { FormGroup } from '@angular/forms';
   ],
 })
 export class StudentSyllabusComponent implements OnInit {
+  topic: any;
   selectedCourse = null;
   openCourse: boolean = false;
   statusLabel = courseStatusLabel;
+  addingTopic$: Observable<boolean>;
   showHighlightedModal$: Observable<boolean>;
 
   view$: Observable<{ loading: boolean; syllabus: any }>;
@@ -63,7 +70,8 @@ export class StudentSyllabusComponent implements OnInit {
     return listDays;
   }
 
-  OnOpenHighlightedTopicModal(): void {
+  OnOpenHighlightedTopicModal(topic = null): void {
+    this.topic = topic;
     this._store.dispatch(fromStudentAction.openHighlightedTopicModal());
   }
 
@@ -75,13 +83,17 @@ export class StudentSyllabusComponent implements OnInit {
     const payload = {
       course_id,
       ...topic.value,
+      confidence_scale:
+        CLASSROOM_TOPICS_SCALE_NUM[topic.value.confidence_scale],
     };
 
-    console.log(payload);
+    this._store.dispatch(fromCore.studentSyllabusAddEditTopic({ payload }));
   }
 
   ngOnInit(): void {
     this._store.dispatch(fromCore.loadStudentSyllabus());
+
+    this.addingTopic$ = this._store.select(fromCore.selectStudentLoading);
 
     this.showHighlightedModal$ = this._store.select(
       fromStudent.selectHighlightedModal

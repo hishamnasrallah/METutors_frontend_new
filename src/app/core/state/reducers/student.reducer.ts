@@ -223,6 +223,47 @@ export const reducer = createReducer(
     isLoadingStudentSyllabus: false,
   })),
 
+  on(studentActions.studentSyllabusAddEditTopic, (state) => ({
+    ...state,
+    isLoading: true,
+  })),
+
+  on(
+    studentActions.studentSyllabusAddEditTopicSuccess,
+    (state, { id, topic }) => {
+      const finalState = {
+        ...state,
+        isLoading: false,
+      };
+
+      if (id) {
+        const highlightedTopics = finalState.syllabus.highlightedTopics.map(
+          (hTopic: any) => (hTopic.id === topic.id ? topic : hTopic)
+        );
+
+        finalState.syllabus = {
+          ...finalState.syllabus,
+          highlightedTopics,
+        };
+      } else {
+        let highlightedTopics = [...finalState.syllabus.highlightedTopics];
+        highlightedTopics.unshift(topic);
+
+        finalState.syllabus = {
+          ...finalState.syllabus,
+          highlightedTopics,
+        };
+      }
+
+      return finalState;
+    }
+  ),
+
+  on(studentActions.studentSyllabusAddEditTopicFailure, (state) => ({
+    ...state,
+    isLoading: false,
+  })),
+
   on(studentActions.loadStudentResources, (state) => ({
     ...state,
     isLoadingStudentResources: true,

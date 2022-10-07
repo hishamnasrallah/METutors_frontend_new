@@ -339,10 +339,16 @@ export const AVAILABILITY_HOURS_CONST = [
   },
 ];
 
-export const CLASSROOM_TOPICS_SCALE = {
+export const CLASSROOM_TOPICS_SCALE_NUM = {
   1: 'Unconfident',
   2: 'Confident',
   3: 'Very Confident',
+};
+
+export const CLASSROOM_TOPICS_SCALE_STRING = {
+  Unconfident: 1,
+  Confident: 2,
+  'Very Confident': 3,
 };
 
 export const LANGUAGES_LEVELS_CONST = {

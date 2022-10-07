@@ -202,10 +202,14 @@ export const reducer = createReducer(
     showHighlightedTopicModal: true,
   })),
 
-  on(studentModalActions.closeHighlightedTopicModal, (state) => ({
-    ...state,
-    showHighlightedTopicModal: false,
-  }))
+  on(
+    fromCore.studentSyllabusAddEditTopicSuccess,
+    studentModalActions.closeHighlightedTopicModal,
+    (state) => ({
+      ...state,
+      showHighlightedTopicModal: false,
+    })
+  )
 );
 
 // student modal selectors
