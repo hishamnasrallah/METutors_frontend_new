@@ -406,6 +406,11 @@ export const selectTutorLoading = createSelector(
   fromTutorReducer.selectTutorLoading
 );
 
+export const selectTutorSignature = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectTutorSignature
+);
+
 // Tutor syllabus
 export const selectTutorSyllabus = createSelector(
   selectTutorSyllabusState,

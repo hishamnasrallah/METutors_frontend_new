@@ -415,10 +415,15 @@ export const tutorAddSignature = createAction(
 
 export const tutorAddSignatureSuccess = createAction(
   '[Tutor] Tutor Add Signature Success',
-  props<{ message: string }>()
+  props<{ signature: string; message: string }>()
 );
 
 export const tutorAddSignatureFailure = createAction(
   '[Tutor] Tutor Add Signature Failure',
   props<{ error: any }>()
+);
+
+export const tutorSetSignature = createAction(
+  '[Tutor] Tutor Set Signature',
+  props<{ signature: any }>()
 );

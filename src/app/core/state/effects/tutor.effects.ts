@@ -13,7 +13,6 @@ import * as tutorActions from '../actions/tutor.actions';
 import { selectTutorDashboard, selectFeaturedTutors } from '..';
 import { AlertNotificationService } from '@metutor/core/components';
 import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
-import { tutorAddSignature } from '../actions/tutor.actions';
 
 @Injectable()
 export class TutorEffects {
@@ -623,6 +622,7 @@ export class TutorEffects {
         this._tutorService.tutorAddSignature(payload).pipe(
           map((attendance) =>
             tutorActions.tutorAddSignatureSuccess({
+              signature: payload.url,
               message: 'Signature successfully added',
             })
           ),

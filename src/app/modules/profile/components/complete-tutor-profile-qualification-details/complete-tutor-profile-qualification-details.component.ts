@@ -36,6 +36,7 @@ import {
   generalConstants,
   TEACHING_EXPERIENCE,
 } from 'src/app/config';
+import { selectTutorSignature } from '@metutor/core/state/reducers/tutor.reducer';
 
 @Component({
   selector: 'metutors-complete-tutor-profile-qualification-details',
@@ -81,6 +82,10 @@ export class CompleteTutorProfileQualificationDetailsComponent
           (signature) => signature.document === 'onboarding'
         );
 
+        this._store.dispatch(
+          fromCore.tutorSetSignature({ signature: signature?.url })
+        );
+
         this.signatureUploadInfo = {
           ...this.signatureUploadInfo,
           ...signature,
@@ -116,6 +121,7 @@ export class CompleteTutorProfileQualificationDetailsComponent
   uploadingVideo: boolean;
   skills = COMPUTER_SKILLS;
   degreeLevels = DEGREE_LEVELS;
+  signature$: Observable<string>;
   addingSignature$: Observable<any>;
   experiences = TEACHING_EXPERIENCE;
   fileUploadProgress$: Observable<any>;
@@ -181,6 +187,7 @@ export class CompleteTutorProfileQualificationDetailsComponent
       fromProfile.selectShowViewDocumentModal
     );
 
+    this.signature$ = this._store.select(fromCore.selectTutorSignature);
     this.addingSignature$ = this._store.select(fromCore.selectTutorLoading);
 
     this.fileUploadProgress$ = this._store

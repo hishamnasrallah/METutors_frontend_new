@@ -84,9 +84,17 @@
                   <td>Phone</td>
                   <td>{{ interview?.tutor?.mobile }}</td>
                 </tr>
+                <tr>
+                  <td>Date of birth</td>
+                  <td>{{ interview?.tutor?.dateOfBirth }}</td>
+                </tr>
                 <tr *ngIf="interview?.tutor?.gender">
                   <td>Gender</td>
                   <td class="text-capitalize">{{ interview?.tutor?.gender }}</td>
+                </tr>
+                <tr>
+                  <td>Nationality</td>
+                  <td>{{ interview?.tutor?.nationality }}</td>
                 </tr>
                 <tr *ngIf="interview?.tutor?.country">
                   <td>Location</td>
@@ -94,14 +102,6 @@
                     {{ interview?.tutor?.country?.name }}
                     <ng-container *ngIf="interview?.tutor?.city">, {{ interview?.tutor?.city }}</ng-container>
                   </td>
-                </tr>
-                <tr>
-                  <td>Nationality</td>
-                  <td>{{ interview?.tutor?.nationality }}</td>
-                </tr>
-                <tr>
-                  <td>Date of birth</td>
-                  <td>{{ interview?.tutor?.dateOfBirth }}</td>
                 </tr>
                 <tr>
                   <td>Address</td>

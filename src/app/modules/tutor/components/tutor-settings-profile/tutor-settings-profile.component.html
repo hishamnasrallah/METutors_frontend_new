@@ -10,10 +10,7 @@
         'approved': tutor?.interviewRequest?.status === interviewStatus.approved,
         'rejected': tutor?.interviewRequest?.status === interviewStatus.rejected,
         'scheduled': tutor?.interviewRequest?.status === interviewStatus.scheduled
-      }"
-      [matTooltip]="tutor.interviewRequest && tutor.interviewRequest.adminComments ? tutor.interviewRequest.adminComments : ''"
-      [matTooltipPosition]="'above'"
-      [matTooltipDisabled]="!tutor?.interviewRequest?.adminComments">
+      }">
       <ng-container *ngIf="tutor?.interviewRequest?.status === interviewStatus.pending">
         Account Under Review
       </ng-container>
@@ -274,7 +271,7 @@
             <div class="text-danger" *ngIf="postalCode?.touched && postalCode?.invalid">
               Please write a valid Postal Code
             </div>
-          </div>          
+          </div>
         </div>
       </div>
     </form>

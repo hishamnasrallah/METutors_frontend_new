@@ -341,7 +341,7 @@
     <div class="d-flex align-items-center justify-content-between mt-4 mb-2">
       <button class="main-button-transparent px-4" mat-button type="button" (click)="changeStep.emit(2)">Back</button>
 
-      <metutors-submit-button [form]="form" [isSubmitting]="loading" [isDisabled]="uploadingVideo || !signatureUploadInfo?.url"
+      <metutors-submit-button [form]="form" [isSubmitting]="loading" [isDisabled]="uploadingVideo || !(signature$ | async)"
                               [extraClasses]="'w-100 fw-bold px-5'">
         Save & Continue
       </metutors-submit-button>
