@@ -126,35 +126,36 @@
               </mat-select>
             </mat-form-field>
 
-            <table class="table my-table default-title"
-              *ngIf="form.value.programs[i].sortedSubjects && form.value.programs[i].sortedSubjects.length">
-              <ng-container *ngFor="let item of form.value.programs[i].sortedSubjects; let indexSubjects = index">
-                <tr>
-                  <th class="heading" [attr.colspan]="form.value.programs[i]?.programId?.id === nationalId ? '2' : '1'">
-                    <label>Program Name: </label> <span>
-                      {{ form.value.programs[i]?.programId?.name }}<ng-container
-                        *ngIf="form.value.programs[i]?.programId?.id === nationalId">, {{ item?.countryName }}
-                        <span *ngIf="item?.countryFlag" [innerHTML]="item?.countryFlag" class="ms-2"></span>
-                      </ng-container>
-                    </span>
-                  </th>
-                  <th class="heading text-end"><label>Field Name</label> <span>{{ item?.fieldName }}</span></th>
-                </tr>
-                <tr>
-                  <th class="sub-heading" [ngClass]="{'w-55': item?.programId !== nationalId, 'w-54': item?.programId === nationalId}">Subject Name</th>
-                  <th class="sub-heading w-20" *ngIf="form.value.programs[i]?.programId?.id === nationalId">Grade</th>
-                  <th class="sub-heading" [class.text-danger]="checkEmptySubjects(i, indexSubjects)">Enter Expected Hourly Rate (USD)</th>
-                </tr>
-                <tr *ngFor="let subject of item.subjects; let indexSubject = index">
-                  <td>{{ subject?.name }}</td>
-                  <td *ngIf="form.value.programs[i]?.programId?.id === nationalId">{{ subject?.gradeName }}</td>
-                  <td>
-                    <input type="text" meTutorsOnlyNumber [onlyNumber]="true" min="1" step="1" max="100" placeholder="Enter Hourly Rate " class="p-0 w-100"
-                      [value]="subject.pricePerHour" (change)="changePrice(i, indexSubjects, indexSubject, $event)">
-                  </td>
-                </tr>
-              </ng-container>
-            </table>
+            <div class="table-responsive" *ngIf="form.value.programs[i].sortedSubjects && form.value.programs[i].sortedSubjects.length">
+              <table class="table my-table default-title" >
+                <ng-container *ngFor="let item of form.value.programs[i].sortedSubjects; let indexSubjects = index">
+                  <tr>
+                    <th class="heading" [attr.colspan]="form.value.programs[i]?.programId?.id === nationalId ? '2' : '1'">
+                      <label>Program Name: </label> <span>
+                        {{ form.value.programs[i]?.programId?.name }}<ng-container
+                          *ngIf="form.value.programs[i]?.programId?.id === nationalId">, {{ item?.countryName }}
+                          <span *ngIf="item?.countryFlag" [innerHTML]="item?.countryFlag" class="ms-2"></span>
+                        </ng-container>
+                      </span>
+                    </th>
+                    <th class="heading text-end"><label>Field Name</label> <span>{{ item?.fieldName }}</span></th>
+                  </tr>
+                  <tr>
+                    <th class="sub-heading" [ngClass]="{'w-55': item?.programId !== nationalId, 'w-54': item?.programId === nationalId}">Subject Name</th>
+                    <th class="sub-heading w-20" *ngIf="form.value.programs[i]?.programId?.id === nationalId">Grade</th>
+                    <th class="sub-heading" [class.text-danger]="checkEmptySubjects(i, indexSubjects)">Enter Expected Hourly Rate (USD)</th>
+                  </tr>
+                  <tr *ngFor="let subject of item.subjects; let indexSubject = index">
+                    <td>{{ subject?.name }}</td>
+                    <td *ngIf="form.value.programs[i]?.programId?.id === nationalId">{{ subject?.gradeName }}</td>
+                    <td>
+                      <input type="text" meTutorsOnlyNumber [onlyNumber]="true" min="1" step="1" max="100" placeholder="Enter Hourly Rate " class="p-0 w-100"
+                        [value]="subject.pricePerHour" (change)="changePrice(i, indexSubjects, indexSubject, $event)">
+                    </td>
+                  </tr>
+                </ng-container>
+              </table>
+            </div>
           </div>
         </div>
       </ng-container>

@@ -120,7 +120,7 @@
       <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
       <ng-container *ngSwitchCase="false">
 
-        <ng-container *ngIf="view.bookingDetail?.completedClasses?.length">
+        <div class="table-responsive" *ngIf="view.bookingDetail?.completedClasses?.length">
           <table class="table my-table default-title mb-5">
             <tr>
               <th>#</th>
@@ -148,7 +148,7 @@
               </td>
             </tr>
           </table>
-        </ng-container>
+        </div>
 
         <div class="col-md-12 mb-3"
              *ngIf="!view.bookingDetail?.completedClasses?.length">
@@ -165,7 +165,7 @@
     <ng-container [ngSwitch]="view.loading">
       <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
       <ng-container *ngSwitchCase="false">
-        <ng-container *ngIf="view.bookingDetail?.remainingClasses?.length">
+        <div class="table-responsive" *ngIf="view.bookingDetail?.remainingClasses?.length">
           <table class="table my-table default-title">
             <tr>
               <th>#</th>
@@ -193,7 +193,7 @@
               </td>
             </tr>
           </table>
-        </ng-container>
+        </div>
 
         <div class="col-md-12 mb-3"
              *ngIf="!view.bookingDetail?.remainingClasses?.length">

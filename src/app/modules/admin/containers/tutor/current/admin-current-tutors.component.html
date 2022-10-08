@@ -366,84 +366,82 @@
               <metutors-grid-placeholder></metutors-grid-placeholder>
             </div>
 
-            <ng-container *ngSwitchCase="false">
-              <div class="table-responsive">
-                <table class="table my-table default-title mt-4">
-                  <tr>
-                    <th>Number</th>
-                    <th>TIN</th>
-                    <th>Teacher Name</th>
-                    <th>Gender</th>
-                    <th>Bookings</th>
-                    <th>Amount</th>
-                    <th>Joining Date</th>
-                    <th>Course ID / Hourly Rate</th>
-                    <th>Work Contract</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                  </tr>
-                  <tr *ngIf="!view.tutors || !view.tutors?.length">
-                    <td colspan="10">
-                      <div class="text-center">No records found</div>
-                    </td>
-                  </tr>
-                  <tr *ngFor="let tutor of view.tutors; let i = index">
-                    <td>{{ i + 1 }}</td>
-                    <td>{{ tutor?.idNumber }}</td>
-                    <td>
-                      <a class="d-flex align-items-center" [routerLink]="['/admin', 'tutor', 'profile', tutor?.id]">
-                        <img [src]="tutor?.avatar" width="25" height="25" class="rounded-circle p-0 me-2"
-                          draggable="false" meTutorsDefaultAvatar alt="">
-                        <span>
-                          <bdi>{{ tutor?.name }}</bdi>
-                        </span>
-                      </a>
-                    </td>
-                    <td class="text-capitalize">{{ tutor?.gender }}</td>
-                    <td class="text-capitalize"><a href="javascript:void(0)" (click)="onOpenBookingModal(tutor.id)">{{ tutor?.bookings}}</a> </td>
-                    <td class="text-capitalize"><a [routerLink]="['/admin', 'finance', 'orders']">{{ tutor?.amount | metutorsMoney | async }}</a></td>
-                    <td class="text-capitalize">{{ tutor?.createdAt | date }}</td>
-                    <td class="text-capitalize tutor-subject">
-                      <ng-container *ngFor="let subject of tutor?.subjects; let isLast = last; let i = index">
-                        <div *ngIf="i < 3">
-                          {{ 'CID' + subject?.id }} <span>({{ +subject?.pricePerHour | metutorsMoney | async }})</span>
-                          <ng-container *ngIf="!isLast && i < 2">, </ng-container>
-                        </div>
-                      </ng-container>
-                    </td>
-                    <td class="text-capitalize tutor-date">
-                      <div>
-                        <span>From</span> {{ tutor?.specifications?.availabilityStartDate | date: 'YYYY-MM-dd' }}
+            <div class="table-responsive" *ngSwitchCase="false">
+              <table class="table my-table default-title mt-4">
+                <tr>
+                  <th>Number</th>
+                  <th>TIN</th>
+                  <th>Teacher Name</th>
+                  <th>Gender</th>
+                  <th>Bookings</th>
+                  <th>Amount</th>
+                  <th>Joining Date</th>
+                  <th>Course ID / Hourly Rate</th>
+                  <th>Work Contract</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+                <tr *ngIf="!view.tutors || !view.tutors?.length">
+                  <td colspan="10">
+                    <div class="text-center">No records found</div>
+                  </td>
+                </tr>
+                <tr *ngFor="let tutor of view.tutors; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ tutor?.idNumber }}</td>
+                  <td>
+                    <a class="d-flex align-items-center" [routerLink]="['/admin', 'tutor', 'profile', tutor?.id]">
+                      <img [src]="tutor?.avatar" width="25" height="25" class="rounded-circle p-0 me-2"
+                        draggable="false" meTutorsDefaultAvatar alt="">
+                      <span>
+                        <bdi>{{ tutor?.name }}</bdi>
+                      </span>
+                    </a>
+                  </td>
+                  <td class="text-capitalize">{{ tutor?.gender }}</td>
+                  <td class="text-capitalize"><a href="javascript:void(0)" (click)="onOpenBookingModal(tutor.id)">{{ tutor?.bookings}}</a> </td>
+                  <td class="text-capitalize"><a [routerLink]="['/admin', 'finance', 'orders']">{{ tutor?.amount | metutorsMoney | async }}</a></td>
+                  <td class="text-capitalize">{{ tutor?.createdAt | date }}</td>
+                  <td class="text-capitalize tutor-subject">
+                    <ng-container *ngFor="let subject of tutor?.subjects; let isLast = last; let i = index">
+                      <div *ngIf="i < 3">
+                        {{ 'CID' + subject?.id }} <span>({{ +subject?.pricePerHour | metutorsMoney | async }})</span>
+                        <ng-container *ngIf="!isLast && i < 2">, </ng-container>
                       </div>
-                      <div>
-                        <span>To</span> {{ tutor?.specifications?.availabilityEndDate | date: 'YYYY-MM-dd' }}
-                      </div>
-                    </td>
-                    <td>
-                      <div dropdown class="change-status position-relative d-flex">
-                        <button dropdownToggle class="status text-capitalize" mat-button [ngClass]="tutor.status">
-                          {{ tutor?.status }}
-                        </button>
-                        <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
-                          <ng-container *ngFor="let status of tutorStatuses">
-                            <li role="menuitem" class="cursor-pointer text-capitalize" *ngIf="status !== tutor?.status"
-                                [ngClass]="status"
-                                (click)="onOpenChangeStatusModal({oldStatus: tutor?.status, newStatus: status}, tutor)">
-                              {{ status }}
-                            </li>
-                          </ng-container>
-                        </ul>
-                      </div>
-                    </td>
-                    <td>
-                      <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0" (click)="selectedTutor = tutor">
-                        <mat-icon>more_vert</mat-icon>
+                    </ng-container>
+                  </td>
+                  <td class="text-capitalize tutor-date">
+                    <div>
+                      <span>From</span> {{ tutor?.specifications?.availabilityStartDate | date: 'YYYY-MM-dd' }}
+                    </div>
+                    <div>
+                      <span>To</span> {{ tutor?.specifications?.availabilityEndDate | date: 'YYYY-MM-dd' }}
+                    </div>
+                  </td>
+                  <td>
+                    <div dropdown class="change-status position-relative d-flex">
+                      <button dropdownToggle class="status text-capitalize" mat-button [ngClass]="tutor.status">
+                        {{ tutor?.status }}
                       </button>
-                    </td>
-                  </tr>
-                </table>
-              </div>
-            </ng-container>
+                      <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
+                        <ng-container *ngFor="let status of tutorStatuses">
+                          <li role="menuitem" class="cursor-pointer text-capitalize" *ngIf="status !== tutor?.status"
+                              [ngClass]="status"
+                              (click)="onOpenChangeStatusModal({oldStatus: tutor?.status, newStatus: status}, tutor)">
+                            {{ status }}
+                          </li>
+                        </ng-container>
+                      </ul>
+                    </div>
+                  </td>
+                  <td>
+                    <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0" (click)="selectedTutor = tutor">
+                      <mat-icon>more_vert</mat-icon>
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
           </ng-container>
         </mat-tab>
       </mat-tab-group>

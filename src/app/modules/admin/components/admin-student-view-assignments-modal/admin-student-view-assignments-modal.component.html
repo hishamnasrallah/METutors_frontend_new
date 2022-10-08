@@ -55,17 +55,17 @@
                 <th>Status</th>
               </tr>
               <tr *ngFor="let assignment of summary?.assignments; let i=index">
-                <td>{{ i+1}}</td>
+                <td>{{ i+1 }}</td>
                 <td>BIN1</td>
-                <td>{{assignment?.title}}</td>
-                <td>{{ assignment?.startDate | date }} - {{assignment?.deadline | date }}</td>
+                <td>{{ assignment?.title }}</td>
+                <td>{{ assignment?.startDate | date }} - {{ assignment?.deadline | date }}</td>
                 <td>
                   <div class="d-flex p-0 align-items-center">
                     <a>
                       <img [src]="imageURL+assignment.teacher.avatar" width="25" height="25" class="rounded-circle me-2" draggable="false"
                            meTutorsDefaultAvatar alt="">
                       <span>
-                    <bdi>{{assignment?.teacher?.firstName}} {{assignment?.teacher?.lastName}}</bdi>
+                    <bdi>{{ assignment?.teacher?.firstName }} {{ assignment?.teacher?.lastName }}</bdi>
                   </span>
                     </a>
                   </div>
@@ -73,7 +73,7 @@
                 <td>{{ assignment?.deadline | date }}</td>
                 <td>
                   <button class="status text-capitalize" mat-button [ngClass]="assignment.assignees[0].status">
-                    {{assignment.assignees[0]?.status}}
+                    {{ assignment.assignees[0]?.status }}
                   </button>
                 </td>
               </tr>

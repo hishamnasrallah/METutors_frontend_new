@@ -117,7 +117,7 @@
         </div>
         <div class="col-md-8 mt-15-sm">
           <!-- <h6>Classroom List Schedule</h6> -->
-          <div class="list-classes">
+          <div class="list-classes table-responsive">
             <table class="table table-striped table-hover">
               <tr>
                 <th>Day</th>
@@ -144,16 +144,18 @@
         <div class="col-md-8 mt-15-sm topics">
           <div class="row">
             <div class="col-md-12">
-              <table class="table my-table default-title mb-0">
-                <tr>
-                  <th>Topic Name</th>
-                  <th width="40%">Knowledge Confidence Scale</th>
-                </tr>
-                <tr *ngFor="let lang of reviewInfo?.topics">
-                  <td>{{ lang.name }}</td>
-                  <td>{{ lang.scale }}</td>
-                </tr>
-              </table>
+              <div class="table-responsive">
+                <table class="table my-table default-title mb-0">
+                  <tr>
+                    <th>Topic Name</th>
+                    <th width="40%">Knowledge Confidence Scale</th>
+                  </tr>
+                  <tr *ngFor="let lang of reviewInfo?.topics">
+                    <td>{{ lang.name }}</td>
+                    <td>{{ lang.scale }}</td>
+                  </tr>
+                </table>
+              </div>
             </div>
           </div>
         </div>
@@ -176,18 +178,20 @@
         <div class="col-md-8 mt-15-sm topics" *ngIf="reviewInfo?.info === academicTutoringTextbook.info">
           <div class="row">
             <div class="col-md-12">
-              <table class="table my-table default-title mb-0">
-                <tr>
-                  <th>Textbook Name</th>
-                  <th>Textbook Edition</th>
-                  <th>Textbook Author</th>
-                </tr>
-                <tr>
-                  <td>{{ reviewInfo?.name }}</td>
-                  <td>{{ reviewInfo?.edition }}</td>
-                  <td>{{ reviewInfo?.author }}</td>
-                </tr>
-              </table>
+              <div class="table-responsive">
+                <table class="table my-table default-title mb-0">
+                  <tr>
+                    <th>Textbook Name</th>
+                    <th>Textbook Edition</th>
+                    <th>Textbook Author</th>
+                  </tr>
+                  <tr>
+                    <td>{{ reviewInfo?.name }}</td>
+                    <td>{{ reviewInfo?.edition }}</td>
+                    <td>{{ reviewInfo?.author }}</td>
+                  </tr>
+                </table>
+              </div>
             </div>
           </div>
         </div>

@@ -24,48 +24,50 @@
           <metutors-grid-placeholder></metutors-grid-placeholder>
         </div>
 
-        <table class="table my-table default-title mt-4" *ngSwitchCase="false">
-          <tr>
-            <th>Number</th>
-            <th>Program Name</th>
-            <th>Field of Study</th>
-            <th>Course ID</th>
-            <th>Course Name</th>
-            <th>Hired Tutors</th>
-            <th>Available Tutors</th>
-            <th>Capacity %</th>
-            <th>Total Booking</th>
-            <th>Total Revenue</th>
-            <th>Action</th>
-          </tr>
-          <tr *ngIf="!view.capacity || !view.capacity.length">
-            <td colspan="11">
-              <div class="text-center">No records found</div>
-            </td>
-          </tr>
-          <tr *ngFor="let cpcty of view.capacity; let i = index">
-            <td>{{ i + 1 }}</td>
-            <td>{{ cpcty?.subject?.program?.name }}</td>
-            <td>{{ cpcty?.subject?.field?.name }}</td>
-            <td class="text-capitalize">{{ cpcty?.subject?.id }}</td>
-            <td class="text-capitalize">{{ cpcty?.subject?.name }}</td>
-            <td><a href="javascript:void(0)" (click)="onShowHiredTutors(cpcty?.hiredTutors, cpcty?.subject?.id)">{{ cpcty?.hiredTutors }}</a></td>
-            <td><a href="javascript:void(0)" (click)="onShowAvailableTutors(cpcty?.subject?.availableTutorsCount, cpcty?.subject?.id)">{{ cpcty?.subject?.availableTutorsCount }}</a></td>
-            <td>{{ cpcty?.capacity.toFixed(2) }}</td>
-            <td>
-              <a href="javascript:void(0)" (click)="onOpenCourseBookingListModal(cpcty?.subject?.id)">
-                {{ cpcty?.totalBookings }}
-              </a>
-            </td>
-            <td>{{ cpcty?.totalRevenue | metutorsMoney | async }}</td>
-            <td>
-              <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0"
-                (click)="selectedCapacity = cpcty?.subject?.id">
-                <mat-icon>more_vert</mat-icon>
-              </button>
-            </td>
-          </tr>
-        </table>
+        <div class="table-responsive" *ngSwitchCase="false">
+          <table class="table my-table default-title mt-4">
+            <tr>
+              <th>Number</th>
+              <th>Program Name</th>
+              <th>Field of Study</th>
+              <th>Course ID</th>
+              <th>Course Name</th>
+              <th>Hired Tutors</th>
+              <th>Available Tutors</th>
+              <th>Capacity %</th>
+              <th>Total Booking</th>
+              <th>Total Revenue</th>
+              <th>Action</th>
+            </tr>
+            <tr *ngIf="!view.capacity || !view.capacity.length">
+              <td colspan="11">
+                <div class="text-center">No records found</div>
+              </td>
+            </tr>
+            <tr *ngFor="let cpcty of view.capacity; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ cpcty?.subject?.program?.name }}</td>
+              <td>{{ cpcty?.subject?.field?.name }}</td>
+              <td class="text-capitalize">{{ cpcty?.subject?.id }}</td>
+              <td class="text-capitalize">{{ cpcty?.subject?.name }}</td>
+              <td><a href="javascript:void(0)" (click)="onShowHiredTutors(cpcty?.hiredTutors, cpcty?.subject?.id)">{{ cpcty?.hiredTutors }}</a></td>
+              <td><a href="javascript:void(0)" (click)="onShowAvailableTutors(cpcty?.subject?.availableTutorsCount, cpcty?.subject?.id)">{{ cpcty?.subject?.availableTutorsCount }}</a></td>
+              <td>{{ cpcty?.capacity.toFixed(2) }}</td>
+              <td>
+                <a href="javascript:void(0)" (click)="onOpenCourseBookingListModal(cpcty?.subject?.id)">
+                  {{ cpcty?.totalBookings }}
+                </a>
+              </td>
+              <td>{{ cpcty?.totalRevenue | metutorsMoney | async }}</td>
+              <td>
+                <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0"
+                  (click)="selectedCapacity = cpcty?.subject?.id">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+              </td>
+            </tr>
+          </table>
+        </div>
 
         <div class="d-flex mt-2 justify-content-center" *ngIf="view.pagination?.total > view.capacity?.length">
           <pagination [totalItems]="view.pagination?.total" [itemsPerPage]="perPage" [maxSize]="5"

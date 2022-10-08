@@ -1,16 +1,16 @@
 <metutors-student-navbar [layout]="(layout$ | async)" [user]="user$ | async"></metutors-student-navbar>
 
-<div class="certificates">
+<div class="certificates p-15-sm">
   <div class="row">
     <div class="col-md-12">
-      <h2 class="title">You have 3 course</h2>
+      <h2 class="title f-size-17-md-sm">You have 3 course</h2>
     </div>
   </div>
   <div class="row">
     <div class="col-12">
       <div class="card">
         <div class="card-body">
-          <h1>Python for Data Science and Machine Learning Bootstrap</h1>
+          <h1 class="f-size-18-md-sm">Python for Data Science and Machine Learning Bootstrap</h1>
           <p>
             The cost of our courses varies depending on the type and duration of the course. please click here for a
             complete list
@@ -21,29 +21,29 @@
             <span class="review">(3 review)</span>
           </div>
           <div class="row list-items sm-item">
-            <div class="col-md-3 d-flex menu align-items-center">
+            <div class="col-lg-3 col-md-4 d-flex menu align-items-center">
               <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
               <strong>Course category: </strong>
               <span>Technology</span>
             </div>
-            <div class="col-md-2 d-flex menu align-items-center">
+            <div class="col-lg-2 col-md-4 d-flex menu align-items-center">
               <img src="assets/svg/students.svg" alt="" width="15" height="15" draggable="false">
               <strong>Completed classes: </strong>
               <span>3</span>
             </div>
-            <div class="col-md-2 d-flex menu align-items-center">
+            <div class="col-lg-2 col-md-4 d-flex menu align-items-center">
               <img src="assets/svg/timer.svg" alt="" width="15" height="15" draggable="false">
               <strong>Total hour: </strong>
               <span>30hrs</span>
             </div>
           </div>
-          <div class="row">
+          <div class="row mt-15-md-sm">
             <div class="col-md-4 d-flex align-items-center info">
-              <div class="row">
-                <div class="col-md-3 d-flex align-items-center">
+              <div class="row w-100">
+                <div class="col-md-3 col-2 d-flex align-items-center">
                   <img src="assets/homepage/courses/person.png" meTutorsDefaultAvatar alt="">
                 </div>
-                <div class="col-md-9 d-flex justify-content-center flex-column">
+                <div class="col-md-9 col-10 d-flex justify-content-center flex-column">
                   <h2 class="d-flex">David Stevenson
                     <div class="d-flex">
                       <img src="assets/svg/star-fill.svg" alt="" width="20" height="20" draggable="false" />
@@ -55,127 +55,7 @@
               </div>
             </div>
             <div class="col-md-8">
-              <button mat-button class="main-button-transparent float-end">
-                Get certificate
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="rotate-180-ar">
-                  <path
-                    d="M16.172 10.9999H4V12.9999H16.172L10.808 18.3639L12.222 19.7779L20 11.9999L12.222 4.22192L10.808 5.63592L16.172 10.9999Z"
-                    fill="#3BB3C1" />
-                </svg>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-body">
-          <h1>Python for Data Science and Machine Learning Bootstrap</h1>
-          <p>
-            The cost of our courses varies depending on the type and duration of the course. please click here for a
-            complete list
-          </p>
-          <div class="rating">
-            <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
-            <span class="count">4</span>
-            <span class="review">(3 review)</span>
-          </div>
-          <div class="row list-items sm-item">
-            <div class="col-md-3 d-flex menu align-items-center">
-              <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
-              <strong>Course category: </strong>
-              <span>Technology</span>
-            </div>
-            <div class="col-md-2 d-flex menu align-items-center">
-              <img src="assets/svg/students.svg" alt="" width="15" height="15" draggable="false">
-              <strong>Completed classes: </strong>
-              <span>3</span>
-            </div>
-            <div class="col-md-2 d-flex menu align-items-center">
-              <img src="assets/svg/timer.svg" alt="" width="15" height="15" draggable="false">
-              <strong>Total hour: </strong>
-              <span>30hrs</span>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-4 d-flex align-items-center info">
-              <div class="row">
-                <div class="col-md-3 d-flex align-items-center">
-                  <img src="assets/homepage/courses/person.png" alt="">
-                </div>
-                <div class="col-md-9 d-flex justify-content-center flex-column">
-                  <h2 class="d-flex">David Stevenson
-                    <div class="d-flex">
-                      <img src="assets/svg/star-fill.svg" alt="" width="20" height="20" draggable="false" />
-                      <span class="count">4.5</span>
-                    </div>
-                  </h2>
-                  <h3>Expert & engineering tutor</h3>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-8">
-              <button mat-button class="main-button-transparent float-end">
-                Get certificate
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="rotate-180-ar">
-                  <path
-                    d="M16.172 10.9999H4V12.9999H16.172L10.808 18.3639L12.222 19.7779L20 11.9999L12.222 4.22192L10.808 5.63592L16.172 10.9999Z"
-                    fill="#3BB3C1" />
-                </svg>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-body">
-          <h1>Python for Data Science and Machine Learning Bootstrap</h1>
-          <p>
-            The cost of our courses varies depending on the type and duration of the course. please click here for a
-            complete list
-          </p>
-          <div class="rating">
-            <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
-            <span class="count">4</span>
-            <span class="review">(3 review)</span>
-          </div>
-          <div class="row list-items sm-item">
-            <div class="col-md-3 d-flex menu align-items-center">
-              <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
-              <strong>Course Category: </strong>
-              <span>Technology</span>
-            </div>
-            <div class="col-md-2 d-flex menu align-items-center">
-              <img src="assets/svg/students.svg" alt="" width="15" height="15" draggable="false">
-              <strong>Completed Classes: </strong>
-              <span>3</span>
-            </div>
-            <div class="col-md-2 d-flex menu align-items-center">
-              <img src="assets/svg/timer.svg" alt="" width="15" height="15" draggable="false">
-              <strong>Total Hour: </strong>
-              <span>30hrs</span>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-4 d-flex align-items-center info">
-              <div class="row">
-                <div class="col-md-3 d-flex align-items-center">
-                  <img src="assets/homepage/courses/person.png" alt="">
-                </div>
-                <div class="col-md-9 d-flex justify-content-center flex-column">
-                  <h2 class="d-flex">David Stevenson
-                    <div class="d-flex">
-                      <img src="assets/svg/star-fill.svg" alt="" width="20" height="20" draggable="false" />
-                      <span class="count">4.5</span>
-                    </div>
-                  </h2>
-                  <h3>Expert & engineering tutor</h3>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-8">
-              <button mat-button class="main-button-transparent float-end">
+              <button mat-button class="main-button-transparent float-end w-100-sm mt-15-sm">
                 Get certificate
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="rotate-180-ar">
                   <path

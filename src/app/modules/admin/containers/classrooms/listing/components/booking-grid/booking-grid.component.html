@@ -3,72 +3,74 @@
     <metutors-grid-placeholder></metutors-grid-placeholder>
   </div>
 
-  <table class="table my-table default-title mt-4" *ngSwitchCase="false">
-    <tr>
-      <th>Number</th>
-      <th>BIN</th>
-      <th>Student Name</th>
-      <th>Teacher Name</th>
-      <th>Total Classes</th>
-      <th>Start Date - End Date</th>
-      <th>Program</th>
-      <th>Course ID</th>
-      <th>Course Name</th>
-      <th>Status</th>
-      <th>Action</th>
-    </tr>
-    <tr *ngIf="!bookings || !bookings?.length">
-      <td colspan="11">
-        <div class="text-center">No records found</div>
-      </td>
-    </tr>
-    <tr *ngFor="let booking of bookings; let i = index">
-      <td>{{ i + 1 }}</td>
-      <td>{{ booking?.courseCode }}</td>
-      <td>
-        <div class="d-flex align-items-center">
-          <img [src]="booking?.student?.avatar" width="25" height="25" class="rounded-circle p-0 me-2"
-               draggable="false" meTutorsDefaultAvatar alt="">
-          <span>
-                      <bdi>{{ booking?.student?.name }}</bdi>
-                    </span>
-        </div>
-      </td>
-      <td>
-        <div class="d-flex align-items-center">
-          <img [src]="booking?.tutor?.avatar" width="25" height="25" class="rounded-circle p-0 me-2"
-               draggable="false" meTutorsDefaultAvatar alt="">
-          <span>
-                      <bdi>{{ booking?.tutor?.name }}</bdi>
-                    </span>
-        </div>
-      </td>
-      <td class="text-capitalize">{{ booking?.totalClasses }}</td>
-      <td class="text-capitalize tutor-date">
-        <div>
-          <span>From</span> {{ booking?.startDate }}
-        </div>
-        <div>
-          <span>To</span> {{ booking?.endDate }}
-        </div>
-      </td>
-      <td>{{ booking?.program?.code }}</td>
-      <td>{{ booking?.courseCode }}</td>
-      <td>{{ booking?.courseName }}</td>
-      <td>
-        <div class="change-status position-relative d-flex">
-          <button class="status" mat-button [ngClass]="booking.status" [tooltip]="statusLabel[booking.status]?.long">
-            {{ statusLabel[booking.status]?.short}}
+  <div class="table-responsive" *ngSwitchCase="false">
+    <table class="table my-table default-title mt-4">
+      <tr>
+        <th>Number</th>
+        <th>BIN</th>
+        <th>Student Name</th>
+        <th>Teacher Name</th>
+        <th>Total Classes</th>
+        <th>Start Date - End Date</th>
+        <th>Program</th>
+        <th>Course ID</th>
+        <th>Course Name</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+      <tr *ngIf="!bookings || !bookings?.length">
+        <td colspan="11">
+          <div class="text-center">No records found</div>
+        </td>
+      </tr>
+      <tr *ngFor="let booking of bookings; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ booking?.courseCode }}</td>
+        <td>
+          <div class="d-flex align-items-center">
+            <img [src]="booking?.student?.avatar" width="25" height="25" class="rounded-circle p-0 me-2"
+                draggable="false" meTutorsDefaultAvatar alt="">
+            <span>
+                        <bdi>{{ booking?.student?.name }}</bdi>
+                      </span>
+          </div>
+        </td>
+        <td>
+          <div class="d-flex align-items-center">
+            <img [src]="booking?.tutor?.avatar" width="25" height="25" class="rounded-circle p-0 me-2"
+                draggable="false" meTutorsDefaultAvatar alt="">
+            <span>
+                        <bdi>{{ booking?.tutor?.name }}</bdi>
+                      </span>
+          </div>
+        </td>
+        <td class="text-capitalize">{{ booking?.totalClasses }}</td>
+        <td class="text-capitalize tutor-date">
+          <div>
+            <span>From</span> {{ booking?.startDate }}
+          </div>
+          <div>
+            <span>To</span> {{ booking?.endDate }}
+          </div>
+        </td>
+        <td>{{ booking?.program?.code }}</td>
+        <td>{{ booking?.courseCode }}</td>
+        <td>{{ booking?.courseName }}</td>
+        <td>
+          <div class="change-status position-relative d-flex">
+            <button class="status" mat-button [ngClass]="booking.status" [tooltip]="statusLabel[booking.status]?.long">
+              {{ statusLabel[booking.status]?.short}}
+            </button>
+          </div>
+        </td>
+        <td>
+          <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0">
+            <mat-icon>more_vert</mat-icon>
           </button>
-        </div>
-      </td>
-      <td>
-        <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0">
-          <mat-icon>more_vert</mat-icon>
-        </button>
-      </td>
-    </tr>
-  </table>
+        </td>
+      </tr>
+    </table>
+  </div>
 </ng-container>
 
 <mat-menu #menu="matMenu">

@@ -10,7 +10,7 @@
 
       <ng-container *ngSwitchCase="false">
         <div *ngIf="!previousTutors?.length" class="fw-bold text-center">No Previous Teachers Found</div>
-        <ng-container *ngIf="previousTutors?.length">
+        <div class="table-responsive" *ngIf="previousTutors?.length">
           <table class="table my-table default-title mb-0">
             <tr>
               <th>Number</th>
@@ -33,7 +33,7 @@
               </td>
             </tr>
           </table>
-        </ng-container>
+        </div>
       </ng-container>
     </ng-container>
   </ng-template>

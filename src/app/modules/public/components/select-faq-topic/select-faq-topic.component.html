@@ -7,7 +7,7 @@
     <div class="row">
       <ng-container [ngSwitch]="isLoading">
         <ng-container *ngSwitchCase="true">
-          <div class="col item" *ngFor="let _ of [1,2,3,4]">
+          <div class="col-sm item" *ngFor="let _ of [1,2,3,4]">
             <div class="ph-col-3">
               <div class="ph-avatar rounded"></div>
             </div>
@@ -15,7 +15,7 @@
         </ng-container>
 
         <ng-container *ngSwitchCase="false">
-          <div class="col item" *ngFor="let topic of topics">
+          <div class="col-sm item" *ngFor="let topic of topics">
             <a routerLink="/faq/{{ topic?.id }}" class="card text-center h-100">
               <div class="card-body">
                 <h4 class="mb-0">{{ topic?.name }}</h4>

@@ -131,24 +131,26 @@
               <mat-icon>add</mat-icon> Add new topic
             </button>
 
-            <table class="table my-table default-title mb-0" *ngIf="checkTableView">
-              <tr>
-                <th>Topic Name</th>
-                <th>Knowledge Confidence Scale</th>
-                <th width="10%">Action</th>
-              </tr>
-              <ng-container *ngFor="let lang of form.value.topics; let i = index">
-                <tr *ngIf="lang.name && lang.scale && lang.checked">
-                  <td>{{ lang.name }}</td>
-                  <td>{{ topicsScale[lang.scale] }}</td>
-                  <td>
-                    <button mat-button (click)="removeTopic(i)" class="p-0">
-                      <img src="assets/svg/delete.svg" width="17px" draggable="false" alt="">
-                    </button>
-                  </td>
+            <div class="table-responsive" *ngIf="checkTableView">
+              <table class="table my-table default-title mb-0">
+                <tr>
+                  <th>Topic Name</th>
+                  <th>Knowledge Confidence Scale</th>
+                  <th width="10%">Action</th>
                 </tr>
-              </ng-container>
-            </table>
+                <ng-container *ngFor="let lang of form.value.topics; let i = index">
+                  <tr *ngIf="lang.name && lang.scale && lang.checked">
+                    <td>{{ lang.name }}</td>
+                    <td>{{ topicsScale[lang.scale] }}</td>
+                    <td>
+                      <button mat-button (click)="removeTopic(i)" class="p-0">
+                        <img src="assets/svg/delete.svg" width="17px" draggable="false" alt="">
+                      </button>
+                    </td>
+                  </tr>
+                </ng-container>
+              </table>
+            </div>
           </div>
         </div>
       </div>

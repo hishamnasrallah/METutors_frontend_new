@@ -1,4 +1,4 @@
-<div class="ticket-details" *ngLet="(ticket$ | async) as ticket">
+<div class="ticket-details p-15-sm" *ngLet="(ticket$ | async) as ticket">
   <div class="row">
     <div class="col-12">
       <div class="card">
@@ -16,7 +16,7 @@
                 <a class="cursor-pointer" (click)="onOpenChangeStatusModal(ticket?.ticketId)">Change Status</a>
               </div>
             </div>
-            <h2>
+            <h2 class="f-size-18-md-sm">
               {{ ticket?.subject }}
               <span class="label" [ngClass]="{
                     'issued': ticketStatus.open === ticket?.status,
@@ -28,7 +28,7 @@
               <bdi>{{ ticket?.message }}</bdi>
             </p>
             <div class="row list-items sm-item">
-              <div class="col-md-3 d-flex menu align-items-center" *ngIf="ticket?.user">
+              <div class="col-md-3 d-flex menu align-items-center mb-15-sm" *ngIf="ticket?.user">
                 <img [src]="ticket?.user?.avatar" meTutorsDefaultAvatar class="rounded-circle" alt="" width="25"
                   height="25" draggable="false">
                 <strong>
@@ -68,7 +68,7 @@
                   <img [src]="message?.user?.avatar" meTutorsDefaultAvatar class="rounded-circle" alt="" width="40"
                     height="40">
                   <div class="ps-3">
-                    <h3>
+                    <h3 class="f-size-15-sm">
                       <ng-container *ngIf="(user$ | async)?.id === message?.user?.id">You</ng-container>
                       <ng-container *ngIf="(user$ | async)?.id !== message?.user?.id">
                         <ng-container *ngIf="ticket?.user?.roleName === 'teacher'">Teacher:</ng-container>

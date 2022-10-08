@@ -122,62 +122,64 @@
                   </div>
                 </div>
               </div>
-              <table class="table my-table default-title mt-4">
-                <tr>
-                  <th>Number</th>
-                  <th>SIN</th>
-                  <th>Student Name</th>
-                  <th>G</th>
-                  <th>Total Bookings</th>
-                  <th>Total Spendings</th>
-                  <th>Email</th>
-                  <th>Phone Number</th>
-                  <th>Status</th>
-                  <th>Action</th>
-                </tr>
-                <tr *ngIf="!view.result?.students?.data || !view.result?.students?.data?.length">
-                  <td colspan="10">
-                    <div class="text-center">No records found</div>
-                  </td>
-                </tr>
-                <tr *ngFor="let student of view.result?.students?.data; let i = index">
-                  <td>{{ i + 1 }}</td>
-                  <td>{{ student?.idNumber }}</td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <a [routerLink]="['/admin','student', 'profile', student.id]">
-                        <img [src]="imageUrl+student?.avatar" width="25" height="25" class="rounded-circle p-0 me-2"
-                             draggable="false" meTutorsDefaultAvatar alt="">
-                        <span>
-                        <bdi>{{ student?.firstName }} {{ student?.lastName }}</bdi>
-                      </span>
-                      </a>
-                    </div>
-                  </td>
-                  <td class="text-capitalize">{{ student?.gender }}</td>
-                  <td><a href="javascript:void(0)" (click)="onOpenBookingModal(student.id)">{{ student?.totalBookings }}</a></td>
-                  <td><a [routerLink]="['/admin', 'finance', 'orders']">{{ student?.totalSpendings | metutorsMoney | async }}</a></td>
-                  <td>{{ student?.email }}</td>
-                  <td>{{ student?.mobile }}</td>
-                  <td>
-                    <div dropdown class="change-status position-relative d-flex">
-                      <button dropdownToggle class="status text-capitalize" mat-button [ngClass]="student?.status">
-                        {{ student?.status }}
+              <div class="table-responsive">
+                <table class="table my-table default-title mt-4">
+                  <tr>
+                    <th>Number</th>
+                    <th>SIN</th>
+                    <th>Student Name</th>
+                    <th>G</th>
+                    <th>Total Bookings</th>
+                    <th>Total Spendings</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                  <tr *ngIf="!view.result?.students?.data || !view.result?.students?.data?.length">
+                    <td colspan="10">
+                      <div class="text-center">No records found</div>
+                    </td>
+                  </tr>
+                  <tr *ngFor="let student of view.result?.students?.data; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ student?.idNumber }}</td>
+                    <td>
+                      <div class="d-flex align-items-center">
+                        <a [routerLink]="['/admin','student', 'profile', student.id]">
+                          <img [src]="imageUrl+student?.avatar" width="25" height="25" class="rounded-circle p-0 me-2"
+                              draggable="false" meTutorsDefaultAvatar alt="">
+                          <span>
+                          <bdi>{{ student?.firstName }} {{ student?.lastName }}</bdi>
+                        </span>
+                        </a>
+                      </div>
+                    </td>
+                    <td class="text-capitalize">{{ student?.gender }}</td>
+                    <td><a href="javascript:void(0)" (click)="onOpenBookingModal(student.id)">{{ student?.totalBookings }}</a></td>
+                    <td><a [routerLink]="['/admin', 'finance', 'orders']">{{ student?.totalSpendings | metutorsMoney | async }}</a></td>
+                    <td>{{ student?.email }}</td>
+                    <td>{{ student?.mobile }}</td>
+                    <td>
+                      <div dropdown class="change-status position-relative d-flex">
+                        <button dropdownToggle class="status text-capitalize" mat-button [ngClass]="student?.status">
+                          {{ student?.status }}
+                        </button>
+                        <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
+                          <li role="menuitem" class="cursor-pointer text-capitalize" [ngClass]="status" *ngFor="let status of studentStatuses">
+                            {{ status }}
+                          </li>
+                        </ul>
+                      </div>
+                    </td>
+                    <td>
+                      <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0" (click)="studentId=student?.id">
+                        <mat-icon>more_vert</mat-icon>
                       </button>
-                      <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
-                        <li role="menuitem" class="cursor-pointer text-capitalize" [ngClass]="status" *ngFor="let status of studentStatuses">
-                          {{ status }}
-                        </li>
-                      </ul>
-                    </div>
-                  </td>
-                  <td>
-                    <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0" (click)="studentId=student?.id">
-                      <mat-icon>more_vert</mat-icon>
-                    </button>
-                  </td>
-                </tr>
-              </table>
+                    </td>
+                  </tr>
+                </table>
+              </div>
             </ng-container>
           </mat-tab>
           <mat-tab label="Active">
@@ -257,62 +259,64 @@
                   </div>
                 </div>
               </div>
-              <table class="table my-table default-title mt-4">
-                <tr>
-                  <th>Number</th>
-                  <th>SIN</th>
-                  <th>Student Name</th>
-                  <th>G</th>
-                  <th>Total Bookings</th>
-                  <th>Total Spendings</th>
-                  <th>Email</th>
-                  <th>Phone Number</th>
-                  <th>Status</th>
-                  <th>Action</th>
-                </tr>
-                <tr *ngIf="!view.result?.students?.data || !view.result?.students?.data?.length">
-                  <td colspan="10">
-                    <div class="text-center">No records found</div>
-                  </td>
-                </tr>
-                <tr *ngFor="let student of view.result?.students?.data let i = index">
-                  <td>{{ i + 1 }}</td>
-                  <td>{{ student?.idNumber }}</td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <a [routerLink]="['/admin','student', 'profile', student.id]">
-                        <img [src]="imageUrl+student?.avatar" width="25" height="25" class="rounded-circle p-0 me-2"
-                             draggable="false" meTutorsDefaultAvatar alt="">
-                        <span>
-                        <bdi>{{ student?.firstName }} {{ student?.lastName }}</bdi>
-                      </span>
-                      </a>
-                    </div>
-                  </td>
-                  <td class="text-capitalize">{{ student?.gender }}</td>
-                  <td><a href="javascript:void(0)" (click)="onOpenBookingModal(student.id)">{{ student?.totalBookings }}</a></td>
-                  <td><a [routerLink]="['/admin', 'finance', 'orders']">{{ student?.totalSpendings | metutorsMoney | async }}</a></td>
-                  <td>{{ student?.email }}</td>
-                  <td>{{ student?.mobile }}</td>
-                  <td>
-                    <div dropdown class="change-status position-relative d-flex">
-                      <button dropdownToggle class="status text-capitalize active" mat-button [ngClass]="student?.status">
-                        {{ student?.status }}
+              <div class="table-responsive">
+                <table class="table my-table default-title mt-4">
+                  <tr>
+                    <th>Number</th>
+                    <th>SIN</th>
+                    <th>Student Name</th>
+                    <th>G</th>
+                    <th>Total Bookings</th>
+                    <th>Total Spendings</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                  <tr *ngIf="!view.result?.students?.data || !view.result?.students?.data?.length">
+                    <td colspan="10">
+                      <div class="text-center">No records found</div>
+                    </td>
+                  </tr>
+                  <tr *ngFor="let student of view.result?.students?.data let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ student?.idNumber }}</td>
+                    <td>
+                      <div class="d-flex align-items-center">
+                        <a [routerLink]="['/admin','student', 'profile', student.id]">
+                          <img [src]="imageUrl+student?.avatar" width="25" height="25" class="rounded-circle p-0 me-2"
+                              draggable="false" meTutorsDefaultAvatar alt="">
+                          <span>
+                          <bdi>{{ student?.firstName }} {{ student?.lastName }}</bdi>
+                        </span>
+                        </a>
+                      </div>
+                    </td>
+                    <td class="text-capitalize">{{ student?.gender }}</td>
+                    <td><a href="javascript:void(0)" (click)="onOpenBookingModal(student.id)">{{ student?.totalBookings }}</a></td>
+                    <td><a [routerLink]="['/admin', 'finance', 'orders']">{{ student?.totalSpendings | metutorsMoney | async }}</a></td>
+                    <td>{{ student?.email }}</td>
+                    <td>{{ student?.mobile }}</td>
+                    <td>
+                      <div dropdown class="change-status position-relative d-flex">
+                        <button dropdownToggle class="status text-capitalize active" mat-button [ngClass]="student?.status">
+                          {{ student?.status }}
+                        </button>
+                        <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
+                          <li role="menuitem" class="cursor-pointer text-capitalize" [ngClass]="status" *ngFor="let status of studentStatuses">
+                            {{ status }}
+                          </li>
+                        </ul>
+                      </div>
+                    </td>
+                    <td>
+                      <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0" (click)="studentId=student?.id">
+                        <mat-icon>more_vert</mat-icon>
                       </button>
-                      <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
-                        <li role="menuitem" class="cursor-pointer text-capitalize" [ngClass]="status" *ngFor="let status of studentStatuses">
-                          {{ status }}
-                        </li>
-                      </ul>
-                    </div>
-                  </td>
-                  <td>
-                    <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0" (click)="studentId=student?.id">
-                      <mat-icon>more_vert</mat-icon>
-                    </button>
-                  </td>
-                </tr>
-              </table>
+                    </td>
+                  </tr>
+                </table>
+              </div>
             </ng-container>
           </mat-tab>
           <mat-tab label="Suspended">
@@ -320,7 +324,7 @@
               <metutors-grid-placeholder></metutors-grid-placeholder>
             </div>
 
-            <ng-container *ngSwitchCase="false">
+            <div class="table-responsive" *ngSwitchCase="false">
               <table class="table my-table default-title mt-4">
                 <tr>
                   <th>Number</th>
@@ -377,7 +381,7 @@
                   </td>
                 </tr>
               </table>
-            </ng-container>
+            </div>
           </mat-tab>
         </mat-tab-group>
       </ng-container>
