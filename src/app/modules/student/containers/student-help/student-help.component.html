@@ -1,5 +1,5 @@
 <button mat-button class="sidemenu-btn d-inline-block d-lg-none" (click)="openSideMenu = true" *ngIf="!openSideMenu">
-  <mat-icon>menu</mat-icon>
+  <mat-icon>widgets</mat-icon>
 </button>
 
 <div class="d-flex min-h-100">
@@ -12,12 +12,12 @@
 
     <ul class="list-unstyled m-0">
       <li>
-        <a routerLink="/student/help/faq" routerLinkActive="active">
+        <a routerLink="/student/help/faq" routerLinkActive="active" (click)="openSideMenu = false">
           <span class="text-uppercase">FAQ</span>
         </a>
       </li>
       <li>
-        <a routerLink="/student/help/support-ticket" routerLinkActive="active">
+        <a routerLink="/student/help/support-ticket" routerLinkActive="active" (click)="openSideMenu = false">
           <span class="text-uppercase">Support ticket</span>
         </a>
       </li>

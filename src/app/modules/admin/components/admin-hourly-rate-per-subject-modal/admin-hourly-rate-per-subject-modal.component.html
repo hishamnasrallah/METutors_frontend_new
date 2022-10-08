@@ -2,7 +2,7 @@
                 [template]="template">
   <ng-template #template>
     <form class="hourly-rate" [formGroup]="form" (ngSubmit)="submitted.emit(form)">
-      <ng-container *ngIf="sortedSubjects && sortedSubjects.length">
+      <div class="table-responsive" *ngIf="sortedSubjects && sortedSubjects.length">
         <table class="table my-table default-title" *ngFor="let item of sortedSubjects; let indexSubjects = index">
           <tr>
             <th class="heading" [attr.colspan]="item?.programId === nationalId ? '2' : '1'">
@@ -28,7 +28,7 @@
             </td>
           </tr>
         </table>
-      </ng-container>
+      </div>
 
       <h2 class="note">Send Acceptance Message to Tutor</h2>
       <div class="form-group">

@@ -103,30 +103,32 @@
                 <div class="p-5 text-center">No record found</div>
               </ng-container>
 
-              <table class="table refund-classes"
-                     *ngIf="view.refund.nonRefundableClasses?.length || view.refund.refundableClasses?.length">
-                <thead>
-                <tr>
-                  <th class="text-secondary">Class Number</th>
-                  <th class="text-secondary">Class Subject</th>
-                  <th class="text-secondary">Class Days</th>
-                  <th class="text-secondary">Class Time</th>
-                  <th class="text-secondary">Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let allClass of view.refund.allClasses; let i = index">
-                  <td>{{ i + 1}}</td>
-                  <td>{{ allClass?.title }}</td>
-                  <td>{{ allClass?.startDate | date: 'YYYY-MM-dd' }}</td>
-                  <td>{{ allClass?.startTime | date:'h:mm a' }} to {{ allClass?.endTime | date:'h:mm a' }}</td>
-                  <td>
-                    <mat-checkbox [value]="allClass?.id" [id]="allClass?.id" (change)="onClassSelect($event, allClass?.id)"
-                                  [disabled]="allClass?.isNonRefundable"></mat-checkbox>
-                  </td>
-                </tr>
-                </tbody>
-              </table>
+              <div class="table-responsive">
+                <table class="table refund-classes"
+                      *ngIf="view.refund.nonRefundableClasses?.length || view.refund.refundableClasses?.length">
+                  <thead>
+                  <tr>
+                    <th class="text-secondary">Class Number</th>
+                    <th class="text-secondary">Class Subject</th>
+                    <th class="text-secondary">Class Days</th>
+                    <th class="text-secondary">Class Time</th>
+                    <th class="text-secondary">Action</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let allClass of view.refund.allClasses; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ allClass?.title }}</td>
+                    <td>{{ allClass?.startDate | date: 'YYYY-MM-dd' }}</td>
+                    <td>{{ allClass?.startTime | date:'h:mm a' }} to {{ allClass?.endTime | date:'h:mm a' }}</td>
+                    <td>
+                      <mat-checkbox [value]="allClass?.id" [id]="allClass?.id" (change)="onClassSelect($event, allClass?.id)"
+                                    [disabled]="allClass?.isNonRefundable"></mat-checkbox>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
 
               <div class="form-group mt-2" *ngIf="!view.refund.refundableClasses?.length">
                 <div class="alert-warning p-3">No refundable class found</div>

@@ -45,3 +45,13 @@
     margin: 15px 0 0;
   }
 }
+
+@media (max-width:767px) {
+  .about-students {
+    padding: 20px 0;
+
+    h2 {
+      font-size: 13px;
+    }
+  }
+}

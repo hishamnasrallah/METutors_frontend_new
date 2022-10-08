@@ -28,58 +28,60 @@
             </div>
 
             <ng-container *ngSwitchCase="false">
-              <table class="table my-table default-title mt-4">
-                <tr>
-                  <th>Number</th>
-                  <th>TIN</th>
-                  <th>Teacher Name</th>
-                  <th>Gender</th>
-                  <th>Work Contract</th>
-                  <th>Country</th>
-                  <th>Date</th>
-                  <th>Status</th>
-                  <th>Action</th>
-                </tr>
-                <tr *ngIf="!view.pendingTutors || !view.pendingTutors?.length">
-                  <td colspan="9">
-                    <div class="text-center">No records found</div>
-                  </td>
-                </tr>
-                <tr *ngFor="let tutor of view.pendingTutors; let i = index">
-                  <td>{{ i + 1 }}</td>
-                  <td><a [routerLink]="['/admin', 'tutor', 'profile', tutor?.id]">{{ tutor?.idNumber }}</a></td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <img [src]="tutor?.avatar" width="25" height="25" class="rounded-circle p-0 me-2"
-                        draggable="false" meTutorsDefaultAvatar alt="">
-                      <span>
-                        <bdi>{{ tutor?.name }}</bdi>
-                      </span>
-                    </div>
-                  </td>
-                  <td class="text-capitalize">{{ tutor?.gender }}</td>
-                  <td class="text-capitalize tutor-date">
-                    <div>
-                      <span>From</span> {{ tutor?.specifications?.availabilityStartDate | date: 'YYYY-MM-dd' }}
-                    </div>
-                    <div>
-                      <span>To</span> {{ tutor?.specifications?.availabilityEndDate | date: 'YYYY-MM-dd' }}
-                    </div>
-                  </td>
-                  <td>{{ tutor?.country?.name }}</td>
-                  <td>{{ tutor?.createdAt | date }}</td>
-                  <td>
-                    <div class="change-status position-relative d-flex">
-                      <button class="status text-capitalize pending" mat-button>Pending</button>
-                    </div>
-                  </td>
-                  <td>
-                    <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0" (click)="selectedTutor = tutor">
-                      <mat-icon>more_vert</mat-icon>
-                    </button>
-                  </td>
-                </tr>
-              </table>
+              <div class="table-responsive">
+                <table class="table my-table default-title mt-4">
+                  <tr>
+                    <th>Number</th>
+                    <th>TIN</th>
+                    <th>Teacher Name</th>
+                    <th>Gender</th>
+                    <th>Work Contract</th>
+                    <th>Country</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                  <tr *ngIf="!view.pendingTutors || !view.pendingTutors?.length">
+                    <td colspan="9">
+                      <div class="text-center">No records found</div>
+                    </td>
+                  </tr>
+                  <tr *ngFor="let tutor of view.pendingTutors; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td><a [routerLink]="['/admin', 'tutor', 'profile', tutor?.id]">{{ tutor?.idNumber }}</a></td>
+                    <td>
+                      <div class="d-flex align-items-center">
+                        <img [src]="tutor?.avatar" width="25" height="25" class="rounded-circle p-0 me-2"
+                          draggable="false" meTutorsDefaultAvatar alt="">
+                        <span>
+                          <bdi>{{ tutor?.name }}</bdi>
+                        </span>
+                      </div>
+                    </td>
+                    <td class="text-capitalize">{{ tutor?.gender }}</td>
+                    <td class="text-capitalize tutor-date">
+                      <div>
+                        <span>From</span> {{ tutor?.specifications?.availabilityStartDate | date: 'YYYY-MM-dd' }}
+                      </div>
+                      <div>
+                        <span>To</span> {{ tutor?.specifications?.availabilityEndDate | date: 'YYYY-MM-dd' }}
+                      </div>
+                    </td>
+                    <td>{{ tutor?.country?.name }}</td>
+                    <td>{{ tutor?.createdAt | date }}</td>
+                    <td>
+                      <div class="change-status position-relative d-flex">
+                        <button class="status text-capitalize pending" mat-button>Pending</button>
+                      </div>
+                    </td>
+                    <td>
+                      <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0" (click)="selectedTutor = tutor">
+                        <mat-icon>more_vert</mat-icon>
+                      </button>
+                    </td>
+                  </tr>
+                </table>
+              </div>
 
               <div class="d-flex mt-2 justify-content-center" *ngIf="view.tutorCounts.totalPending > view.pendingTutors?.length">
                 <pagination
@@ -98,58 +100,60 @@
             </div>
 
             <ng-container *ngSwitchCase="false">
-              <table class="table my-table default-title mt-4">
-                <tr>
-                  <th>Number</th>
-                  <th>TIN</th>
-                  <th>Teacher Name</th>
-                  <th>Gender</th>
-                  <th>Work Contract</th>
-                  <th>Country</th>
-                  <th>Date</th>
-                  <th>Status</th>
-                  <th>Action</th>
-                </tr>
-                <tr *ngIf="!view.rejectedTutors || !view.rejectedTutors?.length">
-                  <td colspan="9">
-                    <div class="text-center">No records found</div>
-                  </td>
-                </tr>
-                <tr *ngFor="let tutor of view.rejectedTutors; let i = index">
-                  <td>{{ i + 1 }}</td>
-                  <td>{{ tutor?.idNumber }}</td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <img [src]="tutor?.avatar" width="25" height="25" class="rounded-circle p-0 me-2"
-                        draggable="false" meTutorsDefaultAvatar alt="">
-                      <span>
-                        <bdi>{{ tutor?.name }}</bdi>
-                      </span>
-                    </div>
-                  </td>
-                  <td class="text-capitalize">{{ tutor?.gender }}</td>
-                  <td class="text-capitalize tutor-date">
-                    <div>
-                      <span>From</span> {{ tutor?.specifications?.availabilityStartDate | date: 'YYYY-MM-dd' }}
-                    </div>
-                    <div>
-                      <span>To</span> {{ tutor?.specifications?.availabilityEndDate | date: 'YYYY-MM-dd' }}
-                    </div>
-                  </td>
-                  <td>{{ tutor?.country?.name }}</td>
-                  <td>{{ tutor?.createdat | date }}</td>
-                  <td>
-                    <div class="change-status position-relative d-flex">
-                      <button class="status text-capitalize deactive" mat-button>Rejected</button>
-                    </div>
-                  </td>
-                  <td>
-                    <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0" (click)="selectedTutor = tutor">
-                      <mat-icon>more_vert</mat-icon>
-                    </button>
-                  </td>
-                </tr>
-              </table>
+              <div class="table-responsive">
+                <table class="table my-table default-title mt-4">
+                  <tr>
+                    <th>Number</th>
+                    <th>TIN</th>
+                    <th>Teacher Name</th>
+                    <th>Gender</th>
+                    <th>Work Contract</th>
+                    <th>Country</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                  <tr *ngIf="!view.rejectedTutors || !view.rejectedTutors?.length">
+                    <td colspan="9">
+                      <div class="text-center">No records found</div>
+                    </td>
+                  </tr>
+                  <tr *ngFor="let tutor of view.rejectedTutors; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ tutor?.idNumber }}</td>
+                    <td>
+                      <div class="d-flex align-items-center">
+                        <img [src]="tutor?.avatar" width="25" height="25" class="rounded-circle p-0 me-2"
+                          draggable="false" meTutorsDefaultAvatar alt="">
+                        <span>
+                          <bdi>{{ tutor?.name }}</bdi>
+                        </span>
+                      </div>
+                    </td>
+                    <td class="text-capitalize">{{ tutor?.gender }}</td>
+                    <td class="text-capitalize tutor-date">
+                      <div>
+                        <span>From</span> {{ tutor?.specifications?.availabilityStartDate | date: 'YYYY-MM-dd' }}
+                      </div>
+                      <div>
+                        <span>To</span> {{ tutor?.specifications?.availabilityEndDate | date: 'YYYY-MM-dd' }}
+                      </div>
+                    </td>
+                    <td>{{ tutor?.country?.name }}</td>
+                    <td>{{ tutor?.createdat | date }}</td>
+                    <td>
+                      <div class="change-status position-relative d-flex">
+                        <button class="status text-capitalize deactive" mat-button>Rejected</button>
+                      </div>
+                    </td>
+                    <td>
+                      <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0" (click)="selectedTutor = tutor">
+                        <mat-icon>more_vert</mat-icon>
+                      </button>
+                    </td>
+                  </tr>
+                </table>
+              </div>
 
               <div class="d-flex mt-2 justify-content-center" *ngIf="view.tutorCounts.totalRejected > view.rejectedTutors?.length">
                 <pagination

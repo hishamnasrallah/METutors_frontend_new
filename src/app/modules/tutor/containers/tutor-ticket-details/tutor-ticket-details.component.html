@@ -1,14 +1,14 @@
-<div class="ticket-details" *ngLet="(ticket$ | async) as ticket">
+<div class="ticket-details p-15-sm" *ngLet="(ticket$ | async) as ticket">
   <div class="row">
     <div class="col-12 d-flex justify-content-between">
-      <h2 class="title">My Tickets</h2>
+      <h2 class="title f-size-18-md-sm mb-0">My Tickets</h2>
       <a mat-flat-button color="primary" routerLink="/tutor/help/support-ticket/create-ticket">Create New Ticket</a>
     </div>
     <div class="col-12">
       <div class="card">
         <div class="card-body">
           <ng-container *ngIf="!(isLoading$ | async)">
-            <h2>
+            <h2 class="f-size-18-md-sm">
               {{ ticket?.subject }}
               <span class="label" [ngClass]="{
                   'issued': ticketStatus.open === ticket?.status,
@@ -20,7 +20,7 @@
               <bdi>{{ ticket?.message }}</bdi>
             </p>
             <div class="row list-items sm-item">
-              <div class="col-md-3 d-flex menu align-items-center" *ngIf="ticket?.user">
+              <div class="col-md-3 d-flex menu align-items-center mb-15-sm" *ngIf="ticket?.user">
                 <img [src]="ticket?.user?.avatar" meTutorsDefaultAvatar class="rounded-circle" alt="" width="25"
                   height="25" draggable="false">
                 <strong>
@@ -57,7 +57,7 @@
                   <img [src]="message?.user?.avatar" meTutorsDefaultAvatar class="rounded-circle" alt="" width="40"
                     height="40">
                   <div class="ps-3">
-                    <h3>
+                    <h3 class="f-size-15-sm">
                       <ng-container *ngIf="(user$ | async)?.id === message?.user?.id">You</ng-container>
                       <ng-container *ngIf="(user$ | async)?.id !== message?.user?.id">
                         Agent: {{ message?.user?.firstName }}

@@ -1,25 +1,25 @@
 <div class="assignments">
   <div class="card">
-    <div class="card-body">
+    <div class="card-body p-15-sm">
       <ng-container [ngSwitch]="loading$ | async">
         <ng-container *ngSwitchCase="false">
           <ng-container *ngLet="(assignments$ | async) as assignments">
-            <h1 class="title">{{ assignments?.course?.courseName }}</h1>
+            <h1 class="title f-size-20-md-sm">{{ assignments?.course?.courseName }}</h1>
             <div class="row list-items">
-              <div class="col-md-3 d-flex menu align-items-center">
+              <div class="col-lg-3 col-md-4 d-flex menu align-items-center">
                 <img src="assets/svg/timer.svg" alt="" width="15" height="15" draggable="false">
                 <strong>Total assignments: </strong>
-                <span>{{ assignments?.totalAssignments }}</span>
+                <span class="f-size-17-md-sm">{{ assignments?.totalAssignments }}</span>
               </div>
-              <div class="col-md-3 d-flex menu align-items-center">
+              <div class="col-lg-3 col-md-4 d-flex menu align-items-center">
                 <img src="assets/svg/class.svg" alt="" width="15" height="15" draggable="false">
                 <strong>Active assignments: </strong>
-                <span>{{ assignments?.activeAssignments }}</span>
+                <span class="f-size-17-md-sm">{{ assignments?.activeAssignments }}</span>
               </div>
-              <div class="col-md-3 d-flex menu align-items-center">
+              <div class="col-lg-3 col-md-4 d-flex menu align-items-center">
                 <img src="assets/svg/class.svg" alt="" width="15" height="15" draggable="false">
                 <strong>Completed assignments: </strong>
-                <span>{{ assignments?.completedAssignments }}</span>
+                <span class="f-size-17-md-sm">{{ assignments?.completedAssignments }}</span>
               </div>
             </div>
             <div class="row mt-3">
@@ -29,7 +29,7 @@
                   <metutors-user-avatar [avatar]="participant?.user?.avatar" class="d-block"></metutors-user-avatar>
                 </ng-container>
               </div>
-              <div class="col-md-7">
+              <div class="col-md-7 mt-15-sm">
                 <button mat-button class="main-button-transparent float-end" (click)="onOpenAddAssignment()">
                   <mat-icon>add</mat-icon>
                   Add new assignment
@@ -52,12 +52,12 @@
     </div>
   </div>
 
-  <div class="assign-tabs">
-    <button mat-button class="class-btn main-button-transparent text-uppercase"
+  <div class="assign-tabs p-15-sm">
+    <button mat-button class="class-btn main-button-transparent text-uppercase m-0-sm w-100-sm mb-5-sm"
             (click)="filterAssignments('active')" [ngClass]="{'active': activeAssignment}">
       Active assignments
     </button>
-    <button mat-button class="class-btn main-button-transparent text-uppercase"
+    <button mat-button class="class-btn main-button-transparent text-uppercase m-0-sm w-100-sm"
             (click)="filterAssignments('completed')" [ngClass]="{'active': !activeAssignment}">
       Completed assignments
     </button>
@@ -154,7 +154,7 @@
                           <span class="ms-2">{{ assignee?.user?.firstName }} {{ assignee?.user?.lastName }}</span>
                         </td>
                         <td>{{ assignee?.createdAt | date: 'EEEE, d MMM y, h:mm a' }}</td>
-                        <td>{{ assignee.status !== 'pending' ? (assignee?.updatedAt | date) : ''}}</td>
+                        <td>{{ assignee.status !== 'pending' ? (assignee?.updatedAt | date) : '' }}</td>
                         <td>
                           <span class="status-icon text-capitalize"
                                 [ngClass]="assignee?.status">{{ assignee?.status }}</span>

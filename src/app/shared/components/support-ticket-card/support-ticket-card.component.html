@@ -12,7 +12,7 @@
         <a class="cursor-pointer" (click)="$event.stopPropagation(); $event.preventDefault(); changeStatus.emit(ticket?.ticketId)">Change Status</a>
       </div>
     </div>
-    <h2>
+    <h2 class="f-size-18-md-sm">
       <a>{{ ticket?.subject }}</a>
       <span class="label" [ngClass]="{
             'open': ticketStatus.open === ticket?.status,
@@ -23,7 +23,7 @@
     </h2>
     <p><bdi>{{ ticket?.message }}</bdi></p>
     <div class="row list-items sm-item">
-      <div class="col-md-3 d-flex menu align-items-center" *ngIf="ticket?.user">
+      <div class="col-md-3 d-flex menu align-items-center mb-15-sm" *ngIf="ticket?.user">
         <img [src]="ticket?.user?.avatar" meTutorsDefaultAvatar class="rounded-circle" alt="" width="25" height="25"
           draggable="false">
         <strong>

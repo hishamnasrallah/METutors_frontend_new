@@ -91,47 +91,49 @@
         <h3 class="overview mb-3 f-size-17-md-sm mt-15-md-sm">Today's Classes - {{ view.dashboard?.todaysDate }}</h3>
         <ng-container [ngSwitch]="view.loading">
           <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
-          <table class="table my-table" *ngSwitchCase="false">
-            <tr>
-              <th>#</th>
-              <th>Class Subject</th>
-              <th>Class Tutor</th>
-              <th>Start Time - End Time</th>
-              <th>Duration</th>
-              <th></th>
-            </tr>
-            <tr *ngIf="!view.dashboard.todaysClasses.length">
-              <td colspan="6">
-                <div class="text-center">No record found</div>
-              </td>
-            </tr>
-            <ng-container *ngIf="view.dashboard.todaysClasses.length">
-              <tr *ngFor="let todaysClass of view.dashboard.todaysClasses; let i=index">
-                <td>{{ i + 1 }}</td>
-                <td>{{ todaysClass?.title }}</td>
-                <td>
-                  <metutors-user-avatar [avatar]="imageUrl+todaysClass?.course?.teacher?.avatar" [type]="'small'"
-                                        [name]="todaysClass?.course?.teacher?.firstName+' '+todaysClass?.course?.teacher?.lastName"
-                                        class="d-inline-block">
-                  </metutors-user-avatar>
-                </td>
-                <td>{{ todaysClass?.startTime | date:'h:mm a' }} - {{ todaysClass?.endTime | date:'h:mm a' }}</td>
-                <td>{{ todaysClass?.duration }}</td>
-                <td>
-                  <button mat-button class="main-button-opacity flex-grow-1 w-100" (click)="joinClass(todaysClass.id)"
-                          *ngIf="todaysClass?.status !== 'completed'" [disabled]="(isJoiningClass$ | async)">
-                    <img src="assets/svg/play-fill.svg" draggable="false" alt="">
-                    Join Class
-                  </button>
-                  <button mat-button class="main-button-opacity flex-grow-1 w-100" (click)="viewClass(todaysClass.id)"
-                          *ngIf="todaysClass?.status === 'completed'" [disabled]="isLoadingViewClass$ | async">
-                    <img src="assets/svg/eye-fill.svg" draggable="false" alt="">
-                    View Class
-                  </button>
+          <div class="table-responsive" *ngSwitchCase="false">
+            <table class="table my-table">
+              <tr>
+                <th>#</th>
+                <th>Class Subject</th>
+                <th>Class Tutor</th>
+                <th>Start Time - End Time</th>
+                <th>Duration</th>
+                <th></th>
+              </tr>
+              <tr *ngIf="!view.dashboard.todaysClasses.length">
+                <td colspan="6">
+                  <div class="text-center">No record found</div>
                 </td>
               </tr>
-            </ng-container>
-          </table>
+              <ng-container *ngIf="view.dashboard.todaysClasses.length">
+                <tr *ngFor="let todaysClass of view.dashboard.todaysClasses; let i=index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ todaysClass?.title }}</td>
+                  <td>
+                    <metutors-user-avatar [avatar]="imageUrl+todaysClass?.course?.teacher?.avatar" [type]="'small'"
+                                          [name]="todaysClass?.course?.teacher?.firstName+' '+todaysClass?.course?.teacher?.lastName"
+                                          class="d-inline-block">
+                    </metutors-user-avatar>
+                  </td>
+                  <td>{{ todaysClass?.startTime | date:'h:mm a' }} - {{ todaysClass?.endTime | date:'h:mm a' }}</td>
+                  <td>{{ todaysClass?.duration }}</td>
+                  <td>
+                    <button mat-button class="main-button-opacity flex-grow-1 w-100" (click)="joinClass(todaysClass.id)"
+                            *ngIf="todaysClass?.status !== 'completed'" [disabled]="(isJoiningClass$ | async)">
+                      <img src="assets/svg/play-fill.svg" draggable="false" alt="">
+                      Join Class
+                    </button>
+                    <button mat-button class="main-button-opacity flex-grow-1 w-100" (click)="viewClass(todaysClass.id)"
+                            *ngIf="todaysClass?.status === 'completed'" [disabled]="isLoadingViewClass$ | async">
+                      <img src="assets/svg/eye-fill.svg" draggable="false" alt="">
+                      View Class
+                    </button>
+                  </td>
+                </tr>
+              </ng-container>
+            </table>
+          </div>
         </ng-container>
       </div>
     </div>

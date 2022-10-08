@@ -53,43 +53,47 @@
 
           <div class="row">
             <div class="col-md-6">
-              <table class="basic-table w-100">
-                <tr>
-                  <td>Email</td>
-                  <td>{{ view.profile?.student?.email }}</td>
-                </tr>
-                <tr>
-                  <td>Phone</td>
-                  <td>{{ view.profile?.student?.mobile }}</td>
-                </tr>
-                <tr>
-                  <td>Attendance Percentage</td>
-                  <td>
-                    <div class="position-relative my-progress">
-                      <mat-progress-spinner class="progress-spinner" [color]="'primary'" [mode]="'determinate'"
-                                            [value]="view.profile?.attendenceRate">
-                      </mat-progress-spinner>
-                      <span class="position-absolute">{{ view.profile?.attendenceRate }}%</span>
-                    </div>
-                  </td>
-                </tr>
-              </table>
+              <div class="table-responsive">
+                <table class="basic-table w-100">
+                  <tr>
+                    <td>Email</td>
+                    <td>{{ view.profile?.student?.email }}</td>
+                  </tr>
+                  <tr>
+                    <td>Phone</td>
+                    <td>{{ view.profile?.student?.mobile }}</td>
+                  </tr>
+                  <tr>
+                    <td>Attendance Percentage</td>
+                    <td>
+                      <div class="position-relative my-progress">
+                        <mat-progress-spinner class="progress-spinner" [color]="'primary'" [mode]="'determinate'"
+                                              [value]="view.profile?.attendenceRate">
+                        </mat-progress-spinner>
+                        <span class="position-absolute">{{ view.profile?.attendenceRate }}%</span>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </div>
             </div>
             <div class="col-md-6">
-              <table class="basic-table w-100">
-                <tr>
-                  <td>Total Courses</td>
-                  <td class="text-end">{{ view.profile?.totalCourses }}</td>
-                </tr>
-                <tr>
-                  <td>Completed Courses</td>
-                  <td class="text-end">{{ view.profile?.completedCourses }}</td>
-                </tr>
-                <tr>
-                  <td>Total amount spent</td>
-                  <td class="text-end">{{ view.profile?.totalSpendings | metutorsMoney | async }}</td>
-                </tr>
-              </table>
+              <div class="table-responsive">
+                <table class="basic-table w-100">
+                  <tr>
+                    <td>Total Courses</td>
+                    <td class="text-end">{{ view.profile?.totalCourses }}</td>
+                  </tr>
+                  <tr>
+                    <td>Completed Courses</td>
+                    <td class="text-end">{{ view.profile?.completedCourses }}</td>
+                  </tr>
+                  <tr>
+                    <td>Total amount spent</td>
+                    <td class="text-end">{{ view.profile?.totalSpendings | metutorsMoney | async }}</td>
+                  </tr>
+                </table>
+              </div>
             </div>
           </div>
         </ng-container>
@@ -103,58 +107,60 @@
             No Course found!
           </div>
 
-          <table class="table my-table default-title mt-4" *ngIf="view.profile?.courses?.length">
-            <tr>
-              <th>Number</th>
-              <th>BIN</th>
-              <th>TIN</th>
-              <th>Teacher Name</th>
-              <th>Program Name</th>
-              <th>Field of Study</th>
-              <th>Subject</th>
-              <th>Course ID</th>
-              <th>Amount</th>
-              <th>Status</th>
-              <th>Action</th>
-            </tr>
-            <tr *ngFor="let course of view.profile?.courses; let i=index">
-              <td>{{ i+1 }}</td>
-              <td>
-                <a [routerLink]="['/admin', 'student', view.profile?.student?.id, 'booking-detail', course?.id]">BIN{{ course?.id }}</a>
-              </td>
-              <td>
-                <a [routerLink]="['/admin', 'tutor', 'profile', course?.teacher?.id]">{{ course?.teacher?.idNumber }}</a>
-              </td>
-              <td>
-                <div class="d-flex align-items-center p-0">
-                  <a [routerLink]="['/admin', 'tutor', 'profile', course?.teacher?.id]">
-                    <img [src]="imageUrl + course?.teacher?.avatar" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
-                         meTutorsDefaultAvatar alt="">
-                    <span class="text-capitalize">
-                      <bdi>{{ course?.teacher?.firstName }} {{ course?.teacher?.lastName }}</bdi>
-                    </span>
-                  </a>
-                </div>
-              </td>
-              <td class="text-capitalize">{{ course?.program?.code }}</td>
-              <td>{{ course?.field?.name }}</td>
-              <td>{{ course?.subject?.name }}</td>
-              <td>
-                <a [routerLink]="['/admin', 'student', view.profile?.student?.id, 'booking-detail', course?.id]">{{ course?.courseCode }}</a>
-              </td>
-              <td>{{ course?.totalPrice | metutorsMoney | async }}</td>
-              <td>
-                <button class="status text-capitalize" mat-button [ngClass]="course?.status"
-                        [tooltip]="statusLabel[course?.status]?.long">{{ statusLabel[course?.status]?.short }}
-                </button>
-              </td>
-              <td>
-                <button mat-button class="view-details main-button-transparent" [routerLink]="['/admin', 'student', view.profile?.student?.id, 'booking-detail', course?.id]">
-                  View Details
-                </button>
-              </td>
-            </tr>
-          </table>
+          <div class="table-responsive" *ngIf="view.profile?.courses?.length">
+            <table class="table my-table default-title mt-4">
+              <tr>
+                <th>Number</th>
+                <th>BIN</th>
+                <th>TIN</th>
+                <th>Teacher Name</th>
+                <th>Program Name</th>
+                <th>Field of Study</th>
+                <th>Subject</th>
+                <th>Course ID</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+              <tr *ngFor="let course of view.profile?.courses; let i=index">
+                <td>{{ i+1 }}</td>
+                <td>
+                  <a [routerLink]="['/admin', 'student', view.profile?.student?.id, 'booking-detail', course?.id]">BIN{{ course?.id }}</a>
+                </td>
+                <td>
+                  <a [routerLink]="['/admin', 'tutor', 'profile', course?.teacher?.id]">{{ course?.teacher?.idNumber }}</a>
+                </td>
+                <td>
+                  <div class="d-flex align-items-center p-0">
+                    <a [routerLink]="['/admin', 'tutor', 'profile', course?.teacher?.id]">
+                      <img [src]="imageUrl + course?.teacher?.avatar" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
+                          meTutorsDefaultAvatar alt="">
+                      <span class="text-capitalize">
+                        <bdi>{{ course?.teacher?.firstName }} {{ course?.teacher?.lastName }}</bdi>
+                      </span>
+                    </a>
+                  </div>
+                </td>
+                <td class="text-capitalize">{{ course?.program?.code }}</td>
+                <td>{{ course?.field?.name }}</td>
+                <td>{{ course?.subject?.name }}</td>
+                <td>
+                  <a [routerLink]="['/admin', 'student', view.profile?.student?.id, 'booking-detail', course?.id]">{{ course?.courseCode }}</a>
+                </td>
+                <td>{{ course?.totalPrice | metutorsMoney | async }}</td>
+                <td>
+                  <button class="status text-capitalize" mat-button [ngClass]="course?.status"
+                          [tooltip]="statusLabel[course?.status]?.long">{{ statusLabel[course?.status]?.short }}
+                  </button>
+                </td>
+                <td>
+                  <button mat-button class="view-details main-button-transparent" [routerLink]="['/admin', 'student', view.profile?.student?.id, 'booking-detail', course?.id]">
+                    View Details
+                  </button>
+                </td>
+              </tr>
+            </table>
+          </div>
         </ng-container>
       </ng-container>
     </div>

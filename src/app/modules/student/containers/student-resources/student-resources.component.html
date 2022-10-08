@@ -1,30 +1,34 @@
 <div class="resources" *ngLet="(view$ | async) as view">
   <div class="card">
-    <div class="card-body">
+    <div class="card-body p-15-sm">
       <ng-container [ngSwitch]="view.loading">
         <ng-container *ngSwitchCase="false">
-          <h1 class="title">{{ view.resources.course?.courseName }} <span>({{ view.resources.course?.courseCode}})</span>
-            <button mat-button class="ms-3 status" [ngClass]="view.resources.course?.status">{{ statusLabel[view.resources.course?.status].long }}</button>
+          <h1 class="title f-size-20-md-sm">{{ view.resources.course?.courseName }} 
+            <span>({{ view.resources.course?.courseCode}})</span>
+            <button mat-button class="ms-3 status" [ngClass]="view.resources.course?.status">
+              {{ statusLabel[view.resources.course?.status].long }}
+            </button>
           </h1>
           <div class="row list-items">
-            <div class="col-md-3 d-flex menu align-items-center">
+            <div class="col-lg-3 col-md-4 d-flex menu align-items-center">
               <img src="assets/svg/calendar.svg" alt="" width="15" height="15" draggable="false">
-              <strong>Days: </strong> {{ getDays(view.resources?.course?.weekdays) }}
+              <strong>Days: </strong> 
+              <span class="f-size-17-md-sm">{{ getDays(view.resources?.course?.weekdays) }}</span>
             </div>
-            <div class="col-md-3 d-flex menu align-items-center">
+            <div class="col-lg-3 col-md-4 d-flex menu align-items-center">
               <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
               <strong>Time: </strong>
-              <span>{{ view.resources?.course?.startTime | date:'h:mm a' }} - {{ view.resources?.course?.endTime | date:'h:mm a' }}</span>
+              <span class="f-size-17-md-sm">{{ view.resources?.course?.startTime | date:'h:mm a' }} - {{ view.resources?.course?.endTime | date:'h:mm a' }}</span>
             </div>
-            <div class="col-md-3 d-flex menu align-items-center">
+            <div class="col-lg-3 col-md-4 d-flex menu align-items-center">
               <img src="assets/svg/timer.svg" alt="" width="15" height="15" draggable="false">
               <strong>Total Hours: </strong>
-              <span>{{ view.resources?.course?.totalHours }}</span>
+              <span class="f-size-17-md-sm">{{ view.resources?.course?.totalHours }}</span>
             </div>
-            <div class="col-md-3 d-flex menu align-items-center">
+            <div class="col-lg-3 col-md-4 d-flex menu align-items-center">
               <img src="assets/svg/play-circle-fill.svg" alt="" width="15" height="15" draggable="false">
               <strong>Total Classes: </strong>
-              <span>{{ view.resources?.course?.totalClasses }}</span>
+              <span class="f-size-17-md-sm">{{ view.resources?.course?.totalClasses }}</span>
             </div>
           </div>
         </ng-container>

@@ -89,38 +89,40 @@
         <h3 class="overview mb-3 f-size-17-md-sm">Today's Classes - {{ view.data?.todaysDate }}</h3>
         <ng-container [ngSwitch]="view.loading">
           <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
-          <table class="table my-table" *ngSwitchCase="false">
-            <tr>
-              <th>#</th>
-              <th>Program Name</th>
-              <th>Course Name</th>
-              <th>Class Subject</th>
-              <th>Start time - End time</th>
-              <th>Duration</th>
-              <th></th>
-            </tr>
-            <tr *ngIf="!view.data?.todaysClasses?.length">
-              <td colspan="6">
-                <div class="text-center">No record found</div>
-              </td>
-            </tr>
-            <ng-container *ngIf="view.data?.todaysClasses?.length">
-              <tr *ngFor="let todaysClass of view.data.todaysClasses; let i=index">
-                <td>{{ i+1}}</td>
-                <td>{{ todaysClass?.course?.program?.name }}</td>
-                <td>{{ todaysClass?.course?.courseName }}</td>
-                <td>{{ todaysClass?.title }}</td>
-                <td>{{ todaysClass?.startTime | date:'h:mm a' }} - {{ todaysClass?.endTime | date:'h:mm a' }}</td>
-                <td>{{ todaysClass?.duration }} hour{{ +(todaysClass?.duration)! > 1 ? 's' : '' }}</td>
-                <td class="d-flex justify-content-end">
-                  <button mat-button class="main-button-opacity" (click)="launchClass(todaysClass.id)" [disabled]="(isLaunchingClass$ | async)">
-                    <img src="assets/svg/play-fill.svg" draggable="false" alt="">
-                    Launch Class
-                  </button>
+          <div class="table-responsive" *ngSwitchCase="false">
+            <table class="table my-table">
+              <tr>
+                <th>#</th>
+                <th>Program Name</th>
+                <th>Course Name</th>
+                <th>Class Subject</th>
+                <th>Start time - End time</th>
+                <th>Duration</th>
+                <th></th>
+              </tr>
+              <tr *ngIf="!view.data?.todaysClasses?.length">
+                <td colspan="6">
+                  <div class="text-center">No record found</div>
                 </td>
               </tr>
-            </ng-container>
-          </table>
+              <ng-container *ngIf="view.data?.todaysClasses?.length">
+                <tr *ngFor="let todaysClass of view.data.todaysClasses; let i=index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ todaysClass?.course?.program?.name }}</td>
+                  <td>{{ todaysClass?.course?.courseName }}</td>
+                  <td>{{ todaysClass?.title }}</td>
+                  <td>{{ todaysClass?.startTime | date:'h:mm a' }} - {{ todaysClass?.endTime | date:'h:mm a' }}</td>
+                  <td>{{ todaysClass?.duration }} hour{{ +(todaysClass?.duration)! > 1 ? 's' : '' }}</td>
+                  <td class="d-flex justify-content-end">
+                    <button mat-button class="main-button-opacity" (click)="launchClass(todaysClass.id)" [disabled]="(isLaunchingClass$ | async)">
+                      <img src="assets/svg/play-fill.svg" draggable="false" alt="">
+                      Launch Class
+                    </button>
+                  </td>
+                </tr>
+              </ng-container>
+            </table>
+          </div>
         </ng-container>
       </div>
     </div>
@@ -163,40 +165,42 @@
       <div class="col-12">
         <ng-container [ngSwitch]="view.loading">
           <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
-          <table class="table my-table default-title" *ngSwitchCase="false">
-            <tr>
-              <th colspan="4">Kudos Points details</th>
-              <th class="sm">
-                <span class="float-end me-2">Total Points: {{ view.data?.kudosPoints ? view.data?.kudosPoints : 0 }}</span>
-              </th>
-            </tr>
-            <tr>
-              <td>Number</td>
-              <td>Student Name</td>
-              <td>Course Name</td>
-              <td>Course Date</td>
-              <td>Points</td>
-            </tr>
-            <tr *ngIf="!view.data.feedbacks?.data?.length">
-              <td colspan="5">
-                <div class="text-center">No record found</div>
-              </td>
-            </tr>
-            <ng-container *ngIf="view.data.feedbacks?.data?.length">
-              <tr *ngFor="let kudo of view.data.feedbacks.data; let i=index">
-                <td>{{ i + 1 }}</td>
-                <td>
-                  <metutors-user-avatar [avatar]="kudo?.avatar" [type]="'small'"
-                                        [name]="kudo?.studentName"
-                                        class="d-inline-block ps-0">
-                  </metutors-user-avatar>
-                </td>
-                <td>{{ kudo?.courseName }}</td>
-                <td>{{ kudo?.courseDate }}</td>
-                <td>{{ kudo.kudosPoints }} Points</td>
+          <div class="table-responsive" *ngSwitchCase="false">
+            <table class="table my-table default-title">
+              <tr>
+                <th colspan="4">Kudos Points details</th>
+                <th class="sm">
+                  <span class="float-end me-2">Total Points: {{ view.data?.kudosPoints ? view.data?.kudosPoints : 0 }}</span>
+                </th>
               </tr>
-            </ng-container>
-          </table>
+              <tr>
+                <td>Number</td>
+                <td>Student Name</td>
+                <td>Course Name</td>
+                <td>Course Date</td>
+                <td>Points</td>
+              </tr>
+              <tr *ngIf="!view.data.feedbacks?.data?.length">
+                <td colspan="5">
+                  <div class="text-center">No record found</div>
+                </td>
+              </tr>
+              <ng-container *ngIf="view.data.feedbacks?.data?.length">
+                <tr *ngFor="let kudo of view.data.feedbacks.data; let i=index">
+                  <td>{{ i + 1 }}</td>
+                  <td>
+                    <metutors-user-avatar [avatar]="kudo?.avatar" [type]="'small'"
+                                          [name]="kudo?.studentName"
+                                          class="d-inline-block ps-0">
+                    </metutors-user-avatar>
+                  </td>
+                  <td>{{ kudo?.courseName }}</td>
+                  <td>{{ kudo?.courseDate }}</td>
+                  <td>{{ kudo.kudosPoints }} Points</td>
+                </tr>
+              </ng-container>
+            </table>
+          </div>
         </ng-container>
       </div>
     </div>

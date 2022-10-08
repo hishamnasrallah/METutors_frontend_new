@@ -122,6 +122,71 @@
                   </div>
                 </div>
               </div>
+              <div class="table-responsive">
+                <table class="table my-table default-title mt-4">
+                  <tr>
+                    <th>Number</th>
+                    <th>BIN</th>
+                    <th>Course ID</th>
+                    <th>Program Name</th>
+                    <th>Student Name</th>
+                    <th>Teacher Name</th>
+                    <th>Cancelled Classes</th>
+                    <th>Cancelled Date</th>
+                    <th>Refundable Amount</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                  <tr *ngIf="!view.all || !view.all?.length">
+                    <td colspan="11">
+                      <div class="text-center">No records found</div>
+                    </td>
+                  </tr>
+                  <tr *ngFor="let booking of view.all; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>-</td>
+                    <td>{{ booking?.course?.courseCode }}</td>
+                    <td>-</td>
+                    <td>
+                      <metutors-user-avatar [avatar]="imageUrl+booking?.student?.avatar" [type]="'small'"
+                                            [name]="booking?.student?.firstName +' ' + booking?.student?.lastName"
+                                            [routerLink]="['/admin', 'student', 'profile', booking?.student?.id]"
+                                            class="d-block">
+                      </metutors-user-avatar>
+                    </td>
+                    <td>
+                      <metutors-user-avatar [avatar]="imageUrl+booking?.teacher?.avatar" [type]="'small'"
+                                            [name]=" booking?.teacher?.firstName +' ' + booking?.teacher?.lastName"
+                                            [routerLink]="['/admin', 'tutor', 'profile', booking?.teacher?.id]"
+                                            class="d-block">
+                      </metutors-user-avatar>
+                    </td>
+                    <td>{{ booking?.canceledClassesCount }}</td>
+                    <td>{{ booking?.updatedAt | date }}</td>
+                    <td>-</td>
+                    <td>
+                      <button class="status text-capitalize" mat-button [ngClass]="booking?.course?.status" [tooltip]="statusLabel[booking?.course?.status]?.long">
+                        {{ statusLabel[booking?.course?.status]?.short }}
+                      </button>
+                    </td>
+                    <td>
+                      <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0">
+                        <mat-icon>more_vert</mat-icon>
+                      </button>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </ng-container>
+          </ng-container>
+        </mat-tab>
+        <mat-tab label="By Teacher">
+          <ng-container [ngSwitch]="view.loading">
+            <div class="mt-4" *ngSwitchCase="true">
+              <metutors-grid-placeholder></metutors-grid-placeholder>
+            </div>
+
+            <div class="table-responsive" *ngSwitchCase="false">
               <table class="table my-table default-title mt-4">
                 <tr>
                   <th>Number</th>
@@ -136,12 +201,12 @@
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
-                <tr *ngIf="!view.all || !view.all?.length">
+                <tr *ngIf="!view.tutor || !view.tutor?.length">
                   <td colspan="11">
                     <div class="text-center">No records found</div>
                   </td>
                 </tr>
-                <tr *ngFor="let booking of view.all; let i = index">
+                <tr *ngFor="let booking of view.tutor; let i = index">
                   <td>{{ i + 1 }}</td>
                   <td>-</td>
                   <td>{{ booking?.course?.courseCode }}</td>
@@ -175,68 +240,7 @@
                   </td>
                 </tr>
               </table>
-            </ng-container>
-          </ng-container>
-        </mat-tab>
-        <mat-tab label="By Teacher">
-          <ng-container [ngSwitch]="view.loading">
-            <div class="mt-4" *ngSwitchCase="true">
-              <metutors-grid-placeholder></metutors-grid-placeholder>
             </div>
-
-            <table class="table my-table default-title mt-4" *ngSwitchCase="false">
-              <tr>
-                <th>Number</th>
-                <th>BIN</th>
-                <th>Course ID</th>
-                <th>Program Name</th>
-                <th>Student Name</th>
-                <th>Teacher Name</th>
-                <th>Cancelled Classes</th>
-                <th>Cancelled Date</th>
-                <th>Refundable Amount</th>
-                <th>Status</th>
-                <th>Action</th>
-              </tr>
-              <tr *ngIf="!view.tutor || !view.tutor?.length">
-                <td colspan="11">
-                  <div class="text-center">No records found</div>
-                </td>
-              </tr>
-              <tr *ngFor="let booking of view.tutor; let i = index">
-                <td>{{ i + 1 }}</td>
-                <td>-</td>
-                <td>{{ booking?.course?.courseCode }}</td>
-                <td>-</td>
-                <td>
-                  <metutors-user-avatar [avatar]="imageUrl+booking?.student?.avatar" [type]="'small'"
-                                        [name]="booking?.student?.firstName +' ' + booking?.student?.lastName"
-                                        [routerLink]="['/admin', 'student', 'profile', booking?.student?.id]"
-                                        class="d-block">
-                  </metutors-user-avatar>
-                </td>
-                <td>
-                  <metutors-user-avatar [avatar]="imageUrl+booking?.teacher?.avatar" [type]="'small'"
-                                        [name]=" booking?.teacher?.firstName +' ' + booking?.teacher?.lastName"
-                                        [routerLink]="['/admin', 'tutor', 'profile', booking?.teacher?.id]"
-                                        class="d-block">
-                  </metutors-user-avatar>
-                </td>
-                <td>{{ booking?.canceledClassesCount }}</td>
-                <td>{{ booking?.updatedAt | date }}</td>
-                <td>-</td>
-                <td>
-                  <button class="status text-capitalize" mat-button [ngClass]="booking?.course?.status" [tooltip]="statusLabel[booking?.course?.status]?.long">
-                    {{ statusLabel[booking?.course?.status]?.short }}
-                  </button>
-                </td>
-                <td>
-                  <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0">
-                    <mat-icon>more_vert</mat-icon>
-                  </button>
-                </td>
-              </tr>
-            </table>
           </ng-container>
         </mat-tab>
         <mat-tab label="By Student">
@@ -245,59 +249,61 @@
               <metutors-grid-placeholder></metutors-grid-placeholder>
             </div>
 
-            <table class="table my-table default-title mt-4" *ngSwitchCase="false">
-              <tr>
-                <th>Number</th>
-                <th>BIN</th>
-                <th>Course ID</th>
-                <th>Program Name</th>
-                <th>Student Name</th>
-                <th>Teacher Name</th>
-                <th>Cancelled Classes</th>
-                <th>Cancelled Date</th>
-                <th>Refundable Amount</th>
-                <th>Status</th>
-                <th>Action</th>
-              </tr>
-              <tr *ngIf="!view.student || !view.student?.length">
-                <td colspan="11">
-                  <div class="text-center">No records found</div>
-                </td>
-              </tr>
-              <tr *ngFor="let booking of view.student; let i = index">
-                <td>{{ i + 1 }}</td>
-                <td>-</td>
-                <td>{{ booking?.course?.courseCode }}</td>
-                <td>-</td>
-                <td>
-                  <metutors-user-avatar [avatar]="imageUrl+booking?.student?.avatar" [type]="'small'"
-                                        [name]="booking?.student?.firstName +' ' + booking?.student?.lastName"
-                                        [routerLink]="['/admin', 'student', 'profile', booking?.student?.id]"
-                                        class="d-block">
-                  </metutors-user-avatar>
-                </td>
-                <td>
-                  <metutors-user-avatar [avatar]="imageUrl+booking?.teacher?.avatar" [type]="'small'"
-                                        [name]=" booking?.teacher?.firstName +' ' + booking?.teacher?.lastName"
-                                        [routerLink]="['/admin', 'tutor', 'profile', booking?.teacher?.id]"
-                                        class="d-block">
-                  </metutors-user-avatar>
-                </td>
-                <td>{{ booking?.canceledClassesCount }}</td>
-                <td>{{ booking?.updatedAt | date }}</td>
-                <td>-</td>
-                <td>
-                  <button class="status text-capitalize" mat-button [ngClass]="booking?.course?.status" [tooltip]="statusLabel[booking?.course?.status]?.long">
-                    {{ statusLabel[booking?.course?.status]?.short }}
-                  </button>
-                </td>
-                <td>
-                  <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0">
-                    <mat-icon>more_vert</mat-icon>
-                  </button>
-                </td>
-              </tr>
-            </table>
+            <div class="table-responsive" *ngSwitchCase="false">
+              <table class="table my-table default-title mt-4">
+                <tr>
+                  <th>Number</th>
+                  <th>BIN</th>
+                  <th>Course ID</th>
+                  <th>Program Name</th>
+                  <th>Student Name</th>
+                  <th>Teacher Name</th>
+                  <th>Cancelled Classes</th>
+                  <th>Cancelled Date</th>
+                  <th>Refundable Amount</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+                <tr *ngIf="!view.student || !view.student?.length">
+                  <td colspan="11">
+                    <div class="text-center">No records found</div>
+                  </td>
+                </tr>
+                <tr *ngFor="let booking of view.student; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>-</td>
+                  <td>{{ booking?.course?.courseCode }}</td>
+                  <td>-</td>
+                  <td>
+                    <metutors-user-avatar [avatar]="imageUrl+booking?.student?.avatar" [type]="'small'"
+                                          [name]="booking?.student?.firstName +' ' + booking?.student?.lastName"
+                                          [routerLink]="['/admin', 'student', 'profile', booking?.student?.id]"
+                                          class="d-block">
+                    </metutors-user-avatar>
+                  </td>
+                  <td>
+                    <metutors-user-avatar [avatar]="imageUrl+booking?.teacher?.avatar" [type]="'small'"
+                                          [name]=" booking?.teacher?.firstName +' ' + booking?.teacher?.lastName"
+                                          [routerLink]="['/admin', 'tutor', 'profile', booking?.teacher?.id]"
+                                          class="d-block">
+                    </metutors-user-avatar>
+                  </td>
+                  <td>{{ booking?.canceledClassesCount }}</td>
+                  <td>{{ booking?.updatedAt | date }}</td>
+                  <td>-</td>
+                  <td>
+                    <button class="status text-capitalize" mat-button [ngClass]="booking?.course?.status" [tooltip]="statusLabel[booking?.course?.status]?.long">
+                      {{ statusLabel[booking?.course?.status]?.short }}
+                    </button>
+                  </td>
+                  <td>
+                    <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0">
+                      <mat-icon>more_vert</mat-icon>
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
           </ng-container>
         </mat-tab>
         <mat-tab label="By Admin">
@@ -306,59 +312,61 @@
               <metutors-grid-placeholder></metutors-grid-placeholder>
             </div>
 
-            <table class="table my-table default-title mt-4" *ngSwitchCase="false">
-              <tr>
-                <th>Number</th>
-                <th>BIN</th>
-                <th>Course ID</th>
-                <th>Program Name</th>
-                <th>Student Name</th>
-                <th>Teacher Name</th>
-                <th>Cancelled Classes</th>
-                <th>Cancelled Date</th>
-                <th>Refundable Amount</th>
-                <th>Status</th>
-                <th>Action</th>
-              </tr>
-              <tr *ngIf="!view.admin || !view.admin.length">
-                <td colspan="11">
-                  <div class="text-center">No records found</div>
-                </td>
-              </tr>
-              <tr *ngFor="let booking of view.admin; let i = index">
-                <td>{{ i + 1 }}</td>
-                <td>-</td>
-                <td>{{ booking?.course?.courseCode }}</td>
-                <td>-</td>
-                <td>
-                  <metutors-user-avatar [avatar]="imageUrl+booking?.student?.avatar" [type]="'small'"
-                                        [name]="booking?.student?.firstName +' ' + booking?.student?.lastName"
-                                        [routerLink]="['/admin', 'student', 'profile', booking?.student?.id]"
-                                        class="d-block">
-                  </metutors-user-avatar>
-                </td>
-                <td>
-                  <metutors-user-avatar [avatar]="imageUrl+booking?.teacher?.avatar" [type]="'small'"
-                                        [name]=" booking?.teacher?.firstName +' ' + booking?.teacher?.lastName"
-                                        [routerLink]="['/admin', 'tutor', 'profile', booking?.teacher?.id]"
-                                        class="d-block">
-                  </metutors-user-avatar>
-                </td>
-                <td>{{ booking?.canceledClassesCount }}</td>
-                <td>{{ booking?.updatedAt | date }}</td>
-                <td>-</td>
-                <td>
-                  <button class="status text-capitalize" mat-button [ngClass]="booking?.course?.status" [tooltip]="statusLabel[booking?.course?.status]?.long">
-                    {{ statusLabel[booking?.course?.status]?.short }}
-                  </button>
-                </td>
-                <td>
-                  <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0">
-                    <mat-icon>more_vert</mat-icon>
-                  </button>
-                </td>
-              </tr>
-            </table>
+            <div class="table-responsive" *ngSwitchCase="false">
+              <table class="table my-table default-title mt-4">
+                <tr>
+                  <th>Number</th>
+                  <th>BIN</th>
+                  <th>Course ID</th>
+                  <th>Program Name</th>
+                  <th>Student Name</th>
+                  <th>Teacher Name</th>
+                  <th>Cancelled Classes</th>
+                  <th>Cancelled Date</th>
+                  <th>Refundable Amount</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+                <tr *ngIf="!view.admin || !view.admin.length">
+                  <td colspan="11">
+                    <div class="text-center">No records found</div>
+                  </td>
+                </tr>
+                <tr *ngFor="let booking of view.admin; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>-</td>
+                  <td>{{ booking?.course?.courseCode }}</td>
+                  <td>-</td>
+                  <td>
+                    <metutors-user-avatar [avatar]="imageUrl+booking?.student?.avatar" [type]="'small'"
+                                          [name]="booking?.student?.firstName +' ' + booking?.student?.lastName"
+                                          [routerLink]="['/admin', 'student', 'profile', booking?.student?.id]"
+                                          class="d-block">
+                    </metutors-user-avatar>
+                  </td>
+                  <td>
+                    <metutors-user-avatar [avatar]="imageUrl+booking?.teacher?.avatar" [type]="'small'"
+                                          [name]=" booking?.teacher?.firstName +' ' + booking?.teacher?.lastName"
+                                          [routerLink]="['/admin', 'tutor', 'profile', booking?.teacher?.id]"
+                                          class="d-block">
+                    </metutors-user-avatar>
+                  </td>
+                  <td>{{ booking?.canceledClassesCount }}</td>
+                  <td>{{ booking?.updatedAt | date }}</td>
+                  <td>-</td>
+                  <td>
+                    <button class="status text-capitalize" mat-button [ngClass]="booking?.course?.status" [tooltip]="statusLabel[booking?.course?.status]?.long">
+                      {{ statusLabel[booking?.course?.status]?.short }}
+                    </button>
+                  </td>
+                  <td>
+                    <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0">
+                      <mat-icon>more_vert</mat-icon>
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
           </ng-container>
         </mat-tab>
       </mat-tab-group>

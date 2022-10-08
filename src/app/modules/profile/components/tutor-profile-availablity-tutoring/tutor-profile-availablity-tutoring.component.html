@@ -27,28 +27,30 @@
 
           <div class="row mt-5 mt-15-sm">
             <div class="col-md-6 mb-3" *ngFor="let item of _tutor?.sortedSubjects; let indexSubjects = index">
-              <table class="table my-table default-title">
-                <tr>
-                  <th class="heading">
-                    Program: <span>
-                      {{ item?.programName }}<ng-container *ngIf="item?.programId === nationalId">,
-                        {{ item?.countryName }} <span *ngIf="item?.countryFlag" [innerHTML]="item?.countryFlag" class="ms-2"></span>
-                      </ng-container>
-                    </span>
-                  </th>
-                  <th class="heading text-end">Study Field <span>{{ item?.fieldName }}</span></th>
-                </tr>
-                <tr>
-                  <th [attr.colspan]="item?.programId === nationalId ? '1' : '2'">Subject Name</th>
-                  <th *ngIf="item?.programId === nationalId">Grade</th>
-                  <!-- <th>Hourly Price</th> -->
-                </tr>
-                <tr *ngFor="let subject of item.subjects">
-                  <td [attr.colspan]="item?.programId === nationalId ? '1' : '2'">{{ subject?.subject }}</td>
-                  <td *ngIf="item?.programId === nationalId">{{ subject?.gradeName }}</td>
-                  <!-- <td>{{ subject?.pricePerHour }}</td> -->
-                </tr>
-              </table>
+              <div class="table-responsive">
+                <table class="table my-table default-title">
+                  <tr>
+                    <th class="heading">
+                      Program: <span>
+                        {{ item?.programName }}<ng-container *ngIf="item?.programId === nationalId">,
+                          {{ item?.countryName }} <span *ngIf="item?.countryFlag" [innerHTML]="item?.countryFlag" class="ms-2"></span>
+                        </ng-container>
+                      </span>
+                    </th>
+                    <th class="heading text-end">Study Field <span>{{ item?.fieldName }}</span></th>
+                  </tr>
+                  <tr>
+                    <th [attr.colspan]="item?.programId === nationalId ? '1' : '2'">Subject Name</th>
+                    <th *ngIf="item?.programId === nationalId">Grade</th>
+                    <!-- <th>Hourly Price</th> -->
+                  </tr>
+                  <tr *ngFor="let subject of item.subjects">
+                    <td [attr.colspan]="item?.programId === nationalId ? '1' : '2'">{{ subject?.subject }}</td>
+                    <td *ngIf="item?.programId === nationalId">{{ subject?.gradeName }}</td>
+                    <!-- <td>{{ subject?.pricePerHour }}</td> -->
+                  </tr>
+                </table>
+              </div>
             </div>
           </div>
         </div>

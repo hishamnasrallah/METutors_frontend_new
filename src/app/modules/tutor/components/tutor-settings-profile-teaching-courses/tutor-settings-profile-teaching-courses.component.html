@@ -16,37 +16,39 @@
     <div class="row mt-4" *ngIf="sortedSubjects && sortedSubjects?.length">
       <div class="col-md-12" *ngFor="let item of sortedSubjects; let indexSubjects = index; let isLast = last"
         [class.mb-4]="!isLast">
-        <table class="table my-table default-title mb-0">
-          <tr>
-            <th class="heading" [attr.colspan]="item?.programId === nationalId ? '2' : '1'">
-              <label>Program: </label> <span>
-                {{ item?.programName }}<ng-container *ngIf="item?.programId === nationalId">,
-                  {{ item?.countryName }} <span *ngIf="item?.countryFlag" [innerHTML]="item?.countryFlag"
-                    class="ms-2"></span>
-                </ng-container>
-              </span>
-            </th>
-            <th class="heading text-end"><label>Study Field: </label> <span>{{ item?.fieldName }}</span></th>
-          </tr>
-          <tr>
-            <th class="sub-heading"
-              [ngClass]="{'w-80': item?.programId !== nationalId, 'w-60': item?.programId === nationalId}">Subject
-              Name</th>
-            <th class="sub-heading w-20" *ngIf="item?.programId === nationalId">Grade</th>
-            <th class="sub-heading">Hourly Rate (USD)</th>
-          </tr>
-          <tr *ngFor="let subject of item.subjects">
-            <td>{{ subject?.subject }}</td>
-            <td *ngIf="item?.programId === nationalId">{{ subject?.gradeName }}</td>
-            <td>
-              <ng-container *ngIf="status">{{ subject?.pricePerHour }}</ng-container>
+        <div class="table-responsive">
+          <table class="table my-table default-title mb-0">
+            <tr>
+              <th class="heading" [attr.colspan]="item?.programId === nationalId ? '2' : '1'">
+                <label>Program: </label> <span>
+                  {{ item?.programName }}<ng-container *ngIf="item?.programId === nationalId">,
+                    {{ item?.countryName }} <span *ngIf="item?.countryFlag" [innerHTML]="item?.countryFlag"
+                      class="ms-2"></span>
+                  </ng-container>
+                </span>
+              </th>
+              <th class="heading text-end"><label>Study Field: </label> <span>{{ item?.fieldName }}</span></th>
+            </tr>
+            <tr>
+              <th class="sub-heading"
+                [ngClass]="{'w-80': item?.programId !== nationalId, 'w-60': item?.programId === nationalId}">Subject
+                Name</th>
+              <th class="sub-heading w-20" *ngIf="item?.programId === nationalId">Grade</th>
+              <th class="sub-heading">Hourly Rate (USD)</th>
+            </tr>
+            <tr *ngFor="let subject of item.subjects">
+              <td>{{ subject?.subject }}</td>
+              <td *ngIf="item?.programId === nationalId">{{ subject?.gradeName }}</td>
+              <td>
+                <ng-container *ngIf="status">{{ subject?.pricePerHour }}</ng-container>
 
-              <input type="text" meTutorsOnlyNumber [onlyNumber]="true" *ngIf="!status" min="1" step="1" max="100"
-                placeholder="Enter Price" class="p-0 w-100" [value]="subject?.pricePerHour"
-                (change)="changePrice(subject?.id, $event)">
-            </td>
-          </tr>
-        </table>
+                <input type="text" meTutorsOnlyNumber [onlyNumber]="true" *ngIf="!status" min="1" step="1" max="100"
+                  placeholder="Enter Price" class="p-0 w-100" [value]="subject?.pricePerHour"
+                  (change)="changePrice(subject?.id, $event)">
+              </td>
+            </tr>
+          </table>
+        </div>
       </div>
     </div>
   </form>

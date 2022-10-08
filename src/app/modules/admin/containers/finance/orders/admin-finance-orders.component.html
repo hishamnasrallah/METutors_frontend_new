@@ -18,60 +18,62 @@
     </div>
   </div>
 
-  <div class="table-responsive mt-4">
+  <div class="mt-4">
     <ng-container [ngSwitch]="view.loading">
       <div class="mt-4" *ngSwitchCase="true">
         <metutors-grid-placeholder></metutors-grid-placeholder>
       </div>
 
-      <table class="table my-table default-title" *ngSwitchCase="false">
-        <tr>
-          <th>Number</th>
-          <th>Order ID</th>
-          <th>BIN</th>
-          <th>SIN</th>
-          <th>Student Name</th>
-          <th>Total Classes</th>
-          <th>Transaction ID</th>
-          <th>Transaction Date</th>
-          <th>Amount</th>
-          <th>Status</th>
-          <th>Action</th>
-        </tr>
-        <tr *ngIf="!view.result?.orders || !view.result?.orders?.length">
-          <td colspan="11">
-            <div class="text-center">No records found</div>
-          </td>
-        </tr>
-        <tr *ngFor="let order of view.result?.orders; let i = index">
-          <td>{{ i + 1}}</td>
-          <td>OID{{order?.courseId}}</td>
-          <td><a [routerLink]="['/admin', 'student', order?.user?.id, 'booking-detail', order?.courseId]">BIN{{order?.id}}</a></td>
-          <td><a [routerLink]="['/admin', 'student', 'profile', order?.user?.id]">{{ order?.user?.idNumber}}</a></td>
-          <td>
-            <metutors-user-avatar [avatar]="imageUrl+order?.user?.avatar" [type]="'small'"
-                                  [name]="order?.user?.firstName+' ' + order?.user?.lastName"
-                                  [routerLink]="['/admin', 'student', 'profile', order?.user?.id]"
-                                  class="d-block">
-            </metutors-user-avatar>
-          </td>
-          <td>{{ order?.course?.totalClasses}}</td>
-          <td><span class="d-inline-block text-truncate transaction-id"
-                    [tooltip]="order?.transaction?.id">{{ order?.transaction?.id }}</span></td>
-          <td>{{ order?.transaction?.createdAt | date }}</td>
-          <td>{{ order?.transaction?.amount | metutorsMoney | async }}</td>
-          <td>
-            <button class="status text-capitalize" mat-button [ngClass]="order?.transaction?.status">
-              {{ order?.transaction?.status }}
-            </button>
-          </td>
-          <td>
-            <button mat-icon-button class="p-0">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-          </td>
-        </tr>
-      </table>
+      <div class="table-responsive" *ngSwitchCase="false">
+        <table class="table my-table default-title">
+          <tr>
+            <th>Number</th>
+            <th>Order ID</th>
+            <th>BIN</th>
+            <th>SIN</th>
+            <th>Student Name</th>
+            <th>Total Classes</th>
+            <th>Transaction ID</th>
+            <th>Transaction Date</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+          <tr *ngIf="!view.result?.orders || !view.result?.orders?.length">
+            <td colspan="11">
+              <div class="text-center">No records found</div>
+            </td>
+          </tr>
+          <tr *ngFor="let order of view.result?.orders; let i = index">
+            <td>{{ i + 1}}</td>
+            <td>OID{{order?.courseId}}</td>
+            <td><a [routerLink]="['/admin', 'student', order?.user?.id, 'booking-detail', order?.courseId]">BIN{{order?.id}}</a></td>
+            <td><a [routerLink]="['/admin', 'student', 'profile', order?.user?.id]">{{ order?.user?.idNumber}}</a></td>
+            <td>
+              <metutors-user-avatar [avatar]="imageUrl+order?.user?.avatar" [type]="'small'"
+                                    [name]="order?.user?.firstName+' ' + order?.user?.lastName"
+                                    [routerLink]="['/admin', 'student', 'profile', order?.user?.id]"
+                                    class="d-block">
+              </metutors-user-avatar>
+            </td>
+            <td>{{ order?.course?.totalClasses}}</td>
+            <td><span class="d-inline-block text-truncate transaction-id"
+                      [tooltip]="order?.transaction?.id">{{ order?.transaction?.id }}</span></td>
+            <td>{{ order?.transaction?.createdAt | date }}</td>
+            <td>{{ order?.transaction?.amount | metutorsMoney | async }}</td>
+            <td>
+              <button class="status text-capitalize" mat-button [ngClass]="order?.transaction?.status">
+                {{ order?.transaction?.status }}
+              </button>
+            </td>
+            <td>
+              <button mat-icon-button class="p-0">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+            </td>
+          </tr>
+        </table>
+      </div>
 
       <div class="d-flex mt-2 justify-content-center" *ngIf="view.result?.orders?.length < view.result?.total">
         <pagination [totalItems]="view.result?.total" [itemsPerPage]="perPage" [maxSize]="5"

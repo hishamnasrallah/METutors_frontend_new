@@ -1,5 +1,5 @@
 <button mat-button class="sidemenu-btn d-inline-block d-lg-none" (click)="openSideMenu = true" *ngIf="!openSideMenu">
-  <mat-icon>menu</mat-icon>
+  <mat-icon>widgets</mat-icon>
 </button>
 
 <div class="d-flex min-h-100">
@@ -16,27 +16,31 @@
 
     <ul class="list-unstyled m-0" *ngLet="(routeParams$ | async) as params">
       <li>
-        <a [routerLink]="'/tutor/classrooms/classes/syllabus/' + params?.id" routerLinkActive="active">
+        <a [routerLink]="'/tutor/classrooms/classes/syllabus/' + params?.id" routerLinkActive="active"
+          (click)="openSideMenu = false">
           <span class="text-uppercase">Syllabus</span>
         </a>
       </li>
       <li>
-        <a [routerLink]="'/tutor/classrooms/classes/resources/' + params?.id" routerLinkActive="active">
+        <a [routerLink]="'/tutor/classrooms/classes/resources/' + params?.id" routerLinkActive="active"
+          (click)="openSideMenu = false">
           <span class="text-uppercase">Resources</span>
         </a>
       </li>
       <li>
-        <a [routerLink]="'/tutor/classrooms/classes/assignment/' + params?.id" routerLinkActive="active">
+        <a [routerLink]="'/tutor/classrooms/classes/assignment/' + params?.id" routerLinkActive="active"
+          (click)="openSideMenu = false">
           <span class="text-uppercase">Assignments</span>
         </a>
       </li>
       <li>
-        <a [routerLink]="'/tutor/classrooms/classes/dashboard/' + params?.id" routerLinkActive="active">
+        <a [routerLink]="'/tutor/classrooms/classes/dashboard/' + params?.id" routerLinkActive="active"
+          (click)="openSideMenu = false">
           <span class="text-uppercase">Classes Dashboard</span>
         </a>
       </li>
       <li>
-        <a routerLink="/tutor/help/support-ticket" routerLinkActive="active">
+        <a routerLink="/tutor/help/support-ticket" routerLinkActive="active" (click)="openSideMenu = false">
           <span class="text-uppercase">Support ticket</span>
         </a>
       </li>

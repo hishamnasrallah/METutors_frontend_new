@@ -1,27 +1,30 @@
 <div class="assignments">
   <div class="card">
-    <div class="card-body">
+    <div class="card-body p-15-sm">
       <ng-container [ngSwitch]="loading$ | async">
         <ng-container *ngSwitchCase="false">
           <ng-container *ngLet="(assignments$ | async) as assignments">
-            <h1 class="title">{{ assignments.course?.courseName }} <span>({{ assignments.course?.courseCode}})</span>
-              <button mat-button class="ms-3 status" [ngClass]="assignments.course?.status">{{ statusLabel[assignments.course?.status].long }}</button>
+            <h1 class="title f-size-20-md-sm">{{ assignments.course?.courseName }} 
+              <span>({{ assignments.course?.courseCode}})</span>
+              <button mat-button class="ms-3 status" [ngClass]="assignments.course?.status">
+                {{ statusLabel[assignments.course?.status].long }}
+              </button>
             </h1>
             <div class="row list-items">
-              <div class="col-md-3 d-flex menu align-items-center">
+              <div class="col-lg-3 col-md-4 d-flex menu align-items-center">
                 <img src="assets/svg/timer.svg" alt="" width="15" height="15" draggable="false">
                 <strong>Total assignments: </strong>
-                <span>{{ assignments?.totalAssignments }}</span>
+                <span class="f-size-17-md-sm">{{ assignments?.totalAssignments }}</span>
               </div>
-              <div class="col-md-3 d-flex menu align-items-center">
+              <div class="col-lg-3 col-md-4 d-flex menu align-items-center">
                 <img src="assets/svg/class.svg" alt="" width="15" height="15" draggable="false">
                 <strong>Active assignments: </strong>
-                <span>{{ assignments?.activeAssignments }}</span>
+                <span class="f-size-17-md-sm">{{ assignments?.activeAssignments }}</span>
               </div>
-              <div class="col-md-3 d-flex menu align-items-center">
+              <div class="col-lg-3 col-md-4 d-flex menu align-items-center">
                 <img src="assets/svg/class.svg" alt="" width="15" height="15" draggable="false">
                 <strong>Completed assignments: </strong>
-                <span>{{ assignments?.completedAssignments }}</span>
+                <span class="f-size-17-md-sm">{{ assignments?.completedAssignments }}</span>
               </div>
             </div>
             <div class="row mt-3">
@@ -32,8 +35,7 @@
                        class="d-inline-block rounded-circle">
                 </ng-container>
               </div>
-              <div class="col-md-7">
-              </div>
+              <div class="col-md-7"></div>
             </div>
           </ng-container>
         </ng-container>
@@ -51,12 +53,12 @@
     </div>
   </div>
 
-  <div class="assign-tabs">
-    <button mat-button class="class-btn main-button-transparent text-uppercase"
+  <div class="assign-tabs p-15-sm">
+    <button mat-button class="class-btn main-button-transparent text-uppercase m-0-sm w-100-sm mb-5-sm"
             (click)="filterAssignments('active')" [ngClass]="{'active': activeAssignment}">
       Active assignments
     </button>
-    <button mat-button class="class-btn main-button-transparent text-uppercase"
+    <button mat-button class="class-btn main-button-transparent text-uppercase m-0-sm w-100-sm"
             (click)="filterAssignments('completed')" [ngClass]="{'active': !activeAssignment}">
       Completed assignments
     </button>
@@ -126,31 +128,33 @@
 
                 <div class="col-md-12">
                   <div class="table-responsive" *ngIf="openBlock && selectedBlock === assignment.id" [@slideInOut]>
-                    <table class="table my-table default-title">
-                      <tr>
-                        <th scope="col">Number</th>
-                        <th scope="col">Student Name</th>
-                        <th scope="col">Time Received By Student</th>
-                        <th scope="col">Status</th>
-                      </tr>
+                    <div class="table-responsive">
+                      <table class="table my-table default-title">
+                        <tr>
+                          <th scope="col">Number</th>
+                          <th scope="col">Student Name</th>
+                          <th scope="col">Time Received By Student</th>
+                          <th scope="col">Status</th>
+                        </tr>
 
-                      <tr *ngFor="let assignee of assignment?.assignees; let num = index" class="cursor-pointer">
-                        <td scope="row">{{ num + 1 }}</td>
-                        <td>
-                          <img [src]="assignee?.user?.avatar" meTutorsDefaultAvatar draggable="false" width="25"
-                               height="25"
-                               class="rounded-circle"
-                               alt="">
-                          <span class="ms-2">{{ assignee?.user?.firstName }} {{ assignee?.user?.lastName }}</span>
-                        </td>
-                        <td>{{ assignee?.createdAt | date: 'EEEE, d MMM y, h:mm a' }}</td>
-                        <td>
-                          <span class="status-icon text-capitalize"
-                                [ngClass]="assignee?.status">{{ assignee?.status }}</span>
-                          <span class="late ms-2" *ngIf="!assignment?.remainingDays && (assignee.status !== 'submitted' && assignee.status !== 'completed')">Late</span>
-                        </td>
-                      </tr>
-                    </table>
+                        <tr *ngFor="let assignee of assignment?.assignees; let num = index" class="cursor-pointer">
+                          <td scope="row">{{ num + 1 }}</td>
+                          <td>
+                            <img [src]="assignee?.user?.avatar" meTutorsDefaultAvatar draggable="false" width="25"
+                                height="25"
+                                class="rounded-circle"
+                                alt="">
+                            <span class="ms-2">{{ assignee?.user?.firstName }} {{ assignee?.user?.lastName }}</span>
+                          </td>
+                          <td>{{ assignee?.createdAt | date: 'EEEE, d MMM y, h:mm a' }}</td>
+                          <td>
+                            <span class="status-icon text-capitalize"
+                                  [ngClass]="assignee?.status">{{ assignee?.status }}</span>
+                            <span class="late ms-2" *ngIf="!assignment?.remainingDays && (assignee.status !== 'submitted' && assignee.status !== 'completed')">Late</span>
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -167,8 +171,8 @@
             </metutors-student-submit-assignment-modal>
 
             <metutors-student-view-submitted-assignment-modal *ngIf="showViewSubmitAssignmentModal$ | async"
-                                                      (closeModal)="onCloseViewSubmittedAssignmentModal()"
-                                                      [showModal]="(showViewSubmitAssignmentModal$ | async)!">
+                                                              (closeModal)="onCloseViewSubmittedAssignmentModal()"
+                                                              [showModal]="(showViewSubmitAssignmentModal$ | async)!">
             </metutors-student-view-submitted-assignment-modal>
           </ng-container>
         </ng-container>

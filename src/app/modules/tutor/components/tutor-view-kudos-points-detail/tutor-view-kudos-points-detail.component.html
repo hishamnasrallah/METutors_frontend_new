@@ -5,29 +5,31 @@
     <ng-container [ngSwitch]="loading">
       <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
 
-      <table class="table my-table default-title mt-3" *ngSwitchCase="false">
-        <tr>
-          <td>Number</td>
-          <td>Student Name</td>
-          <td>Course Name</td>
-          <td>Date</td>
-          <td>Stars</td>
-          <td>Review</td>
-        </tr>
-        <tr *ngFor="let kudo of kudosPoints; let i=index">
-          <td>{{ i + 1}}</td>
-          <td>
-            <metutors-user-avatar [avatar]="kudo?.avatar" [type]="'small'"
-                                  [name]="kudo?.studentName"
-                                  class="d-inline-block ps-0">
-            </metutors-user-avatar>
-          </td>
-          <td>{{ kudo?.courseName }}</td>
-          <td>{{ kudo?.date}}</td>
-          <td><rating [(ngModel)]="kudo.stars" [max]="5" [readonly]="true"></rating></td>
-          <td class="w-25">{{ kudo.review}}</td>
-        </tr>
-      </table>
+      <div class="table-responsive" *ngSwitchCase="false">
+        <table class="table my-table default-title mt-3">
+          <tr>
+            <td>Number</td>
+            <td>Student Name</td>
+            <td>Course Name</td>
+            <td>Date</td>
+            <td>Stars</td>
+            <td>Review</td>
+          </tr>
+          <tr *ngFor="let kudo of kudosPoints; let i=index">
+            <td>{{ i + 1 }}</td>
+            <td>
+              <metutors-user-avatar [avatar]="kudo?.avatar" [type]="'small'"
+                                    [name]="kudo?.studentName"
+                                    class="d-inline-block ps-0">
+              </metutors-user-avatar>
+            </td>
+            <td>{{ kudo?.courseName }}</td>
+            <td>{{ kudo?.date }}</td>
+            <td><rating [(ngModel)]="kudo.stars" [max]="5" [readonly]="true"></rating></td>
+            <td class="w-25">{{ kudo.review}}</td>
+          </tr>
+        </table>
+      </div>
     </ng-container>
 
   </ng-template>

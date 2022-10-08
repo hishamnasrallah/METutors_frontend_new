@@ -43,3 +43,14 @@
     }
   }
 }
+
+@media (max-width:767px) {
+  .still-questions {
+    padding: 0;
+
+    p {
+      margin: 0 0 15px;
+      width: 100%;
+    }
+  }
+}

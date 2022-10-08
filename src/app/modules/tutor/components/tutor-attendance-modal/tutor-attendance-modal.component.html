@@ -67,40 +67,42 @@
             <div class="table-responsive mt-2">
               <ng-container [ngSwitch]="view.loading">
                 <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
-                <table class="table my-table default-title mb-0" *ngSwitchCase="false">
-                  <tr>
-                    <th scope="col">Number</th>
-                    <th scope="col">Student Name</th>
-                    <th scope="col">Attendance Status</th>
-                    <th scope="col">Date</th>
-                    <th scope="col"></th>
-                  </tr>
+                <div class="table-responsive" *ngSwitchCase="false">
+                  <table class="table my-table default-title mb-0">
+                    <tr>
+                      <th scope="col">Number</th>
+                      <th scope="col">Student Name</th>
+                      <th scope="col">Attendance Status</th>
+                      <th scope="col">Date</th>
+                      <th scope="col"></th>
+                    </tr>
 
-                  <tr *ngIf="!view.attendance?.studentsAttendance || !view.attendance?.studentsAttendance?.length">
-                    <td colspan="8">
-                      <div class="text-center">No records found</div>
-                    </td>
-                  </tr>
+                    <tr *ngIf="!view.attendance?.studentsAttendance || !view.attendance?.studentsAttendance?.length">
+                      <td colspan="8">
+                        <div class="text-center">No records found</div>
+                      </td>
+                    </tr>
 
-                  <tr *ngFor="let attendance of view.attendance?.studentsAttendance; let i = index">
-                    <td scope="row">{{ i + 1}}</td>
-                    <td>{{ attendance?.user?.firstName }} {{ attendance?.user?.lastName }}</td>
-                    <td>
-                      <button mat-button [class]="attendance?.status">{{ attendance?.status }}</button>
-                    </td>
-                    <td>{{ attendance?.updatedAt | date}}</td>
-                    <td>
-                      <button class="feedback" mat-button (click)="onOpenFeedbackModal(attendance?.userId)">
-                        <img src="assets/svg/thumb-up.svg" alt="">
-                        Feedback
-                      </button>
-                      <button mat-button class="feedback ml-2">
-                        <img src="assets/svg/chat-circle.svg" alt="">
-                        Chat
-                      </button>
-                    </td>
-                  </tr>
-                </table>
+                    <tr *ngFor="let attendance of view.attendance?.studentsAttendance; let i = index">
+                      <td scope="row">{{ i + 1 }}</td>
+                      <td>{{ attendance?.user?.firstName }} {{ attendance?.user?.lastName }}</td>
+                      <td>
+                        <button mat-button [class]="attendance?.status">{{ attendance?.status }}</button>
+                      </td>
+                      <td>{{ attendance?.updatedAt | date }}</td>
+                      <td>
+                        <button class="feedback" mat-button (click)="onOpenFeedbackModal(attendance?.userId)">
+                          <img src="assets/svg/thumb-up.svg" alt="">
+                          Feedback
+                        </button>
+                        <button mat-button class="feedback ml-2">
+                          <img src="assets/svg/chat-circle.svg" alt="">
+                          Chat
+                        </button>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
               </ng-container>
             </div>
           </mat-tab>
@@ -119,12 +121,12 @@
                   </td>
                 </tr>
                 <tr *ngFor="let attendance of view.attendance?.myAttendence; let i = index">
-                  <td scope="row">{{ i + 1}}</td>
+                  <td scope="row">{{ i + 1 }}</td>
                   <td>{{ attendance?.class?.title }}</td>
                   <td>
                     <button mat-button [class]="attendance?.status">{{ attendance?.status }}</button>
                   </td>
-                  <td>{{ attendance?.updatedAt | date}}</td>
+                  <td>{{ attendance?.updatedAt | date }}</td>
                 </tr>
               </table>
             </div>
