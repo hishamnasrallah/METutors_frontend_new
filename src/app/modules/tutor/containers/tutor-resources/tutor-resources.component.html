@@ -46,6 +46,33 @@
   </div>
 
   <div class="details">
+    <h3>Textbook</h3>
+    <h5>Details provided by student</h5>
+    <ng-container [ngSwitch]="view.loading">
+      <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
+      <ng-container *ngSwitchCase="false">
+        <div class="table-responsive mt-4">
+          <table class="table my-table default-title">
+            <tr>
+              <th scope="col">Textbook Name</th>
+              <th scope="col">Textbook Edition</th>
+              <th scope="col">Textbook Author</th>
+            </tr>
+           <!-- <tr *ngIf="!view.resources?.course?.bookInfo?.length">
+              <td colspan="5">
+                <div class="text-center">No record found</div>
+              </td>
+            </tr>-->
+            <tr class="book-info">
+              <td scope="row">{{view.resources.course.bookName }}</td>
+              <td>Edition {{ view.resources.course?.bookEdition}}</td>
+              <td>{{ view.resources.course.bookAuthor}}</td>
+            </tr>
+          </table>
+        </div>
+      </ng-container>
+    </ng-container>
+
     <h3>Classes</h3>
     <ng-container [ngSwitch]="view.loading">
       <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
