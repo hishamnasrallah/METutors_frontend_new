@@ -49,7 +49,6 @@
   </div>
 
   <div class="details p-15-sm">
-  <div class="details">
     <h3>Textbook</h3>
     <h5>Details provided by student</h5>
     <ng-container [ngSwitch]="view.loading">
@@ -88,7 +87,7 @@
           Uploaded by student
         </button>
       </div>
-      <span class="text-main text-decoration-underline cursor-pointer upload-doc">Upload document</span>
+      <span class="text-main text-decoration-underline cursor-pointer upload-doc" (click)="onOpenUploadDocModal()">Upload document</span>
     </div>
     <ng-container [ngSwitch]="view.loading">
       <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
@@ -190,3 +189,8 @@
                                          (closeModal)="onCloseAddClassResource()" (submitted)="onSaveResource($event)"
                                          [showModal]="(showAddClassResourceModal$ | async)!">
 </metutors-tutor-add-class-resource-modal>
+
+<metutors-tutor-resources-upload-document-modal *ngIf="showUploadDocModal$ | async"
+                                                [showModal]="(showUploadDocModal$ | async)!"
+                                                (closeModal)="onCloseUploadDocModal()">
+</metutors-tutor-resources-upload-document-modal>

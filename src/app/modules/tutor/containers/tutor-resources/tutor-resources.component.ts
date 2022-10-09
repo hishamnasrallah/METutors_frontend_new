@@ -7,6 +7,7 @@ import * as fromCore from '@metutor/core/state';
 import { courseStatusLabel, WEEK_DAYS } from '@config';
 import * as fromTutor from '@metutor/modules/tutor/state';
 import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
+import { selectUploadDocumentModal } from '@metutor/modules/tutor/state/reducers/tutor-modal.reducers';
 
 @Component({
   selector: 'metutors-tutor-resources',
@@ -22,6 +23,7 @@ export class TutorResourcesComponent implements OnInit {
   statusLabel = courseStatusLabel;
   isSavingResource$: Observable<boolean>;
   showConfirmModal$: Observable<boolean>;
+  showUploadDocModal$: Observable<boolean>;
   isDeletingResource$: Observable<boolean>;
   showAddClassResourceModal$: Observable<boolean>;
   view$: Observable<{ loading: boolean; resources: any }>;
@@ -68,6 +70,14 @@ export class TutorResourcesComponent implements OnInit {
     this._store.dispatch(fromCore.deleteTutorResource({ id }));
   }
 
+  onOpenUploadDocModal(): void {
+    this._store.dispatch(fromTutorAction.openResourcesUploadDocumentModal());
+  }
+
+  onCloseUploadDocModal(): void {
+    this._store.dispatch(fromTutorAction.closeResourcesUploadDocumentModal());
+  }
+
   onSaveResource(data: any): void {
     const { resourceId, urls, files, description } = data;
 
@@ -94,6 +104,10 @@ export class TutorResourcesComponent implements OnInit {
 
     this.showConfirmModal$ = this._store.select(
       fromTutor.selectTutorConfirmModal
+    );
+
+    this.showUploadDocModal$ = this._store.select(
+      fromTutor.selectUploadDocumentModal
     );
 
     this.isSavingResource$ = this._store.select(

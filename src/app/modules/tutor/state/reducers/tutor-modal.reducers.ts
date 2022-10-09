@@ -14,6 +14,7 @@ export interface State {
   showAddAssignmentModal: boolean;
   showViewAssignmentModal: boolean;
   acceptRejectModalHeading: string;
+  showUploadDocumentModal: boolean;
   showRescheduleClassModal: boolean;
   showSubmitInterviewModal: boolean;
   showCourseAttendanceModal: boolean;
@@ -32,6 +33,7 @@ export const initialState: State = {
   showCancelCourseModal: false,
   showSendFeedbackModal: false,
   showAddAssignmentModal: false,
+  showUploadDocumentModal: false,
   showViewAssignmentModal: false,
   showRescheduleClassModal: false,
   showSubmitInterviewModal: false,
@@ -254,6 +256,16 @@ export const reducer = createReducer(
   on(tutorModalActions.closeKudosPointsModal, (state) => ({
     ...state,
     showKudosPointsModal: false,
+  })),
+
+  on(tutorModalActions.openResourcesUploadDocumentModal, (state) => ({
+    ...state,
+    showUploadDocumentModal: true,
+  })),
+
+  on(tutorModalActions.closeResourcesUploadDocumentModal, (state) => ({
+    ...state,
+    showUploadDocumentModal: false,
   }))
 );
 
@@ -301,3 +313,6 @@ export const selectRescheduleClassModal = (state: State): boolean =>
 
 export const selectKudosPointsModal = (state: State): boolean =>
   state.showKudosPointsModal;
+
+export const selectUploadDocumentModal = (state: State): boolean =>
+  state.showUploadDocumentModal;
