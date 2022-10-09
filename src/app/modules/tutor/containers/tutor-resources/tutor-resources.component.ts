@@ -4,7 +4,11 @@ import { Observable, combineLatest } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 
 import * as fromCore from '@metutor/core/state';
-import { courseStatusLabel, WEEK_DAYS } from '@config';
+import {
+  AcademicTutoringTextbook,
+  courseStatusLabel,
+  WEEK_DAYS,
+} from '@config';
 import * as fromTutor from '@metutor/modules/tutor/state';
 import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
 import { selectUploadDocumentModal } from '@metutor/modules/tutor/state/reducers/tutor-modal.reducers';
@@ -26,6 +30,7 @@ export class TutorResourcesComponent implements OnInit {
   showUploadDocModal$: Observable<boolean>;
   isDeletingResource$: Observable<boolean>;
   showAddClassResourceModal$: Observable<boolean>;
+  academicTutoringTextbook = AcademicTutoringTextbook;
   view$: Observable<{ loading: boolean; resources: any }>;
 
   constructor(private _store: Store<any>) {}

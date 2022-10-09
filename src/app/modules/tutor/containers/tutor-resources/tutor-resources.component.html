@@ -50,28 +50,48 @@
 
   <div class="details p-15-sm">
     <h3>Textbook</h3>
-    <h5>Details provided by student</h5>
     <ng-container [ngSwitch]="view.loading">
       <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
       <ng-container *ngSwitchCase="false">
-        <div class="table-responsive mt-4">
-          <table class="table my-table default-title">
-            <tr>
-              <th scope="col">Textbook Name</th>
-              <th scope="col">Textbook Edition</th>
-              <th scope="col">Textbook Author</th>
-            </tr>
-           <!-- <tr *ngIf="!view.resources?.course?.bookInfo?.length">
-              <td colspan="5">
-                <div class="text-center">No record found</div>
-              </td>
-            </tr>-->
-            <tr class="book-info">
-              <td scope="row">{{view.resources.course.bookName }}</td>
-              <td>Edition {{ view.resources.course?.bookEdition}}</td>
-              <td>{{ view.resources.course.bookAuthor}}</td>
-            </tr>
-          </table>
+
+        <div class="row row-block">
+          <div class="mt-15-sm later"
+               *ngIf="+view.resources.course.bookInfo === academicTutoringTextbook.later || +view.resources.course.bookInfo === academicTutoringTextbook.none">
+            <h4>Selection made by student</h4>
+            <div class="d-flex flex-column align-items-center">
+              <img
+                [src]="+view.resources.course.bookInfo === academicTutoringTextbook.later ? '/assets/svg/textbook.svg' : '/assets/svg/textbook-slash.svg'"
+                class="mb-3" [attr.width]="+view.resources.course.bookInfo === academicTutoringTextbook.later ? '35px' : '60px'"
+                draggable="false" alt="">
+              {{ +view.resources.course.bookInfo === academicTutoringTextbook.later ? 'More info will be provided later' : 'Textbook not requireds' }}
+            </div>
+          </div>
+          <div class="table-responsive mt-1" *ngIf="+view.resources.course.bookInfo === academicTutoringTextbook.info">
+            <table class="table my-table default-title">
+              <tr>
+                <th scope="col">Textbook Name</th>
+                <th scope="col">Textbook Edition</th>
+                <th scope="col">Textbook Author</th>
+              </tr>
+              <tr class="book-info">
+                <td scope="row">{{view.resources.course.bookName }}</td>
+                <td>Edition {{ view.resources.course?.bookEdition}}</td>
+                <td>{{ view.resources.course.bookAuthor}}</td>
+              </tr>
+            </table>
+          </div>
+          <div class="table-responsive mt-1" *ngIf="+view.resources.course.bookInfo === academicTutoringTextbook.pdf">
+            <table class="table my-table default-title">
+              <tr>
+                <th scope="col">Attachments</th>
+                <th scope="col">Action</th>
+              </tr>
+              <tr class="book-info">
+                <td scope="row">Hello.pdf</td>
+                <td><button mat-button class="main-button-transparent">Download</button></td>
+              </tr>
+            </table>
+          </div>
         </div>
       </ng-container>
     </ng-container>
