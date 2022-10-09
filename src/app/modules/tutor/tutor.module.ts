@@ -74,6 +74,7 @@ import {
   TutorSettingsPaymentInformationComponent,
   TutorAcceptRejectAssignmentModalComponent,
   TutorSubmitInterviewRequestModalComponent,
+  TutorResourcesUploadDocumentModalComponent,
   TutorViewSubmittedAssignmentModalComponent,
   TutorSettingsProfileTeachingCoursesComponent,
 } from './components';
@@ -119,6 +120,7 @@ import {
     TutorAcceptRejectAssignmentModalComponent,
     TutorSubmitInterviewRequestModalComponent,
     TutorViewSubmittedAssignmentModalComponent,
+    TutorResourcesUploadDocumentModalComponent,
     TutorSettingsProfileTeachingCoursesComponent,
   ],
   imports: [

@@ -289,6 +289,10 @@ export class TutorsService {
     );
   }
 
+  uploadTutorResourceDocument(body: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}upload-documents`, body);
+  }
+
   editTutorResource(body: any): Observable<any> {
     const { classId, resourceId, ..._body } = body;
 
