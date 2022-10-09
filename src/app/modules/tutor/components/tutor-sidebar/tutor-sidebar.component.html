@@ -4,14 +4,14 @@
 
 <div class="sidebar h-100 d-flex flex-column" [ngClass]="{
     'open-sidebar': openSidebar,
-    'has-sidemenu': layout?.hideSidebar
+    'has-sidemenu': layout?.hideSidebar && !openSidebar
   }">
   <button mat-button (click)="openSidebar = false" class="close-btn d-inline-block d-lg-none">
     <mat-icon>close</mat-icon>
   </button>
   <a class="sidebar-logo p-15-md-sm mb-15-md-sm" routerLink="/">
-    <img alt="logo" src="assets/logo/logo-light.png" width="200px" draggable="false" *ngIf="!layout?.hideSidebar">
-    <img alt="logo" src="assets/logo/logo-icon.png" width="100%" draggable="false" *ngIf="layout?.hideSidebar">
+    <img alt="logo" src="assets/logo/logo-light.png" width="200px" draggable="false" *ngIf="!layout?.hideSidebar && !openSidebar">
+    <img alt="logo" src="assets/logo/logo-icon.png" width="100%" draggable="false" *ngIf="layout?.hideSidebar && !openSidebar">
   </a>
   <ul class="list-unstyled">
     <li class="d-flex align-items-center">

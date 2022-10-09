@@ -1093,12 +1093,20 @@ $ph-animation-duration: 0.8s !default;
     font-size: 15px !important;
   }
 
+  .f-size-20-sm {
+    font-size: 20px !important;
+  }
+
   .p-0-sm {
     padding: 0 !important;
   }
 
   .m-0-sm {
     margin: 0 !important;
+  }
+
+  .m-auto-sm {
+    margin: auto !important;
   }
 
   .p-10-sm {

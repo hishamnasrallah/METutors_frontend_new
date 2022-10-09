@@ -63,7 +63,7 @@
                 [src]="+view.resources.course.bookInfo === academicTutoringTextbook.later ? '/assets/svg/textbook.svg' : '/assets/svg/textbook-slash.svg'"
                 class="mb-3" [attr.width]="+view.resources.course.bookInfo === academicTutoringTextbook.later ? '35px' : '60px'"
                 draggable="false" alt="">
-              {{ +view.resources.course.bookInfo === academicTutoringTextbook.later ? 'More info will be provided later' : 'Textbook not requireds' }}
+              {{ +view.resources.course.bookInfo === academicTutoringTextbook.later ? 'More info will be provided later' : 'Textbook not required' }}
             </div>
           </div>
           <div class="table-responsive mt-1" *ngIf="+view.resources.course.bookInfo === academicTutoringTextbook.info">
@@ -75,8 +75,8 @@
               </tr>
               <tr class="book-info">
                 <td scope="row">{{view.resources.course.bookName }}</td>
-                <td>Edition {{ view.resources.course?.bookEdition}}</td>
-                <td>{{ view.resources.course.bookAuthor}}</td>
+                <td>Edition {{ view.resources.course?.bookEdition }}</td>
+                <td>{{ view.resources.course.bookAuthor }}</td>
               </tr>
             </table>
           </div>
@@ -99,11 +99,11 @@
     <h3>Other documents</h3>
     <div class="d-flex justify-content-between">
       <div>
-        <button mat-button class="main-button-transparent" (click)="teacherDocTab=true">
+        <button mat-button class="main-button-transparent me-2 m-0-sm mb-5-sm" (click)="teacherDocTab = true">
           Uploaded by teacher
         </button>
 
-        <button mat-button class="main-button-transparent" (click)="teacherDocTab=false">
+        <button mat-button class="main-button-transparent" (click)="teacherDocTab = false">
           Uploaded by student
         </button>
       </div>
@@ -126,7 +126,7 @@
             </tr>
             <ng-container *ngIf="view.resources?.teacherOtherDocuments?.length">
             <tr class="book-info" *ngFor="let teacherDoc of view?.resources?.teacherOtherDocuments; let i=index">
-              <td scope="row">{{teacherDoc?.bookName }}</td>
+              <td scope="row">{{ teacherDoc?.bookName }}</td>
               <td>Edition {{ teacherDoc?.bookEdition}}</td>
               <td><button mat-button class="main-button-transparent">Download</button></td>
             </tr>
@@ -146,8 +146,8 @@
             </tr>
             <ng-container *ngIf="view.resources?.studentOtherDocuments?.length">
             <tr class="book-info" *ngFor="let studentDoc of view?.resources?.studentOtherDocuments; let i=index">
-              <td scope="row">{{studentDoc?.bookName }}</td>
-              <td>Edition {{ studentDoc?.bookEdition}}</td>
+              <td scope="row">{{ studentDoc?.bookName }}</td>
+              <td>Edition {{ studentDoc?.bookEdition }}</td>
               <td><button mat-button class="main-button-transparent">Download</button></td>
             </tr>
             </ng-container>

@@ -414,7 +414,8 @@
   .explore-courses .form-block button,
   .featured-tutors .card-item h2 span,
   .tutors .tutor-item h2 span,
-  .security-settings .password-visibility {
+  .security-settings .password-visibility,
+  .assignments .items .item .date-data span.status-icon {
     left: 10px;
     right: auto !important;
   }
@@ -632,6 +633,31 @@
     .course-details-popup .list-videos .video h3 {
       margin-left: 5px;
       margin-right: 0 !important;
+    }
+
+    .assignments .items .item.item-assign {
+      border-left: none !important;
+
+      &:nth-child(4n+1) {
+        border-right: 2px solid var(--main-color);
+      }
+
+      &:nth-child(4n+2) {
+        border-right: 2px solid #be63f9;
+      }
+
+      &:nth-child(4n+3) {
+        border-right: 2px solid #ff554b;
+      }
+
+      &:nth-child(4n+4) {
+        border-right: 2px solid #ff8300;
+      }
+
+      .number {
+        right: 20px;
+        left: auto !important;
+      }
     }
   }
 
