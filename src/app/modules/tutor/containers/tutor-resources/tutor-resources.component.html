@@ -3,7 +3,7 @@
     <div class="card-body p-15-sm">
       <ng-container [ngSwitch]="view.loading">
         <ng-container *ngSwitchCase="false">
-          <h1 class="title f-size-20-md-sm">{{ view.resources?.course?.courseName }} 
+          <h1 class="title f-size-20-md-sm">{{ view.resources?.course?.courseName }}
             <span>({{ view.resources?.course?.courseCode}})</span>
             <button mat-button class="ms-3 status" [ngClass]="view.resources?.course?.status">
               {{ statusLabel[view.resources?.course?.status].long }}
@@ -49,6 +49,94 @@
   </div>
 
   <div class="details p-15-sm">
+  <div class="details">
+    <h3>Textbook</h3>
+    <h5>Details provided by student</h5>
+    <ng-container [ngSwitch]="view.loading">
+      <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
+      <ng-container *ngSwitchCase="false">
+        <div class="table-responsive mt-4">
+          <table class="table my-table default-title">
+            <tr>
+              <th scope="col">Textbook Name</th>
+              <th scope="col">Textbook Edition</th>
+              <th scope="col">Textbook Author</th>
+            </tr>
+           <!-- <tr *ngIf="!view.resources?.course?.bookInfo?.length">
+              <td colspan="5">
+                <div class="text-center">No record found</div>
+              </td>
+            </tr>-->
+            <tr class="book-info">
+              <td scope="row">{{view.resources.course.bookName }}</td>
+              <td>Edition {{ view.resources.course?.bookEdition}}</td>
+              <td>{{ view.resources.course.bookAuthor}}</td>
+            </tr>
+          </table>
+        </div>
+      </ng-container>
+    </ng-container>
+
+    <h3>Other documents</h3>
+    <div class="d-flex justify-content-between">
+      <div>
+        <button mat-button class="main-button-transparent" (click)="teacherDocTab=true">
+          Uploaded by teacher
+        </button>
+
+        <button mat-button class="main-button-transparent" (click)="teacherDocTab=false">
+          Uploaded by student
+        </button>
+      </div>
+      <span class="text-main text-decoration-underline cursor-pointer upload-doc">Upload document</span>
+    </div>
+    <ng-container [ngSwitch]="view.loading">
+      <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
+      <ng-container *ngSwitchCase="false">
+        <div class="table-responsive mt-4">
+          <table class="table my-table default-title" *ngIf="teacherDocTab">
+            <tr>
+              <th scope="col">Document title</th>
+              <th scope="col">Teacher name</th>
+              <th scope="col">Action</th>
+            </tr>
+            <tr class="book-info" *ngIf="!view.resources?.teacherOtherDocuments?.length">
+              <td colspan="5">
+                <div class="text-center">No document found</div>
+              </td>
+            </tr>
+            <ng-container *ngIf="view.resources?.teacherOtherDocuments?.length">
+            <tr class="book-info" *ngFor="let teacherDoc of view?.resources?.teacherOtherDocuments; let i=index">
+              <td scope="row">{{teacherDoc?.bookName }}</td>
+              <td>Edition {{ teacherDoc?.bookEdition}}</td>
+              <td><button mat-button class="main-button-transparent">Download</button></td>
+            </tr>
+            </ng-container>
+          </table>
+
+          <table class="table my-table default-title" *ngIf="!teacherDocTab">
+            <tr>
+              <th scope="col">Document title</th>
+              <th scope="col">Teacher name</th>
+              <th scope="col">Action</th>
+            </tr>
+            <tr class="book-info" *ngIf="!view.resources?.studentOtherDocuments?.length">
+              <td colspan="5">
+                <div class="text-center">No document found</div>
+              </td>
+            </tr>
+            <ng-container *ngIf="view.resources?.studentOtherDocuments?.length">
+            <tr class="book-info" *ngFor="let studentDoc of view?.resources?.studentOtherDocuments; let i=index">
+              <td scope="row">{{studentDoc?.bookName }}</td>
+              <td>Edition {{ studentDoc?.bookEdition}}</td>
+              <td><button mat-button class="main-button-transparent">Download</button></td>
+            </tr>
+            </ng-container>
+          </table>
+        </div>
+      </ng-container>
+    </ng-container>
+
     <h3>Classes</h3>
     <ng-container [ngSwitch]="view.loading">
       <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>

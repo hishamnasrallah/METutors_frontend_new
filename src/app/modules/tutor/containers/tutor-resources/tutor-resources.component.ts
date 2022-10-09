@@ -18,6 +18,7 @@ export class TutorResourcesComponent implements OnInit {
   resourceId: number;
   heading = 'Add Resources';
 
+  teacherDocTab = true;
   statusLabel = courseStatusLabel;
   isSavingResource$: Observable<boolean>;
   showConfirmModal$: Observable<boolean>;
