@@ -5,6 +5,7 @@
       <div class="col-12">
         <div class="form-group">
           <label for="title">Document title</label>
+          <metutors-char-counter [limit]="120" [controlName]="title"></metutors-char-counter>
           <input type="text" class="custom-input w-100 input-bordered" id="title" placeholder="Enter title here..."
                  formControlName="title">
           <div class="text-danger" *ngIf="title?.touched && title?.invalid">

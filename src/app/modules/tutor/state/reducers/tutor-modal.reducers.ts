@@ -263,10 +263,14 @@ export const reducer = createReducer(
     showUploadDocumentModal: true,
   })),
 
-  on(tutorModalActions.closeResourcesUploadDocumentModal, (state) => ({
-    ...state,
-    showUploadDocumentModal: false,
-  }))
+  on(
+    fromCore.uploadTutorResourceDocumentSuccess,
+    tutorModalActions.closeResourcesUploadDocumentModal,
+    (state) => ({
+      ...state,
+      showUploadDocumentModal: false,
+    })
+  )
 );
 
 // tutor modal selectors

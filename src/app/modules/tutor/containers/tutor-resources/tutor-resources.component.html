@@ -196,21 +196,25 @@
       </ng-container>
     </ng-container>
   </div>
+
+
+  <metutors-confirm-modal *ngIf="showConfirmModal$ | async" [showModal]="(showConfirmModal$ | async)!"
+                          [loading]="(isDeletingResource$ | async)!"
+                          [heading]="'Delete an Resource'"
+                          (confirm)="onDeleteResource(resourceId)" (closeModal)="onCloseConfirmModal()">
+  </metutors-confirm-modal>
+
+  <metutors-tutor-add-class-resource-modal *ngIf="showAddClassResourceModal$ | async" [heading]="heading"
+                                           [submitting]="(isSavingResource$ | async)!"
+                                           (deleted)="onOpenConfirmModal($event)"
+                                           (closeModal)="onCloseAddClassResource()" (submitted)="onSaveResource($event)"
+                                           [showModal]="(showAddClassResourceModal$ | async)!">
+  </metutors-tutor-add-class-resource-modal>
+
+  <metutors-tutor-resources-upload-document-modal *ngIf="showUploadDocModal$ | async"
+                                                  (submitted)="onSubmitDocs($event, view.resources.course.id)"
+                                                  [showModal]="(showUploadDocModal$ | async)!"
+                                                  [submitting]="(uploadingDoc$ | async)!"
+                                                  (closeModal)="onCloseUploadDocModal()">
+  </metutors-tutor-resources-upload-document-modal>
 </div>
-
-<metutors-confirm-modal *ngIf="showConfirmModal$ | async" [showModal]="(showConfirmModal$ | async)!"
-                        [loading]="(isDeletingResource$ | async)!"
-                        [heading]="'Delete an Resource'"
-                        (confirm)="onDeleteResource(resourceId)" (closeModal)="onCloseConfirmModal()">
-</metutors-confirm-modal>
-
-<metutors-tutor-add-class-resource-modal *ngIf="showAddClassResourceModal$ | async" [heading]="heading"
-                                         [submitting]="(isSavingResource$ | async)!" (deleted)="onOpenConfirmModal($event)"
-                                         (closeModal)="onCloseAddClassResource()" (submitted)="onSaveResource($event)"
-                                         [showModal]="(showAddClassResourceModal$ | async)!">
-</metutors-tutor-add-class-resource-modal>
-
-<metutors-tutor-resources-upload-document-modal *ngIf="showUploadDocModal$ | async"
-                                                [showModal]="(showUploadDocModal$ | async)!"
-                                                (closeModal)="onCloseUploadDocModal()">
-</metutors-tutor-resources-upload-document-modal>

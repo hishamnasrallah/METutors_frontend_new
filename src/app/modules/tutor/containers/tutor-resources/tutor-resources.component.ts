@@ -3,15 +3,16 @@ import { map } from 'rxjs/operators';
 import { Observable, combineLatest } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 
-import * as fromCore from '@metutor/core/state';
 import {
-  AcademicTutoringTextbook,
-  courseStatusLabel,
   WEEK_DAYS,
+  courseStatusLabel,
+  AcademicTutoringTextbook,
 } from '@config';
+
+import * as fromCore from '@metutor/core/state';
 import * as fromTutor from '@metutor/modules/tutor/state';
 import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
-import { selectUploadDocumentModal } from '@metutor/modules/tutor/state/reducers/tutor-modal.reducers';
+import { uploadTutorResourceDocument } from '@metutor/core/state';
 
 @Component({
   selector: 'metutors-tutor-resources',
@@ -25,6 +26,7 @@ export class TutorResourcesComponent implements OnInit {
 
   teacherDocTab = true;
   statusLabel = courseStatusLabel;
+  uploadingDoc$: Observable<boolean>;
   isSavingResource$: Observable<boolean>;
   showConfirmModal$: Observable<boolean>;
   showUploadDocModal$: Observable<boolean>;
@@ -101,6 +103,15 @@ export class TutorResourcesComponent implements OnInit {
     }
   }
 
+  onSubmitDocs(data: any, course_id: string): void {
+    const body = {
+      course_id,
+      ...data,
+    };
+
+    this._store.dispatch(fromCore.uploadTutorResourceDocument({ body }));
+  }
+
   ngOnInit(): void {
     this._store.dispatch(fromCore.loadTutorResources());
     this.showAddClassResourceModal$ = this._store.select(
@@ -121,6 +132,10 @@ export class TutorResourcesComponent implements OnInit {
 
     this.isDeletingResource$ = this._store.select(
       fromCore.selectIsDeletingResource
+    );
+
+    this.uploadingDoc$ = this._store.select(
+      fromCore.selectUploadingResourceDoc
     );
 
     this.view$ = combineLatest([

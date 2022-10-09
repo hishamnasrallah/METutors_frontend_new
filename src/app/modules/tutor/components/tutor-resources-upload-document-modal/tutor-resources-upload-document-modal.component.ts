@@ -26,7 +26,6 @@ export class TutorResourcesUploadDocumentModalComponent implements OnInit {
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
 
   form: FormGroup;
-  selectedURLs: any[] = [];
 
   uploadedFiles$: Observable<any>;
   fileUploadProgress$: Observable<any>;
@@ -36,7 +35,7 @@ export class TutorResourcesUploadDocumentModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this._fb.group({
-      documents: [null, Validators.required],
+      document: [null, Validators.required],
       title: [null, [Validators.required, Validators.maxLength(120)]],
     });
 
@@ -46,7 +45,7 @@ export class TutorResourcesUploadDocumentModalComponent implements OnInit {
         tap((progress) => {
           progress?.map((response: any) => {
             if (response.responseType === this.uploadComplete) {
-              this.documents?.markAsDirty();
+              this.document?.markAsDirty();
             }
           });
         })
@@ -54,15 +53,15 @@ export class TutorResourcesUploadDocumentModalComponent implements OnInit {
 
     this.uploadedFiles$ = this._store
       .select(fromCore.selectUploadedFiles)
-      .pipe(tap((files) => this.documents?.setValue(files)));
+      .pipe(tap((files) => this.document?.setValue(files)));
   }
 
   get title(): AbstractControl | null {
     return this.form?.get('title');
   }
 
-  get documents(): AbstractControl | null {
-    return this.form?.get('documents');
+  get document(): AbstractControl | null {
+    return this.form?.get('document');
   }
 
   removeFile(id: number): void {
@@ -77,11 +76,6 @@ export class TutorResourcesUploadDocumentModalComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const data = {
-      ...this.form.value,
-      urls: this.selectedURLs,
-    };
-
-    this.submitted.emit(data);
+    this.submitted.emit(this.form.value);
   }
 }

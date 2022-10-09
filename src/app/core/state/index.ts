@@ -477,6 +477,10 @@ export const selectIsDeletingResource = createSelector(
   selectTutorResourceState,
   fromTutorResourceReducer.selectIsDeletingResource
 );
+export const selectUploadingResourceDoc = createSelector(
+  selectTutorResourceState,
+  fromTutorResourceReducer.selectUploadingResourceDoc
+);
 
 // Tutor assignment
 export const selectTutorAssignment = createSelector(

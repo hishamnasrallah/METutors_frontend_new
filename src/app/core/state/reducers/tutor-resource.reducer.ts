@@ -9,6 +9,7 @@ export interface State {
   isDeletingResource: boolean;
   isLoadingTutorResource: boolean;
   isAddingTutorResources: boolean;
+  isUploadingResourceDoc: boolean;
   isLoadingTutorResources: boolean;
 }
 
@@ -16,6 +17,7 @@ export const initialState: State = {
   resource: null,
   resources: null,
   isDeletingResource: false,
+  isUploadingResourceDoc: false,
   isAddingTutorResources: false,
   isLoadingTutorResource: false,
   isLoadingTutorResources: false,
@@ -160,6 +162,21 @@ export const reducer = createReducer(
   on(tutorResourceActions.deleteTutorResourceFailure, (state) => ({
     ...state,
     isDeletingResource: false,
+  })),
+
+  on(tutorResourceActions.uploadTutorResourceDocument, (state) => ({
+    ...state,
+    isUploadingResourceDoc: true,
+  })),
+
+  on(tutorResourceActions.uploadTutorResourceDocumentSuccess, (state) => ({
+    ...state,
+    isUploadingResourceDoc: false,
+  })),
+
+  on(tutorResourceActions.uploadTutorResourceDocumentFailure, (state) => ({
+    ...state,
+    isUploadingResourceDoc: false,
   }))
 );
 
@@ -178,3 +195,6 @@ export const selectIsAddingTutorResources = (state: State): boolean =>
 
 export const selectIsDeletingResource = (state: State): boolean =>
   state.isDeletingResource;
+
+export const selectUploadingResourceDoc = (state: State): boolean =>
+  state.isUploadingResourceDoc;
