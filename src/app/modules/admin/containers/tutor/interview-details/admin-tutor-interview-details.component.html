@@ -1,11 +1,11 @@
 <ng-container *ngLet="(interview$ | async) as interview">
-  <div class="interview-details">
+  <div class="interview-details p-15-md-sm">
     <div class="card">
       <div class="card-body">
         <ng-container *ngIf="!(isLoading$ | async)">
           <div class="row">
             <div class="col-md-6">
-              <h1>Teacher Data Sheet</h1>
+              <h1 class="f-size-20-md-sm">Teacher Data Sheet</h1>
               <div class="row list-items md-item p-0 mt-3">
                 <div class="col-md-5 menu align-items-center">
                   <label>Details:</label>
@@ -58,7 +58,7 @@
 
           <div class="row mt-5">
             <div class="col-md-5">
-              <h3 class="title d-flex align-items-center">
+              <h3 class="title d-flex align-items-center f-size-17-md-sm">
                 <img [src]="interview?.tutor?.avatar" meTutorsDefaultAvatar alt="" class="rounded-circle me-3"
                   width="50px" height="50px">
                 Personal Information
@@ -122,7 +122,7 @@
           </div>
 
           <div class="row mt-5">
-            <h3 class="title">Qualification Details</h3>
+            <h3 class="title f-size-17-md-sm">Qualification Details</h3>
             <div class="col-md-6">
               <div class="table-responsive">
                 <table class="basic-table w-100">
@@ -178,7 +178,7 @@
           </div>
 
           <div class="row mt-5">
-            <h3 class="title">Teaching Preferences</h3>
+            <h3 class="title f-size-17-md-sm">Teaching Preferences</h3>
             <div class="col-md-6">
               <div class="table-responsive">
                 <table class="basic-table w-100">
@@ -224,7 +224,7 @@
           </div>
 
           <div class="row mt-5" *ngIf="interview?.tutor?.sortedSubjects && interview?.tutor?.sortedSubjects.length">
-            <h3 class="title">Assigned Courses</h3>
+            <h3 class="title f-size-17-md-sm">Assigned Courses</h3>
             <div class="col-md-6 mb-3" *ngFor="let item of interview?.tutor?.sortedSubjects; let indexSubjects = index">
               <div class="table-responsive">
                 <table class="table my-table default-title">

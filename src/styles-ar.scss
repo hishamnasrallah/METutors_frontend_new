@@ -101,7 +101,8 @@
     padding-right: 0 !important;
   }
 
-  .text-start {
+  .text-start,
+  .student-profile .basic-table tr td.text-end {
     text-align: right !important;
   }
 
@@ -236,6 +237,12 @@
   .loving-opportunities .card-item {
     margin-left: 30px;
     margin-right: 10px;
+  }
+
+  .tutors-list .mat-tab-label,
+  .interview-list .mat-tab-label {
+    margin-left: 50px;
+    margin-right: 0 !important;
   }
 
   /************* MARGIN RIGHT ************************/

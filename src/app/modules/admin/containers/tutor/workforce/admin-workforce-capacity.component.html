@@ -1,7 +1,7 @@
-<div class="capacity-list" *ngLet="(view$ | async) as view">
+<div class="capacity-list p-15-md-sm" *ngLet="(view$ | async) as view">
   <div class="row filters">
     <div class="col-md-6 d-flex align-items-center">
-      <h1>Workforce Capacity <span *ngIf="view.capacity && view.capacity.length">({{ view.capacity.length }})</span></h1>
+      <h1 class="f-size-18-md-sm mb-15-sm">Workforce Capacity <span class="f-size-17-md-sm" *ngIf="view.capacity && view.capacity.length">({{ view.capacity.length }})</span></h1>
     </div>
     <div class="col-md-6">
       <div class="row justify-content-end">

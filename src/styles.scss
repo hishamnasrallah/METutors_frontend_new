@@ -1034,7 +1034,7 @@ $ph-animation-duration: 0.8s !default;
 
 @media (max-width: 767px) {
   .my-table tr th {
-    font-size: 13px;
+    font-size: 13px !important;
   }
 
   .d-block-sm {
@@ -1043,6 +1043,14 @@ $ph-animation-duration: 0.8s !default;
 
   .d-flex-sm {
     display: flex !important;
+  }
+
+  .w-40-px-sm {
+    width: 40px !important;
+  }
+
+  .h-40-px-sm {
+    height: 40px !important;
   }
 
   .w-100-sm {
@@ -1119,7 +1127,9 @@ $ph-animation-duration: 0.8s !default;
     font-size: 15px !important;
   }
 
-  .f-size-17-md-sm {
+  .f-size-17-md-sm,
+  .mat-tab-label,
+  .dialog .mat-dialog-title h2 {
     font-size: 17px !important;
   }
 
