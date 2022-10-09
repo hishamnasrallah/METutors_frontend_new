@@ -31,7 +31,6 @@ export class TutorResourcesUploadDocumentModalComponent implements OnInit {
   uploadedFiles$: Observable<any>;
   fileUploadProgress$: Observable<any>;
   uploadComplete = generalConstants.uploadComplete;
-  view$: Observable<{ loading: boolean; resource: any }>;
 
   constructor(private _fb: FormBuilder, private _store: Store<any>) {}
 
