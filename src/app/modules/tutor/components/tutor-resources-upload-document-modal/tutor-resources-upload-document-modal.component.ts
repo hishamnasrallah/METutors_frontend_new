@@ -53,7 +53,7 @@ export class TutorResourcesUploadDocumentModalComponent implements OnInit {
 
     this.uploadedFiles$ = this._store
       .select(fromCore.selectUploadedFiles)
-      .pipe(tap((files) => this.document?.setValue(files)));
+      .pipe(tap((files) => this.document?.setValue(files[0])));
   }
 
   get title(): AbstractControl | null {
