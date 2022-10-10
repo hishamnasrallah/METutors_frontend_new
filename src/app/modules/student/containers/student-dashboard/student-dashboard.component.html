@@ -6,7 +6,7 @@
       <div class="col-lg-6">
         <h2 class="overview f-size-17-md-sm">Overview</h2>
         <p class="desc">
-          See insights on how your Progress has changed from <strong>{{ insightRange[range] }}</strong>
+          See your progress from the last <strong>{{ insightRange[range] }}</strong>
         </p>
       </div>
       <div class="col-lg-6">
@@ -36,12 +36,12 @@
         <div class="col-md-3 col-sm-6 mb-15-sm">
           <div class="card">
             <div class="card-body d-flex flex-column">
-              <h3>Overall Progress</h3>
+              <h3>Course progress</h3>
               <h1 class="flex-grow-1">
                 {{ view.dashboard.totalProgress}}%
                 <span [ngClass]="{'danger': view.dashboard?.totalProgressGrowth < 0}">{{ view.dashboard?.totalProgressGrowth >= 0 ? '+'+view.dashboard?.totalProgressGrowth : view.dashboard?.totalProgressGrowth }}%</span>
               </h1>
-              <p>Compared to ({{ view.dashboard?.totalProgressLastCount }}% last {{ insightRange[range] }})</p>
+              <p>Compared to ({{ view.dashboard?.totalProgressLastCount }}% in the last {{ insightRange[range] }})</p>
               <mat-progress-bar class="example-margin" [color]="'primary'" [value]="view.dashboard.totalProgress">
               </mat-progress-bar>
             </div>
@@ -50,12 +50,12 @@
         <div class="col-md-3 col-sm-6 mb-15-sm">
           <div class="card orange-bo">
             <div class="card-body d-flex flex-column">
-              <h3>Total Completed Courses</h3>
+              <h3>Total number of courses</h3>
               <h1 class="flex-grow-1">
                 {{ view.dashboard.totalCompletedCourses }}
                 <span [ngClass]="{'danger': view.dashboard?.completedCoursesGrowth < 0}">{{ view.dashboard?.completedCoursesGrowth >= 0 ? '+'+view.dashboard?.completedCoursesGrowth : view.dashboard?.completedCoursesGrowth }}%</span>
               </h1>
-              <p>Compared to {{ view.dashboard?.completedCoursesLastCount }} courses last {{ insightRange[range] }}</p>
+              <p>Compared to {{ view.dashboard?.completedCoursesLastCount }} courses in the last {{ insightRange[range] }}</p>
             </div>
           </div>
         </div>
@@ -67,7 +67,7 @@
                 {{ view?.dashboard?.attendenceRate }}%
                 <span [ngClass]="{'danger': view.dashboard?.attendenceGrowth < 0}">{{ view.dashboard?.attendenceGrowth >= 0 ? '+'+view.dashboard?.attendenceGrowth : view.dashboard?.attendenceGrowth }}%</span>
               </h1>
-              <p>Compared to ({{ view.dashboard?.attendenceRateLastCount }}% last {{ insightRange[range] }})</p>
+              <p>Compared to ({{ view.dashboard?.attendenceRateLastCount }}% in the last {{ insightRange[range] }})</p>
             </div>
           </div>
         </div>
@@ -194,7 +194,7 @@
               </owl-carousel-o>
 
               <ng-container *ngIf="!view.dashboard.completedCourses?.length">
-                <div class="text-center fw-bold p-xxl-5">No record found!</div>
+                <div class="text-center fw-bold p-xxl-5">No record found</div>
               </ng-container>
               </ng-container>
             </ng-container>
