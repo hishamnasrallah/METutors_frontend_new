@@ -141,7 +141,7 @@ const routes: Routes = [
             data: {
               layout: {
                 title: 'FAQ - Metutors',
-                navbarTitle: 'FREQUENT ASKED QUESTIONS',
+                navbarTitle: 'FREQUENTLY ASKED QUESTIONS',
                 showHeader: false,
                 showFooter: false,
                 hideSidebar: true,

@@ -2,19 +2,18 @@
   <div class="card-body">
     <div class="row row-block">
       <div class="col-md-4">
-        <h2 class="f-size-17-md-sm">Classroom Setup</h2>
+        <h2 class="f-size-17-md-sm">Classroom setup</h2>
         <h4 class="f-size-15-md-sm">
-          Choose your classes schedule and make sure <strong>FIRST</strong> class is starting after <strong>
-          {{ startingHoursLimit }} hours</strong>
+          Choose your class schedule and make sure your  <strong>FIRST</strong> class starts after {{ startingHoursLimit }} hours.
           </h4>
 
         <h5 class="mt-4">Course ID: <span>CID{{ selectedCourse?.id }}</span></h5>
-        <h5 class="mb-0">Course Name: <span>{{ selectedCourse?.name }}</span></h5>
+        <h5 class="mb-0">Course name: <span>{{ selectedCourse?.name }}</span></h5>
       </div>
       <div class="col-md-8 mt-15-sm">
         <div class="row">
           <div class="col-md-6">
-            <h3>Course Start Date</h3>
+            <h3>Course start date</h3>
             <mat-form-field appearance="outline" class="w-100">
               <input matInput [matDatepicker]="startPicker" [placeholder]="'Choose a Date'" (focus)="startPicker.open()"
                 [min]="minDate" (dateChange)="onChangeDateDay(); onChangeDate()" formControlName="startDate">
@@ -23,7 +22,7 @@
             </mat-form-field>
           </div>
           <div class="col-md-6">
-            <h3>Course End Date</h3>
+            <h3>Course end date</h3>
             <mat-form-field appearance="outline" class="w-100">
               <input matInput [matDatepicker]="endPicker" [placeholder]="'Choose a Date'" (focus)="endPicker.open()"
                 [min]="startDate?.value" (dateChange)="onChangeDateDay(); onChangeDate()" formControlName="endDate">
@@ -34,7 +33,7 @@
         </div>
         <div class="row mt-4">
           <div class="col-md-12">
-            <h3>Class Days</h3>
+            <h3>Class days</h3>
             <mat-form-field appearance="outline" class="w-100">
               <mat-select formControlName="days" [placeholder]="'Choose Days'" multiple
                 (selectionChange)="onChangeDateDay()">
@@ -58,7 +57,7 @@
         </div>
         <div class="row mt-4">
           <div class="col-md-6">
-            <h3>Class Start Time</h3>
+            <h3>Class start time</h3>
             <div class="ngx-timepicker-field-example">
               <input placeholder="Select Starting Time" aria-label="Select starting time" [ngxTimepicker]="startingTime"
                 formControlName="startTime" class="form-control" required (blur)="onChangeTimePicker()">
@@ -72,7 +71,7 @@
             </div>
           </div>
           <div class="col-md-6 mt-15-sm">
-            <h3>Class End Time</h3>
+            <h3>Class end time</h3>
             <div class="ngx-timepicker-field-example">
               <input placeholder="Select Ending Time" aria-label="Select ending time" [ngxTimepicker]="endingTime"
                 formControlName="endTime" class="form-control" required (blur)="onChangeTimePicker()">
@@ -84,7 +83,7 @@
         </div>
         <div class="row mt-4">
           <div class="col-md-6">
-            <h3>Course Duration</h3>
+            <h3>Class duration</h3>
             <input type="text" class="form-control" formControlName="duration">
 
             <div class="text-danger" *ngIf="form?.hasError('durationError')">
@@ -92,13 +91,13 @@
             </div>
           </div>
           <div class="col-md-6 mt-15-sm">
-            <h3>Total classroom hours</h3>
+            <h3>Total hours</h3>
             <input type="text" class="form-control" formControlName="hours">
           </div>
         </div>
         <div class="row mt-4">
           <div class="col-md-6">
-            <h3>Number of classes in the course</h3>
+            <h3>Total classes</h3>
             <input type="text" class="form-control" formControlName="totalClasses">
           </div>
           <!-- <div class="col-md-6" *ngIf="showSeatAttendees">
@@ -112,7 +111,7 @@
               <div class="d-flex">
                 <div class="flex-grow-1">
                   <h5 class="d-flex align-items-center">
-                    Estimated Price: <h1 class="mb-0 f-size-20-md-sm">
+                    Estimated price: <h1 class="mb-0 f-size-20-md-sm">
                       {{ (price * +hours?.value) | metutorsMoney | async }}</h1>
                   </h5>
                   <p>Final price based on total number of class hours</p>
@@ -123,9 +122,9 @@
               <div class="d-flex">
                 <div class="flex-grow-1">
                   <h5 class="d-flex align-items-center">
-                    Total Hours: <h1 class="mb-0 f-size-20-md-sm">{{ hours?.value }} hr{{ +hours?.value > 1 ? 's' : '' }}</h1>
+                    Total hours: <h1 class="mb-0 f-size-20-md-sm">{{ hours?.value }} hr{{ +hours?.value > 1 ? 's' : '' }}</h1>
                   </h5>
-                  <p>Hourly Rate: {{ price | metutorsMoney | async }}</p>
+                  <p>Hourly rate: {{ price | metutorsMoney | async }}</p>
                 </div>
               </div>
             </div>
@@ -137,7 +136,7 @@
     <div class="row mt-4">
       <div class="col-12 overflow-hidden">
         <button mat-flat-button color="primary" class="float-end" [disabled]="form.invalid" type="submit">
-          Save & Continue
+          Save & continue
           <mat-icon class="rotate-180-ar">arrow_forward</mat-icon>
         </button>
         <button mat-button class="float-end back-btn" type="button" (click)="onBack.emit()">

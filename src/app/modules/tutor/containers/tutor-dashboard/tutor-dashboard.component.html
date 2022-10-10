@@ -36,7 +36,7 @@
         <div class="col-md-3 col-sm-6 mb-15-sm">
           <div class="card">
             <div class="card-body d-flex flex-column">
-              <h3>Total Courses</h3>
+              <h3>Total courses</h3>
               <h1 class="flex-grow-1">
                 {{ view.data.totalCourses }}
                 <span [ngClass]="{'danger': view.data?.coursesGrowth < 0}">{{ view.data?.coursesGrowth >= 0 ? '+'+view.data?.coursesGrowth : view.data?.coursesGrowth}}%</span>
@@ -48,7 +48,7 @@
         <div class="col-md-3 col-sm-6 mb-15-sm">
           <div class="card red-bo">
             <div class="card-body d-flex flex-column">
-              <h3>Total Completed Courses</h3>
+              <h3>Completed courses</h3>
               <h1 class="flex-grow-1">
                 {{ view.data.totalCompletedCourses }}
                 <span [ngClass]="{'danger': view.data?.completedCoursesGrowth < 0}">{{ view.data?.completedCoursesGrowth >= 0 ? '+' +view.data?.completedCoursesGrowth : view.data?.completedCoursesGrowth }}%</span>
@@ -60,7 +60,7 @@
         <div class="col-md-3 col-sm-6 mb-15-sm">
           <div class="card orange-bo">
             <div class="card-body d-flex flex-column">
-              <h3>Kudos Points</h3>
+              <h3>Kudos points</h3>
               <h1 class="flex-grow-1">
                 {{ view.data.kudosPoints }}
                 <span [ngClass]="{'danger': view.data?.kudosPointsGrowth < 0}">{{ view.data?.kudosPointsGrowth >= 0 ? '+' +view.data?.kudosPointsGrowth : view.data?.kudosPointsGrowth }}%</span>
@@ -72,7 +72,7 @@
         <div class="col-md-3 col-sm-6 mb-15-sm">
           <div class="card purple-bo">
             <div class="card-body d-flex flex-column">
-              <h3>Newly Assigned courses</h3>
+              <h3>Newly assigned courses</h3>
               <h1 class="flex-grow-1">
                 {{ view.data.totalNewlyCourses}}
                 <span [ngClass]="{'danger': view.data?.newlyCoursesGrowth < 0}">{{ view.data?.newlyCoursesGrowth >= 0 ? '+'+view.data?.newlyCoursesGrowth : view.data?.newlyCoursesGrowth}}%</span>
@@ -86,7 +86,7 @@
 
     <div class="row">
       <div class="col-12">
-        <h3 class="overview mb-3 f-size-17-md-sm">Today's Classes - {{ view.data?.todaysDate }}</h3>
+        <h3 class="overview mb-3 f-size-17-md-sm">Today's classes - {{ view.data?.todaysDate }}</h3>
         <ng-container [ngSwitch]="view.loading">
           <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
           <div class="table-responsive" *ngSwitchCase="false">
@@ -129,7 +129,7 @@
 
     <div class="row">
       <div class="col-12">
-        <h2 class="overview mt-5 f-size-17-md-sm mt-15-md-sm">Newly Assigned Courses</h2>
+        <h2 class="overview mt-5 f-size-17-md-sm mt-15-md-sm">Newly assigned courses</h2>
       </div>
       <div class="col-12">
         <ng-container [ngSwitch]="view.loading">
@@ -154,7 +154,7 @@
     <div class="row">
       <div class="col-12">
         <h2 class="overview mt-5 mb-3 f-size-17-md-sm mt-15-md-sm">
-          Kudos Points Details
+          Kudos points details
 
           <span class="float-end view-all text-main cursor-pointer" (click)="onOpenKudosPointsModal()">
             View all reviews
@@ -168,9 +168,9 @@
           <div class="table-responsive" *ngSwitchCase="false">
             <table class="table my-table default-title">
               <tr>
-                <th colspan="4">Kudos Points details</th>
+                <th colspan="4">Kudos points details</th>
                 <th class="sm">
-                  <span class="float-end me-2">Total Points: {{ view.data?.kudosPoints ? view.data?.kudosPoints : 0 }}</span>
+                  <span class="float-end me-2">Total points: {{ view.data?.kudosPoints ? view.data?.kudosPoints : 0 }}</span>
                 </th>
               </tr>
               <tr>
