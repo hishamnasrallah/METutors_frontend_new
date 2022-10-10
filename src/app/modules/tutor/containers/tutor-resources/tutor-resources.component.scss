@@ -17,6 +17,17 @@
     }
   }
 
+  .document-tabs {
+    button {
+      border-radius: 20px !important;
+
+      &.active {
+        color: #FFF !important;
+        background: var(--main-color);
+      }
+    }
+  }
+
   .details {
     padding: 0 40px 40px;
 

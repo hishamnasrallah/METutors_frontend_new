@@ -83,12 +83,14 @@
           <div class="table-responsive mt-1" *ngIf="+view.resources.course.bookInfo === academicTutoringTextbook.pdf">
             <table class="table my-table default-title">
               <tr>
-                <th scope="col">Attachments</th>
-                <th scope="col">Action</th>
+                <th scope="col" class="w-75">Attachments</th>
+                <th scope="col" class="w-25">Action</th>
               </tr>
-              <tr class="book-info">
-                <td scope="row">Hello.pdf</td>
-                <td><button mat-button class="main-button-transparent">Download</button></td>
+              <tr>
+                <td class="w-75">Hello.pdf</td>
+                <td class="w-25">
+                  <div><button mat-button class="main-button-transparent">Download</button></div>
+                </td>
               </tr>
             </table>
           </div>
@@ -98,12 +100,12 @@
 
     <h3>Other documents</h3>
     <div class="d-flex justify-content-between">
-      <div>
-        <button mat-button class="main-button-transparent me-2 m-0-sm mb-5-sm" (click)="teacherDocTab = true">
+      <div class="document-tabs">
+        <button mat-button class="main-button-transparent me-2 m-0-sm mb-5-sm" (click)="teacherDocTab = true" [ngClass]="{'active': teacherDocTab}">
           Uploaded by teacher
         </button>
 
-        <button mat-button class="main-button-transparent" (click)="teacherDocTab = false">
+        <button mat-button class="main-button-transparent" (click)="teacherDocTab = false" [ngClass]="{'active': !teacherDocTab}">
           Uploaded by student
         </button>
       </div>
@@ -148,7 +150,7 @@
             <tr class="book-info" *ngFor="let studentDoc of view?.resources?.studentOtherDocuments; let i=index">
               <td scope="row">{{ studentDoc?.bookName }}</td>
               <td>Edition {{ studentDoc?.bookEdition }}</td>
-              <td><button mat-button class="main-button-transparent">Download</button></td>
+              <td><div><button mat-button class="main-button-transparent">Download</button></div></td>
             </tr>
             </ng-container>
           </table>
