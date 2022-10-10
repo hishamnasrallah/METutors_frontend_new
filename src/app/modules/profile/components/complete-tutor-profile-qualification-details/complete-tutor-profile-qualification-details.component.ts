@@ -1,7 +1,15 @@
 import { Store } from '@ngrx/store';
 import { tap } from 'rxjs/operators';
+import { UploadService } from '@services';
 import { Observable, Subscription } from 'rxjs';
+import * as fromCore from '@metutor/core/state';
 import { HttpEventType } from '@angular/common/http';
+import { TranslateService } from '@ngx-translate/core';
+import { ILanguage, ITutor } from 'src/app/core/models';
+import { environment } from 'src/environments/environment';
+import * as fromProfile from '@metutor/modules/profile/state';
+import { AlertNotificationService } from '@metutor/core/components';
+import * as fromProfileActions from '@metutor/modules/profile/state/actions';
 
 import {
   Input,
@@ -11,14 +19,6 @@ import {
   OnDestroy,
   EventEmitter,
 } from '@angular/core';
-
-import { UploadService } from '@services';
-import * as fromCore from '@metutor/core/state';
-import { ILanguage, ITutor } from 'src/app/core/models';
-import { environment } from 'src/environments/environment';
-import * as fromProfile from '@metutor/modules/profile/state';
-import { AlertNotificationService } from '@metutor/core/components';
-import * as fromProfileActions from '@metutor/modules/profile/state/actions';
 
 import {
   FormArray,
@@ -36,7 +36,6 @@ import {
   generalConstants,
   TEACHING_EXPERIENCE,
 } from 'src/app/config';
-import { selectTutorSignature } from '@metutor/core/state/reducers/tutor.reducer';
 
 @Component({
   selector: 'metutors-complete-tutor-profile-qualification-details',
@@ -156,6 +155,7 @@ export class CompleteTutorProfileQualificationDetailsComponent
   constructor(
     private _fb: FormBuilder,
     private _store: Store<any>,
+    private _translate: TranslateService,
     private _uploadService: UploadService,
     private _alertNotificationService: AlertNotificationService
   ) {
@@ -347,7 +347,9 @@ export class CompleteTutorProfileQualificationDetailsComponent
       }
 
       if (file.size > 120 * 1024 * 1024) {
-        this._alertNotificationService.error('Allowed file size is 120MB');
+        this._translate.get('ALLOWED_SIZE_120MB').subscribe((res: string) => {
+          this._alertNotificationService.error(res);
+        });
 
         return;
       }
@@ -389,7 +391,9 @@ export class CompleteTutorProfileQualificationDetailsComponent
 
       files.forEach((file: any, index: number) => {
         if (file.size > 5 * 1024 * 1024) {
-          this._alertNotificationService.error('Allowed file size is 5MB');
+          this._translate.get('ALLOWED_SIZE_5MB').subscribe((res: string) => {
+            this._alertNotificationService.error(res);
+          });
 
           return;
         }
@@ -496,7 +500,9 @@ export class CompleteTutorProfileQualificationDetailsComponent
 
       files.forEach((file: any, index: number) => {
         if (file.size > 5 * 1024 * 1024) {
-          this._alertNotificationService.error('Allowed file size is 5MB');
+          this._translate.get('ALLOWED_SIZE_5MB').subscribe((res: string) => {
+            this._alertNotificationService.error(res);
+          });
 
           return;
         }
@@ -573,7 +579,9 @@ export class CompleteTutorProfileQualificationDetailsComponent
 
       files.forEach((file: any, index: number) => {
         if (file.size > 5 * 1024 * 1024) {
-          this._alertNotificationService.error('Allowed file size is 5MB');
+          this._translate.get('ALLOWED_SIZE_5MB').subscribe((res: string) => {
+            this._alertNotificationService.error(res);
+          });
 
           return;
         }

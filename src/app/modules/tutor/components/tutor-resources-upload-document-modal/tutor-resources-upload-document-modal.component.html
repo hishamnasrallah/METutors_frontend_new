@@ -18,7 +18,7 @@
           <div class="d-flex flex-column">
             <div class="w-100 border p-4 bg-light upload-container text-center" (click)="filePicker.click()"
                  [ngClass]="{'pointer-events-none cursor-not-allowed': (uploadedFiles$ | async)?.length, 'cursor-pointer': !(uploadedFiles$ | async)?.length}">
-              <img src="assets/svg/upload-solid.svg" width="15" height="15" alt=""/> Upload
+              <img src="assets/svg/upload-solid.svg" width="15" height="15" alt=""/>{{ 'UPLOAD' | translate }}
             </div>
             <span class="extensions text-main">JPG, pdf, video, etc</span>
             <input type="file" hidden #filePicker (change)="onFileChange($event)">
@@ -48,7 +48,7 @@
           <div class="col-md-12 overflow-hidden">
             <metutors-submit-button [form]="form" [isSubmitting]="submitting"
                                     [extraClasses]="'float-end py-1 px-5 fw-bold'">
-              Upload
+              {{ 'UPLOAD' | translate }}
             </metutors-submit-button>
           </div>
         </div>

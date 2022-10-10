@@ -27,7 +27,7 @@
                   <div>
                     <button mat-button type="button" class="main-button mb-4" (click)="filePicker.click()">
                       <img src="assets/svg/upload-solid.svg" width="15" height="15" alt=""/>
-                      Upload
+                      {{ 'UPLOAD' | translate }}
                     </button>
                   </div>
                   <input type="file" hidden #filePicker (change)="onFileChange($event)">

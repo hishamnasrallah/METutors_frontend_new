@@ -68,12 +68,12 @@
       <div class="col-12 overflow-hidden">
         <button mat-flat-button color="primary" class="float-end" type="button"
           (click)="onNext.emit(); loadTutors.emit(_classrooms)">
-          Save & Continue
+          {{ 'SAVE_CONTINUE' | translate }}
           <mat-icon class="rotate-180-ar">arrow_forward</mat-icon>
         </button>
         <button mat-button class="float-end back-btn" type="button" (click)="onBack.emit()">
           <mat-icon class="rotate-180-ar">arrow_back</mat-icon>
-          Back
+          {{ 'BACK' | translate }}
         </button>
       </div>
     </div>

@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { AlertNotificationService } from 'src/app/core/components';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
@@ -81,6 +82,7 @@ export class CourseInformationFormComponent implements OnInit {
 
   constructor(
     private _fb: FormBuilder,
+    private _translate: TranslateService,
     private _alertNotificationService: AlertNotificationService
   ) {}
 
@@ -259,7 +261,9 @@ export class CourseInformationFormComponent implements OnInit {
       }
 
       if (file.size > 5 * 1024 * 1024) {
-        this._alertNotificationService.error('Allowed file size is 5MB');
+        this._translate.get('ALLOWED_SIZE_5MB').subscribe((res: string) => {
+          this._alertNotificationService.error(res);
+        });
 
         return;
       }

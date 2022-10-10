@@ -116,11 +116,11 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
-            <label for="middleName" class="form-label">Middle Name <span>(Optional)</span></label>
-            <input type="text" class="custom-input w-100 input-bordered" id="middleName" placeholder="Enter Middle Name"
+            <label for="middleName" class="form-label">{{ 'MIDDLE_NAME' | translate }} <span>({{ 'OPTIONAL' | translate }})</span></label>
+            <input type="text" class="custom-input w-100 input-bordered" id="middleName" placeholder="{{ 'ENTER_MIDDLE_NAME' | translate }}"
               formControlName="middleName" meTutorsLettersOnly>
             <div class="text-danger" *ngIf="middleName?.touched && middleName?.invalid">
-              Please write a valid name
+              {{ 'WRITE_VALID_NAME' | translate }}
             </div>
           </div>
         </div>
@@ -136,28 +136,28 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
-            <label for="dateOfBirth" class="form-label">Date of Birth</label>
+            <label for="dateOfBirth" class="form-label">{{ 'DATE_BIRTH' | translate }}</label>
             <mat-form-field appearance="outline" class="w-100">
-              <input matInput [matDatepicker]="dateOfBirthPicker" [placeholder]="'Select Your Date of Birth'"
+              <input matInput [matDatepicker]="dateOfBirthPicker" placeholder="{{ 'SELECT_DATE_BIRTH' | translate }}"
                 (focus)="dateOfBirthPicker.open()" formControlName="dateOfBirth" [max]="maxDate">
               <mat-datepicker-toggle matSuffix [for]="dateOfBirthPicker"></mat-datepicker-toggle>
               <mat-datepicker #dateOfBirthPicker></mat-datepicker>
             </mat-form-field>
             <div class="text-danger" *ngIf="dateOfBirth?.touched && dateOfBirth?.invalid">
-              Please select your Date of Birth
+              {{ 'SELECT_UR_DATE_BIRTH' | translate }}
             </div>
           </div>
         </div>
 
         <div class="col-md-6">
           <div class="form-group">
-            <label for="country" class="form-label">Country</label>
+            <label for="country" class="form-label">{{ 'COUNTRY' | translate }}</label>
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="country" [placeholder]="'Select Country'" id="country"
+              <mat-select formControlName="country" placeholder="{{ 'SELECT_COUNTRY' | translate }}" id="country"
                 (selectionChange)="loadCities.emit(country?.value)">
                 <mat-option>
                   <ngx-mat-select-search [(ngModel)]="filterCountry" [ngModelOptions]="{standalone: true}"
-                    placeholderLabel="Search..." noEntriesFoundLabel="No matching country found">
+                    placeholderLabel="{{ 'SEARCH' | translate }}" noEntriesFoundLabel="{{ 'NO_MATCHING_COUNTRY_FOUND' | translate }}">
                   </ngx-mat-select-search>
                 </mat-option>
                 <mat-option *ngFor="let country of filteredCountries" [value]="country.id">
@@ -167,7 +167,7 @@
               </mat-select>
             </mat-form-field>
             <div class="text-danger" *ngIf="country?.touched && country?.invalid">
-              Please choose your Country
+              {{ 'CHOOSE_UR_COUNTRY' | translate }}
             </div>
           </div>
         </div>
@@ -176,33 +176,33 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
-            <label for="gender" class="form-label">Select Gender</label>
+            <label for="gender" class="form-label">{{ 'SELECT_GENDER' | translate }}</label>
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="gender" [placeholder]="'Select your gender'">
+              <mat-select formControlName="gender" placeholder="{{ 'SELECT_UR_GENDER' | translate }}">
                 <mat-option [value]="gender" *ngFor="let gender of genders">{{ gender }}</mat-option>
               </mat-select>
             </mat-form-field>
             <div class="text-danger" *ngIf="gender?.touched && gender?.invalid">
-              Please choose your Gender
+              {{ 'CHOOSE_UR_GENDER' | translate }}
             </div>
           </div>
         </div>
 
         <div class="col-md-6">
           <div class="form-group">
-            <label for="city" class="form-label">City</label>
+            <label for="city" class="form-label">{{ 'CITY' | translate }}</label>
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="city" [placeholder]="'Select city'" [disabled]="!cities || !cities.length" id="city">
+              <mat-select formControlName="city" placeholder="{{ 'SELECT_CITY' | translate }}" [disabled]="!cities || !cities.length" id="city">
                 <mat-option>
                   <ngx-mat-select-search [(ngModel)]="filterCity" [ngModelOptions]="{standalone: true}"
-                    placeholderLabel="Search..." noEntriesFoundLabel="No matching city found">
+                    placeholderLabel="{{ 'SEARCH' | translate }}" noEntriesFoundLabel="{{ 'NO_MATCHING_CITY_FOUND' | translate }}">
                   </ngx-mat-select-search>
                 </mat-option>
                 <mat-option *ngFor="let city of filteredCities" [value]="city.name">{{ city.name }}</mat-option>
               </mat-select>
             </mat-form-field>
             <div class="text-danger" *ngIf="city?.touched && city?.invalid">
-              Please choose your City
+              {{ 'CHOOSE_UR_CITY' | translate }}
             </div>
           </div>
         </div>
@@ -211,30 +211,32 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
-            <label for="nationality" class="form-label">Nationality</label>
+            <label for="nationality" class="form-label">{{ 'NATIONALITY' | translate }}</label>
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="nationality" [placeholder]="'Select your nationality'" id="nationality">
+              <mat-select formControlName="nationality" placeholder="{{ 'SELECT_NATIONALITY' | translate }}" id="nationality">
                 <mat-option>
                   <ngx-mat-select-search [(ngModel)]="filterNationality" [ngModelOptions]="{standalone: true}"
-                                         placeholderLabel="Search..." noEntriesFoundLabel="No matching country found">
+                                         placeholderLabel="{{ 'SEARCH' | translate }}"
+                                         noEntriesFoundLabel="{{ 'NO_MATCHING_COUNTRY_FOUND' | translate }}">
                   </ngx-mat-select-search>
                 </mat-option>
-                <mat-option *ngFor="let country of filteredNationalities" [value]="country.name">{{ country.name }}
+                <mat-option *ngFor="let country of filteredNationalities" [value]="country.name">
+                  {{ country.name }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
             <div class="text-danger" *ngIf="nationality?.touched && nationality?.invalid">
-              Please choose your Nationality
+              {{ 'CHOOSE_NATIONALITY' | translate }}
             </div>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
-            <label for="address" class="form-label">Address 1</label>
-            <input type="text" class="custom-input w-100 input-bordered" id="address" placeholder="Enter Street Address"
+            <label for="address" class="form-label">{{ 'ADDRESS_1' | translate }}</label>
+            <input type="text" class="custom-input w-100 input-bordered" id="address" placeholder="{{ 'ENTER_STREET_ADDRESS' | translate }}"
               formControlName="address">
             <div class="text-danger" *ngIf="address?.touched && address?.invalid">
-              Please write your Address with a max of 120 characters
+              {{ 'ADDRESS_CHARACTERS' | translate }}
             </div>
           </div>
         </div>
@@ -242,34 +244,34 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
-            <label for="bio" class="form-label w-100">Add Bio <small class="text-danger fw-normal">
-                (200 to 400 characters)
-              </small>
+            <label for="bio" class="form-label">{{ 'ADD_BIOGRAPHY' | translate }}
+              <span>({{ 'WRITE_BIOGRAPHY_NOTE' | translate }})</span>
               <metutors-char-counter [limit]="400" [controlName]="bio"></metutors-char-counter>
             </label>
-            <textarea id="bio" class="custom-input w-100 input-bordered" [placeholder]="'Add Bio here... '" rows="10"
-              formControlName="bio" minlength="200" maxlength="400"></textarea>
+            <textarea id="bio" class="custom-input w-100 input-bordered" placeholder="{{ 'ADD_BIO_HERE' | translate }}"
+              rows="10" formControlName="bio" minlength="200" maxlength="400"></textarea>
+            <small class="text-danger">({{ 'BIO_CHARACTERS' | translate }})</small>
             <div class="text-danger" *ngIf="bio?.touched && bio?.invalid">
-              Please write valid Bio
+              {{ 'WRITE_UR_BIO' | translate }}
             </div>
           </div>
         </div>
 
         <div class="col-md-6">
           <div class="form-group">
-            <label for="address2" class="form-label">Address 2 (Optional)</label>
+            <label for="address2" class="form-label">{{ 'ADDRESS_2' | translate }} ({{ 'OPTIONAL' | translate }})</label>
             <input type="text" class="custom-input w-100 input-bordered" id="address2"
-              placeholder="Enter street address" formControlName="address2">
+              placeholder="{{ 'ENTER_STREET_ADDRESS' | translate }}" formControlName="address2">
             <div class="text-danger" *ngIf="address2?.touched && address2?.invalid">
-              Please write your Address with a max of 120 characters
+              {{ 'ADDRESS_CHARACTERS' | translate }}
             </div>
           </div>
           <div class="form-group">
-            <label for="postalCode" class="form-label">Postal Code</label>
-            <input type="text" class="custom-input w-100 input-bordered" id="postalCode" placeholder="Postal Code"
+            <label for="postalCode" class="form-label">{{ 'POSTAL_CODE' | translate }}</label>
+            <input type="text" class="custom-input w-100 input-bordered" id="postalCode" placeholder="{{ 'POSTAL_CODE' | translate }}"
                    formControlName="postalCode">
             <div class="text-danger" *ngIf="postalCode?.touched && postalCode?.invalid">
-              Please write a valid Postal Code
+              {{ 'WRITE_VALID_POSTAL_CODE' | translate }}
             </div>
           </div>
         </div>
@@ -352,7 +354,7 @@
               <mat-select formControlName="degreeField" [placeholder]="'Select Degree Field'">
                 <mat-option>
                   <ngx-mat-select-search [(ngModel)]="filterDegree" [ngModelOptions]="{standalone: true}"
-                    placeholderLabel="Search..." noEntriesFoundLabel="No matching degree field found">
+                    placeholderLabel="{{ 'SEARCH' | translate }}" noEntriesFoundLabel="No matching degree field found">
                   </ngx-mat-select-search>
                 </mat-option>
                 <mat-option [value]="field" *ngFor="let field of filteredDegreeFields">{{ field }}</mat-option>
@@ -366,7 +368,7 @@
 
         <div class="col-md-6">
           <div class="form-group">
-            <label for="currentEmployer" class="form-label">Current Employer (Optional)</label>
+            <label for="currentEmployer" class="form-label">Current Employer ({{ 'OPTIONAL' | translate }})</label>
             <input type="text" class="custom-input w-100 input-bordered" id="currentEmployer" placeholder="Enter Here"
               formControlName="currentEmployer">
           </div>
@@ -388,7 +390,7 @@
 
         <div class="col-md-6">
           <div class="form-group">
-            <label for="currentTitle" class="form-label">Current Title (Optional)</label>
+            <label for="currentTitle" class="form-label">Current Title ({{ 'OPTIONAL' | translate }})</label>
             <input type="text" class="custom-input w-100 input-bordered" id="currentTitle" placeholder="Enter Here"
               formControlName="currentTitle" meTutorsLettersOnly>
           </div>

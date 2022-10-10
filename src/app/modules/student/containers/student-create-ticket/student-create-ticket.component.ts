@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
 import { formatBytes } from 'src/app/config';
 import * as fromCore from '@metutor/core/state';
+import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { AlertNotificationService } from 'src/app/core/components';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ITicketCategory, ITicketPriority } from '@metutor/core/models';
 
 @Component({
@@ -23,6 +24,7 @@ export class StudentCreateTicketComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private _store: Store<any>,
+    private _translate: TranslateService,
     private _alertNotificationService: AlertNotificationService
   ) {
     this.supportForm = this._fb.group({
@@ -48,7 +50,9 @@ export class StudentCreateTicketComponent implements OnInit {
       const file = event.target?.files[0];
 
       if (file.size > 10 * 1024 * 1024) {
-        this._alertNotificationService.error('Allowed file size is 10MB');
+        this._translate.get('ALLOWED_SIZE_10MB').subscribe((res: string) => {
+          this._alertNotificationService.error(res);
+        });
 
         return;
       }

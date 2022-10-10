@@ -99,7 +99,8 @@
             <mat-select formControlName="country" [placeholder]="'Choose Country'">
               <mat-option>
                 <ngx-mat-select-search [(ngModel)]="filterCountry" [ngModelOptions]="{standalone: true}"
-                                       placeholderLabel="Search..." noEntriesFoundLabel="No matching country found">
+                                       placeholderLabel="{{ 'SEARCH' | translate }}"
+                                       noEntriesFoundLabel="{{ 'NO_MATCHING_COUNTRY_FOUND' | translate }}">
                 </ngx-mat-select-search>
               </mat-option>
               <mat-option *ngFor="let country of filteredCountries" [value]="country.id">
@@ -115,7 +116,7 @@
         <div class="col-xl-6">
           <h3>Gender</h3>
           <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="gender" [placeholder]="'Select your gender'">
+            <mat-select formControlName="gender" placeholder="{{ 'SELECT_UR_GENDER' | translate }}">
               <mat-option [value]="gender" *ngFor="let gender of genders">{{ gender }}</mat-option>
             </mat-select>
           </mat-form-field>

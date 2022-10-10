@@ -1,7 +1,12 @@
 import { Store } from '@ngrx/store';
 import { map, tap } from 'rxjs/operators';
+import { ICountry, IStudent } from '@models';
+import * as fromCore from '@metutor/core/state';
 import { Observable, combineLatest } from 'rxjs';
+import { GENDERS, generalConstants } from '@config';
+import { TranslateService } from '@ngx-translate/core';
 import { Component, OnInit, Input } from '@angular/core';
+import { AlertNotificationService } from '@metutor/core/components';
 import { FormValidationUtilsService } from '@metutor/core/validators';
 
 import {
@@ -10,11 +15,6 @@ import {
   FormBuilder,
   AbstractControl,
 } from '@angular/forms';
-
-import { GENDERS, generalConstants } from '@config';
-import { ICountry, IStudent } from '@models';
-import * as fromCore from '@metutor/core/state';
-import { AlertNotificationService } from '@metutor/core/components';
 
 @Component({
   selector: 'metutors-student-settings-account',
@@ -36,6 +36,7 @@ export class StudentSettingsAccountComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private _store: Store<any>,
+    private _translate: TranslateService,
     private _fv: FormValidationUtilsService,
     private _alertNotificationService: AlertNotificationService
   ) {}
@@ -105,13 +106,17 @@ export class StudentSettingsAccountComponent implements OnInit {
       const mimeType = event.target.files[0].type;
 
       if (mimeType.match(/image\/*/) == null) {
-        this._alertNotificationService.error('Only images are allowed');
+        this._translate.get('ONLY_IMAGES_ALLOWED').subscribe((res: string) => {
+          this._alertNotificationService.error(res);
+        });
 
         return;
       }
 
       if (file[0].size > 1024 * 1024) {
-        this._alertNotificationService.error('Allowed file size is 1MB');
+        this._translate.get('ALLOWED_SIZE_1MB').subscribe((res: string) => {
+          this._alertNotificationService.error(res);
+        });
 
         return;
       }

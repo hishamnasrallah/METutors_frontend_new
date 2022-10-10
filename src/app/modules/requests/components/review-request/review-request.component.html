@@ -317,7 +317,7 @@
           <div>
             <button mat-button class="back-btn" type="button" (click)="onBack.emit()">
               <mat-icon class="rotate-180-ar">arrow_back</mat-icon>
-              Back
+              {{ 'BACK' | translate }}
             </button>
             <button mat-flat-button color="primary" type="button" [disabled]="isCreatingCourse || !conditions"
               (click)="submitForm.emit()">

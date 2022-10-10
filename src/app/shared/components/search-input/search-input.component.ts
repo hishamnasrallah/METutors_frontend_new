@@ -15,7 +15,7 @@ import { debounceTime, distinctUntilChanged, fromEvent, map } from 'rxjs';
   styleUrls: ['./search-input.component.scss'],
 })
 export class SearchInputComponent implements OnInit {
-  @Input() placeholder = 'Search...';
+  @Input() placeholder = 'SEARCH';
   @Output() searchedText: EventEmitter<string> = new EventEmitter<string>();
 
   @ViewChild('searchInput', { static: true }) searchInput: ElementRef;
