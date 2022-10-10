@@ -36,11 +36,11 @@
       </div>
       <div class="row mb-3 form-group">
         <div class="col-xl-6">
-          <h3>First Name</h3>
+          <h3>{{ 'FIRST_NAME' | translate }}</h3>
           <input type="text" class="form-control custom-input input-bordered" placeholder="Kamran"
                  formControlName="first_name">
           <div class="text-danger" *ngIf="firstName?.['touched'] && firstName?.errors?.['required']">
-            Please write your First Name
+            {{ 'WRITE_VALID_FIRST_NAME' | translate }}
           </div>
           <div class="text-danger" *ngIf="firstName?.['touched'] && firstName?.errors?.['pattern']">
             First Name should only contains alphabets
@@ -57,11 +57,11 @@
       </div>
       <div class="row mb-3 form-group">
         <div class="col-xl-6">
-          <h3>Last Name</h3>
+          <h3>{{ 'LAST_NAME' | translate }}</h3>
           <input type="text" class="form-control custom-input input-bordered" placeholder="Khatti"
                  formControlName="last_name">
           <div class="text-danger" *ngIf="lastName?.['touched'] && lastName?.errors?.['required']">
-            Please write your Last Name
+            {{ 'WRITE_VALID_LAST_NAME' | translate }}
           </div>
           <div class="text-danger" *ngIf="lastName?.['touched'] && lastName?.errors?.['pattern']">
             Last Name should only contains alphabets
@@ -78,7 +78,7 @@
       </div>
       <div class="row mb-3 form-group">
         <div class="col-xl-6">
-          <h3>Email Address</h3>
+          <h3>{{ 'EMAIL_ADDRESS' | translate }}</h3>
           <input type="email" class="form-control custom-input input-bordered" placeholder="hello@gmail.com"
                  formControlName="email" readonly>
         </div>

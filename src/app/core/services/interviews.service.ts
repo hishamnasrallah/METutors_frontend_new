@@ -1,8 +1,8 @@
-import { catchError, map, Observable, throwError } from 'rxjs';
+import { IInterview } from '../models';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { catchError, map, Observable, throwError } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { IInterview } from '../models';
 
 @Injectable({
   providedIn: 'root',

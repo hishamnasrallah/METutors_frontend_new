@@ -10,37 +10,39 @@
       <form [formGroup]="signinForm" (ngSubmit)="onSubmit(signinForm)"
         class="w-100 flex-grow-1 d-flex align-items-center">
         <div class="w-100">
-          <h4 class="mb-5">Login</h4>
+          <h4 class="mb-5">{{ 'LOGIN' | translate }}</h4>
 
           <div class="form-group">
-            <label for="email">Email Address</label>
+            <label for="email">{{ 'EMAIL_ADDRESS' | translate }}</label>
             <input type="email" class="custom-input w-100 input-bordered" id="email" placeholder="ku@pecafhuj.co.uk"
               formControlName="username">
             <div *ngIf="username?.invalid && username?.touched">
-              <small class="text-danger">Please write a valid email</small>
+              <small class="text-danger">{{ 'WRITE_VALID_EMAIL' | translate }}</small>
             </div>
           </div>
 
           <div class="form-group">
-            <label for="pass">Choose Password</label>
+            <label for="pass">{{ 'CHOOSE_PASSWORD' | translate }}</label>
             <div class="position-relative">
               <input [type]="!passwordVisibility ? 'password' : 'text'" class="custom-input w-100 input-bordered" id="pass" placeholder="**********"
                 formControlName="password">
-              <mat-icon matSuffix class="actions eye" (click)="passwordVisibility = !passwordVisibility">{{ !passwordVisibility ? 'visibility_off' : 'visibility'}}</mat-icon>
-              <a routerLink="/forget-password" class="actions forget-link">Forget!</a>
+              <mat-icon matSuffix class="actions eye" (click)="passwordVisibility = !passwordVisibility">
+                {{ !passwordVisibility ? 'visibility_off' : 'visibility' }}
+              </mat-icon>
+              <a routerLink="/forget-password" class="actions forget-link">{{ 'FORGET' | translate }}</a>
               <div *ngIf="password?.invalid && password?.touched">
-                <small class="text-danger">Please write your password</small>
+                <small class="text-danger">{{ 'WRITE_UR_PASSWORD' | translate }}</small>
               </div>
             </div>
           </div>
 
           <div class="form-group">
-            <mat-checkbox formControlName="rememberMe">Remember Me</mat-checkbox>
+            <mat-checkbox formControlName="rememberMe">{{ 'REMEMBER_ME' | translate }}</mat-checkbox>
           </div>
 
           <div class="form-group mt-4 mb-2">
             <metutors-submit-button [form]="signinForm" [isSubmitting]="isLoading$ | async" [extraClasses]="'w-100'">
-              Login
+              {{ 'LOGIN' | translate }}
             </metutors-submit-button>
           </div>
 
@@ -49,22 +51,22 @@
               <button (click)="openRolesDialog('google', roles)" mat-button type="button" class="w-100 google"
                 [disabled]="authLoading$ | async">
                 <img src="assets/svg/google.svg" alt="">
-                Login with Google
+                {{ 'LOGIN_GOOGLE' | translate }}
               </button>
             </div>
             <div class="col-xl-6 mt-1">
               <button (click)="openRolesDialog('facebook', roles)" mat-button type="button" class="w-100"
                 [disabled]="authLoading$ | async">
                 <img src="assets/svg/facebook-light.svg" class="facebook" alt="">
-                Login with Facebook
+                {{ 'LOGIN_FACEBOOK' | translate }}
               </button>
             </div>
           </div>
 
           <div class="form-group mt-4">
             <p>
-              Don’t have an account?
-              <a routerLink="/signup"  [queryParams]="{returnUrl}">Sign up now</a>
+              {{ 'DONT_HAVE_ACCOUNT' | translate }}
+              <a routerLink="/signup"  [queryParams]="{returnUrl}">{{ 'SIGNUP_NOW' | translate }}</a>
             </p>
           </div>
         </div>

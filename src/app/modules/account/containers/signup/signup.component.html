@@ -11,11 +11,11 @@
         <form [formGroup]="signupForm" (ngSubmit)="onSubmit(signupForm, accountType)"
           class="w-100 flex-grow-1 d-flex align-items-center">
           <div class="w-100">
-            <h3 class="m-0 f-size-25-md-sm">Welcome!</h3>
-            <h4 class="mb-5 f-size-20-md-sm">Let's get you set up</h4>
+            <h3 class="m-0 f-size-25-md-sm">{{ 'WELCOME' | translate }}</h3>
+            <h4 class="mb-5 f-size-20-md-sm">{{ 'LETS_GETUP_SETUP' | translate }}</h4>
 
             <div class="form-group types">
-              <label>Choose account type</label>
+              <label>{{ 'CHOOSE_ACCOUNT_TYPE' | translate }}</label>
               <div class="row">
                 <div class="col-md-6" *ngFor="let role of roles">
                   <button mat-button (click)="changeStep(1, '', role?.id!)" class="w-100 text-start"
@@ -35,7 +35,7 @@
                         <path id="Path-3" data-name="Path" d="M2.047,0A2.047,2.047,0,1,0,4.095,2.047,2.047,2.047,0,0,0,2.047,0Z" transform="translate(3.137)"/>
                       </g>
                     </svg>
-                    I'm a {{ role?.name }}
+                    {{ 'IM_A' | translate }} {{ role?.name }}
                   </button>
                 </div>
               </div>
@@ -43,37 +43,37 @@
             <div class="row">
               <div class="col-6">
                 <div class="form-group">
-                  <label for="firstName">What's your First Name?</label>
-                  <input type="text" class="custom-input w-100 input-bordered" id="firstName" placeholder="First name"
+                  <label for="firstName">{{ 'WHATS_FIRST_NAME' | translate }}</label>
+                  <input type="text" class="custom-input w-100 input-bordered" id="firstName" placeholder="{{ 'FIRST_NAME' | translate }}"
                     formControlName="firstName" meTutorsLettersOnly>
                   <div class="text-danger" *ngIf="firstName?.touched && firstName?.invalid">
-                    Please write a valid first name
+                    {{ 'WRITE_VALID_FIRST_NAME' | translate }}
                   </div>
                 </div>
               </div>
               <div class="col-6">
                 <div class="form-group">
-                  <label for="lastName">What's your Last Name?</label>
-                  <input type="text" class="custom-input w-100 input-bordered" id="lastName" placeholder="Last name"
+                  <label for="lastName">{{ 'WHATS_LAST_NAME' | translate }}</label>
+                  <input type="text" class="custom-input w-100 input-bordered" id="lastName" placeholder="{{ 'LAST_NAME' | translate }}"
                     formControlName="lastName" meTutorsLettersOnly>
                   <div class="text-danger" *ngIf="lastName?.touched && lastName?.invalid">
-                    Please write a valid last name
+                    {{ 'WRITE_VALID_LAST_NAME' | translate }}
                   </div>
                 </div>
               </div>
             </div>
 
             <div class="form-group">
-              <label for="email">Email Address</label>
+              <label for="email">{{ 'EMAIL_ADDRESS' | translate }}</label>
               <input type="email" class="custom-input w-100 input-bordered" id="email" placeholder="ku@pecafhuj.co.uk"
                 formControlName="email" email>
               <span class="text-danger" *ngIf="email?.invalid && email?.touched">
-                Please write a valid email
+                {{ 'WRITE_VALID_EMAIL' | translate }}
               </span>
             </div>
 
             <div class="form-group">
-              <label for="phone">Phone Number</label>
+              <label for="phone">{{ 'PHONE_NUMBER' | translate }}</label>
               <div class="w-100">
                 <ngx-intl-tel-input [cssClass]="'custom-input w-100 input-bordered'"
                                     [preferredCountries]="preferredCountries"
@@ -89,42 +89,42 @@
                                     formControlName="mobileNumber">
                 </ngx-intl-tel-input>
                 <span class="text-danger" *ngIf="phoneNumber?.invalid && phoneNumber?.touched">
-                  Please write a valid phone number
+                  {{ 'WRITE_VALID_PHONE_NUMBER' | translate }}
                 </span>
               </div>
             </div>
 
             <div class="form-group position-relative">
-              <label for="pass">Choose Password</label>
+              <label for="pass">{{ 'CHOOSE_PASSWORD' | translate }}</label>
               <input [type]="!passwordVisibility ? 'password' : 'text'" class="custom-input w-100 input-bordered" id="pass" placeholder="**********"
                 formControlName="password">
               <mat-icon matSuffix class="position-absolute password-visibility" (click)="passwordVisibility = !passwordVisibility">{{ !passwordVisibility ? 'visibility_off' : 'visibility'}}</mat-icon>
               <span class="text-danger" *ngIf="password?.invalid && password?.touched">
-                Password cannot be less than 8 characters and cannot be more than 100 characters
+                {{ 'PASSWORD_ERROR_CHARACTERS' | translate }}
               </span>
             </div>
 
             <div class="form-group position-relative">
-              <label for="pass2">Confirm Password</label>
+              <label for="pass2">{{ 'CONFIRM_PASSWORD' | translate }}</label>
               <input [type]="!confirmPasswordVisibility ? 'password' : 'text'" class="custom-input w-100 input-bordered" id="pass2" placeholder="**********"
                 formControlName="confirmPassword">
               <mat-icon matSuffix class="position-absolute password-visibility" (click)="confirmPasswordVisibility = !confirmPasswordVisibility">{{ !confirmPasswordVisibility ? 'visibility_off' : 'visibility'}}</mat-icon>
               <div class="text-danger" *ngIf="signupForm?.hasError('passwordMismatch')">
-                Passwords do not match
+                {{ 'PASSWORDS_DONT_MATCH' | translate }}
               </div>
             </div>
 
             <div class="mt-3">
               <mat-checkbox formControlName="conditions">
-                I agree to the <a
+                {{ 'I_AGREE_THE' | translate }} <a
                   [routerLink]="accountType === userRole.tutor ? '/tutor-terms-conditions' : '/student-terms-conditions'"
-                  target="_blank">terms and conditions.</a>
+                  target="_blank">{{ 'TERMS_CONDITIONS' | translate }}.</a>
               </mat-checkbox>
             </div>
 
             <div class="form-group mt-4 mb-2">
               <metutors-submit-button [form]="signupForm" [isSubmitting]="(isLoading$ | async)!" [extraClasses]="'w-100'">
-                Create my account
+                {{ 'CREATE_MY_ACCOUNT' | translate }}
               </metutors-submit-button>
             </div>
 
@@ -133,22 +133,22 @@
                 <button (click)="openRolesDialog('google', roles)" mat-button type="button" class="w-100 google"
                   [disabled]="authLoading$ | async">
                   <img src="assets/svg/google.svg" alt="">
-                  Sign up with Google
+                  {{ 'SIGNUP_GOOGLE' | translate }}
                 </button>
               </div>
               <div class="col-xl-6 mt-1">
                 <button (click)="openRolesDialog('facebook', roles)" mat-button type="button" class="w-100"
                   [disabled]="authLoading$ | async">
                   <img src="assets/svg/facebook-light.svg" class="facebook" alt="">
-                  Sign up with Facebook
+                  {{ 'SIGNUP_FACEBOOK' | translate }}
                 </button>
               </div>
             </div>
 
             <div class="form-group mt-4">
               <p>
-                Already have an account?
-                <a routerLink="/signin">Sign in now</a>
+                {{ 'ALREADY_HAVE_ACCOUNT' | translate }}
+                <a routerLink="/signin">{{ 'SIGNIN_NOW' | translate }}</a>
               </p>
             </div>
           </div>
@@ -173,22 +173,21 @@
 
       <div class="col-lg-7 align-items-center img-cover">
         <div class="steps" [@userTypeAnimate]>
-          <h2>How to create your account</h2>
+          <h2>{{ 'HOW_CREATE_ACCOUNT' | translate }}</h2>
           <p>
-            In 2 steps you can create your account and
-            {{ accountType === 1 ? 'start taking your courses with MEtutors' : 'start teaching with MEtutors' }}
+            {{ accountType === 1 ? ('STEPS_START_TAKING_COURSES' | translate) : ('STEPS_START_TEACHING' | translate) }}
           </p>
           <ul class="list-unstyled">
             <li [ngClass]="{'active': step === 1}">
-              <span>Step one</span>
+              <span>{{ 'STEP_ONE' | translate }}</span>
               <h4 class="f-size-25-md-sm">
-                Create an account
+                {{ 'CREATE_ACCOUNT' | translate }}
               </h4>
             </li>
             <li [ngClass]="{'active': step === 2}">
-              <span>Step two</span>
+              <span>{{ 'STEP_TWO' | translate }}</span>
               <h4 class="f-size-25-md-sm">
-                Verify your email
+                {{ 'VERIFY_UR_EMAIL' | translate }}
               </h4>
             </li>
           </ul>

@@ -1,15 +1,13 @@
 import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { Router } from '@angular/router';
-import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
-
 import { AdminService } from '@services';
+import { Injectable } from '@angular/core';
 import camelcaseKeys from 'camelcase-keys';
 import * as fromRouterStore from '@metutor/state';
 import * as adminActions from '../actions/admin.actions';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { AlertNotificationService } from '@metutor/core/components';
+import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 
 @Injectable()
 export class AdminEffects {
@@ -715,7 +713,6 @@ export class AdminEffects {
   );
 
   constructor(
-    private _router: Router,
     private _store: Store<any>,
     private _actions$: Actions,
     private _adminService: AdminService,

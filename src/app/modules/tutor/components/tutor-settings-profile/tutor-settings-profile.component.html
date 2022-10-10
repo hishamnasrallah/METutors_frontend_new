@@ -93,22 +93,22 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
-            <label for="firstName" class="form-label">First Name</label>
-            <input type="text" class="custom-input w-100 input-bordered" id="firstName" placeholder="Enter First Name"
+            <label for="firstName" class="form-label">{{ 'FIRST_NAME' | translate }}</label>
+            <input type="text" class="custom-input w-100 input-bordered" id="firstName" placeholder="{{ 'FIRST_NAME' | translate }}"
               formControlName="firstName" meTutorsLettersOnly>
             <div class="text-danger" *ngIf="firstName?.touched && firstName?.invalid">
-              Please write a valid name
+              {{ 'WRITE_VALID_FIRST_NAME' | translate }}
             </div>
           </div>
         </div>
 
         <div class="col-md-6">
           <div class="form-group">
-            <label for="lastName" class="form-label">Last Name</label>
-            <input type="text" class="custom-input w-100 input-bordered" id="lastName" placeholder="Enter Last Name"
+            <label for="lastName" class="form-label">{{ 'LAST_NAME' | translate }}</label>
+            <input type="text" class="custom-input w-100 input-bordered" id="lastName" placeholder="{{ 'LAST_NAME' | translate }}"
               formControlName="lastName" meTutorsLettersOnly>
             <div class="text-danger" *ngIf="lastName?.touched && lastName?.invalid">
-              Please write a valid name
+              {{ 'WRITE_VALID_LAST_NAME' | translate }}
             </div>
           </div>
         </div>

@@ -1,10 +1,10 @@
 <div class="access-denied text-center py-5">
   <img src="assets/png/access-denied.png" alt="" class="w-100-md-sm" draggable="false">
-  <h1 class="f-size-25-md-sm mt-5">We are sorry...</h1>
+  <h1 class="f-size-25-md-sm mt-5">{{ 'WE_ARE_SORRY' | translate }}</h1>
   <p class="mt-2 f-size-15-md-sm">
-    The page you're trying to access has restricted access.
+    {{ 'PAGE_RESTRICTED_ACCESS' | translate }}
     <br>
-    Please refer to your system administrator.
+    {{ 'REFER_SYSTEM_ADMINISTRATOR' | translate }}
   </p>
-  <a routerLink="/" mat-flat-button color="primary" class="mt-5 px-5">Go to homepage</a>
+  <a routerLink="/" mat-flat-button color="primary" class="mt-5 px-5">{{ 'GO_HOMEPAGE' | translate }}</a>
 </div>

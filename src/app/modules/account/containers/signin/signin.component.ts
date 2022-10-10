@@ -4,10 +4,10 @@ import * as fromCore from '@metutor/core/state';
 import { Observable, Subscription } from 'rxjs';
 import { SocialProvider } from 'src/app/config';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/core/services';
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import * as fromAccount from '@metutor/modules/account/state';
-import { AuthService, UsersService } from 'src/app/core/services';
 import { FormValidationUtilsService } from 'src/app/core/validators';
 import { OtpVerifyComponent, RolesSelectComponent } from '../../components';
 import * as fromAccountAction from '@metutor/modules/account/state/actions';
@@ -44,7 +44,6 @@ export class SigninComponent implements OnInit, OnDestroy {
     private _dialog: MatDialog,
     private _route: ActivatedRoute,
     private _authService: AuthService,
-    private _userService: UsersService,
     private _fv: FormValidationUtilsService
   ) {
     this.signinForm = this._fb.group({

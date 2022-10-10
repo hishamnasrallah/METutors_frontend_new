@@ -15,19 +15,19 @@
                 <mat-icon matSuffix class="position-absolute password-visibility"
                           (click)="currentPasswordVisibility = !currentPasswordVisibility">{{ !currentPasswordVisibility ? 'visibility_off' : 'visibility'}}</mat-icon>
                 <span class="text-danger" *ngIf="oldPassword?.invalid && oldPassword?.touched">
-                  Password cannot be less than 8 characters and cannot be more than 100 characters
+                  {{ 'PASSWORD_ERROR_CHARACTERS' | translate }}
                 </span>
               </div>
 
               <div class="form-group position-relative">
-                <label for="password">New Password</label>
+                <label for="password">{{ 'NEW_PASSWORD' | translate }}</label>
                 <input [type]="!newPasswordVisibility ? 'password' : 'text'" class="custom-input w-100 input-bordered"
                        id="password"
                        placeholder="Type new password" formControlName="password">
                 <mat-icon matSuffix class="position-absolute password-visibility"
                           (click)="newPasswordVisibility = !newPasswordVisibility">{{ !newPasswordVisibility ? 'visibility_off' : 'visibility'}}</mat-icon>
                 <span class="text-danger" *ngIf="password?.invalid && password?.touched">
-                  Password cannot be less than 8 characters and cannot be more than 100 characters
+                  {{ 'PASSWORD_ERROR_CHARACTERS' | translate }}
                 </span>
               </div>
 

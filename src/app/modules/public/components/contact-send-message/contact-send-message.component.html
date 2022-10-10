@@ -25,7 +25,7 @@
                   <input type="email" email class="custom-input w-100 input-bordered" id="email"
                     placeholder="you@example.com" formControlName="email">
                   <span class="text-danger" *ngIf="email?.invalid && email?.touched">
-                    Please write a valid email
+                    {{ 'WRITE_VALID_EMAIL' | translate }}
                   </span>
                 </div>
               </div>
