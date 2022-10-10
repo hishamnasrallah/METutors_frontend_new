@@ -60,7 +60,7 @@
                           {{ subject?.name }}<ng-container *ngIf="!isLast">, </ng-container>
                         </a>
                       </ng-container>
-                      <a *ngIf="filteredSubjects(field.id).length >= 3 && (!isShowMore || selectedField !== field?.id)"
+                      <a *ngIf="filteredSubjects(field.id).length > 3 && (!isShowMore || selectedField !== field?.id)"
                         class="see-more cursor-pointer" (click)="isShowMore = true; selectedField = field?.id!">
                         See more
                       </a>

@@ -6,9 +6,8 @@ import {
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { first, mergeMap, Observable } from 'rxjs';
-
 import * as fromCore from '@metutor/core/state';
+import { first, mergeMap, Observable } from 'rxjs';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {

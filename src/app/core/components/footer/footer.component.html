@@ -2,78 +2,78 @@
   <div class="container">
     <div class="row">
       <div class="col-lg links">
-        <h1>About us</h1>
+        <h1>{{ 'ABOUT_US' | translate }}</h1>
         <ul class="list-unstyled m-0 d-flex flex-column justify-content-center h-100">
           <li>
-            <a routerLink="/about">Our founders team</a>
+            <a routerLink="/about">{{ 'OUR_FOUNDERS_TEAM' | translate }}</a>
           </li>
           <li>
-            <a routerLink="/" [fragment]="'featured-tutors'">Featured tutors</a>
+            <a routerLink="/" [fragment]="'featured-tutors'">{{ 'FEATURED_TUTORS' | translate }}</a>
           </li>
           <li>
-            <a routerLink="/" [fragment]="'success-stories'">Success stories</a>
+            <a routerLink="/" [fragment]="'success-stories'">{{ 'SUCCESS_STORIES' | translate }}</a>
           </li>
         </ul>
       </div>
       <div class="col-lg links">
-        <h1>Help</h1>
+        <h1>{{ 'HELP' | translate }}</h1>
         <ul class="list-unstyled m-0 d-flex flex-column justify-content-center h-100">
           <li>
-            <a routerLink="/faq">FAQs</a>
+            <a routerLink="/faq">{{ 'FAQS' | translate }}</a>
           </li>
           <li>
-            <a routerLink="/contact">Contact us</a>
+            <a routerLink="/contact">{{ 'CONTACT_US' | translate }}</a>
           </li>
         </ul>
       </div>
       <div class="col-lg links">
-        <h1>Learn</h1>
+        <h1>{{ 'LEARN' | translate }}</h1>
         <ul class="list-unstyled m-0 d-flex flex-column justify-content-center h-100">
           <li>
-            <a routerLink="/all-courses/1">Explore courses</a>
+            <a routerLink="/all-courses/1">{{ 'EXPLORE_COURSES' | translate }}</a>
           </li>
           <li>
-            <a [routerLink]="['/requests', 'request-tutor']">Customized courses</a>
+            <a [routerLink]="['/requests', 'request-tutor']">{{ 'CUSTOMIZED_COURSES' | translate }}</a>
           </li>
           <li>
-            <a routerLink="/" [fragment]="'explore-services'">Pricing</a>
+            <a routerLink="/" [fragment]="'explore-services'">{{ 'PRICING' | translate }}</a>
           </li>
         </ul>
       </div>
       <div class="col-lg links">
-        <h1>Join platform</h1>
+        <h1>{{ 'JOIN_PLATFORM' | translate }}</h1>
         <ul class="list-unstyled m-0 d-flex flex-column justify-content-center h-100">
           <li>
-            <a routerLink="/signup" [queryParams]="{role: 1}">Start learning</a>
+            <a routerLink="/signup" [queryParams]="{role: 1}">{{ 'START_LEARNING' | translate }}</a>
           </li>
           <li>
-            <a routerLink="/signup" [queryParams]="{role: 3}">Start teaching</a>
+            <a routerLink="/signup" [queryParams]="{role: 3}">{{ 'START_TEACHING' | translate }}</a>
           </li>
         </ul>
       </div>
       <div class="col-lg links">
-        <h1>Terms</h1>
+        <h1>{{ 'TERMS' | translate }}</h1>
         <ul class="list-unstyled m-0 d-flex flex-column justify-content-center h-100">
           <li>
-            <a routerLink="/student-terms-conditions">Student terms & conditions</a>
+            <a routerLink="/student-terms-conditions">{{ 'STUDENT_TERMS_CONDITIONS' | translate }}</a>
           </li>
           <li>
-            <a routerLink="/tutor-terms-conditions">Teacher terms & conditions</a>
+            <a routerLink="/tutor-terms-conditions">{{ 'TEACHER_TERMS_CONDITIONS' | translate }}</a>
           </li>
           <li>
-            <a routerLink="/privacy-policy">Privacy policy</a>
+            <a routerLink="/privacy-policy">{{ 'PRIVACY_POLICY' | translate }}</a>
           </li>
         </ul>
       </div>
     </div>
     <div class="divider mt-30 mt-15-sm"></div>
     <div class="row subscribe mt-15-sm p-10-sm">
-      <h1 class="col-12 p-0-sm">Subscribe newsletter</h1>
+      <h1 class="col-12 p-0-sm">{{ 'SUBSCRIBE_NEWSLETTER' | translate }}</h1>
       <div class="col-md-7 p-0-sm">
         <form>
           <div class="form-block position-relative">
-            <input type="email" placeholder="Enter your email" class="w-100" />
-            <button mat-flat-button color="primary">Subscribe</button>
+            <input type="email" placeholder="{{ 'ENTER_UR_EMAIL' | translate }}" class="w-100" />
+            <button mat-flat-button color="primary">{{ 'SUBSCRIBE' | translate }}</button>
           </div>
         </form>
       </div>
@@ -105,7 +105,7 @@
         </ul>
       </div>
       <div class="col-md-4 text-end">
-        © {{ myDate | date: "y" }} MEtutors. All rights reserved
+        © {{ myDate | date: "y" }} MEtutors. {{ 'ALL_RIGHTS_RESERVED' | translate }}
       </div>
     </div>
   </div>

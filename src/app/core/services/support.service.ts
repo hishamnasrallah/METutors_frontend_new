@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-
 import { IFAQ, IFAQTopics, ITicket } from '@models';
 import { environment } from 'src/environments/environment';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class SupportService {

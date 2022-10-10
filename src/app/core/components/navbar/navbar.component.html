@@ -16,22 +16,22 @@
         </li>
         <li class="nav-item">
           <a class="nav-link nav-item-link" routerLink="/study" routerLinkActive="active">
-            Study
+            {{ 'STUDY' | translate }}
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link nav-item-link" routerLink="/become-tutor" routerLinkActive="active">
-            Become a tutor
+            {{ 'BECOME_TUTOR' | translate }}
           </a>
         </li>
         <li class="nav-item" *ngIf="!(token$ | async)">
           <a class="nav-link nav-item-link" routerLink="/signin" routerLinkActive="active">
-            Sign in
+            {{ 'SIGN_IN' | translate }}
           </a>
         </li>
         <li class="nav-item" *ngIf="token$ | async">
           <a class="nav-link nav-item-link" (click)="logout()">
-            Logout
+            {{ 'LOGOUT' | translate }}
           </a>
         </li>
         <li class="nav-item d-flex align-items-center justify-content-center">
@@ -50,11 +50,11 @@
         <li class="nav-item btn-nav d-flex align-items-center justify-content-center">
           <a *ngIf="!(token$ | async)" class="link-btn login px-4 py-1 fw-bold" mat-flat-button color="primary"
             routerLink="/" fragment="explore-services">
-            Get started
+            {{ 'GET_STARTED' | translate }}
           </a>
           <a *ngIf="token$ | async" class="link-btn login px-4 py-1 fw-bold" mat-flat-button color="primary"
             [routerLink]="+((user$ | async)?.roleId)! === userRole.tutor ? '/tutor' : +((user$ | async)?.roleId)! === userRole.student ? '/student' : '/admin'">
-            My classroom
+            {{ 'MY_CLASSROOM' | translate }}
           </a>
         </li>
       </ul>
@@ -77,13 +77,15 @@
       aria-labelledby="button-basic">
       <li role="menuitem">
         <a class="dropdown-item" routerLink="/about" routerLinkActive="active"
-          [routerLinkActiveOptions]="{exact: true}">About us</a>
+          [routerLinkActiveOptions]="{exact: true}">{{ 'ABOUT_US' | translate }}</a>
       </li>
       <li role="menuitem">
-        <a class="dropdown-item" routerLink="/study" routerLinkActive="active">Study</a>
+        <a class="dropdown-item" routerLink="/study" routerLinkActive="active">{{ 'STUDY' | translate }}</a>
       </li>
       <li role="menuitem">
-        <a class="dropdown-item" routerLink="/become-tutor" routerLinkActive="active">Become a Tutor</a>
+        <a class="dropdown-item" routerLink="/become-tutor" routerLinkActive="active">
+          {{ 'BECOME_TUTOR' | translate }}
+        </a>
       </li>
       <li role="menuitem">
         <a class="dropdown-item text-center" [matMenuTriggerFor]="currency">
@@ -101,11 +103,11 @@
       <li role="menuitem" class="book-class">
         <a *ngIf="!(token$ | async)" class="dropdown-item link-btn login" mat-flat-button color="primary"
           routerLink="/signup">
-          Get Started
+          {{ 'GET_STARTED' | translate }}
         </a>
         <a *ngIf="token$ | async" class="dropdown-item link-btn login" mat-flat-button color="primary"
           [routerLink]="+((user$ | async)?.roleId)! === userRole.tutor ? '/tutor' : +((user$ | async)?.roleId)! === userRole.student ? '/student' : '/admin'">
-          My Classroom
+          {{ 'MY_CLASSROOM' | translate }}
         </a>
       </li>
 
@@ -114,11 +116,12 @@
       <li role="menuitem" *ngIf="!(token$ | async)">
         <a class="main-btn rounded-pill order-0 w-100 button-auth text-center" type="button" routerLink="/signin"
           routerLinkActive="active">
-          Sign in
+          {{ 'SIGN_IN' | translate }}
         </a>
       </li>
       <li role="menuitem" *ngIf="token$ | async">
-        <a class="secondary-btn mt-2 w-100 button-auth text-center" type="button" (click)="logout()">Logout</a>
+        <a class="secondary-btn mt-2 w-100 button-auth text-center" type="button"
+          (click)="logout()">{{ 'LOGOUT' | translate }}</a>
       </li>
     </ul>
   </div>

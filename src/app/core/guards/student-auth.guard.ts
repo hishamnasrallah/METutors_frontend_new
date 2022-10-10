@@ -1,16 +1,16 @@
 import {
   CanActivate,
-  ActivatedRouteSnapshot,
   RouterStateSnapshot,
+  ActivatedRouteSnapshot,
 } from '@angular/router';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import camelcaseKeys from 'camelcase-keys';
+import { UserRole } from '@metutor/config';
 import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import * as fromCore from '@metutor/core/state';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import camelcaseKeys from 'camelcase-keys';
-import { UserRole } from '@metutor/config';
 
 @Injectable()
 export class StudentAuthGuard implements CanActivate {
