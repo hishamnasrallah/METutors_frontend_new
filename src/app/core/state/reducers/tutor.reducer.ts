@@ -10,6 +10,7 @@ export interface State {
   attendance: any;
   kudosPoints: any;
   tutorsCounts: any;
+  signature: string;
   feedbackOptions: any;
   tutor: ITutor | null;
   tutors: ITutor[] | null;
@@ -68,6 +69,7 @@ export interface State {
 export const initialState: State = {
   tutor: null,
   tutors: null,
+  signature: '',
   loading: false,
   dashboard: null,
   attendance: null,
@@ -593,13 +595,20 @@ export const reducer = createReducer(
     loading: true,
   })),
 
-  on(tutorActions.tutorAddSignatureSuccess, (state) => ({
+  on(tutorActions.tutorAddSignatureSuccess, (state, { signature }) => ({
     ...state,
+    signature,
     loading: false,
   })),
 
   on(tutorActions.tutorAddSignatureFailure, (state) => ({
     ...state,
+    loading: false,
+  })),
+
+  on(tutorActions.tutorSetSignature, (state, { signature }) => ({
+    ...state,
+    signature,
     loading: false,
   }))
 );
@@ -705,3 +714,5 @@ export const selectTutorKudosPoints = (state: State): ITutor[] | null =>
 
 export const selectIsLoadingTutorKudosPoints = (state: State): boolean =>
   state.isLoadingKudosPoints;
+
+export const selectTutorSignature = (state: State): string => state.signature;

@@ -138,8 +138,8 @@ const routes: Routes = [
             component: StudentFaqComponent,
             data: {
               layout: {
-                title: 'FAQ - Metutors',
-                navbarTitle: 'FAQ',
+                title: 'FAQs - Metutors',
+                navbarTitle: 'Frequently asked questions',
                 showHeader: false,
                 showFooter: false,
                 hideSidebar: true,
@@ -203,7 +203,7 @@ const routes: Routes = [
         data: {
           layout: {
             title: 'Dashboard - Metutors',
-            navbarTitle: "Student's Dashboard",
+            navbarTitle: 'Student Dashboard',
             showHeader: false,
             showFooter: false,
           },

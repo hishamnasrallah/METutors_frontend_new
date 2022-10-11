@@ -1,7 +1,7 @@
-<div class="tutors-list" *ngLet="(view$ | async) as view">
+<div class="tutors-list p-15-md-sm" *ngLet="(view$ | async) as view">
   <div class="row filters">
     <div class="col-md-6 d-flex align-items-center">
-      <h1>All Teachers</h1>
+      <h1 class="f-size-18-md-sm mb-15-sm">All Teachers</h1>
     </div>
     <div class="col-md-6">
       <div class="row justify-content-end">
@@ -20,14 +20,14 @@
 
   <ng-container *ngIf="!view.loading">
     <div class="row mt-3 cards">
-      <div class="col">
+      <div class="col-md mb-15-sm">
         <div class="card">
           <div class="card-body d-flex align-items-center justify-content-between">
             <div>
               <h2>Total</h2>
-              <span>{{ view.tutorCounts?.all }}</span>
+              <span class="f-size-17-md-sm">{{ view.tutorCounts?.all }}</span>
             </div>
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20.326 20.487">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20.326 20.487" class="w-40-px-sm h-40-px-sm">
               <g id="Teacher" transform="translate(-146.574 -144.762)">
                 <path id="Path_339" data-name="Path 339"
                   d="M164.933,425.369s-4.786-1.623-4.934-1.639c-.016.066-.033.131-.049.18-.229.869-.459,1.737-.721,2.59-.311,1.016-.672,2.016-1.016,3.016,0,.016,0,.016-.016.033a2.875,2.875,0,0,1-.147.328c-.066-.459-.147-1.065-.229-1.655-.082-.656-.164-1.295-.213-1.721a.092.092,0,0,0-.1-.082h-1.557a.1.1,0,0,0-.1.082c-.049.426-.131,1.065-.213,1.721-.082.59-.164,1.2-.229,1.655a2.872,2.872,0,0,1-.147-.328c0-.016-.016-.016-.016-.033-.344-1-.7-2-1.016-3.016-.262-.852-.492-1.721-.721-2.59-.016-.066-.033-.115-.049-.18-.131.016-4.934,1.639-4.934,1.639-2.065.688-1.951,2.081-1.951,2.081V430.2c.2,1.688,1.491,1.655,1.491,1.655h17.34s1.295.033,1.491-1.655v-2.754s.115-1.393-1.967-2.082Z"
@@ -43,15 +43,15 @@
           </div>
         </div>
       </div>
-      <div class="col">
+      <div class="col-md mb-15-sm">
         <div class="card">
           <a class="card-body d-flex align-items-center justify-content-between"
             [routerLink]="['/admin', 'tutor', 'current']" [queryParams]="{tab: 1}">
             <div>
               <h2>Active</h2>
-              <span>{{ view?.tutorCounts?.active }}</span>
+              <span class="f-size-17-md-sm">{{ view?.tutorCounts?.active }}</span>
             </div>
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20.326 20.487">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20.326 20.487" class="w-40-px-sm h-40-px-sm">
               <g id="Teacher" transform="translate(-146.574 -144.762)">
                 <path id="Path_339" data-name="Path 339"
                   d="M164.933,425.369s-4.786-1.623-4.934-1.639c-.016.066-.033.131-.049.18-.229.869-.459,1.737-.721,2.59-.311,1.016-.672,2.016-1.016,3.016,0,.016,0,.016-.016.033a2.875,2.875,0,0,1-.147.328c-.066-.459-.147-1.065-.229-1.655-.082-.656-.164-1.295-.213-1.721a.092.092,0,0,0-.1-.082h-1.557a.1.1,0,0,0-.1.082c-.049.426-.131,1.065-.213,1.721-.082.59-.164,1.2-.229,1.655a2.872,2.872,0,0,1-.147-.328c0-.016-.016-.016-.016-.033-.344-1-.7-2-1.016-3.016-.262-.852-.492-1.721-.721-2.59-.016-.066-.033-.115-.049-.18-.131.016-4.934,1.639-4.934,1.639-2.065.688-1.951,2.081-1.951,2.081V430.2c.2,1.688,1.491,1.655,1.491,1.655h17.34s1.295.033,1.491-1.655v-2.754s.115-1.393-1.967-2.082Z"
@@ -67,15 +67,15 @@
           </a>
         </div>
       </div>
-      <div class="col">
+      <div class="col-md mb-15-sm">
         <div class="card">
           <a class="card-body d-flex align-items-center justify-content-between"
             [routerLink]="['/admin', 'tutor', 'current']" [queryParams]="{tab: 2}">
             <div>
               <h2>Inactive</h2>
-              <span>{{ view?.tutorCounts?.inactive }}</span>
+              <span class="f-size-17-md-sm">{{ view?.tutorCounts?.inactive }}</span>
             </div>
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20.326 20.487">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20.326 20.487" class="w-40-px-sm h-40-px-sm">
               <g id="Teacher" transform="translate(-146.574 -144.762)">
                 <path id="Path_339" data-name="Path 339"
                   d="M164.933,425.369s-4.786-1.623-4.934-1.639c-.016.066-.033.131-.049.18-.229.869-.459,1.737-.721,2.59-.311,1.016-.672,2.016-1.016,3.016,0,.016,0,.016-.016.033a2.875,2.875,0,0,1-.147.328c-.066-.459-.147-1.065-.229-1.655-.082-.656-.164-1.295-.213-1.721a.092.092,0,0,0-.1-.082h-1.557a.1.1,0,0,0-.1.082c-.049.426-.131,1.065-.213,1.721-.082.59-.164,1.2-.229,1.655a2.872,2.872,0,0,1-.147-.328c0-.016-.016-.016-.016-.033-.344-1-.7-2-1.016-3.016-.262-.852-.492-1.721-.721-2.59-.016-.066-.033-.115-.049-.18-.131.016-4.934,1.639-4.934,1.639-2.065.688-1.951,2.081-1.951,2.081V430.2c.2,1.688,1.491,1.655,1.491,1.655h17.34s1.295.033,1.491-1.655v-2.754s.115-1.393-1.967-2.082Z"
@@ -91,15 +91,15 @@
           </a>
         </div>
       </div>
-      <div class="col">
+      <div class="col-md mb-15-sm">
         <div class="card">
           <a class="card-body d-flex align-items-center justify-content-between"
             [routerLink]="['/admin', 'tutor', 'pending']" [queryParams]="{tab: 0}">
             <div>
               <h2>Pending</h2>
-              <span>{{ view.tutorCounts?.pending }}</span>
+              <span class="f-size-17-md-sm">{{ view.tutorCounts?.pending }}</span>
             </div>
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20.326 20.487">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20.326 20.487" class="w-40-px-sm h-40-px-sm">
               <g id="Teacher" transform="translate(-146.574 -144.762)">
                 <path id="Path_339" data-name="Path 339"
                   d="M164.933,425.369s-4.786-1.623-4.934-1.639c-.016.066-.033.131-.049.18-.229.869-.459,1.737-.721,2.59-.311,1.016-.672,2.016-1.016,3.016,0,.016,0,.016-.016.033a2.875,2.875,0,0,1-.147.328c-.066-.459-.147-1.065-.229-1.655-.082-.656-.164-1.295-.213-1.721a.092.092,0,0,0-.1-.082h-1.557a.1.1,0,0,0-.1.082c-.049.426-.131,1.065-.213,1.721-.082.59-.164,1.2-.229,1.655a2.872,2.872,0,0,1-.147-.328c0-.016-.016-.016-.016-.033-.344-1-.7-2-1.016-3.016-.262-.852-.492-1.721-.721-2.59-.016-.066-.033-.115-.049-.18-.131.016-4.934,1.639-4.934,1.639-2.065.688-1.951,2.081-1.951,2.081V430.2c.2,1.688,1.491,1.655,1.491,1.655h17.34s1.295.033,1.491-1.655v-2.754s.115-1.393-1.967-2.082Z"
@@ -115,15 +115,15 @@
           </a>
         </div>
       </div>
-      <div class="col">
+      <div class="col-md mb-15-sm">
         <div class="card">
           <a class="card-body d-flex align-items-center justify-content-between"
             [routerLink]="['/admin', 'tutor', 'suspended']">
             <div>
               <h2>Suspended</h2>
-              <span>{{ view.tutorCounts?.suspended }}</span>
+              <span class="f-size-17-md-sm">{{ view.tutorCounts?.suspended }}</span>
             </div>
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20.326 20.487">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20.326 20.487" class="w-40-px-sm h-40-px-sm">
               <g id="Teacher" transform="translate(-146.574 -144.762)">
                 <path id="Path_339" data-name="Path 339"
                   d="M164.933,425.369s-4.786-1.623-4.934-1.639c-.016.066-.033.131-.049.18-.229.869-.459,1.737-.721,2.59-.311,1.016-.672,2.016-1.016,3.016,0,.016,0,.016-.016.033a2.875,2.875,0,0,1-.147.328c-.066-.459-.147-1.065-.229-1.655-.082-.656-.164-1.295-.213-1.721a.092.092,0,0,0-.1-.082h-1.557a.1.1,0,0,0-.1.082c-.049.426-.131,1.065-.213,1.721-.082.59-.164,1.2-.229,1.655a2.872,2.872,0,0,1-.147-.328c0-.016-.016-.016-.016-.033-.344-1-.7-2-1.016-3.016-.262-.852-.492-1.721-.721-2.59-.016-.066-.033-.115-.049-.18-.131.016-4.934,1.639-4.934,1.639-2.065.688-1.951,2.081-1.951,2.081V430.2c.2,1.688,1.491,1.655,1.491,1.655h17.34s1.295.033,1.491-1.655v-2.754s.115-1.393-1.967-2.082Z"
@@ -149,66 +149,68 @@
           <metutors-grid-placeholder></metutors-grid-placeholder>
         </div>
 
-        <table class="table my-table default-title mt-4" *ngSwitchCase="false">
-          <tr>
-            <th>Number</th>
-            <th>TIN</th>
-            <th>Teacher Name</th>
-            <th>Gender</th>
-            <th>Work Contract</th>
-            <th>Country</th>
-            <th>Level of Education</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-          <tr *ngIf="!view.tutors || !view.tutors?.length">
-            <td colspan="9">
-              <div class="text-center">No records found</div>
-            </td>
-          </tr>
-          <tr *ngFor="let tutor of view.tutors; let i = index">
-            <!--todo: put a proper fix-->
-            <td>{{ currentPage > 1 ? ((currentPage - 1) * perPage) + (i + 1) : (i+1) }}</td>
-            <td><a [routerLink]="['/admin', 'tutor', 'profile', tutor?.id]">{{ tutor?.idNumber }}</a></td>
-            <td>
-              <metutors-user-avatar [avatar]="tutor?.avatar" [type]="'small'"
-                                    [name]="tutor?.name" [routerLink]="['/admin', 'tutor', 'profile', tutor?.id]"
-                                    class="d-inline-block ps-0">
-              </metutors-user-avatar>
-            </td>
-            <td class="text-capitalize">{{ tutor?.gender }}</td>
-            <td class="text-capitalize tutor-date">
-              <div>
-                <span>From</span> {{ tutor?.specifications?.availabilityStartDate | date: 'YYYY-MM-dd' }}
-              </div>
-              <div>
-                <span>To</span> {{ tutor?.specifications?.availabilityEndDate | date: 'YYYY-MM-dd' }}
-              </div>
-            </td>
-            <td>{{ tutor?.country?.name }}</td>
-            <td>{{ tutor?.qualifications?.degreeLevel }}</td>
-            <td>
-              <div dropdown class="change-status position-relative d-flex">
-                <button dropdownToggle class="status text-capitalize" mat-button [ngClass]="tutor?.status">
-                 {{ tutor?.status }}
+        <div class="table-responsive" *ngSwitchCase="false">
+          <table class="table my-table default-title mt-4">
+            <tr>
+              <th>Number</th>
+              <th>TIN</th>
+              <th>Teacher Name</th>
+              <th>Gender</th>
+              <th>Work Contract</th>
+              <th>Country</th>
+              <th>Level of Education</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+            <tr *ngIf="!view.tutors || !view.tutors?.length">
+              <td colspan="9">
+                <div class="text-center">No records found</div>
+              </td>
+            </tr>
+            <tr *ngFor="let tutor of view.tutors; let i = index">
+              <!--todo: put a proper fix-->
+              <td>{{ currentPage > 1 ? ((currentPage - 1) * perPage) + (i + 1) : (i+1) }}</td>
+              <td><a [routerLink]="['/admin', 'tutor', 'profile', tutor?.id]">{{ tutor?.idNumber }}</a></td>
+              <td>
+                <metutors-user-avatar [avatar]="tutor?.avatar" [type]="'small'"
+                                      [name]="tutor?.name" [routerLink]="['/admin', 'tutor', 'profile', tutor?.id]"
+                                      class="d-inline-block ps-0">
+                </metutors-user-avatar>
+              </td>
+              <td class="text-capitalize">{{ tutor?.gender }}</td>
+              <td class="text-capitalize tutor-date">
+                <div>
+                  <span>From</span> {{ tutor?.specifications?.availabilityStartDate | date: 'YYYY-MM-dd' }}
+                </div>
+                <div>
+                  <span>To</span> {{ tutor?.specifications?.availabilityEndDate | date: 'YYYY-MM-dd' }}
+                </div>
+              </td>
+              <td>{{ tutor?.country?.name }}</td>
+              <td>{{ tutor?.qualifications?.degreeLevel }}</td>
+              <td>
+                <div dropdown class="change-status position-relative d-flex">
+                  <button dropdownToggle class="status text-capitalize" mat-button [ngClass]="tutor?.status">
+                  {{ tutor?.status }}
+                  </button>
+                  <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
+                    <ng-container *ngFor="let status of tutorStatuses">
+                    <li role="menuitem" class="cursor-pointer text-capitalize"
+                      [ngClass]="status" *ngIf="status !== tutor?.status" (click)="onOpenChangeStatusModal({oldStatus: tutor?.status, newStatus: status}, tutor)">
+                      {{ status === 'suspended' ? 'suspend' : status }}
+                    </li>
+                    </ng-container>
+                  </ul>
+                </div>
+              </td>
+              <td>
+                <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0" (click)="selectedTutor = tutor">
+                  <mat-icon>more_vert</mat-icon>
                 </button>
-                <ul *dropdownMenu class="dropdown-menu dropdown-menu-right statues p-0" role="menu">
-                  <ng-container *ngFor="let status of tutorStatuses">
-                  <li role="menuitem" class="cursor-pointer text-capitalize"
-                    [ngClass]="status" *ngIf="status !== tutor?.status" (click)="onOpenChangeStatusModal({oldStatus: tutor?.status, newStatus: status}, tutor)">
-                    {{ status === 'suspended' ? 'suspend' : status }}
-                  </li>
-                  </ng-container>
-                </ul>
-              </div>
-            </td>
-            <td>
-              <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0" (click)="selectedTutor = tutor">
-                <mat-icon>more_vert</mat-icon>
-              </button>
-            </td>
-          </tr>
-        </table>
+              </td>
+            </tr>
+          </table>
+        </div>
 
         <div class="d-flex mt-2 justify-content-center" *ngIf="view.tutorCounts?.total > view.tutors?.length">
           <pagination [totalItems]="view.tutorCounts?.total" [itemsPerPage]="perPage" [maxSize]="5"

@@ -24,6 +24,7 @@ export interface ICountry {
   id: number;
   name: string;
   flag: string;
+  iso2?: string;
   status?: number;
   updatedAt?: string;
 }

@@ -3,10 +3,10 @@
     <div class="row mb-3">
       <div class="col-md-4 d-flex align-items-center info">
         <div class="row w-100">
-          <div class="col-md-2 d-flex align-items-center">
+          <div class="col-md-2 col-3 d-flex align-items-center">
             <img [src]="interview?.tutor?.avatar" draggable="false" width="50" height="50" meTutorsDefaultAvatar alt="">
           </div>
-          <div class="col-md-10 d-flex justify-content-center flex-column">
+          <div class="col-md-10 col-9 d-flex justify-content-center flex-column">
             <h2 class="d-flex">
               <bdi>{{ interview?.tutor?.name }}</bdi>
             </h2>
@@ -46,20 +46,20 @@
             </strong>
           </div>
         </div>
-        <div class="row list-items md-item">
+        <div class="row list-items md-item mt-15-sm">
           <div class="col-md-2 text-main">Requested Interview:</div>
           <div class="col-md-2 d-flex menu align-items-center" *ngIf="interview?.interviewDate">
             <img src="assets/svg/calendar.svg" alt="" width="15" height="15" draggable="false">
-            <strong>{{ interview?.interviewDate | date: 'YYYY-MM-dd' }}</strong>
+            <strong class="f-size-17-md-sm">{{ interview?.interviewDate | date: 'YYYY-MM-dd' }}</strong>
           </div>
           <div class="col-md-4 d-flex menu align-items-center" *ngIf="interview?.interviewTime">
             <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
-            <strong>{{ interview?.interviewTime | date: 'h:mm a' }}</strong>
+            <strong class="f-size-17-md-sm">{{ interview?.interviewTime | date: 'h:mm a' }}</strong>
           </div>
         </div>
       </div>
-      <div class="col-md-2 d-flex justify-content-end align-items-end">
-        <button mat-flat-button color="primary" class="px-4 py-1 fw-bold"
+      <div class="col-md-2 d-flex justify-content-end align-items-end mt-15-sm">
+        <button mat-flat-button color="primary" class="px-4 py-1 fw-bold w-100-sm"
           [routerLink]="['/admin', 'tutor', 'interview', 'details', interview?.id]">View Details</button>
       </div>
     </div>

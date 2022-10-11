@@ -61,7 +61,7 @@
       <metutors-grid-placeholder></metutors-grid-placeholder>
     </div>
 
-    <ng-container *ngSwitchCase="false">
+    <div class="table-responsive" *ngSwitchCase="false">
       <table class="table my-table default-title mt-4 overflow-visible">
         <tr>
           <th>Number</th>
@@ -124,7 +124,7 @@
           </td>
         </tr>
       </table>
-    </ng-container>
+    </div>
   </ng-container>
 
   <div class="d-flex mt-2 justify-content-center" *ngIf="view.subjects?.length < view.pagination?.total">

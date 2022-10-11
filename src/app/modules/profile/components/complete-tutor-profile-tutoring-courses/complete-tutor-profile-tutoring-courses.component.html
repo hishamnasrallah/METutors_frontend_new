@@ -1,6 +1,6 @@
 <form [formGroup]="form" (ngSubmit)="submitFormData()" class="w-100 p-10-sm">
   <div>
-    <h4 class="mb-5 heading text-center f-size-18-md-sm mb-15-sm text-uppercase">Add subjects you teach</h4>
+    <h4 class="mb-5 heading text-center f-size-18-md-sm mb-15-sm text-uppercase">{{ 'ADD_SUBJECT_TEACH' | translate }}</h4>
 
     <div class="row" formArrayName="programs">
       <ng-container *ngFor="let _ of programs.controls; let i = index" [formGroupName]="i">
@@ -8,7 +8,7 @@
           <div class="form-group">
             <div class="d-flex justify-content-between">
             <label class="form-label">
-              Program Name <span>(you can select multiple)</span>
+              {{ 'PROGRAM_NAME' | translate }} <span>({{ 'U_SELECT_MULTIPLE' | translate }})</span>
             </label>
             <span class="actions">
                <span class="d-flex">
@@ -19,14 +19,14 @@
 
                 <a class="float-end cursor-pointer" *ngIf="i === 0 && programs.controls.length < (programsList?.length || 0)"
                    (click)="addProgram()">
-                    Add new
+                   {{ 'ADD_NEW' | translate }}
                 </a>
               </span>
             </span>
             </div>
 
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="programId" [placeholder]="'Select Program'"
+              <mat-select formControlName="programId" placeholder="{{ 'SELECT_PROGRAM' | translate }}"
                 (selectionChange)="onChangeProgram($event, i)">
                 <ng-container *ngFor="let program of programsList">
                   <mat-option [value]="program" [hidden]="!checkProgram(program.id)">
@@ -41,17 +41,17 @@
 
             <ng-container *ngIf="form.value.programs[i]?.programId?.id === nationalId">
               <label for="country" class="form-label mt-3">
-                Country for {{ form.value.programs[i]?.programId?.name }} Program
+                {{ 'COUNTRY_FOR' | translate }} {{ form.value.programs[i]?.programId?.name }} {{ 'PROGRAM_SM' | translate }}
               </label>
               <mat-form-field appearance="outline" class="w-100">
-                <mat-select id="country" formControlName="countries" [placeholder]="'Select Countries'" multiple
+                <mat-select id="country" formControlName="countries" placeholder="{{ 'SELECT_COUNTRIES' | translate }}" multiple
                   (selectionChange)="resetSubjects(i)">
                   <mat-option [value]="country?.id" *ngFor="let country of countries">{{ country?.name }}</mat-option>
                 </mat-select>
               </mat-form-field>
 
               <mat-form-field appearance="outline" class="w-100">
-                <mat-select formControlName="grades" [placeholder]="'Select Grades'" multiple
+                <mat-select formControlName="grades" placeholder="{{ 'SELECT_GRADES' | translate }}" multiple
                   (selectionChange)="resetSubjects(i)">
                   <mat-option [value]="i + 1" *ngFor="let grade of grades; let i = index">{{ grade }}</mat-option>
                 </mat-select>
@@ -63,11 +63,11 @@
         <div class="col-md-6">
           <div class="form-group">
             <div>
-              <label for="subjects" class="form-label">Fields of Study <span>(you can select multiple)</span></label>
+              <label for="subjects" class="form-label">{{ 'FIELD_STUDY' | translate }} <span>({{ 'U_SELECT_MULTIPLE' | translate }})</span></label>
             </div>
 
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="fields" [placeholder]="'Select Field of Study'" multiple *ngIf="!checkIfNoFieldsExists(i)">
+              <mat-select formControlName="fields" placeholder="{{ 'SELECT_FIELD_STUDY' | translate }}" multiple *ngIf="!checkIfNoFieldsExists(i)">
                 <ng-container *ngFor="let field of fields">
                   <mat-option [value]="field?.id" *ngIf="
                     (
@@ -88,12 +88,12 @@
                 </ng-container>
               </mat-select>
 
-              <mat-select [placeholder]="'Select Field of Study'" *ngIf="checkIfNoFieldsExists(i)">
-                <mat-option value="" disabled>No data found</mat-option>
+              <mat-select placeholder="{{ 'SELECT_FIELD_STUDY' | translate }}" *ngIf="checkIfNoFieldsExists(i)">
+                <mat-option value="" disabled>{{ 'NO_DATA_FOUND' | translate }}</mat-option>
               </mat-select>
             </mat-form-field>
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="subjects" [placeholder]="'Select Subject'" (selectionChange)="onChange(i)"
+              <mat-select formControlName="subjects" placeholder="{{ 'SELECT_SUBJECT' | translate }}" (selectionChange)="onChange(i)"
                           multiple *ngIf="!checkIfNoSubjectsExists(i)">
                 <ng-container *ngFor="let subject of subjects">
                   <!-- + subject?.countryFlag -->
@@ -121,51 +121,54 @@
                 </ng-container>
               </mat-select>
 
-              <mat-select [placeholder]="'Select Subject'" *ngIf="checkIfNoSubjectsExists(i)">
-                <mat-option value="" disabled>No data found</mat-option>
+              <mat-select placeholder="{{ 'SELECT_SUBJECT' | translate }}" *ngIf="checkIfNoSubjectsExists(i)">
+                <mat-option value="" disabled>{{ 'NO_DATA_FOUND' | translate }}</mat-option>
               </mat-select>
             </mat-form-field>
 
-            <table class="table my-table default-title"
-              *ngIf="form.value.programs[i].sortedSubjects && form.value.programs[i].sortedSubjects.length">
-              <ng-container *ngFor="let item of form.value.programs[i].sortedSubjects; let indexSubjects = index">
-                <tr>
-                  <th class="heading" [attr.colspan]="form.value.programs[i]?.programId?.id === nationalId ? '2' : '1'">
-                    <label>Program Name: </label> <span>
-                      {{ form.value.programs[i]?.programId?.name }}<ng-container
-                        *ngIf="form.value.programs[i]?.programId?.id === nationalId">, {{ item?.countryName }}
-                        <span *ngIf="item?.countryFlag" [innerHTML]="item?.countryFlag" class="ms-2"></span>
-                      </ng-container>
-                    </span>
-                  </th>
-                  <th class="heading text-end"><label>Field Name</label> <span>{{ item?.fieldName }}</span></th>
-                </tr>
-                <tr>
-                  <th class="sub-heading" [ngClass]="{'w-55': item?.programId !== nationalId, 'w-54': item?.programId === nationalId}">Subject Name</th>
-                  <th class="sub-heading w-20" *ngIf="form.value.programs[i]?.programId?.id === nationalId">Grade</th>
-                  <th class="sub-heading" [class.text-danger]="checkEmptySubjects(i, indexSubjects)">Enter Expected Hourly Rate (USD)</th>
-                </tr>
-                <tr *ngFor="let subject of item.subjects; let indexSubject = index">
-                  <td>{{ subject?.name }}</td>
-                  <td *ngIf="form.value.programs[i]?.programId?.id === nationalId">{{ subject?.gradeName }}</td>
-                  <td>
-                    <input type="text" meTutorsOnlyNumber [onlyNumber]="true" min="1" step="1" max="100" placeholder="Enter Hourly Rate " class="p-0 w-100"
-                      [value]="subject.pricePerHour" (change)="changePrice(i, indexSubjects, indexSubject, $event)">
-                  </td>
-                </tr>
-              </ng-container>
-            </table>
+            <div class="table-responsive" *ngIf="form.value.programs[i].sortedSubjects && form.value.programs[i].sortedSubjects.length">
+              <table class="table my-table default-title" >
+                <ng-container *ngFor="let item of form.value.programs[i].sortedSubjects; let indexSubjects = index">
+                  <tr>
+                    <th class="heading" [attr.colspan]="form.value.programs[i]?.programId?.id === nationalId ? '2' : '1'">
+                      <label>{{ 'PROGRAM_NAME' | translate }}: </label> <span>
+                        {{ form.value.programs[i]?.programId?.name }}<ng-container
+                          *ngIf="form.value.programs[i]?.programId?.id === nationalId">, {{ item?.countryName }}
+                          <span *ngIf="item?.countryFlag" [innerHTML]="item?.countryFlag" class="ms-2"></span>
+                        </ng-container>
+                      </span>
+                    </th>
+                    <th class="heading text-end"><label>{{ 'FIELD_NAME' | translate }}</label> <span>{{ item?.fieldName }}</span></th>
+                  </tr>
+                  <tr>
+                    <th class="sub-heading" [ngClass]="{'w-55': item?.programId !== nationalId, 'w-54': item?.programId === nationalId}">{{ 'SUBJECT_NAME' | translate }}</th>
+                    <th class="sub-heading w-20" *ngIf="form.value.programs[i]?.programId?.id === nationalId">{{ 'GRADE' | translate }}</th>
+                    <th class="sub-heading" [class.text-danger]="checkEmptySubjects(i, indexSubjects)">{{ 'ENTER_EXPECTED_HOURLY_RATE' | translate }}</th>
+                  </tr>
+                  <tr *ngFor="let subject of item.subjects; let indexSubject = index">
+                    <td>{{ subject?.name }}</td>
+                    <td *ngIf="form.value.programs[i]?.programId?.id === nationalId">{{ subject?.gradeName }}</td>
+                    <td>
+                      <input type="text" meTutorsOnlyNumber [onlyNumber]="true" min="1" step="1" max="100" placeholder="{{ 'ENTER_HOURLY_RATE' | translate }}" class="p-0 w-100"
+                        [value]="subject.pricePerHour" (change)="changePrice(i, indexSubjects, indexSubject, $event)">
+                    </td>
+                  </tr>
+                </ng-container>
+              </table>
+            </div>
           </div>
         </div>
       </ng-container>
     </div>
 
     <div class="d-flex align-items-center justify-content-between mt-4 mb-2">
-      <button class="main-button-transparent px-4" mat-button type="button" (click)="changeStep.emit(4)">Back</button>
+      <button class="main-button-transparent px-4" mat-button type="button" (click)="changeStep.emit(4)">
+        {{ 'BACK' | translate }}
+      </button>
 
       <metutors-submit-button [form]="form" [isDisabled]="!pricesLength || !subjectLength || pricesLength < subjectLength"
                               [isSubmitting]="loading" [extraClasses]="'w-100 fw-bold px-5'">
-        Finish
+        {{ 'Finish' | translate }}
       </metutors-submit-button>
     </div>
   </div>

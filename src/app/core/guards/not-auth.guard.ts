@@ -1,9 +1,9 @@
-import { CanActivate, Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import * as fromCore from '@metutor/core/state';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { CanActivate, Router } from '@angular/router';
 
 @Injectable()
 export class NotAuthGuard implements CanActivate {

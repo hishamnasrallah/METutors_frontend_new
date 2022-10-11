@@ -426,7 +426,6 @@ export class StudentAddCourseModalComponent implements OnInit {
   }
 
   printToCart(invoiceDetails: IInvoiceDetails): void {
-    console.log(this.course);
     const values = this.form.value;
     const popupWinindow = window.open(
       '',

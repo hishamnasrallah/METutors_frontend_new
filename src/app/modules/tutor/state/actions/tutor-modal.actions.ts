@@ -144,3 +144,11 @@ export const openKudosPointsModal = createAction(
 export const closeKudosPointsModal = createAction(
   '[Tutor Modal] Close Kudos Points Modal'
 );
+
+export const openResourcesUploadDocumentModal = createAction(
+  '[Tutor Modal] Open Resources Upload Document Modal'
+);
+
+export const closeResourcesUploadDocumentModal = createAction(
+  '[Tutor Modal] Close Resources Upload Document Modal'
+);

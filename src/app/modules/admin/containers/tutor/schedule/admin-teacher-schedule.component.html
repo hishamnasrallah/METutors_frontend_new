@@ -1,7 +1,7 @@
-<div class="tutor-schedule" *ngLet="(view$ | async) as view">
+<div class="tutor-schedule p-15-md-sm" *ngLet="(view$ | async) as view">
   <div class="row filters">
     <div class="col-md-3 d-flex align-items-center">
-      <h1>Teachers Schedule</h1>
+      <h1 class="f-size-18-md-sm mb-15-sm">Teachers Schedule</h1>
     </div>
     <div class="col-md-3">
       <mat-form-field appearance="outline" class="w-100">
@@ -32,47 +32,49 @@
 
   <div class="row" [ngSwitch]="view.loading">
     <div class="col-md-12" *ngSwitchCase="false">
-      <table class="table my-table default-title mt-4">
-        <tr>
-          <th>Number</th>
-          <th>Teacher Name</th>
-          <th *ngFor="let weekday of view.schedule.weekdays" [class.today]="checkIsToday(weekday.date)">
-            <div class="d-flex flex-column date-title">
-              <span>{{ weekday.day }}</span>
-              <strong>{{ weekday.date }}</strong>
-            </div>
-          </th>
-        </tr>
-        <tr *ngFor="let tutor of view.schedule.tutors; let i = index">
-          <td>{{ i + 1 }}</td>
-          <td>
-            <div class="d-flex align-items-center tutor-info p-0">
-              <img [src]="tutor.avatar" width="30" height="30" class="rounded-circle p-0 me-2" draggable="false"
-                meTutorsDefaultAvatar alt="">
-              <span class="d-flex flex-column">
-                <bdi>{{ tutor?.name }}</bdi>
-                <span>ID: <strong class="cursor-pointer"
-                    [routerLink]="['/admin', 'tutor', 'profile', tutor?.id]">{{ tutor?.idNumber }}</strong></span>
-              </span>
-            </div>
-          </td>
-          <td *ngFor="let weekday of view.schedule.weekdays">
-            <div class="card-block d-flex flex-column" *ngFor="let card of tutor.classes[weekday.day | lowercase]">
-              <span class="sin cursor-pointer" *ngIf="card?.student?.id"
-                [routerLink]="['/admin','student', 'profile', card?.student?.id]">(SIN{{ card?.student?.id }})</span>
-              <span class="bin cursor-pointer" *ngIf="card?.courseId"
-                [routerLink]="['/admin','tutor', card?.teacherId, 'booking-detail', card?.courseId]">(BIN{{ card?.courseId }})</span>
-              <span class="cin cursor-pointer" *ngIf="card?.course?.subjectId"
-                [routerLink]="'/admin/management/subject'">(CIN{{ card?.course?.subjectId }})</span>
+      <div class="table-responsive">
+        <table class="table my-table default-title mt-4">
+          <tr>
+            <th>Number</th>
+            <th>Teacher Name</th>
+            <th *ngFor="let weekday of view.schedule.weekdays" [class.today]="checkIsToday(weekday.date)">
+              <div class="d-flex flex-column date-title">
+                <span>{{ weekday.day }}</span>
+                <strong>{{ weekday.date }}</strong>
+              </div>
+            </th>
+          </tr>
+          <tr *ngFor="let tutor of view.schedule.tutors; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>
+              <div class="d-flex align-items-center tutor-info p-0">
+                <img [src]="tutor.avatar" width="30" height="30" class="rounded-circle p-0 me-2" draggable="false"
+                  meTutorsDefaultAvatar alt="">
+                <span class="d-flex flex-column">
+                  <bdi>{{ tutor?.name }}</bdi>
+                  <span>ID: <strong class="cursor-pointer"
+                      [routerLink]="['/admin', 'tutor', 'profile', tutor?.id]">{{ tutor?.idNumber }}</strong></span>
+                </span>
+              </div>
+            </td>
+            <td *ngFor="let weekday of view.schedule.weekdays">
+              <div class="card-block d-flex flex-column" *ngFor="let card of tutor.classes[weekday.day | lowercase]">
+                <span class="sin cursor-pointer" *ngIf="card?.student?.id"
+                  [routerLink]="['/admin','student', 'profile', card?.student?.id]">(SIN{{ card?.student?.id }})</span>
+                <span class="bin cursor-pointer" *ngIf="card?.courseId"
+                  [routerLink]="['/admin','tutor', card?.teacherId, 'booking-detail', card?.courseId]">(BIN{{ card?.courseId }})</span>
+                <span class="cin cursor-pointer" *ngIf="card?.course?.subjectId"
+                  [routerLink]="'/admin/management/subject'">(CIN{{ card?.course?.subjectId }})</span>
 
-              <strong class="mt-2 d-block">{{ card?.startTime | date:'h:mm a' }} to {{ card?.endTime | date:'h:mm a' }}</strong>
-            </div>
-          </td>
-        </tr>
-        <tr *ngIf="!view.schedule.tutors || !view.schedule.tutors.length">
-          <td colspan="9" class="text-center">No records found</td>
-        </tr>
-      </table>
+                <strong class="mt-2 d-block">{{ card?.startTime | date:'h:mm a' }} to {{ card?.endTime | date:'h:mm a' }}</strong>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="!view.schedule.tutors || !view.schedule.tutors.length">
+            <td colspan="9" class="text-center">No records found</td>
+          </tr>
+        </table>
+      </div>
 
       <div class="d-flex mt-2 justify-content-center" *ngIf="view.schedule?.total > view.schedule.tutors?.length">
         <pagination [totalItems]="view.schedule?.total" [itemsPerPage]="perPage" [maxSize]="5"

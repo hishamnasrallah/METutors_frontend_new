@@ -1,5 +1,6 @@
 import moment from 'moment';
 import { DatePipe } from '@angular/common';
+import { TranslateService } from '@ngx-translate/core';
 import { ICity, ICountry, ITutor } from '@metutor/core/models';
 import { AlertNotificationService } from '@metutor/core/components';
 import {
@@ -173,6 +174,7 @@ export class TutorSettingsProfileComponent implements OnInit {
     private _fb: FormBuilder,
     private _dialog: MatDialog,
     private _datePipe: DatePipe,
+    private _translate: TranslateService,
     private _alertNotificationService: AlertNotificationService
   ) {
     this.personalInfoForm = this._fb.group({
@@ -534,13 +536,17 @@ export class TutorSettingsProfileComponent implements OnInit {
       const mimeType = event.target.files[0].type;
 
       if (mimeType.match(/image\/*/) == null) {
-        this._alertNotificationService.error('Only images are allowed');
+        this._translate.get('ONLY_IMAGES_ALLOWED').subscribe((res: string) => {
+          this._alertNotificationService.error(res);
+        });
 
         return;
       }
 
       if (file[0].size > 2 * 1024 * 1024) {
-        this._alertNotificationService.error('Allowed file size is 2MB');
+        this._translate.get('ALLOWED_SIZE_2MB').subscribe((res: string) => {
+          this._alertNotificationService.error(res);
+        });
 
         return;
       }
@@ -556,13 +562,17 @@ export class TutorSettingsProfileComponent implements OnInit {
       const mimeType = event.target.files[0].type;
 
       if (mimeType.match(/image\/*/) == null) {
-        this._alertNotificationService.error('Only images are allowed');
+        this._translate.get('ONLY_IMAGES_ALLOWED').subscribe((res: string) => {
+          this._alertNotificationService.error(res);
+        });
 
         return;
       }
 
       if (file[0].size > 2 * 1024 * 1024) {
-        this._alertNotificationService.error('Allowed file size is 2MB');
+        this._translate.get('ALLOWED_SIZE_2MB').subscribe((res: string) => {
+          this._alertNotificationService.error(res);
+        });
 
         return;
       }

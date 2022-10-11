@@ -5,36 +5,34 @@
     </a>
 
     <span class="step">
-      Step {{ step$ | async }} of 5
+      {{ 'STEP' | translate }} {{ step$ | async }} {{ 'OF_5' | translate }}
     </span>
   </div>
 
-  <a routerLink="/" class="exit">
-    Save & Exit
-  </a>
+  <a routerLink="/" class="exit">{{ 'SAVE_EXIT' | translate }}</a>
 </header>
 
 <div class="container py-5 p-10-sm" *ngLet="(step$ | async) as step">
   <div class="row h-100">
     <div class="col-md-12 align-items-center">
-      <h1 class="heading text-center mb-4 f-size-20-md-sm mb-15-sm">Complete Account Information </h1>
+      <h1 class="heading text-center mb-4 f-size-20-md-sm mb-15-sm">{{ 'COMPLETE_ACCOUNT_INFORMATION' | translate }}</h1>
 
       <div class="steps mb-5 mb-15-sm">
         <ul class="list-unstyled list-inline text-center">
           <li class="list-inline-item w-100-sm" [ngClass]="{ 'active': step === 1 }">
-            <span>Personal Information</span>
+            <span>{{ 'PERSONAL_INFORMATION' | translate }}</span>
           </li>
           <li class="list-inline-item w-100-sm" [ngClass]="{ 'active': step === 2 }">
-            <span>Profile Picture</span>
+            <span>{{ 'PROFILE_PICTURE' | translate }}</span>
           </li>
           <li class="list-inline-item w-100-sm" [ngClass]="{ 'active': step === 3 }">
-            <span>Qualification Details</span>
+            <span>{{ 'QUALIFICATION_DETAILS' | translate }}</span>
           </li>
           <li class="list-inline-item w-100-sm" [ngClass]="{ 'active': step === 4 }">
-            <span>Teaching Preferences</span>
+            <span>{{ 'TEACHING_PREFERENCES' | translate }}</span>
           </li>
           <li class="list-inline-item w-100-sm" [ngClass]="{ 'active': step === 5 }">
-            <span>Tutoring Courses</span>
+            <span>{{ 'TUTORING_COURSES' | translate }}</span>
           </li>
         </ul>
       </div>

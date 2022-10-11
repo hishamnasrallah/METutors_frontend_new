@@ -62,6 +62,8 @@ export class TutorSettingsUserPreferencesComponent implements OnInit {
 
   removeLanguage(i: number): void {
     (this.form?.get('languages') as FormArray).removeAt(i);
+    this.languages.markAsDirty();
+    this.languages.updateValueAndValidity();
   }
 
   newLanguage(language?: any): FormGroup {

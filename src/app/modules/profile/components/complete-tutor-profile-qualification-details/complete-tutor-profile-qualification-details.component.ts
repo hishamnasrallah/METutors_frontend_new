@@ -1,7 +1,15 @@
 import { Store } from '@ngrx/store';
 import { tap } from 'rxjs/operators';
+import { UploadService } from '@services';
 import { Observable, Subscription } from 'rxjs';
+import * as fromCore from '@metutor/core/state';
 import { HttpEventType } from '@angular/common/http';
+import { TranslateService } from '@ngx-translate/core';
+import { ILanguage, ITutor } from 'src/app/core/models';
+import { environment } from 'src/environments/environment';
+import * as fromProfile from '@metutor/modules/profile/state';
+import { AlertNotificationService } from '@metutor/core/components';
+import * as fromProfileActions from '@metutor/modules/profile/state/actions';
 
 import {
   Input,
@@ -11,14 +19,6 @@ import {
   OnDestroy,
   EventEmitter,
 } from '@angular/core';
-
-import { UploadService } from '@services';
-import * as fromCore from '@metutor/core/state';
-import { ILanguage, ITutor } from 'src/app/core/models';
-import { environment } from 'src/environments/environment';
-import * as fromProfile from '@metutor/modules/profile/state';
-import { AlertNotificationService } from '@metutor/core/components';
-import * as fromProfileActions from '@metutor/modules/profile/state/actions';
 
 import {
   FormArray,
@@ -81,6 +81,10 @@ export class CompleteTutorProfileQualificationDetailsComponent
           (signature) => signature.document === 'onboarding'
         );
 
+        this._store.dispatch(
+          fromCore.tutorSetSignature({ signature: signature?.url })
+        );
+
         this.signatureUploadInfo = {
           ...this.signatureUploadInfo,
           ...signature,
@@ -116,6 +120,7 @@ export class CompleteTutorProfileQualificationDetailsComponent
   uploadingVideo: boolean;
   skills = COMPUTER_SKILLS;
   degreeLevels = DEGREE_LEVELS;
+  signature$: Observable<string>;
   addingSignature$: Observable<any>;
   experiences = TEACHING_EXPERIENCE;
   fileUploadProgress$: Observable<any>;
@@ -150,6 +155,7 @@ export class CompleteTutorProfileQualificationDetailsComponent
   constructor(
     private _fb: FormBuilder,
     private _store: Store<any>,
+    private _translate: TranslateService,
     private _uploadService: UploadService,
     private _alertNotificationService: AlertNotificationService
   ) {
@@ -181,6 +187,7 @@ export class CompleteTutorProfileQualificationDetailsComponent
       fromProfile.selectShowViewDocumentModal
     );
 
+    this.signature$ = this._store.select(fromCore.selectTutorSignature);
     this.addingSignature$ = this._store.select(fromCore.selectTutorLoading);
 
     this.fileUploadProgress$ = this._store
@@ -334,13 +341,17 @@ export class CompleteTutorProfileQualificationDetailsComponent
       const mimeType = event.target.files[0].type;
 
       if (mimeType.match(/video\/*/) == null) {
-        this._alertNotificationService.error('Only Videos are allowed');
+        this._translate.get('ONLY_VIDEOS_ALLOWED').subscribe((res: string) => {
+          this._alertNotificationService.error(res);
+        });
 
         return;
       }
 
       if (file.size > 120 * 1024 * 1024) {
-        this._alertNotificationService.error('Allowed file size is 120MB');
+        this._translate.get('ALLOWED_SIZE_120MB').subscribe((res: string) => {
+          this._alertNotificationService.error(res);
+        });
 
         return;
       }
@@ -366,24 +377,28 @@ export class CompleteTutorProfileQualificationDetailsComponent
       files = [...event.target.files];
       const mimeType = files[0].type;
       const ext = files[0].name.split('.').pop().toLowerCase();
-      console.log(ext);
 
       if (this.fileFormatError(ext, mimeType)) {
-        this._alertNotificationService.error(
-          'Only excel, doc, pdf and image are allowed'
-        );
+        this._translate.get('ONLY_FILE_ALLOWED').subscribe((res: string) => {
+          this._alertNotificationService.error(res);
+        });
+
         return;
       }
 
       if (this.resume?.value?.length + files.length > 1) {
-        this._alertNotificationService.error('You can only upload one resume');
+        this._translate.get('UPLOAD_ONE_RESUME').subscribe((res: string) => {
+          this._alertNotificationService.error(res);
+        });
 
         return;
       }
 
       files.forEach((file: any, index: number) => {
         if (file.size > 5 * 1024 * 1024) {
-          this._alertNotificationService.error('Allowed file size is 5MB');
+          this._translate.get('ALLOWED_SIZE_5MB').subscribe((res: string) => {
+            this._alertNotificationService.error(res);
+          });
 
           return;
         }
@@ -475,22 +490,26 @@ export class CompleteTutorProfileQualificationDetailsComponent
       });
 
       if (fileFormatError) {
-        this._alertNotificationService.error(
-          'Only excel, doc, pdf and image are allowed'
-        );
+        this._translate.get('ONLY_FILE_ALLOWED').subscribe((res: string) => {
+          this._alertNotificationService.error(res);
+        });
 
         return;
       }
 
       if (this.degrees?.value?.length + files.length > 10) {
-        this._alertNotificationService.error('Maximum allowed files are 10');
+        this._translate.get('MAXIMUM_ALLOWED_FILES_10').subscribe((res: string) => {
+          this._alertNotificationService.error(res);
+        });
 
         return;
       }
 
       files.forEach((file: any, index: number) => {
         if (file.size > 5 * 1024 * 1024) {
-          this._alertNotificationService.error('Allowed file size is 5MB');
+          this._translate.get('ALLOWED_SIZE_5MB').subscribe((res: string) => {
+            this._alertNotificationService.error(res);
+          });
 
           return;
         }
@@ -552,22 +571,26 @@ export class CompleteTutorProfileQualificationDetailsComponent
       });
 
       if (fileFormatError) {
-        this._alertNotificationService.error(
-          'Only excel, doc, pdf and image are allowed'
-        );
+        this._translate.get('ONLY_FILE_ALLOWED').subscribe((res: string) => {
+          this._alertNotificationService.error(res);
+        });
 
         return;
       }
 
       if (this.certificates?.value?.length + files.length > 10) {
-        this._alertNotificationService.error('Maximum allowed files are 10');
+        this._translate.get('MAXIMUM_ALLOWED_FILES_10').subscribe((res: string) => {
+          this._alertNotificationService.error(res);
+        });
 
         return;
       }
 
       files.forEach((file: any, index: number) => {
         if (file.size > 5 * 1024 * 1024) {
-          this._alertNotificationService.error('Allowed file size is 5MB');
+          this._translate.get('ALLOWED_SIZE_5MB').subscribe((res: string) => {
+            this._alertNotificationService.error(res);
+          });
 
           return;
         }

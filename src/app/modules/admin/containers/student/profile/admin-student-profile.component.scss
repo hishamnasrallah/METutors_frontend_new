@@ -80,3 +80,9 @@
     }
   }
 }
+
+@media (max-width: 767px) {
+  .student-profile .basic-table tr td.text-end {
+    text-align: left;
+  }
+}

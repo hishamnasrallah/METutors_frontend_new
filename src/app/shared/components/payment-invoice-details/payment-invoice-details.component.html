@@ -30,7 +30,7 @@
   <li class="d-flex justify-content-between">
     <span class="f-size-15-md-sm">Total Hours </span>
     <strong class="f-size-15-md-sm">{{ invoiceDetails?.totalHours }}
-      hour{{ +(invoiceDetails?.totalHours)! > 1 ? 's' : '' }}</strong>
+      {{ +(invoiceDetails?.totalHours)! > 1 ? ('HOURS_SM' | translate) : ('HOUR_SM' | translate) }}</strong>
   </li>
   <li class="d-flex justify-content-between">
     <span class="f-size-15-md-sm">Hourly Rate</span>

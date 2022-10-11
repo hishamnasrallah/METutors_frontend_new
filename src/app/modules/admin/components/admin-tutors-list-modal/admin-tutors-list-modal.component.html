@@ -45,7 +45,7 @@
               </ng-container>
 
               <ng-container *ngIf="!tutors?.length">
-                <div class="text-center fw-bold">No record found!</div>
+                <div class="text-center fw-bold">No record found</div>
               </ng-container>
             </div>
           </ng-container>
@@ -90,7 +90,8 @@
             </div>
           </ng-container>
           <div class="mt-4 d-flex justify-content-end">
-            <button mat-flat-button color="primary" class="py-1 px-5 fw-bold" (click)="showAvailability = false; back.emit()">Back
+            <button mat-flat-button color="primary" class="py-1 px-5 fw-bold" (click)="showAvailability = false; back.emit()">
+              {{ 'BACK' | translate }}
             </button>
           </div>
         </ng-container>

@@ -25,25 +25,25 @@ export class StudyComponent implements OnInit {
         id: 1,
         icon: 'assets/svg/marketing.svg',
         value: '340',
-        type: 'Courses Created',
+        type: 'COURSES_CREATED',
       },
       {
         id: 1,
         icon: 'assets/svg/create-new.svg',
         value: '30K',
-        type: 'Students Enrolled',
+        type: 'Students enrolled',
       },
       {
         id: 1,
         icon: 'assets/svg/pen.svg',
         value: '10K',
-        type: 'Classrooms Attended',
+        type: 'Classrooms attended',
       },
       {
         id: 1,
         icon: 'assets/svg/headset.svg',
         value: '300+',
-        type: 'Teacher Profiles',
+        type: 'Teacher profiles',
       },
     ];
 

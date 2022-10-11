@@ -3,7 +3,7 @@
                 [template]="template">
   <ng-template #template>
     <form [formGroup]="form" (ngSubmit)="submitted.emit(form)">
-      <button class="btn delete" *ngIf="topic" type="button" (click)="deleted.emit(topic.id)"
+      <button class="btn delete-topic" *ngIf="topic" type="button" (click)="deleted.emit(topic.id)"
               [disabled]="isDeletingTopic" title="Delete Topic">
         <img src="assets/svg/delete.svg" alt="" draggable="false" />
         Delete
@@ -15,13 +15,22 @@
             <div class="row">
               <div class="mb-3">
                 <label for="topic" class="form-label">Enter Topic Name</label>
+                <metutors-char-counter [limit]="120" [controlName]="topicName"></metutors-char-counter>
                 <input type="text" class="form-control custom-input input-bordered" formControlName="name" id="topic"
                        placeholder="Enter Topic Name" autocomplete="off">
+                <div class="text-danger" *ngIf="topicName?.touched && topicName?.invalid">
+                  Please write topic name with a max of 120 characters
+                </div>
               </div>
               <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
+                <metutors-char-counter [limit]="250" [controlName]="description"></metutors-char-counter>
                 <textarea class="form-control custom-input input-bordered" id="description" rows="6" formControlName="description"
                           placeholder="Enter Description here"></textarea>
+
+                <div class="text-danger" *ngIf="description?.touched && description?.invalid">
+                  Please write description with a max of 250 characters
+                </div>
               </div>
               <div class="">
                 <label for="select-class" class="form-label">

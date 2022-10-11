@@ -69,10 +69,12 @@ import {
   StudentSettingsUserPrefrencesComponent,
   StudentAssignmentDetailsModalComponent,
   StudentTutorReAssignmentModalComponent,
+  StudentAddHighlightedTopicModalComponent,
   StudentCancelCourseSuccessModalComponent,
   StudentSettingsPaymentInformationComponent,
   StudentViewSubmittedAssignmentModalComponent,
 } from './components';
+import { MatSliderModule } from '@angular/material/slider';
 
 @NgModule({
   declarations: [
@@ -111,6 +113,7 @@ import {
     StudentAssignmentDetailsModalComponent,
     StudentTutorReAssignmentModalComponent,
     StudentCancelCourseSuccessModalComponent,
+    StudentAddHighlightedTopicModalComponent,
     StudentSettingsPaymentInformationComponent,
     StudentViewSubmittedAssignmentModalComponent,
   ],
@@ -144,6 +147,7 @@ import {
     NgxMaterialTimepickerModule,
     EffectsModule.forFeature(Object.values(studentEffects)),
     StoreModule.forFeature(featureKeys.studentFeatureKey, fromStudent.reducers),
+    MatSliderModule,
   ],
   exports: [StudentMakeupClassModalComponent],
 })

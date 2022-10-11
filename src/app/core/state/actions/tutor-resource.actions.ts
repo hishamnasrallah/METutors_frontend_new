@@ -71,3 +71,18 @@ export const deleteTutorResourceFailure = createAction(
   '[Tutor Resource] Delete Tutor Resource Failure',
   props<{ error: any }>()
 );
+
+export const uploadTutorResourceDocument = createAction(
+  '[Tutor Resource] Upload Tutor Resource Document',
+  props<{ body: any }>()
+);
+
+export const uploadTutorResourceDocumentSuccess = createAction(
+  '[Tutor Resource] Upload Tutor Resource Document Success',
+  props<{ document: any; message: string }>()
+);
+
+export const uploadTutorResourceDocumentFailure = createAction(
+  '[Tutor Resource] Upload Tutor Resource Document Failure',
+  props<{ error: any }>()
+);

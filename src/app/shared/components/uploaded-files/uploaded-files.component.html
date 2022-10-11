@@ -6,7 +6,7 @@
       <h5>{{ file?.size }}</h5>
     </div>
     <a [href]="file?.url" target="_blank" mat-button class="add-url" *ngIf="showDownloadFile">
-      Download
+      {{ 'DOWNLOAD' | translate }}
     </a>
 
     <mat-icon class="cursor-pointer ms-2 delete-icon file" *ngIf="showDeleteFile"

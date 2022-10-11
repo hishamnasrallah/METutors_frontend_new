@@ -1,25 +1,25 @@
 <div class="card about-me">
   <div class="card-body">
-    <h1 class="title">About Me</h1>
+    <h1 class="title">{{ 'ABOUT_ME' | translate }}</h1>
     <ng-container *ngIf="!isLoading">
       <p *ngIf="tutor?.bio">{{ tutor?.bio }}</p>
       <ul class="list-unstyled m-0">
         <li>
           <img src="assets/svg/place.svg" draggable="false" width="20" height="20" alt="" *ngIf="tutor?.country?.name">
-          <span>Country: {{ tutor?.country?.name }}</span>
+          <span>{{ 'COUNTRY' | translate }}: {{ tutor?.country?.name }}</span>
         </li>
         <li>
           <img src="assets/svg/website.svg" draggable="false" width="20" height="20" alt="" *ngIf="tutor?.nationality">
-          <span>Nationality: {{ tutor?.nationality }}</span>
+          <span>{{ 'NATIONALITY' | translate }}: {{ tutor?.nationality }}</span>
         </li>
         <li>
           <img src="assets/svg/gender.svg" draggable="false" width="20" height="20" alt="" *ngIf="tutor?.gender">
-          <span>Gender: {{ tutor?.gender }}</span>
+          <span>{{ 'GENDER' | translate }}: {{ tutor?.gender }}</span>
         </li>
         <li>
           <img src="assets/svg/date.svg" draggable="false" width="20" height="20" alt=""
             *ngIf="tutor?.interviewRequest?.updatedAt">
-          <span>Joined: {{ tutor?.interviewRequest?.updatedAt | date: 'MMMM y' }}</span>
+          <span>{{ 'JOINED' | translate }}: {{ tutor?.interviewRequest?.updatedAt | date: 'MMMM y' }}</span>
         </li>
       </ul>
     </ng-container>

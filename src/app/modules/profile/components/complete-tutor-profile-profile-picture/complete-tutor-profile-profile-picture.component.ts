@@ -1,6 +1,11 @@
+import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { tap } from 'rxjs/operators';
+import { isNil, omitBy } from 'lodash';
+import { generalConstants } from '@config';
 import { ITutor } from '@metutor/core/models';
+import * as fromCore from '@metutor/core/state';
+import { TranslateService } from '@ngx-translate/core';
 import { AlertNotificationService } from 'src/app/core/components';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
@@ -10,11 +15,6 @@ import {
   FormBuilder,
   AbstractControl,
 } from '@angular/forms';
-
-import { Observable } from 'rxjs';
-import { isNil, omitBy } from 'lodash';
-import { generalConstants } from '@config';
-import * as fromCore from '@metutor/core/state';
 
 @Component({
   selector: 'metutors-complete-tutor-profile-profile-picture',
@@ -54,6 +54,7 @@ export class CompleteTutorProfileProfilePictureComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private _store: Store<any>,
+    private _translate: TranslateService,
     private _alertNotificationService: AlertNotificationService
   ) {
     this.form = this._fb.group({
@@ -102,13 +103,17 @@ export class CompleteTutorProfileProfilePictureComponent implements OnInit {
       const mimeType = event.target.files[0].type;
 
       if (mimeType.match(/image\/*/) == null) {
-        this._alertNotificationService.error('Only images are allowed');
+        this._translate.get('ONLY_IMAGES_ALLOWED').subscribe((res: string) => {
+          this._alertNotificationService.error(res);
+        });
 
         return;
       }
 
       if (file.size > 2 * 1024 * 1024) {
-        this._alertNotificationService.error('Allowed file size is 2MB');
+        this._translate.get('ALLOWED_SIZE_2MB').subscribe((res: string) => {
+          this._alertNotificationService.error(res);
+        });
 
         return;
       }
@@ -127,13 +132,17 @@ export class CompleteTutorProfileProfilePictureComponent implements OnInit {
       const mimeType = event.target.files[0].type;
 
       if (mimeType.match(/image\/*/) == null) {
-        this._alertNotificationService.error('Only images are allowed');
+        this._translate.get('ONLY_IMAGES_ALLOWED').subscribe((res: string) => {
+          this._alertNotificationService.error(res);
+        });
 
         return;
       }
 
       if (file.size > 2 * 1024 * 1024) {
-        this._alertNotificationService.error('Allowed file size is 2MB');
+        this._translate.get('ALLOWED_SIZE_2MB').subscribe((res: string) => {
+          this._alertNotificationService.error(res);
+        });
 
         return;
       }
@@ -146,7 +155,7 @@ export class CompleteTutorProfileProfilePictureComponent implements OnInit {
     }
   }
 
-  deleteCover():void {
+  deleteCover(): void {
     this.cover?.setValue(null);
     this.cover?.markAsDirty();
     this.form.markAsDirty();

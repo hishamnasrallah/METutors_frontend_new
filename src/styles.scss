@@ -1033,12 +1033,24 @@ $ph-animation-duration: 0.8s !default;
 }
 
 @media (max-width: 767px) {
+  .my-table tr th {
+    font-size: 13px !important;
+  }
+
   .d-block-sm {
     display: block !important;
   }
 
   .d-flex-sm {
     display: flex !important;
+  }
+
+  .w-40-px-sm {
+    width: 40px !important;
+  }
+
+  .h-40-px-sm {
+    height: 40px !important;
   }
 
   .w-100-sm {
@@ -1081,12 +1093,20 @@ $ph-animation-duration: 0.8s !default;
     font-size: 15px !important;
   }
 
+  .f-size-20-sm {
+    font-size: 20px !important;
+  }
+
   .p-0-sm {
     padding: 0 !important;
   }
 
   .m-0-sm {
     margin: 0 !important;
+  }
+
+  .m-auto-sm {
+    margin: auto !important;
   }
 
   .p-10-sm {
@@ -1105,6 +1125,9 @@ $ph-animation-duration: 0.8s !default;
     padding: 15px !important;
   }
 
+  .mb-5-sm {
+    margin-bottom: 5px !important;
+  }
 }
 
 @media(max-width: 992px) {
@@ -1112,7 +1135,9 @@ $ph-animation-duration: 0.8s !default;
     font-size: 15px !important;
   }
 
-  .f-size-17-md-sm {
+  .f-size-17-md-sm,
+  .mat-tab-label,
+  .dialog .mat-dialog-title h2 {
     font-size: 17px !important;
   }
 

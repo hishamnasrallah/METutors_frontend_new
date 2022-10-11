@@ -13,7 +13,6 @@ import * as studentActions from '@metutor/core/state/actions/student.actions';
 
 import {
   selectStudent,
-  selectStudents,
   selectStudentDashboard,
   selectStudentPreferences,
 } from '@metutor/core/state';
@@ -182,6 +181,30 @@ export class StudentEffects {
           catchError((error) =>
             of(
               studentActions.loadStudentSyllabusFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  studentSyllabusAddEditTopic$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(studentActions.studentSyllabusAddEditTopic),
+      mergeMap(({ payload }) =>
+        this._studentService.studentSyllabusAddEditTopic(payload).pipe(
+          map((topic) =>
+            studentActions.studentSyllabusAddEditTopicSuccess({
+              id: payload?.id,
+              message: topic.message,
+              topic: camelcaseKeys(topic.highlighted_topic, { deep: true }),
+            })
+          ),
+          catchError((error) =>
+            of(
+              studentActions.studentSyllabusAddEditTopicFailure({
                 error: error?.error?.message || error?.error?.errors,
               })
             )
@@ -669,6 +692,7 @@ export class StudentEffects {
             studentActions.studentSubmitFeedbackSuccess,
             studentActions.studentSubmitAssignmentSuccess,
             studentActions.studentUpdatePreferencesSuccess,
+            studentActions.studentSyllabusAddEditTopicSuccess,
             studentActions.studentSubmitPlatformFeedbackSuccess,
           ]
         ),
@@ -692,6 +716,7 @@ export class StudentEffects {
             studentActions.studentSubmitFeedbackFailure,
             studentActions.studentSubmitAssignmentFailure,
             studentActions.studentUpdatePreferencesFailure,
+            studentActions.studentSyllabusAddEditTopicFailure,
             studentActions.studentSubmitPlatformFeedbackFailure,
           ]
         ),

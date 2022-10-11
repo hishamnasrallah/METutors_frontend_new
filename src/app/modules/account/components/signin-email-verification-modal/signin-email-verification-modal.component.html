@@ -1,6 +1,6 @@
 <metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'medium'"
                 [template]="template"
-                [heading]="'Email Verification'">
+                [heading]="'EMAIL_VERIFICATION'">
   <ng-template #template>
     <metutors-signup-email-verification [showHint]="false" [email]="email!"
                                         (resendEmail)="resendEmail.emit()"

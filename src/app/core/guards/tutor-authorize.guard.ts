@@ -4,11 +4,11 @@ import {
   RouterStateSnapshot,
   ActivatedRouteSnapshot,
 } from '@angular/router';
-import { select, Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
-import { Observable, of, filter, map } from 'rxjs';
+import { select, Store } from '@ngrx/store';
 import * as fromCore from '@metutor/core/state';
 import { InterviewStatus } from '@metutor/config';
+import { Observable, of, filter, map } from 'rxjs';
 
 @Injectable()
 export class TutorAuthorizeGuard implements CanActivate {

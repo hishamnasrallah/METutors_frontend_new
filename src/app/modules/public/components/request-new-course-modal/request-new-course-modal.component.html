@@ -4,7 +4,7 @@
     <form [formGroup]="form" class="request-course" (ngSubmit)="onSubmit(form)">
       <div class="row">
         <div class="col-md-6">
-          <h3>Program Name</h3>
+          <h3>{{ 'PROGRAM_NAME' | translate }}</h3>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="program" [placeholder]="'Choose Program'"
               (selectionChange)="onChangeProgram()">
@@ -16,10 +16,11 @@
           </mat-form-field>
         </div>
         <div class="col-md-6" *ngIf="program?.value === nationalId">
-          <h3>Select Country</h3>
+          <h3>{{ 'SELECT_COUNTRY' | translate }}</h3>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="country" [placeholder]="'Choose Country'">
               <mat-option [value]="country?.id" *ngFor="let country of countries">
+                <span [innerHTML]="country?.flag" class="me-1"></span>
                 {{ country?.name }}
               </mat-option>
             </mat-select>
@@ -80,12 +81,12 @@
         </div>
 
         <div class="col-md-6">
-          <h3>Email address</h3>
+          <h3>{{ 'EMAIL_ADDRESS' | translate }}</h3>
           <input type="email" class="custom-input w-100 input-bordered" id="email" placeholder="ku@pecafhuj.co.uk"
             formControlName="email" email>
 
           <div *ngIf="email?.invalid && email?.touched">
-            <small class="text-danger">Please write a valid email</small>
+            <small class="text-danger">{{ 'WRITE_VALID_EMAIL' | translate }}</small>
           </div>
         </div>
       </div>
@@ -95,7 +96,7 @@
 
         <metutors-submit-button [form]="form" [isSubmitting]="isSubmitting" [extraClasses]="'w-100'">
           Send Request
-          <mat-icon *ngIf="!isSubmitting">arrow_forward</mat-icon>
+          <mat-icon *ngIf="!isSubmitting" class="rotate-180-ar">arrow_forward</mat-icon>
         </metutors-submit-button>
       </div>
     </form>

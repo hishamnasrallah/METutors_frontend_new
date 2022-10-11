@@ -31,6 +31,14 @@ export class TutorAddSyllabusTopicModalComponent implements OnInit {
     this.classes?.setValue(val);
   }
 
+  get topicName(): AbstractControl | null {
+    return this.form.get('name');
+  }
+
+  get description(): AbstractControl | null {
+    return this.form.get('description');
+  }
+
   get classes(): AbstractControl | null {
     return this.form.get('classes');
   }
@@ -38,14 +46,17 @@ export class TutorAddSyllabusTopicModalComponent implements OnInit {
   ngOnInit(): void {
     this.form = this._formBuilder.group({
       topic_id: [this.topic ? this.topic?.id : null],
-      name: [this.topic ? this.topic?.name : null, Validators.required],
+      name: [
+        this.topic ? this.topic?.name : null,
+        [Validators.required, Validators.maxLength(120)],
+      ],
       classes: [
         this.topic ? this.topic?.classes?.length : null,
         Validators.required,
       ],
       description: [
         this.topic ? this.topic?.description : null,
-        Validators.required,
+        [Validators.required, Validators.maxLength(250)],
       ],
     });
   }

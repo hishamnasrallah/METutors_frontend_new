@@ -3,14 +3,14 @@
 <div class="dashboard p-15-md-sm">
   <ng-container *ngLet="(view$ | async) as view">
     <div class="row">
-      <div class="col-md-6">
-        <h2 class="overview f-size-18-md-sm">Overview</h2>
+      <div class="col-lg-6">
+        <h2 class="overview f-size-17-md-sm">Overview</h2>
         <p class="desc">
-          See insights on how your Progress has changed from <strong>{{ insightRange[range] }}</strong>
+          See your progress from the last <strong>{{ insightRange[range] }}</strong>
         </p>
       </div>
-      <div class="col-md-6">
-        <button mat-flat-button color="primary" class="float-end ms-2" (click)="onOpenFeedbackModal()">
+      <div class="col-lg-6">
+        <button mat-flat-button color="primary" class="float-end ms-2 mb-15-sm" (click)="onOpenFeedbackModal()">
           Send Feedback
         </button>
 
@@ -25,7 +25,7 @@
 
     <ng-container [ngSwitch]="view.loading">
       <div class="row list-cards" *ngSwitchCase="true">
-        <div class="col-md-3" *ngFor="let _ of [1,2,3,4]">
+        <div class="col-md-3 col-sm-6 mb-15-sm" *ngFor="let _ of [1,2,3,4]">
           <div class="ph-col-3">
             <div class="ph-avatar rounded"></div>
           </div>
@@ -33,33 +33,33 @@
       </div>
 
       <div class="row list-cards" *ngSwitchCase="false">
-        <div class="col-md-3">
+        <div class="col-md-3 col-sm-6 mb-15-sm">
           <div class="card">
             <div class="card-body d-flex flex-column">
-              <h3>Overall Progress</h3>
+              <h3>Course progress</h3>
               <h1 class="flex-grow-1">
                 {{ view.dashboard.totalProgress}}%
                 <span [ngClass]="{'danger': view.dashboard?.totalProgressGrowth < 0}">{{ view.dashboard?.totalProgressGrowth >= 0 ? '+'+view.dashboard?.totalProgressGrowth : view.dashboard?.totalProgressGrowth }}%</span>
               </h1>
-              <p>Compared to ({{ view.dashboard?.totalProgressLastCount }}% last {{ insightRange[range] }})</p>
+              <p>Compared to ({{ view.dashboard?.totalProgressLastCount }}% in the last {{ insightRange[range] }})</p>
               <mat-progress-bar class="example-margin" [color]="'primary'" [value]="view.dashboard.totalProgress">
               </mat-progress-bar>
             </div>
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3 col-sm-6 mb-15-sm">
           <div class="card orange-bo">
             <div class="card-body d-flex flex-column">
-              <h3>Total Completed Courses</h3>
+              <h3>Total number of courses</h3>
               <h1 class="flex-grow-1">
                 {{ view.dashboard.totalCompletedCourses }}
                 <span [ngClass]="{'danger': view.dashboard?.completedCoursesGrowth < 0}">{{ view.dashboard?.completedCoursesGrowth >= 0 ? '+'+view.dashboard?.completedCoursesGrowth : view.dashboard?.completedCoursesGrowth }}%</span>
               </h1>
-              <p>Compared to {{ view.dashboard?.completedCoursesLastCount }} courses last {{ insightRange[range] }}</p>
+              <p>Compared to {{ view.dashboard?.completedCoursesLastCount }} courses in the last {{ insightRange[range] }}</p>
             </div>
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3 col-sm-6 mb-15-sm">
           <div class="card red-bo">
             <div class="card-body d-flex flex-column">
               <h3>Attendance rate</h3>
@@ -67,11 +67,11 @@
                 {{ view?.dashboard?.attendenceRate }}%
                 <span [ngClass]="{'danger': view.dashboard?.attendenceGrowth < 0}">{{ view.dashboard?.attendenceGrowth >= 0 ? '+'+view.dashboard?.attendenceGrowth : view.dashboard?.attendenceGrowth }}%</span>
               </h1>
-              <p>Compared to ({{ view.dashboard?.attendenceRateLastCount }}% last {{ insightRange[range] }})</p>
+              <p>Compared to ({{ view.dashboard?.attendenceRateLastCount }}% in the last {{ insightRange[range] }})</p>
             </div>
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3 col-sm-6 mb-15-sm">
           <div class="card purple-bo">
             <div class="card-body d-flex flex-column">
               <h3>Total payment</h3>
@@ -79,67 +79,68 @@
                 {{ view?.dashboard?.totalPayment | metutorsMoney | async }}
                 <span [ngClass]="{'danger': view.dashboard?.paymentGrowth < 0}">{{ view.dashboard?.paymentGrowth >= 0 ? '+'+view.dashboard?.paymentGrowth : view.dashboard?.paymentGrowth}}%</span>
               </h1>
-              <p>Compared to ({{ view.dashboard?.paymentLastCount | metutorsMoney | async }} last {{ insightRange[range] }})</p>
+              <p>Compared to ({{ view.dashboard?.paymentLastCount | metutorsMoney | async }} in the last {{ insightRange[range] }})</p>
             </div>
           </div>
         </div>
       </div>
     </ng-container>
 
-
     <div class="row">
       <div class="col-12">
-        <h3 class="overview mb-3 f-size-18-md-sm mt-15-md-sm">Today's Classes - {{ view.dashboard?.todaysDate }}</h3>
+        <h3 class="overview mb-3 f-size-17-md-sm mt-15-md-sm">Today's classes - {{ view.dashboard?.todaysDate }}</h3>
         <ng-container [ngSwitch]="view.loading">
           <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
-          <table class="table my-table" *ngSwitchCase="false">
-            <tr>
-              <th>#</th>
-              <th>Class Subject</th>
-              <th>Class Tutor</th>
-              <th>Start Time - End Time</th>
-              <th>Duration</th>
-              <th></th>
-            </tr>
-            <tr *ngIf="!view.dashboard.todaysClasses.length">
-              <td colspan="6">
-                <div class="text-center">No record found</div>
-              </td>
-            </tr>
-            <ng-container *ngIf="view.dashboard.todaysClasses.length">
-              <tr *ngFor="let todaysClass of view.dashboard.todaysClasses; let i=index">
-                <td>{{ i + 1 }}</td>
-                <td>{{ todaysClass?.title }}</td>
-                <td>
-                  <metutors-user-avatar [avatar]="imageUrl+todaysClass?.course?.teacher?.avatar" [type]="'small'"
-                                        [name]="todaysClass?.course?.teacher?.firstName+' '+todaysClass?.course?.teacher?.lastName"
-                                        class="d-inline-block">
-                  </metutors-user-avatar>
-                </td>
-                <td>{{ todaysClass?.startTime | date:'h:mm a' }} - {{ todaysClass?.endTime | date:'h:mm a' }}</td>
-                <td>{{ todaysClass?.duration }}</td>
-                <td>
-                  <button mat-button class="main-button-opacity flex-grow-1 w-100" (click)="joinClass(todaysClass.id)"
-                          *ngIf="todaysClass?.status !== 'completed'" [disabled]="(isJoiningClass$ | async)">
-                    <img src="assets/svg/play-fill.svg" draggable="false" alt="">
-                    Join Class
-                  </button>
-                  <button mat-button class="main-button-opacity flex-grow-1 w-100" (click)="viewClass(todaysClass.id)"
-                          *ngIf="todaysClass?.status === 'completed'" [disabled]="isLoadingViewClass$ | async">
-                    <img src="assets/svg/eye-fill.svg" draggable="false" alt="">
-                    View Class
-                  </button>
+          <div class="table-responsive" *ngSwitchCase="false">
+            <table class="table my-table">
+              <tr>
+                <th>#</th>
+                <th>Class Subject</th>
+                <th>Class Tutor</th>
+                <th>Start Time - End Time</th>
+                <th>Duration</th>
+                <th></th>
+              </tr>
+              <tr *ngIf="!view.dashboard.todaysClasses.length">
+                <td colspan="6">
+                  <div class="text-center">No record found</div>
                 </td>
               </tr>
-            </ng-container>
-          </table>
+              <ng-container *ngIf="view.dashboard.todaysClasses.length">
+                <tr *ngFor="let todaysClass of view.dashboard.todaysClasses; let i=index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ todaysClass?.title }}</td>
+                  <td>
+                    <metutors-user-avatar [avatar]="imageUrl+todaysClass?.course?.teacher?.avatar" [type]="'small'"
+                                          [name]="todaysClass?.course?.teacher?.firstName+' '+todaysClass?.course?.teacher?.lastName"
+                                          class="d-inline-block">
+                    </metutors-user-avatar>
+                  </td>
+                  <td>{{ todaysClass?.startTime | date:'h:mm a' }} - {{ todaysClass?.endTime | date:'h:mm a' }}</td>
+                  <td>{{ todaysClass?.duration }}</td>
+                  <td>
+                    <button mat-button class="main-button-opacity flex-grow-1 w-100" (click)="joinClass(todaysClass.id)"
+                            *ngIf="todaysClass?.status !== 'completed'" [disabled]="(isJoiningClass$ | async)">
+                      <img src="assets/svg/play-fill.svg" draggable="false" alt="">
+                      Join Class
+                    </button>
+                    <button mat-button class="main-button-opacity flex-grow-1 w-100" (click)="viewClass(todaysClass.id)"
+                            *ngIf="todaysClass?.status === 'completed'" [disabled]="isLoadingViewClass$ | async">
+                      <img src="assets/svg/eye-fill.svg" draggable="false" alt="">
+                      View Class
+                    </button>
+                  </td>
+                </tr>
+              </ng-container>
+            </table>
+          </div>
         </ng-container>
       </div>
     </div>
     <div class="row">
       <div class="col-12">
-        <h2 class="overview mt-5 f-size-18-md-sm mt-15-md-sm">Completed courses</h2>
-        <p class="desc">Quickly see Completed courses from <strong>{{ insightRange[range] }}</strong></p>
+        <h2 class="overview mt-5 f-size-17-md-sm mt-15-md-sm">Completed courses</h2>
+        <p class="desc">See your completed courses from the last <strong>{{ insightRange[range] }}</strong></p>
       </div>
       <div class="col-12">
         <div class="card">
@@ -193,7 +194,7 @@
               </owl-carousel-o>
 
               <ng-container *ngIf="!view.dashboard.completedCourses?.length">
-                <div class="text-center fw-bold p-xxl-5">No record found!</div>
+                <div class="text-center fw-bold p-xxl-5">No record found</div>
               </ng-container>
               </ng-container>
             </ng-container>

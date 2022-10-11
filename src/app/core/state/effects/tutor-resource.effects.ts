@@ -126,6 +126,29 @@ export class TutorResourceEffects {
     )
   );
 
+  uploadTutorResourceDocument$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorResourceActions.uploadTutorResourceDocument),
+      mergeMap(({ body }) =>
+        this._tutorService.uploadTutorResourceDocument(body).pipe(
+          map((resource) =>
+            tutorResourceActions.uploadTutorResourceDocumentSuccess({
+              message: resource.message,
+              document: camelcaseKeys(resource.document, { deep: true }),
+            })
+          ),
+          catchError((error) =>
+            of(
+              tutorResourceActions.uploadTutorResourceDocumentFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   successMessages$ = createEffect(
     () =>
       this._actions$.pipe(
@@ -134,6 +157,7 @@ export class TutorResourceEffects {
             tutorResourceActions.addTutorResourceSuccess,
             tutorResourceActions.editTutorResourceSuccess,
             tutorResourceActions.deleteTutorResourceSuccess,
+            tutorResourceActions.uploadTutorResourceDocumentSuccess,
           ]
         ),
         map(({ message }) => this._alertNotificationService.success(message))
@@ -151,6 +175,7 @@ export class TutorResourceEffects {
             tutorResourceActions.addTutorResourceFailure,
             tutorResourceActions.editTutorResourceFailure,
             tutorResourceActions.deleteTutorResourceFailure,
+            tutorResourceActions.uploadTutorResourceDocumentFailure,
           ]
         ),
         map((action) => {

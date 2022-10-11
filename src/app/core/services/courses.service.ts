@@ -11,8 +11,8 @@ import {
 } from '@angular/common/http';
 import {
   SORTED_DAYS_WEEK,
-  CLASSROOM_TOPICS_SCALE,
   AcademicTutoringTextbook,
+  CLASSROOM_TOPICS_SCALE_NUM,
 } from 'src/app/config';
 
 @Injectable({
@@ -366,7 +366,7 @@ export class CoursesService {
         JSON.stringify(
           value.topics.map((topic: any) => ({
             name: topic.name,
-            knowledge_scale: CLASSROOM_TOPICS_SCALE[topic.scale],
+            knowledge_scale: CLASSROOM_TOPICS_SCALE_NUM[topic.scale],
           }))
         )
       );

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/core/services';
+import { AlertNotificationService } from 'src/app/core/components';
 import {
-  AbstractControl,
-  FormBuilder,
   FormGroup,
   Validators,
+  FormBuilder,
+  AbstractControl,
 } from '@angular/forms';
-import { AlertNotificationService } from 'src/app/core/components';
-import { AuthService } from 'src/app/core/services';
 
 @Component({
   selector: 'metutors-forget-password',

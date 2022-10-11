@@ -1,11 +1,11 @@
 <ng-container *ngLet="(tutor$ | async) as tutor">
-  <div class="tutor-details">
+  <div class="tutor-details p-15-md-sm">
     <div class="card">
       <div class="card-body">
         <ng-container *ngIf="!(isLoading$ | async)">
           <div class="row">
             <div class="col-md-6">
-              <h1>Teacher Profile
+              <h1 class="f-size-18-md-sm">Teacher Profile
                 <span>({{ tutor?.idNumber }})</span>
                 <button mat-button class="active">Active</button>
               </h1>
@@ -39,11 +39,11 @@
                 <div class="col-md-2"><span class="joining">Joining Date:</span></div>
                 <div class="col-md-3 d-flex menu align-items-center" *ngIf="tutor?.interviewRequest?.interviewDate">
                   <img src="assets/svg/calendar.svg" alt="" width="15" height="15" draggable="false">
-                  <strong>{{ tutor?.interviewRequest?.interviewDate | date: 'YYYY-MM-dd' }}</strong>
+                  <strong class="f-size-15-md-sm">{{ tutor?.interviewRequest?.interviewDate | date: 'YYYY-MM-dd' }}</strong>
                 </div>
                 <div class="col-md-3 d-flex menu align-items-center" *ngIf="tutor?.interviewRequest?.interviewTime">
                   <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
-                  <strong>{{ tutor?.interviewRequest?.interviewTime | date: 'h:mm a' }}</strong>
+                  <strong class="f-size-15-md-sm">{{ tutor?.interviewRequest?.interviewTime | date: 'h:mm a' }}</strong>
                 </div>
               </div>
             </div>
@@ -56,55 +56,57 @@
                   width="50px" height="50px">
                 Personal Information
               </h3>
-              <table class="basic-table">
-                <tr>
-                  <td>First Name</td>
-                  <td><bdi>{{ tutor?.firstName }}</bdi></td>
-                </tr>
-                <tr *ngIf="tutor?.middleName">
-                  <td>Middle Name</td>
-                  <td><bdi>{{ tutor?.middleName }}</bdi></td>
-                </tr>
-                <tr>
-                  <td>Last Name</td>
-                  <td><bdi>{{ tutor?.lastName }}</bdi></td>
-                </tr>
-                <tr *ngIf="tutor?.email">
-                  <td>Email</td>
-                  <td>{{ tutor?.email }}</td>
-                </tr>
-                <tr *ngIf="tutor?.mobile">
-                  <td>Phone</td>
-                  <td>{{ tutor?.mobile }}</td>
-                </tr>
-                <tr *ngIf="tutor?.gender">
-                  <td>Gender</td>
-                  <td class="text-capitalize">{{ tutor?.gender }}</td>
-                </tr>
-                <tr *ngIf="tutor?.country">
-                  <td>Location</td>
-                  <td>
-                    {{ tutor?.country?.name }}
-                    <ng-container *ngIf="tutor?.city">, {{ tutor?.city }}</ng-container>
-                  </td>
-                </tr>
-                <tr *ngIf="tutor?.nationality">
-                  <td>Nationality</td>
-                  <td>{{ tutor?.nationality }}</td>
-                </tr>
-                <tr *ngIf="tutor?.dateOfBirth">
-                  <td>Date of Birth</td>
-                  <td>{{ tutor?.dateOfBirth }}</td>
-                </tr>
-                <tr *ngIf="tutor?.address">
-                  <td>Address</td>
-                  <td>{{ tutor?.address }}</td>
-                </tr>
-                <tr *ngIf="tutor?.postalCode">
-                  <td>Postal Code</td>
-                  <td>{{ tutor?.postalCode }}</td>
-                </tr>
-              </table>
+              <div class="table-responsive">
+                <table class="basic-table">
+                  <tr>
+                    <td>First Name</td>
+                    <td><bdi>{{ tutor?.firstName }}</bdi></td>
+                  </tr>
+                  <tr *ngIf="tutor?.middleName">
+                    <td>Middle Name</td>
+                    <td><bdi>{{ tutor?.middleName }}</bdi></td>
+                  </tr>
+                  <tr>
+                    <td>Last Name</td>
+                    <td><bdi>{{ tutor?.lastName }}</bdi></td>
+                  </tr>
+                  <tr *ngIf="tutor?.email">
+                    <td>Email</td>
+                    <td>{{ tutor?.email }}</td>
+                  </tr>
+                  <tr *ngIf="tutor?.mobile">
+                    <td>Phone</td>
+                    <td>{{ tutor?.mobile }}</td>
+                  </tr>
+                  <tr *ngIf="tutor?.gender">
+                    <td>Gender</td>
+                    <td class="text-capitalize">{{ tutor?.gender }}</td>
+                  </tr>
+                  <tr *ngIf="tutor?.country">
+                    <td>Location</td>
+                    <td>
+                      {{ tutor?.country?.name }}
+                      <ng-container *ngIf="tutor?.city">, {{ tutor?.city }}</ng-container>
+                    </td>
+                  </tr>
+                  <tr *ngIf="tutor?.nationality">
+                    <td>Nationality</td>
+                    <td>{{ tutor?.nationality }}</td>
+                  </tr>
+                  <tr *ngIf="tutor?.dateOfBirth">
+                    <td>Date of Birth</td>
+                    <td>{{ tutor?.dateOfBirth }}</td>
+                  </tr>
+                  <tr *ngIf="tutor?.address">
+                    <td>Address</td>
+                    <td>{{ tutor?.address }}</td>
+                  </tr>
+                  <tr *ngIf="tutor?.postalCode">
+                    <td>Postal Code</td>
+                    <td>{{ tutor?.postalCode }}</td>
+                  </tr>
+                </table>
+              </div>
             </div>
             <div class="col-md-7" *ngIf="tutor?.qualifications?.video">
               <metutors-video-player [videoSrc]="tutor?.qualifications?.video">
@@ -115,89 +117,97 @@
           <div class="row mt-3">
             <h3 class="title">Qualification Details</h3>
             <div class="col-md-6">
-              <table class="basic-table w-100">
-                <tr *ngIf="tutor?.qualifications?.nameOfUniversity">
-                  <td>University</td>
-                  <td>{{ tutor?.qualifications?.nameOfUniversity }}</td>
-                </tr>
-                <tr *ngIf="tutor?.qualifications?.degreeLevel">
-                  <td>Degree Level</td>
-                  <td>{{ tutor?.qualifications?.degreeLevel }}</td>
-                </tr>
-                <tr *ngIf="tutor?.qualifications?.degreeField">
-                  <td>Major (Field of Study)</td>
-                  <td>{{ tutor?.qualifications?.degreeField }}</td>
-                </tr>
-                <tr *ngIf="tutor?.languages && tutor?.languages?.length">
-                  <td>Spoken Languages</td>
-                  <td>
-                    <ng-container *ngFor="let lang of tutor?.languages; let isLast = last">
-                      {{ lang?.name }}<ng-container *ngIf="!isLast">, </ng-container>
-                    </ng-container>
-                  </td>
-                </tr>
-                <tr *ngIf="tutor?.qualifications?.currentEmployer">
-                  <td>Current Employer</td>
-                  <td>{{ tutor?.qualifications?.currentEmployer }}</td>
-                </tr>
-              </table>
+              <div class="table-responsive">
+                <table class="basic-table w-100">
+                  <tr *ngIf="tutor?.qualifications?.nameOfUniversity">
+                    <td>University</td>
+                    <td>{{ tutor?.qualifications?.nameOfUniversity }}</td>
+                  </tr>
+                  <tr *ngIf="tutor?.qualifications?.degreeLevel">
+                    <td>Degree Level</td>
+                    <td>{{ tutor?.qualifications?.degreeLevel }}</td>
+                  </tr>
+                  <tr *ngIf="tutor?.qualifications?.degreeField">
+                    <td>Major (Field of Study)</td>
+                    <td>{{ tutor?.qualifications?.degreeField }}</td>
+                  </tr>
+                  <tr *ngIf="tutor?.languages && tutor?.languages?.length">
+                    <td>Spoken Languages</td>
+                    <td>
+                      <ng-container *ngFor="let lang of tutor?.languages; let isLast = last">
+                        {{ lang?.name }}<ng-container *ngIf="!isLast">, </ng-container>
+                      </ng-container>
+                    </td>
+                  </tr>
+                  <tr *ngIf="tutor?.qualifications?.currentEmployer">
+                    <td>Current Employer</td>
+                    <td>{{ tutor?.qualifications?.currentEmployer }}</td>
+                  </tr>
+                </table>
+              </div>
             </div>
             <div class="col-md-6">
-              <table class="basic-table w-100">
-                <tr *ngIf="tutor?.qualifications?.computerSkills">
-                  <td>Computer Skills Level</td>
-                  <td>{{ tutor?.qualifications?.computerSkills }}</td>
-                </tr>
-                <tr *ngIf="tutor?.specifications?.typeOfTutoring">
-                  <td>Type</td>
-                  <td>{{ tutor?.specifications?.typeOfTutoring }}</td>
-                </tr>
-                <tr *ngIf="tutor?.qualifications?.teachingExperience">
-                  <td>Teaching Experience<span>(In Schools)</span></td>
-                  <td>{{ tutor?.qualifications?.teachingExperience }}</td>
-                </tr>
-                <tr *ngIf="tutor?.qualifications?.teachingExperienceOnline">
-                  <td>Teaching Experience<span>(Online)</span></td>
-                  <td>{{ tutor?.qualifications?.teachingExperienceOnline }}</td>
-                </tr>
-                <tr *ngIf="tutor?.qualifications?.currentTitle">
-                  <td>Current Title</td>
-                  <td>{{ tutor?.qualifications?.currentTitle }}</td>
-                </tr>
-              </table>
+              <div class="table-responsive">
+                <table class="basic-table w-100">
+                  <tr *ngIf="tutor?.qualifications?.computerSkills">
+                    <td>Computer Skills Level</td>
+                    <td>{{ tutor?.qualifications?.computerSkills }}</td>
+                  </tr>
+                  <tr *ngIf="tutor?.specifications?.typeOfTutoring">
+                    <td>Type</td>
+                    <td>{{ tutor?.specifications?.typeOfTutoring }}</td>
+                  </tr>
+                  <tr *ngIf="tutor?.qualifications?.teachingExperience">
+                    <td>Teaching Experience<span>(In Schools)</span></td>
+                    <td>{{ tutor?.qualifications?.teachingExperience }}</td>
+                  </tr>
+                  <tr *ngIf="tutor?.qualifications?.teachingExperienceOnline">
+                    <td>Teaching Experience<span>(Online)</span></td>
+                    <td>{{ tutor?.qualifications?.teachingExperienceOnline }}</td>
+                  </tr>
+                  <tr *ngIf="tutor?.qualifications?.currentTitle">
+                    <td>Current Title</td>
+                    <td>{{ tutor?.qualifications?.currentTitle }}</td>
+                  </tr>
+                </table>
+              </div>
             </div>
           </div>
 
           <div class="row mt-3">
             <h3 class="title">Teaching Preferences</h3>
             <div class="col-md-6">
-              <table class="basic-table w-100">
-                <tr *ngIf="tutor?.specifications?.levelOfEducation">
-                  <td>Level of Education</td>
-                  <td>{{ tutor?.specifications?.levelOfEducation }}</td>
-                </tr>
-                <tr *ngIf="tutor?.specifications?.typeOfTutoring">
-                  <td>Type of Tutoring</td>
-                  <td>{{ tutor?.specifications?.typeOfTutoring }}</td>
-                </tr>
-                <tr *ngIf="tutor?.availabilityDays && tutor?.availabilityDays?.length">
-                  <td>Days</td>
-                  <td>{{ tutor?.availabilityDays | metutorsDays: 'long': ' - ' }}</td>
-                </tr>
-              </table>
+              <div class="table-responsive">
+                <table class="basic-table w-100">
+                  <tr *ngIf="tutor?.specifications?.levelOfEducation">
+                    <td>Level of Education</td>
+                    <td>{{ tutor?.specifications?.levelOfEducation }}</td>
+                  </tr>
+                  <tr *ngIf="tutor?.specifications?.typeOfTutoring">
+                    <td>Type of Tutoring</td>
+                    <td>{{ tutor?.specifications?.typeOfTutoring }}</td>
+                  </tr>
+                  <tr *ngIf="tutor?.availabilityDays && tutor?.availabilityDays?.length">
+                    <td>Days</td>
+                    <td>{{ tutor?.availabilityDays | metutorsDays: 'long': ' - ' }}</td>
+                  </tr>
+                </table>
+              </div>
               <button mat-button class="edit-btn" (click)="onTutorAvailability(tutor?.id)">Day Availability</button>
             </div>
             <div class="col-md-6">
-              <table class="basic-table w-100">
-                <tr *ngIf="tutor?.specifications?.availabilityStartDate">
-                  <td>Expected Starting Date</td>
-                  <td>{{ tutor?.specifications?.availabilityStartDate | date: 'YYYY-MM-dd' }}</td>
-                </tr>
-                <tr *ngIf="tutor?.specifications?.availabilityEndDate">
-                  <td>Availability Ending Date</td>
-                  <td>{{ tutor?.specifications?.availabilityEndDate | date: 'YYYY-MM-dd' }}</td>
-                </tr>
-              </table>
+              <div class="table-responsive">
+                <table class="basic-table w-100">
+                  <tr *ngIf="tutor?.specifications?.availabilityStartDate">
+                    <td>Expected Starting Date</td>
+                    <td>{{ tutor?.specifications?.availabilityStartDate | date: 'YYYY-MM-dd' }}</td>
+                  </tr>
+                  <tr *ngIf="tutor?.specifications?.availabilityEndDate">
+                    <td>Availability Ending Date</td>
+                    <td>{{ tutor?.specifications?.availabilityEndDate | date: 'YYYY-MM-dd' }}</td>
+                  </tr>
+                </table>
+              </div>
             </div>
           </div>
 
@@ -207,30 +217,32 @@
               <button mat-button class="float-end edit-btn">Edit</button>
             </h3>
             <div class="col-md-6 mb-3" *ngFor="let item of tutor?.sortedSubjects; let indexSubjects = index">
-              <table class="table my-table default-title">
-                <tr>
-                  <th class="heading" [attr.colspan]="item?.programId === nationalId ? '2' : '1'">
-                    Program <span>
-                      {{ item?.programName }}<ng-container *ngIf="item?.programId === nationalId">,
-                        {{ item?.countryName }} <span *ngIf="item?.countryFlag" [innerHTML]="item?.countryFlag" class="ms-2"></span>
-                      </ng-container>
-                    </span>
-                  </th>
-                  <th class="heading text-end">Field Name <span>{{ item?.fieldName }}</span></th>
-                </tr>
-                <tr>
-                  <th>Field</th>
-                  <th *ngIf="item?.programId === nationalId">Grade</th>
-                  <th>Hourly Price (USD)</th>
-                </tr>
-                <tr *ngFor="let subject of item.subjects">
-                  <td>{{ subject?.subject }}</td>
-                  <td *ngIf="item?.programId === nationalId">{{ subject?.gradeName }}</td>
-                  <td>
-                    {{ subject?.pricePerHour }}
-                  </td>
-                </tr>
-              </table>
+              <div class="table-responsive">
+                <table class="table my-table default-title">
+                  <tr>
+                    <th class="heading" [attr.colspan]="item?.programId === nationalId ? '2' : '1'">
+                      Program <span>
+                        {{ item?.programName }}<ng-container *ngIf="item?.programId === nationalId">,
+                          {{ item?.countryName }} <span *ngIf="item?.countryFlag" [innerHTML]="item?.countryFlag" class="ms-2"></span>
+                        </ng-container>
+                      </span>
+                    </th>
+                    <th class="heading text-end">Field Name <span>{{ item?.fieldName }}</span></th>
+                  </tr>
+                  <tr>
+                    <th>Field</th>
+                    <th *ngIf="item?.programId === nationalId">Grade</th>
+                    <th>Hourly Price (USD)</th>
+                  </tr>
+                  <tr *ngFor="let subject of item.subjects">
+                    <td>{{ subject?.subject }}</td>
+                    <td *ngIf="item?.programId === nationalId">{{ subject?.gradeName }}</td>
+                    <td>
+                      {{ subject?.pricePerHour }}
+                    </td>
+                  </tr>
+                </table>
+              </div>
             </div>
           </div>
 

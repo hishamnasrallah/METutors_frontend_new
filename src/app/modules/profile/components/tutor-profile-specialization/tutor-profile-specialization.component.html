@@ -1,36 +1,19 @@
 <div class="card qualification">
   <div class="card-body">
-    <h1 class="title">Qualification Details</h1>
+    <h1 class="title">{{ 'QUALIFICATION_DETAILS' | translate }}</h1>
 
     <ul class="list-unstyled m-0" *ngIf="!isLoading">
       <li>
         <img src="assets/svg/qualification.svg" draggable="false" width="20" height="20" alt=""
           *ngIf="tutor?.qualifications?.degreeLevel">
-        <span>Degree Level: {{ tutor?.qualifications?.degreeLevel }}</span>
+        <span>{{ 'DEGREE_LEVEL' | translate }}: {{ tutor?.qualifications?.degreeLevel }}</span>
       </li>
       <li>
         <img src="assets/svg/computer.svg" draggable="false" width="20" height="20" alt=""
           *ngIf="tutor?.qualifications?.computerSkills">
-        <span>Computer Skills Level: {{ tutor?.qualifications?.computerSkills }}</span>
+        <span>{{ 'COMPUTER_SKILLS' | translate }}: {{ tutor?.qualifications?.computerSkills }}</span>
       </li>
     </ul>
-
-    <!-- <div class="list">
-      <h2>Degree Field/Major</h2>
-
-      <span>Geographics</span>
-      <span>Math</span>
-      <span>Science</span>
-      <span>Math</span>
-      <span>Geographics</span>
-      <span>Math</span>
-      <span>Science</span>
-      <span>Math</span>
-      <span>Geographics</span>
-      <span>Math</span>
-      <span>Science</span>
-      <span>Math</span>
-    </div> -->
 
     <div class="item" *ngIf="isLoading">
       <div class="ph-row">

@@ -120,3 +120,9 @@
     margin-right: 5px;
   }
 }
+
+@media (max-width: 767px) {
+  .classroom-item .class-btn {
+    line-height: normal;
+  }
+}

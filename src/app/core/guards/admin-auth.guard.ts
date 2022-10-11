@@ -45,7 +45,7 @@ export class AdminAuthGuard implements CanActivate {
 
     const jwtHelper = new JwtHelperService();
     const isExpired = jwtHelper.isTokenExpired(token);
-console.log(isExpired)
+
     if (!isExpired) {
       const user = camelcaseKeys(jwtHelper.decodeToken(token), {
         deep: true,

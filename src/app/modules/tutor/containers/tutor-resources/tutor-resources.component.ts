@@ -3,10 +3,16 @@ import { map } from 'rxjs/operators';
 import { Observable, combineLatest } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 
+import {
+  WEEK_DAYS,
+  courseStatusLabel,
+  AcademicTutoringTextbook,
+} from '@config';
+
 import * as fromCore from '@metutor/core/state';
-import { courseStatusLabel, WEEK_DAYS } from '@config';
 import * as fromTutor from '@metutor/modules/tutor/state';
 import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
+import { uploadTutorResourceDocument } from '@metutor/core/state';
 
 @Component({
   selector: 'metutors-tutor-resources',
@@ -18,11 +24,15 @@ export class TutorResourcesComponent implements OnInit {
   resourceId: number;
   heading = 'Add Resources';
 
+  teacherDocTab = true;
   statusLabel = courseStatusLabel;
+  uploadingDoc$: Observable<boolean>;
   isSavingResource$: Observable<boolean>;
   showConfirmModal$: Observable<boolean>;
+  showUploadDocModal$: Observable<boolean>;
   isDeletingResource$: Observable<boolean>;
   showAddClassResourceModal$: Observable<boolean>;
+  academicTutoringTextbook = AcademicTutoringTextbook;
   view$: Observable<{ loading: boolean; resources: any }>;
 
   constructor(private _store: Store<any>) {}
@@ -67,6 +77,14 @@ export class TutorResourcesComponent implements OnInit {
     this._store.dispatch(fromCore.deleteTutorResource({ id }));
   }
 
+  onOpenUploadDocModal(): void {
+    this._store.dispatch(fromTutorAction.openResourcesUploadDocumentModal());
+  }
+
+  onCloseUploadDocModal(): void {
+    this._store.dispatch(fromTutorAction.closeResourcesUploadDocumentModal());
+  }
+
   onSaveResource(data: any): void {
     const { resourceId, urls, files, description } = data;
 
@@ -85,6 +103,15 @@ export class TutorResourcesComponent implements OnInit {
     }
   }
 
+  onSubmitDocs(data: any, course_id: string): void {
+    const body = {
+      course_id,
+      ...data,
+    };
+
+    this._store.dispatch(fromCore.uploadTutorResourceDocument({ body }));
+  }
+
   ngOnInit(): void {
     this._store.dispatch(fromCore.loadTutorResources());
     this.showAddClassResourceModal$ = this._store.select(
@@ -95,12 +122,20 @@ export class TutorResourcesComponent implements OnInit {
       fromTutor.selectTutorConfirmModal
     );
 
+    this.showUploadDocModal$ = this._store.select(
+      fromTutor.selectUploadDocumentModal
+    );
+
     this.isSavingResource$ = this._store.select(
       fromCore.selectIsAddingTutorResources
     );
 
     this.isDeletingResource$ = this._store.select(
       fromCore.selectIsDeletingResource
+    );
+
+    this.uploadingDoc$ = this._store.select(
+      fromCore.selectUploadingResourceDoc
     );
 
     this.view$ = combineLatest([

@@ -1,4 +1,4 @@
-<div class="interview-documents">
+<div class="interview-documents p-15-md-sm">
   <div class="card">
     <div class="card-body" *ngLet="(view$ | async) as view">
       <h2>Submitted Documents</h2>
@@ -16,13 +16,13 @@
 
           <ng-container *ngSwitchCase="false">
             <ng-container *ngIf="!view.documents?.resume?.length">
-              <div class="col-md-12 text-center p-3">No Resume Found!</div>
+              <div class="col-md-12 text-center p-3">No resume found</div>
             </ng-container>
 
             <ng-container *ngIf="view.documents?.resume && view.documents?.resume?.length">
-              <div class="item text-center" *ngFor="let document of view.documents.resume; let i = index">
-                <h4>Resume {{ i+ 1}}</h4>
-                <div class="content position-relative rounded overflow-hidden">
+              <div class="item text-center w-100-sm m-0-sm" *ngFor="let document of view.documents.resume; let i = index">
+                <h4>Resume {{ i + 1 }}</h4>
+                <div class="content position-relative rounded overflow-hidden w-100-sm">
                   <button (click)="onOpenInterviewAttachmentModal(document)"
                           class="d-flex align-items-center justify-content-center fw-bold">
                     <mat-icon>zoom_in</mat-icon>
@@ -52,13 +52,13 @@
 
           <ng-container *ngSwitchCase="false">
             <ng-container *ngIf="!view.documents?.degrees?.length">
-              <div class="col-md-12 text-center p-3">No Degree Found!</div>
+              <div class="col-md-12 text-center p-3">No degree found</div>
             </ng-container>
 
             <ng-container *ngIf="view.documents?.degrees && view.documents?.degrees?.length">
-              <div class="item text-center" *ngFor="let document of view.documents.degrees; let i = index">
-                <h4>Degree {{ i+ 1}}</h4>
-                <div class="content position-relative rounded overflow-hidden">
+              <div class="item text-center w-100-sm m-0-sm" *ngFor="let document of view.documents.degrees; let i = index">
+                <h4>Degree {{ i + 1 }}</h4>
+                <div class="content position-relative rounded overflow-hidden w-100-sm">
                   <button (click)="onOpenInterviewAttachmentModal(document)"
                           class="d-flex align-items-center justify-content-center fw-bold">
                     <mat-icon>zoom_in</mat-icon>
@@ -88,13 +88,13 @@
 
           <ng-container *ngSwitchCase="false">
             <ng-container *ngIf="!view.documents?.certificates?.length">
-              <div class="col-md-12 text-center p-3">No Certificate Found!</div>
+              <div class="col-md-12 text-center p-3">No certificate found</div>
             </ng-container>
 
             <ng-container *ngIf="view.documents?.certificates && view.documents?.certificates?.length">
-              <div class="item text-center" *ngFor="let document of view.documents.certificates; let i = index">
-                <h4>Certifcate {{ i+ 1}}</h4>
-                <div class="content position-relative rounded overflow-hidden">
+              <div class="item text-center w-100-sm m-0-sm" *ngFor="let document of view.documents.certificates; let i = index">
+                <h4>Certifcate {{ i + 1 }}</h4>
+                <div class="content position-relative rounded overflow-hidden w-100-sm">
                   <button (click)="onOpenInterviewAttachmentModal(document)"
                           class="d-flex align-items-center justify-content-center fw-bold">
                     <mat-icon>zoom_in</mat-icon>

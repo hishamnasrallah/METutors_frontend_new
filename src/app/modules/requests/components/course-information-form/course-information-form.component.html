@@ -10,7 +10,7 @@
       <div class="col-md-8 mt-15-sm">
         <div class="row">
           <div class="col-md-6">
-            <h3>Program Name</h3>
+            <h3>{{ 'PROGRAM_NAME' | translate }}</h3>
             <mat-form-field appearance="outline" class="w-100">
               <mat-select formControlName="courseProgram" [placeholder]="'Choose Program'"
                 (selectionChange)="onChangeCourseProgram(); resetValues()">
@@ -22,7 +22,7 @@
           </div>
           <ng-container *ngIf="nationalId.toString() === program?.value?.toString()">
             <div class="col-md-6">
-              <h3>Select Country</h3>
+              <h3>{{ 'SELECT_COUNTRY' | translate }}</h3>
               <mat-form-field appearance="outline" class="w-100">
                 <mat-select formControlName="courseCountry" [placeholder]="'Choose Country'"
                   (selectionChange)="onChangeCourseProgram(); resetValues()">
@@ -54,7 +54,7 @@
                   {{ field?.name }}
                 </mat-option>
                 <mat-option value="" *ngIf="!fields || !fields?.length" disabled>
-                  No data found
+                  {{ 'NO_DATA_FOUND' | translate }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -70,7 +70,7 @@
                   {{ subject?.name }}
                 </mat-option>
                 <mat-option value="" *ngIf="!subjects || !subjects?.length" disabled>
-                  No data found
+                  {{ 'NO_DATA_FOUND' | translate }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -92,7 +92,7 @@
     <div class="row row-block">
       <div class="col-md-4">
         <h2 class="f-size-17-md-sm">Highlighted Topics</h2>
-        <h4 class="f-size-15-md-sm">Add the topics you need a tutor for</h4>
+        <h4 class="f-size-15-md-sm">For homework and project help please leave a brief summary of what you need support with.</h4>
       </div>
       <div class="col-md-8 mt-15-sm topics">
         <div class="row">
@@ -131,24 +131,26 @@
               <mat-icon>add</mat-icon> Add new topic
             </button>
 
-            <table class="table my-table default-title mb-0" *ngIf="checkTableView">
-              <tr>
-                <th>Topic Name</th>
-                <th>Knowledge Confidence Scale</th>
-                <th width="10%">Action</th>
-              </tr>
-              <ng-container *ngFor="let lang of form.value.topics; let i = index">
-                <tr *ngIf="lang.name && lang.scale && lang.checked">
-                  <td>{{ lang.name }}</td>
-                  <td>{{ topicsScale[lang.scale] }}</td>
-                  <td>
-                    <button mat-button (click)="removeTopic(i)" class="p-0">
-                      <img src="assets/svg/delete.svg" width="17px" draggable="false" alt="">
-                    </button>
-                  </td>
+            <div class="table-responsive w-100" *ngIf="checkTableView">
+              <table class="table my-table default-title mb-0">
+                <tr>
+                  <th>Topic Name</th>
+                  <th>Knowledge Confidence Scale</th>
+                  <th width="10%">{{ 'ACTION' | translate }}</th>
                 </tr>
-              </ng-container>
-            </table>
+                <ng-container *ngFor="let lang of form.value.topics; let i = index">
+                  <tr *ngIf="lang.name && lang.scale && lang.checked">
+                    <td>{{ lang.name }}</td>
+                    <td>{{ topicsScale[lang.scale] }}</td>
+                    <td>
+                      <button mat-button (click)="removeTopic(i)" class="p-0">
+                        <img src="assets/svg/delete.svg" width="17px" draggable="false" alt="">
+                      </button>
+                    </td>
+                  </tr>
+                </ng-container>
+              </table>
+            </div>
           </div>
         </div>
       </div>
@@ -157,7 +159,7 @@
     <div class="row row-block">
       <div class="col-md-4">
         <h2 class="f-size-17-md-sm">Textbook Details</h2>
-        <h4 class="f-size-15-md-sm">Provide textbook for this course</h4>
+        <h4 class="f-size-15-md-sm">For homework and project help, if available you can upload a PDF of your assignment.</h4>
       </div>
       <div class="col-md-8">
         <mat-radio-group aria-label="Select an option" (change)="onChange($event)" formControlName="information">
@@ -233,8 +235,8 @@
     <div class="row">
       <div class="col-12 overflow-hidden">
         <button mat-flat-button color="primary" class="float-end" type="submit" [disabled]="form.invalid">
-          Save & Continue
-          <mat-icon>arrow_forward</mat-icon>
+          {{ 'SAVE_CONTINUE' | translate }}
+          <mat-icon class="rotate-180-ar">arrow_forward</mat-icon>
         </button>
       </div>
     </div>

@@ -1,7 +1,7 @@
-<div class="finance-courses" *ngLet="(view$ | async) as view">
+<div class="finance-courses p-15-md-sm" *ngLet="(view$ | async) as view">
   <div class="row filters">
     <div class="col-md-6 d-flex align-items-center">
-      <h1>All Courses</h1>
+      <h1 class="f-size-18-md-sm mb-15-sm">All Courses</h1>
     </div>
     <div class="col-md-6">
       <div class="row justify-content-end">
@@ -18,47 +18,49 @@
     </div>
   </div>
 
-  <div class="table-responsive mt-4">
+  <div class="mt-4">
     <ng-container [ngSwitch]="view.loading">
       <div class="mt-4" *ngSwitchCase="true">
         <metutors-grid-placeholder></metutors-grid-placeholder>
       </div>
 
-      <table class="table my-table default-title" *ngSwitchCase="false">
-        <tr>
-          <th>Number</th>
-          <th>Course ID</th>
-          <th>Course Name</th>
-          <th>Program Name</th>
-          <th>Price Per Hour</th>
-          <th>Min Hourly Rate (Ask)</th>
-          <th>Max Hourly Rate (Ask)</th>
-          <th>Min Hourly Rate (Actual)</th>
-          <th>Max Hourly Rate (Actual)</th>
-          <th>Action</th>
-        </tr>
-        <tr *ngIf="!view.result?.courses || !view.result?.courses?.length">
-          <td colspan="11">
-            <div class="text-center">No records found</div>
-          </td>
-        </tr>
-        <tr *ngFor="let course of view.result?.courses; let i = index">
-          <td>{{ i + 1}}</td>
-          <td>CID{{course?.subjectId}}</td>
-          <td>{{ course?.courseName}}</td>
-          <td>{{ course?.program?.name }}</td>
-          <td>{{ course?.pricePerHour | metutorsMoney | async }}</td>
-          <td>{{ course?.minHourlyRateAsk | metutorsMoney | async }}</td>
-          <td>{{ course?.maxHourlyRateAsk | metutorsMoney | async }}</td>
-          <td>{{ course?.minHourlyRateActual | metutorsMoney | async }}</td>
-          <td>{{ course?.maxHourlyRateActual | metutorsMoney | async }}</td>
-          <td>
-            <button mat-icon-button class="p-0">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-          </td>
-        </tr>
-      </table>
+      <div class="table-responsive" *ngSwitchCase="false">
+        <table class="table my-table default-title">
+          <tr>
+            <th>Number</th>
+            <th>Course ID</th>
+            <th>Course Name</th>
+            <th>Program Name</th>
+            <th>Price Per Hour</th>
+            <th>Min Hourly Rate (Ask)</th>
+            <th>Max Hourly Rate (Ask)</th>
+            <th>Min Hourly Rate (Actual)</th>
+            <th>Max Hourly Rate (Actual)</th>
+            <th>Action</th>
+          </tr>
+          <tr *ngIf="!view.result?.courses || !view.result?.courses?.length">
+            <td colspan="11">
+              <div class="text-center">No records found</div>
+            </td>
+          </tr>
+          <tr *ngFor="let course of view.result?.courses; let i = index">
+            <td>{{ i + 1}}</td>
+            <td>CID{{course?.subjectId}}</td>
+            <td>{{ course?.courseName}}</td>
+            <td>{{ course?.program?.name }}</td>
+            <td>{{ course?.pricePerHour | metutorsMoney | async }}</td>
+            <td>{{ course?.minHourlyRateAsk | metutorsMoney | async }}</td>
+            <td>{{ course?.maxHourlyRateAsk | metutorsMoney | async }}</td>
+            <td>{{ course?.minHourlyRateActual | metutorsMoney | async }}</td>
+            <td>{{ course?.maxHourlyRateActual | metutorsMoney | async }}</td>
+            <td>
+              <button mat-icon-button class="p-0">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+            </td>
+          </tr>
+        </table>
+      </div>
 
       <div class="d-flex mt-2 justify-content-center" *ngIf="view.result?.courses?.length < view.result?.total">
         <pagination [totalItems]="view.result?.total" [itemsPerPage]="perPage" [maxSize]="5"

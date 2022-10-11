@@ -1,12 +1,12 @@
 <div class="booking-details" *ngLet="(view$ | async) as view">
 
   <div class="card">
-    <div class="card-body">
+    <div class="card-body p-15-md-sm">
       <ng-container [ngSwitch]="view.loading">
         <ng-container *ngSwitchCase="false">
           <div class="row">
             <div class="col-md-5">
-              <h1 class="title overflow-hidden d-flex align-items-center">
+              <h1 class="title overflow-hidden d-flex align-items-center f-size-18-md-sm">
                 {{ view.course.courseName }}
                 <span class="ms-2">({{view.course.courseCode }})</span>
                 <button mat-button class="ms-2 status" [ngClass]="view.course.status">{{ statusLabel[view.course.status].long }}</button>
@@ -112,41 +112,43 @@
   <div class="list-tables">
     <div class="row">
       <div class="col-12">
-        <h3 class="overview mb-3">Completed Classess</h3>
+        <h3 class="overview mb-3 f-size-18-md-sm">Completed Classes</h3>
         <ng-container [ngSwitch]="view.loading">
           <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
-          <table class="table my-table default-title" *ngSwitchCase="false">
-            <tr>
-              <th>#</th>
-              <th>Topic</th>
-              <th>Tutor Name</th>
-              <th>Day</th>
-              <th>Date</th>
-              <th>Start Time - End Time</th>
-              <th>Duration</th>
-              <th>Attendance</th>
-            </tr>
-            <tr *ngFor="let cls of view.course.classes; let i=index">
-              <td>{{ i+1 }}</td>
-              <td>{{ cls?.title }} </td>
-              <td>
-                <a>
-                  <img [src]="imageUrl+cls.teacher?.avatar" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
-                       meTutorsDefaultAvatar alt="">
-                  <span>
-                  <bdi class="text-capitalize">{{ cls?.teacher?.firstName }} {{ cls?.teacher?.lastName }}</bdi>
-                </span>
-                </a>
-              </td>
-              <td>{{ cls?.updatedAt | date: 'EEEE' }}</td>
-              <td>{{ cls?.updatedAt | date: 'd MMMM y' }}</td>
-              <td>{{ cls?.startTime | date:'h:mm a' }} - {{ cls?.endTime | date:'h:mm a' }}</td>
-              <td>{{ cls?.duration }} Hour</td>
-              <td class="d-flex">
-                <button mat-button class="attend text-capitalize" [ngClass]="cls.classAttendence">{{ cls?.classAttendence }}</button>
-              </td>
-            </tr>
-          </table>
+          <div class="table-responsive" *ngSwitchCase="false">
+            <table class="table my-table default-title">
+              <tr>
+                <th>#</th>
+                <th>Topic</th>
+                <th>Tutor Name</th>
+                <th>Day</th>
+                <th>Date</th>
+                <th>Start Time - End Time</th>
+                <th>Duration</th>
+                <th>Attendance</th>
+              </tr>
+              <tr *ngFor="let cls of view.course.classes; let i=index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ cls?.title }} </td>
+                <td>
+                  <a>
+                    <img [src]="imageUrl+cls.teacher?.avatar" width="25" height="25" class="rounded-circle p-0 me-2" draggable="false"
+                        meTutorsDefaultAvatar alt="">
+                    <span>
+                    <bdi class="text-capitalize">{{ cls?.teacher?.firstName }} {{ cls?.teacher?.lastName }}</bdi>
+                  </span>
+                  </a>
+                </td>
+                <td>{{ cls?.updatedAt | date: 'EEEE' }}</td>
+                <td>{{ cls?.updatedAt | date: 'd MMMM y' }}</td>
+                <td>{{ cls?.startTime | date:'h:mm a' }} - {{ cls?.endTime | date:'h:mm a' }}</td>
+                <td>{{ cls?.duration }} Hour</td>
+                <td class="d-flex">
+                  <button mat-button class="attend text-capitalize" [ngClass]="cls.classAttendence">{{ cls?.classAttendence }}</button>
+                </td>
+              </tr>
+            </table>
+          </div>
         </ng-container>
       </div>
     </div>

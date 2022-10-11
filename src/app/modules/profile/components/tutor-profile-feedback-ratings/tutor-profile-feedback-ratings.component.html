@@ -1,8 +1,8 @@
 <div class="card feedback-rating">
   <div class="card-body" *ngIf="!isLoading">
     <h1 class="title">
-      Feedback & Ratings
-      <span>{{ tutor?.averageRating | number:'.1-1' }} ({{ tutor?.feedbacks?.length }} review{{ +(tutor?.feedbacks?.length)! > 1 ? 's' : '' }})</span>
+      {{ 'FEEDBACK_RATINGS' | translate }}
+      <span>{{ tutor?.averageRating | number:'.1-1' }} ({{ tutor?.feedbacks?.length }} {{ +(tutor?.feedbacks?.length)! > 1 ? ('REVIEWS_SM' | translate) : ('REVIEW_SM' | translate) }})</span>
     </h1>
     <div class="rating-block">
       <div class="row" [class.mt-3]="!isFirst"
@@ -37,7 +37,7 @@
 
         <span class="load-more" *ngIf="feedbackLength > maxItems">
           <button mat-button (click)="maxItems = feedbackLength">
-            Load More
+            {{ 'LOAD_MORE' | translate }}
           </button>
         </span>
       </div>

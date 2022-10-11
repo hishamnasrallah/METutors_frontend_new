@@ -1,25 +1,25 @@
 <div class="assignments">
   <div class="card">
-    <div class="card-body">
+    <div class="card-body p-15-sm">
       <ng-container [ngSwitch]="loading$ | async">
         <ng-container *ngSwitchCase="false">
           <ng-container *ngLet="(assignments$ | async) as assignments">
-            <h1 class="title">{{ assignments?.course?.courseName }}</h1>
+            <h1 class="title f-size-20-md-sm">{{ assignments?.course?.courseName }}</h1>
             <div class="row list-items">
-              <div class="col-md-3 d-flex menu align-items-center">
+              <div class="col-lg-3 col-md-4 d-flex menu align-items-center">
                 <img src="assets/svg/timer.svg" alt="" width="15" height="15" draggable="false">
                 <strong>Total assignments: </strong>
-                <span>{{ assignments?.totalAssignments }}</span>
+                <span class="f-size-17-md-sm">{{ assignments?.totalAssignments }}</span>
               </div>
-              <div class="col-md-3 d-flex menu align-items-center">
+              <div class="col-lg-3 col-md-4 d-flex menu align-items-center">
                 <img src="assets/svg/class.svg" alt="" width="15" height="15" draggable="false">
                 <strong>Active assignments: </strong>
-                <span>{{ assignments?.activeAssignments }}</span>
+                <span class="f-size-17-md-sm">{{ assignments?.activeAssignments }}</span>
               </div>
-              <div class="col-md-3 d-flex menu align-items-center">
+              <div class="col-lg-3 col-md-4 d-flex menu align-items-center">
                 <img src="assets/svg/class.svg" alt="" width="15" height="15" draggable="false">
                 <strong>Completed assignments: </strong>
-                <span>{{ assignments?.completedAssignments }}</span>
+                <span class="f-size-17-md-sm">{{ assignments?.completedAssignments }}</span>
               </div>
             </div>
             <div class="row mt-3">
@@ -29,7 +29,7 @@
                   <metutors-user-avatar [avatar]="participant?.user?.avatar" class="d-block"></metutors-user-avatar>
                 </ng-container>
               </div>
-              <div class="col-md-7">
+              <div class="col-md-7 mt-15-sm">
                 <button mat-button class="main-button-transparent float-end" (click)="onOpenAddAssignment()">
                   <mat-icon>add</mat-icon>
                   Add new assignment
@@ -52,12 +52,12 @@
     </div>
   </div>
 
-  <div class="assign-tabs">
-    <button mat-button class="class-btn main-button-transparent text-uppercase"
+  <div class="assign-tabs p-15-sm">
+    <button mat-button class="class-btn main-button-transparent text-uppercase m-0-sm w-100-sm mb-5-sm"
             (click)="filterAssignments('active')" [ngClass]="{'active': activeAssignment}">
       Active assignments
     </button>
-    <button mat-button class="class-btn main-button-transparent text-uppercase"
+    <button mat-button class="class-btn main-button-transparent text-uppercase m-0-sm w-100-sm"
             (click)="filterAssignments('completed')" [ngClass]="{'active': !activeAssignment}">
       Completed assignments
     </button>
@@ -74,51 +74,51 @@
           </div>
 
           <ng-container *ngIf="assignments?.course?.assignments && assignments?.course?.assignments?.length">
-            <div class="item position-relative"
+            <div class="item item-assign position-relative"
                  *ngFor="let assignment of assignments?.course?.assignments; let i = index">
               <span class="number">{{ i + 1 }}</span>
               <div class="row set-padding">
                 <div class="col-md-12">
                   <div class="row">
-                    <div class="col-md-7">
-                      <h2>{{ assignment?.title}}</h2>
-                      <p class="col">{{ assignment?.description }}</p>
+                    <div class="col-xl-6">
+                      <h2 class="f-size-20-sm">{{ assignment?.title }}</h2>
+                      <p class="col f-size-15-sm">{{ assignment?.description }}</p>
                     </div>
-                    <div class="col-md-5 d-flex align-items-start justify-content-end date-data">
+                    <div class="col-xl-6 d-flex align-items-start justify-content-end date-data d-block-sm">
                       <span class="cursor-pointer text-decoration-underline extend-date"
                             *ngIf="assignment.status === 'active'" (click)="onOpenEditAssignmentModal(assignment.id)">Extend Due Date</span>
-                      <div class="d-flex flex-column mx-3">
+                      <div class="d-flex flex-column mx-3 m-0-sm">
                         <span>Remaining Time</span>
-                        <strong class="alert-msg"
+                        <strong class="alert-msg f-size-15-sm"
                                 *ngIf="assignment?.remainingDays < 1">{{ assignment?.remainingDays === 0 ? 'Today' : '0 Day' }}
                           </strong>
-                        <strong *ngIf="assignment?.remainingDays >= 1">{{ assignment?.remainingDays }} Days</strong>
+                        <strong class="f-size-15-sm" *ngIf="assignment?.remainingDays >= 1">{{ assignment?.remainingDays }} Days</strong>
                       </div>
-                      <button mat-button class="main-button-transparent"
+                      <button mat-button class="main-button-transparent float-end mb-15-sm"
                               (click)="onOpenAssignmentDetails(assignment.id)">
                         View Details
-                        <mat-icon>arrow_forward</mat-icon>
+                        <mat-icon class="rotate-180-ar">arrow_forward</mat-icon>
                       </button>
                     </div>
                   </div>
 
-                  <div class="row list-items md-item p-0 pb-3">
+                  <div class="row list-items md-item p-0 pb-3 d-block-sm">
                     <div class="col d-flex menu align-items-center">
                       <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
-                      <strong>Start: </strong>
-                      <span>{{ assignment?.startDate | date: 'MMMM d y' }}</span>
+                      <strong class="f-size-17-md-sm">Start: </strong>
+                      <span class="f-size-15-md-sm">{{ assignment?.startDate | date: 'MMMM d y' }}</span>
                     </div>
                     <div class="col d-flex menu align-items-center">
                       <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
-                      <strong>Deadline: </strong>
-                      <span>{{ assignment?.deadline | date: 'MMMM d y' }}</span>
+                      <strong class="f-size-17-md-sm">Deadline: </strong>
+                      <span class="f-size-15-md-sm">{{ assignment?.deadline | date: 'MMMM d y' }}</span>
                     </div>
                     <div class="col d-flex menu align-items-center">
                       <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
-                      <strong>Answer received:</strong>
-                      <span>{{ assignment?.answerReceived?.length }} out of {{ assignment?.assignees?.length }}</span>
+                      <strong class="f-size-17-md-sm">Answer received:</strong>
+                      <span class="f-size-15-md-sm">{{ assignment?.answerReceived?.length }} out of {{ assignment?.assignees?.length }}</span>
                     </div>
-                    <div class="col-1">
+                    <div class="col-1 m-auto-sm mt-15-sm">
                       <button mat-button class="expand" *ngIf="selectedBlock !== assignment.id"
                               (click)="openBlock = true; selectedBlock = assignment.id">
                         <mat-icon>expand_more</mat-icon>
@@ -137,7 +137,7 @@
                       <tr>
                         <th scope="col">Number</th>
                         <th scope="col">Student Name</th>
-                        <th scope="col">Time Received By Student</th>
+                        <th scope="col" style="min-width: 150px">Time Received By Student</th>
                         <th scope="col">Submitted At</th>
                         <th scope="col">Status</th>
                       </tr>
@@ -147,14 +147,11 @@
                         <td scope="row">{{ num + 1 }}</td>
                         <td>
                           <img [src]="assignee?.user?.avatar" meTutorsDefaultAvatar draggable="false"
-                               width="25"
-                               height="25"
-                               class="rounded-circle"
-                               alt="">
+                               width="25" height="25" class="rounded-circle" alt="">
                           <span class="ms-2">{{ assignee?.user?.firstName }} {{ assignee?.user?.lastName }}</span>
                         </td>
                         <td>{{ assignee?.createdAt | date: 'EEEE, d MMM y, h:mm a' }}</td>
-                        <td>{{ assignee.status !== 'pending' ? (assignee?.updatedAt | date) : ''}}</td>
+                        <td>{{ assignee.status !== 'pending' ? (assignee?.updatedAt | date) : '' }}</td>
                         <td>
                           <span class="status-icon text-capitalize"
                                 [ngClass]="assignee?.status">{{ assignee?.status }}</span>

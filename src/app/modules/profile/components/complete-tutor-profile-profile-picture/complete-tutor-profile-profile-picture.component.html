@@ -1,6 +1,6 @@
 <form [formGroup]="form" (ngSubmit)="submitFormData()" class="w-100 p-10-sm">
   <div>
-    <h4 class="mb-4 heading text-center f-size-18-md-sm mb-15-sm">Add Profile Picture</h4>
+    <h4 class="mb-4 heading text-center f-size-18-md-sm mb-15-sm">{{ 'ADD_PROFILE_PICTURE' | translate }}</h4>
 
     <div class="row">
       <div class="col-lg-4"></div>
@@ -8,17 +8,18 @@
         <div class="row">
           <div class="col-lg-6 text-center">
             <img [src]="avatar?.value" class="preview-box" *ngIf="avatar?.value" width="100%" alt="" />
-            <div class="preview-box d-flex align-items-center justify-content-center" *ngIf="!avatar?.value">Preview
+            <div class="preview-box d-flex align-items-center justify-content-center" *ngIf="!avatar?.value">
+              {{ 'PREVIEW' | translate }}
             </div>
           </div>
 
           <div class="col-lg-5">
-            <div class="guide1 f-size-15-md-sm mt-3">Image should be at least 300 x 300 px</div>
-            <div class="guide2 f-size-15-md-sm">Size 2MB max</div>
+            <div class="guide1 f-size-15-md-sm mt-3">{{ 'PROFILE_IMAGE_SIZE' | translate }}</div>
+            <div class="guide2 f-size-15-md-sm">{{ 'SIZE_2MB_MAX' | translate }}</div>
             <input type="file" #filePicker1 (change)="onChangeAvatar($event)" hidden accept="image/*" />
             <div class="form-group mt-4 mb-2 mt-15-sm">
               <button mat-flat-button color="primary" class="d-block py-1 px-5" type="button" [disabled]="uploadingFile"
-                (click)="filePicker1.click()"> Upload
+                (click)="filePicker1.click()"> {{ 'UPLOAD' | translate }}
               </button>
             </div>
           </div>
@@ -29,7 +30,7 @@
                 <ng-container *ngFor="let uploadProgress of fileUploadProgress">
                   <ng-container *ngIf="uploadProgress.responseType !== uploadComplete">
                     <metutors-file-upload-progress [fileName]="uploadProgress.fileName"
-                      [uploadedPercentage]="uploadProgress.progress">
+                                                   [uploadedPercentage]="uploadProgress.progress">
                     </metutors-file-upload-progress>
                   </ng-container>
                 </ng-container>
@@ -41,7 +42,7 @@
       <div class="col-lg-4"></div>
     </div>
 
-    <h4 class="mb-4 mt-5 heading text-center f-size-18-md-sm mb-15-sm mt-15-sm">Add Cover Image</h4>
+    <h4 class="mb-4 mt-5 heading text-center f-size-18-md-sm mb-15-sm mt-15-sm">{{ 'ADD_COVER_IMAGE' | translate }}</h4>
 
     <div class="row">
       <div class="col-lg-3"></div>
@@ -52,18 +53,18 @@
 
             <div class="position-relative" *ngIf="cover?.value">
               <button mat-button class="delete-cover" type="button" [disabled]="uploadingFile"
-                (click)="deleteCover()">Remove</button>
+                (click)="deleteCover()">{{ 'REMOVE' | translate }}</button>
               <img [src]="cover?.value" class="cover-preview" width="100%" alt="" />
               <button mat-flat-button color="primary" class="px-4 edit-cover" type="button"
-                (click)="filePicker2.click()" [disabled]="uploadingFile"> Change
+                (click)="filePicker2.click()" [disabled]="uploadingFile">{{ 'CHANGE' | translate }}
               </button>
             </div>
             <div class="cover-preview d-flex align-items-center justify-content-center flex-column"
               *ngIf="!cover?.value">
-              <div class="guide1">Your image should be at least 700 x 300 px</div>
+              <div class="guide1">{{ 'COVER_IMAGE_SIZE' | translate }}</div>
 
               <button mat-flat-button color="primary" class="px-4 mt-2" type="button" [disabled]="uploadingFile"
-                (click)="filePicker2.click()"> Upload
+                (click)="filePicker2.click()">{{ 'UPLOAD' | translate }}
               </button>
             </div>
 
@@ -73,7 +74,7 @@
                   <ng-container *ngFor="let uploadProgress of fileUploadProgress">
                     <ng-container *ngIf="uploadProgress.responseType !== uploadComplete">
                       <metutors-file-upload-progress [fileName]="uploadProgress.fileName"
-                        [uploadedPercentage]="uploadProgress.progress">
+                                                     [uploadedPercentage]="uploadProgress.progress">
                       </metutors-file-upload-progress>
                     </ng-container>
                   </ng-container>
@@ -90,11 +91,13 @@
     </div>
 
     <div class="d-flex align-items-center justify-content-between mt-4 mb-2">
-      <button class="main-button-transparent px-4" mat-button type="button" (click)="changeStep.emit(1)">Back</button>
+      <button class="main-button-transparent px-4" mat-button type="button" (click)="changeStep.emit(1)">
+        {{ 'BACK' | translate }}
+      </button>
 
       <metutors-submit-button [form]="form" [isSubmitting]="loading" [isDisabled]="uploadingFile"
         [extraClasses]="'w-100 fw-bold px-5'">
-        Save & Continue
+        {{ 'SAVE_CONTINUE' | translate }}
       </metutors-submit-button>
     </div>
   </div>

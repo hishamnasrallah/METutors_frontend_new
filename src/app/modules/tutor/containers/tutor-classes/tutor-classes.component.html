@@ -1,40 +1,54 @@
+<button mat-button class="sidemenu-btn d-inline-block d-lg-none" (click)="openSideMenu = true" *ngIf="!openSideMenu">
+  <mat-icon>widgets</mat-icon>
+</button>
+
 <div class="d-flex min-h-100">
-  <div class="sidemenu">
-<!--    <div class="heading">
+  <div class="sidemenu" [ngClass]="{
+      'open-sidemenu': openSideMenu
+    }">
+    <button mat-button (click)="openSideMenu = false" class="close-btn d-inline-block d-lg-none">
+      <mat-icon>close</mat-icon>
+    </button>
+    <!--<div class="heading">
       <h1>First Code</h1>
       <button mat-button>British</button>
     </div>-->
 
     <ul class="list-unstyled m-0" *ngLet="(routeParams$ | async) as params">
       <li>
-        <a [routerLink]="'/tutor/classrooms/classes/syllabus/'+ params?.id" routerLinkActive="active">
+        <a [routerLink]="'/tutor/classrooms/classes/syllabus/' + params?.id" routerLinkActive="active"
+          (click)="openSideMenu = false">
           <span class="text-uppercase">Syllabus</span>
         </a>
       </li>
       <li>
-        <a [routerLink]="'/tutor/classrooms/classes/resources/'+params?.id" routerLinkActive="active">
+        <a [routerLink]="'/tutor/classrooms/classes/resources/' + params?.id" routerLinkActive="active"
+          (click)="openSideMenu = false">
           <span class="text-uppercase">Resources</span>
         </a>
       </li>
       <li>
-        <a [routerLink]="'/tutor/classrooms/classes/assignment/'+params?.id" routerLinkActive="active">
+        <a [routerLink]="'/tutor/classrooms/classes/assignment/' + params?.id" routerLinkActive="active"
+          (click)="openSideMenu = false">
           <span class="text-uppercase">Assignments</span>
         </a>
       </li>
       <li>
-        <a [routerLink]="'/tutor/classrooms/classes/dashboard/'+params?.id" routerLinkActive="active">
+        <a [routerLink]="'/tutor/classrooms/classes/dashboard/' + params?.id" routerLinkActive="active"
+          (click)="openSideMenu = false">
           <span class="text-uppercase">Classes Dashboard</span>
         </a>
       </li>
       <li>
-        <a routerLink="/tutor/help/support-ticket" routerLinkActive="active">
+        <a routerLink="/tutor/help/support-ticket" routerLinkActive="active" (click)="openSideMenu = false">
           <span class="text-uppercase">Support ticket</span>
         </a>
       </li>
     </ul>
   </div>
   <div class="flex-grow-1 overflow-auto">
-    <metutors-tutor-navbar [layout]="(layout$ | async)" [user]="user$ | async" (logout)="logout()"></metutors-tutor-navbar>
+    <metutors-tutor-navbar [layout]="(layout$ | async)" [user]="user$ | async" (logout)="logout()">
+    </metutors-tutor-navbar>
 
     <router-outlet></router-outlet>
   </div>

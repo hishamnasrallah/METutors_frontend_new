@@ -108,3 +108,11 @@ export const closeTutorReAssignmentModal = createAction(
 export const openPaymentModal = createAction(
   '[Student Modal] Open Payment Modal'
 );
+
+export const openHighlightedTopicModal = createAction(
+  '[Student Modal] Open Highlighted Topic Modal'
+);
+
+export const closeHighlightedTopicModal = createAction(
+  '[Student Modal] Close Highlighted Topic Modal'
+);

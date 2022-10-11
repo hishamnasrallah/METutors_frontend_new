@@ -3,14 +3,14 @@
     <div class="row text-center">
       <div class="col-12">
         <h1 class="f-size-25-md-sm">FAQs About Students</h1>
-        <p>
+        <p class="f-size-15-md-sm">
           From enrollment to graduation, we’re here with you every step of the way!
         </p>
       </div>
       <div class="col-md-6 offset-md-3">
         <div class="form-block position-relative rounded">
           <mat-icon>search</mat-icon>
-          <input type="text" placeholder="Ask a questions..." class="w-100 rounded"
+          <input type="text" placeholder="Ask a question..." class="w-100 rounded"
             (keyup)="submitFAQ.emit(searchKey.value)" #searchKey>
           <button mat-flat-button color="primary" (click)="submitFAQ.emit(searchKey.value)">Search</button>
         </div>

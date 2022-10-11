@@ -1,7 +1,7 @@
-<div class="course-requests" *ngLet="(view$ | async) as view">
+<div class="course-requests p-15-md-sm" *ngLet="(view$ | async) as view">
   <div class="row filters">
     <div class="col-md-6 d-flex align-items-center">
-      <h1>New Course Requests</h1>
+      <h1 class="f-size-18-md-sm mb-15-sm">New Course Requests</h1>
     </div>
     <div class="col-md-6">
       <div class="row justify-content-end">
@@ -23,7 +23,7 @@
               <metutors-grid-placeholder></metutors-grid-placeholder>
             </div>
 
-            <ng-container *ngSwitchCase="false">
+            <div class="table-responsive" *ngSwitchCase="false">
               <table class="table my-table default-title mt-4">
                 <tr>
                   <th>Number</th>
@@ -68,7 +68,7 @@
                   </td>
                 </tr>
               </table>
-            </ng-container>
+            </div>
           </ng-container>
 
           <div class="d-flex mt-2 justify-content-center" *ngIf="view.newCourses?.length < view.stats.totalNew">
@@ -83,7 +83,7 @@
               <metutors-grid-placeholder></metutors-grid-placeholder>
             </div>
 
-            <ng-container *ngSwitchCase="false">
+            <div class="table-responsive" *ngSwitchCase="false">
               <table class="table my-table default-title mt-4">
                 <tr>
                   <th>Number</th>
@@ -122,7 +122,7 @@
                   </td>
                 </tr>
               </table>
-            </ng-container>
+            </div>
           </ng-container>
 
           <div class="d-flex mt-2 justify-content-center" *ngIf="view.completed?.length < view.stats.totalCompleted">

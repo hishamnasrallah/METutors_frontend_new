@@ -1,13 +1,12 @@
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
+import { formatBytes } from '@config';
 import { Injectable } from '@angular/core';
 import camelcaseKeys from 'camelcase-keys';
-import { Observable, of, Subscription } from 'rxjs';
-import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
-
-import { formatBytes } from '@config';
 import * as fromCore from '@metutor/core/state';
+import { Observable, of, Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',

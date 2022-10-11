@@ -1,6 +1,6 @@
 <div>
   <h4 class="mb-4 d-flex align-items-center justify-content-between">
-    <span>Role Selection</span>
+    <span>{{ 'ROLE_SELECTION' | translate }}</span>
     <button mat-button mat-dialog-close>
       <mat-icon>close</mat-icon>
     </button>
@@ -10,7 +10,7 @@
       <div class="col-md-6" *ngFor="let role of roles">
         <button mat-button (click)="onSubmit(role.id)" class="w-100 text-start" type="button">
           <mat-icon>local_library</mat-icon>
-          I'm a {{ role.name }}
+          {{ 'IM_A' | translate }} {{ role.name }}
         </button>
       </div>
     </div>

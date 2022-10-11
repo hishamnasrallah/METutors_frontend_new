@@ -36,11 +36,11 @@
       </div>
       <div class="row mb-3 form-group">
         <div class="col-xl-6">
-          <h3>First Name</h3>
+          <h3>{{ 'FIRST_NAME' | translate }}</h3>
           <input type="text" class="form-control custom-input input-bordered" placeholder="Kamran"
                  formControlName="first_name">
           <div class="text-danger" *ngIf="firstName?.['touched'] && firstName?.errors?.['required']">
-            Please write your First Name
+            {{ 'WRITE_VALID_FIRST_NAME' | translate }}
           </div>
           <div class="text-danger" *ngIf="firstName?.['touched'] && firstName?.errors?.['pattern']">
             First Name should only contains alphabets
@@ -57,11 +57,11 @@
       </div>
       <div class="row mb-3 form-group">
         <div class="col-xl-6">
-          <h3>Last Name</h3>
+          <h3>{{ 'LAST_NAME' | translate }}</h3>
           <input type="text" class="form-control custom-input input-bordered" placeholder="Khatti"
                  formControlName="last_name">
           <div class="text-danger" *ngIf="lastName?.['touched'] && lastName?.errors?.['required']">
-            Please write your Last Name
+            {{ 'WRITE_VALID_LAST_NAME' | translate }}
           </div>
           <div class="text-danger" *ngIf="lastName?.['touched'] && lastName?.errors?.['pattern']">
             Last Name should only contains alphabets
@@ -78,7 +78,7 @@
       </div>
       <div class="row mb-3 form-group">
         <div class="col-xl-6">
-          <h3>Email Address</h3>
+          <h3>{{ 'EMAIL_ADDRESS' | translate }}</h3>
           <input type="email" class="form-control custom-input input-bordered" placeholder="hello@gmail.com"
                  formControlName="email" readonly>
         </div>
@@ -99,10 +99,13 @@
             <mat-select formControlName="country" [placeholder]="'Choose Country'">
               <mat-option>
                 <ngx-mat-select-search [(ngModel)]="filterCountry" [ngModelOptions]="{standalone: true}"
-                                       placeholderLabel="Search..." noEntriesFoundLabel="No matching country found">
+                                       placeholderLabel="{{ 'SEARCH' | translate }}"
+                                       noEntriesFoundLabel="{{ 'NO_MATCHING_COUNTRY_FOUND' | translate }}">
                 </ngx-mat-select-search>
               </mat-option>
-              <mat-option *ngFor="let country of filteredCountries" [value]="country.id">{{ country.name }}
+              <mat-option *ngFor="let country of filteredCountries" [value]="country.id">
+                <img [src]="country?.flag" *ngIf="country?.flag" width="22px" class="me-2" alt="">
+                {{ country.name }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -111,9 +114,9 @@
 
       <div class="row mb-3 form-group">
         <div class="col-xl-6">
-          <h3>Gender</h3>
+          <h3>{{ 'GENDER' | translate }}</h3>
           <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="gender" [placeholder]="'Select your gender'">
+            <mat-select formControlName="gender" placeholder="{{ 'SELECT_UR_GENDER' | translate }}">
               <mat-option [value]="gender" *ngFor="let gender of genders">{{ gender }}</mat-option>
             </mat-select>
           </mat-form-field>

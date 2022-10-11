@@ -1,12 +1,12 @@
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
-  Component,
-  EventEmitter,
   Input,
   OnInit,
   Output,
   ViewChild,
+  Component,
+  EventEmitter,
 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'metutors-signup-email-verification',

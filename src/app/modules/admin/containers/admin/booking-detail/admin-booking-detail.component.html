@@ -1,4 +1,4 @@
-<div class="booking-details" *ngLet="(view$ | async) as view">
+<div class="booking-details p-15-md-sm" *ngLet="(view$ | async) as view">
 
   <ng-container [ngSwitch]="view.loading">
     <ng-container *ngSwitchCase="true">
@@ -116,13 +116,13 @@
       <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
       <ng-container *ngSwitchCase="false">
 
-        <ng-container *ngIf="view.bookingDetail?.completedClasses?.length">
+        <div class="table-responsive" *ngIf="view.bookingDetail?.completedClasses?.length">
           <table class="table my-table default-title mb-5">
             <tr>
               <th>#</th>
               <th>Topic</th>
               <th>Class Attendees</th>
-              <th>Start time - End time</th>
+              <th style="min-width: 150px">Start time - End time</th>
               <th>Duration</th>
               <th>Status</th>
             </tr>
@@ -154,13 +154,13 @@
               </td>
             </tr>
           </table>
-        </ng-container>
+        </div>
 
         <div class="col-md-12 mb-3"
              *ngIf="!view.bookingDetail?.completedClasses?.length">
           <div class="card no-data">
             <div class="card-body">
-              <h3 class="text-center m-0">No class found!</h3>
+              <h3 class="text-center m-0">No class found</h3>
             </div>
           </div>
         </div>
@@ -171,13 +171,13 @@
     <ng-container [ngSwitch]="view.loading">
       <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
       <ng-container *ngSwitchCase="false">
-        <ng-container *ngIf="view.bookingDetail?.remainingClasses?.length">
+        <div class="table-responsive" *ngIf="view.bookingDetail?.remainingClasses?.length">
           <table class="table my-table default-title">
             <tr>
               <th>#</th>
               <th>Topic</th>
               <th>Class Attendees</th>
-              <th>Start time - End time</th>
+              <th style="min-width: 150px">Start time - End time</th>
               <th>Duration</th>
               <th>Status</th>
             </tr>
@@ -192,13 +192,13 @@
               </td>
             </tr>
           </table>
-        </ng-container>
+        </div>
 
         <div class="col-md-12 mb-3"
              *ngIf="!view.bookingDetail?.remainingClasses?.length">
           <div class="card no-data">
             <div class="card-body">
-              <h3 class="text-center m-0">No class found!</h3>
+              <h3 class="text-center m-0">No class found</h3>
             </div>
           </div>
         </div>

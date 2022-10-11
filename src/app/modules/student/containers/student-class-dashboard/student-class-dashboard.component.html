@@ -1,10 +1,10 @@
 <ng-container *ngLet="(view$ | async) as view">
   <div class="classes-dashboard">
     <div class="card">
-      <div class="card-body">
+      <div class="card-body p-15-sm">
         <ng-container [ngSwitch]="view.loading">
           <ng-container *ngSwitchCase="false">
-            <h1 class="title overflow-hidden">{{ view.data?.course?.courseName }}
+            <h1 class="title overflow-hidden f-size-20-md-sm">{{ view.data?.course?.courseName }}
               <span>({{ view.data.course?.courseCode }})</span>
               <button mat-button class="ms-2 status text-decoration-none"
                       *ngIf="view?.data?.course?.status !== courseStatus.cancelledByTeacher && view?.data?.course?.status !== courseStatus.declinedByTeacher"
@@ -15,7 +15,7 @@
                       [ngClass]="view?.data?.course?.status"
                       (click)="onShowSendFeedbackModal(view.data?.course?.teacher?.id, false, true)">{{ statusLabel[view?.data?.course?.status].long }}</button>
 
-              <button mat-button class="float-end cancel-course text-decoration-underline text-danger"
+              <button mat-button class="float-end cancel-course text-decoration-underline text-danger d-none d-md-block"
                       (click)="onShowSendFeedbackModal(view.data?.course?.teacher?.id, true, false)"
                       *ngIf="view.data?.course?.status === courseStatus.active || view.data?.course?.status === courseStatus.inprogress">
                 Cancel Course
@@ -25,7 +25,7 @@
               <div class="col-md-3 d-flex menu align-items-center">
                 <img src="assets/svg/timer.svg" alt="" width="15" height="15" draggable="false">
                 <strong>Total Hour: </strong>
-                <span>{{ view.data?.course?.totalHours }}hr{{ +(view.data?.course?.totalHours)! > 1 ? 's' : '' }}</span>
+                <span>{{ view.data?.course?.totalHours }}{{ +(view.data?.course?.totalHours)! > 1 ? ('HRS_SM' | translate) : ('HR_SM' | translate) }}</span>
               </div>
 
               <div class="col-md-3 d-flex menu align-items-center">
@@ -41,10 +41,9 @@
             </div>
             <div class="row mt-3">
               <div class="col-md-6 in-progress">
-                <h3 *ngIf="view.data?.progress === 100">Completed</h3>
-                <h3 *ngIf="view.data?.progress === 0">Not Started yet</h3>
-                <h3 *ngIf="view.data?.progress && (view.data?.progress > 0 && view.data?.progress < 100)">In
-                  progress</h3>
+                <h3 class="f-size-15-md-sm" *ngIf="view.data?.progress === 100">Completed</h3>
+                <h3 class="f-size-15-md-sm" *ngIf="view.data?.progress === 0">Not Started yet</h3>
+                <h3 class="f-size-15-md-sm" *ngIf="view.data?.progress && (view.data?.progress > 0 && view.data?.progress < 100)">In progress</h3>
                 <div class="d-flex align-items-center">
                   <div class="flex-grow-1">
                     <mat-progress-bar class="example-margin"
@@ -55,15 +54,20 @@
                   <strong>{{ view.data?.progress.toFixed(0) }}%</strong>
                 </div>
               </div>
-              <div class="col-md-6">
-                <button mat-button class="main-button-transparent float-end ms-2"
+              <div class="col-md-6 mt-15-sm">
+                <button mat-button class="main-button-transparent float-end ms-2 w-100-sm mb-5-sm"
                         [disabled]="view?.data?.course?.status === courseStatus.cancelledByTeacher || view?.data?.course?.status === courseStatus.pending || view?.data?.course?.status === courseStatus.paymentPending"
                         (click)="onShowSendFeedbackModal(view.data?.course?.teacher?.id, false, false)">
                   Send Feedback
                 </button>
-                <button mat-button class="main-button-transparent float-end"
+                <button mat-button class="main-button-transparent float-end w-100-sm mb-5-sm"
                         (click)="onShowAttendanceModal()">
                   Attendance
+                </button>
+                <button mat-button class="float-end cancel-course text-decoration-underline text-danger d-block d-md-none f-size-15-sm w-100-sm"
+                        (click)="onShowSendFeedbackModal(view.data?.course?.teacher?.id, true, false)"
+                        *ngIf="view.data?.course?.status === courseStatus.active || view.data?.course?.status === courseStatus.inprogress">
+                  Cancel Course
                 </button>
               </div>
             </div>
@@ -85,59 +89,61 @@
     <div class="list-tables">
       <div class="row">
         <div class="col-12">
-          <h3 class="overview mb-3">Today's Classes - {{ view?.data?.todaysDate ? view?.data?.todaysDate : 0 }}</h3>
+          <h3 class="overview mb-3 f-size-17-md-sm">Today's Classes - {{ view?.data?.todaysDate ? view?.data?.todaysDate : 0 }}</h3>
           <ng-container [ngSwitch]="view.loading">
             <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
-            <table class="table my-table" *ngSwitchCase="false">
-              <tr>
-                <th>#</th>
-                <th>Class Subject</th>
-                <th>Class Tutor</th>
-                <th>Start time - End time</th>
-                <th>Duration</th>
-                <th></th>
-              </tr>
-              <tr *ngIf="!view.data?.todaysClasses?.length">
-                <td colspan="6">
-                  <div class="text-center">No record found</div>
-                </td>
-              </tr>
-              <ng-container *ngIf="view.data?.todaysClasses?.length">
-                <tr *ngFor="let todaysClass of view.data.todaysClasses; let i=index">
-                  <td>{{ i + 1}}</td>
-                  <td>{{ todaysClass.title }}</td>
-                  <td>
-                    <metutors-user-avatar [avatar]="todaysClass?.teacher?.avatar"
-                                          [name]="todaysClass?.teacher?.firstName+' '+todaysClass?.teacher?.lastName"
-                                          [type]="'small'"
-                                          class="d-block"></metutors-user-avatar>
-                  </td>
-                  <td>{{ todaysClass.startTime | date:'h:mm a' }} - {{ todaysClass.endTime | date:'h:mm a' }} </td>
-                  <td>{{ todaysClass?.duration }} hour{{ +(todaysClass?.duration)! > 1 ? 's' : '' }}</td>
-                  <td>
-                    <button mat-button class="main-button-opacity flex-grow-1 w-100" (click)="joinClass(todaysClass.id)"
-                            *ngIf="todaysClass?.status !== 'completed'" [disabled]="(isJoiningClass$ | async)">
-                      <img src="assets/svg/play-fill.svg" draggable="false" alt="">
-                      Join Class
-                    </button>
-                    <button mat-button class="main-button-opacity flex-grow-1 w-100" (click)="onViewClass(todaysClass.id)"
-                            *ngIf="todaysClass?.status === 'completed'" [disabled]="isLoadingViewClass$ | async">
-                      <img src="assets/svg/eye-fill.svg" draggable="false" alt="">
-                      View Class
-                    </button>
+            <div class="table-responsive" *ngSwitchCase="false">
+              <table class="table my-table">
+                <tr>
+                  <th>#</th>
+                  <th>Class Subject</th>
+                  <th>Class Tutor</th>
+                  <th style="min-width: 150px">Start time - End time</th>
+                  <th>Duration</th>
+                  <th></th>
+                </tr>
+                <tr *ngIf="!view.data?.todaysClasses?.length">
+                  <td colspan="6">
+                    <div class="text-center">No record found</div>
                   </td>
                 </tr>
-              </ng-container>
-            </table>
+                <ng-container *ngIf="view.data?.todaysClasses?.length">
+                  <tr *ngFor="let todaysClass of view.data.todaysClasses; let i=index">
+                    <td>{{ i + 1}}</td>
+                    <td>{{ todaysClass.title }}</td>
+                    <td>
+                      <metutors-user-avatar [avatar]="todaysClass?.teacher?.avatar"
+                                            [name]="todaysClass?.teacher?.firstName+' '+todaysClass?.teacher?.lastName"
+                                            [type]="'small'"
+                                            class="d-block"></metutors-user-avatar>
+                    </td>
+                    <td>{{ todaysClass.startTime | date:'h:mm a' }} - {{ todaysClass.endTime | date:'h:mm a' }} </td>
+                    <td>{{ todaysClass?.duration }} {{ +(todaysClass?.duration)! > 1 ? ('HOURS_SM' | translate) : ('HOUR_SM' | translate) }}</td>
+                    <td>
+                      <button mat-button class="main-button-opacity flex-grow-1 w-100" (click)="joinClass(todaysClass.id)"
+                              *ngIf="todaysClass?.status !== 'completed'" [disabled]="(isJoiningClass$ | async)">
+                        <img src="assets/svg/play-fill.svg" draggable="false" alt="">
+                        Join Class
+                      </button>
+                      <button mat-button class="main-button-opacity flex-grow-1 w-100" (click)="onViewClass(todaysClass.id)"
+                              *ngIf="todaysClass?.status === 'completed'" [disabled]="isLoadingViewClass$ | async">
+                        <img src="assets/svg/eye-fill.svg" draggable="false" alt="">
+                        View Class
+                      </button>
+                    </td>
+                  </tr>
+                </ng-container>
+              </table>
+            </div>
           </ng-container>
         </div>
 
         <div class="col-12 mt-5">
           <div class="row">
-            <h3 class="overview mb-3 col-md-10">Upcoming Classes -
+            <h3 class="overview mb-3 col-sm-10 f-size-17-md-sm">Upcoming Classes -
               ({{ view?.data?.totalUpcomingClasses ? view?.data?.totalUpcomingClasses : 0 }})</h3>
 
-            <div class="col-md-2" *ngIf="!view.loading">
+            <div class="col-sm-2" *ngIf="!view.loading">
               <button mat-button class="add-class float-end text-primary text-decoration-underline cursor-pointer"
                       (click)="onShowAddCourseModal(view?.data?.course?.subjectId)">
                 Add New Class
@@ -147,111 +153,115 @@
 
           <ng-container [ngSwitch]="view.loading">
             <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
-            <table class="table my-table orange-title" *ngSwitchCase="false">
-              <tr>
-                <th>#</th>
-                <th>Class Subject</th>
-                <th>Class Tutor</th>
-                <th>Day</th>
-                <th>Date</th>
-                <th>Start time - End time</th>
-                <th>Duration</th>
-                <th></th>
-              </tr>
-              <tr *ngIf="!view.data?.upcomingClasses?.data?.length">
-                <td colspan="8">
-                  <div class="text-center">No record found</div>
-                </td>
-              </tr>
-              <ng-container *ngIf="view.data?.upcomingClasses?.data?.length">
-                <tr *ngFor="let upcomingClass of view.data.upcomingClasses.data; let i=index">
-                  <td>{{ i + 1 }}</td>
-                  <td>{{ upcomingClass.title ? upcomingClass.title : 'N/A' }}</td>
-                  <td>
-                    <metutors-user-avatar [avatar]="upcomingClass?.teacher?.avatar"
-                                          [name]="upcomingClass?.teacher?.firstName+' '+upcomingClass?.teacher?.lastName"
-                                          [type]="'small'"
-                                          class="d-block"></metutors-user-avatar>
-                  </td>
-                  <td>{{ upcomingClass.startDate | date: 'EEEE' }} </td>
-                  <td>{{ upcomingClass.startDate | date: 'YYYY-MM-dd' }} </td>
-                  <td>{{ upcomingClass.startTime | date:'h:mm a' }} - {{ upcomingClass.endTime | date:'h:mm a' }} </td>
-                  <td>{{ upcomingClass?.duration }} hour{{ +(upcomingClass?.duration)! > 1 ? 's' : '' }}</td>
-                  <td>
-                    <span
-                      [tooltip]="getHours(upcomingClass.startDate) < 48 ? 'Class start time must be more than two days to reschedule' : ''"
-                      class="w-100">
-                      <button mat-button class="main-button-opacity me-2 flex-grow-1 w-100"
-                              [disabled]="getHours(upcomingClass.startDate) < 48">
-                        Reschedule
-                      </button>
-                    </span>
+            <div class="table-responsive" *ngSwitchCase="false">
+              <table class="table my-table orange-title">
+                <tr>
+                  <th>#</th>
+                  <th>Class Subject</th>
+                  <th>Class Tutor</th>
+                  <th>Day</th>
+                  <th>Date</th>
+                  <th style="min-width: 150px">Start time - End time</th>
+                  <th>Duration</th>
+                  <th></th>
+                </tr>
+                <tr *ngIf="!view.data?.upcomingClasses?.data?.length">
+                  <td colspan="8">
+                    <div class="text-center">No record found</div>
                   </td>
                 </tr>
-              </ng-container>
-            </table>
+                <ng-container *ngIf="view.data?.upcomingClasses?.data?.length">
+                  <tr *ngFor="let upcomingClass of view.data.upcomingClasses.data; let i=index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ upcomingClass.title ? upcomingClass.title : 'N/A' }}</td>
+                    <td>
+                      <metutors-user-avatar [avatar]="upcomingClass?.teacher?.avatar"
+                                            [name]="upcomingClass?.teacher?.firstName+' '+upcomingClass?.teacher?.lastName"
+                                            [type]="'small'"
+                                            class="d-block"></metutors-user-avatar>
+                    </td>
+                    <td>{{ upcomingClass.startDate | date: 'EEEE' }} </td>
+                    <td>{{ upcomingClass.startDate | date: 'YYYY-MM-dd' }} </td>
+                    <td>{{ upcomingClass.startTime | date:'h:mm a' }} - {{ upcomingClass.endTime | date:'h:mm a' }} </td>
+                    <td>{{ upcomingClass?.duration }} {{ +(upcomingClass?.duration)! > 1 ? ('HOURS_SM' | translate) : ('HOUR_SM' | translate) }}</td>
+                    <td>
+                      <span
+                        [tooltip]="getHours(upcomingClass.startDate) < 48 ? 'Class start time must be more than two days to reschedule' : ''"
+                        class="w-100">
+                        <button mat-button class="main-button-opacity me-2 flex-grow-1 w-100"
+                                [disabled]="getHours(upcomingClass.startDate) < 48">
+                          Reschedule
+                        </button>
+                      </span>
+                    </td>
+                  </tr>
+                </ng-container>
+              </table>
+            </div>
           </ng-container>
         </div>
 
         <div class="col-12 mt-5">
-          <h3 class="overview mb-3">Previous Classes -
+          <h3 class="overview mb-3 f-size-17-md-sm">Previous Classes -
             ({{ view?.data?.totalPreviousClasses ? view?.data?.totalPreviousClasses : 0 }})</h3>
           <ng-container [ngSwitch]="view.loading">
             <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
-            <table class="table my-table purple-title" *ngSwitchCase="false">
-              <tr>
-                <th>#</th>
-                <th>Class Subject</th>
-                <th>Class Tutor</th>
-                <th>Day</th>
-                <th>Date</th>
-                <th>Start time - End time</th>
-                <th>Duration</th>
-                <th></th>
-              </tr>
-              <tr *ngIf="!view.data?.previousClasses?.data?.length">
-                <td colspan="8">
-                  <div class="text-center">No record found</div>
-                </td>
-              </tr>
-              <ng-container *ngIf="view.data?.previousClasses?.data?.length">
-                <tr *ngFor="let previousClass of view.data.previousClasses.data; let i=index">
-                  <td>{{ i + 1}}</td>
-                  <td>{{ previousClass.title }}</td>
-                  <td>
-                    <metutors-user-avatar [avatar]="previousClass?.teacher?.avatar" [type]="'small'"
-                                          [name]="previousClass?.teacher?.firstName+ ' ' +previousClass?.teacher?.lastName"
-                                          class="d-block"></metutors-user-avatar>
-                  </td>
-                  <td>{{ previousClass.startDate | date: 'EEEE' }} </td>
-                  <td>{{ previousClass.startDate | date: 'YYYY-MM-dd' }} </td>
-                  <td>{{ previousClass.startTime | date:'h:mm a' }} - {{ previousClass.endTime | date:'h:mm a' }} </td>
-                  <td>{{ previousClass?.duration }}hr{{ +(previousClass?.duration)! > 1 ? 's' : '' }}</td>
-                  <td>
-                    <ng-container *ngIf="previousClass?.studentAttendence?.status === 'absent'; else second">
-                      <span class="w-100 text-center text-main">Student Absent</span>
-                    </ng-container>
-
-                    <ng-template #second>
-                      <ng-container  *ngIf="previousClass?.studentAttendence?.status === 'present' && previousClass?.teacherAttendence?.status === 'absent'; else third">
-                        <button mat-button class="main-button-opacity flex-grow-1 w-100"
-                                (click)="onOpenMakeupClassModal(previousClass)">
-                          <img src="assets/svg/eye-fill.svg" draggable="false" alt="">
-                          Makeup Class
-                        </button>
-                      </ng-container>
-                    </ng-template>
-
-                    <ng-template #third>
-                      <button mat-button class="main-button-opacity flex-grow-1 w-100" (click)="onViewClass(previousClass.id)" [disabled]="isLoadingViewClass$ | async">
-                        <img src="assets/svg/eye-fill.svg" draggable="false" alt="">
-                        View Class
-                      </button>
-                    </ng-template>
+            <div class="table-responsive" *ngSwitchCase="false">
+              <table class="table my-table purple-title">
+                <tr>
+                  <th>#</th>
+                  <th>Class Subject</th>
+                  <th>Class Tutor</th>
+                  <th>Day</th>
+                  <th>Date</th>
+                  <th style="min-width: 150px">Start time - End time</th>
+                  <th>Duration</th>
+                  <th></th>
+                </tr>
+                <tr *ngIf="!view.data?.previousClasses?.data?.length">
+                  <td colspan="8">
+                    <div class="text-center">No record found</div>
                   </td>
                 </tr>
-              </ng-container>
-            </table>
+                <ng-container *ngIf="view.data?.previousClasses?.data?.length">
+                  <tr *ngFor="let previousClass of view.data.previousClasses.data; let i=index">
+                    <td>{{ i + 1}}</td>
+                    <td>{{ previousClass.title }}</td>
+                    <td>
+                      <metutors-user-avatar [avatar]="previousClass?.teacher?.avatar" [type]="'small'"
+                                            [name]="previousClass?.teacher?.firstName+ ' ' +previousClass?.teacher?.lastName"
+                                            class="d-block"></metutors-user-avatar>
+                    </td>
+                    <td>{{ previousClass.startDate | date: 'EEEE' }} </td>
+                    <td>{{ previousClass.startDate | date: 'YYYY-MM-dd' }} </td>
+                    <td>{{ previousClass.startTime | date:'h:mm a' }} - {{ previousClass.endTime | date:'h:mm a' }} </td>
+                    <td>{{ previousClass?.duration }}{{ +(previousClass?.duration)! > 1 ? ('HRS_SM' | translate) : ('HR_SM' | translate) }}</td>
+                    <td>
+                      <ng-container *ngIf="previousClass?.studentAttendence?.status === 'absent'; else second">
+                        <span class="w-100 text-center text-main">Student Absent</span>
+                      </ng-container>
+
+                      <ng-template #second>
+                        <ng-container  *ngIf="previousClass?.studentAttendence?.status === 'present' && previousClass?.teacherAttendence?.status === 'absent'; else third">
+                          <button mat-button class="main-button-opacity flex-grow-1 w-100"
+                                  (click)="onOpenMakeupClassModal(previousClass)">
+                            <img src="assets/svg/eye-fill.svg" draggable="false" alt="">
+                            Makeup Class
+                          </button>
+                        </ng-container>
+                      </ng-template>
+
+                      <ng-template #third>
+                        <button mat-button class="main-button-opacity flex-grow-1 w-100" (click)="onViewClass(previousClass.id)" [disabled]="isLoadingViewClass$ | async">
+                          <img src="assets/svg/eye-fill.svg" draggable="false" alt="">
+                          View Class
+                        </button>
+                      </ng-template>
+                    </td>
+                  </tr>
+                </ng-container>
+              </table>
+            </div>
           </ng-container>
         </div>
       </div>

@@ -10,10 +10,7 @@
         'approved': tutor?.interviewRequest?.status === interviewStatus.approved,
         'rejected': tutor?.interviewRequest?.status === interviewStatus.rejected,
         'scheduled': tutor?.interviewRequest?.status === interviewStatus.scheduled
-      }"
-      [matTooltip]="tutor.interviewRequest && tutor.interviewRequest.adminComments ? tutor.interviewRequest.adminComments : ''"
-      [matTooltipPosition]="'above'"
-      [matTooltipDisabled]="!tutor?.interviewRequest?.adminComments">
+      }">
       <ng-container *ngIf="tutor?.interviewRequest?.status === interviewStatus.pending">
         Account Under Review
       </ng-container>
@@ -83,7 +80,7 @@
   <div class="card complete-form mb-3">
     <form class="card-body" [formGroup]="personalInfoForm" (ngSubmit)="submitPersonalInfo(personalInfoForm)">
       <div class="d-flex justify-content-between align-items-center w-100 mb-4">
-        <h1 class="title f-size-18-md-sm">Personal Information</h1>
+        <h1 class="title f-size-18-md-sm">{{ 'PERSONAL_INFORMATION' | translate }}</h1>
 
         <div>
           <metutors-submit-button [form]="personalInfoForm" [isSubmitting]="isUpdateProfile && selectedForm === 1"
@@ -96,22 +93,22 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
-            <label for="firstName" class="form-label">First Name</label>
-            <input type="text" class="custom-input w-100 input-bordered" id="firstName" placeholder="Enter First Name"
+            <label for="firstName" class="form-label">{{ 'FIRST_NAME' | translate }}</label>
+            <input type="text" class="custom-input w-100 input-bordered" id="firstName" placeholder="{{ 'FIRST_NAME' | translate }}"
               formControlName="firstName" meTutorsLettersOnly>
             <div class="text-danger" *ngIf="firstName?.touched && firstName?.invalid">
-              Please write a valid name
+              {{ 'WRITE_VALID_FIRST_NAME' | translate }}
             </div>
           </div>
         </div>
 
         <div class="col-md-6">
           <div class="form-group">
-            <label for="lastName" class="form-label">Last Name</label>
-            <input type="text" class="custom-input w-100 input-bordered" id="lastName" placeholder="Enter Last Name"
+            <label for="lastName" class="form-label">{{ 'LAST_NAME' | translate }}</label>
+            <input type="text" class="custom-input w-100 input-bordered" id="lastName" placeholder="{{ 'LAST_NAME' | translate }}"
               formControlName="lastName" meTutorsLettersOnly>
             <div class="text-danger" *ngIf="lastName?.touched && lastName?.invalid">
-              Please write a valid name
+              {{ 'WRITE_VALID_LAST_NAME' | translate }}
             </div>
           </div>
         </div>
@@ -119,11 +116,11 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
-            <label for="middleName" class="form-label">Middle Name <span>(Optional)</span></label>
-            <input type="text" class="custom-input w-100 input-bordered" id="middleName" placeholder="Enter Middle Name"
+            <label for="middleName" class="form-label">{{ 'MIDDLE_NAME' | translate }} <span>({{ 'OPTIONAL' | translate }})</span></label>
+            <input type="text" class="custom-input w-100 input-bordered" id="middleName" placeholder="{{ 'ENTER_MIDDLE_NAME' | translate }}"
               formControlName="middleName" meTutorsLettersOnly>
             <div class="text-danger" *ngIf="middleName?.touched && middleName?.invalid">
-              Please write a valid name
+              {{ 'WRITE_VALID_NAME' | translate }}
             </div>
           </div>
         </div>
@@ -139,139 +136,142 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
-            <label for="dateOfBirth" class="form-label">Date of Birth</label>
+            <label for="dateOfBirth" class="form-label">{{ 'DATE_BIRTH' | translate }}</label>
             <mat-form-field appearance="outline" class="w-100">
-              <input matInput [matDatepicker]="dateOfBirthPicker" [placeholder]="'Select Your Date of Birth'"
+              <input matInput [matDatepicker]="dateOfBirthPicker" placeholder="{{ 'SELECT_DATE_BIRTH' | translate }}"
                 (focus)="dateOfBirthPicker.open()" formControlName="dateOfBirth" [max]="maxDate">
               <mat-datepicker-toggle matSuffix [for]="dateOfBirthPicker"></mat-datepicker-toggle>
               <mat-datepicker #dateOfBirthPicker></mat-datepicker>
             </mat-form-field>
             <div class="text-danger" *ngIf="dateOfBirth?.touched && dateOfBirth?.invalid">
-              Please select your Date of Birth
+              {{ 'SELECT_UR_DATE_BIRTH' | translate }}
             </div>
           </div>
         </div>
 
         <div class="col-md-6">
           <div class="form-group">
-            <label for="address" class="form-label">Address 1</label>
-            <input type="text" class="custom-input w-100 input-bordered" id="address" placeholder="Enter Street Address"
-              formControlName="address">
-            <div class="text-danger" *ngIf="address?.touched && address?.invalid">
-              Please write your Address with a max of 120 characters
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="gender" class="form-label">Select Gender</label>
+            <label for="country" class="form-label">{{ 'COUNTRY' | translate }}</label>
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="gender" [placeholder]="'Select your gender'">
-                <mat-option [value]="gender" *ngFor="let gender of genders">{{ gender }}</mat-option>
-              </mat-select>
-            </mat-form-field>
-            <div class="text-danger" *ngIf="gender?.touched && gender?.invalid">
-              Please choose your Gender
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="address2" class="form-label">Address 2 (Optional)</label>
-            <input type="text" class="custom-input w-100 input-bordered" id="address2"
-              placeholder="Enter street address" formControlName="address2">
-            <div class="text-danger" *ngIf="address2?.touched && address2?.invalid">
-              Please write your Address with a max of 120 characters
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="nationality" class="form-label">Nationality</label>
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="nationality" [placeholder]="'Select your nationality'" id="nationality">
-                <mat-option>
-                  <ngx-mat-select-search [(ngModel)]="filterNationality" [ngModelOptions]="{standalone: true}"
-                                         placeholderLabel="Search..." noEntriesFoundLabel="No matching country found">
-                  </ngx-mat-select-search>
-                </mat-option>
-                <mat-option *ngFor="let country of filteredNationalities" [value]="country.name">{{ country.name }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-            <div class="text-danger" *ngIf="nationality?.touched && nationality?.invalid">
-              Please choose your Nationality
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="postalCode" class="form-label">Postal Code</label>
-            <input type="text" class="custom-input w-100 input-bordered" id="postalCode" placeholder="Postal Code"
-                   formControlName="postalCode">
-            <div class="text-danger" *ngIf="postalCode?.touched && postalCode?.invalid">
-              Please write a valid Postal Code
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="bio" class="form-label w-100">Add Bio <small class="text-danger fw-normal">
-                (200 to 400 characters)
-              </small>
-              <metutors-char-counter [limit]="400" [controlName]="bio"></metutors-char-counter>
-            </label>
-            <textarea id="bio" class="custom-input w-100 input-bordered" [placeholder]="'Add Bio here... '" rows="10"
-              formControlName="bio" minlength="200" maxlength="400"></textarea>
-            <div class="text-danger" *ngIf="bio?.touched && bio?.invalid">
-              Please write valid Bio
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="country" class="form-label">Country</label>
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="country" [placeholder]="'Select Country'" id="country"
+              <mat-select formControlName="country" placeholder="{{ 'SELECT_COUNTRY' | translate }}" id="country"
                 (selectionChange)="loadCities.emit(country?.value)">
                 <mat-option>
                   <ngx-mat-select-search [(ngModel)]="filterCountry" [ngModelOptions]="{standalone: true}"
-                    placeholderLabel="Search..." noEntriesFoundLabel="No matching country found">
+                    placeholderLabel="{{ 'SEARCH' | translate }}" noEntriesFoundLabel="{{ 'NO_MATCHING_COUNTRY_FOUND' | translate }}">
                   </ngx-mat-select-search>
                 </mat-option>
-                <mat-option *ngFor="let country of filteredCountries" [value]="country.id">{{ country.name }}
+                <mat-option *ngFor="let country of filteredCountries" [value]="country.id">
+                  <img [src]="country?.flag" *ngIf="country?.flag" width="22px" class="me-2" alt="">
+                  {{ country.name }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
             <div class="text-danger" *ngIf="country?.touched && country?.invalid">
-              Please choose your Country
+              {{ 'CHOOSE_UR_COUNTRY' | translate }}
             </div>
           </div>
+        </div>
+      </div>
 
+      <div class="row">
+        <div class="col-md-6">
           <div class="form-group">
-            <label for="city" class="form-label">City</label>
+            <label for="gender" class="form-label">{{ 'SELECT_GENDER' | translate }}</label>
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="city" [placeholder]="'Select city'" [disabled]="!cities || !cities.length" id="city">
+              <mat-select formControlName="gender" placeholder="{{ 'SELECT_UR_GENDER' | translate }}">
+                <mat-option [value]="gender" *ngFor="let gender of genders">{{ gender }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div class="text-danger" *ngIf="gender?.touched && gender?.invalid">
+              {{ 'CHOOSE_UR_GENDER' | translate }}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="city" class="form-label">{{ 'CITY' | translate }}</label>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-select formControlName="city" placeholder="{{ 'SELECT_CITY' | translate }}" [disabled]="!cities || !cities.length" id="city">
                 <mat-option>
                   <ngx-mat-select-search [(ngModel)]="filterCity" [ngModelOptions]="{standalone: true}"
-                    placeholderLabel="Search..." noEntriesFoundLabel="No matching city found">
+                    placeholderLabel="{{ 'SEARCH' | translate }}" noEntriesFoundLabel="{{ 'NO_MATCHING_CITY_FOUND' | translate }}">
                   </ngx-mat-select-search>
                 </mat-option>
                 <mat-option *ngFor="let city of filteredCities" [value]="city.name">{{ city.name }}</mat-option>
               </mat-select>
             </mat-form-field>
             <div class="text-danger" *ngIf="city?.touched && city?.invalid">
-              Please choose your City
+              {{ 'CHOOSE_UR_CITY' | translate }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="nationality" class="form-label">{{ 'NATIONALITY' | translate }}</label>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-select formControlName="nationality" placeholder="{{ 'SELECT_NATIONALITY' | translate }}" id="nationality">
+                <mat-option>
+                  <ngx-mat-select-search [(ngModel)]="filterNationality" [ngModelOptions]="{standalone: true}"
+                                         placeholderLabel="{{ 'SEARCH' | translate }}"
+                                         noEntriesFoundLabel="{{ 'NO_MATCHING_COUNTRY_FOUND' | translate }}">
+                  </ngx-mat-select-search>
+                </mat-option>
+                <mat-option *ngFor="let country of filteredNationalities" [value]="country.name">
+                  {{ country.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div class="text-danger" *ngIf="nationality?.touched && nationality?.invalid">
+              {{ 'CHOOSE_NATIONALITY' | translate }}
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="address" class="form-label">{{ 'ADDRESS_1' | translate }}</label>
+            <input type="text" class="custom-input w-100 input-bordered" id="address" placeholder="{{ 'ENTER_STREET_ADDRESS' | translate }}"
+              formControlName="address">
+            <div class="text-danger" *ngIf="address?.touched && address?.invalid">
+              {{ 'ADDRESS_CHARACTERS' | translate }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="bio" class="form-label">{{ 'ADD_BIOGRAPHY' | translate }}
+              <span>({{ 'WRITE_BIOGRAPHY_NOTE' | translate }})</span>
+              <metutors-char-counter [limit]="400" [controlName]="bio"></metutors-char-counter>
+            </label>
+            <textarea id="bio" class="custom-input w-100 input-bordered" placeholder="{{ 'ADD_BIO_HERE' | translate }}"
+              rows="10" formControlName="bio" minlength="200" maxlength="400"></textarea>
+            <small class="text-danger">({{ 'BIO_CHARACTERS' | translate }})</small>
+            <div class="text-danger" *ngIf="bio?.touched && bio?.invalid">
+              {{ 'WRITE_UR_BIO' | translate }}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="address2" class="form-label">{{ 'ADDRESS_2' | translate }} ({{ 'OPTIONAL' | translate }})</label>
+            <input type="text" class="custom-input w-100 input-bordered" id="address2"
+              placeholder="{{ 'ENTER_STREET_ADDRESS' | translate }}" formControlName="address2">
+            <div class="text-danger" *ngIf="address2?.touched && address2?.invalid">
+              {{ 'ADDRESS_CHARACTERS' | translate }}
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="postalCode" class="form-label">{{ 'POSTAL_CODE' | translate }}</label>
+            <input type="text" class="custom-input w-100 input-bordered" id="postalCode" placeholder="{{ 'POSTAL_CODE' | translate }}"
+                   formControlName="postalCode">
+            <div class="text-danger" *ngIf="postalCode?.touched && postalCode?.invalid">
+              {{ 'WRITE_VALID_POSTAL_CODE' | translate }}
             </div>
           </div>
         </div>
@@ -282,7 +282,7 @@
   <div class="card complete-form mb-3">
     <form class="card-body" [formGroup]="qualificationForm" (ngSubmit)="submitQualificationDetails(qualificationForm)">
       <div class="d-flex justify-content-between align-items-center w-100 mb-4">
-        <h1 class="title f-size-18-md-sm">Qualification Details</h1>
+        <h1 class="title f-size-18-md-sm">{{ 'QUALIFICATION_DETAILS' | translate }}</h1>
 
         <div>
           <metutors-submit-button [form]="qualificationForm" [isSubmitting]="isUpdateProfile && selectedForm === 2"
@@ -295,104 +295,111 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
-            <label for="nameOfUniversity" class="form-label">University Name</label>
-            <input type="text" class="custom-input w-100 input-bordered" id="nameOfUniversity" placeholder="Enter University Name"
+            <label for="nameOfUniversity" class="form-label">{{ 'NAME_UNIVERSITY' | translate }}</label>
+            <input type="text" class="custom-input w-100 input-bordered" id="nameOfUniversity" placeholder="{{ 'ENTER_UNIVERSITY_NAME' | translate }}"
               formControlName="nameOfUniversity" meTutorsLettersOnly>
             <div class="text-danger" *ngIf="nameOfUniversity?.touched && nameOfUniversity?.invalid">
-              Please enter a valid university name
+              {{ 'VALID_UNIVERSITY_NAME' | translate }}
             </div>
           </div>
         </div>
 
         <div class="col-md-6">
           <div class="form-group">
-            <label for="teachingExperience" class="form-label">Teaching Experience (In Schools)</label>
+            <label for="teachingExperience" class="form-label">{{ 'TEACHING_EXPERIENCE' | translate }}</label>
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="teachingExperience" [placeholder]="'Select Years'">
+              <mat-select formControlName="teachingExperience" placeholder="{{ 'SELECT_YEARS' | translate }}">
                 <mat-option [value]="experience" *ngFor="let experience of experiences">{{ experience }}</mat-option>
               </mat-select>
             </mat-form-field>
             <div class="text-danger" *ngIf="teachingExperience?.touched && teachingExperience?.invalid">
-              Please Choose Your Years of Teacher Experience
+              {{ 'CHOOSE_YEARS_TEACHING_EXPERIENCE_SCHOOL' | translate }}
             </div>
           </div>
         </div>
 
         <div class="col-md-6">
           <div class="form-group">
-            <label for="degreeLevel" class="form-label">Degree Level</label>
+            <label for="degreeLevel" class="form-label">{{ 'DEGREE_LEVEL' | translate }}</label>
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="degreeLevel" [placeholder]="'Select Degree Level'"
+              <mat-select formControlName="degreeLevel" placeholder="{{ 'SELECT_DEGREE_LEVEL' | translate }}"
                 (selectionChange)="resetDegreeField()">
                 <mat-option [value]="level" *ngFor="let level of degreeLevels">{{ level }}</mat-option>
               </mat-select>
             </mat-form-field>
             <div class="text-danger" *ngIf="degreeLevel?.touched && degreeLevel?.invalid">
-              Please Choose Your Degree Level
+              {{ 'CHOOSE_DEGREE_LEVEL' | translate }}
             </div>
           </div>
         </div>
 
         <div class="col-md-6">
           <div class="form-group">
-            <label for="teachingExperienceOnline" class="form-label">Teaching Experience (Online)</label>
+            <label for="teachingExperienceOnline" class="form-label">{{ 'TEACHING_EXPERIENCE_ONLINE' | translate }}</label>
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="teachingExperienceOnline" [placeholder]="'Select Years'">
+              <mat-select formControlName="teachingExperienceOnline" placeholder="{{ 'SELECT_YEARS' | translate }}">
                 <mat-option [value]="experience" *ngFor="let experience of experiences">{{ experience }}</mat-option>
               </mat-select>
             </mat-form-field>
             <div class="text-danger" *ngIf="teachingExperienceOnline?.touched && teachingExperienceOnline?.invalid">
-              Please Choose Your Years of Teacher Experience Online
+              {{ 'CHOOSE_YEARS_TEACHING_EXPERIENCE_ONLINE' | translate }}
             </div>
           </div>
         </div>
 
         <div class="col-md-6">
           <div class="form-group">
-            <label for="degreeField" class="form-label">Degree Field/Major</label>
+            <label for="degreeField" class="form-label">{{ 'DEGREE_FIELD' | translate }}</label>
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="degreeField" [placeholder]="'Select Degree Field'">
+              <mat-select formControlName="degreeField" placeholder="{{ 'SELECT_DEGREE_FIELD' | translate }}">
                 <mat-option>
                   <ngx-mat-select-search [(ngModel)]="filterDegree" [ngModelOptions]="{standalone: true}"
-                    placeholderLabel="Search..." noEntriesFoundLabel="No matching degree field found">
+                    placeholderLabel="{{ 'SEARCH' | translate }}" noEntriesFoundLabel="{{ 'NO_MATCHING_DEGREE_FIELD' | translate }}">
                   </ngx-mat-select-search>
                 </mat-option>
                 <mat-option [value]="field" *ngFor="let field of filteredDegreeFields">{{ field }}</mat-option>
               </mat-select>
             </mat-form-field>
             <div class="text-danger" *ngIf="degreeField?.touched && degreeField?.invalid">
-              Please Choose Your Degree Field
+              {{ 'CHOOSE_DEGREE_FIELD' | translate }}
             </div>
           </div>
         </div>
 
         <div class="col-md-6">
           <div class="form-group">
-            <label for="currentEmployer" class="form-label">Current Employer (Optional)</label>
-            <input type="text" class="custom-input w-100 input-bordered" id="currentEmployer" placeholder="Enter Here"
-              formControlName="currentEmployer">
+            <label for="currentEmployer" class="form-label">{{ 'CURRENT_EMPLOYER' | translate }}
+              ({{ 'OPTIONAL' | translate }})</label>
+            <input type="text" class="custom-input w-100 input-bordered" id="currentEmployer"
+              placeholder="{{ 'ENTER_CURRENT_EMPLOYER' | translate }}" formControlName="currentEmployer">
+            <div class="text-danger" *ngIf="currentEmployer?.touched && currentEmployer?.invalid">
+              {{ 'WRITE_VALID_CURRENT_EMPLOYER' | translate }}
+            </div>
           </div>
         </div>
 
         <div class="col-md-6">
           <div class="form-group">
-            <label for="computerSkills" class="form-label">Computer Skills Level</label>
+            <label for="computerSkills" class="form-label">{{ 'COMPUTER_SKILLS' | translate }}</label>
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="computerSkills" [placeholder]="'Select Computer Skills'">
+              <mat-select formControlName="computerSkills" placeholder="{{ 'SELECT_COMPUTER_SKILLS' | translate }}">
                 <mat-option [value]="skill" *ngFor="let skill of skills">{{ skill }}</mat-option>
               </mat-select>
             </mat-form-field>
             <div class="text-danger" *ngIf="computerSkills?.touched && computerSkills?.invalid">
-              Please Choose Your Computer Skills Level
+              {{ 'CHOOSE_COMPUTER_SKILLS' | translate }}
             </div>
           </div>
         </div>
 
         <div class="col-md-6">
           <div class="form-group">
-            <label for="currentTitle" class="form-label">Current Title (Optional)</label>
-            <input type="text" class="custom-input w-100 input-bordered" id="currentTitle" placeholder="Enter Here"
+            <label for="currentTitle" class="form-label">{{ 'CURRENT_TITLE' | translate }} ({{ 'OPTIONAL' | translate }})</label>
+            <input type="text" class="custom-input w-100 input-bordered" id="currentTitle" placeholder="{{ 'ENTER_CURRENT_TITLE' | translate }}"
               formControlName="currentTitle" meTutorsLettersOnly>
+            <div class="text-danger" *ngIf="currentTitle?.touched && currentTitle?.invalid">
+              {{ 'WRITE_VALID_CURRENT_TITLE' | translate }}
+            </div>
           </div>
         </div>
       </div>
@@ -402,7 +409,7 @@
   <div class="card complete-form mb-3">
     <form class="card-body" [formGroup]="teachingForm" (ngSubmit)="submitTeachingSpecification(teachingForm)">
       <div class="d-flex justify-content-between align-items-center w-100 mb-4">
-        <h1 class="title f-size-18-md-sm">Teaching Preferences</h1>
+        <h1 class="title f-size-18-md-sm">{{ 'TEACHING_PREFERENCES' | translate }}</h1>
 
         <div>
           <metutors-submit-button [form]="teachingForm" [isSubmitting]="isUpdateProfile && selectedForm === 3"
@@ -415,22 +422,22 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
-            <label for="startDate" class="form-label">Available Start Date</label>
+            <label for="startDate" class="form-label">{{ 'AVAILABLE_START_DATE' | translate }}</label>
             <mat-form-field appearance="outline" class="w-100">
-              <input matInput [matDatepicker]="startDatePicker" [placeholder]="'Select Start Date'"
+              <input matInput [matDatepicker]="startDatePicker" placeholder="{{ 'SELECT_AVAILABLE_START_DATE' | translate }}"
                 (focus)="startDatePicker.open()" [min]="minDate" (dateChange)="onChangeStartDate()" formControlName="startDate">
               <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
               <mat-datepicker #startDatePicker></mat-datepicker>
             </mat-form-field>
             <div class="text-danger" *ngIf="startDate?.touched && startDate?.invalid">
-              Please select your availability to start
+              {{ 'SELECT_UR_AVAILABLE_START_DATE' | translate }}
             </div>
           </div>
         </div>
 
         <div class="col-md-6">
           <div class="form-group">
-            <label class="form-label">Tutoring Preferences</label>
+            <label class="form-label">{{ 'TUTORING_PREFERENCES' | translate }}</label>
             <mat-radio-group class="d-flex flex-row mt-3 fw-bold flex-column-md-sm mt-15-sm" formControlName="typeOfTutoring">
               <mat-radio-button [ngClass]="{'mt-15-md-sm ms-3': !isFirst}" class="m-0-md-sm" [value]="type.value"
                 *ngFor="let type of types | keyvalue: returnZero; let isFirst = first" [disabled]="type.key !== 'one'">
@@ -438,29 +445,29 @@
               </mat-radio-button>
             </mat-radio-group>
             <div class="text-danger" *ngIf="typeOfTutoring?.touched && typeOfTutoring?.invalid">
-              Please select Type of Tutoring
+              {{ 'SELECT_TYPE_TUTORING' | translate }}
             </div>
           </div>
         </div>
 
         <div class="col-md-6">
           <div class="form-group">
-            <label for="endDate" class="form-label">Available End Date</label>
+            <label for="endDate" class="form-label">{{ 'AVAILABLE_END_DATE' | translate }}</label>
             <mat-form-field appearance="outline" class="w-100">
-              <input matInput [matDatepicker]="endDatePicker" [placeholder]="'Select Availability End Date'"
+              <input matInput [matDatepicker]="endDatePicker" placeholder="{{ 'SELECT_AVAILABLE_END_DATE' | translate }}"
                 (focus)="endDatePicker.open()" [min]="startDate?.value" formControlName="endDate">
               <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
               <mat-datepicker #endDatePicker></mat-datepicker>
             </mat-form-field>
             <div class="text-danger" *ngIf="endDate?.touched && endDate?.invalid">
-              Please select your availability end Date
+              {{ 'SELECT_UR_AVAILABLE_END_DATE' | translate }}
             </div>
           </div>
         </div>
 
         <div class="col-md-6">
           <div class="form-group">
-            <label class="form-label">Available teaching days</label>
+            <label class="form-label">{{ 'ADD_UR_AVAILABILITY' | translate }}</label>
             <div class="list-days">
               <button type="button" mat-button [class.active]="selectedDays?.includes(i)" [disabled]="checkDisabledDays(day)"
                 *ngFor="let day of days; let i = index" (click)="onChangeDay(i)" class="w-100-md-sm">{{ day }}</button>
