@@ -3,9 +3,9 @@
     <div class="row">
       <div class="col-12">
         <div class="block text-center" style="background-image: url('assets/homepage/shape-1.svg')">
-          <h1 class="f-size-25-md-sm">Ready to start teaching with MEtutors?</h1>
-          <p class="f-size-17-md-sm">Join our teacher community and start making money today!</p>
-          <a mat-button routerLink="/signup" [queryParams]="{role: 3}" *ngIf="!token">Apply now</a>
+          <h1 class="f-size-25-md-sm">{{ 'BECOME_ONLINE_TEACHING' | translate }}</h1>
+          <p class="f-size-17-md-sm">{{ 'JOIN_OUR_COMMUNITY' | translate }}</p>
+          <a mat-button routerLink="/signup" [queryParams]="{role: 3}" *ngIf="!token">{{ 'APPLY_NOW' | translate }}</a>
         </div>
       </div>
     </div>

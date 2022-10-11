@@ -22,7 +22,7 @@
               (selectionChange)="loadCities.emit(country?.value); resetCity()">
               <mat-option>
                 <ngx-mat-select-search [(ngModel)]="filterCountry" [ngModelOptions]="{standalone: true}"
-                  placeholderLabel="{{ 'SEARCH' | translate }}" noEntriesFoundLabel="{{ 'NO_MATCHING_COUNTRY_FOUND' | translate }}">
+                  placeholderLabel="{{ 'SEARCH_DOTS' | translate }}" noEntriesFoundLabel="{{ 'NO_MATCHING_COUNTRY_FOUND' | translate }}">
                 </ngx-mat-select-search>
               </mat-option>
               <mat-option *ngFor="let country of filteredCountries" [value]="country.id">
@@ -61,7 +61,7 @@
             <mat-select formControlName="city" placeholder="{{ 'SELECT_CITY' | translate }}" [disabled]="!cities || !cities.length">
               <mat-option>
                 <ngx-mat-select-search [(ngModel)]="filterCity" [ngModelOptions]="{standalone: true}"
-                  placeholderLabel="{{ 'SEARCH' | translate }}" noEntriesFoundLabel="{{ 'NO_MATCHING_CITY_FOUND' | translate }}">
+                  placeholderLabel="{{ 'SEARCH_DOTS' | translate }}" noEntriesFoundLabel="{{ 'NO_MATCHING_CITY_FOUND' | translate }}">
                 </ngx-mat-select-search>
               </mat-option>
               <mat-option *ngFor="let city of filteredCities" [value]="city.name">{{ city.name }}</mat-option>
@@ -96,7 +96,7 @@
             <mat-select formControlName="nationality" placeholder="{{ 'SELECT_NATIONALITY' | translate }}" id="nationality">
               <mat-option>
                 <ngx-mat-select-search [(ngModel)]="filterNationality" [ngModelOptions]="{standalone: true}"
-                  placeholderLabel="{{ 'SEARCH' | translate }}" noEntriesFoundLabel="{{ 'NO_MATCHING_COUNTRY_FOUND' | translate }}">
+                  placeholderLabel="{{ 'SEARCH_DOTS' | translate }}" noEntriesFoundLabel="{{ 'NO_MATCHING_COUNTRY_FOUND' | translate }}">
                 </ngx-mat-select-search>
               </mat-option>
               <mat-option *ngFor="let country of filteredNationalities" [value]="country.name">

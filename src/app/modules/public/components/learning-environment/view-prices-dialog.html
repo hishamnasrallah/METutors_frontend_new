@@ -3,7 +3,7 @@
     <mat-icon>close</mat-icon>
   </button>
 
-  <h1 mat-dialog-title class="text-center">Academic Tutoring Price List</h1>
+  <h1 mat-dialog-title class="text-center">{{ 'ACADEMIC_TUTORING_PRICE' | translate }}</h1>
 
   <div mat-dialog-content>
     <div class="row">
@@ -17,7 +17,7 @@
             <div class="col-md-5">
               <label>{{ 'SELECT_FIELD_STUDY' | translate }}</label>
               <mat-form-field appearance="outline" class="w-100">
-                <mat-select [placeholder]="'Please select'" (selectionChange)="fieldId = $event.value">
+                <mat-select placeholder="{{ 'PLEASE_SELECT' | translate }}" (selectionChange)="fieldId = $event.value">
                   <mat-option [value]="field.id" *ngFor="let field of fields">{{ field?.name }}</mat-option>
                 </mat-select>
               </mat-form-field>
@@ -34,8 +34,8 @@
             <thead>
               <tr>
                 <th scope="col">{{ 'SUBJECT_NAME' | translate }}</th>
-                <th scope="col">Course ID</th>
-                <th scope="col">Price per Hour (USD)</th>
+                <th scope="col">{{ 'COURSE_ID' | translate }}</th>
+                <th scope="col">{{ 'PRICE_PER_HOUR' | translate }} (USD)</th>
               </tr>
             </thead>
             <tbody>

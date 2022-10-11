@@ -157,7 +157,7 @@
                 (selectionChange)="loadCities.emit(country?.value)">
                 <mat-option>
                   <ngx-mat-select-search [(ngModel)]="filterCountry" [ngModelOptions]="{standalone: true}"
-                    placeholderLabel="{{ 'SEARCH' | translate }}" noEntriesFoundLabel="{{ 'NO_MATCHING_COUNTRY_FOUND' | translate }}">
+                    placeholderLabel="{{ 'SEARCH_DOTS' | translate }}" noEntriesFoundLabel="{{ 'NO_MATCHING_COUNTRY_FOUND' | translate }}">
                   </ngx-mat-select-search>
                 </mat-option>
                 <mat-option *ngFor="let country of filteredCountries" [value]="country.id">
@@ -195,7 +195,7 @@
               <mat-select formControlName="city" placeholder="{{ 'SELECT_CITY' | translate }}" [disabled]="!cities || !cities.length" id="city">
                 <mat-option>
                   <ngx-mat-select-search [(ngModel)]="filterCity" [ngModelOptions]="{standalone: true}"
-                    placeholderLabel="{{ 'SEARCH' | translate }}" noEntriesFoundLabel="{{ 'NO_MATCHING_CITY_FOUND' | translate }}">
+                    placeholderLabel="{{ 'SEARCH_DOTS' | translate }}" noEntriesFoundLabel="{{ 'NO_MATCHING_CITY_FOUND' | translate }}">
                   </ngx-mat-select-search>
                 </mat-option>
                 <mat-option *ngFor="let city of filteredCities" [value]="city.name">{{ city.name }}</mat-option>
@@ -216,7 +216,7 @@
               <mat-select formControlName="nationality" placeholder="{{ 'SELECT_NATIONALITY' | translate }}" id="nationality">
                 <mat-option>
                   <ngx-mat-select-search [(ngModel)]="filterNationality" [ngModelOptions]="{standalone: true}"
-                                         placeholderLabel="{{ 'SEARCH' | translate }}"
+                                         placeholderLabel="{{ 'SEARCH_DOTS' | translate }}"
                                          noEntriesFoundLabel="{{ 'NO_MATCHING_COUNTRY_FOUND' | translate }}">
                   </ngx-mat-select-search>
                 </mat-option>
@@ -354,7 +354,7 @@
               <mat-select formControlName="degreeField" placeholder="{{ 'SELECT_DEGREE_FIELD' | translate }}">
                 <mat-option>
                   <ngx-mat-select-search [(ngModel)]="filterDegree" [ngModelOptions]="{standalone: true}"
-                    placeholderLabel="{{ 'SEARCH' | translate }}" noEntriesFoundLabel="{{ 'NO_MATCHING_DEGREE_FIELD' | translate }}">
+                    placeholderLabel="{{ 'SEARCH_DOTS' | translate }}" noEntriesFoundLabel="{{ 'NO_MATCHING_DEGREE_FIELD' | translate }}">
                   </ngx-mat-select-search>
                 </mat-option>
                 <mat-option [value]="field" *ngFor="let field of filteredDegreeFields">{{ field }}</mat-option>

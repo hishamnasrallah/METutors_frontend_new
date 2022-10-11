@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
 import * as fromCore from '@metutor/core/state';
+import { Component, OnInit } from '@angular/core';
 import { IFAQ, IFAQTopics } from 'src/app/core/models';
 
 @Component({

@@ -42,7 +42,7 @@
                   <tr>
                     <th [attr.colspan]="item?.programId === nationalId ? '1' : '2'">{{ 'SUBJECT_NAME' | translate }}</th>
                     <th *ngIf="item?.programId === nationalId">{{ 'GRADE' | translate }}</th>
-                    <!-- <th>Hourly Price</th> -->
+                    <!-- <th>{{ 'HOURLY_PRICE' | translate }}</th> -->
                   </tr>
                   <tr *ngFor="let subject of item.subjects">
                     <td [attr.colspan]="item?.programId === nationalId ? '1' : '2'">{{ subject?.subject }}</td>

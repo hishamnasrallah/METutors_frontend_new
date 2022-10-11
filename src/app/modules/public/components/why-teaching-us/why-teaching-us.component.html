@@ -2,15 +2,12 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-5">
-        <h1 class="f-size-25-md-sm">Why tutors love working with us</h1>
-
-        <p>
-          We match educators with students for the ideal learning experience
-        </p>
+        <h1 class="f-size-25-md-sm">{{ 'WHY_TEACHING_US' | translate }}</h1>
+        <p>{{ 'WHY_TEACHING_US_DESC' | translate }}</p>
         <ul class="list-unstyled row">
           <li class="col-md-12" *ngFor="let item of whyTeachingUsList">
             <img src="assets/svg/correct.svg" alt="">
-            <span class="f-size-15-md-sm">{{ item?.value }}</span>
+            <span class="f-size-15-md-sm">{{ item | translate }}</span>
           </li>
         </ul>
       </div>

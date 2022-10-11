@@ -5,7 +5,7 @@
         <mat-icon class="favorite">favorite</mat-icon>
       </div>
       <div class="col-md-6">
-        <h1 class="f-size-25-md-sm">What our tutors say about us</h1>
+        <h1 class="f-size-25-md-sm">{{ 'WHAT_TUTORS_SAY' | translate }}</h1>
       </div>
       <div class="col-md-6 buttons-list">
         <button mat-button (click)="owlCar.next()">
@@ -27,7 +27,7 @@
 
               <div class="col-12 d-flex flex-column">
                 <p class="bio flex-grow-1">
-                  <q>{{ opportunity?.content }}</q>
+                  <q>{{ opportunity.content | translate }}</q>
                 </p>
 
                 <h3>- {{ opportunity?.postedBy }}</h3>

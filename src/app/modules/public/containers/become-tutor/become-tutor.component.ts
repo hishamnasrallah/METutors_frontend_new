@@ -23,38 +23,14 @@ export class BecomeTutorComponent implements OnInit {
     this.token$ = this._store.select(fromCore.selectToken);
 
     this.whyTeachingUsList = [
-      {
-        id: 1,
-        value: 'Simple registration and onboarding process',
-      },
-      {
-        id: 2,
-        value: 'Flexible payout options',
-      },
-      {
-        id: 3,
-        value: 'We find you students',
-      },
-      {
-        id: 4,
-        value: 'Choose the hours you work',
-      },
-      {
-        id: 5,
-        value: 'Modern teaching tools in the classroom',
-      },
-      {
-        id: 6,
-        value: '24*7 tutor support',
-      },
-      {
-        id: 7,
-        value: 'Teach from anywhere',
-      },
-      {
-        id: 8,
-        value: 'Easy to use platform with everything in one place',
-      },
+      'WHY_TEACHING_US_OPTION_1',
+      'WHY_TEACHING_US_OPTION_2',
+      'WHY_TEACHING_US_OPTION_3',
+      'WHY_TEACHING_US_OPTION_4',
+      'WHY_TEACHING_US_OPTION_5',
+      'WHY_TEACHING_US_OPTION_6',
+      'WHY_TEACHING_US_OPTION_7',
+      'WHY_TEACHING_US_OPTION_8',
     ];
 
     this.requestCoursesList = [
@@ -98,29 +74,25 @@ export class BecomeTutorComponent implements OnInit {
       {
         id: 1,
         picture: '',
-        content:
-          'MEtutors is the best place to apply for flexible, convenient part-time work as an online tutor.',
+        content: 'WHAT_TUTORS_SAY_OPTION_1',
         postedBy: '@thepatwalls',
       },
       {
         id: 2,
         picture: '',
-        content:
-          'I love how MEtutors finds clients for me. I make money tutoring online from the comfort of my home or office and all I need is my high-speed internet connection.',
+        content: 'WHAT_TUTORS_SAY_OPTION_2',
         postedBy: '@thepatwalls',
       },
       {
         id: 3,
         picture: '',
-        content:
-          'I enjoy tutoring with MEtutors because I simply sign in to see I’ve been matched with an ideal student',
+        content: 'WHAT_TUTORS_SAY_OPTION_3',
         postedBy: '@thepatwalls',
       },
       {
         id: 4,
         picture: '',
-        content:
-          'I owe these guys my life. Already used their landing page templates for my latest two projects.',
+        content: 'WHAT_TUTORS_SAY_OPTION_4',
         postedBy: '@thepatwalls',
       },
     ];

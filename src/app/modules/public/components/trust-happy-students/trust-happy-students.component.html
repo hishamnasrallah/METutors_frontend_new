@@ -1,9 +1,7 @@
 <div class="container trust-happy-student">
   <div class="row">
     <div class="col-md-5">
-      <h2>
-        Changing the lives of <br> students worldwide <br> every day
-      </h2>
+      <h2 [innerHTML]="'TRUST_HAPPY_STUDENT' | translate"></h2>
     </div>
     <div class="col-md-7">
       <div class="row">
@@ -16,7 +14,7 @@
             <mat-icon>favorite</mat-icon>
             <mat-icon>favorite</mat-icon>
           </div>
-          <span>Students enrolled</span>
+          <span>{{ 'STUDENTS_ENROLLED' | translate }}</span>
         </div>
         <div class="col">
           <h1>3K</h1>
@@ -27,10 +25,10 @@
             <mat-icon>grade</mat-icon>
             <mat-icon>grade</mat-icon>
           </div>
-          <span>Certified tutors</span>
+          <span>{{ 'CERTIFIED_TUTORS' | translate }}</span>
         </div>
         <div class="col">
-          <h1>500+</h1>
+          <h1>2000+</h1>
           <div class="user">
             <img src="assets/svg/user.svg" alt />
             <img src="assets/svg/user.svg" alt />
@@ -38,7 +36,7 @@
             <img src="assets/svg/user.svg" alt />
             <img src="assets/svg/user.svg" alt />
           </div>
-          <span>Courses available</span>
+          <span>{{ 'COURSES_AVAILABLE' | translate }}</span>
         </div>
       </div>
     </div>

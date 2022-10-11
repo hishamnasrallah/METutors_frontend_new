@@ -8,7 +8,7 @@
 
         <div class="assignment-details-modal" *ngSwitchCase="false">
           <div class="form-group row">
-            <label>Description</label>
+            <label>{{ 'DESCRIPTION' | translate }}</label>
             <p class="mt-2" *ngIf="view?.assignment?.assignment?.description">
               {{ view?.assignment?.assignment?.description }}
             </p>

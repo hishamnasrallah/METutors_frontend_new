@@ -16,7 +16,7 @@
           <mat-select formControlName="language" [placeholder]="'Select language'">
             <mat-option>
               <ngx-mat-select-search [(ngModel)]="filterLanguage" [ngModelOptions]="{standalone: true}"
-                placeholderLabel="{{ 'SEARCH' | translate }}" noEntriesFoundLabel="No matching language found">
+                placeholderLabel="{{ 'SEARCH_DOTS' | translate }}" noEntriesFoundLabel="No matching language found">
               </ngx-mat-select-search>
             </mat-option>
             <mat-option [value]="lang" *ngFor="let lang of filteredLanguages">{{ lang?.name }}</mat-option>

@@ -2,15 +2,11 @@
   <div class="container">
     <div class="row">
       <div class="col-md-7">
-        <h1 class="f-size-25-md-sm">
-          Unlock your
-          <br>
-          potential
-        </h1>
-        <p class="f-size-17-md-sm">
-          Get help with your most difficult subjects, homework assignments, projects and exam preparation.
-        </p>
-        <button mat-flat-button color="primary" routerLink="/" fragment="explore-services" *ngIf="!token">Learn more</button>
+        <h1 class="f-size-25-md-sm" [innerHTML]="'UNLOCK_POTENTIAL' | translate"></h1>
+        <p class="f-size-17-md-sm">{{ 'UNLOCK_POTENTIAL_DESC' | translate }}</p>
+        <button mat-flat-button color="primary" routerLink="/" fragment="explore-services" *ngIf="!token">
+          {{ 'LEARN_MORE' | translate }}
+        </button>
       </div>
     </div>
   </div>

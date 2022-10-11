@@ -1,7 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { AlertNotificationService } from 'src/app/core/components';
 import { ContactService } from 'src/app/core/services';
+import { TranslateService } from '@ngx-translate/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AlertNotificationService } from 'src/app/core/components';
 
 @Component({
   selector: 'metutors-contact',
@@ -14,6 +15,7 @@ export class ContactComponent implements OnInit, OnDestroy {
   createContactSub?: Subscription;
 
   constructor(
+    private _translate: TranslateService,
     private _contactService: ContactService,
     private _alertNotificationService: AlertNotificationService
   ) {}
@@ -25,15 +27,15 @@ export class ContactComponent implements OnInit, OnDestroy {
     this.createContactSub = this._contactService.createContact(value).subscribe(
       (response) => {
         this.loading = false;
-        this._alertNotificationService.success(
-          response?.message || 'Your message has been sent successfully'
-        );
+        this._translate.get('MESSAGE_SENT_SUCCESSFULLY').subscribe((res: string) => {
+          this._alertNotificationService.success(response?.message || res);
+        });
       },
       (error) => {
         this.loading = false;
-        this._alertNotificationService.error(
-          error.error.message || 'Error in sending your message'
-        );
+        this._translate.get('ERROR_SEND_MESSAGE').subscribe((res: string) => {
+          this._alertNotificationService.error(error.error.message || res);
+        });
       }
     );
   }

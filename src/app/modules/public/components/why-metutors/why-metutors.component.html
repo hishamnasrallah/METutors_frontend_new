@@ -1,9 +1,7 @@
 <div class="row why-metutors">
   <div class="col-md-12 text-center">
-    <h1 class="f-size-25-md-sm">Why MEtutors</h1>
-    <p class="f-size-17-md-sm">
-      MEtutors is an online learning hub that connects educators and students from around the world.
-    </p>
+    <h1 class="f-size-25-md-sm">{{ 'WHY_METUTORS' | translate }}</h1>
+    <p class="f-size-17-md-sm">{{ 'WHY_METUTORS_DESC' | translate }}</p>
   </div>
 
   <div class="col-12">
@@ -12,7 +10,7 @@
         <div class="card h-100">
           <div class="card-body item d-flex align-items-center">
             <img src="assets/svg/correct.svg" draggable="false" width="25" height="25" alt="">
-            <h2 class="mb-0">{{ item?.value }}</h2>
+            <h2 class="mb-0">{{ item | translate }}</h2>
           </div>
         </div>
       </div>

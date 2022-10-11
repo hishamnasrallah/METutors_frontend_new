@@ -5,14 +5,14 @@
         <h2 class="f-size-17-md-sm">Course Details</h2>
         <h4 class="f-size-15-md-sm">Add course information:</h4>
 
-        <h5 class="mt-4 mb-0" *ngIf="selectedCourse">Course ID: <span>CID{{ selectedCourse.id }}</span></h5>
+        <h5 class="mt-4 mb-0" *ngIf="selectedCourse">{{ 'COURSE_ID' | translate }}: <span>CID{{ selectedCourse.id }}</span></h5>
       </div>
       <div class="col-md-8 mt-15-sm">
         <div class="row">
           <div class="col-md-6">
             <h3>{{ 'PROGRAM_NAME' | translate }}</h3>
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="courseProgram" [placeholder]="'Choose Program'"
+              <mat-select formControlName="courseProgram" placeholder="{{ 'CHOOSE_PROGRAM' | translate }}"
                 (selectionChange)="onChangeCourseProgram(); resetValues()">
                 <mat-option [value]="program?.id" *ngFor="let program of programs">
                   {{ program?.name }}
@@ -24,7 +24,7 @@
             <div class="col-md-6">
               <h3>{{ 'SELECT_COUNTRY' | translate }}</h3>
               <mat-form-field appearance="outline" class="w-100">
-                <mat-select formControlName="courseCountry" [placeholder]="'Choose Country'"
+                <mat-select formControlName="courseCountry" placeholder="{{ 'CHOOSE_COUNTRY' | translate }}"
                   (selectionChange)="onChangeCourseProgram(); resetValues()">
                   <mat-option [value]="country?.id" *ngFor="let country of countries">
                     <span [innerHTML]="country?.flag" class="me-2"></span>
@@ -36,7 +36,7 @@
             <div class="col-md-6" [class.mt-3]="nationalId.toString() === program?.value?.toString()">
               <h3>Select Grade Level</h3>
               <mat-form-field appearance="outline" class="w-100">
-                <mat-select formControlName="courseGrade" [placeholder]="'Choose Grade'"
+                <mat-select formControlName="courseGrade" placeholder="{{ 'CHOOSE_GRADE' | translate }}"
                   (selectionChange)="onChangeCourseProgram(); resetValues()">
                   <mat-option [value]="i + 1" *ngFor="let grade of grades; let i = index">
                     {{ grade }}
@@ -62,7 +62,7 @@
         </div>
         <div class="row mt-4">
           <div class="col-md-6">
-            <h3>Subject</h3>
+            <h3>{{ 'SUBJECT' | translate }}</h3>
             <mat-form-field appearance="outline" class="w-100">
               <mat-select formControlName="subject" [placeholder]="'Choose Subject'"
                 (selectionChange)="onChangeCourseSubject()">
@@ -78,7 +78,7 @@
           <div class="col-md-6">
             <h3>Prefered Tutoring Language</h3>
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="language" [placeholder]="'Choose Language'">
+              <mat-select formControlName="language" placeholder="{{ 'CHOOSE_LANGUAGE' | translate }}">
                 <mat-option [value]="lang?.id" *ngFor="let lang of languages">
                   {{ lang?.name }}
                 </mat-option>

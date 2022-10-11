@@ -14,14 +14,14 @@
             </div>
             <div class="col-md-3 d-flex flex-column justify-content-between">
               <h3>
-                Hourly Price
+                {{ 'HOURLY_PRICE' | translate }}
                 <span>{{ data?.subject?.pricePerHour | metutorsMoney | async }}</span>
               </h3>
 
               <a mat-flat-button color="primary" class="py-1 fw-bold" (click)="closeModal.emit()"
                 routerLink="/requests/request-tutor"
                 [queryParams]="{program: data?.program?.id, field: data?.subject?.fieldId, subject: data?.subject?.id, country: data?.country, grade: data?.grade}">
-                Start learning now
+                {{ 'START_LEARNING_NOW' | translate }}
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="rotate-180-ar">
                   <path
                     d="M16.172 10.9999H4V12.9999H16.172L10.808 18.3639L12.222 19.7779L20 11.9999L12.222 4.22192L10.808 5.63592L16.172 10.9999Z"
@@ -35,8 +35,8 @@
     </div>
     <div class="tutors row">
       <div class="col-md-12">
-        <h1>Featured Tutors</h1>
-        <p>Choose from more than 500 professional academic instructors in different subjects and study fields</p>
+        <h1>{{ 'FEATURED_TUTORS' | translate }}</h1>
+        <p>{{ 'PROFESSIONAL_ACADEMIC_INSTRUCTORS' | translate }}</p>
       </div>
 
       <ng-container [ngSwitch]="isLoading">
@@ -65,21 +65,20 @@
                   <div class="position-relative img-avatar">
                     <img [src]="teacher?.avatar" meTutorsDefaultAvatar alt="" width="90px" height="90px">
                     <!-- <svg class="position-absolute status" width="16" height="16" [ngClass]="{
-                  'is-online': teacher?.status === tutorStatus.online,
-                  'is-busy': teacher?.status === tutorStatus.busy,
-                  'is-offline': teacher?.status === tutorStatus.offline,
-                  'is-away': teacher?.status === tutorStatus.away
-                }" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="8" cy="8" r="7" fill="#949494" stroke="white" stroke-width="2" />
-                </svg> -->
+                      'is-online': teacher?.status === tutorStatus.online,
+                      'is-busy': teacher?.status === tutorStatus.busy,
+                      'is-offline': teacher?.status === tutorStatus.offline,
+                      'is-away': teacher?.status === tutorStatus.away
+                    }" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="8" cy="8" r="7" fill="#949494" stroke="white" stroke-width="2" />
+                    </svg> -->
                   </div>
                 </div>
                 <div class="col-8">
                   <h2>
-                    <a [routerLink]="'/profile/tutor/' + teacher?.id"
-                      (click)="closeModal.emit()">{{ teacher?.name }}</a>
-                    <!-- <span class="text-uppercase pro">Pro</span> -->
-                    <!-- <span class="text-uppercase verified">Verified</span> -->
+                    <a [routerLink]="'/profile/tutor/' + teacher?.id" (click)="closeModal.emit()">{{ teacher?.name }}</a>
+                    <!-- <span class="text-uppercase pro">{{ 'PRO' | translate }}</span> -->
+                    <!-- <span class="text-uppercase verified">{{ 'VERIFIED' | translate }}</span> -->
                   </h2>
                   <h3 *ngIf="teacher?.qualifications?.nameOfUniversity">
                     {{ teacher?.qualifications?.nameOfUniversity }}
@@ -88,7 +87,8 @@
                     <rating [ngModel]="teacher?.averageRating" [max]="5" [readonly]="true"></rating>
                     <span class="count">{{ teacher?.averageRating | number:'.1-1' }}</span>
                     <span class="review" *ngIf="teacher?.totalFeedbacks">
-                      ({{ teacher?.totalFeedbacks }} {{ +(teacher?.totalFeedbacks)! > 1 ? ('REVIEWS_SM' | translate) : ('REVIEW_SM' | translate) }})</span>
+                      ({{ teacher?.totalFeedbacks }} {{ +(teacher?.totalFeedbacks)! > 1 ? ('REVIEWS_SM' | translate) : ('REVIEW_SM' | translate) }})
+                    </span>
                   </div>
                 </div>
               </div>
@@ -98,13 +98,13 @@
                   <div class="col-6 d-flex">
                     <img src="assets/svg/map.svg" class="icon" draggable="false" width="16" height="16" alt="">
                     <span>
-                      From {{ teacher?.country?.name || '-'}}
+                      {{ 'FROM' | translate }} {{ teacher?.country?.name || '-'}}
                     </span>
                   </div>
                   <div class="col-6 d-flex" *ngIf="teacher?.studentsTeaching">
                     <img src="assets/svg/classes.svg" class="icon" draggable="false" width="16" height="16" alt="">
                     <span>
-                      Taught {{ teacher?.studentsTeaching || 0 }}
+                      {{ 'TAUGHT' | translate }} {{ teacher?.studentsTeaching || 0 }}
                       {{ +(teacher?.studentsTeaching)! > 1 ? ('STUDENTS_SM' | translate) : ('STUDENT_SM' | translate) }}
                     </span>
                   </div>
@@ -113,16 +113,16 @@
 
               <div class="col-12 flex-grow-1">
                 <p class="bio">
-                  Bio:
+                  {{ 'BIO' | translate }}:
                   {{ (teacher.bio && teacher.bio.length > 80) ? ((teacher?.bio | slice:0:80) + '...') : (teacher?.bio || '-' ) }}
                   <a [routerLink]="'/profile/tutor/' + teacher?.id" *ngIf="teacher.bio && teacher.bio.length > 80">
-                    Read more
+                    {{ 'READ_MORE' | translate }}
                   </a>
                 </p>
               </div>
 
               <div class="col-12 specialization" *ngIf="teacher?.programs && teacher?.programs?.length">
-                <h2>Specialization:</h2>
+                <h2>{{ 'SPECIALIZATION' | translate }}:</h2>
                 <div class="programs">
                   <button mat-button class="main-button-transparent me-2" *ngFor="let program of teacher?.programs">
                     {{ program?.code }}
@@ -134,7 +134,7 @@
               <div class="col-12 d-flex actions">
                 <a mat-flat-button color="primary" class="flex-grow-1 book"
                   [routerLink]="'/profile/tutor/' + teacher?.id">
-                  View Full Profile
+                  {{ 'VIEW_FULL_PROFILE' | translate }}
                 </a>
                 <!-- <button mat-button class="more">
                   <mat-icon>more_vert</mat-icon>

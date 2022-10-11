@@ -68,35 +68,31 @@ export class HomeComponent implements OnInit, AfterViewInit {
       {
         id: 1,
         rate: 5,
-        content:
-          "I appreciate how top educators focus on conceptual and practical methods to help us apply what we've learned so far. I would 100% recommend it to my friends for sure!",
+        content: 'SUCCESS_STORIES_OPTION_1',
         picture: '',
         postedBy: 'Viola Manisa',
         isVerified: true,
       },
       {
-        id: 1,
+        id: 2,
         rate: 5,
-        content:
-          'Thank you for offering this course - there is much to learn and I love that I can do it at my own pace from the comfort of my own home ',
+        content: 'SUCCESS_STORIES_OPTION_2',
         picture: '',
         postedBy: 'Bryan Arnoldy',
         isVerified: true,
       },
       {
-        id: 1,
+        id: 3,
         rate: 5,
-        content:
-          'As a student, I enjoyed the opportunity to explore, learn, and apply a variety of technology-based software, platforms, and tools that helped me enhance my learning experience.',
+        content: 'SUCCESS_STORIES_OPTION_3',
         picture: '',
         postedBy: 'Joshua William',
         isVerified: true,
       },
       {
-        id: 1,
+        id: 4,
         rate: 5,
-        content:
-          'It is incredible to find such a variety of courses at a really affordable price. The fact that I can take the course anytime, anywhere is a bonus!',
+        content: 'SUCCESS_STORIES_OPTION_4',
         picture: '',
         postedBy: 'George Scott',
         isVerified: true,

@@ -22,11 +22,11 @@
       <div class="container all-courses mt-5">
         <div class="row">
           <div class="col-md-7">
-            <h1>All Available Courses</h1>
+            <h1>{{ 'ALL_AVAILABLE_COURSES' | translate }}</h1>
           </div>
           <div class="col-md-5">
             <a mat-button class="main-button-transparent float-end request-course" (click)="onOpenRequestCourseModal()">
-              Request New Course
+              {{ 'REQUEST_NEW_COURSE' | translate }}
             </a>
           </div>
         </div>
@@ -34,9 +34,7 @@
           <div class="col-md-3 filters">
             <div class="d-flex align-items-center cursor-pointer title justify-content-between"
               [class.open]="openFilter" (click)="openFilter = !openFilter">
-              <h3 class="m-0">
-                Choose field of study
-              </h3>
+              <h3 class="m-0">{{ 'CHOOSE_FIELD_STUDY' | translate }}</h3>
               <button mat-button *ngIf="!openFilter">
                 <mat-icon>expand_more</mat-icon>
               </button>
@@ -55,9 +53,7 @@
 
             <div class="d-flex align-items-center cursor-pointer title justify-content-between"
               [class.open]="openPriceFilter" (click)="openPriceFilter = !openPriceFilter" *ngIf="minValue !== maxValue">
-              <h3 class="m-0">
-                Select Price Range
-              </h3>
+              <h3 class="m-0">{{ 'SELECT_PRICE_RANGE' | translate }}</h3>
               <button mat-button *ngIf="!openPriceFilter">
                 <mat-icon>expand_more</mat-icon>
               </button>

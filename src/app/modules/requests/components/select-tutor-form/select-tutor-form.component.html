@@ -5,7 +5,7 @@
         <h2 class="f-size-17-md-sm">Tutor Information</h2>
         <h4 class="f-size-15-md-sm">Select a tutor for this course</h4>
 
-        <h5 class="mt-4">Course ID: <span>CID{{ selectedCourse?.id }}</span></h5>
+        <h5 class="mt-4">{{ 'COURSE_ID' | translate }}: <span>CID{{ selectedCourse?.id }}</span></h5>
         <h5 class="mb-0">Course Name: <span>{{ selectedCourse?.name }}</span></h5>
       </div>
       <div class="col-md-8 mt-15-sm">
@@ -34,8 +34,8 @@
                       <div class="col d-flex justify-content-center flex-column">
                         <h2>
                           {{ tutor?.name }}
-                          <!-- <span class="text-uppercase pro">Pro</span>
-                        <span class="text-uppercase verified">Verified</span> -->
+                          <!-- <span class="text-uppercase pro">{{ 'PRO' | translate }}</span>
+                        <span class="text-uppercase verified">{{ 'VERIFIED' | translate }}</span> -->
                         </h2>
                         <h3 class="mb-0" *ngIf="tutor?.qualifications?.nameOfUniversity">{{ tutor?.qualifications?.nameOfUniversity }}</h3>
                         <div class="d-flex align-items-center mt-1">
@@ -47,7 +47,7 @@
                           <div class="d-flex ms-3 li-item" *ngIf="tutor?.country">
                             <img src="assets/svg/map.svg" class="icon" draggable="false" width="16" height="16" alt="">
                             <span>
-                              From {{ tutor?.country?.name }}
+                              {{ 'FROM' | translate }} {{ tutor?.country?.name }}
                             </span>
                           </div>
                           <div class="d-flex ms-3 li-item" *ngIf="tutor?.studentsTeaching">
@@ -105,8 +105,8 @@
                     <div class="col d-flex justify-content-center flex-column">
                       <h2>
                         {{ tutor?.name }}
-                        <!-- <span class="text-uppercase pro">Pro</span>
-                        <span class="text-uppercase verified">Verified</span> -->
+                        <!-- <span class="text-uppercase pro">{{ 'PRO' | translate }}</span>
+                        <span class="text-uppercase verified">{{ 'VERIFIED' | translate }}</span> -->
                       </h2>
                       <h3 class="mb-0" *ngIf="tutor?.qualifications?.nameOfUniversity">{{ tutor?.qualifications?.nameOfUniversity }}</h3>
                       <div class="d-flex align-items-center mt-1">
@@ -118,7 +118,7 @@
                         <div class="d-flex ms-3 li-item" *ngIf="tutor?.country">
                           <img src="assets/svg/map.svg" class="icon" draggable="false" width="16" height="16" alt="">
                           <span>
-                            From {{ tutor?.country?.name }}
+                            {{ 'FROM' | translate }} {{ tutor?.country?.name }}
                           </span>
                         </div>
                         <div class="d-flex ms-3 li-item" *ngIf="tutor?.studentsTeaching">

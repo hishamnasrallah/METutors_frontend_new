@@ -3,8 +3,8 @@
     <div class="row">
       <div class="col-md-1"></div>
       <div class="col-md-10 text-center">
-        <h1 class="f-size-25-md-sm">{{ title }}</h1>
-        <p class="f-size-18-md-sm">{{ desc }}</p>
+        <h1 class="f-size-25-md-sm">{{ title | translate }}</h1>
+        <p class="f-size-18-md-sm">{{ desc | translate }}</p>
       </div>
 
       <div class="col-12">
@@ -13,7 +13,7 @@
             <div class="px-3 h-100 d-flex flex-column card-item">
               <rating [ngModel]="testmonial?.rate" [max]="5" [readonly]="true"></rating>
               <p class="desc flex-grow-1">
-                <q>{{ testmonial?.content }}</q>
+                <q>{{ testmonial.content | translate }}</q>
               </p>
               <div class="row info">
                 <div class="col-2 d-flex align-items-center">
@@ -23,7 +23,7 @@
                   <h2>{{ testmonial?.postedBy }}</h2>
                   <h3 *ngIf="testmonial?.isVerified" class="d-flex">
                     <img src="assets/svg/verified.svg" class="verfied me-2" alt="">
-                    Verified Student
+                    {{ 'VERIFIED_STUDENT' | translate }}
                   </h3>
                 </div>
               </div>

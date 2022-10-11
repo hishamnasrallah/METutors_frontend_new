@@ -1,13 +1,13 @@
+import { IFAQ } from 'src/app/core/models';
 import { Component, Input, OnInit } from '@angular/core';
 import {
-  trigger,
   state,
   style,
-  transition,
   group,
+  trigger,
   animate,
+  transition,
 } from '@angular/animations';
-import { IFAQ } from 'src/app/core/models';
 
 @Component({
   selector: 'metutors-faq-list-questions',

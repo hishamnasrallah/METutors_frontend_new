@@ -31,19 +31,19 @@ export class StudyComponent implements OnInit {
         id: 1,
         icon: 'assets/svg/create-new.svg',
         value: '30K',
-        type: 'Students enrolled',
+        type: 'STUDENTS_ENROLLED',
       },
       {
         id: 1,
         icon: 'assets/svg/pen.svg',
         value: '10K',
-        type: 'Classrooms attended',
+        type: 'CLASSROOMS_ATTENDED',
       },
       {
         id: 1,
         icon: 'assets/svg/headset.svg',
         value: '300+',
-        type: 'Teacher profiles',
+        type: 'TEACHER_PROFILES',
       },
     ];
 
@@ -51,35 +51,31 @@ export class StudyComponent implements OnInit {
       {
         id: 1,
         rate: 5,
-        content:
-          'I received great customer service from the specialists who helped me. I would recommend to anyone who wants quality.',
+        content: 'SUCCESS_STORIES_OPTION_1',
         picture: '',
         postedBy: 'Viola Manisa',
         isVerified: true,
       },
       {
-        id: 1,
+        id: 2,
         rate: 5,
-        content:
-          "Very responsive and competent! I've never dealt with annsurance company this customer-friendly in my entire life.",
+        content: 'SUCCESS_STORIES_OPTION_2',
         picture: '',
         postedBy: 'Bryan Arnoldy',
         isVerified: true,
       },
       {
-        id: 1,
+        id: 3,
         rate: 5,
-        content:
-          'My experience with this platform so far has been great. Everything is easy, from signing the contract to making an appointment.',
+        content: 'SUCCESS_STORIES_OPTION_3',
         picture: '',
         postedBy: 'Joshua William',
         isVerified: true,
       },
       {
-        id: 1,
+        id: 4,
         rate: 5,
-        content:
-          "It's the best online insurance you can find. Easy, without hidden costs and you can be very sure. our data is completely save.",
+        content: 'SUCCESS_STORIES_OPTION_4',
         picture: '',
         postedBy: 'George Scott',
         isVerified: true,

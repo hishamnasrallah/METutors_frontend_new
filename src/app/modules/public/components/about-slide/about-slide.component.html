@@ -2,17 +2,9 @@
   <div class="container" style="background-image: url('assets/about/oval.svg')">
     <div class="row">
       <div class="col-md-7">
-        <h3 class="f-size-20-md-sm">
-          About us
-        </h3>
-        <h1 class="f-size-25-md-sm">
-          Redefining online
-          <br>
-          tutoring
-        </h1>
-        <p class="f-size-20-md-sm">
-          An AI powered platform that intuitively matches tutors and students for a complete personalized learning experience.
-        </p>
+        <h3 class="f-size-20-md-sm">{{ 'ABOUT_US' | translate }}</h3>
+        <h1 class="f-size-25-md-sm" [innerHTML]="'REDEFINING_ONLINE_TUTORING' | translate"></h1>
+        <p class="f-size-20-md-sm">{{ 'ABOUT_US_PAGE_DESC' | translate }}</p>
       </div>
       <div class="col-md-5">
         <img src="assets/about/cover.png" alt="" draggable="false" />
@@ -21,19 +13,19 @@
     <div class="row info text-center mt-15-sm">
       <div class="col-md border-right">
         <h2 class="f-size-25-md-sm">3.9M</h2>
-        <h3 class="f-size-20-md-sm">Students enrolled</h3>
+        <h3 class="f-size-20-md-sm">{{ 'STUDENTS_ENROLLED' | translate }}</h3>
       </div>
       <div class="col-md border-right">
         <h2 class="f-size-25-md-sm">2000+</h2>
-        <h3 class="f-size-20-md-sm">Courses available</h3>
+        <h3 class="f-size-20-md-sm">{{ 'COURSES_AVAILABLE' | translate }}</h3>
       </div>
       <div class="col-md border-right">
         <h2 class="f-size-25-md-sm">500+</h2>
-        <h3 class="f-size-20-md-sm">Expert tutors</h3>
+        <h3 class="f-size-20-md-sm">{{ 'EXPERT_TUTORS' | translate }}</h3>
       </div>
       <div class="col-md">
         <h2 class="f-size-25-md-sm">100,000+</h2>
-        <h3 class="f-size-20-md-sm">Classes completed</h3>
+        <h3 class="f-size-20-md-sm">{{ 'CLASSES_COMPLETED' | translate }}</h3>
       </div>
     </div>
   </div>

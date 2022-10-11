@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'metutors-loving-opportunities',

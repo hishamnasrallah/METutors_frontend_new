@@ -23,7 +23,7 @@
                 </div>
               </div>
               <div class="mb-3">
-                <label for="description" class="form-label">Description</label>
+                <label for="description" class="form-label">{{ 'DESCRIPTION' | translate }}</label>
                 <metutors-char-counter [limit]="250" [controlName]="description"></metutors-char-counter>
                 <textarea class="form-control custom-input input-bordered" id="description" rows="6" formControlName="description"
                           placeholder="Enter Description here"></textarea>

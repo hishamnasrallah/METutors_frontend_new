@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
 import { IFAQTopics } from 'src/app/core/models';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'metutors-select-faq-topic',

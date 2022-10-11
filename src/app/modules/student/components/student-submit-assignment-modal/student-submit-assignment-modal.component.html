@@ -5,7 +5,7 @@
     <form class="row add-assignment-modal" [formGroup]="form" (ngSubmit)="onSubmit()">
       <div class="col-12">
         <div class="form-group">
-          <label for="description">Description</label>
+          <label for="description">{{ 'DESCRIPTION' | translate }}</label>
           <textarea class="form-control custom-input input-bordered" formControlName="description" id="description"
                     rows="4" placeholder="Enter description here..."></textarea>
         </div>

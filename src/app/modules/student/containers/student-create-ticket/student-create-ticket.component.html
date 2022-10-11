@@ -54,8 +54,8 @@
                 <div class="file-upload d-flex align-items-center col-md-3" (click)="filePicker.click()">
                   <img src="assets/svg/upload.svg" alt="" draggable="false" width="25" height="25">
                   <div>
-                    <h2>Attach file</h2>
-                    <h3>accept .jpg, .png, .pdf</h3>
+                    <h2>{{ 'ATTACH_FILE' | translate }}</h2>
+                    <h3>{{ 'ACCEPT_FILE_TYPE' | translate }}</h3>
                   </div>
                   <input type="file" hidden #filePicker (change)="onFileUpload($event)">
                 </div>
@@ -65,7 +65,7 @@
             <div class="col-12 mt-5">
               <metutors-submit-button [form]="supportForm" [isSubmitting]="isCreatingTicket$ | async"
                 [extraClasses]="'float-end'">
-                Send message
+                {{ 'SEND_MESSAGE' | translate }}
               </metutors-submit-button>
             </div>
           </form>

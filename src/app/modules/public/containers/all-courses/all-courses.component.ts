@@ -1,11 +1,3 @@
-import {
-  state,
-  style,
-  group,
-  trigger,
-  animate,
-  transition,
-} from '@angular/animations';
 import { Store } from '@ngrx/store';
 import { maxBy, minBy } from 'lodash';
 import * as fromCore from '@metutor/core/state';
@@ -15,6 +7,14 @@ import * as fromPublic from '@metutor/modules/public/state';
 import { MoneyService } from '@metutor/core/services/money.service';
 import { ICountry, ILanguage, IProgram } from '@metutor/core/models';
 import * as fromPublicActions from '@metutor/modules/public/state/actions';
+import {
+  state,
+  style,
+  group,
+  trigger,
+  animate,
+  transition,
+} from '@angular/animations';
 
 @Component({
   selector: 'metutors-all-courses',

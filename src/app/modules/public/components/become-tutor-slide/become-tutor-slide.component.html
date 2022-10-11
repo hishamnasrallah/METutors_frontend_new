@@ -2,16 +2,9 @@
   <div class="container">
     <div class="row">
       <div class="col-md-7">
-        <h1 class="f-size-25-md-sm">
-          Teach online with
-          <br>
-          MEtutors
-        </h1>
-        <p class="f-size-17-md-sm">
-          Educate students globally sharing your subject knowledge expertise and make money from the comfort of your own
-          home.
-        </p>
-        <a mat-flat-button color="primary" class="f-size-17-md-sm" routerLink="/signup" *ngIf="!token">Join MEtutors</a>
+        <h1 class="f-size-25-md-sm" [innerHTML]="'TEACH_ONLINE_METUTORS' | translate"></h1>
+        <p class="f-size-17-md-sm">{{ 'TEACH_ONLINE_DESC' | translate }}</p>
+        <a mat-flat-button color="primary" class="f-size-17-md-sm" routerLink="/signup" *ngIf="!token">{{ 'JOIN_METUTORS' | translate }}</a>
       </div>
     </div>
   </div>
