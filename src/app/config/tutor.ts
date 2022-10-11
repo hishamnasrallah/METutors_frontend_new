@@ -1,6 +1,6 @@
 export const insightRange = {
-  '7days': '7 Days',
-  '1month': '1 Month',
-  '3months': '3 Months',
-  '1year': '1 Year',
+  '7days': '7 days',
+  '1month': '1 month',
+  '3months': '3 months',
+  '1year': '1 year',
 };

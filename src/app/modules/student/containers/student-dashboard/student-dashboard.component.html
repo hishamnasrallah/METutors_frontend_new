@@ -79,7 +79,7 @@
                 {{ view?.dashboard?.totalPayment | metutorsMoney | async }}
                 <span [ngClass]="{'danger': view.dashboard?.paymentGrowth < 0}">{{ view.dashboard?.paymentGrowth >= 0 ? '+'+view.dashboard?.paymentGrowth : view.dashboard?.paymentGrowth}}%</span>
               </h1>
-              <p>Compared to ({{ view.dashboard?.paymentLastCount | metutorsMoney | async }} last {{ insightRange[range] }})</p>
+              <p>Compared to ({{ view.dashboard?.paymentLastCount | metutorsMoney | async }} in the last {{ insightRange[range] }})</p>
             </div>
           </div>
         </div>
@@ -88,7 +88,7 @@
 
     <div class="row">
       <div class="col-12">
-        <h3 class="overview mb-3 f-size-17-md-sm mt-15-md-sm">Today's Classes - {{ view.dashboard?.todaysDate }}</h3>
+        <h3 class="overview mb-3 f-size-17-md-sm mt-15-md-sm">Today's classes - {{ view.dashboard?.todaysDate }}</h3>
         <ng-container [ngSwitch]="view.loading">
           <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
           <div class="table-responsive" *ngSwitchCase="false">
@@ -140,7 +140,7 @@
     <div class="row">
       <div class="col-12">
         <h2 class="overview mt-5 f-size-17-md-sm mt-15-md-sm">Completed courses</h2>
-        <p class="desc">Quickly see Completed courses from <strong>{{ insightRange[range] }}</strong></p>
+        <p class="desc">See your completed courses from the last <strong>{{ insightRange[range] }}</strong></p>
       </div>
       <div class="col-12">
         <div class="card">
