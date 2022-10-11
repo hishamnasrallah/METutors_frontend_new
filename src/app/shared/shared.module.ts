@@ -77,13 +77,14 @@ import {
   GridSerialNumberDirective,
 } from '@metutor/shared/directives';
 
-import { MoneyPipe, DaysPipe } from './pipes';
+import { MoneyPipe, DaysPipe, TimeDifferencePipe } from './pipes';
 
 @NgModule({
   declarations: [
     // Pipes
     DaysPipe,
     MoneyPipe,
+    TimeDifferencePipe,
 
     // Components
     ModalComponent,
@@ -162,6 +163,7 @@ import { MoneyPipe, DaysPipe } from './pipes';
     // Pipes
     DaysPipe,
     MoneyPipe,
+    TimeDifferencePipe,
 
     // Components
     MomentModule,
