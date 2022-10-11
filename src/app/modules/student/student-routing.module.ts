@@ -138,7 +138,7 @@ const routes: Routes = [
             component: StudentFaqComponent,
             data: {
               layout: {
-                title: 'FAQ - Metutors',
+                title: 'FAQs - Metutors',
                 navbarTitle: 'Frequently asked questions',
                 showHeader: false,
                 showFooter: false,
