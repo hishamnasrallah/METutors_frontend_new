@@ -79,7 +79,7 @@ export const uploadTutorResourceDocument = createAction(
 
 export const uploadTutorResourceDocumentSuccess = createAction(
   '[Tutor Resource] Upload Tutor Resource Document Success',
-  props<{ message: string }>()
+  props<{ document: any; message: string }>()
 );
 
 export const uploadTutorResourceDocumentFailure = createAction(

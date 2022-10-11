@@ -169,10 +169,29 @@ export const reducer = createReducer(
     isUploadingResourceDoc: true,
   })),
 
-  on(tutorResourceActions.uploadTutorResourceDocumentSuccess, (state) => ({
-    ...state,
-    isUploadingResourceDoc: false,
-  })),
+  on(
+    tutorResourceActions.uploadTutorResourceDocumentSuccess,
+    (state, { document }) => {
+      const finalState = {
+        ...state,
+        isUploadingResourceDoc: false,
+      };
+
+      const teacherOtherDocuments = [
+        ...finalState.resources.teacherOtherDocuments,
+      ];
+
+      teacherOtherDocuments.unshift(document);
+
+      finalState.resources = {
+        ...finalState.resources,
+        teacherOtherDocuments,
+      };
+
+      console.log(finalState.resources);
+      return finalState;
+    }
+  ),
 
   on(tutorResourceActions.uploadTutorResourceDocumentFailure, (state) => ({
     ...state,

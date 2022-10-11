@@ -140,7 +140,7 @@ const routes: Routes = [
             component: TutorFaqComponent,
             data: {
               layout: {
-                title: 'FAQ - Metutors',
+                title: 'FAQs - Metutors',
                 navbarTitle: 'FREQUENTLY ASKED QUESTIONS',
                 showHeader: false,
                 showFooter: false,
