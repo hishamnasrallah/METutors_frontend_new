@@ -93,7 +93,7 @@
             <table class="table my-table">
               <tr>
                 <th>#</th>
-                <th>Program Name</th>
+                <th>{{ 'PROGRAM_NAME' | translate }}</th>
                 <th>Course Name</th>
                 <th>Class Subject</th>
                 <th style="min-width: 150px">Start time - End time</th>
@@ -112,7 +112,7 @@
                   <td>{{ todaysClass?.course?.courseName }}</td>
                   <td>{{ todaysClass?.title }}</td>
                   <td>{{ todaysClass?.startTime | date:'h:mm a' }} - {{ todaysClass?.endTime | date:'h:mm a' }}</td>
-                  <td>{{ todaysClass?.duration }} hour{{ +(todaysClass?.duration)! > 1 ? 's' : '' }}</td>
+                  <td>{{ todaysClass?.duration }} {{ +(todaysClass?.duration)! > 1 ? ('HOURS_SM' | translate) : ('HOUR_SM' | translate) }}</td>
                   <td class="d-flex justify-content-end">
                     <button mat-button class="main-button-opacity" (click)="launchClass(todaysClass.id)" [disabled]="(isLaunchingClass$ | async)">
                       <img src="assets/svg/play-fill.svg" draggable="false" alt="">

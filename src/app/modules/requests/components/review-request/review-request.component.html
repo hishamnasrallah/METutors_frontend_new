@@ -10,7 +10,7 @@
         <div class="col-md-8 mt-15-sm">
           <div class="row">
             <div class="col-md-3 col-sm-6">
-              <h3>Program Name</h3>
+              <h3>{{ 'PROGRAM_NAME' | translate }}</h3>
               <h4>{{ reviewInfo?.courseProgram }}</h4>
             </div>
             <div class="col-md-3 col-sm-6" *ngIf="reviewInfo?.courseCountry">
@@ -89,11 +89,11 @@
             </div>
             <div class="col-md-3 col-sm-6">
               <h3>Course Duration</h3>
-              <h4>{{ reviewInfo?.duration }} hour{{ +(reviewInfo?.duration)! > 1 ? 's' : '' }}</h4>
+              <h4>{{ reviewInfo?.duration }} {{ +(reviewInfo?.duration)! > 1 ? ('HOURS_SM' | translate) : ('HOUR_SM' | translate) }}</h4>
             </div>
             <div class="col-md-3 col-sm-6">
               <h3>Number of classes in the course</h3>
-              <h4>{{ reviewInfo?.classes }} Class{{ +(reviewInfo?.classes)! > 1 ? 'es' : '' }}</h4>
+              <h4>{{ reviewInfo?.classes }} {{ +(reviewInfo?.classes)! > 1 ? ('CLASSES_SM' | translate) : ('CLASS_SM' | translate) }}</h4>
             </div>
             <div class="col-md-6">
               <h3>Class Days</h3>
@@ -131,7 +131,7 @@
                 <td>{{ appointment?.date | date: 'd MMM y' }}</td>
                 <td>{{ appointment?.startTime }}</td>
                 <td>{{ appointment?.endTime }}</td>
-                <td>{{ appointment?.duration }}hr{{ +(appointment?.duration)! > 1 ? 's' : '' }}</td>
+                <td>{{ appointment?.duration }}{{ +(appointment?.duration)! > 1 ? ('HRS_SM' | translate) : ('HR_SM' | translate) }}</td>
               </tr>
             </table>
           </div>
@@ -241,7 +241,7 @@
                 <span class="count">{{ reviewInfo?.tutor?.averageRating | number:'.1-1' }}</span>
                 <span class="review" *ngIf="reviewInfo?.tutor?.totalFeedbacks">
                   ({{ reviewInfo?.tutor?.totalFeedbacks }}
-                  review{{ +(reviewInfo?.tutor?.totalFeedbacks)! > 1 ? 's' : '' }})
+                  {{ +(reviewInfo?.tutor?.totalFeedbacks)! > 1 ? ('REVIEWS_SM' | translate) : ('REVIEW_SM' | translate) }})
                 </span>
                 <div class="d-flex ms-3 li-item" *ngIf="reviewInfo?.tutor?.country">
                   <img src="assets/svg/map.svg" class="icon" draggable="false" width="16" height="16" alt="">
@@ -253,7 +253,7 @@
                   <img src="assets/svg/classes.svg" class="icon" draggable="false" width="16" height="16" alt="">
                   <span>
                     Help {{ reviewInfo?.tutor?.studentsTeaching }}
-                    student{{ +(reviewInfo?.tutor?.studentsTeaching)! > 1 ? 's' : '' }}
+                    {{ +(reviewInfo?.tutor?.studentsTeaching)! > 1 ? ('STUDENTS_SM' | translate) : ('STUDENT_SM' | translate) }}
                   </span>
                 </div>
               </div>
@@ -292,7 +292,7 @@
                   <div class="flex-grow-1">
                     <h5 class="d-flex align-items-center">
                       Total Hours: <h1 class="mb-0 f-size-20-md-sm">{{ reviewInfo?.hours }}
-                        hr{{ +(reviewInfo?.hours)! > 1 ? 's' : '' }}</h1>
+                        {{ +(reviewInfo?.hours)! > 1 ? ('HRS_SM' | translate) : ('HR_SM' | translate) }}</h1>
                     </h5>
                     <p>Hourly Rate: {{ price | metutorsMoney | async }}</p>
                   </div>

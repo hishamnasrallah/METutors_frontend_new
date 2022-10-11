@@ -24,23 +24,23 @@
         <div class="col">
           <ul class="list-unstyled list-inline m-0 d-flex flex-column-sm">
             <li class="list-inline-item">
-              <strong class="f-size-15-md-sm">Rating</strong>
+              <strong class="f-size-15-md-sm">{{ 'RATING' | translate }}</strong>
               <div class="d-flex">
                 <img src="assets/svg/star-fill.svg" alt="" width="20" height="20" draggable="false" />
                 <span class="count">{{ tutor?.averageRating | number:'.1-1' }}</span>
-                <span class="review" *ngIf="tutor?.feedbacks?.length">({{ tutor?.feedbacks?.length }} review{{ +(tutor?.feedbacks?.length)! > 1 ? 's' : '' }})</span>
+                <span class="review" *ngIf="tutor?.feedbacks?.length">({{ tutor?.feedbacks?.length }} {{ +(tutor?.feedbacks?.length)! > 1 ? ('REVIEWS_SM' | translate) : ('REVIEW_SM' | translate) }})</span>
               </div>
             </li>
             <li class="list-inline-item">
               <strong class="f-size-15-md-sm">{{ tutor?.studentsTeaching || 0 }}</strong>
               <div>
-                <span class="review">Students Teaching</span>
+                <span class="review">{{ 'STUDENTS_TEACHING' | translate }}</span>
               </div>
             </li>
             <li class="list-inline-item">
               <strong class="f-size-15-md-sm">{{ tutor?.coursesCreated }}</strong>
               <div>
-                <span class="review">Courses created</span>
+                <span class="review">{{ 'COURSES_CREATED' | translate }}</span>
               </div>
             </li>
           </ul>

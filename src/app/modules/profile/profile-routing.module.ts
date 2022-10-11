@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
 import { ProfileGuard, TutorAuthGuard } from 'src/app/core/guards';
 
 import {

@@ -12,7 +12,7 @@ import { Store } from '@ngrx/store';
 import { DOCUMENT } from '@angular/common';
 import * as fromCore from '@metutor/core/state';
 import { Title } from '@angular/platform-browser';
-import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import { filter, map, mergeMap, Subscription } from 'rxjs';
 import { NgProgressRef, NgProgress } from '@ngx-progressbar/core';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
@@ -52,9 +52,7 @@ export class AppComponent implements OnInit, OnDestroy {
       );
       this._checkLangauge();
 
-      translate.onLangChange.subscribe((event: LangChangeEvent) => {
-        this._checkLangauge();
-      });
+      translate.onLangChange.subscribe(() => this._checkLangauge());
     }
 
     this.progressRef = this._progress.ref('myProgress');

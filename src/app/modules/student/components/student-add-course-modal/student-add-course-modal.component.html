@@ -95,7 +95,7 @@
                 <p class="mb-0">Final price based on total number of class hours</p>
               </div>
               <div>
-                <h5>Total Hours: <span>{{ hours?.value }} hr{{ +(hours?.value)! > 1 ? 's' : '' }}</span></h5>
+                <h5>Total Hours: <span>{{ hours?.value }} {{ +(hours?.value)! > 1 ? ('HRS_SM' | translate) : ('HR_SM' | translate) }}</span></h5>
                 <p class="mb-0">Hourly Rate: {{ price | metutorsMoney | async }}</p>
               </div>
             </div>
@@ -130,7 +130,7 @@
                   <td>{{ classroom?.date | date: 'd MMM y' }}</td>
                   <td>{{ classroom?.startTime }}</td>
                   <td>{{ classroom?.endTime }}</td>
-                  <td>{{ classroom?.duration }}hr{{ +(classroom?.duration)! > 1 ? 's' : '' }}</td>
+                  <td>{{ classroom?.duration }}{{ +(classroom?.duration)! > 1 ? ('HRS_SM' | translate) : ('HR_SM' | translate) }}</td>
                   <td>
                     <div class="actions">
                       <button mat-button class="delete-btn" *ngIf="classrooms.length > 1"
@@ -157,7 +157,7 @@
                   <p class="mb-0">Final price based on total number of class hours</p>
                 </div>
                 <div>
-                  <h5>Total Hours: <span>{{ allHours }} hr{{ +(allHours)! > 1 ? 's' : '' }}</span></h5>
+                  <h5>Total Hours: <span>{{ allHours }} {{ +(allHours)! > 1 ? ('HRS_SM' | translate) : ('HR_SM' | translate) }}</span></h5>
                   <p class="mb-0">Hourly Rate: {{ price | metutorsMoney | async }}</p>
                 </div>
               </div>

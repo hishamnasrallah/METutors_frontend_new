@@ -14,7 +14,7 @@
           <div class="card-body">
             <img [src]="stat?.icon" draggable="false" alt="" height="65" width="65">
             <h3 class="f-size-20-md-sm">{{ stat?.value }}</h3>
-            <h4 class="f-size-15-md-sm">{{ stat?.type }}</h4>
+            <h4 class="f-size-15-md-sm">{{ stat.type | translate }}</h4>
           </div>
         </div>
       </div>

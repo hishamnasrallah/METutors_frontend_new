@@ -10,7 +10,7 @@
       <div class="col-md-8 mt-15-sm">
         <div class="row">
           <div class="col-md-6">
-            <h3>Program Name</h3>
+            <h3>{{ 'PROGRAM_NAME' | translate }}</h3>
             <mat-form-field appearance="outline" class="w-100">
               <mat-select formControlName="courseProgram" [placeholder]="'Choose Program'"
                 (selectionChange)="onChangeCourseProgram(); resetValues()">
@@ -54,7 +54,7 @@
                   {{ field?.name }}
                 </mat-option>
                 <mat-option value="" *ngIf="!fields || !fields?.length" disabled>
-                  No data found
+                  {{ 'NO_DATA_FOUND' | translate }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -70,7 +70,7 @@
                   {{ subject?.name }}
                 </mat-option>
                 <mat-option value="" *ngIf="!subjects || !subjects?.length" disabled>
-                  No data found
+                  {{ 'NO_DATA_FOUND' | translate }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -136,7 +136,7 @@
                 <tr>
                   <th>Topic Name</th>
                   <th>Knowledge Confidence Scale</th>
-                  <th width="10%">Action</th>
+                  <th width="10%">{{ 'ACTION' | translate }}</th>
                 </tr>
                 <ng-container *ngFor="let lang of form.value.topics; let i = index">
                   <tr *ngIf="lang.name && lang.scale && lang.checked">

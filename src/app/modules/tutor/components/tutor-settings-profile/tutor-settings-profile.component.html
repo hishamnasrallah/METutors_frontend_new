@@ -80,7 +80,7 @@
   <div class="card complete-form mb-3">
     <form class="card-body" [formGroup]="personalInfoForm" (ngSubmit)="submitPersonalInfo(personalInfoForm)">
       <div class="d-flex justify-content-between align-items-center w-100 mb-4">
-        <h1 class="title f-size-18-md-sm">Personal Information</h1>
+        <h1 class="title f-size-18-md-sm">{{ 'PERSONAL_INFORMATION' | translate }}</h1>
 
         <div>
           <metutors-submit-button [form]="personalInfoForm" [isSubmitting]="isUpdateProfile && selectedForm === 1"
@@ -282,7 +282,7 @@
   <div class="card complete-form mb-3">
     <form class="card-body" [formGroup]="qualificationForm" (ngSubmit)="submitQualificationDetails(qualificationForm)">
       <div class="d-flex justify-content-between align-items-center w-100 mb-4">
-        <h1 class="title f-size-18-md-sm">Qualification Details</h1>
+        <h1 class="title f-size-18-md-sm">{{ 'QUALIFICATION_DETAILS' | translate }}</h1>
 
         <div>
           <metutors-submit-button [form]="qualificationForm" [isSubmitting]="isUpdateProfile && selectedForm === 2"
@@ -295,104 +295,111 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
-            <label for="nameOfUniversity" class="form-label">University Name</label>
-            <input type="text" class="custom-input w-100 input-bordered" id="nameOfUniversity" placeholder="Enter University Name"
+            <label for="nameOfUniversity" class="form-label">{{ 'NAME_UNIVERSITY' | translate }}</label>
+            <input type="text" class="custom-input w-100 input-bordered" id="nameOfUniversity" placeholder="{{ 'ENTER_UNIVERSITY_NAME' | translate }}"
               formControlName="nameOfUniversity" meTutorsLettersOnly>
             <div class="text-danger" *ngIf="nameOfUniversity?.touched && nameOfUniversity?.invalid">
-              Please enter a valid university name
+              {{ 'VALID_UNIVERSITY_NAME' | translate }}
             </div>
           </div>
         </div>
 
         <div class="col-md-6">
           <div class="form-group">
-            <label for="teachingExperience" class="form-label">Teaching Experience (In Schools)</label>
+            <label for="teachingExperience" class="form-label">{{ 'TEACHING_EXPERIENCE' | translate }}</label>
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="teachingExperience" [placeholder]="'Select Years'">
+              <mat-select formControlName="teachingExperience" placeholder="{{ 'SELECT_YEARS' | translate }}">
                 <mat-option [value]="experience" *ngFor="let experience of experiences">{{ experience }}</mat-option>
               </mat-select>
             </mat-form-field>
             <div class="text-danger" *ngIf="teachingExperience?.touched && teachingExperience?.invalid">
-              Please Choose Your Years of Teacher Experience
+              {{ 'CHOOSE_YEARS_TEACHING_EXPERIENCE_SCHOOL' | translate }}
             </div>
           </div>
         </div>
 
         <div class="col-md-6">
           <div class="form-group">
-            <label for="degreeLevel" class="form-label">Degree Level</label>
+            <label for="degreeLevel" class="form-label">{{ 'DEGREE_LEVEL' | translate }}</label>
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="degreeLevel" [placeholder]="'Select Degree Level'"
+              <mat-select formControlName="degreeLevel" placeholder="{{ 'SELECT_DEGREE_LEVEL' | translate }}"
                 (selectionChange)="resetDegreeField()">
                 <mat-option [value]="level" *ngFor="let level of degreeLevels">{{ level }}</mat-option>
               </mat-select>
             </mat-form-field>
             <div class="text-danger" *ngIf="degreeLevel?.touched && degreeLevel?.invalid">
-              Please Choose Your Degree Level
+              {{ 'CHOOSE_DEGREE_LEVEL' | translate }}
             </div>
           </div>
         </div>
 
         <div class="col-md-6">
           <div class="form-group">
-            <label for="teachingExperienceOnline" class="form-label">Teaching Experience (Online)</label>
+            <label for="teachingExperienceOnline" class="form-label">{{ 'TEACHING_EXPERIENCE_ONLINE' | translate }}</label>
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="teachingExperienceOnline" [placeholder]="'Select Years'">
+              <mat-select formControlName="teachingExperienceOnline" placeholder="{{ 'SELECT_YEARS' | translate }}">
                 <mat-option [value]="experience" *ngFor="let experience of experiences">{{ experience }}</mat-option>
               </mat-select>
             </mat-form-field>
             <div class="text-danger" *ngIf="teachingExperienceOnline?.touched && teachingExperienceOnline?.invalid">
-              Please Choose Your Years of Teacher Experience Online
+              {{ 'CHOOSE_YEARS_TEACHING_EXPERIENCE_ONLINE' | translate }}
             </div>
           </div>
         </div>
 
         <div class="col-md-6">
           <div class="form-group">
-            <label for="degreeField" class="form-label">Degree Field/Major</label>
+            <label for="degreeField" class="form-label">{{ 'DEGREE_FIELD' | translate }}</label>
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="degreeField" [placeholder]="'Select Degree Field'">
+              <mat-select formControlName="degreeField" placeholder="{{ 'SELECT_DEGREE_FIELD' | translate }}">
                 <mat-option>
                   <ngx-mat-select-search [(ngModel)]="filterDegree" [ngModelOptions]="{standalone: true}"
-                    placeholderLabel="{{ 'SEARCH' | translate }}" noEntriesFoundLabel="No matching degree field found">
+                    placeholderLabel="{{ 'SEARCH' | translate }}" noEntriesFoundLabel="{{ 'NO_MATCHING_DEGREE_FIELD' | translate }}">
                   </ngx-mat-select-search>
                 </mat-option>
                 <mat-option [value]="field" *ngFor="let field of filteredDegreeFields">{{ field }}</mat-option>
               </mat-select>
             </mat-form-field>
             <div class="text-danger" *ngIf="degreeField?.touched && degreeField?.invalid">
-              Please Choose Your Degree Field
+              {{ 'CHOOSE_DEGREE_FIELD' | translate }}
             </div>
           </div>
         </div>
 
         <div class="col-md-6">
           <div class="form-group">
-            <label for="currentEmployer" class="form-label">Current Employer ({{ 'OPTIONAL' | translate }})</label>
-            <input type="text" class="custom-input w-100 input-bordered" id="currentEmployer" placeholder="Enter Here"
-              formControlName="currentEmployer">
+            <label for="currentEmployer" class="form-label">{{ 'CURRENT_EMPLOYER' | translate }}
+              ({{ 'OPTIONAL' | translate }})</label>
+            <input type="text" class="custom-input w-100 input-bordered" id="currentEmployer"
+              placeholder="{{ 'ENTER_CURRENT_EMPLOYER' | translate }}" formControlName="currentEmployer">
+            <div class="text-danger" *ngIf="currentEmployer?.touched && currentEmployer?.invalid">
+              {{ 'WRITE_VALID_CURRENT_EMPLOYER' | translate }}
+            </div>
           </div>
         </div>
 
         <div class="col-md-6">
           <div class="form-group">
-            <label for="computerSkills" class="form-label">Computer Skills Level</label>
+            <label for="computerSkills" class="form-label">{{ 'COMPUTER_SKILLS' | translate }}</label>
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="computerSkills" [placeholder]="'Select Computer Skills'">
+              <mat-select formControlName="computerSkills" placeholder="{{ 'SELECT_COMPUTER_SKILLS' | translate }}">
                 <mat-option [value]="skill" *ngFor="let skill of skills">{{ skill }}</mat-option>
               </mat-select>
             </mat-form-field>
             <div class="text-danger" *ngIf="computerSkills?.touched && computerSkills?.invalid">
-              Please Choose Your Computer Skills Level
+              {{ 'CHOOSE_COMPUTER_SKILLS' | translate }}
             </div>
           </div>
         </div>
 
         <div class="col-md-6">
           <div class="form-group">
-            <label for="currentTitle" class="form-label">Current Title ({{ 'OPTIONAL' | translate }})</label>
-            <input type="text" class="custom-input w-100 input-bordered" id="currentTitle" placeholder="Enter Here"
+            <label for="currentTitle" class="form-label">{{ 'CURRENT_TITLE' | translate }} ({{ 'OPTIONAL' | translate }})</label>
+            <input type="text" class="custom-input w-100 input-bordered" id="currentTitle" placeholder="{{ 'ENTER_CURRENT_TITLE' | translate }}"
               formControlName="currentTitle" meTutorsLettersOnly>
+            <div class="text-danger" *ngIf="currentTitle?.touched && currentTitle?.invalid">
+              {{ 'WRITE_VALID_CURRENT_TITLE' | translate }}
+            </div>
           </div>
         </div>
       </div>
@@ -402,7 +409,7 @@
   <div class="card complete-form mb-3">
     <form class="card-body" [formGroup]="teachingForm" (ngSubmit)="submitTeachingSpecification(teachingForm)">
       <div class="d-flex justify-content-between align-items-center w-100 mb-4">
-        <h1 class="title f-size-18-md-sm">Teaching Preferences</h1>
+        <h1 class="title f-size-18-md-sm">{{ 'TEACHING_PREFERENCES' | translate }}</h1>
 
         <div>
           <metutors-submit-button [form]="teachingForm" [isSubmitting]="isUpdateProfile && selectedForm === 3"
@@ -415,22 +422,22 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
-            <label for="startDate" class="form-label">Available Start Date</label>
+            <label for="startDate" class="form-label">{{ 'AVAILABLE_START_DATE' | translate }}</label>
             <mat-form-field appearance="outline" class="w-100">
-              <input matInput [matDatepicker]="startDatePicker" [placeholder]="'Select Start Date'"
+              <input matInput [matDatepicker]="startDatePicker" placeholder="{{ 'SELECT_AVAILABLE_START_DATE' | translate }}"
                 (focus)="startDatePicker.open()" [min]="minDate" (dateChange)="onChangeStartDate()" formControlName="startDate">
               <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
               <mat-datepicker #startDatePicker></mat-datepicker>
             </mat-form-field>
             <div class="text-danger" *ngIf="startDate?.touched && startDate?.invalid">
-              Please select your availability to start
+              {{ 'SELECT_UR_AVAILABLE_START_DATE' | translate }}
             </div>
           </div>
         </div>
 
         <div class="col-md-6">
           <div class="form-group">
-            <label class="form-label">Tutoring Preferences</label>
+            <label class="form-label">{{ 'TUTORING_PREFERENCES' | translate }}</label>
             <mat-radio-group class="d-flex flex-row mt-3 fw-bold flex-column-md-sm mt-15-sm" formControlName="typeOfTutoring">
               <mat-radio-button [ngClass]="{'mt-15-md-sm ms-3': !isFirst}" class="m-0-md-sm" [value]="type.value"
                 *ngFor="let type of types | keyvalue: returnZero; let isFirst = first" [disabled]="type.key !== 'one'">
@@ -438,29 +445,29 @@
               </mat-radio-button>
             </mat-radio-group>
             <div class="text-danger" *ngIf="typeOfTutoring?.touched && typeOfTutoring?.invalid">
-              Please select Type of Tutoring
+              {{ 'SELECT_TYPE_TUTORING' | translate }}
             </div>
           </div>
         </div>
 
         <div class="col-md-6">
           <div class="form-group">
-            <label for="endDate" class="form-label">Available End Date</label>
+            <label for="endDate" class="form-label">{{ 'AVAILABLE_END_DATE' | translate }}</label>
             <mat-form-field appearance="outline" class="w-100">
-              <input matInput [matDatepicker]="endDatePicker" [placeholder]="'Select Availability End Date'"
+              <input matInput [matDatepicker]="endDatePicker" placeholder="{{ 'SELECT_AVAILABLE_END_DATE' | translate }}"
                 (focus)="endDatePicker.open()" [min]="startDate?.value" formControlName="endDate">
               <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
               <mat-datepicker #endDatePicker></mat-datepicker>
             </mat-form-field>
             <div class="text-danger" *ngIf="endDate?.touched && endDate?.invalid">
-              Please select your availability end Date
+              {{ 'SELECT_UR_AVAILABLE_END_DATE' | translate }}
             </div>
           </div>
         </div>
 
         <div class="col-md-6">
           <div class="form-group">
-            <label class="form-label">Available teaching days</label>
+            <label class="form-label">{{ 'ADD_UR_AVAILABILITY' | translate }}</label>
             <div class="list-days">
               <button type="button" mat-button [class.active]="selectedDays?.includes(i)" [disabled]="checkDisabledDays(day)"
                 *ngFor="let day of days; let i = index" (click)="onChangeDay(i)" class="w-100-md-sm">{{ day }}</button>

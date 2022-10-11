@@ -15,7 +15,7 @@
               <p>View very destinations in Markesh</p> -->
             </div>
             <div class="col-md-5">
-              <label>Select Field of Study</label>
+              <label>{{ 'SELECT_FIELD_STUDY' | translate }}</label>
               <mat-form-field appearance="outline" class="w-100">
                 <mat-select [placeholder]="'Please select'" (selectionChange)="fieldId = $event.value">
                   <mat-option [value]="field.id" *ngFor="let field of fields">{{ field?.name }}</mat-option>
@@ -33,7 +33,7 @@
           <table class="table">
             <thead>
               <tr>
-                <th scope="col">Subject Name</th>
+                <th scope="col">{{ 'SUBJECT_NAME' | translate }}</th>
                 <th scope="col">Course ID</th>
                 <th scope="col">Price per Hour (USD)</th>
               </tr>

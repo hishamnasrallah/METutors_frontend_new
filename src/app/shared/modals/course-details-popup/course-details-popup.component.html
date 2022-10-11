@@ -29,7 +29,7 @@
           <div class="col-md-4 d-flex menu align-items-center">
             <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
             <strong>Total hours:</strong>
-            <span>{{ course?.duration }} hour{{ +(course?.duration)! > 1 ? 's' : '' }}</span>
+            <span>{{ course?.duration }} {{ +(course?.duration)! > 1 ? ('HOURS_SM' | translate) : ('HOUR_SM' | translate) }}</span>
           </div>
           <div class="col-md-4 d-flex menu align-items-center">
             <img src="assets/svg/class.svg" alt="" width="15" height="15" draggable="false">

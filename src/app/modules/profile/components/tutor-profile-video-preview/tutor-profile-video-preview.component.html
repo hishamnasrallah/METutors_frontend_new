@@ -1,7 +1,7 @@
 <div class="video-preview" *ngIf="!isLoading && tutor?.qualifications?.video">
   <div class="card" *ngIf="!isLoading">
     <div class="card-body">
-      <h1 class="heading f-size-15-md-sm mb-3">My Teaching Style</h1>
+      <h1 class="heading f-size-15-md-sm mb-3">{{ 'MY_TEACHING_STYLE' | translate }}</h1>
 
       <div>
         <metutors-video-player [videoSrc]="tutor?.qualifications?.video" [maxHeight]="'315px'">

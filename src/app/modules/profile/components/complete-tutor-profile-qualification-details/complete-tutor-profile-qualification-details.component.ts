@@ -341,7 +341,9 @@ export class CompleteTutorProfileQualificationDetailsComponent
       const mimeType = event.target.files[0].type;
 
       if (mimeType.match(/video\/*/) == null) {
-        this._alertNotificationService.error('Only Videos are allowed');
+        this._translate.get('ONLY_VIDEOS_ALLOWED').subscribe((res: string) => {
+          this._alertNotificationService.error(res);
+        });
 
         return;
       }
@@ -377,14 +379,17 @@ export class CompleteTutorProfileQualificationDetailsComponent
       const ext = files[0].name.split('.').pop().toLowerCase();
 
       if (this.fileFormatError(ext, mimeType)) {
-        this._alertNotificationService.error(
-          'Only excel, doc, pdf and image are allowed'
-        );
+        this._translate.get('ONLY_FILE_ALLOWED').subscribe((res: string) => {
+          this._alertNotificationService.error(res);
+        });
+
         return;
       }
 
       if (this.resume?.value?.length + files.length > 1) {
-        this._alertNotificationService.error('You can only upload one resume');
+        this._translate.get('UPLOAD_ONE_RESUME').subscribe((res: string) => {
+          this._alertNotificationService.error(res);
+        });
 
         return;
       }
@@ -485,15 +490,17 @@ export class CompleteTutorProfileQualificationDetailsComponent
       });
 
       if (fileFormatError) {
-        this._alertNotificationService.error(
-          'Only excel, doc, pdf and image are allowed'
-        );
+        this._translate.get('ONLY_FILE_ALLOWED').subscribe((res: string) => {
+          this._alertNotificationService.error(res);
+        });
 
         return;
       }
 
       if (this.degrees?.value?.length + files.length > 10) {
-        this._alertNotificationService.error('Maximum allowed files are 10');
+        this._translate.get('MAXIMUM_ALLOWED_FILES_10').subscribe((res: string) => {
+          this._alertNotificationService.error(res);
+        });
 
         return;
       }
@@ -564,15 +571,17 @@ export class CompleteTutorProfileQualificationDetailsComponent
       });
 
       if (fileFormatError) {
-        this._alertNotificationService.error(
-          'Only excel, doc, pdf and image are allowed'
-        );
+        this._translate.get('ONLY_FILE_ALLOWED').subscribe((res: string) => {
+          this._alertNotificationService.error(res);
+        });
 
         return;
       }
 
       if (this.certificates?.value?.length + files.length > 10) {
-        this._alertNotificationService.error('Maximum allowed files are 10');
+        this._translate.get('MAXIMUM_ALLOWED_FILES_10').subscribe((res: string) => {
+          this._alertNotificationService.error(res);
+        });
 
         return;
       }

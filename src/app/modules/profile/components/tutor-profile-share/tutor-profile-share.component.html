@@ -1,8 +1,8 @@
 <div class="card share">
   <div class="card-body">
-    <h1 class="title">Share this profile</h1>
+    <h1 class="title">{{ 'SHARE_PROFILE' | translate }}</h1>
     <div>
-      <h2>To share this profile,share the link below:</h2>
+      <h2>{{ 'SHARE_PROFILE_LINK_BELOW' | translate }}</h2>
       <div class="position-relative">
         <input type="text" #inputCloned [placeholder]="clientUrl + defaultUrl" [value]="clientUrl + defaultUrl"
           class="form-control">
@@ -12,19 +12,19 @@
       <div class="row mt-4">
         <div class="col-6 icon" shareButton="facebook" [url]="clientUrl + defaultUrl">
           <img src="assets/svg/fb.svg" draggable="false" width="25" height="25" alt="">
-          <span>Facebook</span>
+          <span>{{ 'FACEBOOK' | translate }}</span>
         </div>
         <div class="col-6 icon" shareButton="whatsapp" [url]="clientUrl + defaultUrl">
           <img src="assets/svg/whatsapp.svg" draggable="false" width="25" height="25" alt="">
-          <span>Whatsapp</span>
+          <span>{{ 'WHATSAPP' | translate }}</span>
         </div>
         <div class="col-6 icon" shareButton="twitter" [url]="clientUrl + defaultUrl">
           <img src="assets/svg/tw.svg" draggable="false" width="25" height="25" alt="">
-          <span>Twitter</span>
+          <span>{{ 'TWITTER' | translate }}</span>
         </div>
         <div class="col-6 icon" shareButton="linkedin" [url]="clientUrl + defaultUrl">
           <img src="assets/svg/ln.svg" draggable="false" width="25" height="25" alt="">
-          <span>LinkedIn</span>
+          <span>{{ 'LINKEDIN' | translate }}</span>
         </div>
       </div>
     </div>

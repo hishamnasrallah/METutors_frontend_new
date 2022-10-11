@@ -59,7 +59,7 @@
                         <rating [ngModel]="teacher?.averageRating" [max]="5" [readonly]="true"></rating>
                         <span class="count">{{ teacher?.averageRating | number:'.1-1' }}</span>
                         <span class="review" *ngIf="teacher?.totalFeedbacks">
-                          ({{ teacher?.totalFeedbacks }} review{{ +(teacher?.totalFeedbacks)! > 1 ? 's' : '' }})
+                          ({{ teacher?.totalFeedbacks }} {{ +(teacher?.totalFeedbacks)! > 1 ? ('REVIEWS_SM' | translate) : ('REVIEW_SM' | translate) }})
                         </span>
                       </div>
                     </div>
@@ -81,7 +81,7 @@
                                 alt="">
                               <span>
                                 Taught {{ teacher?.classesTaught }}
-                                class{{ +(teacher?.classesTaught)! > 1 ? 'es' : '' }}
+                                {{ +(teacher?.classesTaught)! > 1 ? ('CLASSES_SM' | translate) : ('CLASS_SM' | translate) }}
                               </span>
                             </div>
                           </div>

@@ -17,7 +17,7 @@
         <form class="row add-assignment-modal" [formGroup]="form" (ngSubmit)="onSubmit()" *ngSwitchCase="false">
           <div class="col-12">
             <div class="form-group">
-              <label for="title">Title</label>
+              <label for="title">{{ 'TITLE' | translate }}</label>
               <input class="form-control custom-input input-bordered" formControlName="title" id="title"
                      placeholder="Enter title here">
             </div>

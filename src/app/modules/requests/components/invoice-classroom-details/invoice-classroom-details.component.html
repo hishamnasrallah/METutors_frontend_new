@@ -53,7 +53,7 @@
               </g>
             </g>
           </svg>
-          <span>Total Classes: {{ classroom?.classes }} Class{{ +(classroom?.classes)! > 1 ? 'es' : '' }}</span>
+          <span>Total Classes: {{ classroom?.classes }} {{ +(classroom?.classes)! > 1 ? ('CLASSES_SM' | translate) : ('CLASS_SM' | translate) }}</span>
         </li>
         <li class="col-12">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 18 18">
@@ -131,7 +131,7 @@
               </g>
             </g>
           </svg>
-          <span>Duration : {{ classroom?.hours }} hour{{ +(classroom?.hours)! > 1 ? 's' : '' }}</span>
+          <span>Duration : {{ classroom?.hours }} {{ +(classroom?.hours)! > 1 ? ('HOURS_SM' | translate) : ('HOUR_SM' | translate) }}</span>
         </li>
       </ul>
 

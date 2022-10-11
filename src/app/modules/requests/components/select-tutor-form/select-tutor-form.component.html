@@ -42,7 +42,7 @@
                           <rating [ngModel]="tutor?.averageRating" [ngModelOptions]="{standalone: true}" [max]="5" [readonly]="true"></rating>
                           <span class="count">{{ tutor?.averageRating | number:'.1-1' }}</span>
                           <span class="review" *ngIf="tutor?.totalFeedbacks">
-                            ({{ tutor?.totalFeedbacks }} review{{ +(tutor?.totalFeedbacks)! > 1 ? 's' : '' }})
+                            ({{ tutor?.totalFeedbacks }} {{ +(tutor?.totalFeedbacks)! > 1 ? ('REVIEWS_SM' | translate) : ('REVIEW_SM' | translate) }})
                           </span>
                           <div class="d-flex ms-3 li-item" *ngIf="tutor?.country">
                             <img src="assets/svg/map.svg" class="icon" draggable="false" width="16" height="16" alt="">
@@ -53,7 +53,7 @@
                           <div class="d-flex ms-3 li-item" *ngIf="tutor?.studentsTeaching">
                             <img src="assets/svg/classes.svg" class="icon" draggable="false" width="16" height="16" alt="">
                             <span>
-                              Help {{ tutor?.studentsTeaching }} student{{ +(tutor?.studentsTeaching)! > 1 ? 's' : '' }}
+                              Help {{ tutor?.studentsTeaching }} {{ +(tutor?.studentsTeaching)! > 1 ? ('STUDENTS_SM' | translate) : ('STUDENT_SM' | translate) }}
                             </span>
                           </div>
                         </div>
@@ -113,7 +113,7 @@
                         <rating [ngModel]="tutor?.averageRating" [ngModelOptions]="{standalone: true}" [max]="5" [readonly]="true"></rating>
                         <span class="count">{{ tutor?.averageRating | number:'.1-1' }}</span>
                         <span class="review" *ngIf="tutor?.totalFeedbacks">
-                          ({{ tutor?.totalFeedbacks }} review{{ +(tutor?.totalFeedbacks)! > 1 ? 's' : '' }})
+                          ({{ tutor?.totalFeedbacks }} {{ +(tutor?.totalFeedbacks)! > 1 ? ('REVIEWS_SM' | translate) : ('REVIEW_SM' | translate) }})
                         </span>
                         <div class="d-flex ms-3 li-item" *ngIf="tutor?.country">
                           <img src="assets/svg/map.svg" class="icon" draggable="false" width="16" height="16" alt="">
@@ -124,14 +124,14 @@
                         <div class="d-flex ms-3 li-item" *ngIf="tutor?.studentsTeaching">
                           <img src="assets/svg/classes.svg" class="icon" draggable="false" width="16" height="16" alt="">
                           <span>
-                            Help {{ tutor?.studentsTeaching }} student{{ +(tutor?.studentsTeaching)! > 1 ? 's' : '' }}
+                            Help {{ tutor?.studentsTeaching }} {{ +(tutor?.studentsTeaching)! > 1 ? ('STUDENTS_SM' | translate) : ('STUDENT_SM' | translate) }}
                           </span>
                         </div>
                       </div>
                       <div class="d-block d-xl-none mt-1">
                         <a class="col-md-2 full-profile availability cursor-pointer"
                           (click)="onViewAvailability(tutor.id)">
-                          Teacher Availability
+                          {{ 'TEACHER_AVAILABILITY' | translate }}
                         </a>
                         <a class="col-md-2 full-profile w-auto-sm ms-2" [routerLink]="'/profile/tutor/' + tutor?.id"
                           target="_blank">
@@ -141,7 +141,7 @@
                       </div>
                     </div>
                     <a class="col-md-2 full-profile availability cursor-pointer d-none d-xl-block" (click)="onViewAvailability(tutor.id)">
-                      Teacher Availability
+                      {{ 'TEACHER_AVAILABILITY' | translate }}
                     </a>
                     <a class="col-md-2 full-profile d-none d-xl-block" [routerLink]="'/profile/tutor/' + tutor?.id"
                       target="_blank">
@@ -191,7 +191,7 @@
               <div class="d-flex">
                 <div class="flex-grow-1">
                   <h5 class="d-flex align-items-center">
-                    Total Hours: <h1 class="mb-0 f-size-20-md-sm">{{ hours }} hr{{ +(hours)! > 1 ? 's' : '' }}</h1>
+                    Total Hours: <h1 class="mb-0 f-size-20-md-sm">{{ hours }} {{ +(hours)! > 1 ? ('HRS_SM' | translate) : ('HR_SM' | translate) }}</h1>
                   </h5>
                   <p>Hourly Rate: {{ price | metutorsMoney | async }}</p>
                 </div>

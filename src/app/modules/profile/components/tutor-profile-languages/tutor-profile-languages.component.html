@@ -1,6 +1,6 @@
 <div class="card languages" *ngIf="isLoading || (tutor?.languages && tutor?.languages?.length)">
   <div class="card-body">
-    <h1 class="title">Languages</h1>
+    <h1 class="title">{{ 'LANGUAGES' | translate }}</h1>
 
     <ul class="list-unstyled m-0" *ngIf="!isLoading">
       <li *ngFor="let lang of tutor?.languages">

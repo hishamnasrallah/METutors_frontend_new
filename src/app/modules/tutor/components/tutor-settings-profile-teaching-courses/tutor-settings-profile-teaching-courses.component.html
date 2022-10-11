@@ -20,20 +20,19 @@
           <table class="table my-table default-title mb-0">
             <tr>
               <th class="heading" [attr.colspan]="item?.programId === nationalId ? '2' : '1'">
-                <label>Program: </label> <span>
+                <label>{{ 'PROGRAM' | translate }}: </label> <span>
                   {{ item?.programName }}<ng-container *ngIf="item?.programId === nationalId">,
                     {{ item?.countryName }} <span *ngIf="item?.countryFlag" [innerHTML]="item?.countryFlag"
                       class="ms-2"></span>
                   </ng-container>
                 </span>
               </th>
-              <th class="heading text-end"><label>Study Field: </label> <span>{{ item?.fieldName }}</span></th>
+              <th class="heading text-end"><label>{{ 'STUDY_FIELD' | translate }}: </label> <span>{{ item?.fieldName }}</span></th>
             </tr>
             <tr>
               <th class="sub-heading"
-                [ngClass]="{'w-80': item?.programId !== nationalId, 'w-60': item?.programId === nationalId}">Subject
-                Name</th>
-              <th class="sub-heading w-20" *ngIf="item?.programId === nationalId">Grade</th>
+                [ngClass]="{'w-80': item?.programId !== nationalId, 'w-60': item?.programId === nationalId}">{{ 'SUBJECT_NAME' | translate }}</th>
+              <th class="sub-heading w-20" *ngIf="item?.programId === nationalId">{{ 'GRADE' | translate }}</th>
               <th class="sub-heading">Hourly Rate (USD)</th>
             </tr>
             <tr *ngFor="let subject of item.subjects">

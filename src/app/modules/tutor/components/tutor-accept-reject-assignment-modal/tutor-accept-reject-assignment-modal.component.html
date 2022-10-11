@@ -12,7 +12,7 @@
                           formControlName="review"></textarea>
               </div>
               <div class="col-auto col-10 align-middle">
-                <label for="rating" class="form-label fw-bold">Rating</label>
+                <label for="rating" class="form-label fw-bold">{{ 'RATING' | translate }}</label>
                 <div class="col-md-10 d-flex ">
                   <mat-slider thumbLabel id="rating" min="0" [max]="10" class="w-100 -mt-16"
                               [value]="rating?.value ? rating?.value : 0"

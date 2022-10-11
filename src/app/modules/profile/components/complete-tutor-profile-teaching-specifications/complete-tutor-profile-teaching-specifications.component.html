@@ -1,26 +1,26 @@
 <form [formGroup]="form" (ngSubmit)="submitFormData()" class="w-100 p-10-sm">
   <div>
-    <h4 class="mb-5 heading text-center f-size-20-md-sm text-uppercase">Add your teaching preferences</h4>
+    <h4 class="mb-5 heading text-center f-size-20-md-sm text-uppercase">{{ 'ADD_UR_TEACHING_PREFERENCES' | translate }}</h4>
 
     <div class="row justify-content-center">
       <div class="col-md-3">
         <div class="form-group">
-          <label class="form-label">Available Start Date</label>
+          <label class="form-label">{{ 'AVAILABLE_START_DATE' | translate }}</label>
           <mat-form-field appearance="outline" class="w-100">
-            <input matInput [matDatepicker]="datetPicker" [placeholder]="'Select Available Start Date'"
-              (focus)="datetPicker.open()" (dateChange)="onChangeStartDate()" [min]="minDate" formControlName="startDate">
-            <mat-datepicker-toggle matSuffix [for]="datetPicker"></mat-datepicker-toggle>
-            <mat-datepicker #datetPicker></mat-datepicker>
+            <input matInput [matDatepicker]="datePicker" placeholder="{{ 'SELECT_AVAILABLE_START_DATE' | translate }}"
+              (focus)="datePicker.open()" (dateChange)="onChangeStartDate()" [min]="minDate" formControlName="startDate">
+            <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+            <mat-datepicker #datePicker></mat-datepicker>
           </mat-form-field>
           <div class="text-danger" *ngIf="startDate?.touched && startDate?.invalid">
-            Please select your availability to start
+            {{ 'SELECT_UR_AVAILABLE_START_DATE' | translate }}
           </div>
         </div>
       </div>
 
       <div class="col-md-5">
         <div class="form-group">
-          <label class="form-label">Tutoring Preferences</label>
+          <label class="form-label">{{ 'TUTORING_PREFERENCES' | translate }}</label>
           <mat-radio-group class="d-flex flex-row mt-3 fw-bold flex-column-sm mt-15-sm" formControlName="typeOfTutoring">
             <mat-radio-button [ngClass]="{'mt-15-sm ms-5': !isFirst}" class="m-0-sm" [value]="type.value"
               *ngFor="let type of types | keyvalue: returnZero; let isFirst = first" [disabled]="type.key !== 'one'">
@@ -28,7 +28,7 @@
             </mat-radio-button>
           </mat-radio-group>
           <div class="text-danger" *ngIf="typeOfTutoring?.touched && typeOfTutoring?.invalid">
-            Please select Type of Tutoring
+            {{ 'SELECT_TYPE_TUTORING' | translate }}
           </div>
         </div>
       </div>
@@ -37,22 +37,22 @@
     <div class="row justify-content-center">
       <div class="col-md-3">
         <div class="form-group">
-          <label for="endDate" class="form-label">Available End Date</label>
+          <label for="endDate" class="form-label">{{ 'AVAILABLE_END_DATE' | translate }}</label>
           <mat-form-field appearance="outline" class="w-100">
-            <input matInput id="endDate" [matDatepicker]="datetPicker2" [placeholder]="'Select Available End Date'"
-              (focus)="datetPicker2.open()" [min]="startDate?.value" [max]="maxDate" formControlName="endDate">
-            <mat-datepicker-toggle matSuffix [for]="datetPicker2"></mat-datepicker-toggle>
-            <mat-datepicker #datetPicker2></mat-datepicker>
+            <input matInput id="endDate" [matDatepicker]="datePicker2" placeholder="{{ 'SELECT_AVAILABLE_END_DATE' | translate }}"
+              (focus)="datePicker2.open()" [min]="startDate?.value" [max]="maxDate" formControlName="endDate">
+            <mat-datepicker-toggle matSuffix [for]="datePicker2"></mat-datepicker-toggle>
+            <mat-datepicker #datePicker2></mat-datepicker>
           </mat-form-field>
           <div class="text-danger" *ngIf="endDate?.touched && endDate?.invalid">
-            Please select your availability end Date
+            {{ 'SELECT_UR_AVAILABLE_END_DATE' | translate }}
           </div>
         </div>
       </div>
 
       <div class="col-md-5">
         <div class="form-group">
-          <label class="form-label">Select your availability</label>
+          <label class="form-label">{{ 'ADD_UR_AVAILABILITY' | translate }}</label>
           <div class="list-days">
             <button type="button" mat-button [class.active]="selectedDays?.includes(i)" [disabled]="checkDisabledDays(day)"
               *ngFor="let day of days; let i = index" (click)="onChangeDay(i)" class="w-100-sm">{{ day }}</button>

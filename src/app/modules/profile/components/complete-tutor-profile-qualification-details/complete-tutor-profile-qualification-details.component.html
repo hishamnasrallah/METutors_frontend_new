@@ -1,29 +1,29 @@
 <form [formGroup]="form" (ngSubmit)="submitFormData()" class="w-100 p-10-sm">
   <div>
-    <h4 class="mb-5 heading text-center f-size-18-md-sm mb-15-sm text-uppercase">PROVIDE YOUR QUALIFICATION DETAILS</h4>
+    <h4 class="mb-5 heading text-center f-size-18-md-sm mb-15-sm text-uppercase">{{ 'PROVIDE_QUALIFICATION_DETAILS' | translate }}</h4>
 
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label for="nameOfUniversity" class="form-label">Name of University</label>
-          <input type="text" class="custom-input w-100 input-bordered" id="nameOfUniversity" placeholder="Enter University Name"
+          <label for="nameOfUniversity" class="form-label">{{ 'NAME_UNIVERSITY' | translate }}</label>
+          <input type="text" class="custom-input w-100 input-bordered" id="nameOfUniversity" placeholder="{{ 'ENTER_UNIVERSITY_NAME' | translate }}"
                  formControlName="nameOfUniversity" meTutorsLettersOnly>
           <div class="text-danger" *ngIf="nameOfUniversity?.touched && nameOfUniversity?.invalid">
-            Please enter a valid university name
+            {{ 'VALID_UNIVERSITY_NAME' | translate }}
           </div>
         </div>
       </div>
 
       <div class="col-md-6">
         <div class="form-group">
-          <label for="teachingExperience" class="form-label">Teaching Experience</label>
+          <label for="teachingExperience" class="form-label">{{ 'TEACHING_EXPERIENCE' | translate }}</label>
           <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="teachingExperience" [placeholder]="'Select Years'" id="teachingExperience">
+            <mat-select formControlName="teachingExperience" placeholder="{{ 'SELECT_YEARS' | translate }}" id="teachingExperience">
               <mat-option [value]="experience" *ngFor="let experience of experiences">{{ experience }}</mat-option>
             </mat-select>
           </mat-form-field>
           <div class="text-danger" *ngIf="teachingExperience?.touched && teachingExperience?.invalid">
-            Please choose your years of teaching experience in schools
+            {{ 'CHOOSE_YEARS_TEACHING_EXPERIENCE_SCHOOL' | translate }}
           </div>
         </div>
       </div>
@@ -32,30 +32,30 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label for="degreeLevel" class="form-label">Degree Level</label>
+          <label for="degreeLevel" class="form-label">{{ 'DEGREE_LEVEL' | translate }}</label>
           <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="degreeLevel" [placeholder]="'Select Degree Level'" id="degreeLevel"
+            <mat-select formControlName="degreeLevel" placeholder="{{ 'SELECT_DEGREE_LEVEL' | translate }}" id="degreeLevel"
                         (selectionChange)="resetDegreeField()">
               <mat-option [value]="level" *ngFor="let level of degreeLevels">{{ level }}</mat-option>
             </mat-select>
           </mat-form-field>
           <div class="text-danger" *ngIf="degreeLevel?.touched && degreeLevel?.invalid">
-            Please choose your degree level
+            {{ 'CHOOSE_DEGREE_LEVEL' | translate }}
           </div>
         </div>
       </div>
 
       <div class="col-md-6">
         <div class="form-group">
-          <label for="teachingExperienceOnline" class="form-label">Teaching Experience Online</label>
+          <label for="teachingExperienceOnline" class="form-label">{{ 'TEACHING_EXPERIENCE_ONLINE' | translate }}</label>
           <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="teachingExperienceOnline" [placeholder]="'Select Years'"
+            <mat-select formControlName="teachingExperienceOnline" placeholder="{{ 'SELECT_YEARS' | translate }}"
                         id="teachingExperienceOnline">
               <mat-option [value]="experience" *ngFor="let experience of experiences">{{ experience }}</mat-option>
             </mat-select>
           </mat-form-field>
           <div class="text-danger" *ngIf="teachingExperienceOnline?.touched && teachingExperienceOnline?.invalid">
-            Please choose your years of teaching experience online
+            {{ 'CHOOSE_YEARS_TEACHING_EXPERIENCE_ONLINE' | translate }}
           </div>
         </div>
       </div>
@@ -64,31 +64,31 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label for="degreeField" class="form-label">Degree Field</label>
+          <label for="degreeField" class="form-label">{{ 'DEGREE_FIELD' | translate }}</label>
           <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="degreeField" [placeholder]="'Select Degree Field'" id="degreeField">
+            <mat-select formControlName="degreeField" placeholder="{{ 'SELECT_DEGREE_FIELD' | translate }}" id="degreeField">
               <mat-option>
                 <ngx-mat-select-search [(ngModel)]="filterDegree" [ngModelOptions]="{standalone: true}"
                                        placeholderLabel="{{ 'SEARCH' | translate }}"
-                                       noEntriesFoundLabel="No matching degree field found">
+                                       noEntriesFoundLabel="{{ 'NO_MATCHING_DEGREE_FIELD' | translate }}">
                 </ngx-mat-select-search>
               </mat-option>
               <mat-option [value]="field" *ngFor="let field of filteredDegreeFields">{{ field }}</mat-option>
             </mat-select>
           </mat-form-field>
           <div class="text-danger" *ngIf="degreeField?.touched && degreeField?.invalid">
-            Please choose your degree field
+            {{ 'CHOOSE_DEGREE_FIELD' | translate }}
           </div>
         </div>
       </div>
 
       <div class="col-md-6">
         <div class="form-group">
-          <label for="currentEmployer" class="form-label">Current Employer <span>({{ 'OPTIONAL' | translate }})</span></label>
-          <input type="text" class="custom-input w-100 input-bordered" id="currentEmployer" placeholder="Enter Here"
+          <label for="currentEmployer" class="form-label">{{ 'CURRENT_EMPLOYER' | translate }} <span>({{ 'OPTIONAL' | translate }})</span></label>
+          <input type="text" class="custom-input w-100 input-bordered" id="currentEmployer" placeholder="{{ 'ENTER_CURRENT_EMPLOYER' | translate }}"
                  formControlName="currentEmployer">
           <div class="text-danger" *ngIf="currentEmployer?.touched && currentEmployer?.invalid">
-            Please write a valid employer name with a max of 80 characters
+            {{ 'WRITE_VALID_CURRENT_EMPLOYER' | translate }}
           </div>
         </div>
       </div>
@@ -97,25 +97,25 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label for="computerSkills" class="form-label">Computer Skills</label>
+          <label for="computerSkills" class="form-label">{{ 'COMPUTER_SKILLS' | translate }}</label>
           <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="computerSkills" [placeholder]="'Select Computer Skills'" id="computerSkills">
+            <mat-select formControlName="computerSkills" placeholder="{{ 'SELECT_COMPUTER_SKILLS' | translate }}" id="computerSkills">
               <mat-option [value]="skill" *ngFor="let skill of skills">{{ skill }}</mat-option>
             </mat-select>
           </mat-form-field>
           <div class="text-danger" *ngIf="computerSkills?.touched && computerSkills?.invalid">
-            Please choose your computer skill level
+            {{ 'CHOOSE_COMPUTER_SKILLS' | translate }}
           </div>
         </div>
       </div>
 
       <div class="col-md-6">
         <div class="form-group">
-          <label for="currentTitle" class="form-label">Current Title <span>({{ 'OPTIONAL' | translate }})</span></label>
-          <input type="text" class="custom-input w-100 input-bordered" id="currentTitle" placeholder="Enter Here"
+          <label for="currentTitle" class="form-label">{{ 'CURRENT_TITLE' | translate }} <span>({{ 'OPTIONAL' | translate }})</span></label>
+          <input type="text" class="custom-input w-100 input-bordered" id="currentTitle" placeholder="{{ 'ENTER_CURRENT_TITLE' | translate }}"
                  formControlName="currentTitle" meTutorsLettersOnly>
           <div class="text-danger" *ngIf="currentTitle?.touched && currentTitle?.invalid">
-            Please write a valid job title with a max of 80 characters
+            {{ 'WRITE_VALID_CURRENT_TITLE' | translate }}
           </div>
         </div>
       </div>
@@ -125,9 +125,9 @@
       <div class="col-md-6">
         <div class="form-group">
           <div>
-            <label for="languages" class="form-label">Spoken languages <span>(For Teaching)</span></label>
+            <label for="languages" class="form-label">{{ 'SPOKEN_LANGUAGES' | translate }} <span>({{ 'FOR_TEACHING' | translate }})</span></label>
             <a class="float-end cursor-pointer" (click)="addLanguage()"
-               [ngClass]="{'text-secondary cursor-not-allowed': languages.status === invalid}">Add New</a>
+               [ngClass]="{'text-secondary cursor-not-allowed': languages.status === invalid}">{{ 'ADD_NEW' | translate }}</a>
           </div>
           <metutors-spoken-languages [form]="form" [languagesList]="languagesList" id="languages"
                                      (removeLanguage)="removeLanguage($event)">
@@ -139,10 +139,10 @@
     <div class="row mb-4 mt-3">
       <div class="col-md-12">
         <div class="d-flex justify-content-between">
-          <label for="currentTitle" class="form-label">Curriculum Vitae / Resume <span
-            class="size">(Max 5 MB)</span></label>
+          <label for="currentTitle" class="form-label">{{ 'CURRICULUM_VITAE' | translate }}<span
+            class="size">({{ 'MAX_5_MB' | translate }})</span></label>
           <span class="text-decoration-underline" (click)="resumePicker.click()"
-                [ngClass]="{'text-main cursor-pointer' : !resume?.value?.length, 'text-secondary pointer-events-none' : resume?.value?.length}">Upload Document</span>
+                [ngClass]="{'text-main cursor-pointer' : !resume?.value?.length, 'text-secondary pointer-events-none' : resume?.value?.length}">{{ 'UPLOAD_DOCUMENT' | translate }}</span>
 
           <input #resumePicker type="file" hidden class="form-control"
                  accept=".xlsx,.xls,image/*,.doc,.docx,.pdf"
@@ -163,15 +163,15 @@
         <div class="table-responsive" *ngIf="resume?.value?.length">
           <table class="table my-table default-title mb-0 list-files">
             <tr>
-              <th scope="col">Title</th>
-              <th scope="col" class="w-7 text-center">Action</th>
+              <th scope="col">{{ 'TITLE' | translate }}</th>
+              <th scope="col" class="w-7 text-center">{{ 'ACTION' | translate }}</th>
             </tr>
 
             <tr>
               <td class="break-all">{{ resume?.value[0]?.originalName }}</td>
               <td class="text-center">
                 <img src="assets/svg/delete.svg" alt="" draggable="false" class="cursor-pointer"
-                      (click)="onDeleteResume()"/>
+                     (click)="onDeleteResume()"/>
               </td>
             </tr>
           </table>
@@ -182,9 +182,9 @@
     <div class="row mb-4">
       <div class="col-md-12">
         <div class="d-flex justify-content-between">
-          <label for="currentTitle" class="form-label">Degree Certificates <span class="size">(Max 5 MB)</span></label>
+          <label for="currentTitle" class="form-label">{{ 'DEGREE_CERTIFICATES' | translate }} <span class="size">({{ 'MAX_5_MB' | translate }})</span></label>
           <span class="text-decoration-underline" (click)="degree.click()"
-                [ngClass]="{'text-main cursor-pointer' : !degrees?.value?.length || degrees?.value?.length < 10, 'text-secondary pointer-events-none' : degrees?.value?.length >= 10}">Upload Document</span>
+                [ngClass]="{'text-main cursor-pointer' : !degrees?.value?.length || degrees?.value?.length < 10, 'text-secondary pointer-events-none' : degrees?.value?.length >= 10}">{{ 'UPLOAD_DOCUMENT' | translate }}</span>
 
           <input #degree type="file" hidden multiple class="form-control"
                  accept=".xlsx,.xls,image/*,.doc,.docx,.pdf"
@@ -206,15 +206,15 @@
         <div class="table-responsive" *ngIf="degrees?.value?.length">
           <table class="table my-table default-title mb-0 list-files">
             <tr>
-              <th scope="col">Title</th>
-              <th scope="col" class="w-7 text-center">Action</th>
+              <th scope="col">{{ 'TITLE' | translate }}</th>
+              <th scope="col" class="w-7 text-center">{{ 'ACTION' | translate }}</th>
             </tr>
 
             <tr *ngFor="let degree of degrees.controls; let i = index">
-              <td class="break-all">{{degree.value.originalName}}</td>
+              <td class="break-all">{{ degree.value.originalName }}</td>
               <td class="text-center">
                 <img src="assets/svg/delete.svg" alt="" draggable="false" class="cursor-pointer"
-                      (click)="onDeleteDegree(i)"/>
+                     (click)="onDeleteDegree(i)"/>
               </td>
             </tr>
           </table>
@@ -225,10 +225,10 @@
     <div class="row mb-4">
       <div class="col-md-12">
         <div class="d-flex justify-content-between">
-          <label for="currentTitle" class="form-label">Other Certifications <span class="size">(Max 5 MB)</span></label>
+          <label for="currentTitle" class="form-label">{{ 'OTHER_CERTIFICATIONS' | translate }} <span class="size">({{ 'MAX_5_MB' | translate }})</span></label>
           <span class="text-decoration-underline"
                 (click)="certificate.click()"
-                [ngClass]="{'text-main cursor-pointer' : !certificates?.value?.length || certificates?.value?.length < 10, 'text-secondary pointer-events-none' : certificates?.value?.length >= 10}">Upload Document</span>
+                [ngClass]="{'text-main cursor-pointer' : !certificates?.value?.length || certificates?.value?.length < 10, 'text-secondary pointer-events-none' : certificates?.value?.length >= 10}">{{ 'UPLOAD_DOCUMENT' | translate }}</span>
 
           <input #certificate type="file" hidden multiple class="form-control"
                  accept=".xlsx,.xls,image/*,.doc,.docx,.pdf"
@@ -250,15 +250,15 @@
         <div class="table-responsive" *ngIf="certificates?.value?.length">
           <table class="table my-table default-title mb-0 list-files">
             <tr>
-              <th scope="col">Title</th>
-              <th scope="col" class="w-7 text-center">Action</th>
+              <th scope="col">{{ 'TITLE' | translate }}</th>
+              <th scope="col" class="w-7 text-center">{{ 'ACTION' | translate }}</th>
             </tr>
 
             <tr *ngFor="let certificate of certificates.controls; let i = index">
               <td class="break-all">{{ certificate?.value?.originalName }}</td>
               <td class="text-center">
                 <img src="assets/svg/delete.svg" alt="" draggable="false" class="cursor-pointer"
-                      (click)="onDeleteCertificate(i)"/>
+                     (click)="onDeleteCertificate(i)"/>
               </td>
             </tr>
           </table>
@@ -268,22 +268,22 @@
 
     <div class="row mb-4">
       <div class="col-md-12">
-        <label for="currentTitle" class="form-label">Onboarding Document</label>
-        <p>Please sign the onboarding document to agree that you have read and understood all sections.</p>
+        <label for="currentTitle" class="form-label">{{ 'ONBOARDING_DOCUMENT' | translate }}</label>
+        <p>{{ 'SIGN_ONBOARDING_DOCUMENT' | translate }}</p>
 
         <div class="table-responsive">
           <table class="table my-table default-title mb-0 list-files">
             <tr>
-              <th scope="col">Title</th>
-              <th scope="col" class="w-24 text-center">Action</th>
+              <th scope="col">{{ 'TITLE' | translate }}</th>
+              <th scope="col" class="w-24 text-center">{{ 'ACTION' | translate }}</th>
             </tr>
 
             <tr>
-              <td>Code of Conduct Document.docx</td>
+              <td>{{ 'CODE_CONDUCT_DOCUMENT' | translate }}</td>
               <td class="text-center">
-                <button class="main-button-transparent view-sign-btn me-2" mat-button type="button" (click)="onOpenViewDocumentModal()">View & Sign</button>
+                <button class="main-button-transparent view-sign-btn me-2" mat-button type="button" (click)="onOpenViewDocumentModal()">{{ 'VIEW_SIGN' | translate }}</button>
                 <a [href]="document.url" target="_blank" class="text-white">
-                  <button mat-flat-button color="primary" class="download-btn" type="button">Download</button>
+                  <button mat-flat-button color="primary" class="download-btn" type="button">{{ 'DOWNLOAD' | translate }}</button>
                 </a>
               </td>
             </tr>
@@ -298,8 +298,7 @@
           <input type="file" #videoPicker (change)="onChangeVideo($event)" hidden accept="video/*"/>
 
           <div class="preview-style">
-            <label class="form-label">Please upload a video to show your teaching style with the following
-              guidelines:</label>
+            <label class="form-label">{{ 'UPLOAD_VIDEO_TEACHING_GUIDELINES' | translate }}</label>
             <div class="position-relative">
               <metutors-video-player [videoSrc]="video?.value" *ngIf="video?.value">
               </metutors-video-player>
@@ -314,7 +313,7 @@
             <button mat-flat-button color="primary" class="px-4" type="button" [disabled]="uploadingVideo"
                     (click)="videoPicker.click()">{{ 'UPLOAD' | translate }}
             </button>
-            <div class="guide1 mt-2">Upload Video Demo (Max 120 MB)</div>
+            <div class="guide1 mt-2">{{ 'UPLOAD_VIDEO_DEMO' | translate }}</div>
           </div>
           <div class="position-relative preview-style">
             <ng-container *ngLet="fileUploadProgress$ | async as fileUploadProgress">
@@ -331,13 +330,11 @@
             </ng-container>
           </div>
           <ul class="video-notes row">
-            <li class="col-md-6"><img src="assets/svg/tick.svg" width="15" height="15" alt=""> You must be in your video.</li>
-            <li class="col-md-6"><img src="assets/svg/tick.svg" width="15" height="15" alt=""> Your video must be between 2-3 minutes.</li>
-            <li class="col-md-6"><img src="assets/svg/tick.svg" width="15" height="15" alt=""> You must teach a concept from a subject you want to teach on MEtutors.</li>
-            <li class="col-md-6"><img src="assets/svg/tick.svg" width="15" height="15" alt=""> All video formats are accepted.</li>
-            <li class="col-md-12"><img src="assets/svg/tick.svg" width="15" height="15" alt=""> Your video should be filmed horizontally with good lighting, in a quiet environment
-              and with a tidy background.
-            </li>
+            <li class="col-md-6"><img src="assets/svg/tick.svg" width="15" height="15" alt="">{{ 'MUST_BE_IN_VIDEO' | translate }}</li>
+            <li class="col-md-6"><img src="assets/svg/tick.svg" width="15" height="15" alt="">{{ 'MUST_BE_BETWEEN_2_MINUTES' | translate }}</li>
+            <li class="col-md-6"><img src="assets/svg/tick.svg" width="15" height="15" alt="">{{ 'MUST_TEACH_CONCEPT_SUBJECT' | translate }}</li>
+            <li class="col-md-6"><img src="assets/svg/tick.svg" width="15" height="15" alt="">{{ 'ALL_VIDEO_FORMATS_ACCEPTED' | translate }}</li>
+            <li class="col-md-12"><img src="assets/svg/tick.svg" width="15" height="15" alt="">{{ 'VIDEO_FILMED_GOOD_LIGHTING' | translate }}</li>
           </ul>
         </div>
       </div>
@@ -357,7 +354,7 @@
 </form>
 
 <metutors-doc-viewer-modal *ngIf="showViewDocumentModal$ | async" [document]="document"
-                           [heading]="'Onboarding Document'" (submit)="onAddSignature($event)"
+                           [heading]="'ONBOARDING_DOCUMENT'" (submit)="onAddSignature($event)"
                            (addSignature)="onUploadSignature($event)" [signatureInfo]="signatureUploadInfo"
                            (closeModal)="onCloseViewDocumentModal()" [showSignature]="true"
                            [addingSignature]="(addingSignature$ | async)!"
