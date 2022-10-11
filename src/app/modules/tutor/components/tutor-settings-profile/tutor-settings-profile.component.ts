@@ -606,6 +606,7 @@ export class TutorSettingsProfileComponent implements OnInit {
       };
 
       this.submitForm.emit(data);
+      this.personalInfoForm.markAsPristine();
     }
   }
 
@@ -626,6 +627,7 @@ export class TutorSettingsProfileComponent implements OnInit {
       };
 
       this.submitForm.emit(data);
+      this.qualificationForm.markAsPristine();
     }
   }
 
@@ -650,6 +652,7 @@ export class TutorSettingsProfileComponent implements OnInit {
       };
 
       this.submitForm.emit(data);
+      this.teachingForm.markAsPristine();
     }
   }
 
