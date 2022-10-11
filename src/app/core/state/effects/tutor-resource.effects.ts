@@ -134,6 +134,7 @@ export class TutorResourceEffects {
           map((resource) =>
             tutorResourceActions.uploadTutorResourceDocumentSuccess({
               message: resource.message,
+              document: camelcaseKeys(resource.document, { deep: true }),
             })
           ),
           catchError((error) =>

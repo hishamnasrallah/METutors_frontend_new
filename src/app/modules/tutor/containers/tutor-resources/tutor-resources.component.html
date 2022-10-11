@@ -128,9 +128,9 @@
             </tr>
             <ng-container *ngIf="view.resources?.teacherOtherDocuments?.length">
             <tr class="book-info" *ngFor="let teacherDoc of view?.resources?.teacherOtherDocuments; let i=index">
-              <td scope="row">{{ teacherDoc?.bookName }}</td>
-              <td>Edition {{ teacherDoc?.bookEdition }}</td>
-              <td><div><button mat-button class="main-button-transparent">{{ 'DOWNLOAD' | translate }}</button></div></td>
+              <td>{{ teacherDoc?.title }}</td>
+              <td>{{ teacherDoc?.user?.firstName }} {{ teacherDoc?.user?.lastName }}</td>
+              <td><div><a [href]="teacherDoc?.file?.url" mat-button class="main-button-transparent" target="_blank" >{{ 'DOWNLOAD' | translate }}</a></div></td>
             </tr>
             </ng-container>
           </table>
