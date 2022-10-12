@@ -45,6 +45,7 @@ export class AdminHourlyRatePerSubjectModalComponent implements OnInit {
     const message = `Hi ${this.tutorName}, \nCongrats! You have been accepted to teach on MEtutors and will receive a confirmation email shortly. Welcome to the team! \n\n\nTalent Acquisition Team \nMEtutors`;
 
     this.form.get('message')?.setValue(message);
+    this.form.markAsDirty();
   }
 
   changePrice(id: number, event: any): void {
