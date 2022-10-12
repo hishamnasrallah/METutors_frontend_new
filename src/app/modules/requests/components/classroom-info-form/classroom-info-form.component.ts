@@ -1,13 +1,13 @@
+import { AbstractControl, FormGroup } from '@angular/forms';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
-  trigger,
   state,
   style,
-  transition,
   group,
   animate,
+  trigger,
+  transition,
 } from '@angular/animations';
-import { AbstractControl, FormGroup } from '@angular/forms';
 import {
   LONG_DAYS_WEEK,
   SORTED_DAYS_WEEK,

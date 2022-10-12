@@ -84,7 +84,7 @@
                         </div>
                         <a class="col-md-2 full-profile" [routerLink]="'/profile/tutor/' + tutor?.id" target="_blank">
                           <img src="assets/svg/share-link.svg" draggable="false" width="16px" height="16px" alt="">
-                          Full profile
+                          {{ 'FULL_PROFILE' | translate }}
                         </a>
                       </div>
                     </mat-radio-button>
@@ -99,7 +99,7 @@
                   <div class="col-12 overflow-hidden">
                     <button mat-flat-button color="primary" class="float-end py-2 px-5" type="button"
                             [disabled]="!selectedTutor || (reassigningTutor$ | async)" (click)="onReassignTutor()">
-                      Continue
+                      {{ 'CONTINUE' | translate }}
                     </button>
                     <span class="back-button float-end text-secondary cursor-pointer" type="button" (click)="onBack()">
                       {{ 'BACK' | translate }}
@@ -140,7 +140,7 @@
                   <span class="fw-bold mb-2 d-block">Summary:</span>
                   <div class="row">
                     <div class="col-md-6 mb-2"><span
-                      class="text-secondary">Total Classes: </span> {{ view.refund?.totalClasses}}</div>
+                      class="text-secondary">{{ 'TOTAL_CLASSES' | translate }}: </span> {{ view.refund?.totalClasses}}</div>
                     <div class="col-md-6"><span
                       class="text-secondary">Remaining classes: </span> {{ view.refund?.remainingClasses}}</div>
                   </div>

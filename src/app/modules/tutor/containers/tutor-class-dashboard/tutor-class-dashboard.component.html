@@ -26,7 +26,7 @@
             </div>
             <div class="col-lg-3 col-md-4 d-flex menu align-items-center">
               <img src="assets/svg/play-circle-fill.svg" alt="" width="15" height="15" draggable="false">
-              <strong>Total Classes: </strong>
+              <strong>{{ 'TOTAL_CLASSES' | translate }}: </strong>
               <span class="f-size-17-md-sm">{{ view.data?.course?.totalClasses }}</span>
             </div>
           </div>
@@ -93,7 +93,7 @@
                 <th>Class Subject</th>
                 <th>Class Attendees</th>
                 <th style="min-width: 150px">Start time - End time</th>
-                <th>Duration</th>
+                <th>{{ 'DURATION' | translate }}</th>
                 <th></th>
               </tr>
               <tr *ngIf="!view.data?.todaysClasses?.length">
@@ -144,10 +144,10 @@
                 <th>#</th>
                 <th>Class Subject</th>
                 <th>Class Attendees</th>
-                <th>Day</th>
-                <th>Date</th>
+                <th>{{ 'DAY' | translate }}</th>
+                <th>{{ 'DATE' | translate }}</th>
                 <th style="min-width: 150px">Start time - End time</th>
-                <th>Duration</th>
+                <th>{{ 'DURATION' | translate }}</th>
                 <th></th>
               </tr>
               <tr *ngIf="!view.data?.upcomingClasses?.data?.length">
@@ -195,10 +195,10 @@
                 <th>#</th>
                 <th>Class Subject</th>
                 <th>Class Attendees</th>
-                <th>Day</th>
-                <th>Date</th>
+                <th>{{ 'DAY' | translate }}</th>
+                <th>{{ 'DATE' | translate }}</th>
                 <th style="min-width: 150px">Start time - End time</th>
-                <th>Duration</th>
+                <th>{{ 'DURATION' | translate }}</th>
                 <th></th>
               </tr>
               <tr *ngIf="!view.data.pastClasses?.data?.length">

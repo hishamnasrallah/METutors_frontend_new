@@ -505,25 +505,25 @@ export class RequestTutorComponent implements OnInit {
           this.courseInformationForm.value.information ===
           AcademicTutoringTextbook.info
         )
-          this.reviewInfo.information = 'Student book';
+          this.reviewInfo.information = 'STUDENT_BOOK';
 
         if (
           this.courseInformationForm.value.information ===
           AcademicTutoringTextbook.pdf
         )
-          this.reviewInfo.information = 'Student textbook pdf';
+          this.reviewInfo.information = 'STUDENT_TEXTBOOK_PDF';
 
         if (
           this.courseInformationForm.value.information ===
           AcademicTutoringTextbook.none
         )
-          this.reviewInfo.information = 'Textbook not required';
+          this.reviewInfo.information = 'TEXTBOOK_NOT_REQUIRED';
 
         if (
           this.courseInformationForm.value.information ===
           AcademicTutoringTextbook.later
         )
-          this.reviewInfo.information = 'More info will be provided later';
+          this.reviewInfo.information = 'MORE_INFO_PROVIDED_LATER';
       }
 
       if (this.courseInformationForm.value.file) {

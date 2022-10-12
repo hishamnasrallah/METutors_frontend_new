@@ -14,10 +14,10 @@
           <div class="classroom-item">
             <div class="row">
               <div class="mb-3">
-                <label for="topic" class="form-label">Enter Topic Name</label>
+                <label for="topic" class="form-label">{{ 'ENTER_TOPIC_NAME' | translate }}</label>
                 <metutors-char-counter [limit]="120" [controlName]="topicName"></metutors-char-counter>
                 <input type="text" class="form-control custom-input input-bordered" formControlName="name" id="topic"
-                       placeholder="Enter Topic Name" autocomplete="off">
+                       placeholder="{{ 'ENTER_TOPIC_NAME' | translate }}" autocomplete="off">
                 <div class="text-danger" *ngIf="topicName?.touched && topicName?.invalid">
                   Please write topic name with a max of 120 characters
                 </div>

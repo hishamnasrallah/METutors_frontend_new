@@ -10,7 +10,7 @@
         <div class="form-group">
           <h3>Select Interview Date</h3>
           <mat-form-field appearance="outline" class="w-100">
-            <input matInput [matDatepicker]="interviewPicker" [placeholder]="'Choose a date'"
+            <input matInput [matDatepicker]="interviewPicker" placeholder="{{ 'CHOOSE_DATE' | translate }}"
               (focus)="interviewPicker.open()" [min]="minDate" formControlName="interviewDate">
             <mat-datepicker-toggle matSuffix [for]="interviewPicker"></mat-datepicker-toggle>
             <mat-datepicker #interviewPicker></mat-datepicker>

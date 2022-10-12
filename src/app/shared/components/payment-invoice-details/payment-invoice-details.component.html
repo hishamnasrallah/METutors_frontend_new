@@ -21,19 +21,19 @@
       <mat-icon class="spinner" *ngIf="isGetInvoiceEmail">autorenew</mat-icon>
       Get Invoice Email
     </button>
-    <button mat-button class="print d-block w-100 mb-1 fw-bold" (click)="print.emit()">Print</button>
+    <button mat-button class="print d-block w-100 mb-1 fw-bold" (click)="print.emit()">{{ 'PRINT' | translate }}</button>
   </div>
 </div>
 
-<h3 class="title f-size-20-md-sm mt-15-sm">Invoice Details</h3>
+<h3 class="title f-size-20-md-sm mt-15-sm">{{ 'INVOICE_DETAILS' | translate }}</h3>
 <ul class="list-unstyled">
   <li class="d-flex justify-content-between">
-    <span class="f-size-15-md-sm">Total Hours </span>
+    <span class="f-size-15-md-sm">{{ 'TOTAL_HOURS' | translate }} </span>
     <strong class="f-size-15-md-sm">{{ invoiceDetails?.totalHours }}
       {{ +(invoiceDetails?.totalHours)! > 1 ? ('HOURS_SM' | translate) : ('HOUR_SM' | translate) }}</strong>
   </li>
   <li class="d-flex justify-content-between">
-    <span class="f-size-15-md-sm">Hourly Rate</span>
+    <span class="f-size-15-md-sm">{{ 'HOURLY_RATE' | translate }}</span>
     <strong class="f-size-15-md-sm">{{ invoiceDetails?.pricePerHour | metutorsMoney | async }}</strong>
   </li>
   <li class="d-flex justify-content-between">

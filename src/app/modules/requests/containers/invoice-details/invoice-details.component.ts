@@ -1,10 +1,9 @@
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
-
 import { environment } from '@environment';
 import * as fromCore from '@metutor/core/state';
+import { Component, OnInit } from '@angular/core'; 
 import * as fromRequests from '@metutor/modules/requests/state';
 import { IClassroom, IInvoiceDetails, IUser } from '@metutor/core/models';
 

@@ -208,7 +208,7 @@ export class StudentAddCourseModalComponent implements OnInit {
   onCheckout(form: FormGroup): void {
     this.step = 4;
     this.subHeading = '';
-    this.heading = 'Checkout';
+    this.heading = 'CHECKOUT';
 
     this.calculateInvoice.emit(form.value);
   }

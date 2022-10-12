@@ -3,9 +3,9 @@
     <div class="card-body">
       <div class="row row-block">
         <div class="col-md-4">
-          <h2 class="f-size-17-md-sm">Course Details</h2>
+          <h2 class="f-size-17-md-sm">{{ 'COURSE_DETAILS' | translate }}</h2>
 
-          <h5 class="mt-4 mb-0 f-size-15-md-sm">{{ 'COURSE_ID' | translate }}: <span>CID{{selectedCourse?.id}}</span></h5>
+          <h5 class="mt-4 mb-0 f-size-15-md-sm">{{ 'COURSE_ID' | translate }}: <span>CID{{ selectedCourse?.id }}</span></h5>
         </div>
         <div class="col-md-8 mt-15-sm">
           <div class="row">
@@ -14,18 +14,18 @@
               <h4>{{ reviewInfo?.courseProgram }}</h4>
             </div>
             <div class="col-md-3 col-sm-6" *ngIf="reviewInfo?.courseCountry">
-              <h3>Program Country</h3>
+              <h3>{{ 'PROGRAM_COUNTRY' | translate }}</h3>
               <h4>
                 <span [innerHTML]="reviewInfo?.courseCountry?.flag" class="me-2"></span>
                 {{ reviewInfo?.courseCountry?.name }}
               </h4>
             </div>
             <div class="col-md-3 col-sm-6" *ngIf="reviewInfo?.courseGrade">
-              <h3>Program Grade Level</h3>
+              <h3>{{ 'PROGRAM_GRADE_LEVEL' | translate }}</h3>
               <h4>{{ reviewInfo?.courseGrade }}</h4>
             </div>
             <div class="col-md-3 col-sm-6">
-              <h3>Field of Study</h3>
+              <h3>{{ 'FIELD_STUDY' | translate }}</h3>
               <h4>{{ reviewInfo?.courseField }}</h4>
             </div>
             <div class="col-md-3 col-sm-6">
@@ -37,20 +37,20 @@
               <h4>{{ reviewInfo?.languages }}</h4>
             </div>
             <!-- <div class="col-md-3 col-sm-6">
-              <h3>Book Type</h3>
+              <h3>{{ 'BOOK_TYPE' | translate }}</h3>
               <h4>{{ reviewInfo?.information }}</h4>
             </div> -->
             <!-- <ng-container *ngIf="reviewInfo?.info === academicTutoringTextbook.info">
               <div class="col-md-3 col-sm-6">
-                <h3>Textbook Name</h3>
+                <h3>{{ 'TEXTBOOK_NAME' | translate }}</h3>
                 <h4>{{ reviewInfo?.name }}</h4>
               </div>
               <div class="col-md-3 col-sm-6">
-                <h3>Textbook Edition</h3>
+                <h3>{{ 'TEXTBOOK_EDITION' | translate }}</h3>
                 <h4>{{ reviewInfo?.edition }} edition</h4>
               </div>
               <div class="col-md-3 col-sm-6">
-                <h3>Textbook Author</h3>
+                <h3>{{ 'TEXTBOOK_AUTHOR' | translate }}</h3>
                 <h4>{{ reviewInfo?.author }}</h4>
               </div>
             </ng-container> -->
@@ -59,44 +59,44 @@
       </div>
       <div class="row row-block">
         <div class="col-md-4">
-          <h2 class="f-size-17-md-sm">Classroom Setup</h2>
+          <h2 class="f-size-17-md-sm">{{ 'CLASSROOM_SETUP' | translate }}</h2>
         </div>
         <div class="col-md-8 mt-15-sm">
           <div class="row">
             <div class="col-md-3 col-sm-6">
-              <h3>Course Start Date</h3>
+              <h3>{{ 'COURSE_START_DATE' | translate }}</h3>
               <h4>{{ reviewInfo?.startDate | date }}</h4>
             </div>
             <div class="col-md-3 col-sm-6">
-              <h3>Course End Date</h3>
+              <h3>{{ 'COURSE_END_DATE' | translate }}</h3>
               <h4>{{ reviewInfo?.endDate | date }}</h4>
             </div>
             <div class="col-md-3 col-sm-6">
-              <h3>Total Hours</h3>
+              <h3>{{ 'TOTAL_HOURS' | translate }}</h3>
               <h4>{{ reviewInfo?.hours }} {{ +reviewInfo?.hours === 1 ? 'hour' : 'hours' }}</h4>
             </div>
             <div class="col-md-3 col-sm-6">
-              <h3>Type</h3>
+              <h3>{{ 'TYPE' | translate }}</h3>
               <h4>{{ reviewInfo?.type }}</h4>
             </div>
             <div class="col-md-3 col-sm-6">
-              <h3>Classes Start Time</h3>
+              <h3>{{ 'CLASSES_START_TIME' | translate }}</h3>
               <h4>{{ reviewInfo?.startTime }}</h4>
             </div>
             <div class="col-md-3 col-sm-6">
-              <h3>Classes End Time</h3>
+              <h3>{{ 'CLASSES_END_TIME' | translate }}</h3>
               <h4>{{ reviewInfo?.endTime }}</h4>
             </div>
             <div class="col-md-3 col-sm-6">
-              <h3>Course Duration</h3>
+              <h3>{{ 'COURSE_DURATION' | translate }}</h3>
               <h4>{{ reviewInfo?.duration }} {{ +(reviewInfo?.duration)! > 1 ? ('HOURS_SM' | translate) : ('HOUR_SM' | translate) }}</h4>
             </div>
             <div class="col-md-3 col-sm-6">
-              <h3>Number of classes in the course</h3>
+              <h3>{{ 'NUMBER_OF_CLASSES_COURSE' | translate }}</h3>
               <h4>{{ reviewInfo?.classes }} {{ +(reviewInfo?.classes)! > 1 ? ('CLASSES_SM' | translate) : ('CLASS_SM' | translate) }}</h4>
             </div>
             <div class="col-md-6">
-              <h3>Class Days</h3>
+              <h3>{{ 'CLASS_DAYS' | translate }}</h3>
               <h4>
                 <ng-container *ngFor="let day of reviewInfo?.days; let isLast = last">
                   {{ day }}
@@ -105,7 +105,7 @@
               </h4>
             </div>
             <div class="col-md-3 col-sm-6">
-              <h3>Total Price</h3>
+              <h3>{{ 'TOTAL_PRICE' | translate }}</h3>
               <h4>{{ reviewInfo?.price | metutorsMoney | async }}</h4>
             </div>
           </div>
@@ -113,18 +113,18 @@
       </div>
       <div class="row row-block" *ngIf="reviewInfo?.appointments && reviewInfo?.appointments?.length">
         <div class="col-md-4">
-          <h2 class="f-size-17-md-sm">Class Schedule</h2>
+          <h2 class="f-size-17-md-sm">{{ 'CLASS_SCHEDULE' | translate }}</h2>
         </div>
         <div class="col-md-8 mt-15-sm">
           <!-- <h6>Classroom List Schedule</h6> -->
           <div class="list-classes table-responsive">
             <table class="table table-striped table-hover">
               <tr>
-                <th>Day</th>
-                <th>Date</th>
-                <th>Start Time</th>
-                <th>End Time</th>
-                <th>Total Hours</th>
+                <th>{{ 'DAY' | translate }}</th>
+                <th>{{ 'DATE' | translate }}</th>
+                <th>{{ 'START_TIME' | translate }}</th>
+                <th>{{ 'END_TIME' | translate }}</th>
+                <th>{{ 'TOTAL_HOURS' | translate }}</th>
               </tr>
               <tr *ngFor="let appointment of reviewInfo?.appointments">
                 <td>{{ appointment?.date | date: 'EEEE' }}</td>
@@ -139,7 +139,7 @@
       </div>
       <div class="row row-block" *ngIf="reviewInfo?.topics && reviewInfo?.topics?.length">
         <div class="col-md-4">
-          <h2 class="f-size-17-md-sm">Highlighted Topics</h2>
+          <h2 class="f-size-17-md-sm">{{ 'HIGHLIGHTED_TOPICS' | translate }}</h2>
         </div>
         <div class="col-md-8 mt-15-sm topics">
           <div class="row">
@@ -147,8 +147,8 @@
               <div class="table-responsive">
                 <table class="table my-table default-title mb-0">
                   <tr>
-                    <th>Topic Name</th>
-                    <th width="40%">Knowledge Confidence Scale</th>
+                    <th>{{ 'TOPIC_NAME' | translate }}</th>
+                    <th width="40%">{{ 'KNOWLEDGE_CONFIDENCE_SCALE' | translate }}</th>
                   </tr>
                   <tr *ngFor="let lang of reviewInfo?.topics">
                     <td>{{ lang.name }}</td>
@@ -162,17 +162,17 @@
       </div>
       <div class="row row-block">
         <div class="col-md-4">
-          <h2 class="f-size-17-md-sm">Textbook Details</h2>
+          <h2 class="f-size-17-md-sm">{{ 'TEXTBOOK_DETAILS' | translate }}</h2>
         </div>
         <div class="col-md-8 mt-15-sm later"
           *ngIf="reviewInfo?.info === academicTutoringTextbook.later || reviewInfo?.info === academicTutoringTextbook.none">
-          <h4>Selection made by student</h4>
+          <h4>{{ 'SELECTION_MADE_STUDENT' | translate }}</h4>
           <div class="d-flex flex-column align-items-center">
             <img
               [src]="baseUrl + (reviewInfo?.info === academicTutoringTextbook.later ? '/assets/svg/textbook.svg' : '/assets/svg/textbook-slash.svg')"
               class="mb-3" [attr.width]="reviewInfo?.info === academicTutoringTextbook.later ? '35px' : '60px'"
               draggable="false" alt="">
-            {{ reviewInfo?.information }}
+            {{ reviewInfo.information | translate }}
           </div>
         </div>
         <div class="col-md-8 mt-15-sm topics" *ngIf="reviewInfo?.info === academicTutoringTextbook.info">
@@ -181,9 +181,9 @@
               <div class="table-responsive">
                 <table class="table my-table default-title mb-0">
                   <tr>
-                    <th>Textbook Name</th>
-                    <th>Textbook Edition</th>
-                    <th>Textbook Author</th>
+                    <th>{{ 'TEXTBOOK_NAME' | translate }}</th>
+                    <th>{{ 'TEXTBOOK_EDITION' | translate }}</th>
+                    <th>{{ 'TEXTBOOK_AUTHOR' | translate }}</th>
                   </tr>
                   <tr>
                     <td>{{ reviewInfo?.name }}</td>
@@ -196,9 +196,9 @@
           </div>
         </div>
         <div class="col-md-8 mt-15-sm pdf" *ngIf="reviewInfo?.info === academicTutoringTextbook.pdf">
-          <h4>PDF document uploaded by student</h4>
+          <h4>{{ 'PDF_DOCUMENT_STUDENT' | translate }}</h4>
           <div>
-            <h1>Attachments</h1>
+            <h1>{{ 'ATTACHMENTS' | translate }}</h1>
             <div class="block-file d-flex align-items-center">
               <mat-icon>attach_file</mat-icon>
               <div class="ms-2">
@@ -211,10 +211,10 @@
       </div>
       <div class="row row-block mb-0" *ngIf="reviewInfo?.tutor">
         <div class="col-md-4">
-          <h2>Tutor Information</h2>
+          <h2>{{ 'TUTOR_INFORMATION' | translate }}</h2>
         </div>
         <div class="col-md-8">
-          <h6>Classroom Tutor</h6>
+          <h6>{{ 'CLASSROOM_TUTOR' | translate }}</h6>
           <div class="row list-tutors">
             <div class="position-relative img-avatar">
               <img [src]="reviewInfo?.tutor?.avatar" meTutorsDefaultAvatar alt="" width="60px" height="60px">
@@ -234,7 +234,8 @@
                       <span class="text-uppercase verified">{{ 'VERIFIED' | translate }}</span> -->
               </h2>
               <h3 class="mb-0" *ngIf="reviewInfo?.tutor?.qualifications?.nameOfUniversity">
-                {{ reviewInfo?.tutor?.qualifications?.nameOfUniversity }}</h3>
+                {{ reviewInfo?.tutor?.qualifications?.nameOfUniversity }}
+              </h3>
               <div class="d-flex align-items-center mt-1">
                 <rating [ngModel]="reviewInfo?.tutor?.averageRating" [ngModelOptions]="{standalone: true}" [max]="5"
                   [readonly]="true"></rating>
@@ -252,7 +253,7 @@
                 <div class="d-flex ms-3 li-item" *ngIf="reviewInfo?.tutor?.studentsTeaching">
                   <img src="assets/svg/classes.svg" class="icon" draggable="false" width="16" height="16" alt="">
                   <span>
-                    Help {{ reviewInfo?.tutor?.studentsTeaching }}
+                    {{ 'HELP' | translate }} {{ reviewInfo?.tutor?.studentsTeaching }}
                     {{ +(reviewInfo?.tutor?.studentsTeaching)! > 1 ? ('STUDENTS_SM' | translate) : ('STUDENT_SM' | translate) }}
                   </span>
                 </div>
@@ -260,13 +261,13 @@
               <a class="col-md-3 full-profile d-block d-xl-none mt-1"
                 [routerLink]="'/profile/tutor/' + reviewInfo?.tutor?.id" target="_blank">
                 <img src="assets/svg/share-link.svg" draggable="false" width="16px" height="16px" alt="">
-                Full Profile
+                {{ 'FULL_PROFILE' | translate }}
               </a>
             </div>
             <a class="col-md-3 full-profile d-none d-xl-block" [routerLink]="'/profile/tutor/' + reviewInfo?.tutor?.id"
               target="_blank">
               <img src="assets/svg/share-link.svg" draggable="false" width="16px" height="16px" alt="">
-              Full Profile
+              {{ 'FULL_PROFILE' | translate }}
             </a>
           </div>
         </div>
@@ -280,10 +281,10 @@
                 <div class="d-flex">
                   <div class="flex-grow-1">
                     <h5 class="d-flex align-items-center">
-                      Estimated Price: <h1 class="mb-0 f-size-20-md-sm">
+                      {{ 'ESTIMATED_PRICE' | translate }}: <h1 class="mb-0 f-size-20-md-sm">
                         {{ (price * +reviewInfo?.hours) | metutorsMoney | async }}</h1>
                     </h5>
-                    <p>Final price based on total number of class hours</p>
+                    <p>{{ 'FINAL_PRICE_BASED_HOURS' | translate }}</p>
                   </div>
                 </div>
               </div>
@@ -291,10 +292,10 @@
                 <div class="d-flex">
                   <div class="flex-grow-1">
                     <h5 class="d-flex align-items-center">
-                      Total Hours: <h1 class="mb-0 f-size-20-md-sm">{{ reviewInfo?.hours }}
+                      {{ 'TOTAL_HOURS' | translate }}: <h1 class="mb-0 f-size-20-md-sm">{{ reviewInfo?.hours }}
                         {{ +(reviewInfo?.hours)! > 1 ? ('HRS_SM' | translate) : ('HR_SM' | translate) }}</h1>
                     </h5>
-                    <p>Hourly Rate: {{ price | metutorsMoney | async }}</p>
+                    <p>{{ 'HOURLY_RATE' | translate }}: {{ price | metutorsMoney | async }}</p>
                   </div>
                 </div>
               </div>
@@ -312,7 +313,7 @@
         <div class="col-md-8 d-flex overflow-hidden justify-content-between">
           <button mat-button class="back-btn m-0" type="button" (click)="printToCart('printSectionId')">
             <img src="assets/svg/print.svg" class="me-2" draggable="false" width="25" height="25" alt="">
-            Print
+            {{ 'PRINT' | translate }}
           </button>
           <div>
             <button mat-button class="back-btn" type="button" (click)="onBack.emit()">
@@ -321,7 +322,7 @@
             </button>
             <button mat-flat-button color="primary" type="button" [disabled]="isCreatingCourse || !conditions"
               (click)="submitForm.emit()">
-              Check out
+              {{ 'CHECKOUT' | translate }}
               <mat-icon *ngIf="!isCreatingCourse" class="rotate-180-ar">arrow_forward</mat-icon>
               <mat-icon class="spinner" *ngIf="isCreatingCourse">autorenew</mat-icon>
             </button>

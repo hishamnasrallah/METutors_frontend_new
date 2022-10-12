@@ -31,9 +31,9 @@
             <div class="form-group">
               <div class="row">
                 <div class="col-md-6">
-                  <label>Start Date</label>
+                  <label>{{ 'START_DATE' | translate }}</label>
                   <mat-form-field appearance="outline" class="w-100">
-                    <input matInput [matDatepicker]="startPicker" [placeholder]="'Choose a date'"
+                    <input matInput [matDatepicker]="startPicker" placeholder="{{ 'CHOOSE_DATE' | translate }}"
                            (focus)="startPicker.open()" autocomplete="off"
                            [min]="minDate" (dateChange)="onChangeDateDay()" formControlName="startDate">
                     <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
@@ -43,7 +43,7 @@
                 <div class="col-md-6">
                   <label>Deadline</label>
                   <mat-form-field appearance="outline" class="w-100">
-                    <input matInput [matDatepicker]="endPicker" [placeholder]="'Choose a date'"
+                    <input matInput [matDatepicker]="endPicker" placeholder="{{ 'CHOOSE_DATE' | translate }}"
                            (focus)="endPicker.open()" autocomplete="off"
                            [min]="startDate?.value" (dateChange)="onChangeDateDay()" formControlName="endDate">
                     <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>

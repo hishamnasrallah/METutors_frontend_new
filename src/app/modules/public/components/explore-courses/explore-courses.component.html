@@ -15,7 +15,7 @@
             </div>
             <div class="col-md-12">
               <div class="form-block position-relative rounded mt-4">
-                <input type="text" placeholder="Search by course name" class="w-100 rounded" #search
+                <input type="text" placeholder="{{ 'SEARCH_BY_COURSE_NAME' | translate }}" class="w-100 rounded" #search
                   (keyup)="filterCourses.emit(search.value)">
                 <button mat-flat-button color="primary">
                   <img src="assets/svg/search.svg" alt="" draggable="false" width="16" height="16" />

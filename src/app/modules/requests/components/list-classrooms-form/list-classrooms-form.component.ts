@@ -1,4 +1,6 @@
 import { DatePipe } from '@angular/common';
+import { IClass } from 'src/app/core/models';
+import { FormValidationUtilsService } from '@metutor/core/validators';
 import {
   Input,
   Inject,
@@ -31,8 +33,6 @@ import {
   generalConstants,
   calculateDurationTime,
 } from 'src/app/config';
-import { IClass } from 'src/app/core/models';
-import { FormValidationUtilsService } from '@metutor/core/validators';
 
 @Component({
   selector: 'metutors-list-classrooms-form',

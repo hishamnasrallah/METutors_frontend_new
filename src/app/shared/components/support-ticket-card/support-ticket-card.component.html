@@ -47,7 +47,7 @@
       </div>
       <div class="col-md-3 d-flex menu align-items-center" *ngIf="ticketStatus.closed === ticket?.status">
         <mat-icon>circle</mat-icon>
-        <span>Duration: {{ ticket?.duration }} Days</span>
+        <span>{{ 'DURATION' | translate }}: {{ ticket?.duration }} Days</span>
       </div>
       <div class="col-md-3 d-flex menu align-items-center" *ngIf="ticketStatus.closed === ticket?.status">
         <mat-icon>circle</mat-icon>

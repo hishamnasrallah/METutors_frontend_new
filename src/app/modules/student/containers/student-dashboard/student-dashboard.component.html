@@ -98,7 +98,7 @@
                 <th>Class Subject</th>
                 <th>Class Tutor</th>
                 <th>Start Time - End Time</th>
-                <th>Duration</th>
+                <th>{{ 'DURATION' | translate }}</th>
                 <th></th>
               </tr>
               <tr *ngIf="!view.dashboard.todaysClasses.length">
@@ -175,11 +175,11 @@
                       </mat-progress-bar>
                       <div class="row mt-3">
                         <div class="col-md-4">
-                          <h5>Total hours</h5>
-                          <h4 class="m-0">{{ completedCourse?.course?.totalHours }} Hours</h4>
+                          <h5>{{ 'TOTAL_HOURS' | translate }}</h5>
+                          <h4 class="m-0">{{ completedCourse?.course?.totalHours }} {{ 'HOURS_SM' | translate }}</h4>
                         </div>
                         <div class="col-md-4">
-                          <h5>Total Classes</h5>
+                          <h5>{{ 'TOTAL_CLASSES' | translate }}</h5>
                           <h4 class="m-0">{{ completedCourse?.course?.totalClasses }}</h4>
                         </div>
                         <div class="col-md-4">

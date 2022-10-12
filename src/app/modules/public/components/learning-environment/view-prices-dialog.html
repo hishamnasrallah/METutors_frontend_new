@@ -11,11 +11,11 @@
         <div class="fields">
           <div class="row">
             <div class="col-md-7">
-              <!-- <h2>Field of study</h2>
+              <!-- <h2>{{ 'FIELD_STUDY' | translate }}</h2>
               <p>View very destinations in Markesh</p> -->
             </div>
             <div class="col-md-5">
-              <label>{{ 'SELECT_FIELD_STUDY' | translate }}</label>
+              <label>{{ 'SELECT_FIELDS_STUDY' | translate }}</label>
               <mat-form-field appearance="outline" class="w-100">
                 <mat-select placeholder="{{ 'PLEASE_SELECT' | translate }}" (selectionChange)="fieldId = $event.value">
                   <mat-option [value]="field.id" *ngFor="let field of fields">{{ field?.name }}</mat-option>

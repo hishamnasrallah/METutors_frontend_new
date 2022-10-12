@@ -1,10 +1,9 @@
 import { Store } from '@ngrx/store';
+import { environment } from '@environment';
+import * as fromCore from '@metutor/core/state';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { combineLatest, map, Observable } from 'rxjs';
-
-import { environment } from '@environment';
-import * as fromCore from '@metutor/core/state';
 import * as fromRequests from '@metutor/modules/requests/state';
 
 @Component({

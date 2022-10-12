@@ -29,7 +29,7 @@
       <div class="row list rounded">
         <div class="col-md-4 d-flex menu align-items-center">
           <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
-          <strong>Total hours:</strong>
+          <strong>{{ 'TOTAL_HOURS' | translate }}:</strong>
           <span>{{ course?.duration }} {{ +(course?.duration)! > 1 ? ('HOURS_SM' | translate) : ('HOUR_SM' | translate) }}</span>
         </div>
         <div class="col-md-4 d-flex menu align-items-center">
@@ -51,7 +51,7 @@
       </h3>
       <button mat-flat-button color="primary" class="main-button-transparent mb-2"
         (click)="openCourseDetailsPopop = true">
-        Course details
+        {{ 'COURSE_DETAILS' | translate }}
       </button>
       <a mat-flat-button [routerLink]="'/classrooms/' + course?.id" color="primary" class="start-btn">
         Select classroom

@@ -2,7 +2,7 @@
   <div class="container invoice-details mt-15-sm" id="printSectionId" *ngLet="(invoiceDetails$ | async) as invoiceDetails">
     <div class="row flex-column-reverse-sm">
       <div class="col-md-8" *ngLet="(user$ | async) as user">
-        <h2 class="f-size-30-md-sm h-auto-sm">Invoice details</h2>
+        <h2 class="f-size-30-md-sm h-auto-sm">{{ 'INVOICE_DETAILS' | translate }}</h2>
         <div class="card">
           <div class="card-body">
             <ng-container [ngSwitch]="isCalculateInvoiceDetails$ | async">
@@ -18,7 +18,7 @@
                 <div class="overflow-hidden">
                   <button mat-flat-button color="primary" class="float-end pay-now mt-15-sm"
                           (click)="saveCourse(user, classroom)" [disabled]="isCreatingCourse$ | async">
-                    Pay Now
+                    {{ 'PAY_NOW' | translate }}
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="rotate-180-ar">
                       <path
                         d="M16.172 10.9999H4V12.9999H16.172L10.808 18.3639L12.222 19.7779L20 11.9999L12.222 4.22192L10.808 5.63592L16.172 10.9999Z"

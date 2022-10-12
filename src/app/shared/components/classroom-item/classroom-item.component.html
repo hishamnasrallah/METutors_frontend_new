@@ -56,7 +56,7 @@
         <div class="col-xl-4 col-sm-6 d-flex menu align-items-center">
           <ng-container *ngIf="classroom?.startTime && classroom?.endTime">
             <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
-            <strong class="f-size-15-md-sm">Time: </strong>
+            <strong class="f-size-15-md-sm">{{ 'TIME' | translate }}: </strong>
             <span class="f-size-15-md-sm">
               {{ classroom?.startTime | date: 'h:mm a' }} : {{ classroom?.endTime | date: 'h:mm a' }}
             </span>
@@ -126,7 +126,7 @@
             <div class="col-md-12">
               <a [routerLink]="url + classroom?.id" mat-button color="primary" *ngIf="!completeCourse"
                 class="h-100 book-classroom main-button-transparent float-end w-100-sm">
-                Continue
+                {{ 'CONTINUE' | translate }}
                 <mat-icon class="rotate-180-ar">arrow_forward</mat-icon>
               </a>
                <div class="d-flex" *ngIf="completeCourse">
