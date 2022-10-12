@@ -1,9 +1,8 @@
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { Component, OnInit } from '@angular/core';
-
 import { IFAQ } from 'src/app/core/models';
 import * as fromCore from '@metutor/core/state';
+import { Component, OnInit } from '@angular/core';
 import { generalConstants } from '@metutor/config';
 
 @Component({

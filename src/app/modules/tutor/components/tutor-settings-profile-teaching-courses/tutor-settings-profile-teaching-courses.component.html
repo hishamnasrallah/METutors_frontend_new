@@ -9,7 +9,7 @@
       </h1>
       <metutors-submit-button [form]="form" [isSubmitting]="isSubmitting" *ngIf="!status"
         [isDisabled]="!sortedSubjects || !pricesLength || pricesLength < +(sortedSubjects?.length)!">
-        Update
+        {{ 'UPDATE' | translate }}
       </metutors-submit-button>
     </div>
 

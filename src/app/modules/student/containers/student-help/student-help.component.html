@@ -13,12 +13,12 @@
     <ul class="list-unstyled m-0">
       <li>
         <a routerLink="/student/help/faq" routerLinkActive="active" (click)="openSideMenu = false">
-          <span class="">FAQs</span>
+          <span class="">{{ 'FAQS' | translate }}</span>
         </a>
       </li>
       <li>
         <a routerLink="/student/help/support-ticket" routerLinkActive="active" (click)="openSideMenu = false">
-          <span class="text-uppercase">Support ticket</span>
+          <span class="text-uppercase">{{ 'SUPPORT_TICKET' | translate }}</span>
         </a>
       </li>
     </ul>

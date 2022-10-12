@@ -21,8 +21,8 @@
             </div>
 
             <div>
-              <h2>Upload profile photo</h2>
-              <h5>JPG, GIF or PNG. Max size of 1MB</h5>
+              <h2>{{ 'UPLOAD_PROFILE_PHOTO' | translate }}</h2>
+              <h5>{{ 'PHOTO_EXTENSION_SIZE_MB' | translate }}</h5>
               <div style="height:0;overflow:hidden">
                 <input type="file" id="fileInput" name="fileInput" #filePicker (change)="uploadProfilePic($event)"/>
               </div>
@@ -43,15 +43,15 @@
             {{ 'WRITE_VALID_FIRST_NAME' | translate }}
           </div>
           <div class="text-danger" *ngIf="firstName?.['touched'] && firstName?.errors?.['pattern']">
-            First Name should only contains alphabets
+            {{ 'FIRST_NAME_ALPHABETS' | translate }}
           </div>
           <div class="text-danger"
                *ngIf="firstName?.['touched'] && firstName?.errors?.['minlength'] && !firstName?.errors?.['required'] && !firstName?.errors?.['pattern']">
-            First Name cannot be less than 3 characters
+            {{ 'FIRST_NAME_MIN_CHARACTERS' | translate }}
           </div>
           <div class="text-danger"
                *ngIf="firstName?.['touched'] && firstName?.errors?.['maxlength'] && !firstName?.errors?.['pattern']">
-            First Name cannot be greater than 100 characters
+            {{ 'FIRST_NAME_MAX_CHARACTERS' | translate }}
           </div>
         </div>
       </div>
@@ -64,15 +64,15 @@
             {{ 'WRITE_VALID_LAST_NAME' | translate }}
           </div>
           <div class="text-danger" *ngIf="lastName?.['touched'] && lastName?.errors?.['pattern']">
-            Last Name should only contains alphabets
+            {{ 'LAST_NAME_ALPHABETS' | translate }}
           </div>
           <div class="text-danger"
                *ngIf="lastName?.['touched'] && lastName?.errors?.['minlength'] && !lastName?.errors?.['required'] && !lastName?.errors?.['pattern']">
-            Last Name cannot be less than 3 characters
+            {{ 'LAST_NAME_MIN_CHARACTERS' | translate }}
           </div>
           <div class="text-danger"
                *ngIf="lastName?.['touched'] && lastName?.errors?.['maxlength'] && !lastName?.errors?.['pattern']">
-            Last Name cannot be greater than 100 characters
+            {{ 'LAST_NAME_MAX_CHARACTERS' | translate }}
           </div>
         </div>
       </div>
@@ -86,15 +86,15 @@
 
       <div class="row mb-3 form-group">
         <div class="col-xl-6">
-          <h3>Headline</h3>
+          <h3>{{ 'HEADLINE' | translate }}</h3>
           <input type="text" class="form-control custom-input input-bordered"
-                 placeholder="Add a professional headline like, 'Student at harvard' " formControlName="headline">
+                 placeholder="{{ 'HEADLINE_PLACEHOLDER' | translate }}" formControlName="headline">
         </div>
       </div>
 
       <div class="row mb-3 form-group">
         <div class="col-xl-6">
-          <h3>Country of Residence</h3>
+          <h3>{{ 'COUNTRY_RESIDENCE' | translate }}</h3>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="country" placeholder="{{ 'CHOOSE_COUNTRY' | translate }}">
               <mat-option>
@@ -126,7 +126,7 @@
       <div class="row btn-list">
         <div class="col-12 d-flex justify-content-end">
           <button mat-flat-button color="primary" type="submit"
-                  [disabled]="form.invalid || (isSavingProfile | async)">Update
+                  [disabled]="form.invalid || (isSavingProfile | async)">{{ 'UPDATE' | translate }}
             <mat-icon class="spinner" *ngIf="(isSavingProfile | async)">autorenew</mat-icon>
           </button>
         </div>

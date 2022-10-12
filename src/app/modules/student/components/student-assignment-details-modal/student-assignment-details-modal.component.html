@@ -1,5 +1,5 @@
 <metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'large'"
-                [heading]="'Assignment Details'" [status]="status"
+                [heading]="'ASSIGNMENT_DETAILS'" [status]="status"
                 [template]="template">
   <ng-template #template>
     <ng-container *ngLet="(view$ | async) as view">
@@ -13,27 +13,25 @@
           <div class="row list-items md-item">
             <div class="col-md-3 d-flex menu align-items-center">
               <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
-              <strong>Start: </strong>
+              <strong>{{ 'START' | translate }}: </strong>
               <span>{{ view?.assignment?.assignment?.startDate | date }}</span>
             </div>
             <div class="col-md-3 d-flex menu align-items-center">
               <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
-              <strong>Deadline: </strong>
+              <strong>{{ 'DEADLINE' | translate }}: </strong>
               <span>{{ view?.assignment?.assignment?.deadline | date }}</span>
             </div>
             <div class="col-md-3 d-flex menu align-items-center">
               <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
-              <strong>Submitted At: </strong>
+              <strong>{{ 'SUBMITTED_AT' | translate }}: </strong>
               <span>{{ view?.assignment?.assignment?.assignees[0]?.status !== 'active' ? (view?.assignment?.assignment?.assignees[0]?.updatedAt | date) : '' }}</span>
             </div>
             <div class="col-md-3 d-flex menu align-items-center">
             </div>
           </div>
-          <p class="mt-2">
-            {{ view?.assignment?.assignment?.description }}
-          </p>
+          <p class="mt-2">{{ view?.assignment?.assignment?.description }}</p>
           <div class="form-group">
-            <label>URLs</label>
+            <label>{{ 'URLS' | translate }}</label>
             <div class="url-info d-flex flex-column my-2" *ngFor="let urlInfo of view.assignment?.assignment?.urls">
               <span>{{ urlInfo?.title }}</span>
               <a [href]="urlInfo?.url" target="_blank" class="d-flex align-items-center">
@@ -51,12 +49,13 @@
             <div class="">
               <button mat-flat-button color="primary" class="fw-bold float-end px-4 py-1"
                       *ngIf="view.assignment?.assignment?.userAssignmentStatus !=='completed' && view.assignment?.assignment?.userAssignmentStatus !=='submitted'"
-                      (click)="onOpenSubmitAssignmentModal()">Submit Assignment
+                      (click)="onOpenSubmitAssignmentModal()">
+                {{ 'SUBMIT_ASSIGNMENT' | translate }}
               </button>
               <button mat-flat-button color="primary" class="fw-bold float-end px-4 py-1"
                       *ngIf="view.assignment?.assignment?.userAssignmentStatus ==='completed' || view.assignment?.assignment?.userAssignmentStatus ==='submitted'"
-                      (click)="onOpenSubmittedAssignmentModal(view.assignment.assignment?.assignees)">View Submitted
-                Assignment
+                      (click)="onOpenSubmittedAssignmentModal(view.assignment.assignment?.assignees)">
+                {{ 'VIEW_SUBMITTED_ASSIGNMENT' | translate }}
               </button>
             </div>
           </div>

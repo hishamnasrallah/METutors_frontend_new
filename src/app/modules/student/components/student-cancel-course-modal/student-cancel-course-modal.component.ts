@@ -1,11 +1,10 @@
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
+import * as fromCore from '@metutor/core/state';
 import { Observable, combineLatest } from 'rxjs';
+import * as fromStudentAction from '../../state/actions';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-
-import * as fromCore from '@metutor/core/state';
-import * as fromStudentAction from '../../state/actions';
 
 @Component({
   selector: 'metutors-student-cancel-course-modal',
@@ -21,9 +20,9 @@ export class StudentCancelCourseModalComponent implements OnInit {
   form: FormGroup;
   courseType = -1;
   hasSelectedClasses: boolean;
+  subHeading = 'SELECT_OPTION';
   selectedClasses: number[] = [];
-  subHeading = 'Select an option';
-  heading = 'Cancel Course Request';
+  heading = 'CANCEL_COURSE_REQUEST';
   isCanceling$: Observable<boolean>;
 
   view$: Observable<{ loading: boolean; refund: any }>;
@@ -43,7 +42,7 @@ export class StudentCancelCourseModalComponent implements OnInit {
     this.courseType = -1;
     this.selectedClasses = [];
     this.hasSelectedClasses = false;
-    this.subHeading = 'Select an option';
+    this.subHeading = 'SELECT_OPTION';
     this.form.get('courseType')?.setValue(null);
   }
 
@@ -57,13 +56,13 @@ export class StudentCancelCourseModalComponent implements OnInit {
     this.courseType = courseType;
 
     if (courseType === 1) {
-      this.subHeading = 'Please confirm this request to receive your fund';
+      this.subHeading = 'CONFIRM_REQUEST_RECEIVE_FUND';
 
       this._store.dispatch(
         fromCore.studentRefundCourse({ refundType: 'complete_course' })
       );
     } else {
-      this.subHeading = 'Select an option';
+      this.subHeading = 'SELECT_OPTION';
       this._store.dispatch(
         fromCore.studentRefundCourse({ refundType: 'selected_classes' })
       );

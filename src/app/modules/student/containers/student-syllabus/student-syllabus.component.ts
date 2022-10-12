@@ -1,3 +1,11 @@
+import { Store } from '@ngrx/store';
+import { map } from 'rxjs/operators';
+import { FormGroup } from '@angular/forms';
+import * as fromCore from '@metutor/core/state';
+import { combineLatest, Observable } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import * as fromStudentAction from '../../state/actions';
+import * as fromStudent from '@metutor/modules/student/state';
 import {
   state,
   style,
@@ -6,16 +14,6 @@ import {
   trigger,
   transition,
 } from '@angular/animations';
-import { Store } from '@ngrx/store';
-import { map } from 'rxjs/operators';
-import { FormGroup } from '@angular/forms';
-import { combineLatest, Observable } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
-
-import * as fromCore from '@metutor/core/state';
-import * as fromStudentAction from '../../state/actions';
-import * as fromStudent from '@metutor/modules/student/state';
-
 import {
   WEEK_DAYS,
   courseStatusLabel,

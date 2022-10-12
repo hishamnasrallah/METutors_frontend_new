@@ -106,7 +106,7 @@ const routes: Routes = [
                 data: {
                   layout: {
                     title: 'Tutor Class Dashboard - Metutors',
-                    navbarTitle: 'Classes dashboard',
+                    navbarTitle: 'CLASSES_DASHBOARD',
                     showHeader: false,
                     showFooter: false,
                     hideSidebar: true,
@@ -157,7 +157,7 @@ const routes: Routes = [
                 data: {
                   layout: {
                     title: 'My tickets - Metutors',
-                    navbarTitle: 'Support ticket',
+                    navbarTitle: 'SUPPORT_TICKET',
                     showHeader: false,
                     showFooter: false,
                     hideSidebar: true,

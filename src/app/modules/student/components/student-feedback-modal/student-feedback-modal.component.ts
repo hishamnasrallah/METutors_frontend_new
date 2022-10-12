@@ -1,6 +1,8 @@
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
+import * as fromCore from '@metutor/core/state';
 import { combineLatest, Observable, tap } from 'rxjs';
+import * as fromStudent from '@metutor/modules/student/state';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import {
@@ -11,9 +13,6 @@ import {
   AbstractControl,
 } from '@angular/forms';
 
-import * as fromCore from '@metutor/core/state';
-import * as fromStudent from '@metutor/modules/student/state';
-
 @Component({
   selector: 'metutors-student-feedback-modal',
   templateUrl: './student-feedback-modal.component.html',
@@ -23,10 +22,10 @@ export class StudentFeedbackModalComponent implements OnInit {
   @Input() showModal = false;
   @Input() isPlatform = false;
   @Input() buttonLabel: string;
-  @Input() tabLabel = 'Tutor Feedback';
-  @Input() heading = 'Leave a Feedback';
-  @Input() messageLabel = 'Write a message to your teacher';
-  @Input() subHeading = 'Share with us your feedback on your teacher';
+  @Input() heading = 'LEAVE_FEEDBACK';
+  @Input() tabLabel = 'TUTOR_FEEDBACK';
+  @Input() subHeading = 'SHARE_FEEDBACK_TEACHER';
+  @Input() messageLabel = 'WRITE_MESSAGE_TEACHER';
 
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
   @Output() submitFeedback: EventEmitter<any> = new EventEmitter<any>();

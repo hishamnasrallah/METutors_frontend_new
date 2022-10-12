@@ -1,17 +1,17 @@
 <div class="support-ticket p-15-sm">
   <div class="row">
     <div class="col-12">
-      <h2 class="title f-size-18-md-sm mb-0">My Tickets</h2>
+      <h2 class="title f-size-18-md-sm mb-0">{{ 'MY_TICKETS' | translate }}</h2>
     </div>
     <div class="col-12">
       <div class="card">
         <div class="card-body">
-          <h3 class="f-size-18-md-sm">Create New Ticket</h3>
+          <h3 class="f-size-18-md-sm">{{ 'CREATE_NEW_TICKET' | translate }}</h3>
           <form class="row" [formGroup]="supportForm" (ngSubmit)="onSubmit(supportForm)">
             <div class="col-md-6">
-              <label for="topic">Topic *</label>
+              <label for="topic">{{ 'TOPIC' | translate }} *</label>
               <mat-form-field appearance="outline" class="w-100">
-                <mat-select formControlName="category" [placeholder]="'Choose topic'">
+                <mat-select formControlName="category" placeholder="{{ 'CHOOSE_TOPIC' | translate }}">
                   <mat-option [value]="category?.id" *ngFor="let category of categories$ | async">
                     {{ category?.name }}
                   </mat-option>
@@ -19,9 +19,9 @@
               </mat-form-field>
             </div>
             <div class="col-md-6">
-              <label for="priority">Priority *</label>
+              <label for="priority">{{ 'PRIORITY' | translate }} *</label>
               <mat-form-field appearance="outline" class="w-100">
-                <mat-select formControlName="priority" [placeholder]="'Choose priority'">
+                <mat-select formControlName="priority" placeholder="{{ 'CHOOSE_PRIORITY' | translate }}">
                   <mat-option [value]="priority?.id" *ngFor="let priority of priorities$ | async">
                     {{ priority?.name }}
                   </mat-option>
@@ -29,21 +29,18 @@
               </mat-form-field>
             </div>
             <div class="col-md-12 mt-3">
-              <label for="subject">Subject *</label>
-              <input type="text" id="subject" class="form-control custom-input input-bordered" placeholder="Type subject here"
+              <label for="subject">{{ 'SUBJECT' | translate }} *</label>
+              <input type="text" id="subject" class="form-control custom-input input-bordered" placeholder="{{ 'TYPE_SUBJECT_HERE' | translate }}"
                 formControlName="title">
             </div>
             <div class="col-md-12 mt-4">
-              <label for="details">Ticket details *</label>
-              <textarea id="details" class="form-control custom-input input-bordered" rows="10" formControlName="message" placeholder="Type Your Ticket Details..."></textarea>
+              <label for="details">{{ 'TICKET_DETAILS' | translate }} *</label>
+              <textarea id="details" class="form-control custom-input input-bordered" rows="10" formControlName="message" placeholder="{{ 'TYPE_TICKET_DETAILS' | translate }}"></textarea>
             </div>
 
             <div class="col-md-12 mt-4 mb-2">
               <div class="row">
-                <p class="col me-5 mb-0">
-                  You can include files (documents, screen recordings, screenshots, crash logs, etc.)
-                  Please make sure the correct sharing permissions have been set.
-                </p>
+                <p class="col me-5 mb-0">{{ 'TICKET_FILE_UPLOAD_DESC' | translate }}</p>
                 <div class="block-file d-flex me-3 align-items-center" *ngIf="filePreview">
                   <mat-icon>attach_file</mat-icon>
                   <div class="ms-2">

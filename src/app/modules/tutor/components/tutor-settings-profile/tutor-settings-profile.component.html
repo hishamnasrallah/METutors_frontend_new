@@ -53,7 +53,7 @@
             <button type="button" mat-button class="upload-btn mx-2" (click)="filePicker1.click()"
               [disabled]="isChangeAvatar && isAvatar">
               <img src="assets/svg/upload-solid.svg" width="15" height="15" draggable="false" alt="">
-              Upload Profile Photo
+              {{ 'UPLOAD_PROFILE_PHOTO' | translate }}
             </button>
           </div>
           <div class="col-md-9 d-flex justify-content-end align-items-center">
@@ -94,7 +94,7 @@
         <div>
           <metutors-submit-button [form]="personalInfoForm" [isSubmitting]="isUpdateProfile && selectedForm === 1"
             [isDisabled]="tutor?.interviewRequest?.status === interviewStatus.pending || tutor?.interviewRequest?.status === interviewStatus.scheduled || tutor?.interviewRequest?.status === interviewStatus.rejected">
-            Update
+            {{ 'UPDATE' | translate }}
           </metutors-submit-button>
         </div>
       </div>
@@ -296,7 +296,7 @@
         <div>
           <metutors-submit-button [form]="qualificationForm" [isSubmitting]="isUpdateProfile && selectedForm === 2"
             [isDisabled]="tutor?.interviewRequest?.status === interviewStatus.pending || tutor?.interviewRequest?.status === interviewStatus.scheduled || tutor?.interviewRequest?.status === interviewStatus.rejected">
-            Update
+            {{ 'UPDATE' | translate }}
           </metutors-submit-button>
         </div>
       </div>
@@ -423,7 +423,7 @@
         <div>
           <metutors-submit-button [form]="teachingForm" [isSubmitting]="isUpdateProfile && selectedForm === 3"
             [isDisabled]="tutor?.interviewRequest?.status === interviewStatus.pending || tutor?.interviewRequest?.status === interviewStatus.scheduled || tutor?.interviewRequest?.status === interviewStatus.rejected">
-            Update
+            {{ 'UPDATE' | translate }}
           </metutors-submit-button>
         </div>
       </div>

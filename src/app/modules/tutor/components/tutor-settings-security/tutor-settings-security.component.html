@@ -5,15 +5,15 @@
         <div class="col-md-12 align-items-center">
           <form [formGroup]="form" class="w-100" (ngSubmit)="onSubmit(form)">
             <div class="col-xl-6">
-              <h4 class="mb-4">Security Settings</h4>
+              <h4 class="mb-4">{{ 'SECURITY_SETTINGS' | translate }}</h4>
 
               <div class="form-group position-relative">
-                <label for="oldPassword">Current Password</label>
+                <label for="oldPassword">{{ 'CURRENT_PASSWORD' | translate }}</label>
                 <input [type]="!currentPasswordVisibility ? 'password' : 'text'"
                        class="custom-input w-100 input-bordered" id="oldPassword"
-                       placeholder="Type current password" formControlName="oldPassword">
+                       placeholder="{{ 'TYPE_CURRENT_PASSWORD' | translate }}" formControlName="oldPassword">
                 <mat-icon matSuffix class="position-absolute password-visibility"
-                          (click)="currentPasswordVisibility = !currentPasswordVisibility">{{ !currentPasswordVisibility ? 'visibility_off' : 'visibility'}}</mat-icon>
+                          (click)="currentPasswordVisibility = !currentPasswordVisibility">{{ !currentPasswordVisibility ? 'visibility_off' : 'visibility' }}</mat-icon>
                 <span class="text-danger" *ngIf="oldPassword?.invalid && oldPassword?.touched">
                   {{ 'PASSWORD_ERROR_CHARACTERS' | translate }}
                 </span>
@@ -23,23 +23,23 @@
                 <label for="password">{{ 'NEW_PASSWORD' | translate }}</label>
                 <input [type]="!newPasswordVisibility ? 'password' : 'text'" class="custom-input w-100 input-bordered"
                        id="password"
-                       placeholder="Type new password" formControlName="password">
+                       placeholder="{{ 'TYPE_NEW_PASSWORD' | translate }}" formControlName="password">
                 <mat-icon matSuffix class="position-absolute password-visibility"
-                          (click)="newPasswordVisibility = !newPasswordVisibility">{{ !newPasswordVisibility ? 'visibility_off' : 'visibility'}}</mat-icon>
+                          (click)="newPasswordVisibility = !newPasswordVisibility">{{ !newPasswordVisibility ? 'visibility_off' : 'visibility' }}</mat-icon>
                 <span class="text-danger" *ngIf="password?.invalid && password?.touched">
                   {{ 'PASSWORD_ERROR_CHARACTERS' | translate }}
                 </span>
               </div>
 
               <div class="form-group position-relative">
-                <label for="confirmPassword">Confirm New Password</label>
+                <label for="confirmPassword">{{ 'REPEAT_NEW_PASSWORD' | translate }}</label>
                 <input [type]="!repeatPasswordVisibility ? 'password' : 'text'"
                        class="custom-input w-100 input-bordered" id="confirmPassword"
-                       placeholder="Confirm new password" formControlName="confirmPassword">
+                       placeholder="{{ 'CONFIRM_NEW_PASSWORD' | translate }}" formControlName="confirmPassword">
                 <mat-icon matSuffix class="position-absolute password-visibility"
-                          (click)="repeatPasswordVisibility = !repeatPasswordVisibility">{{ !repeatPasswordVisibility ? 'visibility_off' : 'visibility'}}</mat-icon>
+                          (click)="repeatPasswordVisibility = !repeatPasswordVisibility">{{ !repeatPasswordVisibility ? 'visibility_off' : 'visibility' }}</mat-icon>
                 <div class="text-danger" *ngIf="form?.hasError('passwordMismatch')">
-                  Passwords do not match
+                  {{ 'PASSWORDS_DONT_MATCH' | translate }}
                 </div>
               </div>
             </div>
@@ -47,7 +47,7 @@
             <div class="row btn-list mt-5 pt-3">
               <div class="col-12 d-flex justify-content-end">
                 <metutors-submit-button [form]="form" [isSubmitting]="isChanging">
-                  Update
+                  {{ 'CHANGE_PASSWORD' | translate }}
                 </metutors-submit-button>
               </div>
             </div>

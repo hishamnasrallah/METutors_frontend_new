@@ -1,18 +1,18 @@
 <div>
-  <div *ngIf="!objectKeys(availabilities)?.length" class="text-center fw-bold">No Teacher availabilities found</div>
+  <div *ngIf="!objectKeys(availabilities)?.length" class="text-center fw-bold">{{ 'NO_TEACHER_AVAILABILITIES_FOUND' | translate }}</div>
   <div class="row" *ngIf="objectKeys(availabilities)?.length">
     <div class="col-4">
-      <label class="text-secondary fw-bold">Starting Date</label>
+      <label class="text-secondary fw-bold">{{ 'STARTING_DATE' | translate }}</label>
       <p class="fw-bold">{{ timeSlot.startDate }}</p>
     </div>
 
     <div class="col-4">
-      <label class="text-secondary fw-bold">Ending Date</label>
+      <label class="text-secondary fw-bold">{{ 'ENDING_DATE' | translate }}</label>
       <p class="fw-bold">{{ timeSlot.endDate }}</p>
     </div>
 
     <div class="col-4">
-      <label class="text-secondary fw-bold">Days</label>
+      <label class="text-secondary fw-bold">{{ 'DAYS' | translate }}</label>
       <p class="fw-bold">{{ weekDays.toString() }}</p>
     </div>
   </div>

@@ -3,7 +3,7 @@
 <div class="certificates p-15-sm">
   <div class="row">
     <div class="col-md-12">
-      <h2 class="title f-size-17-md-sm">You have 3 courses</h2>
+      <h2 class="title f-size-17-md-sm">{{ 'YOU_HAVE' | translate }} 3 {{ 'COURSES_SM' | translate }}</h2>
     </div>
   </div>
   <div class="row">
@@ -18,22 +18,22 @@
           <div class="rating">
             <rating [ngModel]="rate" [max]="5" [readonly]="true"></rating>
             <span class="count">4</span>
-            <span class="review">(3 review)</span>
+            <span class="review">(3 {{ 'REVIEW_SM' | translate }})</span>
           </div>
           <div class="row list-items sm-item">
             <div class="col-lg-3 col-md-4 d-flex menu align-items-center">
               <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
-              <strong>Course category: </strong>
+              <strong>{{ 'COURSE_CATEGORY' | translate }}: </strong>
               <span>Technology</span>
             </div>
             <div class="col-lg-2 col-md-4 d-flex menu align-items-center">
               <img src="assets/svg/students.svg" alt="" width="15" height="15" draggable="false">
-              <strong>Completed classes: </strong>
+              <strong>{{ 'COMPLETED_CLASSES' | translate }}: </strong>
               <span>3</span>
             </div>
             <div class="col-lg-2 col-md-4 d-flex menu align-items-center">
               <img src="assets/svg/timer.svg" alt="" width="15" height="15" draggable="false">
-              <strong>Total hour: </strong>
+              <strong>{{ 'TOTAL_HOURS' | translate }}: </strong>
               <span>30hrs</span>
             </div>
           </div>
@@ -56,7 +56,7 @@
             </div>
             <div class="col-md-8">
               <button mat-button class="main-button-transparent float-end w-100-sm mt-15-sm">
-                Get certificate
+                {{ 'GET_CERTIFICATE' | translate }}
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="rotate-180-ar">
                   <path
                     d="M16.172 10.9999H4V12.9999H16.172L10.808 18.3639L12.222 19.7779L20 11.9999L12.222 4.22192L10.808 5.63592L16.172 10.9999Z"

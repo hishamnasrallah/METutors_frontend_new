@@ -1,6 +1,6 @@
 <metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'large'"
-                [heading]="'Classroom Attendance'"
-                [template]="template" [subHeading]="'View Classroom Attendance'">
+                [heading]="'CLASSROOM_ATTENDANCE'"
+                [template]="template" [subHeading]="'VIEW_CLASSROOM_ATTENDANCE'">
   <ng-template #template>
     <div class="row attendance-modal" *ngLet="(view$ | async) as view">
       <div class="col-12">
@@ -12,9 +12,9 @@
                 <div
                   class="position-relative rounded date d-flex flex-column align-items-center justify-content-center h-100">
                   <img src="assets/svg/calendar-fill.svg" alt="" width="30" height="30"/>
-                  <h2 class="mt-2">Starting date</h2>
+                  <h2 class="mt-2">{{ 'STARTING_DATE' | translate }}</h2>
                   <h3>{{ view.attendance?.course?.startDate | date }}</h3>
-                  <h4 class="m-0">Ending date: {{ view.attendance?.course?.endDate | date }}</h4>
+                  <h4 class="m-0">{{ 'ENDING_DATE' | translate }}: {{ view.attendance?.course?.endDate | date }}</h4>
                 </div>
               </div>
               <div class="col-md-9 d-flex flex-column">
@@ -32,17 +32,17 @@
                 <div class="row list-items sm-item">
                   <div class="col-md-4 d-flex menu align-items-center">
                     <img src="assets/svg/calendar.svg" alt="" width="15" height="15" draggable="false">
-                    <strong>Days: </strong>
+                    <strong>{{ 'DAYS' | translate }}:</strong>
                     <span>{{ getDays(view.attendance?.course?.weekdays) }}</span>
                   </div>
                   <div class="col-md-4 d-flex menu align-items-center">
                     <img src="assets/svg/checkbox-circle-fill.svg" alt="" width="15" height="15" draggable="false">
-                    <strong>Completed Classes: </strong>
+                    <strong>{{ 'COMPLETED_CLASSES' | translate }}: </strong>
                     <span>{{ view?.attendance?.completedClasses }}</span>
                   </div>
                   <div class="col-md-4 d-flex menu align-items-center">
                     <img src="assets/svg/timer.svg" alt="" width="15" height="15" draggable="false">
-                    <strong>Total Hour: </strong>
+                    <strong>{{ 'TOTAL_HOURS' | translate }}: </strong>
                     <span>{{ view?.attendance?.course?.totalHours }}{{ +(view?.attendance?.course?.totalHours)! > 1 ? ('HRS_SM' | translate) : ('HR_SM' | translate) }}</span>
                   </div>
                   <div class="col-md-4 d-flex menu align-items-center">
@@ -52,7 +52,7 @@
                   </div>
                   <div class="col-md-4 d-flex menu align-items-center">
                     <img src="assets/svg/play-circle-fill.svg" alt="" width="15" height="15" draggable="false">
-                    <strong>Remaining Classes: </strong>
+                    <strong>{{ 'REMAINING_CLASSES' | translate }}: </strong>
                     <span>{{ view?.attendance?.remainingClasses }}</span>
                   </div>
                 </div>
@@ -71,15 +71,15 @@
                 <div class="table-responsive" *ngSwitchCase="false">
                   <table class="table my-table default-title mb-0">
                     <tr>
-                      <th scope="col">Number</th>
-                      <th scope="col">Class Title</th>
-                      <th scope="col">Attendance</th>
+                      <th scope="col">{{ 'NUMBER' | translate }}</th>
+                      <th scope="col">{{ 'CLASS_TITLE' | translate }}</th>
+                      <th scope="col">{{ 'ATTENDANCE' | translate }}</th>
                       <th scope="col">{{ 'DATE' | translate }}</th>
                     </tr>
 
                     <tr *ngIf="!view.attendance?.teacherAttendence || !view.attendance?.teacherAttendence?.length">
                       <td colspan="8">
-                        <div class="text-center">No records found</div>
+                        <div class="text-center">{{ 'NO_RECORDS_FOUND' | translate }}</div>
                       </td>
                     </tr>
 
@@ -100,14 +100,14 @@
             <div class="table-responsive mt-2">
               <table class="table my-table default-title mb-0">
                 <tr>
-                  <th scope="col">Number</th>
-                  <th scope="col">Class Title</th>
-                  <th scope="col">Attendance</th>
+                  <th scope="col">{{ 'NUMBER' | translate }}</th>
+                  <th scope="col">{{ 'CLASS_TITLE' | translate }}</th>
+                  <th scope="col">{{ 'ATTENDANCE' | translate }}</th>
                   <th scope="col">{{ 'DATE' | translate }}</th>
                 </tr>
                 <tr *ngIf="!view.attendance?.myAttendence || !view.attendance?.myAttendence?.length">
                   <td colspan="8">
-                    <div class="text-center">No records found</div>
+                    <div class="text-center">{{ 'NO_RECORDS_FOUND' | translate }}</div>
                   </td>
                 </tr>
                 <tr *ngFor="let attendance of view.attendance?.myAttendence; let i = index">

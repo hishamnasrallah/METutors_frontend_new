@@ -1,15 +1,14 @@
+import * as moment from 'moment';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
-import { combineLatest, Observable } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
-
-import * as moment from 'moment';
 import * as fromStudent from '../../state';
 import { environment } from '@environment';
 import * as fromCore from '@metutor/core/state';
+import { combineLatest, Observable } from 'rxjs';
 import { IInvoiceDetails, IUser } from '@models';
+import { Component, OnInit } from '@angular/core';
 import * as fromStudentAction from '../../state/actions';
 import { CourseStatus, courseStatusLabel } from '@metutor/config';
 
@@ -122,8 +121,8 @@ export class StudentClassDashboardComponent implements OnInit {
     this.onHold = onHold;
     this.cancelCourse = cancelCourse;
     this.feedbackSubHeading = cancelCourse
-      ? 'Share with us a feedback on your tutor as course cancellation has begun'
-      : 'Share with us your feedback on your teacher';
+      ? 'SHARE_FEEDBACK_TUTOR_COURSE'
+      : 'SHARE_FEEDBACK_TEACHER';
     const params = { teacherId };
     this._store.dispatch(fromStudentAction.openStudentSendFeedbackModal());
     this._store.dispatch(fromStudentAction.setStudentStateParams({ params }));

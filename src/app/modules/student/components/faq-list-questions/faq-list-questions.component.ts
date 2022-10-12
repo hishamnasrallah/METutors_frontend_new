@@ -1,12 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
 import { IFAQ } from 'src/app/core/models';
+import { Component, Input, OnInit } from '@angular/core';
 import {
-  trigger,
   state,
   style,
-  transition,
   group,
+  trigger,
   animate,
+  transition,
 } from '@angular/animations';
 
 @Component({

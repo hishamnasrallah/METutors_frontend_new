@@ -3,7 +3,7 @@
                 [template]="template">
   <ng-template #template>
     <span *ngIf="step !== 3" class="availability position-absolute text-decoration-underline cursor-pointer"
-          (click)="onTutorsAvailability()">Tutor Availability</span>
+          (click)="onTutorsAvailability()">{{ 'TUTOR_AVAILABILITY' | translate }}</span>
     <form [formGroup]="form" class="classroom-info">
       <ng-container *ngIf="step === 1">
         <div class="row">
@@ -89,7 +89,7 @@
           <div class="col-md-12">
             <div class="d-flex justify-content-between est-price">
               <div>
-                <h5>Estimated Cost:
+                <h5>{{ 'ESTIMATED_COST' | translate }}:
                   <span>{{ (price * +hours?.value) | metutorsMoney | async }}</span>
                 </h5>
                 <p class="mb-0">{{ 'FINAL_PRICE_BASED_HOURS' | translate }}</p>
@@ -106,7 +106,7 @@
           <div class="col-12 overflow-hidden">
             <button mat-flat-button color="primary" class="float-end px-5" [disabled]="form.invalid"
                     (click)="generateClassrooms(form)" type="submit">
-              Next
+              {{ 'NEXT' | translate }}
             </button>
           </div>
         </div>
@@ -186,7 +186,7 @@
 
                 <ng-container *ngSwitchCase="false">
                   <div *ngIf="!objectKeys(availabilities)?.length" class="text-center fw-bold">
-                    No Teacher availabilities found
+                    {{ 'NO_TEACHER_AVAILABILITIES_FOUND' | translate }}
                   </div>
                   <div class="row" *ngIf="objectKeys(availabilities)?.length">
                     <div class="col-4">
@@ -200,7 +200,7 @@
                     </div>
 
                     <div class="col-4">
-                      <label class="text-secondary fw-bold">Days</label>
+                      <label class="text-secondary fw-bold">{{ 'DAYS' | translate }}</label>
                       <p class="fw-bold">{{ weekDays.toString() }}</p>
                     </div>
                   </div>
@@ -211,7 +211,7 @@
 
                       <div class="col-10 time-box">
                         <div class="slot" *ngFor="let slot of availabilities[key]">
-                          {{ slot.timeFrom | date: 'h:mm a' }} to {{ slot.timeTo | date: 'h:mm a' }}</div>
+                          {{ slot.timeFrom | date: 'h:mm a' }} {{ 'TO' | translate }} {{ slot.timeTo | date: 'h:mm a' }}</div>
                       </div>
                     </ng-container>
                   </div>

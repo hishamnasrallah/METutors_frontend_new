@@ -25,13 +25,11 @@
               </div>
 
               <div class="col-md-5">
-                <label>Submitted At</label>
+                <label>{{ 'SUBMITTED_AT' | translate }}</label>
                 <p class="mt-1 mb-0">
                   {{ assignment?.updatedAt | date: 'MMM d, y, h:mm a' }}
                 </p>
               </div>
-
-
             </div>
 
             <label class="mt-3">Details</label>
@@ -47,13 +45,13 @@
               *ngIf="assignment?.feedback && assignment?.feedback?.length">
               <ng-container *ngFor="let feedback of assignment?.feedback">
                 <div class="form-group row mt-3">
-                  <strong>Assignment Feedback</strong>
+                  <strong>{{ 'ASSIGNMENT_FEEDBACK' | translate }}</strong>
                   <p class="mb-1">
                     {{ feedback?.review }}
                   </p>
                   <p class="mt-2">
-                    <span class="grade">Grade Rating: </span>
-                    <span> {{ feedback?.rating }} on a scale of 10 </span>
+                    <span class="grade">{{ 'GRADE_RATING' | translate }}: </span>
+                    <span>{{ feedback?.rating }} {{ 'ON_SCALE_10' | translate }}</span>
                   </p>
                 </div>
 

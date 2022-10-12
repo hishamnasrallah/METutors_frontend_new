@@ -6,11 +6,11 @@
       <div class="d-flex align-items-center modal-title" mat-dialog-title>
         <h2 class="flex-grow-1 m-0 d-flex flex-column">
           <div class="d-flex align-items-center">
-            Assignment Details
+            {{ 'ASSIGNMENT_DETAILS' | translate }}
             <button mat-button class="btn action-icon p-0 ms-3" type="button" tabindex="-1"
                     (click)="openEditAssignmentModal(view?.assignment.id)">
               <img src="assets/svg/edit-green.svg" draggable="false" width="15" height="15" alt=""/>
-              Edit
+              {{ 'EDIT' | translate }}
             </button>
 
             <button mat-button class="btn action-icon p-0 ms-3" tabindex="-1" type="button"
@@ -40,12 +40,12 @@
           <div class="row list-items md-item">
             <div class="col-md-3 d-flex menu align-items-center">
               <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
-              <strong>Start: </strong>
+              <strong>{{ 'START' | translate }}: </strong>
               <span>{{ view?.assignment?.startDate | date}}</span>
             </div>
             <div class="col-md-3 d-flex menu align-items-center">
               <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
-              <strong>Deadline: </strong>
+              <strong>{{ 'DEADLINE' | translate }}: </strong>
               <span>{{ view?.assignment?.deadline | date }}</span>
             </div>
             <div class="col-md-4 d-flex menu align-items-center">
@@ -58,7 +58,7 @@
             {{ view?.assignment?.description }}
           </p>
           <div class="form-group">
-            <label>URLs</label>
+            <label>{{ 'URLS' | translate }}</label>
             <div class="url-info d-flex flex-column my-2" *ngFor="let urlInfo of view.assignment?.urls">
               <span>{{ urlInfo?.title }}</span>
               <a [href]="urlInfo?.url" target="_blank" class="d-flex align-items-center">

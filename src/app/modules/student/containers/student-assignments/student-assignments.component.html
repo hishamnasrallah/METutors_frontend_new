@@ -5,7 +5,7 @@
         <ng-container *ngSwitchCase="false">
           <ng-container *ngLet="(assignments$ | async) as assignments">
             <h1 class="title f-size-20-md-sm">{{ assignments.course?.courseName }} 
-              <span>({{ assignments.course?.courseCode}})</span>
+              <span>({{ assignments.course?.courseCode }})</span>
               <button mat-button class="ms-3 status" [ngClass]="assignments.course?.status">
                 {{ statusLabel[assignments.course?.status].long }}
               </button>
@@ -13,23 +13,23 @@
             <div class="row list-items">
               <div class="col-lg-3 col-md-4 d-flex menu align-items-center">
                 <img src="assets/svg/timer.svg" alt="" width="15" height="15" draggable="false">
-                <strong>Total assignments: </strong>
+                <strong>{{ 'TOTAL_ASSIGNMENTS' | translate }}: </strong>
                 <span class="f-size-17-md-sm">{{ assignments?.totalAssignments }}</span>
               </div>
               <div class="col-lg-3 col-md-4 d-flex menu align-items-center">
                 <img src="assets/svg/class.svg" alt="" width="15" height="15" draggable="false">
-                <strong>Active assignments: </strong>
+                <strong>{{ 'ACTIVE_ASSIGNMENTS' | translate }}: </strong>
                 <span class="f-size-17-md-sm">{{ assignments?.activeAssignments }}</span>
               </div>
               <div class="col-lg-3 col-md-4 d-flex menu align-items-center">
                 <img src="assets/svg/class.svg" alt="" width="15" height="15" draggable="false">
-                <strong>Completed assignments: </strong>
+                <strong>{{ 'COMPLETED_ASSIGNMENTS' | translate }}: </strong>
                 <span class="f-size-17-md-sm">{{ assignments?.completedAssignments }}</span>
               </div>
             </div>
             <div class="row mt-3">
               <div class="col-md-5 overflow-visible logos">
-                <div class="fw-bold">Enrolled Students</div>
+                <div class="fw-bold">{{ 'ENROLLED_STUDENTS' | translate }}</div>
                 <ng-container *ngFor="let participant of assignments?.course.participants">
                   <img meTutorsDefaultAvatar [src]="participant?.user?.avatar" alt="" draggable="false"
                        class="d-inline-block rounded-circle">
@@ -56,11 +56,11 @@
   <div class="assign-tabs p-15-sm">
     <button mat-button class="class-btn main-button-transparent text-uppercase m-0-sm w-100-sm mb-5-sm"
             (click)="filterAssignments('active')" [ngClass]="{'active': activeAssignment}">
-      Active assignments
+      {{ 'ACTIVE_ASSIGNMENTS' | translate }}
     </button>
     <button mat-button class="class-btn main-button-transparent text-uppercase m-0-sm w-100-sm"
             (click)="filterAssignments('completed')" [ngClass]="{'active': !activeAssignment}">
-      Completed assignments
+      {{ 'COMPLETED_ASSIGNMENTS' | translate }}
     </button>
   </div>
 
@@ -70,8 +70,7 @@
       <ng-container *ngSwitchCase="false">
         <ng-container *ngLet="(assignments$ | async) as assignments">
           <div class="text-center p-xxl-5 fw-bold"
-               *ngIf="!assignments?.course?.assignments?.length">No record
-            found
+               *ngIf="!assignments?.course?.assignments?.length">{{ 'NO_RECORD_FOUND' | translate }}
           </div>
 
           <ng-container *ngIf="assignments?.course?.assignments && assignments?.course?.assignments?.length">
@@ -88,9 +87,9 @@
                     <div class="col-xl-6 d-flex align-items-start justify-content-end date-data d-block-sm">
                       <!--<span class="cursor-pointer text-decoration-underline extend-date" *ngIf="assignment.status === 'active'" (click)="onOpenEditAssignmentModal(assignment.id)">Extend Due Date</span>-->
                       <div class="d-flex flex-column mx-3 mx-3 m-0-sm">
-                        <span>Remaining Time</span>
-                        <strong class="alert-msg f-size-15-sm" *ngIf="assignment?.remainingDays <= 1">{{ assignment?.remainingDays === 1 ? assignment?.remainingDays : 0 }} Days</strong>
-                        <strong class="f-size-15-sm" *ngIf="assignment?.remainingDays > 1">{{ assignment?.remainingDays }} Days</strong>
+                        <span>{{ 'REMAINING_TIME' | translate }}</span>
+                        <strong class="alert-msg f-size-15-sm" *ngIf="assignment?.remainingDays <= 1">{{ assignment?.remainingDays === 1 ? assignment?.remainingDays : 0 }} {{ 'DAY_SM' | translate }}</strong>
+                        <strong class="f-size-15-sm" *ngIf="assignment?.remainingDays > 1">{{ assignment?.remainingDays }} {{ 'DAYS_SM' | translate }}</strong>
                       </div>
 
                       <span class="status-icon text-capitalize"
@@ -101,17 +100,17 @@
                   <div class="row list-items md-item p-0 pb-3 d-block-sm mt-15-sm">
                     <div class="col d-flex menu align-items-center">
                       <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
-                      <strong class="f-size-17-md-sm">Start: </strong>
+                      <strong class="f-size-17-md-sm">{{ 'START' | translate }}: </strong>
                       <span class="f-size-15-md-sm">{{ assignment?.startDate | date: 'MMMM d y' }}</span>
                     </div>
                     <div class="col d-flex menu align-items-center">
                       <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
-                      <strong class="f-size-17-md-sm">Deadline: </strong>
+                      <strong class="f-size-17-md-sm">{{ 'DEADLINE' | translate }}: </strong>
                       <span class="f-size-15-md-sm">{{ assignment?.deadline | date: 'MMMM d y' }}</span>
                     </div>
                     <div class="col d-flex align-items-center justify-content-end float-end mb-15-sm">
                       <button mat-button class="main-button-transparent" (click)="onOpenAssignmentDetails(assignment.id)">
-                        View Details
+                        {{ 'VIEW_DETAILS' | translate }}
                         <mat-icon class="rotate-180-ar">arrow_forward</mat-icon>
                       </button>
                     </div>
@@ -131,10 +130,10 @@
                     <div class="table-responsive">
                       <table class="table my-table default-title">
                         <tr>
-                          <th scope="col">Number</th>
-                          <th scope="col">Student Name</th>
+                          <th scope="col">{{ 'NUMBER' | translate }}</th>
+                          <th scope="col">{{ 'STUDENT_NAME' | translate }}</th>
                           <th scope="col" style="min-width: 150px">Time Received By Student</th>
-                          <th scope="col">Status</th>
+                          <th scope="col">{{ 'STATUS' | translate }}</th>
                         </tr>
 
                         <tr *ngFor="let assignee of assignment?.assignees; let num = index" class="cursor-pointer">

@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import * as fromCore from '@metutor/core/state';
 import { Observable } from 'rxjs';
-import { IUser } from '@metutor/core/models';
+import { Store } from '@ngrx/store';
 import * as fromRoot from '@metutor/state';
+import { IUser } from '@metutor/core/models';
+import * as fromCore from '@metutor/core/state';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'metutors-student',

@@ -1,17 +1,16 @@
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { Observable, combineLatest } from 'rxjs';
-import { OwlOptions } from 'ngx-owl-carousel-o';
-import { Component, OnInit } from '@angular/core';
-
 import { insightRange } from '@config';
 import * as fromRoot from '@metutor/state';
 import * as fromStudent from '../../state';
-import { IUser } from '@metutor/core/models';
-import * as fromCore from '@metutor/core/state';
-import * as fromStudentActions from '../../state/actions';
 import { FormGroup } from '@angular/forms';
 import { environment } from '@environment';
+import { IUser } from '@metutor/core/models';
+import * as fromCore from '@metutor/core/state';
+import { OwlOptions } from 'ngx-owl-carousel-o';
+import { Observable, combineLatest } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import * as fromStudentActions from '../../state/actions';
 
 @Component({
   selector: 'metutors-student-dashboard',
@@ -52,12 +51,11 @@ export class StudentDashboardComponent implements OnInit {
 
   range = '7days';
   insightRange = insightRange;
-  tabLabel = 'MEtutors Feedback';
+  tabLabel = 'METUTORS_FEEDBACK';
   imageUrl = environment.imageURL;
   showSendFeedbackModal$: Observable<boolean>;
-  subHeading = 'Share with us your feedback on MEtutors service:';
-  messageLabel =
-    'Please share with us your thoughts on how to improve our services';
+  subHeading = 'SHARE_FEEDBACK_METUTORS_SERVICE';
+  messageLabel = 'SHARE_THOUGHTS_IMPROVE_SERVICES';
 
   view$: Observable<{
     loading: boolean;

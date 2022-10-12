@@ -1,6 +1,8 @@
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { tap } from 'rxjs/operators';
+import { generalConstants } from '@config';
+import * as fromCore from '@metutor/core/state';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import {
@@ -9,9 +11,6 @@ import {
   FormBuilder,
   AbstractControl,
 } from '@angular/forms';
-
-import { generalConstants } from '@config';
-import * as fromCore from '@metutor/core/state';
 
 @Component({
   selector: 'metutors-student-submit-assignment-modal',
@@ -25,7 +24,6 @@ export class StudentSubmitAssignmentModalComponent implements OnInit {
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
 
   form: FormGroup;
-
   uploadedFiles$: Observable<any>;
   fileUploadProgress$: Observable<any>;
   isSubmittingAssignment$: Observable<boolean>;

@@ -1,5 +1,5 @@
 <metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'medium'"
-                [heading]="'Submit Assignment'"
+                [heading]="'SUBMIT_ASSIGNMENT'"
                 [template]="template">
   <ng-template #template>
     <form class="row add-assignment-modal" [formGroup]="form" (ngSubmit)="onSubmit()">
@@ -7,12 +7,12 @@
         <div class="form-group">
           <label for="description">{{ 'DESCRIPTION' | translate }}</label>
           <textarea class="form-control custom-input input-bordered" formControlName="description" id="description"
-                    rows="4" placeholder="Enter description here..."></textarea>
+                    rows="4" placeholder="{{ 'ENTER_DESCRIPTION_HERE' | translate }}"></textarea>
         </div>
       </div>
 
       <div class="form-group">
-        <label>File<span class="text-danger">*</span></label>
+        <label>{{ 'FILE' | translate }}<span class="text-danger">*</span></label>
         <div class="d-flex flex-column">
           <div>
             <button mat-button type="button" class="main-button mb-4" (click)="filePicker.click()">
@@ -46,7 +46,7 @@
         <div class="col-md-12 overflow-hidden">
           <metutors-submit-button [form]="form" [isSubmitting]="(isSubmittingAssignment$ | async)!"
                                   [extraClasses]="'float-end py-1 px-5'">
-            Submit
+            {{ 'SUBMIT' | translate }}
           </metutors-submit-button>
         </div>
       </div>

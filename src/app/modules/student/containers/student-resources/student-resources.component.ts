@@ -3,7 +3,6 @@ import { map } from 'rxjs/operators';
 import * as fromCore from '@metutor/core/state';
 import { combineLatest, Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
-
 import { courseStatusLabel, WEEK_DAYS } from '@config';
 import * as fromStudent from '@metutor/modules/student/state';
 import * as fromStudentAction from '@metutor/modules/student/state/actions';

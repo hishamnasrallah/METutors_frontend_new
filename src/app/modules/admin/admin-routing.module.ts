@@ -422,7 +422,7 @@ const routes: Routes = [
             data: {
               layout: {
                 title: 'Ticket details - Metutors',
-                navbarTitle: 'Ticket details',
+                navbarTitle: 'TICKET_DETAILS',
                 showHeader: false,
                 showFooter: false,
               },

@@ -10,13 +10,13 @@
               My Profile
             </li>
             <li [class.active]="tab === 'SECURITY_SETTINGS'" (click)="tab = 'SECURITY_SETTINGS'">
-              Security Settings
+              {{ 'SECURITY_SETTINGS' | translate }}
             </li>
             <li [class.active]="tab === 'USER_PREFERENCES'" (click)="tab = 'USER_PREFERENCES'">
-              User Preferences
+              {{ 'USER_PREFERENCES' | translate }}
             </li>
             <!--<li [class.active]="tab === 'PAYMENT_INFORMATION'" (click)="tab = 'PAYMENT_INFORMATION'">
-              Payment Information
+              {{ 'PAYMENT_INFORMATION' | translate }}
             </li>-->
           </ul>
         </div>

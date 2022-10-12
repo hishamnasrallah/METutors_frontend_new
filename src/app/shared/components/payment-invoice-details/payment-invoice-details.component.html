@@ -45,7 +45,7 @@
     <strong class="f-size-15-md-sm">{{ 0 | metutorsMoney | async }}</strong>
   </li>
   <li class="d-flex justify-content-between total-payment">
-    <span class="f-size-15-md-sm">Total payment</span>
+    <span class="f-size-15-md-sm">{{ 'TOTAL_PAYMENT' | translate }}</span>
     <strong class="f-size-15-md-sm">{{ invoiceDetails?.totalAmount | metutorsMoney | async }}</strong>
   </li>
   <li class="d-flex justify-content-between coupon d-block-sm">

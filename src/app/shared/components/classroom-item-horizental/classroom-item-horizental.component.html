@@ -3,9 +3,9 @@
     <div class="col">
       <div class="position-relative rounded date d-flex flex-column align-items-center justify-content-center h-100">
         <img src="assets/svg/calendar-fill.svg" alt="" draggable="false" width="30" height="30" />
-        <h2 class="mt-2">Starting date</h2>
+        <h2 class="mt-2">{{ 'STARTING_DATE' | translate }}</h2>
         <h3>{{ classroom?.startDate | date }}</h3>
-        <h4 class="m-0">Ending date: {{ classroom?.endDate | date }}</h4>
+        <h4 class="m-0">{{ 'ENDING_DATE' | translate }}: {{ classroom?.endDate | date }}</h4>
       </div>
     </div>
     <div class="col-md-9 d-flex flex-column">
@@ -27,7 +27,7 @@
       <div class="row list-items md-item">
         <div class="col-md-4 d-flex menu align-items-center">
           <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
-          <strong>Total hour:</strong>
+          <strong>{{ 'TOTAL_HOURS' | translate }}:</strong>
           <span>{{ classroom?.hours }}{{ +(classroom?.hours)! > 1 ? ('HRS_SM' | translate) : ('HR_SM' | translate) }}</span>
         </div>
         <div class="col-md-4 d-flex menu align-items-center">

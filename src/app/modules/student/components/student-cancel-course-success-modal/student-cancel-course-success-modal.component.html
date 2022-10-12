@@ -4,14 +4,14 @@
       <div class="text-center">
         <img src="assets/svg/green-tick.svg" alt="" width="100">
 
-        <h3 class="mt-4">Congratulations</h3>
-        <p class="heading">Your course cancelled successfully.</p>
-        <p class="para-1">Allow us 72 hours to process your request. You should receive your refund into your bank account soon.</p>
-        <p class="para-2">Your refund in the amount of</p>
+        <h3 class="mt-4">{{ 'CONGRATULATIONS' | translate }}</h3>
+        <p class="heading">{{ 'COURSE_CANCELLED_SUCCESSFULLY' | translate }}</p>
+        <p class="para-1">{{ 'ALLOW_HOURS_PROCESS_REQUEST' | translate }}</p>
+        <p class="para-2">{{ 'YOUR_REFUND_AMOUNT' | translate }}</p>
         <span class="fw-bold amount">{{ 50 | metutorsMoney | async }}</span>
 
         <div class="mt-5">
-          <button mat-flat-button color="primary" class="w-100 p-1 fw-bold text-white" (click)="submitted.emit()">Go to class Dashboard</button>
+          <button mat-flat-button color="primary" class="w-100 p-1 fw-bold text-white" (click)="submitted.emit()">{{ 'GO_CLASS_DASHBOARD' | translate }}</button>
         </div>
       </div>
     </div>

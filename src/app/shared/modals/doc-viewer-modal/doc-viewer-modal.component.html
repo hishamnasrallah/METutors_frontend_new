@@ -20,7 +20,7 @@
       </ng-container>
 
       <button mat-flat-button color="primary" class="fw-bold px-5 float-end mb-5" (click)="showSignatureCanvas=true">
-        {{ addedSignature?.url ? 'Edit' : 'Add'}} Signature
+        {{ addedSignature?.url ? ('EDIT' | translate) : ('ADD' | translate) }} Signature
       </button>
 
       <div class="w-auto text-center" *ngIf="addedSignature?.url">
@@ -36,7 +36,7 @@
 
         <button mat-flat-button color="primary" class="fw-bold px-5" (click)="submit.emit(addedSignature?.url)"
                 [disabled]="!checked || !addedSignature?.url || addingSignature">
-          Submit
+          {{ 'SUBMIT' | translate }}
         </button>
       </div>
     </div>

@@ -1,8 +1,8 @@
 <div class="my-tickets p-15-sm">
   <div class="row">
     <div class="col-12 d-flex justify-content-between">
-      <h2 class="title f-size-18-md-sm mb-0">My Tickets</h2>
-      <a mat-flat-button color="primary" routerLink="/tutor/help/support-ticket/create-ticket">Create New Ticket</a>
+      <h2 class="title f-size-18-md-sm mb-0">{{ 'MY_TICKETS' | translate }}</h2>
+      <a mat-flat-button color="primary" routerLink="/tutor/help/support-ticket/create-ticket">{{ 'CREATE_NEW_TICKET' | translate }}</a>
     </div>
     <div class="col-12">
       <ng-container *ngIf="!(isLoading$ | async)">
@@ -11,7 +11,7 @@
         </metutors-support-ticket-card>
 
         <div class="text-center py-5 no-data" *ngIf="!(tickets$ | async) || !(tickets$ | async)?.length">
-          No Tickets found
+          {{ 'NO_TICKETS_FOUND' | translate }}
         </div>
       </ng-container>
 

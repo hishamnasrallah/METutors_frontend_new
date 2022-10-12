@@ -1,5 +1,5 @@
 <metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'xmedium'"
-                [heading]="'Makeup Class'" [subHeading]="'Kindly ensure makeup class within the course end time'"
+                [heading]="'MAKEUP_CLASS'" [subHeading]="'KINDLY_MAKEUP_CLASS_COURSE'"
                 [template]="template">
   <ng-template #template>
     <form class="row submit-interview" [formGroup]="form" (ngSubmit)="submitted.emit(form)">
@@ -8,9 +8,9 @@
         <div class="row mt-4">
           <div class="col-md-12">
             <div class="form-group">
-              <label class="fw-bold">Class Date</label>
+              <label class="fw-bold">{{ 'CLASS_DATE' | translate }}</label>
               <mat-form-field appearance="outline" class="w-100">
-                <input matInput [matDatepicker]="interviewPicker" [placeholder]="'Choose class date'" autocomplete="off"
+                <input matInput [matDatepicker]="interviewPicker" placeholder="{{ 'CHOOSE_CLASS_DATE' | translate }}" autocomplete="off"
                        (focus)="interviewPicker.open()" [min]="minDate" formControlName="start_date"
                        (dateChange)="onDateChange()">
                 <mat-datepicker-toggle matSuffix [for]="interviewPicker"></mat-datepicker-toggle>
@@ -23,7 +23,7 @@
         <div class="row">
           <div class="col-md-12">
             <div class="form-group mb-4">
-              <label class="fw-bold">Available Time Slots</label>
+              <label class="fw-bold">{{ 'AVAILABLE_TIME_SLOTS' | translate }}</label>
               <ng-container [ngSwitch]="isLoadingTimeSlots">
                 <ng-container *ngSwitchCase="true">
                   <div class="item">
@@ -37,11 +37,11 @@
                 </ng-container>
 
                 <ng-container *ngSwitchCase="false">
-                  <div *ngIf="!timeSlots?.availabilities?.length" class="text-center fw-bold">No time slot found</div>
+                  <div *ngIf="!timeSlots?.availabilities?.length" class="text-center fw-bold">{{ 'NO_TIMESLOT_FOUND' | translate }}</div>
                   <div *ngIf="timeSlots?.availabilities?.length">
                     <div class="time-box">
                       <div *ngFor="let slot of timeSlots.availabilities; let i = index" [ngClass]="{'active': i == slotId}" class="slot" (click)="onTimeSlotSelect(slot, i)">
-                       {{ slot.timeFrom }} to {{ slot.timeTo }}
+                       {{ slot.timeFrom }} {{ 'TO' | translate }} {{ slot.timeTo }}
                       </div>
                     </div>
                   </div>
@@ -76,7 +76,7 @@
         <div class="row mt-2">
           <div class="col-md-12 overflow-hidden">
             <metutors-submit-button [form]="form" [extraClasses]="'float-end py-1 px-5'" [isSubmitting]="isSubmitting">
-              Schedule
+              {{ 'SCHEDULE' | translate }}
             </metutors-submit-button>
           </div>
         </div>
