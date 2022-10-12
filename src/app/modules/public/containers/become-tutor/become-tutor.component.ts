@@ -93,7 +93,7 @@ export class BecomeTutorComponent implements OnInit {
         id: 4,
         picture: '',
         content: 'WHAT_TUTORS_SAY_OPTION_4',
-        postedBy: 'Jorge',
+        postedBy: 'Jorge Alvarado',
       },
     ];
   }
