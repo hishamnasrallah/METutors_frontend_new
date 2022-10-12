@@ -4,9 +4,14 @@ import * as fromCore from '@metutor/core/state';
 import { combineLatest, Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 
-import { courseStatusLabel, WEEK_DAYS } from '@config';
 import * as fromStudent from '@metutor/modules/student/state';
 import * as fromStudentAction from '@metutor/modules/student/state/actions';
+
+import {
+  WEEK_DAYS,
+  courseStatusLabel,
+  AcademicTutoringTextbook,
+} from '@config';
 
 @Component({
   selector: 'metutors-student-resources',
@@ -17,7 +22,9 @@ export class StudentResourcesComponent implements OnInit {
   openViewResourceModal$: Observable<boolean>;
   view$: Observable<{ loading: boolean; resources: any }>;
 
+  studentDocTab = true;
   statusLabel = courseStatusLabel;
+  academicTutoringTextbook = AcademicTutoringTextbook;
 
   constructor(private _store: Store<any>) {}
 
@@ -45,6 +52,8 @@ export class StudentResourcesComponent implements OnInit {
   onCloseViewResourceModal(): void {
     this._store.dispatch(fromStudentAction.closeStudentViewResourceModal());
   }
+
+  onOpenUploadDocModal(): void {}
 
   ngOnInit(): void {
     this._store.dispatch(fromCore.loadStudentResources());
