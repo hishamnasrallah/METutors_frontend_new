@@ -94,10 +94,10 @@
               <tr>
                 <th>#</th>
                 <th>{{ 'PROGRAM_NAME' | translate }}</th>
-                <th>Course Name</th>
+                <th>{{ 'COURSE_NAME' | translate }}</th>
                 <th>Class Subject</th>
                 <th style="min-width: 150px">Start time - End time</th>
-                <th>Duration</th>
+                <th>{{ 'DURATION' | translate }}</th>
                 <th></th>
               </tr>
               <tr *ngIf="!view.data?.todaysClasses?.length">
@@ -176,7 +176,7 @@
               <tr>
                 <td>Number</td>
                 <td>Student Name</td>
-                <td>Course Name</td>
+                <td>{{ 'COURSE_NAME' | translate }}</td>
                 <td>Course Date</td>
                 <td>Points</td>
               </tr>

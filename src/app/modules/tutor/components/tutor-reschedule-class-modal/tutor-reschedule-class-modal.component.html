@@ -28,7 +28,7 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              <label class="fw-bold">Class Start Time</label>
+              <label class="fw-bold">{{ 'CLASS_START_TIME' | translate }}</label>
               <input type="url" class="form-control custom-input input-bordered" formControlName="start_time"
                      placeholder="12:00 PM" [ngxTimepicker]="startTime">
               <ngx-material-timepicker #startTime [appendToInput]="true" [minutesGap]="30" (closed)="onChangeTimePicker()">
@@ -38,7 +38,7 @@
 
           <div class="col-md-6">
             <div class="form-group">
-              <label class="fw-bold">Class End Time</label>
+              <label class="fw-bold">{{ 'CLASS_END_TIME' | translate }}</label>
               <input type="url" class="form-control custom-input input-bordered" formControlName="end_time"
                      placeholder="12:00 PM" [ngxTimepicker]="endTime">
               <ngx-material-timepicker #endTime [appendToInput]="true" [minutesGap]="30" (closed)="onChangeTimePicker()">
@@ -50,16 +50,16 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              <label class="fw-bold">Class Duration</label>
+              <label class="fw-bold">{{ 'CLASS_DURATION' | translate }}</label>
               <input type="url" class="form-control custom-input input-bordered" formControlName="duration"
-                     placeholder="Total hours" readonly>
+                     placeholder="{{ 'CLASS_DURATION' | translate }}" readonly>
             </div>
           </div>
 
           <div class="col-md-6">
-         <!--   <label class="fw-bold">Type of Classroom</label>
+         <!--   <label class="fw-bold">{{ 'TYPE_CLASSROOM' | translate }}</label>
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="class_type" [placeholder]="'Choose Type'">
+              <mat-select formControlName="class_type" placeholder="{{ 'CHOOSE_TYPE' | translate }}">
                 <mat-option [value]="type.value" *ngFor="let type of types | keyvalue: returnZero">
                   {{ type.value }}
                 </mat-option>

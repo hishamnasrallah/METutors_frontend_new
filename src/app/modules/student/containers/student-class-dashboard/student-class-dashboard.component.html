@@ -99,7 +99,7 @@
                   <th>Class Subject</th>
                   <th>Class Tutor</th>
                   <th style="min-width: 150px">Start time - End time</th>
-                  <th>Duration</th>
+                  <th>{{ 'DURATION' | translate }}</th>
                   <th></th>
                 </tr>
                 <tr *ngIf="!view.data?.todaysClasses?.length">
@@ -159,10 +159,10 @@
                   <th>#</th>
                   <th>Class Subject</th>
                   <th>Class Tutor</th>
-                  <th>Day</th>
-                  <th>Date</th>
+                  <th>{{ 'DAY' | translate }}</th>
+                  <th>{{ 'DATE' | translate }}</th>
                   <th style="min-width: 150px">Start time - End time</th>
-                  <th>Duration</th>
+                  <th>{{ 'DURATION' | translate }}</th>
                   <th></th>
                 </tr>
                 <tr *ngIf="!view.data?.upcomingClasses?.data?.length">
@@ -212,10 +212,10 @@
                   <th>#</th>
                   <th>Class Subject</th>
                   <th>Class Tutor</th>
-                  <th>Day</th>
-                  <th>Date</th>
+                  <th>{{ 'DAY' | translate }}</th>
+                  <th>{{ 'DATE' | translate }}</th>
                   <th style="min-width: 150px">Start time - End time</th>
-                  <th>Duration</th>
+                  <th>{{ 'DURATION' | translate }}</th>
                   <th></th>
                 </tr>
                 <tr *ngIf="!view.data?.previousClasses?.data?.length">

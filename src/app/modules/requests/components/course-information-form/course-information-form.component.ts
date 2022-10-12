@@ -255,7 +255,9 @@ export class CourseInformationFormComponent implements OnInit {
       const file = event.target.files[0];
 
       if (file.type !== 'application/pdf') {
-        this._alertNotificationService.error('Only PDF file is allowed');
+        this._translate.get('ONLY_PDF_FILE_ALLOWED').subscribe((res: string) => {
+          this._alertNotificationService.error(res);
+        });
 
         return;
       }

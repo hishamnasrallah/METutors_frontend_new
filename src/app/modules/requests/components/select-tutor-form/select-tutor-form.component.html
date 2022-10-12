@@ -2,21 +2,21 @@
   <div class="card-body">
     <div class="row row-block">
       <div class="col-md-4">
-        <h2 class="f-size-17-md-sm">Tutor Information</h2>
-        <h4 class="f-size-15-md-sm">Select a tutor for this course</h4>
+        <h2 class="f-size-17-md-sm">{{ 'TUTOR_INFORMATION' | translate }}</h2>
+        <h4 class="f-size-15-md-sm">{{ 'SELECT_TUTOR_FOR_COURSE' | translate }}</h4>
 
         <h5 class="mt-4">{{ 'COURSE_ID' | translate }}: <span>CID{{ selectedCourse?.id }}</span></h5>
-        <h5 class="mb-0">Course Name: <span>{{ selectedCourse?.name }}</span></h5>
+        <h5 class="mb-0">{{ 'COURSE_NAME' | translate }}: <span>{{ selectedCourse?.name }}</span></h5>
       </div>
       <div class="col-md-8 mt-15-sm">
         <ng-container *ngIf="!loading">
           <div class="custom-list">
-            <metutors-search-input (searchedText)="onSearch($event)" [placeholder]="'Search tutors (eg, John Doe)'">
+            <metutors-search-input (searchedText)="onSearch($event)" [placeholder]="'SEARCH_TUTORS'">
             </metutors-search-input>
 
             <div class="list-tutors">
               <ng-container *ngIf="availableTutors && availableTutors.length">
-                <span class="info mt-3 d-inline-block">Available</span>
+                <span class="info mt-3 d-inline-block">{{ 'AVAILABLE' | translate }}</span>
                 <mat-radio-group class="d-flex flex-column" formControlName="tutor">
                   <mat-radio-button *ngFor="let tutor of availableTutors" [value]="tutor?.id">
                     <div class="row">
@@ -53,20 +53,20 @@
                           <div class="d-flex ms-3 li-item" *ngIf="tutor?.studentsTeaching">
                             <img src="assets/svg/classes.svg" class="icon" draggable="false" width="16" height="16" alt="">
                             <span>
-                              Help {{ tutor?.studentsTeaching }} {{ +(tutor?.studentsTeaching)! > 1 ? ('STUDENTS_SM' | translate) : ('STUDENT_SM' | translate) }}
+                              {{ 'HELP' | translate }} {{ tutor?.studentsTeaching }} {{ +(tutor?.studentsTeaching)! > 1 ? ('STUDENTS_SM' | translate) : ('STUDENT_SM' | translate) }}
                             </span>
                           </div>
                         </div>
                         <a class="col-md-2 full-profile d-block d-xl-none mt-1"
                           [routerLink]="'/profile/tutor/' + tutor?.id" target="_blank">
                           <img src="assets/svg/share-link.svg" draggable="false" width="16px" height="16px" alt="">
-                          Full profile
+                          {{ 'FULL_PROFILE' | translate }}
                         </a>
                       </div>
                       <a class="col-md-2 full-profile d-none d-xl-block" [routerLink]="'/profile/tutor/' + tutor?.id"
                         target="_blank">
                         <img src="assets/svg/share-link.svg" draggable="false" width="16px" height="16px" alt="">
-                        Full profile
+                        {{ 'FULL_PROFILE' | translate }}
                       </a>
                     </div>
                   </mat-radio-button>
@@ -75,32 +75,33 @@
 
               <div class="no-tutors mt-3" *ngIf="!availableTutors || !availableTutors.length">
                 <strong class="mb-4 d-block f-size-18-md-sm">
-                  Sorry, all of our tutors are busy at the times you have selected. There are tutors available at other times.
+                  {{ 'SORRY_ALL_TUTORS_BUSY' | translate }}
                 </strong>
-                <h5 class="f-size-15-md-sm">Would you like to change your classroom schedule?</h5>
+                <h5 class="f-size-15-md-sm">{{ 'WOULD_CHANGE_CLASSROOM_SCHEDULE' | translate }}</h5>
                 <mat-radio-group (change)="onChangeSchedule($event)" [(ngModel)]="schedule"
                   [ngModelOptions]="{standalone: true}">
-                  <mat-radio-button class="w-100-md-sm" value="1">Yes</mat-radio-button>
-                  <mat-radio-button class="w-100-md-sm" value="2">No, continue with my chosen schedule and assign me a tutor.
+                  <mat-radio-button class="w-100-md-sm" value="1">{{ 'YES' | translate }}</mat-radio-button>
+                  <mat-radio-button class="w-100-md-sm" value="2">
+                    {{ 'NO_CONTINUE_SCHEDULE_CHOSEN' | translate }}
                   </mat-radio-button>
                 </mat-radio-group>
               </div>
             </div>
             <div class="list-tutors" *ngIf="suggestedTutors && suggestedTutors.length">
-              <span class="info mt-3 d-inline-block">Available at different schedule</span>
+              <span class="info mt-3 d-inline-block">{{ 'AVAILABLE_DIFFERENT_SCHEDULE' | translate }}</span>
               <mat-radio-group class="d-flex flex-column" disabled>
                 <mat-radio-button *ngFor="let tutor of suggestedTutors" [value]="tutor?.id">
                   <div class="row">
                     <div class="position-relative img-avatar">
                       <img [src]="tutor?.avatar" meTutorsDefaultAvatar alt="" width="60px" height="60px">
                       <!-- <svg class="position-absolute status" width="16" height="16" [ngClass]="{
-                          'is-online': tutor?.status === tutorStatus.online,
-                          'is-busy': tutor?.status === tutorStatus.busy,
-                          'is-offline': tutor?.status === tutorStatus.offline,
-                          'is-away': tutor?.status === tutorStatus.away
-                        }" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="8" cy="8" r="7" fill="#949494" stroke="white" stroke-width="2" />
-                  </svg> -->
+                              'is-online': tutor?.status === tutorStatus.online,
+                              'is-busy': tutor?.status === tutorStatus.busy,
+                              'is-offline': tutor?.status === tutorStatus.offline,
+                              'is-away': tutor?.status === tutorStatus.away
+                            }" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="8" cy="8" r="7" fill="#949494" stroke="white" stroke-width="2" />
+                      </svg> -->
                     </div>
                     <div class="col d-flex justify-content-center flex-column">
                       <h2>
@@ -124,7 +125,7 @@
                         <div class="d-flex ms-3 li-item" *ngIf="tutor?.studentsTeaching">
                           <img src="assets/svg/classes.svg" class="icon" draggable="false" width="16" height="16" alt="">
                           <span>
-                            Help {{ tutor?.studentsTeaching }} {{ +(tutor?.studentsTeaching)! > 1 ? ('STUDENTS_SM' | translate) : ('STUDENT_SM' | translate) }}
+                            {{ 'HELP' | translate }} {{ tutor?.studentsTeaching }} {{ +(tutor?.studentsTeaching)! > 1 ? ('STUDENTS_SM' | translate) : ('STUDENT_SM' | translate) }}
                           </span>
                         </div>
                       </div>
@@ -136,7 +137,7 @@
                         <a class="col-md-2 full-profile w-auto-sm ms-2" [routerLink]="'/profile/tutor/' + tutor?.id"
                           target="_blank">
                           <img src="assets/svg/share-link.svg" draggable="false" width="16px" height="16px" alt="">
-                          Full profile
+                          {{ 'FULL_PROFILE' | translate }}
                         </a>
                       </div>
                     </div>
@@ -146,7 +147,7 @@
                     <a class="col-md-2 full-profile d-none d-xl-block" [routerLink]="'/profile/tutor/' + tutor?.id"
                       target="_blank">
                       <img src="assets/svg/share-link.svg" draggable="false" width="16px" height="16px" alt="">
-                      Full profile
+                      {{ 'FULL_PROFILE' | translate }}
                     </a>
                   </div>
                 </mat-radio-button>
@@ -180,10 +181,12 @@
               <div class="d-flex">
                 <div class="flex-grow-1">
                   <h5 class="d-flex align-items-center">
-                    Estimated Price: <h1 class="mb-0 f-size-20-md-sm">{{ (price * +hours) | metutorsMoney | async }}
+                    {{ 'ESTIMATED_PRICE' | translate }}: 
+                    <h1 class="mb-0 f-size-20-md-sm">
+                      {{ (price * +hours) | metutorsMoney | async }}
                     </h1>
                   </h5>
-                  <p>Final price based on total number of class hours</p>
+                  <p>{{ 'FINAL_PRICE_BASED_HOURS' | translate }}</p>
                 </div>
               </div>
             </div>
@@ -191,9 +194,9 @@
               <div class="d-flex">
                 <div class="flex-grow-1">
                   <h5 class="d-flex align-items-center">
-                    Total Hours: <h1 class="mb-0 f-size-20-md-sm">{{ hours }} {{ +(hours)! > 1 ? ('HRS_SM' | translate) : ('HR_SM' | translate) }}</h1>
+                    {{ 'TOTAL_HOURS' | translate }}: <h1 class="mb-0 f-size-20-md-sm">{{ hours }} {{ +(hours)! > 1 ? ('HRS_SM' | translate) : ('HR_SM' | translate) }}</h1>
                   </h5>
-                  <p>Hourly Rate: {{ price | metutorsMoney | async }}</p>
+                  <p>{{ 'HOURLY_RATE' | translate }}: {{ price | metutorsMoney | async }}</p>
                 </div>
               </div>
             </div>

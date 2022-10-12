@@ -19,17 +19,17 @@
             </div>
             <div class="col-lg-3 col-md-4 d-flex menu align-items-center">
               <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
-              <strong>Time: </strong>
+              <strong>{{ 'TIME' | translate }}: </strong>
               <span class="f-size-17-md-sm">{{ view.resources?.course?.startTime | date:'h:mm a' }} - {{ view.resources?.course?.endTime | date:'h:mm a' }} ({{ view.resources?.course?.startTime | metutorsTimeDiff: view.resources?.course?.endTime}} hour)</span>
             </div>
             <div class="col-lg-3 col-md-4 d-flex menu align-items-center">
               <img src="assets/svg/timer.svg" alt="" width="15" height="15" draggable="false">
-              <strong>Total Hours: </strong>
+              <strong>{{ 'TOTAL_HOURS' | translate }}: </strong>
               <span class="f-size-17-md-sm">{{ view.resources?.course?.totalHours }}{{ +(view.resources?.course?.totalHours)! > 1 ? ('HRS_SM' | translate) : ('HR_SM' | translate) }}</span>
             </div>
             <div class="col-lg-3 col-md-4 d-flex menu align-items-center">
               <img src="assets/svg/play-circle-fill.svg" alt="" width="15" height="15" draggable="false">
-              <strong>Total Classes: </strong>
+              <strong>{{ 'TOTAL_CLASSES' | translate }}: </strong>
               <span class="f-size-17-md-sm">{{ view.resources?.course?.totalClasses }}</span>
             </div>
           </div>
@@ -57,21 +57,21 @@
         <div class="row row-block">
           <div class="mt-15-sm later"
                *ngIf="+view.resources.course.bookInfo === academicTutoringTextbook.later || +view.resources.course.bookInfo === academicTutoringTextbook.none">
-            <h4>Selection made by student</h4>
+            <h4>{{ 'SELECTION_MADE_STUDENT' | translate }}</h4>
             <div class="d-flex flex-column align-items-center">
               <img
                 [src]="+view.resources.course.bookInfo === academicTutoringTextbook.later ? '/assets/svg/textbook.svg' : '/assets/svg/textbook-slash.svg'"
                 class="mb-3" [attr.width]="+view.resources.course.bookInfo === academicTutoringTextbook.later ? '35px' : '60px'"
                 draggable="false" alt="">
-              {{ +view.resources.course.bookInfo === academicTutoringTextbook.later ? 'More info will be provided later' : 'Textbook not required' }}
+              {{ +view.resources.course.bookInfo === academicTutoringTextbook.later ? 'More info will be provided later' : ('TEXTBOOK_NOT_REQUIRED' | translate) }}
             </div>
           </div>
           <div class="table-responsive mt-1" *ngIf="+view.resources.course.bookInfo === academicTutoringTextbook.info">
             <table class="table my-table default-title">
               <tr>
-                <th scope="col">Textbook Name</th>
-                <th scope="col">Textbook Edition</th>
-                <th scope="col">Textbook Author</th>
+                <th scope="col">{{ 'TEXTBOOK_NAME' | translate }}</th>
+                <th scope="col">{{ 'TEXTBOOK_EDITION' | translate }}</th>
+                <th scope="col">{{ 'TEXTBOOK_AUTHOR' | translate }}</th>
               </tr>
               <tr class="book-info">
                 <td scope="row">{{view.resources.course.bookName }}</td>
@@ -83,7 +83,7 @@
           <div class="table-responsive mt-1" *ngIf="+view.resources.course.bookInfo === academicTutoringTextbook.pdf">
             <table class="table my-table default-title">
               <tr>
-                <th scope="col" class="w-75">Attachments</th>
+                <th scope="col" class="w-75">{{ 'ATTACHMENTS' | translate }}</th>
                 <th scope="col" class="w-25">{{ 'ACTION' | translate }}</th>
               </tr>
               <tr>
@@ -167,7 +167,7 @@
             <tr>
               <th scope="col">Class Number</th>
               <th scope="col">Class Subject</th>
-              <th scope="col">Class Days</th>
+              <th scope="col">{{ 'CLASS_DAYS' | translate }}</th>
               <th scope="col">{{ 'ACTION' | translate }}</th>
             </tr>
             <tr *ngIf="!view.resources?.course?.classes?.length">

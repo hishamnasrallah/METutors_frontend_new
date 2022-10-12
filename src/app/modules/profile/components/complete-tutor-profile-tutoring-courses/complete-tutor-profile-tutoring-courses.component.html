@@ -63,11 +63,11 @@
         <div class="col-md-6">
           <div class="form-group">
             <div>
-              <label for="subjects" class="form-label">{{ 'FIELD_STUDY' | translate }} <span>({{ 'U_SELECT_MULTIPLE' | translate }})</span></label>
+              <label for="subjects" class="form-label">{{ 'FIELDS_STUDY' | translate }} <span>({{ 'U_SELECT_MULTIPLE' | translate }})</span></label>
             </div>
 
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="fields" placeholder="{{ 'SELECT_FIELD_STUDY' | translate }}" multiple *ngIf="!checkIfNoFieldsExists(i)">
+              <mat-select formControlName="fields" placeholder="{{ 'SELECT_FIELDS_STUDY' | translate }}" multiple *ngIf="!checkIfNoFieldsExists(i)">
                 <ng-container *ngFor="let field of fields">
                   <mat-option [value]="field?.id" *ngIf="
                     (
@@ -88,7 +88,7 @@
                 </ng-container>
               </mat-select>
 
-              <mat-select placeholder="{{ 'SELECT_FIELD_STUDY' | translate }}" *ngIf="checkIfNoFieldsExists(i)">
+              <mat-select placeholder="{{ 'SELECT_FIELDS_STUDY' | translate }}" *ngIf="checkIfNoFieldsExists(i)">
                 <mat-option value="" disabled>{{ 'NO_DATA_FOUND' | translate }}</mat-option>
               </mat-select>
             </mat-form-field>
