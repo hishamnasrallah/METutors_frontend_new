@@ -53,23 +53,23 @@ export class TutorSettingsProfileTeachingCoursesComponent implements OnInit {
     );
 
     this.sortedSubjects = this.sortedSubjects?.map((subject: any) => ({
-        ...subject,
-        fieldId: subject.fieldId,
-        fieldName: subject.fieldName,
-        countryName: subject.countryName,
-        countryFlag: subject.countryFlag,
-        subjects: subject.subjects.map((sub: any) =>
-          sub?.id === id
-            ? {
-                ...sub,
-                pricePerHour:
-                  +event.target.value > 0 && +event.target.value <= 100
-                    ? event.target.value
-                    : null,
-              }
-            : { ...sub }
-        ),
-      }));
+      ...subject,
+      fieldId: subject.fieldId,
+      fieldName: subject.fieldName,
+      countryName: subject.countryName,
+      countryFlag: subject.countryFlag,
+      subjects: subject.subjects.map((sub: any) =>
+        sub?.id === id
+          ? {
+              ...sub,
+              pricePerHour:
+                +event.target.value > 0 && +event.target.value <= 100
+                  ? event.target.value
+                  : null,
+            }
+          : { ...sub }
+      ),
+    }));
 
     this.form.get('subjects')?.setValue(this.submittedSubjects);
     this.form.get('subjects')?.updateValueAndValidity();
@@ -80,6 +80,8 @@ export class TutorSettingsProfileTeachingCoursesComponent implements OnInit {
   onSubmit(form: FormGroup): void {
     if (form.valid) {
       this.submitForm.emit(form);
+
+      this.form.markAsPristine();
     }
   }
 

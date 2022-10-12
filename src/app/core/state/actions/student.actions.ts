@@ -163,6 +163,21 @@ export const loadStudentResourceFailure = createAction(
   props<{ error: any }>()
 );
 
+export const studentUploadResourceDocument = createAction(
+  '[Student] Student Upload Resource Document',
+  props<{ body: any }>()
+);
+
+export const studentUploadResourceDocumentSuccess = createAction(
+  '[Student] Student Upload Resource Document Success',
+  props<{ document: any; message: string }>()
+);
+
+export const studentUploadResourceDocumentFailure = createAction(
+  '[Student] Student Upload Resource Document Failure',
+  props<{ error: any }>()
+);
+
 export const studentJoinClass = createAction(
   '[Student] Student Join Class',
   props<{ id: number }>()

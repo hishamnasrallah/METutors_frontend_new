@@ -89,6 +89,10 @@ export class StudentsService {
     return this.http.get<any>(`${this.baseUrl}student/resource/${id}`);
   }
 
+  uploadStudentResourceDocument(body: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}upload-documents`, body);
+  }
+
   studentJoinClass(id: any): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}class/launch/${id}`, {});
   }

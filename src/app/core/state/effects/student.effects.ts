@@ -259,6 +259,29 @@ export class StudentEffects {
     )
   );
 
+  uploadStudentResourceDocument$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(studentActions.studentUploadResourceDocument),
+      mergeMap(({ body }) =>
+        this._studentService.uploadStudentResourceDocument(body).pipe(
+          map((resource) =>
+            studentActions.studentUploadResourceDocumentSuccess({
+              message: resource.message,
+              document: camelcaseKeys(resource.document, { deep: true }),
+            })
+          ),
+          catchError((error) =>
+            of(
+              studentActions.studentUploadResourceDocumentFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   studentJoinClass$ = createEffect(() =>
     this._actions$.pipe(
       ofType(studentActions.studentJoinClass),
@@ -694,6 +717,7 @@ export class StudentEffects {
             studentActions.studentUpdatePreferencesSuccess,
             studentActions.studentSyllabusAddEditTopicSuccess,
             studentActions.studentSubmitPlatformFeedbackSuccess,
+            studentActions.studentUploadResourceDocumentSuccess,
           ]
         ),
         map(({ message }) => this._alertNotificationService.success(message))
@@ -718,6 +742,7 @@ export class StudentEffects {
             studentActions.studentUpdatePreferencesFailure,
             studentActions.studentSyllabusAddEditTopicFailure,
             studentActions.studentSubmitPlatformFeedbackFailure,
+            studentActions.studentUploadResourceDocumentFailure,
           ]
         ),
         map((action) => {

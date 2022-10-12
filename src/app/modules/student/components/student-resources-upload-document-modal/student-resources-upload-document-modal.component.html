@@ -1,0 +1,58 @@
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'medium'"
+                [template]="template" [heading]="'UPLOAD_DOCUMENT'">
+  <ng-template #template>
+    <form class="row add-class-modal" [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="col-12">
+        <div class="form-group">
+          <label for="title">Document title</label>
+          <metutors-char-counter [limit]="120" [controlName]="title"></metutors-char-counter>
+          <input type="text" class="custom-input w-100 input-bordered" id="title" placeholder="Enter title here..."
+                 formControlName="title">
+          <div class="text-danger" *ngIf="title?.touched && title?.invalid">
+            Please write a title with a max of 120 characters
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Files</label>
+          <div class="d-flex flex-column">
+            <div class="w-100 border p-4 bg-light upload-container text-center" (click)="filePicker.click()"
+                 [ngClass]="{'pointer-events-none cursor-not-allowed': (uploadedFiles$ | async)?.length, 'cursor-pointer': !(uploadedFiles$ | async)?.length}">
+              <img src="assets/svg/upload-solid.svg" width="15" height="15" alt=""/>{{ 'UPLOAD' | translate }}
+            </div>
+            <span class="extensions text-main">JPG, pdf, video, etc</span>
+            <input type="file" hidden #filePicker (change)="onFileChange($event)">
+          </div>
+
+          <label class="mt-2">Upload completed</label>
+          <ng-container *ngLet="fileUploadProgress$ | async as fileUploadProgress">
+            <ng-container *ngIf="fileUploadProgress?.length">
+              <ng-container *ngFor="let uploadProgress of fileUploadProgress">
+                <ng-container *ngIf="uploadProgress.responseType !== uploadComplete">
+                  <metutors-file-upload-progress [fileName]="uploadProgress.fileName"
+                                                 [uploadedPercentage]="uploadProgress.progress">
+                  </metutors-file-upload-progress>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+
+          <div class="form-group row" *ngIf="(uploadedFiles$ | async)?.length">
+            <metutors-uploaded-files [files]="uploadedFiles$ | async" [showDownloadFile]="false"
+                                     [showDeleteFile]="true" (deleteFile)="removeFile($event)">
+            </metutors-uploaded-files>
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-md-12 overflow-hidden">
+            <metutors-submit-button [form]="form" [isSubmitting]="submitting"
+                                    [extraClasses]="'float-end py-1 px-5 fw-bold'">
+              {{ 'UPLOAD' | translate }}
+            </metutors-submit-button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+</metutors-modal>

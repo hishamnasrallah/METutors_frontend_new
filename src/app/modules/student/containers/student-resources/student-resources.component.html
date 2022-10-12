@@ -47,6 +47,115 @@
   </div>
 
   <div class="details">
+    <h3>Textbook</h3>
+    <ng-container [ngSwitch]="view.loading">
+      <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
+      <ng-container *ngSwitchCase="false">
+
+        <div class="row row-block">
+          <div class="mt-15-sm later"
+               *ngIf="+view.resources.course.bookInfo === academicTutoringTextbook.later || +view.resources.course.bookInfo === academicTutoringTextbook.none">
+            <h4>{{ 'SELECTION_MADE_STUDENT' | translate }}</h4>
+            <div class="d-flex flex-column align-items-center">
+              <img
+                [src]="+view.resources.course.bookInfo === academicTutoringTextbook.later ? '/assets/svg/textbook.svg' : '/assets/svg/textbook-slash.svg'"
+                class="mb-3" [attr.width]="+view.resources.course.bookInfo === academicTutoringTextbook.later ? '35px' : '60px'"
+                draggable="false" alt="">
+              {{ +view.resources.course.bookInfo === academicTutoringTextbook.later ? 'More info will be provided later' : ('TEXTBOOK_NOT_REQUIRED' | translate) }}
+            </div>
+          </div>
+          <div class="table-responsive mt-1" *ngIf="+view.resources.course.bookInfo === academicTutoringTextbook.info">
+            <table class="table my-table default-title">
+              <tr>
+                <th scope="col">{{ 'TEXTBOOK_NAME' | translate }}</th>
+                <th scope="col">{{ 'TEXTBOOK_EDITION' | translate }}</th>
+                <th scope="col">{{ 'TEXTBOOK_AUTHOR' | translate }}</th>
+              </tr>
+              <tr class="book-info">
+                <td scope="row">{{view.resources.course.bookName }}</td>
+                <td>Edition {{ view.resources.course?.bookEdition }}</td>
+                <td>{{ view.resources.course.bookAuthor }}</td>
+              </tr>
+            </table>
+          </div>
+          <div class="table-responsive mt-1" *ngIf="+view.resources.course.bookInfo === academicTutoringTextbook.pdf">
+            <table class="table my-table default-title">
+              <tr>
+                <th scope="col" class="w-75">{{ 'ATTACHMENTS' | translate }}</th>
+                <th scope="col" class="w-25">{{ 'ACTION' | translate }}</th>
+              </tr>
+              <tr>
+                <td class="w-75">Hello.pdf</td>
+                <td class="w-25">
+                  <div><button mat-button class="main-button-transparent">{{ 'DOWNLOAD' | translate }}</button></div>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+
+    <h3>Other documents</h3>
+    <div class="d-flex justify-content-between">
+      <div class="document-tabs">
+        <button mat-button class="main-button-transparent me-2 m-0-sm mb-5-sm" (click)="studentDocTab = false" [ngClass]="{'active': !studentDocTab}">
+          Uploaded by teacher
+        </button>
+
+        <button mat-button class="main-button-transparent" (click)="studentDocTab = true" [ngClass]="{'active': studentDocTab}">
+          Uploaded by student
+        </button>
+      </div>
+      <span class="text-main text-decoration-underline cursor-pointer upload-doc" (click)="onOpenUploadDocModal()">{{ 'UPLOAD_DOCUMENT' | translate }}</span>
+    </div>
+    <ng-container [ngSwitch]="view.loading">
+      <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
+      <ng-container *ngSwitchCase="false">
+        <div class="table-responsive mt-4">
+          <table class="table my-table default-title" *ngIf="!studentDocTab">
+            <tr>
+              <th scope="col">Document title</th>
+              <th scope="col">Teacher name</th>
+              <th scope="col">{{ 'ACTION' | translate }}</th>
+            </tr>
+            <tr class="book-info" *ngIf="!view.resources?.teacherOtherDocuments?.length">
+              <td colspan="5">
+                <div class="text-center">No document found</div>
+              </td>
+            </tr>
+            <ng-container *ngIf="view.resources?.teacherOtherDocuments?.length">
+              <tr class="book-info" *ngFor="let teacherDoc of view?.resources?.teacherOtherDocuments; let i=index">
+                <td>{{ teacherDoc?.title }}</td>
+                <td>{{ teacherDoc?.user?.firstName }} {{ teacherDoc?.user?.lastName }}</td>
+                <td><div><a [href]="teacherDoc?.file?.url" mat-button class="main-button-transparent" target="_blank" >{{ 'DOWNLOAD' | translate }}</a></div></td>
+              </tr>
+            </ng-container>
+          </table>
+
+          <table class="table my-table default-title" *ngIf="studentDocTab">
+            <tr>
+              <th scope="col">Document title</th>
+              <th scope="col">Teacher name</th>
+              <th scope="col">{{ 'ACTION' | translate }}</th>
+            </tr>
+            <tr class="book-info" *ngIf="!view.resources?.studentOtherDocuments?.length">
+              <td colspan="5">
+                <div class="text-center">No document found</div>
+              </td>
+            </tr>
+            <ng-container *ngIf="view.resources?.studentOtherDocuments?.length">
+              <tr class="book-info" *ngFor="let studentDoc of view?.resources?.studentOtherDocuments; let i=index">
+                <td>{{ studentDoc?.title }}</td>
+                <td>{{ studentDoc?.user?.firstName }} {{ studentDoc?.user?.lastName }}</td>
+                <td><div><a [href]="studentDoc?.file?.url" mat-button class="main-button-transparent" target="_blank" >{{ 'DOWNLOAD' | translate }}</a></div></td>
+              </tr>
+            </ng-container>
+          </table>
+        </div>
+      </ng-container>
+    </ng-container>
+
     <h3>Classes</h3>
     <ng-container [ngSwitch]="view.loading">
       <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
@@ -83,9 +192,16 @@
       </ng-container>
     </ng-container>
   </div>
-</div>
 
-<metutors-student-view-resource-modal *ngIf="openViewResourceModal$ | async"
-                                      [showModal]="(openViewResourceModal$ | async)!"
-                                      (closeModal)="onCloseViewResourceModal()">
-</metutors-student-view-resource-modal>
+  <metutors-student-view-resource-modal *ngIf="openViewResourceModal$ | async"
+                                        [showModal]="(openViewResourceModal$ | async)!"
+                                        (closeModal)="onCloseViewResourceModal()">
+  </metutors-student-view-resource-modal>
+
+  <metutors-student-resources-upload-document-modal *ngIf="showUploadDocModal$ | async"
+                                                    (submitted)="onSubmitDocs($event, view.resources.course.id)"
+                                                    [showModal]="(showUploadDocModal$ | async)!"
+                                                    [submitting]="(uploadingDoc$ | async)!"
+                                                    (closeModal)="onCloseUploadDocModal()">
+  </metutors-student-resources-upload-document-modal>
+</div>
