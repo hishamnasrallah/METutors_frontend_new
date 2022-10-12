@@ -90,6 +90,7 @@ export class TutorSettingsUserPreferencesComponent implements OnInit {
         })),
       };
       this.submitForm.emit(formData);
+      this.form.markAsPristine();
     }
   }
 

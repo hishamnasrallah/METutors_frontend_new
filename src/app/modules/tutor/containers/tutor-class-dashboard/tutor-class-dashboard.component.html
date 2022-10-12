@@ -3,7 +3,7 @@
     <div class="card-body p-15-sm">
       <ng-container [ngSwitch]="view.loading">
         <ng-container *ngSwitchCase="false">
-          <h1 class="title overflow-hidden f-size-20-md-sm">{{ view.data?.course?.courseName }} 
+          <h1 class="title overflow-hidden f-size-20-md-sm">{{ view.data?.course?.courseName }}
             <span>({{ view.data.course?.courseCode}})</span>
             <button mat-button class="ms-2 status text-decoration-none" [ngClass]="view?.data?.course?.status">{{ view?.data?.course?.status === 'cancelled_by_teacher' ? 'Cancelled' :  statusLabel[view?.data?.course?.status].long }}</button>
 
@@ -223,9 +223,7 @@
                   <td>{{ pastClass?.duration }} {{ +(pastClass?.duration)! > 1 ? ('HOURS_SM' | translate) : ('HOUR_SM' | translate) }}</td>
                   <td>
                     <ng-container *ngIf="pastClass?.studentAttendence?.status === 'absent'; else second">
-                      <button mat-button class="secondary-button-opacity flex-grow-1 w-100">
-                        Student Absent
-                      </button>
+                      <span class="w-100 text-center text-main">Student Absent</span>
                     </ng-container>
 
                     <ng-template #second>

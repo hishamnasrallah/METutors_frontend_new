@@ -46,6 +46,7 @@ export class StudentClassroomsComponent implements OnInit {
   layout$: any;
   user$: Observable<IUser | null>;
 
+  flag = null;
   fieldId = null;
   courseId: number;
   programId = null;
