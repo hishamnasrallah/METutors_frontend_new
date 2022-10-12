@@ -75,25 +75,25 @@ export class BecomeTutorComponent implements OnInit {
         id: 1,
         picture: '',
         content: 'WHAT_TUTORS_SAY_OPTION_1',
-        postedBy: '@thepatwalls',
+        postedBy: 'Kamran Khatti',
       },
       {
         id: 2,
         picture: '',
         content: 'WHAT_TUTORS_SAY_OPTION_2',
-        postedBy: '@thepatwalls',
+        postedBy: 'Michael Fine',
       },
       {
         id: 3,
         picture: '',
         content: 'WHAT_TUTORS_SAY_OPTION_3',
-        postedBy: '@thepatwalls',
+        postedBy: 'Dimitri',
       },
       {
         id: 4,
         picture: '',
         content: 'WHAT_TUTORS_SAY_OPTION_4',
-        postedBy: '@thepatwalls',
+        postedBy: 'Jorge Alvarado',
       },
     ];
   }

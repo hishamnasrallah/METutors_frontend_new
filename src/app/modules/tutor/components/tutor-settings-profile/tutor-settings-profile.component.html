@@ -78,6 +78,15 @@
   </div>
 
   <div class="card complete-form mb-3">
+    <div class="card-body">
+      <h1 class="title f-size-18-md-sm mb-3">{{ 'MY_TEACHING_STYLE' | translate }}</h1>
+
+      <metutors-video-player [videoSrc]="tutor?.qualifications?.video" [maxHeight]="'315px'">
+      </metutors-video-player>
+    </div>
+  </div>
+
+  <div class="card complete-form mb-3">
     <form class="card-body" [formGroup]="personalInfoForm" (ngSubmit)="submitPersonalInfo(personalInfoForm)">
       <div class="d-flex justify-content-between align-items-center w-100 mb-4">
         <h1 class="title f-size-18-md-sm">{{ 'PERSONAL_INFORMATION' | translate }}</h1>

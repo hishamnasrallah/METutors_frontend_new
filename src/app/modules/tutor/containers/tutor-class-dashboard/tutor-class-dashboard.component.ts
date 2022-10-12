@@ -57,6 +57,8 @@ export class TutorClassDashboardComponent implements OnInit {
     this._store.dispatch(fromCore.studentViewClass({ id }));
   }
 
+  onShowMoreUpcomingClasses(): void {}
+
   ngOnInit(): void {
     this._store.dispatch(fromCore.loadCourseById());
 

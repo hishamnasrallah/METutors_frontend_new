@@ -23,8 +23,10 @@
 
       <div class="row mb-3 mt-2">
         <div class="col-xl-6">
-          <h3 class="mb-2">{{ 'SPOKEN_LANGUAGES' | translate }} <span>({{ 'FOR_TEACHING' | translate }})</span></h3>
-          <a class="float-end cursor-pointer" (click)="addLanguage()" [ngClass]="{'text-secondary pointer-events-none': (languages.status === invalid || languages?.value?.length >=5)}">{{ 'ADD_NEW' | translate }}</a>
+          <div class="d-flex justify-content-between">
+            <h3 class="mb-2">{{ 'SPOKEN_LANGUAGES' | translate }} <span>({{ 'FOR_TEACHING' | translate }})</span></h3>
+            <a class="float-end cursor-pointer" (click)="addLanguage()" [ngClass]="{'text-secondary pointer-events-none': (languages.status === invalid || languages?.value?.length >=5)}">{{ 'ADD_NEW' | translate }}</a>
+          </div>
 
           <metutors-spoken-languages [form]="form" [languagesList]="languagesList" id="languages"
                                      (removeLanguage)="removeLanguage($event)">

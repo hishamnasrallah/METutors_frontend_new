@@ -490,6 +490,11 @@ rating span.bs-rating-star {
   }
 }
 
+.rotate-90 {
+  transition: all 0.25s ease-in-out;
+  transform: rotate(90deg);
+}
+
 .rotate-180 {
   transition: all 0.25s ease-in-out;
   transform: rotate(180deg);
