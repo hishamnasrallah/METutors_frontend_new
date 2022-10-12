@@ -615,20 +615,50 @@ export const reducer = createReducer(
     }
   ),
   // Is loading
-  on(studentActions.studentViewClass, (state) => ({
-    ...state,
-    isLoading: true,
-  })),
+  on(
+    studentActions.studentViewClass,
+    studentActions.studentUploadResourceDocument,
+    (state) => ({
+      ...state,
+      isLoading: true,
+    })
+  ),
 
   on(studentActions.studentViewClassSuccess, (state) => ({
     ...state,
     isLoading: false,
   })),
 
-  on(studentActions.studentViewClassFailure, (state) => ({
-    ...state,
-    isLoading: false,
-  }))
+  on(
+    studentActions.studentViewClassFailure,
+    studentActions.studentUploadResourceDocumentFailure,
+    (state) => ({
+      ...state,
+      isLoading: false,
+    })
+  ),
+  on(
+    studentActions.studentUploadResourceDocumentSuccess,
+    (state, { document }) => {
+      const finalState = {
+        ...state,
+        isLoading: false,
+      };
+
+      const studentOtherDocuments = [
+        ...finalState.resources.studentOtherDocuments,
+      ];
+
+      studentOtherDocuments.unshift(document);
+
+      finalState.resources = {
+        ...finalState.resources,
+        studentOtherDocuments,
+      };
+
+      return finalState;
+    }
+  )
 );
 
 export const selectStudent = (state: State): IStudent | null => state.student;

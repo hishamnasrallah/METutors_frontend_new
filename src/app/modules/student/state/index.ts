@@ -107,3 +107,8 @@ export const selectHighlightedModal = createSelector(
   selectStudentModalState,
   fromStudentModal.selectHighlightedModal
 );
+
+export const selectStudentShowModal = createSelector(
+  selectStudentModalState,
+  fromStudentModal.selectStudentShowModal
+);

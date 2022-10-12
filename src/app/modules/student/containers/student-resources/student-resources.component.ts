@@ -19,6 +19,8 @@ import {
   styleUrls: ['./student-resources.component.scss'],
 })
 export class StudentResourcesComponent implements OnInit {
+  uploadingDoc$: Observable<boolean>;
+  showUploadDocModal$: Observable<boolean>;
   openViewResourceModal$: Observable<boolean>;
   view$: Observable<{ loading: boolean; resources: any }>;
 
@@ -53,12 +55,34 @@ export class StudentResourcesComponent implements OnInit {
     this._store.dispatch(fromStudentAction.closeStudentViewResourceModal());
   }
 
-  onOpenUploadDocModal(): void {}
+  onOpenUploadDocModal(): void {
+    this._store.dispatch(fromStudentAction.openResourcesUploadDocModal());
+  }
+
+  onCloseUploadDocModal(): void {
+    this._store.dispatch(fromStudentAction.closeResourcesUploadDocModal());
+  }
+
+  onSubmitDocs(data: any, course_id: string): void {
+    const body = {
+      course_id,
+      ...data,
+    };
+
+    this._store.dispatch(fromCore.studentUploadResourceDocument({ body }));
+  }
 
   ngOnInit(): void {
     this._store.dispatch(fromCore.loadStudentResources());
+
+    this.uploadingDoc$ = this._store.select(fromCore.selectStudentLoading);
+
     this.openViewResourceModal$ = this._store.select(
       fromStudent.selectViewResourceModal
+    );
+
+    this.showUploadDocModal$ = this._store.select(
+      fromStudent.selectStudentShowModal
     );
 
     this.view$ = combineLatest([
