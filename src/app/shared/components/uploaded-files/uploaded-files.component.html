@@ -10,7 +10,7 @@
     </a>
 
     <mat-icon class="cursor-pointer ms-2 delete-icon file" *ngIf="showDeleteFile"
-              (click)="deleteFile.emit(file.id)" title="Delete file">
+              (click)="deleteFile.emit(file.id)" title="{{ 'DELETE' | translate }}">
       cancel
     </mat-icon>
   </div>

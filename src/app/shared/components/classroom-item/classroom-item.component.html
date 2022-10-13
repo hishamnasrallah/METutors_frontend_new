@@ -130,7 +130,7 @@
                 <mat-icon class="rotate-180-ar">arrow_forward</mat-icon>
               </a>
                <div class="d-flex" *ngIf="completeCourse">
-                <button mat-button class="secondary-btn flex-grow-1" (click)="reject.emit()">Reject</button>
+                <button mat-button class="secondary-btn flex-grow-1" (click)="reject.emit()">{{ 'REJECT' | translate }}</button>
                 <button mat-flat-button color="primary" class="flex-grow-1" (click)="accept.emit()" [disabled]="selectedId === classroom.id && isAcceptingCourse">
                   {{ 'ACCEPT' | translate }}
                   <mat-icon class="spinner" *ngIf="selectedId === classroom.id && isAcceptingCourse">autorenew</mat-icon>

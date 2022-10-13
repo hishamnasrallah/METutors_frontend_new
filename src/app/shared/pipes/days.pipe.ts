@@ -1,5 +1,4 @@
 import { Pipe, PipeTransform } from '@angular/core';
-
 import { WEEK_DAYS, WEEK_FULL_DAYS } from '@config';
 
 @Pipe({

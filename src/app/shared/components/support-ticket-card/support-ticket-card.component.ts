@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { TicketStatus, TicketPriority } from '@metutor/config';
 import { ITicket } from '@metutor/core/models';
+import { TicketStatus, TicketPriority } from '@metutor/config';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'metutors-support-ticket-card',

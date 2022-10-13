@@ -1,7 +1,7 @@
 <a class="card" [routerLink]="linkUrl">
   <div class="card-body">
     <div class="priority">
-      Priority:
+      {{ 'PRIORITY' | translate }}:
       <span class="status" [ngClass]="{
           'high': ticketPriority.high === ticket?.priority?.name,
           'low': ticketPriority.low === ticket?.priority?.name,
@@ -51,7 +51,7 @@
       </div>
       <div class="col-md-3 d-flex menu align-items-center" *ngIf="ticketStatus.closed === ticket?.status">
         <mat-icon>circle</mat-icon>
-        <span>Closed: {{ ticket?.updatedDate | date: 'EEEE, d MMM y' }}</span>
+        <span>{{ 'CLOSED' | translate }}: {{ ticket?.updatedDate | date: 'EEEE, d MMM y' }}</span>
       </div>
     </div>
   </div>

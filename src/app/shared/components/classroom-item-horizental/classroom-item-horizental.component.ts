@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
 import { ClassroomType } from 'src/app/config';
 import { IClassroom } from 'src/app/core/models';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'metutors-classroom-item-horizental',

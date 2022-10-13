@@ -169,7 +169,7 @@
 
           <metutors-confirm-modal *ngIf="showConfirmModal$ | async" [showModal]="(showConfirmModal$ | async)!"
                                   [loading]="(isDeletingAssignment$ | async)!"
-                                  [heading]="'Delete an Assignment'"
+                                  [heading]="'DELETE_ASSIGNMENT'"
                                   (confirm)="onDeleteAssignment(assignmentId)" (closeModal)="onCloseConfirmModal()">
           </metutors-confirm-modal>
 
