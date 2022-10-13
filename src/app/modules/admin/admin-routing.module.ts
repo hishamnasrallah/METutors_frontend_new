@@ -40,7 +40,7 @@ const routes: Routes = [
     canActivate: [AdminAuthGuard],
     data: {
       layout: {
-        title: 'Admin - MEtutors',
+        title: 'Admin',
         showHeader: false,
         showFooter: false,
       },
@@ -60,7 +60,7 @@ const routes: Routes = [
                     component: AdminTutorInterviewDocumentsComponent,
                     data: {
                       layout: {
-                        title: 'Tutor interview - Metutors',
+                        title: 'Tutor interview',
                         navbarTitle: 'Interview requests',
                         showHeader: false,
                         showFooter: false,
@@ -72,7 +72,7 @@ const routes: Routes = [
                     component: AdminTutorInterviewDetailsComponent,
                     data: {
                       layout: {
-                        title: 'Tutor interview - Metutors',
+                        title: 'Tutor interview',
                         navbarTitle: 'Interview requests',
                         showHeader: false,
                         showFooter: false,
@@ -86,7 +86,7 @@ const routes: Routes = [
                 component: AdminTutorInterviewComponent,
                 data: {
                   layout: {
-                    title: 'Tutor interview - Metutors',
+                    title: 'Tutor interview',
                     navbarTitle: 'Teachers',
                     showHeader: false,
                     showFooter: false,
@@ -100,7 +100,7 @@ const routes: Routes = [
             component: AdminTutorListComponent,
             data: {
               layout: {
-                title: 'All Teachers - Metutors',
+                title: 'All Teachers',
                 navbarTitle: 'Teachers',
                 showHeader: false,
                 showFooter: false,
@@ -112,7 +112,7 @@ const routes: Routes = [
             component: AdminCurrentTutorsComponent,
             data: {
               layout: {
-                title: 'Current Teachers - Metutors',
+                title: 'Current Teachers',
                 navbarTitle: 'Teachers',
                 showHeader: false,
                 showFooter: false,
@@ -124,7 +124,7 @@ const routes: Routes = [
             component: AdminPendingTutorsComponent,
             data: {
               layout: {
-                title: 'Pending Teachers - Metutors',
+                title: 'Pending Teachers',
                 navbarTitle: 'Teachers',
                 showHeader: false,
                 showFooter: false,
@@ -136,7 +136,7 @@ const routes: Routes = [
             component: AdminSuspendedTutorsComponent,
             data: {
               layout: {
-                title: 'Suspended Teachers - Metutors',
+                title: 'Suspended Teachers',
                 navbarTitle: 'Teachers',
                 showHeader: false,
                 showFooter: false,
@@ -148,7 +148,7 @@ const routes: Routes = [
             component: AdminWorkforceCapacityComponent,
             data: {
               layout: {
-                title: 'Workforce Capacity - Metutors',
+                title: 'Workforce Capacity',
                 navbarTitle: 'Teachers',
                 showHeader: false,
                 showFooter: false,
@@ -160,7 +160,7 @@ const routes: Routes = [
             component: AdminTeacherScheduleComponent,
             data: {
               layout: {
-                title: 'Teacher Schedule - Metutors',
+                title: 'Teacher Schedule',
                 navbarTitle: 'Teacher Schedule',
                 showHeader: false,
                 showFooter: false,
@@ -172,7 +172,7 @@ const routes: Routes = [
             component: AdminTutorProfileComponent,
             data: {
               layout: {
-                title: 'Tutor profile - Metutors',
+                title: 'Tutor profile',
                 navbarTitle: 'Tutor profile',
                 showHeader: false,
                 showFooter: false,
@@ -184,7 +184,7 @@ const routes: Routes = [
             component: AdminTutorBookingDetailsComponent,
             data: {
               layout: {
-                title: 'Booking Details - Metutors',
+                title: 'Booking Details',
                 navbarTitle: 'Booking Details',
                 showHeader: false,
                 showFooter: false,
@@ -206,7 +206,7 @@ const routes: Routes = [
             component: AdminStudentListComponent,
             data: {
               layout: {
-                title: 'Students - Metutors',
+                title: 'Students',
                 navbarTitle: 'Students',
                 showHeader: false,
                 showFooter: false,
@@ -218,7 +218,7 @@ const routes: Routes = [
             component: AdminStudentProfileComponent,
             data: {
               layout: {
-                title: 'Student profile - Metutors',
+                title: 'Student profile',
                 navbarTitle: 'Student profile',
                 showHeader: false,
                 showFooter: false,
@@ -230,7 +230,7 @@ const routes: Routes = [
             component: AdminStudentBookingDetailComponent,
             data: {
               layout: {
-                title: 'Student booking detail - Metutors',
+                title: 'Student booking detail',
                 navbarTitle: 'Booking detail',
                 showHeader: false,
                 showFooter: false,
@@ -247,7 +247,7 @@ const routes: Routes = [
             component: AdminClassroomsListComponent,
             data: {
               layout: {
-                title: 'All Booking - Metutors',
+                title: 'All Booking',
                 navbarTitle: 'Classrooms',
                 showHeader: false,
                 showFooter: false,
@@ -259,7 +259,7 @@ const routes: Routes = [
             component: AdminCancelledClassroomsComponent,
             data: {
               layout: {
-                title: 'Cancelled - Metutors',
+                title: 'Cancelled',
                 navbarTitle: 'Classrooms',
                 showHeader: false,
                 showFooter: false,
@@ -271,7 +271,7 @@ const routes: Routes = [
             component: AdminClassroomsPerCourseComponent,
             data: {
               layout: {
-                title: 'Course - Metutors',
+                title: 'Course',
                 navbarTitle: 'Classrooms',
                 showHeader: false,
                 showFooter: false,
@@ -293,7 +293,7 @@ const routes: Routes = [
             component: AdminFinanceCoursesComponent,
             data: {
               layout: {
-                title: 'All Courses - Metutors',
+                title: 'All Courses',
                 navbarTitle: 'Finance',
                 showHeader: false,
                 showFooter: false,
@@ -305,7 +305,7 @@ const routes: Routes = [
             component: AdminFinanceOrdersComponent,
             data: {
               layout: {
-                title: 'Finance Orders - Metutors',
+                title: 'Finance Orders',
                 navbarTitle: 'Finance',
                 showHeader: false,
                 showFooter: false,
@@ -317,7 +317,7 @@ const routes: Routes = [
             component: AdminFinanceRefundOrdersComponent,
             data: {
               layout: {
-                title: 'Finance Refund Orders - Metutors',
+                title: 'Finance Refund Orders',
                 navbarTitle: 'Finance',
                 showHeader: false,
                 showFooter: false,
@@ -339,7 +339,7 @@ const routes: Routes = [
             component: AdminProgramHomeComponent,
             data: {
               layout: {
-                title: 'Program list - Metutors',
+                title: 'Program list',
                 navbarTitle: 'Management',
                 showHeader: false,
                 showFooter: false,
@@ -351,7 +351,7 @@ const routes: Routes = [
             component: AdminManagementTutorReAssignmentComponent,
             data: {
               layout: {
-                title: 'Tutor Re-assignment - Metutors',
+                title: 'Tutor Re-assignment',
                 navbarTitle: 'Management',
                 showHeader: false,
                 showFooter: false,
@@ -363,7 +363,7 @@ const routes: Routes = [
             component: TutorApprovalRequestComponent,
             data: {
               layout: {
-                title: 'Tutor Approval Request - Metutors',
+                title: 'Tutor Approval Request',
                 navbarTitle: 'Management',
                 showHeader: false,
                 showFooter: false,
@@ -375,7 +375,7 @@ const routes: Routes = [
             component: AdminCourseRequestsComponent,
             data: {
               layout: {
-                title: 'New Course Requests - Metutors',
+                title: 'New Course Requests',
                 navbarTitle: 'Management',
                 showHeader: false,
                 showFooter: false,
@@ -387,7 +387,7 @@ const routes: Routes = [
             component: AdminTestimonialsComponent,
             data: {
               layout: {
-                title: 'Testimonials - Metutors',
+                title: 'Testimonials',
                 navbarTitle: 'Management',
                 showHeader: false,
                 showFooter: false,
@@ -409,7 +409,7 @@ const routes: Routes = [
             component: AdminSupportTicketComponent,
             data: {
               layout: {
-                title: 'Support ticket - Metutors',
+                title: 'Support ticket',
                 navbarTitle: 'Support ticket',
                 showHeader: false,
                 showFooter: false,
@@ -421,7 +421,7 @@ const routes: Routes = [
             component: AdminTicketDetailsComponent,
             data: {
               layout: {
-                title: 'Ticket details - Metutors',
+                title: 'Ticket details',
                 navbarTitle: 'TICKET_DETAILS',
                 showHeader: false,
                 showFooter: false,

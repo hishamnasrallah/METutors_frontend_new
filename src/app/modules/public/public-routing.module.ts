@@ -26,62 +26,62 @@ const routes: Routes = [
   {
     path: 'welcome',
     component: WelcomeComponent,
-    data: { layout: { title: 'Welcome - Metutors' } },
+    data: { layout: { title: 'WELCOME' } },
   },
   {
     path: 'study',
     component: StudyComponent,
-    data: { layout: { title: 'Study - Metutors' } },
+    data: { layout: { title: 'STUDY' } },
   },
   {
     path: 'become-tutor',
     component: BecomeTutorComponent,
-    data: { layout: { title: 'Become A Tutor - Metutors' } },
+    data: { layout: { title: 'BECOME_TUTOR' } },
   },
   {
     path: 'about',
     component: AboutComponent,
-    data: { layout: { title: 'About - Metutors' } },
+    data: { layout: { title: 'ABOUT_US' } },
   },
   {
     path: 'contact',
     component: ContactComponent,
-    data: { layout: { title: 'Contact - Metutors' } },
+    data: { layout: { title: 'CONTACT_US' } },
   },
   {
     path: 'faq',
     component: FaqComponent,
-    data: { layout: { title: 'FAQ - Metutors' } },
+    data: { layout: { title: 'FAQS' } },
   },
   {
     path: 'faq/:topic',
     component: FaqTicketComponent,
-    data: { layout: { title: 'FAQ - Metutors' } },
+    data: { layout: { title: 'FAQS' } },
   },
   {
     path: 'languages-courses',
     component: LanguagesCoursesComponent,
-    data: { layout: { title: 'Languages - Metutors' } },
+    data: { layout: { title: 'LANGUAGES' } },
   },
   {
     path: 'all-courses/:programId',
     component: AllCoursesComponent,
-    data: { layout: { title: 'Courses - Metutors' } },
+    data: { layout: { title: 'COURSES' } },
   },
   {
     path: 'student-terms-conditions',
     component: StudentTermsConditionsComponent,
-    data: { layout: { title: 'Terms and Conditions - Metutors' } },
+    data: { layout: { title: 'TERMS_CONDITIONS' } },
   },
   {
     path: 'tutor-terms-conditions',
     component: TutorTermsConditionsComponent,
-    data: { layout: { title: 'Terms and Conditions - Metutors' } },
+    data: { layout: { title: 'TERMS_CONDITIONS' } },
   },
   {
     path: 'privacy-policy',
     component: PrivacyPolicyComponent,
-    data: { layout: { title: 'Privacy Policy - Metutors' } },
+    data: { layout: { title: 'PRIVACY_POLICY' } },
   },
 ];
 

@@ -24,7 +24,7 @@ const routes: Routes = [
     component: StudentComponent,
     data: {
       layout: {
-        title: 'Student - Metutors',
+        title: 'STUDENT',
         showHeader: false,
         showFooter: false,
       },
@@ -38,8 +38,8 @@ const routes: Routes = [
             component: StudentClassroomsComponent,
             data: {
               layout: {
-                title: 'Student Classroom - Metutors',
-                navbarTitle: 'Classroom',
+                title: 'CLASSROOMS',
+                navbarTitle: 'CLASSROOMS',
                 showHeader: false,
                 showFooter: false,
               },
@@ -50,7 +50,7 @@ const routes: Routes = [
             component: StudentClassesComponent,
             data: {
               layout: {
-                title: 'Student Classes - Metutors',
+                title: 'CLASSES_DASHBOARD',
                 navbarTitle: 'CLASSES_DASHBOARD',
                 showHeader: false,
                 showFooter: false,
@@ -63,8 +63,8 @@ const routes: Routes = [
                 component: StudentSyllabusComponent,
                 data: {
                   layout: {
-                    title: 'Student Syllabus - Metutors',
-                    navbarTitle: 'Syllabus',
+                    title: 'MY_SYLLABUS',
+                    navbarTitle: 'SYLLABUS',
                     showHeader: false,
                     showFooter: false,
                     hideSidebar: true,
@@ -76,8 +76,8 @@ const routes: Routes = [
                 component: StudentResourcesComponent,
                 data: {
                   layout: {
-                    title: 'Student Resources - Metutors',
-                    navbarTitle: 'Resources',
+                    title: 'MY_RESOURCES',
+                    navbarTitle: 'RESOURCES',
                     showHeader: false,
                     showFooter: false,
                     hideSidebar: true,
@@ -90,8 +90,8 @@ const routes: Routes = [
                 component: StudentAssignmentsComponent,
                 data: {
                   layout: {
-                    title: 'Student Assignments - Metutors',
-                    navbarTitle: 'Assignments Dashboard',
+                    title: 'MY_ASSIGNMENTS',
+                    navbarTitle: 'ASSIGNMENTS',
                     showHeader: false,
                     showFooter: false,
                     hideSidebar: true,
@@ -103,7 +103,7 @@ const routes: Routes = [
                 component: StudentClassDashboardComponent,
                 data: {
                   layout: {
-                    title: 'Student Classes - Metutors',
+                    title: 'CLASSES_DASHBOARD',
                     navbarTitle: 'CLASSES_DASHBOARD',
                     showHeader: false,
                     showFooter: false,
@@ -125,8 +125,8 @@ const routes: Routes = [
         component: StudentHelpComponent,
         data: {
           layout: {
-            title: 'Help - Metutors',
-            navbarTitle: 'Help',
+            title: 'HELP',
+            navbarTitle: 'HELP',
             showHeader: false,
             showFooter: false,
             hideSidebar: true,
@@ -138,8 +138,8 @@ const routes: Routes = [
             component: StudentFaqComponent,
             data: {
               layout: {
-                title: 'FAQs - Metutors',
-                navbarTitle: 'Frequently asked questions',
+                title: 'FAQS',
+                navbarTitle: 'FREQUENTLY_ASKED_QUESTIONS',
                 showHeader: false,
                 showFooter: false,
                 hideSidebar: true,
@@ -154,7 +154,7 @@ const routes: Routes = [
                 component: StudentSupportTicketComponent,
                 data: {
                   layout: {
-                    title: 'My tickets - Metutors',
+                    title: 'SUPPORT_TICKET',
                     navbarTitle: 'SUPPORT_TICKET',
                     showHeader: false,
                     showFooter: false,
@@ -167,8 +167,8 @@ const routes: Routes = [
                 component: StudentCreateTicketComponent,
                 data: {
                   layout: {
-                    title: 'Create ticket - Metutors',
-                    navbarTitle: 'Create ticket',
+                    title: 'CREATE_TICKET',
+                    navbarTitle: 'CREATE_TICKET',
                     showHeader: false,
                     showFooter: false,
                     hideSidebar: true,
@@ -180,7 +180,7 @@ const routes: Routes = [
                 component: StudentTicketDetailsComponent,
                 data: {
                   layout: {
-                    title: 'Ticket details - Metutors',
+                    title: 'TICKET_DETAILS',
                     navbarTitle: 'TICKET_DETAILS',
                     showHeader: false,
                     showFooter: false,
@@ -202,8 +202,8 @@ const routes: Routes = [
         component: StudentDashboardComponent,
         data: {
           layout: {
-            title: 'Dashboard - Metutors',
-            navbarTitle: 'Student Dashboard',
+            title: 'DASHBOARD',
+            navbarTitle: 'STUDENT_DASHBAORD',
             showHeader: false,
             showFooter: false,
           },
@@ -214,8 +214,8 @@ const routes: Routes = [
         component: StudentCertificatesComponent,
         data: {
           layout: {
-            title: 'Certificates - Metutors',
-            navbarTitle: 'Certificates',
+            title: 'CERTIFICATES',
+            navbarTitle: 'CERTIFICATES',
             showHeader: false,
             showFooter: false,
           },
@@ -226,8 +226,8 @@ const routes: Routes = [
         component: StudentSettingsComponent,
         data: {
           layout: {
-            title: 'Settings - Metutors',
-            navbarTitle: 'Settings',
+            title: 'SETTINGS',
+            navbarTitle: 'SETTINGS',
             showHeader: false,
             showFooter: false,
           },

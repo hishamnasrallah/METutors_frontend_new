@@ -13,7 +13,7 @@ const routes: Routes = [
     component: RequestTutorComponent,
     data: {
       layout: {
-        title: 'Request Academic Tutoring - MEtutors',
+        title: 'COURSE_BOOKING',
       },
     },
   },
@@ -22,7 +22,7 @@ const routes: Routes = [
     component: InvoiceDetailsComponent,
     data: {
       layout: {
-        title: 'Invoice details - MEtutors',
+        title: 'INVOICE_DETAILS',
       },
     },
   },
@@ -31,7 +31,7 @@ const routes: Routes = [
     component: InvoiceDetailsComponent,
     data: {
       layout: {
-        title: 'Invoice details - MEtutors',
+        title: 'INVOICE_DETAILS',
       },
     },
   },
@@ -40,7 +40,7 @@ const routes: Routes = [
     component: PaymentProcessingComponent,
     data: {
       layout: {
-        title: 'Payment Processing - MEtutors',
+        title: 'PAYMENT_PROCESSING',
       },
     },
   },

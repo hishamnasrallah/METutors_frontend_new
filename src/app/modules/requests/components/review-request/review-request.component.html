@@ -302,7 +302,7 @@
           </div>
           <div class="mt-3 hide-print">
             <mat-checkbox [(ngModel)]="conditions">
-              {{ 'I_AGREE_THE' | translate }} <a routerLink="/student-terms-conditions" target="_blank">{{ 'TERMS_CONDITIONS' | translate }}.</a>
+              {{ 'I_AGREE_THE' | translate }} <a routerLink="/student-terms-conditions" target="_blank">{{ 'TERMS_CONDITIONS' | translate | lowercase }}.</a>
             </mat-checkbox>
           </div>
         </div>

@@ -84,7 +84,12 @@ export class AppComponent implements OnInit, OnDestroy {
       .subscribe((x: any) => {
         this.layout = x?.layout;
 
-        if (this.layout?.title) this._title.setTitle(this.layout.title);
+        if (this.layout?.title && this.layout?.title !== 'MEtutors')
+          this.translate
+            .get(this.layout.title)
+            .subscribe((response) =>
+              this._title.setTitle(`${response} - MEtutors`)
+            );
         else this._title.setTitle('MEtutors');
       });
   }

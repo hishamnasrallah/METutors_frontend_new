@@ -14,7 +14,7 @@ const routes: Routes = [
     component: CompleteTutorProfileComponent,
     data: {
       layout: {
-        title: 'Complete tutor profile - MEtutors',
+        title: 'COMPLETE_TUTOR_PROFILE',
         showHeader: false,
         showFooter: false,
       },
@@ -23,7 +23,7 @@ const routes: Routes = [
   {
     path: 'tutor/:id',
     component: TutorProfileComponent,
-    data: { layout: { title: 'Tutor profile' } },
+    data: { layout: { title: 'TUTOR_PROFILE' } },
   },
   {
     path: '',

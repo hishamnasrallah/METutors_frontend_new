@@ -18,7 +18,7 @@ const routes: Routes = [
     canActivate: [NotAuthGuard],
     data: {
       layout: {
-        title: 'Sign in - MEtutors',
+        title: 'SIGN_IN',
         showHeader: false,
         showFooter: false,
       },
@@ -30,7 +30,7 @@ const routes: Routes = [
     canActivate: [NotAuthGuard],
     data: {
       layout: {
-        title: 'Sign up - MEtutors',
+        title: 'SIGN_UP',
         showHeader: false,
         showFooter: false,
       },
@@ -41,7 +41,7 @@ const routes: Routes = [
     component: ForgetPasswordComponent,
     data: {
       layout: {
-        title: 'Forget password - MEtutors',
+        title: 'FORGET_PASSWORD',
         showFooter: false,
       },
     },
@@ -51,7 +51,7 @@ const routes: Routes = [
     component: ResetPasswordComponent,
     data: {
       layout: {
-        title: 'Reset password - MEtutors',
+        title: 'RESET_PASSWORD',
         showFooter: false,
       },
     },
@@ -61,7 +61,7 @@ const routes: Routes = [
     component: ResetPasswordComponent,
     data: {
       layout: {
-        title: 'Reset password - MEtutors',
+        title: 'RESET_PASSWORD',
         showHeader: false,
         showFooter: false,
       },
@@ -72,7 +72,7 @@ const routes: Routes = [
     component: ConfirmEmailComponent,
     data: {
       layout: {
-        title: 'Confirm email - MEtutors',
+        title: 'CONFIRM_EMAIL',
         showFooter: false,
       },
     },
@@ -82,7 +82,7 @@ const routes: Routes = [
     component: AccessDeniedComponent,
     data: {
       layout: {
-        title: 'Access Denied - MEtutors',
+        title: 'ACCESS_DENIED',
         showHeader: false,
         showFooter: false,
       },

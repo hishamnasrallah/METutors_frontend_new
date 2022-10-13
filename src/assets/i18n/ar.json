@@ -979,5 +979,16 @@
   "SIGNING_UNDERSTAND_CONTRACT": "By signing, I understand this is a legally binding contract",
   "DRAW_SIGNATURE": "Draw signature",
   "DRAW_SIGNATURE_MIDDLE_CANVAS": "Draw your signature in the middle of canvas",
-  "INSERT_SIGNATURE": "Insert signature"
+  "INSERT_SIGNATURE": "Insert signature",
+  "SIGN_UP": "Sign up",
+  "CONFIRM_EMAIL": "Confirm email",
+  "ACCESS_DENIED": "Access denied",
+  "COMPLETE_TUTOR_PROFILE": "Complete tutor profile",
+  "TUTOR_PROFILE": "Tutor profile",
+  "COURSES": "Courses",
+  "PAYMENT_PROCESSING": "Payment processing",
+  "FREQUENTLY_ASKED_QUESTIONS": "Frequently asked questions",
+  "CREATE_TICKET": "Create ticket",
+  "STUDENT_DASHBAORD": "Student dashboard",
+  "TUTOR_DASHBOARD": "Tutor dashboard"
 }

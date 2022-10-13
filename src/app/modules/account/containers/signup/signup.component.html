@@ -118,7 +118,7 @@
               <mat-checkbox formControlName="conditions">
                 {{ 'I_AGREE_THE' | translate }} <a
                   [routerLink]="accountType === userRole.tutor ? '/tutor-terms-conditions' : '/student-terms-conditions'"
-                  target="_blank">{{ 'TERMS_CONDITIONS' | translate }}.</a>
+                  target="_blank">{{ 'TERMS_CONDITIONS' | translate | lowercase }}.</a>
               </mat-checkbox>
             </div>
 
