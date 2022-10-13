@@ -5,7 +5,8 @@
         <h2 class="f-size-17-md-sm">{{ 'COURSE_DETAILS' | translate }}</h2>
         <h4 class="f-size-15-md-sm">{{ 'ADD_COURSE_INFORMATION' | translate }}:</h4>
 
-        <h5 class="mt-4 mb-0" *ngIf="selectedCourse">{{ 'COURSE_ID' | translate }}: <span>CID{{ selectedCourse.id }}</span></h5>
+        <h5 class="mt-4 mb-0" *ngIf="selectedCourse">{{ 'COURSE_ID' | translate }}:
+          <span>CID{{ selectedCourse.id }}</span></h5>
       </div>
       <div class="col-md-8 mt-15-sm">
         <div class="row">
@@ -13,7 +14,7 @@
             <h3>{{ 'PROGRAM_NAME' | translate }}</h3>
             <mat-form-field appearance="outline" class="w-100">
               <mat-select formControlName="courseProgram" placeholder="{{ 'CHOOSE_PROGRAM' | translate }}"
-                (selectionChange)="onChangeCourseProgram(); resetValues()">
+                          (selectionChange)="onChangeCourseProgram(); resetValues()">
                 <mat-option [value]="program?.id" *ngFor="let program of programs">
                   {{ program?.name }}
                 </mat-option>
@@ -25,7 +26,7 @@
               <h3>{{ 'SELECT_COUNTRY' | translate }}</h3>
               <mat-form-field appearance="outline" class="w-100">
                 <mat-select formControlName="courseCountry" placeholder="{{ 'CHOOSE_COUNTRY' | translate }}"
-                  (selectionChange)="onChangeCourseProgram(); resetValues()">
+                            (selectionChange)="onChangeCourseProgram(); resetValues()">
                   <mat-option [value]="country?.id" *ngFor="let country of countries">
                     <span [innerHTML]="country?.flag" class="me-2"></span>
                     {{ country?.name }}
@@ -37,7 +38,7 @@
               <h3>{{ 'SELECT_GRADE_LEVEL' | translate }}</h3>
               <mat-form-field appearance="outline" class="w-100">
                 <mat-select formControlName="courseGrade" placeholder="{{ 'CHOOSE_GRADE' | translate }}"
-                  (selectionChange)="onChangeCourseProgram(); resetValues()">
+                            (selectionChange)="onChangeCourseProgram(); resetValues()">
                   <mat-option [value]="i + 1" *ngFor="let grade of grades; let i = index">
                     {{ grade }}
                   </mat-option>
@@ -49,7 +50,7 @@
             <h3>{{ 'FIELD_STUDY' | translate }}</h3>
             <mat-form-field appearance="outline" class="w-100">
               <mat-select formControlName="courseField" placeholder="{{ 'CHOOSE_FIELD_STUDY' | translate }}"
-                (selectionChange)="onChangeCourseField()">
+                          (selectionChange)="onChangeCourseField()">
                 <mat-option [value]="field?.id" *ngFor="let field of fields">
                   {{ field?.name }}
                 </mat-option>
@@ -65,7 +66,7 @@
             <h3>{{ 'SUBJECT' | translate }}</h3>
             <mat-form-field appearance="outline" class="w-100">
               <mat-select formControlName="subject" placeholder="{{ 'CHOOSE_SUBJECT' | translate }}"
-                (selectionChange)="onChangeCourseSubject()">
+                          (selectionChange)="onChangeCourseSubject()">
                 <mat-option [value]="subject?.id" *ngFor="let subject of subjects">
                   {{ subject?.name }}
                 </mat-option>
@@ -105,9 +106,10 @@
                     <h1>{{ 'ADD_TOPIC_NAME' | translate }}</h1>
                     <div class="d-flex">
                       <input type="text" formControlName="name" placeholder="{{ 'ENTER_TOPIC_NAME' | translate }}"
-                        class="flex-grow-1 form-control">
-                      <button mat-flat-button color="primary" type="button" class="add-btn" [disabled]="topic.get('name')?.invalid"
-                        (click)="addNewTopic(i)">{{ 'ADD' | translate }}</button>
+                             class="flex-grow-1 form-control">
+                      <button mat-flat-button color="primary" type="button" class="add-btn"
+                              [disabled]="topic.get('name')?.invalid"
+                              (click)="addNewTopic(i)">{{ 'ADD' | translate }}</button>
                     </div>
                     <div class="text-danger" *ngIf="topic.get('name')?.dirty && topic.get('name')?.invalid">
                       {{ 'WRITE_TOPIC_NAME_MAX_CHARACTERS' | translate }}
@@ -129,8 +131,9 @@
             </ng-container>
 
             <button mat-flat-button type="button" *ngIf="showAddTopic" color="primary" class="float-end mb-4"
-              (click)="addTopic()">
-              <mat-icon>add</mat-icon> {{ 'ADD_NEW_TOPIC' | translate }}
+                    (click)="addTopic()">
+              <mat-icon>add</mat-icon>
+              {{ 'ADD_NEW_TOPIC' | translate }}
             </button>
 
             <div class="table-responsive w-100" *ngIf="checkTableView">
@@ -183,7 +186,7 @@
         </mat-radio-group>
 
         <div class="row my-3" [@slideInOut] *ngIf="information?.value === academicTutoringTextbook.pdf">
-          <div class="col-md-6 upload-textbook">
+          <div class="col-md-6 upload-textbook" [ngClass]="{'cursor-not-allowed pointer-events-none': uploadedFiles?.length}">
             <div class="row">
               <div class="col">
                 <h5>{{ 'UPLOAD_TEXTBOOK' | translate }}</h5>
@@ -196,19 +199,23 @@
               </button>
             </div>
           </div>
-          <div class="col-md-12" *ngIf="filePreview">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="block-file d-flex mt-3 align-items-center">
-                  <mat-icon>attach_file</mat-icon>
-                  <div class="ms-2">
-                    <h3>{{ filePreview?.name }}</h3>
-                    <h5>{{ filePreview?.size }}</h5>
-                  </div>
-                </div>
-              </div>
-            </div>
+
+          <div class="col-md-6" *ngIf="fileUploadProgress?.length">
+            <ng-container *ngFor="let uploadProgress of fileUploadProgress">
+              <ng-container *ngIf="uploadProgress.responseType !== uploadComplete">
+                <metutors-file-upload-progress [fileName]="uploadProgress.fileName"
+                                               [uploadedPercentage]="uploadProgress.progress">
+                </metutors-file-upload-progress>
+              </ng-container>
+            </ng-container>
+
+            <ng-container *ngIf="uploadedFiles?.length">
+              <metutors-uploaded-files [files]="uploadedFiles" [showDownloadFile]="false" [extraClasses]="'col-md-7'"
+                                       [showDeleteFile]="true" (deleteFile)="deleteFile.emit($event)">
+              </metutors-uploaded-files>
+            </ng-container>
           </div>
+
         </div>
 
         <div class="row my-3" [@slideInOut] *ngIf="information?.value === academicTutoringTextbook.info">
@@ -228,7 +235,8 @@
           </div>
           <div class="col-md-4 mt-15-sm">
             <h3>{{ 'TEXTBOOK_AUTHOR' | translate }} *</h3>
-            <input type="text" formControlName="author" class="form-control" placeholder="{{ 'TYPE_AUTHOR' | translate }}">
+            <input type="text" formControlName="author" class="form-control"
+                   placeholder="{{ 'TYPE_AUTHOR' | translate }}">
           </div>
         </div>
       </div>

@@ -60,24 +60,29 @@ import {
 })
 export class CourseInformationFormComponent implements OnInit {
   @Input() form!: FormGroup;
+  @Input() uploadedFiles: any;
   @Input() selectedCourse: any;
+  @Input() fileUploadProgress: any;
   @Input() fields: IField[] | null;
   @Input() subjects: ISubject[] | null;
   @Input() programs: IProgram[] | null;
   @Input() countries: ICountry[] | null;
   @Input() languages: ILanguage[] | null;
 
+  @Output() uploadedFile = new EventEmitter<any>();
+  @Output() deleteFile = new EventEmitter<number>();
   @Output() submitForm = new EventEmitter<FormGroup>();
   @Output() changeCourseField = new EventEmitter<string>();
   @Output() changeCourseProgram = new EventEmitter<string>();
   @Output() changeCourseSubject = new EventEmitter<string>();
 
   grades = GRADES;
-  filePreview: any;
+  // filePreview: any;
   showAddTopic = false;
   topicsScale = CLASSROOM_TOPICS_SCALE_NUM;
   nationalId = generalConstants.nationalId;
   textbookEditions = TEXTBOOK_EDITION_CONST;
+  uploadComplete = generalConstants.uploadComplete;
   academicTutoringTextbook = AcademicTutoringTextbook;
 
   constructor(
@@ -270,12 +275,14 @@ export class CourseInformationFormComponent implements OnInit {
         return;
       }
 
-      this.form.patchValue({ file });
+      this.uploadedFile.emit([...event.target.files]);
+
+      /* this.form.patchValue({ file });
       this.file?.updateValueAndValidity();
       this.filePreview = {
         name: file.name,
         size: formatBytes(file.size),
-      };
+      };*/
     }
   }
 

@@ -315,85 +315,8 @@ export class CoursesService {
       .pipe(catchError(this.errorHandler));
   }
 
-  createCourse(value: any): Observable<any> {
-    const formData = new FormData();
-
-    const weekdays =
-      value.days && value.days.length
-        ? value.days.map((day: string) => SORTED_DAYS_WEEK.indexOf(day) + 1)
-        : [];
-
-    if (value.courseProgram) formData.append('program_id', value.courseProgram);
-    if (value.courseLevel) formData.append('course_level', value.courseLevel);
-    if (value.courseField) formData.append('field_of_study', value.courseField);
-    if (value.language) formData.append('language_id', value.language);
-    if (value.subject) formData.append('subject_id', value.subject);
-    if (value.information) formData.append('book_info', value.information);
-    if (value.information === AcademicTutoringTextbook.pdf && value.file)
-      formData.append('files', value.file);
-    if (value.information === AcademicTutoringTextbook.info) {
-      if (value.name) formData.append('book_name', value.name);
-      if (value.edition) formData.append('book_edition', value.edition);
-      if (value.author) formData.append('book_author', value.author);
-    }
-
-    if (value.startDate)
-      formData.append('start_date', new Date(value.startDate)?.toISOString());
-    if (value.endDate)
-      formData.append('end_date', new Date(value.endDate)?.toISOString());
-    if (value.startTime)
-      formData.append(
-        'start_time',
-        new Date(
-          Date.parse(value.startDate + ' ' + value.startTime)
-        )?.toISOString()
-      );
-    if (value.endTime)
-      formData.append(
-        'end_time',
-        new Date(Date.parse(value.endDate + ' ' + value.endTime))?.toISOString()
-      );
-    if (weekdays) formData.append('weekdays', weekdays);
-    if (value.hours) formData.append('total_hours', value.hours);
-    if (value.totalPrice) formData.append('total_price', value.totalPrice);
-    if (value.classes) formData.append('total_classes', value.classes);
-    if (value.courseCountry) formData.append('country_id', value.courseCountry);
-    if (value.type) formData.append('class_type', value.type);
-    if (value.redirect_url) formData.append('redirect_url', value.redirect_url);
-    if (value.topics && value.topics.length)
-      formData.append(
-        'highlighted_topics',
-        JSON.stringify(
-          value.topics.map((topic: any) => ({
-            name: topic.name,
-            knowledge_scale: CLASSROOM_TOPICS_SCALE_NUM[topic.scale],
-          }))
-        )
-      );
-
-    if (value.classrooms && value.classrooms.length)
-      formData.append(
-        'classes',
-        JSON.stringify(
-          value.classrooms.map((classroom: any) => ({
-            ...classroom,
-            date: new Date(classroom?.date)?.toISOString(),
-            start_time: new Date(
-              Date.parse(classroom?.date + ' ' + classroom?.start_time)
-            )?.toISOString(),
-            end_time: new Date(
-              Date.parse(classroom?.date + ' ' + classroom?.end_time)
-            )?.toISOString(),
-          }))
-        )
-      );
-
-    if (value.tutor) formData.append('teacher_id', value.tutor?.id);
-
-    return this.http.post<{ class: { id: number } }>(
-      `${this.baseUrl}create-class`,
-      formData
-    );
+  createCourse(body: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}create-class`, body);
   }
 
   customizeClassroom(value: any): Observable<any> {

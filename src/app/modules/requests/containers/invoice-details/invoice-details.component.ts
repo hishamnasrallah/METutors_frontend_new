@@ -3,9 +3,14 @@ import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { environment } from '@environment';
 import * as fromCore from '@metutor/core/state';
-import { Component, OnInit } from '@angular/core'; 
+import { Component, OnInit } from '@angular/core';
 import * as fromRequests from '@metutor/modules/requests/state';
 import { IClassroom, IInvoiceDetails, IUser } from '@metutor/core/models';
+import {
+  AcademicTutoringTextbook,
+  CLASSROOM_TOPICS_SCALE_NUM,
+  SORTED_DAYS_WEEK,
+} from '@config';
 
 @Component({
   selector: 'metutors-invoice-details',
@@ -52,18 +57,73 @@ export class InvoiceDetailsComponent implements OnInit {
     );
   }
 
-  saveCourse(user: IUser, classroom: IClassroom): void {
+  saveCourse(user: IUser, classroom: any): void {
     // this.showModal = true;
     // return;
 
     if (user) {
-      const data = {
-        redirect_url: this.baseURL + '/requests/payment-processing',
+      const classrooms = classroom.classrooms.map((classroom: any) => ({
         ...classroom,
-        classrooms: classroom.classrooms.map((classroom: any) => ({
-          ...classroom,
-          day: +classroom.day + 1,
-        })),
+        day: +classroom.day + 1,
+      }));
+
+      const start_time = new Date(
+        Date.parse(classroom.startDate + ' ' + classroom.startTime)
+      )?.toISOString();
+
+      const end_time = new Date(
+        Date.parse(classroom.endDate + ' ' + classroom.endTime)
+      )?.toISOString();
+
+      const weekdays =
+        classroom.days && classroom.days.length
+          ? classroom.days.map(
+              (day: string) => SORTED_DAYS_WEEK.indexOf(day) + 1
+            )
+          : [];
+
+      const highlighted_topics = classroom.topics.map((topic: any) => ({
+        name: topic.name,
+        knowledge_scale: CLASSROOM_TOPICS_SCALE_NUM[topic.scale],
+      }));
+
+      const classes = classroom.classrooms.map((classroom: any) => ({
+        ...classroom,
+        date: new Date(classroom?.date)?.toISOString(),
+        start_time: new Date(
+          Date.parse(classroom?.date + ' ' + classroom?.start_time)
+        )?.toISOString(),
+        end_time: new Date(
+          Date.parse(classroom?.date + ' ' + classroom?.end_time)
+        )?.toISOString(),
+      }));
+
+      const data = {
+        classes,
+        weekdays,
+        end_time,
+        start_time,
+        classrooms,
+        highlighted_topics,
+        file: classroom.file,
+        author: classroom.author,
+        book_name: classroom.name,
+        class_type: classroom.type,
+        total_price: classroom.hours,
+        subject_id: classroom.subject,
+        language_id: classroom.language,
+        book_edition: classroom.edition,
+        teacher_id: classroom.tutor?.id,
+        book_info: classroom.information,
+        total_classes: classroom.classes,
+        total_hours: classroom.totalPrice,
+        course_level: classroom.courseLevel,
+        country_id: classroom.courseCountry,
+        program_id: classroom.courseProgram,
+        field_of_study: classroom.courseField,
+        end_date: new Date(classroom.endDate)?.toISOString(),
+        start_date: new Date(classroom.startDate)?.toISOString(),
+        redirect_url: this.baseURL + '/requests/payment-processing',
       };
 
       this._store.dispatch(fromCore.createCourse({ data }));

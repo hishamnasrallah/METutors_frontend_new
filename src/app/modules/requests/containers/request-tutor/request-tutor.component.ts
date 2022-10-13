@@ -2,17 +2,23 @@ import { Store } from '@ngrx/store';
 import { Observable, tap } from 'rxjs';
 import { isNil, omitBy } from 'lodash';
 import { DatePipe } from '@angular/common';
-import * as fromCore from '@metutor/core/state';
 import { ActivatedRoute } from '@angular/router';
 import { MatStepper } from '@angular/material/stepper';
+
+import {
+  FormGroup,
+  Validators,
+  FormBuilder,
+  AbstractControl,
+} from '@angular/forms';
+
+import * as fromCore from '@metutor/core/state';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import * as fromRequests from '@metutor/modules/requests/state';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { FormValidationUtilsService } from '@metutor/core/validators';
 import * as fromRequestsActions from '@metutor/modules/requests/state/actions';
 import {
   GRADES,
-  formatBytes,
   SORTED_DAYS_WEEK,
   generalConstants,
   calculateListDays,
@@ -40,9 +46,11 @@ import {
 export class RequestTutorComponent implements OnInit {
   @ViewChild('stepper') private myStepper?: MatStepper;
 
+  uploadedFiles$: Observable<any>;
   price$: Observable<number | null>;
   tutorAvailability$: Observable<any>;
   loadingTutors$: Observable<boolean>;
+  fileUploadProgress$: Observable<any>;
   fields$: Observable<IField[] | null>;
   isCreatingCourse$: Observable<boolean>;
   programs$: Observable<IProgram[] | null>;
@@ -158,6 +166,18 @@ export class RequestTutorComponent implements OnInit {
     });
   }
 
+  get file(): AbstractControl | null {
+    return this.courseInformationForm.get('file');
+  }
+
+  onUploadFile(file: any): void {
+    this._store.dispatch(fromCore.uploadFile({ file }));
+  }
+
+  onDeleteFile(id: number): void {
+    this._store.dispatch(fromCore.deleteUploadedFile({ id }));
+  }
+
   ngOnInit(): void {
     this._store.dispatch(fromCore.enterRequestTutor());
     this._prepareLanguages();
@@ -213,6 +233,14 @@ export class RequestTutorComponent implements OnInit {
     this.showChangeCourseScheduleModal$ = this._store.select(
       fromRequests.selectIsShowChangeCourseScheduleModal
     );
+
+    this.fileUploadProgress$ = this._store.select(
+      fromCore.selectFileUploadingProgress
+    );
+
+    this.uploadedFiles$ = this._store
+      .select(fromCore.selectUploadedFiles)
+      .pipe(tap((files) => this.file?.setValue(files[0])));
   }
 
   nextStep(): void {
@@ -529,8 +557,8 @@ export class RequestTutorComponent implements OnInit {
       if (this.courseInformationForm.value.file) {
         this.reviewInfo.file = this.courseInformationForm.value.file;
         this.reviewInfo.filePreview = {
-          name: this.courseInformationForm.value.file.name,
-          size: formatBytes(this.courseInformationForm.value.file.size),
+          size: this.courseInformationForm.value.file.size,
+          name: this.courseInformationForm.value.file.originalName,
         };
       }
 

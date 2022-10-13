@@ -24,7 +24,11 @@
                                           [subjects]="subjects$ | async"
                                           [countries]="countries$ | async"
                                           [selectedCourse]="selectedCourse"
+                                          [uploadedFiles]="uploadedFiles$ | async"
+                                          [fileUploadProgress]="fileUploadProgress$ | async"
                                           (submitForm)="nextStep()"
+                                          (deleteFile)="onDeleteFile($event)"
+                                          (uploadedFile)="onUploadFile($event)"
                                           (changeCourseProgram)="fetchCourseField($event)"
                                           (changeCourseField)="fetchCourseFieldSubject($event)"
                                           (changeCourseSubject)="calculateEstimatedPrice($event)">
