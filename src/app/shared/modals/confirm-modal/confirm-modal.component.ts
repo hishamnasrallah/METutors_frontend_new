@@ -10,9 +10,9 @@ export class ConfirmModalComponent implements OnInit {
   @Input() loading: boolean;
   @Input() showModal = false;
   @Input() icon = 'trash.svg';
-  @Input() cancelLabel = 'Cancel';
-  @Input() confirmLabel = 'Delete';
-  @Input() subHeading = 'Do you really want to delete?';
+  @Input() cancelLabel = 'CANCEL';
+  @Input() confirmLabel = 'DELETE';
+  @Input() subHeading = 'REALLY_WANT_DELETE';
 
   @Output() confirm: EventEmitter<void> = new EventEmitter<void>();
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();

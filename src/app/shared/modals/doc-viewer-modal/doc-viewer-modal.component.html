@@ -8,7 +8,7 @@
         {{ 'REJECT' | translate }}
       </button>
       <button mat-flat-button color="primary" class="fw-bold" (click)="approveDoc.emit()" [disabled]="isApproving">
-        Approve
+        {{ 'APPROVE' | translate }}
       </button>
     </div>
 
@@ -20,7 +20,7 @@
       </ng-container>
 
       <button mat-flat-button color="primary" class="fw-bold px-5 float-end mb-5" (click)="showSignatureCanvas=true">
-        {{ addedSignature?.url ? ('EDIT' | translate) : ('ADD' | translate) }} Signature
+        {{ addedSignature?.url ? ('EDIT' | translate) : ('ADD' | translate) }} {{ 'SIGNATURE_SM' | translate }}
       </button>
 
       <div class="w-auto text-center" *ngIf="addedSignature?.url">
@@ -30,7 +30,7 @@
       <div class="d-flex w-100 mb-2 justify-content-between">
         <p class="d-flex privacy">
           <mat-checkbox [checked]="checked" (change)="checked = !checked">
-            By signing, I understand this is a legally binding contract
+            {{ 'SIGNING_UNDERSTAND_CONTRACT' | translate }}
           </mat-checkbox>
         </p>
 

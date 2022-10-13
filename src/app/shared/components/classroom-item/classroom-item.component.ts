@@ -1,7 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-
-import { environment } from '@environment';
 import { ClassroomType, courseStatusLabel } from 'src/app/config';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'metutors-classroom-item',
@@ -26,8 +24,4 @@ export class ClassroomItemComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
-
-  // calculateDurationTime(startTime?: Date, endTime?: Date): number {
-  //   return calculateDurationTime(startTime, endTime);
-  // }
 }

@@ -1,6 +1,6 @@
+import { ICourse } from 'src/app/core/models';
 import { Component, Input, OnInit } from '@angular/core';
 import { COURSE_TAGS_CONST, TuitionType } from 'src/app/config';
-import { ICourse } from 'src/app/core/models';
 
 @Component({
   selector: 'metutors-course-item-horizental',

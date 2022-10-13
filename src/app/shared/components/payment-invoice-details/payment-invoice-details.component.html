@@ -2,15 +2,15 @@
   <div class="col-md-9">
     <ul class="list-inline mb-0">
       <li class="list-inline-item mb-0 me-4">
-        <span class="f-size-15-md-sm">Invoice #</span>
+        <span class="f-size-15-md-sm">{{ 'INVOICE_NO' | translate }}</span>
         <strong class="f-size-15-md-sm">IN37738</strong>
       </li>
       <li class="list-inline-item mb-0 me-4">
-        <span class="f-size-15-md-sm">Order #</span>
+        <span class="f-size-15-md-sm">{{ 'ORDER_NO' | translate }}</span>
         <strong class="f-size-15-md-sm">IN37738</strong>
       </li>
       <li class="list-inline-item mb-0 me-4">
-        <span class="f-size-15-md-sm">Date #</span>
+        <span class="f-size-15-md-sm">{{ 'DATE_NO' | translate }}</span>
         <strong class="f-size-15-md-sm">{{ dateNow | date }}</strong>
       </li>
     </ul>
@@ -19,7 +19,7 @@
     <button mat-button class="invoice-email d-block w-100 mb-1 fw-bold" (click)="getInvoiceEmail.emit()"
       [disabled]="isGetInvoiceEmail">
       <mat-icon class="spinner" *ngIf="isGetInvoiceEmail">autorenew</mat-icon>
-      Get Invoice Email
+      {{ 'GET_INVOICE_EMAIL' | translate }}
     </button>
     <button mat-button class="print d-block w-100 mb-1 fw-bold" (click)="print.emit()">{{ 'PRINT' | translate }}</button>
   </div>
@@ -37,11 +37,11 @@
     <strong class="f-size-15-md-sm">{{ invoiceDetails?.pricePerHour | metutorsMoney | async }}</strong>
   </li>
   <li class="d-flex justify-content-between">
-    <span class="f-size-15-md-sm">Total Amount Due</span>
+    <span class="f-size-15-md-sm">{{ 'TOTAL_AMOUNT_DUE' | translate }}</span>
     <strong class="f-size-15-md-sm">{{ invoiceDetails?.totalAmount | metutorsMoney | async }}</strong>
   </li>
   <li class="d-flex justify-content-between promocode">
-    <span class="f-size-15-md-sm">Promo code 0% off</span>
+    <span class="f-size-15-md-sm">{{ 'PROMOCODE_OFF' | translate }}</span>
     <strong class="f-size-15-md-sm">{{ 0 | metutorsMoney | async }}</strong>
   </li>
   <li class="d-flex justify-content-between total-payment">
@@ -49,11 +49,11 @@
     <strong class="f-size-15-md-sm">{{ invoiceDetails?.totalAmount | metutorsMoney | async }}</strong>
   </li>
   <li class="d-flex justify-content-between coupon d-block-sm">
-    <span class="f-size-17-md-sm">Promo code </span>
+    <span class="f-size-17-md-sm">{{ 'PROMOCODE' | translate }}</span>
     <form>
       <div class="d-flex have-coupon">
         <input type="text" placeholder="New2020" class="form-control">
-        <button type="button" mat-button (click)="applyCoupon.emit()">Apply</button>
+        <button type="button" mat-button (click)="applyCoupon.emit()">{{ 'APPLY' | translate }}</button>
       </div>
     </form>
   </li>

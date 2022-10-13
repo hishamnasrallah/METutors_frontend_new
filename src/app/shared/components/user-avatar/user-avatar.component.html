@@ -6,8 +6,8 @@
   <span>
     <a [routerLink]="routerLink" *ngIf="routerLink" class="fw-bold"><bdi *ngIf="name">{{ name }}</bdi></a>
     <bdi *ngIf="name && !routerLink" class="title" [ngClass]="{'fw-bold': tagLine}">{{ name }}</bdi>
-    <span *ngIf="showRating" class="rating"><rating [ngModel]="rating" [max]="1" [readonly]="true" class="ms-1"></rating> {{rating}}/5</span>
-    <p *ngIf="tagLine" class="text-truncate w-50">{{tagLine}}</p>
+    <span *ngIf="showRating" class="rating"><rating [ngModel]="rating" [max]="1" [readonly]="true" class="ms-1"></rating> {{ rating }}/5</span>
+    <p *ngIf="tagLine" class="text-truncate w-50">{{ tagLine }}</p>
   </span>
 </div>
 

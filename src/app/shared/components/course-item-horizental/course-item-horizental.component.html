@@ -23,7 +23,7 @@
       <div>
         <rating [ngModel]="course?.rate" [max]="5" [readonly]="true"></rating>
         <span class="count">{{ course?.rate }}</span>
-        <span class="review">({{ course?.reviewsCount }} review)</span>
+        <span class="review">({{ course?.reviewsCount }} {{ 'REVIEW_SM' | translate }})</span>
       </div>
       <p class="desc flex-grow-1 f-size-15-md-sm" [innerHTML]="course?.description"></p>
       <div class="row list rounded">
@@ -34,19 +34,19 @@
         </div>
         <div class="col-md-4 d-flex menu align-items-center">
           <img src="assets/svg/class.svg" alt="" width="15" height="15" draggable="false">
-          <strong>Total classroom:</strong>
+          <strong>{{ 'TOTAL_CLASSROOMS' | translate }}:</strong>
           <span>{{ course?.classroomNumber }}</span>
         </div>
         <div class="col-md-4 d-flex menu align-items-center">
           <img src="assets/svg/user-formal.svg" alt="" width="15" height="15" draggable="false">
-          <strong>Study type:</strong>
+          <strong>{{ 'BOOK_TYPE' | translate }}:</strong>
           <span>{{ course?.tuitionValue }}</span>
         </div>
       </div>
     </div>
     <div class="col d-flex flex-column">
-      <h3 class="price flex-grow-1">Price:
-        <strong>{{ course?.priceRange?.min | metutorsMoney | async }}</strong> to
+      <h3 class="price flex-grow-1">{{ 'PRICE' | translate }}:
+        <strong>{{ course?.priceRange?.min | metutorsMoney | async }}</strong> {{ 'TO' | translate }}
         <strong>{{ course?.priceRange?.max | metutorsMoney | async }}</strong>
       </h3>
       <button mat-flat-button color="primary" class="main-button-transparent mb-2"
@@ -54,12 +54,12 @@
         {{ 'COURSE_DETAILS' | translate }}
       </button>
       <a mat-flat-button [routerLink]="'/classrooms/' + course?.id" color="primary" class="start-btn">
-        Select classroom
+        {{ 'SELECT_CLASSROOM' | translate }}
       </a>
     </div>
   </div>
 </div>
 
 <metutors-course-details-popup [openCourseDetailsPopop]="openCourseDetailsPopop" [course]="course"
-  (closeDialog)="openCourseDetailsPopop = $event">
+                               (closeDialog)="openCourseDetailsPopop = $event">
 </metutors-course-details-popup>
