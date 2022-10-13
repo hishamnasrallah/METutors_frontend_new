@@ -61,6 +61,7 @@ export class TutorClassroomsComponent implements OnInit {
     cancelledCourses: any;
   }>;
 
+  flag = null;
   fieldId = null;
   courseId: number;
   programId = null;

@@ -6,21 +6,21 @@
       <div class="flex mb-3 codes" *ngIf="view?.programs && view?.programs.length">
         <span class="fw-bold cursor-pointer position-relative f-size-15-md-sm"
               [class.active]="programId === null"
-              (click)=" programId = null; countryId = null; fieldId = null; loadCourse({});">{{ 'ALL' | translate }}</span>
+              (click)=" programId = null; countryId = null; fieldId = null; flag = null; loadCourse({});">{{ 'ALL' | translate }}</span>
         <ng-container *ngFor="let program of view?.programs">
           <span class="fw-bold cursor-pointer position-relative f-size-15-md-sm"
             [class.active]="programId === program?.id" *ngIf="+program.id !== nationalId"
-            (click)=" countryId = null; programId = program?.id; fieldId = null; loadCourse({program: program?.id});">{{ program?.code }}</span>
+            (click)=" countryId = null; programId = program?.id; fieldId = null; flag = null; loadCourse({program: program?.id});">{{ program?.code }}</span>
 
           <div class="btn-group" dropdown>
             <span class="fw-bold cursor-pointer position-relative dropdown-toggle dropdown-toggle-split" dropdownToggle
                   [class.active]="programId === program?.id" *ngIf="+program.id === nationalId"
-                  (click)="programId = program?.id; fieldId = null;">{{ program?.name }}</span>
+                  (click)="programId = program?.id; fieldId = null;">{{ program?.name }} <i *ngIf="flag" [innerHTML]="flag" class="flag"></i></span>
 
               <ul id="dropdown-split" *dropdownMenu class="dropdown-menu"
                   role="menu" aria-labelledby="button-split">
                 <li role="menuitem" class="mat-menu-item" *ngFor="let country of view?.countries"
-                    (click)="countryId = country?.id; loadCourse({program: programId, country: country?.id});">
+                    (click)="countryId = country?.id; flag = country?.flag; loadCourse({program: programId, country: country?.id});">
                     <span [innerHTML]="country?.flag" class="me-2"></span>
                     {{ country?.name }}
                 </li>
