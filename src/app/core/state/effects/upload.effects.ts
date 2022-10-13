@@ -1,13 +1,12 @@
 import { of, tap } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { UploadService } from '@services';
 import { Injectable } from '@angular/core';
 import camelcaseKeys from 'camelcase-keys';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import * as uploadActions from '../actions/upload.actions';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-
-import { UploadService } from '@services';
-import * as uploadActions from '../actions/upload.actions';
 import { AlertNotificationService } from '@metutor/core/components';
 
 @Injectable()
@@ -51,7 +50,7 @@ export class UploadEffects {
               user,
               token: response?.token,
               avatar: response?.avatar,
-              message: 'Profile photo updated successfully',
+              message: 'PROFILE_PHOTO_UPDATED_SUCCESSFULLY',
             });
           }),
           catchError((error) =>
@@ -74,7 +73,7 @@ export class UploadEffects {
           map((response) =>
             uploadActions.changeCoverSuccess({
               cover: response?.cover_img,
-              message: 'Cover photo updated successfully',
+              message: 'COVER_PHOTO_UPDATED_SUCCESSFULLY',
             })
           ),
           catchError((error) =>
@@ -97,7 +96,7 @@ export class UploadEffects {
           map(() =>
             uploadActions.deleteUploadedFileSuccess({
               id,
-              message: 'File successfully deleted',
+              message: 'FILE_DELETED_SUCCESSFULLY',
             })
           ),
           catchError((error) =>
@@ -143,9 +142,7 @@ export class UploadEffects {
           if (action.error) {
             return this._alertNotificationService.error(action.error);
           } else {
-            return this._alertNotificationService.error(
-              'Something went wrong!'
-            );
+            return this._alertNotificationService.error('SOMETHING_WENT_WRONG');
           }
         })
       ),

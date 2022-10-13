@@ -8,7 +8,7 @@
     }">
 
   <div *ngIf="!item.html">
-    <div class="sn-title">{{ item?.title }}</div>
+    <div class="sn-title">{{ item?.title! | translate }}</div>
     <div class="sn-content">{{ item?.content | max:maxLength }}</div>
     <div class="icon" (mouseenter)="onEnter()" (mouseleave)="onLeave()" (click)="onClick($event)">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

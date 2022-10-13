@@ -1,18 +1,17 @@
 import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { TutorsService } from '@services';
 import { Injectable } from '@angular/core';
 import camelcaseKeys from 'camelcase-keys';
+import * as fromRouterStore from '@metutor/state';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import * as tutorActions from '../actions/tutor.actions';
 import { IInterview, ITutor } from '@metutor/core/models';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
-
-import { TutorsService } from '@services';
-import * as fromRouterStore from '@metutor/state';
-import * as tutorActions from '../actions/tutor.actions';
 import { selectTutorDashboard, selectFeaturedTutors } from '..';
 import { AlertNotificationService } from '@metutor/core/components';
 import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
+import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 
 @Injectable()
 export class TutorEffects {
@@ -483,7 +482,7 @@ export class TutorEffects {
           map(() =>
             tutorActions.tutorSubmitFeedbackSuccess({
               cancelCourse: body?.cancelCourse,
-              message: 'Feedback successfully submitted',
+              message: 'FEEDBACK_SUBMITTED_SUCCESSFULLY',
             })
           ),
           catchError((error) =>
@@ -506,7 +505,7 @@ export class TutorEffects {
         this._tutorService.tutorSubmitPlatformFeedback(body, id).pipe(
           map(() =>
             tutorActions.tutorSubmitPlatformFeedbackSuccess({
-              message: 'Feedback successfully submitted',
+              message: 'FEEDBACK_SUBMITTED_SUCCESSFULLY',
             })
           ),
           catchError((error) =>
@@ -529,7 +528,7 @@ export class TutorEffects {
           map((attendance) =>
             tutorActions.tutorRescheduleClassSuccess({
               body,
-              message: 'Class successfully rescheduled',
+              message: 'CLASS_RESCHEDULED_SUCCESSFULLY',
             })
           ),
           catchError((error) =>
@@ -623,7 +622,7 @@ export class TutorEffects {
           map((attendance) =>
             tutorActions.tutorAddSignatureSuccess({
               signature: payload.url,
-              message: 'Signature successfully added',
+              message: 'SIGNATURE_ADDED_SUCCESSFULLY',
             })
           ),
           catchError((error) =>
@@ -696,9 +695,7 @@ export class TutorEffects {
           if (action.error) {
             return this._alertNotificationService.error(action.error);
           } else {
-            return this._alertNotificationService.error(
-              'Something went wrong!'
-            );
+            return this._alertNotificationService.error('SOMETHING_WENT_WRONG');
           }
         })
       ),

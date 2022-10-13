@@ -2,7 +2,11 @@ import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
 import camelcaseKeys from 'camelcase-keys';
+import * as fromCore from '@metutor/core/state';
+import * as lookupsActions from '../actions/lookups.actions';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { AlertNotificationService } from '@metutor/core/components';
+import { LookupsService, SupportService, UsersService } from '@services';
 import {
   map,
   filter,
@@ -10,11 +14,6 @@ import {
   catchError,
   withLatestFrom,
 } from 'rxjs/operators';
-
-import * as fromCore from '@metutor/core/state';
-import { LookupsService, SupportService, UsersService } from '@services';
-import * as lookupsActions from '../actions/lookups.actions';
-import { AlertNotificationService } from '@metutor/core/components';
 
 @Injectable()
 export class LookupsEffects {
@@ -787,7 +786,7 @@ export class LookupsEffects {
             return this._alertNotificationService.success(action.message);
           } else {
             return this._alertNotificationService.success(
-              'Information updated successfully!'
+              'INFORMATION_UPDATED_SUCCESSFULLY'
             );
           }
         })
@@ -816,9 +815,7 @@ export class LookupsEffects {
           if (action.error) {
             return this._alertNotificationService.error(action.error);
           } else {
-            return this._alertNotificationService.error(
-              'Something went wrong!'
-            );
+            return this._alertNotificationService.error('SOMETHING_WENT_WRONG');
           }
         })
       ),

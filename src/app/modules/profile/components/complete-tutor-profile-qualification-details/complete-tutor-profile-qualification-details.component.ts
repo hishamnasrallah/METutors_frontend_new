@@ -341,17 +341,13 @@ export class CompleteTutorProfileQualificationDetailsComponent
       const mimeType = event.target.files[0].type;
 
       if (mimeType.match(/video\/*/) == null) {
-        this._translate.get('ONLY_VIDEOS_ALLOWED').subscribe((res: string) => {
-          this._alertNotificationService.error(res);
-        });
+        this._alertNotificationService.error('ONLY_VIDEOS_ALLOWED');
 
         return;
       }
 
       if (file.size > 120 * 1024 * 1024) {
-        this._translate.get('ALLOWED_SIZE_120MB').subscribe((res: string) => {
-          this._alertNotificationService.error(res);
-        });
+        this._alertNotificationService.error('ALLOWED_SIZE_120MB');
 
         return;
       }
@@ -379,26 +375,20 @@ export class CompleteTutorProfileQualificationDetailsComponent
       const ext = files[0].name.split('.').pop().toLowerCase();
 
       if (this.fileFormatError(ext, mimeType)) {
-        this._translate.get('ONLY_FILE_ALLOWED').subscribe((res: string) => {
-          this._alertNotificationService.error(res);
-        });
+        this._alertNotificationService.error('ONLY_FILE_ALLOWED');
 
         return;
       }
 
       if (this.resume?.value?.length + files.length > 1) {
-        this._translate.get('UPLOAD_ONE_RESUME').subscribe((res: string) => {
-          this._alertNotificationService.error(res);
-        });
+        this._alertNotificationService.error('UPLOAD_ONE_RESUME');
 
         return;
       }
 
       files.forEach((file: any, index: number) => {
         if (file.size > 5 * 1024 * 1024) {
-          this._translate.get('ALLOWED_SIZE_5MB').subscribe((res: string) => {
-            this._alertNotificationService.error(res);
-          });
+          this._alertNotificationService.error('ALLOWED_SIZE_5MB');
 
           return;
         }
@@ -490,26 +480,24 @@ export class CompleteTutorProfileQualificationDetailsComponent
       });
 
       if (fileFormatError) {
-        this._translate.get('ONLY_FILE_ALLOWED').subscribe((res: string) => {
-          this._alertNotificationService.error(res);
-        });
+        this._alertNotificationService.error('ONLY_FILE_ALLOWED');
 
         return;
       }
 
       if (this.degrees?.value?.length + files.length > 10) {
-        this._translate.get('MAXIMUM_ALLOWED_FILES_10').subscribe((res: string) => {
-          this._alertNotificationService.error(res);
-        });
+        this._translate
+          .get('MAXIMUM_ALLOWED_FILES_10')
+          .subscribe((res: string) => {
+            this._alertNotificationService.error(res);
+          });
 
         return;
       }
 
       files.forEach((file: any, index: number) => {
         if (file.size > 5 * 1024 * 1024) {
-          this._translate.get('ALLOWED_SIZE_5MB').subscribe((res: string) => {
-            this._alertNotificationService.error(res);
-          });
+          this._alertNotificationService.error('ALLOWED_SIZE_5MB');
 
           return;
         }
@@ -571,26 +559,24 @@ export class CompleteTutorProfileQualificationDetailsComponent
       });
 
       if (fileFormatError) {
-        this._translate.get('ONLY_FILE_ALLOWED').subscribe((res: string) => {
-          this._alertNotificationService.error(res);
-        });
+        this._alertNotificationService.error('ONLY_FILE_ALLOWED');
 
         return;
       }
 
       if (this.certificates?.value?.length + files.length > 10) {
-        this._translate.get('MAXIMUM_ALLOWED_FILES_10').subscribe((res: string) => {
-          this._alertNotificationService.error(res);
-        });
+        this._translate
+          .get('MAXIMUM_ALLOWED_FILES_10')
+          .subscribe((res: string) => {
+            this._alertNotificationService.error(res);
+          });
 
         return;
       }
 
       files.forEach((file: any, index: number) => {
         if (file.size > 5 * 1024 * 1024) {
-          this._translate.get('ALLOWED_SIZE_5MB').subscribe((res: string) => {
-            this._alertNotificationService.error(res);
-          });
+          this._alertNotificationService.error('ALLOWED_SIZE_5MB');
 
           return;
         }

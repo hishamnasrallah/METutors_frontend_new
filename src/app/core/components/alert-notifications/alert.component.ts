@@ -48,6 +48,7 @@ export class AlertComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.rtl = localStorage.getItem('DEFAULT_LANGUAGE') === 'ar';
     this._listener = this._service.getChangeEmitter().subscribe((item: any) => {
       switch (item.command) {
         case 'cleanAll':

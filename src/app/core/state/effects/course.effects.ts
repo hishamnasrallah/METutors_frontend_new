@@ -1,17 +1,16 @@
 import { of } from 'rxjs';
+import { selectCourses } from '..';
 import { Store } from '@ngrx/store';
+import { CourseStatus } from '@config';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, mergeMap, catchError, withLatestFrom } from 'rxjs/operators';
-
-import { selectCourses } from '..';
-import { CourseStatus } from '@config';
 import camelcaseKeys from 'camelcase-keys';
 import { CoursesService } from '@services';
 import * as fromRouterStore from '@metutor/state';
 import * as courseActions from '../actions/course.actions';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { AlertNotificationService } from '@metutor/core/components';
+import { map, mergeMap, catchError, withLatestFrom } from 'rxjs/operators';
 
 @Injectable()
 export class CourseEffects {
@@ -99,7 +98,7 @@ export class CourseEffects {
           map(() =>
             courseActions.tutorAcceptCourseSuccess({
               courseId,
-              message: 'Course has been successfully accepted',
+              message: 'COURSE_ACCEPTED_SUCCESSFULLY',
             })
           ),
           catchError((error) =>
@@ -122,7 +121,7 @@ export class CourseEffects {
           map(() =>
             courseActions.tutorRejectCourseSuccess({
               courseId,
-              message: 'Course has been successfully rejected',
+              message: 'COURSE_REJECTED_SUCCESSFULLY',
             })
           ),
           catchError((error) =>
@@ -146,7 +145,7 @@ export class CourseEffects {
         this._courseService.tutorCancelCourse(reason, id).pipe(
           map(() =>
             courseActions.tutorCancelCourseSuccess({
-              message: 'Course has been successfully canceled',
+              message: 'COURSE_CANCELED_SUCCESSFULLY',
             })
           ),
           catchError((error) =>
@@ -239,7 +238,7 @@ export class CourseEffects {
           map(() =>
             courseActions.studentRequestAdminAssignTutorSuccess({
               status: CourseStatus.requestedToMetutors,
-              message: 'Request submitted successfully',
+              message: 'REQUEST_SUBMITTED_SUCCESSFULLY',
             })
           ),
           catchError((error) =>

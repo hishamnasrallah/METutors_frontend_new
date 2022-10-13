@@ -1,13 +1,12 @@
 import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { TutorsService } from '@services';
 import { Injectable } from '@angular/core';
 import camelcaseKeys from 'camelcase-keys';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
-
-import { TutorsService } from '@services';
 import * as fromRouterStore from '@metutor/state';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { AlertNotificationService } from '@metutor/core/components';
+import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 import * as tutorAssignmentActions from '../actions/tutor-assignment.actions';
 
 @Injectable()
@@ -87,7 +86,7 @@ export class TutorAssignmentEffects {
         this._tutorService.tutorAddAssignment(body).pipe(
           map((assignment) =>
             tutorAssignmentActions.tutorAddAssignmentSuccess({
-              message: 'Assignment successfully added',
+              message: 'ASSIGNMENT_ADDED_SUCCESSFULLY',
               assignment: camelcaseKeys(assignment, { deep: true }),
             })
           ),
@@ -110,7 +109,7 @@ export class TutorAssignmentEffects {
         this._tutorService.tutorEditAssignment(body).pipe(
           map((assignment) =>
             tutorAssignmentActions.tutorEditAssignmentSuccess({
-              message: 'Assignment successfully added',
+              message: 'ASSIGNMENT_ADDED_SUCCESSFULLY',
               assignment: camelcaseKeys(assignment, { deep: true }),
             })
           ),
@@ -134,7 +133,7 @@ export class TutorAssignmentEffects {
           map(() =>
             tutorAssignmentActions.deleteTutorAssignmentSuccess({
               id,
-              message: 'Assignment successfully deleted',
+              message: 'ASSIGNMENT_DELETED_SUCCESSFULLY',
             })
           ),
           catchError((error) =>
@@ -158,7 +157,7 @@ export class TutorAssignmentEffects {
             tutorAssignmentActions.tutorRejectAssignmentSuccess({
               status: 'rejected',
               assignmentId: body.id,
-              message: 'Assignment successfully rejected',
+              message: 'ASSIGNMENT_REJECTED_SUCCESSFULLY',
             })
           ),
           catchError((error) =>
@@ -182,7 +181,7 @@ export class TutorAssignmentEffects {
             tutorAssignmentActions.tutorAcceptAssignmentSuccess({
               status: 'completed',
               assignmentId: body.id,
-              message: 'Assignment successfully accepted',
+              message: 'ASSIGNMENT_ACCEPTED_SUCCESSFULLY',
             })
           ),
           catchError((error) =>
@@ -256,9 +255,7 @@ export class TutorAssignmentEffects {
           if (action.error) {
             return this._alertNotificationService.error(action.error);
           } else {
-            return this._alertNotificationService.error(
-              'Something went wrong!'
-            );
+            return this._alertNotificationService.error('SOMETHING_WENT_WRONG');
           }
         })
       ),

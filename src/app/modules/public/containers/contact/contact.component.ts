@@ -27,15 +27,15 @@ export class ContactComponent implements OnInit, OnDestroy {
     this.createContactSub = this._contactService.createContact(value).subscribe(
       (response) => {
         this.loading = false;
-        this._translate.get('MESSAGE_SENT_SUCCESSFULLY').subscribe((res: string) => {
-          this._alertNotificationService.success(response?.message || res);
-        });
+        this._alertNotificationService.success(
+          response?.message || 'MESSAGE_SENT_SUCCESSFULLY'
+        );
       },
       (error) => {
         this.loading = false;
-        this._translate.get('ERROR_SEND_MESSAGE').subscribe((res: string) => {
-          this._alertNotificationService.error(error.error.message || res);
-        });
+        this._alertNotificationService.error(
+          error.error.message || 'ERROR_SEND_MESSAGE'
+        );
       }
     );
   }

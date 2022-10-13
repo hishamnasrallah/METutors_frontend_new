@@ -2,13 +2,12 @@ import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
-
 import * as fromCore from '@metutor/core/state';
 import * as requestActions from '../actions/request.actions';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { AlertNotificationService } from '@metutor/core/components';
 import { AdminService, CoursesService, TutorsService } from '@services';
+import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 
 @Injectable()
 export class RequestEffects {
@@ -260,9 +259,7 @@ export class RequestEffects {
           if (action.error) {
             return this._alertNotificationService.error(action.error);
           } else {
-            return this._alertNotificationService.error(
-              'Something went wrong!'
-            );
+            return this._alertNotificationService.error('SOMETHING_WENT_WRONG');
           }
         })
       ),

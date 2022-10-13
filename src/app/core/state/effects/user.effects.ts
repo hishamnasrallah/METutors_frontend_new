@@ -1,10 +1,17 @@
 import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { AuthService } from '@services';
 import { Router } from '@angular/router';
+import * as fromRoot from '@metutor/state';
 import camelcaseKeys from 'camelcase-keys';
 import { Injectable } from '@angular/core';
+import * as fromCore from '@metutor/core/state';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import * as userActions from '../actions/user.actions';
+import * as tutorActions from '../actions/tutor.actions';
+import { SocialProvider, UserRole } from '@metutor/config';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { AlertNotificationService } from '@metutor/core/components';
 
 import {
   map,
@@ -13,14 +20,6 @@ import {
   catchError,
   withLatestFrom,
 } from 'rxjs/operators';
-
-import { AuthService } from '@services';
-import * as fromRoot from '@metutor/state';
-import * as fromCore from '@metutor/core/state';
-import * as userActions from '../actions/user.actions';
-import * as tutorActions from '../actions/tutor.actions';
-import { SocialProvider, UserRole } from '@metutor/config';
-import { AlertNotificationService } from '@metutor/core/components';
 
 @Injectable()
 export class UserEffects {
@@ -274,12 +273,11 @@ export class UserEffects {
     }
   );
 
-  signInRequiredLogout$ = createEffect(
-    () =>
-      this._actions$.pipe(
-        ofType(userActions.signInRequired),
-        map(() => fromCore.logout())
-      ),
+  signInRequiredLogout$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(userActions.signInRequired),
+      map(() => fromCore.logout())
+    )
   );
 
   submitOTPAdmin$ = createEffect(() =>
@@ -518,7 +516,7 @@ export class UserEffects {
             user?.roleId?.toString() !== UserRole.student.toString()
           ) {
             this._alertNotificationService.error(
-              'You dont have a permission to access this page from tutor account'
+              'DONT_HAVE_PERMISSION_ACCESS_ACCOUNT'
             );
             this._router.navigate(['/']);
           }
@@ -537,7 +535,7 @@ export class UserEffects {
         map(([_, _class]) => {
           if (!_class) {
             this._alertNotificationService.error(
-              'You dont have a permission to access this page directly'
+              'DONT_HAVE_PERMISSION_ACCESS_PAGE'
             );
             this._router.navigate(['/']);
           }
@@ -564,7 +562,7 @@ export class UserEffects {
             return this._alertNotificationService.success(action.message);
           } else {
             return this._alertNotificationService.success(
-              'Information updated successfully!'
+              'INFORMATION_UPDATED_SUCCESSFULLY'
             );
           }
         })
@@ -591,9 +589,7 @@ export class UserEffects {
           if (action.error) {
             return this._alertNotificationService.error(action.error);
           } else {
-            return this._alertNotificationService.error(
-              'Something went wrong!'
-            );
+            return this._alertNotificationService.error('SOMETHING_WENT_WRONG');
           }
         })
       ),

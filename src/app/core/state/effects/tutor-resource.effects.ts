@@ -1,14 +1,13 @@
 import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { TutorsService } from '@services';
 import { Injectable } from '@angular/core';
 import camelcaseKeys from 'camelcase-keys';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
-
-import { TutorsService } from '@services';
 import * as fromRouterStore from '@metutor/state';
-import * as tutorResourceActions from '../actions/tutor-resource.actions';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { AlertNotificationService } from '@metutor/core/components';
+import * as tutorResourceActions from '../actions/tutor-resource.actions';
+import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 
 @Injectable()
 export class TutorResourceEffects {
@@ -65,7 +64,7 @@ export class TutorResourceEffects {
           map((resource) =>
             tutorResourceActions.addTutorResourceSuccess({
               resource: camelcaseKeys(resource, { deep: true }),
-              message: 'Resource successfully added',
+              message: 'RESOURCE_ADDED_SUCCESSFULLY',
             })
           ),
           catchError((error) =>
@@ -88,7 +87,7 @@ export class TutorResourceEffects {
           map((resource) =>
             tutorResourceActions.editTutorResourceSuccess({
               resource: camelcaseKeys(resource, { deep: true }),
-              message: 'Resource successfully edited',
+              message: 'RESOURCE_EDITED_SUCCESSFULLY',
             })
           ),
           catchError((error) =>
@@ -111,7 +110,7 @@ export class TutorResourceEffects {
           map((resource) =>
             tutorResourceActions.deleteTutorResourceSuccess({
               id,
-              message: 'Resource successfully deleted',
+              message: 'RESOURCE_DELETED_SUCCESSFULLY',
             })
           ),
           catchError((error) =>
@@ -182,9 +181,7 @@ export class TutorResourceEffects {
           if (action.error) {
             return this._alertNotificationService.error(action.error);
           } else {
-            return this._alertNotificationService.error(
-              'Something went wrong!'
-            );
+            return this._alertNotificationService.error('SOMETHING_WENT_WRONG');
           }
         })
       ),

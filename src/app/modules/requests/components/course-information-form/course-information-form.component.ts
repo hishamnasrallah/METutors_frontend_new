@@ -265,9 +265,7 @@ export class CourseInformationFormComponent implements OnInit {
       }
 
       if (file.size > 5 * 1024 * 1024) {
-        this._translate.get('ALLOWED_SIZE_5MB').subscribe((res: string) => {
-          this._alertNotificationService.error(res);
-        });
+        this._alertNotificationService.error('ALLOWED_SIZE_5MB');
 
         return;
       }

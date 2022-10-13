@@ -106,17 +106,13 @@ export class StudentSettingsAccountComponent implements OnInit {
       const mimeType = event.target.files[0].type;
 
       if (mimeType.match(/image\/*/) == null) {
-        this._translate.get('ONLY_IMAGES_ALLOWED').subscribe((res: string) => {
-          this._alertNotificationService.error(res);
-        });
+        this._alertNotificationService.error('ONLY_IMAGES_ALLOWED');
 
         return;
       }
 
       if (file[0].size > 1024 * 1024) {
-        this._translate.get('ALLOWED_SIZE_1MB').subscribe((res: string) => {
-          this._alertNotificationService.error(res);
-        });
+        this._alertNotificationService.error('ALLOWED_SIZE_1MB');
 
         return;
       }

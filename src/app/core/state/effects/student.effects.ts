@@ -2,12 +2,11 @@ import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
 import camelcaseKeys from 'camelcase-keys';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
-
 import { StudentsService } from '@services';
 import * as fromRouterStore from '@metutor/state';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { AlertNotificationService } from '@metutor/core/components';
+import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 import * as fromStudentAction from '@metutor/modules/student/state/actions';
 import * as studentActions from '@metutor/core/state/actions/student.actions';
 
@@ -360,7 +359,7 @@ export class StudentEffects {
           map(() =>
             studentActions.studentSubmitAssignmentSuccess({
               id: body.id,
-              message: 'Assignment successfully submitted',
+              message: 'ASSIGNMENT_SUBMITTED_SUCCESSFULLY',
             })
           ),
           catchError((error) =>
@@ -519,7 +518,7 @@ export class StudentEffects {
         this._studentService.studentMakeupClass(body).pipe(
           map(() =>
             studentActions.studentMakeupClassSuccess({
-              message: 'You have successfully makeup class',
+              message: 'MAKEUP_CLASS_SUCCESSFULLY',
             })
           ),
           catchError((error) =>
@@ -544,7 +543,7 @@ export class StudentEffects {
             studentActions.studentSubmitFeedbackSuccess({
               onHold,
               cancelCourse,
-              message: 'Feedback successfully submitted',
+              message: 'FEEDBACK_SUBMITTED_SUCCESSFULLY',
             })
           ),
           catchError((error) =>
@@ -567,7 +566,7 @@ export class StudentEffects {
         this._studentService.studentSubmitPlatformFeedback(body, id).pipe(
           map((attendance) =>
             studentActions.studentSubmitPlatformFeedbackSuccess({
-              message: 'Feedback successfully submitted',
+              message: 'FEEDBACK_SUBMITTED_SUCCESSFULLY',
             })
           ),
           catchError((error) =>
@@ -591,7 +590,7 @@ export class StudentEffects {
           map(() =>
             studentActions.studentUpdateProfileSuccess({
               body,
-              message: 'Account settings successfully updated',
+              message: 'ACCOUNT_SETTINGS_UPDATED_SUCCESSFULLY',
             })
           ),
           catchError((error) =>
@@ -615,7 +614,7 @@ export class StudentEffects {
             studentActions.studentUpdatePreferencesSuccess({
               body,
               isPreference: true,
-              message: 'User preferences successfully updated',
+              message: 'USER_PREFERENCES_UPDATED_SUCCESSFULLY',
             })
           ),
           catchError((error) =>
@@ -749,9 +748,7 @@ export class StudentEffects {
           if (action.error) {
             return this._alertNotificationService.error(action.error);
           } else {
-            return this._alertNotificationService.error(
-              'Something went wrong!'
-            );
+            return this._alertNotificationService.error('SOMETHING_WENT_WRONG');
           }
         })
       ),

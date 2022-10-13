@@ -1,14 +1,13 @@
 import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { TutorsService } from '@services';
 import { Injectable } from '@angular/core';
 import camelcaseKeys from 'camelcase-keys';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
-
-import { TutorsService } from '@services';
 import * as fromRouterStore from '@metutor/state';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { AlertNotificationService } from '@metutor/core/components';
 import * as tutorSyllabusActions from '../actions/tutor-syllabus.actions';
+import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 
 @Injectable()
 export class TutorSyllabusEffects {
@@ -44,7 +43,7 @@ export class TutorSyllabusEffects {
           map((syllabus) =>
             tutorSyllabusActions.tutorAddSyllabusTopicSuccess({
               syllabus: camelcaseKeys(syllabus, { deep: true }),
-              message: 'Topic has been successfully added',
+              message: 'TOPIC_ADDED_SUCCESSFULLY',
             })
           ),
           catchError((error) =>
@@ -67,7 +66,7 @@ export class TutorSyllabusEffects {
           map((syllabus) =>
             tutorSyllabusActions.tutorEditSyllabusTopicSuccess({
               syllabus: camelcaseKeys(syllabus, { deep: true }),
-              message: 'Topic has been successfully updated',
+              message: 'TOPIC_UPDATED_SUCCESSFULLY',
             })
           ),
           catchError((error) =>
@@ -90,7 +89,7 @@ export class TutorSyllabusEffects {
           map((data) =>
             tutorSyllabusActions.tutorDeleteSyllabusTopicSuccess({
               data: camelcaseKeys(data, { deep: true }),
-              message: 'Topic has been successfully deleted',
+              message: 'TOPIC_DELETED_SUCCESSFULLY',
             })
           ),
           catchError((error) =>
@@ -114,7 +113,7 @@ export class TutorSyllabusEffects {
             tutorSyllabusActions.tutorEditSyllabusSubjectTitleSuccess({
               title,
               classId,
-              message: 'Class subject has been successfully updated',
+              message: 'CLASS_SUBJECT_UPDATED_SUCCESSFULLY',
             })
           ),
           catchError((error) =>
@@ -160,9 +159,7 @@ export class TutorSyllabusEffects {
           if (action.error) {
             return this._alertNotificationService.error(action.error);
           } else {
-            return this._alertNotificationService.error(
-              'Something went wrong!'
-            );
+            return this._alertNotificationService.error('SOMETHING_WENT_WRONG');
           }
         })
       ),

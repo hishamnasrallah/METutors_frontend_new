@@ -1,15 +1,15 @@
 import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
-import { TicketsService } from '@services';
-import * as fromCore from '@metutor/core/state';
-import * as ticketActions from '../actions/ticket.actions';
-import { AlertNotificationService } from '@metutor/core/components';
 import { Router } from '@angular/router';
-import { ITicketComment } from '@metutor/core/models';
+import { Injectable } from '@angular/core';
+import { TicketsService } from '@services';
 import { UserRole } from '@metutor/config';
+import * as fromCore from '@metutor/core/state';
+import { ITicketComment } from '@metutor/core/models';
+import * as ticketActions from '../actions/ticket.actions';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { AlertNotificationService } from '@metutor/core/components';
+import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 
 @Injectable()
 export class TicketEffects {
@@ -201,7 +201,7 @@ export class TicketEffects {
             return this._alertNotificationService.success(action.message);
           } else {
             return this._alertNotificationService.success(
-              'Information updated successfully!'
+              'INFORMATION_UPDATED_SUCCESSFULLY'
             );
           }
         })
@@ -225,9 +225,7 @@ export class TicketEffects {
           if (action.error) {
             return this._alertNotificationService.error(action.error);
           } else {
-            return this._alertNotificationService.error(
-              'Something went wrong!'
-            );
+            return this._alertNotificationService.error('SOMETHING_WENT_WRONG');
           }
         })
       ),

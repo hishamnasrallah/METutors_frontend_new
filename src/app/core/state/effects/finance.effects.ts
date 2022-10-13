@@ -2,12 +2,11 @@ import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { catchError, map, mergeMap } from 'rxjs/operators';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-
 import camelcaseKeys from 'camelcase-keys';
 import { FinanceService } from '@services';
+import { catchError, map, mergeMap } from 'rxjs/operators';
 import * as financeActions from '../actions/finance.actions';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { AlertNotificationService } from '@metutor/core/components';
 
 @Injectable()
@@ -159,32 +158,6 @@ export class FinanceEffects {
       )
     )
   );
-  /*
-  successMessages$ = createEffect(
-    () =>
-      this._actions$.pipe(
-        ofType(
-          ...[
-            interviewActions.acceptInterviewRequestSuccess,
-            interviewActions.declineInterviewRequestSuccess,
-            interviewActions.scheduleInterviewRequestSuccess,
-          ]
-        ),
-        map((action) => {
-          if (action.message) {
-            return this._alertNotificationService.success(action.message);
-          } else {
-            return this._alertNotificationService.success(
-              'Information updated successfully!'
-            );
-          }
-        })
-      ),
-    {
-      dispatch: false,
-    }
-  );
-*/
 
   failureMessages$ = createEffect(
     () =>
@@ -199,9 +172,7 @@ export class FinanceEffects {
           if (action.error) {
             return this._alertNotificationService.error(action.error);
           } else {
-            return this._alertNotificationService.error(
-              'Something went wrong!'
-            );
+            return this._alertNotificationService.error('SOMETHING_WENT_WRONG');
           }
         })
       ),
