@@ -244,9 +244,9 @@ export class CourseInformationFormComponent implements OnInit {
 
   newTopic(): FormGroup {
     return this._fb.group({
-      name: [null, Validators.required],
       scale: [2, Validators.required],
       checked: [false, Validators.requiredTrue],
+      name: [null, [Validators.required, Validators.maxLength(120)]],
     });
   }
 
@@ -255,9 +255,11 @@ export class CourseInformationFormComponent implements OnInit {
       const file = event.target.files[0];
 
       if (file.type !== 'application/pdf') {
-        this._translate.get('ONLY_PDF_FILE_ALLOWED').subscribe((res: string) => {
-          this._alertNotificationService.error(res);
-        });
+        this._translate
+          .get('ONLY_PDF_FILE_ALLOWED')
+          .subscribe((res: string) => {
+            this._alertNotificationService.error(res);
+          });
 
         return;
       }

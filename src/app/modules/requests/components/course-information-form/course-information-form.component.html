@@ -98,7 +98,7 @@
         <div class="row">
           <div class="col-md-12">
             <ng-container formArrayName="topics">
-              <ng-container *ngFor="let _ of topics.controls; let i = index" [formGroupName]="i">
+              <ng-container *ngFor="let topic of topics.controls; let i = index" [formGroupName]="i">
                 <ng-container
                   *ngIf="!form.value.topics[i].name || !form.value.topics[i].scale || !form.value.topics[i]?.checked">
                   <div class="add-new-topic mb-4">
@@ -106,8 +106,11 @@
                     <div class="d-flex">
                       <input type="text" formControlName="name" placeholder="{{ 'ENTER_TOPIC_NAME' | translate }}"
                         class="flex-grow-1 form-control">
-                      <button mat-flat-button color="primary" type="button" class="add-btn"
+                      <button mat-flat-button color="primary" type="button" class="add-btn" [disabled]="topic.get('name')?.invalid"
                         (click)="addNewTopic(i)">{{ 'ADD' | translate }}</button>
+                    </div>
+                    <div class="text-danger" *ngIf="topic.get('name')?.dirty && topic.get('name')?.invalid">
+                      {{ 'WRITE_TOPIC_NAME_MAX_CHARACTERS' | translate }}
                     </div>
                     <div class="row">
                       <div class="col-12">
