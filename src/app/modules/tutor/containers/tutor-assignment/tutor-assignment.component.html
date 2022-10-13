@@ -32,7 +32,7 @@
               <div class="col-md-7 mt-15-sm">
                 <button mat-button class="main-button-transparent float-end" (click)="onOpenAddAssignment()">
                   <mat-icon>add</mat-icon>
-                  Add new assignment
+                  {{ 'ADD_NEW_ASSIGNMENT' | translate }}
                 </button>
               </div>
             </div>
@@ -85,11 +85,13 @@
                     </div>
                     <div class="col-xl-6 d-flex align-items-start justify-content-end date-data d-block-sm">
                       <span class="cursor-pointer text-decoration-underline extend-date"
-                            *ngIf="assignment.status === 'active'" (click)="onOpenEditAssignmentModal(assignment.id)">Extend Due Date</span>
+                            *ngIf="assignment.status === 'active'" (click)="onOpenEditAssignmentModal(assignment.id)">
+                        {{ 'EXTEND_DUE_DATE' | translate }}
+                      </span>
                       <div class="d-flex flex-column mx-3 m-0-sm">
                         <span>{{ 'REMAINING_TIME' | translate }}</span>
                         <strong class="alert-msg f-size-15-sm"
-                                *ngIf="assignment?.remainingDays < 1">{{ assignment?.remainingDays === 0 ? 'Today' : '0 Day' }}
+                                *ngIf="assignment?.remainingDays < 1">{{ assignment?.remainingDays === 0 ? ('TODAY' | translate) : ('0' + ('DAY_SM' | translate)) }}
                           </strong>
                         <strong class="f-size-15-sm" *ngIf="assignment?.remainingDays >= 1">{{ assignment?.remainingDays }} {{ 'DAYS_SM' | translate }}</strong>
                       </div>
@@ -114,8 +116,8 @@
                     </div>
                     <div class="col d-flex menu align-items-center">
                       <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
-                      <strong class="f-size-17-md-sm">Answer received:</strong>
-                      <span class="f-size-15-md-sm">{{ assignment?.answerReceived?.length }} out of {{ assignment?.assignees?.length }}</span>
+                      <strong class="f-size-17-md-sm">{{ 'ANSWER_RECEIVED' | translate }}:</strong>
+                      <span class="f-size-15-md-sm">{{ assignment?.answerReceived?.length }} {{ 'OUT_OF' | translate }} {{ assignment?.assignees?.length }}</span>
                     </div>
                     <div class="col-1 m-auto-sm mt-15-sm">
                       <button mat-button class="expand" *ngIf="selectedBlock !== assignment.id"
@@ -136,7 +138,7 @@
                       <tr>
                         <th scope="col">{{ 'NUMBER' | translate }}</th>
                         <th scope="col">{{ 'STUDENT_NAME' | translate }}</th>
-                        <th scope="col" style="min-width: 150px">Time Received By Student</th>
+                        <th scope="col" style="min-width: 150px">{{ 'TIME_RECEIVED_STUDENT' | translate }}</th>
                         <th scope="col">{{ 'SUBMITTED_AT' | translate }}</th>
                         <th scope="col">{{ 'STATUS' | translate }}</th>
                       </tr>
@@ -155,7 +157,7 @@
                           <span class="status-icon text-capitalize"
                                 [ngClass]="assignee?.status">{{ assignee?.status }}</span>
                           <span class="late ms-2"
-                                *ngIf="!assignment?.remainingDays && (assignee.status !== 'submitted' || assignee.status !== 'completed')">Late</span>
+                                *ngIf="!assignment?.remainingDays && (assignee.status !== 'submitted' || assignee.status !== 'completed')">{{ 'LATE' | translate }}</span>
                         </td>
                       </tr>
                     </table>

@@ -1,11 +1,11 @@
+import { FormValidationUtilsService } from '@metutor/core/validators';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
-  AbstractControl,
-  FormBuilder,
   FormGroup,
   Validators,
+  FormBuilder,
+  AbstractControl,
 } from '@angular/forms';
-import { FormValidationUtilsService } from '@metutor/core/validators';
 
 @Component({
   selector: 'metutors-tutor-settings-security',

@@ -64,7 +64,7 @@
 
       <div class="col-12 mt-4">
         <mat-tab-group mat-align-tabs="start">
-          <mat-tab label="Tutor Attendance" [labelClass]="'fw-bold'">
+          <mat-tab label="{{ 'TUTOR_ATTENDANCE' | translate }}" [labelClass]="'fw-bold'">
             <div class="mt-2">
               <ng-container [ngSwitch]="view.loading">
                 <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
@@ -96,7 +96,7 @@
               </ng-container>
             </div>
           </mat-tab>
-          <mat-tab label="My Attendance" [labelClass]="'fw-bold'">
+          <mat-tab label="{{ 'MY_ATTENDANCE' | translate }}" [labelClass]="'fw-bold'">
             <div class="table-responsive mt-2">
               <table class="table my-table default-title mb-0">
                 <tr>

@@ -47,7 +47,7 @@
   </div>
 
   <div class="details">
-    <h3>Textbook</h3>
+    <h3>{{ 'TEXTBOOK' | translate }}</h3>
     <ng-container [ngSwitch]="view.loading">
       <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
       <ng-container *ngSwitchCase="false">
@@ -73,7 +73,7 @@
               </tr>
               <tr class="book-info">
                 <td scope="row">{{view.resources.course.bookName }}</td>
-                <td>Edition {{ view.resources.course?.bookEdition }}</td>
+                <td>{{ 'EDITION' | translate }} {{ view.resources.course?.bookEdition }}</td>
                 <td>{{ view.resources.course.bookAuthor }}</td>
               </tr>
             </table>
@@ -96,15 +96,15 @@
       </ng-container>
     </ng-container>
 
-    <h3>Other documents</h3>
+    <h3>{{ 'OTHER_DOCUMENTS' | translate }}</h3>
     <div class="d-flex justify-content-between">
       <div class="document-tabs">
         <button mat-button class="main-button-transparent me-2 m-0-sm mb-5-sm" (click)="studentDocTab = false" [ngClass]="{'active': !studentDocTab}">
-          Uploaded by teacher
+          {{ 'UPLOADED_BY_TEACHER' | translate }}
         </button>
 
         <button mat-button class="main-button-transparent" (click)="studentDocTab = true" [ngClass]="{'active': studentDocTab}">
-          Uploaded by student
+          {{ 'UPLOADED_BY_STUDENT' | translate }}
         </button>
       </div>
       <span class="text-main text-decoration-underline cursor-pointer upload-doc" (click)="onOpenUploadDocModal()">{{ 'UPLOAD_DOCUMENT' | translate }}</span>
@@ -115,13 +115,13 @@
         <div class="table-responsive mt-4">
           <table class="table my-table default-title" *ngIf="!studentDocTab">
             <tr>
-              <th scope="col">Document title</th>
-              <th scope="col">Teacher name</th>
+              <th scope="col">{{ 'DOCUMENT_TITLE' | translate }}</th>
+              <th scope="col">{{ 'TEACHER_NAME' | translate }}</th>
               <th scope="col">{{ 'ACTION' | translate }}</th>
             </tr>
             <tr class="book-info" *ngIf="!view.resources?.teacherOtherDocuments?.length">
               <td colspan="5">
-                <div class="text-center">No document found</div>
+                <div class="text-center">{{ 'NO_DOCUMENT_FOUND' | translate }}</div>
               </td>
             </tr>
             <ng-container *ngIf="view.resources?.teacherOtherDocuments?.length">
@@ -135,13 +135,13 @@
 
           <table class="table my-table default-title" *ngIf="studentDocTab">
             <tr>
-              <th scope="col">Document title</th>
-              <th scope="col">Teacher name</th>
+              <th scope="col">{{ 'DOCUMENT_TITLE' | translate }}</th>
+              <th scope="col">{{ 'TEACHER_NAME' | translate }}</th>
               <th scope="col">{{ 'ACTION' | translate }}</th>
             </tr>
             <tr class="book-info" *ngIf="!view.resources?.studentOtherDocuments?.length">
               <td colspan="5">
-                <div class="text-center">No document found</div>
+                <div class="text-center">{{ 'NO_DOCUMENT_FOUND' | translate }}</div>
               </td>
             </tr>
             <ng-container *ngIf="view.resources?.studentOtherDocuments?.length">
@@ -156,7 +156,7 @@
       </ng-container>
     </ng-container>
 
-    <h3>Classes</h3>
+    <h3>{{ 'CLASSES' | translate }}</h3>
     <ng-container [ngSwitch]="view.loading">
       <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
       <ng-container *ngSwitchCase="false">

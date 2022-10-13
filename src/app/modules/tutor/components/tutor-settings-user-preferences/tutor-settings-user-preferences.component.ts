@@ -1,3 +1,5 @@
+import { ILanguage } from '@models';
+import { LANGUAGES_LEVELS_CONST } from '@config';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -9,9 +11,6 @@ import {
   trigger,
   transition,
 } from '@angular/animations';
-
-import { ILanguage } from '@models';
-import { LANGUAGES_LEVELS_CONST } from '@config';
 
 @Component({
   selector: 'metutors-tutor-settings-user-preferences',

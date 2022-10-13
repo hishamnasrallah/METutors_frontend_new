@@ -1,10 +1,9 @@
 <div class="card complete-form">
   <form class="card-body" [formGroup]="form" (ngSubmit)="onSubmit(form)">
     <div class="d-flex justify-content-between align-items-center w-100 mb-4">
-      <h1 class="title f-size-18-md-sm">Teaching Courses <br>
-        <span *ngIf="status === interviewStatus.approved">Contact this email
-          <a href="mailto:support@metutors.com" target="_blank">support@metutors.com</a>, if you want to edit this
-          information.
+      <h1 class="title f-size-18-md-sm">{{ 'TEACHING_COURSES' | translate }} <br>
+        <span *ngIf="status === interviewStatus.approved">{{ 'CONTACT_THIS_EMAIL' | translate }}
+          <a href="mailto:support@metutors.com" target="_blank">support@metutors.com</a>, {{ 'IF_WANT_EDIT_INFORMATION' | translate }}
         </span>
       </h1>
       <metutors-submit-button [form]="form" [isSubmitting]="isSubmitting" *ngIf="!status"

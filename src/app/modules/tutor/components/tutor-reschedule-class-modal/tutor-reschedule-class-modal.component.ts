@@ -1,4 +1,5 @@
 import * as moment from 'moment';
+import { calculateDurationTime, CLASSROOM_TYPES_CONST } from '@config';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import {
@@ -7,8 +8,6 @@ import {
   FormBuilder,
   AbstractControl,
 } from '@angular/forms';
-
-import { calculateDurationTime, CLASSROOM_TYPES_CONST } from '@config';
 
 @Component({
   selector: 'metutors-tutor-reschedule-class-modal',

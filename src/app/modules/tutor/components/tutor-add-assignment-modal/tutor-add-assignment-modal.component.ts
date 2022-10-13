@@ -7,12 +7,11 @@ import {
 import * as moment from 'moment';
 import { Store } from '@ngrx/store';
 import { map, tap } from 'rxjs/operators';
-import { Observable, combineLatest } from 'rxjs';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-
 import { generalConstants } from '@config';
 import * as fromCore from '@metutor/core/state';
+import { Observable, combineLatest } from 'rxjs';
 import * as fromTutor from '@metutor/modules/tutor/state';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'metutors-tutor-add-assignment-modal',

@@ -1,16 +1,14 @@
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { FormGroup } from '@angular/forms';
-import { combineLatest, Observable } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
-
 import * as fromTutor from '../../state';
+import { FormGroup } from '@angular/forms';
 import * as fromRoot from '@metutor/state';
 import { IUser } from '@metutor/core/models';
 import * as fromCore from '@metutor/core/state';
+import { combineLatest, Observable } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
 import * as fromTutorAction from '../../state/actions';
 import { insightRange, WEEK_DAYS } from '@metutor/config';
-import { environment } from '@environment';
 
 @Component({
   selector: 'metutors-tutor-dashboard',

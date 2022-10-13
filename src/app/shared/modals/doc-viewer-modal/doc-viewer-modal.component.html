@@ -5,7 +5,7 @@
 
     <div class="actions d-flex justify-content-center mt-4" *ngIf="document.status === 'pending' && showActions">
       <button mat-button class="fw-bold me-3 decline" (click)="rejectDoc.emit()" [disabled]="isRejecting">
-        Reject
+        {{ 'REJECT' | translate }}
       </button>
       <button mat-flat-button color="primary" class="fw-bold" (click)="approveDoc.emit()" [disabled]="isApproving">
         Approve

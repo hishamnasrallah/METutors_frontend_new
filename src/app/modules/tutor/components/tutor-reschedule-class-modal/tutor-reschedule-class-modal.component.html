@@ -1,5 +1,5 @@
 <metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'xmedium'"
-                [heading]="'Reschedule Class'" [subHeading]="'You can reschedule your class'" [template]="template">
+                [heading]="'RESCHEDULE_CLASS'" [subHeading]="'CAN_RESCHEDULE_CLASS'" [template]="template">
   <ng-template #template>
     <form class="row submit-interview" [formGroup]="form" (ngSubmit)="submitted.emit(form)">
       <div class="col-12">
@@ -19,8 +19,8 @@
 
           <div class="col-md-6">
             <div class="form-group">
-              <label class="fw-bold">Class Day</label>
-              <input placeholder="Class Day" aria-label="class Day" formControlName="day" class="form-control" readonly>
+              <label class="fw-bold">{{ 'CLASS_DAY' | translate }}</label>
+              <input placeholder="{{ 'CLASS_DAY' | translate }}" formControlName="day" class="form-control" readonly>
             </div>
           </div>
         </div>

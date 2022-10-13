@@ -1,4 +1,4 @@
-<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'large'" [heading]="'Please add your reason to decline teaching this course:'"
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'large'" [heading]="'ADD_REASON_DECLINE_TEACHING_COURSE'"
                 [template]="template" >
   <ng-template #template>
     <form class="row" [formGroup]="form" (ngSubmit)="submitted.emit(form)">

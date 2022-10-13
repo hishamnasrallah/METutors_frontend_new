@@ -19,10 +19,9 @@
               </div>
               <div class="col-md-9 d-flex flex-column">
                 <h5 class="card-title d-flex align-items-center m-0 h-100">
-                  {{ view?.attendance?.course?.courseName }} <span>({{ view?.attendance?.course?.courseCode}})</span>
-                  <img src="assets/svg/user-one.svg" matTooltip="One-o-One" matTooltipPosition="above"
-                       draggable="false"
-                       height="25px" alt=""/>
+                  {{ view?.attendance?.course?.courseName }} <span>({{ view?.attendance?.course?.courseCode }})</span>
+                  <img src="assets/svg/user-one.svg" matTooltip="{{ 'ONE_O_ONE' | translate }}" matTooltipPosition="above"
+                       draggable="false" height="25px" alt=""/>
                 </h5>
                 <p>
                   <!--Very few destinations in Marrakech are blessed with Very few destinations in Marrakech
@@ -63,7 +62,7 @@
 
       <div class="col-12 mt-4">
         <mat-tab-group mat-align-tabs="start">
-          <mat-tab label="Student Attendances" [labelClass]="'fw-bold'">
+          <mat-tab label="{{ 'STUDENT_ATTENDANCES' | translate }}" [labelClass]="'fw-bold'">
             <div class="table-responsive mt-2">
               <ng-container [ngSwitch]="view.loading">
                 <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
@@ -72,7 +71,7 @@
                     <tr>
                       <th scope="col">{{ 'NUMBER' | translate }}</th>
                       <th scope="col">{{ 'STUDENT_NAME' | translate }}</th>
-                      <th scope="col">Attendance Status</th>
+                      <th scope="col">{{ 'ATTENDANCE_STATUS' | translate }}</th>
                       <th scope="col">{{ 'DATE' | translate }}</th>
                       <th scope="col"></th>
                     </tr>
@@ -93,11 +92,11 @@
                       <td>
                         <button class="feedback" mat-button (click)="onOpenFeedbackModal(attendance?.userId)">
                           <img src="assets/svg/thumb-up.svg" alt="">
-                          Feedback
+                          {{ 'FEEDBACK' | translate }}
                         </button>
                         <button mat-button class="feedback ml-2">
                           <img src="assets/svg/chat-circle.svg" alt="">
-                          Chat
+                          {{ 'CHAT' | translate }}
                         </button>
                       </td>
                     </tr>
@@ -106,13 +105,13 @@
               </ng-container>
             </div>
           </mat-tab>
-          <mat-tab label="My Attendance" [labelClass]="'fw-bold'">
+          <mat-tab label="{{ 'MY_ATTENDANCE' | translate }}" [labelClass]="'fw-bold'">
             <div class="table-responsive mt-2">
               <table class="table my-table default-title mb-0">
                 <tr>
                   <th scope="col">{{ 'NUMBER' | translate }}</th>
                   <th scope="col">{{ 'CLASS_TITLE' | translate }}</th>
-                  <th scope="col">Attendance Status</th>
+                  <th scope="col">{{ 'ATTENDANCE_STATUS' | translate }}</th>
                   <th scope="col">{{ 'DATE' | translate }}</th>
                 </tr>
                 <tr *ngIf="!view.attendance?.myAttendence || !view.attendance?.myAttendence?.length">

@@ -7,11 +7,11 @@ import {
 
 import { Store } from '@ngrx/store';
 import { map, tap } from 'rxjs/operators';
+import * as fromCore from '@metutor/core/state';
 import { Observable, combineLatest } from 'rxjs';
+import { generalConstants } from '@metutor/config';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import * as fromCore from '@metutor/core/state';
-import { generalConstants } from '@metutor/config';
 
 @Component({
   selector: 'metutors-tutor-add-class-resource-modal',

@@ -5,7 +5,9 @@
         <ng-container *ngSwitchCase="false">
           <h1 class="title overflow-hidden f-size-20-md-sm">{{ view.data?.course?.courseName }}
             <span>({{ view.data.course?.courseCode}})</span>
-            <button mat-button class="ms-2 status text-decoration-none" [ngClass]="view?.data?.course?.status">{{ view?.data?.course?.status === 'cancelled_by_teacher' ? 'Cancelled' :  statusLabel[view?.data?.course?.status].long }}</button>
+            <button mat-button class="ms-2 status text-decoration-none" [ngClass]="view?.data?.course?.status">
+              {{ view?.data?.course?.status === 'cancelled_by_teacher' ? ('CANCELLED' | translate) :  statusLabel[view?.data?.course?.status].long }}
+            </button>
 
             <button mat-button class="float-end cancel-course text-danger text-decoration-underline d-none d-md-block" (click)="onShowSendFeedbackModal(view.data?.course?.studentId)"
                     *ngIf="view?.data?.course?.status === courseStatus.active || view?.data?.course?.status === courseStatus.inprogress">
@@ -56,7 +58,7 @@
             <div class="col-xl-6 col-lg-5 mt-15-sm">
               <button mat-button class="main-button-transparent float-end"
                       (click)="onShowCourseAttendanceModal()">
-                Attendance & Feedback
+                {{ 'ATTENDANCE_FEEDBACK' | translate }}
               </button>
 
               <button mat-button class="cancel-course text-danger text-decoration-underline d-block d-md-none f-size-15-sm" (click)="onShowSendFeedbackModal(view.data?.course?.studentId)"
@@ -91,7 +93,7 @@
               <tr>
                 <th>#</th>
                 <th>{{ 'CLASS_SUBJECT' | translate }}</th>
-                <th>Class Attendees</th>
+                <th>{{ 'CLASS_ATTENDEES' | translate }}</th>
                 <th style="min-width: 150px">{{ 'START_END_TIME' | translate }}</th>
                 <th>{{ 'DURATION' | translate }}</th>
                 <th></th>
@@ -118,7 +120,7 @@
                     <button mat-button class="main-button-opacity flex-grow-1 w-100" (click)="launchClass(todaysClass.id)"
                             *ngIf="todaysClass?.status !== 'completed'" [disabled]="(isLaunchingClass$ | async)">
                       <img src="assets/svg/play-fill.svg" draggable="false" alt="">
-                      Launch Class
+                      {{ 'LAUNCH_CLASS' | translate }}
                     </button>
                     <button mat-button class="main-button-opacity flex-grow-1 w-100" (click)="onViewClass(todaysClass.id)"
                             *ngIf="todaysClass?.status === 'completed'">
@@ -143,7 +145,7 @@
               <tr>
                 <th>#</th>
                 <th>{{ 'CLASS_SUBJECT' | translate }}</th>
-                <th>Class Attendees</th>
+                <th>{{ 'CLASS_ATTENDEES' | translate }}</th>
                 <th>{{ 'DAY' | translate }}</th>
                 <th>{{ 'DATE' | translate }}</th>
                 <th style="min-width: 150px">{{ 'START_END_TIME' | translate }}</th>
@@ -157,7 +159,7 @@
               </tr>
               <ng-container *ngIf="view.data?.upcomingClasses?.data?.length">
                 <tr *ngFor="let upcomingClass of view.data.upcomingClasses.data; let i=index">
-                  <td>{{ i + 1}}</td>
+                  <td>{{ i + 1 }}</td>
                   <td>{{ upcomingClass.title ? upcomingClass.title : 'N/A' }}</td>
                   <td>
                     <metutors-user-avatar [avatar]="attendee?.user?.avatar"
@@ -199,7 +201,7 @@
               <tr>
                 <th>#</th>
                 <th>{{ 'CLASS_SUBJECT' | translate }}</th>
-                <th>Class Attendees</th>
+                <th>{{ 'CLASS_ATTENDEES' | translate }}</th>
                 <th>{{ 'DAY' | translate }}</th>
                 <th>{{ 'DATE' | translate }}</th>
                 <th style="min-width: 150px">{{ 'START_END_TIME' | translate }}</th>

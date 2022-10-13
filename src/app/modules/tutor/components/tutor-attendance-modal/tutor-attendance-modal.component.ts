@@ -1,11 +1,10 @@
+import { WEEK_DAYS } from '@config';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { combineLatest, Observable } from 'rxjs';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-
-import { WEEK_DAYS } from '@config';
 import * as fromCore from '@metutor/core/state';
+import { combineLatest, Observable } from 'rxjs';
 import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'metutors-tutor-attendance-modal',

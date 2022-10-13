@@ -85,7 +85,7 @@
                       <p class="col f-size-15-sm">{{ assignment?.description }}</p>
                     </div>
                     <div class="col-xl-6 d-flex align-items-start justify-content-end date-data d-block-sm">
-                      <!--<span class="cursor-pointer text-decoration-underline extend-date" *ngIf="assignment.status === 'active'" (click)="onOpenEditAssignmentModal(assignment.id)">Extend Due Date</span>-->
+                      <!--<span class="cursor-pointer text-decoration-underline extend-date" *ngIf="assignment.status === 'active'" (click)="onOpenEditAssignmentModal(assignment.id)">{{ 'EXTEND_DUE_DATE' | translate }}</span>-->
                       <div class="d-flex flex-column mx-3 mx-3 m-0-sm">
                         <span>{{ 'REMAINING_TIME' | translate }}</span>
                         <strong class="alert-msg f-size-15-sm" *ngIf="assignment?.remainingDays <= 1">{{ assignment?.remainingDays === 1 ? assignment?.remainingDays : 0 }} {{ 'DAY_SM' | translate }}</strong>
@@ -132,7 +132,7 @@
                         <tr>
                           <th scope="col">{{ 'NUMBER' | translate }}</th>
                           <th scope="col">{{ 'STUDENT_NAME' | translate }}</th>
-                          <th scope="col" style="min-width: 150px">Time Received By Student</th>
+                          <th scope="col" style="min-width: 150px">{{ 'TIME_RECEIVED_STUDENT' | translate }}</th>
                           <th scope="col">{{ 'STATUS' | translate }}</th>
                         </tr>
 

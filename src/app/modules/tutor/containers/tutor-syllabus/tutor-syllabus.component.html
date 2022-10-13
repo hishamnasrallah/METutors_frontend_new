@@ -4,7 +4,7 @@
       <div class="card-body p-15-sm">
         <ng-container [ngSwitch]="view.loading">
           <ng-container *ngSwitchCase="false">
-            <h1 class="title f-size-20-md-sm">{{ view.syllabus.course?.courseName }} <span>({{ view.syllabus.course?.courseCode}})</span>
+            <h1 class="title f-size-20-md-sm">{{ view.syllabus.course?.courseName }} <span>({{ view.syllabus.course?.courseCode }})</span>
               <button mat-button class="ms-3 status" [ngClass]="view.syllabus.course?.status">{{ statusLabel[view.syllabus.course?.status].long }}</button>
             </h1>
             <div class="row list-items">
@@ -20,7 +20,7 @@
               <div class="col-lg-3 col-md-4 d-flex menu align-items-center">
                 <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
                 <strong>{{ 'TIME' | translate }}: </strong>
-                <span class="f-size-17-md-sm">{{ view.syllabus?.course?.startTime | date:'h:mm a' }} - {{ view.syllabus?.course?.endTime | date:'h:mm a' }} ({{ view.syllabus?.course?.startTime | metutorsTimeDiff: view.syllabus?.course?.endTime}} hour)</span>
+                <span class="f-size-17-md-sm">{{ view.syllabus?.course?.startTime | date:'h:mm a' }} - {{ view.syllabus?.course?.endTime | date:'h:mm a' }} ({{ view.syllabus?.course?.startTime | metutorsTimeDiff: view.syllabus?.course?.endTime}} {{ 'HOUR_SM' | translate }})</span>
               </div>
               <div class="col-lg-2 col-md-3 d-flex menu align-items-center">
                 <img src="assets/svg/play-circle-fill.svg" alt="" width="15" height="15" draggable="false">
@@ -82,7 +82,7 @@
           <div class="table-responsive" *ngSwitchCase="false">
             <table class="table my-table default-title">
               <tr>
-                <th scope="col">Topic</th>
+                <th scope="col">{{ 'TOPIC' | translate }}</th>
                 <th scope="col">{{ 'TOPIC_NAME' | translate }}</th>
                 <th scope="col">{{ 'KNOWLEDGE_CONFIDENCE_SCALE' | translate }}</th>
               </tr>
@@ -127,7 +127,7 @@
                   <td>{{ i + 1 }}</td>
                   <td *ngIf="subjectId !== unclassifiedClass.id">{{ unclassifiedClass?.title }}</td>
                   <td *ngIf="subjectId === unclassifiedClass.id">
-                    <input type="text" class="form-control custom-input input-bordered" formControlName="subjectTitle" placeholder="Add topic here..." autofocus>
+                    <input type="text" class="form-control custom-input input-bordered" formControlName="subjectTitle" placeholder="{{ 'ADD_TOPIC_HERE' | translate }}" autofocus>
                   </td>
                   <td>{{ unclassifiedClass?.startDate | date: 'EEEE, dd MMM Y' }}</td>
                   <td>{{ unclassifiedClass?.startTime | date:'h:mm a' }} - {{ unclassifiedClass?.endTime | date:'h:mm a' }}</td>
@@ -140,7 +140,7 @@
                     <button class="save-topic-btn d-flex" mat-button [ngClass]="{'disabled': !subjectTitle?.value?.trim() || (isSavingSubjectTitle$ | async)}"
                             *ngIf="subjectId === unclassifiedClass.id" [disabled]="!subjectTitle?.value?.trim() || (isSavingSubjectTitle$ | async)"
                             (click)="onSaveSubjectTitle(unclassifiedClass.id)">
-                      Save
+                      {{ 'SAVE' | translate }}
                       <mat-icon class="spinner" *ngIf="(isSavingSubjectTitle$ | async)">autorenew</mat-icon>
                     </button>
                   </td>
@@ -211,7 +211,7 @@
                       <td scope="row">{{ i + 1 }}</td>
                       <td *ngIf="subjectId !== syllabusClass.id">{{ syllabusClass?.title }}</td>
                       <td *ngIf="subjectId === syllabusClass.id">
-                        <input type="text" class="form-control custom-input input-bordered" formControlName="subjectTitle" placeholder="Add topic here..." autofocus>
+                        <input type="text" class="form-control custom-input input-bordered" formControlName="subjectTitle" placeholder="{{ 'ADD_TOPIC_HERE' | translate }}" autofocus>
                       </td>
                       <td>{{ syllabusClass?.startDate | date : 'EEEE, dd MMM Y'}}</td>
                       <td>{{ syllabusClass?.startTime | date:'h:mm a' + '-' + syllabusClass?.endTime | date:'h:mm a' }}</td>
@@ -224,7 +224,7 @@
                         <button class="save-topic-btn d-flex" mat-button [ngClass]="{'disabled': !subjectTitle?.value?.trim() || (isSavingSubjectTitle$ | async)}"
                                 [disabled]="!subjectTitle?.value?.trim() || (isSavingSubjectTitle$ | async)" *ngIf="subjectId === syllabusClass.id"
                                 (click)="onSaveSubjectTitle(syllabusClass.id)">
-                          Save
+                          {{ 'SAVE' | translate }}
                           <mat-icon class="spinner" *ngIf="(isSavingSubjectTitle$ | async)">autorenew</mat-icon>
                         </button>
                       </td>

@@ -36,48 +36,48 @@
         <div class="col-md-3 col-sm-6 mb-15-sm">
           <div class="card">
             <div class="card-body d-flex flex-column">
-              <h3>Total courses</h3>
+              <h3>{{ 'TOTAL_COURSES' | translate }}</h3>
               <h1 class="flex-grow-1">
                 {{ view.data.totalCourses }}
-                <span [ngClass]="{'danger': view.data?.coursesGrowth < 0}">{{ view.data?.coursesGrowth >= 0 ? '+'+view.data?.coursesGrowth : view.data?.coursesGrowth}}%</span>
+                <span [ngClass]="{'danger': view.data?.coursesGrowth < 0}">{{ view.data?.coursesGrowth >= 0 ? '+'+view.data?.coursesGrowth : view.data?.coursesGrowth }}%</span>
               </h1>
-              <p>{{ 'COMPARED_TO' | translate }} {{ view.data?.coursesLastCount }} (last {{ insightRange[range] }})</p>
+              <p>{{ 'COMPARED_TO' | translate }} {{ view.data?.coursesLastCount }} ({{ 'LAST_SM' | translate }} {{ insightRange[range] }})</p>
             </div>
           </div>
         </div>
         <div class="col-md-3 col-sm-6 mb-15-sm">
           <div class="card red-bo">
             <div class="card-body d-flex flex-column">
-              <h3>Completed courses</h3>
+              <h3>{{ 'COMPLETED_COURSES' | translate }}</h3>
               <h1 class="flex-grow-1">
                 {{ view.data.totalCompletedCourses }}
                 <span [ngClass]="{'danger': view.data?.completedCoursesGrowth < 0}">{{ view.data?.completedCoursesGrowth >= 0 ? '+' +view.data?.completedCoursesGrowth : view.data?.completedCoursesGrowth }}%</span>
               </h1>
-              <p>{{ 'COMPARED_TO' | translate }} {{ view.data?.completedCoursesLastCount }} (last {{ insightRange[range] }})</p>
+              <p>{{ 'COMPARED_TO' | translate }} {{ view.data?.completedCoursesLastCount }} ({{ 'LAST_SM' | translate }} {{ insightRange[range] }})</p>
             </div>
           </div>
         </div>
         <div class="col-md-3 col-sm-6 mb-15-sm">
           <div class="card orange-bo">
             <div class="card-body d-flex flex-column">
-              <h3>Kudos points</h3>
+              <h3>{{ 'KUDOS_POINTS' | translate }}</h3>
               <h1 class="flex-grow-1">
                 {{ view.data.kudosPoints }}
                 <span [ngClass]="{'danger': view.data?.kudosPointsGrowth < 0}">{{ view.data?.kudosPointsGrowth >= 0 ? '+' +view.data?.kudosPointsGrowth : view.data?.kudosPointsGrowth }}%</span>
               </h1>
-              <p>{{ 'COMPARED_TO' | translate }} {{ view.data?.kudosPointsLastCount }} (last {{ insightRange[range] }})</p>
+              <p>{{ 'COMPARED_TO' | translate }} {{ view.data?.kudosPointsLastCount }} ({{ 'LAST_SM' | translate }} {{ insightRange[range] }})</p>
             </div>
           </div>
         </div>
         <div class="col-md-3 col-sm-6 mb-15-sm">
           <div class="card purple-bo">
             <div class="card-body d-flex flex-column">
-              <h3>Newly assigned courses</h3>
+              <h3>{{ 'NEWLY_ASSIGNED_COURSES' | translate }}</h3>
               <h1 class="flex-grow-1">
-                {{ view.data.totalNewlyCourses}}
-                <span [ngClass]="{'danger': view.data?.newlyCoursesGrowth < 0}">{{ view.data?.newlyCoursesGrowth >= 0 ? '+'+view.data?.newlyCoursesGrowth : view.data?.newlyCoursesGrowth}}%</span>
+                {{ view.data.totalNewlyCourses }}
+                <span [ngClass]="{'danger': view.data?.newlyCoursesGrowth < 0}">{{ view.data?.newlyCoursesGrowth >= 0 ? '+'+view.data?.newlyCoursesGrowth : view.data?.newlyCoursesGrowth }}%</span>
               </h1>
-              <p>{{ 'COMPARED_TO' | translate }} {{ view.data?.newlyCoursesLastCount }} (last {{ insightRange[range] }})</p>
+              <p>{{ 'COMPARED_TO' | translate }} {{ view.data?.newlyCoursesLastCount }} ({{ 'LAST_SM' | translate }} {{ insightRange[range] }})</p>
             </div>
           </div>
         </div>
@@ -116,7 +116,7 @@
                   <td class="d-flex justify-content-end">
                     <button mat-button class="main-button-opacity" (click)="launchClass(todaysClass.id)" [disabled]="(isLaunchingClass$ | async)">
                       <img src="assets/svg/play-fill.svg" draggable="false" alt="">
-                      Launch Class
+                      {{ 'LAUNCH_CLASS' | translate }}
                     </button>
                   </td>
                 </tr>
@@ -129,7 +129,7 @@
 
     <div class="row">
       <div class="col-12">
-        <h2 class="overview mt-5 f-size-17-md-sm mt-15-md-sm">Newly assigned courses</h2>
+        <h2 class="overview mt-5 f-size-17-md-sm mt-15-md-sm">{{ 'NEWLY_ASSIGNED_COURSES' | translate }}</h2>
       </div>
       <div class="col-12">
         <ng-container [ngSwitch]="view.loading">
@@ -154,10 +154,10 @@
     <div class="row">
       <div class="col-12">
         <h2 class="overview mt-5 mb-3 f-size-17-md-sm mt-15-md-sm">
-          Kudos points details
+          {{ 'KUDOS_POINTS_DETAILS' | translate }}
 
           <span class="float-end view-all text-main cursor-pointer" (click)="onOpenKudosPointsModal()">
-            View all reviews
+            {{ 'VIEW_ALL_POINTS' | translate }}
             <img src="assets/svg/arrow-left-line-colored.svg" alt="" class="ms-2 rotate-180-ar" draggable="false">
           </span>
         </h2>
@@ -168,17 +168,17 @@
           <div class="table-responsive" *ngSwitchCase="false">
             <table class="table my-table default-title">
               <tr>
-                <th colspan="4">Kudos points details</th>
+                <th colspan="4">{{ 'KUDOS_POINTS_DETAILS' | translate }}</th>
                 <th class="sm">
-                  <span class="float-end me-2">Total points: {{ view.data?.kudosPoints ? view.data?.kudosPoints : 0 }}</span>
+                  <span class="float-end me-2">{{ 'TOTAL_POINTS' | translate }}: {{ view.data?.kudosPoints ? view.data?.kudosPoints : 0 }}</span>
                 </th>
               </tr>
               <tr>
                 <td>{{ 'NUMBER' | translate }}</td>
                 <td>{{ 'STUDENT_NAME' | translate }}</td>
                 <td>{{ 'COURSE_NAME' | translate }}</td>
-                <td>Course Date</td>
-                <td>Points</td>
+                <td>{{ 'COURSE_DATE' | translate }}</td>
+                <td>{{ 'POINTS' | translate }}</td>
               </tr>
               <tr *ngIf="!view.data.feedbacks?.data?.length">
                 <td colspan="5">
@@ -196,7 +196,7 @@
                   </td>
                   <td>{{ kudo?.courseName }}</td>
                   <td>{{ kudo?.courseDate }}</td>
-                  <td>{{ kudo.kudosPoints }} Points</td>
+                  <td>{{ kudo.kudosPoints }} {{ 'POINTS_SM' | translate }}</td>
                 </tr>
               </ng-container>
             </table>

@@ -1,18 +1,16 @@
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
+import * as fromCore from '@metutor/core/state';
 import { Observable, combineLatest } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
+import * as fromTutor from '@metutor/modules/tutor/state';
+import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
 
 import {
   WEEK_DAYS,
   courseStatusLabel,
   AcademicTutoringTextbook,
 } from '@config';
-
-import * as fromCore from '@metutor/core/state';
-import * as fromTutor from '@metutor/modules/tutor/state';
-import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
-import { uploadTutorResourceDocument } from '@metutor/core/state';
 
 @Component({
   selector: 'metutors-tutor-resources',
@@ -22,7 +20,7 @@ import { uploadTutorResourceDocument } from '@metutor/core/state';
 export class TutorResourcesComponent implements OnInit {
   classId: string;
   resourceId: number;
-  heading = 'Add Resources';
+  heading = 'ADD_RESOURCE';
 
   teacherDocTab = true;
   statusLabel = courseStatusLabel;
@@ -49,12 +47,12 @@ export class TutorResourcesComponent implements OnInit {
 
   onOpenAddClassResource(classId: string) {
     this.classId = classId;
-    this.heading = 'Add Resources';
+    this.heading = 'ADD_RESOURCE';
     this._store.dispatch(fromTutorAction.openTutorAddClassResourceModal());
   }
 
   onOpenEditClassResource(id: number) {
-    this.heading = 'Edit Resources';
+    this.heading = 'EDIT_RESOURCE';
     this._store.dispatch(
       fromTutorAction.openTutorEditClassResourceModal({ id })
     );

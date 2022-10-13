@@ -4,6 +4,9 @@ import { tap } from 'rxjs/operators';
 import * as fromRoot from '@metutor/state';
 import * as fromCore from '@metutor/core/state';
 import { Component, OnInit } from '@angular/core';
+import * as fromTutor from '@metutor/modules/tutor/state';
+import { generalConstants, InterviewStatus } from '@metutor/config';
+import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
 
 import {
   ICity,
@@ -13,10 +16,6 @@ import {
   ILanguage,
   SubmitInterviewInput,
 } from '@metutor/core/models';
-
-import * as fromTutor from '@metutor/modules/tutor/state';
-import { generalConstants, InterviewStatus } from '@metutor/config';
-import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
 
 @Component({
   selector: 'metutors-tutor-settings',

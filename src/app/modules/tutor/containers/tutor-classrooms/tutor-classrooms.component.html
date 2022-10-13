@@ -39,7 +39,7 @@
     </div>
     <div class="col-12">
       <h2 class="title cursor-pointer d-flex align-items-center f-size-18-md-sm mt-15-md-sm" (click)="openNewlyAssigned = !openNewlyAssigned">
-        <span class="flex-grow-1">Newly Assigned Courses</span>
+        <span class="flex-grow-1">{{ 'NEWLY_ASSIGNED_COURSES' | translate }}</span>
         <img src="assets/svg/arrow-up.svg" [class.rotate-180]="openNewlyAssigned" draggable="false" width="30px"
           height="30" alt="" />
       </h2>

@@ -1,13 +1,11 @@
+import * as moment from 'moment';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
+import * as fromTutor from '../../state';
 import { FormGroup } from '@angular/forms';
+import * as fromCore from '@metutor/core/state';
 import { combineLatest, Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
-
-import * as moment from 'moment';
-import * as fromTutor from '../../state';
-import { environment } from '@environment';
-import * as fromCore from '@metutor/core/state';
 import * as fromTutorAction from '../../state/actions';
 import { CourseStatus, courseStatusLabel, WEEK_DAYS_LONG } from '@config';
 
@@ -26,11 +24,9 @@ export class TutorClassDashboardComponent implements OnInit {
   showSendFeedbackModal$: Observable<boolean>;
   showCourseAttendanceModal$: Observable<boolean>;
 
-  subHeading =
-    'Share with us a feedback on your student as course cancellation has begun';
-
   courseStatus = CourseStatus;
   statusLabel = courseStatusLabel;
+  subHeading = 'SHARE_FEEDBACK_STUDENT_CANCELLATION';
 
   view$: Observable<{
     data: any;

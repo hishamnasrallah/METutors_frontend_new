@@ -17,7 +17,7 @@
                   <mat-slider thumbLabel id="rating" min="0" [max]="10" class="w-100 -mt-16"
                               [value]="rating?.value ? rating?.value : 0"
                               (change)="onRatingSelect($event)"></mat-slider>
-                  <span class="total-rating col-md-2">10 Total</span>
+                  <span class="total-rating col-md-2">{{ 'TOTAL_10' | translate }}</span>
                 </div>
               </div>
 

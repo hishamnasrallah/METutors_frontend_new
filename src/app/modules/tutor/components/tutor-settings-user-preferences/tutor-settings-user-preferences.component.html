@@ -6,15 +6,15 @@
         <div class="col-xl-6">
           <h3>Select Gender to Teach</h3>
           <mat-form-field appearance="outline" class="w-100">
-            <mat-select [placeholder]="'Choose gender'" formControlName="preferred_gender">
+            <mat-select placeholder="{{ 'SELECT_GENDER' | translate }}" formControlName="preferred_gender">
               <mat-option [value]="'male'">
-                Male
+                {{ 'MALE' | translate }}
               </mat-option>
               <mat-option [value]="'female'">
-                Female
+                {{ 'FEMALE' | translate }}
               </mat-option>
               <mat-option [value]="'both'">
-                Both
+                {{ 'BOTH' | translate }}
               </mat-option>
             </mat-select>
           </mat-form-field>

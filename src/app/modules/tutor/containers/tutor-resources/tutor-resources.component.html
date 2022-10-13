@@ -4,7 +4,7 @@
       <ng-container [ngSwitch]="view.loading">
         <ng-container *ngSwitchCase="false">
           <h1 class="title f-size-20-md-sm">{{ view.resources?.course?.courseName }}
-            <span>({{ view.resources?.course?.courseCode}})</span>
+            <span>({{ view.resources?.course?.courseCode }})</span>
             <button mat-button class="ms-3 status" [ngClass]="view.resources?.course?.status">
               {{ statusLabel[view.resources?.course?.status].long }}
             </button>
@@ -20,7 +20,7 @@
             <div class="col-lg-3 col-md-4 d-flex menu align-items-center">
               <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
               <strong>{{ 'TIME' | translate }}: </strong>
-              <span class="f-size-17-md-sm">{{ view.resources?.course?.startTime | date:'h:mm a' }} - {{ view.resources?.course?.endTime | date:'h:mm a' }} ({{ view.resources?.course?.startTime | metutorsTimeDiff: view.resources?.course?.endTime}} hour)</span>
+              <span class="f-size-17-md-sm">{{ view.resources?.course?.startTime | date:'h:mm a' }} - {{ view.resources?.course?.endTime | date:'h:mm a' }} ({{ view.resources?.course?.startTime | metutorsTimeDiff: view.resources?.course?.endTime}} ('HRS_SM' | translate) : ('HR_SM' | translate))</span>
             </div>
             <div class="col-lg-3 col-md-4 d-flex menu align-items-center">
               <img src="assets/svg/timer.svg" alt="" width="15" height="15" draggable="false">
@@ -49,7 +49,7 @@
   </div>
 
   <div class="details p-15-sm">
-    <h3>Textbook</h3>
+    <h3>{{ 'TEXTBOOK' | translate }}</h3>
     <ng-container [ngSwitch]="view.loading">
       <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
       <ng-container *ngSwitchCase="false">
@@ -63,7 +63,7 @@
                 [src]="+view.resources.course.bookInfo === academicTutoringTextbook.later ? '/assets/svg/textbook.svg' : '/assets/svg/textbook-slash.svg'"
                 class="mb-3" [attr.width]="+view.resources.course.bookInfo === academicTutoringTextbook.later ? '35px' : '60px'"
                 draggable="false" alt="">
-              {{ +view.resources.course.bookInfo === academicTutoringTextbook.later ? 'More info will be provided later' : ('TEXTBOOK_NOT_REQUIRED' | translate) }}
+              {{ +view.resources.course.bookInfo === academicTutoringTextbook.later ? ('MORE_INFO_PROVIDED_LATER' | translate) : ('TEXTBOOK_NOT_REQUIRED' | translate) }}
             </div>
           </div>
           <div class="table-responsive mt-1" *ngIf="+view.resources.course.bookInfo === academicTutoringTextbook.info">
@@ -75,7 +75,7 @@
               </tr>
               <tr class="book-info">
                 <td scope="row">{{view.resources.course.bookName }}</td>
-                <td>Edition {{ view.resources.course?.bookEdition }}</td>
+                <td>{{ 'EDITION' | translate }} {{ view.resources.course?.bookEdition }}</td>
                 <td>{{ view.resources.course.bookAuthor }}</td>
               </tr>
             </table>
@@ -98,15 +98,15 @@
       </ng-container>
     </ng-container>
 
-    <h3>Other documents</h3>
+    <h3>{{ 'OTHER_DOCUMENTS' | translate }}</h3>
     <div class="d-flex justify-content-between">
       <div class="document-tabs">
         <button mat-button class="main-button-transparent me-2 m-0-sm mb-5-sm" (click)="teacherDocTab = true" [ngClass]="{'active': teacherDocTab}">
-          Uploaded by teacher
+          {{ 'UPLOADED_BY_TEACHER' | translate }}
         </button>
 
         <button mat-button class="main-button-transparent" (click)="teacherDocTab = false" [ngClass]="{'active': !teacherDocTab}">
-          Uploaded by student
+          {{ 'UPLOADED_BY_STUDENT' | translate }}
         </button>
       </div>
       <span class="text-main text-decoration-underline cursor-pointer upload-doc" (click)="onOpenUploadDocModal()">{{ 'UPLOAD_DOCUMENT' | translate }}</span>
@@ -117,13 +117,13 @@
         <div class="table-responsive mt-4">
           <table class="table my-table default-title" *ngIf="teacherDocTab">
             <tr>
-              <th scope="col">Document title</th>
-              <th scope="col">Teacher name</th>
+              <th scope="col">{{ 'DOCUMENT_TITLE' | translate }}</th>
+              <th scope="col">{{ 'TEACHER_NAME' | translate }}</th>
               <th scope="col">{{ 'ACTION' | translate }}</th>
             </tr>
             <tr class="book-info" *ngIf="!view.resources?.teacherOtherDocuments?.length">
               <td colspan="5">
-                <div class="text-center">No document found</div>
+                <div class="text-center">{{ 'NO_DOCUMENT_FOUND' | translate }}</div>
               </td>
             </tr>
             <ng-container *ngIf="view.resources?.teacherOtherDocuments?.length">
@@ -137,19 +137,19 @@
 
           <table class="table my-table default-title" *ngIf="!teacherDocTab">
             <tr>
-              <th scope="col">Document title</th>
-              <th scope="col">Teacher name</th>
+              <th scope="col">{{ 'DOCUMENT_TITLE' | translate }}</th>
+              <th scope="col">{{ 'TEACHER_NAME' | translate }}</th>
               <th scope="col">{{ 'ACTION' | translate }}</th>
             </tr>
             <tr class="book-info" *ngIf="!view.resources?.studentOtherDocuments?.length">
               <td colspan="5">
-                <div class="text-center">No document found</div>
+                <div class="text-center">{{ 'NO_DOCUMENT_FOUND' | translate }}</div>
               </td>
             </tr>
             <ng-container *ngIf="view.resources?.studentOtherDocuments?.length">
             <tr class="book-info" *ngFor="let studentDoc of view?.resources?.studentOtherDocuments; let i=index">
               <td scope="row">{{ studentDoc?.bookName }}</td>
-              <td>Edition {{ studentDoc?.bookEdition }}</td>
+              <td>{{ 'EDITION' | translate }} {{ studentDoc?.bookEdition }}</td>
               <td><div><button mat-button class="main-button-transparent">{{ 'DOWNLOAD' | translate }}</button></div></td>
             </tr>
             </ng-container>
@@ -158,7 +158,7 @@
       </ng-container>
     </ng-container>
 
-    <h3>Classes</h3>
+    <h3>{{ 'CLASSES' | translate }}</h3>
     <ng-container [ngSwitch]="view.loading">
       <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
       <ng-container *ngSwitchCase="false">
@@ -183,12 +183,12 @@
                 <td>
                   <div *ngIf="resourceClass?.resourceId">
                     <button mat-button class="secondary-button-transparent" (click)="onOpenEditClassResource(resourceClass.resourceId)">
-                      Edit Resource
+                      {{ 'EDIT_RESOURCE' | translate }}
                     </button>
                   </div>
                   <div *ngIf="!resourceClass?.resourceId">
                     <button mat-button class="main-button-transparent" (click)="onOpenAddClassResource(resourceClass.id)">
-                      Add Resource
+                      {{ 'ADD_RESOURCE' | translate }}
                     </button>
                   </div>
                 </td>

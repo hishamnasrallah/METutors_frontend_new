@@ -12,16 +12,16 @@
         'scheduled': tutor?.interviewRequest?.status === interviewStatus.scheduled
       }">
       <ng-container *ngIf="tutor?.interviewRequest?.status === interviewStatus.pending">
-        Account Under Review
+        {{ 'ACCOUNT_UNDER_REVIEW' | translate }}
       </ng-container>
       <ng-container *ngIf="tutor?.interviewRequest?.status === interviewStatus.approved">
-        Account Approved
+        {{ 'ACCOUNT_APPROVED' | translate }}
       </ng-container>
       <ng-container *ngIf="tutor?.interviewRequest?.status === interviewStatus.rejected">
-        Account Rejected
+        {{ 'ACCOUNT_REJECTED' | translate }}
       </ng-container>
       <ng-container *ngIf="tutor?.interviewRequest?.status === interviewStatus.scheduled">
-        Interview Scheduled
+        {{ 'INTERVIEW_SCHEDULED' | translate }}
       </ng-container>
     </button>
     <div class="row">
@@ -33,7 +33,7 @@
             <img src="assets/svg/upload-solid-white.svg" draggable="false" width="15" height="15"
               *ngIf="!isChangeCover" />
             <mat-icon class="spinner" *ngIf="isChangeCover && !isAvatar">autorenew</mat-icon>
-            Upload Cover Photo
+            {{ 'UPLOAD_COVER_PHOTO' | translate }}
           </button>
         </div>
         <div class="row avatar-name align-items-center">
@@ -59,7 +59,7 @@
           <div class="col-md-9 d-flex justify-content-end align-items-center">
             <button mat-flat-button color="primary" class="mx-2" (click)="submitInterview.emit()"
               *ngIf="!tutor?.interviewRequest">
-              Submit Interview Request
+              {{ 'SUBMIT_INTERVIEW_REQUEST' | translate }}
             </button>
             <ng-container *ngIf="tutor?.interviewRequest?.status === interviewStatus.scheduled">
               <div class="interview-details">
@@ -68,7 +68,7 @@
               </div>
               <button mat-flat-button color="primary" class="mx-2"
                 (click)="joinMeeting.emit(tutor?.interviewRequest?.id)">
-                Join Meeting
+                {{ 'JOIN_MEETING' | translate }}
               </button>
             </ng-container>
           </div>
@@ -136,7 +136,7 @@
 
         <div class="col-md-6">
           <div class="form-group">
-            <label for="email" class="form-label">Email</label>
+            <label for="email" class="form-label">{{ 'EMAIL_ADDRESS' | translate }}</label>
             <input type="text" class="custom-input w-100 input-bordered" id="email" [value]="tutor?.email" readonly>
           </div>
         </div>
