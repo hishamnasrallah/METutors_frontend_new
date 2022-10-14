@@ -58,11 +58,6 @@ export class InvoiceDetailsComponent implements OnInit {
     // return;
 
     if (user) {
-      const classrooms = classroom.classrooms.map((classroom: any) => ({
-        ...classroom,
-        day: +classroom.day + 1,
-      }));
-
       const start_time = new Date(
         Date.parse(classroom.startDate + ' ' + classroom.startTime)
       )?.toISOString();
@@ -84,7 +79,8 @@ export class InvoiceDetailsComponent implements OnInit {
       }));
 
       const classes = classroom.classrooms.map((classroom: any) => ({
-        ...classroom,
+        day: +classroom.day + 1,
+        duration: classroom.duration,
         date: new Date(classroom?.date)?.toISOString(),
         start_time: new Date(
           Date.parse(classroom?.date + ' ' + classroom?.start_time)
@@ -96,23 +92,22 @@ export class InvoiceDetailsComponent implements OnInit {
 
       const data = {
         classes,
-        weekdays,
         end_time,
         start_time,
-        classrooms,
         highlighted_topics,
         file: classroom.file,
         author: classroom.author,
         book_name: classroom.name,
         class_type: classroom.type,
-        total_price: classroom.hours,
+        weekdays: weekdays.join(','),
+        total_hours: classroom.hours,
         subject_id: classroom.subject,
         language_id: classroom.language,
         book_edition: classroom.edition,
         teacher_id: classroom.tutor?.id,
         book_info: classroom.information,
+        total_price: classroom.totalPrice,
         total_classes: classroom.classes,
-        total_hours: classroom.totalPrice,
         course_level: classroom.courseLevel,
         country_id: classroom.courseCountry,
         program_id: classroom.courseProgram,
@@ -122,6 +117,7 @@ export class InvoiceDetailsComponent implements OnInit {
         redirect_url: this.baseURL + '/requests/payment-processing',
       };
 
+      console.log(data);
       this._store.dispatch(fromCore.createCourse({ data }));
     } else {
       this._router.navigate(['/signin'], {
