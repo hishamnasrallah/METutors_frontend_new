@@ -5,12 +5,8 @@ import { environment } from '@environment';
 import * as fromCore from '@metutor/core/state';
 import { Component, OnInit } from '@angular/core';
 import * as fromRequests from '@metutor/modules/requests/state';
+import { SORTED_DAYS_WEEK, CLASSROOM_TOPICS_SCALE_NUM } from '@config';
 import { IClassroom, IInvoiceDetails, IUser } from '@metutor/core/models';
-import {
-  AcademicTutoringTextbook,
-  CLASSROOM_TOPICS_SCALE_NUM,
-  SORTED_DAYS_WEEK,
-} from '@config';
 
 @Component({
   selector: 'metutors-invoice-details',

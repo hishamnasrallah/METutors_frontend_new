@@ -29,8 +29,8 @@ import {
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
 import {
-  LONG_DAYS_WEEK,
   generalConstants,
+  SORTED_DAYS_WEEK,
   calculateDurationTime,
 } from 'src/app/config';
 
@@ -195,7 +195,7 @@ export class DialogEditClassroom implements OnInit {
 
   editForm: FormGroup;
   minDate = new Date();
-  listDays = LONG_DAYS_WEEK;
+  listDays = SORTED_DAYS_WEEK;
   classroomTimeDuration = generalConstants.classroomTimeDuration;
 
   constructor(

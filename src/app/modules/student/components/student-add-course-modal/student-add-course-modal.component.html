@@ -34,7 +34,7 @@
               <mat-select formControlName="days" placeholder="{{ 'CHOOSE_DAYS' | translate }}" multiple
                           (selectionChange)="onChangeDateDay()">
                 <mat-option [value]="day" [disabled]="checkDisabledDays(day)"
-                            *ngFor="let day of listDays; let i = index">
+                            *ngFor="let day of daysSorted; let i = index">
                   {{ day }}
                 </mat-option>
               </mat-select>
