@@ -52,7 +52,7 @@ export class StudentFeedbackModalComponent implements OnInit {
 
     this.form = this._fb.group({
       receiver_id: [null],
-      review: [null, Validators.required],
+      review: [null, [Validators.required, Validators.maxLength(800)]],
       feedbacks: this._fb.array([]),
     });
 

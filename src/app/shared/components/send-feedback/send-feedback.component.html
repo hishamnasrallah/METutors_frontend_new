@@ -16,9 +16,13 @@
       <div class="col-md-12">
         <div class="form-group">
           <label for="message" class="fw-bold" *ngIf="messageLabel">{{ messageLabel | translate }}*</label>
+          <metutors-char-counter [limit]="800" [controlName]="review"></metutors-char-counter>
           <textarea rows="5" class="custom-input w-100 input-bordered" id="message"
                     placeholder="{{ 'YOUR_MESSAGE' | translate }}"
                     formControlName="review"></textarea>
+          <div class="text-danger" *ngIf="review?.touched && review?.invalid">
+            {{ 'FEEDBACK_CHARACTERS' | translate }}
+          </div>
         </div>
       </div>
     </div>
