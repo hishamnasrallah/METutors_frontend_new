@@ -117,7 +117,6 @@ export class InvoiceDetailsComponent implements OnInit {
         redirect_url: this.baseURL + '/requests/payment-processing',
       };
 
-      console.log(data);
       this._store.dispatch(fromCore.createCourse({ data }));
     } else {
       this._router.navigate(['/signin'], {
