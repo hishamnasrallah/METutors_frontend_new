@@ -42,8 +42,8 @@ export class AdminEditFeedbackModalComponent implements OnInit {
   ngOnInit(): void {
     this.form = this._fb.group({
       receiver_id: [this.userId],
-      review: [null, Validators.required],
       feedbacks: this._fb.array([]),
+      review: [null, [Validators.required, Validators.maxLength(800)]],
     });
 
     this.view$ = combineLatest([
