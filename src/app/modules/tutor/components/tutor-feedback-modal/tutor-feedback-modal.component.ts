@@ -57,8 +57,8 @@ export class TutorFeedbackModalComponent implements OnInit {
     this.form = this._fb.group({
       receiver_id: [null],
       cancelCourse: [false],
-      review: [null, Validators.required],
       feedbacks: this._fb.array([]),
+      review: [null, [Validators.required, Validators.maxLength(800)]],
     });
 
     this.view$ = combineLatest([

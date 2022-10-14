@@ -163,7 +163,7 @@
             <label for="country" class="form-label">{{ 'COUNTRY' | translate }}</label>
             <mat-form-field appearance="outline" class="w-100">
               <mat-select formControlName="country" placeholder="{{ 'SELECT_COUNTRY' | translate }}" id="country"
-                (selectionChange)="loadCities.emit(country?.value)">
+                (selectionChange)="onChangeCountry(country?.value)">
                 <mat-option>
                   <ngx-mat-select-search [(ngModel)]="filterCountry" [ngModelOptions]="{standalone: true}"
                     placeholderLabel="{{ 'SEARCH_DOTS' | translate }}" noEntriesFoundLabel="{{ 'NO_MATCHING_COUNTRY_FOUND' | translate }}">

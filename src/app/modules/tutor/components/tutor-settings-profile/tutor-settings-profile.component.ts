@@ -452,6 +452,11 @@ export class TutorSettingsProfileComponent implements OnInit {
     this.availability.push(this.newAvailability());
   }
 
+  onChangeCountry(country: any): void {
+    this.city?.setValue(null);
+    this.loadCities.emit(country);
+  }
+
   onChangeDay(index: number): void {
     if (this.selectedDays.includes(index)) {
       // this.selectedDays.splice(this.selectedDays.indexOf(index), 1);
