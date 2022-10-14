@@ -29,7 +29,6 @@ import {
 
 import {
   WEEK_DAYS,
-  LONG_DAYS_WEEK,
   WEEK_FULL_DAYS,
   SORTED_DAYS_WEEK,
   generalConstants,
@@ -108,7 +107,6 @@ export class StudentAddCourseModalComponent implements OnInit {
   minDate = new Date();
   classrooms!: IClass[];
   objectKeys = Object.keys;
-  listDays = LONG_DAYS_WEEK;
   heading = 'ADD_NEW_CLASSES';
   weekDayName = WEEK_FULL_DAYS;
   daysSorted = SORTED_DAYS_WEEK;
@@ -763,7 +761,7 @@ export class DialogEditClassroom implements OnInit {
 
   editForm: FormGroup;
   minDate = new Date();
-  listDays = LONG_DAYS_WEEK;
+  listDays = SORTED_DAYS_WEEK;
   classroomTimeDuration = generalConstants.classroomTimeDuration;
 
   constructor(
