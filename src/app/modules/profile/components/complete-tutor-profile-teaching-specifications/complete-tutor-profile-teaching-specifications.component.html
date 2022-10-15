@@ -55,7 +55,9 @@
           <label class="form-label">{{ 'ADD_UR_AVAILABILITY' | translate }}</label>
           <div class="list-days">
             <button type="button" mat-button [class.active]="selectedDays?.includes(i)" [disabled]="checkDisabledDays(day)"
-              *ngFor="let day of days; let i = index" (click)="onChangeDay(i)" class="w-100-sm">{{ day }}</button>
+              *ngFor="let day of days; let i = index" (click)="onChangeDay(i)" class="w-100-sm">
+              {{ day | uppercase | translate }}
+            </button>
           </div>
         </div>
       </div>

@@ -168,7 +168,7 @@
                                           class="d-inline-block">
                     </metutors-user-avatar>
                   </td>
-                  <td>{{ upcomingClass.startDate | date: 'EEEE' }} </td>
+                  <td>{{ (upcomingClass.startDate | date: 'EEEE')! | uppercase | translate }} </td>
                   <td>{{ upcomingClass.startDate | date: 'YYYY-MM-dd' }} </td>
                   <td>{{ upcomingClass.startTime | date: 'h:mm a' }} - {{ upcomingClass.endTime | date: 'h:mm a' }} </td>
                   <td>{{ upcomingClass?.duration }} {{ +(upcomingClass?.duration)! > 1 ? ('HOURS_SM' | translate) : ('HOUR_SM' | translate) }}</td>
@@ -224,7 +224,7 @@
                                           class="d-inline-block">
                     </metutors-user-avatar>
                   </td>
-                  <td>{{ pastClass.startDate | date: 'EEEE' }} </td>
+                  <td>{{ (pastClass.startDate | date: 'EEEE')! | uppercase | translate }} </td>
                   <td>{{ pastClass.startDate | date }} </td>
                   <td>{{ pastClass.startTime | date:'h:mm a' }} - {{ pastClass.endTime | date:'h:mm a' }} </td>
                   <td>{{ pastClass?.duration }} {{ +(pastClass?.duration)! > 1 ? ('HOURS_SM' | translate) : ('HOUR_SM' | translate) }}</td>

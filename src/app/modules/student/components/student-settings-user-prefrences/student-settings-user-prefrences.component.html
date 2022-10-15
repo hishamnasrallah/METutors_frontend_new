@@ -20,7 +20,7 @@
           <h3>{{ 'SELECT_GENDER_TEACH' | translate }}</h3>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select placeholder="{{ 'SELECT_GENDER' | translate }}" formControlName="preferred_gender">
-              <mat-option [value]="gender" *ngFor="let gender of genders">{{ gender }}</mat-option>
+              <mat-option [value]="gender" *ngFor="let gender of genders">{{ gender | uppercase | translate }}</mat-option>
               <mat-option value="any">{{ 'ANY' | translate }}</mat-option>
             </mat-select>
           </mat-form-field>

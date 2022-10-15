@@ -13,17 +13,21 @@
 
     <div class="col-4">
       <label class="text-secondary fw-bold">{{ 'DAYS' | translate }}</label>
-      <p class="fw-bold">{{ weekDays.toString() }}</p>
+      <p>
+        <ng-container *ngFor="let day of weekDays; let isLast = last">
+          {{ day | uppercase | translate }}<ng-container *ngIf="!isLast">,</ng-container>
+        </ng-container>
+      </p>
     </div>
   </div>
 
   <div class="row mt-3">
     <ng-container *ngFor="let key of objectKeys(availabilities)">
-      <div class="col-2 fw-bold">{{ weekDayName[key] }}</div>
+      <div class="col-2 fw-bold">{{ weekDayName[key] | uppercase | translate }}</div>
 
       <div class="col-10 time-box">
         <div class="slot" *ngFor="let slot of availabilities[key]">
-          {{ slot.timeFrom | date: 'h:mm' }} to {{ slot.timeTo | date: 'h:mm a' }}
+          {{ slot.timeFrom | date: 'h:mm' }} {{ 'TO' | translate }} {{ slot.timeTo | date: 'h:mm a' }}
         </div>
       </div>
     </ng-container>

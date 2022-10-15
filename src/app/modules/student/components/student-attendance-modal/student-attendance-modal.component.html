@@ -33,7 +33,9 @@
                   <div class="col-md-4 d-flex menu align-items-center">
                     <img src="assets/svg/calendar.svg" alt="" width="15" height="15" draggable="false">
                     <strong>{{ 'DAYS' | translate }}:</strong>
-                    <span>{{ getDays(view.attendance?.course?.weekdays) }}</span>
+                    <span *ngFor="let day of getDays(view.attendance?.course?.weekdays); let isLast = last">
+                      {{ day | uppercase | translate }}<ng-container *ngIf="!isLast">,</ng-container>
+                    </span>
                   </div>
                   <div class="col-md-4 d-flex menu align-items-center">
                     <img src="assets/svg/checkbox-circle-fill.svg" alt="" width="15" height="15" draggable="false">

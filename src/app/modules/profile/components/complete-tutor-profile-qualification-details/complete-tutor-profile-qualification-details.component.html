@@ -100,7 +100,7 @@
           <label for="computerSkills" class="form-label">{{ 'COMPUTER_SKILLS' | translate }}</label>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="computerSkills" placeholder="{{ 'SELECT_COMPUTER_SKILLS' | translate }}" id="computerSkills">
-              <mat-option [value]="skill" *ngFor="let skill of skills">{{ skill }}</mat-option>
+              <mat-option [value]="skill" *ngFor="let skill of skills">{{ skill | uppercase | translate }}</mat-option>
             </mat-select>
           </mat-form-field>
           <div class="text-danger" *ngIf="computerSkills?.touched && computerSkills?.invalid">

@@ -12,7 +12,7 @@
                 <strong>{{ 'DAYS' | translate }}: </strong>
                 <span class="f-size-17-md-sm">
                   <ng-container *ngFor="let day of getDays(view.syllabus?.course?.weekdays); let isLast = last">
-                    {{ day }}<ng-container *ngIf="!isLast">, </ng-container>
+                    {{ day | uppercase | translate }}<ng-container *ngIf="!isLast">, </ng-container>
                   </ng-container>
                 </span>
               </div>

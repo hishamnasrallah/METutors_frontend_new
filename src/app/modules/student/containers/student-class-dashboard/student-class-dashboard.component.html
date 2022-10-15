@@ -180,7 +180,7 @@
                                             [type]="'small'"
                                             class="d-block"></metutors-user-avatar>
                     </td>
-                    <td>{{ upcomingClass.startDate | date: 'EEEE' }} </td>
+                    <td>{{ (upcomingClass.startDate | date: 'EEEE')! | uppercase | translate }} </td>
                     <td>{{ upcomingClass.startDate | date: 'YYYY-MM-dd' }} </td>
                     <td>{{ upcomingClass.startTime | date:'h:mm a' }} - {{ upcomingClass.endTime | date:'h:mm a' }} </td>
                     <td>{{ upcomingClass?.duration }} {{ +(upcomingClass?.duration)! > 1 ? ('HOURS_SM' | translate) : ('HOUR_SM' | translate) }}</td>
@@ -232,7 +232,7 @@
                                             [name]="previousClass?.teacher?.firstName+ ' ' +previousClass?.teacher?.lastName"
                                             class="d-block"></metutors-user-avatar>
                     </td>
-                    <td>{{ previousClass.startDate | date: 'EEEE' }} </td>
+                    <td>{{ (previousClass.startDate | date: 'EEEE')! | uppercase | translate }} </td>
                     <td>{{ previousClass.startDate | date: 'YYYY-MM-dd' }} </td>
                     <td>{{ previousClass.startTime | date:'h:mm a' }} - {{ previousClass.endTime | date:'h:mm a' }} </td>
                     <td>{{ previousClass?.duration }}{{ +(previousClass?.duration)! > 1 ? ('HRS_SM' | translate) : ('HR_SM' | translate) }}</td>

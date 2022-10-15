@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Cairo&display=swap');
 
 [dir='rtl'] {
-  *:not(.material-icons) {
+  *:not(.material-icons):not(vg-player) {
     font-family: 'Cairo', sans-serif;
   }
 
@@ -16,7 +16,8 @@
   .iti__country,
   .iti__flag-container,
   ng-otp-input,
-  vg-player {
+  vg-player,
+  .wpwl-container {
     direction: ltr;
   }
 

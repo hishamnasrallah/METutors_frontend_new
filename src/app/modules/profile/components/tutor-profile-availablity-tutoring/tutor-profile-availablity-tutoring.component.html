@@ -6,7 +6,7 @@
           <h1 class="heading f-size-15-md-sm">{{ 'TEACHER_AVAILABILITY' | translate }}</h1>
 
           <span *ngFor="let avail of availability" (click)="tutorAvailability.emit()" class="cursor-pointer">
-            {{ avail }}
+            {{ avail | uppercase | translate }}
           </span>
         </div>
         <div class="col-md-6 mt-15-sm" *ngIf="_tutor?.specifications?.typeOfTutoring">

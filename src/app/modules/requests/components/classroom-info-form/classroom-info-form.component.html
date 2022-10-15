@@ -39,7 +39,7 @@
                 (selectionChange)="onChangeDateDay()">
                 <mat-option [value]="day" [disabled]="checkDisabledDays(day)"
                   *ngFor="let day of daysSorted; let i = index">
-                  {{ day }}
+                  {{ day | uppercase | translate }}
                 </mat-option>
               </mat-select>
             </mat-form-field>

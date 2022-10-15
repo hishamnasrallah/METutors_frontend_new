@@ -117,7 +117,7 @@
           <h3>{{ 'GENDER' | translate }}</h3>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="gender" placeholder="{{ 'SELECT_UR_GENDER' | translate }}">
-              <mat-option [value]="gender" *ngFor="let gender of genders">{{ gender }}</mat-option>
+              <mat-option [value]="gender" *ngFor="let gender of genders">{{ gender | uppercase | translate }}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>

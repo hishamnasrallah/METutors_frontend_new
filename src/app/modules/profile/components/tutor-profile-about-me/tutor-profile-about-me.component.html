@@ -14,7 +14,7 @@
         </li>
         <li>
           <img src="assets/svg/gender.svg" draggable="false" width="20" height="20" alt="" *ngIf="tutor?.gender">
-          <span>{{ 'GENDER' | translate }}: {{ tutor?.gender }}</span>
+          <span>{{ 'GENDER' | translate }}: {{ (tutor?.gender)! | uppercase | translate }}</span>
         </li>
         <li>
           <img src="assets/svg/date.svg" draggable="false" width="20" height="20" alt=""

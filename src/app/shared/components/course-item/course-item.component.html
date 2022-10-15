@@ -51,7 +51,7 @@
         <strong>{{ 'DAYS' | translate }}:</strong>
         <span>
           <ng-container *ngFor="let day of classroom?.listDays; let isLast = last">
-            {{ day }}
+            {{ day | uppercase | translate }}
             <ng-container *ngIf="!isLast">, </ng-container>
           </ng-container>
         </span>

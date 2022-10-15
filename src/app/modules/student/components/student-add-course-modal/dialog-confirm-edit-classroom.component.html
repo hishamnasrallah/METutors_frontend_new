@@ -25,7 +25,7 @@
         <mat-form-field appearance="outline" class="w-100">
           <mat-select formControlName="days" placeholder="{{ 'CHOOSE_DAY' | translate }}" [disabled]="true">
             <mat-option [value]="day" *ngFor="let day of listDays">
-              {{ day }}
+              {{ day | uppercase | translate }}
             </mat-option>
           </mat-select>
         </mat-form-field>

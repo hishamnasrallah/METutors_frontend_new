@@ -9,11 +9,6 @@ import {
   HttpParams,
   HttpErrorResponse,
 } from '@angular/common/http';
-import {
-  SORTED_DAYS_WEEK,
-  AcademicTutoringTextbook,
-  CLASSROOM_TOPICS_SCALE_NUM,
-} from 'src/app/config';
 
 @Injectable({
   providedIn: 'root',

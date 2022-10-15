@@ -19,7 +19,7 @@
               <th>{{ 'DURATION' | translate }}</th>
             </tr>
             <tr *ngFor="let classroom of _classrooms">
-              <td>{{ classroom?.date | date: 'EEEE' }}</td>
+              <td>{{ (classroom?.date | date: 'EEEE')! | uppercase | translate }}</td>
               <td>{{ classroom?.date | date: 'd MMM y' }}</td>
               <td>{{ classroom?.startTime }}</td>
               <td>{{ classroom?.endTime }}</td>

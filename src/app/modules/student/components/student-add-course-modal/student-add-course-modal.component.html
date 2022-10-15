@@ -35,7 +35,7 @@
                           (selectionChange)="onChangeDateDay()">
                 <mat-option [value]="day" [disabled]="checkDisabledDays(day)"
                             *ngFor="let day of daysSorted; let i = index">
-                  {{ day }}
+                  {{ day | uppercase | translate }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -126,7 +126,7 @@
                   <th></th>
                 </tr>
                 <tr *ngFor="let classroom of classrooms">
-                  <td>{{ classroom?.date | date: 'EEEE' }}</td>
+                  <td>{{ (classroom?.date | date: 'EEEE')! | uppercase | translate }}</td>
                   <td>{{ classroom?.date | date: 'd MMM y' }}</td>
                   <td>{{ classroom?.startTime }}</td>
                   <td>{{ classroom?.endTime }}</td>
@@ -201,7 +201,11 @@
 
                     <div class="col-4">
                       <label class="text-secondary fw-bold">{{ 'DAYS' | translate }}</label>
-                      <p class="fw-bold">{{ weekDays.toString() }}</p>
+                      <p class="fw-bold">
+                        <ng-container *ngFor="let day of weekDays; let isLast = last">
+                          {{ day | uppercase | translate }}<ng-container *ngIf="!isLast">,</ng-container>
+                        </ng-container>
+                      </p>
                     </div>
                   </div>
 

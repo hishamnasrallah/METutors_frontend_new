@@ -99,7 +99,7 @@
               <h3>{{ 'CLASS_DAYS' | translate }}</h3>
               <h4>
                 <ng-container *ngFor="let day of reviewInfo?.days; let isLast = last">
-                  {{ day }}
+                  {{ day | uppercase | translate }}
                   <ng-container *ngIf="!isLast"> - </ng-container>
                 </ng-container>
               </h4>
@@ -126,7 +126,7 @@
                 <th>{{ 'TOTAL_HOURS' | translate }}</th>
               </tr>
               <tr *ngFor="let appointment of reviewInfo?.appointments">
-                <td>{{ appointment?.date | date: 'EEEE' }}</td>
+                <td>{{ (appointment?.date | date: 'EEEE')! | uppercase | translate }}</td>
                 <td>{{ appointment?.date | date: 'd MMM y' }}</td>
                 <td>{{ appointment?.startTime }}</td>
                 <td>{{ appointment?.endTime }}</td>
