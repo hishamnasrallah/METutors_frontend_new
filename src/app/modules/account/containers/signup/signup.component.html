@@ -35,7 +35,7 @@
                         <path id="Path-3" data-name="Path" d="M2.047,0A2.047,2.047,0,1,0,4.095,2.047,2.047,2.047,0,0,0,2.047,0Z" transform="translate(3.137)"/>
                       </g>
                     </svg>
-                    {{ 'IM_A' | translate }} {{ role?.name }}
+                    {{ 'IM_A' | translate }} {{ (role?.name)! + '_SM' | uppercase | translate }}
                   </button>
                 </div>
               </div>

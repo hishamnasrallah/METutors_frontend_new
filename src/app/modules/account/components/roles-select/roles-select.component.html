@@ -10,7 +10,7 @@
       <div class="col-md-6" *ngFor="let role of roles">
         <button mat-button (click)="onSubmit(role.id)" class="w-100 text-start" type="button">
           <mat-icon>local_library</mat-icon>
-          {{ 'IM_A' | translate }} {{ role.name }}
+          {{ 'IM_A' | translate }} {{ (role?.name)! + '_SM' | uppercase | translate }}
         </button>
       </div>
     </div>
