@@ -33,12 +33,15 @@
                                        [isChangeAvatar]="(isChangeTutorAvatar$ | async)!"
                                        [isChangeCover]="(isChangeTutorCover$ | async)!"
                                        [isUpdateProfile]="(isUpdateTutorProfile$ | async)!"
+                                       [uploadingVideo]="(isChangeTutorVideo$ | async)!"
                                        (loadCities)="loadCities($event)"
                                        (submitForm)="sendTeacherAccount(tutor, $event)"
                                        (changeAvatar)="onChangeTutorAvatar($event)"
                                        (changeCover)="onChangeTutorCover($event)"
                                        (submitInterview)="onOpenSubmitInterview()"
                                        (joinMeeting)="onJoinMeeting($event)"
+                                       (cancelUploading)="onCancelVideoUpload()"
+                                       (changeVideo)="onChangeVideo($event)"
                                        (updateRatesForm)="onUpdateRatesForm(tutor, $event)">
       </metutors-tutor-settings-profile>
 

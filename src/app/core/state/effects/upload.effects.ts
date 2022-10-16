@@ -88,6 +88,29 @@ export class UploadEffects {
     )
   );
 
+  changeVideo$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(uploadActions.changeVideo),
+      mergeMap(({ file }) =>
+        this._uploadService.changeVideo(file).pipe(
+          map((response) =>
+            uploadActions.changeVideoSuccess({
+              video: response?.video,
+              message: 'COVER_PHOTO_UPDATED_SUCCESSFULLY',
+            })
+          ),
+          catchError((error) =>
+            of(
+              uploadActions.changeVideoFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   deleteUploadedFile$ = createEffect(() =>
     this._actions$.pipe(
       ofType(uploadActions.deleteUploadedFile),
@@ -117,6 +140,7 @@ export class UploadEffects {
         ofType(
           ...[
             uploadActions.changeCoverSuccess,
+            uploadActions.changeVideoSuccess,
             uploadActions.changeAvatarSuccess,
             uploadActions.deleteUploadedFileSuccess,
           ]
@@ -134,6 +158,7 @@ export class UploadEffects {
         ofType(
           ...[
             uploadActions.changeCoverFailure,
+            uploadActions.changeVideoFailure,
             uploadActions.changeAvatarFailure,
             uploadActions.deleteUploadedFileFailure,
           ]

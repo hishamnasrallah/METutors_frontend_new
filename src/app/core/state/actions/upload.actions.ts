@@ -81,3 +81,18 @@ export const changeCoverFailure = createAction(
   '[Upload Service] Change Cover Failure',
   props<{ error: any }>()
 );
+
+export const changeVideo = createAction(
+  '[Upload Service] Change Video',
+  props<{ file: File }>()
+);
+
+export const changeVideoSuccess = createAction(
+  '[Upload Service] Change Video Success',
+  props<{ message: string; video: string }>()
+);
+
+export const changeVideoFailure = createAction(
+  '[Upload Service] Change Video Failure',
+  props<{ error: any }>()
+);

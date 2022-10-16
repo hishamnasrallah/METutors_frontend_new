@@ -77,12 +77,30 @@
     </div>
   </div>
 
-  <div class="card complete-form mb-3">
+  <div class="card complete-form mb-3 video">
     <div class="card-body">
       <h1 class="title f-size-18-md-sm mb-3">{{ 'MY_TEACHING_STYLE' | translate }}</h1>
 
+      <input type="file" #videoPicker (change)="onChangeVideo($event)" hidden accept="video/*"/>
+      <button mat-flat-button color="primary" class="px-4 edit-video" type="button"
+              (click)="videoPicker.click()" [disabled]="uploadingVideo">
+        <img src="assets/svg/upload-solid-white.svg" width="15" height="15" draggable="false" alt=""> {{ 'UPLOAD_VIDEO' | translate }}
+      </button>
       <metutors-video-player [videoSrc]="tutor?.qualifications?.video" [maxHeight]="'315px'">
       </metutors-video-player>
+
+      <div class="position-relative preview-style" *ngIf="isVideo">
+        <ng-container *ngIf="fileUploadProgress?.length">
+          <ng-container *ngFor="let uploadProgress of fileUploadProgress">
+            <ng-container *ngIf="uploadProgress.responseType !== uploadComplete">
+              <metutors-file-upload-progress [fileName]="uploadProgress.fileName" [fileType]="'video'"
+                                             (onCancelUpload)="cancelUploading.emit()"
+                                             [uploadedPercentage]="uploadProgress.progress" [cancelUpload]="true">
+              </metutors-file-upload-progress>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </div>
     </div>
   </div>
 

@@ -24,6 +24,7 @@ import {
 })
 export class TutorSettingsComponent implements OnInit {
   layout$: any;
+  isVideo: boolean;
   isAvatar: boolean;
   user$: Observable<IUser | null>;
   tutor$: Observable<ITutor | null>;
@@ -32,6 +33,7 @@ export class TutorSettingsComponent implements OnInit {
   isLoadingTutor$: Observable<boolean>;
   isChangingPassword$: Observable<boolean>;
   isChangeTutorCover$: Observable<boolean>;
+  isChangeTutorVideo$: Observable<boolean>;
   countries$: Observable<ICountry[] | null>;
   isChangeTutorAvatar$: Observable<boolean>;
   languages$: Observable<ILanguage[] | null>;
@@ -67,14 +69,18 @@ export class TutorSettingsComponent implements OnInit {
                 this._store.dispatch(
                   fromCore.changeAvatar({ file: response.url })
                 );
-              } else {
+              } else if (this.isVideo) {
+                this._store.dispatch(
+                  fromCore.changeVideo({ file: response.url })
+                );
+              } else if (!this.isAvatar && !this.isVideo) {
                 this._store.dispatch(
                   fromCore.changeCover({ file: response.url })
                 );
               }
-            }
 
-            this._store.dispatch(fromCore.resetUploadFileProgress());
+              this._store.dispatch(fromCore.resetUploadFileProgress());
+            }
           });
         })
       );
@@ -89,6 +95,10 @@ export class TutorSettingsComponent implements OnInit {
 
     this.isChangeTutorCover$ = this._store.select(
       fromCore.selectIsUploadingCover
+    );
+
+    this.isChangeTutorVideo$ = this._store.select(
+      fromCore.selectIsUploadingVideo
     );
 
     this.isSubmittingInterview$ = this._store.select(
@@ -146,6 +156,19 @@ export class TutorSettingsComponent implements OnInit {
     }
 
     this._store.dispatch(fromCore.updateTutorProfileRates({ data }));
+  }
+
+  onCancelVideoUpload(): void {
+    this.isVideo = false;
+    this._store.dispatch(fromCore.cancelFileUpload());
+  }
+
+  onChangeVideo(file: any): void {
+    this.isVideo = true;
+    this.isAvatar = false;
+    this._store.dispatch(
+      fromCore.uploadFile({ file: [...file], uploadType: 'video' })
+    );
   }
 
   onChangeTutorAvatar(file: any): void {

@@ -1267,6 +1267,11 @@ export const selectIsUploadingCover = createSelector(
   fromUploadReducer.selectIsUploadingCover
 );
 
+export const selectIsUploadingVideo = createSelector(
+  selectUploadState,
+  fromUploadReducer.selectIsUploadingVideo
+);
+
 // Admin selectors
 export const selectAdminDocuments = createSelector(
   selectAdminState,

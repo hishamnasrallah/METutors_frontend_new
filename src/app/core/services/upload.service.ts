@@ -95,6 +95,13 @@ export class UploadService {
     return this._http.post<any>(`${this.baseUrl}change-cover`, formData);
   }
 
+  changeVideo(file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('video', file);
+
+    return this._http.post<any>(`${this.baseUrl}change-cover`, formData);
+  }
+
   cancelFileUploadStream(): Observable<any> {
     this.fileUploadStream$.unsubscribe();
 

@@ -1,5 +1,6 @@
 import moment from 'moment';
 import { DatePipe } from '@angular/common';
+import { HttpEventType } from '@angular/common/http';
 import { TranslateService } from '@ngx-translate/core';
 import { ICity, ICountry, ITutor } from '@metutor/core/models';
 import { AlertNotificationService } from '@metutor/core/components';
@@ -136,6 +137,7 @@ export class TutorSettingsProfileComponent implements OnInit {
   @Input() loading: boolean | null;
   @Input() isLoadingTutor: boolean;
   @Input() isChangeAvatar: boolean;
+  @Input() uploadingVideo: boolean;
   @Input() isUpdateProfile: boolean;
   @Input() fileUploadProgress: any;
   @Input() countries: ICountry[] | null;
@@ -143,12 +145,15 @@ export class TutorSettingsProfileComponent implements OnInit {
   @Output() submitForm = new EventEmitter();
   @Output() submitInterview = new EventEmitter();
   @Output() updateRatesForm = new EventEmitter();
+  @Output() cancelUploading = new EventEmitter();
   @Output() changeCover = new EventEmitter<File>();
+  @Output() changeVideo = new EventEmitter<File>();
   @Output() loadCities = new EventEmitter<string>();
   @Output() changeAvatar = new EventEmitter<File>();
   @Output() joinMeeting = new EventEmitter<number>();
 
   tutor: ITutor;
+  isVideo: boolean;
   isAvatar: boolean;
   genders = GENDERS;
   filterCity: string;
@@ -169,6 +174,7 @@ export class TutorSettingsProfileComponent implements OnInit {
   experiences = TEACHING_EXPERIENCE;
   interviewStatus = InterviewStatus;
   types = COURSE_TUITION_TYPES_CONST;
+  uploadComplete: HttpEventType.Response;
 
   constructor(
     private _fb: FormBuilder,
@@ -576,6 +582,28 @@ export class TutorSettingsProfileComponent implements OnInit {
 
       this.isAvatar = false;
       this.changeCover.emit(file);
+    }
+  }
+
+  onChangeVideo(event: any): void {
+    if (event.target && event.target.files && event.target.files.length) {
+      const file = event.target?.files;
+      const mimeType = event.target.files[0].type;
+
+      if (mimeType.match(/video\/*/) == null) {
+        this._alertNotificationService.error('ONLY_VIDEOS_ALLOWED');
+
+        return;
+      }
+
+      if (file[0].size > 120 * 1024 * 1024) {
+        this._alertNotificationService.error('ALLOWED_SIZE_120MB');
+
+        return;
+      }
+
+      this.isVideo = true;
+      this.changeVideo.emit(file);
     }
   }
 
