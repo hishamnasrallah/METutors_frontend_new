@@ -23,7 +23,7 @@
                 </mat-slider>
               </div>
               <div class="d-flex justify-content-between titles">
-                <span *ngFor="let scale of topicsScale | keyvalue">{{ scale.value }}</span>
+                <span *ngFor="let scale of topicsScale | keyvalue">{{ scale.value | metutorsUppercase | translate }}</span>
               </div>
 
               <div class="mt-5">

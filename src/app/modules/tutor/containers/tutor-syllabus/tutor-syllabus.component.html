@@ -96,7 +96,7 @@
                 <tr *ngFor="let topic of view.syllabus.highlightedTopics; let i=index">
                   <td>{{ i + 1 }}</td>
                   <td>{{ topic?.name }}</td>
-                  <td>{{ topic?.confidenceScale }}</td>
+                  <td>{{ topic?.confidenceScale | metutorsUppercase | translate }}</td>
                 </tr>
               </ng-container>
             </table>
