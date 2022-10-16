@@ -84,7 +84,8 @@
       <input type="file" #videoPicker (change)="onChangeVideo($event)" hidden accept="video/*"/>
       <button mat-flat-button color="primary" class="px-4 edit-video" type="button"
               (click)="videoPicker.click()" [disabled]="uploadingVideo">
-        <img src="assets/svg/upload-solid-white.svg" width="15" height="15" draggable="false" alt=""> {{ 'UPLOAD_VIDEO' | translate }}
+        <img src="assets/svg/upload-solid-white.svg" width="15" height="15" draggable="false" alt="">
+        {{ 'UPLOAD_VIDEO' | translate }}
       </button>
       <metutors-video-player [videoSrc]="tutor?.qualifications?.video" [maxHeight]="'315px'">
       </metutors-video-player>
