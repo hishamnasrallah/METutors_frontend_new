@@ -6,7 +6,7 @@
       <li>
         <img src="assets/svg/qualification.svg" draggable="false" width="20" height="20" alt=""
           *ngIf="tutor?.qualifications?.degreeLevel">
-        <span>{{ 'DEGREE_LEVEL' | translate }}: {{ tutor?.qualifications?.degreeLevel }}</span>
+        <span>{{ 'DEGREE_LEVEL' | translate }}: {{ (tutor?.qualifications?.degreeLevel)! | metutorsUppercase | translate }}</span>
       </li>
       <li>
         <img src="assets/svg/computer.svg" draggable="false" width="20" height="20" alt=""
