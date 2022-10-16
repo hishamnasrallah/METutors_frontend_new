@@ -351,7 +351,9 @@
             <mat-form-field appearance="outline" class="w-100">
               <mat-select formControlName="degreeLevel" placeholder="{{ 'SELECT_DEGREE_LEVEL' | translate }}"
                 (selectionChange)="resetDegreeField()">
-                <mat-option [value]="level" *ngFor="let level of degreeLevels">{{ level }}</mat-option>
+                <mat-option [value]="level" *ngFor="let level of degreeLevels">
+                  {{ level | metutorsUppercase | translate }}
+                </mat-option>
               </mat-select>
             </mat-form-field>
             <div class="text-danger" *ngIf="degreeLevel?.touched && degreeLevel?.invalid">

@@ -1,5 +1,5 @@
 import { ILanguage } from '@models';
-import { LANGUAGES_LEVELS_CONST } from '@config';
+import { COURSE_TUITION_TYPES_CONST } from '@metutor/config';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -47,7 +47,6 @@ export class TutorSettingsUserPreferencesComponent implements OnInit {
 
   form: FormGroup;
   invalid = 'INVALID';
-  levels = LANGUAGES_LEVELS_CONST;
 
   constructor(private _fb: FormBuilder) {}
 
@@ -99,7 +98,9 @@ export class TutorSettingsUserPreferencesComponent implements OnInit {
       languages: this._fb.array([]),
     });
 
-    this.gender.setValue(this.preferences?.preferred_gender || 'both');
+    this.gender.setValue(
+      this.preferences?.preferred_gender || COURSE_TUITION_TYPES_CONST.both
+    );
 
     if (this.preferences?.spoken_languages?.length) {
       this.preferences.spoken_languages.forEach((language: any) => {

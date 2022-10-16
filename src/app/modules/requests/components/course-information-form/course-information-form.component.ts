@@ -18,7 +18,6 @@ import {
 } from '@angular/animations';
 import {
   GRADES,
-  formatBytes,
   generalConstants,
   TEXTBOOK_EDITION_CONST,
   AcademicTutoringTextbook,
@@ -77,7 +76,6 @@ export class CourseInformationFormComponent implements OnInit {
   @Output() changeCourseSubject = new EventEmitter<string>();
 
   grades = GRADES;
-  // filePreview: any;
   showAddTopic = false;
   topicsScale = CLASSROOM_TOPICS_SCALE_NUM;
   nationalId = generalConstants.nationalId;
@@ -102,7 +100,6 @@ export class CourseInformationFormComponent implements OnInit {
       this.name?.setValidators([Validators.required]);
       this.edition?.setValidators([Validators.required]);
       this.author?.setValidators([Validators.required]);
-      // this.filePreview = null;
       this.file?.setValidators([]);
     } else if (value === this.academicTutoringTextbook.pdf) {
       this.name?.setValidators([]);
@@ -114,7 +111,6 @@ export class CourseInformationFormComponent implements OnInit {
       this.edition?.setValidators([]);
       this.author?.setValidators([]);
       this.file?.setValidators([]);
-      // this.filePreview = null;
     }
 
     this.name?.updateValueAndValidity();
@@ -276,13 +272,6 @@ export class CourseInformationFormComponent implements OnInit {
       }
 
       this.uploadedFile.emit([...event.target.files]);
-
-      /* this.form.patchValue({ file });
-      this.file?.updateValueAndValidity();
-      this.filePreview = {
-        name: file.name,
-        size: formatBytes(file.size),
-      };*/
     }
   }
 

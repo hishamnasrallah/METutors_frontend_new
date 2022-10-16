@@ -5,7 +5,7 @@
     <ul class="list-unstyled m-0" *ngIf="!isLoading">
       <li *ngFor="let lang of tutor?.languages">
         <h2>{{ lang?.name }}</h2>
-        <h3 class="m-0">{{ lang?.level }}</h3>
+        <h3 class="m-0">{{ (lang?.level)! | metutorsUppercase | translate }}</h3>
       </li>
     </ul>
 

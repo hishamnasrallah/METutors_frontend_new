@@ -151,7 +151,7 @@
                   </tr>
                   <tr *ngFor="let lang of reviewInfo?.topics">
                     <td>{{ lang.name }}</td>
-                    <td>{{ lang.scale }}</td>
+                    <td>{{ lang.scale | metutorsUppercase | translate }}</td>
                   </tr>
                 </table>
               </div>
