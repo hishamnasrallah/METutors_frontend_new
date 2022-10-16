@@ -1047,5 +1047,9 @@
   "UPPER_INTERMEDIATE": "Upper intermediate",
   "ADVANCED": "Advanced",
   "PROFICIENT": "Proficient",
-  "NATIVE": "Native"
+  "NATIVE": "Native",
+  "ASSOCIATE_DEGREE": "Associate degree",
+  "BACHELORS_DEGREE": "Bachelor’s degree",
+  "MASTERS_DEGREE": "Master’s degree",
+  "DOCTORAL_DEGREE": "Doctoral degree"
 }
