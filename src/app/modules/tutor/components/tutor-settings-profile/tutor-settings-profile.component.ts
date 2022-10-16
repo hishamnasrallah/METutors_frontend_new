@@ -33,7 +33,6 @@ import {
   calculateListDays,
   TEACHING_EXPERIENCE,
   convertTimeToDateISO,
-  LANGUAGES_LEVELS_CONST,
   AVAILABILITY_HOURS_CONST,
   COURSE_TUITION_TYPES_CONST,
 } from '@metutor/config';
@@ -165,7 +164,6 @@ export class TutorSettingsProfileComponent implements OnInit {
   selectedDays: number[] = [];
   qualificationForm: FormGroup;
   degreeLevels = DEGREE_LEVELS;
-  levels = LANGUAGES_LEVELS_CONST;
   experiences = TEACHING_EXPERIENCE;
   interviewStatus = InterviewStatus;
   types = COURSE_TUITION_TYPES_CONST;
