@@ -99,7 +99,7 @@ export class UploadService {
     const formData = new FormData();
     formData.append('video', file);
 
-    return this._http.post<any>(`${this.baseUrl}change-cover`, formData);
+    return this._http.post<any>(`${this.baseUrl}change-video`, formData);
   }
 
   cancelFileUploadStream(): Observable<any> {

@@ -96,7 +96,7 @@ export class UploadEffects {
           map((response) =>
             uploadActions.changeVideoSuccess({
               video: response?.video,
-              message: 'COVER_PHOTO_UPDATED_SUCCESSFULLY',
+              message: 'TEACHING_VIDEO_UPDATED_SUCCESSFULLY',
             })
           ),
           catchError((error) =>

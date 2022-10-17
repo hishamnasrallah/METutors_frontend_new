@@ -179,6 +179,7 @@ export class TutorSettingsComponent implements OnInit {
   }
 
   onChangeTutorCover(file: any): void {
+    this.isVideo = false;
     this.isAvatar = false;
     this._store.dispatch(
       fromCore.uploadFile({ file: [...file], uploadType: 'cover' })

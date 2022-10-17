@@ -380,6 +380,26 @@ export const reducer = createReducer(
     profileTutor: state.profileTutor ? { ...state.profileTutor, cover } : null,
   })),
 
+  on(uploadActions.changeVideoSuccess, (state, { video }) => {
+    const finalState = {
+      ...state,
+    }
+
+    if (finalState.profileTutor?.qualifications) {
+      const qualifications = {
+        ...finalState.profileTutor.qualifications,
+        video
+      };
+
+      finalState.profileTutor = {
+        ...finalState.profileTutor,
+        qualifications
+      }
+    }
+
+    return finalState;
+  }),
+
   on(tutorActions.changeTutorStatus, (state) => ({
     ...state,
     isChangeTutorStatus: true,
