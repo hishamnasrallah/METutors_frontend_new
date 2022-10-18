@@ -143,10 +143,10 @@
                   <th>{{ 'KNOWLEDGE_CONFIDENCE_SCALE' | translate }}</th>
                   <th width="10%">{{ 'ACTION' | translate }}</th>
                 </tr>
-                <ng-container *ngFor="let lang of form.value.topics; let i = index">
-                  <tr *ngIf="lang.name && lang.scale && lang.checked">
-                    <td>{{ lang.name }}</td>
-                    <td>{{ topicsScale[lang.scale] | metutorsUppercase | translate }}</td>
+                <ng-container *ngFor="let topic of form.value.topics; let i = index">
+                  <tr *ngIf="topic.name && topic.scale && topic.checked">
+                    <td>{{ topic.name }}</td>
+                    <td>{{ topicsScale[topic.scale] | metutorsUppercase | translate }}</td>
                     <td>
                       <button mat-button (click)="removeTopic(i)" class="p-0">
                         <img src="assets/svg/delete.svg" width="17px" draggable="false" alt="">
