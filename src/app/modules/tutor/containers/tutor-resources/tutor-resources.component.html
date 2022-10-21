@@ -21,10 +21,10 @@
               <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
               <strong>{{ 'TIME' | translate }}: </strong>
               <span class="f-size-17-md-sm">
-                {{ view.resources?.course?.startTime | date:'h:mm a' }} - 
-                {{ view.resources?.course?.endTime | date:'h:mm a' }} 
-                ({{ view.resources?.course?.startTime | metutorsTimeDiff: view.resources?.course?.endTime }} 
-                {{ 'HRS_SM' | translate }} : {{ 'HR_SM' | translate }})
+                {{ view.resources?.course?.startTime | date:'h:mm a' }} -
+                {{ view.resources?.course?.endTime | date:'h:mm a' }}
+                ({{ view.resources?.course?.startTime | metutorsTimeDiff: view.resources?.course?.endTime }}
+                {{ 'HOUR_SM' | translate }})
               </span>
             </div>
             <div class="col-lg-3 col-md-4 d-flex menu align-items-center">
