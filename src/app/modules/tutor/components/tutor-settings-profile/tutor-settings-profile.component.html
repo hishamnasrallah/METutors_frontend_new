@@ -27,11 +27,12 @@
     <div class="row">
       <div class="col-12">
         <div class="cover position-relative" [ngStyle]="{'background-image': 'url(' + tutor?.cover + ')'}">
-          <input type="file" #filePicker (change)="onChangeCover($event)" hidden accept="image/*" />
-          <button type="button" mat-flat-button color="primary" class="upload-cover" [disabled]="isChangeCover && !isAvatar"
-            (click)="filePicker.click()">
+          <input type="file" #filePicker (change)="onChangeCover($event)" hidden accept="image/*"/>
+          <button type="button" mat-flat-button color="primary" class="upload-cover"
+                  [disabled]="isChangeCover && !isAvatar"
+                  (click)="filePicker.click()">
             <img src="assets/svg/upload-solid-white.svg" draggable="false" width="15" height="15"
-              *ngIf="!isChangeCover" />
+                 *ngIf="!isChangeCover"/>
             <mat-icon class="spinner" *ngIf="isChangeCover && !isAvatar">autorenew</mat-icon>
             {{ 'UPLOAD_COVER_PHOTO' | translate }}
           </button>
@@ -41,7 +42,7 @@
             <div class="position-relative px-3">
               <div class="img-status position-relative">
                 <img [src]="tutor?.avatar" meTutorsDefaultAvatar alt="" class="rounded-circle" draggable="false"
-                  [class.uploading]="isChangeAvatar && isAvatar">
+                     [class.uploading]="isChangeAvatar && isAvatar">
                 <mat-icon class="spinner" *ngIf="isChangeAvatar && isAvatar">autorenew</mat-icon>
               </div>
             </div>
@@ -49,16 +50,16 @@
         </div>
         <div class="row mt-1 mb-2">
           <div class="col-md-3">
-            <input type="file" #filePicker1 (change)="onChangeAvatar($event)" hidden accept="image/*" />
+            <input type="file" #filePicker1 (change)="onChangeAvatar($event)" hidden accept="image/*"/>
             <button type="button" mat-button class="upload-btn mx-2" (click)="filePicker1.click()"
-              [disabled]="isChangeAvatar && isAvatar">
+                    [disabled]="isChangeAvatar && isAvatar">
               <img src="assets/svg/upload-solid.svg" width="15" height="15" draggable="false" alt="">
               {{ 'UPLOAD_PROFILE_PHOTO' | translate }}
             </button>
           </div>
           <div class="col-md-9 d-flex justify-content-end align-items-center">
             <button mat-flat-button color="primary" class="mx-2" (click)="submitInterview.emit()"
-              *ngIf="!tutor?.interviewRequest">
+                    *ngIf="!tutor?.interviewRequest">
               {{ 'SUBMIT_INTERVIEW_REQUEST' | translate }}
             </button>
             <ng-container *ngIf="tutor?.interviewRequest?.status === interviewStatus.scheduled">
@@ -67,7 +68,7 @@
                 <span class="ms-2">{{ tutor?.interviewRequest?.interviewTime | date: 'h:mm a' }}</span>
               </div>
               <button mat-flat-button color="primary" class="mx-2"
-                (click)="joinMeeting.emit(tutor?.interviewRequest?.id)">
+                      (click)="joinMeeting.emit(tutor?.interviewRequest?.id)">
                 {{ 'JOIN_MEETING' | translate }}
               </button>
             </ng-container>
@@ -83,8 +84,10 @@
 
       <input type="file" #videoPicker (change)="onChangeVideo($event)" hidden accept="video/*"/>
       <button mat-flat-button color="primary" class="px-4 edit-video" type="button"
-              (click)="videoPicker.click()" [disabled]="uploadingVideo">
-        <img src="assets/svg/upload-solid-white.svg" width="15" height="15" draggable="false" alt="" *ngIf="!uploadingVideo">
+              (click)="videoPicker.click()"
+              [disabled]="uploadingVideo || tutor?.interviewRequest?.status === interviewStatus.pending || tutor?.interviewRequest?.status === interviewStatus.scheduled || tutor?.interviewRequest?.status === interviewStatus.rejected">
+        <img src="assets/svg/upload-solid-white.svg" width="15" height="15" draggable="false" alt=""
+             *ngIf="!uploadingVideo">
         <mat-icon class="spinner" *ngIf="uploadingVideo && isVideo">autorenew</mat-icon>
         {{ 'UPLOAD_VIDEO' | translate }}
       </button>
@@ -96,7 +99,7 @@
           <ng-container *ngFor="let uploadProgress of fileUploadProgress">
             <ng-container *ngIf="uploadProgress.responseType !== uploadComplete">
               <metutors-file-upload-progress [fileName]="uploadProgress.fileName" [fileType]="'video'"
-                                             (onCancelUpload)="cancelUploading.emit()"
+                                             (onCancelUpload)="cancelUploading.emit(); uploadingVideo = false"
                                              [uploadedPercentage]="uploadProgress.progress" [cancelUpload]="true">
               </metutors-file-upload-progress>
             </ng-container>
@@ -113,7 +116,7 @@
 
         <div>
           <metutors-submit-button [form]="personalInfoForm" [isSubmitting]="isUpdateProfile && selectedForm === 1"
-            [isDisabled]="tutor?.interviewRequest?.status === interviewStatus.pending || tutor?.interviewRequest?.status === interviewStatus.scheduled || tutor?.interviewRequest?.status === interviewStatus.rejected">
+                                  [isDisabled]="tutor?.interviewRequest?.status === interviewStatus.pending || tutor?.interviewRequest?.status === interviewStatus.scheduled || tutor?.interviewRequest?.status === interviewStatus.rejected">
             {{ 'UPDATE' | translate }}
           </metutors-submit-button>
         </div>
@@ -123,8 +126,9 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="firstName" class="form-label">{{ 'FIRST_NAME' | translate }}</label>
-            <input type="text" class="custom-input w-100 input-bordered" id="firstName" placeholder="{{ 'FIRST_NAME' | translate }}"
-              formControlName="firstName" meTutorsLettersOnly>
+            <input type="text" class="custom-input w-100 input-bordered" id="firstName"
+                   placeholder="{{ 'FIRST_NAME' | translate }}"
+                   formControlName="firstName" meTutorsLettersOnly>
             <div class="text-danger" *ngIf="firstName?.touched && firstName?.invalid">
               {{ 'WRITE_VALID_FIRST_NAME' | translate }}
             </div>
@@ -134,8 +138,9 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="lastName" class="form-label">{{ 'LAST_NAME' | translate }}</label>
-            <input type="text" class="custom-input w-100 input-bordered" id="lastName" placeholder="{{ 'LAST_NAME' | translate }}"
-              formControlName="lastName" meTutorsLettersOnly>
+            <input type="text" class="custom-input w-100 input-bordered" id="lastName"
+                   placeholder="{{ 'LAST_NAME' | translate }}"
+                   formControlName="lastName" meTutorsLettersOnly>
             <div class="text-danger" *ngIf="lastName?.touched && lastName?.invalid">
               {{ 'WRITE_VALID_LAST_NAME' | translate }}
             </div>
@@ -145,9 +150,11 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
-            <label for="middleName" class="form-label">{{ 'MIDDLE_NAME' | translate }} <span>({{ 'OPTIONAL' | translate }})</span></label>
-            <input type="text" class="custom-input w-100 input-bordered" id="middleName" placeholder="{{ 'ENTER_MIDDLE_NAME' | translate }}"
-              formControlName="middleName" meTutorsLettersOnly>
+            <label for="middleName" class="form-label">{{ 'MIDDLE_NAME' | translate }}
+              <span>({{ 'OPTIONAL' | translate }})</span></label>
+            <input type="text" class="custom-input w-100 input-bordered" id="middleName"
+                   placeholder="{{ 'ENTER_MIDDLE_NAME' | translate }}"
+                   formControlName="middleName" meTutorsLettersOnly>
             <div class="text-danger" *ngIf="middleName?.touched && middleName?.invalid">
               {{ 'WRITE_VALID_NAME' | translate }}
             </div>
@@ -168,7 +175,7 @@
             <label for="dateOfBirth" class="form-label">{{ 'DATE_BIRTH' | translate }}</label>
             <mat-form-field appearance="outline" class="w-100">
               <input matInput [matDatepicker]="dateOfBirthPicker" placeholder="{{ 'SELECT_DATE_BIRTH' | translate }}"
-                (focus)="dateOfBirthPicker.open()" formControlName="dateOfBirth" [max]="maxDate">
+                     (focus)="dateOfBirthPicker.open()" formControlName="dateOfBirth" [max]="maxDate">
               <mat-datepicker-toggle matSuffix [for]="dateOfBirthPicker"></mat-datepicker-toggle>
               <mat-datepicker #dateOfBirthPicker></mat-datepicker>
             </mat-form-field>
@@ -183,10 +190,11 @@
             <label for="country" class="form-label">{{ 'COUNTRY' | translate }}</label>
             <mat-form-field appearance="outline" class="w-100">
               <mat-select formControlName="country" placeholder="{{ 'SELECT_COUNTRY' | translate }}" id="country"
-                (selectionChange)="onChangeCountry(country?.value)">
+                          (selectionChange)="onChangeCountry(country?.value)">
                 <mat-option>
                   <ngx-mat-select-search [(ngModel)]="filterCountry" [ngModelOptions]="{standalone: true}"
-                    placeholderLabel="{{ 'SEARCH_DOTS' | translate }}" noEntriesFoundLabel="{{ 'NO_MATCHING_COUNTRY_FOUND' | translate }}">
+                                         placeholderLabel="{{ 'SEARCH_DOTS' | translate }}"
+                                         noEntriesFoundLabel="{{ 'NO_MATCHING_COUNTRY_FOUND' | translate }}">
                   </ngx-mat-select-search>
                 </mat-option>
                 <mat-option *ngFor="let country of filteredCountries" [value]="country.id">
@@ -207,8 +215,9 @@
           <div class="form-group">
             <label for="gender" class="form-label">{{ 'SELECT_GENDER' | translate }}</label>
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="gender" placeholder="{{ 'SELECT_UR_GENDER' | translate }}">
-                <mat-option [value]="gender" *ngFor="let gender of genders">{{ gender | uppercase | translate }}</mat-option>
+              <mat-select formControlName="gender" id="gender" placeholder="{{ 'SELECT_UR_GENDER' | translate }}">
+                <mat-option [value]="gender"
+                            *ngFor="let gender of genders">{{ gender | uppercase | translate }}</mat-option>
               </mat-select>
             </mat-form-field>
             <div class="text-danger" *ngIf="gender?.touched && gender?.invalid">
@@ -221,10 +230,12 @@
           <div class="form-group">
             <label for="city" class="form-label">{{ 'CITY' | translate }}</label>
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="city" placeholder="{{ 'SELECT_CITY' | translate }}" [disabled]="!cities || !cities.length" id="city">
+              <mat-select formControlName="city" placeholder="{{ 'SELECT_CITY' | translate }}"
+                          [disabled]="!cities || !cities.length" id="city">
                 <mat-option>
                   <ngx-mat-select-search [(ngModel)]="filterCity" [ngModelOptions]="{standalone: true}"
-                    placeholderLabel="{{ 'SEARCH_DOTS' | translate }}" noEntriesFoundLabel="{{ 'NO_MATCHING_CITY_FOUND' | translate }}">
+                                         placeholderLabel="{{ 'SEARCH_DOTS' | translate }}"
+                                         noEntriesFoundLabel="{{ 'NO_MATCHING_CITY_FOUND' | translate }}">
                   </ngx-mat-select-search>
                 </mat-option>
                 <mat-option *ngFor="let city of filteredCities" [value]="city.name">{{ city.name }}</mat-option>
@@ -242,7 +253,8 @@
           <div class="form-group">
             <label for="nationality" class="form-label">{{ 'NATIONALITY' | translate }}</label>
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="nationality" placeholder="{{ 'SELECT_NATIONALITY' | translate }}" id="nationality">
+              <mat-select formControlName="nationality" placeholder="{{ 'SELECT_NATIONALITY' | translate }}"
+                          id="nationality">
                 <mat-option>
                   <ngx-mat-select-search [(ngModel)]="filterNationality" [ngModelOptions]="{standalone: true}"
                                          placeholderLabel="{{ 'SEARCH_DOTS' | translate }}"
@@ -262,8 +274,9 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="address" class="form-label">{{ 'ADDRESS_1' | translate }}</label>
-            <input type="text" class="custom-input w-100 input-bordered" id="address" placeholder="{{ 'ENTER_STREET_ADDRESS' | translate }}"
-              formControlName="address">
+            <input type="text" class="custom-input w-100 input-bordered" id="address"
+                   placeholder="{{ 'ENTER_STREET_ADDRESS' | translate }}"
+                   formControlName="address">
             <div class="text-danger" *ngIf="address?.touched && address?.invalid">
               {{ 'ADDRESS_CHARACTERS' | translate }}
             </div>
@@ -278,7 +291,7 @@
               <metutors-char-counter [limit]="400" [controlName]="bio"></metutors-char-counter>
             </label>
             <textarea id="bio" class="custom-input w-100 input-bordered" placeholder="{{ 'ADD_BIO_HERE' | translate }}"
-              rows="10" formControlName="bio" minlength="200" maxlength="400"></textarea>
+                      rows="10" formControlName="bio" minlength="200" maxlength="400"></textarea>
             <small class="text-danger">({{ 'BIO_CHARACTERS' | translate }})</small>
             <div class="text-danger" *ngIf="bio?.touched && bio?.invalid">
               {{ 'WRITE_UR_BIO' | translate }}
@@ -288,16 +301,18 @@
 
         <div class="col-md-6">
           <div class="form-group">
-            <label for="address2" class="form-label">{{ 'ADDRESS_2' | translate }} ({{ 'OPTIONAL' | translate }})</label>
+            <label for="address2" class="form-label">{{ 'ADDRESS_2' | translate }} ({{ 'OPTIONAL' | translate }}
+              )</label>
             <input type="text" class="custom-input w-100 input-bordered" id="address2"
-              placeholder="{{ 'ENTER_STREET_ADDRESS' | translate }}" formControlName="address2">
+                   placeholder="{{ 'ENTER_STREET_ADDRESS' | translate }}" formControlName="address2">
             <div class="text-danger" *ngIf="address2?.touched && address2?.invalid">
               {{ 'ADDRESS_CHARACTERS' | translate }}
             </div>
           </div>
           <div class="form-group">
             <label for="postalCode" class="form-label">{{ 'POSTAL_CODE' | translate }}</label>
-            <input type="text" class="custom-input w-100 input-bordered" id="postalCode" placeholder="{{ 'POSTAL_CODE' | translate }}"
+            <input type="text" class="custom-input w-100 input-bordered" id="postalCode"
+                   placeholder="{{ 'POSTAL_CODE' | translate }}"
                    formControlName="postalCode">
             <div class="text-danger" *ngIf="postalCode?.touched && postalCode?.invalid">
               {{ 'WRITE_VALID_POSTAL_CODE' | translate }}
@@ -315,7 +330,7 @@
 
         <div>
           <metutors-submit-button [form]="qualificationForm" [isSubmitting]="isUpdateProfile && selectedForm === 2"
-            [isDisabled]="tutor?.interviewRequest?.status === interviewStatus.pending || tutor?.interviewRequest?.status === interviewStatus.scheduled || tutor?.interviewRequest?.status === interviewStatus.rejected">
+                                  [isDisabled]="tutor?.interviewRequest?.status === interviewStatus.pending || tutor?.interviewRequest?.status === interviewStatus.scheduled || tutor?.interviewRequest?.status === interviewStatus.rejected">
             {{ 'UPDATE' | translate }}
           </metutors-submit-button>
         </div>
@@ -325,8 +340,9 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="nameOfUniversity" class="form-label">{{ 'NAME_UNIVERSITY' | translate }}</label>
-            <input type="text" class="custom-input w-100 input-bordered" id="nameOfUniversity" placeholder="{{ 'ENTER_UNIVERSITY_NAME' | translate }}"
-              formControlName="nameOfUniversity" meTutorsLettersOnly>
+            <input type="text" class="custom-input w-100 input-bordered" id="nameOfUniversity"
+                   placeholder="{{ 'ENTER_UNIVERSITY_NAME' | translate }}"
+                   formControlName="nameOfUniversity" meTutorsLettersOnly>
             <div class="text-danger" *ngIf="nameOfUniversity?.touched && nameOfUniversity?.invalid">
               {{ 'VALID_UNIVERSITY_NAME' | translate }}
             </div>
@@ -352,7 +368,7 @@
             <label for="degreeLevel" class="form-label">{{ 'DEGREE_LEVEL' | translate }}</label>
             <mat-form-field appearance="outline" class="w-100">
               <mat-select formControlName="degreeLevel" placeholder="{{ 'SELECT_DEGREE_LEVEL' | translate }}"
-                (selectionChange)="resetDegreeField()">
+                          (selectionChange)="resetDegreeField()">
                 <mat-option [value]="level" *ngFor="let level of degreeLevels">
                   {{ level | metutorsUppercase | translate }}
                 </mat-option>
@@ -366,7 +382,8 @@
 
         <div class="col-md-6">
           <div class="form-group">
-            <label for="teachingExperienceOnline" class="form-label">{{ 'TEACHING_EXPERIENCE_ONLINE' | translate }}</label>
+            <label for="teachingExperienceOnline"
+                   class="form-label">{{ 'TEACHING_EXPERIENCE_ONLINE' | translate }}</label>
             <mat-form-field appearance="outline" class="w-100">
               <mat-select formControlName="teachingExperienceOnline" placeholder="{{ 'SELECT_YEARS' | translate }}">
                 <mat-option [value]="experience" *ngFor="let experience of experiences">{{ experience }}</mat-option>
@@ -385,7 +402,8 @@
               <mat-select formControlName="degreeField" placeholder="{{ 'SELECT_DEGREE_FIELD' | translate }}">
                 <mat-option>
                   <ngx-mat-select-search [(ngModel)]="filterDegree" [ngModelOptions]="{standalone: true}"
-                    placeholderLabel="{{ 'SEARCH_DOTS' | translate }}" noEntriesFoundLabel="{{ 'NO_MATCHING_DEGREE_FIELD' | translate }}">
+                                         placeholderLabel="{{ 'SEARCH_DOTS' | translate }}"
+                                         noEntriesFoundLabel="{{ 'NO_MATCHING_DEGREE_FIELD' | translate }}">
                   </ngx-mat-select-search>
                 </mat-option>
                 <mat-option [value]="field" *ngFor="let field of filteredDegreeFields">{{ field }}</mat-option>
@@ -402,7 +420,7 @@
             <label for="currentEmployer" class="form-label">{{ 'CURRENT_EMPLOYER' | translate }}
               ({{ 'OPTIONAL' | translate }})</label>
             <input type="text" class="custom-input w-100 input-bordered" id="currentEmployer"
-              placeholder="{{ 'ENTER_CURRENT_EMPLOYER' | translate }}" formControlName="currentEmployer">
+                   placeholder="{{ 'ENTER_CURRENT_EMPLOYER' | translate }}" formControlName="currentEmployer">
             <div class="text-danger" *ngIf="currentEmployer?.touched && currentEmployer?.invalid">
               {{ 'WRITE_VALID_CURRENT_EMPLOYER' | translate }}
             </div>
@@ -414,7 +432,8 @@
             <label for="computerSkills" class="form-label">{{ 'COMPUTER_SKILLS' | translate }}</label>
             <mat-form-field appearance="outline" class="w-100">
               <mat-select formControlName="computerSkills" placeholder="{{ 'SELECT_COMPUTER_SKILLS' | translate }}">
-                <mat-option [value]="skill" *ngFor="let skill of skills">{{ skill | uppercase | translate }}</mat-option>
+                <mat-option [value]="skill"
+                            *ngFor="let skill of skills">{{ skill | uppercase | translate }}</mat-option>
               </mat-select>
             </mat-form-field>
             <div class="text-danger" *ngIf="computerSkills?.touched && computerSkills?.invalid">
@@ -425,9 +444,11 @@
 
         <div class="col-md-6">
           <div class="form-group">
-            <label for="currentTitle" class="form-label">{{ 'CURRENT_TITLE' | translate }} ({{ 'OPTIONAL' | translate }})</label>
-            <input type="text" class="custom-input w-100 input-bordered" id="currentTitle" placeholder="{{ 'ENTER_CURRENT_TITLE' | translate }}"
-              formControlName="currentTitle" meTutorsLettersOnly>
+            <label for="currentTitle" class="form-label">{{ 'CURRENT_TITLE' | translate }} ({{ 'OPTIONAL' | translate }}
+              )</label>
+            <input type="text" class="custom-input w-100 input-bordered" id="currentTitle"
+                   placeholder="{{ 'ENTER_CURRENT_TITLE' | translate }}"
+                   formControlName="currentTitle" meTutorsLettersOnly>
             <div class="text-danger" *ngIf="currentTitle?.touched && currentTitle?.invalid">
               {{ 'WRITE_VALID_CURRENT_TITLE' | translate }}
             </div>
@@ -444,7 +465,7 @@
 
         <div>
           <metutors-submit-button [form]="teachingForm" [isSubmitting]="isUpdateProfile && selectedForm === 3"
-            [isDisabled]="tutor?.interviewRequest?.status === interviewStatus.pending || tutor?.interviewRequest?.status === interviewStatus.scheduled || tutor?.interviewRequest?.status === interviewStatus.rejected">
+                                  [isDisabled]="tutor?.interviewRequest?.status === interviewStatus.pending || tutor?.interviewRequest?.status === interviewStatus.scheduled || tutor?.interviewRequest?.status === interviewStatus.rejected">
             {{ 'UPDATE' | translate }}
           </metutors-submit-button>
         </div>
@@ -455,8 +476,10 @@
           <div class="form-group">
             <label for="startDate" class="form-label">{{ 'AVAILABLE_START_DATE' | translate }}</label>
             <mat-form-field appearance="outline" class="w-100">
-              <input matInput [matDatepicker]="startDatePicker" placeholder="{{ 'SELECT_AVAILABLE_START_DATE' | translate }}"
-                (focus)="startDatePicker.open()" [min]="minDate" (dateChange)="onChangeStartDate()" formControlName="startDate">
+              <input matInput [matDatepicker]="startDatePicker"
+                     placeholder="{{ 'SELECT_AVAILABLE_START_DATE' | translate }}"
+                     (focus)="startDatePicker.open()" [min]="minDate" (dateChange)="onChangeStartDate()"
+                     formControlName="startDate">
               <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
               <mat-datepicker #startDatePicker></mat-datepicker>
             </mat-form-field>
@@ -469,9 +492,11 @@
         <div class="col-md-6">
           <div class="form-group">
             <label class="form-label">{{ 'TUTORING_PREFERENCES' | translate }}</label>
-            <mat-radio-group class="d-flex flex-row mt-3 fw-bold flex-column-md-sm mt-15-sm" formControlName="typeOfTutoring">
+            <mat-radio-group class="d-flex flex-row mt-3 fw-bold flex-column-md-sm mt-15-sm"
+                             formControlName="typeOfTutoring">
               <mat-radio-button [ngClass]="{'mt-15-md-sm ms-3': !isFirst}" class="m-0-md-sm" [value]="type.value"
-                *ngFor="let type of types | keyvalue: returnZero; let isFirst = first" [disabled]="type.key !== 'one'">
+                                *ngFor="let type of types | keyvalue: returnZero; let isFirst = first"
+                                [disabled]="type.key !== 'one'">
                 {{ type?.value }}
               </mat-radio-button>
             </mat-radio-group>
@@ -485,8 +510,9 @@
           <div class="form-group">
             <label for="endDate" class="form-label">{{ 'AVAILABLE_END_DATE' | translate }}</label>
             <mat-form-field appearance="outline" class="w-100">
-              <input matInput [matDatepicker]="endDatePicker" placeholder="{{ 'SELECT_AVAILABLE_END_DATE' | translate }}"
-                (focus)="endDatePicker.open()" [min]="startDate?.value" formControlName="endDate">
+              <input matInput [matDatepicker]="endDatePicker"
+                     placeholder="{{ 'SELECT_AVAILABLE_END_DATE' | translate }}"
+                     (focus)="endDatePicker.open()" [min]="startDate?.value" formControlName="endDate">
               <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
               <mat-datepicker #endDatePicker></mat-datepicker>
             </mat-form-field>
@@ -500,8 +526,9 @@
           <div class="form-group">
             <label class="form-label">{{ 'ADD_UR_AVAILABILITY' | translate }}</label>
             <div class="list-days">
-              <button type="button" mat-button [class.active]="selectedDays?.includes(i)" [disabled]="checkDisabledDays(day)"
-                *ngFor="let day of days; let i = index" (click)="onChangeDay(i)" class="w-100-md-sm">
+              <button type="button" mat-button [class.active]="selectedDays?.includes(i)"
+                      [disabled]="checkDisabledDays(day)"
+                      *ngFor="let day of days; let i = index" (click)="onChangeDay(i)" class="w-100-md-sm">
                 {{ day | uppercase | translate }}
               </button>
             </div>
