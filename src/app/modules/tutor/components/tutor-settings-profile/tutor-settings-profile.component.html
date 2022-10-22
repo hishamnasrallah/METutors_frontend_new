@@ -301,8 +301,7 @@
 
         <div class="col-md-6">
           <div class="form-group">
-            <label for="address2" class="form-label">{{ 'ADDRESS_2' | translate }} ({{ 'OPTIONAL' | translate }}
-              )</label>
+            <label for="address2" class="form-label">{{ 'ADDRESS_2' | translate }} ({{ 'OPTIONAL' | translate }})</label>
             <input type="text" class="custom-input w-100 input-bordered" id="address2"
                    placeholder="{{ 'ENTER_STREET_ADDRESS' | translate }}" formControlName="address2">
             <div class="text-danger" *ngIf="address2?.touched && address2?.invalid">
