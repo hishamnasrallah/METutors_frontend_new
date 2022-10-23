@@ -129,7 +129,7 @@
           <div>
             <label for="languages" class="form-label">{{ 'SPOKEN_LANGUAGES' | translate }} <span>({{ 'FOR_TEACHING' | translate }})</span></label>
             <a class="float-end cursor-pointer" (click)="addLanguage()"
-               [ngClass]="{'text-secondary cursor-not-allowed': languages.status === invalid}">{{ 'ADD_NEW' | translate }}</a>
+               [ngClass]="{'text-secondary cursor-not-allowed': languages.status === invalid || languages?.value?.length >=5}">{{ 'ADD_NEW' | translate }}</a>
           </div>
           <metutors-spoken-languages [form]="form" [languagesList]="languagesList" id="languages"
                                      (removeLanguage)="removeLanguage($event)">
