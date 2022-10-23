@@ -7,7 +7,7 @@
         </span>
       </h1>
       <metutors-submit-button [form]="form" [isSubmitting]="isSubmitting" *ngIf="!status"
-        [isDisabled]="!sortedSubjects || !pricesLength || pricesLength < +(sortedSubjects?.length)!">
+        [isDisabled]="!subjectLength || !pricesLength || pricesLength < subjectLength">
         {{ 'UPDATE' | translate }}
       </metutors-submit-button>
     </div>
@@ -39,7 +39,6 @@
               <td *ngIf="item?.programId === nationalId">{{ subject?.gradeName }}</td>
               <td>
                 <ng-container *ngIf="status">{{ subject?.pricePerHour }}</ng-container>
-
                 <input type="text" meTutorsOnlyNumber [onlyNumber]="true" *ngIf="!status" min="1" step="1" max="100"
                   placeholder="Enter Price" class="p-0 w-100" [value]="subject?.pricePerHour"
                   (change)="changePrice(subject?.id, $event)">

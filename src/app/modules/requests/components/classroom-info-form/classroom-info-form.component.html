@@ -4,7 +4,7 @@
       <div class="col-md-4">
         <h2 class="f-size-17-md-sm">{{ 'CLASSROOM_SETUP' | translate }}</h2>
         <h4 class="f-size-15-md-sm">
-          <span [innerHTML]="'CLASSROOM_INFO_HINT' | translate"></span> {{ startingHoursLimit }} {{ 'HOURS_SM' | translate }}.
+          <span [innerHTML]="'CLASSROOM_INFO_HINT' | translate"></span> <bdi>{{ startingHoursLimit }} {{ 'HOURS_SM' | translate }}.</bdi>
         </h4>
 
         <h5 class="mt-4">{{ 'COURSE_ID' | translate }}: <span>CID{{ selectedCourse?.id }}</span></h5>

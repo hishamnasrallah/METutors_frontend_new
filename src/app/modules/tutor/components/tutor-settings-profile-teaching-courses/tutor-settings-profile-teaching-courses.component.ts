@@ -27,6 +27,7 @@ export class TutorSettingsProfileTeachingCoursesComponent implements OnInit {
 
   form: FormGroup;
   pricesLength = 0;
+  subjectLength = 0;
   submittedSubjects: any[] = [];
   interviewStatus = InterviewStatus;
   nationalId = generalConstants.nationalId;
@@ -90,6 +91,10 @@ export class TutorSettingsProfileTeachingCoursesComponent implements OnInit {
       ...this.sortedSubjects?.map((subject: any) => [
         ...subject.subjects?.filter((sub: any) => sub.pricePerHour),
       ]),
+    ]?.flat(Infinity)?.length;
+
+    this.subjectLength = [
+      ...this.sortedSubjects.map((subject: any) => [...subject.subjects]),
     ]?.flat(Infinity)?.length;
   }
 }
