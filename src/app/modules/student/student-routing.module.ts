@@ -38,6 +38,7 @@ const routes: Routes = [
             component: StudentClassroomsComponent,
             data: {
               layout: {
+                icon: 'home',
                 title: 'CLASSROOMS',
                 navbarTitle: 'CLASSROOMS',
                 showHeader: false,
@@ -202,6 +203,7 @@ const routes: Routes = [
         component: StudentDashboardComponent,
         data: {
           layout: {
+            icon: 'slide-show',
             title: 'DASHBOARD',
             navbarTitle: 'STUDENT_DASHBAORD',
             showHeader: false,
@@ -214,6 +216,7 @@ const routes: Routes = [
         component: StudentCertificatesComponent,
         data: {
           layout: {
+            icon: 'badge',
             title: 'CERTIFICATES',
             navbarTitle: 'CERTIFICATES',
             showHeader: false,
@@ -226,6 +229,7 @@ const routes: Routes = [
         component: StudentSettingsComponent,
         data: {
           layout: {
+            icon: 'settings',
             title: 'SETTINGS',
             navbarTitle: 'SETTINGS',
             showHeader: false,

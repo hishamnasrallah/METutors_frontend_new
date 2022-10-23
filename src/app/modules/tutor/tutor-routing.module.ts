@@ -41,6 +41,7 @@ const routes: Routes = [
             component: TutorClassroomsComponent,
             data: {
               layout: {
+                icon: 'home',
                 title: 'CLASSROOMS',
                 navbarTitle: 'CLASSROOMS',
                 showHeader: false,
@@ -205,7 +206,7 @@ const routes: Routes = [
         component: TutorDashboardComponent,
         data: {
           layout: {
-            icon: 'slide-show-black',
+            icon: 'slide-show',
             title: 'DASHBOARD',
             navbarTitle: 'TUTOR_DASHBOARD',
             showHeader: false,
@@ -219,6 +220,7 @@ const routes: Routes = [
         component: TutorBadgesComponent,
         data: {
           layout: {
+            icon: 'badge',
             title: 'BADGES',
             navbarTitle: 'BADGES',
             showHeader: false,
@@ -232,7 +234,7 @@ const routes: Routes = [
         component: TutorSettingsComponent,
         data: {
           layout: {
-            icon: 'settings-black',
+            icon: 'settings',
             title: 'SETTINGS',
             navbarTitle: 'SETTINGS',
             showHeader: false,
