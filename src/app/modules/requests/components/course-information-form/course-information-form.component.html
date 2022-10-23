@@ -103,7 +103,7 @@
                 <ng-container
                   *ngIf="!form.value.topics[i].name || !form.value.topics[i].scale || !form.value.topics[i]?.checked">
                   <div class="add-new-topic mb-4">
-                    <h1>{{ 'ADD_TOPIC_NAME' | translate }}</h1>
+                    <h1>{{ 'ADD_TOPIC_NAME' | translate }} <span>({{ 'MAX_10_TOPICS' | translate}})</span></h1>
                     <div class="d-flex">
                       <input type="text" formControlName="name" placeholder="{{ 'ENTER_TOPIC_NAME' | translate }}"
                              class="flex-grow-1 form-control">
@@ -130,7 +130,7 @@
               </ng-container>
             </ng-container>
 
-            <button mat-flat-button type="button" *ngIf="showAddTopic" color="primary" class="float-end mb-4"
+            <button mat-flat-button type="button" *ngIf="showAddTopic" color="primary" class="float-end mb-4" [disabled]="form.value.topics?.length >= 10"
                     (click)="addTopic()">
               <mat-icon>add</mat-icon>
               {{ 'ADD_NEW_TOPIC' | translate }}
