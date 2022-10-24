@@ -3,10 +3,11 @@ import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
-import * as fromStudent from '../../state';
 import { environment } from '@environment';
+import { combineLatest, Observable, tap } from 'rxjs';
+
+import * as fromStudent from '../../state';
 import * as fromCore from '@metutor/core/state';
-import { combineLatest, Observable } from 'rxjs';
 import { IInvoiceDetails, IUser } from '@models';
 import { Component, OnInit } from '@angular/core';
 import * as fromStudentAction from '../../state/actions';
@@ -45,8 +46,12 @@ export class StudentClassDashboardComponent implements OnInit {
 
   onHold = false;
   cancelCourse = false;
+  allUpcomingClasses = [];
+  allPreviousClasses = [];
   feedbackSubHeading: string;
   courseStatus = CourseStatus;
+  previousClasses: any[] = [];
+  upcomingClasses: any[] = [];
   statusLabel = courseStatusLabel;
   baseURL = environment.clientUrl;
   imageURL = environment.imageURL;
@@ -202,6 +207,20 @@ export class StudentClassDashboardComponent implements OnInit {
     this._store.dispatch(fromCore.studentViewClass({ id }));
   }
 
+  onShowMorePreviousClasses(): void {
+    this.previousClasses = this.allPreviousClasses.slice(
+      0,
+      this.previousClasses.length + 3
+    );
+  }
+
+  onShowMoreUpcomingClasses(): void {
+    this.upcomingClasses = this.allUpcomingClasses.slice(
+      0,
+      this.upcomingClasses.length + 3
+    );
+  }
+
   ngOnInit(): void {
     this._store.dispatch(fromCore.loadStudentClassesDashboard());
     this.showAttendanceModal$ = this._store.select(
@@ -282,7 +301,16 @@ export class StudentClassDashboardComponent implements OnInit {
     this.paymentInfo$ = this._store.select(fromCore.selectRequestPaymentInfo);
 
     this.view$ = combineLatest([
-      this._store.select(fromCore.selectStudentClassesDashboard),
+      this._store.select(fromCore.selectStudentClassesDashboard).pipe(
+        tap((res: any) => {
+          if (res) {
+            this.allUpcomingClasses = res.upcomingClasses;
+            this.allPreviousClasses = res.previousClasses;
+            this.upcomingClasses = res.upcomingClasses.slice(0, 3);
+            this.previousClasses = res.previousClasses.slice(0, 3);
+          }
+        })
+      ),
       this._store.select(fromCore.selectIsLoadingStudentClassesDashboard),
     ]).pipe(
       map(([data, loading]) => ({
