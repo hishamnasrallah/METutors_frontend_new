@@ -62,11 +62,7 @@
     </li>
     <li class="d-flex align-items-center">
       <a routerLink="/tutor/payment-records" class="p-15-md-sm" routerLinkActive="active" (click)="openSidebar = false" [class.disabled-link]="!tutor?.approvedTutor">
-        <svg width="24" height="24" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd" clip-rule="evenodd"
-            d="M3.75 3.75H22.5V8.75H2.5V5C2.5 4.30964 3.05964 3.75 3.75 3.75ZM2.5 11.25H26.25C26.9404 11.25 27.5 11.8096 27.5 12.5V25C27.5 25.6904 26.9404 26.25 26.25 26.25H3.75C3.05964 26.25 2.5 25.6904 2.5 25V11.25ZM18.75 20V17.5H22.5V20H18.75Z"
-            fill="#A7AAB2" />
-        </svg>
+        <svg-icon name="payment" [applyClass]="true" class="w-24 font-white"></svg-icon>
         <span class="text-uppercase hide-sidemenu f-size-15-md-sm">{{ 'PAYMENT_RECORDS' | translate }}</span>
       </a>
     </li>
