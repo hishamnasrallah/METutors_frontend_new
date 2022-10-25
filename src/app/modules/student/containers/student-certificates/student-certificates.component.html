@@ -64,7 +64,8 @@
                     </div>
                   </div>
                   <div class="col-md-8">
-                    <button mat-button class="main-button-transparent float-end w-100-sm mt-15-sm">
+                    <button mat-button class="main-button-transparent float-end w-100-sm mt-15-sm"
+                            [routerLink]="'/student/view-certificate/'+certificate.courseId">
                       {{ 'GET_CERTIFICATE' | translate }}
                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                            class="rotate-180-ar">
@@ -82,5 +83,4 @@
       </ng-container>
     </div>
   </div>
-
 </div>

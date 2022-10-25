@@ -17,6 +17,7 @@ import {
   StudentTicketDetailsComponent,
   StudentClassDashboardComponent,
 } from './containers';
+import { StudentViewCertificateComponent } from '@metutor/modules/student/containers/student-view-certificate/student-view-certificate.component';
 
 const routes: Routes = [
   {
@@ -214,6 +215,19 @@ const routes: Routes = [
       {
         path: 'certificates',
         component: StudentCertificatesComponent,
+        data: {
+          layout: {
+            icon: 'certificate',
+            title: 'CERTIFICATES',
+            navbarTitle: 'CERTIFICATES',
+            showHeader: false,
+            showFooter: false,
+          },
+        },
+      },
+      {
+        path: 'view-certificate/:id',
+        component: StudentViewCertificateComponent,
         data: {
           layout: {
             icon: 'certificate',

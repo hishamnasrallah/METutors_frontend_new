@@ -16,10 +16,9 @@ export class StudentCertificatesComponent implements OnInit {
   layout$: any;
   user$: Observable<IUser | null>;
   view$: Observable<{ loading: boolean; certificates: any }>;
-  rate = 4;
 
   constructor(private _store: Store<any>) {}
-  //
+
   ngOnInit(): void {
     this._store.dispatch(fromCore.loadStudentCertificates());
 

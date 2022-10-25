@@ -1,0 +1,32 @@
+.certificates {
+  padding: 20px 40px;
+
+  .head {
+    color: #2a2a2a;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .certificate {
+    margin: 0 auto;
+    text-align: center;
+    width: 100%;
+    background-size: cover;
+    height: 750px;
+    overflow: hidden;
+    // background: no-repeat center center fixed;
+
+    h2 {
+      font-size: 48px;
+    }
+
+    h3 {
+      font-size: 48px;
+      font-weight: bold;
+
+      &.heading {
+        margin-top: 100px;
+      }
+    }
+  }
+}
