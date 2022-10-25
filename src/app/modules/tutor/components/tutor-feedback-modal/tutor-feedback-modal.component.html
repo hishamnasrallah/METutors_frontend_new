@@ -5,7 +5,7 @@
     <div class="row leave-feedback-modal" *ngLet="(view$ | async) as view">
       <div class="col-12">
         <mat-tab-group mat-align-tabs="start">
-          <mat-tab [label]="tabLabel" [labelClass]="'fw-bold'">
+          <mat-tab [label]="tabLabel | translate" [labelClass]="'fw-bold'">
             <ng-container [ngSwitch]="view?.loading">
               <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
               <metutors-send-feedback [messageLabel]="messageLabel" [feedbackOptions]="view?.feedbackOptions"

@@ -5,7 +5,7 @@
     <div class="row" *ngLet="(view$ | async) as view">
       <div class="col-12">
         <mat-tab-group mat-align-tabs="start">
-          <mat-tab [label]="tabLabel" [labelClass]="'fw-bold'" [bodyClass]="'overflow-hidden'">
+          <mat-tab [label]="tabLabel | translate" [labelClass]="'fw-bold'" [bodyClass]="'overflow-hidden'">
             <ng-container [ngSwitch]="view?.loading">
               <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
 

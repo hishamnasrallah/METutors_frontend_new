@@ -76,7 +76,7 @@
             </div>
             <div class="col-md-9 d-flex justify-content-center flex-column">
               <h2 class="d-flex">
-                {{ classroom?.tutor?.name }}
+                <bdi>{{ classroom?.tutor?.name }}</bdi>
                 <div class="d-flex">
                   <img src="assets/svg/star-fill.svg" alt="" width="20" height="20" draggable="false" />
                   <span class="count">{{ classroom?.tutor?.averageRating | number:'.1-1' }}</span>
