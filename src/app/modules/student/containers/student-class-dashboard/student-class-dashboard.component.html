@@ -165,13 +165,13 @@
                   <th>{{ 'DURATION' | translate }}</th>
                   <th></th>
                 </tr>
-                <tr *ngIf="!view.data?.upcomingClasses?.data?.length">
+                <tr *ngIf="!upcomingClasses.length">
                   <td colspan="8">
                     <div class="text-center">{{ 'NO_RECORD_FOUND' | translate }}</div>
                   </td>
                 </tr>
-                <ng-container *ngIf="view.data?.upcomingClasses?.data?.length">
-                  <tr *ngFor="let upcomingClass of view.data.upcomingClasses.data; let i=index">
+                <ng-container *ngIf="upcomingClasses.length">
+                  <tr *ngFor="let upcomingClass of upcomingClasses; let i=index">
                     <td>{{ i + 1 }}</td>
                     <td>{{ upcomingClass.title ? upcomingClass.title : 'N/A' }}</td>
                     <td>
@@ -193,6 +193,12 @@
                           {{ 'RESCHEDULE' | translate }}
                         </button>
                       </span>
+                    </td>
+                  </tr>
+                  <tr *ngIf="view?.data?.totalUpcomingClasses > upcomingClasses.length">
+                    <td colspan="8">
+                      <span class="text-main text-center d-block fw-bold cursor-pointer"
+                            (click)="onShowMoreUpcomingClasses()">Show more classes <mat-icon class="rotate-90">chevron_right</mat-icon></span>
                     </td>
                   </tr>
                 </ng-container>
@@ -218,13 +224,13 @@
                   <th>{{ 'DURATION' | translate }}</th>
                   <th></th>
                 </tr>
-                <tr *ngIf="!view.data?.previousClasses?.data?.length">
+                <tr *ngIf="!previousClasses.length">
                   <td colspan="8">
                     <div class="text-center">{{ 'NO_RECORD_FOUND' | translate }}</div>
                   </td>
                 </tr>
-                <ng-container *ngIf="view.data?.previousClasses?.data?.length">
-                  <tr *ngFor="let previousClass of view.data.previousClasses.data; let i=index">
+                <ng-container *ngIf="previousClasses.length">
+                  <tr *ngFor="let previousClass of previousClasses; let i=index">
                     <td>{{ i + 1 }}</td>
                     <td>{{ previousClass.title }}</td>
                     <td>
@@ -257,6 +263,12 @@
                           {{ 'VIEW_CLASS' | translate }}
                         </button>
                       </ng-template>
+                    </td>
+                  </tr>
+                  <tr *ngIf="view?.data?.totalPreviousClasses > previousClasses.length">
+                    <td colspan="8">
+                      <span class="text-main text-center d-block fw-bold cursor-pointer"
+                            (click)="onShowMorePreviousClasses()">Show more classes <mat-icon class="rotate-90">chevron_right</mat-icon></span>
                     </td>
                   </tr>
                 </ng-container>

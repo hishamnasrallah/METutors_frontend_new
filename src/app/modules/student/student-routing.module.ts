@@ -216,7 +216,7 @@ const routes: Routes = [
         component: StudentCertificatesComponent,
         data: {
           layout: {
-            icon: 'badge',
+            icon: 'certificate',
             title: 'CERTIFICATES',
             navbarTitle: 'CERTIFICATES',
             showHeader: false,
