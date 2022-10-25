@@ -1,9 +1,11 @@
-import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
+import { combineLatest, Observable } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+
 import * as fromRoot from '@metutor/state';
 import { IUser } from '@metutor/core/models';
 import * as fromCore from '@metutor/core/state';
-import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'metutors-student-certificates',
@@ -13,13 +15,20 @@ import { Component, OnInit } from '@angular/core';
 export class StudentCertificatesComponent implements OnInit {
   layout$: any;
   user$: Observable<IUser | null>;
-
+  view$: Observable<{ loading: boolean; certificates: any }>;
   rate = 4;
 
   constructor(private _store: Store<any>) {}
-
+  //
   ngOnInit(): void {
+    this._store.dispatch(fromCore.loadStudentCertificates());
+
     this.layout$ = this._store.select(fromRoot.selectLayout);
     this.user$ = this._store.select(fromCore.selectUser);
+
+    this.view$ = combineLatest([
+      this._store.select(fromCore.selectStudentLoading),
+      this._store.select(fromCore.selectStudentCertificates),
+    ]).pipe(map(([loading, certificates]) => ({ loading, certificates })));
   }
 }

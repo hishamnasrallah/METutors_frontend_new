@@ -15,6 +15,7 @@ import {
   selectStudentDashboard,
   selectStudentPreferences,
 } from '@metutor/core/state';
+import { loadStudentCertificates } from '@metutor/core/state/actions/student.actions';
 
 @Injectable()
 export class StudentEffects {
@@ -502,6 +503,30 @@ export class StudentEffects {
           catchError((error) =>
             of(
               studentActions.loadTutorAvailabilityFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  loadStudentCertificates$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(studentActions.loadStudentCertificates),
+      mergeMap(() =>
+        this._studentService.loadStudentCertificates().pipe(
+          map(({ certificates }) =>
+            studentActions.loadStudentCertificatesSuccess({
+              certificates: camelcaseKeys(certificates, {
+                deep: true,
+              }),
+            })
+          ),
+          catchError((error) =>
+            of(
+              studentActions.loadStudentCertificatesFailure({
                 error: error?.error?.message || error?.error?.errors,
               })
             )

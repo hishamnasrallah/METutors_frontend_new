@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { map, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { loadStudentCertificates } from '@metutor/core/state';
 
 @Injectable({
   providedIn: 'root',
@@ -184,6 +185,10 @@ export class StudentsService {
 
   loadTutorAvailability(id: number): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}teacher/${id}/availability`);
+  }
+
+  loadStudentCertificates(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}student/certificates`);
   }
 
   studentMakeupClass(body: any): Observable<any> {
