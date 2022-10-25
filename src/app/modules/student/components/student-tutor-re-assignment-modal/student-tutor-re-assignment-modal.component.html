@@ -79,7 +79,7 @@
                           <img [src]="tutor?.avatar" meTutorsDefaultAvatar alt="" width="60px" height="60px">
                         </div>
                         <div class="col d-flex justify-content-center flex-column">
-                          <h2>{{ tutor?.name }}</h2>
+                          <h2><bdi>{{ tutor?.name }}</bdi></h2>
                           <h3 class="mb-0" *ngIf="tutor?.bio">{{ tutor?.bio }}</h3>
                         </div>
                         <a class="col-md-2 full-profile" [routerLink]="'/profile/tutor/' + tutor?.id" target="_blank">

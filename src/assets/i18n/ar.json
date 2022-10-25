@@ -309,7 +309,7 @@
   "PRICING_WORKS_YOU": "أسعار مناسبة لك",
   "PRICING_WORKS_YOU_DESC": "أسعار ضمن ميزانيتك",
   "QUALIFIED_TRUSTED_TUTORS": "معلمون أكفاء وثقة",
-  "QUALIFIED_TRUSTED_TUTORS_DESC": "تختار أفضل المعلمين الخبراء بمجالاتهم MEtutors",
+  "QUALIFIED_TRUSTED_TUTORS_DESC": "MEtutors تختار أفضل المعلمين الخبراء بمجالاتهم",
   "TUTORING_SUPPORT": " نقدم الدعم التعليمي والفني 24/7 ",
   "TUTORING_SUPPORT_DESC": "أحصل على المساعدة المباشرة بالواجبات والمشاريع المستعجلة",
   "KICKSTART_ONLINE_LEARNING": "إبدأ طريقك الى التعلم عن بعد",
@@ -1241,5 +1241,7 @@
   "OUR_PARTNERS": "Our partners",
   "PARTNERING_WORLD_TOP_PLATFORM_SCHOOLS": "Partnering with the world’s top platforms and schools to bring you the best experience on MEtutors",
   "MAX_10_TOPICS": "Max 10 topics",
-  "MAX_5_LANGUAGES": "Max 5 languages"
+  "MAX_5_LANGUAGES": "Max 5 languages",
+  "ONE_ON_ONE": "One-on-One",
+  "GROUP_STUDY": "Group study"
 }

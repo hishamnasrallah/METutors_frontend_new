@@ -401,24 +401,6 @@ export const CLASSROOM_TYPES_CONST: any = {
   '02': COURSE_TUITION_TYPES_CONST.group,
 };
 
-export const COURSE_FILTER_TAGS_CONST = {
-  top: 'Top Rated',
-  new: 'New course',
-  pop: 'Popular course',
-};
-
-export const COURSE_FILTER_START_CONST = {
-  today: 'Today',
-  week: 'This week',
-  month: 'This month',
-};
-
-export const COURSE_FILTER_TYPE_CONST = {
-  '01': 'Student groups',
-  '02': 'One to one sessions',
-  '03': 'Both',
-};
-
 export const WEEK_DAYS: any = {
   1: 'Sun',
   2: 'Mon',
