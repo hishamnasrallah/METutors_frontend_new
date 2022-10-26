@@ -13,11 +13,11 @@
           <h1 class="heading f-size-15-md-sm">{{ 'TYPE_TUTORING' | translate }}</h1>
 
           <ng-container *ngIf="_tutor?.specifications?.typeOfTutoring === types.both">
-            <span>{{ types.one }}</span>
-            <span>{{ types.group }}</span>
+            <span>{{ (types.one)! | metutorsUppercase | translate }}</span>
+            <span>{{ (types.group)! | metutorsUppercase | translate }}</span>
           </ng-container>
           <span *ngIf="_tutor?.specifications?.typeOfTutoring !== types.both">
-            {{ _tutor?.specifications?.typeOfTutoring }}
+            {{ (_tutor?.specifications?.typeOfTutoring)! | metutorsUppercase | translate }}
           </span>
         </div>
       </div>

@@ -496,7 +496,7 @@
               <mat-radio-button [ngClass]="{'mt-15-md-sm ms-3': !isFirst}" class="m-0-md-sm" [value]="type.value"
                                 *ngFor="let type of types | keyvalue: returnZero; let isFirst = first"
                                 [disabled]="type.key !== 'one'">
-                {{ type?.value }}
+                {{ (type?.value)! | metutorsUppercase | translate }}
               </mat-radio-button>
             </mat-radio-group>
             <div class="text-danger" *ngIf="typeOfTutoring?.touched && typeOfTutoring?.invalid">

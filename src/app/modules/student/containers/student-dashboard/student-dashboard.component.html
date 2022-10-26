@@ -6,7 +6,7 @@
       <div class="col-lg-6">
         <h2 class="overview f-size-17-md-sm">{{ 'OVERVIEW' | translate }}</h2>
         <p class="desc">
-          {{ 'SEE_PROGRESS_LAST' | translate }} <strong>{{ insightRange[range] }}</strong>
+          {{ 'SEE_PROGRESS_LAST' | translate }} <strong>{{ insightRange[range] | translate }}</strong>
         </p>
       </div>
       <div class="col-lg-6">
@@ -41,7 +41,7 @@
                 {{ view.dashboard.totalProgress }}%
                 <span [ngClass]="{'danger': view.dashboard?.totalProgressGrowth < 0}">{{ view.dashboard?.totalProgressGrowth >= 0 ? '+'+view.dashboard?.totalProgressGrowth : view.dashboard?.totalProgressGrowth }}%</span>
               </h1>
-              <p>{{ 'COMPARED_TO' | translate }} ({{ view.dashboard?.totalProgressLastCount }}% {{ 'IN_LAST' | translate }} {{ insightRange[range] }})</p>
+              <p>{{ 'COMPARED_TO' | translate }} ({{ view.dashboard?.totalProgressLastCount }}% {{ 'IN_LAST' | translate }} {{ insightRange[range] | translate }})</p>
               <mat-progress-bar class="example-margin" [color]="'primary'" [value]="view.dashboard.totalProgress">
               </mat-progress-bar>
             </div>
@@ -55,7 +55,7 @@
                 {{ view.dashboard.totalCompletedCourses }}
                 <span [ngClass]="{'danger': view.dashboard?.completedCoursesGrowth < 0}">{{ view.dashboard?.completedCoursesGrowth >= 0 ? '+'+view.dashboard?.completedCoursesGrowth : view.dashboard?.completedCoursesGrowth }}%</span>
               </h1>
-              <p>{{ 'COMPARED_TO' | translate }} {{ view.dashboard?.completedCoursesLastCount }} {{ 'COURSES_SM' | translate }} {{ 'IN_LAST' | translate }} {{ insightRange[range] }}</p>
+              <p>{{ 'COMPARED_TO' | translate }} {{ view.dashboard?.completedCoursesLastCount }} {{ 'COURSES_SM' | translate }} {{ 'IN_LAST' | translate }} {{ insightRange[range] | translate }}</p>
             </div>
           </div>
         </div>
@@ -67,7 +67,7 @@
                 {{ view?.dashboard?.attendenceRate }}%
                 <span [ngClass]="{'danger': view.dashboard?.attendenceGrowth < 0}">{{ view.dashboard?.attendenceGrowth >= 0 ? '+'+view.dashboard?.attendenceGrowth : view.dashboard?.attendenceGrowth }}%</span>
               </h1>
-              <p>{{ 'COMPARED_TO' | translate }} ({{ view.dashboard?.attendenceRateLastCount }}% {{ 'IN_LAST' | translate }} {{ insightRange[range] }})</p>
+              <p>{{ 'COMPARED_TO' | translate }} ({{ view.dashboard?.attendenceRateLastCount }}% {{ 'IN_LAST' | translate }} {{ insightRange[range] | translate }})</p>
             </div>
           </div>
         </div>
@@ -79,7 +79,7 @@
                 {{ view?.dashboard?.totalPayment | metutorsMoney | async }}
                 <span [ngClass]="{'danger': view.dashboard?.paymentGrowth < 0}">{{ view.dashboard?.paymentGrowth >= 0 ? '+'+view.dashboard?.paymentGrowth : view.dashboard?.paymentGrowth }}%</span>
               </h1>
-              <p>{{ 'COMPARED_TO' | translate }} ({{ view.dashboard?.paymentLastCount | metutorsMoney | async }} {{ 'IN_LAST' | translate }} {{ insightRange[range] }})</p>
+              <p>{{ 'COMPARED_TO' | translate }} ({{ view.dashboard?.paymentLastCount | metutorsMoney | async }} {{ 'IN_LAST' | translate }} {{ insightRange[range] | translate }})</p>
             </div>
           </div>
         </div>
@@ -140,7 +140,7 @@
     <div class="row">
       <div class="col-12">
         <h2 class="overview mt-5 f-size-17-md-sm mt-15-md-sm">{{ 'COMPLETED_COURSES' | translate }}</h2>
-        <p class="desc">{{ 'SEE_COMPLETED_COURSE_LAST' | translate }} <strong>{{ insightRange[range] }}</strong></p>
+        <p class="desc">{{ 'SEE_COMPLETED_COURSE_LAST' | translate }} <strong>{{ insightRange[range] | translate }}</strong></p>
       </div>
       <div class="col-12">
         <div class="card">
