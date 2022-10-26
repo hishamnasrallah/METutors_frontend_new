@@ -77,7 +77,7 @@
             </div>
             <div class="col-md-3 col-sm-6">
               <h3>{{ 'TYPE' | translate }}</h3>
-              <h4>{{ reviewInfo?.type }}</h4>
+              <h4>{{ (reviewInfo?.type)! | metutorsUppercase | translate }}</h4>
             </div>
             <div class="col-md-3 col-sm-6">
               <h3>{{ 'CLASSES_START_TIME' | translate }}</h3>

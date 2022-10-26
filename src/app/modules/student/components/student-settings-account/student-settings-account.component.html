@@ -22,7 +22,7 @@
 
             <div>
               <h2>{{ 'UPLOAD_PROFILE_PHOTO' | translate }}</h2>
-              <h5>{{ 'PHOTO_EXTENSION_SIZE_MB' | translate }}</h5>
+              <h5><bdi>{{ 'PHOTO_EXTENSION_SIZE_MB' | translate }}</bdi></h5>
               <div style="height:0;overflow:hidden">
                 <input type="file" id="fileInput" name="fileInput" #filePicker (change)="uploadProfilePic($event)"/>
               </div>
