@@ -13,7 +13,8 @@ export class UppercasePipe implements PipeTransform {
         .trim()
         .replace(/ /gi, '_')
         .replace(/’/gi, '')
-        .replace(/-/gi, '_');
+        .replace(/-/gi, '_')
+        .replace('+', '_');
     }
 
     return '';

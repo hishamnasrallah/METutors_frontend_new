@@ -19,7 +19,7 @@
           <label for="teachingExperience" class="form-label">{{ 'TEACHING_EXPERIENCE' | translate }}</label>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="teachingExperience" placeholder="{{ 'SELECT_YEARS' | translate }}" id="teachingExperience">
-              <mat-option [value]="experience" *ngFor="let experience of experiences">{{ experience }}</mat-option>
+              <mat-option [value]="experience" *ngFor="let experience of experiences">{{ experience | metutorsUppercase | translate }}</mat-option>
             </mat-select>
           </mat-form-field>
           <div class="text-danger" *ngIf="teachingExperience?.touched && teachingExperience?.invalid">
@@ -53,7 +53,7 @@
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="teachingExperienceOnline" placeholder="{{ 'SELECT_YEARS' | translate }}"
                         id="teachingExperienceOnline">
-              <mat-option [value]="experience" *ngFor="let experience of experiences">{{ experience }}</mat-option>
+              <mat-option [value]="experience" *ngFor="let experience of experiences">{{ experience | metutorsUppercase | translate }}</mat-option>
             </mat-select>
           </mat-form-field>
           <div class="text-danger" *ngIf="teachingExperienceOnline?.touched && teachingExperienceOnline?.invalid">

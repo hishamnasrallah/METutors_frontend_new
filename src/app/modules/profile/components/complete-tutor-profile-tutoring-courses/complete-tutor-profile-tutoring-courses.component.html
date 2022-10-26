@@ -14,12 +14,12 @@
                <span class="d-flex">
                 <a class="delete float-end cursor-pointer" *ngIf="programs.controls.length > 1"
                    (click)="removeProgram(i)">
-                    <mat-icon>delete</mat-icon>
+                  <mat-icon>delete</mat-icon>
                 </a>
 
                 <a class="float-end cursor-pointer" *ngIf="i === 0 && programs.controls.length < (programsList?.length || 0)"
                    (click)="addProgram()">
-                   {{ 'ADD_NEW' | translate }}
+                  {{ 'ADD_NEW' | translate }}
                 </a>
               </span>
             </span>
@@ -41,7 +41,7 @@
 
             <ng-container *ngIf="form.value.programs[i]?.programId?.id === nationalId">
               <label for="country" class="form-label mt-3">
-                {{ 'COUNTRY_FOR' | translate }} {{ form.value.programs[i]?.programId?.name }} {{ 'PROGRAM_SM' | translate }}
+                <bdi>{{ 'COUNTRY_FOR' | translate }} {{ form.value.programs[i]?.programId?.name }} {{ 'PROGRAM_SM' | translate }}</bdi>
               </label>
               <mat-form-field appearance="outline" class="w-100">
                 <mat-select id="country" formControlName="countries" placeholder="{{ 'SELECT_COUNTRIES' | translate }}" multiple
@@ -111,7 +111,8 @@
                       form.value.programs[i].grades?.includes(+subject.grade)
                     )
                   ">
-                    <mat-option *ngFor="let sub of subject.subjects" [value]="sub">
+                    <mat-option *ngFor="let sub of subject.subjects" #matOptionSubject [value]="sub" 
+                                [disabled]="subjectLength >= 10 && !matOptionSubject.selected">
                       {{ sub?.name }}
                       <ng-container *ngIf="form.value.programs[i]?.programId?.id === nationalId && sub?.grade">
                         ({{ grades[sub?.grade - 1] }})
@@ -168,7 +169,7 @@
 
       <metutors-submit-button [form]="form" [isDisabled]="!pricesLength || !subjectLength || pricesLength < subjectLength"
                               [isSubmitting]="loading" [extraClasses]="'w-100 fw-bold px-5'">
-        {{ 'Finish' | translate }}
+        {{ 'FINISH' | translate }}
       </metutors-submit-button>
     </div>
   </div>
