@@ -1,32 +1,37 @@
 .certificates {
   padding: 20px 40px;
 
-  .head {
-    color: #2a2a2a;
-    font-size: 20px;
-    font-weight: bold;
-  }
-
   .certificate {
     margin: 0 auto;
-    text-align: center;
-    width: 100%;
-    background-size: cover;
-    height: 750px;
+    width: 1276px;
+    height: 850px;
     overflow: hidden;
-    // background: no-repeat center center fixed;
+    text-align: center;
+    background: no-repeat;
+    box-shadow: 0 2px 20px 0 rgb(0 0 0 / 12%);
+
+    .body {
+      width: 680px;
+      margin-left: 375px;
+    }
 
     h2 {
       font-size: 48px;
+      margin-top: 378px;
     }
 
     h3 {
       font-size: 48px;
       font-weight: bold;
+      margin-top: 112px;
+      text-transform: uppercase;
+    }
 
-      &.heading {
-        margin-top: 100px;
-      }
+    span {
+      color: #2a2a2a;
+      display: block;
+      margin-top: 95px;
+      margin-right: 205px;
     }
   }
 }
