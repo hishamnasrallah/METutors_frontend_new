@@ -11,16 +11,21 @@
     </ng-container>
 
     <ng-container *ngIf="!isLoading">
-      <div class="tabs d-flex d-block-sm overflow-auto">
-        <button *ngFor="let program of programsList; let i = index" mat-button class="w-100 text-start d-flex"
-          [class.active]="step === program?.id" (click)="onChangeStep(program)">
-          <span class="d-block">{{ 'PROGRAM' | translate }} {{ i + 1 }}</span>
-          <strong>
-            {{ program?.name }}
-            <span *ngIf="country && program?.id === nationalId" [innerHTML]="country?.flag"></span>
-          </strong>
-        </button>
+      <div class="position-relative">
+        <div class="tabs d-flex d-block-sm overflow-hidden" #widgetsContent scrollX="true" (scroll)="checkScroll()" >
+          <button *ngFor="let program of programsList; let i = index" mat-button class="w-100 text-start d-flex"
+            [class.active]="step === program?.id" (click)="onChangeStep(program)">
+            <span class="d-block">{{ 'PROGRAM' | translate }} {{ i + 1 }}</span>
+            <strong>
+              {{ program?.name }}
+              <span *ngIf="country && program?.id === nationalId" [innerHTML]="country?.flag"></span>
+            </strong>
+          </button>
+        </div>
+        <mat-icon class="chevron-right rotate-180-ar" *ngIf="!rightDisabled" (click)="scrollRight()">chevron_right</mat-icon>
+        <mat-icon class="chevron-left rotate-180-ar" *ngIf="!leftDisabled" (click)="scrollLeft()">chevron_left</mat-icon>
       </div>
+
       <div class="content">
         <ng-container *ngIf="loadingFields">
           <div class="ph-col-3">

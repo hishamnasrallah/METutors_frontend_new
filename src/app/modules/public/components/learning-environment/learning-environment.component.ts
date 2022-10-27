@@ -4,7 +4,10 @@ import {
   OnInit,
   Output,
   Component,
-  EventEmitter
+  ViewChild,
+  ElementRef,
+  EventEmitter,
+  AfterViewChecked
 } from '@angular/core';
 
 import {
@@ -22,7 +25,9 @@ import { ICountry, IField, IProgram, ISubject } from '@metutor/core/models';
   templateUrl: './learning-environment.component.html',
   styleUrls: ['./learning-environment.component.scss']
 })
-export class LearningEnvironmentComponent implements OnInit {
+export class LearningEnvironmentComponent implements OnInit, AfterViewChecked {
+  @ViewChild('widgetsContent') widgetsContent: ElementRef;
+
   @Input() fields: IField[] | null;
   @Input() isLoading: boolean | null;
   @Input() subjects: ISubject[] | null;
@@ -50,6 +55,8 @@ export class LearningEnvironmentComponent implements OnInit {
   grades = GRADES;
   country?: ICountry;
   isShowMore = false;
+  leftDisabled = true;
+  rightDisabled = true;
   selectedField: number;
   programsList: IProgram[];
   selectedProgram: IProgram;
@@ -58,7 +65,51 @@ export class LearningEnvironmentComponent implements OnInit {
 
   constructor(private _dialog: MatDialog) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.checkScroll();
+  }
+
+  ngAfterViewChecked(): void {
+    this.checkScroll();
+  }
+
+  scrollLeft(): void {
+    if (localStorage.getItem('DEFAULT_LANGUAGE') === 'en') {
+      this.widgetsContent.nativeElement.scrollLeft -= 200;
+    } else {
+      this.widgetsContent.nativeElement.scrollLeft += 200;
+    }
+    this.checkScroll();
+  }
+
+  scrollRight(): void {
+    if (localStorage.getItem('DEFAULT_LANGUAGE') === 'en') {
+      this.widgetsContent.nativeElement.scrollLeft += 200;
+    } else {
+      this.widgetsContent.nativeElement.scrollLeft -= 200;
+    }
+    this.checkScroll();
+  }
+
+  checkScroll(): void {
+    if (this.widgetsContent) {
+      let newScrollLeft;
+      this.leftDisabled =
+        this.widgetsContent.nativeElement.scrollLeft == 0 ? true : false;
+
+      if (localStorage.getItem('DEFAULT_LANGUAGE') === 'en') {
+        newScrollLeft = this.widgetsContent.nativeElement.scrollLeft;
+      } else {
+        newScrollLeft = -this.widgetsContent.nativeElement.scrollLeft;
+      }
+
+      const width = this.widgetsContent.nativeElement.clientWidth;;
+      const scrollWidth = this.widgetsContent.nativeElement.scrollWidth;
+      const diff = scrollWidth - (newScrollLeft + width);
+
+      this.rightDisabled = diff <= 50 ? true : false;
+    }
+  }
 
   filteredSubjects(id: number): ISubject[] {
     if (this.selectedProgram?.id === this.nationalId) {
