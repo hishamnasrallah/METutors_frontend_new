@@ -746,6 +746,11 @@ export const selectStudentTimeSlots = createSelector(
   fromStudentReducer.selectStudentTimeSlots
 );
 
+export const selectStudentCertificate = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectStudentCertificate
+);
+
 export const selectStudentCertificates = createSelector(
   selectStudentState,
   fromStudentReducer.selectStudentCertificates

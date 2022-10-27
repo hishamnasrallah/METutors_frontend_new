@@ -1,25 +1,34 @@
 <metutors-student-navbar [layout]="(layout$ | async)" [user]="user$ | async"></metutors-student-navbar>
 
-<div class="certificates p-15-sm">
+<div class="certificates p-15-sm" *ngLet="(view$ | async) as view">
   <div class="row">
     <div class="col-12">
-      <div #certificate class="certificate" [style.background-image]="'url(assets/academic/certificate.jpg)'">
-        <!--todo: replace with original data-->
-        <div class="body">
-          <h2>Kamran Khatti</h2>
+      <ng-container [ngSwitch]="view.loading">
+        <ng-container *ngSwitchCase="true">
+          <div class="col-md-12" *ngFor="let _ of [1, 2, 3]">
+            <metutors-grid-placeholder></metutors-grid-placeholder>
+          </div>
+        </ng-container>
+        <ng-container *ngSwitchCase="false">
+          <div #certificate class="certificate" [style.background-image]="'url(assets/academic/certificate.jpg)'">
+            <!--todo: replace with original data-->
+            <div class="body">
+              <h2 class="text-main">{{ view.certificate.studentName}}</h2>
 
-          <h3>CALCULUS 101</h3>
-        </div>
+              <h3>{{ view.certificate.courseName}}</h3>
+            </div>
 
-        <span>04 October, 2022</span>
-      </div>
+            <span>{{ view.certificate.completedAt | date: 'd MMMM, y'}}</span>
+          </div>
 
-      <div class="d-flex justify-content-center mt-3">
-        <button mat-flat-button color="primary" class="rounded d-block border py-1 px-5"
-                (click)="downloadCertificate()">
-          {{ 'DOWNLOAD' | translate }}
-        </button>
-      </div>
+          <div class="d-flex justify-content-center mt-3">
+            <button mat-flat-button color="primary" class="rounded d-block border py-1 px-5"
+                    (click)="downloadCertificate()">
+              {{ 'DOWNLOAD' | translate }}
+            </button>
+          </div>
+        </ng-container>
+      </ng-container>
     </div>
   </div>
 </div>

@@ -187,6 +187,10 @@ export class StudentsService {
     return this.http.get<any>(`${this.baseUrl}teacher/${id}/availability`);
   }
 
+  loadStudentCertificate(id: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}student/certificates/${id}`);
+  }
+
   loadStudentCertificates(): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}student/certificates`);
   }

@@ -434,6 +434,20 @@ export const studentViewClassFailure = createAction(
   props<{ error: any }>()
 );
 
+export const loadStudentCertificate = createAction(
+  '[Student] Load Student Certificate'
+);
+
+export const loadStudentCertificateSuccess = createAction(
+  '[Student] Load Student Certificate Success',
+  props<{ certificate: any }>()
+);
+
+export const loadStudentCertificateFailure = createAction(
+  '[Student] Load Student Certificate Failure',
+  props<{ error: any }>()
+);
+
 export const loadStudentCertificates = createAction(
   '[Student] Load Student Certificates'
 );
