@@ -179,8 +179,6 @@
   "CURRENT_TITLE": "المسمى الوظيفي الحالي",
   "ENTER_CURRENT_TITLE": "أدخل المسمى الوظيفي الحالي",
   "WRITE_VALID_CURRENT_TITLE": "الرجاء تعريف مُسماك الوظيفي الحالي ب٨٠ حرف كأقصى حد",
-  "SPOKEN_LANGUAGES": "لغات التحدث",
-  "FOR_TEACHING": "للتدريس",
   "ADD_NEW": "إضافة",
   "CURRICULUM_VITAE": "السيرة الذاتية",
   "MAX_5_MB": "٥ ميغابايت أقصى حد",
@@ -1263,5 +1261,6 @@
   "8_YEARS": "ثمانية أعوام",
   "9_YEARS": "تسعة أعوام",
   "10_YEARS": "عشرة أعوام",
-  "10__YEARS": "فوق العشرة أعوام"
+  "10__YEARS": "فوق العشرة أعوام",
+  "TEACHING_LANGUAGES": "Teaching languages"
 }
