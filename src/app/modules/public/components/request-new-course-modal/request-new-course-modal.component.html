@@ -35,7 +35,7 @@
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="grade" placeholder="{{ 'CHOOSE_GRADE' | translate }}">
               <mat-option [value]="i + 1" *ngFor="let grade of grades; let i = index">
-                {{ grade }}
+                {{ grade | uppercase | translate }}
               </mat-option>
             </mat-select>
           </mat-form-field>

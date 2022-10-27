@@ -4,13 +4,13 @@ import {
   OnInit,
   Output,
   Component,
-  EventEmitter,
+  EventEmitter
 } from '@angular/core';
 
 import {
   MatDialog,
   MatDialogRef,
-  MAT_DIALOG_DATA,
+  MAT_DIALOG_DATA
 } from '@angular/material/dialog';
 
 import { environment } from '@environment';
@@ -20,7 +20,7 @@ import { ICountry, IField, IProgram, ISubject } from '@metutor/core/models';
 @Component({
   selector: 'metutors-learning-environment',
   templateUrl: './learning-environment.component.html',
-  styleUrls: ['./learning-environment.component.scss'],
+  styleUrls: ['./learning-environment.component.scss']
 })
 export class LearningEnvironmentComponent implements OnInit {
   @Input() fields: IField[] | null;
@@ -37,7 +37,7 @@ export class LearningEnvironmentComponent implements OnInit {
       this.selectedProgram = _programs[0];
       this.step = this.selectedProgram?.id;
       this.changeProgram.emit({
-        program: this.selectedProgram?.id?.toString(),
+        program: this.selectedProgram?.id?.toString()
       });
     }
   }
@@ -47,6 +47,7 @@ export class LearningEnvironmentComponent implements OnInit {
 
   step: number;
   grade: number;
+  grades = GRADES;
   country?: ICountry;
   isShowMore = false;
   selectedField: number;
@@ -79,10 +80,10 @@ export class LearningEnvironmentComponent implements OnInit {
       const dialogRef = this._dialog.open(ChooseCountryDialog, {
         width: '1000px',
         data: { countries: this.countries, isLoading: this.isLoading },
-        panelClass: 'overflow-height',
+        panelClass: 'overflow-height'
       });
 
-      dialogRef.afterClosed().subscribe((result) => {
+      dialogRef.afterClosed().subscribe(result => {
         if (result) {
           this.country = result?.country;
           this.grade = result?.grade;
@@ -91,7 +92,7 @@ export class LearningEnvironmentComponent implements OnInit {
           this.changeProgram.emit({
             program: program?.id?.toString(),
             country: this.country?.id,
-            grade: result?.grade,
+            grade: result?.grade
           });
         }
       });
@@ -103,15 +104,25 @@ export class LearningEnvironmentComponent implements OnInit {
     }
   }
 
+  onSelectGrade(event: any): void {
+    this.grade = +event.value;
+
+    this.changeProgram.emit({
+      program: this.step,
+      country: this.country?.id,
+      grade: this.grade
+    });
+  }
+
   onViewPrices(): void {
     const dialogRef = this._dialog.open(ViewPricesDialog, {
       width: '800px',
       data: {
         fields: this.fields,
         subjects: this.subjects,
-        programId: this.selectedProgram?.id,
+        programId: this.selectedProgram?.id
       },
-      panelClass: 'overflow-height',
+      panelClass: 'overflow-height'
     });
 
     dialogRef.afterClosed().subscribe(() => {});
@@ -121,13 +132,10 @@ export class LearningEnvironmentComponent implements OnInit {
 @Component({
   selector: 'choose-country-dialog',
   templateUrl: 'choose-country-dialog.html',
-  styleUrls: ['./learning-environment.component.scss'],
+  styleUrls: ['./learning-environment.component.scss']
 })
 export class ChooseCountryDialog {
-  grade: number;
-  grades = GRADES;
   country: ICountry;
-  showError = false;
   isLoading: boolean;
   countries: ICountry[];
   tempCountries: ICountry[];
@@ -148,36 +156,21 @@ export class ChooseCountryDialog {
   }
 
   onChangeCountry(event: any): void {
-    this.tempCountries = this.countries.filter((country) =>
+    this.tempCountries = this.countries.filter(country =>
       country.name?.toLowerCase()?.includes(event.target.value)
     );
   }
 
   onSelectCountry(country: ICountry): void {
     this.country = country;
-
-    if (!this.grade) {
-      this.showError = true;
-
-      return;
-    }
-
-    this.dialogRef.close({ country, grade: this.grade });
-  }
-
-  onSelectGradeCountry(event: any): void {
-    this.grade = +event.value + 1;
-
-    if (!this.country) return;
-
-    this.dialogRef.close({ country: this.country, grade: this.grade });
+    this.dialogRef.close({ country, grade: 12 });
   }
 }
 
 @Component({
   selector: 'view-prices-dialog',
   templateUrl: 'view-prices-dialog.html',
-  styleUrls: ['./learning-environment.component.scss'],
+  styleUrls: ['./learning-environment.component.scss']
 })
 export class ViewPricesDialog {
   fieldId!: string;

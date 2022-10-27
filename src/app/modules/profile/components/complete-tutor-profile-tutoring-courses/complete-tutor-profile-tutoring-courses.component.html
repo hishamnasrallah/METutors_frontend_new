@@ -53,7 +53,7 @@
               <mat-form-field appearance="outline" class="w-100">
                 <mat-select formControlName="grades" placeholder="{{ 'SELECT_GRADES' | translate }}" multiple
                   (selectionChange)="resetSubjects(i)">
-                  <mat-option [value]="i + 1" *ngFor="let grade of grades; let i = index">{{ grade }}</mat-option>
+                  <mat-option [value]="i + 1" *ngFor="let grade of grades; let i = index">{{ grade | uppercase | translate }}</mat-option>
                 </mat-select>
               </mat-form-field>
             </ng-container>
@@ -115,7 +115,7 @@
                                 [disabled]="subjectLength >= 10 && !matOptionSubject.selected">
                       {{ sub?.name }}
                       <ng-container *ngIf="form.value.programs[i]?.programId?.id === nationalId && sub?.grade">
-                        ({{ grades[sub?.grade - 1] }})
+                        ({{ grades[sub?.grade - 1] | uppercase | translate }})
                       </ng-container>
                     </mat-option>
                   </mat-optgroup>

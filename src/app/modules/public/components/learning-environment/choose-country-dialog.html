@@ -8,17 +8,6 @@
       <h1 class="f-size-20-md-sm">{{ 'CHOOSE_COUNTRY_TITLE' | translate }}</h1>
       <div class="find-country d-flex align-items-center justify-content-between flex-column-sm">
         <input type="text" class="form-control w-100-sm" placeholder="{{ 'FIND_COUNTRY' | translate }}" (keyup)="onChangeCountry($event)">
-
-        <div>
-          <mat-form-field appearance="outline" class="w-100-sm">
-            <mat-select placeholder="{{ 'SELECT_GRADE' | translate }}" (selectionChange)="onSelectGradeCountry($event)">
-              <mat-option [value]="i" *ngFor="let grade of grades; let i = index">
-                {{ grade }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          <div class="text-danger text-start choose-grade" *ngIf="showError">{{ 'CHOOSE_GRADE_TITLE' | translate }}</div>
-        </div>
       </div>
     </div>
 

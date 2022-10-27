@@ -31,10 +31,22 @@
         </ng-container>
 
         <div class="row" *ngIf="!loadingFields">
-          <div class="col-9">
+          <div class="col-md-9">
             <h1 class="f-size-25-md-sm">{{ selectedProgram?.title }}</h1>
 
             <p class="f-size-15-md-sm">{{ selectedProgram?.description }}</p>
+          </div>
+          <div class="col-md-3" *ngIf="selectedProgram?.id === nationalId">
+            <div class="text-end">
+              <mat-form-field appearance="outline" class="w-100-sm">
+                <mat-select placeholder="{{ 'SELECT_GRADE' | translate }}" [(ngModel)]="grade" 
+                            (selectionChange)="onSelectGrade($event)">
+                  <mat-option [value]="i + 1" *ngFor="let g of grades; let i = index">
+                    {{ g | uppercase | translate }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div> 
           </div>
           <div class="col-md-7">
             <div class="row mt-4 m-0-sm">
