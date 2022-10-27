@@ -290,7 +290,7 @@
   </metutors-student-attendance-modal>
 
   <metutors-student-feedback-modal *ngIf="showSendFeedbackModal$ | async" [subHeading]="feedbackSubHeading"
-                                   [showModal]="(showSendFeedbackModal$ | async)!" [buttonLabel]="'Submit Feedback'"
+                                   [showModal]="(showSendFeedbackModal$ | async)!" [buttonLabel]="'SEND_FEEDBACK'"
                                    (closeModal)="onCloseFeedbackModal()" (submitFeedback)="onSubmitFeedback($event)">
   </metutors-student-feedback-modal>
 
