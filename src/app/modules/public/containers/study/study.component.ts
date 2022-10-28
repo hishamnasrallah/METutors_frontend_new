@@ -24,8 +24,8 @@ export class StudyComponent implements OnInit {
       {
         id: 1,
         icon: 'assets/svg/marketing.svg',
-        value: '340',
-        type: 'COURSES_CREATED',
+        value: '150',
+        type: 'COURSES_AVAILABLE',
       },
       {
         id: 1,
