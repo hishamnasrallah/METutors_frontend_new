@@ -139,6 +139,7 @@
   .why-we-teach img,
   .innovative-approach img,
   metutors-about-slide .slide img,
+  .slide .content .request-free svg-icon .svg-icon,
   metutors-academic-learning-environment .academic-learning,
   metutors-academic-learning-environment .academic-learning .container {
     -webkit-transform: scaleX(-1);
@@ -465,8 +466,8 @@
     left: auto !important;
   }
 
-  .country button,
   .close-btn,
+  .country button,
   .ticket-details .card .write-comment .reply-button,
   .request-tutor .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child):after {
     left: 0 !important;
@@ -540,6 +541,11 @@
   .learning-environment .chevron-left {
     right: -17.5px;
     left: auto !important;
+  }
+
+  .slide .content .request-free svg-icon {
+    left: -40px;
+    right: auto !important;
   }
 
   /**************** PADDING ***********************/

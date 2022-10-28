@@ -6,7 +6,7 @@ import {
   FormGroup,
   Validators,
   FormBuilder,
-  AbstractControl,
+  AbstractControl
 } from '@angular/forms';
 import {
   state,
@@ -14,21 +14,21 @@ import {
   group,
   animate,
   trigger,
-  transition,
+  transition
 } from '@angular/animations';
 import {
   GRADES,
   generalConstants,
   TEXTBOOK_EDITION_CONST,
   AcademicTutoringTextbook,
-  CLASSROOM_TOPICS_SCALE_NUM,
+  CLASSROOM_TOPICS_SCALE_NUM
 } from 'src/app/config';
 import {
   IField,
   IProgram,
   ISubject,
   ICountry,
-  ILanguage,
+  ILanguage
 } from 'src/app/core/models';
 
 @Component({
@@ -43,21 +43,22 @@ import {
 
         group([
           animate(300, style({ height: 0 })),
-          animate('200ms ease-in-out', style({ opacity: '0' })),
-        ]),
+          animate('200ms ease-in-out', style({ opacity: '0' }))
+        ])
       ]),
       transition(':enter', [
         style({ height: '0', opacity: 0 }),
 
         group([
           animate(300, style({ height: '*' })),
-          animate('400ms ease-in-out', style({ opacity: '1' })),
-        ]),
-      ]),
-    ]),
-  ],
+          animate('400ms ease-in-out', style({ opacity: '1' }))
+        ])
+      ])
+    ])
+  ]
 })
 export class CourseInformationFormComponent implements OnInit {
+  @Input() isFree = false;
   @Input() form!: FormGroup;
   @Input() uploadedFiles: any;
   @Input() selectedCourse: any;
@@ -227,6 +228,8 @@ export class CourseInformationFormComponent implements OnInit {
   }
 
   addTopic(): void {
+    if (this.form.value.topics?.length >= (this.isFree ? 1 : 10)) return;
+
     this.topics.push(this.newTopic());
     this.showAddTopic = false;
   }
@@ -247,7 +250,7 @@ export class CourseInformationFormComponent implements OnInit {
     return this._fb.group({
       scale: [2, Validators.required],
       checked: [false, Validators.requiredTrue],
-      name: [null, [Validators.required, Validators.maxLength(120)]],
+      name: [null, [Validators.required, Validators.maxLength(120)]]
     });
   }
 

@@ -77,15 +77,43 @@
         border-color: var(--main-color);
       }
     }
+
+    .request-free {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 0;
+      border: none;
+      position: relative;
+      font-size: 29px;
+      width: auto;
+
+      &:hover {
+        background-color: transparent;
+        border-color: transparent;
+      }
+
+      .svg-icon {
+        width: 70px;
+        height: 70px;
+        position: absolute;
+        right: 0;
+        bottom: 20px;
+      }
+
+      span {
+        text-decoration: underline;
+        color: #FFF;
+      }
+    }
   }
 }
 
 @media(max-width: 992px) {
   :host ::ng-deep .slide {
-    height: 300px;
+    height: 350px;
 
     .item {
-      height: 300px;
+      height: 350px;
 
       img {
         width: 100%;

@@ -9,6 +9,11 @@
         <span>{{ 'DEGREE_LEVEL' | translate }}: {{ (tutor?.qualifications?.degreeLevel)! | metutorsUppercase | translate }}</span>
       </li>
       <li>
+        <img src="assets/svg/qualification.svg" draggable="false" width="20" height="20" alt=""
+          *ngIf="tutor?.qualifications?.degreeField">
+        <span>{{ 'DEGREE_FIELD' | translate }}: {{ tutor?.qualifications?.degreeField }}</span>
+      </li>
+      <li>
         <img src="assets/svg/computer.svg" draggable="false" width="20" height="20" alt=""
           *ngIf="tutor?.qualifications?.computerSkills">
         <span>{{ 'COMPUTER_SKILLS' | translate }}: {{ (tutor?.qualifications?.computerSkills)! | uppercase | translate }}</span>
