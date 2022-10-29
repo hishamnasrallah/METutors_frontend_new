@@ -33,6 +33,28 @@ export class FinanceEffects {
     )
   );
 
+  loadCoupons$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(financeActions.loadCoupons),
+      mergeMap(({ params }) =>
+        this._financeService.loadCoupons(params).pipe(
+          map((result) =>
+            financeActions.loadCouponsSuccess({
+              coupons: camelcaseKeys(result, { deep: true }),
+            })
+          ),
+          catchError((error) =>
+            of(
+              financeActions.loadCouponsFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   loadAdminCourses$ = createEffect(() =>
     this._actions$.pipe(
       ofType(financeActions.loadAdminCourses),

@@ -20,6 +20,15 @@ export class FinanceService {
     );
   }
 
+  loadCoupons(params: any): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}coupons`, { params }).pipe(
+      map((result) => ({
+        orders: result?.orders?.data,
+        total: result?.orders?.total,
+      }))
+    );
+  }
+
   loadAdminCourses(params: any): Observable<any> {
     return this.http
       .get<any>(`${this.baseUrl}admin/all-courses`, { params })

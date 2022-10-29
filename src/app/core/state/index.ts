@@ -1512,6 +1512,11 @@ export const selectFinanceOrders = createSelector(
   fromFinanceReducer.selectFinanceOrders
 );
 
+export const selectFinanceCoupons = createSelector(
+  selectFinanceState,
+  fromFinanceReducer.selectFinanceCoupons
+);
+
 export const selectFinanceCourses = createSelector(
   selectFinanceState,
   fromFinanceReducer.selectFinanceCourses

@@ -5,6 +5,7 @@ import * as financeActions from '../actions/finance.actions';
 export interface State {
   orders: any;
   courses: any;
+  coupons: any;
   paymentInfo: any;
   refundDetail: any;
   isLoading: boolean;
@@ -17,6 +18,7 @@ export interface State {
 export const initialState: State = {
   orders: null,
   courses: null,
+  coupons: null,
   isLoading: false,
   paymentInfo: null,
   refundDetail: null,
@@ -30,6 +32,7 @@ export const reducer = createReducer(
   initialState,
   on(
     financeActions.loadOrders,
+    financeActions.loadCoupons,
     financeActions.loadAdminCourses,
     financeActions.loadRefundOrders,
     financeActions.verifyCoursePayment,
@@ -41,6 +44,7 @@ export const reducer = createReducer(
 
   on(
     financeActions.loadOrdersFailure,
+    financeActions.loadCouponsFailure,
     financeActions.loadAdminCoursesFailure,
     financeActions.loadRefundOrdersFailure,
     financeActions.verifyCoursePaymentFailure,
@@ -60,6 +64,12 @@ export const reducer = createReducer(
       isLoading: false,
     })
   ),
+
+  on(financeActions.loadCouponsSuccess, (state, { coupons }) => ({
+    ...state,
+    coupons,
+    isLoading: false,
+  })),
 
   on(financeActions.loadAdminCoursesSuccess, (state, { courses }) => ({
     ...state,
@@ -122,6 +132,7 @@ export const reducer = createReducer(
 );
 
 export const selectFinanceOrders = (state: State): any => state.orders;
+export const selectFinanceCoupons = (state: State): any => state.coupons;
 export const selectFinanceCourses = (state: State): any => state.courses;
 
 export const selectFinanceRefundDetail = (state: State): any =>

@@ -18,6 +18,8 @@ import {
   AdminTutorInterviewComponent,
   AdminStudentProfileComponent,
   AdminClassroomsListComponent,
+  AdminFinanceCoursesComponent,
+  AdminFinanceCouponsComponent,
   AdminSuspendedTutorsComponent,
   AdminTeacherScheduleComponent,
   TutorApprovalRequestComponent,
@@ -30,7 +32,6 @@ import {
   AdminTutorInterviewDetailsComponent,
   AdminTutorInterviewDocumentsComponent,
   AdminManagementTutorReAssignmentComponent,
-  AdminFinanceCoursesComponent,
 } from './containers';
 
 const routes: Routes = [
@@ -306,6 +307,18 @@ const routes: Routes = [
             data: {
               layout: {
                 title: 'Finance Orders',
+                navbarTitle: 'Finance',
+                showHeader: false,
+                showFooter: false,
+              },
+            },
+          },
+          {
+            path: 'coupons',
+            component: AdminFinanceCouponsComponent,
+            data: {
+              layout: {
+                title: 'Finance Coupons',
                 navbarTitle: 'Finance',
                 showHeader: false,
                 showFooter: false,

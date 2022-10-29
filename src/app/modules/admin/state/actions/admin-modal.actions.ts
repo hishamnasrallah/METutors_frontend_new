@@ -199,3 +199,11 @@ export const openViewRejectionReasonModal = createAction(
 export const closeViewRejectionReasonModal = createAction(
   '[Admin Modal] Close View Rejection Modal'
 );
+
+export const openAddCouponModal = createAction(
+  '[Admin Modal] Open Add Coupon Modal'
+);
+
+export const closeAddCouponModal = createAction(
+  '[Admin Modal] Close Add Coupon Modal'
+);

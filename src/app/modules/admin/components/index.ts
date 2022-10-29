@@ -2,6 +2,7 @@ export * from './admin-navbar';
 export * from './admin-sidebar';
 export * from './interview-card';
 export * from './admin-feedback';
+export * from './admin-add-coupon';
 export * from './admin-success-modal';
 export * from './admin-tutors-list-modal';
 export * from './admin-edit-feedback-modal';

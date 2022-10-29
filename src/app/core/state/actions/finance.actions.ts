@@ -15,6 +15,21 @@ export const loadOrdersFailure = createAction(
   props<{ error: any }>()
 );
 
+export const loadCoupons = createAction(
+  '[Finance] Load Coupons',
+  props<{ params: { page: number; search: string } }>()
+);
+
+export const loadCouponsSuccess = createAction(
+  '[Finance] Load Coupons Success',
+  props<{ coupons: any }>()
+);
+
+export const loadCouponsFailure = createAction(
+  '[Finance] Load Coupons Failure',
+  props<{ error: any }>()
+);
+
 export const loadAdminCourses = createAction(
   '[Finance] Load Admin Courses',
   props<{ params: { page: number; search: string } }>()
