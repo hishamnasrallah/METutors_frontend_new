@@ -1,6 +1,5 @@
 <div class="container request-tutor">
-    <h1 class="f-size-20-md-sm">{{ 'SCHEDULE_FREE_CLASS' | translate }}</h1>
-  
+    <h1 class="f-size-20-md-sm">{{ 'BOOK_FREE_TRIAL_CLASS' | translate }}</h1>
     <mat-horizontal-stepper labelPosition="bottom" linear #stepper class="step{{ step + 1 }}">
       <mat-step [stepControl]="courseInformationForm">
         <form [formGroup]="courseInformationForm">
@@ -31,8 +30,7 @@
                                             (deleteFile)="onDeleteFile($event)"
                                             (uploadedFile)="onUploadFile($event)"
                                             (changeCourseProgram)="fetchCourseField($event)"
-                                            (changeCourseField)="fetchCourseFieldSubject($event)"
-                                            (changeCourseSubject)="calculateEstimatedPrice($event)">
+                                            (changeCourseField)="fetchCourseFieldSubject($event)">
           </metutors-course-information-form>
         </form>
       </mat-step>
@@ -53,9 +51,9 @@
           </ng-template>
   
           <metutors-free-classroom-info-form [form]="classroomDetailsForm"
-                                        (onBack)="backStep()"
-                                        [selectedCourse]="selectedCourse"
-                                        (submitForm)="nextStep(); generateClassRooms()">
+                                             (onBack)="backStep()"
+                                             [selectedCourse]="selectedCourse"
+                                             (submitForm)="nextStep(); generateClassRooms()">
           </metutors-free-classroom-info-form>
         </form>
       </mat-step>
@@ -76,7 +74,6 @@
           </ng-template>
   
           <metutors-list-classrooms-form [form]="classroomScheduleForm"
-                                         [price]="price$ | async"
                                          [classrooms]="classrooms"
                                          (onBack)="backStep()"
                                          (onNext)="nextStep()"
@@ -106,7 +103,6 @@
                                       [classrooms]="classrooms"
                                       [duration]="duration"
                                       [loading]="loadingTutors$ | async"
-                                      [price]="price$ | async"
                                       [hours]="reviewInfo?.hours"
                                       [suggestedTutors]="suggestedTutors$ | async"
                                       [availableTutors]="availableTutors$ | async"
@@ -131,7 +127,6 @@
   
         <metutors-review-request [reviewInfo]="reviewInfo"
                                  [isCreatingCourse]="isCreatingCourse$ | async"
-                                 [price]="price$ | async"
                                  [selectedCourse]="selectedCourse"
                                  (submitForm)="onSubmit()"
                                  (onBack)="backStep()">

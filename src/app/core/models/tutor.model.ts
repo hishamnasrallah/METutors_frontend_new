@@ -212,7 +212,7 @@ export class ITutor {
         tutor?.teacher_feedbacks && tutor?.teacher_feedbacks.length
           ? filterTeacherFeedbacks(tutor?.teacher_feedbacks)
           : [];
-      this.feedbackRating = tutor?.feedback_rating;
+      this.feedbackRating = tutor?.feedback_rating || {};
       this.badges = tutor?.badges || [];
       this.bookings = tutor?.bookings;
       this.amount = tutor?.amount;

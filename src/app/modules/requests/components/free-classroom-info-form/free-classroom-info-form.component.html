@@ -13,7 +13,7 @@
       <div class="col-md-8 mt-15-sm">
         <div class="row">
           <div class="col-md-6">
-            <h3>{{ 'COURSE_START_DATE' | translate }}</h3>
+            <h3>{{ 'COURSE_DATE' | translate }}</h3>
             <mat-form-field appearance="outline" class="w-100">
               <input matInput [matDatepicker]="startPicker" placeholder="{{ 'CHOOSE_DATE' | translate }}" (focus)="startPicker.open()"
                 [min]="minDate" (dateChange)="onChangeDateDay(); onChangeDate()" formControlName="startDate">
@@ -22,7 +22,7 @@
             </mat-form-field>
           </div>
           <div class="col-md-6">
-            <h3>{{ 'CLASS_START_TIME' | translate }}</h3>
+            <h3>{{ 'START_TIME' | translate }}</h3>
             <div class="ngx-timepicker-field-example">
               <input placeholder="{{ 'SELECT_START_TIME' | translate }}" [ngxTimepicker]="startingTime"
                 formControlName="startTime" class="form-control" required (blur)="onChangeTimePicker()">
@@ -80,16 +80,6 @@
 
             <div class="text-danger" *ngIf="form?.hasError('startingHoursLimit')">
               {{ 'FIRST_CLASS_START' | translate }} {{ startingHoursLimit }} {{ 'HOURS_SM' | translate }}
-            </div>
-          </div>
-          <div class="col-md-6 mt-15-sm">
-            <h3>{{ 'CLASS_END_TIME' | translate }}</h3>
-            <div class="ngx-timepicker-field-example">
-              <input placeholder="{{ 'SELECT_END_TIME' | translate }}" [ngxTimepicker]="endingTime"
-                formControlName="endTime" class="form-control" required (blur)="onChangeTimePicker()">
-              <ngx-material-timepicker #endingTime [appendToInput]="true" [minutesGap]="30"
-                (closed)="onChangeTimePicker()">
-              </ngx-material-timepicker>
             </div>
           </div>
         </div> -->

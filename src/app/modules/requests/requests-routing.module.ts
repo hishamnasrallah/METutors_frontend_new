@@ -23,7 +23,7 @@ const routes: Routes = [
     component: RequestFreeTutorComponent,
     data: {
       layout: {
-        title: 'SCHEDULE_FREE_CLASS'
+        title: 'BOOK_FREE_TRIAL_CLASS'
       }
     }
   },
