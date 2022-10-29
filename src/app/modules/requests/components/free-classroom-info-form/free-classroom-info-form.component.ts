@@ -1,46 +1,16 @@
 import { AbstractControl, FormGroup } from '@angular/forms';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
-  state,
-  style,
-  group,
-  animate,
-  trigger,
-  transition,
-} from '@angular/animations';
-import {
   SORTED_DAYS_WEEK,
   generalConstants,
   calculateListDays,
-  calculateDurationTime,
-  CLASSROOM_TYPES_CONST,
+  CLASSROOM_TYPES_CONST
 } from 'src/app/config';
 
 @Component({
   selector: 'metutors-free-classroom-info-form',
   templateUrl: './free-classroom-info-form.component.html',
-  styleUrls: ['./free-classroom-info-form.component.scss'],
-  animations: [
-    trigger('slideInOut', [
-      state('in', style({ height: '*', opacity: 0 })),
-      transition(':leave', [
-        style({ height: '*', opacity: 1 }),
-
-        group([
-          animate(300, style({ height: 0 })),
-          animate('200ms ease-in-out', style({ opacity: '0' })),
-        ]),
-      ]),
-      transition(':enter', [
-        style({ height: '0', opacity: 0 }),
-
-        group([
-          animate(300, style({ height: '*' })),
-          animate('400ms ease-in-out', style({ opacity: '1' })),
-        ]),
-      ]),
-    ]),
-  ],
+  styleUrls: ['./free-classroom-info-form.component.scss']
 })
 export class FreeClassroomInfoFormComponent implements OnInit {
   @Input() form!: FormGroup;
@@ -64,10 +34,6 @@ export class FreeClassroomInfoFormComponent implements OnInit {
 
   get startTime(): AbstractControl | null {
     return this.form.get('startTime');
-  }
-
-  get endTime(): AbstractControl | null {
-    return this.form.get('endTime');
   }
 
   get startDate(): AbstractControl | null {
@@ -141,7 +107,7 @@ export class FreeClassroomInfoFormComponent implements OnInit {
       );
 
       let repeated = 0;
-      daysCalculated.forEach((day) => {
+      daysCalculated.forEach(day => {
         if (
           this.days?.value.includes(this.daysSorted[new Date(day).getDay()])
         ) {
@@ -188,19 +154,12 @@ export class FreeClassroomInfoFormComponent implements OnInit {
   }
 
   onChangeTimePicker(): void {
-    if (this.startTime?.value && this.endTime?.value) {
-      const duration = calculateDurationTime(
-        this.startTime?.value,
-        this.endTime?.value
-      );
+    if (this.startTime?.value) {
+      const duration = '0.25';
       this.duration?.setValue(duration);
       this.tempDuration?.setValue(duration);
-      this.hours?.setValue(
-        +(+this.duration?.value * +this.totalClasses?.value).toFixed(2)
-      );
-      this.tempHours?.setValue(
-        +(+this.tempDuration?.value * +this.tempTotalClasses?.value).toFixed(2)
-      );
+      this.hours?.setValue(duration);
+      this.tempHours?.setValue(duration);
       this.onChangeType();
 
       return;
@@ -222,7 +181,7 @@ export class FreeClassroomInfoFormComponent implements OnInit {
         this.endDate?.value
       );
 
-      daysCalculated.forEach((dayCalculated) => {
+      daysCalculated.forEach(dayCalculated => {
         if (
           this.daysSorted[new Date(dayCalculated).getDay()].toLowerCase() ===
           day.toLowerCase()
