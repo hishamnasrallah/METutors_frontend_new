@@ -9,6 +9,7 @@ export interface State {
   paymentInfo: any;
   refundDetail: any;
   isLoading: boolean;
+  isAddingCoupon: boolean;
   coursePaymentStatus: any;
   isLoadingRefund: boolean;
   isRetryingPayment: boolean;
@@ -22,6 +23,7 @@ export const initialState: State = {
   isLoading: false,
   paymentInfo: null,
   refundDetail: null,
+  isAddingCoupon: false,
   isLoadingRefund: false,
   isRefundingCourse: false,
   isRetryingPayment: false,
@@ -69,6 +71,37 @@ export const reducer = createReducer(
     ...state,
     coupons,
     isLoading: false,
+  })),
+
+  on(financeActions.adminAddCoupon, (state) => ({
+    ...state,
+    isAddingCoupon: true,
+  })),
+
+  on(financeActions.adminAddCouponSuccess, (state, { coupon }) => {
+    let finalState = {
+      ...state,
+      isAddingCoupon: false,
+    };
+
+    let { coupons, total } = finalState.coupons;
+
+    total = total + 1;
+    const couponsClone = [...coupons];
+    couponsClone.unshift(coupon);
+    coupons = { coupons: couponsClone, total };
+
+    finalState.coupons = {
+      ...finalState.coupons,
+      ...coupons,
+    };
+
+    return finalState;
+  }),
+
+  on(financeActions.adminAddCouponFailure, (state) => ({
+    ...state,
+    isAddingCoupon: false,
   })),
 
   on(financeActions.loadAdminCoursesSuccess, (state, { courses }) => ({
@@ -149,6 +182,9 @@ export const selectIsRetryingPayment = (state: State): boolean =>
 
 export const selectIsLoadingFinanceRefundDetail = (state: State): boolean =>
   state.isLoadingRefund;
+
+export const selectIsLoadingFinanceAddCoupon = (state: State): boolean =>
+  state.isAddingCoupon;
 
 export const selectFinanceIsRefundingCourse = (state: State): boolean =>
   state.isRefundingCourse;

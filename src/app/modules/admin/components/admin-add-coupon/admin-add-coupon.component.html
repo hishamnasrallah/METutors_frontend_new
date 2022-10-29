@@ -2,11 +2,11 @@
                 [heading]="'Create new coupon'"
                 [template]="template">
   <ng-template #template>
-    <form class="row add-program-modal mt-4" [formGroup]="form" (ngSubmit)="submitForm.emit(form.value)">
+    <form class="row add-coupon-modal mt-4" [formGroup]="form" (ngSubmit)="submitForm.emit(form.value)">
       <div class="col-12">
         <div class="form-group">
           <label for="name">Coupon name</label>
-          <input class="form-control custom-input input-bordered" formControlName="name" id="name"
+          <input class="form-control custom-input input-bordered" formControlName="name" id="name" autocomplete="off"
                  placeholder="Enter coupon name" (keydown.space)="$event.preventDefault()">
         </div>
       </div>
@@ -14,8 +14,13 @@
       <div class="col-12">
         <div class="form-group">
           <label for="expiry_date">Expiry date</label>
-          <input class="form-control custom-input input-bordered" formControlName="expiry_date" id="expiry_date"
-                 placeholder="Select date">
+          <mat-form-field appearance="outline" class="w-100">
+            <input matInput [matDatepicker]="startPicker" placeholder="Select date"
+                   (focus)="startPicker.open()" autocomplete="off" id="expiry_date"
+                   [min]="minDate" formControlName="expiry_date">
+            <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+            <mat-datepicker #startPicker></mat-datepicker>
+          </mat-form-field>
         </div>
       </div>
 
@@ -27,10 +32,23 @@
         </div>
       </div>
 
+      <div class="col-12">
+        <div class="form-group">
+          <label for="expiry_date">Discount percentage</label>
+          <mat-slider thumbLabel id="select-class" min="0" [max]="100" class="w-100 slider"
+                      [value]="discount?.value ? discount?.value : 0"
+                      formControlName="discount" [displayWith]="formatLabel"></mat-slider>
+          <div class="d-flex justify-content-between">
+            <span>0%</span>
+            <span>100%</span>
+          </div>
+        </div>
+      </div>
+
       <div class="col-md-12 mt-2 overflow-hidden">
         <metutors-submit-button [form]="form" [isSubmitting]="isAdding"
                                 [extraClasses]="'float-end py-1 px-5'">
-         Add coupon
+          Add coupon
         </metutors-submit-button>
 
         <button mat-flat-button class="float-end rounded d-block border py-1 px-5"
