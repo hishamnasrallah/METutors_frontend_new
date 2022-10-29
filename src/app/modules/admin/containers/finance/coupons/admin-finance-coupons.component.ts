@@ -13,6 +13,7 @@ import * as fromAdminAction from '@metutor/modules/admin/state/actions';
 })
 export class AdminFinanceCouponsComponent implements OnInit {
   showModal$: Observable<boolean>;
+  isAddingCoupon$: Observable<boolean>;
   view$: Observable<{ result: any; loading: boolean }>;
 
   perPage = 10;
@@ -43,6 +44,17 @@ export class AdminFinanceCouponsComponent implements OnInit {
     this._store.dispatch(fromAdminAction.closeAddCouponModal());
   }
 
+  onSubmit(body: any): void {
+    const { expiry_date, ...res } = body;
+
+    const coupon = {
+      ...res,
+      expiry_date: new Date(expiry_date).toISOString(),
+    };
+
+    this._store.dispatch(fromCore.adminAddCoupon({ coupon }));
+  }
+
   ngOnInit(): void {
     this._store.dispatch(
       fromCore.loadCoupons({
@@ -51,6 +63,10 @@ export class AdminFinanceCouponsComponent implements OnInit {
     );
 
     this.showModal$ = this._store.select(fromAdmin.selectShowModal);
+
+    this.isAddingCoupon$ = this._store.select(
+      fromCore.selectIsLoadingFinanceAddCoupon
+    );
 
     this.view$ = combineLatest([
       this._store.select(fromCore.selectFinanceCoupons),

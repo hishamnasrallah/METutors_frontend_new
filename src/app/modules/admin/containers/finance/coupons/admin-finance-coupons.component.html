@@ -43,31 +43,22 @@
             <th>Status</th>
             <th>Action</th>
           </tr>
-          <tr *ngIf="!view.result?.orders || !view.result?.orders?.length">
+          <tr *ngIf="!view.result?.coupons || !view.result?.coupons?.length">
             <td colspan="11">
               <div class="text-center">No records found</div>
             </td>
           </tr>
-          <tr *ngFor="let order of view.result?.orders; let i = index">
+          <tr *ngFor="let coupon of view.result?.coupons; let i = index">
             <td>{{ i + 1}}</td>
-            <td>OID{{order?.courseId}}</td>
-            <td><a [routerLink]="['/admin', 'student', order?.user?.id, 'booking-detail', order?.courseId]">BIN{{order?.id}}</a></td>
-            <td><a [routerLink]="['/admin', 'student', 'profile', order?.user?.id]">{{ order?.user?.idNumber}}</a></td>
+            <td>{{coupon?.couponId}}</td>
+            <td>{{ coupon?.name }}</td>
+            <td>{{ coupon?.description }}</td>
+            <td>{{ coupon?.discount + '%' }}</td>
+            <td>{{ coupon.createdAt | date}}</td>
+            <td>{{ coupon.expiryDate | date}}</td>
             <td>
-              <metutors-user-avatar [avatar]="order?.user?.avatar" [type]="'small'"
-                                    [name]="order?.user?.firstName+' ' + order?.user?.lastName"
-                                    [routerLink]="['/admin', 'student', 'profile', order?.user?.id]"
-                                    class="d-block">
-              </metutors-user-avatar>
-            </td>
-            <td>{{ order?.course?.totalClasses}}</td>
-            <td><span class="d-inline-block text-truncate transaction-id"
-                      [tooltip]="order?.transaction?.id">{{ order?.transaction?.id }}</span></td>
-            <td>{{ order?.transaction?.createdAt | date }}</td>
-            <td>{{ order?.transaction?.amount | metutorsMoney | async }}</td>
-            <td>
-              <button class="status text-capitalize" mat-button [ngClass]="order?.transaction?.status">
-                {{ order?.transaction?.status }}
+              <button class="status text-capitalize" mat-button [ngClass]="coupon?.status">
+                {{ coupon?.status }}
               </button>
             </td>
             <td>
@@ -79,7 +70,7 @@
         </table>
       </div>
 
-      <div class="d-flex mt-2 justify-content-center" *ngIf="view.result?.orders?.length < view.result?.total">
+      <div class="d-flex mt-2 justify-content-center" *ngIf="view.result?.coupons?.length < view.result?.total">
         <pagination [totalItems]="view.result?.total" [itemsPerPage]="perPage" [maxSize]="5"
                     (pageChanged)="onPageChange($event)">
         </pagination>
@@ -87,5 +78,8 @@
     </ng-container>
   </div>
 
-  <metutors-admin-add-coupon *ngIf="showModal$ | async" [showModal]="(showModal$ | async)!" (closeModal)="onCloseModal()"></metutors-admin-add-coupon>
+  <metutors-admin-add-coupon *ngIf="showModal$ | async" [showModal]="(showModal$ | async)!"
+                             [isAdding]="(isAddingCoupon$ | async)!"
+                             (closeModal)="onCloseModal()" (submitForm)="onSubmit($event)">
+  </metutors-admin-add-coupon>
 </div>

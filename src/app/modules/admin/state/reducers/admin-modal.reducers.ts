@@ -68,10 +68,14 @@ export const reducer = createReducer(
     showModal: true,
   })),
 
-  on(adminModalActions.closeAddCouponModal, (state) => ({
-    ...state,
-    showModal: false,
-  })),
+  on(
+    fromCore.adminAddCouponSuccess,
+    adminModalActions.closeAddCouponModal,
+    (state) => ({
+      ...state,
+      showModal: false,
+    })
+  ),
 
   on(adminModalActions.openAdminSendMeetingLinkModal, (state) => ({
     ...state,

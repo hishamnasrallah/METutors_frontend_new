@@ -55,6 +55,29 @@ export class FinanceEffects {
     )
   );
 
+  adminAddCoupon$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(financeActions.adminAddCoupon),
+      mergeMap(({ coupon }) =>
+        this._financeService.adminAddCoupon(coupon).pipe(
+          map(({ coupon, message }) =>
+            financeActions.adminAddCouponSuccess({
+              message,
+              coupon: camelcaseKeys(coupon, { deep: true }),
+            })
+          ),
+          catchError((error) =>
+            of(
+              financeActions.adminAddCouponFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   loadAdminCourses$ = createEffect(() =>
     this._actions$.pipe(
       ofType(financeActions.loadAdminCourses),
@@ -181,6 +204,17 @@ export class FinanceEffects {
     )
   );
 
+  successMessages$ = createEffect(
+    () =>
+      this._actions$.pipe(
+        ofType(...[financeActions.adminAddCouponSuccess]),
+        map(({ message }) => this._alertNotificationService.success(message))
+      ),
+    {
+      dispatch: false,
+    }
+  );
+
   failureMessages$ = createEffect(
     () =>
       this._actions$.pipe(
@@ -188,6 +222,7 @@ export class FinanceEffects {
           ...[
             financeActions.reTryPaymentFailure,
             financeActions.refundCourseFailure,
+            financeActions.adminAddCouponFailure,
           ]
         ),
         map((action) => {

@@ -1537,6 +1537,11 @@ export const selectIsLoadingFinanceRefundDetail = createSelector(
   fromFinanceReducer.selectIsLoadingFinanceRefundDetail
 );
 
+export const selectIsLoadingFinanceAddCoupon = createSelector(
+  selectFinanceState,
+  fromFinanceReducer.selectIsLoadingFinanceAddCoupon
+);
+
 export const selectFinanceIsRefundingCourse = createSelector(
   selectFinanceState,
   fromFinanceReducer.selectFinanceIsRefundingCourse
