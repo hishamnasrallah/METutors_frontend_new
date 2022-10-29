@@ -11,7 +11,7 @@
       <li>
         <img src="assets/svg/qualification.svg" draggable="false" width="20" height="20" alt=""
           *ngIf="tutor?.qualifications?.degreeField">
-        <span>{{ 'DEGREE_FIELD' | translate }}: {{ tutor?.qualifications?.degreeField }}</span>
+        <span>{{ 'DEGREE_FIELD' | translate }}: {{ (tutor?.qualifications?.degreeField)! | metutorsUppercase | translate }}</span>
       </li>
       <li>
         <img src="assets/svg/computer.svg" draggable="false" width="20" height="20" alt=""

@@ -10,19 +10,19 @@ import {
   Inject,
   Output,
   Component,
-  EventEmitter,
+  EventEmitter
 } from '@angular/core';
 import {
   FormGroup,
   FormArray,
   Validators,
   FormBuilder,
-  AbstractControl,
+  AbstractControl
 } from '@angular/forms';
 import {
   MatDialog,
   MatDialogRef,
-  MAT_DIALOG_DATA,
+  MAT_DIALOG_DATA
 } from '@angular/material/dialog';
 import {
   GENDERS,
@@ -35,14 +35,14 @@ import {
   TEACHING_EXPERIENCE,
   convertTimeToDateISO,
   AVAILABILITY_HOURS_CONST,
-  COURSE_TUITION_TYPES_CONST,
+  COURSE_TUITION_TYPES_CONST
 } from '@metutor/config';
 
 @Component({
   selector: 'metutors-tutor-settings-profile',
   templateUrl: './tutor-settings-profile.component.html',
   styleUrls: ['./tutor-settings-profile.component.scss'],
-  providers: [DatePipe],
+  providers: [DatePipe]
 })
 export class TutorSettingsProfileComponent implements OnInit {
   @Input() set user(_tutor: ITutor) {
@@ -61,7 +61,7 @@ export class TutorSettingsProfileComponent implements OnInit {
         country: _tutor?.country?.id,
         city: _tutor?.city,
         bio: _tutor?.bio,
-        postalCode: _tutor?.postalCode,
+        postalCode: _tutor?.postalCode
       });
       this.personalInfoForm.updateValueAndValidity();
 
@@ -74,14 +74,14 @@ export class TutorSettingsProfileComponent implements OnInit {
         teachingExperienceOnline:
           _tutor?.qualifications?.teachingExperienceOnline,
         currentEmployer: _tutor?.qualifications?.currentEmployer,
-        currentTitle: _tutor?.qualifications?.currentTitle,
+        currentTitle: _tutor?.qualifications?.currentTitle
       });
       this.qualificationForm.updateValueAndValidity();
 
       this.teachingForm?.patchValue({
         startDate: _tutor?.specifications?.availabilityStartDate,
         endDate: _tutor?.specifications?.availabilityEndDate,
-        typeOfTutoring: _tutor?.specifications?.typeOfTutoring,
+        typeOfTutoring: _tutor?.specifications?.typeOfTutoring
       });
       this.teachingForm.updateValueAndValidity();
 
@@ -97,7 +97,7 @@ export class TutorSettingsProfileComponent implements OnInit {
           this.selectedDays.push(+avail?.day - 1);
         }
 
-        const existing = output.filter((v) => +v.day == +avail.day - 1);
+        const existing = output.filter(v => +v.day == +avail.day - 1);
 
         if (existing.length) {
           const existingIndex = output.indexOf(existing[0]);
@@ -107,8 +107,8 @@ export class TutorSettingsProfileComponent implements OnInit {
             {
               id: avail?.id,
               startTime: avail?.timeFrom,
-              endTime: avail?.timeTo,
-            },
+              endTime: avail?.timeTo
+            }
           ];
         } else {
           output.push({
@@ -117,14 +117,14 @@ export class TutorSettingsProfileComponent implements OnInit {
               {
                 id: avail?.id,
                 startTime: avail?.timeFrom,
-                endTime: avail?.timeTo,
-              },
-            ],
+                endTime: avail?.timeTo
+              }
+            ]
           });
         }
       });
 
-      output.forEach((item) => {
+      output.forEach(item => {
         this.availability
           .at(item.day)
           .patchValue({ day: item.day, timeSlots: item.timeSlots });
@@ -184,19 +184,11 @@ export class TutorSettingsProfileComponent implements OnInit {
     this.personalInfoForm = this._fb.group({
       firstName: [
         null,
-        [
-          Validators.required,
-          Validators.minLength(1),
-          Validators.maxLength(15),
-        ],
+        [Validators.required, Validators.minLength(1), Validators.maxLength(15)]
       ],
       lastName: [
         null,
-        [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(15),
-        ],
+        [Validators.required, Validators.minLength(3), Validators.maxLength(15)]
       ],
       middleName: [null, [Validators.minLength(3), Validators.maxLength(15)]],
       nationality: [null, [Validators.required]],
@@ -206,8 +198,8 @@ export class TutorSettingsProfileComponent implements OnInit {
         [
           Validators.required,
           Validators.minLength(1),
-          Validators.maxLength(120),
-        ],
+          Validators.maxLength(120)
+        ]
       ],
       address2: [null, [Validators.minLength(1), Validators.maxLength(120)]],
       gender: [null, [Validators.required]],
@@ -218,23 +210,19 @@ export class TutorSettingsProfileComponent implements OnInit {
         [
           Validators.required,
           Validators.minLength(200),
-          Validators.maxLength(400),
-        ],
+          Validators.maxLength(400)
+        ]
       ],
       postalCode: [
         null,
-        [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(15),
-        ],
-      ],
+        [Validators.required, Validators.minLength(3), Validators.maxLength(15)]
+      ]
     });
 
     this.qualificationForm = this._fb.group({
       nameOfUniversity: [
         null,
-        [Validators.required, Validators.maxLength(120)],
+        [Validators.required, Validators.maxLength(120)]
       ],
       computerSkills: [null, [Validators.required]],
       degreeLevel: [null, [Validators.required]],
@@ -242,14 +230,14 @@ export class TutorSettingsProfileComponent implements OnInit {
       degreeField: [null, [Validators.required]],
       teachingExperienceOnline: [null, [Validators.required]],
       currentEmployer: [null, Validators.maxLength(80)],
-      currentTitle: [null, Validators.maxLength(80)],
+      currentTitle: [null, Validators.maxLength(80)]
     });
 
     this.teachingForm = this._fb.group({
       startDate: [null, [Validators.required]],
       endDate: [null, [Validators.required]],
       availability: this._fb.array([]),
-      typeOfTutoring: [null, [Validators.required]],
+      typeOfTutoring: [null, [Validators.required]]
     });
 
     SORTED_DAYS_WEEK.forEach(() => {
@@ -371,7 +359,7 @@ export class TutorSettingsProfileComponent implements OnInit {
   get filteredNationalities(): ICountry[] {
     if (this.filterNationality) {
       return (
-        this.countries?.filter((country) =>
+        this.countries?.filter(country =>
           country?.name
             .toLowerCase()
             .includes(this.filterNationality.toLowerCase())
@@ -385,7 +373,7 @@ export class TutorSettingsProfileComponent implements OnInit {
   get filteredCountries(): ICountry[] {
     if (this.filterCountry) {
       return (
-        this.countries?.filter((country) =>
+        this.countries?.filter(country =>
           country?.name.toLowerCase().includes(this.filterCountry.toLowerCase())
         ) || []
       );
@@ -397,7 +385,7 @@ export class TutorSettingsProfileComponent implements OnInit {
   get filteredCities(): ICity[] {
     if (this.filterCity) {
       return (
-        this.cities?.filter((city) =>
+        this.cities?.filter(city =>
           city?.name.toLowerCase().includes(this.filterCity.toLowerCase())
         ) || []
       );
@@ -409,30 +397,26 @@ export class TutorSettingsProfileComponent implements OnInit {
   get filteredDegreeFields(): string[] {
     if (this.degreeLevel?.value) {
       if (this.filterDegree) {
-        return DEGREE_FIELDS.filter((degree) =>
-          degree
-            ?.toLowerCase()
-            .includes(
-              this.degreeLevel?.value
-                ?.toLowerCase()
-                ?.split(' ')
-                ?.shift()
-                ?.slice(0, 6)
-            )
-        )?.filter((deg) =>
+        return DEGREE_FIELDS.filter(degree =>
+          degree?.toLowerCase().includes(
+            this.degreeLevel?.value
+              ?.toLowerCase()
+              ?.split(' ')
+              ?.shift()
+              ?.slice(0, 6)
+          )
+        )?.filter(deg =>
           deg?.toLowerCase().includes(this.filterDegree.toLowerCase())
         );
       } else {
-        return DEGREE_FIELDS.filter((degree) =>
-          degree
-            ?.toLowerCase()
-            .includes(
-              this.degreeLevel?.value
-                ?.toLowerCase()
-                ?.split(' ')
-                ?.shift()
-                ?.slice(0, 6)
-            )
+        return DEGREE_FIELDS.filter(degree =>
+          degree?.toLowerCase().includes(
+            this.degreeLevel?.value
+              ?.toLowerCase()
+              ?.split(' ')
+              ?.shift()
+              ?.slice(0, 6)
+          )
         );
       }
     } else {
@@ -448,7 +432,7 @@ export class TutorSettingsProfileComponent implements OnInit {
   newAvailability(): FormGroup {
     return this._fb.group({
       day: [null],
-      timeSlots: [[]],
+      timeSlots: [[]]
     });
   }
 
@@ -477,17 +461,17 @@ export class TutorSettingsProfileComponent implements OnInit {
     const dialogRef = this._dialog.open(DialogSelectAvailabilityDialog, {
       width: '500px',
       data: { index, data },
-      disableClose: true,
+      disableClose: true
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.afterClosed().subscribe(result => {
       if (result && result.length) {
         this.availability.at(index).patchValue({
           day: index,
           timeSlots: result?.map((slot: any) => ({
             startTime: convertTimeToDateISO(slot?.startTime),
-            endTime: convertTimeToDateISO(slot?.endTime),
-          })),
+            endTime: convertTimeToDateISO(slot?.endTime)
+          }))
         });
         this.teachingForm?.markAsDirty();
         this.teachingForm?.markAsTouched();
@@ -514,7 +498,7 @@ export class TutorSettingsProfileComponent implements OnInit {
         this.endDate?.value
       );
 
-      daysCalculated.forEach((dayCalculated) => {
+      daysCalculated.forEach(dayCalculated => {
         if (
           SORTED_DAYS_WEEK[new Date(dayCalculated).getDay()].toLowerCase() ===
           day.toLowerCase()
@@ -625,7 +609,7 @@ export class TutorSettingsProfileComponent implements OnInit {
         bio: this.bio?.value,
         country: this.country?.value,
         city: this.city?.value,
-        postal_code: this.postalCode?.value,
+        postal_code: this.postalCode?.value
       };
 
       this.submitForm.emit(data);
@@ -646,7 +630,7 @@ export class TutorSettingsProfileComponent implements OnInit {
         teaching_experience: this.teachingExperience?.value,
         current_employer: this.currentEmployer?.value,
         current_title: this.currentTitle?.value,
-        teaching_experience_online: this.teachingExperienceOnline?.value,
+        teaching_experience_online: this.teachingExperienceOnline?.value
       };
 
       this.submitForm.emit(data);
@@ -669,9 +653,9 @@ export class TutorSettingsProfileComponent implements OnInit {
             day: item?.day + 1,
             time_slots: item?.timeSlots?.map((slot: any) => ({
               start_time: slot?.startTime,
-              end_time: slot?.endTime,
-            })),
-          })),
+              end_time: slot?.endTime
+            }))
+          }))
       };
 
       this.submitForm.emit(data);
@@ -686,8 +670,8 @@ export class TutorSettingsProfileComponent implements OnInit {
       const data = {
         subjects: form.value.subjects?.map((subject: any) => ({
           id: subject?.id,
-          hourly_rate: +subject?.pricePerHour,
-        })),
+          hourly_rate: +subject?.pricePerHour
+        }))
       };
 
       this.updateRatesForm.emit(data);
@@ -698,7 +682,7 @@ export class TutorSettingsProfileComponent implements OnInit {
 @Component({
   selector: 'dialog-content-example-dialog',
   templateUrl: 'select-availability-hours.dialog.html',
-  styleUrls: ['./tutor-settings-profile.component.scss'],
+  styleUrls: ['./tutor-settings-profile.component.scss']
 })
 export class DialogSelectAvailabilityDialog {
   id!: number;
@@ -729,7 +713,7 @@ export class DialogSelectAvailabilityDialog {
               this.selectedHoursList.push({
                 id: index,
                 startTime: hour?.startTime,
-                endTime: hour?.endTime,
+                endTime: hour?.endTime
               });
             }
           });
@@ -757,7 +741,7 @@ export class DialogSelectAvailabilityDialog {
       this.selectedHoursList.push({
         id: index,
         startTime: hour?.startTime,
-        endTime: hour?.endTime,
+        endTime: hour?.endTime
       });
     }
     this.isDisabled = false;
@@ -772,7 +756,7 @@ export class DialogSelectAvailabilityDialog {
       this.selectedHoursList.push({
         id: index,
         startTime: hour?.startTime,
-        endTime: hour?.endTime,
+        endTime: hour?.endTime
       });
     });
   }

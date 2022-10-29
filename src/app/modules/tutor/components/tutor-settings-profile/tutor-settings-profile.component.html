@@ -405,7 +405,7 @@
                                          noEntriesFoundLabel="{{ 'NO_MATCHING_DEGREE_FIELD' | translate }}">
                   </ngx-mat-select-search>
                 </mat-option>
-                <mat-option [value]="field" *ngFor="let field of filteredDegreeFields">{{ field }}</mat-option>
+                <mat-option [value]="field" *ngFor="let field of filteredDegreeFields">{{ field | metutorsUppercase | translate }}</mat-option>
               </mat-select>
             </mat-form-field>
             <div class="text-danger" *ngIf="degreeField?.touched && degreeField?.invalid">
