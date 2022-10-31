@@ -86,7 +86,7 @@ export class TutorEffects {
           catchError((error) =>
             of(
               tutorActions.updateTutorPreferencesFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error: error?.error?.message || error?.error?.errors[0],
               })
             )
           )
