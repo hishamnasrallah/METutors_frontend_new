@@ -17,6 +17,7 @@ export class AdminFinanceCouponsComponent implements OnInit {
   view$: Observable<{ result: any; loading: boolean }>;
 
   perPage = 10;
+  selectedCoupon = null;
 
   constructor(private _store: Store<any>) {}
 
@@ -52,7 +53,11 @@ export class AdminFinanceCouponsComponent implements OnInit {
       expiry_date: new Date(expiry_date).toISOString(),
     };
 
-    this._store.dispatch(fromCore.adminAddCoupon({ coupon }));
+    if (res.id) {
+      this._store.dispatch(fromCore.adminEditCoupon({ coupon }));
+    } else {
+      this._store.dispatch(fromCore.adminAddCoupon({ coupon }));
+    }
   }
 
   ngOnInit(): void {

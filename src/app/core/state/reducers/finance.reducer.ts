@@ -73,10 +73,14 @@ export const reducer = createReducer(
     isLoading: false,
   })),
 
-  on(financeActions.adminAddCoupon, (state) => ({
-    ...state,
-    isAddingCoupon: true,
-  })),
+  on(
+    financeActions.adminAddCoupon,
+    financeActions.adminEditCoupon,
+    (state) => ({
+      ...state,
+      isAddingCoupon: true,
+    })
+  ),
 
   on(financeActions.adminAddCouponSuccess, (state, { coupon }) => {
     let finalState = {
@@ -99,10 +103,36 @@ export const reducer = createReducer(
     return finalState;
   }),
 
-  on(financeActions.adminAddCouponFailure, (state) => ({
-    ...state,
-    isAddingCoupon: false,
-  })),
+  on(financeActions.adminEditCouponSuccess, (state, { coupon }) => {
+    let finalState = {
+      ...state,
+      isAddingCoupon: false,
+    };
+
+    let { coupons, total } = finalState.coupons;
+
+    coupons = coupons?.map((_coupon: any) =>
+      _coupon.id === coupon.id ? coupon : _coupon
+    );
+
+    coupons = { coupons, total };
+
+    finalState.coupons = {
+      ...finalState.coupons,
+      ...coupons,
+    };
+
+    return finalState;
+  }),
+
+  on(
+    financeActions.adminAddCouponFailure,
+    financeActions.adminEditCouponFailure,
+    (state) => ({
+      ...state,
+      isAddingCoupon: false,
+    })
+  ),
 
   on(financeActions.loadAdminCoursesSuccess, (state, { courses }) => ({
     ...state,

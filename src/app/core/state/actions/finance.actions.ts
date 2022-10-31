@@ -45,6 +45,21 @@ export const adminAddCouponFailure = createAction(
   props<{ error: any }>()
 );
 
+export const adminEditCoupon = createAction(
+  '[Finance] Admin Edit Coupon',
+  props<{ coupon: any }>()
+);
+
+export const adminEditCouponSuccess = createAction(
+  '[Finance] Admin Edit Coupon Success',
+  props<{ coupon: any; message: string }>()
+);
+
+export const adminEditCouponFailure = createAction(
+  '[Finance] Admin Edit Coupon Failure',
+  props<{ error: any }>()
+);
+
 export const loadAdminCourses = createAction(
   '[Finance] Load Admin Courses',
   props<{ params: { page: number; search: string } }>()

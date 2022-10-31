@@ -1,13 +1,17 @@
 <metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'medium'"
-                [heading]="'Create new coupon'"
+                [heading]="this.selectedCoupon?.id ? 'Edit coupon' : 'Create new coupon'"
                 [template]="template">
   <ng-template #template>
     <form class="row add-coupon-modal mt-4" [formGroup]="form" (ngSubmit)="submitForm.emit(form.value)">
       <div class="col-12">
         <div class="form-group">
           <label for="name">Coupon name</label>
+          <metutors-char-counter [limit]="50" [controlName]="name"></metutors-char-counter>
           <input class="form-control custom-input input-bordered" formControlName="name" id="name" autocomplete="off"
                  placeholder="Enter coupon name" (keydown.space)="$event.preventDefault()">
+            <span class="text-danger" *ngIf="name?.invalid && name?.touched">
+              Please write name with a max of 50 characters
+            </span>
         </div>
       </div>
 
@@ -27,8 +31,12 @@
       <div class="col-12">
         <div class="form-group">
           <label for="description">Coupon description</label>
+          <metutors-char-counter [limit]="150" [controlName]="description"></metutors-char-counter>
           <textarea class="form-control custom-input input-bordered" formControlName="description" id="description"
                     placeholder="Enter coupon description"></textarea>
+            <span class="text-danger" *ngIf="description?.invalid && description?.touched">
+              Please write description with a max of 150 characters
+            </span>
         </div>
       </div>
 

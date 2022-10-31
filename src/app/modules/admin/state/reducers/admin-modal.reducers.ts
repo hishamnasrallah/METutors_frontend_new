@@ -70,6 +70,7 @@ export const reducer = createReducer(
 
   on(
     fromCore.adminAddCouponSuccess,
+    fromCore.adminEditCouponSuccess,
     adminModalActions.closeAddCouponModal,
     (state) => ({
       ...state,

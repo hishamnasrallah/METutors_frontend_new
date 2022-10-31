@@ -16,7 +16,7 @@
         </div>-->
         <div class="col-md-3">
           <button mat-flat-button color="primary" class="float-end py-1"
-                  (click)="onAddCoupon();">
+                  (click)="selectedCoupon = null; onAddCoupon();">
             Create new coupon
           </button>
         </div>
@@ -62,7 +62,7 @@
               </button>
             </td>
             <td>
-              <button mat-icon-button class="p-0">
+              <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0" (click)="selectedCoupon=coupon">
                 <mat-icon>more_vert</mat-icon>
               </button>
             </td>
@@ -76,10 +76,17 @@
         </pagination>
       </div>
     </ng-container>
+
+
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item class="h-auto btn-menu">
+        <span (click)="onAddCoupon()">Edit coupon</span>
+      </button>
+    </mat-menu>
   </div>
 
   <metutors-admin-add-coupon *ngIf="showModal$ | async" [showModal]="(showModal$ | async)!"
-                             [isAdding]="(isAddingCoupon$ | async)!"
+                             [isAdding]="(isAddingCoupon$ | async)!" [selectedCoupon]="selectedCoupon"
                              (closeModal)="onCloseModal()" (submitForm)="onSubmit($event)">
   </metutors-admin-add-coupon>
 </div>

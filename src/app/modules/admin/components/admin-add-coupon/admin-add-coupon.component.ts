@@ -14,6 +14,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class AdminAddCouponComponent implements OnInit {
   @Input() isAdding: boolean;
+  @Input() selectedCoupon: any;
   @Input() showModal: boolean = false;
 
   @Output() submitForm: EventEmitter<any> = new EventEmitter<any>();
@@ -45,11 +46,31 @@ export class AdminAddCouponComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.selectedCoupon?.expiry_date);
+    const id = this.selectedCoupon?.id ? this.selectedCoupon.id : null;
+    const name = this.selectedCoupon?.name ? this.selectedCoupon.name : null;
+
+    const expiry_date = this.selectedCoupon?.expiryDate
+      ? this.selectedCoupon.expiryDate
+      : null;
+
+    const description = this.selectedCoupon?.description
+      ? this.selectedCoupon.description
+      : null;
+
+    const discount = this.selectedCoupon?.discount
+      ? this.selectedCoupon.discount
+      : 0;
+
     this.form = this._fb.group({
-      name: [null, Validators.required],
-      discount: [0, Validators.required],
-      expiry_date: [null, Validators.required],
-      description: [null, Validators.required],
+      id: [id],
+      discount: [discount, Validators.required],
+      expiry_date: [expiry_date, Validators.required],
+      name: [name, [Validators.required, Validators.maxLength(50)]],
+      description: [
+        description,
+        [Validators.required, Validators.maxLength(150)],
+      ],
     });
 
     const today = new Date();

@@ -22,16 +22,20 @@ export class FinanceService {
   }
 
   loadCoupons(params: any): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}coupons`, { params }).pipe(
+    return this.http.get<any>(`${this.baseUrl}admin/coupons`, { params }).pipe(
       map((result) => ({
-        coupons: result?.coupons,
         total: result?.coupons?.total,
+        coupons: result?.coupons?.data,
       }))
     );
   }
 
   adminAddCoupon(body: any): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}admin/coupon`, body);
+  }
+
+  adminEditCoupon(body: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}admin/coupon/${body.id}`, body);
   }
 
   loadAdminCourses(params: any): Observable<any> {
