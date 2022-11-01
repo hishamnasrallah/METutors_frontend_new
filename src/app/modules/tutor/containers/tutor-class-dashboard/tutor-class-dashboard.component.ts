@@ -1,4 +1,3 @@
-import * as moment from 'moment';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { FormGroup } from '@angular/forms';
@@ -8,7 +7,13 @@ import * as fromTutor from '../../state';
 import * as fromCore from '@metutor/core/state';
 import { Component, OnInit } from '@angular/core';
 import * as fromTutorAction from '../../state/actions';
-import { CourseStatus, courseStatusLabel, WEEK_DAYS_LONG } from '@config';
+
+import {
+  CourseStatus,
+  WEEK_DAYS_LONG,
+  dateToISOString,
+  courseStatusLabel,
+} from '@config';
 
 @Component({
   selector: 'metutors-tutor-class-dashboard',
@@ -169,7 +174,9 @@ export class TutorClassDashboardComponent implements OnInit {
     const body = {
       ...form.value,
       day: WEEK_DAYS_LONG[form.value.day],
-      start_date: moment(form.value.start_date).format('Y-MM-DD'),
+      start_date: dateToISOString(form.value.start_date),
+      end_time: dateToISOString(form.value.start_date, form.value.end_time),
+      start_time: dateToISOString(form.value.start_date, form.value.start_time),
     };
 
     this._store.dispatch(fromCore.tutorRescheduleClass({ body }));
