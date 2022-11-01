@@ -30,20 +30,20 @@ export class StudyComponent implements OnInit {
       {
         id: 1,
         icon: 'assets/svg/create-new.svg',
-        value: '30K',
-        type: 'STUDENTS_ENROLLED',
+        value: '4HOURS',
+        type: 'STUDENT_TUTOR_MATCHING_TIME',
       },
       {
         id: 1,
         icon: 'assets/svg/pen.svg',
-        value: '10K',
-        type: 'CLASSROOMS_ATTENDED',
+        value: '35MINUTES',
+        type: 'AVERAGE_TEACHER_RESPONSE_TIME',
       },
       {
         id: 1,
         icon: 'assets/svg/headset.svg',
-        value: '300+',
-        type: 'TEACHER_PROFILES',
+        value: '1K+',
+        type: 'ASSIGNMENTS_SUBMITTED_ON_TIME',
       },
     ];
 

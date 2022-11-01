@@ -31,6 +31,7 @@ import {
   InterviewStatus,
   COMPUTER_SKILLS,
   SORTED_DAYS_WEEK,
+  DEGREE_FIELDS_AR,
   calculateListDays,
   TEACHING_EXPERIENCE,
   convertTimeToDateISO,
@@ -395,28 +396,20 @@ export class TutorSettingsProfileComponent implements OnInit {
   }
 
   get filteredDegreeFields(): string[] {
-    if (this.degreeLevel?.value) {
-      if (this.filterDegree) {
-        return DEGREE_FIELDS.filter(degree =>
-          degree?.toLowerCase().includes(
-            this.degreeLevel?.value
-              ?.toLowerCase()
-              ?.split(' ')
-              ?.shift()
-              ?.slice(0, 6)
-          )
-        )?.filter(deg =>
+    if (this.filterDegree) {
+      if (localStorage.getItem('DEFAULT_LANGUAGE') === 'ar') {
+        const enDegrees: string[] = [];
+        const arDegrees = DEGREE_FIELDS_AR?.filter(deg =>
           deg?.toLowerCase().includes(this.filterDegree.toLowerCase())
         );
+        arDegrees.forEach(deg => {
+          enDegrees.push(DEGREE_FIELDS[DEGREE_FIELDS_AR.indexOf(deg)]);
+        });
+
+        return enDegrees;
       } else {
-        return DEGREE_FIELDS.filter(degree =>
-          degree?.toLowerCase().includes(
-            this.degreeLevel?.value
-              ?.toLowerCase()
-              ?.split(' ')
-              ?.shift()
-              ?.slice(0, 6)
-          )
+        return DEGREE_FIELDS?.filter(deg =>
+          deg?.toLowerCase().includes(this.filterDegree.toLowerCase())
         );
       }
     } else {

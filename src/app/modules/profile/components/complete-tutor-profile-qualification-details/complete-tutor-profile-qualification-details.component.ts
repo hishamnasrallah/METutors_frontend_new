@@ -17,7 +17,7 @@ import {
   Output,
   Component,
   OnDestroy,
-  EventEmitter,
+  EventEmitter
 } from '@angular/core';
 
 import {
@@ -25,7 +25,7 @@ import {
   FormGroup,
   Validators,
   FormBuilder,
-  AbstractControl,
+  AbstractControl
 } from '@angular/forms';
 
 import {
@@ -34,17 +34,17 @@ import {
   DEGREE_FIELDS,
   COMPUTER_SKILLS,
   generalConstants,
-  TEACHING_EXPERIENCE,
+  DEGREE_FIELDS_AR,
+  TEACHING_EXPERIENCE
 } from 'src/app/config';
 
 @Component({
   selector: 'metutors-complete-tutor-profile-qualification-details',
   templateUrl: './complete-tutor-profile-qualification-details.component.html',
-  styleUrls: ['./complete-tutor-profile-qualification-details.component.scss'],
+  styleUrls: ['./complete-tutor-profile-qualification-details.component.scss']
 })
 export class CompleteTutorProfileQualificationDetailsComponent
-  implements OnInit, OnDestroy
-{
+  implements OnInit, OnDestroy {
   @Input() loading: boolean | null;
   @Input() languagesList: ILanguage[] | null;
   @Input() set tutor(_tutor: ITutor) {
@@ -61,24 +61,24 @@ export class CompleteTutorProfileQualificationDetailsComponent
         currentEmployer: _tutor?.qualifications?.currentEmployer,
         currentTitle: _tutor?.qualifications?.currentTitle,
         video: _tutor?.qualifications?.video,
-        resume: _tutor?.userResume,
+        resume: _tutor?.userResume
       });
 
       if (_tutor.userDegrees && _tutor.userDegrees.length) {
-        _tutor.userDegrees.forEach((degree) => {
+        _tutor.userDegrees.forEach(degree => {
           this.degrees.push(this._fb.group(degree));
         });
       }
 
       if (_tutor.userCertificates && _tutor.userCertificates.length) {
-        _tutor.userCertificates.forEach((certificate) => {
+        _tutor.userCertificates.forEach(certificate => {
           this.certificates.push(this._fb.group(certificate));
         });
       }
 
       if (_tutor.userSignature && _tutor.userSignature.length) {
         const signature = _tutor.userSignature.find(
-          (signature) => signature.document === 'onboarding'
+          signature => signature.document === 'onboarding'
         );
 
         this._store.dispatch(
@@ -87,7 +87,7 @@ export class CompleteTutorProfileQualificationDetailsComponent
 
         this.signatureUploadInfo = {
           ...this.signatureUploadInfo,
-          ...signature,
+          ...signature
         };
       }
 
@@ -98,7 +98,7 @@ export class CompleteTutorProfileQualificationDetailsComponent
 
           this.languages.at(index).patchValue({
             language: language,
-            level: language.level,
+            level: language.level
           });
         });
 
@@ -162,7 +162,7 @@ export class CompleteTutorProfileQualificationDetailsComponent
     this.form = this._fb.group({
       nameOfUniversity: [
         null,
-        [Validators.required, Validators.maxLength(120)],
+        [Validators.required, Validators.maxLength(120)]
       ],
       resume: [[], Validators.required],
       video: [null, Validators.required],
@@ -176,7 +176,7 @@ export class CompleteTutorProfileQualificationDetailsComponent
       teachingExperienceOnline: [null, [Validators.required]],
       currentTitle: [null, Validators.maxLength(80)],
       currentEmployer: [null, Validators.maxLength(80)],
-      degrees: this._fb.array([], [Validators.required]),
+      degrees: this._fb.array([], [Validators.required])
     });
 
     this.addLanguage();
@@ -193,7 +193,7 @@ export class CompleteTutorProfileQualificationDetailsComponent
     this.fileUploadProgress$ = this._store
       .select(fromCore.selectFileUploadingProgress)
       .pipe(
-        tap((progress) => {
+        tap(progress => {
           progress?.map((response: any) => {
             if (response.responseType === this.uploadComplete) {
               this.uploadingVideo = false;
@@ -286,7 +286,7 @@ export class CompleteTutorProfileQualificationDetailsComponent
   newLanguage(): FormGroup {
     return this._fb.group({
       language: [null, Validators.required],
-      level: [null, Validators.required],
+      level: [null, Validators.required]
     });
   }
 
@@ -297,32 +297,20 @@ export class CompleteTutorProfileQualificationDetailsComponent
   }
 
   get filteredDegreeFields(): string[] {
-    if (this.degreeLevel?.value) {
-      if (this.filterDegree) {
-        return DEGREE_FIELDS.filter((degree) =>
-          degree
-            ?.toLowerCase()
-            .includes(
-              this.degreeLevel?.value
-                ?.toLowerCase()
-                ?.split(' ')
-                ?.shift()
-                ?.slice(0, 6)
-            )
-        )?.filter((deg) =>
+    if (this.filterDegree) {
+      if (localStorage.getItem('DEFAULT_LANGUAGE') === 'ar') {
+        const enDegrees: string[] = [];
+        const arDegrees = DEGREE_FIELDS_AR?.filter(deg =>
           deg?.toLowerCase().includes(this.filterDegree.toLowerCase())
         );
+        arDegrees.forEach(deg => {
+          enDegrees.push(DEGREE_FIELDS[DEGREE_FIELDS_AR.indexOf(deg)]);
+        });
+
+        return enDegrees;
       } else {
-        return DEGREE_FIELDS.filter((degree) =>
-          degree
-            ?.toLowerCase()
-            .includes(
-              this.degreeLevel?.value
-                ?.toLowerCase()
-                ?.split(' ')
-                ?.shift()
-                ?.slice(0, 6)
-            )
+        return DEGREE_FIELDS?.filter(deg =>
+          deg?.toLowerCase().includes(this.filterDegree.toLowerCase())
         );
       }
     } else {
@@ -372,7 +360,10 @@ export class CompleteTutorProfileQualificationDetailsComponent
     if (event.target && event.target.files && event.target.files.length) {
       files = [...event.target.files];
       const mimeType = files[0].type;
-      const ext = files[0].name.split('.').pop().toLowerCase();
+      const ext = files[0].name
+        .split('.')
+        .pop()
+        .toLowerCase();
 
       if (this.fileFormatError(ext, mimeType)) {
         this._alertNotificationService.error('ONLY_FILE_ALLOWED');
@@ -399,7 +390,7 @@ export class CompleteTutorProfileQualificationDetailsComponent
           progress: 0,
           responseType: 0,
           fileSize: file.size,
-          fileName: file.name,
+          fileName: file.name
         };
 
         const formData = new FormData();
@@ -408,11 +399,11 @@ export class CompleteTutorProfileQualificationDetailsComponent
 
         this.uploadResumeStream$ = this._uploadService
           .onUploadFile(formData)
-          .subscribe((event) => {
+          .subscribe(event => {
             if (event.type === HttpEventType.UploadProgress) {
               this.resumeUploadProgress[index] = {
                 ...this.resumeUploadProgress[index],
-                progress: Math.round((100 * event.loaded) / event.total),
+                progress: Math.round((100 * event.loaded) / event.total)
               };
             } else if (event.type === HttpEventType.Response) {
               const file = event?.body?.file;
@@ -422,7 +413,7 @@ export class CompleteTutorProfileQualificationDetailsComponent
                 ...this.resumeUploadProgress[index],
                 responseType: event.type,
                 id: file?.length ? file[0]?.id : null,
-                url: file?.length ? file[0]?.url : '',
+                url: file?.length ? file[0]?.url : ''
               };
             }
           });
@@ -436,16 +427,16 @@ export class CompleteTutorProfileQualificationDetailsComponent
 
     this.signatureUploadInfo = {
       ...this.signatureUploadInfo,
-      uploading: true,
+      uploading: true
     };
 
     this.uploadSignatureStream$ = this._uploadService
       .onUploadFile(formData)
-      .subscribe((event) => {
+      .subscribe(event => {
         if (event.type === HttpEventType.UploadProgress) {
           this.signatureUploadInfo = {
             ...this.signatureUploadInfo,
-            progress: Math.round((100 * event.loaded) / event.total),
+            progress: Math.round((100 * event.loaded) / event.total)
           };
         } else if (event.type === HttpEventType.Response) {
           const file = event?.body?.file;
@@ -454,7 +445,7 @@ export class CompleteTutorProfileQualificationDetailsComponent
             ...this.signatureUploadInfo,
             url: file[0]?.url,
             uploading: false,
-            fileName: file[0].originalName,
+            fileName: file[0].originalName
           };
         }
       });
@@ -470,9 +461,12 @@ export class CompleteTutorProfileQualificationDetailsComponent
     if (event.target && event.target.files && event.target.files.length) {
       files = [...event.target.files];
 
-      files.forEach((file) => {
+      files.forEach(file => {
         const mimeType = file.type;
-        const ext = file.name.split('.').pop().toLowerCase();
+        const ext = file.name
+          .split('.')
+          .pop()
+          .toLowerCase();
 
         if (this.fileFormatError(ext, mimeType)) {
           fileFormatError = true;
@@ -508,7 +502,7 @@ export class CompleteTutorProfileQualificationDetailsComponent
           progress: 0,
           responseType: 0,
           fileSize: file.size,
-          fileName: file.name,
+          fileName: file.name
         };
 
         const formData = new FormData();
@@ -517,11 +511,11 @@ export class CompleteTutorProfileQualificationDetailsComponent
 
         this.uploadDegreeStream$ = this._uploadService
           .onUploadFile(formData)
-          .subscribe((event) => {
+          .subscribe(event => {
             if (event.type === HttpEventType.UploadProgress) {
               this.degreeUploadProgress[index] = {
                 ...this.degreeUploadProgress[index],
-                progress: Math.round((100 * event.loaded) / event.total),
+                progress: Math.round((100 * event.loaded) / event.total)
               };
             } else if (event.type === HttpEventType.Response) {
               const file = event?.body?.file;
@@ -531,7 +525,7 @@ export class CompleteTutorProfileQualificationDetailsComponent
                 ...this.degreeUploadProgress[index],
                 responseType: event.type,
                 id: file?.length ? file[0]?.id : null,
-                url: file?.length ? file[0]?.url : '',
+                url: file?.length ? file[0]?.url : ''
               };
             }
           });
@@ -549,9 +543,12 @@ export class CompleteTutorProfileQualificationDetailsComponent
     if (event.target && event.target.files && event.target.files.length) {
       files = [...event.target.files];
 
-      files.forEach((file) => {
+      files.forEach(file => {
         const mimeType = file.type;
-        const ext = file.name.split('.').pop().toLowerCase();
+        const ext = file.name
+          .split('.')
+          .pop()
+          .toLowerCase();
 
         if (this.fileFormatError(ext, mimeType)) {
           fileFormatError = true;
@@ -587,7 +584,7 @@ export class CompleteTutorProfileQualificationDetailsComponent
           progress: 0,
           responseType: 0,
           fileSize: file.size,
-          fileName: file.name,
+          fileName: file.name
         };
 
         const formData = new FormData();
@@ -596,11 +593,11 @@ export class CompleteTutorProfileQualificationDetailsComponent
 
         this.uploadCertificateStream$ = this._uploadService
           .onUploadFile(formData)
-          .subscribe((event) => {
+          .subscribe(event => {
             if (event.type === HttpEventType.UploadProgress) {
               this.certificateUploadProgress[index] = {
                 ...this.certificateUploadProgress[index],
-                progress: Math.round((100 * event.loaded) / event.total),
+                progress: Math.round((100 * event.loaded) / event.total)
               };
             } else if (event.type === HttpEventType.Response) {
               const file = event?.body?.file;
@@ -611,7 +608,7 @@ export class CompleteTutorProfileQualificationDetailsComponent
                 ...this.certificateUploadProgress[index],
                 responseType: event.type,
                 id: file?.length ? file[0]?.id : null,
-                url: file?.length ? file[0]?.url : '',
+                url: file?.length ? file[0]?.url : ''
               };
             }
           });
@@ -626,7 +623,7 @@ export class CompleteTutorProfileQualificationDetailsComponent
   onAddSignature(url: string): void {
     const payload = {
       url,
-      document: 'onboarding',
+      document: 'onboarding'
     };
 
     this._store.dispatch(fromCore.tutorAddSignature({ payload }));
@@ -642,7 +639,7 @@ export class CompleteTutorProfileQualificationDetailsComponent
     if (this.form.touched) {
       const spokenLanguages = this.form.value.languages.map((lang: any) => ({
         language_id: lang?.language?.id,
-        level: lang?.level,
+        level: lang?.level
       }));
 
       const body = {
@@ -659,7 +656,7 @@ export class CompleteTutorProfileQualificationDetailsComponent
         name_of_university: this.nameOfUniversity?.value,
         spoken_languages: JSON.stringify(spokenLanguages),
         teaching_experience: this.teachingExperience?.value,
-        teaching_experience_online: this.teachingExperienceOnline?.value,
+        teaching_experience_online: this.teachingExperienceOnline?.value
       };
 
       this.submitForm.emit(body);
