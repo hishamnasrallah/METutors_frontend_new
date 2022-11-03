@@ -17,7 +17,7 @@
   </div>
   <div class="col-md-3 mt-15-sm">
     <button mat-button class="invoice-email d-block w-100 mb-1 fw-bold" (click)="getInvoiceEmail.emit()"
-      [disabled]="isGetInvoiceEmail">
+      [disabled]="isGetInvoiceEmail" *ngIf="!classroom?.isFree">
       <mat-icon class="spinner" *ngIf="isGetInvoiceEmail">autorenew</mat-icon>
       {{ 'GET_INVOICE_EMAIL' | translate }}
     </button>
@@ -30,23 +30,24 @@
   <li class="d-flex justify-content-between">
     <span class="f-size-15-md-sm">{{ 'TOTAL_HOURS' | translate }} </span>
     <strong class="f-size-15-md-sm">{{ invoiceDetails?.totalHours }}
-      {{ +(invoiceDetails?.totalHours)! > 1 ? ('HOURS_SM' | translate) : ('HOUR_SM' | translate) }}</strong>
+      {{ +(invoiceDetails?.totalHours)! > 1 ? ('HOURS_SM' | translate) : ('HOUR_SM' | translate) }}
+    </strong>
   </li>
   <li class="d-flex justify-content-between">
     <span class="f-size-15-md-sm">{{ 'HOURLY_RATE' | translate }}</span>
-    <strong class="f-size-15-md-sm">{{ invoiceDetails?.pricePerHour | metutorsMoney | async }}</strong>
+    <strong class="f-size-15-md-sm">{{ (classroom?.isFree ? '0' : invoiceDetails?.pricePerHour) | metutorsMoney | async }}</strong>
   </li>
   <li class="d-flex justify-content-between">
     <span class="f-size-15-md-sm">{{ 'TOTAL_AMOUNT_DUE' | translate }}</span>
-    <strong class="f-size-15-md-sm">{{ invoiceDetails?.totalAmount | metutorsMoney | async }}</strong>
+    <strong class="f-size-15-md-sm">{{ (classroom?.isFree ? '0' : invoiceDetails?.totalAmount) | metutorsMoney | async }}</strong>
   </li>
   <li class="d-flex justify-content-between promocode">
     <span class="f-size-15-md-sm">{{ 'PROMOCODE_OFF' | translate }}</span>
-    <strong class="f-size-15-md-sm">{{ 0 | metutorsMoney | async }}</strong>
+    <strong class="f-size-15-md-sm">{{ '0' | metutorsMoney | async }}</strong>
   </li>
   <li class="d-flex justify-content-between total-payment">
     <span class="f-size-15-md-sm">{{ 'TOTAL_PAYMENT' | translate }}</span>
-    <strong class="f-size-15-md-sm">{{ invoiceDetails?.totalAmount | metutorsMoney | async }}</strong>
+    <strong class="f-size-15-md-sm">{{ (classroom?.isFree ? '0' : invoiceDetails?.totalAmount) | metutorsMoney | async }}</strong>
   </li>
   <li class="d-flex justify-content-between coupon d-block-sm">
     <span class="f-size-17-md-sm">{{ 'PROMOCODE' | translate }}</span>

@@ -15,7 +15,7 @@
           <div class="btn-group" dropdown>
             <span class="fw-bold cursor-pointer position-relative dropdown-toggle dropdown-toggle-split" dropdownToggle
                   [class.active]="programId === program?.id" *ngIf="+program.id === nationalId"
-                  (click)="programId = program?.id; fieldId = null;">{{ program?.name }} <i *ngIf="flag" [innerHTML]="flag" class="flag"></i></span>
+                  (click)="programId = program?.id; fieldId = null;"><bdi>{{ program?.name }}</bdi> <i *ngIf="flag" [innerHTML]="flag" class="flag"></i></span>
 
             <ul id="dropdown-split" *dropdownMenu class="dropdown-menu"
                 role="menu" aria-labelledby="button-split">

@@ -7,19 +7,22 @@ import * as fromPublic from '@metutor/modules/public/state';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import * as fromPublicActions from '@metutor/modules/public/state/actions';
 import {
+  IUser,
   ITutor,
   IField,
   IProgram,
   ISubject,
-  ICountry,
+  ICountry
 } from 'src/app/core/models';
 
 @Component({
   selector: 'metutors-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
+  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit, AfterViewInit {
+  user$: Observable<IUser | null>;
+  isDemo$: Observable<number | null>;
   loadingFields$: Observable<boolean>;
   loadingTutors$: Observable<boolean>;
   fields$: Observable<IField[] | null>;
@@ -52,12 +55,14 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this._prepareCountries();
 
     this.token$ = this._store.select(fromCore.selectToken);
+    this.isDemo$ = this._store.select(fromCore.selectStudentIsDemo);
+    this.user$ = this._store.select(fromCore.selectUser);
 
     this.showViewSubjectDetailsModal$ = this._store.select(
       fromPublic.selectShowViewSubjectDetailsModal
     );
 
-    this._route.fragment.subscribe((f) => {
+    this._route.fragment.subscribe(f => {
       this.fragment = f;
       const element = document.querySelector('#' + f);
 
@@ -71,7 +76,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
         content: 'SUCCESS_STORIES_OPTION_1',
         picture: '',
         postedBy: 'Viola Manisa',
-        isVerified: true,
+        isVerified: true
       },
       {
         id: 2,
@@ -79,7 +84,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
         content: 'SUCCESS_STORIES_OPTION_2',
         picture: '',
         postedBy: 'Bryan Arnoldy',
-        isVerified: true,
+        isVerified: true
       },
       {
         id: 3,
@@ -87,7 +92,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
         content: 'SUCCESS_STORIES_OPTION_3',
         picture: '',
         postedBy: 'Joshua William',
-        isVerified: true,
+        isVerified: true
       },
       {
         id: 4,
@@ -95,8 +100,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
         content: 'SUCCESS_STORIES_OPTION_4',
         picture: '',
         postedBy: 'George Scott',
-        isVerified: true,
-      },
+        isVerified: true
+      }
     ];
   }
 
@@ -127,7 +132,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       fromCore.loadFieldsByProgramId({
         programId: program,
         countryId: country,
-        grade,
+        grade
       })
     );
     this.fields$ = this._store.select(fromCore.selectFields);

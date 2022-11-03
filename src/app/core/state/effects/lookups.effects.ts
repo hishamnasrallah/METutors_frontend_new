@@ -5,6 +5,7 @@ import camelcaseKeys from 'camelcase-keys';
 import * as fromCore from '@metutor/core/state';
 import * as lookupsActions from '../actions/lookups.actions';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import * as languageActions from '../actions/language-menu.actions';
 import { AlertNotificationService } from '@metutor/core/components';
 import { LookupsService, SupportService, UsersService } from '@services';
 import {
@@ -12,7 +13,7 @@ import {
   filter,
   mergeMap,
   catchError,
-  withLatestFrom,
+  withLatestFrom
 } from 'rxjs/operators';
 
 @Injectable()
@@ -24,15 +25,15 @@ export class LookupsEffects {
       mergeMap(([_, _userTypes]) => {
         if (!_userTypes || !_userTypes?.length) {
           return this._userService.getRoles().pipe(
-            map((userTypes) =>
+            map(userTypes =>
               lookupsActions.loadUserTypesSuccess({
-                userTypes,
+                userTypes
               })
             ),
-            catchError((error) =>
+            catchError(error =>
               of(
                 lookupsActions.loadUserTypesFailure({
-                  error: error?.error?.message || error?.error?.errors,
+                  error: error?.error?.message || error?.error?.errors
                 })
               )
             )
@@ -51,15 +52,15 @@ export class LookupsEffects {
       mergeMap(([_, _languages]) => {
         if (!_languages || !_languages?.length) {
           return this._lookupsService.getLanguages().pipe(
-            map((languages) =>
+            map(languages =>
               lookupsActions.loadLanguagesSuccess({
-                languages,
+                languages
               })
             ),
-            catchError((error) =>
+            catchError(error =>
               of(
                 lookupsActions.loadLanguagesFailure({
-                  error: error?.error?.message || error?.error?.errors,
+                  error: error?.error?.message || error?.error?.errors
                 })
               )
             )
@@ -71,22 +72,42 @@ export class LookupsEffects {
     )
   );
 
+  changeLanguage$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(languageActions.changeLanguage),
+      mergeMap(action =>
+        this._userService.changeLanguage(action.language).pipe(
+          map(languages =>
+            languageActions.changeLanguageSuccess()
+          ),
+          catchError(error =>
+            of(
+              languageActions.changeLanguageFailure({
+                error: error?.error?.message || error?.error?.errors
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   loadLevels$ = createEffect(() =>
     this._actions$.pipe(
       ofType(lookupsActions.loadLevels),
       withLatestFrom(this._store.select(fromCore.selectLevels)),
       filter(([_, levels]) => !levels || levels.length === 0),
-      mergeMap((_) =>
+      mergeMap(_ =>
         this._lookupsService.getLevels().pipe(
-          map((levels) =>
+          map(levels =>
             lookupsActions.loadLevelsSuccess({
-              levels,
+              levels
             })
           ),
-          catchError((error) =>
+          catchError(error =>
             of(
               lookupsActions.loadLevelsFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error: error?.error?.message || error?.error?.errors
               })
             )
           )
@@ -102,15 +123,15 @@ export class LookupsEffects {
       mergeMap(([_, _countries]) => {
         if (!_countries || !_countries.length) {
           return this._lookupsService.getCountries().pipe(
-            map((countries) =>
+            map(countries =>
               lookupsActions.loadCountriesSuccess({
-                countries,
+                countries
               })
             ),
-            catchError((error) =>
+            catchError(error =>
               of(
                 lookupsActions.loadCountriesFailure({
-                  error: error?.error?.message || error?.error?.errors,
+                  error: error?.error?.message || error?.error?.errors
                 })
               )
             )
@@ -129,15 +150,15 @@ export class LookupsEffects {
       mergeMap(([_, _countries]) => {
         if (!_countries || !_countries.length) {
           return this._lookupsService.getProgramCountries().pipe(
-            map((countries) =>
+            map(countries =>
               lookupsActions.loadProgramCountriesSuccess({
-                countries,
+                countries
               })
             ),
-            catchError((error) =>
+            catchError(error =>
               of(
                 lookupsActions.loadProgramCountriesFailure({
-                  error: error?.error?.message || error?.error?.errors,
+                  error: error?.error?.message || error?.error?.errors
                 })
               )
             )
@@ -156,15 +177,15 @@ export class LookupsEffects {
       mergeMap(([_, _countries]) => {
         if (!_countries || !_countries.length) {
           return this._lookupsService.getFlagCountries().pipe(
-            map((countries) =>
+            map(countries =>
               lookupsActions.loadFlagCountriesSuccess({
-                countries,
+                countries
               })
             ),
-            catchError((error) =>
+            catchError(error =>
               of(
                 lookupsActions.loadFlagCountriesFailure({
-                  error: error?.error?.message || error?.error?.errors,
+                  error: error?.error?.message || error?.error?.errors
                 })
               )
             )
@@ -179,17 +200,17 @@ export class LookupsEffects {
   loadCities$ = createEffect(() =>
     this._actions$.pipe(
       ofType(lookupsActions.loadCities),
-      mergeMap((action) =>
+      mergeMap(action =>
         this._lookupsService.getCities(action.countryId).pipe(
-          map((cities) =>
+          map(cities =>
             lookupsActions.loadCitiesSuccess({
-              cities,
+              cities
             })
           ),
-          catchError((error) =>
+          catchError(error =>
             of(
               lookupsActions.loadCitiesFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error: error?.error?.message || error?.error?.errors
               })
             )
           )
@@ -205,15 +226,15 @@ export class LookupsEffects {
       mergeMap(([_, _programs]) => {
         if (!_programs || !_programs.length) {
           return this._lookupsService.getPrograms().pipe(
-            map((programs) =>
+            map(programs =>
               lookupsActions.loadProgramsSuccess({
-                programs,
+                programs
               })
             ),
-            catchError((error) =>
+            catchError(error =>
               of(
                 lookupsActions.loadProgramsFailure({
-                  error: error?.error?.message || error?.error?.errors,
+                  error: error?.error?.message || error?.error?.errors
                 })
               )
             )
@@ -233,13 +254,13 @@ export class LookupsEffects {
           map(({ total, programs }) =>
             lookupsActions.loadAdminProgramsSuccess({
               total,
-              programs,
+              programs
             })
           ),
-          catchError((error) =>
+          catchError(error =>
             of(
               lookupsActions.loadAdminProgramsFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error: error?.error?.message || error?.error?.errors
               })
             )
           )
@@ -251,19 +272,19 @@ export class LookupsEffects {
   loadSubjectsByFieldId$ = createEffect(() =>
     this._actions$.pipe(
       ofType(lookupsActions.loadSubjectsByFieldId),
-      mergeMap((action) =>
+      mergeMap(action =>
         this._lookupsService
           .getSubjectsByFieldId(action.fieldId, action?.countryId)
           .pipe(
-            map((subjects) =>
+            map(subjects =>
               lookupsActions.loadSubjectsByFieldIdSuccess({
-                subjects,
+                subjects
               })
             ),
-            catchError((error) =>
+            catchError(error =>
               of(
                 lookupsActions.loadSubjectsByFieldIdFailure({
-                  error: error?.error?.message || error?.error?.errors,
+                  error: error?.error?.message || error?.error?.errors
                 })
               )
             )
@@ -275,17 +296,17 @@ export class LookupsEffects {
   loadSubjects$ = createEffect(() =>
     this._actions$.pipe(
       ofType(lookupsActions.loadSubjects),
-      mergeMap((_) =>
+      mergeMap(_ =>
         this._lookupsService.getSubjects().pipe(
-          map((subjects) =>
+          map(subjects =>
             lookupsActions.loadSubjectsSuccess({
-              subjects,
+              subjects
             })
           ),
-          catchError((error) =>
+          catchError(error =>
             of(
               lookupsActions.loadSubjectsFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error: error?.error?.message || error?.error?.errors
               })
             )
           )
@@ -302,13 +323,13 @@ export class LookupsEffects {
           map(({ total, subjects }) =>
             lookupsActions.loadAdminSubjectsSuccess({
               total,
-              subjects,
+              subjects
             })
           ),
-          catchError((error) =>
+          catchError(error =>
             of(
               lookupsActions.loadAdminSubjectsFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error: error?.error?.message || error?.error?.errors
               })
             )
           )
@@ -320,7 +341,7 @@ export class LookupsEffects {
   loadFieldsByProgramId$ = createEffect(() =>
     this._actions$.pipe(
       ofType(lookupsActions.loadFieldsByProgramId),
-      mergeMap((action) =>
+      mergeMap(action =>
         this._lookupsService
           .getFieldsByProgramId(
             action.programId,
@@ -328,15 +349,15 @@ export class LookupsEffects {
             action.grade
           )
           .pipe(
-            map((fields) =>
+            map(fields =>
               lookupsActions.loadFieldsByProgramIdSuccess({
-                fields,
+                fields
               })
             ),
-            catchError((error) =>
+            catchError(error =>
               of(
                 lookupsActions.loadFieldsByProgramIdFailure({
-                  error: error?.error?.message || error?.error?.errors,
+                  error: error?.error?.message || error?.error?.errors
                 })
               )
             )
@@ -348,17 +369,17 @@ export class LookupsEffects {
   loadFields$ = createEffect(() =>
     this._actions$.pipe(
       ofType(lookupsActions.loadFields),
-      mergeMap((_) =>
+      mergeMap(_ =>
         this._lookupsService.getFields().pipe(
-          map((fields) =>
+          map(fields =>
             lookupsActions.loadFieldsSuccess({
-              fields,
+              fields
             })
           ),
-          catchError((error) =>
+          catchError(error =>
             of(
               lookupsActions.loadFieldsFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error: error?.error?.message || error?.error?.errors
               })
             )
           )
@@ -375,13 +396,13 @@ export class LookupsEffects {
           map(({ total, fields }) =>
             lookupsActions.loadAdminFieldsSuccess({
               total,
-              fields: camelcaseKeys(fields),
+              fields: camelcaseKeys(fields)
             })
           ),
-          catchError((error) =>
+          catchError(error =>
             of(
               lookupsActions.loadAdminFieldsFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error: error?.error?.message || error?.error?.errors
               })
             )
           )
@@ -397,15 +418,15 @@ export class LookupsEffects {
       mergeMap(([_, _topics]) => {
         if (!_topics || !_topics.length) {
           return this._supportService.fetchFaqTopics().pipe(
-            map((topics) =>
+            map(topics =>
               lookupsActions.loadTopicsSuccess({
-                topics,
+                topics
               })
             ),
-            catchError((error) =>
+            catchError(error =>
               of(
                 lookupsActions.loadTopicsFailure({
-                  error: error?.error?.message || error?.error?.errors,
+                  error: error?.error?.message || error?.error?.errors
                 })
               )
             )
@@ -424,15 +445,15 @@ export class LookupsEffects {
       mergeMap(([_, _faqs]) => {
         if (!_faqs || !_faqs.length) {
           return this._supportService.fetchListFaq().pipe(
-            map((FAQs) =>
+            map(FAQs =>
               lookupsActions.loadFAQsSuccess({
-                FAQs: camelcaseKeys(FAQs, { deep: true }),
+                FAQs: camelcaseKeys(FAQs, { deep: true })
               })
             ),
-            catchError((error) =>
+            catchError(error =>
               of(
                 lookupsActions.loadFAQsFailure({
-                  error: error?.error?.message || error?.error?.errors,
+                  error: error?.error?.message || error?.error?.errors
                 })
               )
             )
@@ -451,15 +472,15 @@ export class LookupsEffects {
       mergeMap(([_, _categories]) => {
         if (!_categories || !_categories.length) {
           return this._lookupsService.getTicketCategories().pipe(
-            map((ticketCategories) =>
+            map(ticketCategories =>
               lookupsActions.loadTicketCategoriesSuccess({
-                ticketCategories,
+                ticketCategories
               })
             ),
-            catchError((error) =>
+            catchError(error =>
               of(
                 lookupsActions.loadTicketCategoriesFailure({
-                  error: error?.error?.message || error?.error?.errors,
+                  error: error?.error?.message || error?.error?.errors
                 })
               )
             )
@@ -478,15 +499,15 @@ export class LookupsEffects {
       mergeMap(([_, _priorities]) => {
         if (!_priorities || !_priorities.length) {
           return this._lookupsService.getTicketPriorities().pipe(
-            map((ticketPriorities) =>
+            map(ticketPriorities =>
               lookupsActions.loadTicketPrioritiesSuccess({
-                ticketPriorities,
+                ticketPriorities
               })
             ),
-            catchError((error) =>
+            catchError(error =>
               of(
                 lookupsActions.loadTicketPrioritiesFailure({
-                  error: error?.error?.message || error?.error?.errors,
+                  error: error?.error?.message || error?.error?.errors
                 })
               )
             )
@@ -501,39 +522,39 @@ export class LookupsEffects {
   addEditProgram$ = createEffect(() =>
     this._actions$.pipe(
       ofType(lookupsActions.addEditProgram),
-      mergeMap((action) => {
+      mergeMap(action => {
         if (action?.id) {
           return this._lookupsService
             .editProgram(action.program, action.id)
             .pipe(
-              map((response) =>
+              map(response =>
                 lookupsActions.addEditProgramSuccess({
                   program: response.program,
                   message: response.message,
-                  isEdit: true,
+                  isEdit: true
                 })
               ),
-              catchError((error) =>
+              catchError(error =>
                 of(
                   lookupsActions.addEditProgramFailure({
-                    error: error?.error?.message || error?.error?.errors,
+                    error: error?.error?.message || error?.error?.errors
                   })
                 )
               )
             );
         } else {
           return this._lookupsService.addNewProgram(action.program).pipe(
-            map((response) =>
+            map(response =>
               lookupsActions.addEditProgramSuccess({
                 program: response.program,
                 message: response.message,
-                isEdit: false,
+                isEdit: false
               })
             ),
-            catchError((error) =>
+            catchError(error =>
               of(
                 lookupsActions.addEditProgramFailure({
-                  error: error?.error?.message || error?.error?.errors,
+                  error: error?.error?.message || error?.error?.errors
                 })
               )
             )
@@ -546,18 +567,18 @@ export class LookupsEffects {
   deleteProgram$ = createEffect(() =>
     this._actions$.pipe(
       ofType(lookupsActions.deleteProgram),
-      mergeMap((action) =>
+      mergeMap(action =>
         this._lookupsService.deleteProgram(action.id).pipe(
-          map((response) =>
+          map(response =>
             lookupsActions.deleteProgramSuccess({
               id: action.id,
-              message: response.message,
+              message: response.message
             })
           ),
-          catchError((error) =>
+          catchError(error =>
             of(
               lookupsActions.deleteProgramFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error: error?.error?.message || error?.error?.errors
               })
             )
           )
@@ -569,37 +590,37 @@ export class LookupsEffects {
   addEditField$ = createEffect(() =>
     this._actions$.pipe(
       ofType(lookupsActions.addEditField),
-      mergeMap((action) => {
+      mergeMap(action => {
         if (action.id) {
           return this._lookupsService.editField(action.field, action.id).pipe(
-            map((response) =>
+            map(response =>
               lookupsActions.addEditFieldSuccess({
                 field: response.field,
                 message: response.message,
-                isEdit: true,
+                isEdit: true
               })
             ),
-            catchError((error) =>
+            catchError(error =>
               of(
                 lookupsActions.addEditFieldFailure({
-                  error: error?.error?.message || error?.error?.errors,
+                  error: error?.error?.message || error?.error?.errors
                 })
               )
             )
           );
         } else {
           return this._lookupsService.addNewField(action.field).pipe(
-            map((response) =>
+            map(response =>
               lookupsActions.addEditFieldSuccess({
                 field: response.field,
                 message: response.message,
-                isEdit: false,
+                isEdit: false
               })
             ),
-            catchError((error) =>
+            catchError(error =>
               of(
                 lookupsActions.addEditFieldFailure({
-                  error: error?.error?.message || error?.error?.errors,
+                  error: error?.error?.message || error?.error?.errors
                 })
               )
             )
@@ -612,18 +633,18 @@ export class LookupsEffects {
   deleteField$ = createEffect(() =>
     this._actions$.pipe(
       ofType(lookupsActions.deleteField),
-      mergeMap((action) =>
+      mergeMap(action =>
         this._lookupsService.deleteField(action.id).pipe(
-          map((response) =>
+          map(response =>
             lookupsActions.deleteFieldSuccess({
               id: action.id,
-              message: response.message,
+              message: response.message
             })
           ),
-          catchError((error) =>
+          catchError(error =>
             of(
               lookupsActions.deleteFieldFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error: error?.error?.message || error?.error?.errors
               })
             )
           )
@@ -635,37 +656,37 @@ export class LookupsEffects {
   addEditSubject$ = createEffect(() =>
     this._actions$.pipe(
       ofType(lookupsActions.addEditSubject),
-      mergeMap((action) => {
+      mergeMap(action => {
         if (action.subject.id) {
           return this._lookupsService.editSubject(action.subject).pipe(
-            map((response) =>
+            map(response =>
               lookupsActions.addEditSubjectSuccess({
                 subject: response.subject,
                 message: response.message,
-                isEdit: true,
+                isEdit: true
               })
             ),
-            catchError((error) =>
+            catchError(error =>
               of(
                 lookupsActions.addEditSubjectFailure({
-                  error: error?.error?.message || error?.error?.errors,
+                  error: error?.error?.message || error?.error?.errors
                 })
               )
             )
           );
         } else {
           return this._lookupsService.addNewSubject(action.subject).pipe(
-            map((response) =>
+            map(response =>
               lookupsActions.addEditSubjectSuccess({
                 subject: response.subject,
                 message: response.message,
-                isEdit: false,
+                isEdit: false
               })
             ),
-            catchError((error) =>
+            catchError(error =>
               of(
                 lookupsActions.addEditSubjectFailure({
-                  error: error?.error?.message || error?.error?.errors,
+                  error: error?.error?.message || error?.error?.errors
                 })
               )
             )
@@ -678,18 +699,18 @@ export class LookupsEffects {
   deleteSubject$ = createEffect(() =>
     this._actions$.pipe(
       ofType(lookupsActions.deleteSubject),
-      mergeMap((action) =>
+      mergeMap(action =>
         this._lookupsService.deleteSubject(action.id).pipe(
-          map((response) =>
+          map(response =>
             lookupsActions.deleteSubjectSuccess({
               id: action.id,
-              message: response.message,
+              message: response.message
             })
           ),
-          catchError((error) =>
+          catchError(error =>
             of(
               lookupsActions.deleteSubjectFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error: error?.error?.message || error?.error?.errors
               })
             )
           )
@@ -701,20 +722,20 @@ export class LookupsEffects {
   addEditProgramCountries$ = createEffect(() =>
     this._actions$.pipe(
       ofType(lookupsActions.addEditProgramCountries),
-      mergeMap((action) => {
+      mergeMap(action => {
         if (action.country.id) {
           return this._lookupsService.editProgramCountries(action.country).pipe(
-            map((response) =>
+            map(response =>
               lookupsActions.addEditProgramCountriesSuccess({
                 country: response.country,
                 message: response.message,
-                isEdit: true,
+                isEdit: true
               })
             ),
-            catchError((error) =>
+            catchError(error =>
               of(
                 lookupsActions.addEditProgramCountriesFailure({
-                  error: error?.error?.message || error?.error?.errors,
+                  error: error?.error?.message || error?.error?.errors
                 })
               )
             )
@@ -723,17 +744,17 @@ export class LookupsEffects {
           return this._lookupsService
             .addNewProgramCountries(action.country)
             .pipe(
-              map((response) =>
+              map(response =>
                 lookupsActions.addEditProgramCountriesSuccess({
                   country: response.country,
                   message: response.message,
-                  isEdit: false,
+                  isEdit: false
                 })
               ),
-              catchError((error) =>
+              catchError(error =>
                 of(
                   lookupsActions.addEditProgramCountriesFailure({
-                    error: error?.error?.message || error?.error?.errors,
+                    error: error?.error?.message || error?.error?.errors
                   })
                 )
               )
@@ -746,18 +767,18 @@ export class LookupsEffects {
   deleteProgramCountries$ = createEffect(() =>
     this._actions$.pipe(
       ofType(lookupsActions.deleteProgramCountries),
-      mergeMap((action) =>
+      mergeMap(action =>
         this._lookupsService.deleteProgramCountries(action.id).pipe(
-          map((response) =>
+          map(response =>
             lookupsActions.deleteProgramCountriesSuccess({
               id: action.id,
-              message: response.message,
+              message: response.message
             })
           ),
-          catchError((error) =>
+          catchError(error =>
             of(
               lookupsActions.deleteProgramCountriesFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error: error?.error?.message || error?.error?.errors
               })
             )
           )
@@ -778,10 +799,10 @@ export class LookupsEffects {
             lookupsActions.addEditSubjectSuccess,
             lookupsActions.deleteSubjectSuccess,
             lookupsActions.addEditProgramCountriesSuccess,
-            lookupsActions.deleteProgramCountriesSuccess,
+            lookupsActions.deleteProgramCountriesSuccess
           ]
         ),
-        map((action) => {
+        map(action => {
           if (action.message) {
             return this._alertNotificationService.success(action.message);
           } else {
@@ -792,7 +813,7 @@ export class LookupsEffects {
         })
       ),
     {
-      dispatch: false,
+      dispatch: false
     }
   );
 
@@ -808,10 +829,10 @@ export class LookupsEffects {
             lookupsActions.addEditSubjectFailure,
             lookupsActions.deleteSubjectFailure,
             lookupsActions.addEditProgramCountriesFailure,
-            lookupsActions.deleteProgramCountriesFailure,
+            lookupsActions.deleteProgramCountriesFailure
           ]
         ),
-        map((action) => {
+        map(action => {
           if (action.error) {
             return this._alertNotificationService.error(action.error);
           } else {
@@ -820,7 +841,7 @@ export class LookupsEffects {
         })
       ),
     {
-      dispatch: false,
+      dispatch: false
     }
   );
 

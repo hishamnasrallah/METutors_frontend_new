@@ -17,8 +17,10 @@
             [class.active]="step === program?.id" (click)="onChangeStep(program)">
             <span class="d-block">{{ 'PROGRAM' | translate }} {{ i + 1 }}</span>
             <strong>
-              {{ program?.name }}
-              <span *ngIf="country && program?.id === nationalId" [innerHTML]="country?.flag"></span>
+              <bdi>
+                {{ program?.name }}
+                <span *ngIf="country && program?.id === nationalId" [innerHTML]="country?.flag"></span>
+              </bdi>
             </strong>
           </button>
         </div>
@@ -37,9 +39,9 @@
 
         <div class="row" *ngIf="!loadingFields">
           <div class="col-md-9">
-            <h1 class="f-size-25-md-sm">{{ selectedProgram?.title }}</h1>
+            <h1 class="f-size-25-md-sm"><bdi>{{ selectedProgram?.title }}</bdi></h1>
 
-            <p class="f-size-15-md-sm">{{ selectedProgram?.description }}</p>
+            <p class="f-size-15-md-sm"><bdi>{{ selectedProgram?.description }}</bdi></p>
           </div>
           <div class="col-md-3" *ngIf="selectedProgram?.id === nationalId">
             <div class="text-end">

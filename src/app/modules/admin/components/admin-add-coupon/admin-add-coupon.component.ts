@@ -46,7 +46,6 @@ export class AdminAddCouponComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.selectedCoupon?.expiry_date);
     const id = this.selectedCoupon?.id ? this.selectedCoupon.id : null;
     const name = this.selectedCoupon?.name ? this.selectedCoupon.name : null;
 

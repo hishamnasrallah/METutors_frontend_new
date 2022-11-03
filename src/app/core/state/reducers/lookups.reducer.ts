@@ -1,4 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
+import * as lookupsActions from '../actions/lookups.actions';
+import * as languageActions from '../actions/language-menu.actions';
 
 import {
   ICity,
@@ -13,9 +15,8 @@ import {
   IFAQTopics,
   IPagination,
   ITicketCategory,
-  ITicketPriority,
+  ITicketPriority
 } from '@models';
-import * as lookupsActions from '../actions/lookups.actions';
 
 export interface State {
   // User types
@@ -156,196 +157,209 @@ export const initialState: State = {
   isLoadingTicketPriorities: false,
   isLoadingProgramCountries: false,
   isDeletingProgramCountries: false,
-  isAddingEditingProgramCountries: false,
+  isAddingEditingProgramCountries: false
 };
 
 export const reducer = createReducer(
   initialState,
 
-  on(lookupsActions.loadUserTypes, (state) => ({
+  on(lookupsActions.loadUserTypes, state => ({
     ...state,
-    isLoadingUserTypes: true,
+    isLoadingUserTypes: true
   })),
 
   on(lookupsActions.loadUserTypesSuccess, (state, { userTypes }) => ({
     ...state,
     userTypes,
-    isLoadingUserTypes: false,
+    isLoadingUserTypes: false
   })),
 
   on(lookupsActions.loadUserTypesFailure, (state, { error }) => ({
     ...state,
     isLoadingUserTypes: false,
-    loadingUserTypesFailure: error,
+    loadingUserTypesFailure: error
   })),
 
-  on(lookupsActions.loadUserTypesEnded, (state) => ({
+  on(lookupsActions.loadUserTypesEnded, state => ({
     ...state,
-    isLoadingUserTypes: false,
+    isLoadingUserTypes: false
   })),
 
-  on(lookupsActions.loadLanguages, (state) => ({
+  on(lookupsActions.loadLanguages, state => ({
     ...state,
-    isLoadingLanguages: true,
+    isLoadingLanguages: true
   })),
 
   on(lookupsActions.loadLanguagesSuccess, (state, { languages }) => ({
     ...state,
     languages,
-    isLoadingLanguages: false,
+    isLoadingLanguages: false
   })),
 
   on(lookupsActions.loadLanguagesFailure, (state, { error }) => ({
     ...state,
     isLoadingLanguages: false,
-    loadingLanguagesFailure: error,
+    loadingLanguagesFailure: error
   })),
 
-  on(lookupsActions.loadLanguagesEnded, (state) => ({
+  on(lookupsActions.loadLanguagesEnded, state => ({
     ...state,
-    isLoadingLanguages: false,
+    isLoadingLanguages: false
   })),
 
-  on(lookupsActions.loadLevels, (state) => ({
+  on(lookupsActions.loadLevels, state => ({
     ...state,
-    isLoadingLevels: true,
+    isLoadingLevels: true
   })),
 
   on(lookupsActions.loadLevelsSuccess, (state, { levels }) => ({
     ...state,
     levels,
-    isLoadingLevels: false,
+    isLoadingLevels: false
   })),
 
   on(lookupsActions.loadLevelsFailure, (state, { error }) => ({
     ...state,
     isLoadingLevels: false,
-    loadingLevelsFailure: error,
+    loadingLevelsFailure: error
   })),
 
-  on(lookupsActions.loadCountries, (state) => ({
+  on(lookupsActions.loadCountries, state => ({
     ...state,
-    isLoadingCountries: true,
+    isLoadingCountries: true
   })),
 
   on(lookupsActions.loadCountriesSuccess, (state, { countries }) => ({
     ...state,
     countries,
-    isLoadingCountries: false,
+    isLoadingCountries: false
   })),
 
   on(lookupsActions.loadCountriesFailure, (state, { error }) => ({
     ...state,
     isLoadingCountries: false,
-    loadingCountriesFailure: error,
+    loadingCountriesFailure: error
   })),
 
-  on(lookupsActions.loadCountriesEnded, (state) => ({
+  on(lookupsActions.loadCountriesEnded, state => ({
     ...state,
-    isLoadingCountries: false,
+    isLoadingCountries: false
   })),
 
-  on(lookupsActions.loadProgramCountries, (state) => ({
+  on(lookupsActions.loadProgramCountries, state => ({
     ...state,
-    isLoadingProgramCountries: true,
+    isLoadingProgramCountries: true
   })),
 
   on(lookupsActions.loadProgramCountriesSuccess, (state, { countries }) => ({
     ...state,
     programCountries: countries,
-    isLoadingProgramCountries: false,
+    isLoadingProgramCountries: false
   })),
 
   on(lookupsActions.loadProgramCountriesFailure, (state, { error }) => ({
     ...state,
     isLoadingProgramCountries: false,
-    loadingProgramCountriesFailure: error,
+    loadingProgramCountriesFailure: error
   })),
 
-  on(lookupsActions.loadProgramCountriesEnded, (state) => ({
+  on(lookupsActions.loadProgramCountriesEnded, state => ({
     ...state,
-    isLoadingProgramCountries: false,
+    isLoadingProgramCountries: false
   })),
 
-  on(lookupsActions.loadFlagCountries, (state) => ({
+  on(lookupsActions.loadFlagCountries, state => ({
     ...state,
-    isLoadingFlagCountries: true,
+    isLoadingFlagCountries: true
   })),
 
   on(lookupsActions.loadFlagCountriesSuccess, (state, { countries }) => ({
     ...state,
     flagCountries: countries,
-    isLoadingFlagCountries: false,
+    isLoadingFlagCountries: false
   })),
 
   on(lookupsActions.loadFlagCountriesFailure, (state, { error }) => ({
     ...state,
     isLoadingFlagCountries: false,
-    loadingFlagCountriesFailure: error,
+    loadingFlagCountriesFailure: error
   })),
 
-  on(lookupsActions.loadFlagCountriesEnded, (state) => ({
+  on(lookupsActions.loadFlagCountriesEnded, state => ({
     ...state,
-    isLoadingFlagCountries: false,
+    isLoadingFlagCountries: false
   })),
 
-  on(lookupsActions.loadCities, (state) => ({
+  on(lookupsActions.loadCities, state => ({
     ...state,
-    isLoadingCities: true,
+    isLoadingCities: true
   })),
 
   on(lookupsActions.loadCitiesSuccess, (state, { cities }) => ({
     ...state,
     cities,
-    isLoadingCities: false,
+    isLoadingCities: false
   })),
 
   on(lookupsActions.loadCitiesFailure, (state, { error }) => ({
     ...state,
     isLoadingCities: false,
-    loadingCitiesFailure: error,
+    loadingCitiesFailure: error
   })),
 
-  on(
-    lookupsActions.loadPrograms,
-    lookupsActions.loadAdminPrograms,
-    (state) => ({
-      ...state,
-      isLoadingPrograms: true,
-    })
-  ),
+  on(lookupsActions.loadPrograms, lookupsActions.loadAdminPrograms, state => ({
+    ...state,
+    isLoadingPrograms: true
+  })),
 
   on(lookupsActions.loadProgramsSuccess, (state, { programs }) => ({
     ...state,
-    programs,
-    isLoadingPrograms: false,
+    programs:
+      programs && programs.length
+        ? programs.map(program => ({
+            ...program,
+            name:
+              localStorage.getItem('DEFAULT_LANGUAGE') === 'ar'
+                ? program?.nameAr
+                : program?.nameEn,
+            title:
+              localStorage.getItem('DEFAULT_LANGUAGE') === 'ar'
+                ? program?.titleAr
+                : program?.titleEn,
+            description:
+              localStorage.getItem('DEFAULT_LANGUAGE') === 'ar'
+                ? program?.descriptionAr
+                : program?.descriptionEn
+          }))
+        : [],
+    isLoadingPrograms: false
   })),
 
   on(lookupsActions.loadAdminProgramsSuccess, (state, { total, programs }) => ({
     ...state,
     programs,
     pagination: { total },
-    isLoadingPrograms: false,
+    isLoadingPrograms: false
   })),
 
   on(lookupsActions.loadProgramsFailure, (state, { error }) => ({
     ...state,
     isLoadingPrograms: false,
-    loadingProgramsFailure: error,
+    loadingProgramsFailure: error
   })),
 
-  on(lookupsActions.loadProgramsEnded, (state) => ({
+  on(lookupsActions.loadProgramsEnded, state => ({
     ...state,
-    isLoadingPrograms: false,
+    isLoadingPrograms: false
   })),
 
   on(
     lookupsActions.loadSubjects,
     lookupsActions.loadAdminSubjects,
     lookupsActions.loadSubjectsByFieldId,
-    (state) => ({
+    state => ({
       ...state,
-      isLoadingSubjects: true,
+      isLoadingSubjects: true
     })
   ),
 
@@ -355,7 +369,7 @@ export const reducer = createReducer(
     (state, { subjects }) => ({
       ...state,
       subjects,
-      isLoadingSubjects: false,
+      isLoadingSubjects: false
     })
   ),
 
@@ -366,7 +380,7 @@ export const reducer = createReducer(
       ...state,
       subjects,
       pagination: { total },
-      isLoadingSubjects: false,
+      isLoadingSubjects: false
     })
   ),
 
@@ -377,7 +391,7 @@ export const reducer = createReducer(
     (state, { error }) => ({
       ...state,
       isLoadingSubjects: false,
-      loadingSubjectsFailure: error,
+      loadingSubjectsFailure: error
     })
   ),
 
@@ -385,9 +399,9 @@ export const reducer = createReducer(
     lookupsActions.loadFields,
     lookupsActions.loadAdminFields,
     lookupsActions.loadFieldsByProgramId,
-    (state) => ({
+    state => ({
       ...state,
-      isLoadingFields: true,
+      isLoadingFields: true
     })
   ),
 
@@ -397,7 +411,7 @@ export const reducer = createReducer(
     (state, { fields }) => ({
       ...state,
       fields,
-      isLoadingFields: false,
+      isLoadingFields: false
     })
   ),
 
@@ -408,7 +422,7 @@ export const reducer = createReducer(
     (state, { error }) => ({
       ...state,
       isLoadingFields: false,
-      loadingFieldsFailure: error,
+      loadingFieldsFailure: error
     })
   ),
 
@@ -416,56 +430,56 @@ export const reducer = createReducer(
     ...state,
     fields,
     pagination: { total },
-    isLoadingFields: false,
+    isLoadingFields: false
   })),
 
-  on(lookupsActions.loadTopics, (state) => ({
+  on(lookupsActions.loadTopics, state => ({
     ...state,
-    isLoadingTopics: true,
+    isLoadingTopics: true
   })),
 
   on(lookupsActions.loadTopicsSuccess, (state, { topics }) => ({
     ...state,
     topics,
-    isLoadingTopics: false,
+    isLoadingTopics: false
   })),
 
   on(lookupsActions.loadTopicsFailure, (state, { error }) => ({
     ...state,
     isLoadingTopics: false,
-    loadingTopicsFailure: error,
+    loadingTopicsFailure: error
   })),
 
-  on(lookupsActions.loadTopicsEnded, (state) => ({
+  on(lookupsActions.loadTopicsEnded, state => ({
     ...state,
-    isLoadingTopics: false,
+    isLoadingTopics: false
   })),
 
-  on(lookupsActions.loadFAQs, (state) => ({
+  on(lookupsActions.loadFAQs, state => ({
     ...state,
-    isLoadingFAQs: true,
+    isLoadingFAQs: true
   })),
 
   on(lookupsActions.loadFAQsSuccess, (state, { FAQs }) => ({
     ...state,
     FAQs,
-    isLoadingFAQs: false,
+    isLoadingFAQs: false
   })),
 
   on(lookupsActions.loadFAQsFailure, (state, { error }) => ({
     ...state,
     isLoadingFAQs: false,
-    loadingFAQsFailure: error,
+    loadingFAQsFailure: error
   })),
 
-  on(lookupsActions.loadFAQsEnded, (state) => ({
+  on(lookupsActions.loadFAQsEnded, state => ({
     ...state,
-    isLoadingFAQs: false,
+    isLoadingFAQs: false
   })),
 
-  on(lookupsActions.loadTicketCategories, (state) => ({
+  on(lookupsActions.loadTicketCategories, state => ({
     ...state,
-    isLoadingTicketCategories: true,
+    isLoadingTicketCategories: true
   })),
 
   on(
@@ -473,24 +487,24 @@ export const reducer = createReducer(
     (state, { ticketCategories }) => ({
       ...state,
       ticketCategories,
-      isLoadingTicketCategories: false,
+      isLoadingTicketCategories: false
     })
   ),
 
   on(lookupsActions.loadTicketCategoriesFailure, (state, { error }) => ({
     ...state,
     isLoadingTicketCategories: false,
-    loadingTicketCategoriesFailure: error,
+    loadingTicketCategoriesFailure: error
   })),
 
-  on(lookupsActions.loadTicketCategoriesEnded, (state) => ({
+  on(lookupsActions.loadTicketCategoriesEnded, state => ({
     ...state,
-    isLoadingTicketCategories: false,
+    isLoadingTicketCategories: false
   })),
 
-  on(lookupsActions.loadTicketPriorities, (state) => ({
+  on(lookupsActions.loadTicketPriorities, state => ({
     ...state,
-    isLoadingTicketPriorities: true,
+    isLoadingTicketPriorities: true
   })),
 
   on(
@@ -498,24 +512,24 @@ export const reducer = createReducer(
     (state, { ticketPriorities }) => ({
       ...state,
       ticketPriorities,
-      isLoadingTicketPriorities: false,
+      isLoadingTicketPriorities: false
     })
   ),
 
   on(lookupsActions.loadTicketPrioritiesFailure, (state, { error }) => ({
     ...state,
     isLoadingTicketPriorities: false,
-    loadingTicketPrioritiesFailure: error,
+    loadingTicketPrioritiesFailure: error
   })),
 
-  on(lookupsActions.loadTicketPrioritiesEnded, (state) => ({
+  on(lookupsActions.loadTicketPrioritiesEnded, state => ({
     ...state,
-    isLoadingTicketPriorities: false,
+    isLoadingTicketPriorities: false
   })),
 
-  on(lookupsActions.addEditProgram, (state) => ({
+  on(lookupsActions.addEditProgram, state => ({
     ...state,
-    isAddingEditingProgram: true,
+    isAddingEditingProgram: true
   })),
 
   on(lookupsActions.addEditProgramSuccess, (state, { program, isEdit }) => ({
@@ -523,43 +537,43 @@ export const reducer = createReducer(
     programs:
       state.programs && state.programs.length
         ? isEdit
-          ? state.programs.map((prog) =>
+          ? state.programs.map(prog =>
               prog.id === program.id ? { ...program } : { ...prog }
             )
           : [...state.programs, program]
         : [program],
-    isAddingEditingProgram: false,
+    isAddingEditingProgram: false
   })),
 
   on(lookupsActions.addEditProgramFailure, (state, { error }) => ({
     ...state,
     isAddingEditingProgram: false,
-    addingEditingProgramFailure: error,
+    addingEditingProgramFailure: error
   })),
 
-  on(lookupsActions.deleteProgram, (state) => ({
+  on(lookupsActions.deleteProgram, state => ({
     ...state,
-    isDeletingProgram: true,
+    isDeletingProgram: true
   })),
 
   on(lookupsActions.deleteProgramSuccess, (state, { id }) => ({
     ...state,
     programs:
       state.programs && state.programs.length
-        ? state.programs.filter((prog) => prog.id !== id)
+        ? state.programs.filter(prog => prog.id !== id)
         : [],
-    isDeletingProgram: false,
+    isDeletingProgram: false
   })),
 
   on(lookupsActions.deleteProgramFailure, (state, { error }) => ({
     ...state,
     isDeletingProgram: false,
-    deletingProgramFailure: error,
+    deletingProgramFailure: error
   })),
 
-  on(lookupsActions.addEditField, (state) => ({
+  on(lookupsActions.addEditField, state => ({
     ...state,
-    isAddingEditingField: true,
+    isAddingEditingField: true
   })),
 
   on(lookupsActions.addEditFieldSuccess, (state, { field, isEdit }) => ({
@@ -567,43 +581,43 @@ export const reducer = createReducer(
     fields:
       state.fields && state.fields.length
         ? isEdit
-          ? state.fields.map((fld) =>
+          ? state.fields.map(fld =>
               fld.id === field.id ? { ...field } : { ...fld }
             )
           : [...state.fields, field]
         : [field],
-    isAddingEditingField: false,
+    isAddingEditingField: false
   })),
 
   on(lookupsActions.addEditFieldFailure, (state, { error }) => ({
     ...state,
     isAddingEditingField: false,
-    addingEditingFieldFailure: error,
+    addingEditingFieldFailure: error
   })),
 
-  on(lookupsActions.deleteField, (state) => ({
+  on(lookupsActions.deleteField, state => ({
     ...state,
-    isDeletingField: true,
+    isDeletingField: true
   })),
 
   on(lookupsActions.deleteFieldSuccess, (state, { id }) => ({
     ...state,
     fields:
       state.fields && state.fields.length
-        ? state.fields.filter((fld) => fld.id !== id)
+        ? state.fields.filter(fld => fld.id !== id)
         : [],
-    isDeletingField: false,
+    isDeletingField: false
   })),
 
   on(lookupsActions.deleteFieldFailure, (state, { error }) => ({
     ...state,
     isDeletingField: false,
-    deletingFieldFailure: error,
+    deletingFieldFailure: error
   })),
 
-  on(lookupsActions.addEditSubject, (state) => ({
+  on(lookupsActions.addEditSubject, state => ({
     ...state,
-    isAddingEditingSubject: true,
+    isAddingEditingSubject: true
   })),
 
   on(lookupsActions.addEditSubjectSuccess, (state, { subject, isEdit }) => ({
@@ -611,43 +625,43 @@ export const reducer = createReducer(
     subjects:
       state.subjects && state.subjects.length
         ? isEdit
-          ? state.subjects.map((fld) =>
+          ? state.subjects.map(fld =>
               fld.id === subject.id ? { ...subject } : { ...fld }
             )
           : [...state.subjects, subject]
         : [subject],
-    isAddingEditingSubject: false,
+    isAddingEditingSubject: false
   })),
 
   on(lookupsActions.addEditSubjectFailure, (state, { error }) => ({
     ...state,
     isAddingEditingSubject: false,
-    addingEditingSubjectFailure: error,
+    addingEditingSubjectFailure: error
   })),
 
-  on(lookupsActions.deleteSubject, (state) => ({
+  on(lookupsActions.deleteSubject, state => ({
     ...state,
-    isDeletingSubject: true,
+    isDeletingSubject: true
   })),
 
   on(lookupsActions.deleteSubjectSuccess, (state, { id }) => ({
     ...state,
     subjects:
       state.subjects && state.subjects.length
-        ? state.subjects.filter((fld) => fld.id !== id)
+        ? state.subjects.filter(fld => fld.id !== id)
         : [],
-    isDeletingSubject: false,
+    isDeletingSubject: false
   })),
 
   on(lookupsActions.deleteSubjectFailure, (state, { error }) => ({
     ...state,
     isDeletingSubject: false,
-    deletingSubjectFailure: error,
+    deletingSubjectFailure: error
   })),
 
-  on(lookupsActions.addEditProgramCountries, (state) => ({
+  on(lookupsActions.addEditProgramCountries, state => ({
     ...state,
-    isAddingEditingProgramCountries: true,
+    isAddingEditingProgramCountries: true
   })),
 
   on(
@@ -657,49 +671,70 @@ export const reducer = createReducer(
       programCountries:
         state.programCountries && state.programCountries.length
           ? isEdit
-            ? state.programCountries.map((prog) =>
+            ? state.programCountries.map(prog =>
                 prog.id === country.id ? { ...country } : { ...prog }
               )
             : [...state.programCountries, country]
           : [country],
-      isAddingEditingProgramCountries: false,
+      isAddingEditingProgramCountries: false
     })
   ),
 
   on(lookupsActions.addEditProgramCountriesFailure, (state, { error }) => ({
     ...state,
     isAddingEditingProgramCountries: false,
-    addingEditingProgramCountriesFailure: error,
+    addingEditingProgramCountriesFailure: error
   })),
 
-  on(lookupsActions.deleteProgramCountries, (state) => ({
+  on(lookupsActions.deleteProgramCountries, state => ({
     ...state,
-    isDeletingProgramCountries: true,
+    isDeletingProgramCountries: true
   })),
 
   on(lookupsActions.deleteProgramCountriesSuccess, (state, { id }) => ({
     ...state,
     programCountries:
       state.programCountries && state.programCountries.length
-        ? state.programCountries.filter((prog) => prog.id !== id)
+        ? state.programCountries.filter(prog => prog.id !== id)
         : [],
-    isDeletingProgramCountries: false,
+    isDeletingProgramCountries: false
   })),
 
   on(lookupsActions.deleteProgramCountriesFailure, (state, { error }) => ({
     ...state,
     isDeletingProgramCountries: false,
-    deletingProgramCountriesFailure: error,
+    deletingProgramCountriesFailure: error
   })),
 
-  on(lookupsActions.resetLookUpsPagination, (state) => ({
+  on(lookupsActions.resetLookUpsPagination, state => ({
     ...state,
-    pagination: { total: 0 },
+    pagination: { total: 0 }
+  })),
+
+  on(languageActions.changeLanguage, state => ({
+    ...state,
+    programs:
+      state.programs && state.programs.length
+        ? state.programs.map(program => ({
+            ...program,
+            name:
+              localStorage.getItem('DEFAULT_LANGUAGE') === 'ar'
+                ? program?.nameAr
+                : program?.nameEn,
+            title:
+              localStorage.getItem('DEFAULT_LANGUAGE') === 'ar'
+                ? program?.titleAr
+                : program?.titleEn,
+            description:
+              localStorage.getItem('DEFAULT_LANGUAGE') === 'ar'
+                ? program?.descriptionAr
+                : program?.descriptionEn
+          }))
+        : []
   }))
 );
 
-export const selectUserTypes = (state: State): IRole[] =>
-  state.userTypes;
+export const selectUserTypes = (state: State): IRole[] => state.userTypes;
 
 export const selectIsLoadingUserTypes = (state: State): boolean | undefined =>
   state.isLoadingUserTypes;
@@ -818,13 +853,13 @@ export const selectFilteredFAQs = (
 
 const getFilteredFAQs = (faqs: IFAQ[], props: any) => {
   if (props?.title) {
-    faqs = faqs?.filter((faq) =>
+    faqs = faqs?.filter(faq =>
       faq?.title.toLowerCase().includes(props.title.toLowerCase())
     );
   }
 
   if (props?.topic) {
-    faqs = faqs.filter((faq) => faq.topicId === +props.topic);
+    faqs = faqs.filter(faq => faq.topicId === +props.topic);
   }
 
   return faqs;
@@ -845,13 +880,13 @@ export const selectFilteredPrograms = (
 
 const getFilteredPrograms = (programs: IProgram[], props: any) => {
   if (props?.title) {
-    programs = programs?.filter((program) =>
+    programs = programs?.filter(program =>
       program?.name.toLowerCase().includes(props.title.toLowerCase())
     );
   }
 
   if (props?.status) {
-    programs = programs.filter((program) => program.status === +props.status);
+    programs = programs.filter(program => program.status === +props.status);
   }
 
   return programs;

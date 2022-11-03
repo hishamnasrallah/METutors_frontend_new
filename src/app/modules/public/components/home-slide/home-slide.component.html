@@ -11,7 +11,7 @@
             <button mat-button (click)="scrollToAnchor()" *ngIf="token" class="f-size-17-md-sm">
               {{ 'EXPLORE_OUR_SERVICES' | translate }}
             </button>
-            <div>
+            <div *ngIf="!token || (token && (+(user?.roleId)! === userRole.student) && (isDemo?.toString() === freeDemo.canBook?.toString()))">
               <a routerLink="/requests/request-free-tutor" class="request-free">
                 <svg-icon name="curved-arrow" class="svg-icon d-none d-lg-block" [applyClass]="true"></svg-icon>
                 <span class="f-size-17-md-sm">{{ 'BOOK_FREE_TRIAL_CLASS' | translate }}</span>
@@ -34,7 +34,7 @@
             <button mat-button (click)="scrollToAnchor()" *ngIf="token" class="f-size-17-md-sm">
               {{ 'EXPLORE_OUR_SERVICES' | translate }}
             </button>
-            <div>
+            <div *ngIf="!token || (token && (+(user?.roleId)! === userRole.student) && (isDemo?.toString() === freeDemo.canBook?.toString()))">
               <a routerLink="/requests/request-free-tutor" class="request-free">
                 <svg-icon name="curved-arrow" class="svg-icon d-none d-lg-block" [applyClass]="true"></svg-icon>
                 <span class="f-size-17-md-sm">{{ 'BOOK_FREE_TRIAL_CLASS' | translate }}</span>
@@ -57,7 +57,7 @@
             <button mat-button (click)="scrollToAnchor()" *ngIf="token" class="f-size-17-md-sm">
               {{ 'EXPLORE_OUR_SERVICES' | translate }}
             </button>
-            <div>
+            <div *ngIf="!token || (token && (+(user?.roleId)! === userRole.student) && (isDemo?.toString() === freeDemo.canBook?.toString()))">
               <a routerLink="/requests/request-free-tutor" class="request-free">
                 <svg-icon name="curved-arrow" class="svg-icon d-none d-lg-block" [applyClass]="true"></svg-icon>
                 <span class="f-size-17-md-sm">{{ 'BOOK_FREE_TRIAL_CLASS' | translate }}</span>
@@ -80,7 +80,7 @@
             <button mat-button (click)="scrollToAnchor()" *ngIf="token" class="f-size-17-md-sm">
               {{ 'EXPLORE_OUR_SERVICES' | translate }}
             </button>
-            <div>
+            <div *ngIf="!token || (token && (+(user?.roleId)! === userRole.student) && (isDemo?.toString() === freeDemo.canBook?.toString()))">
               <a routerLink="/requests/request-free-tutor" class="request-free">
                 <svg-icon name="curved-arrow" class="svg-icon d-none d-lg-block" [applyClass]="true"></svg-icon>
                 <span class="f-size-17-md-sm">{{ 'BOOK_FREE_TRIAL_CLASS' | translate }}</span>
@@ -103,7 +103,7 @@
             <button mat-button (click)="scrollToAnchor()" *ngIf="token" class="f-size-17-md-sm">
               {{ 'EXPLORE_OUR_SERVICES' | translate }}
             </button>
-            <div>
+            <div *ngIf="!token || (token && (+(user?.roleId)! === userRole.student) && (isDemo?.toString() === freeDemo.canBook?.toString()))">
               <a routerLink="/requests/request-free-tutor" class="request-free">
                 <svg-icon name="curved-arrow" class="svg-icon d-none d-lg-block" [applyClass]="true"></svg-icon>
                 <span class="f-size-17-md-sm">{{ 'BOOK_FREE_TRIAL_CLASS' | translate }}</span>
@@ -126,7 +126,7 @@
             <button mat-button (click)="scrollToAnchor()" *ngIf="token" class="f-size-17-md-sm">
               {{ 'EXPLORE_OUR_SERVICES' | translate }}
             </button>
-            <div>
+            <div *ngIf="!token || (token && (+(user?.roleId)! === userRole.student) && (isDemo?.toString() === freeDemo.canBook?.toString()))">
               <a routerLink="/requests/request-free-tutor" class="request-free">
                 <svg-icon name="curved-arrow" class="svg-icon d-none d-lg-block" [applyClass]="true"></svg-icon>
                 <span class="f-size-17-md-sm">{{ 'BOOK_FREE_TRIAL_CLASS' | translate }}</span>

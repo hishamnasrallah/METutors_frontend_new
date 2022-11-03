@@ -95,11 +95,17 @@ export class LookupsService {
           return response.programs.map((item) => ({
             id: item.id,
             name: item.name,
+            nameEn: item.name,
+            nameAr: item.name_ar,
             title: item.title,
+            titleEn: item.title,
+            titleAr: item.title_ar,
             status: item.status,
             updatedAt: item.updated_at,
             image: environment.programImage + item.image,
             description: item.description,
+            descriptionAr: item.description_ar,
+            descriptionEn: item.description,
           }));
         })
       )

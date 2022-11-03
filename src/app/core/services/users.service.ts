@@ -17,13 +17,17 @@ export class UsersService {
 
   getRoles(): Observable<any> {
     return this.http.get<{ roles: IRole[] }>(BACKEND_URL + `roles`).pipe(
-      map((response) => {
-        return response.roles.map((item) => ({
+      map(response => {
+        return response.roles.map(item => ({
           id: item?.id,
           name: item?.name,
-          caption: item?.caption,
+          caption: item?.caption
         }));
       })
     );
+  }
+
+  changeLanguage(language: string): Observable<any> {
+    return this.http.post(`${BACKEND_URL}user/language`, { language });
   }
 }

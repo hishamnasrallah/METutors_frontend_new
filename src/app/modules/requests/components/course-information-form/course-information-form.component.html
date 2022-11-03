@@ -16,7 +16,7 @@
               <mat-select formControlName="courseProgram" placeholder="{{ 'CHOOSE_PROGRAM' | translate }}"
                           (selectionChange)="onChangeCourseProgram(); resetValues()">
                 <mat-option [value]="program?.id" *ngFor="let program of programs">
-                  {{ program?.name }}
+                  <bdi>{{ program?.name }}</bdi>
                 </mat-option>
               </mat-select>
             </mat-form-field>

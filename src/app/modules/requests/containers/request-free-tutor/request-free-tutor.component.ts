@@ -1,8 +1,8 @@
+import moment from 'moment';
 import { Store } from '@ngrx/store';
 import { Observable, tap } from 'rxjs';
 import { isNil, omitBy } from 'lodash';
 import { DatePipe } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
 import { MatStepper } from '@angular/material/stepper';
 
 import {
@@ -83,39 +83,15 @@ export class RequestFreeTutorComponent implements OnInit {
     private _fb: FormBuilder,
     private _store: Store<any>,
     private _datePipe: DatePipe,
-    private _route: ActivatedRoute,
     private _fv: FormValidationUtilsService
   ) {
     this.courseInformationForm = this._fb.group({
-      courseProgram: [
-        this._route.snapshot.queryParams['program']
-          ? +this._route.snapshot.queryParams['program']
-          : null,
-        Validators.required
-      ],
-      courseCountry: [
-        this._route.snapshot.queryParams['country']
-          ? +this._route.snapshot.queryParams['country']
-          : null
-      ],
-      courseGrade: [
-        this._route.snapshot.queryParams['grade']
-          ? +this._route.snapshot.queryParams['grade']
-          : null
-      ],
-      courseField: [
-        this._route.snapshot.queryParams['field']
-          ? +this._route.snapshot.queryParams['field']
-          : null,
-        Validators.required
-      ],
+      courseProgram: [null, Validators.required],
+      courseCountry: [null],
+      courseGrade: [null],
+      courseField: [null, Validators.required],
       language: [null, Validators.required],
-      subject: [
-        this._route.snapshot.queryParams['subject']
-          ? +this._route.snapshot.queryParams['subject']
-          : null,
-        Validators.required
-      ],
+      subject: [null, Validators.required],
       topics: this._fb.array([]),
       information: [null, Validators.required],
       file: [null],
@@ -127,9 +103,7 @@ export class RequestFreeTutorComponent implements OnInit {
     this.classroomDetailsForm = this._fb.group(
       {
         startDate: [null, Validators.required],
-        endDate: [null, Validators.required],
         startTime: [null, Validators.required],
-        days: [null, Validators.required],
         type: [COURSE_TUITION_TYPES_CONST.one, Validators.required],
         seatAttendees: [
           1,
@@ -170,17 +144,10 @@ export class RequestFreeTutorComponent implements OnInit {
 
   ngOnInit(): void {
     this._store.dispatch(fromCore.enterRequestTutor());
+    this._store.dispatch(fromCore.enterRequestFreeTutor());
     this._prepareLanguages();
     this._prepareCourseProgram();
     this._prepareCourseCountries();
-
-    if (this._route.snapshot.queryParams['program']) {
-      this.fetchCourseField(this._route.snapshot.queryParams['program']);
-    }
-
-    if (this._route.snapshot.queryParams['field']) {
-      this.fetchCourseFieldSubject(this._route.snapshot.queryParams['field']);
-    }
 
     this.availableTutors$ = this._store
       .select(fromCore.selectGeneratingAvailableTutors)
@@ -323,17 +290,16 @@ export class RequestFreeTutorComponent implements OnInit {
       const value: any = this._generateClassroomForm(
         this.classroomDetailsForm.value
       );
-      const listDates = calculateListDays(value.startDate, value.startDate);
+      const listDates = calculateListDays(value.startDate, value.endDate);
 
       this.classrooms = [];
       listDates.forEach((date, index) => {
         if (value.days?.includes(SORTED_DAYS_WEEK[new Date(date).getDay()])) {
-          console.log(value.startTime)
           this.classrooms.push({
             number: index + 1,
             date,
             startTime: value.startTime,
-            endTime: value.startTime,
+            endTime: value.endTime,
             duration: value.duration
           });
         }
@@ -395,6 +361,7 @@ export class RequestFreeTutorComponent implements OnInit {
 
   onSubmit(): void {
     const data = {
+      isFree: true,
       ...this.courseInformationForm.value,
       ...this._generateClassroomForm(this.classroomDetailsForm.value),
       ...this.selectTutorForm.value,
@@ -546,7 +513,7 @@ export class RequestFreeTutorComponent implements OnInit {
         this.reviewInfo.startTime = this.classroomDetailsForm.value?.startTime;
 
       if (classroomValue.endTime)
-        this.reviewInfo.endTime = this.classroomDetailsForm.value?.endTime;
+        this.reviewInfo.endTime = classroomValue?.endTime;
 
       if (classroomValue.days) this.reviewInfo.days = classroomValue.days;
 
@@ -612,9 +579,17 @@ export class RequestFreeTutorComponent implements OnInit {
   }
 
   private _generateClassroomForm(form: any) {
+    const startDateTime = new Date(
+      Date.parse(
+        this._datePipe.transform(new Date(form?.startDate), 'yyyy-MM-dd') +
+          ' ' +
+          form?.startTime
+      )
+    );
+
     return {
       classes: form?.tempTotalClasses,
-      days: form.days,
+      days: [this._datePipe.transform(new Date(form?.startDate), 'EEEE')],
       duration: form?.tempDuration,
       startDate: this._datePipe.transform(
         new Date(form?.startDate),
@@ -625,7 +600,12 @@ export class RequestFreeTutorComponent implements OnInit {
         'yyyy-MM-dd'
       ),
       startTime: form?.startTime,
-      endTime: form?.endTime,
+      endTime: this._datePipe.transform(
+        moment(startDateTime)
+          .add(30, 'm')
+          .toDate(),
+        'h:mm a'
+      ),
       hours: form?.tempHours,
       type: form?.type,
       seatAttendees: form?.seatAttendees

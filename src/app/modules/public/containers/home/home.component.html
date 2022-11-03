@@ -1,4 +1,7 @@
-<metutors-home-slide [token]="(token$ | async)!"></metutors-home-slide>
+<metutors-home-slide [token]="(token$ | async)!"
+                     [isDemo]="(isDemo$ | async)!"
+                     [user]="(user$ | async)!">
+</metutors-home-slide>
 
 <metutors-home-services-features></metutors-home-services-features>
 

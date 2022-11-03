@@ -36,6 +36,7 @@ export class IClassroom {
   remainingClasses?: number;
   isComplete?: boolean;
   enrolledStudents?: any;
+  isFree?: boolean;
 
   constructor(createDefault = false, classroom: any = null) {
     if (createDefault) {

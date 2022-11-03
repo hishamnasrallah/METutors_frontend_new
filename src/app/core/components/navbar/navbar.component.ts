@@ -9,7 +9,7 @@ import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'metutors-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss'],
+  styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
   user$: Observable<IUser | null>;
@@ -36,9 +36,9 @@ export class NavbarComponent implements OnInit {
       withLatestFrom(this._store.select(fromCore.selectCurrenciesNames)),
       map(([rates, currencies]) =>
         rates
-          ? Object.keys(rates).map((key) => ({
+          ? Object.keys(rates).map(key => ({
               id: key,
-              name: `${currencies[key]} (${key})`,
+              name: `${currencies[key]} (${key})`
             }))
           : []
       )
@@ -54,7 +54,7 @@ export class NavbarComponent implements OnInit {
         withLatestFrom(this._store.select(fromCore.selectCurrenciesNames)),
         map(([currencySymbol, currencies]) => ({
           id: currencySymbol,
-          name: `${currencies[currencySymbol]} (${currencySymbol})`,
+          name: `${currencies[currencySymbol]} (${currencySymbol})`
         }))
       );
 
@@ -70,6 +70,7 @@ export class NavbarComponent implements OnInit {
   onLanguageSelect(language: string): void {
     localStorage.setItem('DEFAULT_LANGUAGE', language);
     this._translate.use(language);
+    this._store.dispatch(fromCore.changeLanguage({ language }));
   }
 
   logout(): void {

@@ -125,7 +125,7 @@
                 <h2>{{ 'SPECIALIZATION' | translate }}:</h2>
                 <div class="programs">
                   <button mat-button class="main-button-transparent me-2" *ngFor="let program of teacher?.programs">
-                    {{ program?.code }}
+                    <bdi>{{ program?.code }}</bdi>
                   </button>
                 </div>
                 <span *ngFor="let subject of teacher?.subjects">{{ subject?.name }}</span>

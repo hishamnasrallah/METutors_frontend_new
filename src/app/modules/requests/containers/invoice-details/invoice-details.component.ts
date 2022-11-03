@@ -11,7 +11,7 @@ import { IClassroom, IInvoiceDetails, IUser } from '@metutor/core/models';
 @Component({
   selector: 'metutors-invoice-details',
   templateUrl: './invoice-details.component.html',
-  styleUrls: ['./invoice-details.component.scss'],
+  styleUrls: ['./invoice-details.component.scss']
 })
 export class InvoiceDetailsComponent implements OnInit {
   paymentInfo$: Observable<any>;
@@ -75,7 +75,7 @@ export class InvoiceDetailsComponent implements OnInit {
 
       const highlighted_topics = classroom.topics.map((topic: any) => ({
         name: topic.name,
-        knowledge_scale: CLASSROOM_TOPICS_SCALE_NUM[topic.scale],
+        knowledge_scale: CLASSROOM_TOPICS_SCALE_NUM[topic.scale]
       }));
 
       const classes = classroom.classrooms.map((classroom: any) => ({
@@ -87,7 +87,7 @@ export class InvoiceDetailsComponent implements OnInit {
         )?.toISOString(),
         end_time: new Date(
           Date.parse(classroom?.date + ' ' + classroom?.end_time)
-        )?.toISOString(),
+        )?.toISOString()
       }));
 
       const data = {
@@ -114,15 +114,26 @@ export class InvoiceDetailsComponent implements OnInit {
         field_of_study: classroom.courseField,
         end_date: new Date(classroom.endDate)?.toISOString(),
         start_date: new Date(classroom.startDate)?.toISOString(),
-        redirect_url: this.baseURL + '/requests/payment-processing',
+        redirect_url: this.baseURL + '/requests/payment-processing'
       };
 
-      this._store.dispatch(fromCore.createCourse({ data }));
+      if (classroom?.isFree) {
+        this._store.dispatch(
+          fromCore.createFreeCourse({
+            data: {
+              ...data,
+              total_price: 0
+            }
+          })
+        );
+      } else {
+        this._store.dispatch(fromCore.createCourse({ data }));
+      }
     } else {
       this._router.navigate(['/signin'], {
         queryParams: {
-          returnUrl: this._router.url,
-        },
+          returnUrl: this._router.url
+        }
       });
     }
   }
@@ -138,15 +149,15 @@ export class InvoiceDetailsComponent implements OnInit {
             totalHours: invoiceDetails.totalHours,
             totalAmount: invoiceDetails.totalAmount,
             invoiceNumber: '#IN37738',
-            date: new Date(),
-          },
+            date: new Date()
+          }
         })
       );
     } else {
       this._router.navigate(['/signin'], {
         queryParams: {
-          returnUrl: this._router.url,
-        },
+          returnUrl: this._router.url
+        }
       });
     }
   }

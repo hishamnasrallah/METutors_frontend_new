@@ -10,14 +10,20 @@ export interface ILookups {
 
 export interface IProgram {
   id: number;
-  image: string;
   name: string;
-  title: string;
   code: string;
+  title: string;
+  image: string;
+  nameAr: string;
+  nameEn: string;
   status: number;
+  titleAr: string;
+  titleEn: string;
   createdAt: string;
   updatedAt: string;
   description: string;
+  descriptionAr: string;
+  descriptionEn: string;
 }
 
 export interface ICountry {

@@ -15,5 +15,6 @@ export * from './ticket-category';
 export * from './social-provider';
 export * from './ticket-priority';
 export * from './interview-status';
+export * from './free-classroom-demo';
 export * from './course-request-status';
 export * from './academic-tutoring-textbook';

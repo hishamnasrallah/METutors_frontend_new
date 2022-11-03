@@ -57,33 +57,7 @@
           </metutors-free-classroom-info-form>
         </form>
       </mat-step>
-  
-      <!-- <mat-step [stepControl]="classroomScheduleForm">
-        <form [formGroup]="classroomScheduleForm">
-          <ng-template matStepLabel>
-            <div class="title-info" [class.done]="classroomScheduleForm.valid">
-              <h3>
-                <ng-container *ngIf="classroomScheduleForm.invalid">03</ng-container>
-                <ng-container *ngIf="classroomScheduleForm.valid">
-                  <mat-icon>check</mat-icon>
-                </ng-container>
-              </h3>
-              <h4 class="text-uppercase f-size-15-md-sm">{{ 'STEP_THREE' | translate }}</h4>
-              <h2 class="f-size-15-md-sm">{{ 'CLASS_SCHEDULE' | translate }}</h2>
-            </div>
-          </ng-template>
-  
-          <metutors-list-classrooms-form [form]="classroomScheduleForm"
-                                         [classrooms]="classrooms"
-                                         (onBack)="backStep()"
-                                         (onNext)="nextStep()"
-                                         [selectedCourse]="selectedCourse"
-                                         (updatedClassrooms)="updatedClassrooms($event)"
-                                         (loadTutors)="loadTutors($event)">
-          </metutors-list-classrooms-form>
-        </form>
-      </mat-step> -->
-  
+
       <mat-step [stepControl]="selectTutorForm">
         <form [formGroup]="selectTutorForm">
           <ng-template matStepLabel>

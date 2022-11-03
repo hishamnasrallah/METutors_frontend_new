@@ -203,6 +203,11 @@ export const selectProfileStep = createSelector(
   fromUserReducer.selectProfileStep
 );
 
+export const selectStudentIsDemo = createSelector(
+  selectUserState,
+  fromUserReducer.selectStudentIsDemo
+);
+
 export const selectUser = createSelector(
   selectUserState,
   fromUserReducer.selectUser

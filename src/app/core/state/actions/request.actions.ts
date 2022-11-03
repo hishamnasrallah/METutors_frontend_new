@@ -82,6 +82,21 @@ export const createCourseFailure = createAction(
   props<{ error: any }>()
 );
 
+export const createFreeCourse = createAction(
+  '[Request] Create Free Course',
+  props<{ data: any }>()
+);
+
+export const createFreeCourseSuccess = createAction(
+  '[Request] Create Free Course Success',
+  props<{ paymentInfo: any }>()
+);
+
+export const createFreeCourseFailure = createAction(
+  '[Request] Create Free Course Failure',
+  props<{ error: any }>()
+);
+
 export const loadRequestedCourses = createAction(
   '[Request] Load Requested Courses',
   props<{ params: { page: number; search: string } }>()

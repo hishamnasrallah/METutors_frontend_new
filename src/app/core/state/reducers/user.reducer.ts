@@ -1,9 +1,10 @@
-import { UserRole } from '@metutor/config';
 import { IUser } from '@metutor/core/models';
 import { createReducer, on } from '@ngrx/store';
 import * as userActions from '../actions/user.actions';
 import * as tutorActions from '../actions/tutor.actions';
 import * as uploadActions from '../actions/upload.actions';
+import * as requestActions from '../actions/request.actions';
+import { FreeClassroomDemo, UserRole } from '@metutor/config';
 
 export interface State {
   // Sign up
@@ -26,6 +27,7 @@ export interface State {
   // Complete profile
   user: IUser | null;
   profileStep: number;
+  isDemo: number;
 
   // Change Password
   isChangePassword: boolean;
@@ -34,6 +36,7 @@ export interface State {
 }
 
 export const initialState: State = {
+  isDemo: 0,
   user: null,
   profileStep: 1,
   registerStep: 1,
@@ -47,21 +50,25 @@ export const initialState: State = {
   isResendOTPAdmin: false,
   isResendEmailConfirm: false,
   changePasswordSuccess: false,
-  registerUserType: UserRole.student,
+  registerUserType: UserRole.student
 };
 
 export const reducer = createReducer(
   initialState,
 
-  on(userActions.identifyUserSuccess, (state, { profileStep, user }) => ({
-    ...state,
-    profileStep,
-    user,
-  })),
+  on(
+    userActions.identifyUserSuccess,
+    (state, { profileStep, user, isDemo }) => ({
+      ...state,
+      profileStep,
+      isDemo,
+      user
+    })
+  ),
 
-  on(userActions.register, (state) => ({
+  on(userActions.register, state => ({
     ...state,
-    isSignUp: true,
+    isSignUp: true
   })),
 
   on(userActions.registerSuccess, (state, { email, userType }) => ({
@@ -69,44 +76,48 @@ export const reducer = createReducer(
     isSignUp: false,
     registerStep: 2,
     registerEmail: email,
-    registerUserType: userType,
+    registerUserType: userType
   })),
 
-  on(userActions.registerFailure, (state) => ({
+  on(userActions.registerFailure, state => ({
     ...state,
-    isSignUp: false,
+    isSignUp: false
   })),
 
   on(userActions.registerStep, (state, { step, email, userType }) => ({
     ...state,
     registerStep: step,
     registerEmail: email,
-    registerUserType: userType,
+    registerUserType: userType
   })),
 
-  on(userActions.signIn, (state) => ({
+  on(userActions.signIn, state => ({
     ...state,
     isSignIn: true,
-    signInFailure: '',
+    signInFailure: ''
   })),
 
-  on(userActions.socialSignIn, (state) => ({
+  on(userActions.socialSignIn, state => ({
     ...state,
     isSocialSignIn: true,
-    signInFailure: '',
+    signInFailure: ''
   })),
 
-  on(userActions.signInSuccess, (state, { token, profileStep, user }) => ({
-    ...state,
-    isSignIn: false,
-    isSocialSignIn: false,
-    token,
-    profileStep,
-    user,
-    tempToken: undefined,
-    isSubmitOTPAdmin: false,
-    signInFailure: '',
-  })),
+  on(
+    userActions.signInSuccess,
+    (state, { token, profileStep, user, isDemo }) => ({
+      ...state,
+      isSignIn: false,
+      isSocialSignIn: false,
+      token,
+      profileStep,
+      user,
+      isDemo,
+      tempToken: undefined,
+      isSubmitOTPAdmin: false,
+      signInFailure: ''
+    })
+  ),
 
   on(userActions.signInAdminSuccess, (state, { tempToken, user }) => ({
     ...state,
@@ -114,7 +125,7 @@ export const reducer = createReducer(
     isSocialSignIn: false,
     tempToken,
     user,
-    signInFailure: '',
+    signInFailure: ''
   })),
 
   on(userActions.signInFailure, (state, { error }) => ({
@@ -122,28 +133,28 @@ export const reducer = createReducer(
     isSignIn: false,
     isSocialSignIn: false,
     signInFailure: error,
-    isSubmitOTPAdmin: false,
+    isSubmitOTPAdmin: false
   })),
 
-  on(userActions.submitOTPAdmin, (state) => ({
+  on(userActions.submitOTPAdmin, state => ({
     ...state,
     isSubmitOTPAdmin: true,
-    signInFailure: '',
+    signInFailure: ''
   })),
 
-  on(userActions.resendOTPAdmin, (state) => ({
+  on(userActions.resendOTPAdmin, state => ({
     ...state,
     isResendOTPAdmin: true,
-    signInFailure: '',
+    signInFailure: ''
   })),
 
   on(
     userActions.resendOTPAdminSuccess,
     userActions.resendOTPAdminFailure,
-    (state) => ({
+    state => ({
       ...state,
       isResendOTPAdmin: false,
-      signInFailure: '',
+      signInFailure: ''
     })
   ),
 
@@ -153,68 +164,73 @@ export const reducer = createReducer(
       ...state,
       profileStep: nextStep,
       user,
-      token,
+      token
     })
   ),
 
   on(tutorActions.changeTutorProfileStep, (state, { step }) => ({
     ...state,
-    profileStep: step,
+    profileStep: step
   })),
 
   on(uploadActions.changeAvatarSuccess, (state, { user, token }) => ({
     ...state,
     user,
-    token,
+    token
   })),
 
-  on(userActions.changePassword, (state) => ({
+  on(userActions.changePassword, state => ({
     ...state,
     isChangePassword: true,
-    changePasswordSuccess: false,
+    changePasswordSuccess: false
   })),
 
-  on(userActions.changePasswordSuccess, (state) => ({
+  on(userActions.changePasswordSuccess, state => ({
     ...state,
     isChangePassword: false,
-    changePasswordSuccess: true,
+    changePasswordSuccess: true
   })),
 
   on(userActions.changePasswordFailure, (state, { error }) => ({
     ...state,
     isChangePassword: false,
     changePasswordSuccess: false,
-    changePasswordFailure: error,
+    changePasswordFailure: error
   })),
 
-  on(userActions.verifyEmail, (state) => ({
+  on(userActions.verifyEmail, state => ({
     ...state,
-    isVerifyEmail: true,
+    isVerifyEmail: true
   })),
 
-  on(userActions.verifyEmailSuccess, (state) => ({
+  on(userActions.verifyEmailSuccess, state => ({
     ...state,
-    isVerifyEmail: false,
+    isVerifyEmail: false
   })),
 
   on(userActions.verifyEmailFailure, (state, { error }) => ({
     ...state,
-    isVerifyEmail: false,
+    isVerifyEmail: false
   })),
 
-  on(userActions.resendEmailConfirm, (state) => ({
+  on(userActions.resendEmailConfirm, state => ({
     ...state,
-    isResendEmailConfirm: true,
+    isResendEmailConfirm: true
   })),
 
-  on(userActions.resendEmailConfirmSuccess, (state) => ({
+  on(userActions.resendEmailConfirmSuccess, state => ({
     ...state,
-    isResendEmailConfirm: false,
+    isResendEmailConfirm: false
   })),
 
   on(userActions.resendEmailConfirmFailure, (state, { error }) => ({
     ...state,
-    isResendEmailConfirm: false,
+    isResendEmailConfirm: false
+  })),
+
+  on(requestActions.createFreeCourseSuccess, state => ({
+    ...state,
+    isDemo: FreeClassroomDemo.cantBook
   }))
 );
 
@@ -248,6 +264,8 @@ export const selectIsResendOTPAdmin = (state: State): boolean =>
   state.isResendOTPAdmin;
 
 export const selectProfileStep = (state: State): number => state.profileStep;
+
+export const selectStudentIsDemo = (state: State): number => state.isDemo;
 
 export const selectUser = (state: State): IUser | null => state.user;
 
