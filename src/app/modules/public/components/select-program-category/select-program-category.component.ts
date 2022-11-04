@@ -99,16 +99,15 @@ export class SelectProgramCategoryComponent
           this.country = result?.country;
           this.step = id;
           this.changeProgram.emit({
-            program: id?.toString(),
-            country: this.country?.id,
-            grade: result?.grade
+            program: id,
+            country: this.country?.id
           });
         }
       });
     } else {
       this.step = id;
       this.country = undefined;
-      this.changeProgram.emit({ program: id?.toString() });
+      this.changeProgram.emit({ program: id });
     }
   }
 }

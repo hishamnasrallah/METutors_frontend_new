@@ -15,9 +15,8 @@
             </div>
             <div class="col-md-12">
               <div class="form-block position-relative rounded mt-4">
-                <input type="text" placeholder="{{ placeholderText | translate }}" class="w-100 rounded" #search
-                  (keyup)="filter.emit(search.value)">
-                <button mat-flat-button color="primary">
+                <input type="text" placeholder="{{ placeholderText | translate }}" class="w-100 rounded" #searchInput>
+                <button mat-flat-button color="primary" (click)="filter.emit(searchInput.value)">
                   <img src="assets/svg/search.svg" alt="" draggable="false" width="16" height="16" />
                   {{ btnText | translate }}
                 </button>

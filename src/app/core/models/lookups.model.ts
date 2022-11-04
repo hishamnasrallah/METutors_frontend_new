@@ -94,3 +94,10 @@ export interface ICountryFilters {
   title?: string;
   status?: string;
 }
+
+export interface IExploreTutorsFilters {
+  search?: string;
+  field?: number;
+  program?: number;
+  country_id?: number;
+}

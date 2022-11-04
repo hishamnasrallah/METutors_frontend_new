@@ -2,7 +2,8 @@
                           [description]="'EXPLORE_TUTORS_DESC'"
                           [image]="'assets/png/exhausted.png'"
                           [placeholderText]="'SEARCH_BY_TUTOR_NAME'"
-                          [btnText]="'FIND_TUTORS'">
+                          [btnText]="'FIND_TUTORS'"
+                          (filter)="title = $event; onFilterTutors()">
 </metutors-explore-heading>
 
 <div class="container explore-tutors mt-4">
@@ -16,7 +17,8 @@
       <metutors-select-program-category [countries]="(countries$ | async)!"
                                         [loadingCountries]="(loadingCountries$ | async)!"
                                         [programs]="(programs$ | async)!"
-                                        [loadingPrograms]="(loadingPrograms$ | async)!">
+                                        [loadingPrograms]="(loadingPrograms$ | async)!"
+                                        (changeProgram)="onChangeProgram($event)">
       </metutors-select-program-category>
     </div>
   </div>
@@ -43,9 +45,15 @@
         </div>
       </div>
     </div>
-    <div class="col-md-9">
-      <metutors-tutor-card *ngFor="let tutor of tutors" [tutor]="tutor">
-      </metutors-tutor-card>
+    <div class="col-md-9" *ngLet="(loadingTutors$ | async) as loadingTutors">
+      <ng-container *ngIf="!loadingTutors">
+        <metutors-tutor-card *ngFor="let tutor of (tutors$ | async)!" [tutor]="tutor">
+        </metutors-tutor-card>
+      </ng-container>
+
+      <ng-container *ngIf="loadingTutors">
+        <metutors-card-placeholder *ngFor="let _ of [1, 2, 3]"></metutors-card-placeholder>
+      </ng-container>
     </div>
   </div>
 </div>

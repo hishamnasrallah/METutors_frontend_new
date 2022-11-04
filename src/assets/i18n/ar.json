@@ -1490,9 +1490,9 @@
   "ALL_AVAILABLE_TUTORS": "المعلمون المتوفرون ",
   "ALL_PROGRAMS": "جميع البرامج",
   "SELECT_PROGRAM_CATEGORY": "حدد فئة البرنامج",
-  "BILLING_DETAILS": "Billing details",
-  "STREET_ADDRESS": "Street address",
-  "ENTER_STATE": "Please write state with a max of 50 characters",
-  "MAX_STREET_ADDRESS": "Please write address with a max of 250 characters",
-  "MAX_POST_CODE": "Please write postcode with a max of 20 characters"
+  "BILLING_DETAILS": "معلومات المحاسبة",
+  "STREET_ADDRESS": "عنوان الشارع",
+  "ENTER_STATE": "لطفاً سجل إسم الدولة ب٥٠ حرف أقصى حد",
+  "MAX_STREET_ADDRESS": "لطفاً سجل العنوان ب٢٥٠ رمز كأقصى حد",
+  "MAX_POST_CODE": "لطفاً سجل الرمز البريدي ب٢٠ رمز كأقصى حد "
 }
