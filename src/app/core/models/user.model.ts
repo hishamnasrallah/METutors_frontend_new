@@ -12,6 +12,13 @@ export class IUser {
   verified: number;
   avatar: string;
   profileCompletedStep: number;
+  billingInfo: {
+    city: string;
+    state: string;
+    street: string;
+    country: string;
+    postcode: string;
+  };
 
   constructor(createDefault = false, user: any = null) {
     if (createDefault) {
@@ -26,6 +33,11 @@ export class IUser {
       this.verified = 0;
       this.avatar = generalConstants.defaultAvatarPath;
       this.profileCompletedStep = 0;
+      this.billingInfo.city = '';
+      this.billingInfo.state = '';
+      this.billingInfo.street = '';
+      this.billingInfo.country = '';
+      this.billingInfo.postcode = '';
     }
 
     if (user) {

@@ -140,7 +140,26 @@ export class InvoiceDetailsComponent implements OnInit {
       fromCore.selectIsCalculateFinalInvoice
     );
 
-    this.invoiceDetails$ = this._store.select(fromCore.selectInvoiceDetails);
+    this.invoiceDetails$ = this._store
+      .select(fromCore.selectInvoiceDetails)
+      .pipe(
+        tap((invoice) => {
+          if (invoice?.user.billingInfo) {
+            const { city, state, street, country, postcode } =
+              invoice?.user.billingInfo;
+
+            this.billingForm.patchValue({
+              city,
+              state,
+              street,
+              postcode,
+              country: Number(country),
+            });
+
+            this.loadCities(country);
+          }
+        })
+      );
 
     this.paymentInfo$ = this._store.select(fromCore.selectRequestPaymentInfo);
 

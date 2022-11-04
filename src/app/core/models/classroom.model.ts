@@ -1,6 +1,7 @@
 import { ClassroomType, DAYS_WEEK } from 'src/app/config';
 import { ICourse } from './course.model';
 import { ITutor } from './tutor.model';
+import { IUser } from '@metutor/core/models/user.model';
 
 export class IClassroom {
   id!: number;
@@ -125,6 +126,7 @@ export function calculateListDays(days: any) {
 }
 
 export interface IInvoiceDetails {
+  user: IUser;
   noOfClasses: number;
   pricePerHour: number;
   totalHours: number;
