@@ -34,7 +34,7 @@ import {
   ExploreTutorsComponent,
   LanguagesCoursesComponent,
   TutorTermsConditionsComponent,
-  StudentTermsConditionsComponent,
+  StudentTermsConditionsComponent
 } from './containers';
 
 import {
@@ -45,7 +45,6 @@ import {
   CourseCardComponent,
   AboutSlideComponent,
   WhyWeTeachComponent,
-  ChooseCountryDialog,
   StudySlideComponent,
   FounderTeamComponent,
   AboutValuesComponent,
@@ -73,6 +72,7 @@ import {
   ContactSendMessageComponent,
   HomeFeaturedTutorsComponent,
   TrustHappyStudentsComponent,
+  ChooseCountryDialogComponent,
   LearningEnvironmentComponent,
   LovingOpportunitiesComponent,
   HomeServicesFeaturesComponent,
@@ -80,11 +80,12 @@ import {
   LanguagesTestomonialComponent,
   RequestNewCourseModalComponent,
   HomeStudyMoreReadMoreComponent,
+  SelectProgramCategoryComponent,
   BenefitsOnlineTutoringComponent,
   ViewSubjectDetailsModalComponent,
   BenefitsAcademicTutoringComponent,
   ExceptionalOpportunitiesComponent,
-  AcademicLearningEnvironmentComponent,
+  AcademicLearningEnvironmentComponent
 } from './components';
 
 @NgModule({
@@ -102,7 +103,6 @@ import {
     FaqTicketComponent,
     AboutSlideComponent,
     WhyWeTeachComponent,
-    ChooseCountryDialog,
     AllCoursesComponent,
     CourseCardComponent,
     StudySlideComponent,
@@ -138,18 +138,20 @@ import {
     TrustHappyStudentsComponent,
     LearningEnvironmentComponent,
     LovingOpportunitiesComponent,
+    ChooseCountryDialogComponent,
     LanguagesIntroducingComponent,
     LanguagesTestomonialComponent,
     HomeServicesFeaturesComponent,
     TutorTermsConditionsComponent,
     HomeStudyMoreReadMoreComponent,
+    SelectProgramCategoryComponent,
     RequestNewCourseModalComponent,
     StudentTermsConditionsComponent,
     BenefitsOnlineTutoringComponent,
     ViewSubjectDetailsModalComponent,
     ExceptionalOpportunitiesComponent,
     BenefitsAcademicTutoringComponent,
-    AcademicLearningEnvironmentComponent,
+    AcademicLearningEnvironmentComponent
   ],
   imports: [
     FormsModule,
@@ -168,8 +170,8 @@ import {
     RatingModule.forRoot(),
     NGXCarouselModule.forRoot(),
     // EffectsModule.forFeature(Object.values(publicEffects)),
-    StoreModule.forFeature(featureKeys.publicFeatureKey, fromPublic.reducers),
+    StoreModule.forFeature(featureKeys.publicFeatureKey, fromPublic.reducers)
   ],
-  providers: [ContactService],
+  providers: [ContactService]
 })
 export class PublicModule {}

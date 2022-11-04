@@ -1,8 +1,8 @@
 <ng-container *ngLet="(exploredCourses$ | async) as exploredCourses">
   <metutors-explore-heading [loading]="(isLoading$ | async)!"
                             [name]="lang === 'ar' ? exploredCourses?.program?.nameAr : exploredCourses?.program?.name"
-                            [title]="exploredCourses?.program?.title"
-                            [description]="exploredCourses?.program?.description"
+                            [title]="lang === 'ar' ? exploredCourses?.program?.titleAr : exploredCourses?.program?.title"
+                            [description]="lang === 'ar' ? exploredCourses?.program?.descriptionAr : exploredCourses?.program?.description"
                             [image]="programImage + exploredCourses?.program?.image"
                             [placeholderText]="'SEARCH_BY_COURSE_NAME'"
                             [btnText]="'FIND_COURSES'"
@@ -35,7 +35,16 @@
             </a>
           </div>
         </div>
-        <div class="row mt-3">
+        <div class="row mt-4">
+          <div class="col-12">
+            <metutors-select-program-category [countries]="(countries$ | async)!"
+                                              [loadingCountries]="(loadingCountries$ | async)!"
+                                              [programs]="(programs$ | async)!"
+                                              [loadingPrograms]="(loadingPrograms$ | async)!">
+            </metutors-select-program-category>
+          </div>
+        </div>
+        <div class="row mt-5">
           <div class="col-md-3 filters">
             <div class="d-flex align-items-center cursor-pointer title justify-content-between"
               [class.open]="openFilter" (click)="openFilter = !openFilter">

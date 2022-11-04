@@ -48,6 +48,8 @@ export class AllCoursesComponent implements OnInit {
   isLoading$: Observable<boolean>;
   exploredCourses$: Observable<any>;
   isRequestCourse$: Observable<boolean>;
+  loadingPrograms$: Observable<boolean>;
+  loadingCountries$: Observable<boolean>;
   programs$: Observable<IProgram[] | null>;
   countries$: Observable<ICountry[] | null>;
   languages$: Observable<ILanguage[] | null>;
@@ -171,11 +173,17 @@ export class AllCoursesComponent implements OnInit {
   private _preparePrograms(): void {
     this._store.dispatch(fromCore.loadPrograms());
     this.programs$ = this._store.select(fromCore.selectPrograms);
+    this.loadingPrograms$ = this._store.select(
+      fromCore.selectIsLoadingPrograms
+    );
   }
 
   private _prepareCountries(): void {
     this._store.dispatch(fromCore.loadProgramCountries());
     this.countries$ = this._store.select(fromCore.selectProgramCountries);
+    this.loadingCountries$ = this._store.select(
+      fromCore.selectIsLoadingCountries
+    );
   }
 
   private _prepareLanguages(): void {

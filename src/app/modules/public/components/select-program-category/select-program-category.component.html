@@ -1,0 +1,24 @@
+<div class="select-program-category">
+  <h3 class="mb-3 select-program">{{ 'SELECT_PROGRAM_CATEGORY' | translate }}</h3>
+  <div class="position-relative">
+    <div class="tabs d-flex d-block-sm overflow-hidden" #widgetsContent scrollX="true" (scroll)="checkScroll()">
+      <button mat-button class="w-100 align-items-center justify-content-center d-flex" [class.active]="step === 0"
+        (click)="onChangeStep(0, countries, loadingCountries)">
+        <strong>{{ 'ALL_PROGRAMS' | translate }}</strong>
+      </button>
+      <button *ngFor="let program of programs" mat-button class="w-100 align-items-center justify-content-center d-flex"
+        [class.active]="step === program?.id" (click)="onChangeStep(program.id, countries, loadingCountries)">
+        <strong>
+          <bdi>
+            {{ program?.name }}
+            <span *ngIf="country && program?.id === nationalId" [innerHTML]="country?.flag"></span>
+          </bdi>
+        </strong>
+      </button>
+    </div>
+    <mat-icon class="chevron-right rotate-180-ar" *ngIf="!rightDisabled" (click)="scrollRight()">chevron_right
+    </mat-icon>
+    <mat-icon class="chevron-left rotate-180-ar" *ngIf="!leftDisabled" (click)="scrollLeft()">chevron_left
+    </mat-icon>
+  </div>
+</div>
