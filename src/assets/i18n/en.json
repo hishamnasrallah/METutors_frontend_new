@@ -1490,11 +1490,12 @@
   "ALL_AVAILABLE_TUTORS": "All available tutors",
   "ALL_PROGRAMS": "All programs",
   "SELECT_PROGRAM_CATEGORY": "Select program category",
-  "": "",
-  "": "",
-  "": "",
-  "": "",
-  "": "",
+  "BILLING_DETAILS": "Billing details",
+  "STREET_ADDRESS": "Street address",
+  "STATE": "State",
+  "ENTER_STATE": "Please write state with a max of 50 characters",
+  "MAX_STREET_ADDRESS": "Please write address with a max of 250 characters",
+  "MAX_POST_CODE": "Please write postcode with a max of 20 characters",
   "": "",
   "": ""
 }

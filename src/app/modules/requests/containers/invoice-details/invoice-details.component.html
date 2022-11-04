@@ -16,9 +16,100 @@
                                                   (getInvoiceEmail)="getInvoiceEmail(user, invoiceDetails)">
                 </metutors-payment-invoice-details>
 
+                <hr class="my-5">
+                <div class="billing-details" *ngLet="(countries$ | async)">
+                  <h3 class="title f-size-20-md-sm mt-15-sm" *ngLet="(cities$ | async)">{{ 'BILLING_DETAILS' | translate }}</h3>
+                  <form [formGroup]="billingForm" class="mt-2">
+                    <div class="row w-100">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="street">{{ 'STREET_ADDRESS' | translate }}</label>
+                          <metutors-char-counter [limit]="250" [controlName]="street"></metutors-char-counter>
+                          <input type="text" class="custom-input w-100 input-bordered" id="street" placeholder="Enter street address"
+                                 formControlName="street">
+
+                          <div *ngIf="street?.invalid && street?.touched">
+                            <small class="text-danger">{{ 'MAX_STREET_ADDRESS' | translate }}</small>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="state">{{ 'STATE' | translate }}</label>
+                          <metutors-char-counter [limit]="50" [controlName]="state"></metutors-char-counter>
+                          <input type="text" class="custom-input w-100 input-bordered" id="state" placeholder="Enter state"
+                                 formControlName="state">
+
+                          <div *ngIf="state?.invalid && state?.touched">
+                            <small class="text-danger">{{ 'ENTER_STATE' | translate }}</small>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row w-100">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="postcode">{{ 'POSTAL_CODE' | translate }}</label>
+                          <metutors-char-counter [limit]="20" [controlName]="postcode"></metutors-char-counter>
+                          <input type="text" class="custom-input w-100 input-bordered" id="postcode" placeholder="{{ 'POSTAL_CODE' | translate }}"
+                                 formControlName="postcode">
+                          <div *ngIf="postcode?.touched && postcode?.invalid">
+                            <small class="text-danger">{{ 'WRITE_VALID_POSTAL_CODE' | translate }}</small>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row w-100">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="country">{{ 'COUNTRY' | translate }}</label>
+                          <mat-form-field appearance="outline" class="w-100">
+                            <mat-select formControlName="country" placeholder="{{ 'SELECT_COUNTRY' | translate }}" id="country"
+                                        (selectionChange)="loadCities(country?.value); resetCity()">
+                              <mat-option>
+                                <ngx-mat-select-search [(ngModel)]="filterCountry" [ngModelOptions]="{standalone: true}"
+                                                       placeholderLabel="{{ 'SEARCH_DOTS' | translate }}" noEntriesFoundLabel="{{ 'NO_MATCHING_COUNTRY_FOUND' | translate }}">
+                                </ngx-mat-select-search>
+                              </mat-option>
+                              <mat-option *ngFor="let country of filteredCountries" [value]="country.id">
+                                <img [src]="country?.flag" *ngIf="country?.flag" width="22px" class="me-2" alt="">
+                                {{ country.name }}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                          <div *ngIf="country?.touched && country?.invalid">
+                            <small class="text-danger error-message">{{ 'CHOOSE_UR_COUNTRY' | translate }}</small>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="city">{{ 'CITY' | translate }}</label>
+                          <mat-form-field appearance="outline" class="w-100">
+                            <mat-select formControlName="city" id="city" placeholder="{{ 'SELECT_CITY' | translate }}" [disabled]="!cities || !cities.length">
+                              <mat-option>
+                                <ngx-mat-select-search [(ngModel)]="filterCity" [ngModelOptions]="{standalone: true}"
+                                                       placeholderLabel="{{ 'SEARCH_DOTS' | translate }}" noEntriesFoundLabel="{{ 'NO_MATCHING_CITY_FOUND' | translate }}">
+                                </ngx-mat-select-search>
+                              </mat-option>
+                              <mat-option *ngFor="let city of filteredCities" [value]="city.name">{{ city.name }}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                          <div *ngIf="city?.touched && city?.invalid">
+                            <small class="text-danger error-message">{{ 'CHOOSE_UR_CITY' | translate }}</small>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+
                 <div class="overflow-hidden">
                   <button mat-flat-button color="primary" class="float-end pay-now mt-15-sm"
-                          (click)="saveCourse(user, classroom)" [disabled]="isCreatingCourse$ | async">
+                          (click)="saveCourse(user, classroom, billingForm)" [disabled]="(isCreatingCourse$ | async) || billingForm.invalid">
                     {{ (classroom?.isFree ? 'BOOK_FREE_TRIAL_CLASS' : 'PAY_NOW') | translate }}
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="rotate-180-ar">
                       <path

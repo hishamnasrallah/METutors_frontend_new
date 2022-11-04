@@ -1,42 +1,146 @@
-import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+
+import {
+  FormGroup,
+  Validators,
+  FormBuilder,
+  AbstractControl,
+} from '@angular/forms';
+
 import { environment } from '@environment';
 import * as fromCore from '@metutor/core/state';
-import { Component, OnInit } from '@angular/core';
 import * as fromRequests from '@metutor/modules/requests/state';
 import { SORTED_DAYS_WEEK, CLASSROOM_TOPICS_SCALE_NUM } from '@config';
-import { IClassroom, IInvoiceDetails, IUser } from '@metutor/core/models';
+
+import {
+  ICity,
+  IUser,
+  ICountry,
+  IClassroom,
+  IInvoiceDetails,
+} from '@metutor/core/models';
 
 @Component({
   selector: 'metutors-invoice-details',
   templateUrl: './invoice-details.component.html',
-  styleUrls: ['./invoice-details.component.scss']
+  styleUrls: ['./invoice-details.component.scss'],
 })
 export class InvoiceDetailsComponent implements OnInit {
   paymentInfo$: Observable<any>;
   user$: Observable<IUser | null>;
+  cities$: Observable<ICity[] | null>;
   isCreatingCourse$: Observable<boolean>;
   isGetInvoiceEmail$: Observable<boolean>;
+  countries$: Observable<ICountry[] | null>;
   classroom$: Observable<IClassroom | null>;
   showConfirmPaymentModal$: Observable<boolean>;
   isCalculateInvoiceDetails$: Observable<boolean>;
   invoiceDetails$: Observable<IInvoiceDetails | null>;
 
   showModal = false;
+  filterCity: string;
+  filterCountry: string;
+  billingForm: FormGroup;
+  cities: ICity[] | null;
+  countries: ICountry[] | null;
   baseURL = environment.clientUrl;
 
-  constructor(private _router: Router, private _store: Store<any>) {}
+  constructor(
+    private _router: Router,
+    private _fb: FormBuilder,
+    private _store: Store<any>
+  ) {}
+
+  get city(): AbstractControl | null {
+    return this.billingForm.get('city');
+  }
+
+  get state(): AbstractControl | null {
+    return this.billingForm.get('state');
+  }
+
+  get street(): AbstractControl | null {
+    return this.billingForm.get('street');
+  }
+
+  get country(): AbstractControl | null {
+    return this.billingForm.get('country');
+  }
+
+  get postcode(): AbstractControl | null {
+    return this.billingForm.get('postcode');
+  }
+
+  get filteredCountries(): ICountry[] {
+    if (this.filterCountry) {
+      return (
+        this.countries?.filter((country) =>
+          country?.name.toLowerCase().includes(this.filterCountry.toLowerCase())
+        ) || []
+      );
+    } else {
+      return this.countries || [];
+    }
+  }
+
+  get filteredCities(): ICity[] {
+    if (this.filterCity) {
+      return (
+        this.cities?.filter((city) =>
+          city?.name.toLowerCase().includes(this.filterCity.toLowerCase())
+        ) || []
+      );
+    } else {
+      return this.cities || [];
+    }
+  }
+
+  resetCity(): void {
+    this.city?.setValue(null);
+    this.city?.updateValueAndValidity();
+  }
+
+  loadCities(countryId: string): void {
+    this.loadCitiesByCountryId(countryId);
+  }
+
+  loadCountries(): void {
+    this._store.dispatch(fromCore.loadCountries());
+    this.countries$ = this._store
+      .select(fromCore.selectCountries)
+      .pipe(tap((country) => (this.countries = country)));
+  }
+
+  loadCitiesByCountryId(countryId: string): void {
+    this._store.dispatch(fromCore.loadCities({ countryId }));
+    this.cities$ = this._store
+      .select(fromCore.selectCities)
+      .pipe(tap((city) => (this.cities = city)));
+  }
 
   ngOnInit(): void {
+    this.billingForm = this._fb.group({
+      city: [null, Validators.required],
+      country: [null, Validators.required],
+      state: [null, [Validators.required, Validators.maxLength(50)]],
+      street: [null, [Validators.required, Validators.maxLength(250)]],
+      postcode: [null, [Validators.required, Validators.maxLength(20)]],
+    });
+
+    this.loadCountries();
     this._store.dispatch(fromCore.enterInvoiceDetails());
     this._store.dispatch(fromCore.calculateFinalInvoice({}));
     this.user$ = this._store.select(fromCore.selectUser);
     this.classroom$ = this._store.select(fromCore.selectCreatedClass);
-    this.invoiceDetails$ = this._store.select(fromCore.selectInvoiceDetails);
+
     this.isCalculateInvoiceDetails$ = this._store.select(
       fromCore.selectIsCalculateFinalInvoice
     );
+
+    this.invoiceDetails$ = this._store.select(fromCore.selectInvoiceDetails);
 
     this.paymentInfo$ = this._store.select(fromCore.selectRequestPaymentInfo);
 
@@ -53,7 +157,7 @@ export class InvoiceDetailsComponent implements OnInit {
     );
   }
 
-  saveCourse(user: IUser, classroom: any): void {
+  saveCourse(user: IUser, classroom: any, billing: FormGroup): void {
     // this.showModal = true;
     // return;
 
@@ -75,7 +179,7 @@ export class InvoiceDetailsComponent implements OnInit {
 
       const highlighted_topics = classroom.topics.map((topic: any) => ({
         name: topic.name,
-        knowledge_scale: CLASSROOM_TOPICS_SCALE_NUM[topic.scale]
+        knowledge_scale: CLASSROOM_TOPICS_SCALE_NUM[topic.scale],
       }));
 
       const classes = classroom.classrooms.map((classroom: any) => ({
@@ -87,7 +191,7 @@ export class InvoiceDetailsComponent implements OnInit {
         )?.toISOString(),
         end_time: new Date(
           Date.parse(classroom?.date + ' ' + classroom?.end_time)
-        )?.toISOString()
+        )?.toISOString(),
       }));
 
       const data = {
@@ -114,7 +218,8 @@ export class InvoiceDetailsComponent implements OnInit {
         field_of_study: classroom.courseField,
         end_date: new Date(classroom.endDate)?.toISOString(),
         start_date: new Date(classroom.startDate)?.toISOString(),
-        redirect_url: this.baseURL + '/requests/payment-processing'
+        redirect_url: this.baseURL + '/requests/payment-processing',
+        billing_info: { ...billing.value },
       };
 
       if (classroom?.isFree) {
@@ -122,8 +227,8 @@ export class InvoiceDetailsComponent implements OnInit {
           fromCore.createFreeCourse({
             data: {
               ...data,
-              total_price: 0
-            }
+              total_price: 0,
+            },
           })
         );
       } else {
@@ -132,8 +237,8 @@ export class InvoiceDetailsComponent implements OnInit {
     } else {
       this._router.navigate(['/signin'], {
         queryParams: {
-          returnUrl: this._router.url
-        }
+          returnUrl: this._router.url,
+        },
       });
     }
   }
@@ -149,15 +254,15 @@ export class InvoiceDetailsComponent implements OnInit {
             totalHours: invoiceDetails.totalHours,
             totalAmount: invoiceDetails.totalAmount,
             invoiceNumber: '#IN37738',
-            date: new Date()
-          }
+            date: new Date(),
+          },
         })
       );
     } else {
       this._router.navigate(['/signin'], {
         queryParams: {
-          returnUrl: this._router.url
-        }
+          returnUrl: this._router.url,
+        },
       });
     }
   }
