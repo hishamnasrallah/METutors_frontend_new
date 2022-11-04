@@ -138,6 +138,7 @@
 
   metutors-study-slide .slide,
   metutors-study-slide .slide .container,
+  metutors-explore-tutors .explore-heading .contact-img,
   metutors-become-tutor-slide .slide,
   metutors-become-tutor-slide .slide .container,
   .why-we-teach img,
@@ -545,13 +546,13 @@
   }
 
   .learning-environment .chevron-right,
-  .explore-tutors .chevron-right {
+  .select-program-category .chevron-right {
     left: -17.5px;
     right: auto !important;
   }
 
   .learning-environment .chevron-left,
-  .explore-tutors .chevron-left {
+  .select-program-category .chevron-left {
     right: -17.5px;
     left: auto !important;
   }

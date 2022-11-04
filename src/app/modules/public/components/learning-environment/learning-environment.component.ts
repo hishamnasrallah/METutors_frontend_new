@@ -19,6 +19,7 @@ import {
 
 import { environment } from '@environment';
 import { generalConstants, GRADES } from '@metutor/config';
+import { ChooseCountryDialogComponent } from '../choose-country-dialog';
 import { ICountry, IField, IProgram, ISubject } from '@metutor/core/models';
 
 @Component({
@@ -131,7 +132,7 @@ export class LearningEnvironmentComponent implements OnInit, AfterViewChecked {
 
   onChangeStep(program: IProgram): void {
     if (program.id === this.nationalId) {
-      const dialogRef = this._dialog.open(ChooseCountryDialog, {
+      const dialogRef = this._dialog.open(ChooseCountryDialogComponent, {
         width: '1000px',
         data: { countries: this.countries, isLoading: this.isLoading },
         panelClass: 'overflow-height'
@@ -180,44 +181,6 @@ export class LearningEnvironmentComponent implements OnInit, AfterViewChecked {
     });
 
     dialogRef.afterClosed().subscribe(() => {});
-  }
-}
-
-@Component({
-  selector: 'choose-country-dialog',
-  templateUrl: 'choose-country-dialog.html',
-  styleUrls: ['./learning-environment.component.scss']
-})
-export class ChooseCountryDialog {
-  country: ICountry;
-  isLoading: boolean;
-  countries: ICountry[];
-  tempCountries: ICountry[];
-
-  constructor(
-    public dialogRef: MatDialogRef<ChooseCountryDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: any
-  ) {
-    if (data) {
-      this.countries = data.countries;
-      this.isLoading = data.isLoading;
-      this.tempCountries = data.countries;
-    }
-  }
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
-  onChangeCountry(event: any): void {
-    this.tempCountries = this.countries.filter(country =>
-      country.name?.toLowerCase()?.includes(event.target.value)
-    );
-  }
-
-  onSelectCountry(country: ICountry): void {
-    this.country = country;
-    this.dialogRef.close({ country, grade: 12 });
   }
 }
 

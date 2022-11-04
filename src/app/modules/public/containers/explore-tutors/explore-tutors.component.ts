@@ -1,15 +1,8 @@
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { IProgram } from '@metutor/core/models';
 import * as fromCore from '@metutor/core/state';
-import {
-  OnInit,
-  ViewChild,
-  Component,
-  ElementRef,
-  AfterViewChecked,
-  ChangeDetectorRef
-} from '@angular/core';
+import { OnInit, Component } from '@angular/core';
+import { ICountry, IProgram } from '@metutor/core/models';
 import {
   state,
   style,
@@ -45,16 +38,13 @@ import {
     ])
   ]
 })
-export class ExploreTutorsComponent implements OnInit, AfterViewChecked {
-  @ViewChild('widgetsContent') widgetsContent: ElementRef;
-
+export class ExploreTutorsComponent implements OnInit {
   loadingPrograms$: Observable<boolean>;
+  loadingCountries$: Observable<boolean>;
   programs$: Observable<IProgram[] | null>;
+  countries$: Observable<ICountry[] | null>;
 
-  step = 0;
   openFilter = true;
-  leftDisabled = true;
-  rightDisabled = true;
 
   tutors: any[] = [
     {
@@ -125,83 +115,11 @@ export class ExploreTutorsComponent implements OnInit, AfterViewChecked {
     }
   ];
 
-  constructor(private _store: Store<any>, private _cdRef: ChangeDetectorRef) {}
+  constructor(private _store: Store<any>) {}
 
   ngOnInit(): void {
-    this.checkScroll();
     this._preparePrograms();
-  }
-
-  ngAfterViewChecked(): void {
-    this.checkScroll();
-  }
-
-  scrollLeft(): void {
-    if (localStorage.getItem('DEFAULT_LANGUAGE') === 'en') {
-      this.widgetsContent.nativeElement.scrollLeft -= 200;
-    } else {
-      this.widgetsContent.nativeElement.scrollLeft += 200;
-    }
-    this.checkScroll();
-  }
-
-  scrollRight(): void {
-    if (localStorage.getItem('DEFAULT_LANGUAGE') === 'en') {
-      this.widgetsContent.nativeElement.scrollLeft += 200;
-    } else {
-      this.widgetsContent.nativeElement.scrollLeft -= 200;
-    }
-    this.checkScroll();
-  }
-
-  checkScroll(): void {
-    if (this.widgetsContent) {
-      let newScrollLeft;
-      this.leftDisabled =
-        this.widgetsContent.nativeElement.scrollLeft == 0 ? true : false;
-
-      if (localStorage.getItem('DEFAULT_LANGUAGE') === 'en') {
-        newScrollLeft = this.widgetsContent.nativeElement.scrollLeft;
-      } else {
-        newScrollLeft = -this.widgetsContent.nativeElement.scrollLeft;
-      }
-
-      const width = this.widgetsContent.nativeElement.clientWidth;
-      const scrollWidth = this.widgetsContent.nativeElement.scrollWidth;
-      const diff = scrollWidth - (newScrollLeft + width);
-
-      this.rightDisabled = diff <= 50 ? true : false;
-
-      this._cdRef.detectChanges();
-    }
-  }
-
-  onChangeStep(program: number): void {
-    // if (program.id === this.nationalId) {
-    //   const dialogRef = this._dialog.open(ChooseCountryDialog, {
-    //     width: '1000px',
-    //     data: { countries: this.countries, isLoading: this.isLoading },
-    //     panelClass: 'overflow-height'
-    //   });
-    //   dialogRef.afterClosed().subscribe(result => {
-    //     if (result) {
-    //       this.country = result?.country;
-    //       this.grade = result?.grade;
-    //       this.step = program.id;
-    //       this.selectedProgram = program;
-    //       this.changeProgram.emit({
-    //         program: program?.id?.toString(),
-    //         country: this.country?.id,
-    //         grade: result?.grade
-    //       });
-    //     }
-    //   });
-    // } else {
-    //   this.step = program.id;
-    //   this.selectedProgram = program;
-    //   this.country = undefined;
-    //   this.changeProgram.emit({ program: program?.id?.toString() });
-    // }
+    this._prepareCountries();
   }
 
   private _preparePrograms(): void {
@@ -209,6 +127,14 @@ export class ExploreTutorsComponent implements OnInit, AfterViewChecked {
     this.programs$ = this._store.select(fromCore.selectPrograms);
     this.loadingPrograms$ = this._store.select(
       fromCore.selectIsLoadingPrograms
+    );
+  }
+
+  private _prepareCountries(): void {
+    this._store.dispatch(fromCore.loadProgramCountries());
+    this.countries$ = this._store.select(fromCore.selectProgramCountries);
+    this.loadingCountries$ = this._store.select(
+      fromCore.selectIsLoadingCountries
     );
   }
 }

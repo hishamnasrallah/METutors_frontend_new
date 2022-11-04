@@ -13,33 +13,15 @@
   </div>
   <div class="row mt-4">
     <div class="col-12">
-      <h3 class="mb-3 select-program">{{ 'SELECT_PROGRAM_CATEGORY' | translate }}</h3>
-      <div class="position-relative">
-        <div class="tabs d-flex d-block-sm overflow-hidden" #widgetsContent scrollX="true" (scroll)="checkScroll()">
-          <button mat-button class="w-100 align-items-center justify-content-center d-flex" [class.active]="step === 0"
-            (click)="onChangeStep(0)">
-            <strong>{{ 'ALL_PROGRAMS' | translate }}</strong>
-          </button>
-          <button *ngFor="let program of (programs$ | async)" mat-button
-            class="w-100 align-items-center justify-content-center d-flex" [class.active]="step === program?.id"
-            (click)="onChangeStep(program.id)">
-            <strong>
-              <bdi>
-                {{ program?.name }}
-                <!-- <span *ngIf="country && program?.id === nationalId" [innerHTML]="country?.flag"></span> -->
-              </bdi>
-            </strong>
-          </button>
-        </div>
-        <mat-icon class="chevron-right rotate-180-ar" *ngIf="!rightDisabled" (click)="scrollRight()">chevron_right
-        </mat-icon>
-        <mat-icon class="chevron-left rotate-180-ar" *ngIf="!leftDisabled" (click)="scrollLeft()">chevron_left
-        </mat-icon>
-      </div>
+      <metutors-select-program-category [countries]="(countries$ | async)!"
+                                        [loadingCountries]="(loadingCountries$ | async)!"
+                                        [programs]="(programs$ | async)!"
+                                        [loadingPrograms]="(loadingPrograms$ | async)!">
+      </metutors-select-program-category>
     </div>
   </div>
 
-  <div class="row mt-4">
+  <div class="row mt-5">
     <div class="col-md-3 filters">
       <div class="d-flex align-items-center cursor-pointer title justify-content-between" [class.open]="openFilter"
         (click)="openFilter = !openFilter">
