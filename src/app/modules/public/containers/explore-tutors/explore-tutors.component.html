@@ -1,0 +1,69 @@
+<metutors-explore-heading [name]="'EXPLORE_TUTORS'"
+                          [description]="'EXPLORE_TUTORS_DESC'"
+                          [image]="'assets/png/exhausted.png'"
+                          [placeholderText]="'SEARCH_BY_TUTOR_NAME'"
+                          [btnText]="'FIND_TUTORS'">
+</metutors-explore-heading>
+
+<div class="container explore-tutors mt-4">
+  <div class="row">
+    <div class="col-md-7">
+      <h1>{{ 'ALL_AVAILABLE_TUTORS' | translate }}</h1>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-12">
+      <h3 class="mb-3 select-program">{{ 'SELECT_PROGRAM_CATEGORY' | translate }}</h3>
+      <div class="position-relative">
+        <div class="tabs d-flex d-block-sm overflow-hidden" #widgetsContent scrollX="true" (scroll)="checkScroll()">
+          <button mat-button class="w-100 align-items-center justify-content-center d-flex" [class.active]="step === 0"
+            (click)="onChangeStep(0)">
+            <strong>{{ 'ALL_PROGRAMS' | translate }}</strong>
+          </button>
+          <button *ngFor="let program of (programs$ | async)" mat-button
+            class="w-100 align-items-center justify-content-center d-flex" [class.active]="step === program?.id"
+            (click)="onChangeStep(program.id)">
+            <strong>
+              <bdi>
+                {{ program?.name }}
+                <!-- <span *ngIf="country && program?.id === nationalId" [innerHTML]="country?.flag"></span> -->
+              </bdi>
+            </strong>
+          </button>
+        </div>
+        <mat-icon class="chevron-right rotate-180-ar" *ngIf="!rightDisabled" (click)="scrollRight()">chevron_right
+        </mat-icon>
+        <mat-icon class="chevron-left rotate-180-ar" *ngIf="!leftDisabled" (click)="scrollLeft()">chevron_left
+        </mat-icon>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-3 filters">
+      <div class="d-flex align-items-center cursor-pointer title justify-content-between" [class.open]="openFilter"
+        (click)="openFilter = !openFilter">
+        <h3 class="m-0">{{ 'CHOOSE_FIELD_STUDY' | translate }}</h3>
+        <button mat-button *ngIf="!openFilter">
+          <mat-icon>expand_more</mat-icon>
+        </button>
+        <button mat-button *ngIf="openFilter">
+          <mat-icon>expand_less</mat-icon>
+        </button>
+      </div>
+      <div class="content" *ngIf="openFilter" [@slideInOut]>
+        <!--  *ngFor="let fieldOfStudy of exploredCourses?.fieldOfStudies" -->
+        <div class="d-block mb-2">
+          <!-- (change)="onChangeField($event, fieldOfStudy?.id); filterCourses()" [value]="fieldOfStudy?.id" -->
+          <mat-checkbox>Mahtematics
+            <!-- {{ fieldOfStudy?.name }} -->
+          </mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <metutors-tutor-card *ngFor="let tutor of tutors" [tutor]="tutor">
+      </metutors-tutor-card>
+    </div>
+  </div>
+</div>

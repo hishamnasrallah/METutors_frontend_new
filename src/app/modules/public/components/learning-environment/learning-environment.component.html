@@ -12,7 +12,7 @@
 
     <ng-container *ngIf="!isLoading">
       <div class="position-relative">
-        <div class="tabs d-flex d-block-sm overflow-hidden" #widgetsContent scrollX="true" (scroll)="checkScroll()" >
+        <div class="tabs d-flex d-block-sm overflow-hidden" #widgetsContent scrollX="true" (scroll)="checkScroll()">
           <button *ngFor="let program of programsList; let i = index" mat-button class="w-100 text-start d-flex"
             [class.active]="step === program?.id" (click)="onChangeStep(program)">
             <span class="d-block">{{ 'PROGRAM' | translate }} {{ i + 1 }}</span>

@@ -1,5 +1,6 @@
 export * from './home-slide';
 export * from './faq-search';
+export * from './tutor-card';
 export * from './about-slide';
 export * from './course-card';
 export * from './study-slide';
@@ -12,7 +13,7 @@ export * from './our-partners';
 export * from './languages-slide';
 export * from './success-stories';
 export * from './why-teaching-us';
-export * from './explore-courses';
+export * from './explore-heading';
 export * from './select-faq-topic';
 export * from './language-courses';
 export * from './become-tutors-us';

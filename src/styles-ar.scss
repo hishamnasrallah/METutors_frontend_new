@@ -157,6 +157,7 @@
   .featured-tutors .card-item .list .icon,
   .profile-header .details ul li .count,
   .tutors .tutor-item .list .icon,
+  .tutor-card .list .icon,
   .tutors .tutor-item .specialization span,
   .review-request .row-block .list-tutors .li-item img,
   .review-request .row-block .list-tutors .count,
@@ -168,7 +169,8 @@
   .list-items .menu img,
   .student-navbar .svg-icon,
   .tutor-navbar .svg-icon,
-  .featured-tutors .card-item .specialization>span {
+  .featured-tutors .card-item .specialization>span,
+  .tutor-card .specialization>span {
     margin-right: 0 !important;
     margin-left: 5px;
   }
@@ -296,7 +298,9 @@
   metutors-support-ticket-card .card h2 .label,
   .classroom-item .in-progress strong,
   .select-tutor .est-price h1,
-  .feedback-rating h1.title span {
+  .feedback-rating h1.title span,
+  .tutor-card .count,
+  .tutor-card .review {
     margin-left: 0 !important;
     margin-right: 10px;
   }
@@ -306,6 +310,7 @@
   .featured-tutors .card-item .actions .more,
   .profile-header .actions .more,
   .tutors .tutor-item .actions .more,
+  .tutor-card .actions .more,
   .select-tutor .custom-list .list-tutors .count,
   .select-tutor .custom-list .list-tutors .review,
   .review-request .row-block .list-tutors .count,
@@ -389,7 +394,7 @@
     margin: 25px 5px 0 0 !important;
   }
 
-  .explore-courses .form-block input {
+  .explore-heading .form-block input {
     padding: 20px 20px 20px 80px !important;
   }
 
@@ -433,7 +438,7 @@
   .edit-cover,
   .delete-cover,
   .edit-video,
-  .explore-courses .form-block button,
+  .explore-heading .form-block button,
   .featured-tutors .card-item h2 span,
   .tutors .tutor-item h2 span,
   .security-settings .password-visibility,
@@ -443,6 +448,7 @@
   }
 
   .services-features .card .card-body img,
+  .tutor-card span.badge,
   .payment-information .list-cards .visa-card .checked,
   .profile-header .status-interview {
     right: 10px;
@@ -538,12 +544,14 @@
     left: auto !important;
   }
 
-  .learning-environment .chevron-right {
+  .learning-environment .chevron-right,
+  .explore-tutors .chevron-right {
     left: -17.5px;
     right: auto !important;
   }
 
-  .learning-environment .chevron-left {
+  .learning-environment .chevron-left,
+  .explore-tutors .chevron-left {
     right: -17.5px;
     left: auto !important;
   }

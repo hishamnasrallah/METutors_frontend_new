@@ -1,8 +1,13 @@
 <ng-container *ngLet="(exploredCourses$ | async) as exploredCourses">
-  <metutors-explore-courses [loading]="(isLoading$ | async)!"
-                            [program]="exploredCourses?.program"
-                            (filterCourses)="name = $event; filterCourses()">
-  </metutors-explore-courses>
+  <metutors-explore-heading [loading]="(isLoading$ | async)!"
+                            [name]="lang === 'ar' ? exploredCourses?.program?.nameAr : exploredCourses?.program?.name"
+                            [title]="exploredCourses?.program?.title"
+                            [description]="exploredCourses?.program?.description"
+                            [image]="programImage + exploredCourses?.program?.image"
+                            [placeholderText]="'SEARCH_BY_COURSE_NAME'"
+                            [btnText]="'FIND_COURSES'"
+                            (filter)="name = $event; filterCourses()">
+  </metutors-explore-heading>
 
   <ng-container [ngSwitch]="isLoading$ | async">
     <div class="container mt-5" *ngSwitchCase="true">

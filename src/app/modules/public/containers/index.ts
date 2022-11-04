@@ -8,6 +8,7 @@ export * from './faq-ticket';
 export * from './all-courses';
 export * from './become-tutor';
 export * from './privacy-policy';
+export * from './explore-tutors';
 export * from './languages-courses';
 export * from './tutor-terms-conditions';
 export * from './student-terms-conditions';

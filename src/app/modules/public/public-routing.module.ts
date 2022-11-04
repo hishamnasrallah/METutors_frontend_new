@@ -12,6 +12,7 @@ import {
   AllCoursesComponent,
   BecomeTutorComponent,
   PrivacyPolicyComponent,
+  ExploreTutorsComponent,
   LanguagesCoursesComponent,
   TutorTermsConditionsComponent,
   StudentTermsConditionsComponent,
@@ -67,6 +68,11 @@ const routes: Routes = [
     path: 'all-courses/:programId',
     component: AllCoursesComponent,
     data: { layout: { title: 'COURSES' } },
+  },
+  {
+    path: 'explore-tutors',
+    component: ExploreTutorsComponent,
+    data: { layout: { title: 'EXPLORE_TUTORS' } },
   },
   {
     path: 'student-terms-conditions',

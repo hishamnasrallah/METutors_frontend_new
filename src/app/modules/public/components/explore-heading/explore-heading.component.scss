@@ -1,4 +1,4 @@
-.explore-courses {
+.explore-heading {
   background-color: var(--main-color);
   padding: 40px 0;
   color: #FFF;
@@ -48,7 +48,7 @@
 }
 
 @media (max-width:992px) {
-  .explore-courses {
+  .explore-heading {
     background: var(--main-color) !important;
     padding: 20px 0;
 

@@ -7,7 +7,8 @@ import {
   ViewChild,
   ElementRef,
   EventEmitter,
-  AfterViewChecked
+  AfterViewChecked,
+  ChangeDetectorRef
 } from '@angular/core';
 
 import {
@@ -63,7 +64,7 @@ export class LearningEnvironmentComponent implements OnInit, AfterViewChecked {
   nationalId = generalConstants.nationalId;
   imageURL = environment.fieldOfStudiesImage;
 
-  constructor(private _dialog: MatDialog) {}
+  constructor(private _dialog: MatDialog, private _cdRef: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.checkScroll();
@@ -103,11 +104,13 @@ export class LearningEnvironmentComponent implements OnInit, AfterViewChecked {
         newScrollLeft = -this.widgetsContent.nativeElement.scrollLeft;
       }
 
-      const width = this.widgetsContent.nativeElement.clientWidth;;
+      const width = this.widgetsContent.nativeElement.clientWidth;
       const scrollWidth = this.widgetsContent.nativeElement.scrollWidth;
       const diff = scrollWidth - (newScrollLeft + width);
 
       this.rightDisabled = diff <= 50 ? true : false;
+
+      this._cdRef.detectChanges();
     }
   }
 
