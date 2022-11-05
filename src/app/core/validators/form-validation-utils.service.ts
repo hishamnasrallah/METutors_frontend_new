@@ -216,4 +216,10 @@ export class FormValidationUtilsService {
 
     return isNotANumber ? { NotANumber: true } : null;
   }
+
+  noWhitespaceValidation(control: FormControl): any {
+    const hasWhitespace = (control.value || '').trim().length === 0;
+
+    return hasWhitespace ? { whitespace: true } : null;
+  }
 }

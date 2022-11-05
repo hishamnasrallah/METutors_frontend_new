@@ -5,6 +5,7 @@ import {
   AbstractControl,
 } from '@angular/forms';
 
+import { FormValidationUtilsService } from '@metutor/core/validators';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
@@ -23,7 +24,10 @@ export class AdminAddCouponComponent implements OnInit {
   minDate: any;
   form: FormGroup;
 
-  constructor(private _fb: FormBuilder) {}
+  constructor(
+    private _fb: FormBuilder,
+    private _fv: FormValidationUtilsService
+  ) {}
 
   get name(): AbstractControl | null {
     return this.form.get('name');
@@ -68,7 +72,11 @@ export class AdminAddCouponComponent implements OnInit {
       name: [name, [Validators.required, Validators.maxLength(50)]],
       description: [
         description,
-        [Validators.required, Validators.maxLength(150)],
+        [
+          Validators.required,
+          this._fv.noWhitespaceValidation,
+          Validators.maxLength(150),
+        ],
       ],
     });
 

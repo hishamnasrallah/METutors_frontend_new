@@ -7,7 +7,7 @@
         <div class="form-group">
           <label for="name">Coupon name</label>
           <metutors-char-counter [limit]="50" [controlName]="name"></metutors-char-counter>
-          <input class="form-control custom-input input-bordered" formControlName="name" id="name" autocomplete="off"
+          <input class="form-control custom-input input-bordered" formControlName="name" id="name" autocomplete="off" maxlength="50"
                  placeholder="Enter coupon name" (keydown.space)="$event.preventDefault()">
             <span class="text-danger" *ngIf="name?.invalid && name?.touched">
               Please write name with a max of 50 characters
@@ -33,7 +33,7 @@
           <label for="description">Coupon description</label>
           <metutors-char-counter [limit]="150" [controlName]="description"></metutors-char-counter>
           <textarea class="form-control custom-input input-bordered" formControlName="description" id="description"
-                    placeholder="Enter coupon description"></textarea>
+                    placeholder="Enter coupon description" maxlength="150"></textarea>
             <span class="text-danger" *ngIf="description?.invalid && description?.touched">
               Please write description with a max of 150 characters
             </span>
