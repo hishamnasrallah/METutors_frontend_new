@@ -3,6 +3,7 @@ import { createAction, props } from '@ngrx/store';
 import {
   IUser,
   ITutor,
+  IField,
   IInterview,
   SubmitInterviewInput,
   IExploreTutorsFilters
@@ -88,7 +89,7 @@ export const exploreTutors = createAction(
 
 export const exploreTutorsSuccess = createAction(
   '[Tutor] Explore Tutors Success',
-  props<{ tutors: ITutor[]; tutorsCount: any }>()
+  props<{ tutors: ITutor[]; tutorsCount: number; fieldsOfStudy: IField[] }>()
 );
 
 export const exploreTutorsFailure = createAction(

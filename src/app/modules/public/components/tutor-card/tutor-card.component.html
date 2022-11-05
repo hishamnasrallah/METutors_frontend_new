@@ -61,7 +61,9 @@
             <h2>{{ 'SPECIALIZATION' | translate }}:</h2>
             <div class="programs">
               <button mat-button class="main-button-transparent me-2" *ngFor="let program of tutor?.programs">
-                {{ program?.code }}
+                <img *ngIf="program?.isoCode" class="me-2" src="https://countryflagsapi.com/png/{{ program?.isoCode }}" alt=""
+                  draggable="false" width="14px">
+                {{ program?.programCode || program?.code }}
               </button>
             </div>
             <span *ngFor="let subject of tutor?.subjects">{{ subject?.name }}</span>

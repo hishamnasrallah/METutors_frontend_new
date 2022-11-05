@@ -23,7 +23,7 @@
     </div>
   </div>
 
-  <div class="row mt-5">
+  <div class="row mt-5" *ngLet="(tutors$ | async) as tutors">
     <div class="col-md-3 filters">
       <div class="d-flex align-items-center cursor-pointer title justify-content-between" [class.open]="openFilter"
         (click)="openFilter = !openFilter">
@@ -36,19 +36,25 @@
         </button>
       </div>
       <div class="content" *ngIf="openFilter" [@slideInOut]>
-        <!--  *ngFor="let fieldOfStudy of exploredCourses?.fieldOfStudies" -->
-        <div class="d-block mb-2">
+        <div class="d-block mb-2" *ngFor="let field of (fields$ | async)!">
           <!-- (change)="onChangeField($event, fieldOfStudy?.id); filterCourses()" [value]="fieldOfStudy?.id" -->
-          <mat-checkbox>Mahtematics
-            <!-- {{ fieldOfStudy?.name }} -->
+          <mat-checkbox>
+            {{ field?.name }}
           </mat-checkbox>
         </div>
       </div>
     </div>
     <div class="col-md-9" *ngLet="(loadingTutors$ | async) as loadingTutors">
       <ng-container *ngIf="!loadingTutors">
-        <metutors-tutor-card *ngFor="let tutor of (tutors$ | async)!" [tutor]="tutor">
+        <metutors-tutor-card *ngFor="let tutor of tutors" [tutor]="tutor">
         </metutors-tutor-card>
+
+        <div class="card no-data" *ngIf="!tutors || !tutors.length">
+          <div class="card-body">
+            <img src="assets/svg/sad.svg" draggable="false" alt="">
+            <h2 class="mt-4">{{ 'NO_DATA_FOUND' | translate }}</h2>
+          </div>
+        </div>
       </ng-container>
 
       <ng-container *ngIf="loadingTutors">

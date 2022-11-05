@@ -9,7 +9,7 @@ import {
   IInterview,
   IAvailability,
   IQualification,
-  ISpecification,
+  ISpecification
 } from '.';
 
 import { ITutorFeedback } from './tutor-feedback.model';
@@ -135,7 +135,7 @@ export class ITutor {
     if (tutor) {
       this.id = tutor?.id;
       this.idNumber = tutor?.id_number;
-      this.name = tutor?.first_name + ' ' + tutor?.last_name;
+      this.name = tutor?.name || tutor?.first_name + ' ' + tutor?.last_name;
       this.firstName = tutor?.first_name || '';
       this.middleName = tutor?.middle_name || '';
       this.lastName = tutor?.last_name || '';
@@ -216,23 +216,26 @@ export class ITutor {
       this.badges = tutor?.badges || [];
       this.bookings = tutor?.bookings;
       this.amount = tutor?.amount;
-      this.programs = tutor?.programs || [];
+      this.programs =
+        camelcaseKeys(tutor?.programs, {
+          deep: true
+        }) || [];
       this.availabilityDays = tutor?.availability_days || [];
       this.classes = camelcaseKeys(tutor?.scheduled_classes, {
-        deep: true,
+        deep: true
       });
       this.completedStep = tutor?.profile_completed_step || 0;
       this.userResume = camelcaseKeys(tutor?.user_resume, {
-        deep: true,
+        deep: true
       });
       this.userDegrees = camelcaseKeys(tutor?.user_degrees, {
-        deep: true,
+        deep: true
       });
       this.userCertificates = camelcaseKeys(tutor?.user_certificates, {
-        deep: true,
+        deep: true
       });
       this.userSignature = camelcaseKeys(tutor?.user_signature, {
-        deep: true,
+        deep: true
       });
     }
   }
@@ -254,7 +257,7 @@ export function sortSubjects(subjects?: ISubject[]): any[] {
 
       output[existingIndex].subjects = [
         ...output[existingIndex].subjects,
-        { ...item, gradeName: GRADES[item.grade - 1] },
+        { ...item, gradeName: GRADES[item.grade - 1] }
       ];
     } else {
       output.push({
@@ -268,9 +271,9 @@ export function sortSubjects(subjects?: ISubject[]): any[] {
         subjects: [
           {
             ...item,
-            gradeName: GRADES[item.grade - 1],
-          },
-        ],
+            gradeName: GRADES[item.grade - 1]
+          }
+        ]
       });
     }
   });

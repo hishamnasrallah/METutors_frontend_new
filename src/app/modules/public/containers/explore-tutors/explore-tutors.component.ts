@@ -5,6 +5,7 @@ import * as fromCore from '@metutor/core/state';
 import { OnInit, Component } from '@angular/core';
 import {
   ITutor,
+  IField,
   IProgram,
   ICountry,
   IExploreTutorsFilters
@@ -47,85 +48,18 @@ import {
 export class ExploreTutorsComponent implements OnInit {
   count$: Observable<number | null>;
   loadingTutors$: Observable<boolean>;
+  fields$: Observable<IField[] | null>;
   tutors$: Observable<ITutor[] | null>;
   loadingPrograms$: Observable<boolean>;
   loadingCountries$: Observable<boolean>;
   programs$: Observable<IProgram[] | null>;
   countries$: Observable<ICountry[] | null>;
 
+  page = 1;
   title: string;
   country: number;
   openFilter = true;
   program: number = 0;
-
-  // tutors: any[] = [
-  //   {
-  //     id: 1,
-  //     name: 'Ahmed Hassan',
-  //     avatar:
-  //       'https://testing.zaptatech.com/public/uploads/2022090818361757.jpg',
-  //     qualifications: {
-  //       nameOfUniversity: 'Zagazig university'
-  //     },
-  //     averageRating: 3.5,
-  //     totalFeedbacks: 10,
-  //     country: {
-  //       name: 'Egypt'
-  //     },
-  //     classesTaught: 20,
-  //     bio:
-  //       "Hello everyone my name is Ahmed. I'm a mean stack developer. I hope you like my profile ",
-  //     programs: [
-  //       {
-  //         code: 'AP'
-  //       }
-  //     ],
-  //     subjects: [
-  //       {
-  //         name: 'Mathematics'
-  //       },
-  //       {
-  //         name: 'Calculus'
-  //       },
-  //       {
-  //         name: 'Physics'
-  //       }
-  //     ]
-  //   },
-  //   {
-  //     id: 2,
-  //     name: 'Mohamed Abulrahman',
-  //     avatar:
-  //       'https://testing.zaptatech.com/public/uploads/2022090818173059.jpg',
-  //     qualifications: {
-  //       nameOfUniversity: 'Zagazig university'
-  //     },
-  //     averageRating: 3.5,
-  //     totalFeedbacks: 10,
-  //     country: {
-  //       name: 'Egypt'
-  //     },
-  //     classesTaught: 20,
-  //     bio:
-  //       "Hello everyone my name is Ahmed. I'm a mean stack developer. I hope you like my profile ",
-  //     programs: [
-  //       {
-  //         code: 'AP'
-  //       }
-  //     ],
-  //     subjects: [
-  //       {
-  //         name: 'Mathematics'
-  //       },
-  //       {
-  //         name: 'Calculus'
-  //       },
-  //       {
-  //         name: 'Physics'
-  //       }
-  //     ]
-  //   }
-  // ];
 
   constructor(private _store: Store<any>) {}
 
@@ -143,6 +77,7 @@ export class ExploreTutorsComponent implements OnInit {
     program: number;
     country: number;
   }): void {
+    this.page = 1;
     this.program = program;
     this.country = country;
     this.onFilterTutors();
@@ -182,5 +117,8 @@ export class ExploreTutorsComponent implements OnInit {
       fromCore.selectIsLoadingExploreTutors
     );
     this.count$ = this._store.select(fromCore.selectExploreTutorsCount);
+    this.fields$ = this._store.select(
+      fromCore.selectexploreTutorsFieldsOfStudy
+    );
   }
 }

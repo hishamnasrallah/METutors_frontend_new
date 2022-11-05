@@ -281,6 +281,11 @@ export const selectExploreTutorsCount = createSelector(
   fromTutorReducer.selectExploreTutorsCount
 );
 
+export const selectexploreTutorsFieldsOfStudy = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectexploreTutorsFieldsOfStudy
+);
+
 export const selectAvailableTutors = createSelector(
   selectTutorState,
   fromTutorReducer.selectAvailableTutors

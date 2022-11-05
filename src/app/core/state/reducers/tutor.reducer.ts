@@ -1,4 +1,4 @@
-import { ITutor } from '@models';
+import { IField, ITutor } from '@models';
 import { TutorStatus } from '@metutor/config';
 import { createReducer, on } from '@ngrx/store';
 import * as tutorActions from '../actions/tutor.actions';
@@ -32,6 +32,7 @@ export interface State {
   exploreTutors: ITutor[];
   exploreTutorsCount: number;
   isLoadingExploreTutors: boolean;
+  exploreTutorsFieldsOfStudy: IField[];
 
   // Loading Profile Tutor
   isLoadingProfileTutor: boolean;
@@ -108,6 +109,7 @@ export const initialState: State = {
   isLoadingCurrentTutors: false,
   isLoadingPendingTutors: false,
   isLoadingFeaturedTutors: false,
+  exploreTutorsFieldsOfStudy: [],
   isLoadingTutorAttendance: false,
   isLoadingAvailableTutors: false,
   isLoadingSuspendedTutors: false,
@@ -413,12 +415,16 @@ export const reducer = createReducer(
     isLoadingExploreTutors: true
   })),
 
-  on(tutorActions.exploreTutorsSuccess, (state, { tutors, tutorsCount }) => ({
-    ...state,
-    exploreTutors: tutors,
-    exploreTutorsCount: tutorsCount,
-    isLoadingExploreTutors: false
-  })),
+  on(
+    tutorActions.exploreTutorsSuccess,
+    (state, { tutors, tutorsCount, fieldsOfStudy }) => ({
+      ...state,
+      exploreTutors: tutors,
+      exploreTutorsCount: tutorsCount,
+      isLoadingExploreTutors: false,
+      exploreTutorsFieldsOfStudy: fieldsOfStudy
+    })
+  ),
 
   on(tutorActions.exploreTutorsFailure, state => ({
     ...state,
@@ -712,8 +718,11 @@ export const selectIsLoadingExploreTutors = (state: State): boolean =>
 export const selectExploreTutors = (state: State): ITutor[] =>
   state.exploreTutors;
 
-export const selectExploreTutorsCount = (state: State): any =>
+export const selectExploreTutorsCount = (state: State): number =>
   state.exploreTutorsCount;
+
+export const selectexploreTutorsFieldsOfStudy = (state: State): IField[] =>
+  state.exploreTutorsFieldsOfStudy;
 
 export const selectIsLoadingTutorDashboard = (state: State): boolean =>
   state.isLoadingDashboard;
