@@ -13,7 +13,7 @@
                 <metutors-payment-invoice-details [invoiceDetails]="invoiceDetails"
                                                   [isGetInvoiceEmail]="(isGetInvoiceEmail$ | async)!"
                                                   [classroom]="classroom"
-                                                  [isApplyingCoupon]="(isApplyingCoupon$ | async)!"
+                                                  [isApplyingCoupon]="(isApplyingCoupon$ | async)! || (isCreatingCourse$ | async)!"
                                                   (applyCoupon)="onApplyCoupon($event, classroom)"
                                                   (print)="printToCart('printSectionId')"
                                                   (getInvoiceEmail)="getInvoiceEmail(user, invoiceDetails)">
