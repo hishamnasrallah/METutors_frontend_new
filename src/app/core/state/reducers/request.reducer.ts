@@ -41,6 +41,8 @@ export interface State {
 
   // Get Invoice Email
   isGetInvoiceEmail: boolean;
+
+  isApplyingCoupon: boolean;
 }
 
 export const initialState: State = {
@@ -53,6 +55,7 @@ export const initialState: State = {
   suggestedTutors: null,
   availableTutors: null,
   isRequestCourse: false,
+  isApplyingCoupon: false,
   createClassFailure: '',
   loadingTutorFailure: '',
   isCreatingCourse: false,
@@ -66,15 +69,15 @@ export const initialState: State = {
   calculateFinalInvoiceFailure: '',
   requestedCoursesCounts: {
     newCount: 0,
-    completedCount: 0
-  }
+    completedCount: 0,
+  },
 };
 
 export const reducer = createReducer(
   initialState,
-  on(requestActions.calculateEstimatedPrice, state => ({
+  on(requestActions.calculateEstimatedPrice, (state) => ({
     ...state,
-    isLoadingEstimatedPrice: true
+    isLoadingEstimatedPrice: true,
   })),
 
   on(
@@ -82,19 +85,19 @@ export const reducer = createReducer(
     (state, { estimatedPrice }) => ({
       ...state,
       estimatedPrice,
-      isLoadingEstimatedPrice: false
+      isLoadingEstimatedPrice: false,
     })
   ),
 
   on(requestActions.calculateEstimatedPriceFailure, (state, { error }) => ({
     ...state,
     isLoadingEstimatedPrice: false,
-    loadingEstimatedPriceFailure: error
+    loadingEstimatedPriceFailure: error,
   })),
 
-  on(requestActions.generateTutors, state => ({
+  on(requestActions.generateTutors, (state) => ({
     ...state,
-    isGeneratingTutors: true
+    isGeneratingTutors: true,
   })),
 
   on(
@@ -103,36 +106,36 @@ export const reducer = createReducer(
       ...state,
       availableTutors,
       suggestedTutors,
-      isGeneratingTutors: false
+      isGeneratingTutors: false,
     })
   ),
 
   on(requestActions.generateTutorsFailure, (state, { error }) => ({
     ...state,
     isGeneratingTutors: false,
-    loadingTutorFailure: error
+    loadingTutorFailure: error,
   })),
 
-  on(requestActions.createClass, state => ({
+  on(requestActions.createClass, (state) => ({
     ...state,
-    isCreateClass: true
+    isCreateClass: true,
   })),
 
   on(requestActions.createClassSuccess, (state, { classroom }) => ({
     ...state,
     isCreateClass: false,
-    createdClass: classroom
+    createdClass: classroom,
   })),
 
   on(requestActions.createClassFailure, (state, { error }) => ({
     ...state,
     isCreateClass: false,
-    createClassFailure: error
+    createClassFailure: error,
   })),
 
-  on(requestActions.createCourse, requestActions.createFreeCourse, state => ({
+  on(requestActions.createCourse, requestActions.createFreeCourse, (state) => ({
     ...state,
-    isCreatingCourse: true
+    isCreatingCourse: true,
   })),
 
   on(
@@ -142,7 +145,7 @@ export const reducer = createReducer(
     (state, { paymentInfo }) => ({
       ...state,
       paymentInfo,
-      isCreatingCourse: true
+      isCreatingCourse: true,
     })
   ),
 
@@ -151,24 +154,24 @@ export const reducer = createReducer(
     requestActions.createFreeCourseFailure,
     (state, { error }) => ({
       ...state,
-      isCreatingCourse: false
+      isCreatingCourse: false,
     })
   ),
 
   on(requestActions.createClassLocalStorage, (state, { classroom }) => ({
     ...state,
     isCreateClass: false,
-    createdClass: classroom
+    createdClass: classroom,
   })),
 
-  on(userActions.enterRequestTutor, state => ({
+  on(userActions.enterRequestTutor, (state) => ({
     ...state,
-    createdClass: null
+    createdClass: null,
   })),
 
-  on(requestActions.calculateFinalInvoice, state => ({
+  on(requestActions.calculateFinalInvoice, (state) => ({
     ...state,
-    isCalculateFinalInvoice: true
+    isCalculateFinalInvoice: true,
   })),
 
   on(
@@ -176,19 +179,19 @@ export const reducer = createReducer(
     (state, { invoiceDetails }) => ({
       ...state,
       isCalculateFinalInvoice: false,
-      invoiceDetails
+      invoiceDetails,
     })
   ),
 
   on(requestActions.calculateFinalInvoiceFailure, (state, { error }) => ({
     ...state,
     isCalculateFinalInvoice: false,
-    calculateFinalInvoiceFailure: error
+    calculateFinalInvoiceFailure: error,
   })),
 
-  on(requestActions.loadRequestedCourses, state => ({
+  on(requestActions.loadRequestedCourses, (state) => ({
     ...state,
-    isLoadingRequestedCourses: true
+    isLoadingRequestedCourses: true,
   })),
 
   on(
@@ -203,40 +206,40 @@ export const reducer = createReducer(
       completedRequestedCourses: completedCourses,
       requestedCoursesCounts: {
         ...state.requestedCoursesCounts,
-        ...requestedCoursesCounts
-      }
+        ...requestedCoursesCounts,
+      },
     })
   ),
 
-  on(requestActions.loadRequestedCoursesFailure, state => ({
+  on(requestActions.loadRequestedCoursesFailure, (state) => ({
     ...state,
-    isLoadingRequestedCourses: false
+    isLoadingRequestedCourses: false,
   })),
 
-  on(requestActions.requestCourse, state => ({
+  on(requestActions.requestCourse, (state) => ({
     ...state,
-    isRequestCourse: true
+    isRequestCourse: true,
   })),
 
   on(
     requestActions.requestCourseSuccess,
     requestActions.requestCourseFailure,
-    state => ({
+    (state) => ({
       ...state,
-      isRequestCourse: false
+      isRequestCourse: false,
     })
   ),
 
-  on(requestActions.changeRequestStatus, state => ({
+  on(requestActions.changeRequestStatus, (state) => ({
     ...state,
-    isChangeCourseRequest: true
+    isChangeCourseRequest: true,
   })),
 
   on(requestActions.changeRequestStatusSuccess, (state, { status, id }) => {
     let request: any;
 
     if (state.requestedCourses && state.requestedCourses.length) {
-      state.requestedCourses.forEach(item => {
+      state.requestedCourses.forEach((item) => {
         if (item.id === id) {
           request = { ...item, status };
         }
@@ -248,7 +251,7 @@ export const reducer = createReducer(
       isChangeCourseRequest: false,
       requestedCourses:
         state.requestedCourses && state.requestedCourses.length
-          ? state.requestedCourses.filter(item => item.id !== id)
+          ? state.requestedCourses.filter((item) => item.id !== id)
           : [],
       completedRequestedCourses:
         state.completedRequestedCourses &&
@@ -262,29 +265,45 @@ export const reducer = createReducer(
           : 0,
         completedCount: state.requestedCoursesCounts?.completedCount
           ? state.requestedCoursesCounts.completedCount + 1
-          : 1
-      }
+          : 1,
+      },
     };
   }),
 
-  on(requestActions.changeRequestStatusFailure, state => ({
+  on(requestActions.changeRequestStatusFailure, (state) => ({
     ...state,
-    isChangeCourseRequest: false
+    isChangeCourseRequest: false,
   })),
 
-  on(requestActions.getInvoiceEmail, state => ({
+  on(requestActions.getInvoiceEmail, (state) => ({
     ...state,
-    isGetInvoiceEmail: true
+    isGetInvoiceEmail: true,
   })),
 
   on(
     requestActions.getInvoiceEmailSuccess,
     requestActions.getInvoiceEmailFailure,
-    state => ({
+    (state) => ({
       ...state,
-      isGetInvoiceEmail: false
+      isGetInvoiceEmail: false,
     })
-  )
+  ),
+
+  on(requestActions.applyCoupon, (state) => ({
+    ...state,
+    isApplyingCoupon: true,
+  })),
+
+  on(requestActions.applyCouponSuccess, (state, { invoiceDetails }) => ({
+    ...state,
+    invoiceDetails,
+    isApplyingCoupon: false,
+  })),
+
+  on(requestActions.applyCouponFailure, (state) => ({
+    ...state,
+    isApplyingCoupon: false,
+  }))
 );
 
 export const selectGeneratingAvailableTutors = (
@@ -344,6 +363,9 @@ export const selectRequestedIsCreatingCourse = (state: State): any =>
 export const selectIsGetInvoiceEmail = (state: State): boolean =>
   state.isGetInvoiceEmail;
 
+export const selectIsApplyingCoupon = (state: State): boolean =>
+  state.isApplyingCoupon;
+
 export const selectFilteredGeneratingAvailableTutors = (
   state: State,
   props?: any
@@ -352,7 +374,7 @@ export const selectFilteredGeneratingAvailableTutors = (
 
   if (state.availableTutors && state.availableTutors.length && props) {
     tutors = props?.name
-      ? state.availableTutors.filter(tutor =>
+      ? state.availableTutors.filter((tutor) =>
           tutor?.name?.toLowerCase().includes(props.name.toLowerCase())
         )
       : state.availableTutors;
@@ -369,7 +391,7 @@ export const selectFilteredGeneratingSuggestedTutors = (
 
   if (state.suggestedTutors && state.suggestedTutors.length && props) {
     tutors = props?.name
-      ? state.suggestedTutors.filter(tutor =>
+      ? state.suggestedTutors.filter((tutor) =>
           tutor?.name?.toLowerCase().includes(props.name.toLowerCase())
         )
       : state.suggestedTutors;

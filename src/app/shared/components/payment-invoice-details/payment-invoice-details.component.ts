@@ -9,12 +9,14 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class PaymentInvoiceDetailsComponent implements OnInit {
   @Input() classroom: IClassroom;
   @Input() isGetInvoiceEmail: boolean;
+  @Input() isApplyingCoupon: boolean;
   @Input() invoiceDetails: IInvoiceDetails;
 
   @Output() print: EventEmitter<void> = new EventEmitter<void>();
-  @Output() applyCoupon: EventEmitter<any> = new EventEmitter<any>();
+  @Output() applyCoupon: EventEmitter<string> = new EventEmitter<string>();
   @Output() getInvoiceEmail: EventEmitter<void> = new EventEmitter<void>();
 
+  coupon: string = '';
   dateNow = new Date();
 
   constructor() {}

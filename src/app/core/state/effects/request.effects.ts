@@ -2,12 +2,13 @@ import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
+
 import * as fromCore from '@metutor/core/state';
 import * as requestActions from '../actions/request.actions';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { AlertNotificationService } from '@metutor/core/components';
 import { AdminService, CoursesService, TutorsService } from '@services';
-import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 
 @Injectable()
 export class RequestEffects {
@@ -16,15 +17,15 @@ export class RequestEffects {
       ofType(requestActions.calculateEstimatedPrice),
       mergeMap(({ subjectId }) =>
         this._coursesService.calculateEstimatedPrice(subjectId).pipe(
-          map(estimatedPrice =>
+          map((estimatedPrice) =>
             requestActions.calculateEstimatedPriceSuccess({
-              estimatedPrice
+              estimatedPrice,
             })
           ),
-          catchError(error =>
+          catchError((error) =>
             of(
               requestActions.calculateEstimatedPriceFailure({
-                error: error?.error?.message || error?.error?.errors
+                error: error?.error?.message || error?.error?.errors,
               })
             )
           )
@@ -38,16 +39,16 @@ export class RequestEffects {
       ofType(requestActions.generateTutors),
       mergeMap(({ data }) =>
         this._tutorService.generateTutors(data).pipe(
-          map(response =>
+          map((response) =>
             requestActions.generateTutorsSuccess({
               suggestedTutors: response.suggestedTutors,
-              availableTutors: response.availableTutors
+              availableTutors: response.availableTutors,
             })
           ),
-          catchError(error =>
+          catchError((error) =>
             of(
               requestActions.generateTutorsFailure({
-                error: error?.error?.message || error?.error?.errors
+                error: error?.error?.message || error?.error?.errors,
               })
             )
           )
@@ -84,7 +85,7 @@ export class RequestEffects {
         })
       ),
     {
-      dispatch: false
+      dispatch: false,
     }
   );
 
@@ -94,15 +95,38 @@ export class RequestEffects {
       withLatestFrom(this._store.select(fromCore.selectCreatedClass)),
       mergeMap(([{ classes }, _createdClass]) =>
         this._coursesService.calculateFinalInvoice(classes, _createdClass).pipe(
-          map(invoiceDetails =>
+          map((invoiceDetails) =>
             requestActions.calculateFinalInvoiceSuccess({
-              invoiceDetails
+              invoiceDetails,
             })
           ),
-          catchError(error =>
+          catchError((error) =>
             of(
               requestActions.calculateFinalInvoiceFailure({
-                error: error?.error?.message || error?.error?.errors
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  applyCoupon$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(requestActions.applyCoupon),
+      mergeMap(({ body }) =>
+        this._coursesService.applyCoupon(body).pipe(
+          map(({ message, invoiceDetails }) =>
+            requestActions.applyCouponSuccess({
+              message,
+              invoiceDetails,
+            })
+          ),
+          catchError((error) =>
+            of(
+              requestActions.applyCouponFailure({
+                error: error?.error?.message || error?.error?.errors,
               })
             )
           )
@@ -116,15 +140,15 @@ export class RequestEffects {
       ofType(requestActions.createCourse),
       mergeMap(({ data }) =>
         this._coursesService.createCourse(data).pipe(
-          map(paymentInfo =>
+          map((paymentInfo) =>
             requestActions.createCourseSuccess({
-              paymentInfo
+              paymentInfo,
             })
           ),
-          catchError(error =>
+          catchError((error) =>
             of(
               requestActions.createCourseFailure({
-                error: error?.error?.message || error?.error?.errors
+                error: error?.error?.message || error?.error?.errors,
               })
             )
           )
@@ -138,15 +162,15 @@ export class RequestEffects {
       ofType(requestActions.createFreeCourse),
       mergeMap(({ data }) =>
         this._coursesService.createFreeCourse(data).pipe(
-          map(paymentInfo =>
+          map((paymentInfo) =>
             requestActions.createFreeCourseSuccess({
-              paymentInfo
+              paymentInfo,
             })
           ),
-          catchError(error =>
+          catchError((error) =>
             of(
               requestActions.createFreeCourseFailure({
-                error: error?.error?.message || error?.error?.errors
+                error: error?.error?.message || error?.error?.errors,
               })
             )
           )
@@ -164,7 +188,7 @@ export class RequestEffects {
         })
       ),
     {
-      dispatch: false
+      dispatch: false,
     }
   );
 
@@ -173,17 +197,17 @@ export class RequestEffects {
       ofType(requestActions.loadRequestedCourses),
       mergeMap(({ params }) =>
         this._adminService.loadRequestedCourses(params).pipe(
-          map(response =>
+          map((response) =>
             requestActions.loadRequestedCoursesSuccess({
               requestedCourses: response.requestedCourses,
               completedCourses: response.completedCourses,
-              requestedCoursesCounts: response.requestedCoursesCounts
+              requestedCoursesCounts: response.requestedCoursesCounts,
             })
           ),
-          catchError(error =>
+          catchError((error) =>
             of(
               requestActions.loadRequestedCoursesFailure({
-                error: error?.error?.message || error?.error?.errors
+                error: error?.error?.message || error?.error?.errors,
               })
             )
           )
@@ -195,17 +219,17 @@ export class RequestEffects {
   requestCourse$ = createEffect(() =>
     this._actions$.pipe(
       ofType(requestActions.requestCourse),
-      mergeMap(action =>
+      mergeMap((action) =>
         this._coursesService.requestCourse(action.data).pipe(
-          map(response =>
+          map((response) =>
             requestActions.requestCourseSuccess({
-              message: response.message
+              message: response.message,
             })
           ),
-          catchError(error =>
+          catchError((error) =>
             of(
               requestActions.requestCourseFailure({
-                error: error?.error?.message || error?.error?.errors
+                error: error?.error?.message || error?.error?.errors,
               })
             )
           )
@@ -217,19 +241,19 @@ export class RequestEffects {
   changeRequestStatus$ = createEffect(() =>
     this._actions$.pipe(
       ofType(requestActions.changeRequestStatus),
-      mergeMap(action =>
+      mergeMap((action) =>
         this._adminService.changeCourseStatus(action.id, action.status).pipe(
-          map(response =>
+          map((response) =>
             requestActions.changeRequestStatusSuccess({
               id: action.id,
               status: action.status,
-              message: response.message
+              message: response.message,
             })
           ),
-          catchError(error =>
+          catchError((error) =>
             of(
               requestActions.changeRequestStatusFailure({
-                error: error?.error?.message || error?.error?.errors
+                error: error?.error?.message || error?.error?.errors,
               })
             )
           )
@@ -241,17 +265,17 @@ export class RequestEffects {
   getInvoiceEmail$ = createEffect(() =>
     this._actions$.pipe(
       ofType(requestActions.getInvoiceEmail),
-      mergeMap(action =>
+      mergeMap((action) =>
         this._coursesService.getInvoiceEmail(action.info).pipe(
-          map(response =>
+          map((response) =>
             requestActions.getInvoiceEmailSuccess({
-              message: response.message
+              message: response.message,
             })
           ),
-          catchError(error =>
+          catchError((error) =>
             of(
               requestActions.getInvoiceEmailFailure({
-                error: error?.error?.message || error?.error?.errors
+                error: error?.error?.message || error?.error?.errors,
               })
             )
           )
@@ -265,15 +289,16 @@ export class RequestEffects {
       this._actions$.pipe(
         ofType(
           ...[
+            requestActions.applyCouponSuccess,
             requestActions.requestCourseSuccess,
             requestActions.getInvoiceEmailSuccess,
-            requestActions.changeRequestStatusSuccess
+            requestActions.changeRequestStatusSuccess,
           ]
         ),
         map(({ message }) => this._alertNotificationService.success(message))
       ),
     {
-      dispatch: false
+      dispatch: false,
     }
   );
 
@@ -282,16 +307,17 @@ export class RequestEffects {
       this._actions$.pipe(
         ofType(
           ...[
+            requestActions.applyCouponFailure,
             requestActions.createClassFailure,
             requestActions.createCourseFailure,
             requestActions.requestCourseFailure,
             requestActions.generateTutorsFailure,
             requestActions.getInvoiceEmailFailure,
             requestActions.createFreeCourseFailure,
-            requestActions.changeRequestStatusFailure
+            requestActions.changeRequestStatusFailure,
           ]
         ),
-        map(action => {
+        map((action) => {
           if (action.error) {
             return this._alertNotificationService.error(action.error);
           } else {
@@ -300,7 +326,7 @@ export class RequestEffects {
         })
       ),
     {
-      dispatch: false
+      dispatch: false,
     }
   );
 

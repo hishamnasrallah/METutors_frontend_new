@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CoursesService {
   baseUrl = environment.API_URL;
@@ -16,7 +16,7 @@ export class CoursesService {
 
   loadCourses(params: any): Observable<any> {
     return this.http.get<{ courses: ICourse[] }>(`${this.baseUrl}courses`, {
-      params
+      params,
     });
   }
 
@@ -101,7 +101,7 @@ export class CoursesService {
       .get<{ estimated_price_per_hour: number }>(
         `${this.baseUrl}estimated-price?subject_id=${subjectId}`
       )
-      .pipe(map(response => response.estimated_price_per_hour))
+      .pipe(map((response) => response.estimated_price_per_hour))
       .pipe(catchError(this.errorHandler));
   }
 
@@ -120,22 +120,26 @@ export class CoursesService {
                 day: clss.day + 1,
                 start_time: clss.start_time,
                 end_time: clss.end_time,
-                duration: clss.duration
+                duration: clss.duration,
               }))
-            : []
+            : [],
       };
     }
 
     return this.http
       .post(`${this.baseUrl}final-invoice`, body)
       .pipe(
-        map(response =>
+        map((response) =>
           camelcaseKeys(response, {
-            deep: true
+            deep: true,
           })
         )
       )
       .pipe(catchError(this.errorHandler));
+  }
+
+  applyCoupon(body: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}apply-coupon`, body);
   }
 
   createCourse(body: any): Observable<any> {
@@ -156,7 +160,7 @@ export class CoursesService {
       language_preference: value?.language,
       course_description: value?.description,
       student_name: value?.name,
-      email: value?.email
+      email: value?.email,
     });
   }
 
@@ -169,8 +173,8 @@ export class CoursesService {
         total_hours: +value.totalHours,
         total_amount: +value.totalAmount,
         date: value.date,
-        invoice_number: value.invoiceNumber
-      }
+        invoice_number: value.invoiceNumber,
+      },
     });
   }
 

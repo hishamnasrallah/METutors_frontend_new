@@ -160,3 +160,18 @@ export const getInvoiceEmailFailure = createAction(
   '[Request] Get Invoice Email Failure',
   props<{ error: any }>()
 );
+
+export const applyCoupon = createAction(
+  '[Request] Apply Coupon',
+  props<{ body: any }>()
+);
+
+export const applyCouponSuccess = createAction(
+  '[Request] Apply Coupon Success',
+  props<{ invoiceDetails: IInvoiceDetails; message: string }>()
+);
+
+export const applyCouponFailure = createAction(
+  '[Request] Apply Coupon Failure',
+  props<{ error: any }>()
+);

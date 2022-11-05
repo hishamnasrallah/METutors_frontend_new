@@ -51,8 +51,8 @@
           <tr *ngFor="let coupon of view.result?.coupons; let i = index">
             <td>{{ i + 1}}</td>
             <td>{{coupon?.couponId}}</td>
-            <td>{{ coupon?.name }}</td>
-            <td>{{ coupon?.description }}</td>
+            <td class="text-break">{{ coupon?.name }}</td>
+            <td class="text-break">{{ coupon?.description }}</td>
             <td>{{ coupon?.discount + '%' }}</td>
             <td>{{ coupon.createdAt | date}}</td>
             <td>{{ coupon.expiryDate | date}}</td>
@@ -79,8 +79,8 @@
 
 
     <mat-menu #menu="matMenu">
-      <button mat-menu-item class="h-auto btn-menu">
-        <span (click)="onAddCoupon()">Edit coupon</span>
+      <button mat-menu-item class="h-auto btn-menu" (click)="onAddCoupon()">
+        <span>Edit coupon</span>
       </button>
     </mat-menu>
   </div>

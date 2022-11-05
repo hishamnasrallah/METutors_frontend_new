@@ -6,7 +6,7 @@
   <span>
     <a [routerLink]="routerLink" *ngIf="routerLink" class="fw-bold"><bdi *ngIf="name">{{ name }}</bdi></a>
     <bdi *ngIf="name && !routerLink" class="title" [ngClass]="{'fw-bold': tagLine}">{{ name }}</bdi>
-    <span *ngIf="showRating" class="rating"><rating [ngModel]="rating" [max]="1" [readonly]="true" class="ms-1"></rating> {{ rating }}/5</span>
+    <span *ngIf="showRating" class="rating"><rating [ngModel]="rating" [max]="1" [readonly]="true" class="ms-1"></rating> {{ (rating || 0).toFixed(1) }}</span>
     <p *ngIf="tagLine" class="text-truncate w-50">{{ tagLine }}</p>
   </span>
 </div>
@@ -17,7 +17,7 @@
     <h1 class="mb-0">{{ name }}</h1>
     <div *ngIf="rating">
       <rating [ngModel]="rating" [max]="5" [readonly]="true"></rating>
-      <span class="ms-2 rating">{{ rating.toFixed(2) }}</span>
+      <span class="ms-2 rating">{{ (rating || 0).toFixed(1) }}</span>
       <span class="ms-2 count">({{ count || 0 }} {{ +(count)! > 1 ? ('REVIEWS_SM' | translate) : ('REVIEW_SM' | translate) }})</span>
     </div>
   </div>
