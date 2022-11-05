@@ -19,8 +19,10 @@ export interface IProgram {
   status: number;
   titleAr: string;
   titleEn: string;
+  isoCode: string;
   createdAt: string;
   updatedAt: string;
+  programCode: string;
   description: string;
   descriptionAr: string;
   descriptionEn: string;

@@ -314,8 +314,9 @@ export class TutorEffects {
           .pipe(
             map(response =>
               tutorActions.exploreTutorsSuccess({
-                tutors: response,
-                tutorsCount: response
+                tutors: response?.teachers,
+                tutorsCount: response?.total,
+                fieldsOfStudy: response?.fieldsOfStudy
               })
             ),
             catchError(error =>

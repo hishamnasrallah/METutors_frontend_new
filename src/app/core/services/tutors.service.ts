@@ -2,9 +2,15 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { isNil, omitBy } from 'lodash';
 import { Injectable } from '@angular/core';
+import camelcaseKeys from 'camelcase-keys';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { IExploreTutorsFilters, ITutor, SubmitInterviewInput } from '@models';
+import {
+  IField,
+  ITutor,
+  SubmitInterviewInput,
+  IExploreTutorsFilters
+} from '@models';
 
 @Injectable({
   providedIn: 'root'
@@ -48,26 +54,27 @@ export class TutorsService {
   ): Observable<any> {
     const object = { ...filters };
     const params = new HttpParams({ fromObject: object });
-    let url = `teacher/program/${program}`;
+    let url = `teachers/program/${program}`;
 
     if (program === 0) {
       url = 'all-teachers';
     }
 
     return this.http
-      .get<{ teachers: { data: ITutor[]; current_page: number } }>(
-        `${this.baseUrl}${url}`,
-        {
-          params
-        }
-      )
+      .get<{
+        teachers: { data: ITutor[]; total: number };
+        field_of_studies: IField[];
+      }>(`${this.baseUrl}${url}`, {
+        params
+      })
       .pipe(
         map(response => {
           return {
+            fieldsOfStudy: camelcaseKeys(response.field_of_studies, { deep: true }),
             teachers: response.teachers.data.map(
               item => new ITutor(false, item)
             ),
-            currentPage: response.teachers.current_page
+            total: response.teachers.total
           };
         })
       );
