@@ -1,7 +1,7 @@
 <div class="select-program-category">
-  <h3 class="mb-3 select-program">{{ 'SELECT_PROGRAM_CATEGORY' | translate }}</h3>
+  <h3 class="mb-3 select-program f-size-17-md-sm">{{ 'SELECT_PROGRAM_CATEGORY' | translate }}</h3>
   <div class="position-relative">
-    <div class="tabs d-flex d-block-sm overflow-hidden" #widgetsContent scrollX="true" (scroll)="checkScroll()">
+    <div class="tabs d-flex d-block-xs overflow-hidden" #widgetsContent scrollX="true" (scroll)="checkScroll()">
       <button mat-button class="w-100 align-items-center justify-content-center d-flex" [class.active]="step === 0"
         (click)="onChangeStep(0, countries, loadingCountries)">
         <strong>{{ 'ALL_PROGRAMS' | translate }}</strong>

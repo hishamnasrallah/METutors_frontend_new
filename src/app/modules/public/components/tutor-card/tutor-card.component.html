@@ -11,8 +11,8 @@
     </div>
     <div class="col-md-9 d-flex flex-column">
       <div class="row">
-        <div class="col-md-7">
-          <h5 class="card-title">
+        <div class="col-lg-7">
+          <h5 class="card-title mt-15-sm">
             <a [routerLink]="'/profile/tutor/' + tutor?.id"><bdi>{{ tutor?.name }}</bdi></a>
           </h5>
           <h3 *ngIf="tutor?.qualifications?.nameOfUniversity">
@@ -27,7 +27,7 @@
             </span>
           </div>
 
-          <div class="col-12 list">
+          <div class="col-12 list mt-15-sm mb-5-sm">
             <div class="row">
               <div class="col-6 d-flex" *ngIf="tutor?.country">
                 <img src="assets/svg/map.svg" class="icon" draggable="false" width="16" height="16" alt="">
@@ -56,7 +56,7 @@
             </p>
           </div>
         </div>
-        <div class="col-md-5 d-flex flex-column">
+        <div class="col-lg-5 d-flex flex-column">
           <div class="col-12 specialization flex-grow-1" *ngIf="tutor?.programs && tutor?.programs?.length">
             <h2>{{ 'SPECIALIZATION' | translate }}:</h2>
             <div class="programs">
@@ -70,7 +70,7 @@
           </div>
 
           <div class="actions">
-            <a mat-button class="flex-grow-1 book main-button-transparent float-end"
+            <a mat-button class="flex-grow-1 book main-button-transparent float-end w-100-sm"
               [routerLink]="'/profile/tutor/' + tutor?.id">
               {{ 'VIEW_FULL_PROFILE' | translate }}
             </a>

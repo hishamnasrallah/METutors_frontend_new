@@ -49,6 +49,8 @@ export interface ILevel {
 export interface IField {
   id: number;
   name: string;
+  nameAr: string;
+  nameEn: string;
   code: string;
   icon: string;
   grade: number;
@@ -102,4 +104,5 @@ export interface IExploreTutorsFilters {
   field?: number;
   program?: number;
   country_id?: number;
+  page?: number;
 }

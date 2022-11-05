@@ -242,6 +242,8 @@ export class LookupsService {
           return response.subjects.map((item: any) => ({
             id: item.id,
             name: item.name,
+            nameAr: item.name_ar,
+            nameEn: item.name,
             pricePerHour: item.price_per_hour,
             fieldId: item.field_id,
           }));
@@ -354,7 +356,7 @@ export class LookupsService {
     }
 
     return this.http
-      .get<{ field_of_study: IField[] }>(`${this.BACKEND_URL}field-of-study`, {
+      .get<{ field_of_study: any[] }>(`${this.BACKEND_URL}field-of-study`, {
         params,
       })
       .pipe(
@@ -362,6 +364,8 @@ export class LookupsService {
           return response.field_of_study.map((item) => ({
             id: item.id,
             name: item.name,
+            nameAr: item.name_ar,
+            nameEn: item.name,
             image: item.image,
           }));
         })
@@ -377,6 +381,8 @@ export class LookupsService {
           return response.field_of_study.map((item: any) => ({
             id: item.id,
             name: item.name,
+            nameAr: item.name_ar,
+            nameEn: item.name,
             programId: item?.program_id,
             countryId: item?.country_id,
             grade: item?.grade,
@@ -405,7 +411,7 @@ export class LookupsService {
 
   getFieldSubjects(fieldsId: string[]): Observable<any> {
     return this.http
-      .get<{ subjects: ISubject[] }>(
+      .get<{ subjects: any[] }>(
         `${this.BACKEND_URL}multi-field-subjects?field_id=${fieldsId}`
       )
       .pipe(
@@ -413,6 +419,8 @@ export class LookupsService {
           return response.subjects.map((item) => ({
             id: item.id,
             name: item.name,
+            nameEn: item.name,
+            nameAr: item.name_ar,
           }));
         })
       )
@@ -432,6 +440,8 @@ export class LookupsService {
             field: {
               id: response.FieldOfStudy.id,
               name: response.FieldOfStudy.name,
+              nameAr: response.FieldOfStudy.name_ar,
+              nameEn: response.FieldOfStudy.name,
               programId: response.FieldOfStudy?.program_id,
               countryId: response.FieldOfStudy?.country_id,
               grade: response.FieldOfStudy?.grade,
@@ -459,6 +469,8 @@ export class LookupsService {
             field: {
               id: response.FieldOfStudy.id,
               name: response.FieldOfStudy.name,
+              nameAr: response.FieldOfStudy.name_ar,
+              nameEn: response.FieldOfStudy.name,
               image: response.FieldOfStudy.image,
               programId: response.FieldOfStudy?.program_id,
               countryId: response.FieldOfStudy?.country_id,

@@ -9,7 +9,7 @@
 <div class="container explore-tutors mt-4">
   <div class="row">
     <div class="col-md-7">
-      <h1>{{ 'ALL_AVAILABLE_TUTORS' | translate }}</h1>
+      <h1 class="f-size-20-md-sm">{{ 'ALL_AVAILABLE_TUTORS' | translate }}</h1>
     </div>
   </div>
   <div class="row mt-4">
@@ -46,8 +46,17 @@
     </div>
     <div class="col-md-9" *ngLet="(loadingTutors$ | async) as loadingTutors">
       <ng-container *ngIf="!loadingTutors">
-        <metutors-tutor-card *ngFor="let tutor of tutors" [tutor]="tutor">
-        </metutors-tutor-card>
+        <ng-container *ngIf="tutors && tutors.length">
+          <metutors-tutor-card *ngFor="let tutor of tutors" [tutor]="tutor">
+          </metutors-tutor-card>
+
+          <pagination [totalItems]="(count$ | async)!" [itemsPerPage]="perPage" [maxSize]="5"
+                      [boundaryLinks]="true"
+                      previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"
+                      (pageChanged)="onPageChange($event)" 
+                      *ngIf="+(count$ | async)! > perPage">
+          </pagination>
+        </ng-container>
 
         <div class="card no-data" *ngIf="!tutors || !tutors.length">
           <div class="card-body">

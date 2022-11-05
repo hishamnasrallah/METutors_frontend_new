@@ -56,6 +56,7 @@ export class ExploreTutorsComponent implements OnInit {
   countries$: Observable<ICountry[] | null>;
 
   page = 1;
+  perPage = 10;
   title: string;
   country: number;
   openFilter = true;
@@ -83,11 +84,17 @@ export class ExploreTutorsComponent implements OnInit {
     this.onFilterTutors();
   }
 
+  onPageChange({ page }: { page: number }): void {
+    this.page = page;
+    this.onFilterTutors();
+  }
+
   onFilterTutors(): void {
     const filters: IExploreTutorsFilters = {
       search: this.title || undefined,
       country_id: this.country,
-      program: this.program
+      program: this.program,
+      page: this.page
     };
 
     this._store.dispatch(

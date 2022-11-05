@@ -368,7 +368,20 @@ export const reducer = createReducer(
     lookupsActions.loadSubjectsByFieldIdSuccess,
     (state, { subjects }) => ({
       ...state,
-      subjects,
+      subjects:
+        subjects && subjects.length
+          ? subjects.map(subject => ({
+              ...subject,
+              name:
+                localStorage.getItem('DEFAULT_LANGUAGE') === 'ar'
+                  ? subject?.nameAr
+                  : subject?.nameEn,
+              description:
+                localStorage.getItem('DEFAULT_LANGUAGE') === 'ar'
+                  ? subject?.descriptionAr
+                  : subject?.descriptionEn
+            }))
+          : [],
       isLoadingSubjects: false
     })
   ),
@@ -410,7 +423,16 @@ export const reducer = createReducer(
     lookupsActions.loadFieldsByProgramIdSuccess,
     (state, { fields }) => ({
       ...state,
-      fields,
+      fields:
+        fields && fields.length
+          ? fields.map(field => ({
+              ...field,
+              name:
+                localStorage.getItem('DEFAULT_LANGUAGE') === 'ar'
+                  ? field?.nameAr
+                  : field?.nameEn
+            }))
+          : [],
       isLoadingFields: false
     })
   ),
@@ -729,6 +751,30 @@ export const reducer = createReducer(
               localStorage.getItem('DEFAULT_LANGUAGE') === 'ar'
                 ? program?.descriptionAr
                 : program?.descriptionEn
+          }))
+        : [],
+    subjects:
+      state.subjects && state.subjects.length
+        ? state.subjects.map(subject => ({
+            ...subject,
+            name:
+              localStorage.getItem('DEFAULT_LANGUAGE') === 'ar'
+                ? subject?.nameAr
+                : subject?.nameEn,
+            description:
+              localStorage.getItem('DEFAULT_LANGUAGE') === 'ar'
+                ? subject?.descriptionAr
+                : subject?.descriptionEn
+          }))
+        : [],
+    fields:
+      state.fields && state.fields.length
+        ? state.fields.map(field => ({
+            ...field,
+            name:
+              localStorage.getItem('DEFAULT_LANGUAGE') === 'ar'
+                ? field?.nameAr
+                : field?.nameEn
           }))
         : []
   }))
