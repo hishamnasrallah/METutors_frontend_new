@@ -138,7 +138,9 @@ export function dataURLtoFile(dataUrl: any, filename = 'image.png'): any {
 export function dateToISOString(date: any, time = null): any {
   const _date = moment(date).format('YYYY-MM-DD');
 
-  const dateTime = time ? moment(_date + ' ' + time) : moment(_date);
+  const dateTime = time
+    ? moment(_date + ' ' + time, 'YYYY-MM-DD HH:mm a')
+    : moment(_date);
 
   return dateTime.toISOString();
 }

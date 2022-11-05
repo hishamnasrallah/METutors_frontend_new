@@ -1,9 +1,10 @@
 import { DatePipe } from '@angular/common';
-import { generalConstants } from '@metutor/config';
-import { SubmitInterviewInput } from '@metutor/core/models';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormValidationUtilsService } from '@metutor/core/validators';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+
+import { SubmitInterviewInput } from '@metutor/core/models';
+import { dateToISOString, generalConstants } from '@metutor/config';
 
 @Component({
   selector: 'metutors-tutor-submit-interview-request-modal',
@@ -48,29 +49,19 @@ export class TutorSubmitInterviewRequestModalComponent implements OnInit {
 
   onSubmit(form: FormGroup): void {
     if (form.valid) {
-      this.submitted.emit({
+      const body = {
         ...form.value,
-        interviewTime: new Date(
-          Date.parse(
-            this._datePipe.transform(
-              new Date(form?.value.interviewDate),
-              'yyyy-MM-dd'
-            ) +
-              ' ' +
-              form?.value.interviewTime
-          )
-        )?.toISOString(),
-        interviewDate: new Date(
-          Date.parse(
-            this._datePipe.transform(
-              new Date(form?.value.interviewDate),
-              'yyyy-MM-dd'
-            ) +
-              ' ' +
-              form?.value.interviewTime
-          )
-        )?.toISOString(),
-      });
+        interviewTime: dateToISOString(
+          form?.value.interviewDate,
+          form?.value.interviewTime
+        ),
+        interviewDate: dateToISOString(
+          form?.value.interviewDate,
+          form?.value.interviewTime
+        ),
+      };
+
+      this.submitted.emit(body);
     }
   }
 }
