@@ -21,6 +21,7 @@ import {
   ICountry,
   IClassroom,
   IInvoiceDetails,
+  IClass,
 } from '@metutor/core/models';
 
 @Component({
@@ -33,6 +34,7 @@ export class InvoiceDetailsComponent implements OnInit {
   user$: Observable<IUser | null>;
   cities$: Observable<ICity[] | null>;
   isCreatingCourse$: Observable<boolean>;
+  isApplyingCoupon$: Observable<boolean>;
   isGetInvoiceEmail$: Observable<boolean>;
   countries$: Observable<ICountry[] | null>;
   classroom$: Observable<IClassroom | null>;
@@ -121,6 +123,25 @@ export class InvoiceDetailsComponent implements OnInit {
       .pipe(tap((city) => (this.cities = city)));
   }
 
+  onApplyCoupon(promo_code: string, classroom: any): void {
+    const body = {
+      promo_code,
+      subject_id: classroom?.subject,
+      classes:
+        classroom?.classrooms && classroom?.classrooms.length
+          ? classroom?.classrooms.map((clss: any) => ({
+              date: clss.date,
+              day: clss.day + 1,
+              start_time: clss.start_time,
+              end_time: clss.end_time,
+              duration: clss.duration,
+            }))
+          : [],
+    };
+
+    this._store.dispatch(fromCore.applyCoupon({ body }));
+  }
+
   ngOnInit(): void {
     this.billingForm = this._fb.group({
       city: [null, Validators.required],
@@ -165,6 +186,10 @@ export class InvoiceDetailsComponent implements OnInit {
 
     this.isCreatingCourse$ = this._store.select(
       fromCore.selectRequestedIsCreatingCourse
+    );
+
+    this.isApplyingCoupon$ = this._store.select(
+      fromCore.selectIsApplyingCoupon
     );
 
     this.isGetInvoiceEmail$ = this._store.select(

@@ -51,11 +51,9 @@
   </li>
   <li class="d-flex justify-content-between coupon d-block-sm">
     <span class="f-size-17-md-sm">{{ 'PROMOCODE' | translate }}</span>
-    <form>
-      <div class="d-flex have-coupon">
-        <input type="text" placeholder="New2020" class="form-control">
-        <button type="button" mat-button (click)="applyCoupon.emit()">{{ 'APPLY' | translate }}</button>
-      </div>
-    </form>
+    <div class="d-flex have-coupon">
+      <input placeholder="New2020" [(ngModel)]="coupon" class="form-control" (keydown.space)="$event.preventDefault()">
+      <button type="button" mat-button (click)="applyCoupon.emit(coupon)" [disabled]="!coupon || isApplyingCoupon">{{ 'APPLY' | translate }}</button>
+    </div>
   </li>
 </ul>

@@ -994,6 +994,11 @@ export const selectIsGetInvoiceEmail = createSelector(
   fromRequestReducer.selectIsGetInvoiceEmail
 );
 
+export const selectIsApplyingCoupon = createSelector(
+  selectRequestState,
+  fromRequestReducer.selectIsApplyingCoupon
+);
+
 // Lookups
 export const selectIsLoadingUserTypes = createSelector(
   selectLookupsState,

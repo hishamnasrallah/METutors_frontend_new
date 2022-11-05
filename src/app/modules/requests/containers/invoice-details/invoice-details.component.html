@@ -1,5 +1,6 @@
 <ng-container *ngLet="(classroom$ | async) as classroom">
-  <div class="container invoice-details mt-15-sm" id="printSectionId" *ngLet="(invoiceDetails$ | async) as invoiceDetails">
+  <div class="container invoice-details mt-15-sm" id="printSectionId"
+       *ngLet="(invoiceDetails$ | async) as invoiceDetails">
     <div class="row flex-column-reverse-sm">
       <div class="col-md-8" *ngLet="(user$ | async) as user">
         <h2 class="f-size-30-md-sm h-auto-sm">{{ 'INVOICE_DETAILS' | translate }}</h2>
@@ -12,20 +13,24 @@
                 <metutors-payment-invoice-details [invoiceDetails]="invoiceDetails"
                                                   [isGetInvoiceEmail]="(isGetInvoiceEmail$ | async)!"
                                                   [classroom]="classroom"
+                                                  [isApplyingCoupon]="(isApplyingCoupon$ | async)!"
+                                                  (applyCoupon)="onApplyCoupon($event, classroom)"
                                                   (print)="printToCart('printSectionId')"
                                                   (getInvoiceEmail)="getInvoiceEmail(user, invoiceDetails)">
                 </metutors-payment-invoice-details>
 
                 <hr class="my-5">
                 <div class="billing-details" *ngLet="(countries$ | async)">
-                  <h3 class="title f-size-20-md-sm mt-15-sm" *ngLet="(cities$ | async)">{{ 'BILLING_DETAILS' | translate }}</h3>
+                  <h3 class="title f-size-20-md-sm mt-15-sm"
+                      *ngLet="(cities$ | async)">{{ 'BILLING_DETAILS' | translate }}</h3>
                   <form [formGroup]="billingForm" class="mt-2">
                     <div class="row w-100">
                       <div class="col-md-6">
                         <div class="form-group">
                           <label for="street">{{ 'STREET_ADDRESS' | translate }}</label>
                           <metutors-char-counter [limit]="250" [controlName]="street"></metutors-char-counter>
-                          <input type="text" class="custom-input w-100 input-bordered" id="street" placeholder="Enter street address"
+                          <input type="text" class="custom-input w-100 input-bordered" id="street"
+                                 placeholder="Enter street address"
                                  formControlName="street">
 
                           <div *ngIf="street?.invalid && street?.touched">
@@ -38,7 +43,8 @@
                         <div class="form-group">
                           <label for="state">{{ 'STATE' | translate }}</label>
                           <metutors-char-counter [limit]="50" [controlName]="state"></metutors-char-counter>
-                          <input type="text" class="custom-input w-100 input-bordered" id="state" placeholder="Enter state"
+                          <input type="text" class="custom-input w-100 input-bordered" id="state"
+                                 placeholder="Enter state"
                                  formControlName="state">
 
                           <div *ngIf="state?.invalid && state?.touched">
@@ -53,7 +59,8 @@
                         <div class="form-group">
                           <label for="postcode">{{ 'POSTAL_CODE' | translate }}</label>
                           <metutors-char-counter [limit]="20" [controlName]="postcode"></metutors-char-counter>
-                          <input type="text" class="custom-input w-100 input-bordered" id="postcode" placeholder="{{ 'POSTAL_CODE' | translate }}"
+                          <input type="text" class="custom-input w-100 input-bordered" id="postcode"
+                                 placeholder="{{ 'POSTAL_CODE' | translate }}"
                                  formControlName="postcode">
                           <div *ngIf="postcode?.touched && postcode?.invalid">
                             <small class="text-danger">{{ 'WRITE_VALID_POSTAL_CODE' | translate }}</small>
@@ -66,11 +73,13 @@
                         <div class="form-group">
                           <label for="country">{{ 'COUNTRY' | translate }}</label>
                           <mat-form-field appearance="outline" class="w-100">
-                            <mat-select formControlName="country" placeholder="{{ 'SELECT_COUNTRY' | translate }}" id="country"
+                            <mat-select formControlName="country" placeholder="{{ 'SELECT_COUNTRY' | translate }}"
+                                        id="country"
                                         (selectionChange)="loadCities(country?.value); resetCity()">
                               <mat-option>
                                 <ngx-mat-select-search [(ngModel)]="filterCountry" [ngModelOptions]="{standalone: true}"
-                                                       placeholderLabel="{{ 'SEARCH_DOTS' | translate }}" noEntriesFoundLabel="{{ 'NO_MATCHING_COUNTRY_FOUND' | translate }}">
+                                                       placeholderLabel="{{ 'SEARCH_DOTS' | translate }}"
+                                                       noEntriesFoundLabel="{{ 'NO_MATCHING_COUNTRY_FOUND' | translate }}">
                                 </ngx-mat-select-search>
                               </mat-option>
                               <mat-option *ngFor="let country of filteredCountries" [value]="country.id">
@@ -89,13 +98,16 @@
                         <div class="form-group">
                           <label for="city">{{ 'CITY' | translate }}</label>
                           <mat-form-field appearance="outline" class="w-100">
-                            <mat-select formControlName="city" id="city" placeholder="{{ 'SELECT_CITY' | translate }}" [disabled]="!cities || !cities.length">
+                            <mat-select formControlName="city" id="city" placeholder="{{ 'SELECT_CITY' | translate }}"
+                                        [disabled]="!cities || !cities.length">
                               <mat-option>
                                 <ngx-mat-select-search [(ngModel)]="filterCity" [ngModelOptions]="{standalone: true}"
-                                                       placeholderLabel="{{ 'SEARCH_DOTS' | translate }}" noEntriesFoundLabel="{{ 'NO_MATCHING_CITY_FOUND' | translate }}">
+                                                       placeholderLabel="{{ 'SEARCH_DOTS' | translate }}"
+                                                       noEntriesFoundLabel="{{ 'NO_MATCHING_CITY_FOUND' | translate }}">
                                 </ngx-mat-select-search>
                               </mat-option>
-                              <mat-option *ngFor="let city of filteredCities" [value]="city.name">{{ city.name }}</mat-option>
+                              <mat-option *ngFor="let city of filteredCities"
+                                          [value]="city.name">{{ city.name }}</mat-option>
                             </mat-select>
                           </mat-form-field>
                           <div *ngIf="city?.touched && city?.invalid">
@@ -109,12 +121,14 @@
 
                 <div class="overflow-hidden">
                   <button mat-flat-button color="primary" class="float-end pay-now mt-15-sm"
-                          (click)="saveCourse(user, classroom, billingForm)" [disabled]="(isCreatingCourse$ | async) || billingForm.invalid">
+                          (click)="saveCourse(user, classroom, billingForm)"
+                          [disabled]="(isCreatingCourse$ | async) || (isApplyingCoupon$ | async) || billingForm.invalid">
                     {{ (classroom?.isFree ? 'BOOK_FREE_TRIAL_CLASS' : 'PAY_NOW') | translate }}
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="rotate-180-ar">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                         class="rotate-180-ar">
                       <path
                         d="M16.172 10.9999H4V12.9999H16.172L10.808 18.3639L12.222 19.7779L20 11.9999L12.222 4.22192L10.808 5.63592L16.172 10.9999Z"
-                        fill="#FFF" />
+                        fill="#FFF"/>
                     </svg>
                   </button>
                 </div>
