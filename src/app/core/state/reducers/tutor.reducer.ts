@@ -721,7 +721,7 @@ export const selectExploreTutors = (state: State): ITutor[] =>
 export const selectExploreTutorsCount = (state: State): number =>
   state.exploreTutorsCount;
 
-export const selectexploreTutorsFieldsOfStudy = (state: State): IField[] =>
+export const selectExploreTutorsFieldsOfStudy = (state: State): IField[] =>
   state.exploreTutorsFieldsOfStudy;
 
 export const selectIsLoadingTutorDashboard = (state: State): boolean =>

@@ -1,95 +1,104 @@
-<ng-container *ngLet="(exploredCourses$ | async) as exploredCourses">
-  <metutors-explore-heading [loading]="(isLoading$ | async)!"
-                            [name]="lang === 'ar' ? exploredCourses?.program?.nameAr : exploredCourses?.program?.name"
-                            [title]="lang === 'ar' ? exploredCourses?.program?.titleAr : exploredCourses?.program?.title"
-                            [description]="lang === 'ar' ? exploredCourses?.program?.descriptionAr : exploredCourses?.program?.description"
-                            [image]="programImage + exploredCourses?.program?.image"
-                            [placeholderText]="'SEARCH_BY_COURSE_NAME'"
-                            [btnText]="'FIND_COURSES'"
-                            (filter)="name = $event; filterCourses()">
-  </metutors-explore-heading>
+<ng-container *ngLet="(loadingCourses$ | async) as loadingCourses">
+  <ng-container *ngLet="(selectedProgram$ | async) as selectedProgram">
+    <metutors-explore-heading [loading]="loadingCourses"
+                              [name]="selectedProgram?.name || 'EXPLORE_PROGRAMS_COURSES'"
+                              [title]="selectedProgram?.title"
+                              [description]="selectedProgram?.description"
+                              [image]="selectedProgram?.image || 'assets/png/exhausted.png'"
+                              [placeholderText]="'SEARCH_BY_COURSE_NAME'"
+                              [btnText]="'FIND_COURSES'"
+                              (filter)="title = $event; onFilterCourses()">
+    </metutors-explore-heading>
+  </ng-container>
 
-  <ng-container [ngSwitch]="isLoading$ | async">
-    <div class="container mt-5" *ngSwitchCase="true">
-      <div class="row">
-        <div class="col-md-3">
-          <metutors-grid-placeholder></metutors-grid-placeholder>
-        </div>
-        <div class="col-md-9">
-          <metutors-card-placeholder></metutors-card-placeholder>
-          <metutors-card-placeholder></metutors-card-placeholder>
-          <metutors-card-placeholder></metutors-card-placeholder>
-        </div>
+  <div class="container all-courses mt-5">
+    <div class="row">
+      <div class="col-md-7">
+        <h1>{{ 'ALL_AVAILABLE_COURSES' | translate }}</h1>
+      </div>
+      <div class="col-md-5">
+        <a mat-button class="main-button-transparent float-end request-course" (click)="onOpenRequestCourseModal()">
+          {{ 'REQUEST_NEW_COURSE' | translate }}
+        </a>
       </div>
     </div>
-
-    <ng-container *ngSwitchCase="false">
-      <div class="container all-courses mt-5">
-        <div class="row">
-          <div class="col-md-7">
-            <h1>{{ 'ALL_AVAILABLE_COURSES' | translate }}</h1>
-          </div>
-          <div class="col-md-5">
-            <a mat-button class="main-button-transparent float-end request-course" (click)="onOpenRequestCourseModal()">
-              {{ 'REQUEST_NEW_COURSE' | translate }}
-            </a>
-          </div>
-        </div>
-        <div class="row mt-4">
-          <div class="col-12">
-            <metutors-select-program-category [countries]="(countries$ | async)!"
-                                              [loadingCountries]="(loadingCountries$ | async)!"
-                                              [programs]="(programs$ | async)!"
-                                              [loadingPrograms]="(loadingPrograms$ | async)!">
-            </metutors-select-program-category>
-          </div>
-        </div>
-        <div class="row mt-5">
-          <div class="col-md-3 filters">
-            <div class="d-flex align-items-center cursor-pointer title justify-content-between"
-              [class.open]="openFilter" (click)="openFilter = !openFilter">
-              <h3 class="m-0">{{ 'CHOOSE_FIELD_STUDY' | translate }}</h3>
-              <button mat-button *ngIf="!openFilter">
-                <mat-icon>expand_more</mat-icon>
-              </button>
-              <button mat-button *ngIf="openFilter">
-                <mat-icon>expand_less</mat-icon>
-              </button>
-            </div>
-            <div class="content" *ngIf="openFilter" [@slideInOut]>
-              <div class="d-block mb-2" *ngFor="let fieldOfStudy of exploredCourses?.fieldOfStudies">
-                <mat-checkbox (change)="onChangeField($event, fieldOfStudy?.id); filterCourses()"
-                  [value]="fieldOfStudy?.id">
-                  {{ fieldOfStudy?.name }}
-                </mat-checkbox>
-              </div>
-            </div>
-
-            <div class="d-flex align-items-center cursor-pointer title justify-content-between"
-              [class.open]="openPriceFilter" (click)="openPriceFilter = !openPriceFilter" *ngIf="minValue !== maxValue">
-              <h3 class="m-0">{{ 'SELECT_PRICE_RANGE' | translate }}</h3>
-              <button mat-button *ngIf="!openPriceFilter">
-                <mat-icon>expand_more</mat-icon>
-              </button>
-              <button mat-button *ngIf="openPriceFilter">
-                <mat-icon>expand_less</mat-icon>
-              </button>
-            </div>
-            <div class="content" *ngIf="openPriceFilter" [@slideInOut]>
-              <div class="d-block">
-                <ngx-slider [value]="minValue" [highValue]="maxValue" [options]="{floor: minValue, ceil: maxValue}"
-                  (userChangeStart)="onChangeValue($event)" (userChangeEnd)="onChangeValue($event)"></ngx-slider>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-9">
-            <metutors-course-card *ngFor="let course of exploredCourses?.subjects" [course]="course">
-            </metutors-course-card>
-          </div>
-        </div>
+    <div class="row mt-4">
+      <div class="col-12">
+        <metutors-select-program-category [countries]="(countries$ | async)!"
+                                          [loadingCountries]="(loadingCountries$ | async)!"
+                                          [programs]="(programs$ | async)!"
+                                          [selectedProgram]="program"
+                                          [loadingPrograms]="(loadingPrograms$ | async)!"
+                                          (changeProgram)="onChangeProgram($event)">
+        </metutors-select-program-category>
       </div>
-    </ng-container>
-  </ng-container>
+    </div>
+    <div class="row mt-5" *ngLet="(courses$ | async) as courses">
+      <div class="col-md-3 filters">
+        <div class="d-flex align-items-center cursor-pointer title justify-content-between"
+          [class.open]="openFilter" (click)="openFilter = !openFilter">
+          <h3 class="m-0">{{ 'CHOOSE_FIELD_STUDY' | translate }}</h3>
+          <button mat-button *ngIf="!openFilter">
+            <mat-icon>expand_more</mat-icon>
+          </button>
+          <button mat-button *ngIf="openFilter">
+            <mat-icon>expand_less</mat-icon>
+          </button>
+        </div>
+        <div class="content" *ngIf="openFilter" [@slideInOut]>
+          <div class="d-block mb-2" *ngFor="let field of (fields$ | async)!">
+            <!-- (change)="onChangeField($event, fieldOfStudy?.id); filterCourses()" [value]="fieldOfStudy?.id" -->
+            <mat-checkbox>
+              {{ field?.name }}
+            </mat-checkbox>
+          </div>
+        </div>
+
+        <!-- <div class="d-flex align-items-center cursor-pointer title justify-content-between"
+          [class.open]="openPriceFilter" (click)="openPriceFilter = !openPriceFilter" *ngIf="minValue !== maxValue">
+          <h3 class="m-0">{{ 'SELECT_PRICE_RANGE' | translate }}</h3>
+          <button mat-button *ngIf="!openPriceFilter">
+            <mat-icon>expand_more</mat-icon>
+          </button>
+          <button mat-button *ngIf="openPriceFilter">
+            <mat-icon>expand_less</mat-icon>
+          </button>
+        </div>
+        <div class="content" *ngIf="openPriceFilter" [@slideInOut]>
+          <div class="d-block">
+            <ngx-slider [value]="minValue" [highValue]="maxValue" [options]="{floor: minValue, ceil: maxValue}"
+              (userChangeStart)="onChangeValue($event)" (userChangeEnd)="onChangeValue($event)"></ngx-slider>
+          </div>
+        </div> -->
+      </div>
+      <div class="col-md-9">
+        <ng-container *ngIf="!loadingCourses">
+          <ng-container *ngIf="courses && courses.length">
+            <metutors-course-card *ngFor="let course of courses" [course]="course">
+            </metutors-course-card>
+  
+            <pagination [totalItems]="(count$ | async)!" [itemsPerPage]="perPage" [maxSize]="5"
+                        [boundaryLinks]="true"
+                        previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"
+                        (pageChanged)="onPageChange($event)" 
+                        *ngIf="+(count$ | async)! > perPage">
+            </pagination>
+          </ng-container>
+  
+          <div class="card no-data" *ngIf="!courses || !courses.length">
+            <div class="card-body">
+              <img src="assets/svg/sad.svg" draggable="false" alt="">
+              <h2 class="mt-4">{{ 'NO_DATA_FOUND' | translate }}</h2>
+            </div>
+          </div>
+        </ng-container>
+  
+        <ng-container *ngIf="loadingCourses">
+          <metutors-card-placeholder *ngFor="let _ of [1, 2, 3]"></metutors-card-placeholder>
+        </ng-container>
+      </div>
+    </div>
+  </div>
 
   <metutors-academic-learning-environment (requestCourse)="onOpenRequestCourseModal()">
   </metutors-academic-learning-environment>

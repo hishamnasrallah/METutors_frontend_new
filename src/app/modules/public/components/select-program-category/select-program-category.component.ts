@@ -27,6 +27,11 @@ export class SelectProgramCategoryComponent
   @Input() countries: ICountry[];
   @Input() loadingPrograms: boolean;
   @Input() loadingCountries: boolean;
+  @Input() set selectedProgram(program: number) {
+    if (program) {
+      this.step = program;
+    }
+  }
 
   @Output() changeProgram = new EventEmitter();
 

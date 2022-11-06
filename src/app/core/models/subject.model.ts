@@ -50,8 +50,8 @@ export class ISubject {
     if (subject) {
       this.id = subject?.id;
       this.name = subject?.name || subject?.field?.name || '';
-      this.nameAr = subject?.name_ar || subject?.field.name_ar || '';
-      this.nameEn = subject?.name || subject?.field.name || '';
+      this.nameAr = subject?.name_ar || subject?.field?.name_ar || '';
+      this.nameEn = subject?.name || subject?.field?.name || '';
       this.description = subject?.description;
       this.descriptionEn = subject?.description;
       this.descriptionAr = subject?.description_ar;

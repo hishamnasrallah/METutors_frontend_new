@@ -1,14 +1,19 @@
+import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { maxBy, minBy } from 'lodash';
-import { environment } from '@environment';
+import { isNil, omitBy } from 'lodash';
 import * as fromCore from '@metutor/core/state';
 import { Component, OnInit } from '@angular/core';
-import { filter, Observable, take, tap } from 'rxjs';
-import { TranslateService } from '@ngx-translate/core';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import * as fromPublic from '@metutor/modules/public/state';
-import { MoneyService } from '@metutor/core/services/money.service';
-import { ICountry, ILanguage, IProgram } from '@metutor/core/models';
 import * as fromPublicActions from '@metutor/modules/public/state/actions';
+import {
+  IField,
+  ISubject,
+  ICountry,
+  IProgram,
+  ILanguage,
+  IExploreCoursesFilters
+} from '@metutor/core/models';
 import {
   state,
   style,
@@ -45,18 +50,24 @@ import {
   ]
 })
 export class AllCoursesComponent implements OnInit {
-  isLoading$: Observable<boolean>;
-  exploredCourses$: Observable<any>;
+  count$: Observable<number | null>;
+  loadingCourses$: Observable<boolean>;
+  fields$: Observable<IField[] | null>;
   isRequestCourse$: Observable<boolean>;
   loadingPrograms$: Observable<boolean>;
   loadingCountries$: Observable<boolean>;
+  courses$: Observable<ISubject[] | null>;
   programs$: Observable<IProgram[] | null>;
   countries$: Observable<ICountry[] | null>;
   languages$: Observable<ILanguage[] | null>;
   showRequestCourseModal$: Observable<boolean>;
+  selectedProgram$: Observable<IProgram | null>;
 
-  lang: string;
-  name?: string;
+  page = 1;
+  program = 0;
+  perPage = 10;
+  title: string;
+  country: number;
   minValue: number;
   maxValue: number;
   minPricerPerHour: number;
@@ -64,24 +75,21 @@ export class AllCoursesComponent implements OnInit {
   openFilter: boolean = true;
   openPriceFilter: boolean = false;
   selectedFieldOfStudy: number[] = [];
-  programImage = environment.programImage;
 
-  constructor(
-    private _store: Store<any>,
-    private _money: MoneyService,
-    private _translate: TranslateService
-  ) {}
+  constructor(private _store: Store<any>, private _route: ActivatedRoute) {
+    this._route.paramMap.subscribe((res: ParamMap) => {
+      this.program = +res.get('programId')! || 0;
+      this.country = +this._route.snapshot.queryParams['country'] || 0;
+
+      this.onFilterCourses();
+    });
+  }
 
   ngOnInit(): void {
     this._prepareCourses();
     this._preparePrograms();
     this._prepareCountries();
     this._prepareLanguages();
-
-    this.lang = this._translate.currentLang;
-    this._translate.onLangChange.subscribe(
-      () => (this.lang = this._translate.currentLang)
-    );
 
     this.showRequestCourseModal$ = this._store.select(
       fromPublic.selectShowRequestCourseModal
@@ -98,6 +106,19 @@ export class AllCoursesComponent implements OnInit {
     this._store.dispatch(fromPublicActions.closeRequestCourseModal());
   }
 
+  onChangeProgram({
+    program,
+    country
+  }: {
+    program: number;
+    country: number;
+  }): void {
+    this.page = 1;
+    this.program = program;
+    this.country = country;
+    this.onFilterCourses();
+  }
+
   onChangeField(event: any, id: number): void {
     if (event?.checked) {
       this.selectedFieldOfStudy.push(id);
@@ -109,21 +130,26 @@ export class AllCoursesComponent implements OnInit {
     }
   }
 
+  onPageChange({ page }: { page: number }): void {
+    this.page = page;
+    this.onFilterCourses();
+  }
+
   onChangeValue(value: any): void {
     this.minPricerPerHour = value?.value;
     this.maxPricerPerHour = value?.highValue;
-    this.filterCourses();
   }
 
-  filterCourses(): void {
-    this.exploredCourses$ = this._store.select(
-      fromCore.selectFilteredExploredCourses,
-      {
-        name: this.name,
-        fieldIds: this.selectedFieldOfStudy,
-        minPricerPerHour: this.minPricerPerHour,
-        maxPricerPerHour: this.maxPricerPerHour
-      }
+  onFilterCourses(): void {
+    const filters: IExploreCoursesFilters = {
+      search: this.title || undefined,
+      country_id: this.country,
+      program: this.program,
+      page: this.page
+    };
+
+    this._store.dispatch(
+      fromCore.exploreCourses({ filters: omitBy(filters, isNil) })
     );
   }
 
@@ -132,41 +158,16 @@ export class AllCoursesComponent implements OnInit {
   }
 
   private _prepareCourses(): void {
-    this._store.dispatch(fromCore.exploreCourses());
-    this.exploredCourses$ = this._store.select(fromCore.selectExploredCourses);
-    this.exploredCourses$.subscribe(courses => {
-      if (courses && courses?.subjects && courses?.subjects?.length) {
-        const min: any = minBy(courses.subjects, 'pricePerHour');
-        this.minValue = min?.pricePerHour;
-
-        const max: any = maxBy(courses.subjects, 'pricePerHour');
-        this.maxValue = max?.pricePerHour;
-
-        // this._store
-        //   .select(fromCore.selectCurrentCurrency)
-        //   .subscribe((toCurrency) => {
-        //     this._money
-        //       .convert(
-        //         parseFloat(min?.pricePerHour.toString()),
-        //         toCurrency,
-        //         false,
-        //         true
-        //       )
-        //       .subscribe((res) => (this.minValue = res.toFixed(2)));
-
-        //     this._money
-        //       .convert(
-        //         parseFloat(max?.pricePerHour.toString()),
-        //         toCurrency,
-        //         false,
-        //         true
-        //       )
-        //       .subscribe((res) => (this.maxValue = res.toFixed(2)));
-        //   });
-      }
-    });
-    this.isLoading$ = this._store.select(
-      fromCore.selectIsLoadingExploredCourses
+    this.courses$ = this._store.select(fromCore.selectExploreCourses);
+    this.count$ = this._store.select(fromCore.selectExploreCoursesCount);
+    this.fields$ = this._store.select(
+      fromCore.selectExploreCoursesFieldsOfStudy
+    );
+    this.selectedProgram$ = this._store.select(
+      fromCore.selectExploreCoursesProgram
+    );
+    this.loadingCourses$ = this._store.select(
+      fromCore.selectIsLoadingExploreCourses
     );
   }
 

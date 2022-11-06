@@ -125,7 +125,7 @@ export class ExploreTutorsComponent implements OnInit {
     );
     this.count$ = this._store.select(fromCore.selectExploreTutorsCount);
     this.fields$ = this._store.select(
-      fromCore.selectexploreTutorsFieldsOfStudy
+      fromCore.selectExploreTutorsFieldsOfStudy
     );
   }
 }

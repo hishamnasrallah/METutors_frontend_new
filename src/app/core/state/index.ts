@@ -2,7 +2,7 @@ import {
   Action,
   createSelector,
   combineReducers,
-  createFeatureSelector,
+  createFeatureSelector
 } from '@ngrx/store';
 
 export * from './actions';
@@ -59,7 +59,7 @@ export function reducers(state: CoreState, action: Action) {
     [featureKeys.interviewFeatureKey]: fromInterviewReducer.reducer,
     [featureKeys.tutorSyllabusFeatureKey]: fromTutorSyllabusReducer.reducer,
     [featureKeys.tutorResourceFeatureKey]: fromTutorResourceReducer.reducer,
-    [featureKeys.tutorAssignmentFeatureKey]: fromTutorAssignmentReducer.reducer,
+    [featureKeys.tutorAssignmentFeatureKey]: fromTutorAssignmentReducer.reducer
   })(state, action);
 }
 
@@ -70,76 +70,76 @@ export const selectCoreState = createFeatureSelector<fromRoot.State, CoreState>(
 
 export const selectTutorState = createSelector(
   selectCoreState,
-  (state) => state[featureKeys.tutorFeatureKey]
+  state => state[featureKeys.tutorFeatureKey]
 );
 
 export const selectTutorAssignmentState = createSelector(
   selectCoreState,
-  (state) => state[featureKeys.tutorAssignmentFeatureKey]
+  state => state[featureKeys.tutorAssignmentFeatureKey]
 );
 
 export const selectTutorResourceState = createSelector(
   selectCoreState,
-  (state) => state[featureKeys.tutorResourceFeatureKey]
+  state => state[featureKeys.tutorResourceFeatureKey]
 );
 
 export const selectTutorSyllabusState = createSelector(
   selectCoreState,
-  (state) => state[featureKeys.tutorSyllabusFeatureKey]
+  state => state[featureKeys.tutorSyllabusFeatureKey]
 );
 
 export const selectLookupsState = createSelector(
   selectCoreState,
-  (state) => state[featureKeys.lookupsFeatureKey]
+  state => state[featureKeys.lookupsFeatureKey]
 );
 
 export const selectUserState = createSelector(
   selectCoreState,
-  (state) => state[featureKeys.userFeatureKey]
+  state => state[featureKeys.userFeatureKey]
 );
 
 export const selectRequestState = createSelector(
   selectCoreState,
-  (state) => state[featureKeys.requestFeatureKey]
+  state => state[featureKeys.requestFeatureKey]
 );
 
 export const selectCourseState = createSelector(
   selectCoreState,
-  (state) => state[featureKeys.courseFeatureKey]
+  state => state[featureKeys.courseFeatureKey]
 );
 
 export const selectStudentState = createSelector(
   selectCoreState,
-  (state) => state[featureKeys.studentFeatureKey]
+  state => state[featureKeys.studentFeatureKey]
 );
 
 export const selectTicketState = createSelector(
   selectCoreState,
-  (state) => state[featureKeys.ticketFeatureKey]
+  state => state[featureKeys.ticketFeatureKey]
 );
 
 export const selectInterviewState = createSelector(
   selectCoreState,
-  (state) => state[featureKeys.interviewFeatureKey]
+  state => state[featureKeys.interviewFeatureKey]
 );
 
 export const selectUploadState = createSelector(
   selectCoreState,
-  (state) => state[featureKeys.uploadFeatureKey]
+  state => state[featureKeys.uploadFeatureKey]
 );
 
 export const selectAdminState = createSelector(
   selectCoreState,
-  (state) => state[featureKeys.adminFeatureKey]
+  state => state[featureKeys.adminFeatureKey]
 );
 export const selectFinanceState = createSelector(
   selectCoreState,
-  (state) => state[featureKeys.financeFeatureKey]
+  state => state[featureKeys.financeFeatureKey]
 );
 
 export const selectMoneyState = createSelector(
   selectCoreState,
-  (state) => state[featureKeys.moneyFeatureKey]
+  state => state[featureKeys.moneyFeatureKey]
 );
 
 // User
@@ -281,9 +281,9 @@ export const selectExploreTutorsCount = createSelector(
   fromTutorReducer.selectExploreTutorsCount
 );
 
-export const selectexploreTutorsFieldsOfStudy = createSelector(
+export const selectExploreTutorsFieldsOfStudy = createSelector(
   selectTutorState,
-  fromTutorReducer.selectexploreTutorsFieldsOfStudy
+  fromTutorReducer.selectExploreTutorsFieldsOfStudy
 );
 
 export const selectAvailableTutors = createSelector(
@@ -1201,19 +1201,29 @@ export const selectIsLoadingRefundCourse = createSelector(
   fromCourseReducer.selectIsLoadingRefundCourse
 );
 
-export const selectExploredCourses = createSelector(
+export const selectExploreCourses = createSelector(
   selectCourseState,
-  fromCourseReducer.selectExploredCourses
+  fromCourseReducer.selectExploreCourses
 );
 
-export const selectIsLoadingExploredCourses = createSelector(
+export const selectIsLoadingExploreCourses = createSelector(
   selectCourseState,
-  fromCourseReducer.selectIsLoadingExploredCourses
+  fromCourseReducer.selectIsLoadingExploreCourses
 );
 
-export const selectFilteredExploredCourses = createSelector(
+export const selectExploreCoursesCount = createSelector(
   selectCourseState,
-  fromCourseReducer.selectFilteredExploredCourses
+  fromCourseReducer.selectExploreCoursesCount
+);
+
+export const selectExploreCoursesFieldsOfStudy = createSelector(
+  selectCourseState,
+  fromCourseReducer.selectExploreCoursesFieldsOfStudy
+);
+
+export const selectExploreCoursesProgram = createSelector(
+  selectCourseState,
+  fromCourseReducer.selectExploreCoursesProgram
 );
 
 export const selectIsLoadingCourseById = createSelector(

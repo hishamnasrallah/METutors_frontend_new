@@ -5,8 +5,7 @@ import {
   ViewChild,
   Component,
   ElementRef,
-  EventEmitter,
-  AfterViewInit
+  EventEmitter
 } from '@angular/core';
 import { debounceTime, distinctUntilChanged, fromEvent, map } from 'rxjs';
 
@@ -15,8 +14,27 @@ import { debounceTime, distinctUntilChanged, fromEvent, map } from 'rxjs';
   templateUrl: './explore-heading.component.html',
   styleUrls: ['./explore-heading.component.scss']
 })
-export class ExploreHeadingComponent implements OnInit, AfterViewInit {
-  @ViewChild('searchInput', { static: false }) searchInput: ElementRef;
+export class ExploreHeadingComponent implements OnInit {
+  @ViewChild('searchInput') set searchInput(input: ElementRef) {
+    if (input) {
+      fromEvent(input.nativeElement, 'keyup')
+        .pipe(
+          // get value
+          map((event: any) => event.target.value),
+
+          // Time in milliseconds between key events
+          debounceTime(1000),
+
+          // If previous query is diffent from current
+          distinctUntilChanged()
+
+          // subscription for response
+        )
+        .subscribe((value: string) => {
+          this.filter.emit(value);
+        });
+    }
+  }
 
   @Input() name: string;
   @Input() title: string;
@@ -31,23 +49,4 @@ export class ExploreHeadingComponent implements OnInit, AfterViewInit {
   constructor() {}
 
   ngOnInit(): void {}
-
-  ngAfterViewInit(): void {
-    fromEvent(this.searchInput.nativeElement, 'keyup')
-      .pipe(
-        // get value
-        map((event: any) => event.target.value),
-
-        // Time in milliseconds between key events
-        debounceTime(1000),
-
-        // If previous query is diffent from current
-        distinctUntilChanged()
-
-        // subscription for response
-      )
-      .subscribe((value: string) => {
-        this.filter.emit(value);
-      });
-  }
 }

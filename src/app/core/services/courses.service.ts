@@ -1,13 +1,17 @@
 import { Injectable } from '@angular/core';
 import camelcaseKeys from 'camelcase-keys';
-import { ICourse, IProgram } from '@models';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { ICourse, IExploreCoursesFilters, IField, ISubject } from '@models';
+import {
+  HttpParams,
+  HttpClient,
+  HttpErrorResponse
+} from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class CoursesService {
   baseUrl = environment.API_URL;
@@ -16,18 +20,58 @@ export class CoursesService {
 
   loadCourses(params: any): Observable<any> {
     return this.http.get<{ courses: ICourse[] }>(`${this.baseUrl}courses`, {
-      params,
+      params
     });
   }
 
-  loadExploredCourses(programId: string, countryId?: string): Observable<any> {
-    const query = countryId ? `?country_id=${countryId}` : '';
+  exploreCourses(
+    program: number,
+    filters: IExploreCoursesFilters
+  ): Observable<any> {
+    const object = { ...filters };
+    const params = new HttpParams({ fromObject: object });
+    let url = `courses/${program}`;
 
-    return this.http.get<{
-      field_of_studies: any[];
-      subjects: any[];
-      program: IProgram;
-    }>(`${this.baseUrl}courses/${programId}${query}`);
+    if (program === 0) {
+      url = 'all-courses';
+    }
+
+    return this.http
+      .get<{
+        subjects: { data: ISubject[]; total: number };
+        field_of_studies: IField[];
+        program: any;
+      }>(`${this.baseUrl}${url}`, {
+        params
+      })
+      .pipe(
+        map(response => {
+          return {
+            fieldsOfStudy: camelcaseKeys(response.field_of_studies, {
+              deep: true
+            }),
+            subjects: response.subjects.data.map(
+              item => new ISubject(false, item)
+            ),
+            total: response.subjects.total,
+            program: response.program
+              ? {
+                  id: response.program.id,
+                  name: response.program.name,
+                  nameEn: response.program.name,
+                  nameAr: response.program.name_ar,
+                  title: response.program.title,
+                  titleEn: response.program.title,
+                  titleAr: response.program.title_ar,
+                  image: environment.programImage + response.program.image,
+                  description: response.program.description,
+                  descriptionAr: response.program.description_ar,
+                  descriptionEn: response.program.description
+                }
+              : null
+          };
+        })
+      );
   }
 
   getCourseById(courseId: number): Observable<any> {
@@ -101,7 +145,7 @@ export class CoursesService {
       .get<{ estimated_price_per_hour: number }>(
         `${this.baseUrl}estimated-price?subject_id=${subjectId}`
       )
-      .pipe(map((response) => response.estimated_price_per_hour))
+      .pipe(map(response => response.estimated_price_per_hour))
       .pipe(catchError(this.errorHandler));
   }
 
@@ -120,18 +164,18 @@ export class CoursesService {
                 day: clss.day + 1,
                 start_time: clss.start_time,
                 end_time: clss.end_time,
-                duration: clss.duration,
+                duration: clss.duration
               }))
-            : [],
+            : []
       };
     }
 
     return this.http
       .post(`${this.baseUrl}final-invoice`, body)
       .pipe(
-        map((response) =>
+        map(response =>
           camelcaseKeys(response, {
-            deep: true,
+            deep: true
           })
         )
       )
@@ -160,7 +204,7 @@ export class CoursesService {
       language_preference: value?.language,
       course_description: value?.description,
       student_name: value?.name,
-      email: value?.email,
+      email: value?.email
     });
   }
 
@@ -173,8 +217,8 @@ export class CoursesService {
         total_hours: +value.totalHours,
         total_amount: +value.totalAmount,
         date: value.date,
-        invoice_number: value.invoiceNumber,
-      },
+        invoice_number: value.invoiceNumber
+      }
     });
   }
 

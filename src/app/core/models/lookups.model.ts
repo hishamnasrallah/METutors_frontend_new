@@ -106,3 +106,11 @@ export interface IExploreTutorsFilters {
   country_id?: number;
   page?: number;
 }
+
+export interface IExploreCoursesFilters {
+  search?: string;
+  field?: number;
+  program?: number;
+  country_id?: number;
+  page?: number;
+}
