@@ -152,7 +152,7 @@ export class AllCoursesComponent implements OnInit {
   onFilterCourses(): void {
     const filters: IExploreCoursesFilters = {
       search: this.title || undefined,
-      country_id: this.country,
+      country_id: this.country ? this.country : undefined,
       program: this.program,
       page: this.page,
       field_ids: this.fields && this.fields.length ? this.fields : undefined
