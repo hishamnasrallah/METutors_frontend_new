@@ -4,6 +4,7 @@ import { createReducer, on } from '@ngrx/store';
 import * as tutorActions from '../actions/tutor.actions';
 import * as uploadActions from '../actions/upload.actions';
 import * as courseActions from '../actions/course.actions';
+import * as languageActions from '../actions/language-menu.actions';
 
 export interface State {
   dashboard: any;
@@ -422,7 +423,16 @@ export const reducer = createReducer(
       exploreTutors: tutors,
       exploreTutorsCount: tutorsCount,
       isLoadingExploreTutors: false,
-      exploreTutorsFieldsOfStudy: fieldsOfStudy
+      exploreTutorsFieldsOfStudy:
+        fieldsOfStudy && fieldsOfStudy.length
+          ? fieldsOfStudy.map(field => ({
+              ...field,
+              name:
+                localStorage.getItem('DEFAULT_LANGUAGE') === 'ar'
+                  ? field?.nameAr
+                  : field?.nameEn
+            }))
+          : []
     })
   ),
 
@@ -660,6 +670,21 @@ export const reducer = createReducer(
     ...state,
     signature,
     loading: false
+  })),
+
+  on(languageActions.changeLanguage, state => ({
+    ...state,
+    exploreTutorsFieldsOfStudy:
+      state.exploreTutorsFieldsOfStudy &&
+      state.exploreTutorsFieldsOfStudy.length
+        ? state.exploreTutorsFieldsOfStudy.map(field => ({
+            ...field,
+            name:
+              localStorage.getItem('DEFAULT_LANGUAGE') === 'ar'
+                ? field?.nameAr
+                : field?.nameEn
+          }))
+        : []
   }))
 );
 

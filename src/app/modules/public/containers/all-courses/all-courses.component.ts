@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { isNil, omitBy } from 'lodash';
+import { find, isNil, omitBy } from 'lodash';
 import * as fromCore from '@metutor/core/state';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
@@ -70,11 +70,11 @@ export class AllCoursesComponent implements OnInit {
   country: number;
   minValue: number;
   maxValue: number;
+  fields: number[] = [];
   minPricerPerHour: number;
   maxPricerPerHour: number;
   openFilter: boolean = true;
   openPriceFilter: boolean = false;
-  selectedFieldOfStudy: number[] = [];
 
   constructor(private _store: Store<any>, private _route: ActivatedRoute) {
     this._route.paramMap.subscribe((res: ParamMap) => {
@@ -114,25 +114,34 @@ export class AllCoursesComponent implements OnInit {
     country: number;
   }): void {
     this.page = 1;
+    this.fields = [];
     this.program = program;
     this.country = country;
     this.onFilterCourses();
   }
 
-  onChangeField(event: any, id: number): void {
-    if (event?.checked) {
-      this.selectedFieldOfStudy.push(id);
-    } else {
-      this.selectedFieldOfStudy.splice(
-        this.selectedFieldOfStudy.indexOf(id),
-        1
-      );
-    }
-  }
-
   onPageChange({ page }: { page: number }): void {
     this.page = page;
     this.onFilterCourses();
+  }
+
+  onChangeField(event: any, id: number): void {
+    this.fields = [...this.fields];
+
+    if (event?.checked) this.fields.push(id);
+    else this.fields.splice(this.fields.indexOf(id), 1);
+
+    this.onFilterCourses();
+  }
+
+  removeField(id: number): void {
+    this.fields = [...this.fields];
+    this.fields.splice(this.fields.indexOf(id), 1);
+    this.onFilterCourses();
+  }
+
+  getFieldObject(fields: IField[], id: number): IField | undefined {
+    return find(fields, { id });
   }
 
   onChangeValue(value: any): void {
@@ -145,7 +154,8 @@ export class AllCoursesComponent implements OnInit {
       search: this.title || undefined,
       country_id: this.country,
       program: this.program,
-      page: this.page
+      page: this.page,
+      field_ids: this.fields && this.fields.length ? this.fields : undefined
     };
 
     this._store.dispatch(

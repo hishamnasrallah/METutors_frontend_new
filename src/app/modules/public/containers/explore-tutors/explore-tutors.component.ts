@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { isNil, omitBy } from 'lodash';
+import { find, isNil, omitBy } from 'lodash';
 import * as fromCore from '@metutor/core/state';
 import { OnInit, Component } from '@angular/core';
 import {
@@ -61,6 +61,7 @@ export class ExploreTutorsComponent implements OnInit {
   country: number;
   openFilter = true;
   program: number = 0;
+  fields: number[] = [];
 
   constructor(private _store: Store<any>) {}
 
@@ -79,6 +80,7 @@ export class ExploreTutorsComponent implements OnInit {
     country: number;
   }): void {
     this.page = 1;
+    this.fields = [];
     this.program = program;
     this.country = country;
     this.onFilterTutors();
@@ -89,12 +91,32 @@ export class ExploreTutorsComponent implements OnInit {
     this.onFilterTutors();
   }
 
+  onChangeField(event: any, id: number): void {
+    this.fields = [...this.fields];
+
+    if (event?.checked) this.fields.push(id);
+    else this.fields.splice(this.fields.indexOf(id), 1);
+
+    this.onFilterTutors();
+  }
+
+  removeField(id: number): void {
+    this.fields = [...this.fields];
+    this.fields.splice(this.fields.indexOf(id), 1);
+    this.onFilterTutors();
+  }
+
+  getFieldObject(fields: IField[], id: number): IField | undefined {
+    return find(fields, { id });
+  }
+
   onFilterTutors(): void {
     const filters: IExploreTutorsFilters = {
       search: this.title || undefined,
       country_id: this.country,
       program: this.program,
-      page: this.page
+      page: this.page,
+      field_ids: this.fields && this.fields.length ? this.fields : undefined
     };
 
     this._store.dispatch(

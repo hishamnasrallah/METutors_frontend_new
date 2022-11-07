@@ -14,7 +14,7 @@
   <div class="container all-courses mt-5">
     <div class="row">
       <div class="col-md-7">
-        <h1>{{ 'ALL_AVAILABLE_COURSES' | translate }}</h1>
+        <h1 class="f-size-20-md-sm heading">{{ 'ALL_AVAILABLE_COURSES' | translate }}</h1>
       </div>
       <div class="col-md-5">
         <a mat-button class="main-button-transparent float-end request-course" (click)="onOpenRequestCourseModal()">
@@ -33,7 +33,19 @@
         </metutors-select-program-category>
       </div>
     </div>
-    <div class="row mt-5" *ngLet="(courses$ | async) as courses">
+
+    <div class="mt-4 fields-list" *ngIf="fields && fields.length">
+      <mat-chip-list>
+        <mat-chip *ngFor="let field of fields; let i = index">
+          <div class="d-flex align-items-center justify-content-center">
+            {{ getFieldObject((fields$ | async)!, field)?.name }}
+            <mat-icon (click)="removeField(field)" class="ms-2 cursor-pointer">cancel</mat-icon>
+          </div>
+        </mat-chip>
+      </mat-chip-list>
+    </div>
+
+    <div class="row mt-4" *ngLet="(courses$ | async) as courses">
       <div class="col-md-3 filters">
         <div class="d-flex align-items-center cursor-pointer title justify-content-between"
           [class.open]="openFilter" (click)="openFilter = !openFilter">
@@ -47,8 +59,8 @@
         </div>
         <div class="content" *ngIf="openFilter" [@slideInOut]>
           <div class="d-block mb-2" *ngFor="let field of (fields$ | async)!">
-            <!-- (change)="onChangeField($event, fieldOfStudy?.id); filterCourses()" [value]="fieldOfStudy?.id" -->
-            <mat-checkbox>
+            <mat-checkbox (change)="onChangeField($event, field.id)" [value]="field.id.toString()"
+                          [checked]="fields.includes(field.id)">
               {{ field?.name }}
             </mat-checkbox>
           </div>

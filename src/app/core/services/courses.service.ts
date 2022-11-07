@@ -39,7 +39,7 @@ export class CoursesService {
     return this.http
       .get<{
         subjects: { data: ISubject[]; total: number };
-        field_of_studies: IField[];
+        field_of_studies: any[];
         program: any;
       }>(`${this.baseUrl}${url}`, {
         params
@@ -47,9 +47,15 @@ export class CoursesService {
       .pipe(
         map(response => {
           return {
-            fieldsOfStudy: camelcaseKeys(response.field_of_studies, {
-              deep: true
-            }),
+            fieldsOfStudy:
+              response?.field_of_studies && response.field_of_studies?.length
+                ? response?.field_of_studies.map(field => ({
+                    id: field.id,
+                    name: field.name,
+                    nameEn: field.name,
+                    nameAr: field.name_ar
+                  }))
+                : [],
             subjects: response.subjects.data.map(
               item => new ISubject(false, item)
             ),

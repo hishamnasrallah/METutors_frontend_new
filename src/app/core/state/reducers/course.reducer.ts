@@ -180,7 +180,16 @@ export const reducer = createReducer(
             : program?.descriptionEn
       },
       exploreCoursesCount: coursesCount,
-      exploreCoursesFieldsOfStudy: fieldsOfStudy
+      exploreCoursesFieldsOfStudy:
+        fieldsOfStudy && fieldsOfStudy.length
+          ? fieldsOfStudy.map(field => ({
+              ...field,
+              name:
+                localStorage.getItem('DEFAULT_LANGUAGE') === 'ar'
+                  ? field?.nameAr
+                  : field?.nameEn
+            }))
+          : []
     })
   ),
 
@@ -363,7 +372,18 @@ export const reducer = createReducer(
               ? state.exploreCoursesProgram?.descriptionAr
               : state.exploreCoursesProgram?.descriptionEn
         }
-      : null
+      : null,
+    exploreCoursesFieldsOfStudy:
+      state.exploreCoursesFieldsOfStudy &&
+      state.exploreCoursesFieldsOfStudy.length
+        ? state.exploreCoursesFieldsOfStudy.map(field => ({
+            ...field,
+            name:
+              localStorage.getItem('DEFAULT_LANGUAGE') === 'ar'
+                ? field?.nameAr
+                : field?.nameEn
+          }))
+        : []
   }))
 );
 

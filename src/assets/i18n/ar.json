@@ -1492,6 +1492,7 @@
   "SELECT_PROGRAM_CATEGORY": "حدد فئة البرنامج",
   "BILLING_DETAILS": "معلومات المحاسبة",
   "STREET_ADDRESS": "عنوان الشارع",
+  "STATE": "الدولة",
   "ENTER_STATE": "لطفاً سجل إسم الدولة ب٥٠ حرف أقصى حد",
   "MAX_STREET_ADDRESS": "لطفاً سجل العنوان ب٢٥٠ رمز كأقصى حد",
   "MAX_POST_CODE": "لطفاً سجل الرمز البريدي ب٢٠ رمز كأقصى حد"

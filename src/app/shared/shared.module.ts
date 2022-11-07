@@ -221,6 +221,7 @@ import {
     TutorAvailableSlotsComponent,
 
     // Modules
+    MatChipsModule,
     TranslateModule,
     AngularSvgIconModule,
     NgxMatSelectSearchModule,

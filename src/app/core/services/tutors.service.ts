@@ -63,14 +63,22 @@ export class TutorsService {
     return this.http
       .get<{
         teachers: { data: ITutor[]; total: number };
-        field_of_studies: IField[];
+        field_of_studies: any[];
       }>(`${this.baseUrl}${url}`, {
         params
       })
       .pipe(
         map(response => {
           return {
-            fieldsOfStudy: camelcaseKeys(response.field_of_studies, { deep: true }),
+            fieldsOfStudy:
+              response?.field_of_studies && response.field_of_studies?.length
+                ? response?.field_of_studies.map(field => ({
+                    id: field.id,
+                    name: field.name,
+                    nameEn: field.name,
+                    nameAr: field.name_ar
+                  }))
+                : [],
             teachers: response.teachers.data.map(
               item => new ITutor(false, item)
             ),
