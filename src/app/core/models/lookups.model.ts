@@ -105,7 +105,7 @@ export interface IExploreTutorsFilters {
   program?: number;
   country_id?: number;
   page?: number;
-  field_ids?: number[];
+  field_ids?: string;
 }
 
 export interface IExploreCoursesFilters {
@@ -114,5 +114,5 @@ export interface IExploreCoursesFilters {
   program?: number;
   country_id?: number;
   page?: number;
-  field_ids?: number[];
+  field_ids?: string;
 }

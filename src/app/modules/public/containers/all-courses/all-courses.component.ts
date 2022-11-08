@@ -155,7 +155,10 @@ export class AllCoursesComponent implements OnInit {
       country_id: this.country ? this.country : undefined,
       program: this.program,
       page: this.page,
-      field_ids: this.fields && this.fields.length ? this.fields : undefined
+      field_ids:
+        this.fields && this.fields.length
+          ? JSON.stringify(this.fields)
+          : undefined
     };
 
     this._store.dispatch(

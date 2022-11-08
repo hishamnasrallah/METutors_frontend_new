@@ -305,6 +305,12 @@ export class RequestFreeTutorComponent implements OnInit {
         }
       });
 
+      this.duration =
+        Math.abs(
+          new Date().getTime() -
+            new Date(this.classrooms[0].date || '').getTime()
+        ) / 3600000;
+
       this.loadTutors(this.classrooms);
     }
   }

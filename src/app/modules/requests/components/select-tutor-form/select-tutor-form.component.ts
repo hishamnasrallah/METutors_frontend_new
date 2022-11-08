@@ -56,6 +56,7 @@ export class SelectTutorFormComponent implements OnInit {
   @Input() set duration(value: number) {
     if (value) {
       this._duration = value;
+      this.schedule = '';
     }
   }
 
@@ -96,8 +97,6 @@ export class SelectTutorFormComponent implements OnInit {
     if (data.value === '1') {
       this.changeSchedule.emit(false);
     } else {
-      this.schedule = '';
-
       if (this._duration < 48) {
         this.tutor?.setValidators([Validators.required]);
         this.tutor?.updateValueAndValidity();
