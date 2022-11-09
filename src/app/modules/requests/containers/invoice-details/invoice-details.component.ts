@@ -47,6 +47,7 @@ export class InvoiceDetailsComponent implements OnInit {
   filterCountry: string;
   billingForm: FormGroup;
   cities: ICity[] | null;
+  coupon: string | undefined;
   countries: ICountry[] | null;
   baseURL = environment.clientUrl;
 
@@ -165,7 +166,8 @@ export class InvoiceDetailsComponent implements OnInit {
       .select(fromCore.selectInvoiceDetails)
       .pipe(
         tap((invoice) => {
-          if (invoice?.user.billingInfo) {
+          this.coupon = invoice?.coupon;
+          if (invoice?.user?.billingInfo) {
             const { city, state, street, country, postcode } =
               invoice?.user.billingInfo;
 
@@ -202,8 +204,8 @@ export class InvoiceDetailsComponent implements OnInit {
   }
 
   saveCourse(user: IUser, classroom: any, billing: FormGroup): void {
-    this.showModal = true;
-    return;
+    //this.showModal = true;
+    //return;
 
     if (user) {
       const start_time = new Date(
@@ -243,6 +245,7 @@ export class InvoiceDetailsComponent implements OnInit {
         end_time,
         start_time,
         highlighted_topics,
+        coupon: this.coupon,
         file: classroom.file,
         author: classroom.author,
         book_name: classroom.name,

@@ -39,11 +39,11 @@
   </li>
   <li class="d-flex justify-content-between">
     <span class="f-size-15-md-sm">{{ 'TOTAL_AMOUNT_DUE' | translate }}</span>
-    <strong class="f-size-15-md-sm">{{ (classroom?.isFree ? '0' : invoiceDetails?.totalAmount) | metutorsMoney | async }}</strong>
+    <strong class="f-size-15-md-sm">{{ (classroom?.isFree ? '0' : invoiceDetails?.totalDueAmount) | metutorsMoney | async }}</strong>
   </li>
   <li class="d-flex justify-content-between promocode">
     <span class="f-size-15-md-sm">{{ 'PROMOCODE_OFF' | translate }}</span>
-    <strong class="f-size-15-md-sm">{{ '0' | metutorsMoney | async }}</strong>
+    <strong class="f-size-15-md-sm">{{ classroom?.isFree ? '0' : (invoiceDetails?.discount || '0') | metutorsMoney | async }}</strong>
   </li>
   <li class="d-flex justify-content-between total-payment">
     <span class="f-size-15-md-sm">{{ 'TOTAL_PAYMENT' | translate }}</span>

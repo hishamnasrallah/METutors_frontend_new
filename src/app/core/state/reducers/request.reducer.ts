@@ -296,8 +296,8 @@ export const reducer = createReducer(
 
   on(requestActions.applyCouponSuccess, (state, { invoiceDetails }) => ({
     ...state,
-    invoiceDetails,
     isApplyingCoupon: false,
+    invoiceDetails: { ...state.invoiceDetails, ...invoiceDetails },
   })),
 
   on(requestActions.applyCouponFailure, (state) => ({

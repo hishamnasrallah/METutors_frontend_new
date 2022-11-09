@@ -127,8 +127,13 @@ export function calculateListDays(days: any) {
 
 export interface IInvoiceDetails {
   user: IUser;
-  noOfClasses: number;
-  pricePerHour: number;
+  coupon: string;
+  discount: number;
   totalHours: number;
+  noOfClasses: number;
   totalAmount: number;
+  pricePerHour: number;
+  totalDueAmount: number;
+  discountedAmount: number;
+  discountPercentage: number;
 }
