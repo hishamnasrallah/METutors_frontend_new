@@ -228,9 +228,10 @@ export const reducer = createReducer(
     isResendEmailConfirm: false
   })),
 
-  on(requestActions.createFreeCourseSuccess, state => ({
+  on(requestActions.createFreeCourseSuccess, (state, { token }) => ({
     ...state,
-    isDemo: FreeClassroomDemo.cantBook
+    isDemo: FreeClassroomDemo.cantBook,
+    token
   }))
 );
 

@@ -79,6 +79,7 @@ export class CourseEffects {
               courseActions.exploreCoursesSuccess({
                 exploreCourses: response?.subjects,
                 coursesCount: response?.total,
+                range: response?.range,
                 fieldsOfStudy: response?.fieldsOfStudy,
                 program: response.program
               })

@@ -50,6 +50,7 @@ import {
   ]
 })
 export class AllCoursesComponent implements OnInit {
+  range$: Observable<any | null>;
   count$: Observable<number | null>;
   loadingCourses$: Observable<boolean>;
   fields$: Observable<IField[] | null>;
@@ -68,11 +69,9 @@ export class AllCoursesComponent implements OnInit {
   perPage = 10;
   title: string;
   country: number;
-  minValue: number;
-  maxValue: number;
+  minPrice?: number;
+  maxPrice?: number;
   fields: number[] = [];
-  minPricerPerHour: number;
-  maxPricerPerHour: number;
   openFilter: boolean = true;
   openPriceFilter: boolean = false;
 
@@ -113,10 +112,14 @@ export class AllCoursesComponent implements OnInit {
     program: number;
     country: number;
   }): void {
+    if (this.program === program) return;
+
     this.page = 1;
     this.fields = [];
     this.program = program;
     this.country = country;
+    this.minPrice = undefined;
+    this.maxPrice = undefined;
     this.onFilterCourses();
   }
 
@@ -144,9 +147,11 @@ export class AllCoursesComponent implements OnInit {
     return find(fields, { id });
   }
 
-  onChangeValue(value: any): void {
-    this.minPricerPerHour = value?.value;
-    this.maxPricerPerHour = value?.highValue;
+  onChangeValue(range: any): void {
+    this.minPrice = range.value;
+    this.maxPrice = range.highValue;
+
+    this.onFilterCourses();
   }
 
   onFilterCourses(): void {
@@ -155,6 +160,8 @@ export class AllCoursesComponent implements OnInit {
       country_id: this.country ? this.country : undefined,
       program: this.program,
       page: this.page,
+      price_start: this.minPrice,
+      price_end: this.maxPrice,
       field_ids:
         this.fields && this.fields.length
           ? JSON.stringify(this.fields)
@@ -173,6 +180,7 @@ export class AllCoursesComponent implements OnInit {
   private _prepareCourses(): void {
     this.courses$ = this._store.select(fromCore.selectExploreCourses);
     this.count$ = this._store.select(fromCore.selectExploreCoursesCount);
+    this.range$ = this._store.select(fromCore.selectExploreCoursesRange);
     this.fields$ = this._store.select(
       fromCore.selectExploreCoursesFieldsOfStudy
     );
