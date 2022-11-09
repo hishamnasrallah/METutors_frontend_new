@@ -1221,6 +1221,11 @@ export const selectExploreCoursesFieldsOfStudy = createSelector(
   fromCourseReducer.selectExploreCoursesFieldsOfStudy
 );
 
+export const selectExploreCoursesRange = createSelector(
+  selectCourseState,
+  fromCourseReducer.selectExploreCoursesRange
+);
+
 export const selectExploreCoursesProgram = createSelector(
   selectCourseState,
   fromCourseReducer.selectExploreCoursesProgram

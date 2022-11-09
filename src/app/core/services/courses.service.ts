@@ -41,12 +41,21 @@ export class CoursesService {
         subjects: { data: ISubject[]; total: number };
         field_of_studies: any[];
         program: any;
+        min_price: string;
+        max_price: string;
       }>(`${this.baseUrl}${url}`, {
         params
       })
       .pipe(
         map(response => {
           return {
+            range:
+              response?.max_price && response.min_price
+                ? {
+                    min: +response.min_price,
+                    max: +response.max_price
+                  }
+                : {},
             fieldsOfStudy:
               response?.field_of_studies && response.field_of_studies?.length
                 ? response?.field_of_studies.map(field => ({

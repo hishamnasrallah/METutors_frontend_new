@@ -89,7 +89,7 @@ export const createFreeCourse = createAction(
 
 export const createFreeCourseSuccess = createAction(
   '[Request] Create Free Course Success',
-  props<{ paymentInfo: any }>()
+  props<{ paymentInfo: any; token: string }>()
 );
 
 export const createFreeCourseFailure = createAction(

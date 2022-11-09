@@ -21,6 +21,7 @@ export interface State {
   isLoadingCourse: boolean;
 
   // Explore courses
+  exploreCoursesRange: any;
   exploreCourses: ISubject[];
   exploreCoursesCount: number;
   isLoadingExploreCourses: boolean;
@@ -39,6 +40,7 @@ export const initialState: State = {
   isRejectingCourse: false,
   isAcceptingCourse: false,
   isCancelingCourse: false,
+  exploreCoursesRange: null,
   isReassigningTutor: false,
   loadingCoursesFailure: '',
   exploreCoursesProgram: null,
@@ -147,7 +149,10 @@ export const reducer = createReducer(
 
   on(
     courseActions.exploreCoursesSuccess,
-    (state, { exploreCourses, coursesCount, fieldsOfStudy, program }) => ({
+    (
+      state,
+      { exploreCourses, coursesCount, fieldsOfStudy, range, program }
+    ) => ({
       ...state,
       exploreCourses:
         exploreCourses && exploreCourses.length
@@ -164,6 +169,7 @@ export const reducer = createReducer(
             }))
           : [],
       isLoadingExploreCourses: false,
+      exploreCoursesRange: range,
       exploreCoursesProgram: {
         ...program,
         name:
@@ -407,6 +413,9 @@ export const selectExploreCoursesCount = (state: State): number =>
 
 export const selectExploreCoursesFieldsOfStudy = (state: State): IField[] =>
   state.exploreCoursesFieldsOfStudy;
+
+export const selectExploreCoursesRange = (state: State): IField[] =>
+  state.exploreCoursesRange;
 
 export const selectExploreCoursesProgram = (state: State): IProgram | null =>
   state.exploreCoursesProgram;

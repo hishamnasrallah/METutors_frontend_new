@@ -48,6 +48,7 @@ export const exploreCoursesSuccess = createAction(
     exploreCourses: ISubject[];
     coursesCount: number;
     fieldsOfStudy: IField[];
+    range: any;
     program: IProgram;
   }>()
 );

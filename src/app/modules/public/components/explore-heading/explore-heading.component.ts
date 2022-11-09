@@ -40,6 +40,7 @@ export class ExploreHeadingComponent implements OnInit {
   @Input() title: string;
   @Input() image: string;
   @Input() btnText: string;
+  @Input() searchText: string;
   @Input() description: string;
   @Input() placeholderText: string;
   @Input() loading: boolean = false;

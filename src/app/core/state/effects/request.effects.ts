@@ -164,24 +164,16 @@ export class RequestEffects {
       ofType(requestActions.createFreeCourse),
       mergeMap(({ data }) =>
         this._coursesService.createFreeCourse(data).pipe(
-          map((paymentInfo) => {
-            // const jwtHelper = new JwtHelperService();
-            // const decodeToken = camelcaseKeys(
-            //   jwtHelper.decodeToken(paymentInfo.token),
-            //   {
-            //     deep: true
-            //   }
-            // );
-            // const user: any = decodeToken?.user;
-
-            return requestActions.createFreeCourseSuccess({
+          map(paymentInfo =>
+            requestActions.createFreeCourseSuccess({
               paymentInfo,
-            });
-          }),
-          catchError((error) =>
+              token: paymentInfo?.token
+            })
+          ),
+          catchError(error =>
             of(
               requestActions.createFreeCourseFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error: error?.error?.message || error?.error?.errors
               })
             )
           )

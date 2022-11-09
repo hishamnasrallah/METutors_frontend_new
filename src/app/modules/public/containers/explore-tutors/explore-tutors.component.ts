@@ -79,6 +79,8 @@ export class ExploreTutorsComponent implements OnInit {
     program: number;
     country: number;
   }): void {
+    if (this.program === program) return;
+
     this.page = 1;
     this.fields = [];
     this.program = program;

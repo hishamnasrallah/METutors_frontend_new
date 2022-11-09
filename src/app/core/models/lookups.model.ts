@@ -115,4 +115,6 @@ export interface IExploreCoursesFilters {
   country_id?: number;
   page?: number;
   field_ids?: string;
+  price_start?: number;
+  price_end?: number;
 }
