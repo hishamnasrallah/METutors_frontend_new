@@ -1,8 +1,8 @@
 import { Store } from '@ngrx/store';
 import { UserRole } from '@metutor/config';
-import { IUser } from '@metutor/core/models';
 import * as fromCore from '@metutor/core/state';
 import { Component, OnInit } from '@angular/core';
+import { IProgram, IUser } from '@metutor/core/models';
 import { map, Observable, withLatestFrom } from 'rxjs';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 
@@ -16,6 +16,7 @@ export class NavbarComponent implements OnInit {
   currencyRates$: Observable<any[]>;
   selectedCurrency$: Observable<any>;
   token$: Observable<string | undefined>;
+  programs$: Observable<IProgram[] | null>;
   isCurrencyRatesLoading$: Observable<boolean>;
 
   userRole = UserRole;
@@ -27,6 +28,7 @@ export class NavbarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this._preparePrograms();
     this.selectedLanguage = this._translate.currentLang;
 
     this.token$ = this._store.select(fromCore.selectToken);
@@ -75,5 +77,10 @@ export class NavbarComponent implements OnInit {
 
   logout(): void {
     this._store.dispatch(fromCore.logout());
+  }
+
+  private _preparePrograms(): void {
+    this._store.dispatch(fromCore.loadPrograms());
+    this.programs$ = this._store.select(fromCore.selectPrograms);
   }
 }

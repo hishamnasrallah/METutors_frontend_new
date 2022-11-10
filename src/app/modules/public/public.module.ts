@@ -39,7 +39,6 @@ import {
 } from './containers';
 
 import {
-  ViewPricesDialog,
   HomeSlideComponent,
   FaqSearchComponent,
   TutorCardComponent,
@@ -65,6 +64,7 @@ import {
   BecomeTutorSlideComponent,
   LearningMadeEasyComponent,
   FaqListQuestionsComponent,
+  ViewPricesDialogComponent,
   ContactHelpToHereComponent,
   RequestPostCourseComponent,
   BecomeOnlineTutorComponent,
@@ -74,6 +74,7 @@ import {
   HomeFeaturedTutorsComponent,
   TrustHappyStudentsComponent,
   ChooseCountryDialogComponent,
+  HomeworkProjectHelpComponent,
   LearningEnvironmentComponent,
   LovingOpportunitiesComponent,
   HomeServicesFeaturesComponent,
@@ -86,7 +87,8 @@ import {
   ViewSubjectDetailsModalComponent,
   BenefitsAcademicTutoringComponent,
   ExceptionalOpportunitiesComponent,
-  AcademicLearningEnvironmentComponent
+  AcademicLearningEnvironmentComponent,
+  SelectProgramStudyingDialogComponent
 } from './components';
 
 @NgModule({
@@ -97,7 +99,6 @@ import {
     AboutComponent,
     WelcomeComponent,
     ContactComponent,
-    ViewPricesDialog,
     FaqSearchComponent,
     HomeSlideComponent,
     TutorCardComponent,
@@ -129,6 +130,7 @@ import {
     BecomeTutorSlideComponent,
     LearningMadeEasyComponent,
     FaqListQuestionsComponent,
+    ViewPricesDialogComponent,
     ContactHelpToHereComponent,
     RequestPostCourseComponent,
     BecomeOnlineTutorComponent,
@@ -137,6 +139,7 @@ import {
     StillHaveQuestionsComponent,
     HomeFeaturedTutorsComponent,
     TrustHappyStudentsComponent,
+    HomeworkProjectHelpComponent,
     LearningEnvironmentComponent,
     LovingOpportunitiesComponent,
     ChooseCountryDialogComponent,
@@ -152,7 +155,8 @@ import {
     ViewSubjectDetailsModalComponent,
     ExceptionalOpportunitiesComponent,
     BenefitsAcademicTutoringComponent,
-    AcademicLearningEnvironmentComponent
+    AcademicLearningEnvironmentComponent,
+    SelectProgramStudyingDialogComponent
   ],
   imports: [
     FormsModule,

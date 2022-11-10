@@ -1,0 +1,61 @@
+.program-list {
+  background: #F1F6F7;
+  margin: -24px;
+  padding: 24px;
+
+  button {
+    position: absolute;
+    right: 24px;
+    width: 35px;
+    background: #ebebeb;
+    height: 35px;
+    padding: 0;
+    min-width: 0;
+    border-radius: 50%;
+    color: #2a2a2a;
+  }
+
+  .programs {
+    h1 {
+      color: #2A2A2A;
+      font-weight: bold;
+      font-size: 35px;
+      text-align: center;
+      margin: 20px 0 50px;
+    }
+
+    .item {
+      padding: 10px 20px;
+      border-radius: 4px;
+      width: 180px;
+      font-size: 16px;
+      background-color: #fff;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      transition: all 0.25s ease-in-out;
+
+      span {
+        color: var(--main-color);
+        line-height: 20px;
+        font-size: 14px;
+      }
+
+      strong {
+        color: #292929;
+        font-weight: bold;
+        font-size: 15px;
+        white-space: normal;
+        line-height: 23px;
+        display: block;
+        margin-top: 5px;
+      }
+
+      &:hover {
+        border-color: var(--main-color);
+      }
+    }
+
+  }
+}

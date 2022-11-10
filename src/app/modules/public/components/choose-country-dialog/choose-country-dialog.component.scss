@@ -36,33 +36,6 @@
     color: #2a2a2a;
     margin-bottom: 20px;
   }
-
-  table {
-    margin: 0;
-    border-top: none;
-
-    th {
-      font-size: 13px;
-      border-bottom: none;
-      background: var(--main-color);
-      color: #FFF;
-    }
-
-    td {
-      border-bottom: 1px solid #e2edef;
-      color: #2a2a2a;
-      font-size: 13px;
-      background-color: #ebf7f9;
-    }
-
-    &>:not(:first-child) {
-      border: none;
-    }
-
-    tr:last-child td {
-      border-bottom: none;
-    }
-  }
 }
 
 @media(max-width: 992px) {

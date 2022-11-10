@@ -119,7 +119,8 @@ button:hover {
   stroke: var(--main-color);
 }
 
-.timepicker-button {
+.timepicker-button,
+.main-color {
   color: var(--main-color) !important;
 }
 

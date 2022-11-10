@@ -1,0 +1,133 @@
+<div class="homework-help" style="background-image: url(assets/homepage/stars_bg.png);">
+  <div class="container">
+    <h1 class="f-size-25-md-sm text-center" [innerHTML]="'HOMEWORK_PROJECT_HELP' | translate"></h1>
+    <p class="f-size-18-md-sm text-center">{{ 'HOMEWORK_PROJECT_HELP_DESC' | translate }}</p>
+
+    <div class="row cards" *ngIf="step === 1">
+      <div class="col-md" *ngFor="let homework of homeworks">
+        <div class="card" (click)="openProgramsList(homework)">
+          <div class="card-body">
+            <img [src]="homework.img" draggable="false" alt="">
+            <h2>{{ homework.title | translate }}</h2>
+            <p>{{ homework.desc | translate }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row content" *ngIf="step === 2">
+      <div class="col-md-12 d-flex align-items-center">
+        <button (click)="step = 1" mat-button class="back-step me-2">
+          {{ homework.title | translate }}
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+            class="rotate-180-ar">
+            <path
+              d="M16.172 10.9999H4V12.9999H16.172L10.808 18.3639L12.222 19.7779L20 11.9999L12.222 4.22192L10.808 5.63592L16.172 10.9999Z"
+              fill="#3BB3C1" />
+          </svg>
+        </button>
+
+        <mat-form-field appearance="outline" class="w-100-sm me-2">
+          <mat-select [ngModel]="selectedProgram.id" placeholder="{{ 'CHOOSE_PROGRAM' | translate }}"
+            (selectionChange)="onChangeCourseProgram($event)">
+            <mat-option [value]="program?.id" *ngFor="let program of programs">
+              <bdi>{{ program?.name }}</bdi>
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100-sm me-2" *ngIf="selectedProgram?.id === nationalId">
+          <mat-select placeholder="{{ 'SELECT_GRADE' | translate }}" [(ngModel)]="grade"
+            (selectionChange)="onSelectGrade($event)">
+            <mat-option [value]="i + 1" *ngFor="let g of grades; let i = index">
+              {{ g | uppercase | translate }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100-sm" *ngIf="selectedProgram?.id === nationalId">
+          <mat-select placeholder="{{ 'CHOOSE_COUNTRY' | translate }}" [(ngModel)]="country"
+            (selectionChange)="onChangeCountry($event)">
+            <mat-option [value]="c?.id" *ngFor="let c of countries">
+              <span [innerHTML]="c?.flag" class="me-2"></span>
+              {{ c?.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <metutors-grid-placeholder *ngIf="loadingFields"></metutors-grid-placeholder>
+
+      <ng-container *ngIf="!loadingFields">
+        <owl-carousel-o [options]="customOptions" #owlField>
+          <ng-template carouselSlide *ngFor="let field of fields; let i = index">
+            <div class="field-card">
+              <img [src]="imageURL + field.image" width="40" height="40" draggable="false" alt="">
+              <div class="mt-3">
+                <h2>
+                  <a routerLink="/requests/request-tutor"
+                    [queryParams]="{program: selectedProgram?.id, field: field?.id, country, grade}">
+                    {{ field?.name }}
+                  </a>
+                </h2>
+                <p class="details f-size-18-md-sm">
+                  <ng-container *ngIf="loadingSubjects">
+                    <metutors-grid-placeholder></metutors-grid-placeholder>
+                  </ng-container>
+
+                  <ng-container *ngIf="!loadingSubjects">
+                    <ng-container *ngFor="let subject of filteredSubjects(field.id); let isLast = last; let i = index">
+                      <a class="cursor-pointer subject" *ngIf="i < 3 || (isShowMore && selectedField === field?.id)"
+                        (click)="viewSubjectDetails.emit({program: selectedProgram, subject, country, grade, index: i})">
+                        {{ subject?.name }}<ng-container *ngIf="!isLast">, </ng-container>
+                      </a>
+                    </ng-container>
+                    <a *ngIf="filteredSubjects(field.id).length > 3 && (!isShowMore || selectedField !== field?.id)"
+                      class="see-more cursor-pointer" (click)="isShowMore = true; selectedField = field?.id!">
+                      {{ 'SEE_MORE' | translate }}
+                    </a>
+                  </ng-container>
+                </p>
+              </div>
+            </div>
+          </ng-template>
+        </owl-carousel-o>
+
+        <div class="buttons-list mt-3" *ngIf="fields && fields.length > 4">
+          <button mat-button (click)="owlField.next()" class="ms-2">
+            <mat-icon>chevron_right</mat-icon>
+          </button>
+          <button mat-button (click)="owlField.prev()">
+            <mat-icon>chevron_left</mat-icon>
+          </button>
+        </div>
+      </ng-container>
+
+      <div class="col-md-12">
+        <a mat-flat-button color="primary" routerLink="/requests/request-tutor"
+          [queryParams]="{program: selectedProgram?.id, country, grade}">
+          {{ 'START_LEARNING_TODAY' | translate }}
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+            class="rotate-180-ar">
+            <path
+              d="M16.172 10.9999H4V12.9999H16.172L10.808 18.3639L12.222 19.7779L20 11.9999L12.222 4.22192L10.808 5.63592L16.172 10.9999Z"
+              fill="#FFF" />
+          </svg>
+        </a>
+
+        <a mat-button class="explore-all ms-3" [routerLink]="['/all-courses', selectedProgram?.id]"
+          [queryParams]="{country}">
+          {{ 'EXPLORE_SUBJECTS' | translate }}
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+            class="rotate-180-ar">
+            <path
+              d="M16.172 10.9999H4V12.9999H16.172L10.808 18.3639L12.222 19.7779L20 11.9999L12.222 4.22192L10.808 5.63592L16.172 10.9999Z"
+              fill="#707070" />
+          </svg>
+        </a>
+
+        <a class="pricing cursor-pointer ms-3" (click)="onViewPrices()">{{ 'PRICES' | translate }}</a>
+      </div>
+    </div>
+  </div>
+</div>

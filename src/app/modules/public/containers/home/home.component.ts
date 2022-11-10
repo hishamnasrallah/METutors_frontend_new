@@ -154,7 +154,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   private _preparePrograms(): void {
-    this._store.dispatch(fromCore.loadPrograms());
     this.programs$ = this._store.select(fromCore.selectPrograms);
     this.loadingPrograms$ = this._store.select(
       fromCore.selectIsLoadingPrograms

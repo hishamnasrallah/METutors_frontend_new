@@ -5,6 +5,17 @@
 
 <metutors-home-services-features></metutors-home-services-features>
 
+<metutors-homework-project-help [programs]="(programs$ | async)!"
+                                [fields]="fields$ | async"
+                                [loadingFields]="loadingFields$ | async" 
+                                [countries]="(countries$ | async)!"
+                                [loadingCountries]="loadingCountries$ | async" 
+                                [subjects]="subjects$ | async" 
+                                [loadingSubjects]="loadingSubjects$ | async" 
+                                (changeProgram)="fetchFields($event)"
+                                (viewSubjectDetails)="onOpenViewSubjectDetailsModal($event)">
+</metutors-homework-project-help>
+
 <metutors-learning-environment [isLoading]="loadingPrograms$ | async" 
                                [programs]="programs$ | async"
                                [subjects]="subjects$ | async" 

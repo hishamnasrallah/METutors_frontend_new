@@ -6,6 +6,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { MatButtonModule } from '@angular/material/button';
+import { SharedModule } from '@metutor/shared/shared.module';
 
 import { FooterComponent } from './footer';
 import { NavbarComponent } from './navbar';
@@ -15,12 +16,13 @@ import { NavbarComponent } from './navbar';
   imports: [
     CommonModule,
     RouterModule,
+    SharedModule,
     MatIconModule,
     MatMenuModule,
     MatButtonModule,
     TranslateModule,
-    BsDropdownModule.forRoot(),
+    BsDropdownModule.forRoot()
   ],
-  exports: [FooterComponent, NavbarComponent],
+  exports: [FooterComponent, NavbarComponent]
 })
 export class ComponentsModule {}
