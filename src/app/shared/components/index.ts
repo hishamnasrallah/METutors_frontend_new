@@ -14,6 +14,7 @@ export * from './card-placeholder';
 export * from './grid-placeholder';
 export * from './support-ticket-card';
 export * from './file-upload-progress';
+export * from './choose-country-dialog';
 export * from './tutor-available-slots';
 export * from './course-item-horizental';
 export * from './payment-invoice-details';

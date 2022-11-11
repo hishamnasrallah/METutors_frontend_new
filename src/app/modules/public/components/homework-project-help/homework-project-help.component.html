@@ -15,8 +15,12 @@
       </div>
     </div>
 
-    <div class="row content" *ngIf="step === 2">
-      <div class="col-md-12 d-flex align-items-center">
+    <div class="row content position-relative" *ngIf="step === 2">
+      <div class="svg-icon">
+        <svg-icon name="curved-arrow" class="d-none d-lg-block w-full h-full" [applyClass]="true"></svg-icon>
+      </div>
+
+      <div class="col-md-12 d-flex align-items-center selections mb-4">
         <button (click)="step = 1" mat-button class="back-step me-2">
           {{ homework.title | translate }}
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -93,12 +97,12 @@
           </ng-template>
         </owl-carousel-o>
 
-        <div class="buttons-list mt-3" *ngIf="fields && fields.length > 4">
-          <button mat-button (click)="owlField.next()" class="ms-2">
-            <mat-icon>chevron_right</mat-icon>
-          </button>
-          <button mat-button (click)="owlField.prev()">
+        <div class="buttons-list mt-3 d-flex justify-content-end" *ngIf="fields && fields.length > 4">
+          <button mat-button (click)="owlField.prev()" class="me-2">
             <mat-icon>chevron_left</mat-icon>
+          </button>
+          <button mat-button (click)="owlField.next()">
+            <mat-icon>chevron_right</mat-icon>
           </button>
         </div>
       </ng-container>

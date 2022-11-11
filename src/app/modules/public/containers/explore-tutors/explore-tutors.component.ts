@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { find, isNil, omitBy } from 'lodash';
 import * as fromCore from '@metutor/core/state';
 import { OnInit, Component } from '@angular/core';
+import { generalConstants } from '@metutor/config';
 import {
   ITutor,
   IField,
@@ -79,7 +80,11 @@ export class ExploreTutorsComponent implements OnInit {
     program: number;
     country: number;
   }): void {
-    if (this.program === program) return;
+    if (
+      this.program !== generalConstants.nationalId &&
+      this.program === program
+    )
+      return;
 
     this.page = 1;
     this.fields = [];

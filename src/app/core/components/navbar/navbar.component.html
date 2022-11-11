@@ -135,7 +135,7 @@
 
 <mat-menu #programs="matMenu">
   <a mat-menu-item class="h-auto currency-item" *ngFor="let program of (programs$ | async)"
-    [routerLink]="['/all-courses', program?.id]">
+    (click)="onSelectProgram(program.id)">
     {{ program?.name }}
   </a>
 </mat-menu>

@@ -4,8 +4,13 @@ import * as fromCore from '@metutor/core/state';
 import { ActivatedRoute } from '@angular/router';
 import { ViewportScroller } from '@angular/common';
 import * as fromPublic from '@metutor/modules/public/state';
-import { AfterViewInit, Component, OnInit } from '@angular/core';
 import * as fromPublicActions from '@metutor/modules/public/state/actions';
+import {
+  OnInit,
+  Component,
+  AfterViewInit,
+  ChangeDetectorRef
+} from '@angular/core';
 import {
   IUser,
   ITutor,
@@ -45,6 +50,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   constructor(
     private _store: Store<any>,
     private _route: ActivatedRoute,
+    private _cdRef: ChangeDetectorRef,
     private _viewportScroller: ViewportScroller
   ) {}
 
@@ -53,6 +59,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this._preparePrograms();
     this._prepareSubjects();
     this._prepareCountries();
+    this._cdRef.detectChanges();
 
     this.token$ = this._store.select(fromCore.selectToken);
     this.isDemo$ = this._store.select(fromCore.selectStudentIsDemo);
@@ -169,7 +176,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   private _prepareCountries(): void {
-    this._store.dispatch(fromCore.loadProgramCountries());
     this.countries$ = this._store.select(fromCore.selectProgramCountries);
     this.loadingCountries$ = this._store.select(
       fromCore.selectIsLoadingCountries

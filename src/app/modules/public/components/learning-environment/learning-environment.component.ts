@@ -14,7 +14,7 @@ import { environment } from '@environment';
 import { MatDialog } from '@angular/material/dialog';
 import { generalConstants, GRADES } from '@metutor/config';
 import { ViewPricesDialogComponent } from '../view-prices-dialog';
-import { ChooseCountryDialogComponent } from '../choose-country-dialog';
+import { ChooseCountryDialogComponent } from '@metutor/shared/components';
 import { ICountry, IField, IProgram, ISubject } from '@metutor/core/models';
 
 @Component({
