@@ -1511,6 +1511,18 @@
   "ENTER_STATE": "Please write state with a max of 50 characters",
   "MAX_STREET_ADDRESS": "Please write address with a max of 250 characters",
   "MAX_POST_CODE": "Please write postcode with a max of 20 characters",
+  "TUTOR_BADGES_DESC": "Besides being recognized as a valued member of the MEtutors teaching community, you earn badges for being creative, professional and caring with your students.",
+  "TALENTED": "Talented",
+  "VERIFIED_METUTORS_TEAM": "Verified by MEtutors team",
+  "YOU_ARE_HERE": "You are here",
+  "MERIT": "Merit",
+  "EXPERT_LG": "Expert",
+  "MASTER": "Master",
+  "COURSES_COMPLETED": "courses completed",
+  "POINTS_EARNED": "points earned",
+  "": "",
+  "": "",
+  "": "",
   "": "",
   "": ""
 }

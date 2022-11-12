@@ -766,7 +766,7 @@
   "INBOX": "صندوق البريد الوارد",
   "CERTIFICATES": "الشهادات",
   "SETTINGS": "الإعدادات",
-  "BADGES": "رتب",
+  "BADGES": "الرتب",
   "PAYMENT_RECORDS": "سجلات المدفوعات",
   "ENTER_DESCRIPTION_HERE": "أدخل الوصف هنا...",
   "FILE": "الملف",
@@ -845,7 +845,7 @@
   "MONTH_SM": "شهر",
   "MONTHS_SM": "شهور",
   "YEARLY": "سنوياّ",
-  "COURSE_PROGRESS": "التقدم في الدورة",
+  "COURSE_PROGRESS": "إنجاز المواد الدراسية",
   "COMPARED_TO": "بالمقارنة مع",
   "TOTAL_NUMBER_COURSES": "عدد الدورات الإجمالي",
   "ATTENDANCE_RATE": "معدل الحضور",
@@ -1510,5 +1510,14 @@
   "STATE": "الدولة",
   "ENTER_STATE": "لطفاً سجل إسم الدولة ب٥٠ حرف أقصى حد",
   "MAX_STREET_ADDRESS": "لطفاً سجل العنوان ب٢٥٠ رمز كأقصى حد",
-  "MAX_POST_CODE": "لطفاً سجل الرمز البريدي ب٢٠ رمز كأقصى حد"
+  "MAX_POST_CODE": "لطفاً سجل الرمز البريدي ب٢٠ رمز كأقصى حد",
+  "TUTOR_BADGES_DESC": "إلى جانب الاعتراف بك كعضو مهم في مجتمع التدريس في ميتوترز ، فإنك تحصل على شارات لكونك مبدعًا ومهنيًا ومهتمًا بطلابك.",
+  "TALENTED": "الماهر",
+  "VERIFIED_METUTORS_TEAM": "موثق بواسطة فريق ميتوترز",
+  "YOU_ARE_HERE": "أنت هنا",
+  "MERIT": "المميز",
+  "EXPERT_LG": "الخبير",
+  "MASTER": "الماستر",
+  "COURSES_COMPLETED": "دورات مكتملة",
+  "POINTS_EARNED": "نقاط مكتسبة"
 }
