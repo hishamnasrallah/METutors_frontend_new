@@ -4,7 +4,7 @@
     <p class="f-size-18-md-sm text-center">{{ 'HOMEWORK_PROJECT_HELP_DESC' | translate }}</p>
 
     <div class="row cards" *ngIf="step === 1">
-      <div class="col-md" *ngFor="let homework of homeworks">
+      <div class="col-lg col-md-6 mb-15-md-sm" *ngFor="let homework of homeworks">
         <div class="card" (click)="openProgramsList(homework)">
           <div class="card-body">
             <img [src]="homework.img" draggable="false" alt="">
@@ -20,8 +20,8 @@
         <svg-icon name="curved-arrow" class="d-none d-lg-block w-full h-full" [applyClass]="true"></svg-icon>
       </div>
 
-      <div class="col-md-12 d-flex align-items-center selections mb-4">
-        <button (click)="step = 1" mat-button class="back-step me-2">
+      <div class="col-md-12 d-flex align-items-center selections mb-4 flex-column-sm">
+        <button (click)="step = 1" mat-button class="back-step me-2 m-0-sm w-100-sm mb-5-sm">
           {{ homework.title | translate }}
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
             class="rotate-180-ar">
@@ -31,7 +31,7 @@
           </svg>
         </button>
 
-        <mat-form-field appearance="outline" class="w-100-sm me-2">
+        <mat-form-field appearance="outline" class="w-100-sm me-2 m-0-sm w-100-sm mb-5-sm">
           <mat-select [ngModel]="selectedProgram.id" placeholder="{{ 'CHOOSE_PROGRAM' | translate }}"
             (selectionChange)="onChangeCourseProgram($event)">
             <mat-option [value]="program?.id" *ngFor="let program of programs">
@@ -40,7 +40,8 @@
           </mat-select>
         </mat-form-field>
 
-        <mat-form-field appearance="outline" class="w-100-sm me-2" *ngIf="selectedProgram?.id === nationalId">
+        <mat-form-field appearance="outline" class="w-100-sm me-2 m-0-sm w-100-sm mb-5-sm"
+          *ngIf="selectedProgram?.id === nationalId">
           <mat-select placeholder="{{ 'SELECT_GRADE' | translate }}" [(ngModel)]="grade"
             (selectionChange)="onSelectGrade($event)">
             <mat-option [value]="i + 1" *ngFor="let g of grades; let i = index">
@@ -49,7 +50,8 @@
           </mat-select>
         </mat-form-field>
 
-        <mat-form-field appearance="outline" class="w-100-sm" *ngIf="selectedProgram?.id === nationalId">
+        <mat-form-field appearance="outline" class="w-100-sm w-100-sm mb-5-sm"
+          *ngIf="selectedProgram?.id === nationalId">
           <mat-select placeholder="{{ 'CHOOSE_COUNTRY' | translate }}" [(ngModel)]="country"
             (selectionChange)="onChangeCountry($event)">
             <mat-option [value]="c?.id" *ngFor="let c of countries">

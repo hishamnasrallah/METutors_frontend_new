@@ -1199,4 +1199,8 @@ $ph-animation-duration: 0.8s !default;
   .flex-column-md-sm {
     flex-direction: column !important;
   }
+
+  .object-contain-md-sm {
+    object-fit: contain;
+  }
 }
