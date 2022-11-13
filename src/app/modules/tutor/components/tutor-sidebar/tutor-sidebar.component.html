@@ -10,24 +10,30 @@
     <mat-icon>close</mat-icon>
   </button>
   <a class="sidebar-logo p-15-md-sm mb-15-md-sm" routerLink="/">
-    <img alt="logo" src="assets/logo/logo-light.png" width="200px" draggable="false" *ngIf="!layout?.hideSidebar && !openSidebar">
-    <img alt="logo" src="assets/logo/logo-icon.png" width="100%" draggable="false" *ngIf="layout?.hideSidebar && !openSidebar">
+    <img alt="logo" src="assets/logo/logo-light.png" width="200px" draggable="false" *ngIf="!layout?.hideSidebar"
+      class="d-none d-lg-block">
+    <img alt="logo" src="assets/logo/logo-icon.png" width="100%" draggable="false" *ngIf="layout?.hideSidebar"
+      class="d-none d-lg-block">
+    <img alt="logo" src="assets/logo/logo-light.png" width="100%" draggable="false" class="d-block d-lg-none">
   </a>
   <ul class="list-unstyled">
     <li class="d-flex align-items-center">
-      <a routerLink="/tutor/classrooms" class="p-15-md-sm" routerLinkActive="active" (click)="openSidebar = false" [class.disabled-link]="!tutor?.approvedTutor">
+      <a routerLink="/tutor/classrooms" class="p-15-md-sm" routerLinkActive="active" (click)="openSidebar = false"
+        [class.disabled-link]="!tutor?.approvedTutor">
         <svg-icon name="home" [applyClass]="true" class="w-24 font-white"></svg-icon>
         <span class="text-uppercase hide-sidemenu f-size-15-md-sm">{{ 'CLASSROOMS' | translate }}</span>
       </a>
     </li>
     <li class="d-flex align-items-center">
-      <a routerLink="/tutor/dashboard" class="p-15-md-sm" routerLinkActive="active" (click)="openSidebar = false" [class.disabled-link]="!tutor?.approvedTutor">
+      <a routerLink="/tutor/dashboard" class="p-15-md-sm" routerLinkActive="active" (click)="openSidebar = false"
+        [class.disabled-link]="!tutor?.approvedTutor">
         <svg-icon name="slide-show" [applyClass]="true" class="w-24 font-white"></svg-icon>
         <span class="text-uppercase hide-sidemenu f-size-15-md-sm">{{ 'DASHBOARD' | translate }}</span>
       </a>
     </li>
     <li class="d-flex align-items-center">
-      <a routerLink="/tutor/inbox" class="p-15-md-sm" routerLinkActive="active" (click)="openSidebar = false" [class.disabled-link]="!tutor?.approvedTutor">
+      <a routerLink="/tutor/inbox" class="p-15-md-sm" routerLinkActive="active" (click)="openSidebar = false"
+        [class.disabled-link]="!tutor?.approvedTutor">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd"
             d="M11.49 1.30999L2.243 6.85399C2.09222 6.94434 1.99996 7.10722 2 7.28299V20C2 20.5523 2.44772 21 3 21H21C21.5523 21 22 20.5523 22 20V7.28399C22 7.10822 21.9078 6.94534 21.757 6.85499L12.519 1.30999C12.2023 1.11998 11.8067 1.11998 11.49 1.30999ZM12.061 13.683L18.346 8.24399L19.654 9.75699L12.073 16.317L4.353 9.76199L5.647 8.23799L12.061 13.683Z"
@@ -37,7 +43,8 @@
       </a>
     </li>
     <li class="d-flex align-items-center">
-      <a routerLink="/tutor/badges" class="p-15-md-sm" routerLinkActive="active" (click)="openSidebar = false" [class.disabled-link]="!tutor?.approvedTutor">
+      <a routerLink="/tutor/badges" class="p-15-md-sm" routerLinkActive="active" (click)="openSidebar = false"
+        [class.disabled-link]="!tutor?.approvedTutor">
         <svg-icon name="badge" [applyClass]="true" class="w-24 font-white"></svg-icon>
         <span class="text-uppercase hide-sidemenu f-size-15-md-sm">{{ 'BADGES' | translate }}</span>
       </a>
@@ -61,7 +68,8 @@
       </a>
     </li>
     <li class="d-flex align-items-center">
-      <a routerLink="/tutor/payment-records" class="p-15-md-sm" routerLinkActive="active" (click)="openSidebar = false" [class.disabled-link]="!tutor?.approvedTutor">
+      <a routerLink="/tutor/payment-records" class="p-15-md-sm" routerLinkActive="active" (click)="openSidebar = false"
+        [class.disabled-link]="!tutor?.approvedTutor">
         <svg-icon name="payment" [applyClass]="true" class="w-24 font-white"></svg-icon>
         <span class="text-uppercase hide-sidemenu f-size-15-md-sm">{{ 'PAYMENT_RECORDS' | translate }}</span>
       </a>
