@@ -8,7 +8,7 @@
         <div class="card" (click)="openProgramsList(homework)">
           <div class="card-body">
             <img [src]="homework.img" draggable="false" alt="">
-            <h2>{{ homework.title | translate }}</h2>
+            <h2 [innerHTML]="homework.title | translate"></h2>
             <p>{{ homework.desc | translate }}</p>
           </div>
         </div>
@@ -22,7 +22,7 @@
 
       <div class="col-md-12 d-flex align-items-center selections mb-4 flex-column-sm">
         <button (click)="step = 1" mat-button class="back-step me-2 m-0-sm w-100-sm mb-5-sm">
-          {{ homework.title | translate }}
+          {{ homework.title | translate | metutorsRemoveText:'&lt;br/&gt;' }}
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
             class="rotate-180-ar">
             <path

@@ -552,10 +552,14 @@
     right: auto !important;
   }
 
-  .availability,
-  .homework-help .content .svg-icon {
+  .availability {
     left: 60px;
     right: auto !important;
+  }
+
+  .homework-help .content .svg-icon {
+    left: 150px;
+    right: auto !important
   }
 
   .sidemenu-btn {

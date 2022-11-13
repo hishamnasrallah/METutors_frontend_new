@@ -90,12 +90,15 @@ import {
   SelectProgramStudyingDialogComponent
 } from './components';
 
+import { RemoveTextPipe } from './pipes';
+
 @NgModule({
   declarations: [
     FaqComponent,
     HomeComponent,
     StudyComponent,
     AboutComponent,
+    RemoveTextPipe,
     WelcomeComponent,
     ContactComponent,
     FaqSearchComponent,
