@@ -118,3 +118,18 @@ export const selectUploadDocumentModal = createSelector(
   selectTutorModalState,
   fromTutorModal.selectUploadDocumentModal
 );
+
+export const selectConfirmPaymentModal = createSelector(
+  selectTutorModalState,
+  fromTutorModal.selectConfirmPaymentModal
+);
+
+export const selectDisputePaymentModal = createSelector(
+  selectTutorModalState,
+  fromTutorModal.selectDisputePaymentModal
+);
+
+export const selectDisputeReasonModal = createSelector(
+  selectTutorModalState,
+  fromTutorModal.selectDisputeReasonModal
+);

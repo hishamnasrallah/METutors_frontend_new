@@ -248,6 +248,7 @@ const routes: Routes = [
         component: TutorPaymentRecordsComponent,
         data: {
           layout: {
+            icon: 'payment',
             title: 'PAYMENT_RECORDS',
             navbarTitle: 'PAYMENT_RECORDS',
             showHeader: false,

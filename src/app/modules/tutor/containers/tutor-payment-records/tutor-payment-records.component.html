@@ -1,5 +1,105 @@
 <metutors-tutor-navbar [layout]="(layout$ | async)" [user]="user$ | async" (logout)="logout()"></metutors-tutor-navbar>
 
-<div class="payment-records">
+<div class="payment-records p-15-sm">
+  <div class="row">
+    <div class="col-md-12">
+      <mat-tab-group mat-align-tabs="start" (selectedTabChange)="onChangeTab($event)">
+        <mat-tab [label]="'PENDING_PAYMENTS' | translate ">
+          <div class="table-responsive">
+            <table class="table my-table default-title mt-4 overflow-visible">
+              <tr>
+                <th>{{ 'TRANSACTION_NUMBER' | translate }}</th>
+                <th>{{ 'MONTH_SM' | translate }}</th>
+                <th>{{ 'AMOUNT_$' | translate}}</th>
+                <th>{{ 'STATUS' | translate }}</th>
+                <th>{{ 'ACTION' | translate }}</th>
+              </tr>
+              <tr *ngFor="let i of [1,2,3]">
+                <td>57787512258</td>
+                <td>May 2022</td>
+                <td>$300.0</td>
+                <td>
+                  <button class="status text-capitalize pending" mat-button>Pending</button>
+                </td>
+                <td>
+                  <button mat-flat-button class="rounded d-block border border-main py-0 px-3 text-main"
+                          (click)="onShowConfirmPaymentModal()">{{ 'REQUEST_PAYMENT' | translate }}
+                  </button>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </mat-tab>
 
+        <mat-tab [label]="'DISPUTED_PAYMENTS' | translate">
+          <div class="table-responsive">
+            <table class="table my-table default-title mt-4 overflow-visible">
+              <tr>
+                <th>{{ 'TRANSACTION_NUMBER' | translate }}</th>
+                <th>{{ 'MONTH_SM' | translate }}</th>
+                <th>{{ 'CLEARANCE_DATE' | translate }}</th>
+                <th>{{ 'AMOUNT_$' | translate}}</th>
+                <th>{{ 'METHOD' | translate }}</th>
+                <th>{{ 'STATUS' | translate }}</th>
+                <th>{{ 'ACTION' | translate }}</th>
+              </tr>
+              <tr *ngFor="let i of [1,2,3]">
+                <td>57787512258</td>
+                <td>May 2022</td>
+                <td>20 May 2022</td>
+                <td>$300.0</td>
+                <td>PayPal</td>
+                <td>
+                  <button class="status text-capitalize pending" mat-button>Pending</button>
+                </td>
+                <td>
+                  <button mat-flat-button class="rounded d-block border border-main py-0 px-3 text-main"
+                          (click)="onOpenDisputePaymentModal()">View details
+                  </button>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </mat-tab>
+
+        <mat-tab [label]="'PAYMENT_HISTORY' | translate">
+          <div class="table-responsive">
+            <table class="table my-table default-title mt-4 overflow-visible">
+              <tr>
+                <th>{{ 'TRANSACTION_NUMBER' | translate }}</th>
+                <th>{{ 'MONTH_SM' | translate }}</th>
+                <th>{{ 'TRANSACTION_DATE' | translate }}</th>
+                <th>{{ 'AMOUNT_$' | translate}}</th>
+                <th>{{ 'METHOD' | translate }}</th>
+                <th>{{ 'STATUS' | translate }}</th>
+              </tr>
+              <tr *ngFor="let i of [1,2,3]">
+                <td>57787512258</td>
+                <td>May 2022</td>
+                <td>20 May 2022</td>
+                <td>$300.0</td>
+                <td>PayPal</td>
+                <td>
+                  <button class="status text-capitalize success" mat-button>Successful</button>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
 </div>
+
+<metutors-tutor-dispute-payment-modal *ngIf="showDisputePaymentModal$ | async" (closeModal)="onCloseModals()"
+                                      [showModal]="(showDisputePaymentModal$ | async)!">
+</metutors-tutor-dispute-payment-modal>
+
+<metutors-tutor-dispute-reason-modal *ngIf="showDisputeReasonModal$ | async" (closeModal)="onCloseModals()"
+                                     [showModal]="(showDisputeReasonModal$ | async)!">
+</metutors-tutor-dispute-reason-modal>
+
+<metutors-tutor-payment-confirmation-modal *ngIf="showConfirmPaymentModal$ | async" (closeModal)="onCloseModals()"
+                                           (openDisputeModal)="onOpenDisputeReasonModal()"
+                                           [showModal]="(showConfirmPaymentModal$ | async)!">
+</metutors-tutor-payment-confirmation-modal>

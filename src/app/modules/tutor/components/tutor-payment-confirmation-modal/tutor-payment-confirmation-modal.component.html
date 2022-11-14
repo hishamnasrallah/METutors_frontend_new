@@ -1,0 +1,12 @@
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'large'"
+                [heading]="'PAYMENT_CONFIRMATION_MODAL_HEADING'" [subHeading]="'PAYMENT_CONFIRMATION_MODAL_SUB_HEADING'"
+                [template]="template">
+  <ng-template #template>
+    Add your content here
+
+
+    <button mat-flat-button class="rounded d-block border border-main py-0 px-3 text-main"
+            (click)="openDisputeModal.emit()">Dispute
+    </button>
+  </ng-template>
+</metutors-modal>

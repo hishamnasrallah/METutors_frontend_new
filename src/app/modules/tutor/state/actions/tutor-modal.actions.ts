@@ -152,3 +152,27 @@ export const openResourcesUploadDocumentModal = createAction(
 export const closeResourcesUploadDocumentModal = createAction(
   '[Tutor Modal] Close Resources Upload Document Modal'
 );
+
+export const openDisputePaymentModal = createAction(
+  '[Tutor Modal] Open Dispute Payment Modal'
+);
+
+export const closeDisputePaymentModal = createAction(
+  '[Tutor Modal] Close Dispute Payment Modal'
+);
+
+export const openDisputeReasonModal = createAction(
+  '[Tutor Modal] Open Dispute Reason Modal'
+);
+
+export const closeDisputeReasonModal = createAction(
+  '[Tutor Modal] Close Dispute Reason Modal'
+);
+
+export const openConfirmPaymentModal = createAction(
+  '[Tutor Modal] Open Confirm Payment Modal'
+);
+
+export const closeConfirmPaymentModal = createAction(
+  '[Tutor Modal] Close Confirm Payment Modal'
+);

@@ -11,7 +11,10 @@ export interface State {
   showRejectCourseModal: boolean;
   showCancelCourseModal: boolean;
   showSendFeedbackModal: boolean;
+  showDisputeReasonModal: boolean;
   showAddAssignmentModal: boolean;
+  showConfirmPaymentModal: boolean;
+  showDisputePaymentModal: boolean;
   showViewAssignmentModal: boolean;
   acceptRejectModalHeading: string;
   showUploadDocumentModal: boolean;
@@ -33,8 +36,11 @@ export const initialState: State = {
   showCancelCourseModal: false,
   showSendFeedbackModal: false,
   showAddAssignmentModal: false,
+  showDisputeReasonModal: false,
+  showConfirmPaymentModal: false,
   showUploadDocumentModal: false,
   showViewAssignmentModal: false,
+  showDisputePaymentModal: false,
   showRescheduleClassModal: false,
   showSubmitInterviewModal: false,
   showCourseAttendanceModal: false,
@@ -270,7 +276,37 @@ export const reducer = createReducer(
       ...state,
       showUploadDocumentModal: false,
     })
-  )
+  ),
+
+  on(tutorModalActions.openDisputeReasonModal, (state) => ({
+    ...state,
+    showDisputeReasonModal: true,
+  })),
+
+  on(tutorModalActions.closeDisputeReasonModal, (state) => ({
+    ...state,
+    showDisputeReasonModal: false,
+  })),
+
+  on(tutorModalActions.openDisputePaymentModal, (state) => ({
+    ...state,
+    showDisputePaymentModal: true,
+  })),
+
+  on(tutorModalActions.closeDisputePaymentModal, (state) => ({
+    ...state,
+    showDisputePaymentModal: false,
+  })),
+
+  on(tutorModalActions.openConfirmPaymentModal, (state) => ({
+    ...state,
+    showConfirmPaymentModal: true,
+  })),
+
+  on(tutorModalActions.closeConfirmPaymentModal, (state) => ({
+    ...state,
+    showConfirmPaymentModal: false,
+  }))
 );
 
 // tutor modal selectors
@@ -320,3 +356,12 @@ export const selectKudosPointsModal = (state: State): boolean =>
 
 export const selectUploadDocumentModal = (state: State): boolean =>
   state.showUploadDocumentModal;
+
+export const selectConfirmPaymentModal = (state: State): boolean =>
+  state.showConfirmPaymentModal;
+
+export const selectDisputePaymentModal = (state: State): boolean =>
+  state.showDisputePaymentModal;
+
+export const selectDisputeReasonModal = (state: State): boolean =>
+  state.showDisputeReasonModal;

@@ -881,6 +881,9 @@ span.status {
 rating span.bs-rating-star.active {
   color: var(--main-color);
 }
+.border-main {
+  border: 1px solid var(--main-color) !important;
+}
 
 .w-24 {
   width: 24px;

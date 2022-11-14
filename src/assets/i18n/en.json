@@ -1521,9 +1521,17 @@
   "MASTER": "Master",
   "COURSES_COMPLETED": "courses completed",
   "POINTS_EARNED": "points earned",
-  "": "",
-  "": "",
-  "": "",
-  "": "",
-  "": ""
+  "AMOUNT_$": "Amount ($)",
+  "TRANSACTION_NUMBER": "Transaction number",
+  "CLEARANCE_DATE": "Clearance date",
+  "METHOD": "Method",
+  "TRANSACTION_DATE": "Transaction date",
+  "REQUEST_PAYMENT": "Request payment",
+  "PENDING_PAYMENTS": "Pending payments",
+  "DISPUTED_PAYMENTS": "Disputed payments",
+  "PAYMENT_CONFIRMATION_MODAL_HEADING": "Payment confirmation",
+  "PAYMENT_CONFIRMATION_MODAL_SUB_HEADING": "The following outlines transaction details to be paid to your bank account",
+  "DISPUTE_PAYMENT_MODAL_HEADING": "Dispute payment",
+  "DISPUTE_PAYMENT_MODAL_SUB_HEADING": "Here you can contact with admin regarding dispute payment issue",
+  "DISPUTE_REASON_MODAL_HEADING": "Please explain reason for dispute"
 }
