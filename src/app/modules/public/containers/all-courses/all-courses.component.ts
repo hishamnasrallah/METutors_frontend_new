@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { find, isNil, omitBy } from 'lodash';
 import * as fromCore from '@metutor/core/state';
 import { Component, OnInit } from '@angular/core';
+import { generalConstants } from '@metutor/config';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import * as fromPublic from '@metutor/modules/public/state';
 import * as fromPublicActions from '@metutor/modules/public/state/actions';
@@ -71,6 +72,7 @@ export class AllCoursesComponent implements OnInit {
   country: number;
   minPrice?: number;
   maxPrice?: number;
+  countries: ICountry[];
   fields: number[] = [];
   openFilter: boolean = true;
   openPriceFilter: boolean = false;
@@ -112,7 +114,11 @@ export class AllCoursesComponent implements OnInit {
     program: number;
     country: number;
   }): void {
-    if (this.program === program) return;
+    if (
+      this.program !== generalConstants.nationalId &&
+      this.program === program
+    )
+      return;
 
     this.page = 1;
     this.fields = [];

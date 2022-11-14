@@ -35,7 +35,8 @@
   .featured-tutors .card-item,
   .loving-opportunities .card-item,
   .success-stories .card-item,
-  .benefits-tutoring p bdi {
+  .benefits-tutoring p bdi,
+  .homework-help .content .field-card {
     direction: rtl;
   }
 
@@ -129,7 +130,8 @@
     float: right !important;
   }
 
-  .float-end {
+  .float-end,
+  .homework-help .content .buttons-list button {
     float: left !important;
   }
 
@@ -146,6 +148,7 @@
   .innovative-approach img,
   metutors-about-slide .slide img,
   .slide .content .request-free svg-icon .svg-icon,
+  .homework-help .content .svg-icon,
   metutors-academic-learning-environment .academic-learning,
   metutors-academic-learning-environment .academic-learning .container {
     -webkit-transform: scaleX(-1);
@@ -206,6 +209,8 @@
   .classroom .class-btn,
   .classroom-item .details-btn,
   .course-item .actions h3,
+  .program-list .programs .item,
+  .homework-help .content .field-card,
   .video-notes li:before {
     margin-right: 0 !important;
     margin-left: 10px;
@@ -416,6 +421,12 @@
     margin: 3px 0 0 6px !important;
   }
 
+  .homework-help .content .buttons-list button:first-child {
+    order: 2;
+    margin-right: 0.5rem !important;
+    margin-left: 0 !important;
+  }
+
   /****************** POSITIONS ********************/
 
   .alert-item .icon,
@@ -544,6 +555,11 @@
   .availability {
     left: 60px;
     right: auto !important;
+  }
+
+  .homework-help .content .svg-icon {
+    left: 150px;
+    right: auto !important
   }
 
   .sidemenu-btn {

@@ -8,10 +8,10 @@
     </div>
     <div class="flex-grow-1 collapse navbar-collapse">
       <ul class="navbar-nav ms-auto flex-nowrap float-end">
-        <li class="nav-item">
-          <a class="nav-link nav-item-link" routerLink="/about" routerLinkActive="active"
-            [routerLinkActiveOptions]="{exact: true}">
-            {{ 'ABOUT_US' | translate }}
+        <li class="nav-item d-flex align-items-center justify-content-center">
+          <a class="nav-link nav-item-link" [matMenuTriggerFor]="programs">
+            <span class="lang">{{ 'PROGRAMS' | translate }}</span>
+            <svg-icon name="b-chevron" [applyClass]="true" class="b-chevron"></svg-icon>
           </a>
         </li>
         <li class="nav-item">
@@ -22,6 +22,12 @@
         <li class="nav-item">
           <a class="nav-link nav-item-link" routerLink="/become-tutor" routerLinkActive="active">
             {{ 'BECOME_TUTOR' | translate }}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-item-link" routerLink="/about" routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact: true}">
+            {{ 'ABOUT_US' | translate }}
           </a>
         </li>
         <li class="nav-item" *ngIf="!(token$ | async)">
@@ -76,16 +82,16 @@
     <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu dropdown-menu-left w-100-md-sm" role="menu"
       aria-labelledby="button-basic">
       <li role="menuitem">
-        <a class="dropdown-item text-start" routerLink="/about" routerLinkActive="active"
-          [routerLinkActiveOptions]="{exact: true}">{{ 'ABOUT_US' | translate }}</a>
-      </li>
-      <li role="menuitem">
         <a class="dropdown-item text-start" routerLink="/study" routerLinkActive="active">{{ 'STUDY' | translate }}</a>
       </li>
       <li role="menuitem">
         <a class="dropdown-item text-start" routerLink="/become-tutor" routerLinkActive="active">
           {{ 'BECOME_TUTOR' | translate }}
         </a>
+      </li>
+      <li role="menuitem">
+        <a class="dropdown-item text-start" routerLink="/about" routerLinkActive="active"
+          [routerLinkActiveOptions]="{exact: true}">{{ 'ABOUT_US' | translate }}</a>
       </li>
       <li role="menuitem">
         <a class="dropdown-item text-center" [matMenuTriggerFor]="currency">
@@ -126,6 +132,13 @@
     </ul>
   </div>
 </nav>
+
+<mat-menu #programs="matMenu">
+  <a mat-menu-item class="h-auto currency-item" *ngFor="let program of (programs$ | async)"
+    (click)="onSelectProgram(program.id)">
+    {{ program?.name }}
+  </a>
+</mat-menu>
 
 <mat-menu #currency="matMenu">
   <ng-container *ngFor="let item of (currencyRates$ | async)">

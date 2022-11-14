@@ -1,6 +1,5 @@
 import {
   Input,
-  Inject,
   OnInit,
   Output,
   Component,
@@ -11,15 +10,11 @@ import {
   ChangeDetectorRef
 } from '@angular/core';
 
-import {
-  MatDialog,
-  MatDialogRef,
-  MAT_DIALOG_DATA
-} from '@angular/material/dialog';
-
 import { environment } from '@environment';
+import { MatDialog } from '@angular/material/dialog';
 import { generalConstants, GRADES } from '@metutor/config';
-import { ChooseCountryDialogComponent } from '../choose-country-dialog';
+import { ViewPricesDialogComponent } from '../view-prices-dialog';
+import { ChooseCountryDialogComponent } from '@metutor/shared/components';
 import { ICountry, IField, IProgram, ISubject } from '@metutor/core/models';
 
 @Component({
@@ -134,7 +129,7 @@ export class LearningEnvironmentComponent implements OnInit, AfterViewChecked {
     if (program.id === this.nationalId) {
       const dialogRef = this._dialog.open(ChooseCountryDialogComponent, {
         width: '1000px',
-        data: { countries: this.countries, isLoading: this.isLoading },
+        data: { countries: this.countries, isLoading: this.loadingCountries },
         panelClass: 'overflow-height'
       });
 
@@ -170,7 +165,7 @@ export class LearningEnvironmentComponent implements OnInit, AfterViewChecked {
   }
 
   onViewPrices(): void {
-    const dialogRef = this._dialog.open(ViewPricesDialog, {
+    const dialogRef = this._dialog.open(ViewPricesDialogComponent, {
       width: '800px',
       data: {
         fields: this.fields,
@@ -181,35 +176,5 @@ export class LearningEnvironmentComponent implements OnInit, AfterViewChecked {
     });
 
     dialogRef.afterClosed().subscribe(() => {});
-  }
-}
-
-@Component({
-  selector: 'view-prices-dialog',
-  templateUrl: 'view-prices-dialog.html',
-  styleUrls: ['./learning-environment.component.scss']
-})
-export class ViewPricesDialog {
-  fieldId!: string;
-  fields: IField[];
-  subjects: ISubject[];
-
-  constructor(
-    public dialogRef: MatDialogRef<ViewPricesDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: any
-  ) {
-    if (data) {
-      this.fields = data.fields;
-      this.subjects =
-        data.subjects && data.subjects.length
-          ? data.subjects.filter(
-              (item: ISubject) => item.programId === data.programId
-            )
-          : [];
-    }
-  }
-
-  onNoClick(): void {
-    this.dialogRef.close();
   }
 }

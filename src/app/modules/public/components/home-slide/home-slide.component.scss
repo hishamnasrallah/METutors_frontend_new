@@ -37,7 +37,21 @@
 
 .slide {
   height: 580px;
+  // height: 700px;
   overflow: hidden;
+
+  // &:after {
+  //   content: "";
+  //   display: block;
+  //   background: url(http://dexam-angular.ui-lib.com/assets/images/landing/Bg/Bg_04.png) bottom no-repeat;
+  //   background-size: cover;
+  //   bottom: -8px;
+  //   z-index: 2;
+  //   position: absolute;
+  //   left: 0;
+  //   right: 0;
+  //   height: 100%;
+  // }
 
   .content {
     position: absolute;

@@ -119,7 +119,8 @@ button:hover {
   stroke: var(--main-color);
 }
 
-.timepicker-button {
+.timepicker-button,
+.main-color {
   color: var(--main-color) !important;
 }
 
@@ -1197,5 +1198,9 @@ $ph-animation-duration: 0.8s !default;
 
   .flex-column-md-sm {
     flex-direction: column !important;
+  }
+
+  .object-contain-md-sm {
+    object-fit: contain;
   }
 }

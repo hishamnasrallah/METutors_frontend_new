@@ -257,13 +257,22 @@ export function sortSubjects(subjects?: ISubject[]): any[] {
 
       output[existingIndex].subjects = [
         ...output[existingIndex].subjects,
-        { ...item, gradeName: GRADES[item.grade - 1] }
+        {
+          ...item,
+          gradeName: GRADES[item.grade - 1]
+        }
       ];
     } else {
       output.push({
         fieldId: item.fieldId,
-        fieldName: item?.field?.name,
-        programName: item?.program?.name,
+        fieldName:
+          localStorage.getItem('DEFAULT_LANGUAGE') === 'ar'
+            ? item?.field?.name_ar
+            : item?.field?.name,
+        programName:
+          localStorage.getItem('DEFAULT_LANGUAGE') === 'ar'
+            ? item?.program?.name_ar
+            : item?.program?.name,
         programId: item?.program?.id,
         countryName: item?.country?.name,
         countryFlag: item?.country?.flag,

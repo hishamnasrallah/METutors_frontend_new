@@ -1,8 +1,8 @@
 <ng-container *ngLet="(loadingCourses$ | async) as loadingCourses">
   <ng-container *ngLet="(selectedProgram$ | async) as selectedProgram">
     <metutors-explore-heading [loading]="loadingCourses"
-                              [name]="selectedProgram?.name || 'EXPLORE_PROGRAMS_COURSES'"
-                              [title]="selectedProgram?.title"
+                              [name]="selectedProgram?.name || 'EXPLORE_PROGRAMS_COURSES_NORMAL'"
+                              [title]="selectedProgram?.title || 'PRIVATE_PERSONALIZED_TUTORING_STUDIES'"
                               [description]="selectedProgram?.description"
                               [image]="selectedProgram?.image || 'assets/png/exhausted.png'"
                               [placeholderText]="'SEARCH_BY_COURSE_NAME'"

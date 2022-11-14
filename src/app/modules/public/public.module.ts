@@ -39,7 +39,6 @@ import {
 } from './containers';
 
 import {
-  ViewPricesDialog,
   HomeSlideComponent,
   FaqSearchComponent,
   TutorCardComponent,
@@ -65,6 +64,7 @@ import {
   BecomeTutorSlideComponent,
   LearningMadeEasyComponent,
   FaqListQuestionsComponent,
+  ViewPricesDialogComponent,
   ContactHelpToHereComponent,
   RequestPostCourseComponent,
   BecomeOnlineTutorComponent,
@@ -73,7 +73,7 @@ import {
   ContactSendMessageComponent,
   HomeFeaturedTutorsComponent,
   TrustHappyStudentsComponent,
-  ChooseCountryDialogComponent,
+  HomeworkProjectHelpComponent,
   LearningEnvironmentComponent,
   LovingOpportunitiesComponent,
   HomeServicesFeaturesComponent,
@@ -86,8 +86,11 @@ import {
   ViewSubjectDetailsModalComponent,
   BenefitsAcademicTutoringComponent,
   ExceptionalOpportunitiesComponent,
-  AcademicLearningEnvironmentComponent
+  AcademicLearningEnvironmentComponent,
+  SelectProgramStudyingDialogComponent
 } from './components';
+
+import { RemoveTextPipe } from './pipes';
 
 @NgModule({
   declarations: [
@@ -95,9 +98,9 @@ import {
     HomeComponent,
     StudyComponent,
     AboutComponent,
+    RemoveTextPipe,
     WelcomeComponent,
     ContactComponent,
-    ViewPricesDialog,
     FaqSearchComponent,
     HomeSlideComponent,
     TutorCardComponent,
@@ -129,6 +132,7 @@ import {
     BecomeTutorSlideComponent,
     LearningMadeEasyComponent,
     FaqListQuestionsComponent,
+    ViewPricesDialogComponent,
     ContactHelpToHereComponent,
     RequestPostCourseComponent,
     BecomeOnlineTutorComponent,
@@ -137,9 +141,9 @@ import {
     StillHaveQuestionsComponent,
     HomeFeaturedTutorsComponent,
     TrustHappyStudentsComponent,
+    HomeworkProjectHelpComponent,
     LearningEnvironmentComponent,
     LovingOpportunitiesComponent,
-    ChooseCountryDialogComponent,
     LanguagesIntroducingComponent,
     LanguagesTestomonialComponent,
     HomeServicesFeaturesComponent,
@@ -152,7 +156,8 @@ import {
     ViewSubjectDetailsModalComponent,
     ExceptionalOpportunitiesComponent,
     BenefitsAcademicTutoringComponent,
-    AcademicLearningEnvironmentComponent
+    AcademicLearningEnvironmentComponent,
+    SelectProgramStudyingDialogComponent
   ],
   imports: [
     FormsModule,

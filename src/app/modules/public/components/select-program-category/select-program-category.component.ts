@@ -1,7 +1,7 @@
 import { generalConstants } from '@metutor/config';
 import { MatDialog } from '@angular/material/dialog';
 import { ICountry, IProgram } from '@metutor/core/models';
-import { ChooseCountryDialogComponent } from '../choose-country-dialog';
+import { ChooseCountryDialogComponent } from '@metutor/shared/components';
 import {
   Input,
   OnInit,

@@ -1,6 +1,7 @@
 <div class="learning-environment" id="explore-services">
   <div class="container">
-    <h3 class="f-size-25-md-sm">{{ 'EXPLORE_PROGRAMS_COURSES' | translate }}</h3>
+    <h3 class="f-size-25-md-sm" [innerHTML]="'EXPLORE_PROGRAMS_COURSES' | translate"></h3>
+    <p class="f-size-18-md-sm text-center">{{ 'PRIVATE_PERSONALIZED_TUTORING_STUDIES' | translate }}</p>
 
     <ng-container *ngIf="isLoading">
       <div class="ph-col-3">
@@ -56,9 +57,9 @@
             </div> 
           </div>
           <div class="col-md-7">
-            <div class="row mt-4 m-0-sm">
+            <div class="row m-0-sm overflow-auto height-300">
               <div class="col-md-6 d-flex mt-4 mt-15-sm" *ngFor="let field of fields; let i = index">
-                <img [src]="imageURL+field.image" width="40" height="40" draggable="false" alt="">
+                <img [src]="imageURL + field.image" width="40" height="40" draggable="false" alt="">
                 <div class="ms-2">
                   <h2>
                     <a routerLink="/requests/request-tutor"
@@ -72,8 +73,7 @@
                     </ng-container>
 
                     <ng-container *ngIf="!loadingSubjects">
-                      <ng-container
-                        *ngFor="let subject of filteredSubjects(field.id); let isLast = last; let i = index">
+                      <ng-container *ngFor="let subject of filteredSubjects(field.id); let isLast = last; let i = index">
                         <a class="cursor-pointer subject" *ngIf="i < 3 || (isShowMore && selectedField === field?.id)"
                           (click)="viewSubjectDetails.emit({program: selectedProgram, subject, country: country?.id, grade, index: i})">
                           {{ subject?.name }}<ng-container *ngIf="!isLast">, </ng-container>

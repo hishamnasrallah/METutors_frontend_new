@@ -21,7 +21,6 @@ import {
   ICountry,
   IClassroom,
   IInvoiceDetails,
-  IClass,
 } from '@metutor/core/models';
 
 @Component({
