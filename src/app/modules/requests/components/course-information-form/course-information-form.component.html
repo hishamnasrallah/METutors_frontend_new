@@ -93,7 +93,7 @@
     <div class="row row-block">
       <div class="col-md-4">
         <h2 class="f-size-17-md-sm">{{ 'HIGHLIGHTED_TOPICS' | translate }}</h2>
-        <h4 class="f-size-15-md-sm">{{ 'FOR_HOMEWORK_PROJECT_BRIEF' | translate }}</h4>
+        <h4 class="f-size-15-md-sm" [innerHTML]="'FOR_HOMEWORK_PROJECT_BRIEF' | translate"></h4>
       </div>
       <div class="col-md-8 mt-15-sm topics">
         <div class="row">
@@ -164,7 +164,7 @@
     <div class="row row-block">
       <div class="col-md-4">
         <h2 class="f-size-17-md-sm">{{ 'TEXTBOOK_DETAILS' | translate }}</h2>
-        <h4 class="f-size-15-md-sm">{{ 'FOR_HOMEWORK_PROJECT_HELP' | translate }}</h4>
+        <h4 class="f-size-15-md-sm" [innerHTML]="'FOR_HOMEWORK_PROJECT_HELP' | translate"></h4>
       </div>
       <div class="col-md-8">
         <mat-radio-group (change)="onChange($event)" formControlName="information">
