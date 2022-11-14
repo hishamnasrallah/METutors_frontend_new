@@ -127,8 +127,8 @@ export function calculateListDays(days: any) {
 
 export interface IInvoiceDetails {
   user: IUser;
-  coupon: string;
   discount: number;
+  promoCode: string;
   totalHours: number;
   noOfClasses: number;
   totalAmount: number;

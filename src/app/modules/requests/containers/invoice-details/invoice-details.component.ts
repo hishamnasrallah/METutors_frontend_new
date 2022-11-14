@@ -166,7 +166,7 @@ export class InvoiceDetailsComponent implements OnInit {
       .select(fromCore.selectInvoiceDetails)
       .pipe(
         tap((invoice) => {
-          this.coupon = invoice?.coupon;
+          this.coupon = invoice?.promoCode;
           if (invoice?.user?.billingInfo) {
             const { city, state, street, country, postcode } =
               invoice?.user.billingInfo;
