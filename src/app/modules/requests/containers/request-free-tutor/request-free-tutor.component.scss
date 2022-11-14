@@ -9,8 +9,9 @@
 
   .mat-stepper-label-position-bottom .mat-horizontal-stepper-header-container {
     border-radius: 12px;
-    border: solid 1px #e2e2e2;
     padding: 10px 20px;
+    background-color: #e2f3f5;
+    border: solid 1px var(--main-color);
   }
 
   .mat-stepper-label-position-bottom .mat-horizontal-stepper-header .mat-step-icon,
