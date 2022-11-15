@@ -14,4 +14,30 @@
       opacity: 1;
     }
   }
+
+  .my-table {
+    tr {
+      th {
+        color: #949494;
+        font-size: 14px;
+      }
+
+      td {
+        color: #292929;
+        font-size: 14px;
+
+        button.status {
+          &.pending {
+            background-color: #FF8300;
+            color: #FFF;
+          }
+
+          &.success {
+            background-color: #50C394;
+            color: #FFF;
+          }
+        }
+      }
+    }
+  }
 }
