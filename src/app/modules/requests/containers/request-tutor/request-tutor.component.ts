@@ -2,21 +2,20 @@ import { Store } from '@ngrx/store';
 import { Observable, tap } from 'rxjs';
 import { isNil, omitBy } from 'lodash';
 import { DatePipe } from '@angular/common';
+import * as fromCore from '@metutor/core/state';
 import { ActivatedRoute } from '@angular/router';
 import { MatStepper } from '@angular/material/stepper';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import * as fromRequests from '@metutor/modules/requests/state';
+import { FormValidationUtilsService } from '@metutor/core/validators';
+import * as fromRequestsActions from '@metutor/modules/requests/state/actions';
 
 import {
   FormGroup,
   Validators,
   FormBuilder,
-  AbstractControl,
+  AbstractControl
 } from '@angular/forms';
-
-import * as fromCore from '@metutor/core/state';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import * as fromRequests from '@metutor/modules/requests/state';
-import { FormValidationUtilsService } from '@metutor/core/validators';
-import * as fromRequestsActions from '@metutor/modules/requests/state/actions';
 import {
   GRADES,
   SORTED_DAYS_WEEK,
@@ -25,7 +24,7 @@ import {
   TEXTBOOK_EDITION_CONST,
   AcademicTutoringTextbook,
   CLASSROOM_TOPICS_SCALE_NUM,
-  COURSE_TUITION_TYPES_CONST,
+  COURSE_TUITION_TYPES_CONST
 } from 'src/app/config';
 import {
   IClass,
@@ -34,14 +33,14 @@ import {
   IProgram,
   ICountry,
   ISubject,
-  ILanguage,
+  ILanguage
 } from 'src/app/core/models';
 
 @Component({
   selector: 'metutors-request-tutor',
   templateUrl: './request-tutor.component.html',
   styleUrls: ['./request-tutor.component.scss'],
-  providers: [DatePipe],
+  providers: [DatePipe]
 })
 export class RequestTutorComponent implements OnInit {
   @ViewChild('stepper') private myStepper?: MatStepper;
@@ -93,37 +92,37 @@ export class RequestTutorComponent implements OnInit {
         this._route.snapshot.queryParams['program']
           ? +this._route.snapshot.queryParams['program']
           : null,
-        Validators.required,
+        Validators.required
       ],
       courseCountry: [
         this._route.snapshot.queryParams['country']
           ? +this._route.snapshot.queryParams['country']
-          : null,
+          : null
       ],
       courseGrade: [
         this._route.snapshot.queryParams['grade']
           ? +this._route.snapshot.queryParams['grade']
-          : null,
+          : null
       ],
       courseField: [
         this._route.snapshot.queryParams['field']
           ? +this._route.snapshot.queryParams['field']
           : null,
-        Validators.required,
+        Validators.required
       ],
       language: [null, Validators.required],
       subject: [
         this._route.snapshot.queryParams['subject']
           ? +this._route.snapshot.queryParams['subject']
           : null,
-        Validators.required,
+        Validators.required
       ],
       topics: this._fb.array([]),
       information: [null, Validators.required],
       file: [null],
       name: [null],
       edition: [null],
-      author: [null],
+      author: [null]
     });
 
     this.classroomDetailsForm = this._fb.group(
@@ -136,14 +135,14 @@ export class RequestTutorComponent implements OnInit {
         type: [COURSE_TUITION_TYPES_CONST.one, Validators.required],
         seatAttendees: [
           1,
-          [Validators.required, Validators.max(10), Validators.min(1)],
+          [Validators.required, Validators.max(10), Validators.min(1)]
         ],
         duration: [{ value: 0, disabled: true }, Validators.required],
         hours: [{ value: 0, disabled: true }, Validators.required],
         totalClasses: [{ value: 0, disabled: true }, Validators.required],
         tempDuration: [0, Validators.required],
         tempHours: [0, Validators.required],
-        tempTotalClasses: [0, Validators.required],
+        tempTotalClasses: [0, Validators.required]
       },
       {
         validators: [
@@ -152,17 +151,17 @@ export class RequestTutorComponent implements OnInit {
             'startTime',
             'endTime'
           ),
-          this._fv.timeAfter24Validator('startDate', 'startTime'),
-        ],
+          this._fv.timeAfter24Validator('startDate', 'startTime')
+        ]
       }
     );
 
     this.classroomScheduleForm = this._fb.group({
-      classes: [null, Validators.required],
+      classes: [null, Validators.required]
     });
 
     this.selectTutorForm = this._fb.group({
-      tutor: [null, Validators.required],
+      tutor: [null, Validators.required]
     });
   }
 
@@ -199,7 +198,7 @@ export class RequestTutorComponent implements OnInit {
     this.availableTutors$ = this._store
       .select(fromCore.selectGeneratingAvailableTutors)
       .pipe(
-        tap((tutors) => {
+        tap(tutors => {
           if (tutors && tutors.length) {
             this.tutors = [...this.tutors, ...tutors];
           }
@@ -209,7 +208,7 @@ export class RequestTutorComponent implements OnInit {
     this.suggestedTutors$ = this._store
       .select(fromCore.selectGeneratingSuggestedTutors)
       .pipe(
-        tap((tutors) => {
+        tap(tutors => {
           if (tutors && tutors.length) {
             this.tutors = [...this.tutors, ...tutors];
           }
@@ -240,7 +239,7 @@ export class RequestTutorComponent implements OnInit {
 
     this.uploadedFiles$ = this._store
       .select(fromCore.selectUploadedFiles)
-      .pipe(tap((files) => this.file?.setValue(files[0])));
+      .pipe(tap(files => this.file?.setValue(files[0])));
   }
 
   nextStep(): void {
@@ -251,8 +250,8 @@ export class RequestTutorComponent implements OnInit {
     this.selectedCourse = {
       id: this.courseInformationForm.value.subject,
       name: this.subjects?.filter(
-        (sub) => sub.id === +this.courseInformationForm.value.subject
-      )[0]?.name,
+        sub => sub.id === +this.courseInformationForm.value.subject
+      )[0]?.name
     };
   }
 
@@ -295,11 +294,11 @@ export class RequestTutorComponent implements OnInit {
   fetchCourseFieldSubject(fieldId: string): void {
     this._store.dispatch(
       fromCore.loadSubjectsByFieldId({
-        fieldId,
+        fieldId
       })
     );
     this.subjects$ = this._store.select(fromCore.selectSubjects).pipe(
-      tap((subjects) => {
+      tap(subjects => {
         if (subjects && subjects.length) {
           this.subjects = subjects;
         }
@@ -319,12 +318,12 @@ export class RequestTutorComponent implements OnInit {
         fromCore.loadFieldsByProgramId({
           programId,
           countryId: this.courseInformationForm.value?.courseCountry,
-          grade: this.courseInformationForm.value?.courseGrade,
+          grade: this.courseInformationForm.value?.courseGrade
         })
       );
     }
     this.fields$ = this._store.select(fromCore.selectFields).pipe(
-      tap((fields) => {
+      tap(fields => {
         if (fields && fields.length) {
           this.courseField = fields;
         }
@@ -335,11 +334,11 @@ export class RequestTutorComponent implements OnInit {
   calculateEstimatedPrice(subjectId: string): void {
     this.selectedCourse = {
       id: subjectId,
-      name: this.subjects?.filter((sub) => sub.id === +subjectId)[0]?.name,
+      name: this.subjects?.filter(sub => sub.id === +subjectId)[0]?.name
     };
     this._store.dispatch(fromCore.calculateEstimatedPrice({ subjectId }));
     this.price$ = this._store.select(fromCore.selectEstimatedPrice).pipe(
-      tap((price) => {
+      tap(price => {
         if (price) {
           this.price = price;
         }
@@ -362,7 +361,7 @@ export class RequestTutorComponent implements OnInit {
             date,
             startTime: value.startTime,
             endTime: value.endTime,
-            duration: value.duration,
+            duration: value.duration
           });
         }
       });
@@ -387,7 +386,7 @@ export class RequestTutorComponent implements OnInit {
         end_date: new Date(
           this.classroomDetailsForm.value.endDate
         ).toISOString(),
-        class_rooms: JSON.stringify(appointments),
+        class_rooms: JSON.stringify(appointments)
       };
 
       this._store.dispatch(
@@ -401,7 +400,7 @@ export class RequestTutorComponent implements OnInit {
     this.availableTutors$ = this._store
       .select(fromCore.selectFilteredGeneratingAvailableTutors, { name })
       .pipe(
-        tap((tutors) => {
+        tap(tutors => {
           if (tutors && tutors.length) {
             this.tutors = [...this.tutors, ...tutors];
           }
@@ -411,7 +410,7 @@ export class RequestTutorComponent implements OnInit {
     this.suggestedTutors$ = this._store
       .select(fromCore.selectFilteredGeneratingSuggestedTutors, { name })
       .pipe(
-        tap((tutors) => {
+        tap(tutors => {
           if (tutors && tutors.length) {
             this.tutors = [...this.tutors, ...tutors];
           }
@@ -454,8 +453,8 @@ export class RequestTutorComponent implements OnInit {
         day: new Date(classroom.date).getDay(),
         start_time: classroom?.startTime,
         end_time: classroom?.endTime,
-        duration: classroom?.duration,
-      })),
+        duration: classroom?.duration
+      }))
     };
 
     this._store.dispatch(fromCore.createClass({ data }));
@@ -467,7 +466,7 @@ export class RequestTutorComponent implements OnInit {
         this.reviewInfo.courseProgram =
           this.coursePrograms && this.coursePrograms.length
             ? this.coursePrograms.filter(
-                (sub) =>
+                sub =>
                   sub?.id === this.courseInformationForm.value.courseProgram
               )[0]?.name
             : '';
@@ -482,7 +481,7 @@ export class RequestTutorComponent implements OnInit {
           this.reviewInfo.courseCountry =
             this.courseCountries && this.courseCountries.length
               ? this.courseCountries.filter(
-                  (country) =>
+                  country =>
                     country?.id ===
                     this.courseInformationForm.value.courseCountry
                 )[0]
@@ -494,8 +493,7 @@ export class RequestTutorComponent implements OnInit {
         this.reviewInfo.courseField =
           this.courseField && this.courseField.length
             ? this.courseField.filter(
-                (sub) =>
-                  sub?.id === this.courseInformationForm.value.courseField
+                sub => sub?.id === this.courseInformationForm.value.courseField
               )[0]?.name
             : '';
 
@@ -503,7 +501,7 @@ export class RequestTutorComponent implements OnInit {
         this.reviewInfo.languages =
           this.languages && this.languages.length
             ? this.languages.filter(
-                (sub) => sub?.id === this.courseInformationForm.value.language
+                sub => sub?.id === this.courseInformationForm.value.language
               )[0]?.name
             : '';
 
@@ -511,7 +509,7 @@ export class RequestTutorComponent implements OnInit {
         this.reviewInfo.subject =
           this.subjects && this.subjects.length
             ? this.subjects.filter(
-                (sub) => sub?.id === +this.courseInformationForm.value.subject
+                sub => sub?.id === +this.courseInformationForm.value.subject
               )[0]?.name
             : '';
 
@@ -522,7 +520,7 @@ export class RequestTutorComponent implements OnInit {
         this.reviewInfo.topics = this.courseInformationForm.value.topics.map(
           (topic: any) => ({
             name: topic.name,
-            scale: CLASSROOM_TOPICS_SCALE_NUM[topic.scale],
+            scale: CLASSROOM_TOPICS_SCALE_NUM[topic.scale]
           })
         );
 
@@ -558,7 +556,7 @@ export class RequestTutorComponent implements OnInit {
         this.reviewInfo.file = this.courseInformationForm.value.file;
         this.reviewInfo.filePreview = {
           size: this.courseInformationForm.value.file.size,
-          name: this.courseInformationForm.value.file.originalName,
+          name: this.courseInformationForm.value.file.originalName
         };
       }
 
@@ -618,7 +616,7 @@ export class RequestTutorComponent implements OnInit {
                 ),
                 startTime: item?.startTime,
                 endTime: item?.endTime,
-                duration: item?.duration,
+                duration: item?.duration
               };
 
               return appoint;
@@ -629,10 +627,12 @@ export class RequestTutorComponent implements OnInit {
         this.reviewInfo.startDate = this.selectedClassrooms[0].date;
         this.reviewInfo.startTime = this.selectedClassrooms[0].startTime;
 
-        this.reviewInfo.endDate =
-          this.selectedClassrooms[this.selectedClassrooms.length - 1].date;
-        this.reviewInfo.endTime =
-          this.selectedClassrooms[this.selectedClassrooms.length - 1].endTime;
+        this.reviewInfo.endDate = this.selectedClassrooms[
+          this.selectedClassrooms.length - 1
+        ].date;
+        this.reviewInfo.endTime = this.selectedClassrooms[
+          this.selectedClassrooms.length - 1
+        ].endTime;
 
         this.reviewInfo.hours = this.selectedClassrooms?.reduce(
           (sum: number, hr: any) => sum + +hr?.duration,
@@ -670,7 +670,7 @@ export class RequestTutorComponent implements OnInit {
       endTime: form?.endTime,
       hours: form?.tempHours,
       type: form?.type,
-      seatAttendees: form?.seatAttendees,
+      seatAttendees: form?.seatAttendees
     };
   }
 
@@ -694,7 +694,7 @@ export class RequestTutorComponent implements OnInit {
                 ' ' +
                 item?.endTime
             )
-          )?.toISOString(),
+          )?.toISOString()
         };
 
         return appoint;
@@ -708,7 +708,7 @@ export class RequestTutorComponent implements OnInit {
   private _prepareCourseProgram(): void {
     this._store.dispatch(fromCore.loadPrograms());
     this.programs$ = this._store.select(fromCore.selectPrograms).pipe(
-      tap((coursePrograms) => {
+      tap(coursePrograms => {
         if (coursePrograms && coursePrograms.length) {
           this.coursePrograms = coursePrograms;
         }
@@ -719,7 +719,7 @@ export class RequestTutorComponent implements OnInit {
   private _prepareCourseCountries(): void {
     this._store.dispatch(fromCore.loadProgramCountries());
     this.countries$ = this._store.select(fromCore.selectProgramCountries).pipe(
-      tap((courseCountries) => {
+      tap(courseCountries => {
         if (courseCountries && courseCountries.length) {
           this.courseCountries = courseCountries;
         }
@@ -730,7 +730,7 @@ export class RequestTutorComponent implements OnInit {
   private _prepareLanguages(): void {
     this._store.dispatch(fromCore.loadLanguages());
     this.languages$ = this._store.select(fromCore.selectLanguages).pipe(
-      tap((languages) => {
+      tap(languages => {
         if (languages && languages.length) {
           this.languages = languages;
         }
