@@ -22,8 +22,11 @@ export class AdminAddNewProgramModalComponent implements OnInit {
       this.program = _program;
       this.form?.patchValue({
         name: _program.name,
+        name_ar: _program.nameAr,
         title: _program.title,
+        title_ar: _program.titleAr,
         description: _program.description,
+        description_ar: _program.descriptionAr,
       });
 
       this.image?.setValidators(null);
@@ -39,9 +42,12 @@ export class AdminAddNewProgramModalComponent implements OnInit {
   constructor(private _fb: FormBuilder) {
     this.form = this._fb.group({
       name: [null, Validators.required],
+      name_ar: [null, Validators.required],
       title: [null, Validators.required],
+      title_ar: [null, Validators.required],
       image: [null, Validators.required],
       description: [null, Validators.required],
+      description_ar: [null, Validators.required],
     });
   }
 
@@ -49,8 +55,16 @@ export class AdminAddNewProgramModalComponent implements OnInit {
     return this.form.get('name');
   }
 
+  get nameAr(): AbstractControl | null {
+    return this.form.get('name_ar');
+  }
+
   get title(): AbstractControl | null {
     return this.form.get('title');
+  }
+
+  get titleAr(): AbstractControl | null {
+    return this.form.get('title_ar');
   }
 
   get image(): AbstractControl | null {
@@ -61,13 +75,20 @@ export class AdminAddNewProgramModalComponent implements OnInit {
     return this.form.get('description');
   }
 
+  get descriptionAr(): AbstractControl | null {
+    return this.form.get('description_ar');
+  }
+
   onSubmit(form: FormGroup): void {
     if (form.valid) {
       const formData = new FormData();
       formData.set('name', this.name?.value);
+      formData.set('name_ar', this.nameAr?.value);
       formData.set('image', this.image?.value);
       formData.set('title', this.title?.value);
+      formData.set('title_ar', this.titleAr?.value);
       formData.set('description', this.description?.value);
+      formData.set('description_ar', this.descriptionAr?.value);
 
       this.submitForm.emit(formData);
     }

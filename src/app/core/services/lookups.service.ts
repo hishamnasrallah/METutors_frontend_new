@@ -35,7 +35,7 @@ export class LookupsService {
           return response.countries.map((item) => ({
             id: item.id,
             name: item.name,
-            flag: `https://countryflagsapi.com/png/${item?.iso2}`
+            flag: `https://countryflagsapi.com/png/${item?.iso2}`,
           }));
         })
       )
@@ -122,11 +122,14 @@ export class LookupsService {
             programs: response.programs?.data.map((item: any) => ({
               id: item.id,
               name: item.name,
+              nameAr: item.name_ar,
               image: item.image,
               title: item.title,
+              titleAr: item.title_ar,
               status: item.status,
               updatedAt: item.updated_at,
               description: item.description,
+              descriptionAr: item.description_ar,
             })),
           };
         })
@@ -150,8 +153,11 @@ export class LookupsService {
               status: ProgramStatus.active,
               title: response.program.title,
               image: response.program.image,
+              nameAr: response.program.name_ar,
+              titleAr: response.program.title_ar,
               updatedAt: response.program.updated_at,
               description: response.program.description,
+              descriptionAr: response.program.description_ar,
             },
           };
         })
@@ -175,8 +181,10 @@ export class LookupsService {
               title: response.program.title,
               image: response.program.image,
               status: response.program.status,
+              nameAr: response.program.name_ar,
+              titleAr: response.program.title_ar,
               updatedAt: response.program.updated_at,
-              description: response.program.description,
+              descriptionAr: response.program.description_ar,
             },
           };
         })
