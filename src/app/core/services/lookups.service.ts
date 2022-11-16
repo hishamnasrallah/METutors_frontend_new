@@ -318,6 +318,7 @@ export class LookupsService {
         `${this.BACKEND_URL}subject/${value.id}`,
         {
           name: value.name,
+          name_ar: value.name_ar,
           grade: value.grade,
           program_id: value.program,
           country_id: value.country,
@@ -325,6 +326,7 @@ export class LookupsService {
           price_per_hour: value.price,
           status: value.status,
           description: value.description,
+          description_ar: value.description_ar,
         }
       )
       .pipe(

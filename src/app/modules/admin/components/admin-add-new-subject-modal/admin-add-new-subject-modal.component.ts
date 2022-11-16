@@ -25,9 +25,11 @@ export class AdminAddNewSubjectModalComponent implements OnInit {
       this.subject = _subject;
       this.form?.patchValue({
         name: _subject.name,
+        name_ar: _subject.nameAr,
         program: _subject?.programId,
         country: _subject?.countryId,
         description: _subject.description,
+        description_ar: _subject.descriptionAr,
         grade: _subject?.grade,
         field: _subject?.fieldId,
         price: _subject?.pricePerHour,
@@ -47,7 +49,9 @@ export class AdminAddNewSubjectModalComponent implements OnInit {
   constructor(private _fb: FormBuilder) {
     this.form = this._fb.group({
       name: [null, Validators.required],
+      name_ar: [null, Validators.required],
       description: [null, Validators.required],
+      description_ar: [null, Validators.required],
       program: [null, Validators.required],
       country: [null],
       grade: [null],
