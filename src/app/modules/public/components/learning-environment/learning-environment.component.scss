@@ -1,4 +1,4 @@
-.learning-environment {
+:host ::ng-deep .learning-environment {
   background-color: #F1F6F7;
   padding: 40px 100px 100px;
 
@@ -178,6 +178,14 @@
     .contact-img {
       height: 380px;
       object-fit: contain;
+    }
+
+    .mat-form-field-appearance-outline .mat-form-field-outline {
+      color: var(--main-color);
+    }
+
+    .mat-form-field-appearance-outline .mat-form-field-outline-thick {
+      border: none;
     }
   }
 }

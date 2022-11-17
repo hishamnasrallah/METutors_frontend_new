@@ -74,7 +74,8 @@
       opacity: 1;
     }
 
-    &:hover:not(.active) {
+    &:hover:not(.active),
+    &[aria-expanded=true] {
       color: var(--main-color);
 
       &:after {

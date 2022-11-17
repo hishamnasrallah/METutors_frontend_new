@@ -93,9 +93,16 @@ export class AppComponent implements OnInit, OnDestroy {
           this.translate
             .get(this.layout.title)
             .subscribe(response =>
-              this._title.setTitle(`${response} - MEtutors`)
+              this.translate
+                .get('METUTORS')
+                .subscribe(metutors =>
+                  this._title.setTitle(`${response} - ${metutors}`)
+                )
             );
-        else this._title.setTitle('MEtutors');
+        else
+          this.translate
+            .get('METUTORS')
+            .subscribe(metutors => this._title.setTitle(`${metutors}`));
       });
   }
 

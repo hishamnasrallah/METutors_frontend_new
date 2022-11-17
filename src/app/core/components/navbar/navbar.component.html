@@ -43,14 +43,17 @@
         <li class="nav-item d-flex align-items-center justify-content-center">
           <a class="nav-link nav-item-link currency" [matMenuTriggerFor]="currency">
             <span class="lang">{{ (selectedCurrency$ | async)?.id }}</span>
-            <img src="assets/svg/b-chevron.svg" alt="" draggable="false">
+            <!-- <img src="assets/svg/b-chevron.svg" alt="" draggable="false"> -->
+            <svg-icon name="b-chevron" [applyClass]="true" class="b-chevron"></svg-icon>
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link nav-item-link" [matMenuTriggerFor]="languages">
-            <img src="assets/svg/language.svg" alt="" draggable="false">
+            <!-- <img src="assets/svg/language.svg" alt="" draggable="false"> -->
+            <svg-icon name="language" [applyClass]="true" class="b-chevron"></svg-icon>
             <span class="lang text-capitalize">{{ selectedLanguage }}</span>
-            <img src="assets/svg/b-chevron.svg" alt="" draggable="false">
+            <!-- <img src="assets/svg/b-chevron.svg" alt="" draggable="false"> -->
+            <svg-icon name="b-chevron" [applyClass]="true" class="b-chevron"></svg-icon>
           </a>
         </li>
         <li class="nav-item btn-nav d-flex align-items-center justify-content-center">

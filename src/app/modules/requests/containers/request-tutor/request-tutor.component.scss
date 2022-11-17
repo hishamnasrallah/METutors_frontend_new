@@ -137,6 +137,13 @@
     display: none;
   }
 
+  .mat-step-header.cdk-keyboard-focused,
+  .mat-step-header.cdk-program-focused,
+  .mat-step-header:hover:not([aria-disabled]),
+  .mat-step-header:hover[aria-disabled=false] {
+    background-color: transparent;
+  }
+
   .mat-stepper-label-position-bottom .mat-horizontal-stepper-header {
     flex-grow: 1;
     pointer-events: none !important;
@@ -148,10 +155,12 @@
   }
 
   .step1 {
+
     mat-step-header:nth-of-type(2),
     mat-step-header:nth-of-type(3),
     mat-step-header:nth-of-type(4),
     mat-step-header:nth-of-type(5) {
+
       .mat-step-label.mat-step-label-active:not(.mat-step-label-selected):after,
       .mat-step-label.mat-step-label-active:not(.mat-step-label-selected):before {
         display: none;
@@ -160,9 +169,11 @@
   }
 
   .step2 {
+
     mat-step-header:nth-of-type(3),
     mat-step-header:nth-of-type(4),
     mat-step-header:nth-of-type(5) {
+
       .mat-step-label.mat-step-label-active:not(.mat-step-label-selected):after,
       .mat-step-label.mat-step-label-active:not(.mat-step-label-selected):before {
         display: none;
@@ -171,8 +182,10 @@
   }
 
   .step3 {
+
     mat-step-header:nth-of-type(4),
     mat-step-header:nth-of-type(5) {
+
       .mat-step-label.mat-step-label-active:not(.mat-step-label-selected):after,
       .mat-step-label.mat-step-label-active:not(.mat-step-label-selected):before {
         display: none;
@@ -182,6 +195,7 @@
 
   .step4 {
     mat-step-header:nth-of-type(5) {
+
       .mat-step-label.mat-step-label-active:not(.mat-step-label-selected):after,
       .mat-step-label.mat-step-label-active:not(.mat-step-label-selected):before {
         display: none;
