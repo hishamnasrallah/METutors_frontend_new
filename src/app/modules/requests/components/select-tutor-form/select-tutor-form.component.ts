@@ -100,7 +100,7 @@ export class SelectTutorFormComponent implements OnInit {
       this.tutor?.updateValueAndValidity();
       this.changeSchedule.emit(false);
     } else {
-      if (this._duration < 48) {
+      if (this._duration < 72) {
         this.tutor?.setValidators([Validators.required]);
         this.tutor?.updateValueAndValidity();
         this.changeSchedule.emit(true);

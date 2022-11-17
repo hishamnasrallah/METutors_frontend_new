@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-7">
         <h1 class="f-size-25-md-sm" [innerHTML]="'TEACH_ONLINE_METUTORS' | translate"></h1>
-        <p class="f-size-17-md-sm">{{ 'TEACH_ONLINE_DESC' | translate }}</p>
+        <p class="f-size-17-md-sm" [innerHTML]="'TEACH_ONLINE_DESC' | translate"></p>
         <a mat-flat-button color="primary" class="f-size-17-md-sm" routerLink="/signup" *ngIf="!token">
           <bdi>{{ 'JOIN_METUTORS' | translate }}</bdi>
         </a>

@@ -39,12 +39,10 @@
         </ng-container>
 
         <div class="row" *ngIf="!loadingFields">
-          <div class="col-md-9">
-            <h1 class="f-size-25-md-sm"><bdi>{{ selectedProgram?.title }}</bdi></h1>
-
-            <p class="f-size-15-md-sm"><bdi>{{ selectedProgram?.description }}</bdi></p>
+          <div class="col-md-8">
+            <h1 class="f-size-25-md-sm mt-4"><bdi>{{ selectedProgram?.title }}</bdi></h1>
           </div>
-          <div class="col-md-3" *ngIf="selectedProgram?.id === nationalId">
+          <div class="col-md-4" *ngIf="selectedProgram?.id === nationalId">
             <div class="text-end">
               <mat-form-field appearance="outline" class="w-100-sm">
                 <mat-select placeholder="{{ 'SELECT_GRADE' | translate }}" [(ngModel)]="grade" 
