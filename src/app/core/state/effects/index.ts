@@ -10,6 +10,7 @@ export * from './request.effects';
 export * from './finance.effects';
 export * from './student.effects';
 export * from './interview.effects';
+export * from './tutor-payment.effects';
 export * from './tutor-syllabus.effects';
 export * from './tutor-resource.effects';
 export * from './tutor-assignment.effects';

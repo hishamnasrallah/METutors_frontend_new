@@ -5,15 +5,11 @@ import { Injectable } from '@angular/core';
 import camelcaseKeys from 'camelcase-keys';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import {
-  IField,
-  ITutor,
-  SubmitInterviewInput,
-  IExploreTutorsFilters
-} from '@models';
+
+import { ITutor, SubmitInterviewInput, IExploreTutorsFilters } from '@models';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TutorsService {
   baseUrl = environment.API_URL;
@@ -44,7 +40,7 @@ export class TutorsService {
     return this.http.post<any>(`${this.baseUrl}admin/teacher-status`, {
       status: status,
       reason: reason,
-      teacher_id: tutorId
+      teacher_id: tutorId,
     });
   }
 
@@ -65,24 +61,24 @@ export class TutorsService {
         teachers: { data: ITutor[]; total: number };
         field_of_studies: any[];
       }>(`${this.baseUrl}${url}`, {
-        params
+        params,
       })
       .pipe(
-        map(response => {
+        map((response) => {
           return {
             fieldsOfStudy:
               response?.field_of_studies && response.field_of_studies?.length
-                ? response?.field_of_studies.map(field => ({
+                ? response?.field_of_studies.map((field) => ({
                     id: field.id,
                     name: field.name,
                     nameEn: field.name,
-                    nameAr: field.name_ar
+                    nameAr: field.name_ar,
                   }))
                 : [],
             teachers: response.teachers.data.map(
-              item => new ITutor(false, item)
+              (item) => new ITutor(false, item)
             ),
-            total: response.teachers.total
+            total: response.teachers.total,
           };
         })
       );
@@ -92,8 +88,8 @@ export class TutorsService {
     return this.http
       .get<{ results: ITutor[] }>(`${this.baseUrl}/featured_tutors`)
       .pipe(
-        map(response => {
-          return response.results.map(item => new ITutor(false, item));
+        map((response) => {
+          return response.results.map((item) => new ITutor(false, item));
         })
       );
   }
@@ -101,20 +97,20 @@ export class TutorsService {
   getTutorById(id: number | string): Observable<any> {
     return this.http
       .get<{ user: ITutor }>(`${this.baseUrl}teacher/${id}/profile`)
-      .pipe(map(response => new ITutor(false, response.user)));
+      .pipe(map((response) => new ITutor(false, response.user)));
   }
 
   getAdminTutorById(id: number | string): Observable<any> {
     return this.http
       .get<{ teacher_profile: ITutor }>(`${this.baseUrl}admin/teacher/${id}`)
-      .pipe(map(response => new ITutor(false, response.teacher_profile)));
+      .pipe(map((response) => new ITutor(false, response.teacher_profile)));
   }
 
   getProfileTutor(): Observable<any> {
     return this.http
       .get<{ user: ITutor }>(`${this.baseUrl}teacher/profile`)
       .pipe(
-        map(response => {
+        map((response) => {
           return new ITutor(false, response.user);
         })
       );
@@ -133,10 +129,10 @@ export class TutorsService {
         teachers: { to: number; total: number; data: ITutor[] };
       }>(`${this.baseUrl}admin/teachers`, { params: { page, search } })
       .pipe(
-        map(response => {
+        map((response) => {
           return {
             tutors: response.teachers.data.map(
-              tutor => new ITutor(false, tutor)
+              (tutor) => new ITutor(false, tutor)
             ),
             tutorsCounts: {
               all: response?.all_teachers,
@@ -145,8 +141,8 @@ export class TutorsService {
               active: response?.active_teachers,
               pending: response?.pending_teachers,
               inactive: response?.inactive_teachers,
-              suspended: response?.suspended_teachers
-            }
+              suspended: response?.suspended_teachers,
+            },
           };
         })
       );
@@ -158,8 +154,8 @@ export class TutorsService {
         filtered_teacher: ITutor[];
       }>(`${this.baseUrl}available-teachers?course_id=${id}`)
       .pipe(
-        map(response =>
-          response.filtered_teacher.map(tutor => new ITutor(false, tutor))
+        map((response) =>
+          response.filtered_teacher.map((tutor) => new ITutor(false, tutor))
         )
       );
   }
@@ -173,18 +169,20 @@ export class TutorsService {
         engaged: number;
         inactive: number;
       }>(`${this.baseUrl}admin/current-teachers`, {
-        params
+        params,
       })
       .pipe(
-        map(response => ({
-          tutors: response.teachers.data.map(tutor => new ITutor(false, tutor)),
+        map((response) => ({
+          tutors: response.teachers.data.map(
+            (tutor) => new ITutor(false, tutor)
+          ),
           tutorsCounts: {
             totalCurrent: response?.total,
             total: response?.teachers?.total,
             engagedCurrent: response?.engaged,
             inactiveCurrent: response?.inactive,
-            availableCurrent: response?.available
-          }
+            availableCurrent: response?.available,
+          },
         }))
       );
   }
@@ -197,22 +195,22 @@ export class TutorsService {
         pending_teachers_count: number;
         rejected_teachers_count: number;
       }>(`${this.baseUrl}admin/pending-teachers`, {
-        params
+        params,
       })
       .pipe(
-        map(response => ({
+        map((response) => ({
           pendingTutors: response.pending_teachers.data.map(
-            tutor => new ITutor(false, tutor)
+            (tutor) => new ITutor(false, tutor)
           ),
           rejectedTutors: response.rejected_teachers.data.map(
-            tutor => new ITutor(false, tutor)
+            (tutor) => new ITutor(false, tutor)
           ),
           tutorsCounts: {
             pendingCount: response?.pending_teachers_count,
             totalPending: response?.pending_teachers?.total,
             totalRejected: response?.pending_teachers?.total,
-            rejectedCount: response?.rejected_teachers_count
-          }
+            rejectedCount: response?.rejected_teachers_count,
+          },
         }))
       );
   }
@@ -223,13 +221,13 @@ export class TutorsService {
         teachers: { total: 10; data: ITutor[] };
       }>(`${this.baseUrl}admin/suspended-teachers`, { params })
       .pipe(
-        map(response => ({
+        map((response) => ({
           tutorsCounts: {
-            total: response.teachers.total
+            total: response.teachers.total,
           },
           suspendedTutors: response.teachers.data.map(
-            tutor => new ITutor(false, tutor)
-          )
+            (tutor) => new ITutor(false, tutor)
+          ),
         }))
       );
   }
@@ -252,18 +250,18 @@ export class TutorsService {
       .get<{ available_teachers: ITutor[]; suggested_teachers: ITutor[] }>(
         `${this.baseUrl}filtered-teacher`,
         {
-          params
+          params,
         }
       )
       .pipe(
-        map(response => {
+        map((response) => {
           return {
             suggestedTutors: response.suggested_teachers.map(
-              item => new ITutor(false, item)
+              (item) => new ITutor(false, item)
             ),
             availableTutors: response.available_teachers.map(
-              item => new ITutor(false, item)
-            )
+              (item) => new ITutor(false, item)
+            ),
           };
         })
       );
@@ -277,7 +275,7 @@ export class TutorsService {
         present_complex_topics_clearly_and_easily: value?.presentTopics,
         skillful_in_engaging_students: value?.skillfulStudents,
         always_on_time: value?.alwaysTime,
-        feedback: value?.feedback
+        feedback: value?.feedback,
       }
     );
   }
@@ -292,7 +290,7 @@ export class TutorsService {
   addSyllabusTopic(data: any, course_id: number | string): Observable<any> {
     const body = {
       ...data,
-      course_id
+      course_id,
     };
 
     return this.http.post<any>(`${this.baseUrl}course/add-topic`, body);
@@ -418,7 +416,7 @@ export class TutorsService {
   tutorSubmitFeedback(payload: any, course_id: number): Observable<any> {
     const body = {
       ...payload,
-      course_id
+      course_id,
     };
 
     return this.http.post<any>(`${this.baseUrl}teacher/feedback`, body);
@@ -428,7 +426,7 @@ export class TutorsService {
     const body = {
       date_for_interview: payload.interviewDate,
       time_for_interview: payload.interviewTime,
-      addtional_comments: payload?.notes
+      addtional_comments: payload?.notes,
     };
 
     return this.http.post<any>(`${this.baseUrl}interview-request`, body);
@@ -440,7 +438,7 @@ export class TutorsService {
   ): Observable<any> {
     const body = {
       ...payload,
-      course_id
+      course_id,
     };
 
     return this.http.post<any>(
@@ -463,8 +461,8 @@ export class TutorsService {
         `${this.baseUrl}admin/featured-teachers`
       )
       .pipe(
-        map(response =>
-          response.featured_teachers.map(tutor => new ITutor(false, tutor))
+        map((response) =>
+          response.featured_teachers.map((tutor) => new ITutor(false, tutor))
         )
       );
   }
@@ -475,10 +473,10 @@ export class TutorsService {
         `${this.baseUrl}admin/subject/${id}/featured-teacher`
       )
       .pipe(
-        map(response =>
-          response.featured_teachers.map(tutor => ({
+        map((response) =>
+          response.featured_teachers.map((tutor) => ({
             ...omitBy(new ITutor(false, tutor), isNil),
-            ...omitBy(new ITutor(false, tutor?.teacher), isNil)
+            ...omitBy(new ITutor(false, tutor?.teacher), isNil),
           }))
         )
       );
@@ -487,6 +485,17 @@ export class TutorsService {
   loadKudosPoints(): Observable<any> {
     return this.http
       .get<any>(`${this.baseUrl}teacher/kudos-points`)
-      .pipe(map(result => result.points_detail));
+      .pipe(map((result) => result.points_detail));
+  }
+
+  // Tutor payment records
+  getTutorPayment(status: string): Observable<any> {
+    return this.http
+      .get<any>(`${this.baseUrl}teacher/payment-records?payment=${status}`)
+      .pipe(
+        map((response) =>
+          camelcaseKeys(response.payment_records, { deep: true })
+        )
+      );
   }
 }

@@ -10,6 +10,7 @@ export * from './lookups.actions';
 export * from './student.actions';
 export * from './finance.actions';
 export * from './interview.actions';
+export * from './tutor-payment.actions';
 export * from './language-menu.actions';
 export * from './tutor-resource.actions';
 export * from './tutor-syllabus.actions';
