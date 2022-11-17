@@ -587,6 +587,16 @@ export const selectIsLoadingTutorPayments = createSelector(
   selectTutorPaymentsState,
   fromTutorPaymentReducer.selectIsLoadingTutorPayments
 );
+
+export const selectTutorPaymentDetails = createSelector(
+  selectTutorPaymentsState,
+  fromTutorPaymentReducer.selectTutorPaymentDetails
+);
+
+export const selectIsLoadingTutorPaymentDetails = createSelector(
+  selectTutorPaymentsState,
+  fromTutorPaymentReducer.selectIsLoadingTutorPaymentDetails
+);
 /**
  * ========================== STUDENT ==============================
  */

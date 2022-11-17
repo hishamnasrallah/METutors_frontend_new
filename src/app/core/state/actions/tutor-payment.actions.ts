@@ -14,3 +14,18 @@ export const loadTutorPaymentsFailure = createAction(
   '[Tutor] Load Tutor Payments Failure',
   props<{ error: any }>()
 );
+
+export const loadTutorPaymentDetails = createAction(
+  '[Tutor] Load Tutor Payment Details',
+  props<{ id: string }>()
+);
+
+export const loadTutorPaymentDetailsSuccess = createAction(
+  '[Tutor] Load Tutor Payment Details Success',
+  props<{ paymentDetails: any }>()
+);
+
+export const loadTutorPaymentDetailsFailure = createAction(
+  '[Tutor] Load Tutor Payment Details Failure',
+  props<{ error: any }>()
+);

@@ -47,9 +47,11 @@ import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
 export class TutorPaymentRecordsComponent implements OnInit {
   layout$: any;
   user$: Observable<IUser | null>;
+  paymentDetails$: Observable<any>;
   showDisputeReasonModal$: Observable<boolean>;
   showDisputePaymentModal$: Observable<boolean>;
   showConfirmPaymentModal$: Observable<boolean>;
+  isLoadingPaymentDetails$: Observable<boolean>;
   view$: Observable<{ loading: boolean; payments: any }>;
 
   paymentId = null;
@@ -81,7 +83,8 @@ export class TutorPaymentRecordsComponent implements OnInit {
     this._store.dispatch(fromTutorAction.openDisputeReasonModal());
   }
 
-  onShowConfirmPaymentModal(): void {
+  onShowConfirmPaymentModal(id: string): void {
+    this._store.dispatch(fromCore.loadTutorPaymentDetails({ id }));
     this._store.dispatch(fromTutorAction.openConfirmPaymentModal());
   }
 
@@ -98,11 +101,21 @@ export class TutorPaymentRecordsComponent implements OnInit {
     this.showDisputeReasonModal$ = this._store.select(
       fromTutor.selectDisputeReasonModal
     );
+
     this.showDisputePaymentModal$ = this._store.select(
       fromTutor.selectDisputePaymentModal
     );
+
     this.showConfirmPaymentModal$ = this._store.select(
       fromTutor.selectConfirmPaymentModal
+    );
+
+    this.paymentDetails$ = this._store.select(
+      fromCore.selectTutorPaymentDetails
+    );
+
+    this.isLoadingPaymentDetails$ = this._store.select(
+      fromCore.selectIsLoadingTutorPaymentDetails
     );
 
     this._store.dispatch(fromCore.loadTutorPayments({ status: 'pending' }));

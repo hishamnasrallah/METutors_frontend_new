@@ -34,7 +34,7 @@
                     </td>
                     <td>
                       <button mat-flat-button class="rounded d-block border border-main py-0 px-3 text-main"
-                              (click)="onShowConfirmPaymentModal()">{{ 'REQUEST_PAYMENT' | translate }}
+                              (click)="onShowConfirmPaymentModal(payment.transactionId)">{{ 'REQUEST_PAYMENT' | translate }}
                       </button>
                     </td>
                     <td><img src="assets/svg/arrow-up.svg" draggable="false" class="cursor-pointer" alt=""
@@ -59,16 +59,24 @@
                             <div class="text-center">No records found</div>
                           </td>
                         </tr>
-                        <tr *ngFor="let course of payment.courses; let i = index">
-                          <td>{{ course.orderId}}</td>
-                          <td>{{ course.courseId }}</td>
-                          <td>{{ course.courseName}}</td>
-                          <td>{{ course.completedClasses }}</td>
-                          <td>{{ course.completionDate }}</td>
-                          <td>{{ course.pricePerHour | currency: 'USD'}}</td>
-                          <td>{{ course.totalHours }}</td>
-                          <td>{{ course.totalAmount | currency: 'USD' }}</td>
-                        </tr>
+                        <ng-container *ngIf="payment.courses || payment?.courses?.length">
+                          <tr *ngFor="let course of payment.courses; let i = index">
+                            <td>{{ course.orderId}}</td>
+                            <td>{{ course.courseId }}</td>
+                            <td>{{ course.courseName}}</td>
+                            <td>{{ course.completedClasses }}</td>
+                            <td>{{ course.completionDate }}</td>
+                            <td>{{ course.pricePerHour | currency: 'USD'}}</td>
+                            <td>{{ course.totalHours }}</td>
+                            <td>{{ course.totalAmount | currency: 'USD' }}</td>
+                          </tr>
+                          <tr>
+                            <td colspan="3" align="right" class="bg-secondary-light">{{ payment.totalClasses}} classes
+                            </td>
+                            <td colspan="5" align="right" class="bg-secondary-light"><span
+                              class="fw-bold">{{ payment.totalAmount | currency: 'USD'}}</span></td>
+                          </tr>
+                        </ng-container>
                       </table>
                     </td>
                   </tr>
@@ -138,16 +146,25 @@
                             <div class="text-center">No records found</div>
                           </td>
                         </tr>
-                        <tr *ngFor="let course of payment.courses; let i = index">
-                          <td>{{ course.orderId}}</td>
-                          <td>{{ course.courseId }}</td>
-                          <td>{{ course.courseName}}</td>
-                          <td>{{ course.completedClasses }}</td>
-                          <td>{{ course.completionDate }}</td>
-                          <td>{{ course.pricePerHour | currency: 'USD'}}</td>
-                          <td>{{ course.totalHours }}</td>
-                          <td>{{ course.totalAmount | currency: 'USD' }}</td>
-                        </tr>
+                        <ng-container *ngIf="payment.courses || payment?.courses?.length">
+                          <tr *ngFor="let course of payment.courses; let i = index">
+                            <td>{{ course.orderId}}</td>
+                            <td>{{ course.courseId }}</td>
+                            <td>{{ course.courseName}}</td>
+                            <td>{{ course.completedClasses }}</td>
+                            <td>{{ course.completionDate }}</td>
+                            <td>{{ course.pricePerHour | currency: 'USD'}}</td>
+                            <td>{{ course.totalHours }}</td>
+                            <td>{{ course.totalAmount | currency: 'USD' }}</td>
+                          </tr>
+
+                          <tr>
+                            <td colspan="3" align="right" class="bg-secondary-light">{{ payment.totalClasses}} classes
+                            </td>
+                            <td colspan="5" align="right" class="bg-secondary-light"><span
+                              class="fw-bold">{{ payment.totalAmount | currency: 'USD'}}</span></td>
+                          </tr>
+                        </ng-container>
                       </table>
                     </td>
                   </tr>
@@ -206,16 +223,25 @@
                             <div class="text-center">No records found</div>
                           </td>
                         </tr>
-                        <tr *ngFor="let course of payment.courses; let i = index">
-                          <td>{{ course.orderId}}</td>
-                          <td>{{ course.courseId }}</td>
-                          <td>{{ course.courseName}}</td>
-                          <td>{{ course.completedClasses }}</td>
-                          <td>{{ course.completionDate }}</td>
-                          <td>{{ course.pricePerHour | currency: 'USD'}}</td>
-                          <td>{{ course.totalHours }}</td>
-                          <td>{{ course.totalAmount | currency: 'USD' }}</td>
-                        </tr>
+                        <ng-container *ngIf="payment.courses || payment?.courses?.length">
+                          <tr *ngFor="let course of payment.courses; let i = index">
+                            <td>{{ course.orderId}}</td>
+                            <td>{{ course.courseId }}</td>
+                            <td>{{ course.courseName}}</td>
+                            <td>{{ course.completedClasses }}</td>
+                            <td>{{ course.completionDate }}</td>
+                            <td>{{ course.pricePerHour | currency: 'USD'}}</td>
+                            <td>{{ course.totalHours }}</td>
+                            <td>{{ course.totalAmount | currency: 'USD' }}</td>
+                          </tr>
+
+                          <tr>
+                            <td colspan="3" align="right" class="bg-secondary-light">{{ payment.totalClasses}} classes
+                            </td>
+                            <td colspan="5" align="right" class="bg-secondary-light"><span
+                              class="fw-bold">{{ payment.totalAmount | currency: 'USD'}}</span></td>
+                          </tr>
+                        </ng-container>
                       </table>
                     </td>
                   </tr>
@@ -239,5 +265,7 @@
 
 <metutors-tutor-payment-confirmation-modal *ngIf="showConfirmPaymentModal$ | async" (closeModal)="onCloseModals()"
                                            (openDisputeModal)="onOpenDisputeReasonModal()"
+                                           [loading]="(isLoadingPaymentDetails$ | async)!"
+                                           [payments]="(paymentDetails$ | async)!"
                                            [showModal]="(showConfirmPaymentModal$ | async)!">
 </metutors-tutor-payment-confirmation-modal>

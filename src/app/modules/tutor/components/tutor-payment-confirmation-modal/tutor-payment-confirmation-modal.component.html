@@ -2,11 +2,54 @@
                 [heading]="'PAYMENT_CONFIRMATION_MODAL_HEADING'" [subHeading]="'PAYMENT_CONFIRMATION_MODAL_SUB_HEADING'"
                 [template]="template">
   <ng-template #template>
-    Add your content here
+    <ng-container [ngSwitch]="loading">
+      <div class="mt-4" *ngSwitchCase="true">
+        <metutors-grid-placeholder></metutors-grid-placeholder>
+      </div>
+
+      <div class="table-responsive" *ngSwitchCase="false">
+        <table class="table table my-table default-title mt-4 overflow-visible">
+          <tr>
+            <th>{{ 'COURSE_NAME' | translate}}</th>
+            <th>{{ 'NUMBER_OF_CLASSES' | translate }}</th>
+            <th>{{ 'COMPLETION_DATE' | translate }}</th>
+            <th>{{ 'PRICE_PER_HOUR' | translate }}</th>
+            <th>{{ 'TOTAL_HOURS' | translate }}</th>
+            <th>{{ 'TOTAL_AMOUNT' | translate }}</th>
+            <th>{{ 'DISPUTE' | translate }}</th>
+            <th>{{ 'REASON' | translate }}</th>
+          </tr>
+          <tr *ngIf="!payments || !payments?.length">
+            <td colspan="8">
+              <div class="text-center">No records found</div>
+            </td>
+          </tr>
+          <ng-container *ngIf="payments || payments?.length">
+            <tr *ngFor="let course of payments[0].courses; let i = index">
+              <td>{{ course.courseName}}</td>
+              <td>{{ course.completedClasses }}</td>
+              <td>{{ course.completionDate }}</td>
+              <td>{{ course.pricePerHour | currency: 'USD'}}</td>
+              <td>{{ course.totalHours }}</td>
+              <td>{{ course.totalAmount | currency: 'USD' }}</td>
+              <td><mat-checkbox (change)="onSelectDispute(course.courseId)"></mat-checkbox></td>
+              <td><span class="text-main text-decoration-underline">Reason</span></td>
+            </tr>
+
+            <tr>
+              <td colspan="3" align="right" class="bg-secondary-light">{{ payments[0].totalClasses}} classes
+              </td>
+              <td colspan="5" align="right" class="bg-secondary-light"><span
+                class="fw-bold">{{ payments[0].totalAmount | currency: 'USD'}}</span></td>
+            </tr>
+          </ng-container>
+        </table>
+      </div>
 
 
-    <button mat-flat-button class="rounded d-block border border-main py-0 px-3 text-main"
-            (click)="openDisputeModal.emit()">Dispute
-    </button>
+      <button mat-flat-button class="rounded d-block border border-main py-0 px-3 text-main"
+              (click)="openDisputeModal.emit()">Dispute
+      </button>
+    </ng-container>
   </ng-template>
 </metutors-modal>

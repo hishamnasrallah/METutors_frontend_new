@@ -6,11 +6,15 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./tutor-payment-confirmation-modal.component.scss'],
 })
 export class TutorPaymentConfirmationModalComponent implements OnInit {
+  @Input() payments: any;
+  @Input() loading: boolean = false;
   @Input() showModal: boolean = false;
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
   @Output() openDisputeModal: EventEmitter<void> = new EventEmitter<void>();
 
   constructor() {}
+
+  onSelectDispute(id: string): void {}
 
   ngOnInit(): void {}
 }

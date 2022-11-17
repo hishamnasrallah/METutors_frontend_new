@@ -7,6 +7,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { TutorsService } from '@services';
 import { AlertNotificationService } from '@metutor/core/components';
 import * as tutorPaymentActions from '../actions/tutor-payment.actions';
+import { loadTutorPaymentDetails } from '../actions/tutor-payment.actions';
 
 @Injectable()
 export class TutorPaymentEffects {
@@ -23,6 +24,28 @@ export class TutorPaymentEffects {
           catchError((error) =>
             of(
               tutorPaymentActions.loadTutorPaymentsFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  loadTutorPaymentDetails$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorPaymentActions.loadTutorPaymentDetails),
+      mergeMap(({ id }) =>
+        this._tutorService.getTutorPaymentDetails(id).pipe(
+          map((paymentDetails) =>
+            tutorPaymentActions.loadTutorPaymentDetailsSuccess({
+              paymentDetails,
+            })
+          ),
+          catchError((error) =>
+            of(
+              tutorPaymentActions.loadTutorPaymentDetailsFailure({
                 error: error?.error?.message || error?.error?.errors,
               })
             )

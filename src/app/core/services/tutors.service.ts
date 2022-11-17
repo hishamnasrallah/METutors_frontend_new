@@ -498,4 +498,16 @@ export class TutorsService {
         )
       );
   }
+
+  getTutorPaymentDetails(id: string): Observable<any> {
+    return this.http
+      .get<any>(
+        `${this.baseUrl}teacher/pending-payments/details?transaction_id=${id}`
+      )
+      .pipe(
+        map((response) =>
+          camelcaseKeys(response.payment_records, { deep: true })
+        )
+      );
+  }
 }
