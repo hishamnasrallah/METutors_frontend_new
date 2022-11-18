@@ -63,6 +63,7 @@
 
           <pagination [totalItems]="(count$ | async)!" [itemsPerPage]="perPage" [maxSize]="5"
                       [boundaryLinks]="true"
+                      [(ngModel)]="page"
                       previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"
                       (pageChanged)="onPageChange($event)" 
                       *ngIf="+(count$ | async)! > perPage">

@@ -94,7 +94,10 @@ export class ExploreTutorsComponent implements OnInit {
   }
 
   onPageChange({ page }: { page: number }): void {
+    if (page === this.page) return;
+
     this.page = page;
+    window.scrollTo(0, 0);
     this.onFilterTutors();
   }
 
