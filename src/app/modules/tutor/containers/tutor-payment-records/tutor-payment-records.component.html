@@ -14,23 +14,23 @@
                 <tr>
                   <th>{{ 'TRANSACTION_NUMBER' | translate }}</th>
                   <th>{{ 'MONTH_SM' | translate }}</th>
-                  <th>{{ 'AMOUNT_$' | translate}}</th>
+                  <th>{{ 'AMOUNT_$' | translate }}</th>
                   <th>{{ 'STATUS' | translate }}</th>
                   <th>{{ 'ACTION' | translate }}</th>
                   <th></th>
                 </tr>
                 <tr *ngIf="!view.payments || !view.payments?.length">
                   <td colspan="11">
-                    <div class="text-center">No records found</div>
+                    <div class="text-center">{{ 'NO_RECORDS_FOUND' | translate }}</div>
                   </td>
                 </tr>
                 <ng-container *ngFor="let payment of view.payments; let i = index">
                   <tr>
                     <td>{{ payment.transactionId }}</td>
                     <td>{{ payment.month }}</td>
-                    <td>{{ payment.totalAmount | currency: 'USD'}}</td>
+                    <td>{{ payment.totalAmount | currency: 'USD' }}</td>
                     <td>
-                      <button class="status text-capitalize {{payment.status}}" mat-button>{{payment.status}}</button>
+                      <button class="status text-capitalize {{ payment.status }}" mat-button>{{ payment.status }}</button>
                     </td>
                     <td>
                       <button mat-flat-button class="rounded d-block border border-main py-0 px-3 text-main"
@@ -56,25 +56,25 @@
                         </tr>
                         <tr *ngIf="!payment.courses || !payment?.courses?.length">
                           <td colspan="8">
-                            <div class="text-center">No records found</div>
+                            <div class="text-center">{{ 'NO_RECORDS_FOUND' | translate }}</div>
                           </td>
                         </tr>
                         <ng-container *ngIf="payment.courses || payment?.courses?.length">
                           <tr *ngFor="let course of payment.courses; let i = index">
-                            <td>{{ course.orderId}}</td>
+                            <td>{{ course.orderId }}</td>
                             <td>{{ course.courseId }}</td>
-                            <td>{{ course.courseName}}</td>
+                            <td>{{ course.courseName }}</td>
                             <td>{{ course.completedClasses }}</td>
                             <td>{{ course.completionDate }}</td>
-                            <td>{{ course.pricePerHour | currency: 'USD'}}</td>
+                            <td>{{ course.pricePerHour | currency: 'USD' }}</td>
                             <td>{{ course.totalHours }}</td>
                             <td>{{ course.totalAmount | currency: 'USD' }}</td>
                           </tr>
                           <tr>
-                            <td colspan="3" align="right" class="bg-secondary-light">{{ payment.totalClasses}} classes
+                            <td colspan="3" align="right" class="bg-secondary-light">{{ payment.totalClasses }} {{ +(payment?.totalClasses)! > 1 ? ('CLASSES_SM' | translate) : ('CLASS_SM' | translate) }}
                             </td>
                             <td colspan="5" align="right" class="bg-secondary-light"><span
-                              class="fw-bold">{{ payment.totalAmount | currency: 'USD'}}</span></td>
+                              class="fw-bold">{{ payment.totalAmount | currency: 'USD' }}</span></td>
                           </tr>
                         </ng-container>
                       </table>
@@ -105,18 +105,18 @@
                 </tr>
                 <tr *ngIf="!view.payments || !view.payments?.length">
                   <td colspan="11">
-                    <div class="text-center">No records found</div>
+                    <div class="text-center">{{ 'NO_RECORDS_FOUND' | translate }}</div>
                   </td>
                 </tr>
                 <ng-container *ngFor="let payment of view.payments; let i = index">
                   <tr>
                     <td>{{ payment.transactionId }}</td>
                     <td>{{ payment.month }}</td>
-                    <td> {{ payment.clearanceDate }}</td>
-                    <td>{{ payment.totalAmount | currency: 'USD'}}</td>
+                    <td>{{ payment.clearanceDate }}</td>
+                    <td>{{ payment.totalAmount | currency: 'USD' }}</td>
                     <td>{{ payment.method }}</td>
                     <td>
-                      <button class="status text-capitalize {{payment.status}}" mat-button>{{payment.status}}</button>
+                      <button class="status text-capitalize {{ payment.status }}" mat-button>{{ payment.status }}</button>
                     </td>
                     <td>
                       <button mat-flat-button class="rounded d-block border border-main py-0 px-3 text-main"
@@ -143,26 +143,26 @@
                         </tr>
                         <tr *ngIf="!payment.courses || !payment?.courses?.length">
                           <td colspan="8">
-                            <div class="text-center">No records found</div>
+                            <div class="text-center">{{ 'NO_RECORDS_FOUND' | translate }}</div>
                           </td>
                         </tr>
                         <ng-container *ngIf="payment.courses || payment?.courses?.length">
                           <tr *ngFor="let course of payment.courses; let i = index">
-                            <td>{{ course.orderId}}</td>
+                            <td>{{ course.orderId }}</td>
                             <td>{{ course.courseId }}</td>
-                            <td>{{ course.courseName}}</td>
+                            <td>{{ course.courseName }}</td>
                             <td>{{ course.completedClasses }}</td>
                             <td>{{ course.completionDate }}</td>
-                            <td>{{ course.pricePerHour | currency: 'USD'}}</td>
+                            <td>{{ course.pricePerHour | currency: 'USD' }}</td>
                             <td>{{ course.totalHours }}</td>
                             <td>{{ course.totalAmount | currency: 'USD' }}</td>
                           </tr>
 
                           <tr>
-                            <td colspan="3" align="right" class="bg-secondary-light">{{ payment.totalClasses}} classes
+                            <td colspan="3" align="right" class="bg-secondary-light">{{ payment.totalClasses }} {{ +(payment?.totalClasses)! > 1 ? ('CLASSES_SM' | translate) : ('CLASS_SM' | translate) }}
                             </td>
                             <td colspan="5" align="right" class="bg-secondary-light"><span
-                              class="fw-bold">{{ payment.totalAmount | currency: 'USD'}}</span></td>
+                              class="fw-bold">{{ payment.totalAmount | currency: 'USD' }}</span></td>
                           </tr>
                         </ng-container>
                       </table>
@@ -194,11 +194,11 @@
                   <tr>
                     <td>{{ payment.transactionId }}</td>
                     <td>{{ payment.month }}</td>
-                    <td> {{ payment.transactionDate }}</td>
-                    <td>{{ payment.totalAmount | currency: 'USD'}}</td>
+                    <td>{{ payment.transactionDate }}</td>
+                    <td>{{ payment.totalAmount | currency: 'USD' }}</td>
                     <td>{{ payment.method }}</td>
                     <td>
-                      <button class="status text-capitalize {{payment.status}}" mat-button>{{payment.status}}</button>
+                      <button class="status text-capitalize {{ payment.status }}" mat-button>{{ payment.status }}</button>
                     </td>
                     <td><img src="assets/svg/arrow-up.svg" draggable="false" class="cursor-pointer" alt=""
                              [class.rotate-180]="showClasses"
@@ -220,26 +220,26 @@
                         </tr>
                         <tr *ngIf="!payment.courses || !payment?.courses?.length">
                           <td colspan="8">
-                            <div class="text-center">No records found</div>
+                            <div class="text-center">{{ 'NO_RECORDS_FOUND' | translate }}</div>
                           </td>
                         </tr>
                         <ng-container *ngIf="payment.courses || payment?.courses?.length">
                           <tr *ngFor="let course of payment.courses; let i = index">
-                            <td>{{ course.orderId}}</td>
+                            <td>{{ course.orderId }}</td>
                             <td>{{ course.courseId }}</td>
-                            <td>{{ course.courseName}}</td>
+                            <td>{{ course.courseName }}</td>
                             <td>{{ course.completedClasses }}</td>
                             <td>{{ course.completionDate }}</td>
-                            <td>{{ course.pricePerHour | currency: 'USD'}}</td>
+                            <td>{{ course.pricePerHour | currency: 'USD' }}</td>
                             <td>{{ course.totalHours }}</td>
                             <td>{{ course.totalAmount | currency: 'USD' }}</td>
                           </tr>
 
                           <tr>
-                            <td colspan="3" align="right" class="bg-secondary-light">{{ payment.totalClasses}} classes
+                            <td colspan="3" align="right" class="bg-secondary-light">{{ payment.totalClasses }} {{ +(payment?.totalClasses)! > 1 ? ('CLASSES_SM' | translate) : ('CLASS_SM' | translate) }}
                             </td>
                             <td colspan="5" align="right" class="bg-secondary-light"><span
-                              class="fw-bold">{{ payment.totalAmount | currency: 'USD'}}</span></td>
+                              class="fw-bold">{{ payment.totalAmount | currency: 'USD' }}</span></td>
                           </tr>
                         </ng-container>
                       </table>

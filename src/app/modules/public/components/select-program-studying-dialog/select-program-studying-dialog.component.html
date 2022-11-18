@@ -10,7 +10,7 @@
         <div class="item w-100-sm m-0-sm mb-5-sm" (click)="onSelectProgram(program)"
           *ngFor="let program of programs; let i = index">
           <span class="d-block">{{ 'PROGRAM' | translate }} {{ i + 1 }}</span>
-          <strong>{{ program?.name }}</strong>
+          <strong><bdi>{{ program?.name }}</bdi></strong>
         </div>
       </div>
     </div>

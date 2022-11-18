@@ -30,7 +30,7 @@
                 (selectionChange)="onChangeProgram($event, i)">
                 <ng-container *ngFor="let program of programsList">
                   <mat-option [value]="program" [hidden]="!checkProgram(program.id)">
-                    {{ program?.name }}
+                    <bdi>{{ program?.name }}</bdi>
                   </mat-option>
                 </ng-container>
               </mat-select>

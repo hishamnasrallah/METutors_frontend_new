@@ -108,7 +108,7 @@
               <ng-container *ngIf="view.data?.todaysClasses?.length">
                 <tr *ngFor="let todaysClass of view.data.todaysClasses; let i=index">
                   <td>{{ i + 1 }}</td>
-                  <td>{{ todaysClass?.course?.program?.name }}</td>
+                  <td><bdi>{{ todaysClass?.course?.program?.name }}</bdi></td>
                   <td>{{ todaysClass?.course?.courseName }}</td>
                   <td>{{ todaysClass?.title }}</td>
                   <td>{{ todaysClass?.startTime | date:'h:mm a' }} - {{ todaysClass?.endTime | date:'h:mm a' }}</td>

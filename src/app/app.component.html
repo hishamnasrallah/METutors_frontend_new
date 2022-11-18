@@ -3,6 +3,7 @@
 <div class="d-flex flex-column full-height">
   <metutors-navbar *ngIf="layout === undefined || layout.showHeader || layout.showHeader === undefined"
                    [countries]="(countries$ | async)!"
+                   class="sticky-top"
                    [loadingCountries]="(loadingCountries$ | async)!">
   </metutors-navbar>
 
