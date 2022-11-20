@@ -129,7 +129,7 @@ export const selectDisputePaymentModal = createSelector(
   fromTutorModal.selectDisputePaymentModal
 );
 
-export const selectDisputeReasonModal = createSelector(
+export const selectDisputeModal = createSelector(
   selectTutorModalState,
-  fromTutorModal.selectDisputeReasonModal
+  fromTutorModal.selectDisputeModal
 );

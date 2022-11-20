@@ -5,13 +5,13 @@ import * as tutorModalActions from '../actions/tutor-modal.actions';
 
 export interface State {
   params: any;
+  showDisputeModal: boolean;
   showConfirmModal: boolean;
   showAddTopicModal: boolean;
   showKudosPointsModal: boolean;
   showRejectCourseModal: boolean;
   showCancelCourseModal: boolean;
   showSendFeedbackModal: boolean;
-  showDisputeReasonModal: boolean;
   showAddAssignmentModal: boolean;
   showConfirmPaymentModal: boolean;
   showDisputePaymentModal: boolean;
@@ -28,6 +28,7 @@ export interface State {
 
 export const initialState: State = {
   params: null,
+  showDisputeModal: false,
   showConfirmModal: false,
   showAddTopicModal: false,
   showKudosPointsModal: false,
@@ -36,7 +37,6 @@ export const initialState: State = {
   showCancelCourseModal: false,
   showSendFeedbackModal: false,
   showAddAssignmentModal: false,
-  showDisputeReasonModal: false,
   showConfirmPaymentModal: false,
   showUploadDocumentModal: false,
   showViewAssignmentModal: false,
@@ -278,16 +278,6 @@ export const reducer = createReducer(
     })
   ),
 
-  on(tutorModalActions.openDisputeReasonModal, (state) => ({
-    ...state,
-    showDisputeReasonModal: true,
-  })),
-
-  on(tutorModalActions.closeDisputeReasonModal, (state) => ({
-    ...state,
-    showDisputeReasonModal: false,
-  })),
-
   on(tutorModalActions.openDisputePaymentModal, (state) => ({
     ...state,
     showDisputePaymentModal: true,
@@ -306,6 +296,16 @@ export const reducer = createReducer(
   on(tutorModalActions.closeConfirmPaymentModal, (state) => ({
     ...state,
     showConfirmPaymentModal: false,
+  })),
+
+  on(tutorModalActions.openDisputeModal, (state) => ({
+    ...state,
+    showDisputeModal: true,
+  })),
+
+  on(tutorModalActions.closeDisputeModal, (state) => ({
+    ...state,
+    showDisputeModal: false,
   }))
 );
 
@@ -363,5 +363,5 @@ export const selectConfirmPaymentModal = (state: State): boolean =>
 export const selectDisputePaymentModal = (state: State): boolean =>
   state.showDisputePaymentModal;
 
-export const selectDisputeReasonModal = (state: State): boolean =>
-  state.showDisputeReasonModal;
+export const selectDisputeModal = (state: State): boolean =>
+  state.showDisputeModal;

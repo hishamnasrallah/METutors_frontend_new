@@ -21,35 +21,49 @@
           </tr>
           <tr *ngIf="!payments || !payments?.length">
             <td colspan="8">
-              <div class="text-center">No records found</div>
+              <div class="text-center">{{ 'NO_RECORDS_FOUND' | translate }}</div>
             </td>
           </tr>
           <ng-container *ngIf="payments || payments?.length">
             <tr *ngFor="let course of payments[0].courses; let i = index">
               <td>{{ course.courseName}}</td>
-              <td>{{ course.completedClasses }}</td>
+              <td>{{ course.completedClasses }} <span class="dispute"
+                                                      *ngIf="+course.isDispute">{{ 'DISPUTED' | translate }}</span></td>
               <td>{{ course.completionDate }}</td>
               <td>{{ course.pricePerHour | currency: 'USD'}}</td>
               <td>{{ course.totalHours }}</td>
               <td>{{ course.totalAmount | currency: 'USD' }}</td>
-              <td><mat-checkbox (change)="onSelectDispute(course.courseId)"></mat-checkbox></td>
-              <td><span class="text-main text-decoration-underline">Reason</span></td>
+              <td>
+                <mat-checkbox (change)="onSelectDispute(course.courseId)"
+                              [disabled]="!!(+course.isDispute)"></mat-checkbox>
+              </td>
+              <td>
+                <span class="text-secondary" *ngIf="!(+course.isDispute)">N/A</span>
+                <span class="text-main cursor-pointer text-decoration-underline" *ngIf="(+course.isDispute)"
+                      (click)="openDisputeModal.emit({reason: 'ada', section: 'viewReason', heading: 'REASON_DISPUTE'})">{{ 'VIEW_REASON' | translate }}</span>
+              </td>
             </tr>
 
             <tr>
-              <td colspan="3" align="right" class="bg-secondary-light">{{ payments[0].totalClasses}} classes
+              <td colspan="3" align="right"
+                  class="bg-secondary-light">{{ payments[0].totalClasses}} {{ 'CLASSES' | translate }}
               </td>
               <td colspan="5" align="right" class="bg-secondary-light"><span
                 class="fw-bold">{{ payments[0].totalAmount | currency: 'USD'}}</span></td>
             </tr>
           </ng-container>
         </table>
+
+        <div class="d-flex justify-content-end mt-2">
+          <button mat-flat-button class="rounded d-block border border-danger py-0 px-3 text-danger me-3"
+                  [disabled]="!disputedClasses.length"
+                  (click)="openDisputeModal.emit({courses: disputedClasses, section: 'submitReason', heading: 'SUBMIT_DISPUTE_MODAL_HEADING'})">{{ 'DISPUTE' | translate }}
+          </button>
+
+          <button mat-flat-button color="primary" class=""
+                  [disabled]="!!disputedClasses.length">{{ 'CONFIRM_PAYMENT' | translate }}</button>
+        </div>
       </div>
-
-
-      <button mat-flat-button class="rounded d-block border border-main py-0 px-3 text-main"
-              (click)="openDisputeModal.emit()">Dispute
-      </button>
     </ng-container>
   </ng-template>
 </metutors-modal>

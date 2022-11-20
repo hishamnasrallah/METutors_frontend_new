@@ -12,16 +12,11 @@
       color: #292929;
       font-size: 14px;
 
-      button.status {
-        &.pending {
-          background-color: #FF8300;
-          color: #FFF;
-        }
-
-        &.success {
-          background-color: #50C394;
-          color: #FFF;
-        }
+      .dispute {
+        color: #FFF;
+        padding: 3px 12px;
+        border-radius: 20px;
+        background-color: #d34c65
       }
     }
   }

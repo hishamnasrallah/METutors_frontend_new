@@ -48,7 +48,7 @@ export class TutorPaymentRecordsComponent implements OnInit {
   layout$: any;
   user$: Observable<IUser | null>;
   paymentDetails$: Observable<any>;
-  showDisputeReasonModal$: Observable<boolean>;
+  showDisputeModal$: Observable<boolean>;
   showDisputePaymentModal$: Observable<boolean>;
   showConfirmPaymentModal$: Observable<boolean>;
   isLoadingPaymentDetails$: Observable<boolean>;
@@ -56,6 +56,8 @@ export class TutorPaymentRecordsComponent implements OnInit {
 
   paymentId = null;
   showClasses = false;
+  transactionId: string;
+  disputeModalData: any;
 
   constructor(private _store: Store<any>) {}
 
@@ -79,28 +81,42 @@ export class TutorPaymentRecordsComponent implements OnInit {
     this._store.dispatch(fromTutorAction.openDisputePaymentModal());
   }
 
-  onOpenDisputeReasonModal(): void {
-    this._store.dispatch(fromTutorAction.openDisputeReasonModal());
-  }
-
   onShowConfirmPaymentModal(id: string): void {
+    this.transactionId = id;
     this._store.dispatch(fromCore.loadTutorPaymentDetails({ id }));
     this._store.dispatch(fromTutorAction.openConfirmPaymentModal());
   }
 
-  onCloseModals(): void {
-    this._store.dispatch(fromTutorAction.closeDisputeReasonModal());
-    this._store.dispatch(fromTutorAction.closeDisputePaymentModal());
+  onCloseDisputeModal(): void {
+    this._store.dispatch(fromTutorAction.closeDisputeModal());
+  }
+
+  onClosePaymentModal(): void {
     this._store.dispatch(fromTutorAction.closeConfirmPaymentModal());
+    // this._store.dispatch(fromTutorAction.closeDisputePaymentModal());
+  }
+
+  onOpenDisputeModal(data: any): void {
+    this.disputeModalData = data;
+    this._store.dispatch(fromTutorAction.openDisputeModal());
+    this._store.dispatch(fromTutorAction.closeConfirmPaymentModal());
+  }
+
+  onSubmitDisputeReason({ reason }: any): void {
+    const payload = {
+      reason,
+      transaction_id: this.transactionId,
+      courses: this.disputeModalData.courses,
+    };
+
+    console.log(payload);
   }
 
   ngOnInit(): void {
     this.layout$ = this._store.select(fromRoot.selectLayout);
     this.user$ = this._store.select(fromCore.selectUser);
 
-    this.showDisputeReasonModal$ = this._store.select(
-      fromTutor.selectDisputeReasonModal
-    );
+    this.showDisputeModal$ = this._store.select(fromTutor.selectDisputeModal);
 
     this.showDisputePaymentModal$ = this._store.select(
       fromTutor.selectDisputePaymentModal

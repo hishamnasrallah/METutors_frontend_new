@@ -1532,9 +1532,16 @@
   "PAYMENT_CONFIRMATION_MODAL_SUB_HEADING": " ما يلي يوضح تفاصيل الحوالة التي سيتم دفعها لحسابك البنكي",
   "DISPUTE_PAYMENT_MODAL_HEADING": "مدفوعات متنازع عليها",
   "DISPUTE_PAYMENT_MODAL_SUB_HEADING": " يمكنك التواصل مع المشرف بخصوص الدفعة المتنازع عليها ",
-  "DISPUTE_REASON_MODAL_HEADING": "الرجاء توضيح سبب إعتراضك",
+  "SUBMIT_DISPUTE_MODAL_HEADING": "الرجاء توضيح سبب إعتراضك",
   "ORDER_NUMBER": "Order number",
   "NUMBER_OF_CLASSES": "Number of classes",
   "COMPLETION_DATE": "Completion dated",
-  "TOTAL_AMOUNT": "Total amount"
+  "TOTAL_AMOUNT": "Total amount",
+  "VIEW_REASON": "View reason",
+  "DISPUTED": "Disputed",
+  "REASON_DISPUTE": "Reason for dispute",
+  "DISPUTE": "Dispute",
+  "CONFIRM_PAYMENT": "Confirm payment",
+  "SUBMIT_DISPUTE_REASON_ERROR": "Please write your reason with a max of 800 characters",
+  "DISPUTE_REASON_PLACEHOLDER": "Enter the reason here..."
 }

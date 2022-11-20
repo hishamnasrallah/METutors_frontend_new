@@ -1533,9 +1533,16 @@
   "PAYMENT_CONFIRMATION_MODAL_SUB_HEADING": "The following outlines transaction details to be paid to your bank account",
   "DISPUTE_PAYMENT_MODAL_HEADING": "Dispute payment",
   "DISPUTE_PAYMENT_MODAL_SUB_HEADING": "Here you can contact with admin regarding dispute payment issue",
-  "DISPUTE_REASON_MODAL_HEADING": "Please explain reason for dispute",
+  "SUBMIT_DISPUTE_MODAL_HEADING": "Please explain reason for dispute",
   "ORDER_NUMBER": "Order number",
   "NUMBER_OF_CLASSES": "Number of classes",
   "COMPLETION_DATE": "Completion dated",
-  "TOTAL_AMOUNT": "Total amount"
+  "TOTAL_AMOUNT": "Total amount",
+  "VIEW_REASON": "View reason",
+  "DISPUTED": "Disputed",
+  "REASON_DISPUTE": "Reason for dispute",
+  "DISPUTE": "Dispute",
+  "CONFIRM_PAYMENT": "Confirm payment",
+  "SUBMIT_DISPUTE_REASON_ERROR": "Please write your reason with a max of 800 characters",
+  "DISPUTE_REASON_PLACEHOLDER": "Enter the reason here..."
 }
