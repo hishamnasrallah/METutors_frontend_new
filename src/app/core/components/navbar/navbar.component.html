@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg text-16 d-none d-lg-block home-header">
+<nav class="navbar navbar-expand-lg text-16 d-none d-lg-block home-header" #navbar [class.shadow-sm]="showShadow">
   <div class="container">
     <div class="d-flex flex-grow-1 mobile_menu">
       <span class="w-100 d-lg-none d-block"></span>
@@ -71,8 +71,8 @@
   </div>
 </nav>
 
-<nav class="navbar navbar-expand-lg navbar-light sticky-top py-3 card d-block d-lg-none"
-  data-navbar-on-scroll="data-navbar-on-scroll">
+<nav class="navbar navbar-expand-lg navbar-light py-3 card d-block d-lg-none home-header-sm"
+  data-navbar-on-scroll="data-navbar-on-scroll" #navbarSmall [class.shadow-sm]="showShadow">
   <div class="container" dropdown>
     <a class="navbar-brand" routerLink="/">
       <img src="assets/logo/logo-dark.png" alt="" width="146" />
@@ -144,6 +144,10 @@
 </mat-menu>
 
 <mat-menu #currency="matMenu">
+  <!-- <input type="text" [(ngModel)]="searchCurrency" autofocus="true"> -->
+  <!-- <form (click)="$event.stopPropagation(); $event.preventDefault()">
+    <input class="w-full border-b" [(ngModel)]="searchCurrency" type="text" />
+  </form> -->
   <ng-container *ngFor="let item of (currencyRates$ | async)">
     <button mat-menu-item [ngClass]="{
       'active' : item.id === (selectedCurrency$ | async)?.id

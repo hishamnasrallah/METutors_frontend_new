@@ -580,7 +580,8 @@ export class RequestFreeTutorComponent implements OnInit {
             ? this.tutors.filter(
                 (sub: ITutor) => +sub?.id === +this.selectTutorForm.value.tutor
               )[0]
-            : {};
+            : null;
+      else this.reviewInfo.tutor = null;
     }
   }
 

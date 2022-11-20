@@ -1,3 +1,12 @@
+import * as moment from 'moment';
+import { Store } from '@ngrx/store';
+import { ICountry } from './core/models';
+import { DOCUMENT } from '@angular/common';
+import * as fromCore from '@metutor/core/state';
+import { Title } from '@angular/platform-browser';
+import { TranslateService } from '@ngx-translate/core';
+import { NgProgressRef, NgProgress } from '@ngx-progressbar/core';
+import { filter, map, mergeMap, Observable, Subscription } from 'rxjs';
 import {
   Router,
   RouterEvent,
@@ -7,16 +16,13 @@ import {
   NavigationError,
   NavigationCancel
 } from '@angular/router';
-import * as moment from 'moment';
-import { Store } from '@ngrx/store';
-import { ICountry } from './core/models';
-import { DOCUMENT } from '@angular/common';
-import * as fromCore from '@metutor/core/state';
-import { Title } from '@angular/platform-browser';
-import { TranslateService } from '@ngx-translate/core';
-import { NgProgressRef, NgProgress } from '@ngx-progressbar/core';
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { filter, map, mergeMap, Observable, Subscription } from 'rxjs';
+import {
+  Inject,
+  OnInit,
+  Component,
+  OnDestroy,
+  ChangeDetectorRef
+} from '@angular/core';
 
 @Component({
   selector: 'metutors-root',
@@ -28,6 +34,7 @@ export class AppComponent implements OnInit, OnDestroy {
   countries$: Observable<ICountry[] | null>;
 
   layout?: any;
+  paddingTop: number;
   progressRef: NgProgressRef;
   routerSubscription$: Subscription;
 
@@ -37,6 +44,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private _store: Store<any>,
     private _progress: NgProgress,
     private _route: ActivatedRoute,
+    private _cdRef: ChangeDetectorRef,
     public translate: TranslateService,
     @Inject(DOCUMENT) private _document: Document
   ) {
@@ -68,6 +76,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this._prepareCountries();
+    this._cdRef.detectChanges();
     this._store.dispatch(fromCore.identifyUser());
     this._store.dispatch(fromCore.loadCurrencyRates());
     this._store.dispatch(fromCore.loadCurrenciesNames());

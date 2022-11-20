@@ -208,13 +208,13 @@
           </div>
         </div>
       </div>
-      <div class="row row-block mb-0" *ngIf="reviewInfo?.tutor">
+      <div class="row row-block mb-0">
         <div class="col-md-4">
           <h2>{{ 'TUTOR_INFORMATION' | translate }}</h2>
         </div>
         <div class="col-md-8">
           <h6>{{ 'CLASSROOM_TUTOR' | translate }}</h6>
-          <div class="row list-tutors">
+          <div class="row list-tutors" *ngIf="reviewInfo?.tutor">
             <div class="position-relative img-avatar">
               <img [src]="reviewInfo?.tutor?.avatar" meTutorsDefaultAvatar alt="" width="60px" height="60px">
               <!-- <svg class="position-absolute status" width="16" height="16" [ngClass]="{
@@ -269,6 +269,9 @@
               {{ 'FULL_PROFILE' | translate }}
             </a>
           </div>
+          <h2 class="mb-0 main-color text-center no-tutor-course" *ngIf="!reviewInfo?.tutor">
+            {{ 'METUTORS_PROVIDE_TUTOR_COURSE' | translate }}
+          </h2>
         </div>
       </div>
       <div class="row">
