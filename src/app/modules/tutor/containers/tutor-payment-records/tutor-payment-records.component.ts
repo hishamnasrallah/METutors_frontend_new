@@ -47,9 +47,9 @@ import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
 export class TutorPaymentRecordsComponent implements OnInit {
   layout$: any;
   user$: Observable<IUser | null>;
+  isLoading$: Observable<boolean>;
   paymentDetails$: Observable<any>;
   showDisputeModal$: Observable<boolean>;
-  isCreatingDispute$: Observable<boolean>;
   showDisputePaymentModal$: Observable<boolean>;
   showConfirmPaymentModal$: Observable<boolean>;
   showPaymentSuccessModal$: Observable<boolean>;
@@ -118,6 +118,13 @@ export class TutorPaymentRecordsComponent implements OnInit {
     this._store.dispatch(fromCore.tutorCreateDispute({ payload }));
   }
 
+  onRequestPayment(): void {
+    // todo required request payment api
+    this._store.dispatch(
+      fromCore.tutorRequestPayment({ id: this.transactionId })
+    );
+  }
+
   ngOnInit(): void {
     this.layout$ = this._store.select(fromRoot.selectLayout);
     this.user$ = this._store.select(fromCore.selectUser);
@@ -144,9 +151,7 @@ export class TutorPaymentRecordsComponent implements OnInit {
       fromCore.selectIsLoadingTutorPaymentDetails
     );
 
-    this.isCreatingDispute$ = this._store.select(
-      fromCore.selectTutorPaymentLoading
-    );
+    this.isLoading$ = this._store.select(fromCore.selectTutorPaymentLoading);
 
     this._store.dispatch(fromCore.loadTutorPayments({ status: 'pending' }));
 

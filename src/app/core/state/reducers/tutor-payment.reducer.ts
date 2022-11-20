@@ -1,6 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 
 import * as tutorPaymentActions from '../actions/tutor-payment.actions';
+import { tutorRequestPayment } from '../actions/tutor-payment.actions';
 
 export interface State {
   payments: any;
@@ -22,15 +23,23 @@ export const reducer = createReducer(
   initialState,
 
   // General loading
-  on(tutorPaymentActions.tutorCreateDispute, (state) => ({
-    ...state,
-    isLoading: true,
-  })),
+  on(
+    tutorPaymentActions.tutorCreateDispute,
+    tutorPaymentActions.tutorRequestPayment,
+    (state) => ({
+      ...state,
+      isLoading: true,
+    })
+  ),
 
-  on(tutorPaymentActions.tutorCreateDisputeFailure, (state) => ({
-    ...state,
-    isLoading: false,
-  })),
+  on(
+    tutorPaymentActions.tutorCreateDisputeFailure,
+    tutorPaymentActions.tutorRequestPaymentFailure,
+    (state) => ({
+      ...state,
+      isLoading: false,
+    })
+  ),
 
   on(tutorPaymentActions.tutorCreateDisputeSuccess, (state) => ({
     ...state,

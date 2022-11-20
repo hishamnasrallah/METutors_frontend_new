@@ -10,6 +10,7 @@ import * as tutorPaymentActions from '../actions/tutor-payment.actions';
 import {
   loadTutorPaymentDetails,
   tutorCreateDispute,
+  tutorRequestPayment,
 } from '../actions/tutor-payment.actions';
 
 @Injectable()
@@ -76,6 +77,24 @@ export class TutorPaymentEffects {
     )
   );
 
+  tutorRequestPayment$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorPaymentActions.tutorRequestPayment),
+      mergeMap(({ id }) =>
+        this._tutorService.tutorRequestPayment(id).pipe(
+          map(() => tutorPaymentActions.tutorRequestPaymentSuccess()),
+          catchError((error) =>
+            of(
+              tutorPaymentActions.tutorRequestPaymentFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   /*successMessages$ = createEffect(
     () =>
       this._actions$.pipe(
@@ -90,7 +109,12 @@ export class TutorPaymentEffects {
   failureMessages$ = createEffect(
     () =>
       this._actions$.pipe(
-        ofType(...[tutorPaymentActions.tutorCreateDisputeFailure]),
+        ofType(
+          ...[
+            tutorPaymentActions.tutorCreateDisputeFailure,
+            tutorPaymentActions.tutorRequestPaymentFailure,
+          ]
+        ),
         map((action) => {
           if (action.error) {
             return this._alertNotificationService.error(action.error);

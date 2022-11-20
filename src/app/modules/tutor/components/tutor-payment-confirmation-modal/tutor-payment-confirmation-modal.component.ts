@@ -9,9 +9,11 @@ export class TutorPaymentConfirmationModalComponent implements OnInit {
   @Input() payments: any;
   @Input() loading: boolean = false;
   @Input() showModal: boolean = false;
+  @Input() requestingPayment: boolean = false;
 
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
 
+  @Output() requestPayment: EventEmitter<any> = new EventEmitter<any>();
   @Output() openDisputeModal: EventEmitter<any> = new EventEmitter<any>();
 
   disputedClasses: number[] = [];

@@ -261,9 +261,9 @@
   </div>
 </div>
 
-<metutors-tutor-dispute-payment-modal *ngIf="showDisputePaymentModal$ | async"
+<!--<metutors-tutor-dispute-payment-modal *ngIf="showDisputePaymentModal$ | async"
                                       [showModal]="(showDisputePaymentModal$ | async)!">
-</metutors-tutor-dispute-payment-modal>
+</metutors-tutor-dispute-payment-modal>-->
 
 <metutors-tutor-payment-success-modal *ngIf="showPaymentSuccessModal$ | async" (closeModal)="onCloseSuccessModal()"
                                       [showModal]="(showPaymentSuccessModal$ | async)!">
@@ -271,13 +271,15 @@
 
 <metutors-tutor-dispute-modal *ngIf="showDisputeModal$ | async" (closeModal)="onCloseDisputeModal()"
                               [showModal]="(showDisputeModal$ | async)!" [data]="disputeModalData"
-                              [creating]="(isCreatingDispute$ | async)!"
+                              [creating]="(isLoading$ | async)!"
                               (submitReason)="onSubmitDisputeReason($event)">
 </metutors-tutor-dispute-modal>
 
 <metutors-tutor-payment-confirmation-modal *ngIf="showConfirmPaymentModal$ | async" (closeModal)="onClosePaymentModal()"
                                            [loading]="(isLoadingPaymentDetails$ | async)!"
                                            [payments]="(paymentDetails$ | async)!"
+                                           [requestingPayment]="(isLoading$ | async)!"
                                            (openDisputeModal)="onOpenDisputeModal($event)"
+                                           (requestPayment)="onRequestPayment()"
                                            [showModal]="(showConfirmPaymentModal$ | async)!">
 </metutors-tutor-payment-confirmation-modal>

@@ -35,7 +35,7 @@
               <td>{{ course.totalAmount | currency: 'USD' }}</td>
               <td>
                 <mat-checkbox (change)="onSelectDispute(course.courseId)"
-                              ></mat-checkbox>
+                ></mat-checkbox>
               </td>
               <td>
                 <span class="text-secondary" *ngIf="!(+course.isDispute)">N/A</span>
@@ -61,7 +61,7 @@
           </button>
 
           <button mat-flat-button color="primary" class=""
-                  [disabled]="!!disputedClasses.length">{{ 'CONFIRM_PAYMENT' | translate }}</button>
+                  [disabled]="!!disputedClasses.length || requestingPayment" (click)="requestPayment.emit()">{{ 'CONFIRM_PAYMENT' | translate }}</button>
         </div>
       </div>
     </ng-container>

@@ -43,3 +43,17 @@ export const tutorCreateDisputeFailure = createAction(
   '[Tutor] Tutor Create Dispute Failure',
   props<{ error: any }>()
 );
+
+export const tutorRequestPayment = createAction(
+  '[Tutor] Tutor Request Payment',
+  props<{ id: string }>()
+);
+
+export const tutorRequestPaymentSuccess = createAction(
+  '[Tutor] Tutor Request Payment'
+);
+
+export const tutorRequestPaymentFailure = createAction(
+  '[Tutor] Tutor Request Payment Failure',
+  props<{ error: any }>()
+);

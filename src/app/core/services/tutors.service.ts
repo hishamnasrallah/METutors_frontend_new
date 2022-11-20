@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { ITutor, SubmitInterviewInput, IExploreTutorsFilters } from '@models';
+import { tutorRequestPayment } from '@metutor/core/state';
 
 @Injectable({
   providedIn: 'root',
@@ -515,6 +516,13 @@ export class TutorsService {
     return this.http.post<any>(
       `${this.baseUrl}teacher/payments/add-dispute`,
       data
+    );
+  }
+
+  tutorRequestPayment(id: any): Observable<any> {
+    return this.http.post<any>(
+      `${this.baseUrl}teacher/payments/add-dispute/${id}`,
+      {}
     );
   }
 }
