@@ -29,3 +29,18 @@ export const loadTutorPaymentDetailsFailure = createAction(
   '[Tutor] Load Tutor Payment Details Failure',
   props<{ error: any }>()
 );
+
+export const tutorCreateDispute = createAction(
+  '[Tutor] Tutor Create Dispute',
+  props<{ payload: any }>()
+);
+
+export const tutorCreateDisputeSuccess = createAction(
+  '[Tutor] Tutor Create Dispute Success',
+  props<{ message: string }>()
+);
+
+export const tutorCreateDisputeFailure = createAction(
+  '[Tutor] Tutor Create Dispute Failure',
+  props<{ error: any }>()
+);

@@ -510,4 +510,11 @@ export class TutorsService {
         )
       );
   }
+
+  tutorCreateDispute(data: any): Observable<any> {
+    return this.http.post<any>(
+      `${this.baseUrl}teacher/payments/add-dispute`,
+      data
+    );
+  }
 }

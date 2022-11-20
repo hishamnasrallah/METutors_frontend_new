@@ -17,6 +17,7 @@ import { IUser } from '@metutor/core/models';
 import * as fromCore from '@metutor/core/state';
 import * as fromTutor from '@metutor/modules/tutor/state';
 import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
+import { selectTutorPaymentLoading } from '@metutor/core/state';
 
 @Component({
   selector: 'metutors-tutor-payment-records',
@@ -49,6 +50,7 @@ export class TutorPaymentRecordsComponent implements OnInit {
   user$: Observable<IUser | null>;
   paymentDetails$: Observable<any>;
   showDisputeModal$: Observable<boolean>;
+  isCreatingDispute$: Observable<boolean>;
   showDisputePaymentModal$: Observable<boolean>;
   showConfirmPaymentModal$: Observable<boolean>;
   isLoadingPaymentDetails$: Observable<boolean>;
@@ -109,7 +111,7 @@ export class TutorPaymentRecordsComponent implements OnInit {
       courses: this.disputeModalData.courses,
     };
 
-    console.log(payload);
+    this._store.dispatch(fromCore.tutorCreateDispute({ payload }));
   }
 
   ngOnInit(): void {
@@ -132,6 +134,10 @@ export class TutorPaymentRecordsComponent implements OnInit {
 
     this.isLoadingPaymentDetails$ = this._store.select(
       fromCore.selectIsLoadingTutorPaymentDetails
+    );
+
+    this.isCreatingDispute$ = this._store.select(
+      fromCore.selectTutorPaymentLoading
     );
 
     this._store.dispatch(fromCore.loadTutorPayments({ status: 'pending' }));

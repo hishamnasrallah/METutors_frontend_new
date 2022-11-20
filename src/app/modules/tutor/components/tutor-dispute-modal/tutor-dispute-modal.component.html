@@ -6,6 +6,7 @@
 
       <div class="" *ngSwitchCase="'submitReason'">
         <form [formGroup]="form" (ngSubmit)="submitReason.emit(form.value)" >
+          <metutors-char-counter [limit]="800" [controlName]="disputeReason"></metutors-char-counter>
           <textarea rows="7" class="custom-input w-100 input-bordered" id="message"
                     placeholder="{{ 'DISPUTE_REASON_PLACEHOLDER' | translate }}"
                     formControlName="reason"></textarea>
@@ -13,7 +14,7 @@
             {{ 'SUBMIT_DISPUTE_REASON_ERROR' | translate }}
           </div>
 
-          <metutors-submit-button [form]="form" [isSubmitting]="submitting" class="mt-2 float-end">
+          <metutors-submit-button [form]="form" [isSubmitting]="creating" class="mt-2 float-end">
             {{ 'SUBMIT' | translate }}
           </metutors-submit-button>
         </form>

@@ -7,7 +7,10 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { TutorsService } from '@services';
 import { AlertNotificationService } from '@metutor/core/components';
 import * as tutorPaymentActions from '../actions/tutor-payment.actions';
-import { loadTutorPaymentDetails } from '../actions/tutor-payment.actions';
+import {
+  loadTutorPaymentDetails,
+  tutorCreateDispute,
+} from '../actions/tutor-payment.actions';
 
 @Injectable()
 export class TutorPaymentEffects {
@@ -55,10 +58,32 @@ export class TutorPaymentEffects {
     )
   );
 
-  /*  successMessages$ = createEffect(
+  tutorCreateDispute$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorPaymentActions.tutorCreateDispute),
+      mergeMap(({ payload }) =>
+        this._tutorService.tutorCreateDispute(payload).pipe(
+          map(() =>
+            tutorPaymentActions.tutorCreateDisputeSuccess({
+              message: 'success',
+            })
+          ),
+          catchError((error) =>
+            of(
+              tutorPaymentActions.tutorCreateDisputeFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  successMessages$ = createEffect(
     () =>
       this._actions$.pipe(
-        ofType(...[]),
+        ofType(...[tutorPaymentActions.tutorCreateDisputeSuccess]),
         map(({ message }) => this._alertNotificationService.success(message))
       ),
     {
@@ -66,10 +91,10 @@ export class TutorPaymentEffects {
     }
   );
 
-failureMessages$ = createEffect(
+  failureMessages$ = createEffect(
     () =>
       this._actions$.pipe(
-        ofType(...[]),
+        ofType(...[tutorPaymentActions.tutorCreateDisputeFailure]),
         map((action) => {
           if (action.error) {
             return this._alertNotificationService.error(action.error);
@@ -81,7 +106,7 @@ failureMessages$ = createEffect(
     {
       dispatch: false,
     }
-  );*/
+  );
 
   constructor(
     private _store: Store<any>,

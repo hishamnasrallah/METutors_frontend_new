@@ -6,6 +6,7 @@ export interface State {
   payments: any;
   isLoading: boolean;
   paymentDetails: any;
+  isLoadingPayments: boolean;
   isLoadingPaymentDetails: boolean;
 }
 
@@ -13,26 +14,43 @@ export const initialState: State = {
   payments: null,
   isLoading: false,
   paymentDetails: null,
+  isLoadingPayments: false,
   isLoadingPaymentDetails: false,
 };
 
 export const reducer = createReducer(
   initialState,
 
-  on(tutorPaymentActions.loadTutorPayments, (state) => ({
+  // General loading
+  on(tutorPaymentActions.tutorCreateDispute, (state) => ({
     ...state,
     isLoading: true,
+  })),
+
+  on(tutorPaymentActions.tutorCreateDisputeFailure, (state) => ({
+    ...state,
+    isLoading: false,
+  })),
+
+  on(tutorPaymentActions.tutorCreateDisputeSuccess, (state) => ({
+    ...state,
+    isLoading: false,
+  })),
+
+  on(tutorPaymentActions.loadTutorPayments, (state) => ({
+    ...state,
+    isLoadingPayments: true,
   })),
 
   on(tutorPaymentActions.loadTutorPaymentsSuccess, (state, { payments }) => ({
     ...state,
     payments,
-    isLoading: false,
+    isLoadingPayments: false,
   })),
 
   on(tutorPaymentActions.loadTutorPaymentsFailure, (state) => ({
     ...state,
-    isLoading: false,
+    isLoadingPayments: false,
   })),
 
   on(tutorPaymentActions.loadTutorPaymentDetails, (state) => ({
@@ -61,7 +79,10 @@ export const selectTutorPaymentDetails = (state: State): any =>
   state.paymentDetails;
 
 export const selectIsLoadingTutorPayments = (state: State): boolean =>
-  state.isLoading;
+  state.isLoadingPayments;
 
 export const selectIsLoadingTutorPaymentDetails = (state: State): boolean =>
   state.isLoadingPaymentDetails;
+
+export const selectTutorPaymentLoading = (state: State): boolean =>
+  state.isLoading;

@@ -30,7 +30,8 @@
                     <td>{{ payment.month }}</td>
                     <td>{{ payment.totalAmount | currency: 'USD' }}</td>
                     <td>
-                      <button class="status text-capitalize {{ payment.status }}" mat-button>{{ payment.status }}</button>
+                      <button class="status text-capitalize {{ payment.status }}"
+                              mat-button>{{ payment.status }}</button>
                     </td>
                     <td>
                       <button mat-flat-button class="rounded d-block border border-main py-0 px-3 text-main"
@@ -71,7 +72,8 @@
                             <td>{{ course.totalAmount | currency: 'USD' }}</td>
                           </tr>
                           <tr>
-                            <td colspan="3" align="right" class="bg-secondary-light">{{ payment.totalClasses }} {{ +(payment?.totalClasses)! > 1 ? ('CLASSES_SM' | translate) : ('CLASS_SM' | translate) }}
+                            <td colspan="3" align="right"
+                                class="bg-secondary-light">{{ payment.totalClasses }} {{ +(payment?.totalClasses)! > 1 ? ('CLASSES_SM' | translate) : ('CLASS_SM' | translate) }}
                             </td>
                             <td colspan="5" align="right" class="bg-secondary-light"><span
                               class="fw-bold">{{ payment.totalAmount | currency: 'USD' }}</span></td>
@@ -116,7 +118,8 @@
                     <td>{{ payment.totalAmount | currency: 'USD' }}</td>
                     <td>{{ payment.method }}</td>
                     <td>
-                      <button class="status text-capitalize {{ payment.status }}" mat-button>{{ payment.status }}</button>
+                      <button class="status text-capitalize {{ payment.status }}"
+                              mat-button>{{ payment.status }}</button>
                     </td>
                     <td>
                       <button mat-flat-button class="rounded d-block border border-main py-0 px-3 text-main"
@@ -159,7 +162,8 @@
                           </tr>
 
                           <tr>
-                            <td colspan="3" align="right" class="bg-secondary-light">{{ payment.totalClasses }} {{ +(payment?.totalClasses)! > 1 ? ('CLASSES_SM' | translate) : ('CLASS_SM' | translate) }}
+                            <td colspan="3" align="right"
+                                class="bg-secondary-light">{{ payment.totalClasses }} {{ +(payment?.totalClasses)! > 1 ? ('CLASSES_SM' | translate) : ('CLASS_SM' | translate) }}
                             </td>
                             <td colspan="5" align="right" class="bg-secondary-light"><span
                               class="fw-bold">{{ payment.totalAmount | currency: 'USD' }}</span></td>
@@ -198,7 +202,8 @@
                     <td>{{ payment.totalAmount | currency: 'USD' }}</td>
                     <td>{{ payment.method }}</td>
                     <td>
-                      <button class="status text-capitalize {{ payment.status }}" mat-button>{{ payment.status }}</button>
+                      <button class="status text-capitalize {{ payment.status }}"
+                              mat-button>{{ payment.status }}</button>
                     </td>
                     <td><img src="assets/svg/arrow-up.svg" draggable="false" class="cursor-pointer" alt=""
                              [class.rotate-180]="showClasses"
@@ -236,7 +241,8 @@
                           </tr>
 
                           <tr>
-                            <td colspan="3" align="right" class="bg-secondary-light">{{ payment.totalClasses }} {{ +(payment?.totalClasses)! > 1 ? ('CLASSES_SM' | translate) : ('CLASS_SM' | translate) }}
+                            <td colspan="3" align="right"
+                                class="bg-secondary-light">{{ payment.totalClasses }} {{ +(payment?.totalClasses)! > 1 ? ('CLASSES_SM' | translate) : ('CLASS_SM' | translate) }}
                             </td>
                             <td colspan="5" align="right" class="bg-secondary-light"><span
                               class="fw-bold">{{ payment.totalAmount | currency: 'USD' }}</span></td>
@@ -261,7 +267,8 @@
 
 <metutors-tutor-dispute-modal *ngIf="showDisputeModal$ | async" (closeModal)="onCloseDisputeModal()"
                               [showModal]="(showDisputeModal$ | async)!" [data]="disputeModalData"
-                               (submitReason)="onSubmitDisputeReason($event)">
+                              [creating]="(isCreatingDispute$ | async)!"
+                              (submitReason)="onSubmitDisputeReason($event)">
 </metutors-tutor-dispute-modal>
 
 <metutors-tutor-payment-confirmation-modal *ngIf="showConfirmPaymentModal$ | async" (closeModal)="onClosePaymentModal()"

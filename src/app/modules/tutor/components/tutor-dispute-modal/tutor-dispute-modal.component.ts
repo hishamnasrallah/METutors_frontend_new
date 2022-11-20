@@ -13,7 +13,7 @@ import {
 })
 export class TutorDisputeModalComponent implements OnInit {
   @Input() data: any;
-  @Input() submitting: boolean;
+  @Input() creating: boolean;
   @Input() showModal: boolean = false;
 
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
