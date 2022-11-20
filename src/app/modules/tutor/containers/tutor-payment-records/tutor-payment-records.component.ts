@@ -17,7 +17,6 @@ import { IUser } from '@metutor/core/models';
 import * as fromCore from '@metutor/core/state';
 import * as fromTutor from '@metutor/modules/tutor/state';
 import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
-import { selectTutorPaymentLoading } from '@metutor/core/state';
 
 @Component({
   selector: 'metutors-tutor-payment-records',
@@ -53,6 +52,7 @@ export class TutorPaymentRecordsComponent implements OnInit {
   isCreatingDispute$: Observable<boolean>;
   showDisputePaymentModal$: Observable<boolean>;
   showConfirmPaymentModal$: Observable<boolean>;
+  showPaymentSuccessModal$: Observable<boolean>;
   isLoadingPaymentDetails$: Observable<boolean>;
   view$: Observable<{ loading: boolean; payments: any }>;
 
@@ -98,6 +98,10 @@ export class TutorPaymentRecordsComponent implements OnInit {
     // this._store.dispatch(fromTutorAction.closeDisputePaymentModal());
   }
 
+  onCloseSuccessModal(): void {
+    this._store.dispatch(fromTutorAction.closePaymentSuccessModal());
+  }
+
   onOpenDisputeModal(data: any): void {
     this.disputeModalData = data;
     this._store.dispatch(fromTutorAction.openDisputeModal());
@@ -126,6 +130,10 @@ export class TutorPaymentRecordsComponent implements OnInit {
 
     this.showConfirmPaymentModal$ = this._store.select(
       fromTutor.selectConfirmPaymentModal
+    );
+
+    this.showPaymentSuccessModal$ = this._store.select(
+      fromTutor.selectPaymentSuccessModal
     );
 
     this.paymentDetails$ = this._store.select(

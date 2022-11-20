@@ -176,3 +176,7 @@ export const openDisputeModal = createAction(
 export const closeDisputeModal = createAction(
   '[Tutor Modal] Close Dispute Modal'
 );
+
+export const closePaymentSuccessModal = createAction(
+  '[Tutor Modal] Close Payment Success Modal'
+);

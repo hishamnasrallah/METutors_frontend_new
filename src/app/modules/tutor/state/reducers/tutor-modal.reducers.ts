@@ -18,6 +18,7 @@ export interface State {
   showViewAssignmentModal: boolean;
   acceptRejectModalHeading: string;
   showUploadDocumentModal: boolean;
+  showPaymentSuccessModal: boolean;
   showRescheduleClassModal: boolean;
   showSubmitInterviewModal: boolean;
   showCourseAttendanceModal: boolean;
@@ -41,6 +42,7 @@ export const initialState: State = {
   showUploadDocumentModal: false,
   showViewAssignmentModal: false,
   showDisputePaymentModal: false,
+  showPaymentSuccessModal: false,
   showRescheduleClassModal: false,
   showSubmitInterviewModal: false,
   showCourseAttendanceModal: false,
@@ -306,6 +308,17 @@ export const reducer = createReducer(
   on(tutorModalActions.closeDisputeModal, (state) => ({
     ...state,
     showDisputeModal: false,
+  })),
+
+  on(fromCore.tutorCreateDisputeSuccess, (state) => ({
+    ...state,
+    showDisputeModal: false,
+    showPaymentSuccessModal: true,
+  })),
+
+  on(tutorModalActions.closePaymentSuccessModal, (state) => ({
+    ...state,
+    showPaymentSuccessModal: false,
   }))
 );
 
@@ -365,3 +378,6 @@ export const selectDisputePaymentModal = (state: State): boolean =>
 
 export const selectDisputeModal = (state: State): boolean =>
   state.showDisputeModal;
+
+export const selectPaymentSuccessModal = (state: State): boolean =>
+  state.showPaymentSuccessModal;

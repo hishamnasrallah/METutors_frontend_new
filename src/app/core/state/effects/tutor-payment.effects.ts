@@ -63,11 +63,7 @@ export class TutorPaymentEffects {
       ofType(tutorPaymentActions.tutorCreateDispute),
       mergeMap(({ payload }) =>
         this._tutorService.tutorCreateDispute(payload).pipe(
-          map(() =>
-            tutorPaymentActions.tutorCreateDisputeSuccess({
-              message: 'success',
-            })
-          ),
+          map(() => tutorPaymentActions.tutorCreateDisputeSuccess()),
           catchError((error) =>
             of(
               tutorPaymentActions.tutorCreateDisputeFailure({
@@ -80,16 +76,16 @@ export class TutorPaymentEffects {
     )
   );
 
-  successMessages$ = createEffect(
+  /*successMessages$ = createEffect(
     () =>
       this._actions$.pipe(
-        ofType(...[tutorPaymentActions.tutorCreateDisputeSuccess]),
+        ofType(...[]),
         map(({ message }) => this._alertNotificationService.success(message))
       ),
     {
       dispatch: false,
     }
-  );
+  );*/
 
   failureMessages$ = createEffect(
     () =>

@@ -1544,5 +1544,7 @@
   "DISPUTE": "Dispute",
   "CONFIRM_PAYMENT": "Confirm payment",
   "SUBMIT_DISPUTE_REASON_ERROR": "Please write your reason with a max of 800 characters",
-  "DISPUTE_REASON_PLACEHOLDER": "Enter the reason here..."
+  "DISPUTE_REASON_PLACEHOLDER": "Enter the reason here...",
+  "DISPUTE_SUBMIT_SUCCESS": "Dispute submitted successfully",
+  "GO_TO_DASHBOARD": "Go to dashboard"
 }

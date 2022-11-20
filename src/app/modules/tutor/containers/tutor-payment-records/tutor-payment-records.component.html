@@ -265,6 +265,10 @@
                                       [showModal]="(showDisputePaymentModal$ | async)!">
 </metutors-tutor-dispute-payment-modal>
 
+<metutors-tutor-payment-success-modal *ngIf="showPaymentSuccessModal$ | async" (closeModal)="onCloseSuccessModal()"
+                                      [showModal]="(showPaymentSuccessModal$ | async)!">
+</metutors-tutor-payment-success-modal>
+
 <metutors-tutor-dispute-modal *ngIf="showDisputeModal$ | async" (closeModal)="onCloseDisputeModal()"
                               [showModal]="(showDisputeModal$ | async)!" [data]="disputeModalData"
                               [creating]="(isCreatingDispute$ | async)!"

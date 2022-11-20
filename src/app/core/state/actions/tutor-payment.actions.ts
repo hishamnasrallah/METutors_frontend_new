@@ -36,8 +36,7 @@ export const tutorCreateDispute = createAction(
 );
 
 export const tutorCreateDisputeSuccess = createAction(
-  '[Tutor] Tutor Create Dispute Success',
-  props<{ message: string }>()
+  '[Tutor] Tutor Create Dispute Success'
 );
 
 export const tutorCreateDisputeFailure = createAction(
