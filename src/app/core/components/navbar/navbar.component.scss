@@ -5,6 +5,10 @@
   -webkit-transition: .5s ease-in-out;
   border-radius: 0;
   background-color: #FFF;
+  position: fixed;
+  right: 0;
+  left: 0;
+  z-index: 99;
 
   .btn-nav {
     margin-right: 10px;
@@ -93,49 +97,56 @@
   }
 }
 
-.dropdown-menu {
-  border: none;
-  border-radius: 6px;
-  box-shadow: 0 16px 30px 0 rgb(0 0 0 / 5%);
+.home-header-sm {
+  position: fixed;
+  right: 0;
+  left: 0;
+  z-index: 99;
 
-  .name {
-    font-size: 18px;
-    font-weight: bold;
-    color: #1a1714;
-  }
+  .dropdown-menu {
+    border: none;
+    border-radius: 6px;
+    box-shadow: 0 16px 30px 0 rgb(0 0 0 / 5%);
 
-  .email {
-    font-size: 12px;
-    color: #4c453d;
-  }
+    .name {
+      font-size: 18px;
+      font-weight: bold;
+      color: #1a1714;
+    }
 
-  .dropdown-item.active,
-  .dropdown-item:active {
-    color: #1e2125;
-    background-color: #e9ecef;
-  }
+    .email {
+      font-size: 12px;
+      color: #4c453d;
+    }
 
-  .dropdown-divider {
-    border-top: 1px solid rgba(153, 138, 122, 0.4);
-  }
+    .dropdown-item.active,
+    .dropdown-item:active {
+      color: #1e2125;
+      background-color: #e9ecef;
+    }
 
-  .dropdown-item {
-    font-size: 16px;
-    font-weight: 500;
-    color: #182522;
-    padding: 9px 20px;
-  }
+    .dropdown-divider {
+      border-top: 1px solid rgba(153, 138, 122, 0.4);
+    }
 
-  .button-auth {
-    font-weight: bold;
-    padding: 10px 0;
-  }
+    .dropdown-item {
+      font-size: 16px;
+      font-weight: 500;
+      color: #182522;
+      padding: 9px 20px;
+    }
 
-  .book-class {
-    padding: 0 10px;
+    .button-auth {
+      font-weight: bold;
+      padding: 10px 0;
+    }
 
-    .login {
-      color: #FFF;
+    .book-class {
+      padding: 0 10px;
+
+      .login {
+        color: #FFF;
+      }
     }
   }
 }

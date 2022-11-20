@@ -104,6 +104,10 @@
       &:hover {
         background-color: transparent;
         border-color: transparent;
+
+        span {
+          color: var(--main-color);
+        }
       }
 
       .svg-icon {
@@ -116,6 +120,7 @@
 
       span {
         text-decoration: underline;
+        transition: all 0.25s ease-in-out;
         color: #FFF;
       }
     }

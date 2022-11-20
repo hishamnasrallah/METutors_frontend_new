@@ -607,6 +607,7 @@
   "TIME": "Time",
   "DURATION": "Duration",
   "CLASSROOM_TUTOR": "Classroom tutor",
+  "METUTORS_PROVIDE_TUTOR_COURSE": "MEtutors will provide a tutor for this course",
   "DELETE_CLASSROOM": "Delete classroom",
   "SURE_DELETE_CLASSROOM": "Are you sure to delete this classroom for this course?",
   "EDIT_CLASSROOM": "Edit classroom",

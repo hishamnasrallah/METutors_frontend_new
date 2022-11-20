@@ -55,8 +55,10 @@ export class SelectTutorFormComponent implements OnInit {
   }
   @Input() set duration(value: number) {
     if (value) {
-      this._duration = value;
       this.schedule = '';
+      this._duration = value;
+      this.tutor?.setValue(null);
+      this.tutor?.updateValueAndValidity();
     }
   }
 
@@ -95,6 +97,8 @@ export class SelectTutorFormComponent implements OnInit {
   }
 
   onChangeSchedule(data: any): void {
+    this.tutor?.setValue(null);
+
     if (data.value === '1') {
       this.tutor?.setValidators([Validators.required]);
       this.tutor?.updateValueAndValidity();
