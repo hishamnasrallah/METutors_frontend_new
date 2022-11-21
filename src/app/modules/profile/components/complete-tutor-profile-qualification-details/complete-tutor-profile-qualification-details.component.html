@@ -86,7 +86,7 @@
 
       <div class="col-md-6">
         <div class="form-group">
-          <label for="currentEmployer" class="form-label">{{ 'CURRENT_EMPLOYER' | translate }} <span>({{ 'OPTIONAL' | translate }})</span></label>
+          <label for="currentEmployer" class="form-label">{{ 'CURRENT_EMPLOYER' | translate }}</label>
           <input type="text" class="custom-input w-100 input-bordered" id="currentEmployer" placeholder="{{ 'ENTER_CURRENT_EMPLOYER' | translate }}"
                  formControlName="currentEmployer" meTutorsTrimInput>
           <div class="text-danger" *ngIf="currentEmployer?.touched && currentEmployer?.invalid">
@@ -113,7 +113,7 @@
 
       <div class="col-md-6">
         <div class="form-group">
-          <label for="currentTitle" class="form-label">{{ 'CURRENT_TITLE' | translate }} <span>({{ 'OPTIONAL' | translate }})</span></label>
+          <label for="currentTitle" class="form-label">{{ 'CURRENT_TITLE' | translate }}</label>
           <input type="text" class="custom-input w-100 input-bordered" id="currentTitle" placeholder="{{ 'ENTER_CURRENT_TITLE' | translate }}"
                  formControlName="currentTitle" meTutorsLettersOnly meTutorsTrimInput>
           <div class="text-danger" *ngIf="currentTitle?.touched && currentTitle?.invalid">
@@ -141,7 +141,7 @@
     <div class="row mb-4 mt-3">
       <div class="col-md-12">
         <div class="d-flex justify-content-between">
-          <label for="currentTitle" class="form-label">{{ 'CURRICULUM_VITAE' | translate }}<span
+          <label class="form-label">{{ 'CURRICULUM_VITAE' | translate }}<span
             class="size">({{ 'MAX_5_MB' | translate }})</span></label>
           <span class="text-decoration-underline" (click)="resumePicker.click()"
                 [ngClass]="{'text-main cursor-pointer' : !resume?.value?.length, 'text-secondary pointer-events-none' : resume?.value?.length}">{{ 'UPLOAD_DOCUMENT' | translate }}</span>
@@ -184,7 +184,7 @@
     <div class="row mb-4">
       <div class="col-md-12">
         <div class="d-flex justify-content-between">
-          <label for="currentTitle" class="form-label">{{ 'DEGREE_CERTIFICATES' | translate }} <span class="size">({{ 'MAX_5_MB' | translate }})</span></label>
+          <label class="form-label">{{ 'DEGREE_CERTIFICATES' | translate }} <span class="size">({{ 'MAX_5_MB' | translate }})</span></label>
           <span class="text-decoration-underline" (click)="degree.click()"
                 [ngClass]="{'text-main cursor-pointer' : !degrees?.value?.length || degrees?.value?.length < 10, 'text-secondary pointer-events-none' : degrees?.value?.length >= 10}">{{ 'UPLOAD_DOCUMENT' | translate }}</span>
 
@@ -227,7 +227,7 @@
     <div class="row mb-4">
       <div class="col-md-12">
         <div class="d-flex justify-content-between">
-          <label for="currentTitle" class="form-label">{{ 'OTHER_CERTIFICATIONS' | translate }} <span class="size">({{ 'MAX_5_MB' | translate }})</span></label>
+          <label class="form-label">{{ 'OTHER_CERTIFICATIONS' | translate }} <span class="size">({{ 'MAX_5_MB' | translate }})</span></label>
           <span class="text-decoration-underline"
                 (click)="certificate.click()"
                 [ngClass]="{'text-main cursor-pointer' : !certificates?.value?.length || certificates?.value?.length < 10, 'text-secondary pointer-events-none' : certificates?.value?.length >= 10}">{{ 'UPLOAD_DOCUMENT' | translate }}</span>
@@ -270,7 +270,7 @@
 
     <div class="row mb-4">
       <div class="col-md-12">
-        <label for="currentTitle" class="form-label">{{ 'ONBOARDING_DOCUMENT' | translate }}</label>
+        <label class="form-label">{{ 'ONBOARDING_DOCUMENT' | translate }}</label>
         <p>{{ 'SIGN_ONBOARDING_DOCUMENT' | translate }}</p>
 
         <div class="table-responsive">
