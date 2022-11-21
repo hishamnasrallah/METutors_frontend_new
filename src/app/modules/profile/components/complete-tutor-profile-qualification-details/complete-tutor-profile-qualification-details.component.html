@@ -7,7 +7,7 @@
         <div class="form-group">
           <label for="nameOfUniversity" class="form-label">{{ 'NAME_UNIVERSITY' | translate }}</label>
           <input type="text" class="custom-input w-100 input-bordered" id="nameOfUniversity" placeholder="{{ 'ENTER_UNIVERSITY_NAME' | translate }}"
-                 formControlName="nameOfUniversity" meTutorsLettersOnly>
+                 formControlName="nameOfUniversity" meTutorsLettersOnly meTutorsTrimInput>
           <div class="text-danger" *ngIf="nameOfUniversity?.touched && nameOfUniversity?.invalid">
             {{ 'VALID_UNIVERSITY_NAME' | translate }}
           </div>
@@ -88,7 +88,7 @@
         <div class="form-group">
           <label for="currentEmployer" class="form-label">{{ 'CURRENT_EMPLOYER' | translate }} <span>({{ 'OPTIONAL' | translate }})</span></label>
           <input type="text" class="custom-input w-100 input-bordered" id="currentEmployer" placeholder="{{ 'ENTER_CURRENT_EMPLOYER' | translate }}"
-                 formControlName="currentEmployer">
+                 formControlName="currentEmployer" meTutorsTrimInput>
           <div class="text-danger" *ngIf="currentEmployer?.touched && currentEmployer?.invalid">
             {{ 'WRITE_VALID_CURRENT_EMPLOYER' | translate }}
           </div>
@@ -115,7 +115,7 @@
         <div class="form-group">
           <label for="currentTitle" class="form-label">{{ 'CURRENT_TITLE' | translate }} <span>({{ 'OPTIONAL' | translate }})</span></label>
           <input type="text" class="custom-input w-100 input-bordered" id="currentTitle" placeholder="{{ 'ENTER_CURRENT_TITLE' | translate }}"
-                 formControlName="currentTitle" meTutorsLettersOnly>
+                 formControlName="currentTitle" meTutorsLettersOnly meTutorsTrimInput>
           <div class="text-danger" *ngIf="currentTitle?.touched && currentTitle?.invalid">
             {{ 'WRITE_VALID_CURRENT_TITLE' | translate }}
           </div>

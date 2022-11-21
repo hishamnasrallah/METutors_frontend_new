@@ -127,7 +127,7 @@
           <div class="form-group">
             <label for="firstName" class="form-label">{{ 'FIRST_NAME' | translate }}</label>
             <input type="text" class="custom-input w-100 input-bordered" id="firstName"
-                   placeholder="{{ 'FIRST_NAME' | translate }}"
+                   placeholder="{{ 'FIRST_NAME' | translate }}" meTutorsTrimInput
                    formControlName="firstName" meTutorsLettersOnly>
             <div class="text-danger" *ngIf="firstName?.touched && firstName?.invalid">
               {{ 'WRITE_VALID_FIRST_NAME' | translate }}
@@ -139,7 +139,7 @@
           <div class="form-group">
             <label for="lastName" class="form-label">{{ 'LAST_NAME' | translate }}</label>
             <input type="text" class="custom-input w-100 input-bordered" id="lastName"
-                   placeholder="{{ 'LAST_NAME' | translate }}"
+                   placeholder="{{ 'LAST_NAME' | translate }}" meTutorsTrimInput
                    formControlName="lastName" meTutorsLettersOnly>
             <div class="text-danger" *ngIf="lastName?.touched && lastName?.invalid">
               {{ 'WRITE_VALID_LAST_NAME' | translate }}
@@ -153,7 +153,7 @@
             <label for="middleName" class="form-label">{{ 'MIDDLE_NAME' | translate }}
               <span>({{ 'OPTIONAL' | translate }})</span></label>
             <input type="text" class="custom-input w-100 input-bordered" id="middleName"
-                   placeholder="{{ 'ENTER_MIDDLE_NAME' | translate }}"
+                   placeholder="{{ 'ENTER_MIDDLE_NAME' | translate }}" meTutorsTrimInput
                    formControlName="middleName" meTutorsLettersOnly>
             <div class="text-danger" *ngIf="middleName?.touched && middleName?.invalid">
               {{ 'WRITE_VALID_NAME' | translate }}
@@ -164,7 +164,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="email" class="form-label">{{ 'EMAIL_ADDRESS' | translate }}</label>
-            <input type="text" class="custom-input w-100 input-bordered" id="email" [value]="tutor?.email" readonly>
+            <input type="email" class="custom-input w-100 input-bordered" id="email" [value]="tutor?.email" readonly>
           </div>
         </div>
       </div>
@@ -276,7 +276,7 @@
             <label for="address" class="form-label">{{ 'ADDRESS_1' | translate }}</label>
             <input type="text" class="custom-input w-100 input-bordered" id="address"
                    placeholder="{{ 'ENTER_STREET_ADDRESS' | translate }}"
-                   formControlName="address">
+                   formControlName="address" meTutorsTrimInput>
             <div class="text-danger" *ngIf="address?.touched && address?.invalid">
               {{ 'ADDRESS_CHARACTERS' | translate }}
             </div>
@@ -302,7 +302,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="address2" class="form-label">{{ 'ADDRESS_2' | translate }} ({{ 'OPTIONAL' | translate }})</label>
-            <input type="text" class="custom-input w-100 input-bordered" id="address2"
+            <input type="text" class="custom-input w-100 input-bordered" id="address2" meTutorsTrimInput
                    placeholder="{{ 'ENTER_STREET_ADDRESS' | translate }}" formControlName="address2">
             <div class="text-danger" *ngIf="address2?.touched && address2?.invalid">
               {{ 'ADDRESS_CHARACTERS' | translate }}
@@ -312,7 +312,7 @@
             <label for="postalCode" class="form-label">{{ 'POSTAL_CODE' | translate }}</label>
             <input type="text" class="custom-input w-100 input-bordered" id="postalCode"
                    placeholder="{{ 'POSTAL_CODE' | translate }}"
-                   formControlName="postalCode">
+                   formControlName="postalCode" meTutorsTrimInput>
             <div class="text-danger" *ngIf="postalCode?.touched && postalCode?.invalid">
               {{ 'WRITE_VALID_POSTAL_CODE' | translate }}
             </div>
@@ -341,7 +341,7 @@
             <label for="nameOfUniversity" class="form-label">{{ 'NAME_UNIVERSITY' | translate }}</label>
             <input type="text" class="custom-input w-100 input-bordered" id="nameOfUniversity"
                    placeholder="{{ 'ENTER_UNIVERSITY_NAME' | translate }}"
-                   formControlName="nameOfUniversity" meTutorsLettersOnly>
+                   formControlName="nameOfUniversity" meTutorsLettersOnly meTutorsTrimInput>
             <div class="text-danger" *ngIf="nameOfUniversity?.touched && nameOfUniversity?.invalid">
               {{ 'VALID_UNIVERSITY_NAME' | translate }}
             </div>
@@ -420,7 +420,7 @@
           <div class="form-group">
             <label for="currentEmployer" class="form-label">{{ 'CURRENT_EMPLOYER' | translate }}
               ({{ 'OPTIONAL' | translate }})</label>
-            <input type="text" class="custom-input w-100 input-bordered" id="currentEmployer"
+            <input type="text" class="custom-input w-100 input-bordered" id="currentEmployer" meTutorsTrimInput
                    placeholder="{{ 'ENTER_CURRENT_EMPLOYER' | translate }}" formControlName="currentEmployer">
             <div class="text-danger" *ngIf="currentEmployer?.touched && currentEmployer?.invalid">
               {{ 'WRITE_VALID_CURRENT_EMPLOYER' | translate }}
@@ -449,7 +449,7 @@
               )</label>
             <input type="text" class="custom-input w-100 input-bordered" id="currentTitle"
                    placeholder="{{ 'ENTER_CURRENT_TITLE' | translate }}"
-                   formControlName="currentTitle" meTutorsLettersOnly>
+                   formControlName="currentTitle" meTutorsLettersOnly meTutorsTrimInput>
             <div class="text-danger" *ngIf="currentTitle?.touched && currentTitle?.invalid">
               {{ 'WRITE_VALID_CURRENT_TITLE' | translate }}
             </div>

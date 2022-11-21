@@ -38,7 +38,7 @@
         <div class="col-xl-6">
           <h3>{{ 'FIRST_NAME' | translate }}</h3>
           <input type="text" class="form-control custom-input input-bordered" placeholder="Kamran"
-                 formControlName="first_name">
+                 formControlName="first_name" meTutorsTrimInput>
           <div class="text-danger" *ngIf="firstName?.['touched'] && firstName?.errors?.['required']">
             {{ 'WRITE_VALID_FIRST_NAME' | translate }}
           </div>
@@ -59,7 +59,7 @@
         <div class="col-xl-6">
           <h3>{{ 'LAST_NAME' | translate }}</h3>
           <input type="text" class="form-control custom-input input-bordered" placeholder="Khatti"
-                 formControlName="last_name">
+                 formControlName="last_name" meTutorsTrimInput>
           <div class="text-danger" *ngIf="lastName?.['touched'] && lastName?.errors?.['required']">
             {{ 'WRITE_VALID_LAST_NAME' | translate }}
           </div>
@@ -87,7 +87,7 @@
       <div class="row mb-3 form-group">
         <div class="col-xl-6">
           <h3>{{ 'HEADLINE' | translate }}</h3>
-          <input type="text" class="form-control custom-input input-bordered"
+          <input type="text" class="form-control custom-input input-bordered" meTutorsTrimInput
                  placeholder="{{ 'HEADLINE_PLACEHOLDER' | translate }}" formControlName="headline">
         </div>
       </div>

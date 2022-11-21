@@ -28,7 +28,7 @@
         </div>
         <div class="col-md-6">
           <h3>{{ 'SUBJECT' | translate }}</h3>
-          <input type="text" class="form-control w-100" placeholder="{{ 'SUBJECT' | translate }}" formControlName="subject">
+          <input type="text" class="form-control w-100" placeholder="{{ 'SUBJECT' | translate }}" formControlName="subject" meTutorsTrimInput>
         </div>
         <div class="col-md-6" *ngIf="program?.value === nationalId">
           <h3>{{ 'GRADE_LEVEL' | translate }}</h3>
@@ -73,7 +73,7 @@
         </div>
         <div class="col-md-6">
           <h3>{{ 'NAME' | translate }}</h3>
-          <input type="text" formControlName="name" class="form-control" placeholder="{{ 'NAME' | translate }}">
+          <input type="text" formControlName="name" class="form-control" placeholder="{{ 'NAME' | translate }}" meTutorsTrimInput>
 
           <div *ngIf="name?.invalid && name?.touched">
             <small class="text-danger">{{ 'WRITE_YOUR_NAME' | translate }}</small>

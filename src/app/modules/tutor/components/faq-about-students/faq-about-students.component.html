@@ -9,7 +9,7 @@
         <div class="form-block position-relative rounded">
           <mat-icon>search</mat-icon>
           <input type="text" placeholder="{{ 'ASK_QUESTION' | translate }}" class="w-100 rounded"
-            (keyup)="submitFAQ.emit(searchKey.value)" #searchKey>
+            (keyup)="submitFAQ.emit(searchKey.value)" #searchKey meTutorsTrimInput>
           <button mat-flat-button color="primary" (click)="submitFAQ.emit(searchKey.value)">{{ 'SEARCH' | translate }}</button>
         </div>
       </div>

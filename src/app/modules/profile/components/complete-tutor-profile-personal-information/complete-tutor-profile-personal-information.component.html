@@ -7,7 +7,7 @@
         <div class="form-group">
           <label for="middleName" class="form-label">{{ 'MIDDLE_NAME' | translate }} <span>({{ 'OPTIONAL' | translate }})</span></label>
           <input type="text" class="custom-input w-100 input-bordered" id="middleName" placeholder="{{ 'ENTER_MIDDLE_NAME' | translate }}"
-            formControlName="middleName" meTutorsLettersOnly>
+            formControlName="middleName" meTutorsLettersOnly meTutorsTrimInput>
           <div class="text-danger" *ngIf="middleName?.touched && middleName?.invalid">
             {{ 'WRITE_VALID_NAME' | translate }}
           </div>
@@ -131,7 +131,7 @@
         <div class="form-group">
           <label for="address" class="form-label">{{ 'ADDRESS_1' | translate }}</label>
           <input type="text" class="custom-input w-100 input-bordered" id="address" placeholder="{{ 'ENTER_STREET_ADDRESS' | translate }}"
-            formControlName="address">
+            formControlName="address" meTutorsTrimInput>
           <div class="text-danger" *ngIf="address?.touched && address?.invalid">
             {{ 'ADDRESS_CHARACTERS' | translate }}
           </div>
@@ -140,7 +140,7 @@
         <div class="form-group">
           <label for="address2" class="form-label">{{ 'ADDRESS_2' | translate }} <span>({{ 'OPTIONAL' | translate }})</span></label>
           <input type="text" class="custom-input w-100 input-bordered" id="address2" placeholder="{{ 'ENTER_STREET_ADDRESS' | translate }}"
-            formControlName="address2">
+            formControlName="address2" meTutorsTrimInput>
           <div class="text-danger" *ngIf="address2?.touched && address2?.invalid">
             {{ 'ADDRESS_CHARACTERS' | translate }}
           </div>
@@ -149,7 +149,7 @@
         <div class="form-group">
           <label for="postalCode" class="form-label">{{ 'POSTAL_CODE' | translate }}</label>
           <input type="text" class="custom-input w-100 input-bordered" id="postalCode" placeholder="{{ 'POSTAL_CODE' | translate }}"
-            formControlName="postalCode">
+            formControlName="postalCode" meTutorsTrimInput>
           <div class="text-danger" *ngIf="postalCode?.touched && postalCode?.invalid">
             {{ 'WRITE_VALID_POSTAL_CODE' | translate }}
           </div>

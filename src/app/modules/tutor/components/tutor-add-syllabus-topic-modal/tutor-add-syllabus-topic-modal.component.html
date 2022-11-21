@@ -17,7 +17,7 @@
                 <label for="topic" class="form-label">{{ 'ENTER_TOPIC_NAME' | translate }}</label>
                 <metutors-char-counter [limit]="120" [controlName]="topicName"></metutors-char-counter>
                 <input type="text" class="form-control custom-input input-bordered" formControlName="name" id="topic"
-                       placeholder="{{ 'ENTER_TOPIC_NAME' | translate }}" autocomplete="off">
+                       placeholder="{{ 'ENTER_TOPIC_NAME' | translate }}" autocomplete="off" meTutorsTrimInput>
                 <div class="text-danger" *ngIf="topicName?.touched && topicName?.invalid">
                   {{ 'WRITE_TOPIC_NAME_MAX_CHARACTERS' | translate }}
                 </div>

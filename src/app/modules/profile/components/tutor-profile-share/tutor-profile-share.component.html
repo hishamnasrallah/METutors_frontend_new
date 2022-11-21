@@ -5,7 +5,7 @@
       <h2>{{ 'SHARE_PROFILE_LINK_BELOW' | translate }}</h2>
       <div class="position-relative">
         <input type="text" #inputCloned [placeholder]="clientUrl + defaultUrl" [value]="clientUrl + defaultUrl"
-          class="form-control">
+          class="form-control" meTutorsTrimInput>
         <img src="assets/svg/copy.svg" (click)="cloneText(inputCloned)" draggable="false" alt=""
           class="position-absolute share-img">
       </div>

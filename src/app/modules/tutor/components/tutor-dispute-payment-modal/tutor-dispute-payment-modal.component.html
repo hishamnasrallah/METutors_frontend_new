@@ -62,7 +62,7 @@
             <img [src]="user?.avatar" meTutorsDefaultAvatar class="rounded-circle" alt="" width="40"
                  height="40" draggable="false">
             <input type="text" class="form-control" placeholder="{{ 'WRITE_COMMENT' | translate }}"
-                   formControlName="comment">
+                   formControlName="comment" meTutorsTrimInput>
             <metutors-submit-button [form]="messageForm" [isSubmitting]="isAddingComment"
                                     [extraClasses]="'reply-button'" class="reply-button">
               {{ 'REPLY' | translate }}

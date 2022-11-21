@@ -13,7 +13,7 @@
                 <div class="form-group mb-4">
                   <label class="f-size-15-md-sm" for="name">{{ 'YOUR_NAME' | translate }} *</label>
                   <input type="text" class="custom-input w-100 input-bordered" id="name" placeholder="{{ 'TYPE_NAME_HERE' | translate }}"
-                    formControlName="name">
+                    formControlName="name" meTutorsTrimInput>
                   <span class="text-danger" *ngIf="name?.invalid && name?.touched">
                     {{ 'WRITE_YOUR_NAME' | translate }}
                   </span>
@@ -35,14 +35,14 @@
               <div class="col-md-6">
                 <div class="form-group mb-4">
                   <label class="f-size-15-md-sm" for="companyName">{{ 'SCHOOL_NAME' | translate }} ({{ 'OPTIONAL' | translate }})</label>
-                  <input type="text" class="custom-input w-100 input-bordered" id="companyName"
+                  <input type="text" class="custom-input w-100 input-bordered" id="companyName" meTutorsTrimInput
                     placeholder="{{ 'TYPE_SCHOOL_NAME' | translate }}" formControlName="companyName">
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group mb-4">
                   <label class="f-size-15-md-sm" for="subject">{{ 'MESSAGE_SUBJECT' | translate }} *</label>
-                  <input type="text" class="custom-input w-100 input-bordered" id="subject"
+                  <input type="text" class="custom-input w-100 input-bordered" id="subject" meTutorsTrimInput
                     placeholder="{{ 'TYPE_SUBJECT_HERE' | translate }}" formControlName="subject">
                   <span class="text-danger" *ngIf="subject?.invalid && subject?.touched">
                     {{ 'WRITE_YOUR_SUBJECT' | translate }}
