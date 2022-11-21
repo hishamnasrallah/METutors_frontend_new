@@ -35,7 +35,7 @@
               <td>{{ course.totalAmount | currency: 'USD' }}</td>
               <td>
                 <mat-checkbox (change)="onSelectDispute(course.courseId)"
-                ></mat-checkbox>
+                              [disabled]="!!(+course.isDispute)"></mat-checkbox>
               </td>
               <td>
                 <span class="text-secondary" *ngIf="!(+course.isDispute)">N/A</span>
