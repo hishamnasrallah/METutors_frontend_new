@@ -7,19 +7,14 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { TutorsService } from '@services';
 import { AlertNotificationService } from '@metutor/core/components';
 import * as tutorPaymentActions from '../actions/tutor-payment.actions';
-import {
-  loadTutorPaymentDetails,
-  tutorCreateDispute,
-  tutorRequestPayment,
-} from '../actions/tutor-payment.actions';
 
 @Injectable()
 export class TutorPaymentEffects {
   loadTutorPayments$ = createEffect(() =>
     this._actions$.pipe(
       ofType(tutorPaymentActions.loadTutorPayments),
-      mergeMap(({ status }) =>
-        this._tutorService.getTutorPayment(status).pipe(
+      mergeMap(({ params }) =>
+        this._tutorService.getTutorPayment(params).pipe(
           map((payments) =>
             tutorPaymentActions.loadTutorPaymentsSuccess({
               payments,
@@ -50,6 +45,50 @@ export class TutorPaymentEffects {
           catchError((error) =>
             of(
               tutorPaymentActions.loadTutorPaymentDetailsFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  loadTutorDisputeDetails$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorPaymentActions.loadTutorDisputeDetails),
+      mergeMap(({ id }) =>
+        this._tutorService.getTutorDisputeDetails(id).pipe(
+          map((disputeDetails) =>
+            tutorPaymentActions.loadTutorDisputeDetailsSuccess({
+              disputeDetails,
+            })
+          ),
+          catchError((error) =>
+            of(
+              tutorPaymentActions.loadTutorDisputeDetailsFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  tutorAddDisputeComment$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorPaymentActions.tutorAddDisputeComment),
+      mergeMap(({ body }) =>
+        this._tutorService.tutorAddDisputeComment(body).pipe(
+          map((disputeComment) =>
+            tutorPaymentActions.tutorAddDisputeCommentSuccess({
+              disputeComment,
+            })
+          ),
+          catchError((error) =>
+            of(
+              tutorPaymentActions.tutorAddDisputeCommentFailure({
                 error: error?.error?.message || error?.error?.errors,
               })
             )
@@ -113,6 +152,7 @@ export class TutorPaymentEffects {
           ...[
             tutorPaymentActions.tutorCreateDisputeFailure,
             tutorPaymentActions.tutorRequestPaymentFailure,
+            tutorPaymentActions.tutorAddDisputeCommentFailure,
           ]
         ),
         map((action) => {

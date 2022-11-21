@@ -17,6 +17,7 @@ import { IUser } from '@metutor/core/models';
 import * as fromCore from '@metutor/core/state';
 import * as fromTutor from '@metutor/modules/tutor/state';
 import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
+import { selectTutorDisputeDetails } from '@metutor/core/state/reducers/tutor-payment.reducer';
 
 @Component({
   selector: 'metutors-tutor-payment-records',
@@ -49,14 +50,18 @@ export class TutorPaymentRecordsComponent implements OnInit {
   user$: Observable<IUser | null>;
   isLoading$: Observable<boolean>;
   paymentDetails$: Observable<any>;
+  disputeDetails$: Observable<any>;
   showDisputeModal$: Observable<boolean>;
+  isAddingDisputeComment$: Observable<boolean>;
   showDisputePaymentModal$: Observable<boolean>;
   showConfirmPaymentModal$: Observable<boolean>;
   showPaymentSuccessModal$: Observable<boolean>;
   isLoadingPaymentDetails$: Observable<boolean>;
   view$: Observable<{ loading: boolean; payments: any }>;
 
+  perPage = 10;
   paymentId = null;
+  status = 'pending';
   showClasses = false;
   transactionId: string;
   disputeModalData: any;
@@ -66,21 +71,39 @@ export class TutorPaymentRecordsComponent implements OnInit {
   onChangeTab(tab: any): void {
     switch (tab.index) {
       case 0:
-        this._store.dispatch(fromCore.loadTutorPayments({ status: 'pending' }));
+        this.status = 'pending';
+        this._store.dispatch(
+          fromCore.loadTutorPayments({
+            params: { page: 1, search: '', payment: this.status },
+          })
+        );
         break;
       case 1:
+        this.status = 'disputed';
         this._store.dispatch(
-          fromCore.loadTutorPayments({ status: 'disputed' })
+          fromCore.loadTutorPayments({
+            params: { page: 1, search: '', payment: this.status },
+          })
         );
         break;
       case 2:
-        this._store.dispatch(fromCore.loadTutorPayments({ status: 'history' }));
+        this.status = 'history';
+        this._store.dispatch(
+          fromCore.loadTutorPayments({
+            params: { page: 1, search: '', payment: this.status },
+          })
+        );
         break;
     }
   }
 
-  onOpenDisputePaymentModal(): void {
+  onOpenDisputePaymentModal(id: string): void {
+    this._store.dispatch(fromCore.loadTutorDisputeDetails({ id }));
     this._store.dispatch(fromTutorAction.openDisputePaymentModal());
+  }
+
+  onCloseDisputePaymentModal(): void {
+    this._store.dispatch(fromTutorAction.closeDisputePaymentModal());
   }
 
   onShowConfirmPaymentModal(id: string): void {
@@ -95,7 +118,6 @@ export class TutorPaymentRecordsComponent implements OnInit {
 
   onClosePaymentModal(): void {
     this._store.dispatch(fromTutorAction.closeConfirmPaymentModal());
-    // this._store.dispatch(fromTutorAction.closeDisputePaymentModal());
   }
 
   onCloseSuccessModal(): void {
@@ -119,10 +141,21 @@ export class TutorPaymentRecordsComponent implements OnInit {
   }
 
   onRequestPayment(): void {
-    // todo required request payment api
     this._store.dispatch(
       fromCore.tutorRequestPayment({ id: this.transactionId })
     );
+  }
+
+  onPageChange({ page }: any): void {
+    this._store.dispatch(
+      fromCore.loadTutorPayments({
+        params: { page, search: '', payment: this.status },
+      })
+    );
+  }
+
+  onSubmitComment(body: any): void {
+    this._store.dispatch(fromCore.tutorAddDisputeComment({ body }));
   }
 
   ngOnInit(): void {
@@ -147,13 +180,25 @@ export class TutorPaymentRecordsComponent implements OnInit {
       fromCore.selectTutorPaymentDetails
     );
 
+    this.disputeDetails$ = this._store.select(
+      fromCore.selectTutorDisputeDetails
+    );
+
+    this.isAddingDisputeComment$ = this._store.select(
+      fromCore.selectTutorIsAddingDisputeComment
+    );
+
     this.isLoadingPaymentDetails$ = this._store.select(
       fromCore.selectIsLoadingTutorPaymentDetails
     );
 
     this.isLoading$ = this._store.select(fromCore.selectTutorPaymentLoading);
 
-    this._store.dispatch(fromCore.loadTutorPayments({ status: 'pending' }));
+    this._store.dispatch(
+      fromCore.loadTutorPayments({
+        params: { page: 1, search: '', payment: this.status },
+      })
+    );
 
     this.view$ = combineLatest([
       this._store.select(fromCore.selectTutorPayments),

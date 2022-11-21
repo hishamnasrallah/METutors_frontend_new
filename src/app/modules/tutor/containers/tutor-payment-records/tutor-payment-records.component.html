@@ -19,12 +19,12 @@
                   <th>{{ 'ACTION' | translate }}</th>
                   <th></th>
                 </tr>
-                <tr *ngIf="!view.payments || !view.payments?.length">
+                <tr *ngIf="!view.payments?.data || !view.payments?.data?.length">
                   <td colspan="11">
                     <div class="text-center">{{ 'NO_RECORDS_FOUND' | translate }}</div>
                   </td>
                 </tr>
-                <ng-container *ngFor="let payment of view.payments; let i = index">
+                <ng-container *ngFor="let payment of view.payments?.data; let i = index">
                   <tr>
                     <td>{{ payment.transactionId }}</td>
                     <td>{{ payment.month }}</td>
@@ -105,12 +105,12 @@
                   <th>{{ 'ACTION' | translate }}</th>
                   <th></th>
                 </tr>
-                <tr *ngIf="!view.payments || !view.payments?.length">
+                <tr *ngIf="!view.payments?.data || !view.payments?.data?.length">
                   <td colspan="11">
                     <div class="text-center">{{ 'NO_RECORDS_FOUND' | translate }}</div>
                   </td>
                 </tr>
-                <ng-container *ngFor="let payment of view.payments; let i = index">
+                <ng-container *ngFor="let payment of view.payments?.data; let i = index">
                   <tr>
                     <td>{{ payment.transactionId }}</td>
                     <td>{{ payment.month }}</td>
@@ -123,7 +123,7 @@
                     </td>
                     <td>
                       <button mat-flat-button class="rounded d-block border border-main py-0 px-3 text-main"
-                              (click)="onOpenDisputePaymentModal()">{{ 'VIEW_DETAILS' | translate }}
+                              (click)="onOpenDisputePaymentModal(payment.transactionId)">{{ 'VIEW_DETAILS' | translate }}
                       </button>
                     </td>
                     <td><img src="assets/svg/arrow-up.svg" draggable="false" class="cursor-pointer" alt=""
@@ -194,7 +194,7 @@
                   <th>{{ 'STATUS' | translate }}</th>
                   <th></th>
                 </tr>
-                <ng-container *ngFor="let payment of view.payments; let i = index">
+                <ng-container *ngFor="let payment of view.payments?.data; let i = index">
                   <tr>
                     <td>{{ payment.transactionId }}</td>
                     <td>{{ payment.month }}</td>
@@ -253,6 +253,11 @@
                   </tr>
                 </ng-container>
               </table>
+
+              <div class="d-flex mt-2 justify-content-center" *ngIf="view.payments.total > view.payments?.data?.length">
+                <pagination [totalItems]="view.payments?.total" [itemsPerPage]="perPage" [maxSize]="5"
+                            (pageChanged)="onPageChange($event)"></pagination>
+              </div>
             </div>
           </ng-container>
         </mat-tab>
@@ -261,9 +266,13 @@
   </div>
 </div>
 
-<!--<metutors-tutor-dispute-payment-modal *ngIf="showDisputePaymentModal$ | async"
+<metutors-tutor-dispute-payment-modal *ngIf="showDisputePaymentModal$ | async" [loading]="(isLoading$ | async)!"
+                                      (closeModal)="onCloseDisputePaymentModal()" [user]="(user$ | async)!"
+                                      [disputeDetails]="(disputeDetails$ | async)!"
+                                      (submitComment)="onSubmitComment($event)"
+                                      [isAddingComment]="(isAddingDisputeComment$ | async)!"
                                       [showModal]="(showDisputePaymentModal$ | async)!">
-</metutors-tutor-dispute-payment-modal>-->
+</metutors-tutor-dispute-payment-modal>
 
 <metutors-tutor-payment-success-modal *ngIf="showPaymentSuccessModal$ | async" (closeModal)="onCloseSuccessModal()"
                                       [showModal]="(showPaymentSuccessModal$ | async)!">

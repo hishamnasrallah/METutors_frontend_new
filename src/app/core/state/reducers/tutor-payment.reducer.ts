@@ -1,13 +1,14 @@
 import { createReducer, on } from '@ngrx/store';
 
 import * as tutorPaymentActions from '../actions/tutor-payment.actions';
-import { tutorRequestPayment } from '../actions/tutor-payment.actions';
 
 export interface State {
   payments: any;
   isLoading: boolean;
   paymentDetails: any;
+  disputeDetails: any;
   isLoadingPayments: boolean;
+  isAddingDisputeComment: boolean;
   isLoadingPaymentDetails: boolean;
 }
 
@@ -15,7 +16,9 @@ export const initialState: State = {
   payments: null,
   isLoading: false,
   paymentDetails: null,
+  disputeDetails: null,
   isLoadingPayments: false,
+  isAddingDisputeComment: false,
   isLoadingPaymentDetails: false,
 };
 
@@ -26,6 +29,7 @@ export const reducer = createReducer(
   on(
     tutorPaymentActions.tutorCreateDispute,
     tutorPaymentActions.tutorRequestPayment,
+    tutorPaymentActions.loadTutorDisputeDetails,
     (state) => ({
       ...state,
       isLoading: true,
@@ -35,6 +39,7 @@ export const reducer = createReducer(
   on(
     tutorPaymentActions.tutorCreateDisputeFailure,
     tutorPaymentActions.tutorRequestPaymentFailure,
+    tutorPaymentActions.loadTutorDisputeDetailsFailure,
     (state) => ({
       ...state,
       isLoading: false,
@@ -45,6 +50,15 @@ export const reducer = createReducer(
     ...state,
     isLoading: false,
   })),
+
+  on(
+    tutorPaymentActions.loadTutorDisputeDetailsSuccess,
+    (state, { disputeDetails }) => ({
+      ...state,
+      disputeDetails,
+      isLoading: false,
+    })
+  ),
 
   on(tutorPaymentActions.loadTutorPayments, (state) => ({
     ...state,
@@ -79,6 +93,21 @@ export const reducer = createReducer(
   on(tutorPaymentActions.loadTutorPaymentDetailsFailure, (state) => ({
     ...state,
     isLoadingPaymentDetails: false,
+  })),
+
+  on(tutorPaymentActions.tutorAddDisputeComment, (state) => ({
+    ...state,
+    isAddingDisputeComment: true,
+  })),
+
+  on(tutorPaymentActions.tutorAddDisputeCommentSuccess, (state) => ({
+    ...state,
+    isAddingDisputeComment: false,
+  })),
+
+  on(tutorPaymentActions.tutorAddDisputeCommentFailure, (state) => ({
+    ...state,
+    isAddingDisputeComment: false,
   }))
 );
 
@@ -86,6 +115,9 @@ export const selectTutorPayments = (state: State): any => state.payments;
 
 export const selectTutorPaymentDetails = (state: State): any =>
   state.paymentDetails;
+
+export const selectTutorDisputeDetails = (state: State): any =>
+  state.disputeDetails;
 
 export const selectIsLoadingTutorPayments = (state: State): boolean =>
   state.isLoadingPayments;
@@ -95,3 +127,6 @@ export const selectIsLoadingTutorPaymentDetails = (state: State): boolean =>
 
 export const selectTutorPaymentLoading = (state: State): boolean =>
   state.isLoading;
+
+export const selectTutorIsAddingDisputeComment = (state: State): boolean =>
+  state.isAddingDisputeComment;

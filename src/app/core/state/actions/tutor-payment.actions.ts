@@ -2,7 +2,7 @@ import { createAction, props } from '@ngrx/store';
 
 export const loadTutorPayments = createAction(
   '[Tutor] Load Tutor Payments',
-  props<{ status: string }>()
+  props<{ params: { page: number; search: string; payment: string } }>()
 );
 
 export const loadTutorPaymentsSuccess = createAction(
@@ -55,5 +55,35 @@ export const tutorRequestPaymentSuccess = createAction(
 
 export const tutorRequestPaymentFailure = createAction(
   '[Tutor] Tutor Request Payment Failure',
+  props<{ error: any }>()
+);
+
+export const loadTutorDisputeDetails = createAction(
+  '[Tutor] Load Tutor Dispute Details',
+  props<{ id: string }>()
+);
+
+export const loadTutorDisputeDetailsSuccess = createAction(
+  '[Tutor] Load Tutor Dispute Details Success',
+  props<{ disputeDetails: any }>()
+);
+
+export const loadTutorDisputeDetailsFailure = createAction(
+  '[Tutor] Load Tutor Dispute Details Failure',
+  props<{ error: any }>()
+);
+
+export const tutorAddDisputeComment = createAction(
+  '[Tutor] Tutor Add Dispute Comment',
+  props<{ body: any }>()
+);
+
+export const tutorAddDisputeCommentSuccess = createAction(
+  '[Tutor] Tutor Add Dispute Comment Success',
+  props<{ disputeComment: any }>()
+);
+
+export const tutorAddDisputeCommentFailure = createAction(
+  '[Tutor] Tutor Add Dispute Comment Failure',
   props<{ error: any }>()
 );

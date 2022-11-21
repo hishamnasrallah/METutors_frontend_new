@@ -490,9 +490,9 @@ export class TutorsService {
   }
 
   // Tutor payment records
-  getTutorPayment(status: string): Observable<any> {
+  getTutorPayment(params: any): Observable<any> {
     return this.http
-      .get<any>(`${this.baseUrl}teacher/payment-records?payment=${status}`)
+      .get<any>(`${this.baseUrl}teacher/payment-records`, { params })
       .pipe(
         map((response) =>
           camelcaseKeys(response.payment_records, { deep: true })
@@ -512,6 +512,14 @@ export class TutorsService {
       );
   }
 
+  getTutorDisputeDetails(id: string): Observable<any> {
+    return this.http
+      .get<any>(
+        `${this.baseUrl}teacher/payments/dispute-details?transaction_id=${id}`
+      )
+      .pipe(map((response) => camelcaseKeys(response.dispute, { deep: true })));
+  }
+
   tutorCreateDispute(data: any): Observable<any> {
     return this.http.post<any>(
       `${this.baseUrl}teacher/payments/add-dispute`,
@@ -519,10 +527,16 @@ export class TutorsService {
     );
   }
 
-  tutorRequestPayment(id: any): Observable<any> {
+  tutorRequestPayment(transaction_id: string): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}teacher/payment-request`, {
+      transaction_id,
+    });
+  }
+
+  tutorAddDisputeComment(body: any): Observable<any> {
     return this.http.post<any>(
-      `${this.baseUrl}teacher/payments/add-dispute/${id}`,
-      {}
+      `${this.baseUrl}teacher/payments/dispute-comment`,
+      body
     );
   }
 }

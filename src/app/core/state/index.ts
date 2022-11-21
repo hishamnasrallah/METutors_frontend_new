@@ -593,6 +593,11 @@ export const selectTutorPaymentDetails = createSelector(
   fromTutorPaymentReducer.selectTutorPaymentDetails
 );
 
+export const selectTutorDisputeDetails = createSelector(
+  selectTutorPaymentsState,
+  fromTutorPaymentReducer.selectTutorDisputeDetails
+);
+
 export const selectIsLoadingTutorPaymentDetails = createSelector(
   selectTutorPaymentsState,
   fromTutorPaymentReducer.selectIsLoadingTutorPaymentDetails
@@ -601,6 +606,11 @@ export const selectIsLoadingTutorPaymentDetails = createSelector(
 export const selectTutorPaymentLoading = createSelector(
   selectTutorPaymentsState,
   fromTutorPaymentReducer.selectTutorPaymentLoading
+);
+
+export const selectTutorIsAddingDisputeComment = createSelector(
+  selectTutorPaymentsState,
+  fromTutorPaymentReducer.selectTutorIsAddingDisputeComment
 );
 /**
  * ========================== STUDENT ==============================

@@ -2,6 +2,74 @@
                 [heading]="'DISPUTE_PAYMENT_MODAL_HEADING'" [subHeading]="'DISPUTE_PAYMENT_MODAL_SUB_HEADING'"
                 [template]="template">
   <ng-template #template>
-    Add your content here
+    <div class="dispute-details" [ngSwitch]="loading">
+      <div class="mt-4" *ngSwitchCase="true">
+        <metutors-grid-placeholder></metutors-grid-placeholder>
+      </div>
+
+      <ng-container *ngSwitchCase="false">
+        <div class="row list-items sm-item">
+          <div class="col-md-2 d-flex menu align-items-center mb-15-sm" *ngIf="disputeDetails?.user">
+            <img [src]="disputeDetails?.user?.avatar" meTutorsDefaultAvatar class="rounded-circle" alt="" width="25"
+                 height="25" draggable="false">
+            <strong>{{ 'YOU' | translate}}</strong>
+          </div>
+          <div class="col-md-3 d-flex menu align-items-center">
+            <img src="assets/svg/calendar.svg" alt="" width="15" height="15" draggable="false">
+            <span>{{ 'OPEN' | translate }}: {{ disputeDetails?.createdAt | date: 'EEEE, d MMM y' }}</span>
+          </div>
+          <div class="col-md-3 d-flex menu align-items-center" *ngIf="disputeDetails?.lastReply">
+            <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
+            <span>{{ 'LAST_REPLY' | translate }}: {{ disputeDetails?.lastReply | amTimeAgo }}</span>
+          </div>
+          <div class="col-md-3 d-flex menu align-items-center ps-0">
+            <div class="block-file d-flex align-items-center" *ngIf="disputeDetails?.file">
+              <img src="assets/svg/attachment.svg" alt="" draggable="false" width="20" height="20">
+              <div class="ms-2 flex-grow-1">
+                <h3><a [href]="disputeDetails?.file" [download]="disputeDetails?.subject"
+                       target="_blank">{{ disputeDetails?.subject }}</a></h3>
+              </div>
+              <a mat-button [href]="disputeDetails?.file" [download]="disputeDetails?.subject"
+                 target="_blank">{{ 'DOWNLOAD' | translate }}</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="list-messages overflow-auto pe-5" ngx-auto-scroll [lock-y-offset]="10" observe-attributes>
+          <div class="row mb-40" [@dropMenuAnimate] *ngFor="let message of disputeDetails?.disputeComments"
+               [class.add-margin]="user?.id !== message?.user?.id">
+            <div class="col-md-2 d-flex info">
+              <img [src]="message?.user?.avatar" meTutorsDefaultAvatar class="rounded-circle" alt="" width="40"
+                   height="40">
+              <div class="ps-3">
+                <h3 class="f-size-15-sm">
+                  <ng-container *ngIf="user?.id === message?.user?.id">{{ 'YOU' | translate }}</ng-container>
+                  <ng-container *ngIf="user?.id !== message?.user?.id">
+                    {{ 'STUDENT' | translate }}: {{ message?.user?.firstName }}
+                  </ng-container>
+                </h3>
+                <h4>{{ message?.createdAt | date: 'd MMM y' }}</h4>
+              </div>
+            </div>
+            <div class="col-md-10">
+              <p class="m-0">{{ message?.comment }}</p>
+            </div>
+          </div>
+        </div>
+
+        <form class="write-comment" [formGroup]="messageForm" (ngSubmit)="onSubmit(messageForm, disputeDetails?.id)">
+          <div class="position-relative">
+            <img [src]="user?.avatar" meTutorsDefaultAvatar class="rounded-circle" alt="" width="40"
+                 height="40" draggable="false">
+            <input type="text" class="form-control" placeholder="{{ 'WRITE_COMMENT' | translate }}"
+                   formControlName="comment">
+            <metutors-submit-button [form]="messageForm" [isSubmitting]="isAddingComment"
+                                    [extraClasses]="'reply-button'" class="reply-button">
+              {{ 'REPLY' | translate }}
+            </metutors-submit-button>
+          </div>
+        </form>
+      </ng-container>
+    </div>
   </ng-template>
 </metutors-modal>
