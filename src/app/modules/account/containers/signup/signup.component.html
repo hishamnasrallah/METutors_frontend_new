@@ -45,7 +45,7 @@
                 <div class="form-group">
                   <label for="firstName">{{ 'WHATS_FIRST_NAME' | translate }}</label>
                   <input type="text" class="custom-input w-100 input-bordered" id="firstName" placeholder="{{ 'FIRST_NAME' | translate }}"
-                    formControlName="firstName" meTutorsLettersOnly>
+                    formControlName="firstName" meTutorsLettersOnly meTutorsTrimInput>
                   <div class="text-danger" *ngIf="firstName?.touched && firstName?.invalid">
                     {{ 'WRITE_VALID_FIRST_NAME' | translate }}
                   </div>
@@ -55,7 +55,7 @@
                 <div class="form-group">
                   <label for="lastName">{{ 'WHATS_LAST_NAME' | translate }}</label>
                   <input type="text" class="custom-input w-100 input-bordered" id="lastName" placeholder="{{ 'LAST_NAME' | translate }}"
-                    formControlName="lastName" meTutorsLettersOnly>
+                    formControlName="lastName" meTutorsLettersOnly meTutorsTrimInput>
                   <div class="text-danger" *ngIf="lastName?.touched && lastName?.invalid">
                     {{ 'WRITE_VALID_LAST_NAME' | translate }}
                   </div>

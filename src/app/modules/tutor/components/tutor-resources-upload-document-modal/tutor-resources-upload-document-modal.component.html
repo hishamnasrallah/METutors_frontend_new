@@ -7,7 +7,7 @@
           <label for="title">{{ 'DOCUMENT_TITLE' | translate }}</label>
           <metutors-char-counter [limit]="120" [controlName]="title"></metutors-char-counter>
           <input type="text" class="custom-input w-100 input-bordered" id="title" placeholder="{{ 'ENTER_TITLE_HERE' | translate }}"
-                 formControlName="title">
+                 formControlName="title" meTutorsTrimInput>
           <div class="text-danger" *ngIf="title?.touched && title?.invalid">
             {{ 'WRITE_TITLE_MAX_CHARACTERS' | translate }}
           </div>

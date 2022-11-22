@@ -230,8 +230,8 @@ export class TutorSettingsProfileComponent implements OnInit {
       teachingExperience: [null, [Validators.required]],
       degreeField: [null, [Validators.required]],
       teachingExperienceOnline: [null, [Validators.required]],
-      currentEmployer: [null, Validators.maxLength(80)],
-      currentTitle: [null, Validators.maxLength(80)]
+      currentEmployer: [null, [Validators.required, Validators.maxLength(80)]],
+      currentTitle: [null, [Validators.required, Validators.maxLength(80)]]
     });
 
     this.teachingForm = this._fb.group({

@@ -127,7 +127,7 @@
                   <td>{{ i + 1 }}</td>
                   <td *ngIf="subjectId !== unclassifiedClass.id">{{ unclassifiedClass?.title }}</td>
                   <td *ngIf="subjectId === unclassifiedClass.id">
-                    <input type="text" class="form-control custom-input input-bordered" formControlName="subjectTitle" placeholder="{{ 'ADD_TOPIC_HERE' | translate }}" autofocus>
+                    <input type="text" class="form-control custom-input input-bordered" formControlName="subjectTitle" placeholder="{{ 'ADD_TOPIC_HERE' | translate }}" autofocus meTutorsTrimInput>
                   </td>
                   <td>{{ unclassifiedClass?.startDate | date: 'EEEE, dd MMM Y' }}</td>
                   <td>{{ unclassifiedClass?.startTime | date:'h:mm a' }} - {{ unclassifiedClass?.endTime | date:'h:mm a' }}</td>
@@ -211,7 +211,7 @@
                       <td scope="row">{{ i + 1 }}</td>
                       <td *ngIf="subjectId !== syllabusClass.id">{{ syllabusClass?.title }}</td>
                       <td *ngIf="subjectId === syllabusClass.id">
-                        <input type="text" class="form-control custom-input input-bordered" formControlName="subjectTitle" placeholder="{{ 'ADD_TOPIC_HERE' | translate }}" autofocus>
+                        <input type="text" class="form-control custom-input input-bordered" formControlName="subjectTitle" placeholder="{{ 'ADD_TOPIC_HERE' | translate }}" autofocus meTutorsTrimInput>
                       </td>
                       <td>{{ syllabusClass?.startDate | date : 'EEEE, dd MMM Y'}}</td>
                       <td>{{ syllabusClass?.startTime | date:'h:mm a' + '-' + syllabusClass?.endTime | date:'h:mm a' }}</td>

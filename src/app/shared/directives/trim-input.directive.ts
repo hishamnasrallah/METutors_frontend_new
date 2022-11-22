@@ -1,18 +1,14 @@
+import { FormControlDirective, FormControlName } from '@angular/forms';
 import { Directive, HostListener, Input, Optional } from '@angular/core';
 
-import { FormControlDirective, FormControlName } from '@angular/forms';
-
 @Directive({
-  // eslint-disable-next-line @typescript-eslint/tslint/config
-
-  selector: '[formControl], [formControlName]',
+  selector: '[meTutorsTrimInput]'
 })
 export class TrimInputDirective {
-  /*@Input() type?: string;
+  @Input() type?: string;
 
   constructor(
     @Optional() private _formControlDir: FormControlDirective,
-
     @Optional() private _formControlName: FormControlName
   ) {}
 
@@ -34,5 +30,5 @@ export class TrimInputDirective {
     if (typeof control.value === 'string' && this.type !== 'password') {
       control.setValue(control.value.trim());
     }
-  }*/
+  }
 }

@@ -31,7 +31,7 @@
                           <metutors-char-counter [limit]="250" [controlName]="street"></metutors-char-counter>
                           <input type="text" class="custom-input w-100 input-bordered" id="street"
                                  placeholder="Enter street address"
-                                 formControlName="street">
+                                 formControlName="street" meTutorsTrimInput>
 
                           <div *ngIf="street?.invalid && street?.touched">
                             <small class="text-danger">{{ 'MAX_STREET_ADDRESS' | translate }}</small>
@@ -45,7 +45,7 @@
                           <metutors-char-counter [limit]="50" [controlName]="state"></metutors-char-counter>
                           <input type="text" class="custom-input w-100 input-bordered" id="state"
                                  placeholder="Enter state"
-                                 formControlName="state">
+                                 formControlName="state" meTutorsTrimInput>
 
                           <div *ngIf="state?.invalid && state?.touched">
                             <small class="text-danger">{{ 'ENTER_STATE' | translate }}</small>
@@ -61,7 +61,7 @@
                           <metutors-char-counter [limit]="20" [controlName]="postcode"></metutors-char-counter>
                           <input type="text" class="custom-input w-100 input-bordered" id="postcode"
                                  placeholder="{{ 'POSTAL_CODE' | translate }}"
-                                 formControlName="postcode">
+                                 formControlName="postcode" meTutorsTrimInput>
                           <div *ngIf="postcode?.touched && postcode?.invalid">
                             <small class="text-danger">{{ 'WRITE_VALID_POSTAL_CODE' | translate }}</small>
                           </div>

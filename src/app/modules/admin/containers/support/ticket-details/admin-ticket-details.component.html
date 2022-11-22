@@ -90,7 +90,7 @@
               <div class="position-relative">
                 <img [src]="(user$ | async)?.avatar" meTutorsDefaultAvatar class="rounded-circle" alt="" width="40"
                   height="40" draggable="false">
-                <input type="text" class="form-control" placeholder="Write a comment..." formControlName="comment">
+                <input type="text" class="form-control" placeholder="Write a comment..." formControlName="comment" meTutorsTrimInput>
                 <metutors-submit-button [form]="messageForm" [isSubmitting]="isSubmitTicketComment$ | async"
                   [extraClasses]="'reply-button fw-bold'">
                   Reply
