@@ -1,6 +1,6 @@
 <metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'large'"
                 [heading]="'DISPUTE_PAYMENT_MODAL_HEADING'" [subHeading]="'DISPUTE_PAYMENT_MODAL_SUB_HEADING'"
-                [template]="template">
+                [template]="template" [status]="disputeDetails?.status">
   <ng-template #template>
     <div class="dispute-details" [ngSwitch]="loading">
       <div class="mt-4" *ngSwitchCase="true">
