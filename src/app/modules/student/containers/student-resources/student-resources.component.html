@@ -63,7 +63,7 @@
                 [src]="+view.resources.course.bookInfo === academicTutoringTextbook.later ? '/assets/svg/textbook.svg' : '/assets/svg/textbook-slash.svg'"
                 class="mb-3" [attr.width]="+view.resources.course.bookInfo === academicTutoringTextbook.later ? '35px' : '60px'"
                 draggable="false" alt="">
-              {{ +view.resources.course.bookInfo === academicTutoringTextbook.later ? 'More info will be provided later' : ('TEXTBOOK_NOT_REQUIRED' | translate) }}
+              {{ +view.resources.course.bookInfo === academicTutoringTextbook.later ? ('MORE_INFO_PROVIDED_LATER' | translate) : ('TEXTBOOK_NOT_REQUIRED' | translate) }}
             </div>
           </div>
           <div class="table-responsive mt-1" *ngIf="+view.resources.course.bookInfo === academicTutoringTextbook.info">
@@ -74,7 +74,7 @@
                 <th scope="col">{{ 'TEXTBOOK_AUTHOR' | translate }}</th>
               </tr>
               <tr class="book-info">
-                <td scope="row">{{view.resources.course.bookName }}</td>
+                <td scope="row">{{ view.resources.course.bookName }}</td>
                 <td>{{ 'EDITION' | translate }} {{ view.resources.course?.bookEdition }}</td>
                 <td>{{ view.resources.course.bookAuthor }}</td>
               </tr>
@@ -150,7 +150,7 @@
               <tr class="book-info" *ngFor="let studentDoc of view?.resources?.studentOtherDocuments; let i=index">
                 <td>{{ studentDoc?.title }}</td>
                 <td>{{ studentDoc?.user?.firstName }} {{ studentDoc?.user?.lastName }}</td>
-                <td><div><a [href]="studentDoc?.file?.url" mat-button class="main-button-transparent" target="_blank" >{{ 'DOWNLOAD' | translate }}</a></div></td>
+                <td><div><a [href]="studentDoc?.file?.url" mat-button class="main-button-transparent" target="_blank">{{ 'DOWNLOAD' | translate }}</a></div></td>
               </tr>
             </ng-container>
           </table>
