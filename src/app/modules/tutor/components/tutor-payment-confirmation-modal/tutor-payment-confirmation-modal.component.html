@@ -40,7 +40,7 @@
               <td>
                 <span class="text-secondary" *ngIf="!(+course.isDispute)">N/A</span>
                 <span class="text-main cursor-pointer text-decoration-underline" *ngIf="(+course.isDispute)"
-                      (click)="openDisputeModal.emit({reason: 'ada', section: 'viewReason', heading: 'REASON_DISPUTE'})">{{ 'VIEW_REASON' | translate }}</span>
+                      (click)="openDisputeModal.emit({reason: course.reason, section: 'viewReason', heading: 'REASON_DISPUTE'})">{{ 'VIEW_REASON' | translate }}</span>
               </td>
             </tr>
 
@@ -61,7 +61,7 @@
           </button>
 
           <button mat-flat-button color="primary" class=""
-                  [disabled]="!!disputedClasses.length || requestingPayment" (click)="requestPayment.emit()">{{ 'CONFIRM_PAYMENT' | translate }}</button>
+                  [disabled]="!!disputedClasses.length || requestingPayment || !payments[0].requestRayment" (click)="requestPayment.emit()">{{ 'CONFIRM_PAYMENT' | translate }}</button>
         </div>
       </div>
     </ng-container>

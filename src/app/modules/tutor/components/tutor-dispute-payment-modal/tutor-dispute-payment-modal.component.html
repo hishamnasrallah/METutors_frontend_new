@@ -57,7 +57,7 @@
           </div>
         </div>
 
-        <form class="write-comment" [formGroup]="messageForm" (ngSubmit)="onSubmit(messageForm, disputeDetails?.id)">
+        <form class="write-comment" [formGroup]="messageForm" (ngSubmit)="onSubmit(messageForm, disputeDetails?.disputeId)">
           <div class="position-relative">
             <img [src]="user?.avatar" meTutorsDefaultAvatar class="rounded-circle" alt="" width="40"
                  height="40" draggable="false">
