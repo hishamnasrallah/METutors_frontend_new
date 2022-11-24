@@ -40,9 +40,9 @@
                     </td>
                     <td><img src="assets/svg/arrow-up.svg" draggable="false" class="cursor-pointer" alt=""
                              [class.rotate-180]="showClasses"
-                             (click)="showClasses = !showClasses; paymentId = payment.id"/></td>
+                             (click)="showClasses = !showClasses; paymentId = payment.transactionId"/></td>
                   </tr>
-                  <tr *ngIf="showClasses && paymentId === payment.id" [@slideInOut]>
+                  <tr *ngIf="showClasses && paymentId === payment.transactionId" [@slideInOut]>
                     <td colspan="8">
                       <table class="table">
                         <tr>
@@ -128,10 +128,10 @@
                     </td>
                     <td><img src="assets/svg/arrow-up.svg" draggable="false" class="cursor-pointer" alt=""
                              [class.rotate-180]="showClasses"
-                             (click)="showClasses = !showClasses; paymentId = payment.id"/></td>
+                             (click)="showClasses = !showClasses; paymentId = payment.transactionId"/></td>
                   </tr>
 
-                  <tr *ngIf="showClasses && paymentId === payment.id" [@slideInOut]>
+                  <tr *ngIf="showClasses && paymentId === payment.transactionId" [@slideInOut]>
                     <td colspan="8">
                       <table class="table">
                         <tr>
@@ -207,10 +207,10 @@
                     </td>
                     <td><img src="assets/svg/arrow-up.svg" draggable="false" class="cursor-pointer" alt=""
                              [class.rotate-180]="showClasses"
-                             (click)="showClasses = !showClasses; paymentId = payment.id"/></td>
+                             (click)="showClasses = !showClasses; paymentId = payment.transactionId"/></td>
                   </tr>
 
-                  <tr *ngIf="showClasses && paymentId === payment.id" [@slideInOut]>
+                  <tr *ngIf="showClasses && paymentId === payment.transactionId" [@slideInOut]>
                     <td colspan="8">
                       <table class="table">
                         <tr>

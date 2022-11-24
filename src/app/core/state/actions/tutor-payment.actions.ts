@@ -50,7 +50,7 @@ export const tutorRequestPayment = createAction(
 );
 
 export const tutorRequestPaymentSuccess = createAction(
-  '[Tutor] Tutor Request Payment'
+  '[Tutor] Tutor Request Payment Success'
 );
 
 export const tutorRequestPaymentFailure = createAction(
