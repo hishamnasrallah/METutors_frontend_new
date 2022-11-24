@@ -17,7 +17,6 @@ import { IUser } from '@metutor/core/models';
 import * as fromCore from '@metutor/core/state';
 import * as fromTutor from '@metutor/modules/tutor/state';
 import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
-import { selectTutorDisputeDetails } from '@metutor/core/state/reducers/tutor-payment.reducer';
 
 @Component({
   selector: 'metutors-tutor-payment-records',
@@ -61,6 +60,7 @@ export class TutorPaymentRecordsComponent implements OnInit {
 
   perPage = 10;
   paymentId = null;
+  isDispute: boolean;
   status = 'pending';
   showClasses = false;
   transactionId: string;
@@ -88,6 +88,14 @@ export class TutorPaymentRecordsComponent implements OnInit {
         break;
       case 2:
         this.status = 'history';
+        this._store.dispatch(
+          fromCore.loadTutorPayments({
+            params: { page: 1, search: '', payment: this.status },
+          })
+        );
+        break;
+      case 3:
+        this.status = 'requested';
         this._store.dispatch(
           fromCore.loadTutorPayments({
             params: { page: 1, search: '', payment: this.status },
@@ -137,10 +145,12 @@ export class TutorPaymentRecordsComponent implements OnInit {
       courses: this.disputeModalData.courses,
     };
 
+    this.isDispute = true;
     this._store.dispatch(fromCore.tutorCreateDispute({ payload }));
   }
 
   onRequestPayment(): void {
+    this.isDispute = false;
     this._store.dispatch(
       fromCore.tutorRequestPayment({ id: this.transactionId })
     );

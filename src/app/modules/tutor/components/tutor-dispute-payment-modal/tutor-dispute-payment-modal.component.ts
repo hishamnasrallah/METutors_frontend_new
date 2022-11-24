@@ -49,6 +49,7 @@ export class TutorDisputePaymentModalComponent implements OnInit {
         dispute_id,
       };
       this.submitComment.emit(body);
+      this.messageForm.get('comment')?.setValue(null);
     }
   }
 

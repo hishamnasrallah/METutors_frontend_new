@@ -534,9 +534,8 @@ export class TutorsService {
   }
 
   tutorAddDisputeComment(body: any): Observable<any> {
-    return this.http.post<any>(
-      `${this.baseUrl}teacher/payments/dispute-comment`,
-      body
-    );
+    return this.http
+      .post<any>(`${this.baseUrl}teacher/payments/dispute-comment`, body)
+      .pipe(map((response) => camelcaseKeys(response.comment, { deep: true })));
   }
 }

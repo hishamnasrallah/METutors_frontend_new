@@ -121,7 +121,7 @@ export class TutorPaymentEffects {
       ofType(tutorPaymentActions.tutorRequestPayment),
       mergeMap(({ id }) =>
         this._tutorService.tutorRequestPayment(id).pipe(
-          map(() => tutorPaymentActions.tutorRequestPaymentSuccess()),
+          map(() => tutorPaymentActions.tutorRequestPaymentSuccess({ id })),
           catchError((error) =>
             of(
               tutorPaymentActions.tutorRequestPaymentFailure({

@@ -50,7 +50,8 @@ export const tutorRequestPayment = createAction(
 );
 
 export const tutorRequestPaymentSuccess = createAction(
-  '[Tutor] Tutor Request Payment Success'
+  '[Tutor] Tutor Request Payment Success',
+  props<{ id: string }>()
 );
 
 export const tutorRequestPaymentFailure = createAction(
