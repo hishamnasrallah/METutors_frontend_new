@@ -100,10 +100,13 @@ export const reducer = createReducer(
     isAddingDisputeComment: true,
   })),
 
-  on(tutorPaymentActions.tutorAddDisputeCommentSuccess, (state) => ({
-    ...state,
-    isAddingDisputeComment: false,
-  })),
+  on(
+    tutorPaymentActions.tutorAddDisputeCommentSuccess,
+    (state, { disputeComment }) => ({
+      ...state,
+      isAddingDisputeComment: false,
+    })
+  ),
 
   on(tutorPaymentActions.tutorAddDisputeCommentFailure, (state) => ({
     ...state,

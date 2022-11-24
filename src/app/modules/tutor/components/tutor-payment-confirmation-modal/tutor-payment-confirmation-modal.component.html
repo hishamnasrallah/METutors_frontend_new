@@ -25,7 +25,7 @@
             </td>
           </tr>
           <ng-container *ngIf="payments || payments?.length">
-            <tr *ngFor="let course of payments[0].courses; let i = index">
+            <tr *ngFor="let course of payments.courses; let i = index">
               <td>{{ course.courseName}}</td>
               <td>{{ course.completedClasses }} <span class="dispute"
                                                       *ngIf="+course.isDispute">{{ 'DISPUTED' | translate }}</span></td>
@@ -46,10 +46,10 @@
 
             <tr>
               <td colspan="3" align="right"
-                  class="bg-secondary-light">{{ payments[0].totalClasses}} {{ 'CLASSES' | translate }}
+                  class="bg-secondary-light">{{ payments.totalClasses}} {{ 'CLASSES' | translate }}
               </td>
               <td colspan="5" align="right" class="bg-secondary-light"><span
-                class="fw-bold">{{ payments[0].totalAmount | currency: 'USD'}}</span></td>
+                class="fw-bold">{{ payments.totalAmount | currency: 'USD'}}</span></td>
             </tr>
           </ng-container>
         </table>
@@ -61,7 +61,7 @@
           </button>
 
           <button mat-flat-button color="primary" class=""
-                  [disabled]="!!disputedClasses.length || requestingPayment || !payments[0].requestRayment" (click)="requestPayment.emit()">{{ 'CONFIRM_PAYMENT' | translate }}</button>
+                  [disabled]="!!disputedClasses.length || requestingPayment || !payments.requestPayment" (click)="requestPayment.emit()">{{ 'CONFIRM_PAYMENT' | translate }}</button>
         </div>
       </div>
     </ng-container>

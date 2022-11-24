@@ -295,11 +295,13 @@ export class LookupsService {
       .post<{ subject: any; message: string }>(`${this.BACKEND_URL}subject`, {
         name: value.name,
         grade: value.grade,
+        name_ar: value.name_ar,
         program_id: value.program,
         country_id: value.country,
         field_id: value.field,
         price_per_hour: value.price,
         description: value.description,
+        description_ar: value.description_ar,
       })
       .pipe(
         map((response) => {
