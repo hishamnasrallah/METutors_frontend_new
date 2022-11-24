@@ -174,8 +174,8 @@ export class CompleteTutorProfileQualificationDetailsComponent
       computerSkills: [null, [Validators.required]],
       teachingExperience: [null, [Validators.required]],
       teachingExperienceOnline: [null, [Validators.required]],
-      currentTitle: [null, [Validators.required, Validators.maxLength(80)]],
-      currentEmployer: [null, [Validators.required, Validators.maxLength(80)]],
+      currentTitle: [null, [Validators.required, Validators.maxLength(120)]],
+      currentEmployer: [null, [Validators.required, Validators.maxLength(120)]],
       degrees: this._fb.array([], [Validators.required])
     });
 
