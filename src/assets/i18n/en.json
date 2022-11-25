@@ -1549,5 +1549,8 @@
   "DISPUTE_SUBMIT_SUCCESS": "Dispute submitted successfully",
   "GO_TO_DASHBOARD": "Go to dashboard",
   "REASON": "Reason",
-  "YOU": "You"
+  "YOU": "You",
+  "TUTOR_PAYMENT_CONFIRM_SUCCESS": "Payment confirmed successfully",
+  "TUTOR_PAYMENT_RECEIVE_48_HOURS": "you will receive your payments within 48 hours.",
+  "REQUESTED_PAYMENTS": "Requested payments"
 }

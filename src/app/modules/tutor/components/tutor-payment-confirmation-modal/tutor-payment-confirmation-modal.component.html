@@ -19,12 +19,12 @@
             <th>{{ 'DISPUTE' | translate }}</th>
             <th>{{ 'REASON' | translate }}</th>
           </tr>
-          <tr *ngIf="!payments || !payments?.length">
+          <tr *ngIf="!payments?.courses || !payments?.courses?.length">
             <td colspan="8">
               <div class="text-center">{{ 'NO_RECORDS_FOUND' | translate }}</div>
             </td>
           </tr>
-          <ng-container *ngIf="payments || payments?.length">
+          <ng-container *ngIf="payments?.courses || payments?.courses?.length">
             <tr *ngFor="let course of payments.courses; let i = index">
               <td>{{ course.courseName}}</td>
               <td>{{ course.completedClasses }} <span class="dispute"

@@ -194,6 +194,99 @@
                   <th>{{ 'STATUS' | translate }}</th>
                   <th></th>
                 </tr>
+                <tr *ngIf="!view.payments?.data || !view.payments?.data?.length">
+                  <td colspan="11">
+                    <div class="text-center">{{ 'NO_RECORDS_FOUND' | translate }}</div>
+                  </td>
+                </tr>
+                <ng-container *ngFor="let payment of view.payments?.data; let i = index">
+                  <tr>
+                    <td>{{ payment.transactionId }}</td>
+                    <td>{{ payment.month }}</td>
+                    <td>{{ payment.transactionDate }}</td>
+                    <td>{{ payment.totalAmount | currency: 'USD' }}</td>
+                    <td>{{ payment.method }}</td>
+                    <td>
+                      <button class="status text-capitalize {{ payment.status }}"
+                              mat-button>{{ payment.status }}</button>
+                    </td>
+                    <td><img src="assets/svg/arrow-up.svg" draggable="false" class="cursor-pointer" alt=""
+                             [class.rotate-180]="showClasses"
+                             (click)="showClasses = !showClasses; paymentId = payment.transactionId"/></td>
+                  </tr>
+
+                  <tr *ngIf="showClasses && paymentId === payment.transactionId" [@slideInOut]>
+                    <td colspan="8">
+                      <table class="table">
+                        <tr>
+                          <th>{{ 'ORDER_NUMBER' | translate }}</th>
+                          <th>{{ 'COURSE_ID' | translate }}</th>
+                          <th>{{ 'COURSE_NAME' | translate}}</th>
+                          <th>{{ 'NUMBER_OF_CLASSES' | translate }}</th>
+                          <th>{{ 'COMPLETION_DATE' | translate }}</th>
+                          <th>{{ 'PRICE_PER_HOUR' | translate }}</th>
+                          <th>{{ 'TOTAL_HOURS' | translate }}</th>
+                          <th>{{ 'TOTAL_AMOUNT' | translate }}</th>
+                        </tr>
+                        <tr *ngIf="!payment.courses || !payment?.courses?.length">
+                          <td colspan="8">
+                            <div class="text-center">{{ 'NO_RECORDS_FOUND' | translate }}</div>
+                          </td>
+                        </tr>
+                        <ng-container *ngIf="payment.courses || payment?.courses?.length">
+                          <tr *ngFor="let course of payment.courses; let i = index">
+                            <td>{{ course.orderId }}</td>
+                            <td>{{ course.courseId }}</td>
+                            <td>{{ course.courseName }}</td>
+                            <td>{{ course.completedClasses }}</td>
+                            <td>{{ course.completionDate }}</td>
+                            <td>{{ course.pricePerHour | currency: 'USD' }}</td>
+                            <td>{{ course.totalHours }}</td>
+                            <td>{{ course.totalAmount | currency: 'USD' }}</td>
+                          </tr>
+
+                          <tr>
+                            <td colspan="3" align="right"
+                                class="bg-secondary-light">{{ payment.totalClasses }} {{ +(payment?.totalClasses)! > 1 ? ('CLASSES_SM' | translate) : ('CLASS_SM' | translate) }}
+                            </td>
+                            <td colspan="5" align="right" class="bg-secondary-light"><span
+                              class="fw-bold">{{ payment.totalAmount | currency: 'USD' }}</span></td>
+                          </tr>
+                        </ng-container>
+                      </table>
+                    </td>
+                  </tr>
+                </ng-container>
+              </table>
+
+              <div class="d-flex mt-2 justify-content-center" *ngIf="view.payments.total > view.payments?.data?.length">
+                <pagination [totalItems]="view.payments?.total" [itemsPerPage]="perPage" [maxSize]="5"
+                            (pageChanged)="onPageChange($event)"></pagination>
+              </div>
+            </div>
+          </ng-container>
+        </mat-tab>
+        <mat-tab [label]="'REQUESTED_PAYMENTS' | translate">
+          <ng-container [ngSwitch]="view.loading">
+            <div class="mt-4" *ngSwitchCase="true">
+              <metutors-grid-placeholder></metutors-grid-placeholder>
+            </div>
+            <div class="table-responsive" *ngSwitchCase="false">
+              <table class="table my-table default-title mt-4 overflow-visible">
+                <tr>
+                  <th>{{ 'TRANSACTION_NUMBER' | translate }}</th>
+                  <th>{{ 'MONTH_SM' | translate }}</th>
+                  <th>{{ 'TRANSACTION_DATE' | translate }}</th>
+                  <th>{{ 'AMOUNT_$' | translate}}</th>
+                  <th>{{ 'METHOD' | translate }}</th>
+                  <th>{{ 'STATUS' | translate }}</th>
+                  <th></th>
+                </tr>
+                <tr *ngIf="!view.payments?.data || !view.payments?.data?.length">
+                  <td colspan="11">
+                    <div class="text-center">{{ 'NO_RECORDS_FOUND' | translate }}</div>
+                  </td>
+                </tr>
                 <ng-container *ngFor="let payment of view.payments?.data; let i = index">
                   <tr>
                     <td>{{ payment.transactionId }}</td>
@@ -275,7 +368,7 @@
 </metutors-tutor-dispute-payment-modal>
 
 <metutors-tutor-payment-success-modal *ngIf="showPaymentSuccessModal$ | async" (closeModal)="onCloseSuccessModal()"
-                                      [showModal]="(showPaymentSuccessModal$ | async)!">
+                                      [showModal]="(showPaymentSuccessModal$ | async)!" [isDispute]="isDispute">
 </metutors-tutor-payment-success-modal>
 
 <metutors-tutor-dispute-modal *ngIf="showDisputeModal$ | async" (closeModal)="onCloseDisputeModal()"

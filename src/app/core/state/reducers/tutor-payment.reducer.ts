@@ -51,6 +51,26 @@ export const reducer = createReducer(
     isLoading: false,
   })),
 
+  on(tutorPaymentActions.tutorRequestPaymentSuccess, (state, { id }) => {
+    const finalState = {
+      ...state,
+      isLoading: false,
+    };
+
+    let payments = finalState.payments;
+    const data = payments.data.filter((res: any) => res.id !== id);
+
+    payments = {
+      ...finalState.payments,
+      data,
+    };
+
+    return {
+      ...finalState,
+      payments,
+    };
+  }),
+
   on(
     tutorPaymentActions.loadTutorDisputeDetailsSuccess,
     (state, { disputeDetails }) => ({
@@ -102,10 +122,29 @@ export const reducer = createReducer(
 
   on(
     tutorPaymentActions.tutorAddDisputeCommentSuccess,
-    (state, { disputeComment }) => ({
-      ...state,
-      isAddingDisputeComment: false,
-    })
+    (state, { disputeComment }) => {
+      const finalState = {
+        ...state,
+        isAddingDisputeComment: false,
+      };
+
+      let disputeDetails = finalState.disputeDetails;
+
+      const disputeComments = [
+        ...disputeDetails.disputeComments,
+        ...[disputeComment],
+      ];
+
+      disputeDetails = {
+        ...finalState.disputeDetails,
+        disputeComments,
+      };
+
+      return {
+        ...finalState,
+        disputeDetails,
+      };
+    }
   ),
 
   on(tutorPaymentActions.tutorAddDisputeCommentFailure, (state) => ({

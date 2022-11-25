@@ -310,11 +310,16 @@ export const reducer = createReducer(
     showDisputeModal: false,
   })),
 
-  on(fromCore.tutorCreateDisputeSuccess, (state) => ({
-    ...state,
-    showDisputeModal: false,
-    showPaymentSuccessModal: true,
-  })),
+  on(
+    fromCore.tutorCreateDisputeSuccess,
+    fromCore.tutorRequestPaymentSuccess,
+    (state) => ({
+      ...state,
+      showDisputeModal: false,
+      showPaymentSuccessModal: true,
+      showConfirmPaymentModal: false,
+    })
+  ),
 
   on(tutorModalActions.closePaymentSuccessModal, (state) => ({
     ...state,
