@@ -77,6 +77,7 @@ import {
   StudentViewSubmittedAssignmentModalComponent,
   StudentResourcesUploadDocumentModalComponent,
 } from './components';
+import { StudentInboxComponent } from './containers/student-inbox/student-inbox.component';
 
 @NgModule({
   declarations: [
@@ -120,6 +121,7 @@ import {
     StudentSettingsPaymentInformationComponent,
     StudentViewSubmittedAssignmentModalComponent,
     StudentResourcesUploadDocumentModalComponent,
+    StudentInboxComponent,
   ],
   imports: [
     FormsModule,

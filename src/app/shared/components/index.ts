@@ -1,4 +1,5 @@
 export * from './modal';
+export * from './comet-chat';
 export * from './course-item';
 export * from './review-rate';
 export * from './user-avatar';

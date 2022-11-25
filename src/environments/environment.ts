@@ -11,4 +11,9 @@ export const environment = {
   teacherDocs:
     'https://testing.zaptatech.com/public/uploads/teacher_documents/',
   uploadsPath: 'https://testing.zaptatech.com/public/uploads/',
+  cometchat: {
+    region: 'us',
+    appId: '2263585453aea23e',
+    authKey: '55d25a7d5ed11b9db47cb36988c8e47d800c33fb',
+  },
 };

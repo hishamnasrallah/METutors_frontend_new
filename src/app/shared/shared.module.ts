@@ -21,6 +21,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { AngularSvgIconModule, SvgIconRegistryService } from 'angular-svg-icon';
+import { CometChatUI } from 'src/cometchat-pro-angular-ui-kit/CometChatWorkspace/src/public-api';
 
 import { VgCoreModule } from '@videogular/ngx-videogular/core';
 import { VgControlsModule } from '@videogular/ngx-videogular/controls';
@@ -40,12 +41,13 @@ import {
   SignatureCanvasModalComponent,
   ClassroomDetailsPopupComponent,
   SignatureCanvasTemplateComponent,
-  TeacherAvailabilityModalComponent,
+  TeacherAvailabilityModalComponent
 } from '@metutor/shared/modals';
 
 // Components
 import {
   ModalComponent,
+  CometChatComponent,
   ReviewRateComponent,
   CourseItemComponent,
   UserAvatarComponent,
@@ -66,7 +68,7 @@ import {
   ChooseCountryDialogComponent,
   CourseItemHorizentalComponent,
   PaymentInvoiceDetailsComponent,
-  ClassroomItemHorizentalComponent,
+  ClassroomItemHorizentalComponent
 } from '@metutor/shared/components';
 
 // Directives
@@ -78,14 +80,14 @@ import {
   DefaultCoverDirective,
   DefaultAvatarDirective,
   DefaultCourseDirective,
-  GridSerialNumberDirective,
+  GridSerialNumberDirective
 } from '@metutor/shared/directives';
 
 import {
   DaysPipe,
   MoneyPipe,
   UppercasePipe,
-  TimeDifferencePipe,
+  TimeDifferencePipe
 } from './pipes';
 
 @NgModule({
@@ -98,6 +100,7 @@ import {
 
     // Components
     ModalComponent,
+    CometChatComponent,
     ReviewRateComponent,
     CourseItemComponent,
     UserAvatarComponent,
@@ -141,9 +144,10 @@ import {
     DefaultCoverDirective,
     DefaultAvatarDirective,
     DefaultCourseDirective,
-    GridSerialNumberDirective,
+    GridSerialNumberDirective
   ],
   imports: [
+    CometChatUI,
     FormsModule,
     CommonModule,
     MomentModule,
@@ -169,7 +173,7 @@ import {
     RatingModule.forRoot(),
     NgxMatSelectSearchModule,
     BsDropdownModule.forRoot(),
-    AngularSvgIconModule.forRoot(),
+    AngularSvgIconModule.forRoot()
   ],
   exports: [
     // Pipes
@@ -179,8 +183,8 @@ import {
     TimeDifferencePipe,
 
     // Components
-    MomentModule,
     ModalComponent,
+    CometChatComponent,
     UserAvatarComponent,
     CourseItemComponent,
     ReviewRateComponent,
@@ -224,11 +228,13 @@ import {
     TutorAvailableSlotsComponent,
 
     // Modules
+    CometChatUI,
+    MomentModule,
     MatChipsModule,
     TranslateModule,
     AngularSvgIconModule,
-    NgxMatSelectSearchModule,
-  ],
+    NgxMatSelectSearchModule
+  ]
 })
 export class SharedModule {
   constructor(private _iconReg: SvgIconRegistryService) {
