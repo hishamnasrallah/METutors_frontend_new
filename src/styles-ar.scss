@@ -1,8 +1,10 @@
-@import url('https://fonts.googleapis.com/css?family=Cairo&display=swap');
+// @import url('https://fonts.googleapis.com/css?family=Cairo&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alexandria&display=swap');
 
 [dir='rtl'] {
   *:not(.material-icons):not(vg-player) {
-    font-family: 'Cairo', sans-serif;
+    // font-family: 'Cairo', sans-serif;
+    font-family: 'Alexandria', sans-serif;
   }
 
   .list-unstyled,
@@ -20,7 +22,8 @@
   vg-player,
   .wpwl-container,
   .mat-tab-label .mat-tab-label-content,
-  metutors-complete-tutor-profile-tutoring-courses .form-label bdi {
+  metutors-complete-tutor-profile-tutoring-courses .form-label bdi,
+  .request-tutor .mat-horizontal-content-container {
     direction: ltr;
   }
 
@@ -36,7 +39,8 @@
   .loving-opportunities .card-item,
   .success-stories .card-item,
   .benefits-tutoring p bdi,
-  .homework-help .content .field-card {
+  .homework-help .content .field-card,
+  .request-tutor .mat-horizontal-content-container .mat-horizontal-stepper-content {
     direction: rtl;
   }
 

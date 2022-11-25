@@ -873,6 +873,7 @@ span.status {
 rating span.bs-rating-star.active {
   color: var(--main-color);
 }
+
 .border-main {
   border: 1px solid var(--main-color) !important;
 }
@@ -1197,5 +1198,43 @@ $ph-animation-duration: 0.8s !default;
 
   .object-contain-md-sm {
     object-fit: contain;
+  }
+
+  metutors-home-slide carousel .carousel-inner .slide {
+    &:nth-child(1) {
+      .item {
+        background-image: url('assets/homepage/covers/01.webp');
+      }
+    }
+
+    &:nth-child(2) {
+      .item {
+        background-image: url('assets/homepage/covers/02.webp');
+      }
+    }
+
+    &:nth-child(3) {
+      .item {
+        background-image: url('assets/homepage/covers/03.webp');
+      }
+    }
+
+    &:nth-child(4) {
+      .item {
+        background-image: url('assets/homepage/covers/04.webp');
+      }
+    }
+
+    &:nth-child(5) {
+      .item {
+        background-image: url('assets/homepage/covers/05.webp');
+      }
+    }
+
+    &:nth-child(6) {
+      .item {
+        background-image: url('assets/homepage/covers/06.webp');
+      }
+    }
   }
 }
