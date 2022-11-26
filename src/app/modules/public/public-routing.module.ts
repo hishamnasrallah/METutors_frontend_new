@@ -92,7 +92,7 @@ const routes: Routes = [
   {
     path: 'privacy-policy',
     component: PrivacyPolicyComponent,
-    data: { layout: { title: 'PRIVACY_POLICY' } }
+    data: { layout: { title: 'PRIVACY_NOTICE' } }
   }
 ];
 

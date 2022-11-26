@@ -79,7 +79,8 @@
     margin-right: 0 !important;
   }
 
-  .me-2 {
+  .me-2,
+  .list-inline-item:not(:last-child) {
     margin-left: 0.5rem !important;
     margin-right: 0 !important;
   }
@@ -189,7 +190,8 @@
     margin-right: 0 !important;
   }
 
-  .home-header .nav-item:last-child {
+  .home-header .nav-item:last-child,
+  .footer .subscribe .social a:last-child {
     margin-right: 0;
     margin-left: 0;
   }
@@ -239,7 +241,8 @@
   .classroom-details-popup .list-videos .video h3,
   .course-details-popup .list-videos .video h3,
   .request-course .cancel-btn,
-  .footer .copyright .mastercard {
+  .footer .copyright .mastercard,
+  .footer .subscribe .social a {
     margin-right: 0 !important;
     margin-left: 15px;
   }
@@ -391,7 +394,7 @@
   }
 
   .footer .subscribe .form-block input {
-    padding: 10px 10px 10px 170px !important;
+    padding: 10px 10px 10px 80px !important;
   }
 
   .ticket-details .card .write-comment input {
@@ -619,11 +622,6 @@
     padding-right: 0;
   }
 
-  .footer .subscribe .social a:last-child {
-    padding-left: 0 !important;
-    padding-right: 15px !important;
-  }
-
   .share input {
     text-align: left;
     padding-left: 30px;
@@ -637,6 +635,11 @@
 
   .list-items .menu {
     padding-right: calc(1.5rem * 0.5) !important;
+    padding-left: 0 !important;
+  }
+
+  .footer .copyright ul li:after {
+    padding-right: 5px;
     padding-left: 0 !important;
   }
 
@@ -687,7 +690,8 @@
     border-radius: 15px 0 15px 15px !important;
   }
 
-  .have-coupon button {
+  .have-coupon button,
+  .footer .subscribe .form-block button {
     border-radius: 4px 0 0 4px !important;
   }
 
