@@ -10,6 +10,8 @@ export * from './founder-team';
 export * from './about-values';
 export * from './home-courses';
 export * from './our-partners';
+export * from './terms-header';
+export * from './terms-sidebar';
 export * from './languages-slide';
 export * from './success-stories';
 export * from './why-teaching-us';

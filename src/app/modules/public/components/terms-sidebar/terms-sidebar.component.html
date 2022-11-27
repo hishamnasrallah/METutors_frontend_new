@@ -1,0 +1,19 @@
+<div class="terms-sidebar">
+  <a routerLink="/">
+    <img alt="logo" src="assets/logo/logo-dark.png" width="200px" draggable="false">
+  </a>
+
+  <div class="divider"></div>
+
+  <ul class="list-unstyled mb-0">
+    <li *ngFor="let link of links">
+      <a [routerLink]="link.route" [class.active]="link.key === active">{{ link.key | translate }}</a>
+    </li>
+  </ul>
+
+  <div class="questions mt-3">
+    <h1>{{ 'QUESTIONS' | translate }}</h1>
+    <p>{{ 'WE_HAPPY_ANSWER_QUESTIONS_SERVICES' | translate }}</p>
+    <a routerLink="/contact">{{ 'CONTACT_US' | translate }}</a>
+  </div>
+</div>

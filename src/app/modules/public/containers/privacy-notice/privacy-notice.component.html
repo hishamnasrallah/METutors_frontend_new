@@ -1,8 +1,51 @@
-<div class="privacy-policy">
-  <div class="heading">
-    <h1 class="f-size-20-md-sm">PRIVACY POLICY</h1>
-  </div>
+<metutors-terms-header [title]="'WE_TAKE_DATA_PRIVACY_SERIOUSLY'"
+                       [description]="'WE_TAKE_DATA_PRIVACY_SERIOUSLY_DESC'">
+</metutors-terms-header>
 
+<div class="container privacy-notice mt-5">
+  <div class="row">
+    <div class="col-md-9">
+      <h1 class="title">{{ 'PRIVACY_NOTICE' | translate }}</h1>
+      <p class="details">
+        We have created MEtutors with privacy designed in the center. How and when we collect your personal information
+        is no different. We only collect your information where there is a good reason to do so and we will handle it in
+        a legal and ethical manner at all times. You have our word!
+        <br />
+        <br />
+        We appreciate that not everyone may enjoy reading a privacy notice. For this reason, we’ve tried to make this
+        short and simple. There is also a lot of information we are required by law to provide you with. If there is
+        anything not clear, please reach out to us and we’re always happy to discuss further.
+      </p>
+
+      <div class="card question" *ngFor="let question of questions">
+        <div class="card-body">
+          <div class="d-flex">
+            <h1 class="flex-grow-1 m-0 f-size-25-md-sm"
+              [class.main-color]="openQuestion && selectedQuestion === question.id">
+              <bdi>{{ question?.title }}</bdi>
+            </h1>
+            <button mat-button *ngIf="selectedQuestion !== question.id" (click)="changeOpenSelection(question.id)">
+              <mat-icon>add</mat-icon>
+            </button>
+            <button mat-button class="main-color" *ngIf="openQuestion && selectedQuestion === question.id"
+              (click)="changeOpenSelection(question.id)">
+              <mat-icon>remove</mat-icon>
+            </button>
+          </div>
+          <p class="desc" *ngIf="openQuestion && selectedQuestion === question.id" [@slideInOut]>
+            <bdi>{{ question?.answer }}</bdi>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <metutors-terms-sidebar [active]="'PRIVACY_NOTICE'"></metutors-terms-sidebar>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="privacy-notice">
   <div class="container my-4">
     <div class="card">
       <div class="card-body">
@@ -711,4 +754,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->

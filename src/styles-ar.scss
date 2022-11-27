@@ -1,10 +1,10 @@
-// @import url('https://fonts.googleapis.com/css?family=Cairo&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Alexandria&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Cairo&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Alexandria&display=swap');
 
 [dir='rtl'] {
   *:not(.material-icons):not(vg-player) {
-    // font-family: 'Cairo', sans-serif;
-    font-family: 'Alexandria', sans-serif;
+    font-family: 'Cairo', sans-serif;
+    // font-family: 'Alexandria', sans-serif;
   }
 
   .list-unstyled,
@@ -142,6 +142,12 @@
 
   .loving-opportunities button {
     float: unset !important;
+  }
+
+  .terms-sidebar ul li a.active:before {
+    border-color: transparent transparent transparent var(--main-color) !important;
+    margin-left: 10px !important;
+    margin-right: -4px !important;
   }
 
   metutors-study-slide .slide,
@@ -342,13 +348,13 @@
   }
 
   .terms-condition .margin-50,
-  .privacy-policy .margin-50 {
+  .privacy-notice .margin-50 {
     margin-right: 50px;
     margin-left: 0 !important;
   }
 
   .terms-condition .card p .margin-20,
-  .privacy-policy .card p .margin-20 {
+  .privacy-notice .card p .margin-20 {
     margin-right: 20px;
     margin-left: 0 !important;
   }

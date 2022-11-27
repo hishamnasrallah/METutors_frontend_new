@@ -10,12 +10,15 @@ import {
   WelcomeComponent,
   FaqTicketComponent,
   AllCoursesComponent,
+  TutorTermsComponent,
   BecomeTutorComponent,
-  PrivacyPolicyComponent,
+  CookieNoticeComponent,
+  StudentTermsComponent,
+  WebsiteTermsComponent,
+  PrivacyNoticeComponent,
   ExploreTutorsComponent,
-  LanguagesCoursesComponent,
-  TutorTermsConditionsComponent,
-  StudentTermsConditionsComponent
+  CommunityTermsComponent,
+  LanguagesCoursesComponent
 } from './containers';
 
 const routes: Routes = [
@@ -80,19 +83,34 @@ const routes: Routes = [
     data: { layout: { title: 'EXPLORE_TUTORS' } }
   },
   {
-    path: 'student-terms-conditions',
-    component: StudentTermsConditionsComponent,
+    path: 'student-terms',
+    component: StudentTermsComponent,
     data: { layout: { title: 'TERMS_CONDITIONS' } }
   },
   {
-    path: 'tutor-terms-conditions',
-    component: TutorTermsConditionsComponent,
+    path: 'tutor-terms',
+    component: TutorTermsComponent,
     data: { layout: { title: 'TERMS_CONDITIONS' } }
   },
   {
-    path: 'privacy-policy',
-    component: PrivacyPolicyComponent,
+    path: 'privacy-notice',
+    component: PrivacyNoticeComponent,
     data: { layout: { title: 'PRIVACY_NOTICE' } }
+  },
+  {
+    path: 'cookie-notice',
+    component: CookieNoticeComponent,
+    data: { layout: { title: 'COOKIES_NOTICE' } }
+  },
+  {
+    path: 'website-terms',
+    component: WebsiteTermsComponent,
+    data: { layout: { title: 'WEBSITE_TERMS' } }
+  },
+  {
+    path: 'community-terms',
+    component: CommunityTermsComponent,
+    data: { layout: { title: 'COMMUNITY_TERMS' } }
   }
 ];
 
