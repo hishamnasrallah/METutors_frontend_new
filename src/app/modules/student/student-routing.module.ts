@@ -16,8 +16,8 @@ import {
   StudentSupportTicketComponent,
   StudentTicketDetailsComponent,
   StudentClassDashboardComponent,
+  StudentViewCertificateComponent,
 } from './containers';
-import { StudentViewCertificateComponent } from '@metutor/modules/student/containers/student-view-certificate/student-view-certificate.component';
 
 const routes: Routes = [
   {
