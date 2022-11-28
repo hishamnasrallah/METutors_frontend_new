@@ -1,16 +1,16 @@
 /* eslint-disable prefer-arrow/prefer-arrow-functions */
 /* eslint-disable no-console */
 import { environment } from '@environment';
+import * as fromCore from '@metutor/core/state';
 import * as fromRouter from '@ngrx/router-store';
+import { localStorageSync } from 'ngrx-store-localstorage';
 import {
   MetaReducer,
   ActionReducer,
   createSelector,
   ActionReducerMap,
-  createFeatureSelector,
+  createFeatureSelector
 } from '@ngrx/store';
-import * as fromCore from '@metutor/core/state';
-import { localStorageSync } from 'ngrx-store-localstorage';
 
 export interface State {
   core: any; // fromCore.CoreState
@@ -19,7 +19,7 @@ export interface State {
 
 export const reducers: ActionReducerMap<State> = {
   core: fromCore.reducers,
-  router: fromRouter.routerReducer,
+  router: fromRouter.routerReducer
 };
 
 // Global Selectors
@@ -37,14 +37,14 @@ export const {
   selectRouteParams, // select the current route params
   selectRouteParam, // factory function to select a route param
   selectRouteData, // select the current route data
-  selectUrl, // select the current url
+  selectUrl // select the current url
 } = fromRouter.getSelectors(selectRouter);
 
 // Layout Selectors
 
 export const selectLayout = createSelector(
   selectRouteData,
-  (state) => state['layout']
+  state => state['layout']
 );
 
 export function localStorageSyncReducer(
@@ -55,15 +55,16 @@ export function localStorageSyncReducer(
       {
         core: [
           {
-            user: ['token', 'registerStep', 'registerUserType', 'registerEmail'],
             lookups: ['userTypes'],
             request: ['createdClass'],
+            cometChat: ['accessToken'],
             money: ['selectedCurrency'],
-          },
-        ],
-      },
+            user: ['token', 'registerStep', 'registerUserType', 'registerEmail']
+          }
+        ]
+      }
     ],
-    rehydrate: true,
+    rehydrate: true
   })(reducer);
 }
 

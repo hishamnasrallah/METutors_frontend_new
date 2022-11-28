@@ -4,6 +4,7 @@ import {
   StudentComponent,
   StudentFaqComponent,
   StudentHelpComponent,
+  StudentInboxComponent,
   StudentClassesComponent,
   StudentSyllabusComponent,
   StudentSettingsComponent,
@@ -16,7 +17,7 @@ import {
   StudentSupportTicketComponent,
   StudentTicketDetailsComponent,
   StudentClassDashboardComponent,
-  StudentViewCertificateComponent,
+  StudentViewCertificateComponent
 } from './containers';
 
 const routes: Routes = [
@@ -27,8 +28,8 @@ const routes: Routes = [
       layout: {
         title: 'STUDENT',
         showHeader: false,
-        showFooter: false,
-      },
+        showFooter: false
+      }
     },
     children: [
       {
@@ -43,9 +44,9 @@ const routes: Routes = [
                 title: 'CLASSROOMS',
                 navbarTitle: 'CLASSROOMS',
                 showHeader: false,
-                showFooter: false,
-              },
-            },
+                showFooter: false
+              }
+            }
           },
           {
             path: 'classes',
@@ -56,8 +57,8 @@ const routes: Routes = [
                 navbarTitle: 'CLASSES_DASHBOARD',
                 showHeader: false,
                 showFooter: false,
-                hideSidebar: true,
-              },
+                hideSidebar: true
+              }
             },
             children: [
               {
@@ -69,9 +70,9 @@ const routes: Routes = [
                     navbarTitle: 'SYLLABUS',
                     showHeader: false,
                     showFooter: false,
-                    hideSidebar: true,
-                  },
-                },
+                    hideSidebar: true
+                  }
+                }
               },
               {
                 path: 'resources/:id',
@@ -82,9 +83,9 @@ const routes: Routes = [
                     navbarTitle: 'RESOURCES',
                     showHeader: false,
                     showFooter: false,
-                    hideSidebar: true,
-                  },
-                },
+                    hideSidebar: true
+                  }
+                }
               },
 
               {
@@ -96,9 +97,9 @@ const routes: Routes = [
                     navbarTitle: 'ASSIGNMENTS',
                     showHeader: false,
                     showFooter: false,
-                    hideSidebar: true,
-                  },
-                },
+                    hideSidebar: true
+                  }
+                }
               },
               {
                 path: 'dashboard/:id',
@@ -109,18 +110,18 @@ const routes: Routes = [
                     navbarTitle: 'CLASSES_DASHBOARD',
                     showHeader: false,
                     showFooter: false,
-                    hideSidebar: true,
-                  },
-                },
+                    hideSidebar: true
+                  }
+                }
               },
               {
                 path: '',
                 redirectTo: 'dashboard/:id',
-                pathMatch: 'full',
-              },
-            ],
-          },
-        ],
+                pathMatch: 'full'
+              }
+            ]
+          }
+        ]
       },
       {
         path: 'help',
@@ -131,8 +132,8 @@ const routes: Routes = [
             navbarTitle: 'HELP',
             showHeader: false,
             showFooter: false,
-            hideSidebar: true,
-          },
+            hideSidebar: true
+          }
         },
         children: [
           {
@@ -144,9 +145,9 @@ const routes: Routes = [
                 navbarTitle: 'FREQUENTLY_ASKED_QUESTIONS',
                 showHeader: false,
                 showFooter: false,
-                hideSidebar: true,
-              },
-            },
+                hideSidebar: true
+              }
+            }
           },
           {
             path: 'support-ticket',
@@ -160,9 +161,9 @@ const routes: Routes = [
                     navbarTitle: 'SUPPORT_TICKET',
                     showHeader: false,
                     showFooter: false,
-                    hideSidebar: true,
-                  },
-                },
+                    hideSidebar: true
+                  }
+                }
               },
               {
                 path: 'create-ticket',
@@ -173,9 +174,9 @@ const routes: Routes = [
                     navbarTitle: 'CREATE_TICKET',
                     showHeader: false,
                     showFooter: false,
-                    hideSidebar: true,
-                  },
-                },
+                    hideSidebar: true
+                  }
+                }
               },
               {
                 path: 'ticket-details/:id',
@@ -186,18 +187,18 @@ const routes: Routes = [
                     navbarTitle: 'TICKET_DETAILS',
                     showHeader: false,
                     showFooter: false,
-                    hideSidebar: true,
-                  },
-                },
-              },
-            ],
+                    hideSidebar: true
+                  }
+                }
+              }
+            ]
           },
           {
             path: '',
             redirectTo: '/student/help/faq',
-            pathMatch: 'full',
-          },
-        ],
+            pathMatch: 'full'
+          }
+        ]
       },
       {
         path: 'dashboard',
@@ -208,9 +209,21 @@ const routes: Routes = [
             title: 'DASHBOARD',
             navbarTitle: 'STUDENT_DASHBAORD',
             showHeader: false,
-            showFooter: false,
-          },
-        },
+            showFooter: false
+          }
+        }
+      },
+      {
+        path: 'inbox',
+        component: StudentInboxComponent,
+        data: {
+          layout: {
+            title: 'INBOX',
+            navbarTitle: 'INBOX',
+            showHeader: false,
+            showFooter: false
+          }
+        }
       },
       {
         path: 'certificates',
@@ -221,9 +234,9 @@ const routes: Routes = [
             title: 'CERTIFICATES',
             navbarTitle: 'CERTIFICATES',
             showHeader: false,
-            showFooter: false,
-          },
-        },
+            showFooter: false
+          }
+        }
       },
       {
         path: 'view-certificate/:id',
@@ -234,9 +247,9 @@ const routes: Routes = [
             title: 'CERTIFICATES',
             navbarTitle: 'CERTIFICATES',
             showHeader: false,
-            showFooter: false,
-          },
-        },
+            showFooter: false
+          }
+        }
       },
       {
         path: 'settings',
@@ -247,21 +260,21 @@ const routes: Routes = [
             title: 'SETTINGS',
             navbarTitle: 'SETTINGS',
             showHeader: false,
-            showFooter: false,
-          },
-        },
+            showFooter: false
+          }
+        }
       },
       {
         path: '',
         redirectTo: '/student/dashboard',
-        pathMatch: 'full',
-      },
-    ],
-  },
+        pathMatch: 'full'
+      }
+    ]
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
 export class StudentRoutingModule {}

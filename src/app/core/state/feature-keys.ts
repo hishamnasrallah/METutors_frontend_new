@@ -11,6 +11,7 @@ export const lookupsFeatureKey = 'lookups';
 export const financeFeatureKey = 'finance';
 export const studentFeatureKey = 'student';
 export const interviewFeatureKey = 'interview';
+export const cometChatFeatureKey = 'cometChat';
 export const tutorResourceFeatureKey = 'tutorResource';
 export const tutorSyllabusFeatureKey = 'tutorSyllabus';
 export const tutorPaymentsFeatureKey = 'tutorPayments';

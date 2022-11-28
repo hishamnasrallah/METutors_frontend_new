@@ -10,6 +10,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import * as userActions from '../actions/user.actions';
 import * as tutorActions from '../actions/tutor.actions';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import * as cometChatActions from '../actions/comet-chat.actions';
 import { AlertNotificationService } from '@metutor/core/components';
 import { FreeClassroomDemo, SocialProvider, UserRole } from '@metutor/config';
 
@@ -51,6 +52,13 @@ export class UserEffects {
           return of(userActions.identifyUserEnded());
         }
       })
+    )
+  );
+
+  initCometChat$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(userActions.identifyUserSuccess),
+      mergeMap(_ => of(fromCore.initCometChat()))
     )
   );
 
@@ -262,6 +270,13 @@ export class UserEffects {
     }
   );
 
+  loginSuccessCometChat$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(userActions.signInSuccess),
+      map(() => cometChatActions.initCometChat())
+    )
+  );
+
   signInRequired$ = createEffect(
     () =>
       this._actions$.pipe(
@@ -384,6 +399,13 @@ export class UserEffects {
     {
       dispatch: false
     }
+  );
+
+  logoutCometChat$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(userActions.logoutSuccess),
+      map(() => cometChatActions.disconnectCometChat())
+    )
   );
 
   loadCurrencyRates$ = createEffect(() =>

@@ -12,3 +12,4 @@ export * from './support.service';
 export * from './finance.service';
 export * from './students.service';
 export * from './interviews.service';
+export * from './comet-chat.service';

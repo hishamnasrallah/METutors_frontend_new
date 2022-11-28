@@ -1,6 +1,7 @@
 export * from './student';
 export * from './student-faq';
 export * from './student-help';
+export * from './student-inbox';
 export * from './student-classes';
 export * from './student-settings';
 export * from './student-syllabus';

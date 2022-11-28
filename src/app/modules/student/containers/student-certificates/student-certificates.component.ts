@@ -1,11 +1,10 @@
-import { map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
-import { combineLatest, Observable } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
-
+import { map } from 'rxjs/operators';
 import * as fromRoot from '@metutor/state';
 import { IUser } from '@metutor/core/models';
 import * as fromCore from '@metutor/core/state';
+import { combineLatest, Observable } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'metutors-student-certificates',

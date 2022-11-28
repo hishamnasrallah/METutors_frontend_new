@@ -36,6 +36,7 @@ import {
   StudentComponent,
   StudentFaqComponent,
   StudentHelpComponent,
+  StudentInboxComponent,
   StudentClassesComponent,
   StudentSyllabusComponent,
   StudentSettingsComponent,
@@ -48,7 +49,7 @@ import {
   StudentSupportTicketComponent,
   StudentTicketDetailsComponent,
   StudentClassDashboardComponent,
-  StudentViewCertificateComponent,
+  StudentViewCertificateComponent
 } from './containers';
 
 import {
@@ -75,7 +76,7 @@ import {
   StudentCancelCourseSuccessModalComponent,
   StudentSettingsPaymentInformationComponent,
   StudentViewSubmittedAssignmentModalComponent,
-  StudentResourcesUploadDocumentModalComponent,
+  StudentResourcesUploadDocumentModalComponent
 } from './components';
 
 @NgModule({
@@ -84,6 +85,7 @@ import {
     StudentFaqComponent,
     DialogEditClassroom,
     StudentHelpComponent,
+    StudentInboxComponent,
     DialogRemoveClassroom,
     StudentNavbarComponent,
     StudentClassesComponent,
@@ -119,7 +121,7 @@ import {
     StudentAddHighlightedTopicModalComponent,
     StudentSettingsPaymentInformationComponent,
     StudentViewSubmittedAssignmentModalComponent,
-    StudentResourcesUploadDocumentModalComponent,
+    StudentResourcesUploadDocumentModalComponent
   ],
   imports: [
     FormsModule,
@@ -151,8 +153,8 @@ import {
     NgxMaterialTimepickerModule,
     EffectsModule.forFeature(Object.values(studentEffects)),
     StoreModule.forFeature(featureKeys.studentFeatureKey, fromStudent.reducers),
-    MatSliderModule,
+    MatSliderModule
   ],
-  exports: [StudentMakeupClassModalComponent],
+  exports: [StudentMakeupClassModalComponent]
 })
 export class StudentModule {}
