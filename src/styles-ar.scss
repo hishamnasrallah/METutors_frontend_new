@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Cairo&display=swap');
 // @import url('https://fonts.googleapis.com/css2?family=Alexandria&display=swap');
 
-[dir='rtl'] {
+body[dir='rtl'] {
   *:not(.material-icons):not(vg-player) {
     font-family: 'Cairo', sans-serif;
     // font-family: 'Alexandria', sans-serif;
@@ -39,6 +39,7 @@
   .loving-opportunities .card-item,
   .success-stories .card-item,
   .benefits-tutoring p bdi,
+  .cdk-global-overlay-wrapper,
   .homework-help .content .field-card,
   .request-tutor .mat-horizontal-content-container .mat-horizontal-stepper-content {
     direction: rtl;
@@ -121,7 +122,8 @@
   }
 
   .text-start,
-  .student-profile .basic-table tr td.text-end {
+  .student-profile .basic-table tr td.text-end,
+  .mat-menu-item {
     text-align: right !important;
   }
 

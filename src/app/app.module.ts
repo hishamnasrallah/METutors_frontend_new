@@ -2,21 +2,21 @@ import { NgModule } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { NgProgressModule } from 'ngx-progressbar';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { BrowserModule } from '@angular/platform-browser';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { RouterState, StoreRouterConnectingModule } from '@ngrx/router-store';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   HttpClient,
   HttpClientModule,
-  HTTP_INTERCEPTORS,
+  HTTP_INTERCEPTORS
 } from '@angular/common/http';
 
 import {
   SocialLoginModule,
   GoogleLoginProvider,
   FacebookLoginProvider,
-  SocialAuthServiceConfig,
+  SocialAuthServiceConfig
 } from 'angularx-social-login';
 
 import { AppComponent } from './app.component';
@@ -49,13 +49,13 @@ export function createTranslateLoader(http: HttpClient) {
       loader: {
         provide: TranslateLoader,
         useFactory: createTranslateLoader,
-        deps: [HttpClient],
-      },
+        deps: [HttpClient]
+      }
     }),
     NgProgressModule.withConfig({
       spinnerPosition: 'right',
       color: '#3bb3c1',
-      direction: 'ltr+',
+      direction: 'ltr+'
     }),
 
     /**
@@ -69,8 +69,8 @@ export function createTranslateLoader(http: HttpClient) {
       metaReducers,
       runtimeChecks: {
         strictStateImmutability: true,
-        strictActionImmutability: true,
-      },
+        strictActionImmutability: true
+      }
     }),
 
     /**
@@ -86,7 +86,7 @@ export function createTranslateLoader(http: HttpClient) {
      * @ngrx/router-store keeps router state up-to-date in the store.
      */
     StoreRouterConnectingModule.forRoot({
-      routerState: RouterState.Minimal,
+      routerState: RouterState.Minimal
     }),
 
     /**
@@ -104,9 +104,9 @@ export function createTranslateLoader(http: HttpClient) {
           name: 'MeTutor',
           // In a production build you would want to disable the Store Devtools
           logOnly: environment.production,
-          maxAge: 30,
+          maxAge: 30
         })
-      : [],
+      : []
   ],
   providers: [
     DatePipe,
@@ -122,16 +122,16 @@ export function createTranslateLoader(http: HttpClient) {
             provider: new GoogleLoginProvider(
               //"932307944888-3624muskqs1iin0feiu1loj6pffps0pl.apps.googleusercontent.com"
               '466805394657-e2m655c5uou267lharg9qfrnj9rld5ij.apps.googleusercontent.com'
-            ),
+            )
           },
           {
             id: FacebookLoginProvider.PROVIDER_ID,
-            provider: new FacebookLoginProvider('447025460465825'),
-          },
-        ],
-      } as SocialAuthServiceConfig,
-    },
+            provider: new FacebookLoginProvider('447025460465825')
+          }
+        ]
+      } as SocialAuthServiceConfig
+    }
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

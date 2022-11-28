@@ -73,6 +73,14 @@ button:hover {
   margin-bottom: 1rem;
 }
 
+.mat-menu-item {
+  text-align: left !important;
+}
+
+.cdk-global-overlay-wrapper {
+  direction: ltr;
+}
+
 .mat-progress-bar-fill::after,
 .mat-slide-toggle.mat-primary.mat-checked .mat-slide-toggle-bar {
   background-color: var(--main-color);
