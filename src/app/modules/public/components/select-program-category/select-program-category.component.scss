@@ -78,16 +78,6 @@
         span {
           color: #FFF;
         }
-
-        &::after {
-          content: "";
-          position: absolute;
-          height: 4px;
-          background: var(--main-color);
-          bottom: 0;
-          right: 0;
-          left: 0;
-        }
       }
     }
 
