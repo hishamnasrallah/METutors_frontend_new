@@ -2,12 +2,11 @@ import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { catchError, map, mergeMap } from 'rxjs/operators';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-
 import camelcaseKeys from 'camelcase-keys';
 import { FinanceService } from '@services';
+import { catchError, map, mergeMap } from 'rxjs/operators';
 import * as financeActions from '../actions/finance.actions';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { AlertNotificationService } from '@metutor/core/components';
 
 @Injectable()
@@ -25,6 +24,74 @@ export class FinanceEffects {
           catchError((error) =>
             of(
               financeActions.loadOrdersFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  loadCoupons$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(financeActions.loadCoupons),
+      mergeMap(({ params }) =>
+        this._financeService.loadCoupons(params).pipe(
+          map((result) =>
+            financeActions.loadCouponsSuccess({
+              coupons: camelcaseKeys(result, { deep: true }),
+            })
+          ),
+          catchError((error) =>
+            of(
+              financeActions.loadCouponsFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  adminAddCoupon$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(financeActions.adminAddCoupon),
+      mergeMap(({ coupon }) =>
+        this._financeService.adminAddCoupon(coupon).pipe(
+          map(({ coupon, message }) =>
+            financeActions.adminAddCouponSuccess({
+              message,
+              coupon: camelcaseKeys(coupon, { deep: true }),
+            })
+          ),
+          catchError((error) =>
+            of(
+              financeActions.adminAddCouponFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  adminEditCoupon$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(financeActions.adminEditCoupon),
+      mergeMap(({ coupon }) =>
+        this._financeService.adminEditCoupon(coupon).pipe(
+          map(({ coupon, message }) =>
+            financeActions.adminEditCouponSuccess({
+              message,
+              coupon: camelcaseKeys(coupon, { deep: true }),
+            })
+          ),
+          catchError((error) =>
+            of(
+              financeActions.adminEditCouponFailure({
                 error: error?.error?.message || error?.error?.errors,
               })
             )
@@ -159,32 +226,22 @@ export class FinanceEffects {
       )
     )
   );
-  /*
+
   successMessages$ = createEffect(
     () =>
       this._actions$.pipe(
         ofType(
           ...[
-            interviewActions.acceptInterviewRequestSuccess,
-            interviewActions.declineInterviewRequestSuccess,
-            interviewActions.scheduleInterviewRequestSuccess,
+            financeActions.adminAddCouponSuccess,
+            financeActions.adminEditCouponSuccess,
           ]
         ),
-        map((action) => {
-          if (action.message) {
-            return this._alertNotificationService.success(action.message);
-          } else {
-            return this._alertNotificationService.success(
-              'Information updated successfully!'
-            );
-          }
-        })
+        map(({ message }) => this._alertNotificationService.success(message))
       ),
     {
       dispatch: false,
     }
   );
-*/
 
   failureMessages$ = createEffect(
     () =>
@@ -193,15 +250,15 @@ export class FinanceEffects {
           ...[
             financeActions.reTryPaymentFailure,
             financeActions.refundCourseFailure,
+            financeActions.adminAddCouponFailure,
+            financeActions.adminEditCouponFailure,
           ]
         ),
         map((action) => {
           if (action.error) {
             return this._alertNotificationService.error(action.error);
           } else {
-            return this._alertNotificationService.error(
-              'Something went wrong!'
-            );
+            return this._alertNotificationService.error('SOMETHING_WENT_WRONG');
           }
         })
       ),

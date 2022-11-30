@@ -7,7 +7,7 @@
         <div class="form-group">
           <label for="nameOfUniversity" class="form-label">{{ 'NAME_UNIVERSITY' | translate }}</label>
           <input type="text" class="custom-input w-100 input-bordered" id="nameOfUniversity" placeholder="{{ 'ENTER_UNIVERSITY_NAME' | translate }}"
-                 formControlName="nameOfUniversity" meTutorsLettersOnly>
+                 formControlName="nameOfUniversity" meTutorsLettersOnly meTutorsTrimInput>
           <div class="text-danger" *ngIf="nameOfUniversity?.touched && nameOfUniversity?.invalid">
             {{ 'VALID_UNIVERSITY_NAME' | translate }}
           </div>
@@ -19,7 +19,7 @@
           <label for="teachingExperience" class="form-label">{{ 'TEACHING_EXPERIENCE' | translate }}</label>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="teachingExperience" placeholder="{{ 'SELECT_YEARS' | translate }}" id="teachingExperience">
-              <mat-option [value]="experience" *ngFor="let experience of experiences">{{ experience }}</mat-option>
+              <mat-option [value]="experience" *ngFor="let experience of experiences">{{ experience | metutorsUppercase | translate }}</mat-option>
             </mat-select>
           </mat-form-field>
           <div class="text-danger" *ngIf="teachingExperience?.touched && teachingExperience?.invalid">
@@ -36,7 +36,9 @@
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="degreeLevel" placeholder="{{ 'SELECT_DEGREE_LEVEL' | translate }}" id="degreeLevel"
                         (selectionChange)="resetDegreeField()">
-              <mat-option [value]="level" *ngFor="let level of degreeLevels">{{ level }}</mat-option>
+              <mat-option [value]="level" *ngFor="let level of degreeLevels">
+                {{ level | metutorsUppercase | translate }}
+              </mat-option>
             </mat-select>
           </mat-form-field>
           <div class="text-danger" *ngIf="degreeLevel?.touched && degreeLevel?.invalid">
@@ -51,7 +53,7 @@
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="teachingExperienceOnline" placeholder="{{ 'SELECT_YEARS' | translate }}"
                         id="teachingExperienceOnline">
-              <mat-option [value]="experience" *ngFor="let experience of experiences">{{ experience }}</mat-option>
+              <mat-option [value]="experience" *ngFor="let experience of experiences">{{ experience | metutorsUppercase | translate }}</mat-option>
             </mat-select>
           </mat-form-field>
           <div class="text-danger" *ngIf="teachingExperienceOnline?.touched && teachingExperienceOnline?.invalid">
@@ -69,11 +71,11 @@
             <mat-select formControlName="degreeField" placeholder="{{ 'SELECT_DEGREE_FIELD' | translate }}" id="degreeField">
               <mat-option>
                 <ngx-mat-select-search [(ngModel)]="filterDegree" [ngModelOptions]="{standalone: true}"
-                                       placeholderLabel="{{ 'SEARCH' | translate }}"
+                                       placeholderLabel="{{ 'SEARCH_DOTS' | translate }}"
                                        noEntriesFoundLabel="{{ 'NO_MATCHING_DEGREE_FIELD' | translate }}">
                 </ngx-mat-select-search>
               </mat-option>
-              <mat-option [value]="field" *ngFor="let field of filteredDegreeFields">{{ field }}</mat-option>
+              <mat-option [value]="field" *ngFor="let field of filteredDegreeFields">{{ field | metutorsUppercase | translate }}</mat-option>
             </mat-select>
           </mat-form-field>
           <div class="text-danger" *ngIf="degreeField?.touched && degreeField?.invalid">
@@ -84,9 +86,9 @@
 
       <div class="col-md-6">
         <div class="form-group">
-          <label for="currentEmployer" class="form-label">{{ 'CURRENT_EMPLOYER' | translate }} <span>({{ 'OPTIONAL' | translate }})</span></label>
+          <label for="currentEmployer" class="form-label">{{ 'CURRENT_EMPLOYER' | translate }}</label>
           <input type="text" class="custom-input w-100 input-bordered" id="currentEmployer" placeholder="{{ 'ENTER_CURRENT_EMPLOYER' | translate }}"
-                 formControlName="currentEmployer">
+                 formControlName="currentEmployer" meTutorsTrimInput>
           <div class="text-danger" *ngIf="currentEmployer?.touched && currentEmployer?.invalid">
             {{ 'WRITE_VALID_CURRENT_EMPLOYER' | translate }}
           </div>
@@ -100,7 +102,7 @@
           <label for="computerSkills" class="form-label">{{ 'COMPUTER_SKILLS' | translate }}</label>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="computerSkills" placeholder="{{ 'SELECT_COMPUTER_SKILLS' | translate }}" id="computerSkills">
-              <mat-option [value]="skill" *ngFor="let skill of skills">{{ skill }}</mat-option>
+              <mat-option [value]="skill" *ngFor="let skill of skills">{{ skill | uppercase | translate }}</mat-option>
             </mat-select>
           </mat-form-field>
           <div class="text-danger" *ngIf="computerSkills?.touched && computerSkills?.invalid">
@@ -111,9 +113,9 @@
 
       <div class="col-md-6">
         <div class="form-group">
-          <label for="currentTitle" class="form-label">{{ 'CURRENT_TITLE' | translate }} <span>({{ 'OPTIONAL' | translate }})</span></label>
+          <label for="currentTitle" class="form-label">{{ 'CURRENT_TITLE' | translate }}</label>
           <input type="text" class="custom-input w-100 input-bordered" id="currentTitle" placeholder="{{ 'ENTER_CURRENT_TITLE' | translate }}"
-                 formControlName="currentTitle" meTutorsLettersOnly>
+                 formControlName="currentTitle" meTutorsLettersOnly meTutorsTrimInput>
           <div class="text-danger" *ngIf="currentTitle?.touched && currentTitle?.invalid">
             {{ 'WRITE_VALID_CURRENT_TITLE' | translate }}
           </div>
@@ -125,9 +127,9 @@
       <div class="col-md-6">
         <div class="form-group">
           <div>
-            <label for="languages" class="form-label">{{ 'SPOKEN_LANGUAGES' | translate }} <span>({{ 'FOR_TEACHING' | translate }})</span></label>
+            <label for="languages" class="form-label">{{ 'TEACHING_LANGUAGES' | translate }} <span>({{ 'MAX_5_LANGUAGES' | translate }})</span></label>
             <a class="float-end cursor-pointer" (click)="addLanguage()"
-               [ngClass]="{'text-secondary cursor-not-allowed': languages.status === invalid}">{{ 'ADD_NEW' | translate }}</a>
+               [ngClass]="{'text-secondary cursor-not-allowed pointer-events-none': languages.status === invalid || languages?.value?.length >=5}">{{ 'ADD_NEW' | translate }}</a>
           </div>
           <metutors-spoken-languages [form]="form" [languagesList]="languagesList" id="languages"
                                      (removeLanguage)="removeLanguage($event)">
@@ -139,7 +141,7 @@
     <div class="row mb-4 mt-3">
       <div class="col-md-12">
         <div class="d-flex justify-content-between">
-          <label for="currentTitle" class="form-label">{{ 'CURRICULUM_VITAE' | translate }}<span
+          <label class="form-label">{{ 'CURRICULUM_VITAE' | translate }}<span
             class="size">({{ 'MAX_5_MB' | translate }})</span></label>
           <span class="text-decoration-underline" (click)="resumePicker.click()"
                 [ngClass]="{'text-main cursor-pointer' : !resume?.value?.length, 'text-secondary pointer-events-none' : resume?.value?.length}">{{ 'UPLOAD_DOCUMENT' | translate }}</span>
@@ -182,7 +184,7 @@
     <div class="row mb-4">
       <div class="col-md-12">
         <div class="d-flex justify-content-between">
-          <label for="currentTitle" class="form-label">{{ 'DEGREE_CERTIFICATES' | translate }} <span class="size">({{ 'MAX_5_MB' | translate }})</span></label>
+          <label class="form-label">{{ 'DEGREE_CERTIFICATES' | translate }} <span class="size">({{ 'MAX_5_MB' | translate }})</span></label>
           <span class="text-decoration-underline" (click)="degree.click()"
                 [ngClass]="{'text-main cursor-pointer' : !degrees?.value?.length || degrees?.value?.length < 10, 'text-secondary pointer-events-none' : degrees?.value?.length >= 10}">{{ 'UPLOAD_DOCUMENT' | translate }}</span>
 
@@ -225,7 +227,7 @@
     <div class="row mb-4">
       <div class="col-md-12">
         <div class="d-flex justify-content-between">
-          <label for="currentTitle" class="form-label">{{ 'OTHER_CERTIFICATIONS' | translate }} <span class="size">({{ 'MAX_5_MB' | translate }})</span></label>
+          <label class="form-label">{{ 'OTHER_CERTIFICATIONS' | translate }} <span class="size">({{ 'MAX_5_MB' | translate }})</span></label>
           <span class="text-decoration-underline"
                 (click)="certificate.click()"
                 [ngClass]="{'text-main cursor-pointer' : !certificates?.value?.length || certificates?.value?.length < 10, 'text-secondary pointer-events-none' : certificates?.value?.length >= 10}">{{ 'UPLOAD_DOCUMENT' | translate }}</span>
@@ -268,7 +270,7 @@
 
     <div class="row mb-4">
       <div class="col-md-12">
-        <label for="currentTitle" class="form-label">{{ 'ONBOARDING_DOCUMENT' | translate }}</label>
+        <label class="form-label">{{ 'ONBOARDING_DOCUMENT' | translate }}</label>
         <p>{{ 'SIGN_ONBOARDING_DOCUMENT' | translate }}</p>
 
         <div class="table-responsive">

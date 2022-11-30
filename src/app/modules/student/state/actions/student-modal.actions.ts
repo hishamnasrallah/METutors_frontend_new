@@ -116,3 +116,11 @@ export const openHighlightedTopicModal = createAction(
 export const closeHighlightedTopicModal = createAction(
   '[Student Modal] Close Highlighted Topic Modal'
 );
+
+export const openResourcesUploadDocModal = createAction(
+  '[Student Modal] Open Resources Upload Modal'
+);
+
+export const closeResourcesUploadDocModal = createAction(
+  '[Student Modal] Close Resources Upload Modal'
+);

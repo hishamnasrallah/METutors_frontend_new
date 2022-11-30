@@ -1,8 +1,7 @@
-import { FormArray, FormGroup } from '@angular/forms';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-
 import { ILanguage } from '@models';
 import { LANGUAGES_LEVELS_CONST } from '@config';
+import { FormArray, FormGroup } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'metutors-spoken-languages',

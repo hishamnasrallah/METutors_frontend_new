@@ -82,6 +82,21 @@ export const createCourseFailure = createAction(
   props<{ error: any }>()
 );
 
+export const createFreeCourse = createAction(
+  '[Request] Create Free Course',
+  props<{ data: any }>()
+);
+
+export const createFreeCourseSuccess = createAction(
+  '[Request] Create Free Course Success',
+  props<{ paymentInfo: any; token: string }>()
+);
+
+export const createFreeCourseFailure = createAction(
+  '[Request] Create Free Course Failure',
+  props<{ error: any }>()
+);
+
 export const loadRequestedCourses = createAction(
   '[Request] Load Requested Courses',
   props<{ params: { page: number; search: string } }>()
@@ -143,5 +158,20 @@ export const getInvoiceEmailSuccess = createAction(
 
 export const getInvoiceEmailFailure = createAction(
   '[Request] Get Invoice Email Failure',
+  props<{ error: any }>()
+);
+
+export const applyCoupon = createAction(
+  '[Request] Apply Coupon',
+  props<{ body: any }>()
+);
+
+export const applyCouponSuccess = createAction(
+  '[Request] Apply Coupon Success',
+  props<{ invoiceDetails: IInvoiceDetails; message: string }>()
+);
+
+export const applyCouponFailure = createAction(
+  '[Request] Apply Coupon Failure',
   props<{ error: any }>()
 );

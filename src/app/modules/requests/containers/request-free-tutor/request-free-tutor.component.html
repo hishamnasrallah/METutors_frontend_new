@@ -1,0 +1,124 @@
+<div class="container request-tutor">
+    <h1 class="f-size-20-md-sm">{{ 'BOOK_FREE_TRIAL_CLASS' | translate }}</h1>
+    <mat-horizontal-stepper labelPosition="bottom" linear #stepper class="step{{ step + 1 }}">
+      <mat-step [stepControl]="courseInformationForm">
+        <form [formGroup]="courseInformationForm">
+          <ng-template matStepLabel>
+            <div class="title-info" [class.done]="courseInformationForm.valid">
+              <h3>
+                <ng-container *ngIf="courseInformationForm.invalid">01</ng-container>
+                <ng-container *ngIf="courseInformationForm.valid">
+                  <mat-icon>check</mat-icon>
+                </ng-container>
+              </h3>
+              <h4 class="text-uppercase f-size-15-md-sm">{{ 'STEP_ONE' | translate }}</h4>
+              <h2 class="f-size-15-md-sm">{{ 'COURSE_DETAILS' | translate }}</h2>
+            </div>
+          </ng-template>
+  
+          <metutors-course-information-form [form]="courseInformationForm"
+                                            [isFree]="true"
+                                            [fields]="fields$ | async"
+                                            [programs]="programs$ | async"
+                                            [languages]="languages$ | async"
+                                            [subjects]="subjects$ | async"
+                                            [countries]="countries$ | async"
+                                            [selectedCourse]="selectedCourse"
+                                            [uploadedFiles]="uploadedFiles$ | async"
+                                            [fileUploadProgress]="fileUploadProgress$ | async"
+                                            (submitForm)="nextStep()"
+                                            (deleteFile)="onDeleteFile($event)"
+                                            (uploadedFile)="onUploadFile($event)"
+                                            (changeCourseProgram)="fetchCourseField($event)"
+                                            (changeCourseField)="fetchCourseFieldSubject($event)">
+          </metutors-course-information-form>
+        </form>
+      </mat-step>
+  
+      <mat-step [stepControl]="classroomDetailsForm">
+        <form [formGroup]="classroomDetailsForm">
+          <ng-template matStepLabel>
+            <div class="title-info" [class.done]="classroomDetailsForm.valid">
+              <h3>
+                <ng-container *ngIf="classroomDetailsForm.invalid">02</ng-container>
+                <ng-container *ngIf="classroomDetailsForm.valid">
+                  <mat-icon>check</mat-icon>
+                </ng-container>
+              </h3>
+              <h4 class="text-uppercase f-size-15-md-sm">{{ 'STEP_TWO' | translate }}</h4>
+              <h2 class="f-size-15-md-sm">{{ 'CLASSROOM_SETUP' | translate }}</h2>
+            </div>
+          </ng-template>
+  
+          <metutors-free-classroom-info-form [form]="classroomDetailsForm"
+                                             (onBack)="backStep()"
+                                             [selectedCourse]="selectedCourse"
+                                             (submitForm)="nextStep(); generateClassRooms()">
+          </metutors-free-classroom-info-form>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="selectTutorForm">
+        <form [formGroup]="selectTutorForm">
+          <ng-template matStepLabel>
+            <div class="title-info" [class.done]="selectTutorForm.valid">
+              <h3>
+                <ng-container *ngIf="selectTutorForm.invalid">03</ng-container>
+                <ng-container *ngIf="selectTutorForm.valid">
+                  <mat-icon>check</mat-icon>
+                </ng-container>
+              </h3>
+              <h4 class="text-uppercase f-size-15-md-sm">{{ 'STEP_THREE' | translate }}</h4>
+              <h2 class="f-size-15-md-sm">{{ 'TUTOR_INFORMATION' | translate }}</h2>
+            </div>
+          </ng-template>
+  
+          <metutors-select-tutor-form [form]="selectTutorForm"
+                                      [classrooms]="classrooms"
+                                      [duration]="duration"
+                                      [loading]="loadingTutors$ | async"
+                                      [hours]="reviewInfo?.hours"
+                                      [suggestedTutors]="suggestedTutors$ | async"
+                                      [availableTutors]="availableTutors$ | async"
+                                      (onBack)="backStep()"
+                                      [selectedCourse]="selectedCourse"
+                                      (tutorAvailability)="onTutorAvailability($event)"
+                                      (filterTutors)="filterTutors($event)"
+                                      (changeSchedule)="onOpenChangeCourseScheduleModal($event)"
+                                      (submitForm)="nextStep()">
+          </metutors-select-tutor-form>
+        </form>
+      </mat-step>
+  
+      <mat-step>
+        <ng-template matStepLabel>
+          <div class="title-info">
+            <h3>04</h3>
+            <h4 class="text-uppercase f-size-15-md-sm">{{ 'STEP_FOUR' | translate }}</h4>
+            <h2 class="f-size-15-md-sm">{{ 'ORDER_SUMMARY' | translate }}</h2>
+          </div>
+        </ng-template>
+  
+        <metutors-review-request [reviewInfo]="reviewInfo"
+                                 [isCreatingCourse]="isCreatingCourse$ | async"
+                                 [selectedCourse]="selectedCourse"
+                                 (submitForm)="onSubmit()"
+                                 (onBack)="backStep()">
+        </metutors-review-request>
+      </mat-step>
+    </mat-horizontal-stepper>
+</div>
+  
+<metutors-teacher-availability-modal [timeSlots]="(tutorAvailability$ | async)!"
+                                     [isLoadingTimeSlots]="(isLoadingTutorAvailability$ | async)!"
+                                     [showModal]="(showTeacherAvailabilityModal$ | async)!"
+                                     *ngIf="showTeacherAvailabilityModal$ | async"
+                                     (closeModal)="onCloseTeacherAvailabilityModal()">
+</metutors-teacher-availability-modal>
+
+<metutors-change-course-schedule-modal [showModal]="(showChangeCourseScheduleModal$ | async)!"
+                                       *ngIf="showChangeCourseScheduleModal$ | async"
+                                       (closeModal)="onCloseChangeCourseScheduleModal()"
+                                       (changeSchedule)="onCloseChangeCourseScheduleModal(); changeSchedule()">
+</metutors-change-course-schedule-modal>
+  

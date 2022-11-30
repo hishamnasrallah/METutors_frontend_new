@@ -1,4 +1,4 @@
-<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'medium'" [heading]="'View Resources'"
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'medium'" [heading]="'VIEW_RESOURCES'"
                 [template]="template">
   <ng-template #template>
     <ng-container *ngLet="(view$ | async) as view">
@@ -14,14 +14,14 @@
           </div>
         </ng-container>
 
-        <div class="col-12 add-class-modal " *ngSwitchCase="false">
+        <div class="col-12 add-class-modal" *ngSwitchCase="false">
           <div class="form-group">
-            <label>Description</label>
-            <p>{{ view.data?.resource?.description}}</p>
+            <label>{{ 'DESCRIPTION' | translate }}</label>
+            <p>{{ view.data?.resource?.description }}</p>
           </div>
 
           <div class="form-group row">
-            <label>URLs</label>
+            <label>{{ 'URLS' | translate }}</label>
             <ng-container *ngFor="let url of view.data?.resource?.urls; let i = index">
               <div class="url-info d-flex flex-column my-2">
                 <span>{{ url.title }}</span>

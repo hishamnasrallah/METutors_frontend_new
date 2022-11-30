@@ -1,15 +1,15 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Observable, tap } from 'rxjs';
+import { IUser } from '@metutor/core/models';
 import { TicketStatus } from 'src/app/config';
 import { ITicket } from 'src/app/core/models';
-import { animate, style, transition, trigger } from '@angular/animations';
-import { NgxAutoScroll } from 'ngx-auto-scroll';
-import { IUser } from '@metutor/core/models';
 import * as fromCore from '@metutor/core/state';
-import { Store } from '@ngrx/store';
+import { NgxAutoScroll } from 'ngx-auto-scroll';
+import { Title } from '@angular/platform-browser';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'metutors-student-ticket-details',

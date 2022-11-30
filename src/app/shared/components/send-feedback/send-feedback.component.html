@@ -4,7 +4,7 @@
     <ng-container formArrayName="feedbacks">
       <div class="row mt-1" *ngFor="let option of feedbackOptions?.params; let i = index" [formGroupName]="i">
         <div class="col">
-          <p>{{ option?.name }}</p>
+          <p>{{ (option?.name)! | translate }}</p>
         </div>
         <div class="col-md-3 d-flex justify-content-center">
           <metutors-review-rate [id]="i" formControlName="rating"></metutors-review-rate>
@@ -15,17 +15,21 @@
     <div class="row mt-3">
       <div class="col-md-12">
         <div class="form-group">
-          <label for="message" class="fw-bold" *ngIf="messageLabel">{{ messageLabel }}*</label>
+          <label for="message" class="fw-bold" *ngIf="messageLabel">{{ messageLabel | translate }}*</label>
+          <metutors-char-counter [limit]="800" [controlName]="review"></metutors-char-counter>
           <textarea rows="5" class="custom-input w-100 input-bordered" id="message"
-                    placeholder="Enter your text here"
+                    placeholder="{{ 'YOUR_MESSAGE' | translate }}"
                     formControlName="review"></textarea>
+          <div class="text-danger" *ngIf="review?.touched && review?.invalid">
+            {{ 'FEEDBACK_CHARACTERS' | translate }}
+          </div>
         </div>
       </div>
     </div>
     <div class="row mt-2">
       <div class="col-md-12 overflow-hidden">
         <metutors-submit-button [form]="form" [isSubmitting]="isSubmitting" [extraClasses]="'float-end py-1 px-5 fw-bold'">
-          {{ buttonLabel }}
+          {{ buttonLabel | translate }}
         </metutors-submit-button>
       </div>
     </div>

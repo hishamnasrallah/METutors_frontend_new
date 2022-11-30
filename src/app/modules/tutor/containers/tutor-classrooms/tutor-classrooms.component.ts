@@ -9,13 +9,13 @@ import {
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { FormGroup } from '@angular/forms';
-import { combineLatest, Observable } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
 import * as fromRoot from '@metutor/state';
-import { generalConstants, WEEK_DAYS } from '@metutor/config';
 import { IUser } from '@metutor/core/models';
 import * as fromCore from '@metutor/core/state';
+import { combineLatest, Observable } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
 import * as fromTutor from '@metutor/modules/tutor/state';
+import { generalConstants, WEEK_DAYS } from '@metutor/config';
 import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
 
 @Component({
@@ -61,6 +61,7 @@ export class TutorClassroomsComponent implements OnInit {
     cancelledCourses: any;
   }>;
 
+  flag = null;
   fieldId = null;
   courseId: number;
   programId = null;

@@ -14,12 +14,12 @@
                <span class="d-flex">
                 <a class="delete float-end cursor-pointer" *ngIf="programs.controls.length > 1"
                    (click)="removeProgram(i)">
-                    <mat-icon>delete</mat-icon>
+                  <mat-icon>delete</mat-icon>
                 </a>
 
                 <a class="float-end cursor-pointer" *ngIf="i === 0 && programs.controls.length < (programsList?.length || 0)"
                    (click)="addProgram()">
-                   {{ 'ADD_NEW' | translate }}
+                  {{ 'ADD_NEW' | translate }}
                 </a>
               </span>
             </span>
@@ -30,7 +30,7 @@
                 (selectionChange)="onChangeProgram($event, i)">
                 <ng-container *ngFor="let program of programsList">
                   <mat-option [value]="program" [hidden]="!checkProgram(program.id)">
-                    {{ program?.name }}
+                    <bdi>{{ program?.name }}</bdi>
                   </mat-option>
                 </ng-container>
               </mat-select>
@@ -41,7 +41,7 @@
 
             <ng-container *ngIf="form.value.programs[i]?.programId?.id === nationalId">
               <label for="country" class="form-label mt-3">
-                {{ 'COUNTRY_FOR' | translate }} {{ form.value.programs[i]?.programId?.name }} {{ 'PROGRAM_SM' | translate }}
+                <bdi>{{ 'COUNTRY_FOR' | translate }} {{ form.value.programs[i]?.programId?.name }} {{ 'PROGRAM_SM' | translate }}</bdi>
               </label>
               <mat-form-field appearance="outline" class="w-100">
                 <mat-select id="country" formControlName="countries" placeholder="{{ 'SELECT_COUNTRIES' | translate }}" multiple
@@ -53,7 +53,7 @@
               <mat-form-field appearance="outline" class="w-100">
                 <mat-select formControlName="grades" placeholder="{{ 'SELECT_GRADES' | translate }}" multiple
                   (selectionChange)="resetSubjects(i)">
-                  <mat-option [value]="i + 1" *ngFor="let grade of grades; let i = index">{{ grade }}</mat-option>
+                  <mat-option [value]="i + 1" *ngFor="let grade of grades; let i = index">{{ grade | uppercase | translate }}</mat-option>
                 </mat-select>
               </mat-form-field>
             </ng-container>
@@ -63,11 +63,11 @@
         <div class="col-md-6">
           <div class="form-group">
             <div>
-              <label for="subjects" class="form-label">{{ 'FIELD_STUDY' | translate }} <span>({{ 'U_SELECT_MULTIPLE' | translate }})</span></label>
+              <label for="subjects" class="form-label">{{ 'FIELDS_STUDY' | translate }} <span>({{ 'U_SELECT_MULTIPLE' | translate }})</span></label>
             </div>
 
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="fields" placeholder="{{ 'SELECT_FIELD_STUDY' | translate }}" multiple *ngIf="!checkIfNoFieldsExists(i)">
+              <mat-select formControlName="fields" placeholder="{{ 'SELECT_FIELDS_STUDY' | translate }}" multiple *ngIf="!checkIfNoFieldsExists(i)">
                 <ng-container *ngFor="let field of fields">
                   <mat-option [value]="field?.id" *ngIf="
                     (
@@ -88,7 +88,7 @@
                 </ng-container>
               </mat-select>
 
-              <mat-select placeholder="{{ 'SELECT_FIELD_STUDY' | translate }}" *ngIf="checkIfNoFieldsExists(i)">
+              <mat-select placeholder="{{ 'SELECT_FIELDS_STUDY' | translate }}" *ngIf="checkIfNoFieldsExists(i)">
                 <mat-option value="" disabled>{{ 'NO_DATA_FOUND' | translate }}</mat-option>
               </mat-select>
             </mat-form-field>
@@ -111,10 +111,11 @@
                       form.value.programs[i].grades?.includes(+subject.grade)
                     )
                   ">
-                    <mat-option *ngFor="let sub of subject.subjects" [value]="sub">
+                    <mat-option *ngFor="let sub of subject.subjects" #matOptionSubject [value]="sub" 
+                                [disabled]="subjectLength >= 10 && !matOptionSubject.selected">
                       {{ sub?.name }}
                       <ng-container *ngIf="form.value.programs[i]?.programId?.id === nationalId && sub?.grade">
-                        ({{ grades[sub?.grade - 1] }})
+                        ({{ grades[sub?.grade - 1] | uppercase | translate }})
                       </ng-container>
                     </mat-option>
                   </mat-optgroup>
@@ -138,7 +139,7 @@
                         </ng-container>
                       </span>
                     </th>
-                    <th class="heading text-end"><label>{{ 'FIELD_NAME' | translate }}</label> <span>{{ item?.fieldName }}</span></th>
+                    <th class="heading text-end"><label>{{ 'FIELD_STUDY' | translate }}:</label> <span> {{ item?.fieldName }}</span></th>
                   </tr>
                   <tr>
                     <th class="sub-heading" [ngClass]="{'w-55': item?.programId !== nationalId, 'w-54': item?.programId === nationalId}">{{ 'SUBJECT_NAME' | translate }}</th>
@@ -168,7 +169,7 @@
 
       <metutors-submit-button [form]="form" [isDisabled]="!pricesLength || !subjectLength || pricesLength < subjectLength"
                               [isSubmitting]="loading" [extraClasses]="'w-100 fw-bold px-5'">
-        {{ 'Finish' | translate }}
+        {{ 'FINISH' | translate }}
       </metutors-submit-button>
     </div>
   </div>

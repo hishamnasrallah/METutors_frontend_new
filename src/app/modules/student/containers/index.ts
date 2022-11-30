@@ -13,3 +13,4 @@ export * from './student-create-ticket';
 export * from './student-support-ticket';
 export * from './student-ticket-details';
 export * from './student-class-dashboard';
+export * from './student-view-certificate';

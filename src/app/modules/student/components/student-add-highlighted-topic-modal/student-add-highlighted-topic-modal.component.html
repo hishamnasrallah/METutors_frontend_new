@@ -1,5 +1,5 @@
 <metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()"
-                [heading]="'Highlighted topics'" [subHeading]="'Add the topics you need a tutor for'"
+                [heading]="'HIGHLIGHTED_TOPICS'" [subHeading]="'ADD_TOPICS_NEED_TUTORS'"
                 [template]="template">
   <ng-template #template>
     <form [formGroup]="form" (ngSubmit)="submitted.emit(form)">
@@ -8,30 +8,29 @@
           <div class="classroom-item">
             <div class="row">
               <div class="mb-3">
-                <label for="topic" class="form-label">Add topic name</label>
+                <label for="topic" class="form-label">{{ 'ADD_TOPIC_NAME' | translate }}</label>
                 <metutors-char-counter [limit]="120" [controlName]="topicName"></metutors-char-counter>
                 <input type="text" class="form-control custom-input input-bordered" formControlName="name" id="topic"
-                       placeholder="Enter Topic Name" autocomplete="off">
+                       placeholder="{{ 'ENTER_TOPIC_NAME' | translate }}" autocomplete="off" meTutorsTrimInput>
                 <div class="text-danger" *ngIf="topicName?.touched && topicName?.invalid">
-                  Please write topic name with a max of 120 characters
+                  {{ 'WRITE_TOPIC_NAME_MAX_CHARACTERS' | translate }}
                 </div>
               </div>
 
               <div class="">
-                <label for="scale" class="form-label">Knowledge confidence scale</label>
-                <mat-slider id="scale" class="w-100 p-0" [max]="3" [min]="1" formControlName="confidence_scale" [step]="1"
-                            aria-labelledby="example-name-label">
+                <label for="scale" class="form-label">{{ 'KNOWLEDGE_CONFIDENCE_SCALE' | translate }}</label>
+                <mat-slider id="scale" class="w-100 p-0" [max]="3" [min]="1" formControlName="confidence_scale" [step]="1">
                 </mat-slider>
               </div>
               <div class="d-flex justify-content-between titles">
-                <span *ngFor="let scale of topicsScale | keyvalue">{{ scale.value }}</span>
+                <span *ngFor="let scale of topicsScale | keyvalue">{{ scale.value | metutorsUppercase | translate }}</span>
               </div>
 
               <div class="mt-5">
                 <div class="col-auto col-3 float-end">
                   <metutors-submit-button [form]="form" [isSubmitting]="isSubmitting"
                                           [extraClasses]="'w-100 float-end'">
-                    {{ topic ? 'Edit' : 'Add'}}
+                    {{ topic ? ('EDIT' | translate) : ('ADD' | translate) }}
                   </metutors-submit-button>
                 </div>
               </div>

@@ -6,22 +6,22 @@
 
         <form [formGroup]="contactForm" (ngSubmit)="onSubmit(contactForm)" class="w-100">
           <div>
-            <h4 class="mb-4 f-size-20-md-sm">Send a message</h4>
+            <h4 class="mb-4 f-size-20-md-sm">{{ 'SEND_A_MESSAGE' | translate }}</h4>
 
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group mb-4">
-                  <label class="f-size-15-md-sm" for="name">Your Name*</label>
-                  <input type="text" class="custom-input w-100 input-bordered" id="name" placeholder="Type name here"
-                    formControlName="name">
+                  <label class="f-size-15-md-sm" for="name">{{ 'YOUR_NAME' | translate }} *</label>
+                  <input type="text" class="custom-input w-100 input-bordered" id="name" placeholder="{{ 'TYPE_NAME_HERE' | translate }}"
+                    formControlName="name" meTutorsTrimInput>
                   <span class="text-danger" *ngIf="name?.invalid && name?.touched">
-                    Please write your name
+                    {{ 'WRITE_YOUR_NAME' | translate }}
                   </span>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group mb-4">
-                  <label class="f-size-15-md-sm" for="email">Contact Email *</label>
+                  <label class="f-size-15-md-sm" for="email">{{ 'CONTACT_EMAIL' | translate }} *</label>
                   <input type="email" email class="custom-input w-100 input-bordered" id="email"
                     placeholder="you@example.com" formControlName="email">
                   <span class="text-danger" *ngIf="email?.invalid && email?.touched">
@@ -34,18 +34,18 @@
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group mb-4">
-                  <label class="f-size-15-md-sm" for="companyName">School Name ({{ 'OPTIONAL' | translate }})</label>
-                  <input type="text" class="custom-input w-100 input-bordered" id="companyName"
-                    placeholder="Type company name here" formControlName="companyName">
+                  <label class="f-size-15-md-sm" for="companyName">{{ 'SCHOOL_NAME' | translate }} ({{ 'OPTIONAL' | translate }})</label>
+                  <input type="text" class="custom-input w-100 input-bordered" id="companyName" meTutorsTrimInput
+                    placeholder="{{ 'TYPE_SCHOOL_NAME' | translate }}" formControlName="companyName">
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group mb-4">
-                  <label class="f-size-15-md-sm" for="subject">Message Subject *</label>
-                  <input type="text" class="custom-input w-100 input-bordered" id="subject"
-                    placeholder="Type subject here" formControlName="subject">
+                  <label class="f-size-15-md-sm" for="subject">{{ 'MESSAGE_SUBJECT' | translate }} *</label>
+                  <input type="text" class="custom-input w-100 input-bordered" id="subject" meTutorsTrimInput
+                    placeholder="{{ 'TYPE_SUBJECT_HERE' | translate }}" formControlName="subject">
                   <span class="text-danger" *ngIf="subject?.invalid && subject?.touched">
-                    Please write your message subject
+                    {{ 'WRITE_YOUR_SUBJECT' | translate }}
                   </span>
                 </div>
               </div>
@@ -54,11 +54,11 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group mb-4">
-                  <label class="f-size-15-md-sm" for="message">Your Message*</label>
+                  <label class="f-size-15-md-sm" for="message">{{ 'YOUR_MESSAGE' | translate }} *</label>
                   <textarea rows="5" class="custom-input w-100 input-bordered" id="message"
-                    placeholder="Type your message…." formControlName="message"></textarea>
+                    placeholder="{{ 'TYPE_YOUR_MESSAGE' | translate }}" formControlName="message"></textarea>
                   <span class="text-danger" *ngIf="message?.invalid && message?.touched">
-                    Please write your message
+                    {{ 'WRITE_YOUR_MESSAGE' | translate }}
                   </span>
                 </div>
               </div>
@@ -69,8 +69,8 @@
                 <div class="file-upload d-flex align-items-center" (click)="filePicker.click()">
                   <img src="assets/svg/upload.svg" alt="" draggable="false" width="25" height="25">
                   <div>
-                    <h2>Attach file</h2>
-                    <h3>accept .jpg, .png, .pdf</h3>
+                    <h2>{{ 'ATTACH_FILE' | translate }}</h2>
+                    <h3>{{ 'ACCEPT_FILE_TYPE' | translate }}</h3>
                   </div>
                   <input type="file" hidden #filePicker (change)="onFileUpload($event)">
                 </div>
@@ -85,7 +85,7 @@
 
               <div>
                 <metutors-submit-button [form]="contactForm" [isSubmitting]="loading">
-                  Send message
+                  {{ 'SEND_MESSAGE' | translate }}
                 </metutors-submit-button>
               </div>
             </div>

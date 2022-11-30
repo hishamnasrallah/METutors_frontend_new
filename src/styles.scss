@@ -73,6 +73,14 @@ button:hover {
   margin-bottom: 1rem;
 }
 
+.mat-menu-item {
+  text-align: left !important;
+}
+
+.cdk-global-overlay-wrapper {
+  direction: ltr;
+}
+
 .mat-progress-bar-fill::after,
 .mat-slide-toggle.mat-primary.mat-checked .mat-slide-toggle-bar {
   background-color: var(--main-color);
@@ -119,7 +127,8 @@ button:hover {
   stroke: var(--main-color);
 }
 
-.timepicker-button {
+.timepicker-button,
+.main-color {
   color: var(--main-color) !important;
 }
 
@@ -420,14 +429,6 @@ rating span.bs-rating-star {
   border-color: var(--main-color);
 }
 
-.page-item:last-child .page-link {
-  border-radius: 0.25rem 0 0 0.25rem;
-}
-
-.page-item:first-child .page-link {
-  border-radius: 0 0.25rem .25rem 0;
-}
-
 .mat-form-field-appearance-outline .mat-form-field-infix {
   padding: 15px 0 10px;
   border-top: 5px solid transparent;
@@ -488,6 +489,11 @@ rating span.bs-rating-star {
       margin-left: 0 !important;
     }
   }
+}
+
+.rotate-90 {
+  transition: all 0.25s ease-in-out;
+  transform: rotate(90deg);
 }
 
 .rotate-180 {
@@ -797,6 +803,7 @@ span.status {
     background-color: #e1e0fe;
   }
 
+  &.expired,
   &.canceled,
   &.cancelled,
   &.rejected,
@@ -873,6 +880,18 @@ span.status {
 .text-main,
 rating span.bs-rating-star.active {
   color: var(--main-color);
+}
+
+.border-main {
+  border: 1px solid var(--main-color) !important;
+}
+
+.w-24 {
+  width: 24px;
+}
+
+.w-32 {
+  width: 32px;
 }
 
 ////////////////////////
@@ -1183,5 +1202,47 @@ $ph-animation-duration: 0.8s !default;
 
   .flex-column-md-sm {
     flex-direction: column !important;
+  }
+
+  .object-contain-md-sm {
+    object-fit: contain;
+  }
+
+  metutors-home-slide carousel .carousel-inner .slide {
+    &:nth-child(1) {
+      .item {
+        background-image: url('assets/homepage/covers/01.webp');
+      }
+    }
+
+    &:nth-child(2) {
+      .item {
+        background-image: url('assets/homepage/covers/02.webp');
+      }
+    }
+
+    &:nth-child(3) {
+      .item {
+        background-image: url('assets/homepage/covers/03.webp');
+      }
+    }
+
+    &:nth-child(4) {
+      .item {
+        background-image: url('assets/homepage/covers/04.webp');
+      }
+    }
+
+    &:nth-child(5) {
+      .item {
+        background-image: url('assets/homepage/covers/05.webp');
+      }
+    }
+
+    &:nth-child(6) {
+      .item {
+        background-image: url('assets/homepage/covers/06.webp');
+      }
+    }
   }
 }

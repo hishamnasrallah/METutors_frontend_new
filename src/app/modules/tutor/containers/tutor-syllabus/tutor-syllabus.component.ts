@@ -15,12 +15,11 @@ import {
 } from '@angular/forms';
 
 import { Store } from '@ngrx/store';
+import * as fromTutor from '../../state';
 import { map, tap } from 'rxjs/operators';
+import * as fromCore from '@metutor/core/state';
 import { Observable, combineLatest } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
-
-import * as fromTutor from '../../state';
-import * as fromCore from '@metutor/core/state';
 import * as fromTutorAction from '../../state/actions';
 import { courseStatusLabel, WEEK_DAYS } from '@metutor/config';
 

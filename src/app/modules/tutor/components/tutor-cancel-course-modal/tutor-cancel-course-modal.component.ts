@@ -1,9 +1,8 @@
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
+import * as fromCore from '@metutor/core/state';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-
-import * as fromCore from '@metutor/core/state';
 
 @Component({
   selector: 'metutors-tutor-cancel-course-modal',

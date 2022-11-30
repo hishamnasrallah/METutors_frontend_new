@@ -1,18 +1,17 @@
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { tap } from 'rxjs/operators';
+import { generalConstants } from '@config';
+import * as fromCore from '@metutor/core/state';
+import * as fromTutor from '@metutor/modules/tutor/state';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+
 import {
   FormGroup,
   Validators,
   FormBuilder,
   AbstractControl,
 } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { Store } from '@ngrx/store';
-import { tap } from 'rxjs/operators';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-
-import { generalConstants } from '@config';
-import * as fromCore from '@metutor/core/state';
-import * as fromTutor from '@metutor/modules/tutor/state';
-
 @Component({
   selector: 'metutors-tutor-accept-reject-assignment-modal',
   templateUrl: './tutor-accept-reject-assignment-modal.component.html',

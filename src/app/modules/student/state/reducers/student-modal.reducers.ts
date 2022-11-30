@@ -5,6 +5,7 @@ import * as studentModalActions from '../actions/student-modal.actions';
 
 export interface State {
   params: any;
+  showModal: boolean;
   showPaymentModal: boolean;
   showAddCourseModal: boolean;
   showAttendanceModal: boolean;
@@ -22,6 +23,7 @@ export interface State {
 
 export const initialState: State = {
   params: null,
+  showModal: false,
   showPaymentModal: false,
   showAddCourseModal: false,
   showAttendanceModal: false,
@@ -39,6 +41,22 @@ export const initialState: State = {
 
 export const reducer = createReducer(
   initialState,
+
+  // Generic show modal
+
+  on(studentModalActions.openResourcesUploadDocModal, (state) => ({
+    ...state,
+    showModal: true,
+  })),
+
+  on(
+    fromCore.studentUploadResourceDocumentSuccess,
+    studentModalActions.closeResourcesUploadDocModal,
+    (state) => ({
+      ...state,
+      showModal: false,
+    })
+  ),
 
   on(studentModalActions.setStudentStateParams, (state, { params }) => ({
     ...state,
@@ -251,5 +269,8 @@ export const selectPaymentModal = (state: State): boolean =>
 
 export const selectHighlightedModal = (state: State): boolean =>
   state.showHighlightedTopicModal;
+
+export const selectStudentShowModal = (state: State): boolean =>
+  state.showModal;
 
 export const selectStudentStateParams = (state: State): any => state.params;

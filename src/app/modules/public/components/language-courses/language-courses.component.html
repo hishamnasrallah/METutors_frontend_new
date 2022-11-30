@@ -1,13 +1,10 @@
 <div class="row courses">
   <div class="col-md-7">
-    <h1 class="f-size-25-md-sm">
-      Learn your favorite language from
-      highly-qualified native speakers
-    </h1>
+    <h1 class="f-size-25-md-sm">{{ 'LEARN_FAVORITE_LANGUAGE' | translate }}</h1>
   </div>
   <div class="col-md-5">
-    <a mat-button class="main-button-transparent float-end">
-      Find more courses
+    <a mat-button class="main-button-transparent float-end" routerLink="/all-courses">
+      {{ 'FIND_MORE_COURSES' | translate }}
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="rotate-180-ar">
         <path
           d="M16.172 10.9999H4V12.9999H16.172L10.808 18.3639L12.222 19.7779L20 11.9999L12.222 4.22192L10.808 5.63592L16.172 10.9999Z"
@@ -16,10 +13,7 @@
     </a>
   </div>
   <div class="col-12 mb-4">
-    <p class="f-size-17-md-sm">
-      Improve your test scores and attend the college of your dreams! whether you prefer one-on-one instructions or
-      group classes,
-    </p>
+    <p class="f-size-17-md-sm">{{ 'IMPROVE_TEXT_SCORES' | translate }}</p>
   </div>
 
   <ng-container *ngIf="courses && courses.length">

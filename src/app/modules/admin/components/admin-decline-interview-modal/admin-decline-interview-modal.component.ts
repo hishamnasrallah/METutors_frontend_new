@@ -24,5 +24,7 @@ export class AdminDeclineInterviewModalComponent implements OnInit {
     this.form = this._fb.group({
       message: [message, [Validators.required, Validators.minLength(10)]],
     });
+
+    this.form.markAsDirty();
   }
 }

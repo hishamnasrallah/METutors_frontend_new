@@ -1,6 +1,7 @@
 <div class="learning-environment" id="explore-services">
   <div class="container">
-    <h3 class="f-size-25-md-sm">Tutoring for school and university subjects</h3>
+    <h3 class="f-size-25-md-sm" [innerHTML]="'EXPLORE_PROGRAMS_COURSES' | translate"></h3>
+    <p class="f-size-18-md-sm text-center">{{ 'PRIVATE_PERSONALIZED_TUTORING_STUDIES' | translate }}</p>
 
     <ng-container *ngIf="isLoading">
       <div class="ph-col-3">
@@ -11,16 +12,23 @@
     </ng-container>
 
     <ng-container *ngIf="!isLoading">
-      <div class="tabs d-flex d-block-sm overflow-auto">
-        <button *ngFor="let program of programsList; let i = index" mat-button class="w-100 text-start d-flex"
-          [class.active]="step === program?.id" (click)="onChangeStep(program)">
-          <span class="d-block">Program {{ i + 1 }}</span>
-          <strong>
-            {{ program?.name }}
-            <span *ngIf="country && program?.id === nationalId" [innerHTML]="country?.flag"></span>
-          </strong>
-        </button>
+      <div class="position-relative">
+        <div class="tabs d-flex d-block-sm overflow-hidden" #widgetsContent scrollX="true" (scroll)="checkScroll()">
+          <button *ngFor="let program of programsList; let i = index" mat-button class="w-100 text-start d-flex"
+            [class.active]="step === program?.id" (click)="onChangeStep(program)">
+            <span class="d-block">{{ 'PROGRAM' | translate }} {{ i + 1 }}</span>
+            <strong>
+              <bdi>
+                {{ program?.name }}
+                <span *ngIf="country && program?.id === nationalId" [innerHTML]="country?.flag"></span>
+              </bdi>
+            </strong>
+          </button>
+        </div>
+        <mat-icon class="chevron-right rotate-180-ar" *ngIf="!rightDisabled" (click)="scrollRight()">chevron_right</mat-icon>
+        <mat-icon class="chevron-left rotate-180-ar" *ngIf="!leftDisabled" (click)="scrollLeft()">chevron_left</mat-icon>
       </div>
+
       <div class="content">
         <ng-container *ngIf="loadingFields">
           <div class="ph-col-3">
@@ -31,15 +39,25 @@
         </ng-container>
 
         <div class="row" *ngIf="!loadingFields">
-          <div class="col-9">
-            <h1 class="f-size-25-md-sm">{{ selectedProgram?.title }}</h1>
-
-            <p class="f-size-15-md-sm">{{ selectedProgram?.description }}</p>
+          <div class="col-md-8">
+            <h1 class="f-size-25-md-sm mt-4"><bdi>{{ selectedProgram?.title }}</bdi></h1>
+          </div>
+          <div class="col-md-4" *ngIf="selectedProgram?.id === nationalId">
+            <div class="text-end">
+              <mat-form-field appearance="outline" class="w-100-sm">
+                <mat-select placeholder="{{ 'SELECT_GRADE' | translate }}" [(ngModel)]="grade" 
+                            (selectionChange)="onSelectGrade($event)">
+                  <mat-option [value]="i + 1" *ngFor="let g of grades; let i = index">
+                    {{ g | uppercase | translate }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div> 
           </div>
           <div class="col-md-7">
-            <div class="row mt-4 m-0-sm">
+            <div class="row m-0-sm overflow-auto height-300">
               <div class="col-md-6 d-flex mt-4 mt-15-sm" *ngFor="let field of fields; let i = index">
-                <img [src]="imageURL+field.image" width="40" height="40" draggable="false" alt="">
+                <img [src]="imageURL + field.image" width="40" height="40" draggable="false" alt="">
                 <div class="ms-2">
                   <h2>
                     <a routerLink="/requests/request-tutor"
@@ -53,8 +71,7 @@
                     </ng-container>
 
                     <ng-container *ngIf="!loadingSubjects">
-                      <ng-container
-                        *ngFor="let subject of filteredSubjects(field.id); let isLast = last; let i = index">
+                      <ng-container *ngFor="let subject of filteredSubjects(field.id); let isLast = last; let i = index">
                         <a class="cursor-pointer subject" *ngIf="i < 3 || (isShowMore && selectedField === field?.id)"
                           (click)="viewSubjectDetails.emit({program: selectedProgram, subject, country: country?.id, grade, index: i})">
                           {{ subject?.name }}<ng-container *ngIf="!isLast">, </ng-container>
@@ -62,7 +79,7 @@
                       </ng-container>
                       <a *ngIf="filteredSubjects(field.id).length > 3 && (!isShowMore || selectedField !== field?.id)"
                         class="see-more cursor-pointer" (click)="isShowMore = true; selectedField = field?.id!">
-                        See more
+                        {{ 'SEE_MORE' | translate }}
                       </a>
                     </ng-container>
                   </p>
@@ -72,7 +89,7 @@
 
             <a mat-flat-button color="primary" routerLink="/requests/request-tutor"
               [queryParams]="{program: selectedProgram?.id, country: country?.id, grade}">
-              Start learning today
+              {{ 'START_LEARNING_TODAY' | translate }}
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="rotate-180-ar">
                 <path
                   d="M16.172 10.9999H4V12.9999H16.172L10.808 18.3639L12.222 19.7779L20 11.9999L12.222 4.22192L10.808 5.63592L16.172 10.9999Z"
@@ -82,7 +99,7 @@
 
             <a mat-button class="explore-all ms-3" [routerLink]="['/all-courses', selectedProgram?.id]"
               [queryParams]="{country: country?.id}">
-              Explore subjects
+              {{ 'EXPLORE_SUBJECTS' | translate }}
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="rotate-180-ar">
                 <path
                   d="M16.172 10.9999H4V12.9999H16.172L10.808 18.3639L12.222 19.7779L20 11.9999L12.222 4.22192L10.808 5.63592L16.172 10.9999Z"
@@ -90,7 +107,7 @@
               </svg>
             </a>
 
-            <a class="pricing cursor-pointer ms-3" (click)="onViewPrices()">Prices</a>
+            <a class="pricing cursor-pointer ms-3" (click)="onViewPrices()">{{ 'PRICES' | translate }}</a>
           </div>
           <div class="col-md-5 d-flex align-items-center justify-content-center">
             <img [src]="selectedProgram?.image" class="contact-img w-100 d-none d-md-block" draggable="false" alt="">

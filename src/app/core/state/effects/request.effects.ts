@@ -9,6 +9,8 @@ import * as fromCore from '@metutor/core/state';
 import * as requestActions from '../actions/request.actions';
 import { AlertNotificationService } from '@metutor/core/components';
 import { AdminService, CoursesService, TutorsService } from '@services';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import camelcaseKeys from 'camelcase-keys';
 
 @Injectable()
 export class RequestEffects {
@@ -66,7 +68,7 @@ export class RequestEffects {
     )
   );
 
-  enterRequestTutor$ = createEffect(
+  createClassSuccess$ = createEffect(
     () =>
       this._actions$.pipe(
         ofType(
@@ -112,11 +114,34 @@ export class RequestEffects {
     )
   );
 
+  applyCoupon$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(requestActions.applyCoupon),
+      mergeMap(({ body }) =>
+        this._coursesService.applyCoupon(body).pipe(
+          map((invoiceDetails) =>
+            requestActions.applyCouponSuccess({
+              message: 'Coupon applied successfully',
+              invoiceDetails: camelcaseKeys(invoiceDetails, { deep: true }),
+            })
+          ),
+          catchError((error) =>
+            of(
+              requestActions.applyCouponFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   createCourse$ = createEffect(() =>
     this._actions$.pipe(
       ofType(requestActions.createCourse),
-      mergeMap((action) =>
-        this._coursesService.createCourse(action.data).pipe(
+      mergeMap(({ data }) =>
+        this._coursesService.createCourse(data).pipe(
           map((paymentInfo) =>
             requestActions.createCourseSuccess({
               paymentInfo,
@@ -132,6 +157,42 @@ export class RequestEffects {
         )
       )
     )
+  );
+
+  createFreeCourse$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(requestActions.createFreeCourse),
+      mergeMap(({ data }) =>
+        this._coursesService.createFreeCourse(data).pipe(
+          map(paymentInfo =>
+            requestActions.createFreeCourseSuccess({
+              paymentInfo,
+              token: paymentInfo?.token
+            })
+          ),
+          catchError(error =>
+            of(
+              requestActions.createFreeCourseFailure({
+                error: error?.error?.message || error?.error?.errors
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  createFreeCourseSuccess$ = createEffect(
+    () =>
+      this._actions$.pipe(
+        ofType(requestActions.createFreeCourseSuccess),
+        map(() => {
+          this._router.navigate(['/student/classrooms']);
+        })
+      ),
+    {
+      dispatch: false,
+    }
   );
 
   loadRequestedCourses$ = createEffect(() =>
@@ -231,6 +292,7 @@ export class RequestEffects {
       this._actions$.pipe(
         ofType(
           ...[
+            requestActions.applyCouponSuccess,
             requestActions.requestCourseSuccess,
             requestActions.getInvoiceEmailSuccess,
             requestActions.changeRequestStatusSuccess,
@@ -248,11 +310,13 @@ export class RequestEffects {
       this._actions$.pipe(
         ofType(
           ...[
+            requestActions.applyCouponFailure,
             requestActions.createClassFailure,
             requestActions.createCourseFailure,
             requestActions.requestCourseFailure,
             requestActions.generateTutorsFailure,
             requestActions.getInvoiceEmailFailure,
+            requestActions.createFreeCourseFailure,
             requestActions.changeRequestStatusFailure,
           ]
         ),
@@ -260,9 +324,7 @@ export class RequestEffects {
           if (action.error) {
             return this._alertNotificationService.error(action.error);
           } else {
-            return this._alertNotificationService.error(
-              'Something went wrong!'
-            );
+            return this._alertNotificationService.error('SOMETHING_WENT_WRONG');
           }
         })
       ),

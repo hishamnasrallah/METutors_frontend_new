@@ -12,7 +12,7 @@
                   <!--Loading-->
                   <ng-container *ngSwitchCase="true">
                     <img src="assets/svg/loading.svg" alt="" draggable="false" class="mb-4 spinner" width="100px" height="100px" />
-                    <p class="mt-15-sm f-size-20-md-sm mb-15-sm">Please bear with us your payment is being processed...</p>
+                    <p class="mt-15-sm f-size-20-md-sm mb-15-sm">{{ 'PLEASE_BEAR_PAYMENT_PROCESSED' | translate }}</p>
                   </ng-container>
 
                   <ng-container *ngSwitchCase="false">
@@ -21,10 +21,10 @@
                       <ng-container *ngSwitchCase="true">
                         <img src="assets/svg/cheer.svg" alt="" draggable="false" class=" mb-4"/>
 
-                        <p class="mt-15-sm f-size-20-md-sm mb-15-sm">Payment has been made Successfully</p>
+                        <p class="mt-15-sm f-size-20-md-sm mb-15-sm">{{ 'PAYMENT_MADE_SUCCESSFULLY' | translate }}</p>
 
                         <button mat-flat-button color="primary" class="px-5 ms-3 p-2 mb-15-sm w-100-sm" [routerLink]="['/student', 'classrooms']">
-                          Continue
+                          {{ 'CONTINUE' | translate }}
                         </button>
                       </ng-container>
 
@@ -32,14 +32,14 @@
                       <ng-container *ngSwitchCase="false">
                         <img src="assets/svg/failed.svg" alt="" draggable="false" class="w-100-sm mb-4"/>
 
-                        <p class="text-danger mt-15-sm f-size-20-md-sm">{{ view?.paymentInfo?.error || 'Payment failed' }}</p>
+                        <p class="text-danger mt-15-sm f-size-20-md-sm">{{ view?.paymentInfo?.error || ('PAYMENT_FAILED' | translate) }}</p>
 
                         <button mat-flat-button color="primary" class="px-5 ms-3 p-2 mb-15-sm w-100-sm" routerLink="/" [disabled]="isRetryingPayment$ | async">
-                          Go to Home
+                          {{ 'GO_HOMEPAGE' | translate }}
                         </button>
 
                         <button mat-flat-button color="primary" class="px-5 ms-3 p-2 mb-15-sm w-100-sm" (click)="retryPayment()" [disabled]="isRetryingPayment$ | async">
-                          Try Again
+                          {{ 'TRY_AGAIN' | translate }}
                         </button>
                       </ng-container>
                     </ng-container>

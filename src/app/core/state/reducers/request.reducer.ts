@@ -41,6 +41,8 @@ export interface State {
 
   // Get Invoice Email
   isGetInvoiceEmail: boolean;
+
+  isApplyingCoupon: boolean;
 }
 
 export const initialState: State = {
@@ -53,6 +55,7 @@ export const initialState: State = {
   suggestedTutors: null,
   availableTutors: null,
   isRequestCourse: false,
+  isApplyingCoupon: false,
   createClassFailure: '',
   loadingTutorFailure: '',
   isCreatingCourse: false,
@@ -130,13 +133,14 @@ export const reducer = createReducer(
     createClassFailure: error,
   })),
 
-  on(requestActions.createCourse, (state) => ({
+  on(requestActions.createCourse, requestActions.createFreeCourse, (state) => ({
     ...state,
     isCreatingCourse: true,
   })),
 
   on(
     requestActions.createCourseSuccess,
+    requestActions.createFreeCourseSuccess,
     studentActions.studentAddNewClassSuccess,
     (state, { paymentInfo }) => ({
       ...state,
@@ -145,10 +149,14 @@ export const reducer = createReducer(
     })
   ),
 
-  on(requestActions.createCourseFailure, (state, { error }) => ({
-    ...state,
-    isCreatingCourse: false,
-  })),
+  on(
+    requestActions.createCourseFailure,
+    requestActions.createFreeCourseFailure,
+    (state, { error }) => ({
+      ...state,
+      isCreatingCourse: false,
+    })
+  ),
 
   on(requestActions.createClassLocalStorage, (state, { classroom }) => ({
     ...state,
@@ -279,7 +287,23 @@ export const reducer = createReducer(
       ...state,
       isGetInvoiceEmail: false,
     })
-  )
+  ),
+
+  on(requestActions.applyCoupon, (state) => ({
+    ...state,
+    isApplyingCoupon: true,
+  })),
+
+  on(requestActions.applyCouponSuccess, (state, { invoiceDetails }) => ({
+    ...state,
+    isApplyingCoupon: false,
+    invoiceDetails: { ...state.invoiceDetails, ...invoiceDetails },
+  })),
+
+  on(requestActions.applyCouponFailure, (state) => ({
+    ...state,
+    isApplyingCoupon: false,
+  }))
 );
 
 export const selectGeneratingAvailableTutors = (
@@ -338,6 +362,9 @@ export const selectRequestedIsCreatingCourse = (state: State): any =>
 
 export const selectIsGetInvoiceEmail = (state: State): boolean =>
   state.isGetInvoiceEmail;
+
+export const selectIsApplyingCoupon = (state: State): boolean =>
+  state.isApplyingCoupon;
 
 export const selectFilteredGeneratingAvailableTutors = (
   state: State,

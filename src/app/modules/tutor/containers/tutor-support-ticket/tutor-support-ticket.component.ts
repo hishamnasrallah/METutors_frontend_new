@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import * as fromCore from '@metutor/core/state';
 import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
 import { ITicket } from '@metutor/core/models';
 import { TicketStatus } from '@metutor/config';
+import * as fromCore from '@metutor/core/state';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'metutors-tutor-support-ticket',

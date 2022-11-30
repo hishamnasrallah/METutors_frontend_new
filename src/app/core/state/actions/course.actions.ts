@@ -1,6 +1,12 @@
 import { createAction, props } from '@ngrx/store';
 
-import { ICourse } from '@models';
+import {
+  IField,
+  ICourse,
+  IProgram,
+  ISubject,
+  IExploreCoursesFilters
+} from '@models';
 
 export const loadCourses = createAction(
   '[Tutor] Load Courses',
@@ -31,11 +37,20 @@ export const loadCourseByIdFailure = createAction(
   props<{ error: any }>()
 );
 
-export const exploreCourses = createAction('[General] Explore Courses');
+export const exploreCourses = createAction(
+  '[General] Explore Courses',
+  props<{ filters: IExploreCoursesFilters }>()
+);
 
 export const exploreCoursesSuccess = createAction(
   '[General] Explore Courses Success',
-  props<{ exploredCourses: any }>()
+  props<{
+    exploreCourses: ISubject[];
+    coursesCount: number;
+    fieldsOfStudy: IField[];
+    range: any;
+    program: IProgram;
+  }>()
 );
 
 export const exploreCoursesFailure = createAction(

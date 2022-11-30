@@ -10,6 +10,7 @@ export interface State {
   isDeletingFile: boolean;
   isUploadingFile: boolean;
   isUploadingCover: boolean;
+  isUploadingVideo: boolean;
   isUploadingAvatar: boolean;
 }
 
@@ -18,6 +19,7 @@ export const initialState: State = {
   uploadProgress: null,
   isDeletingFile: false,
   isUploadingFile: false,
+  isUploadingVideo: false,
   isUploadingCover: false,
   isUploadingAvatar: false,
 };
@@ -36,6 +38,9 @@ export const reducer = createReducer(
         break;
       case 'cover':
         finalState.isUploadingCover = true;
+        break;
+      case 'video':
+        finalState.isUploadingVideo = true;
         break;
     }
 
@@ -148,6 +153,22 @@ export const reducer = createReducer(
   on(uploadActions.changeCoverFailure, (state) => ({
     ...state,
     isUploadingCover: false,
+  })),
+
+  // upload video
+  on(uploadActions.changeVideo, (state) => ({
+    ...state,
+    isUploadingVideo: true,
+  })),
+
+  on(uploadActions.changeVideoSuccess, (state) => ({
+    ...state,
+    isUploadingVideo: false,
+  })),
+
+  on(uploadActions.changeVideoFailure, (state) => ({
+    ...state,
+    isUploadingVideo: false,
   }))
 );
 
@@ -166,3 +187,6 @@ export const selectIsUploadingAvatar = (state: State): any =>
 
 export const selectIsUploadingCover = (state: State): boolean =>
   state.isUploadingCover;
+
+export const selectIsUploadingVideo = (state: State): boolean =>
+  state.isUploadingVideo;

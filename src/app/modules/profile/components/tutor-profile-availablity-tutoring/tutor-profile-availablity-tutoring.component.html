@@ -6,18 +6,18 @@
           <h1 class="heading f-size-15-md-sm">{{ 'TEACHER_AVAILABILITY' | translate }}</h1>
 
           <span *ngFor="let avail of availability" (click)="tutorAvailability.emit()" class="cursor-pointer">
-            {{ avail }}
+            {{ avail | uppercase | translate }}
           </span>
         </div>
         <div class="col-md-6 mt-15-sm" *ngIf="_tutor?.specifications?.typeOfTutoring">
           <h1 class="heading f-size-15-md-sm">{{ 'TYPE_TUTORING' | translate }}</h1>
 
           <ng-container *ngIf="_tutor?.specifications?.typeOfTutoring === types.both">
-            <span>{{ types.one }}</span>
-            <span>{{ types.group }}</span>
+            <span>{{ (types.one)! | metutorsUppercase | translate }}</span>
+            <span>{{ (types.group)! | metutorsUppercase | translate }}</span>
           </ng-container>
           <span *ngIf="_tutor?.specifications?.typeOfTutoring !== types.both">
-            {{ _tutor?.specifications?.typeOfTutoring }}
+            {{ (_tutor?.specifications?.typeOfTutoring)! | metutorsUppercase | translate }}
           </span>
         </div>
       </div>
@@ -37,12 +37,12 @@
                         </ng-container>
                       </span>
                     </th>
-                    <th class="heading text-end">{{ 'STUDY_FIELD' | translate }} <span>{{ item?.fieldName }}</span></th>
+                    <th class="heading text-end">{{ 'FIELD_STUDY' | translate }}: <span> {{ item?.fieldName }}</span></th>
                   </tr>
                   <tr>
                     <th [attr.colspan]="item?.programId === nationalId ? '1' : '2'">{{ 'SUBJECT_NAME' | translate }}</th>
                     <th *ngIf="item?.programId === nationalId">{{ 'GRADE' | translate }}</th>
-                    <!-- <th>Hourly Price</th> -->
+                    <!-- <th>{{ 'HOURLY_PRICE' | translate }}</th> -->
                   </tr>
                   <tr *ngFor="let subject of item.subjects">
                     <td [attr.colspan]="item?.programId === nationalId ? '1' : '2'">{{ subject?.subject }}</td>

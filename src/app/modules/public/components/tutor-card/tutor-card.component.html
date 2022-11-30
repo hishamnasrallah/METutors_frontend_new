@@ -1,0 +1,82 @@
+<div class="card tutor-card mb-3">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="position-relative">
+        <img [src]="tutor?.avatar" meTutorsDefaultAvatar draggable="false" class="card-img-top rounded w-100-sm" alt
+          width="230" height="230">
+        <!-- <span class="text-uppercase badge pro">{{ 'PRO' | translate }}</span> -->
+        <span class="text-uppercase badge verified">{{ 'VERIFIED' | translate }}</span>
+        <!-- <span class="text-uppercase badge featured">{{ 'FEATURED' | translate }}"></span> -->
+      </div>
+    </div>
+    <div class="col-md-9 d-flex flex-column">
+      <div class="row">
+        <div class="col-lg-7">
+          <h5 class="card-title mt-15-sm">
+            <a [routerLink]="'/profile/tutor/' + tutor?.id"><bdi>{{ tutor?.name }}</bdi></a>
+          </h5>
+          <h3 *ngIf="tutor?.qualifications?.nameOfUniversity">
+            {{ tutor?.qualifications?.nameOfUniversity }}
+          </h3>
+          <div>
+            <rating [ngModel]="tutor?.averageRating" [max]="5" [readonly]="true"></rating>
+            <span class="count">{{ tutor?.averageRating | number:'.1-1' }}</span>
+            <span class="review" *ngIf="tutor?.totalFeedbacks">
+              ({{ tutor?.totalFeedbacks }}
+              {{ +(tutor?.totalFeedbacks)! > 1 ? ('REVIEWS_SM' | translate) : ('REVIEW_SM' | translate) }})
+            </span>
+          </div>
+
+          <div class="col-12 list mt-15-sm mb-5-sm">
+            <div class="row">
+              <div class="col-6 d-flex" *ngIf="tutor?.country">
+                <img src="assets/svg/map.svg" class="icon" draggable="false" width="16" height="16" alt="">
+                <span>
+                  {{ 'FROM' | translate }} {{ tutor?.country?.name }}
+                </span>
+              </div>
+              <div class="col-6 d-flex" *ngIf="tutor?.classesTaught">
+                <img src="assets/svg/classes.svg" class="icon" draggable="false" width="16" height="16" alt="">
+                <span>
+                  {{ 'TAUGHT' | translate }} {{ tutor?.classesTaught }}
+                  {{ +(tutor?.classesTaught)! > 1 ? ('CLASSES_SM' | translate) : ('CLASS_SM' | translate) }}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 flex-grow-1">
+            <p class="bio f-size-18-md-sm">
+              <ng-container *ngIf="tutor?.bio">
+                {{ 'BIO' | translate }}:
+                {{ (tutor.bio && tutor.bio.length > 80) ? ((tutor?.bio | slice:0:80) + '...') : tutor?.bio }}
+                <a [routerLink]="'/profile/tutor/' + tutor?.id"
+                  *ngIf="tutor.bio && tutor.bio.length > 80">{{ 'READ_MORE' | translate }}</a>
+              </ng-container>
+            </p>
+          </div>
+        </div>
+        <div class="col-lg-5 d-flex flex-column">
+          <div class="col-12 specialization flex-grow-1" *ngIf="tutor?.programs && tutor?.programs?.length">
+            <h2>{{ 'SPECIALIZATION' | translate }}:</h2>
+            <div class="programs">
+              <button mat-button class="main-button-transparent me-2" *ngFor="let program of tutor?.programs">
+                <img *ngIf="program?.isoCode" class="me-2" src="https://countryflagsapi.com/png/{{ program?.isoCode }}" alt=""
+                  draggable="false" width="14px">
+                {{ program?.programCode || program?.code }}
+              </button>
+            </div>
+            <span *ngFor="let subject of tutor?.subjects">{{ subject?.name }}</span>
+          </div>
+
+          <div class="actions">
+            <a mat-button class="flex-grow-1 book main-button-transparent float-end w-100-sm"
+              [routerLink]="'/profile/tutor/' + tutor?.id">
+              {{ 'VIEW_FULL_PROFILE' | translate }}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

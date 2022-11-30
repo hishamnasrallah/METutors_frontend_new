@@ -1,0 +1,757 @@
+<metutors-terms-header [title]="'WE_TAKE_DATA_PRIVACY_SERIOUSLY'"
+                       [description]="'WE_TAKE_DATA_PRIVACY_SERIOUSLY_DESC'">
+</metutors-terms-header>
+
+<div class="container privacy-notice mt-5">
+  <div class="row">
+    <div class="col-md-9">
+      <h1 class="title">{{ 'PRIVACY_NOTICE' | translate }}</h1>
+      <p class="details">
+        We have created MEtutors with privacy designed in the center. How and when we collect your personal information
+        is no different. We only collect your information where there is a good reason to do so and we will handle it in
+        a legal and ethical manner at all times. You have our word!
+        <br />
+        <br />
+        We appreciate that not everyone may enjoy reading a privacy notice. For this reason, we’ve tried to make this
+        short and simple. There is also a lot of information we are required by law to provide you with. If there is
+        anything not clear, please reach out to us and we’re always happy to discuss further.
+      </p>
+
+      <div class="card question" *ngFor="let question of questions">
+        <div class="card-body">
+          <div class="d-flex">
+            <h1 class="flex-grow-1 m-0 f-size-25-md-sm"
+              [class.main-color]="openQuestion && selectedQuestion === question.id">
+              <bdi>{{ question?.title }}</bdi>
+            </h1>
+            <button mat-button *ngIf="selectedQuestion !== question.id" (click)="changeOpenSelection(question.id)">
+              <mat-icon>add</mat-icon>
+            </button>
+            <button mat-button class="main-color" *ngIf="openQuestion && selectedQuestion === question.id"
+              (click)="changeOpenSelection(question.id)">
+              <mat-icon>remove</mat-icon>
+            </button>
+          </div>
+          <p class="desc" *ngIf="openQuestion && selectedQuestion === question.id" [@slideInOut]>
+            <bdi>{{ question?.answer }}</bdi>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <metutors-terms-sidebar [active]="'PRIVACY_NOTICE'"></metutors-terms-sidebar>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="privacy-notice">
+  <div class="container my-4">
+    <div class="card">
+      <div class="card-body">
+        <p>
+          MEtutors is sensitive to your concerns about how we use the personal information we collect from you through
+          MEtutors' website (the "Site") and other plug-ins exchanging information with MEtutors ("Applications"). (The
+          Site and Applications are sometimes collectively referred to as "Online Services" for simplicity). MEtutors
+          takes your privacy seriously, and has implemented this privacy policy (the "Privacy Policy") and internal
+          policies and practices to keep your personal and financial information secure. The Privacy Policy covers
+          MEtutors' treatment of the Personally Identifiable Information we collect when you use the Online Services.
+          This Privacy Policy governs your use of the Online Services and by using MEtutors’ Online Services, you accept
+          the terms of this Privacy Policy.
+        </p>
+
+        <h2 class="mt-5">WHAT INFORMATION DO WE COLLECT ABOUT OUR CUSTOMERS?</h2>
+        <p>
+          <span class="title">Traffic Data:</span> MEtutors uses a number of internal and third-party methods to
+          recognize visitor data like IP
+          addresses and browser settings (collectively "Visitor Data"). The MEtutors internal servers and software
+          automatically recognize Visitor Data. No Personally Identifiable Information is revealed in this process. The
+          Site may use Visitor Data to compile traffic data about the types of visitors who use the Site at specific
+          intervals (collectively "Traffic Data").
+          <br>
+          MEtutors may use the standard cookie feature of major browser
+          applications and third-party providers, or employ internally developed cookies and tracking codes, that allow
+          MEtutors to store a small piece of data on a visitor's computer, or any other device a visitor uses to access
+          Online Services, about his or her visit to the Site or use of Applications. MEtutors does not capture
+          Personally Identifiable Information in cookies or use cookies to mine Personally Identifiable Information.
+          <br>
+          We may use Traffic Data to analyze Site traffic, but this information is not examined for Personally
+          Identifiable
+          Information. We may also use Traffic Data to diagnose problems with our server, administer our Site, or
+          display content according to your preferences. Visitor Data and Traffic Data may also be shared with business
+          partners, affiliates, or advertisers on an aggregated and anonymous basis.
+          <br><br>
+          <span class="title">Personal Information:</span> MEtutors
+          requires each customer to provide us with personal information (collectively "Personally Identifiable
+          Information") to access and use MEtutors products and services. Personally Identifiable Information is
+          captured only when a visitor accesses Online Services, or speaks on the phone with a MEtutors employee, and
+          willingly discloses that information. This disclosure may occur when a visitor registers with an Online
+          Service, engages in transactions, contacts customer service, or participates in contests, promotions, surveys,
+          forums, content submissions, chats, bulletin boards, discussion groups, requests for suggestions, or other
+          aspects of services offered by MEtutors.
+          <br>
+          Personally Identifiable Information includes:
+          <br>
+          (i) "Contact Data"
+          (such as your name, address, city, state, zip code, phone number, and email address);
+          <br>
+          (ii) "Demographic Data"
+          (such as your zip code and sex); and
+          <br>
+          Certain personal information becomes public record when documents are
+          filed with the federal or state government, or with a court. For example, a corporation's name, business
+          address, and registered agent name become public information when its articles of incorporation are filed. A
+          Secretary of State may publish this information to its website or provide this information to third parties
+          for a fee. The U.S. Patent and Trademark Office publishes the names and addresses of trademark registrants. In
+          some states, fictitious business names, including the name and address of the business owner, must be
+          published in a newspaper. The MEtutors Privacy Policy does not cover these or similar third-party actions.
+          Calls/Electronic Communications: In the regular course of our business, MEtutors may monitor and record phone
+          conversations or email communications between you and MEtutors employees for training and quality assurance
+          purposes. We may receive a confirmation when you open or click on content in an email from us, which helps us
+          make our communications to you more useful and interesting. If you do not wish to receive email from MEtutors,
+          you may unsubscribe from our mailing list on any of the emails we send.
+        </p>
+
+        <h2 class="mt-5">HOW DO WE USE THE INFORMATION WE COLLECT?</h2>
+        <p>
+          We use the information we collect from the Online Services to communicate with you, process your orders,
+          facilitate your transactions with our third-party marketing partners, and inform you of offers and discounts.
+          For example, you may receive a welcome email that confirms your username and password, and later receive
+          communications responding to your inquiries, providing services you request, and managing your account. We
+          occasionally send service-related announcements, for example, to alert you if we need to temporarily suspend
+          the Site for maintenance. We send promotional emails and newsletters from time to time to our purchasers and
+          those who have opted in to receive such emails. Generally, you may not opt out of service-related
+          communications, which are not promotional. If you do not wish to receive service-related communications, you
+          may terminate your account by contacting Customer Care at <a href="mailto:support@metutors.com"
+            target="_blank">support@metutors.com</a>. However, you can opt out of
+          promotional communications by following the unsubscribe instructions in any communication or by emailing us at
+          <a href="mailto:support@metutors.com" target="_blank">support@metutors.com</a>.
+        </p>
+
+        <h2 class="mt-5">HOW DO WE SHARE THE INFORMATION WE COLLECT?</h2>
+        <p>
+          We share customer information with third parties only as follows:
+          <br><br>
+          <span class="title">Use of Personal Information:</span>MEtutors,
+          sometimes with the assistance of a third party or MEtutors subsidiary, may use your Personally Identifiable
+          Information to process your payment through merchant account services, to generate the products and services
+          you order, and to analyze our customer demographics. Your Contact Data may be used to follow up with you on
+          transactions you initiate through Online Services, respond to inquiries made through Online Services, inform
+          you of changes to Online Services, and send you additional information about MEtutors and its products and
+          services. Unless specifically authorized by you, we do not provide Personally Identifiable Information to
+          third parties for marketing purposes. We may provide information to a third party in response to a subpoena or
+          to otherwise comply with the law.
+          <br>
+          Contact Data and Traffic Data are used to gather general statistics about
+          our customers and visitors. We may use Demographic Data to generate collective information about our users,
+          but not in a way that identifies any user specifically. For example, we may inform third parties about the
+          number of registered users and unique visitors, and the pages most frequently browsed.
+          <br><br>
+          <span class="title">Service Providers:</span> We
+          may share your Personally Identifiable Information with companies that provide support services to us (such as
+          a printer or email service provider) or that help us market our products and services. These companies may
+          need information about you in order to perform their functions. These companies are not authorized to use the
+          information we share with them for any other purpose.
+          <br><br>
+          <span class="title">Opting Out:</span> You may choose not to provide MEtutors with
+          Personally Identifiable Information or you may turn off cookies in your browser by changing its settings. If
+          you make these decisions, you may continue to use the Online Services and browse its pages. However, MEtutors
+          cannot process the sale of its courses without Personally Identifiable Information. If you do not wish to
+          receive promotional materials from MEtutors, you may unsubscribe from our mailing list on any materials we
+          send. Generally, you may not opt out of service-related communications, which are not promotional. If you do
+          not wish to receive service-related communications, you may terminate your account by contacting Customer Care
+          at support@metutors.com.
+          <br><br>
+          <span class="title">Website Areas Beyond MEtutors' Control:</span> The Site may include interactive forums,
+          such
+          as message boards and chat rooms. Any Personally Identifiable Information disclosed in these areas is public
+          and becomes public information. You should use caution when deciding whether to disclose your personal
+          information in these forums.
+          <br><br>
+          <span class="title">Other Transfers:</span> We may share Personally Identifiable Information and other data
+          with businesses controlling, controlled by, or under common control with MEtutors. If MEtutors is merged,
+          acquired, or sold, or if some or all of our assets or equity are transferred, we may disclose or transfer
+          Personally Identifiable Information and other data in connection with the associated transactions.
+          <br><br>
+          <span class="title">Bankruptcy:</span>
+          In the event of a MEtutors bankruptcy, insolvency, reorganization, receivership, or assignment for the benefit
+          of creditors, or the application of laws or equitable principles affecting creditors' rights generally, we may
+          not be able to control how your personal information is treated, transferred, or used. If such an event
+          occurs, your Personally Identifiable Information may be treated like any other MEtutors asset and sold,
+          transferred, or shared with third parties, or used in ways not contemplated or permitted under this Privacy
+          Policy, without notice to you or your consent.
+          <br><br>
+          <span class="title">Links to Third-Party Websites and Third-Party Service
+            Providers:</span> MEtutors may maintain links to other websites and other websites may maintain links to the
+          Online
+          Services. This Privacy Policy applies only to MEtutors.com and not to other websites accessible from MEtutors
+          or that you use to access MEtutors, each of which may have privacy policies materially different from this
+          Privacy Policy. If you visit other websites, MEtutors is not responsible for the privacy practices or content
+          of those sites. It is your responsibility to review the privacy policies of non-MEtutors websites to confirm
+          that you understand and agree with them. We may work with third-party service providers that we do not own or
+          control. Unless authorized by you, we do not provide your Personally Identifiable Information to any
+          third-party service providers, except as explained in this Privacy Policy.
+        </p>
+
+        <h2 class="mt-5">ACCESSING AND CHANGING YOUR ACCOUNT</h2>
+        <p>
+          <span class="title">User Access to Order Information:</span> MEtutors will give you, or anyone listed as an
+          authorized contact for your
+          account, information about your course sale/purchase. This may include information about the nature and status
+          of your order, information you provided to process your order, payment information, and contact information.
+          If you want someone to have access to your order, you must list them as an authorized contact or they may not
+          obtain information. You can confirm who is listed as an authorized contact for your account, add new
+          authorized contacts, or remove authorized contacts by logining in first to your account, and then click on
+          “Settings” then “Profile”. For some products, we may provide information about your order to other individuals
+          named in the order, such as executors named in a last will. For product-specific information about who may
+          request information about your order, please contact Customer Care at <a href="mailto:support@metutors.com"
+            target="_blank">support@metutors.com</a>. For some
+          products, you may decide to share information about your order with a Legal Plan attorney. We will only share
+          your information or documents with a Legal Plan attorney or with attorneys who service our attorney-assisted
+          products with your authorization. We also may provide information to a third party in response to a subpoena
+          or to otherwise comply with the law.
+          <br>
+          <span class="title">User Access to and Ability to Update Personally Identifiable Information:</span>
+          You may visit your personal account profile at any time by clicking on “Settings” then “Profile”, you may:
+          <br>
+          (i)
+          review and update your Contact Data;
+          <br>
+          (ii) review purchased transactions; and
+          <br>
+          (iii) begin new orders. If you
+          want to remove your Personally Identifiable Information from our Site, you may contact us at
+          <a href="mailto:support@metutors.com" target="_blank">support@metutors.com</a>. MEtutors may maintain some or
+          all of this data in its archives even after it has been
+          removed from the Site.
+        </p>
+
+        <h2 class="mt-5">TERMS OF USE</h2>
+        <p>
+          <strong>PLEASE READ THESE TERMS OF USE CAREFULLY BEFORE USING THIS SITE.</strong>
+          <br><br>
+          By using the MEtutors.com website (the
+          "Site") or any MEtutors applications or application plug-ins ("Applications"), you agree to follow and be
+          bound by these terms of use (the "Terms of Use") and agree to comply with all applicable laws and regulations.
+          In these Terms of Use, the words "you" and "your" refer to each customer, Site visitor, or Application user,
+          "we", "us", and "our" refer to MEtutors.com and "Services" refers to all services provided by us.
+          <br>
+          It is your
+          responsibility to review these Terms of Use periodically. If at any time you find these Terms of Use
+          unacceptable or <strong>if you do not agree to these Terms of Use, please do not use this Site or any
+            Applications.</strong> We
+          may revise these Terms of Use at any time without notice to you. If you have any questions about these Terms
+          of Use, please contact our Customer Care at <a href="mailto:support@metutors.com"
+            target="_blank">support@metutors.com</a>.
+          <br>
+          YOU AGREE THAT BY USING THE SITE, ANY
+          APPLICATIONS, AND THE SERVICES YOU ARE AT LEAST 12 YEARS OF AGE AND YOU ARE LEGALLY ABLE TO ENTER INTO A
+          CONTRACT.
+          <br><br>
+          <span class="title">Privacy Policy:</span> When you open an account to use or access certain portions of the
+          Site,
+          Applications, or the Services, you must provide complete and accurate information as requested on the
+          registration form. You will also be asked to provide a user name and password. You are entirely responsible
+          for maintaining the confidentiality of your password. You may not use a third party's account, user name, or
+          password at any time. You agree to notify MEtutors immediately of any unauthorized use of your account, user
+          name, or password. MEtutors shall not be liable for any losses you incur as a result of someone else's use of
+          your account or password, either with or without your knowledge. You may be held liable for any losses
+          incurred by MEtutors, our affiliates, officers, directors, employees, consultants, agents and representatives
+          due to someone else's use of your account or password.
+          <br>
+          In connection with the use of certain MEtutors products
+          or services, you may be asked to provide personal information in a questionnaire, application, form, or
+          similar document or service. This information will be protected pursuant to our Privacy Policy. In addition,
+          you grant MEtutors a worldwide, royalty-free, nonexclusive, and fully sublicensable license to use,
+          distribute, reproduce, modify, publish and translate this personal information solely for the purpose of
+          enabling your use of the applicable service. You may revoke this license and terminate rights held by MEtutors
+          at any time by removing your personal information from the applicable service.
+          <br><br>
+          <span class="title">Ownership:</span> This Site and
+          Applications are owned and operated by MEtutors.com. All rights, title, and interest in and to the materials
+          provided on this Site and Applications, including but not limited to personal information, documents, audio
+          and video recordings of tutoring sessions, study materials, logos, graphics, sounds, and images (the
+          "Materials") are owned either by MEtutors or by our respective third party authors, developers or vendors
+          ("Third Party Providers"). Except as otherwise expressly provided by MEtutors, none of the Materials may be
+          copied, reproduced, republished, downloaded, uploaded, posted, displayed, transmitted, or distributed in any
+          way and nothing on this Site or on any Applications shall be construed to confer any license under any of
+          MEtutors's intellectual property rights, whether by estoppel, implication or otherwise. See the "Legal Contact
+          Information" below if you have any questions about obtaining such licenses. MEtutors does not sell, license,
+          lease, or otherwise provide any of the Materials other than those specifically identified as being provided by
+          MEtutors. Any rights not expressly granted herein are reserved by MEtutors.
+          <br><br>
+          <span class="title">Limited Permission to Download:</span> MEtutors hereby grants you permission to download,
+          view, copy and print the Materials on any single,
+          stand-alone computer solely for your personal, informational, non-commercial use provided that (i) where
+          provided, the copyright and trademark notices appearing on any Materials not be altered or removed, (ii) the
+          Materials are not used on any other website or in a networked computer environment and (iii) the Materials are
+          not modified in any way, except for authorized editing of downloadable forms for personal use. This permission
+          terminates automatically without notice if you breach any of the terms or conditions of these Terms of Use. On
+          any such termination, you agree to immediately destroy any downloaded or printed Materials. Any unauthorized
+          use of any Materials contained on this Site or Applications may violate copyright laws, trademark laws, laws
+          of privacy and publicity, and communications regulations and statutes.
+          <br><br>
+          <span class="title">Links to Third Party Sites:</span> This Site
+          and Applications may contain links to websites controlled by parties other than MEtutors (each a "Third Party
+          Site"). MEtutors works with a number of partners and affiliates whose sites are linked with MEtutors. MEtutors
+          may also provide links to other citations or resources with whom it is not affiliated. MEtutors is not
+          responsible for and does not endorse or accept any responsibility for the availability, contents, products,
+          services, or use of any Third Party Site, any website accessed from a Third Party Site, or any changes or
+          updates to such sites. MEtutors makes no guarantees about the content or quality of the products or services
+          provided by such sites. MEtutors is not responsible for webcasting or any other form of transmission received
+          from any Third Party Site. MEtutors is providing these links to you only as a convenience, and the inclusion
+          of any link does not imply endorsement by MEtutors of the Third Party Site, nor does it imply that MEtutors
+          sponsors, is affiliated or associated with, guarantees, or is legally authorized to use any trade name,
+          registered trademark, logo, legal or official seal, or copyrighted symbol that may be reflected in the links.
+          You acknowledge that you bear all risks associated with access to and use of content provided on a Third Party
+          Site and agree that MEtutors is not responsible for any loss or damage of any sort you may incur from dealing
+          with a third party. You should contact the site administrator for the applicable Third Party Site if you have
+          any concerns regarding such links or the content located on any such Third Party Site.
+        </p>
+
+        <h2 class="mt-5">DISPUTE RESOLUTION BY BINDING ARBITRATION</h2>
+        <p>
+          <strong>Please read this carefully. It affects your rights.</strong>
+          <br><br>
+          <span class="title">Summary:</span> Most customer concerns can be resolved quickly
+          and to the customer's satisfaction by contacting Customer Care Center at <a href="mailto:support@metutors.com"
+            target="_blank">support@metutors.com</a>. In the unlikely
+          event that the MEtutors Customer Care Center is unable to resolve your complaint to your satisfaction (or if
+          MEtutors has not been able to resolve a dispute it has with you after attempting to do so informally), we each
+          agree to resolve those disputes through binding arbitration or in small claims court rather than in a court of
+          general jurisdiction. Arbitration is less formal than a lawsuit in court. Arbitration uses a neutral
+          arbitrator instead of a judge or jury, allows for more limited discovery than a court does, and is subject to
+          very limited review by courts. Any arbitration under these Terms will take place on an individual basis; class
+          arbitrations and class actions are not permitted. While in some instances, upfront costs to file an
+          arbitration claim may exceed similar costs to bring a case in court, for any non-frivolous claim that does not
+          exceed $75,000, MEtutors will pay all costs of the arbitration. Moreover, in arbitration you may recover
+          attorney's fees from MEtutors to the same extent or more as you would in court.
+          <br>
+          Under certain circumstances
+          (as explained below), MEtutors will pay you more than the amount of the arbitrator's award and will pay your
+          attorney (if any) his or her reasonable attorney's fees if the arbitrator awards you an amount greater than
+          what MEtutors offered you to settle the dispute.
+          <br>
+          You may speak with independent counsel before using this Site
+          or completing any purchase.
+          <br><br>
+          <span class="title">Arbitration Agreement:</span>
+          <br>
+          (a) MEtutors and you agree to arbitrate <strong>all disputes and
+            claims</strong> between us before a single arbitrator. The types of disputes and claims we agree to
+          arbitrate are
+          intended to be broadly interpreted. It applies, without limitation, to:
+          <br>
+          • claims arising out of or relating to
+          any aspect of the relationship between us, whether based in contract, tort, statute, fraud, misrepresentation,
+          or any other legal theory;
+          <br>
+          • claims that arose before these or any prior Terms (including, but not limited to,
+          claims relating to advertising);
+          <br>
+          • claims that are currently the subject of purported class action litigation
+          in which you are not a member of a certified class; and
+          <br>
+          • claims that may arise after the termination of these
+          Terms.
+          <br>
+          For the purposes of this Arbitration Agreement, references to "MEtutors," "you," and "us" include our
+          respective subsidiaries, affiliates, agents, employees, predecessors in interest, successors, and assigns, as
+          well as all authorized or unauthorized users or beneficiaries of services or products under these Terms or any
+          prior agreements between us.
+          <br><br>
+          Notwithstanding the foregoing, either party may bring an individual action in
+          small claims court. This arbitration agreement does not preclude your bringing issues to the attention of
+          federal, state, or local agencies. Such agencies can, if the law allows, seek relief against us on your
+          behalf. <strong>You agree that, by entering into these Terms, you and MEtutors are each waiving the right to a
+            trial
+            by jury or to participate in a class action.</strong> These Terms evidence a transaction or website use in
+          interstate
+          commerce, and thus the Federal Arbitration Act governs the interpretation and enforcement of this provision.
+          This arbitration provision will survive termination of these Terms.
+          <br><br>
+          (b) A party who intends to seek
+          arbitration must first send, by U.S. certified mail, a written Notice of Dispute ("Notice") to the other
+          party. A Notice to MEtutors should be addressed to: address (the "Notice Address"). The Notice must (a)
+          describe the nature and basis of the claim or dispute and (b) set forth the specific relief sought ("Demand").
+          If MEtutors and you do not reach an agreement to resolve the claim within 30 days after the Notice is
+          received, you or MEtutors may commence an arbitration proceeding. During the arbitration, the amount of any
+          settlement offer made by MEtutors or you shall not be disclosed to the arbitrator until after the arbitrator
+          determines the amount, if any, to which you or MEtutors is entitled.
+          <br>
+          (c) After MEtutors receives notice at the
+          Notice Address that you have commenced arbitration, it will promptly reimburse you for your payment of the
+          filing fee, unless your claim is for more than $75,000. (If you are unable to pay this fee, MEtutors will pay
+          it directly after receiving a written request at the Notice Address.) The arbitration will be governed by the
+          Commercial Dispute Resolution Procedures and the Supplementary Procedures for Consumer Related Disputes
+          (collectively, the "AAA Rules") of the American Arbitration Association (the "AAA"), as modified by these
+          Terms, and will be administered by the AAA. The AAA Rules are available online at www.adr.org or by calling
+          the AAA at 1-800-778-7879. The arbitrator is bound by these Terms. Unless MEtutors and you agree otherwise,
+          any arbitration hearings will take place in the county (or parish) of your contact address. If your claim is
+          for $10,000 or less, you may choose whether the arbitration will be conducted solely on the basis of documents
+          submitted to the arbitrator, by a telephonic hearing, or by an in-person hearing as established by the AAA
+          Rules. If you choose to proceed either in person or by telephone, we may choose to respond only by telephone
+          or submission. If your claim exceeds $10,000, the AAA Rules will determine whether you have a right to a
+          hearing. Regardless of the manner in which the arbitration is conducted, the arbitrator shall issue a reasoned
+          written decision sufficient to explain the essential findings of fact and conclusions of law on which the
+          award is based. The parties agree that any awards or findings of fact or conclusions of law made in an
+          arbitration of their dispute or claim are made only for the purposes of that arbitration, and may not be used
+          by any other person or entity in any later arbitration of any dispute or claim involving MEtutors. The parties
+          agree that in any arbitration of a dispute or claim, neither party will rely for preclusive effect on any
+          award or finding of fact or conclusion of law made in any other arbitration of any dispute or claim to which
+          MEtutors was a party. Except as otherwise provided for herein, MEtutors will pay all AAA filing,
+          administration, and arbitrator fees for any arbitration initiated in accordance with the notice requirements
+          above. If, however, the arbitrator finds that either the substance of your claim or the relief sought in the
+          Demand is frivolous or brought for an improper purpose (as measured by the standards set forth in Federal Rule
+          of Civil Procedure 11(b)), then the payment of all such fees will be governed by the AAA Rules. In such case,
+          you agree to reimburse MEtutors for all monies previously disbursed by it that are otherwise your obligation
+          to pay under the AAA Rules. In addition, if you initiate an arbitration in which you seek more than $75,000 in
+          damages, the payment of these fees will be governed by the AAA rules. An award may be entered against a party
+          who fails to appear at a duly noticed hearing.
+          <br>
+          (d) If, after finding in your favor in any respect on the
+          merits of your claim, the arbitrator issues you an award that is greater than the value of MEtutors's last
+          written settlement offer made before an arbitrator was selected, then MEtutors will:
+          <br>
+          • pay you either the
+          amount of the award or $2,000 ("the alternative payment"), whichever is greater; and
+          <br>
+          • pay your attorney, if
+          any, the amount of attorney's fees, and reimburse any expenses (including expert witness fees and costs), that
+          your attorney reasonably accrues for investigating, preparing, and pursuing your claim in arbitration (the
+          "attorney's fees"). If MEtutors did not make a written offer to settle the dispute before an arbitrator was
+          selected, you and your attorney will be entitled to receive the alternative payment and the attorney's fees,
+          respectively, if the arbitrator awards you any relief on the merits. The arbitrator may make rulings and
+          resolve disputes as to the payment and reimbursement of fees, expenses, and the alternative payment and the
+          attorney's fees at any time during the proceeding and upon request from either party made within 14 days of
+          the arbitrator's ruling on the merits.
+          <br>
+          (e) The right to attorney's fees and expenses discussed in paragraph
+          <br>
+          (d) supplements any right to attorney's fees and expenses you may have under applicable law. Thus, if you
+          would be entitled to a larger amount under applicable law, this provision does not preclude the arbitrator
+          from awarding you that amount. However, you may not recover duplicative awards of attorney's fees or costs.
+          Although under some laws MEtutors may have a right to an award of attorney's fees and expenses if it prevails
+          in an arbitration proceeding, MEtutors will not seek such an award.
+          <br>
+          (f) The arbitrator may award injunctive
+          relief only in favor of the individual party seeking relief and only to the extent necessary to provide relief
+          warranted by that party's individual claim. YOU AND METUTORS AGREE THAT EACH MAY BRING CLAIMS AGAINST THE
+          OTHER ONLY IN YOUR OR ITS INDIVIDUAL CAPACITIES AND NOT AS PLAINTIFFS OR CLASS MEMBERS IN ANY PURPORTED CLASS
+          OR REPRESENTATIVE PROCEEDING OR IN THE CAPACITY OF A PRIVATE ATTORNEY GENERAL. The arbitrator shall not have
+          the power to commit errors of law or legal reasoning, and the parties agree that any injunctive award may be
+          vacated or corrected on appeal by either party to a court of competent jurisdiction for any such error. Each
+          party will bear its own costs and fees on any such appeal. Notwithstanding the foregoing, both parties hereby
+          waive the right to appeal any arbitration award other than an award providing injunctive relief. The
+          arbitrator shall not award relief in excess of what these Terms provide or award punitive damages or any other
+          damages not measured by actual damages. Further, unless both you and MEtutors agree otherwise, the arbitrator
+          may not consolidate more than one person's claims, and may not otherwise preside over any form of a
+          representative or class proceeding. If this specific proviso is found to be unenforceable, then the entirety
+          of this arbitration provision shall be null and void.
+          <br>
+          (g) All aspects of the arbitration proceeding, and any
+          ruling, decision, or award by the arbitrator, will be strictly confidential, other than as part of an appeal
+          to a court of competent jurisdiction.
+          <br>
+          (h) The Arbitrator, and not any federal, state, or local court or
+          agency, shall have exclusive authority to resolve any dispute relating to the interpretation, applicability,
+          enforceability or formation of this Agreement including, but not limited to, any claim that all or any part of
+          this Agreement is void or voidable. If this specific proviso is found to be unenforceable, it is severable
+          from the rest of the arbitration agreement.
+          <br><br>
+          <span class="title">Additional Terms:</span> Some MEtutors Services may be subject to
+          additional posted guidelines, rules, or terms of service ("Additional Terms") and your use of such Services
+          will be conditioned on your agreement to the Additional Terms. If there is any conflict between these Terms of
+          Use and the Additional Terms, the Additional Terms will control for that Service, unless the Additional Terms
+          expressly state that these Terms of Use will control.
+          <br><br>
+          <span class="title">Reviews, Comments, Communications, and Other Content:</span> At
+          various locations on the Site or through Applications, MEtutors may permit visitors to post ratings, reviews,
+          comments, and other content (the "User Content"). Contributions to, access to and use of the User Content is
+          subject to this paragraph and the other terms and conditions of these Terms of Use.
+        </p>
+
+        <h2 class="mt-5">RIGHTS AND RESPONSIBILITIES OF METUTORS</h2>
+        <p>
+          MEtutors is not the publisher or author of the User Content. MEtutors takes no responsibility and assumes no
+          liability for any content posted by you or any third party.
+          <br><br>
+          Although we cannot make an absolute guarantee of
+          system security, MEtutors takes reasonable steps to maintain security. If you have reason to believe system
+          security has been breached, contact us by email for help. If MEtutors's technical staff finds that files or
+          processes belonging to a member pose a threat to the proper technical operation of the system or to the
+          security of other members, MEtutors reserves the right to delete those files or to stop those processes. If
+          the MEtutors technical staff suspects a user name is being used by someone who is not authorized by the proper
+          user, MEtutors may temporarily disable that user's access in order to preserve system security. In all such
+          cases, MEtutors will contact the member as soon as feasible.
+          <br><br>
+          MEtutors has the right (but not the obligation),
+          in our sole and absolute discretion, to edit, redact, remove, re-categorize to a more appropriate location or
+          otherwise change any User Content.
+          <br><br>
+          MEtutors reserves the right to refuse service to anyone and to cancel user
+          access at any time.
+        </p>
+
+        <h2 class="mt-5">RIGHTS AND RESPONSIBILITIES OF METUTORS USERS OR OTHER POSTERS OF USER CONTENT</h2>
+        <p>
+          You are legally and ethically responsible for any User Content - writings, files, pictures or any other work -
+          that you post or transmit using any MEtutors service that allows interaction or dissemination of information.
+          In posting User Content, you agree that you will not submit any content:
+          <br>
+          • that is known by you to be false,
+          inaccurate or misleading;
+          <br>
+          • that infringes anyone’s copyright, patent, trademark, trade secret or other
+          proprietary rights or rights of publicity or privacy. Please see Compliance with Intellectual Property Laws
+          below;
+          <br>
+          • that violates any law, statute, ordinance, or regulation (including, but not limited to, those
+          governing export control, consumer protection, unfair competition, antidiscrimination, or false advertising).
+          Please see Compliance with Export Restrictions below;
+          <br>
+          • that is, or may reasonably be considered to be,
+          defamatory, libelous, hateful, racially or religiously biased or offensive, unlawfully threatening or
+          unlawfully harassing, or advocates or encourages illegal conduct harmful to any individual, partnership or
+          corporation. Please see Inappropriate Content below;
+          <br>
+          • that includes advertisements, spam, or content for
+          which you were compensated or granted any consideration by any third party;
+          <br>
+          • that includes information that
+          references other websites, addresses, email addresses, phone numbers, or other contact information; • that
+          contains any computer virus, worms, or other potentially damaging computer programs or files;
+          <br>
+          • that otherwise
+          violates these Terms of Use.
+          <br>
+          Under United States federal law, you retain copyright on all works you create and
+          post as User Content, unless you choose specifically to renounce it. In posting a work as User Content, you
+          authorize other members who have access to that service to make personal and customary use of the work,
+          including creating links or reposting, but not otherwise to reproduce or disseminate it unless you give
+          permission for such dissemination.
+          <br>
+          You grant MEtutors a perpetual, irrevocable, royalty-free, transferable
+          right and license to use, copy, modify, delete in its entirety, adapt, publish, translate, create derivative
+          works from, sell, distribute, and/or incorporate such content into any form, medium, or technology throughout
+          the world without compensation to you. You have the right to remove any of your works from User Content at any
+          time. You are not required to provide your real name when signing up as a user of MEtutors. MEtutors permits
+          anonymous or pseudonymous accounts. Any user may request that such member's email address be hidden to provide
+          for additional privacy. Ratings and reviews will generally be posted in two to four business days.
+          <br>
+          By
+          submitting your email address in connection with your rating and review, you agree that MEtutors may use your
+          email address to contact you about the status of your review and other administrative purposes.
+        </p>
+
+        <h2 class="mt-5">NO WARRENTY</h2>
+        <p>
+          THE SITE, APPLICATIONS, AND ALL MATERIALS, DOCUMENTS, OR FORMS PROVIDED ON OR THROUGH YOUR USE OF THE SITE OR
+          APPLICATIONS ARE PROVIDED ON AN "AS IS" AND "AS AVAILABLE" BASIS. TO THE FULLEST EXTENT PERMITTED BY LAW,
+          METUTORS EXPRESSLY DISCLAIMS ALL WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
+          TO IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND NON-INFRINGEMENT.
+          <br><br>
+          METUTORS MAKES NO WARRANTY THAT: (A) THE SITE, APPLICATIONS, OR THE MATERIALS WILL MEET YOUR REQUIREMENTS; (B)
+          THE SITE, APPLICATIONS, OR THE MATERIALS WILL BE AVAILABLE ON AN UNINTERRUPTED, TIMELY, SECURE OR ERROR-FREE
+          BASIS; (C) THE RESULTS THAT MAY BE OBTAINED FROM THE USE OF THE SITE, APPLICATIONS, OR ANY MATERIALS OFFERED
+          THROUGH THE SITE OR APPLICATIONS, WILL BE ACCURATE OR RELIABLE; OR (D) THE QUALITY OF ANY PRODUCTS, SERVICES,
+          INFORMATION OR OTHER MATERIAL PURCHASED OR OBTAINED BY YOU THROUGH THE SITE, APPLICATIONS, OR IN RELIANCE ON
+          THE MATERIALS WILL MEET YOUR EXPECTATIONS.
+          <br><br>
+          OBTAINING ANY MATERIALS THROUGH THE USE OF THE SITE OR APPLICATIONS
+          IS DONE AT YOUR OWN DISCRETION AND AT YOUR OWN RISK. METUTORS SHALL HAVE NO RESPONSIBILITY FOR ANY DAMAGE TO
+          YOUR COMPUTER SYSTEM OR LOSS OF DATA THAT RESULTS FROM THE DOWNLOAD OF ANY CONTENT, MATERIALS, INFORMATION OR
+          SOFTWARE.
+        </p>
+
+        <h2 class="mt-5">LIMITATION OF LIABILITY AND INDEMNIFICATION</h2>
+        <p>
+          YOU WILL HOLD METUTORS AND ITS OFFICERS, DIRECTORS, EMPLOYEES, AND AGENTS HARMLESS FOR ANY INDIRECT, PUNITIVE,
+          SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGE, HOWSOEVER IT ARISES (INCLUDING ATTORNEYS' FEES AND ALL RELATED
+          COSTS AND EXPENSES OF LITIGATION AND ARBITRATION, OR AT TRIAL OR ON APPEAL, IF ANY, WHETHER OR NOT LITIGATION
+          OR ARBITRATION IS INSTITUTED), WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE, OR OTHER TORTIOUS ACTION, OR
+          ARISING OUT OF OR IN CONNECTION WITH THIS AGREEMENT, INCLUDING WITHOUT LIMITATION ANY CLAIM FOR PERSONAL
+          INJURY OR PROPERTY DAMAGE, ARISING FROM THIS AGREEMENT AND ANY VIOLATION BY ME OF ANY FEDERAL, STATE, OR LOCAL
+          LAWS, STATUTES, RULES, OR REGULATIONS, EVEN IF METUTORS HAS BEEN PREVIOUSLY ADVISED OF THE POSSIBILITY OF SUCH
+          DAMAGE. IF THERE IS LIABILITY FOUND ON THE PART OF METUTORS, IT WILL BE LIMITED TO THE AMOUNT PAID FOR THE
+          PRODUCTS AND/OR SERVICES, EXCEPT AS ALLOWED PURSUANT TO THE METUTORS ARBITRATION AGREEMENT, CONTAINED IN
+          PARAGRAPH 6 OF THESE TERMS OF USE, AND UNDER NO CIRCUMSTANCES WILL THERE BE CONSEQUENTIAL OR PUNITIVE DAMAGES.
+          SOME STATES DO NOT ALLOW THE EXCLUSION OR LIMITATION OF INCIDENTAL OR CONSEQUENTIAL DAMAGES, SO THE ABOVE
+          LIMITATION OR EXCLUSION MAY NOT APPLY TO ME. FURTHER, EXCEPT AS PERMITTED BY LAW, NOTHING IN THIS PARAGRAPH IS
+          INTENDED TO MODIFY THE PROVISIONS OF CALIFORNIA BUSINESS AND PROFESSIONS CODE SECTIONS 6400, ET SEQ.
+        </p>
+
+        <h2 class="mt-5">UNSOLICITED SUBMISSIONS</h2>
+        <p>
+          Except as may be required in connection with your use of MEtutors Services, MEtutors does not want you to
+          submit confidential or proprietary information to us through this Site or any Applications. All comments,
+          feedback, information, or material submitted to MEtutors through or in association with this Site shall be
+          considered non-confidential and MEtutors's property. By providing such submissions to MEtutors you hereby
+          assign to MEtutors, at no charge, all worldwide right, title, and interest in and to the submissions and any
+          intellectual property rights associated therewith. MEtutors shall be free to use and/or disseminate such
+          submissions on an unrestricted basis for any purpose. You acknowledge that you are responsible for the
+          submissions that you provide, including their legality, reliability, appropriateness, originality, and
+          content.
+        </p>
+
+        <h2 class="mt-5">COMPLIANCE WITH INTELLECTUAL PROPERTY LAWS</h2>
+        <p>
+          When accessing the Site, you agree to obey the law and you agree to respect the intellectual property rights
+          of others. Your use of the Service and the Site is at all times governed by and subject to laws regarding
+          copyright, trademark, and other intellectual property ownership. You agree not to upload, download, display,
+          perform, transmit or otherwise distribute any information or content in violation of any third party's
+          copyrights, trademarks, or other intellectual property or proprietary rights. You agree to abide by laws
+          regarding copyright ownership and use of intellectual property, and you shall be solely responsible for any
+          violations of any relevant laws and for any infringements of third party rights caused by any content you
+          provide or transmit or that is provided or transmitted using your MEtutors user account.
+          <br>
+          MEtutors has adopted
+          a policy that provides for the immediate removal of any content, article, or materials that have infringed on
+          the rights of MEtutors or of a third party or that violate intellectual property rights generally. MEtutors's
+          policy is to remove such infringing content or materials and investigate such allegations immediately.
+        </p>
+
+        <h2 class="mt-5">COMPLIANCE WITH INTELLECTUAL PROPERTY LAWS</h2>
+        <p>
+          <span class="title">A. Notice:</span> MEtutors has in place certain legally mandated procedures regarding
+          allegations of copyright
+          infringement occurring on the Site or with the Service. The Company has adopted a policy that provides for the
+          immediate suspension and/or termination of any Site or Service user who is found to have infringed the rights
+          of the Company or of a third party, or otherwise violated any intellectual laws or regulations. The Company's
+          policy is to act expeditiously upon receipt of proper notification of claimed copyright infringement to remove
+          or disable access to the allegedly infringing content. If you have evidence, know, or have a good faith belief
+          that your rights or the rights of a third party have been violated and you want the Company to delete, edit,
+          or disable the material in question, you must provide the Company with the following information in writing:
+          <br>
+          (1) A physical or electronic signature of a person authorized to act on behalf of the owner of an exclusive
+          right that is allegedly infringed;
+          <br>
+          (2) Identification of the copyrighted work claimed to have been infringed,
+          or, if multiple copyrighted works at a single online site are covered by a single notification, a
+          representative list of such works at that site;
+          <br>
+          (3) Identification of the material that is claimed to be
+          infringing or to be the subject of infringing activity and that is to be removed or access to which is to be
+          disabled and information reasonably sufficient to permit the service provider to locate the material;
+          <br>
+          (4)
+          Information reasonably sufficient to permit the Company to contact you, such as an address, telephone number,
+          and, if available, email address;
+          <br>
+          (5) A statement that you have a good faith belief that use of the material
+          in the manner complained of is not authorized by the copyright owner, its agent, or the law; and
+          <br>
+          (6) A
+          statement that the information in the notification is accurate, and under penalty of perjury, that you are
+          authorized to act on behalf of the owner of an exclusive right that is allegedly infringed. The above written
+          information must be sent to our registered Copyright Agent: <br><strong>(Add Address and Email ID) </strong>
+          <br><br>
+          <span class="title">B. Counter-Notice:</span> If
+          you believe that your Content that was removed (or to which access was disabled) is not infringing, or that
+          you have the authorization from the copyright owner, the copyright owner's agent, or pursuant to the law, to
+          post and use the material in your Content, you may send a written counter-notice containing the following
+          information to the Copyright Agent:
+          <br>
+          1. your physical or electronic signature;
+          <br>
+          2. identification of the Content
+          that has been removed or to which access has been disabled and the location at which the Content appeared
+          before it was removed or disabled;
+          <br>
+          3. a statement that you have a good faith belief that the Content was
+          removed or disabled as a result of mistake or a misidentification of the Content; and
+          <br>
+          4. your name, address,
+          telephone number, and email address, a statement that you consent to the jurisdiction of the federal court in
+          Los Angeles, California, and a statement that you will accept service of process from the person who provided
+          notification of the alleged infringement.
+          <br>
+          If a counter-notice is received by the Copyright Agent, the Company
+          may send a copy of the counter-notice to the original complaining party informing that person that it may
+          replace the removed Content or cease disabling it in 10 business days. Unless the copyright owner files an
+          action seeking a court order against the Content provider, member, or user, the removed Content may be
+          replaced, or access to it restored, in 10 to 14 business days or more after receipt of the counter-notice, at
+          the Company's sole discretion.
+        </p>
+
+        <h2 class="mt-5">INAPPROPRIATE CONTENT</h2>
+        <p>
+          When accessing the Site, any Applications, or using MEtutors's Services, you agree not to upload, download,
+          display, perform, transmit or otherwise distribute any content that: (i) is libelous, defamatory, obscene,
+          pornographic, abusive or threatening; (b) advocates or encourages conduct that could constitute a criminal
+          offense, give rise to civil liability or otherwise violate any applicable local, state, national or foreign
+          law or regulation; or (c) advertises or otherwise solicits funds or is a solicitation for goods or services.
+          MEtutors reserves the right to terminate or delete such material from its servers. MEtutors will cooperate
+          fully with any law enforcement officials or agencies in the investigation of any violation of these Terms of
+          Use or of any applicable laws.
+        </p>
+
+        <h2 class="mt-5">COMPLIANCE WITH EXPORT RESTRICTIONS</h2>
+        <p>
+          You may not access, download, use or export the Site, Applications, or the Materials in violation of United
+          States export laws or regulations or in violation of any other applicable laws or regulations. You agree to
+          comply with all export laws and restrictions and regulations of any United States or foreign agency or
+          authority and to assume sole responsibility for obtaining licenses to export or re-export as may be required.
+          You acknowledge and agree that the Materials are subject to the United States Export Administration Laws and
+          Regulations and agree that none of the Materials or any direct product therefrom is being or will be acquired
+          for, shipped, transferred, or re-exported, directly or indirectly, to proscribed or embargoed countries or
+          their nationals or used for any prohibited purpose.
+        </p>
+
+        <h2 class="mt-5">PERSONAL USE</h2>
+        <p>
+          The site is made available for your personal use on your own behalf.
+        </p>
+
+        <h2 class="mt-5">CHILDREN</h2>
+        <p>
+          Minors are not eligible to use the Site or Applications and we ask that they do not submit any personal
+          information to us.
+        </p>
+
+        <h2 class="mt-5">GOVERNING LAW; VENUE</h2>
+        <p>
+          By using this Site or any Applications, you expressly agree that your rights and obligations shall be governed
+          by and interpreted in accordance with the laws of the State of California, excluding its choice of law rules.
+          Any legal action or proceeding relating to your access to or use of the Site, an Application, or Materials is
+          governed by the Arbitration Agreement contained in paragraph 6 of these Terms of Use. These Terms of Use
+          expressly exclude and disclaim the terms of the U.N. Convention on Contracts for the International Sale of
+          Goods, which shall not apply to any transaction conducted through or otherwise involving this Site or an
+          Application.
+        </p>
+
+        <h2 class="mt-5">COPYRIGHTS</h2>
+        <p>
+          All Site design, text, graphics, the selection and arrangement thereof, Copyright ©, MEtutors.com, Inc. ALL
+          RIGHTS RESERVED.
+        </p>
+
+        <h2 class="mt-5">TRADEMARKS</h2>
+        <p>
+          MEtutors, MEtutors.com, our logo, all images and text, and all page headers, custom graphics, and button icons
+          are service marks, trademarks, and/or trade dress of MEtutors. All other trademarks, product names, and
+          company names or logos cited herein are the property of their respective owners.
+        </p>
+
+        <h2 class="mt-5">USE OF TESTIMONIALS AND MEDIA ENDORSEMENTS</h2>
+        <p>
+          The media hosts on the Site endorse MEtutors as paid spokespeople in our advertising campaigns.
+        </p>
+
+        <h2 class="mt-5">INQUIRIES</h2>
+        <p>
+          BY USING METUTORS' SERVICES OR ACCESSING THE METUTORS SITE OR APPLICATIONS, YOU ACKNOWLEDGE AND ACCEPT THAT
+          SUBMITTING YOUR TELEPHONE NUMBER TO METUTORS VIA THE METUTORS SITE OR APPLICATIONS CONSTITUTES AN INQUIRY TO
+          METUTORS, AND THAT METUTORS MAY CONTACT YOU AT THE NUMBER SUBMITTED EVEN IF SUCH NUMBER APPEARS ON ANY STATE
+          OR FEDERAL DO NOT CALL LISTS (TAKING INTO ACCOUNT INQUIRY EXCEPTION TIME FRAMES AS APPROPRIATE).
+        </p>
+
+        <h2 class="mt-5">ACKNOWLEDGEMENT</h2>
+        <p>
+          BY USING METUTORS' SERVICES OR ACCESSING THE METUTORS SITE OR APPLICATIONS, YOU ACKNOWLEDGE THAT YOU HAVE READ
+          THESE TERMS OF USE AND AGREE TO BE BOUND BY THEM. Updated on {{ date | date }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div> -->

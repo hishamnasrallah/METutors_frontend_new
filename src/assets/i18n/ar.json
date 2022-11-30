@@ -1,270 +1,1575 @@
 {
-  "ABOUT_US": "عنا",
-  "STUDY": "دراسة",
-  "BECOME_TUTOR": "Become a tutor",
-  "SIGN_IN": "Sign in",
-  "LOGOUT": "Logout",
-  "GET_STARTED": "Get started",
-  "MY_CLASSROOM": "My classroom",
-  "OUR_FOUNDERS_TEAM": "Our founders team",
-  "FEATURED_TUTORS": "Featured tutors",
-  "SUCCESS_STORIES": "Success stories",
-  "HELP": "Help",
-  "FAQS": "FAQs",
-  "CONTACT_US": "Contact us",
-  "LEARN": "Learn",
-  "EXPLORE_COURSES": "Explore courses",
-  "CUSTOMIZED_COURSES": "Customized courses",
-  "PRICING": "Pricing",
-  "JOIN_PLATFORM": "Join platform",
-  "START_LEARNING": "Start learning",
-  "START_TEACHING": "Start teaching",
-  "TERMS": "Terms",
-  "STUDENT_TERMS_CONDITIONS": "Student terms & conditions",
-  "TEACHER_TERMS_CONDITIONS": "Teacher terms & conditions",
-  "PRIVACY_POLICY": "Privacy policy",
-  "SUBSCRIBE_NEWSLETTER": "Subscribe newsletter",
-  "ENTER_UR_EMAIL": "Enter your email",
-  "SUBSCRIBE": "Subscribe",
-  "ALL_RIGHTS_RESERVED": "All rights reserved",
-  "SOMETHING_WENT_WRONG": "Something went wrong!",
-  "LOVED_OUR_STUDENTS": "Loved by our students",
-  "AUTH_OPINION_DESC": "I received great customer service from the specialists who helped me. I would recommend to anyone who wants quality.",
-  "FIVE_STAR_RATING": "Five star rating",
-  "VERIFIED_STUDENT": "Verified student",
-  "OTP_VERIFICATION": "OTP verification",
-  "ENTER_OTP": "Enter OTP",
-  "SUBMIT_CODE": "Submit code",
-  "RESEND_OTP": "Re-send OTP",
-  "ROLE_SELECTION": "Role selection",
-  "IM_A": "I'm a",
-  "EMAIL_VERIFICATION": "Email verification",
-  "YOU_REGISTERED_WITH_EMAIL": "You registered with email",
-  "I_HAVE_NO_ACCESS_EMAIL": "I have no access to this email",
-  "ENTER_CODE": "Enter code",
-  "RESEND_EMAIL_VERIFICATION": "Re-send email verification",
-  "WE_ARE_SORRY": "We are sorry...",
-  "PAGE_RESTRICTED_ACCESS": "The page you're trying to access has restricted access.",
-  "REFER_SYSTEM_ADMINISTRATOR": "Please refer to your system administrator.",
-  "GO_HOMEPAGE": "Go to homepage",
-  "EMAIL_NOT_ACTIVATED": "Sorry! Your email not activated yet",
-  "TRY_RESEND_CONFIRMATION_LINK": "Please try to re-send new confirmation link via your email",
-  "FORGET_PASSWORD": "Forget password",
-  "EMAIL_ADDRESS": "Email address",
-  "WRITE_VALID_EMAIL": "Please write a valid email",
-  "SEND_RESET_LINK": "Send reset link",
-  "CHECK_UR_EMAIL": "Please check your email",
-  "EMAIL_SENT_TO": "An email has been sent to",
-  "CLICK_INCLUDED_LINK_RESET": "Please click on the included link to reset the password",
-  "CONTINUE": "Continue",
-  "RESET_PASSWORD": "Reset password",
-  "NEW_PASSWORD": "New password",
-  "PASSWORD_ERROR_CHARACTERS": "Password cannot be less than 8 characters and cannot be more than 100 characters",
-  "RETYPE_PASSWORD": "Retype password",
-  "PASSWORDS_DONT_MATCH": "Passwords do not match",
-  "LOGIN": "Login",
-  "CHOOSE_PASSWORD": "Choose password",
-  "WRITE_UR_PASSWORD": "Please write your password",
-  "REMEMBER_ME": "Remember me",
-  "LOGIN_GOOGLE": "Login with Google",
-  "LOGIN_FACEBOOK": "Login with Facebook",
-  "DONT_HAVE_ACCOUNT": "Don’t have an account?",
-  "SIGNUP_NOW": "Sign up now",
-  "FORGET": "Forget!",
-  "WELCOME": "Welcome!",
-  "LETS_GETUP_SETUP": "Let's get you set up",
-  "CHOOSE_ACCOUNT_TYPE": "Choose account type",
-  "WHATS_FIRST_NAME": "What's your first name?",
-  "FIRST_NAME": "First name",
-  "WRITE_VALID_FIRST_NAME": "Please write a valid first name",
-  "WHATS_LAST_NAME": "What's your last name?",
-  "LAST_NAME": "Last name",
-  "WRITE_VALID_LAST_NAME": "Please write a valid last name",
-  "PHONE_NUMBER": "Phone number",
-  "WRITE_VALID_PHONE_NUMBER": "Please write a valid phone number",
-  "CONFIRM_PASSWORD": "Confirm password",
-  "I_AGREE_THE": "I agree to the",
-  "TERMS_CONDITIONS": "terms and conditions",
-  "CREATE_MY_ACCOUNT": "Create my account",
-  "SIGNUP_GOOGLE": "Sign up with Google",
-  "SIGNUP_FACEBOOK": "Sign up with Facebook",
-  "ALREADY_HAVE_ACCOUNT": "Already have an account?",
-  "SIGNIN_NOW": "Sign in now",
-  "HOW_CREATE_ACCOUNT": "How to create your account",
-  "STEPS_START_TAKING_COURSES": "In 2 steps you can create your account and start taking your courses with MEtutors",
-  "STEPS_START_TEACHING": "In 2 steps you can create your account and start teaching with MEtutors",
-  "STEP_ONE": "Step one",
-  "CREATE_ACCOUNT": "Create an account",
-  "STEP_TWO": "Step two",
-  "VERIFY_UR_EMAIL": "Verify your email",
-  "PROVIDE_PERSONAL_INFO": "Provide your personal information",
-  "MIDDLE_NAME": "Middle name",
-  "OPTIONAL": "Optional",
-  "ENTER_MIDDLE_NAME": "Enter middle name",
-  "WRITE_VALID_NAME": "Please write a valid name",
-  "COUNTRY": "Country",
-  "SELECT_COUNTRY": "Select country",
-  "SEARCH": "Search...",
-  "NO_MATCHING_COUNTRY_FOUND": "No matching country found",
-  "CHOOSE_UR_COUNTRY": "Please choose your country",
-  "DATE_BIRTH": "Date of birth",
-  "SELECT_DATE_BIRTH": "Select your date of birth",
-  "SELECT_UR_DATE_BIRTH": "Please select your date of birth",
-  "CITY": "City",
-  "SELECT_CITY": "Select city",
-  "NO_MATCHING_CITY_FOUND": "No matching city found",
-  "CHOOSE_UR_CITY": "Please choose your city",
-  "SELECT_GENDER": "Select gender",
-  "SELECT_UR_GENDER": "Select your gender",
-  "CHOOSE_UR_GENDER": "Please choose your gender",
-  "NATIONALITY": "Nationality",
-  "SELECT_NATIONALITY": "Select your nationality",
-  "CHOOSE_NATIONALITY": "Please choose your nationality",
-  "ADD_BIOGRAPHY": "Add biography",
-  "WRITE_BIOGRAPHY_NOTE": "write about your teaching experience to let students know why you are the best tutor for them",
-  "ADD_BIO_HERE": "Add bio here...",
-  "BIO_CHARACTERS": "200 to 400 characters",
-  "WRITE_UR_BIO": "Please write your bio",
-  "ADDRESS_1": "Address 1",
-  "ENTER_STREET_ADDRESS": "Enter street address",
-  "ADDRESS_CHARACTERS": "Please write your Address with a max of 120 characters",
-  "ADDRESS_2": "Address 2",
-  "POSTAL_CODE": "Postal code",
-  "WRITE_VALID_POSTAL_CODE": "Please write a valid postal code",
-  "SAVE_CONTINUE": "Save & continue",
-  "ADD_PROFILE_PICTURE": "Add profile picture",
-  "PREVIEW": "Preview",
-  "PROFILE_IMAGE_SIZE": "Image should be at least 300 x 300 px",
-  "SIZE_2MB_MAX": "Size 2MB max",
-  "UPLOAD": "Upload",
-  "ADD_COVER_IMAGE": "Add cover image",
-  "REMOVE": "Remove",
-  "CHANGE": "Change",
-  "COVER_IMAGE_SIZE": "Your image should be at least 700 x 300 px",
-  "BACK": "Back",
-  "ONLY_IMAGES_ALLOWED": "Only images are allowed",
-  "ONLY_VIDEOS_ALLOWED": "Only Videos are allowed",
-  "ALLOWED_SIZE_2MB": "Allowed file size is 2MB",
-  "ALLOWED_SIZE_5MB": "Allowed file size is 5MB",
-  "ALLOWED_SIZE_1MB": "Allowed file size is 1MB",
-  "ALLOWED_SIZE_10MB": "Allowed file size is 10MB",
-  "ALLOWED_SIZE_120MB": "Allowed file size is 120MB",
-  "ONLY_FILE_ALLOWED": "Only excel, doc, pdf and image are allowed",
-  "UPLOAD_ONE_RESUME": "You can only upload one resume",
-  "MAXIMUM_ALLOWED_FILES_10": "Maximum allowed files are 10",
-  "PROVIDE_QUALIFICATION_DETAILS": "Provide your qualification details",
-  "NAME_UNIVERSITY": "Name of university",
-  "ENTER_UNIVERSITY_NAME": "Enter university name",
-  "VALID_UNIVERSITY_NAME": "Please enter a valid university name",
-  "TEACHING_EXPERIENCE": "Teaching experience",
-  "SELECT_YEARS": "Select years",
-  "CHOOSE_YEARS_TEACHING_EXPERIENCE_SCHOOL": "Please choose your years of teaching experience in schools",
-  "DEGREE_LEVEL": "Degree level",
-  "SELECT_DEGREE_LEVEL": "Select degree level",
-  "CHOOSE_DEGREE_LEVEL": "Please choose your degree level",
-  "TEACHING_EXPERIENCE_ONLINE": "Teaching experience online",
-  "CHOOSE_YEARS_TEACHING_EXPERIENCE_ONLINE": "Please choose your years of teaching experience online",
-  "DEGREE_FIELD": "Degree Field",
-  "SELECT_DEGREE_FIELD": "Select Degree Field",
-  "CHOOSE_DEGREE_FIELD": "Please choose your degree field",
-  "NO_MATCHING_DEGREE_FIELD": "No matching degree field found",
-  "CURRENT_EMPLOYER": "Current employer",
-  "ENTER_CURRENT_EMPLOYER": "Enter current employer",
-  "WRITE_VALID_CURRENT_EMPLOYER": "Please write a valid current employer with a max of 80 characters",
-  "COMPUTER_SKILLS": "Computer skills",
-  "SELECT_COMPUTER_SKILLS": "Select computer skills",
-  "CHOOSE_COMPUTER_SKILLS": "Please choose your computer skill level",
-  "CURRENT_TITLE": "Current title",
-  "ENTER_CURRENT_TITLE": "Enter current title",
-  "WRITE_VALID_CURRENT_TITLE": "Please write a valid job title with a max of 80 characters",
-  "SPOKEN_LANGUAGES": "Spoken languages",
-  "FOR_TEACHING": "For teaching",
-  "ADD_NEW": "Add new",
-  "CURRICULUM_VITAE": "Curriculum Vitae / Resume",
-  "MAX_5_MB": "Max 5 MB",
-  "UPLOAD_DOCUMENT": "Upload document",
-  "TITLE": "Title",
-  "ACTION": "Action",
-  "DEGREE_CERTIFICATES": "Degree certificates",
-  "OTHER_CERTIFICATIONS": "Other certifications",
-  "ONBOARDING_DOCUMENT": "Onboarding document",
-  "SIGN_ONBOARDING_DOCUMENT": "Please sign the onboarding document to agree that you have read and understood all sections.",
-  "CODE_CONDUCT_DOCUMENT": "Code of conduct document.docx",
-  "VIEW_SIGN": "View & sign",
-  "DOWNLOAD": "Download",
-  "UPLOAD_VIDEO_TEACHING_GUIDELINES": "Please upload a video to show your teaching style with the following guidelines:",
-  "UPLOAD_VIDEO_DEMO": "Upload video demo (Max 120 MB)",
-  "MUST_BE_IN_VIDEO": "You must be in your video.",
-  "MUST_BE_BETWEEN_2_MINUTES": "Your video must be between 2-3 minutes.",
-  "MUST_TEACH_CONCEPT_SUBJECT": "You must teach a concept from a subject you want to teach on MEtutors.",
-  "ALL_VIDEO_FORMATS_ACCEPTED": "All video formats are accepted.",
-  "VIDEO_FILMED_GOOD_LIGHTING": "Your video should be filmed horizontally with good lighting, in a quiet environment and with a tidy background.",
-  "ADD_UR_TEACHING_PREFERENCES": "Add your teaching preferences",
-  "AVAILABLE_START_DATE": "Available start date",
-  "SELECT_AVAILABLE_START_DATE": "Select available start date",
-  "SELECT_UR_AVAILABLE_START_DATE": "Please select your availability to start",
-  "TUTORING_PREFERENCES": "Tutoring preferences",
-  "SELECT_TYPE_TUTORING": "Please select type of tutoring",
-  "AVAILABLE_END_DATE": "Available end date",
-  "SELECT_AVAILABLE_END_DATE": "Select available end date",
-  "SELECT_UR_AVAILABLE_END_DATE": "Please select your availability end Date",
-  "ADD_UR_AVAILABILITY": "Select your availability",
-  "ADD_SUBJECT_TEACH": "Add subjects you teach",
-  "PROGRAM_NAME": "Program name",
-  "U_SELECT_MULTIPLE": "you can select multiple",
-  "SELECT_PROGRAM": "Select program",
-  "COUNTRY_FOR": "Country for",
-  "PROGRAM_SM": "program",
-  "SELECT_COUNTRIES": "Select countries",
-  "SELECT_GRADES": "Select grades",
-  "FIELD_STUDY": "Fields of study",
-  "SELECT_FIELD_STUDY": "Select field of study",
-  "NO_DATA_FOUND": "No data found",
-  "SELECT_SUBJECT": "Select subject",
-  "FIELD_NAME": "Field name",
-  "SUBJECT_NAME": "Subject name",
-  "GRADE": "Grade",
-  "ENTER_EXPECTED_HOURLY_RATE": "Enter expected hourly rate (USD)",
-  "ENTER_HOURLY_RATE": "Enter hourly rate",
-  "FINISH": "Finish",
-  "ABOUT_ME": "About me",
-  "GENDER": "Gender",
-  "JOINED": "Joined",
-  "TEACHER_AVAILABILITY": "Teacher availability",
-  "TYPE_TUTORING": "Type of tutoring",
-  "TUTORING_COURSES": "Tutoring courses",
-  "PROGRAM": "Program",
-  "STUDY_FIELD": "Study field",
-  "FEEDBACK_RATINGS": "Feedback & ratings",
-  "REVIEW_SM": "review",
-  "REVIEWS_SM": "reviews",
-  "STUDENT_SM": "student",
-  "STUDENTS_SM": "students",
-  "CLASS_SM": "class",
-  "CLASSES_SM": "classes",
-  "HR_SM": "hr",
-  "HRS_SM": "hrs",
-  "HOUR_SM": "hour",
-  "HOURS_SM": "hours",
-  "LOAD_MORE": "Load more",
-  "RATING": "Rating",
-  "STUDENTS_TEACHING": "Students teaching",
-  "COURSES_CREATED": "Courses created",
-  "LANGUAGES": "Languages",
-  "SHARE_PROFILE": "Share this profile",
-  "SHARE_PROFILE_LINK_BELOW": "To share this profile, share the link below:",
-  "FACEBOOK": "Facebook",
-  "WHATSAPP": "Whatsapp",
-  "TWITTER": "Twitter",
-  "LINKEDIN": "LinkedIn",
-  "QUALIFICATION_DETAILS": "Qualification details",
-  "TUTOR_BADGES": "Tutor badges",
-  "MY_TEACHING_STYLE": "My teaching style",
-  "PERSONAL_INFORMATION": "Personal information",
-  "PROFILE_PICTURE": "Profile picture",
-  "TEACHING_PREFERENCES": "Teaching preferences",
-  "STEP": "Step",
-  "OF_5": "of 5",
-  "SAVE_EXIT": "Save & exit",
-  "COMPLETE_ACCOUNT_INFORMATION": "Complete account information"
+  "METUTORS": "ميتوترز",
+  "ABOUT_US": "من نحن؟",
+  "STUDY": "تعلم",
+  "BECOME_TUTOR": "كن معلم",
+  "SIGN_IN": "تسجيل الدخول",
+  "LOGOUT": "تسجيل الخروج",
+  "GET_STARTED": "البدء",
+  "MY_CLASSROOM": "صفي الدراسي",
+  "MEET_THE_TEAM": "تعرف علي فريق العمل",
+  "FEATURED_TUTORS": "المعلمون المميزون",
+  "OUR_STAR_TUTORS": "معلمونا النخبة",
+  "HELP": "المساعدة",
+  "FAQS": "اﻷسئلة المتكررة",
+  "CONTACT_US": "تواصل معنا",
+  "SAY_HELLO": "مرحباً",
+  "LEARN": "تعلم",
+  "EXPLORE_COURSES": "تصفح الدورات التعليمية",
+  "JOIN_PLATFORM": "الإنضمام للمنصة",
+  "START_LEARNING": "إبدأ التعلم",
+  "START_TEACHING": "إبدأ التدريس",
+  "TERMS": "الشروط",
+  "STUDENT_TERMS": "البنود للطالب",
+  "TUTOR_TERMS": "البنود للمعلم",
+  "PRIVACY_NOTICE": "سياسة الخصوصية",
+  "COOKIES_NOTICE": "سياسة ملفات تعريف الإرتباط",
+  "WEBSITE_TERMS": "شروط المنصة",
+  "COMMUNITY_TERMS": "شروط المجتمع",
+  "KEEP_UPDATED": "مواصلة  التحديث",
+  "KEEP_UPDATED_DESC": "اشترك في نشراتنا الإخبارية لتتابع رحلتنا في تطوير و تقديم خدماتنا الجديده والمبتكرة",
+  "ENTER_UR_EMAIL": "أدخل بريدك الإلكتروني...",
+  "SUBSCRIBE": "إشترك",
+  "JOIN_US": "إنضم إلينا",
+  "JOIN_US_DESC": "الابتكار في مجال التعليم يتطلب توفر فريق من الخبراء الموهوبين في التكنولوجيا و التعليم. إنضم لكوادرنا الدوليه المتزايدة و تعاون معنا لتحدي الوضع الراهن وبناء منظومةً مبتكرةً تدعو للفخر.",
+  "SOCIAL": "مواقع التواصل",
+  "ALL_RIGHTS_RESERVED": "كل الحقوق محفوظة",
+  "WE_TAKE_DATA_PRIVACY_SERIOUSLY": "نحن نأخذ <br/> خصوصية البيانات على محمل الجد",
+  "WE_TAKE_DATA_PRIVACY_SERIOUSLY_DESC": "يرجى الاطلاع أدناه على تفاصيل البيانات التي نجمعها على هذا الموقع ، عند استخدام خدماتنا ومنصتنا ، وكيفية إدارتنا لها.",
+  "QUESTIONS": "لديكم أسئلة؟",
+  "WE_HAPPY_ANSWER_QUESTIONS_SERVICES": "يسعدنا الرد على أي أسئلة لديك حول شروطنا أو خدماتنا",
+  "COOKIES_NOT_ONES": "ملفات تعريف الارتباط 🍪؟ <br/> لا ، ليس هؤلاء ...",
+  "COOKIES_NOT_ONES_DESC": "يرجى الاطلاع أدناه على تفاصيل البيانات التي نجمعها على هذا الموقع، عند استخدام خدماتنا و منصتنا، وكيفية إدارتنا لها.",
+  "WEBSITE_BR_TERMS": "شروط <br/> المنصة",
+  "WEBSITE_TERMS_DESC": "توضح هذه الشروط كيفية استخدام موقعنا وأي شيء قد نطلبه منك",
+  "STUDENT_BR_TERMS": "البنود <br /> للطالب 🎓",
+  "STUDENT_TERMS_DESC": "نريد أن نتأكد من حصولك على فهم كامل لما سنقدمه وما يمكن أن نتوقعه منك. هذه الشروط لجميع طلابنا الذين يستخدمون منصتنا ميتوترز ويتلقون خدمات المعلم.",
+  "TUTOR_BR_TERMS": "البنود <br /> للمعلم 🎓",
+  "TUTOR_TERMS_DESC": "هذه الشروط تحدد توقعاتنا منك كمعلم علي منصة الميتوترز وما يمكن أن تتوقعه منا في المقابل.",
+  "COMMUNITY_BR_TERMS": "شروط <br/> المجتمع 🏘",
+  "COMMUNITY_TERMS_DESC": "نحن جميعًا معاً علي هذه المنصة، لذا فلنكن آمنين ومسؤولين ولطيفين. هذه هي إرشادات مجتمعنا التي تحدد كيف نتوقع أن يتصرف الجميع على منصتنا وعند تقديم خدمات المعلم وتلقيها.",
+  "SOMETHING_WENT_WRONG": "حدث خطأ ما",
+  "LOVED_OUR_STUDENTS": "نال على إعجاب طلابنا",
+  "AUTH_OPINION_DESC": "حصلت على خدمة عملاء رائعة من المتخصصين الذين ساعدونى لذا أوصي بهذه الخدمة لمن يبحثون عن الكفاءة والإتقان",
+  "FIVE_STAR_RATING": "التقييم بخمسة نجوم",
+  "VERIFIED_STUDENT": "طالب مُوثق",
+  "OTP_VERIFICATION": "التحقق من رمز الدخول",
+  "ENTER_OTP": "إدخال رمز الدخول",
+  "SUBMIT_CODE": "إرسال الكود",
+  "RESEND_OTP": "إعادة إرسال رمز الدخول",
+  "ROLE_SELECTION": "إختيار المنصب",
+  "IM_A": "أنا",
+  "EMAIL_VERIFICATION": "تأكيد البريد الإلكترونى",
+  "YOU_REGISTERED_WITH_EMAIL": "سجلتَ بالبريد الإلكتروني التالي",
+  "I_HAVE_NO_ACCESS_EMAIL": "لا يُسمح لي بالدخول لهذا البريد الإلكتروني",
+  "ENTER_CODE": "أدخل الرمز",
+  "RESEND_EMAIL_VERIFICATION": "إعادة إرسال رمز التحقق للبريد الإلكتروني",
+  "WE_ARE_SORRY": "نعتذر...",
+  "PAGE_RESTRICTED_ACCESS": "الصفحة التي تحاول دخولها عليها دخول مُقيَّد",
+  "REFER_SYSTEM_ADMINISTRATOR": "الرجاء العوده لمشرف النظام",
+  "GO_HOMEPAGE": "الصفحة الرئيسية",
+  "EMAIL_NOT_ACTIVATED": "نعتذر! لم يتم تفعيل بريدك الإلكتروني بعد",
+  "TRY_RESEND_CONFIRMATION_LINK": "الرجاء إعادة إرسال رابط التأكيد بالبريد الإلكتروني",
+  "FORGET_PASSWORD": "نسيان كلمة المرور",
+  "EMAIL_ADDRESS": "عنوان البريد الإلكتروني",
+  "WRITE_VALID_EMAIL": "الرجاء كتابة بريد الكتروني مُعتمد",
+  "SEND_RESET_LINK": "إرسال رابط إعادة الضبط",
+  "CHECK_UR_EMAIL": "الرجاء التحقق من بريدك الإلكتروني",
+  "EMAIL_SENT_TO": "تم إرسال بريد إلكتروني",
+  "CLICK_INCLUDED_LINK_RESET": "الرجاء الضغط على الرابط المرفق لإعادة ضبط كلمة المرور",
+  "CONTINUE": "الإستمرار",
+  "RESET_PASSWORD": "إعادة ضبط كلمة المرور",
+  "NEW_PASSWORD": "كلمة مرور جديدة",
+  "PASSWORD_ERROR_CHARACTERS": "كلمة المرور لا تكون أقل من ٨ حروف وأكثر من ١٠٠ حرف",
+  "RETYPE_PASSWORD": "إعادة طباعة كلمة المرور",
+  "PASSWORDS_DONT_MATCH": "كلمات المرور غير متطابقة",
+  "LOGIN": "الدخول",
+  "CHOOSE_PASSWORD": "إختر كلمة مرور",
+  "WRITE_UR_PASSWORD": "الرجاء كتابة كلمة مرورك",
+  "REMEMBER_ME": "تذكرني",
+  "LOGIN_GOOGLE": "الدخول عبر جوجل",
+  "LOGIN_FACEBOOK": "الدخول عبر فيسبوك",
+  "DONT_HAVE_ACCOUNT": "لا تملك حساب؟",
+  "SIGNUP_NOW": "سجل الآن",
+  "FORGET": "نسيت!",
+  "WELCOME": "مرحباً",
+  "LETS_GETUP_SETUP": "قم  بتعبئة بياناتك",
+  "CHOOSE_ACCOUNT_TYPE": "إختر نوع الحساب",
+  "WHATS_FIRST_NAME": "ما إسمك الأول؟",
+  "FIRST_NAME": "الإسم الأول",
+  "WRITE_VALID_FIRST_NAME": "الرجاء كتابة الإسم الأول",
+  "WHATS_LAST_NAME": "ما إسم العائلة؟",
+  "LAST_NAME": "إسم العائلة",
+  "WRITE_VALID_LAST_NAME": "الرجاء كتابة إسم العائلة",
+  "PHONE_NUMBER": "رقم التليفون",
+  "WRITE_VALID_PHONE_NUMBER": "الرجاء كتابة رقم تليفون معتمد",
+  "CONFIRM_PASSWORD": "تأكيد كلمة المرور",
+  "I_AGREE_THE": "أوافق على",
+  "TERMS_CONDITIONS": "البنود والشروط",
+  "CREATE_MY_ACCOUNT": "إنشاء حساب",
+  "SIGNUP_GOOGLE": "التسجيل عبر جوجل",
+  "SIGNUP_FACEBOOK": "التسجيل عبر فيسبوك",
+  "ALREADY_HAVE_ACCOUNT": "أعندك حساب؟",
+  "SIGNIN_NOW": "سجل الدخول الآن",
+  "HOW_CREATE_ACCOUNT": "كيف تنشأ حسابك",
+  "STEPS_START_TAKING_COURSES": "بخطوتين يمكنك إنشاء حسابك  والبدأ بالدراسة مع ميتوترز",
+  "STEPS_START_TEACHING": "بخطوتين يمكنك إنشاء حسابك والبدأ بالتدريس مع ميتوترز",
+  "STEP_ONE": "الخطوة الأولى",
+  "CREATE_ACCOUNT": "إنشاء حساب",
+  "STEP_TWO": "الخطوة الثانية",
+  "VERIFY_UR_EMAIL": "التحقق من بريدك الإلكتروني",
+  "PROVIDE_PERSONAL_INFO": "تقديم معلوماتك الشخصية",
+  "MIDDLE_NAME": "الإسم الأوسط",
+  "OPTIONAL": "إختياري",
+  "ENTER_MIDDLE_NAME": "أدخل الإسم الأوسط",
+  "WRITE_VALID_NAME": "الرجاء إدخال إسم معتمد",
+  "COUNTRY": "الدولة",
+  "SELECT_COUNTRY": "إختر الدولة",
+  "SEARCH_DOTS": "بحث...",
+  "SEARCH": "بحث",
+  "NO_MATCHING_COUNTRY_FOUND": "لا يوجد دولة متطابقة",
+  "CHOOSE_UR_COUNTRY": "الرجاء إختيار الدولة",
+  "DATE_BIRTH": "تاريخ الميلاد",
+  "SELECT_DATE_BIRTH": "إختر تاريخ الميلاد",
+  "SELECT_UR_DATE_BIRTH": "الرجاء إختيار تاريخ ميلادك",
+  "CITY": "المدينة",
+  "SELECT_CITY": "إختر المدينة",
+  "NO_MATCHING_CITY_FOUND": " لا يوجد مدينة متطابقة ",
+  "CHOOSE_UR_CITY": "الرجاء إختيار مدينتك",
+  "SELECT_GENDER": "إختر الجنس",
+  "SELECT_UR_GENDER": "إختر جنسك",
+  "CHOOSE_UR_GENDER": "الرجاء إختيار جنسك",
+  "NATIONALITY": "الجنسية",
+  "SELECT_NATIONALITY": "إختر جنسيتك",
+  "CHOOSE_NATIONALITY": "الرجاء إختيار جنسيتك",
+  "ADD_BIOGRAPHY": "أضف السيرة الذاتية",
+  "WRITE_BIOGRAPHY_NOTE": "أكتب خبرتك في التدريس وبين للطلاب مناسبتك  لتكن معلمهم الأفضل",
+  "ADD_BIO_HERE": "أضف سيرتك الذاتية هنا...",
+  "BIO_CHARACTERS": "٢٠٠ الى ٤٠٠ حرف",
+  "WRITE_UR_BIO": "الرجاء كتابة سيرتك الذاتية",
+  "ADDRESS_1": "العنوان ١",
+  "ENTER_STREET_ADDRESS": "أدخل عنوان الشارع",
+  "ADDRESS_CHARACTERS": "الرجاء إدخال عنوانك ب١٢٠ حرف أقصى حد",
+  "ADDRESS_2": "العنوان ٢",
+  "POSTAL_CODE": "الرمز البريدي",
+  "WRITE_VALID_POSTAL_CODE": "الرجاء إدخال رمز بريدي معتمد",
+  "SAVE_CONTINUE": "حفظ و إستمرار",
+  "ADD_PROFILE_PICTURE": "أضف صورتك الشخصية",
+  "PREVIEW": "عرض",
+  "PROFILE_IMAGE_SIZE": "الصوره علي الأقل ٣٠٠*٣٠٠بكسز",
+  "SIZE_2MB_MAX": " الحجم ٢ ميغابايت أقصى حد",
+  "UPLOAD": "تحميل",
+  "ADD_COVER_IMAGE": "أضف صورة غلاف",
+  "REMOVE": "إزالة",
+  "CHANGE": "التغيير",
+  "COVER_IMAGE_SIZE": "صورتك علي الأقل ٧٠٠*٣٠٠بكسز",
+  "BACK": "رجوع",
+  "ONLY_IMAGES_ALLOWED": "الصور فقط المسموح بها",
+  "ONLY_VIDEOS_ALLOWED": "الفيديوهات فقط المسموح بها",
+  "ALLOWED_SIZE_2MB": " حجم الملف المسموح به هو ٢ ميغابايت",
+  "ALLOWED_SIZE_5MB": " حجم الملف المسموح به هو ٥ ميغابايت",
+  "ALLOWED_SIZE_1MB": "حجم الملف المسموح به هو ١ميغابايت",
+  "ALLOWED_SIZE_10MB": "حجم الملف المسموح به هو ١٠ ميغابايت",
+  "ALLOWED_SIZE_120MB": "حجم الملف المسموح به هو ١٢٠ ميغابايت",
+  "ONLY_FILE_ALLOWED": " excel, doc, pdf, image المسموح فقط ",
+  "UPLOAD_ONE_RESUME": " يمكنك تحميل سيرة ذاتية واحدة فقط",
+  "MAXIMUM_ALLOWED_FILES_10": "أقصي الملفات المسموح فيها ١٠ ملفات",
+  "PROVIDE_QUALIFICATION_DETAILS": "تقديم تفاصيل مؤهلاتك ",
+  "NAME_UNIVERSITY": "إسم الجامعة",
+  "ENTER_UNIVERSITY_NAME": "أدخل إسم الجامعة",
+  "VALID_UNIVERSITY_NAME": "الرجاء إدخال إسم الجامعة المعتمد",
+  "TEACHING_EXPERIENCE": "الخبرة فى التدريس",
+  "SELECT_YEARS": "إختر السنوات",
+  "CHOOSE_YEARS_TEACHING_EXPERIENCE_SCHOOL": "الرجاء إختيار سنوات الخبرة في التعليم المدرسي",
+  "DEGREE_LEVEL": "المستوى التعليمي",
+  "SELECT_DEGREE_LEVEL": "إختر المستوى التعليمي",
+  "CHOOSE_DEGREE_LEVEL": "الرجاء إختيار مستواك التعليمي",
+  "TEACHING_EXPERIENCE_ONLINE": "الخبرة في التعليم عن بعد",
+  "CHOOSE_YEARS_TEACHING_EXPERIENCE_ONLINE": "الرجاء إختيار سنوات الخبرة في التعليم عن بعد",
+  "DEGREE_FIELD": "تخصص الشهادة العلمية",
+  "SELECT_DEGREE_FIELD": "إختر تخصص الشهادة العلمية",
+  "CHOOSE_DEGREE_FIELD": "الرجاء إختيار تخصص شهادتك العلمية",
+  "NO_MATCHING_DEGREE_FIELD": "لا يوجد تخصص متطابق",
+  "CURRENT_EMPLOYER": "جهة العمل الحالية",
+  "ENTER_CURRENT_EMPLOYER": "أدخل جهة العمل الحالية",
+  "WRITE_VALID_CURRENT_EMPLOYER": "الرجاء إدخال جهة العمل المعتمدة ب١٢٠ حرف أقصى حد",
+  "COMPUTER_SKILLS": "مهارات الكمبيوتر",
+  "SELECT_COMPUTER_SKILLS": "إختر مهارات الكمبيوتر",
+  "CHOOSE_COMPUTER_SKILLS": "الرجاء إختيار مستوى مهارات الكمبيوتر لديك",
+  "CURRENT_TITLE": "المسمى الوظيفي الحالي",
+  "ENTER_CURRENT_TITLE": "أدخل المسمى الوظيفي الحالي",
+  "WRITE_VALID_CURRENT_TITLE": "الرجاء تعريف مُسماك الوظيفي الحالي ب١٢٠ حرف كأقصى حد",
+  "ADD_NEW": "إضافة",
+  "CURRICULUM_VITAE": "السيرة الذاتية",
+  "MAX_5_MB": "٥ ميغابايت أقصى حد",
+  "UPLOAD_DOCUMENT": "تحميل الوثيقة",
+  "TITLE": "المُسمي",
+  "ACTION": "تفعيل",
+  "DEGREE_CERTIFICATES": "شهادات الدرجة العلمية",
+  "OTHER_CERTIFICATIONS": "شهادات أخرى",
+  "ONBOARDING_DOCUMENT": "وثيقة التوظيف",
+  "SIGN_ONBOARDING_DOCUMENT": "الرجاء توقيع وثيقة التوظيف للموافقة علي قراءة الوثيقة وفهمها",
+  "CODE_CONDUCT_DOCUMENT": ".docx مدونة قواعد السلوك",
+  "VIEW_SIGN": "إقرأ و وقع",
+  "DOWNLOAD": "تنزيل",
+  "UPLOAD_VIDEO_TEACHING_GUIDELINES": " الرجاء تحميل فيديو لك يظهر طريقة تدريسك حسب الضوابط التالية:",
+  "UPLOAD_VIDEO_DEMO": "تحميل فيديو العرض (١٢٠ ميغابايت أقصي حد)",
+  "MUST_BE_IN_VIDEO": "لابد من ظهورك بالفيديو",
+  "MUST_BE_BETWEEN_2_MINUTES": "مقطع الفيديو لابد أن يكون ٢-٣ دقائق",
+  "MUST_TEACH_CONCEPT_SUBJECT": "تقدم بالفيديو درس لموضوع معين في المادة التي ترغب بتدريسها معنا",
+  "ALL_VIDEO_FORMATS_ACCEPTED": "جميع صيغ الفيديوهات مقبولة",
+  "VIDEO_FILMED_GOOD_LIGHTING": "يتم تصوير الفيديو أفقياً مع إضاءة جيدة ومحيط هادئ وخلفية ثابتة ومناسبة",
+  "ADD_UR_TEACHING_PREFERENCES": "خيارات التدريس",
+  "AVAILABLE_START_DATE": "تاريخ البدأ",
+  "SELECT_AVAILABLE_START_DATE": "إختر تاريخ البدأ",
+  "SELECT_UR_AVAILABLE_START_DATE": "الرجاء إختيار الأوقات المتاحة لتبدأ",
+  "TUTORING_PREFERENCES": "خيارات كيفية التعليم",
+  "SELECT_TYPE_TUTORING": "الرجاء إختيار كيفية التعليم",
+  "AVAILABLE_END_DATE": "تاريخ الإنتهاء",
+  "SELECT_AVAILABLE_END_DATE": "إختر تاريخ الإنتهاء",
+  "SELECT_UR_AVAILABLE_END_DATE": "الرجاء إختيار تاريخ الإنتهاء",
+  "ADD_UR_AVAILABILITY": "حدد أوقاتك المتاحة",
+  "ADD_SUBJECT_TEACH": "حدد المواد التي تُدرس",
+  "PROGRAM_NAME": " البرنامج الدراسي",
+  "U_SELECT_MULTIPLE": "يمكنك تعدد الإختيار",
+  "SELECT_PROGRAM": "إختر برنامج",
+  "COUNTRY_FOR": "للدولة",
+  "PROGRAM_SM": "برنامج",
+  "SELECT_COUNTRIES": "إختر الدول",
+  "SELECT_GRADES": "إختر المراحل الدراسية",
+  "SELECT_GRADE": "إختر المرحلة الدراسية",
+  "FIELDS_STUDY": "الأفرع الدراسية",
+  "SELECT_FIELDS_STUDY": "إختر التخصص الدراسي",
+  "NO_DATA_FOUND": "لا يوجد بيانات",
+  "SELECT_SUBJECT": "إختر المادة الدراسية",
+  "SUBJECT_NAME": "إسم المادة الدراسية",
+  "GRADE": "المرحلة الدراسية",
+  "ENTER_EXPECTED_HOURLY_RATE": "أدخل أجر الساعة المطلوب (بالدولار الأمريكي)",
+  "ENTER_HOURLY_RATE": "أدخل أجر الساعة",
+  "FINISH": "إنتهاء",
+  "ABOUT_ME": "عني أنا",
+  "GENDER": "الجنس",
+  "JOINED": "إنضمام",
+  "TEACHER_AVAILABILITY": "أوقات توفر المعلم",
+  "TYPE_TUTORING": "نوع التعليم",
+  "TUTORING_COURSES": "الدورات التعليمية",
+  "PROGRAM": "البرنامج",
+  "PROGRAMS": "البرامج",
+  "FEEDBACK_RATINGS": "التقييم والإفادة",
+  "REVIEW_SM": "تقييم",
+  "REVIEWS_SM": "تقييمات",
+  "STUDENT_SM": "طالب",
+  "TEACHER_SM": "مدرس",
+  "STUDENTS_SM": "طلاب",
+  "CLASS_SM": "حصة دراسية",
+  "CLASSES_SM": "حصص دراسية",
+  "CLASSES": "الحصص الدراسية",
+  "HR_SM": "ساعة",
+  "HRS_SM": "ساعات",
+  "HOUR_SM": "ساعة",
+  "HOURS_SM": "ساعات",
+  "LOAD_MORE": "تحميل المزيد",
+  "RATING": "التقييم",
+  "STUDENTS_TEACHING": "تدريس الطلاب",
+  "COURSES_CREATED": "إنشاء دورات تعليمية",
+  "LANGUAGES": "اللغات",
+  "SHARE_PROFILE": "مشاركة الملف الشخصي",
+  "SHARE_PROFILE_LINK_BELOW": "لمشاركة هذا الملف الشخصي شارك الرابط أدناه:",
+  "FACEBOOK": "فيس بوك",
+  "WHATSAPP": "واتساب",
+  "TWITTER": "تويتر",
+  "LINKEDIN": "لينكد إن",
+  "QUALIFICATION_DETAILS": "معلومات المؤهلات",
+  "TUTOR_BADGES": "بطاقة المعلم",
+  "MY_TEACHING_STYLE": "طريقتي بالتدريس",
+  "PERSONAL_INFORMATION": "المعلومات الشخصية",
+  "PROFILE_PICTURE": "الصورة الشخصية",
+  "TEACHING_PREFERENCES": "إختيارات التدريس",
+  "STEP": "الخطوة",
+  "OF_5": "من 5",
+  "SAVE_EXIT": "حفظ ثم خروج",
+  "COMPLETE_ACCOUNT_INFORMATION": "إكتمال معلومات الحساب",
+  "REDEFINING_ONLINE_TUTORING": "إعادة صياغة <br/> التعليم عن بعد",
+  "ABOUT_US_PAGE_DESC": "المنصة مزودة بخاصية الذكاء الإصطناعي فتعمل تلقائياً على التنسيق <br/> بين المعلمين والطلاب لضمان تجربة تعليمية خاصة متكاملة",
+  "STUDENTS_ENROLLED": "الطلاب المسجلون",
+  "COURSES_AVAILABLE": "دورة تعليمية للإختيار منها",
+  "EXPERT_TUTORS": "معلمون خبراء",
+  "CLASSES_COMPLETED": "الحصص المكتملة",
+  "OUR_VALUES": "قِيمُنا",
+  "OUR_VALUES_DESC": "نظام التعليم عن بعد يعيد تشكيل الطريقة التي بها ندرس ونحن في ميتوترز ملتزمون بتوفير التعليم العالي المستوى بواسطة معلمونا الأكفاء",
+  "EDUCATION_SIMPLE": "التعليم  أسهل",
+  "EDUCATION_SIMPLE_DESC": "منصتنا الميسرة تسهل عملية البدء بمادة دراسية جديدة ،التواصل مع معلمك ،متابعة تقدمك وتسليم وظائفك كلة علي منصة واحدة",
+  "PASSION_LIFELONG_LEARNING": "الشغف للتعلم مدي الحياة",
+  "PASSION_LIFELONG_LEARNING_DESC": "نحن شغوفون لتوفير أفضل تجربة تعليمية ونحرص على تقدم طلابنا الأكاديمي من أجل حصولهم على الدرجات التي يطمحون بها",
+  "PROFESSIONAL_LEARNING_ENVIRONMENT": "بيئة تعليمية إحترافية ومريحة",
+  "PROFESSIONAL_LEARNING_ENVIRONMENT_DESC": "نحن نوفر تعليم فُرادي لتحصيل تجربة تعليمية  خاصة و مميزة",
+  "PROFESSIONAL_LEARNING_ENVIRONMENT_DETAILS": "نحب سماع ملاحظاتكم ونعمل على إضافة مواد جديدة دوماً لمنهاجنا  فالرجاء تقديم مقترحاتكم لنا هنا ",
+  "REQUEST_NEW_COURSE": "طلب مادة دراسية جديدة",
+  "BECOME_ONLINE_TEACHING": "أمستعدٌ  لبدء الدراسة مع ميتوترز؟",
+  "JOIN_OUR_COMMUNITY": "إنضم لكوادرنا التعليمية وإبدأ  بكسب دخل مادي الآن",
+  "APPLY_NOW": "قدم طلبك الآن",
+  "TEACH_ONLINE_METUTORS": "درِّس عن بعد مع <br/> ميتوترز",
+  "TEACH_ONLINE_DESC": "شارك الطلاب خبرتك على مستوى العالم واكسب دخل إضافي <br/> وأنت تنعم براحة منزلك",
+  "JOIN_METUTORS": "إنضم لميتوترز",
+  "WHY_TUTOR_WITH_US": "لماذا تُدرِّس معنا؟",
+  "OPEN_YOURSELF_GLOBAL": "كن مستعداً لصفٍ دراسيٍ عالمي",
+  "OPEN_YOURSELF_GLOBAL_DESC": "تمتع بالتواصل مع طلاب من حول العالم ووسع من خبرتك التعليمية وطور سيرتك الذاتية",
+  "MORE_FLEXIBILITY_TUTORING": "مرونة أكثر في التعليم عن بعد",
+  "MORE_FLEXIBILITY_TUTORING_DESC": "بدون إلتزام طويل الأمد إعمل على إدارة جدولك الدراسي وأنت تنعم براحة منزلك",
+  "SAY_HELLO_INCOME": "رحب بدخلٍ ماديٍ ثابت",
+  "SAY_HELLO_INCOME_DESC": "آلاف الطلبة على منصتنا بانتظار التعلم منك",
+  "WHY_CHOOSE_METUTORS": "لماذا <span class='main-color'>تختار</span> ميتوترز",
+  "POWERED_ARTIFICIAL_INTELLIGENCE": "معززة بخاصية الذكاء الإصطناعي",
+  "POWERED_ARTIFICIAL_INTELLIGENCE_DESC": "منصة تعلم إنتقائية مبنية علي خاصية الذكاء الإصطناعي لمتابعة تقدمك الأكاديمي وربطك مع المعلم الأفضل لك",
+  "PERSONALIZED_LEARNING_EXPERIENCE": "تجربة تعليمية مخصصة",
+  "PERSONALIZED_LEARNING_EXPERIENCE_DESC": "تقدم أكاديمي من خلال مواد تعليمية ,متكيفة مع إحتياجاتك وأهدافك",
+  "FLEXIBILITY_BUSY_LEARNERS": "المرونة لطلاب منشغلين",
+  "FLEXIBILITY_BUSY_LEARNERS_DESC": "نظام تعليم عن بعد يتناسب مع أسلوب حياتك .إتصل من أي مكان لتلقي درسك",
+  "PRICING_WORKS_YOU": "أسعار مناسبة لك",
+  "PRICING_WORKS_YOU_DESC": "أسعار ضمن ميزانيتك",
+  "QUALIFIED_TRUSTED_TUTORS": "معلمون أكفاء و ثقة",
+  "QUALIFIED_TRUSTED_TUTORS_DESC": "ميتوترز تختار أفضل المعلمين الخبراء بمجالاتهم",
+  "TUTORING_SUPPORT": " نقدم الدعم التعليمي 24/7 ",
+  "TUTORING_SUPPORT_DESC": "أحصل على المساعدة المباشرة بالواجبات والمشاريع المستعجلة",
+  "KICKSTART_ONLINE_LEARNING": "إبدأ طريقك نحو التعلم عن بعد",
+  "HUGE_VARIETY_COURSES": "خيارات متعددة  لمواد دراسية  يمكنك الإختيار منها",
+  "REWATCH_CLASS_RECORDING": "يمكنك إعادة مشاهدة تسجيل حصتك وقت ما تشاء",
+  "GLOBALLY_PROGRAMS": " برامج معتمدة عالمياً",
+  "WORK_QUALIFIED_TRUSTED_TUTORS": "العمل مع معلمين أكفاء و ثقة",
+  "CLASSES_ADAPTED_STYLE": " الحصص الدراسية متكيفة مع طريقة ومساحة تعلمك",
+  "PROGRAMS_HELP_EXCEL": "البرامج معدة لدعمك نحو تفوق أكاديمي",
+  "ASSIGNMENT_HOMEWORK_HELP": "المساعدة بالواجبات المدرسية والوظائف",
+  "CONNECT_TUTORS_WORLD": "تواصل مع معلمين من أنحاء العالم",
+  "ENROLL_NOW": "سجل الآن",
+  "WE_ARE_HERE_HELP": "نحن هنا للمساعدة",
+  "FROM_ENROLLMENT_GRADUATION": "من الإلتحاق معنا حتي التخرج نحن بعونك في كل خطوة بالطريق",
+  "EMAIL_US": "راسلنا عبر البريد الألكتروني",
+  "EMAIL_US_DESC": "راسلنا لأي إستفسار لديك بخصوص البرامج أو التسويق أو فرص الشراكة",
+  "CALL_US": "إتصل علينا",
+  "CALL_US_DESC": " إتصل علينا للتحدث لأحد اعضاء فريق الدعم، يسرنا خدمتك",
+  "SUPPORT_CENTER": " مركز الدعم",
+  "SUPPORT_CENTER_DESC": "إطلع على المصادر المساعدة والأسئلة المتداولة",
+  "FAQ_TICKETS": "الأسئلة المتداولة والبطاقات",
+  "SEND_A_MESSAGE": "أرسل رسالة",
+  "YOUR_NAME": "إسمك",
+  "TYPE_NAME_HERE": "أطبع الإسم هنا",
+  "WRITE_YOUR_NAME": "الرجاء كتابة إسمك",
+  "CONTACT_EMAIL": "البريد الإلكتروني للإتصال",
+  "SCHOOL_NAME": "إسم المدرسة",
+  "TYPE_SCHOOL_NAME": "إطبع إسم المدرسة هنا",
+  "MESSAGE_SUBJECT": "موضوع الرسالة",
+  "TYPE_SUBJECT_HERE": "إطبع الموضوع هنا",
+  "WRITE_YOUR_SUBJECT": "الرجاء كتابة موضوع الرسالة",
+  "YOUR_MESSAGE": "رسالتك",
+  "TYPE_YOUR_MESSAGE": "إطبع رسالتك...",
+  "WRITE_YOUR_MESSAGE": "الرجاء كتابة رسالتك",
+  "ATTACH_FILE": "أرفق الملف",
+  "ACCEPT_FILE_TYPE": "يُقبل الملف ب .jpg, .png, .pdf",
+  "SEND_MESSAGE": "أرسل رسالة",
+  "PRICE_PER_HOUR": "سعر الساعة",
+  "START_LEARNING_NOW": "إبدأ التعلم الآن",
+  "GROW_METUTORS": "تطور مع ميتوترز",
+  "TUTORS_REGISTERED": "المعلمون المسجلون",
+  "HOURS_TAUGHT": "ساعة دُرست",
+  "TUTORS_EARNINGS": "إيرادات المعلمين",
+  "STUDENT_TUTOR_MATCHING_TIME": "زمن مطابقة الطالب مع المعلم",
+  "AVERAGE_TEACHER_RESPONSE_TIME": " زمن إستجابة المعلم",
+  "ASSIGNMENTS_SUBMITTED_ON_TIME": "واجبات دراسية سُلمت بوقتها",
+  "4HOURS": "٤ ساعات",
+  "35MINUTES": "٣٥ دقيقة",
+  "FIND_COURSES": "ابحث عن الدورات التعليمية",
+  "FACTS_STATISTICS_TITLE": "سنوفر لك المعلم المناسب لتحقق أهدافك",
+  "FACTS_STATISTICS_DESC": "بفضل معلمينا الأكفاء ستتمكن من فهم المادة الدراسية فهماً راسخاً",
+  "WE_COLLECT_KEYWORDS": "نجمع كلمات البحث لتطوير آلية الرد على الأسئلة الشائعة",
+  "ASK_QUESTION": "إسأل سؤال",
+  "MEET_TEAM_EDUCATION": "قابل فريقنا المتخصص في مجال التعليم",
+  "OUR_STUDENTS_COME_FIRST": "نفخر بمعلمينا الذين يتميزون بالخبرة والكفاءة الراسخة ميتوترز طلابنا لهم الأولية في",
+  "LEARNING_MADE_SIMPLE": "التعليم صار أسهل",
+  "FLEXIBLE_ONLINE_CLASSES": "مرونة  لحصص الأونلاين",
+  "FLEXIBLE_ONLINE_CLASSES_DESC": "أدرس بالطريقة التي تتناسب مع إسلوب حياتك وبرنامجك",
+  "STUDY_QUALIFICATIONS": "أدرس مواد المؤهلات الدولية",
+  "STUDY_QUALIFICATIONS_DESC": "إختر من مجموعة مواد المؤهلات الدولية  لتنهض بمستوى حياتك المهنية",
+  "MODERN_TECHNOLOGY": " التكنولوجيا الحديثة تجعل التدريس أيسر",
+  "MODERN_TECHNOLOGY_DESC": "ادوات تكنولوجية متطورة في الصفوف الأفتراضية لتحقيق تجربة تعليمية تفاعلية",
+  "PERFECT_TUTOR_PICKED": " إختيار المعلم الأفضل والأنسب لك",
+  "PERFECT_TUTOR_PICKED_DESC": "  منصتنا المُعززة بخاصية الذكاء الأصطناعي توصِلك بأكثر المعلمين مُناسبةً لك",
+  "INSTANT_HOMEWORK": "مساعدة فورية في الواجبات المدرسية",
+  "INSTANT_HOMEWORK_DESC": " تلقى المساعدة في واجباتك المدرسية ومشاريعك الصعبة",
+  "SUPPORT_FROM_TUTORS": " الدعم الكامل من معلمك",
+  "SUPPORT_FROM_TUTORS_DESC": " معلمونا مستعدون دوما للمساعدة في أي وقت تحتاجهم فية سواء لسؤالٍ مُستعجل أو للإستعداد  لإمتحان",
+  "NEED_IMPROVE_SCORES": " أترغب بتحسين درجاتك باختبارات المستوى؟",
+  "FIND_MORE_COURSES": " البحث عن المزيد من الدورات",
+  "IMPROVE_TEXT_SCORES": "ستوفر لك بيئة تعليمية تحقق نتائج متفوقة ميتوترز إرفع درجاتك في الإمتحان للإلتحاق بالجامعة التي تحلم بها! سواء تفضل النعليم الفرادي أو الجماعي في الصف الإفتراضي، المعلمين الخبراء في",
+  "LEARN_FAVORITE_LANGUAGE": "تعلم لغةً جديدة من خبراء وناطقين أصليين لهذة اللغة",
+  "INSTRUCTORS_GUIDE_JOURNEY": "المعلمون في المنصة سيرشدونك خلال رحلتك لتعلم موادٍك الدراسية المخصصةً لك بأسعارٍ مناسبة",
+  "EXPERT_TUTORS_CLICK_BUTTON": "أحصل على معلمين <span class='main-color'>خبراء</span> بكبسة زر",
+  "EXPERT_TUTORS_DESC": "يمر المعلمون عندنا بعملية مقابلات دقيقة قبل توظيفهم للتأكد من تمكنهم وخبرتهم في المواد التدريسية. نؤمن أن الطلاب يمكنهم فتح امكاناتهم الكاملة مع الدعم المناسب والصحيح",
+  "PRO": "مؤيد",
+  "VERIFIED": "مُوثق",
+  "FEATURED": "متميز",
+  "FROM": "من",
+  "TAUGHT": "تُدرس",
+  "BIO": "السيرة الذاتية",
+  "READ_MORE": "قراءة المزيد",
+  "SPECIALIZATION": "التخصص",
+  "VIEW_FULL_PROFILE": "إطلع على الملف الشخصي الكامل",
+  "FLEXIBLE": "المرونةٌ",
+  "FIND_TUTOR_FIT_SCHEDULE": "إبحث عن معلم يناسب جدولك، أي وقت وأي مكان",
+  "ATTENTIVE": "الانتباه",
+  "OUR_TEAM_HAND_ANSWER": "فريق الدعم عندنا متوفر دوماً للإجابة على إستفساراتكم",
+  "COMPETITIVE": "التنافسية",
+  "BEST_RATES_GUARANTEED": "أفضل الأسعار لضمان خدمة مميزة",
+  "TRANSPARENT": "الشفافية",
+  "NO_HIDDEN_COSTS": "بدون تكاليف غير معلن عنها",
+  "HOMEWORK_PROJECT_HELP": "<span class='main-color'>المساعدة</span> بالواجبات الدراسية والمشاريع",
+  "HOMEWORK_PROJECT_HELP_DESC": "سلم واجباتك المدرسية بالوقت المحدد لها بواسطة دعمنا المقدم على مدار ال٢٤ ساعة طوال أيام الأسبوع",
+  "GENERAL_HOMEWORK_HELP": "المساعدة العامة بالواجب المدرسي",
+  "STEP_STEP_EXPLANATIONS": "الشرح خطوة بخطوة",
+  "SUBJECT_SPECIFIC_HELP": "المساعدة في مادة دراسية معينة",
+  "ALL_YOUR_QUESTIONS_ANSWERED": "حيث يتم الإجابة على جميع استفساراتك وأسئلتك",
+  "EXAM_PREP_PRACTICE": "التحضير للإختبار مع التدريب",
+  "UNDERSTANDING_EXAM_FORMAT_PAST_PAPER": "فهم صيغة الإختبار والتدرب على إمتحانات سابقة",
+  "SPECIFIC_TOPIC_REVISION": "مراجعة موضوع دراسي معين",
+  "STUDY_HELP_TOP_TIPS_TUTORS": "المعلم يشرح الدرس بالتفصيل ويراجع مع الطالب أهم النقاط فيه",
+  "PROJECT_HELP": "المساعدة في مشروع مدرسي أو أكاديمي",
+  "PLAN_ORGANIZE_COMPLETE_PROJECTS_TIME": "المساعدة في التخطيط و التنظيم وإنهاء مشروعك بالوقت المحدد له",
+  "SELECT_PROGRAM_STUDYING": "إختر إسم البرنامج الدراسي لك",
+  "STUDY_METUTORS": "تعلم مع ميتوترز",
+  "FIND_AN_EXPERT_SUPPORT": "أحصل على معلم خبير ومتخصص لمساعدتك في دراستك الأكاديمية، <br/> المساعدة بالواجبات أو الإستعداد لإمتحان",
+  "EXPLORE_OUR_SERVICES": "البحث في خدماتنا",
+  "BOOK_FREE_TRIAL_CLASS": "إحجز حصتك التجريبية مجاناً",
+  "IMPROVE_GRADES_SKILLS": "إرفع من درجاتك العلمية بينما تطور مهاراتك",
+  "BOOK_TODAY_4_DISCOUNT": "إحجز اليوم وأحصل على خصم ٤%",
+  "BOOK_TODAY_7_DISCOUNT": "إحجز اليوم وأحصل على خصم ٧%",
+  "BOOK_TODAY_9_DISCOUNT": "إحجز اليوم وأحصل على خصم ٩%",
+  "WHEN_BOOKING": "عند القيام بالحجز",
+  "BOOK_NOW": "إحجز الآن",
+  "HOURS_10_15": "١٠-١٥ ساعة",
+  "HOURS_16_30": "١٦-٣٠ ساعة",
+  "HOURS_31": "٣١ ساعة وأكثر",
+  "VIRTUAL_LEARNING": "التعليم الإلكتروني الإفتراضي يغير منظومة التعليم ",
+  "VIRTUAL_LEARNING_DESC1": " المنصة الرائدة في التعليم عن بعد في منطقة الشرق الأوسط والتي تستخدم خاصية الذكاء الإصطناعي لإختيار المعلم ، المنصة تقترح وتختار المعلمين لكل طالب بنادً على مهاراتهم وقدراتهم وإهتماماتهم لتعزيز تجربتهم التعليمية",
+  "VIRTUAL_LEARNING_DESC2": "التكنولوجيا المتطورة في الفصول الإفتراضية تساعد الطالب على الجمع بين فهمه لمحتويات المادة الدراسية فهماً تاماً وسهولة العملية التعليمية. جميع الدورات الدراسية مهيئة ومخصصة لكل طالب بعينه بواسطة معلمه الخاص بناءً على أسلوب التعلم الخاص بالطالب ،أهدافه التعليمية والسرعة التي يرغب بها إنهاء المادة الدراسية",
+  "VIRTUAL_LEARNING_DESC3": "أيما أردت أن تدرس كن واثقاً أنك ستجد المعلم الأمثل في ميتوترز",
+  "INTRODUCING": "المقدمة",
+  "ABOUT_LEARNING_LANGUAGES": "حول تعلم اللغات",
+  "ABOUT_LEARNING_LANGUAGES_DESC1": "الدورات التحضيرية لإمتحانات القبول الجامعي تقدم للطلاب المفاهيم الأساسية و الضرورية لمادة الإمتحان، استراتيجية تقديم الإمتحان وأخذ  إمتحانات تدريبية لمادة الدورة التحضيرية. نقدم دورات تعليمية للإمتحانات القياسية الموحدة التالية: SAT, ACT, iBT TOEFL, IELTS and GRE النجاح في هذه الإمتحانات ضرورة ملحة لضمان القبول في الجامعات والكليات في الولايات المتحدة الأمريكية.",
+  "ABOUT_LEARNING_LANGUAGES_DESC2": "نفخر بتجهيز طلابنا بالمعرفة و المهارات  الضرورية ليرفعوا من علاماتهم الدراسية . نؤمن أن الممارسات الدراسية البناءة  والهادفة هي جوهر التحضير الجيد للإمتحانات المطلوبة ، جميع الدورات التحضيرية للإمتحانات الموحدة تحتوي على حزمة من أوراق التدريبات وإمتحانات تدريبية فعلية يقدمها الطالب في نفس ظروف الإمتحان الأصلي",
+  "LEARN_FAV_LANGUAGE": "تعلم اللغة المضلة لديك",
+  "LEARN_FAV_LANGUAGE_DESC": "دورات اللغات في المنصة تعتمد نهج التواصل والحوار في تعليم اللغة، مع إعتبار الطالب هو محور الاهتمام في كل حصة دراسية",
+  "TESTIMONIAL": "تعليقات",
+  "TESTIMONIAL_DESC": "آراء طلابنا عنا",
+  "CHOOSE_COUNTRY_TITLE": "إختر بلدك",
+  "FIND_COUNTRY": "إبحث عن دولة",
+  "EXPLORE_PROGRAMS_COURSES": "<span class='main-color'>تصفح</span> برامجنا ودوراتنا التعليمية",
+  "EXPLORE_PROGRAMS_COURSES_NORMAL": "تصفح برامجنا ودوراتنا التعليمية",
+  "PRIVATE_PERSONALIZED_TUTORING_STUDIES": "تدريسٌ مخصصُ لك شخصياً لجميع موادك الدراسية والتعليمية",
+  "SEE_MORE": "شاهد المزيد",
+  "START_LEARNING_TODAY": "إبدأ الدراسة اليوم",
+  "EXPLORE_SUBJECTS": "تصفح المواد الدراسية",
+  "PRICES": "الأسعار",
+  "ACADEMIC_TUTORING_PRICE": "قائمة أسعار التعليم الأكاديمي",
+  "PLEASE_SELECT": "الرجاء الإختيار",
+  "COURSE_ID": "هوية الدورة التعليمية",
+  "START_LEARNING_3_STEPS": "إبدأ الدراسة ب٣ خطوات بسيطة",
+  "START_LEARNING_3_STEPS_DESC": "لإيجاد المعلم الأنسب لك إتبع الخطوات الثلاث التالية",
+  "FILL_DETAILS_COMPLETE_PROFILE": "قم بتعبئة بياناتك وأكمل ملفك الشخصي",
+  "ENROLL_IN_COURSE": "سجل في دورة تعليمية",
+  "FIND_STUDY_REGISTER": "أعثر على ما ترغب بدراسته وسجل معنا بدورة  تعليمية",
+  "BEGIN_CLASSES": "إبدأ الحصص الدراسية",
+  "ATTEND_START_WORKING": "إشترك بحصص فراديةٍ أو جماعية لتبدأ طريقك نحو تحقيق أهدافك التعليمية",
+  "WHAT_TUTORS_SAY": "ما رأي المعلمين فينا؟",
+  "CHOOSE_PROGRAM": "إختر البرنامج",
+  "OTHERS": "أخرى",
+  "CHOOSE_COUNTRY": "إختر الدولة",
+  "SUBJECT": "المادة",
+  "GRADE_LEVEL": "المرحلة الدراسية",
+  "CHOOSE_GRADE": "إختر المرحلة الدراسية",
+  "TUTORING_GENDER_PREFERENCE": "أفضلية جنس المعلم",
+  "ANY": "أيما",
+  "TUTORING_LANGUAGE_PREFERENCE": "أفضلية لغة المعلم",
+  "CHOOSE_LANGUAGE": "إختر اللغة",
+  "COURSE_DESCRIPTION": "وصف الدورة التعليمية",
+  "DESCRIPTION": "الوصف",
+  "PERSONAL_INFO": "المعلومات الشخصية",
+  "NAME": "الإسم",
+  "CANCEL": "إلغاء",
+  "SEND_REQUEST": "إرسال طلب",
+  "HOW_REQUEST_POST_COURSE": "كيف يتم طلب نشر دورة جديدة؟",
+  "HOW_REQUEST_POST_COURSE_DESC": "إبحث في أكثر من ٦٠٠ خبير في مختلف الأقسام واللغات",
+  "START_TUTORING_NOW": "إبدأ التدريس الآن",
+  "SELECT_FROM_TOPIC": "إختر من موضوعاتنا",
+  "STILL_HAVE_QUESTION": "أمازال عندك سؤال؟",
+  "IF_CANT_FIND_ANSWER_FAQ": "إذا لم تجد إجابةً لسؤالك في مجموعة الأسئلة الشائعة الخاصة بنا، يمكنك التواصل معنا عبر الوسائل أدناه",
+  "WE_HAPPY_HELP": "يسعدنا دوماً مساعدتك",
+  "UNLOCK_POTENTIAL": "أطلق العنان <br/> لقدراتك العلمية",
+  "UNLOCK_POTENTIAL_DESC": "تلقى المساعدة في أكثر المواد الدراسية صعوبةً عليك، الواجبات اليومية، <br/> التكاليف الأكاديمية ،المشاريع والاستعداد للامتحان",
+  "LEARN_MORE": "تعرف أكثر",
+  "TRUST_HAPPY_STUDENT": "نغير أنماط الحياة <br/> للطلاب في أرجاء العالم <br/> كل يوم",
+  "CERTIFIED_TUTORS": "المعلمون المعتمدون والمرخصون",
+  "HOURLY_PRICE": "سعر الساعة",
+  "PROFESSIONAL_ACADEMIC_INSTRUCTORS": "الإختيار ضمن أكثر من ٥٠٠ مدرب و معلم أكاديمي مهني في مختلف المواضيع ومجالات الدراسة",
+  "WHY_METUTORS": "لماذا ميتوترز",
+  "WHY_METUTORS_DESC": "ميتوترز مركز تعليمي يربط المعلمين بالطلاب في جميع أنحاء العالم",
+  "WHY_TEACHING_US": "لِمَ يُحب المعلمون العمل معنا",
+  "SERVICES": "الخدمات",
+  "WHY_WE_TEACH_DESC1": "ميتوترز تقدم مجموعةً من البرامج الدولية ،المناهج الوطنية والمساعدة في الواجبات اليومية بواسطة معلمين خبراء يدعمون الطلاب خلال دراستهم. أسواء إخترت دراسة اللغة الاسبانية ،العلوم أو الإحصاء سنوفر لك المعلم الأنسب",
+  "WHY_WE_TEACH_DESC2": " الطلاب بإمكانهم الإختيار بين صفوف التعلم الفُرادي الخاص أوصفوف التعلم الجماعي. إن صغر حجم صف التعلم الجماعي يساعد المعلم على التركيز وتقوية كل طالب بعينه لتحقيق هدف الطالب التعليمي.",
+  "WHY_WE_TEACH_DESC3": " معلمونا الخبراء يملكون الخبرة الواسعة في برامج النعليم الدولية مثل:  AP, IB, IGCSE-GCE  والمناهج الوطنية ومجموعة كبيرة من المواد الدراسية الجامعية. سواء كنت بحاجةٍ لتعلم مادة دراسية ما أو المساعدة في التجهز لإمتحان أو إنهاء وتقديم وظيفة دراسية فإن ميتوترز تقدم لك كل الخدمات التي تحتاج إليها",
+  "FIND_COURSE": "البحث عن مادة دراسية",
+  "FIND_PERFECT_TUTOR": "إيجاد المعلم الأنسب والأفضل مع ميتوترز",
+  "JOIN_NOW_VIEW_COURSES": "إنضم الآن معنا | إطلع على الدورات والمواد الدراسية | وفر وقتاً ومالاً",
+  "WHY_METUTORS_OPTION_1": "الجيل القادم للتعلم التكيفي",
+  "WHY_METUTORS_OPTION_2": "جدولةٌ مرنةٌ",
+  "WHY_METUTORS_OPTION_3": "أسعار ميسرة",
+  "WHY_METUTORS_OPTION_4": "تكنولوجيا عصرية متطورة",
+  "WHY_METUTORS_OPTION_5": "خدمة عملاء على مدار الساعة",
+  "WHY_METUTORS_OPTION_6": "معلمون ثقة",
+  "WHY_METUTORS_OPTION_7": "مواد دراسية مُخصصة حسب الطلب",
+  "WHY_METUTORS_OPTION_8": "خبراء متخصصون",
+  "ALL_AVAILABLE_COURSES": "الدورات الدراسية المتوفرة",
+  "CHOOSE_FIELD_STUDY": "إختر التخصص  الدراسي",
+  "SELECT_PRICE_RANGE": "إختر نطاق السعر",
+  "WHY_TEACHING_US_OPTION_1": "سهولة عملية التسجيل والإنضمام ",
+  "WHY_TEACHING_US_OPTION_2": "مرونة خيارات الدفع",
+  "WHY_TEACHING_US_OPTION_3": "نحن نوفر لك الطلاب",
+  "WHY_TEACHING_US_OPTION_4": "إختيار أوقات وعدد ساعات العمل",
+  "WHY_TEACHING_US_OPTION_5": "وسائل تدريس متطورة في الصفوف الإفتراضية",
+  "WHY_TEACHING_US_OPTION_6": "24*7 دعمٌ للمعلم على مدار الساعة",
+  "WHY_TEACHING_US_OPTION_7": "دَرِّس من أي مكان",
+  "WHY_TEACHING_US_OPTION_8": "سهولة إستخدام المنصة حيث كل ما تحتاج تجده في مكان واحد",
+  "WHAT_TUTORS_SAY_OPTION_1": "أحب العمل مع هذه المنصة ،إنها سهلة الإستخدام إذ يمكنني تنظيم طلابي والجداول كله في مكان واحد",
+  "WHAT_TUTORS_SAY_OPTION_2": "العمل لدى ميتوترز مرن جداً، يمكنني الإتصال من أي مكان فيه شبكة إنترنت .لقد غيرت هذه المنصة طريقة عملي في مجال التدريس!",
+  "WHAT_TUTORS_SAY_OPTION_3": "أمكنني مع ميتوترز التواصل مع طلاب من مختلف الدول مما أغنى خبرتي بالتدريس وطور من إمكانياتي،إني أستمتع بالتدريس على هذه المنصة",
+  "WHAT_TUTORS_SAY_OPTION_4": "العمل من البيت وأنا أنعم بالراحة أصبح أفضل بفضل ميتوترز. الإختيار والتنسيق بين المعلم والطالب في ميتوترز عالي الكفاءة والجودة وأحب كيف أنهم يوفروا لي الطلاب المناسبين لتدريسهم. ",
+  "MESSAGE_SENT_SUCCESSFULLY": "تم إرسال رسالتك بنجاح",
+  "ERROR_SEND_MESSAGE": "خطأ في إرسال الرسالة",
+  "WE_HELP_YOU": "نحن هنا لمساعدتك",
+  "SUCCESS_STORIES_OPTION_1": "التعلم بهذه الطريقة عبر الإنترنت تحقق تفاعل أكبر وأجدها أكثر متعة .معلمي ساعدني كثيراً في فهم الكثير من المسائل الصعبة علي وكنت متردداً أن أسأل فيها.",
+  "SUCCESS_STORIES_OPTION_2": "أشعر أني مستعداً للامتحان القادم والشكر لمعلمي في ميتوترز إذ ساعدني على فهم المادة جيداً وأوراق العمل التي عملت عليها أكسبتني الثقة ومكنتني من المفاهيم المختلفة في المادة",
+  "SUCCESS_STORIES_OPTION_3": "معلمي كان يشجعني دوماً والمصادر التي وفرها لي لتقويتي علمياً أحدثت الفرق الكبير في دراستي. أحب أن حصصي الدراسية ناسبت جدولي الدراسي المزدحم وأنه يمكنني أخذ الحصص في أي مكان وفي الوقت الذي أرغب به",
+  "SUCCESS_STORIES_OPTION_4": "وبعد حصص قليلة فقط أشعر بثقة أكبر بمادة الرياضيات وأستمتع  بحصصي الدراسية . أحب أنه بإمكاني السؤال قدر ما أشاء حتى أفهم الماده جيداً. معلمي صبور جداً ومتفهم.",
+  "TRUSTED_THOUSANDS_STUDENTS": "نحظى بثقة <span class='main-color'>آلاف</span> الطلاب في المدارس والجامعات",
+  "THOUSANDS_STUDENTS_COMMUNITY": "نحوز على رضى آلاف الطلاب عن تجربتهم التعليمية معنا ، بإمكانك الاضطلاع على مراجعاتهم وتقييماتهم",
+  "CLASSROOMS_ATTENDED": "تم حضور الفصول الدراسية",
+  "TEACHER_PROFILES": "الملف الشخصي للمعلم",
+  "FLEXIBILITY_FREEDOM_HOW_LEARN": "حرية ومرونة في طريقة تعلمك",
+  "HELPED_THOUSAND_STUDENTS_PROGRESS": "ساعدنا آلاف الطلاب لإحراز التقدم في دراستهم الأكاديمية",
+  "EXCEL_EXAM_METUTORS": "تفوق في كل إمتحان مع ميتوترز",
+  "BROWSE_COURSE_PROGRAMS_LEARNING": "تصفح الدورات التعليمية والبرامج لدينا وإبدأ التعلم اليوم",
+  "WELCOME_ACCOUNT": "مرحباً بك في حسابك",
+  "COMPLETE_PROFILE": "الرجاء إكمال ملفك الشخصي لتتمكن من بدأ  دوراتك التعليمية",
+  "COMPLETE_MY_ACCOUNT": "إكتمل حسابي",
+  "NEED_CHANGE_COURSE_SCHEDULE": "تغيير جدول الدورة التعليمية",
+  "KEEP_DESIRED_SCHEDULE_72_HOURS": "يمكنك إبقاء جدول الدورة التعليمية حسب رغبتك لكن لابد أن تبدأ أول حصة بعد ٧٢ ساعة",
+  "CHANGE_SCHEDULE": "تغيير الجدول",
+  "CLASSROOM_SETUP": "إعداد الصف الدراسي",
+  "CLASSROOM_INFO_HINT": "حدد الجدول الزمني للدرس وتأكد أن الحصة <strong>الأولى </strong> تبدأ بعد ",
+  "COURSE_NAME": "إسم المادة الدراسية",
+  "COURSE_START_DATE": "تاريخ بدأ الدورة",
+  "CHOOSE_DATE": "حدد التاريخ",
+  "COURSE_END_DATE": "تاريخ إنتهاء الدورة",
+  "CLASS_DAYS": "أيام الدرس",
+  "CHOOSE_DAYS": "حدد الأيام",
+  "TYPE_CLASSROOM": "نوع الحصة الدراسية",
+  "CHOOSE_TYPE": "إختيار النوع",
+  "CLASS_START_TIME": "وقت بدأ حصة الدرس",
+  "SELECT_START_TIME": "إختيار وقت البدأ",
+  "FIRST_CLASS_START": "الحصة الأولى لابد أن تبدأ بعد ",
+  "CLASS_END_TIME": "وقت نهاية حصة الدرس",
+  "SELECT_END_TIME": "حدد وقت نهاية حصة الدرس",
+  "CLASS_DURATION": "مدة الدرس",
+  "TIME_DURATION_BETWEEN": "الفترة الزمنية لابد أن تتراوح بين",
+  "TOTAL_HOURS": "عدد الساعات الإجمالي",
+  "TOTAL_CLASSES": "عدد الحصص الإجمالية",
+  "SEAT_ATTENDEES": "مقعد الحضور",
+  "ESTIMATED_PRICE": "السعر التقديري",
+  "FINAL_PRICE_BASED_HOURS": "السعر النهائي يعتمد على العدد  الإجمالي لساعات الدرس ",
+  "HOURLY_RATE": "معدل أجر الساعة",
+  "SEARCH_BY_COURSE_NAME": "البحث عبر إسم المادة الدراسية",
+  "COURSE_DETAILS": "تفاصيل المادة الدراسية",
+  "ADD_COURSE_INFORMATION": "أضف معلومات المادة الدراسية",
+  "SELECT_GRADE_LEVEL": "حدد المرحلة الدراسية",
+  "FIELD_STUDY": "التخصص",
+  "CHOOSE_SUBJECT": "إختيار مادة دراسية",
+  "PREFERED_TUTORING_LANGUAGE": "لغة التدريس المفضلة",
+  "HIGHLIGHTED_TOPICS": "أهم المواضيع",
+  "FOR_HOMEWORK_PROJECT_BRIEF": "للمساعدة في الواجبات والمشاريع الرجاء كتابة نبذة موجزة عن ما تحتاج المساعدة فيه",
+  "ADD_TOPIC_NAME": "أضف إسم الموضوع",
+  "ENTER_TOPIC_NAME": "أدخل إسم الموضوع",
+  "ADD": "إضافة",
+  "EDIT": "تعديل",
+  "KNOWLEDGE_CONFIDENCE_SCALE": "نطاق الثقة بالمعرفة",
+  "ADD_NEW_TOPIC": "إضافة موضوع جديد",
+  "TOPIC_NAME": "إسم الموضوع",
+  "TEXTBOOK_DETAILS": "معلومات الكتاب المدرسي",
+  "FOR_HOMEWORK_PROJECT_HELP": "للمساعدة في واجب مدرسي أو مشروع ما، يمكنك تحميل الوظيفة بصيغة ال PDF",
+  "TEXTBOOK_NOT_REQUIRED": "الكتاب المدرسي غير مطلوب",
+  "UPLOAD_TEXTBOOK_PDF": " PDF حمل الكتاب المدرسي بصيغة ال",
+  "LIST_TEXTBOOK_BELOW": "تصنيف كتابي المدرسي أدناه",
+  "PROVIDE_INFO_LATER": "تقديم المزيد من المعلومات لاحقاً",
+  "UPLOAD_TEXTBOOK": "تحميل الكتاب المدرسي",
+  "PDF_SIZE_5M": " 5M فقط وبحجم أقصاه PDF بصيغة",
+  "UPLOAD_FILE": "حمل الملف",
+  "TEXTBOOK_NAME": "إسم الكتاب المدرسي",
+  "TYPE_NAME": "إطبع الإسم",
+  "TEXTBOOK_EDITION": "نسخة الكتاب",
+  "CHOOSE_EDITION": "حدد النسخة",
+  "TEXTBOOK_AUTHOR": "مؤلف الكتاب",
+  "TYPE_AUTHOR": "نوع المؤلف",
+  "ONLY_PDF_FILE_ALLOWED": "PDF المسموح فقط ملف",
+  "CLASSROOM_DETAILS": "تفاصيل الصف الدراسي",
+  "TUTORING_LANGUAGE": "لغة التدريس",
+  "TUTORING_TYPE": "طريقة التدريس",
+  "START_DATE": "تاريخ بدأ الدورة",
+  "END_DATE": "تاريخ إنتهاء الدورة",
+  "TIME": "الوقت",
+  "DURATION": "المدة الزمنية",
+  "CLASSROOM_TUTOR": "معلم الصف الدراسي",
+  "METUTORS_PROVIDE_TUTOR_COURSE": "سوف يتم تعين المعلم من قبل ميتوترز",
+  "DELETE_CLASSROOM": "إلغاء الصف الدراسي",
+  "SURE_DELETE_CLASSROOM": "هل أنت واثق من إلغاء الصف الدراسي لهذه المادة؟",
+  "EDIT_CLASSROOM": "تعديل الصف الدراسي",
+  "SORRY_TUTOR_NOT_SELECTED": "نعتذر، المعلم الذي تم إختياره غير متوفر في الوقت والأيام المحددة",
+  "CHOOSE_DAY": "إختر يوم",
+  "CLASSES_SCHEDULE": "الجدول الزمني للحصص  الدراسية",
+  "REVIEW_MAKE_CHANGES": "راجع وعدل اللازم",
+  "DAY": "اليوم",
+  "DATE": "التاريخ",
+  "START_TIME": "وقت البدأ",
+  "END_TIME": "وقت الإنتهاء",
+  "SERVICE_COMING_SOON": "الخدمة ستبدأ قريباً",
+  "WORKING_HARD_BEST_SERVICE": "نعمل جاهدين لتوفير الخدمة الأفضل لك",
+  "REFER_SYSTEM_ADMIN": "الرجاء مراجعة إدارة النظام لديك",
+  "PROGRAM_COUNTRY": "دولة البرنامج",
+  "PROGRAM_GRADE_LEVEL": "المرحلة الدراسية في البرنامج",
+  "BOOK_TYPE": "نوع الحجز",
+  "TYPE": "النوع",
+  "CLASSES_START_TIME": "وقت بدأ الحصص",
+  "CLASSES_END_TIME": "وقت إنتهاء الحصص",
+  "COURSE_DURATION": "مدة الدورة",
+  "NUMBER_OF_CLASSES_COURSE": "عدد الحصص في الدورة الدراسية",
+  "TOTAL_PRICE": "السعر الإجمالي",
+  "CLASS_SCHEDULE": "جدول الدروس",
+  "SELECTION_MADE_STUDENT": "إختيار الطالب",
+  "PDF_DOCUMENT_STUDENT": "حملت من الطالب PDF وثيقة",
+  "ATTACHMENTS": "الملحقات",
+  "TUTOR_INFORMATION": "معلومات المعلم",
+  "FULL_PROFILE": "الملف الشخصي الكامل",
+  "PRINT": "طباعة",
+  "CHECKOUT": "الدفع",
+  "SELECT_TUTOR_FOR_COURSE": "إختر معلم للدورة التعليمية",
+  "SEARCH_TUTORS": "إبحث في المعلمين (مثلاً، جون دو)",
+  "AVAILABLE": "متوفر",
+  "SORRY_ALL_TUTORS_BUSY": "نعتذر، جميع معلمينا غير متوفرين بالأوقات المختارة. يتوفر معلمون في أوقات أخرى",
+  "WOULD_CHANGE_CLASSROOM_SCHEDULE": "أترغب بتغيير جدول الصف الدراسي الخاص بك؟",
+  "YES": "نعم",
+  "NO_CONTINUE_SCHEDULE_CHOSEN": "لا ، إستمر بجدولي وعين لي معلم مناسب له",
+  "AVAILABLE_DIFFERENT_SCHEDULE": "متوفر وفق جدول زمني آخر",
+  "INVOICE_DETAILS": "تفاصيل فاتورة الحساب",
+  "PAY_NOW": "إدفع الآن",
+  "PLEASE_BEAR_PAYMENT_PROCESSED": "الرجاء الإنتظار ، الدفعة المالية من قبلك قيد المعالجة....",
+  "PAYMENT_MADE_SUCCESSFULLY": "تم الدفع بنجاح",
+  "PAYMENT_FAILED": "فشلت عملية الدفع",
+  "TRY_AGAIN": "حاول ثانياً",
+  "COURSE_BOOKING": "حجز الدورة التعليمية",
+  "STEP_THREE": "الخطوة الثالثة",
+  "STEP_FOUR": "الخطوة الرابعة",
+  "STEP_FIVE": "الخطوة الخامسة",
+  "ORDER_SUMMARY": "ملخص الطلب",
+  "STUDENT_BOOK": "كتاب الطالب",
+  "STUDENT_TEXTBOOK_PDF": " pdf كتاب المقرر",
+  "MORE_INFO_PROVIDED_LATER": "المزيد من المعلومات تأتي لاحقاً",
+  "SEND_US_EMAIL": "تواصل معنا عبر البريد الإلكتروني",
+  "ADD_NEW_CLASSES": "إضافة حصص دراسية جديدة",
+  "KINDLY_VIEW_TUTOR_AVAILABILITY": "لطفاً إطلع على أوقات توافر المعلم قبل إختيار يوم وتاريخ جديدين",
+  "TUTOR_AVAILABILITY": "أوقات توافر المعلم",
+  "ESTIMATED_COST": "التكلفة التقديرية",
+  "NEXT": "التالي",
+  "NO_TEACHER_AVAILABILITIES_FOUND": "لم يتوفر المعلم",
+  "DAYS": "اﻷيام",
+  "DAYS_SM": "أيام",
+  "DAY_SM": "يوم",
+  "TO": "إلى",
+  "REVIEW_NEW_CLASS_SCHEDULE": "الرجاء مراجعة الجدول الجديد  للمادة الدراسية",
+  "SELECT_CLASSES_DATE_VIEW_TUTORS_AVAILABILITY": "الرجاء إختيار تاريخ الحصص الدراسية لمعرفة  توفر المعلمين ",
+  "ADD_TOPICS_NEED_TUTORS": "أضف المواضيع والمسائل التي تحتاج لها معلم",
+  "WRITE_TOPIC_NAME_MAX_CHARACTERS": "الرجاء كتابة عنوان الموضوع ب١٢٠ حرف أقصى حد",
+  "ASSIGNMENT_DETAILS": "تفاصيل الوظيفة الدراسية",
+  "START": "إبدأ",
+  "DEADLINE": "الموعد النهائي",
+  "SUBMITTED_AT": "المقدمة في",
+  "URLS": "عناوين المواقع",
+  "SUBMIT_ASSIGNMENT": "تسليم الوظيفة",
+  "VIEW_SUBMITTED_ASSIGNMENT": "الطلاع على الوظيفة المقدمة",
+  "CLASSROOM_ATTENDANCE": "حضور الصف الدراسي",
+  "VIEW_CLASSROOM_ATTENDANCE": "عرض حضور الصف الدراسي",
+  "CLASSROOM_ATTENDANCE_FEEDBACK": "تقييم وحضور الصف الدراسي",
+  "STARTING_DATE": "تاريخ البدأ",
+  "ENDING_DATE": "تاريخ الإنتهاء",
+  "COMPLETED_CLASSES": "الحصص الدراسية المكتملة",
+  "REMAINING_CLASSES": "الحصص الدراسية المتبقية",
+  "NUMBER": "الرقم",
+  "CLASS_TITLE": "عنوان الحصة الدراسية",
+  "ATTENDANCE": "الحضور",
+  "NO_RECORDS_FOUND": "لا يوجد سجلات",
+  "CANCEL_ENTIRE_COURSE": "إحذف الدورة كاملةً",
+  "CANCEL_SELECTIVE_CLASSES": "إحذف فقط الحصص الدراسيةالمختارة",
+  "SUMMARY": "الملخص",
+  "REFUNDABLE_CLASSES": "الحصص الدراسيةالمسترجعة القيمة",
+  "UNREFUNDABLE_CLASSES": "الحصص الدراسية الغير مسترجعة القيمة",
+  "CLASSES_NOT_REFUNDABLE": "الحصص الدراسية خلال ٢٤ ساعة غير مسترجعة  القيمة",
+  "REFUND_AMOUNT_CLASS": "القيمة المسترجعة لكل حصة دراسية",
+  "ADMINITRATIVE_SERVICE_FEE": "10% @ رسوم الخدمات الإدارية",
+  "TOTAL_AMOUNT_REFUND": "المبلغ المسترجع الكامل",
+  "REASON_COURSE_CANCELATION": "سبب إلغاء الدورة التعليمية",
+  "AGREE_METUTORS": "أوافق مع ميتوترز",
+  "CANCEL_POLICY": "سياسة الإلغاء",
+  "NO_REFUNDABLE_CLASS_FOUND": "لا يوجد حصة دراسية مسترجعة القيمة",
+  "CONFIRM": "تأكيد",
+  "NO_RECORD_FOUND": "لا يوجد سجل",
+  "CLASS_NUMBER": "رقم الحصة الدراسية",
+  "CLASS_SUBJECT": "موضوع الحصة الدراسية",
+  "CLASS_TIME": "وقت الحصة الدراسية",
+  "SELECT_OPTION": "إختر أحد الخيارات",
+  "CANCEL_COURSE_REQUEST": "حذف طلب دورة",
+  "CONFIRM_REQUEST_RECEIVE_FUND": "الرجاء تأكيد هذا الطلب لتستلم أموالك",
+  "CONGRATULATIONS": "بالتوفيق",
+  "COURSE_CANCELLED_SUCCESSFULLY": "تم إلغاء الدورة بنجاح",
+  "ALLOW_HOURS_PROCESS_REQUEST": "نرجوا السماح لنا ب٧٢ ساعة لتنفيذ طلبك ، ستستلم القيمة المسترجعة عبر حسابك البنكي قريباً",
+  "YOUR_REFUND_AMOUNT": "قيمة المبلغ المسترجع ",
+  "GO_CLASS_DASHBOARD": "إذهب إلى لوحة المعلومات في الصف الدراسي",
+  "LEAVE_FEEDBACK": "أترك تعليق",
+  "TUTOR_FEEDBACK": "تعليق المعلم",
+  "WRITE_MESSAGE_TEACHER": "أترك رسالة لمعلمك",
+  "SHARE_FEEDBACK_TEACHER": "شاركنا تعليقك عن معلمك",
+  "SHARE_FEEDBACK_TUTOR_COURSE": "شاركنا تعليقك عن المعلم حيث بدأ حذف الدورة ",
+  "MAKEUP_CLASS": "حصة بديلة",
+  "KINDLY_MAKEUP_CLASS_COURSE": "تأكد أن تأخذ الحصة البديلة خلال فترة الدورة",
+  "CLASS_DATE": "تاريخ الحصة الدراسية",
+  "CHOOSE_CLASS_DATE": "إختر تاريخ الحصة الدراسية",
+  "AVAILABLE_TIME_SLOTS": "الفترات الزمنية المتوفرة",
+  "NO_TIMESLOT_FOUND": "لا يوجد فترة زمنية",
+  "SCHEDULE": "الجدول",
+  "UPLOAD_PROFILE_PHOTO": "تحميل صورة شخصية",
+  "PHOTO_EXTENSION_SIZE_MB": "1MB أقصى سعة هى JPG أو GIF ، PNG",
+  "FIRST_NAME_ALPHABETS": " الإسم الأول لابد أن يحتوي على حروف فقط",
+  "FIRST_NAME_MIN_CHARACTERS": "الإسم الأول لا يقل عن ٣ حروف",
+  "FIRST_NAME_MAX_CHARACTERS": "الإسم الأول لا يزيد عن ١٠٠ حرف",
+  "LAST_NAME_ALPHABETS": "لالإسم الأخير لابد أن يحتوي على حروف فقط ",
+  "LAST_NAME_MIN_CHARACTERS": "الإسم الأخير لا يقل عن ٣ حروف",
+  "LAST_NAME_MAX_CHARACTERS": "الإسم الأخيرلا يزيد عن ١٠٠ حرف",
+  "HEADLINE": "العنوان الرئيسي",
+  "HEADLINE_PLACEHOLDER": "أضف عنوان إحترافي أكثر مثل (طالب من هارفرد)",
+  "COUNTRY_RESIDENCE": "بلد الإقامة",
+  "UPDATE": "تحديث",
+  "PRIVATE_CARD": "الكارت الخاص",
+  "PAYONEER": "Payoneer",
+  "PAYPAL": "PayPal",
+  "CARD_NUMBER": "رقم الكارت",
+  "CARD_HOLD_NAME": "إسم حامل الكارت",
+  "CARD_EXPIRATION": "تاريخ إنتهاء الكارت",
+  "CVV": "CVV",
+  "CURRENT_PASSWORD": "كلمة المرور الحالية",
+  "TYPE_CURRENT_PASSWORD": "إطبع كلمة المرور الحالية",
+  "TYPE_NEW_PASSWORD": "إطبع كلمة مرور جديدة",
+  "REPEAT_NEW_PASSWORD": "إعادة طباعة كلمة المرور الجديدة",
+  "CONFIRM_NEW_PASSWORD": "تأكيد كلمة المرور الجديدة",
+  "CHANGE_PASSWORD": "تغيير كلمة المرور",
+  "WHAT_LANGUAGE_PREFER": " أي لغة تفضل؟",
+  "SELECT_GENDER_TEACH": "إختر جنس المعلم",
+  "WHAT_TUTOR_NATIVE_LANGUAGE": "ما هي اللغة الأم للمعلم ?",
+  "ANY_LANGUAGE": "أي لغة",
+  "SELECT_LANGUAGE": "إختر لغة",
+  "ADD_NEW_COURSE": "أضف دورة دراسية ",
+  "CLASSROOMS": "الصفوف الدراسية",
+  "DASHBOARD": "لوحة المعلومات",
+  "INBOX": "صندوق البريد الوارد",
+  "CERTIFICATES": "الشهادات",
+  "SETTINGS": "الإعدادات",
+  "BADGES": "الرتب",
+  "PAYMENT_RECORDS": "سجلات المدفوعات",
+  "ENTER_DESCRIPTION_HERE": "أدخل الوصف هنا...",
+  "FILE": "الملف",
+  "SUBMIT": "أرسل",
+  "SELECT_NEW_TUTOR": "إختر معلم جديد",
+  "CONTINUE_COURSE_SELECT_TUTOR": "الاستمرار بالدورة واختيار معلم جديد",
+  "ALLOW_METUTORS_ASSIGN_TUTOR": "السماح لميتوترز بتعيين مدرس جديد",
+  "CONTINUE_COURSE_ALLOW_METUTORS": "الاستمرار بالدورة والسماح بتعيين معلم جديد ميتوترز",
+  "STOP_COURSE_RECEIVE_REFUND": "إيقاف الدورة واسترجاع ثمنها",
+  "STOP_COURSE_REFUND_REMAINING_CLASSES": "أوقف الدورة  التعليمية وإسترجاع قيمة الحصص المتبقية",
+  "REQUEST_SUBMITTED_ASSIGN_TUTOR": "تم تسليم الطلب. سيتم تعيين معلم جديد . سنتواصل معكم قريباً",
+  "TUTOR_REASSIGNMENT": "إعادة تعيين معلم",
+  "TUTOR_REASSIGNMENT_DESC": "لسبب ما المعلم سيتوقف عن تدريس هذه الدورة ،لطفاً حدد الإختيار الأنسب لك للإستمرار",
+  "SELECT_REPLACEMENT_TUTOR": "إختر معلم بديل",
+  "SELECT_TUTOR_CONTINUE_COURSE": "إختر معلم جديد للاستمرار بالدورة التعليمية",
+  "CANCEL_REFUND_COURSE": "إلغاء/استرجاع قيمة الدورة",
+  "CONFIRM_CANCEL_CLASSES": "لطفاً تأكيد إلغاء هذه الحصص الدراسية",
+  "ENTER_REASON_HERE": "أدخل السبب هنا...",
+  "VIEW_RESOURCES": "الإطلاع على المصادر",
+  "ASSIGNMENT_FEEDBACK": "ملاحظات وتقييم الواجب التعليمي ",
+  "ON_SCALE_10": "على مقياس من ١٠",
+  "GRADE_RATING": "تقييم العلامة",
+  "TOTAL_ASSIGNMENTS": "مجموع الواجبات التعليمية",
+  "ACTIVE_ASSIGNMENTS": "الواجبات المستمرة",
+  "COMPLETED_ASSIGNMENTS": "الواجبات المكتملة",
+  "ENROLLED_STUDENTS": "الطلاب المسجلون",
+  "REMAINING_TIME": "الوقت المتبقي",
+  "VIEW_DETAILS": "الإطلاع على التفاصيل",
+  "STUDENT_NAME": "إسم الطالب",
+  "STATUS": "حالة الواجب",
+  "YOU_HAVE": "لديك",
+  "COURSES_SM": "دورات تعليمية",
+  "COURSE_CATEGORY": "فئة الدورة التعليمية",
+  "GET_CERTIFICATE": "الحصول على شهادة",
+  "CANCEL_COURSE": "إلغاء الدورة",
+  "COMPLETED": "مكتمل",
+  "NOT_STARTED_YET": "لم يبدأ ",
+  "INPROGRESS": "قيد التنفيذ",
+  "SEND_FEEDBACK": "أرسل التقييم",
+  "TODAY_CLASSES": "الحصص الدراسية اليوم",
+  "CLASS_TUTOR": "معلم الحصة الدراسية",
+  "START_END_TIME": "وقت البداية - وقت النهاية",
+  "JOIN_CLASS": "الإنضمام للحصة",
+  "VIEW_CLASS": "مشاهدة الحصة",
+  "UPCOMING_CLASSES": "الحصص الدراسية القادمة",
+  "ADD_NEW_CLASS": "إضافة حصة جديدة",
+  "RESCHEDULE": "إعادة جدولة الحصة",
+  "CLASS_START_TIME_RESCHEDULE_HINT": "لابد أن يكون وقت بداية الحصة  أكثر من يومين ليمكن إعادة جدولتها",
+  "PREVIOUS_CLASSES": "الحصص الدراسية السابقة",
+  "STUDENT_ABSENT": "غياب الطالب",
+  "TEACHER_ABSENT": "غياب المعلم",
+  "CLASSES_DASHBOARD": "لوحة معلومات الحصص الدراسية",
+  "MY_SYLLABUS": "منهجي الدراسي",
+  "MY_RESOURCES": "مصادري",
+  "MY_ASSIGNMENTS": "واجباتي التعليمية",
+  "SUPPORT_TICKET": "تذكرة دعم فني",
+  "SYLLABUS": "المنهج الدراسي",
+  "RESOURCES": "المصادر",
+  "ASSIGNMENTS": "الواجبات",
+  "ALL": "الكل",
+  "LAST_ACTIVITY": "آخر نشاط",
+  "ACTIVE_COURSES": "الدورات المستمرة",
+  "COMPLETED_COURSES": "الدورات المكتملة",
+  "NO_COURSE_FOUND": "لا يوجد دورة",
+  "MY_TICKETS": "تذاكري",
+  "CREATE_NEW_TICKET": "إنشاء تذكرة جديدة",
+  "TOPIC": "الموضوع",
+  "CHOOSE_TOPIC": "إختر الموضوع",
+  "PRIORITY": "الأولوية",
+  "CHOOSE_PRIORITY": "حدد الأولوية",
+  "TICKET_DETAILS": "تفاصيل التذكرة",
+  "TYPE_TICKET_DETAILS": "إطبع تفاصيل التذكرة...",
+  "TICKET_FILE_UPLOAD_DESC": "يمكن إضافة ملفات (وثائق ،تسجيلات ،لقطات الشاشة وغيرها)الرجاء التأكد من تفعيل خاصية السماح بمشاركة الملفات",
+  "OVERVIEW": "النظرة العامة",
+  "SEE_PROGRESS_LAST": "رؤية تقدمك من آخر..",
+  "MONTH_SM": "شهر",
+  "MONTHS_SM": "شهور",
+  "YEARLY": "سنوياّ",
+  "COURSE_PROGRESS": "إنجاز المواد الدراسية",
+  "COMPARED_TO": "بالمقارنة مع",
+  "TOTAL_NUMBER_COURSES": "عدد الدورات الإجمالي",
+  "ATTENDANCE_RATE": "معدل الحضور",
+  "TOTAL_PAYMENT": "الدفعة المالية الإجمالية",
+  "SEE_COMPLETED_COURSE_LAST": "عرض دوراتك المكتملة من الآخر",
+  "IN_LAST": "في آخر",
+  "METUTORS_FEEDBACK": "تقييم ميتوترز",
+  "SHARE_FEEDBACK_METUTORS_SERVICE": "شاركنا تقييمك لميتوترز",
+  "SHARE_THOUGHTS_IMPROVE_SERVICES": "لطفاً شاركنا إقتراحاتك لتطوير خدماتنا في المنصة",
+  "VIEW_RESOURCE": "عرض المصدر",
+  "ACCOUNT_SETTINGS": "إعدادات الحساب",
+  "SECURITY_SETTINGS": "الإعدادات الأمنية",
+  "USER_PREFERENCES": "خيارات المستخدم",
+  "PAYMENT_INFORMATION": "معلومات المدفوعات",
+  "NO_TICKETS_FOUND": "لا يوجد تذكرة",
+  "UNCLASSIFIED_CLASSES": "حصص غير مصنفة",
+  "CLASSIFIED_TOPICS": "مواضيع مصنفة",
+  "TEACHER": "المعلم",
+  "STUDENT": "الطالب",
+  "AGENT": "العميل",
+  "OPEN": "إفتح",
+  "LAST_REPLY": "آخر رد",
+  "WRITE_COMMENT": "أكتب تعليق",
+  "REPLY": "الرد",
+  "TOTAL_10": "المجموع ١٠",
+  "ENTER_TITLE_HERE": "أدخل العنوان هنا",
+  "ASSIGNEE": "الموقع",
+  "SELECT_STUDENT": "إختيار طالب",
+  "ENTER_URL_HERE": "هنا.. URL أدخل",
+  "INVALID_URL": "غير صالح URL عنوان",
+  "FILE_EXTENSIONS": "JPG, pdf, video, etc",
+  "DELETE": "حذف",
+  "ADD_COURSE_TOPIC": "أضف عنوان المادة الدراسية",
+  "EDIT_COURSE_TOPIC": "عدل عنوان المادة الدراسية",
+  "WRITE_DESCRIPTION_MAX_CHARACTERS": "لطفاً أكتب وصفاً ب ٢٥٠ حرف أقصى حد",
+  "SELECT_CLASSES": "إختيار الحصص الدراسية",
+  "OUT_OF": "من",
+  "SELECTED_CLASSES": "الحصص الدراسية المحددة",
+  "ANSWER_RECEIVED": "تم تسلم الإجابة",
+  "EDIT_ASSIGNMENT": "تعديل الواجب الدراسي",
+  "ONE_O_ONE": "فرادى",
+  "ATTENDANCE_STATUS": "صفة الحضور",
+  "FEEDBACK": "تقييم",
+  "CHAT": "المحادثة",
+  "STUDENT_ATTENDANCES": "حضور الطالب",
+  "TUTOR_ATTENDANCE": "حضور المعلم",
+  "MY_ATTENDANCE": "حضوري",
+  "TYPE_REASON_CANCEL_COURSE": "لطفاً أكتب أسبابك لإلغاء هذه المادة التعليمية ",
+  "WRITE_FEEDBACK": "أكتب تقييم",
+  "STUDENT_FEEDBACK": "تقييم الطالب",
+  "WRITE_FEEDBACK_STUDENT": "أكتب تقييمك عن الطالب",
+  "VIEW_PROFILE": "الإطلاع على الملف الشخصي",
+  "PAYMENT_HISTORY": "تاريخ المدفوعات",
+  "ADD_REASON_DECLINE_TEACHING_COURSE": "رجاءً أكتب أسبابك لرفضك تدريس هذه المادة التعليمية ",
+  "RESCHEDULE_CLASS": "إعادة جدولة الحصة الدراسية",
+  "CAN_RESCHEDULE_CLASS": "يمكنك إعادة جدولة حصتك",
+  "CLASS_DAY": "يوم الحصة الدراسية",
+  "DOCUMENT_TITLE": "عنوان الوثيقة",
+  "WRITE_TITLE_MAX_CHARACTERS": "الرجاء أكتب العنوان ب ١٢٠ حرف أقصى حد",
+  "FILES": "الملفات",
+  "UPLOAD_COMPLETED": "إنتهاء التحميل",
+  "SELECT_AVAILABLE_TEACHING_HOURS": "إختر ساعات التدريس المتاحة",
+  "RESET": "إعادة ضبط",
+  "SELECT_ALL": "إختيار الكل",
+  "ACCOUNT_UNDER_REVIEW": "الحساب تحت المراجعة",
+  "ACCOUNT_APPROVED": "تمت الموافقة على الحساب",
+  "ACCOUNT_REJECTED": "تم رفض الحساب",
+  "INTERVIEW_SCHEDULED": "تم تحديد موعد المقابلة",
+  "UPLOAD_COVER_PHOTO": "تحميل صورة الغلاف",
+  "SUBMIT_INTERVIEW_REQUEST": "تسليم طلب مقابلة",
+  "JOIN_MEETING": "الإنضمام للإجتماع",
+  "TEACHING_COURSES": "دورات تعليمية",
+  "CONTACT_THIS_EMAIL": "التواصل مع هذا البريد الإلكتروني",
+  "IF_WANT_EDIT_INFORMATION": "إذا ترغب بتعديل هذه المعلومات",
+  "MALE": "ذكر",
+  "FEMALE": "أنثي",
+  "BOTH": "كلاهما",
+  "SUBMIT_INTERVIEW_REQUEST_DESC": "عند إرسال طلب المقابلة لا يمكنك تغيير أي شيء في الملف الشخصي",
+  "SELECT_INTERVIEW_DATE": "حدد تاريخ المقابلة",
+  "SELECT_TIME": "حدد الوقت",
+  "SELECT_INTERVIEW_TIME": "حدد وقت المقابلة",
+  "CAN_SCHEDULE_INTERVIEW_AFTER": "يمكنك جدولة موعد المقابلة بعد:",
+  "HOURS_FROM_NOW": "ساعات من الآن",
+  "ADDITIONAL_INFORMATION": "معلومات إضافية",
+  "SUBMIT_REQUEST": "تسليم طلب",
+  "STUDENTS_REVIEWS": "مراجعات الطلاب",
+  "VIEW_STUDENTS_REVIEWS": "الإطلاع على جميع مراجعات الطلاب",
+  "STARS": "نجوم",
+  "REVIEW": "تقييم",
+  "SUBMITTED_ASSIGNMENTS": "الواجبات المقدمة",
+  "SUBMITTED_BY": "مقدمة من",
+  "TIME_RECEIVED_STUDENT": "وقت التسليم من الطالب",
+  "DETAILS": "التفاصيل",
+  "ACCEPT": "مقبول",
+  "REJECT": "مرفوض",
+  "REJECTION_REASON": "سبب الرفض",
+  "FEEDBACK_STUDENT_SOLUTION": "تقييم حلول الطالب",
+  "ADD_NEW_ASSIGNMENT": "إضافة واجب جديد",
+  "EXTEND_DUE_DATE": "تمديد تاريخ التسليم",
+  "TODAY": "اليوم",
+  "LATE": "متأخر",
+  "CANCELLED": "ملغي",
+  "ATTENDANCE_FEEDBACK": "الحضور والتقييم",
+  "CLASS_ATTENDEES": "الحاضرون في الحصة",
+  "LAUNCH_CLASS": "بدأ الحصة",
+  "SHARE_FEEDBACK_STUDENT_CANCELLATION": "شاركنا تقييمك لطالبك حيث بدأ إلغاء الدورة",
+  "NEWLY_ASSIGNED_COURSES": "المواد الدراسية  المعينة حديثاً",
+  "TOTAL_COURSES": "عددالمواد الدراسية الإجمالية",
+  "LAST_SM": "أخر",
+  "KUDOS_POINTS": "نقاط المجد",
+  "KUDOS_POINTS_DETAILS": "تفاصيل نقاط المجد",
+  "VIEW_ALL_POINTS": "الإطلاع على المراجعات",
+  "TOTAL_POINTS": "مجموع النقاط",
+  "COURSE_DATE": "تاريخ الدورة التعليمية",
+  "POINTS": "النقاط",
+  "POINTS_SM": "نقاط",
+  "TEXTBOOK": "الكتاب المقرر",
+  "EDITION": "النسخة",
+  "OTHER_DOCUMENTS": "وثائق أخرى",
+  "UPLOADED_BY_TEACHER": "تم التحميل بواسطة المعلم",
+  "UPLOADED_BY_STUDENT": "تم التحميل بواسطة الطالب",
+  "TEACHER_NAME": "إسم المعلم",
+  "NO_DOCUMENT_FOUND": "لم يعثر على وثيقة",
+  "EDIT_RESOURCE": "تعديل المصدر",
+  "ADD_RESOURCE": "إضافة مصدر",
+  "MY_PROFILE": "ملفي الشخصي",
+  "ADD_TOPIC_HERE": "أضف الموضوع هنا....",
+  "SAVE": "الحفظ",
+  "PRICE": "السعر",
+  "MAX_STUDENTS": "الحد الأقصى لعدد الطلاب",
+  "BOOK_CLASSROOM": "إحجز فصل دراسي",
+  "VIEW_SCHEDULE": "الإطلاع على الجدول",
+  "TOTAL_CLASSROOMS": "مجموع الصفوف الدراسية",
+  "SELECT_CLASSROOM": "إختر الصف الدراسي",
+  "INVOICE_NO": "الفاتورة # ",
+  "ORDER_NO": "الطلب #",
+  "DATE_NO": "التاريخ #",
+  "GET_INVOICE_EMAIL": "الحصول على ايميل الفاتورة",
+  "TOTAL_AMOUNT_DUE": "كامل المبلغ المستحق",
+  "PROMOCODE_OFF": " 0% خصم الرمز الترويجي",
+  "PROMOCODE": "الرمز الترويجي",
+  "APPLY": "التطبيق",
+  "CLOSED": "مغلق",
+  "DELETE_ASSIGNMENT": "إلغاء الواجب",
+  "DELETE_RESOURCE": "إلغاء المصدر",
+  "REALLY_WANT_DELETE": "هل ترغب بالإلغاء؟",
+  "APPROVE": "الموافقة",
+  "SIGNATURE_SM": "توقيع",
+  "SIGNING_UNDERSTAND_CONTRACT": "بالتوقيع أقرُّ أن هذا عقداً ملزماً قانونياً",
+  "DRAW_SIGNATURE": "أكتب التوقيع",
+  "DRAW_SIGNATURE_MIDDLE_CANVAS": "أكتب توقيعك في منتصف الصفحة",
+  "INSERT_SIGNATURE": "أدخل التوقيع",
+  "SIGN_UP": "الإشتراك",
+  "CONFIRM_EMAIL": "تأكيد البريد الإلكتروني",
+  "ACCESS_DENIED": "ممنوع الدخول",
+  "COMPLETE_TUTOR_PROFILE": "إكمال الملف الشخصي للمعلم",
+  "TUTOR_PROFILE": "الملف الشخصي للمعلم",
+  "COURSES": "الدورات",
+  "PAYMENT_PROCESSING": "عملية الدفع",
+  "FREQUENTLY_ASKED_QUESTIONS": "الأسئلة الشائعة",
+  "CREATE_TICKET": "إنشاء تذكرة",
+  "STUDENT_DASHBAORD": "لوحة معلومات الطالب",
+  "TUTOR_DASHBOARD": "لوحة المعلومات ",
+  "COURSE_ACCEPTED_SUCCESSFULLY": "تم الموافقة على الدورة بنجاح",
+  "COURSE_REJECTED_SUCCESSFULLY": "تم رفض الدورة بنجاح",
+  "COURSE_CANCELED_SUCCESSFULLY": "تم إلغاء الدورة بنجاح",
+  "REQUEST_SUBMITTED_SUCCESSFULLY": "تم تسليم الطلب بنجاح",
+  "INTERVIEW_SENT_SUCCESSFULLY": "تم إرسال طلب المقابلة بنجاح",
+  "INFORMATION_UPDATED_SUCCESSFULLY": "تم تحديث المعلومات بنجاح",
+  "ASSIGNMENT_SUBMITTED_SUCCESSFULLY": "تم تسليم الواجب بنجاح",
+  "MAKEUP_CLASS_SUCCESSFULLY": "تم الموافقة على حصة بديلة",
+  "FEEDBACK_SUBMITTED_SUCCESSFULLY": "تم تسلم التقييم بنجاح",
+  "ACCOUNT_SETTINGS_UPDATED_SUCCESSFULLY": "تم تحديث إعدادات الحساب بنجاح",
+  "USER_PREFERENCES_UPDATED_SUCCESSFULLY": "تم تحديث إختيارات المستخدم بنجاح",
+  "ASSIGNMENT_ADDED_SUCCESSFULLY": "تم إضافة الواجب بنجاح",
+  "ASSIGNMENT_DELETED_SUCCESSFULLY": "تم إلغاء الواجب بنجاح",
+  "ASSIGNMENT_REJECTED_SUCCESSFULLY": "تم رفض الواجب بنجاح",
+  "ASSIGNMENT_ACCEPTED_SUCCESSFULLY": "'تم الموافقة على الواجب بنجاح",
+  "RESOURCE_ADDED_SUCCESSFULLY": "تم إضافة المرجع بنجاح",
+  "RESOURCE_EDITED_SUCCESSFULLY": "تم تعديل المرجع بنجاح",
+  "RESOURCE_DELETED_SUCCESSFULLY": "تم حذف المرجع بنجاح",
+  "TOPIC_ADDED_SUCCESSFULLY": "تم إضافة الموضوع بنجاح",
+  "TOPIC_UPDATED_SUCCESSFULLY": "تم تحديث الموضوع بنجاح",
+  "TOPIC_DELETED_SUCCESSFULLY": "تم حذف الموضوع بنجاح",
+  "CLASS_SUBJECT_UPDATED_SUCCESSFULLY": "تم تحديث مادة الحصة بنجاح",
+  "CLASS_RESCHEDULED_SUCCESSFULLY": "تم إعادة جدولة الحصة بنجاح",
+  "SIGNATURE_ADDED_SUCCESSFULLY": "تم إضافة التوقيع بنجاح",
+  "PROFILE_PHOTO_UPDATED_SUCCESSFULLY": "تم تحديث الصورة الشخصية بنجاح",
+  "COVER_PHOTO_UPDATED_SUCCESSFULLY": "تم تحديث صورة الغلاف بنجاح",
+  "FILE_DELETED_SUCCESSFULLY": "تم حذف الملف بنجاح",
+  "DONT_HAVE_PERMISSION_ACCESS_ACCOUNT": "لا تملك إذن دخول هذه الصفحة من حساب المعلم",
+  "DONT_HAVE_PERMISSION_ACCESS_PAGE": "لا تملك إذن دخول هذه الصفحة مباشرةً",
+  "FIND_ANSWER_TO_QUESTION_HERE": "ابحث عن إجابة سؤالك هنا",
+  "FEEDBACK_CHARACTERS": "لطفاً أكتب تقييمك ب٨٠٠ حرف أقصى حد",
+  "NO_MATCHING_LANGUAGE_FOUND": "لا يوجد لغة مناسبة",
+  "SELECT_LEVEL": "إختر المستوى",
+  "BASIC": "أساسي",
+  "INTERMEDIATE": "متوسط",
+  "EXPERT": "خبير",
+  "SUNDAY": "اﻷحد",
+  "MONDAY": "اﻷثنين",
+  "TUESDAY": "الثلاثاء",
+  "WEDNESDAY": "اﻷربعاء",
+  "THURSDAY": "الخميس",
+  "FRIDAY": "الجمعة",
+  "SATURDAY": "السبت",
+  "SUN": "اﻷحد",
+  "MON": "اﻷثنين",
+  "TUES": "الثلاثاء",
+  "WED": "اﻷربعاء",
+  "THU": "الخميس",
+  "FRI": "الجمعة",
+  "SAT": "السبت",
+  "UNCONFIDENT": "غير واثق",
+  "CONFIDENT": "واثق",
+  "VERY_CONFIDENT": "واثق جدا",
+  "BEGINNER": "مبتدئ",
+  "ELEMENTARY": "متوسط",
+  "UPPER_INTERMEDIATE": "فوق المتوسط",
+  "ADVANCED": "متقدم",
+  "PROFICIENT": "محترف",
+  "NATIVE": "أصلي",
+  "ASSOCIATE_DEGREE": "درجة دبلوم مشارك",
+  "BACHELORS_DEGREE": "درجة بكالوريوس",
+  "MASTERS_DEGREE": "درجة ماستر",
+  "DOCTORAL_DEGREE": "درجة دكتوراه",
+  "UPLOAD_VIDEO": "تحميل الفيديو",
+  "TEACHING_VIDEO_UPDATED_SUCCESSFULLY": "تم تحديث فيديو التدريس بنجاح",
+  "DOCUMENT_NOT_FOUND": "الوثيقة غير متوفرة",
+  "DOCUMENT_APPROVED_SUCCESSFULLY": "تم إعتماد الوثيقة بنجاح",
+  "DOCUMENT_ACCEPTED_METUTORS": "تم قبول الوثيقة في ميتوترز",
+  "EMAIL_NOT_VERIFIED": "البريد الإلكتروني غير موثق بعد",
+  "EMAIL_VERIFIED_SUCCESSFULLY": "تم التحقق من البريد الإلكتروني بنجاح",
+  "EMAIL_VERIFIED_LOGIN_CONTINUE": "تم التحقق من البريد الإلكتروني ،لطفاً تسجيل الدخول للإستمرار",
+  "USER_NOT_FOUND": "لم يتم العثور على المستخدم",
+  "WELCOME_METUTORS": "مرحباً في ميتوترز",
+  "VERIFICATION_CODE_SENT": "تم إرسال رمز التحقق",
+  "USER_NOT_EXIST": "المستخدم غير موجود",
+  "USER_ALREADY_EXISTS": "المستخدم موجود سابقاً",
+  "ACCESS_TOKEN_INVALID": "Access token invalid",
+  "ACCESS_TOKEN_REQUIRED": "Access token required",
+  "USER_LOGIN_SUCCESSFULLY": "تم بنجاح تسجيل الدخول",
+  "EMAIL_ALREADY_REGISTERED_ROLE": "هذا البريد الإلكتروني مسجل لدينا سابقاً",
+  "AUTH_TOKEN_INVALID": "Auth token invalid",
+  "LINK_HAS_EXPIRED": "هذا الرابط غير صالح",
+  "PASSWORD_HAS_RESETETD": " تم إعادة ضبط كلمة المرور",
+  "WE_EMAILED_YOUR_PASSWORD": "تم إرسال رابط إعادة ضبط كلمة المرور",
+  "WAIT_BEFORE_RETRYING": "لطفاً إنتظر قبل إعادة لبمحاولة",
+  "PASSWORD_RESET_LINK_INVALID": "رابط إعادة ضبط كلمة المرور غير صالح",
+  "NO_USER_FOUND_EMAIL": "لا يوجد مستخدم بهذا البريد الإلكتروني",
+  "PASSWORD_CHANGED_SUCCESSFULLY": "تم تغيير كلمة المرور بنجاح",
+  "PASSWORD_UPDATED_METUTORS": "تم تحديث كلمة المرور في ميتوترز",
+  "CURRENT_PASSWORD_NOT_CORRECT": "كلمة المرور غير صحيحة",
+  "PASSWORD_VALIDATED": "'تم التحقق من كلمة المرور",
+  "INVALID_OTP": "غير صالح OTP",
+  "OTP_EXPIRED": "منتهي الصلاحية OTP",
+  "EMAIL_UPDATED_SUCCESSFULLY": "تم تحديث البريد الإلكتروني بنجاح",
+  "USER_REGISTERED_VERIFICATION_SENT": "تم تسجيل المستخدم بنجاح و إرسال رمز التحقق",
+  "INVALID_CREDENTIALS": "بيانات الإعتماد غير صالحة",
+  "VERIFICATION_CODE_SENT_VERIFY_EMAIL": "تم إرسال رمز التحقق، لطفاً تحقق من بريدك الإلكتروني أولاً",
+  "LOGIN_ALERT": "إشعار تسجيل الدخول",
+  "OTP_VERIFIED": "موثق OTP",
+  "CLASS_SCHEDULED_SUCCESSFULLY": "تم جدولة الحصة الدراسية بنجاح",
+  "ONLY_TEACHERS_SUBMIT_REQUEST": "يمكن للمعلمين فقط التقدم بطلب مقابلة من قسم الموارد البشرية",
+  "INTERVIEW_REQUEST_SUBMITTED_SUCCESSFULLY": "تم إستلام طلب المقابلة بنجاح",
+  "NEW_INTERVIEW_REQUEST": "طلب مقابلة جديد",
+  "METUTORS_INTERVIEW_REQUEST": "طلب مقابلة ميتوترز",
+  "SUBMITTED_INTERVIEW_REQUEST": "تم إرسال طلب المقابلة",
+  "COMPLETE_ACCOUNT_DETAILS_FIRST": "لطفاً أكمل معلومات حسابك الشخصي أولاً",
+  "PASSWORD_RECOVERY_LINK_SENT_EMAIL": "ثم إرسال رابط إستعادة كلمة المرور لبريدك الإلكتروني .لطفاً تحقق من بريدك الإلكتروني",
+  "NEW_PASSWORD_REQUEST": "طلب كلمة مرور جديدة",
+  "PROFILE_DETAILS_UPDATED_SUCCESSFULLY": "تم تحديث معلومات الملف الشخصي بنجاح",
+  "TEACHER_PROFILE_UPDATED": "تحديث الملف الشخصي للمعلم",
+  "PROFILE_UPDATED_SUCCESSFULLY": "تم بنجاح تحديث الملف الشخصي",
+  "DOCUMENTS_UPLOADED_LOGIN_CONTINUE": "تم تحميل الوثائق بنجاح! لطفاً تسجيل الدخول للإستمرار",
+  "NEW_TEACHER_REGISTRATION": "تسجيل معلم جديد",
+  "DOCUMENTS_UPLOADED_SUCCESSFULLY": "تم تحميل الوثائق بنجاح",
+  "DATA_UPDATED_SUCCESSFULLY": "تم تحديث البيانات بنجاح",
+  "ADD_LANGUAGE_FIRST": "لطفاً أضف لغة أولاً",
+  "LANGUAGE_REMOVED_SUCCESSFULLY": "تم إزالة اللغة بنجاح",
+  "LANGUAGE_NOT_FOUND": "اللغة غير متوفرة",
+  "LANGUAGE_ADDED_SUCCESSFULLY": "تم إضافة اللغة بنجاح",
+  "FIELD_STUDY_NOT_FOUND": "التخصص غير متوفر",
+  "REMOVED_SUCCESSFULLY": "تم الحذف بنجاح",
+  "FIELD_ALREADY_ADDED": "هذا التخصص مضاف",
+  "NOT_FOUND": "لا يوجد",
+  "DATA_ADDED_SUCCESSFULLY": "تم إضافة البيانات بنجاح",
+  "DATA_DELETED_SUCCESSFULLY": "تم حذف البيانات بنجاح",
+  "SAME_DATA_ADDED_ALREADY": "تم إضافة نفس البيانات سابقاً",
+  "REQUEST_NOT_EXIST": "الطلب غير موجود",
+  "TUTOR_APPROVED_SUCCESSFULLY": "تمت الموافقة على المعلم بنجاح",
+  "NEW_TEACHER_APPLICATION_APPROVED": "تمت الموافقة على طلب المعلم الجديد",
+  "APPLICATION_APPROVED_JOIN_METUTORS": "الموافقة على طلبك الإنضمام لميتوترز",
+  "TUTOR_REJECTED_SUCCESSFULLY": "تم رفض المعلم بنجاح",
+  "NEW_TEACHER_APPLICATION_DECLINED": "تم رفض طلب المعلم الجديد",
+  "UNAUTHORIZED": "غير مصرح له",
+  "INVITE_SENT_SUCCESSFULLY": "تم إرسال الدعوة لنجاح",
+  "AVATAR_CHANGED_SUCCESSFULLY": "تم تغيير الصورة الرمزية بنجاح",
+  "COVER_CHANGED_SUCCESSFULLY": "تم تغيير صورة الغلاف بنجاح",
+  "SIGNATURE_SUBMITTED_SUCCESSFULLY": "تم تسلم التوقيع بنجاح",
+  "RESOURCE_UPDATED_SUCCESSFULLY": "تم تحديث المصدر بنجاح",
+  "INVOICE_EMAIL_SENT_SUCCESSFULLY": "تم إرسال إيميل الفاتورة بنجاح",
+  "REQUEST_SENT_SUCCESSFULLY_METUTORS": "تم إرسال الطلب لميتوترز بنجاح",
+  "COURSE_NO_CLASS_REFUND": "لا يوجد حصة للاسترجاع في هذه الدورة التعليمية  ",
+  "COURSE_ALREADY_CANCELLED": "تم إلغاء الدورة التعليمية",
+  "ACCESS_DENIED_COURSE_COMPLETED": "ممنوع الدخول ! الدورة قد إكتملت",
+  "CLASSES_CANCELLED_SUCCESSFULLY": "تم إلغاء الحصص بنجاح",
+  "REQUEST_SUBMITTED_WAIT_APPROVAL": "تم تسلم طلبك ! بانتظار موافقة المعلم",
+  "MAKEUP_CLASS_SCHEDULED": "تم جدولة الحصة البديلة",
+  "CLASS_ADDED_SUCCESSFULLY": "تم إضافة الحصة بنجاح",
+  "TEACHER_NOT_AVAILABLE_CHECK_AVAILABILITY": "المعلم غير متوفر في هذه الفترة لطفاً تحقق من توفر المعلم أولاً",
+  "TEACHER_NOT_AVAILABLE_DAY_CHECK_AVAILABILITY": "المعلم غير متوفر في هذا اليوم لطفاً تحقق من توفر المعلم أولاً",
+  "COURSE_COMPLETED": "تم إكتمال الدورة",
+  "DONT_HAVE_TIME_RESCHEDULE_CLASS": "لا وقت لديك لإعادة جدولة الحصة",
+  "CLASS_NOT_FOUND": "الحصة غير موجودة",
+  "TEACHER_NOT_ASSIGNED_YET": "لم يتم تعيين معلم بعد",
+  "CLASS_CANCELLED": "تم إلغاء الحصة الدراسية",
+  "SESSION_UPDATED_SUCCESSFULLY": "تم تحديث القسم بنجاح",
+  "SESSION_DELETED": "تم حذف القسم",
+  "COURSE_ADDED_SUCCESSFULLY": "تم إضافة بيانات الدورة بنجاح",
+  "COURSE_ADDED": "تم إضافة الدورة التعليمية",
+  "ASSIGNMENT_RESUBMITTED_SUCCESSFULLY": "تم إعادة تسليم الواجب بنجاح",
+  "COURSE_ASSIGNMENT_UPDATED_SUCCESSFULLY": "تم تحديث الواجب بنجاح",
+  "CLASS_UPDATED_SUCCESSFULLY": "تم تحديث الحصة الدراسية بنجاح",
+  "ENTERED_CLASS_GREATER_THAN_ACTUAL": "عدد الحصص المسجلة أكبر من عدد الحصص الفعلية",
+  "FILES_UPLOADED": "تم تحميل الملفات",
+  "ASSIGNMENT_EXTENDED_SUCCESSFULLY": "تم تمديد موعد تسليم الواجب بنجاح",
+  "ASSIGNMENT_EXPIRED": "إنتهاء موعد الواجب",
+  "ASSIGNMENT_REJECTED": "تم رفض الواجب",
+  "ASSIGNMENT_ACCEPTED": "تم قبول الواجب",
+  "ACCOUNT_SETTING_UPDATED_SUCCESSFULLY": "تم تحديث إعدادات الحساب بنجاح",
+  "USER_PREFRENCES_ADDED_SUCCESSFULLY": "تم إضافة خيارات المستخدم بنجاح",
+  "CURRENT_PASSWORD_NOT_MATCH": "لا يوجد تطابق في كلمة المرور",
+  "SECURITY_SETTINGS_UPDATED": "تم تحديث إعدادات الأمن",
+  "SERVER_ERROR_TRY_AGAIN": "خطأ في السيرفر! أعد المحاولة لاحقاً",
+  "STATUS_CHANGED_SUCCESSFULLY": "تم تغيير الحالة بنجاح",
+  "STATUS_CHANGED_CLOSED_INPROGRESS": "الحالة تتغير فقط الى مغلق أو قيد التنفيذ",
+  "ACTION_DONE_SUCCESSFULLY": "تم الإجراء بنجاح",
+  "CLASS_UPDATES_FAILED": "لم يتم تحديث الصف الدراسي",
+  "COURSE_ACCEPTED": "تم قبول الدورة التعليمية",
+  "TEACHER_PREFERENCES_UPDATED_SUCCESSFULLY": "تم تحديث إختيارات المعلم",
+  "COURSE_NOT_RESCHEDULED": "لا يمكن إعادة جدولة الدورة",
+  "COURSE_RESCHEDULED_SUCCESSFULLY": "تم إعادة جدولة الدورة بنجاح",
+  "CURRENTLY_NO_TEACHER_ASSIGNED_COURSE": "لم يتم تعيين معلم لهذه الدورة حالياً",
+  "SUCCESSFULLY_LOGOUT": "تم تسجيل الخروج بنجاح",
+  "FAILED_LOGOUT_TRY_AGAIN": "لم يتم تسجيل الخروج,لطفاً حاول ثانيةً",
+  "INVALID_ROLE": "دور غير صالح",
+  "USER_REGISTERED_VERIFICATION_CODE_SENT": "تم تسجيل المستخدم وإرسال رمز التحقق بنجاح",
+  "PASSWORD_UPDATED_SUCCESSFULLY": "تم تحديث كلمة المرور بنجاح",
+  "COURSE_REJECTED": "تم رفض الدورة التعليمية",
+  "AUTH_TOKEN_REQUIRED": "رمز المصادقة مطلوب",
+  "FILE_NOT_FOUND": "لم يوجد الملف",
+  "SCHEDULED_CLASS_TIME_CHECK_AVAILABILITY": "يوجد حجز صف في هذا الوقت! لطفاً إبحث في توفر المعلم أولاً",
+  "TEACHER_NOT_AVAILABLE": "المعلم غير متوفر",
+  "CLASS_DATE_PASSED": "تم تمرير تاريخ الصف الدراسي",
+  "TEACHER_ASSIGNED_COURSE_SUCCESSFULLY": "تم تعيين معلم للدورة بنجاح",
+  "WARNING_GIVEN_TEACHER": "تم إرسال تحذير للمعلم",
+  "USER_BLOCKED_SUCCESSFULLY": "تم حظر المستخدم بنجاح",
+  "USER_UNBLOCKED_SUCCESSFULLY": "تم رفع الحظر عن المستخدم بنجاح",
+  "ROLE_ADDED_SUCCESSFULLY": "تم إضافة الدور بنجاح",
+  "ROLE_UPDATED_SUCCESSFULLY": "تم تحديث الدور بنجاح",
+  "ROLE_DELETED_SUCCESSFULLY": "تم حذف الدور بنجاح",
+  "COURSE_CANCELLED_USER": "تم حذف الدورة بواسطة المعلم",
+  "NEWSLETTER_DELETED_SUCCESSFULLY": "تم حذف النشرة بنجاح",
+  "FEEDBACK_UPDATED_SUCCESSFULLY": "تم تحديث تقييمك بنجاح",
+  "FEEDBACK_DELETED_SUCCESSFULLY": "تم حذف تقييم المستخدم بنجاح",
+  "TESTIMONIAL_DELETED_SUCCESSFULLY": "تم حذف شهتدة المستخدم بنجاح",
+  "TEACHER_ASSIGNED_SUCCESSFULLY": "تم تعيين معلم بنجاح",
+  "MEETING_SCHEDULED_SUCCESSFULLY": "تم جدولة إجتماع بنجاح",
+  "CLASS_HAS_ENDED": "إنتهاء الحصة الدراسية",
+  "MEETING_NOT_FOUND": "لا يوجد إجتماع",
+  "INTERVIEW_HAS_ENDED": "إنتهاء المقابلة",
+  "ACCESS_DENIED_ASSIGN_COURSE_SOMEONE": "حظر الدخول! لطفاً تعيين هذه الدورات لشخص آخر",
+  "STATUS_UPDATED_SUCCESSFULLY": "تم تحديث الحالة بنجاح",
+  "EMAIL_SENT_SUCCESSFULLY": "تم إرسال الإيميل بنجاح",
+  "REFUNDED_SUCCESSFULLY": "تم إسترجاع القيمة بنجاح",
+  "WARNING_LIMIT_EXCEEDED_ACCOUNT_BANNED": "تجاوزت حد الإنذار! تم حظر حسابك",
+  "COURSE_LEAST_30_MINUTES_DURATION": "مدة الحصة الدراسية ٣٠ دقيقة أدنى حد",
+  "CHECKOUT_PREPARED_SUCCESSFULLY": "تم الإستعداد للخروج بنجاح",
+  "CLASS_NOT_SCHEDULED_TODAY": "حصتك الدراسية غير مجدولة اليوم",
+  "WAIT_CLASS_NOT_STARTED": "لطفاً الإنتظار! الحصة الدراسية لم تبدأ بعد",
+  "TICKET_CLOSED_U_NOT_ADD_COMMENT": "تم إغلاق التذكرة لايمكنك إضافة تعليق ",
+  "REPLY_SUBMITTED": "تم تسلم الرد",
+  "COURSE_PARAM_ADDED_SUCCESSFULLY": "الدورة param تم بنجاح إضافة",
+  "COURSE_PARAM_UPDATED_SUCCESSFULLY": "الدورة param تم بنجاح تحديث",
+  "COURSE_PARAM_DELETED_SUCCESSFULLY": "الدورة param تم بنجاح حذف",
+  "MESSAGE_SUBMITTED_CONTACT_SOON": "تم تسلم رسالتك سنتواصل معك قريباً",
+  "NEWSLETTER_SUBMITTED_SUCCESSFULLY": "تم تسلم النشرة بنجاح",
+  "REQUIRED_PARAMS_LISTED_BELOW": "Required params are listed below",
+  "SUBMITTED_FEEDBACK_CLASSROOM": "تم تسليم تقييم لهذا الصف الدراسي سابقاً",
+  "FIELD_STUDY_STORED_SUCCESSFULLY": "تم حفظ مجال الدراسة بنجاح",
+  "FIELD_STUDY_RETRIEVED_SUCCESSFULLY": "تم استرداد بيانات مجال الدراسة بنجاح",
+  "DATA_NOT_FOUND": "لم يعثر على البيانات",
+  "FIELD_STUDY_UPDATED_SUCCESSFULLY": "تم تحديث بيانات مجال الدراسة بنجاح",
+  "FIELD_STUDY_DELETED_SUCCESSFULLY": "تم حذف بيانات مجال الدراسة بنجاح",
+  "TOPICS_NOT_FOUND_COURSE": "لم يعثر على المواضيع المختارة في هذه الدورة",
+  "NO_TOPIC_FOUND": "لم يعثر على الموضوع",
+  "PLATFORM_INSERTED_SUCCESSFULLY": "Platform param inserted successfully",
+  "PLATFORM_UPDATED_SUCCESSFULLY": "Platform param updated successfully",
+  "PLATFORM_DELETED_SUCCESSFULLY": "Platform param deleted successfully",
+  "PROGRAM_STORED_SUCCESSFULLY": "تم حفظ البرنامج بنجاح",
+  "PROGRAM_RETRIEVED_SUCCESSFULLY": "Program data retrieved successfully",
+  "PROGRAM_UPDATED_SUCCESSFULLY": "Program data updated successfully",
+  "PROGRAM_DELETED_SUCCESSFULLY": "Program deleted successfully",
+  "COUNTRY_STORED_SUCCESSFULLY": "Program country stored successfully",
+  "COUNTRY_RETRIEVED_SUCCESSFULLY": "Program country data retrieved successfully",
+  "COUNTRY_UPDATED_SUCCESSFULLY": "Program country data updated successfully",
+  "SUBJECT_STORED_SUCCESSFULLY": "Subject stored successfully",
+  "SUBJECT_RETRIEVED_SUCCESSFULLY": "Subject data retrieved successfully",
+  "SUBJECT_UPDATED_SUCCESSFULLY": "Subject data updated successfully",
+  "SUBJECT_DELETED_SUCCESSFULLY": "Subject deleted successfully",
+  "DOCUMENT_REJECTED_SUCCESSFULLY": "تم رفض الوثيقة بنجاح",
+  "OUR_PARTNERS": "شركاؤنا",
+  "PARTNERING_WORLD_TOP_PLATFORM_SCHOOLS": " نحن بشراكة مع أفضل منصات العالم والمدارس لتوفير أفضل التجارب التعليمية ",
+  "MAX_10_TOPICS": "١٠ مواضيع أقصى حد",
+  "ONLY_1_TOPIC": "موضوع واحد فقط",
+  "MAX_5_LANGUAGES": "٥ لغات أقصى حد",
+  "ONE_ON_ONE": "تدريس فرادي",
+  "GROUP_STUDY": "تدريس جماعي",
+  "CERTIFICATES_HEADING": "يمكنك تنزيل شهادة الدورة الدراسية هنا",
+  "NO_CERTIFICATE_FOUND": "لم يعثر على شهادة",
+  "COMPLETED_HOURS": "الساعات المكتملة",
+  "COURSE_COMPLETED_ON": "تاريخ إنهاء الدورة",
+  "TEACHING_LANGUAGES": "لغة التدريس",
+  "7_DAYS": "٧ أيام",
+  "1_MONTH": "شهر",
+  "3_MONTHS": "ثلاث شهور",
+  "PROCESSING_UPLOADED": "تحميل معالجة",
+  "CANCEL_UPLOADING": "إلغاء التحميل",
+  "1_YEAR": "عام واحد",
+  "2_YEARS": "عامان",
+  "3_YEARS": "ثلاثة أعوام",
+  "4_YEARS": "أربعة أعوام",
+  "5_YEARS": "خمسة أعوام",
+  "6_YEARS": "ستة أعوام",
+  "7_YEARS": "سبعة أعوام",
+  "8_YEARS": "ثمانية أعوام",
+  "9_YEARS": "تسعة أعوام",
+  "10_YEARS": "عشرة أعوام",
+  "10__YEARS": "فوق العشرة أعوام",
+  "EXPERT_IN_SUBJECT": "خبير ومتمرس في الماده الدراسية",
+  "PRESENT_COMPLEX_TOPICS_CLEARLY": "يقدم الدروس الصعبهً بوضوح وسهولة",
+  "SKILLFULL_ENGAGING_STUDENTS": "متمرس بإشراك وتفاعل الطلاب بالحصة",
+  "ALWAYS_ON_TIME": "ملتزم بالوقت دائماً",
+  "FAST_LEARNER": "يتعلم ويفهم الدرس سريعًا",
+  "FOCUS_CLASS_PAYING_ATTENTION": "يركز جيداً في الحصة وينتبه للدرس",
+  "ATTEND_CLASS_ONTIME": "يحضر الحصة في الوقت المحدد",
+  "COMPLETE_HOMEWORK_ONTIME": "يكمل واجبه التعليمي في الوقت المحدد",
+  "ACTIVE_PARTICIPATION_CLASS": "مشاركة و تفاعل  نشط في الحصة",
+  "SITE_INTUITIVE_EASY_USE": "المنصة واضحة وسهلة الاستخدام",
+  "SITE_ADDRESSES_EDUCATIONAL_NEEDS": "المنصة تغطي كامل إحتياجاتي التعليمية",
+  "FLEXIBILITY_CHOOSING_COURSES": "المرونة في إختياراتي  لجدول الحصص",
+  "FLEXIBILITY_CREATING_CLASS_SCHEDULE": "المرونة في إختياراتي  لجدول الحصص",
+  "PRICING_COMPETITIVENESS": "أسعار تنافسية",
+  "SUPPORT_TEAM_RESPONSIVENESS": "سرعة إستجابة فريق الدعم عالية وإحترافية",
+  "METUTORS_PLATFORM_INTUITIVE_EASY_USE": "المنصة واضحة وسهلة الاستخدام",
+  "METUTORS_MEETS_TEACHING_REQUIREMENTS": "المنصة تلبي إحتياجاتي في مجال التدريس",
+  "FLEXIBILITY_MANAGING_STUDENTS_CLASSES": "المرونة في إدارتي للطلاب والحصص الدراسية والدورات",
+  "SUPPORT_TEAM_RESPONSIBLE_RESPONSIVE": "فريق الدعم عالي المسؤولية وسريع الاستجابة",
+  "METUTORS_PAYS_FAIRLY_INDUSTRY_STANDARDS": "المنصة تدفع أجور منصفه ومطابقه لمعاير قطاع التعليم",
+  "1ST": "الأول",
+  "2ND": "الثاني",
+  "3RD": "الثالث",
+  "4TH": "الرابع",
+  "5TH": "الخامس",
+  "6TH": "السادس",
+  "7TH": "السابع",
+  "8TH": "الثامن",
+  "9TH": "التاسع",
+  "10TH": "العاشر",
+  "11TH": "الحادي عشر",
+  "12TH": "الثاني عشر",
+  "ASSOCIATE_OF_ARTS": "دبلوم آداب",
+  "ASSOCIATE_OF_APPLIED_ARTS": "دبلوم آداب تطبيقية",
+  "ASSOCIATE_OF_ENGINEERING": "دبلوم هندسة",
+  "ASSOCIATE_OF_SCIENCE": "دبلوم علوم",
+  "ASSOCIATE_OF_GENERAL_STUDIES": "دبلوم دراسات عامة",
+  "ASSOCIATE_OF_SCIENCE_IN_NURSING": "دبلوم علوم في التمريض",
+  "ASSOCIATE_OF_TECHNOLOGY": "دبلوم مشارك في التكنولوجيا",
+  "ASSOCIATE_OF_APPLIED_BUSINESS": "دبلوم أعمال تجارية تطبيقية",
+  "ASSOCIATE_OF_APPLIED_SCIENCE": "دبلوم علوم تطبيقية",
+  "ASSOCIATE_OF_ARTS_AND_SCIENCES": "دبلوم آداب وعلوم",
+  "ASSOCIATE_OF_ARTS_IN_TEACHING": "دبلوم آداب في التعليم",
+  "ASSOCIATE_OF_BACCALAUREATE_STUDIES": "دبلوم في دراسات البكالوريا",
+  "ASSOCIATE_OF_BUSINESS_ADMINISTRATION": "دبلوم إدارة أعمال",
+  "ASSOCIATE_OF_ENGINEERING_SCIENCE": "دبلوم علوم هندسية",
+  "ASSOCIATE_IN_ENGINEERING_TECHNOLOGY": "دبلوم تكنولوجيا الهندسة",
+  "ASSOCIATE_OF_FINE_ARTS": "دبلوم فنون",
+  "ASSOCIATE_OF_PRE_ENGINEERING": "دبلوم هندسة",
+  "ASSOCIATE_OF_INDUSTRIAL_TECHNOLOGY": "دبلوم تكنولوجيا صناعية",
+  "ASSOCIATE_OF_OCCUPATIONAL_STUDIES": "دبلوم دراسات مهنية",
+  "ASSOCIATE_IN_PHYSICAL_THERAPY": "دبلوم علاج طبيعي",
+  "ASSOCIATE_OF_POLITICAL_SCIENCE": "دبلوم علوم سياسية",
+  "ASSOCIATE_OF_PUBLIC_SERVICE": "دبلوم خدمة مجتمع",
+  "BACHELOR_OF_ARCHITECTURE": "بكالوريوس هندسة عمارة",
+  "BACHELOR_OF_ARTS": "بكالوريوس آداب",
+  "BACHELOR_OF_APPLIED_ARTS_AND_SCIENCE": "بكالوريوس فنون تطبيقية وعلوم",
+  "BACHELOR_OF_SCIENCE_IN_INFORMATION_TECHNOLOGY": "بكالوريوس علوم في تكنولوجيا المعلومات",
+  "BACHELOR_OF_ENGINEERING": "بكالوريوس في الهندسة",
+  "BACHELOR_OF_SCIENCE": "بكالوريوس علوم",
+  "BACHELOR_OF_SCIENCE_IN_BIOLOGY": "بكالوريوس علوم في علوم الأحياء",
+  "BACHELOR_OF_SCIENCE_IN_CHEMISTRY": "بكالوريوس علوم في الكيمياء",
+  "BACHELOR_OF_SCIENCE_IN_PHYSICS": "بكالوريوس علوم في الفيزياء",
+  "BACHELOR_OF_SCIENCE_IN_MATHEMATICS": "بكالوريوس علوم في الرياضيات",
+  "BACHELOR_OF_SCIENCE_IN_GEOLOGY": "بكالوريوس علوم في علوم الأرض",
+  "BACHELOR_OF_SCIENCE_IN_DATA_ANALYTICS": "بكالوريوس علوم في تحليل البيانات",
+  "BACHELOR_OF_SCIENCE_IN_PROGRAMMING": "بكالوريوس علوم في برمجة الحاسوب",
+  "BACHELOR_OF_SCIENCE_IN_ELECTRICAL_ENGINEERING": "بكالوريوس علوم في الهندسة الكهربائية",
+  "BACHELOR_OF_SCIENCE_IN_MECHANICAL_ENGINEERING": "بكالوريوس علوم في الهندسة الميكانيكية",
+  "BACHELOR_OF_SCIENCE_IN_COMPUTER_ENGINEERING": "بكالوريوس علوم هندسة الحاسب الالي",
+  "BACHELOR_OF_SCIENCE_IN_SOFTWARE_ENGINEERING": "بكالوريوس علوم في هندسة البرمجيات",
+  "BACHELOR_OF_SCIENCE_IN_CHEMICAL_ENGINEERING": "بكالوريوس علوم في الهندسة الكيميائية",
+  "BACHELOR_OF_SCIENCE_IN_PETROLEUM_ENGINEERING": "بكالوريوس علوم هندسة البترول",
+  "BACHELOR_OF_SCIENCE_IN_INDUSTRIAL_ENGINEERING": "بكالوريوس علوم الهندسة الصناعية",
+  "BACHELOR_OF_SCIENCE_IN_ENGINEERING": "بكالوريوس علوم في الهندسة",
+  "BACHELOR_OF_SCIENCE_IN_AEROSPACE_ENGINEERING": "بكالوريوس علوم في هندسة الطيران",
+  "BACHELOR_OF_SCIENCE_IN_BIOMEDICAL_ENGINEERING": "بكالوريوس علوم الهندسة الطبية",
+  "BACHELOR_OF_SCIENCE_IN_TELECOMMUNICATION_ENGINEERING": "بكالوريوس علوم هندسة الاتصالات",
+  "BACHELOR_OF_SCIENCE_IN_CIVIL_ENGINEERING": "بكالوريوس علوم في الهندسة المدنية",
+  "BACHELOR_OF_SCIENCE_IN_MECHATRONICS_ENGINEERING": "بكالوريوس علوم في هندسة الميكاترونكس",
+  "BACHELOR_OF_SCIENCE_IN_COMMUNICATION_ENGINEERING": "بكالوريوس علوم هندسة الإتصالات",
+  "BACHELOR_OF_SCIENCE_IN_CYBERSECURITY": "بكالوريوس علوم في الأمن السيبرالي",
+  "BACHELOR_OF_ENGINEERING_TECHNOLOGY": "بكالوريوس في تكنولوجيا الهندسة",
+  "BACHELOR_OF_TECHNOLOGY": "بكالوريوس في التكنولوجيا",
+  "INTERNATIONAL_BUSINESS_ECONOMICS": "بكالوريوس إقتصاد التجارة الدولية",
+  "BACHELOR_OF_BUSINESS_ADMINISTRATION": "بكالوريوس إدارة الاعمال",
+  "BACHELOR_OF_MANAGEMENT_STUDIES": "بكالوريوس في الدراسات الإدارية",
+  "BACHELOR_OF_ADMINISTRATIVE_STUDIES": "بكالوريوس في الدراسات الإدارية",
+  "BACHELOR_OF_INTERNATIONAL_BUSINESS_ECONOMICS": "بكالوريوس التجارة والاقتصاد الدولية",
+  "BACHELOR_OF_COMMERCE": "بكالوريوس في الاعلان",
+  "BACHELOR_OF_FINE_ARTS": "بكالوريوس في الفنون الجميلة",
+  "BACHELOR_OF_BUSINESS": "بكالوريوس في التجارة",
+  "BACHELOR_OF_BUSINESS_IN_ACCOUNTING": "بكالوريوس تجارة في المحاسبة",
+  "BACHELOR_OF_BUSINESS_IN_FINANCE": "بكالوريوس تجارة في المالي",
+  "BACHELOR_OF_BUSINESS_IN_MANAGEMENT": "بكالوريوس تجارة في الإدارة",
+  "BACHELOR_OF_BUSINESS_IN_MARKETING": "بكالوريوس تجارة في التسويق",
+  "BACHELOR_OF_LITERATURE_AND_ARTS": "بكالوريوس في الآداب والفنون",
+  "BACHELOR_OF_SCIENCE_IN_PHARMACEUTICAL": "بكالوريوس علوم في الصيدلة",
+  "BACHELOR_OF_SCIENCE_IN_MEDICINE": "بكالوريوس علوم في الطب",
+  "BACHELOR_OF_MANAGEMENT_AND_ORGANIZATIONAL_STUDIES": "بكالوريوس في الدراسات الإدارية والتنظيمية",
+  "BACHELOR_OF_BUSINESS_SCIENCE": "بكالوريوس العلوم التجارية",
+  "BACHELOR_OF_ECONOMICS": "بكالوريوس إقتصاد",
+  "BACHELOR_OF_ARTS_IN_ORGANIZATIONAL_MANAGEMENT": "بكالوريوس الإدارة المؤسسية",
+  "BACHELOR_OF_COMPUTER_SCIENCE": "بكالوريوس علوم الحاسوب",
+  "BACHELOR_OF_COMPUTER_APPLICATIONS": "بكالوريوس في تطبيقات الحاسوب",
+  "BACHELOR_OF_BUSINESS_INFORMATION_SYSTEMS": "بكالوريوس في نظم إدارة المعلومات",
+  "BACHELOR_OF_MEDICAL_SCIENCE": "بكالوريوس علوم طبية",
+  "BACHELOR_OF_MEDICAL_BIOLOGY": "بكالوريوس علم الأحياء الطبية",
+  "BACHELOR_OF_SCIENCE_IN_PUBLIC_HEALTH": "بكالوريوس علوم في الصحة العامة",
+  "BACHELOR_OF_SCIENCE_IN_NURSING": "بكالوريوس علوم في التمريض",
+  "BACHELOR_OF_HEALTH_SCIENCE": "بكالوريوس علوم الصحة",
+  "BACHELOR_OF_ARTS_FOR_TEACHING": "بكالوريوس آداب في التعليم",
+  "BACHELOR_OF_AVIATION": "بكالوريوس في الطيران",
+  "BACHELOR_OF_RELIGIOUS_STUDIES": "بكالوريوس في الدراسات الدينية",
+  "BACHELOR_OF_FILM_AND_TELEVISION": "بكالوريوس في علوم السينما والتلفزيون",
+  "BACHELOR_OF_JOURNALISM": "بكالوريوس صحافة",
+  "BACHELOR_OF_LIBERAL_ARTS": "بكالوريوس في الفنون الحرة",
+  "BACHELOR_OF_GENERAL_STUDIES": "بكالوريوس دراسات عامة",
+  "BACHELOR_OF_SCIENCE_IN_HUMAN_BIOLOGY": "بكالوريوس العلوم في علم الأحياء البشري",
+  "BACHELOR_OF_APPLIED_STUDIES": "بكالوريوس العلوم التطبيقية",
+  "BACHELOR_OF_LIBERAL_STUDIES": "بكالوريوس دراسات الليبرالية",
+  "BACHELOR_OF_PROFESSIONAL_STUDIES": "بكالوريوس في الدراسات المهنية",
+  "BACHELOR_OF_LIBRARY_AND_INFORMATION_SCIENCE": "بكالوريوس علم المكتبات والمعلومات",
+  "BACHELOR_OF_ART_IN_MUSIC": "بكالوريوس آداب في الموسيقى",
+  "BACHELOR_OF_ARTS_IN_PSYCHOLOGY": "بكالوريوس آداب في علم النفس",
+  "BACHELOR_OF_SCIENCE_IN_EDUCATION": "بكالوريوس علوم في التربية والتعليم",
+  "BACHELOR_OF_APPLIED_SCIENCE": "بكالوريوس علوم تطبيقية",
+  "BACHELOR_OF_SCIENCE_IN_LAW": "بكالوريوس علوم القانون",
+  "BACHELOR_OF_SOCIAL_SCIENCE": "بكالوريوس علم الاجتماع",
+  "BACHELOR_OF_ARTS_IN_SOCIAL_WORK": "بكالوريوس خدمة إجتماعية",
+  "BACHELOR_OF_TOURISM_STUDIES": "بكالوريوس الدراسات السياحية",
+  "BACHELOR_OF_MATHEMATICAL_SCIENCES": "بكالوريوس علوم الرياضيات",
+  "BACHELOR_OF_PUBLIC_AFFAIRS": "بكالوريوس إدارة الشئون العامة والسياسية",
+  "BACHELOR_OF_URBAN_AND_REGIONAL_PLANNING": "بكالوريوس التخطيط العمراني والإقليمي",
+  "MASTER_OF_ACCOUNTANCY": "ماجستير محاسبة",
+  "MASTER_OF_ADVANCED_STUDY": "ماجستير دراسات عليا",
+  "MASTER_OF_ECONOMICS": "ماجستير إقتصاد",
+  "MASTER_OF_ARCHITECTURE": "ماجستير عمارة",
+  "MASTER_OF_APPLIED_SCIENCE": "ماجستير علوم تطبيقية",
+  "MASTER_OF_ARTS": "ماجستير آداب",
+  "MASTER_OF_ARTS_IN_TEACHING": "ماجستير آداب في التدريس",
+  "MASTER_OF_ARTS_IN_LIBERAL_STUDIES": "ماجستير آداب في الدراسات الليبرالية",
+  "MASTER_OF_BUSINESS": "ماجستير في تجارة الاعمال",
+  "MASTER_OF_BUSINESS_ADMINISTRATION": "ماجستير إدارة الأعمال",
+  "MASTER_OF_BUSINESS_INFORMATICS": "ماجستير في إدارة الاعمال للمعلوماتية",
+  "MASTER_OF_SCIENCE": "ماجستير في العلوم",
+  "MASTER_OF_CHEMISTRY": "ماجستير في الكيمياء",
+  "MASTER_OF_COMMERCE": "ماجستير في التجارة",
+  "MASTER_OF_COMPUTATIONAL_FINANCE": "ماجستير في التمويل الحاسوبي",
+  "MASTER_OF_COMPUTER_APPLICATIONS": "ماجستير في تطبيقات الكمبيوتر",
+  "MASTER_IN_CREATIVE_TECHNOLOGIES": "ماجستير في التكنولوجيا الإبداعية",
+  "MASTER_OF_EDUCATION": "ماجستير في التعليم",
+  "MASTER_OF_ENGINEERING_MANAGEMENT": "ماجستير إدارة هندسية",
+  "MASTER_OF_FINANCE": "ماجستير مالية",
+  "MASTER_OF_FINANCIAL_ENGINEERING": "ماجستير هندسة مالية",
+  "MASTER_OF_FINANCIAL_ECONOMICS": "ماجستير إقتصاد مالي",
+  "MASTER_OF_FINE_ARTS": "ماجستير فنون",
+  "MASTER_OF_HEALTH_ADMINISTRATION": "ماجستير إدارة صحية",
+  "MASTER_OF_HUMANITIES": "ماجستير العلوم الإنسانية",
+  "MASTER_OF_INTERNATIONAL_AFFAIRS": "ماجستير علاقات دولية",
+  "MASTER_OF_INTERNATIONAL_BUSINESS": "ماجستير تجارة دولية",
+  "MASTER_OF_INTERNATIONAL_STUDIES": "ماجستير دراسات دولية",
+  "MASTERS_IN_INTERNATIONAL_ECONOMICS": "ماجستير إقتصاد دولي",
+  "MASTER_OF_INFORMATION_SYSTEM_MANAGEMENT": "ماجستير إدارة نظم المعلومات",
+  "MASTER_OF_INFORMATION_TECHNOLOGY": "ماجستير تكنولوجيا المعلومات",
+  "MASTER_OF_LAWS": "ماجستير حقوق",
+  "MASTER_OF_LIBERAL_ARTS": "ماجستير فنون حرة",
+  "MASTER_OF_LIBRARY_AND_INFORMATION_SCIENCE": "ماجستير علم المكتبات والمعلومات",
+  "MASTER_OF_MANAGEMENT": "ماجستير إدارة",
+  "MASTER_OF_MATHEMATICS": "ماجستير رياضيات",
+  "MASTER_OF_MEDICAL_SCIENCE": "ماجستير علوم طبية",
+  "MASTER_OF_OCCUPATIONAL_THERAPY": "ماجستير العلاج المهني",
+  "MASTER_OF_PHARMACY": "ماجستير صيدلة",
+  "MASTER_OF_PHILOSOPHY": "ماجستير فلسفة",
+  "MASTER_OF_PHYSICS": "ماجستير فيزياء",
+  "MASTER_OF_PHYSICIAN_ASSISTANT_STUDIES": "ماجستير دراسات مساعد طبيب",
+  "MASTER_OF_POLITICAL_SCIENCE": "ماجستير علوم سياسية",
+  "MASTER_OF_PROFESSIONAL_STUDIES": "ماجستير دراسات مهنية",
+  "MASTER_OF_PUBLIC_ADMINISTRATION": "ماجستير إدارة شئون العامة",
+  "MASTER_OF_PUBLIC_AFFAIRS": "ماجستير شئون عامة",
+  "MASTER_OF_PUBLIC_HEALTH": "ماجستير صحة عامة",
+  "MASTER_OF_PUBLIC_MANAGEMENT": "ماجستير إدارة عامة",
+  "MASTER_OF_RELIGIOUS_EDUCATION": "ماجستير تربية اسلامية",
+  "MASTER_OF_RESEARCH": "ماجستير في الأبحاث",
+  "MASTER_OF_SCIENCE_IN_EDUCATION": "ماجستير علوم في التربية",
+  "MASTER_OF_SCIENCE_IN_ENGINEERING": "ماجستير علوم في الهندسة",
+  "MASTER_OF_SCIENCE_IN_FINANCE": "ماجستير علوم في المالية",
+  "MASTER_OF_SCIENCE_IN_HUMAN_RESOURCE_DEVELOPMENT": "ماجستير علوم في إدارة الموارد البشرية",
+  "MASTER_OF_SCIENCE_IN_INFORMATION_SYSTEMS_MANAGEMENT": "ماجستير علوم في إدارة نظم المعلومات",
+  "MASTER_OF_SCIENCE_IN_INFORMATION_SYSTEMS": "ماجستير علوم في نظم المعلومات",
+  "MASTER_OF_SCIENCE_IN_INFORMATION_TECHNOLOGY": " ماجستير علوم في تكنولوجيا المعلومات",
+  "MASTER_OF_SCIENCE_IN_NURSING": "ماجستير علوم في التمريض",
+  "MASTER_OF_SCIENCE_IN_PROJECT_MANAGEMENT": "ماجستير علوم في إدارة المشروعات",
+  "MASTER_OF_SCIENCE_IN_MANAGEMENT": "ماجستير علوم في الإدارة",
+  "MASTER_OF_SCIENCE_IN_LEADERSHIP": "ماجستير علوم في القيادة والريادة",
+  "MASTER_OF_SCIENCE_IN_SUPPLY_CHAIN_MANAGEMENT": " ماجستير علوم في إدارة سلسلة التوريد",
+  "MASTER_OF_SCIENCE_IN_TEACHING": "ماجستير علوم في التعليم",
+  "MASTER_OF_SOCIAL_SCIENCE": "ماجستير علوم إجتماعية",
+  "MASTER_OF_SURGERY": "ماجستير في الجراحة",
+  "MASTER_OF_STUDIES": "ماجستير دراسات",
+  "DOCTOR_OF_BUSINESS_ADMINISTRATION": "دكتوراه في إدارة المعلومات",
+  "DOCTOR_OF_ENGINEERING": "دكتوراه في الهندسة",
+  "DOCTOR_OF_EDUCATION": "دكتوراه في التربية والتعليم",
+  "DOCTOR_OF_FINE_ARTS": "دكتوراه في الفنون الجميلة",
+  "DOCTOR_OF_MUSICAL_ARTS": "دكتوراه في فن الموسيقى",
+  "DOCTOR_OF_MUSIC_EDUCATION": "دكتوراه في التربية الموسيقية",
+  "DOCTOR_OF_MODERN_LANGUAGES": "دكتوراه في اللغات الحديثة",
+  "DOCTOR_OF_NURSING_SCIENCE": "دكتوراه في علوم التمريض",
+  "DOCTOR_OF_PHILOSOPHY": "دكتوراه في الفلسفة",
+  "DOCTOR_OF_PUBLIC_HEALTH": "دكتوراه في الصحة العامة",
+  "DOCTOR_OF_SCIENCE": "دكتوراه في العلوم",
+  "OTHER_MAJOR_OF_STUDIES": "تخصصات دراسة أخرى",
+  "EXPLORE_TUTORS": "البحث عن معلمين",
+  "EXPLORE_TUTORS_DESC": "أعثر على المعلم الخبير الذي يدعمك في تحصيلك الاكاديمي و يساعدك في الواجبات الدراسية أو الاستعداد لإختبار ما",
+  "SEARCH_BY_TUTOR_NAME": "البحث بإسم المعلم",
+  "FIND_TUTORS": "البحث",
+  "ALL_AVAILABLE_TUTORS": "المعلمون المتوفرون",
+  "ALL_PROGRAMS": "جميع البرامج الدراسية",
+  "SELECT_PROGRAM_CATEGORY": "حدد فئة البرنامج الدراسي",
+  "BILLING_DETAILS": "معلومات المحاسبة",
+  "STREET_ADDRESS": "عنوان الشارع",
+  "STATE": "الدولة",
+  "ENTER_STATE": "لطفاً سجل إسم الدولة ب٥٠ حرف أقصى حد",
+  "MAX_STREET_ADDRESS": "لطفاً سجل العنوان ب٢٥٠ رمز كأقصى حد",
+  "MAX_POST_CODE": "لطفاً سجل الرمز البريدي ب٢٠ رمز كأقصى حد",
+  "TUTOR_BADGES_DESC": "مع انضمامك كعضو قيم للكوادر التعليمية في ميتوترز ستكتسب شهادات تميز كونك مبدع، محترف وحريص على رعاية طلابك .",
+  "TALENTED": "الماهر",
+  "VERIFIED_METUTORS_TEAM": "موثق بواسطة فريق ميتوترز",
+  "YOU_ARE_HERE": "أنت هنا",
+  "MERIT": "المميز",
+  "EXPERT_LG": "الخبير",
+  "MASTER": "الماستر",
+  "COURSES_COMPLETED": "دورات مكتملة",
+  "POINTS_EARNED": "نقاط مكتسبة",
+  "AMOUNT_$": "Amount ($)",
+  "TRANSACTION_NUMBER": "رقم التحويل",
+  "CLEARANCE_DATE": "تاريخ الموافقة",
+  "METHOD": "النظام",
+  "TRANSACTION_DATE": "Transaction date",
+  "REQUEST_PAYMENT": "طلب الدفع",
+  "PENDING_PAYMENTS": "مدفوعات معلقة",
+  "DISPUTED_PAYMENTS": "مدفوعات متنازع عليها",
+  "PAYMENT_CONFIRMATION_MODAL_HEADING": "تأكيد الدفع",
+  "PAYMENT_CONFIRMATION_MODAL_SUB_HEADING": " ما يلي يوضح تفاصيل الحوالة التي سيتم دفعها لحسابك البنكي",
+  "DISPUTE_PAYMENT_MODAL_HEADING": "مدفوعات متنازع عليها",
+  "DISPUTE_PAYMENT_MODAL_SUB_HEADING": " يمكنك التواصل مع المشرف بخصوص الدفعة المتنازع عليها ",
+  "SUBMIT_DISPUTE_MODAL_HEADING": "الرجاء توضيح سبب إعتراضك",
+  "ORDER_NUMBER": "Order number",
+  "NUMBER_OF_CLASSES": "Number of classes",
+  "COMPLETION_DATE": "Completion dated",
+  "TOTAL_AMOUNT": "Total amount",
+  "VIEW_REASON": "View reason",
+  "DISPUTED": "Disputed",
+  "REASON_DISPUTE": "Reason for dispute",
+  "DISPUTE": "Dispute",
+  "CONFIRM_PAYMENT": "Confirm payment",
+  "SUBMIT_DISPUTE_REASON_ERROR": "Please write your reason with a max of 800 characters",
+  "DISPUTE_REASON_PLACEHOLDER": "Enter the reason here...",
+  "DISPUTE_SUBMIT_SUCCESS": "Dispute submitted successfully",
+  "GO_TO_DASHBOARD": "Go to dashboard",
+  "REASON": "Reason",
+  "YOU": "You",
+  "TUTOR_PAYMENT_CONFIRM_SUCCESS": "Payment confirmed successfully",
+  "TUTOR_PAYMENT_RECEIVE_48_HOURS": "you will receive your payments within 48 hours.",
+  "REQUESTED_PAYMENTS": "Requested payments"
 }

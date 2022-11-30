@@ -163,6 +163,21 @@ export const loadStudentResourceFailure = createAction(
   props<{ error: any }>()
 );
 
+export const studentUploadResourceDocument = createAction(
+  '[Student] Student Upload Resource Document',
+  props<{ body: any }>()
+);
+
+export const studentUploadResourceDocumentSuccess = createAction(
+  '[Student] Student Upload Resource Document Success',
+  props<{ document: any; message: string }>()
+);
+
+export const studentUploadResourceDocumentFailure = createAction(
+  '[Student] Student Upload Resource Document Failure',
+  props<{ error: any }>()
+);
+
 export const studentJoinClass = createAction(
   '[Student] Student Join Class',
   props<{ id: number }>()
@@ -416,5 +431,33 @@ export const studentViewClassSuccess = createAction(
 
 export const studentViewClassFailure = createAction(
   '[Student] Student View Class Failure',
+  props<{ error: any }>()
+);
+
+export const loadStudentCertificate = createAction(
+  '[Student] Load Student Certificate'
+);
+
+export const loadStudentCertificateSuccess = createAction(
+  '[Student] Load Student Certificate Success',
+  props<{ certificate: any }>()
+);
+
+export const loadStudentCertificateFailure = createAction(
+  '[Student] Load Student Certificate Failure',
+  props<{ error: any }>()
+);
+
+export const loadStudentCertificates = createAction(
+  '[Student] Load Student Certificates'
+);
+
+export const loadStudentCertificatesSuccess = createAction(
+  '[Student] Load Student Certificates Success',
+  props<{ certificates: any }>()
+);
+
+export const loadStudentCertificatesFailure = createAction(
+  '[Student] Load Student Certificates Failure',
   props<{ error: any }>()
 );

@@ -10,4 +10,6 @@ export class StartLearningNowComponent {
   @Input() token: string;
   @Input() title: string;
   @Input() btnText: string;
+
+  constructor() {}
 }

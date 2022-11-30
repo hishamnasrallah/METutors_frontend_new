@@ -5,6 +5,7 @@ import * as tutorModalActions from '../actions/tutor-modal.actions';
 
 export interface State {
   params: any;
+  showDisputeModal: boolean;
   showConfirmModal: boolean;
   showAddTopicModal: boolean;
   showKudosPointsModal: boolean;
@@ -12,9 +13,12 @@ export interface State {
   showCancelCourseModal: boolean;
   showSendFeedbackModal: boolean;
   showAddAssignmentModal: boolean;
+  showConfirmPaymentModal: boolean;
+  showDisputePaymentModal: boolean;
   showViewAssignmentModal: boolean;
   acceptRejectModalHeading: string;
   showUploadDocumentModal: boolean;
+  showPaymentSuccessModal: boolean;
   showRescheduleClassModal: boolean;
   showSubmitInterviewModal: boolean;
   showCourseAttendanceModal: boolean;
@@ -25,6 +29,7 @@ export interface State {
 
 export const initialState: State = {
   params: null,
+  showDisputeModal: false,
   showConfirmModal: false,
   showAddTopicModal: false,
   showKudosPointsModal: false,
@@ -33,8 +38,11 @@ export const initialState: State = {
   showCancelCourseModal: false,
   showSendFeedbackModal: false,
   showAddAssignmentModal: false,
+  showConfirmPaymentModal: false,
   showUploadDocumentModal: false,
   showViewAssignmentModal: false,
+  showDisputePaymentModal: false,
+  showPaymentSuccessModal: false,
   showRescheduleClassModal: false,
   showSubmitInterviewModal: false,
   showCourseAttendanceModal: false,
@@ -270,7 +278,53 @@ export const reducer = createReducer(
       ...state,
       showUploadDocumentModal: false,
     })
-  )
+  ),
+
+  on(tutorModalActions.openDisputePaymentModal, (state) => ({
+    ...state,
+    showDisputePaymentModal: true,
+  })),
+
+  on(tutorModalActions.closeDisputePaymentModal, (state) => ({
+    ...state,
+    showDisputePaymentModal: false,
+  })),
+
+  on(tutorModalActions.openConfirmPaymentModal, (state) => ({
+    ...state,
+    showConfirmPaymentModal: true,
+  })),
+
+  on(tutorModalActions.closeConfirmPaymentModal, (state) => ({
+    ...state,
+    showConfirmPaymentModal: false,
+  })),
+
+  on(tutorModalActions.openDisputeModal, (state) => ({
+    ...state,
+    showDisputeModal: true,
+  })),
+
+  on(tutorModalActions.closeDisputeModal, (state) => ({
+    ...state,
+    showDisputeModal: false,
+  })),
+
+  on(
+    fromCore.tutorCreateDisputeSuccess,
+    fromCore.tutorRequestPaymentSuccess,
+    (state) => ({
+      ...state,
+      showDisputeModal: false,
+      showPaymentSuccessModal: true,
+      showConfirmPaymentModal: false,
+    })
+  ),
+
+  on(tutorModalActions.closePaymentSuccessModal, (state) => ({
+    ...state,
+    showPaymentSuccessModal: false,
+  }))
 );
 
 // tutor modal selectors
@@ -320,3 +374,15 @@ export const selectKudosPointsModal = (state: State): boolean =>
 
 export const selectUploadDocumentModal = (state: State): boolean =>
   state.showUploadDocumentModal;
+
+export const selectConfirmPaymentModal = (state: State): boolean =>
+  state.showConfirmPaymentModal;
+
+export const selectDisputePaymentModal = (state: State): boolean =>
+  state.showDisputePaymentModal;
+
+export const selectDisputeModal = (state: State): boolean =>
+  state.showDisputeModal;
+
+export const selectPaymentSuccessModal = (state: State): boolean =>
+  state.showPaymentSuccessModal;

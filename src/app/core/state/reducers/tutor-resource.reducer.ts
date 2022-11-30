@@ -188,7 +188,6 @@ export const reducer = createReducer(
         teacherOtherDocuments,
       };
 
-      console.log(finalState.resources);
       return finalState;
     }
   ),

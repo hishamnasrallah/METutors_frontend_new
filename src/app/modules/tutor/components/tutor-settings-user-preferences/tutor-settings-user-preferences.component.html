@@ -2,19 +2,19 @@
   <div class="card-body">
     <form class="user-prefrences" [formGroup]="form" (ngSubmit)="onSubmit(form)">
       <div class="row mb-3">
-        <h4 class="mb-4">User Preferences</h4>
+        <h4 class="mb-4">{{ 'USER_PREFERENCES' | translate }}</h4>
         <div class="col-xl-6">
-          <h3>Select Gender to Teach</h3>
+          <h3>{{ 'SELECT_GENDER_TEACH' | translate }}</h3>
           <mat-form-field appearance="outline" class="w-100">
-            <mat-select [placeholder]="'Choose gender'" formControlName="preferred_gender">
+            <mat-select placeholder="{{ 'SELECT_GENDER' | translate }}" formControlName="preferred_gender">
               <mat-option [value]="'male'">
-                Male
+                {{ 'MALE' | translate }}
               </mat-option>
               <mat-option [value]="'female'">
-                Female
+                {{ 'FEMALE' | translate }}
               </mat-option>
               <mat-option [value]="'both'">
-                Both
+                {{ 'BOTH' | translate }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -23,8 +23,10 @@
 
       <div class="row mb-3 mt-2">
         <div class="col-xl-6">
-          <h3 class="mb-2">{{ 'SPOKEN_LANGUAGES' | translate }} <span>({{ 'FOR_TEACHING' | translate }})</span></h3>
-          <a class="float-end cursor-pointer" (click)="addLanguage()" [ngClass]="{'text-secondary pointer-events-none': (languages.status === invalid || languages?.value?.length >=5)}">{{ 'ADD_NEW' | translate }}</a>
+          <div class="d-flex justify-content-between">
+            <h3 class="mb-2">{{ 'TEACHING_LANGUAGES' | translate }} <span>({{ 'MAX_5_LANGUAGES' | translate }})</span></h3>
+            <a class="float-end cursor-pointer" (click)="addLanguage()" [ngClass]="{'text-secondary pointer-events-none': (languages.status === invalid || languages?.value?.length >=5)}">{{ 'ADD_NEW' | translate }}</a>
+          </div>
 
           <metutors-spoken-languages [form]="form" [languagesList]="languagesList" id="languages"
                                      (removeLanguage)="removeLanguage($event)">
@@ -35,7 +37,7 @@
       <div class="row btn-list mt-5 pt-3">
         <div class="col-12 d-flex justify-content-end">
           <metutors-submit-button [form]="form" [isSubmitting]="isSubmitting">
-            Update
+            {{ 'UPDATE' | translate }}
           </metutors-submit-button>
         </div>
       </div>

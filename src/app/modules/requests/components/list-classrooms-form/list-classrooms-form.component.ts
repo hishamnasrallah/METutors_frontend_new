@@ -1,4 +1,6 @@
 import { DatePipe } from '@angular/common';
+import { IClass } from 'src/app/core/models';
+import { FormValidationUtilsService } from '@metutor/core/validators';
 import {
   Input,
   Inject,
@@ -27,12 +29,10 @@ import {
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
 import {
-  LONG_DAYS_WEEK,
   generalConstants,
+  SORTED_DAYS_WEEK,
   calculateDurationTime,
 } from 'src/app/config';
-import { IClass } from 'src/app/core/models';
-import { FormValidationUtilsService } from '@metutor/core/validators';
 
 @Component({
   selector: 'metutors-list-classrooms-form',
@@ -195,7 +195,7 @@ export class DialogEditClassroom implements OnInit {
 
   editForm: FormGroup;
   minDate = new Date();
-  listDays = LONG_DAYS_WEEK;
+  listDays = SORTED_DAYS_WEEK;
   classroomTimeDuration = generalConstants.classroomTimeDuration;
 
   constructor(

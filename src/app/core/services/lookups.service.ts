@@ -35,7 +35,7 @@ export class LookupsService {
           return response.countries.map((item) => ({
             id: item.id,
             name: item.name,
-            flag: `https://countryflagsapi.com/png/${item?.iso2}`
+            flag: `https://countryflagsapi.com/png/${item?.iso2}`,
           }));
         })
       )
@@ -95,11 +95,17 @@ export class LookupsService {
           return response.programs.map((item) => ({
             id: item.id,
             name: item.name,
+            nameEn: item.name,
+            nameAr: item.name_ar,
             title: item.title,
+            titleEn: item.title,
+            titleAr: item.title_ar,
             status: item.status,
             updatedAt: item.updated_at,
             image: environment.programImage + item.image,
             description: item.description,
+            descriptionAr: item.description_ar,
+            descriptionEn: item.description,
           }));
         })
       )
@@ -116,11 +122,14 @@ export class LookupsService {
             programs: response.programs?.data.map((item: any) => ({
               id: item.id,
               name: item.name,
+              nameAr: item.name_ar,
               image: item.image,
               title: item.title,
+              titleAr: item.title_ar,
               status: item.status,
               updatedAt: item.updated_at,
               description: item.description,
+              descriptionAr: item.description_ar,
             })),
           };
         })
@@ -144,8 +153,11 @@ export class LookupsService {
               status: ProgramStatus.active,
               title: response.program.title,
               image: response.program.image,
+              nameAr: response.program.name_ar,
+              titleAr: response.program.title_ar,
               updatedAt: response.program.updated_at,
               description: response.program.description,
+              descriptionAr: response.program.description_ar,
             },
           };
         })
@@ -169,8 +181,10 @@ export class LookupsService {
               title: response.program.title,
               image: response.program.image,
               status: response.program.status,
+              nameAr: response.program.name_ar,
+              titleAr: response.program.title_ar,
               updatedAt: response.program.updated_at,
-              description: response.program.description,
+              descriptionAr: response.program.description_ar,
             },
           };
         })
@@ -236,6 +250,8 @@ export class LookupsService {
           return response.subjects.map((item: any) => ({
             id: item.id,
             name: item.name,
+            nameAr: item.name_ar,
+            nameEn: item.name,
             pricePerHour: item.price_per_hour,
             fieldId: item.field_id,
           }));
@@ -279,11 +295,13 @@ export class LookupsService {
       .post<{ subject: any; message: string }>(`${this.BACKEND_URL}subject`, {
         name: value.name,
         grade: value.grade,
+        name_ar: value.name_ar,
         program_id: value.program,
         country_id: value.country,
         field_id: value.field,
         price_per_hour: value.price,
         description: value.description,
+        description_ar: value.description_ar,
       })
       .pipe(
         map((response) => {
@@ -302,6 +320,7 @@ export class LookupsService {
         `${this.BACKEND_URL}subject/${value.id}`,
         {
           name: value.name,
+          name_ar: value.name_ar,
           grade: value.grade,
           program_id: value.program,
           country_id: value.country,
@@ -309,6 +328,7 @@ export class LookupsService {
           price_per_hour: value.price,
           status: value.status,
           description: value.description,
+          description_ar: value.description_ar,
         }
       )
       .pipe(
@@ -348,7 +368,7 @@ export class LookupsService {
     }
 
     return this.http
-      .get<{ field_of_study: IField[] }>(`${this.BACKEND_URL}field-of-study`, {
+      .get<{ field_of_study: any[] }>(`${this.BACKEND_URL}field-of-study`, {
         params,
       })
       .pipe(
@@ -356,6 +376,8 @@ export class LookupsService {
           return response.field_of_study.map((item) => ({
             id: item.id,
             name: item.name,
+            nameAr: item.name_ar,
+            nameEn: item.name,
             image: item.image,
           }));
         })
@@ -371,6 +393,8 @@ export class LookupsService {
           return response.field_of_study.map((item: any) => ({
             id: item.id,
             name: item.name,
+            nameAr: item.name_ar,
+            nameEn: item.name,
             programId: item?.program_id,
             countryId: item?.country_id,
             grade: item?.grade,
@@ -399,7 +423,7 @@ export class LookupsService {
 
   getFieldSubjects(fieldsId: string[]): Observable<any> {
     return this.http
-      .get<{ subjects: ISubject[] }>(
+      .get<{ subjects: any[] }>(
         `${this.BACKEND_URL}multi-field-subjects?field_id=${fieldsId}`
       )
       .pipe(
@@ -407,6 +431,8 @@ export class LookupsService {
           return response.subjects.map((item) => ({
             id: item.id,
             name: item.name,
+            nameEn: item.name,
+            nameAr: item.name_ar,
           }));
         })
       )
@@ -426,6 +452,8 @@ export class LookupsService {
             field: {
               id: response.FieldOfStudy.id,
               name: response.FieldOfStudy.name,
+              nameAr: response.FieldOfStudy.name_ar,
+              nameEn: response.FieldOfStudy.name,
               programId: response.FieldOfStudy?.program_id,
               countryId: response.FieldOfStudy?.country_id,
               grade: response.FieldOfStudy?.grade,
@@ -453,6 +481,8 @@ export class LookupsService {
             field: {
               id: response.FieldOfStudy.id,
               name: response.FieldOfStudy.name,
+              nameAr: response.FieldOfStudy.name_ar,
+              nameEn: response.FieldOfStudy.name,
               image: response.FieldOfStudy.image,
               programId: response.FieldOfStudy?.program_id,
               countryId: response.FieldOfStudy?.country_id,

@@ -17,12 +17,12 @@
                   <mat-slider thumbLabel id="rating" min="0" [max]="10" class="w-100 -mt-16"
                               [value]="rating?.value ? rating?.value : 0"
                               (change)="onRatingSelect($event)"></mat-slider>
-                  <span class="total-rating col-md-2">10 Total</span>
+                  <span class="total-rating col-md-2">{{ 'TOTAL_10' | translate }}</span>
                 </div>
               </div>
 
               <div class="form-group">
-                <label class="fw-bold">File</label>
+                <label class="fw-bold">{{ 'FILE' | translate }}</label>
                 <div class="d-flex flex-column">
                   <div>
                     <button mat-button type="button" class="main-button mb-4" (click)="filePicker.click()">
@@ -58,7 +58,7 @@
                   <metutors-submit-button [form]="form" [isSubmitting]="isSubmitting$ | async"
                                           [isDisabled]="isSubmitting$| async"
                                           [extraClasses]="'w-100 float-end'">
-                    Submit
+                    {{ 'SUBMIT' | translate }}
                   </metutors-submit-button>
                 </div>
               </div>

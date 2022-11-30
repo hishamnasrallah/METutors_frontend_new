@@ -1,20 +1,28 @@
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { find, isNil, omitBy } from 'lodash';
+import * as fromCore from '@metutor/core/state';
+import { Component, OnInit } from '@angular/core';
+import { generalConstants } from '@metutor/config';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import * as fromPublic from '@metutor/modules/public/state';
+import * as fromPublicActions from '@metutor/modules/public/state/actions';
+import {
+  IField,
+  ISubject,
+  ICountry,
+  IProgram,
+  ILanguage,
+  IExploreCoursesFilters
+} from '@metutor/core/models';
 import {
   state,
   style,
   group,
   trigger,
   animate,
-  transition,
+  transition
 } from '@angular/animations';
-import { Store } from '@ngrx/store';
-import { maxBy, minBy } from 'lodash';
-import * as fromCore from '@metutor/core/state';
-import { Component, OnInit } from '@angular/core';
-import { filter, Observable, take, tap } from 'rxjs';
-import * as fromPublic from '@metutor/modules/public/state';
-import { MoneyService } from '@metutor/core/services/money.service';
-import { ICountry, ILanguage, IProgram } from '@metutor/core/models';
-import * as fromPublicActions from '@metutor/modules/public/state/actions';
 
 @Component({
   selector: 'metutors-all-courses',
@@ -28,39 +36,55 @@ import * as fromPublicActions from '@metutor/modules/public/state/actions';
 
         group([
           animate(300, style({ height: 0 })),
-          animate('200ms ease-in-out', style({ opacity: '0' })),
-        ]),
+          animate('200ms ease-in-out', style({ opacity: '0' }))
+        ])
       ]),
       transition(':enter', [
         style({ height: '0', opacity: 0 }),
 
         group([
           animate(300, style({ height: '*' })),
-          animate('400ms ease-in-out', style({ opacity: '1' })),
-        ]),
-      ]),
-    ]),
-  ],
+          animate('400ms ease-in-out', style({ opacity: '1' }))
+        ])
+      ])
+    ])
+  ]
 })
 export class AllCoursesComponent implements OnInit {
-  isLoading$: Observable<boolean>;
-  exploredCourses$: Observable<any>;
+  range$: Observable<any | null>;
+  count$: Observable<number | null>;
+  loadingCourses$: Observable<boolean>;
+  fields$: Observable<IField[] | null>;
   isRequestCourse$: Observable<boolean>;
+  loadingPrograms$: Observable<boolean>;
+  loadingCountries$: Observable<boolean>;
+  courses$: Observable<ISubject[] | null>;
   programs$: Observable<IProgram[] | null>;
   countries$: Observable<ICountry[] | null>;
   languages$: Observable<ILanguage[] | null>;
   showRequestCourseModal$: Observable<boolean>;
+  selectedProgram$: Observable<IProgram | null>;
 
-  name?: string;
-  minValue: number;
-  maxValue: number;
-  minPricerPerHour: number;
-  maxPricerPerHour: number;
+  page = 1;
+  program = 0;
+  perPage = 10;
+  title: string;
+  country: number;
+  minPrice?: number;
+  maxPrice?: number;
+  countries: ICountry[];
+  fields: number[] = [];
   openFilter: boolean = true;
   openPriceFilter: boolean = false;
-  selectedFieldOfStudy: number[] = [];
 
-  constructor(private _store: Store<any>, private _money: MoneyService) {}
+  constructor(private _store: Store<any>, private _route: ActivatedRoute) {
+    this._route.paramMap.subscribe((res: ParamMap) => {
+      this.program = +res.get('programId')! || 0;
+      this.country = +this._route.snapshot.queryParams['country'] || 0;
+
+      this.onFilterCourses();
+    });
+  }
 
   ngOnInit(): void {
     this._prepareCourses();
@@ -83,32 +107,78 @@ export class AllCoursesComponent implements OnInit {
     this._store.dispatch(fromPublicActions.closeRequestCourseModal());
   }
 
+  onChangeProgram({
+    program,
+    country
+  }: {
+    program: number;
+    country: number;
+  }): void {
+    if (
+      this.program !== generalConstants.nationalId &&
+      this.program === program
+    )
+      return;
+
+    this.page = 1;
+    this.fields = [];
+    this.program = program;
+    this.country = country;
+    this.minPrice = undefined;
+    this.maxPrice = undefined;
+    this.onFilterCourses();
+  }
+
+  onPageChange({ page }: { page: number }): void {
+    if (page === this.page) return;
+
+    this.page = page;
+    window.scrollTo(0, 0);
+    this.onFilterCourses();
+  }
+
   onChangeField(event: any, id: number): void {
-    if (event?.checked) {
-      this.selectedFieldOfStudy.push(id);
-    } else {
-      this.selectedFieldOfStudy.splice(
-        this.selectedFieldOfStudy.indexOf(id),
-        1
-      );
-    }
+    this.fields = [...this.fields];
+
+    if (event?.checked) this.fields.push(id);
+    else this.fields.splice(this.fields.indexOf(id), 1);
+
+    this.onFilterCourses();
   }
 
-  onChangeValue(value: any): void {
-    this.minPricerPerHour = value?.value;
-    this.maxPricerPerHour = value?.highValue;
-    this.filterCourses();
+  removeField(id: number): void {
+    this.fields = [...this.fields];
+    this.fields.splice(this.fields.indexOf(id), 1);
+    this.onFilterCourses();
   }
 
-  filterCourses(): void {
-    this.exploredCourses$ = this._store.select(
-      fromCore.selectFilteredExploredCourses,
-      {
-        name: this.name,
-        fieldIds: this.selectedFieldOfStudy,
-        minPricerPerHour: this.minPricerPerHour,
-        maxPricerPerHour: this.maxPricerPerHour,
-      }
+  getFieldObject(fields: IField[], id: number): IField | undefined {
+    return find(fields, { id });
+  }
+
+  onChangeValue(range: any): void {
+    this.minPrice = range.value;
+    this.maxPrice = range.highValue;
+
+    this.onFilterCourses();
+  }
+
+  onFilterCourses(): void {
+    const filters: IExploreCoursesFilters = {
+      search: this.title || undefined,
+      country_id: this.country ? this.country : undefined,
+      program: this.program,
+      page: this.page,
+      price_start: this.minPrice,
+      price_end: this.maxPrice,
+      field_ids:
+        this.fields && this.fields.length
+          ? JSON.stringify(this.fields)
+          : undefined
+    };
+
+    this._store.dispatch(
+      fromCore.exploreCourses({ filters: omitBy(filters, isNil) })
     );
   }
 
@@ -117,52 +187,34 @@ export class AllCoursesComponent implements OnInit {
   }
 
   private _prepareCourses(): void {
-    this._store.dispatch(fromCore.exploreCourses());
-    this.exploredCourses$ = this._store.select(fromCore.selectExploredCourses);
-    this.exploredCourses$.subscribe((courses) => {
-      if (courses && courses?.subjects && courses?.subjects?.length) {
-        const min: any = minBy(courses.subjects, 'pricePerHour');
-        this.minValue = min?.pricePerHour;
-
-        const max: any = maxBy(courses.subjects, 'pricePerHour');
-        this.maxValue = max?.pricePerHour;
-
-        // this._store
-        //   .select(fromCore.selectCurrentCurrency)
-        //   .subscribe((toCurrency) => {
-        //     this._money
-        //       .convert(
-        //         parseFloat(min?.pricePerHour.toString()),
-        //         toCurrency,
-        //         false,
-        //         true
-        //       )
-        //       .subscribe((res) => (this.minValue = res.toFixed(2)));
-
-        //     this._money
-        //       .convert(
-        //         parseFloat(max?.pricePerHour.toString()),
-        //         toCurrency,
-        //         false,
-        //         true
-        //       )
-        //       .subscribe((res) => (this.maxValue = res.toFixed(2)));
-        //   });
-      }
-    });
-    this.isLoading$ = this._store.select(
-      fromCore.selectIsLoadingExploredCourses
+    this.courses$ = this._store.select(fromCore.selectExploreCourses);
+    this.count$ = this._store.select(fromCore.selectExploreCoursesCount);
+    this.range$ = this._store.select(fromCore.selectExploreCoursesRange);
+    this.fields$ = this._store.select(
+      fromCore.selectExploreCoursesFieldsOfStudy
+    );
+    this.selectedProgram$ = this._store.select(
+      fromCore.selectExploreCoursesProgram
+    );
+    this.loadingCourses$ = this._store.select(
+      fromCore.selectIsLoadingExploreCourses
     );
   }
 
   private _preparePrograms(): void {
     this._store.dispatch(fromCore.loadPrograms());
     this.programs$ = this._store.select(fromCore.selectPrograms);
+    this.loadingPrograms$ = this._store.select(
+      fromCore.selectIsLoadingPrograms
+    );
   }
 
   private _prepareCountries(): void {
     this._store.dispatch(fromCore.loadProgramCountries());
     this.countries$ = this._store.select(fromCore.selectProgramCountries);
+    this.loadingCountries$ = this._store.select(
+      fromCore.selectIsLoadingCountries
+    );
   }
 
   private _prepareLanguages(): void {

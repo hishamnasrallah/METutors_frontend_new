@@ -2,18 +2,11 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-6">
-        <h1 class="f-size-20-md-sm">
-          A relaxed yet professional learning environment
-        </h1>
-        <p class="mt-1 f-size-17-md-sm">
-          We offer affordable one-on-one tutoring for a quality personalized learning experience.
-        </p>
-        <p class="mt-4 f-size-17-md-sm">
-          We love to hear your feedback and are always adding new courses to our syllabus. Please get in touch below if
-          you have any suggestions!
-        </p>
+        <h1 class="f-size-20-md-sm">{{ 'PROFESSIONAL_LEARNING_ENVIRONMENT' | translate }}</h1>
+        <p class="mt-1 f-size-17-md-sm">{{ 'PROFESSIONAL_LEARNING_ENVIRONMENT_DESC' | translate }}</p>
+        <p class="mt-4 f-size-17-md-sm">{{ 'PROFESSIONAL_LEARNING_ENVIRONMENT_DETAILS' | translate }}</p>
         <button mat-flat-button color="primary" class="mt-4" (click)="requestCourse.emit()">
-          Request New Course
+          {{ 'REQUEST_NEW_COURSE' | translate }}
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="rotate-180-ar">
             <path
               d="M16.172 10.9999H4V12.9999H16.172L10.808 18.3639L12.222 19.7779L20 11.9999L12.222 4.22192L10.808 5.63592L16.172 10.9999Z"

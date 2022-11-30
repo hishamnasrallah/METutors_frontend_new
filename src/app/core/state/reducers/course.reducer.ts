@@ -1,9 +1,9 @@
-import { createReducer, on } from '@ngrx/store';
-
-import { ICourse } from '@models';
 import camelcaseKeys from 'camelcase-keys';
+import { createReducer, on } from '@ngrx/store';
 import * as tutorActions from '../actions/tutor.actions';
 import * as courseActions from '../actions/course.actions';
+import { ISubject, IField, ICourse, IProgram } from '@models';
+import * as languageActions from '../actions/language-menu.actions';
 
 export interface State {
   courses: any;
@@ -21,72 +21,80 @@ export interface State {
   isLoadingCourse: boolean;
 
   // Explore courses
-  exploredCourses: any;
+  exploreCoursesRange: any;
+  exploreCourses: ISubject[];
+  exploreCoursesCount: number;
   isLoadingExploreCourses: boolean;
+  exploreCoursesFieldsOfStudy: IField[];
+  exploreCoursesProgram: IProgram | null;
 }
 
 export const initialState: State = {
   course: null,
   courses: null,
   courseRefund: null,
-  exploredCourses: null,
+  exploreCourses: [],
+  exploreCoursesCount: 0,
   isLoadingCourse: false,
   isLoadingCourses: false,
   isRejectingCourse: false,
   isAcceptingCourse: false,
   isCancelingCourse: false,
+  exploreCoursesRange: null,
   isReassigningTutor: false,
   loadingCoursesFailure: '',
+  exploreCoursesProgram: null,
   isLoadingRefundCourse: false,
   isLoadingExploreCourses: false,
+  exploreCoursesFieldsOfStudy: []
 };
 
 export const reducer = createReducer(
   initialState,
-  on(courseActions.loadCourses, (state) => ({
+  on(courseActions.loadCourses, state => ({
     ...state,
-    isLoadingCourses: true,
+    isLoadingCourses: true
   })),
 
   on(courseActions.loadCoursesSuccess, (state, { courses }) => ({
     ...state,
     courses,
-    isLoadingCourses: false,
+    isLoadingCourses: false
   })),
 
   on(courseActions.loadCoursesFailure, (state, { error }) => ({
     ...state,
     isLoadingCourses: false,
-    loadingCoursesFailure: error?.message,
+    loadingCoursesFailure: error?.message
   })),
 
-  on(courseActions.loadCoursesEnded, (state) => ({
+  on(courseActions.loadCoursesEnded, state => ({
     ...state,
-    isLoadingCourses: false,
+    isLoadingCourses: false
   })),
 
-  on(courseActions.loadCourseById, (state) => ({
+  on(courseActions.loadCourseById, state => ({
     ...state,
-    isLoadingCourse: true,
+    isLoadingCourse: true
   })),
 
   on(courseActions.loadCourseByIdSuccess, (state, { course }) => ({
     ...state,
     course,
-    isLoadingCourse: false,
+    isLoadingCourse: false
   })),
 
-  on(courseActions.loadCourseByIdFailure, (state) => ({
+  on(courseActions.loadCourseByIdFailure, state => ({
     ...state,
-    isLoadingCourse: false,
+    isLoadingCourse: false
   })),
 
   on(
     courseActions.studentRefundCourse,
     courseActions.studentRefundCourseClasses,
-    (state) => ({
+    state => ({
       ...state,
-      isLoadingRefundCourse: true,
+      isLoadingRefundCourse: true
     })
   ),
 
@@ -94,28 +102,30 @@ export const reducer = createReducer(
     courseActions.studentRefundCourseSuccess,
     courseActions.studentRefundCourseClassesSuccess,
     (state, { courseRefund }) => {
-      const finalState = {
+      const finalState: any = {
         ...state,
         courseRefund,
-        isLoadingRefundCourse: false,
+        isLoadingRefundCourse: false
       };
 
       if (finalState.courseRefund.hasOwnProperty('refundableClasses')) {
-        const nonRefundableClasses =
-          finalState.courseRefund?.nonRefundableClasses.map((cls: any) => ({
+        const nonRefundableClasses = finalState.courseRefund?.nonRefundableClasses.map(
+          (cls: any) => ({
             ...cls,
-            isNonRefundable: true,
-          }));
+            isNonRefundable: true
+          })
+        );
 
-        const refundableClasses =
-          finalState.courseRefund?.refundableClasses.map((cls: any) => ({
+        const refundableClasses = finalState.courseRefund?.refundableClasses.map(
+          (cls: any) => ({
             ...cls,
-            isNonRefundable: false,
-          }));
+            isNonRefundable: false
+          })
+        );
 
         finalState.courseRefund = {
           ...finalState.courseRefund,
-          allClasses: [...nonRefundableClasses, ...refundableClasses],
+          allClasses: [...nonRefundableClasses, ...refundableClasses]
         };
       }
 
@@ -126,64 +136,110 @@ export const reducer = createReducer(
   on(
     courseActions.studentRefundCourseFailure,
     courseActions.studentRefundCourseClassesFailure,
-    (state) => ({
+    state => ({
       ...state,
-      isLoadingRefundCourse: false,
+      isLoadingRefundCourse: false
     })
   ),
 
-  on(courseActions.exploreCourses, (state) => ({
+  on(courseActions.exploreCourses, state => ({
     ...state,
-    isLoadingExploreCourses: true,
+    isLoadingExploreCourses: true
   })),
 
-  on(courseActions.exploreCoursesSuccess, (state, { exploredCourses }) => ({
-    ...state,
-    exploredCourses,
-    isLoadingExploreCourses: false,
-  })),
+  on(
+    courseActions.exploreCoursesSuccess,
+    (
+      state,
+      { exploreCourses, coursesCount, fieldsOfStudy, range, program }
+    ) => ({
+      ...state,
+      exploreCourses:
+        exploreCourses && exploreCourses.length
+          ? exploreCourses.map(course => ({
+              ...course,
+              name:
+                localStorage.getItem('DEFAULT_LANGUAGE') === 'ar'
+                  ? course?.nameAr
+                  : course?.nameEn,
+              description:
+                localStorage.getItem('DEFAULT_LANGUAGE') === 'ar'
+                  ? course?.descriptionAr
+                  : course?.descriptionEn
+            }))
+          : [],
+      isLoadingExploreCourses: false,
+      exploreCoursesRange: range,
+      exploreCoursesProgram: {
+        ...program,
+        name:
+          localStorage.getItem('DEFAULT_LANGUAGE') === 'ar'
+            ? program?.nameAr
+            : program?.nameEn,
+        title:
+          localStorage.getItem('DEFAULT_LANGUAGE') === 'ar'
+            ? program?.titleAr
+            : program?.titleEn,
+        description:
+          localStorage.getItem('DEFAULT_LANGUAGE') === 'ar'
+            ? program?.descriptionAr
+            : program?.descriptionEn
+      },
+      exploreCoursesCount: coursesCount,
+      exploreCoursesFieldsOfStudy:
+        fieldsOfStudy && fieldsOfStudy.length
+          ? fieldsOfStudy.map(field => ({
+              ...field,
+              name:
+                localStorage.getItem('DEFAULT_LANGUAGE') === 'ar'
+                  ? field?.nameAr
+                  : field?.nameEn
+            }))
+          : []
+    })
+  ),
 
-  on(courseActions.exploreCoursesFailure, (state) => ({
+  on(courseActions.exploreCoursesFailure, state => ({
     ...state,
-    isLoadingExploreCourses: false,
+    isLoadingExploreCourses: false
   })),
 
   on(
     courseActions.tutorCancelCourse,
     courseActions.studentCancelCourse,
-    (state) => ({
+    state => ({
       ...state,
-      isCancelingCourse: true,
+      isCancelingCourse: true
     })
   ),
 
   on(
     courseActions.tutorCancelCourseSuccess,
     courseActions.studentCancelCourseSuccess,
-    (state) => ({
+    state => ({
       ...state,
-      isCancelingCourse: false,
+      isCancelingCourse: false
     })
   ),
 
   on(
     courseActions.tutorCancelCourseFailure,
     courseActions.studentCancelCourseFailure,
-    (state) => ({
+    state => ({
       ...state,
-      isCancelingCourse: false,
+      isCancelingCourse: false
     })
   ),
 
-  on(courseActions.tutorRejectCourse, (state) => ({
+  on(courseActions.tutorRejectCourse, state => ({
     ...state,
-    isRejectingCourse: true,
+    isRejectingCourse: true
   })),
 
   on(courseActions.tutorRejectCourseSuccess, (state, { courseId }) => {
     let finalState = {
       ...state,
-      isRejectingCourse: false,
+      isRejectingCourse: false
     };
 
     if (finalState?.courses?.newlyAssignedCourses) {
@@ -191,32 +247,32 @@ export const reducer = createReducer(
         ...finalState.courses,
         newlyAssignedCourses: finalState.courses.newlyAssignedCourses.filter(
           (course: any) => course.id !== courseId
-        ),
+        )
       };
 
       finalState = {
         ...finalState,
-        courses,
+        courses
       };
     }
 
     return finalState;
   }),
 
-  on(courseActions.tutorRejectCourseFailure, (state) => ({
+  on(courseActions.tutorRejectCourseFailure, state => ({
     ...state,
-    isRejectingCourse: false,
+    isRejectingCourse: false
   })),
 
-  on(courseActions.tutorAcceptCourse, (state) => ({
+  on(courseActions.tutorAcceptCourse, state => ({
     ...state,
-    isAcceptingCourse: true,
+    isAcceptingCourse: true
   })),
 
   on(courseActions.tutorAcceptCourseSuccess, (state, { courseId }) => {
     let finalState = {
       ...state,
-      isAcceptingCourse: false,
+      isAcceptingCourse: false
     };
 
     if (finalState?.courses?.newlyAssignedCourses) {
@@ -232,27 +288,27 @@ export const reducer = createReducer(
         activeCourses,
         newlyAssignedCourses: finalState.courses.newlyAssignedCourses.filter(
           (course: any) => course.id !== courseId
-        ),
+        )
       };
 
       finalState = {
         ...finalState,
-        courses,
+        courses
       };
     }
 
     return finalState;
   }),
 
-  on(courseActions.tutorAcceptCourseFailure, (state) => ({
+  on(courseActions.tutorAcceptCourseFailure, state => ({
     ...state,
-    isAcceptingCourse: false,
+    isAcceptingCourse: false
   })),
 
   // update reschedule class in upcoming classes
   on(tutorActions.tutorRescheduleClassSuccess, (state, { body }) => {
-    const finalState = {
-      ...state,
+    const finalState: any = {
+      ...state
     };
 
     if (
@@ -268,26 +324,72 @@ export const reducer = createReducer(
 
       finalState.course = {
         ...finalState.course,
-        upcomingClasses,
+        upcomingClasses
       };
     }
 
     return finalState;
   }),
 
-  on(courseActions.studentReassignTutor, (state) => ({
+  on(courseActions.studentReassignTutor, state => ({
     ...state,
-    isReassigningTutor: true,
+    isReassigningTutor: true
   })),
 
-  on(courseActions.studentReassignTutorSuccess, (state) => ({
+  on(courseActions.studentReassignTutorSuccess, state => ({
     ...state,
-    isReassigningTutor: false,
+    isReassigningTutor: false
   })),
 
-  on(courseActions.studentReassignTutorFailure, (state) => ({
+  on(courseActions.studentReassignTutorFailure, state => ({
     ...state,
-    isReassigningTutor: false,
+    isReassigningTutor: false
+  })),
+
+  on(languageActions.changeLanguage, state => ({
+    ...state,
+    exploreCourses:
+      state.exploreCourses && state.exploreCourses.length
+        ? state.exploreCourses.map(course => ({
+            ...course,
+            name:
+              localStorage.getItem('DEFAULT_LANGUAGE') === 'ar'
+                ? course?.nameAr
+                : course?.nameEn,
+            description:
+              localStorage.getItem('DEFAULT_LANGUAGE') === 'ar'
+                ? course?.descriptionAr
+                : course?.descriptionEn
+          }))
+        : [],
+    exploreCoursesProgram: state.exploreCoursesProgram
+      ? {
+          ...state.exploreCoursesProgram,
+          name:
+            localStorage.getItem('DEFAULT_LANGUAGE') === 'ar'
+              ? state.exploreCoursesProgram?.nameAr
+              : state.exploreCoursesProgram?.nameEn,
+          title:
+            localStorage.getItem('DEFAULT_LANGUAGE') === 'ar'
+              ? state.exploreCoursesProgram?.titleAr
+              : state.exploreCoursesProgram?.titleEn,
+          description:
+            localStorage.getItem('DEFAULT_LANGUAGE') === 'ar'
+              ? state.exploreCoursesProgram?.descriptionAr
+              : state.exploreCoursesProgram?.descriptionEn
+        }
+      : null,
+    exploreCoursesFieldsOfStudy:
+      state.exploreCoursesFieldsOfStudy &&
+      state.exploreCoursesFieldsOfStudy.length
+        ? state.exploreCoursesFieldsOfStudy.map(field => ({
+            ...field,
+            name:
+              localStorage.getItem('DEFAULT_LANGUAGE') === 'ar'
+                ? field?.nameAr
+                : field?.nameEn
+          }))
+        : []
   }))
 );
 
@@ -301,11 +403,22 @@ export const selectStudentCourseRefund = (state: State): ICourse | null =>
 export const selectIsLoadingRefundCourse = (state: State): any =>
   state.isLoadingRefundCourse;
 
-export const selectExploredCourses = (state: State): any =>
-  state.exploredCourses;
+export const selectExploreCourses = (state: State): any => state.exploreCourses;
 
-export const selectIsLoadingExploredCourses = (state: State): boolean =>
+export const selectIsLoadingExploreCourses = (state: State): boolean =>
   state.isLoadingExploreCourses;
+
+export const selectExploreCoursesCount = (state: State): number =>
+  state.exploreCoursesCount;
+
+export const selectExploreCoursesFieldsOfStudy = (state: State): IField[] =>
+  state.exploreCoursesFieldsOfStudy;
+
+export const selectExploreCoursesRange = (state: State): IField[] =>
+  state.exploreCoursesRange;
+
+export const selectExploreCoursesProgram = (state: State): IProgram | null =>
+  state.exploreCoursesProgram;
 
 export const selectIsLoadingCourses = (state: State): boolean =>
   state.isLoadingCourses;
@@ -339,48 +452,6 @@ export const selectIsAcceptingCourse = (state: State): any =>
 
 export const selectIsCancelingCourse = (state: State): any =>
   state.isCancelingCourse;
+
 export const selectIsReassigningTutor = (state: State): any =>
   state.isReassigningTutor;
-
-export const selectFilteredExploredCourses = (
-  state: State,
-  props?: any
-): any => {
-  let exploredCourses: any = state.exploredCourses;
-
-  if (state.exploredCourses && props) {
-    exploredCourses = {
-      subjects: getFilteredExploredCourses(
-        state.exploredCourses?.subjects,
-        props
-      ),
-      fieldOfStudies: state.exploredCourses?.fieldOfStudies,
-    };
-  }
-
-  return exploredCourses;
-};
-
-const getFilteredExploredCourses = (exploredCourses: any[], props: any) => {
-  if (props?.name) {
-    exploredCourses = exploredCourses?.filter((course) =>
-      course?.name.toLowerCase().includes(props.name.toLowerCase())
-    );
-  }
-
-  if (props?.fieldIds && props?.fieldIds?.length) {
-    exploredCourses = exploredCourses.filter((course) =>
-      props?.fieldIds?.includes(course?.fieldId)
-    );
-  }
-
-  if (props?.minPricerPerHour && props?.maxPricerPerHour) {
-    exploredCourses = exploredCourses.filter(
-      (course) =>
-        course?.pricePerHour >= props?.minPricerPerHour &&
-        course?.pricePerHour <= props?.maxPricerPerHour
-    );
-  }
-
-  return exploredCourses;
-};

@@ -2,29 +2,29 @@
   <div class="card-body">
     <div class="row row-block">
       <div class="col-md-4">
-        <h2 class="f-size-17-md-sm">Classroom setup</h2>
+        <h2 class="f-size-17-md-sm">{{ 'CLASSROOM_SETUP' | translate }}</h2>
         <h4 class="f-size-15-md-sm">
-          Choose your class schedule and make sure your  <strong>FIRST</strong> class starts after {{ startingHoursLimit }} hours.
-          </h4>
+          <span [innerHTML]="'CLASSROOM_INFO_HINT' | translate"></span> <bdi>{{ startingHoursLimit }} {{ 'HOURS_SM' | translate }}.</bdi>
+        </h4>
 
-        <h5 class="mt-4">Course ID: <span>CID{{ selectedCourse?.id }}</span></h5>
-        <h5 class="mb-0">Course name: <span>{{ selectedCourse?.name }}</span></h5>
+        <h5 class="mt-4">{{ 'COURSE_ID' | translate }}: <span>CID{{ selectedCourse?.id }}</span></h5>
+        <h5 class="mb-0">{{ 'COURSE_NAME' | translate }}: <span>{{ selectedCourse?.name }}</span></h5>
       </div>
       <div class="col-md-8 mt-15-sm">
         <div class="row">
           <div class="col-md-6">
-            <h3>Course start date</h3>
+            <h3>{{ 'COURSE_START_DATE' | translate }}</h3>
             <mat-form-field appearance="outline" class="w-100">
-              <input matInput [matDatepicker]="startPicker" [placeholder]="'Choose a Date'" (focus)="startPicker.open()"
+              <input matInput [matDatepicker]="startPicker" placeholder="{{ 'CHOOSE_DATE' | translate }}" (focus)="startPicker.open()"
                 [min]="minDate" (dateChange)="onChangeDateDay(); onChangeDate()" formControlName="startDate">
               <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
               <mat-datepicker #startPicker></mat-datepicker>
             </mat-form-field>
           </div>
           <div class="col-md-6">
-            <h3>Course end date</h3>
+            <h3>{{ 'COURSE_END_DATE' | translate }}</h3>
             <mat-form-field appearance="outline" class="w-100">
-              <input matInput [matDatepicker]="endPicker" [placeholder]="'Choose a Date'" (focus)="endPicker.open()"
+              <input matInput [matDatepicker]="endPicker" placeholder="{{ 'CHOOSE_DATE' | translate }}" (focus)="endPicker.open()"
                 [min]="startDate?.value" (dateChange)="onChangeDateDay(); onChangeDate()" formControlName="endDate">
               <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
               <mat-datepicker #endPicker></mat-datepicker>
@@ -33,21 +33,21 @@
         </div>
         <div class="row mt-4">
           <div class="col-md-12">
-            <h3>Class days</h3>
+            <h3>{{ 'CLASS_DAYS' | translate }}</h3>
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="days" [placeholder]="'Choose Days'" multiple
+              <mat-select formControlName="days" placeholder="{{ 'CHOOSE_DAYS' | translate }}" multiple
                 (selectionChange)="onChangeDateDay()">
                 <mat-option [value]="day" [disabled]="checkDisabledDays(day)"
-                  *ngFor="let day of listDays; let i = index">
-                  {{ day }}
+                  *ngFor="let day of daysSorted; let i = index">
+                  {{ day | uppercase | translate }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
           </div>
           <!-- <div class="col-md-6">
-            <h3>Type of Classroom</h3>
+            <h3>{{ 'TYPE_CLASSROOM' | translate }}</h3>
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="type" (selectionChange)="onChangeType()" [placeholder]="'Choose Type'">
+              <mat-select formControlName="type" (selectionChange)="onChangeType()" placeholder="{{ 'CHOOSE_TYPE' | translate }}">
                 <mat-option [value]="type.value" *ngFor="let type of types | keyvalue: returnZero">
                   {{ type.value }}
                 </mat-option>
@@ -57,9 +57,9 @@
         </div>
         <div class="row mt-4">
           <div class="col-md-6">
-            <h3>Class start time</h3>
+            <h3>{{ 'CLASS_START_TIME' | translate }}</h3>
             <div class="ngx-timepicker-field-example">
-              <input placeholder="Select Starting Time" aria-label="Select starting time" [ngxTimepicker]="startingTime"
+              <input placeholder="{{ 'SELECT_START_TIME' | translate }}" [ngxTimepicker]="startingTime"
                 formControlName="startTime" class="form-control" required (blur)="onChangeTimePicker()">
               <ngx-material-timepicker #startingTime [appendToInput]="true" [minutesGap]="30"
                 (closed)="onChangeTimePicker()">
@@ -67,13 +67,13 @@
             </div>
 
             <div class="text-danger" *ngIf="form?.hasError('startingHoursLimit')">
-              First class must be started after {{ startingHoursLimit }} hours
+              {{ 'FIRST_CLASS_START' | translate }} {{ startingHoursLimit }} {{ 'HOURS_SM' | translate }}
             </div>
           </div>
           <div class="col-md-6 mt-15-sm">
-            <h3>Class end time</h3>
+            <h3>{{ 'CLASS_END_TIME' | translate }}</h3>
             <div class="ngx-timepicker-field-example">
-              <input placeholder="Select Ending Time" aria-label="Select ending time" [ngxTimepicker]="endingTime"
+              <input placeholder="{{ 'SELECT_END_TIME' | translate }}" [ngxTimepicker]="endingTime"
                 formControlName="endTime" class="form-control" required (blur)="onChangeTimePicker()">
               <ngx-material-timepicker #endingTime [appendToInput]="true" [minutesGap]="30"
                 (closed)="onChangeTimePicker()">
@@ -83,25 +83,25 @@
         </div>
         <div class="row mt-4">
           <div class="col-md-6">
-            <h3>Class duration</h3>
+            <h3>{{ 'CLASS_DURATION' | translate }}</h3>
             <input type="text" class="form-control" formControlName="duration">
 
             <div class="text-danger" *ngIf="form?.hasError('durationError')">
-              Time duration must be between {{ classroomTimeDuration.min }} & {{ classroomTimeDuration.max }} hours
+              {{ 'TIME_DURATION_BETWEEN' | translate }} {{ classroomTimeDuration.min }} & {{ classroomTimeDuration.max }} {{ 'HOURS_SM' | translate }}
             </div>
           </div>
           <div class="col-md-6 mt-15-sm">
-            <h3>Total hours</h3>
+            <h3>{{ 'TOTAL_HOURS' | translate }}</h3>
             <input type="text" class="form-control" formControlName="hours">
           </div>
         </div>
         <div class="row mt-4">
           <div class="col-md-6">
-            <h3>Total classes</h3>
+            <h3>{{ 'TOTAL_CLASSES' | translate }}</h3>
             <input type="text" class="form-control" formControlName="totalClasses">
           </div>
           <!-- <div class="col-md-6" *ngIf="showSeatAttendees">
-            <h3>Seat Attendees</h3>
+            <h3>{{ 'SEAT_ATTENDEES' | translate }}</h3>
             <input type="number" max="10" min="1" step="1" class="form-control" formControlName="seatAttendees">
           </div> -->
         </div>
@@ -111,10 +111,10 @@
               <div class="d-flex">
                 <div class="flex-grow-1">
                   <h5 class="d-flex align-items-center">
-                    Estimated price: <h1 class="mb-0 f-size-20-md-sm">
+                    {{ 'ESTIMATED_PRICE' | translate }}: <h1 class="mb-0 f-size-20-md-sm">
                       {{ (price * +hours?.value) | metutorsMoney | async }}</h1>
                   </h5>
-                  <p>Final price based on total number of class hours</p>
+                  <p>{{ 'FINAL_PRICE_BASED_HOURS' | translate }}</p>
                 </div>
               </div>
             </div>
@@ -122,9 +122,9 @@
               <div class="d-flex">
                 <div class="flex-grow-1">
                   <h5 class="d-flex align-items-center">
-                    Total hours: <h1 class="mb-0 f-size-20-md-sm">{{ hours?.value }} {{ +hours?.value > 1 ? ('HRS_SM' | translate) : ('HR_SM' | translate) }}</h1>
+                    {{ 'TOTAL_HOURS' | translate }}: <h1 class="mb-0 f-size-20-md-sm">{{ hours?.value }} {{ +hours?.value > 1 ? ('HRS_SM' | translate) : ('HR_SM' | translate) }}</h1>
                   </h5>
-                  <p>Hourly rate: {{ price | metutorsMoney | async }}</p>
+                  <p>{{ 'HOURLY_RATE' | translate }}: {{ price | metutorsMoney | async }}</p>
                 </div>
               </div>
             </div>

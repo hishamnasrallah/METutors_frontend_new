@@ -1,17 +1,17 @@
 import { of } from 'rxjs';
+import { selectCourses } from '..';
 import { Store } from '@ngrx/store';
+import { CourseStatus } from '@config';
+import { isNil, omitBy } from 'lodash';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, mergeMap, catchError, withLatestFrom } from 'rxjs/operators';
-
-import { selectCourses } from '..';
-import { CourseStatus } from '@config';
 import camelcaseKeys from 'camelcase-keys';
 import { CoursesService } from '@services';
 import * as fromRouterStore from '@metutor/state';
 import * as courseActions from '../actions/course.actions';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { AlertNotificationService } from '@metutor/core/components';
+import { map, mergeMap, catchError, withLatestFrom } from 'rxjs/operators';
 
 @Injectable()
 export class CourseEffects {
@@ -22,15 +22,15 @@ export class CourseEffects {
       mergeMap(([{ params }, _courses]) => {
         if (!_courses || !_courses.length) {
           return this._courseService.loadCourses(params).pipe(
-            map((courses) =>
+            map(courses =>
               courseActions.loadCoursesSuccess({
-                courses: camelcaseKeys(courses, { deep: true }),
+                courses: camelcaseKeys(courses, { deep: true })
               })
             ),
-            catchError((error) =>
+            catchError(error =>
               of(
                 courseActions.loadCoursesFailure({
-                  error: error?.error?.message || error?.error?.errors,
+                  error: error?.error?.message || error?.error?.errors
                 })
               )
             )
@@ -48,15 +48,15 @@ export class CourseEffects {
       withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
       mergeMap(([_, { id }]) =>
         this._courseService.getCourseById(id).pipe(
-          map((course) =>
+          map(course =>
             courseActions.loadCourseByIdSuccess({
-              course: camelcaseKeys(course, { deep: true }),
+              course: camelcaseKeys(course, { deep: true })
             })
           ),
-          catchError((error) =>
+          catchError(error =>
             of(
               courseActions.loadCourseByIdFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error: error?.error?.message || error?.error?.errors
               })
             )
           )
@@ -68,25 +68,30 @@ export class CourseEffects {
   exploreCourses$ = createEffect(() =>
     this._actions$.pipe(
       ofType(courseActions.exploreCourses),
-      withLatestFrom(
-        this._store.select(fromRouterStore.selectRouteParams),
-        this._store.select(fromRouterStore.selectQueryParams)
-      ),
-      mergeMap(([_, { programId }, { country }]) =>
-        this._courseService.loadExploredCourses(programId, country).pipe(
-          map((courses) =>
-            courseActions.exploreCoursesSuccess({
-              exploredCourses: camelcaseKeys(courses, { deep: true }),
-            })
-          ),
-          catchError((error) =>
-            of(
-              courseActions.exploreCoursesFailure({
-                error: error?.error?.message || error?.error?.errors,
+      mergeMap(action =>
+        this._courseService
+          .exploreCourses(
+            action.filters.program!,
+            omitBy({ ...action.filters, program: null }, isNil)
+          )
+          .pipe(
+            map(response =>
+              courseActions.exploreCoursesSuccess({
+                exploreCourses: response?.subjects,
+                coursesCount: response?.total,
+                range: response?.range,
+                fieldsOfStudy: response?.fieldsOfStudy,
+                program: response.program
               })
+            ),
+            catchError(error =>
+              of(
+                courseActions.exploreCoursesFailure({
+                  error: error?.error?.message || error?.error?.errors
+                })
+              )
             )
           )
-        )
       )
     )
   );
@@ -99,13 +104,13 @@ export class CourseEffects {
           map(() =>
             courseActions.tutorAcceptCourseSuccess({
               courseId,
-              message: 'Course has been successfully accepted',
+              message: 'COURSE_ACCEPTED_SUCCESSFULLY'
             })
           ),
-          catchError((error) =>
+          catchError(error =>
             of(
               courseActions.tutorAcceptCourseFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error: error?.error?.message || error?.error?.errors
               })
             )
           )
@@ -122,13 +127,13 @@ export class CourseEffects {
           map(() =>
             courseActions.tutorRejectCourseSuccess({
               courseId,
-              message: 'Course has been successfully rejected',
+              message: 'COURSE_REJECTED_SUCCESSFULLY'
             })
           ),
-          catchError((error) =>
+          catchError(error =>
             of(
               courseActions.tutorRejectCourseFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error: error?.error?.message || error?.error?.errors
               })
             )
           )
@@ -146,13 +151,13 @@ export class CourseEffects {
         this._courseService.tutorCancelCourse(reason, id).pipe(
           map(() =>
             courseActions.tutorCancelCourseSuccess({
-              message: 'Course has been successfully canceled',
+              message: 'COURSE_CANCELED_SUCCESSFULLY'
             })
           ),
-          catchError((error) =>
+          catchError(error =>
             of(
               courseActions.tutorCancelCourseFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error: error?.error?.message || error?.error?.errors
               })
             )
           )
@@ -167,15 +172,15 @@ export class CourseEffects {
       withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
       mergeMap(([{ refundType }, { id }]) =>
         this._courseService.getCourseRefund(id, refundType).pipe(
-          map((courseRefund) =>
+          map(courseRefund =>
             courseActions.studentRefundCourseSuccess({
-              courseRefund: camelcaseKeys(courseRefund, { deep: true }),
+              courseRefund: camelcaseKeys(courseRefund, { deep: true })
             })
           ),
-          catchError((error) =>
+          catchError(error =>
             of(
               courseActions.studentRefundCourseFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error: error?.error?.message || error?.error?.errors
               })
             )
           )
@@ -190,15 +195,15 @@ export class CourseEffects {
       withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
       mergeMap(([{ params }, { id }]) =>
         this._courseService.getCourseClassRefund(id, params).pipe(
-          map((courseRefund) =>
+          map(courseRefund =>
             courseActions.studentRefundCourseClassesSuccess({
-              courseRefund: camelcaseKeys(courseRefund, { deep: true }),
+              courseRefund: camelcaseKeys(courseRefund, { deep: true })
             })
           ),
-          catchError((error) =>
+          catchError(error =>
             of(
               courseActions.studentRefundCourseClassesFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error: error?.error?.message || error?.error?.errors
               })
             )
           )
@@ -215,13 +220,13 @@ export class CourseEffects {
         this._courseService.studentCancelCourse(body, id).pipe(
           map(() =>
             courseActions.studentCancelCourseSuccess({
-              status: CourseStatus.cancelledByStudent,
+              status: CourseStatus.cancelledByStudent
             })
           ),
-          catchError((error) =>
+          catchError(error =>
             of(
               courseActions.studentCancelCourseFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error: error?.error?.message || error?.error?.errors
               })
             )
           )
@@ -239,13 +244,13 @@ export class CourseEffects {
           map(() =>
             courseActions.studentRequestAdminAssignTutorSuccess({
               status: CourseStatus.requestedToMetutors,
-              message: 'Request submitted successfully',
+              message: 'REQUEST_SUBMITTED_SUCCESSFULLY'
             })
           ),
-          catchError((error) =>
+          catchError(error =>
             of(
               courseActions.studentRequestAdminAssignTutorFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error: error?.error?.message || error?.error?.errors
               })
             )
           )
@@ -263,13 +268,13 @@ export class CourseEffects {
           map(({ message }) =>
             courseActions.studentReassignTutorSuccess({
               status: CourseStatus.pending,
-              message,
+              message
             })
           ),
-          catchError((error) =>
+          catchError(error =>
             of(
               courseActions.studentReassignTutorFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error: error?.error?.message || error?.error?.errors
               })
             )
           )
@@ -295,13 +300,13 @@ export class CourseEffects {
             courseActions.tutorAcceptCourseSuccess,
             courseActions.tutorRejectCourseSuccess,
             courseActions.tutorCancelCourseSuccess,
-            courseActions.studentRequestAdminAssignTutorSuccess,
+            courseActions.studentRequestAdminAssignTutorSuccess
           ]
         ),
         map(({ message }) => this._alertNotificationService.success(message))
       ),
     {
-      dispatch: false,
+      dispatch: false
     }
   );
 
@@ -315,13 +320,13 @@ export class CourseEffects {
             courseActions.tutorCancelCourseFailure,
             courseActions.studentCancelCourseFailure,
             courseActions.studentReassignTutorFailure,
-            courseActions.studentRequestAdminAssignTutorFailure,
+            courseActions.studentRequestAdminAssignTutorFailure
           ]
         ),
         map(({ error }) => this._alertNotificationService.error(error))
       ),
     {
-      dispatch: false,
+      dispatch: false
     }
   );
 

@@ -1,8 +1,8 @@
 <h2 mat-dialog-title class="dialog-title">
-  Select available teaching hours
+  {{ 'SELECT_AVAILABLE_TEACHING_HOURS' | translate }}
 
   <button mat-button (click)="unSelectAll()" type="button" *ngIf="selectedHoursList && selectedHoursList.length"
-    class="float-end reset-btn d-none d-sm-inline-block">Reset</button>
+    class="float-end reset-btn d-none d-sm-inline-block">{{ 'RESET' | translate }}</button>
 </h2>
 <mat-dialog-content class="mat-typography">
   <div class="row">
@@ -19,16 +19,16 @@
     <div class="d-flex justify-content-between align-items-center mb-2 w-100-sm">
       <mat-checkbox [checked]="selectedHoursList.length === hours.length"
         (change)="selectedHoursList.length === hours.length ? unSelectAll() : selectAll()">
-        Select all
+        {{ 'SELECT_ALL' | translate }}
       </mat-checkbox>
       <button mat-button (click)="unSelectAll()" type="button" *ngIf="selectedHoursList && selectedHoursList.length"
-              class="float-end reset-btn d-inline-block d-sm-none">Reset</button>
+              class="float-end reset-btn d-inline-block d-sm-none">{{ 'RESET' | translate }}</button>
     </div>
   </ng-container>
 
   <div class="d-flex justify-content-end flex-grow-1">
-    <button mat-button [mat-dialog-close]="tempHours" type="button" class="btn-cancel">Cancel</button>
+    <button mat-button [mat-dialog-close]="tempHours" type="button" class="btn-cancel">{{ 'CANCEL' | translate }}</button>
     <button mat-flat-button color="primary" [mat-dialog-close]="selectedHoursList" cdkFocusInitial
-      [disabled]="(!selectedHoursList || !selectedHoursList.length) && isDisabled">Confirm</button>
+      [disabled]="(!selectedHoursList || !selectedHoursList.length) && isDisabled">{{ 'CONFIRM' | translate }}</button>
   </div>
 </mat-dialog-actions>

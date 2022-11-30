@@ -1,3 +1,4 @@
+import * as moment from 'moment';
 import { ILookups, IMisc } from '@models';
 
 export function simpleNumber(value: number): string | number {
@@ -100,7 +101,7 @@ function parseTime(time: string): any {
 
 export function calculateListDays(startDate: string, endDate: string) {
   const day = 1000 * 60 * 60 * 24;
-  const dateArray = new Array();
+  const dateArray = [];
   const diff =
     (new Date(endDate).getTime() - new Date(startDate).getTime()) / day;
   for (let i = 0; i <= diff; i++) {
@@ -132,4 +133,14 @@ export function dataURLtoFile(dataUrl: any, filename = 'image.png'): any {
   }
 
   return new File([u8arr], filename, { type: mime });
+}
+
+export function dateToISOString(date: any, time = null): any {
+  const _date = moment(date).format('YYYY-MM-DD');
+
+  const dateTime = time
+    ? moment(_date + ' ' + time, 'YYYY-MM-DD HH:mm a')
+    : moment(_date);
+
+  return dateTime.toISOString();
 }

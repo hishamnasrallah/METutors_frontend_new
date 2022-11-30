@@ -35,7 +35,7 @@
                         <path id="Path-3" data-name="Path" d="M2.047,0A2.047,2.047,0,1,0,4.095,2.047,2.047,2.047,0,0,0,2.047,0Z" transform="translate(3.137)"/>
                       </g>
                     </svg>
-                    {{ 'IM_A' | translate }} {{ role?.name }}
+                    {{ 'IM_A' | translate }} {{ (role?.name)! + '_SM' | uppercase | translate }}
                   </button>
                 </div>
               </div>
@@ -45,7 +45,7 @@
                 <div class="form-group">
                   <label for="firstName">{{ 'WHATS_FIRST_NAME' | translate }}</label>
                   <input type="text" class="custom-input w-100 input-bordered" id="firstName" placeholder="{{ 'FIRST_NAME' | translate }}"
-                    formControlName="firstName" meTutorsLettersOnly>
+                    formControlName="firstName" meTutorsLettersOnly meTutorsTrimInput>
                   <div class="text-danger" *ngIf="firstName?.touched && firstName?.invalid">
                     {{ 'WRITE_VALID_FIRST_NAME' | translate }}
                   </div>
@@ -55,7 +55,7 @@
                 <div class="form-group">
                   <label for="lastName">{{ 'WHATS_LAST_NAME' | translate }}</label>
                   <input type="text" class="custom-input w-100 input-bordered" id="lastName" placeholder="{{ 'LAST_NAME' | translate }}"
-                    formControlName="lastName" meTutorsLettersOnly>
+                    formControlName="lastName" meTutorsLettersOnly meTutorsTrimInput>
                   <div class="text-danger" *ngIf="lastName?.touched && lastName?.invalid">
                     {{ 'WRITE_VALID_LAST_NAME' | translate }}
                   </div>
@@ -117,8 +117,8 @@
             <div class="mt-3">
               <mat-checkbox formControlName="conditions">
                 {{ 'I_AGREE_THE' | translate }} <a
-                  [routerLink]="accountType === userRole.tutor ? '/tutor-terms-conditions' : '/student-terms-conditions'"
-                  target="_blank">{{ 'TERMS_CONDITIONS' | translate }}.</a>
+                  [routerLink]="accountType === userRole.tutor ? '/tutor-terms' : '/student-terms'"
+                  target="_blank">{{ 'TERMS_CONDITIONS' | translate | lowercase }}.</a>
               </mat-checkbox>
             </div>
 

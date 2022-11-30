@@ -2,13 +2,15 @@
   <div class="card-body" *ngIf="!isLoading">
     <h1 class="title">
       {{ 'FEEDBACK_RATINGS' | translate }}
-      <span>{{ tutor?.averageRating | number:'.1-1' }} ({{ tutor?.feedbacks?.length }} {{ +(tutor?.feedbacks?.length)! > 1 ? ('REVIEWS_SM' | translate) : ('REVIEW_SM' | translate) }})</span>
+      <span>{{ tutor?.averageRating | number:'.1-1' }} ({{ tutor?.feedbacks?.length }}
+        {{ +(tutor?.feedbacks?.length)! > 1 ? ('REVIEWS_SM' | translate) : ('REVIEW_SM' | translate) }})</span>
     </h1>
-    <div class="rating-block">
+    <div class="rating-block" *ngIf="tutor?.feedbackRating"
+      [class.no-border-bottom]="!tutor?.feedbacks || !tutor?.feedbacks?.length">
       <div class="row" [class.mt-3]="!isFirst"
         *ngFor="let feedback of tutor?.feedbackRating | keyvalue; let isFirst = first">
         <div class="col">
-          <h2>{{ feedback?.key }} ({{ solveFeedbackNumber(feedback.value) | number:'.1-1' }})</h2>
+          <h2>{{ (feedback.key + "")! | translate }} ({{ solveFeedbackNumber(feedback.value) | number:'.1-1' }})</h2>
         </div>
         <div class="col-sm-3 col-5">
           <rating [ngModel]="feedback?.value" [max]="5" [readonly]="true"></rating>

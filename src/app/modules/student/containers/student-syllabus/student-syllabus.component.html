@@ -3,42 +3,42 @@
       <div class="card-body p-15-sm">
         <ng-container [ngSwitch]="view.loading">
           <ng-container *ngSwitchCase="false">
-            <h1 class="title f-size-20-md-sm">{{ view.syllabus.course?.courseName }} <span>({{ view.syllabus.course?.courseCode}})</span>
+            <h1 class="title f-size-20-md-sm">{{ view.syllabus.course?.courseName }} <span>({{ view.syllabus.course?.courseCode }})</span>
               <button mat-button class="ms-3 status" [ngClass]="view.syllabus.course?.status">{{ statusLabel[view.syllabus.course?.status].long }}</button>
             </h1>
             <div class="row list-items">
               <div class="col-md-3 d-flex menu align-items-center">
                 <img src="assets/svg/calendar.svg" alt="" width="15" height="15" draggable="false">
-                <strong>Days: </strong>
+                <strong>{{ 'DAYS' | translate }}: </strong>
                 <span class="f-size-17-md-sm">
                   <ng-container *ngFor="let day of getDays(view.syllabus?.course?.weekdays); let isLast = last">
-                    {{ day }}<ng-container *ngIf="!isLast">, </ng-container>
+                    {{ day | uppercase | translate }}<ng-container *ngIf="!isLast">, </ng-container>
                   </ng-container>
                 </span>
               </div>
               <div class="col-lg-3 col-md-4 d-flex menu align-items-center">
                 <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
-                <strong>Time: </strong>
-                <span class="f-size-17-md-sm">{{ view.syllabus?.course?.startTime | date:'h:mm a' }} - {{ view.syllabus?.course?.endTime | date:'h:mm a' }}</span>
+                <strong>{{ 'TIME' | translate }}: </strong>
+                <span class="f-size-17-md-sm">{{ view.syllabus?.course?.startTime | date:'h:mm a' }} - {{ view.syllabus?.course?.endTime | date:'h:mm a' }} ({{ view.syllabus?.course?.startTime | metutorsTimeDiff: view.syllabus?.course?.endTime}} {{ 'HOUR_SM' | translate }})</span>
               </div>
               <div class="col-lg-2 col-md-3 d-flex menu align-items-center">
                 <img src="assets/svg/play-circle-fill.svg" alt="" width="15" height="15" draggable="false">
-                <strong>Total hour: </strong>
+                <strong>{{ 'TOTAL_HOURS' | translate }}: </strong>
                 <span class="f-size-17-md-sm">{{ view.syllabus?.course?.totalHours }}{{ +(view.syllabus?.course?.totalHours)! > 1 ? ('HRS_SM' | translate) : ('HR_SM' | translate) }}</span>
               </div>
               <div class="col-md-2 d-flex menu align-items-center">
                 <img src="assets/svg/checkbox-circle-fill.svg" alt="" width="15" height="15" draggable="false">
-                <strong>Total classes: </strong>
+                <strong>{{ 'TOTAL_CLASSES' | translate }}: </strong>
                 <span class="f-size-17-md-sm">{{ view.syllabus?.course?.totalClasses }}</span>
               </div>
             </div>
             <div class="row mt-3">
               <div class="col-md-5 in-progress">
-                <h3 class="f-size-15-md-sm" *ngIf="view.syllabus?.courseProgress === 100">Completed</h3>
-                <h3 class="f-size-15-md-sm" *ngIf="view.syllabus?.courseProgress === 0">Not Started yet</h3>
+                <h3 class="f-size-15-md-sm" *ngIf="view.syllabus?.courseProgress === 100">{{ 'COMPLETED' | translate }}</h3>
+                <h3 class="f-size-15-md-sm" *ngIf="view.syllabus?.courseProgress === 0">{{ 'NOT_STARTED_YET' | translate }}</h3>
                 <h3 class="f-size-15-md-sm"
                   *ngIf="view.syllabus?.courseProgress&& (view.syllabus?.courseProgress > 0 && view.syllabus?.courseProgress < 100)">
-                  In progress</h3>
+                  {{ 'INPROGRESS' | translate }}</h3>
                 <div class="d-flex align-items-center">
                   <div class="flex-grow-1">
                     <mat-progress-bar class="example-margin"
@@ -70,30 +70,30 @@
     <div class="items">
       <ng-container [ngSwitch]="view.loading">
         <div class="d-flex justify-content-between">
-          <h1 class="title f-size-17-md-sm">Highlighted Topics</h1>
-          <span class="text-main text-decoration-underline add-topic cursor-pointer" (click)="OnOpenHighlightedTopicModal()">Add new topic</span>
+          <h1 class="title f-size-17-md-sm">{{ 'HIGHLIGHTED_TOPICS' | translate }}</h1>
+          <span class="text-main text-decoration-underline add-topic cursor-pointer" (click)="OnOpenHighlightedTopicModal()">{{ 'ADD_NEW_TOPIC' | translate }}</span>
         </div>
         <div class="col-12 unclassified-table">
           <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
           <div class="table-responsive" *ngSwitchCase="false">
             <table class="table my-table default-title">
               <tr>
-                <th scope="col">Topic</th>
-                <th scope="col">Topic Name</th>
-                <th scope="col">Knowledge Confidence Scale</th>
+                <th scope="col">{{ 'TOPIC' | translate }}</th>
+                <th scope="col">{{ 'TOPIC_NAME' | translate }}</th>
+                <th scope="col">{{ 'KNOWLEDGE_CONFIDENCE_SCALE' | translate }}</th>
                 <th scope="col">{{ 'ACTION' | translate }}</th>
               </tr>
 
               <tr *ngIf="!view.syllabus.highlightedTopics.length">
                 <td colspan="6">
-                  <div class="text-center">No record found</div>
+                  <div class="text-center">{{ 'NO_RECORD_FOUND' | translate }}</div>
                 </td>
               </tr>
               <ng-container *ngIf="view.syllabus.highlightedTopics.length">
                 <tr *ngFor="let topic of view.syllabus.highlightedTopics; let i=index">
-                  <td>{{ i + 1}}</td>
+                  <td>{{ i + 1 }}</td>
                   <td>{{ topic?.name }}</td>
-                  <td>{{ topic?.confidenceScale }}</td>
+                  <td>{{ topic?.confidenceScale | metutorsUppercase | translate }}</td>
                   <td><img src="assets/svg/edit.svg" width="35" height="35" class="cursor-pointer" (click)="OnOpenHighlightedTopicModal(topic)"/></td>
                 </tr>
               </ng-container>
@@ -101,22 +101,22 @@
           </div>
         </div>
 
-        <h1 class="title pt-5 f-size-17-md-sm">Unclassified Classes</h1>
+        <h1 class="title pt-5 f-size-17-md-sm">{{ 'UNCLASSIFIED_CLASSES' | translate }}</h1>
         <div class="col-12 unclassified-table">
           <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
           <div class="table-responsive" *ngSwitchCase="false">
             <table class="table my-table default-title">
               <tr>
-                <th scope="col">Class Number</th>
-                <th scope="col">Class Subject</th>
-                <th scope="col">Class Days</th>
-                <th scope="col">Start time - End time</th>
-                <th scope="col">Duration</th>
+                <th scope="col">{{ 'CLASS_NUMBER' | translate }}</th>
+                <th scope="col">{{ 'CLASS_SUBJECT' | translate }}</th>
+                <th scope="col">{{ 'CLASS_DAYS' | translate }}</th>
+                <th scope="col">{{ 'START_END_TIME' | translate }}</th>
+                <th scope="col">{{ 'DURATION' | translate }}</th>
               </tr>
 
               <tr *ngIf="!view.syllabus.unclassifiedClasses.length">
                 <td colspan="6">
-                  <div class="text-center">No record found</div>
+                  <div class="text-center">{{ 'NO_RECORD_FOUND' | translate }}</div>
                 </td>
               </tr>
               <ng-container *ngIf="view.syllabus.unclassifiedClasses.length">
@@ -132,10 +132,10 @@
           </div>
         </div>
 
-        <h1 class="title pt-5 f-size-17-md-sm">Classified Topics</h1>
+        <h1 class="title pt-5 f-size-17-md-sm">{{ 'CLASSIFIED_TOPICS' | translate }}</h1>
         <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
         <ng-container *ngSwitchCase="false">
-          <div class="text-center p-3" *ngIf="!view.syllabus?.topics.length">No record found</div>
+          <div class="text-center p-3" *ngIf="!view.syllabus?.topics.length">{{ 'NO_RECORD_FOUND' | translate }}</div>
           <ng-container *ngIf="view.syllabus?.topics.length">
             <div class="item position-relative" *ngFor="let syllabus of view.syllabus?.topics; let i = index">
               <span class="number">{{ i + 1 }}</span>
@@ -145,12 +145,12 @@
                   <div class="row list-items p-0">
                     <div class="col-md-2 d-flex menu align-items-center">
                       <img src="assets/svg/play-circle-fill.svg" alt="" width="15" height="15" draggable="false">
-                      <strong>Total classes: </strong>
+                      <strong>{{ 'TOTAL_CLASSES' | translate }}: </strong>
                       <span>{{ syllabus?.totalClasses }}</span>
                     </div>
                     <div class="col-md-2 d-flex menu align-items-center">
                       <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
-                      <strong>Total hour: </strong>
+                      <strong>{{ 'TOTAL_HOURS' | translate }}: </strong>
                       <span>{{ syllabus?.totalTopicHours }}{{ +(syllabus?.totalTopicHours)! > 1 ? ('HRS_SM' | translate) : ('HR_SM' | translate) }}</span>
                     </div>
                   </div>
@@ -158,11 +158,11 @@
                 <div class="col-md-3">
                  <!-- <div class="row">
                     <div class="col">
-                      <h3 *ngIf="syllabus?.topicProgress === 100">Completed</h3>
-                      <h3 *ngIf="syllabus?.topicProgress === 0">Not Started yet</h3>
+                      <h3 *ngIf="syllabus?.topicProgress === 100">{{ 'COMPLETED' | translate }}</h3>
+                      <h3 *ngIf="syllabus?.topicProgress === 0">{{ 'NOT_STARTED_YET' | translate }}</h3>
                       <h3
                         *ngIf="syllabus?.topicProgress && (syllabus?.topicProgress > 0 && syllabus?.topicProgress < 100)">
-                        In progress</h3>
+                        {{ 'INPROGRESS' | translate }}</h3>
                       <mat-progress-bar class="example-margin"
                                         [color]="'primary'"
                                         [value]="syllabus?.topicProgress">
@@ -188,11 +188,11 @@
                      [@slideInOut]>
                   <table class="table my-table default-title">
                     <tr>
-                      <th scope="col">Class Number</th>
-                      <th scope="col">Class Subject</th>
-                      <th scope="col">Class Days</th>
-                      <th scope="col">Start time - End time</th>
-                      <th scope="col">Duration</th>
+                      <th scope="col">{{ 'CLASS_NUMBER' | translate }}</th>
+                      <th scope="col">{{ 'CLASS_SUBJECT' | translate }}</th>
+                      <th scope="col">{{ 'CLASS_DAYS' | translate }}</th>
+                      <th scope="col">{{ 'START_END_TIME' | translate }}</th>
+                      <th scope="col">{{ 'DURATION' | translate }}</th>
                     </tr>
 
                     <tr *ngFor="let syllabusClass of syllabus?.topic?.classes; let i = index">

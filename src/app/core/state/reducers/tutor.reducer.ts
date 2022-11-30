@@ -1,9 +1,10 @@
-import { ITutor } from '@models';
+import { IField, ITutor } from '@models';
 import { TutorStatus } from '@metutor/config';
 import { createReducer, on } from '@ngrx/store';
 import * as tutorActions from '../actions/tutor.actions';
 import * as uploadActions from '../actions/upload.actions';
 import * as courseActions from '../actions/course.actions';
+import * as languageActions from '../actions/language-menu.actions';
 
 export interface State {
   dashboard: any;
@@ -27,6 +28,12 @@ export interface State {
   isLoadingAvailableTutors: boolean;
   isLoadingTutorAttendance: boolean;
   isLoadingTutorFeedbackOptions: boolean;
+
+  // Explore tutors
+  exploreTutors: ITutor[];
+  exploreTutorsCount: number;
+  isLoadingExploreTutors: boolean;
+  exploreTutorsFieldsOfStudy: IField[];
 
   // Loading Profile Tutor
   isLoadingProfileTutor: boolean;
@@ -74,12 +81,14 @@ export const initialState: State = {
   dashboard: null,
   attendance: null,
   kudosPoints: null,
+  exploreTutors: [],
   profileTutor: null,
   featuredTutors: [],
   currentTutors: null,
   pendingTutors: null,
   rejectedTutors: null,
   feedbackOptions: null,
+  exploreTutorsCount: 0,
   suspendedTutors: null,
   isLoadingTutor: false,
   availableTutors: null,
@@ -96,10 +105,12 @@ export const initialState: State = {
   isUpdateTutorProfile: false,
   isSubmittingInterview: false,
   isLoadingProfileTutor: false,
+  isLoadingExploreTutors: false,
   isCompleteTutorProfile: false,
   isLoadingCurrentTutors: false,
   isLoadingPendingTutors: false,
   isLoadingFeaturedTutors: false,
+  exploreTutorsFieldsOfStudy: [],
   isLoadingTutorAttendance: false,
   isLoadingAvailableTutors: false,
   isLoadingSuspendedTutors: false,
@@ -108,82 +119,82 @@ export const initialState: State = {
   isLoadingSubjectFeaturedTutors: false,
   tutorsCounts: {
     pendingCount: 0,
-    rejectedCount: 0,
-  },
+    rejectedCount: 0
+  }
 };
 
 export const reducer = createReducer(
   initialState,
-  on(tutorActions.loadTutor, (state) => ({
+  on(tutorActions.loadTutor, state => ({
     ...state,
-    isLoadingTutor: true,
+    isLoadingTutor: true
   })),
 
   on(tutorActions.loadTutorSuccess, (state, { tutor }) => ({
     ...state,
     tutor,
-    isLoadingTutor: false,
+    isLoadingTutor: false
   })),
 
   on(tutorActions.loadTutorFailure, (state, { error }) => ({
     ...state,
     isLoadingTutor: false,
-    loadingTutorFailure: error,
+    loadingTutorFailure: error
   })),
 
-  on(tutorActions.loadAdminTutor, (state) => ({
+  on(tutorActions.loadAdminTutor, state => ({
     ...state,
-    isLoadingTutor: true,
+    isLoadingTutor: true
   })),
 
   on(tutorActions.loadAdminTutorSuccess, (state, { tutor }) => ({
     ...state,
     tutor,
-    isLoadingTutor: false,
+    isLoadingTutor: false
   })),
 
   on(tutorActions.loadAdminTutorFailure, (state, { error }) => ({
     ...state,
     isLoadingTutor: false,
-    loadingTutorFailure: error,
+    loadingTutorFailure: error
   })),
 
-  on(tutorActions.loadAvailableTutors, (state) => ({
+  on(tutorActions.loadAvailableTutors, state => ({
     ...state,
-    isLoadingAvailableTutors: true,
+    isLoadingAvailableTutors: true
   })),
 
   on(tutorActions.loadAvailableTutorsSuccess, (state, { availableTutors }) => ({
     ...state,
     availableTutors,
-    isLoadingAvailableTutors: false,
+    isLoadingAvailableTutors: false
   })),
 
-  on(tutorActions.loadAvailableTutorsFailure, (state) => ({
+  on(tutorActions.loadAvailableTutorsFailure, state => ({
     ...state,
-    isLoadingAvailableTutors: false,
+    isLoadingAvailableTutors: false
   })),
 
-  on(tutorActions.loadProfileTutor, (state) => ({
+  on(tutorActions.loadProfileTutor, state => ({
     ...state,
-    isLoadingProfileTutor: true,
+    isLoadingProfileTutor: true
   })),
 
   on(tutorActions.loadProfileTutorSuccess, (state, { tutor }) => ({
     ...state,
     profileTutor: tutor,
-    isLoadingProfileTutor: false,
+    isLoadingProfileTutor: false
   })),
 
   on(tutorActions.loadProfileTutorFailure, (state, { error }) => ({
     ...state,
     isLoadingProfileTutor: false,
-    loadingProfileTutorFailure: error,
+    loadingProfileTutorFailure: error
   })),
 
-  on(tutorActions.loadTutors, (state) => ({
+  on(tutorActions.loadTutors, state => ({
     ...state,
-    isLoadingTutors: true,
+    isLoadingTutors: true
   })),
 
   on(tutorActions.loadTutorsSuccess, (state, { tutors, tutorsCounts }) => ({
@@ -191,20 +202,20 @@ export const reducer = createReducer(
     tutors,
     tutorsCounts: {
       ...state.tutorsCounts,
-      ...tutorsCounts,
+      ...tutorsCounts
     },
-    isLoadingTutors: false,
+    isLoadingTutors: false
   })),
 
   on(tutorActions.loadTutorsFailure, (state, { error }) => ({
     ...state,
     isLoadingTutors: false,
-    loadingTutorsFailure: error,
+    loadingTutorsFailure: error
   })),
 
-  on(tutorActions.loadCurrentTutors, (state) => ({
+  on(tutorActions.loadCurrentTutors, state => ({
     ...state,
-    isLoadingCurrentTutors: true,
+    isLoadingCurrentTutors: true
   })),
 
   on(
@@ -213,27 +224,27 @@ export const reducer = createReducer(
       ...state,
       currentTutors,
       currentActiveTutors: currentTutors.filter(
-        (tutor) => tutor?.status === TutorStatus.active
+        tutor => tutor?.status === TutorStatus.active
       ),
       currentInactiveTutors: currentTutors.filter(
-        (tutor) => tutor?.status === TutorStatus.deactive
+        tutor => tutor?.status === TutorStatus.deactive
       ),
       tutorsCounts: {
         ...state.tutorsCounts,
-        ...tutorsCounts,
+        ...tutorsCounts
       },
-      isLoadingCurrentTutors: false,
+      isLoadingCurrentTutors: false
     })
   ),
 
-  on(tutorActions.loadCurrentTutorsFailure, (state) => ({
+  on(tutorActions.loadCurrentTutorsFailure, state => ({
     ...state,
-    isLoadingCurrentTutors: false,
+    isLoadingCurrentTutors: false
   })),
 
-  on(tutorActions.loadPendingTutors, (state) => ({
+  on(tutorActions.loadPendingTutors, state => ({
     ...state,
-    isLoadingPendingTutors: true,
+    isLoadingPendingTutors: true
   })),
 
   on(
@@ -244,20 +255,20 @@ export const reducer = createReducer(
       rejectedTutors,
       tutorsCounts: {
         ...state.tutorsCounts,
-        ...tutorsCounts,
+        ...tutorsCounts
       },
-      isLoadingPendingTutors: false,
+      isLoadingPendingTutors: false
     })
   ),
 
-  on(tutorActions.loadPendingTutorsFailure, (state) => ({
+  on(tutorActions.loadPendingTutorsFailure, state => ({
     ...state,
-    isLoadingPendingTutors: false,
+    isLoadingPendingTutors: false
   })),
 
-  on(tutorActions.loadSuspendedTutors, (state) => ({
+  on(tutorActions.loadSuspendedTutors, state => ({
     ...state,
-    isLoadingSuspendedTutors: true,
+    isLoadingSuspendedTutors: true
   })),
 
   on(
@@ -266,18 +277,18 @@ export const reducer = createReducer(
       ...state,
       tutorsCounts,
       suspendedTutors,
-      isLoadingSuspendedTutors: false,
+      isLoadingSuspendedTutors: false
     })
   ),
 
-  on(tutorActions.loadSuspendedTutorsFailure, (state) => ({
+  on(tutorActions.loadSuspendedTutorsFailure, state => ({
     ...state,
-    isLoadingSuspendedTutors: false,
+    isLoadingSuspendedTutors: false
   })),
 
-  on(tutorActions.submitInterview, (state) => ({
+  on(tutorActions.submitInterview, state => ({
     ...state,
-    isSubmittingInterview: true,
+    isSubmittingInterview: true
   })),
 
   on(tutorActions.submitInterviewSuccess, (state, { interviewRequest }) => ({
@@ -285,59 +296,59 @@ export const reducer = createReducer(
     isSubmittingInterview: false,
     profileTutor: state.profileTutor
       ? { ...state.profileTutor, interviewRequest }
-      : null,
+      : null
   })),
 
-  on(tutorActions.submitInterviewFailure, (state) => ({
+  on(tutorActions.submitInterviewFailure, state => ({
     ...state,
-    isSubmittingInterview: false,
+    isSubmittingInterview: false
   })),
 
-  on(tutorActions.loadTutorDashboard, (state) => ({
+  on(tutorActions.loadTutorDashboard, state => ({
     ...state,
-    isLoadingDashboard: true,
+    isLoadingDashboard: true
   })),
 
   on(tutorActions.loadTutorDashboardSuccess, (state, { dashboard }) => ({
     ...state,
     dashboard,
-    isLoadingDashboard: false,
+    isLoadingDashboard: false
   })),
 
   on(tutorActions.loadTutorDashboardFailure, (state, { error }) => ({
     ...state,
-    isLoadingDashboard: false,
+    isLoadingDashboard: false
   })),
 
-  on(tutorActions.loadTutorDashboardEnded, (state) => ({
+  on(tutorActions.loadTutorDashboardEnded, state => ({
     ...state,
-    isLoadingDashboard: false,
+    isLoadingDashboard: false
   })),
 
-  on(tutorActions.completeTutorProfile, (state) => ({
+  on(tutorActions.completeTutorProfile, state => ({
     ...state,
-    isCompleteTutorProfile: true,
+    isCompleteTutorProfile: true
   })),
 
   on(tutorActions.completeTutorProfileSuccess, (state, { profileTutor }) => ({
     ...state,
     isCompleteTutorProfile: false,
-    profileTutor,
+    profileTutor
   })),
 
   on(tutorActions.completeTutorProfileFailure, (state, { error }) => ({
     ...state,
     isCompleteTutorProfile: false,
-    completeTutorProfileFailure: error,
+    completeTutorProfileFailure: error
   })),
 
   on(
     tutorActions.updateTutorProfile,
     tutorActions.updateTutorPreferences,
     tutorActions.updateTutorProfileRates,
-    (state) => ({
+    state => ({
       ...state,
-      isUpdateTutorProfile: true,
+      isUpdateTutorProfile: true
     })
   ),
 
@@ -347,7 +358,7 @@ export const reducer = createReducer(
     (state, { profileTutor }) => ({
       ...state,
       isUpdateTutorProfile: false,
-      profileTutor,
+      profileTutor
     })
   ),
 
@@ -356,7 +367,7 @@ export const reducer = createReducer(
     isUpdateTutorProfile: false,
     profileTutor: state.profileTutor
       ? { ...state.profileTutor, preferences }
-      : null,
+      : null
   })),
 
   on(
@@ -366,23 +377,73 @@ export const reducer = createReducer(
     (state, { error }) => ({
       ...state,
       isUpdateTutorProfile: false,
-      updateTutorProfileFailure: error,
+      updateTutorProfileFailure: error
     })
   ),
 
   on(uploadActions.changeAvatarSuccess, (state, { avatar }) => ({
     ...state,
-    profileTutor: state.profileTutor ? { ...state.profileTutor, avatar } : null,
+    profileTutor: state.profileTutor ? { ...state.profileTutor, avatar } : null
   })),
 
   on(uploadActions.changeCoverSuccess, (state, { cover }) => ({
     ...state,
-    profileTutor: state.profileTutor ? { ...state.profileTutor, cover } : null,
+    profileTutor: state.profileTutor ? { ...state.profileTutor, cover } : null
   })),
 
-  on(tutorActions.changeTutorStatus, (state) => ({
+  on(uploadActions.changeVideoSuccess, (state, { video }) => {
+    const finalState = {
+      ...state
+    };
+
+    if (finalState.profileTutor?.qualifications) {
+      const qualifications = {
+        ...finalState.profileTutor.qualifications,
+        video
+      };
+
+      finalState.profileTutor = {
+        ...finalState.profileTutor,
+        qualifications
+      };
+    }
+
+    return finalState;
+  }),
+
+  on(tutorActions.exploreTutors, state => ({
     ...state,
-    isChangeTutorStatus: true,
+    isLoadingExploreTutors: true
+  })),
+
+  on(
+    tutorActions.exploreTutorsSuccess,
+    (state, { tutors, tutorsCount, fieldsOfStudy }) => ({
+      ...state,
+      exploreTutors: tutors,
+      exploreTutorsCount: tutorsCount,
+      isLoadingExploreTutors: false,
+      exploreTutorsFieldsOfStudy:
+        fieldsOfStudy && fieldsOfStudy.length
+          ? fieldsOfStudy.map(field => ({
+              ...field,
+              name:
+                localStorage.getItem('DEFAULT_LANGUAGE') === 'ar'
+                  ? field?.nameAr
+                  : field?.nameEn
+            }))
+          : []
+    })
+  ),
+
+  on(tutorActions.exploreTutorsFailure, state => ({
+    ...state,
+    isLoadingExploreTutors: false
+  })),
+
+  on(tutorActions.changeTutorStatus, state => ({
+    ...state,
+    isChangeTutorStatus: true
   })),
 
   on(tutorActions.changeTutorStatusSuccess, (state, { tutorId, status }) => ({
@@ -390,21 +451,21 @@ export const reducer = createReducer(
     isChangeTutorStatus: false,
     tutors:
       state.tutors && state.tutors.length
-        ? state.tutors?.map((tutor) =>
+        ? state.tutors?.map(tutor =>
             tutor.id === tutorId ? { ...tutor, status } : { ...tutor }
           )
         : [],
     tutor: state.tutor
       ? {
           ...state.tutor,
-          status,
+          status
         }
-      : null,
+      : null
   })),
 
   on(tutorActions.changeTutorStatusFailure, (state, { error }) => ({
     ...state,
-    isChangeTutorStatus: false,
+    isChangeTutorStatus: false
   })),
 
   // On accept/reject course filter out rejected course
@@ -413,21 +474,20 @@ export const reducer = createReducer(
     courseActions.tutorRejectCourseSuccess,
     (state, { courseId }) => {
       let finalState = {
-        ...state,
+        ...state
       };
 
       if (finalState?.dashboard?.newlyAssignedCourses) {
         const dashboard = {
           ...finalState.dashboard,
-          newlyAssignedCourses:
-            finalState.dashboard.newlyAssignedCourses.filter(
-              (course: any) => course.id !== courseId
-            ),
+          newlyAssignedCourses: finalState.dashboard.newlyAssignedCourses.filter(
+            (course: any) => course.id !== courseId
+          )
         };
 
         finalState = {
           ...finalState,
-          dashboard,
+          dashboard
         };
       }
 
@@ -435,43 +495,43 @@ export const reducer = createReducer(
     }
   ),
 
-  on(tutorActions.tutorLaunchClass, (state) => ({
+  on(tutorActions.tutorLaunchClass, state => ({
     ...state,
-    isLaunchingClass: true,
+    isLaunchingClass: true
   })),
 
-  on(tutorActions.tutorLaunchClassSuccess, (state) => ({
+  on(tutorActions.tutorLaunchClassSuccess, state => ({
     ...state,
-    isLaunchingClass: false,
+    isLaunchingClass: false
   })),
 
-  on(tutorActions.tutorLaunchClassFailure, (state) => ({
+  on(tutorActions.tutorLaunchClassFailure, state => ({
     ...state,
-    isLaunchingClass: false,
+    isLaunchingClass: false
   })),
 
-  on(tutorActions.loadTutorAttendance, (state) => ({
+  on(tutorActions.loadTutorAttendance, state => ({
     ...state,
-    isLoadingTutorAttendance: true,
+    isLoadingTutorAttendance: true
   })),
 
   on(tutorActions.loadTutorAttendanceSuccess, (state, { attendance }) => ({
     ...state,
     attendance,
-    isLoadingTutorAttendance: false,
+    isLoadingTutorAttendance: false
   })),
 
-  on(tutorActions.loadTutorAttendanceFailure, (state) => ({
+  on(tutorActions.loadTutorAttendanceFailure, state => ({
     ...state,
-    isLoadingTutorAttendance: false,
+    isLoadingTutorAttendance: false
   })),
 
   on(
     tutorActions.loadTutorFeedbackOptions,
     tutorActions.loadTutorFeedbackPlatformOptions,
-    (state) => ({
+    state => ({
       ...state,
-      isLoadingTutorFeedbackOptions: true,
+      isLoadingTutorFeedbackOptions: true
     })
   ),
 
@@ -481,135 +541,150 @@ export const reducer = createReducer(
     (state, { feedbackOptions }) => ({
       ...state,
       feedbackOptions,
-      isLoadingTutorFeedbackOptions: false,
+      isLoadingTutorFeedbackOptions: false
     })
   ),
 
   on(
     tutorActions.loadTutorFeedbackOptionsFailure,
     tutorActions.loadTutorFeedbackPlatformOptionsFailure,
-    (state) => ({
+    state => ({
       ...state,
-      isLoadingTutorFeedbackOptions: false,
+      isLoadingTutorFeedbackOptions: false
     })
   ),
 
   on(
     tutorActions.tutorSubmitFeedback,
     tutorActions.tutorSubmitPlatformFeedback,
-    (state) => ({
+    state => ({
       ...state,
-      isSubmittingFeedback: true,
+      isSubmittingFeedback: true
     })
   ),
 
   on(
     tutorActions.tutorSubmitFeedbackSuccess,
     tutorActions.tutorSubmitPlatformFeedbackSuccess,
-    (state) => ({
+    state => ({
       ...state,
-      isSubmittingFeedback: false,
+      isSubmittingFeedback: false
     })
   ),
 
   on(
     tutorActions.tutorSubmitFeedbackFailure,
     tutorActions.tutorSubmitPlatformFeedbackFailure,
-    (state) => ({
+    state => ({
       ...state,
-      isSubmittingFeedback: false,
+      isSubmittingFeedback: false
     })
   ),
 
   // Reschedule class
-  on(tutorActions.tutorRescheduleClass, (state) => ({
+  on(tutorActions.tutorRescheduleClass, state => ({
     ...state,
-    isReschedulingClass: true,
+    isReschedulingClass: true
   })),
 
   on(tutorActions.tutorRescheduleClassSuccess, (state, { body }) => ({
     ...state,
-    isReschedulingClass: false,
+    isReschedulingClass: false
   })),
 
-  on(tutorActions.tutorRescheduleClassFailure, (state) => ({
+  on(tutorActions.tutorRescheduleClassFailure, state => ({
     ...state,
-    isReschedulingClass: false,
+    isReschedulingClass: false
   })),
 
   // Load Featured Tutors
-  on(tutorActions.loadFeaturedTutors, (state) => ({
+  on(tutorActions.loadFeaturedTutors, state => ({
     ...state,
-    isLoadingFeaturedTutors: true,
+    isLoadingFeaturedTutors: true
   })),
 
   on(tutorActions.loadFeaturedTutorsSuccess, (state, { tutors }) => ({
     ...state,
     featuredTutors: tutors,
-    isLoadingFeaturedTutors: false,
+    isLoadingFeaturedTutors: false
   })),
 
   on(
     tutorActions.loadFeaturedTutorsEnded,
     tutorActions.loadFeaturedTutorsFailure,
-    (state) => ({
+    state => ({
       ...state,
-      isLoadingFeaturedTutors: false,
+      isLoadingFeaturedTutors: false
     })
   ),
 
-  on(tutorActions.loadSubjectFeaturedTutors, (state) => ({
+  on(tutorActions.loadSubjectFeaturedTutors, state => ({
     ...state,
-    isLoadingSubjectFeaturedTutors: true,
+    isLoadingSubjectFeaturedTutors: true
   })),
 
   on(tutorActions.loadSubjectFeaturedTutorsSuccess, (state, { tutors }) => ({
     ...state,
     subjectFeaturedTutors: tutors,
-    isLoadingSubjectFeaturedTutors: false,
+    isLoadingSubjectFeaturedTutors: false
   })),
 
-  on(tutorActions.loadSubjectFeaturedTutorsFailure, (state) => ({
+  on(tutorActions.loadSubjectFeaturedTutorsFailure, state => ({
     ...state,
-    isLoadingSubjectFeaturedTutors: false,
+    isLoadingSubjectFeaturedTutors: false
   })),
 
-  on(tutorActions.loadTutorKudosPoints, (state) => ({
+  on(tutorActions.loadTutorKudosPoints, state => ({
     ...state,
-    isLoadingKudosPoints: true,
+    isLoadingKudosPoints: true
   })),
 
   on(tutorActions.loadTutorKudosPointsSuccess, (state, { kudosPoints }) => ({
     ...state,
     kudosPoints,
-    isLoadingKudosPoints: false,
+    isLoadingKudosPoints: false
   })),
 
-  on(tutorActions.loadTutorKudosPointsFailure, (state) => ({
+  on(tutorActions.loadTutorKudosPointsFailure, state => ({
     ...state,
-    isLoadingKudosPoints: false,
+    isLoadingKudosPoints: false
   })),
 
-  on(tutorActions.tutorAddSignature, (state) => ({
+  on(tutorActions.tutorAddSignature, state => ({
     ...state,
-    loading: true,
+    loading: true
   })),
 
   on(tutorActions.tutorAddSignatureSuccess, (state, { signature }) => ({
     ...state,
     signature,
-    loading: false,
+    loading: false
   })),
 
-  on(tutorActions.tutorAddSignatureFailure, (state) => ({
+  on(tutorActions.tutorAddSignatureFailure, state => ({
     ...state,
-    loading: false,
+    loading: false
   })),
 
   on(tutorActions.tutorSetSignature, (state, { signature }) => ({
     ...state,
     signature,
-    loading: false,
+    loading: false
+  })),
+
+  on(languageActions.changeLanguage, state => ({
+    ...state,
+    exploreTutorsFieldsOfStudy:
+      state.exploreTutorsFieldsOfStudy &&
+      state.exploreTutorsFieldsOfStudy.length
+        ? state.exploreTutorsFieldsOfStudy.map(field => ({
+            ...field,
+            name:
+              localStorage.getItem('DEFAULT_LANGUAGE') === 'ar'
+                ? field?.nameAr
+                : field?.nameEn
+          }))
+        : []
   }))
 );
 
@@ -661,6 +736,18 @@ export const selectIsLoadingSuspendedTutors = (state: State): boolean =>
   state.isLoadingSuspendedTutors;
 
 export const selectTutorsCounts = (state: State): any => state.tutorsCounts;
+
+export const selectIsLoadingExploreTutors = (state: State): boolean =>
+  state.isLoadingExploreTutors;
+
+export const selectExploreTutors = (state: State): ITutor[] =>
+  state.exploreTutors;
+
+export const selectExploreTutorsCount = (state: State): number =>
+  state.exploreTutorsCount;
+
+export const selectExploreTutorsFieldsOfStudy = (state: State): IField[] =>
+  state.exploreTutorsFieldsOfStudy;
 
 export const selectIsLoadingTutorDashboard = (state: State): boolean =>
   state.isLoadingDashboard;

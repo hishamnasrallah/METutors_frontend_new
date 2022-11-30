@@ -35,38 +35,14 @@ export class AboutComponent implements OnInit, OnDestroy {
   ];
 
   whyMeTutorsList = [
-    {
-      id: 1,
-      value: 'Next generation adaptive learning',
-    },
-    {
-      id: 2,
-      value: 'Flexible scheduling',
-    },
-    {
-      id: 3,
-      value: 'Affordable prices',
-    },
-    {
-      id: 4,
-      value: 'State-of-the-art technology',
-    },
-    {
-      id: 5,
-      value: 'Round-the-clock customer care',
-    },
-    {
-      id: 6,
-      value: 'Trusted tutors',
-    },
-    {
-      id: 7,
-      value: 'Personalized classes',
-    },
-    {
-      id: 8,
-      value: 'Subject matter experts',
-    },
+    'WHY_METUTORS_OPTION_1',
+    'WHY_METUTORS_OPTION_2',
+    'WHY_METUTORS_OPTION_3',
+    'WHY_METUTORS_OPTION_4',
+    'WHY_METUTORS_OPTION_5',
+    'WHY_METUTORS_OPTION_6',
+    'WHY_METUTORS_OPTION_7',
+    'WHY_METUTORS_OPTION_8',
   ];
 
   constructor(private _store: Store<any>) {}

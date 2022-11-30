@@ -1,13 +1,10 @@
 <div class="row courses" *ngIf="classroomsPrep && classroomsPrep.length">
   <div class="col-md-7">
-    <h1 class="f-size-25-md-sm">
-      Do you need to improve your
-      standardized test scores ?
-    </h1>
+    <h1 class="f-size-25-md-sm">{{ 'NEED_IMPROVE_SCORES' | translate }}</h1>
   </div>
   <div class="col-md-5">
     <a mat-button class="main-button-transparent float-end" routerLink="/prep-college-admission-tests">
-      Find more courses
+      {{ 'FIND_MORE_COURSES' | translate }}
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="rotate-180-ar">
         <path
           d="M16.172 10.9999H4V12.9999H16.172L10.808 18.3639L12.222 19.7779L20 11.9999L12.222 4.22192L10.808 5.63592L16.172 10.9999Z"
@@ -16,11 +13,7 @@
     </a>
   </div>
   <div class="col-12">
-    <p class="f-size-18-md-sm">
-      Improve your test scores and attend the college of your dreams! whether you prefer one-on-one instructions or
-      group classes, the experienced instructors at MEtutors will provide a learning environment that is sure
-      to produce unmatched results.
-    </p>
+    <p class="f-size-18-md-sm">{{ 'IMPROVE_TEXT_SCORES' | translate }}</p>
   </div>
   <div class="col-md-4" *ngFor="let classroom of classroomsPrep">
     <metutors-course-item [classroom]="classroom"></metutors-course-item>
@@ -29,14 +22,11 @@
 
 <div class="row courses" *ngIf="classroomsLang && classroomsLang.length">
   <div class="col-md-7">
-    <h1>
-      Learn your favorite language from
-      highly-qualified native speakers
-    </h1>
+    <h1>{{ 'LEARN_FAVORITE_LANGUAGE' | translate }}</h1>
   </div>
   <div class="col-md-5">
     <a mat-button class="main-button-transparent float-end" routerLink="/languages-courses">
-      Find more courses
+      {{ 'FIND_MORE_COURSES' | translate }}
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="rotate-180-ar">
         <path
           d="M16.172 10.9999H4V12.9999H16.172L10.808 18.3639L12.222 19.7779L20 11.9999L12.222 4.22192L10.808 5.63592L16.172 10.9999Z"
@@ -45,10 +35,7 @@
     </a>
   </div>
   <div class="col-12">
-    <p class="f-size-18-md-sm">
-      Instructors at MEtutors will guide you through your learning journey in courses customized to fit your individual
-      needs. One-on-one and group classes are available at special prices.
-    </p>
+    <p class="f-size-18-md-sm">{{ 'INSTRUCTORS_GUIDE_JOURNEY' | translate }}</p>
   </div>
 
   <div class="col-md-4" *ngFor="let classroom of classroomsLang">

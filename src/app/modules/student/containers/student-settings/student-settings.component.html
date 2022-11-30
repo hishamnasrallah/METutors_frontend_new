@@ -7,16 +7,16 @@
         <div class="col-md-4">
           <ul class="list-unstyled m-0 h-100">
             <li [class.active]="tab === 'ACCOUNT_SETTINGS'" (click)="tab = 'ACCOUNT_SETTINGS'">
-              Account settings
+              {{ 'ACCOUNT_SETTINGS' | translate }}
             </li>
             <li [class.active]="tab === 'SECURITY_SETTINGS'" (click)="tab = 'SECURITY_SETTINGS'">
-              Security settings
+              {{ 'SECURITY_SETTINGS' | translate }}
             </li>
             <li [class.active]="tab === 'USER_PREFERENCES'" (click)="tab = 'USER_PREFERENCES'">
-              User preferences
+              {{ 'USER_PREFERENCES' | translate }}
             </li>
             <li [class.active]="tab === 'USER_PAYMENTS'" (click)="tab = 'USER_PAYMENTS'">
-              Payment Information
+              {{ 'PAYMENT_INFORMATION' | translate }}
             </li>
           </ul>
         </div>

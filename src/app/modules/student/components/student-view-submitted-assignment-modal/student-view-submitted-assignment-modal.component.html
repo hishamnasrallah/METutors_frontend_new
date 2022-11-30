@@ -1,5 +1,5 @@
 <metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'medium'"
-                [heading]="'View Submitted Assignment'"
+                [heading]="'VIEW_SUBMITTED_ASSIGNMENT'"
                 [template]="template" [status]="status">
   <ng-template #template>
     <ng-container *ngLet="(view$ | async) as view">
@@ -8,13 +8,13 @@
 
         <div class="assignment-details-modal" *ngSwitchCase="false">
           <div class="form-group row">
-            <label>Description</label>
+            <label>{{ 'DESCRIPTION' | translate }}</label>
             <p class="mt-2" *ngIf="view?.assignment?.assignment?.description">
               {{ view?.assignment?.assignment?.description }}
             </p>
           </div>
 
-          <label>File</label>
+          <label>{{ 'FILE' | translate }}</label>
           <div class="form-group" *ngIf="view.assignment?.assignment?.file?.length">
             <metutors-uploaded-files [files]="view.assignment?.assignment?.file"
                                      [extraClasses]="'col-md-8'">
@@ -25,10 +25,10 @@
             *ngIf="view?.assignment?.assignment?.feedback && view?.assignment?.assignment?.feedback?.length">
             <ng-container *ngFor="let feedback of view?.assignment?.assignment?.feedback">
             <div class="form-group row mt-5">
-              <label>Assignment Feedback</label>
+              <label>{{ 'ASSIGNMENT_FEEDBACK' | translate }}</label>
               <p class="mt-2">
-                <span>Grade Rating: </span>
-                <span class="rating"> {{ feedback?.rating}} on a scale of 10 </span>
+                <span>{{ 'GRADE_RATING' | translate }}: </span>
+                <span class="rating">{{ feedback?.rating }} {{ 'ON_SCALE_10' | translate }}</span>
               </p>
 
               <p>{{ feedback?.review }}</p>
@@ -43,7 +43,8 @@
           <div class="form-group row">
             <div class="">
               <button mat-flat-button color="primary" class="fw-bold float-end px-4 py-1"
-                      (click)="onBack(view?.assignment?.assignment.assignmentId)">{{ 'BACK' | translate }}
+                      (click)="onBack(view?.assignment?.assignment.assignmentId)">
+                {{ 'BACK' | translate }}
               </button>
             </div>
           </div>

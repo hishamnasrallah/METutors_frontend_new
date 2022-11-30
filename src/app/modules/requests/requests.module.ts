@@ -25,7 +25,8 @@ import * as featureKeys from './state/feature-keys';
 import {
   RequestTutorComponent,
   InvoiceDetailsComponent,
-  PaymentProcessingComponent,
+  RequestFreeTutorComponent,
+  PaymentProcessingComponent
 } from './containers';
 
 import {
@@ -35,10 +36,11 @@ import {
   SelectTutorFormComponent,
   ClassroomInfoFormComponent,
   ListClassroomsFormComponent,
+  FreeClassroomInfoFormComponent,
   CourseInformationFormComponent,
   PaymentComingSoonModalComponent,
   InvoiceClassroomDetailsComponent,
-  ChangeCourseScheduleModalComponent,
+  ChangeCourseScheduleModalComponent
 } from './components';
 
 @NgModule({
@@ -49,13 +51,15 @@ import {
     ReviewRequestComponent,
     InvoiceDetailsComponent,
     SelectTutorFormComponent,
+    RequestFreeTutorComponent,
     ClassroomInfoFormComponent,
     PaymentProcessingComponent,
     ListClassroomsFormComponent,
+    FreeClassroomInfoFormComponent,
     CourseInformationFormComponent,
     PaymentComingSoonModalComponent,
     InvoiceClassroomDetailsComponent,
-    ChangeCourseScheduleModalComponent,
+    ChangeCourseScheduleModalComponent
   ],
   imports: [
     FormsModule,
@@ -80,7 +84,7 @@ import {
     StoreModule.forFeature(
       featureKeys.requestsFeatureKey,
       fromRequests.reducers
-    ),
-  ],
+    )
+  ]
 })
 export class RequestsModule {}

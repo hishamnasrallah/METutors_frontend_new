@@ -2,12 +2,11 @@ import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
 import camelcaseKeys from 'camelcase-keys';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
-
 import { StudentsService } from '@services';
 import * as fromRouterStore from '@metutor/state';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { AlertNotificationService } from '@metutor/core/components';
+import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 import * as fromStudentAction from '@metutor/modules/student/state/actions';
 import * as studentActions from '@metutor/core/state/actions/student.actions';
 
@@ -259,6 +258,29 @@ export class StudentEffects {
     )
   );
 
+  uploadStudentResourceDocument$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(studentActions.studentUploadResourceDocument),
+      mergeMap(({ body }) =>
+        this._studentService.uploadStudentResourceDocument(body).pipe(
+          map((resource) =>
+            studentActions.studentUploadResourceDocumentSuccess({
+              message: resource.message,
+              document: camelcaseKeys(resource.document, { deep: true }),
+            })
+          ),
+          catchError((error) =>
+            of(
+              studentActions.studentUploadResourceDocumentFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   studentJoinClass$ = createEffect(() =>
     this._actions$.pipe(
       ofType(studentActions.studentJoinClass),
@@ -337,7 +359,7 @@ export class StudentEffects {
           map(() =>
             studentActions.studentSubmitAssignmentSuccess({
               id: body.id,
-              message: 'Assignment successfully submitted',
+              message: 'ASSIGNMENT_SUBMITTED_SUCCESSFULLY',
             })
           ),
           catchError((error) =>
@@ -489,6 +511,55 @@ export class StudentEffects {
     )
   );
 
+  loadStudentCertificate$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(studentActions.loadStudentCertificate),
+      withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
+      mergeMap(([_, { id }]) =>
+        this._studentService.loadStudentCertificate(id).pipe(
+          map(({ certificate }) =>
+            studentActions.loadStudentCertificateSuccess({
+              certificate: camelcaseKeys(certificate, {
+                deep: true,
+              }),
+            })
+          ),
+          catchError((error) =>
+            of(
+              studentActions.loadStudentCertificateFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  loadStudentCertificates$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(studentActions.loadStudentCertificates),
+      mergeMap(() =>
+        this._studentService.loadStudentCertificates().pipe(
+          map(({ certificates }) =>
+            studentActions.loadStudentCertificatesSuccess({
+              certificates: camelcaseKeys(certificates, {
+                deep: true,
+              }),
+            })
+          ),
+          catchError((error) =>
+            of(
+              studentActions.loadStudentCertificatesFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   studentMakeupClass$ = createEffect(() =>
     this._actions$.pipe(
       ofType(studentActions.studentMakeupClass),
@@ -496,7 +567,7 @@ export class StudentEffects {
         this._studentService.studentMakeupClass(body).pipe(
           map(() =>
             studentActions.studentMakeupClassSuccess({
-              message: 'You have successfully makeup class',
+              message: 'MAKEUP_CLASS_SUCCESSFULLY',
             })
           ),
           catchError((error) =>
@@ -521,7 +592,7 @@ export class StudentEffects {
             studentActions.studentSubmitFeedbackSuccess({
               onHold,
               cancelCourse,
-              message: 'Feedback successfully submitted',
+              message: 'FEEDBACK_SUBMITTED_SUCCESSFULLY',
             })
           ),
           catchError((error) =>
@@ -544,7 +615,7 @@ export class StudentEffects {
         this._studentService.studentSubmitPlatformFeedback(body, id).pipe(
           map((attendance) =>
             studentActions.studentSubmitPlatformFeedbackSuccess({
-              message: 'Feedback successfully submitted',
+              message: 'FEEDBACK_SUBMITTED_SUCCESSFULLY',
             })
           ),
           catchError((error) =>
@@ -568,7 +639,7 @@ export class StudentEffects {
           map(() =>
             studentActions.studentUpdateProfileSuccess({
               body,
-              message: 'Account settings successfully updated',
+              message: 'ACCOUNT_SETTINGS_UPDATED_SUCCESSFULLY',
             })
           ),
           catchError((error) =>
@@ -592,7 +663,7 @@ export class StudentEffects {
             studentActions.studentUpdatePreferencesSuccess({
               body,
               isPreference: true,
-              message: 'User preferences successfully updated',
+              message: 'USER_PREFERENCES_UPDATED_SUCCESSFULLY',
             })
           ),
           catchError((error) =>
@@ -694,6 +765,7 @@ export class StudentEffects {
             studentActions.studentUpdatePreferencesSuccess,
             studentActions.studentSyllabusAddEditTopicSuccess,
             studentActions.studentSubmitPlatformFeedbackSuccess,
+            studentActions.studentUploadResourceDocumentSuccess,
           ]
         ),
         map(({ message }) => this._alertNotificationService.success(message))
@@ -718,15 +790,14 @@ export class StudentEffects {
             studentActions.studentUpdatePreferencesFailure,
             studentActions.studentSyllabusAddEditTopicFailure,
             studentActions.studentSubmitPlatformFeedbackFailure,
+            studentActions.studentUploadResourceDocumentFailure,
           ]
         ),
         map((action) => {
           if (action.error) {
             return this._alertNotificationService.error(action.error);
           } else {
-            return this._alertNotificationService.error(
-              'Something went wrong!'
-            );
+            return this._alertNotificationService.error('SOMETHING_WENT_WRONG');
           }
         })
       ),

@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
 import { IUser } from '@metutor/core/models';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'metutors-student-navbar',

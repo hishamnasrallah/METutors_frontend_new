@@ -1,12 +1,12 @@
 <metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()"
-                [heading]="topic ? 'Edit Course Topic' : 'Add Course Topic'"
+                [heading]="topic ? 'EDIT_COURSE_TOPIC' : 'ADD_COURSE_TOPIC'"
                 [template]="template">
   <ng-template #template>
     <form [formGroup]="form" (ngSubmit)="submitted.emit(form)">
       <button class="btn delete-topic" *ngIf="topic" type="button" (click)="deleted.emit(topic.id)"
               [disabled]="isDeletingTopic" title="Delete Topic">
         <img src="assets/svg/delete.svg" alt="" draggable="false" />
-        Delete
+        {{ 'DELETE' | translate }}
         <mat-icon class="spinner" *ngIf="isDeletingTopic">autorenew</mat-icon>
       </button>
       <div class="row add-topic-modal">
@@ -14,29 +14,29 @@
           <div class="classroom-item">
             <div class="row">
               <div class="mb-3">
-                <label for="topic" class="form-label">Enter Topic Name</label>
+                <label for="topic" class="form-label">{{ 'ENTER_TOPIC_NAME' | translate }}</label>
                 <metutors-char-counter [limit]="120" [controlName]="topicName"></metutors-char-counter>
                 <input type="text" class="form-control custom-input input-bordered" formControlName="name" id="topic"
-                       placeholder="Enter Topic Name" autocomplete="off">
+                       placeholder="{{ 'ENTER_TOPIC_NAME' | translate }}" autocomplete="off" meTutorsTrimInput>
                 <div class="text-danger" *ngIf="topicName?.touched && topicName?.invalid">
-                  Please write topic name with a max of 120 characters
+                  {{ 'WRITE_TOPIC_NAME_MAX_CHARACTERS' | translate }}
                 </div>
               </div>
               <div class="mb-3">
-                <label for="description" class="form-label">Description</label>
+                <label for="description" class="form-label">{{ 'DESCRIPTION' | translate }}</label>
                 <metutors-char-counter [limit]="250" [controlName]="description"></metutors-char-counter>
                 <textarea class="form-control custom-input input-bordered" id="description" rows="6" formControlName="description"
-                          placeholder="Enter Description here"></textarea>
+                          placeholder="{{ 'ENTER_DESCRIPTION_HERE' | translate }}"></textarea>
 
                 <div class="text-danger" *ngIf="description?.touched && description?.invalid">
-                  Please write description with a max of 250 characters
+                  {{ 'WRITE_DESCRIPTION_MAX_CHARACTERS' | translate }}
                 </div>
               </div>
               <div class="">
                 <label for="select-class" class="form-label">
-                  Select Classes
-                  <span class="remaining-class">Remaining classes ({{classes?.value ? classes?.value : 0}}
-                    out of {{ totalClasses }})</span>
+                  {{ 'SELECT_CLASSES' | translate }}
+                  <span class="remaining-class">{{ 'REMAINING_CLASSES' | translate }} ({{ classes?.value ? classes?.value : 0 }}
+                    {{ 'OUT_OF' | translate }} {{ totalClasses }})</span>
                 </label>
               </div>
               <div class="col-auto col-9 align-middle">
@@ -45,7 +45,7 @@
                             (change)="onClassSelect($event)"></mat-slider>
               </div>
               <div class="col-auto col-3">
-                <span class="selected-classes">Selected Classes</span>
+                <span class="selected-classes">{{ 'SELECTED_CLASSES' | translate }}</span>
                 <input type="text" readonly class="form-control input-bordered text-center class-input-box" placeholder="0" [value]="classes?.value ? classes?.value : 0">
               </div>
 
@@ -53,7 +53,7 @@
                 <div class="col-auto col-3 float-end">
                   <metutors-submit-button [form]="form" [isSubmitting]="isSubmitting" [isDisabled]="isDeletingTopic"
                                           [extraClasses]="'w-100 float-end'">
-                    {{ topic ? 'Edit' : 'Add'}}
+                    {{ topic ? ('EDIT' | translate) : ('ADD' | translate) }}
                   </metutors-submit-button>
                 </div>
               </div>

@@ -17,6 +17,7 @@ export class TutorComponent implements OnInit {
   constructor(private _store: Store<any>) {}
 
   ngOnInit(): void {
+    this._store.dispatch(fromCore.loadProfileTutor());
     this.tutor$ = this._store.select(fromCore.selectProfileTutor);
     this.layout$ = this._store.select(fromRoot.selectLayout);
   }

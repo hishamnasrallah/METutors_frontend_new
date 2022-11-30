@@ -19,30 +19,30 @@
       <li>
         <a [routerLink]="'/student/classrooms/classes/dashboard/' + params?.id" routerLinkActive="active"
           (click)="openSideMenu = false">
-          <span class="text-uppercase">Classes Dashboard</span>
+          <span class="text-uppercase">{{ 'CLASSES_DASHBOARD' | translate }}</span>
         </a>
       </li>
       <li>
         <a [routerLink]="'/student/classrooms/classes/syllabus/' + params?.id" routerLinkActive="active"
           (click)="openSideMenu = false">
-          <span class="text-uppercase">My Syllabus</span>
+          <span class="text-uppercase">{{ 'MY_SYLLABUS' | translate }}</span>
         </a>
       </li>
       <li>
         <a [routerLink]="'/student/classrooms/classes/resources/' + params?.id" routerLinkActive="active"
           (click)="openSideMenu = false">
-          <span class="text-uppercase">My Resources</span>
+          <span class="text-uppercase">{{ 'MY_RESOURCES' | translate }}</span>
         </a>
       </li>
       <li>
         <a [routerLink]="'/student/classrooms/classes/assignments/' + params?.id" routerLinkActive="active"
           (click)="openSideMenu = false">
-          <span class="text-uppercase">My Assignments</span>
+          <span class="text-uppercase">{{ 'MY_ASSIGNMENTS' | translate }}</span>
         </a>
       </li>
       <li>
         <a routerLink="/student/help/support-ticket" routerLinkActive="active" (click)="openSideMenu = false">
-          <span class="text-uppercase">Support ticket</span>
+          <span class="text-uppercase">{{ 'SUPPORT_TICKET' | translate }}</span>
         </a>
       </li>
     </ul>

@@ -16,6 +16,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { TutorRoutingModule } from './tutor-routing.module';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -56,6 +57,7 @@ import {
   TutorSidebarComponent,
   FaqListQuestionsComponent,
   FaqAboutStudentsComponent,
+  TutorDisputeModalComponent,
   TutorFeedbackModalComponent,
   TutorSettingsProfileComponent,
   TutorAttendanceModalComponent,
@@ -65,12 +67,15 @@ import {
   TutorRejectCourseModalComponent,
   TutorCancelCourseModalComponent,
   TutorAddAssignmentModalComponent,
+  TutorDisputePaymentModalComponent,
+  TutorPaymentSuccessModalComponent,
   TutorRescheduleClassModalComponent,
   TutorAddSyllabusTopicModalComponent,
   TutorViewKudosPointsDetailComponent,
   TutorAddClassResourceModalComponent,
   TutorAssignmentDetailsModalComponent,
   TutorSettingsUserPreferencesComponent,
+  TutorPaymentConfirmationModalComponent,
   TutorSettingsPaymentInformationComponent,
   TutorAcceptRejectAssignmentModalComponent,
   TutorSubmitInterviewRequestModalComponent,
@@ -97,6 +102,7 @@ import {
     FaqListQuestionsComponent,
     FaqAboutStudentsComponent,
     TutorCreateTicketComponent,
+    TutorDisputeModalComponent,
     TutorSupportTicketComponent,
     TutorTicketDetailsComponent,
     TutorFeedbackModalComponent,
@@ -110,12 +116,15 @@ import {
     TutorRejectCourseModalComponent,
     TutorCancelCourseModalComponent,
     TutorAddAssignmentModalComponent,
+    TutorDisputePaymentModalComponent,
+    TutorPaymentSuccessModalComponent,
     TutorRescheduleClassModalComponent,
     TutorAddSyllabusTopicModalComponent,
     TutorAddClassResourceModalComponent,
     TutorViewKudosPointsDetailComponent,
     TutorAssignmentDetailsModalComponent,
     TutorSettingsUserPreferencesComponent,
+    TutorPaymentConfirmationModalComponent,
     TutorSettingsPaymentInformationComponent,
     TutorAcceptRejectAssignmentModalComponent,
     TutorSubmitInterviewRequestModalComponent,
@@ -140,6 +149,7 @@ import {
     MatButtonModule,
     BsDropdownModule,
     MatTooltipModule,
+    PaginationModule,
     MatCheckboxModule,
     MatFormFieldModule,
     TutorRoutingModule,

@@ -7,6 +7,7 @@ import { NgxAutoScrollModule } from 'ngx-auto-scroll';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSliderModule } from '@angular/material/slider';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatInputModule } from '@angular/material/input';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -50,6 +51,7 @@ import {
   AdminSupportTicketComponent,
   AdminTicketDetailsComponent,
   AdminFinanceOrdersComponent,
+  AdminFinanceCouponsComponent,
   AdminStudentProfileComponent,
   ProgramFieldOfStudyComponent,
   AdminTutorInterviewComponent,
@@ -75,6 +77,7 @@ import {
   AdminSidebarComponent,
   AdminFeedbackComponent,
   InterviewCardComponent,
+  AdminAddCouponComponent,
   AdminSuccessModalComponent,
   AdminTutorsListModalComponent,
   AdminChangeStatusModalComponent,
@@ -115,6 +118,7 @@ import {
     SupportFiltersComponent,
     ProgramCountryComponent,
     AdminDashboardComponent,
+    AdminAddCouponComponent,
     SupportStatsCardComponent,
     AdminStudentListComponent,
     AdminProgramHomeComponent,
@@ -135,6 +139,7 @@ import {
     AdminClassroomsListComponent,
     AdminCourseRequestsComponent,
     AdminFinanceCoursesComponent,
+    AdminFinanceCouponsComponent,
     AdminTutorsListModalComponent,
     AdminSuspendedTutorsComponent,
     AdminTeacherScheduleComponent,
@@ -181,6 +186,7 @@ import {
     MatInputModule,
     MatRadioModule,
     MatButtonModule,
+    MatSliderModule,
     MatSelectModule,
     PaginationModule,
     MatFormFieldModule,

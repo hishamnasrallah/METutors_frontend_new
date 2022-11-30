@@ -6,7 +6,8 @@
     "start": "ng serve --live-reload false --ssl true",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "generate-icons": "svg-to-ts"
   },
   "private": true,
   "dependencies": {
@@ -36,10 +37,12 @@
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
     "@videogular/ngx-videogular": "^5.0.1",
+    "angular-svg-icon": "^13.0.0",
     "angular2-signaturepad": "^4.0.2",
     "angularx-social-login": "^4.0.1",
     "bootstrap": "^5.1.3",
     "camelcase-keys": "^7.0.2",
+    "dom-to-image": "^2.6.0",
     "google-libphonenumber": "^3.2.27",
     "intl-tel-input": "^17.0.15",
     "lodash": "^4.17.21",
@@ -67,6 +70,7 @@
     "@angular/compiler-cli": "~13.0.0",
     "@ngrx/schematics": "^13.0.2",
     "@schematics/angular": "^13.3.3",
+    "@types/dom-to-image": "^2.6.4",
     "@types/jasmine": "~3.10.0",
     "@types/lodash": "^4.14.182",
     "@types/money": "^0.2.0",
@@ -77,6 +81,25 @@
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
+    "svg-to-ts": "^5.0.0",
     "typescript": "~4.4.3"
+  },
+  "svg-to-ts": {
+    "conversionType": "object",
+    "srcFiles": [
+      "./src/assets/svg/*.svg"
+    ],
+    "delimiter": "KEBAB",
+    "outputDirectory": "./src/assets/svg",
+    "fileName": "svg-icons",
+    "svgoConfig": {
+      "plugins": [
+        {
+          "removeDimensions": true,
+          "cleanupAttrs": true,
+          "removeUselessStrokeAndFill": true
+        }
+      ]
+    }
   }
 }

@@ -21,6 +21,7 @@ import * as fromLookupsReducer from './reducers/lookups.reducer';
 import * as fromFinanceReducer from './reducers/finance.reducer';
 import * as fromStudentReducer from './reducers/student.reducer';
 import * as fromInterviewReducer from './reducers/interview.reducer';
+import * as fromTutorPaymentReducer from './reducers/tutor-payment.reducer';
 import * as fromTutorSyllabusReducer from './reducers/tutor-syllabus.reducer';
 import * as fromTutorResourceReducer from './reducers/tutor-resource.reducer';
 import * as fromTutorAssignmentReducer from './reducers/tutor-assignment.reducer';
@@ -38,6 +39,7 @@ export interface CoreState {
   [featureKeys.lookupsFeatureKey]: fromLookupsReducer.State;
   [featureKeys.studentFeatureKey]: fromStudentReducer.State;
   [featureKeys.interviewFeatureKey]: fromInterviewReducer.State;
+  [featureKeys.tutorPaymentsFeatureKey]: fromTutorPaymentReducer.State;
   [featureKeys.tutorResourceFeatureKey]: fromTutorResourceReducer.State;
   [featureKeys.tutorSyllabusFeatureKey]: fromTutorSyllabusReducer.State;
   [featureKeys.tutorAssignmentFeatureKey]: fromTutorAssignmentReducer.State;
@@ -57,6 +59,7 @@ export function reducers(state: CoreState, action: Action) {
     [featureKeys.studentFeatureKey]: fromStudentReducer.reducer,
     [featureKeys.financeFeatureKey]: fromFinanceReducer.reducer,
     [featureKeys.interviewFeatureKey]: fromInterviewReducer.reducer,
+    [featureKeys.tutorPaymentsFeatureKey]: fromTutorPaymentReducer.reducer,
     [featureKeys.tutorSyllabusFeatureKey]: fromTutorSyllabusReducer.reducer,
     [featureKeys.tutorResourceFeatureKey]: fromTutorResourceReducer.reducer,
     [featureKeys.tutorAssignmentFeatureKey]: fromTutorAssignmentReducer.reducer,
@@ -86,6 +89,11 @@ export const selectTutorResourceState = createSelector(
 export const selectTutorSyllabusState = createSelector(
   selectCoreState,
   (state) => state[featureKeys.tutorSyllabusFeatureKey]
+);
+
+export const selectTutorPaymentsState = createSelector(
+  selectCoreState,
+  (state) => state[featureKeys.tutorPaymentsFeatureKey]
 );
 
 export const selectLookupsState = createSelector(
@@ -203,6 +211,11 @@ export const selectProfileStep = createSelector(
   fromUserReducer.selectProfileStep
 );
 
+export const selectStudentIsDemo = createSelector(
+  selectUserState,
+  fromUserReducer.selectStudentIsDemo
+);
+
 export const selectUser = createSelector(
   selectUserState,
   fromUserReducer.selectUser
@@ -259,6 +272,26 @@ export const selectIsLoadingProfileTutor = createSelector(
 export const selectTutors = createSelector(
   selectTutorState,
   fromTutorReducer.selectTutors
+);
+
+export const selectExploreTutors = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectExploreTutors
+);
+
+export const selectIsLoadingExploreTutors = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectIsLoadingExploreTutors
+);
+
+export const selectExploreTutorsCount = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectExploreTutorsCount
+);
+
+export const selectExploreTutorsFieldsOfStudy = createSelector(
+  selectTutorState,
+  fromTutorReducer.selectExploreTutorsFieldsOfStudy
 );
 
 export const selectAvailableTutors = createSelector(
@@ -543,6 +576,42 @@ export const selectIsAcceptRejectAssignment = createSelector(
   fromTutorAssignmentReducer.selectIsAcceptRejectAssignment
 );
 
+// Tutor payments
+
+export const selectTutorPayments = createSelector(
+  selectTutorPaymentsState,
+  fromTutorPaymentReducer.selectTutorPayments
+);
+
+export const selectIsLoadingTutorPayments = createSelector(
+  selectTutorPaymentsState,
+  fromTutorPaymentReducer.selectIsLoadingTutorPayments
+);
+
+export const selectTutorPaymentDetails = createSelector(
+  selectTutorPaymentsState,
+  fromTutorPaymentReducer.selectTutorPaymentDetails
+);
+
+export const selectTutorDisputeDetails = createSelector(
+  selectTutorPaymentsState,
+  fromTutorPaymentReducer.selectTutorDisputeDetails
+);
+
+export const selectIsLoadingTutorPaymentDetails = createSelector(
+  selectTutorPaymentsState,
+  fromTutorPaymentReducer.selectIsLoadingTutorPaymentDetails
+);
+
+export const selectTutorPaymentLoading = createSelector(
+  selectTutorPaymentsState,
+  fromTutorPaymentReducer.selectTutorPaymentLoading
+);
+
+export const selectTutorIsAddingDisputeComment = createSelector(
+  selectTutorPaymentsState,
+  fromTutorPaymentReducer.selectTutorIsAddingDisputeComment
+);
 /**
  * ========================== STUDENT ==============================
  */
@@ -744,6 +813,16 @@ export const selectIsLoadingStudentPreferences = createSelector(
 export const selectStudentTimeSlots = createSelector(
   selectStudentState,
   fromStudentReducer.selectStudentTimeSlots
+);
+
+export const selectStudentCertificate = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectStudentCertificate
+);
+
+export const selectStudentCertificates = createSelector(
+  selectStudentState,
+  fromStudentReducer.selectStudentCertificates
 );
 
 export const selectIsLoadingTimeSlots = createSelector(
@@ -959,6 +1038,11 @@ export const selectIsGetInvoiceEmail = createSelector(
   fromRequestReducer.selectIsGetInvoiceEmail
 );
 
+export const selectIsApplyingCoupon = createSelector(
+  selectRequestState,
+  fromRequestReducer.selectIsApplyingCoupon
+);
+
 // Lookups
 export const selectIsLoadingUserTypes = createSelector(
   selectLookupsState,
@@ -1161,19 +1245,34 @@ export const selectIsLoadingRefundCourse = createSelector(
   fromCourseReducer.selectIsLoadingRefundCourse
 );
 
-export const selectExploredCourses = createSelector(
+export const selectExploreCourses = createSelector(
   selectCourseState,
-  fromCourseReducer.selectExploredCourses
+  fromCourseReducer.selectExploreCourses
 );
 
-export const selectIsLoadingExploredCourses = createSelector(
+export const selectIsLoadingExploreCourses = createSelector(
   selectCourseState,
-  fromCourseReducer.selectIsLoadingExploredCourses
+  fromCourseReducer.selectIsLoadingExploreCourses
 );
 
-export const selectFilteredExploredCourses = createSelector(
+export const selectExploreCoursesCount = createSelector(
   selectCourseState,
-  fromCourseReducer.selectFilteredExploredCourses
+  fromCourseReducer.selectExploreCoursesCount
+);
+
+export const selectExploreCoursesFieldsOfStudy = createSelector(
+  selectCourseState,
+  fromCourseReducer.selectExploreCoursesFieldsOfStudy
+);
+
+export const selectExploreCoursesRange = createSelector(
+  selectCourseState,
+  fromCourseReducer.selectExploreCoursesRange
+);
+
+export const selectExploreCoursesProgram = createSelector(
+  selectCourseState,
+  fromCourseReducer.selectExploreCoursesProgram
 );
 
 export const selectIsLoadingCourseById = createSelector(
@@ -1265,6 +1364,11 @@ export const selectIsUploadingAvatar = createSelector(
 export const selectIsUploadingCover = createSelector(
   selectUploadState,
   fromUploadReducer.selectIsUploadingCover
+);
+
+export const selectIsUploadingVideo = createSelector(
+  selectUploadState,
+  fromUploadReducer.selectIsUploadingVideo
 );
 
 // Admin selectors
@@ -1497,6 +1601,11 @@ export const selectFinanceOrders = createSelector(
   fromFinanceReducer.selectFinanceOrders
 );
 
+export const selectFinanceCoupons = createSelector(
+  selectFinanceState,
+  fromFinanceReducer.selectFinanceCoupons
+);
+
 export const selectFinanceCourses = createSelector(
   selectFinanceState,
   fromFinanceReducer.selectFinanceCourses
@@ -1515,6 +1624,11 @@ export const selectFinanceRefundDetail = createSelector(
 export const selectIsLoadingFinanceRefundDetail = createSelector(
   selectFinanceState,
   fromFinanceReducer.selectIsLoadingFinanceRefundDetail
+);
+
+export const selectIsLoadingFinanceAddCoupon = createSelector(
+  selectFinanceState,
+  fromFinanceReducer.selectIsLoadingFinanceAddCoupon
 );
 
 export const selectFinanceIsRefundingCourse = createSelector(

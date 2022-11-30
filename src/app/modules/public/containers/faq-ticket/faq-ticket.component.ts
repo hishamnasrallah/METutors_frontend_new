@@ -1,10 +1,10 @@
 import { Store } from '@ngrx/store';
 import { Observable, tap } from 'rxjs';
+import * as fromCore from '@metutor/core/state';
 import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
-import * as fromCore from '@metutor/core/state';
 import { IFAQ, IFAQTopics } from 'src/app/core/models';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'metutors-faq-ticket',

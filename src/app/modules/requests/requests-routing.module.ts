@@ -4,7 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 import {
   RequestTutorComponent,
   InvoiceDetailsComponent,
-  PaymentProcessingComponent,
+  RequestFreeTutorComponent,
+  PaymentProcessingComponent
 } from './containers';
 
 const routes: Routes = [
@@ -13,46 +14,55 @@ const routes: Routes = [
     component: RequestTutorComponent,
     data: {
       layout: {
-        title: 'Request Academic Tutoring - MEtutors',
-      },
-    },
+        title: 'COURSE_BOOKING'
+      }
+    }
+  },
+  {
+    path: 'request-free-tutor',
+    component: RequestFreeTutorComponent,
+    data: {
+      layout: {
+        title: 'BOOK_FREE_TRIAL_CLASS'
+      }
+    }
   },
   {
     path: 'invoice-details',
     component: InvoiceDetailsComponent,
     data: {
       layout: {
-        title: 'Invoice details - MEtutors',
-      },
-    },
+        title: 'INVOICE_DETAILS'
+      }
+    }
   },
   {
     path: 'invoice-details/:id',
     component: InvoiceDetailsComponent,
     data: {
       layout: {
-        title: 'Invoice details - MEtutors',
-      },
-    },
+        title: 'INVOICE_DETAILS'
+      }
+    }
   },
   {
     path: 'payment-processing',
     component: PaymentProcessingComponent,
     data: {
       layout: {
-        title: 'Payment Processing - MEtutors',
-      },
-    },
+        title: 'PAYMENT_PROCESSING'
+      }
+    }
   },
   {
     path: '',
     redirectTo: '/requests/request-tutor',
-    pathMatch: 'full',
-  },
+    pathMatch: 'full'
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
 export class RequestsRoutingModule {}

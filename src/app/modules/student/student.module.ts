@@ -15,6 +15,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSliderModule } from '@angular/material/slider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatNativeDateModule } from '@angular/material/core';
 import { SharedModule } from '@metutor/shared/shared.module';
@@ -47,6 +48,7 @@ import {
   StudentSupportTicketComponent,
   StudentTicketDetailsComponent,
   StudentClassDashboardComponent,
+  StudentViewCertificateComponent,
 } from './containers';
 
 import {
@@ -73,8 +75,8 @@ import {
   StudentCancelCourseSuccessModalComponent,
   StudentSettingsPaymentInformationComponent,
   StudentViewSubmittedAssignmentModalComponent,
+  StudentResourcesUploadDocumentModalComponent,
 } from './components';
-import { MatSliderModule } from '@angular/material/slider';
 
 @NgModule({
   declarations: [
@@ -104,6 +106,7 @@ import { MatSliderModule } from '@angular/material/slider';
     StudentAddCourseModalComponent,
     StudentAttendanceModalComponent,
     StudentSettingsAccountComponent,
+    StudentViewCertificateComponent,
     StudentSettingsSecurityComponent,
     StudentMakeupClassModalComponent,
     StudentViewResourceModalComponent,
@@ -116,6 +119,7 @@ import { MatSliderModule } from '@angular/material/slider';
     StudentAddHighlightedTopicModalComponent,
     StudentSettingsPaymentInformationComponent,
     StudentViewSubmittedAssignmentModalComponent,
+    StudentResourcesUploadDocumentModalComponent,
   ],
   imports: [
     FormsModule,

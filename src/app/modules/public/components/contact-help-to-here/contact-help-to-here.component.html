@@ -1,10 +1,8 @@
 <div class="help-to-here" style="background-image: url(assets/homepage/stars_bg.png);">
   <div class="container">
     <div class="col-md-12 text-center">
-      <h1 class="f-size-25-md-sm">We're here to help!</h1>
-      <p class="f-size-15-md-sm">
-        From enrollment to graduation, we’re here with you every step of the way!
-      </p>
+      <h1 class="f-size-25-md-sm">{{ 'WE_ARE_HERE_HELP' | translate }}</h1>
+      <p class="f-size-15-md-sm">{{ 'FROM_ENROLLMENT_GRADUATION' | translate }}</p>
     </div>
 
     <div class="col-12">
@@ -14,11 +12,8 @@
             <div class="card-body">
               <img src="assets/svg/envelope.svg" alt="" draggable="false" width="65" height="65">
 
-              <h2>Email us</h2>
-              <h4>
-                Email us for general queries, including
-                marketing and partnership opportunities.
-              </h4>
+              <h2>{{ 'EMAIL_US' | translate }}</h2>
+              <h4>{{ 'EMAIL_US_DESC' | translate }}</h4>
 
               <a href="mailto:hello@MEtutors.com" target="_blank"
                 class="h-link">hello@MEtutors.com</a>
@@ -31,13 +26,10 @@
             <div class="card-body">
               <img src="assets/svg/phone.svg" alt="" draggable="false" width="65" height="65">
 
-              <h2>Call us</h2>
-              <h4>
-                Call us to speak to a member of our team.
-                We are always happy to help.
-              </h4>
+              <h2>{{ 'CALL_US' | translate }}</h2>
+              <h4>{{ 'CALL_US_DESC' | translate }}</h4>
 
-              <a href="tel:+1 (646) 786-5060" class="h-link">+1 (646) 786-5060</a>
+              <a href="tel:+1 (646) 786-5060" class="h-link"><bdi>+1 (646) 786-5060</bdi></a>
             </div>
           </div>
         </div>
@@ -47,12 +39,10 @@
             <div class="card-body">
               <img src="assets/svg/support.svg" alt="" draggable="false" width="65" height="65">
 
-              <h2>Support Center</h2>
-              <h4>
-                Check out helpful resources, FAQs
-              </h4>
+              <h2>{{ 'SUPPORT_CENTER' | translate }}</h2>
+              <h4>{{ 'SUPPORT_CENTER_DESC' | translate }}</h4>
 
-              <a routerLink="/faq" class="call-center" mat-flat-button color="primary">FAQs & tickets</a>
+              <a routerLink="/faq" class="call-center" mat-flat-button color="primary">{{ 'FAQ_TICKETS' | translate }}</a>
             </div>
           </div>
         </div>

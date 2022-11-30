@@ -1,0 +1,34 @@
+<div class="explore-heading">
+  <div class="container">
+    <div class="row" [ngSwitch]="loading">
+      <div class="col-md-7" *ngSwitchCase="true">
+        <metutors-grid-placeholder></metutors-grid-placeholder>
+      </div>
+
+      <ng-container *ngSwitchCase="false">
+        <div class="col-md-7">
+          <div class="row">
+            <div class="col-md-10">
+              <h1 class="f-size-25-md-sm" *ngIf="name"><bdi>{{ name | translate }}</bdi></h1>
+              <h2 class="f-size-15-md-sm" *ngIf="title">{{ title | translate }}</h2>
+              <p class="f-size-17-md-sm" *ngIf="description">{{ description | translate }}</p>
+            </div>
+            <div class="col-md-12">
+              <div class="form-block position-relative rounded mt-4">
+                <input type="text" placeholder="{{ placeholderText | translate }}" class="w-100 rounded" #searchInput
+                  [(ngModel)]="searchText" meTutorsTrimInput>
+                <button mat-flat-button color="primary" (click)="filter.emit(searchInput.value)">
+                  <img src="assets/svg/search.svg" alt="" draggable="false" width="16" height="16" />
+                  {{ btnText | translate }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-5 d-flex justify-content-end" *ngIf="image">
+          <img [src]="image" class="contact-img w-auto d-none d-md-block" alt="" draggable="false">
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

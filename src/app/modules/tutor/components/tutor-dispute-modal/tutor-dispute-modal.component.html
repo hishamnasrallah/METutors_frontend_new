@@ -1,0 +1,24 @@
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'large'" [heading]="data.heading"
+                [template]="template">
+  <ng-template #template>
+    <ng-container [ngSwitch]="data.section">
+      <span *ngSwitchCase="'viewReason'">{{ data.reason }}</span>
+
+      <div class="" *ngSwitchCase="'submitReason'">
+        <form [formGroup]="form" (ngSubmit)="submitReason.emit(form.value)" >
+          <metutors-char-counter [limit]="800" [controlName]="disputeReason"></metutors-char-counter>
+          <textarea rows="7" class="custom-input w-100 input-bordered" id="message"
+                    placeholder="{{ 'DISPUTE_REASON_PLACEHOLDER' | translate }}"
+                    formControlName="reason"></textarea>
+          <div class="text-danger" *ngIf="disputeReason?.touched && disputeReason?.invalid">
+            {{ 'SUBMIT_DISPUTE_REASON_ERROR' | translate }}
+          </div>
+
+          <metutors-submit-button [form]="form" [isSubmitting]="creating" class="mt-2 float-end">
+            {{ 'SUBMIT' | translate }}
+          </metutors-submit-button>
+        </form>
+      </div>
+    </ng-container>
+  </ng-template>
+</metutors-modal>

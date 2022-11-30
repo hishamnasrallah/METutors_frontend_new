@@ -1,16 +1,16 @@
 <metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'medium'"
-  [heading]="'Submit Interview Request'" [template]="template">
+  [heading]="'SUBMIT_INTERVIEW_REQUEST'" [template]="template">
   <ng-template #template>
     <form class="row submit-interview" [formGroup]="form" (ngSubmit)="onSubmit(form)">
       <div class="col-12">
         <div class="alert alert-danger">
-          Once you submit the interview request, you won’t be able to change anything on your profile.
+          {{ 'SUBMIT_INTERVIEW_REQUEST_DESC' | translate }}
         </div>
 
         <div class="form-group">
-          <h3>Select Interview Date</h3>
+          <h3>{{ 'SELECT_INTERVIEW_DATE' | translate }}</h3>
           <mat-form-field appearance="outline" class="w-100">
-            <input matInput [matDatepicker]="interviewPicker" [placeholder]="'Choose a date'"
+            <input matInput [matDatepicker]="interviewPicker" placeholder="{{ 'CHOOSE_DATE' | translate }}"
               (focus)="interviewPicker.open()" [min]="minDate" formControlName="interviewDate">
             <mat-datepicker-toggle matSuffix [for]="interviewPicker"></mat-datepicker-toggle>
             <mat-datepicker #interviewPicker></mat-datepicker>
@@ -18,29 +18,29 @@
         </div>
 
         <div class="form-group">
-          <h3>Select Time</h3>
+          <h3>{{ 'SELECT_TIME' | translate }}</h3>
           <div class="ngx-timepicker-field-example">
-            <input placeholder="Select interview time" aria-label="Select interview time"
+            <input placeholder="{{ 'SELECT_INTERVIEW_TIME' | translate }}"
               [ngxTimepicker]="interviewTime" formControlName="interviewTime" class="form-control">
             <ngx-material-timepicker #interviewTime [appendToInput]="true">
             </ngx-material-timepicker>
           </div>
           <div class="text-danger" *ngIf="form?.hasError('startingHoursLimit')">
-            You can schedule your interview after {{ startingHoursLimit }} hours from now.
+            {{ 'CAN_SCHEDULE_INTERVIEW_AFTER' | translate }} {{ startingHoursLimit }} {{ 'HOURS_FROM_NOW' | translate }}
           </div>
         </div>
 
         <div class="form-group">
-          <h3>Additional Information ({{ 'OPTIONAL' | translate }})</h3>
+          <h3>{{ 'ADDITIONAL_INFORMATION' | translate }} ({{ 'OPTIONAL' | translate }})</h3>
 
           <textarea class="form-control custom-input input-bordered" formControlName="notes" rows="5"
-            placeholder="Enter here..."></textarea>
+            placeholder="{{ 'ENTER_DESCRIPTION_HERE' | translate }}"></textarea>
         </div>
 
         <div class="row mt-2">
           <div class="col-md-12 overflow-hidden">
             <metutors-submit-button [form]="form" [extraClasses]="'float-end py-1 px-5'" [isSubmitting]="submitting">
-              Submit Request
+              {{ 'SUBMIT_REQUEST' | translate }}
             </metutors-submit-button>
           </div>
         </div>

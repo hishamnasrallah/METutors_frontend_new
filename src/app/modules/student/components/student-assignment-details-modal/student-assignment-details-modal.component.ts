@@ -1,10 +1,9 @@
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { combineLatest, Observable, tap } from 'rxjs';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-
 import * as fromCore from '@metutor/core/state';
+import { combineLatest, Observable, tap } from 'rxjs';
 import * as fromStudentActions from '@metutor/modules/student/state/actions';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'; 
 
 @Component({
   selector: 'metutors-student-assignment-details-modal',

@@ -31,6 +31,7 @@ export const signInSuccess = createAction(
     token: string;
     profileStep: number;
     user: IUser;
+    isDemo: number;
     returnUrl?: string;
   }>()
 );
@@ -77,13 +78,17 @@ export const logoutSuccess = createAction('[User] Logout Success');
 
 export const enterRequestTutor = createAction('[User] Enter Request Tutor');
 
+export const enterRequestFreeTutor = createAction(
+  '[User] Enter Request Free Tutor'
+);
+
 export const enterInvoiceDetails = createAction('[User] Enter Invoice Details');
 
 export const identifyUser = createAction('[User] Identify User');
 
 export const identifyUserSuccess = createAction(
   '[User] Identify User Success',
-  props<{ user: IUser; profileStep: number }>()
+  props<{ user: IUser; profileStep: number; isDemo: number }>()
 );
 
 export const identifyUserEnded = createAction('[User] Identify User Ended');

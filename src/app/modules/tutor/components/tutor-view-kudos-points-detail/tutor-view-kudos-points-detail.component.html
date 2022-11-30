@@ -1,5 +1,5 @@
-<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'xlarge'" [heading]="'Students Reviews'"
-                [subHeading]="'View all Students reviews'"
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [size]="'xlarge'" [heading]="'STUDENTS_REVIEWS'"
+                [subHeading]="'VIEW_STUDENTS_REVIEWS'"
                 [template]="template">
   <ng-template #template>
     <ng-container [ngSwitch]="loading">
@@ -8,12 +8,12 @@
       <div class="table-responsive" *ngSwitchCase="false">
         <table class="table my-table default-title mt-3">
           <tr>
-            <td>Number</td>
-            <td>Student Name</td>
-            <td>Course Name</td>
-            <td>Date</td>
-            <td>Stars</td>
-            <td>Review</td>
+            <td>{{ 'NUMBER' | translate }}</td>
+            <td>{{ 'STUDENT_NAME' | translate }}</td>
+            <td>{{ 'COURSE_NAME' | translate }}</td>
+            <td>{{ 'DATE' | translate }}</td>
+            <td>{{ 'STARS' | translate }}</td>
+            <td>{{ 'REVIEW' | translate }}</td>
           </tr>
           <tr *ngFor="let kudo of kudosPoints; let i=index">
             <td>{{ i + 1 }}</td>
@@ -26,7 +26,7 @@
             <td>{{ kudo?.courseName }}</td>
             <td>{{ kudo?.date }}</td>
             <td><rating [(ngModel)]="kudo.stars" [max]="5" [readonly]="true"></rating></td>
-            <td class="w-25">{{ kudo.review}}</td>
+            <td class="w-25">{{ kudo.review }}</td>
           </tr>
         </table>
       </div>

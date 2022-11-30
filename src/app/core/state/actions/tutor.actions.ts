@@ -1,6 +1,13 @@
 import { createAction, props } from '@ngrx/store';
 
-import { IInterview, ITutor, IUser, SubmitInterviewInput } from '@models';
+import {
+  IUser,
+  ITutor,
+  IField,
+  IInterview,
+  SubmitInterviewInput,
+  IExploreTutorsFilters
+} from '@models';
 
 // Complete tutor profile
 export const completeTutorProfile = createAction(
@@ -71,6 +78,22 @@ export const updateTutorProfileRatesSuccess = createAction(
 
 export const updateTutorProfileRatesFailure = createAction(
   '[Tutor] Update Tutor Profile Rates Failure',
+  props<{ error: any }>()
+);
+
+// Explore tutors
+export const exploreTutors = createAction(
+  '[Tutor] Explore Tutors',
+  props<{ filters: IExploreTutorsFilters }>()
+);
+
+export const exploreTutorsSuccess = createAction(
+  '[Tutor] Explore Tutors Success',
+  props<{ tutors: ITutor[]; tutorsCount: number; fieldsOfStudy: IField[] }>()
+);
+
+export const exploreTutorsFailure = createAction(
+  '[Tutor] Explore Tutors Failure',
   props<{ error: any }>()
 );
 

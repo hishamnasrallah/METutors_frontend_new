@@ -1,15 +1,48 @@
-.learning-environment {
+:host ::ng-deep .learning-environment {
   background-color: #F1F6F7;
   padding: 40px 100px 100px;
 
   h3 {
     color: #2A2A2A;
     text-align: center;
-    margin: 30px 0 50px;
+    margin: 30px 0 10px;
     font-size: 40px;
+    font-weight: bold;
+  }
+
+  p {
+    color: #696969;
+    font-size: 20px;
+    line-height: 1.4;
+    margin-bottom: 20px;
+  }
+
+  .chevron-left,
+  .chevron-right {
+    position: absolute;
+    background: #FFF;
+    color: #000000;
+    border-radius: 50%;
+    box-shadow: 0px 0px 7px #00000029;
+    width: 35px;
+    height: 35px;
+    text-align: center;
+    line-height: 35px;
+    top: calc(50% - 17.5px);
+    cursor: pointer;
+  }
+
+  .chevron-left {
+    left: calc(-17.5px);
+  }
+
+  .chevron-right {
+    right: calc(-17.5px);
   }
 
   .tabs {
+    scroll-behavior: smooth;
+
     button {
       padding: 10px 20px;
       border-radius: 4px 4px 0 0;
@@ -24,16 +57,27 @@
         margin-left: 0;
       }
 
+      &:hover:not(.active):after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        height: 6px;
+        transition: all 0.25s ease-in-out;
+        background-color: var(--main-color);
+      }
+
       span {
-        color: #707070;
+        color: var(--main-color);
         line-height: 20px;
         font-size: 14px;
       }
 
       strong {
-        color: #2A2A2A;
-        font-weight: normal;
-        font-size: 18px;
+        color: #292929;
+        font-weight: bold;
+        font-size: 15px;
         white-space: normal;
         line-height: 23px;
         display: block;
@@ -41,14 +85,11 @@
       }
 
       &.active {
-        strong {
-          color: var(--main-color);
-          font-weight: 500;
-        }
+        background-color: var(--main-color);
 
+        strong,
         span {
-          font-weight: bold;
-          color: #2a2a2a;
+          color: #FFF;
         }
 
         &::after {
@@ -78,6 +119,10 @@
       font-size: 20px;
       line-height: 1.5;
       font-weight: 300;
+    }
+
+    .height-300 {
+      height: 300px;
     }
 
     h2 {
@@ -119,7 +164,6 @@
 
       &.pricing {
         color: var(--main-color);
-        text-decoration: underline;
         font-size: 20px;
         padding-left: 0;
         padding-right: 0;
@@ -132,79 +176,16 @@
     }
 
     .contact-img {
-      height: 400px;
+      height: 380px;
       object-fit: contain;
     }
-  }
-}
 
-.country {
-  button {
-    position: absolute;
-    right: 0;
-    width: 35px;
-    background: #ebebeb;
-    height: 35px;
-    padding: 0;
-    min-width: 0;
-    border-radius: 50%;
-    color: #2a2a2a;
-  }
-
-  h1 {
-    font-size: 30px;
-    padding: 20px 0;
-  }
-
-  .country {
-    background-repeat: no-repeat;
-    background-position: center center;
-
-    .find-country {
-      margin: 10px auto 35px;
-
-      input {
-        border: 1px solid #E0E0E0;
-        border-radius: 13px;
-        width: 35%;
-      }
-
-      .choose-grade {
-        font-size: 13px;
-      }
-    }
-  }
-
-  h3 {
-    font-size: 16px;
-    color: #2a2a2a;
-    margin-bottom: 20px;
-  }
-
-  table {
-    margin: 0;
-    border-top: none;
-
-    th {
-      font-size: 13px;
-      border-bottom: none;
-      background: var(--main-color);
-      color: #FFF;
+    .mat-form-field-appearance-outline .mat-form-field-outline {
+      color: var(--main-color);
     }
 
-    td {
-      border-bottom: 1px solid #e2edef;
-      color: #2a2a2a;
-      font-size: 13px;
-      background-color: #ebf7f9;
-    }
-
-    &>:not(:first-child) {
+    .mat-form-field-appearance-outline .mat-form-field-outline-thick {
       border: none;
-    }
-
-    tr:last-child td {
-      border-bottom: none;
     }
   }
 }
@@ -260,12 +241,6 @@
         text-align: center;
         display: inline-block;
         margin: 0;
-      }
-    }
-
-    .country {
-      h1 {
-        margin-bottom: 20px !important;
       }
     }
 

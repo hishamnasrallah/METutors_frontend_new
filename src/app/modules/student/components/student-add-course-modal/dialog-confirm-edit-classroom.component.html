@@ -1,8 +1,8 @@
 <form [formGroup]="editForm" (ngSubmit)="onSubmit(editForm)" class="edit-classroom">
   <div class="d-flex" mat-dialog-title>
     <h2 class="flex-grow-1 m-0 d-flex flex-column">
-      Edit Classroom
-      <span class="d-block mt-2">We’re sorry, Tutor you’re selected isn’t available for your days and time.</span>
+      {{ 'EDIT_CLASSROOM' | translate }}
+      <span class="d-block mt-2">{{ 'SORRY_TUTOR_NOT_SELECTED' | translate }}</span>
     </h2>
 
     <button class="text-secondary" mat-dialog-close mat-icon-button type="button">
@@ -12,28 +12,28 @@
   <div mat-dialog-content>
     <div class="row">
       <div class="col-md-6">
-        <h3>Starting Date</h3>
+        <h3>{{ 'COURSE_START_DATE' | translate }}</h3>
         <mat-form-field appearance="outline" class="w-100">
-          <input matInput [matDatepicker]="startPicker" [placeholder]="'Choose a date'" (focus)="startPicker.open()"
+          <input matInput [matDatepicker]="startPicker" placeholder="{{ 'CHOOSE_DATE' | translate }}" (focus)="startPicker.open()"
             [min]="minDate" formControlName="startDate" (dateChange)="onChangeDate()" [disabled]="true">
           <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
           <mat-datepicker #startPicker></mat-datepicker>
         </mat-form-field>
       </div>
       <div class="col-md-6">
-        <h3>Days</h3>
+        <h3>{{ 'CLASS_DAYS' | translate }}</h3>
         <mat-form-field appearance="outline" class="w-100">
-          <mat-select formControlName="days" [placeholder]="'Choose day'" [disabled]="true">
+          <mat-select formControlName="days" placeholder="{{ 'CHOOSE_DAY' | translate }}" [disabled]="true">
             <mat-option [value]="day" *ngFor="let day of listDays">
-              {{ day }}
+              {{ day | uppercase | translate }}
             </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
       <div class="col-md-6">
-        <h3>Starting Time</h3>
+        <h3>{{ 'CLASS_START_TIME' | translate }}</h3>
         <div class="ngx-timepicker-field-example">
-          <input placeholder="Select starting time" aria-label="Select starting time" [ngxTimepicker]="startingTime"
+          <input placeholder="{{ 'SELECT_START_TIME' | translate }}" [ngxTimepicker]="startingTime"
             formControlName="startTime" class="form-control" (blur)="onChangeTimePicker()">
           <ngx-material-timepicker #startingTime [appendToInput]="true" [minutesGap]="30"
             (closed)="onChangeTimePicker()">
@@ -41,20 +41,20 @@
         </div>
       </div>
       <div class="col-md-6">
-        <h3>Ending Time</h3>
+        <h3>{{ 'CLASS_END_TIME' | translate }}</h3>
         <div class="ngx-timepicker-field-example">
-          <input placeholder="Select ending time" aria-label="Select ending time" [ngxTimepicker]="endingTime"
+          <input placeholder="{{ 'SELECT_END_TIME' | translate }}" [ngxTimepicker]="endingTime"
             formControlName="endTime" class="form-control" (blur)="onChangeTimePicker()">
           <ngx-material-timepicker #endingTime [appendToInput]="true" [minutesGap]="30" (closed)="onChangeTimePicker()">
           </ngx-material-timepicker>
         </div>
       </div>
       <div class="col-md-6">
-        <h3>Duration</h3>
+        <h3>{{ 'CLASS_DURATION' | translate }}</h3>
         <input type="text" class="form-control" formControlName="duration">
 
         <div class="text-danger" *ngIf="editForm?.hasError('durationError')">
-          Time duration must be between {{ classroomTimeDuration.min }} & {{ classroomTimeDuration.max }} hours
+          {{ 'TIME_DURATION_BETWEEN' | translate }} {{ classroomTimeDuration.min }} & {{ classroomTimeDuration.max }} {{ 'HOURS_SM' | translate }}
         </div>
       </div>
     </div>

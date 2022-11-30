@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
 import { COURSE_TAGS_CONST } from '@metutor/config';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'metutors-course-card',

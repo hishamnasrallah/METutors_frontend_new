@@ -1,15 +1,19 @@
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { FormGroup } from '@angular/forms';
-import { combineLatest, Observable } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { combineLatest, Observable, tap } from 'rxjs';
 
-import * as moment from 'moment';
 import * as fromTutor from '../../state';
-import { environment } from '@environment';
 import * as fromCore from '@metutor/core/state';
+import { Component, OnInit } from '@angular/core';
 import * as fromTutorAction from '../../state/actions';
-import { CourseStatus, courseStatusLabel, WEEK_DAYS_LONG } from '@config';
+
+import {
+  CourseStatus,
+  WEEK_DAYS_LONG,
+  dateToISOString,
+  courseStatusLabel,
+} from '@config';
 
 @Component({
   selector: 'metutors-tutor-class-dashboard',
@@ -18,6 +22,10 @@ import { CourseStatus, courseStatusLabel, WEEK_DAYS_LONG } from '@config';
 })
 export class TutorClassDashboardComponent implements OnInit {
   classId: number;
+  allUpcomingClasses = [];
+  allPreviousClasses = [];
+  previousClasses: any[] = [];
+  upcomingClasses: any[] = [];
   isLaunchingClass$: Observable<boolean>;
   isLoadingViewClass$: Observable<boolean>;
   showRescheduleModal: Observable<boolean>;
@@ -26,11 +34,9 @@ export class TutorClassDashboardComponent implements OnInit {
   showSendFeedbackModal$: Observable<boolean>;
   showCourseAttendanceModal$: Observable<boolean>;
 
-  subHeading =
-    'Share with us a feedback on your student as course cancellation has begun';
-
   courseStatus = CourseStatus;
   statusLabel = courseStatusLabel;
+  subHeading = 'SHARE_FEEDBACK_STUDENT_CANCELLATION';
 
   view$: Observable<{
     data: any;
@@ -55,6 +61,20 @@ export class TutorClassDashboardComponent implements OnInit {
 
   onViewClass(id: number): void {
     this._store.dispatch(fromCore.studentViewClass({ id }));
+  }
+
+  onShowMorePreviousClasses(): void {
+    this.previousClasses = this.allPreviousClasses.slice(
+      0,
+      this.previousClasses.length + 3
+    );
+  }
+
+  onShowMoreUpcomingClasses(): void {
+    this.upcomingClasses = this.allUpcomingClasses.slice(
+      0,
+      this.upcomingClasses.length + 3
+    );
   }
 
   ngOnInit(): void {
@@ -89,7 +109,16 @@ export class TutorClassDashboardComponent implements OnInit {
     );
 
     this.view$ = combineLatest([
-      this._store.select(fromCore.selectCourseById),
+      this._store.select(fromCore.selectCourseById).pipe(
+        tap((res: any) => {
+          if (res) {
+            this.allPreviousClasses = res.pastClasses;
+            this.allUpcomingClasses = res.upcomingClasses;
+            this.previousClasses = res.pastClasses.slice(0, 3);
+            this.upcomingClasses = res.upcomingClasses.slice(0, 3);
+          }
+        })
+      ),
       this._store.select(fromCore.selectIsLoadingCourseById),
     ]).pipe(
       map(([data, loading]) => ({
@@ -145,7 +174,9 @@ export class TutorClassDashboardComponent implements OnInit {
     const body = {
       ...form.value,
       day: WEEK_DAYS_LONG[form.value.day],
-      start_date: moment(form.value.start_date).format('Y-MM-DD'),
+      start_date: dateToISOString(form.value.start_date),
+      end_time: dateToISOString(form.value.start_date, form.value.end_time),
+      start_time: dateToISOString(form.value.start_date, form.value.start_time),
     };
 
     this._store.dispatch(fromCore.tutorRescheduleClass({ body }));

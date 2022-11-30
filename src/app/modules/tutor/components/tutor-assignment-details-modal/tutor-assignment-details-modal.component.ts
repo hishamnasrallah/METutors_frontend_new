@@ -1,11 +1,9 @@
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { combineLatest, Observable } from 'rxjs';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-
-import { environment } from '@environment';
 import * as fromCore from '@metutor/core/state';
+import { combineLatest, Observable } from 'rxjs';
 import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'metutors-tutor-assignment-details-modal',
@@ -24,7 +22,7 @@ export class TutorAssignmentDetailsModalComponent implements OnInit {
 
   openEditAssignmentModal(id: number): void {
     const params = {
-      heading: 'Edit Assignment',
+      heading: 'EDIT_ASSIGNMENT',
     };
 
     this._store.dispatch(fromTutorAction.setTutorStateParams({ params }));

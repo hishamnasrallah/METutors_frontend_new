@@ -19,21 +19,21 @@
             <div class="form-group">
               <label for="title">{{ 'TITLE' | translate }}</label>
               <input class="form-control custom-input input-bordered" formControlName="title" id="title"
-                     placeholder="Enter title here">
+                     placeholder="{{ 'ENTER_TITLE_HERE' | translate }}">
             </div>
 
             <div class="form-group">
-              <label for="description">Description</label>
+              <label for="description">{{ 'DESCRIPTION' | translate }}</label>
               <textarea class="form-control custom-input input-bordered" formControlName="description" id="description"
-                        rows="4" placeholder="Enter description here..."></textarea>
+                        rows="4" placeholder="{{ 'ENTER_DESCRIPTION_HERE' | translate }}"></textarea>
             </div>
 
             <div class="form-group">
               <div class="row">
                 <div class="col-md-6">
-                  <label>Start Date</label>
+                  <label>{{ 'START_DATE' | translate }}</label>
                   <mat-form-field appearance="outline" class="w-100">
-                    <input matInput [matDatepicker]="startPicker" [placeholder]="'Choose a date'"
+                    <input matInput [matDatepicker]="startPicker" placeholder="{{ 'CHOOSE_DATE' | translate }}"
                            (focus)="startPicker.open()" autocomplete="off"
                            [min]="minDate" (dateChange)="onChangeDateDay()" formControlName="startDate">
                     <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
@@ -41,9 +41,9 @@
                   </mat-form-field>
                 </div>
                 <div class="col-md-6">
-                  <label>Deadline</label>
+                  <label>{{ 'DEADLINE' | translate }}</label>
                   <mat-form-field appearance="outline" class="w-100">
-                    <input matInput [matDatepicker]="endPicker" [placeholder]="'Choose a date'"
+                    <input matInput [matDatepicker]="endPicker" placeholder="{{ 'CHOOSE_DATE' | translate }}"
                            (focus)="endPicker.open()" autocomplete="off"
                            [min]="startDate?.value" (dateChange)="onChangeDateDay()" formControlName="endDate">
                     <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
@@ -54,16 +54,18 @@
             </div>
 
             <div class="form-group">
-              <label>Assignee</label>
+              <label>{{ 'ASSIGNEE' | translate }}</label>
               <mat-form-field appearance="outline" class="w-100">
-                <mat-select formControlName="assignee" [placeholder]="'Select Student'" multiple>
+                <mat-select formControlName="assignee" placeholder="{{ 'SELECT_STUDENT' | translate }}" multiple>
                   <mat-option [value]="assignee?.studentId"
-                              *ngFor="let assignee of (assignees$ | async)?.participants">{{assignee?.user?.firstName}} {{assignee?.user?.lastName}}</mat-option>
+                              *ngFor="let assignee of (assignees$ | async)?.participants">
+                    {{ assignee?.user?.firstName }} {{ assignee?.user?.lastName }}
+                  </mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
             <div class="form-group">
-              <label>URLs<span class="text-danger">*</span></label>
+              <label>{{ 'URLS' | translate }}<span class="text-danger">*</span></label>
               <ng-container *ngFor="let url of selectedURLs; let i = index">
                 <div class="url-info d-flex flex-column my-2">
                   <span>{{ url.title }}</span>
@@ -80,21 +82,21 @@
               <div class="overflow-hidden">
                 <ng-container formGroupName="urls">
                   <input type="text" class="form-control custom-input input-bordered" formControlName="title"
-                         placeholder="Enter title here...">
+                         placeholder="{{ 'ENTER_TITLE_HERE' | translate }}" meTutorsTrimInput>
                   <input type="url" class="form-control custom-input input-bordered mt-2" formControlName="url"
-                         placeholder="Enter URL here...">
+                         placeholder="{{ 'ENTER_URL_HERE' | translate }}">
 
-                  <p class="text-danger" *ngIf="invalidUrl">Invalid URL</p>
+                  <p class="text-danger" *ngIf="invalidUrl">{{ 'INVALID_URL' | translate }}</p>
                   <button mat-button type="button" class="add-url main-button-transparent float-end mt-2"
                           [disabled]="!form.value.urls.title || !form.value.urls.url || invalidUrl" (click)="addURL()">
-                    Add
+                    {{ 'ADD' | translate }}
                   </button>
                 </ng-container>
               </div>
             </div>
 
             <div class="form-group">
-              <label>File<span class="text-danger">*</span></label>
+              <label>{{ 'FILE' | translate }}<span class="text-danger">*</span></label>
               <div class="d-flex flex-column">
                 <div>
                   <button mat-button type="button" class="main-button" (click)="filePicker.click()">
@@ -102,7 +104,7 @@
                     {{ 'UPLOAD' | translate }}
                   </button>
                 </div>
-                <span class="extensions">JPG, pdf, video, etc</span>
+                <span class="extensions">{{ 'FILE_EXTENSIONS' | translate }}</span>
                 <input type="file" hidden multiple #filePicker (change)="onFileChange($event)">
               </div>
 
@@ -129,7 +131,7 @@
               <div class="col-md-12 overflow-hidden">
                 <metutors-submit-button [form]="form" [isSubmitting]="(isAddingAssignment$ | async)!"
                                         [extraClasses]="'float-end py-1 px-5'">
-                  Add
+                  {{ 'ADD' | translate }}
                 </metutors-submit-button>
               </div>
             </div>

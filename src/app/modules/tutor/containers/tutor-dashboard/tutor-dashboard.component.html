@@ -4,21 +4,21 @@
   <ng-container *ngLet="(view$ | async) as view">
     <div class="row">
       <div class="col-lg-6">
-        <h2 class="overview f-size-17-md-sm">Overview</h2>
+        <h2 class="overview f-size-17-md-sm">{{ 'OVERVIEW' | translate }}</h2>
         <p class="desc">
-          See your progress from the last <strong>{{ insightRange[range] }}</strong>
+          {{ 'SEE_PROGRESS_LAST' | translate }} <strong>{{ insightRange[range] | translate }}</strong>
         </p>
       </div>
       <div class="col-lg-6">
         <button mat-flat-button color="primary" class="float-end ms-2 mb-15-sm" (click)="onShowSendFeedbackModal()">
-          Send Feedback
+          {{ 'SEND_FEEDBACK' | translate }}
         </button>
 
         <mat-button-toggle-group class="float-end">
-          <mat-button-toggle value="7days" (change)="loadDashboard($event.value)" checked>7 Days</mat-button-toggle>
-          <mat-button-toggle value="1month" (change)="loadDashboard($event.value)">1 Month</mat-button-toggle>
-          <mat-button-toggle value="3months" (change)="loadDashboard($event.value)">3 Months</mat-button-toggle>
-          <mat-button-toggle value="1year" (change)="loadDashboard($event.value)">Yearly</mat-button-toggle>
+          <mat-button-toggle value="7days" (change)="loadDashboard($event.value)" checked>7 {{ 'DAYS_SM' | translate }}</mat-button-toggle>
+          <mat-button-toggle value="1month" (change)="loadDashboard($event.value)">1 {{ 'MONTH_SM' | translate }}</mat-button-toggle>
+          <mat-button-toggle value="3months" (change)="loadDashboard($event.value)">3 {{ 'MONTHS_SM' | translate }}</mat-button-toggle>
+          <mat-button-toggle value="1year" (change)="loadDashboard($event.value)">{{ 'YEARLY' | translate }}</mat-button-toggle>
         </mat-button-toggle-group>
       </div>
     </div>
@@ -36,48 +36,48 @@
         <div class="col-md-3 col-sm-6 mb-15-sm">
           <div class="card">
             <div class="card-body d-flex flex-column">
-              <h3>Total courses</h3>
+              <h3>{{ 'TOTAL_COURSES' | translate }}</h3>
               <h1 class="flex-grow-1">
                 {{ view.data.totalCourses }}
-                <span [ngClass]="{'danger': view.data?.coursesGrowth < 0}">{{ view.data?.coursesGrowth >= 0 ? '+'+view.data?.coursesGrowth : view.data?.coursesGrowth}}%</span>
+                <span [ngClass]="{'danger': view.data?.coursesGrowth < 0}">{{ view.data?.coursesGrowth >= 0 ? '+'+view.data?.coursesGrowth : view.data?.coursesGrowth }}%</span>
               </h1>
-              <p>Compared to {{ view.data?.coursesLastCount }} (last {{ insightRange[range] }})</p>
+              <p>{{ 'COMPARED_TO' | translate }} {{ view.data?.coursesLastCount }} ({{ 'LAST_SM' | translate }} {{ insightRange[range] | translate }})</p>
             </div>
           </div>
         </div>
         <div class="col-md-3 col-sm-6 mb-15-sm">
           <div class="card red-bo">
             <div class="card-body d-flex flex-column">
-              <h3>Completed courses</h3>
+              <h3>{{ 'COMPLETED_COURSES' | translate }}</h3>
               <h1 class="flex-grow-1">
                 {{ view.data.totalCompletedCourses }}
                 <span [ngClass]="{'danger': view.data?.completedCoursesGrowth < 0}">{{ view.data?.completedCoursesGrowth >= 0 ? '+' +view.data?.completedCoursesGrowth : view.data?.completedCoursesGrowth }}%</span>
               </h1>
-              <p>Compared to {{ view.data?.completedCoursesLastCount }} (last {{ insightRange[range] }})</p>
+              <p>{{ 'COMPARED_TO' | translate }} {{ view.data?.completedCoursesLastCount }} ({{ 'LAST_SM' | translate }} {{ insightRange[range] | translate }})</p>
             </div>
           </div>
         </div>
         <div class="col-md-3 col-sm-6 mb-15-sm">
           <div class="card orange-bo">
             <div class="card-body d-flex flex-column">
-              <h3>Kudos points</h3>
+              <h3>{{ 'KUDOS_POINTS' | translate }}</h3>
               <h1 class="flex-grow-1">
                 {{ view.data.kudosPoints }}
                 <span [ngClass]="{'danger': view.data?.kudosPointsGrowth < 0}">{{ view.data?.kudosPointsGrowth >= 0 ? '+' +view.data?.kudosPointsGrowth : view.data?.kudosPointsGrowth }}%</span>
               </h1>
-              <p>Compared to {{ view.data?.kudosPointsLastCount }} (last {{ insightRange[range] }})</p>
+              <p>{{ 'COMPARED_TO' | translate }} {{ view.data?.kudosPointsLastCount }} ({{ 'LAST_SM' | translate }} {{ insightRange[range] | translate }})</p>
             </div>
           </div>
         </div>
         <div class="col-md-3 col-sm-6 mb-15-sm">
           <div class="card purple-bo">
             <div class="card-body d-flex flex-column">
-              <h3>Newly assigned courses</h3>
+              <h3>{{ 'NEWLY_ASSIGNED_COURSES' | translate }}</h3>
               <h1 class="flex-grow-1">
-                {{ view.data.totalNewlyCourses}}
-                <span [ngClass]="{'danger': view.data?.newlyCoursesGrowth < 0}">{{ view.data?.newlyCoursesGrowth >= 0 ? '+'+view.data?.newlyCoursesGrowth : view.data?.newlyCoursesGrowth}}%</span>
+                {{ view.data.totalNewlyCourses }}
+                <span [ngClass]="{'danger': view.data?.newlyCoursesGrowth < 0}">{{ view.data?.newlyCoursesGrowth >= 0 ? '+'+view.data?.newlyCoursesGrowth : view.data?.newlyCoursesGrowth }}%</span>
               </h1>
-              <p>Compared to {{ view.data?.newlyCoursesLastCount }} (last {{ insightRange[range] }})</p>
+              <p>{{ 'COMPARED_TO' | translate }} {{ view.data?.newlyCoursesLastCount }} ({{ 'LAST_SM' | translate }} {{ insightRange[range] | translate }})</p>
             </div>
           </div>
         </div>
@@ -86,7 +86,7 @@
 
     <div class="row">
       <div class="col-12">
-        <h3 class="overview mb-3 f-size-17-md-sm">Today's classes - {{ view.data?.todaysDate }}</h3>
+        <h3 class="overview mb-3 f-size-17-md-sm">{{ 'TODAY_CLASSES' | translate }} - {{ view.data?.todaysDate }}</h3>
         <ng-container [ngSwitch]="view.loading">
           <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
           <div class="table-responsive" *ngSwitchCase="false">
@@ -94,21 +94,21 @@
               <tr>
                 <th>#</th>
                 <th>{{ 'PROGRAM_NAME' | translate }}</th>
-                <th>Course Name</th>
-                <th>Class Subject</th>
-                <th style="min-width: 150px">Start time - End time</th>
-                <th>Duration</th>
+                <th>{{ 'COURSE_NAME' | translate }}</th>
+                <th>{{ 'CLASS_SUBJECT' | translate }}</th>
+                <th style="min-width: 150px">{{ 'START_END_TIME' | translate }}</th>
+                <th>{{ 'DURATION' | translate }}</th>
                 <th></th>
               </tr>
               <tr *ngIf="!view.data?.todaysClasses?.length">
                 <td colspan="6">
-                  <div class="text-center">No record found</div>
+                  <div class="text-center">{{ 'NO_RECORD_FOUND' | translate }}</div>
                 </td>
               </tr>
               <ng-container *ngIf="view.data?.todaysClasses?.length">
                 <tr *ngFor="let todaysClass of view.data.todaysClasses; let i=index">
                   <td>{{ i + 1 }}</td>
-                  <td>{{ todaysClass?.course?.program?.name }}</td>
+                  <td><bdi>{{ todaysClass?.course?.program?.name }}</bdi></td>
                   <td>{{ todaysClass?.course?.courseName }}</td>
                   <td>{{ todaysClass?.title }}</td>
                   <td>{{ todaysClass?.startTime | date:'h:mm a' }} - {{ todaysClass?.endTime | date:'h:mm a' }}</td>
@@ -116,7 +116,7 @@
                   <td class="d-flex justify-content-end">
                     <button mat-button class="main-button-opacity" (click)="launchClass(todaysClass.id)" [disabled]="(isLaunchingClass$ | async)">
                       <img src="assets/svg/play-fill.svg" draggable="false" alt="">
-                      Launch Class
+                      {{ 'LAUNCH_CLASS' | translate }}
                     </button>
                   </td>
                 </tr>
@@ -129,7 +129,7 @@
 
     <div class="row">
       <div class="col-12">
-        <h2 class="overview mt-5 f-size-17-md-sm mt-15-md-sm">Newly assigned courses</h2>
+        <h2 class="overview mt-5 f-size-17-md-sm mt-15-md-sm">{{ 'NEWLY_ASSIGNED_COURSES' | translate }}</h2>
       </div>
       <div class="col-12">
         <ng-container [ngSwitch]="view.loading">
@@ -144,7 +144,7 @@
               </metutors-classroom-item>
             </ng-container>
             <ng-container *ngIf="!view.data.courses?.length">
-              <div class="p-5 text-center">No record found</div>
+              <div class="p-5 text-center">{{ 'NO_RECORD_FOUND' | translate }}</div>
             </ng-container>
           </ng-container>
         </ng-container>
@@ -154,10 +154,10 @@
     <div class="row">
       <div class="col-12">
         <h2 class="overview mt-5 mb-3 f-size-17-md-sm mt-15-md-sm">
-          Kudos points details
+          {{ 'KUDOS_POINTS_DETAILS' | translate }}
 
           <span class="float-end view-all text-main cursor-pointer" (click)="onOpenKudosPointsModal()">
-            View all reviews
+            {{ 'VIEW_ALL_POINTS' | translate }}
             <img src="assets/svg/arrow-left-line-colored.svg" alt="" class="ms-2 rotate-180-ar" draggable="false">
           </span>
         </h2>
@@ -168,21 +168,21 @@
           <div class="table-responsive" *ngSwitchCase="false">
             <table class="table my-table default-title">
               <tr>
-                <th colspan="4">Kudos points details</th>
+                <th colspan="4">{{ 'KUDOS_POINTS_DETAILS' | translate }}</th>
                 <th class="sm">
-                  <span class="float-end me-2">Total points: {{ view.data?.kudosPoints ? view.data?.kudosPoints : 0 }}</span>
+                  <span class="float-end me-2">{{ 'TOTAL_POINTS' | translate }}: {{ view.data?.kudosPoints ? view.data?.kudosPoints : 0 }}</span>
                 </th>
               </tr>
               <tr>
-                <td>Number</td>
-                <td>Student Name</td>
-                <td>Course Name</td>
-                <td>Course Date</td>
-                <td>Points</td>
+                <td>{{ 'NUMBER' | translate }}</td>
+                <td>{{ 'STUDENT_NAME' | translate }}</td>
+                <td>{{ 'COURSE_NAME' | translate }}</td>
+                <td>{{ 'COURSE_DATE' | translate }}</td>
+                <td>{{ 'POINTS' | translate }}</td>
               </tr>
               <tr *ngIf="!view.data.feedbacks?.data?.length">
                 <td colspan="5">
-                  <div class="text-center">No record found</div>
+                  <div class="text-center">{{ 'NO_RECORD_FOUND' | translate }}</div>
                 </td>
               </tr>
               <ng-container *ngIf="view.data.feedbacks?.data?.length">
@@ -196,7 +196,7 @@
                   </td>
                   <td>{{ kudo?.courseName }}</td>
                   <td>{{ kudo?.courseDate }}</td>
-                  <td>{{ kudo.kudosPoints }} Points</td>
+                  <td>{{ kudo.kudosPoints }} {{ 'POINTS_SM' | translate }}</td>
                 </tr>
               </ng-container>
             </table>
@@ -220,6 +220,6 @@
 
 <metutors-tutor-feedback-modal *ngIf="(showSendFeedbackModal$ | async)" [heading]="heading"
                                [messageLabel]="messageLabel" [tabLabel]="tabLabel" [subHeading]="subHeading"
-                               [showModal]="(showSendFeedbackModal$ | async)!" [isPlatform]="true" [buttonLabel]="'Send Feedback'"
+                               [showModal]="(showSendFeedbackModal$ | async)!" [isPlatform]="true" [buttonLabel]="'SEND_FEEDBACK'"
                                (closeModal)="onCloseSendFeedbackModal()" (submitFeedback)="onSubmitFeedback($event)">
 </metutors-tutor-feedback-modal>

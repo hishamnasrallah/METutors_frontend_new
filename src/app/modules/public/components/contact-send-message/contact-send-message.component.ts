@@ -1,12 +1,13 @@
+import { formatBytes } from 'src/app/config';
+import { TranslateService } from '@ngx-translate/core';
+import { AlertNotificationService } from 'src/app/core/components';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
-  AbstractControl,
-  FormBuilder,
   FormGroup,
   Validators,
+  FormBuilder,
+  AbstractControl,
 } from '@angular/forms';
-import { formatBytes } from 'src/app/config';
-import { AlertNotificationService } from 'src/app/core/components';
 
 @Component({
   selector: 'metutors-contact-send-message',
@@ -24,6 +25,7 @@ export class ContactSendMessageComponent implements OnInit {
 
   constructor(
     private _fb: FormBuilder,
+    private _translate: TranslateService,
     private _alertNotificationService: AlertNotificationService
   ) {
     this.contactForm = this._fb.group({
@@ -73,7 +75,7 @@ export class ContactSendMessageComponent implements OnInit {
       const file = event.target.files[0];
 
       if (file.size > 10 * 1024 * 1024) {
-        this._alertNotificationService.error('The File size can\'t be more then 10MB');
+          this._alertNotificationService.error('ALLOWED_SIZE_10MB');
 
         return;
       }

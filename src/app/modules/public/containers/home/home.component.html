@@ -1,6 +1,20 @@
-<metutors-home-slide [token]="(token$ | async)!"></metutors-home-slide>
+<metutors-home-slide [token]="(token$ | async)!"
+                     [isDemo]="(isDemo$ | async)!"
+                     [user]="(user$ | async)!">
+</metutors-home-slide>
 
 <metutors-home-services-features></metutors-home-services-features>
+
+<metutors-homework-project-help [programs]="(programs$ | async)!"
+                                [fields]="fields$ | async"
+                                [loadingFields]="loadingFields$ | async" 
+                                [countries]="(countries$ | async)!"
+                                [loadingCountries]="loadingCountries$ | async" 
+                                [subjects]="subjects$ | async" 
+                                [loadingSubjects]="loadingSubjects$ | async" 
+                                (changeProgram)="fetchFields($event)"
+                                (viewSubjectDetails)="onOpenViewSubjectDetailsModal($event)">
+</metutors-homework-project-help>
 
 <metutors-learning-environment [isLoading]="loadingPrograms$ | async" 
                                [programs]="programs$ | async"
@@ -21,8 +35,8 @@
 </metutors-home-featured-tutors>
 
 <metutors-success-stories [testmonials]="testmonials"
-                          [title]="'Trusted by thousands of school & college students'"
-                          [desc]="'We already have thousands of students in the MEtutors community satisfied with their learning experience. Take a look at what they have to say.'">
+                          [title]="'TRUSTED_THOUSANDS_STUDENTS'"
+                          [desc]="'THOUSANDS_STUDENTS_COMMUNITY'">
 </metutors-success-stories>
 
 <metutors-view-subject-details-modal *ngIf="showViewSubjectDetailsModal$ | async"

@@ -2,21 +2,19 @@
   <div class="container">
     <div class="row text-center">
       <div class="col-12">
-        <h1 class="f-size-25-md-sm">{{ title }}</h1>
-        <p class="f-size-15-md-sm">
-          From enrollment to graduation, we’re here with you every step of the way!
-        </p>
+        <h1 class="f-size-25-md-sm">{{ title | translate }}</h1>
+        <p class="f-size-15-md-sm">{{ 'FROM_ENROLLMENT_GRADUATION' | translate }}</p>
       </div>
       <div class="col-md-6 offset-md-3">
         <div class="form-block position-relative rounded">
           <mat-icon>search</mat-icon>
-          <input type="text" placeholder="Ask a question..." class="w-100 rounded"
-            (keyup)="submitFAQ.emit(searchKey.value)" #searchKey>
-          <button mat-flat-button color="primary" (click)="submitFAQ.emit(searchKey.value)">Search</button>
+          <input type="text" placeholder="{{ 'ASK_QUESTION' | translate }}" class="w-100 rounded"
+            (keyup)="submitFAQ.emit(searchKey.value)" #searchKey meTutorsTrimInput>
+          <button mat-flat-button color="primary" (click)="submitFAQ.emit(searchKey.value)">{{ 'SEARCH' | translate }}</button>
         </div>
       </div>
       <div class="col-12">
-        <h2>*We are collect your searched keywords to improve our FAQs</h2>
+        <h2>{{ 'WE_COLLECT_KEYWORDS' | translate }}</h2>
       </div>
     </div>
   </div>

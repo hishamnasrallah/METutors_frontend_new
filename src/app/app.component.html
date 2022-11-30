@@ -1,10 +1,14 @@
 <ng-progress id="myProgress"></ng-progress>
 
 <div class="d-flex flex-column full-height">
-  <metutors-navbar *ngIf="layout === undefined || layout.showHeader || layout.showHeader === undefined">
+  <metutors-navbar *ngIf="layout === undefined || layout.showHeader || layout.showHeader === undefined"
+                   [countries]="(countries$ | async)!"
+                   [loadingCountries]="(loadingCountries$ | async)!"
+                   (calculateHeight)="paddingTop = $event">
   </metutors-navbar>
 
-  <div class="flex-grow-1">
+  <div class="flex-grow-1" 
+       [ngStyle]="{'padding-top.px': (layout === undefined || layout.showHeader || layout.showHeader === undefined) ? paddingTop : 0}">
     <router-outlet></router-outlet>
   </div>
 

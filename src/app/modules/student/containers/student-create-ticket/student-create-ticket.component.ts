@@ -50,9 +50,7 @@ export class StudentCreateTicketComponent implements OnInit {
       const file = event.target?.files[0];
 
       if (file.size > 10 * 1024 * 1024) {
-        this._translate.get('ALLOWED_SIZE_10MB').subscribe((res: string) => {
-          this._alertNotificationService.error(res);
-        });
+        this._alertNotificationService.error('ALLOWED_SIZE_10MB');
 
         return;
       }

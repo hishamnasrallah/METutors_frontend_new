@@ -1,48 +1,31 @@
-<div class="footer p-0-md-sm">
+<div class="footer p-0-md-sm mt-4 position-relative">
   <div class="container">
     <div class="row">
-      <div class="col-lg links">
+      <div class="col-md col-sm-6 links">
         <h1>{{ 'ABOUT_US' | translate }}</h1>
-        <ul class="list-unstyled m-0 d-flex flex-column justify-content-center h-100">
+        <ul class="list-unstyled m-0 d-flex flex-column justify-content-center">
           <li>
-            <a routerLink="/about">{{ 'OUR_FOUNDERS_TEAM' | translate }}</a>
+            <a routerLink="/about">{{ 'MEET_THE_TEAM' | translate }}</a>
           </li>
           <li>
-            <a routerLink="/" [fragment]="'featured-tutors'">{{ 'FEATURED_TUTORS' | translate }}</a>
-          </li>
-          <li>
-            <a routerLink="/" [fragment]="'success-stories'">{{ 'SUCCESS_STORIES' | translate }}</a>
+            <a routerLink="/" [fragment]="'featured-tutors'">{{ 'OUR_STAR_TUTORS' | translate }}</a>
           </li>
         </ul>
       </div>
-      <div class="col-lg links">
-        <h1>{{ 'HELP' | translate }}</h1>
-        <ul class="list-unstyled m-0 d-flex flex-column justify-content-center h-100">
-          <li>
-            <a routerLink="/faq">{{ 'FAQS' | translate }}</a>
-          </li>
-          <li>
-            <a routerLink="/contact">{{ 'CONTACT_US' | translate }}</a>
-          </li>
-        </ul>
-      </div>
-      <div class="col-lg links">
+      <div class="col-md col-sm-6 links">
         <h1>{{ 'LEARN' | translate }}</h1>
-        <ul class="list-unstyled m-0 d-flex flex-column justify-content-center h-100">
+        <ul class="list-unstyled m-0 d-flex flex-column justify-content-center">
           <li>
-            <a routerLink="/all-courses/1">{{ 'EXPLORE_COURSES' | translate }}</a>
+            <a routerLink="/all-courses">{{ 'COURSES' | translate }}</a>
           </li>
           <li>
-            <a [routerLink]="['/requests', 'request-tutor']">{{ 'CUSTOMIZED_COURSES' | translate }}</a>
-          </li>
-          <li>
-            <a routerLink="/" [fragment]="'explore-services'">{{ 'PRICING' | translate }}</a>
+            <a routerLink="/" [fragment]="'explore-services'">{{ 'PRICES' | translate }}</a>
           </li>
         </ul>
       </div>
-      <div class="col-lg links">
-        <h1>{{ 'JOIN_PLATFORM' | translate }}</h1>
-        <ul class="list-unstyled m-0 d-flex flex-column justify-content-center h-100">
+      <div class="col-md col-sm-6 links">
+        <h1>{{ 'SIGN_UP' | translate }}</h1>
+        <ul class="list-unstyled m-0 d-flex flex-column justify-content-center">
           <li>
             <a routerLink="/signup" [queryParams]="{role: 1}">{{ 'START_LEARNING' | translate }}</a>
           </li>
@@ -51,25 +34,23 @@
           </li>
         </ul>
       </div>
-      <div class="col-lg links">
-        <h1>{{ 'TERMS' | translate }}</h1>
-        <ul class="list-unstyled m-0 d-flex flex-column justify-content-center h-100">
+      <div class="col-md col-sm-6 links">
+        <h1>{{ 'HELP' | translate }}</h1>
+        <ul class="list-unstyled m-0 d-flex flex-column justify-content-center">
           <li>
-            <a routerLink="/student-terms-conditions">{{ 'STUDENT_TERMS_CONDITIONS' | translate }}</a>
+            <a routerLink="/faq">{{ 'FAQS' | translate }}</a>
           </li>
           <li>
-            <a routerLink="/tutor-terms-conditions">{{ 'TEACHER_TERMS_CONDITIONS' | translate }}</a>
-          </li>
-          <li>
-            <a routerLink="/privacy-policy">{{ 'PRIVACY_POLICY' | translate }}</a>
+            <a routerLink="/contact">{{ 'SAY_HELLO' | translate }}</a>
           </li>
         </ul>
       </div>
     </div>
     <div class="divider mt-30 mt-15-sm"></div>
     <div class="row subscribe mt-15-sm p-10-sm">
-      <h1 class="col-12 p-0-sm">{{ 'SUBSCRIBE_NEWSLETTER' | translate }}</h1>
-      <div class="col-md-7 p-0-sm">
+      <div class="col-md-4 p-0-sm">
+        <h1 class="p-0-sm">{{ 'KEEP_UPDATED' | translate }}</h1>
+        <p class="p-0-sm">{{ 'KEEP_UPDATED_DESC' | translate }}</p>
         <form>
           <div class="form-block position-relative">
             <input type="email" placeholder="{{ 'ENTER_UR_EMAIL' | translate }}" class="w-100" />
@@ -77,39 +58,65 @@
           </div>
         </form>
       </div>
-      <div class="col-md-4 offset-md-1 social p-0-sm mt-15-sm d-flex justify-content-end">
-        <a mat-button href="https://www.facebook.com/metutorsco/" target="_blank">
-          <img src="assets/svg/facebook.svg" alt="" draggable="false" />
-        </a>
-        <a mat-button href="https://twitter.com/metutorsco" target="_blank">
-          <img src="assets/svg/twitter.svg" alt="" draggable="false" />
-        </a>
-        <a mat-button href="https://www.instagram.com/metutorsco/" target="_blank">
-          <img src="assets/svg/instagram.svg" alt="" draggable="false" />
-        </a>
-        <a mat-button href="https://www.linkedin.com/company/metutors" target="_blank">
-          <img src="assets/svg/linkedin-circle.svg" alt="" draggable="false" />
-        </a>
-        <a mat-button href="https://www.youtube.com/channel/UC2f8Y6Hhc2qTsjISnjlrmiQ" target="_blank">
-          <img src="assets/svg/youtube.svg" alt="" draggable="false" />
-        </a>
+      <div class="col-md-4 offset-md-1 p-0-sm">
+        <h1 class="p-0-sm mt-15-sm">{{ 'JOIN_US' | translate }}</h1>
+        <p class="p-0-sm">{{ 'JOIN_US_DESC' | translate }}</p>
+        <a routerLink="/contact">{{ 'SAY_HELLO' | translate }}</a>
+      </div>
+      <div class="col-md-2 offset-md-1 social p-0-sm mt-15-sm">
+        <h1 class="p-0-sm">{{ 'SOCIAL' | translate }}</h1>
+        <div class="d-flex">
+          <a mat-button href="https://www.facebook.com/metutorsco/" target="_blank">
+            <img src="assets/svg/facebook.svg" alt="" draggable="false" />
+          </a>
+          <a mat-button href="https://twitter.com/metutorsco" target="_blank">
+            <img src="assets/svg/twitter.svg" alt="" draggable="false" />
+          </a>
+          <a mat-button href="https://www.instagram.com/metutorsco/" target="_blank">
+            <img src="assets/svg/instagram.svg" alt="" draggable="false" />
+          </a>
+          <a mat-button href="https://www.linkedin.com/company/metutors" target="_blank">
+            <img src="assets/svg/linkedin-circle.svg" alt="" draggable="false" />
+          </a>
+          <a mat-button href="https://www.youtube.com/channel/UC2f8Y6Hhc2qTsjISnjlrmiQ" target="_blank">
+            <img src="assets/svg/youtube.svg" alt="" draggable="false" />
+          </a>
+          <!-- <a mat-button href="https://www.youtube.com/channel/UC2f8Y6Hhc2qTsjISnjlrmiQ" target="_blank">
+          <img src="assets/svg/tiktok.svg" alt="" draggable="false" />
+        </a> -->
+        </div>
       </div>
     </div>
     <div class="divider"></div>
     <div class="row copyright">
-      <div class="col-md-8 d-flex justify-content-between">
-        <div class="d-flex">
+      <div class="col-md-9 d-flex justify-content-between d-block-sm">
+        <div class="d-flex align-items-center justify-content-center">
           <img src="assets/svg/mastercard.svg" height="38" alt="mastercard" class="mastercard">
-          <img src="assets/svg/visa.svg" alt="visa">
+          <img src="assets/svg/visa.svg" alt="visa" class="visa">
         </div>
-        <ul class="list-inline m-0">
+        <ul class="list-inline m-0 p-0 mt-15-sm">
           <li class="list-inline-item">
-             <a routerLink="/privacy-policy">Cookies Policy</a>
+            <a routerLink="/privacy-notice">{{ 'PRIVACY_NOTICE' | translate }}</a>
+          </li>
+          <li class="list-inline-item">
+            <a routerLink="/cookie-notice">{{ 'COOKIES_NOTICE' | translate }}</a>
+          </li>
+          <li class="list-inline-item">
+            <a routerLink="/website-terms">{{ 'WEBSITE_TERMS' | translate }}</a>
+          </li>
+          <li class="list-inline-item">
+            <a routerLink="/student-terms">{{ 'STUDENT_TERMS' | translate }}</a>
+          </li>
+          <li class="list-inline-item">
+            <a routerLink="/tutor-terms">{{ 'TUTOR_TERMS' | translate }}</a>
+          </li>
+          <li class="list-inline-item">
+            <a routerLink="/community-terms">{{ 'COMMUNITY_TERMS' | translate }}</a>
           </li>
         </ul>
       </div>
-      <div class="col-md-4 text-end">
-        © {{ myDate | date: "y" }} MEtutors. {{ 'ALL_RIGHTS_RESERVED' | translate }}
+      <div class="col-md-3 text-end mt-15-sm">
+        <bdi> © {{ myDate | date: "y" }} {{ 'METUTORS' | translate }}. {{ 'ALL_RIGHTS_RESERVED' | translate }}</bdi>
       </div>
     </div>
   </div>

@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { environment } from '@environment';
 
 @Component({
   selector: 'metutors-tutor-view-kudos-points-detail',

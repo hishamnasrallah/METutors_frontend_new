@@ -10,14 +10,22 @@ export interface ILookups {
 
 export interface IProgram {
   id: number;
-  image: string;
   name: string;
-  title: string;
   code: string;
+  title: string;
+  image: string;
+  nameAr: string;
+  nameEn: string;
   status: number;
+  titleAr: string;
+  titleEn: string;
+  isoCode: string;
   createdAt: string;
   updatedAt: string;
+  programCode: string;
   description: string;
+  descriptionAr: string;
+  descriptionEn: string;
 }
 
 export interface ICountry {
@@ -41,6 +49,8 @@ export interface ILevel {
 export interface IField {
   id: number;
   name: string;
+  nameAr: string;
+  nameEn: string;
   code: string;
   icon: string;
   grade: number;
@@ -87,4 +97,24 @@ export interface IFieldFilters {
 export interface ICountryFilters {
   title?: string;
   status?: string;
+}
+
+export interface IExploreTutorsFilters {
+  search?: string;
+  field?: number;
+  program?: number;
+  country_id?: number;
+  page?: number;
+  field_ids?: string;
+}
+
+export interface IExploreCoursesFilters {
+  search?: string;
+  field?: number;
+  program?: number;
+  country_id?: number;
+  page?: number;
+  field_ids?: string;
+  price_start?: number;
+  price_end?: number;
 }

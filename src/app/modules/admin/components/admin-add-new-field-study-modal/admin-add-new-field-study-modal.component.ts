@@ -26,6 +26,7 @@ export class AdminAddNewFieldStudyModalComponent implements OnInit {
       this.field = _field;
       this.form?.patchValue({
         name: _field.name,
+        name_ar: _field.nameAr,
         program_id: _field?.programId,
         country_id: _field?.countryId,
       });
@@ -46,6 +47,7 @@ export class AdminAddNewFieldStudyModalComponent implements OnInit {
     this.form = this._fb.group({
       country_id: [null],
       name: [null, Validators.required],
+      name_ar: [null, Validators.required],
       image: [null, Validators.required],
       program_id: [null, Validators.required],
     });
@@ -55,6 +57,10 @@ export class AdminAddNewFieldStudyModalComponent implements OnInit {
 
   get name(): AbstractControl | null {
     return this.form.get('name');
+  }
+
+  get nameAr(): AbstractControl | null {
+    return this.form.get('name_ar');
   }
 
   get image(): AbstractControl | null {
@@ -102,6 +108,7 @@ export class AdminAddNewFieldStudyModalComponent implements OnInit {
       const formData = new FormData();
       formData.set('name', this.name?.value);
       formData.set('image', this.image?.value);
+      formData.set('name_ar', this.nameAr?.value);
       formData.set('country_id', this.country?.value);
       formData.set('program_id', this.program?.value);
 

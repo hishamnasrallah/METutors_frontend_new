@@ -1,8 +1,8 @@
 <div class="ticket-details p-15-sm" *ngLet="(ticket$ | async) as ticket">
   <div class="row">
     <div class="col-12 d-flex justify-content-between">
-      <h2 class="title f-size-18-md-sm mb-0">My Tickets</h2>
-      <a mat-flat-button color="primary" routerLink="/student/help/support-ticket/create-ticket">Create New Ticket</a>
+      <h2 class="title f-size-18-md-sm mb-0">{{ 'MY_TICKETS' | translate }}</h2>
+      <a mat-flat-button color="primary" routerLink="/student/help/support-ticket/create-ticket">{{ 'CREATE_NEW_TICKET' | translate }}</a>
     </div>
     <div class="col-12">
       <div class="card">
@@ -24,20 +24,20 @@
                 <img [src]="ticket?.user?.avatar" meTutorsDefaultAvatar class="rounded-circle" alt="" width="25"
                   height="25" draggable="false">
                 <strong>
-                  <ng-container *ngIf="ticket?.user?.roleName === 'teacher'">Teacher:</ng-container>
-                  <ng-container *ngIf="ticket?.user?.roleName === 'student'">Student:</ng-container>
+                  <ng-container *ngIf="ticket?.user?.roleName === 'teacher'">{{ 'TEACHER' | translate }}:</ng-container>
+                  <ng-container *ngIf="ticket?.user?.roleName === 'student'">{{ 'STUDENT' | translate }}:</ng-container>
                   <ng-container *ngIf="ticket?.user?.roleName !== 'teacher' && ticket?.user?.roleName !== 'student'">
-                    Agent:</ng-container>
+                    {{ 'AGENT' | translate }}:</ng-container>
                   {{ ticket?.user?.name }}
                 </strong>
               </div>
               <div class="col-md-3 d-flex menu align-items-center">
                 <img src="assets/svg/calendar.svg" alt="" width="15" height="15" draggable="false">
-                <span>Open : {{ ticket?.createdDate | date: 'EEEE, d MMM y' }}</span>
+                <span>{{ 'OPEN' | translate }}: {{ ticket?.createdDate | date: 'EEEE, d MMM y' }}</span>
               </div>
               <div class="col-md-3 d-flex menu align-items-center" *ngIf="ticket?.lastReply">
                 <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
-                <span>Last Reply: {{ ticket?.lastReply | amTimeAgo }}</span>
+                <span>{{ 'LAST_REPLY' | translate }}: {{ ticket?.lastReply | amTimeAgo }}</span>
               </div>
               <div class="col-md-3 d-flex menu align-items-center ps-0">
                 <div class="block-file d-flex align-items-center" *ngIf="ticket?.file">
@@ -60,7 +60,7 @@
                     <h3 class="f-size-15-sm">
                       <ng-container *ngIf="(user$ | async)?.id === message?.user?.id">You</ng-container>
                       <ng-container *ngIf="(user$ | async)?.id !== message?.user?.id">
-                        Agent: {{ message?.user?.firstName }}
+                        {{ 'AGENT' | translate }}: {{ message?.user?.firstName }}
                       </ng-container>
                     </h3>
                     <h4>{{ message?.createdDate | date: 'd MMM y' }}</h4>
@@ -77,10 +77,10 @@
               <div class="position-relative">
                 <img [src]="(user$ | async)?.avatar" meTutorsDefaultAvatar class="rounded-circle" alt="" width="40"
                   height="40" draggable="false">
-                <input type="text" class="form-control" placeholder="Write a comment..." formControlName="comment">
+                <input type="text" class="form-control" placeholder="{{ 'WRITE_COMMENT' | translate }}" formControlName="comment" meTutorsTrimInput>
                 <metutors-submit-button [form]="messageForm" [isSubmitting]="isSubmitTicketComment$ | async"
                   [extraClasses]="'reply-button'">
-                  Reply
+                  {{ 'REPLY' | translate }}
                 </metutors-submit-button>
               </div>
             </form>

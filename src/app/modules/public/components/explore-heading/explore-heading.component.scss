@@ -1,0 +1,60 @@
+.explore-heading {
+  background-color: var(--main-color);
+  padding: 40px 0;
+  color: #FFF;
+
+  h1 {
+    font-size: 40px;
+    line-height: normal;
+    color: #FFF;
+    font-weight: bold;
+  }
+
+  h2 {
+    color: #FFFFFF;
+    font-size: 20px;
+    opacity: 0.9;
+    margin-bottom: 20px;
+  }
+
+  p {
+    font-size: 20px;
+    opacity: 0.84;
+  }
+
+  .contact-img {
+    height: 300px;
+    object-fit: contain;
+    max-width: 100%;
+  }
+
+  .form-block {
+    box-shadow: 0 15px 25px 0 rgba(0, 0, 0, 0.06);
+
+    input {
+      font-size: 15px;
+      padding: 20px 80px 20px 20px;
+      border: none;
+      height: 60px;
+      color: #696969;
+    }
+
+    button {
+      position: absolute;
+      right: 10px;
+      top: 12px;
+      background-color: #111a37;
+    }
+  }
+}
+
+@media (max-width:992px) {
+  .explore-heading {
+    background: var(--main-color) !important;
+    padding: 20px 0;
+
+    p {
+      font-size: 17px;
+    }
+  }
+}

@@ -1,0 +1,78 @@
+<form [formGroup]="form" class="card classroom-info" (ngSubmit)="onSubmit(form)">
+  <div class="card-body">
+    <div class="row row-block">
+      <div class="col-md-4">
+        <h2 class="f-size-17-md-sm">{{ 'CLASSROOM_SETUP' | translate }}</h2>
+        <h4 class="f-size-15-md-sm">
+          <span [innerHTML]="'CLASSROOM_INFO_HINT' | translate"></span> <bdi>{{ startingHoursLimit }}
+            {{ 'HOURS_SM' | translate }}.</bdi>
+        </h4>
+
+        <h5 class="mt-4">{{ 'COURSE_ID' | translate }}: <span>CID{{ selectedCourse?.id }}</span></h5>
+        <h5 class="mb-0">{{ 'COURSE_NAME' | translate }}: <span>{{ selectedCourse?.name }}</span></h5>
+      </div>
+      <div class="col-md-8 mt-15-sm">
+        <div class="row">
+          <div class="col-md-6">
+            <h3>{{ 'COURSE_DATE' | translate }}</h3>
+            <mat-form-field appearance="outline" class="w-100">
+              <input matInput [matDatepicker]="startPicker" placeholder="{{ 'CHOOSE_DATE' | translate }}"
+                (focus)="startPicker.open()" [min]="minDate" (dateChange)="onChangeDateTimePicker()"
+                formControlName="startDate">
+              <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+              <mat-datepicker #startPicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <h3>{{ 'START_TIME' | translate }}</h3>
+            <div class="ngx-timepicker-field-example">
+              <input placeholder="{{ 'SELECT_START_TIME' | translate }}" [ngxTimepicker]="startingTime"
+                formControlName="startTime" class="form-control" required (blur)="onChangeDateTimePicker()">
+              <ngx-material-timepicker #startingTime [appendToInput]="true" [minutesGap]="30"
+                (closed)="onChangeDateTimePicker()">
+              </ngx-material-timepicker>
+            </div>
+
+            <div class="text-danger" *ngIf="form?.hasError('startingHoursLimit')">
+              {{ 'FIRST_CLASS_START' | translate }} {{ startingHoursLimit }} {{ 'HOURS_SM' | translate }}
+            </div>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-md-6">
+            <h3>{{ 'CLASS_DURATION' | translate }}</h3>
+            <input type="text" class="form-control" formControlName="duration">
+
+            <div class="text-danger" *ngIf="form?.hasError('durationError')">
+              {{ 'TIME_DURATION_BETWEEN' | translate }} {{ classroomTimeDuration.min }} &
+              {{ classroomTimeDuration.max }} {{ 'HOURS_SM' | translate }}
+            </div>
+          </div>
+          <div class="col-md-6 mt-15-sm">
+            <h3>{{ 'TOTAL_HOURS' | translate }}</h3>
+            <input type="text" class="form-control" formControlName="hours">
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-md-6">
+            <h3>{{ 'TOTAL_CLASSES' | translate }}</h3>
+            <input type="text" class="form-control" formControlName="totalClasses">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-12 overflow-hidden">
+        <button mat-flat-button color="primary" class="float-end" [disabled]="form.invalid" type="submit">
+          {{ 'SAVE_CONTINUE' | translate }}
+          <mat-icon class="rotate-180-ar">arrow_forward</mat-icon>
+        </button>
+        <button mat-button class="float-end back-btn" type="button" (click)="onBack.emit()">
+          <mat-icon class="rotate-180-ar">arrow_back</mat-icon>
+          {{ 'BACK' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

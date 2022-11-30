@@ -5,9 +5,11 @@ import * as financeActions from '../actions/finance.actions';
 export interface State {
   orders: any;
   courses: any;
+  coupons: any;
   paymentInfo: any;
   refundDetail: any;
   isLoading: boolean;
+  isAddingCoupon: boolean;
   coursePaymentStatus: any;
   isLoadingRefund: boolean;
   isRetryingPayment: boolean;
@@ -17,9 +19,11 @@ export interface State {
 export const initialState: State = {
   orders: null,
   courses: null,
+  coupons: null,
   isLoading: false,
   paymentInfo: null,
   refundDetail: null,
+  isAddingCoupon: false,
   isLoadingRefund: false,
   isRefundingCourse: false,
   isRetryingPayment: false,
@@ -30,6 +34,7 @@ export const reducer = createReducer(
   initialState,
   on(
     financeActions.loadOrders,
+    financeActions.loadCoupons,
     financeActions.loadAdminCourses,
     financeActions.loadRefundOrders,
     financeActions.verifyCoursePayment,
@@ -41,6 +46,7 @@ export const reducer = createReducer(
 
   on(
     financeActions.loadOrdersFailure,
+    financeActions.loadCouponsFailure,
     financeActions.loadAdminCoursesFailure,
     financeActions.loadRefundOrdersFailure,
     financeActions.verifyCoursePaymentFailure,
@@ -58,6 +64,73 @@ export const reducer = createReducer(
       ...state,
       orders,
       isLoading: false,
+    })
+  ),
+
+  on(financeActions.loadCouponsSuccess, (state, { coupons }) => ({
+    ...state,
+    coupons,
+    isLoading: false,
+  })),
+
+  on(
+    financeActions.adminAddCoupon,
+    financeActions.adminEditCoupon,
+    (state) => ({
+      ...state,
+      isAddingCoupon: true,
+    })
+  ),
+
+  on(financeActions.adminAddCouponSuccess, (state, { coupon }) => {
+    let finalState = {
+      ...state,
+      isAddingCoupon: false,
+    };
+
+    let { coupons, total } = finalState.coupons;
+
+    total = total + 1;
+    const couponsClone = [...coupons];
+    couponsClone.unshift(coupon);
+    coupons = { coupons: couponsClone, total };
+
+    finalState.coupons = {
+      ...finalState.coupons,
+      ...coupons,
+    };
+
+    return finalState;
+  }),
+
+  on(financeActions.adminEditCouponSuccess, (state, { coupon }) => {
+    let finalState = {
+      ...state,
+      isAddingCoupon: false,
+    };
+
+    let { coupons, total } = finalState.coupons;
+
+    coupons = coupons?.map((_coupon: any) =>
+      _coupon.id === coupon.id ? coupon : _coupon
+    );
+
+    coupons = { coupons, total };
+
+    finalState.coupons = {
+      ...finalState.coupons,
+      ...coupons,
+    };
+
+    return finalState;
+  }),
+
+  on(
+    financeActions.adminAddCouponFailure,
+    financeActions.adminEditCouponFailure,
+    (state) => ({
+      ...state,
+      isAddingCoupon: false,
     })
   ),
 
@@ -122,6 +195,7 @@ export const reducer = createReducer(
 );
 
 export const selectFinanceOrders = (state: State): any => state.orders;
+export const selectFinanceCoupons = (state: State): any => state.coupons;
 export const selectFinanceCourses = (state: State): any => state.courses;
 
 export const selectFinanceRefundDetail = (state: State): any =>
@@ -138,6 +212,9 @@ export const selectIsRetryingPayment = (state: State): boolean =>
 
 export const selectIsLoadingFinanceRefundDetail = (state: State): boolean =>
   state.isLoadingRefund;
+
+export const selectIsLoadingFinanceAddCoupon = (state: State): boolean =>
+  state.isAddingCoupon;
 
 export const selectFinanceIsRefundingCourse = (state: State): boolean =>
   state.isRefundingCourse;

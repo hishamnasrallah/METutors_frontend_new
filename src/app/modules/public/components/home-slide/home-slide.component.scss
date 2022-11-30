@@ -25,7 +25,7 @@
     }
   }
 
-  .slide.active .item {
+  .slide .item {
     height: 100%;
 
     img {
@@ -37,7 +37,21 @@
 
 .slide {
   height: 580px;
+  // height: 700px;
   overflow: hidden;
+
+  // &:after {
+  //   content: "";
+  //   display: block;
+  //   background: url(http://dexam-angular.ui-lib.com/assets/images/landing/Bg/Bg_04.png) bottom no-repeat;
+  //   background-size: cover;
+  //   bottom: -8px;
+  //   z-index: 2;
+  //   position: absolute;
+  //   left: 0;
+  //   right: 0;
+  //   height: 100%;
+  // }
 
   .content {
     position: absolute;
@@ -77,20 +91,55 @@
         border-color: var(--main-color);
       }
     }
+
+    .request-free {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 0;
+      border: none;
+      position: relative;
+      font-size: 29px;
+      width: auto;
+
+      &:hover {
+        background-color: transparent;
+        border-color: transparent;
+
+        span {
+          color: var(--main-color);
+        }
+      }
+
+      .svg-icon {
+        width: 70px;
+        height: 70px;
+        position: absolute;
+        right: 0;
+        bottom: 20px;
+      }
+
+      span {
+        text-decoration: underline;
+        transition: all 0.25s ease-in-out;
+        color: #FFF;
+      }
+    }
   }
 }
 
 @media(max-width: 992px) {
   :host ::ng-deep .slide {
-    height: 300px;
+    height: 350px;
 
     .item {
-      height: 300px;
+      height: 350px;
+      background-size: cover;
+      background-repeat: no-repeat;
 
       img {
         width: 100%;
         height: 100%;
-        object-fit: cover;
+        object-fit: contain;
       }
     }
 

@@ -4,22 +4,30 @@ import * as fromCore from '@metutor/core/state';
 import { ActivatedRoute } from '@angular/router';
 import { ViewportScroller } from '@angular/common';
 import * as fromPublic from '@metutor/modules/public/state';
-import { AfterViewInit, Component, OnInit } from '@angular/core';
 import * as fromPublicActions from '@metutor/modules/public/state/actions';
 import {
+  OnInit,
+  Component,
+  AfterViewInit,
+  ChangeDetectorRef
+} from '@angular/core';
+import {
+  IUser,
   ITutor,
   IField,
   IProgram,
   ISubject,
-  ICountry,
+  ICountry
 } from 'src/app/core/models';
 
 @Component({
   selector: 'metutors-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
+  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit, AfterViewInit {
+  user$: Observable<IUser | null>;
+  isDemo$: Observable<number | null>;
   loadingFields$: Observable<boolean>;
   loadingTutors$: Observable<boolean>;
   fields$: Observable<IField[] | null>;
@@ -42,6 +50,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   constructor(
     private _store: Store<any>,
     private _route: ActivatedRoute,
+    private _cdRef: ChangeDetectorRef,
     private _viewportScroller: ViewportScroller
   ) {}
 
@@ -50,14 +59,17 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this._preparePrograms();
     this._prepareSubjects();
     this._prepareCountries();
+    this._cdRef.detectChanges();
 
     this.token$ = this._store.select(fromCore.selectToken);
+    this.isDemo$ = this._store.select(fromCore.selectStudentIsDemo);
+    this.user$ = this._store.select(fromCore.selectUser);
 
     this.showViewSubjectDetailsModal$ = this._store.select(
       fromPublic.selectShowViewSubjectDetailsModal
     );
 
-    this._route.fragment.subscribe((f) => {
+    this._route.fragment.subscribe(f => {
       this.fragment = f;
       const element = document.querySelector('#' + f);
 
@@ -68,39 +80,35 @@ export class HomeComponent implements OnInit, AfterViewInit {
       {
         id: 1,
         rate: 5,
-        content:
-          "I appreciate how top educators focus on conceptual and practical methods to help us apply what we've learned so far. I would 100% recommend it to my friends for sure!",
+        content: 'SUCCESS_STORIES_OPTION_1',
         picture: '',
         postedBy: 'Viola Manisa',
-        isVerified: true,
+        isVerified: true
       },
       {
-        id: 1,
+        id: 2,
         rate: 5,
-        content:
-          'Thank you for offering this course - there is much to learn and I love that I can do it at my own pace from the comfort of my own home ',
+        content: 'SUCCESS_STORIES_OPTION_2',
         picture: '',
         postedBy: 'Bryan Arnoldy',
-        isVerified: true,
+        isVerified: true
       },
       {
-        id: 1,
+        id: 3,
         rate: 5,
-        content:
-          'As a student, I enjoyed the opportunity to explore, learn, and apply a variety of technology-based software, platforms, and tools that helped me enhance my learning experience.',
+        content: 'SUCCESS_STORIES_OPTION_3',
         picture: '',
         postedBy: 'Joshua William',
-        isVerified: true,
+        isVerified: true
       },
       {
-        id: 1,
+        id: 4,
         rate: 5,
-        content:
-          'It is incredible to find such a variety of courses at a really affordable price. The fact that I can take the course anytime, anywhere is a bonus!',
+        content: 'SUCCESS_STORIES_OPTION_4',
         picture: '',
         postedBy: 'George Scott',
-        isVerified: true,
-      },
+        isVerified: true
+      }
     ];
   }
 
@@ -131,7 +139,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       fromCore.loadFieldsByProgramId({
         programId: program,
         countryId: country,
-        grade,
+        grade
       })
     );
     this.fields$ = this._store.select(fromCore.selectFields);
@@ -153,7 +161,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   private _preparePrograms(): void {
-    this._store.dispatch(fromCore.loadPrograms());
     this.programs$ = this._store.select(fromCore.selectPrograms);
     this.loadingPrograms$ = this._store.select(
       fromCore.selectIsLoadingPrograms
@@ -169,7 +176,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   private _prepareCountries(): void {
-    this._store.dispatch(fromCore.loadProgramCountries());
     this.countries$ = this._store.select(fromCore.selectProgramCountries);
     this.loadingCountries$ = this._store.select(
       fromCore.selectIsLoadingCountries

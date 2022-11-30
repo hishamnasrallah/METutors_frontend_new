@@ -4,7 +4,11 @@ import { ICountry, IField, IProgram } from './lookups.model';
 export class ISubject {
   id!: number;
   name!: string;
+  nameAr: string;
+  nameEn: string;
   description?: string;
+  descriptionAr: string;
+  descriptionEn: string;
   subject?: string;
   programId?: number;
   program?: IProgram;
@@ -23,7 +27,11 @@ export class ISubject {
     if (createDefault) {
       this.id = 0;
       this.name = '';
+      this.nameAr = '';
+      this.nameEn ='';
       this.description = '';
+      this.descriptionAr = '';
+      this.descriptionEn = '';
       this.subject = '';
       this.fieldId = 0;
       this.programId = 0;
@@ -42,7 +50,11 @@ export class ISubject {
     if (subject) {
       this.id = subject?.id;
       this.name = subject?.name || subject?.field?.name || '';
+      this.nameAr = subject?.name_ar || subject?.field?.name_ar || '';
+      this.nameEn = subject?.name || subject?.field?.name || '';
       this.description = subject?.description;
+      this.descriptionEn = subject?.description;
+      this.descriptionAr = subject?.description_ar;
       this.subject = subject?.subject?.name || '';
       this.fieldId = +subject?.field_id || +subject?.field?.id || 0;
       this.programId = +subject?.program_id || 0;

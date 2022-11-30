@@ -1,8 +1,7 @@
-import { ViewerType } from 'ngx-doc-viewer';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-
 import { dataURLtoFile } from '@config';
 import { ITeacherDocument } from '@models';
+import { ViewerType } from 'ngx-doc-viewer';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'metutors-doc-viewer-modal',

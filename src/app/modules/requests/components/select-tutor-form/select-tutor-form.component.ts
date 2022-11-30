@@ -8,7 +8,7 @@ import {
   group,
   trigger,
   animate,
-  transition,
+  transition
 } from '@angular/animations';
 
 @Component({
@@ -23,19 +23,19 @@ import {
 
         group([
           animate(300, style({ height: 0 })),
-          animate('200ms ease-in-out', style({ opacity: '0' })),
-        ]),
+          animate('200ms ease-in-out', style({ opacity: '0' }))
+        ])
       ]),
       transition(':enter', [
         style({ height: '0', opacity: 0 }),
 
         group([
           animate(300, style({ height: '*' })),
-          animate('400ms ease-in-out', style({ opacity: '1' })),
-        ]),
-      ]),
-    ]),
-  ],
+          animate('400ms ease-in-out', style({ opacity: '1' }))
+        ])
+      ])
+    ])
+  ]
 })
 export class SelectTutorFormComponent implements OnInit {
   @Input() form!: FormGroup;
@@ -55,7 +55,10 @@ export class SelectTutorFormComponent implements OnInit {
   }
   @Input() set duration(value: number) {
     if (value) {
+      this.schedule = '';
       this._duration = value;
+      this.tutor?.setValue(null);
+      this.tutor?.updateValueAndValidity();
     }
   }
 
@@ -63,11 +66,12 @@ export class SelectTutorFormComponent implements OnInit {
   @Output() submitForm = new EventEmitter();
   @Output() filterTutors: EventEmitter<string> = new EventEmitter<string>();
   @Output() changeSchedule: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Output() tutorAvailability: EventEmitter<number> =
-    new EventEmitter<number>();
+  @Output() tutorAvailability: EventEmitter<number> = new EventEmitter<
+    number
+  >();
 
   schedule: string;
-  _duration: number;
+  private _duration: number;
   tutorStatus = TutorStatus;
 
   constructor() {}
@@ -93,12 +97,14 @@ export class SelectTutorFormComponent implements OnInit {
   }
 
   onChangeSchedule(data: any): void {
+    this.tutor?.setValue(null);
+
     if (data.value === '1') {
+      this.tutor?.setValidators([Validators.required]);
+      this.tutor?.updateValueAndValidity();
       this.changeSchedule.emit(false);
     } else {
-      this.schedule = '';
-
-      if (this._duration < 48) {
+      if (this._duration < 72) {
         this.tutor?.setValidators([Validators.required]);
         this.tutor?.updateValueAndValidity();
         this.changeSchedule.emit(true);

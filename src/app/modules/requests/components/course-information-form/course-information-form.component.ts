@@ -6,7 +6,7 @@ import {
   FormGroup,
   Validators,
   FormBuilder,
-  AbstractControl,
+  AbstractControl
 } from '@angular/forms';
 import {
   state,
@@ -14,22 +14,21 @@ import {
   group,
   animate,
   trigger,
-  transition,
+  transition
 } from '@angular/animations';
 import {
   GRADES,
-  formatBytes,
   generalConstants,
   TEXTBOOK_EDITION_CONST,
   AcademicTutoringTextbook,
-  CLASSROOM_TOPICS_SCALE_NUM,
+  CLASSROOM_TOPICS_SCALE_NUM
 } from 'src/app/config';
 import {
   IField,
   IProgram,
   ISubject,
   ICountry,
-  ILanguage,
+  ILanguage
 } from 'src/app/core/models';
 
 @Component({
@@ -44,40 +43,45 @@ import {
 
         group([
           animate(300, style({ height: 0 })),
-          animate('200ms ease-in-out', style({ opacity: '0' })),
-        ]),
+          animate('200ms ease-in-out', style({ opacity: '0' }))
+        ])
       ]),
       transition(':enter', [
         style({ height: '0', opacity: 0 }),
 
         group([
           animate(300, style({ height: '*' })),
-          animate('400ms ease-in-out', style({ opacity: '1' })),
-        ]),
-      ]),
-    ]),
-  ],
+          animate('400ms ease-in-out', style({ opacity: '1' }))
+        ])
+      ])
+    ])
+  ]
 })
 export class CourseInformationFormComponent implements OnInit {
+  @Input() isFree = false;
   @Input() form!: FormGroup;
+  @Input() uploadedFiles: any;
   @Input() selectedCourse: any;
+  @Input() fileUploadProgress: any;
   @Input() fields: IField[] | null;
   @Input() subjects: ISubject[] | null;
   @Input() programs: IProgram[] | null;
   @Input() countries: ICountry[] | null;
   @Input() languages: ILanguage[] | null;
 
+  @Output() uploadedFile = new EventEmitter<any>();
+  @Output() deleteFile = new EventEmitter<number>();
   @Output() submitForm = new EventEmitter<FormGroup>();
   @Output() changeCourseField = new EventEmitter<string>();
   @Output() changeCourseProgram = new EventEmitter<string>();
   @Output() changeCourseSubject = new EventEmitter<string>();
 
   grades = GRADES;
-  filePreview: any;
   showAddTopic = false;
   topicsScale = CLASSROOM_TOPICS_SCALE_NUM;
   nationalId = generalConstants.nationalId;
   textbookEditions = TEXTBOOK_EDITION_CONST;
+  uploadComplete = generalConstants.uploadComplete;
   academicTutoringTextbook = AcademicTutoringTextbook;
 
   constructor(
@@ -97,7 +101,6 @@ export class CourseInformationFormComponent implements OnInit {
       this.name?.setValidators([Validators.required]);
       this.edition?.setValidators([Validators.required]);
       this.author?.setValidators([Validators.required]);
-      // this.filePreview = null;
       this.file?.setValidators([]);
     } else if (value === this.academicTutoringTextbook.pdf) {
       this.name?.setValidators([]);
@@ -109,7 +112,6 @@ export class CourseInformationFormComponent implements OnInit {
       this.edition?.setValidators([]);
       this.author?.setValidators([]);
       this.file?.setValidators([]);
-      // this.filePreview = null;
     }
 
     this.name?.updateValueAndValidity();
@@ -226,6 +228,8 @@ export class CourseInformationFormComponent implements OnInit {
   }
 
   addTopic(): void {
+    if (this.form.value.topics?.length >= (this.isFree ? 1 : 10)) return;
+
     this.topics.push(this.newTopic());
     this.showAddTopic = false;
   }
@@ -244,9 +248,9 @@ export class CourseInformationFormComponent implements OnInit {
 
   newTopic(): FormGroup {
     return this._fb.group({
-      name: [null, Validators.required],
       scale: [2, Validators.required],
       checked: [false, Validators.requiredTrue],
+      name: [null, [Validators.required, Validators.maxLength(120)]]
     });
   }
 
@@ -255,25 +259,22 @@ export class CourseInformationFormComponent implements OnInit {
       const file = event.target.files[0];
 
       if (file.type !== 'application/pdf') {
-        this._alertNotificationService.error('Only PDF file is allowed');
+        this._translate
+          .get('ONLY_PDF_FILE_ALLOWED')
+          .subscribe((res: string) => {
+            this._alertNotificationService.error(res);
+          });
 
         return;
       }
 
       if (file.size > 5 * 1024 * 1024) {
-        this._translate.get('ALLOWED_SIZE_5MB').subscribe((res: string) => {
-          this._alertNotificationService.error(res);
-        });
+        this._alertNotificationService.error('ALLOWED_SIZE_5MB');
 
         return;
       }
 
-      this.form.patchValue({ file });
-      this.file?.updateValueAndValidity();
-      this.filePreview = {
-        name: file.name,
-        size: formatBytes(file.size),
-      };
+      this.uploadedFile.emit([...event.target.files]);
     }
   }
 

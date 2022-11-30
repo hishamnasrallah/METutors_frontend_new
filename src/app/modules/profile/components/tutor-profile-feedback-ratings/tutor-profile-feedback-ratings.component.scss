@@ -12,6 +12,10 @@
     margin: -15px -1rem 0;
     padding: 15px 1rem;
 
+    &.no-border-bottom {
+      border-bottom: none;
+    }
+
     h2 {
       color: #2a2a2a;
       font-size: 14px;

@@ -130,7 +130,7 @@ export class InterviewEffects {
                   interviewDate: body?.date,
                   interviewTime: body?.start_time,
                 },
-                message: 'Interview request successfully sent',
+                message: 'INTERVIEW_SENT_SUCCESSFULLY',
               })
             ),
             catchError((error) =>
@@ -203,7 +203,7 @@ export class InterviewEffects {
             return this._alertNotificationService.success(action.message);
           } else {
             return this._alertNotificationService.success(
-              'Information updated successfully!'
+              'INFORMATION_UPDATED_SUCCESSFULLY'
             );
           }
         })
@@ -229,9 +229,7 @@ export class InterviewEffects {
           if (action.error) {
             return this._alertNotificationService.error(action.error);
           } else {
-            return this._alertNotificationService.error(
-              'Something went wrong!'
-            );
+            return this._alertNotificationService.error('SOMETHING_WENT_WRONG');
           }
         })
       ),

@@ -1,18 +1,18 @@
 import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { isNil, omitBy } from 'lodash';
+import { TutorsService } from '@services';
 import { Injectable } from '@angular/core';
 import camelcaseKeys from 'camelcase-keys';
+import * as fromRouterStore from '@metutor/state';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import * as tutorActions from '../actions/tutor.actions';
 import { IInterview, ITutor } from '@metutor/core/models';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
-
-import { TutorsService } from '@services';
-import * as fromRouterStore from '@metutor/state';
-import * as tutorActions from '../actions/tutor.actions';
 import { selectTutorDashboard, selectFeaturedTutors } from '..';
 import { AlertNotificationService } from '@metutor/core/components';
 import * as fromTutorAction from '@metutor/modules/tutor/state/actions';
+import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 
 @Injectable()
 export class TutorEffects {
@@ -21,12 +21,12 @@ export class TutorEffects {
       ofType(tutorActions.completeTutorProfile),
       mergeMap(({ data, nextStep }) =>
         this._tutorService.sendTeacherAccount(data).pipe(
-          map((response) => {
+          map(response => {
             const jwtHelper = new JwtHelperService();
             const decodeToken = camelcaseKeys(
               jwtHelper.decodeToken(response?.token),
               {
-                deep: true,
+                deep: true
               }
             );
             const user: any = decodeToken?.user;
@@ -35,13 +35,13 @@ export class TutorEffects {
               user,
               nextStep,
               token: response?.token,
-              profileTutor: new ITutor(false, response?.user),
+              profileTutor: new ITutor(false, response?.user)
             });
           }),
-          catchError((error) =>
+          catchError(error =>
             of(
               tutorActions.completeTutorProfileFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error: error?.error?.message || error?.error?.errors
               })
             )
           )
@@ -55,16 +55,16 @@ export class TutorEffects {
       ofType(tutorActions.updateTutorProfile),
       mergeMap(({ data }) =>
         this._tutorService.updateTeacherProfile(data).pipe(
-          map((response) =>
+          map(response =>
             tutorActions.updateTutorProfileSuccess({
               message: response?.message,
-              profileTutor: new ITutor(false, response?.user),
+              profileTutor: new ITutor(false, response?.user)
             })
           ),
-          catchError((error) =>
+          catchError(error =>
             of(
               tutorActions.updateTutorProfileFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error: error?.error?.message || error?.error?.errors
               })
             )
           )
@@ -81,13 +81,13 @@ export class TutorEffects {
           map(({ message, preferences }) =>
             tutorActions.updateTutorPreferencesSuccess({
               message,
-              preferences,
+              preferences
             })
           ),
-          catchError((error) =>
+          catchError(error =>
             of(
               tutorActions.updateTutorPreferencesFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error: error?.error?.message || error?.error?.errors[0]
               })
             )
           )
@@ -101,16 +101,16 @@ export class TutorEffects {
       ofType(tutorActions.updateTutorProfileRates),
       mergeMap(({ data }) =>
         this._tutorService.updateTeacherProfileRates(data).pipe(
-          map((response) =>
+          map(response =>
             tutorActions.updateTutorProfileRatesSuccess({
               message: response?.message,
-              profileTutor: new ITutor(false, response?.user),
+              profileTutor: new ITutor(false, response?.user)
             })
           ),
-          catchError((error) =>
+          catchError(error =>
             of(
               tutorActions.updateTutorProfileRatesFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error: error?.error?.message || error?.error?.errors
               })
             )
           )
@@ -124,16 +124,16 @@ export class TutorEffects {
       ofType(tutorActions.loadTutors),
       mergeMap(({ page, search }) =>
         this._tutorService.getTutors(page, search).pipe(
-          map((response) =>
+          map(response =>
             tutorActions.loadTutorsSuccess({
               tutors: response.tutors,
-              tutorsCounts: response.tutorsCounts,
+              tutorsCounts: response.tutorsCounts
             })
           ),
-          catchError((error) =>
+          catchError(error =>
             of(
               tutorActions.loadTutorsFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error: error?.error?.message || error?.error?.errors
               })
             )
           )
@@ -149,15 +149,15 @@ export class TutorEffects {
       mergeMap(([{ id }, { courseId }]) => {
         id = id ? id : 0;
         return this._tutorService.getAvailableTutors(id | courseId).pipe(
-          map((availableTutors) => {
+          map(availableTutors => {
             return tutorActions.loadAvailableTutorsSuccess({
-              availableTutors,
+              availableTutors
             });
           }),
-          catchError((error) => {
+          catchError(error => {
             return of(
               tutorActions.loadAvailableTutorsFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error: error?.error?.message || error?.error?.errors
               })
             );
           })
@@ -174,13 +174,13 @@ export class TutorEffects {
           map(({ tutors, tutorsCounts }) =>
             tutorActions.loadCurrentTutorsSuccess({
               tutorsCounts,
-              currentTutors: tutors,
+              currentTutors: tutors
             })
           ),
-          catchError((error) =>
+          catchError(error =>
             of(
               tutorActions.loadCurrentTutorsFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error: error?.error?.message || error?.error?.errors
               })
             )
           )
@@ -198,13 +198,13 @@ export class TutorEffects {
             tutorActions.loadPendingTutorsSuccess({
               tutorsCounts,
               pendingTutors,
-              rejectedTutors,
+              rejectedTutors
             })
           ),
-          catchError((error) =>
+          catchError(error =>
             of(
               tutorActions.loadPendingTutorsFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error: error?.error?.message || error?.error?.errors
               })
             )
           )
@@ -221,13 +221,13 @@ export class TutorEffects {
           map(({ tutorsCounts, suspendedTutors }) =>
             tutorActions.loadSuspendedTutorsSuccess({
               tutorsCounts,
-              suspendedTutors,
+              suspendedTutors
             })
           ),
-          catchError((error) =>
+          catchError(error =>
             of(
               tutorActions.loadSuspendedTutorsFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error: error?.error?.message || error?.error?.errors
               })
             )
           )
@@ -241,15 +241,15 @@ export class TutorEffects {
       ofType(tutorActions.loadTutor),
       mergeMap(({ id }) =>
         this._tutorService.getTutorById(id).pipe(
-          map((tutor) =>
+          map(tutor =>
             tutorActions.loadTutorSuccess({
-              tutor,
+              tutor
             })
           ),
-          catchError((error) =>
+          catchError(error =>
             of(
               tutorActions.loadTutorFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error: error?.error?.message || error?.error?.errors
               })
             )
           )
@@ -263,15 +263,15 @@ export class TutorEffects {
       ofType(tutorActions.loadAdminTutor),
       mergeMap(({ id }) =>
         this._tutorService.getAdminTutorById(id).pipe(
-          map((tutor) =>
+          map(tutor =>
             tutorActions.loadAdminTutorSuccess({
-              tutor,
+              tutor
             })
           ),
-          catchError((error) =>
+          catchError(error =>
             of(
               tutorActions.loadAdminTutorFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error: error?.error?.message || error?.error?.errors
               })
             )
           )
@@ -285,15 +285,15 @@ export class TutorEffects {
       ofType(tutorActions.loadProfileTutor),
       mergeMap(() =>
         this._tutorService.getProfileTutor().pipe(
-          map((tutor) =>
+          map(tutor =>
             tutorActions.loadProfileTutorSuccess({
-              tutor,
+              tutor
             })
           ),
-          catchError((error) =>
+          catchError(error =>
             of(
               tutorActions.loadProfileTutorFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error: error?.error?.message || error?.error?.errors
               })
             )
           )
@@ -302,24 +302,53 @@ export class TutorEffects {
     )
   );
 
+  exploreTutors$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(tutorActions.exploreTutors),
+      mergeMap(action =>
+        this._tutorService
+          .exploreTutors(
+            action.filters.program!,
+            omitBy({ ...action.filters, program: null }, isNil)
+          )
+          .pipe(
+            map(response =>
+              tutorActions.exploreTutorsSuccess({
+                tutors: response?.teachers,
+                tutorsCount: response?.total,
+                fieldsOfStudy: response?.fieldsOfStudy
+              })
+            ),
+            catchError(error =>
+              of(
+                tutorActions.exploreTutorsFailure({
+                  error: error?.error?.message || error?.error?.errors
+                })
+              )
+            )
+          )
+      )
+    )
+  );
+
   changeTutorStatus$ = createEffect(() =>
     this._actions$.pipe(
       ofType(tutorActions.changeTutorStatus),
-      mergeMap((action) =>
+      mergeMap(action =>
         this._tutorService
           .changeTutorStatus(action.tutorId, action.status, action.reason)
           .pipe(
-            map((response) =>
+            map(response =>
               tutorActions.changeTutorStatusSuccess({
                 message: response.message,
                 tutorId: action.tutorId,
-                status: action.status,
+                status: action.status
               })
             ),
-            catchError((error) =>
+            catchError(error =>
               of(
                 tutorActions.changeTutorStatusFailure({
-                  error: error?.error?.message || error?.error?.errors,
+                  error: error?.error?.message || error?.error?.errors
                 })
               )
             )
@@ -331,23 +360,23 @@ export class TutorEffects {
   submitInterview$ = createEffect(() =>
     this._actions$.pipe(
       ofType(tutorActions.submitInterview),
-      mergeMap((action) =>
+      mergeMap(action =>
         this._tutorService
           .tutorSubmitInterview(action.submitInterviewInput)
           .pipe(
-            map((response) =>
+            map(response =>
               tutorActions.submitInterviewSuccess({
                 message: response.message,
                 interviewRequest: new IInterview(
                   false,
                   response.interview_request
-                ),
+                )
               })
             ),
-            catchError((error) =>
+            catchError(error =>
               of(
                 tutorActions.submitInterviewFailure({
-                  error: error?.error?.message || error?.error?.errors,
+                  error: error?.error?.message || error?.error?.errors
                 })
               )
             )
@@ -363,15 +392,15 @@ export class TutorEffects {
       mergeMap(([{ params, load }, _dashboard]) => {
         if (!_dashboard || load) {
           return this._tutorService.getTutorDashboard(params).pipe(
-            map((dashboard) =>
+            map(dashboard =>
               tutorActions.loadTutorDashboardSuccess({
-                dashboard: camelcaseKeys(dashboard, { deep: true }),
+                dashboard: camelcaseKeys(dashboard, { deep: true })
               })
             ),
-            catchError((error) =>
+            catchError(error =>
               of(
                 tutorActions.loadTutorDashboardFailure({
-                  error: error?.error?.message || error?.error?.errors,
+                  error: error?.error?.message || error?.error?.errors
                 })
               )
             )
@@ -388,17 +417,17 @@ export class TutorEffects {
       ofType(tutorActions.tutorLaunchClass),
       mergeMap(({ classId }) =>
         this._tutorService.launchClass(classId).pipe(
-          map((response) => {
+          map(response => {
             if (response && response?.class_url) {
               window.open(response.class_url, '_blank');
             }
 
             return tutorActions.tutorLaunchClassSuccess();
           }),
-          catchError((error) =>
+          catchError(error =>
             of(
               tutorActions.tutorLaunchClassFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error: error?.error?.message || error?.error?.errors
               })
             )
           )
@@ -413,15 +442,15 @@ export class TutorEffects {
       withLatestFrom(this._store.select(fromRouterStore.selectRouteParams)),
       mergeMap(([_, { id }]) =>
         this._tutorService.getTutorAttendance(id).pipe(
-          map((attendance) =>
+          map(attendance =>
             tutorActions.loadTutorAttendanceSuccess({
-              attendance: camelcaseKeys(attendance, { deep: true }),
+              attendance: camelcaseKeys(attendance, { deep: true })
             })
           ),
-          catchError((error) =>
+          catchError(error =>
             of(
               tutorActions.loadTutorAttendanceFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error: error?.error?.message || error?.error?.errors
               })
             )
           )
@@ -435,15 +464,15 @@ export class TutorEffects {
       ofType(tutorActions.loadTutorFeedbackOptions),
       mergeMap(() =>
         this._tutorService.getTutorFeedbackOptions().pipe(
-          map((feedbackOptions) =>
+          map(feedbackOptions =>
             tutorActions.loadTutorFeedbackOptionsSuccess({
-              feedbackOptions: camelcaseKeys(feedbackOptions, { deep: true }),
+              feedbackOptions: camelcaseKeys(feedbackOptions, { deep: true })
             })
           ),
-          catchError((error) =>
+          catchError(error =>
             of(
               tutorActions.loadTutorFeedbackOptionsFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error: error?.error?.message || error?.error?.errors
               })
             )
           )
@@ -457,15 +486,15 @@ export class TutorEffects {
       ofType(tutorActions.loadTutorFeedbackPlatformOptions),
       mergeMap(() =>
         this._tutorService.getTutorFeedbackPlatformOptions().pipe(
-          map((feedbackOptions) =>
+          map(feedbackOptions =>
             tutorActions.loadTutorFeedbackPlatformOptionsSuccess({
-              feedbackOptions: camelcaseKeys(feedbackOptions, { deep: true }),
+              feedbackOptions: camelcaseKeys(feedbackOptions, { deep: true })
             })
           ),
-          catchError((error) =>
+          catchError(error =>
             of(
               tutorActions.loadTutorFeedbackPlatformOptionsFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error: error?.error?.message || error?.error?.errors
               })
             )
           )
@@ -483,13 +512,13 @@ export class TutorEffects {
           map(() =>
             tutorActions.tutorSubmitFeedbackSuccess({
               cancelCourse: body?.cancelCourse,
-              message: 'Feedback successfully submitted',
+              message: 'FEEDBACK_SUBMITTED_SUCCESSFULLY'
             })
           ),
-          catchError((error) =>
+          catchError(error =>
             of(
               tutorActions.tutorSubmitFeedbackFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error: error?.error?.message || error?.error?.errors
               })
             )
           )
@@ -506,13 +535,13 @@ export class TutorEffects {
         this._tutorService.tutorSubmitPlatformFeedback(body, id).pipe(
           map(() =>
             tutorActions.tutorSubmitPlatformFeedbackSuccess({
-              message: 'Feedback successfully submitted',
+              message: 'FEEDBACK_SUBMITTED_SUCCESSFULLY'
             })
           ),
-          catchError((error) =>
+          catchError(error =>
             of(
               tutorActions.tutorSubmitPlatformFeedbackFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error: error?.error?.message || error?.error?.errors
               })
             )
           )
@@ -526,16 +555,16 @@ export class TutorEffects {
       ofType(tutorActions.tutorRescheduleClass),
       mergeMap(({ body }) =>
         this._tutorService.tutorRescheduleClass(body).pipe(
-          map((attendance) =>
+          map(attendance =>
             tutorActions.tutorRescheduleClassSuccess({
               body,
-              message: 'Class successfully rescheduled',
+              message: 'CLASS_RESCHEDULED_SUCCESSFULLY'
             })
           ),
-          catchError((error) =>
+          catchError(error =>
             of(
               tutorActions.tutorRescheduleClassFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error: error?.error?.message || error?.error?.errors
               })
             )
           )
@@ -551,15 +580,15 @@ export class TutorEffects {
       mergeMap(([_, _countries]) => {
         if (!_countries || !_countries.length) {
           return this._tutorService.loadFeaturedTutors().pipe(
-            map((tutors) =>
+            map(tutors =>
               tutorActions.loadFeaturedTutorsSuccess({
-                tutors,
+                tutors
               })
             ),
-            catchError((error) =>
+            catchError(error =>
               of(
                 tutorActions.loadFeaturedTutorsFailure({
-                  error: error?.error?.message || error?.error?.errors,
+                  error: error?.error?.message || error?.error?.errors
                 })
               )
             )
@@ -574,17 +603,17 @@ export class TutorEffects {
   loadSubjectFeaturedTutors$ = createEffect(() =>
     this._actions$.pipe(
       ofType(tutorActions.loadSubjectFeaturedTutors),
-      mergeMap((action) =>
+      mergeMap(action =>
         this._tutorService.loadSubjectFeaturedTutors(action.id).pipe(
-          map((tutors) =>
+          map(tutors =>
             tutorActions.loadSubjectFeaturedTutorsSuccess({
-              tutors,
+              tutors
             })
           ),
-          catchError((error) =>
+          catchError(error =>
             of(
               tutorActions.loadSubjectFeaturedTutorsFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error: error?.error?.message || error?.error?.errors
               })
             )
           )
@@ -598,15 +627,15 @@ export class TutorEffects {
       ofType(tutorActions.loadTutorKudosPoints),
       mergeMap(() =>
         this._tutorService.loadKudosPoints().pipe(
-          map((kudosPoints) =>
+          map(kudosPoints =>
             tutorActions.loadTutorKudosPointsSuccess({
-              kudosPoints: camelcaseKeys(kudosPoints, { deep: true }),
+              kudosPoints: camelcaseKeys(kudosPoints, { deep: true })
             })
           ),
-          catchError((error) =>
+          catchError(error =>
             of(
               tutorActions.loadTutorKudosPointsFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error: error?.error?.message || error?.error?.errors
               })
             )
           )
@@ -620,16 +649,16 @@ export class TutorEffects {
       ofType(tutorActions.tutorAddSignature),
       mergeMap(({ payload }) =>
         this._tutorService.tutorAddSignature(payload).pipe(
-          map((attendance) =>
+          map(attendance =>
             tutorActions.tutorAddSignatureSuccess({
               signature: payload.url,
-              message: 'Signature successfully added',
+              message: 'SIGNATURE_ADDED_SUCCESSFULLY'
             })
           ),
-          catchError((error) =>
+          catchError(error =>
             of(
               tutorActions.tutorAddSignatureFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error: error?.error?.message || error?.error?.errors
               })
             )
           )
@@ -664,13 +693,13 @@ export class TutorEffects {
             tutorActions.tutorRescheduleClassSuccess,
             tutorActions.updateTutorPreferencesSuccess,
             tutorActions.updateTutorProfileRatesSuccess,
-            tutorActions.tutorSubmitPlatformFeedbackSuccess,
+            tutorActions.tutorSubmitPlatformFeedbackSuccess
           ]
         ),
         map(({ message }) => this._alertNotificationService.success(message))
       ),
     {
-      dispatch: false,
+      dispatch: false
     }
   );
 
@@ -689,21 +718,19 @@ export class TutorEffects {
             tutorActions.tutorRescheduleClassFailure,
             tutorActions.updateTutorPreferencesFailure,
             tutorActions.updateTutorProfileRatesFailure,
-            tutorActions.tutorSubmitPlatformFeedbackFailure,
+            tutorActions.tutorSubmitPlatformFeedbackFailure
           ]
         ),
-        map((action) => {
+        map(action => {
           if (action.error) {
             return this._alertNotificationService.error(action.error);
           } else {
-            return this._alertNotificationService.error(
-              'Something went wrong!'
-            );
+            return this._alertNotificationService.error('SOMETHING_WENT_WRONG');
           }
         })
       ),
     {
-      dispatch: false,
+      dispatch: false
     }
   );
 

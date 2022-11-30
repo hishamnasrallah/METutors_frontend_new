@@ -1,3 +1,12 @@
+import * as moment from 'moment';
+import { Store } from '@ngrx/store';
+import { ICountry } from './core/models';
+import { DOCUMENT } from '@angular/common';
+import * as fromCore from '@metutor/core/state';
+import { Title } from '@angular/platform-browser';
+import { TranslateService } from '@ngx-translate/core';
+import { NgProgressRef, NgProgress } from '@ngx-progressbar/core';
+import { filter, map, mergeMap, Observable, Subscription } from 'rxjs';
 import {
   Router,
   RouterEvent,
@@ -5,25 +14,27 @@ import {
   ActivatedRoute,
   NavigationStart,
   NavigationError,
-  NavigationCancel,
+  NavigationCancel
 } from '@angular/router';
-import * as moment from 'moment';
-import { Store } from '@ngrx/store';
-import { DOCUMENT } from '@angular/common';
-import * as fromCore from '@metutor/core/state';
-import { Title } from '@angular/platform-browser';
-import { TranslateService } from '@ngx-translate/core';
-import { filter, map, mergeMap, Subscription } from 'rxjs';
-import { NgProgressRef, NgProgress } from '@ngx-progressbar/core';
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import {
+  Inject,
+  OnInit,
+  Component,
+  OnDestroy,
+  ChangeDetectorRef
+} from '@angular/core';
 
 @Component({
   selector: 'metutors-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, OnDestroy {
+  loadingCountries$: Observable<boolean>;
+  countries$: Observable<ICountry[] | null>;
+
   layout?: any;
+  paddingTop: number;
   progressRef: NgProgressRef;
   routerSubscription$: Subscription;
 
@@ -33,6 +44,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private _store: Store<any>,
     private _progress: NgProgress,
     private _route: ActivatedRoute,
+    private _cdRef: ChangeDetectorRef,
     public translate: TranslateService,
     @Inject(DOCUMENT) private _document: Document
   ) {
@@ -63,14 +75,16 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this._prepareCountries();
+    this._cdRef.detectChanges();
     this._store.dispatch(fromCore.identifyUser());
     this._store.dispatch(fromCore.loadCurrencyRates());
     this._store.dispatch(fromCore.loadCurrenciesNames());
     this._router.events
       .pipe(
-        filter((events) => events instanceof NavigationEnd),
-        map((evt) => this._route),
-        map((route) => {
+        filter(events => events instanceof NavigationEnd),
+        map(evt => this._route),
+        map(route => {
           while (route.firstChild) {
             route = route.firstChild;
           }
@@ -78,14 +92,26 @@ export class AppComponent implements OnInit, OnDestroy {
         })
       )
       .pipe(
-        filter((route) => route.outlet === 'primary'),
-        mergeMap((route) => route.data)
+        filter(route => route.outlet === 'primary'),
+        mergeMap(route => route.data)
       )
       .subscribe((x: any) => {
         this.layout = x?.layout;
 
-        if (this.layout?.title) this._title.setTitle(this.layout.title);
-        else this._title.setTitle('MEtutors');
+        if (this.layout?.title && this.layout?.title !== 'MEtutors')
+          this.translate
+            .get(this.layout.title)
+            .subscribe(response =>
+              this.translate
+                .get('METUTORS')
+                .subscribe(metutors =>
+                  this._title.setTitle(`${response} - ${metutors}`)
+                )
+            );
+        else
+          this.translate
+            .get('METUTORS')
+            .subscribe(metutors => this._title.setTitle(`${metutors}`));
       });
   }
 
@@ -128,5 +154,13 @@ export class AppComponent implements OnInit, OnDestroy {
       moment.locale('en');
       body.setAttribute('dir', 'ltr');
     }
+  }
+
+  private _prepareCountries(): void {
+    this._store.dispatch(fromCore.loadProgramCountries());
+    this.countries$ = this._store.select(fromCore.selectProgramCountries);
+    this.loadingCountries$ = this._store.select(
+      fromCore.selectIsLoadingCountries
+    );
   }
 }

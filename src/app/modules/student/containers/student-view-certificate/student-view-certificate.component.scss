@@ -1,0 +1,37 @@
+.certificates {
+  padding: 20px 40px;
+
+  .certificate {
+    margin: 0 auto;
+    width: 1276px;
+    height: 850px;
+    overflow: hidden;
+    text-align: center;
+    background: no-repeat;
+    box-shadow: 0 2px 20px 0 rgb(0 0 0 / 12%);
+
+    .body {
+      width: 680px;
+      margin-left: 375px;
+    }
+
+    h2 {
+      font-size: 48px;
+      margin-top: 378px;
+    }
+
+    h3 {
+      font-size: 48px;
+      font-weight: bold;
+      margin-top: 112px;
+      text-transform: uppercase;
+    }
+
+    span {
+      color: #2a2a2a;
+      display: block;
+      margin-top: 95px;
+      margin-right: 205px;
+    }
+  }
+}

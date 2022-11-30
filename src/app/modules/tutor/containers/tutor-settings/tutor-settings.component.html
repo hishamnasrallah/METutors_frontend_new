@@ -7,16 +7,16 @@
         <div class="card-body p-0">
           <ul class="list-unstyled m-0 h-100">
             <li [class.active]="tab === 'MY_PROFILE'" (click)="tab = 'MY_PROFILE'">
-              My Profile
+              {{ 'MY_PROFILE' | translate }}
             </li>
             <li [class.active]="tab === 'SECURITY_SETTINGS'" (click)="tab = 'SECURITY_SETTINGS'">
-              Security Settings
+              {{ 'SECURITY_SETTINGS' | translate }}
             </li>
             <li [class.active]="tab === 'USER_PREFERENCES'" (click)="tab = 'USER_PREFERENCES'">
-              User Preferences
+              {{ 'USER_PREFERENCES' | translate }}
             </li>
             <!--<li [class.active]="tab === 'PAYMENT_INFORMATION'" (click)="tab = 'PAYMENT_INFORMATION'">
-              Payment Information
+              {{ 'PAYMENT_INFORMATION' | translate }}
             </li>-->
           </ul>
         </div>
@@ -33,12 +33,15 @@
                                        [isChangeAvatar]="(isChangeTutorAvatar$ | async)!"
                                        [isChangeCover]="(isChangeTutorCover$ | async)!"
                                        [isUpdateProfile]="(isUpdateTutorProfile$ | async)!"
+                                       [uploadingVideo]="(isChangeTutorVideo$ | async)!"
                                        (loadCities)="loadCities($event)"
                                        (submitForm)="sendTeacherAccount(tutor, $event)"
                                        (changeAvatar)="onChangeTutorAvatar($event)"
                                        (changeCover)="onChangeTutorCover($event)"
                                        (submitInterview)="onOpenSubmitInterview()"
                                        (joinMeeting)="onJoinMeeting($event)"
+                                       (cancelUploading)="onCancelVideoUpload()"
+                                       (changeVideo)="onChangeVideo($event)"
                                        (updateRatesForm)="onUpdateRatesForm(tutor, $event)">
       </metutors-tutor-settings-profile>
 

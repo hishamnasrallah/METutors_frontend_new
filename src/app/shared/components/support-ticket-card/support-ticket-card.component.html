@@ -1,7 +1,7 @@
 <a class="card" [routerLink]="linkUrl">
   <div class="card-body">
     <div class="priority">
-      Priority:
+      {{ 'PRIORITY' | translate }}:
       <span class="status" [ngClass]="{
           'high': ticketPriority.high === ticket?.priority?.name,
           'low': ticketPriority.low === ticket?.priority?.name,
@@ -27,19 +27,19 @@
         <img [src]="ticket?.user?.avatar" meTutorsDefaultAvatar class="rounded-circle" alt="" width="25" height="25"
           draggable="false">
         <strong>
-          <ng-container *ngIf="ticket?.user?.roleName === 'teacher'">Teacher:</ng-container>
-          <ng-container *ngIf="ticket?.user?.roleName === 'student'">Student:</ng-container>
-          <ng-container *ngIf="ticket?.user?.roleName !== 'teacher' && ticket?.user?.roleName !== 'student'">Agent:</ng-container>
+          <ng-container *ngIf="ticket?.user?.roleName === 'teacher'">{{ 'TEACHER' | translate }}:</ng-container>
+          <ng-container *ngIf="ticket?.user?.roleName === 'student'">{{ 'STUDENT' | translate }}:</ng-container>
+          <ng-container *ngIf="ticket?.user?.roleName !== 'teacher' && ticket?.user?.roleName !== 'student'">{{ 'AGENT' | translate }}:</ng-container>
           {{ ticket?.user?.name }}
         </strong>
       </div>
       <div class="col-md-3 d-flex menu align-items-center">
         <mat-icon>square</mat-icon>
-        <span>Open: {{ ticket?.createdDate | date: 'EEEE, d MMM y' }}</span>
+        <span>{{ 'OPEN' | translate }}: {{ ticket?.createdDate | date: 'EEEE, d MMM y' }}</span>
       </div>
       <div class="col-md-3 d-flex menu align-items-center" *ngIf="ticketStatus.closed !== ticket?.status && ticket?.lastReply">
         <mat-icon>circle</mat-icon>
-        <span>Last Reply: {{ ticket?.lastReply | amTimeAgo }}</span>
+        <span>{{ 'LAST_REPLY' | translate }}: {{ ticket?.lastReply | amTimeAgo }}</span>
       </div>
       <div class="col-md-3 d-flex menu align-items-center" *ngIf="ticketStatus.closed !== ticket?.status">
         <mat-icon>circle</mat-icon>
@@ -47,11 +47,11 @@
       </div>
       <div class="col-md-3 d-flex menu align-items-center" *ngIf="ticketStatus.closed === ticket?.status">
         <mat-icon>circle</mat-icon>
-        <span>Duration: {{ ticket?.duration }} Days</span>
+        <span>{{ 'DURATION' | translate }}: {{ ticket?.duration }} {{ 'DAYS_SM' | translate }}</span>
       </div>
       <div class="col-md-3 d-flex menu align-items-center" *ngIf="ticketStatus.closed === ticket?.status">
         <mat-icon>circle</mat-icon>
-        <span>Closed: {{ ticket?.updatedDate | date: 'EEEE, d MMM y' }}</span>
+        <span>{{ 'CLOSED' | translate }}: {{ ticket?.updatedDate | date: 'EEEE, d MMM y' }}</span>
       </div>
     </div>
   </div>

@@ -1,7 +1,7 @@
 <div class="course-details-popup">
   <div class="d-flex" mat-dialog-title>
     <h2 class="flex-grow-1 m-0 d-flex flex-column f-size-17-md-sm">
-      Course details
+      {{ 'COURSE_DETAILS' | translate }}
       <span class="d-block mt-2 f-size-15-md-sm">View classroom details</span>
     </h2>
 
@@ -28,7 +28,7 @@
         <div class="row list-items sm-item">
           <div class="col-md-4 d-flex menu align-items-center">
             <img src="assets/svg/time.svg" alt="" width="15" height="15" draggable="false">
-            <strong>Total hours:</strong>
+            <strong>{{ 'TOTAL_HOURS' | translate }}:</strong>
             <span>{{ course?.duration }} {{ +(course?.duration)! > 1 ? ('HOURS_SM' | translate) : ('HOUR_SM' | translate) }}</span>
           </div>
           <div class="col-md-4 d-flex menu align-items-center">
@@ -52,7 +52,7 @@
                 {{ i + 1 }}. {{ video.title }}
               </h1>
               <h3 class="m-0">
-                Total classes: <strong>{{ video.totalClasses }}</strong>
+                {{ 'TOTAL_CLASSES' | translate }}: <strong>{{ video.totalClasses }}</strong>
               </h3>
               <h3 class="m-0">
                 Duration : <strong>{{ video.duration }}</strong>
@@ -68,13 +68,13 @@
               <table class="table">
                 <thead>
                   <tr>
-                    <th scope="col">Number</th>
-                    <th scope="col">Day</th>
-                    <th scope="col">Date</th>
+                    <th scope="col">{{ 'NUMBER' | translate }}</th>
+                    <th scope="col">{{ 'DAY' | translate }}</th>
+                    <th scope="col">{{ 'DATE' | translate }}</th>
                     <th scope="col">Classroom subject</th>
-                    <th scope="col">Start time</th>
-                    <th scope="col">End Time</th>
-                    <th scope="col">Duration</th>
+                    <th scope="col">{{ 'START_TIME' | translate }}</th>
+                    <th scope="col">{{ 'END_TIME' | translate }}</th>
+                    <th scope="col">{{ 'DURATION' | translate }}</th>
                   </tr>
                 </thead>
                 <tbody>

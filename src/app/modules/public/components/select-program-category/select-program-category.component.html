@@ -1,0 +1,41 @@
+<div class="select-program-category">
+  <h3 class="mb-3 select-program f-size-17-md-sm">{{ 'SELECT_PROGRAM_CATEGORY' | translate }}</h3>
+  <div class="position-relative">
+    <div class="tabs d-flex d-block-xs overflow-hidden" #widgetsContent scrollX="true" (scroll)="checkScroll()">
+      <button mat-button class="w-100 align-items-center justify-content-center d-flex" [class.active]="step === 0"
+        (click)="onChangeStep(0, countries, loadingCountries)">
+        <strong>{{ 'ALL_PROGRAMS' | translate }}</strong>
+      </button>
+      <ng-container *ngIf="programs && programs.length">
+        <button *ngFor="let program of programs" mat-button
+          class="w-100 align-items-center justify-content-center d-flex" [class.active]="step === program?.id"
+          (click)="onChangeStep(program.id, countries, loadingCountries)">
+          <strong>
+            <bdi>
+              {{ program?.name }}
+              <span *ngIf="country && program?.id === nationalId" [innerHTML]="country?.flag"></span>
+            </bdi>
+          </strong>
+        </button>
+      </ng-container>
+      <ng-container *ngIf="!programs || !programs.length">
+        <div *ngFor="let _ of [1, 2, 3, 4, 5]"
+          class="loading-programs align-items-center justify-content-center d-flex">
+          <div class="ph-item">
+            <div class="ph-col-12">
+              <div class="ph-row">
+                <div class="ph-col-12 big mb-0 p-3"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <mat-icon class="chevron-right rotate-180-ar" *ngIf="!rightDisabled" (click)="scrollRight()">
+      chevron_right
+    </mat-icon>
+    <mat-icon class="chevron-left rotate-180-ar" *ngIf="!leftDisabled" (click)="scrollLeft()">
+      chevron_left
+    </mat-icon>
+  </div>
+</div>

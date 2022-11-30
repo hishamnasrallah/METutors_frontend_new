@@ -12,8 +12,8 @@
                 <img src="assets/png/academy.png" alt="" draggable="false">
               </div>
               <div class="col d-flex justify-content-center flex-column">
-                <h2>Select a new tutor</h2>
-                <h4 class="mb-0">Continue my course and allow me to select a new tutor</h4>
+                <h2>{{ 'SELECT_NEW_TUTOR' | translate }}</h2>
+                <h4 class="mb-0">{{ 'CONTINUE_COURSE_SELECT_TUTOR' | translate }}</h4>
               </div>
             </div>
           </mat-radio-button>
@@ -23,8 +23,8 @@
                 <img src="assets/png/logo.png" alt="" draggable="false">
               </div>
               <div class="col d-flex justify-content-center flex-column">
-                <h2>Allow MEtutors to assign a new tutor</h2>
-                <h4 class="mb-0">Continue my course and allow MEtutors to assign a new tutor</h4>
+                <h2>{{ 'ALLOW_METUTORS_ASSIGN_TUTOR' | translate }}</h2>
+                <h4 class="mb-0">{{ 'CONTINUE_COURSE_ALLOW_METUTORS' | translate }}</h4>
               </div>
             </div>
           </mat-radio-button>
@@ -34,8 +34,8 @@
                 <img src="assets/png/ban.png" alt="" draggable="false">
               </div>
               <div class="col d-flex justify-content-center flex-column">
-                <h2>Stop My Course & Receive a Refund</h2>
-                <h4 class="mb-0">Stop my course and issue a refund for the remaining classes</h4>
+                <h2>{{ 'STOP_COURSE_RECEIVE_REFUND' | translate }}</h2>
+                <h4 class="mb-0">{{ 'STOP_COURSE_REFUND_REMAINING_CLASSES' | translate }}</h4>
               </div>
             </div>
           </mat-radio-button>
@@ -43,7 +43,7 @@
 
         <div class="d-flex justify-content-end mt-3">
           <button mat-flat-button color="primary" class="py-2 px-5 fw-bold" [disabled]="!selectedOption"
-                  (click)="onNext()">Continue
+                  (click)="onNext()">{{ 'CONTINUE' | translate }}
           </button>
         </div>
       </ng-container>
@@ -79,12 +79,12 @@
                           <img [src]="tutor?.avatar" meTutorsDefaultAvatar alt="" width="60px" height="60px">
                         </div>
                         <div class="col d-flex justify-content-center flex-column">
-                          <h2>{{ tutor?.name }}</h2>
+                          <h2><bdi>{{ tutor?.name }}</bdi></h2>
                           <h3 class="mb-0" *ngIf="tutor?.bio">{{ tutor?.bio }}</h3>
                         </div>
                         <a class="col-md-2 full-profile" [routerLink]="'/profile/tutor/' + tutor?.id" target="_blank">
                           <img src="assets/svg/share-link.svg" draggable="false" width="16px" height="16px" alt="">
-                          Full profile
+                          {{ 'FULL_PROFILE' | translate }}
                         </a>
                       </div>
                     </mat-radio-button>
@@ -92,14 +92,14 @@
                 </ng-container>
 
                 <ng-container *ngIf="!(tutors$ | async)?.length">
-                  <div class="text-center fw-bold">No record found</div>
+                  <div class="text-center fw-bold">{{ 'NO_RECORD_FOUND' | translate }}</div>
                 </ng-container>
 
                 <div class="row mt-5">
                   <div class="col-12 overflow-hidden">
                     <button mat-flat-button color="primary" class="float-end py-2 px-5" type="button"
                             [disabled]="!selectedTutor || (reassigningTutor$ | async)" (click)="onReassignTutor()">
-                      Continue
+                      {{ 'CONTINUE' | translate }}
                     </button>
                     <span class="back-button float-end text-secondary cursor-pointer" type="button" (click)="onBack()">
                       {{ 'BACK' | translate }}
@@ -117,12 +117,12 @@
           <div class="text-center">
             <img src="assets/svg/correct.svg" alt="" width="100">
 
-            <h3 class="mt-4">Congratulations</h3>
-            <p>Request was submitted. METutors will assign a new tutor. You will be contacted soon.</p>
+            <h3 class="mt-4">{{ 'CONGRATULATIONS' | translate }}</h3>
+            <p>{{ 'REQUEST_SUBMITTED_ASSIGN_TUTOR' | translate }}</p>
 
             <div class="mt-5">
               <button mat-flat-button color="primary" class="w-100 p-1 fw-bold" (click)="goToDashboard()">
-                Go to class Dashboard
+                {{ 'GO_CLASS_DASHBOARD' | translate }}
               </button>
             </div>
           </div>
@@ -137,17 +137,17 @@
               <metutors-grid-placeholder *ngSwitchCase="true"></metutors-grid-placeholder>
               <div class="col-12 mt-4" *ngSwitchCase="false">
                 <div class="form-group">
-                  <span class="fw-bold mb-2 d-block">Summary:</span>
+                  <span class="fw-bold mb-2 d-block">{{ 'SUMMARY' | translate }}:</span>
                   <div class="row">
                     <div class="col-md-6 mb-2"><span
-                      class="text-secondary">Total Classes: </span> {{ view.refund?.totalClasses}}</div>
+                      class="text-secondary">{{ 'TOTAL_CLASSES' | translate }}: </span> {{ view.refund?.totalClasses}}</div>
                     <div class="col-md-6"><span
-                      class="text-secondary">Remaining classes: </span> {{ view.refund?.remainingClasses}}</div>
+                      class="text-secondary">{{ 'REMAINING_CLASSES' | translate }}: </span> {{ view.refund?.remainingClasses}}</div>
                   </div>
 
                   <div class="row">
                     <div class="col-md-6"><span
-                      class="text-secondary">Refundable Classes: </span> {{ view.refund?.totalRefundableClasses}}</div>
+                      class="text-secondary">{{ 'REFUNDABLE_CLASSES' | translate }}: </span> {{ view.refund?.totalRefundableClasses}}</div>
                     <div class="col-md-6">
                       <!--<span class="text-secondary">Non Refundable classes: </span> {{ view.refund?.totalNonRefundableClasses}}-->
                     </div>
@@ -157,34 +157,34 @@
 
                 <div class="form-group mt-3">
                   <div class="row mb-3">
-                    <div class="col-md-6"><span class="text-secondary">Refund Amount per Class</span></div>
+                    <div class="col-md-6"><span class="text-secondary">{{ 'REFUND_AMOUNT_CLASS' | translate }}</span></div>
                     <div class="col-md-6 text-right">{{ view.refund?.subtotalRefunds | metutorsMoney | async }}</div>
                   </div>
 
                   <div class="row mb-4">
-                    <div class="col-md-6"><span class="text-secondary">Administrative Service Fee @ 10%</span></div>
+                    <div class="col-md-6"><span class="text-secondary">{{ 'ADMINITRATIVE_SERVICE_FEE' | translate }}</span></div>
                     <div class="col-md-6 text-right">{{ view.refund?.totalServiceFee | metutorsMoney | async }}</div>
                   </div>
 
                   <div class="row">
-                    <div class="col-md-6">Total Amount for Refund</div>
+                    <div class="col-md-6">{{ 'TOTAL_AMOUNT_REFUND' | translate }}</div>
                     <div class="col-md-6 text-right">{{ view.refund?.totalRefunds | metutorsMoney | async }}</div>
                   </div>
                 </div>
 
                 <div class="form-group mt-2">
-                  <label>Reason for course cancelation</label>
+                  <label>{{ 'REASON_COURSE_CANCELATION' | translate }}</label>
                   <textarea class="form-control custom-input input-bordered" formControlName="reason"
-                            id="exampleFormControlTextarea1" rows="5" placeholder="Enter the reason here..."></textarea>
+                            id="exampleFormControlTextarea1" rows="5" placeholder="{{ 'ENTER_REASON_HERE' | translate }}"></textarea>
                 </div>
 
                 <div class="form-group mt-2">
-                  <mat-checkbox formControlName="agree">I agree to METutors <a href="" target="_blank" class="text-decoration-underline">cancel policy</a>
+                  <mat-checkbox formControlName="agree">{{ 'AGREE_METUTORS' | translate }} <a href="" target="_blank" class="text-decoration-underline">{{ 'CANCEL_POLICY' | translate }}</a>
                   </mat-checkbox>
                 </div>
 
                 <div class="form-group mt-2" *ngIf="!view.refund?.totalRefunds">
-                  <div class="alert-warning p-3">No refundable class found</div>
+                  <div class="alert-warning p-3">{{ 'NO_REFUNDABLE_CLASS_FOUND' | translate }}</div>
                 </div>
 
                 <div class="row mt-2">
@@ -192,7 +192,7 @@
                     <metutors-submit-button [form]="form" [isSubmitting]="isCanceling$ | async"
                                             [isDisabled]="!view.refund?.totalRefunds"
                                             [extraClasses]="'float-end py-2 px-5'">
-                      Confirm
+                      {{ 'CONFIRM' | translate }}
                     </metutors-submit-button>
 
                     <span class="back-button float-end text-secondary cursor-pointer" type="button" (click)="onBack()">

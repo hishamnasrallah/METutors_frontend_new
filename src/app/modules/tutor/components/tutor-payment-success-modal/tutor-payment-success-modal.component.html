@@ -1,0 +1,30 @@
+<metutors-modal [showModal]="showModal" (closeModal)="closeModal.emit()" [showHeader]="false"
+                [template]="template">
+  <ng-template #template>
+    <div class="payment-success-modal flex-row mt-5 p-3">
+      <div class="text-center">
+
+        <ng-container *ngIf="isDispute">
+          <svg-icon name="checkbox-circle-fill-green" [applyClass]="true" class="w-72"></svg-icon>
+          <h3 class="mt-4">{{ 'DISPUTE_SUBMIT_SUCCESS' | translate }}</h3>
+
+          <div class="mt-5">
+            <button mat-flat-button color="primary" class="w-100 p-1 fw-bold text-white"
+                    (click)="closeModal.emit()">{{ 'GO_TO_DASHBOARD' | translate }}</button>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="!isDispute">
+          <svg-icon name="checkbox-circle-fill-green" [applyClass]="true" class="w-72"></svg-icon>
+          <h3 class="mt-4">{{ 'TUTOR_PAYMENT_CONFIRM_SUCCESS' | translate }}</h3>
+          <p>{{ 'TUTOR_PAYMENT_RECEIVE_48_HOURS' | translate }}</p>
+
+          <div class="mt-5">
+            <button mat-flat-button color="primary" class="w-100 p-1 fw-bold text-white"
+                    (click)="closeModal.emit()">{{ 'GO_TO_DASHBOARD' | translate }}</button>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </ng-template>
+</metutors-modal>

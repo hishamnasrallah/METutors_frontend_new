@@ -1,7 +1,6 @@
 import groupBy from 'lodash/groupBy';
-import { Component, Input, OnInit } from '@angular/core';
-
 import { WEEK_DAYS, WEEK_FULL_DAYS } from '@config';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'metutors-tutor-available-slots',

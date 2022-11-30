@@ -1,12 +1,15 @@
 @import url('https://fonts.googleapis.com/css?family=Cairo&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Alexandria&display=swap');
 
-[dir='rtl'] {
-  *:not(.material-icons) {
+body[dir='rtl'] {
+  *:not(.material-icons):not(vg-player) {
     font-family: 'Cairo', sans-serif;
+    // font-family: 'Alexandria', sans-serif;
   }
 
   .list-unstyled,
-  .list-inline {
+  .list-inline,
+  .pagination {
     padding-right: 0;
     padding-left: 1em !important;
   }
@@ -16,13 +19,29 @@
   .iti__country,
   .iti__flag-container,
   ng-otp-input,
-  vg-player {
+  vg-player,
+  .wpwl-container,
+  .mat-tab-label .mat-tab-label-content,
+  metutors-complete-tutor-profile-tutoring-courses .form-label bdi,
+  .request-tutor .mat-horizontal-content-container {
     direction: ltr;
+  }
+
+  .mat-tab-label .mat-tab-label-content {
+    unicode-bidi: isolate;
+  }
+
+  .slide .content .request-free span {
+    text-decoration: none !important;
   }
 
   .featured-tutors .card-item,
   .loving-opportunities .card-item,
-  .success-stories .card-item {
+  .success-stories .card-item,
+  .benefits-tutoring p bdi,
+  .cdk-global-overlay-wrapper,
+  .homework-help .content .field-card,
+  .request-tutor .mat-horizontal-content-container .mat-horizontal-stepper-content {
     direction: rtl;
   }
 
@@ -61,7 +80,8 @@
     margin-right: 0 !important;
   }
 
-  .me-2 {
+  .me-2,
+  .list-inline-item:not(:last-child) {
     margin-left: 0.5rem !important;
     margin-right: 0 !important;
   }
@@ -102,7 +122,8 @@
   }
 
   .text-start,
-  .student-profile .basic-table tr td.text-end {
+  .student-profile .basic-table tr td.text-end,
+  .mat-menu-item {
     text-align: right !important;
   }
 
@@ -116,7 +137,8 @@
     float: right !important;
   }
 
-  .float-end {
+  .float-end,
+  .homework-help .content .buttons-list button {
     float: left !important;
   }
 
@@ -124,13 +146,22 @@
     float: unset !important;
   }
 
+  .terms-sidebar ul li a.active:before {
+    border-color: transparent transparent transparent var(--main-color) !important;
+    margin-left: 10px !important;
+    margin-right: -4px !important;
+  }
+
   metutors-study-slide .slide,
   metutors-study-slide .slide .container,
+  metutors-explore-tutors .explore-heading .contact-img,
   metutors-become-tutor-slide .slide,
   metutors-become-tutor-slide .slide .container,
   .why-we-teach img,
   .innovative-approach img,
   metutors-about-slide .slide img,
+  .slide .content .request-free svg-icon .svg-icon,
+  .homework-help .content .svg-icon,
   metutors-academic-learning-environment .academic-learning,
   metutors-academic-learning-environment .academic-learning .container {
     -webkit-transform: scaleX(-1);
@@ -144,6 +175,7 @@
   .featured-tutors .card-item .list .icon,
   .profile-header .details ul li .count,
   .tutors .tutor-item .list .icon,
+  .tutor-card .list .icon,
   .tutors .tutor-item .specialization span,
   .review-request .row-block .list-tutors .li-item img,
   .review-request .row-block .list-tutors .count,
@@ -153,22 +185,26 @@
   .course-item .menu img,
   .invoice-header span,
   .list-items .menu img,
-  .featured-tutors .card-item .specialization>span {
+  .student-navbar .svg-icon,
+  .tutor-navbar .svg-icon,
+  .featured-tutors .card-item .specialization>span,
+  .tutor-card .specialization>span {
     margin-right: 0 !important;
     margin-left: 5px;
   }
 
-  #home-header .nav-item {
+  .home-header .nav-item {
     margin-left: 20px;
     margin-right: 0 !important;
   }
 
-  #home-header .nav-item:last-child {
+  .home-header .nav-item:last-child,
+  .footer .subscribe .social a:last-child {
     margin-right: 0;
     margin-left: 0;
   }
 
-  #home-header .btn-nav,
+  .home-header .btn-nav,
   .signup-block form .types button svg,
   .about-me ul li img,
   .qualification ul li img,
@@ -187,6 +223,8 @@
   .classroom .class-btn,
   .classroom-item .details-btn,
   .course-item .actions h3,
+  .program-list .programs .item,
+  .homework-help .content .field-card,
   .video-notes li:before {
     margin-right: 0 !important;
     margin-left: 10px;
@@ -205,11 +243,14 @@
     margin-left: 20px;
   }
 
+  .video .edit-video,
   .list-days button,
   .featured-tutors .card-item,
   .classroom-details-popup .list-videos .video h3,
   .course-details-popup .list-videos .video h3,
-  .request-course .cancel-btn {
+  .request-course .cancel-btn,
+  .footer .copyright .mastercard,
+  .footer .subscribe .social a {
     margin-right: 0 !important;
     margin-left: 15px;
   }
@@ -240,6 +281,7 @@
   }
 
   .tutors-list .mat-tab-label,
+  .payment-records .mat-tab-label,
   .interview-list .mat-tab-label {
     margin-left: 50px;
     margin-right: 0 !important;
@@ -278,7 +320,10 @@
   .assignment-details-modal .status-icon,
   metutors-support-ticket-card .card h2 .label,
   .classroom-item .in-progress strong,
-  .select-tutor .est-price h1 {
+  .select-tutor .est-price h1,
+  .feedback-rating h1.title span,
+  .tutor-card .count,
+  .tutor-card .review {
     margin-left: 0 !important;
     margin-right: 10px;
   }
@@ -288,6 +333,7 @@
   .featured-tutors .card-item .actions .more,
   .profile-header .actions .more,
   .tutors .tutor-item .actions .more,
+  .tutor-card .actions .more,
   .select-tutor .custom-list .list-tutors .count,
   .select-tutor .custom-list .list-tutors .review,
   .review-request .row-block .list-tutors .count,
@@ -304,13 +350,13 @@
   }
 
   .terms-condition .margin-50,
-  .privacy-policy .margin-50 {
+  .privacy-notice .margin-50 {
     margin-right: 50px;
     margin-left: 0 !important;
   }
 
   .terms-condition .card p .margin-20,
-  .privacy-policy .card p .margin-20 {
+  .privacy-notice .card p .margin-20 {
     margin-right: 20px;
     margin-left: 0 !important;
   }
@@ -356,7 +402,7 @@
   }
 
   .footer .subscribe .form-block input {
-    padding: 10px 10px 10px 170px !important;
+    padding: 10px 10px 10px 80px !important;
   }
 
   .ticket-details .card .write-comment input {
@@ -371,8 +417,13 @@
     margin: 25px 5px 0 0 !important;
   }
 
-  .explore-courses .form-block input {
+  .explore-heading .form-block input {
     padding: 20px 20px 20px 80px !important;
+  }
+
+  .all-courses .fields-list .mat-chip.mat-standard-chip,
+  .explore-tutors .fields-list .mat-chip.mat-standard-chip {
+    padding: 10px 20px 10px 15px !important;
   }
 
   .header .brand {
@@ -384,6 +435,12 @@
 
   .video-notes li img {
     margin: 3px 0 0 6px !important;
+  }
+
+  .homework-help .content .buttons-list button:first-child {
+    order: 2;
+    margin-right: 0.5rem !important;
+    margin-left: 0 !important;
   }
 
   /****************** POSITIONS ********************/
@@ -415,7 +472,7 @@
   .edit-cover,
   .delete-cover,
   .edit-video,
-  .explore-courses .form-block button,
+  .explore-heading .form-block button,
   .featured-tutors .card-item h2 span,
   .tutors .tutor-item h2 span,
   .security-settings .password-visibility,
@@ -425,6 +482,7 @@
   }
 
   .services-features .card .card-body img,
+  .tutor-card span.badge,
   .payment-information .list-cards .visa-card .checked,
   .profile-header .status-interview {
     right: 10px;
@@ -453,8 +511,8 @@
     left: auto !important;
   }
 
-  .country button,
   .close-btn,
+  .country button,
   .ticket-details .card .write-comment .reply-button,
   .request-tutor .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child):after {
     left: 0 !important;
@@ -515,9 +573,31 @@
     right: auto !important;
   }
 
+  .homework-help .content .svg-icon {
+    left: 150px;
+    right: auto !important
+  }
+
   .sidemenu-btn {
     right: 5px;
     left: auto !important;
+  }
+
+  .learning-environment .chevron-right,
+  .select-program-category .chevron-right {
+    left: -17.5px;
+    right: auto !important;
+  }
+
+  .learning-environment .chevron-left,
+  .select-program-category .chevron-left {
+    right: -17.5px;
+    left: auto !important;
+  }
+
+  .slide .content .request-free svg-icon {
+    left: -40px;
+    right: auto !important;
   }
 
   /**************** PADDING ***********************/
@@ -550,11 +630,6 @@
     padding-right: 0;
   }
 
-  .footer .subscribe .social a:last-child {
-    padding-left: 0 !important;
-    padding-right: 15px !important;
-  }
-
   .share input {
     text-align: left;
     padding-left: 30px;
@@ -568,6 +643,11 @@
 
   .list-items .menu {
     padding-right: calc(1.5rem * 0.5) !important;
+    padding-left: 0 !important;
+  }
+
+  .footer .copyright ul li:after {
+    padding-right: 5px;
     padding-left: 0 !important;
   }
 
@@ -618,12 +698,21 @@
     border-radius: 15px 0 15px 15px !important;
   }
 
-  .have-coupon button {
+  .have-coupon button,
+  .footer .subscribe .form-block button {
     border-radius: 4px 0 0 4px !important;
   }
 
   .have-coupon input {
     border-radius: 0 4px 4px 0 !important;
+  }
+
+  .page-item:last-child .page-link {
+    border-radius: 0.25rem 0 0 0.25rem;
+  }
+
+  .page-item:first-child .page-link {
+    border-radius: 0 0.25rem .25rem 0;
   }
 
   /**************** MEDIA QUERY ***********************/

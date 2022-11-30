@@ -41,8 +41,8 @@
     height: 46px;
     margin-top: 10px;
 
-    &.ng-touched.ng-invalid {
-      border: 2px solid #f44336;
+    &.ng-dirty.ng-invalid {
+      border: 1px solid #f44336 !important;
     }
   }
 
@@ -53,6 +53,12 @@
         font-weight: bold;
         font-size: 15px;
         margin-bottom: 0;
+
+        span {
+          color: #696969;
+          font-size: 12px;
+          font-weight: normal;
+        }
       }
 
       input.form-control {

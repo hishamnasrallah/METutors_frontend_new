@@ -1,5 +1,8 @@
+import { GENDERS } from '@config';
+import { ILanguage } from '@models';
 import { Store } from '@ngrx/store';
 import { map, tap } from 'rxjs/operators';
+import * as fromCore from '@metutor/core/state';
 import { Observable, combineLatest } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 
@@ -9,10 +12,6 @@ import {
   FormBuilder,
   AbstractControl,
 } from '@angular/forms';
-
-import { GENDERS } from '@config';
-import { ILanguage } from '@models';
-import * as fromCore from '@metutor/core/state';
 
 @Component({
   selector: 'metutors-student-settings-user-prefrences',

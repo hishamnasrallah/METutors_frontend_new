@@ -19,6 +19,8 @@ export interface State {
   assignment: any;
   assignments: any;
   preferences: any;
+  certificate: any;
+  certificates: any;
   isLoading: boolean;
   feedbackOptions: any;
   classesDashboard: any;
@@ -65,6 +67,8 @@ export const initialState: State = {
   attendance: null,
   preferences: null,
   assignments: null,
+  certificate: null,
+  certificates: null,
   isMakeupClass: false,
   feedbackOptions: null,
   isJoiningClass: false,
@@ -615,20 +619,72 @@ export const reducer = createReducer(
     }
   ),
   // Is loading
-  on(studentActions.studentViewClass, (state) => ({
-    ...state,
-    isLoading: true,
-  })),
+  on(
+    studentActions.studentViewClass,
+    studentActions.loadStudentCertificate,
+    studentActions.loadStudentCertificates,
+    studentActions.studentUploadResourceDocument,
+    (state) => ({
+      ...state,
+      isLoading: true,
+    })
+  ),
+
+  on(
+    studentActions.loadStudentCertificatesSuccess,
+    (state, { certificates }) => ({
+      ...state,
+      certificates,
+      isLoading: false,
+    })
+  ),
+
+  on(
+    studentActions.loadStudentCertificateSuccess,
+    (state, { certificate }) => ({
+      ...state,
+      certificate,
+      isLoading: false,
+    })
+  ),
 
   on(studentActions.studentViewClassSuccess, (state) => ({
     ...state,
     isLoading: false,
   })),
 
-  on(studentActions.studentViewClassFailure, (state) => ({
-    ...state,
-    isLoading: false,
-  }))
+  on(
+    studentActions.studentViewClassFailure,
+    studentActions.loadStudentCertificateFailure,
+    studentActions.loadStudentCertificatesFailure,
+    studentActions.studentUploadResourceDocumentFailure,
+    (state) => ({
+      ...state,
+      isLoading: false,
+    })
+  ),
+  on(
+    studentActions.studentUploadResourceDocumentSuccess,
+    (state, { document }) => {
+      const finalState = {
+        ...state,
+        isLoading: false,
+      };
+
+      const studentOtherDocuments = [
+        ...finalState.resources.studentOtherDocuments,
+      ];
+
+      studentOtherDocuments.unshift(document);
+
+      finalState.resources = {
+        ...finalState.resources,
+        studentOtherDocuments,
+      };
+
+      return finalState;
+    }
+  )
 );
 
 export const selectStudent = (state: State): IStudent | null => state.student;
@@ -753,6 +809,12 @@ export const selectTutorAvailability = (state: State): boolean =>
 export const selectStudentLoading = (state: State): boolean => state.isLoading;
 
 export const selectStudentTimeSlots = (state: State): any => state.timeSlots;
+
+export const selectStudentCertificate = (state: State): any =>
+  state.certificate;
+
+export const selectStudentCertificates = (state: State): any =>
+  state.certificates;
 
 export const selectStudentPagination = (state: State): IPagination =>
   state.pagination;

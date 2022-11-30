@@ -1,16 +1,14 @@
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { FormGroup } from '@angular/forms';
-import { combineLatest, Observable } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
-
 import * as fromTutor from '../../state';
+import { FormGroup } from '@angular/forms';
 import * as fromRoot from '@metutor/state';
 import { IUser } from '@metutor/core/models';
 import * as fromCore from '@metutor/core/state';
+import { combineLatest, Observable } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
 import * as fromTutorAction from '../../state/actions';
 import { insightRange, WEEK_DAYS } from '@metutor/config';
-import { environment } from '@environment';
 
 @Component({
   selector: 'metutors-tutor-dashboard',
@@ -32,12 +30,11 @@ export class TutorDashboardComponent implements OnInit {
   view$: Observable<{ loading: boolean; data: any }>;
 
   range = '7days';
+  heading = 'LEAVE_FEEDBACK';
   insightRange = insightRange;
-  tabLabel = 'MEtutors Feedback';
-  heading = 'Leave a Feedback';
-  subHeading = 'Share with us your feedback on MEtutors service:';
-  messageLabel =
-    'Please share with us your thoughts on how to improve our services';
+  tabLabel = 'METUTORS_FEEDBACK';
+  subHeading = 'SHARE_FEEDBACK_METUTORS_SERVICE';
+  messageLabel = 'SHARE_THOUGHTS_IMPROVE_SERVICES';
 
   constructor(private _store: Store<any>) {}
 

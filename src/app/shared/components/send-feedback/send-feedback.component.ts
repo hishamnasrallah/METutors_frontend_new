@@ -1,4 +1,4 @@
-import { FormGroup } from '@angular/forms';
+import { AbstractControl, FormGroup } from '@angular/forms';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
@@ -16,6 +16,10 @@ export class SendFeedbackComponent implements OnInit {
   @Output() submitFeedback: EventEmitter<any> = new EventEmitter<any>();
 
   constructor() {}
+
+  get review(): AbstractControl | null {
+    return this.form.get('review');
+  }
 
   ngOnInit(): void {}
 }

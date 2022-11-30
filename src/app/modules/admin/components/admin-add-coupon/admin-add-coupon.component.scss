@@ -1,0 +1,32 @@
+.add-coupon-modal {
+  label {
+    font-weight: bold;
+    font-size: 15px;
+  }
+
+  button {
+    margin-right: 15px;
+  }
+
+  span {
+    font-size: 14px;
+  }
+}
+
+.mat-slider {
+  height: 40px !important;
+}
+::ng-deep {
+  .mat-slider-thumb-label {
+    transform: rotate(45deg) !important;
+    border-radius: 50% 50% 0 !important;
+  }
+
+  .mat-slider-thumb {
+    transform: scale(0) !important;
+  }
+
+  .mat-slider-thumb-label-text {
+    opacity: 1 !important;
+  }
+}

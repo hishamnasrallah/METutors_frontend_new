@@ -20,11 +20,14 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { AngularSvgIconModule, SvgIconRegistryService } from 'angular-svg-icon';
 
 import { VgCoreModule } from '@videogular/ngx-videogular/core';
 import { VgControlsModule } from '@videogular/ngx-videogular/controls';
 import { VgBufferingModule } from '@videogular/ngx-videogular/buffering';
 import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
+
+import icons from '../../assets/svg/svg-icons';
 
 // Modals
 import {
@@ -60,6 +63,7 @@ import {
   SupportTicketCardComponent,
   FileUploadProgressComponent,
   TutorAvailableSlotsComponent,
+  ChooseCountryDialogComponent,
   CourseItemHorizentalComponent,
   PaymentInvoiceDetailsComponent,
   ClassroomItemHorizentalComponent,
@@ -77,13 +81,20 @@ import {
   GridSerialNumberDirective,
 } from '@metutor/shared/directives';
 
-import { MoneyPipe, DaysPipe } from './pipes';
+import {
+  DaysPipe,
+  MoneyPipe,
+  UppercasePipe,
+  TimeDifferencePipe,
+} from './pipes';
 
 @NgModule({
   declarations: [
     // Pipes
     DaysPipe,
     MoneyPipe,
+    UppercasePipe,
+    TimeDifferencePipe,
 
     // Components
     ModalComponent,
@@ -105,6 +116,7 @@ import { MoneyPipe, DaysPipe } from './pipes';
     SupportTicketCardComponent,
     FileUploadProgressComponent,
     TutorAvailableSlotsComponent,
+    ChooseCountryDialogComponent,
     CourseItemHorizentalComponent,
     PaymentInvoiceDetailsComponent,
     ClassroomItemHorizentalComponent,
@@ -157,11 +169,14 @@ import { MoneyPipe, DaysPipe } from './pipes';
     RatingModule.forRoot(),
     NgxMatSelectSearchModule,
     BsDropdownModule.forRoot(),
+    AngularSvgIconModule.forRoot(),
   ],
   exports: [
     // Pipes
     DaysPipe,
     MoneyPipe,
+    UppercasePipe,
+    TimeDifferencePipe,
 
     // Components
     MomentModule,
@@ -181,6 +196,7 @@ import { MoneyPipe, DaysPipe } from './pipes';
     SpokenLanguagesComponent,
     GridPlaceholderComponent,
     SupportTicketCardComponent,
+    ChooseCountryDialogComponent,
     CourseItemHorizentalComponent,
     PaymentInvoiceDetailsComponent,
     ClassroomItemHorizentalComponent,
@@ -208,8 +224,18 @@ import { MoneyPipe, DaysPipe } from './pipes';
     TutorAvailableSlotsComponent,
 
     // Modules
+    MatChipsModule,
     TranslateModule,
+    AngularSvgIconModule,
     NgxMatSelectSearchModule,
   ],
 })
-export class SharedModule {}
+export class SharedModule {
+  constructor(private _iconReg: SvgIconRegistryService) {
+    for (const iconKey in icons) {
+      if (Object.prototype.hasOwnProperty.call(icons, iconKey)) {
+        this._iconReg.addSvg(iconKey, icons[iconKey]);
+      }
+    }
+  }
+}

@@ -19,3 +19,4 @@ export * from './student-cancel-course-success-modal';
 export * from './student-add-highlighted-topic-modal';
 export * from './student-settings-payment-information';
 export * from './student-view-submitted-assignment-modal';
+export * from './student-resources-upload-document-modal';

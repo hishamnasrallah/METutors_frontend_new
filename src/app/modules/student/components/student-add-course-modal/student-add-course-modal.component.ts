@@ -1,3 +1,7 @@
+import groupBy from 'lodash/groupBy';
+import { DatePipe } from '@angular/common';
+import { IClass, IInvoiceDetails } from '@metutor/core/models';
+import { FormValidationUtilsService } from '@metutor/core/validators';
 import {
   Inject,
   Input,
@@ -25,7 +29,6 @@ import {
 
 import {
   WEEK_DAYS,
-  LONG_DAYS_WEEK,
   WEEK_FULL_DAYS,
   SORTED_DAYS_WEEK,
   generalConstants,
@@ -33,16 +36,11 @@ import {
   calculateDurationTime,
 } from '@metutor/config';
 
-import groupBy from 'lodash/groupBy';
-import { DatePipe } from '@angular/common';
-import { IClass, IInvoiceDetails } from '@metutor/core/models';
-
 import {
   MatDialog,
   MatDialogRef,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
-import { FormValidationUtilsService } from '@metutor/core/validators';
 
 @Component({
   selector: 'metutors-student-add-course-modal',
@@ -109,13 +107,11 @@ export class StudentAddCourseModalComponent implements OnInit {
   minDate = new Date();
   classrooms!: IClass[];
   objectKeys = Object.keys;
-  listDays = LONG_DAYS_WEEK;
-  heading = 'Add New Classes';
+  heading = 'ADD_NEW_CLASSES';
   weekDayName = WEEK_FULL_DAYS;
   daysSorted = SORTED_DAYS_WEEK;
+  subHeading = 'KINDLY_VIEW_TUTOR_AVAILABILITY';
   classroomTimeDuration = generalConstants.classroomTimeDuration;
-  subHeading =
-    "Kindly view tutor's availability prior to selecting new date and time";
 
   constructor(
     private _fb: FormBuilder,
@@ -208,7 +204,7 @@ export class StudentAddCourseModalComponent implements OnInit {
   onCheckout(form: FormGroup): void {
     this.step = 4;
     this.subHeading = '';
-    this.heading = 'Checkout';
+    this.heading = 'CHECKOUT';
 
     this.calculateInvoice.emit(form.value);
   }
@@ -233,7 +229,7 @@ export class StudentAddCourseModalComponent implements OnInit {
 
       this.step = 2;
       this.lastStep = 2;
-      this.subHeading = 'Please review new class schedule';
+      this.subHeading = 'REVIEW_NEW_CLASS_SCHEDULE';
       this.classes?.setValidators([Validators.required]);
       this.classes?.setValue(this.classrooms);
       this.classes?.updateValueAndValidity();
@@ -247,18 +243,18 @@ export class StudentAddCourseModalComponent implements OnInit {
   onTutorsAvailability(): void {
     this.step = 3;
     this.subHeading = '';
-    this.heading = 'Tutor Availability';
+    this.heading = 'TUTOR_AVAILABILITY';
     this.tutorAvailability.emit();
   }
 
   goBack(): void {
     this.step = this.lastStep;
-    this.heading = 'Add New Classes';
+    this.heading = 'ADD_NEW_CLASSES';
 
     this.subHeading =
       this.step === 1
-        ? 'Please select classes date to view Tutors availability'
-        : 'Please review new class schedule';
+        ? 'SELECT_CLASSES_DATE_VIEW_TUTORS_AVAILABILITY'
+        : 'REVIEW_NEW_CLASS_SCHEDULE';
   }
 
   onChangeDateDay(): void {
@@ -547,7 +543,9 @@ export class StudentAddCourseModalComponent implements OnInit {
                         </li>
                         <li class="col-12">
                           <span class="m-0 d-block">Tutoring Type</span>
-                          <strong class="d-block">${this.course?.classroomType}</strong>
+                          <strong class="d-block">${
+                            this.course?.classroomType
+                          }</strong>
                         </li>
                       </ul>
                 
@@ -763,7 +761,7 @@ export class DialogEditClassroom implements OnInit {
 
   editForm: FormGroup;
   minDate = new Date();
-  listDays = LONG_DAYS_WEEK;
+  listDays = SORTED_DAYS_WEEK;
   classroomTimeDuration = generalConstants.classroomTimeDuration;
 
   constructor(

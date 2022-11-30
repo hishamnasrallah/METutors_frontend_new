@@ -1,13 +1,12 @@
+import { ITutor } from '@models';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { combineLatest, Observable, tap } from 'rxjs';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-
-import { ITutor } from '@models';
 import * as fromCore from '@metutor/core/state';
+import { combineLatest, Observable } from 'rxjs';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as fromStudentAction from '@metutor/modules/student/state/actions';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'metutors-student-tutor-re-assignment-modal',
@@ -25,9 +24,8 @@ export class StudentTutorReAssignmentModalComponent implements OnInit {
   showHeader = true;
   selectedTutor: number;
   selectedOption: number;
-  heading = 'Tutor Re-Assignment';
-  subHeading =
-    'Due to unforeseen reasons, your tutor can not continue teaching this course, kindly choose a preferred option to continue.';
+  heading = 'TUTOR_REASSIGNMENT';
+  subHeading = 'TUTOR_REASSIGNMENT_DESC';
 
   isCanceling$: Observable<boolean>;
   loadingTutors$: Observable<boolean>;
@@ -62,9 +60,8 @@ export class StudentTutorReAssignmentModalComponent implements OnInit {
   onBack(): void {
     this.next = false;
     this.selectedOption = 0;
-    this.heading = 'Tutor Re-Assignment';
-    this.subHeading =
-      'Due to unforeseen reasons, your tutor can not continue teaching this course, kindly choose a preferred option to continue.';
+    this.heading = 'TUTOR_REASSIGNMENT';
+    this.subHeading = 'TUTOR_REASSIGNMENT_DESC';
   }
 
   onNext(): void {
@@ -72,8 +69,8 @@ export class StudentTutorReAssignmentModalComponent implements OnInit {
 
     if (this.selectedOption === 1) {
       this.showHeader = true;
-      this.heading = 'Select a Replacement Tutor';
-      this.subHeading = 'Please select a new tutor to continue your course';
+      this.heading = 'SELECT_REPLACEMENT_TUTOR';
+      this.subHeading = 'SELECT_TUTOR_CONTINUE_COURSE';
       this._store.dispatch(fromCore.loadAvailableTutors({ id: this.courseId }));
     } else if (this.selectedOption === 2) {
       this.subHeading = '-';
@@ -81,8 +78,8 @@ export class StudentTutorReAssignmentModalComponent implements OnInit {
       this._store.dispatch(fromCore.studentRequestAdminAssignTutor());
     } else if (this.selectedOption === 3) {
       this.showHeader = true;
-      this.heading = 'Cancel / Refund Course';
-      this.subHeading = 'Please confirm you want to cancel these classes';
+      this.heading = 'CANCEL_REFUND_COURSE';
+      this.subHeading = 'CONFIRM_CANCEL_CLASSES';
 
       this._store.dispatch(
         fromCore.studentRefundCourse({ refundType: 'complete_course' })

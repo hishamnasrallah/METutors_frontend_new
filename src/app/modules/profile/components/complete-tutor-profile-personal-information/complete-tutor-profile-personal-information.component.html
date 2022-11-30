@@ -7,7 +7,7 @@
         <div class="form-group">
           <label for="middleName" class="form-label">{{ 'MIDDLE_NAME' | translate }} <span>({{ 'OPTIONAL' | translate }})</span></label>
           <input type="text" class="custom-input w-100 input-bordered" id="middleName" placeholder="{{ 'ENTER_MIDDLE_NAME' | translate }}"
-            formControlName="middleName" meTutorsLettersOnly>
+            formControlName="middleName" meTutorsLettersOnly meTutorsTrimInput>
           <div class="text-danger" *ngIf="middleName?.touched && middleName?.invalid">
             {{ 'WRITE_VALID_NAME' | translate }}
           </div>
@@ -22,7 +22,7 @@
               (selectionChange)="loadCities.emit(country?.value); resetCity()">
               <mat-option>
                 <ngx-mat-select-search [(ngModel)]="filterCountry" [ngModelOptions]="{standalone: true}"
-                  placeholderLabel="{{ 'SEARCH' | translate }}" noEntriesFoundLabel="{{ 'NO_MATCHING_COUNTRY_FOUND' | translate }}">
+                  placeholderLabel="{{ 'SEARCH_DOTS' | translate }}" noEntriesFoundLabel="{{ 'NO_MATCHING_COUNTRY_FOUND' | translate }}">
                 </ngx-mat-select-search>
               </mat-option>
               <mat-option *ngFor="let country of filteredCountries" [value]="country.id">
@@ -61,7 +61,7 @@
             <mat-select formControlName="city" placeholder="{{ 'SELECT_CITY' | translate }}" [disabled]="!cities || !cities.length">
               <mat-option>
                 <ngx-mat-select-search [(ngModel)]="filterCity" [ngModelOptions]="{standalone: true}"
-                  placeholderLabel="{{ 'SEARCH' | translate }}" noEntriesFoundLabel="{{ 'NO_MATCHING_CITY_FOUND' | translate }}">
+                  placeholderLabel="{{ 'SEARCH_DOTS' | translate }}" noEntriesFoundLabel="{{ 'NO_MATCHING_CITY_FOUND' | translate }}">
                 </ngx-mat-select-search>
               </mat-option>
               <mat-option *ngFor="let city of filteredCities" [value]="city.name">{{ city.name }}</mat-option>
@@ -80,7 +80,7 @@
           <label for="gender" class="form-label">{{ 'SELECT_GENDER' | translate }}</label>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="gender" placeholder="{{ 'SELECT_UR_GENDER' | translate }}">
-              <mat-option [value]="gender" *ngFor="let gender of genders">{{ gender }}</mat-option>
+              <mat-option [value]="gender" *ngFor="let gender of genders">{{ gender | uppercase | translate }}</mat-option>
             </mat-select>
           </mat-form-field>
           <div class="text-danger" *ngIf="gender?.touched && gender?.invalid">
@@ -96,7 +96,7 @@
             <mat-select formControlName="nationality" placeholder="{{ 'SELECT_NATIONALITY' | translate }}" id="nationality">
               <mat-option>
                 <ngx-mat-select-search [(ngModel)]="filterNationality" [ngModelOptions]="{standalone: true}"
-                  placeholderLabel="{{ 'SEARCH' | translate }}" noEntriesFoundLabel="{{ 'NO_MATCHING_COUNTRY_FOUND' | translate }}">
+                  placeholderLabel="{{ 'SEARCH_DOTS' | translate }}" noEntriesFoundLabel="{{ 'NO_MATCHING_COUNTRY_FOUND' | translate }}">
                 </ngx-mat-select-search>
               </mat-option>
               <mat-option *ngFor="let country of filteredNationalities" [value]="country.name">
@@ -114,7 +114,7 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label for="bio" class="form-label">{{ 'ADD_BIOGRAPHY' | translate }}
+          <label for="bio" class="form-label w-100">{{ 'ADD_BIOGRAPHY' | translate }}
             <span>({{ 'WRITE_BIOGRAPHY_NOTE' | translate }})</span>
             <metutors-char-counter [limit]="400" [controlName]="bio"></metutors-char-counter>
           </label>
@@ -131,7 +131,7 @@
         <div class="form-group">
           <label for="address" class="form-label">{{ 'ADDRESS_1' | translate }}</label>
           <input type="text" class="custom-input w-100 input-bordered" id="address" placeholder="{{ 'ENTER_STREET_ADDRESS' | translate }}"
-            formControlName="address">
+            formControlName="address" meTutorsTrimInput>
           <div class="text-danger" *ngIf="address?.touched && address?.invalid">
             {{ 'ADDRESS_CHARACTERS' | translate }}
           </div>
@@ -140,7 +140,7 @@
         <div class="form-group">
           <label for="address2" class="form-label">{{ 'ADDRESS_2' | translate }} <span>({{ 'OPTIONAL' | translate }})</span></label>
           <input type="text" class="custom-input w-100 input-bordered" id="address2" placeholder="{{ 'ENTER_STREET_ADDRESS' | translate }}"
-            formControlName="address2">
+            formControlName="address2" meTutorsTrimInput>
           <div class="text-danger" *ngIf="address2?.touched && address2?.invalid">
             {{ 'ADDRESS_CHARACTERS' | translate }}
           </div>
@@ -149,7 +149,7 @@
         <div class="form-group">
           <label for="postalCode" class="form-label">{{ 'POSTAL_CODE' | translate }}</label>
           <input type="text" class="custom-input w-100 input-bordered" id="postalCode" placeholder="{{ 'POSTAL_CODE' | translate }}"
-            formControlName="postalCode">
+            formControlName="postalCode" meTutorsTrimInput>
           <div class="text-danger" *ngIf="postalCode?.touched && postalCode?.invalid">
             {{ 'WRITE_VALID_POSTAL_CODE' | translate }}
           </div>

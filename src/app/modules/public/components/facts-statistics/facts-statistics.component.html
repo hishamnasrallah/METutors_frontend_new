@@ -2,18 +2,16 @@
   <div class="container">
     <div class="row">
       <div class="col-12">
-        <h2 class="f-size-25-md-sm">Whatever your goals, we’ve got a tutor for you</h2>
-        <p class="f-size-15-md-sm">
-          Our expert tutors will help you gain confidence in any subject area.
-        </p>
+        <h2 class="f-size-25-md-sm">{{ 'FACTS_STATISTICS_TITLE' | translate }}</h2>
+        <p class="f-size-15-md-sm">{{ 'FACTS_STATISTICS_DESC' | translate }}</p>
       </div>
     </div>
     <div class="row mt-4">
-      <div class="col-lg-3 col-md-6" *ngFor="let stat of statistics; let i = index">
-        <div class="card">
+      <div class="col-lg-3 col-md-6 mb-15-md-sm" *ngFor="let stat of statistics; let i = index">
+        <div class="card h-100">
           <div class="card-body">
             <img [src]="stat?.icon" draggable="false" alt="" height="65" width="65">
-            <h3 class="f-size-20-md-sm">{{ stat?.value }}</h3>
+            <h3 class="f-size-20-md-sm">{{ stat.value + "" | translate }}</h3>
             <h4 class="f-size-15-md-sm">{{ stat.type | translate }}</h4>
           </div>
         </div>

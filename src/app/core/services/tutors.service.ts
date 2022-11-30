@@ -2,10 +2,12 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { isNil, omitBy } from 'lodash';
 import { Injectable } from '@angular/core';
-import { ITutor, SubmitInterviewInput } from '@models';
+import camelcaseKeys from 'camelcase-keys';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
+import { ITutor, SubmitInterviewInput, IExploreTutorsFilters } from '@models';
+import { tutorRequestPayment } from '@metutor/core/state';
 
 @Injectable({
   providedIn: 'root',
@@ -41,6 +43,46 @@ export class TutorsService {
       reason: reason,
       teacher_id: tutorId,
     });
+  }
+
+  exploreTutors(
+    program: number,
+    filters: IExploreTutorsFilters
+  ): Observable<any> {
+    const object = { ...filters };
+    const params = new HttpParams({ fromObject: object });
+    let url = `teachers/program/${program}`;
+
+    if (program === 0) {
+      url = 'all-teachers';
+    }
+
+    return this.http
+      .get<{
+        teachers: { data: ITutor[]; total: number };
+        field_of_studies: any[];
+      }>(`${this.baseUrl}${url}`, {
+        params,
+      })
+      .pipe(
+        map((response) => {
+          return {
+            fieldsOfStudy:
+              response?.field_of_studies && response.field_of_studies?.length
+                ? response?.field_of_studies.map((field) => ({
+                    id: field.id,
+                    name: field.name,
+                    nameEn: field.name,
+                    nameAr: field.name_ar,
+                  }))
+                : [],
+            teachers: response.teachers.data.map(
+              (item) => new ITutor(false, item)
+            ),
+            total: response.teachers.total,
+          };
+        })
+      );
   }
 
   fetchFeaturedTutors(): Observable<any> {
@@ -445,5 +487,55 @@ export class TutorsService {
     return this.http
       .get<any>(`${this.baseUrl}teacher/kudos-points`)
       .pipe(map((result) => result.points_detail));
+  }
+
+  // Tutor payment records
+  getTutorPayment(params: any): Observable<any> {
+    return this.http
+      .get<any>(`${this.baseUrl}teacher/payment-records`, { params })
+      .pipe(
+        map((response) =>
+          camelcaseKeys(response.payment_records, { deep: true })
+        )
+      );
+  }
+
+  getTutorPaymentDetails(id: string): Observable<any> {
+    return this.http
+      .get<any>(
+        `${this.baseUrl}teacher/pending-payments/details?transaction_id=${id}`
+      )
+      .pipe(
+        map((response) =>
+          camelcaseKeys(response.payment_records, { deep: true })
+        )
+      );
+  }
+
+  getTutorDisputeDetails(id: string): Observable<any> {
+    return this.http
+      .get<any>(
+        `${this.baseUrl}teacher/payments/dispute-details?transaction_id=${id}`
+      )
+      .pipe(map((response) => camelcaseKeys(response.dispute, { deep: true })));
+  }
+
+  tutorCreateDispute(data: any): Observable<any> {
+    return this.http.post<any>(
+      `${this.baseUrl}teacher/payments/add-dispute`,
+      data
+    );
+  }
+
+  tutorRequestPayment(transaction_id: string): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}teacher/payment-request`, {
+      transaction_id,
+    });
+  }
+
+  tutorAddDisputeComment(body: any): Observable<any> {
+    return this.http
+      .post<any>(`${this.baseUrl}teacher/payments/dispute-comment`, body)
+      .pipe(map((response) => camelcaseKeys(response.comment, { deep: true })));
   }
 }

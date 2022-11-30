@@ -23,7 +23,7 @@
             <td>{{ subject?.subject }}</td>
             <td *ngIf="item?.programId === nationalId">{{ subject?.gradeName }}</td>
             <td>
-              <input type="text" meTutorsOnlyNumber [onlyNumber]="true" min="1" step="1" placeholder="Enter Price" class="p-0 w-100"
+              <input type="number" meTutorsOnlyNumber [onlyNumber]="true" min="1" max="100" step="1" placeholder="Enter Price" class="p-0 w-100"
                 [value]="subject.pricePerHour" (change)="changePrice(subject?.id, $event)">
             </td>
           </tr>
@@ -38,8 +38,9 @@
 
       <div class="mt-4">
         <metutors-submit-button [form]="form" [extraClasses]="'float-end py-1 px-5'"
-          [isSubmitting]="isAcceptingRequest">
-          Send Acceptance
+                                [isSubmitting]="isAcceptingRequest"
+                                [isDisabled]="!subjectLength || !pricesLength || pricesLength < subjectLength">
+          Send acceptance
         </metutors-submit-button>
       </div>
     </form>

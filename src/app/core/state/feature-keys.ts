@@ -13,4 +13,5 @@ export const studentFeatureKey = 'student';
 export const interviewFeatureKey = 'interview';
 export const tutorResourceFeatureKey = 'tutorResource';
 export const tutorSyllabusFeatureKey = 'tutorSyllabus';
+export const tutorPaymentsFeatureKey = 'tutorPayments';
 export const tutorAssignmentFeatureKey = 'tutorAssignment';

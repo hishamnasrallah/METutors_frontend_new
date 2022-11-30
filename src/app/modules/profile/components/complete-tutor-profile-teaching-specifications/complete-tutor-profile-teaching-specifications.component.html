@@ -24,7 +24,7 @@
           <mat-radio-group class="d-flex flex-row mt-3 fw-bold flex-column-sm mt-15-sm" formControlName="typeOfTutoring">
             <mat-radio-button [ngClass]="{'mt-15-sm ms-5': !isFirst}" class="m-0-sm" [value]="type.value"
               *ngFor="let type of types | keyvalue: returnZero; let isFirst = first" [disabled]="type.key !== 'one'">
-              {{ type?.value }}
+              {{ (type?.value)! | metutorsUppercase | translate  }}
             </mat-radio-button>
           </mat-radio-group>
           <div class="text-danger" *ngIf="typeOfTutoring?.touched && typeOfTutoring?.invalid">
@@ -55,7 +55,9 @@
           <label class="form-label">{{ 'ADD_UR_AVAILABILITY' | translate }}</label>
           <div class="list-days">
             <button type="button" mat-button [class.active]="selectedDays?.includes(i)" [disabled]="checkDisabledDays(day)"
-              *ngFor="let day of days; let i = index" (click)="onChangeDay(i)" class="w-100-sm">{{ day }}</button>
+              *ngFor="let day of days; let i = index" (click)="onChangeDay(i)" class="w-100-sm">
+              {{ day | uppercase | translate }}
+            </button>
           </div>
         </div>
       </div>

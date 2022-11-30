@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg text-16 sticky-top d-none d-lg-block" id="home-header">
+<nav class="navbar navbar-expand-lg text-16 d-none d-lg-block home-header" #navbar [class.scrolled]="showShadow">
   <div class="container">
     <div class="d-flex flex-grow-1 mobile_menu">
       <span class="w-100 d-lg-none d-block"></span>
@@ -8,10 +8,10 @@
     </div>
     <div class="flex-grow-1 collapse navbar-collapse">
       <ul class="navbar-nav ms-auto flex-nowrap float-end">
-        <li class="nav-item">
-          <a class="nav-link nav-item-link" routerLink="/about" routerLinkActive="active"
-            [routerLinkActiveOptions]="{exact: true}">
-            {{ 'ABOUT_US' | translate }}
+        <li class="nav-item d-flex align-items-center justify-content-center">
+          <a class="nav-link nav-item-link" [matMenuTriggerFor]="programs">
+            <span class="lang">{{ 'PROGRAMS' | translate }}</span>
+            <svg-icon name="b-chevron" [applyClass]="true" class="b-chevron"></svg-icon>
           </a>
         </li>
         <li class="nav-item">
@@ -22,6 +22,12 @@
         <li class="nav-item">
           <a class="nav-link nav-item-link" routerLink="/become-tutor" routerLinkActive="active">
             {{ 'BECOME_TUTOR' | translate }}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-item-link" routerLink="/about" routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact: true}">
+            {{ 'ABOUT_US' | translate }}
           </a>
         </li>
         <li class="nav-item" *ngIf="!(token$ | async)">
@@ -37,16 +43,19 @@
         <li class="nav-item d-flex align-items-center justify-content-center">
           <a class="nav-link nav-item-link currency" [matMenuTriggerFor]="currency">
             <span class="lang">{{ (selectedCurrency$ | async)?.id }}</span>
-            <img src="assets/svg/b-chevron.svg" alt="" draggable="false">
+            <!-- <img src="assets/svg/b-chevron.svg" alt="" draggable="false"> -->
+            <svg-icon name="b-chevron" [applyClass]="true" class="b-chevron"></svg-icon>
           </a>
         </li>
-        <!--<li class="nav-item">
+        <li class="nav-item">
           <a class="nav-link nav-item-link" [matMenuTriggerFor]="languages">
-            <img src="assets/svg/language.svg" alt="" draggable="false">
+            <!-- <img src="assets/svg/language.svg" alt="" draggable="false"> -->
+            <svg-icon name="language" [applyClass]="true" class="b-chevron"></svg-icon>
             <span class="lang text-capitalize">{{ selectedLanguage }}</span>
-            <img src="assets/svg/b-chevron.svg" alt="" draggable="false">
+            <!-- <img src="assets/svg/b-chevron.svg" alt="" draggable="false"> -->
+            <svg-icon name="b-chevron" [applyClass]="true" class="b-chevron"></svg-icon>
           </a>
-        </li>-->
+        </li>
         <li class="nav-item btn-nav d-flex align-items-center justify-content-center">
           <a *ngIf="!(token$ | async)" class="link-btn login px-4 py-1 fw-bold" mat-flat-button color="primary"
             routerLink="/" fragment="explore-services">
@@ -62,8 +71,8 @@
   </div>
 </nav>
 
-<nav class="navbar navbar-expand-lg navbar-light sticky-top py-3 card d-block d-lg-none"
-  data-navbar-on-scroll="data-navbar-on-scroll">
+<nav class="navbar navbar-expand-lg navbar-light py-3 card d-block d-lg-none home-header-sm"
+  data-navbar-on-scroll="data-navbar-on-scroll" #navbarSmall [class.shadow-sm]="showShadow">
   <div class="container" dropdown>
     <a class="navbar-brand" routerLink="/">
       <img src="assets/logo/logo-dark.png" alt="" width="146" />
@@ -73,19 +82,19 @@
       aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span>
     </button>
 
-    <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu dropdown-menu-left w-100-sm" role="menu"
+    <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu dropdown-menu-left w-100-md-sm" role="menu"
       aria-labelledby="button-basic">
       <li role="menuitem">
-        <a class="dropdown-item" routerLink="/about" routerLinkActive="active"
-          [routerLinkActiveOptions]="{exact: true}">{{ 'ABOUT_US' | translate }}</a>
+        <a class="dropdown-item text-start" routerLink="/study" routerLinkActive="active">{{ 'STUDY' | translate }}</a>
       </li>
       <li role="menuitem">
-        <a class="dropdown-item" routerLink="/study" routerLinkActive="active">{{ 'STUDY' | translate }}</a>
-      </li>
-      <li role="menuitem">
-        <a class="dropdown-item" routerLink="/become-tutor" routerLinkActive="active">
+        <a class="dropdown-item text-start" routerLink="/become-tutor" routerLinkActive="active">
           {{ 'BECOME_TUTOR' | translate }}
         </a>
+      </li>
+      <li role="menuitem">
+        <a class="dropdown-item text-start" routerLink="/about" routerLinkActive="active"
+          [routerLinkActiveOptions]="{exact: true}">{{ 'ABOUT_US' | translate }}</a>
       </li>
       <li role="menuitem">
         <a class="dropdown-item text-center" [matMenuTriggerFor]="currency">
@@ -127,7 +136,18 @@
   </div>
 </nav>
 
+<mat-menu #programs="matMenu">
+  <a mat-menu-item class="h-auto currency-item" *ngFor="let program of (programs$ | async)"
+    (click)="onSelectProgram(program.id)">
+    <bdi>{{ program?.name }}</bdi>
+  </a>
+</mat-menu>
+
 <mat-menu #currency="matMenu">
+  <!-- <input type="text" [(ngModel)]="searchCurrency" autofocus="true"> -->
+  <!-- <form (click)="$event.stopPropagation(); $event.preventDefault()">
+    <input class="w-full border-b" [(ngModel)]="searchCurrency" type="text" />
+  </form> -->
   <ng-container *ngFor="let item of (currencyRates$ | async)">
     <button mat-menu-item [ngClass]="{
       'active' : item.id === (selectedCurrency$ | async)?.id

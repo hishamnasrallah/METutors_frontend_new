@@ -4,21 +4,20 @@
     <ng-container *ngIf="!isLoading">
       <p *ngIf="tutor?.bio">{{ tutor?.bio }}</p>
       <ul class="list-unstyled m-0">
-        <li>
-          <img src="assets/svg/place.svg" draggable="false" width="20" height="20" alt="" *ngIf="tutor?.country?.name">
+        <li *ngIf="tutor?.country?.name">
+          <img src="assets/svg/place.svg" draggable="false" width="20" height="20" alt="">
           <span>{{ 'COUNTRY' | translate }}: {{ tutor?.country?.name }}</span>
         </li>
-        <li>
-          <img src="assets/svg/website.svg" draggable="false" width="20" height="20" alt="" *ngIf="tutor?.nationality">
+        <li *ngIf="tutor?.nationality">
+          <img src="assets/svg/website.svg" draggable="false" width="20" height="20" alt="">
           <span>{{ 'NATIONALITY' | translate }}: {{ tutor?.nationality }}</span>
         </li>
-        <li>
-          <img src="assets/svg/gender.svg" draggable="false" width="20" height="20" alt="" *ngIf="tutor?.gender">
-          <span>{{ 'GENDER' | translate }}: {{ tutor?.gender }}</span>
+        <li *ngIf="tutor?.gender">
+          <img src="assets/svg/gender.svg" draggable="false" width="20" height="20" alt="">
+          <span>{{ 'GENDER' | translate }}: {{ (tutor?.gender)! | uppercase | translate }}</span>
         </li>
-        <li>
-          <img src="assets/svg/date.svg" draggable="false" width="20" height="20" alt=""
-            *ngIf="tutor?.interviewRequest?.updatedAt">
+        <li *ngIf="tutor?.interviewRequest?.updatedAt">
+          <img src="assets/svg/date.svg" draggable="false" width="20" height="20" alt="">
           <span>{{ 'JOINED' | translate }}: {{ tutor?.interviewRequest?.updatedAt | date: 'MMMM y' }}</span>
         </li>
       </ul>

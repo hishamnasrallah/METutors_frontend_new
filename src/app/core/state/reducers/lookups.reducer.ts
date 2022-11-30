@@ -1,4 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
+import * as lookupsActions from '../actions/lookups.actions';
+import * as languageActions from '../actions/language-menu.actions';
 
 import {
   ICity,
@@ -15,7 +17,6 @@ import {
   ITicketCategory,
   ITicketPriority,
 } from '@models';
-import * as lookupsActions from '../actions/lookups.actions';
 
 export interface State {
   // User types
@@ -317,7 +318,24 @@ export const reducer = createReducer(
 
   on(lookupsActions.loadProgramsSuccess, (state, { programs }) => ({
     ...state,
-    programs,
+    programs:
+      programs && programs.length
+        ? programs.map((program) => ({
+            ...program,
+            name:
+              localStorage.getItem('DEFAULT_LANGUAGE') === 'ar'
+                ? program?.nameAr
+                : program?.nameEn,
+            title:
+              localStorage.getItem('DEFAULT_LANGUAGE') === 'ar'
+                ? program?.titleAr
+                : program?.titleEn,
+            description:
+              localStorage.getItem('DEFAULT_LANGUAGE') === 'ar'
+                ? program?.descriptionAr
+                : program?.descriptionEn,
+          }))
+        : [],
     isLoadingPrograms: false,
   })),
 
@@ -354,7 +372,20 @@ export const reducer = createReducer(
     lookupsActions.loadSubjectsByFieldIdSuccess,
     (state, { subjects }) => ({
       ...state,
-      subjects,
+      subjects:
+        subjects && subjects.length
+          ? subjects.map((subject) => ({
+              ...subject,
+              name:
+                localStorage.getItem('DEFAULT_LANGUAGE') === 'ar'
+                  ? subject?.nameAr
+                  : subject?.nameEn,
+              description:
+                localStorage.getItem('DEFAULT_LANGUAGE') === 'ar'
+                  ? subject?.descriptionAr
+                  : subject?.descriptionEn,
+            }))
+          : [],
       isLoadingSubjects: false,
     })
   ),
@@ -396,7 +427,16 @@ export const reducer = createReducer(
     lookupsActions.loadFieldsByProgramIdSuccess,
     (state, { fields }) => ({
       ...state,
-      fields,
+      fields:
+        fields && fields.length
+          ? fields.map((field) => ({
+              ...field,
+              name:
+                localStorage.getItem('DEFAULT_LANGUAGE') === 'ar'
+                  ? field?.nameAr
+                  : field?.nameEn,
+            }))
+          : [],
       isLoadingFields: false,
     })
   ),
@@ -695,11 +735,56 @@ export const reducer = createReducer(
   on(lookupsActions.resetLookUpsPagination, (state) => ({
     ...state,
     pagination: { total: 0 },
+  })),
+
+  on(languageActions.changeLanguage, (state) => ({
+    ...state,
+    programs:
+      state.programs && state.programs.length
+        ? state.programs.map((program) => ({
+            ...program,
+            name:
+              localStorage.getItem('DEFAULT_LANGUAGE') === 'ar'
+                ? program?.nameAr
+                : program?.nameEn,
+            title:
+              localStorage.getItem('DEFAULT_LANGUAGE') === 'ar'
+                ? program?.titleAr
+                : program?.titleEn,
+            description:
+              localStorage.getItem('DEFAULT_LANGUAGE') === 'ar'
+                ? program?.descriptionAr
+                : program?.descriptionEn,
+          }))
+        : [],
+    subjects:
+      state.subjects && state.subjects.length
+        ? state.subjects.map((subject) => ({
+            ...subject,
+            name:
+              localStorage.getItem('DEFAULT_LANGUAGE') === 'ar'
+                ? subject?.nameAr
+                : subject?.nameEn,
+            description:
+              localStorage.getItem('DEFAULT_LANGUAGE') === 'ar'
+                ? subject?.descriptionAr
+                : subject?.descriptionEn,
+          }))
+        : [],
+    fields:
+      state.fields && state.fields.length
+        ? state.fields.map((field) => ({
+            ...field,
+            name:
+              localStorage.getItem('DEFAULT_LANGUAGE') === 'ar'
+                ? field?.nameAr
+                : field?.nameEn,
+          }))
+        : [],
   }))
 );
 
-export const selectUserTypes = (state: State): IRole[] =>
-  state.userTypes;
+export const selectUserTypes = (state: State): IRole[] => state.userTypes;
 
 export const selectIsLoadingUserTypes = (state: State): boolean | undefined =>
   state.isLoadingUserTypes;

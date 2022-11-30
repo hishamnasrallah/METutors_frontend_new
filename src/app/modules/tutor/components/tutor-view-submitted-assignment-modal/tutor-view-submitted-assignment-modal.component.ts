@@ -1,11 +1,9 @@
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { combineLatest, Observable } from 'rxjs';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-
-import { environment } from '@environment';
 import * as fromCore from '@metutor/core/state';
+import { combineLatest, Observable } from 'rxjs';
 import * as fromTutorActions from '@metutor/modules/tutor/state/actions';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'metutors-tutor-view-submitted-assignment-modal',
@@ -36,8 +34,8 @@ export class TutorViewSubmittedAssignmentModalComponent implements OnInit {
     const params = { id, userId, isReject, heading: '', assignmentId };
 
     params.heading = isReject
-      ? 'Rejection Reason'
-      : "Feedback on Student's Solution:";
+      ? 'REJECTION_REASON'
+      : 'FEEDBACK_STUDENT_SOLUTION';
 
     this._store.dispatch(fromTutorActions.openAcceptRejectAssignmentModal());
     this._store.dispatch(fromTutorActions.setTutorStateParams({ params }));

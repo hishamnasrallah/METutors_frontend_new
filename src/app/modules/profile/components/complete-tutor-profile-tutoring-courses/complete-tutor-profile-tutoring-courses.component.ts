@@ -8,7 +8,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
   selector: 'metutors-complete-tutor-profile-tutoring-courses',
   templateUrl: './complete-tutor-profile-tutoring-courses.component.html',
   styleUrls: ['./complete-tutor-profile-tutoring-courses.component.scss'],
-  providers: [DatePipe],
+  providers: [DatePipe]
 })
 export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
   @Input() fields: IField[];
@@ -27,7 +27,7 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
 
           output[existingIndex].subjects = [
             ...output[existingIndex].subjects,
-            { ...item },
+            { ...item }
           ];
         } else {
           output.push({
@@ -37,7 +37,7 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
             countryId: item?.countryId,
             countryFlag: item?.country?.flag,
             grade: item?.grade,
-            subjects: [{ ...item }],
+            subjects: [{ ...item }]
           });
         }
       });
@@ -58,7 +58,7 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
 
   constructor(private _fb: FormBuilder) {
     this.form = this._fb.group({
-      programs: this._fb.array([]),
+      programs: this._fb.array([])
     });
 
     this.addProgram();
@@ -89,7 +89,7 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
       subjects: [null, Validators.required],
       sortedSubjects: [[]],
       countries: [null],
-      grades: [null],
+      grades: [null]
     });
   }
 
@@ -113,8 +113,14 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
         ?.get('grades')
         ?.setValidators([Validators.required]);
     } else {
-      this.programs.at(index)?.get('countries')?.clearValidators();
-      this.programs.at(index)?.get('grades')?.clearValidators();
+      this.programs
+        .at(index)
+        ?.get('countries')
+        ?.clearValidators();
+      this.programs
+        .at(index)
+        ?.get('grades')
+        ?.clearValidators();
     }
 
     this.programs.at(index).patchValue({
@@ -122,12 +128,21 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
       fields: [],
       subjects: [],
       countries: [],
-      sortedSubjects: [],
+      sortedSubjects: []
     });
 
-    this.programs.at(index)?.get('grades')?.updateValueAndValidity();
-    this.programs.at(index)?.get('countries')?.updateValueAndValidity();
-    this.programs.at(index)?.get('sortedSubjects')?.updateValueAndValidity();
+    this.programs
+      .at(index)
+      ?.get('grades')
+      ?.updateValueAndValidity();
+    this.programs
+      .at(index)
+      ?.get('countries')
+      ?.updateValueAndValidity();
+    this.programs
+      .at(index)
+      ?.get('sortedSubjects')
+      ?.updateValueAndValidity();
 
     this._updateLengthes();
   }
@@ -136,60 +151,65 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
     this.programs.at(index).patchValue({
       fields: [],
       subjects: [],
-      sortedSubjects: [],
+      sortedSubjects: []
     });
 
-    this.programs.at(index)?.get('sortedSubjects')?.updateValueAndValidity();
+    this.programs
+      .at(index)
+      ?.get('sortedSubjects')
+      ?.updateValueAndValidity();
 
     this._updateLengthes();
   }
 
   onChange(index: number): void {
-    const output: any[] = [];
-    const subjects = this.form.value.programs[index].subjects;
+    if (this.subjectLength <= 10) {
+      const output: any[] = [];
+      const subjects = this.form.value.programs[index].subjects;
 
-    subjects.forEach((item: any) => {
-      const existing = output.filter((v, i) => v.fieldId == item.fieldId);
+      subjects.forEach((item: any) => {
+        const existing = output.filter((v, i) => v.fieldId == item.fieldId);
 
-      if (existing.length) {
-        const existingIndex = output.indexOf(existing[0]);
+        if (existing.length) {
+          const existingIndex = output.indexOf(existing[0]);
 
-        output[existingIndex].subjects = [
-          ...output[existingIndex].subjects,
-          {
-            ...item,
-            pricePerHour: null,
-            gradeName: this.grades[item.grade - 1],
-          },
-        ];
-      } else {
-        output.push({
-          fieldId: item.fieldId,
-          fieldName: this.fields.filter(
-            (field: any) => field.id === item.fieldId
-          )[0]?.name,
-          countryName: this.countries?.filter(
-            (country: any) => country.id === item.countryId
-          )[0]?.name,
-          countryFlag: this.countries?.filter(
-            (country: any) => country.id === item.countryId
-          )[0]?.flag,
-          subjects: [
+          output[existingIndex].subjects = [
+            ...output[existingIndex].subjects,
             {
               ...item,
               pricePerHour: null,
-              gradeName: this.grades[item.grade - 1],
-            },
-          ],
-        });
-      }
-    });
+              gradeName: this.grades[item.grade - 1]
+            }
+          ];
+        } else {
+          output.push({
+            fieldId: item.fieldId,
+            fieldName: this.fields.filter(
+              (field: any) => field.id === item.fieldId
+            )[0]?.name,
+            countryName: this.countries?.filter(
+              (country: any) => country.id === item.countryId
+            )[0]?.name,
+            countryFlag: this.countries?.filter(
+              (country: any) => country.id === item.countryId
+            )[0]?.flag,
+            subjects: [
+              {
+                ...item,
+                pricePerHour: null,
+                gradeName: this.grades[item.grade - 1]
+              }
+            ]
+          });
+        }
+      });
 
-    this.programs.at(index).patchValue({
-      sortedSubjects: output,
-    });
+      this.programs.at(index).patchValue({
+        sortedSubjects: output
+      });
 
-    this._updateLengthes();
+      this._updateLengthes();
+    }
   }
 
   changePrice(
@@ -217,15 +237,15 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
                     pricePerHour:
                       +event.target.value > 0 && +event.target.value <= 100
                         ? event.target.value
-                        : null,
+                        : null
                   }
                 : { ...sub }
-            ),
+            )
           };
         }
 
         return subject_;
-      }),
+      })
     });
 
     this._updateLengthes();
@@ -235,14 +255,14 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
     let isEmpty = true;
 
     const subjectsLength = [
-      ...[...this.programs.value[index].sortedSubjects[indexSubjects].subjects],
+      ...[...this.programs.value[index].sortedSubjects[indexSubjects].subjects]
     ]?.flat(Infinity)?.length;
     const filledSubjectsLength = [
       ...[
         ...this.programs.value[index].sortedSubjects[
           indexSubjects
-        ].subjects?.filter((sub: any) => sub.pricePerHour),
-      ],
+        ].subjects?.filter((sub: any) => sub.pricePerHour)
+      ]
     ]?.flat(Infinity)?.length;
 
     if (filledSubjectsLength === subjectsLength) isEmpty = false;
@@ -258,7 +278,7 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
       const list =
         this.fields && this.fields?.length
           ? this.fields.filter(
-              (field) =>
+              field =>
                 +selectedProgram?.programId?.id === +field.programId &&
                 selectedProgram.countries?.includes(+field.countryId)
             )
@@ -269,7 +289,7 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
       const list =
         this.fields && this.fields?.length
           ? this.fields.filter(
-              (field) => +selectedProgram?.programId?.id === +field.programId
+              field => +selectedProgram?.programId?.id === +field.programId
             )
           : [];
 
@@ -287,7 +307,7 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
       const list =
         this.subjects && this.subjects?.length
           ? this.subjects.filter(
-              (subject) =>
+              subject =>
                 +selectedProgram?.programId?.id === +subject.programId &&
                 selectedProgram.fields?.includes(+subject.fieldId) &&
                 selectedProgram.countries?.includes(+subject.countryId) &&
@@ -300,7 +320,7 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
       const list =
         this.subjects && this.subjects?.length
           ? this.subjects.filter(
-              (subject) =>
+              subject =>
                 +selectedProgram?.programId?.id === +subject.programId &&
                 selectedProgram.fields?.includes(+subject.fieldId)
             )
@@ -316,13 +336,11 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
     const allSubjects = [
       ...this.programs.value.map((program: any) => {
         const sortedSubjects = [
-          ...program.sortedSubjects.map((subject: any) => [
-            ...subject.subjects,
-          ]),
+          ...program.sortedSubjects.map((subject: any) => [...subject.subjects])
         ];
 
         return sortedSubjects;
-      }),
+      })
     ];
 
     const subjects = allSubjects.flat(Infinity);
@@ -336,8 +354,8 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
         field_id: subject?.fieldId,
         grade: subject?.grade,
         name: subject?.name,
-        hourly_price: +subject?.pricePerHour,
-      })),
+        hourly_price: +subject?.pricePerHour
+      }))
     };
 
     this.submitForm.emit(data);
@@ -347,25 +365,23 @@ export class CompleteTutorProfileTutoringCoursesComponent implements OnInit {
     this.subjectLength = [
       ...this.programs.value?.map((program: any) => {
         const sortedSubjects = [
-          ...program.sortedSubjects.map((subject: any) => [
-            ...subject.subjects,
-          ]),
+          ...program.sortedSubjects.map((subject: any) => [...subject.subjects])
         ];
 
         return sortedSubjects;
-      }),
+      })
     ]?.flat(Infinity)?.length;
 
     this.pricesLength = [
       ...this.programs.value?.map((program: any) => {
         const sortedSubjects = [
           ...program.sortedSubjects.map((subject: any) => [
-            ...subject.subjects.filter((sub: any) => sub.pricePerHour),
-          ]),
+            ...subject.subjects.filter((sub: any) => sub.pricePerHour)
+          ])
         ];
 
         return sortedSubjects;
-      }),
+      })
     ]?.flat(Infinity)?.length;
   }
 }

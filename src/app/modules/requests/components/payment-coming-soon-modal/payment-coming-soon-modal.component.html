@@ -2,13 +2,11 @@
   <ng-template #template>
     <div class="coming-soon text-center">
       <img src="assets/png/coming-soon.png" draggable="false" alt="">
-      <h1 class="f-size-25-md-sm mt-4">
-        This service is coming soon...
-      </h1>
+      <h1 class="f-size-25-md-sm mt-4">{{ 'SERVICE_COMING_SOON' | translate }}</h1>
       <p class="mt-2 f-size-15-md-sm">
-        We're working hard to give you the best possible service
+        {{ 'WORKING_HARD_BEST_SERVICE' | translate }}
         <br>
-        Please refer to your system administrator.
+        {{ 'REFER_SYSTEM_ADMIN' | translate }}
       </p>
     </div>
   </ng-template>

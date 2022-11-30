@@ -1,0 +1,43 @@
+<metutors-terms-header [title]="'WEBSITE_BR_TERMS'"
+                       [description]="'WEBSITE_TERMS_DESC'">
+</metutors-terms-header>
+
+<div class="container cookie-notice mt-5">
+  <div class="row">
+    <div class="col-md-9">
+      <h1 class="title">{{ 'WEBSITE_TERMS' | translate }}</h1>
+      <p class="details">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+        laborum.
+      </p>
+
+      <div class="card question" *ngFor="let question of questions">
+        <div class="card-body">
+          <div class="d-flex">
+            <h1 class="flex-grow-1 m-0 f-size-25-md-sm"
+              [class.main-color]="openQuestion && selectedQuestion === question.id">
+              <bdi>{{ question?.title }}</bdi>
+            </h1>
+            <button mat-button *ngIf="selectedQuestion !== question.id" (click)="changeOpenSelection(question.id)">
+              <mat-icon>add</mat-icon>
+            </button>
+            <button mat-button class="main-color" *ngIf="openQuestion && selectedQuestion === question.id"
+              (click)="changeOpenSelection(question.id)">
+              <mat-icon>remove</mat-icon>
+            </button>
+          </div>
+          <p class="desc" *ngIf="openQuestion && selectedQuestion === question.id" [@slideInOut]>
+            <bdi>{{ question?.answer }}</bdi>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <metutors-terms-sidebar [active]="'WEBSITE_TERMS'"></metutors-terms-sidebar>
+    </div>
+  </div>
+</div>

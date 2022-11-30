@@ -1,26 +1,25 @@
 import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { AuthService } from '@services';
 import { Router } from '@angular/router';
+import * as fromRoot from '@metutor/state';
 import camelcaseKeys from 'camelcase-keys';
 import { Injectable } from '@angular/core';
+import * as fromCore from '@metutor/core/state';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import * as userActions from '../actions/user.actions';
+import * as tutorActions from '../actions/tutor.actions';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { AlertNotificationService } from '@metutor/core/components';
+import { FreeClassroomDemo, SocialProvider, UserRole } from '@metutor/config';
 
 import {
   map,
   mergeMap,
   switchMap,
   catchError,
-  withLatestFrom,
+  withLatestFrom
 } from 'rxjs/operators';
-
-import { AuthService } from '@services';
-import * as fromRoot from '@metutor/state';
-import * as fromCore from '@metutor/core/state';
-import * as userActions from '../actions/user.actions';
-import * as tutorActions from '../actions/tutor.actions';
-import { SocialProvider, UserRole } from '@metutor/config';
-import { AlertNotificationService } from '@metutor/core/components';
 
 @Injectable()
 export class UserEffects {
@@ -31,7 +30,7 @@ export class UserEffects {
       mergeMap(([_, token]) => {
         const jwtHelper = new JwtHelperService();
         const decodeToken = camelcaseKeys(jwtHelper.decodeToken(token), {
-          deep: true,
+          deep: true
         });
         const user: any = decodeToken?.user;
 
@@ -39,12 +38,13 @@ export class UserEffects {
           return of(
             userActions.identifyUserSuccess({
               user,
+              isDemo: user.isDemo,
               profileStep:
                 user &&
                 user.profileCompletedStep &&
                 !isNaN(user.profileCompletedStep)
                   ? +user.profileCompletedStep + 1
-                  : 1,
+                  : 1
             })
           );
         } else {
@@ -62,16 +62,16 @@ export class UserEffects {
       ),
       mergeMap(([{ user }, returnUrl]) =>
         this._authService.register({ ...user, return_url: returnUrl }).pipe(
-          map((response) =>
+          map(response =>
             userActions.registerSuccess({
               email: user.email,
-              userType: user.role,
+              userType: user.role
             })
           ),
-          catchError((error) =>
+          catchError(error =>
             of(
               userActions.registerFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error: error?.error?.message || error?.error?.errors
               })
             )
           )
@@ -88,12 +88,12 @@ export class UserEffects {
       ),
       mergeMap(([{ user }, returnUrl]) =>
         this._authService.login(user).pipe(
-          map((response) => {
+          map(response => {
             const jwtHelper = new JwtHelperService();
             const decodeToken = camelcaseKeys(
               jwtHelper.decodeToken(response.token),
               {
-                deep: true,
+                deep: true
               }
             );
             const user: any = decodeToken?.user;
@@ -102,27 +102,28 @@ export class UserEffects {
               return userActions.signInAdminSuccess({
                 tempToken: response.token,
                 user,
-                returnUrl,
+                returnUrl
               });
             } else {
               return userActions.signInSuccess({
                 token: response.token,
                 user,
+                isDemo: user.isDemo,
                 profileStep:
                   user &&
                   user.profileCompletedStep &&
                   !isNaN(user.profileCompletedStep)
                     ? +user.profileCompletedStep + 1
                     : 1,
-                returnUrl: response?.returnUrl || returnUrl,
+                returnUrl: response?.returnUrl || returnUrl
               });
             }
           }),
-          catchError((error) =>
+          catchError(error =>
             of(
               userActions.signInFailure({
                 error: error?.error?.message || error?.error?.errors,
-                errorInfo: error?.error,
+                errorInfo: error?.error
               })
             )
           )
@@ -140,12 +141,12 @@ export class UserEffects {
       mergeMap(([{ user }, returnUrl]) => {
         if (user.provider === SocialProvider.google) {
           return this._authService.googleSignIn(user).pipe(
-            map((response) => {
+            map(response => {
               const jwtHelper = new JwtHelperService();
               const decodeToken = camelcaseKeys(
                 jwtHelper.decodeToken(response),
                 {
-                  deep: true,
+                  deep: true
                 }
               );
               const user: any = decodeToken?.user;
@@ -154,39 +155,40 @@ export class UserEffects {
                 return userActions.signInAdminSuccess({
                   tempToken: response,
                   user,
-                  returnUrl,
+                  returnUrl
                 });
               } else {
                 return userActions.signInSuccess({
                   token: response,
                   user,
+                  isDemo: user.isDemo,
                   profileStep:
                     user &&
                     user.profileCompletedStep &&
                     !isNaN(user.profileCompletedStep)
                       ? +user.profileCompletedStep + 1
                       : 1,
-                  returnUrl,
+                  returnUrl
                 });
               }
             }),
-            catchError((error) =>
+            catchError(error =>
               of(
                 userActions.signInFailure({
                   error: error?.error?.message || error?.error?.errors,
-                  errorInfo: error?.error,
+                  errorInfo: error?.error
                 })
               )
             )
           );
         } else {
           return this._authService.facebookSignIn(user).pipe(
-            map((response) => {
+            map(response => {
               const jwtHelper = new JwtHelperService();
               const decodeToken = camelcaseKeys(
                 jwtHelper.decodeToken(response),
                 {
-                  deep: true,
+                  deep: true
                 }
               );
               const user: any = decodeToken?.user;
@@ -195,27 +197,28 @@ export class UserEffects {
                 return userActions.signInAdminSuccess({
                   tempToken: response,
                   user,
-                  returnUrl,
+                  returnUrl
                 });
               } else {
                 return userActions.signInSuccess({
                   token: response,
                   user,
+                  isDemo: user.isDemo,
                   profileStep:
                     user &&
                     user.profileCompletedStep &&
                     !isNaN(user.profileCompletedStep)
                       ? +user.profileCompletedStep + 1
                       : 1,
-                  returnUrl,
+                  returnUrl
                 });
               }
             }),
-            catchError((error) =>
+            catchError(error =>
               of(
                 userActions.signInFailure({
                   error: error?.error?.message || error?.error?.errors,
-                  errorInfo: error?.error,
+                  errorInfo: error?.error
                 })
               )
             )
@@ -255,7 +258,7 @@ export class UserEffects {
         })
       ),
     {
-      dispatch: false,
+      dispatch: false
     }
   );
 
@@ -263,23 +266,22 @@ export class UserEffects {
     () =>
       this._actions$.pipe(
         ofType(userActions.signInRequired),
-        map((action) => {
+        map(action => {
           this._router.navigate(['/signin'], {
-            queryParams: { returnUrl: action.returnUrl },
+            queryParams: { returnUrl: action.returnUrl }
           });
         })
       ),
     {
-      dispatch: false,
+      dispatch: false
     }
   );
 
-  signInRequiredLogout$ = createEffect(
-    () =>
-      this._actions$.pipe(
-        ofType(userActions.signInRequired),
-        map(() => fromCore.logout())
-      ),
+  signInRequiredLogout$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(userActions.signInRequired),
+      map(() => fromCore.logout())
+    )
   );
 
   submitOTPAdmin$ = createEffect(() =>
@@ -294,27 +296,28 @@ export class UserEffects {
           map(() => {
             const jwtHelper = new JwtHelperService();
             const decodeToken = camelcaseKeys(jwtHelper.decodeToken(token), {
-              deep: true,
+              deep: true
             });
             const user: any = decodeToken?.user;
 
             return userActions.signInSuccess({
               token: token || '',
               user,
+              isDemo: user.isDemo,
               profileStep:
                 user &&
                 user.profileCompletedStep &&
                 !isNaN(user.profileCompletedStep)
                   ? +user.profileCompletedStep + 1
                   : 1,
-              returnUrl,
+              returnUrl
             });
           }),
-          catchError((error) =>
+          catchError(error =>
             of(
               userActions.signInFailure({
                 error: error?.error?.message || error?.error?.errors,
-                errorInfo: error?.error,
+                errorInfo: error?.error
               })
             )
           )
@@ -328,15 +331,15 @@ export class UserEffects {
       ofType(userActions.resendOTPAdmin),
       mergeMap(() =>
         this._authService.resendOTPAdmin().pipe(
-          map((response) =>
+          map(response =>
             userActions.resendOTPAdminSuccess({
-              message: response.message,
+              message: response.message
             })
           ),
-          catchError((error) =>
+          catchError(error =>
             of(
               userActions.resendOTPAdminFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error: error?.error?.message || error?.error?.errors
               })
             )
           )
@@ -352,8 +355,8 @@ export class UserEffects {
       mergeMap(([_, token]) => {
         if (token) {
           this._authService.logout().pipe(
-            map((payload) => {}),
-            catchError((_) => of(userActions.logoutSuccess()))
+            map(payload => {}),
+            catchError(_ => of(userActions.logoutSuccess()))
           );
         }
         return of(userActions.logoutSuccess());
@@ -379,16 +382,16 @@ export class UserEffects {
         })
       ),
     {
-      dispatch: false,
+      dispatch: false
     }
   );
 
   loadCurrencyRates$ = createEffect(() =>
     this._actions$.pipe(
       ofType(userActions.logoutSuccess),
-      switchMap((_) => [
+      switchMap(_ => [
         fromCore.loadCurrencyRates(),
-        fromCore.loadCurrenciesNames(),
+        fromCore.loadCurrenciesNames()
       ])
     )
   );
@@ -396,20 +399,20 @@ export class UserEffects {
   changePassword$ = createEffect(() =>
     this._actions$.pipe(
       ofType(userActions.changePassword),
-      mergeMap((action) =>
+      mergeMap(action =>
         this._authService.changePassword(action.value).pipe(
-          map((response) =>
+          map(response =>
             userActions.changePasswordSuccess({
-              message: response.message,
+              message: response.message
             })
           ),
-          catchError((error) =>
+          catchError(error =>
             of(
               userActions.changePasswordFailure({
                 error:
                   error?.error?.message ||
                   error?.error?.error?.new_password ||
-                  error?.error?.errors,
+                  error?.error?.errors
               })
             )
           )
@@ -421,18 +424,18 @@ export class UserEffects {
   verifyEmail$ = createEffect(() =>
     this._actions$.pipe(
       ofType(userActions.verifyEmail),
-      mergeMap((action) =>
+      mergeMap(action =>
         this._authService.verifyEmail(action.value).pipe(
-          map((response) =>
+          map(response =>
             userActions.verifyEmailSuccess({
               message: response.message,
-              userType: action.value?.userType,
+              userType: action.value?.userType
             })
           ),
-          catchError((error) =>
+          catchError(error =>
             of(
               userActions.verifyEmailFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error: error?.error?.message || error?.error?.errors
               })
             )
           )
@@ -456,30 +459,30 @@ export class UserEffects {
             fromCore.registerStep({
               step: 1,
               email: '',
-              userType,
+              userType
             })
           );
         })
       ),
     {
-      dispatch: false,
+      dispatch: false
     }
   );
 
   resendEmailConfirm$ = createEffect(() =>
     this._actions$.pipe(
       ofType(userActions.resendEmailConfirm),
-      mergeMap((action) =>
+      mergeMap(action =>
         this._authService.resendEmailConfirm(action.email).pipe(
-          map((response) =>
+          map(response =>
             userActions.resendEmailConfirmSuccess({
-              message: response.message,
+              message: response.message
             })
           ),
-          catchError((error) =>
+          catchError(error =>
             of(
               userActions.resendEmailConfirmFailure({
-                error: error?.error?.message || error?.error?.errors,
+                error: error?.error?.message || error?.error?.errors
               })
             )
           )
@@ -503,7 +506,7 @@ export class UserEffects {
         })
       ),
     {
-      dispatch: false,
+      dispatch: false
     }
   );
 
@@ -518,14 +521,43 @@ export class UserEffects {
             user?.roleId?.toString() !== UserRole.student.toString()
           ) {
             this._alertNotificationService.error(
-              'You dont have a permission to access this page from tutor account'
+              'DONT_HAVE_PERMISSION_ACCESS_ACCOUNT'
             );
             this._router.navigate(['/']);
           }
         })
       ),
     {
-      dispatch: false,
+      dispatch: false
+    }
+  );
+
+  enterRequestFreeTutor$ = createEffect(
+    () =>
+      this._actions$.pipe(
+        ofType(userActions.enterRequestFreeTutor),
+        withLatestFrom(
+          this._store.select(fromCore.selectUser),
+          this._store.select(fromCore.selectStudentIsDemo)
+        ),
+        map(([_, user, demo]) => {
+          if (
+            !user ||
+            (user &&
+              +user?.roleId! === UserRole.student &&
+              demo?.toString() === FreeClassroomDemo.canBook?.toString())
+          ) {
+            // Do nothing
+          } else {
+            this._alertNotificationService.error(
+              'DONT_HAVE_PERMISSION_ACCESS_ACCOUNT'
+            );
+            this._router.navigate(['/']);
+          }
+        })
+      ),
+    {
+      dispatch: false
     }
   );
 
@@ -537,14 +569,14 @@ export class UserEffects {
         map(([_, _class]) => {
           if (!_class) {
             this._alertNotificationService.error(
-              'You dont have a permission to access this page directly'
+              'DONT_HAVE_PERMISSION_ACCESS_PAGE'
             );
             this._router.navigate(['/']);
           }
         })
       ),
     {
-      dispatch: false,
+      dispatch: false
     }
   );
 
@@ -556,21 +588,21 @@ export class UserEffects {
             userActions.verifyEmailSuccess,
             userActions.changePasswordSuccess,
             userActions.resendOTPAdminSuccess,
-            userActions.resendEmailConfirmSuccess,
+            userActions.resendEmailConfirmSuccess
           ]
         ),
-        map((action) => {
+        map(action => {
           if (action.message) {
             return this._alertNotificationService.success(action.message);
           } else {
             return this._alertNotificationService.success(
-              'Information updated successfully!'
+              'INFORMATION_UPDATED_SUCCESSFULLY'
             );
           }
         })
       ),
     {
-      dispatch: false,
+      dispatch: false
     }
   );
 
@@ -584,21 +616,19 @@ export class UserEffects {
             userActions.verifyEmailFailure,
             userActions.changePasswordFailure,
             userActions.resendOTPAdminFailure,
-            userActions.resendEmailConfirmFailure,
+            userActions.resendEmailConfirmFailure
           ]
         ),
-        map((action) => {
+        map(action => {
           if (action.error) {
             return this._alertNotificationService.error(action.error);
           } else {
-            return this._alertNotificationService.error(
-              'Something went wrong!'
-            );
+            return this._alertNotificationService.error('SOMETHING_WENT_WRONG');
           }
         })
       ),
     {
-      dispatch: false,
+      dispatch: false
     }
   );
 

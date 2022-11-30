@@ -231,12 +231,12 @@
                   <tr>
                     <th class="heading" [attr.colspan]="item?.programId === nationalId ? '2' : '1'">
                       <label>Program Name: </label> <span>
-                        {{ item?.programName }}<ng-container *ngIf="item?.programId === nationalId">
-                          {{ item?.countryName }} <span *ngIf="item?.countryFlag" [innerHTML]="item?.countryFlag" class="ms-2"></span>
+                        {{ item?.programName }}<ng-container *ngIf="item?.programId === nationalId">,
+                          {{ item?.countryName }} <span *ngIf="item?.countryFlag" [innerHTML]="item?.countryFlag" class=""></span>
                         </ng-container>
                       </span>
                     </th>
-                    <th class="heading text-end"><label>Study Field: </label> <span>{{ item?.fieldName }}</span></th>
+                    <th class="heading text-end"><label>Field of study: </label> <span> {{ item?.fieldName }}</span></th>
                   </tr>
                   <tr>
                     <th class="sub-heading" [ngClass]="{'w-74': item?.programId !== nationalId, 'w-54': item?.programId === nationalId}">Subject Name</th>

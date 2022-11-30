@@ -1,0 +1,92 @@
+<div class="finance-coupons p-15-md-sm" *ngLet="(view$ | async) as view">
+  <div class="row filters">
+    <div class="col-md-6 d-flex align-items-center">
+      <h1 class="f-size-18-md-sm mb-15-sm">Coupons</h1>
+    </div>
+    <div class="col-md-6">
+      <div class="row justify-content-end">
+        <div class="col-md-5">
+          <metutors-search-input (searchedText)="onSearch($event)"></metutors-search-input>
+        </div>
+        <!--<div class="col-md-5">
+          <div class="position-relative">
+            <input type="text" class="form-control custom-input input-bordered" placeholder="Apply filters">
+            <mat-icon class="filter">filter_alt</mat-icon>
+          </div>
+        </div>-->
+        <div class="col-md-3">
+          <button mat-flat-button color="primary" class="float-end py-1"
+                  (click)="selectedCoupon = null; onAddCoupon();">
+            Create new coupon
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-4">
+    <ng-container [ngSwitch]="view.loading">
+      <div class="mt-4" *ngSwitchCase="true">
+        <metutors-grid-placeholder></metutors-grid-placeholder>
+      </div>
+
+      <div class="table-responsive" *ngSwitchCase="false">
+        <table class="table my-table default-title">
+          <tr>
+            <th>Number</th>
+            <th>Coupon ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Discount percentage</th>
+            <th>Creation Date</th>
+            <th>Expiry Date</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+          <tr *ngIf="!view.result?.coupons || !view.result?.coupons?.length">
+            <td colspan="11">
+              <div class="text-center">No records found</div>
+            </td>
+          </tr>
+          <tr *ngFor="let coupon of view.result?.coupons; let i = index">
+            <td>{{ i + 1}}</td>
+            <td>{{coupon?.couponId}}</td>
+            <td class="text-break">{{ coupon?.name }}</td>
+            <td class="text-break">{{ coupon?.description }}</td>
+            <td>{{ coupon?.discount + '%' }}</td>
+            <td>{{ coupon.createdAt | date}}</td>
+            <td>{{ coupon.expiryDate | date}}</td>
+            <td>
+              <button class="status text-capitalize" mat-button [ngClass]="coupon?.status">
+                {{ coupon?.status }}
+              </button>
+            </td>
+            <td>
+              <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0" (click)="selectedCoupon=coupon">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="d-flex mt-2 justify-content-center" *ngIf="view.result?.coupons?.length < view.result?.total">
+        <pagination [totalItems]="view.result?.total" [itemsPerPage]="perPage" [maxSize]="5"
+                    (pageChanged)="onPageChange($event)">
+        </pagination>
+      </div>
+    </ng-container>
+
+
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item class="h-auto btn-menu" (click)="onAddCoupon()">
+        <span>Edit coupon</span>
+      </button>
+    </mat-menu>
+  </div>
+
+  <metutors-admin-add-coupon *ngIf="showModal$ | async" [showModal]="(showModal$ | async)!"
+                             [isAdding]="(isAddingCoupon$ | async)!" [selectedCoupon]="selectedCoupon"
+                             (closeModal)="onCloseModal()" (submitForm)="onSubmit($event)">
+  </metutors-admin-add-coupon>
+</div>

@@ -7,9 +7,9 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class UploadedFilesComponent implements OnInit {
   @Input() files: any;
-  @Input() extraClasses = 'col-md-4';
   @Input() showDeleteFile = false;
   @Input() showDownloadFile = true;
+  @Input() extraClasses = 'col-md-4';
 
   @Output() deleteFile: EventEmitter<number> = new EventEmitter<number>();
 

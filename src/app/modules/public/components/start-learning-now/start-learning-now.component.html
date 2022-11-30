@@ -3,10 +3,10 @@
     <div class="row">
       <div class="col-12">
         <div class="block text-center" style="background-image: url('assets/homepage/shape-1.svg')">
-          <h1 class="f-size-25-md-sm">{{ title }}</h1>
-          <p class="f-size-17-md-sm">{{ desc }}</p>
+          <h1 class="f-size-25-md-sm"><bdi>{{ title | translate }}</bdi></h1>
+          <p class="f-size-17-md-sm"><bdi>{{ desc | translate }}</bdi></p>
           <a mat-button routerLink="/" fragment="explore-services" *ngIf="!token" class="f-size-15-md-sm">
-            {{ btnText }}
+            {{ btnText | translate }}
             <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg" class="rotate-180-ar">
               <path
                 d="M16.172 11.0337H4V13.0399H16.172L10.808 18.4204L12.222 19.8387L20 12.0368L12.222 4.23486L10.808 5.65321L16.172 11.0337Z"

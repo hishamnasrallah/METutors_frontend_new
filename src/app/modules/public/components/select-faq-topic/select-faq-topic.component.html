@@ -1,13 +1,13 @@
 <div class="row faq-topics">
   <div class="col-md-12 text-center">
-    <h1>Select From our topic</h1>
+    <h1>{{ 'SELECT_FROM_TOPIC' | translate }}</h1>
   </div>
 
   <div class="col-12">
     <div class="row">
       <ng-container [ngSwitch]="isLoading">
         <ng-container *ngSwitchCase="true">
-          <div class="col-sm item" *ngFor="let _ of [1,2,3,4]">
+          <div class="col-sm item" *ngFor="let _ of [1, 2, 3, 4]">
             <div class="ph-col-3">
               <div class="ph-avatar rounded"></div>
             </div>
