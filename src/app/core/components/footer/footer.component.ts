@@ -49,6 +49,6 @@ export class FooterComponent implements OnInit, AfterViewInit {
       },
     };
 
-    CookieControl.load(config);
+    CookieControl?.load(config);
   }
 }
