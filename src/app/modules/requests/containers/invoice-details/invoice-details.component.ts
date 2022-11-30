@@ -203,8 +203,8 @@ export class InvoiceDetailsComponent implements OnInit {
   }
 
   saveCourse(user: IUser, classroom: any, billing: FormGroup): void {
-    //this.showModal = true;
-    //return;
+    // this.showModal = true;
+    // return;
 
     if (user) {
       const start_time = new Date(
