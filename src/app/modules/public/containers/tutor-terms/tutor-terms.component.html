@@ -7,12 +7,9 @@
     <div class="col-md-9">
       <h1 class="title">{{ 'TUTOR_TERMS' | translate }}</h1>
       <p class="details">
-        We want you to understand our usage of cookies when you use our website or platform.
-        <br />
-        <br />
-        We only use cookies which we don’t consider to be intrusive and are designed to help us provide you with a
-        better experience when using our website or platform. We will also make sure we set them to expire so they are
-        not kept for long periods of time.
+        MEtutors is an online tutoring platform and service that allows teachers to connect with thousands of students
+        to support their learning needs. The Tutor Terms below set out what we ask of our tutors when using the
+        platform.
       </p>
 
       <div class="card question" *ngFor="let question of questions">
@@ -31,7 +28,7 @@
             </button>
           </div>
           <p class="desc" *ngIf="openQuestion && selectedQuestion === question.id" [@slideInOut]>
-            <bdi>{{ question?.answer }}</bdi>
+            <bdi [innerHTML]="question?.answer"></bdi>
           </p>
         </div>
       </div>

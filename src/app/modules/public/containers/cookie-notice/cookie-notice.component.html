@@ -8,8 +8,7 @@
       <h1 class="title">{{ 'COOKIES_NOTICE' | translate }}</h1>
       <p class="details">
         We want you to understand our usage of cookies when you use our website or platform.
-        <br />
-        <br />
+        <br /><br />
         We only use cookies which we don’t consider to be intrusive and are designed to help us provide you with a
         better experience when using our website or platform. We will also make sure we set them to expire so they are
         not kept for long periods of time.
@@ -31,7 +30,7 @@
             </button>
           </div>
           <p class="desc" *ngIf="openQuestion && selectedQuestion === question.id" [@slideInOut]>
-            <bdi>{{ question?.answer }}</bdi>
+            <bdi [innerHTML]="question?.answer"></bdi>
           </p>
         </div>
       </div>

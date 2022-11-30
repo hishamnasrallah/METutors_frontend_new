@@ -7,11 +7,8 @@
     <div class="col-md-9">
       <h1 class="title">{{ 'WEBSITE_TERMS' | translate }}</h1>
       <p class="details">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-        laborum.
+        These website terms set out our expectations for all users using the website. If anything is not clear, please
+        reach out and we’ll always be happy to discuss further.
       </p>
 
       <div class="card question" *ngFor="let question of questions">
@@ -30,7 +27,7 @@
             </button>
           </div>
           <p class="desc" *ngIf="openQuestion && selectedQuestion === question.id" [@slideInOut]>
-            <bdi>{{ question?.answer }}</bdi>
+            <bdi [innerHTML]="question?.answer"></bdi>
           </p>
         </div>
       </div>

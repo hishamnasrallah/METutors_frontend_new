@@ -5,7 +5,7 @@
     <div class="d-flex align-items-center modal-title" mat-dialog-title>
       <h2 class="flex-grow-1 m-0 d-flex flex-column">
         <div class="d-flex align-items-center">
-          {{ heading }}
+          {{ heading | translate }}
           <button mat-button class="btn action-icon p-0 ms-3" tabindex="-1" type="button" *ngIf="!!resourceId?.value"
                   (click)="deleted.emit(resourceId?.value)">
             <img src="assets/svg/delete.svg" alt="" draggable="false" />

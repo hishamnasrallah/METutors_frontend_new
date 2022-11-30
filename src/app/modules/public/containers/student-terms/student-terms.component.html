@@ -7,12 +7,22 @@
     <div class="col-md-9">
       <h1 class="title">{{ 'STUDENT_TERMS' | translate }}</h1>
       <p class="details">
-        We want you to understand our usage of cookies when you use our website or platform.
-        <br />
-        <br />
-        We only use cookies which we don’t consider to be intrusive and are designed to help us provide you with a
-        better experience when using our website or platform. We will also make sure we set them to expire so they are
-        not kept for long periods of time.
+        MEtutors is an online tutoring platform and service that allows students to connect with hundreds of tutors to
+        support their learning needs. The Student Terms below set out what we ask of our students when using the
+        platform.
+        <br><br>
+        <strong>What are you agreeing to?</strong>
+        <br>
+        Our terms and conditions for your use of the MEtutors platform and receiving tutoring services (the
+        "<strong>Student Terms</strong>") are entered into by us and you as the person agreeing to these terms
+        ("Student", “you” or “your”), and where applicable, your parent(s) and/or guardian(s).
+        <br><br>
+        These Student Terms govern your access to and use of our platform (the “<strong>Platform</strong>”), providing
+        you access to tutoring and associated tutoring and other services via the Platform (the
+        “<strong>Services</strong>”) and sets
+        out what we ask of you, and what you can expect from us and your tutor(s). These should be read in conjunction
+        with our
+        <strong><a routerLink="/community-terms">Community terms</a></strong>.
       </p>
 
       <div class="card question" *ngFor="let question of questions">
@@ -31,7 +41,7 @@
             </button>
           </div>
           <p class="desc" *ngIf="openQuestion && selectedQuestion === question.id" [@slideInOut]>
-            <bdi>{{ question?.answer }}</bdi>
+            <bdi [innerHTML]="question?.answer"></bdi>
           </p>
         </div>
       </div>

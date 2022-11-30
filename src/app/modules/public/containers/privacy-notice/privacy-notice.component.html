@@ -7,14 +7,17 @@
     <div class="col-md-9">
       <h1 class="title">{{ 'PRIVACY_NOTICE' | translate }}</h1>
       <p class="details">
-        We have created MEtutors with privacy designed in the center. How and when we collect your personal information
-        is no different. We only collect your information where there is a good reason to do so and we will handle it in
-        a legal and ethical manner at all times. You have our word!
+        <strong>This notice explains how we control and handle personal information.</strong> Our aims include respect
+        for people’s
+        privacy and making this notice clear and succinct. We appreciate that it’s not easy to know how companies
+        collect and use personal information, that’s why we’ve tried to make this short and simple. However, there is
+        also a lot of information we are required to provide by law. Ideas and suggestions for improvement are always
+        welcome, and if there is anything not clear, please reach out to us and we will be happy to discuss further.
         <br />
         <br />
-        We appreciate that not everyone may enjoy reading a privacy notice. For this reason, we’ve tried to make this
-        short and simple. There is also a lot of information we are required by law to provide you with. If there is
-        anything not clear, please reach out to us and we’re always happy to discuss further.
+        <strong>When it comes to data we care about</strong> providing you with the best service and maintaining the
+        most reliable
+        product we can.
       </p>
 
       <div class="card question" *ngFor="let question of questions">
@@ -33,7 +36,7 @@
             </button>
           </div>
           <p class="desc" *ngIf="openQuestion && selectedQuestion === question.id" [@slideInOut]>
-            <bdi>{{ question?.answer }}</bdi>
+            <bdi [innerHTML]="question?.answer"></bdi>
           </p>
         </div>
       </div>
