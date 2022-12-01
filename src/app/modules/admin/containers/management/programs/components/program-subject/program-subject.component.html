@@ -83,7 +83,7 @@
           <td>{{ i + 1 }}</td>
           <td>{{ subject?.program?.name }}</td>
           <td>{{ subject?.country?.name }}</td>
-          <td>{{ grades[subject?.grade] }}</td>
+          <td>{{ subject?.grade ? grades[+subject.grade - 1] : '' }}</td>
           <td>{{ subject?.field?.name }}</td>
           <td>{{ subject?.name }}</td>
           <td>{{ subject?.pricePerHour | metutorsMoney | async }}</td>

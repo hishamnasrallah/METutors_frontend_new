@@ -30,7 +30,7 @@ export class AdminAddNewSubjectModalComponent implements OnInit {
         country: _subject?.countryId,
         description: _subject.description,
         description_ar: _subject.descriptionAr,
-        grade: _subject?.grade,
+        grade: _subject?.grade ? +_subject?.grade : null,
         field: _subject?.fieldId,
         price: _subject?.pricePerHour,
       });
