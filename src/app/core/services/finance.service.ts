@@ -38,6 +38,10 @@ export class FinanceService {
     return this.http.post<any>(`${this.baseUrl}admin/coupon/${body.id}`, body);
   }
 
+  adminDeleteCoupon(id: string): Observable<any> {
+    return this.http.delete<any>(`${this.baseUrl}admin/coupon/${id}`, {});
+  }
+
   loadAdminCourses(params: any): Observable<any> {
     return this.http
       .get<any>(`${this.baseUrl}admin/all-courses`, { params })

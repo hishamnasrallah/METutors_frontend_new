@@ -60,6 +60,21 @@ export const adminEditCouponFailure = createAction(
   props<{ error: any }>()
 );
 
+export const adminDeleteCoupon = createAction(
+  '[Finance] Admin Delete Coupon',
+  props<{ id: string }>()
+);
+
+export const adminDeleteCouponSuccess = createAction(
+  '[Finance] Admin Delete Coupon Success',
+  props<{ id: string; message: string }>()
+);
+
+export const adminDeleteCouponFailure = createAction(
+  '[Finance] Admin Delete Coupon Failure',
+  props<{ error: any }>()
+);
+
 export const loadAdminCourses = createAction(
   '[Finance] Load Admin Courses',
   props<{ params: { page: number; search: string } }>()

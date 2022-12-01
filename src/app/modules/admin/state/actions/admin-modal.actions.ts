@@ -207,3 +207,11 @@ export const openAddCouponModal = createAction(
 export const closeAddCouponModal = createAction(
   '[Admin Modal] Close Add Coupon Modal'
 );
+
+export const openDeleteCouponModal = createAction(
+  '[Admin Modal] Open Delete Coupon Modal'
+);
+
+export const closeDeleteCouponModal = createAction(
+  '[Admin Modal] Close Delete Coupon Modal'
+);

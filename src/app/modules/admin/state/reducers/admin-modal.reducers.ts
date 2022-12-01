@@ -6,6 +6,7 @@ export interface State {
   showModal: boolean;
   showSuccessModal: boolean;
   showAddNewFieldModal: boolean;
+  showDeleteCouponModal: boolean;
   showChangeStatusModal: boolean;
   showEditFeedbackModal: boolean;
   showAddNewSubjectModal: boolean;
@@ -36,6 +37,7 @@ export const initialState: State = {
   showSuccessModal: false,
   showAddNewFieldModal: false,
   showEditFeedbackModal: false,
+  showDeleteCouponModal: false,
   showChangeStatusModal: false,
   showAddNewSubjectModal: false,
   showAddNewProgramModal: false,
@@ -75,6 +77,20 @@ export const reducer = createReducer(
     (state) => ({
       ...state,
       showModal: false,
+    })
+  ),
+
+  on(adminModalActions.openDeleteCouponModal, (state) => ({
+    ...state,
+    showDeleteCouponModal: true,
+  })),
+
+  on(
+    fromCore.adminDeleteCouponSuccess,
+    adminModalActions.closeDeleteCouponModal,
+    (state) => ({
+      ...state,
+      showDeleteCouponModal: false,
     })
   ),
 
@@ -461,3 +477,6 @@ export const selectShowSuccessModal = (state: State): boolean =>
 
 export const selectShowViewRejectionReasonModal = (state: State): boolean =>
   state.showViewRejectionReasonModal;
+
+export const selectShowDeleteCouponModal = (state: State): boolean =>
+  state.showDeleteCouponModal;

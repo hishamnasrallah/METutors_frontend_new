@@ -168,3 +168,8 @@ export const selectShowViewRejectionReasonModal = createSelector(
   selectAdminModalState,
   fromAdminModal.selectShowViewRejectionReasonModal
 );
+
+export const selectShowDeleteCouponModal = createSelector(
+  selectAdminModalState,
+  fromAdminModal.selectShowDeleteCouponModal
+);

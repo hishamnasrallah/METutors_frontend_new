@@ -82,11 +82,20 @@
       <button mat-menu-item class="h-auto btn-menu" (click)="onAddCoupon()">
         <span>Edit coupon</span>
       </button>
+      <button mat-menu-item class="h-auto btn-menu" (click)="onShowDeleteCouponModal()">
+        <span>Delete coupon</span>
+      </button>
     </mat-menu>
   </div>
 
-  <metutors-admin-add-coupon *ngIf="showModal$ | async" [showModal]="(showModal$ | async)!"
+  <metutors-admin-add-coupon *ngIf="showEditModal$ | async" [showModal]="(showEditModal$ | async)!"
                              [isAdding]="(isAddingCoupon$ | async)!" [selectedCoupon]="selectedCoupon"
                              (closeModal)="onCloseModal()" (submitForm)="onSubmit($event)">
   </metutors-admin-add-coupon>
+
+  <metutors-confirm-modal *ngIf="showDeleteModal$ | async" [showModal]="(showDeleteModal$ | async)!"
+                          [loading]="(isAddingCoupon$ | async)!"
+                          [heading]="'DELETE_COUPON'"
+                          (confirm)="onDeleteCoupon(selectedCoupon)" (closeModal)="onCloseModal()">
+  </metutors-confirm-modal>
 </div>

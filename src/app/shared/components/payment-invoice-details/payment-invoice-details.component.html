@@ -42,7 +42,7 @@
     <strong class="f-size-15-md-sm">{{ (classroom?.isFree ? '0' : invoiceDetails?.totalDueAmount) | metutorsMoney | async }}</strong>
   </li>
   <li class="d-flex justify-content-between promocode">
-    <span class="f-size-15-md-sm">{{ 'PROMOCODE_OFF' | translate }}</span>
+    <span class="f-size-15-md-sm">{{ 'PROMOCODE' | translate }} {{ invoiceDetails?.discountPercentage || 0 }}% {{ 'OFF_SM' | translate }}</span>
     <strong class="f-size-15-md-sm">{{ classroom?.isFree ? '0' : (invoiceDetails?.discount || '0') | metutorsMoney | async }}</strong>
   </li>
   <li class="d-flex justify-content-between total-payment">

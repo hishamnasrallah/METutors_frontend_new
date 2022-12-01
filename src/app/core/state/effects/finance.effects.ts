@@ -101,6 +101,29 @@ export class FinanceEffects {
     )
   );
 
+  adminDeleteCoupon$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(financeActions.adminDeleteCoupon),
+      mergeMap(({ id }) =>
+        this._financeService.adminDeleteCoupon(id).pipe(
+          map(({ message }) =>
+            financeActions.adminDeleteCouponSuccess({
+              id,
+              message,
+            })
+          ),
+          catchError((error) =>
+            of(
+              financeActions.adminDeleteCouponFailure({
+                error: error?.error?.message || error?.error?.errors,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   loadAdminCourses$ = createEffect(() =>
     this._actions$.pipe(
       ofType(financeActions.loadAdminCourses),
@@ -234,6 +257,7 @@ export class FinanceEffects {
           ...[
             financeActions.adminAddCouponSuccess,
             financeActions.adminEditCouponSuccess,
+            financeActions.adminDeleteCouponSuccess,
           ]
         ),
         map(({ message }) => this._alertNotificationService.success(message))
@@ -252,11 +276,15 @@ export class FinanceEffects {
             financeActions.refundCourseFailure,
             financeActions.adminAddCouponFailure,
             financeActions.adminEditCouponFailure,
+            financeActions.adminDeleteCouponFailure,
           ]
         ),
         map((action) => {
           if (action.error) {
-            return this._alertNotificationService.error(action.error);
+            const message = action.error?.length
+              ? action.error[0]
+              : action.error;
+            return this._alertNotificationService.error(message);
           } else {
             return this._alertNotificationService.error('SOMETHING_WENT_WRONG');
           }

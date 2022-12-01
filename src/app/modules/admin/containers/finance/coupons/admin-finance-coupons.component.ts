@@ -12,7 +12,8 @@ import * as fromAdminAction from '@metutor/modules/admin/state/actions';
   styleUrls: ['./admin-finance-coupons.component.scss'],
 })
 export class AdminFinanceCouponsComponent implements OnInit {
-  showModal$: Observable<boolean>;
+  showEditModal$: Observable<boolean>;
+  showDeleteModal$: Observable<boolean>;
   isAddingCoupon$: Observable<boolean>;
   view$: Observable<{ result: any; loading: boolean }>;
 
@@ -41,8 +42,17 @@ export class AdminFinanceCouponsComponent implements OnInit {
     this._store.dispatch(fromAdminAction.openAddCouponModal());
   }
 
+  onShowDeleteCouponModal(): void {
+    this._store.dispatch(fromAdminAction.openDeleteCouponModal());
+  }
+
+  onDeleteCoupon(coupon: any): void {
+    this._store.dispatch(fromCore.adminDeleteCoupon({ id: coupon.id }));
+  }
+
   onCloseModal(): void {
     this._store.dispatch(fromAdminAction.closeAddCouponModal());
+    this._store.dispatch(fromAdminAction.closeDeleteCouponModal());
   }
 
   onSubmit(body: any): void {
@@ -67,7 +77,11 @@ export class AdminFinanceCouponsComponent implements OnInit {
       })
     );
 
-    this.showModal$ = this._store.select(fromAdmin.selectShowModal);
+    this.showEditModal$ = this._store.select(fromAdmin.selectShowModal);
+
+    this.showDeleteModal$ = this._store.select(
+      fromAdmin.selectShowDeleteCouponModal
+    );
 
     this.isAddingCoupon$ = this._store.select(
       fromCore.selectIsLoadingFinanceAddCoupon

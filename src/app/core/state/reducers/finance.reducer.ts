@@ -76,6 +76,7 @@ export const reducer = createReducer(
   on(
     financeActions.adminAddCoupon,
     financeActions.adminEditCoupon,
+    financeActions.adminDeleteCoupon,
     (state) => ({
       ...state,
       isAddingCoupon: true,
@@ -125,9 +126,31 @@ export const reducer = createReducer(
     return finalState;
   }),
 
+  on(financeActions.adminDeleteCouponSuccess, (state, { id }) => {
+    let finalState = {
+      ...state,
+      isAddingCoupon: false,
+    };
+
+    let { coupons, total } = finalState.coupons;
+
+    total = total - 1;
+    coupons = coupons?.filter((_coupon: any) => _coupon.id !== id);
+
+    coupons = { coupons, total };
+
+    finalState.coupons = {
+      ...finalState.coupons,
+      ...coupons,
+    };
+
+    return finalState;
+  }),
+
   on(
     financeActions.adminAddCouponFailure,
     financeActions.adminEditCouponFailure,
+    financeActions.adminDeleteCouponFailure,
     (state) => ({
       ...state,
       isAddingCoupon: false,

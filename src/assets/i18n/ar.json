@@ -1006,7 +1006,6 @@
   "DATE_NO": "التاريخ #",
   "GET_INVOICE_EMAIL": "الحصول على ايميل الفاتورة",
   "TOTAL_AMOUNT_DUE": "كامل المبلغ المستحق",
-  "PROMOCODE_OFF": " 0% خصم الرمز الترويجي",
   "PROMOCODE": "الرمز الترويجي",
   "APPLY": "التطبيق",
   "CLOSED": "مغلق",
@@ -1571,5 +1570,7 @@
   "YOU": "You",
   "TUTOR_PAYMENT_CONFIRM_SUCCESS": "Payment confirmed successfully",
   "TUTOR_PAYMENT_RECEIVE_48_HOURS": "you will receive your payments within 48 hours.",
-  "REQUESTED_PAYMENTS": "Requested payments"
+  "REQUESTED_PAYMENTS": "Requested payments",
+  "DELETE_COUPON": "Delete a coupon",
+  "OFF_SM": "off"
 }
